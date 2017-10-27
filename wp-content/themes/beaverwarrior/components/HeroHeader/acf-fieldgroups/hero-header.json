@@ -1,0 +1,194 @@
+{
+    "key": "group_58b9e56b1594e",
+    "title": "Hero Header",
+    "fields": [
+        {
+            "key": "field_58b74901e3f2c",
+            "label": "Hero Header Title",
+            "name": "hero_header_title",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "formatting": "html",
+            "maxlength": ""
+        },
+        {
+            "key": "field_58b74fa1399fd",
+            "label": "Hero Header Content",
+            "name": "hero_header_content",
+            "type": "wysiwyg",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "tabs": "all",
+            "delay": 0
+        },
+        {
+            "key": "field_58b74b96e3f2d",
+            "label": "Hero Header Image",
+            "name": "hero_header_image",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "preview_size": "thumbnail",
+            "library": "all",
+            "return_format": "array",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
+        },
+        {
+            "key": "field_58b74bb8e3f2e",
+            "label": "Hero Header Background Color",
+            "name": "hero_header_background_color",
+            "type": "radio",
+            "instructions": "Indicate the background color of the background image.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "dark_bg": "Dark background (light text)",
+                "light_bg": "Light background (dark text)",
+                "inherit_bg": "No background (use theme's text color)"
+            },
+            "allow_null": 0,
+            "other_choice": 0,
+            "save_other_choice": 0,
+            "default_value": "inherit_bg",
+            "layout": "vertical",
+            "return_format": "value"
+        },
+        {
+            "key": "field_58b74c08e3f2f",
+            "label": "Hero Header Image Focus",
+            "name": "hero_header_image_focus",
+            "type": "radio",
+            "instructions": "Indicate the position of the subject of the image. Text and background cropping, depending on viewport, will be adjusted to avoid overlap between the image subject and the text on the header.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "image_focus_left": "Focus on left",
+                "image_focus_right": "Focus on right",
+                "image_focus_none": "Don't apply image focus"
+            },
+            "other_choice": 0,
+            "save_other_choice": 0,
+            "default_value": "image_focus_none",
+            "layout": "vertical",
+            "allow_null": 0,
+            "return_format": "value"
+        },
+        {
+            "key": "field_58b74c89e3f30",
+            "label": "Hero Header Alignment",
+            "name": "hero_header_alignment",
+            "type": "radio",
+            "instructions": "Select where to vertically align the text.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "top": "Top-aligned content",
+                "center": "Vertically centered content",
+                "bottom": "Bottom-aligned content"
+            },
+            "other_choice": 0,
+            "save_other_choice": 0,
+            "default_value": "center",
+            "layout": "vertical",
+            "allow_null": 0,
+            "return_format": "value"
+        },
+        {
+            "key": "field_58b74ce8e3f31",
+            "label": "Hero Header Size",
+            "name": "hero_header_size",
+            "type": "radio",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "normal": "Normal size",
+                "thin": "Thin hero header",
+                "disabled": "No hero header at all"
+            },
+            "other_choice": 0,
+            "save_other_choice": 0,
+            "default_value": "normal",
+            "layout": "vertical",
+            "allow_null": 0,
+            "return_format": "value"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "post"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "page"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "side",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1490282400
+}

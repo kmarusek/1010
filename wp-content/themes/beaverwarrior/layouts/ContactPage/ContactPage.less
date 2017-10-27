@@ -1,0 +1,59 @@
+@ContactPage-contacts--background_color: @Color--gray_light;
+@ContactPage-contacts--color: contrast(@ContactPage-contacts--background_color, @Font-color--white, @Font-color--black);
+
+.ContactPage {
+    
+}
+
+.ContactPage-content_row {
+    .make-Container();
+}
+
+.ContactPage-content {
+    .make-Column--gutter(6; min; @Viewport-md);
+    .make-Column--gutter-offset(1; min; @Viewport-md);
+    .make-Column--gutter-after(1; min; @Viewport-md);
+    
+    .make-ContentSection--spacing();
+}
+
+.ContactPage-form {
+    .make-Row(@FormItem--spacing);
+}
+
+.ContactPage-form_item {
+    .make-Column(6; min; @Viewport-xs);
+}
+
+.ContactPage-form_item--message {
+    .make-Column(12; min; @Viewport-xs);
+}
+
+.ContactPage-contacts {
+    .make-Column(10; min; @Viewport-sm);
+    .make-Column-offset(1; min; @Viewport-sm);
+    .make-Column-after(1; min; @Viewport-sm);
+    .make-Column(4; min; @Viewport-md);
+    .make-Column-offset(0; min; @Viewport-md);
+    .make-Column-after(0; min; @Viewport-md);
+    .make-ContentSection--spacing();
+    .make-Type--color(@ContactPage-contacts--color);
+    
+    background-color: @ContactPage-contacts--background_color;
+}
+
+.ContactPage-contacts_title {
+    .make-Column--gutter(8; min; @Viewport-sm);
+    .make-Column--gutter-offset(2; min; @Viewport-sm);
+    .make-Column--gutter-after(2; min; @Viewport-sm);
+}
+
+.ContactPage-contact_option {
+    .make-Column--gutter(4; min; (@Viewport-xs + 80px));
+    .make-Column--gutter(8; min; @Viewport-sm);
+    .make-Column--gutter-offset(2; min; @Viewport-sm);
+    .make-Column--gutter-after(2; min; @Viewport-sm);
+    
+    font-family: @Font-family;
+    font-weight: @Font-weight;
+}

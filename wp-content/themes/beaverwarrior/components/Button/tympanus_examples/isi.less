@@ -1,0 +1,110 @@
+//Adapted from http://tympanus.net/Development/ButtonStylesInspiration/
+
+@Button--isi--transition_easing: cubic-bezier(0.7,0,0.9,1);
+
+.make-Button--isi(@Button--bg_color: @Button--bg_color; @Button--color: @Button--color; @Button--border_width: @Button--border_width; @Button--border_style: @Button--border_style; @Button--border_color: @Button--border_color; @Button--border_radius_pseudo: @Button--border_radius_pseudo; @Button--hover_color: @Button--hover_color; @Button--hover_bg_color: @Button--hover_bg_color; @Button--bg_color_pseudo: @Button--bg_color_pseudo; @Button--padding: @Button--padding; @Button--font_family: @Button--font_family; @Button--transition_time: @Button--transition_time; @Button--transition_easing: @Button--isi--transition_easing) {
+    .make-Button--common_styles();
+
+    font-family: @Button--font_family;
+    background: @Button--bg_color;
+    overflow: hidden;
+    position: relative;
+    color: @Button--color;
+    padding: @Button--padding;
+    z-index: 1;
+    border-width: @Button--border_width;
+    border-style: @Button--border_style;
+    border-color: @Button--border_color;
+    &:before {
+        content: '';
+        z-index: -1;
+        position: absolute;
+        top: 50%;
+        left: 100%;
+        margin: -15px 0 0 1px;
+        right: -30px;
+        height: 30px;
+        background: @Button--bg_color_pseudo;
+        -webkit-transform-origin: 100% 50%;
+        transform-origin: 100% 50%;
+        -webkit-transform: scale3d(1, 2, 1);
+        transform: scale3d(1, 2, 1);
+        -webkit-transition: left @Button--transition_time, -webkit-transform @Button--transition_time, opacity @Button--transition_time;
+        transition: left @Button--transition_time, transform @Button--transition_time, opacity @Button--transition_time;
+        -webkit-transition-timing-function: @Button--transition_easing;
+        transition-timing-function: @Button--transition_easing;
+    }
+    
+    &:hover, &:focus {
+        color: @Button--hover_color;
+        &:before {
+            left: -10%;
+            -webkit-transform: scale3d(1, 9, 1);
+            transform: scale3d(1, 9, 1);
+        }
+    }
+}
+
+.make-Button--isi_reverse(@Button--bg_color: @Button--bg_color; @Button--color: @Button--color; @Button--border_width: @Button--border_width; @Button--border_style: @Button--border_style; @Button--border_color: @Button--border_color; @Button--border_radius_pseudo: @Button--border_radius_pseudo; @Button--hover_color: @Button--hover_color; @Button--hover_bg_color: @Button--hover_bg_color; @Button--bg_color_pseudo: @Button--bg_color_pseudo; @Button--padding: @Button--padding; @Button--font_family: @Button--font_family; @Button--transition_time: @Button--transition_time; @Button--transition_easing: @Button--isi--transition_easing) {
+    .make-Button--common_styles();
+
+    font-family: @Button--font_family;
+    background: @Button--bg_color;
+    overflow: hidden;
+    position: relative;
+    color: @Button--color;
+    padding: @Button--padding;
+    z-index: 1;
+    border-width: @Button--border_width;
+    border-style: @Button--border_style;
+    border-color: @Button--border_color;
+    &:before {
+        content: '';
+        z-index: -1;
+        position: absolute;
+        top: 50%;
+        right: 100%;
+        margin: -15px 0 0 1px;
+        left: -30px;
+        height: 30px;
+        background: @Button--bg_color_pseudo;
+        -webkit-transform-origin: 100% 50%;
+        transform-origin: 100% 50%;
+        -webkit-transform: scale3d(1, 2, 1);
+        transform: scale3d(1, 2, 1);
+        -webkit-transition: right @Button--transition_time, -webkit-transform @Button--transition_time, opacity @Button--transition_time;
+        transition: right @Button--transition_time, transform @Button--transition_time, opacity @Button--transition_time;
+        -webkit-transition-timing-function: @Button--transition_easing;
+        transition-timing-function: @Button--transition_easing;
+    }
+
+    &:hover, &:focus {
+        background: @Button--bg_color;
+        color: @Button--hover_color;
+        &:before {
+            right: -10%;
+            -webkit-transform: scale3d(1, 9, 1);
+            transform: scale3d(1, 9, 1);
+        }
+    }
+}
+
+.make-Button--isi_round(@Button--border_radius: @Button--border_radius; @Button--border_radius_pseudo: @Button--border_radius_pseudo; @Button--bg_color: @Button--bg_color; @Button--color: @Button--color; @Button--border_width: @Button--border_width; @Button--border_style: @Button--border_style; @Button--border_color: @Button--border_color; @Button--border_radius_pseudo: @Button--border_radius_pseudo; @Button--hover_color: @Button--hover_color; @Button--hover_bg_color: @Button--hover_bg_color; @Button--bg_color_pseudo: @Button--bg_color_pseudo; @Button--padding: @Button--padding; @Button--font_family: @Button--font_family; @Button--transition_time: @Button--transition_time; @Button--transition_easing: @Button--isi--transition_easing) {
+    .make-Button--isi(@Button--bg_color: @Button--bg_color; @Button--color: @Button--color; @Button--border_width: @Button--border_width; @Button--border_style: @Button--border_style; @Button--border_color: @Button--border_color; @Button--border_radius_pseudo: @Button--border_radius_pseudo; @Button--hover_color: @Button--hover_color; @Button--hover_bg_color: @Button--hover_bg_color; @Button--bg_color_pseudo: @Button--bg_color_pseudo; @Button--padding: @Button--padding; @Button--font_family: @Button--font_family; @Button--transition_time: @Button--transition_time; @Button--transition_easing: @Button--isi--transition_easing);
+    border-radius: @Button--border_radius;
+    &:before, &:after {
+        border-radius: @Button--border_radius_pseudo;
+    }
+}
+
+.Button--isi_round {
+    .make-Button--isi_round(5px; 50%; @Color--purple_light; @Color--black; 0px; solid; @Color--black; 50%; @Color--black; @Color--purple_light; @Color--purple);
+}
+
+.Button--isi_rounder {
+    .make-Button--isi_round(40px; 50%; @Color--purple_light; @Color--black; 0px; solid; @Color--black; 50%; @Color--black; @Color--purple_light; @Color--purple);
+}
+
+.Button--isi {
+    .make-Button--isi(@Color--purple_light; @Color--black; 0px; solid; @Color--black; 50%; @Color--black; @Color--purple_light; @Color--purple);
+}

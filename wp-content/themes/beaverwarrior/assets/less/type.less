@@ -1,0 +1,329 @@
+@Font-family: "Poppins", "Segoe UI", Helvetica, sans-serif;
+
+@Font-weight--light: 	300;
+@Font-weight--normal: 	400;
+@Font-weight--bold: 	   600;
+
+@Font-weight: @Font-weight--normal;
+
+//DEPRECATED: Do not use @Font-size tiers.
+@Font-size--tier_8:		64px;
+@Font-size--tier_7:		48px;
+@Font-size--tier_6:		36px;
+@Font-size--tier_5:		24px;
+@Font-size--tier_4:		18px;
+@Font-size--tier_3:		16px;
+@Font-size--tier_2:		14px;
+@Font-size--tier_1:		12px;
+@Font-size--tier_0: 	10px;
+
+//DEPRECATED: Do not use @Font-line_height tiers.
+@Font-line_height--tier_4:  2.0;
+@Font-line_height--tier_3:  1.75;
+@Font-line_height--tier_2:  1.5;
+@Font-line_height--tier_1:  1.25;
+@Font-line_height--tier_0:  1.0;
+
+//DEPRECATED: Do not use @Font-letter_spacing tiers.
+@Font-letter_spacing--tier_3:	4px;
+@Font-letter_spacing--tier_2:	3px;
+@Font-letter_spacing--tier_1:	2px;
+@Font-letter_spacing--tier_0:	1px;
+
+@Font-color--black: 	@Color--black;
+@Font-color--white: 	@Color--white;
+@Font-color:            @Font-color--black;
+
+@Paragraph--font_size: 14px;
+@Paragraph--font_size_sm: 16px;
+@Paragraph--line_height: 1.5;
+@Paragraph--line_height_sm: 1.75;
+@Paragraph--margin_vertical: 15px;
+
+@Paragraph--small--font_size: 12px;
+@Paragraph--small--font_size_sm: 12px;
+@Paragraph--small--line_height: 1.5;
+@Paragraph--small--line_height_sm: 1.75;
+@Paragraph--small--letter_spacing: 2px;
+@Paragraph--small--margin_vertical: 10px;
+
+@Headings--font_family: @Font-family;
+@Headings--color:		@Font-color--black;
+@Headings--font_weight:  @Font-weight--bold;
+
+@Headings-h1--font_size: 18px;
+@Headings-h1--font_size_sm: 36px;
+@Headings-h1--line_height: 1.25;
+@Headings-h1--line_height_sm: 1.5;
+@Headings-h1--margin_vertical: 25px;
+
+@Headings-h2--font_size: 18px;
+@Headings-h2--font_size_sm: 36px;
+@Headings-h2--line_height: 1.25;
+@Headings-h2--line_height_sm: 1.5;
+@Headings-h2--margin_vertical: 25px;
+
+@Headings-h3--font_size: 17px;
+@Headings-h3--font_size_sm: 28px;
+@Headings-h3--line_height: 1.25;
+@Headings-h3--line_height_sm: 1.5;
+@Headings-h3--margin_vertical: 20px;
+
+@Headings-h4--font_size: 16px;
+@Headings-h4--font_size_sm: 22px;
+@Headings-h4--line_height: 1.25;
+@Headings-h4--line_height_sm: 1.5;
+@Headings-h4--margin_vertical: 20px;
+
+@Headings-h5--font_size: @Paragraph--font_size;
+@Headings-h5--font_size_sm: @Paragraph--font_size_sm;
+@Headings-h5--line_height: 1.25;
+@Headings-h5--line_height_sm: 1.5;
+@Headings-h5--margin_vertical: @Paragraph--margin_vertical;
+
+@Headings-h6--font_size: 12px;
+@Headings-h6--font_size_sm: 14px;
+@Headings-h6--line_height: 1.25;
+@Headings-h6--line_height_sm: 1.5;
+@Headings-h6--margin_vertical: 10px;
+
+@Blockquote--margin_vertical: 50px;
+@Blockquote--margin_horizontal: 40px;
+@Blockquote--quote_size: 128px;
+@Blockquote--quote_color: @Color--gray;
+
+@List--spacing: 10px;
+@List--indent: 30px;
+
+.make-Type--color(@Font-color: @Font-color) {
+    color: @Font-color;
+
+    h1, h2, h3, h4, h5, h6,
+    .h1, .h2, .h3, .h4, .h5, .h6 {
+        color: @Font-color;
+    }
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: @Headings--font_family;
+    font-weight: @Headings--font_weight;
+    color: @Headings--color;
+    -webkit-font-smoothing: antialiased;
+    margin: 10px 0;
+}
+
+h1, .h1 {
+    font-size: @Headings-h1--font_size;
+    line-height: @Headings-h1--line_height;
+    margin-top: @Headings-h1--margin_vertical;
+    margin-bottom: @Headings-h1--margin_vertical;
+
+    @media (min-width: @Viewport-sm) {
+        font-size: @Headings-h1--font_size_sm;
+        line-height: @Headings-h1--line_height_sm;
+    }
+}
+
+h2, .h2 {
+    font-size: @Headings-h2--font_size;
+    line-height: @Headings-h2--line_height;
+    margin-top: @Headings-h2--margin_vertical;
+    margin-bottom: @Headings-h2--margin_vertical;
+
+    @media (min-width: @Viewport-sm) {
+        font-size: @Headings-h2--font_size_sm;
+        line-height: @Headings-h2--line_height_sm;
+    }
+}
+
+h3, .h3 {
+    font-size: @Headings-h3--font_size;
+    line-height: @Headings-h3--line_height;
+    margin-top: @Headings-h3--margin_vertical;
+    margin-bottom: @Headings-h3--margin_vertical;
+
+    @media (min-width: @Viewport-sm) {
+        font-size: @Headings-h3--font_size_sm;
+        line-height: @Headings-h3--line_height_sm;
+    }
+}
+
+h4, .h4 {
+    font-size: @Headings-h4--font_size;
+    line-height: @Headings-h4--line_height;
+    margin-top: @Headings-h4--margin_vertical;
+    margin-bottom: @Headings-h4--margin_vertical;
+
+    @media (min-width: @Viewport-sm) {
+        font-size: @Headings-h4--font_size_sm;
+        line-height: @Headings-h4--line_height_sm;
+    }
+}
+
+h5, .h5 {
+    font-size: @Headings-h5--font_size;
+    line-height: @Headings-h5--line_height;
+    margin-top: @Headings-h5--margin_vertical;
+    margin-bottom: @Headings-h5--margin_vertical;
+
+    @media (min-width: @Viewport-sm) {
+        font-size: @Headings-h5--font_size_sm;
+        line-height: @Headings-h5--line_height_sm;
+    }
+}
+
+h6, .h6 {
+    font-size: @Headings-h6--font_size;
+    line-height: @Headings-h6--line_height;
+    margin-top: @Headings-h6--margin_vertical;
+    margin-bottom: @Headings-h6--margin_vertical;
+
+    @media (min-width: @Viewport-sm) {
+        font-size: @Headings-h6--font_size_sm;
+        line-height: @Headings-h6--line_height_sm;
+    }
+}
+
+.make-Paragraph() {
+    font-family: @Font-family;
+    font-size: @Paragraph--font_size;
+    line-height: @Paragraph--line_height;
+    font-weight: @Font-weight;
+    -webkit-font-smoothing: antialiased;
+    margin-top: @Paragraph--margin_vertical;
+    margin-bottom: @Paragraph--margin_vertical;
+    
+    @media (min-width: @Viewport-sm) {
+        font-size: @Paragraph--font_size_sm;
+        line-height: @Paragraph--line_height_sm;
+    }
+}
+
+.make-Paragraph--small() {
+    font-weight: @Font-weight--bold;
+    font-size: @Paragraph--small--font_size;
+    line-height: @Paragraph--small--line_height;
+    letter-spacing: @Paragraph--small--letter_spacing;
+    margin-top: @Paragraph--small--margin_vertical;
+    margin-bottom: @Paragraph--small--margin_vertical;
+    
+    @media (min-width: @Viewport-sm) {
+        font-size: @Paragraph--small--font_size_sm;
+        line-height: @Paragraph--small--line_height_sm;
+    }
+}
+
+p, .p {
+    .make-Paragraph();
+    
+    &.small {
+        .make-Paragraph--small();
+    }
+}
+
+.make-List--revert() {
+    list-style: none inside none;
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    .make-List--revert();
+}
+
+ol {
+    .make-List--revert();
+}
+
+blockquote {
+    position: relative;
+    text-align: center;
+    
+    margin: @Blockquote--margin_vertical @Blockquote--margin_horizontal;
+    
+    &:before {
+        content: '"';
+        z-index: @ZIndex-backdrop_type;
+        position: absolute;
+        left: 0;
+        top: 0;
+        
+        font-size: @Blockquote--quote_size;
+        margin-top: (@Blockquote--quote_size * -0.5);
+        color: @Blockquote--quote_color;
+    }
+    
+    &:after {
+        content: '"';
+        z-index: @ZIndex-backdrop_type;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        
+        font-size: @Blockquote--quote_size;
+        margin-bottom: (@Blockquote--quote_size * -1.25);
+        color: @Blockquote--quote_color;
+    }
+}
+
+.make-List(@_) {
+    .make-Paragraph();
+    
+    list-style-position: outside;
+    margin: @List--spacing 0;
+    padding: 0 0 0 @List--indent;
+    
+    //Override any internal paragraphs
+    p {
+        margin: 0;
+    }
+    
+    //2nd level lists
+    li ul {
+        list-style: lower-latin;
+    }
+    
+    li ol {
+        list-style: circle;
+    }
+    
+    //3rd level lists
+    li li ul {
+        list-style: lower-roman;
+    }
+    
+    li li ol {
+        list-stule: square;
+    }
+}
+
+.make-List(ul) {
+    list-style: disc;
+}
+
+.make-List(ol) {
+    list-style: decimal;
+}
+
+//Re-enable list and other styling reverted by default.
+.make-Wysiwyg() {
+    font-family: @Font-family;
+    font-size: @Paragraph--font_size;
+    line-height: @Paragraph--line_height;
+    font-weight: @Font-weight;
+    -webkit-font-smoothing: antialiased;
+    
+    @media (min-width: @Viewport-sm) {
+        font-size: @Paragraph--font_size_sm;
+        line-height: @Paragraph--line_height_sm;
+    }
+    
+    ul {
+        .make-List(ul);
+    }
+    
+    ol {
+        .make-List(ol);
+    }
+}

@@ -1,0 +1,62 @@
+//Adapted from http://tympanus.net/Development/ButtonStylesInspiration/
+
+.make-Button--ujarak(@Button--bg_color: @Button--bg_color; @Button--color: @Button--color; @Button--border_width: @Button--border_width; @Button--border_style: @Button--border_style; @Button--border_color: @Button--border_color; @Button--hover_color: @Button--hover_color; @Button--hover_bg_color: @Button--hover_bg_color; @Button--padding: @Button--padding) {
+    .make-Button--common_styles();
+
+    background: @Button--bg_color;
+    overflow: hidden;
+    position: relative;
+    color: @Button--color;
+    padding: @Button--padding;
+    border-width: @Button--border_width;
+    border-style: @Button--border_style;
+    border-color: @Button--border_color;
+    &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        opacity: 0;
+        background: @Button--bg_color_pseudo;
+        -webkit-transform: scale3d(0.7, 1, 1);
+        transform: scale3d(0.7, 1, 1);
+        -webkit-transition: -webkit-transform 0.4s, opacity 0.4s;
+        transition: transform 0.4s, opacity 0.4s;
+        -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+        transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+    }
+    
+    &:hover, &:focus {
+        color: @Button--hover_text_color;
+        &:before {
+            opacity: 1;
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+            -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+            transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+        }
+    }
+}
+
+.Button--ujarak {
+    .make-Button--ujarak(@Color--transparent; @Color--black; 2px; solid; @Color--black; @Color--white);
+}
+
+.make-Button--ujarak_round(@Button--border_radius: @Button--border_radius; @Button--border_radius_pseudo: @Button--border_radius_pseudo) {
+    .make-Button--ujarak(@Color--transparent; @Color--black; 2px; solid; @Color--black; @Color--white);
+    border-radius: @Button--border_radius;
+    &:before, &:after {
+        border-radius: @Button--border_radius_pseudo;
+    }
+}
+
+.Button--ujarak_round {
+    .make-Button--ujarak_round(5px; 2px);
+}
+
+.Button--ujarak_rounder {
+    .make-Button--ujarak_round(40px; 40px);
+}

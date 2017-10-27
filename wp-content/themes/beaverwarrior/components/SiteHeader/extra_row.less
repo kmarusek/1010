@@ -1,0 +1,20 @@
+@SiteHeader--extra_row--height: 68px;
+
+@SiteHeader--extra_row--border_top_width: @SiteHeader--border_width;
+@SiteHeader--extra_row--border_top_color: @SiteHeader--border_color;
+
+.SiteHeader-navigation--third_menu {
+    clear: left;
+    float: left;
+
+    width: 100%;
+    height: @SiteHeader--extra_row--height;
+
+    &:before {
+        content: "";
+        border-top: 1px solid @SiteHeader--extra_row--border_top_color;
+        position: absolute;
+        left: 0;
+        right: 0;
+    }
+}

@@ -1,0 +1,72 @@
+//Adapted from http://tympanus.net/Development/ButtonStylesInspiration/
+
+.make-Button--quidel(@Button--bg_color: @Button--bg_color; @Button--bg_color_pseudo: @Button--bg_color_pseudo; @Button--bg_color_pseudo_2: @Button--bg_color_pseudo_2; @Button--color: @Button--color; @Button--hover_color: @Button--hover_color; @Button--padding: @Button--padding) {
+    .make-Button--common_styles();
+
+    background: @Button--bg_color;
+    z-index: 1;
+    position: relative;
+    overflow: hidden;
+    color: @Button--color;
+    padding: @Button--padding;
+    border: none;
+    -webkit-transition: color 0.3s;
+    transition: color 0.3s;
+    -webkit-transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+    transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+
+    &:before {
+        background: @Button--bg_color_pseudo;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        -webkit-transform: translate3d(0, 100%, 0);
+        transform: translate3d(0, 100%, 0);
+        -webkit-transition: -webkit-transform 0.3s;
+        transition: transform 0.3s;
+        -webkit-transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+        transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+    }
+    &:after {
+        background: @Button--bg_color_pseudo_2;
+        top: 2px;
+        left: 2px;
+        right: 2px;
+        bottom: 2px;
+    }
+    &:before, &:after {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        border-radius: inherit;
+    }
+    
+    &:hover, &:focus {
+        color: @Button--hover_color;
+        &:before {
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+        }
+    }
+}
+
+.make-Button--quidel_round(@Button--border_radius: @Button--border_radius; @Button--border_radius_pseudo: @Button--border_radius_pseudo) {
+    .make-Button--quidel(@Color--purple; @Color--black; @Color--white; @Color--black; @Color--black);
+    border-radius: @Button--border_radius;
+    &:before, &:after {
+        border-radius: @Button--border_radius_pseudo;
+    }
+}
+
+.Button--quidel_round {
+    .make-Button--quidel_round(5px; 5px);
+}
+
+.Button--quidel_rounder {
+    .make-Button--quidel_round(40px; 40px);
+}
+
+.Button--quidel {
+    .make-Button--quidel(@Color--purple; @Color--black; @Color--white; @Color--black; @Color--black);
+}

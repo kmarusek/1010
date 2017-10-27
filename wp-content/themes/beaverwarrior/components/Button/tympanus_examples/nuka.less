@@ -1,0 +1,78 @@
+//Adapted from http://tympanus.net/Development/ButtonStylesInspiration/
+
+.make-Button--nuka(@Button--bg_color_pseudo: @Button--bg_color_pseudo; @Button--color: @Button--color; @Button--border_width: @Button--border_width; @Button--border_style: @Button--border_style; @Button--border_color: @Button--border_color; @Button--border_radius: @Button--border_radius; @Button--hover_color: @Button--hover_color; @Button--hover_bg_color_pseudo: @Button--hover_bg_color_pseudo; @Button--padding: @Button--padding) {
+    .make-Button--common_styles();
+
+    position: relative;
+    color: @Button--color;
+    padding: @Button--padding;
+    z-index: 1;
+    &:before {
+        top: -4px;
+        bottom: -4px;
+        left: -4px;
+        right: -4px;
+        opacity: 0.2;
+        -webkit-transform: scale3d(0.7, 1, 1);
+        transform: scale3d(0.7, 1, 1);
+        -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+        transition: transform 0.3s, opacity 0.3s
+    }
+    &:after {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        -webkit-transform: scale3d(1.1, 1, 1);
+        transform: scale3d(1.1, 1, 1);
+        -webkit-transition: -webkit-transform 0.3s, background-color 0.3s;
+        transition: transform 0.3s, background-color 0.3s;
+    }
+    &:before, &:after {
+        content: '';
+        position: absolute;
+        background: @Button--bg_color_pseudo;
+        border-radius: inherit;
+        z-index: -1;
+        -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+        transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+    }
+    
+    &:hover, &:focus {
+        color: @Button--hover_color;
+
+        &:before {
+            opacity: 1;
+        }
+        &:after {
+           background: @Button--hover_bg_color_pseudo;
+        }
+        &:before, &:after {
+            -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+        }
+    }
+}
+
+.make-Button--nuka_round(@Button--border_radius: @Button--border_radius; @Button--border_radius_pseudo: @Button--border_radius_pseudo) {
+    .make-Button--nuka(@Color--purple_light; @Color--black; 0; @Color--white; @Color--purple);
+    border-radius: @Button--border_radius;
+    &:before, &:after {
+        border-radius: @Button--border_radius_pseudo;
+    }
+}
+
+.Button--nuka_round {
+    .make-Button--nuka_round(5px; 5px);
+    margin-right: 20px;
+}
+
+.Button--nuka_rounder {
+    .make-Button--nuka_round(40px; 40px);
+    margin-right: 20px;
+}
+
+.Button--nuka {
+    .make-Button--nuka(@Color--purple_light; @Color--black; 0; @Color--white; @Color--purple);
+    margin-right: 20px;
+}

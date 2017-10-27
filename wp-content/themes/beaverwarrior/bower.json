@@ -1,0 +1,20 @@
+{
+  "name": "skeleton-warrior",
+  "version": "0.0.0",
+  "authors": [
+    "Mark Pesantes <mark@huemordesigns.com>"
+  ],
+  "description": "Bro-tastic template defends your websites and your fragile sense of masculinity.",
+  "keywords": [
+    "wordpress",
+    "theme"
+  ],
+  "license": "Proprietary",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

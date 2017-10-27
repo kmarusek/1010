@@ -1,0 +1,123 @@
+@SiteHeader--breakpoint: @Viewport-md;
+
+@SiteHeader--breakpoint_max: (@SiteHeader--breakpoint - 1px);
+
+@SiteHeader--breakpoint_sm: (max(@SiteHeader--breakpoint, @Viewport-sm));
+@SiteHeader--breakpoint_md: (max(@SiteHeader--breakpoint, @Viewport-md));
+@SiteHeader--breakpoint_lg: (max(@SiteHeader--breakpoint, @Viewport-lg));
+
+@SiteHeader--height: 100px;
+@SiteHeader--height_bp: 100px;
+
+@SiteHeader-notice_bar--height_bp: 40px;
+
+@SiteHeader--content_row_height_bp: 102px;
+
+@SiteHeader-navbar--height_bp: 38px;
+
+@SiteHeader--margin: 10px;
+
+@SiteHeader--border_color: darken(@Color--site_header, 10%);
+@SiteHeader--border_width: @Border-width--thin;
+
+@SiteHeader--background: @Color--site_header;
+@SiteHeader--background_transparent: fadeout(@SiteHeader--background, 10%);
+
+@SiteHeader--box_shadow_spread: 0px;
+@SiteHeader--box_shadow: 0px 0px @SiteHeader--box_shadow_spread fadeout(@Color--black, 80%);
+
+@SiteHeader--z_index: @ZIndex-navbar;
+
+.SiteHeader {
+    .make-Border(border-bottom; @SiteHeader--border_width; @SiteHeader--border_color);
+
+    position: relative;
+
+    margin: 0;
+
+    background: @SiteHeader--background;
+    box-shadow: @SiteHeader--box_shadow;
+
+    z-index: @SiteHeader--z_index;
+
+    transition: margin 0.5s;
+}
+
+.SiteHeader--fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.SiteHeader--flush {
+    max-width: none;
+    margin: 0;
+
+    &.is-SiteHeader--at_top {
+        margin: 0;
+    }
+}
+
+.SiteHeader--detached {
+    &.is-SiteHeader--at_top {
+        margin: @SiteHeader--margin;
+    }
+
+    @media (min-width: (@Viewport-lg * 1.1)) {
+        max-width: none;
+        margin: 0 auto;
+
+        &.is-SiteHeader--at_top {
+            margin: @SiteHeader--margin 2%;
+        }
+    }
+}
+
+.SiteHeader-spacing {
+    height: @SiteHeader--height;
+}
+
+.SiteHeader-container {
+    .make-Container(@SiteHeader--breakpoint_sm; @Container-sm);
+    .make-Container(@SiteHeader--breakpoint_md; @Container-md);
+    .make-Container(@SiteHeader--breakpoint_lg; @Container-lg);
+    margin: 0 auto;
+
+    &:extend(.clearfix all);
+}
+
+.SiteHeader-overlap {
+    padding-top: @SiteHeader--height;
+
+    @media (min-width: @SiteHeader--breakpoint) {
+        padding-top: @SiteHeader--height_bp;
+    }
+}
+
+@media (max-width: @SiteHeader--breakpoint_max) {
+    .SiteHeader-content {
+        .make-Border(border-bottom; @SiteHeader--border_width; @SiteHeader--border_color);
+    }
+}
+
+@media (min-width: @SiteHeader--breakpoint) {
+    .SiteHeader-spacing {
+        height: @SiteHeader--height_bp;
+    }
+
+    .SiteHeader-content {
+        order: 1;
+    }
+}
+
+@import "brand.less";
+@import "content.less";
+@import "forms.less";
+@import "noticebar.less";
+@import "account.less";
+@import "dropdown.less";
+@import "cart.less";
+@import "extra_row.less";
+@import "search.less";
+@import "contact.less";

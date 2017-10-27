@@ -1,0 +1,34 @@
+//Covers styling necessary for example pages.
+//Remove after cloning this project into a template theme.
+
+@import "affix_column.less";
+
+.Example-content {
+    background-color: @Color--gray;
+    padding-bottom: 50px;
+}
+
+.Example-section {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.Example-example {
+    background-color: white;
+}
+
+.Example-one_up {
+    .make-Column--gutter(12);
+}
+
+.Example-three_up {
+    .make-Column--gutter(4; min; @Viewport-sm);
+}
+
+.Example-one_up--no_gutter {
+    .make-Column(12);
+}
+
+.Example-three_up--no_gutter {
+    .make-Column(4; min; @Viewport-sm);
+}

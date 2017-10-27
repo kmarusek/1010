@@ -1,0 +1,1 @@
+<?php print get_template_component("Comments"); ?>

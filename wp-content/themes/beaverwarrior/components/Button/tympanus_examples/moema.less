@@ -1,0 +1,107 @@
+//Adapted from http://tympanus.net/Development/ButtonStylesInspiration/
+
+@-webkit-keyframes Button--moema-animation_1 {
+    60% {
+        -webkit-transform: scale3d(0.8, 0.8, 1);
+        transform: scale3d(0.8, 0.8, 1);
+    }
+    85% {
+        -webkit-transform: scale3d(1.1, 1.1, 1);
+        transform: scale3d(1.1, 1.1, 1);
+    }
+    100% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}
+@keyframes Button--moema-animation_1 {
+    60% {
+        -webkit-transform: scale3d(0.8, 0.8, 1);
+        transform: scale3d(0.8, 0.8, 1);
+    }
+    85% {
+        -webkit-transform: scale3d(1.1, 1.1, 1);
+        transform: scale3d(1.1, 1.1, 1);
+    }
+    100% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+@-webkit-keyframes Button--moema-animation_2 {
+    to {
+        opacity: 0;
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}
+@keyframes Button--moema-animation_2 {
+    to {
+        opacity: 0;
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+.make-Button--moema(@Button--bg_color: @Button--bg_color; @Button--color: @Button--color; @Button--border_width: @Button--border_width; @Button--border_style: @Button--border_style; @Button--border_color: @Button--border_color; @Button--hover_color: @Button--hover_color; @Button--hover_bg_color: @Button--hover_bg_color; @Button--padding: @Button--padding; @Button--font_family: @Button--font_family; @Button--transition_time: @Button--transition_time; @Button--transition_easing: @Button--isi--transition_easing) {
+    .make-Button--common_styles();
+
+    font-family: @Button--font_family;
+    background: @Button--bg_color;
+    position: relative;
+    color: @Button--color;
+    padding: @Button--padding;
+    border-width: @Button--border_width;
+    border-style: @Button--border_style;
+    border-color: @Button--border_color;
+    -webkit-transition: background-color @Button--transition_time, color @Button--transition_time;
+    transition: background-color @Button--transition_time, color @Button--transition_time;
+    &:before {
+        content: '';
+        position: absolute;
+        top: -20px;
+        left: -20px;
+        bottom: -20px;
+        right: -20px;
+        background: inherit;
+        z-index: -1;
+        opacity: 0.4;
+        -webkit-transform: scale3d(0.8, 0.5, 1);
+        transform: scale3d(0.8, 0.5, 1);
+    }
+    
+    &:hover, &:focus {
+        color: @Button--hover_text_color;
+        background: @Button--hover_bg_color_pseudo;
+        -webkit-transition: background-color (@Button--transition_time / 3) @Button--transition_time, color (@Button--transition_time / 3) @Button--transition_time;
+        transition: background-color (@Button--transition_time / 3) @Button--transition_time, color (@Button--transition_time / 3) @Button--transition_time;
+        -webkit-animation: Button--moema-animation_1 @Button--transition_time forwards;
+        animation: Button--moema-animation_1 @Button--transition_time forwards;
+        &:before {
+             opacity: 1;
+            -webkit-animation: Button--moema-animation_2 @Button--transition_time @Button--transition_time forwards;
+            animation: Button--moema-animation_2 @Button--transition_time @Button--transition_time forwards;
+        }
+    }
+}
+
+.make-Button--moema_round(@Button--border_radius: @Button--border_radius; @Button--border_radius_pseudo: @Button--border_radius_pseudo; @Button--bg_color: @Button--bg_color; @Button--color: @Button--color; @Button--border_width: @Button--border_width; @Button--border_style: @Button--border_style; @Button--border_color: @Button--border_color; @Button--hover_color: @Button--hover_color; @Button--hover_bg_color: @Button--hover_bg_color; @Button--padding: @Button--padding; @Button--font_family: @Button--font_family; @Button--transition_time: @Button--transition_time; @Button--transition_easing: @Button--isi--transition_easing) {
+    .make-Button--moema(@Button--bg_color: @Button--bg_color; @Button--color: @Button--color; @Button--border_width: @Button--border_width; @Button--border_style: @Button--border_style; @Button--border_color: @Button--border_color; @Button--hover_color: @Button--hover_color; @Button--hover_bg_color: @Button--hover_bg_color; @Button--padding: @Button--padding; @Button--font_family: @Button--font_family; @Button--transition_time: @Button--transition_time; @Button--transition_easing: @Button--isi--transition_easing);
+    border-radius: @Button--border_radius;
+    &:before, &:after {
+        border-radius: @Button--border_radius_pseudo;
+    }
+}
+
+.Button--moema_round {
+    .make-Button--moema_round(5px; 5px; @Color--purple_light; @Color--black; 0px; solid; @Color--black; @Color--white; @Color--purple);
+}
+
+.Button--moema_rounder {
+    .make-Button--moema_round(40px; 40px; @Color--purple_light; @Color--black; 0px; solid; @Color--black; @Color--white; @Color--purple);
+}
+
+.Button--moema {
+    .make-Button--moema(@Color--purple_light; @Color--black; 0px; solid; @Color--black; @Color--white; @Color--purple);
+}

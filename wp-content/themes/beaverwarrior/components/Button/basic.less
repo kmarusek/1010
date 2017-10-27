@@ -1,0 +1,41 @@
+@Button--bg_color: @Color--primary;
+@Button--hover_color: black;
+@Button--border_width: @Border-width--normal;
+
+.make-Button--common_styles() {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.make-Button--basic(@Button--bg_color: @Button--bg_color;
+        @Button--color: @Button--color;
+        @Button--border_width: @Button--border_width;
+        @Button--border_color: @Button--border_color;
+        @Button--padding: @Button--padding;
+        @Button--font_family: @Button--font_family;
+        @Button--font_weight: @Button--font_weight) {
+    
+    .make-Button--common_styles();
+    
+    background: @Button--bg_color;
+    color: @Button--color;
+    border: @Button--border_width solid @Button--border_color;
+    font-family: @Button--font_family;
+    font-weight: @Button--font_weight;
+    appearance: none;
+    padding: @Button--padding;
+}
+
+/* Strip browser default styling from a button.
+ */
+.make-Button--revert(button) {
+    background: transparent;
+    border-width: 0px;
+
+    appearance: none;
+    padding: 0;
+}
+
+button {
+    .make-Button--basic();
+}

@@ -1,0 +1,37 @@
+//"Literal" colors are named after and should resemble that color.
+
+@Color--white:                                      #FFFFFF;
+@Color--black:                                      #000000;
+
+@Color--gray_lighter:                               #F8F8F8;
+@Color--gray_light:                                 #EBEBEB;
+@Color--gray:                                       #D8D8D8;
+@Color--gray_dark: 									       #CFCFCF;
+@Color--gray_darker: 								       #B9B9B9;
+@Color--gray_darkest: 								       #979797;
+
+@Color--red:                                        #ff0000;
+
+//"Semantic" colors are not named after a particular color and should be
+//changed as necessary to meet the design requirements. Components may consume
+//semantic colors directly or name their own variables that pull those colors.
+//Uses for semantic colors include colors related to a brand name as well as
+//generic, high-level theme decisions like a primary accent color.
+@Color--primary:                                    @Color--black;
+@Color--site_header:                                @Color--gray_dark;
+
+@Color--facebook:                                   #3B5998;
+@Color--twitter:                                    #4099FF;
+@Color--linkedin:                                   #007bb6;
+@Color--gplus:                                      #C63D2D;
+@Color--pinterest:                                  #C92228;
+
+@Color--purple_light:								#7986cb;
+@Color--purple:										#3f51b5;
+@Color--transparent:								transparent;
+
+.background-opacity (@color, @opacity) {
+    @rgba-color: rgba(red(@color), green(@color), blue(@color), @opacity);
+    background-color: @color;
+    background-color: @rgba-color;
+}

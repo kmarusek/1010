@@ -1,0 +1,98 @@
+@Container-xs: 444px;
+@Container-sm: 750px;
+@Container-md: 970px;
+@Container-lg: 1170px;
+@Container-xl: 1596px;
+
+//Make-your-own containers
+.make-Container(@screen-break; @container-width) {
+    @media (min-width: @screen-break) {
+        max-width: @container-width;
+    }
+}
+
+//Predefined container tiers
+.make-Container(xs) {
+    .make-Container(@Viewport-xs; @Container-xs);
+}
+
+.make-Container(sm) {
+    .make-Container(@Viewport-sm; @Container-sm);
+}
+
+.make-Container(md) {
+    .make-Container(@Viewport-md; @Container-md);
+}
+
+.make-Container(lg) {
+    .make-Container(@Viewport-lg; @Container-lg);
+}
+
+.make-Container(xl) {
+    .make-Container(@Viewport-xl; @Container-xl);
+}
+
+//The default container most people should use
+.Container {
+    .make-Container(sm);
+    .make-Container(md);
+    .make-Container(lg);
+    position: relative;
+    margin: 0 auto;
+
+    &:extend(.clearfix all);
+}
+
+.make-Container(@_: "") when (@_ = "") {
+    &:extend(.Container all);
+}
+
+//Precalculate a pixel grid width based on a particular container width.
+.make-Container-column(@screen-break; @container-width; @columns; @float: left) {
+    .make-Column(@columns; min; @screen-break; @Grid--parent_width: @container-width; @float: @float);
+}
+
+.make-Container-column(xs; @columns; @float: left) {
+    .make-Container-column(@Viewport-xs; @Container-xs; @columns; @float: @float);
+}
+
+.make-Container-column(sm; @columns; @float: left) {
+    .make-Container-column(@Viewport-sm; @Container-sm; @columns; @float: @float);
+}
+
+.make-Container-column(md; @columns; @float: left) {
+    .make-Container-column(@Viewport-md; @Container-md; @columns; @float: @float);
+}
+
+.make-Container-column(lg; @columns; @float: left) {
+    .make-Container-column(@Viewport-lg; @Container-lg; @columns; @float: @float);
+}
+
+.make-Container-column(xl; @columns; @float: left) {
+    .make-Container-column(@Viewport-xl; @Container-xl; @columns; @float: @float);
+}
+
+//With margin gutters, too.
+.make-Container-column--gutter(@screen-break; @container-width; @columns; @Grid--gutter_width: 30px; @float: left) {
+    .make-Column--gutter(@columns; min; @screen-break; @Grid--parent_width: @container-width; @Grid--gutter_width: @Grid--gutter_width; @float: @float);
+}
+
+.make-Container-column--gutter(xs; @columns; @Grid--gutter_width: 30px; @float: left) {
+    .make-Container-column--gutter(@Viewport-xs; @Container-xs; @columns; @Grid--gutter_width: @Grid--gutter_width; @float: @float);
+}
+
+.make-Container-column--gutter(sm; @columns; @Grid--gutter_width: 30px; @float: left) {
+    .make-Container-column--gutter(@Viewport-sm; @Container-sm; @columns; @Grid--gutter_width: @Grid--gutter_width; @float: @float);
+}
+
+.make-Container-column--gutter(md; @columns; @Grid--gutter_width: 30px; @float: left) {
+    .make-Container-column--gutter(@Viewport-md; @Container-md; @columns; @Grid--gutter_width: @Grid--gutter_width; @float: @float);
+}
+
+.make-Container-column--gutter(lg; @columns; @Grid--gutter_width: 30px; @float: left) {
+    .make-Container-column--gutter(@Viewport-lg; @Container-lg; @columns; @Grid--gutter_width: @Grid--gutter_width; @float: @float);
+}
+
+.make-Container-column--gutter(xl; @columns; @Grid--gutter_width: 30px; @float: left) {
+    .make-Container-column--gutter(@Viewport-xl; @Container-xl; @columns; @Grid--gutter_width: @Grid--gutter_width; @float: @float);
+}

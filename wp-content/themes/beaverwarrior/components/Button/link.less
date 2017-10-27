@@ -1,0 +1,22 @@
+.make-Button--link() {
+    color: @Font-color--black;
+    font-family: @Font-family;
+
+    &:hover, &:focus {
+        
+    }
+}
+
+.make-Button--revert(a) {
+    color: inherit;
+    font-family: inherit;
+    
+    &, &:hover, &:focus {
+        text-decoration: none;
+    }
+}
+
+//Note: Browser/normalize.less anchor styling also applies.
+a {
+	.make-Button--link();
+}

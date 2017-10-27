@@ -1,0 +1,61 @@
+.FormItem {
+    .make-Padding(@FormItem--spacing);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    label {
+        .make-FormItem--label();
+    }
+
+    input {
+        .make-FormItem--input();
+
+        max-width: 100%;
+        flex-grow: 1;
+    }
+
+    select {
+        .make-FormItem--select();
+
+        max-width: 100%;
+        flex-grow: 1;
+    }
+
+    textarea {
+        .make-FormItem--textarea();
+
+        width: 100%;
+        flex-grow: 1;
+
+        margin-top: @FormItem--label--spacing;
+    }
+
+    margin-bottom: 10px;
+}
+
+.FormItem--stacked {
+    display: block;
+    label {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    input {
+        width: 100%;
+    }
+
+    select {
+        width: 100%;
+    }
+}
+
+.FormItem-description {
+    width: 100%;
+}
+
+@import "base.less";
+@import "action.less";
+@import "quantity_selector.less";
+@import "checkboxes.less";
+@import "fieldset.less";

@@ -1,0 +1,68 @@
+//Adapted from http://tympanus.net/Development/ButtonStylesInspiration/
+
+.make-Button--sacnite(@Button--bg_color: @Button--bg_color; @Button--bg_color_pseudo: @Button--bg_color_pseudo; @Button--color: @Button--color; @Button--hover_color: @Button--hover_color; @Button--padding: @Button--padding; @Button--padding: @Button--padding) {
+    .make-Button--common_styles();
+    .make-Icon(after; @Icon-gear; 22px; @Color--white);
+
+    background: @Button--bg_color;
+    z-index: 1;
+    position: relative;
+    color: @Button--color;
+    padding: @Button--padding;
+    border: none;
+    -webkit-transition: color 0.3s;
+    transition: color 0.3s;
+
+    &:before {
+        content: '';
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        border-radius: inherit;
+        z-index: -1;
+        box-shadow: inset 0 0 0 35px @Button--bg_color_pseudo;
+        -webkit-transform: scale3d(0.9, 0.9, 1);
+        transform: scale3d(0.9, 0.9, 1);
+        -webkit-transition: box-shadow 0.3s, -webkit-transform 0.3;
+        transition: box-shadow 0.3s, transform 0.3s;
+    }
+    &:after {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    &:before {
+        position: absolute;
+    }
+    
+    &:hover, &:focus {
+        &:after {
+            color: @Button--hover_color;
+        }
+        &:before {
+            box-shadow: inset 0 0 0 2px #37474f;
+            -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+        }
+    }
+}
+
+.make-Button--sacnite_round(@Button--border_radius: @Button--border_radius; @Button--border_radius_pseudo: @Button--border_radius_pseudo) {
+    .make-Button--sacnite(@Color--transparent; @Color--purple; @Color--white; @Color--black; 20px);
+    border-radius: @Button--border_radius;
+    &:before, &:after {
+        border-radius: @Button--border_radius_pseudo;
+    }
+}
+
+.Button--sacnite_round {
+    .make-Button--sacnite_round(5px; 5px);
+}
+
+.Button--sacnite_rounder {
+    .make-Button--sacnite_round(40px; 40px);
+}
+
+.Button--sacnite {
+    .make-Button--sacnite(@Color--transparent; @Color--purple; @Color--white; @Color--black; 20px;);
+}

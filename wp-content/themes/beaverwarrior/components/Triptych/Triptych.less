@@ -1,0 +1,24 @@
+.Triptych {
+    .clearfix;
+}
+
+.Triptych-wrapper {
+    position: relative;
+}
+
+.Triptych--3up-wrapper {
+    .make-Matrix(3; min; @Viewport-sm; @Border-width: 0px);
+}
+
+.Triptych--4up-wrapper {
+    .make-Matrix(4; min; @Viewport-sm; @Border-width: 0px);
+}
+
+.Triptych-item {
+    .make-Padding();
+}
+
+.Triptych-image {
+    width: 100%;
+    height: auto;
+}

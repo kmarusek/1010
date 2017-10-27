@@ -1,0 +1,82 @@
+//Adapted from http://tympanus.net/Development/ButtonStylesInspiration/
+
+.make-Button--antiman(@Button--bg_color: @Button--bg_color; @Button--color: @Button--color; @Button--hover_bg_color_pseudo: @Button--hover_bg_color_pseudo; @Button--border_width_pseudo: @Button--border_width_pseudo; @Button--border_color_pseudo: @Button--border_color_pseudo; @Button--hover_color: @Button--hover_color; @Button--padding: @Button--padding; @Button--font_family: @Button--font_family; @Button--transition_time: @Button--transition_time; @Button--transition_easing: @Button--transition_easing) {
+    .make-Button--common_styles();
+
+    font-family: @Button--font_family;
+    background: @Button--bg_color;
+    overflow: hidden;
+    position: relative;
+    color: @Button--color;
+    padding: @Button--padding;
+    z-index: 1;
+    border: none;
+    -webkit-transition: color @Button--transition_time;
+    transition: color @Button--transition_time;
+    -webkit-transition-timing-function: @Button--transition_easing;
+    transition-timing-function: @Button--transition_easing;
+    &:before {
+        opacity: 0;
+        border-color: @Button--border_color_pseudo;
+        border-width: @Button--border_width_pseudo;
+        -webkit-transform: scale3d(1.2, 1.2, 1);
+        transform: scale3d(1.2, 1.2, 1);
+    }
+    &:after {
+        background: @Button--bg_color_pseudo;
+    }
+    &:before, &:after {
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        border-radius: inherit;
+        border-width: @Button--border_width_pseudo;
+        border-style: @Button--border_style;
+        border-color: @Button--border_color_pseudo;
+        -webkit-backface-visibility: hidden;
+        -webkit-transition: -webkit-transform @Button--transition_time, opacity @Button--transition_time;
+        transition: transform @Button--transition_time, opacity @Button--transition_time;
+        -webkit-transition-timing-function: @Button--transition_easing;
+        transition-timing-function: @Button--transition_easing;
+    }
+    
+    &:hover, &:focus {
+        color: @Button--hover_color;
+        &:before {
+            opacity: 1;
+            -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+        }
+        &:after {
+            opacity: 0;
+            background: @Button--hover_bg_color_pseudo;
+            -webkit-transform: scale3d(0.8, 0.8, 1);
+            transform: scale3d(0.8, 0.8, 1);
+        }
+    }
+}
+
+.make-Button--antiman_round(@Button--border_radius: @Button--border_radius; @Button--border_radius_pseudo: @Button--border_radius_pseudo; @Button--bg_color: @Button--bg_color; @Button--color: @Button--color; @Button--hover_bg_color_pseudo: @Button--hover_bg_color_pseudo; @Button--border_width_pseudo: @Button--border_width_pseudo; @Button--border_color_pseudo: @Button--border_color_pseudo; @Button--hover_color: @Button--hover_color; @Button--padding: @Button--padding; @Button--font_family: @Button--font_family; @Button--transition_time: @Button--transition_time; @Button--transition_easing: @Button--transition_easing) {
+    .make-Button--antiman(@Button--bg_color: @Button--bg_color; @Button--color: @Button--color; @Button--hover_bg_color_pseudo: @Button--hover_bg_color_pseudo; @Button--border_width_pseudo: @Button--border_width_pseudo; @Button--border_color_pseudo: @Button--border_color_pseudo; @Button--hover_color: @Button--hover_color; @Button--padding: @Button--padding; @Button--font_family: @Button--font_family; @Button--transition_time: @Button--transition_time; @Button--transition_easing: @Button--transition_easing);
+
+    border-radius: @Button--border_radius;
+    &:before, &:after {
+        border-radius: @Button--border_radius_pseudo;
+    }
+}
+
+.Button--antiman {
+    .make-Button--antiman(@Color--transparent; @Color--white; @Color--purple_light; 2px; @Color--purple_light; @Color--purple_light);
+}
+
+.Button--antiman_round {
+    .make-Button--antiman_round(5px; 5px; @Color--transparent; @Color--white; @Color--purple_light; 2px; @Color--purple_light; @Color--purple_light);
+}
+
+.Button--antiman_rounder {
+    .make-Button--antiman_round(40px; 40px; @Color--transparent; @Color--white; @Color--purple_light; 2px; @Color--purple_light; @Color--purple_light);
+}

@@ -1,0 +1,69 @@
+//Adapted from http://tympanus.net/Development/ButtonStylesInspiration/
+
+.make-Button--aylen(@Button--bg_color: @Button--bg_color; @Button--color: @Button--color; @Button--border_width: @Button--border_width; @Button--border_style: @Button--border_style; @Button--border_color: @Button--border_color; @Button--hover_color: @Button--hover_color; @Button--bg_color_pseudo: @Button--bg_color_pseudo; @Button--hover_bg_color_pseudo: @Button--hover_bg_color_pseudo; @Button--padding: @Button--padding; @Button--font_family: @Button--font_family; @Button--transition_time: @Button--transition_time; @Button--transition_easing: @Button--transition_easing) {
+    .make-Button--common_styles();
+
+    font-family: @Button--font_family;
+    background: @Button--bg_color;
+    overflow: hidden;
+    position: relative;
+    color: @Button--color;
+    padding: @Button--padding;
+    z-index: 1;
+    border-width: @Button--border_width;
+    border-style: @Button--border_style;
+    border-color: @Button--border_color;
+    -webkit-transition: color @Button--transition_time;
+    transition: color @Button--transition_time;
+    &:before {
+        background: @Button--bg_color_pseudo;
+    }
+    &:after {
+        background: @Button--hover_bg_color_pseudo;
+    }
+    &:before, &:after {
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        bottom: 100%;
+        left: 0;
+        z-index: -1;
+        -webkit-transition: -webkit-transform @Button--transition_time;
+        transition: transform @Button--transition_time;
+        -webkit-transition-timing-function: @Button--transition_easing;
+        transition-timing-function: @Button--transition_easing;
+    }
+    
+    &:hover, &:focus {
+        color: @Button--hover_color;
+        &:after {
+            -webkit-transition-delay: (@Button--transition_time * (1.75 / 3));
+            transition-delay: (@Button--transition_time * (1.75 / 3));
+        }
+        &:before, &:after {
+            -webkit-transform: translate3d(0, 100%, 0);
+            transform: translate3d(0, 100%, 0);
+        }
+    }
+}
+
+.make-Button--aylen_round(@Button--border_radius: @Button--border_radius; @Button--border_radius_pseudo: @Button--border_radius_pseudo; @Button--bg_color: @Button--bg_color; @Button--color: @Button--color; @Button--border_width: @Button--border_width; @Button--border_style: @Button--border_style; @Button--border_color: @Button--border_color; @Button--hover_color: @Button--hover_color; @Button--bg_color_pseudo: @Button--bg_color_pseudo; @Button--hover_bg_color_pseudo: @Button--hover_bg_color_pseudo; @Button--padding: @Button--padding; @Button--font_family: @Button--font_family; @Button--transition_time: @Button--transition_time; @Button--transition_easing: @Button--transition_easing) {
+    .make-Button--aylen(@Button--bg_color: @Button--bg_color; @Button--color: @Button--color; @Button--border_width: @Button--border_width; @Button--border_style: @Button--border_style; @Button--border_color: @Button--border_color; @Button--hover_color: @Button--hover_color; @Button--bg_color_pseudo: @Button--bg_color_pseudo; @Button--hover_bg_color_pseudo: @Button--hover_bg_color_pseudo; @Button--padding: @Button--padding; @Button--font_family: @Button--font_family; @Button--transition_time: @Button--transition_time; @Button--transition_easing: @Button--transition_easing);
+    border-radius: @Button--border_radius;
+    &:before, &:after {
+        border-radius: @Button--border_radius_pseudo;
+    }
+}
+
+.Button--aylen_round {
+    .make-Button--aylen_round(5px; 5px; @Color--gray_light; @Color--black; 0px; solid; @Color--black; @Color--white; @Color--purple_light; @Color--purple);
+}
+
+.Button--aylen_rounder {
+    .make-Button--aylen_round(40px; 40px; @Color--gray_light; @Color--black; 0px; solid; @Color--black; @Color--white; @Color--purple_light; @Color--purple);
+}
+
+.Button--aylen {
+    .make-Button--aylen(@Color--gray_light; @Color--black; 0px; solid; @Color--black; @Color--white; @Color--purple_light; @Color--purple);
+}

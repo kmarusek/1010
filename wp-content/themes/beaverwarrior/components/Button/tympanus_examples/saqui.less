@@ -1,0 +1,66 @@
+//Adapted from http://tympanus.net/Development/ButtonStylesInspiration/
+
+.make-Button--saqui(@Button--bg_color: @Button--bg_color; @Button--color: @Button--color; @Button--border_width: @Button--border_width; @Button--border_style: @Button--border_style; @Button--border_color: @Button--border_color; @Button--hover_color: @Button--hover_color; @Button--hover_bg_color: @Button--hover_bg_color; @Button--padding: @Button--padding) {
+    .make-Button--common_styles();
+
+    background: @Button--bg_color;
+    overflow: hidden;
+    position: relative;
+    color: @Button--color;
+    padding: @Button--padding;
+    z-index: 1;
+    border-width: @Button--border_width;
+    border-style: @Button--border_style;
+    border-color: @Button--border_color;
+    -webkit-transition: background-color 0.3s ease-in, color 0.3s ease-in;
+    transition: background-color 0.3s ease-in, color 0.3s ease-in;
+    &:after {
+        content: 'Buy something will ya';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: @Button--padding;
+        color: @Button--color;
+        -webkit-transform-origin: -25% 50%;
+        transform-origin: -25% 50%;
+        -webkit-transform: rotate3d(0, 0, 1, 45deg);
+        transform: rotate3d(0, 0, 1, 45deg);
+        -webkit-transition: -webkit-transform 0.3s ease-in;
+        transition: transform 0.3s ease-in;
+    }
+    
+    &:hover, &:focus {
+        color: @Button--hover_color;
+        background: @Button--hover_bg_color;
+        -webkit-transition-timing-function: ease-out;
+        transition-timing-function: ease-out;
+        &:after {
+            -webkit-transform: rotate3d(0, 0, 1, 0deg);
+            transform: rotate3d(0, 0, 1, 0deg);
+            -webkit-transition-timing-function: ease-out;
+            transition-timing-function: ease-out;
+        }
+    }
+}
+
+.make-Button--saqui_round(@Button--border_radius: @Button--border_radius; @Button--border_radius_pseudo: @Button--border_radius_pseudo) {
+    .make-Button--saqui(@Color--purple; @Color--white; 0px; solid; @Color--black; @Color--black; @Color--purple_light);
+    border-radius: @Button--border_radius;
+    &:before, &:after {
+        border-radius: @Button--border_radius_pseudo;
+    }
+}
+
+.Button--saqui_round {
+    .make-Button--saqui_round(5px; 5px);
+}
+
+.Button--saqui_rounder {
+    .make-Button--saqui_round(40px; 40px);
+}
+
+.Button--saqui {
+    .make-Button--saqui(@Color--purple; @Color--white; 0px; solid; @Color--black; @Color--black; @Color--purple_light);
+}
