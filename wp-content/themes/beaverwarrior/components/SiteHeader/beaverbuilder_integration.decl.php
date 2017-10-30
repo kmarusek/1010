@@ -11,4 +11,4 @@ function beaver_warrior_remove_bb_settings($wp_customize) {
     $wp_customize->remove_section("fl-header");
     $wp_customize->remove_section("fl-footer");
 }
-add_action('customize_register', 'beaver_warrior_remove_bb_settings', 11);
+add_action('customize_register', 'beaver_warrior_remove_bb_settings', 110);
