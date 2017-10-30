@@ -1,7 +1,17 @@
 <?php
+// Defines
+define( 'FL_CHILD_THEME_DIR', get_stylesheet_directory() );
+define( 'FL_CHILD_THEME_URL', get_stylesheet_directory_uri() );
+
+// Classes
+require_once 'classes/class-fl-child-theme.php';
+
+// Actions
+add_action( 'wp_enqueue_scripts', 'FLChildTheme::enqueue_scripts', 1000 );
+
 
 //We support splitting functions.php into separate files, so do so whenever possible.
-$theme_path = get_template_directory();
+$theme_path = get_stylesheet_directory();
 
 $dir = opendir($theme_path . "/components");
 while ($dir !== FALSE && FALSE !== ($entry = readdir($dir))) {
@@ -87,12 +97,12 @@ function get_template_layout($layout, $slug = null, $name = null, $args = array(
 }
 
 function skeletonwarrior_enqueue_scripts() {
-    wp_register_style('main', get_template_directory_uri() . '/build/main.css', false, null, "all");
-    wp_register_script('scripts', get_template_directory_uri() . '/build/script.js', array('jquery'), null, true);
+    wp_register_style('main', get_stylesheet_directory_uri() . '/build/main.css', false, null, "all");
+    wp_register_script('scripts', get_stylesheet_directory_uri() . '/build/script.js', array('jquery'), null, true);
     
     //Vendored copy of Slick Slider
-    wp_register_style('slick-slider', get_template_directory_uri() . '/assets/vendor/slick/slick/slick.css', false, null, "all");
-    wp_register_script('slick-slider', get_template_directory_uri() . '/assets/vendor/slick/slick/slick.min.js', false, null, true);
+    wp_register_style('slick-slider', get_stylesheet_directory_uri() . '/assets/vendor/slick/slick/slick.css', false, null, "all");
+    wp_register_script('slick-slider', get_stylesheet_directory_uri() . '/assets/vendor/slick/slick/slick.min.js', false, null, true);
     
     wp_enqueue_script('scripts');
     wp_enqueue_style('main');
@@ -309,14 +319,3 @@ function comment_validation_init() {
     <?php }
 }
 add_action('wp_footer', 'comment_validation_init');
-
-/* Pull in Beaver Builder stuff. */
-// Defines
-define( 'FL_CHILD_THEME_DIR', get_stylesheet_directory() );
-define( 'FL_CHILD_THEME_URL', get_stylesheet_directory_uri() );
-
-// Classes
-require_once 'classes/class-fl-child-theme.php';
-
-// Actions
-add_action( 'wp_enqueue_scripts', 'FLChildTheme::enqueue_scripts', 1000 );
