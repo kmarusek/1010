@@ -7,8 +7,10 @@ function beaver_warrior_remove_bb_nav_menus() {
 }
 add_action('after_setup_theme', 'beaver_warrior_remove_bb_nav_menus', 11);
 
-function beaver_warrior_remove_bb_settings($wp_customize) {
-    $wp_customize->remove_section("fl-header");
-    $wp_customize->remove_section("fl-footer");
+function beaver_warrior_remove_bb_settings() {
+    global $wp_customize;
+
+    $wp_customize->remove_panel("fl-header");
+    $wp_customize->remove_panel("fl-footer");
 }
-add_action('customize_register', 'beaver_warrior_remove_bb_settings', 110);
+add_action('customize_register', 'beaver_warrior_remove_bb_settings', 11);
