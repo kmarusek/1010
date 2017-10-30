@@ -243,7 +243,7 @@ add_action("init", "skeletonwarrior_widget_post_type");
 
 /* ACF JSON */
 function skeletonwarrior_json_load_point($paths) {
-    $theme_path = get_template_directory();
+    $theme_path = get_stylesheet_directory();
     
     if (is_dir($theme_path . "/assets/acf-fieldgroups")) {
         $paths[] = $theme_path . "/assets/acf-fieldgroups";
