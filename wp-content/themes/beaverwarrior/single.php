@@ -1,6 +1,4 @@
-<?php print get_template_component('HTML'); ?>
-<?php print get_template_component('Page'); ?>
-<?php print get_template_component('SiteHeader'); ?>
+<?php get_header(); ?>
 
 <div class="container">
 	<div class="row">
@@ -14,6 +12,4 @@
 	</div>
 </div>
 
-<?php print get_template_component('SiteFooter'); ?>
-<?php print get_template_component('Page', 'end'); ?>
-<?php print get_template_component('HTML', 'end'); ?>
+<?php get_footer(); ?>
