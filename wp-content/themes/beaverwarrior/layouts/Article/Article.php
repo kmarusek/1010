@@ -16,7 +16,7 @@ $linkedin = "https://www.linkedin.com/shareArticle?url=" . $url . "&title=" . $t
 
 ?>
 
-<main class="Article Article--full">
+<main <?php post_class("fl-post Article Article--full"); ?> id="fl-post-<?php the_ID(); ?>" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
     <?php if ( have_posts() ) { ?>
         <?php while (have_posts()) {
             the_post(); ?>
