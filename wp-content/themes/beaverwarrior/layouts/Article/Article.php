@@ -22,7 +22,10 @@ $linkedin = "https://www.linkedin.com/shareArticle?url=" . $url . "&title=" . $t
             the_post(); ?>
             <div class="Article-body fl-content <?php FLTheme::content_class(); ?>">
                 <?php do_action('fl_before_post_content'); ?>
-                <?php the_content(); ?>
+
+                <div class="fl-post-content clearfix" itemprop="text">
+                    <?php the_content(); ?>
+                </div>
             </div>
             <nav class="Article-share">
                 <h2><?php echo __('Share this post', 'skeleton_warrior'); ?></h2>
