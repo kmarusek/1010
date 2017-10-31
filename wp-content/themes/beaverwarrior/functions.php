@@ -280,7 +280,6 @@ add_filter('acf/settings/load_json', 'skeletonwarrior_json_load_point');
 //add inline validation to comments on blog
 function comment_validation_init() {
     if(is_singular() && comments_open() ) { ?>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script type="text/javascript" src="http://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
         <script type="text/javascript">
             jQuery(document).ready(function($) {
