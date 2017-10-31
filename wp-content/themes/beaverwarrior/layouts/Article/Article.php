@@ -16,6 +16,7 @@ $linkedin = "https://www.linkedin.com/shareArticle?url=" . $url . "&title=" . $t
 
 ?>
 
+<?php do_action('fl_before_post'); ?>
 <main <?php post_class("fl-post Article Article--full"); ?> id="fl-post-<?php the_ID(); ?>" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
     <?php if ( have_posts() ) { ?>
         <?php while (have_posts()) {
@@ -26,6 +27,8 @@ $linkedin = "https://www.linkedin.com/shareArticle?url=" . $url . "&title=" . $t
                 <div class="fl-post-content clearfix" itemprop="text">
                     <?php the_content(); ?>
                 </div>
+
+                <?php do_action('fl_after_post_content'); ?>
             </div>
             <nav class="Article-share">
                 <h2><?php echo __('Share this post', 'skeleton_warrior'); ?></h2>
@@ -44,3 +47,5 @@ $linkedin = "https://www.linkedin.com/shareArticle?url=" . $url . "&title=" . $t
         <?php }
     } ?>
 </main>
+
+<?php do_action('fl_after_post'); ?>
