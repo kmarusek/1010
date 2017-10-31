@@ -20,7 +20,7 @@ $linkedin = "https://www.linkedin.com/shareArticle?url=" . $url . "&title=" . $t
     <?php if ( have_posts() ) { ?>
         <?php while (have_posts()) {
             the_post(); ?>
-            <div class="Article-body">
+            <div class="Article-body fl-content <?php FLTheme::content_class(); ?>">
                 <?php the_content(); ?>
             </div>
             <nav class="Article-share">
