@@ -4604,7 +4604,7 @@ button.StaffGrid-item {
   -moz-osx-font-smoothing: grayscale;
 }
 .Article-body .fl-row-content-wrap {
-  margin: 0 -15px;
+  margin: 0 -15px !important;
 }
 .ContactPage-content {
   margin-left: 15px;
