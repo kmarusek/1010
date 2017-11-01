@@ -318,3 +318,12 @@ function comment_validation_init() {
     <?php }
 }
 add_action('wp_footer', 'comment_validation_init');
+
+//Don't cache Beaver Builder.
+function beaver_warrior_bb_cache_buster() {
+    header('Cache-Control: no-cache, must-revalidate, max-age=0');
+}
+
+if ($_SERVER["QUERY_STRING"] == "fl_builder") {
+    add_action('send_headers', 'beaver_warrior_bb_cache_buster', 15);
+}
