@@ -327,3 +327,9 @@ function beaver_warrior_bb_cache_buster() {
 if ($_SERVER["QUERY_STRING"] == "fl_builder") {
     add_action('send_headers', 'beaver_warrior_bb_cache_buster', 15);
 }
+
+//Add post thumbnail / featured image support
+function beaver_warrior_theme_support() {
+    add_theme_support("post-thumbnails");
+}
+add_action("after_setup_theme", "beaver_warrior_theme_support");
