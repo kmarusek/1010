@@ -4,6 +4,7 @@
             <?php while (have_posts()) {
                 the_post(); ?>
                 <article class="SearchResults-item">
+                    <?php the_post_thumbnail('post_thumbnail', array('class' => "SearchResults-item_image")); ?>
                     <h1><?php the_title(); ?></h1>
                     <?php the_content(); ?>
                 </article>
