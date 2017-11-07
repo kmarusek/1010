@@ -658,7 +658,9 @@ th {
 .ContactPage-content_row:before,
 .ContactPage-content_row:after,
 .ConfirmationPage:before,
-.ConfirmationPage:after {
+.ConfirmationPage:after,
+.SearchResults-content:before,
+.SearchResults-content:after {
   content: " ";
   /* 1 */
   display: table;
@@ -693,7 +695,8 @@ th {
 .SiteFooter-container:after,
 .Article--full:after,
 .ContactPage-content_row:after,
-.ConfirmationPage:after {
+.ConfirmationPage:after,
+.SearchResults-content:after {
   clear: both;
 }
 /**
@@ -729,7 +732,8 @@ th {
 .SiteFooter-container,
 .Article--full,
 .ContactPage-content_row,
-.ConfirmationPage {
+.ConfirmationPage,
+.SearchResults-content {
   *zoom: 1;
 }
 .sr-only {
@@ -973,7 +977,8 @@ blockquote:after {
 .SiteFooter-container,
 .Article--full,
 .ContactPage-content_row,
-.ConfirmationPage {
+.ConfirmationPage,
+.SearchResults-content {
   position: relative;
   margin: 0 auto;
 }
@@ -985,7 +990,8 @@ blockquote:after {
   .SiteFooter-container,
   .Article--full,
   .ContactPage-content_row,
-  .ConfirmationPage {
+  .ConfirmationPage,
+  .SearchResults-content {
     max-width: 750px;
   }
 }
@@ -997,7 +1003,8 @@ blockquote:after {
   .SiteFooter-container,
   .Article--full,
   .ContactPage-content_row,
-  .ConfirmationPage {
+  .ConfirmationPage,
+  .SearchResults-content {
     max-width: 970px;
   }
 }
@@ -1009,7 +1016,8 @@ blockquote:after {
   .SiteFooter-container,
   .Article--full,
   .ContactPage-content_row,
-  .ConfirmationPage {
+  .ConfirmationPage,
+  .SearchResults-content {
     max-width: 1170px;
   }
 }
@@ -4817,6 +4825,18 @@ button.StaffGrid-item {
 }
 @media (min-width: 992px) {
   .ConfirmationPage-resources {
+    float: left;
+    width: 30.30913978%;
+    width: calc( 33.33333333% - 30px );
+  }
+}
+.SearchResults-item {
+  margin-left: 15px;
+  margin-right: 15px;
+  min-height: 1px;
+}
+@media (min-width: 768px) {
+  .SearchResults-item {
     float: left;
     width: 30.30913978%;
     width: calc( 33.33333333% - 30px );
