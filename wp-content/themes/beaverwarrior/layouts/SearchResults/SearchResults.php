@@ -2,7 +2,17 @@
     <div class="SearchResults-content">
         <header class="SearchResults-header">
             <h1 class="SearchResults-heading"><?php echo sprintf( _x( 'Search results for: %s', 'Search results title.', 'fl-automator' ), get_search_query() ); ?></h1>
-            <?php get_search_form(); ?>
+
+            <form method="get" id="searchform" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="SearchResults-search_form SiteHeader-search SiteHeader-search--first_menu">
+                <div class="FormItem">
+                    <input type="search" class="field" name="s" id="s" placeholder="<?php esc_attr_e( 'Search', 'twentyeleven' ); ?>" aria-label="<?php esc_attr_e( 'Search', 'twentyeleven' ); ?>" />
+                </div>
+                <div class="FormItem--actions SiteHeader-form_button_wrapper">
+                    <button type="submit" class="submit FormItem-action FormItem-action--primary SiteHeader-form_button SiteHeader-search_button" name="submit" id="searchsubmit">
+                        <?php esc_attr_e( 'Search', 'twentyeleven' ); ?>
+                    </button>
+                </div>
+            </form>
         </header>
         <?php if ( have_posts() ) : ?>
             <?php while (have_posts()) {
