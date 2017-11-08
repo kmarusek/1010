@@ -4834,12 +4834,30 @@ button.StaffGrid-item {
   margin-left: 15px;
   margin-right: 15px;
   min-height: 1px;
+  text-align: center;
 }
 @media (min-width: 768px) {
   .SearchResults-item {
     float: left;
     width: 30.30913978%;
     width: calc( 33.33333333% - 30px );
+  }
+}
+.SearchResults-item_title {
+  font-family: "Poppins", "Segoe UI", Helvetica, sans-serif;
+  font-weight: 600;
+  color: #000000;
+  -webkit-font-smoothing: antialiased;
+  margin: 10px 0;
+  font-size: 16px;
+  line-height: 1.25;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+@media (min-width: 768px) {
+  .SearchResults-item_title {
+    font-size: 22px;
+    line-height: 1.5;
   }
 }
 .Brand-section {

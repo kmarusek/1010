@@ -5,8 +5,7 @@
                 the_post(); ?>
                 <a class="SearchResults-item" href="<?php echo get_permalink(); ?>">
                     <?php the_post_thumbnail('post_thumbnail', array('class' => "SearchResults-item_image")); ?>
-                    <h1><?php the_title(); ?></h1>
-                    <?php the_content(); ?>
+                    <h2 class="SearchResults-item_title"><?php the_title(); ?></h2>
                 </a>
             <?php }
 
