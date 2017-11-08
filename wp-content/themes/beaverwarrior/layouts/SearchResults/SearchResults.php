@@ -1,7 +1,7 @@
 <main class="SearchResults">
     <div class="SearchResults-content">
         <header class="SearchResults-header">
-            <h1 class="SearchResults-heading"><?php sprintf( _x( 'Search results for: %s', 'Search results title.', 'fl-automator' ), get_search_query() ); ?></h1>
+            <h1 class="SearchResults-heading"><?php echo sprintf( _x( 'Search results for: %s', 'Search results title.', 'fl-automator' ), get_search_query() ); ?></h1>
             <?php get_search_form(); ?>
         </header>
         <?php if ( have_posts() ) : ?>
