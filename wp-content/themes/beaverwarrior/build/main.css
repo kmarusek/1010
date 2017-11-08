@@ -5,7 +5,7 @@
   font-weight: normal;
   font-style: normal;
 }
-.arrow-down:before {
+.Icon-arrow-down:before {
   content: "\EA01";
   font-family: 'icon';
   speak: none;
@@ -20,7 +20,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.arrow-left:before {
+.Icon-arrow-left:before {
   content: "\EA02";
   font-family: 'icon';
   speak: none;
@@ -35,7 +35,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.arrow-right:before {
+.Icon-arrow-right:before {
   content: "\EA03";
   font-family: 'icon';
   speak: none;
@@ -50,7 +50,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.compatibility:before {
+.Icon-compatibility:before {
   content: "\EA04";
   font-family: 'icon';
   speak: none;
@@ -65,7 +65,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.cross:before {
+.Icon-cross:before {
   content: "\EA05";
   font-family: 'icon';
   speak: none;
@@ -80,7 +80,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.download:before {
+.Icon-download:before {
   content: "\EA06";
   font-family: 'icon';
   speak: none;
@@ -95,7 +95,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.facebook:before {
+.Icon-facebook:before {
   content: "\EA07";
   font-family: 'icon';
   speak: none;
@@ -110,7 +110,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.newspaper:before {
+.Icon-newspaper:before {
   content: "\EA08";
   font-family: 'icon';
   speak: none;
@@ -125,7 +125,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.phone:before {
+.Icon-phone:before {
   content: "\EA09";
   font-family: 'icon';
   speak: none;
@@ -140,7 +140,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.pinterest:before {
+.Icon-pinterest:before {
   content: "\EA0A";
   font-family: 'icon';
   speak: none;
@@ -155,7 +155,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.search:before {
+.Icon-search:before {
   content: "\EA0B";
   font-family: 'icon';
   speak: none;
@@ -170,7 +170,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.shopping_cart:before {
+.Icon-shopping_cart:before {
   content: "\EA0C";
   font-family: 'icon';
   speak: none;
@@ -185,7 +185,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.time:before {
+.Icon-time:before {
   content: "\EA0D";
   font-family: 'icon';
   speak: none;
@@ -200,7 +200,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.tools:before {
+.Icon-tools:before {
   content: "\EA0E";
   font-family: 'icon';
   speak: none;
@@ -215,7 +215,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.twitter:before {
+.Icon-twitter:before {
   content: "\EA0F";
   font-family: 'icon';
   speak: none;
@@ -230,7 +230,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.user:before {
+.Icon-user:before {
   content: "\EA10";
   font-family: 'icon';
   speak: none;
@@ -245,7 +245,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.gear:before {
+.Icon-gear:before {
   content: "\EA11";
   font-family: 'icon';
   speak: none;
@@ -260,7 +260,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.play:before {
+.Icon-play:before {
   content: "\EA12";
   font-family: 'icon';
   speak: none;
@@ -275,7 +275,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.pause:before {
+.Icon-pause:before {
   content: "\EA13";
   font-family: 'icon';
   speak: none;
@@ -290,7 +290,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.volume-high:before {
+.Icon-volume-high:before {
   content: "\EA14";
   font-family: 'icon';
   speak: none;
@@ -305,7 +305,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.volume-mute:before {
+.Icon-volume-mute:before {
   content: "\EA15";
   font-family: 'icon';
   speak: none;
@@ -320,7 +320,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.linkedin:before {
+.Icon-linkedin:before {
   content: "\EA16";
   font-family: 'icon';
   speak: none;
