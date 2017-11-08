@@ -1,6 +1,7 @@
 <main class="SearchResults">
-    <?php FLTheme::sidebar('left'); ?>
     <div class="SearchResults-content">
+
+			<?php FLTheme::archive_page_header(); ?>
         <?php if ( have_posts() ) : ?>
             <?php while (have_posts()) {
                 the_post(); ?>
@@ -19,5 +20,4 @@
         endif;
         ?>
     </div>
-    <?php FLTheme::sidebar('right'); ?>
 </main>
