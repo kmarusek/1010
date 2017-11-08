@@ -4891,7 +4891,7 @@ button.StaffGrid-item {
   margin-left: 15px;
   margin-right: 15px;
   min-height: 1px;
-  height: auto;
+  height: 82px;
 }
 @media (min-width: 768px) {
   .SearchResults-search_form {
@@ -4899,6 +4899,9 @@ button.StaffGrid-item {
     width: 30.30913978%;
     width: calc( 33.33333333% - 30px );
   }
+}
+.SearchResults-search_form_item {
+  float: none;
 }
 .Brand-section {
   margin-bottom: 100px;

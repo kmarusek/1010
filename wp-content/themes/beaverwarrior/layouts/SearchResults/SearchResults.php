@@ -4,7 +4,7 @@
             <h1 class="SearchResults-heading"><?php echo sprintf( _x( 'Search results for: %s', 'Search results title.', 'fl-automator' ), get_search_query() ); ?></h1>
 
             <form method="get" id="searchform" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="SearchResults-search_form SiteHeader-search SiteHeader-search--first_menu">
-                <div class="FormItem">
+                <div class="SearchResults-search_form_item SiteHeader-form_item FormItem">
                     <input type="search" class="field" name="s" id="s" placeholder="<?php esc_attr_e( 'Search', 'twentyeleven' ); ?>" aria-label="<?php esc_attr_e( 'Search', 'twentyeleven' ); ?>" />
                 </div>
                 <div class="FormItem--actions SiteHeader-form_button_wrapper">
