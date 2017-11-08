@@ -1,4 +1,5 @@
 <main class="SearchResults">
+    <?php FLTheme::sidebar('left'); ?>
     <div class="SearchResults-content">
         <?php if ( have_posts() ) : ?>
             <?php while (have_posts()) {
@@ -18,4 +19,5 @@
         endif;
         ?>
     </div>
+    <?php FLTheme::sidebar('right'); ?>
 </main>
