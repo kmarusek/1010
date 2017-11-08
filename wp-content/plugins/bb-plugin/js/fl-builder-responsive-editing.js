@@ -13,7 +13,7 @@
 		 *
 		 * @since 1.9
 		 * @private
-		 * @property {FLBuilderPreview} _mode
+		 * @property {String} _mode
 		 */
 		_mode: 'default',
 

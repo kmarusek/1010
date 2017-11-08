@@ -12,8 +12,9 @@ class FLContentSliderModule extends FLBuilderModule {
 		parent::__construct(array(
 			'name'          	=> __( 'Content Slider', 'fl-builder' ),
 			'description'   	=> __( 'Displays multiple slides with an optional heading and call to action.', 'fl-builder' ),
-			'category'      	=> __( 'Advanced Modules', 'fl-builder' ),
+			'category'      	=> __( 'Media', 'fl-builder' ),
 			'partial_refresh'	=> true,
+			'icon'				=> 'slides.svg',
 		));
 
 		$this->add_css( 'jquery-bxslider' );
@@ -221,6 +222,7 @@ FLBuilder::register_module('FLContentSliderModule', array(
 						'maxlength'     => '4',
 						'size'          => '5',
 						'description'   => 'px',
+						'sanitize'		=> 'absint',
 						'help'          => __( 'This setting is the minimum height of the content slider. Content will expand the height automatically.', 'fl-builder' ),
 					),
 					'auto_play'     => array(
@@ -243,6 +245,7 @@ FLBuilder::register_module('FLContentSliderModule', array(
 						'default'       => '5',
 						'maxlength'     => '4',
 						'size'          => '5',
+						'sanitize'		=> 'absint',
 						'description'   => _x( 'seconds', 'Value unit for form field of time in seconds. Such as: "5 seconds"', 'fl-builder' ),
 					),
 					'loop'          => array(
@@ -269,6 +272,7 @@ FLBuilder::register_module('FLContentSliderModule', array(
 						'default'       => '0.5',
 						'maxlength'     => '4',
 						'size'          => '5',
+						'sanitize'		=> 'absint',
 						'description'   => _x( 'seconds', 'Value unit for form field of time in seconds. Such as: "5 seconds"', 'fl-builder' ),
 					),
 					'play_pause'    => array(
@@ -315,6 +319,7 @@ FLBuilder::register_module('FLContentSliderModule', array(
 						'maxlength'     => '4',
 						'size'          => '5',
 						'description'   => 'px',
+						'sanitize'		=> 'absint',
 						'help'          => __( 'The max width that the content area will be within your slides.', 'fl-builder' ),
 					),
 				),

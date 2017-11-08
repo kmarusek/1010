@@ -168,14 +168,42 @@ final class FLBuilderTemplatesOverride {
 				switch_to_blog( $site_id );
 			}
 
-			$data = FLBuilderModel::get_user_templates( $type );
+			$user = FLBuilderModel::get_user_templates( $type );
+			$data['templates'] = $user['templates'];
+			$data['categorized'] = $user['categorized'];
+			$data['groups'] = array();
+
+			foreach ( $data['templates'] as $i => $template ) {
+
+				// Set the template type to core.
+				$template['type'] = 'core';
+
+				// User templates don't have a "group" so we're faking groups by using categories.
+				$template['group'] = array();
+
+				foreach ( $template['category'] as $cat_slug => $cat_name ) {
+					if ( ! isset( $data['groups'][ $cat_slug ] ) ) {
+						$data['groups'][ $cat_slug ] = array(
+							'name' => $cat_name,
+							'categories' => array(),
+						);
+					}
+					$template['group'][] = $cat_slug;
+				}
+
+				$template['category'] = array(
+					'none' => '',
+				);
+				$data['templates'][ $i ] = $template;
+			}
 
 			if ( is_multisite() ) {
 				restore_current_blog();
 			}
 
 			return $data;
-		}
+
+		}// End if().
 
 		return false;
 	}
@@ -253,9 +281,7 @@ final class FLBuilderTemplatesOverride {
 					restore_current_blog();
 				}
 
-				FLBuilderModel::apply_user_template( $template, $args['append'] );
-
-				return true;
+				return FLBuilderModel::apply_user_template( $template, $args['append'] );
 			}
 		}
 

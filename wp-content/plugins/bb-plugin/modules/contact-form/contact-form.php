@@ -10,11 +10,12 @@ class FLContactFormModule extends FLBuilderModule {
 	 */
 	public function __construct() {
 		parent::__construct(array(
-			'name'				=> __( 'Contact Form', 'fl-builder' ),
-			'description'		=> __( 'A very simple contact form.', 'fl-builder' ),
-			'category'			=> __( 'Advanced Modules', 'fl-builder' ),
-			'editor_export'		=> false,
+			'name'           	=> __( 'Contact Form', 'fl-builder' ),
+			'description'    	=> __( 'A very simple contact form.', 'fl-builder' ),
+			'category'       	=> __( 'Actions', 'fl-builder' ),
+			'editor_export'  	=> false,
 			'partial_refresh'	=> true,
+			'icon'				=> 'editor-table.svg',
 		));
 
 		add_action( 'wp_ajax_fl_builder_email', array( $this, 'send_mail' ) );

@@ -1,3 +1,164 @@
+<h4>2.0.1.1 - 11/07/2017</h4>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Hotfix for a change in 2.0.1 that broke loading of the settings for the Subscribe Form module.</li>
+</ul>
+
+
+<h4>2.0.1 - 11/06/2017</h4>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fixed errors caused by settings config not completely loading on certain server setups.</li>
+	<li>Fixed PHP warnings when attachment meta doesn't have a width or height set.</li>
+</ul>
+
+<h4>2.0 - 11/01/2017</h4>
+<p><strong>Beaver Builder 2.0 is here!</strong></p>
+<p>Please note that 2.0 is currently only available from your My Account page or via remote update if you already have 2.0 installed. We'll be releasing remote updates for older versions of Beaver Builder within the next few weeks.</p>
+
+<h4>2.0-beta.3 - 10/31/2017</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Updated the help video for 2.0.</li>
+	<li>Added fl_row_resize_settings filter.</li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fixed various UI styling issues.</li>
+	<li>Fixed editing global rows not working properly.</li>
+	<li>Fixed template override settings not working on multisite.</li>
+	<li>Fixed repeater fields in nested forms not working.</li>
+	<li>Fixed stylesheets in the body tag not being parsed for responsive preview.</li>
+	<li>Fixed content panel showing during preview or unpinning during preview when not expected.</li>
+	<li>Fixed anchor links in the layout causing the builder to launch again after publish.</li>
+</ul>
+
+<h4>2.0-beta.2 - 10/12/2017</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Publish button now says 'Submit for Review' if a user doesn't have permission to publish.</li>
+	<li>Pinned settings are now responsive for smaller devices.</li>
+	<li>Moved WordPress widgets into their own group.</li>
+	<li>Moved Themer modules into their own group (coming in Themer 1.0.3).</li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fixed row actions being covered by modules when the row has no padding.</li>
+	<li>Fixed values in text inputs not being escaped which breaks the markup.</li>
+	<li>Fixed settings being dragged or resized so you can't access the drag handle anymore.</li>
+	<li>Fixed browser zoom triggering the action overflow menu when it shouldn't.</li>
+	<li>Fixed multiple issues with saving new templates.</li>
+	<li>Fixed styling issues with dark mode.</li>
+	<li>Fixed module aliases not showing in the content panel.</li>
+	<li>Fixed widgets not showing in the content panel.</li>
+</ul>
+
+<h4>2.0-beta.1 - 10/04/2017</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Added keyboard shortcut UI to the builder menu.</li>
+	<li>Reworked keyboard shortcut system to support displaying shortcuts with labels and modifier key symbols.</li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fixed various styling issues.</li>
+	<li>Fixed photo and video fields that aren't in node settings not showing saved data when opened again after the page is refreshed.</li>
+	<li>Fixed error when saving a template with no category set.</li>
+	<li>Fixed saved values for medium and responsive in dimension fields not showing when going back to edit a node.</li>
+	<li>Fixed module templates not showing in the content panel.</li>
+	<li>Fixed issue with module hover in the content panel being covered by siblings.</li>
+	<li>Fixed a major issue with secondary loops triggering the builder's content filter when they shouldn't. This caused a number of issues including an infinite loop in Themer and the incorrect posts being displayed on standard builder pages.</li>
+	<li>Fixed FLBuilder::render_query so it doesn't have to override $wp_query which was causing incorrect connection data for Themer layouts.</li>
+</ul>
+
+<h4>2.0-alpha.7 - 09/21/2017</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Added the ability to match posts in the loop settings by related taxonomy terms.</li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fixed page scrolling breaking when opening the main menu.</li>
+	<li>Fixed field connections not rendering in nested settings forms.</li>
+</ul>
+
+<h4>2.0-alpha.6.1 - 09/19/2017</h4>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fixed a bug with the option labels in select option groups not showing.</li>
+</ul>
+
+<h4>2.0-alpha.6 - 09/19/2017</h4>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fixed a bug breaking the Pods integration.</li>
+	<li>Fixed an issue causing the builder UI to break on SiteGround servers.</li>
+</ul>
+
+<h4>2.0-alpha.5 - 09/06/2017</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Settings panel tabs no longer become a drop-down menu when slim. Tabs that cannot fit into the available space are pushed into a menu.</li>
+	<li>You can now move between settings tabs with the keyboard shortcuts "CMD + Left Arrow" or "CMD + Right Arrow" (CTRL on Windows).</li>
+	<li>You can now reset row or column widths from the module overlay.</li>
+	<li>"CMD + i" (CTRL on Windows) shortcut will take you directly to module search.</li>
+	<li>Module search is now case-insensitive.</li>
+	<li>Duplicated items that appear off screen will now scroll into view.</li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fixed scrolling not working when hovering over the content panel and then back into the layout.</li>
+	<li>Hovering over the content panel should no longer cause screen jitter in Windows browsers.</li>
+	<li>Icon selector search/filter has been restored.</li>
+	<li>J, K, L, and ; keys now show content panel tabs even when the panel has been collapsed.</li>
+	<li>Dropping a row template into the layout immediately loads fonts.</li>
+	<li>Overriding core templates now works again when applying a template.<li>
+	<li>Fixed ACE editor resize causing incorrect cursor position.</li>
+	<li>Fixed multiple issues with pinning in Safari and Firefox.</li>
+</ul>
+
+<h4>2.0-alpha.4 - 08/29/2017</h4>
+<ul>
+	<li>A new slimmer version of the settings panels now opens when clicking to edit content.</li>
+	<li>Settings panels can now be resized to any size that you desire.</li>
+	<li>We'll remember the size and position you set for the settings panels even after reloading the page.</li>
+	<li>The content panel and settings can now be pinned together on either the left or right side of the screen. You can resize the pinned sidebar when you need a little more room.</li>
+	<li>You can now work with the toolbar or in the layout even when settings are open.</li>
+	<li>If settings are open and you take action anywhere else in the builder, we'll save and close them for you. This means you can edit one module and click to edit another without ever needing to click save in between.</li>
+	<li>Module search has been moved into the modules tab for more intuitive access.</li>
+</ul>
+
+<h4>2.0-alpha.3 - 08/07/2017</h4>
+<ul>
+	<li>Settings forms now load instantly! We've completely rewritten the settings forms in JavaScript so they don’t need to be loaded from the server anymore. The only time something needs to load is if you’re using a third party add-on that introduces legacy PHP fields. We’ll have docs on the new JavaScript settings APIs when 2.0 is released and hope that all major add-on authors will convert their fields to JavaScript so everything loads instantly! :)</li>
+	<li>Added an initial set of core row templates.</li>
+	<li>Various bug fixes and style tweaks.</li>
+</ul>
+
+<h4>2.0-alpha.2 - 07/24/2017</h4>
+<ul>
+	<li>Added the ability to duplicate columns.</li>
+	<li>Increased contrast to light and dark UI modes.</li>
+	<li>Added module icons.</li>
+	<li>Restyled content group selector.</li>
+	<li>Reworked how group labels are displayed in search results.</li>
+	<li>Style hardening for GeneratePress theme.</li>
+	<li>Publishing out of the builder now moves the history state and updates the url. Re-entering will move back.</li>
+</ul>
+
+<h4>1.10.9.2 10/26/17</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Fixed error when saving column settings after deleting a row.</li>
+	<li>Fixed post module pagination not working if multiple post modules are on the same page.</li>
+</ul>
+
+<h4>1.10.9.1 10/12/17</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Fixed hide page title in global settings.</li>
+</ul>
+
 <h4>1.10.9 10/10/17</h4>
 <p><strong>Enhancements</strong></p>
 <ul>
@@ -149,8 +310,8 @@
 </ul>
 <p><strong>Bug Fixes</strong></p>
 <ul>
-    <li>Removed the new core media widgets from the builder since they don’t work in the builder and we have modules that do the same thing.</li>
-    <li>Fixed the core text widget form in the builder so the legacy form loads since the new form in 4.8 doesn’t. The text widget is also removed from the module list in favor of the Text Editor and HTML modules. Sites previously using the text widget will still render and they can still be edited, they just won’t be able to add new text widgets.</li>
+    <li>Removed the new core media widgets from the builder since they donâ€™t work in the builder and we have modules that do the same thing.</li>
+    <li>Fixed the core text widget form in the builder so the legacy form loads since the new form in 4.8 doesnâ€™t. The text widget is also removed from the module list in favor of the Text Editor and HTML modules. Sites previously using the text widget will still render and they can still be edited, they just wonâ€™t be able to add new text widgets.</li>
     <li>Fixed Slideshow module not showing in the Tabs module.</li>
     <li>Fixed JS error in Row > Background > Slideshow  on touch-enabled devices.</li>
     <li>Increased the video ratio to 16:9 to fix the top/bottom black border on responsive layout.</li>
@@ -300,15 +461,15 @@
 </ul>
 <p><strong>Post Module Enhancements</strong></p>
 <ul>
-	<li>Added “columns” layout to the layout setting.</li>
+	<li>Added â€œcolumnsâ€ layout to the layout setting.</li>
 	<li>Added more layout and styling settings.</li>
-	<li>The “no results” message is now shown when no posts are found.</li>
+	<li>The â€œno resultsâ€ message is now shown when no posts are found.</li>
 	<li>Added a setting to show a search form if no posts are found.</li>
 	<li>Added the ability to exclude posts in the content filter for the query.</li>
 </ul>
 <p><strong>Menu Module Enhancements</strong></p>
 <ul>
-	<li>Added “below row" option for mobile menu position.</li>
+	<li>Added â€œbelow row" option for mobile menu position.</li>
 	<li>Added font family setting.</li>
 	<li>Misc CSS improvements.</li>
 </ul>
@@ -352,7 +513,7 @@
 <h4>1.9.5.1 - 3/21/2017</h4>
 <p><strong>Bug Fixes</strong></p>
 <ul>
-	<li>Rolled back change in 1.9.5 that fixed some photos not going full width on mobile. That was causing all photos to go full width on mobile even when not intended. We’ll revisit that fix in 1.10.</li>
+	<li>Rolled back change in 1.9.5 that fixed some photos not going full width on mobile. That was causing all photos to go full width on mobile even when not intended. Weâ€™ll revisit that fix in 1.10.</li>
 </ul>
 
 <h4>1.9.5 - 3/20/2017</h4>

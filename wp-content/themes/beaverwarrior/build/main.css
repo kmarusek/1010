@@ -2455,7 +2455,14 @@ button {
   border-radius: 20px;
 }
 .SiteHeader-search_button {
+  background: transparent;
+  border-width: 0px;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  padding: 0;
   margin: 0;
+  font-size: 0;
 }
 .SiteHeader-search_button:before {
   content: "\EA0B";

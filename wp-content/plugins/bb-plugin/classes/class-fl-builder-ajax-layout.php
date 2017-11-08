@@ -87,7 +87,10 @@ final class FLBuilderAJAXLayout {
 			}
 
 			// Return the response.
-			return self::render( $row->node );
+			return array(
+				'layout' => self::render( $row->node ),
+				'config' => FLBuilderUISettingsForms::get_node_js_config(),
+			);
 		} // End if().
 		else {
 
@@ -176,6 +179,19 @@ final class FLBuilderAJAXLayout {
 	}
 
 	/**
+	 * Renders the layout data for a copied column.
+	 *
+	 * @since 2.0
+	 * @param string $node_id The ID of a column to copy.
+	 * @return array
+	 */
+	static public function copy_col( $node_id ) {
+		$col = FLBuilderModel::copy_col( $node_id );
+
+		return self::render( $col->node );
+	}
+
+	/**
 	 * Renders the layout data for a new module.
 	 *
 	 * @since 1.7
@@ -203,9 +219,6 @@ final class FLBuilderAJAXLayout {
 			$module   = FLBuilderModel::add_default_module( $parent_id, $type, $position, $defaults );
 		}
 
-		// Render the new module's settings.
-		$settings = FLBuilder::render_module_settings( $module->node, $module->settings->type, $module->parent, false );
-
 		// Maybe render the module's parent for a partial refresh?
 		if ( $module->partial_refresh ) {
 
@@ -230,8 +243,13 @@ final class FLBuilderAJAXLayout {
 
 		// Return the response.
 		return array(
-			'layout' 	 => self::render( $render_id ),
-			'settings'   => $settings['settings'],
+			'type' 		=> $module->settings->type,
+			'nodeId' 	=> $module->node,
+			'parentId' 	=> $module->parent,
+			'global'	=> FLBuilderModel::is_node_global( $module ),
+			'layout' 	=> self::render( $render_id ),
+			'settings'	=> null === $template_id ? null : $module->settings,
+			'legacy'	=> FLBuilderUISettingsForms::pre_render_legacy_module_settings( $module->settings->type, $module->settings ),
 		);
 	}
 
@@ -531,7 +549,30 @@ final class FLBuilderAJAXLayout {
 		global $wp_scripts;
 		global $wp_styles;
 
-		$scripts_styles	= '';
+		$partial_refresh_data 	= self::get_partial_refresh_data();
+		$modules				= array();
+		$scripts_styles			= '';
+
+		// Enqueue module font styles.
+		if ( ! $partial_refresh_data['is_partial_refresh'] ) {
+			$modules = FLBuilderModel::get_all_modules();
+		} elseif ( 'module' !== $partial_refresh_data['node']->type ) {
+			$nodes = FLBuilderModel::get_nested_nodes( $partial_refresh_data['node'] );
+			foreach ( $nodes as $node ) {
+				if ( 'module' === $node->type && isset( FLBuilderModel::$modules[ $node->settings->type ] ) ) {
+					$node->form = FLBuilderModel::$modules[ $node->settings->type ]->form;
+					$modules[] = $node;
+				}
+			}
+		} else {
+			$modules = array( $partial_refresh_data['node'] );
+		}
+
+		foreach ( $modules as $module ) {
+			FLBuilderFonts::add_fonts_for_module( $module );
+		}
+
+		FLBuilderFonts::enqueue_styles();
 
 		// Start the output buffer.
 		ob_start();

@@ -12,9 +12,10 @@ class FLPostGridModule extends FLBuilderModule {
 		parent::__construct(array(
 			'name'          	=> __( 'Posts', 'fl-builder' ),
 			'description'   	=> __( 'Display a grid of your WordPress posts.', 'fl-builder' ),
-			'category'      	=> __( 'Advanced Modules', 'fl-builder' ),
+			'category'      	=> __( 'Posts', 'fl-builder' ),
 			'editor_export' 	=> false,
 			'partial_refresh'	=> true,
+			'icon'				=> 'schedule.svg',
 		));
 	}
 

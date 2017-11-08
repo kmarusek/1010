@@ -85,6 +85,7 @@ final class FLBuilderLoop {
 	 */
 	static public function query( $settings ) {
 		$settings = apply_filters( 'fl_builder_loop_before_query_settings', $settings );
+
 		do_action( 'fl_builder_loop_before_query', $settings );
 
 		// Count how many times this method has been called
@@ -207,33 +208,72 @@ final class FLBuilderLoop {
 		foreach ( $taxonomies as $tax_slug => $tax ) {
 
 			$tax_value = '';
+			$term_ids  = array();
 			$operator  = 'IN';
 
-			// Set to NOT IN if matching is present and set to 0.
-			if ( isset( $settings->{'tax_' . $post_type . '_' . $tax_slug . '_matching'} ) ) {
-				if ( ! $settings->{'tax_' . $post_type . '_' . $tax_slug . '_matching'} ) {
-					$operator = 'NOT IN';
-				}
-			}
-
-			// New settings slug.
+			// Get the value of the suggest field.
 			if ( isset( $settings->{'tax_' . $post_type . '_' . $tax_slug} ) ) {
+				// New style slug.
 				$tax_value = $settings->{'tax_' . $post_type . '_' . $tax_slug};
-			} // End if().
-			elseif ( isset( $settings->{'tax_' . $tax_slug} ) ) {
+			} elseif ( isset( $settings->{'tax_' . $tax_slug} ) ) {
+				// Old style slug for backwards compat.
 				$tax_value = $settings->{'tax_' . $tax_slug};
 			}
 
+			// Get the term IDs array.
 			if ( ! empty( $tax_value ) ) {
+				$term_ids = explode( ',', $tax_value );
+			}
+
+			// Handle matching settings.
+			if ( isset( $settings->{'tax_' . $post_type . '_' . $tax_slug . '_matching'} ) ) {
+
+				$tax_matching = $settings->{'tax_' . $post_type . '_' . $tax_slug . '_matching'};
+
+				if ( ! $tax_matching ) {
+					// Do not match these terms.
+					$operator = 'NOT IN';
+				} elseif ( 'related' === $tax_matching ) {
+					// Match posts by related terms from the global post.
+					global $post;
+					$terms 	 = wp_get_post_terms( $post->ID, $tax_slug );
+					$related = array();
+
+					foreach ( $terms as $term ) {
+						if ( ! in_array( $term->term_id, $term_ids ) ) {
+							$related[] = $term->term_id;
+						}
+					}
+
+					if ( empty( $related ) ) {
+						// If no related terms, match all except those in the suggest field.
+						$operator = 'NOT IN';
+					} else {
+
+						// Don't include posts with terms selected in the suggest field.
+						$args['tax_query'][] = array(
+							'taxonomy'	=> $tax_slug,
+							'field'		=> 'id',
+							'terms'		=> $term_ids,
+							'operator'  => 'NOT IN',
+						);
+
+						// Set the term IDs to the related terms.
+						$term_ids = $related;
+					}
+				}
+			}// End if().
+
+			if ( ! empty( $term_ids ) ) {
 
 				$args['tax_query'][] = array(
 					'taxonomy'	=> $tax_slug,
 					'field'		=> 'id',
-					'terms'		=> explode( ',', $tax_value ),
+					'terms'		=> $term_ids,
 					'operator'  => $operator,
 				);
 			}
-		}
+		}// End foreach().
 
 		// Post in/not in query.
 		if ( isset( $settings->{'posts_' . $post_type} ) ) {
@@ -287,10 +327,6 @@ final class FLBuilderLoop {
 	 * @return void
 	 */
 	static public function init_rewrite_rules() {
-		$custom_paged = self::get_custom_paged();
-		if ( empty( $custom_paged ) && ! is_admin() ) {
-			return;
-		}
 
 		$fronts = self::get_rewrite_fronts();
 		$paged_regex = self::$paged_regex_base;
@@ -317,9 +353,6 @@ final class FLBuilderLoop {
 
 			// Post single - Numeric permastruct (/archives/%post_id%)
 			$fronts['default'] . '([0-9]+)/' . $paged_regex . '/?([0-9]{1,})/?$' => 'index.php?p=$matches[1]&flpaged=$matches[2]',
-
-			// CPT single
-			'(.+?)/([^/]+)/' . $paged_regex . '/?([0-9]{1,})/?$' => 'index.php?post_type=$matches[1]&name=$matches[2]&flpaged=$matches[3]',
 
 			// Page
 			'(.?.+?)/' . $paged_regex . '/?([0-9]{1,})/?$' => 'index.php?pagename=$matches[1]&flpaged=$matches[2]',
@@ -966,6 +999,8 @@ final class FLBuilderLoop {
 		if ( ! isset( $field['matching'] ) || ! $field['matching'] ) {
 			return;
 		}
+
+		$label = strtolower( $field['label'] );
 
 		if ( ! isset( $settings->{ $name . '_matching' } ) ) {
 			$settings->{ $name . '_matching' } = '1';
