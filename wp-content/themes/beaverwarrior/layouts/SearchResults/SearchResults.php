@@ -1,7 +1,9 @@
 <main class="SearchResults">
     <div class="SearchResults-content">
-
-			<?php FLTheme::archive_page_header(); ?>
+        <header class="SearchResults-header">
+            <?php FLTheme::archive_page_header(); ?>
+            <?php get_search_form(); ?>
+        </header>
         <?php if ( have_posts() ) : ?>
             <?php while (have_posts()) {
                 the_post(); ?>
