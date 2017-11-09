@@ -4621,6 +4621,12 @@ button.StaffGrid-item {
 .Article-body .fl-row-content-wrap {
   margin: 0 -15px !important;
 }
+@media (min-width: 768px) {
+  .Article-header--overview {
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+}
 .ContactPage-content {
   margin-left: 15px;
   margin-right: 15px;
