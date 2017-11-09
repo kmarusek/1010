@@ -23,7 +23,7 @@ $linkedin = "https://www.linkedin.com/shareArticle?url=" . $url . "&title=" . $t
 
         <main <?php post_class("fl-post Article Article--full"); ?> id="fl-post-<?php the_ID(); ?>" itemscope="itemscope" itemtype="http://schema.org/BlogPosting">
             <div class="Article-body">
-                <header class="fl-post-header Article-header--overview">
+                <header class="fl-post-header">
                     <h1 class="fl-post-title" itemprop="headline">
                         <?php the_title(); ?>
                         <?php edit_post_link( _x( 'Edit', 'Edit post link text.', 'fl-automator' ) ); ?>
