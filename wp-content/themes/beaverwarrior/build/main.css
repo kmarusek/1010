@@ -4627,6 +4627,13 @@ button.StaffGrid-item {
     margin-right: -15px;
   }
 }
+.fl-widget.widget_search form {
+  float: none;
+  height: 36px;
+}
+.fl-widget.widget_search .SiteHeader-form_item {
+  width: 100%;
+}
 .ContactPage-content {
   margin-left: 15px;
   margin-right: 15px;
