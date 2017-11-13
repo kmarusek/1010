@@ -1,0 +1,21 @@
+== 2.0.3 ==
+Release date: November 9, 2017
+* Fix: Content Grid equal height issue in Safari
+* Fix: Caption was appearing twice in Filterable Gallery module
+* Fix: Subscribe Form settings were not loading in Beaver Builder 2.0
+* Fix: Fatal error with Beaver Builder 2.0 on some servers
+
+== 2.0.2 ==
+Release date: November 7, 2017
+* New: WPML integration
+
+== 2.0.1 ==
+Release date: November 3, 2017
+* Fix: Custom color fields in module settings
+* Fix: Removed Quick Preview option since it's no longer required in Beaver Builder 2.0
+* Fix: Removed Panel Search option since it's no longer required in Beaver Builder 2.0
+
+== 2.0 ==
+Release date: November 2, 2017
+* Initial release
+* PowerPack 2.0 for Beaver Builder 2.0 is available only through “My Account” download area on the website. Automatic updates for PowerPack 1.x users will be available in coming days.
