@@ -7,7 +7,8 @@ function skeleton_warrior_register_page_border($wp_customize) {
         $wp_customize,
         'skeleton_warrior_pagecolor',
         array(
-            'label' => __('Default Page Color', 'skeleton_warrior'),
+            'label' => __('Background Contrast Class', 'skeleton_warrior'),
+            'description' => __('Select which contrast option fits your selected background image and color the best.', 'skeleton_warrior'),
             'section' => 'fl-body-bg',
             'settings' => 'skeleton_warrior_pagecolor',
             'type' => 'radio',
