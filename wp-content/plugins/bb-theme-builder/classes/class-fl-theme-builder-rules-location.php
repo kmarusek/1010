@@ -124,6 +124,7 @@ final class FLThemeBuilderRulesLocation {
 			$location = 'taxonomy:' . get_query_var( 'taxonomy' );
 
 			if ( is_object( $queried_object ) ) {
+				$location = 'taxonomy:' . $queried_object->taxonomy;
 				$object = $location . ':' . $queried_object->term_id;
 			}
 		} elseif ( is_object( $post ) && is_post_type_archive() ) {
@@ -290,7 +291,7 @@ final class FLThemeBuilderRulesLocation {
 			}
 
 			// Check for an all archives layout.
-			if ( ( empty( $posts ) || $is_part ) && ( is_archive() || is_home() ) ) {
+			if ( ( empty( $posts ) || $is_part ) && ( is_archive() || is_home() || is_search() ) ) {
 				foreach ( $array as $post ) {
 					if ( in_array( 'general:archive', $post['locations'] ) ) {
 						$posts[] = $post;
@@ -320,7 +321,9 @@ final class FLThemeBuilderRulesLocation {
 						foreach ( $post['locations'] as $post_location ) {
 							if ( stristr( $post_location, ':taxonomy:' ) ) {
 								$parts = explode( ':', $post_location );
-								if ( 4 === count( $parts ) || has_term( $parts[4], $parts[3] ) ) {
+								if ( 4 === count( $parts ) && has_term( '', $parts[3] ) ) {
+									$posts[] = $post;
+								} elseif ( 5 === count( $parts ) && has_term( $parts[4], $parts[3] ) ) {
 									$posts[] = $post;
 								}
 							}

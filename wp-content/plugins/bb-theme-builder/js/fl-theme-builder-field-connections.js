@@ -497,8 +497,9 @@
 			if ( $( '.fl-form-field-settings:visible' ).length ) {
 				return;
 			}
-
-			FLBuilder.preview.delayPreview( e );
+			if( FLBuilder.preview ) {
+				FLBuilder.preview.delayPreview( e );
+			}
 		}
 	};
 

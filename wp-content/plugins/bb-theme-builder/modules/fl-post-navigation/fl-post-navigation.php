@@ -13,7 +13,8 @@ class FLPostNavigationModule extends FLBuilderModule {
 		parent::__construct(array(
 			'name'          	=> __( 'Post Navigation', 'fl-theme-builder' ),
 			'description'   	=> __( 'Displays the next / previous post navigation links.', 'fl-theme-builder' ),
-			'category'      	=> __( 'Post Modules', 'fl-theme-builder' ),
+			'group'       		=> __( 'Themer Modules', 'fl-theme-builder' ),
+			'category'      	=> __( 'Posts', 'fl-theme-builder' ),
 			'partial_refresh'	=> true,
 			'dir'               => FL_THEME_BUILDER_DIR . 'modules/fl-post-navigation/',
 			'url'               => FL_THEME_BUILDER_URL . 'modules/fl-post-navigation/',
