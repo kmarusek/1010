@@ -2776,7 +2776,7 @@ final class FLBuilderModel {
 				$data->isWidget = true; // @codingStandardsIgnoreLine
 				$data->isAlias = false; // @codingStandardsIgnoreLine
 				$data->description = isset( $widget->widget_options['description'] ) ? $widget->widget_options['description'] : '';
-				$data->group = array( 'wordpresswidgets' );
+				$data->group = array( strtolower( str_replace( ' ', '', __( 'WordPress Widgets', 'fl-builder' ) ) ) );
 
 				if ( ! isset( $widget->icon ) ) {
 					$data->icon = FLBuilderModule::get_widget_icon();
@@ -3188,7 +3188,7 @@ final class FLBuilderModel {
 			if ( in_array( $class, $exclude ) ) {
 				continue;
 			}
-			$widget->class            = get_class( $widget );
+			$widget->class            = $class;
 			$widget->isWidget         = true; // @codingStandardsIgnoreLine
 			$widget->category         = __( 'WordPress Widgets', 'fl-builder' );
 			$widgets[ $widget->name ] = $widget;

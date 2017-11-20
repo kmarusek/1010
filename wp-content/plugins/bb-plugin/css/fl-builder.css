@@ -1639,7 +1639,6 @@ span.fl-builder-block-no-node-templates:hover {
 	text-decoration: none;
 	color:inherit;
 	text-align: center;
-	text-transform: capitalize !important;
 	letter-spacing: normal !important;
 	padding:5px;
 	cursor: pointer;
@@ -1724,7 +1723,6 @@ span.fl-builder-block-no-node-templates:hover {
     background: none;
 	border: 2px solid #e4e7ea;
 	border-radius: 4px;
-	text-transform: capitalize;
 	font-family: inherit;
 }
 .fl-builder--selector-display-label:hover,
@@ -1822,7 +1820,6 @@ button.fl-builder-button.fl-builder-bar-title-caret:focus {
 	text-decoration: none;
 	background:transparent !important;
 	border: 2px solid transparent !important;
-	text-transform: capitalize;
 	font-weight: normal;
 	font-family: inherit;
 }
@@ -3556,7 +3553,6 @@ body .fl-lightbox-has-tab-overflow .fl-builder-settings-tabs-more {
 }
 .wp-core-ui button {
 	font-weight: normal;
-	text-transform: capitalize;
 }
 .wp-core-ui textarea,
 .wp-core-ui input[type=text],

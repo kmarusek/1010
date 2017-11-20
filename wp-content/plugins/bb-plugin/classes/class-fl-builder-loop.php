@@ -1000,7 +1000,7 @@ final class FLBuilderLoop {
 			return;
 		}
 
-		$label = strtolower( $field['label'] );
+		$label = FLBuilderUtils::strtolower( $field['label'] );
 
 		if ( ! isset( $settings->{ $name . '_matching' } ) ) {
 			$settings->{ $name . '_matching' } = '1';

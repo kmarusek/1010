@@ -658,7 +658,12 @@ final class FLBuilder {
 			}
 
 			// Dynamically generated settings config for the current page.
-			wp_enqueue_script( 'fl-builder-ui-settings-config', FLBuilderModel::get_edit_url( $wp_the_query->post->ID ) . '&fl_builder_load_settings_config', array(), $ver, true );
+			// Add to <head> via js.
+			$url    = FLBuilderModel::get_edit_url( $wp_the_query->post->ID ) . '&fl_builder_load_settings_config';
+			$script = sprintf( 'var s = document.createElement("script");s.type = "text/javascript";s.src = "%s";document.head.appendChild(s);', $url );
+
+			wp_add_inline_script( 'fl-builder', $script );
+			wp_add_inline_script( 'fl-builder-min', $script );
 
 			/* Additional module styles and scripts */
 			foreach ( FLBuilderModel::$modules as $module ) {
@@ -1165,7 +1170,7 @@ final class FLBuilder {
 				if ( $is_mac ) {
 					$code = str_replace( 'mod', 'command', $code );
 				} else {
-					$code = str_replace( 'mod', 'Ctrl', $code );
+					$code = str_replace( 'mod', 'Ctrl+', $code );
 				}
 			}
 

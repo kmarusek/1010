@@ -31,7 +31,7 @@
             // create a new object with this object as it's prototype.
             var obj = Object.create(this);
             // mix any given properties into it
-            obj = Object.assign(obj, mixin);
+            obj = $.extend(obj, mixin);
 
             $(this).trigger('onCreate');
 
