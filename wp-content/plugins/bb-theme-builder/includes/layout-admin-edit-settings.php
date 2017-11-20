@@ -40,7 +40,7 @@
 	<tr class="fl-mb-row fl-theme-layout-order-row">
 		<td  class="fl-mb-row-heading">
 			<label><?php _e( 'Order', 'fl-theme-builder' ); ?></label>
-			<i class="fl-mb-row-heading-help dashicons dashicons-editor-help" title="<?php esc_html_e( 'The order of this Theme Layout when others are present.', 'fl-theme-builder' ); ?>"></i>
+			<i class="fl-mb-row-heading-help dashicons dashicons-editor-help" title="<?php esc_html_e( 'The order of this Themer layout when others are present.', 'fl-theme-builder' ); ?>"></i>
 		</td>
 		<td class="fl-mb-row-content">
 			<input name="fl-theme-layout-order" type="number" value="<?php echo ( '' == $order ? 0 : $order ); ?>" />

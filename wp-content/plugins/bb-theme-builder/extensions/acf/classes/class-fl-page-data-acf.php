@@ -71,7 +71,13 @@ final class FLPageDataACF {
 				if ( isset( $object['date_format'] ) && ! isset( $object['return_format'] ) ) {
 					$format  = self::js_date_format_to_php( $object['display_format'] );
 					$date    = DateTime::createFromFormat( 'Ymd',  $object['value'] );
-					$content = $date->format( $format );
+
+					// Only pass to format() if vaid date, DateTime returns false if not valid.
+					if ( $date ) {
+						$content = $date->format( $format );
+					} else {
+						$content = '';
+					}
 				} else {
 					$content = isset( $object['value'] ) ? $object['value'] : '';
 				}
@@ -91,6 +97,9 @@ final class FLPageDataACF {
 				break;
 			case 'file':
 				$content = self::get_file_url_from_object( $object );
+				break;
+			case 'true_false':
+				$content = ( $object['value'] ) ? '1' : '0';
 				break;
 			default:
 				$content = '';

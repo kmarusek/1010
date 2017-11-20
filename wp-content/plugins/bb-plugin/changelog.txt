@@ -1,9 +1,24 @@
+<h4>2.0.2 - 11/16/2017</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Added <code>fl_builder_cache_cleared</code> action.</li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fixed settings config not loading when query strings are removed from script URLs.</li>
+	<li>Fixed widgets not showing when site language is not in English.</li>
+	<li>Fixed error when using namespaced widgets.</li>
+	<li>Fixed JS errors in IE.</li>
+	<li>Fixed keyboard shortcut formatting in IE.</li>
+	<li>Fixed capitalization issues with translations.</li>
+	<li>Fixed character encoding issues with strtolower.</li>
+</ul>
+
 <h4>2.0.1.1 - 11/07/2017</h4>
 <p><strong>Bug Fixes</strong></p>
 <ul>
 	<li>Hotfix for a change in 2.0.1 that broke loading of the settings for the Subscribe Form module.</li>
 </ul>
-
 
 <h4>2.0.1 - 11/06/2017</h4>
 <p><strong>Bug Fixes</strong></p>

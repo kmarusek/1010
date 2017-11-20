@@ -1,3 +1,32 @@
+<h4>1.0.3 - 11/14/2017</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li><code>wpbb-else</code> support added to <code>wpbb</code> shortcode.</li>
+	<li>Added support for ACF true/false field.</li>
+	<li>All Archives now applies to search archives.</li>
+	<li>Added modified date as an option in post properties. Also supports Human time diff ( 3 days ago ).</li>
+	<li>Renamed module categories and added group data for 2.0 support.</li>
+	<li>Added settings for unlinking terms list connections.</li>
+</ul>
+
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fixed an issue with WooCommerce filter widgets.</li>
+	<li>Fixed post content connection not showing for the posts module on normal pages.</li>
+	<li>Fixed price font size and color being overridden by WooCommerce CSS.</li>
+	<li>Fixed location issue, post all categories was matching when on a child page.</li>
+	<li>Fixed header layout options when using Storefront theme.</li>
+	<li>Fixed author image connection showing wring image on pages.</li>
+	<li>Fixed a conflict with PDF Product Vouchers plugin.</li>
+	<li>Fixed pagination issue on Events Calendar pages.</li>
+	<li>Fixed JS error when trying to connect a setting on global options forms.</li>
+	<li>Fixed parts being either not editable or duplicated when set to logged in/out location.</li>
+	<li>Fixed ACF date field connection throwing fatal error if no date is set.</li>
+	<li>Fixed duplicated parts when editing a layout.</li>
+	<li>Fixed hidden breadcrumbs when using Storefront theme.</li>
+	<li>Fixed PHP warning in admin menu on windows server.</li>
+</ul>
+
 <h4>1.0.2.1 - 09/05/2017</h4>
 <p><strong>Bug Fixes</strong></p>
 <ul>
