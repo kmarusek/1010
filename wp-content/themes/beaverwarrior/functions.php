@@ -333,3 +333,9 @@ function beaver_warrior_theme_support() {
     add_theme_support("post-thumbnails");
 }
 add_action("after_setup_theme", "beaver_warrior_theme_support");
+
+//Queue our LESS for inclusion with the BB Customizer
+function beaver_warrior_less_paths($paths) {
+    $paths[] = FL_CHILD_THEME_DIR . "/stylesheets/main.less";
+}
+add_action("fl_theme_compile_less_paths", "beaver_warrior_less_paths");
