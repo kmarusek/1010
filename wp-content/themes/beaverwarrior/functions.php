@@ -5,6 +5,8 @@ define( 'FL_CHILD_THEME_URL', get_stylesheet_directory_uri() );
 
 // Classes
 require_once 'classes/class-fl-child-theme.php';
+require_once 'classes/lessc.inc.php';
+require_once 'classes/class-bw-customizer-less.php';
 
 // Actions
 add_action( 'wp_enqueue_scripts', 'FLChildTheme::enqueue_scripts', 1000 );
@@ -97,7 +99,8 @@ function get_template_layout($layout, $slug = null, $name = null, $args = array(
 }
 
 function skeletonwarrior_enqueue_scripts() {
-    wp_register_style('main', get_stylesheet_directory_uri() . '/build/main.css', false, null, "all");
+    //wp_register_style('main', get_stylesheet_directory_uri() . '/build/main.css', false, null, "all");
+    wp_register_style('main', BWCustomizerLess::css_url(), false, null, "all");
     wp_register_script('scripts', get_stylesheet_directory_uri() . '/build/script.js', array('jquery'), null, true);
     
     //Vendored copy of Slick Slider
@@ -334,10 +337,17 @@ function beaver_warrior_theme_support() {
 }
 add_action("after_setup_theme", "beaver_warrior_theme_support");
 
-//Queue our LESS for inclusion with the BB Customizer
-function beaver_warrior_less_paths($paths) {
-    $paths[] = FL_CHILD_THEME_DIR . "/stylesheets/main.less";
-
-    return $paths;
+//Disable BB's builtin less compiler (we're replacing it lols)
+function beaver_warrior_less_paths($lesssrc) {
+    return [];
 }
 add_action("fl_theme_compile_less_paths", "beaver_warrior_less_paths");
+
+// Theme Actions
+add_action( 'after_switch_theme',    'BWCustomizerLess::refresh_css' );
+// Customizer
+add_action( 'customize_preview_init',                    'BWCustomizerLess::preview_init' );
+add_action( 'customize_controls_enqueue_scripts',        'BWCustomizerLess::controls_enqueue_scripts' );
+add_action( 'customize_controls_print_footer_scripts',   'BWCustomizerLess::controls_print_footer_scripts' );
+//add_action( 'customize_register',                        'BWCustomizerLess::register' );
+add_action( 'customize_save_after',                      'BWCustomizerLess::save' );
