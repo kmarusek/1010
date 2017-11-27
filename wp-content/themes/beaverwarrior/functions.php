@@ -100,7 +100,7 @@ function get_template_layout($layout, $slug = null, $name = null, $args = array(
 
 function skeletonwarrior_enqueue_scripts() {
     //wp_register_style('main', get_stylesheet_directory_uri() . '/build/main.css', false, null, "all");
-    wp_register_style('main', BWCustomizerLess::css_url(), false, null, "all");
+    wp_register_style('main', BWCustomizerLess::css_url(), array("bootstrap"), null, "all");
     wp_register_script('scripts', get_stylesheet_directory_uri() . '/build/script.js', array('jquery'), null, true);
     
     //Vendored copy of Slick Slider
