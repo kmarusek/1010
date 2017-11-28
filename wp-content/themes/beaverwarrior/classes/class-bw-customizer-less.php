@@ -884,7 +884,6 @@ final class BWCustomizerLess {
 
        //Imports
        $less->addImportDir(FL_CHILD_THEME_DIR . '/stylesheets');
-       die (FL_CHILD_THEME_DIR . "/stylesheets");
 
 		// Compile and return
 		return $less->compile( $mixins . $less_vars . $css );

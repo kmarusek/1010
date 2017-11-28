@@ -342,6 +342,7 @@ function beaver_warrior_less_paths($lesssrc) {
     return [];
 }
 add_action("fl_theme_compile_less_paths", "beaver_warrior_less_paths");
+die (FL_CHILD_THEME_DIR . "/stylesheets");
 
 // Theme Actions
 add_action( 'after_switch_theme',    'BWCustomizerLess::refresh_css' );
