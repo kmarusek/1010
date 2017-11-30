@@ -15,10 +15,11 @@ final class FLBuilderWhiteLabel {
 		add_filter( 'wp_prepare_themes_for_js',  __CLASS__ . '::themes_page' );
 		add_filter( 'all_themes',                __CLASS__ . '::network_themes_page' );
 		add_filter( 'update_right_now_text',     __CLASS__ . '::admin_dashboard_page' );
-		add_filter( 'gettext',                   __CLASS__ . '::theme_gettext' );
-		add_filter( 'gettext',                   __CLASS__ . '::plugin_gettext' );
+		add_filter( 'gettext',                   __CLASS__ . '::theme_gettext', 10, 3 );
+		add_filter( 'gettext',                   __CLASS__ . '::plugin_gettext', 10, 3 );
 		add_filter( 'fl_plugin_info_data',       __CLASS__ . '::fl_plugin_info', 10, 2 );
 		add_action( 'customize_render_section',  __CLASS__ . '::theme_customizer' );
+		add_action( 'admin_enqueue_scripts',     __CLASS__ . '::updates_core' );
 
 		if ( is_admin() && isset( $_REQUEST['page'] ) && in_array( $_REQUEST['page'], array( 'fl-builder-settings', 'fl-builder-multisite-settings' ) ) ) {
 			add_action( 'admin_enqueue_scripts',                     __CLASS__ . '::enqueue_scripts' );
@@ -27,6 +28,7 @@ final class FLBuilderWhiteLabel {
 			add_action( 'fl_builder_admin_settings_save',            __CLASS__ . '::save_branding_settings' );
 			add_action( 'fl_builder_admin_settings_save',            __CLASS__ . '::save_help_button_settings' );
 		}
+
 	}
 
 	/**
@@ -288,6 +290,24 @@ final class FLBuilderWhiteLabel {
 	}
 
 	/**
+	 * Replace branded theme screenshot in updates-core.php
+	 * @since 2.0.3
+	 */
+	static public function updates_core() {
+		global $pagenow;
+
+		if ( 'update-core.php' == $pagenow ) {
+			$theme_data = self::get_theme_branding();
+			$theme_root = get_theme_root_uri();
+			$default    = sprintf( '%s/bb-theme/screenshot.png', $theme_root );
+			$branded    = $theme_data['screenshot_url'];
+			if ( $branded ) {
+				wp_add_inline_script( 'updates', "var _fl_default = '$default', _fl_branded = '$branded';jQuery('#update-themes-table .plugins tr').each(function(){img = jQuery(this).find('.updates-table-screenshot');if( img.attr('src') === _fl_default ) {img.attr('src', _fl_branded)}})" );
+			}
+		}
+	}
+
+	/**
 	 * White labels the builder theme on the network admin themes page.
 	 *
 	 * @since 1.8.1
@@ -364,8 +384,8 @@ final class FLBuilderWhiteLabel {
 	 * @since 1.6.4.4
 	 * @return string
 	 */
-	static public function theme_gettext( $text ) {
-		if ( is_admin() && 'Beaver Builder Theme' == $text ) {
+	static public function theme_gettext( $text, $original, $domain ) {
+		if ( is_admin() && 'Beaver Builder Theme' == $original ) {
 
 			$theme_data = self::get_theme_branding();
 
@@ -384,13 +404,13 @@ final class FLBuilderWhiteLabel {
 	 * @since 1.10.8.2
 	 * @return string
 	 */
-	static public function plugin_gettext( $text ) {
+	static public function plugin_gettext( $text, $original, $domain ) {
 		global $pagenow;
 
 		if ( is_admin()
 			&& 'update-core.php' == $pagenow
-			&& 'Beaver Builder Plugin (Lite Version)' !== $text
-			&& false !== strpos( $text, 'Beaver Builder Plugin' ) ) {
+			&& 'Beaver Builder Plugin (Lite Version)' !== $original
+			&& false !== strpos( $original, 'Beaver Builder Plugin' ) ) {
 			$brand = FLBuilderModel::get_branding();
 			if ( 'Page Builder' !== $brand ) {
 				$text = $brand;

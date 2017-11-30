@@ -47,8 +47,8 @@ final class FLBuilder {
 		/* Actions */
 		add_action( 'plugins_loaded',                               __CLASS__ . '::load_plugin_textdomain' );
 		add_action( 'send_headers',                                 __CLASS__ . '::no_cache_headers' );
-		add_action( 'wp',                                           __CLASS__ . '::init_ui', 11 );
 		add_action( 'wp',                                           __CLASS__ . '::render_settings_config', 11 );
+		add_action( 'wp',                                           __CLASS__ . '::init_ui', 11 );
 		add_action( 'wp',                                           __CLASS__ . '::rich_edit' );
 		add_action( 'wp_enqueue_scripts',                           __CLASS__ . '::register_layout_styles_scripts' );
 		add_action( 'wp_enqueue_scripts',                           __CLASS__ . '::enqueue_ui_styles_scripts', 11 );
@@ -811,6 +811,9 @@ final class FLBuilder {
 			// Remove 3rd party editor buttons.
 			remove_all_actions( 'media_buttons', 999999 );
 			remove_all_actions( 'media_buttons_context', 999999 );
+
+			// Increase available memory.
+			wp_raise_memory_limit( 'bb-plugin' );
 
 			// Get the post.
 			require_once ABSPATH . 'wp-admin/includes/post.php';
@@ -2667,7 +2670,7 @@ final class FLBuilder {
 
 		// Add the layout settings JS.
 		$js .= self::render_global_nodes_custom_code( 'js' );
-		$js .= is_array( $layout_settings->js ) ? json_encode( $layout_settings->js ) : $layout_settings->js;
+		$js .= ( is_array( $layout_settings->js ) || is_object( $layout_settings->js ) ) ? json_encode( $layout_settings->js ) : $layout_settings->js;
 
 		// Call the FLBuilder._renderLayoutComplete method if we're currently editing.
 		if ( stristr( $asset_info['js'], '-draft.js' ) || stristr( $asset_info['js'], '-preview.js' ) ) {

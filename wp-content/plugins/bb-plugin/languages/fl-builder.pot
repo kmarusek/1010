@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bb-plugin\n"
 "Report-Msgid-Bugs-To: hello@wpbeaverbuilder.com\n"
-"POT-Creation-Date: 2017-11-16 22:00:57+00:00\n"
+"POT-Creation-Date: 2017-11-27 23:59:52+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -31,8 +31,8 @@ msgstr ""
 #: classes/class-fl-builder-admin-settings.php:158
 #: classes/class-fl-builder-admin-settings.php:222
 #: classes/class-fl-builder-model.php:5684
-#: extensions/fl-builder-white-label/classes/class-fl-builder-white-label.php:119
-#: extensions/fl-builder-white-label/classes/class-fl-builder-white-label.php:236
+#: extensions/fl-builder-white-label/classes/class-fl-builder-white-label.php:121
+#: extensions/fl-builder-white-label/classes/class-fl-builder-white-label.php:238
 #: includes/updater/classes/class-fl-updater.php:283
 msgid "Page Builder"
 msgstr ""
@@ -70,7 +70,7 @@ msgid "Icons"
 msgstr ""
 
 #: classes/class-fl-builder-admin-settings.php:192
-#: classes/class-fl-builder.php:875
+#: classes/class-fl-builder.php:878
 msgid "Tools"
 msgstr ""
 
@@ -1227,85 +1227,85 @@ msgstr ""
 msgid "Rebuilt the theme cache"
 msgstr ""
 
-#: classes/class-fl-builder.php:867
+#: classes/class-fl-builder.php:870
 msgid "Unnamed Menu"
 msgstr ""
 
-#: classes/class-fl-builder.php:883
+#: classes/class-fl-builder.php:886
 #: extensions/fl-builder-user-templates/includes/user-template-settings.php:4
 #: includes/ui-js-config.php:133
 msgid "Save Template"
 msgstr ""
 
-#: classes/class-fl-builder.php:891
+#: classes/class-fl-builder.php:894
 msgid "Duplicate Layout"
 msgstr ""
 
-#: classes/class-fl-builder.php:897
+#: classes/class-fl-builder.php:900
 msgid "Preview Layout"
 msgstr ""
 
-#: classes/class-fl-builder.php:908
+#: classes/class-fl-builder.php:911
 msgid "Layout CSS & Javascript"
 msgstr ""
 
-#: classes/class-fl-builder.php:915 includes/global-settings.php:4
+#: classes/class-fl-builder.php:918 includes/global-settings.php:4
 #: includes/ui-js-config.php:85
 msgid "Global Settings"
 msgstr ""
 
-#: classes/class-fl-builder.php:926
+#: classes/class-fl-builder.php:929
 msgid "Change UI Brightness"
 msgstr ""
 
-#: classes/class-fl-builder.php:933 classes/class-fl-builder.php:956
+#: classes/class-fl-builder.php:936 classes/class-fl-builder.php:959
 msgid "WordPress Admin"
 msgstr ""
 
-#: classes/class-fl-builder.php:940 classes/class-fl-builder.php:1010
+#: classes/class-fl-builder.php:943 classes/class-fl-builder.php:1013
 msgid "Help"
 msgstr ""
 
-#: classes/class-fl-builder.php:947
+#: classes/class-fl-builder.php:950
 msgid "Keyboard Shortcuts"
 msgstr ""
 
-#: classes/class-fl-builder.php:985 includes/ui-js-config.php:99
+#: classes/class-fl-builder.php:988 includes/ui-js-config.php:99
 msgid "Manage Templates"
 msgstr ""
 
-#: classes/class-fl-builder.php:999
+#: classes/class-fl-builder.php:1002
 msgid "Customize Theme"
 msgstr ""
 
-#: classes/class-fl-builder.php:1029
+#: classes/class-fl-builder.php:1032
 msgid "Take A Tour"
 msgstr ""
 
-#: classes/class-fl-builder.php:1037
+#: classes/class-fl-builder.php:1040
 msgid "View Knowledge Base"
 msgstr ""
 
-#: classes/class-fl-builder.php:1045
+#: classes/class-fl-builder.php:1048
 #: extensions/fl-builder-white-label/includes/admin-settings-help-button.php:59
 #: includes/ui-js-config.php:173
 msgid "Contact Support"
 msgstr ""
 
-#: classes/class-fl-builder.php:1241
+#: classes/class-fl-builder.php:1244
 msgid "Upgrade Today <i class=\"fa fa-external-link-square\"></i>"
 msgstr ""
 
-#: classes/class-fl-builder.php:1245
+#: classes/class-fl-builder.php:1248
 msgid "Buy Now <i class=\"fa fa-external-link-square\"></i>"
 msgstr ""
 
-#: classes/class-fl-builder.php:1249 includes/ui-js-config.php:80
+#: classes/class-fl-builder.php:1252 includes/ui-js-config.php:80
 #: includes/ui-js-templates.php:262
 msgid "Done"
 msgstr ""
 
-#: classes/class-fl-builder.php:2921
+#: classes/class-fl-builder.php:2924
 msgid "The uploaded file is not a valid %s extension."
 msgstr ""
 
@@ -1793,19 +1793,19 @@ msgid ""
 "<strong>Templates &rarr; Saved Templates</strong>."
 msgstr ""
 
-#: extensions/fl-builder-white-label/classes/class-fl-builder-white-label.php:55
+#: extensions/fl-builder-white-label/classes/class-fl-builder-white-label.php:57
 msgid "Branding"
 msgstr ""
 
-#: extensions/fl-builder-white-label/classes/class-fl-builder-white-label.php:61
+#: extensions/fl-builder-white-label/classes/class-fl-builder-white-label.php:63
 msgid "Help Button"
 msgstr ""
 
-#: extensions/fl-builder-white-label/classes/class-fl-builder-white-label.php:191
+#: extensions/fl-builder-white-label/classes/class-fl-builder-white-label.php:193
 msgid "Error! Please enter an iframe for the video embed code."
 msgstr ""
 
-#: extensions/fl-builder-white-label/classes/class-fl-builder-white-label.php:208
+#: extensions/fl-builder-white-label/classes/class-fl-builder-white-label.php:210
 msgid "Error! You must have at least one feature of the help button enabled."
 msgstr ""
 
@@ -6897,92 +6897,92 @@ msgctxt "current blog name"
 msgid "Rebuilt the theme cache for blog %s"
 msgstr ""
 
-#: classes/class-fl-builder.php:976
+#: classes/class-fl-builder.php:979
 msgctxt "label for the WordPress Dashboard link"
 msgid "Dashboard"
 msgstr ""
 
-#: classes/class-fl-builder.php:1066
+#: classes/class-fl-builder.php:1069
 msgctxt "A keyboard shortcut with no label given"
 msgid "Untitled Shortcut"
 msgstr ""
 
-#: classes/class-fl-builder.php:1074
+#: classes/class-fl-builder.php:1077
 msgctxt "Keyboard action to show modules tab"
 msgid "Open Modules Tab"
 msgstr ""
 
-#: classes/class-fl-builder.php:1078
+#: classes/class-fl-builder.php:1081
 msgctxt "Keyboard action to show rows tab"
 msgid "Open Rows Tab"
 msgstr ""
 
-#: classes/class-fl-builder.php:1082
+#: classes/class-fl-builder.php:1085
 msgctxt "Keyboard action to show templates tab"
 msgid "Open Templates Tab"
 msgstr ""
 
-#: classes/class-fl-builder.php:1086
+#: classes/class-fl-builder.php:1089
 msgctxt "Keyboard action to show saved tab"
 msgid "Open Saved Tab"
 msgstr ""
 
-#: classes/class-fl-builder.php:1091
+#: classes/class-fl-builder.php:1094
 msgctxt "Keyboard action to open save template form"
 msgid "Save New Template"
 msgstr ""
 
-#: classes/class-fl-builder.php:1096
+#: classes/class-fl-builder.php:1099
 msgctxt "Keyboard action to toggle preview mode"
 msgid "Toggle Preview Mode"
 msgstr ""
 
-#: classes/class-fl-builder.php:1100
+#: classes/class-fl-builder.php:1103
 msgctxt "Keyboard action to open the global settings panel"
 msgid "Open Global Settings"
 msgstr ""
 
-#: classes/class-fl-builder.php:1104
+#: classes/class-fl-builder.php:1107
 msgctxt "Keyboard action to open the layout settings panel"
 msgid "Open Layout Settings"
 msgstr ""
 
-#: classes/class-fl-builder.php:1108
+#: classes/class-fl-builder.php:1111
 msgctxt "Keyboard action to switch between light and dark UI brightness"
 msgid "Change UI Brightness"
 msgstr ""
 
-#: classes/class-fl-builder.php:1112
+#: classes/class-fl-builder.php:1115
 msgctxt "Keyboard action to open the module search panel"
 msgid "Display Module Search"
 msgstr ""
 
-#: classes/class-fl-builder.php:1117
+#: classes/class-fl-builder.php:1120
 msgctxt "Keyboard action to save changes"
 msgid "Save Layout"
 msgstr ""
 
-#: classes/class-fl-builder.php:1122
+#: classes/class-fl-builder.php:1125
 msgctxt "Keyboard action to publish any pending changes"
 msgid "Publish changes without leaving builder"
 msgstr ""
 
-#: classes/class-fl-builder.php:1127
+#: classes/class-fl-builder.php:1130
 msgctxt "Keyboard action to move to the next panel tab"
 msgid "Next Settings Tab"
 msgstr ""
 
-#: classes/class-fl-builder.php:1132
+#: classes/class-fl-builder.php:1135
 msgctxt "Keyboard action to move to the previous panel tab"
 msgid "Previous Settings Tab"
 msgstr ""
 
-#: classes/class-fl-builder.php:1137
+#: classes/class-fl-builder.php:1140
 msgctxt "Keyboard action to dismiss the current task or panel"
 msgid "Dismiss Active Panel"
 msgstr ""
 
-#: classes/class-fl-builder.php:1219
+#: classes/class-fl-builder.php:1222
 msgctxt "Currently editing message"
 msgid "Currently Editing %s"
 msgstr ""
