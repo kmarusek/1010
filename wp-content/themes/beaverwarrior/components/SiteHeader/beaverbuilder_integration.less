@@ -3,8 +3,8 @@
 @SiteHeader--height_bp: @bw-header-height-bp;
 @SiteHeader--content_row_height_bp: @bw-header-height-bp;
 
-@SiteHeader-brand--padding_vertical: @bw-header-logo-vpad;
-@SiteHeader-brand--padding_vertical_bp: @bw-header-logo-vpad-bp;
+@SiteHeader-brand--padding_vertical: ((@bw-header-height - @bw-header-logo-height) / 2);
+@SiteHeader-brand--padding_vertical_bp: ((@bw-header-height-bp - @bw-header-logo-height-bp) / 2);
 
 @SiteHeader--background: fade(@header-bg-color, @header-bg-opacity);
 @SiteHeader--background_transparent: fade(@header-bg-color, @header-bg-opacity);
