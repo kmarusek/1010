@@ -1154,6 +1154,7 @@ final class BWCustomizerLess {
 
 		// Let developers add their own vars.
 		$vars = apply_filters( 'fl_less_vars', $vars );
+		$vars = apply_filters( 'bw_less_vars', $vars, $mods );
 
 		// Build the vars string
 		foreach ( $vars as $key => $value ) {
