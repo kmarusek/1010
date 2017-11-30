@@ -27,7 +27,7 @@ function beaver_warrior_reorganize_bb_controls() {
 
     //Add some new variables for SiteHeader
     $wp_customize->add_setting("bw-header-height", array(
-        "default" => 100
+        "default" => 50
     ));
 
     $wp_customize->add_control(new FLCustomizerControl($wp_customize, "bw-header-height", array(
@@ -36,8 +36,24 @@ function beaver_warrior_reorganize_bb_controls() {
         "label" => __("Header Height (Mobile)", 'skeleton_warrior'),
         "type" => "slider",
         'choices' => array(
+            'min'  => 30,
+            'max'  => 60,
+            'step' => 1
+        )
+    )));
+
+    $wp_customize->add_setting("bw-header-logo-vpad", array(
+        "default" => 15
+    ));
+
+    $wp_customize->add_control(new FLCustomizerControl($wp_customize, "bw-header-logo-vpad", array(
+        "section" => "fl-header-style",
+        "settings" => "bw-header-logo-vpad",
+        "label" => __("Logo Vertical Space (Mobile)", 'skeleton_warrior'),
+        "type" => "slider",
+        'choices' => array(
             'min'  => 0,
-            'max'  => 100,
+            'max'  => 30,
             'step' => 1
         )
     )));
@@ -52,7 +68,7 @@ function beaver_warrior_reorganize_bb_controls() {
         "label" => __("Header Height (Desktop)", 'skeleton_warrior'),
         "type" => "slider",
         'choices' => array(
-            'min'  => 0,
+            'min'  => 30,
             'max'  => 100,
             'step' => 1
         )
@@ -65,7 +81,7 @@ function beaver_warrior_reorganize_bb_controls() {
     $wp_customize->add_control(new FLCustomizerControl($wp_customize, "bw-header-logo-vpad-bp", array(
         "section" => "fl-header-style",
         "settings" => "bw-header-logo-vpad-bp",
-        "label" => __("Logo Vertical Space", 'skeleton_warrior'),
+        "label" => __("Logo Vertical Space (Desktop)", 'skeleton_warrior'),
         "type" => "slider",
         'choices' => array(
             'min'  => 0,
@@ -77,13 +93,10 @@ function beaver_warrior_reorganize_bb_controls() {
 add_action('customize_register', 'beaver_warrior_reorganize_bb_controls', 11);
 
 function beaver_warrior_expose_settings($vars, $mods) {
-    $vars["bw-header-height"] = get_theme_mod("bw-header-height", 100);
-    $vars["bw-header-height-bp"] = get_theme_mod("bw-header-height-bp", 100);
-    $vars["bw-header-logo-vpad-bp"] = get_theme_mod("bw-header-logo-vpad-bp", 200);
-
-    $vars["bw-header-height"] .= "px";
-    $vars["bw-header-height-bp"] .= "px";
-    $vars["bw-header-logo-vpad-bp"] .= "px";
+    $vars["bw-header-height"] = get_theme_mod("bw-header-height", 50) . "px";
+    $vars["bw-header-logo-vpad"] = get_theme_mod("bw-header-logo-vpad", 15) . "px";
+    $vars["bw-header-height-bp"] = get_theme_mod("bw-header-height-bp", 100) . "px";
+    $vars["bw-header-logo-vpad-bp"] = get_theme_mod("bw-header-logo-vpad-bp", 25) . "px";
 
     return $vars;
 }
