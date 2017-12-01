@@ -45,6 +45,8 @@ $modules = array(
     'modules/pp-filterable-gallery/pp-filterable-gallery.php',
     'modules/pp-advanced-menu/pp-advanced-menu.php',
     'modules/pp-gallery/pp-gallery.php',
+    'modules/pp-animated-headlines/pp-animated-headlines.php',
+    'modules/pp-image-carousel/pp-image-carousel.php',
 );
 
 /* Custom Grid */

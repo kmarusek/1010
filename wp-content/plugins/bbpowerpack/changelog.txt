@@ -1,3 +1,42 @@
+== 2.2.0.1 ==
+Release date: November 30, 2017
+* Fix: Z-index issue in Formidable Forms module
+* Fix: Field connection in Gallery module to work with multiple photos
+
+== 2.2.0 ==
+Release date: November 29, 2017
+* New: Added Image Carousel module
+* Enhancement: Added justified gallery option in Photo Gallery
+* Enhancement: Added a field to toggle animation loop for Highlighted effects in Animated Headlines module
+* Enhancement: Added links to taxonomy terms in Content Grid module
+* Enhancement: Added Link No Follow option in Smart Button module
+* Enhancement: Added Link No Follow option in Dual Button module
+* Enhancement: Added margin-bottom option for sections in Gravity Forms module
+* Enhancement: Added typography options for section labels in Gravity Forms module
+* Enhancement: Added toggle for enable/disable heading link in Smart Headings module
+* Enhancement: Added responsive filter dropdown option in Content Grid module
+* Fix: Hover Cards 2 opacity issue
+* Fix: Stacked heading style was not working in Smart Headings module
+* Fix: Equal height was not working when using filters in Content Grid module
+
+== 2.1.2 ==
+Release date: November 17, 2017
+* Enhancement: Added Image Maximum Width field in Hover Cards 2 module to adjust image size manually
+* Fix: Font Size and Line Height were not working for responsive devices in Animated Headlines module
+* Fix: PHP error in panel functions that was breaking BB 2.0 settings
+* Fix: Fix Hover Cards 2 images were resized after updating to 1.6.0
+
+== 2.1.0 ==
+Release date: November 15, 2017
+* New: Animated Headlines module
+* Enhancement: Added alt tag for images in Testimonial module
+* Enhancement: Added responsive toggle for filters in Filterable Gallery module
+* Enhancement: Added Custom Icon option to icon dropdown field in Social Icons module
+* Enhancement: Added Custom Photo Size option in Image module
+* Enhancement: Added Hover Overlay Margin option in Image module
+* Enhancement: Added Minimum and Maximum height/width options in Hover Cards 2 module
+* Fix: Filterable Gallery filter issues due to special characters in labels
+
 == 2.0.3 ==
 Release date: November 9, 2017
 * Fix: Content Grid equal height issue in Safari

@@ -9,7 +9,6 @@ $space_mobile = ( $settings->photo_grid_count['mobile'] - 1 ) * $settings->photo
 $photo_columns_mobile = ( 100 - $space_mobile ) / $settings->photo_grid_count['mobile'];
 ?>
 
-<?php //echo $space_desktop; ?>
 .fl-node-<?php echo $id; ?> .pp-photo-gallery,
 .fl-node-<?php echo $id; ?> .pp-masonry-content {
 	margin: -<?php echo $settings->photo_spacing / 2; ?>px;
@@ -28,10 +27,8 @@ $photo_columns_mobile = ( 100 - $space_mobile ) / $settings->photo_grid_count['m
 	}
 	<?php if ( $settings->photo_grid_count['desktop'] > 1 ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-photo-gallery-item:nth-child(<?php echo $settings->photo_grid_count['desktop']; ?>n+1){
-		<!-- clear: left; -->
 	}
 	.fl-node-<?php echo $id; ?> .pp-photo-gallery-item:nth-child(<?php echo $settings->photo_grid_count['desktop']; ?>n+0){
-		<!-- clear: right; -->
 	}
 	.fl-node-<?php echo $id; ?> .pp-photo-gallery-item:nth-child(<?php echo $settings->photo_grid_count['desktop']; ?>n){
 		margin-right: 0;
@@ -79,6 +76,11 @@ $photo_columns_mobile = ( 100 - $space_mobile ) / $settings->photo_grid_count['m
 .fl-node-<?php echo $id; ?> .pp-masonry-item img,
 .fl-node-<?php echo $id; ?> .pp-gallery-overlay {
 	<?php if( $settings->photo_border_radius >= 0 ) { ?> border-radius: <?php echo $settings->photo_border_radius; ?>px; <?php } ?>
+}
+
+.fl-node-<?php echo $id; ?> .pp-photo-gallery-item .pp-photo-gallery-content > a {
+	display: block;
+	line-height: 0;
 }
 
 .fl-node-<?php echo $id; ?> .pp-photo-space {
@@ -371,8 +373,18 @@ $photo_columns_mobile = ( 100 - $space_mobile ) / $settings->photo_grid_count['m
 	 	  font-size: <?php echo $settings->caption_custom_font_size['tablet']; ?>px;
 	    <?php } ?>
 	}
+	.fl-node-<?php echo $id; ?> .pp-gallery-filters-toggle {
+		display: block;
+	}
+	.fl-node-<?php echo $id; ?> .pp-gallery-filters {
+		display: none;
+	}
 	.fl-node-<?php echo $id; ?> .pp-gallery-filters li {
-	   font-size: <?php echo $settings->filter_font_size['tablet']; ?>px;
+		display: block;
+		float: none;
+		margin: 0 !important;
+		text-align: left;
+	   	font-size: <?php echo $settings->filter_font_size['tablet']; ?>px;
 	}
 }
 
