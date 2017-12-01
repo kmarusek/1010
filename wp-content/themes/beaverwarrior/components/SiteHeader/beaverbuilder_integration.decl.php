@@ -25,7 +25,25 @@ function beaver_warrior_reorganize_bb_controls() {
 
     $wp_customize->get_panel("nav_menus")->priority = 1;
 
-    //Add some new variables for SiteHeader
+    //fl-topbar-style
+    $wp_customize->add_setting("bw-topbar-height-bp", array(
+        "default" => 38
+    ));
+
+    $wp_customize->add_control(new FLCustomizerControl($wp_customize, "bw-topbar-height-bp", array(
+        "section" => "fl-topbar-style",
+        "settings" => "bw-topbar-height-bp",
+        "label" => __("Header Bar Height (Desktop)", 'skeleton_warrior'),
+        "type" => "slider",
+        "priority" => -1,
+        'choices' => array(
+            'min'  => 10,
+            'max'  => 100,
+            'step' => 1
+        )
+    )));
+
+    //fl-header-style
     $wp_customize->add_setting("bw-header-breakpoint", array(
         "default" => 768
     ));
@@ -117,6 +135,7 @@ function beaver_warrior_reorganize_bb_controls() {
 add_action('customize_register', 'beaver_warrior_reorganize_bb_controls', 11);
 
 function beaver_warrior_expose_settings($vars, $mods) {
+    $vars["bw-topbar-height-bp"] = get_theme_mod("bw-topbar-height-bp", 38) . "px";
     $vars["bw-header-height"] = get_theme_mod("bw-header-height", 50) . "px";
     $vars["bw-header-logo-height"] = get_theme_mod("bw-header-logo-height", 45) . "px";
     $vars["bw-header-height-bp"] = get_theme_mod("bw-header-height-bp", 100) . "px";
