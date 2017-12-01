@@ -1883,6 +1883,20 @@ FLBuilder::register_module('PPContentGridModule', array(
 	'filters_style'         => array( // Tab
 		'title'         => __('Filter', 'bb-powerpack'), // Tab title
 		'sections'      => array( // Tab Sections
+			'filter_settings'	=> array(
+				'title'				=> '',
+				'fields'			=> array(
+					'responsive_filter'	=> array(
+						'type'				=> 'pp-switch',
+						'label'				=> __('Filter Dropdown on Responsive', 'bb-powerpack'),
+						'default'			=> 'no',
+						'options'			=> array(
+							'yes'				=> __('Yes', 'bb-powerpack'),
+							'no'				=> __('No', 'bb-powerpack'),
+						)
+					)
+				)
+			),
 			'filter_colors'	=> array(
 				'title'	=> __('Colors', 'bb-powerpack'),
 				'fields'	=> array(

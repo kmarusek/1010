@@ -5,6 +5,9 @@
  */
 function pp_templates_exclude( $data )
 {
+    if ( class_exists( 'FLBuilderUIContentPanel' ) ) {
+        return $data;
+    }
     if ( isset( $data['categorized'] ) ) { //print_r($data['categorized']);
 
         $cats = pp_row_templates_categories();
@@ -32,6 +35,9 @@ add_filter( 'fl_builder_row_templates_data', 'pp_templates_exclude', 50 );
  */
 function pp_templates_selector_data_exclude( $data, $type )
 {
+    if ( class_exists( 'FLBuilderUIContentPanel' ) ) {
+        return $data;
+    }
     if ( isset( $data['categorized'] ) ) {
 
         $cats = pp_row_templates_categories();
@@ -61,7 +67,7 @@ add_filter( 'fl_builder_template_selector_data', 'pp_templates_selector_data_exc
  */
 function pp_template_details( $data, $template )
 {
-    if ( isset( $data['category']['powerpack-templates'] ) ) {
+    if ( is_array($data['category']) && isset( $data['category']['powerpack-templates'] ) ) {
 
         $scheme	= BB_PowerPack_Admin_Settings::$scheme;
 
@@ -92,9 +98,7 @@ function pp_template_details( $data, $template )
         $data['image'] = $image;
 
         // Remove the main category from data.
-        if ( ! class_exists( 'FLBuilderUIContentPanel' ) ) {
-            unset($data['category']['powerpack-templates']);
-        }
+        unset($data['category']['powerpack-templates']);
     }
 
     return $data;
@@ -239,6 +243,10 @@ function pp_get_template_selector_data( $type = 'row' )
  */
 function pp_templates_ui_panel()
 {
+    if ( class_exists( 'FLBuilderUIContentPanel' ) ) {
+        return;
+    }
+
     if ( FLBuilderModel::is_builder_active() ) {
 
         $row_templates = pp_get_template_selector_data();
@@ -262,6 +270,10 @@ add_action( 'wp_footer', 'pp_templates_ui_panel' );
  */
 function pp_templates_ui_bar_button( $buttons )
 {
+    if ( class_exists( 'FLBuilderUIContentPanel' ) ) {
+        return $buttons;
+    }
+
     $enabled_row_templates = BB_PowerPack_Admin_Settings::get_enabled_templates( 'row' );
 
     if ( version_compare( FL_BUILDER_VERSION, '1.10', '<' ) ) {
@@ -298,6 +310,10 @@ add_filter( 'fl_builder_ui_bar_buttons', 'pp_templates_ui_bar_button' );
  */
 function pp_templates_panel_control()
 {
+    if ( class_exists( 'FLBuilderUIContentPanel' ) ) {
+        return;
+    }
+
     if ( FLBuilderModel::is_builder_active() ) {
 
         $enabled_row_templates = BB_PowerPack_Admin_Settings::get_enabled_templates( 'row' );
@@ -326,6 +342,10 @@ add_action( 'fl_builder_ui_panel_after_rows', 'pp_templates_panel_control' );
  */
 function pp_panel_search()
 {
+    if ( class_exists( 'FLBuilderUIContentPanel' ) ) {
+        return;
+    }
+
     $panel_search = BB_PowerPack_Admin_Settings::get_option('bb_powerpack_search_box');
 
     if ( $panel_search === false ) {
@@ -341,6 +361,10 @@ function pp_panel_search()
  */
 function pp_preview_button()
 {
+    if ( class_exists( 'FLBuilderUIContentPanel' ) ) {
+        return;
+    }
+
     $quick_preview = BB_PowerPack_Admin_Settings::get_option('bb_powerpack_quick_preview');
 
     if ( $quick_preview === false ) {
@@ -360,7 +384,7 @@ function pp_preview_button()
     <?php
     }
 }
-//add_action( 'wp_footer', 'pp_preview_button' );
+add_action( 'wp_footer', 'pp_preview_button' );
 
 /**
  * Template Category White Labeling
