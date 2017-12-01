@@ -26,6 +26,26 @@ function beaver_warrior_reorganize_bb_controls() {
     $wp_customize->get_panel("nav_menus")->priority = 1;
 
     //Add some new variables for SiteHeader
+    $wp_customize->add_setting("bw-header-breakpoint", array(
+        "default" => 768
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Control($wp_customize, "bw-header-breakpoint", array(
+        "section" => "fl-header-style",
+        "settings" => "bw-header-breakpoint",
+        "label" => __("Header Breakpoint", 'skeleton_warrior'),
+        "type" => "select",
+        "priority" => -1,
+        'choices' => array(
+            320 => __("Handheld (320px)", "fl-automator"),
+            480 => __("X-Small (480px)", "fl-automator"),
+            768 => __("Small (768px)", "fl-automator"),
+            992 => __("Medium (992px)", "fl-automator"),
+            1200 => __("Large (1200px)", "fl-automator"),
+            1600 => __("X-Large (1600px)", "fl-automator"),
+        )
+    )));
+
     $wp_customize->add_setting("bw-header-height", array(
         "default" => 50
     ));
@@ -35,6 +55,7 @@ function beaver_warrior_reorganize_bb_controls() {
         "settings" => "bw-header-height",
         "label" => __("Header Height (Mobile)", 'skeleton_warrior'),
         "type" => "slider",
+        "priority" => -1,
         'choices' => array(
             'min'  => 30,
             'max'  => 60,
@@ -51,6 +72,7 @@ function beaver_warrior_reorganize_bb_controls() {
         "settings" => "bw-header-logo-height",
         "label" => __("Max Logo Height (Mobile)", 'skeleton_warrior'),
         "type" => "slider",
+        "priority" => -1,
         'choices' => array(
             'min'  => 30,
             'max'  => 60,
@@ -67,6 +89,7 @@ function beaver_warrior_reorganize_bb_controls() {
         "settings" => "bw-header-height-bp",
         "label" => __("Header Height (Desktop)", 'skeleton_warrior'),
         "type" => "slider",
+        "priority" => -1,
         'choices' => array(
             'min'  => 30,
             'max'  => 100,
@@ -83,6 +106,7 @@ function beaver_warrior_reorganize_bb_controls() {
         "settings" => "bw-header-logo-height-bp",
         "label" => __("Max Logo Height (Desktop)", 'skeleton_warrior'),
         "type" => "slider",
+        "priority" => -1,
         'choices' => array(
             'min'  => 30,
             'max'  => 100,
@@ -97,6 +121,7 @@ function beaver_warrior_expose_settings($vars, $mods) {
     $vars["bw-header-logo-height"] = get_theme_mod("bw-header-logo-height", 45) . "px";
     $vars["bw-header-height-bp"] = get_theme_mod("bw-header-height-bp", 100) . "px";
     $vars["bw-header-logo-height-bp"] = get_theme_mod("bw-header-logo-height-bp", 65) . "px";
+    $vars["bw-header-breakpoint"] = get_theme_mod("bw-header-breakpoint", 768) . "px";
 
     return $vars;
 }
