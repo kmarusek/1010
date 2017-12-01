@@ -20,12 +20,26 @@
 @NavMenu--main_menu-link--color: @header-fg-link-color;
 @NavMenu--main_menu-link--hover_background_color: @header-fg-hover-color;
 
+.bw-apply-gradient(@bg-color, @gradient) {
+    //nothing!
+}
+
+.bw-apply-gradient(@bg-color, @gradient) when (@gradient > 0) {
+    .fl-gradient(@bg-color, @gradient);
+}
+
 .SiteHeader {
     background-image: @header-bg-image;
+    .bw-apply-gradient(@SiteHeader--background, @header-bg-grad);
 }
 
 .SiteHeader-notice_bar {
     background-image: @topbar-bg-image;
+    .bw-apply-gradient(@SiteHeader-notice_bar--bg_color, @topbar-bg-grad);
 }
 
-//test
+@media (max-width: @SiteHeader--breakpoint_max) {
+    .SiteHeader-banner {
+        .bw-apply-gradient(@SiteHeader--background, @header-bg-grad);
+    }
+}
