@@ -131,6 +131,34 @@ function beaver_warrior_reorganize_bb_controls() {
             'step' => 1
         )
     )));
+
+    $wp_customize->add_setting("bw-header-border-width", array(
+        "default" => 1
+    ));
+
+    $wp_customize->add_control(new FLCustomizerControl($wp_customize, "bw-header-border-width", array(
+        "section" => "fl-header-style",
+        "settings" => "bw-header-border-width",
+        "label" => __("Border Width", 'skeleton_warrior'),
+        "type" => "slider",
+        "priority" => 10,
+        'choices' => array(
+            'min'  => 0,
+            'max'  => 5,
+            'step' => 1
+        )
+    )));
+
+    $wp_customize->add_setting("bw-header-border-color", array(
+        "default" => "#f2f2f2"
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, "bw-header-border-color", array(
+        "section" => "fl-header-style",
+        "settings" => "bw-header-border-color",
+        "label" => __("Border Color", 'skeleton_warrior'),
+        "priority" => 10,
+    )));
 }
 add_action('customize_register', 'beaver_warrior_reorganize_bb_controls', 11);
 
@@ -141,6 +169,8 @@ function beaver_warrior_expose_settings($vars, $mods) {
     $vars["bw-header-height-bp"] = get_theme_mod("bw-header-height-bp", 100) . "px";
     $vars["bw-header-logo-height-bp"] = get_theme_mod("bw-header-logo-height-bp", 65) . "px";
     $vars["bw-header-breakpoint"] = get_theme_mod("bw-header-breakpoint", 768) . "px";
+    $vars["bw-header-border-width"] = get_theme_mod("bw-header-border-width", 1) . "px";
+    $vars["bw-header-border-color"] = FLColor::hex_or_transparent(get_theme_mod("bw-header-border-color"));
 
     return $vars;
 }

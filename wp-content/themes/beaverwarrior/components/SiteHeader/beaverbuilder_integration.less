@@ -12,6 +12,9 @@
 @SiteHeader--background_transparent: fade(@header-bg-color, @header-bg-opacity);
 @SiteHeader--color: @header-fg-color;
 
+@SiteHeader--border_color: @bw-header-border-color;
+@SiteHeader--border_width: @bw-header-border-width;
+
 @SiteHeader-notice_bar--height_bp: @bw-topbar-height-bp;
 
 @SiteHeader-notice_bar--bg_color: fade(@topbar-bg-color, @topbar-bg-opacity);
@@ -29,7 +32,7 @@
 }
 
 .SiteHeader {
-    background-image: @header-bg-image;
+    .fl-background-image(@header-bg-image, @header-bg-repeat, @header-bg-position, @header-bg-attachment, @header-bg-size);
     .bw-apply-gradient(@SiteHeader--background, @header-bg-grad);
 }
 
