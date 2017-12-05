@@ -7,7 +7,7 @@ function beaver_warrior_remove_bb_nav_menus() {
 }
 add_action('after_setup_theme', 'beaver_warrior_remove_bb_nav_menus', 11);
 
-function beaver_warrior_reorganize_bb_controls() {
+function beaver_warrior_reorganize_bb_header_controls() {
     global $wp_customize;
 
     $wp_customize->remove_section("fl-topbar-layout");
@@ -160,9 +160,9 @@ function beaver_warrior_reorganize_bb_controls() {
         "priority" => 10,
     )));
 }
-add_action('customize_register', 'beaver_warrior_reorganize_bb_controls', 11);
+add_action('customize_register', 'beaver_warrior_reorganize_bb_header_controls', 11);
 
-function beaver_warrior_expose_settings($vars, $mods) {
+function beaver_warrior_expose_header_settings($vars, $mods) {
     $vars["bw-topbar-height-bp"] = get_theme_mod("bw-topbar-height-bp", 38) . "px";
     $vars["bw-header-height"] = get_theme_mod("bw-header-height", 50) . "px";
     $vars["bw-header-logo-height"] = get_theme_mod("bw-header-logo-height", 45) . "px";
@@ -174,4 +174,4 @@ function beaver_warrior_expose_settings($vars, $mods) {
 
     return $vars;
 }
-add_action('bw_less_vars', 'beaver_warrior_expose_settings', 10, 2);
+add_action('bw_less_vars', 'beaver_warrior_expose_header_settings', 10, 2);
