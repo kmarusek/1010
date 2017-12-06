@@ -399,6 +399,25 @@ final class BWCustomizerLess {
 		)));
 	}
 
+    /**
+     * Steal parent panels, because FLCustomizer is so @*%(!ing encapsulated
+     * that child themes are barred through almost every language mechanism from
+     * modifying it.
+     */
+    static private function _steal_panels() {
+        $panel_thief = Closure::bind(static function () {
+            return self::$_panels;
+        }, null, FLCustomizer);
+
+        $_parPanels = $panel_thief();
+
+        foreach ($_parPanels as $pkey => $panel_data) {
+            if (!isset(self::$_panels[$pkey])) {
+                self::$_panels[$pkey] = $panel_data;
+            }
+        }
+    }
+
 	/**
 	 * Registers the panels using data in the $_panels array.
 	 *
@@ -411,6 +430,8 @@ final class BWCustomizerLess {
 		$panel_priority     = 1;
 		$section_priority   = 1;
 		$option_priority    = 1;
+
+       self::_steal_panels();
 
 		// Loop panels
 		foreach ( self::$_panels as $panel_key => $panel_data ) {
@@ -590,6 +611,7 @@ final class BWCustomizerLess {
 	 */
 	static private function _get_default_mods() {
 		$mods = array();
+       self::_steal_panels();
 
 		// Loop through the panels.
 		foreach ( self::$_panels as $panel ) {
@@ -613,6 +635,7 @@ final class BWCustomizerLess {
 		}
 
 		return apply_filters( 'fl_default_theme_mods', $mods );
+		return apply_filters( 'bw_default_theme_mods', $mods );
 	}
 
 	/**
