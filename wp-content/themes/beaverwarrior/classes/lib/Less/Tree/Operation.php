@@ -42,7 +42,7 @@ class Less_Tree_Operation extends Less_Tree{
 			}
 
 			if( !method_exists($a,'operate') ){
-				throw new Less_Exception_Compiler("Operation on an invalid type");
+				throw new Less_Exception_Compiler("Operation on an invalid type. Contents:" . json_encode($a));
 			}
 
 			return $a->operate( $this->op, $b);
