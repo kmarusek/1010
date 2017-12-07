@@ -37,6 +37,23 @@ function beaver_warrior_reorganize_bb_type_controls() {
         )
     )));
 
+    $wp_customize->add_setting("bw-p-margin", array(
+        "default" => "15"
+    ));
+
+    $wp_customize->add_control(new FLCustomizerControl($wp_customize, "bw-p-margin", array(
+        "section" => "fl-body-font",
+        "settings" => "bw-p-margin",
+        'label' => __( 'Paragraph Margin', 'fl-automator' ),
+        "type" => "slider",
+        "priority" => 5,
+        'choices' => array(
+            'min'  => 0,
+            'max'  => 45,
+            'step' => 1
+        )
+    )));
+
     $wp_customize->add_setting("bw-h1-lg-font-size", array(
         "default" => "36"
     ));
@@ -246,6 +263,7 @@ add_action('customize_register', 'beaver_warrior_reorganize_bb_type_controls', 1
 function beaver_warrior_expose_type_settings($vars, $mods) {
     $vars["bw-p-lg-font-size"] = get_theme_mod("bw-p-lg-font-size", 14) . "px";
     $vars["bw-p-lg-line-height"] = get_theme_mod("bw-p-lg-line-height", 14);
+    $vars["bw-p-margin"] = get_theme_mod("bw-p-margin", 14) . "px";
     $vars["bw-h1-lg-font-size"] = get_theme_mod("bw-h1-lg-font-size", 36) . "px";
     $vars["bw-h1-lg-line-height"] = get_theme_mod("bw-h1-lg-line-height", 1.4);
     $vars["bw-h2-lg-font-size"] = get_theme_mod("bw-h2-lg-font-size", 30) . "px";
