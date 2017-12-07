@@ -112,13 +112,13 @@ class MicroblogPoster_Curl
 	function set_headers($headers)
 	{
 		$parsed_headers = array();
-
+		
 		if(is_array($headers))
-		{
+		{		    
 		    foreach ($headers as $name => $value)
 		    {
 			    $parsed_headers[] = $name . ': ' . $value;
-		    }
+		    }		  
 		}
 
 		curl_setopt($this->ch, CURLOPT_HTTPHEADER, $parsed_headers);
@@ -211,11 +211,11 @@ class MicroblogPoster_Curl
 				echo "Error number: " .curl_errno($this->ch) ."\n";
 				echo "Error message: " .curl_error($this->ch)."\n";
 			}
-
+                        
                         $result .= "Error Occured in Curl\n";
                         $result .= "Error number: " .curl_errno($this->ch) ."\n";
                         $result .= "Error message: " .curl_error($this->ch)."\n";
-
+			
                         return $result;
 		}
 		else
@@ -271,7 +271,7 @@ class MicroblogPoster_Curl
                         $result .= "Error Occured in Curl\n";
                         $result .= "Error number: " .curl_errno($this->ch) ."\n";
                         $result .= "Error message: " .curl_error($this->ch)."\n";
-
+                        
 			return $result;
 		}
 		else
@@ -279,7 +279,7 @@ class MicroblogPoster_Curl
 			return $result;
 		}
 	}
-
+        
 	/**
 	 * fetch data from target URL
 	 * return data returned from url or false if error occured
@@ -328,7 +328,7 @@ class MicroblogPoster_Curl
 			$result .= "Error Occured in Curl\n";
                         $result .= "Error number: " .curl_errno($this->ch) ."\n";
                         $result .= "Error message: " .curl_error($this->ch)."\n";
-
+                        
                         return $result;
 		}
 		else

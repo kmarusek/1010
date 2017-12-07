@@ -1,12 +1,12 @@
 <?php
 /**
  * Contains methods for querying the Goo.gl API
- *
+ * 
  */
 
 require_once "microblogposter_curl.php";
 
-
+ 
 class MicroblogPoster_Googl
 {
 
@@ -17,8 +17,8 @@ class MicroblogPoster_Googl
      * @access protected
      */
     protected $error_message;
-
-
+    
+    
     /**
      * Google API Key
      *
@@ -26,18 +26,18 @@ class MicroblogPoster_Googl
      * @access protected
      */
     protected $api_key = "";
-
-
+    
+    
     /**
      * MicroblogPoster_Googl Constructor
      *
      * @access public
-     */
+     */	
     public function __construct()
     {
-
+        
     }
-
+    
     /**
      * Returns the error text
      *
@@ -48,7 +48,7 @@ class MicroblogPoster_Googl
     {
         return $this->error_message;
     }
-
+    
     /**
     * Set credentials
     *
@@ -59,14 +59,14 @@ class MicroblogPoster_Googl
     {
         $this->api_key = $apikey;
     }
-
+    
     /**
      * Get the shortened url
      *
      * @param string $long_url
      * @return string
      * @access public
-     */
+     */		
     public function shorten($long_url)
     {
         $googl_api_client_id_name = "microblogposter_plg_googl_api_client_id";
@@ -75,7 +75,7 @@ class MicroblogPoster_Googl
         $googl_api_client_id_value = get_option($googl_api_client_id_name, "");
         $googl_api_client_secret_value = get_option($googl_api_client_secret_name, "");
         $googl_api_refresh_token_value = get_option($googl_api_refresh_token_name, "");
-
+        
         if($googl_api_client_id_value && $googl_api_client_secret_value && $googl_api_refresh_token_value)
         {
             $url = "https://accounts.google.com/o/oauth2/token";
@@ -137,8 +137,8 @@ class MicroblogPoster_Googl
             }
         }
     }
-
-}
+    
+}   
 
 
 ?>
