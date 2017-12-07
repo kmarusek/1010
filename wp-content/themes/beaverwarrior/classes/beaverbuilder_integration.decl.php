@@ -54,6 +54,108 @@ function beaver_warrior_reorganize_bb_type_controls() {
         )
     )));
 
+    $wp_customize->add_setting("bw-psmall-font-size", array(
+        "default" => "12"
+    ));
+
+    $wp_customize->add_control(new FLCustomizerControl($wp_customize, "bw-psmall-font-size", array(
+        "section" => "fl-body-font",
+        "settings" => "bw-psmall-font-size",
+        'label' => __( 'Small Paragraph Font Size', 'fl-automator' ),
+        "type" => "slider",
+        "priority" => 6,
+        'choices' => array(
+            'min'  => 10,
+            'max'  => 72,
+            'step' => 1
+        )
+    )));
+
+    $wp_customize->add_setting("bw-psmall-line-height", array(
+        "default" => "1.5"
+    ));
+
+    $wp_customize->add_control(new FLCustomizerControl($wp_customize, "bw-psmall-line-height", array(
+        "section" => "fl-body-font",
+        "settings" => "bw-psmall-line-height",
+        'label' => __( 'Small Paragraph Line Height', 'fl-automator' ),
+        "type" => "slider",
+        "priority" => 7,
+        'choices' => array(
+            'min'  => 1,
+            'max'  => 2.5,
+            'step' => 0.05
+        )
+    )));
+
+    $wp_customize->add_setting("bw-psmall-lg-font-size", array(
+        "default" => "12"
+    ));
+
+    $wp_customize->add_control(new FLCustomizerControl($wp_customize, "bw-psmall-lg-font-size", array(
+        "section" => "fl-body-font",
+        "settings" => "bw-psmall-lg-font-size",
+        'label' => __( 'Small Paragraph Font Size (Large/Desktop)', 'fl-automator' ),
+        "type" => "slider",
+        "priority" => 8,
+        'choices' => array(
+            'min'  => 10,
+            'max'  => 72,
+            'step' => 1
+        )
+    )));
+
+    $wp_customize->add_setting("bw-psmall-lg-line-height", array(
+        "default" => "1.75"
+    ));
+
+    $wp_customize->add_control(new FLCustomizerControl($wp_customize, "bw-psmall-lg-line-height", array(
+        "section" => "fl-body-font",
+        "settings" => "bw-psmall-lg-line-height",
+        'label' => __( 'Small Paragraph Line Height (Large/Desktop)', 'fl-automator' ),
+        "type" => "slider",
+        "priority" => 9,
+        'choices' => array(
+            'min'  => 1,
+            'max'  => 2.5,
+            'step' => 0.05
+        )
+    )));
+
+    $wp_customize->add_setting("bw-psmall-letter-spacing", array(
+        "default" => "2"
+    ));
+
+    $wp_customize->add_control(new FLCustomizerControl($wp_customize, "bw-psmall-letter-spacing", array(
+        "section" => "fl-body-font",
+        "settings" => "bw-psmall-letter-spacing",
+        'label' => __( 'Small Paragraph Letter Spacing', 'fl-automator' ),
+        "type" => "slider",
+        "priority" => 10,
+        'choices' => array(
+            'min'  => 0,
+            'max'  => 4,
+            'step' => 0.1
+        )
+    )));
+
+    $wp_customize->add_setting("bw-psmall-margin", array(
+        "default" => "10"
+    ));
+
+    $wp_customize->add_control(new FLCustomizerControl($wp_customize, "bw-psmall-margin", array(
+        "section" => "fl-body-font",
+        "settings" => "bw-psmall-margin",
+        'label' => __( 'Small Paragraph Margin', 'fl-automator' ),
+        "type" => "slider",
+        "priority" => 11,
+        'choices' => array(
+            'min'  => 0,
+            'max'  => 45,
+            'step' => 1
+        )
+    )));
+
     $wp_customize->add_setting("bw-h1-lg-font-size", array(
         "default" => "36"
     ));
@@ -262,8 +364,14 @@ add_action('customize_register', 'beaver_warrior_reorganize_bb_type_controls', 1
 
 function beaver_warrior_expose_type_settings($vars, $mods) {
     $vars["bw-p-lg-font-size"] = get_theme_mod("bw-p-lg-font-size", 14) . "px";
-    $vars["bw-p-lg-line-height"] = get_theme_mod("bw-p-lg-line-height", 14);
+    $vars["bw-p-lg-line-height"] = get_theme_mod("bw-p-lg-line-height", 1.45);
     $vars["bw-p-margin"] = get_theme_mod("bw-p-margin", 14) . "px";
+    $vars["bw-psmall-font-size"] = get_theme_mod("bw-psmall-font-size", 12) . "px";
+    $vars["bw-psmall-line-height"] = get_theme_mod("bw-psmall-line-height", 1.5);
+    $vars["bw-psmall-lg-font-size"] = get_theme_mod("bw-psmall-lg-font-size", 12) . "px";
+    $vars["bw-psmall-lg-line-height"] = get_theme_mod("bw-psmall-lg-line-height", 1.75);
+    $vars["bw-psmall-letter-spacing"] = get_theme_mod("bw-psmall-letter-spacing", 2) . "px";
+    $vars["bw-psmall-margin"] = get_theme_mod("bw-psmall-margin", 14) . "px";
     $vars["bw-h1-lg-font-size"] = get_theme_mod("bw-h1-lg-font-size", 36) . "px";
     $vars["bw-h1-lg-line-height"] = get_theme_mod("bw-h1-lg-line-height", 1.4);
     $vars["bw-h2-lg-font-size"] = get_theme_mod("bw-h2-lg-font-size", 30) . "px";
