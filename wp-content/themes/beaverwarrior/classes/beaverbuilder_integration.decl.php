@@ -3,6 +3,40 @@
 function beaver_warrior_reorganize_bb_type_controls() {
     global $wp_customize;
 
+    $wp_customize->add_setting("bw-p-lg-font-size", array(
+        "default" => "14"
+    ));
+
+    $wp_customize->add_control(new FLCustomizerControl($wp_customize, "bw-p-lg-font-size", array(
+        "section" => "fl-body-font",
+        "settings" => "bw-p-lg-font-size",
+        'label' => __( 'Font Size (Large/Desktop)', 'fl-automator' ),
+        "type" => "slider",
+        "priority" => 3,
+        'choices' => array(
+            'min'  => 10,
+            'max'  => 72,
+            'step' => 1
+        )
+    )));
+
+    $wp_customize->add_setting("bw-p-lg-line-height", array(
+        "default" => "1.45"
+    ));
+
+    $wp_customize->add_control(new FLCustomizerControl($wp_customize, "bw-p-lg-line-height", array(
+        "section" => "fl-body-font",
+        "settings" => "bw-p-lg-line-height",
+        'label' => __( 'Line Height (Large/Desktop)', 'fl-automator' ),
+        "type" => "slider",
+        "priority" => 4,
+        'choices' => array(
+            'min'  => 1,
+            'max'  => 2.5,
+            'step' => 0.05
+        )
+    )));
+
     $wp_customize->add_setting("bw-h1-lg-font-size", array(
         "default" => "36"
     ));
@@ -210,6 +244,8 @@ function beaver_warrior_reorganize_bb_type_controls() {
 add_action('customize_register', 'beaver_warrior_reorganize_bb_type_controls', 11);
 
 function beaver_warrior_expose_type_settings($vars, $mods) {
+    $vars["bw-p-lg-font-size"] = get_theme_mod("bw-p-lg-font-size", 14) . "px";
+    $vars["bw-p-lg-line-height"] = get_theme_mod("bw-p-lg-line-height", 14);
     $vars["bw-h1-lg-font-size"] = get_theme_mod("bw-h1-lg-font-size", 36) . "px";
     $vars["bw-h1-lg-line-height"] = get_theme_mod("bw-h1-lg-line-height", 1.4);
     $vars["bw-h2-lg-font-size"] = get_theme_mod("bw-h2-lg-font-size", 30) . "px";
