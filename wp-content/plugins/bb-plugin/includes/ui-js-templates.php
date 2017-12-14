@@ -408,6 +408,13 @@
 
 <script type="text/html" id="tmpl-fl-content-panel-base">
 	<div class="fl-builder--content-library-panel fl-builder-panel">
+		<div class="fl-builder--panel-arrow">
+			<svg width="29px" height="15px" viewBox="0 0 29 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+				<g transform="translate(-260.000000, -14.000000)">
+					<polygon transform="translate(274.142136, 28.142136) rotate(-315.000000) translate(-274.142136, -28.142136) " points="264.142136 18.1421356 284.142136 18.1421356 264.142136 38.1421356"></polygon>
+				</g>
+			</svg>
+		</div>
 		<div class="fl-builder--panel-header">
 			<div class="fl-builder-panel-drag-handle">
 				<svg viewBox="0 0 6 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -530,7 +537,7 @@
 		<div class="fl-builder--selector-display">
 			<button class="fl-builder--selector-display-label">
 				<span class="fl-builder--group-label"><?php _e( 'Group', 'fl-builder' ) ?></span>
-				<span class="fl-builder--current-view-name">{{activeViewName}}</span>
+				<span class="fl-builder--current-view-name">{{{activeViewName}}}</span>
 			</button>
 		</div>
 		<div class="fl-builder--selector-menu">
@@ -542,7 +549,7 @@
 					} else {
 					var insetClass = view.isSubItem ? 'fl-inset' : '';
 					#>
-					<button data-view="{{view.handle}}" class="fl-builder--menu-item {{insetClass}}">{{view.name}}</button>
+					<button data-view="{{view.handle}}" class="fl-builder--menu-item {{insetClass}}">{{{view.name}}}</button>
 				<# } } #>
 			</div>
 		</div>

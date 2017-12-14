@@ -165,19 +165,20 @@ final class FLBuilderLoop {
 
 		// Build the query args.
 		$args = apply_filters( 'fl_builder_loop_query_args', array(
-			'paged'					=> $paged,
-			'posts_per_page'		=> $posts_per_page,
-			'post_type'				=> $post_type,
-			'orderby'				=> $order_by,
-			'order'					=> $order,
-			'tax_query'				=> array(
+			'paged'          => $paged,
+			'posts_per_page' => $posts_per_page,
+			'post_type'      => $post_type,
+			'orderby'        => $order_by,
+			'order'          => $order,
+			'tax_query'      => array(
 				'relation' => 'AND',
 			),
-			'ignore_sticky_posts'	=> true,
-			'offset'				=> $paged_offset,
-			'fl_original_offset'	=> $offset,
-			'fl_builder_loop'		=> true,
-			'fields'				=> $fields,
+			'ignore_sticky_posts' => true,
+			'offset'              => $paged_offset,
+			'fl_original_offset'  => $offset,
+			'fl_builder_loop'     => true,
+			'fields'              => $fields,
+			'settings'            => $settings,
 		) );
 
 		// Order by meta value arg.

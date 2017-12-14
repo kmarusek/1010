@@ -2584,6 +2584,11 @@ final class FLBuilderModel {
 				continue;
 			}
 
+			// Check if widgets are enabled
+			if ( 'widget' == $module->slug && ! in_array( 'widget', self::get_enabled_modules() ) ) {
+				continue;
+			}
+
 			$slug = sanitize_key( $module->group );
 
 			if ( ! isset( $groups[ $slug ] ) ) {
@@ -2723,7 +2728,7 @@ final class FLBuilderModel {
 			$module->kind = 'module';
 			$module->isWidget = false; // @codingStandardsIgnoreLine
 			$module->isAlias = false; // @codingStandardsIgnoreLine
-			$module->group = $module->group ? array( strtolower( str_replace( ' ', '', $module->group ) ) ) : array( 'standard' );
+			$module->group = $module->group ? array( sanitize_key( $module->group ) ) : array( 'standard' );
 
 			if ( ! isset( $module->icon ) || '' == $module->icon ) {
 				$module->icon = FLBuilderModule::get_default_icon();
@@ -3180,6 +3185,7 @@ final class FLBuilderModel {
 			'WP_Widget_Media_Audio',
 			'WP_Widget_Media_Image',
 			'WP_Widget_Media_Video',
+			'WP_Widget_Media_Gallery',
 			'WP_Widget_Text',
 			'WP_Widget_Custom_HTML',
 		) );
@@ -3345,7 +3351,7 @@ final class FLBuilderModel {
 			}
 		}
 
-		foreach ( $form as $tab ) {
+		foreach ( (array) $form as $tab ) {
 			if ( isset( $tab['sections'] ) ) {
 				foreach ( $tab['sections'] as $section ) {
 					if ( isset( $section['fields'] ) ) {

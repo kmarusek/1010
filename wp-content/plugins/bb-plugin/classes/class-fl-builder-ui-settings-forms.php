@@ -346,7 +346,7 @@ class FLBuilderUISettingsForms {
 			'id'		=> $id,
 			'url'   	=> $url,
 			'filename' 	=> $filename,
-			'sizes' 	=> $sizes,
+			'sizes' 	=> apply_filters( 'fl_builder_photo_sizes_select', $sizes ),
 		);
 	}
 

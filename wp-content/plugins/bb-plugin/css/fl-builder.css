@@ -1026,27 +1026,18 @@ body .fl-theme-builder-preview-select-item-child:hover {
 	padding: 50px 20px;
 }
 
-.fl-builder-panel:before {
-	bottom: 100%;
-    right: 67px;
-    content: " ";
-    height: 0;
-    width: 0;
-    position: absolute;
-    pointer-events: none;
-    border: solid;
-    border-color: rgba(255, 255, 255, 0);
-    border-bottom-color: #00a0d2;
-    border-width: 10px;
-    margin-left: -10px;
+.fl-builder--panel-arrow {
+	position: absolute;
+	top: -13px;
+    right: 10px;
 }
-.fl-builder-lite .fl-builder-panel:before {
-	right: 221px;
-}
-.fl-builder-ui-is-pinned .fl-builder-panel:before {
+.fl-builder-ui-is-pinned .fl-builder--panel-arrow,
+body.fl-builder-draggable-is-dragging .fl-builder--panel-arrow {
 	display: none;
 }
-body.fl-builder-draggable-is-dragging .fl-builder-panel:before { display:none; }
+.fl-builder--panel-arrow polygon {
+	fill: #00a0d2;
+}
 
 /* Builder Panel Actions
 ------------------------------------------------------ */
@@ -1663,10 +1654,10 @@ span.fl-builder-block-no-node-templates:hover {
 }
 .fl-builder--panel-view {
 	display: none;
+	overflow: hidden;
 }
 .fl-builder--panel-view.is-showing {
 	display: block;
-	overflow: auto;
 }
 .fl-builder--content-library-panel .fl-builder--panel-view.is-showing {
 	position: absolute;
@@ -4048,8 +4039,12 @@ i.fl-field-responsive-toggle:hover {
 	border: 1px dashed #cccccc;
 	height: 30px;
 }
-.fl-builder-field-actions-single {
+.fl-builder-field-actions-single .fl-builder-field-move,
+.fl-builder-field-actions-single .fl-builder-field-delete {
 	display: none !important;
+}
+.fl-lightbox-width-slim .fl-builder-field-actions-single .fl-builder-field-copy {
+	float: right !important;
 }
 
 .fl-builder-field-multiple .fl-field-label,

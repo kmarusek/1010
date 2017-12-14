@@ -1,3 +1,36 @@
+<h4>2.0.3.1 - 12/13/2017</h4>
+<p><strong>Hotfix</strong></p>
+<ul>
+	<li>Fixed a bug in multisite where subsite settings were being loaded from main site.</li>
+	<li>Fixed an issue with content slider only showing two slides.</li>
+	<li>Fixed javascript error shown when trying to edit a saved module.</li>
+</ul>
+
+<h4>2.0.3 - 12/11/2017</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Enable Rest API support for builder template post type.</li>
+	<li>Pass <code>$settings</code> in available args in <code>fl_builder_loop_query_args</code> filter.</li>
+	<li>Insert Layout Shortcode will now render non BB content which was a fallback in 1.x.</li>
+	<li>New filter <code>fl_builder_photo_sizes_select</code>.</li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fixed various UI scrollbar issues on Windows.</li>
+	<li>Fixed group name HTML entities issue.</li>
+	<li>Fixed duplicate audio issue in content slider when video is set to autoplay.</li>
+	<li>Fixed a multisite icon issue, network settings were being ignored on primary site.</li>
+	<li>Fixed issue with WordPress widgets being available in Builder UI when disabled in admin settings.</li>
+	<li>Fixed Active Campaign re-subscribe issue in Subscribe Module.</li>
+	<li>Fixed issue in form field settings <code>preview_text</code> now works with <code>select</code> field type.</li>
+	<li>Fixed PHP 7.2 warning thrown in <code>get_settings_form_fields</code></li>
+	<li>Fixed form fields issue: Duplicate item button missing until you add a second item.</li>
+	<li>Updated bxslider library, fixes 40px margin issue with content slider.</li>
+	<li>Remove Core WP Gallery Widget from list of available widgets in the builder.</li>
+	<li>Disabled swipe on row background videos.</li>
+	<li>Fixed GeneratePress Premium plugin Blog option overrules the Post modules excerpt setting.</li>
+</ul>
+
 <h4>2.0.2.2 - 12/06/2017</h4>
 <p>Beaver Builder 2.0 is now available for remote update!</p>
 

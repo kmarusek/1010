@@ -175,13 +175,13 @@ class FLPostGridModule extends FLBuilderModule {
 	 */
 	public function render_excerpt() {
 		if ( ! empty( $this->settings->content_length ) ) {
-			add_filter( 'excerpt_length', array( $this, 'set_custom_excerpt_length' ) );
+			add_filter( 'excerpt_length', array( $this, 'set_custom_excerpt_length' ), 9999 );
 		}
 
 		the_excerpt();
 
 		if ( ! empty( $this->settings->content_length ) ) {
-			remove_filter( 'excerpt_length', array( $this, 'set_custom_excerpt_length' ) );
+			remove_filter( 'excerpt_length', array( $this, 'set_custom_excerpt_length' ), 9999 );
 		}
 	}
 

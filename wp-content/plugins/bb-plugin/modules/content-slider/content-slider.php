@@ -203,6 +203,20 @@ class FLContentSliderModule extends FLBuilderModule {
 			echo '</div>';
 		}
 	}
+
+	/**
+	 * @method is_loop_enabled
+	 */
+	public function is_loop_enabled() {
+		if ( 'true' == $this->settings->loop &&
+			1 == count( $this->settings->slides ) &&
+			'video' == $this->settings->slides[0]->bg_layout
+			) {
+			return 'false';
+		} else {
+			return $this->settings->loop;
+		}
+	}
 }
 
 /**

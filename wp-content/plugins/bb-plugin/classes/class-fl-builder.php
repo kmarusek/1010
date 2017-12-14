@@ -375,19 +375,19 @@ final class FLBuilder {
 		// Register additional JS
 		wp_register_script( 'fl-slideshow',          $js_url . 'fl-slideshow' . $min . '.js', array( 'yui3' ), $ver, true );
 		wp_register_script( 'fl-gallery-grid',       $js_url . 'fl-gallery-grid.js', array( 'jquery' ), $ver, true );
-		wp_register_script( 'jquery-bxslider',       $js_url . 'jquery.bxslider.min.js', array( 'jquery-easing', 'jquery-fitvids' ), $ver, true );
-		wp_register_script( 'jquery-easing',         $js_url . 'jquery.easing.1.3.js', array( 'jquery' ), '1.3', true );
-		wp_register_script( 'jquery-fitvids',        $js_url . 'jquery.fitvids.js', array( 'jquery' ), $ver, true );
-		wp_register_script( 'jquery-imagesloaded', 	$js_url . 'jquery.imagesloaded.js', array( 'jquery' ), $ver, true );
-		wp_register_script( 'jquery-infinitescroll', $js_url . 'jquery.infinitescroll.js', array( 'jquery' ), $ver, true );
+		wp_register_script( 'jquery-bxslider',       $js_url . 'jquery.bxslider.js', array( 'jquery-easing', 'jquery-fitvids' ), $ver, true );
+		wp_register_script( 'jquery-easing',         $js_url . 'jquery.easing.min.js', array( 'jquery' ), '1.4', true );
+		wp_register_script( 'jquery-fitvids',        $js_url . 'jquery.fitvids.min.js', array( 'jquery' ), '1.2', true );
+		wp_register_script( 'jquery-imagesloaded',   $js_url . 'jquery.imagesloaded.min.js', array( 'jquery' ), $ver, true );
+		wp_register_script( 'jquery-infinitescroll', $js_url . 'jquery.infinitescroll.min.js', array( 'jquery' ), $ver, true );
 		wp_register_script( 'jquery-magnificpopup',  $js_url . 'jquery.magnificpopup.min.js', array( 'jquery' ), $ver, true );
 		wp_register_script( 'jquery-mosaicflow',     $js_url . 'jquery.mosaicflow.min.js', array( 'jquery' ), $ver, true );
 		wp_register_script( 'jquery-waypoints',      $js_url . 'jquery.waypoints.min.js', array( 'jquery' ), $ver, true );
 		wp_register_script( 'jquery-wookmark',       $js_url . 'jquery.wookmark.min.js', array( 'jquery' ), $ver, true );
-		wp_register_script( 'yui3',       			$js_url . 'yui3.js', array(), $ver, true );
+		wp_register_script( 'yui3',                  $js_url . 'yui3.min.js', array(), $ver, true );
 
-		wp_register_script( 'youtube-player', 		'https://www.youtube.com/iframe_api', array(), $ver, true );
-		wp_register_script( 'vimeo-player', 			'https://player.vimeo.com/api/player.js', array(), $ver, true );
+		wp_register_script( 'youtube-player',        'https://www.youtube.com/iframe_api', array(), $ver, true );
+		wp_register_script( 'vimeo-player',          'https://player.vimeo.com/api/player.js', array(), $ver, true );
 	}
 
 	/**
@@ -825,7 +825,9 @@ final class FLBuilder {
 			remove_all_actions( 'media_buttons_context', 999999 );
 
 			// Increase available memory.
-			wp_raise_memory_limit( 'bb-plugin' );
+			if ( function_exists( 'wp_raise_memory_limit' ) ) {
+				wp_raise_memory_limit( 'bb-plugin' );
+			}
 
 			// Get the post.
 			require_once ABSPATH . 'wp-admin/includes/post.php';
@@ -1345,14 +1347,22 @@ final class FLBuilder {
 				continue;
 			}
 
-			// Enqueue styles and scripts for this post.
-			self::enqueue_layout_styles_scripts_by_id( $query_post->ID );
+			if ( FLBuilderModel::is_builder_enabled( $query_post->ID ) ) {
 
-			// Print the styles since we are outside of the head tag.
-			wp_print_styles();
+				// Enqueue styles and scripts for this post.
+				self::enqueue_layout_styles_scripts_by_id( $query_post->ID );
 
-			// Render the content.
-			FLBuilder::render_content_by_id( $query_post->ID );
+				// Print the styles since we are outside of the head tag.
+				wp_print_styles();
+
+				// Render the builder content.
+				FLBuilder::render_content_by_id( $query_post->ID );
+
+			} else {
+
+				// Render the WP editor content if the builder isn't enabled.
+				echo apply_filters( 'the_content', $query_post->post_content );
+			}
 		}
 
 		// Reset the site data?

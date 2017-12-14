@@ -1166,6 +1166,7 @@
 
         if ( FLBuilderConfig.showToolbar ) {
             Toolbar.init();
+            FLBuilder.ContentPanel.alignPanelArrow();
         } else {
             $('html').addClass('fl-builder-no-toolbar');
         }
@@ -1177,6 +1178,8 @@
         BrowserState.init();
         RowResize.init();
         PublishActions.init();
+
+        FLBuilder.triggerHook( 'didInitUI' );
     });
 
 })(jQuery, FLBuilder);

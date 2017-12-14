@@ -17,9 +17,12 @@ body.fl-builder-ui-skin--dark .fl-builder-bar .fl-builder-bar-content,
 .fl-builder-ui-skin--dark .fl-builder-panel.fl-builder-ui-pinned .fl-builder--panel-header {
     border-top-color: #1d2227;
 }
-.fl-builder-ui-skin--dark .fl-builder-panel:not(.fl-builder-ui-is-pinned ):before,
+/* Panel arrows */
 .fl-builder-ui-skin--dark .fl-builder--main-menu-panel:before {
     border-bottom-color:#1d1d1d;
+}
+.fl-builder-ui-skin--dark .fl-builder--panel-arrow polygon {
+	fill: #1d1d1d;
 }
 .fl-builder-ui-skin--dark .fl-builder-panel-search .fl-builder-panel-search-input {
     background: #1e2228;

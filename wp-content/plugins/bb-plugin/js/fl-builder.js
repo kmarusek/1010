@@ -318,7 +318,7 @@
 			FLBuilder._setupEmptyLayout();
 			FLBuilder._highlightEmptyCols();
 
-			FLBuilder.addHook('contentPanelDidInit', FLBuilder._showTourOrTemplates.bind(FLBuilder) );
+			FLBuilder.addHook('didInitUI', FLBuilder._showTourOrTemplates.bind(FLBuilder) );
 
 			FLBuilder.triggerHook('init');
 		},

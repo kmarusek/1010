@@ -24,7 +24,7 @@
 						if ( 'icon' === field.type ) {
 							text = '<i class="' + data.value[ data.field.preview_text ] + '"></i>';
 						} else if ( 'select' === field.type ) {
-							text = field.options[ data.field.preview_text ];
+							text = field.options[ data.value[ data.field.preview_text ] ];
 						} else if ( '' !== data.value[ data.field.preview_text ] ) {
 							var tmp = document.createElement( 'div' );
 							text = data.value[ data.field.preview_text ].replace( /&#39;/g, "'" );

@@ -66,6 +66,7 @@
             this.defaultView = this.activeView;
 
             $(this.panel).on('afterRender', this.renderView.bind(this, this.activeView ));
+            $(this.panel).on('onShow onShowTab', this.initScroller.bind(this) );
             FLBuilder.addHook('contentItemsChanged', this.onLibraryDataChanged.bind(this));
         },
 
@@ -154,15 +155,24 @@
                 this.renderGroupSelector();
             }
 
-            var scroller = this.$el.nanoScroller({
+            this.initScroller();
+
+            this.$el.find('.fl-nanoscroller-content').scrollTop(0);
+        },
+
+        /**
+        * Setup nanoscroller on the current panel view.
+        *
+        * @return void
+        */
+        initScroller: function() {
+            this.$el.nanoScroller({
 				alwaysVisible: true,
 				preventPageScrolling: true,
 				paneClass: 'fl-nanoscroller-pane',
 				sliderClass: 'fl-nanoscroller-slider',
 				contentClass: 'fl-nanoscroller-content'
 			});
-
-            this.$el.find('.fl-nanoscroller-content').scrollTop(0);
         },
 
         /**
@@ -175,7 +185,8 @@
             this.renderGroupSelector();
             this.isShowing = true;
             this.$el.addClass('is-showing');
-            this.$el.scrollTop(0);
+
+            this.$el.find('.fl-nanoscroller-content').scrollTop(0);
         },
 
         /**
@@ -779,6 +790,44 @@
         },
 
         /**
+        * Align the panel arrow with the + button
+        */
+        alignPanelArrow: function() {
+            var $panel = this.$el,
+                panelOffset = null,
+                $arrow = this.$el.find('.fl-builder--panel-arrow'),
+                $button = $('.fl-builder-content-panel-button'),
+                arrowOffset,
+                arrowX,
+                animationDuration = this.$el.css('animation-duration');
+
+            if ( $button.length == 0 ) return;
+            this.$el.css('animation-duration', '0s');
+            this.show();
+            panelOffset = $panel[0].getBoundingClientRect();
+            arrowOffset = $arrow[0].getBoundingClientRect();
+            this.hide();
+            this.$el.css('animation-duration', animationDuration );
+
+            buttonOffset = $button[0].getBoundingClientRect();
+            var buttonCenterX = buttonOffset.x + ( buttonOffset.width / 2 );
+
+
+            if ( buttonCenterX < panelOffset.x ) {
+                // move the panel & the arrow
+                arrowX = 20;
+            } else {
+                arrowX = ( buttonCenterX - panelOffset.x ) - ( arrowOffset.width / 2 );
+            }
+
+            /* Position the arrow */
+            $arrow.css({
+                right: 'auto',
+                left: arrowX + 'px'
+            });
+        },
+
+        /**
         * Show content panel
         *
         * @param String tabName
@@ -854,6 +903,7 @@
             tab.show();
             this.$tabs.filter('[data-tab="' + tab.handle + '"]').addClass('is-showing');
             this.activeTab = tab;
+            $(this).trigger('onShowTab');
         },
 
         goToSearch: function() {
