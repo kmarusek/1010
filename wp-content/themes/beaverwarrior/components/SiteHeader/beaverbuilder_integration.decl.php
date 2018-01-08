@@ -4,7 +4,10 @@ function beaver_warrior_remove_bb_nav_menus() {
     if (get_theme_mod("bw-header-phylactery") == "phylactery") {
         unregister_nav_menu('bar');
         unregister_nav_menu('header');
-        unregister_nav_menu('footer');
+    } else if (get_theme_mod("bw-footer-phylactery") == "phylactery") {
+        unregister_nav_menu('primary_navigation');
+        unregister_nav_menu('secondary_navigation');
+        unregister_nav_menu('tertiary_navigation');
     }
 }
 add_action('after_setup_theme', 'beaver_warrior_remove_bb_nav_menus', 11);
