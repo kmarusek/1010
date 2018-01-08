@@ -509,7 +509,9 @@
 		 */
 		closeOnDeleteNode: function( e, nodeId )
 		{
-			FLLightbox.closeAll();
+			if ( $( '.fl-builder-settings[data-node="' + nodeId + '"]' ).length ) {
+				FLLightbox.closeAll();
+			}
 		},
 
 		/**

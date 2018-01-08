@@ -3224,10 +3224,19 @@
 		 */
 		_rowCopyClicked: function(e)
 		{
-			var row      = $( this ).closest( '.fl-row' ),
-				nodeId   = row.attr( 'data-node' ),
-				position = $( FLBuilder._contentClass + ' .fl-row' ).index( row ) + 1,
-				clone    = row.clone();
+			var row      	= $( this ).closest( '.fl-row' ),
+				nodeId   	= row.attr( 'data-node' ),
+				position 	= $( FLBuilder._contentClass + ' .fl-row' ).index( row ) + 1,
+				clone    	= row.clone(),
+				form	 	= $( '.fl-builder-settings[data-node]' ),
+				formNodeId 	= form.attr( 'data-node' ),
+				formNode	= ( formNodeId === nodeId ) ? row : row.find( '[data-node="' + formNodeId + '"]' ),
+				settings 	= null;
+
+			if ( form.length && formNode.length ) {
+				settings = FLBuilder._getSettings( form );
+				FLBuilderSettingsConfig.nodes[ formNodeId ] = settings;
+			}
 
 			clone.addClass( 'fl-node-' + nodeId + '-clone fl-builder-node-clone' );
 			clone.find( '.fl-block-overlay' ).remove();
@@ -3242,7 +3251,9 @@
 
 			FLBuilder.ajax( {
 				action: 'copy_row',
-				node_id: nodeId
+				node_id: nodeId,
+				settings: settings,
+				settings_id: formNodeId
 			}, function( response ) {
 				var data = JSON.parse( response );
 				data.duplicatedRow = nodeId;
@@ -3914,10 +3925,19 @@
 		 */
 		_copyColClicked: function( e )
 		{
-			var col    = $( this ).closest( '.fl-col' ),
-				nodeId = col.attr( 'data-node' ),
-				clone  = col.clone(),
-				group  = col.parent();
+			var col    		= $( this ).closest( '.fl-col' ),
+				nodeId 		= col.attr( 'data-node' ),
+				clone  		= col.clone(),
+				group  		= col.parent(),
+				form	 	= $( '.fl-builder-settings[data-node]' ),
+				formNodeId 	= form.attr( 'data-node' ),
+				formNode	= ( formNodeId === nodeId ) ? col : col.find( '[data-node="' + formNodeId + '"]' ),
+				settings 	= null;
+
+			if ( form.length && formNode.length ) {
+				settings = FLBuilder._getSettings( form );
+				FLBuilderSettingsConfig.nodes[ formNodeId ] = settings;
+			}
 
 			clone.addClass( 'fl-node-' + nodeId + '-clone fl-builder-node-clone' );
 			clone.find( '.fl-block-overlay' ).remove();
@@ -3930,7 +3950,9 @@
 
 			FLBuilder.ajax( {
 				action: 'copy_col',
-				node_id: nodeId
+				node_id: nodeId,
+				settings: settings,
+				settings_id: formNodeId
 			}, function( response ){
 				var data = JSON.parse( response );
 				data.duplicatedColumn = nodeId;
@@ -4882,7 +4904,14 @@
 			var module   = $( this ).closest( '.fl-module' )
 				nodeId   = module.attr( 'data-node' ),
 				position = module.index() + 1,
-				clone    = module.clone();
+				clone    = module.clone(),
+				form	 = $( '.fl-builder-module-settings[data-node=' + nodeId + ']' ),
+				settings = null;
+
+			if ( form.length ) {
+				settings = FLBuilder._getSettings( form );
+				FLBuilderSettingsConfig.nodes[ nodeId ] = settings;
+			}
 
 			clone.addClass( 'fl-node-' + nodeId + '-clone fl-builder-node-clone' );
 			clone.find( '.fl-block-overlay' ).remove();
@@ -4898,7 +4927,8 @@
 
 			FLBuilder.ajax({
 				action: 'copy_module',
-				node_id: nodeId
+				node_id: nodeId,
+				settings: settings
 			}, function( response ) {
 				var data = JSON.parse( response );
 				data.duplicatedModule = nodeId;
