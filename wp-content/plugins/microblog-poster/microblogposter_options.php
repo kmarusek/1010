@@ -2252,14 +2252,14 @@ function microblogposter_settings_output()
     <div class="wrap">
         <div id="icon-plugins" class="icon32"><br /></div>
         <h2 id="mbp-intro">
-            <?php _e('<span class="microblogposter-name">MicroblogPoster</span> Settings', 'microblog-poster');?>
+            <?php _e('<span class="microblogposter-name">Microblog Poster</span> Settings', 'microblog-poster');?>
             <?php if(!MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Pro','filter_single_account')):?>
                 <span class="mbp-intro-text"><?php _e('Advanced features are available with the Pro / Enterprise Add-on', 'microblog-poster');?></span>
                 <a class="mbp-intro-text" href="http://efficientscripts.com/web/products/addons" target="_blank"><?php _e('Upgrade Now', 'microblog-poster');?></a>
             <?php endif;?>
         </h2>
         
-        <p>
+        <p id="mbp-intro-p">
             <?php _e('The idea behind <span class="microblogposter-name">MicroblogPoster</span> is to promote your wordpress blog and reach more people through social networks.', 'microblog-poster');?> <br />
             <?php _e('There\'s a general agreement in the SEO community that social signals strengthen your blog\'s page rank and authority.', 'microblog-poster');?><br />
             <?php _e('<span class="microblogposter-name">MicroblogPoster</span> is simply an intermediary between your blog and your own social network accounts.', 'microblog-poster');?><br /> 
@@ -6475,7 +6475,7 @@ function microblogposter_settings_output()
         {
             display: inline-block;
             vertical-align: bottom;
-            height: 44px;
+            height: 46px;
         }
         #mbp-menu
         {
@@ -6616,6 +6616,13 @@ function microblogposter_settings_output()
         #mbp-intro
         {
             display: inline-block;
+            width: 100%;
+            text-align: center;
+        }
+        #mbp-intro-p
+        {
+            text-align: center;
+            margin-bottom: 40px;
         }
         #mbp-intro .mbp-intro-text
         {
