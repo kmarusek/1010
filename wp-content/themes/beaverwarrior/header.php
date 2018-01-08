@@ -1,7 +1,7 @@
 <?php print get_template_component('HTML'); ?>
 <?php print get_template_component('Page'); ?>
 
-<?php if (get_theme_mod("bw-header-phylactery") == "true") { ?>
+<?php if (get_theme_mod("bw-header-phylactery") == "phylactery") { ?>
     <?php print get_template_component('SiteHeader'); ?>
 <?php } else { ?>
     <?php print get_template_component('SiteHeader', 'themer'); ?>

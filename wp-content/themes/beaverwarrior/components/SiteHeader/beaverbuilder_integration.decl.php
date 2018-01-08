@@ -1,7 +1,7 @@
 <?php
 
 function beaver_warrior_remove_bb_nav_menus() {
-    if (get_theme_mod("bw-header-phylactery") == "true") {
+    if (get_theme_mod("bw-header-phylactery") == "phylactery") {
         unregister_nav_menu('bar');
         unregister_nav_menu('header');
         unregister_nav_menu('footer');
@@ -28,7 +28,7 @@ function beaver_warrior_reorganize_bb_header_controls() {
         )
     )));
 
-    if (get_theme_mod("bw-header-phylactery") == "true") {
+    if (get_theme_mod("bw-header-phylactery") == "phylactery") {
         $wp_customize->remove_section("fl-topbar-layout");
         $wp_customize->remove_section("fl-header-layout");
         $wp_customize->remove_section("fl-header-logo");
