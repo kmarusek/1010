@@ -41,7 +41,6 @@ final class BB_PowerPack_Admin_Settings {
         );
 
 		add_action( 'plugins_loaded', __CLASS__ . '::init_hooks' );
-        add_action( 'wp_ajax_pp_save_template_scheme', __CLASS__ . '::save_template_scheme' );
         add_action( 'wp_ajax_pp_activate_template', __CLASS__ . '::activate_page_template' );
         add_action( 'wp_ajax_pp_deactivate_template', __CLASS__ . '::deactivate_page_template' );
 	}
@@ -456,10 +455,6 @@ final class BB_PowerPack_Admin_Settings {
     		self::update_option( 'bb_powerpack_row_templates_all', absint( $_POST['bb_powerpack_row_templates_all'] ) );
     	}
 
-        if ( isset( $_POST['bb_powerpack_row_templates_type'] ) ) {
-            self::update_option( 'bb_powerpack_row_templates_type', absint( $_POST['bb_powerpack_row_templates_type'] ) );
-        }
-
         if ( isset( $_POST['pp-row-templates-nonce'] ) && wp_verify_nonce( $_POST['pp-row-templates-nonce'], 'pp-row-templates' ) ) {
 
             if ( isset( $_POST['bb_powerpack_templates'] ) && is_array( $_POST['bb_powerpack_templates'] ) ) {
@@ -567,10 +562,7 @@ final class BB_PowerPack_Admin_Settings {
 	 */
     static public function get_template_scheme()
     {
-        $scheme	= self::get_option( 'bb_powerpack_row_templates_type' );
-        $scheme	= (1 == absint($scheme) || false == $scheme) ? 'greyscale' : 'color';
-
-        return $scheme;
+        return 'color';
     }
 
     /**
@@ -636,20 +628,6 @@ final class BB_PowerPack_Admin_Settings {
                 pp_download_template_data();
             }
         }
-    }
-
-    static public function save_template_scheme()
-    {
-        if ( ! isset( $_POST['pp_template_scheme'] ) ) {
-            return;
-        }
-        $scheme = absint( $_POST['pp_template_scheme'] );
-        $scheme_text = $scheme === 1 ? 'greyscale' : 'color';
-
-        self::update_option( 'bb_powerpack_row_templates_type', $scheme );
-
-        printf( esc_html__( 'Row Templates mode changed to %s.', 'bb-powerpack' ), $scheme_text );
-        die();
     }
 
     /**

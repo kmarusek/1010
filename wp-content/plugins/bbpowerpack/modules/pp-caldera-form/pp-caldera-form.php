@@ -835,6 +835,128 @@ FLBuilder::register_module('PPCalderaFormModule', array(
                     ),
                 )
             ),
+            'file_upload_style' => array(
+                'title' => __('File Upload', 'bb-powerpack'),
+                'fields'    => array(
+                    'file_bg_color'  => array(
+                        'type'                  => 'color',
+                        'label'                 => __('Background Color', 'bb-powerpack'),
+                        'default'               => '',
+                        'show_reset'            => true,
+                        'preview'               => array(
+                            'type'              => 'css',
+                            'selector'          => '.pp-caldera-form-content .caldera-grid input[type=file]',
+                            'property'          => 'background-color'
+                        )
+                    ),
+                    'file_text_color'  => array(
+                        'type'                  => 'color',
+                        'label'                 => __('Color', 'bb-powerpack'),
+                        'default'               => '',
+                        'show_reset'            => true,
+                        'preview'               => array(
+                            'type'              => 'css',
+                            'selector'          => '.pp-caldera-form-content .caldera-grid input[type=file]',
+                            'property'          => 'color'
+                        )
+                    ),
+                    'file_border_style' 	=> array(
+                        'type'          => 'pp-switch',
+                        'label'         => __('Border Style', 'bb-powerpack'),
+                        'default'       => 'none',
+                        'options'		=> array(
+                            'none'		=> __('None', 'bb-powerpack'),
+                            'solid'		=> __('Solid', 'bb-powerpack'),
+                       		'dashed'	=> __('Dashed', 'bb-powerpack'),
+                       		'dotted'	=> __('Dotted', 'bb-powerpack'),
+                        ),
+                        'preview'       => array(
+                            'type'      => 'css',
+                            'selector'  => '.pp-caldera-form-content .caldera-grid input[type=file]',
+                            'property'  => 'border-style'
+                        ),
+                        'toggle'    => array(
+                            'solid' => array(
+                                'fields'    => array('file_border_width', 'file_border_color')
+                            ),
+                            'dashed' => array(
+                                'fields'    => array('file_border_width', 'file_border_color')
+                            ),
+                            'dotted' => array(
+                                'fields'    => array('file_border_width', 'file_border_color')
+                            )
+                        )
+                    ),
+                    'file_border_width'      => array(
+                        'type'          => 'text',
+                        'label'         => __('Border Width', 'bb-powerpack'),
+                        'description'   => 'px',
+                        'class'         => 'bb-cf-input input-small',
+                        'default'       => '',
+                        'preview'       => array(
+                            'type'      => 'css',
+                            'selector'  => '.pp-caldera-form-content .caldera-grid input[type=file]',
+                            'property'  => 'border-width',
+                            'unit'      => 'px'
+                        )
+                    ),
+                    'file_border_color'     => array(
+                        'type'          => 'color',
+                        'label'         => __('Border Color', 'bb-powerpack'),
+                        'default'       => '',
+                        'show_reset'    => true,
+                        'preview'       => array(
+                            'type'      => 'css',
+                            'selector'  => '.pp-caldera-form-content .caldera-grid input[type=file]',
+                            'property'  => 'border-color'
+                        )
+                    ),
+                    'file_horizontal_padding'      => array(
+                        'type'          => 'text',
+                        'label'         => __('Horizontal Padding', 'bb-powerpack'),
+                        'description'   => 'px',
+                        'class'         => 'bb-cf-input input-small',
+                        'default'       => '',
+                        'preview'       => array(
+                            'type'      => 'css',
+                            'rules'     => array(
+                                array(
+                                    'selector'  => '.pp-caldera-form-content .caldera-grid input[type=file]',
+                                    'property'  => 'padding-left',
+                                    'unit'      => 'px'
+                                ),
+                                array(
+                                    'selector'  => '.pp-caldera-form-content .caldera-grid input[type=file]',
+                                    'property'  => 'padding-right',
+                                    'unit'      => 'px'
+                                ),
+                            )
+                        )
+                    ),
+                    'file_vertical_padding'      => array(
+                        'type'          => 'text',
+                        'label'         => __('Vertical Padding', 'bb-powerpack'),
+                        'description'   => 'px',
+                        'class'         => 'bb-cf-input input-small',
+                        'default'       => '',
+                        'preview'       => array(
+                            'type'      => 'css',
+                            'rules'     => array(
+                                array(
+                                    'selector'  => '.pp-caldera-form-content .caldera-grid input[type=file]',
+                                    'property'  => 'padding-top',
+                                    'unit'      => 'px'
+                                ),
+                                array(
+                                    'selector'  => '.pp-caldera-form-content .caldera-grid input[type=file]',
+                                    'property'  => 'padding-bottom',
+                                    'unit'      => 'px'
+                                ),
+                            )
+                        )
+                    ),
+                )
+            )
         )
     ),
     'button_style'    => array(

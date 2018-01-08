@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bb-plugin\n"
 "Report-Msgid-Bugs-To: hello@wpbeaverbuilder.com\n"
-"POT-Creation-Date: 2017-12-11 21:49:52+00:00\n"
+"POT-Creation-Date: 2017-12-20 20:06:38+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -30,7 +30,7 @@ msgstr ""
 
 #: classes/class-fl-builder-admin-settings.php:158
 #: classes/class-fl-builder-admin-settings.php:222
-#: classes/class-fl-builder-model.php:5690
+#: classes/class-fl-builder-model.php:5717
 #: extensions/fl-builder-white-label/classes/class-fl-builder-white-label.php:121
 #: extensions/fl-builder-white-label/classes/class-fl-builder-white-label.php:238
 #: includes/updater/classes/class-fl-updater.php:283
@@ -177,7 +177,7 @@ msgid ""
 "Please <a href=\"%s\">deactivate one</a> before continuing."
 msgstr ""
 
-#: classes/class-fl-builder-model.php:2626
+#: classes/class-fl-builder-model.php:2648
 #: classes/class-fl-builder-module.php:352 modules/audio/audio.php:20
 #: modules/button/button.php:15 modules/heading/heading.php:15
 #: modules/html/html.php:15 modules/photo/photo.php:26
@@ -186,7 +186,7 @@ msgstr ""
 msgid "Basic"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:2627
+#: classes/class-fl-builder-model.php:2649
 #: modules/content-slider/content-slider.php:15 modules/gallery/gallery.php:15
 #: modules/icon/icon.php:15 modules/icon-group/icon-group.php:15
 #: modules/map/map.php:15 modules/slideshow/slideshow.php:15
@@ -194,14 +194,14 @@ msgstr ""
 msgid "Media"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:2628 modules/callout/callout.php:15
+#: classes/class-fl-builder-model.php:2650 modules/callout/callout.php:15
 #: modules/contact-form/contact-form.php:15 modules/cta/cta.php:15
 #: modules/menu/menu.php:20 modules/social-buttons/social-buttons.php:15
 #: modules/subscribe-form/subscribe-form.php:19
 msgid "Actions"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:2629
+#: classes/class-fl-builder-model.php:2651
 #: extensions/fl-builder-core-templates-admin/includes/admin-core-templates.php:8
 #: modules/accordion/accordion.php:15 modules/countdown/countdown.php:148
 #: modules/cta/cta.php:113 modules/gallery/gallery.php:227
@@ -217,12 +217,12 @@ msgstr ""
 msgid "Layout"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:2630 modules/countdown/countdown.php:15
+#: classes/class-fl-builder-model.php:2652 modules/countdown/countdown.php:15
 #: modules/numbers/numbers.php:15
 msgid "Info"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:2631
+#: classes/class-fl-builder-model.php:2653
 #: modules/post-carousel/post-carousel.php:15
 #: modules/post-carousel/post-carousel.php:224
 #: modules/post-grid/post-grid.php:13 modules/post-grid/post-grid.php:15
@@ -231,71 +231,71 @@ msgstr ""
 msgid "Posts"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:2632
+#: classes/class-fl-builder-model.php:2654
 #: classes/class-fl-builder-module.php:354 includes/column-settings.php:317
 #: includes/module-settings.php:6 includes/row-settings.php:582
 #: modules/content-slider/content-slider.php:327
 msgid "Advanced"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:2633
-#: classes/class-fl-builder-model.php:2649
+#: classes/class-fl-builder-model.php:2655
+#: classes/class-fl-builder-model.php:2671
 msgid "Other"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:2650
-#: classes/class-fl-builder-model.php:2784
-#: classes/class-fl-builder-model.php:3199
+#: classes/class-fl-builder-model.php:2672
+#: classes/class-fl-builder-model.php:2806
+#: classes/class-fl-builder-model.php:3226
 #: extensions/fl-builder-user-templates/includes/admin-add-new-form.php:42
 #: includes/admin-settings-modules.php:32 includes/ui-js-config.php:194
 #: modules/widget/widget.php:15 modules/widget/widget.php:16
 msgid "WordPress Widgets"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3237
+#: classes/class-fl-builder-model.php:3264
 msgid "1 Column"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3242
+#: classes/class-fl-builder-model.php:3269
 msgid "2 Columns"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3247
+#: classes/class-fl-builder-model.php:3274
 msgid "3 Columns"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3252
+#: classes/class-fl-builder-model.php:3279
 msgid "4 Columns"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3257
+#: classes/class-fl-builder-model.php:3284
 msgid "5 Columns"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3262
+#: classes/class-fl-builder-model.php:3289
 msgid "6 Columns"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3267
+#: classes/class-fl-builder-model.php:3294
 msgid "Left Sidebar"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3272
+#: classes/class-fl-builder-model.php:3299
 msgid "Right Sidebar"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3277
+#: classes/class-fl-builder-model.php:3304
 msgid "Left & Right Sidebar"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:4292
-#: classes/class-fl-builder-model.php:4330
-#: classes/class-fl-builder-model.php:4399
-#: classes/class-fl-builder-model.php:5562 includes/ui-js-config.php:176
+#: classes/class-fl-builder-model.php:4319
+#: classes/class-fl-builder-model.php:4357
+#: classes/class-fl-builder-model.php:4426
+#: classes/class-fl-builder-model.php:5589 includes/ui-js-config.php:176
 msgid "Uncategorized"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:5517
+#: classes/class-fl-builder-model.php:5544
 #: extensions/fl-builder-core-templates-admin/includes/core-template-settings.php:20
 #: extensions/fl-builder-user-templates/includes/node-template-settings.php:6
 #: extensions/fl-builder-user-templates/includes/user-template-settings.php:7
@@ -320,11 +320,11 @@ msgstr ""
 msgid "General"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:5518 includes/ui-js-config.php:204
+#: classes/class-fl-builder-model.php:5545 includes/ui-js-config.php:204
 msgid "Landing Pages"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:5519 includes/ui-js-config.php:207
+#: classes/class-fl-builder-model.php:5546 includes/ui-js-config.php:207
 msgid "Content Pages"
 msgstr ""
 
@@ -1292,20 +1292,20 @@ msgstr ""
 msgid "Contact Support"
 msgstr ""
 
-#: classes/class-fl-builder.php:1258
+#: classes/class-fl-builder.php:1248
 msgid "Upgrade Today <i class=\"fa fa-external-link-square\"></i>"
 msgstr ""
 
-#: classes/class-fl-builder.php:1262
+#: classes/class-fl-builder.php:1252
 msgid "Buy Now <i class=\"fa fa-external-link-square\"></i>"
 msgstr ""
 
-#: classes/class-fl-builder.php:1266 includes/ui-js-config.php:80
+#: classes/class-fl-builder.php:1256 includes/ui-js-config.php:80
 #: includes/ui-js-templates.php:262
 msgid "Done"
 msgstr ""
 
-#: classes/class-fl-builder.php:2946
+#: classes/class-fl-builder.php:2936
 msgid "The uploaded file is not a valid %s extension."
 msgstr ""
 
@@ -6750,26 +6750,26 @@ msgctxt "Plugin action link label."
 msgid "Upgrade"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:2476
+#: classes/class-fl-builder-model.php:2498
 msgctxt "%s stands for the module filename"
 msgid ""
 "A module with the filename %s.php already exists! Please namespace your "
 "module filenames to ensure compatibility with Beaver Builder."
 msgstr ""
 
-#: classes/class-fl-builder-model.php:2503
+#: classes/class-fl-builder-model.php:2525
 msgctxt "%s stands for the module alias key"
 msgid ""
 "The module alias %s already exists! Please namespace your module aliases to "
 "ensure compatibility with Beaver Builder."
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3673
+#: classes/class-fl-builder-model.php:3700
 msgctxt "%s stands for post/page title."
 msgid "Copy of %s"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:4347
+#: classes/class-fl-builder-model.php:4374
 msgctxt "Default user template category."
 msgid "Uncategorized"
 msgstr ""
@@ -6980,21 +6980,11 @@ msgid "Publish changes without leaving builder"
 msgstr ""
 
 #: classes/class-fl-builder.php:1144
-msgctxt "Keyboard action to move to the next panel tab"
-msgid "Next Settings Tab"
-msgstr ""
-
-#: classes/class-fl-builder.php:1149
-msgctxt "Keyboard action to move to the previous panel tab"
-msgid "Previous Settings Tab"
-msgstr ""
-
-#: classes/class-fl-builder.php:1154
 msgctxt "Keyboard action to dismiss the current task or panel"
 msgid "Dismiss Active Panel"
 msgstr ""
 
-#: classes/class-fl-builder.php:1236
+#: classes/class-fl-builder.php:1226
 msgctxt "Currently editing message"
 msgid "Currently Editing %s"
 msgstr ""

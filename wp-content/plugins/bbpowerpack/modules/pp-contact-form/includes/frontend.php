@@ -64,6 +64,15 @@
         <?php if( $settings->form_layout == 'stacked-inline' ) { ?>
         </div>
         <?php } ?>
+
+		<?php
+		if ( 'show' == $settings->recaptcha_toggle && (isset( $settings->recaptcha_site_key ) && ! empty( $settings->recaptcha_site_key )) ) :
+		?>
+		<div class="fl-input-group fl-recaptcha">
+			<p class="pp-contact-error"><?php _e( 'Please check the captcha to verify you are not a robot.', 'bb-powerpack' );?></p>
+			<div id="<?php echo $id; ?>-fl-grecaptcha" class="fl-grecaptcha" data-sitekey="<?php echo $settings->recaptcha_site_key; ?>"<?php if ( isset( $settings->recaptcha_validate_type ) ) { echo ' data-validate="' . $settings->recaptcha_validate_type . '"';} ?><?php if ( isset( $settings->recaptcha_theme ) ) { echo ' data-theme="' . $settings->recaptcha_theme . '"';} ?>></div>
+		</div>
+		<?php endif; ?>
     </div>
 
     <div class="pp-button-wrap fl-button-wrap">

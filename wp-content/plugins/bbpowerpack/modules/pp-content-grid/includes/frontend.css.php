@@ -51,6 +51,10 @@ $post_columns_mobile = ( 100 - $space_mobile ) / $settings->post_grid_count['mob
 	<?php if( $settings->filter_border_color['secondary'] ) { ?>border-color: #<?php echo $settings->filter_border_color['secondary']; ?>;<?php } ?>
 }
 
+.fl-node-<?php echo $id; ?> .pp-content-post-grid.pp-is-filtering:after {
+	background-image: url(<?php echo BB_POWERPACK_URL; ?>assets/images/spinner.gif);
+}
+
 <?php } ?>
 
 .fl-node-<?php echo $id; ?> .pp-content-grid-pagination.fl-builder-pagination {

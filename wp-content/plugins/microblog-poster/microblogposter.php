@@ -4,7 +4,7 @@
  * Plugin Name: Microblog Poster
  * Plugin URI: http://efficientscripts.com/microblogposter
  * Description: Automatically publishes your new and old blog content to Social Networks. Auto posts to Twitter, Facebook, Linkedin, Tumblr, Blogger, Xing..
- * Version: 1.9.0
+ * Version: 1.9.2
  * Author: Efficient Scripts
  * Author URI: http://efficientscripts.com/
  * Text Domain: microblog-poster
@@ -1779,9 +1779,9 @@ class MicroblogPoster_Poster
                         );
                         if(isset($extra['post_type']) && $extra['post_type'] == 'link')
                         {
-                            $post_args['name'] = $post_title;
+                            //$post_args['name'] = $post_title;
                             $post_args['link'] = $permalink;
-                            $post_args['description'] = $post_content_actual;
+                            //$post_args['description'] = $post_content_actual;
                             $picture_url = '';
                             /*if(isset($extra['default_image_url']) && $extra['default_image_url'])
                             {
@@ -1813,11 +1813,11 @@ class MicroblogPoster_Poster
 
                         if(isset($extra['post_type']) && $extra['post_type'] == 'link')
                         {
-                            $post_args['name'] = $post_title;
+                            //$post_args['name'] = $post_title;
                             $post_args['link'] = $permalink;
-                            $post_args['description'] = $post_content_actual;
-                            $picture_url = '';
-                            /*if(isset($extra['default_image_url']) && $extra['default_image_url'])
+                            //$post_args['description'] = $post_content_actual;
+                            /*$picture_url = '';
+                            if(isset($extra['default_image_url']) && $extra['default_image_url'])
                             {
                                 $picture_url = $extra['default_image_url'];
                             }

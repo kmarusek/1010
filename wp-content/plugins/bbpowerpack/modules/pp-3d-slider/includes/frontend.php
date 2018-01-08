@@ -5,7 +5,7 @@ $photos = $module->get_photos();
 ?>
 <div class="pp-3d-slider pp-user-agent-<?php echo pp_get_user_agent(); ?>">
     <div class="pp-slider-wrapper">
-        <?php if ( $photos ) : ?>
+        <?php if ( $photos ) : $target = ' target="' . $settings->link_target . '"'; ?>
             <?php foreach ( $photos as $photo ) :
                 $url = $photo->url;
                 $tag = 'div';
@@ -15,7 +15,7 @@ $photos = $module->get_photos();
                     $href = ' href="'.$url.'"';
                 }
                 ?>
-                <<?php echo $tag . $href; ?> class="pp-slide">
+                <<?php echo $tag . $href . $target; ?> class="pp-slide">
                     <img class="pp-slider-img" src="<?php echo $photo->src; ?>" alt="<?php echo $photo->alt; ?>" />
                     <?php if ( 'yes' == $settings->show_captions ) { ?>
                         <div class="pp-slider-img-caption"><?php echo $photo->caption; ?></div>

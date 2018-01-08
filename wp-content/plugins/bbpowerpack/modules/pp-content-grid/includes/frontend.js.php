@@ -1,17 +1,24 @@
 
 <?php
-$space_desktop = ( $settings->post_grid_count['desktop'] - 1 ) * $settings->post_spacing;
-$space_tablet = ( $settings->post_grid_count['tablet'] - 1 ) * $settings->post_spacing;
-$space_mobile = ( $settings->post_grid_count['mobile'] - 1 ) * $settings->post_spacing;
+$space_desktop	= ( $settings->post_grid_count['desktop'] - 1 ) * $settings->post_spacing;
+$space_tablet 	= ( $settings->post_grid_count['tablet'] - 1 ) * $settings->post_spacing;
+$space_mobile 	= ( $settings->post_grid_count['mobile'] - 1 ) * $settings->post_spacing;
 $speed          = !empty( $settings->transition_speed ) ? $settings->transition_speed * 100 : '200';
+$page_arg	 	= is_front_page() ? 'page' : 'paged';
+$paged 			= get_query_var( $page_arg, 1 );
 ?>
 
 ;(function($) {
 
-	new PPContentGrid({
+	var PPContentGridOptions = {
 		id: '<?php echo $id ?>',
 		layout: '<?php echo $settings->layout; ?>',
+		ajaxUrl: '<?php echo admin_url('admin-ajax.php'); ?>',
+		perPage: '<?php echo $settings->posts_per_page; ?>',
+		fields: <?php echo json_encode($settings); ?>,
 		pagination: '<?php echo $settings->pagination; ?>',
+		current_page: '<?php echo home_url($_SERVER['REQUEST_URI']); ?>',
+		page: '<?php echo $paged; ?>',
 		postSpacing: '<?php echo $settings->post_spacing; ?>',
 		postColumns: {
 			desktop: <?php echo $settings->post_grid_count['desktop']; ?>,
@@ -20,6 +27,10 @@ $speed          = !empty( $settings->transition_speed ) ? $settings->transition_
 		},
 		matchHeight: '<?php echo $settings->match_height; ?>',
 		<?php echo (isset($settings->post_grid_filters_display) && 'yes' == $settings->post_grid_filters_display) ? 'filters: true' : 'filters: false'; ?>,
+		<?php if ( 'none' != $settings->post_grid_filters ) { ?>
+        	filterTax: '<?php echo $settings->post_grid_filters; ?>',
+        	filterType: '<?php echo $settings->post_grid_filters_type; ?>',
+		<?php } ?>
 		<?php if ('grid' == $settings->layout && 'no' == $settings->match_height ) { ?>
 		masonry: 'yes',
 		<?php } ?>
@@ -47,7 +58,12 @@ $speed          = !empty( $settings->transition_speed ) ? $settings->transition_
 				rewindNav : true,
 			}
 		<?php } ?>
-	});
+	};
 
+	<?php if ( isset( $_GET['orderby'] ) && ! empty( $_GET['orderby'] ) ) { ?>
+    PPContentGridOptions.orderby = '<?php echo (string)$_GET['orderby']; ?>';
+    <?php } ?>
+
+	new PPContentGrid( PPContentGridOptions );
 
 })(jQuery);

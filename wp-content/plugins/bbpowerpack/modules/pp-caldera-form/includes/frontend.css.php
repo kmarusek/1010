@@ -281,6 +281,32 @@
     border-color: <?php echo $settings->input_field_focus_color ? '#' . $settings->input_field_focus_color : 'transparent'; ?>;
 }
 
+.fl-node-<?php echo $id; ?> .pp-caldera-form-content .caldera-grid input[type=file] {
+    background-color: <?php echo $settings->file_bg_color ? '#' . $settings->file_bg_color : 'transparent'; ?>;
+    <?php if( $settings->file_text_color ) { ?>color: #<?php echo $settings->file_text_color; ?>;<?php } ?>
+    <?php if( $settings->file_border_width >= 0 ) { ?>
+    border-width: <?php echo $settings->file_border_width; ?>px;
+    <?php } ?>
+    <?php if( $settings->file_border_color ) { ?>
+    border-color: #<?php echo $settings->file_border_color; ?>;
+    <?php } ?>
+    <?php if( $settings->file_border_style ) { ?>
+    border-style: <?php echo $settings->file_border_style; ?>;
+    <?php } ?>
+    <?php if( $settings->file_vertical_padding ) { ?>
+    padding-top: <?php echo $settings->file_vertical_padding; ?>px;
+    <?php } ?>
+    <?php if( $settings->file_vertical_padding ) { ?>
+    padding-bottom: <?php echo $settings->file_vertical_padding; ?>px;
+    <?php } ?>
+    <?php if( $settings->file_horizontal_padding ) { ?>
+    padding-left: <?php echo $settings->file_horizontal_padding; ?>px;
+    <?php } ?>
+    <?php if( $settings->file_horizontal_padding ) { ?>
+    padding-right: <?php echo $settings->file_horizontal_padding; ?>px;
+    <?php } ?>
+}
+
 .fl-node-<?php echo $id; ?> .pp-caldera-form-content .caldera-grid input[type=submit] {
     <?php if( $settings->button_text_color['primary'] ) { ?>
 	color: #<?php echo $settings->button_text_color['primary']; ?>;

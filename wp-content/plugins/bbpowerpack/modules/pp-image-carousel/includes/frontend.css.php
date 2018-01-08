@@ -140,8 +140,10 @@
 <?php endif; ?>
 
 .fl-node-<?php echo $id; ?> .pp-image-overlay .pp-overlay-icon {
-	width: <?php echo ( $settings->overlay_icon_size + ( $settings->overlay_icon_padding * 2) ); ?>px;
-	height: <?php echo ( $settings->overlay_icon_size + ( $settings->overlay_icon_padding * 2) ); ?>px;
+	<?php $overlay_icon_size = ! empty($settings->overlay_icon_size) ? $settings->overlay_icon_size : 0; ?>
+	<?php $overlay_icon_padding = ! empty($settings->overlay_icon_padding) ? $settings->overlay_icon_padding : 0; ?>
+	width: <?php echo ( $overlay_icon_size + ( $overlay_icon_padding * 2) ); ?>px;
+	height: <?php echo ( $overlay_icon_size + ( $overlay_icon_padding * 2) ); ?>px;
 }
 
 .fl-node-<?php echo $id; ?> .pp-image-overlay .pp-overlay-icon span {

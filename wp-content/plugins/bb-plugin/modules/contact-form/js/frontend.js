@@ -66,7 +66,7 @@
 				phone			= $(this.nodeClass + ' .fl-phone input'),
 				subject	  		= $(this.nodeClass + ' .fl-subject input'),
 				message	  		= $(this.nodeClass + ' .fl-message textarea'),
-				reCaptchaField  = $('#'+ this.settings.id + '-fl-grecaptcha'),
+				reCaptchaField	= $(this.nodeClass + ' .fl-grecaptcha'),
 				reCaptchaValue	= reCaptchaField.data( 'fl-grecaptcha-response' ),
 				ajaxData 		= null,
 				ajaxurl	  		= FLBuilderLayoutConfig.paths.wpAjaxUrl,

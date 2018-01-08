@@ -17,6 +17,7 @@ $toggle_height 	= 28;
  */
 
 .fl-node-<?php echo $id; ?> .pp-advanced-menu .menu > li {
+	<?php if ( isset( $settings->spacing ) && ! empty( $settings->spacing ) ) { ?>
 	<?php if( $settings->alignment == 'left' ) { ?>
 		margin-right: <?php echo ( $settings->spacing ); ?>px;
     <?php } elseif( $settings->alignment == 'right' ) { ?>
@@ -24,6 +25,7 @@ $toggle_height 	= 28;
     <?php } else { ?>
 		margin-left: <?php echo ( $settings->spacing / 2 ); ?>px;
 		margin-right: <?php echo ( $settings->spacing / 2 ); ?>px;
+	<?php } ?>
 	<?php } ?>
 	<?php if( $settings->link_bottom_spacing ) { ?>margin-bottom: <?php echo $settings->link_bottom_spacing; ?>px;<?php } ?>
 }
@@ -41,7 +43,7 @@ $toggle_height 	= 28;
 /**
  * Toggle - Arrows / None
  */
-if( ( ( $settings->menu_layout == 'horizontal' || $settings->menu_layout == 'vertical' ) &&  $settings->submenu_hover_toggle == 'arrows' ) || ( $settings->menu_layout == 'accordion' && $settings->submenu_click_toggle == 'arrows' ) ) { ?>
+if( ( ( $settings->menu_layout == 'horizontal' || $settings->menu_layout == 'vertical' ) && in_array($settings->submenu_hover_toggle, array('arrows', 'none') ) ) || ( $settings->menu_layout == 'accordion' && $settings->submenu_click_toggle == 'arrows' ) ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-menu-toggle:before {
 		content: '';
 		position: absolute;
@@ -474,8 +476,8 @@ if( $global_settings->responsive_enabled ) { ?>
 if( !empty( $settings->background_hover_color ) || $settings->link_hover_color ) { ?>
 	.fl-node-<?php echo $id; ?> .menu > li > a:hover,
 	.fl-node-<?php echo $id; ?> .menu > li > a:focus,
-	.fl-node-<?php echo $id; ?> .menu > li > .pp-has-submenu-container:hover > a,
-	.fl-node-<?php echo $id; ?> .menu > li > .pp-has-submenu-container.focus > a,
+	.fl-node-<?php echo $id; ?> .menu > li:hover > .pp-has-submenu-container > a,
+	.fl-node-<?php echo $id; ?> .menu > li:focus > .pp-has-submenu-container > a,
 	.fl-node-<?php echo $id; ?> .menu > li.current-menu-item > a,
 	.fl-node-<?php echo $id; ?> .menu > li.current-menu-item > .pp-has-submenu-container > a {
 		<?php if( !empty( $settings->background_hover_color ) ) { ?>
@@ -531,6 +533,15 @@ if( !empty( $settings->background_hover_color ) || $settings->link_hover_color )
 	border-left-width: <?php echo $settings->submenu_border_width['left']; ?>px;
 	border-right-width: <?php echo $settings->submenu_border_width['right']; ?>px;
 	<?php if( $settings->submenu_box_border_color ) { ?>border-color: #<?php echo $settings->submenu_box_border_color; ?>;<?php } ?>
+	<?php if ( ! empty( $settings->submenu_container_bg_color ) ) { ?>
+	background-color: #<?php echo $settings->submenu_container_bg_color; ?>;
+	<?php } ?>
+}
+
+.fl-node-<?php echo $id; ?> ul.pp-advanced-menu-horizontal li.mega-menu > ul.sub-menu {
+	<?php if ( ! empty( $settings->submenu_container_bg_color ) ) { ?>
+	background: #<?php echo $settings->submenu_container_bg_color; ?>;
+	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .sub-menu > li > a,
@@ -544,7 +555,7 @@ if( !empty( $settings->background_hover_color ) || $settings->link_hover_color )
 	border-bottom-width: <?php echo ( $settings->submenu_border_size != '' && $settings->submenu_border_color ) ? $settings->submenu_border_size : ''; ?>px;
 	border-color: <?php echo '#' . $settings->submenu_border_color; ?>;
 	background-color: <?php echo '#' . $settings->submenu_background_color; ?>;
-	color: <?php echo '#' . $settings->submenu_link_color; ?>;
+	color: #<?php echo empty($settings->submenu_link_color) ? $settings->link_color : $settings->submenu_link_color; ?>;
 
 }
 
@@ -560,7 +571,7 @@ if( !empty( $settings->background_hover_color ) || $settings->link_hover_color )
 .fl-node-<?php echo $id; ?> .sub-menu > li.current-menu-item > a,
 .fl-node-<?php echo $id; ?> .sub-menu > li.current-menu-item > .pp-has-submenu-container > a {
 	background-color: <?php echo '#' . $settings->submenu_background_hover_color; ?>;
-	color: <?php echo '#' . $settings->submenu_link_hover_color; ?>;
+	color: #<?php echo empty($settings->submenu_link_hover_color) ? $settings->link_hover_color : $settings->submenu_link_hover_color; ?>;
 }
 
 <?php if( !empty( $settings->submenu_link_color ) ) { ?>
@@ -710,9 +721,20 @@ if( isset( $settings->mobile_toggle ) && $settings->mobile_toggle != 'expanded' 
 		text-align: <?php echo $settings->responsive_alignment; ?>;
 	}
 
-	<?php if ( 'always' != $module->get_media_breakpoint() ) : ?>
-		}
-	<?php endif; ?>
+<?php if ( 'always' != $module->get_media_breakpoint() ) : ?>
+	}
+<?php endif; ?>
+
+<?php if ( 'always' != $module->get_media_breakpoint() ) : ?>
+	@media ( min-width: <?php echo ( $module->get_media_breakpoint() ) + 1 ?>px ) {
+		<?php // if menu is horizontal or vertical ?>
+		<?php if ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) ) : ?>
+			.fl-node-<?php echo $id; ?> ul.sub-menu {
+				padding: <?php echo ! empty( $settings->submenu_spacing ) ? $settings->submenu_spacing . 'px' : '0' ?>;
+			}
+		<?php endif; ?>		
+	}
+<?php endif; ?>
 
 
 @media only screen and (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) {
@@ -729,13 +751,15 @@ if( isset( $settings->mobile_toggle ) && $settings->mobile_toggle != 'expanded' 
         <?php } ?>
     }
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu .menu > li {
-		<?php if( $settings->alignment == 'left' ) { ?>
-			margin-right: <?php echo ( $settings->spacing_medium ); ?>px;
-		<?php } elseif( $settings->alignment == 'right' ) { ?>
-			margin-left: <?php echo ( $settings->spacing_medium ); ?>px;
-		<?php } else { ?>
-			margin-left: <?php echo ( $settings->spacing_medium / 2 ); ?>px;
-			margin-right: <?php echo ( $settings->spacing_medium / 2 ); ?>px;
+		<?php if ( isset( $settings->spacing_medium ) && ! empty( $settings->spacing_medium ) ) { ?>
+			<?php if( $settings->alignment == 'left' ) { ?>
+				margin-right: <?php echo ( $settings->spacing_medium ); ?>px;
+			<?php } elseif( $settings->alignment == 'right' ) { ?>
+				margin-left: <?php echo ( $settings->spacing_medium ); ?>px;
+			<?php } else { ?>
+				margin-left: <?php echo ( $settings->spacing_medium / 2 ); ?>px;
+				margin-right: <?php echo ( $settings->spacing_medium / 2 ); ?>px;
+			<?php } ?>
 		<?php } ?>
 		<?php if( $settings->link_bottom_spacing_medium ) { ?>margin-bottom: <?php echo $settings->link_bottom_spacing_medium; ?>px;<?php } ?>
 	}
@@ -763,13 +787,15 @@ if( isset( $settings->mobile_toggle ) && $settings->mobile_toggle != 'expanded' 
         <?php } ?>
     }
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu .menu > li {
-		<?php if( $settings->alignment == 'left' ) { ?>
-			margin-right: <?php echo ( $settings->spacing_responsive ); ?>px;
-		<?php } elseif( $settings->alignment == 'right' ) { ?>
-			margin-left: <?php echo ( $settings->spacing_responsive ); ?>px;
-		<?php } else { ?>
-			margin-left: <?php echo ( $settings->spacing_responsive / 2 ); ?>px;
-			margin-right: <?php echo ( $settings->spacing_responsive / 2 ); ?>px;
+		<?php if ( isset( $settings->spacing_responsive ) && ! empty( $settings->spacing_responsive ) ) { ?>
+			<?php if( $settings->alignment == 'left' ) { ?>
+				margin-right: <?php echo ( $settings->spacing_responsive ); ?>px;
+			<?php } elseif( $settings->alignment == 'right' ) { ?>
+				margin-left: <?php echo ( $settings->spacing_responsive ); ?>px;
+			<?php } else { ?>
+				margin-left: <?php echo ( $settings->spacing_responsive / 2 ); ?>px;
+				margin-right: <?php echo ( $settings->spacing_responsive / 2 ); ?>px;
+			<?php } ?>
 		<?php } ?>
 		<?php if( $settings->link_bottom_spacing_responsive ) { ?>margin-bottom: <?php echo $settings->link_bottom_spacing_responsive; ?>px;<?php } ?>
 	}

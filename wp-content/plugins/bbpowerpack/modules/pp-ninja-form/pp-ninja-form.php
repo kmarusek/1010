@@ -434,7 +434,7 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                         ),
                         'preview'       => array(
                             'type'      => 'css',
-                            'selector'  => '.pp-ninja-form-content .pp-form-title, .pp-ninja-form-content .ninja-forms-form-title',
+                            'selector'  => '.pp-ninja-form-content .pp-form-title, .pp-ninja-form-content .ninja-forms-form-title, .pp-ninja-form-content .nf-form-title',
                             'property'  => 'text-align'
                         )
                     ),
@@ -453,7 +453,7 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                                 'tooltip'       => 'Top',
                                 'icon'		=> 'fa-long-arrow-up',
                                 'preview'       => array(
-                                    'selector'  => '.pp-ninja-form-content .pp-form-title, .pp-ninja-form-content .ninja-forms-form-title',
+                                    'selector'  => '.pp-ninja-form-content .pp-form-title, .pp-ninja-form-content .ninja-forms-form-title, .pp-ninja-form-content .nf-form-title',
                                     'property'  => 'margin-top',
                                     'unit'      => 'px'
                                 )
@@ -464,7 +464,7 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                                 'tooltip'       => 'Bottom',
                                 'icon'		=> 'fa-long-arrow-down',
                                 'preview'       => array(
-                                    'selector'  => '.pp-ninja-form-content .pp-form-title, .pp-ninja-form-content .ninja-forms-form-title',
+                                    'selector'  => '.pp-ninja-form-content .pp-form-title, .pp-ninja-form-content .ninja-forms-form-title, .pp-ninja-form-content .nf-form-title',
                                     'property'  => 'margin-bottom',
                                     'unit'      => 'px'
                                 )
@@ -1140,7 +1140,7 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                         'label'         => __('Font', 'bb-powerpack'),
                         'preview'         => array(
                             'type'            => 'font',
-                            'selector'        => '.pp-ninja-form-content .pp-form-title, .pp-ninja-form-content .ninja-forms-form-title'
+                            'selector'        => '.pp-ninja-form-content .pp-form-title, .pp-ninja-form-content .ninja-forms-form-title, .pp-ninja-form-content .nf-form-title'
                         )
                     ),
                     'title_text_transform'    => array(
@@ -1154,7 +1154,7 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                         ),
                         'preview'         => array(
                             'type'            => 'css',
-                            'selector'        => '.pp-ninja-form-content .pp-form-title, .pp-ninja-form-content .ninja-forms-form-title',
+                            'selector'        => '.pp-ninja-form-content .pp-form-title, .pp-ninja-form-content .ninja-forms-form-title, .pp-ninja-form-content .nf-form-title',
                             'property'        => 'text-transform'
                         )
                     ),
@@ -1187,7 +1187,7 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                                 'maxlength'     => 3,
                                 'tooltip'       => __('Desktop', 'bb-powerpack'),
                                 'preview'           => array(
-                                    'selector'      => '.pp-ninja-form-content .pp-form-title, .pp-ninja-form-content .ninja-forms-form-title',
+                                    'selector'      => '.pp-ninja-form-content .pp-form-title, .pp-ninja-form-content .ninja-forms-form-title, .pp-ninja-form-content .nf-form-title',
                                     'property'      => 'font-size',
                                     'unit'          => 'px'
                                 ),
@@ -1221,7 +1221,7 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                                 'maxlength'     => 3,
                                 'tooltip'       => __('Desktop', 'bb-powerpack'),
                                 'preview'           => array(
-                                    'selector'      => '.pp-ninja-form-content .pp-form-title, .pp-ninja-form-content .ninja-forms-form-title',
+                                    'selector'      => '.pp-ninja-form-content .pp-form-title, .pp-ninja-form-content .ninja-forms-form-title, .pp-ninja-form-content .nf-form-title',
                                     'property'      => 'line-height',
                                 ),
                             ),
@@ -1246,7 +1246,7 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                         'show_reset'    => true,
                         'preview'       => array(
                             'type'      => 'css',
-                            'selector'  => '.pp-ninja-form-content .pp-form-title, .pp-ninja-form-content .ninja-forms-form-title',
+                            'selector'  => '.pp-ninja-form-content .pp-form-title, .pp-ninja-form-content .ninja-forms-form-title, .pp-ninja-form-content .nf-form-title',
                             'property'  => 'color'
                         )
                     ),

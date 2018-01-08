@@ -123,7 +123,7 @@ class PP3dSliderModule extends FLBuilderModule {
 					$data->link = $photo->sizes->full->url;
 				}
 
-                $data->url = get_post_meta( $id, 'pp-custom-link', true );
+                $data->url = get_post_meta( $id, 'gallery_external_link', true );
 
 				$photos[$id] = $data;
 			}
@@ -188,6 +188,16 @@ FLBuilder::register_module('PP3dSliderModule', array(
                         'default'           => 2,
                         'size'              => 5,
                         'description'       => __('seconds', 'bb-powerpack')
+                    ),
+                    'link_target'   => array(
+                        'type'          => 'select',
+                        'label'         => __('Custom Link Target', 'bb-powerpack'),
+                        'default'       => '_self',
+                        'options'       => array(
+                            '_self'         => __('Same Window', 'bb-powerpack'),
+                            '_blank'        => __('New Window', 'bb-powerpack'),
+                        ),
+                        'help'          => __('You can set custom link to photos in media modal where you uploaded them and set the link target here.', 'bb-powerpack')
                     )
                 )
             )

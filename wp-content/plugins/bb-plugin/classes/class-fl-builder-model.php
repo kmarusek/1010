@@ -595,7 +595,7 @@ final class FLBuilderModel {
 				$cols			= self::get_nodes( 'column' );
 				$col			= array_shift( $cols );
 				$settings		= self::get_module_defaults( 'rich-text' );
-				$settings->text = wpautop( $post->post_content );
+				$settings->text = apply_filters( 'fl_builder_migrated_post_content', wpautop( $post->post_content ) );
 
 				self::add_module( 'rich-text', $settings, $col->node );
 			} elseif ( empty( $draft ) ) {
@@ -1554,9 +1554,11 @@ final class FLBuilderModel {
 	 *
 	 * @since 1.0
 	 * @param string $node_id Node ID of the row to copy.
+	 * @param object $settings These settings will be used for the copy if present.
+	 * @param string $settings_id The ID of the node who's settings were passed.
 	 * @return void
 	 */
-	static public function copy_row( $node_id = null ) {
+	static public function copy_row( $node_id = null, $settings = null, $settings_id = null ) {
 		$layout_data	= self::get_layout_data();
 		$row			= self::get_node( $node_id );
 		$new_row_id		= self::generate_node_id();
@@ -1612,6 +1614,15 @@ final class FLBuilderModel {
 				}
 			}
 		}// End foreach().
+
+		// Apply settings that were passed if we have them.
+		if ( $settings && $settings_id ) {
+			if ( $settings_id === $row->node ) {
+				$layout_data[ $new_row_id ]->settings = (object) array_merge( (array) $row->settings, (array) $settings );
+			} else {
+				$new_nodes[ $settings_id ]->settings = (object) array_merge( (array) $new_nodes[ $settings_id ]->settings, (array) $settings );
+			}
+		}
 
 		// Generate new child ids.
 		$new_nodes = self::generate_new_node_ids( $new_nodes );
@@ -2335,9 +2346,11 @@ final class FLBuilderModel {
 	 *
 	 * @since 2.0
 	 * @param string $node_id Node ID of the column to copy.
+	 * @param object $settings These settings will be used for the copy if present.
+	 * @param string $settings_id The ID of the node who's settings were passed.
 	 * @return void
 	 */
-	static public function copy_col( $node_id = null ) {
+	static public function copy_col( $node_id = null, $settings = null, $settings_id = null ) {
 		$layout_data = self::get_layout_data();
 		$col		 = self::get_node( $node_id );
 		$new_col_id	 = self::generate_node_id();
@@ -2378,6 +2391,15 @@ final class FLBuilderModel {
 						$new_nodes[ $module->node ]->settings = self::clone_module_settings( $module->settings );
 					}
 				}
+			}
+		}
+
+		// Apply settings that were passed if we have them.
+		if ( $settings && $settings_id ) {
+			if ( $settings_id === $col->node ) {
+				$layout_data[ $new_col_id ]->settings = (object) array_merge( (array) $col->settings, (array) $settings );
+			} else {
+				$new_nodes[ $settings_id ]->settings = (object) array_merge( (array) $new_nodes[ $settings_id ]->settings, (array) $settings );
 			}
 		}
 
@@ -2762,7 +2784,7 @@ final class FLBuilderModel {
 			$config->kind = 'module';
 			$config->isWidget = false; // @codingStandardsIgnoreLine
 			$config->isAlias = true; // @codingStandardsIgnoreLine
-			$config->group = $config->group ? array( strtolower( str_replace( ' ', '', $config->group ) ) ) : array( 'standard' );
+			$config->group = $config->group ? array( sanitize_key( $config->group ) ) : array( 'standard' );
 
 			$modules[] = $config;
 		}
@@ -2781,7 +2803,8 @@ final class FLBuilderModel {
 				$data->isWidget = true; // @codingStandardsIgnoreLine
 				$data->isAlias = false; // @codingStandardsIgnoreLine
 				$data->description = isset( $widget->widget_options['description'] ) ? $widget->widget_options['description'] : '';
-				$data->group = array( strtolower( str_replace( ' ', '', __( 'WordPress Widgets', 'fl-builder' ) ) ) );
+
+				$data->group = array( sanitize_key( __( 'WordPress Widgets', 'fl-builder' ) ) );
 
 				if ( ! isset( $widget->icon ) ) {
 					$data->icon = FLBuilderModule::get_widget_icon();
@@ -3075,10 +3098,15 @@ final class FLBuilderModel {
 	 *
 	 * @since 1.0
 	 * @param string $node_id Node ID of the module to copy.
+	 * @param object $settings These settings will be used for the copy if present.
 	 * @return object The new module object.
 	 */
-	static public function copy_module( $node_id = null ) {
+	static public function copy_module( $node_id = null, $settings = null ) {
 		$module	= self::get_module( $node_id );
+
+		if ( $settings ) {
+			$module->settings = (object) array_merge( (array) $module->settings, (array) $settings );
+		}
 
 		return self::add_module( $module->settings->type, $module->settings, $module->parent, $module->position + 1 );
 	}

@@ -6,6 +6,9 @@ FLBuilderModel::default_settings($settings, array(
 
 ));
 
+$module_dir = $module->dir;
+$module_url = $module->url;
+
 $css_class = '';
 
 if ( $settings->match_height == 'no' ) {
@@ -84,7 +87,7 @@ $query = FLBuilderLoop::query( $settings );
 	?>
 
 	<div class="pp-content-grid-pagination fl-builder-pagination"<?php if($settings->pagination == 'scroll') echo ' style="display:none;"'; ?>>
-		<?php $module->pagination( $query, $settings ); ?>
+		<?php BB_PowerPack_Post_Helper::pagination( $query, $settings ); ?>
 	</div>
 
 	<?php endif; ?>

@@ -1,3 +1,11 @@
+<h4>2.0.3.2 - 12/20/2017</h4>
+<p><strong>Hotfix</strong></p>
+<ul>
+	<li>Removed the next/prev settings tab shortcuts as they interfere with text editing.</li>
+	<li>Fixed module settings reverting to defaults when duplicating a module that isn't saved yet.</li>
+	<li>Fixed contact form errors when global or using the reCAPTCHA.</li>
+</ul>
+
 <h4>2.0.3.1 - 12/13/2017</h4>
 <p><strong>Hotfix</strong></p>
 <ul>

@@ -1,6 +1,6 @@
 <div class="pp-accordion <?php if ( $settings->collapse ) echo ' pp-accordion-collapse'; ?>">
 	<?php for ( $i = 0; $i < count( $settings->items ); $i++ ) : if ( empty( $settings->items[ $i ] ) ) continue; ?>
-	<div id="pp-accord-<?php echo $id; ?>-<?php echo $i; ?>" class="pp-accordion-item"<?php if ( ! empty( $settings->id ) ) echo ' id="' . sanitize_html_class( $settings->id ) . '-' . $i . '"'; ?>>
+	<div id="pp-accord-<?php echo $id; ?>-<?php echo $i; ?>" class="pp-accordion-item">
 		<div class="pp-accordion-button">
 			<?php if( $settings->items[$i]->accordion_font_icon ) { ?>
 				<span class="pp-accordion-icon <?php echo $settings->items[$i]->accordion_font_icon; ?>"></span>

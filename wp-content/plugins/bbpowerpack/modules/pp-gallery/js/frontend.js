@@ -58,14 +58,16 @@
 
 		_justifiedLayout: function()
 		{
-			var self = this;
+			var wrap = $(this.wrapperClass);
 
-			$(this.wrapperClass).justifiedGallery({
-				margins: self.settings.spacing,
-				rowHeight: self.settings.rowheight,
-				maxRowHeight: self.settings.maxrowheight,
-				lastRow: self.settings.lastrow,
-			});
+			wrap.imagesLoaded( $.proxy(function () {
+				$(this.wrapperClass).justifiedGallery({
+					margins: this.settings.spacing,
+					rowHeight: this.settings.rowheight,
+					maxRowHeight: this.settings.maxrowheight,
+					lastRow: this.settings.lastrow,
+				});
+			}, this));
 		},
 
 

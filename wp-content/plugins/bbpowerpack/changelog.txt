@@ -1,3 +1,34 @@
+== 2.3.0 ==
+Release date: December 22, 2017
+* New: Post Timeline module
+* Enhancement: Added AJAX filter option in Content Grid module
+* Enhancement: Added custom link target option in 3D Slider module
+* Enhancement: Added field connections in Animated Headline module
+* Enhancement: Added Submenu spacing option in Advanced Menu module
+* Enhancement: Added submenu container background color option in Advanced Menu module
+* Enhancement: Added field onnections for button in Modal Box module
+* Enhancement: Added day range selection option in Business Hours module
+* Enhancement: Added file upload input styling options in Gravity Forms and Caldera Forms module
+* Enhancement: Added reCAPTCHA settings in Contact Form module
+* Enhancement: Added option to collapse items by default on responsive devices in Advanced Accordion module
+* Enhancement: Added unique CSS class for category elements in HTML markup of Content Tiles module
+* Enhancement: Entire block will now be clickable instead of logo image in Logo Grid & Carousel module
+* Enhancement: Removed mode selection from row templates admin screen
+* Fix: Hover Cards were not showing on responsive devices when background type is set to color in Hover Cards 2 module
+* Fix: Responsive issue in Advanced Menu module when type is set to default
+* Fix: Parent menu toggle icon was being reversed on collapsing its submenu in Advanced Menu module
+* Fix: Minor CSS issue in Formidable Forms module
+* Fix: Added option to remove icon in Timeline module
+* Fix: Schema markup in Business Hours module
+* Fix: Parent link hover colors was not working when hovering its submenu in Advanced Menu module
+* Fix: Title and content rendering issue due to CSS classes were being updated in Ninja Forms core plugin
+* Fix: Z-index issue of off-canvas menu in Advanced Menu module
+* Fix: Equal Height was not working sometimes for carousel layout in Content Grid module
+* Fix: Live preview was not working for description typography fields in Smart Heading module
+* Fix: JS error in Filterable Gallery module
+* Fix: JS error due to empty value in Gallery module
+* Fix: PHP warning in CSS of Image Carousel module
+
 == 2.2.0.1 ==
 Release date: November 30, 2017
 * Fix: Z-index issue in Formidable Forms module

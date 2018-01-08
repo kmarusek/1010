@@ -23,7 +23,43 @@ class PPContactFormModule extends FLBuilderModule {
 		));
 
 		add_action('wp_ajax_pp_send_email', array($this, 'send_mail'));
-		add_action('wp_ajax_nopriv_pp_send_email', array($this, 'send_mail'));
+        add_action('wp_ajax_nopriv_pp_send_email', array($this, 'send_mail'));
+        add_filter( 'script_loader_tag', array( $this, 'add_async_attribute' ), 10, 2 );
+    }
+    
+    /**
+	 * @method enqueue_scripts
+	 */
+	public function enqueue_scripts() {
+		$settings = $this->settings;
+		if ( isset( $settings->recaptcha_toggle ) && 'show' == $settings->recaptcha_toggle
+			&& isset( $settings->recaptcha_site_key ) && ! empty( $settings->recaptcha_site_key )
+			) {
+
+			$site_lang = substr( get_locale(), 0, 2 );
+			$post_id    = FLBuilderModel::get_post_id();
+
+			$this->add_js(
+				'g-recaptcha',
+				'https://www.google.com/recaptcha/api.js?onload=onLoadFLReCaptcha&render=explicit&hl=' . $site_lang,
+				array( 'fl-builder-layout-' . $post_id ),
+				'2.0',
+				true
+			);
+		}
+	}
+
+	/**
+	 * @method  add_async_attribute for the enqueued `g-recaptcha` script
+	 * @param string $tag    Script tag
+	 * @param string $handle Registered script handle
+	 */
+	public function add_async_attribute( $tag, $handle ) {
+		if ( ('g-recaptcha' !== $handle) || ('g-recaptcha' === $handle && strpos( $tag, 'g-recaptcha-api' ) !== false ) ) {
+			return $tag;
+		}
+
+		return str_replace( ' src', ' id="g-recaptcha-api" async="async" defer="defer" src', $tag );
 	}
 
 	/**
@@ -35,7 +71,8 @@ class PPContactFormModule extends FLBuilderModule {
 		// Get the contact form post data
     	$node_id			= isset( $_POST['node_id'] ) ? sanitize_text_field( $_POST['node_id'] ) : false;
     	$template_id    	= isset( $_POST['template_id'] ) ? sanitize_text_field( $_POST['template_id'] ) : false;
-		$template_node_id   = isset( $_POST['template_node_id'] ) ? sanitize_text_field( $_POST['template_node_id'] ) : false;
+        $template_node_id   = isset( $_POST['template_node_id'] ) ? sanitize_text_field( $_POST['template_node_id'] ) : false;
+        $recaptcha_response	= isset( $_POST['recaptcha_response'] ) ? $_POST['recaptcha_response'] : false;
 
 		$subject 			= (isset($_POST['subject']) ? $_POST['subject'] : __('Contact Form Submission', 'bb-powerpack'));
 		$admin_email 		= get_option('admin_email');
@@ -69,7 +106,23 @@ class PPContactFormModule extends FLBuilderModule {
 				$subject   = $settings->subject_hidden;
 			}
 
-			$response['error'] = false;
+			// Validate reCAPTCHA if enabled
+			if ( isset( $settings->recaptcha_toggle ) && 'show' == $settings->recaptcha_toggle && $recaptcha_response ) {
+				if ( ! empty( $settings->recaptcha_secret_key ) && ! empty( $settings->recaptcha_site_key ) ) {
+					if ( version_compare( phpversion(), '5.3', '>=' ) ) {
+						include $module->dir . 'includes/validate-recaptcha.php';
+					} else {
+						$response['error'] = false;
+					}
+				} else {
+					$response = array(
+						'error' => true,
+						'message' => __( 'Your reCAPTCHA Site or Secret Key is missing!', 'bb-powerpack' ),
+					);
+				}
+			} else {
+				$response['error'] = false;
+			}
 
 			$pp_contact_from_email = (isset($_POST['email']) ? sanitize_email($_POST['email']) : null);
 			$pp_contact_from_name = (isset($_POST['name']) ? $_POST['name'] : null);
@@ -1875,5 +1928,72 @@ FLBuilder::register_module('PPContactFormModule', array(
                 )
             ),
 		)
+    ),
+    'reCAPTCHA'	=> array(
+		'title'		  => __( 'reCAPTCHA', 'bb-powerpack' ),
+		'sections'	  => array(
+			'recaptcha_general' => array(
+				'title'			=> '',
+				'fields'		=> array(
+					'recaptcha_toggle' => array(
+						'type' 			=> 'pp-switch',
+						'label' 		=> 'reCAPTCHA Field',
+						'default'		  => 'hide',
+						'options'		  => array(
+							'show'	   => __( 'Show', 'bb-powerpack' ),
+							'hide'	   => __( 'Hide', 'bb-powerpack' ),
+						),
+						'toggle' 		=> array(
+							'show'        => array(
+								'fields' 	=> array( 'recaptcha_site_key', 'recaptcha_secret_key', 'recaptcha_validate_type', 'recaptcha_theme' ),
+							),
+						),
+						'help' 			=> __( 'If you want to show this field, please provide valid Site and Secret Keys.', 'bb-powerpack' ),
+					),
+					'recaptcha_site_key'		=> array(
+						'type'			=> 'text',
+						'label' 		=> __( 'Site Key', 'bb-powerpack' ),
+						'default'		  => '',
+						'preview'		  => array(
+							'type'		   => 'none',
+						),
+					),
+					'recaptcha_secret_key'	=> array(
+						'type'			=> 'text',
+						'label' 		=> __( 'Secret Key', 'bb-powerpack' ),
+						'default'		  => '',
+						'preview'		  => array(
+							'type'		   => 'none',
+						),
+					),
+					'recaptcha_validate_type' => array(
+						'type'          		=> 'select',
+						'label'         		=> __( 'Validate Type', 'bb-powerpack' ),
+						'default'       		=> 'normal',
+						'options'       		=> array(
+							'normal'  				=> __( '"I\'m not a robot" checkbox', 'bb-powerpack' ),
+							'invisible'     		=> __( 'Invisible', 'bb-powerpack' ),
+						),
+						'help' 					=> __( 'Validate users with checkbox or in the background.<br />Note: Checkbox and Invisible types use seperate API keys.', 'bb-powerpack' ),
+						'preview'      		 	=> array(
+							'type'          		=> 'none',
+						),
+					),
+					'recaptcha_theme'   => array(
+						'type'          	=> 'pp-switch',
+						'label'         	=> __( 'Theme', 'bb-powerpack' ),
+						'default'       	=> 'light',
+						'options'       	=> array(
+							'light'  			=> __( 'Light', 'bb-powerpack' ),
+							'dark'     			=> __( 'Dark', 'bb-powerpack' ),
+						),
+						'preview'      		 	=> array(
+							'type'          		=> 'none',
+						),
+					),
+				),
+			),
+		),
+		'description'	  => sprintf( __( 'Please register keys for your website at the <a%s>Google Admin Console</a>.', 'bb-powerpack' ), ' href="https://www.google.com/recaptcha/admin" target="_blank"' ),
 	),
 ));

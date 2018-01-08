@@ -83,25 +83,29 @@ FLBuilder::register_module('PPAnimatedHeadlinesModule', array(
 						'type'          => 'text',
 						'label'         => __('Before Text', 'bb-powerpack'),
 						'default'       => __('This is', 'bb-powerpack'),
-						'help'			=> __('Text placed before animated text.', 'bb-powerpack')
+						'help'			=> __('Text placed before animated text.', 'bb-powerpack'),
+						'connections'   => array( 'string', 'html', 'url' ),
 					),
 					'highlighted_text'	=> array(
 						'type'				=> 'text',
 						'label'				=> __('Highlighted Text', 'bb-powerpack'),
-						'default'			=> __('Awesome', 'bb-powerpack')
+						'default'			=> __('Awesome', 'bb-powerpack'),
+						'connections'   	=> array( 'string', 'html', 'url' ),
 					),
 					'rotating_text'	=> array(
 						'type'          => 'textarea',
 						'label'         => __('Rotating Text', 'bb-powerpack'),
 						'default'       => __("Awesome\nCreative\nRotating", 'bb-powerpack'),
 						'rows'          => '5',
-						'help'			=> __('Text with animated effects. You can add multiple text by adding each on a new line.', 'bb-powerpack')
+						'help'			=> __('Text with animated effects. You can add multiple text by adding each on a new line.', 'bb-powerpack'),
+						'connections'   => array( 'string', 'html', 'url' ),
 					),
 					'after_text'	=> array(
 						'type'           => 'text',
 						'label'          => __('After Text', 'bb-powerpack'),
 						'default'        => __('Headline!', 'bb-powerpack'),
-						'help'			 => __('Text placed at the end of animated text.', 'bb-powerpack')
+						'help'			 => __('Text placed at the end of animated text.', 'bb-powerpack'),
+						'connections'   => array( 'string', 'html', 'url' ),
 					),
 					'alignment'     => array(
 						'type'          => 'pp-switch',

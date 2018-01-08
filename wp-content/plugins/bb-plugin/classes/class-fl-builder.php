@@ -1140,16 +1140,6 @@ final class FLBuilder {
 				'keyCode' => 'mod+p',
 				'isGlobal' => true,
 			),
-			'goToNextTab' => array(
-				'label' => _x( 'Next Settings Tab', 'Keyboard action to move to the next panel tab', 'fl-builder' ),
-				'keyCode' => 'mod+right',
-				'isGlobal' => true,
-			),
-			'goToPrevTab' => array(
-				'label' => _x( 'Previous Settings Tab', 'Keyboard action to move to the previous panel tab', 'fl-builder' ),
-				'keyCode' => 'mod+left',
-				'isGlobal' => true,
-			),
 			'cancelTask' => array(
 				'label' => _x( 'Dismiss Active Panel', 'Keyboard action to dismiss the current task or panel', 'fl-builder' ),
 				'keyCode' => 'esc',
@@ -1645,7 +1635,7 @@ final class FLBuilder {
 		// Remove empty lines.
 		$content = preg_replace( '/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/', "\n", $content );
 
-		return $content;
+		return apply_filters( 'fl_builder_editor_content', $content );
 	}
 
 	/**

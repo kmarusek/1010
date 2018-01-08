@@ -44,7 +44,7 @@ FLBuilderModel::default_settings($settings, array(
 						$show_terms[] = $term->name;
 					}
 			?>
-				<div class="pp-post-tile-category"><span><?php echo implode( $settings->meta_separator, $show_terms ); ?></span></div>
+				<div class="pp-post-tile-category"><span class="pp-category-<?php echo strtolower(implode( '-', $show_terms )); ?>"><?php echo implode( $settings->meta_separator, $show_terms ); ?></span></div>
 			<?php } ?>
 			<h3 class="pp-post-tile-title" itemprop="headline">
 				<a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a>

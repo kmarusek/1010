@@ -1,15 +1,18 @@
 <div class="pp-content-grid-image pp-post-image">
     <?php if ( has_post_thumbnail() ) { ?>
-        <?php echo $module->pp_render_img( get_the_id(), $settings->image_thumb_crop ); ?>
+        <?php //echo $module->pp_render_img( get_the_id(), $settings->image_thumb_crop ); ?>
+        <div class="pp-post-featured-img">
+		    <?php FLBuilder::render_module_html( 'photo', BB_PowerPack_Post_Helper::post_image_get_settings( get_the_ID(), $settings->image_thumb_crop, $settings ) ); ?>
+		</div>
     <?php } else {
-        $first_img = $module->pp_catch_image( get_the_content() );
-        $img_src = '' != $first_img ? $first_img : apply_filters( 'pp_cg_placeholder_img', $module->url .'/images/placeholder.jpg' );
+        $first_img = BB_PowerPack_Post_Helper::post_catch_image( get_the_content() );
+        $img_src = '' != $first_img ? $first_img : apply_filters( 'pp_cg_placeholder_img', $module_url .'/images/placeholder.jpg' );
         ?>
         <img src="<?php echo $img_src; ?>" />
     <?php } ?>
 
     <?php if(($settings->show_categories == 'yes' && taxonomy_exists($settings->post_taxonomies) && !empty($terms_list)) && ('style-3' == $settings->post_grid_style_select) ) : ?>
-        <?php include $module->dir . 'includes/templates/post-meta.php'; ?>
+        <?php include $module_dir . 'includes/templates/post-meta.php'; ?>
     <?php endif; ?>
 
     <?php if( 'style-4' == $settings->post_grid_style_select ) { ?>

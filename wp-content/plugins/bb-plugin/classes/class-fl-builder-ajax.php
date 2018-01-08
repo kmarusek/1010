@@ -109,12 +109,12 @@ final class FLBuilderAJAX {
 		self::add_action( 'render_layout', 'FLBuilderAJAXLayout::render' );
 		self::add_action( 'render_node', 'FLBuilderAJAXLayout::render', array( 'node_id' ) );
 		self::add_action( 'render_new_row', 'FLBuilderAJAXLayout::render_new_row', array( 'cols', 'position', 'template_id', 'template_type' ) );
-		self::add_action( 'copy_row', 'FLBuilderAJAXLayout::copy_row', array( 'node_id' ) );
+		self::add_action( 'copy_row', 'FLBuilderAJAXLayout::copy_row', array( 'node_id', 'settings', 'settings_id' ) );
 		self::add_action( 'render_new_column_group', 'FLBuilderAJAXLayout::render_new_column_group', array( 'node_id', 'cols', 'position' ) );
 		self::add_action( 'render_new_columns', 'FLBuilderAJAXLayout::render_new_columns', array( 'node_id', 'insert', 'type', 'nested' ) );
-		self::add_action( 'copy_col', 'FLBuilderAJAXLayout::copy_col', array( 'node_id' ) );
+		self::add_action( 'copy_col', 'FLBuilderAJAXLayout::copy_col', array( 'node_id', 'settings', 'settings_id' ) );
 		self::add_action( 'render_new_module', 'FLBuilderAJAXLayout::render_new_module', array( 'parent_id', 'position', 'type', 'alias', 'template_id', 'template_type' ) );
-		self::add_action( 'copy_module', 'FLBuilderAJAXLayout::copy_module', array( 'node_id' ) );
+		self::add_action( 'copy_module', 'FLBuilderAJAXLayout::copy_module', array( 'node_id', 'settings' ) );
 
 		// FLBuilderUISettingsForms
 		self::add_action( 'render_legacy_settings', 'FLBuilderUISettingsForms::render_legacy_settings', array( 'data', 'form', 'group', 'lightbox' ) );

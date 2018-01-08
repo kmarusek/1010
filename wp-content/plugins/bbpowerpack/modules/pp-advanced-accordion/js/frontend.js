@@ -11,6 +11,7 @@
 
 		settings	: {},
 		nodeClass   : '',
+		clicked		: false,
 
 		_init: function()
 		{
@@ -37,21 +38,20 @@
 			if(accordion.hasClass('pp-accordion-collapse')) {
 				accordion.find( '.pp-accordion-item-active' ).removeClass( 'pp-accordion-item-active' );
 				allContent.slideUp('normal');
-				//allIcons.removeClass('fa-minus');
-				//allIcons.addClass('fa-plus');
+			}
+
+			if ( this.settings.responsiveCollapse && window.innerWidth <= 768 && ! this.clicked ) {
+				this.clicked = true;
+				return;
 			}
 
 			if(content.is(':hidden')) {
 				item.addClass( 'pp-accordion-item-active' );
 				content.slideDown('normal', this._slideDownComplete);
-				//icon.addClass('fa-minus');
-				//icon.removeClass('fa-plus');
 			}
 			else {
 				item.removeClass( 'pp-accordion-item-active' );
 				content.slideUp('normal', this._slideUpComplete);
-				//icon.addClass('fa-plus');
-				//icon.removeClass('fa-minus');
 			}
 		},
 

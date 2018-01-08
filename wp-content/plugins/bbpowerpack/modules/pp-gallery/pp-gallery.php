@@ -4,15 +4,15 @@
  */
 class PPGalleryModule extends FLBuilderModule {
 
-    /**
-     * Constructor function for the module. You must pass the
-     * name, description, dir and url in an array to the parent class.
-     *
-     * @method __construct
-     */
-    public function __construct()
-    {
-        parent::__construct(array(
+	/**
+	 * Constructor function for the module. You must pass the
+	 * name, description, dir and url in an array to the parent class.
+	 *
+	 * @method __construct
+	 */
+	public function __construct()
+	{
+		parent::__construct( array(
 			'name'          => __('Photo Gallery', 'bb-powerpack'),
             'description'   => __('A module for photo gallery.', 'bb-powerpack'),
             'group'         => pp_get_modules_group(),
@@ -22,8 +22,7 @@ class PPGalleryModule extends FLBuilderModule {
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
             'partial_refresh' => true
-        ));
-
+        ) );
     }
 
 	/**

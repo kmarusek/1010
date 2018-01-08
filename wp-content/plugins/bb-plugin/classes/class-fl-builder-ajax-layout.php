@@ -121,10 +121,12 @@ final class FLBuilderAJAXLayout {
 	 *
 	 * @since 1.7
 	 * @param string $node_id The ID of a row to copy.
+	 * @param object $settings These settings will be used for the copy if present.
+	 * @param string $settings_id The ID of the node who's settings were passed.
 	 * @return array
 	 */
-	static public function copy_row( $node_id ) {
-		$row = FLBuilderModel::copy_row( $node_id );
+	static public function copy_row( $node_id, $settings = null, $settings_id = null ) {
+		$row = FLBuilderModel::copy_row( $node_id, $settings, $settings_id );
 
 		return self::render( $row->node );
 	}
@@ -183,10 +185,12 @@ final class FLBuilderAJAXLayout {
 	 *
 	 * @since 2.0
 	 * @param string $node_id The ID of a column to copy.
+	 * @param object $settings These settings will be used for the copy if present.
+	 * @param string $settings_id The ID of the node who's settings were passed.
 	 * @return array
 	 */
-	static public function copy_col( $node_id ) {
-		$col = FLBuilderModel::copy_col( $node_id );
+	static public function copy_col( $node_id, $settings = null, $settings_id = null ) {
+		$col = FLBuilderModel::copy_col( $node_id, $settings, $settings_id );
 
 		return self::render( $col->node );
 	}
@@ -258,10 +262,11 @@ final class FLBuilderAJAXLayout {
 	 *
 	 * @since 1.7
 	 * @param string $node_id The ID of a module to copy.
+	 * @param object $settings These settings will be used for the copy if present.
 	 * @return array
 	 */
-	static public function copy_module( $node_id ) {
-		$module = FLBuilderModel::copy_module( $node_id );
+	static public function copy_module( $node_id, $settings = null ) {
+		$module = FLBuilderModel::copy_module( $node_id, $settings );
 
 		return self::render( $module->node );
 	}
