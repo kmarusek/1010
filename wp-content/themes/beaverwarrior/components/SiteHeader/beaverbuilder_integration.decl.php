@@ -13,7 +13,7 @@ function beaver_warrior_reorganize_bb_header_controls() {
     global $wp_customize;
 
     $wp_customize->add_setting("bw-header-phylactery", array(
-        "default" => "false"
+        "default" => "beaver"
     ));
 
     $wp_customize->add_control(new WP_Customize_Control($wp_customize, "bw-header-phylactery", array(
