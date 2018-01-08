@@ -150,8 +150,8 @@
 					$(this).addClass('pp-filter-active');
 					
 					filterToggle.find('span.toggle-text').html($(this).text());
-					if (filterWrap.hasClass('pp-gallery-filters-open')) {
-						filterWrap.slideUp();
+					if (filtersWrap.hasClass('pp-gallery-filters-open')) {
+						filtersWrap.slideUp();
 					}
                 });
 

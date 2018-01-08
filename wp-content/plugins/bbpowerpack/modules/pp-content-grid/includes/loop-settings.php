@@ -19,6 +19,7 @@ FLBuilderModel::default_settings($settings, array(
 	'more_link_text'	=> __('Read More', 'bb-powerpack'),
 	'post_grid_filters_display' => 'no',
 	'post_grid_filters'	=> 'none',
+	'post_grid_filters_type'	=> 'static',
 	'all_filter_label'	=> __('All', 'bb-powerpack'),
 	'post_taxonomies'	=> 'none',
 	'product_rating'	=> 'yes',
@@ -274,6 +275,17 @@ do_action( 'pp_cg_loop_settings_before_form', $settings ); // e.g Add custom FLB
 				)
 			),
 			'help'	=> __('By enabling this option, post filters will be appeared on frontend.', 'bb-powerpack')
+		), $settings);
+
+		FLBuilder::render_settings_field('post_grid_filters_type', array(
+			'type'		=> 'pp-switch',
+			'label'		=> __('Post Filter Type', 'bb-powerpack'),
+			'default'	=> 'static',
+			'options'       => array(
+				'static'          => __('Static', 'bb-powerpack'),
+				'dynamic'         => __('Dynamic', 'bb-powerpack'),
+			),
+			'help'	=> __('Dynamic filter will enable AJAX filtering.', 'bb-powerpack')
 		), $settings);
 
 		FLBuilder::render_settings_field('post_grid_filters', array(

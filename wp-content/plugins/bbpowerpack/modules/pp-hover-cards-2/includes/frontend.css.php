@@ -188,7 +188,7 @@ for( $i = 0; $i < count( $settings->card_content ); $i++ ) {
 		text-align: center;
 	}
 	.fl-node-<?php echo $id; ?> .pp-hover-card-wrap {
-		display: inline-block;
+		/*display: inline-block;*/
 	}
     .fl-node-<?php echo $id; ?> .pp-hover-card {
 		<?php if( $settings->hover_card_height['tablet'] >= 0 ) { ?>
@@ -203,6 +203,8 @@ for( $i = 0; $i < count( $settings->card_content ); $i++ ) {
 		<?php if ( isset( $settings->hover_card_max_width ) && $settings->hover_card_max_width['tablet'] > 0 ) { ?>
 		max-width: <?php echo $settings->hover_card_max_width['tablet']; ?>px;
 		<?php } ?>
+		float: none;
+		display: inline-block;
     }
 	.fl-node-<?php echo $id; ?> .pp-hover-card .pp-hover-card-inner {
 		min-height: <?php echo $settings->hover_card_height['tablet']; ?>px;

@@ -46,7 +46,7 @@
 			<div class="pp-photo-gallery-content">
 
 				<?php if( $settings->click_action != 'none' ) : ?>
-					<?php $click_action_link = '#';
+					<?php $click_action_link = 'javascript:void(0)';
 						  $click_action_target = $settings->custom_link_target;
 
 						if ( $settings->click_action == 'custom-link' ) {
@@ -106,7 +106,7 @@
 			<div class="pp-gallery-masonry-item pp-gallery-item pp-masonry-item <?php echo $filter_labels[$photo->id]; ?>">
 				<div class="pp-photo-gallery-content <?php echo ( ( $settings->click_action != 'none' ) && !empty( $photo->link ) ) ? 'pp-photo-gallery-link' : ''; ?>">
 					<?php if( $settings->click_action != 'none' ) : ?>
-						<?php $click_action_link = '#';
+						<?php $click_action_link = 'javascript:void(0)';
 							  $click_action_target = $settings->custom_link_target;
 
 							if ( $settings->click_action == 'custom-link' ) {

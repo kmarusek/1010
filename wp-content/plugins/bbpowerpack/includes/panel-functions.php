@@ -69,12 +69,7 @@ function pp_template_details( $data, $template )
 {
     if ( is_array($data['category']) && isset( $data['category']['powerpack-templates'] ) ) {
 
-        $scheme	= BB_PowerPack_Admin_Settings::$scheme;
-
-        if ( empty( $scheme ) ) {
-            $scheme = BB_PowerPack_Admin_Settings::get_template_scheme();
-            BB_PowerPack_Admin_Settings::$scheme = $scheme;
-        }
+        $scheme = BB_PowerPack_Admin_Settings::get_template_scheme();
 
         if ( strstr( $template->image, '://' ) ) {
             $image = $template->image;
@@ -175,7 +170,6 @@ function pp_get_template_selector_data( $type = 'row' )
 	$categorized     = array();
 	$templates       = array();
     $scheme	         = BB_PowerPack_Admin_Settings::get_template_scheme();
-    $cache_scheme    = $scheme;
 
 	// Build the templates array.
 	foreach( pp_get_templates() as $key => $template ) {

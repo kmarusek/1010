@@ -572,6 +572,7 @@ FLBuilder::register_settings_form('pp_timeline_form', array(
                         'timeline_icon'     => array(
                             'type'  => 'icon',
                             'label' => __('Icon', 'bb-powerpack'),
+                            'show_remove'   => true
                         ),
                     ),
                 ),

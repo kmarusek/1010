@@ -112,6 +112,7 @@ $logos_grid_columns_mobile = ( 100 - $space_mobile ) / $settings->logos_grid_col
     text-decoration: none;
     box-shadow: none;
     border: none;
+    height: 100%;
 }
 
 .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo div.title-wrapper {

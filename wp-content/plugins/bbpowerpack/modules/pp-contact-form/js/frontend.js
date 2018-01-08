@@ -1,5 +1,45 @@
 (function($) {
 
+	window.onLoadFLReCaptcha = function () {
+		var reCaptchaFields = $('.fl-grecaptcha'),
+			widgetID;
+
+		if (reCaptchaFields.length > 0) {
+			reCaptchaFields.each(function (i) {
+				var self = $(this),
+					attrWidget = self.attr('data-widgetid'),
+					newID = $(this).attr('id') + '-' + i;
+
+				// Avoid re-rendering as it's throwing API error
+				if ((typeof attrWidget !== typeof undefined && attrWidget !== false)) {
+					return;
+				}
+				else {
+					// Increment ID to avoid conflict with the same form.
+					self.attr('id', newID);
+
+					widgetID = grecaptcha.render(newID, {
+						sitekey: self.data('sitekey'),
+						theme: self.data('theme'),
+						size: self.data('validate'),
+						callback: function (response) {
+							if (response != '') {
+								self.attr('data-fl-grecaptcha-response', response);
+
+								// Re-submitting the form after a successful invisible validation.
+								if ('invisible' == self.data('validate')) {
+									self.closest('.pp-contact-form').find('a.fl-button').trigger('click');
+								}
+							}
+						}
+					});
+
+					self.attr('data-widgetid', widgetID);
+				}
+			});
+		}
+	};
+
 	PPContactForm = function( settings )
 	{
 		this.settings	= settings;
@@ -26,6 +66,9 @@
 				phone			= $(this.nodeClass + ' .pp-phone input'),
 				subject	  		= $(this.nodeClass + ' .pp-subject input'),
 				message	  		= $(this.nodeClass + ' .pp-message textarea'),
+				reCaptchaField 	= $(this.nodeClass + ' .fl-grecaptcha'),
+				reCaptchaValue 	= reCaptchaField.data('fl-grecaptcha-response'),
+				ajaxData		= null,
 				ajaxurl	  		= FLBuilderLayoutConfig.paths.wpAjaxUrl,
 				email_regex 	= /\S+@\S+\.\S+/,
 				isValid	  		= true,
@@ -94,6 +137,22 @@
 				message.parent().removeClass('pp-error');
 			}
 
+			// validate if reCAPTCHA is enabled and checked
+			if (reCaptchaField.length > 0) { console.log('test');
+				if ('undefined' === typeof reCaptchaValue || reCaptchaValue === false) {
+					isValid = false;
+					if ('normal' == reCaptchaField.data('validate')) {
+						reCaptchaField.parent().addClass('pp-error');
+					} else if ('invisible' == reCaptchaField.data('validate')) {
+
+						// Invoke the reCAPTCHA check.
+						grecaptcha.execute(reCaptchaField.data('widgetid'));
+					}
+				} else {
+					reCaptchaField.parent().removeClass('pp-error');
+				}
+			}
+
 			// end if we're invalid, otherwise go on..
 			if (!isValid) {
 				return false;
@@ -103,19 +162,25 @@
 				// disable send button
 				submit.addClass('pp-disabled');
 
+				ajaxData = {
+					action: 'pp_send_email',
+					name: name.val(),
+					subject: subject.val(),
+					email: email.val(),
+					phone: phone.val(),
+					message: message.val(),
+					post_id: postId,
+					template_id: templateId,
+					template_node_id: templateNodeId,
+					node_id: nodeId
+				}
+
+				if (reCaptchaValue) {
+					ajaxData.recaptcha_response = reCaptchaValue;
+				}
+
 				// post the form data
-				$.post(ajaxurl, {
-					action				: 'pp_send_email',
-					name				: name.val(),
-					subject				: subject.val(),
-					email				: email.val(),
-					phone				: phone.val(),
-					message				: message.val(),
-					post_id 			: postId,
-					template_id 		: templateId,
-					template_node_id 	: templateNodeId,
-					node_id 			: nodeId
-				}, $.proxy( this._submitComplete, this ) );
+				$.post(ajaxurl, ajaxData, $.proxy( this._submitComplete, this ) );
 			}
 		},
 

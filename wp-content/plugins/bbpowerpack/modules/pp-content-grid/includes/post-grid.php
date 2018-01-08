@@ -70,7 +70,7 @@
 	<?php } ?>
 
 	<?php if ( $settings->show_image == 'yes' ) : ?>
-		<?php include $module->dir . 'includes/templates/post-image.php'; ?>
+		<?php include $module_dir . 'includes/templates/post-image.php'; ?>
 	<?php endif; ?>
 
 	<div class="pp-content-grid-inner pp-content-body clearfix">
@@ -146,40 +146,40 @@
 			<?php endif; ?>
 
 			<?php if( $settings->post_type == 'product' && $settings->product_rating == 'yes' && class_exists( 'WooCommerce' ) ) { ?>
-				<?php include $module->dir . 'includes/templates/product-rating.php'; ?>
+				<?php include $module_dir . 'includes/templates/product-rating.php'; ?>
 			<?php } ?>
 
 			<?php do_action( 'pp_cg_before_post_content', get_the_ID() ); ?>
 
 			<?php if($settings->show_content == 'yes') : ?>
-				<?php include $module->dir . 'includes/templates/post-content.php'; ?>
+				<?php include $module_dir . 'includes/templates/post-content.php'; ?>
 			<?php endif; ?>
 
 			<?php do_action( 'pp_cg_after_post_content', get_the_ID() ); ?>
 
 			<?php if( $settings->more_link_text != '' && $settings->more_link_type == 'button' && 'product' != $settings->post_type && 'download' != $settings->post_type ) :
-				include $module->dir . 'includes/templates/custom-button.php';
+				include $module_dir . 'includes/templates/custom-button.php';
 			endif; ?>
 
 			<?php if( ( $settings->post_type == 'product' || $settings->post_type == 'download' ) && ( $settings->product_price == 'yes' || $settings->product_button == 'yes' ) ) { ?>
 				<?php if( $settings->product_price == 'yes' ) { ?>
-					<?php include $module->dir . 'includes/templates/product-price.php'; ?>
+					<?php include $module_dir . 'includes/templates/product-price.php'; ?>
 				<?php } ?>
 
 				<?php if( $settings->more_link_text != '' && $settings->more_link_type == 'button' && ( 'product' == $settings->post_type || 'download' == $settings->post_type ) ) : ?>
 					<?php if ( 'no' == $settings->product_button ) :
-						include $module->dir . 'includes/templates/custom-button.php';
+						include $module_dir . 'includes/templates/custom-button.php';
 					endif; ?>
 				<?php endif; ?>
 
 				<?php if( $settings->product_button == 'yes' ) { ?>
-					<?php include $module->dir . 'includes/templates/cart-button.php'; ?>
+					<?php include $module_dir . 'includes/templates/cart-button.php'; ?>
 				<?php } ?>
 			<?php } ?>
 
 		</div>
 		<?php if(($settings->show_categories == 'yes' && taxonomy_exists($settings->post_taxonomies) && !empty($terms_list)) && ('style-3' != $settings->post_grid_style_select && 'style-5' != $settings->post_grid_style_select && 'style-6' != $settings->post_grid_style_select) ) : ?>
-			<?php include $module->dir . 'includes/templates/post-meta.php'; ?>
+			<?php include $module_dir . 'includes/templates/post-meta.php'; ?>
 		<?php endif; ?>
 	</div>
 </div>

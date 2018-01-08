@@ -307,21 +307,8 @@ function pp_templates_preview_src( $type = 'page', $category = '' )
 function pp_get_template_screenshot_url( $type, $category, $mode = '' )
 {
 	$url = 'https://s3.amazonaws.com/ppbeaver/assets/400x400/';
-	$scheme = BB_PowerPack_Admin_Settings::get_template_scheme();
 
-	if ( ( $type == 'page' || $scheme == 'color' ) && $mode == '' ) {
-		return $url . $category . '.jpg';
-	}
-
-	if ( $mode == 'color' ) {
-		return $url . $category . '.jpg';
-	}
-
-	if ( $mode == 'greyscale' ) {
-		return $url . 'greyscale/' . $category . '.jpg';
-	}
-
-	return $url . $scheme . '/' . $category . '.jpg';
+	return $url . $category . '.jpg';
 }
 
 /**

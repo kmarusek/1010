@@ -113,6 +113,7 @@
 		 * @see    this._menuOnCLick()
 		 * @see    this._clickOrHover()
 		 * @see    this._submenuOnRight()
+		 * @see    this._submenuRowZindexFix()
 		 * @see    this._toggleForMobile()
 		 * @since  1.6.1
 		 * @return void
@@ -133,6 +134,7 @@
 			} else {
 				$( this.wrapperClass ).off( 'click' );
 				this._submenuOnRight();
+				this._submenuRowZindexFix();
 			}
 
 			if( this.mobileToggle != 'expanded' ) {
@@ -176,7 +178,16 @@
 		 * @return void
 		 */
 		_menuOnClick: function() {
+			var self = this;
+			var $mainItem = '';
+
 			$( this.wrapperClass ).off().on( 'click', '.pp-has-submenu-container', $.proxy( function( e ) {
+
+				var isMainEl = $(e.target).parents('.menu-item').parent().parent().hasClass('pp-advanced-menu');
+
+				if (isMainEl && $mainItem === '') {
+					$mainItem = $(e.target).parents('.menu-item');
+				}
 
 				var $link			= $( e.target ).parents( '.pp-has-submenu' ).first(),
 					$subMenu 		= $link.children( '.sub-menu' ).first(),
@@ -196,17 +207,37 @@
 				if ($(this.wrapperClass).hasClass('pp-advanced-menu-accordion-collapse')) {
 
 					if ( !$link.parents('.menu-item').hasClass('pp-active') ) {
-						$('.pp-active', this.wrapperClass).not($link).removeClass('pp-active');
+						$('.menu .pp-active', this.wrapperClass).not($link).removeClass('pp-active');
 					}
 					else if ($link.parents('.menu-item').hasClass('pp-active') && $link.parent('.sub-menu').length) {
-						$('.pp-active', this.wrapperClass).not($link).not($activeParent).removeClass('pp-active');
+						$('.menu .pp-active', this.wrapperClass).not($link).not($activeParent).removeClass('pp-active');
 					}
 
 					$('.sub-menu', this.wrapperClass).not($subMenu).not($subMenuParents).slideUp('normal');
 				}
 
-				$subMenu.slideToggle();
-				$link.toggleClass( 'pp-active' );
+				// Parent menu toggle icon was being reversed on collapsing its submenu,
+				// so here is the workaround to fix this behavior.
+				if ($(self.wrapperClass).find('.sub-menu:visible').length > 0) {
+					$(self.wrapperClass).find('.sub-menu:visible').parent().addClass('pp-active');
+				}
+				$subMenu.slideToggle(400, function() {
+					if ($mainItem !== '') {
+						$(self.wrapperClass).find('.sub-menu').parent().removeClass('pp-active');
+
+						if ($(self.wrapperClass).find('.sub-menu:visible').length > 0) {
+							$(self.wrapperClass).find('.sub-menu:visible').parent().addClass('pp-active');
+						} else {
+							$link.toggleClass('pp-active');
+							$mainItem.removeClass('pp-active');
+						}
+					} else {
+						$link.toggleClass('pp-active');
+					}
+					if (!$subMenu.is(':visible')) {
+						$subMenu.parent().removeClass('pp-active');
+					}
+				});
 
 			}, this ) );
 
@@ -311,6 +342,37 @@
 		},
 
 		/**
+		 * Logic to prevent submenus to go behind the next overlay row.
+		 *
+		 * @since  2.2
+		 * @return void
+		 */
+		_submenuRowZindexFix: function (e) {
+
+			$(this.wrapperClass)
+				.on('mouseenter', 'ul.menu > .pp-has-submenu', $.proxy(function (e) {
+
+					if ($(e.currentTarget).find('.sub-menu').length === 0) {
+						return;
+					}
+
+					$(this.nodeClass)
+						.closest('.fl-row')
+						.find('.fl-row-content')
+						.css('z-index', '10');
+
+				}, this))
+				.on('mouseleave', 'ul.menu > .pp-has-submenu', $.proxy(function (e) {
+
+					$(this.nodeClass)
+						.closest('.fl-row')
+						.find('.fl-row-content')
+						.css('z-index', '');
+
+				}, this));
+		},
+
+		/**
 		 * Logic for the mobile menu button.
 		 *
 		 * @since  1.6.1
@@ -323,8 +385,16 @@
 
 			if( this._isMenuToggle() ) {
 
-				$wrapper = $( this.wrapperClass );
-				$menu    = $wrapper.children( '.menu' );
+				if (this.mobileMenuType === 'default') {
+					this._placeMobileMenuBelowRow();
+					$wrapper = $(this.wrapperClass);
+					$menu = $(this.nodeClass + '-clone');
+					$menu.find('ul.menu').show();
+				}
+				else {
+					$wrapper = $(this.wrapperClass);
+					$menu = $wrapper.children('.menu');
+				}
 
 				if( !$wrapper.find( '.pp-advanced-menu-mobile-toggle' ).hasClass( 'pp-active' ) ) {
 					$menu.css({ display: 'none' });
@@ -359,6 +429,10 @@
 				});
 			}
 			else {
+
+				if (this.mobileMenuType === 'default') {
+					this._removeMenuFromBelowRow();
+				}
 
 				$wrapper = $( this.wrapperClass ),
 				$menu    = $wrapper.children( '.menu' );
@@ -505,6 +579,52 @@
 					$('html').removeClass('pp-off-canvas-menu-open');
 				}
 			}
+		},
+
+		/**
+		 * Logic for putting the mobile menu below the menu's
+		 * column so it spans the full width of the page.
+		 *
+		 * @since  2.2
+		 * @return void
+		 */
+		_placeMobileMenuBelowRow: function () {
+
+			if ($(this.nodeClass + '-clone').length) {
+				return;
+			}
+
+			var module = $(this.nodeClass),
+				clone = module.clone(),
+				col = module.closest('.fl-col');
+
+			module.find('ul.menu').remove();
+			clone.addClass((this.nodeClass + '-clone').replace('.', ''));
+			clone.find('.pp-advanced-menu-mobile-toggle').remove();
+			col.after(clone);
+
+			this._menuOnClick();
+		},
+
+		/**
+		 * Logic for removing the mobile menu from below the menu's
+		 * column and putting it back in the main wrapper.
+		 *
+		 * @since  2.2
+		 * @return void
+		 */
+		_removeMenuFromBelowRow: function () {
+
+			if (!$(this.nodeClass + '-clone').length) {
+				return;
+			}
+
+			var module = $(this.nodeClass),
+				clone = $(this.nodeClass + '-clone'),
+				menu = clone.find('ul.menu');
+
+			module.find('.pp-advanced-menu-mobile-toggle').after(menu);
+			clone.remove();
 		}
 
 	};
