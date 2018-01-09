@@ -18,3 +18,23 @@
 .gform_footer {
     .FormItem--actions !important;
 }
+
+.FormItem-form--has_inline_submit {
+    position: relative;
+
+    &.gform_wrapper .gform_footer {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        margin: 0 !important;
+        padding: 0 !important;
+
+        width: auto !important;
+
+        button {
+            margin: 0;
+            height: 46px;
+            border-radius: 0px;
+        }
+    }
+}
