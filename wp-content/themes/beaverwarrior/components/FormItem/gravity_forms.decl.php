@@ -10,6 +10,6 @@ function skeletonwarrior_gform_pre_render($form) {
 add_filter('gform_pre_render', 'skeletonwarrior_gform_pre_render');
 
 function skeletonwarrior_gform_submit_button($button, $form) {
-    return "<button class='button FormItem-action' id='gform_submit_button_{$form['id']}'><span>Submit</span></button>";
+    return "<button class='gform_button button FormItem-action' id='gform_submit_button_{$form['id']}'><span>Submit</span></button>";
 }
 add_filter('gform_submit_button', 'skeletonwarrior_gform_submit_button', 10, 2);
