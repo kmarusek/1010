@@ -8,7 +8,7 @@ function skeleton_warrior_register_page_border($wp_customize) {
         'skeleton_warrior_pagecolor',
         array(
             'label' => __('Default Page Color', 'skeleton_warrior'),
-            'section' => 'colors',
+            'section' => 'fl-body-bg',
             'settings' => 'skeleton_warrior_pagecolor',
             'type' => 'radio',
             'choices' => array(
@@ -25,7 +25,7 @@ function skeleton_warrior_register_page_border($wp_customize) {
         'skeleton_warrior_pageborder',
         array(
             'label' => __('Page Border', 'skeleton_warrior'),
-            'section' => 'colors',
+            'section' => 'fl-body-bg',
             'settings' => 'skeleton_warrior_pageborder',
             'type' => 'radio',
             'choices' => array(
