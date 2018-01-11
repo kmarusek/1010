@@ -1,22 +1,16 @@
 <?php
 
 function skeleton_warrior_register_page_border($wp_customize) {
-    $wp_customize->add_setting('skeleton_warrior_pagecolor', array());
-
-    $wp_customize->add_control(new WP_Customize_Control(
-        $wp_customize,
-        'skeleton_warrior_pagecolor',
-        array(
-            'label' => __('Default Page Color', 'skeleton_warrior'),
-            'section' => 'fl-body-bg',
-            'settings' => 'skeleton_warrior_pagecolor',
-            'type' => 'radio',
-            'choices' => array(
-                'light' => __('Light Page', 'skeleton_warrior'),
-                'dark' => __('Dark Page', 'skeleton_warrior'),
-            )
-        )
+    $wp_customize->add_setting("bw-pageborder-color", array(
+        "default" => "#000000"
     ));
+
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, "bw-pageborder-color", array(
+        "section" => "fl-body-bg",
+        "settings" => "bw-pageborder-color",
+        "label" => __("Border Color", 'skeleton_warrior'),
+        "priority" => 10,
+    )));
 
     $wp_customize->add_setting('skeleton_warrior_pageborder', array());
 
@@ -36,3 +30,10 @@ function skeleton_warrior_register_page_border($wp_customize) {
     ));
 }
 add_action('customize_register', 'skeleton_warrior_register_page_border');
+
+function beaver_warrior_expose_page_border_settings($vars, $bods) {
+    $vars["bw-pageborder-color"] = FLColor::hex_or_transparent(get_theme_mod("bw-pageborder-color"));
+
+    return $vars;
+}
+add_action('bw_less_vars', 'beaver_warrior_expose_page_border_settings');
