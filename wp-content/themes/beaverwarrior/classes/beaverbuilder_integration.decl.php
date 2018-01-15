@@ -22,12 +22,17 @@ function beaver_warrior_reorganize_bb_type_controls() {
         "default" => "14"
     ));
 
+    $wp_customize->add_control(new FLCustomizerControl($wp_customize, "bw-p-separator", array(
+        "type" => "line",
+        "priority" => 4,
+    )));
+
     $wp_customize->add_control(new FLCustomizerControl($wp_customize, "bw-p-lg-font-size", array(
         "section" => "fl-body-font",
         "settings" => "bw-p-lg-font-size",
         'label' => __( 'Font Size (Large/Desktop)', 'fl-automator' ),
         "type" => "slider",
-        "priority" => 3,
+        "priority" => 4,
         'choices' => array(
             'min'  => 10,
             'max'  => 72,
