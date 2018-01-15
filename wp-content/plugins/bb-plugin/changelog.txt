@@ -1,3 +1,9 @@
+<h4>2.0.3.3 - 01/09/2018</h4>
+<p><strong>Hotfix</strong></p>
+<ul>
+	<li>Fixed an issue with W3 Cache when CDN is enabled.</li>
+</ul>
+
 <h4>2.0.3.2 - 12/20/2017</h4>
 <p><strong>Hotfix</strong></p>
 <ul>
@@ -397,7 +403,7 @@
     <li>Subscribe Form module: New service for iContact Pro.</li>
     <li>Subscribe Form module: Added support for Godaddy Email Marketing.</li>
     <li>Saved rows in Builder UI now sorted alphabetically.</li>
-    <li>Enhanced WP-CLI support. See <a href="http://kb.wpbeaverbuilder.com/article/504-wp-cli">documentation</a>.</li>
+    <li>Enhanced WP-CLI support. See <a href="https://kb.wpbeaverbuilder.com/article/504-wp-cli">documentation</a>.</li>
     <li>New action <code>fl_builder_subscribe_form_submission_complete</code> added to Subscribe Form module.</li>
     <li>New filter <code>fl_builder_render_module_settings_assets</code> added to settings form assets.</li>
 </ul>
@@ -477,7 +483,7 @@
 	<li>Testimonials Module, new setting added to control slider direction.</li>
 	<li>Subscribe module MailPoet 3 beta support added.</li>
 	<li>Updated pt_PT translation.</li>
-	<li>Added the same <a href="http://kb.wpbeaverbuilder.com/article/139-set-up-a-mega-menu" target="_blank">mega menu logic as the theme</a> to the Menu module.</li>
+	<li>Added the same <a href="https://kb.wpbeaverbuilder.com/article/139-set-up-a-mega-menu" target="_blank">mega menu logic as the theme</a> to the Menu module.</li>
 	<li>Added a submenu spacing setting to the Menu module.</li>
 </ul>
 <p><strong>Bug Fixes</strong></p>
