@@ -58,7 +58,7 @@ function beaver_warrior_reorganize_bb_type_controls() {
     )));
 
     $wp_customize->add_setting("bw-p-margin", array(
-        "default" => "15"
+        "default" => "0"
     ));
 
     $wp_customize->add_control(new FLCustomizerControl($wp_customize, "bw-p-margin", array(
@@ -300,7 +300,7 @@ add_action('customize_register', 'beaver_warrior_reorganize_bb_type_controls', 1
 function beaver_warrior_expose_type_settings($vars, $mods) {
     $vars["bw-p-lg-font-size"] = get_theme_mod("bw-p-lg-font-size", 14) . "px";
     $vars["bw-p-lg-line-height"] = get_theme_mod("bw-p-lg-line-height", 1.45);
-    $vars["bw-p-margin"] = get_theme_mod("bw-p-margin", 14) . "px";
+    $vars["bw-p-margin"] = get_theme_mod("bw-p-margin", 0) . "px";
     $vars["bw-p-letter-spacing"] = get_theme_mod("bw-p-letter-spacing", 2) . "px";
     $vars["bw-h1-lg-font-size"] = get_theme_mod("bw-h1-lg-font-size", 36) . "px";
     $vars["bw-h1-lg-line-height"] = get_theme_mod("bw-h1-lg-line-height", 1.4);
