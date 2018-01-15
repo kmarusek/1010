@@ -296,12 +296,7 @@ function beaver_warrior_expose_type_settings($vars, $mods) {
     $vars["bw-p-lg-font-size"] = get_theme_mod("bw-p-lg-font-size", 14) . "px";
     $vars["bw-p-lg-line-height"] = get_theme_mod("bw-p-lg-line-height", 1.45);
     $vars["bw-p-margin"] = get_theme_mod("bw-p-margin", 14) . "px";
-    $vars["bw-psmall-font-size"] = get_theme_mod("bw-psmall-font-size", 12) . "px";
-    $vars["bw-psmall-line-height"] = get_theme_mod("bw-psmall-line-height", 1.5);
-    $vars["bw-psmall-lg-font-size"] = get_theme_mod("bw-psmall-lg-font-size", 12) . "px";
-    $vars["bw-psmall-lg-line-height"] = get_theme_mod("bw-psmall-lg-line-height", 1.75);
-    $vars["bw-psmall-letter-spacing"] = get_theme_mod("bw-psmall-letter-spacing", 2) . "px";
-    $vars["bw-psmall-margin"] = get_theme_mod("bw-psmall-margin", 14) . "px";
+    $vars["bw-p-letter-spacing"] = get_theme_mod("bw-p-letter-spacing", 2) . "px";
     $vars["bw-h1-lg-font-size"] = get_theme_mod("bw-h1-lg-font-size", 36) . "px";
     $vars["bw-h1-lg-line-height"] = get_theme_mod("bw-h1-lg-line-height", 1.4);
     $vars["bw-h2-lg-font-size"] = get_theme_mod("bw-h2-lg-font-size", 30) . "px";
