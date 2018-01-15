@@ -18,10 +18,6 @@ function beaver_warrior_reorganize_bb_type_controls() {
     $wp_customize->get_control('fl-h6-font-size')->label = sprintf( _x( '%s Font Size (Small/Mobile)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H6' );
     $wp_customize->get_control('fl-h6-line-height')->label = sprintf( _x( '%s Line Height (Small/Mobile)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H6' );
 
-    $wp_customize->add_setting("bw-p-lg-font-size", array(
-        "default" => "14"
-    ));
-
     $wp_customize->add_setting("bw-p-margin", array(
         "default" => "0"
     ));
@@ -58,9 +54,14 @@ function beaver_warrior_reorganize_bb_type_controls() {
 
     $wp_customize->add_control(new FLCustomizerControl($wp_customize, "bw-p-separator", array(
         "section" => "fl-body-font",
+        "settings" => "bw-p-separator",
         "type" => "line",
         "priority" => 11,
     )));
+
+    $wp_customize->add_setting("bw-p-lg-font-size", array(
+        "default" => "14"
+    ));
 
     $wp_customize->add_control(new FLCustomizerControl($wp_customize, "bw-p-lg-font-size", array(
         "section" => "fl-body-font",
