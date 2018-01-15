@@ -52,6 +52,8 @@ function beaver_warrior_reorganize_bb_type_controls() {
         )
     )));
 
+    $wp_customize->add_setting("bw-p-separator", array());
+
     $wp_customize->add_control(new FLCustomizerControl($wp_customize, "bw-p-separator", array(
         "section" => "fl-body-font",
         "settings" => "bw-p-separator",
