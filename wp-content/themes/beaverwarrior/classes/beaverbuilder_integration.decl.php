@@ -82,7 +82,7 @@ function beaver_warrior_reorganize_bb_type_controls() {
     $wp_customize->add_control(new FLCustomizerControl($wp_customize, "bw-p-letter-spacing", array(
         "section" => "fl-body-font",
         "settings" => "bw-p-letter-spacing",
-        'label' => __( 'Small Paragraph Letter Spacing', 'fl-automator' ),
+        'label' => __( 'Letter Spacing', 'fl-automator' ),
         "type" => "slider",
         "priority" => 10,
         'choices' => array(
