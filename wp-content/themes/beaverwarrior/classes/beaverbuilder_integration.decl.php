@@ -50,7 +50,7 @@ function beaver_warrior_reorganize_bb_type_controls() {
         "settings" => "bw-p-lg-line-height",
         'label' => __( 'Line Height (Large/Desktop)', 'fl-automator' ),
         "type" => "slider",
-        "priority" => 4,
+        "priority" => 5,
         'choices' => array(
             'min'  => 1,
             'max'  => 2.5,
@@ -67,7 +67,7 @@ function beaver_warrior_reorganize_bb_type_controls() {
         "settings" => "bw-p-margin",
         'label' => __( 'Paragraph Margin', 'fl-automator' ),
         "type" => "slider",
-        "priority" => 5,
+        "priority" => 6,
         'choices' => array(
             'min'  => 0,
             'max'  => 45,
