@@ -69,81 +69,13 @@ function beaver_warrior_reorganize_bb_type_controls() {
         )
     )));
 
-    $wp_customize->add_setting("bw-psmall-font-size", array(
-        "default" => "12"
+    $wp_customize->add_setting("bw-p-letter-spacing", array(
+        "default" => "0"
     ));
 
-    $wp_customize->add_control(new FLCustomizerControl($wp_customize, "bw-psmall-font-size", array(
+    $wp_customize->add_control(new FLCustomizerControl($wp_customize, "bw-p-letter-spacing", array(
         "section" => "fl-body-font",
-        "settings" => "bw-psmall-font-size",
-        'label' => __( 'Small Paragraph Font Size (Small/Mobile)', 'fl-automator' ),
-        "type" => "slider",
-        "priority" => 6,
-        'choices' => array(
-            'min'  => 10,
-            'max'  => 72,
-            'step' => 1
-        )
-    )));
-
-    $wp_customize->add_setting("bw-psmall-lg-font-size", array(
-        "default" => "12"
-    ));
-
-    $wp_customize->add_control(new FLCustomizerControl($wp_customize, "bw-psmall-lg-font-size", array(
-        "section" => "fl-body-font",
-        "settings" => "bw-psmall-lg-font-size",
-        'label' => __( 'Small Paragraph Font Size (Large/Desktop)', 'fl-automator' ),
-        "type" => "slider",
-        "priority" => 7,
-        'choices' => array(
-            'min'  => 10,
-            'max'  => 72,
-            'step' => 1
-        )
-    )));
-
-    $wp_customize->add_setting("bw-psmall-line-height", array(
-        "default" => "1.5"
-    ));
-
-    $wp_customize->add_control(new FLCustomizerControl($wp_customize, "bw-psmall-line-height", array(
-        "section" => "fl-body-font",
-        "settings" => "bw-psmall-line-height",
-        'label' => __( 'Small Paragraph Line Height (Small/Mobile)', 'fl-automator' ),
-        "type" => "slider",
-        "priority" => 8,
-        'choices' => array(
-            'min'  => 1,
-            'max'  => 2.5,
-            'step' => 0.05
-        )
-    )));
-
-    $wp_customize->add_setting("bw-psmall-lg-line-height", array(
-        "default" => "1.75"
-    ));
-
-    $wp_customize->add_control(new FLCustomizerControl($wp_customize, "bw-psmall-lg-line-height", array(
-        "section" => "fl-body-font",
-        "settings" => "bw-psmall-lg-line-height",
-        'label' => __( 'Small Paragraph Line Height (Large/Desktop)', 'fl-automator' ),
-        "type" => "slider",
-        "priority" => 9,
-        'choices' => array(
-            'min'  => 1,
-            'max'  => 2.5,
-            'step' => 0.05
-        )
-    )));
-
-    $wp_customize->add_setting("bw-psmall-letter-spacing", array(
-        "default" => "2"
-    ));
-
-    $wp_customize->add_control(new FLCustomizerControl($wp_customize, "bw-psmall-letter-spacing", array(
-        "section" => "fl-body-font",
-        "settings" => "bw-psmall-letter-spacing",
+        "settings" => "bw-p-letter-spacing",
         'label' => __( 'Small Paragraph Letter Spacing', 'fl-automator' ),
         "type" => "slider",
         "priority" => 10,
@@ -151,23 +83,6 @@ function beaver_warrior_reorganize_bb_type_controls() {
             'min'  => 0,
             'max'  => 4,
             'step' => 0.1
-        )
-    )));
-
-    $wp_customize->add_setting("bw-psmall-margin", array(
-        "default" => "10"
-    ));
-
-    $wp_customize->add_control(new FLCustomizerControl($wp_customize, "bw-psmall-margin", array(
-        "section" => "fl-body-font",
-        "settings" => "bw-psmall-margin",
-        'label' => __( 'Small Paragraph Margin', 'fl-automator' ),
-        "type" => "slider",
-        "priority" => 11,
-        'choices' => array(
-            'min'  => 0,
-            'max'  => 45,
-            'step' => 1
         )
     )));
 
