@@ -104,7 +104,7 @@ function beaver_warrior_reorganize_bb_type_controls() {
         "settings" => "bw-h1-lg-font-size",
         'label' => sprintf( _x( '%s Font Size (Large/Desktop)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H1' ),
         "type" => "slider",
-        "priority" => 5,
+        "priority" => 7,
         'choices' => array(
             'min'  => 10,
             'max'  => 72,
@@ -121,7 +121,7 @@ function beaver_warrior_reorganize_bb_type_controls() {
         "settings" => "bw-h1-lg-line-height",
         'label' => sprintf( _x( '%s Line Height (Large/Desktop)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H1' ),
         "type" => "slider",
-        "priority" => 6,
+        "priority" => 7,
         'choices' => array(
             'min'  => 1,
             'max'  => 2.5,
@@ -138,7 +138,7 @@ function beaver_warrior_reorganize_bb_type_controls() {
         "settings" => "bw-h2-lg-font-size",
         'label' => sprintf( _x( '%s Font Size (Large/Desktop)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H2' ),
         "type" => "slider",
-        "priority" => 9,
+        "priority" => 11,
         'choices' => array(
             'min'  => 10,
             'max'  => 72,
@@ -155,7 +155,7 @@ function beaver_warrior_reorganize_bb_type_controls() {
         "settings" => "bw-h2-lg-line-height",
         'label' => sprintf( _x( '%s Line Height (Large/Desktop)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H2' ),
         "type" => "slider",
-        "priority" => 10,
+        "priority" => 11,
         'choices' => array(
             'min'  => 1,
             'max'  => 2.5,
@@ -172,7 +172,7 @@ function beaver_warrior_reorganize_bb_type_controls() {
         "settings" => "bw-h3-lg-font-size",
         'label' => sprintf( _x( '%s Font Size (Large/Desktop)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H3' ),
         "type" => "slider",
-        "priority" => 13,
+        "priority" => 15,
         'choices' => array(
             'min'  => 10,
             'max'  => 72,
@@ -189,7 +189,7 @@ function beaver_warrior_reorganize_bb_type_controls() {
         "settings" => "bw-h3-lg-line-height",
         'label' => sprintf( _x( '%s Line Height (Large/Desktop)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H3' ),
         "type" => "slider",
-        "priority" => 14,
+        "priority" => 15,
         'choices' => array(
             'min'  => 1,
             'max'  => 2.5,
@@ -206,7 +206,7 @@ function beaver_warrior_reorganize_bb_type_controls() {
         "settings" => "bw-h4-lg-font-size",
         'label' => sprintf( _x( '%s Font Size (Large/Desktop)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H4' ),
         "type" => "slider",
-        "priority" => 17,
+        "priority" => 19,
         'choices' => array(
             'min'  => 10,
             'max'  => 72,
@@ -223,7 +223,7 @@ function beaver_warrior_reorganize_bb_type_controls() {
         "settings" => "bw-h4-lg-line-height",
         'label' => sprintf( _x( '%s Line Height (Large/Desktop)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H4' ),
         "type" => "slider",
-        "priority" => 18,
+        "priority" => 19,
         'choices' => array(
             'min'  => 1,
             'max'  => 2.5,
@@ -240,7 +240,7 @@ function beaver_warrior_reorganize_bb_type_controls() {
         "settings" => "bw-h5-lg-font-size",
         'label' => sprintf( _x( '%s Font Size (Large/Desktop)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H5' ),
         "type" => "slider",
-        "priority" => 21,
+        "priority" => 23,
         'choices' => array(
             'min'  => 10,
             'max'  => 72,
@@ -257,7 +257,7 @@ function beaver_warrior_reorganize_bb_type_controls() {
         "settings" => "bw-h5-lg-line-height",
         'label' => sprintf( _x( '%s Line Height (Large/Desktop)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H5' ),
         "type" => "slider",
-        "priority" => 22,
+        "priority" => 23,
         'choices' => array(
             'min'  => 1,
             'max'  => 2.5,
@@ -274,7 +274,7 @@ function beaver_warrior_reorganize_bb_type_controls() {
         "settings" => "bw-h6-lg-font-size",
         'label' => sprintf( _x( '%s Font Size (Large/Desktop)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H6' ),
         "type" => "slider",
-        "priority" => 25,
+        "priority" => 28,
         'choices' => array(
             'min'  => 10,
             'max'  => 72,
@@ -291,7 +291,7 @@ function beaver_warrior_reorganize_bb_type_controls() {
         "settings" => "bw-h6-lg-line-height",
         'label' => sprintf( _x( '%s Line Height (Large/Desktop)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H6' ),
         "type" => "slider",
-        "priority" => 26,
+        "priority" => 28,
         'choices' => array(
             'min'  => 1,
             'max'  => 2.5,
