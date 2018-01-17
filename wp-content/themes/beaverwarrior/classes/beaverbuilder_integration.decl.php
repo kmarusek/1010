@@ -132,10 +132,10 @@ function beaver_warrior_reorganize_bb_type_controls() {
     )));
 
     $wp_customize->get_control('fl-h1-font-size')->label = sprintf( _x( '%s Font Size (Small/Mobile)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H1' );
-    $wp_customize->get_control('fl-h1-font-size')->priority = 7;
+    $wp_customize->get_control('fl-h1-font-size')->priority = 8;
 
     $wp_customize->get_control('fl-h1-line-height')->label = sprintf( _x( '%s Line Height (Small/Mobile)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H1' );
-    $wp_customize->get_control('fl-h1-line-height')->priority = 7;
+    $wp_customize->get_control('fl-h1-line-height')->priority = 8;
 
     $wp_customize->add_setting("bw-h2-lg-font-size", array(
         "default" => "30"
