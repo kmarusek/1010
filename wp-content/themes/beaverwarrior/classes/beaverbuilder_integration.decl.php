@@ -3,10 +3,6 @@
 function beaver_warrior_reorganize_bb_type_controls() {
     global $wp_customize;
 
-    $wp_customize->get_control('fl-body-font-size')->label = __( 'Font Size (Small/Mobile)', 'fl-automator' );
-    $wp_customize->get_control('fl-body-line-height')->label = __( 'Line Height (Small/Mobile)', 'fl-automator' );
-    $wp_customize->get_control('fl-h1-font-size')->label = sprintf( _x( '%s Font Size (Small/Mobile)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H1' );
-    $wp_customize->get_control('fl-h1-line-height')->label = sprintf( _x( '%s Line Height (Small/Mobile)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H1' );
     $wp_customize->get_control('fl-h2-font-size')->label = sprintf( _x( '%s Font Size (Small/Mobile)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H2' );
     $wp_customize->get_control('fl-h2-line-height')->label = sprintf( _x( '%s Line Height (Small/Mobile)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H2' );
     $wp_customize->get_control('fl-h3-font-size')->label = sprintf( _x( '%s Font Size (Small/Mobile)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H3' );
@@ -96,7 +92,10 @@ function beaver_warrior_reorganize_bb_type_controls() {
     )));
 
     $wp_customize->get_control('fl-body-font-size')->priority = 12;
+    $wp_customize->get_control('fl-body-font-size')->label = __( 'Font Size (Small/Mobile)', 'fl-automator' );
+
     $wp_customize->get_control('fl-body-line-height')->priority = 13;
+    $wp_customize->get_control('fl-body-line-height')->label = __( 'Line Height (Small/Mobile)', 'fl-automator' );
 
     $wp_customize->add_setting("bw-h1-lg-font-size", array(
         "default" => "36"
@@ -107,7 +106,7 @@ function beaver_warrior_reorganize_bb_type_controls() {
         "settings" => "bw-h1-lg-font-size",
         'label' => sprintf( _x( '%s Font Size (Large/Desktop)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H1' ),
         "type" => "slider",
-        "priority" => 7,
+        "priority" => 6,
         'choices' => array(
             'min'  => 10,
             'max'  => 72,
@@ -124,13 +123,19 @@ function beaver_warrior_reorganize_bb_type_controls() {
         "settings" => "bw-h1-lg-line-height",
         'label' => sprintf( _x( '%s Line Height (Large/Desktop)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H1' ),
         "type" => "slider",
-        "priority" => 7,
+        "priority" => 6,
         'choices' => array(
             'min'  => 1,
             'max'  => 2.5,
             'step' => 0.05
         )
     )));
+
+    $wp_customize->get_control('fl-h1-font-size')->label = sprintf( _x( '%s Font Size (Small/Mobile)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H1' );
+    $wp_customize->get_control('fl-h1-font-size')->priority = 7;
+
+    $wp_customize->get_control('fl-h1-line-height')->label = sprintf( _x( '%s Line Height (Small/Mobile)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H1' );
+    $wp_customize->get_control('fl-h1-line-height')->priority = 7;
 
     $wp_customize->add_setting("bw-h2-lg-font-size", array(
         "default" => "30"
