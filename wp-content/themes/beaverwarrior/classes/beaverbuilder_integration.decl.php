@@ -3,8 +3,6 @@
 function beaver_warrior_reorganize_bb_type_controls() {
     global $wp_customize;
 
-    $wp_customize->get_control('fl-h2-font-size')->label = sprintf( _x( '%s Font Size (Small/Mobile)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H2' );
-    $wp_customize->get_control('fl-h2-line-height')->label = sprintf( _x( '%s Line Height (Small/Mobile)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H2' );
     $wp_customize->get_control('fl-h3-font-size')->label = sprintf( _x( '%s Font Size (Small/Mobile)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H3' );
     $wp_customize->get_control('fl-h3-line-height')->label = sprintf( _x( '%s Line Height (Small/Mobile)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H3' );
     $wp_customize->get_control('fl-h4-font-size')->label = sprintf( _x( '%s Font Size (Small/Mobile)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H4' );
@@ -146,7 +144,7 @@ function beaver_warrior_reorganize_bb_type_controls() {
         "settings" => "bw-h2-lg-font-size",
         'label' => sprintf( _x( '%s Font Size (Large/Desktop)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H2' ),
         "type" => "slider",
-        "priority" => 11,
+        "priority" => 9,
         'choices' => array(
             'min'  => 10,
             'max'  => 72,
@@ -163,13 +161,19 @@ function beaver_warrior_reorganize_bb_type_controls() {
         "settings" => "bw-h2-lg-line-height",
         'label' => sprintf( _x( '%s Line Height (Large/Desktop)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H2' ),
         "type" => "slider",
-        "priority" => 11,
+        "priority" => 9,
         'choices' => array(
             'min'  => 1,
             'max'  => 2.5,
             'step' => 0.05
         )
     )));
+
+    $wp_customize->get_control('fl-h2-font-size')->label = sprintf( _x( '%s Font Size (Small/Mobile)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H2' );
+    $wp_customize->get_control('fl-h2-font-size')->priority = 11;
+
+    $wp_customize->get_control('fl-h2-line-height')->label = sprintf( _x( '%s Line Height (Small/Mobile)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H2' );
+    $wp_customize->get_control('fl-h2-line-height')->priority = 11;
 
     $wp_customize->add_setting("bw-h3-lg-font-size", array(
         "default" => "24"
