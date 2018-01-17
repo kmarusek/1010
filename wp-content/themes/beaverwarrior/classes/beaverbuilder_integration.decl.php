@@ -3,9 +3,6 @@
 function beaver_warrior_reorganize_bb_type_controls() {
     global $wp_customize;
 
-    $wp_customize->get_control('fl-h6-font-size')->label = sprintf( _x( '%s Font Size (Small/Mobile)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H6' );
-    $wp_customize->get_control('fl-h6-line-height')->label = sprintf( _x( '%s Line Height (Small/Mobile)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H6' );
-
     $wp_customize->add_setting("bw-p-lg-font-size", array(
         "default" => "14"
     ));
@@ -298,7 +295,7 @@ function beaver_warrior_reorganize_bb_type_controls() {
         "settings" => "bw-h6-lg-font-size",
         'label' => sprintf( _x( '%s Font Size (Large/Desktop)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H6' ),
         "type" => "slider",
-        "priority" => 28,
+        "priority" => 25,
         'choices' => array(
             'min'  => 10,
             'max'  => 72,
@@ -315,13 +312,19 @@ function beaver_warrior_reorganize_bb_type_controls() {
         "settings" => "bw-h6-lg-line-height",
         'label' => sprintf( _x( '%s Line Height (Large/Desktop)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H6' ),
         "type" => "slider",
-        "priority" => 28,
+        "priority" => 25,
         'choices' => array(
             'min'  => 1,
             'max'  => 2.5,
             'step' => 0.05
         )
     )));
+
+    $wp_customize->get_control('fl-h6-font-size')->label = sprintf( _x( '%s Font Size (Small/Mobile)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H6' );
+    $wp_customize->get_control('fl-h6-font-size')->priority = 29;
+
+    $wp_customize->get_control('fl-h6-line-height')->label = sprintf( _x( '%s Line Height (Small/Mobile)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H6' );
+    $wp_customize->get_control('fl-h6-line-height')->priority = 29;
 }
 add_action('customize_register', 'beaver_warrior_reorganize_bb_type_controls', 11);
 
