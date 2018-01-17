@@ -18,6 +18,40 @@ function beaver_warrior_reorganize_bb_type_controls() {
     $wp_customize->get_control('fl-h6-font-size')->label = sprintf( _x( '%s Font Size (Small/Mobile)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H6' );
     $wp_customize->get_control('fl-h6-line-height')->label = sprintf( _x( '%s Line Height (Small/Mobile)', '%s stands for HTML heading tag.', 'fl-automator' ), 'H6' );
 
+    $wp_customize->add_setting("bw-p-lg-font-size", array(
+        "default" => "14"
+    ));
+
+    $wp_customize->add_control(new FLCustomizerControl($wp_customize, "bw-p-lg-font-size", array(
+        "section" => "fl-body-font",
+        "settings" => "bw-p-lg-font-size",
+        'label' => __( 'Font Size (Large/Desktop)', 'fl-automator' ),
+        "type" => "slider",
+        "priority" => 7,
+        'choices' => array(
+            'min'  => 10,
+            'max'  => 72,
+            'step' => 1
+        )
+    )));
+
+    $wp_customize->add_setting("bw-p-lg-line-height", array(
+        "default" => "1.45"
+    ));
+
+    $wp_customize->add_control(new FLCustomizerControl($wp_customize, "bw-p-lg-line-height", array(
+        "section" => "fl-body-font",
+        "settings" => "bw-p-lg-line-height",
+        'label' => __( 'Line Height (Large/Desktop)', 'fl-automator' ),
+        "type" => "slider",
+        "priority" => 8,
+        'choices' => array(
+            'min'  => 1,
+            'max'  => 2.5,
+            'step' => 0.05
+        )
+    )));
+
     $wp_customize->add_setting("bw-p-margin", array(
         "default" => "0"
     ));
@@ -27,7 +61,7 @@ function beaver_warrior_reorganize_bb_type_controls() {
         "settings" => "bw-p-margin",
         'label' => __( 'Paragraph Margin', 'fl-automator' ),
         "type" => "slider",
-        "priority" => 6,
+        "priority" => 9,
         'choices' => array(
             'min'  => 0,
             'max'  => 45,
@@ -61,39 +95,8 @@ function beaver_warrior_reorganize_bb_type_controls() {
         "priority" => 11,
     )));
 
-    $wp_customize->add_setting("bw-p-lg-font-size", array(
-        "default" => "14"
-    ));
-
-    $wp_customize->add_control(new FLCustomizerControl($wp_customize, "bw-p-lg-font-size", array(
-        "section" => "fl-body-font",
-        "settings" => "bw-p-lg-font-size",
-        'label' => __( 'Font Size (Large/Desktop)', 'fl-automator' ),
-        "type" => "slider",
-        "priority" => 12,
-        'choices' => array(
-            'min'  => 10,
-            'max'  => 72,
-            'step' => 1
-        )
-    )));
-
-    $wp_customize->add_setting("bw-p-lg-line-height", array(
-        "default" => "1.45"
-    ));
-
-    $wp_customize->add_control(new FLCustomizerControl($wp_customize, "bw-p-lg-line-height", array(
-        "section" => "fl-body-font",
-        "settings" => "bw-p-lg-line-height",
-        'label' => __( 'Line Height (Large/Desktop)', 'fl-automator' ),
-        "type" => "slider",
-        "priority" => 13,
-        'choices' => array(
-            'min'  => 1,
-            'max'  => 2.5,
-            'step' => 0.05
-        )
-    )));
+    $wp_customize->get_control('fl-body-font-size')->priority = 12;
+    $wp_customize->get_control('fl-body-line-height')->priority = 13;
 
     $wp_customize->add_setting("bw-h1-lg-font-size", array(
         "default" => "36"
