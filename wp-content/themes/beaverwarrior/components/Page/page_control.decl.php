@@ -1,12 +1,17 @@
 <?php
 
 function skeleton_warrior_register_page_border($wp_customize) {
+    $wp_customize->add_section('beaver_warrior_pageborder', array(
+        "title" => __("Page Border", "skeleton_warrior"),
+        "panel" => "fl-general"
+    ));
+
     $wp_customize->add_setting("bw-pageborder-color", array(
         "default" => "#000000"
     ));
 
     $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, "bw-pageborder-color", array(
-        "section" => "fl-body-bg",
+        "section" => "beaver_warrior_pageborder",
         "settings" => "bw-pageborder-color",
         "label" => __("Border Color", 'skeleton_warrior'),
         "priority" => 10,
@@ -19,7 +24,7 @@ function skeleton_warrior_register_page_border($wp_customize) {
         'skeleton_warrior_pageborder',
         array(
             'label' => __('Page Border', 'skeleton_warrior'),
-            'section' => 'fl-body-bg',
+            'section' => 'beaver_warrior_pageborder',
             'settings' => 'skeleton_warrior_pageborder',
             'type' => 'radio',
             'choices' => array(
