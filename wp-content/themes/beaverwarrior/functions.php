@@ -144,6 +144,7 @@ add_filter('wp_check_filetype_and_ext', 'skeletonwarrior_check_filetype_and_ext'
  */
 function skeletonwarrior_mime_types( $mimes ){
     $mimes['svg'] = 'image/svg+xml';
+    $mimes['svgz'] = 'image/svg+xml';
     return $mimes;
 }
 add_filter( 'upload_mimes', 'skeletonwarrior_mime_types' );
@@ -152,7 +153,7 @@ add_filter( 'upload_mimes', 'skeletonwarrior_mime_types' );
  */
 function skeletonwarrior_fix_svg() {
   echo '<style type="text/css">
-        .attachment-266x266, .thumbnail img {
+        .attachment-266x266, .thumbnail img, img[src$=".svg"] {
              width: 100% !important;
              height: auto !important;
         }
