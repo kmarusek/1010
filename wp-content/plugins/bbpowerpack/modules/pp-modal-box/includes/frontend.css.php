@@ -1,7 +1,8 @@
 .fl-node-<?php echo $id; ?> .pp-modal-button {
     text-align: <?php echo $settings->button_alignment; ?>;
 }
-.fl-node-<?php echo $id; ?> .pp-modal-trigger {
+.fl-node-<?php echo $id; ?> .pp-modal-trigger,
+.fl-node-<?php echo $id; ?> .pp-modal-button .pp-modal-trigger {
     <?php if ( 'button' == $settings->button_type || 'icon' == $settings->button_type ) { ?>
     color: #<?php echo $settings->button_text_color; ?>;
     background-color: <?php echo pp_hex2rgba('#'.$settings->button_color, $settings->button_opacity); ?>;

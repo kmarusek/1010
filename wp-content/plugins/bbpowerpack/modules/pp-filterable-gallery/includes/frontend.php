@@ -63,7 +63,7 @@
 				<a href="<?php echo $click_action_link; ?>" target="<?php echo $click_action_target; ?>">
 				<?php endif; ?>
 
-				<img class="pp-gallery-img" src="<?php echo $photo->src; ?>" alt="<?php echo $photo->alt; ?>" />
+				<img class="pp-gallery-img" src="<?php echo $photo->src; ?>" alt="<?php echo $photo->alt; ?>" data-no-lazy="1" />
 
 				<?php if( $settings->hover_effects != 'none' || $settings->overlay_effects != 'none' ) : ?>
 					<!-- Overlay Wrapper -->
@@ -123,7 +123,7 @@
 					<a href="<?php echo $click_action_link; ?>" target="<?php echo $click_action_target; ?>">
 					<?php endif; ?>
 
-					<img class="pp-gallery-img" src="<?php echo $photo->src; ?>" alt="<?php echo $photo->alt; ?>" />
+					<img class="pp-gallery-img" src="<?php echo $photo->src; ?>" alt="<?php echo $photo->alt; ?>" data-no-lazy="1" />
 					<?php if( $settings->hover_effects != 'none' || $settings->overlay_effects != 'none' ) : ?>
 					<!-- Overlay Wrapper -->
 					<div class="pp-gallery-overlay">

@@ -12,6 +12,8 @@ class BB_PowerPack_Ajax {
     {
         add_action( 'wp_ajax_pp_grid_get_posts', __CLASS__ . '::get_ajax_posts' );
         add_action( 'wp_ajax_nopriv_pp_grid_get_posts', __CLASS__ . '::get_ajax_posts' );
+        add_action( 'wp_ajax_pp_get_taxonomies', __CLASS__ . '::get_post_taxonomies' );
+        add_action( 'wp_ajax_nopriv_pp_get_taxonomies', __CLASS__ . '::get_post_taxonomies' );
     }
 
     static public function get_ajax_posts()
@@ -181,6 +183,21 @@ class BB_PowerPack_Ajax {
         endswitch;
 
         return $args;
+    }
+
+    /**
+     * Get taxonomies
+     */
+    static public function get_post_taxonomies( $post_type = 'post' )
+	{
+		$taxonomies = FLBuilderLoop::taxonomies( $post_type );
+		$html = '';
+
+		foreach ( $taxonomies as $tax_slug => $tax ) {
+			$html .= '<option value="'.$tax_slug.'">'.$tax->label.'</option>';
+		}
+
+        echo $html; die();
     }
 }
 

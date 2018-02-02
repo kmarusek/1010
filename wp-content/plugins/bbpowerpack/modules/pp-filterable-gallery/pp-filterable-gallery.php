@@ -248,6 +248,10 @@ class PPFilterableGalleryModule extends FLBuilderModule {
 					$data->link = $photo->sizes->full->url;
 				}
 
+				if ( $this->settings->lightbox_image_size == 'full' ) {
+					$data->link = $photo->sizes->full->url;
+				}
+
 				/* Add Custom field attachment data to object */
 	 			$cta_link = get_post_meta( $id, 'gallery_external_link', true );
 				$data->cta_link = $cta_link;
@@ -289,7 +293,7 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 						'default'       => 'medium',
 					),
 					'photo_order'        => array(
-						'type'          => 'select',
+						'type'          => 'pp-switch',
 						'label'         => __( 'Display Order', 'bb-powerpack' ),
 						'default'       => 'normal',
 						'options'       => array(
@@ -298,7 +302,7 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 						),
 					),
 					'show_captions' => array(
-						'type'          => 'select',
+						'type'          => 'pp-switch',
 						'label'         => __('Show Captions', 'bb-powerpack'),
 						'default'       => '0',
 						'options'       => array(
@@ -314,7 +318,7 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 						'help'          => __('The caption pulls from whatever text you put in the caption area in the media manager for each image.', 'bb-powerpack')
 					),
 					'click_action'  => array(
-						'type'          => 'select',
+						'type'          => 'pp-switch',
 						'label'         => __('Click Action', 'bb-powerpack'),
 						'default'       => 'lightbox',
 						'options'       => array(
@@ -322,8 +326,22 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 							'lightbox'      => __('Lightbox', 'bb-powerpack'),
 							'custom-link'   => __('Custom URL', 'bb-powerpack')
 						),
+						'toggle'		=> array(
+							'lightbox'		=> array(
+								'fields'		=> array('lightbox_image_size')
+							)
+						),
 						'preview'       => array(
 							'type'          => 'none'
+						)
+					),
+					'lightbox_image_size'	=> array(
+						'type'		=> 'pp-switch',
+						'label'		=> __('Lightbox Image Size', 'bb-powerpack'),
+						'default'	=> 'large',
+						'options'	=> array(
+							'large'		=> __('Large', 'bb-powerpack'),
+							'full'		=> __('Full', 'bb-powerpack')
 						)
 					),
 					'custom_link_target' => array(

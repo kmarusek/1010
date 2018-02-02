@@ -405,7 +405,7 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         'type'              => 'text',
                         'label'             => __('Button Text', 'bb-powerpack'),
                         'default'           => __('Click Here', 'bb-powerpack'),
-                        'connection'        => array('string', 'html'),
+                        'connections'        => array('string', 'html'),
                         'preview'           => array(
                             'type'              => 'text',
                             'selector'          => '.pp-modal-trigger'

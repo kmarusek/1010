@@ -27,7 +27,7 @@ class PPTableModule extends FLBuilderModule {
         ));
 
         $this->add_css('tablesaw-style', $this->url . 'css/tablesaw.css');
-		$this->add_js('tablesaw-script', $this->url . 'js/tablesaw.js', array(), '', true);
+		$this->add_js('tablesaw-script', $this->url . 'js/tablesaw.js', array('jquery'), '', true);
     }
 }
 

@@ -26,7 +26,7 @@ $item_class .= ( 'justified' == $settings->gallery_layout ) ? ' pp-gallery-justi
 			<a href="<?php echo $click_action_link; ?>" <?php if ( 'custom-link' == $settings->click_action ) { ?>target="<?php echo $click_action_target; ?>"<?php } ?> <?php if ( 'lightbox' == $settings->click_action ) { ?>class="fancybox-button" rel="fancybox-button"<?php } ?>>
 			<?php endif; ?>
 
-			<img class="pp-gallery-img" src="<?php echo $photo->src; ?>" alt="<?php echo $photo->alt; ?>" />
+			<img class="pp-gallery-img" src="<?php echo $photo->src; ?>" alt="<?php echo $photo->alt; ?>" data-no-lazy="1" />
 				<!-- Overlay Wrapper -->
 				<div class="pp-gallery-overlay">
 					<div class="pp-overlay-inner">

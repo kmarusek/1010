@@ -3,7 +3,7 @@
  * Plugin Name: PowerPack for Beaver Builder
  * Plugin URI: https://wpbeaveraddons.com
  * Description: A set of custom, creative, unique modules for Beaver Builder to speed up your web design and development process.
- * Version: 2.3.0
+ * Version: 2.3.1.1
  * Author: Team IdeaBox - Beaver Addons
  * Author URI: https://wpbeaveraddons.com
  * Copyright: (c) 2016 IdeaBox Creations
@@ -49,14 +49,6 @@ final class BB_PowerPack {
 			include_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
 
-		if ( ! class_exists( 'FLBuilder' ) ) {
-			if ( ! is_plugin_active( 'beaver-builder-lite-version' . '/fl-builder.php' ) ) {
-				add_action( 'admin_notices', array( $this, 'admin_notices' ) );
-				add_action( 'network_admin_notices', array( $this, 'admin_notices' ) );
-				return;
-			}
-		}
-
 		$lite_dirname   = 'powerpack-addon-for-beaver-builder';
 		$lite_active    = is_plugin_active( $lite_dirname . '/bb-powerpack-lite.php' );
 		$plugin_dirname = basename( dirname( dirname( __FILE__ ) ) );
@@ -70,9 +62,6 @@ final class BB_PowerPack {
 
 		$this->define_constants();
 
-		/* Hooks */
-		$this->init_hooks();
-
 		/* Classes */
 		require_once 'classes/class-pp-post-helper.php';
 		require_once 'classes/class-pp-ajax.php';
@@ -83,6 +72,9 @@ final class BB_PowerPack {
 		/* Includes */
 		require_once 'includes/helper-functions.php';
 		require_once 'includes/updater/update-config.php';
+
+		/* Hooks */
+		$this->init_hooks();
 
 		self::$upload_dir = pp_get_upload_dir();
 	}
@@ -104,7 +96,7 @@ final class BB_PowerPack {
 	 */
 	private function define_constants()
 	{
-		define( 'BB_POWERPACK_VER', '2.3.0' );
+		define( 'BB_POWERPACK_VER', '2.3.1.1' );
 		define( 'BB_POWERPACK_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'BB_POWERPACK_URL', plugins_url( '/', __FILE__ ) );
 		define( 'BB_POWERPACK_PATH', plugin_basename( __FILE__ ) );
@@ -119,7 +111,7 @@ final class BB_PowerPack {
 	 */
 	public function init_hooks()
 	{
-		add_action( 'init', array( $this, 'load_modules' ) );
+		add_action( 'init', array( $this, 'load_modules' ), 11 );
 		add_action( 'plugins_loaded', array( $this, 'loader' ) );
 		add_action( 'after_setup_theme', array( $this, 'customizer_presets' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_scripts' ), 9999 );
@@ -149,7 +141,11 @@ final class BB_PowerPack {
 	 */
 	public function load_modules()
 	{
-		if ( class_exists( 'FLBuilder' ) ) {
+		if ( ! class_exists( 'FLBuilder' ) ) {
+			add_action( 'admin_notices', array( $this, 'admin_notices' ) );
+			add_action( 'network_admin_notices', array( $this, 'admin_notices' ) );
+			return;
+		} else {
 			require_once 'includes/modules.php';
 		}
 	}
@@ -234,12 +230,12 @@ final class BB_PowerPack {
 	 */
 	public function load_scripts()
 	{
-		wp_enqueue_style( 'animate', BB_POWERPACK_URL . 'assets/css/animate.min.css', array(), rand() );
+		wp_enqueue_style( 'animate', BB_POWERPACK_URL . 'assets/css/animate.min.css', array(), '3.5.1' );
 		if ( class_exists( 'FLBuilderModel' ) && FLBuilderModel::is_builder_active() ) {
-			wp_enqueue_style( 'pp-fields-style', BB_POWERPACK_URL . 'assets/css/fields.css', array(), rand() );
-			wp_enqueue_script( 'pp-fields-script', BB_POWERPACK_URL . 'assets/js/fields.js', array( 'jquery' ), rand(), true );
-			wp_enqueue_style( 'pp-panel-style', BB_POWERPACK_URL . 'assets/css/panel.css', array(), rand() );
-	        wp_enqueue_script( 'pp-panel-script', BB_POWERPACK_URL . 'assets/js/panel.js', array( 'jquery' ), rand(), true );
+			wp_enqueue_style( 'pp-fields-style', BB_POWERPACK_URL . 'assets/css/fields.css', array(), BB_POWERPACK_VER );
+			wp_enqueue_script( 'pp-fields-script', BB_POWERPACK_URL . 'assets/js/fields.js', array( 'jquery' ), BB_POWERPACK_VER, true );
+			wp_enqueue_style( 'pp-panel-style', BB_POWERPACK_URL . 'assets/css/panel.css', array(), BB_POWERPACK_VER );
+	        wp_enqueue_script( 'pp-panel-script', BB_POWERPACK_URL . 'assets/js/panel.js', array( 'jquery' ), BB_POWERPACK_VER, true );
 		}
 	}
 
@@ -360,7 +356,11 @@ final class BB_PowerPack {
 }
 
 // Load the PowerPack class.
-$bb_powerpack = BB_PowerPack::get_instance();
+function BB_POWERPACK() {
+	return BB_PowerPack::get_instance();
+}
+
+BB_POWERPACK();
 
 /**
  * Enable white labeling setting form after re-activating the plugin

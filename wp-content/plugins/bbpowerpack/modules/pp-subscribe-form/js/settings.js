@@ -28,6 +28,9 @@
 			var form      = $( '.fl-builder-settings' ),
 				action    = form.find( 'select[name=success_action]' );
 
+			// CSS class fix in settings form.
+			$('.pp-field-css-class').val('pp_subscribe_' + form.data('node'));
+
 			this._actionChanged();
 
 			action.on( 'change', this._actionChanged );

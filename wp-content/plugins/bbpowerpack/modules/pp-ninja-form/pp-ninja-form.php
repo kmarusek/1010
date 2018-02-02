@@ -815,7 +815,7 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                         'default'           => '10',
                         'preview'           => array(
                             'type'          => 'css',
-                            'selector'      => '.pp-ninja-form-content .ninja-forms-form .field-wrap',
+                            'selector'      => '.pp-ninja-form-content .ninja-forms-form-wrap .field-wrap',
                             'property'      => 'margin-bottom',
                             'unit'          => 'px'
                         )
@@ -1077,7 +1077,7 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                         'default'               => 'b94a4b',
                         'preview'               => array(
                             'type'              => 'css',
-                            'selector'          => '.pp-ninja-form-content .ninja-forms-error-msg',
+                            'selector'          => '.pp-ninja-form-content .ninja-forms-error-msg, .pp-ninja-form-content .nf-form-errors .nf-error-msg',
                             'property'          => 'color'
                         )
                     ),
@@ -1102,7 +1102,7 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                         'default'                 => 'dd4b39',
                         'preview'                 => array(
                             'type'                => 'css',
-                            'selector'            => '.pp-ninja-form-content .ninja-forms-form .field-wrap .ninja-forms-field-error',
+                            'selector'            => '.pp-ninja-form-content .nf-form-wrap .nf-field-container .nf-error-msg, .pp-ninja-form-content .ninja-forms-form .field-wrap .ninja-forms-field-error',
                             'property'            => 'color'
                         )
                     ),
@@ -1117,7 +1117,7 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                         'default'                      => '3c763d',
                         'preview'                      => array(
                             'type'                     => 'css',
-                            'selector'                 => '.pp-ninja-form-content .ninja-forms-success-msg',
+                            'selector'                 => '.pp-ninja-form-content .nf-response-msg, .pp-ninja-form-content .ninja-forms-success-msg',
                             'property'                 => 'color'
                         )
                     ),
@@ -1388,7 +1388,7 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                         'label'         => __('Font', 'bb-powerpack'),
                         'preview'         => array(
                             'type'            => 'font',
-                            'selector'        => '.pp-ninja-form-content .ninja-forms-form .field-wrap label, .pp-ninja-form-content .ninja-forms-required-items, .pp-ninja-form-content .field-wrap.profile_pass-wrap p',
+                            'selector'        => '.pp-ninja-form-content .nf-form-wrap .field-wrap label, .pp-ninja-form-content .ninja-forms-form .field-wrap label, .pp-ninja-form-content .ninja-forms-required-items, .pp-ninja-form-content .field-wrap.profile_pass-wrap p',
                         )
                     ),
                     'label_text_transform'    => array(
@@ -1402,7 +1402,7 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                         ),
                         'preview'         => array(
                             'type'            => 'css',
-                            'selector'        => '.pp-ninja-form-content .ninja-forms-form .field-wrap label',
+                            'selector'        => '.pp-ninja-form-content .nf-form-wrap .field-wrap label, .pp-ninja-form-content .ninja-forms-form .field-wrap label',
                             'property'        => 'text-transform'
                         )
                     ),
@@ -1435,7 +1435,7 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                                 'maxlength'     => 3,
                                 'tooltip'       => __('Desktop', 'bb-powerpack'),
                                 'preview'           => array(
-                                    'selector'      => '.pp-ninja-form-content .ninja-forms-form .field-wrap label',
+                                    'selector'      => '.pp-ninja-form-content .nf-form-wrap .field-wrap label, .pp-ninja-form-content .ninja-forms-form .field-wrap label',
                                     'property'      => 'font-size',
                                     'unit'          => 'px'
                                 ),
@@ -1461,7 +1461,7 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                         'show_reset'    => true,
                         'preview'       => array(
                             'type'      => 'css',
-                            'selector'  => '.pp-ninja-form-content .ninja-forms-form .field-wrap label, .pp-ninja-form-content .ninja-forms-required-items, .pp-ninja-form-content .field-wrap.profile_pass-wrap p',
+                            'selector'  => '.pp-ninja-form-content .nf-form-wrap .field-wrap label, .pp-ninja-form-content .ninja-forms-form .field-wrap label, .pp-ninja-form-content .ninja-forms-required-items, .pp-ninja-form-content .field-wrap.profile_pass-wrap p',
                             'property'  => 'color'
                         )
                     ),
@@ -1574,7 +1574,7 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                                 'maxlength'     => 3,
                                 'tooltip'       => __('Desktop', 'bb-powerpack'),
                                 'preview'           => array(
-                                    'selector'      => '.pp-ninja-form-content .ninja-forms-form .ninja-forms-field-description',
+                                    'selector'      => '.pp-ninja-form-content .nf-form-wrap .nf-field-description, .pp-ninja-form-content .ninja-forms-form .nf-field-description',
                                     'property'      => 'font-size',
                                     'unit'          => 'px'
                                 ),
@@ -1608,7 +1608,7 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                                 'maxlength'     => 3,
                                 'tooltip'       => __('Desktop', 'bb-powerpack'),
                                 'preview'           => array(
-                                    'selector'      => '.pp-ninja-form-content .ninja-forms-form .ninja-forms-field-description',
+                                    'selector'      => '.pp-ninja-form-content .nf-form-wrap .nf-field-description, .pp-ninja-form-content .ninja-forms-form .nf-field-description',
                                     'property'      => 'line-height'
                                 ),
                             ),
@@ -1633,7 +1633,7 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                         'show_reset'            => true,
                         'preview'               => array(
                             'type'              => 'css',
-                            'selector'          => '.pp-ninja-form-content .ninja-forms-form .ninja-forms-field-description',
+                            'selector'          => '.pp-ninja-form-content .nf-form-wrap .nf-field-description, .pp-ninja-form-content .ninja-forms-form .nf-field-description',
                             'property'          => 'color'
                         )
                     ),
@@ -1751,7 +1751,7 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                                 'maxlength'     => 3,
                                 'tooltip'       => __('Desktop', 'bb-powerpack'),
                                 'preview'           => array(
-                                    'selector'      => '.pp-ninja-form-content .ninja-forms-form .ninja-forms-required-items',
+                                    'selector'      => '.pp-ninja-form-content .ninja-forms-error-msg, .pp-ninja-form-content .nf-form-errors .nf-error-msg',
                                     'property'      => 'font-size',
                                     'unit'          => 'px'
                                 ),
@@ -1799,7 +1799,7 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                                 'maxlength'     => 3,
                                 'tooltip'       => __('Desktop', 'bb-powerpack'),
                                 'preview'           => array(
-                                    'selector'      => '.pp-ninja-form-content .ninja-forms-form .field-wrap .ninja-forms-field-error',
+                                    'selector'      => '.pp-ninja-form-content .nf-form-wrap .nf-field-container .nf-error-msg, .pp-ninja-form-content .ninja-forms-form .field-wrap .ninja-forms-field-error',
                                     'property'      => 'font-size',
                                     'unit'          => 'px'
                                 ),
@@ -1852,7 +1852,7 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                                 'maxlength'     => 3,
                                 'tooltip'       => __('Desktop', 'bb-powerpack'),
                                 'preview'           => array(
-                                    'selector'      => '.pp-ninja-form-content .ninja-forms-success-msg',
+                                    'selector'      => '.pp-ninja-form-content .nf-response-msg',
                                     'property'      => 'font-size',
                                     'unit'          => 'px'
                                 ),

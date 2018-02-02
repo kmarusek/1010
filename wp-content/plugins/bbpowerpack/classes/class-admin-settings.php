@@ -144,11 +144,6 @@ final class BB_PowerPack_Admin_Settings {
                 'show'      => ( is_network_admin() || ! is_multisite() ) && ( ! self::get_option( 'ppwl_hide_form' ) || self::get_option( 'ppwl_hide_form' ) == 0 ),
                 'priority'  => 100
             ),
-            'modules'   => array(
-                'title'     => esc_html__('Modules', 'bb-powerpack'),
-                'show'      => ( is_network_admin() || ! is_multisite() ) && ( ! self::get_option( 'ppwl_hide_modules_tab' ) || self::get_option( 'ppwl_hide_modules_tab' ) == 0 ),
-                'priority'  => 150
-            ),
             'templates' => array(
                 'title'     => esc_html__('Templates', 'bb-powerpack'),
                 'show'      => ! self::get_option( 'ppwl_hide_templates_tab' ) || self::get_option( 'ppwl_hide_templates_tab' ) == 0,

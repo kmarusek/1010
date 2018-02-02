@@ -72,7 +72,7 @@
 
 .pp-hover-card-image {
 	position: relative;
-	display: block;
+	display: inline-block;
 	min-height: 100%;
 	max-width: none !important;
 }

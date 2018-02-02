@@ -28,7 +28,10 @@ class BB_PowerPack_Post_Helper {
 			'link_url'      => '',
 			'photo'         => $photo_data,
 			'photo_src'     => $src,
-			'photo_source'  => 'library'
+			'photo_source'  => 'library',
+			'attributes'	=> array(
+				'data-no-lazy'	=> 1
+			)
 		);
 
 		if ( in_array( $settings->more_link_type, array( 'button', 'thumb', 'title_thumb' ) ) ) {

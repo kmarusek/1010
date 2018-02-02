@@ -137,7 +137,8 @@
     display: <?php echo ($settings->form_custom_title_desc == 'yes') ? 'block' : 'none'; ?>;
 }
 
-.fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-form .field-wrap label {
+.fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-form .field-wrap label,
+.fl-node-<?php echo $id; ?> .pp-ninja-form-content .nf-form-wrap .field-wrap label {
     <?php if( $settings->form_label_color ) { ?>
 	color: #<?php echo $settings->form_label_color; ?>;
     <?php } ?>
@@ -163,7 +164,8 @@
     <?php } ?>
 }
 
-.fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-form .ninja-forms-field-description {
+.fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-form .nf-field-description,
+.fl-node-<?php echo $id; ?> .pp-ninja-form-content .nf-form-wrap .nf-field-description {
     <?php if( $settings->input_desc_font_size['desktop'] && $settings->input_desc_size == 'custom' ) { ?>
     font-size: <?php echo $settings->input_desc_font_size['desktop']; ?>px;
     <?php } ?>
@@ -412,11 +414,13 @@
     <?php } ?>
 }
 
-.fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-form .ninja-forms-required-items {
+.fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-form .ninja-forms-required-items,
+.fl-node-<?php echo $id; ?> .pp-ninja-form-content .nf-form-wrap .ninja-forms-required-items {
     display: <?php echo $settings->required_field_message; ?>;
 }
 
-.fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-error-msg {
+.fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-error-msg,
+.fl-node-<?php echo $id; ?> .pp-ninja-form-content .nf-form-errors .nf-error-msg {
     display: <?php echo $settings->validation_error; ?>;
     <?php if( $settings->validation_error_color ) { ?>
 	color: #<?php echo $settings->validation_error_color; ?>;
@@ -426,7 +430,8 @@
     <?php } ?>
 }
 
-.fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-form .field-wrap .ninja-forms-field-error {
+.fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-wrap .field-wrap .ninja-forms-field-error,
+.fl-node-<?php echo $id; ?> .pp-ninja-form-content .nf-form-wrap .nf-field-container .nf-error-msg {
     <?php if( $settings->validation_message ) { ?>
 	display: <?php echo $settings->validation_message; ?>;
     <?php } ?>
@@ -438,7 +443,8 @@
     <?php } ?>
 }
 
-.fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-success-msg {
+.fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-success-msg,
+.fl-node-<?php echo $id; ?> .pp-ninja-form-content .nf-response-msg {
     <?php if( $settings->success_message_font_size['desktop'] && $settings->success_message_size == 'custom' ) { ?>
 	font-size: <?php echo $settings->success_message_font_size['desktop']; ?>px;
     <?php } ?>
@@ -466,7 +472,8 @@
         line-height: <?php echo $settings->description_line_height['tablet']; ?>;
         <?php } ?>
     }
-    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-form .field-wrap label {
+    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-form .field-wrap label,
+    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .nf-form-wrap .field-wrap label {
         <?php if( $settings->label_font_size['tablet'] && $settings->label_size == 'custom' ) { ?>
         font-size: <?php echo $settings->label_font_size['tablet']; ?>px;
         <?php } ?>
@@ -478,7 +485,8 @@
         font-size: <?php echo $settings->input_font_size['tablet']; ?>px;
         <?php } ?>
     }
-    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-form .ninja-forms-field-description {
+    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-form .nf-field-description,
+    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .nf-form-wrap .nf-field-description {
         <?php if( $settings->input_desc_font_size['tablet'] && $settings->input_desc_size == 'custom' ) { ?>
         font-size: <?php echo $settings->input_desc_font_size['tablet']; ?>px;
         <?php } ?>
@@ -492,17 +500,20 @@
         <?php } ?>
     }
 
-    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-success-msg {
+	.fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-success-msg,
+    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .nf-response-msg {
         <?php if( $settings->success_message_font_size['tablet'] && $settings->success_message_size == 'custom' ) { ?>
     	font-size: <?php echo $settings->success_message_font_size['tablet']; ?>px;
         <?php } ?>
     }
-    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-form .field-wrap .ninja-forms-field-error {
+    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-form .field-wrap .ninja-forms-field-error,
+    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .nf-form-wrap .nf-field-container .nf-error-msg {
         <?php if( $settings->validation_message_font_size['tablet'] && $settings->validation_message_size == 'custom' ) { ?>
         font-size: <?php echo $settings->validation_message_font_size['tablet']; ?>px;
         <?php } ?>
     }
-    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-error-msg {
+	.fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-error-msg,
+	.fl-node-<?php echo $id; ?> .pp-ninja-form-content .nf-form-errors .nf-error-msg {
         <?php if( $settings->validation_error_font_size['tablet'] && $settings->validation_error_size == 'custom' ) { ?>
         font-size: <?php echo $settings->validation_error_font_size['tablet']; ?>px;
         <?php } ?>
@@ -528,8 +539,9 @@
         <?php if( $settings->description_line_height['mobile'] ) { ?>
         line-height: <?php echo $settings->description_line_height['mobile']; ?>;
         <?php } ?>
-    }
-    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-form .field-wrap label {
+	}
+    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-form .field-wrap label,
+    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .nf-form-wrap .field-wrap label {
         <?php if( $settings->label_font_size['mobile'] && $settings->label_size == 'custom' ) { ?>
         font-size: <?php echo $settings->label_font_size['mobile']; ?>px;
         <?php } ?>
@@ -541,7 +553,8 @@
         font-size: <?php echo $settings->input_font_size['mobile']; ?>px;
         <?php } ?>
     }
-    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-form .ninja-forms-field-description {
+    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-form .nf-field-description,
+    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .nf-form-wrap .nf-field-description {
         <?php if( $settings->input_desc_font_size['mobile'] && $settings->input_desc_size == 'custom' ) { ?>
         font-size: <?php echo $settings->input_desc_font_size['mobile']; ?>px;
         <?php } ?>
@@ -553,18 +566,21 @@
         <?php if( $settings->button_font_size['mobile'] && $settings->button_size == 'custom' ) { ?>
         font-size: <?php echo $settings->button_font_size['mobile']; ?>px;
         <?php } ?>
-    }
-    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-success-msg {
+	}
+	.fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-success-msg,
+    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .nf-response-msg {
         <?php if( $settings->success_message_font_size['mobile'] && $settings->success_message_size == 'custom' ) { ?>
     	font-size: <?php echo $settings->success_message_font_size['mobile']; ?>px;
         <?php } ?>
     }
-    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-form .field-wrap .ninja-forms-field-error {
+    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-form .field-wrap .ninja-forms-field-error,
+    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .nf-form-wrap .nf-field-container .nf-error-msg {
         <?php if( $settings->validation_message_font_size['mobile'] && $settings->validation_message_size == 'custom' ) { ?>
         font-size: <?php echo $settings->validation_message_font_size['mobile']; ?>px;
         <?php } ?>
     }
-    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-error-msg {
+	.fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-error-msg,
+	.fl-node-<?php echo $id; ?> .pp-ninja-form-content .nf-form-errors .nf-error-msg {
         <?php if( $settings->validation_error_font_size['mobile'] && $settings->validation_error_size == 'custom' ) { ?>
         font-size: <?php echo $settings->validation_error_font_size['mobile']; ?>px;
         <?php } ?>

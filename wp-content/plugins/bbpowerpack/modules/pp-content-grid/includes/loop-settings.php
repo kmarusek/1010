@@ -269,7 +269,7 @@ do_action( 'pp_cg_loop_settings_before_form', $settings ); // e.g Add custom FLB
 			),
 			'toggle'	=> array(
 				'yes'	=> array(
-					'fields'	=> array('post_grid_filters', 'all_filter_label'),
+					'fields'	=> array('post_grid_filters_type', 'post_grid_filters', 'all_filter_label'),
 					'tabs'		=> array('filters_style'),
 					'sections'	=> array('filter_typography')
 				)

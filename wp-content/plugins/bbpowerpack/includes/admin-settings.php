@@ -50,11 +50,6 @@ $current_tab  = self::get_current_tab();
             include BB_POWERPACK_DIR . 'includes/admin-settings-wl.php';
         }
 
-        // Modules settings.
-        if ( 'modules' == $current_tab && ( ! self::get_option( 'ppwl_hide_modules_tab' ) || self::get_option( 'ppwl_hide_modules_tab' ) == 0 ) ) {
-            include BB_POWERPACK_DIR . 'includes/admin-settings-modules.php';
-        }
-
         // Page templates settings.
         if ( 'templates' == $current_tab && ( ! self::get_option( 'ppwl_hide_templates_tab' ) || self::get_option( 'ppwl_hide_templates_tab' ) == 0 ) ) {
             include BB_POWERPACK_DIR . 'includes/admin-settings-templates.php';

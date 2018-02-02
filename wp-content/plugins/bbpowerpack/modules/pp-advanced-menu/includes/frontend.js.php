@@ -15,7 +15,7 @@
 		breakPoints: {
 			medium: <?php echo $global_settings->medium_breakpoint; ?>,
 			small: <?php echo $global_settings->responsive_breakpoint; ?>,
-			custom: <?php echo $settings->custom_breakpoint; ?>
+			custom: <?php echo empty($settings->custom_breakpoint) ? 0 : $settings->custom_breakpoint; ?>
 		},
 		mobileBreakpoint: '<?php echo $mobile_breakpoint ?>',
 		mediaBreakpoint: '<?php echo $module->get_media_breakpoint(); ?>',

@@ -35,7 +35,7 @@ $count 				= count( $terms );
 				foreach ( $terms as $term ) {
 					$slug = $term->slug;
 					if( $post_type_slug == 'post' && $post_filter_tax == 'post_tag' ) {
-						echo '<li class="pp-post-filter" data-filter=".tag-'.$slug.'">'.$term->name.'</li>';
+						echo '<li class="pp-post-filter" data-filter=".tag-'.$slug.'" data-term="'.$slug.'">'.$term->name.'</li>';
 					} else {
 						echo '<li class="pp-post-filter" data-filter=".'.$taxonomy->name.'-'.$slug.'" data-term="'.$slug.'">'.$term->name.'</li>';
 					}

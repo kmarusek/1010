@@ -91,7 +91,7 @@
     <?php } ?>
 
     <?php if ( 'exit_intent' == $settings->modal_load ) { ?>
-        <?php if ( ! FLBuilderModel::is_builder_active() || ( FLBuilderModel::is_builder_active() && 'enabled' == $settings->modal_preview ) ) { ?>
+        <?php if ( ! FLBuilderModel::is_builder_active() ) { ?>
             document.addEventListener('mouseout', function(e) {
                 e = e ? e : window.event;
                 var pos = e.relatedTarget || e.toElement;

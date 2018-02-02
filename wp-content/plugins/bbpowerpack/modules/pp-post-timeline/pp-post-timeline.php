@@ -16,13 +16,14 @@ class PPPostTimelineModule extends FLBuilderModule {
         parent::__construct(array(
             'name'          	=> __('Post Timeline', 'bb-powerpack'),
             'description'   	=> __('Addon to display posts in timeline format.', 'bb-powerpack'),
-            'group'         	=> 'PowerPack Modules',
+            'group'         	=> pp_get_modules_group(),
             'category'			=> pp_get_modules_cat( 'creative' ),
             'dir'           	=> BB_POWERPACK_DIR . 'modules/pp-post-timeline/',
             'url'           	=> BB_POWERPACK_URL . 'modules/pp-post-timeline/',
             'editor_export' 	=> true, // Defaults to true and can be omitted.
             'enabled'       	=> true, // Defaults to true and can be omitted.
-            'partial_refresh'   => true
+			'partial_refresh'   => true,
+			'icon'				=> 'schedule.svg',
         ));
 
         /**
@@ -121,7 +122,14 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 								'responsive'	=> '',
 							),
 						),
-                    ),
+					),
+					'posts_per_page'	=> array(
+						'type'				=> 'text',
+						'label'				=> __('Number of Posts', 'bb-powerpack'),
+						'default'			=> '-1',
+						'size'				=> '5',
+						'help'				=> __('Use -1 for all posts.', 'bb-powerpack')
+					)
 				)
 			),
 			'post_timeline_icon'  => array(

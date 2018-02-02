@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PowerPack for Beaver Builder\n"
-"POT-Creation-Date: 2017-12-21 12:06+0530\n"
-"PO-Revision-Date: 2017-12-21 12:06+0530\n"
+"POT-Creation-Date: 2018-01-30 16:46+0530\n"
+"PO-Revision-Date: 2018-01-30 16:46+0530\n"
 "Last-Translator: Puneet Sahalot <hello@ideaboxcreations.com>\n"
 "Language-Team: Puneet Sahalot <hello@ideaboxcreations.com>\n"
 "Language: en\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: bb-powerpack.php:291
+#: bb-powerpack.php:287
 #, php-format
 msgid "Please install and activate %s or %s to use PowerPack add-on."
 msgstr ""
 
-#: bb-powerpack.php:339
+#: bb-powerpack.php:335
 msgid "PowerPack Modules"
 msgstr ""
 
@@ -35,24 +35,24 @@ msgstr ""
 msgid "White Label"
 msgstr ""
 
-#: classes/class-admin-settings.php:148 classes/class-admin-settings.php:384
-#: includes/admin-settings-wl.php:60 includes/helper-functions.php:525
-msgid "Modules"
-msgstr ""
-
-#: classes/class-admin-settings.php:153
+#: classes/class-admin-settings.php:148
 msgid "Templates"
 msgstr ""
 
-#: classes/class-admin-settings.php:158
+#: classes/class-admin-settings.php:153
 msgid "Extensions"
 msgstr ""
 
-#: classes/class-admin-settings.php:213
+#: classes/class-admin-settings.php:208
 msgid "Settings updated!"
 msgstr ""
 
-#: classes/class-admin-settings.php:386
+#: classes/class-admin-settings.php:379 includes/admin-settings-wl.php:60
+#: includes/helper-functions.php:525
+msgid "Modules"
+msgstr ""
+
+#: classes/class-admin-settings.php:381
 #: includes/admin-settings-templates.php:50 includes/admin-settings-wl.php:76
 #: includes/panel-functions.php:288 includes/panel-functions.php:318
 msgid "Row Templates"
@@ -163,11 +163,11 @@ msgstr ""
 #: modules/pp-dual-button/pp-dual-button.php:411
 #: modules/pp-fancy-heading/pp-fancy-heading.php:182
 #: modules/pp-fancy-heading/pp-fancy-heading.php:227
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:834
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:847
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:944
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1089
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1196
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:852
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:865
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:962
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1107
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1214
 #: modules/pp-formidable-form/pp-formidable-form.php:518
 #: modules/pp-formidable-form/pp-formidable-form.php:822
 #: modules/pp-formidable-form/pp-formidable-form.php:1066
@@ -186,7 +186,7 @@ msgstr ""
 #: modules/pp-formidable-form/pp-formidable-form.php:1944
 #: modules/pp-formidable-form/pp-formidable-form.php:1997
 #: modules/pp-formidable-form/pp-formidable-form.php:2050
-#: modules/pp-gallery/pp-gallery.php:1062
+#: modules/pp-gallery/pp-gallery.php:1075
 #: modules/pp-gravity-form/pp-gravity-form.php:552
 #: modules/pp-heading/pp-heading.php:1157
 #: modules/pp-heading/pp-heading.php:1225
@@ -289,7 +289,7 @@ msgstr ""
 msgid "Secondary"
 msgstr ""
 
-#: classes/class-pp-ajax.php:150
+#: classes/class-pp-ajax.php:152
 #: modules/pp-content-tiles/includes/frontend.php:84
 msgid "No posts found."
 msgstr ""
@@ -1052,17 +1052,17 @@ msgstr ""
 msgid "%s Settings"
 msgstr ""
 
-#: includes/admin-settings.php:77
+#: includes/admin-settings.php:72
 msgid "Support"
 msgstr ""
 
-#: includes/admin-settings.php:82
+#: includes/admin-settings.php:77
 msgid ""
 "For submitting any support queries, feedback, bug reports or feature "
 "requests, please visit"
 msgstr ""
 
-#: includes/admin-settings.php:82
+#: includes/admin-settings.php:77
 msgid "this link"
 msgstr ""
 
@@ -1071,7 +1071,7 @@ msgstr ""
 #: includes/row-settings.php:32 includes/row-settings.php:37
 #: includes/row-settings.php:110 modules/fl-button/fl-button.php:259
 #: modules/pp-contact-form/pp-contact-form.php:1145
-#: modules/pp-gallery/pp-gallery.php:745
+#: modules/pp-gallery/pp-gallery.php:758
 #: modules/pp-image-carousel/pp-image-carousel.php:626
 #: modules/pp-pricing-table/pp-pricing-table.php:2128
 #: modules/pp-smart-button/pp-smart-button.php:77
@@ -1184,15 +1184,15 @@ msgstr ""
 #: modules/pp-content-grid/pp-content-grid.php:1828
 #: modules/pp-custom-grid/pp-custom-grid.php:844
 #: modules/pp-dual-button/pp-dual-button.php:556
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:552
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:627
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:950
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:570
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:645
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:968
 #: modules/pp-flipbox/pp-flipbox.php:1062
 #: modules/pp-formidable-form/pp-formidable-form.php:368
 #: modules/pp-formidable-form/pp-formidable-form.php:903
 #: modules/pp-formidable-form/pp-formidable-form.php:1160
-#: modules/pp-gallery/pp-gallery.php:556 modules/pp-gallery/pp-gallery.php:589
-#: modules/pp-gallery/pp-gallery.php:851 modules/pp-gallery/pp-gallery.php:937
+#: modules/pp-gallery/pp-gallery.php:569 modules/pp-gallery/pp-gallery.php:602
+#: modules/pp-gallery/pp-gallery.php:864 modules/pp-gallery/pp-gallery.php:950
 #: modules/pp-gravity-form/pp-gravity-form.php:274
 #: modules/pp-gravity-form/pp-gravity-form.php:629
 #: modules/pp-gravity-form/pp-gravity-form.php:1022
@@ -1221,10 +1221,10 @@ msgstr ""
 #: modules/pp-ninja-form/pp-ninja-form.php:709
 #: modules/pp-ninja-form/pp-ninja-form.php:972
 #: modules/pp-notifications/pp-notifications.php:214
-#: modules/pp-post-timeline/pp-post-timeline.php:345
-#: modules/pp-post-timeline/pp-post-timeline.php:624
-#: modules/pp-post-timeline/pp-post-timeline.php:1020
-#: modules/pp-post-timeline/pp-post-timeline.php:1130
+#: modules/pp-post-timeline/pp-post-timeline.php:353
+#: modules/pp-post-timeline/pp-post-timeline.php:632
+#: modules/pp-post-timeline/pp-post-timeline.php:1028
+#: modules/pp-post-timeline/pp-post-timeline.php:1138
 #: modules/pp-pricing-table/pp-pricing-table.php:386
 #: modules/pp-pricing-table/pp-pricing-table.php:2316
 #: modules/pp-pullquote/pp-pullquote.php:255
@@ -1344,15 +1344,15 @@ msgstr ""
 #: modules/pp-custom-grid/pp-custom-grid.php:692
 #: modules/pp-dual-button/pp-dual-button.php:69
 #: modules/pp-dual-button/pp-dual-button.php:189
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:382
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:409
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:400
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:427
 #: modules/pp-flipbox/pp-flipbox.php:969
 #: modules/pp-formidable-form/pp-formidable-form.php:76
 #: modules/pp-formidable-form/pp-formidable-form.php:856
 #: modules/pp-formidable-form/pp-formidable-form.php:1027
 #: modules/pp-formidable-form/pp-formidable-form.php:1134
-#: modules/pp-gallery/pp-gallery.php:302 modules/pp-gallery/pp-gallery.php:379
-#: modules/pp-gallery/pp-gallery.php:611 modules/pp-gallery/pp-gallery.php:674
+#: modules/pp-gallery/pp-gallery.php:306 modules/pp-gallery/pp-gallery.php:392
+#: modules/pp-gallery/pp-gallery.php:624 modules/pp-gallery/pp-gallery.php:687
 #: modules/pp-gravity-form/pp-gravity-form.php:58
 #: modules/pp-gravity-form/pp-gravity-form.php:125
 #: modules/pp-gravity-form/pp-gravity-form.php:586
@@ -1393,12 +1393,12 @@ msgstr ""
 #: modules/pp-post-timeline/includes/loop-settings.php:304
 #: modules/pp-post-timeline/includes/loop-settings.php:314
 #: modules/pp-post-timeline/includes/loop-settings.php:324
-#: modules/pp-post-timeline/pp-post-timeline.php:150
-#: modules/pp-post-timeline/pp-post-timeline.php:159
-#: modules/pp-post-timeline/pp-post-timeline.php:168
-#: modules/pp-post-timeline/pp-post-timeline.php:189
-#: modules/pp-post-timeline/pp-post-timeline.php:203
-#: modules/pp-post-timeline/pp-post-timeline.php:646
+#: modules/pp-post-timeline/pp-post-timeline.php:158
+#: modules/pp-post-timeline/pp-post-timeline.php:167
+#: modules/pp-post-timeline/pp-post-timeline.php:176
+#: modules/pp-post-timeline/pp-post-timeline.php:197
+#: modules/pp-post-timeline/pp-post-timeline.php:211
+#: modules/pp-post-timeline/pp-post-timeline.php:654
 #: modules/pp-pricing-table/pp-pricing-table.php:331
 #: modules/pp-pricing-table/pp-pricing-table.php:1055
 #: modules/pp-pricing-table/pp-pricing-table.php:2058
@@ -1491,15 +1491,15 @@ msgstr ""
 #: modules/pp-custom-grid/pp-custom-grid.php:693
 #: modules/pp-dual-button/pp-dual-button.php:70
 #: modules/pp-dual-button/pp-dual-button.php:190
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:383
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:410
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:401
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:428
 #: modules/pp-flipbox/pp-flipbox.php:968
 #: modules/pp-formidable-form/pp-formidable-form.php:77
 #: modules/pp-formidable-form/pp-formidable-form.php:857
 #: modules/pp-formidable-form/pp-formidable-form.php:1028
 #: modules/pp-formidable-form/pp-formidable-form.php:1135
-#: modules/pp-gallery/pp-gallery.php:303 modules/pp-gallery/pp-gallery.php:380
-#: modules/pp-gallery/pp-gallery.php:612 modules/pp-gallery/pp-gallery.php:675
+#: modules/pp-gallery/pp-gallery.php:307 modules/pp-gallery/pp-gallery.php:393
+#: modules/pp-gallery/pp-gallery.php:625 modules/pp-gallery/pp-gallery.php:688
 #: modules/pp-gravity-form/pp-gravity-form.php:59
 #: modules/pp-gravity-form/pp-gravity-form.php:126
 #: modules/pp-gravity-form/pp-gravity-form.php:587
@@ -1540,12 +1540,12 @@ msgstr ""
 #: modules/pp-post-timeline/includes/loop-settings.php:305
 #: modules/pp-post-timeline/includes/loop-settings.php:315
 #: modules/pp-post-timeline/includes/loop-settings.php:325
-#: modules/pp-post-timeline/pp-post-timeline.php:151
-#: modules/pp-post-timeline/pp-post-timeline.php:160
-#: modules/pp-post-timeline/pp-post-timeline.php:169
-#: modules/pp-post-timeline/pp-post-timeline.php:190
-#: modules/pp-post-timeline/pp-post-timeline.php:204
-#: modules/pp-post-timeline/pp-post-timeline.php:647
+#: modules/pp-post-timeline/pp-post-timeline.php:159
+#: modules/pp-post-timeline/pp-post-timeline.php:168
+#: modules/pp-post-timeline/pp-post-timeline.php:177
+#: modules/pp-post-timeline/pp-post-timeline.php:198
+#: modules/pp-post-timeline/pp-post-timeline.php:212
+#: modules/pp-post-timeline/pp-post-timeline.php:655
 #: modules/pp-pricing-table/pp-pricing-table.php:332
 #: modules/pp-pricing-table/pp-pricing-table.php:1056
 #: modules/pp-pricing-table/pp-pricing-table.php:2059
@@ -1601,7 +1601,7 @@ msgstr ""
 #: modules/pp-business-hours/pp-business-hours.php:630
 #: modules/pp-column-separator/pp-column-separator.php:74
 #: modules/pp-fancy-heading/pp-fancy-heading.php:52
-#: modules/pp-flipbox/pp-flipbox.php:74 modules/pp-gallery/pp-gallery.php:741
+#: modules/pp-flipbox/pp-flipbox.php:74 modules/pp-gallery/pp-gallery.php:754
 #: modules/pp-image-carousel/pp-image-carousel.php:195
 #: modules/pp-image-carousel/pp-image-carousel.php:622
 #: modules/pp-modal-box/pp-modal-box.php:207
@@ -1694,9 +1694,9 @@ msgstr ""
 #: modules/pp-content-grid/pp-content-grid.php:1003
 #: modules/pp-content-grid/pp-content-grid.php:1138
 #: modules/pp-dotnav/pp-dotnav.php:174
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:646
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:691
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1132
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:664
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:709
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1150
 #: modules/pp-flipbox/pp-flipbox.php:920
 #: modules/pp-formidable-form/pp-formidable-form.php:151
 #: modules/pp-formidable-form/pp-formidable-form.php:454
@@ -1705,8 +1705,8 @@ msgstr ""
 #: modules/pp-formidable-form/pp-formidable-form.php:1462
 #: modules/pp-formidable-form/pp-formidable-form.php:1586
 #: modules/pp-formidable-form/pp-formidable-form.php:1672
-#: modules/pp-gallery/pp-gallery.php:758 modules/pp-gallery/pp-gallery.php:840
-#: modules/pp-gallery/pp-gallery.php:1092
+#: modules/pp-gallery/pp-gallery.php:771 modules/pp-gallery/pp-gallery.php:853
+#: modules/pp-gallery/pp-gallery.php:1105
 #: modules/pp-gravity-form/pp-gravity-form.php:150
 #: modules/pp-gravity-form/pp-gravity-form.php:696
 #: modules/pp-gravity-form/pp-gravity-form.php:733
@@ -1762,8 +1762,8 @@ msgstr ""
 #: modules/pp-ninja-form/pp-ninja-form.php:1459
 #: modules/pp-notifications/pp-notifications.php:247
 #: modules/pp-notifications/pp-notifications.php:347
-#: modules/pp-post-timeline/pp-post-timeline.php:530
-#: modules/pp-post-timeline/pp-post-timeline.php:693
+#: modules/pp-post-timeline/pp-post-timeline.php:538
+#: modules/pp-post-timeline/pp-post-timeline.php:701
 #: modules/pp-pullquote/pp-pullquote.php:328
 #: modules/pp-pullquote/pp-pullquote.php:445
 #: modules/pp-pullquote/pp-pullquote.php:534
@@ -1804,9 +1804,9 @@ msgstr ""
 #: modules/pp-caldera-form/pp-caldera-form.php:324
 #: modules/pp-contact-form/pp-contact-form.php:558
 #: modules/pp-content-grid/pp-content-grid.php:1065
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:653
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:671
 #: modules/pp-formidable-form/pp-formidable-form.php:343
-#: modules/pp-gallery/pp-gallery.php:779
+#: modules/pp-gallery/pp-gallery.php:792
 #: modules/pp-hover-cards-2/pp-hover-cards-2.php:670
 #: modules/pp-hover-cards/pp-hover-cards.php:750
 #: modules/pp-image-carousel/pp-image-carousel.php:660
@@ -1817,7 +1817,7 @@ msgstr ""
 #: modules/pp-modal-box/pp-modal-box.php:1177
 #: modules/pp-modal-box/pp-modal-box.php:1305
 #: modules/pp-ninja-form/pp-ninja-form.php:341
-#: modules/pp-post-timeline/pp-post-timeline.php:698
+#: modules/pp-post-timeline/pp-post-timeline.php:706
 #: modules/pp-smart-button/pp-smart-button.php:523
 #: modules/pp-subscribe-form/pp-subscribe-form.php:510
 #: modules/pp-subscribe-form/pp-subscribe-form.php:708
@@ -1945,14 +1945,14 @@ msgstr ""
 #: modules/pp-content-tiles/pp-content-tiles.php:641
 #: modules/pp-dual-button/pp-dual-button.php:473
 #: modules/pp-dual-button/pp-dual-button.php:476
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:577
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:578
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:772
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:773
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:891
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:892
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:975
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:976
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:595
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:596
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:790
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:791
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:909
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:910
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:993
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:994
 #: modules/pp-flipbox/pp-flipbox.php:362 modules/pp-flipbox/pp-flipbox.php:363
 #: modules/pp-flipbox/pp-flipbox.php:428 modules/pp-flipbox/pp-flipbox.php:429
 #: modules/pp-flipbox/pp-flipbox.php:590 modules/pp-flipbox/pp-flipbox.php:591
@@ -1967,7 +1967,8 @@ msgstr ""
 #: modules/pp-formidable-form/pp-formidable-form.php:823
 #: modules/pp-formidable-form/pp-formidable-form.php:960
 #: modules/pp-formidable-form/pp-formidable-form.php:1184
-#: modules/pp-gallery/pp-gallery.php:992 modules/pp-gallery/pp-gallery.php:993
+#: modules/pp-gallery/pp-gallery.php:1005
+#: modules/pp-gallery/pp-gallery.php:1006
 #: modules/pp-gravity-form/pp-gravity-form.php:298
 #: modules/pp-gravity-form/pp-gravity-form.php:299
 #: modules/pp-gravity-form/pp-gravity-form.php:553
@@ -2169,14 +2170,14 @@ msgstr ""
 #: modules/pp-content-tiles/pp-content-tiles.php:651
 #: modules/pp-dual-button/pp-dual-button.php:484
 #: modules/pp-dual-button/pp-dual-button.php:487
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:589
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:590
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:784
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:785
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:902
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:903
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:986
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:987
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:607
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:608
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:802
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:803
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:920
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:921
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1004
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1005
 #: modules/pp-flipbox/pp-flipbox.php:372 modules/pp-flipbox/pp-flipbox.php:373
 #: modules/pp-flipbox/pp-flipbox.php:438 modules/pp-flipbox/pp-flipbox.php:439
 #: modules/pp-flipbox/pp-flipbox.php:601 modules/pp-flipbox/pp-flipbox.php:602
@@ -2191,8 +2192,8 @@ msgstr ""
 #: modules/pp-formidable-form/pp-formidable-form.php:824
 #: modules/pp-formidable-form/pp-formidable-form.php:971
 #: modules/pp-formidable-form/pp-formidable-form.php:1195
-#: modules/pp-gallery/pp-gallery.php:1004
-#: modules/pp-gallery/pp-gallery.php:1005
+#: modules/pp-gallery/pp-gallery.php:1017
+#: modules/pp-gallery/pp-gallery.php:1018
 #: modules/pp-gravity-form/pp-gravity-form.php:310
 #: modules/pp-gravity-form/pp-gravity-form.php:311
 #: modules/pp-gravity-form/pp-gravity-form.php:554
@@ -2397,16 +2398,16 @@ msgstr ""
 #: modules/pp-dual-button/pp-dual-button.php:495
 #: modules/pp-dual-button/pp-dual-button.php:498
 #: modules/pp-fancy-heading/pp-fancy-heading.php:283
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:601
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:602
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:749
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:796
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:797
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:913
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:914
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:997
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:998
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1052
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:619
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:620
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:767
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:814
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:815
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:931
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:932
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1015
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1016
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1070
 #: modules/pp-flipbox/pp-flipbox.php:612 modules/pp-flipbox/pp-flipbox.php:613
 #: modules/pp-formidable-form/pp-formidable-form.php:414
 #: modules/pp-formidable-form/pp-formidable-form.php:521
@@ -2418,9 +2419,9 @@ msgstr ""
 #: modules/pp-formidable-form/pp-formidable-form.php:982
 #: modules/pp-formidable-form/pp-formidable-form.php:1148
 #: modules/pp-formidable-form/pp-formidable-form.php:1206
-#: modules/pp-gallery/pp-gallery.php:969
-#: modules/pp-gallery/pp-gallery.php:1016
-#: modules/pp-gallery/pp-gallery.php:1017
+#: modules/pp-gallery/pp-gallery.php:982
+#: modules/pp-gallery/pp-gallery.php:1029
+#: modules/pp-gallery/pp-gallery.php:1030
 #: modules/pp-gravity-form/pp-gravity-form.php:322
 #: modules/pp-gravity-form/pp-gravity-form.php:323
 #: modules/pp-gravity-form/pp-gravity-form.php:362
@@ -2637,16 +2638,16 @@ msgstr ""
 #: modules/pp-dual-button/pp-dual-button.php:506
 #: modules/pp-dual-button/pp-dual-button.php:509
 #: modules/pp-fancy-heading/pp-fancy-heading.php:285
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:613
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:614
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:751
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:808
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:809
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:924
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:925
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1008
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1009
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1054
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:631
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:632
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:769
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:826
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:827
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:942
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:943
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1026
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1027
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1072
 #: modules/pp-flipbox/pp-flipbox.php:623 modules/pp-flipbox/pp-flipbox.php:624
 #: modules/pp-formidable-form/pp-formidable-form.php:425
 #: modules/pp-formidable-form/pp-formidable-form.php:522
@@ -2658,9 +2659,9 @@ msgstr ""
 #: modules/pp-formidable-form/pp-formidable-form.php:993
 #: modules/pp-formidable-form/pp-formidable-form.php:1150
 #: modules/pp-formidable-form/pp-formidable-form.php:1217
-#: modules/pp-gallery/pp-gallery.php:971
-#: modules/pp-gallery/pp-gallery.php:1028
-#: modules/pp-gallery/pp-gallery.php:1029
+#: modules/pp-gallery/pp-gallery.php:984
+#: modules/pp-gallery/pp-gallery.php:1041
+#: modules/pp-gallery/pp-gallery.php:1042
 #: modules/pp-gravity-form/pp-gravity-form.php:334
 #: modules/pp-gravity-form/pp-gravity-form.php:335
 #: modules/pp-gravity-form/pp-gravity-form.php:364
@@ -2830,8 +2831,8 @@ msgstr ""
 #: modules/pp-ninja-form/pp-ninja-form.php:286
 #: modules/pp-ninja-form/pp-ninja-form.php:304
 #: modules/pp-ninja-form/pp-ninja-form.php:722
-#: modules/pp-post-timeline/pp-post-timeline.php:639
-#: modules/pp-post-timeline/pp-post-timeline.php:657
+#: modules/pp-post-timeline/pp-post-timeline.php:647
+#: modules/pp-post-timeline/pp-post-timeline.php:665
 #: modules/pp-pricing-table/pp-pricing-table.php:342
 #: modules/pp-pricing-table/pp-pricing-table.php:1066
 #: modules/pp-smart-button/pp-smart-button.php:482
@@ -2850,7 +2851,7 @@ msgstr ""
 #: includes/column-settings.php:316 includes/column-settings.php:404
 #: modules/pp-advanced-menu/pp-advanced-menu.php:1268
 #: modules/pp-advanced-menu/pp-advanced-menu.php:1286
-#: modules/pp-gallery/pp-gallery.php:622 modules/pp-gallery/pp-gallery.php:685
+#: modules/pp-gallery/pp-gallery.php:635 modules/pp-gallery/pp-gallery.php:698
 #: modules/pp-restaurant-menu/pp-restaurant-menu.php:742
 #: modules/pp-restaurant-menu/pp-restaurant-menu.php:746
 #: modules/pp-subscribe-form/pp-subscribe-form.php:653
@@ -2880,16 +2881,16 @@ msgstr ""
 #: modules/pp-fancy-heading/pp-fancy-heading.php:110
 #: modules/pp-formidable-form/pp-formidable-form.php:320
 #: modules/pp-formidable-form/pp-formidable-form.php:321
-#: modules/pp-gallery/pp-gallery.php:636 modules/pp-gallery/pp-gallery.php:637
-#: modules/pp-gallery/pp-gallery.php:699 modules/pp-gallery/pp-gallery.php:700
+#: modules/pp-gallery/pp-gallery.php:649 modules/pp-gallery/pp-gallery.php:650
+#: modules/pp-gallery/pp-gallery.php:712 modules/pp-gallery/pp-gallery.php:713
 #: modules/pp-image/pp-image.php:854 modules/pp-image/pp-image.php:857
 #: modules/pp-info-banner/pp-info-banner.php:82
 #: modules/pp-modal-box/pp-modal-box.php:1144
 #: modules/pp-ninja-form/pp-ninja-form.php:318
 #: modules/pp-ninja-form/pp-ninja-form.php:319
-#: modules/pp-post-timeline/pp-post-timeline.php:90
-#: modules/pp-post-timeline/pp-post-timeline.php:666
-#: modules/pp-post-timeline/pp-post-timeline.php:669
+#: modules/pp-post-timeline/pp-post-timeline.php:91
+#: modules/pp-post-timeline/pp-post-timeline.php:674
+#: modules/pp-post-timeline/pp-post-timeline.php:677
 #: modules/pp-pricing-table/pp-pricing-table.php:356
 #: modules/pp-pricing-table/pp-pricing-table.php:357
 #: modules/pp-pricing-table/pp-pricing-table.php:1080
@@ -2935,16 +2936,16 @@ msgstr ""
 #: modules/pp-fancy-heading/pp-fancy-heading.php:111
 #: modules/pp-formidable-form/pp-formidable-form.php:315
 #: modules/pp-formidable-form/pp-formidable-form.php:316
-#: modules/pp-gallery/pp-gallery.php:631 modules/pp-gallery/pp-gallery.php:632
-#: modules/pp-gallery/pp-gallery.php:694 modules/pp-gallery/pp-gallery.php:695
+#: modules/pp-gallery/pp-gallery.php:644 modules/pp-gallery/pp-gallery.php:645
+#: modules/pp-gallery/pp-gallery.php:707 modules/pp-gallery/pp-gallery.php:708
 #: modules/pp-image/pp-image.php:860 modules/pp-image/pp-image.php:863
 #: modules/pp-info-banner/pp-info-banner.php:83
 #: modules/pp-modal-box/pp-modal-box.php:1151
 #: modules/pp-ninja-form/pp-ninja-form.php:313
 #: modules/pp-ninja-form/pp-ninja-form.php:314
-#: modules/pp-post-timeline/pp-post-timeline.php:91
-#: modules/pp-post-timeline/pp-post-timeline.php:672
-#: modules/pp-post-timeline/pp-post-timeline.php:675
+#: modules/pp-post-timeline/pp-post-timeline.php:92
+#: modules/pp-post-timeline/pp-post-timeline.php:680
+#: modules/pp-post-timeline/pp-post-timeline.php:683
 #: modules/pp-pricing-table/pp-pricing-table.php:351
 #: modules/pp-pricing-table/pp-pricing-table.php:352
 #: modules/pp-pricing-table/pp-pricing-table.php:1075
@@ -2987,15 +2988,15 @@ msgstr ""
 #: modules/pp-custom-grid/pp-custom-grid.php:723
 #: modules/pp-formidable-form/pp-formidable-form.php:325
 #: modules/pp-formidable-form/pp-formidable-form.php:326
-#: modules/pp-gallery/pp-gallery.php:475 modules/pp-gallery/pp-gallery.php:641
-#: modules/pp-gallery/pp-gallery.php:642 modules/pp-gallery/pp-gallery.php:704
-#: modules/pp-gallery/pp-gallery.php:705 modules/pp-image/pp-image.php:866
+#: modules/pp-gallery/pp-gallery.php:488 modules/pp-gallery/pp-gallery.php:654
+#: modules/pp-gallery/pp-gallery.php:655 modules/pp-gallery/pp-gallery.php:717
+#: modules/pp-gallery/pp-gallery.php:718 modules/pp-image/pp-image.php:866
 #: modules/pp-image/pp-image.php:869
 #: modules/pp-modal-box/pp-modal-box.php:1158
 #: modules/pp-ninja-form/pp-ninja-form.php:323
 #: modules/pp-ninja-form/pp-ninja-form.php:324
-#: modules/pp-post-timeline/pp-post-timeline.php:678
-#: modules/pp-post-timeline/pp-post-timeline.php:681
+#: modules/pp-post-timeline/pp-post-timeline.php:686
+#: modules/pp-post-timeline/pp-post-timeline.php:689
 #: modules/pp-pricing-table/pp-pricing-table.php:361
 #: modules/pp-pricing-table/pp-pricing-table.php:362
 #: modules/pp-pricing-table/pp-pricing-table.php:1085
@@ -3036,14 +3037,14 @@ msgstr ""
 #: modules/pp-custom-grid/pp-custom-grid.php:728
 #: modules/pp-formidable-form/pp-formidable-form.php:330
 #: modules/pp-formidable-form/pp-formidable-form.php:331
-#: modules/pp-gallery/pp-gallery.php:646 modules/pp-gallery/pp-gallery.php:647
-#: modules/pp-gallery/pp-gallery.php:709 modules/pp-gallery/pp-gallery.php:710
+#: modules/pp-gallery/pp-gallery.php:659 modules/pp-gallery/pp-gallery.php:660
+#: modules/pp-gallery/pp-gallery.php:722 modules/pp-gallery/pp-gallery.php:723
 #: modules/pp-image/pp-image.php:872 modules/pp-image/pp-image.php:875
 #: modules/pp-modal-box/pp-modal-box.php:1165
 #: modules/pp-ninja-form/pp-ninja-form.php:328
 #: modules/pp-ninja-form/pp-ninja-form.php:329
-#: modules/pp-post-timeline/pp-post-timeline.php:684
-#: modules/pp-post-timeline/pp-post-timeline.php:687
+#: modules/pp-post-timeline/pp-post-timeline.php:692
+#: modules/pp-post-timeline/pp-post-timeline.php:695
 #: modules/pp-pricing-table/pp-pricing-table.php:366
 #: modules/pp-pricing-table/pp-pricing-table.php:367
 #: modules/pp-pricing-table/pp-pricing-table.php:1090
@@ -3077,10 +3078,10 @@ msgstr ""
 #: modules/pp-content-grid/pp-content-grid.php:419
 #: modules/pp-dual-button/pp-dual-button.php:140
 #: modules/pp-dual-button/pp-dual-button.php:260
-#: modules/pp-gallery/pp-gallery.php:729
+#: modules/pp-gallery/pp-gallery.php:742
 #: modules/pp-image-carousel/pp-image-carousel.php:431
 #: modules/pp-logos-grid/pp-logos-grid.php:230
-#: modules/pp-post-timeline/pp-post-timeline.php:174
+#: modules/pp-post-timeline/pp-post-timeline.php:182
 #: modules/pp-testimonials/pp-testimonials.php:130
 msgid "Transition Speed"
 msgstr ""
@@ -3154,8 +3155,8 @@ msgstr ""
 #: modules/pp-modal-box/pp-modal-box.php:213
 #: modules/pp-modal-box/pp-modal-box.php:1185
 #: modules/pp-notifications/pp-notifications.php:78
-#: modules/pp-post-timeline/pp-post-timeline.php:473
-#: modules/pp-post-timeline/pp-post-timeline.php:844
+#: modules/pp-post-timeline/pp-post-timeline.php:481
+#: modules/pp-post-timeline/pp-post-timeline.php:852
 #: modules/pp-smart-button/pp-smart-button.php:96
 #: modules/pp-subscribe-form/pp-subscribe-form.php:260
 #: modules/pp-subscribe-form/pp-subscribe-form.php:1477
@@ -3325,7 +3326,9 @@ msgstr ""
 msgid "Form Styler Modules"
 msgstr ""
 
-#: includes/row-settings.php:105 modules/pp-gallery/pp-gallery.php:243
+#: includes/row-settings.php:105
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:344
+#: modules/pp-gallery/pp-gallery.php:247 modules/pp-gallery/pp-gallery.php:319
 msgid "Full"
 msgstr ""
 
@@ -3387,18 +3390,18 @@ msgstr ""
 #: modules/pp-dual-button/pp-dual-button.php:236
 #: modules/pp-dual-button/pp-dual-button.php:523
 #: modules/pp-fancy-heading/pp-fancy-heading.php:108
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:321
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:351
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:495
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:505
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:856
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:325
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:369
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:513
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:523
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:874
 #: modules/pp-flipbox/pp-flipbox.php:77 modules/pp-flipbox/pp-flipbox.php:140
 #: modules/pp-flipbox/pp-flipbox.php:489
 #: modules/pp-formidable-form/pp-formidable-form.php:31
 #: modules/pp-formidable-form/pp-formidable-form.php:239
 #: modules/pp-formidable-form/pp-formidable-form.php:467
-#: modules/pp-gallery/pp-gallery.php:280 modules/pp-gallery/pp-gallery.php:331
-#: modules/pp-gallery/pp-gallery.php:471 modules/pp-gallery/pp-gallery.php:509
+#: modules/pp-gallery/pp-gallery.php:284 modules/pp-gallery/pp-gallery.php:344
+#: modules/pp-gallery/pp-gallery.php:484 modules/pp-gallery/pp-gallery.php:522
 #: modules/pp-gravity-form/includes/functions.php:8
 #: modules/pp-gravity-form/pp-gravity-form.php:802
 #: modules/pp-heading/pp-heading.php:505 modules/pp-heading/pp-heading.php:730
@@ -3436,15 +3439,15 @@ msgstr ""
 #: modules/pp-ninja-form/pp-ninja-form.php:237
 #: modules/pp-notifications/pp-notifications.php:111
 #: modules/pp-post-timeline/includes/loop-settings.php:218
-#: modules/pp-post-timeline/pp-post-timeline.php:60
-#: modules/pp-post-timeline/pp-post-timeline.php:64
-#: modules/pp-post-timeline/pp-post-timeline.php:294
-#: modules/pp-post-timeline/pp-post-timeline.php:576
-#: modules/pp-post-timeline/pp-post-timeline.php:972
-#: modules/pp-post-timeline/pp-post-timeline.php:1082
-#: modules/pp-post-timeline/pp-post-timeline.php:1299
-#: modules/pp-post-timeline/pp-post-timeline.php:1367
-#: modules/pp-post-timeline/pp-post-timeline.php:1471
+#: modules/pp-post-timeline/pp-post-timeline.php:61
+#: modules/pp-post-timeline/pp-post-timeline.php:65
+#: modules/pp-post-timeline/pp-post-timeline.php:302
+#: modules/pp-post-timeline/pp-post-timeline.php:584
+#: modules/pp-post-timeline/pp-post-timeline.php:980
+#: modules/pp-post-timeline/pp-post-timeline.php:1090
+#: modules/pp-post-timeline/pp-post-timeline.php:1307
+#: modules/pp-post-timeline/pp-post-timeline.php:1375
+#: modules/pp-post-timeline/pp-post-timeline.php:1479
 #: modules/pp-pricing-table/pp-pricing-table.php:169
 #: modules/pp-pricing-table/pp-pricing-table.php:285
 #: modules/pp-pricing-table/pp-pricing-table.php:817
@@ -3534,7 +3537,7 @@ msgstr ""
 #: modules/pp-content-grid/pp-content-grid.php:845
 #: modules/pp-formidable-form/pp-formidable-form.php:338
 #: modules/pp-formidable-form/pp-formidable-form.php:930
-#: modules/pp-gallery/pp-gallery.php:654 modules/pp-gallery/pp-gallery.php:717
+#: modules/pp-gallery/pp-gallery.php:667 modules/pp-gallery/pp-gallery.php:730
 #: modules/pp-ninja-form/pp-ninja-form.php:336
 #: modules/pp-ninja-form/pp-ninja-form.php:736
 #: modules/pp-pricing-table/pp-pricing-table.php:374
@@ -3568,8 +3571,8 @@ msgstr ""
 #: modules/pp-modal-box/pp-modal-box.php:626
 #: modules/pp-modal-box/pp-modal-box.php:1371
 #: modules/pp-notifications/pp-notifications.php:233
-#: modules/pp-post-timeline/pp-post-timeline.php:442
-#: modules/pp-post-timeline/pp-post-timeline.php:919
+#: modules/pp-post-timeline/pp-post-timeline.php:450
+#: modules/pp-post-timeline/pp-post-timeline.php:927
 #: modules/pp-pullquote/pp-pullquote.php:338
 #: modules/pp-social-icons/pp-social-icons.php:89
 #: modules/pp-timeline/pp-timeline.php:276
@@ -3650,15 +3653,15 @@ msgstr ""
 #: modules/pp-content-tiles/pp-content-tiles.php:523
 #: modules/pp-dual-button/pp-dual-button.php:640
 #: modules/pp-fancy-heading/pp-fancy-heading.php:167
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1074
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1147
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1092
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1165
 #: modules/pp-formidable-form/pp-formidable-form.php:1363
 #: modules/pp-formidable-form/pp-formidable-form.php:1482
 #: modules/pp-formidable-form/pp-formidable-form.php:1606
 #: modules/pp-formidable-form/pp-formidable-form.php:1692
 #: modules/pp-formidable-form/pp-formidable-form.php:1858
 #: modules/pp-formidable-form/pp-formidable-form.php:1933
-#: modules/pp-gallery/pp-gallery.php:1047
+#: modules/pp-gallery/pp-gallery.php:1060
 #: modules/pp-gravity-form/pp-gravity-form.php:1211
 #: modules/pp-gravity-form/pp-gravity-form.php:1252
 #: modules/pp-gravity-form/pp-gravity-form.php:1293
@@ -3696,10 +3699,10 @@ msgstr ""
 #: modules/pp-ninja-form/pp-ninja-form.php:1479
 #: modules/pp-ninja-form/pp-ninja-form.php:1651
 #: modules/pp-notifications/pp-notifications.php:272
-#: modules/pp-post-timeline/pp-post-timeline.php:1252
-#: modules/pp-post-timeline/pp-post-timeline.php:1320
-#: modules/pp-post-timeline/pp-post-timeline.php:1388
-#: modules/pp-post-timeline/pp-post-timeline.php:1441
+#: modules/pp-post-timeline/pp-post-timeline.php:1260
+#: modules/pp-post-timeline/pp-post-timeline.php:1328
+#: modules/pp-post-timeline/pp-post-timeline.php:1396
+#: modules/pp-post-timeline/pp-post-timeline.php:1449
 #: modules/pp-pricing-table/pp-pricing-table.php:1400
 #: modules/pp-pricing-table/pp-pricing-table.php:1551
 #: modules/pp-pricing-table/pp-pricing-table.php:1688
@@ -3776,8 +3779,8 @@ msgstr ""
 #: modules/pp-content-tiles/pp-content-tiles.php:531
 #: modules/pp-dual-button/pp-dual-button.php:648
 #: modules/pp-fancy-heading/pp-fancy-heading.php:179
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1086
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1159
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1104
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1177
 #: modules/pp-formidable-form/pp-formidable-form.php:1381
 #: modules/pp-formidable-form/pp-formidable-form.php:1505
 #: modules/pp-formidable-form/pp-formidable-form.php:1624
@@ -3785,7 +3788,7 @@ msgstr ""
 #: modules/pp-formidable-form/pp-formidable-form.php:1876
 #: modules/pp-formidable-form/pp-formidable-form.php:1941
 #: modules/pp-formidable-form/pp-formidable-form.php:2047
-#: modules/pp-gallery/pp-gallery.php:1059
+#: modules/pp-gallery/pp-gallery.php:1072
 #: modules/pp-gravity-form/pp-gravity-form.php:1219
 #: modules/pp-gravity-form/pp-gravity-form.php:1260
 #: modules/pp-gravity-form/pp-gravity-form.php:1301
@@ -3824,10 +3827,10 @@ msgstr ""
 #: modules/pp-ninja-form/pp-ninja-form.php:1502
 #: modules/pp-ninja-form/pp-ninja-form.php:1674
 #: modules/pp-ninja-form/pp-ninja-form.php:1828
-#: modules/pp-post-timeline/pp-post-timeline.php:1260
-#: modules/pp-post-timeline/pp-post-timeline.php:1328
-#: modules/pp-post-timeline/pp-post-timeline.php:1396
-#: modules/pp-post-timeline/pp-post-timeline.php:1449
+#: modules/pp-post-timeline/pp-post-timeline.php:1268
+#: modules/pp-post-timeline/pp-post-timeline.php:1336
+#: modules/pp-post-timeline/pp-post-timeline.php:1404
+#: modules/pp-post-timeline/pp-post-timeline.php:1457
 #: modules/pp-pricing-table/pp-pricing-table.php:1412
 #: modules/pp-pricing-table/pp-pricing-table.php:1563
 #: modules/pp-pricing-table/pp-pricing-table.php:1824
@@ -3890,7 +3893,7 @@ msgstr ""
 #: modules/pp-content-grid/pp-content-grid.php:2465
 #: modules/pp-content-tiles/pp-content-tiles.php:385
 #: modules/pp-content-tiles/pp-content-tiles.php:626
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1197
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1215
 #: modules/pp-formidable-form/pp-formidable-form.php:1375
 #: modules/pp-formidable-form/pp-formidable-form.php:1494
 #: modules/pp-formidable-form/pp-formidable-form.php:1618
@@ -3901,9 +3904,9 @@ msgstr ""
 #: modules/pp-ninja-form/pp-ninja-form.php:1400
 #: modules/pp-ninja-form/pp-ninja-form.php:1491
 #: modules/pp-ninja-form/pp-ninja-form.php:1663
-#: modules/pp-post-timeline/pp-post-timeline.php:1300
-#: modules/pp-post-timeline/pp-post-timeline.php:1368
-#: modules/pp-post-timeline/pp-post-timeline.php:1472
+#: modules/pp-post-timeline/pp-post-timeline.php:1308
+#: modules/pp-post-timeline/pp-post-timeline.php:1376
+#: modules/pp-post-timeline/pp-post-timeline.php:1480
 #: modules/pp-pricing-table/pp-pricing-table.php:1508
 #: modules/pp-pricing-table/pp-pricing-table.php:1659
 #: modules/pp-pricing-table/pp-pricing-table.php:1796
@@ -3945,7 +3948,7 @@ msgstr ""
 #: modules/pp-content-grid/pp-content-grid.php:2466
 #: modules/pp-content-tiles/pp-content-tiles.php:386
 #: modules/pp-content-tiles/pp-content-tiles.php:627
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1198
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1216
 #: modules/pp-formidable-form/pp-formidable-form.php:1376
 #: modules/pp-formidable-form/pp-formidable-form.php:1495
 #: modules/pp-formidable-form/pp-formidable-form.php:1619
@@ -3956,9 +3959,9 @@ msgstr ""
 #: modules/pp-ninja-form/pp-ninja-form.php:1401
 #: modules/pp-ninja-form/pp-ninja-form.php:1492
 #: modules/pp-ninja-form/pp-ninja-form.php:1664
-#: modules/pp-post-timeline/pp-post-timeline.php:1301
-#: modules/pp-post-timeline/pp-post-timeline.php:1369
-#: modules/pp-post-timeline/pp-post-timeline.php:1473
+#: modules/pp-post-timeline/pp-post-timeline.php:1309
+#: modules/pp-post-timeline/pp-post-timeline.php:1377
+#: modules/pp-post-timeline/pp-post-timeline.php:1481
 #: modules/pp-pricing-table/pp-pricing-table.php:1509
 #: modules/pp-pricing-table/pp-pricing-table.php:1660
 #: modules/pp-pricing-table/pp-pricing-table.php:1797
@@ -4000,7 +4003,7 @@ msgstr ""
 #: modules/pp-dual-button/pp-dual-button.php:376
 #: modules/pp-dual-button/pp-dual-button.php:394
 #: modules/pp-dual-button/pp-dual-button.php:412
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:945
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:963
 #: modules/pp-formidable-form/pp-formidable-form.php:1067
 #: modules/pp-formidable-form/pp-formidable-form.php:1080
 #: modules/pp-highlight-box/pp-highlight-box.php:332
@@ -4118,9 +4121,9 @@ msgstr ""
 #: modules/pp-dotnav/pp-dotnav.php:297
 #: modules/pp-dual-button/pp-dual-button.php:283
 #: modules/pp-dual-button/pp-dual-button.php:368
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:680
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:735
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:827
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:698
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:753
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:845
 #: modules/pp-flipbox/pp-flipbox.php:280 modules/pp-flipbox/pp-flipbox.php:557
 #: modules/pp-flipbox/pp-flipbox.php:641
 #: modules/pp-formidable-form/pp-formidable-form.php:165
@@ -4128,7 +4131,7 @@ msgstr ""
 #: modules/pp-formidable-form/pp-formidable-form.php:743
 #: modules/pp-formidable-form/pp-formidable-form.php:1072
 #: modules/pp-formidable-form/pp-formidable-form.php:1317
-#: modules/pp-gallery/pp-gallery.php:829 modules/pp-gallery/pp-gallery.php:955
+#: modules/pp-gallery/pp-gallery.php:842 modules/pp-gallery/pp-gallery.php:968
 #: modules/pp-gravity-form/pp-gravity-form.php:164
 #: modules/pp-gravity-form/pp-gravity-form.php:463
 #: modules/pp-gravity-form/pp-gravity-form.php:777
@@ -4159,12 +4162,12 @@ msgstr ""
 #: modules/pp-ninja-form/pp-ninja-form.php:549
 #: modules/pp-ninja-form/pp-ninja-form.php:878
 #: modules/pp-notifications/pp-notifications.php:97
-#: modules/pp-post-timeline/pp-post-timeline.php:269
-#: modules/pp-post-timeline/pp-post-timeline.php:420
-#: modules/pp-post-timeline/pp-post-timeline.php:563
-#: modules/pp-post-timeline/pp-post-timeline.php:765
-#: modules/pp-post-timeline/pp-post-timeline.php:947
-#: modules/pp-post-timeline/pp-post-timeline.php:1039
+#: modules/pp-post-timeline/pp-post-timeline.php:277
+#: modules/pp-post-timeline/pp-post-timeline.php:428
+#: modules/pp-post-timeline/pp-post-timeline.php:571
+#: modules/pp-post-timeline/pp-post-timeline.php:773
+#: modules/pp-post-timeline/pp-post-timeline.php:955
+#: modules/pp-post-timeline/pp-post-timeline.php:1047
 #: modules/pp-pricing-table/pp-pricing-table.php:271
 #: modules/pp-pricing-table/pp-pricing-table.php:461
 #: modules/pp-pricing-table/pp-pricing-table.php:569
@@ -4220,15 +4223,15 @@ msgstr ""
 #: modules/pp-content-grid/pp-content-grid.php:1753
 #: modules/pp-dotnav/pp-dotnav.php:200
 #: modules/pp-dual-button/pp-dual-button.php:542
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:527
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:880
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:545
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:898
 #: modules/pp-flipbox/pp-flipbox.php:164 modules/pp-flipbox/pp-flipbox.php:979
 #: modules/pp-formidable-form/pp-formidable-form.php:263
 #: modules/pp-formidable-form/pp-formidable-form.php:491
 #: modules/pp-formidable-form/pp-formidable-form.php:782
 #: modules/pp-formidable-form/pp-formidable-form.php:1102
-#: modules/pp-gallery/pp-gallery.php:531 modules/pp-gallery/pp-gallery.php:787
-#: modules/pp-gallery/pp-gallery.php:923
+#: modules/pp-gallery/pp-gallery.php:544 modules/pp-gallery/pp-gallery.php:800
+#: modules/pp-gallery/pp-gallery.php:936
 #: modules/pp-gravity-form/pp-gravity-form.php:230
 #: modules/pp-gravity-form/pp-gravity-form.php:405
 #: modules/pp-gravity-form/pp-gravity-form.php:512
@@ -4263,11 +4266,11 @@ msgstr ""
 #: modules/pp-ninja-form/pp-ninja-form.php:588
 #: modules/pp-ninja-form/pp-ninja-form.php:908
 #: modules/pp-notifications/pp-notifications.php:130
-#: modules/pp-post-timeline/pp-post-timeline.php:321
-#: modules/pp-post-timeline/pp-post-timeline.php:600
-#: modules/pp-post-timeline/pp-post-timeline.php:787
-#: modules/pp-post-timeline/pp-post-timeline.php:996
-#: modules/pp-post-timeline/pp-post-timeline.php:1106
+#: modules/pp-post-timeline/pp-post-timeline.php:329
+#: modules/pp-post-timeline/pp-post-timeline.php:608
+#: modules/pp-post-timeline/pp-post-timeline.php:795
+#: modules/pp-post-timeline/pp-post-timeline.php:1004
+#: modules/pp-post-timeline/pp-post-timeline.php:1114
 #: modules/pp-pricing-table/pp-pricing-table.php:304
 #: modules/pp-pricing-table/pp-pricing-table.php:841
 #: modules/pp-pricing-table/pp-pricing-table.php:1028
@@ -4323,8 +4326,8 @@ msgstr ""
 #: modules/pp-dotnav/pp-dotnav.php:213
 #: modules/pp-dual-button/pp-dual-button.php:319
 #: modules/pp-dual-button/pp-dual-button.php:404
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:541
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:937
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:559
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:955
 #: modules/pp-flipbox/pp-flipbox.php:291 modules/pp-flipbox/pp-flipbox.php:652
 #: modules/pp-flipbox/pp-flipbox.php:1002
 #: modules/pp-formidable-form/pp-formidable-form.php:276
@@ -4332,8 +4335,8 @@ msgstr ""
 #: modules/pp-formidable-form/pp-formidable-form.php:771
 #: modules/pp-formidable-form/pp-formidable-form.php:1115
 #: modules/pp-formidable-form/pp-formidable-form.php:1338
-#: modules/pp-gallery/pp-gallery.php:545 modules/pp-gallery/pp-gallery.php:795
-#: modules/pp-gallery/pp-gallery.php:931
+#: modules/pp-gallery/pp-gallery.php:558 modules/pp-gallery/pp-gallery.php:808
+#: modules/pp-gallery/pp-gallery.php:944
 #: modules/pp-gravity-form/pp-gravity-form.php:243
 #: modules/pp-gravity-form/pp-gravity-form.php:419
 #: modules/pp-gravity-form/pp-gravity-form.php:501
@@ -4369,11 +4372,11 @@ msgstr ""
 #: modules/pp-ninja-form/pp-ninja-form.php:577
 #: modules/pp-ninja-form/pp-ninja-form.php:921
 #: modules/pp-notifications/pp-notifications.php:144
-#: modules/pp-post-timeline/pp-post-timeline.php:335
-#: modules/pp-post-timeline/pp-post-timeline.php:614
-#: modules/pp-post-timeline/pp-post-timeline.php:800
-#: modules/pp-post-timeline/pp-post-timeline.php:1010
-#: modules/pp-post-timeline/pp-post-timeline.php:1120
+#: modules/pp-post-timeline/pp-post-timeline.php:343
+#: modules/pp-post-timeline/pp-post-timeline.php:622
+#: modules/pp-post-timeline/pp-post-timeline.php:808
+#: modules/pp-post-timeline/pp-post-timeline.php:1018
+#: modules/pp-post-timeline/pp-post-timeline.php:1128
 #: modules/pp-pricing-table/pp-pricing-table.php:318
 #: modules/pp-pricing-table/pp-pricing-table.php:854
 #: modules/pp-pricing-table/pp-pricing-table.php:1042
@@ -4421,16 +4424,16 @@ msgstr ""
 #: modules/pp-content-grid/pp-content-grid.php:1489
 #: modules/pp-content-grid/pp-content-grid.php:1842
 #: modules/pp-dual-button/pp-dual-button.php:463
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:566
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:716
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:761
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:964
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:584
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:734
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:779
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:982
 #: modules/pp-flipbox/pp-flipbox.php:579
 #: modules/pp-formidable-form/pp-formidable-form.php:381
 #: modules/pp-formidable-form/pp-formidable-form.php:560
 #: modules/pp-formidable-form/pp-formidable-form.php:949
 #: modules/pp-formidable-form/pp-formidable-form.php:1173
-#: modules/pp-gallery/pp-gallery.php:570 modules/pp-gallery/pp-gallery.php:981
+#: modules/pp-gallery/pp-gallery.php:583 modules/pp-gallery/pp-gallery.php:994
 #: modules/pp-gravity-form/pp-gravity-form.php:287
 #: modules/pp-gravity-form/pp-gravity-form.php:651
 #: modules/pp-heading/pp-heading.php:832
@@ -4451,7 +4454,7 @@ msgstr ""
 #: modules/pp-ninja-form/pp-ninja-form.php:755
 #: modules/pp-ninja-form/pp-ninja-form.php:985
 #: modules/pp-notifications/pp-notifications.php:155
-#: modules/pp-post-timeline/pp-post-timeline.php:933
+#: modules/pp-post-timeline/pp-post-timeline.php:941
 #: modules/pp-pricing-table/pp-pricing-table.php:399
 #: modules/pp-pricing-table/pp-pricing-table.php:498
 #: modules/pp-pricing-table/pp-pricing-table.php:606
@@ -4538,9 +4541,9 @@ msgstr ""
 #: modules/pp-custom-grid/pp-custom-grid.php:631
 #: modules/pp-dotnav/pp-dotnav.php:158
 #: modules/pp-dual-button/pp-dual-button.php:276
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:485
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:503
 #: modules/pp-formidable-form/pp-formidable-form.php:141
-#: modules/pp-gallery/pp-gallery.php:461 modules/pp-gallery/pp-gallery.php:951
+#: modules/pp-gallery/pp-gallery.php:474 modules/pp-gallery/pp-gallery.php:964
 #: modules/pp-gravity-form/pp-gravity-form.php:140
 #: modules/pp-heading/pp-heading.php:81 modules/pp-heading/pp-heading.php:692
 #: modules/pp-highlight-box/pp-highlight-box.php:143
@@ -4560,7 +4563,7 @@ msgstr ""
 #: modules/pp-logos-grid/pp-logos-grid.php:269
 #: modules/pp-ninja-form/pp-ninja-form.php:139
 #: modules/pp-notifications/pp-notifications.php:90
-#: modules/pp-post-timeline/pp-post-timeline.php:556
+#: modules/pp-post-timeline/pp-post-timeline.php:564
 #: modules/pp-pricing-table/pp-pricing-table.php:129
 #: modules/pp-pricing-table/pp-pricing-table.php:241
 #: modules/pp-pricing-table/pp-pricing-table.php:2124
@@ -4645,8 +4648,8 @@ msgstr ""
 #: modules/pp-modal-box/pp-modal-box.php:1321
 #: modules/pp-ninja-form/pp-ninja-form.php:858
 #: modules/pp-ninja-form/pp-ninja-form.php:1643
-#: modules/pp-post-timeline/pp-post-timeline.php:1035
-#: modules/pp-post-timeline/pp-post-timeline.php:1433
+#: modules/pp-post-timeline/pp-post-timeline.php:1043
+#: modules/pp-post-timeline/pp-post-timeline.php:1441
 #: modules/pp-pricing-table/pp-pricing-table.php:1886
 #: modules/pp-pricing-table/pp-pricing-table.php:2025
 #: modules/pp-subscribe-form/pp-subscribe-form.php:1095
@@ -4686,12 +4689,12 @@ msgstr ""
 #: modules/pp-dotnav/pp-dotnav.php:68
 #: modules/pp-dual-button/pp-dual-button.php:449
 #: modules/pp-fancy-heading/pp-fancy-heading.php:35
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:272
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1211
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:276
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1229
 #: modules/pp-flipbox/pp-flipbox.php:67
 #: modules/pp-formidable-form/pp-formidable-form.php:50
 #: modules/pp-formidable-form/pp-formidable-form.php:899
-#: modules/pp-gallery/pp-gallery.php:205
+#: modules/pp-gallery/pp-gallery.php:209
 #: modules/pp-gravity-form/pp-gravity-form.php:37
 #: modules/pp-gravity-form/pp-gravity-form.php:355
 #: modules/pp-gravity-form/pp-gravity-form.php:579
@@ -4735,7 +4738,7 @@ msgstr ""
 #: modules/pp-info-banner/pp-info-banner.php:319
 #: modules/pp-infobox/pp-infobox.php:324
 #: modules/pp-infolist/pp-infolist.php:689
-#: modules/pp-post-timeline/pp-post-timeline.php:1380
+#: modules/pp-post-timeline/pp-post-timeline.php:1388
 #: modules/pp-pullquote/pp-pullquote.php:456
 #: modules/pp-smart-button/pp-smart-button.php:100
 #: modules/pp-smart-button/pp-smart-button.php:279
@@ -4762,9 +4765,9 @@ msgstr ""
 #: modules/pp-dual-button/pp-dual-button.php:95
 #: modules/pp-dual-button/pp-dual-button.php:199
 #: modules/pp-dual-button/pp-dual-button.php:215
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:395
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:413
 #: modules/pp-flipbox/pp-flipbox.php:78 modules/pp-flipbox/pp-flipbox.php:95
-#: modules/pp-gallery/pp-gallery.php:392 modules/pp-heading/pp-heading.php:257
+#: modules/pp-gallery/pp-gallery.php:405 modules/pp-heading/pp-heading.php:257
 #: modules/pp-heading/pp-heading.php:278
 #: modules/pp-highlight-box/pp-highlight-box.php:102
 #: modules/pp-hover-cards-2/pp-hover-cards-2.php:448
@@ -4787,8 +4790,8 @@ msgstr ""
 #: modules/pp-modal-box/pp-modal-box.php:367
 #: modules/pp-modal-box/pp-modal-box.php:416
 #: modules/pp-notifications/pp-notifications.php:74
-#: modules/pp-post-timeline/pp-post-timeline.php:132
-#: modules/pp-post-timeline/pp-post-timeline.php:915
+#: modules/pp-post-timeline/pp-post-timeline.php:140
+#: modules/pp-post-timeline/pp-post-timeline.php:923
 #: modules/pp-pullquote/pp-pullquote.php:88
 #: modules/pp-pullquote/pp-pullquote.php:324
 #: modules/pp-smart-button/pp-smart-button.php:124
@@ -4859,8 +4862,8 @@ msgid "Fade In On Hover"
 msgstr ""
 
 #: modules/fl-button/fl-button.php:114
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:318
-#: modules/pp-gallery/pp-gallery.php:277
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:322
+#: modules/pp-gallery/pp-gallery.php:281
 #: modules/pp-image-carousel/pp-image-carousel.php:385
 msgid "Click Action"
 msgstr ""
@@ -4896,8 +4899,8 @@ msgid "Link"
 msgstr ""
 
 #: modules/fl-button/fl-button.php:118
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:322
-#: modules/pp-gallery/pp-gallery.php:281 modules/pp-gallery/pp-gallery.php:912
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:326
+#: modules/pp-gallery/pp-gallery.php:285 modules/pp-gallery/pp-gallery.php:925
 #: modules/pp-image-carousel/pp-image-carousel.php:389
 #: modules/pp-image/pp-image.php:544
 msgid "Lightbox"
@@ -4913,8 +4916,8 @@ msgstr ""
 #: modules/pp-announcement-bar/pp-announcement-bar.php:103
 #: modules/pp-dual-button/pp-dual-button.php:57
 #: modules/pp-dual-button/pp-dual-button.php:177
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:331
-#: modules/pp-flipbox/pp-flipbox.php:523 modules/pp-gallery/pp-gallery.php:311
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:349
+#: modules/pp-flipbox/pp-flipbox.php:523 modules/pp-gallery/pp-gallery.php:324
 #: modules/pp-heading/pp-heading.php:117
 #: modules/pp-highlight-box/pp-highlight-box.php:89
 #: modules/pp-hover-cards-2/pp-hover-cards-2.php:520
@@ -4940,8 +4943,8 @@ msgstr ""
 #: modules/pp-announcement-bar/pp-announcement-bar.php:106
 #: modules/pp-dual-button/pp-dual-button.php:60
 #: modules/pp-dual-button/pp-dual-button.php:180
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:334
-#: modules/pp-flipbox/pp-flipbox.php:526 modules/pp-gallery/pp-gallery.php:314
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:352
+#: modules/pp-flipbox/pp-flipbox.php:526 modules/pp-gallery/pp-gallery.php:327
 #: modules/pp-heading/pp-heading.php:120
 #: modules/pp-highlight-box/pp-highlight-box.php:92
 #: modules/pp-hover-cards-2/pp-hover-cards-2.php:523
@@ -4967,8 +4970,8 @@ msgstr ""
 #: modules/pp-announcement-bar/pp-announcement-bar.php:107
 #: modules/pp-dual-button/pp-dual-button.php:61
 #: modules/pp-dual-button/pp-dual-button.php:181
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:335
-#: modules/pp-flipbox/pp-flipbox.php:527 modules/pp-gallery/pp-gallery.php:315
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:353
+#: modules/pp-flipbox/pp-flipbox.php:527 modules/pp-gallery/pp-gallery.php:328
 #: modules/pp-heading/pp-heading.php:121
 #: modules/pp-highlight-box/pp-highlight-box.php:93
 #: modules/pp-hover-cards-2/pp-hover-cards-2.php:524
@@ -5033,8 +5036,8 @@ msgstr ""
 #: modules/pp-info-banner/pp-info-banner.php:752
 #: modules/pp-infobox/pp-infobox.php:375 modules/pp-infobox/pp-infobox.php:605
 #: modules/pp-infobox/pp-infobox.php:1029
-#: modules/pp-post-timeline/pp-post-timeline.php:280
-#: modules/pp-post-timeline/pp-post-timeline.php:1049
+#: modules/pp-post-timeline/pp-post-timeline.php:288
+#: modules/pp-post-timeline/pp-post-timeline.php:1057
 #: modules/pp-pricing-table/pp-pricing-table.php:2101
 #: modules/pp-social-icons/pp-social-icons.php:76
 #: modules/pp-social-icons/pp-social-icons.php:272
@@ -5065,7 +5068,7 @@ msgstr ""
 #: modules/pp-dotnav/pp-dotnav.php:303
 #: modules/pp-dual-button/pp-dual-button.php:301
 #: modules/pp-dual-button/pp-dual-button.php:386
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:840
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:858
 #: modules/pp-flipbox/pp-flipbox.php:535
 #: modules/pp-formidable-form/pp-formidable-form.php:733
 #: modules/pp-formidable-form/pp-formidable-form.php:1059
@@ -5077,9 +5080,9 @@ msgstr ""
 #: modules/pp-modal-box/pp-modal-box.php:1258
 #: modules/pp-ninja-form/pp-ninja-form.php:539
 #: modules/pp-ninja-form/pp-ninja-form.php:865
-#: modules/pp-post-timeline/pp-post-timeline.php:776
-#: modules/pp-post-timeline/pp-post-timeline.php:848
-#: modules/pp-post-timeline/pp-post-timeline.php:1059
+#: modules/pp-post-timeline/pp-post-timeline.php:784
+#: modules/pp-post-timeline/pp-post-timeline.php:856
+#: modules/pp-post-timeline/pp-post-timeline.php:1067
 #: modules/pp-pricing-table/pp-pricing-table.php:472
 #: modules/pp-pricing-table/pp-pricing-table.php:580
 #: modules/pp-pricing-table/pp-pricing-table.php:679
@@ -5104,7 +5107,7 @@ msgstr ""
 #: modules/pp-flipbox/pp-flipbox.php:546
 #: modules/pp-info-banner/pp-info-banner.php:774
 #: modules/pp-infobox/pp-infobox.php:399
-#: modules/pp-post-timeline/pp-post-timeline.php:1069
+#: modules/pp-post-timeline/pp-post-timeline.php:1077
 #: modules/pp-pricing-table/pp-pricing-table.php:2113
 #: modules/pp-subscribe-form/pp-subscribe-form.php:1170
 msgid "Text Hover Color"
@@ -5194,7 +5197,7 @@ msgstr ""
 #: modules/fl-button/fl-button.php:307
 #: modules/pp-content-grid/pp-content-grid.php:705
 #: modules/pp-content-tiles/pp-content-tiles.php:181
-#: modules/pp-post-timeline/pp-post-timeline.php:80
+#: modules/pp-post-timeline/pp-post-timeline.php:81
 #: modules/pp-restaurant-menu/pp-restaurant-menu.php:304
 #: modules/pp-restaurant-menu/pp-restaurant-menu.php:495
 #: modules/pp-smart-button/pp-smart-button.php:293
@@ -5216,7 +5219,7 @@ msgstr ""
 #: modules/pp-modal-box/pp-modal-box.php:125
 #: modules/pp-modal-box/pp-modal-box.php:640
 #: modules/pp-modal-box/pp-modal-box.php:732
-#: modules/pp-post-timeline/pp-post-timeline.php:507
+#: modules/pp-post-timeline/pp-post-timeline.php:515
 #: modules/pp-pricing-table/pp-pricing-table.php:2180
 #: modules/pp-smart-button/pp-smart-button.php:297
 #: modules/pp-subscribe-form/pp-subscribe-form.php:216
@@ -5300,7 +5303,7 @@ msgstr ""
 #: modules/pp-content-tiles/pp-content-tiles.php:580
 #: modules/pp-fancy-heading/pp-fancy-heading.php:183
 #: modules/pp-fancy-heading/pp-fancy-heading.php:228
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1090
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1108
 #: modules/pp-flipbox/pp-flipbox.php:228
 #: modules/pp-formidable-form/pp-formidable-form.php:1385
 #: modules/pp-formidable-form/pp-formidable-form.php:1509
@@ -5311,7 +5314,7 @@ msgstr ""
 #: modules/pp-formidable-form/pp-formidable-form.php:1945
 #: modules/pp-formidable-form/pp-formidable-form.php:1998
 #: modules/pp-formidable-form/pp-formidable-form.php:2051
-#: modules/pp-gallery/pp-gallery.php:1063
+#: modules/pp-gallery/pp-gallery.php:1076
 #: modules/pp-gravity-form/pp-gravity-form.php:596
 #: modules/pp-heading/pp-heading.php:1158
 #: modules/pp-heading/pp-heading.php:1226
@@ -5386,7 +5389,7 @@ msgstr ""
 #: modules/pp-content-grid/pp-content-grid.php:1918
 #: modules/pp-dual-button/pp-dual-button.php:453
 #: modules/pp-fancy-heading/pp-fancy-heading.php:280
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1049
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1067
 #: modules/pp-formidable-form/pp-formidable-form.php:622
 #: modules/pp-formidable-form/pp-formidable-form.php:675
 #: modules/pp-heading/pp-heading.php:142
@@ -5438,13 +5441,13 @@ msgstr ""
 #: modules/pp-custom-grid/pp-custom-grid.php:577
 #: modules/pp-dual-button/pp-dual-button.php:457
 #: modules/pp-fancy-heading/pp-fancy-heading.php:284
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:750
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1053
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:768
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1071
 #: modules/pp-formidable-form/pp-formidable-form.php:626
 #: modules/pp-formidable-form/pp-formidable-form.php:679
 #: modules/pp-formidable-form/pp-formidable-form.php:892
 #: modules/pp-formidable-form/pp-formidable-form.php:1149
-#: modules/pp-gallery/pp-gallery.php:970
+#: modules/pp-gallery/pp-gallery.php:983
 #: modules/pp-gravity-form/pp-gravity-form.php:363
 #: modules/pp-gravity-form/pp-gravity-form.php:378
 #: modules/pp-gravity-form/pp-gravity-form.php:623
@@ -5500,9 +5503,9 @@ msgid "3D Slider."
 msgstr ""
 
 #: modules/pp-3d-slider/pp-3d-slider.php:145
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:468
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1224
-#: modules/pp-gallery/pp-gallery.php:233
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:486
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1242
+#: modules/pp-gallery/pp-gallery.php:237
 #: modules/pp-image-carousel/pp-image-carousel.php:190
 msgid "Photos"
 msgstr ""
@@ -5516,14 +5519,14 @@ msgid "Upload minimum of 3 photos."
 msgstr ""
 
 #: modules/pp-3d-slider/pp-3d-slider.php:155
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:302
-#: modules/pp-gallery/pp-gallery.php:257
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:306
+#: modules/pp-gallery/pp-gallery.php:261
 msgid "Show Captions"
 msgstr ""
 
 #: modules/pp-3d-slider/pp-3d-slider.php:166
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:314
-#: modules/pp-gallery/pp-gallery.php:273
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:318
+#: modules/pp-gallery/pp-gallery.php:277
 msgid ""
 "The caption pulls from whatever text you put in the caption area in the "
 "media manager for each image."
@@ -5614,9 +5617,9 @@ msgid "Border"
 msgstr ""
 
 #: modules/pp-3d-slider/pp-3d-slider.php:291
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:731
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1070
-#: modules/pp-gallery/pp-gallery.php:948
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:749
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1088
+#: modules/pp-gallery/pp-gallery.php:961
 #: modules/pp-image-carousel/pp-image-carousel.php:271
 #: modules/pp-image-carousel/pp-image-carousel.php:993
 #: modules/pp-image/pp-image.php:500 modules/pp-image/pp-image.php:531
@@ -5739,8 +5742,8 @@ msgstr ""
 #: modules/pp-content-grid/pp-content-grid.php:1583
 #: modules/pp-content-grid/pp-content-grid.php:1703
 #: modules/pp-content-grid/pp-content-grid.php:1716
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:835
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:848
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:853
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:866
 msgid "Active"
 msgstr ""
 
@@ -5760,12 +5763,12 @@ msgstr ""
 #: modules/pp-content-grid/pp-content-grid.php:1593
 #: modules/pp-content-grid/pp-content-grid.php:1726
 #: modules/pp-dual-button/pp-dual-button.php:520
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:502
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:853
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:520
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:871
 #: modules/pp-flipbox/pp-flipbox.php:137
 #: modules/pp-formidable-form/pp-formidable-form.php:236
 #: modules/pp-formidable-form/pp-formidable-form.php:464
-#: modules/pp-gallery/pp-gallery.php:506
+#: modules/pp-gallery/pp-gallery.php:519
 #: modules/pp-gravity-form/pp-gravity-form.php:254
 #: modules/pp-gravity-form/pp-gravity-form.php:799
 #: modules/pp-heading/pp-heading.php:502 modules/pp-heading/pp-heading.php:727
@@ -5784,10 +5787,10 @@ msgstr ""
 #: modules/pp-modal-box/pp-modal-box.php:820
 #: modules/pp-ninja-form/pp-ninja-form.php:234
 #: modules/pp-notifications/pp-notifications.php:108
-#: modules/pp-post-timeline/pp-post-timeline.php:291
-#: modules/pp-post-timeline/pp-post-timeline.php:573
-#: modules/pp-post-timeline/pp-post-timeline.php:969
-#: modules/pp-post-timeline/pp-post-timeline.php:1079
+#: modules/pp-post-timeline/pp-post-timeline.php:299
+#: modules/pp-post-timeline/pp-post-timeline.php:581
+#: modules/pp-post-timeline/pp-post-timeline.php:977
+#: modules/pp-post-timeline/pp-post-timeline.php:1087
 #: modules/pp-pricing-table/pp-pricing-table.php:282
 #: modules/pp-pricing-table/pp-pricing-table.php:814
 #: modules/pp-pricing-table/pp-pricing-table.php:1001
@@ -5825,12 +5828,12 @@ msgstr ""
 #: modules/pp-content-grid/pp-content-grid.php:1597
 #: modules/pp-content-grid/pp-content-grid.php:1730
 #: modules/pp-dual-button/pp-dual-button.php:524
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:506
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:857
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:524
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:875
 #: modules/pp-flipbox/pp-flipbox.php:141
 #: modules/pp-formidable-form/pp-formidable-form.php:240
 #: modules/pp-formidable-form/pp-formidable-form.php:468
-#: modules/pp-gallery/pp-gallery.php:510 modules/pp-gallery/pp-gallery.php:744
+#: modules/pp-gallery/pp-gallery.php:523 modules/pp-gallery/pp-gallery.php:757
 #: modules/pp-gravity-form/pp-gravity-form.php:257
 #: modules/pp-gravity-form/pp-gravity-form.php:803
 #: modules/pp-heading/pp-heading.php:226 modules/pp-heading/pp-heading.php:506
@@ -5860,11 +5863,11 @@ msgstr ""
 #: modules/pp-modal-box/pp-modal-box.php:1195
 #: modules/pp-ninja-form/pp-ninja-form.php:238
 #: modules/pp-notifications/pp-notifications.php:112
-#: modules/pp-post-timeline/pp-post-timeline.php:295
-#: modules/pp-post-timeline/pp-post-timeline.php:487
-#: modules/pp-post-timeline/pp-post-timeline.php:577
-#: modules/pp-post-timeline/pp-post-timeline.php:973
-#: modules/pp-post-timeline/pp-post-timeline.php:1083
+#: modules/pp-post-timeline/pp-post-timeline.php:303
+#: modules/pp-post-timeline/pp-post-timeline.php:495
+#: modules/pp-post-timeline/pp-post-timeline.php:585
+#: modules/pp-post-timeline/pp-post-timeline.php:981
+#: modules/pp-post-timeline/pp-post-timeline.php:1091
 #: modules/pp-pricing-table/pp-pricing-table.php:170
 #: modules/pp-pricing-table/pp-pricing-table.php:286
 #: modules/pp-pricing-table/pp-pricing-table.php:818
@@ -5905,12 +5908,12 @@ msgstr ""
 #: modules/pp-content-grid/pp-content-grid.php:1598
 #: modules/pp-content-grid/pp-content-grid.php:1731
 #: modules/pp-dual-button/pp-dual-button.php:525
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:507
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:858
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:525
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:876
 #: modules/pp-flipbox/pp-flipbox.php:142
 #: modules/pp-formidable-form/pp-formidable-form.php:241
 #: modules/pp-formidable-form/pp-formidable-form.php:469
-#: modules/pp-gallery/pp-gallery.php:511
+#: modules/pp-gallery/pp-gallery.php:524
 #: modules/pp-gravity-form/pp-gravity-form.php:258
 #: modules/pp-gravity-form/pp-gravity-form.php:804
 #: modules/pp-heading/pp-heading.php:227 modules/pp-heading/pp-heading.php:507
@@ -5939,11 +5942,11 @@ msgstr ""
 #: modules/pp-modal-box/pp-modal-box.php:1193
 #: modules/pp-ninja-form/pp-ninja-form.php:239
 #: modules/pp-notifications/pp-notifications.php:113
-#: modules/pp-post-timeline/pp-post-timeline.php:296
-#: modules/pp-post-timeline/pp-post-timeline.php:488
-#: modules/pp-post-timeline/pp-post-timeline.php:578
-#: modules/pp-post-timeline/pp-post-timeline.php:974
-#: modules/pp-post-timeline/pp-post-timeline.php:1084
+#: modules/pp-post-timeline/pp-post-timeline.php:304
+#: modules/pp-post-timeline/pp-post-timeline.php:496
+#: modules/pp-post-timeline/pp-post-timeline.php:586
+#: modules/pp-post-timeline/pp-post-timeline.php:982
+#: modules/pp-post-timeline/pp-post-timeline.php:1092
 #: modules/pp-pricing-table/pp-pricing-table.php:171
 #: modules/pp-pricing-table/pp-pricing-table.php:287
 #: modules/pp-pricing-table/pp-pricing-table.php:819
@@ -5984,12 +5987,12 @@ msgstr ""
 #: modules/pp-content-grid/pp-content-grid.php:1599
 #: modules/pp-content-grid/pp-content-grid.php:1732
 #: modules/pp-dual-button/pp-dual-button.php:526
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:508
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:859
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:526
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:877
 #: modules/pp-flipbox/pp-flipbox.php:143
 #: modules/pp-formidable-form/pp-formidable-form.php:242
 #: modules/pp-formidable-form/pp-formidable-form.php:470
-#: modules/pp-gallery/pp-gallery.php:512
+#: modules/pp-gallery/pp-gallery.php:525
 #: modules/pp-gravity-form/pp-gravity-form.php:259
 #: modules/pp-gravity-form/pp-gravity-form.php:805
 #: modules/pp-heading/pp-heading.php:228 modules/pp-heading/pp-heading.php:508
@@ -6018,11 +6021,11 @@ msgstr ""
 #: modules/pp-modal-box/pp-modal-box.php:1194
 #: modules/pp-ninja-form/pp-ninja-form.php:240
 #: modules/pp-notifications/pp-notifications.php:114
-#: modules/pp-post-timeline/pp-post-timeline.php:297
-#: modules/pp-post-timeline/pp-post-timeline.php:489
-#: modules/pp-post-timeline/pp-post-timeline.php:579
-#: modules/pp-post-timeline/pp-post-timeline.php:975
-#: modules/pp-post-timeline/pp-post-timeline.php:1085
+#: modules/pp-post-timeline/pp-post-timeline.php:305
+#: modules/pp-post-timeline/pp-post-timeline.php:497
+#: modules/pp-post-timeline/pp-post-timeline.php:587
+#: modules/pp-post-timeline/pp-post-timeline.php:983
+#: modules/pp-post-timeline/pp-post-timeline.php:1093
 #: modules/pp-pricing-table/pp-pricing-table.php:172
 #: modules/pp-pricing-table/pp-pricing-table.php:288
 #: modules/pp-pricing-table/pp-pricing-table.php:820
@@ -6090,8 +6093,8 @@ msgstr ""
 #: modules/pp-content-grid/pp-content-grid.php:1410
 #: modules/pp-content-grid/pp-content-grid.php:1754
 #: modules/pp-content-grid/pp-content-grid.php:1843
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:881
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:965
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:899
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:983
 #: modules/pp-formidable-form/pp-formidable-form.php:382
 #: modules/pp-formidable-form/pp-formidable-form.php:528
 #: modules/pp-formidable-form/pp-formidable-form.php:561
@@ -6127,10 +6130,10 @@ msgstr ""
 #: modules/pp-content-tiles/pp-content-tiles.php:227
 #: modules/pp-dual-button/pp-dual-button.php:629
 #: modules/pp-fancy-heading/pp-fancy-heading.php:147
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1067
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1085
 #: modules/pp-flipbox/pp-flipbox.php:302 modules/pp-flipbox/pp-flipbox.php:663
 #: modules/pp-formidable-form/pp-formidable-form.php:1352
-#: modules/pp-gallery/pp-gallery.php:1043
+#: modules/pp-gallery/pp-gallery.php:1056
 #: modules/pp-gravity-form/pp-gravity-form.php:1200
 #: modules/pp-heading/pp-heading.php:1135
 #: modules/pp-hover-cards-2/pp-hover-cards-2.php:254
@@ -6143,7 +6146,7 @@ msgstr ""
 #: modules/pp-logos-grid/pp-logos-grid.php:805
 #: modules/pp-ninja-form/pp-ninja-form.php:1129
 #: modules/pp-notifications/pp-notifications.php:261
-#: modules/pp-post-timeline/pp-post-timeline.php:1241
+#: modules/pp-post-timeline/pp-post-timeline.php:1249
 #: modules/pp-pricing-table/pp-pricing-table.php:1393
 #: modules/pp-pullquote/pp-pullquote.php:364
 #: modules/pp-restaurant-menu/pp-restaurant-menu.php:793
@@ -6186,7 +6189,7 @@ msgstr ""
 #: modules/pp-content-tiles/pp-content-tiles.php:440
 #: modules/pp-content-tiles/pp-content-tiles.php:545
 #: modules/pp-fancy-heading/pp-fancy-heading.php:193
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1100
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1118
 #: modules/pp-formidable-form/pp-formidable-form.php:1395
 #: modules/pp-formidable-form/pp-formidable-form.php:1519
 #: modules/pp-formidable-form/pp-formidable-form.php:1638
@@ -6194,7 +6197,7 @@ msgstr ""
 #: modules/pp-formidable-form/pp-formidable-form.php:1890
 #: modules/pp-formidable-form/pp-formidable-form.php:1955
 #: modules/pp-formidable-form/pp-formidable-form.php:2061
-#: modules/pp-gallery/pp-gallery.php:1073
+#: modules/pp-gallery/pp-gallery.php:1086
 #: modules/pp-heading/pp-heading.php:1168
 #: modules/pp-heading/pp-heading.php:1236
 #: modules/pp-heading/pp-heading.php:1304
@@ -6333,11 +6336,11 @@ msgstr ""
 #: modules/pp-fancy-heading/pp-fancy-heading.php:203
 #: modules/pp-fancy-heading/pp-fancy-heading.php:247
 #: modules/pp-fancy-heading/pp-fancy-heading.php:248
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:444
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1109
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1110
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1169
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1170
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:462
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1127
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1128
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1187
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1188
 #: modules/pp-formidable-form/pp-formidable-form.php:1403
 #: modules/pp-formidable-form/pp-formidable-form.php:1406
 #: modules/pp-formidable-form/pp-formidable-form.php:1437
@@ -6615,11 +6618,11 @@ msgstr ""
 #: modules/pp-fancy-heading/pp-fancy-heading.php:213
 #: modules/pp-fancy-heading/pp-fancy-heading.php:256
 #: modules/pp-fancy-heading/pp-fancy-heading.php:257
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:448
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1119
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1120
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1180
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1181
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:466
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1137
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1138
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1198
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1199
 #: modules/pp-formidable-form/pp-formidable-form.php:1414
 #: modules/pp-formidable-form/pp-formidable-form.php:1417
 #: modules/pp-formidable-form/pp-formidable-form.php:1447
@@ -6898,11 +6901,11 @@ msgstr ""
 #: modules/pp-fancy-heading/pp-fancy-heading.php:218
 #: modules/pp-fancy-heading/pp-fancy-heading.php:261
 #: modules/pp-fancy-heading/pp-fancy-heading.php:262
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:452
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1124
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1125
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1186
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1187
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:470
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1142
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1143
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1204
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1205
 #: modules/pp-formidable-form/pp-formidable-form.php:1420
 #: modules/pp-formidable-form/pp-formidable-form.php:1423
 #: modules/pp-formidable-form/pp-formidable-form.php:1453
@@ -7115,9 +7118,9 @@ msgstr ""
 #: modules/pp-ninja-form/pp-ninja-form.php:1211
 #: modules/pp-ninja-form/pp-ninja-form.php:1335
 #: modules/pp-notifications/pp-notifications.php:314
-#: modules/pp-post-timeline/pp-post-timeline.php:1279
-#: modules/pp-post-timeline/pp-post-timeline.php:1347
-#: modules/pp-post-timeline/pp-post-timeline.php:1415
+#: modules/pp-post-timeline/pp-post-timeline.php:1287
+#: modules/pp-post-timeline/pp-post-timeline.php:1355
+#: modules/pp-post-timeline/pp-post-timeline.php:1423
 #: modules/pp-pricing-table/pp-pricing-table.php:1458
 #: modules/pp-pricing-table/pp-pricing-table.php:1609
 #: modules/pp-pullquote/pp-pullquote.php:415
@@ -7197,11 +7200,11 @@ msgstr ""
 #: modules/pp-content-grid/pp-content-grid.php:167
 #: modules/pp-content-tiles/pp-content-tiles.php:143
 #: modules/pp-custom-grid/pp-custom-grid.php:510
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:279
-#: modules/pp-gallery/pp-gallery.php:212 modules/pp-infobox/pp-infobox.php:90
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:283
+#: modules/pp-gallery/pp-gallery.php:216 modules/pp-infobox/pp-infobox.php:90
 #: modules/pp-logos-grid/pp-logos-grid.php:48
 #: modules/pp-modal-box/pp-modal-box.php:102
-#: modules/pp-post-timeline/pp-post-timeline.php:87
+#: modules/pp-post-timeline/pp-post-timeline.php:88
 #: modules/pp-pricing-table/pp-pricing-table.php:102
 #: modules/pp-subscribe-form/pp-subscribe-form.php:280
 #: modules/pp-testimonials/pp-testimonials.php:319
@@ -7237,7 +7240,7 @@ msgid "Responsive Breakpoint"
 msgstr ""
 
 #: modules/pp-advanced-menu/pp-advanced-menu.php:233
-#: modules/pp-gallery/pp-gallery.php:262
+#: modules/pp-gallery/pp-gallery.php:266
 msgid "Always"
 msgstr ""
 
@@ -7293,8 +7296,8 @@ msgstr ""
 #: modules/pp-advanced-menu/pp-advanced-menu.php:314
 #: modules/pp-dual-button/pp-dual-button.php:117
 #: modules/pp-dual-button/pp-dual-button.php:237
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:352
-#: modules/pp-gallery/pp-gallery.php:332
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:370
+#: modules/pp-gallery/pp-gallery.php:345
 #: modules/pp-image-carousel/pp-image-carousel.php:298
 #: modules/pp-image-carousel/pp-image-carousel.php:425
 #: modules/pp-logos-grid/pp-logos-grid.php:220
@@ -7313,7 +7316,7 @@ msgid "Slide Down"
 msgstr ""
 
 #: modules/pp-advanced-menu/pp-advanced-menu.php:317
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:496
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:514
 msgid "Zoom"
 msgstr ""
 
@@ -7322,7 +7325,7 @@ msgid "Door"
 msgstr ""
 
 #: modules/pp-advanced-menu/pp-advanced-menu.php:323
-#: modules/pp-post-timeline/pp-post-timeline.php:105
+#: modules/pp-post-timeline/pp-post-timeline.php:106
 #: modules/pp-social-icons/pp-social-icons.php:138
 msgid "Direction"
 msgstr ""
@@ -7337,21 +7340,21 @@ msgstr ""
 
 #: modules/pp-advanced-menu/pp-advanced-menu.php:332
 #: modules/pp-fancy-heading/pp-fancy-heading.php:93
-#: modules/pp-gallery/pp-gallery.php:369 modules/pp-gallery/pp-gallery.php:499
+#: modules/pp-gallery/pp-gallery.php:382 modules/pp-gallery/pp-gallery.php:512
 #: modules/pp-image-carousel/pp-image-carousel.php:315
 msgid "Animation Speed"
 msgstr ""
 
 #: modules/pp-advanced-menu/pp-advanced-menu.php:334
-#: modules/pp-flipbox/pp-flipbox.php:123 modules/pp-gallery/pp-gallery.php:370
-#: modules/pp-gallery/pp-gallery.php:500
+#: modules/pp-flipbox/pp-flipbox.php:123 modules/pp-gallery/pp-gallery.php:383
+#: modules/pp-gallery/pp-gallery.php:513
 #: modules/pp-image-carousel/pp-image-carousel.php:316
 #: modules/pp-smart-button/pp-smart-button.php:223
 msgid "ms"
 msgstr ""
 
 #: modules/pp-advanced-menu/pp-advanced-menu.php:359
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1021
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1039
 msgid "Horizontal Spacing"
 msgstr ""
 
@@ -7360,7 +7363,7 @@ msgid "This option controls the left-right spacing of each link."
 msgstr ""
 
 #: modules/pp-advanced-menu/pp-advanced-menu.php:389
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1035
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1053
 msgid "Vertical Spacing"
 msgstr ""
 
@@ -7408,7 +7411,7 @@ msgstr ""
 #: modules/pp-contact-form/pp-contact-form.php:507
 #: modules/pp-content-grid/pp-content-grid.php:799
 #: modules/pp-formidable-form/pp-formidable-form.php:292
-#: modules/pp-gallery/pp-gallery.php:608 modules/pp-gallery/pp-gallery.php:671
+#: modules/pp-gallery/pp-gallery.php:621 modules/pp-gallery/pp-gallery.php:684
 #: modules/pp-modal-box/pp-modal-box.php:1125
 #: modules/pp-ninja-form/pp-ninja-form.php:290
 #: modules/pp-pricing-table/pp-pricing-table.php:328
@@ -7426,7 +7429,7 @@ msgstr ""
 #: modules/pp-advanced-menu/pp-advanced-menu.php:1323
 #: modules/pp-business-hours/pp-business-hours.php:292
 #: modules/pp-content-grid/pp-content-grid.php:850
-#: modules/pp-gallery/pp-gallery.php:659 modules/pp-gallery/pp-gallery.php:722
+#: modules/pp-gallery/pp-gallery.php:672 modules/pp-gallery/pp-gallery.php:735
 #: modules/pp-pricing-table/pp-pricing-table.php:379
 #: modules/pp-pricing-table/pp-pricing-table.php:1103
 #: modules/pp-restaurant-menu/pp-restaurant-menu.php:783
@@ -7551,7 +7554,7 @@ msgstr ""
 #: modules/pp-content-grid/pp-content-grid.php:2461
 #: modules/pp-content-tiles/pp-content-tiles.php:380
 #: modules/pp-content-tiles/pp-content-tiles.php:621
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1193
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1211
 #: modules/pp-formidable-form/pp-formidable-form.php:1371
 #: modules/pp-formidable-form/pp-formidable-form.php:1490
 #: modules/pp-formidable-form/pp-formidable-form.php:1614
@@ -7562,9 +7565,9 @@ msgstr ""
 #: modules/pp-ninja-form/pp-ninja-form.php:1396
 #: modules/pp-ninja-form/pp-ninja-form.php:1487
 #: modules/pp-ninja-form/pp-ninja-form.php:1659
-#: modules/pp-post-timeline/pp-post-timeline.php:1296
-#: modules/pp-post-timeline/pp-post-timeline.php:1364
-#: modules/pp-post-timeline/pp-post-timeline.php:1468
+#: modules/pp-post-timeline/pp-post-timeline.php:1304
+#: modules/pp-post-timeline/pp-post-timeline.php:1372
+#: modules/pp-post-timeline/pp-post-timeline.php:1476
 #: modules/pp-pricing-table/pp-pricing-table.php:1504
 #: modules/pp-pricing-table/pp-pricing-table.php:1655
 #: modules/pp-pricing-table/pp-pricing-table.php:1792
@@ -7742,7 +7745,7 @@ msgstr ""
 #: modules/pp-ninja-form/pp-ninja-form.php:1132
 #: modules/pp-post-timeline/includes/loop-settings.php:78
 #: modules/pp-post-timeline/includes/loop-settings.php:219
-#: modules/pp-post-timeline/pp-post-timeline.php:1244
+#: modules/pp-post-timeline/pp-post-timeline.php:1252
 #: modules/pp-pricing-table/pp-pricing-table.php:951
 #: modules/pp-pricing-table/pp-pricing-table.php:1977
 #: modules/pp-pricing-table/pp-pricing-table.php:1987
@@ -7793,7 +7796,7 @@ msgstr ""
 #: modules/pp-fancy-heading/pp-fancy-heading.php:100
 #: modules/pp-flipbox/pp-flipbox.php:79
 #: modules/pp-formidable-form/pp-formidable-form.php:152
-#: modules/pp-gallery/pp-gallery.php:464
+#: modules/pp-gallery/pp-gallery.php:477
 #: modules/pp-gravity-form/pp-gravity-form.php:151
 #: modules/pp-hover-cards-2/pp-hover-cards-2.php:449
 #: modules/pp-hover-cards-2/pp-hover-cards-2.php:467
@@ -8147,7 +8150,7 @@ msgid "Bar Height"
 msgstr ""
 
 #: modules/pp-announcement-bar/pp-announcement-bar.php:235
-#: modules/pp-post-timeline/pp-post-timeline.php:643
+#: modules/pp-post-timeline/pp-post-timeline.php:651
 #: modules/pp-timeline/pp-timeline.php:748
 msgid "Display Box Shadow?"
 msgstr ""
@@ -8179,9 +8182,9 @@ msgstr ""
 #: modules/pp-content-grid/pp-content-grid.php:1904
 #: modules/pp-content-tiles/pp-content-tiles.php:193
 #: modules/pp-dual-button/pp-dual-button.php:603
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:458
-#: modules/pp-gallery/pp-gallery.php:415 modules/pp-gallery/pp-gallery.php:427
-#: modules/pp-gallery/pp-gallery.php:802
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:476
+#: modules/pp-gallery/pp-gallery.php:428 modules/pp-gallery/pp-gallery.php:440
+#: modules/pp-gallery/pp-gallery.php:815
 #: modules/pp-image-carousel/pp-image-carousel.php:229
 #: modules/pp-image-carousel/pp-image-carousel.php:683
 #: modules/pp-image/pp-image.php:812 modules/pp-infolist/pp-infolist.php:317
@@ -8221,7 +8224,7 @@ msgstr ""
 #: modules/pp-hover-cards-2/pp-hover-cards-2.php:535
 #: modules/pp-infobox/pp-infobox.php:590
 #: modules/pp-modal-box/pp-modal-box.php:972
-#: modules/pp-post-timeline/pp-post-timeline.php:559
+#: modules/pp-post-timeline/pp-post-timeline.php:567
 #: modules/pp-team/pp-team.php:565 modules/pp-timeline/pp-timeline.php:137
 msgid "Box"
 msgstr ""
@@ -8446,7 +8449,7 @@ msgstr ""
 #: modules/pp-formidable-form/pp-formidable-form.php:920
 #: modules/pp-formidable-form/pp-formidable-form.php:1244
 #: modules/pp-formidable-form/pp-formidable-form.php:1291
-#: modules/pp-gallery/pp-gallery.php:453
+#: modules/pp-gallery/pp-gallery.php:466
 #: modules/pp-gravity-form/pp-gravity-form.php:76
 #: modules/pp-gravity-form/pp-gravity-form.php:96
 #: modules/pp-gravity-form/pp-gravity-form.php:117
@@ -8631,9 +8634,9 @@ msgstr ""
 #: modules/pp-caldera-form/pp-caldera-form.php:677
 #: modules/pp-contact-form/pp-contact-form.php:902
 #: modules/pp-content-grid/pp-content-grid.php:785
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:746
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:764
 #: modules/pp-formidable-form/pp-formidable-form.php:888
-#: modules/pp-gallery/pp-gallery.php:966
+#: modules/pp-gallery/pp-gallery.php:979
 #: modules/pp-gravity-form/pp-gravity-form.php:619
 #: modules/pp-ninja-form/pp-ninja-form.php:694
 #: modules/pp-pullquote/pp-pullquote.php:153
@@ -8687,7 +8690,7 @@ msgstr ""
 #: modules/pp-info-banner/pp-info-banner.php:671
 #: modules/pp-modal-box/pp-modal-box.php:1086
 #: modules/pp-ninja-form/pp-ninja-form.php:812
-#: modules/pp-post-timeline/pp-post-timeline.php:1219
+#: modules/pp-post-timeline/pp-post-timeline.php:1227
 #: modules/pp-wpforms/pp-wpforms.php:814
 msgid "Margin Bottom"
 msgstr ""
@@ -8721,24 +8724,24 @@ msgid "File Upload"
 msgstr ""
 
 #: modules/pp-caldera-form/pp-caldera-form.php:916
-#: modules/pp-gallery/pp-gallery.php:865
+#: modules/pp-gallery/pp-gallery.php:878
 #: modules/pp-gravity-form/pp-gravity-form.php:850
 #: modules/pp-image-carousel/pp-image-carousel.php:868
-#: modules/pp-post-timeline/pp-post-timeline.php:359
-#: modules/pp-post-timeline/pp-post-timeline.php:709
-#: modules/pp-post-timeline/pp-post-timeline.php:858
-#: modules/pp-post-timeline/pp-post-timeline.php:1144
+#: modules/pp-post-timeline/pp-post-timeline.php:367
+#: modules/pp-post-timeline/pp-post-timeline.php:717
+#: modules/pp-post-timeline/pp-post-timeline.php:866
+#: modules/pp-post-timeline/pp-post-timeline.php:1152
 msgid "Horizontal Padding"
 msgstr ""
 
 #: modules/pp-caldera-form/pp-caldera-form.php:938
-#: modules/pp-gallery/pp-gallery.php:888
+#: modules/pp-gallery/pp-gallery.php:901
 #: modules/pp-gravity-form/pp-gravity-form.php:872
 #: modules/pp-image-carousel/pp-image-carousel.php:891
-#: modules/pp-post-timeline/pp-post-timeline.php:387
-#: modules/pp-post-timeline/pp-post-timeline.php:737
-#: modules/pp-post-timeline/pp-post-timeline.php:886
-#: modules/pp-post-timeline/pp-post-timeline.php:1172
+#: modules/pp-post-timeline/pp-post-timeline.php:395
+#: modules/pp-post-timeline/pp-post-timeline.php:745
+#: modules/pp-post-timeline/pp-post-timeline.php:894
+#: modules/pp-post-timeline/pp-post-timeline.php:1180
 msgid "Vertical Padding"
 msgstr ""
 
@@ -8922,7 +8925,7 @@ msgstr ""
 #: modules/pp-contact-form-7/pp-contact-form-7.php:323
 #: modules/pp-contact-form/pp-contact-form.php:1273
 #: modules/pp-modal-box/pp-modal-box.php:1073
-#: modules/pp-post-timeline/pp-post-timeline.php:1200
+#: modules/pp-post-timeline/pp-post-timeline.php:1208
 #: modules/pp-pricing-table/pp-pricing-table.php:1110
 #: modules/pp-subscribe-form/pp-subscribe-form.php:1380
 msgid "Margin Top"
@@ -9425,8 +9428,8 @@ msgstr ""
 
 #: modules/pp-content-grid/includes/loop-settings.php:94
 #: modules/pp-content-tiles/includes/loop-settings.php:51
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:297
-#: modules/pp-gallery/pp-gallery.php:252
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:301
+#: modules/pp-gallery/pp-gallery.php:256
 #: modules/pp-image-carousel/pp-image-carousel.php:380
 #: modules/pp-post-timeline/includes/loop-settings.php:77
 msgid "Random"
@@ -9473,7 +9476,7 @@ msgstr ""
 #: modules/pp-content-grid/pp-content-grid.php:1674
 #: modules/pp-content-grid/pp-content-grid.php:2411
 #: modules/pp-content-tiles/includes/loop-settings.php:100
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1143
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1161
 #: modules/pp-post-timeline/includes/loop-settings.php:119
 msgid "Filter"
 msgstr ""
@@ -9546,7 +9549,7 @@ msgid "words"
 msgstr ""
 
 #: modules/pp-content-grid/includes/loop-settings.php:237
-#: modules/pp-gallery/pp-gallery.php:241
+#: modules/pp-gallery/pp-gallery.php:245
 #: modules/pp-post-timeline/includes/loop-settings.php:220
 msgid "Thumbnail"
 msgstr ""
@@ -9622,8 +9625,8 @@ msgid "Featured Image"
 msgstr ""
 
 #: modules/pp-content-grid/includes/loop-settings.php:386
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:288
-#: modules/pp-gallery/pp-gallery.php:238
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:292
+#: modules/pp-gallery/pp-gallery.php:242
 #: modules/pp-image-carousel/pp-image-carousel.php:361
 #: modules/pp-post-timeline/includes/loop-settings.php:277
 #: modules/pp-testimonials/pp-testimonials.php:580
@@ -9710,8 +9713,8 @@ msgid "Layout Type"
 msgstr ""
 
 #: modules/pp-content-grid/pp-content-grid.php:177
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:282
-#: modules/pp-gallery/pp-gallery.php:215
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:286
+#: modules/pp-gallery/pp-gallery.php:219
 #: modules/pp-logos-grid/pp-logos-grid.php:51
 msgid "Grid"
 msgstr ""
@@ -9782,9 +9785,9 @@ msgid "Column Settings"
 msgstr ""
 
 #: modules/pp-content-grid/pp-content-grid.php:326
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:435
-#: modules/pp-gallery/pp-gallery.php:403
-#: modules/pp-post-timeline/pp-post-timeline.php:115
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:453
+#: modules/pp-gallery/pp-gallery.php:416
+#: modules/pp-post-timeline/pp-post-timeline.php:116
 msgid "Number of Columns"
 msgstr ""
 
@@ -9795,17 +9798,17 @@ msgstr ""
 #: modules/pp-content-grid/pp-content-grid.php:392
 #: modules/pp-image-carousel/pp-image-carousel.php:438
 #: modules/pp-logos-grid/pp-logos-grid.php:190
-#: modules/pp-post-timeline/pp-post-timeline.php:147
+#: modules/pp-post-timeline/pp-post-timeline.php:155
 msgid "Auto Play"
 msgstr ""
 
 #: modules/pp-content-grid/pp-content-grid.php:401
-#: modules/pp-post-timeline/pp-post-timeline.php:156
+#: modules/pp-post-timeline/pp-post-timeline.php:164
 msgid "Stop On Hover"
 msgstr ""
 
 #: modules/pp-content-grid/pp-content-grid.php:410
-#: modules/pp-post-timeline/pp-post-timeline.php:165
+#: modules/pp-post-timeline/pp-post-timeline.php:173
 msgid "Lazy Load"
 msgstr ""
 
@@ -9819,38 +9822,38 @@ msgid "seconds"
 msgstr ""
 
 #: modules/pp-content-grid/pp-content-grid.php:427
-#: modules/pp-post-timeline/pp-post-timeline.php:182
+#: modules/pp-post-timeline/pp-post-timeline.php:190
 msgid "Controls"
 msgstr ""
 
 #: modules/pp-content-grid/pp-content-grid.php:431
-#: modules/pp-post-timeline/pp-post-timeline.php:186
+#: modules/pp-post-timeline/pp-post-timeline.php:194
 msgid "Show Navigation Dots?"
 msgstr ""
 
 #: modules/pp-content-grid/pp-content-grid.php:445
 #: modules/pp-image-carousel/pp-image-carousel.php:473
-#: modules/pp-post-timeline/pp-post-timeline.php:200
+#: modules/pp-post-timeline/pp-post-timeline.php:208
 msgid "Show Navigation Arrows?"
 msgstr ""
 
 #: modules/pp-content-grid/pp-content-grid.php:464
 #: modules/pp-image-carousel/pp-image-carousel.php:765
 #: modules/pp-logos-grid/pp-logos-grid.php:601
-#: modules/pp-post-timeline/pp-post-timeline.php:219
+#: modules/pp-post-timeline/pp-post-timeline.php:227
 msgid "Arrow Size"
 msgstr ""
 
 #: modules/pp-content-grid/pp-content-grid.php:478
 #: modules/pp-image-carousel/pp-image-carousel.php:791
 #: modules/pp-logos-grid/pp-logos-grid.php:568
-#: modules/pp-post-timeline/pp-post-timeline.php:247
+#: modules/pp-post-timeline/pp-post-timeline.php:255
 #: modules/pp-testimonials/pp-testimonials.php:232
 msgid "Arrow Color"
 msgstr ""
 
 #: modules/pp-content-grid/pp-content-grid.php:647
-#: modules/pp-post-timeline/pp-post-timeline.php:431
+#: modules/pp-post-timeline/pp-post-timeline.php:439
 msgid "Active Color"
 msgstr ""
 
@@ -9875,7 +9878,7 @@ msgid "Taxonomy"
 msgstr ""
 
 #: modules/pp-content-grid/pp-content-grid.php:1054
-#: modules/pp-gallery/pp-gallery.php:916
+#: modules/pp-gallery/pp-gallery.php:929
 #: modules/pp-info-banner/pp-info-banner.php:196
 msgid "Overlay Color"
 msgstr ""
@@ -9953,7 +9956,7 @@ msgstr ""
 #: modules/pp-content-grid/pp-content-grid.php:2270
 #: modules/pp-content-tiles/includes/loop-settings.php:150
 #: modules/pp-content-tiles/pp-content-tiles.php:519
-#: modules/pp-post-timeline/pp-post-timeline.php:1312
+#: modules/pp-post-timeline/pp-post-timeline.php:1320
 msgid "Meta"
 msgstr ""
 
@@ -10463,9 +10466,9 @@ msgstr ""
 
 #: modules/pp-dual-button/pp-dual-button.php:337
 #: modules/pp-dual-button/pp-dual-button.php:422
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:666
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:684
 #: modules/pp-flipbox/pp-flipbox.php:849 modules/pp-flipbox/pp-flipbox.php:895
-#: modules/pp-gallery/pp-gallery.php:815 modules/pp-heading/pp-heading.php:424
+#: modules/pp-gallery/pp-gallery.php:828 modules/pp-heading/pp-heading.php:424
 #: modules/pp-image-carousel/pp-image-carousel.php:696
 #: modules/pp-infobox/pp-infobox.php:904
 #: modules/pp-infolist/pp-infolist.php:155
@@ -10520,13 +10523,13 @@ msgid "Clip to Image"
 msgstr ""
 
 #: modules/pp-fancy-heading/pp-fancy-heading.php:81
-#: modules/pp-gallery/pp-gallery.php:765
+#: modules/pp-gallery/pp-gallery.php:778
 #: modules/pp-image-carousel/pp-image-carousel.php:646
 msgid "Primary Color"
 msgstr ""
 
 #: modules/pp-fancy-heading/pp-fancy-heading.php:87
-#: modules/pp-gallery/pp-gallery.php:772
+#: modules/pp-gallery/pp-gallery.php:785
 #: modules/pp-image-carousel/pp-image-carousel.php:653
 msgid "Secondary Color"
 msgstr ""
@@ -10628,19 +10631,19 @@ msgstr ""
 msgid "A module for filterable gallery."
 msgstr ""
 
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:283
-#: modules/pp-gallery/pp-gallery.php:216
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:287
+#: modules/pp-gallery/pp-gallery.php:220
 msgid "Masonry"
 msgstr ""
 
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:293
-#: modules/pp-gallery/pp-gallery.php:248
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:297
+#: modules/pp-gallery/pp-gallery.php:252
 #: modules/pp-image-carousel/pp-image-carousel.php:376
 msgid "Display Order"
 msgstr ""
 
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:296
-#: modules/pp-gallery/pp-gallery.php:251
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:300
+#: modules/pp-gallery/pp-gallery.php:255
 #: modules/pp-image-carousel/pp-image-carousel.php:379
 #: modules/pp-restaurant-menu/pp-restaurant-menu.php:846
 #: modules/pp-restaurant-menu/pp-restaurant-menu.php:903
@@ -10648,30 +10651,40 @@ msgstr ""
 msgid "Normal"
 msgstr ""
 
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:305
-#: modules/pp-gallery/pp-gallery.php:260 modules/pp-image/pp-image.php:507
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:309
+#: modules/pp-gallery/pp-gallery.php:264 modules/pp-image/pp-image.php:507
 msgid "Never"
 msgstr ""
 
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:306
-#: modules/pp-gallery/pp-gallery.php:261 modules/pp-image/pp-image.php:508
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:310
+#: modules/pp-gallery/pp-gallery.php:265 modules/pp-image/pp-image.php:508
 #: modules/pp-logos-grid/pp-logos-grid.php:455 modules/pp-team/pp-team.php:951
 msgid "On Hover"
 msgstr ""
 
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:307
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:311
 #: modules/pp-image/pp-image.php:509
 msgid "Below Photo"
 msgstr ""
 
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:323
-#: modules/pp-gallery/pp-gallery.php:282
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:327
+#: modules/pp-gallery/pp-gallery.php:286
 msgid "Custom URL"
 msgstr ""
 
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:344
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:642
-#: modules/pp-gallery/pp-gallery.php:324 modules/pp-gallery/pp-gallery.php:737
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:340
+#: modules/pp-gallery/pp-gallery.php:315
+msgid "Lightbox Image Size"
+msgstr ""
+
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:343
+#: modules/pp-gallery/pp-gallery.php:318
+msgid "Large"
+msgstr ""
+
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:362
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:660
+#: modules/pp-gallery/pp-gallery.php:337 modules/pp-gallery/pp-gallery.php:750
 #: modules/pp-image-carousel/pp-image-carousel.php:263
 #: modules/pp-image-carousel/pp-image-carousel.php:267
 #: modules/pp-image-carousel/pp-image-carousel.php:618
@@ -10683,75 +10696,75 @@ msgstr ""
 msgid "Overlay"
 msgstr ""
 
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:348
-#: modules/pp-gallery/pp-gallery.php:328
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:366
+#: modules/pp-gallery/pp-gallery.php:341
 msgid "Overlay Effect"
 msgstr ""
 
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:353
-#: modules/pp-gallery/pp-gallery.php:333
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:371
+#: modules/pp-gallery/pp-gallery.php:346
 #: modules/pp-image-carousel/pp-image-carousel.php:299
 msgid "Overlay From Left"
 msgstr ""
 
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:354
-#: modules/pp-gallery/pp-gallery.php:334
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:372
+#: modules/pp-gallery/pp-gallery.php:347
 #: modules/pp-image-carousel/pp-image-carousel.php:300
 msgid "Overlay From Right"
 msgstr ""
 
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:355
-#: modules/pp-gallery/pp-gallery.php:335
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:373
+#: modules/pp-gallery/pp-gallery.php:348
 #: modules/pp-image-carousel/pp-image-carousel.php:301
 msgid "Overlay From Top"
 msgstr ""
 
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:356
-#: modules/pp-gallery/pp-gallery.php:336
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:374
+#: modules/pp-gallery/pp-gallery.php:349
 #: modules/pp-image-carousel/pp-image-carousel.php:302
 msgid "Overlay From Bottom"
 msgstr ""
 
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:379
-#: modules/pp-gallery/pp-gallery.php:376
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:397
+#: modules/pp-gallery/pp-gallery.php:389
 msgid "Show Icon?"
 msgstr ""
 
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:402
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:823
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:420
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:841
 msgid "Filters"
 msgstr ""
 
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:406
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:424
 msgid "Show Custom All Text?"
 msgstr ""
 
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:421
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:439
 msgid "Custom All Text"
 msgstr ""
 
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:431
-#: modules/pp-gallery/pp-gallery.php:399
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:449
+#: modules/pp-gallery/pp-gallery.php:412
 msgid "Columns Settings"
 msgstr ""
 
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:461
-#: modules/pp-gallery/pp-gallery.php:418
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:479
+#: modules/pp-gallery/pp-gallery.php:431
 msgctxt "bb-powerpack"
 msgid "%"
 msgstr ""
 
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:475
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:493
 msgid "Photo Group"
 msgstr ""
 
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:492
-#: modules/pp-gallery/pp-gallery.php:468
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:510
+#: modules/pp-gallery/pp-gallery.php:481
 msgid "Image Hover Effect"
 msgstr ""
 
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:662
-#: modules/pp-flipbox/pp-flipbox.php:840 modules/pp-gallery/pp-gallery.php:811
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:680
+#: modules/pp-flipbox/pp-flipbox.php:840 modules/pp-gallery/pp-gallery.php:824
 #: modules/pp-highlight-box/pp-highlight-box.php:287
 #: modules/pp-image-carousel/pp-image-carousel.php:692
 #: modules/pp-infobox/pp-infobox.php:894
@@ -10760,7 +10773,7 @@ msgstr ""
 msgid "Icon Style"
 msgstr ""
 
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:702
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:720
 #: modules/pp-highlight-box/pp-highlight-box.php:246
 #: modules/pp-image-carousel/pp-image-carousel.php:732
 #: modules/pp-line-separator/pp-line-separator.php:412
@@ -10768,11 +10781,11 @@ msgstr ""
 msgid "Border Radius"
 msgstr ""
 
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1208
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1226
 msgid "Add Filter"
 msgstr ""
 
-#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1218
+#: modules/pp-filterable-gallery/pp-filterable-gallery.php:1236
 msgid "Filter Label"
 msgstr ""
 
@@ -10982,54 +10995,54 @@ msgstr ""
 msgid "A module for photo gallery."
 msgstr ""
 
-#: modules/pp-gallery/pp-gallery.php:217
+#: modules/pp-gallery/pp-gallery.php:221
 msgid "Justified"
 msgstr ""
 
-#: modules/pp-gallery/pp-gallery.php:242
+#: modules/pp-gallery/pp-gallery.php:246
 msgid "Medium"
 msgstr ""
 
-#: modules/pp-gallery/pp-gallery.php:299
+#: modules/pp-gallery/pp-gallery.php:303
 msgid "Show Thumbnail Navigation?"
 msgstr ""
 
-#: modules/pp-gallery/pp-gallery.php:337
+#: modules/pp-gallery/pp-gallery.php:350
 #: modules/pp-image-carousel/pp-image-carousel.php:303
 msgid "Framed"
 msgstr ""
 
-#: modules/pp-gallery/pp-gallery.php:423
+#: modules/pp-gallery/pp-gallery.php:436
 msgid "Justified Gallery Settings"
 msgstr ""
 
-#: modules/pp-gallery/pp-gallery.php:430 modules/pp-gallery/pp-gallery.php:437
-#: modules/pp-gallery/pp-gallery.php:444
+#: modules/pp-gallery/pp-gallery.php:443 modules/pp-gallery/pp-gallery.php:450
+#: modules/pp-gallery/pp-gallery.php:457
 msgctxt "bb-powerpack"
 msgid "px"
 msgstr ""
 
-#: modules/pp-gallery/pp-gallery.php:434
+#: modules/pp-gallery/pp-gallery.php:447
 msgid "Row Height"
 msgstr ""
 
-#: modules/pp-gallery/pp-gallery.php:441
+#: modules/pp-gallery/pp-gallery.php:454
 msgid "Max Row Height"
 msgstr ""
 
-#: modules/pp-gallery/pp-gallery.php:448
+#: modules/pp-gallery/pp-gallery.php:461
 msgid "Last Row"
 msgstr ""
 
-#: modules/pp-gallery/pp-gallery.php:451
+#: modules/pp-gallery/pp-gallery.php:464
 msgid "No Justfiy"
 msgstr ""
 
-#: modules/pp-gallery/pp-gallery.php:452
+#: modules/pp-gallery/pp-gallery.php:465
 msgid "Justify"
 msgstr ""
 
-#: modules/pp-gallery/pp-gallery.php:472
+#: modules/pp-gallery/pp-gallery.php:485
 #: modules/pp-image-carousel/pp-image-carousel.php:304
 #: modules/pp-info-banner/pp-info-banner.php:172
 #: modules/pp-info-banner/pp-info-banner.php:282
@@ -11039,27 +11052,27 @@ msgstr ""
 msgid "Zoom In"
 msgstr ""
 
-#: modules/pp-gallery/pp-gallery.php:473
+#: modules/pp-gallery/pp-gallery.php:486
 #: modules/pp-modal-box/pp-modal-box.php:1517
 msgid "Zoom Out"
 msgstr ""
 
-#: modules/pp-gallery/pp-gallery.php:474
+#: modules/pp-gallery/pp-gallery.php:487
 #: modules/pp-logos-grid/pp-logos-grid.php:450
 #: modules/pp-logos-grid/pp-logos-grid.php:459 modules/pp-team/pp-team.php:762
 #: modules/pp-team/pp-team.php:766
 msgid "Greyscale"
 msgstr ""
 
-#: modules/pp-gallery/pp-gallery.php:476
+#: modules/pp-gallery/pp-gallery.php:489
 msgid "Rotate"
 msgstr ""
 
-#: modules/pp-gallery/pp-gallery.php:604 modules/pp-team/pp-team.php:845
+#: modules/pp-gallery/pp-gallery.php:617 modules/pp-team/pp-team.php:845
 msgid "Image Shadow"
 msgstr ""
 
-#: modules/pp-gallery/pp-gallery.php:667
+#: modules/pp-gallery/pp-gallery.php:680
 msgid "Image Shadow on Hover"
 msgstr ""
 
@@ -11618,7 +11631,7 @@ msgid "Pagination Type"
 msgstr ""
 
 #: modules/pp-image-carousel/pp-image-carousel.php:491
-#: modules/pp-post-timeline/pp-post-timeline.php:416
+#: modules/pp-post-timeline/pp-post-timeline.php:424
 msgid "Dots"
 msgstr ""
 
@@ -11635,7 +11648,7 @@ msgid "Arrow"
 msgstr ""
 
 #: modules/pp-image-carousel/pp-image-carousel.php:797
-#: modules/pp-post-timeline/pp-post-timeline.php:258
+#: modules/pp-post-timeline/pp-post-timeline.php:266
 msgid "Arrow Hover Color"
 msgstr ""
 
@@ -12663,68 +12676,76 @@ msgstr ""
 msgid "Addon to display posts in timeline format."
 msgstr ""
 
-#: modules/pp-post-timeline/pp-post-timeline.php:108
+#: modules/pp-post-timeline/pp-post-timeline.php:109
 msgid "Left Side"
 msgstr ""
 
-#: modules/pp-post-timeline/pp-post-timeline.php:109
+#: modules/pp-post-timeline/pp-post-timeline.php:110
 msgid "Right Side"
 msgstr ""
 
-#: modules/pp-post-timeline/pp-post-timeline.php:110
+#: modules/pp-post-timeline/pp-post-timeline.php:111
 msgid "Alternative"
 msgstr ""
 
 #: modules/pp-post-timeline/pp-post-timeline.php:128
+msgid "Number of Posts"
+msgstr ""
+
+#: modules/pp-post-timeline/pp-post-timeline.php:131
+msgid "Use -1 for all posts."
+msgstr ""
+
+#: modules/pp-post-timeline/pp-post-timeline.php:136
 msgid "Icon Settings"
 msgstr ""
 
-#: modules/pp-post-timeline/pp-post-timeline.php:140
+#: modules/pp-post-timeline/pp-post-timeline.php:148
 msgid "Slider"
 msgstr ""
 
-#: modules/pp-post-timeline/pp-post-timeline.php:177
+#: modules/pp-post-timeline/pp-post-timeline.php:185
 msgctxt "Value unit for form field of time in seconds. Such as: \"5 seconds\""
 msgid "ms"
 msgstr ""
 
-#: modules/pp-post-timeline/pp-post-timeline.php:215
+#: modules/pp-post-timeline/pp-post-timeline.php:223
 msgid "Navigation Arrow"
 msgstr ""
 
-#: modules/pp-post-timeline/pp-post-timeline.php:477
+#: modules/pp-post-timeline/pp-post-timeline.php:485
 #: modules/pp-timeline/pp-timeline.php:84
 msgid "Connector"
 msgstr ""
 
-#: modules/pp-post-timeline/pp-post-timeline.php:480
+#: modules/pp-post-timeline/pp-post-timeline.php:488
 msgid "Connector Style"
 msgstr ""
 
-#: modules/pp-post-timeline/pp-post-timeline.php:484
+#: modules/pp-post-timeline/pp-post-timeline.php:492
 #: modules/pp-timeline/pp-timeline.php:91
 msgid "Connector Type"
 msgstr ""
 
-#: modules/pp-post-timeline/pp-post-timeline.php:705
+#: modules/pp-post-timeline/pp-post-timeline.php:713
 #: modules/pp-table/pp-table.php:46 modules/pp-table/pp-table.php:116
 #: modules/pp-table/pp-table.php:408
 msgid "Header"
 msgstr ""
 
-#: modules/pp-post-timeline/pp-post-timeline.php:810
+#: modules/pp-post-timeline/pp-post-timeline.php:818
 msgid "Meta Text Color"
 msgstr ""
 
-#: modules/pp-post-timeline/pp-post-timeline.php:821
+#: modules/pp-post-timeline/pp-post-timeline.php:829
 msgid "Meta Link Color"
 msgstr ""
 
-#: modules/pp-post-timeline/pp-post-timeline.php:832
+#: modules/pp-post-timeline/pp-post-timeline.php:840
 msgid "Meta Link Hover Color"
 msgstr ""
 
-#: modules/pp-post-timeline/pp-post-timeline.php:958
+#: modules/pp-post-timeline/pp-post-timeline.php:966
 #: modules/pp-team/pp-team.php:1044
 msgid "Icon Color"
 msgstr ""

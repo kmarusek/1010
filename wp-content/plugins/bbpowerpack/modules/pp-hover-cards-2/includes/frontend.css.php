@@ -107,6 +107,9 @@ for( $i = 0; $i < count( $settings->card_content ); $i++ ) {
 	$card = $settings->card_content[$i];
 	$padding = (array)$card->hover_card_box_padding;
 ?>
+.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?> {
+	border-radius: <?php echo $card->hover_card_box_border_radius; ?>px;
+}
 .fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?> .pp-hover-card-inner {
 	<?php if ( $card->hover_card_bg_type == 'color' ) { ?>
 	background: <?php echo $card->hover_card_bg_color == '' ? 'none' : '#' . $card->hover_card_bg_color; ?>;

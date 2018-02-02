@@ -179,10 +179,10 @@
 
 		},
 
-		_getPosts: function (term, isotopeData, paged = false) {
+		_getPosts: function (term, isotopeData, paged) {
 			var processAjax = false,
 				filter 		= term,
-				page 		= !paged ? 1 : paged;
+				paged 		= (!paged || 'undefined' === typeof paged) ? 1 : paged;
 
 			if ('undefined' === typeof term || '' === filter) {
 				filter = 'all';
@@ -193,7 +193,7 @@
 			if ('undefined' === typeof cacheData) {
 				processAjax = true;
 			} else {
-				var cachedResponse = cacheData.page[page];
+				var cachedResponse = cacheData.page[paged];
 				if ('undefined' === typeof cachedResponse) {
 					processAjax = true;
 				} else {
@@ -210,9 +210,10 @@
 			}
 		},
 
-		_getAjaxPosts: function (term, isotopeData, paged = false) {
+		_getAjaxPosts: function (term, isotopeData, paged) {
 			var taxonomy = this.filterTax,
 				perPage = this.perPage,
+				paged = 'undefined' === typeof paged ? false : paged,
 				self = this;
 
 			var gridWrap = $(this.wrapperClass);
@@ -258,16 +259,17 @@
 
 			wrap.isotope('remove', $(this.postClass));
 
-			wrap.imagesLoaded($.proxy(function () {
-				if (!this.masonry) {
-					wrap.isotope('insert', $(response.data), $.proxy(this._gridLayoutMatchHeight, this));
-					this._gridLayoutMatchHeight();
-				} else {
-					wrap.isotope('insert', $(response.data));
-				}
-				wrap.find('.pp-grid-space').remove();
-				wrap.append('<div class="pp-grid-space"></div>');
+			if (!this.masonry) {
+				wrap.isotope('insert', $(response.data), $.proxy(this._gridLayoutMatchHeight, this));
+				this._gridLayoutMatchHeight();
+			} else {
+				wrap.isotope('insert', $(response.data));
+			}
+			
+			wrap.find('.pp-grid-space').remove();
+			wrap.append('<div class="pp-grid-space"></div>');
 
+			wrap.imagesLoaded($.proxy(function () {
 				setTimeout(function () {
 					wrap.isotope('layout');
 				}, 200);
@@ -291,11 +293,11 @@
 			}, 300);
 		},
 
-		_setCacheData: function (filter = '', response, paged = 1) {
-			if ('' === filter) {
+		_setCacheData: function (filter, response, paged) {
+			if ('undefined' === typeof filter || '' === filter) {
 				filter = 'all';
 			}
-			if (!paged) {
+			if ('undefined' === typeof paged || !paged) {
 				paged = 1;
 			}
 

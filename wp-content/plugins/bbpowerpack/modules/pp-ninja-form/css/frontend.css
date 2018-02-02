@@ -29,3 +29,7 @@
 .pp-ninja-form-content .ninja-forms-form-wrap .list-multi-wrap select {
     height: auto !important;
 }
+
+.pp-ninja-form-content .nf-field-container {
+	margin-bottom: 0;
+}

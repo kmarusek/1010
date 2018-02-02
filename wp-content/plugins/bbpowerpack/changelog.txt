@@ -1,3 +1,29 @@
+== 2.3.1.1 ==
+Release date: January 30, 2018
+* Fix: Ninja Forms CSS issue that was breaking layout
+
+== 2.3.1 ==
+Release date: January 18, 2017
+* Enhancement: Added an option to select large or full-size image for lightbox in Gallery Modules
+* Enhancement: Added option to set number of Posts in Post Timeline module
+* Fix: White Label settings not working for Post Timeline module
+* Fix: Modal Box was rendering repeatedly with exit intent settings while editing the page in builder
+* Fix: Row text color setting was overriding Modal Box button color
+* Fix: Content Gird filters, column spacing, and carousel were not working in IE due to JS error
+* Fix: Dynamic (AJAX) filters were not working for Tags in Content Grid module
+* Fix: "Filter Type" field was visible incorrectly in Content Grid module.
+* Fix: Masonry re-layout issue in Content Grid module
+* Fix: Right spacing issue in Hover Cards 2
+* Fix: CSS Class field was not showing in Subscribe Forms module settings
+* Fix: Disabled WP Rocket's Lazy Load for images in Content Grid, Logo Grid & Carousel, Gallery, and Filterable Gallery modules
+* Fix: Declared jQuery dependency in Table module JS
+* Fix: Border radius was not working properly in Hover Cards 2 module
+* Fix: PowerPack was not working when Beaver Builder plugin had a different name than the default bb-plugin.
+* Fix: Styling issues in Ninja Forms due to outdated CSS classes
+* Fix: Minor CSS issues in Testimonials module
+* Fix: Field connection was not working for Modal Box button
+* Fix: JS error due to empty custom breakpoint field in Advanced Menu module
+
 == 2.3.0 ==
 Release date: December 22, 2017
 * New: Post Timeline module

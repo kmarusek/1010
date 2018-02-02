@@ -182,6 +182,10 @@ class PPGalleryModule extends FLBuilderModule {
 					$data->link = $photo->sizes->full->url;
 				}
 
+				if ( $this->settings->lightbox_image_size == 'full' ) {
+					$data->link = $photo->sizes->full->url;
+				}
+
 				/* Add Custom field attachment data to object */
 	 			$cta_link = get_post_meta( $id, 'gallery_external_link', true );
 				if(!empty($cta_link) && $this->settings->click_action == 'custom-link' ) {
@@ -283,7 +287,7 @@ FLBuilder::register_module('PPGalleryModule', array(
 						),
 						'toggle'	=> array(
 							'lightbox'	=> array(
-								'fields'	=> array('show_lightbox_thumb'),
+								'fields'	=> array('show_lightbox_thumb', 'lightbox_image_size'),
 								'sections'	=> array('lightbox_style'),
 							),
 							'custom-link'	=> array(
@@ -304,6 +308,15 @@ FLBuilder::register_module('PPGalleryModule', array(
 						),
 						'preview'	=> array(
 							'type'		=> 'none'
+						)
+					),
+					'lightbox_image_size'	=> array(
+						'type'		=> 'pp-switch',
+						'label'		=> __('Lightbox Image Size', 'bb-powerpack'),
+						'default'	=> 'large',
+						'options'	=> array(
+							'large'		=> __('Large', 'bb-powerpack'),
+							'full'		=> __('Full', 'bb-powerpack')
 						)
 					),
 					'custom_link_target' => array(
