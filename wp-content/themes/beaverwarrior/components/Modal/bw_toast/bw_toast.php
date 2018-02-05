@@ -67,6 +67,20 @@ FLBuilder::register_module("BWToastClass", array(
                     )
                 )
             ),
+            'reveal_style' => array(
+                'title'     => __("Reveal Style", "skeleton-warrior"),
+                "fields"    => array (
+                    "reveal_style" => array (
+                        "type"      => "select",
+                        "label"     => __("Reveal Style", "skeleton-warrior"),
+                        "default"   => "modal",
+                        'options'   => array(
+                            'modal'     => __("Modal", "skeleton-warrior"),
+                            'toast'     => __("Toast (pop-up from top)", "skeleton-warrior"),
+                        ),
+                    )
+                )
+            ),
             'content_type' => array(
                 'title'     => __('Content', 'uabb'),
                 'fields'    => array(

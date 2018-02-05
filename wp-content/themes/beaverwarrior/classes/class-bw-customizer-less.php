@@ -1173,9 +1173,9 @@ final class BWCustomizerLess {
 		$vars['footer-fg-hover-color']          = FLColor::hex( array( $mods['fl-footer-hover-color'], $vars['footer-fg-color'] ) );
 
        //Critical variables that might not be set...
-       if (!isset(vars["nav-bg-opacity"])) $vars["nav-bg-opacity"] = FLColor::clean_opa( $mods['fl-nav-bg-opacity'] );
-       if (!isset(vars["nav-bg-opacity"])) $vars["nav-bg-opacity"] = "100%";
-       if (!isset(vars["woo-cats-add-button"])) $vars["woo-cats-add-button"] = "none";
+       if (!isset($vars["nav-bg-opacity"])) $vars["nav-bg-opacity"] = FLColor::clean_opa( $mods['fl-nav-bg-opacity'] );
+       if (!isset($vars["nav-bg-opacity"])) $vars["nav-bg-opacity"] = "100%";
+       if (!isset($vars["woo-cats-add-button"])) $vars["woo-cats-add-button"] = "none";
 
 		// WooCommerce
 		if ( FLTheme::is_plugin_active( 'woocommerce' ) ) {
