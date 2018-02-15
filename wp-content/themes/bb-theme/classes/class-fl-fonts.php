@@ -123,7 +123,7 @@ final class FLFontFamilies {
 				}
 			}
 
-			$fonts[ $name ] = $font[ $name ];
+			$fonts[ $name ] = array_values( $font[ $name ] );
 		}
 		return apply_filters( 'fl_theme_google_fonts', $fonts );
 	}
