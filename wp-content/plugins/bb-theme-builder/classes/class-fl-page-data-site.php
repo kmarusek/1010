@@ -238,6 +238,19 @@ final class FLPageDataSite {
 	}
 
 	/**
+	 * @since 1.1
+	 * @param object $settings
+	 * @return string
+	 */
+	static public function get_year( $settings ) {
+
+		if ( ! is_string( $settings->format ) || '' == $settings->format ) {
+			$settings->format = 'Y';
+		}
+		return date( $settings->format );
+	}
+
+	/**
 	 * Returns a user object based on settings from a
 	 * user connection settings form.
 	 *

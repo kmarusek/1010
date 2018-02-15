@@ -7,7 +7,8 @@
 class FLWooProductRatingModule extends FLBuilderModule {
 
 	/**
-	 * @method __construct
+	 * @since 1.0
+	 * @return void
 	 */
 	public function __construct() {
 		parent::__construct(array(

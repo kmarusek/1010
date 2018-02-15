@@ -127,8 +127,8 @@ final class FLThemeBuilderRulesLocation {
 				$location = 'taxonomy:' . $queried_object->taxonomy;
 				$object = $location . ':' . $queried_object->term_id;
 			}
-		} elseif ( is_object( $post ) && is_post_type_archive() ) {
-			$location = 'archive:' . $post->post_type;
+		} elseif ( is_post_type_archive() ) {
+			$location = 'archive:' . $wp_query->get( 'post_type' );
 		} elseif ( is_singular() ) {
 
 			$location = 'post:' . $post->post_type;
@@ -136,7 +136,7 @@ final class FLThemeBuilderRulesLocation {
 			if ( is_object( $queried_object ) ) {
 				$object = $location . ':' . $queried_object->ID;
 			}
-		}// End if().
+		}
 
 		self::$current_page_location = array(
 			'location' => $location,
@@ -247,12 +247,12 @@ final class FLThemeBuilderRulesLocation {
 						}
 					}
 				}
-			}// End if().
+			}
 
 			if ( $exclude ) {
 				unset( self::$current_page_posts[ $i ] );
 			}
-		}// End foreach().
+		}
 	}
 
 	/**
@@ -339,7 +339,7 @@ final class FLThemeBuilderRulesLocation {
 						}
 					}
 				}
-			}// End if().
+			}
 
 			// Finally, check for a site wide layout.
 			if ( empty( $posts ) || $is_part ) {
@@ -349,7 +349,7 @@ final class FLThemeBuilderRulesLocation {
 					}
 				}
 			}
-		}// End if().
+		}
 
 		return $posts;
 	}
@@ -434,7 +434,7 @@ final class FLThemeBuilderRulesLocation {
 
 					$location_string = $location['type'] . ':' . $location['id'];
 
-					if ( in_array( $location_string, $saved ) ) {
+					if ( in_array( $location_string, $saved ) && ! in_array( $location_string, $sorted ) ) {
 						$sorted[] = $location_string;
 					}
 
@@ -737,7 +737,7 @@ final class FLThemeBuilderRulesLocation {
 					'count'   => wp_count_terms( $taxonomy_slug ),
 				);
 			}
-		}// End foreach().
+		}
 
 		// Cache the locations.
 		self::$locations = array(
@@ -982,11 +982,11 @@ final class FLThemeBuilderRulesLocation {
 		);
 
 		if ( 'attachment' === $post_type ) {
-			$posts = $wpdb->get_results( $wpdb->prepare( "SELECT ID, post_title from $wpdb->posts where post_type = %s", $post_type ) );
+			$posts = $wpdb->get_results( $wpdb->prepare( "SELECT ID, post_title from $wpdb->posts where post_type = %s ORDER BY post_title", $post_type ) );
 
 		} else {
 			$format = implode( ', ', array_fill( 0, count( $post_status ), '%s' ) );
-			$query = sprintf( "SELECT ID, post_title from $wpdb->posts where post_type = '%s' AND post_status IN(%s)", $post_type, $format );
+			$query = sprintf( "SELECT ID, post_title from $wpdb->posts where post_type = '%s' AND post_status IN(%s) ORDER BY post_title", $post_type, $format );
 			// @codingStandardsIgnoreLine
 			$posts = $wpdb->get_results( $wpdb->prepare( $query, $post_status ) );
 		}
@@ -1110,7 +1110,7 @@ final class FLThemeBuilderRulesLocation {
 				}
 			} elseif ( 'post' == $parts[0] ) {
 
-				if ( ! isset( $preview['post'][ $parts[1] ] ) ) {
+				if ( ! isset( $preview['post'][ $parts[1] ] ) && isset( $all['by_template_type']['post'][ $parts[1] ] ) ) {
 					$preview['post'][ $parts[1] ] = $all['by_template_type']['post'][ $parts[1] ];
 					$preview['post'][ $parts[1] ]['posts'] = array();
 					$preview['post'][ $parts[1] ]['all'] = false;
@@ -1124,12 +1124,11 @@ final class FLThemeBuilderRulesLocation {
 				} else {
 					$preview['post'][ $parts[1] ]['all'] = true;
 				}
-			} elseif ( 'archive' == $parts[0] ) {
-
+			} elseif ( 'archive' == $parts[0] && isset( $all['by_template_type']['archive'][ $parts[1] ] ) ) {
 				$preview['archive'][ $parts[1] ] = $all['by_template_type']['archive'][ $parts[1] ];
 			} elseif ( 'taxonomy' == $parts[0] ) {
 
-				if ( ! isset( $preview['taxonomy'][ $parts[1] ] ) ) {
+				if ( ! isset( $preview['taxonomy'][ $parts[1] ] ) && isset( $all['by_template_type']['taxonomy'][ $parts[1] ] ) ) {
 					$preview['taxonomy'][ $parts[1] ] = $all['by_template_type']['taxonomy'][ $parts[1] ];
 					$preview['taxonomy'][ $parts[1] ]['terms'] = array();
 					$preview['taxonomy'][ $parts[1] ]['all'] = false;
@@ -1148,8 +1147,8 @@ final class FLThemeBuilderRulesLocation {
 				} else {
 					$preview['taxonomy'][ $parts[1] ]['all'] = true;
 				}
-			}// End if().
-		}// End foreach().
+			}
+		}
 
 		return $preview;
 	}
@@ -1346,6 +1345,11 @@ final class FLThemeBuilderRulesLocation {
 
 		// Create the preview query.
 		self::$preview_query = new WP_Query( self::$preview_args );
+
+		// Make sure the preview query returns a post.
+		if ( ! is_object( self::$preview_query->post ) ) {
+			return;
+		}
 
 		// Override $wp_query and $post with the preview query.
 		$wp_query = self::$preview_query;

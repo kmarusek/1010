@@ -29,7 +29,7 @@ final class FLThemeBuilder {
 			'default'     => array( 'administrator' ),
 			'group'       => __( 'Admin', 'fl-theme-builder' ),
 			'label'       => __( 'Themer Layout Editing', 'fl-theme-builder' ),
-			'description' => __( 'The selected roles will be able to edit themes using the builder.', 'fl-theme-builder' ),
+			'description' => __( 'The selected roles will be able to edit Themer layouts.', 'fl-theme-builder' ),
 			'order'		  => '110',
 		) );
 	}

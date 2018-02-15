@@ -264,8 +264,8 @@ final class FLPageData {
 	static public function get_value( $object, $key, $settings = null ) {
 		$property = self::get_property( $object, $key );
 
-		// Property doesn't exist, return an empty string.
-		if ( ! $property ) {
+		// Property or getter doesn't exist, return an empty string.
+		if ( ! $property || ! is_callable( $property['getter'] ) ) {
 			return '';
 		}
 

@@ -180,7 +180,10 @@ FLPageData::add_post_property_settings_fields( 'featured_image', array(
 		),
 		'toggle' => array(
 			'tag'    => array(
-				'fields' => array( 'linked', 'align' ),
+				'fields' => array( 'linked', 'align', 'size' ),
+			),
+			'url' => array(
+				'fields' => array( 'size' ),
 			),
 		),
 	),

@@ -94,6 +94,17 @@ FLPageData::add_site_property( 'user_bio', array(
 FLPageDataSite::add_user_settings_fields( 'user_bio' );
 
 /**
+ * Is current user logged in
+ * @since 1.1
+ */
+FLPageData::add_site_property( 'logged_in', array(
+	'label'       => __( 'Logged In', 'fl-theme-builder' ),
+	'group'       => 'user',
+	'type'        => 'string',
+	'getter'      => 'is_user_logged_in',
+) );
+
+/**
  * User URL
  */
 FLPageData::add_site_property( 'user_url', array(
@@ -199,5 +210,23 @@ FLPageDataSite::add_user_settings_fields( 'user_meta', array(
 	'key' => array(
 		'type'  => 'text',
 		'label' => __( 'Key', 'fl-theme-builder' ),
+	),
+) );
+
+/**
+ * Site year
+ * @since 1.1
+ */
+FLPageData::add_site_property( 'year', array(
+	'label'   => __( 'Year', 'fl-theme-builder' ),
+	'group'   => 'site',
+	'type'    => 'string',
+	'getter'  => 'FLPageDataSite::get_year',
+) );
+FLPageData::add_site_property_settings_fields( 'year', array(
+	'format' => array(
+		'type'  => 'text',
+		'label' => __( 'Format', 'fl-theme-builder' ),
+		'default' => 'Y',
 	),
 ) );

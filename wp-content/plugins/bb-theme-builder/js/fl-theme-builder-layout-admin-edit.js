@@ -31,6 +31,7 @@
 			this._initLayoutSettings();
 			this._initLocationRules();
 			this._initUserRules();
+			this._initSelect2();
 		},
 
 		/**
@@ -415,6 +416,7 @@
 			savedWrap.find( '.fl-theme-builder-remove-rule-button' ).show();
 
 			self._removeLocationOptions();
+			self._initSelect2();
 		},
 
 		/**
@@ -442,6 +444,7 @@
 			if ( 1 === locations.length ) {
 
 				select.val( '' ).parent().removeClass( 'fl-theme-builder-rule-objects-visible' );
+				select.next( '.select2' ).find( '.select2-selection__rendered' ).html( FLThemeBuilderConfig.strings.choose );
 
 				if ( ! isExclusion ) {
 					remove.hide();
@@ -471,6 +474,8 @@
 
 			button.hide();
 			exclusions.show();
+
+			FLThemeBuilderLayoutAdminEdit._initSelect2();
 		},
 
 		/**
@@ -549,6 +554,8 @@
 
 			savedWrap.append( template() );
 			savedWrap.find( '.fl-theme-builder-remove-rule-button' ).show();
+
+			FLThemeBuilderLayoutAdminEdit._initSelect2();
 		},
 
 		/**
@@ -573,10 +580,37 @@
 
 			if ( 1 === rules.length ) {
 				select.val( '' );
+				select.next( '.select2' ).find( '.select2-selection__rendered' ).html( FLThemeBuilderConfig.strings.choose );
 				remove.hide();
 			} else if ( 2 === rules.length && '' == $( '.fl-theme-builder-user-rule' ).val() ) {
 				remove.hide();
 			}
+		},
+
+		/**
+		 * Initializes select2 select objects.
+		 *
+		 * @since 1.0.4
+		 * @access private
+		 * @method _initSelect2
+		 */
+		_initSelect2: function()
+		{
+			var selects = $( '.fl-theme-builder-saved-rules select:not(.select2-init)' );
+
+			selects.each( function() {
+				var select = $( this ),
+					config = {
+						width: 'style'
+					};
+
+				select.select2( config );
+				select.addClass( 'select2-init' );
+
+				select.on( 'select2:open', function() {
+					$( '.select2-search__field' ).attr( 'placeholder', FLThemeBuilderConfig.strings.search );
+				} );
+			} );
 		},
 
 		/**

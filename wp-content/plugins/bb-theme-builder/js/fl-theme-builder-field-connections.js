@@ -295,29 +295,35 @@
 		 */
 		_menuSearchKeyup: function( e )
 		{
-			var input  = $( e.target ),
+			var input = $( e.target ),
 				value = input.val().toLowerCase(),
-				menu   = input.closest( '.fl-field-connections-menu' ),
-				groups = menu.find( '.fl-field-connections-group' ),
-				labels = menu.find( '.fl-field-connections-property-label' );
+				menu  = input.closest( '.fl-field-connections-menu' );
 
-			labels.each( function() {
+			menu.find( '.fl-field-connections-group' ).each( function() {
 
-				var label = $( this ),
-					prop  = label.closest( '.fl-field-connections-property' );
+				var group = $( this ),
+					label = group.find( '.fl-field-connections-group-label' ),
+					props = group.find( '.fl-field-connections-property' );
 
 				if ( label.text().toLowerCase().indexOf( value ) > -1 ) {
-					prop.attr( 'data-hidden', 0 );
-					prop.show();
+					props.attr( 'data-hidden', 0 );
+					props.show();
+					group.show();
 				} else {
-					prop.attr( 'data-hidden', 1 );
-					prop.hide();
+					props.each( function() {
+
+						var prop  = $( this ),
+							label = prop.find( '.fl-field-connections-property-label' );
+
+						if ( label.text().toLowerCase().indexOf( value ) > -1 ) {
+							prop.attr( 'data-hidden', 0 );
+							prop.show();
+						} else {
+							prop.attr( 'data-hidden', 1 );
+							prop.hide();
+						}
+					} );
 				}
-			} );
-
-			groups.each( function() {
-
-				var group = $( this );
 
 				if ( group.find( '.fl-field-connections-property[data-hidden=0]' ).length ) {
 					group.show();

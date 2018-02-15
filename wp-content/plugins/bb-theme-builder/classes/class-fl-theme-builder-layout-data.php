@@ -213,10 +213,22 @@ final class FLThemeBuilderLayoutData {
 				$saved_type = get_post_meta( $post_id, '_fl_theme_layout_type', true );
 
 				if ( ! isset( $posts[ $post_id ] ) ) {
-					$posts[ $post_id ] = array(
+					// php 5.6 and below we can just add the array to $posts
+					if ( version_compare( PHP_VERSION, '7.0.0', '<' ) ) {
+						$posts[ $post_id ] = array(
 						'id'        => $post_id,
 						'locations' => array( 'general:single' ),
-					);
+						);
+					} else {
+						// php7 and above we need to merge in the array
+						$temp = array();
+						$temp[ $post_id ] = array(
+							'id'        => $post_id,
+							'locations' => array( 'general:single' ),
+						);
+						$posts = array_merge( $temp, $posts );
+						unset( $temp );
+					}
 				}
 			}
 
@@ -262,8 +274,8 @@ final class FLThemeBuilderLayoutData {
 				uasort( $layouts[ $layout_type ], array( 'FLThemeBuilderLayoutData', 'order_layouts' ) );
 			}
 
-			self::$current_page_layouts = $layouts;
-		}// End if().
+			self::$current_page_layouts = apply_filters( 'fl_theme_builder_current_page_layouts', $layouts );
+		}
 
 		if ( ! $type ) {
 			return self::$current_page_layouts;

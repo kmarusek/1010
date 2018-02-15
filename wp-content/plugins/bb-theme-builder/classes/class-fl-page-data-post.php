@@ -359,7 +359,6 @@ final class FLPageDataPost {
 	static public function get_author_profile_picture( $settings ) {
 		$size   = ! is_numeric( $settings->size ) ? 512 : $settings->size;
 		$avatar = get_avatar( get_the_author_meta( 'ID' ), $size );
-
 		if ( '1' == $settings->link || 'yes' == $settings->link ) {
 			$settings->type = $settings->link_type;
 			$avatar = '<a href="' . self::get_author_url( $settings ) . '">' . $avatar . '</a>';
@@ -375,9 +374,17 @@ final class FLPageDataPost {
 	 */
 	static public function get_author_profile_picture_url( $settings ) {
 
+		$author = get_the_author_meta( 'ID' );
+
+		// if not in loop use global $post to find author ID
+		if ( ! $author ) {
+			global $post;
+			$author = $post->post_author;
+		}
 		// We get the url like this because not all custom avatar plugins filter get_avatar_url.
 		$size = ! is_numeric( $settings->size ) ? 512 : $settings->size;
-		$avatar = get_avatar( get_the_author_meta( 'ID' ), $size );
+		$avatar = get_avatar( $author, $size );
+
 		preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $avatar, $matches, PREG_SET_ORDER );
 		$url = ! empty( $matches ) && isset( $matches[0][1] ) ? $matches[0][1] : '';
 
@@ -413,7 +420,43 @@ final class FLPageDataPost {
 		if ( empty( $settings->key ) ) {
 			return '';
 		}
+		$meta = get_post_meta( $post->ID, $settings->key, true );
 
-		return get_post_meta( $post->ID, $settings->key, true );
+		// expression support
+		if ( isset( $settings->value ) && '' !== $settings->value && isset( $settings->exp ) && '' !== $settings->exp ) {
+			switch ( $settings->exp ) {
+				case 'less':
+					return ( intval( $meta ) < intval( $settings->value ) ) ? $meta : '';
+					break;
+
+				case 'lessequals':
+					return ( intval( $meta ) <= intval( $settings->value ) ) ? $meta : '';
+					break;
+
+				case 'greater':
+					return ( intval( $meta ) > intval( $settings->value ) ) ? $meta : '';
+					break;
+
+				case 'greaterequals':
+					return ( intval( $meta ) >= intval( $settings->value ) ) ? $meta : '';
+					break;
+
+				case 'equals':
+					return ( $meta === $settings->value ) ? $meta : '';
+					break;
+
+				case 'notequals':
+					return ( $meta !== $settings->value ) ? $meta : '';
+					break;
+
+				default:
+				break;
+			}
+		}
+
+		if ( isset( $settings->value ) && '' !== $settings->value ) {
+			return ( $settings->value == $meta ) ? $meta : '';
+		}
+		return $meta;
 	}
 }

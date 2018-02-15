@@ -355,7 +355,7 @@ final class FLThemeBuilderWooCommerceArchive {
 		);
 
 		$form['style']['sections']['woo_button'] = array(
-			'title'  => __( 'Add to Cart Button', 'fl-theme-builder' ),
+			'title'  => __( 'WooCommerce Cart Button', 'fl-theme-builder' ),
 			'fields' => array(
 				'woo_button_bg_color' => array(
 					'type'          => 'color',
