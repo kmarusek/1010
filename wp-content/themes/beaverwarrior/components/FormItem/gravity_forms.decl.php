@@ -15,13 +15,31 @@ function skeletonwarrior_gform_submit_button($button, $form) {
     $dom = new DOMDocument();
     $dom->loadHTML( $button );
     $input = $dom->getElementsByTagName( 'input' )->item(0);
-    $new_button = $dom->createElement( 'button' );
-    $new_button->appendChild( $dom->createTextNode( $input->getAttribute( 'value' ) ) );
-    $input->removeAttribute( 'value' );
-    foreach( $input->attributes as $attribute ) {
-        $new_button->setAttribute( $attribute->name, $attribute->value );
+
+    if ($input->getAttribute("type") == "image") {
+        $new_button = $dom->createElement( 'button' );
+        $new_btnimage = $dom->createElement('img');
+        $new_btnimage->setAttribute('src', $input->getAttribute('src'));
+        $new_btnimage->setAttribute('alt', $input->getAttribute('alt'));
+        $new_button->appendChild($new_btnimage);
+
+        $input->removeAttribute( 'type' );
+        $input->removeAttribute( 'src' );
+        $input->removeAttribute( 'alt' );
+
+        foreach( $input->attributes as $attribute ) {
+            $new_button->setAttribute( $attribute->name, $attribute->value );
+        }
+        $input->parentNode->replaceChild( $new_button, $input );
+    } else {
+        $new_button = $dom->createElement( 'button' );
+        $new_button->appendChild( $dom->createTextNode( $input->getAttribute( 'value' ) ) );
+        $input->removeAttribute( 'value' );
+        foreach( $input->attributes as $attribute ) {
+            $new_button->setAttribute( $attribute->name, $attribute->value );
+        }
+        $input->parentNode->replaceChild( $new_button, $input );
     }
-    $input->parentNode->replaceChild( $new_button, $input );
 
     //Ensure FormItem-action is present.
     if ($new_button->hasAttribute("class")) {
