@@ -20,6 +20,7 @@ final class FLBuilderWhiteLabel {
 		add_filter( 'fl_plugin_info_data',       __CLASS__ . '::fl_plugin_info', 10, 2 );
 		add_action( 'customize_render_section',  __CLASS__ . '::theme_customizer' );
 		add_action( 'admin_enqueue_scripts',     __CLASS__ . '::updates_core' );
+		add_filter( 'fl_updater_icon',           __CLASS__ . '::update_icon_branding', 11, 3 );
 
 		if ( is_admin() && isset( $_REQUEST['page'] ) && in_array( $_REQUEST['page'], array( 'fl-builder-settings', 'fl-builder-multisite-settings' ) ) ) {
 			add_action( 'admin_enqueue_scripts',                     __CLASS__ . '::enqueue_scripts' );
@@ -452,6 +453,27 @@ final class FLBuilderWhiteLabel {
 				return $instance->title = $theme_data['name'];
 			}
 		}
+	}
+
+	/**
+	 * White label the plugin icons on core-updates page.
+	 * @since 2.0.5
+	 */
+	static public function update_icon_branding( $icons, $response, $settings ) {
+
+		$default  = __( 'Page Builder', 'fl-builder' );
+		$branding = FLBuilderModel::get_branding();
+
+		if ( in_array( $settings['slug'], array( 'bb-plugin', 'bb-theme-builder' ) ) ) {
+			if ( $default != $branding ) {
+				$icons = array(
+					'1x' => self::get_branding_icon(),
+					'2x' => self::get_branding_icon(),
+					'default' => self::get_branding_icon(),
+				);
+			}
+		}
+		return $icons;
 	}
 }
 
