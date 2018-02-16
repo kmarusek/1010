@@ -55,6 +55,15 @@
     .make-Modal();
 }
 
+.Modal--toast {
+    .make-Offcanvas--toast();
+    .make-Offcanvas--toast_lv1();
+
+    &.is-Offcanvas--closed {
+        display: block;
+    }
+}
+
 .Modal-content {
     .make-Modal-content();
     .make-Modal-content--width();
