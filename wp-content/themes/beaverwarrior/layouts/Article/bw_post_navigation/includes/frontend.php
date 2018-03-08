@@ -31,14 +31,20 @@ if ($tags) {
         'posts_per_page' => 4,
         'caller_get_posts' => 1
     ));
+} else {
+    $related_query = new WP_Query(array (
+        'post__not_in' => $post->ID,
+        'posts_per_page' => 4,
+        'caller_get_posts' => 1
+    ));
+}
 
-    while ($related_query->have_posts()) {
-        $related_query->the_post();
+while ($related_query->have_posts()) {
+    $related_query->the_post();
 
-        ?>
-        <?php the_title(); ?>
-        <?php
-    }
+    ?>
+    <?php the_title(); ?>
+    <?php
 }
 
 // Reset the global post variable.
