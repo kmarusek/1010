@@ -17,7 +17,7 @@ class BWPostNavigationModule extends FLBuilderModule {
 			'partial_refresh'	=> true,
 			'dir'               => get_stylesheet_directory() . 'layouts/Article/bw_post_navigation/',
 			'url'               => get_stylesheet_directory_uri() . 'layouts/Article/bw_post_navigation/',
-			'enabled'           => FLThemeBuilderLayoutData::current_post_is( 'singular' ),
+			//'enabled'           => FLThemeBuilderLayoutData::current_post_is( 'singular' ),
 		));
 	}
 }
