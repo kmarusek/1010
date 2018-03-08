@@ -27,15 +27,15 @@ if ($tags) {
 
     $related_query = new WP_Query(array (
         'post_type' => $post->post_type,
-        'tag__in' => $tag_ids,
-        'post__not_in' => $post->ID,
+        'tag__in' => array($tag_ids),
+        'post__not_in' => array($post->ID),
         'posts_per_page' => 4,
         'caller_get_posts' => 1
     ));
 } else {
     $related_query = new WP_Query(array (
         'post_type' => $post->post_type,
-        'post__not_in' => $post->ID,
+        'post__not_in' => array($post->ID),
         'posts_per_page' => 4,
         'caller_get_posts' => 1
     ));
