@@ -45,7 +45,22 @@ while ($related_query->have_posts()) {
     $related_query->the_post();
 
     ?>
-    <?php the_title(); ?>
+    <div class="Article-related_post">
+        <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="Article-related_post_thumbnail">
+        <?php the_title(); ?>
+        <div class="Article-related_post_meta">
+            <a class="Article-related_post_author" href="<?php echo get_author_posts_url( $obj->post_author ); ?>"><?php
+
+                $author = ( get_the_author_meta( 'display_name', $obj->post_author ) != '' ) ? get_the_author_meta( 'display_name', $obj->post_author ) : get_the_author_meta( 'user_nicename', $obj->post_author );
+
+                echo $author; ?>
+            </a>
+            <span class="Article-related_post_date"><?php echo date_i18n( $date_format, strtotime( $obj->post_date ) ); ?>
+            </span>
+        </div>
+        <?php echo get_the_excerpt(); ?>
+        <a href="<?php echo get_permalink(); ?>" class="Article-related_post_permalink">Read More</a>
+    </div>
     <?php
 }
 
