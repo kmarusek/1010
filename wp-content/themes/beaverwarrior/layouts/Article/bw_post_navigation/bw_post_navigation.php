@@ -13,8 +13,7 @@ class BWPostNavigationModule extends FLBuilderModule {
 		parent::__construct(array(
 			'name'          	=> __( 'Advanced Post Navigation', 'fl-theme-builder' ),
 			'description'   	=> __( 'Displays the next / previous post navigation links.', 'fl-theme-builder' ),
-			'group'       		=> __( 'Themer Modules', 'fl-theme-builder' ),
-			'category'      	=> __( 'Posts', 'fl-theme-builder' ),
+         'category' => __("Space Station", 'skeleton-warrior'),
 			'partial_refresh'	=> true,
 			'dir'               => get_stylesheet_directory() . 'layouts/Article/bw_post_navigation/',
 			'url'               => get_stylesheet_directory_uri() . 'layouts/Article/bw_post_navigation/',
