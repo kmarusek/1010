@@ -16,8 +16,8 @@ class BWPostNavigationModule extends FLBuilderModule {
 			'group'       		=> __( 'Themer Modules', 'fl-theme-builder' ),
 			'category'      	=> __( 'Posts', 'fl-theme-builder' ),
 			'partial_refresh'	=> true,
-			'dir'               => get_stylesheet_directory() . 'layouts/Article/bw-post-navigation/',
-			'url'               => get_stylesheet_directory_uri() . 'layouts/Article/bw-post-navigation/',
+			'dir'               => get_stylesheet_directory() . 'layouts/Article/bw_post_navigation/',
+			'url'               => get_stylesheet_directory_uri() . 'layouts/Article/bw_post_navigation/',
 			'enabled'           => FLThemeBuilderLayoutData::current_post_is( 'singular' ),
 		));
 	}
