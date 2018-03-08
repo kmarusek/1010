@@ -41,6 +41,8 @@ if ($tags) {
     ));
 }
 
+?><div class="Article-related_posts"><?php
+
 while ($related_query->have_posts()) {
     $related_query->the_post();
 
@@ -63,6 +65,8 @@ while ($related_query->have_posts()) {
     </div>
     <?php
 }
+
+?></div><?php
 
 // Reset the global post variable.
 $post = $original_post;
