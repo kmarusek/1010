@@ -49,14 +49,14 @@ while ($related_query->have_posts()) {
     ?>
     <div class="Article-related_post">
         <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="Article-related_post_thumbnail">
-        <?php the_title(); ?>
+        <h3 class="Article-related_post_title"><?php the_title(); ?></h3>
         <div class="Article-related_post_meta">
-            <h3 class="Article-related_post_author"> <a href="<?php echo get_author_posts_url( $obj->post_author ); ?>"><?php
+            <a class="Article-related_post_author" href="<?php echo get_author_posts_url( $obj->post_author ); ?>"><?php
 
                 $author = ( get_the_author_meta( 'display_name', $obj->post_author ) != '' ) ? get_the_author_meta( 'display_name', $obj->post_author ) : get_the_author_meta( 'user_nicename', $obj->post_author );
 
                 echo $author; ?>
-                </a></h3>
+            </a>
             <span class="Article-related_post_date"><?php echo date_i18n( $date_format, strtotime( $obj->post_date ) ); ?>
             </span>
         </div>
