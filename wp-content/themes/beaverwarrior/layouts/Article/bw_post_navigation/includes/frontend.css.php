@@ -3,8 +3,9 @@
 $settings->post_bg_color = UABB_Helper::uabb_colorpicker($settings, "post_bg_color");
 
 $settings->post_title_color = UABB_Helper::uabb_colorpicker($settings, "post_title_color");
-
+$settings->post_meta_color = UABB_Helper::uabb_colorpicker($settings, "post_meta_color");
 $settings->post_excerpt_color = UABB_Helper::uabb_colorpicker($settings, "post_excerpt_color");
+$settings->post_permalink_color = UABB_Helper::uabb_colorpicker($settings, "post_permalink_color");
 
 ?>
 
@@ -16,6 +17,12 @@ $settings->post_excerpt_color = UABB_Helper::uabb_colorpicker($settings, "post_e
     <?php if ($settings->post_title_color != '') echo "color: " . uabb_theme_text_color($settings->post_title_color) . ";"; ?>
     <?php if ($settings->post_title_font_size["desktop"] != '') echo "font-size: " . $settings->post_title_font_size["desktop"] . "px;"; ?>
     <?php if ($settings->post_title_line_height["desktop"] != '') echo "line-height: " . $settings->post_title_line_height["desktop"] . "px;"; ?>
+}
+
+.fl-node-<?php echo $id; ?> .Article-related_post_meta {
+    <?php if ($settings->post_excerpt_color != '') echo "color: " . uabb_theme_text_color($settings->post_excerpt_color) . ";"; ?>
+    <?php if ($settings->post_meta_font_size["desktop"] != '') echo "font-size: " . $settings->post_meta_font_size["desktop"] . "px;"; ?>
+    <?php if ($settings->post_meta_line_height["desktop"] != '') echo "line-height: " . $settings->post_meta_line_height["desktop"] . "px;"; ?>
 }
 
 .fl-node-<?php echo $id; ?> .Article-related_post_excerpt {
@@ -38,6 +45,11 @@ $settings->post_excerpt_color = UABB_Helper::uabb_colorpicker($settings, "post_e
             <?php if ($settings->post_title_line_height["medium"] != '') echo "line-height: " . $settings->post_title_line_height["medium"] . "px;"; ?>
         }
 
+        .fl-node-<?php echo $id; ?> .Article-related_post_meta {
+            <?php if ($settings->post_meta_font_size["medium"] != '') echo "font-size: " . $settings->post_meta_font_size["medium"] . "px;"; ?>
+            <?php if ($settings->post_meta_line_height["medium"] != '') echo "line-height: " . $settings->post_meta_line_height["medium"] . "px;"; ?>
+        }
+
         .fl-node-<?php echo $id; ?> .Article-related_post_excerpt {
             <?php if ($settings->post_excerpt_font_size["medium"] != '') echo "font-size: " . $settings->post_excerpt_font_size["medium"] . "px;"; ?>
             <?php if ($settings->post_excerpt_line_height["medium"] != '') echo "line-height: " . $settings->post_excerpt_line_height["medium"] . "px;"; ?>
@@ -53,6 +65,11 @@ $settings->post_excerpt_color = UABB_Helper::uabb_colorpicker($settings, "post_e
         .fl-node-<?php echo $id; ?> .Article-related_post_title {
             <?php if ($settings->post_title_font_size["small"] != '') echo "font-size: " . $settings->post_title_font_size["small"] . "px;"; ?>
             <?php if ($settings->post_title_line_height["small"] != '') echo "line-height: " . $settings->post_title_line_height["small"] . "px;"; ?>
+        }
+
+        .fl-node-<?php echo $id; ?> .Article-related_post_meta {
+            <?php if ($settings->post_meta_font_size["small"] != '') echo "font-size: " . $settings->post_meta_font_size["small"] . "px;"; ?>
+            <?php if ($settings->post_meta_line_height["small"] != '') echo "line-height: " . $settings->post_meta_line_height["small"] . "px;"; ?>
         }
 
         .fl-node-<?php echo $id; ?> .Article-related_post_excerpt {

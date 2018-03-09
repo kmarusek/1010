@@ -95,6 +95,47 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                             'unit'            => 'px'
                         )
                     ),
+                    'post_meta_color'        => array(
+                        'type'       => 'color',
+                        'label'      => __('Meta Text Color', 'uabb'),
+                        'default'    => '',
+                        'show_reset' => true,
+                        'preview'         => array(
+                            'type'            => 'css',
+                            'selector'        => '.Article-related_post_meta',
+                            'property'        => 'color',
+                        )
+                    ),
+                     "post_meta_font_size" => array(
+                        'type'          => 'uabb-simplify',
+                        'label'         => __( 'Meta Font Size', 'uabb' ),
+                        'default'       => array(
+                            'desktop'       => '',
+                            'medium'        => '',
+                            'small'         => '',
+                        ),
+                        'preview'         => array(
+                            'type'            => 'css',
+                            'selector'        => '.Article-related_post_meta',
+                            'property'        => 'font-size',
+                            'unit'            => 'px'
+                        )
+                    ),
+                    'post_meta_line_height'    => array(
+                        'type'          => 'uabb-simplify',
+                        'label'         => __( 'Meta Line Height', 'uabb' ),
+                        'default'       => array(
+                            'desktop'       => '',
+                            'medium'        => '',
+                            'small'         => '',
+                        ),
+                        'preview'         => array(
+                            'type'            => 'css',
+                            'selector'        => '.Article-related_post_meta',
+                            'property'        => 'line-height',
+                            'unit'            => 'px'
+                        )
+                    ),
                     'post_excerpt_color'        => array(
                         'type'       => 'color',
                         'label'      => __('Excerpt Text Color', 'uabb'),
