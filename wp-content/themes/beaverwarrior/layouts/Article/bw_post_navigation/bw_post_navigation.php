@@ -95,6 +95,47 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                             'unit'            => 'px'
                         )
                     ),
+                    'post_excerpt_color'        => array(
+                        'type'       => 'color',
+                        'label'      => __('Excerpt Text Color', 'uabb'),
+                        'default'    => '',
+                        'show_reset' => true,
+                        'preview'         => array(
+                            'type'            => 'css',
+                            'selector'        => '.Article-related_post_excerpt',
+                            'property'        => 'color',
+                        )
+                    ),
+                     "post_excerpt_font_size" => array(
+                        'type'          => 'uabb-simplify',
+                        'label'         => __( 'Excerpt Font Size', 'uabb' ),
+                        'default'       => array(
+                            'desktop'       => '',
+                            'medium'        => '',
+                            'small'         => '',
+                        ),
+                        'preview'         => array(
+                            'type'            => 'css',
+                            'selector'        => '.Article-related_post_excerpt',
+                            'property'        => 'font-size',
+                            'unit'            => 'px'
+                        )
+                    ),
+                    'post_excerpt_line_height'    => array(
+                        'type'          => 'uabb-simplify',
+                        'label'         => __( 'Excerpt Line Height', 'uabb' ),
+                        'default'       => array(
+                            'desktop'       => '',
+                            'medium'        => '',
+                            'small'         => '',
+                        ),
+                        'preview'         => array(
+                            'type'            => 'css',
+                            'selector'        => '.Article-related_post_excerpt',
+                            'property'        => 'line-height',
+                            'unit'            => 'px'
+                        )
+                    ),
                  )
              )
 			),

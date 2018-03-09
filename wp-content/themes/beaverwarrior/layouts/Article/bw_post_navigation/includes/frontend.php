@@ -60,7 +60,7 @@ while ($related_query->have_posts()) {
             <span class="Article-related_post_date"><?php echo date_i18n( 'M j, Y', strtotime( $post->post_date ) ); ?>
             </span>
         </div>
-        <?php echo get_the_excerpt(); ?>
+        <div class="Article-related_post_excerpt"><?php echo get_the_excerpt(); ?></div>
         <a href="<?php echo get_permalink(); ?>" class="Article-related_post_permalink">Read More</a>
     </div>
     <?php
