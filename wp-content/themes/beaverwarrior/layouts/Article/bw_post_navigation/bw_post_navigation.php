@@ -136,6 +136,47 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                             'unit'            => 'px'
                         )
                     ),
+                    'post_permalink_color'        => array(
+                        'type'       => 'color',
+                        'label'      => __('Permalink Text Color', 'uabb'),
+                        'default'    => '',
+                        'show_reset' => true,
+                        'preview'         => array(
+                            'type'            => 'css',
+                            'selector'        => '.Article-related_post_permalink',
+                            'property'        => 'color',
+                        )
+                    ),
+                     "post_permalink_font_size" => array(
+                        'type'          => 'uabb-simplify',
+                        'label'         => __( 'Permalink Font Size', 'uabb' ),
+                        'default'       => array(
+                            'desktop'       => '',
+                            'medium'        => '',
+                            'small'         => '',
+                        ),
+                        'preview'         => array(
+                            'type'            => 'css',
+                            'selector'        => '.Article-related_post_permalink',
+                            'property'        => 'font-size',
+                            'unit'            => 'px'
+                        )
+                    ),
+                    'post_permalink_line_height'    => array(
+                        'type'          => 'uabb-simplify',
+                        'label'         => __( 'Permalink Line Height', 'uabb' ),
+                        'default'       => array(
+                            'desktop'       => '',
+                            'medium'        => '',
+                            'small'         => '',
+                        ),
+                        'preview'         => array(
+                            'type'            => 'css',
+                            'selector'        => '.Article-related_post_permalink',
+                            'property'        => 'line-height',
+                            'unit'            => 'px'
+                        )
+                    ),
                  )
              )
 			),
