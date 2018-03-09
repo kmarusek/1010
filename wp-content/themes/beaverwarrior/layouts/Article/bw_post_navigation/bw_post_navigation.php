@@ -56,12 +56,12 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                     ),
                     'post_title_color'        => array(
                         'type'       => 'color',
-                        'label'      => __('Text Color', 'uabb'),
+                        'label'      => __('Title Text Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                         'preview'         => array(
                             'type'            => 'css',
-                            'selector'        => '.Article-related_post',
+                            'selector'        => '.Article-related_post_title',
                             'property'        => 'color',
                         )
                     ),
