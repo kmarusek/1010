@@ -3,12 +3,8 @@
 $settings->post_bg_color = UABB_Helper::uabb_colorpicker($settings, "post_bg_color");
 
 $settings->post_title_color = UABB_Helper::uabb_colorpicker($settings, "post_title_color");
-$settings->post_title_font_size = UABB_Helper::uabb_colorpicker($settings, "post_title_font_size");
-$settings->post_title_line_height = UABB_Helper::uabb_colorpicker($settings, "post_title_line_height");
 
 $settings->post_excerpt_color = UABB_Helper::uabb_colorpicker($settings, "post_excerpt_color");
-$settings->post_excerpt_font_size = UABB_Helper::uabb_colorpicker($settings, "post_excerpt_font_size");
-$settings->post_excerpt_line_height = UABB_Helper::uabb_colorpicker($settings, "post_excerpt_line_height");
 
 ?>
 
