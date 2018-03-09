@@ -57,7 +57,7 @@ while ($related_query->have_posts()) {
 
                 echo $author; ?>
             </a>
-            <span class="Article-related_post_date"><?php echo date_i18n( $date_format, strtotime( $post->post_date ) ); ?>
+            <span class="Article-related_post_date"><?php echo date_i18n( 'M j, Y', strtotime( $post->post_date ) ); ?>
             </span>
         </div>
         <?php echo get_the_excerpt(); ?>
