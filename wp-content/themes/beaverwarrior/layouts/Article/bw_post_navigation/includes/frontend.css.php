@@ -20,7 +20,7 @@ $settings->post_permalink_color = UABB_Helper::uabb_colorpicker($settings, "post
 }
 
 .fl-node-<?php echo $id; ?> .Article-related_post_meta {
-    <?php if ($settings->post_excerpt_color != '') echo "color: " . uabb_theme_text_color($settings->post_excerpt_color) . ";"; ?>
+    <?php if ($settings->post_meta_color != '') echo "color: " . uabb_theme_text_color($settings->post_meta_color) . ";"; ?>
     <?php if ($settings->post_meta_font_size["desktop"] != '') echo "font-size: " . $settings->post_meta_font_size["desktop"] . "px;"; ?>
     <?php if ($settings->post_meta_line_height["desktop"] != '') echo "line-height: " . $settings->post_meta_line_height["desktop"] . "px;"; ?>
 }
