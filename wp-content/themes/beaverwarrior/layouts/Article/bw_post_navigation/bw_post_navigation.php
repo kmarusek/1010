@@ -26,8 +26,8 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
 		'general'       => array(
 			'title'         => __( 'Settings', 'fl-theme-builder' ),
 			'sections'      => array(
-				'general'       => array(
-					'title'         => '',
+				'nextprev'       => array(
+					'title'         => __('Next / Previous', "skeleton-warrior"),
 					'fields'        => array(
 						'in_same_term' => array(
 							'type'          => 'select',
@@ -40,6 +40,63 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
 						),
 					),
 				),
+             'related' => array(
+                "title" => __("Related Posts", "skeleton-warrior"),
+                 "fields" => array(
+                    'post_bg_color'        => array(
+                        'type'       => 'color',
+                        'label'      => __('Background Color', 'uabb'),
+                        'default'    => '',
+                        'show_reset' => true,
+                        'preview'         => array(
+                            'type'            => 'css',
+                            'selector'        => 'Article-related_post',
+                            'property'        => 'background-color',
+                        )
+                    ),
+                    'post_title_color'        => array(
+                        'type'       => 'color',
+                        'label'      => __('Text Color', 'uabb'),
+                        'default'    => '',
+                        'show_reset' => true,
+                        'preview'         => array(
+                            'type'            => 'css',
+                            'selector'        => 'Article-related_post',
+                            'property'        => 'color',
+                        )
+                    ),
+                     "post_title_font_size" => array(
+                        'type'          => 'uabb-simplify',
+                        'label'         => __( 'Title Font Size', 'uabb' ),
+                        'default'       => array(
+                            'desktop'       => '',
+                            'medium'        => '',
+                            'small'         => '',
+                        ),
+                        'preview'         => array(
+                            'type'            => 'css',
+                            'selector'        => 'Article-related_post_title',
+                            'property'        => 'font-size',
+                            'unit'            => 'px'
+                        )
+                    ),
+                    'post_title_line_height'    => array(
+                        'type'          => 'uabb-simplify',
+                        'label'         => __( 'Title Line Height', 'uabb' ),
+                        'default'       => array(
+                            'desktop'       => '',
+                            'medium'        => '',
+                            'small'         => '',
+                        ),
+                        'preview'         => array(
+                            'type'            => 'css',
+                            'selector'        => 'Article-related_post_title',
+                            'property'        => 'line-height',
+                            'unit'            => 'px'
+                        )
+                    ),
+                 )
+             )
 			),
 		),
 ) );
