@@ -1,10 +1,18 @@
 .Article-related_posts {
+    &--2up {
+        .make-Matrix(2);
+    }
 
+    &--3up {
+        .make-Matrix(3);
+    }
+
+    &--4up {
+        .make-Matrix(4);
+    }
 }
 
 .Article-related_post {
-    .make-Column--gutter(4; min; @Viewport-sm);
-
     text-align: center;
 }
 

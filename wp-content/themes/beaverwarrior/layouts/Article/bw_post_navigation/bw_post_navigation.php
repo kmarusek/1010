@@ -43,6 +43,16 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
              'related' => array(
                 "title" => __("Related Posts", "skeleton-warrior"),
                  "fields" => array(
+                    'post_limit'        => array(
+                        'type'       => 'select',
+                        'label'      => __('Posts Count', 'uabb'),
+                        'default'    => '3',
+                        'options'    => array(
+                            '2' => '2',
+                            '3' => '3',
+                            '4' => '4'
+                        )
+                    ),
                     'post_bg_color'        => array(
                         'type'       => 'color',
                         'label'      => __('Background Color', 'uabb'),

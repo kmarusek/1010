@@ -29,19 +29,19 @@ if ($tags) {
         'post_type' => $post->post_type,
         'tag__in' => array($tag_ids),
         'post__not_in' => array($post->ID),
-        'posts_per_page' => 4,
+        'posts_per_page' => $settings->post_limit,
         'caller_get_posts' => 1
     ));
 } else {
     $related_query = new WP_Query(array (
         'post_type' => $post->post_type,
         'post__not_in' => array($post->ID),
-        'posts_per_page' => 4,
+        'posts_per_page' => echo $settings->post_limit,
         'caller_get_posts' => 1
     ));
 }
 
-?><div class="Article-related_posts"><?php
+?><div class="Article-related_posts Article-related_posts--<?php echo $settings->post_limit; ?>up"><?php
 
 while ($related_query->have_posts()) {
     $related_query->the_post();
