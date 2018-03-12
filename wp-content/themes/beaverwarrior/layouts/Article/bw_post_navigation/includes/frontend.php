@@ -36,7 +36,7 @@ if ($tags) {
     $related_query = new WP_Query(array (
         'post_type' => $post->post_type,
         'post__not_in' => array($post->ID),
-        'posts_per_page' => echo $settings->post_limit,
+        'posts_per_page' => $settings->post_limit,
         'caller_get_posts' => 1
     ));
 }
