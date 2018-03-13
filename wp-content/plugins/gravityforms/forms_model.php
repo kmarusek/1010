@@ -3174,11 +3174,11 @@ class GFFormsModel {
 
 		// special format for Post Category fields
 		if ( $field->type == 'post_category' ) {
-
-			$full_values = array();
+			$is_multiselect = $field->inputType === 'multiselect';
+			$full_values    = array();
 
 			if ( ! is_array( $value ) ) {
-				$value = explode( ',', $value );
+				$value = $is_multiselect ? $field->to_array( $value ) : explode( ',', $value );
 			}
 
 			foreach ( $value as $cat_id ) {
@@ -3186,7 +3186,7 @@ class GFFormsModel {
 				$full_values[] = ! is_wp_error( $cat ) && is_object( $cat ) ? $cat->name . ':' . $cat_id : '';
 			}
 
-			$value = implode( ',', $full_values );
+			$value = $is_multiselect ? $field->to_string( $full_values ) : implode( ',', $full_values );
 		}
 
 		//do not save price fields with blank price
@@ -4110,7 +4110,7 @@ class GFFormsModel {
 		return $drop_tables;
 	}
 
-	public static function insert_form_view( $form_id, $ip ) {
+	public static function insert_form_view( $form_id, $deprecated = null ) {
 		global $wpdb;
 		$table_name = self::get_form_view_table_name();
 
@@ -4169,12 +4169,13 @@ class GFFormsModel {
 		$input_count = 1;
 		if ( is_array( $field->get_entry_inputs() ) ) {
 			$input_count = sizeof( $field->inputs );
+			$inner_sql   = '';
 			foreach ( $field->inputs as $input ) {
 				$union = empty( $inner_sql ) ? '' : ' UNION ALL ';
-				$inner_sql .= $union . $wpdb->prepare( $inner_sql_template, $input['id'], $form_id, $form_id, $input['id'] - 0.0001, $input['id'] + 0.0001, $value[ $input['id'] ], $value[ $input['id'] ] );
+				$inner_sql .= $union . $wpdb->prepare( $inner_sql_template, $input['id'], $form_id, $form_id, $input['id'] - 0.0001, $input['id'] + 0.0001, $value[ $input['id'] ] );
 			}
 		} else {
-			$inner_sql = $wpdb->prepare( $inner_sql_template, $field->id, $form_id, $form_id, doubleval( $field->id ) - 0.0001, doubleval( $field->id ) + 0.0001, $value, $value );
+			$inner_sql = $wpdb->prepare( $inner_sql_template, $field->id, $form_id, $form_id, doubleval( $field->id ) - 0.0001, doubleval( $field->id ) + 0.0001, $value );
 		}
 
 		$sql .= $inner_sql . "
@@ -6248,16 +6249,17 @@ function gform_get_meta_values_for_entries( $entry_ids, $meta_keys ) {
 	return $meta_value_array;
 }
 
-
 /**
- * Add or update metadata associated with an entry
+ * Add or update metadata associated with an entry.
  *
  * Data will be serialized. Don't forget to sanitize user input.
  *
- * @param int $entry_id The ID of the entry to be updated
- * @param string $meta_key The key for the meta data to be stored
- * @param mixed $meta_value The data to be stored for the entry
- * @param int|null $form_id The form ID of the entry (optional, saves extra query if passed when creating the metadata)
+ * @since Unknown
+ *
+ * @param int      $entry_id   The ID of the entry to be updated.
+ * @param string   $meta_key   The key for the meta data to be stored.
+ * @param mixed    $meta_value The data to be stored for the entry.
+ * @param int|null $form_id    The form ID of the entry (optional, saves extra query if passed when creating the metadata).
  */
 function gform_update_meta( $entry_id, $meta_key, $meta_value, $form_id = null ) {
 	global $wpdb, $_gform_lead_meta;
@@ -6294,14 +6296,16 @@ function gform_update_meta( $entry_id, $meta_key, $meta_value, $form_id = null )
 }
 
 /**
- * Add metadata associated with an entry
+ * Add metadata associated with an entry.
  *
  * Data will be serialized; Don't forget to sanitize user input.
  *
- * @param int $entry_id The ID of the entry where metadata is to be added
- * @param string $meta_key The key for the meta data to be stored
- * @param mixed $meta_value The data to be stored for the entry
- * @param int|null $form_id The form ID of the entry (optional, saves extra query if passed when creating the metadata)
+ * @since Unknown
+ *
+ * @param int      $entry_id   The ID of the entry where metadata is to be added.
+ * @param string   $meta_key   The key for the meta data to be stored.
+ * @param mixed    $meta_value The data to be stored for the entry.
+ * @param int|null $form_id    The form ID of the entry (optional, saves extra query if passed when creating the metadata).
  */
 function gform_add_meta( $entry_id, $meta_key, $meta_value, $form_id = null ) {
 	global $wpdb, $_gform_lead_meta;
@@ -6327,6 +6331,14 @@ function gform_add_meta( $entry_id, $meta_key, $meta_value, $form_id = null ) {
 
 }
 
+/**
+ * Delete metadata associated with an entry.
+ *
+ * @since Unknown
+ *
+ * @param int    $entry_id The ID of the entry to be deleted.
+ * @param string $meta_key The key for the meta data to be deleted.
+ */
 function gform_delete_meta( $entry_id, $meta_key = '' ) {
 	global $wpdb, $_gform_lead_meta;
 	$table_name  = RGFormsModel::get_lead_meta_table_name();
