@@ -837,8 +837,13 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
                     ),
 				)
 			),
+		)
+	),
+	'filters'	=> array(
+		'title'		=> __('Filters', 'bb-powerpack'),
+		'sections'	=> array(
 			'filters_style'	=> array(
-				'title'		=> __( 'Filters', 'bb-powerpack' ),
+				'title'		=> '',
 				'fields'	=> array(
 					'filter_background'      => array(
 						'type'      => 'pp-color',
@@ -1077,6 +1082,90 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 							'property'        => 'text-align',
                         ),
                     ),
+				)
+			),
+			'filters_style_responsive'	=> array(
+				'title'		=> __('Filters Responsive', 'bb-powerpack'),
+				'fields'	=> array(
+					'filter_toggle_bg'	=> array(
+						'type'				=> 'color',
+						'label'				=> __('Toggle Background Color', 'bb-powerpack'),
+						'default'			=> 'fafafa',
+						'show_reset' 		=> true,
+						'preview'			=> array(
+							'type'				=> 'none'
+						)
+					),
+					'filter_toggle_text'	=> array(
+						'type'				=> 'color',
+						'label'				=> __('Toggle Text Color', 'bb-powerpack'),
+						'default'			=> '000000',
+						'show_reset' 		=> true,
+						'preview'			=> array(
+							'type'				=> 'none'
+						)
+					),
+					'filter_toggle_border'	=> array(
+						'type'					=> 'text',
+						'label'					=> __('Toggle Border Width', 'bb-powerpack'),
+						'description'			=> 'px',
+						'default'				=> '0',
+						'size'					=> '5',
+						'preview'				=> array(
+							'type'					=> 'none'
+						)
+					),
+					'filter_toggle_border_color'	=> array(
+						'type'			=> 'color',
+						'label'			=> __('Toggle Border Color', 'bb-powerpack'),
+						'default'		=> 'eeeeee',
+						'preview'		=> array(
+							'type'			=> 'none'
+						)
+					),
+					'filter_toggle_radius'	=> array(
+						'type'					=> 'text',
+						'label'					=> __('Toggle Round Corners', 'bb-powerpack'),
+						'description'			=> 'px',
+						'default'				=> '0',
+						'size'					=> '5',
+						'preview'				=> array(
+							'type'					=> 'none'
+						)
+					),
+					'filter_background_res'	=> array(
+						'type'      			=> 'pp-color',
+                        'label'     			=> __('Filter Background Color', 'bb-powerpack'),
+						'show_reset' 			=> true,
+                        'default'   			=> array(
+							'primary'				=> '',
+							'secondary'				=> ''
+						),
+						'options'				=> array(
+							'primary'				=> __('Default', 'bb-powerpack'),
+							'secondary' 			=> __('Active', 'bb-powerpack')
+						),
+						'preview'				=> array(
+							'type'					=> 'none'
+						)
+                    ),
+					'filter_color_res'	=> array(
+						'type'      		=> 'pp-color',
+						'label'     		=> __('Filter Text Color', 'bb-powerpack'),
+						'show_reset' 		=> true,
+						'default'   		=> array(
+							'primary'			=> '',
+							'secondary'			=> ''
+						),
+						'options'			=> array(
+							'primary'			=> __('Default', 'bb-powerpack'),
+							'secondary' 		=> __('Active', 'bb-powerpack')
+						),
+						'preview'				=> array(
+							'type'					=> 'none'
+						)
+					),
+
 				)
 			)
 		)

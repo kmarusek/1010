@@ -330,15 +330,15 @@
 			var highestBox = 0;
 			var contentHeight = 0;
 			var postElements = $(this.postClass + ':visible');
+			var columns = this.settings.postColumns.desktop;
 
-			if (0 === this.matchHeight) {
+			if (0 === this.matchHeight || 1 === columns) {
 				return;
 			}
 
 			postElements.css('height', 'auto');
 
 			if ( this.settings.layout === 'grid' ) {
-				var columns = this.settings.postColumns.desktop;
 
 				if (window.innerWidth <= 768) {
 					columns = this.settings.postColumns.tablet;

@@ -370,8 +370,25 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
                         'description'   	=> '',
                         'default'       	=> __('Email Address', 'bb-powerpack'),
                     ),
-				)
+				),
 			),
+			'form_footer'	=> array(
+				'title'	=> __( 'Footer', 'bb-powerpack' ),
+				'fields'	=> array(
+					'footer_text' => array(
+						'type'          => 'editor',
+						'label'         => '',
+						'media_buttons' => false,
+						'rows'          => 8,
+						'default'       => '',
+						'preview'       => array(
+							'type'			=> 'text',
+							'selector'		=> '.pp-subscribe-form .pp-subscribe-form-footer'	
+
+						)
+					),
+				)
+			)
 		)
 	),
 	'subscribe_form_style'	=> array(

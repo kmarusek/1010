@@ -375,6 +375,18 @@ $photo_columns_mobile = ( 100 - $space_mobile ) / $settings->photo_grid_count['m
 	}
 	.fl-node-<?php echo $id; ?> .pp-gallery-filters-toggle {
 		display: block;
+		<?php if ( isset( $settings->filter_toggle_bg ) && ! empty( $settings->filter_toggle_bg ) ) { ?>
+			background: #<?php echo $settings->filter_toggle_bg; ?>;
+		<?php } ?>
+		<?php if ( isset( $settings->filter_toggle_text ) && ! empty( $settings->filter_toggle_text ) ) { ?>
+			color: #<?php echo $settings->filter_toggle_text; ?>;
+		<?php } ?>
+		<?php if ( isset( $settings->filter_toggle_border ) && $settings->filter_toggle_border ) { ?>
+			border: <?php echo $settings->filter_toggle_border; ?>px solid #<?php echo $settings->filter_toggle_border_color; ?>;
+		<?php } ?>
+		<?php if ( isset( $settings->filter_toggle_radius ) && $settings->filter_toggle_radius ) { ?>
+			border-radius: <?php echo $settings->filter_toggle_radius; ?>px;
+		<?php } ?>
 	}
 	.fl-node-<?php echo $id; ?> .pp-gallery-filters {
 		display: none;
@@ -384,7 +396,22 @@ $photo_columns_mobile = ( 100 - $space_mobile ) / $settings->photo_grid_count['m
 		float: none;
 		margin: 0 !important;
 		text-align: left;
-	   	font-size: <?php echo $settings->filter_font_size['tablet']; ?>px;
+		font-size: <?php echo $settings->filter_font_size['tablet']; ?>px;
+		<?php if ( isset( $settings->filter_background_res ) && ! empty( $settings->filter_background_res['primary'] ) ) { ?>
+			background: #<?php echo $settings->filter_background_res['primary']; ?>;
+		<?php } ?>
+		<?php if ( isset( $settings->filter_color_res ) && ! empty( $settings->filter_color_res['primary'] ) ) { ?>
+			color: #<?php echo $settings->filter_color_res['primary']; ?>;
+		<?php } ?>
+	}
+	.fl-node-<?php echo $id; ?> .pp-gallery-filters li:hover,
+	.fl-node-<?php echo $id; ?> .pp-gallery-filters li.pp-filter-active {
+		<?php if ( isset( $settings->filter_background_res ) && ! empty( $settings->filter_background_res['secondary'] ) ) { ?>
+			background: #<?php echo $settings->filter_background_res['secondary']; ?>;
+		<?php } ?>
+		<?php if ( isset( $settings->filter_color_res ) && ! empty( $settings->filter_color_res['secondary'] ) ) { ?>
+			color: #<?php echo $settings->filter_color_res['secondary']; ?>;
+		<?php } ?>
 	}
 }
 

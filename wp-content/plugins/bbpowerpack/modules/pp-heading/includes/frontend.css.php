@@ -27,9 +27,7 @@ div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading .heading-title {
 }
 
 div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading .heading-title span.pp-primary-title {
-	<?php if ( $settings->heading_color ) { ?>
-	color: <?php echo pp_get_color_value( $settings->heading_color ); ?>;
-	<?php } ?>
+	color: <?php echo ( false === strpos( $settings->heading_color, 'rgb' ) ) ? '#' . $settings->heading_color : $settings->heading_color; ?>;
 	<?php if ( $settings->heading_bg_color ) { ?>
 	background-color: <?php echo pp_get_color_value( $settings->heading_bg_color ); ?>;
 	<?php } ?>
@@ -43,6 +41,7 @@ div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading .heading-title sp
 	padding-bottom: <?php echo $settings->heading_padding['bottom']; ?>px;
 	padding-left: <?php echo $settings->heading_padding['left']; ?>px;
 	padding-right: <?php echo $settings->heading_padding['right']; ?>px;
+	text-transform: <?php echo $settings->heading_text_transform; ?>;
 }
 
 div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading .heading-title span.pp-secondary-title {
@@ -75,6 +74,7 @@ div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading .heading-title sp
 	padding-left: <?php echo $settings->heading2_padding['left']; ?>px;
 	padding-right: <?php echo $settings->heading2_padding['right']; ?>px;
 	margin-left: <?php echo $settings->heading2_left_margin; ?>px;
+	text-transform: <?php echo $settings->heading2_text_transform; ?>;
 }
 
 div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading .heading-title span.title-text {

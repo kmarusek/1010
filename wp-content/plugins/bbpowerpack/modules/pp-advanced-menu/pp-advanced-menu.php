@@ -633,6 +633,14 @@ FLBuilder::register_module('PPAdvancedMenu', array(
 			'submenu_style'	=> array(
 				'title'		=> __( 'Sub Menu', 'bb-powerpack' ),
 				'fields'	=> array(
+					'submenu_width'		=> array(
+						'type'				=> 'text',
+						'label'				=> __('Submenu Minimum Width', 'bb-powerpack'),
+						'default'			=> '220',
+						'size'				=> '5',
+						'description'		=> 'px',
+						'help'				=> __('Minimum width of sub-menu for desktop. Default width is 220px.', 'bb-powerpack')
+					),
 					'submenu_spacing' => array(
 						'type'          => 'text',
 						'label'         => __( 'Submenu Spacing', 'bb-powerpack' ),

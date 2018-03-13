@@ -70,7 +70,8 @@
 
 .fl-node-<?php echo $id; ?> .pp-ninja-form-content .pp-form-title,
 .fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-form-title,
-.fl-node-<?php echo $id; ?> .pp-ninja-form-content .nf-form-title {
+.fl-node-<?php echo $id; ?> .pp-ninja-form-content .nf-form-title,
+.fl-node-<?php echo $id; ?> .pp-ninja-form-content .nf-form-title h3 {
     <?php if( $settings->title_color ) { ?>
     color: #<?php echo $settings->title_color; ?>;
     <?php } ?>
@@ -456,7 +457,8 @@
 @media only screen and (max-width: 768px) {
     .fl-node-<?php echo $id; ?> .pp-ninja-form-content .pp-form-title,
     .fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-form-title,
-    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .nf-form-title {
+    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .nf-form-title,
+    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .nf-form-title h3 {
         <?php if( $settings->title_font_size['tablet'] && $settings->title_size == 'custom' ) { ?>
         font-size: <?php echo $settings->title_font_size['tablet']; ?>px;
         <?php } ?>
@@ -494,7 +496,8 @@
         line-height: <?php echo $settings->input_desc_line_height['tablet']; ?>;
         <?php } ?>
     }
-    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-form-wrap input[type="submit"] {
+    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-form-wrap input[type="submit"],
+	.fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-form-wrap .submit-wrap input[type="button"] {
         <?php if( $settings->button_font_size['tablet'] && $settings->button_size == 'custom' ) { ?>
         font-size: <?php echo $settings->button_font_size['tablet']; ?>px;
         <?php } ?>
@@ -523,7 +526,8 @@
 @media only screen and (max-width: 480px) {
     .fl-node-<?php echo $id; ?> .pp-ninja-form-content .pp-form-title,
     .fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-form-title,
-    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .nf-form-title {
+    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .nf-form-title,
+    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .nf-form-title h3 {
         <?php if( $settings->title_font_size['mobile'] && $settings->title_size == 'custom' ) { ?>
         font-size: <?php echo $settings->title_font_size['mobile']; ?>px;
         <?php } ?>
@@ -562,7 +566,8 @@
         line-height: <?php echo $settings->input_desc_line_height['mobile']; ?>;
         <?php } ?>
     }
-    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-form-wrap input[type="submit"] {
+    .fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-form-wrap input[type="submit"],
+	.fl-node-<?php echo $id; ?> .pp-ninja-form-content .ninja-forms-form-wrap .submit-wrap input[type="button"] {
         <?php if( $settings->button_font_size['mobile'] && $settings->button_size == 'custom' ) { ?>
         font-size: <?php echo $settings->button_font_size['mobile']; ?>px;
         <?php } ?>

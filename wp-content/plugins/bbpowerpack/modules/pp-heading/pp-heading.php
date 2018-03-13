@@ -1188,18 +1188,33 @@ FLBuilder::register_module('PPHeadingModule', array(
                         )
                     ),
                     'heading_letter_space'  => array(
-                       'type'                  => 'text',
-                       'label'                 => __('Letter Spacing', 'bb-powerpack'),
-                       'description'           => 'px',
-                       'class'                 => 'bb-heading-input input-small',
-                       'default'               => '',
-                       'preview'               => array(
-                           'type'                  => 'css',
-                           'selector'              => '.pp-heading-content .pp-heading .heading-title',
-                           'property'              => 'letter-spacing',
-                           'unit'                  => 'px'
-                       )
-                   ),
+						'type'                  => 'text',
+						'label'                 => __('Letter Spacing', 'bb-powerpack'),
+						'description'           => 'px',
+						'class'                 => 'bb-heading-input input-small',
+						'default'               => '',
+						'preview'               => array(
+							'type'                  => 'css',
+							'selector'              => '.pp-heading-content .pp-heading .heading-title',
+							'property'              => 'letter-spacing',
+							'unit'                  => 'px'
+                       	)
+					),
+					'heading_text_transform'     => array(
+						'type'          => 'select',
+						'label'         => __('Text Transform', 'bb-powerpack'),
+						'default'       => 'none',
+						'options'       => array(
+							'none'       		=>  __('None', 'bb-powerpack'),
+							'lowercase'        	=>  __('lowercase', 'bb-powerpack'),
+							'uppercase'        	=>  __('UPPERCASE', 'bb-powerpack')
+						),
+						'preview'               => array(
+							'type'                  => 'css',
+							'selector'              => '.pp-heading-content .pp-heading .heading-title span.pp-primary-title',
+							'property'              => 'text-transform',
+                       	)
+					),
                 )
             ),
             'title2_typography'      => array(
@@ -1214,7 +1229,7 @@ FLBuilder::register_module('PPHeadingModule', array(
                         'label'         => __('Font', 'bb-powerpack'),
                         'preview'         => array(
                             'type'            => 'font',
-                            'selector'        => '.pp-heading-content .pp-heading span.pp-secondary-title'
+                            'selector'        => '.pp-heading-content .pp-heading .heading-title span.pp-secondary-title'
                         )
                     ),
                     'heading2_font_size_select'     => array(
@@ -1256,18 +1271,33 @@ FLBuilder::register_module('PPHeadingModule', array(
                         )
                     ),
                     'heading2_letter_space'  => array(
-                       'type'                  => 'text',
-                       'label'                 => __('Letter Spacing', 'bb-powerpack'),
-                       'description'           => 'px',
-                       'class'                 => 'bb-heading-input input-small',
-                       'default'               => '',
-                       'preview'               => array(
-                           'type'                  => 'css',
-                           'selector'              => '.pp-heading-content .pp-heading span.pp-secondary-title',
-                           'property'              => 'letter-spacing',
-                           'unit'                  => 'px'
-                       )
-                   ),
+						'type'                  => 'text',
+						'label'                 => __('Letter Spacing', 'bb-powerpack'),
+						'description'           => 'px',
+						'class'                 => 'bb-heading-input input-small',
+						'default'               => '',
+						'preview'               => array(
+							'type'                  => 'css',
+							'selector'              => '.pp-heading-content .pp-heading span.pp-secondary-title',
+							'property'              => 'letter-spacing',
+							'unit'                  => 'px'
+						)
+					),
+					'heading2_text_transform'     => array(
+						'type'          => 'select',
+						'label'         => __('Text Transform', 'bb-powerpack'),
+						'default'       => 'none',
+						'options'       => array(
+							'none'       		=>  __('None', 'bb-powerpack'),
+							'lowercase'        	=>  __('lowercase', 'bb-powerpack'),
+							'uppercase'        	=>  __('UPPERCASE', 'bb-powerpack')
+						),
+						'preview'               => array(
+							'type'                  => 'css',
+							'selector'              => '.pp-heading-content .pp-heading .heading-title span.pp-secondary-title',
+							'property'              => 'text-transform',
+                       	)
+					),   
                 )
             ),
             'sub_heading_style'       => array( // Section

@@ -153,7 +153,7 @@ $filetype = pathinfo($src, PATHINFO_EXTENSION);
             </ul>
         </div>
 		<?php } ?>
-		<?php if( $settings->content_position == 'hover' ) { ?>
+		<?php if( $settings->content_position == 'hover' || $settings->content_position == 'over' ) { ?>
 				</div>
 			</div>
 		<?php } ?>

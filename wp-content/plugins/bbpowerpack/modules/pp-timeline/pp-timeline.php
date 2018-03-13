@@ -309,6 +309,20 @@ FLBuilder::register_module('PPTimelineModule', array(
             'title_typography'    => array(
                 'title'     => __('Title', 'bb-powerpack'),
                 'fields'  => array(
+					'title_html_tag'      => array(
+                        'type'          => 'select',
+                        'label'         => __('HTML Tag', 'bb-powerpack'),
+                        'default'       => 'p',
+                        'options'       => array(
+                            'h1'            => 'h1',
+                            'h2'            => 'h2',
+                            'h3'            => 'h3',
+                            'h4'            => 'h4',
+                            'h5'            => 'h5',
+                            'p'            	=> 'p',
+                            'div'           => 'div',
+                        )
+                    ),
                     'title_font' => array(
                         'type'  => 'font',
                         'default'		=> array(

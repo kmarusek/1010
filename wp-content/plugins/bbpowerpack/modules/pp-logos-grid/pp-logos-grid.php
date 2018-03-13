@@ -120,8 +120,8 @@ FLBuilder::register_module('PPLogosGridModule', array(
                         ),
                         'preview'       => array(
                             'type'          => 'none'
-                        )
-                    )
+						),
+					),
                 )
             ),
             'logos_grid_count'       => array( // Section

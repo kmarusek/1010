@@ -23,6 +23,9 @@
 			if(location.hash && location.hash.search('pp-accord') !== -1) {
 				$(location.hash).find('.pp-accordion-button').trigger('click');
 			}
+			else if( location.hash && $(location.hash).length > 0 ) {
+				$(location.hash).find('.pp-accordion-button').trigger('click');
+			}
 		},
 
 		_buttonClick: function( e )
@@ -40,10 +43,10 @@
 				allContent.slideUp('normal');
 			}
 
-			if ( this.settings.responsiveCollapse && window.innerWidth <= 768 && ! this.clicked ) {
-				this.clicked = true;
-				return;
-			}
+			// if ( this.settings.responsiveCollapse && window.innerWidth <= 768 && ! this.clicked ) {
+			// 	this.clicked = true;
+			// 	return;
+			// }
 
 			if(content.is(':hidden')) {
 				item.addClass( 'pp-accordion-item-active' );
@@ -101,6 +104,10 @@
 
 		_openDefaultItem: function()
 		{
+			if ( this.settings.responsiveCollapse && window.innerWidth <= 768 ) {
+				return;
+			}
+
 			if(typeof this.settings.defaultItem !== 'undefined') {
 				var item = $.isNumeric(this.settings.defaultItem) ? (this.settings.defaultItem - 1) : null;
 

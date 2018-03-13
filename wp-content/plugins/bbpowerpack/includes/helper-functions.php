@@ -470,11 +470,13 @@ function pp_get_user_agent()
 
 function pp_get_modules_categories( $cat = '' )
 {
+	$admin_label = pp_get_admin_label();
+
 	$cats = array(
-		'creative'		=> __('Creative Modules', 'bb-powerpack'),
-		'content'		=> __('Content Modules', 'bb-powerpack'),
-		'lead_gen'		=> __('Lead Generation Modules', 'bb-powerpack'),
-		'form_style'	=> __('Form Styler Modules', 'bb-powerpack')
+		'creative'		=> sprintf(__('Creative Modules - %s', 'bb-powerpack'), $admin_label),
+		'content'		=> sprintf(__('Content Modules - %s', 'bb-powerpack'), $admin_label),
+		'lead_gen'		=> sprintf(__('Lead Generation Modules - %s', 'bb-powerpack'), $admin_label),
+		'form_style'	=> sprintf(__('Form Styler Modules - %s', 'bb-powerpack'), $admin_label),
 	);
 
 	if ( empty( $cat ) ) {
@@ -525,4 +527,75 @@ function pp_get_modules_group()
 	$group_name = trim( $group_name ) !== '' ? trim( $group_name ) : 'PowerPack ' . __('Modules', 'bb-powerpack');
 
 	return $group_name;
+}
+
+/**
+ * Returns path of the module.
+ *
+ * @since 2.3
+ * @return string
+ */
+function pp_get_module_dir( $module = '' )
+{
+	if ( empty( $module ) ) {
+		return;
+	}
+
+	$theme_dir = '';
+	$module_dir = '';
+
+	if ( is_child_theme() ) {
+		$theme_dir = get_stylesheet_directory();
+	} else {
+		$theme_dir = get_template_directory();
+	}
+
+	if ( file_exists( $theme_dir . '/bb-powerpack/' . $module ) ) {
+		$module_dir = $theme_dir . '/bb-powerpack/' . $module;
+	}
+	elseif ( file_exists( $theme_dir . '/bbpowerpack/' . $module ) ) {
+		$module_dir = $theme_dir . '/bbpowerpack/' . $module;
+	}
+	else {
+		$module_dir = BB_POWERPACK_DIR . 'modules/' . $module;
+	}
+
+	return $module_dir . '/';
+}
+
+/**
+ * Returns URL of the module.
+ *
+ * @since 2.3
+ * @return string
+ */
+function pp_get_module_url( $module = '' )
+{
+	if ( empty( $module ) ) {
+		return;
+	}
+
+	$theme_dir = '';
+	$theme_url = '';
+	$module_url = '';
+
+	if ( is_child_theme() ) {
+		$theme_dir = get_stylesheet_directory();
+		$theme_url = get_stylesheet_directory_uri();
+	} else {
+		$theme_dir = get_template_directory();
+		$theme_url = get_template_directory_uri();
+	}
+
+	if ( file_exists( $theme_dir . '/bb-powerpack/' . $module ) ) {
+		$module_url = trailingslashit( $theme_url ) . 'bb-powerpack/' . $module;
+	}
+	elseif ( file_exists( $theme_dir . '/bbpowerpack/' . $module ) ) {
+		$module_url = trailingslashit( $theme_url ) . 'bbpowerpack/' . $module;
+	}
+	else {
+		$module_url = BB_POWERPACK_URL . 'modules/' . $module;
+	}
+
+	return trailingslashit( $module_url );
 }

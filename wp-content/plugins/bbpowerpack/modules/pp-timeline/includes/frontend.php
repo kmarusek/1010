@@ -20,7 +20,7 @@
 				<div class="pp-timeline-content">
 					<?php if( $timeline->title ) { ?>
 						<div class="pp-timeline-title-wrapper">
-							<p class="pp-timeline-title"><?php echo $timeline->title; ?></p>
+							<<?php echo $settings->title_html_tag; ?> class="pp-timeline-title"><?php echo $timeline->title; ?></<?php echo $settings->title_html_tag; ?>>
 						</div>
 					<?php } ?>
 					<div class="pp-timeline-text-wrapper">

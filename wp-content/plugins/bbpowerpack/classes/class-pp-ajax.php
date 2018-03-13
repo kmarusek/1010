@@ -19,8 +19,8 @@ class BB_PowerPack_Ajax {
     static public function get_ajax_posts()
     {
         $settings = (object)$_POST['settings'];
-        $module_dir = BB_POWERPACK_DIR . 'modules/pp-content-grid/';
-        $module_url = BB_POWERPACK_URL . 'modules/pp-content-grid/';
+        $module_dir = pp_get_module_dir('pp-content-grid');
+        $module_url = pp_get_module_url('pp-content-grid');
 
         $response = array(
             'data'  => '',
@@ -89,32 +89,104 @@ class BB_PowerPack_Ajax {
             );
         } else if ( isset( $settings->offset ) ) {
             //$args['offset'] = $settings->offset;
-        }
+		}
+		
+		$taxonomies = FLBuilderLoop::taxonomies( $post_type );
 
-        if ( 'yes' == get_option( 'woocommerce_hide_out_of_stock_items' ) ) {
+		foreach ( $taxonomies as $tax_slug => $tax ) {
+
+			$tax_value = '';
+			$term_ids  = array();
+			$operator  = 'IN';
+
+			// Get the value of the suggest field.
+			if ( isset( $settings->{'tax_' . $post_type . '_' . $tax_slug} ) ) {
+				// New style slug.
+				$tax_value = $settings->{'tax_' . $post_type . '_' . $tax_slug};
+			} elseif ( isset( $settings->{'tax_' . $tax_slug} ) ) {
+				// Old style slug for backwards compat.
+				$tax_value = $settings->{'tax_' . $tax_slug};
+			}
+
+			// Get the term IDs array.
+			if ( ! empty( $tax_value ) ) {
+				$term_ids = explode( ',', $tax_value );
+			}
+
+			// Handle matching settings.
+			if ( isset( $settings->{'tax_' . $post_type . '_' . $tax_slug . '_matching'} ) ) {
+
+				$tax_matching = $settings->{'tax_' . $post_type . '_' . $tax_slug . '_matching'};
+
+				if ( ! $tax_matching ) {
+					// Do not match these terms.
+					$operator = 'NOT IN';
+				} elseif ( 'related' === $tax_matching ) {
+					// Match posts by related terms from the global post.
+					global $post;
+					$terms 	 = wp_get_post_terms( $post->ID, $tax_slug );
+					$related = array();
+
+					foreach ( $terms as $term ) {
+						if ( ! in_array( $term->term_id, $term_ids ) ) {
+							$related[] = $term->term_id;
+						}
+					}
+
+					if ( empty( $related ) ) {
+						// If no related terms, match all except those in the suggest field.
+						$operator = 'NOT IN';
+					} else {
+
+						// Don't include posts with terms selected in the suggest field.
+						$args['tax_query'][] = array(
+							'taxonomy'	=> $tax_slug,
+							'field'		=> 'id',
+							'terms'		=> $term_ids,
+							'operator'  => 'NOT IN',
+						);
+
+						// Set the term IDs to the related terms.
+						$term_ids = $related;
+					}
+				}
+			}// End if().
+
+			if ( ! empty( $term_ids ) ) {
+
+				$args['tax_query'][] = array(
+					'taxonomy'	=> $tax_slug,
+					'field'		=> 'id',
+					'terms'		=> $term_ids,
+					'operator'  => $operator,
+				);
+			}
+		}// End foreach().
+
+        if ( 'yes' == get_option( 'woocommerce_hide_out_of_stock_items' ) && 'product' == $post_type ) {
             $args['meta_query'][] = array(
                 'key'       => '_stock_status',
                 'value'     => 'instock',
                 'compare'   => '='
             );
-        }
-
-        if ( isset( $settings->order ) ) {
-            $args['order'] = $settings->order;
+		}
+		
+		if ( isset( $_POST['page'] ) ) {
+            $args['paged'] = absint( $_POST['page'] );
         }
 
         if ( isset( $settings->order_by ) ) {
             $args['orderby'] = $settings->order_by;
         }
 
-        if ( isset( $_POST['page'] ) ) {
-            $args['paged'] = absint( $_POST['page'] );
-        }
-
         if ( isset( $_POST['orderby'] ) ) {
             $orderby = esc_attr( $_POST['orderby'] );
             
             $args = self::get_conditional_args( $orderby, $args );
+		}
+		
+		if ( isset( $settings->order ) ) {
+            $args['order'] = $settings->order;
         }
 
         $query = new WP_Query( $args );
@@ -122,7 +194,7 @@ class BB_PowerPack_Ajax {
         if ( $query->have_posts() ) :
 
             // create pagination.
-            if ( $query->max_num_pages > 1 ) {
+            if ( $query->max_num_pages > 1 && 'numbers' == $settings->pagination ) {
                 ob_start();
                
                 echo '<div class="pp-content-grid-pagination pp-ajax-pagination fl-builder-pagination">';

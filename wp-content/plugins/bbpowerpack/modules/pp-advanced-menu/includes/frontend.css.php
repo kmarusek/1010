@@ -536,6 +536,7 @@ if( !empty( $settings->background_hover_color ) || $settings->link_hover_color )
 	<?php if ( ! empty( $settings->submenu_container_bg_color ) ) { ?>
 	background-color: #<?php echo $settings->submenu_container_bg_color; ?>;
 	<?php } ?>
+	width: <?php echo $settings->submenu_width; ?>px;
 }
 
 .fl-node-<?php echo $id; ?> ul.pp-advanced-menu-horizontal li.mega-menu > ul.sub-menu {

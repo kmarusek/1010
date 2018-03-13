@@ -142,7 +142,9 @@ $rowfamily = $settings->row_font;
 
 @media only screen and (max-width: 768px) {
 
-	.fl-node-<?php echo $id; ?> .pp-table-content thead tr th {
+	.fl-node-<?php echo $id; ?> .pp-table-content thead tr th,
+	.fl-node-<?php echo $id; ?> .pp-table-content.tablesaw-sortable th.tablesaw-sortable-head,
+	.fl-node-<?php echo $id; ?> .pp-table-content.tablesaw-sortable tr:first-child th.tablesaw-sortable-head {
 		<?php if( $settings->header_font_size != 'default' && $settings->header_custom_font_size['tablet'] != '' ) { ?>
 		    font-size: <?php echo $settings->header_custom_font_size['tablet']; ?>px;
 		<?php } ?>
@@ -158,7 +160,9 @@ $rowfamily = $settings->row_font;
 
 @media only screen and (max-width: 639px) {
 
-	.fl-node-<?php echo $id; ?> .pp-table-content thead tr th {
+	.fl-node-<?php echo $id; ?> .pp-table-content thead tr th,
+	.fl-node-<?php echo $id; ?> .pp-table-content.tablesaw-sortable th.tablesaw-sortable-head,
+	.fl-node-<?php echo $id; ?> .pp-table-content.tablesaw-sortable tr:first-child th.tablesaw-sortable-head {
 		<?php if( $settings->header_font_size != 'default' && $settings->header_custom_font_size['mobile'] != '' ) { ?>
 		    font-size: <?php echo $settings->header_custom_font_size['mobile']; ?>px;
 		<?php } ?>

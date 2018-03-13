@@ -6,7 +6,7 @@
 		}
 		$card = $settings->card_content[$i];
 	?>
-		<div class="pp-hover-card pp-hover-card-<?php echo $i; ?> <?php echo $settings->style_type; ?> clearfix">
+		<div class="pp-hover-card pp-hover-card-<?php echo $i; ?> <?php echo $settings->style_type; ?> clearfix" onclick="">
 			<?php if( $card->hover_card_link_type == 'box' ) { ?>
 			<a class="pp-more-link-container" href="<?php echo $card->box_link == '#' ? 'javascript:void(0)' : $card->box_link; ?>" target="<?php echo $card->link_target; ?>">
 			<?php } ?>

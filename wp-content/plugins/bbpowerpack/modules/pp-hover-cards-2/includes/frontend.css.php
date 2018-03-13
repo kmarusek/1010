@@ -124,6 +124,14 @@ for( $i = 0; $i < count( $settings->card_content ); $i++ ) {
 		border-width: <?php echo $card->hover_card_box_border_width; ?>px;
 		border-color: <?php echo $card->hover_card_box_border_color ? pp_hex2rgba('#' . $card->hover_card_box_border_color, $card->hover_card_box_border_opacity) : 'transparent'; ?>;
 	<?php  } ?>
+	transition: all 0.3s ease-in;
+}
+
+.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?>:hover .pp-hover-card-inner {
+	<?php if ( $card->hover_card_bg_type == 'color' && ! empty( $card->hover_card_bg_hover ) ) { ?>
+	background: #<?php echo $card->hover_card_bg_hover; ?>;
+	<?php } ?>
+	transition: all 0.3s ease-in;
 }
 
 .fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?>:hover .pp-hover-card-overlay {
@@ -216,11 +224,11 @@ for( $i = 0; $i < count( $settings->card_content ); $i++ ) {
 		width: 100%;
 		height: auto;
 	}
-	.fl-node-<?php echo $id; ?> .pp-hover-card .pp-hover-card-title {
+	.fl-node-<?php echo $id; ?> .pp-hover-card .pp-hover-card-title-wrap .pp-hover-card-title {
 		<?php if( $settings->hover_card_title_font_size['tablet'] ) { ?>font-size: <?php echo $settings->hover_card_title_font_size['tablet']; ?>px;<?php } ?>
 		<?php if( $settings->hover_card_title_line_height['tablet'] ) { ?>line-height: <?php echo $settings->hover_card_title_line_height['tablet']; ?>;<?php } ?>
 	}
-	.fl-node-<?php echo $id; ?> .pp-hover-card .pp-hover-card-description {
+	.fl-node-<?php echo $id; ?> .pp-hover-card .pp-hover-card-description .pp-hover-card-description-inner {
 		<?php if( $settings->hover_card_description_font_size['tablet'] ) { ?>font-size: <?php echo $settings->hover_card_description_font_size['tablet']; ?>px;<?php } ?>
 		<?php if( $settings->hover_card_description_line_height['tablet'] ) { ?>line-height: <?php echo $settings->hover_card_description_line_height['tablet']; ?>;<?php } ?>
 	}
@@ -256,11 +264,11 @@ for( $i = 0; $i < count( $settings->card_content ); $i++ ) {
 	.fl-node-<?php echo $id; ?> .pp-hover-card .pp-hover-card-inner {
 		min-height: <?php echo $settings->hover_card_height['mobile']; ?>px;
 	}
-	.fl-node-<?php echo $id; ?> .pp-hover-card .pp-hover-card-title h3 {
+	.fl-node-<?php echo $id; ?> .pp-hover-card .pp-hover-card-title-wrap .pp-hover-card-title {
 		<?php if( $settings->hover_card_title_font_size['mobile'] ) { ?>font-size: <?php echo $settings->hover_card_title_font_size['mobile']; ?>px;<?php } ?>
 		<?php if( $settings->hover_card_title_line_height['mobile'] ) { ?>line-height: <?php echo $settings->hover_card_title_line_height['mobile']; ?>;<?php } ?>
 	}
-	.fl-node-<?php echo $id; ?> .pp-hover-card .pp-hover-card-description {
+	.fl-node-<?php echo $id; ?> .pp-hover-card .pp-hover-card-description .pp-hover-card-description-inner {
 		<?php if( $settings->hover_card_description_font_size['mobile'] ) { ?>font-size: <?php echo $settings->hover_card_description_font_size['mobile']; ?>px;<?php } ?>
 		<?php if( $settings->hover_card_description_line_height['mobile'] ) { ?>line-height: <?php echo $settings->hover_card_description_line_height['mobile']; ?>;<?php } ?>
 	}

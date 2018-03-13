@@ -732,8 +732,8 @@ if( $settings->style == 'flat' ) {
 <?php } ?>
 <?php if ( isset( $settings->line_height['tablet'] ) && '' != $settings->line_height['tablet'] ) { ?>
 @media only screen and ( max-width: 768px ) {
-	.fl-node-<?php echo $id; ?> a.pp-button,
-	.fl-node-<?php echo $id; ?> a.pp-button:visited {
+	.fl-node-<?php echo $id; ?> .pp-button-wrap a.pp-button,
+	.fl-node-<?php echo $id; ?> .pp-button-wrap a.pp-button:visited {
 		line-height: <?php echo $settings->line_height['tablet']; ?>;
 	}
 	.fl-node-<?php echo $id; ?> a.pp-button .pp-button-text {
@@ -750,8 +750,8 @@ if( $settings->style == 'flat' ) {
 
 <?php if ( isset( $settings->line_height['mobile'] ) && '' != $settings->line_height['mobile'] ) { ?>
 @media only screen and ( max-width: 480px ) {
-	.fl-node-<?php echo $id; ?> a.pp-button,
-	.fl-node-<?php echo $id; ?> a.pp-button:visited {
+	.fl-node-<?php echo $id; ?> .pp-button-wrap a.pp-button,
+	.fl-node-<?php echo $id; ?> .pp-button-wrap a.pp-button:visited {
 		line-height: <?php echo $settings->line_height['mobile']; ?>;
 	}
 	.fl-node-<?php echo $id; ?> a.pp-button .pp-button-text {

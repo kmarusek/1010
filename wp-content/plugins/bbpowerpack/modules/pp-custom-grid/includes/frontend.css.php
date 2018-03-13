@@ -84,7 +84,7 @@
         background: <?php echo ( false === strpos( $settings->pagination_bg_color, 'rgb' ) ) ? '#' . $settings->pagination_bg_color : $settings->pagination_bg_color; ?>;
     <?php endif; ?>
     <?php if ( $settings->pagination_text_color ) : ?>
-        color: <?php echo $settings->pagination_text_color; ?>;
+        color: #<?php echo $settings->pagination_text_color; ?>;
     <?php endif; ?>
     <?php if ( 'default' != $settings->pagination_border_type ) : ?>
         border-style: <?php echo $settings->pagination_border_type; ?>;
@@ -99,6 +99,6 @@
         background: <?php echo ( false === strpos( $settings->pagination_bg_color_h, 'rgb' ) ) ? '#' . $settings->pagination_bg_color_h : $settings->pagination_bg_color_h; ?>;
     <?php endif; ?>
     <?php if ( $settings->pagination_text_color_h ) : ?>
-        color: <?php echo $settings->pagination_text_color_h; ?>;
+        color: #<?php echo $settings->pagination_text_color_h; ?>;
     <?php endif; ?>
 }

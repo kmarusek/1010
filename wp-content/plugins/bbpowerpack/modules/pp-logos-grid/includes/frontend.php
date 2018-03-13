@@ -10,8 +10,11 @@
 			$logos_grid = $settings->logos_grid[$i];
 			$alt = $logos_grid->upload_logo_title;
 
-			if ( empty( $alt ) && isset( $logos_grid->upload_logo_grid_src ) ) {
-				$alt = $logos_grid->upload_logo_grid_src;
+			if ( empty( $alt ) ) {
+				$alt = get_post_meta( $logos_grid->upload_logo_grid, '_wp_attachment_image_alt', true );
+				if ( empty( $alt ) && isset( $logos_grid->upload_logo_grid_src ) ) {
+					$alt = $logos_grid->upload_logo_grid_src;
+				}
 			}
 
 		?>

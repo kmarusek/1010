@@ -49,3 +49,7 @@
 .pp-subscribe-form .pp-form-success-message {
 	font-weight: 400;
 }
+
+.pp-subscribe-form .pp-subscribe-form-footer {
+	margin-top: 15px;
+}

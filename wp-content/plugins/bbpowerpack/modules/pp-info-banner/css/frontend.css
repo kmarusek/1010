@@ -15,3 +15,8 @@
     -ms-transition: all .3s ease-in-out;
     transition: all .3s ease-in-out;
 }
+
+
+.pp-info-banner-content .info-banner-wrap:not([data-animation-class="none"]) {
+	opacity: 0;
+}

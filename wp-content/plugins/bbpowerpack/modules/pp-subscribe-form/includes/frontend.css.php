@@ -645,6 +645,9 @@ FLBuilder::render_module_css('fl-button', $id, array(
 		<?php if( $settings->input_font_size['mobile'] && $settings->input_size == 'custom' ) { ?>
 	    font-size: <?php echo $settings->input_font_size['mobile']; ?>px;
 	    <?php } ?>
+		<?php if( $settings->input_border_width['top'] != 0 ) { ?>
+		border-width: <?php echo $settings->input_border_width['top']; ?>px;
+		<?php } ?>
 	}
 	.fl-node-<?php echo $id; ?> .pp-subscribe-form a.fl-button,
 	.fl-node-<?php echo $id; ?> .pp-subscribe-form a.fl-button:visited {

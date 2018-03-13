@@ -20,6 +20,13 @@ if ( $settings->layout == 'grid' && $settings->post_grid_filters_display == 'yes
 	$css_class .= ' pp-filters-active';
 }
 
+if ( ! isset( $settings->pp_content_grid ) ) {
+	$settings->pp_content_grid = true;
+}
+if ( ! isset( $settings->pp_post_id ) ) {
+	$settings->pp_post_id = get_the_ID();
+}
+
 // Get the query data.
 $query = FLBuilderLoop::query( $settings );
 
@@ -87,7 +94,13 @@ $query = FLBuilderLoop::query( $settings );
 	?>
 
 	<div class="pp-content-grid-pagination fl-builder-pagination"<?php if($settings->pagination == 'scroll') echo ' style="display:none;"'; ?>>
-		<?php BB_PowerPack_Post_Helper::pagination( $query, $settings ); ?>
+		<?php
+		if ( 'yes' == $settings->post_grid_filters_display && 'dynamic' == $settings->post_grid_filters_type ) {
+			BB_PowerPack_Post_Helper::ajax_pagination( $query );
+		} else {
+			BB_PowerPack_Post_Helper::pagination( $query, $settings );
+		}
+		?>
 	</div>
 
 	<?php endif; ?>

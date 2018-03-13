@@ -18,7 +18,7 @@
 			<div class="pp-box-close"></div>
 		<?php } ?>
 
-		<div class="pp-subscribe-form-inner">
+		<div class="pp-subscribe-form-inner pp-clearfix">
 
 			<?php if ( ('standard' == $settings->box_type || 'fixed_bottom' == $settings->box_type) && 'yes' == $settings->show_content ) { ?>
 			<div class="pp-subscribe-content">
@@ -69,8 +69,12 @@
 			</div>
 
 			<div class="pp-form-error-message"><?php esc_html_e( 'Something went wrong. Please check your entries and try again.', 'bb-powerpack' ); ?></div>
-
 		</div>
+		<?php if( '' != $settings->footer_text ) { ?>
+			<div class="pp-subscribe-form-footer">
+				<?php echo $settings->footer_text; ?>
+			</div>
+		<?php } ?>
 	</div>
 
 <?php if ( 'standard' != $settings->box_type && 'fixed_bottom' != $settings->box_type ) { ?>

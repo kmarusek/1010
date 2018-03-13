@@ -423,7 +423,7 @@ FLBuilder::render_module_css('fl-button', $id . ' .pp-pricing-table-column-' . $
 		margin-top: 80px;
 	}
 	<?php if( ($settings->title_font_size == 'custom' && $settings->title_custom_font_size ) || ( $settings->title_line_height == 'custom' && $settings->title_custom_line_height ) ) { ?>
-	.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-column .pp-pricing-table-title {
+	.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix) .pp-pricing-table-column .pp-pricing-table-title {
 	   <?php if( $settings->title_font_size == 'custom' && $settings->title_custom_font_size ) { ?>
 		   font-size: <?php echo $settings->title_custom_font_size['tablet']; ?>px;
 	   <?php } ?>
@@ -446,7 +446,7 @@ FLBuilder::render_module_css('fl-button', $id . ' .pp-pricing-table-column-' . $
 
 
 	<?php if( $settings->price_font_size == 'custom' && $settings->price_custom_font_size ) { ?>
-   .fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-column .pp-pricing-table-price {
+   .fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-col .pp-pricing-table-column .pp-pricing-table-price {
    	   font-size: <?php echo $settings->price_custom_font_size['tablet']; ?>px;
   	}
    <?php } ?>
@@ -475,7 +475,7 @@ FLBuilder::render_module_css('fl-button', $id . ' .pp-pricing-table-column-' . $
 
 @media only screen and ( max-width: 600px ) {
 	<?php if( ($settings->title_font_size == 'custom' && $settings->title_custom_font_size) || ($settings->title_line_height == 'custom' && $settings->title_custom_line_height) ) { ?>
-	.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-column .pp-pricing-table-title {
+	.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix) .pp-pricing-table-column .pp-pricing-table-title {
 	   <?php if( $settings->title_font_size == 'custom' && $settings->title_custom_font_size ) { ?>
 		   font-size: <?php echo $settings->title_custom_font_size['mobile']; ?>px;
 	   <?php } ?>
@@ -498,7 +498,7 @@ FLBuilder::render_module_css('fl-button', $id . ' .pp-pricing-table-column-' . $
 
 
     <?php if( $settings->price_font_size == 'custom' && $settings->price_custom_font_size ) { ?>
-   .fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-column .pp-pricing-table-price {
+   .fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-col .pp-pricing-table-column .pp-pricing-table-price {
    	   font-size: <?php echo $settings->price_custom_font_size['mobile']; ?>px;
   	}
    <?php } ?>

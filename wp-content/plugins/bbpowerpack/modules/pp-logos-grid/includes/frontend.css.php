@@ -29,7 +29,7 @@ $logos_grid_columns_mobile = ( 100 - $space_mobile ) / $settings->logos_grid_col
 .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo {
     position: relative;
     <?php if( $settings->logos_layout == 'grid' ) { ?>
-        width: calc((100% - <?php echo $space_desktop; ?>px) / <?php echo $settings->logos_grid_columns_desktop; ?>);
+        width: calc((100% - <?php echo $space_desktop + 1; ?>px) / <?php echo $settings->logos_grid_columns_desktop; ?>);
         <?php if ( $settings->logos_grid_spacing == 0 ) { ?>
         margin-right: <?php echo $settings->logos_grid_spacing - ( $settings->logo_grid_border_style != 'none' ? $settings->logo_grid_border_width : 0 ); ?>px;
         margin-bottom: <?php echo $settings->logos_grid_spacing - ( $settings->logo_grid_border_style != 'none' ? $settings->logo_grid_border_width : 0 ); ?>px;
@@ -71,7 +71,7 @@ $logos_grid_columns_mobile = ( 100 - $space_mobile ) / $settings->logos_grid_col
     <?php } ?>
     <?php if( $settings->logo_grid_border_radius >= 0 ) { ?>
     border-radius: <?php echo $settings->logo_grid_border_radius; ?>px;
-    <?php } ?>
+	<?php } ?>
 }
 
 <?php if( $settings->logos_layout == 'grid' ) { ?>

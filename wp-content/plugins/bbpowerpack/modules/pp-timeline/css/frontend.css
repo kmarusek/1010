@@ -9,10 +9,6 @@
 	clear: both;
 }
 
-.pp-timeline {
-
-}
-
 .pp-timeline .pp-is-hidden {
 	opacity: 0;
 	-webkit-transition: opacity .6s linear, margin .6s ease;
@@ -138,7 +134,7 @@ html:not(.fl-builder-edit) .pp-timeline .pp-timeline-content-wrapper .pp-timelin
 .pp-timeline .pp-timeline-content-wrapper .pp-timeline-item:nth-of-type(2n) .pp-timeline-content {
 	float: right;
 }
-.pp-timeline .pp-timeline-content-wrapper .pp-timeline-item .pp-timeline-content .pp-timeline-title-wrapper p {
+.pp-timeline .pp-timeline-content-wrapper .pp-timeline-item .pp-timeline-content .pp-timeline-title-wrapper .pp-timeline-title {
 	margin-top: 0;
 	margin-bottom: 0;
 }

@@ -61,7 +61,8 @@ if ( $settings->layout > 1 ) {
 		margin-bottom: <?php echo $settings->title_margin['bottom']; ?>px;
 	<?php } ?>
 }
-.fl-node-<?php echo $id; ?> .pp-post-tile-small .pp-post-tile-title {
+.fl-node-<?php echo $id; ?> .pp-post-tile-small .pp-post-tile-title,
+.fl-node-<?php echo $id; ?> .pp-post-tile-small .pp-post-tile-title a {
 	<?php if ( $settings->title_font_size_s != 'default' && isset($settings->title_custom_font_size_s['desktop']) ) { ?>
 	   font-size: <?php echo $settings->title_custom_font_size_s['desktop']; ?>px;
 	<?php } else { ?>
@@ -127,7 +128,7 @@ if ( $settings->layout > 1 ) {
     position: relative;
 	top: 0;
 }
-.fl-node-<?php echo $id; ?> .pp-post-tile-post a,
+.fl-node-<?php echo $id; ?> .pp-post-tile-post .pp-post-tile-title a,
 .fl-node-<?php echo $id; ?> .pp-post-tile-post .pp-post-tile-category,
 .fl-node-<?php echo $id; ?> .pp-post-tile-post .pp-post-tile-author,
 .fl-node-<?php echo $id; ?> .pp-post-tile-post .pp-post-tile-date,
@@ -155,6 +156,23 @@ if ( $settings->layout > 1 ) {
 		   letter-spacing: <?php echo $settings->title_custom_letter_spacing['tablet']; ?>px;
 		<?php } ?>
 	}
+	.fl-node-<?php echo $id; ?> .pp-post-tile-small .pp-post-tile-title {
+		<?php if ( $settings->title_font_size_s != 'default' && isset($settings->title_custom_font_size_s['tablet']) ) { ?>
+		font-size: <?php echo $settings->title_custom_font_size_s['tablet']; ?>px;
+		<?php } ?>
+		<?php if ( $settings->title_line_height_s != 'default' && isset($settings->title_custom_line_height_s['tablet']) ) { ?>
+		line-height: <?php echo $settings->title_custom_line_height_s['tablet']; ?>;
+		<?php } ?>
+	}
+	.fl-node-<?php echo $id; ?> .pp-post-tile-post .pp-post-tile-category,
+	.fl-node-<?php echo $id; ?> .pp-post-tile-post .pp-post-tile-meta {
+		<?php if ( $settings->meta_font_size != 'default' && isset($settings->meta_custom_font_size['tablet']) ) { ?>
+		font-size: <?php echo $settings->meta_custom_font_size['tablet']; ?>px;
+		<?php } ?>
+		<?php if ( $settings->meta_letter_spacing != 'default' && isset($settings->meta_custom_letter_spacing['tablet']) ) { ?>
+		letter-spacing: <?php echo $settings->meta_custom_letter_spacing['tablet']; ?>px;
+		<?php } ?>
+	}
 }
 
 @media only screen and (max-width: 480px) {
@@ -170,6 +188,23 @@ if ( $settings->layout > 1 ) {
 		<?php } ?>
 		<?php if ( $settings->title_letter_spacing != 'default' && isset($settings->title_custom_letter_spacing['mobile']) && !empty($settings->title_custom_font_size['mobile']) ) { ?>
 		   letter-spacing: <?php echo $settings->title_custom_letter_spacing['mobile']; ?>px;
+		<?php } ?>
+	}
+	.fl-node-<?php echo $id; ?> .pp-post-tile-small .pp-post-tile-title {
+		<?php if ( $settings->title_font_size_s != 'default' && isset($settings->title_custom_font_size_s['mobile']) ) { ?>
+		font-size: <?php echo $settings->title_custom_font_size_s['mobile']; ?>px;
+		<?php } ?>
+		<?php if ( $settings->title_line_height_s != 'default' && isset($settings->title_custom_line_height_s['mobile']) ) { ?>
+		line-height: <?php echo $settings->title_custom_line_height_s['mobile']; ?>;
+		<?php } ?>
+	}
+	.fl-node-<?php echo $id; ?> .pp-post-tile-post .pp-post-tile-category,
+	.fl-node-<?php echo $id; ?> .pp-post-tile-post .pp-post-tile-meta {
+		<?php if ( $settings->meta_font_size != 'default' && isset($settings->meta_custom_font_size['mobile']) ) { ?>
+		font-size: <?php echo $settings->meta_custom_font_size['mobile']; ?>px;
+		<?php } ?>
+		<?php if ( $settings->meta_letter_spacing != 'default' && isset($settings->meta_custom_letter_spacing['mobile']) ) { ?>
+		letter-spacing: <?php echo $settings->meta_custom_letter_spacing['mobile']; ?>px;
 		<?php } ?>
 	}
 }

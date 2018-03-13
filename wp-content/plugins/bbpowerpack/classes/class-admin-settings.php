@@ -379,9 +379,9 @@ final class BB_PowerPack_Admin_Settings {
         $category_label         = isset( $_POST['ppwl_builder_label'] ) ? sanitize_text_field( $_POST['ppwl_builder_label'] ) : 'PowerPack ' . __( 'Modules', 'bb-powerpack' );
         $tmpl_category_label    = isset( $_POST['ppwl_tmpcat_label'] ) ? sanitize_text_field( $_POST['ppwl_tmpcat_label'] ) : 'PowerPack Layouts';
         $row_templates_label    = isset( $_POST['ppwl_rt_label'] ) ? sanitize_text_field( $_POST['ppwl_rt_label'] ) : 'PowerPack ' . __( 'Row Templates', 'bb-powerpack' );
-        $support_link           = isset( $_POST['ppwl_support_link'] ) ? esc_url_raw( $_POST['ppwl_support_link'] ) : 'httsp://wpbeaveraddons.com/contact/';
+		$support_link           = isset( $_POST['ppwl_support_link'] ) ? esc_url_raw( $_POST['ppwl_support_link'] ) : 'httsp://wpbeaveraddons.com/contact/';
+		$remove_license_link    = isset( $_POST['ppwl_remove_license_key_link'] ) ? absint( $_POST['ppwl_remove_license_key_link'] ) : 0;
         $hide_support_msg       = isset( $_POST['ppwl_hide_support_msg'] ) ? absint( $_POST['ppwl_hide_support_msg'] ) : 0;
-        $hide_modules_tab       = isset( $_POST['ppwl_hide_modules_tab'] ) ? absint( $_POST['ppwl_hide_modules_tab'] ) : 0;
         $hide_templates_tab     = isset( $_POST['ppwl_hide_templates_tab'] ) ? absint( $_POST['ppwl_hide_templates_tab'] ) : 0;
         $hide_extensions_tab    = isset( $_POST['ppwl_hide_extensions_tab'] ) ? absint( $_POST['ppwl_hide_extensions_tab'] ) : 0;
         $hide_wl_form           = isset( $_POST['ppwl_hide_form'] ) ? absint( $_POST['ppwl_hide_form'] ) : 0;
@@ -391,8 +391,8 @@ final class BB_PowerPack_Admin_Settings {
         self::update_option( 'ppwl_tmpcat_label', $tmpl_category_label );
         self::update_option( 'ppwl_rt_label', $row_templates_label );
         self::update_option( 'ppwl_support_link', $support_link );
+        self::update_option( 'ppwl_remove_license_key_link', $remove_license_link );
         self::update_option( 'ppwl_hide_support_msg', $hide_support_msg );
-        self::update_option( 'ppwl_hide_modules_tab', $hide_modules_tab );
         self::update_option( 'ppwl_hide_templates_tab', $hide_templates_tab );
         self::update_option( 'ppwl_hide_extensions_tab', $hide_extensions_tab );
         self::update_option( 'ppwl_hide_form', $hide_wl_form );

@@ -273,7 +273,8 @@
 
 
 @media only screen and (max-width: 768px) {
-	.fl-node-<?php echo $id; ?> .pp-tabs-labels .pp-tabs-label .pp-tab-title {
+	.fl-node-<?php echo $id; ?> .pp-tabs-labels .pp-tabs-label .pp-tab-title,
+	.fl-node-<?php echo $id; ?> .pp-tabs-panels .pp-tabs-label .pp-tab-title {
 		<?php if( $settings->tab_label_font_size['tablet'] && $settings->tab_title_size == 'custom' ) { ?>
 		font-size: <?php echo $settings->tab_label_font_size['tablet']; ?>px;
 		<?php } ?>
@@ -298,7 +299,8 @@
 }
 
 @media only screen and (max-width: 480px) {
-	.fl-node-<?php echo $id; ?> .pp-tabs-labels .pp-tabs-label .pp-tab-title {
+	.fl-node-<?php echo $id; ?> .pp-tabs-labels .pp-tabs-label .pp-tab-title,
+	.fl-node-<?php echo $id; ?> .pp-tabs-panels .pp-tabs-label .pp-tab-title {
 		<?php if( $settings->tab_label_font_size['mobile'] && $settings->tab_title_size == 'custom' ) { ?>
 		font-size: <?php echo $settings->tab_label_font_size['mobile']; ?>px;
 		<?php } ?>

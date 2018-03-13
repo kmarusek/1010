@@ -24,7 +24,7 @@ class PPContentGridModule extends FLBuilderModule {
 		// add_action( 'wp_head', array( $this, 'post_ajax_filters' ) );
 		add_action( 'wp_ajax_get_post_tax', array( $this, 'pp_get_post_taxonomies' ) );
 		add_action( 'wp_ajax_nopriv_get_post_tax', array( $this, 'pp_get_post_taxonomies' ) );
-
+		add_filter( 'fl_builder_loop_query_args', array( $this, 'exclude_current_post' ), 10, 1 );
 	}
 
 	/**
@@ -156,6 +156,34 @@ class PPContentGridModule extends FLBuilderModule {
 		}
 
         echo $html; die();
+	}
+
+	public function exclude_current_post( $args ) {
+		if ( ! isset( $args['settings'] ) ) {
+			return $args;
+		}
+
+		$settings = $args['settings'];
+
+		if ( ! isset( $settings->pp_content_grid ) || ! $settings->pp_content_grid ) {
+			return $args;
+		}
+
+		if ( ! isset( $settings->exclude_current_post ) ) {
+			return $args;
+		}
+
+		if ( ! isset( $settings->pp_post_id ) ) {
+			return $args;
+		}
+		
+		if ( ! isset( $args['post__not_in'] ) || ! is_array( $args['post__not_in'] ) ) {
+			$args['post__not_in'] = array();
+		}
+
+		$args['post__not_in'][] = $settings->pp_post_id;
+
+		return $args;
 	}
 }
 
@@ -316,6 +344,15 @@ FLBuilder::register_module('PPContentGridModule', array(
 							)
 						)
 					),
+					'exclude_current_post'	=> array(
+						'type'					=> 'select',
+						'label'					=> __('Exclude Current Post', 'bb-powerpack'),
+						'default'				=> 'no',
+						'options'				=> array(
+							'yes'					=> __('Yes', 'bb-powerpack'),
+							'no'					=> __('No', 'bb-powerpack')
+						)
+					)
 				)
 			),
 			'grid'          => array(

@@ -14,7 +14,7 @@ class PPAdvancedTabsModule extends FLBuilderModule {
 			'name'          	=> __('Advanced Tabs', 'bb-powerpack'),
 			'description'   	=> __('Display a collection of tabbed content.', 'bb-powerpack'),
 			'group'         	=> pp_get_modules_group(),
-            'category'			=> pp_get_modules_cat( 'creative' ),
+            'category'			=> pp_get_modules_cat( 'content' ),
             'dir'           	=> BB_POWERPACK_DIR . 'modules/pp-advanced-tabs/',
             'url'           	=> BB_POWERPACK_URL . 'modules/pp-advanced-tabs/',
             'editor_export' 	=> true, // Defaults to true and can be omitted.

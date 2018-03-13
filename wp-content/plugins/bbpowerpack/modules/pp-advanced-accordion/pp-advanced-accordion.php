@@ -281,7 +281,14 @@ FLBuilder::register_module('PPAccordionModule', array(
 							'no'					=> __('No', 'bb-powerpack'),
 						),
 						'help'					=> __('Items will not appear as expanded on responsive devices until user clicks on it.', 'bb-powerpack')
-					)
+					),
+					'accordion_id_prefix'	=> array(
+						'type'			=> 'text',
+						'label'			=> __('Custom ID Prefix', 'bb-powerpack'),
+						'default'		=> '',
+						'placeholder'	=> __('myaccordion', 'bb-powerpack'),
+						'help'			=> __('A prefix that will be applied to ID attribute of accordion items in HTML. For example, prefix "myaccordion" will be applied as "myaccordion-1", "myaccordion-2" in ID attribute of accordion item 1 and accordion item 2 respectively. It should only contain dashes, underscores, letters or numbers. No spaces.', 'bb-powerpack')
+					),
 				)
 			),
 			'label_style'       => array(

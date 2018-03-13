@@ -1,3 +1,43 @@
+== 2.4.0.1 ==
+Release date: March 5, 2018
+* Fix: Hover Cards 2 link was not working after updating plugin to 2.4.0
+
+== 2.4.0 ==
+Release date: March 1, 2018
+* New: Added Instagram Feed module
+* Enhancement: Smart Headings - Added text transform option
+* Enhancement: Smart Headings - Added alpha option for transparent headings
+* Enhancement: Post Timeline - Added HTML tag option for titles
+* Enhancement: Advanced Accordion - Added Custom ID Prefix field to open accordion item by URL
+* Enhancement: Subscribe Form - Added a field to output footer text/links
+* Enhancement: Hover Cards 2 - Added background hover color option
+* Enhancement: Filterable Gallery - Added responsive filter toggle styling options
+* Enhancement: Advanced Menu - Added submenu min-width option
+* Enhancement: Added an option in White Label settings to remove link from license key description
+* Enhancement: Added plugin admin label as suffix in module category name to avoid mixing in the same categories used by other developers
+* Fix: Content Grid - query reset issue when using dynamic filters and posts were restricted to specific category/tags
+* Fix: Content Grid - title font was not working due to CSS was being overridden by theme
+* Fix: Testimonials - JS issue due to empty slide width field
+* Fix: Custom Grid - Pagination color style was not working
+* Fix: Smart Banners - Title was visible before animation
+* Fix: Advanced Accordion - double tap was required to open the first accordion item in responsive devices
+* Fix: Logos Grid & Carousel - alt tags were missing when logo title is not provided
+* Fix: Logos Grid & Carousel - IE issue
+* Fix: Team Member - Broken layout issue
+* Fix: Hover Cards 2 - iOS Safari issue
+* Fix: Info List - Icon styling was being overridden by theme or another CSS
+* Fix: Subscribe Form - border issue in responsive mode
+* Fix: Smart Button - responsive font size and line height issue
+* Fix: Dual Button - responsive font size and line height issue
+* Fix: Pricing Table - responsive font size and line height issue
+* Fix: Advanced Tabs - responsive font size and line height issue
+* Fix: Hover Cards 2 - responsive font size and line height issue
+* Fix: Business Hours - responsive font size and line height issue
+* Fix: Content Tiles - responsive font size and line height issue
+* Fix: Table - responsive font size and line height issue
+* Fix: Ninja Forms - responsive font size and line height issue
+* Fix: Removed extra customizer presets
+
 == 2.3.1.1 ==
 Release date: January 30, 2018
 * Fix: Ninja Forms CSS issue that was breaking layout

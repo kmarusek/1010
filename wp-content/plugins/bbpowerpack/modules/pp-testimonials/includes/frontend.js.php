@@ -35,7 +35,15 @@
 		minSlides : <?php echo ($settings->carousel == 1) ? $settings->min_slides : 1; ?>,
 		maxSlides : <?php echo ($settings->carousel == 1) ? $settings->max_slides : 1; ?>,
 		moveSlides : <?php echo ($settings->carousel == 1) ? $settings->move_slides : 1; ?>,
-		slideWidth : <?php echo ($settings->carousel == 1) ? $settings->slide_width : 0; ?>,
+		<?php if ( $settings->carousel == 1 ) { ?>
+			<?php if ( ! empty( $settings->slide_width ) ) { ?>
+				slideWidth : <?php echo $settings->slide_width; ?>,
+			<?php } else { ?>
+				slideWidth : 0,
+			<?php } ?>
+		<?php } else { ?>
+			slideWidth : 0,
+		<?php } ?>
 		slideMargin : <?php echo ($settings->carousel == 1) ? $settings->slide_margin : 0; ?>,
 	};
 	if($(window).width() <= 768) {

@@ -1,6 +1,11 @@
+<?php 
+	$css_id = ''; 
+?>
+
 <div class="pp-accordion <?php if ( $settings->collapse ) echo ' pp-accordion-collapse'; ?>">
-	<?php for ( $i = 0; $i < count( $settings->items ); $i++ ) : if ( empty( $settings->items[ $i ] ) ) continue; ?>
-	<div id="pp-accord-<?php echo $id; ?>-<?php echo $i; ?>" class="pp-accordion-item">
+	<?php for ( $i = 0; $i < count( $settings->items ); $i++ ) : if ( empty( $settings->items[ $i ] ) ) continue; 
+			$css_id = ( $settings->accordion_id_prefix != '' ) ? $settings->accordion_id_prefix . '-' . ($i+1) : 'pp-accord-' . $id . '-' . ($i+1); ?>
+	<div id="<?php echo $css_id; ?>" class="pp-accordion-item">
 		<div class="pp-accordion-button">
 			<?php if( $settings->items[$i]->accordion_font_icon ) { ?>
 				<span class="pp-accordion-icon <?php echo $settings->items[$i]->accordion_font_icon; ?>"></span>

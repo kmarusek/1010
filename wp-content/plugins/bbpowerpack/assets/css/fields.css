@@ -286,7 +286,10 @@ span.pp-multitext.fa-long-arrow-right:before {
 }
 
 .pp-color-picker {
-    margin-bottom: 5px;
+	margin-bottom: 5px;
+	display: flex;
+    width: auto;
+    max-width: 300px;
 }
 .pp-color-picker .pp-color-text {
     padding: 7px 10px;

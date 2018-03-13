@@ -516,7 +516,7 @@ FLBuilder::register_settings_form('pp_hover_card_2_form', array(
                             'connections'   => array( 'url' ),
                         ),
                         'link_target'   => array(
-                            'type'      => 'pp-switch',
+                            'type'      => 'select',
                             'label'     => __('Link Target', 'bb-powerpack'),
                             'default'   => '_self',
                             'options'   => array(
@@ -544,7 +544,7 @@ FLBuilder::register_settings_form('pp_hover_card_2_form', array(
                             ),
                             'toggle'    => array(
                                 'color' => array(
-                                    'fields'    => array('hover_card_bg_color'),
+                                    'fields'    => array('hover_card_bg_color', 'hover_card_bg_hover'),
                                 ),
                                 'image' => array(
                                     'fields'    => array('hover_card_box_image'),
@@ -563,9 +563,19 @@ FLBuilder::register_settings_form('pp_hover_card_2_form', array(
                                 'property'  => 'background'
                             ),
                         ),
+                        'hover_card_bg_hover'    => array(
+                            'type'      => 'color',
+                            'label'     => __('Background Hover Color', 'bb-powerpack'),
+                            'default'   => '',
+                            'show_reset'    => true,
+                            'preview'   => array(
+                                'type'  => 'none',
+                            ),
+                        ),
                         'hover_card_box_image'     => array(
-                            'type'      => 'photo',
-                            'label'     => __('Background Image', 'bb-powerpack'),
+                            'type'      	=> 'photo',
+							'label'     	=> __('Background Image', 'bb-powerpack'),
+							'connections'   => array( 'photo' ),
                         ),
                         'hover_card_box_border'    => array(
                             'type'      => 'pp-switch',
