@@ -171,7 +171,7 @@ if (!class_exists('Gravity_Forms_Live_Validation_Admin')) {
                 <?php if (GFCommon::current_user_can_any('gravityforms_edit_settings')) { ?>
                     <p class="submit" style="text-align: left;">
                         <?php
-                        $save_button = '<input type="submit" name="submit" value="' . esc_html__('Save Settings', 'lv-validation') . '" class="button-primary gfbutton"/>';
+                        $save_button = '<input type="submit" name="submit" value="' . esc_html__('Save Settings', 'real-time-validation-for-gravity-forms') . '" class="button-primary gfbutton"/>';
 
                         /**
                          * Filters through and allows modification of the Settings save button HTML in a Form
@@ -715,9 +715,9 @@ if (!class_exists('Gravity_Forms_Live_Validation_Admin')) {
 
         public function lv_modify_toolbar($menu, $id) {
             $menu['lv_gf'] = array(
-                'label' => __("Real Time validation"),
+                'label' => __("Real Time validation","real-time-validation-for-gravity-forms"),
                 'icon' => '<i class="fa fa-pencil-square-o fa-lg"></i>',
-                'title' => __('Real Time validation', 'lv-validation'),
+                'title' => __('Real Time validation', 'real-time-validation-for-gravity-forms'),
                 'url' => admin_url("admin.php?page=gf_edit_forms&view=settings&subview=lv_form_setting&id={$id}"),
                 'link_class' => 'lv_addon_help',
                 'priority' => 1,
@@ -789,7 +789,7 @@ if (!class_exists('Gravity_Forms_Live_Validation_Admin')) {
                 $enablelink = add_query_arg(array('page' => 'gf_edit_forms', 'view' => 'settings', 'subview' => 'lv_form_setting', 'id' => rgar($form, 'id')), admin_url('admin.php'));
                 ?>
                 <div class="notice notice-warning is-dismissible lv_error_dismiss" data-id="<?php echo $form['id']; ?>">
-                    <p><?php _e("It seems like <b>Real time validation </b>is turned off. &nbsp; <a href=" . $enablelink . "><button id='button_link_lv_on' class='button button-primary'>Turn On</button></a>", 'lv-validation'); ?></p>
+                    <p><?php _e("It seems like <b>Real time validation </b>is turned off. &nbsp; <a href=" . $enablelink . "><button id='button_link_lv_on' class='button button-primary'>Turn On</button></a>", 'real-time-validation-for-gravity-forms'); ?></p>
                 </div>
                 <?php
             }
@@ -797,8 +797,8 @@ if (!class_exists('Gravity_Forms_Live_Validation_Admin')) {
         }
 
         public function lv_tooltips_gform($tooltips) {
-            $tooltips['form_gf_live_validation_value'] = __("<h6>Validate Real Time Input</h6> You can use RegEx to validate user input. An error message will be thrown to user in real-time, if the RegEx pattern is violated.");
-            $tooltips['form_gf_lv_confirmation_email'] = __("<h6>Validation Message For Confirm Email</h6> You can add custom error message that will get triggered while confirm email field value is not same as email.");
+            $tooltips['form_gf_live_validation_value'] = __("<h6>Validate Real Time Input</h6> You can use RegEx to validate user input. An error message will be thrown to user in real-time, if the RegEx pattern is violated.",'real-time-validation-for-gravity-forms');
+            $tooltips['form_gf_lv_confirmation_email'] = __("<h6>Validation Message For Confirm Email</h6> You can add custom error message that will get triggered while confirm email field value is not same as email.",'real-time-validation-for-gravity-forms');
             return $tooltips;
         }
 
@@ -808,9 +808,9 @@ if (!class_exists('Gravity_Forms_Live_Validation_Admin')) {
         }
 
         public function lv_admin_plugin_settings_link($links) {
-            $link_1 = '<a href="' . esc_url($this->get_setting_page_url('support')) . '">' . __('Support', 'lv-validation') . '</a>';
-            $link_2 = '<a href="' . esc_url($this->get_setting_page_url('how_to')) . '">' . __('How To Use', 'lv-validation') . '</a>';
-            $link_3 = '<a href="' . esc_url($this->get_setting_page_url('pro')) . '">' . __('Premium Version', 'lv-validation') . '</a>';
+            $link_1 = '<a href="' . esc_url($this->get_setting_page_url('support')) . '">' . __('Support', 'real-time-validation-for-gravity-forms') . '</a>';
+            $link_2 = '<a href="' . esc_url($this->get_setting_page_url('how_to')) . '">' . __('How To Use', 'real-time-validation-for-gravity-forms') . '</a>';
+            $link_3 = '<a href="' . esc_url($this->get_setting_page_url('pro')) . '">' . __('Premium Version', 'real-time-validation-for-gravity-forms') . '</a>';
 
             array_unshift($links, $link_1, $link_2, $link_3);
             return $links;

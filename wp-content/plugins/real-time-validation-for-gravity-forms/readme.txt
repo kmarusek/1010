@@ -3,7 +3,7 @@ Contributors: wisetr, djeet
 Tags: gravity forms,gravity forms addon,gravity forms fields validation,live validation,jquery validation,client side validation,javascript validation
 Requires at least: 4.2.1
 Tested up to: 4.9.1
-Stable tag: 1.2.0
+Stable tag: 1.3.0
 License: GPLv2 or later
 
 Real Time Validation for Gravity Forms increases conversion rates of your Gravity Form using inline validation messages as user types in field.
@@ -138,6 +138,12 @@ PS: You'll need a working Gravity Forms to use it.
 
 
 == Changelog ==
+
+= 1.3.0 = 
+
+* Fixed: Some functionality issues with the Save & Continue feature of gravity forms.
+* Fixed: Text-domain modified in last update, but not implemented, now fixed. 
+* Added: A callback function to modify the scroll offset of the field position, raised by a support ticket. 
 
 = 1.2.0 = 
 * Fixed: Fatal Error coming when partial entry saving AJAX gets fired.

@@ -7,9 +7,10 @@
 
 var jqobjPrime = null;
 var show_error_combined = true;
+var lv_offset = function( currentOffset) { return currentOffset; };
 var LiveValidation = function(element, optionsObj) {
 
-
+            
     this.initialize(element, optionsObj);
 }
 
@@ -92,10 +93,11 @@ LiveValidation.prototype = {
      */
     initialize: function(element, optionsObj) {
         var self = this;
-
+          
         if (!element)
             throw new Error("LiveValidation::initialize - No element reference or element id has been provided!");
         this.element = element.nodeName ? element : document.getElementById(element);
+      
         if (!this.element)
             throw new Error("LiveValidation::initialize - No element with reference or id of '" + element + "' exists!");
         // default properties that could not be initialised above
@@ -453,6 +455,8 @@ LiveValidation.prototype = {
                 return LiveValidation.TEXT;
             case (nn == 'INPUT' && nt == 'TEL'):
                 return LiveValidation.TEXT;
+            case (nn == 'INPUT' && nt == 'NUMBER'):
+                return LiveValidation.TEXT;
             case (nn == 'INPUT' && nt == 'PASSWORD'):
                 return LiveValidation.PASSWORD;
             case (nn == 'INPUT' && nt == 'CHECKBOX'):
@@ -776,7 +780,18 @@ LiveValidationForm.prototype = {
 
             var moveTo = 0;
             var elem_form = e.currentTarget;
+            
+           if("undefined" === typeof elem_form ) {
+               return true;
+           }
+           
+           
+          
             if (hasClass(elem_form, "back_bt_press")) {
+                return true;
+            }
+          
+            if (hasClass(elem_form, "save_bt_press")) {
                 return true;
             }
             var ret = false;
@@ -910,8 +925,8 @@ LiveValidationForm.prototype = {
 
                     var ul_j = jqobjPrime('.errorMessages');
 
-
-
+            
+                   moveTo =  window.lv_offset(moveTo);                        
                     jqobjPrime('body,html').animate({
                         scrollTop: moveTo
                     }, 500);
@@ -1751,3 +1766,4 @@ function removeClass(ele, cls) {
         ele.className = ele.className.replace(reg, ' ');
     }
 }
+

@@ -43,10 +43,12 @@
                 
                 
                 var defaualt_on_click = jQuery(".gform_previous_button:visible").attr("onclick");
+                var defaualt_save_click = jQuery(".gform_save_link:visible").attr("onclick");
 
 
 
                 jQuery(".gform_previous_button").attr("onclick", " jQuery('#gform_" + formID + "').addClass('back_bt_press'); " + defaualt_on_click);
+                jQuery(".gform_save_link").attr("onclick", " jQuery('#gform_" + formID + "').addClass('save_bt_press'); " + defaualt_save_click);
             }, 100);
 
 

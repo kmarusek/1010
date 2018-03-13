@@ -31,7 +31,7 @@ class LV_dashboard {
     public function lv_add_dashboard_menu() {
 
 
-        add_submenu_page("gf_edit_forms", __("Real Time Validation", "lv-validation"), __("Real Time Validation", "lv-validation"), 'manage_options', 'lv_validation_dashboard', array($this, "lv_validation_dashboard"));
+        add_submenu_page("gf_edit_forms", __("Real Time Validation", "real-time-validation-for-gravity-forms"), __("Real Time Validation", "real-time-validation-for-gravity-forms"), 'manage_options', 'lv_validation_dashboard', array($this, "lv_validation_dashboard"));
     }
 
     public function lv_modify_settings() {
@@ -96,22 +96,22 @@ class LV_dashboard {
 
         return apply_filters("lv_dashboard_tabs", array(
             'support' => array(
-                'name' => __("support", "lv_validaiton"),
-                'label' => __("Support", "lv_validaiton"),
+                'name' => __("support", "real-time-validation-for-gravity-forms"),
+                'label' => __("Support", "real-time-validation-for-gravity-forms"),
                 'class' => '',
-                'target_div' => 'lv_support',
+                'target_div' => 'real-time-validation-for-gravity-forms',
                 'url' => admin_url('admin.php') . "?page=gf_settings&subview=" . $this->plugin_slug . "&tab=support"
             ),
             'how_to' => array(
-                'name' => __("how_to", "lv_validaiton"),
-                'label' => __("How to use", "lv_validaiton"),
+                'name' => __("how_to", "real-time-validation-for-gravity-forms"),
+                'label' => __("How to use", "real-time-validation-for-gravity-forms"),
                 'class' => '',
                 'target_div' => 'lv_how_to',
                 'url' => admin_url('admin.php') . "?page=gf_settings&subview=" . $this->plugin_slug . "&tab=how_to"
             ),
             'pro' => array(
-                'name' => __("pro", "lv_validaiton"),
-                'label' => __("PRO", "lv_validaiton"),
+                'name' => __("pro", "real-time-validation-for-gravity-forms"),
+                'label' => __("PRO", "real-time-validation-for-gravity-forms"),
                 'class' => '',
                 'target_div' => 'lv_pro',
                 'url' => admin_url('admin.php') . "?page=gf_settings&subview=" . $this->plugin_slug . "&tab=pro"

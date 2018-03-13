@@ -15,7 +15,7 @@ if (!class_exists('Gravity_Forms_Live_Validation')) {
          *
          * @var     string
          */
-        const VERSION = '1.1.0';
+        const VERSION = '1.3.0';
 
         /*
          * Plugin slug : used plugin wide
@@ -354,12 +354,12 @@ if (!class_exists('Gravity_Forms_Live_Validation')) {
                 $this->submission = GFFormDisplay::$submission[$form['id']];
             }
 
-
+          
             /**
              * Checking suitable condition to apply validations, they can vary when we have support for more fields
              * it includes, Validation settings on/off , chekcing is ajax, checking if paging , checking if error,
              */
-            if (!$this->is_enable_validations($form) || $this->is_submission || ($this->has_ajax && $this->is_paging) || ($this->has_ajax && (!is_null($this->submission) && $this->submission['is_valid'] == false))) {
+            if (!$this->is_enable_validations($form) || $this->is_submission || ($this->has_ajax && $this->is_paging) || ($this->has_ajax && (!is_null($this->submission) && $this->submission['is_valid'] == false)) || ( rgar( $this->submission, 'saved_for_later' ) == true ) ) {
                 return $form;
             }
             $max_count = max(wp_list_pluck($form['fields'], 'pageNumber'));
@@ -398,7 +398,7 @@ if (!class_exists('Gravity_Forms_Live_Validation')) {
             
            
                 
-               
+             
                if(page == ' . $i . '){
                  
 
@@ -437,7 +437,7 @@ if (!class_exists('Gravity_Forms_Live_Validation')) {
             jQuery(document).bind("gform_post_render", function(event,data,page){
             
                 
-                
+                  
              try {
 
                     var jqr = jQuery; ';

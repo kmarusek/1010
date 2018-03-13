@@ -90,8 +90,7 @@ class LV_pointers {
         $version = '1_2'; // replace all periods in 1.0 with an underscore
         $prefix = 'custom_admin_pointers' . $version . '_';
 
-        $new_pointer_content32 = '<h3>' . __('Real Time Validation for Gravity Forms') . '</h3>';
-        // $new_pointer_content .= '<p>' . __('Easily add a new post, media item, link, page or user by selecting from this drop doEasily add a new post, media item, link, page or user by selecting from this drop doEasily add a new post, media item, link, page or user by selecting from this drop doEasily add a new post, media item, link, page or user by selecting from this drop doEasily add a new post, media item, link, page or user by selecting from this drop doEasily add a new post, media item, link, page or user by selecting from this drop doEasily add a new post, media item, link, page or user by selecting from this drop doEasily add a new post, media item, link, page or user by selecting from this drop doEasily add a new post, media item, link, page or user by selecting from this drop doEasily add a new post, media item, link, page or user by selecting from this drop down menu.') . '</p>';
+        $new_pointer_content32 = '<h3>' . __('Real Time Validation for Gravity Forms','real-time-validation-for-gravity-forms') . '</h3>';
         $new_pointer_content32 .= "<p><iframe width=\"285\" frameborder=\"0\" height=\"160\" allowfullscreen src=\"https://www.youtube.com/embed/m_bv3eCmvgs\"></iframe></p>";
         return array(
             $prefix . 'new_items' => array(
