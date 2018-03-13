@@ -48,20 +48,50 @@ while ($related_query->have_posts()) {
 
     ?>
     <div class="Article-related_post">
-        <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="Article-related_post_thumbnail">
-        <h3 class="Article-related_post_title"><?php the_title(); ?></h3>
-        <div class="Article-related_post_meta">
-            By <a class="Article-related_post_author" href="<?php echo get_author_posts_url( $obj->post_author ); ?>"><?php
+        <?php
+            $layout_sequence = explode( ',', $this->settings->layout_sort_order );
 
-                $author = ( get_the_author_meta( 'display_name', $obj->post_author ) != '' ) ? get_the_author_meta( 'display_name', $obj->post_author ) : get_the_author_meta( 'user_nicename', $obj->post_author );
+            foreach( $layout_sequence as $sq ) {
+                switch ( $sq ) {
+                    case 'img':
+                        if ($this->settings->show_featured_image === 'yes' || !isset($this->settings->show_featured_image)) { ?>
+                            <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="Article-related_post_thumbnail">
+                        <?php }
+                        break;
+                    case 'title':
+                        if ($this->settings->show_title === 'yes' || !isset($this->settings->show_title)) { ?>
+                            <h3 class="Article-related_post_title"><?php the_title(); ?></h3>
+                        <?php }
+                        break;
+                    case 'meta':
+                        if ($this->settings->show_meta === 'yes' || !isset($this->settings->show_meta)) { ?>
+                            <div class="Article-related_post_meta">
+                                By <a class="Article-related_post_author" href="<?php echo get_author_posts_url( $obj->post_author ); ?>"><?php
 
-                echo $author; ?>
-            </a> |
-            <span class="Article-related_post_date"><?php echo date_i18n( 'M j, Y', strtotime( $post->post_date ) ); ?>
-            </span>
-        </div>
-        <div class="Article-related_post_excerpt"><?php echo get_the_excerpt(); ?></div>
-        <a href="<?php echo get_permalink(); ?>" class="Article-related_post_permalink">Read More</a>
+                                    $author = ( get_the_author_meta( 'display_name', $obj->post_author ) != '' ) ? get_the_author_meta( 'display_name', $obj->post_author ) : get_the_author_meta( 'user_nicename', $obj->post_author );
+
+                                    echo $author; ?>
+                                </a> |
+                                <span class="Article-related_post_date"><?php echo date_i18n( 'M j, Y', strtotime( $post->post_date ) ); ?>
+                                </span>
+                            </div>
+                        <?php }
+                        break;
+                    case 'content':
+                        if ($this->settings->show_excerpt === 'yes' || !isset($this->settings->show_excerpt)) { ?>
+                            <div class="Article-related_post_excerpt"><?php echo get_the_excerpt(); ?></div>
+                        <?php }
+                        break;
+                    case 'cta':
+                        if ($this->settings->show_cta === 'yes' || !isset($this->settings->show_cta)) { ?>
+                            <a href="<?php echo get_permalink(); ?>" class="Article-related_post_permalink">Read More</a>
+                        <?php }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        ?>
     </div>
     <?php
 }

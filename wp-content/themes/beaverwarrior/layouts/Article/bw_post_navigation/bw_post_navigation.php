@@ -64,6 +64,44 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                             'property'        => 'background-color',
                         )
                     ),
+                    'layout_sort_order' => array(
+                        'type' => 'uabb-sortable',
+                        'label' => __('Layout Order', 'skeleton-warrior'),
+                        'description' => __('Hidden components will still show here, but won\'t be visible elsewhere.', 'skeleton-warrior'),
+                        'default' => 'img,title,meta,content,cta',
+                        'options' => array(
+                            'img' => __('Featured Image','uabb'),
+                            'title' => __('Title', 'uabb'),
+                            'meta' => __('Meta', 'uabb'),
+                            'content' => __('Content', 'uabb'),
+                            'cta' => __('CTA', 'uabb'),
+                        ),
+                    ),
+                    'show_featured_image' => array(
+                        'type'          => 'uabb-toggle-switch',
+                        'label'         => __( 'Display Featured Image', 'uabb' ),
+                        'help'          => __('Enable this to display featured image of posts in a module.', 'uabb'),
+                        'default'       => 'yes',
+                        'options'       => array(
+                            'yes'       => __( 'Yes', 'uabb' ),
+                            'no'        => __( 'No', 'uabb' ),
+                        ),
+                    ),
+                    'show_title' => array(
+                        'type'          => 'uabb-toggle-switch',
+                        'label'         => __( 'Display Title', 'uabb' ),
+                        'help'          => __('Enable this to display title of posts in a module.', 'uabb'),
+                        'default'       => 'yes',
+                        'options'       => array(
+                            'yes'       => __( 'Yes', 'uabb' ),
+                            'no'        => __( 'No', 'uabb' ),
+                        ),
+                        'toggle' => array(
+                            'yes' => array(
+                                'fields' => array('post_title_color', 'post_title_font_size', 'post_title_line_height')
+                            )
+                        )
+                    ),
                     'post_title_color'        => array(
                         'type'       => 'color',
                         'label'      => __('Title Text Color', 'uabb'),
@@ -104,6 +142,21 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                             'property'        => 'line-height',
                             'unit'            => 'px'
                         )
+                    ),
+                    'show_meta' => array(
+                        'type'          => 'uabb-toggle-switch',
+                        'label'         => __( 'Display Meta Information', 'uabb' ),
+                        'help'          => __('Enable this to display post meta information in a module.', 'uabb'),
+                        'default'       => 'yes',
+                        'options'       => array(
+                            'yes'       => __( 'Yes', 'uabb' ),
+                            'no'        => __( 'No', 'uabb' ),
+                        ),
+                        'toggle'    => array(
+                            'yes'    => array(
+                                'fields' => array('post_meta_color', 'post_meta_font_size', 'post_meta_line_height')
+                            )
+                        ),
                     ),
                     'post_meta_color'        => array(
                         'type'       => 'color',
@@ -146,6 +199,21 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                             'unit'            => 'px'
                         )
                     ),
+                    'show_excerpt' => array(
+                        'type'          => 'uabb-toggle-switch',
+                        'label'         => __( 'Display Content', 'uabb' ),
+                        'help'          => __('Enable this to display content of posts in a module.', 'uabb'),
+                        'default'       => 'yes',
+                        'options'       => array(
+                            'yes'       => __( 'Yes', 'uabb' ),
+                            'no'        => __( 'No', 'uabb' ),
+                        ),
+                        'toggle'    => array(
+                            'yes'    => array(
+                                'fields' => array('post_excerpt_color', 'post_excerpt_font_size', 'post_excerpt_line_height')
+                            )
+                        ),
+                    ),
                     'post_excerpt_color'        => array(
                         'type'       => 'color',
                         'label'      => __('Excerpt Text Color', 'uabb'),
@@ -186,6 +254,21 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                             'property'        => 'line-height',
                             'unit'            => 'px'
                         )
+                    ),
+                    'show_cta' => array(
+                        'type'          => 'uabb-toggle-switch',
+                        'label'         => __( 'Display CTA', 'uabb' ),
+                        'help'          => __('Enable this to display call to action in a module.', 'uabb'),
+                        'default'       => 'yes',
+                        'options'       => array(
+                            'yes'       => __( 'Yes', 'uabb' ),
+                            'no'        => __( 'No', 'uabb' ),
+                        ),
+                        'toggle'    => array(
+                            'yes'    => array(
+                                'fields' => array('post_permalink_color', 'post_permalink_font_size', 'post_permalink_line_height')
+                            )
+                        ),
                     ),
                     'post_permalink_color'        => array(
                         'type'       => 'color',
