@@ -87,11 +87,6 @@ final class FLThemeBuilderWPML {
 		$default_lang = $sitepress->get_default_language();
 		$default_post = null;
 
-		// Return early if the current language is the default for the site.
-		if ( $current_lang === $default_lang ) {
-			return $layouts;
-		}
-
 		// Loop through the layouts and try to find translations.
 		foreach ( $layouts as $type => $posts ) {
 			foreach ( $posts as $key => $post ) {
