@@ -4,7 +4,7 @@
  * Plugin Name: Microblog Poster
  * Plugin URI: http://efficientscripts.com/microblogposter
  * Description: Automatically publishes your new and old blog content to Social Networks. Auto posts to Twitter, Facebook, Linkedin, Tumblr, Blogger, Xing..
- * Version: 1.9.2
+ * Version: 1.9.3
  * Author: Efficient Scripts
  * Author URI: http://efficientscripts.com/
  * Text Domain: microblog-poster
@@ -3219,6 +3219,7 @@ class MicroblogPoster_Poster
                     {
                         $url = "https://api.vk.com/method/wall.post";
                         $post_args = array(
+                            'v' => '5.0',
                             'access_token' => $extra['access_token'],
                             'owner_id' => $extra['target_id'],
                             'message' => $update

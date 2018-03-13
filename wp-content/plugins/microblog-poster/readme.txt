@@ -3,7 +3,7 @@ Contributors: cybperic
 Tags: microblogging, bookmarking, bookmarks, auto posts, auto publish, social signals, cross-post, cross post, auto submit, auto update, social networks, social media, twitter, facebook, linkedin, tumblr, delicious, diigo, plurk, blogger, automatic, automation, links, backlinks, auto updates status, social media auto publish, social network auto publish, publish to twitter, publish to facebook
 Requires at least: 3.0
 Tested up to: 4.9
-Stable tag: 1.9.2
+Stable tag: 1.9.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -102,6 +102,9 @@ see "posted by MicroblogPoster" in your updates, you'll see "posted by your own 
 11. MicroblogPoster Options page, Logs Section. (Part 2)
 
 == Changelog ==
+
+= 1.9.3 (04-03-2018) =
+- Fixing vk.com api calls.
 
 = 1.9.2 (24-12-2017) =
 - Cosmetic UI changes.
