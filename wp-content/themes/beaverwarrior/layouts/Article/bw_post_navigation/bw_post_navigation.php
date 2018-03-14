@@ -114,18 +114,18 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                             'no'        => __( 'No', 'uabb' ),
                         ),
                     ),
-                ),
-                'post_image_margin'        => array(
-                    'type'      => 'uabb-spacing',
-                    'label' => __('Spacing', 'skeleton-warrior'),
-                    'default'   => 'margin: 0px;',    //optional
-                    'mode'      => 'margin',
-                    'preview'         => array(
-                        'type'          => 'css',
-                        'selector'      => '.Article-related_post_image',
-                        'property'      => 'margin',
-                        'unit'          => 'px',
-                    )
+                    'post_image_margin'        => array(
+                        'type'      => 'uabb-spacing',
+                        'label' => __('Spacing', 'skeleton-warrior'),
+                        'default'   => 'margin: 0px;',    //optional
+                        'mode'      => 'margin',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.Article-related_post_image',
+                            'property'      => 'margin',
+                            'unit'          => 'px',
+                        )
+                    ),
                 ),
             ),
              'title' => array(
