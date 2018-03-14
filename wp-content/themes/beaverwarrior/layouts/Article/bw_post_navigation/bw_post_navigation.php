@@ -53,6 +53,16 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                             '4' => '4'
                         )
                     ),
+                    'post_align'        => array(
+                        'type'       => 'select',
+                        'label'      => __('Posts Alignment', 'skeleton-warrior'),
+                        'default'    => 'center',
+                        'options'    => array(
+                            'left' => "Left",
+                            'center' => "Center",
+                            'right' => "Right",
+                        )
+                    ),
                     'post_bg_color'        => array(
                         'type'       => 'color',
                         'label'      => __('Background Color', 'uabb'),

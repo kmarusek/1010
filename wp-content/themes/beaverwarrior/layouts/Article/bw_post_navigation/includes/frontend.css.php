@@ -11,6 +11,7 @@ $settings->post_permalink_color = UABB_Helper::uabb_colorpicker($settings, "post
 
 .fl-node-<?php echo $id; ?> .Article-related_post {
     <?php if ($settings->post_bg_color != '') echo "background-color: " . uabb_theme_text_color($settings->post_bg_color) . ";"; ?>
+    <?php if ($settings->post_align != '') echo "text-align: " . $settings->post_align . ";"; ?>
 }
 
 .fl-node-<?php echo $id; ?> .Article-related_post_title {
