@@ -63,6 +63,19 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                             'right' => "Right",
                         )
                     ),
+                    'post_margin'        => array(
+                        'type'      => 'uabb-spacing',
+                        'label' => __('Space Between Posts', 'uabb'),
+                        'help'         => __('Manage the spacing between two posts.', 'uabb'),
+                        'default'   => 'margin: 0px;',    //optional
+                        'mode'      => 'margin',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.Article-related_post_gutter',
+                            'property'      => 'margin',
+                            'unit'          => 'px',
+                        )
+                    ),
                     'post_bg_color'        => array(
                         'type'       => 'color',
                         'label'      => __('Background Color', 'uabb'),
