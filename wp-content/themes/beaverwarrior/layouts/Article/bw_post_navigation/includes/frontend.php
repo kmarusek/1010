@@ -48,7 +48,7 @@ while ($related_query->have_posts()) {
 
     ?>
     <div class="Article-related_post_gutter" style="<?php echo $settings->post_margin; ?>">
-        <div class="Article-related_post">
+        <div class="Article-related_post" style="<?php echo $settings->post_padding; ?>">
             <?php
                 $layout_sequence = explode( ',', $settings->layout_sort_order );
 

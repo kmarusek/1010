@@ -87,6 +87,19 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                             'property'        => 'background-color',
                         )
                     ),
+                    'post_padding'        => array(
+                        'type'      => 'uabb-spacing',
+                        'label'     => __( 'Overall Padding', 'uabb' ),
+                        'help'         => __('Manage the outside spacing of entire area of post.', 'uabb'),
+                        'default'   => 'padding: 0px;',    //optional
+                        'mode'      => 'padding',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.Article-related_post',
+                            'property'      => 'padding',
+                            'unit'          => 'px',
+                        )
+                    ),
                     'layout_sort_order' => array(
                         'type' => 'uabb-sortable',
                         'label' => __('Layout Order', 'skeleton-warrior'),
