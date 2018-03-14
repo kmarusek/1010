@@ -49,7 +49,9 @@ while ($related_query->have_posts()) {
                     switch ( $sq ) {
                         case 'img':
                             if ($settings->show_featured_image === 'yes' || !isset($settings->show_featured_image)) { ?>
-                                <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="Article-related_post_thumbnail" style="<?php echo $settings->post_image_margin; ?>">
+                                <div class="Article-related_post_thumbnail_wrapper" style="<?php echo $settings->post_image_margin; ?>">
+                                    <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="Article-related_post_thumbnail">
+                                </div>
                             <?php }
                             break;
                         case 'title':

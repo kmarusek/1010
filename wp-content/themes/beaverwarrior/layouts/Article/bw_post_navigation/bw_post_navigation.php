@@ -121,7 +121,7 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         'mode'      => 'margin',
                         'preview'         => array(
                             'type'          => 'css',
-                            'selector'      => '.Article-related_post_image',
+                            'selector'      => '.Article-related_post_thumbnail_wrapper',
                             'property'      => 'margin',
                             'unit'          => 'px',
                         )
