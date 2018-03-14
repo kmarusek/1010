@@ -12,7 +12,7 @@ class BWPostNavigationModule extends FLBuilderModule {
 	public function __construct() {
 		parent::__construct(array(
 			'name'          	=> __( 'Advanced Post Navigation', 'fl-theme-builder' ),
-			'description'   	=> __( 'Displays the next / previous post navigation links.', 'fl-theme-builder' ),
+			'description'   	=> __( 'Displays related posts.', 'skeleton-warrior' ),
          'category' => __("Space Station", 'skeleton-warrior'),
 			'partial_refresh'	=> true,
 			'dir'               => get_stylesheet_directory() . 'layouts/Article/bw_post_navigation/',
@@ -26,20 +26,6 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
 		'general'       => array(
 			'title'         => __( 'Settings', 'fl-theme-builder' ),
 			'sections'      => array(
-				'nextprev'       => array(
-					'title'         => __('Next / Previous', "skeleton-warrior"),
-					'fields'        => array(
-						'in_same_term' => array(
-							'type'          => 'select',
-							'label'         => __( 'Navigate in same category', 'fl-theme-builder' ),
-							'default'       => '0',
-							'options'       => array(
-								'1'             => __( 'Enable', 'fl-theme-builder' ),
-								'0'             => __( 'Disable', 'fl-theme-builder' ),
-							),
-						),
-					),
-				),
              'related' => array(
                 "title" => __("Related Posts", "skeleton-warrior"),
                  "fields" => array(
