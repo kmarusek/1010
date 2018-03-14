@@ -99,6 +99,10 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                             'cta' => __('CTA', 'uabb'),
                         ),
                     ),
+                )
+            ),
+             'featured_image' => array(
+                "title" => __("Featured Image", "skeleton-warrior"),
                     'show_featured_image' => array(
                         'type'          => 'uabb-toggle-switch',
                         'label'         => __( 'Display Featured Image', 'uabb' ),
@@ -109,6 +113,10 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                             'no'        => __( 'No', 'uabb' ),
                         ),
                     ),
+                )
+            ),
+             'title' => array(
+                "title" => __("Title", "skeleton-warrior"),
                     'show_title' => array(
                         'type'          => 'uabb-toggle-switch',
                         'label'         => __( 'Display Title', 'uabb' ),
@@ -165,6 +173,10 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                             'unit'            => 'px'
                         )
                     ),
+                )
+            ),
+             'meta' => array(
+                "title" => __("Metadata", "skeleton-warrior"),
                     'show_meta' => array(
                         'type'          => 'uabb-toggle-switch',
                         'label'         => __( 'Display Meta Information', 'uabb' ),
@@ -221,6 +233,10 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                             'unit'            => 'px'
                         )
                     ),
+                )
+            ),
+             'excerpt' => array(
+                "title" => __("Excerpt", "skeleton-warrior"),
                     'show_excerpt' => array(
                         'type'          => 'uabb-toggle-switch',
                         'label'         => __( 'Display Content', 'uabb' ),
@@ -277,6 +293,10 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                             'unit'            => 'px'
                         )
                     ),
+                )
+            ),
+             'cta' => array(
+                "title" => __("Permalink/CTA", "skeleton-warrior"),
                     'show_cta' => array(
                         'type'          => 'uabb-toggle-switch',
                         'label'         => __( 'Display CTA', 'uabb' ),
