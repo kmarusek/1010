@@ -49,17 +49,17 @@ while ($related_query->have_posts()) {
                     switch ( $sq ) {
                         case 'img':
                             if ($settings->show_featured_image === 'yes' || !isset($settings->show_featured_image)) { ?>
-                                <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="Article-related_post_thumbnail">
+                                <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="Article-related_post_thumbnail" style="<?php echo $settings->post_image_margin; ?>">
                             <?php }
                             break;
                         case 'title':
                             if ($settings->show_title === 'yes' || !isset($settings->show_title)) { ?>
-                                <h3 class="Article-related_post_title"><?php the_title(); ?></h3>
+                                <h3 class="Article-related_post_title" style="<?php echo $settings->post_title_margin; ?>"><?php the_title(); ?></h3>
                             <?php }
                             break;
                         case 'meta':
                             if ($settings->show_meta === 'yes' || !isset($settings->show_meta)) { ?>
-                                <div class="Article-related_post_meta">
+                                <div class="Article-related_post_meta" style="<?php echo $settings->post_meta_margin; ?>">
                                     By <a class="Article-related_post_author" href="<?php echo get_author_posts_url( $obj->post_author ); ?>"><?php
 
                                         $author = ( get_the_author_meta( 'display_name', $obj->post_author ) != '' ) ? get_the_author_meta( 'display_name', $obj->post_author ) : get_the_author_meta( 'user_nicename', $obj->post_author );
@@ -73,12 +73,12 @@ while ($related_query->have_posts()) {
                             break;
                         case 'content':
                             if ($settings->show_excerpt === 'yes' || !isset($settings->show_excerpt)) { ?>
-                                <div class="Article-related_post_excerpt"><?php echo get_the_excerpt(); ?></div>
+                                <div class="Article-related_post_excerpt" style="<?php echo $settings->post_meta_excerpt; ?>"><?php echo get_the_excerpt(); ?></div>
                             <?php }
                             break;
                         case 'cta':
                             if ($settings->show_cta === 'yes' || !isset($settings->show_cta)) { ?>
-                                <a href="<?php echo get_permalink(); ?>" class="Article-related_post_permalink">Read More</a>
+                                <a href="<?php echo get_permalink(); ?>" class="Article-related_post_permalink" style="<?php echo $settings->post_meta_permalink; ?>">Read More</a>
                             <?php }
                             break;
                         default:

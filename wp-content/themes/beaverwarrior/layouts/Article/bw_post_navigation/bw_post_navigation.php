@@ -114,6 +114,18 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         ),
                     ),
                 )
+                'post_image_margin'        => array(
+                    'type'      => 'uabb-spacing',
+                    'label' => __('Spacing', 'skeleton-warrior'),
+                    'default'   => 'margin: 0px;',    //optional
+                    'mode'      => 'margin',
+                    'preview'         => array(
+                        'type'          => 'css',
+                        'selector'      => '.Article-related_post_image',
+                        'property'      => 'margin',
+                        'unit'          => 'px',
+                    )
+                ),
             ),
              'title' => array(
                 "title" => __("Title", "skeleton-warrior"),
@@ -171,6 +183,18 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                             'selector'        => '.Article-related_post_title',
                             'property'        => 'line-height',
                             'unit'            => 'px'
+                        )
+                    ),
+                    'post_title_margin'        => array(
+                        'type'      => 'uabb-spacing',
+                        'label' => __('Spacing', 'skeleton-warrior'),
+                        'default'   => 'margin: 0px;',    //optional
+                        'mode'      => 'margin',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.Article-related_post_title',
+                            'property'      => 'margin',
+                            'unit'          => 'px',
                         )
                     ),
                 )
@@ -233,6 +257,18 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                             'unit'            => 'px'
                         )
                     ),
+                    'post_meta_margin'        => array(
+                        'type'      => 'uabb-spacing',
+                        'label' => __('Spacing', 'skeleton-warrior'),
+                        'default'   => 'margin: 0px;',    //optional
+                        'mode'      => 'margin',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.Article-related_post_meta',
+                            'property'      => 'margin',
+                            'unit'          => 'px',
+                        )
+                    ),
                 )
             ),
              'excerpt' => array(
@@ -293,6 +329,18 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                             'unit'            => 'px'
                         )
                     ),
+                    'post_excerpt_margin'        => array(
+                        'type'      => 'uabb-spacing',
+                        'label' => __('Spacing', 'skeleton-warrior'),
+                        'default'   => 'margin: 0px;',    //optional
+                        'mode'      => 'margin',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.Article-related_post_excerpt',
+                            'property'      => 'margin',
+                            'unit'          => 'px',
+                        )
+                    ),
                 )
             ),
              'cta' => array(
@@ -351,6 +399,18 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                             'selector'        => '.Article-related_post_permalink',
                             'property'        => 'line-height',
                             'unit'            => 'px'
+                        )
+                    ),
+                    'post_permalink_margin'        => array(
+                        'type'      => 'uabb-spacing',
+                        'label' => __('Spacing', 'skeleton-warrior'),
+                        'default'   => 'margin: 0px;',    //optional
+                        'mode'      => 'margin',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.Article-related_post_permalink',
+                            'property'      => 'margin',
+                            'unit'          => 'px',
                         )
                     ),
                  )
