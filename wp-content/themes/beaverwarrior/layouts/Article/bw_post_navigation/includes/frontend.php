@@ -75,12 +75,12 @@ while ($related_query->have_posts()) {
                             break;
                         case 'content':
                             if ($settings->show_excerpt === 'yes' || !isset($settings->show_excerpt)) { ?>
-                                <div class="Article-related_post_excerpt" style="<?php echo $settings->post_meta_excerpt; ?>"><?php echo get_the_excerpt(); ?></div>
+                                <div class="Article-related_post_excerpt" style="<?php echo $settings->post_excerpt_margin; ?>"><?php echo get_the_excerpt(); ?></div>
                             <?php }
                             break;
                         case 'cta':
                             if ($settings->show_cta === 'yes' || !isset($settings->show_cta)) { ?>
-                                <a href="<?php echo get_permalink(); ?>" class="Article-related_post_permalink" style="<?php echo $settings->post_meta_permalink; ?>">Read More</a>
+                                <a href="<?php echo get_permalink(); ?>" class="Article-related_post_permalink" style="<?php echo $settings->post_permalink_margin; ?>">Read More</a>
                             <?php }
                             break;
                         default:
