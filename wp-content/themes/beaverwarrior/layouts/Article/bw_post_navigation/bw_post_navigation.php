@@ -220,7 +220,7 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         ),
                         'toggle'    => array(
                             'yes'    => array(
-                                'fields' => array('meta_sort_order', 'post_meta_color', 'post_meta_font_size', 'post_meta_line_height', 'post_meta_margin')
+                                'fields' => array('meta_sort_order', 'show_meta_author', 'show_meta_date', 'post_meta_color', 'post_meta_font_size', 'post_meta_line_height', 'post_meta_margin')
                             )
                         ),
                     ),
