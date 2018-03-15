@@ -66,12 +66,11 @@ while ($related_query->have_posts()) {
                                         $meta_first = true;
 
                                         foreach( $meta_layout_sequence as $sq ) {
-                                            if ($meta_first) $meta_first = false;
-                                            else echo ' | ';
-
                                             switch ( $sq ) {
                                                 case 'author':
                                                     if ($settings->show_meta_author === 'yes' || !isset($settings->show_meta_author)) {
+                                                        if ($meta_first) $meta_first = false;
+                                                        else echo ' | ';
                                                         ?>
                                                             By <a class="Article-related_post_author" href="<?php echo get_author_posts_url( $obj->post_author ); ?>"><?php
 
@@ -84,6 +83,8 @@ while ($related_query->have_posts()) {
                                                     break;
                                                 case 'date':
                                                     if ($settings->show_meta_date === 'yes' || !isset($settings->show_meta_date)) {
+                                                        if ($meta_first) $meta_first = false;
+                                                        else echo ' | ';
                                                         ?>
                                                             <span class="Article-related_post_date"><?php echo date_i18n( 'M j, Y', strtotime( $post->post_date ) ); ?></span>
                                                         <?php
