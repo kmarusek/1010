@@ -71,19 +71,23 @@ while ($related_query->have_posts()) {
 
                                             switch ( $sq ) {
                                                 case 'author':
-                                                    ?>
-                                                    By <a class="Article-related_post_author" href="<?php echo get_author_posts_url( $obj->post_author ); ?>"><?php
+                                                    if ($settings->show_meta_author === 'yes' || !isset($settings->show_meta_author)) {
+                                                        ?>
+                                                            By <a class="Article-related_post_author" href="<?php echo get_author_posts_url( $obj->post_author ); ?>"><?php
 
-                                                        $author = ( get_the_author_meta( 'display_name', $obj->post_author ) != '' ) ? get_the_author_meta( 'display_name', $obj->post_author ) : get_the_author_meta( 'user_nicename', $obj->post_author );
+                                                                $author = ( get_the_author_meta( 'display_name', $obj->post_author ) != '' ) ? get_the_author_meta( 'display_name', $obj->post_author ) : get_the_author_meta( 'user_nicename', $obj->post_author );
 
-                                                        echo $author; ?>
-                                                    </a>
-                                                    <?php
+                                                                echo $author; ?>
+                                                            </a>
+                                                        <?php
+                                                    }
                                                     break;
                                                 case 'date':
-                                                    ?>
-                                                        <span class="Article-related_post_date"><?php echo date_i18n( 'M j, Y', strtotime( $post->post_date ) ); ?></span>
-                                                    <?php
+                                                    if ($settings->show_meta_date === 'yes' || !isset($settings->show_meta_date)) {
+                                                        ?>
+                                                            <span class="Article-related_post_date"><?php echo date_i18n( 'M j, Y', strtotime( $post->post_date ) ); ?></span>
+                                                        <?php
+                                                    }
                                                     break;
                                                 default:
                                                     break;

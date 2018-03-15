@@ -233,19 +233,24 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                             'date'      => __('Date', 'uabb'),
                         ),
                     ),
-                    'show_title' => array(
+                    'show_meta_author' => array(
                         'type'          => 'uabb-toggle-switch',
-                        'label'         => __( 'Display Title', 'uabb' ),
-                        'help'          => __('Enable this to display title of posts in a module.', 'uabb'),
+                        'label'         => __( 'Display Author', 'uabb' ),
+                        'help'          => __('Enable this to display author of posts.', 'skeleton-warrior'),
                         'default'       => 'yes',
                         'options'       => array(
                             'yes'       => __( 'Yes', 'uabb' ),
                             'no'        => __( 'No', 'uabb' ),
-                        ),
-                        'toggle' => array(
-                            'yes' => array(
-                                'fields' => array('post_title_color', 'post_title_font_size', 'post_title_line_height', 'post_title_margin')
-                            )
+                        )
+                    ),
+                    'show_meta_date' => array(
+                        'type'          => 'uabb-toggle-switch',
+                        'label'         => __( 'Display Date', 'uabb' ),
+                        'help'          => __('Enable this to display publication date of posts.', 'skeleton-warrior'),
+                        'default'       => 'yes',
+                        'options'       => array(
+                            'yes'       => __( 'Yes', 'uabb' ),
+                            'no'        => __( 'No', 'uabb' ),
                         )
                     ),
                     'post_meta_color'        => array(
