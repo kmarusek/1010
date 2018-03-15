@@ -113,6 +113,11 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                             'yes'       => __( 'Yes', 'uabb' ),
                             'no'        => __( 'No', 'uabb' ),
                         ),
+                        'toggle'    => array(
+                            'yes'    => array(
+                                'fields' => array('post_image_margin')
+                            )
+                        ),
                     ),
                     'post_image_margin'        => array(
                         'type'      => 'uabb-spacing',
@@ -142,7 +147,7 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         ),
                         'toggle' => array(
                             'yes' => array(
-                                'fields' => array('post_title_color', 'post_title_font_size', 'post_title_line_height')
+                                'fields' => array('post_title_color', 'post_title_font_size', 'post_title_line_height', 'post_title_margin')
                             )
                         )
                     ),
@@ -215,9 +220,33 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         ),
                         'toggle'    => array(
                             'yes'    => array(
-                                'fields' => array('post_meta_color', 'post_meta_font_size', 'post_meta_line_height')
+                                'fields' => array('meta_sort_order', 'post_meta_color', 'post_meta_font_size', 'post_meta_line_height', 'post_meta_margin')
                             )
                         ),
+                    ),
+                    'meta_sort_order' => array(
+                        'type' => 'uabb-sortable',
+                        'label' => __('', 'uabb'),
+                        'default' => 'author,date',
+                        'options' => array(
+                            'author'    => __('Author', 'uabb'),
+                            'date'      => __('Date', 'uabb'),
+                        ),
+                    ),
+                    'show_title' => array(
+                        'type'          => 'uabb-toggle-switch',
+                        'label'         => __( 'Display Title', 'uabb' ),
+                        'help'          => __('Enable this to display title of posts in a module.', 'uabb'),
+                        'default'       => 'yes',
+                        'options'       => array(
+                            'yes'       => __( 'Yes', 'uabb' ),
+                            'no'        => __( 'No', 'uabb' ),
+                        ),
+                        'toggle' => array(
+                            'yes' => array(
+                                'fields' => array('post_title_color', 'post_title_font_size', 'post_title_line_height', 'post_title_margin')
+                            )
+                        )
                     ),
                     'post_meta_color'        => array(
                         'type'       => 'color',
@@ -288,7 +317,7 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         ),
                         'toggle'    => array(
                             'yes'    => array(
-                                'fields' => array('post_excerpt_color', 'post_excerpt_font_size', 'post_excerpt_line_height')
+                                'fields' => array('post_excerpt_color', 'post_excerpt_font_size', 'post_excerpt_line_height', 'post_excerpt_margin')
                             )
                         ),
                     ),
@@ -361,7 +390,7 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         ),
                         'toggle'    => array(
                             'yes'    => array(
-                                'fields' => array('post_permalink_color', 'post_permalink_font_size', 'post_permalink_line_height')
+                                'fields' => array('post_permalink_color', 'post_permalink_font_size', 'post_permalink_line_height', 'post_permalink_margin')
                             )
                         ),
                     ),

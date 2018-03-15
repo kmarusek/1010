@@ -62,14 +62,34 @@ while ($related_query->have_posts()) {
                         case 'meta':
                             if ($settings->show_meta === 'yes' || !isset($settings->show_meta)) { ?>
                                 <div class="Article-related_post_meta" style="<?php echo $settings->post_meta_margin; ?>">
-                                    By <a class="Article-related_post_author" href="<?php echo get_author_posts_url( $obj->post_author ); ?>"><?php
+                                    <?php $meta_layout_sequence = explode( ',', $settings->meta_sort_order );
+                                        $meta_first = true;
 
-                                        $author = ( get_the_author_meta( 'display_name', $obj->post_author ) != '' ) ? get_the_author_meta( 'display_name', $obj->post_author ) : get_the_author_meta( 'user_nicename', $obj->post_author );
+                                        foreach( $meta_layout_sequence as $sq ) {
+                                            if ($meta_first) $meta_first = false;
+                                            else echo ' | ';
 
-                                        echo $author; ?>
-                                    </a> |
-                                    <span class="Article-related_post_date"><?php echo date_i18n( 'M j, Y', strtotime( $post->post_date ) ); ?>
-                                    </span>
+                                            switch ( $sq ) {
+                                                case 'author':
+                                                    ?>
+                                                    By <a class="Article-related_post_author" href="<?php echo get_author_posts_url( $obj->post_author ); ?>"><?php
+
+                                                        $author = ( get_the_author_meta( 'display_name', $obj->post_author ) != '' ) ? get_the_author_meta( 'display_name', $obj->post_author ) : get_the_author_meta( 'user_nicename', $obj->post_author );
+
+                                                        echo $author; ?>
+                                                    </a>
+                                                    <?php
+                                                    break;
+                                                case 'date':
+                                                    ?>
+                                                        <span class="Article-related_post_date"><?php echo date_i18n( 'M j, Y', strtotime( $post->post_date ) ); ?></span>
+                                                    <?php
+                                                    break;
+                                                default:
+                                                    break;
+                                            }
+                                        }
+                                    ?>
                                 </div>
                             <?php }
                             break;
