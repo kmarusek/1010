@@ -40,8 +40,8 @@ while ($related_query->have_posts()) {
     $related_query->the_post();
 
     ?>
-    <div class="Article-related_post_gutter" style="<?php echo $settings->post_margin; ?>">
-        <div class="Article-related_post" style="<?php echo $settings->post_padding; ?>">
+    <div class="Article-related_post_gutter">
+        <div class="Article-related_post">
             <?php
                 $layout_sequence = explode( ',', $settings->layout_sort_order );
 
@@ -49,19 +49,19 @@ while ($related_query->have_posts()) {
                     switch ( $sq ) {
                         case 'img':
                             if ($settings->show_featured_image === 'yes' || !isset($settings->show_featured_image)) { ?>
-                                <div class="Article-related_post_thumbnail_wrapper" style="<?php echo $settings->post_image_margin; ?>">
+                                <div class="Article-related_post_thumbnail_wrapper">
                                     <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="Article-related_post_thumbnail">
                                 </div>
                             <?php }
                             break;
                         case 'title':
                             if ($settings->show_title === 'yes' || !isset($settings->show_title)) { ?>
-                                <h3 class="Article-related_post_title" style="<?php echo $settings->post_title_margin; ?>"><?php the_title(); ?></h3>
+                                <h3 class="Article-related_post_title"><?php the_title(); ?></h3>
                             <?php }
                             break;
                         case 'meta':
                             if ($settings->show_meta === 'yes' || !isset($settings->show_meta)) { ?>
-                                <div class="Article-related_post_meta" style="<?php echo $settings->post_meta_margin; ?>">
+                                <div class="Article-related_post_meta">
                                     <?php $meta_layout_sequence = explode( ',', $settings->meta_sort_order );
                                         $meta_first = true;
 
@@ -100,12 +100,12 @@ while ($related_query->have_posts()) {
                             break;
                         case 'content':
                             if ($settings->show_excerpt === 'yes' || !isset($settings->show_excerpt)) { ?>
-                                <div class="Article-related_post_excerpt" style="<?php echo $settings->post_excerpt_margin; ?>"><?php echo get_the_excerpt(); ?></div>
+                                <div class="Article-related_post_excerpt"><?php echo get_the_excerpt(); ?></div>
                             <?php }
                             break;
                         case 'cta':
                             if ($settings->show_cta === 'yes' || !isset($settings->show_cta)) { ?>
-                                <a href="<?php echo get_permalink(); ?>" class="Article-related_post_permalink" style="<?php echo $settings->post_permalink_margin; ?>">Read More</a>
+                                <a href="<?php echo get_permalink(); ?>" class="Article-related_post_permalink">Read More</a>
                             <?php }
                             break;
                         default:
