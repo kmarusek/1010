@@ -17,8 +17,8 @@ class PPAdvancedMenu extends FLBuilderModule {
             'description'   => __('A module for advanced menu.', 'bb-powerpack'),
 			'group'         => pp_get_modules_group(),
 			'category'      => pp_get_modules_cat( 'creative' ),
-            'dir'           => BB_POWERPACK_DIR . 'modules/pp-advanced-menu/',
-            'url'           => BB_POWERPACK_URL . 'modules/pp-advanced-menu/',
+            'dir'           => get_stylesheet_directory() . 'fl-builder/modules/pp-advanced-menu/',
+            'url'           => get_stylesheet_directory_uri() . 'fl-builder/modules/pp-advanced-menu/',
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
             'icon'				=> 'hamburger-menu.svg',
