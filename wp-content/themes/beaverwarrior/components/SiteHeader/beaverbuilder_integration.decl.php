@@ -198,3 +198,29 @@ function beaver_warrior_expose_header_settings($vars, $mods) {
     return $vars;
 }
 add_action('bw_less_vars', 'beaver_warrior_expose_header_settings', 10, 2);
+
+// adds descriptions to menus
+function beaver_warrior_prefix_nav_description( $item_output, $item, $depth, $args ) {
+    if ( !empty( $item->description ) ) {
+        $item_output = str_replace( $args->link_after . '</a>', '<p class="menu-item-description">' . $item->description . '</p>' . $args->link_after . '</a>', $item_output );
+    }
+
+    return $item_output;
+}
+add_filter( 'walker_nav_menu_start_el', 'beaver_warrior_prefix_nav_description', 10, 4 );
+
+// Stop WP removing HTML in Menu description area
+remove_filter('nav_menu_description', 'strip_tags');
+add_filter( 'wp_setup_nav_menu_item', 'beaver_warrior_unfiltered_menu_desc' );
+function beaver_warrior_unfiltered_menu_desc($menu_item) {
+    $menu_item->description = apply_filters( 'nav_menu_description', $menu_item->post_content );
+    return $menu_item;
+}
+
+// allows shortcodes in the menu
+//(not recommend as BB styling is often lost and it use more server resources than HTML)
+
+add_filter('wp_nav_menu', 'beaver_warrior_allow_menu_shortcodes');
+function beaver_warrior_allow_menu_shortcodes( $menu_item ){
+    return do_shortcode( $menu_item );
+}

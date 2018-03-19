@@ -1,0 +1,45 @@
+@media (min-width: 768px) {
+    /*This is just removing some default styles(not required)*/
+    .fl-page-nav UL.sub-menu {
+        padding: 10px 0;
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        border: 0;
+        background: none;
+    }
+
+    UL.navbar-nav LI.mega-menu> UL.sub-menu:after {
+        content: "";
+        display: block;
+        position: absolute;
+        left: 50%;
+        top: -1px;
+        height: 100%;
+        width: 100vw;
+        transform: translateX(-50%);
+        z-index: -1;
+        box-sizing: border-box;
+        /*These styles are replacing the BB style that are being over written above (not required)*/
+        border-top: 1px solid #DEDEDE;
+        /*+box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.4);*/
+        -moz-box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.4);
+        -webkit-box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.4);
+        box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.4);
+        background-color: #F6F6F6;
+    }
+
+    UL.navbar-nav LI.mega-menu .mobile-nav-header>A {
+        display: none;
+    }
+}
+
+/*this is placed in style.css to overwrite the CSS in the theme*/
+.fl-page-nav-wrap A:hover,
+.fl-page-nav-wrap A:focus,
+.fl-page-nav-wrap A:hover *,
+.fl-page-nav-wrap A:focus *,
+.fl-page-nav-wrap A.fa:hover,
+.fl-page-nav-wrap A.fa:focus {
+    color: #000000;
+}
