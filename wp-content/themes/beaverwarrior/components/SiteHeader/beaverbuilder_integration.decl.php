@@ -1,5 +1,12 @@
 <?php
 
+function beaverwarrior_load_SiteHeader_modules() {
+    if (class_exists("FLBuilder")) {
+        require_once "pp-advanced-menu/pp-advanced-menu.php";
+    }
+}
+add_action ('init', "beaverwarrior_load_SiteHeader_modules");
+
 function beaver_warrior_remove_bb_nav_menus() {
     if (get_theme_mod("bw-header-phylactery") == "phylactery") {
         unregister_nav_menu('bar');
