@@ -2,9 +2,9 @@
 
 /**
  *
- * @class PPAdvancedMenu
+ * @class BWAdvancedMenu
  */
-class PPAdvancedMenu extends FLBuilderModule {
+class BWAdvancedMenu extends PPAdvancedMenu {
 
     /**
      * Parent class constructor.
@@ -12,160 +12,31 @@ class PPAdvancedMenu extends FLBuilderModule {
      */
     public function __construct()
     {
-        parent::__construct(array(
-            'name'          => __('Advanced Menu', 'bb-powerpack'),
-            'description'   => __('A module for advanced menu.', 'bb-powerpack'),
-			'group'         => pp_get_modules_group(),
-			'category'      => pp_get_modules_cat( 'creative' ),
-            'dir'           => get_stylesheet_directory() . 'fl-builder/modules/pp-advanced-menu/',
-            'url'           => get_stylesheet_directory_uri() . 'fl-builder/modules/pp-advanced-menu/',
+        FLBuilderModule::__construct(array(
+            'name'          => __('Advanced-er Menu', 'bb-powerpack'),
+            'description'   => __('A module for advanced-er menus.', 'bb-powerpack'),
+            'category' => __("Space Station", 'skeleton-warrior'),
+            'dir'           => get_stylesheet_directory() . 'components/SiteHeader/bw-advanced-menu/',
+            'url'           => get_stylesheet_directory_uri() . 'components/SiteHeader/bw-advanced-menu/',
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
             'icon'				=> 'hamburger-menu.svg',
         ));
 
     }
-
-	public static function _get_menus() {
-		$get_menus =  get_terms( 'nav_menu', array( 'hide_empty' => true ) );
-		$fields = array(
-		    'type'          => 'select',
-		    'label'         => __( 'Menu', 'bb-powerpack' ),
-		    'helper'		=> __( 'Select a WordPress menu that you created in the admin under Appearance > Menus.', 'bb-powerpack' )
-		);
-
-		if( $get_menus ) {
-
-			foreach( $get_menus as $key => $menu ) {
-
-				if( $key == 0 ) {
-					$fields['default'] = $menu->name;
-				}
-
-				$menus[ $menu->slug ] = $menu->name;
-			}
-
-			$fields['options'] = $menus;
-
-		} else {
-			$fields['options'] = array( '' => __( 'No Menus Found', 'bb-powerpack' ) );
-		}
-
-		return $fields;
-
-	}
-
-	public function render_toggle_button() {
-
-		$toggle = $this->settings->mobile_toggle;
-		$menu_text = $this->settings->custom_menu_text;
-
-		if( isset( $toggle ) && $toggle != 'expanded' ) {
-
-			if( in_array( $toggle, array( 'hamburger', 'hamburger-label' ) ) ) {
-
-				echo '<div class="pp-advanced-menu-mobile-toggle '. $toggle .'">';
-                    echo '<div class="pp-svg-container">';
-                    ob_start();
-				    include BB_POWERPACK_DIR . 'assets/images/hamburger-menu.svg';
-                    echo apply_filters( 'pp_advanced_menu_icon', ob_get_clean(), $this->settings );
-				    echo '</div>';
-
-				if( $toggle == 'hamburger-label' ) {
-					if( $menu_text ) {
-						echo '<span class="pp-advanced-menu-mobile-toggle-label">'. $menu_text .'</span>';
-					} else {
-						echo '<span class="pp-advanced-menu-mobile-toggle-label">'. __( 'Menu', 'bb-powerpack' ) .'</span>';
-					}
-				}
-
-				echo '</div>';
-
-			} elseif( $toggle == 'text' ) {
-
-				if( $menu_text ) {
-					echo '<div class="pp-advanced-menu-mobile-toggle text"><span class="pp-advanced-menu-mobile-toggle-label">'. $menu_text .'</span></div>';
-				} else {
-					echo '<div class="pp-advanced-menu-mobile-toggle text"><span class="pp-advanced-menu-mobile-toggle-label">'. __( 'Menu', 'bb-powerpack' ) .'</span></div>';
-				}
-
-			}
-
-		}
-	}
-
-	public static function set_pre_get_posts_query( $query ) {
-		if ( ! is_admin() && $query->is_main_query() ) {
-	    	self::$fl_builder_page_id = $query->queried_object_id;
-	    }
-	}
-
-	public static function sort_nav_objects( $sorted_menu_items, $args ) {
-		$menu_items = array();
-		$parent_items = array();
-
-		foreach ( $sorted_menu_items as $key => $menu_item ) {
-			$classes = (array) $menu_item->classes;
-
-			// Setup classes for current menu item.
-			if ( $menu_item->object_id == self::$fl_builder_page_id ) {
-				$parent_items[$menu_item->object_id] = $menu_item->menu_item_parent;
-
-				if ( ! in_array( 'current-menu-item', $classes ) ) {
-					$classes[] = 'current-menu-item';
-
-					if ($menu_item->object == 'page') {
-		        		$classes[] = 'current_page_item';
-		        	}
-				}
-			}
-			$menu_item->classes = $classes;
-			$menu_items[ $key ] = $menu_item;
-		}
-
-		// Setup classes for parent's current item.
-		foreach ( $menu_items as $key => $sorted_item ) {
-			if ( in_array( $sorted_item->db_id, $parent_items ) && ! in_array( 'current-menu-parent', (array) $sorted_item->classes) ) {
-				$menu_items[ $key ]->classes[] = 'current-menu-ancestor';
-				$menu_items[ $key ]->classes[] = 'current-menu-parent';
-			}
-		}
-
-		return $menu_items;
-	}
-
-	public function get_media_breakpoint() {
-		$global_settings = FLBuilderModel::get_global_settings();
-		$media_width = $global_settings->responsive_breakpoint;
-		$mobile_breakpoint = $this->settings->mobile_breakpoint;
-
-		if ( isset( $mobile_breakpoint ) && 'expanded' != $this->settings->mobile_toggle ) {
-			if ( 'medium-mobile' == $mobile_breakpoint ) {
-				$media_width = $global_settings->medium_breakpoint;
-			} elseif ( 'mobile' == $this->settings->mobile_breakpoint ) {
-				$media_width = $global_settings->responsive_breakpoint;
-			} elseif ( 'always' == $this->settings->mobile_breakpoint ) {
-				$media_width = 'always';
-			} elseif ( 'custom' == $this->settings->mobile_breakpoint ) {
-				$media_width = $this->settings->custom_breakpoint;
-			}
-		}
-
-		return $media_width;
-	}
 }
 
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPAdvancedMenu', array(
+FLBuilder::register_module('BWAdvancedMenu', array(
     'general'       => array( // Tab
         'title'         => __('General', 'bb-powerpack'), // Tab title
         'sections'      => array( // Tab Sections
             'general'       => array( // Section
                 'title'         => '', // Section Title
                 'fields'        => array( // Section Fields
-					'wp_menu' => PPAdvancedMenu::_get_menus(),
+					'wp_menu' => BWAdvancedMenu::_get_menus(),
 					'menu_layout' => array(
 					    'type'          => 'pp-switch',
 					    'label'         => __( 'Layout', 'bb-powerpack' ),
@@ -1634,50 +1505,3 @@ FLBuilder::register_module('PPAdvancedMenu', array(
         )
     ),
 ));
-
-class Advanced_Menu_Walker extends Walker_Nav_Menu {
-
-    function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
-
-        $indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
-        $args   = ( object )$args;
-
-        $class_names = $value = '';
-
-        $classes = empty( $item->classes ) ? array() : (array) $item->classes;
-        $submenu = $args->has_children ? ' pp-has-submenu' : '';
-
-        $class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args, $depth ) );
-        $class_names = ' class="' . esc_attr( $class_names ) . $submenu . '"';
-
-        $output .= $indent . '<li id="menu-item-'. $item->ID . '"' . $value . $class_names . '>';
-
-        $attributes = ! empty( $item->attr_title ) ? ' title="' . esc_attr( $item->attr_title ) .'"' : '';
-        $attributes .= ! empty( $item->target ) ? ' target="' . esc_attr( $item->target ) .'"' : '';
-        $attributes .= ! empty( $item->xfn ) ? ' rel="' . esc_attr( $item->xfn ) .'"' : '';
-        $attributes .= ! empty( $item->url ) ? ' href="' . esc_attr( $item->url ) .'"' : '';
-
-        $item_output = $args->has_children ? '<div class="pp-has-submenu-container">' : '';
-        $item_output .= $args->before;
-        $item_output .= '<a'. $attributes .'><span class="menu-item-text">';
-        $item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
-		if( $args->has_children ) {
-			$item_output .= '<span class="pp-menu-toggle"></span>';
-		}
-        $item_output .= '</span></a>';
-
-
-        $item_output .= $args->after;
-        $item_output .= $args->has_children ? '</div>' : '';
-
-        $output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
-    }
-
-    function display_element( $element, &$children_elements, $max_depth, $depth=0, $args, &$output ) {
-        $id_field = $this->db_fields['id'];
-        if ( is_object( $args[0] ) ) {
-            $args[0]->has_children = ! empty( $children_elements[$element->$id_field] );
-        }
-        return parent::display_element( $element, $children_elements, $max_depth, $depth, $args, $output );
-    }
-}
