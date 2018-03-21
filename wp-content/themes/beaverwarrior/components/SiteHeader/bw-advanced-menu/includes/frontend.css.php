@@ -568,6 +568,8 @@ if( !empty( $settings->background_hover_color ) || $settings->link_hover_color )
 	<?php if ( ! empty( $settings->submenu_container_bg_color ) ) { ?>
 	background: #<?php echo $settings->submenu_container_bg_color; ?>;
 	<?php } ?>
+
+    margin-top: 0;
 }
 
 .fl-node-<?php echo $id; ?> .sub-menu > li > a,
