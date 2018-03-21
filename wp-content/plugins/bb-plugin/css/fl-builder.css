@@ -3433,19 +3433,19 @@ body .fl-lightbox-has-tab-overflow .fl-builder-settings-tabs-more {
 }
 .fl-builder-settings-fields ::-webkit-input-placeholder { /* WebKit browsers */
 	color: #999 !important;
-	font-size: 12px;
+	font-size: 13px;
 }
 .fl-builder-settings-fields input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
 	color: #999;
-	font-size: 12px;
+	font-size: 13px;
 }
 .fl-builder-settings-fields ::-moz-placeholder { /* Mozilla Firefox 19+ */
 	color: #999 !important;
-	font-size: 12px;
+	font-size: 13px;
 }
 .fl-builder-settings-fields input:-ms-input-placeholder { /* Internet Explorer 10+ */
 	color: #999;
-	font-size: 12px;
+	font-size: 13px;
 }
 .fl-builder-settings-fields label {
 	display: inline-block;

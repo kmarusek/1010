@@ -1,3 +1,11 @@
+<h4>2.0.6.3 - 03/19/2018</h4>
+<p><strong>Hotfix</strong></p>
+<ul>
+  <li>Fixed links not being clickable in modules that use bxslider with Firefox 59.</li>
+  <li>Fixed incorrect links in Social Buttons Module when added in Themer.</li>
+	<li>Added <code>$id</code> and <code>$type</code> to <code>fl_builder_render_module_css_settings</code> filter variables.</li>
+</ul>
+
 <h4>2.0.6.2 - 03/13/2018</h4>
 <p><strong>Bug Fixes</strong></p>
 <ul>

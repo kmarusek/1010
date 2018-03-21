@@ -2117,7 +2117,7 @@ final class FLBuilder {
 		$global_settings = FLBuilderModel::get_global_settings();
 		$defaults = FLBuilderModel::get_module_defaults( $type );
 		$settings = (object) array_merge( (array) $defaults, (array) $settings );
-		$settings = apply_filters( 'fl_builder_render_module_css_settings', $settings );
+		$settings = apply_filters( 'fl_builder_render_module_css_settings', $settings, $id, $type );
 
 		// Module
 		$class = get_class( FLBuilderModel::$modules[ $type ] );
