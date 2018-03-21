@@ -528,8 +528,10 @@ if( !empty( $settings->background_hover_color ) || $settings->link_hover_color )
 	box-shadow: <?php echo $settings->submenu_box_shadow['horizontal']; ?>px <?php echo $settings->submenu_box_shadow['vertical']; ?>px <?php echo $settings->submenu_box_shadow['blur']; ?>px <?php echo $settings->submenu_box_shadow['spread']; ?>px <?php echo pp_hex2rgba( '#'.$settings->submenu_box_shadow_color, $settings->submenu_box_shadow_opacity / 100 ); ?>;
 	<?php } ?>
 	border-style: solid;
-	border-top-width: <?php echo $settings->submenu_border_width['top']; ?>px;
-	border-bottom-width: <?php echo $settings->submenu_border_width['bottom']; ?>px;
+    border-top-width: <?php echo $settings->submenu_border_width['top']; ?>px;
+    border-bottom-width: <?php echo $settings->submenu_border_width['bottom']; ?>px;
+    border-left-width: <?php echo $settings->submenu_border_width['left']; ?>px;
+    border-right-width: <?php echo $settings->submenu_border_width['right']; ?>px;
 	<?php if( $settings->submenu_box_border_color ) { ?>border-color: #<?php echo $settings->submenu_box_border_color; ?>;<?php } ?>
 	<?php if ( ! empty( $settings->submenu_container_bg_color ) ) { ?>
 	background-color: #<?php echo $settings->submenu_container_bg_color; ?>;
@@ -538,13 +540,14 @@ if( !empty( $settings->background_hover_color ) || $settings->link_hover_color )
 }
 
 /* ADDED IN BEAVERWARRIOR - MUST BE DUPLICATED INTO NEW UPDATES */
-.fl-node-<?php echo $id; ?> .sub-menu:after {
+.fl-node-<?php echo $id; ?> ul.pp-advanced-menu-horizontal li.mega-menu > ul.sub-menu:after {
     content: "";
     display: block;
     position: absolute;
     left: 50%;
     top: -1px;
     height: 100%;
+    height: calc(100% + 1px);
     width: 100vw;
     transform: translateX(-50%);
     z-index: -1;
