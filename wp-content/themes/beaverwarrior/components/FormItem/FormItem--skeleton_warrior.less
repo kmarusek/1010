@@ -37,6 +37,12 @@
     }
 }
 
+.pp-gf-content .gform_wrapper ul.gform_fields li.gfield {
+    &, &.gf_left_half {
+        .make-Padding(@FormItem--spacing);
+    }
+}
+
 body .gform_wrapper input:not([type="radio"]):not([type="checkbox"]):not([type="image"]):not([type="file"]) {
     line-height: 1.42857;
 }
