@@ -23,6 +23,20 @@
     height: @FormItem--height;
 }
 
+.gform_wrapper .gfield.FormItem--type_checkbox {
+    label {
+        margin-left: @FormItem--label--spacing;
+    }
+
+    label.gfield_label {
+        margin-left: 0px;
+    }
+
+    input:focus {
+        height: @FormItem--checkbox_height;
+    }
+}
+
 body .gform_wrapper input:not([type="radio"]):not([type="checkbox"]):not([type="image"]):not([type="file"]) {
     line-height: 1.42857;
 }
