@@ -3,6 +3,10 @@
 function skeletonwarrior_gform_pre_render($form) {
     foreach ($form["fields"] as $k => $field) {
         $form["fields"][$k]->cssClass .= " FormItem FormItem--stacked";
+
+        if ($field->type === "checkbox" || $field->type === "radio") {
+            $form["fields"][$k]->cssClass .= " FormItem--type_checkbox";
+        }
     }
     
     return $form;
