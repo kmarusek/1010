@@ -26,6 +26,78 @@ class BWAdvancedMenu extends PPAdvancedMenu {
     }
 }
 
+class BW_Advanced_Menu_Walker extends Advanced_Menu_Walker {
+    /**
+     * If the nav walker is to render link titles or no
+     */
+    private $show_mega_titles = true;
+    
+    /**
+     * What depth the mega menu starts at
+     */
+    private $mega_depth = -1;
+    
+    function __construct($options) {
+        $this->show_mega_titles = $options["show_mega_titles"] === "true";
+    }
+
+    function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+        $indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
+        $args   = ( object )$args;
+
+        $class_names = $value = '';
+
+        $classes = empty( $item->classes ) ? array() : (array) $item->classes;
+        $submenu = $args->has_children ? ' pp-has-submenu' : '';
+
+        $class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args, $depth ) );
+        $class_names = ' class="' . esc_attr( $class_names ) . $submenu . '"';
+
+        $output .= $indent . '<li id="menu-item-'. $item->ID . '"' . $value . $class_names . '>';
+
+        $attributes = ! empty( $item->attr_title ) ? ' title="' . esc_attr( $item->attr_title ) .'"' : '';
+        $attributes .= ! empty( $item->target ) ? ' target="' . esc_attr( $item->target ) .'"' : '';
+        $attributes .= ! empty( $item->xfn ) ? ' rel="' . esc_attr( $item->xfn ) .'"' : '';
+        $attributes .= ! empty( $item->url ) ? ' href="' . esc_attr( $item->url ) .'"' : '';
+
+        $item_output = $args->has_children ? '<div class="pp-has-submenu-container">' : '';
+        $item_output .= $args->before;
+        $item_output .= '<a'. $attributes .'>';
+        
+        if ($this->show_mega_titles || $this->mega_depth === -1) {
+            $item_output .= '<span class="menu-item-text">';
+            $item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
+        }
+        
+		if( $args->has_children ) {
+			$item_output .= '<span class="pp-menu-toggle"></span>';
+		}
+        if ($this->show_mega_titles || $this->mega_depth === -1) {
+            $item_output .= '</span>';
+        }
+        
+        $item_output .= '</a>';
+
+
+        $item_output .= $args->after;
+        $item_output .= $args->has_children ? '</div>' : '';
+
+        $output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
+        
+        if (in_array("mega-menu", $item->classes) && $this->mega_depth === -1) {
+            $this->mega_depth = $depth;
+        }
+    }
+    
+    function end_el( &$output, $item, $depth = 0, $args = array()) {
+        if ($this->mega_depth === $depth) {
+            $this->mega_depth = -1;
+        }
+        
+        parent::end_el($output, $item, $depth, $args);
+    }
+}
+
 /**
  * Register the module and its form settings.
  */
@@ -91,6 +163,15 @@ FLBuilder::register_module('BWAdvancedMenu', array(
 							'type'          => 'none'
 						)
 					),
+                'show_mega_titles' => array(
+                    'type' => 'select',
+                    'label' => __("Show Mega Menu Link Titles", 'skeleton-warrior'),
+                    'default' => 'true',
+                    'options' => array(
+                        'true' => __("Show titles", 'skeleton-warrior'),
+                        'false' => __("Hide titles", 'skeleton-warrior'),
+                    )
+                ),
                 )
             ),
 			'mobile'       => array(

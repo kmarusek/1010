@@ -27,7 +27,7 @@
 					'menu'			=> $settings->wp_menu,
 					'container'		=> false,
 					'menu_class'	=> 'menu '. $layout . $toggle,
-					'walker'		=> new Advanced_Menu_Walker(),
+				   'walker'		=> new BW_Advanced_Menu_Walker(array('show_mega_titles' => $settings->show_mega_titles)),
 				);
 
 				wp_nav_menu( $defaults );
