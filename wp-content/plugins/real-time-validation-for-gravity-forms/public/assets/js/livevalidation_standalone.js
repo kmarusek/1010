@@ -7,10 +7,12 @@
 
 var jqobjPrime = null;
 var show_error_combined = true;
-var lv_offset = function( currentOffset) { return currentOffset; };
+var lv_offset = function(currentOffset) {
+    return currentOffset;
+};
 var LiveValidation = function(element, optionsObj) {
 
-            
+
     this.initialize(element, optionsObj);
 }
 
@@ -93,11 +95,11 @@ LiveValidation.prototype = {
      */
     initialize: function(element, optionsObj) {
         var self = this;
-          
+
         if (!element)
             throw new Error("LiveValidation::initialize - No element reference or element id has been provided!");
         this.element = element.nodeName ? element : document.getElementById(element);
-      
+
         if (!this.element)
             throw new Error("LiveValidation::initialize - No element with reference or id of '" + element + "' exists!");
         // default properties that could not be initialised above
@@ -184,7 +186,7 @@ LiveValidation.prototype = {
         this.oldOnBlur = this.element.onblur || function() {
         };
 
-        if(this.fieldType == "checkbox"){
+        if (this.fieldType == "checkbox") {
             this.oldOnClick_check = {};
 
 
@@ -192,15 +194,15 @@ LiveValidation.prototype = {
 
             var len = radioUL.childNodes.length;
             for (var i = 0; i < radioUL.childNodes.length; i++) {
-                this.oldOnClick_check[radioUL.childNodes[i].querySelector('input').id] = (radioUL.childNodes[i].querySelector('input').onclick  || function() {
-                    }) ;
+                this.oldOnClick_check[radioUL.childNodes[i].querySelector('input').id] = (radioUL.childNodes[i].querySelector('input').onclick || function() {
+                });
             }
 
 
-        }else{
+        } else {
             this.oldOnClick_check = [];
             this.oldOnClick = this.element.onclick || function() {
-                };
+            };
         }
 
         this.oldOnChange = this.element.onchange || function() {
@@ -232,7 +234,7 @@ LiveValidation.prototype = {
 
 
 
-                        radioUL.childNodes[i].querySelector('input').onclick = function(e,i) {
+                        radioUL.childNodes[i].querySelector('input').onclick = function(e, i) {
 
                             self.validate();
 
@@ -286,10 +288,10 @@ LiveValidation.prototype = {
                                 var separator = 'input_' + getConfig[1] + "_";
                                 var get_match = str.split(separator).pop();
 
-                                if (typeof all_validations[getConfig[1]][getConfig[2]+"_"+getConfig[3]] !== "undefined") {
+                                if (typeof all_validations[getConfig[1]][getConfig[2] + "_" + getConfig[3]] !== "undefined") {
 
 
-                                    all_validations[getConfig[1]][getConfig[2]+"_"+getConfig[3]].validate();
+                                    all_validations[getConfig[1]][getConfig[2] + "_" + getConfig[3]].validate();
                                 }
                             });
 
@@ -326,10 +328,10 @@ LiveValidation.prototype = {
                                 var separator = 'input_' + getConfig[1] + "_";
                                 var get_match = str.split(separator).pop();
 
-                                if (typeof all_validations[getConfig[1]][getConfig[2]+"_"+getConfig[3]] !== "undefined") {
+                                if (typeof all_validations[getConfig[1]][getConfig[2] + "_" + getConfig[3]] !== "undefined") {
 
 
-                                    all_validations[getConfig[1]][getConfig[2]+"_"+getConfig[3]].validate();
+                                    all_validations[getConfig[1]][getConfig[2] + "_" + getConfig[3]].validate();
                                 }
                             });
 
@@ -597,13 +599,12 @@ LiveValidation.prototype = {
      */
     disable: function() {
 
-        this.element.setAttribute("data-disabled","yes");
+        this.element.setAttribute("data-disabled", "yes");
         this.removeMessageAndFieldClass();
         return this;
     },
-
     checkIfDisable: function(element) {
-        if(element.hasAttribute("data-disabled")){
+        if (element.hasAttribute("data-disabled")) {
             return true;
         }
         return false;
@@ -780,17 +781,17 @@ LiveValidationForm.prototype = {
 
             var moveTo = 0;
             var elem_form = e.currentTarget;
-            
-           if("undefined" === typeof elem_form ) {
-               return true;
-           }
-           
-           
-          
+
+            if ("undefined" === typeof elem_form) {
+                return true;
+            }
+
+
+
             if (hasClass(elem_form, "back_bt_press")) {
                 return true;
             }
-          
+
             if (hasClass(elem_form, "save_bt_press")) {
                 return true;
             }
@@ -925,8 +926,8 @@ LiveValidationForm.prototype = {
 
                     var ul_j = jqobjPrime('.errorMessages');
 
-            
-                   moveTo =  window.lv_offset(moveTo);                        
+
+                    moveTo = window.lv_offset(moveTo);
                     jqobjPrime('body,html').animate({
                         scrollTop: moveTo
                     }, 500);
@@ -948,9 +949,10 @@ LiveValidationForm.prototype = {
 
             var getFormIDconfig = self.name.split("_");
 
-            window['gf_submitting_' + getFormIDconfig[1]] = false;
 
-
+            if (false === ret) {
+                window['gf_submitting_' + getFormIDconfig[1]] = false;
+            }
             if (!ret) {
                 if (lv_gf_is_ajax == "yes") {
                     jqobjPrime(".gform_ajax_spinner").remove();
@@ -1418,7 +1420,7 @@ var Validate = {
         return true;
     },
     ConfirmEmail: function(value, paramsObj) {
-      
+
         var paramsObj = paramsObj || {};
         var message = paramsObj.failureMessage || "Must be accepted!";
 

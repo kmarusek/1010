@@ -15,7 +15,7 @@ if (!class_exists('Gravity_Forms_Live_Validation')) {
          *
          * @var     string
          */
-        const VERSION = '1.3.0';
+        const VERSION = '1.4.0';
 
         /*
          * Plugin slug : used plugin wide
@@ -50,6 +50,7 @@ if (!class_exists('Gravity_Forms_Live_Validation')) {
         public $is_submission = false;
         public $is_paging = false;
         public $submission = null;
+        public $script;
 
         private function __construct()
         {
@@ -71,6 +72,8 @@ if (!class_exists('Gravity_Forms_Live_Validation')) {
 
             add_action('init', array($this, "lv_load_dependencies"));
             add_filter('gform_logging_supported', array($this, 'set_logging_supported'));
+            
+            add_action('wp_footer', array( $this, 'print_script'));
         }
 
         /**
@@ -372,6 +375,7 @@ if (!class_exists('Gravity_Forms_Live_Validation')) {
             include plugin_dir_path(__FILE__) . 'includes/default_messages.php';
 
             $this->default_messages = apply_filters('lv_default_error_messages', $default_messages);
+            ob_start();
             echo '<script type="text/javascript"> if(typeof window.lv_formIDs == "undefined"){ window.lv_formIDs = []; }  window.lv_formIDs.push(' . $form['id'] . ');</script>';
 
             $ajax = "no";
@@ -460,6 +464,8 @@ if (!class_exists('Gravity_Forms_Live_Validation')) {
   console.error("Error Applying validations!!");
 }}); </script>';
             }
+            
+            $this->script .= ob_get_clean();
             return $form;
         }
 
@@ -805,6 +811,12 @@ if (!class_exists('Gravity_Forms_Live_Validation')) {
 
                 GFLogging::log_message('real-time-validation', $message, KLogger::DEBUG);
             }
+        }
+        
+        
+        
+        public function print_script() {
+            echo $this->script;
         }
 
 

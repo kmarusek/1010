@@ -60,7 +60,7 @@ class LV_dashboard {
         ob_start();
 
 
-        $selected = (isset($_GET['tab']) ? $_GET['tab'] : "support")
+        $selected = (isset($_GET['tab']) ? $_GET['tab'] : "pro")
         ?>
 
 
@@ -95,12 +95,12 @@ class LV_dashboard {
 
 
         return apply_filters("lv_dashboard_tabs", array(
-            'support' => array(
-                'name' => __("support", "real-time-validation-for-gravity-forms"),
-                'label' => __("Support", "real-time-validation-for-gravity-forms"),
+            'pro' => array(
+                'name' => __("pro", "real-time-validation-for-gravity-forms"),
+                'label' => __("Our Plugins", "real-time-validation-for-gravity-forms"),
                 'class' => '',
-                'target_div' => 'real-time-validation-for-gravity-forms',
-                'url' => admin_url('admin.php') . "?page=gf_settings&subview=" . $this->plugin_slug . "&tab=support"
+                'target_div' => 'lv_pro',
+                'url' => admin_url('admin.php') . "?page=gf_settings&subview=" . $this->plugin_slug . "&tab=pro"
             ),
             'how_to' => array(
                 'name' => __("how_to", "real-time-validation-for-gravity-forms"),
@@ -109,13 +109,6 @@ class LV_dashboard {
                 'target_div' => 'lv_how_to',
                 'url' => admin_url('admin.php') . "?page=gf_settings&subview=" . $this->plugin_slug . "&tab=how_to"
             ),
-            'pro' => array(
-                'name' => __("pro", "real-time-validation-for-gravity-forms"),
-                'label' => __("PRO", "real-time-validation-for-gravity-forms"),
-                'class' => '',
-                'target_div' => 'lv_pro',
-                'url' => admin_url('admin.php') . "?page=gf_settings&subview=" . $this->plugin_slug . "&tab=pro"
-            )
         ));
     }
 

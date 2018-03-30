@@ -3,7 +3,7 @@ Contributors: wisetr, djeet
 Tags: gravity forms,gravity forms addon,gravity forms fields validation,live validation,jquery validation,client side validation,javascript validation
 Requires at least: 4.2.1
 Tested up to: 4.9.1
-Stable tag: 1.3.0
+Stable tag: 1.4.0
 License: GPLv2 or later
 
 Real Time Validation for Gravity Forms increases conversion rates of your Gravity Form using inline validation messages as user types in field.
@@ -138,6 +138,10 @@ PS: You'll need a working Gravity Forms to use it.
 
 
 == Changelog ==
+
+= 1.4.0 = 
+* Fixed: Critical Issue when User hits submit button more than once, form getting submitted multiple times. 
+* Fixed: Resolved conflict with Yoast SEO plugin and moved rendering for the script over wp_footer, to prevent form process over admin calls.
 
 = 1.3.0 = 
 
