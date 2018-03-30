@@ -35,17 +35,17 @@ class PPContentGridModule extends FLBuilderModule {
 		$this->add_js( 'jquery-imagesloaded' );
 
 		if(FLBuilderModel::is_builder_active() || $this->settings->layout == 'grid') {
-			$this->add_js( 'isotope', $this->url . 'js/isotope.pkgd.min.js', array('jquery'), '', true );
+			$this->add_js( 'jquery-isotope' );
 		}
 
 		if(FLBuilderModel::is_builder_active() || $this->settings->pagination == 'scroll') {
-			$this->add_js('jquery-infinitescroll');
+			$this->add_js( 'jquery-infinitescroll' );
 		}
 		if(FLBuilderModel::is_builder_active() || $this->settings->layout == 'carousel') {
-			$this->add_css('font-awesome');
-			$this->add_css( 'owl-style', $this->url . 'css/owl.carousel.css' );
-			$this->add_css( 'owl-theme', $this->url . 'css/owl.theme.css' );
-			$this->add_js( 'owl-jquery', $this->url . 'js/owl.carousel.min.js', array(), '', true );
+			$this->add_css( 'font-awesome' );
+			$this->add_css( 'owl-carousel' );
+			$this->add_css( 'owl-carousel-theme' );
+			$this->add_js( 'owl-carousel' );
 		}
 
 		// Jetpack sharing has settings to enable sharing on posts, post types and pages.
@@ -75,7 +75,9 @@ class PPContentGridModule extends FLBuilderModule {
 	static public function schema_meta()
 	{
 		// General Schema Meta
-		echo '<meta itemscope itemprop="mainEntityOfPage" itemid="' . get_permalink() . '" />';
+		echo '<meta itemscope itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage" itemid="' . esc_url( get_permalink() ) . '" content="' . the_title_attribute( array(
+			'echo' => false,
+		) ) . '" />';
 		echo '<meta itemprop="datePublished" content="' . get_the_time('Y-m-d') . '" />';
 		echo '<meta itemprop="dateModified" content="' . get_the_modified_date('Y-m-d') . '" />';
 
@@ -766,13 +768,13 @@ FLBuilder::register_module('PPContentGridModule', array(
                         ),
                         'toggle'    => array(
                             'dashed'   => array(
-                                'fields'    => array('post_border_width', 'post_border_color')
+                                'fields'    => array('post_border_width', 'post_border_color', 'post_border_position')
                             ),
                             'dotted'   => array(
-                                'fields'    => array('post_border_width', 'post_border_color')
+                                'fields'    => array('post_border_width', 'post_border_color', 'post_border_position')
                             ),
                             'solid'   => array(
-                                'fields'    => array('post_border_width', 'post_border_color')
+                                'fields'    => array('post_border_width', 'post_border_color', 'post_border_position')
                             ),
                         ),
                     ),
@@ -816,7 +818,19 @@ FLBuilder::register_module('PPContentGridModule', array(
 								)
 							)
 						)
-                    ),
+					),
+					'post_border_position'    => array(
+                        'type'      => 'select',
+                        'label'     => __('Border Position', 'bb-powerpack'),
+                        'default'   => '',
+                        'options'   => array(
+                            ''  		=> __('All', 'bb-powerpack'),
+                            'top'  		=> __('Top', 'bb-powerpack'),
+                            'bottom'  	=> __('Bottom', 'bb-powerpack'),
+                            'left'  	=> __('Left', 'bb-powerpack'),
+                            'right'  	=> __('Right', 'bb-powerpack'),
+						),
+					),
 					'post_content_alignment'    => array(
                         'type'      => 'pp-switch',
                         'label'     => __('Text Alignment', 'bb-powerpack'),
@@ -1710,18 +1724,33 @@ FLBuilder::register_module('PPContentGridModule', array(
 	'filters_style'         => array( // Tab
 		'title'         => __('Filter', 'bb-powerpack'), // Tab title
 		'sections'      => array( // Tab Sections
-			'filter_settings'	=> array(
-				'title'				=> '',
-				'fields'			=> array(
-					'responsive_filter'	=> array(
-						'type'				=> 'pp-switch',
-						'label'				=> __('Filter Dropdown on Responsive', 'bb-powerpack'),
-						'default'			=> 'no',
-						'options'			=> array(
-							'yes'				=> __('Yes', 'bb-powerpack'),
-							'no'				=> __('No', 'bb-powerpack'),
-						)
-					)
+			'filter_general_setting'	=> array(
+				'title'	=> __('General', 'bb-powerpack'),
+				'fields'	=> array(
+					'filter_alignment'    => array(
+                        'type'      => 'pp-switch',
+                        'label'     => __('Alignment', 'bb-powerpack'),
+                        'default'   => 'left',
+                        'options'   => array(
+                            'left'  => __('Left', 'bb-powerpack'),
+                            'center'  => __('Center', 'bb-powerpack'),
+                            'Right'  => __('Right', 'bb-powerpack'),
+                        ),
+					),
+					'filter_margin' 	=> array(
+						'type'      => 'text',
+                        'label'     => __('Spacing', 'bb-powerpack'),
+                        'size'      => 5,
+                        'maxlength' => 3,
+                        'default'   => 10,
+                        'description'   => 'px',
+                        'preview'       => array(
+							'type'            => 'css',
+							'selector'        => '.pp-post-filters li',
+							'property'        => 'margin-right',
+							'unit'            => 'px'
+                        ),
+                    ),
 				)
 			),
 			'filter_colors'	=> array(
@@ -1933,33 +1962,19 @@ FLBuilder::register_module('PPContentGridModule', array(
                     ),
 				)
 			),
-			'filter_general_setting'	=> array(
-				'title'	=> __('General', 'bb-powerpack'),
-				'fields'	=> array(
-					'filter_margin' 	=> array(
-						'type'      => 'text',
-                        'label'     => __('Spacing', 'bb-powerpack'),
-                        'size'      => 5,
-                        'maxlength' => 3,
-                        'default'   => 10,
-                        'description'   => 'px',
-                        'preview'       => array(
-							'type'            => 'css',
-							'selector'        => '.pp-post-filters li',
-							'property'        => 'margin-right',
-							'unit'            => 'px'
-                        ),
-                    ),
-					'filter_alignment'    => array(
-                        'type'      => 'pp-switch',
-                        'label'     => __('Alignment', 'bb-powerpack'),
-                        'default'   => 'left',
-                        'options'   => array(
-                            'left'  => __('Left', 'bb-powerpack'),
-                            'center'  => __('Center', 'bb-powerpack'),
-                            'Right'  => __('Right', 'bb-powerpack'),
-                        ),
-                    ),
+			'filter_settings'	=> array(
+				'title'				=> __('Responsive', 'bb-powerpack'),
+				'fields'			=> array(
+					'responsive_filter'	=> array(
+						'type'				=> 'pp-switch',
+						'label'				=> __('Enable Filter Dropdown', 'bb-powerpack'),
+						'default'			=> 'no',
+						'options'			=> array(
+							'yes'				=> __('Yes', 'bb-powerpack'),
+							'no'				=> __('No', 'bb-powerpack'),
+						),
+						'help'				=> __('By eneabling this option will convert filters into a dropdown on responsive devices. If you want to display the filters as they are appearing on desktop, keep it disabled.', 'bb-powerpack')
+					),
 				)
 			),
 		)

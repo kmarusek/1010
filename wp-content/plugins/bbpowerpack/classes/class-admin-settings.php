@@ -135,7 +135,7 @@ final class BB_PowerPack_Admin_Settings {
     {
         $tabs = apply_filters( 'pp_admin_settings_tabs', array(
             'general'   => array(
-                'title'     => esc_html__('License', 'bb-powerpack'),
+                'title'     => esc_html__('General', 'bb-powerpack'),
                 'show'      => is_network_admin() || ! is_multisite(),
                 'priority'  => 50
             ),
@@ -329,6 +329,7 @@ final class BB_PowerPack_Admin_Settings {
 		}
 
         self::save_license();
+        self::save_integration();
         self::save_white_label();
         self::save_modules();
 		self::save_templates();
@@ -355,7 +356,36 @@ final class BB_PowerPack_Admin_Settings {
 
             self::update_option( 'bb_powerpack_license_key', $new );
         }
-    }
+	}
+	
+	/**
+	 * Saves integrations.
+	 *
+	 * @since 2.4
+	 * @access private
+	 * @return void
+	 */
+	static private function save_integration()
+	{
+		if ( isset( $_POST['bb_powerpack_fb_app_id'] ) ) {
+			
+			// Validate App ID.
+			if ( ! empty( $_POST['bb_powerpack_fb_app_id'] ) ) {
+				$response = wp_remote_get( 'https://graph.facebook.com/' . $_POST['bb_powerpack_fb_app_id'] );
+				$error = '';
+
+				if ( is_wp_error( $response ) || 200 !== (int) wp_remote_retrieve_response_code( $response ) ) {
+					$error = __( 'Facebook App ID is not valid.', 'bb-powerpack' );
+				}
+
+				if ( ! empty( $error ) ) {
+					wp_die( $error, __( 'Facebook SDK', 'bb-powerpack' ), array( 'back_link' => true ) );
+				}
+			}
+
+			self::update_option( 'bb_powerpack_fb_app_id', trim( $_POST['bb_powerpack_fb_app_id'] ) );
+		}
+	}
 
     /**
 	 * Saves the white label settings.

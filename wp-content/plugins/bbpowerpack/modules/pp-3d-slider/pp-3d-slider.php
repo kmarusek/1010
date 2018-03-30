@@ -25,8 +25,12 @@ class PP3dSliderModule extends FLBuilderModule {
             'icon'				=> 'slides.svg',
         ));
 
-        $this->add_css( 'font-awesome' );
-        $this->add_js( 'modernizr-custom', BB_POWERPACK_URL . 'modules/pp-3d-slider/js/modernizr.custom.53451.js' );
+		$this->add_css( 'font-awesome' );
+		$this->add_css( 'jquery-magnificpopup' );
+
+		$this->add_js( 'modernizr-custom' );
+		$this->add_js( 'jquery-magnificpopup' );
+		$this->add_js( 'jquery-imagesloaded' );
     }
 
     /**
@@ -198,7 +202,16 @@ FLBuilder::register_module('PP3dSliderModule', array(
                             '_blank'        => __('New Window', 'bb-powerpack'),
                         ),
                         'help'          => __('You can set custom link to photos in media modal where you uploaded them and set the link target here.', 'bb-powerpack')
-                    )
+					),
+					'lightbox'  => array(
+                        'type'      => 'pp-switch',
+                        'label'     => __('Lightbox', 'bb-powerpack'),
+                        'default'   => 'no',
+                        'options'   => array(
+                            'yes'       => __('Yes', 'bb-powerpack'),
+                            'no'        => __('No', 'bb-powerpack'),
+                        ),
+                    ),
                 )
             )
         )

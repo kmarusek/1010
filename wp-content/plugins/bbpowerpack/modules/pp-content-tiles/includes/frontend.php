@@ -1,6 +1,8 @@
 <?php
 
-switch ( $settings->layout ) :
+$layout = $settings->layout;
+
+switch ( $layout ) :
 
 	case 1:
 	case 5:
@@ -38,6 +40,21 @@ if($query->have_posts()) :
 	while($query->have_posts()) :
 
 		$query->the_post();
+		
+		$image_size = 'large';
+
+		if ( $count == 1 ) {
+			$image_size = $settings->image_size_large_tile;
+		}
+		if ( $count == 2 && $layout == 1 ) {
+			$image_size = $settings->image_size_large_tile;
+		}
+		if ( ( $count == 2 || $count == 4 ) && $layout == 2 ) {
+			$image_size = $settings->image_size_small_tile;
+		}
+		if ( ( $count == 3 || $count == 4 ) && ( $layout == 1 || $layout == 2 || $layout == 4 ) ) {
+			$image_size = $settings->image_size_small_tile;
+		}
 
 		if ( in_array( $settings->layout, array(1,2,3,4) ) ) :
 

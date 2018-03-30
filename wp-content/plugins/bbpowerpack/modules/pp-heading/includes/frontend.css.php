@@ -41,7 +41,9 @@ div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading .heading-title sp
 	padding-bottom: <?php echo $settings->heading_padding['bottom']; ?>px;
 	padding-left: <?php echo $settings->heading_padding['left']; ?>px;
 	padding-right: <?php echo $settings->heading_padding['right']; ?>px;
-	text-transform: <?php echo $settings->heading_text_transform; ?>;
+	<?php if( 'default' != $settings->heading_text_transform && 'none' != $settings->heading_text_transform ) { ?>
+		text-transform: <?php echo $settings->heading_text_transform; ?>;
+	<?php } ?>
 }
 
 div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading .heading-title span.pp-secondary-title {
@@ -74,7 +76,9 @@ div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading .heading-title sp
 	padding-left: <?php echo $settings->heading2_padding['left']; ?>px;
 	padding-right: <?php echo $settings->heading2_padding['right']; ?>px;
 	margin-left: <?php echo $settings->heading2_left_margin; ?>px;
-	text-transform: <?php echo $settings->heading2_text_transform; ?>;
+	<?php if( 'default' != $settings->heading2_text_transform ) { ?>
+		text-transform: <?php echo $settings->heading2_text_transform; ?>;
+	<?php } ?>
 }
 
 div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading .heading-title span.title-text {

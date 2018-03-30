@@ -194,11 +194,16 @@ class BB_PowerPack_Ajax {
         if ( $query->have_posts() ) :
 
             // create pagination.
-            if ( $query->max_num_pages > 1 && 'numbers' == $settings->pagination ) {
+            if ( $query->max_num_pages > 1 && 'none' != $settings->pagination ) {
+				$style = ( 'scroll' == $settings->pagination ) ? ' style="display: none;"' : '';
                 ob_start();
                
-                echo '<div class="pp-content-grid-pagination pp-ajax-pagination fl-builder-pagination">';
-                BB_PowerPack_Post_Helper::ajax_pagination( $query, $_POST['current_page'], $_POST['page'] );
+				echo '<div class="pp-content-grid-pagination pp-ajax-pagination fl-builder-pagination"' . $style . '>';
+				if ( 'scroll' == $settings->pagination && isset( $_POST['term'] ) ) {
+					BB_PowerPack_Post_Helper::ajax_pagination( $query, $_POST['current_page'], $_POST['page'], $_POST['term'], $_POST['node_id'] );
+				} else {
+					BB_PowerPack_Post_Helper::ajax_pagination( $query, $_POST['current_page'], $_POST['page'] );
+				}
                 echo '</div>';
 
                 $response['pagination'] = ob_get_clean();

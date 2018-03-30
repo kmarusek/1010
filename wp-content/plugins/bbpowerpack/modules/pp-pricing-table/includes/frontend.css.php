@@ -1,3 +1,76 @@
+.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-switch {
+	margin-bottom: 20px;
+}
+.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-buttons {
+	display: block;
+    float: none;
+	text-align: <?php echo $settings->dp_button_alignment; ?>;
+}
+.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-buttons .pp-pricing-table-button {
+	display: inline-block;
+	float: none;
+	<?php if ( ! empty( $settings->dp_button_default_text_color ) ) { ?>
+	color: #<?php echo $settings->dp_button_default_text_color; ?>;
+	<?php } ?>
+	<?php if ( ! empty( $settings->dp_button_font_size ) ) { ?>
+	font-size: <?php echo $settings->dp_button_font_size; ?>px;
+	<?php } ?>
+	<?php if ( ! empty( $settings->dp_button_padding_v ) ) { ?>
+	padding-top: <?php echo $settings->dp_button_padding_v; ?>px;
+	padding-bottom: <?php echo $settings->dp_button_padding_v; ?>px;
+	<?php } ?>
+	<?php if ( ! empty( $settings->dp_button_padding_h ) ) { ?>
+	padding-left: <?php echo $settings->dp_button_padding_h; ?>px;
+	padding-right: <?php echo $settings->dp_button_padding_h; ?>px;
+	<?php } ?>
+	<?php if ( ! empty( $settings->dp_button_radius ) ) { ?>
+	border-radius: <?php echo $settings->dp_button_radius; ?>px;
+	<?php } ?>
+	<?php if ( 'default' != $settings->dp_button_border && 'none' != $settings->dp_button_border ) { ?>
+		<?php foreach ( $settings->dp_button_border_width as $dp_border_pos => $dp_border_value ) { ?>
+			border-<?php echo $dp_border_pos; ?>-width: <?php echo $dp_border_value; ?>px;
+			border-<?php echo $dp_border_pos; ?>-style: <?php echo $settings->dp_button_border; ?>;
+			border-<?php echo $dp_border_pos; ?>-color: transparent;
+		<?php } ?>
+	<?php } ?>
+	outline: none;
+	text-decoration: none !important;
+	transition: all 0.25s ease-in-out;
+}
+.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-buttons .pp-pricing-table-button.pp-pricing-button-active,
+.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-buttons .pp-pricing-table-button:hover {
+	<?php if ( ! empty( $settings->dp_button_active_bg_color ) ) { ?>
+	background-color: #<?php echo $settings->dp_button_active_bg_color; ?>;
+	<?php } ?>
+	<?php if ( ! empty( $settings->dp_button_active_text_color ) ) { ?>
+	color: #<?php echo $settings->dp_button_active_text_color; ?>;
+	<?php } ?>
+}
+
+<?php if ( 'active' == $settings->dp_button_apply_border ) { ?>
+.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-buttons .pp-pricing-table-button.pp-pricing-button-active {
+<?php } else { ?>
+.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-buttons .pp-pricing-table-button {
+<?php } ?>
+	<?php if ( 'default' != $settings->dp_button_border ) { ?>
+		<?php if ( 'none' == $settings->dp_button_border ) { ?>
+		border: none;
+		<?php } else { ?>
+			<?php foreach ( $settings->dp_button_border_width as $dp_border_pos => $dp_border_value ) { ?>
+			border-<?php echo $dp_border_pos; ?>-width: <?php echo $dp_border_value; ?>px;
+			border-<?php echo $dp_border_pos; ?>-style: <?php echo $settings->dp_button_border; ?>;
+			border-<?php echo $dp_border_pos; ?>-color: #<?php echo $settings->dp_button_border_color; ?>;
+			<?php } ?>
+		<?php } ?>
+	<?php } ?>
+}
+
+.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-buttons .pp-pricing-button-1 {
+	<?php if ( ! empty( $settings->dp_button_spacing ) ) { ?>
+	margin-right: <?php echo $settings->dp_button_spacing; ?>px;
+	<?php } ?>
+}
+
 .fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-col {
 	padding-left: <?php echo $settings->box_spacing; ?>px;
 	padding-right: <?php echo $settings->box_spacing; ?>px;
@@ -411,6 +484,25 @@ FLBuilder::render_module_css('fl-button', $id . ' .pp-pricing-table-column-' . $
 
 @media only screen and ( max-width: 768px ) {
 
+	.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-buttons .pp-pricing-table-button {
+		<?php if ( ! empty( $settings->dp_button_font_size_medium ) ) { ?>
+		font-size: <?php echo $settings->dp_button_font_size_medium; ?>px;
+		<?php } ?>
+		<?php if ( ! empty( $settings->dp_button_padding_v_medium ) ) { ?>
+		padding-top: <?php echo $settings->dp_button_padding_v_medium; ?>px;
+		padding-bottom: <?php echo $settings->dp_button_padding_v_medium; ?>px;
+		<?php } ?>
+		<?php if ( ! empty( $settings->dp_button_padding_h_medium ) ) { ?>
+		padding-left: <?php echo $settings->dp_button_padding_h_medium; ?>px;
+		padding-right: <?php echo $settings->dp_button_padding_h_medium; ?>px;
+		<?php } ?>
+	}
+	.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-buttons .pp-pricing-button-1 {
+		<?php if ( ! empty( $settings->dp_button_spacing_medium ) ) { ?>
+		margin-right: <?php echo $settings->dp_button_spacing_medium; ?>px;
+		<?php } ?>
+	}
+
 	.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-col.pp-pricing-table-matrix .pp-pricing-table-column .pp-pricing-table-title,
 	.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-col.pp-pricing-table-matrix .pp-pricing-table-column .pp-pricing-table-price {
 		display: none;
@@ -474,6 +566,25 @@ FLBuilder::render_module_css('fl-button', $id . ' .pp-pricing-table-column-' . $
 }
 
 @media only screen and ( max-width: 600px ) {
+	.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-buttons .pp-pricing-table-button {
+		<?php if ( ! empty( $settings->dp_button_font_size_responsive ) ) { ?>
+		font-size: <?php echo $settings->dp_button_font_size_responsive; ?>px;
+		<?php } ?>
+		<?php if ( ! empty( $settings->dp_button_padding_v_responsive ) ) { ?>
+		padding-top: <?php echo $settings->dp_button_padding_v_responsive; ?>px;
+		padding-bottom: <?php echo $settings->dp_button_padding_v_responsive; ?>px;
+		<?php } ?>
+		<?php if ( ! empty( $settings->dp_button_padding_h_responsive ) ) { ?>
+		padding-left: <?php echo $settings->dp_button_padding_h_responsive; ?>px;
+		padding-right: <?php echo $settings->dp_button_padding_h_responsive; ?>px;
+		<?php } ?>
+	}
+	.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-buttons .pp-pricing-button-1 {
+		<?php if ( ! empty( $settings->dp_button_spacing_responsive ) ) { ?>
+		margin-right: <?php echo $settings->dp_button_spacing_responsive; ?>px;
+		<?php } ?>
+	}
+
 	<?php if( ($settings->title_font_size == 'custom' && $settings->title_custom_font_size) || ($settings->title_line_height == 'custom' && $settings->title_custom_line_height) ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix) .pp-pricing-table-column .pp-pricing-table-title {
 	   <?php if( $settings->title_font_size == 'custom' && $settings->title_custom_font_size ) { ?>

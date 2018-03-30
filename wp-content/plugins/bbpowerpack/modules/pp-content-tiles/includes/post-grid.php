@@ -25,7 +25,7 @@ FLBuilderModel::default_settings($settings, array(
 	<?php PPContentTilesModule::schema_meta(); ?>
 
 	<?php if(has_post_thumbnail()) :
-		$image = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()), 'large'); ?>
+		$image = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()), $image_size); ?>
 	<div class="pp-post-tile-image" style="background-image: url(<?php echo is_array($image) ? $image[0] : ''; ?>)">
 		<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
 			<?php //the_post_thumbnail($settings->image_size); ?>

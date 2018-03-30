@@ -148,6 +148,15 @@
 					this._initFullScreen();
 				}
 			}
+
+			$(this.wrapperClass).find('li:not(.menu-item-has-children)').off().on('click', 'a', $.proxy(function (e) {
+
+				$(this.nodeClass).find('.pp-advanced-menu').removeClass('menu-open');
+				$(this.nodeClass).find('.pp-advanced-menu').addClass('menu-close');
+				$('html').removeClass('pp-off-canvas-menu-open');
+				$('html').removeClass('pp-full-screen-menu-open');
+
+			}, this));
 		},
 
 		/**

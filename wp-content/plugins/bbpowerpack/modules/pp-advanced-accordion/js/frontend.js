@@ -20,6 +20,13 @@
 
 			this._openDefaultItem();
 
+			this._hashChange();
+
+			$(window).on('hashchange', $.proxy( this._hashChange, this ));
+		},
+
+		_hashChange: function()
+		{
 			if(location.hash && location.hash.search('pp-accord') !== -1) {
 				$(location.hash).find('.pp-accordion-button').trigger('click');
 			}

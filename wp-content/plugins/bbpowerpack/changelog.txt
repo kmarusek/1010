@@ -1,3 +1,37 @@
+== 2.5.1 ==
+Release date: March 23, 2018
+* Enhancement: Hover Cards - Added options for Title & Description Hover colors
+* Enhancement: Advanced Accordion - Added functionality to allow on-page links to open an Accordion element
+* Enhancement: Advanced Tabs - Added functionality to allow on-page links to open a Tab.
+* Enhancement: Content Grid - Added support for ACF Relationship fields.
+* Enhancement: Filterable Gallery - Added support for activating the filters via URL.
+
+== 2.5.0 ==
+Release date: March 22, 2018
+* New: Facebook Page Feed module
+* New: Facebook Comments module
+* New: Facebook Embed module
+* New: Facebook Button module
+* Enhancement: Instagram Feed - Added feed by hashtag as option
+* Enhancement: Instagram Feed - Added field connections
+* Enhancement: Instagram Feed - Added grid options (Masonry and Square)
+* Enhancement: Pricing Table - Added dual pricing options
+* Enhancement: Content Grid - Filter will now also works with URL parameter, for eg. http://yourdomain.com/#web-services
+* Enhancement: Content Grid - Added box border position option (top, left, bottom, right)
+* Enhancement: Content Grid - Added option to upload or hide custom fallback image if feature image is not present in the post
+* Enhancement: Social Icons - Added field connections for URLs
+* Enhancement: Content Tiles - Added image size options for large and small tiles
+* Enhancement: 3D Slider - Added lightbox functionality
+* Enhancement: Advanced Menu - Added alpha property to sub-menu background color fields
+* Enhancement: Advanced Menu - Off-canvas menu will be closable now on link click when using it on a one-page website
+* Enhancement: Hover Cards 2 - Added field connection to background image
+* Fix: Advanced Menu - Submenu alignment issue when a custom width is set
+* Fix: Image Carousel - Removed incorrect counter from lightbox popup
+* Fix: Content Grid - Fixed equal height issue when filtering the posts using dynamic (AJAX) filters
+* Fix: Content Grid - Fixed infinite scroll was not working when using dynamic (AJAX) filters
+* Fix: Smart Headings - "none" value was set in text transform field by default introduced in 2.4.0
+* Fix: Social Icons - CSS conflicts with WPBF theme
+
 == 2.4.0.1 ==
 Release date: March 5, 2018
 * Fix: Hover Cards 2 link was not working after updating plugin to 2.4.0

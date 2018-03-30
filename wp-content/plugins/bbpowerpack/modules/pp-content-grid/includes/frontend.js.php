@@ -8,6 +8,8 @@ $page_arg	 	= is_front_page() ? 'page' : 'paged';
 $paged 			= get_query_var( $page_arg, 1 );
 ?>
 
+var ppcg_<?php echo $id; ?> = '';
+
 ;(function($) {
 
 	var PPContentGridOptions = {
@@ -64,6 +66,6 @@ $paged 			= get_query_var( $page_arg, 1 );
     PPContentGridOptions.orderby = '<?php echo (string)$_GET['orderby']; ?>';
     <?php } ?>
 
-	new PPContentGrid( PPContentGridOptions );
+	ppcg_<?php echo $id; ?> = new PPContentGrid( PPContentGridOptions );
 
 })(jQuery);

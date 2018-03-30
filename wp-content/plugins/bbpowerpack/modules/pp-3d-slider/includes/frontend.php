@@ -10,11 +10,15 @@ $photos = $module->get_photos();
                 $url = $photo->url;
                 $tag = 'div';
                 $href = '';
-                if ( $url && !empty( $url ) ) {
-                    $tag = 'a';
-                    $href = ' href="'.$url.'"';
+                if ( $url && !empty( $url ) || 'yes' == $settings->lightbox ) {
+					$tag = 'a';
+					if ( 'yes' == $settings->lightbox ) {
+						$href = ' href="'.$photo->link.'"';
+					} else {
+						$href = ' href="'.$url.'"';
+					}
                 }
-                ?>
+				?>
                 <<?php echo $tag . $href . $target; ?> class="pp-slide">
                     <img class="pp-slider-img" src="<?php echo $photo->src; ?>" alt="<?php echo $photo->alt; ?>" />
                     <?php if ( 'yes' == $settings->show_captions ) { ?>

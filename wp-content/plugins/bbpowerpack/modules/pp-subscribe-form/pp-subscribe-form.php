@@ -29,7 +29,7 @@ class PPSubscribeFormModule extends FLBuilderModule {
 		add_action( 'wp_ajax_pp_subscribe_form_submit', array( $this, 'submit' ) );
 		add_action( 'wp_ajax_nopriv_pp_subscribe_form_submit', array( $this, 'submit' ) );
 
-		$this->add_js( 'jquery-cookie', $this->url . 'js/jquery.cookie.min.js', array('jquery') );
+		$this->add_js( 'jquery-cookie' );
 	}
 
 	/**

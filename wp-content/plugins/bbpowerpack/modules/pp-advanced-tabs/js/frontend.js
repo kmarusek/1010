@@ -25,6 +25,13 @@
 				win.on('resize' + this.nodeClass, $.proxy(this._resize, this));
 			}
 
+			this._hashChange();
+
+			$(window).on('hashchange', $.proxy( this._hashChange, this ));
+		},
+
+		_hashChange: function()
+		{
 			if(location.hash && location.hash.search('pp-tab') !== -1) {
 				$(location.hash).trigger('click');
 			}

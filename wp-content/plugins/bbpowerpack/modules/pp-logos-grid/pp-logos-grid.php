@@ -26,8 +26,8 @@ class PPLogosGridModule extends FLBuilderModule {
             'icon'				=> 'slides.svg',
         ));
 
-        $this->add_css('jquery-bxslider');
 		$this->add_css('font-awesome');
+        $this->add_css('jquery-bxslider');
 		$this->add_js('jquery-bxslider');
 		$this->add_js( 'jquery-imagesloaded' );
     }

@@ -426,7 +426,14 @@ if($settings->layout == 'grid' || $settings->layout == 'carousel') { // GRID ?>
 	<?php } ?>
 	background-color: <?php echo ($settings->post_background['primary']) ? '#' . $settings->post_background['primary'] : 'transparent'; ?>;
 	border-style: <?php echo $settings->post_border; ?>;
-	<?php if( $settings->post_border_width && $settings->post_border != 'none' ) { ?>border-width: <?php echo $settings->post_border_width; ?>px; <?php } ?>
+	<?php if( $settings->post_border_width && $settings->post_border != 'none' ) { ?>
+		<?php if( '' == $settings->post_border_position ) { ?>
+			border-width: <?php echo $settings->post_border_width; ?>px;
+		<?php } else { ?>
+			border-width: 0;
+			border-<?php echo $settings->post_border_position; ?>-width: <?php echo $settings->post_border_width; ?>px;
+		<?php } ?>
+	<?php } ?>
 	<?php if( $settings->post_border_color ) { ?> border-color: #<?php echo $settings->post_border_color; ?>; <?php } ?>
 	<?php if( $settings->post_border_radius >= 0 ) { ?> border-radius: <?php echo $settings->post_border_radius; ?>px; <?php } ?>
 	<?php if ( 'yes' == $settings->post_shadow_display ) { ?>

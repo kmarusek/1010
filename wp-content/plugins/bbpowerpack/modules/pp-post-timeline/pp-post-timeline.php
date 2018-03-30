@@ -15,7 +15,7 @@ class PPPostTimelineModule extends FLBuilderModule {
     {
         parent::__construct(array(
             'name'          	=> __('Post Timeline', 'bb-powerpack'),
-            'description'   	=> __('Addon to display posts in timeline format.', 'bb-powerpack'),
+            'description'   	=> __('Display posts in timeline format.', 'bb-powerpack'),
             'group'         	=> pp_get_modules_group(),
             'category'			=> pp_get_modules_cat( 'creative' ),
             'dir'           	=> BB_POWERPACK_DIR . 'modules/pp-post-timeline/',
@@ -26,34 +26,15 @@ class PPPostTimelineModule extends FLBuilderModule {
 			'icon'				=> 'schedule.svg',
         ));
 
-        /**
-         * Use these methods to enqueue css and js already
-         * registered or to register and enqueue your own.
-         */
-        // Already registered
-		$this->add_css('font-awesome');
+		$this->add_css( 'font-awesome' );
+		$this->add_css( 'jquery-slick' );
+		$this->add_css( 'jquery-slick-theme' );
+		$this->add_js( 'jquery-slick' );
 
 		add_action( 'wp_ajax_get_post_tax', array( $this, 'pp_get_post_taxonomies' ) );
 		add_action( 'wp_ajax_nopriv_get_post_tax', array( $this, 'pp_get_post_taxonomies' ) );
-
-		$this->add_css( 'slick', $this->url . 'css/slick.css' );
-		$this->add_css( 'slick-theme', $this->url . 'css/slick-theme.css' );
-		$this->add_js( 'slick-jquery', $this->url . 'js/slick.min.js', array(), '', true );
-
-    }
-
-    /**
-     * Use this method to work with settings data before
-     * it is saved. You must return the settings object.
-     *
-     * @method update
-     * @param $settings {object}
-     */
-    public function update($settings)
-    {
-        return $settings;
-    }
-
+	}
+	
 	/**
      * Get taxonomies
      */
@@ -70,7 +51,6 @@ class PPPostTimelineModule extends FLBuilderModule {
 
         echo $html; die();
     }
-
 }
 
 /**

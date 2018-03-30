@@ -40,7 +40,20 @@
 
 			}
 
+			this._hashChange();
+
+			$(window).on('hashchange', $.proxy( this._hashChange, this ));
+
 			$(this.postClass).css('visibility', 'visible');
+		},
+
+		_hashChange: function()
+		{
+			if( location.hash && $(location.hash).length > 0 ) {
+				if ( $(location.hash).parent().hasClass('pp-gallery-filters') ) {
+					$(location.hash).trigger('click');
+				}
+			}
 		},
 
 		_gridLayout: function()

@@ -31,13 +31,11 @@ class PPImageCarouselModule extends FLBuilderModule {
 		$this->add_js('jquery-magnificpopup');
 		$this->add_css('jquery-magnificpopup');
 
-		$this->add_css( 'swiper-style', $this->url . 'css/swiper.min.css' );
-	
-		$this->add_js( 'swiper-script', $this->url . 'js/swiper.jquery.min.js', array('jquery'), BB_POWERPACK_VER );
+		$this->add_css( 'jquery-swiper' );
+		$this->add_js( 'jquery-swiper' );
 
 		$this->add_css('font-awesome');
     }
-
 
 	/**
 	 * @method update

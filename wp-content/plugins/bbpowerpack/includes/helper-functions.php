@@ -599,3 +599,40 @@ function pp_get_module_url( $module = '' )
 
 	return trailingslashit( $module_url );
 }
+
+/**
+ * Returns Facebook App ID stored in options.
+ *
+ * @since 2.4
+ * @return mixed
+ */
+function pp_get_fb_app_id()
+{
+	$app_id = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_fb_app_id' );
+
+	return $app_id;
+}
+
+function pp_get_fb_app_settings_url()
+{
+	$app_id = pp_get_fb_app_id();
+
+	if ( $app_id ) {
+		return sprintf( 'https://developers.facebook.com/apps/%d/settings/', $app_id );
+	} else {
+		return 'https://developers.facebook.com/apps/';
+	}
+}
+
+function pp_get_fb_module_desc()
+{
+	$app_id = pp_get_fb_app_id();
+
+	if ( ! $app_id ) {
+		// translators: %s: Setting Page link
+		return sprintf( __( 'You can set your Facebook App ID in the <a href="%s" target="_blank">Integrations Settings</a>', 'bb-powerpack' ), BB_PowerPack_Admin_Settings::get_form_action() );
+	} else {
+		// translators: %1$s: app_id, %2$s: Setting Page link.
+		return sprintf( __( 'You are connected to Facebook App %1$s, <a href="%2$s" target="_blank">Change App</a>', 'bb-powerpack' ), $app_id, BB_PowerPack_Admin_Settings::get_form_action() );
+	}
+}

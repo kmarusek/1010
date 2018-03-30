@@ -498,61 +498,75 @@ FLBuilder::register_module('PPTeamModule', array(
             'social_icons'  => array(
                 'title' => __( 'Links', 'bb-powerpack' ),
                 'fields'    => array(
-                    'email'         => array(
+                    'email'	=> array(
                         'type'          => 'text',
-                        'label'         => __('Email', 'bb-powerpack')
+						'label'         => __('Email', 'bb-powerpack'),
+						'connections'   => array( 'url' ),
                     ),
-                    'facebook_url'          => array(
+                    'facebook_url'	=> array(
 						'type'          => 'text',
 						'label'         => __('Facebook URL', 'bb-powerpack'),
+						'connections'   => array( 'url' ),
 					),
-                    'twiiter_url'          => array(
+                    'twiiter_url'	=> array(
 						'type'          => 'text',
 						'label'         => __('Twitter URL', 'bb-powerpack'),
+						'connections'   => array( 'url' ),
 					),
-                    'googleplus_url'          => array(
+                    'googleplus_url'	=> array(
 						'type'          => 'text',
 						'label'         => __('Google Plus URL', 'bb-powerpack'),
+						'connections'   => array( 'url' ),
 					),
-                    'pinterest_url'          => array(
+                    'pinterest_url'	=> array(
 						'type'          => 'text',
 						'label'         => __('Pinterest URL', 'bb-powerpack'),
+						'connections'   => array( 'url' ),
 					),
-                    'linkedin_url'          => array(
+                    'linkedin_url'	=> array(
 						'type'          => 'text',
 						'label'         => __('Linkedin URL', 'bb-powerpack'),
+						'connections'   => array( 'url' ),
 					),
-                    'youtube_url'          => array(
+                    'youtube_url'	=> array(
 						'type'          => 'text',
 						'label'         => __('Youtube URL', 'bb-powerpack'),
+						'connections'   => array( 'url' ),
 					),
-                    'instagram_url'          => array(
+                    'instagram_url'	=> array(
 						'type'          => 'text',
 						'label'         => __('Instagram URL', 'bb-powerpack'),
+						'connections'   => array( 'url' ),
 					),
-                    'vimeo_url'          => array(
+                    'vimeo_url'	=> array(
 						'type'          => 'text',
 						'label'         => __('Vimeo URL', 'bb-powerpack'),
+						'connections'   => array( 'url' ),
 					),
-                    'github_url'          => array(
+                    'github_url'	=> array(
 						'type'          => 'text',
 						'label'         => __('Github URL', 'bb-powerpack'),
+						'connections'   => array( 'url' ),
 					),
-                    'dribbble_url'          => array(
+                    'dribbble_url'	=> array(
 						'type'          => 'text',
 						'label'         => __('Dribbble URL', 'bb-powerpack'),
+						'connections'   => array( 'url' ),
 					),
-                    'tumblr_url'          => array(
+                    'tumblr_url'	=> array(
 						'type'          => 'text',
 						'label'         => __('Tumblr URL', 'bb-powerpack'),
+						'connections'   => array( 'url' ),
 					),
-                    'flickr_url'          => array(
-						'type'          => 'text',
+                    'flickr_url'	=> array(
+						'type'      	=> 'text',
 						'label'         => __('Flickr URL', 'bb-powerpack'),
+						'connections'   => array( 'url' ),
 					),
-                    'wordpress_url'            => array(
+                    'wordpress_url'	=> array(
                         'type'              => 'text',
-                        'label'             => __('WordPress URL', 'bb-powerpack')
+						'label'             => __('WordPress URL', 'bb-powerpack'),
+						'connections'   	=> array( 'url' ),
                     )
                 )
             )

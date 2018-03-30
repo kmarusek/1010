@@ -2,6 +2,7 @@
 
 	$filter_labels = $module->get_gallery_filter_ids($settings->gallery_filter, true);
 	$all_text = ( $settings->show_custom_all_text == 'yes' && $settings->custom_all_text != '' ) ? $settings->custom_all_text : esc_html__('All', 'bb-powerpack');
+	$id_prefix = ( isset( $settings->custom_id_prefix ) && ! empty( $settings->custom_id_prefix ) ) ? $settings->custom_id_prefix : 'pp-gallery-' . $id;
 
 	if ( count( $filter_labels ) ) :
 
@@ -12,7 +13,7 @@
 				<span class="toggle-text"><?php echo $all_text; ?></span>
 			</div>
 			<ul class="pp-gallery-filters">
-				<li class="pp-gallery-filter-label pp-filter-active all" data-filter="*"><?php echo $all_text; ?></li>
+				<li id="<?php echo $id_prefix; ?>-0" class="pp-gallery-filter-label pp-filter-active all" data-filter="*"><?php echo $all_text; ?></li>
 			<?php
 				for ( $i=0; $i < count($settings->gallery_filter); $i++ ) :
 
@@ -26,7 +27,7 @@
 						$final_label_str = preg_replace('/[^A-Za-z0-9\-\']/', '-', $label_str);
 
 						if ( !empty( $filter_label ) ) {
-							echo '<li class="pp-gallery-filter-label" data-filter=".pp-group-' . ($i+1) . '">' . $filter_label . '</li>';
+							echo '<li id="' . $id_prefix . '-' . ($i + 1) . '" class="pp-gallery-filter-label" data-filter=".pp-group-' . ($i+1) . '">' . $filter_label . '</li>';
 						}
 
 				endfor;

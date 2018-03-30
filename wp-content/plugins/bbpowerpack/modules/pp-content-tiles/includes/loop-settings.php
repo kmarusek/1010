@@ -99,7 +99,7 @@ do_action( 'pp_tiles_loop_settings_before_form', $settings ); // e.g Add custom 
 	<div id="fl-builder-settings-section-filter" class="fl-builder-settings-section">
 		<h3 class="fl-builder-settings-title"><?php esc_html_e('Filter', 'bb-powerpack'); ?></h3>
 		<?php foreach(FLBuilderLoop::post_types() as $slug => $type) : ?>
-			<table class="fl-form-table fl-loop-builder-filter fl-loop-builder-<?php echo $slug; ?>-filter" <?php if($slug == $settings->post_type) echo 'style="display:table;"'; ?>>
+		<table class="fl-form-table fl-custom-query-filter fl-custom-query-<?php echo $slug; ?>-filter fl-loop-builder-filter fl-loop-builder-<?php echo $slug; ?>-filter" <?php if($slug == $settings->post_type) echo 'style="display:table;"'; ?>>
 			<?php
 
 			// Posts
@@ -145,6 +145,25 @@ do_action( 'pp_tiles_loop_settings_before_form', $settings ); // e.g Add custom 
 		?>
 		</table>
 	</div>
+</div>
+<div id="fl-builder-settings-section-image" class="fl-builder-settings-section">
+	<h3 class="fl-builder-settings-title"><?php esc_html_e('Image', 'bb-powerpack'); ?></h3>
+	<table class="fl-form-table">
+	<?php
+	// Image size
+	FLBuilder::render_settings_field('image_size_large_tile', array(
+		'type'          => 'photo-sizes',
+		'label'         => __('Large Tile Image Size', 'bb-powerpack'),
+		'default'		=> 'large'
+	), $settings);
+
+	FLBuilder::render_settings_field('image_size_small_tile', array(
+		'type'          => 'photo-sizes',
+		'label'         => __('Small Tile Image Size', 'bb-powerpack'),
+		'default'		=> 'medium'
+	), $settings);
+	?>
+	</table>
 </div>
 <div id="fl-builder-settings-section-meta" class="fl-builder-settings-section">
 	<h3 class="fl-builder-settings-title"><?php esc_html_e('Meta', 'bb-powerpack'); ?></h3>

@@ -1203,9 +1203,9 @@ FLBuilder::register_module('PPHeadingModule', array(
 					'heading_text_transform'     => array(
 						'type'          => 'select',
 						'label'         => __('Text Transform', 'bb-powerpack'),
-						'default'       => 'none',
+						'default'       => 'default',
 						'options'       => array(
-							'none'       		=>  __('None', 'bb-powerpack'),
+							'default'       	=>  __('Default', 'bb-powerpack'),
 							'lowercase'        	=>  __('lowercase', 'bb-powerpack'),
 							'uppercase'        	=>  __('UPPERCASE', 'bb-powerpack')
 						),
@@ -1286,8 +1286,9 @@ FLBuilder::register_module('PPHeadingModule', array(
 					'heading2_text_transform'     => array(
 						'type'          => 'select',
 						'label'         => __('Text Transform', 'bb-powerpack'),
-						'default'       => 'none',
+						'default'       => 'default',
 						'options'       => array(
+							'default'       	=>  __('Default', 'bb-powerpack'),
 							'none'       		=>  __('None', 'bb-powerpack'),
 							'lowercase'        	=>  __('lowercase', 'bb-powerpack'),
 							'uppercase'        	=>  __('UPPERCASE', 'bb-powerpack')

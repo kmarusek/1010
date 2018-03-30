@@ -20,12 +20,53 @@ if ( $settings->layout == 'grid' && $settings->post_grid_filters_display == 'yes
 	$css_class .= ' pp-filters-active';
 }
 
+// Set custom parameteres in module settings to verify
+// our module when using filter hooks.
 if ( ! isset( $settings->pp_content_grid ) ) {
 	$settings->pp_content_grid = true;
+}
+if ( ! isset( $settings->pp_content_grid_id ) ) {
+	$settings->pp_content_grid_id = $id;
 }
 if ( ! isset( $settings->pp_post_id ) ) {
 	$settings->pp_post_id = get_the_ID();
 }
+
+if ( 'acf_relationship' == $settings->data_source ) {
+	$settings->post_type = 'any';
+}
+
+/**
+ * Added fl_builder_loop_query_args filter to get the filtered posts
+ * only for the current module when using dyanmic (AJAX) filters
+ * and infinite scroll.
+ * 
+ * We have passed the taxonomy term and node id as parameters in
+ * pagination URLs.
+ * 
+ * This is the only way to get the posts of a taxonomy from the next
+ * page.
+ */
+add_filter( 'fl_builder_loop_query_args', function( $args ) {
+	if ( ! isset( $_GET['filter_term'] ) ) {
+		return $args;
+	}
+	if ( ! isset( $_GET['node_id'] ) ) {
+		return $args;
+	}
+
+	if ( ! empty( $_GET['filter_term'] ) && isset( $args['settings']->pp_content_grid_id ) ) {
+		if ( ! empty( $_GET['node_id'] ) && $_GET['node_id'] == $args['settings']->pp_content_grid_id ) {
+			$args['tax_query'][] = array(
+				'taxonomy' => $args['settings']->post_grid_filters,
+				'field'    => 'slug',
+				'terms'    => $_GET['filter_term']
+			);
+		}
+	}
+
+	return $args;
+} );
 
 // Get the query data.
 $query = FLBuilderLoop::query( $settings );
@@ -41,10 +82,12 @@ $query = FLBuilderLoop::query( $settings );
 
 		$css_class .= ( FLBuilderLoop::get_paged() > 0 ) ? ' pp-paged-scroll-to' : '';
 
-	// Post filters.
-	if ( $settings->layout == 'grid' && $settings->post_grid_filters_display == 'yes' && 'none' != $settings->post_grid_filters ) {
-		include $module->dir . 'includes/post-filters.php';
-	}
+		if ( 'acf_relationship' != $settings->data_source ) {
+			// Post filters.
+			if ( $settings->layout == 'grid' && $settings->post_grid_filters_display == 'yes' && 'none' != $settings->post_grid_filters ) {
+				include $module->dir . 'includes/post-filters.php';
+			}
+		}
 
 	?>
 
@@ -55,18 +98,29 @@ $query = FLBuilderLoop::query( $settings );
 
 			<?php
 
+			$render = true;
+
 			while( $query->have_posts() ) {
 
 				$query->the_post();
 
-				ob_start();
-
 				$terms_list = wp_get_post_terms( get_the_id(), $settings->post_taxonomies );
+				
+				if ( $settings->post_type == 'product' && function_exists( 'wc_get_product' ) ) {
+					$product = wc_get_product( get_the_ID() );
+					if ( ! is_object( $product ) ) {
+						$render = false;
+					}
+				}
 
-				include apply_filters( 'pp_cg_module_layout_path', $module->dir . 'includes/post-' . $settings->layout . '.php', $settings->layout, $settings );
+				if ( $render ) {
+					ob_start();
 
-				// Do shortcodes here so they are parsed in context of the current post.
-				echo do_shortcode( ob_get_clean() );
+					include apply_filters( 'pp_cg_module_layout_path', $module->dir . 'includes/post-' . $settings->layout . '.php', $settings->layout, $settings );
+
+					// Do shortcodes here so they are parsed in context of the current post.
+					echo do_shortcode( ob_get_clean() );
+				}
 			}
 
 			?>

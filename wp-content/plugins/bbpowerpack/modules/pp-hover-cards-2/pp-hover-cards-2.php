@@ -698,7 +698,8 @@ FLBuilder::register_settings_form('pp_hover_card_2_form', array(
                         'hover_card_icon_color'   => array(
                             'type'      => 'color',
                             'label'     => __('Color', 'bb-powerpack'),
-                            'default'   => '000000',
+							'default'   => '000000',
+							'show_reset'	=> true
                         ),
                     )
                 ),
@@ -708,12 +709,14 @@ FLBuilder::register_settings_form('pp_hover_card_2_form', array(
                         'hover_card_title_color'       => array(
                             'type'          => 'color',
                             'label'         => __('Color', 'bb-powerpack'),
-                            'default'       => '000000',
+							'default'       => '000000',
+							'show_reset'	=> true
                         ),
                         'hover_card_title_color_h'       => array(
                             'type'          => 'color',
                             'label'         => __('Color Hover', 'bb-powerpack'),
-                            'default'       => '000000',
+							'default'       => '000000',
+							'show_reset'	=> true
                         ),
                     ),
                 ),
@@ -723,12 +726,14 @@ FLBuilder::register_settings_form('pp_hover_card_2_form', array(
                         'hover_card_description_color'       => array(
                             'type'          => 'color',
                             'label'         => __('Color', 'bb-powerpack'),
-                            'default'       => '000000',
+							'default'       => '000000',
+							'show_reset'	=> true
                         ),
                         'hover_card_description_color_h'       => array(
                             'type'          => 'color',
                             'label'         => __('Color Hover', 'bb-powerpack'),
-                            'default'       => '000000',
+							'default'       => '000000',
+							'show_reset'	=> true
                         ),
                     ),
                 ),

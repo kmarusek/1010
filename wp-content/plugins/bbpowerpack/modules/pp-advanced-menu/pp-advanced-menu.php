@@ -794,10 +794,11 @@ FLBuilder::register_module('PPAdvancedMenu', array(
 						'help'		=> __('You can set sub-menu container background color if you are using mega menu.', 'bb-powerpack')
                     ),
 					'submenu_background_color' => array(
-                        'type'       => 'color',
-                        'label'      => __('Link Background Color', 'bb-powerpack'),
-                        'default'    => '',
-                        'show_reset' => true,
+                        'type'       	=> 'color',
+                        'label'      	=> __('Link Background Color', 'bb-powerpack'),
+                        'default'    	=> '',
+						'show_reset' 	=> true,
+						'show_alpha'	=> true,
 						'preview'         => array(
 							'type'            => 'css',
 							'selector'        => '.sub-menu > li > a, .sub-menu > li > .pp-has-submenu-container > a',
@@ -805,10 +806,11 @@ FLBuilder::register_module('PPAdvancedMenu', array(
 						)
                     ),
                     'submenu_background_hover_color' => array(
-                        'type'       => 'color',
-                        'label'      => __('Link Background Hover Color', 'bb-powerpack'),
-                        'default'    => '',
-                        'show_reset' => true,
+                        'type'       	=> 'color',
+                        'label'      	=> __('Link Background Hover Color', 'bb-powerpack'),
+                        'default'    	=> '',
+						'show_reset' 	=> true,
+						'show_alpha'	=> true,
 						'preview'         => array(
 							'type'            => 'css',
 							'selector'        => '.sub-menu > li > a:hover, .sub-menu > li > a:focus, .sub-menu > li > .pp-has-submenu-container > a:hover, .sub-menu > li > .pp-has-submenu-container > a:focus',

@@ -98,12 +98,9 @@
 }
 
 .fl-node-<?php echo $id; ?> .pp-tabs .pp-tabs-label.pp-tab-active,
-.fl-node-<?php echo $id; ?> .pp-tabs .pp-tabs-label.pp-tab-active:hover {
-	background-color: #<?php echo $settings->label_background_active_color; ?>;
-	color: #<?php echo $settings->label_active_text_color; ?>;
-}
-
+.fl-node-<?php echo $id; ?> .pp-tabs .pp-tabs-label.pp-tab-active:hover,
 .fl-node-<?php echo $id; ?> .pp-tabs .pp-tabs-label:hover {
+	background-color: #<?php echo $settings->label_background_active_color; ?>;
 	color: #<?php echo $settings->label_active_text_color; ?>;
 }
 

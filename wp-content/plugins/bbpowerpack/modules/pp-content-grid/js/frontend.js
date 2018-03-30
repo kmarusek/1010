@@ -30,7 +30,10 @@
 		filters			: false,
 		filterTax		: '',
 		filterType		: '',
+		filterData		: {},
+		activeFilter	: '',
 		cacheData		: {},
+		'infscr' 		: '',
 
 		_hasPosts: function()
 		{
@@ -83,6 +86,9 @@
 				} );
 			}
 
+			// set filter data globally to use later for ajax scroll pagination.
+			this.filterData = postFilterData;
+
 			wrap.imagesLoaded( $.proxy( function() {
 
 				var node = $(this.nodeClass);
@@ -107,6 +113,9 @@
 					});
 
 					filterWrap.on('click', '.pp-post-filter', function() {
+						// set active filter globally to use later for ajax scroll pagination.
+						base.activeFilter = $(this).data('term');
+
 						if ('static' === base.filterType) {
 							var filterVal = $(this).attr('data-filter');
 							postFilters.isotope({ filter: filterVal });
@@ -136,10 +145,26 @@
 					if ('dynamic' === base.filterType) {
 						$(base.nodeClass).find('.fl-builder-pagination a').off('click').on('click', function (e) {
 							e.preventDefault();
-							var pageNumber = $(this).attr('href').split('#page-')[1];
+							var pageNumber = base._getPageNumber( this );
 							base._getPosts('', postFilterData, pageNumber);
 						});
 					}
+
+					// Trigger filter by hash parameter in URL.
+					if ( '' !== location.hash ) {
+						var filterHash = location.hash.split('#')[1];
+
+						filterWrap.find('li[data-term="' + filterHash + '"]').trigger('click');
+					}
+
+					// Trigger filter on hash change in URL.
+					$(window).on('hashchange', function() {
+						if ( '' !== location.hash ) {
+							var filterHash = location.hash.split('#')[1];
+	
+							filterWrap.find('li[data-term="' + filterHash + '"]').trigger('click');
+						}
+					});
                 }
 
                 if( !this.masonry ) {
@@ -261,7 +286,11 @@
 
 			if (!this.masonry) {
 				wrap.isotope('insert', $(response.data), $.proxy(this._gridLayoutMatchHeight, this));
-				this._gridLayoutMatchHeight();
+				wrap.imagesLoaded($.proxy(function () {
+					setTimeout(function () {
+						self._gridLayoutMatchHeight();
+					}, 150);
+				}, this));
 			} else {
 				wrap.isotope('insert', $(response.data));
 			}
@@ -272,7 +301,7 @@
 			wrap.imagesLoaded($.proxy(function () {
 				setTimeout(function () {
 					wrap.isotope('layout');
-				}, 200);
+				}, 500);
 			}, this));
 
 			if (response.pagination) {
@@ -280,7 +309,7 @@
 				$(self.nodeClass).find('.fl-module-content').append(response.pagination);
 				$(self.nodeClass).find('.pp-ajax-pagination a').off('click').on('click', function (e) {
 					e.preventDefault();
-					var pageNumber = $(this).attr('href').split('#page-')[1];
+					var pageNumber = self._getPageNumber( this );
 					self._getPosts(args.term, args.isotopeData, pageNumber);
 				});
 			} else {
@@ -291,6 +320,31 @@
 			$('html, body').stop().animate({
 				scrollTop: offsetTop
 			}, 300);
+
+			// re-initialize infinitescroll.
+			wrap.imagesLoaded($.proxy(function () {
+				setTimeout(function () {
+					if(self.settings.pagination == 'scroll' && typeof FLBuilder === 'undefined') {
+						self._destroyInfiniteScroll();
+						wrap.isotope( self.filterData );
+						self._infiniteScroll();
+					}
+				}, 1500);
+			}, this));
+		},
+
+		_getPageNumber: function( pageElement )
+		{
+			var pageNumber = parseInt( $(pageElement).text() ); //$(pageElement).attr('href').split('#page-')[1];
+
+			if ( $(pageElement).hasClass('next') ) {
+				pageNumber = parseInt( $(pageElement).parents('.pp-content-grid-pagination').find('.current').text() ) + 1;
+			}
+			if ( $(pageElement).hasClass('previous') ) {
+				pageNumber = parseInt( $(pageElement).parents('.pp-content-grid-pagination').find('.current').text() ) - 1;
+			}
+
+			return pageNumber;
 		},
 
 		_setCacheData: function (filter, response, paged) {
@@ -420,7 +474,7 @@
 			}
 		},
 
-		_infiniteScroll: function(settings)
+		_infiniteScroll: function()
 		{
 			var path 		= $(this.nodeClass + ' .pp-content-grid-pagination a.next').attr('href'),
 				pagePattern = /(.*?(\/|\&|\?)paged-[0-9]{1,}(\/|=))([0-9]{1,})+(.*)/,
@@ -436,7 +490,7 @@
 						finishedMsg     : '',
 						img             : FLBuilderLayoutConfig.paths.pluginUrl + 'img/ajax-loader-grey.gif',
 						speed           : 1
-					}
+					},
 				};
 
 			// Define path since Infinitescroll incremented our custom pagination '/paged-2/2/' to '/paged-3/2/'.
@@ -458,15 +512,20 @@
 		_infiniteScrollComplete: function(elements)
 		{
 			var wrap = $(this.wrapperClass);
+			var self = this;
 
 			elements = $(elements);
 
 			if(this.settings.layout == 'grid') {
 				wrap.imagesLoaded( $.proxy( function() {
-					if( !this.masonry ) {
+
+					var infscr = wrap.find('#infscr-loading').clone();
+					wrap.find('div[id="infscr-loading"]').remove();
+
+					if( ! this.masonry ) {
 						this._gridLayoutMatchHeight();
 						if( this.settings.filters ) {
-							wrap.isotope('insert', elements, $.proxy(this._gridLayoutMatchHeight, this));
+							wrap.isotope('insert', elements, this._gridLayoutMatchHeight());
 						}
 					} else {
 						wrap.isotope('insert', elements);
@@ -475,9 +534,25 @@
 					elements.css('visibility', 'visible');
 					wrap.find('.pp-grid-space').remove();
 					wrap.append('<div class="pp-grid-space"></div>');
+					wrap.append( infscr );
+
+					// re-layout masonry
+					setTimeout(function () {
+						if( ! this.masonry ) {
+							self._gridLayoutMatchHeight();
+						}
+						wrap.isotope('layout');
+					}, 500);
 				}, this ) );
 			}
-		}
+		},
+
+		_destroyInfiniteScroll: function()
+		{
+			$(this.wrapperClass).infinitescroll('destroy');
+			$(this.wrapperClass).find('div[id="infscr-loading"]').remove();
+			$.removeData( $(this.wrapperClass)[0] );
+		},
 	};
 
 })(jQuery);

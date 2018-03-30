@@ -5,10 +5,21 @@
 		    <?php FLBuilder::render_module_html( 'photo', BB_PowerPack_Post_Helper::post_image_get_settings( get_the_ID(), $settings->image_thumb_crop, $settings ) ); ?>
 		</div>
     <?php } else {
-        $first_img = BB_PowerPack_Post_Helper::post_catch_image( get_the_content() );
-        $img_src = '' != $first_img ? $first_img : apply_filters( 'pp_cg_placeholder_img', $module_url .'/images/placeholder.jpg' );
+		$img_src = '';
+
+		if ( isset( $settings->fallback_image ) && 'default' == $settings->fallback_image ) {
+			$first_img = BB_PowerPack_Post_Helper::post_catch_image( get_the_content() );
+        	$img_src = ( '' != $first_img ) ? $first_img : apply_filters( 'pp_cg_placeholder_img', $module_url .'/images/placeholder.jpg' );
+		}
+		if ( isset( $settings->fallback_image ) && 'custom' == $settings->fallback_image ) {
+			$img_src = $settings->fallback_image_custom_src;
+		}
         ?>
-        <img src="<?php echo $img_src; ?>" />
+		<?php if ( ! empty( $img_src ) ) { ?>
+			<div class="pp-post-featured-img">
+				<img src="<?php echo $img_src; ?>" />
+			</div>
+		<?php } ?>
     <?php } ?>
 
     <?php if(($settings->show_categories == 'yes' && taxonomy_exists($settings->post_taxonomies) && !empty($terms_list)) && ('style-3' == $settings->post_grid_style_select) ) : ?>

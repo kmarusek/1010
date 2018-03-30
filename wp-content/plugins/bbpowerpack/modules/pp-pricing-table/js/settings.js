@@ -3,15 +3,28 @@
 	FLBuilder.registerModuleHelper('pp-pricing-table', {
 		node: '',
 		rules: {},
+		_dualPricing: '',
 
 		init: function()
 		{
+			var self = this;
+
 			$( 'input[name=btn_bg_color]' ).on( 'change', this._bgColorChange );
 			this._bgColorChange();
 
 			this.node = $('form.fl-builder-pp-pricing-table-settings').data('node');
-			$( 'input[name="pricing_columns[]"]' ).on( 'change', this._pricingColumnChange );
-			this._pricingColumnChange();
+			//$( 'input[name="pricing_columns[]"]' ).on( 'change', this._pricingColumnChange );
+			//this._pricingColumnChange();
+
+			if ( $( 'input[name="dual_pricing"' ).length > 0 ) {
+				this._dualPricing = $( 'input[name="dual_pricing"' ).val();
+				$( 'input[name="dual_pricing"' ).on( 'change', function() {
+					self._dualPricing = $(this).val();
+					self._updateStyles();
+				} );
+			}
+
+			self._updateStyles();
 		},
 
 		_bgColorChange: function()
@@ -24,6 +37,28 @@
 			}
 			else {
 				style.show();
+			}
+		},
+
+		_updateStyles: function()
+		{
+			$('#pp-pricing-table-form').remove();
+			var styleNode = $('<style id="pp-pricing-table-form"></style>');
+
+			if ( 'yes' == this._dualPricing ) {
+				var styleText = 'form[data-form-id="pp_pricing_column_form"] #fl-field-price_2,' +
+								'form[data-form-id="pp_pricing_column_form"] #fl-field-duration_2,' +
+								'form[data-form-id="pp_pricing_column_form"] #fl-field-button_url_2' +
+								' {display: table-row;}';
+				styleNode.text( styleText );
+				$(document.head).append( styleNode );
+			} else {
+				var styleText = 'form[data-form-id="pp_pricing_column_form"] #fl-field-price_2,' +
+								'form[data-form-id="pp_pricing_column_form"] #fl-field-duration_2,' +
+								'form[data-form-id="pp_pricing_column_form"] #fl-field-button_url_2' +
+								' {display: none;}';
+				styleNode.text( styleText );
+				$(document.head).append( styleNode );
 			}
 		},
 

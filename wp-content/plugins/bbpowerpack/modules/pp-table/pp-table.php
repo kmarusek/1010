@@ -26,8 +26,8 @@ class PPTableModule extends FLBuilderModule {
             'icon'				=> 'editor-table.svg',
         ));
 
-        $this->add_css('tablesaw-style', $this->url . 'css/tablesaw.css');
-		$this->add_js('tablesaw-script', $this->url . 'js/tablesaw.js', array('jquery'), '', true);
+        $this->add_css( 'tablesaw' );
+		$this->add_js( 'tablesaw' );
     }
 }
 

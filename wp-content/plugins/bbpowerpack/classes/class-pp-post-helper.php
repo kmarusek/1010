@@ -219,7 +219,7 @@ class BB_PowerPack_Post_Helper {
      * @since 1.1.0
      * @return void
      */
-    static public function ajax_pagination( $query, $current_url = '', $paged = 1 ) {
+    static public function ajax_pagination( $query, $current_url = '', $paged = 1, $filter = '', $node_id = '' ) {
 		$total_pages = $query->max_num_pages;
         $permalink_structure = get_option( 'permalink_structure' );
         $current_url = empty( $current_url ) ? get_pagenum_link() : $current_url;
@@ -232,10 +232,15 @@ class BB_PowerPack_Post_Helper {
 			}
 
 			$base = FLBuilderLoop::build_base_url( $permalink_structure, $base );
+			$format = FLBuilderLoop::paged_format( $permalink_structure, $base );
+
+			if ( $filter != '' ) {
+				$format .= '?filter_term=' . $filter . '&node_id=' . $node_id;
+			}
 
 			echo paginate_links(array(
 				'base'	   => $base . '%_%',
-				'format'   => '/#page-%#%',
+				'format'   => $format,
 				'current'  => $current_page,
 				'total'	   => $total_pages,
 				'type'	   => 'list',

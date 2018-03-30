@@ -25,9 +25,19 @@
     line-height: 0.6;
 }
 
+.pp-instagram-feed .pp-instagram-feed-items:before,
+.pp-instagram-feed .pp-instagram-feed-items:after {
+	content: " ";
+	display: table;
+}
+.pp-instagram-feed .pp-instagram-feed-items:after {
+	clear: both;
+}
+
 .pp-instagram-feed .pp-feed-item {
     display: block;
-    position: relative;
+	position: relative;
+	overflow: hidden;
 }
 
 .pp-instagram-feed .pp-overlay-container {

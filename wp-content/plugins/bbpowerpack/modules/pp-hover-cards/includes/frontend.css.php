@@ -83,8 +83,14 @@ for($i = 0; $i < $number_cards; $i++) {
 	.fl-node-<?php echo $id; ?> .pp-hover-card-container.hover-card-<?php echo $i; ?> .pp-hover-card-title h3 {
 		<?php if( $cards->hover_card_title_color ) { ?>color: #<?php echo $cards->hover_card_title_color; ?>;<?php } ?>
 	}
+	.fl-node-<?php echo $id; ?> .pp-hover-card-container.hover-card-<?php echo $i; ?>:hover .pp-hover-card-title h3 {
+		<?php if( $cards->hover_card_title_color_h ) { ?>color: #<?php echo $cards->hover_card_title_color_h; ?>;<?php } ?>
+	}
 	.fl-node-<?php echo $id; ?> .pp-hover-card-container.hover-card-<?php echo $i; ?> .pp-hover-card-description {
 		<?php if( $cards->hover_card_description_color ) { ?>color: #<?php echo $cards->hover_card_description_color; ?>;<?php } ?>
+	}
+	.fl-node-<?php echo $id; ?> .pp-hover-card-container.hover-card-<?php echo $i; ?>:hover .pp-hover-card-description {
+		<?php if( $cards->hover_card_description_color_h ) { ?>color: #<?php echo $cards->hover_card_description_color_h; ?>;<?php } ?>
 	}
 	.fl-node-<?php echo $id; ?> .pp-hover-card-container.hover-card-<?php echo $i; ?> .pp-hover-card .icon {
 		<?php if( $cards->hover_card_icon_color ) { ?>color: #<?php echo $cards->hover_card_icon_color; ?>;<?php } ?>
@@ -92,6 +98,9 @@ for($i = 0; $i < $number_cards; $i++) {
 		font-size: <?php echo $cards->hover_card_icon_size; ?>px;
 		width: <?php echo $cards->hover_card_icon_size; ?>px;
 		<?php } ?>
+	}
+	.fl-node-<?php echo $id; ?> .pp-hover-card-container.hover-card-<?php echo $i; ?>:hover .pp-hover-card .icon {
+		<?php if( $cards->hover_card_icon_color_h ) { ?>color: #<?php echo $cards->hover_card_icon_color_h; ?>;<?php } ?>
 	}
 
 

@@ -11,7 +11,7 @@ class PPInstagramFeedModule extends FLBuilderModule {
 	{
 		parent::__construct(array(
 			'name'          	=> __( 'Instagram Feed', 'bb-powerpack' ),
-			'description'   	=> __( 'A module for fetch instagram photos.', 'bb-powerpack' ),
+			'description'   	=> __( 'A module to fetch instagram photos.', 'bb-powerpack' ),
 			'group'         	=> pp_get_modules_group(),
 			'category'			=> pp_get_modules_cat( 'creative' ),
 			'dir'           	=> BB_POWERPACK_DIR . 'modules/pp-instagram-feed/',
@@ -19,15 +19,18 @@ class PPInstagramFeedModule extends FLBuilderModule {
 			'editor_export' 	=> true, // Defaults to true and can be omitted.
 			'enabled'       	=> true, // Defaults to true and can be omitted.
 		));
+		
+		$this->add_js( 'jquery-imagesloaded' );
 
 		$this->add_js( 'jquery-magnificpopup' );
 		$this->add_css( 'jquery-magnificpopup' );
 
-		$this->add_js( 'instafeed-script', $this->url . 'js/instafeed.min.js', array( 'jquery' ), BB_POWERPACK_VER );
+		$this->add_js( 'instafeed' );
 
-		$this->add_css( 'swiper-style', $this->url . 'css/swiper.min.css' );
+		$this->add_css( 'jquery-swiper' );
+		$this->add_js( 'jquery-swiper' );
 
-		$this->add_js( 'swiper-script', $this->url . 'js/swiper.jquery.min.js', array( 'jquery' ), BB_POWERPACK_VER );
+		$this->add_js('jquery-masonry');
 	}
 }
 
@@ -39,31 +42,51 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 		'title'         => __( 'General', 'bb-powerpack' ), // Tab title
 		'sections'      => array( // Tab Sections
 			'account_settings'	=> array( // Section
-				'title'				=> '', // Section Title
+				'title'				=> __( 'Authentication Settings', 'bb-powerpack' ), // Section Title
 				'fields'        	=> array( // Section Fields
 					'user_id'     	=> array(
 						'type'          => 'text',
 						'label'         => __( 'User ID', 'bb-powerpack' ),
 						'default'       => '',
-						'size'          => '30',
+						'connections'	=> array('string')
 					),
 					'access_token'	=> array(
 						'type'          => 'text',
 						'label'         => __( 'Access Token', 'bb-powerpack' ),
 						'default'       => '',
-						'size'          => '30',
+						'connections'	=> array('string')
 					),
 					'client_id'	=> array(
 						'type'		=> 'text',
 						'label'     => __( 'Client ID', 'bb-powerpack' ),
 						'default'   => '',
-						'size'      => '30',
+						'connections'	=> array('string')
 					),
 				),
 			),
 			'feed_settings'	=> array(
 				'title'			=> __( 'Feed Settings', 'bb-powerpack' ),
 				'fields'        => array(
+					'feed_by_tags'  => array(
+						'type'          => 'pp-switch',
+						'label'         => __( 'Feed by Hashtag', 'bb-powerpack' ),
+						'default'       => 'no',
+						'options'       => array(
+							'yes'			=> __( 'Yes', 'bb-powerpack' ),
+							'no'        	=> __( 'No', 'bb-powerpack' ),
+						),
+						'toggle'	=> array(
+							'yes'	=> array(
+								'fields'	=> array( 'tag_name' ),
+							),
+						),
+					),
+					'tag_name'     	=> array(
+						'type'          => 'text',
+						'label'         => __( 'Tag Name', 'bb-powerpack' ),
+						'default'       => '',
+						'connections'	=> array('string')
+					),
 					'images_count'		=> array(
 						'type'          => 'text',
 						'label'         => __( 'Images Count', 'bb-powerpack' ),
@@ -105,15 +128,34 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 						'label'         => __( 'Layout', 'bb-powerpack' ),
 						'default'       => 'grid',
 						'options'       => array(
-							'grid'           => __( 'Grid', 'bb-powerpack' ),
+							'grid'           => __( 'Masonry Grid', 'bb-powerpack' ),
+							'square-grid'    => __( 'Square Grid', 'bb-powerpack' ),
 							'carousel'       => __( 'Carousel', 'bb-powerpack' ),
 						),
 						'toggle'	=> array(
 							'grid'  => array(
-								'fields'    => array( 'grid_columns' ),
+								'fields'    => array( 'grid_columns', 'spacing' ),
+							),
+							'square-grid'  => array(
+								'fields'    => array( 'grid_columns', 'spacing', 'image_custom_size' ),
 							),
 							'carousel'  => array(
 								'tabs'		=> array( 'carousel' ),
+								'fields'	=> array( 'image_custom_size' ),
+							),
+						),
+					),
+					'image_custom_size'		=> array(
+						'type'			=> 'unit',
+						'label' 		=> __( 'Custom Size', 'bb-powerpack' ),
+						'size'          => 5,
+						'default'       => '300',
+						'description'	=> 'px',
+						'responsive' 	=> array(
+							'placeholder'	=> array(
+								'default'		=> '',
+								'medium'		=> '',
+								'responsive' 	=> '',
 							),
 						),
 					),
@@ -127,6 +169,20 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 								'default'		=> '3',
 								'medium'		=> '2',
 								'responsive' 	=> '1',
+							),
+						),
+					),
+					'spacing' => array(
+						'type' 			=> 'unit',
+						'label' 		=> __('Spacing', 'bb-powerpack'),
+						'description'	=> 'px',
+						'size'          => '5',
+						'default'		=> '',
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
 							),
 						),
 					),
@@ -186,7 +242,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 						'type'				=> 'text',
 						'label'         	=> __( 'Link Title', 'bb-powerpack' ),
 						'default'       	=> __( 'Follow @example on instagram', 'bb-powerpack' ),
-						'size'          	=> '30',
+						'connections'		=> array('string')
 					),
 					'insta_profile_url'	=> array(
 						'type'          	=> 'link',
@@ -235,7 +291,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 					),
 					'images_gap'     => array(
 						'type' 			=> 'unit',
-						'label' 		=> __( 'Items Gap', 'bb-powerpack' ),
+						'label' 		=> __( 'Items Spacing', 'bb-powerpack' ),
 						'size'          => '5',
 						'default'       => '10',
 						'description'	=> 'px',
@@ -615,36 +671,21 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 								'fields'	=> array( 'image_overlay_color', 'image_overlay_opacity' ),
 							),
 							'gradient'	=> array(
-								'fields'	=> array( 'image_overlay_color', 'image_overlay_color_location', 'image_overlay_secondary_color', 'image_overlay_secondary_location', 'image_overlay_gradient_type', 'image_overlay_opacity' ),
+								'fields'	=> array( 'image_overlay_angle', 'image_overlay_color', 'image_overlay_secondary_color', 'image_overlay_gradient_type', 'image_overlay_opacity' ),
 							),
 						),
 					),
 					'image_overlay_color'	=> array(
 						'type'          		=> 'color',
-						'label'         		=> __( 'Color', 'bb-powerpack' ),
+						'label'         		=> __( 'Overlay Color', 'bb-powerpack' ),
 						'default'       		=> '',
 						'show_reset'    		=> true,
 					),
-					'image_overlay_color_location'	=> array(
-						'type'			=> 'text',
-						'label'       	=> __( 'Location', 'bb-powerpack' ),
-						'default'    	=> '20',
-						'maxlength'   	=> '3',
-						'size'        	=> '5',
-					),
 					'image_overlay_secondary_color'	=> array(
 						'type'			=> 'color',
-						'label'     	=> __( 'Secondary Color', 'bb-powerpack' ),
+						'label'     	=> __( 'Overlay Secondary Color', 'bb-powerpack' ),
 						'default'		=> '',
 						'show_reset' 	=> true,
-						'preview'		=> 'none',
-					),
-					'image_overlay_secondary_location'	=> array(
-						'type'			=> 'text',
-						'label'       	=> __( 'Location', 'bb-powerpack' ),
-						'default'     	=> '80',
-						'maxlength'   	=> '3',
-						'size'        	=> '5',
 					),
 					'image_overlay_gradient_type'	=> array(
 						'type'			=> 'pp-switch',
@@ -669,6 +710,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 						'default'     	=> '180',
 						'maxlength'   	=> '3',
 						'size'        	=> '5',
+						'description'	=> __('degree', 'bb-powerpack')
 					),
 					'image_overlay_gradient_position'	=> array(
 						'type'			=> 'select',
@@ -688,7 +730,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 					),
 					'image_overlay_opacity'	=> array(
 						'type'			=> 'text',
-						'label'       	=> __( 'Opacity', 'bb-powerpack' ),
+						'label'       	=> __( 'Overlay Opacity', 'bb-powerpack' ),
 						'default'     	=> '70',
 						'description' 	=> '%',
 						'maxlength'   	=> '3',
@@ -733,35 +775,21 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 								'fields'    => array( 'image_hover_overlay_color', 'image_hover_overlay_opacity' ),
 							),
 							'gradient' => array(
-								'fields'    => array( 'image_hover_overlay_color', 'image_hover_overlay_color_location', 'image_hover_overlay_secondary_color', 'image_hover_overlay_secondary_location', 'image_hover_overlay_gradient_type', 'image_hover_overlay_opacity' ),
+								'fields'    => array( 'image_hover_overlay_angle', 'image_hover_overlay_color', 'image_hover_overlay_secondary_color', 'image_hover_overlay_gradient_type', 'image_hover_overlay_opacity' ),
 							),
 						),
 					),
 					'image_hover_overlay_color'	=> array(
 						'type'			=> 'color',
-						'label'         => __( 'Color', 'bb-powerpack' ),
+						'label'         => __( 'Overlay Color', 'bb-powerpack' ),
 						'default'       => '',
 						'show_reset'    => true,
 					),
-					'image_hover_overlay_color_location'	=> array(
-						'type'			=> 'text',
-						'label'       	=> __( 'Location', 'bb-powerpack' ),
-						'default'     	=> '',
-						'maxlength'   	=> '3',
-						'size'        	=> '5',
-					),
 					'image_hover_overlay_secondary_color'	=> array(
 						'type'       	=> 'color',
-						'label'     	=> __( 'Secondary Color', 'bb-powerpack' ),
+						'label'     	=> __( 'Overlay Secondary Color', 'bb-powerpack' ),
 						'default'		=> '',
 						'show_reset' 	=> true,
-					),
-					'image_hover_overlay_secondary_location'	=> array(
-						'type'        	=> 'text',
-						'label'       	=> __( 'Location', 'bb-powerpack' ),
-						'default'     	=> '',
-						'maxlength'   	=> '3',
-						'size'        	=> '5',
 					),
 					'image_hover_overlay_gradient_type'	=> array(
 						'type'			=> 'pp-switch',
@@ -786,6 +814,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 						'default'     	=> '180',
 						'maxlength'   	=> '3',
 						'size'        	=> '5',
+						'description'	=> __('degree', 'bb-powerpack')
 					),
 					'image_hover_overlay_gradient_position'	=> array(
 						'type'			=> 'select',
@@ -805,11 +834,17 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 					),
 					'image_hover_overlay_opacity'	=> array(
 						'type'			=> 'text',
-						'label'       	=> __( 'Opacity', 'bb-powerpack' ),
+						'label'       	=> __( 'Overlay Opacity', 'bb-powerpack' ),
 						'default'     	=> '70',
 						'description' 	=> '%',
 						'maxlength'   	=> '3',
 						'size'        	=> '5',
+					),
+					'likes_comments_hover_color'	=> array(
+						'type'			=> 'color',
+						'label'     	=> __( 'Likes & Comments Color', 'bb-powerpack' ),
+						'default'		=> '',
+						'show_reset' 	=> true,
 					),
 				),
 			),

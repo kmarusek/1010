@@ -519,7 +519,7 @@ if( !empty( $settings->background_hover_color ) || $settings->link_hover_color )
 
 /**
  * Sub Menu
-**/
+ **/
 .fl-node-<?php echo $id; ?> .sub-menu {
 	<?php if ( 'yes' == $settings->submenu_box_shadow_display ) { ?>
 	-webkit-box-shadow: <?php echo $settings->submenu_box_shadow['horizontal']; ?>px <?php echo $settings->submenu_box_shadow['vertical']; ?>px <?php echo $settings->submenu_box_shadow['blur']; ?>px <?php echo $settings->submenu_box_shadow['spread']; ?>px <?php echo pp_hex2rgba( '#'.$settings->submenu_box_shadow_color, $settings->submenu_box_shadow_opacity / 100 ); ?>;
@@ -536,7 +536,11 @@ if( !empty( $settings->background_hover_color ) || $settings->link_hover_color )
 	<?php if ( ! empty( $settings->submenu_container_bg_color ) ) { ?>
 	background-color: #<?php echo $settings->submenu_container_bg_color; ?>;
 	<?php } ?>
-	width: <?php echo $settings->submenu_width; ?>px;
+	<?php if ( $settings->submenu_width ) { ?>
+		width: <?php echo $settings->submenu_width; ?>px;
+		margin-left: auto;
+		margin-right: auto;
+	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> ul.pp-advanced-menu-horizontal li.mega-menu > ul.sub-menu {
@@ -555,7 +559,7 @@ if( !empty( $settings->background_hover_color ) || $settings->link_hover_color )
 	border-style: <?php echo $settings->submenu_border_style; ?>;
 	border-bottom-width: <?php echo ( $settings->submenu_border_size != '' && $settings->submenu_border_color ) ? $settings->submenu_border_size : ''; ?>px;
 	border-color: <?php echo '#' . $settings->submenu_border_color; ?>;
-	background-color: <?php echo '#' . $settings->submenu_background_color; ?>;
+	background-color: <?php echo ( false === strpos( $settings->submenu_background_color, 'rgb' ) ) ? '#' . $settings->submenu_background_color : $settings->submenu_background_color; ?>;
 	color: #<?php echo empty($settings->submenu_link_color) ? $settings->link_color : $settings->submenu_link_color; ?>;
 
 }
@@ -571,7 +575,7 @@ if( !empty( $settings->background_hover_color ) || $settings->link_hover_color )
 .fl-node-<?php echo $id; ?> .sub-menu > li > .pp-has-submenu-container > a:focus,
 .fl-node-<?php echo $id; ?> .sub-menu > li.current-menu-item > a,
 .fl-node-<?php echo $id; ?> .sub-menu > li.current-menu-item > .pp-has-submenu-container > a {
-	background-color: <?php echo '#' . $settings->submenu_background_hover_color; ?>;
+	background-color: <?php echo ( false === strpos( $settings->submenu_background_hover_color, 'rgb' ) ) ? '#' . $settings->submenu_background_hover_color : $settings->submenu_background_hover_color; ?>;
 	color: #<?php echo empty($settings->submenu_link_hover_color) ? $settings->link_hover_color : $settings->submenu_link_hover_color; ?>;
 }
 

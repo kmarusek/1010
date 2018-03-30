@@ -4,8 +4,13 @@ $class = array( 'pp-instagram-feed' );
 $attrs = array();
 $attr = ' ';
 
-$class[] = 'pp-instagram-feed-' . $settings->feed_layout;
 $class[] = 'pp-instagram-feed-' . $settings->content_visibility;
+
+if ( 'carousel' == $settings->feed_layout ) {
+	$class[] = 'pp-instagram-feed-carousel';
+} else {
+	$class[] = 'pp-instagram-feed-grid';
+}
 
 if ( 'grid' == $settings->feed_layout && $settings->grid_columns ) {
 	$class[] = 'pp-instagram-feed-' . $settings->grid_columns;
@@ -19,8 +24,13 @@ if ( 'yes' == $settings->image_hover_grayscale ) {
 	$class[] = 'pp-instagram-feed-hover-gray';
 }
 
-$inner_class = array( 'swiper-container-wrap pp-instagram-feed-inner' );
-$feed_container_class = array( 'swiper-container' );
+$inner_class = array( 'pp-instagram-feed-inner' );
+$feed_container_class = array();
+
+if ( 'carousel' == $settings->feed_layout ) {
+	$inner_class[] = 'swiper-container-wrap';
+	$feed_container_class[] = 'swiper-container';
+}
 
 if ( 'yes' == $settings->infinite_loop ) {
 	$attrs['data-loop'] = 1;
@@ -39,7 +49,7 @@ foreach ( $attrs as $key => $value ) {
 	<?php if ( 'yes' == $settings->profile_link ) { ?>
 		<?php if ( ! empty( $settings->insta_link_title ) ) { ?>
 			<span class="pp-instagram-feed-title-wrap">
-				<a href="<?php echo $settings->insta_profile_url; ?>">
+				<a href="<?php echo $settings->insta_profile_url; ?>" target="_blank">
 					<span class="pp-instagram-feed-title">
 						<?php if ( ! empty( $settings->insta_title_icon ) ) { ?>
 							<?php if ( 'before_title' == $settings->insta_title_icon_position ) { ?>
@@ -59,7 +69,7 @@ foreach ( $attrs as $key => $value ) {
 	<?php } ?>
 	<div class="<?php echo implode( ' ', $inner_class ); ?>">
 		<div class="<?php echo implode( ' ', $feed_container_class ); ?>">
-			<div id="pp-instagram-<?php echo $id; ?>" <?php if ( 'carousel' == $settings->feed_layout ) { ?>class="swiper-wrapper"<?php } ?>>
+			<div id="pp-instagram-<?php echo $id; ?>" class="pp-instagram-feed-items<?php if ( 'carousel' == $settings->feed_layout ) { ?> swiper-wrapper<?php } ?>">
 			</div>
 			<?php if ( 'carousel' == $settings->feed_layout ) : ?>
 			<?php if ( 'yes' == $settings->pagination ) { ?>

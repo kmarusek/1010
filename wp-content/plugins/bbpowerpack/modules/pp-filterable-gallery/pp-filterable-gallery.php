@@ -26,12 +26,12 @@ class PPFilterableGalleryModule extends FLBuilderModule {
             'icon'				=> 'format-gallery.svg',
         ));
 
-		$this->add_js('jquery-magnificpopup');
 		$this->add_css('jquery-magnificpopup');
+		$this->add_js('jquery-magnificpopup');
+		
 		$this->add_js('jquery-masonry');
-
-		$this->add_js( 'isotope', $this->url . 'js/isotope.pkgd.min.js', array('jquery'), '', true );
-		$this->add_js( 'jquery-imagesloaded', $this->url . 'js/jquery.imagesloaded.js', array('jquery'), rand(), false );
+		$this->add_js( 'jquery-isotope' );
+		$this->add_js( 'jquery-imagesloaded' );
 
     }
 
@@ -443,6 +443,13 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
                             'selector'        => '.pp-gallery-filters li.all',
                         )
 					),
+					'custom_id_prefix'	=> array(
+						'type'				=> 'text',
+						'label'				=> __('Custom ID Prefix', 'bb-powerpack'),
+						'default'			=> '',
+						'placeholder'		=> __('mygallery', 'bb-powerpack'),
+						'help'				=> __('To filter the gallery using URL parameters, a prefix that will be applied to ID attribute of filter button in HTML. For example, prefix "mygallery" will be applied as "mygallery-1", "mygallery-2" in ID attribute of filter button 1 and filter button 2 respectively. It should only contain dashes, underscores, letters or numbers. No spaces and no other special characters.', 'bb-powerpack')
+					)
 				)
 			),
 			'gallery_columns'	=> array(

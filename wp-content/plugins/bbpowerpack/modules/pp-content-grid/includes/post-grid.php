@@ -22,6 +22,10 @@
 
 ));
 
+if ( $settings->post_type == 'product' ) {
+	global $post, $product;
+}
+
 ?>
 <div <?php post_class('pp-content-post pp-content-grid-post '. 'pp-grid-' . $settings->post_grid_style_select); ?> itemscope itemtype="<?php PPContentGridModule::schema_itemtype(); ?>">
 

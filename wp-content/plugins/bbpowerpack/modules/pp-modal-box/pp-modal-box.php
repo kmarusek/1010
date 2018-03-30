@@ -29,7 +29,7 @@ class PPModalBoxModule extends FLBuilderModule {
             $this->add_css( 'modal-settings-style', $this->url . 'css/settings.css' );
             $this->add_js( 'modal-settings-script', $this->url . 'js/settings.js', array(), '', true );
         }
-        $this->add_js( 'jquery-cookie', $this->url . 'js/jquery.cookie.min.js', array('jquery') );
+        $this->add_js( 'jquery-cookie' );
     }
 
     public static function get_saved_templates()

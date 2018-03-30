@@ -10,6 +10,15 @@
 
 <div class="pp-pricing-table pp-pricing-table-spacing-<?php echo $settings->box_spacing; ?>">
 
+	<?php if ( 'yes' == $settings->dual_pricing ) { ?>
+	<div class="pp-pricing-table-switch">
+		<div class="pp-pricing-table-buttons">
+			<a href="javascript:void(0)" class="pp-pricing-table-button pp-pricing-button-1 pp-pricing-button-active" data-activate-price="primary"><?php echo $settings->dp_button_1_text; ?></a>
+			<a href="javascript:void(0)" class="pp-pricing-table-button pp-pricing-button-2" data-activate-price="secondary"><?php echo $settings->dp_button_2_text; ?></a>
+		</div>
+	</div>
+	<?php } ?>
+
 	<?php if( $settings->pricing_table_style == 'matrix' ) { ?>
 		<div class="pp-pricing-table-col pp-pricing-table-col-<?php echo $columns; ?> pp-pricing-table-matrix">
 			<div class="pp-pricing-table-column">
@@ -62,9 +71,14 @@
 				<?php if( $settings->title_position == 'above' ) { ?>
 					<<?php echo $settings->title_tag; ?> class="pp-pricing-table-title"><?php echo $pricingColumn->title; ?></<?php echo $settings->title_tag; ?>>
 				<?php } ?>
-				<div class="pp-pricing-table-price">
+				<div class="pp-pricing-table-price pp-price-primary">
 					<?php echo $pricingColumn->price; ?> <span class="pp-pricing-table-duration"><?php echo $pricingColumn->duration; ?></span>
 				</div>
+				<?php if ( 'yes' == $settings->dual_pricing ) { ?>
+					<div class="pp-pricing-table-price pp-price-secondary">
+					<?php echo $pricingColumn->price_2; ?> <span class="pp-pricing-table-duration"><?php echo $pricingColumn->duration_2; ?></span>
+				</div>
+				<?php } ?>
 				<?php if( $settings->title_position == 'below' ) { ?>
 					<<?php echo $settings->title_tag; ?> class="pp-pricing-table-title"><?php echo $pricingColumn->title; ?></<?php echo $settings->title_tag; ?>>
 				<?php } ?>

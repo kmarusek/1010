@@ -10,6 +10,7 @@
 				gallery: {
 					enabled: true,
 					navigateByImgClick: true,
+					tCounter: ''
 				},
 				'image': {
 					titleSrc: function(item) {

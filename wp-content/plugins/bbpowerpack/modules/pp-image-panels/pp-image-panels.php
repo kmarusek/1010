@@ -38,18 +38,6 @@ class PPImagePanelsModule extends FLBuilderModule {
     {
         return $settings;
     }
-
-    /**
-     * This method will be called by the builder
-     * right before the module is deleted.
-     *
-     * @method delete
-     */
-    public function delete()
-    {
-
-    }
-
 }
 
 /**

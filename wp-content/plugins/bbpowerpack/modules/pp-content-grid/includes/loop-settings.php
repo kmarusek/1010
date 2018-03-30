@@ -25,7 +25,8 @@ FLBuilderModel::default_settings($settings, array(
 	'product_rating'	=> 'yes',
 	'product_price'		=> 'yes',
 	'product_button'	=> 'yes',
-	'product_button_text'	=> __('Add to Cart', 'bb-powerpack')
+	'product_button_text'	=> __('Add to Cart', 'bb-powerpack'),
+	'fallback_image'	=> 'default'
 ));
 
 $settings = apply_filters( 'pp_cg_loop_settings', $settings );
@@ -50,12 +51,40 @@ do_action( 'pp_cg_loop_settings_before_form', $settings ); // e.g Add custom FLB
 			'custom_query'  => array(
 				'sections'		=> array( 'general', 'filter' ),
 				'fields'        => array( 'posts_per_page' )
+			),
+			'acf_relationship'	=> array(
+				'sections'			=> array('acf_relationship'),
+				'fields'        	=> array( 'posts_per_page' )
 			)
 		)
 	), $settings);
 	?>
 	</table>
 </div>
+
+<div class="fl-loop-data-source-acf fl-loop-data-source" data-source="acf_relationship">
+	<div id="fl-builder-settings-section-acf_relationship" class="fl-builder-settings-section">
+		<table class="fl-form-table">
+		<?php
+		FLBuilder::render_settings_field('data_source_acf_relational_type', array(
+			'type'		=> 'select',
+			'label'		=> __( 'Type', 'bb-powerpack' ),
+			'default'       => 'relationship',
+			'options'       => array(
+				'relationship'  => __( 'Relationship', 'bb-powerpack' ),
+				'user'          => __( 'User', 'bb-powerpack' ),
+			),
+		), $settings);
+
+		FLBuilder::render_settings_field('data_source_acf_relational_key', array(
+			'type'          => 'text',
+			'label'         => __( 'Key', 'bb-powerpack' ),
+		), $settings);
+		?>
+		</table>
+	</div>
+</div>
+
 <div class="fl-custom-query fl-loop-data-source" data-source="custom_query">
 	<div id="fl-builder-settings-section-general" class="fl-builder-settings-section">
 		<h3 class="fl-builder-settings-title"><?php _e('Custom Query', 'bb-powerpack'); ?></h3>
@@ -376,7 +405,7 @@ do_action( 'pp_cg_loop_settings_before_form', $settings ); // e.g Add custom FLB
 			),
 			'toggle'	=> array(
 				'yes'	=> array(
-					'fields'	=> array('image_thumb_size', 'image_thumb_crop')
+					'fields'	=> array('image_thumb_size', 'image_thumb_crop', 'fallback_image')
 				)
 			)
 		),$settings);
@@ -400,6 +429,28 @@ do_action( 'pp_cg_loop_settings_before_form', $settings ); // e.g Add custom FLB
 				'circle'        => __( 'Circle', 'bb-powerpack' )
 			)
 		),$settings);
+
+		FLBuilder::render_settings_field('fallback_image', array(
+			'type'		=> 'select',
+			'label'		=> __('Fallback Image', 'bb-powerpack'),
+			'default'	=> 'default',
+			'options'	=> array(
+				'none'		=> __('None', 'bb-powerpack'),
+				'default'	=> __('Default', 'bb-powerpack'),
+				'custom'	=> __('Custom', 'bb-powerpack')
+			),
+			'help'		=> __('If a feature image is not available in post, it will display the first image from the post or default image placeholder or a custom image. You can choose None to do not display fallback image.', 'bb-powerpack'),
+			'toggle'	=> array(
+				'custom'	=> array(
+					'fields'	=> array('fallback_image_custom')
+				)
+			)
+		), $settings);
+
+		FLBuilder::render_settings_field('fallback_image_custom', array(
+			'type'		=> 'photo',
+			'label'		=> __('Custom Fallback Image', 'bb-powerpack'),
+		), $settings);
 		?>
 	</table>
 </div>

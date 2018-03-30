@@ -47,8 +47,13 @@ class PPPricingTableModule extends FLBuilderModule {
 			'text'              => $this->get_shortcode_text( $this->settings->pricing_columns[$column]->button_text ),
 			'text_color'        => $this->settings->pricing_columns[$column]->btn_text_color,
 			'text_hover_color'  => $this->settings->pricing_columns[$column]->btn_text_hover_color,
-			'width'             => $this->settings->pricing_columns[$column]->btn_width
+			'width'             => $this->settings->pricing_columns[$column]->btn_width,
+			'class'				=> 'pp-pricing-package-button'
 		);
+
+		if ( 'yes' == $this->settings->dual_pricing ) {
+			$btn_settings['link_2'] = $this->settings->pricing_columns[$column]->button_url_2;
+		}
 
 		FLBuilder::render_module_html('fl-button', $btn_settings);
 	}
@@ -91,12 +96,12 @@ class PPPricingTableModule extends FLBuilderModule {
  * Register the module and its form settings.
  */
 FLBuilder::register_module('PPPricingTableModule', array(
-	'columns'      => array(
-		'title'         => __('Packages', 'bb-powerpack'),
-		'sections'      => array(
-			'general'       => array(
-				'title'         => '',
-				'fields'        => array(
+	'general'	=> array(
+		'title'		=> __('General', 'bb-powerpack'),
+		'sections'	=> array(
+			'structure'	=> array(
+				'title'		=> '',
+				'fields'	=> array(
 					'pricing_table_style' => array(
 						'type'          => 'pp-switch',
 						'label'         => __('Layout', 'bb-powerpack'),
@@ -109,8 +114,285 @@ FLBuilder::register_module('PPPricingTableModule', array(
 							'matrix'	=> array(
 								'tabs'	=> array('matrix_items')
 							)
+						),
+					),
+					'dual_pricing'	=> array(
+						'type'			=> 'pp-switch',
+						'label'			=> __('Enable Dual Pricing', 'bb-powerpack'),
+						'default'		=> 'no',
+						'options'		=> array(
+							'yes'			=> __('Yes', 'bb-powerpack'),
+							'no'			=> __('No', 'bb-powerpack'),
+						),
+						'toggle'		=> array(
+							'yes'			=> array(
+								'sections'		=> array('dual_pricing_settings')
+							)
+						)
+					)
+				)
+			),
+			'dual_pricing_settings'	=> array(
+				'title'		=> __('Dual Pricing Button', 'bb-powerpack'),
+				'fields'	=> array(
+					'dp_button_1_text'	=> array(
+						'type'			=> 'text',
+						'label'			=> __('Button 1 Text', 'bb-powerpack'),
+						'connections'	=> array('string', 'html'),
+						'preview'	=> array(
+							'type'		=> 'text',
+							'selector'	=> '.pp-pricing-table .pp-pricing-button-1',
 						)
 					),
+					'dp_button_2_text'	=> array(
+						'type'			=> 'text',
+						'label'			=> __('Button 2 Text', 'bb-powerpack'),
+						'connections'	=> array('string', 'html'),
+						'preview'	=> array(
+							'type'		=> 'text',
+							'selector'	=> '.pp-pricing-table .pp-pricing-button-2',
+						)
+					),
+					'dp_button_alignment'	=> array(
+						'type'		=> 'pp-switch',
+						'label'		=> __('Alignment', 'bb-powerpack'),
+						'default'	=> 'center',
+						'options'	=> array(
+							'left'		=> __('Left', 'bb-powerpack'),
+							'center'	=> __('Center', 'bb-powerpack'),
+							'right'		=> __('Right', 'bb-powerpack'),
+						),
+						'preview'	=> array(
+							'type'		=> 'css',
+							'selector'	=> '.pp-pricing-table .pp-pricing-table-buttons',
+							'property'	=> 'text-align'
+						)
+					),
+					'dp_button_active_bg_color'	=> array(
+						'type'		=> 'color',
+						'label'		=> __('Active Background Color', 'bb-powerpack'),
+						'default'	=> 'f1f1f1',
+						'show_reset'	=> true,
+						'preview'	=> array(
+							'type'		=> 'css',
+							'selector'	=> '.pp-pricing-table .pp-pricing-table-buttons .pp-pricing-table-button.pp-pricing-button-active',
+							'property'	=> 'background-color'
+						)
+					),
+					'dp_button_active_text_color'	=> array(
+						'type'		=> 'color',
+						'label'		=> __('Active Text Color', 'bb-powerpack'),
+						'default'	=> '000000',
+						'show_reset'	=> true,
+						'preview'	=> array(
+							'type'		=> 'css',
+							'selector'	=> '.pp-pricing-table .pp-pricing-table-buttons .pp-pricing-table-button.pp-pricing-button-active',
+							'property'	=> 'color'
+						)
+					),
+					'dp_button_default_text_color'	=> array(
+						'type'		=> 'color',
+						'label'		=> __('Default Text Color', 'bb-powerpack'),
+						'default'	=> '',
+						'show_reset'	=> true,
+						'preview'	=> array(
+							'type'		=> 'css',
+							'selector'	=> '.pp-pricing-table .pp-pricing-table-buttons .pp-pricing-table-button',
+							'property'	=> 'color'
+						)
+					),
+					'dp_button_border'	=> array(
+						'type'		=> 'select',
+						'label'		=> __('Border', 'bb-powerpack'),
+						'default'	=> 'default',
+						'options'	=> array(
+							'default'	=> __('Default', 'bb-powerpack'),
+							'none'		=> __('None', 'bb-powerpack'),
+							'solid'		=> __('Solid', 'bb-powerpack'),
+							'dashed'	=> __('Dashed', 'bb-powerpack'),
+							'dotted'	=> __('Dotted', 'bb-powerpack'),
+						),
+						'toggle'	=> array(
+							'solid'		=> array(
+								'fields'	=> array('dp_button_border_width')
+							),
+							'dashed'	=> array(
+								'fields'	=> array('dp_button_border_width')
+							),
+							'dotted'	=> array(
+								'fields'	=> array('dp_button_border_width')
+							),
+						)
+					),
+					'dp_button_border_width'	=> array(
+						'type'			=> 'pp-multitext',
+						'label'			=> __('Border Width', 'bb-powerpack'),
+						'default'       => array(
+							'top' 			=> 1,
+							'bottom' 		=> 1,
+							'left' 			=> 1,
+							'right' 		=> 1,
+						),
+						'options'		=> array(
+							'top'       	=> array(
+								'placeholder'       => __('Top', 'bb-powerpack'),
+								'icon'              => 'fa-long-arrow-up',
+								'tooltip'           => __('Top', 'bb-powerpack'),
+							),
+							'bottom'       	=> array(
+								'placeholder'       => __('Bottom', 'bb-powerpack'),
+								'icon'              => 'fa-long-arrow-down',
+								'tooltip'           => __('Bottom', 'bb-powerpack'),
+							),
+							'left'       	=> array(
+								'placeholder'       => __('Left', 'bb-powerpack'),
+								'icon'              => 'fa-long-arrow-left',
+								'tooltip'           => __('Left', 'bb-powerpack'),
+							),
+							'right'       	=> array(
+								'placeholder'       => __('Right', 'bb-powerpack'),
+								'icon'              => 'fa-long-arrow-right',
+								'tooltip'           => __('Right', 'bb-powerpack'),
+							),
+						),
+						'preview'		=> array(
+							'type'			=> 'refresh'
+						)
+					),
+					'dp_button_border_color'	=> array(
+						'type'		=> 'color',
+						'label'		=> __('Border Color', 'bb-powerpack'),
+						'default'	=> '000000',
+						'show_reset'	=> true,
+					),
+					'dp_button_apply_border'	=> array(
+						'type'		=> 'pp-switch',
+						'label'		=> __('Apply Border to', 'bb-powerpack'),
+						'default'	=> 'active',
+						'options'	=> array(
+							'active'	=> __('Active Button', 'bb-powerpack'),
+							'all'		=> __('All Buttons', 'bb-powerpack'),
+						)
+					),
+					'dp_button_font_size'	=> array(
+						'type'					=> 'unit',
+						'label'					=> __('Font Size', 'bb-powerpack'),
+						'description'			=> 'px',
+						'size'					=> '5',
+						'responsive' 			=> array(
+							'placeholder' 			=> array(
+								'default' 				=> '',
+								'medium' 				=> '',
+								'responsive'			=> '',
+							),
+						),
+						'help'	=> __('Leave blank for default font size.', 'bb-powerpack'),
+						'preview'	=> array(
+							'type'		=> 'css',
+							'selector'	=> '.pp-pricing-table .pp-pricing-table-buttons .pp-pricing-table-button',
+							'property'	=> 'font-size',
+							'unit'		=> 'px'
+						)
+					),
+					'dp_button_padding_v'	=> array(
+						'type'					=> 'unit',
+						'label'					=> __('Padding Top/Bottom', 'bb-powerpack'),
+						'description'			=> 'px',
+						'default'				=> '10',
+						'size'					=> '5',
+						'responsive' 			=> array(
+							'placeholder' 			=> array(
+								'default' 				=> '10',
+								'medium' 				=> '',
+								'responsive'			=> '',
+							),
+						),
+						'preview'	=> array(
+							'type'		=> 'css',
+							'rules'		=> array(
+								array(
+									'selector'	=> '.pp-pricing-table .pp-pricing-table-buttons .pp-pricing-table-button',
+									'property'	=> 'padding-top',
+									'unit'		=> 'px'
+								),
+								array(
+									'selector'	=> '.pp-pricing-table .pp-pricing-table-buttons .pp-pricing-table-button',
+									'property'	=> 'padding-bottom',
+									'unit'		=> 'px'
+								),
+							)
+						)
+					),
+					'dp_button_padding_h'	=> array(
+						'type'					=> 'unit',
+						'label'					=> __('Padding Left/Right', 'bb-powerpack'),
+						'description'			=> 'px',
+						'default'				=> '10',
+						'size'					=> '5',
+						'responsive' 			=> array(
+							'placeholder' 			=> array(
+								'default' 				=> '15',
+								'medium' 				=> '',
+								'responsive'			=> '',
+							),
+						),
+						'preview'	=> array(
+							'type'		=> 'css',
+							'rules'		=> array(
+								array(
+									'selector'	=> '.pp-pricing-table .pp-pricing-table-buttons .pp-pricing-table-button',
+									'property'	=> 'padding-left',
+									'unit'		=> 'px'
+								),
+								array(
+									'selector'	=> '.pp-pricing-table .pp-pricing-table-buttons .pp-pricing-table-button',
+									'property'	=> 'padding-right',
+									'unit'		=> 'px'
+								),
+							)
+						)
+					),
+					'dp_button_radius'	=> array(
+						'type'				=> 'text',
+						'label'				=> __('Round Corners', 'bb-powerpack'),
+						'default'			=> '0',
+						'size'				=> '5',
+						'preview'	=> array(
+							'type'		=> 'css',
+							'selector'	=> '.pp-pricing-table .pp-pricing-table-buttons .pp-pricing-table-button',
+							'property'	=> 'border-radius',
+							'unit'		=> 'px'
+						)
+					),
+					'dp_button_spacing'	=> array(
+						'type'				=> 'unit',
+						'label'				=> __('Spacing', 'bb-powerpack'),
+						'default'			=> '5',
+						'size'				=> '5',
+						'responsive' 			=> array(
+							'placeholder' 			=> array(
+								'default' 				=> '5',
+								'medium' 				=> '',
+								'responsive'			=> '',
+							),
+						),
+						'preview'	=> array(
+							'type'		=> 'css',
+							'selector'	=> '.pp-pricing-table .pp-pricing-table-buttons .pp-pricing-button-1',
+							'property'	=> 'margin-right',
+							'unit'		=> 'px'
+						)
+					),
+				)
+			)
+		)
+	),
+	'columns'      => array(
+		'title'         => __('Packages', 'bb-powerpack'),
+		'sections'      => array(
+			'general'       => array(
+				'title'         => '',
+				'fields'        => array(
 					'pricing_columns'     => array(
 						'type'         => 'form',
 						'label'        => __('Package', 'bb-powerpack'),
@@ -1975,6 +2257,7 @@ FLBuilder::register_settings_form('pp_pricing_column_form', array(
 						'hl_featured_title'          => array(
 							'type'          => 'text',
 							'label'         => __('Title', 'bb-powerpack'),
+							'description'	=> __('Popular, Featured, etc.', 'bb-powerpack'),
 							'connections'   => array( 'string', 'html', 'url' ),
 						),
 					)
@@ -1985,6 +2268,7 @@ FLBuilder::register_settings_form('pp_pricing_column_form', array(
 						'title'          => array(
 							'type'          => 'text',
 							'label'         => __('Title', 'bb-powerpack'),
+							'description'	=> __('Basic, Standard, Pro, etc.', 'bb-powerpack'),
 							'connections'   => array( 'string', 'html', 'url' ),
 						),
 					),
@@ -1995,11 +2279,24 @@ FLBuilder::register_settings_form('pp_pricing_column_form', array(
 						'price'          => array(
 							'type'          => 'text',
 							'label'         => __('Price', 'bb-powerpack'),
+							'connections'   => array( 'string', 'html' ),
 						),
 						'duration'          => array(
 							'type'          => 'text',
 							'label'         => __('Duration', 'bb-powerpack'),
-							'placeholder'   => __( 'per Year', 'bb-powerpack' )
+							'placeholder'   => __( 'per Month', 'bb-powerpack' ),
+							'connections'   => array( 'string', 'html' ),
+						),
+						'price_2'          => array(
+							'type'          => 'text',
+							'label'         => __('Price 2', 'bb-powerpack'),
+							'connections'   => array( 'string', 'html' ),
+						),
+						'duration_2'          => array(
+							'type'          => 'text',
+							'label'         => __('Duration 2', 'bb-powerpack'),
+							'placeholder'   => __( 'per Year', 'bb-powerpack' ),
+							'connections'   => array( 'string', 'html' ),
 						),
 					)
 				),
@@ -2036,6 +2333,11 @@ FLBuilder::register_settings_form('pp_pricing_column_form', array(
 						'button_url'    => array(
 							'type'          => 'link',
 							'label'         => __('Button URL', 'bb-powerpack'),
+							'connections'   => array( 'url' ),
+						),
+						'button_url_2'    => array(
+							'type'          => 'link',
+							'label'         => __('Button URL 2', 'bb-powerpack'),
 							'connections'   => array( 'url' ),
 						),
 						'btn_link_target'    	=> array(

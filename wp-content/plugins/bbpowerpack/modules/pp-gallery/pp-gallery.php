@@ -32,19 +32,18 @@ class PPGalleryModule extends FLBuilderModule {
 	{
 		$this->add_js('jquery-masonry');
 
-		$this->add_js( 'isotope', $this->url . 'js/isotope.pkgd.min.js', array('jquery'), BB_POWERPACK_VER, true );
+		$this->add_js( 'jquery-isotope' );
 
-		$this->add_css( 'fancybox-style', $this->url . 'css/jquery.fancybox.css', BB_POWERPACK_VER );
-		$this->add_js( 'fancybox-script', $this->url . 'js/jquery.fancybox.js', array('jquery'), BB_POWERPACK_VER, true );
+		$this->add_css( 'jquery-fancybox' );
+		$this->add_js( 'jquery-fancybox' );
 
-		$this->add_css( 'fancybox-thumbs', $this->url . 'helpers/jquery.fancybox-thumbs.css', BB_POWERPACK_VER );
-		$this->add_js( 'fancybox-thumbs-script', $this->url . 'helpers/jquery.fancybox-thumbs.js', array('jquery'), BB_POWERPACK_VER, true );
-		$this->add_js( 'fancybox-media-script', $this->url . 'helpers/jquery.fancybox-media.js', array('jquery'), BB_POWERPACK_VER, true );
+		$this->add_css( 'jquery-fancybox-thumbs' );
+		$this->add_js( 'jquery-fancybox-thumbs' );
+		$this->add_js( 'jquery-fancybox-media' );
 
-		$this->add_css( 'justified-style', $this->url . 'css/justifiedGallery.min.css', BB_POWERPACK_VER );
-		$this->add_js( 'justified-script', $this->url . 'js/jquery.justifiedGallery.min.js', array('jquery'), BB_POWERPACK_VER );
+		$this->add_css( 'jquery-justifiedgallery' );
+		$this->add_js( 'jquery-justifiedgallery' );
 	}
-
 
 	/**
 	 * @method update

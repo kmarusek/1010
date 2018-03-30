@@ -24,13 +24,8 @@ class PPInfoBoxModule extends FLBuilderModule {
             'enabled'       => true, // Defaults to true and can be omitted.
             'partial_refresh'   => true,
             'icon'				=> 'layout.svg',
-        ));
-
-        /**
-         * Use these methods to enqueue css and js already
-         * registered or to register and enqueue your own.
-         */
-        // Already registered
+		));
+		
 		$this->add_css('font-awesome');
     }
 
