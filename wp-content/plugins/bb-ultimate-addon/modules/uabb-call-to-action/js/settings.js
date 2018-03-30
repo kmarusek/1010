@@ -14,16 +14,16 @@
 		{
 			var form      = $( '.fl-builder-settings' ),
 				layout    = form.find( 'select[name=layout]' );
-
+				
 			this._layoutChanged();
-
+			
 			layout.on( 'change', this._layoutChanged );
 			setTimeout(function(){
-				layout.trigger( 'change' );
+				layout.trigger( 'change' );	
 			},500);
 
 			UABBButton.init();
-
+			
 		},
 		_layoutChanged: function(){  }
 	});

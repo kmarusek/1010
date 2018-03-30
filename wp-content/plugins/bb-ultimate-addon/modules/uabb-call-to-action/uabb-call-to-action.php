@@ -19,7 +19,8 @@ class UABBCtaModule extends FLBuilderModule {
             'url'           => BB_ULTIMATE_ADDON_URL . 'modules/uabb-call-to-action/',
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
-            'partial_refresh'  => true
+            'partial_refresh'  => true,
+            'icon'             => 'megaphone.svg',
 		));
 	}
 
@@ -43,15 +44,15 @@ class UABBCtaModule extends FLBuilderModule {
 	public function render_button()
 	{
 		$btn_settings = array(
-
+			
 			/* General Section */
             'text'              => $this->settings->btn_text,
-
+            
             /* Link Section */
             'link'              => $this->settings->btn_link,
             'link_target'       => $this->settings->btn_link_target,
             'link_nofollow'     => $this->settings->btn_link_nofollow,
-
+            
             /* Style Section */
             'style'             => $this->settings->btn_style,
             'border_size'       => $this->settings->btn_border_size,
@@ -68,7 +69,7 @@ class UABBCtaModule extends FLBuilderModule {
             /* Icon */
             'icon'              => $this->settings->btn_icon,
             'icon_position'     => $this->settings->btn_icon_position,
-
+            
             /* Structure */
 			'width'              => $this->settings->btn_width,
             'custom_width'       => $this->settings->btn_custom_width,
@@ -185,7 +186,7 @@ FLBuilder::register_module('UABBCtaModule', array(
 							'unit'          => 'px'
 						)
 					),
-					'bg_color'    => array(
+					'bg_color'    => array( 
 						'type'       => 'color',
                         'label'      => __('Background Color', 'uabb'),
 						'default'    => '',
@@ -196,7 +197,7 @@ FLBuilder::register_module('UABBCtaModule', array(
                             'property'      => 'background',
                         )
 					),
-                    'bg_color_opc'    => array(
+                    'bg_color_opc'    => array( 
 						'type'        => 'text',
 						'label'       => __('Opacity', 'uabb'),
 						'default'     => '',
@@ -354,7 +355,7 @@ FLBuilder::register_module('UABBCtaModule', array(
             'btn-colors'     => array( // Section
                 'title'         => __('Colors', 'uabb'),
                 'fields'        => array(
-                    'btn_text_color'        => array(
+                    'btn_text_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Text Color', 'uabb'),
                         'default'    => '',
@@ -365,7 +366,7 @@ FLBuilder::register_module('UABBCtaModule', array(
                             'property'      => 'color'
                         )
                     ),
-                    'btn_text_hover_color'        => array(
+                    'btn_text_hover_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Text Hover Color', 'uabb'),
                         'default'    => '',
@@ -374,7 +375,7 @@ FLBuilder::register_module('UABBCtaModule', array(
                             'type'          => 'none'
                         )
                     ),
-                    'btn_bg_color'        => array(
+                    'btn_bg_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Background Color', 'uabb'),
                         'default'    => '',
@@ -385,7 +386,7 @@ FLBuilder::register_module('UABBCtaModule', array(
                             'property'      => 'background'
                         )
                     ),
-                    'btn_bg_color_opc'    => array(
+                    'btn_bg_color_opc'    => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -393,7 +394,7 @@ FLBuilder::register_module('UABBCtaModule', array(
                         'maxlength'   => '3',
                         'size'        => '5',
                     ),
-                    'btn_bg_hover_color'        => array(
+                    'btn_bg_hover_color'        => array( 
                         'type'       => 'color',
                         'label'         => __('Background Hover Color', 'uabb'),
                         'default'    => '',
@@ -402,7 +403,7 @@ FLBuilder::register_module('UABBCtaModule', array(
                             'type'          => 'none'
                         )
                     ),
-                    'btn_bg_hover_color_opc'    => array(
+                    'btn_bg_hover_color_opc'    => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -501,7 +502,7 @@ FLBuilder::register_module('UABBCtaModule', array(
                                     'selector'     => '.selector-2',
                                     'property'     => 'padding-bottom',
                                     'unit'          => 'px'
-                                ),
+                                ),    
                             )
                         )
                     ),
@@ -586,7 +587,7 @@ FLBuilder::register_module('UABBCtaModule', array(
                             'unit'            => 'px'
                         )
                     ),
-                    'title_color'        => array(
+                    'title_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',
@@ -644,7 +645,7 @@ FLBuilder::register_module('UABBCtaModule', array(
                             'unit'        => 'px'
                         )
                     ),
-                    'subhead_color'        => array(
+                    'subhead_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Description Color', 'uabb'),
                         'default'    => '',

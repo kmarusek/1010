@@ -1,4 +1,4 @@
-<?php
+<?php 
 	$settings->size = ( $settings->size != '' ) ? $settings->size : '40';
 	$settings->spacing = ( $settings->spacing != '' ) ? $settings->spacing : '10';
 ?>
@@ -29,7 +29,7 @@
 <?php } ?>
 
 <?php if ( $settings->icon_struc_align == 'vertical' ) { ?>
-
+	
 
 .fl-node-<?php echo $id; ?> .uabb-social-share-vertical .uabb-social-share-link-wrap {
 	margin-bottom: <?php echo $settings->spacing; ?>px;
@@ -37,13 +37,13 @@
 
 <?php } ?>
 
-<?php
+<?php 
 $icon_count = 1;
 $settings->bg_border_radius = ( $settings->bg_border_radius !== '' ) ? $settings->bg_border_radius : '0';
-foreach ( $settings->social_icons as $i => $icon ) :
+foreach ( $settings->social_icons as $i => $icon ) : 
 
 	$icon->bg_color = uabb_theme_base_color( UABB_Helper::uabb_colorpicker( $icon, 'bg_color', true ) );
-	$icon->bg_hover_color = uabb_theme_base_color( UABB_Helper::uabb_colorpicker( $icon, 'bg_hover_color', true ) );
+	$icon->bg_hover_color = uabb_theme_base_color( UABB_Helper::uabb_colorpicker( $icon, 'bg_hover_color', true ) );	
 
 	$imageicon_array = array(
 
@@ -79,8 +79,8 @@ foreach ( $settings->social_icons as $i => $icon ) :
 	  'img_bg_border_radius' => $settings->bg_border_radius,
 
 	  /* Preset Color variable new */
-	  'icon_color_preset' => 'preset1',
-
+	  'icon_color_preset' => 'preset1', 
+	  
 	  /* Icon Colors */
 	  'icon_color' => $icon->icocolor,
 	  'icon_hover_color' => $icon->icohover_color,
@@ -99,11 +99,11 @@ foreach ( $settings->social_icons as $i => $icon ) :
 	  'img_bg_hover_color_opc' => $icon->bg_hover_color_opc,
 	  'img_border_color' => $icon->border_color,
 	  'img_border_hover_color' => $icon->border_hover_color,
-
+	  
 	);
 	FLBuilder::render_module_css('image-icon', $id.' .uabb-social-share-'.$icon_count, $imageicon_array);
 
-
+	
 
 	//if( /*$icon->image_type == 'photo'*/1 ) {
 	?>
@@ -136,7 +136,7 @@ foreach ( $settings->social_icons as $i => $icon ) :
 		echo (  $settings->icoimage_style != 'simple'  ) ? 'background: ' . uabb_theme_base_color( $icon->bg_hover_color ) . ';' : '';
 		if( $settings->three_d && !empty( $icon->bg_hover_color ) && $settings->icoimage_style != 'simple' ) {
 	            $bg_hover_color = ( !empty($icon->bg_hover_color) ) ? uabb_parse_color_to_hex( $icon->bg_hover_color ) : '' ;
-
+	            
 	            $bg_hover_grad_start = '#'.FLBuilderColor::adjust_brightness($bg_hover_color, 40, 'lighten');
 	    ?>
 	    background: -moz-linear-gradient(top,  <?php echo $bg_hover_grad_start; ?> 0%, <?php echo $icon->bg_hover_color; ?> 100%); /* FF3.6+ */

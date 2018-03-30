@@ -87,7 +87,7 @@
 			$.removeCookie( "countdown-" + settings.id + "hide");
 			$.removeCookie( "countdown-" + settings.id + "reset");
 
-
+			
 			if( action == "msg") {
 
 				$.cookie( "countdown-" + settings.id + "expiremsg", settings.expire_message, { expires: 365 } );
@@ -105,7 +105,7 @@
 				$.cookie( "countdown-" + settings.id + "reset", "yes", { expires: 365 } );
 			}
 		},
-
+	
 		_initFixedTimer: function() {
 
 			var dateNow = new Date();

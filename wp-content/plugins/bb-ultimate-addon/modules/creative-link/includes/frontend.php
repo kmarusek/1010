@@ -8,7 +8,7 @@ $current_url = home_url(add_query_arg(array(),$wp->request));
 	<?php
 	if( count( $settings->screens ) > 0 ) {
 		foreach( $settings->screens as $screen ) {
-			$screen_link = isset( $screen->link ) ? $screen->link : '';
+			$screen_link = isset( $screen->link ) ? $screen->link : ''; 
 			$url = rtrim( $screen_link, '/' );
 			if( $url == $current_url ) {
 				$current_class = 'uabb-current-creative-link';

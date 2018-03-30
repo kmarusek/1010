@@ -1,4 +1,4 @@
-<?php
+<?php 
 $settings->content_bg_color = UABB_Helper::uabb_colorpicker( $settings, 'content_bg_color' );
 $settings->overlay_color = UABB_Helper::uabb_colorpicker( $settings, 'overlay_color', true );
 
@@ -14,7 +14,7 @@ $settings->title_color = UABB_Helper::uabb_colorpicker( $settings, 'title_color'
 $settings->title_bg_color   = UABB_Helper::uabb_colorpicker( $settings, 'title_bg_color', true );
 
 $settings->ct_content_color = UABB_Helper::uabb_colorpicker( $settings, 'ct_content_color' );
-
+ 
 ?>
 
 .fl-node-<?php echo $id; ?> {
@@ -27,16 +27,16 @@ $settings->ct_content_color = UABB_Helper::uabb_colorpicker( $settings, 'ct_cont
 
 
 
-<?php if( $settings->modal_on == 'button') {
+<?php if( $settings->modal_on == 'button') { 
     $btn_settings = array(
 
           /* General Section */
             'text'              => $settings->btn_text,
-
+            
             /* Link Section */
             'link'              => '',//$settings->btn_link,
             'link_target'       => '',//$settings->btn_link_target,
-
+            
             /* Style Section */
             'style'             => $settings->btn_style,
             'border_size'       => $settings->btn_border_size,
@@ -56,7 +56,7 @@ $settings->ct_content_color = UABB_Helper::uabb_colorpicker( $settings, 'ct_cont
             /* Icon */
             'icon'              => $settings->btn_icon,
             'icon_position'     => $settings->btn_icon_position,
-
+            
             /* Structure */
             'width'              => $settings->btn_width,
             'custom_width'       => $settings->btn_custom_width,
@@ -73,12 +73,12 @@ $settings->ct_content_color = UABB_Helper::uabb_colorpicker( $settings, 'ct_cont
             //'font_family'       => $settings->btn_font_family,
     );
 
-    /* CSS Render Function */
+    /* CSS Render Function */ 
     FLBuilder::render_module_css( 'uabb-button', $id, $btn_settings);
 ?>
     .fl-node-<?php echo $id; ?> .uabb-creative-button-wrap a,
     .fl-node-<?php echo $id; ?> .uabb-creative-button-wrap a:visited {
-
+    
         <?php if( $settings->btn_font_family['family'] != "Default") : ?>
             <?php UABB_Helper::uabb_font_css( $settings->btn_font_family ); ?>
         <?php endif; ?>
@@ -86,7 +86,7 @@ $settings->ct_content_color = UABB_Helper::uabb_colorpicker( $settings, 'ct_cont
         font-size: <?php echo $settings->btn_font_size['desktop']; ?>px;
         line-height: <?php echo $settings->btn_font_size['desktop'] + 2; ?>px;
         <?php endif; ?>
-
+            
         <?php if( $settings->btn_line_height['desktop'] != '' ) : ?>
         line-height: <?php echo $settings->btn_line_height['desktop']; ?>px;
         <?php endif; ?>
@@ -110,7 +110,7 @@ $settings->ct_content_color = UABB_Helper::uabb_colorpicker( $settings, 'ct_cont
     font-size: <?php echo $settings->font_size['desktop']; ?>px;
     line-height: <?php echo $settings->font_size['desktop'] + 2; ?>px;
     <?php endif; ?>
-
+        
     <?php if( $settings->line_height['desktop'] != '' ) : ?>
     line-height: <?php echo $settings->line_height['desktop']; ?>px;
     <?php endif; ?>
@@ -118,12 +118,12 @@ $settings->ct_content_color = UABB_Helper::uabb_colorpicker( $settings, 'ct_cont
 
 <?php }elseif( $settings->modal_on == 'icon') { ?>
 
-.fl-node-<?php echo $id; ?> .uabb-modal-icon {
+.fl-node-<?php echo $id; ?> .fl-module-content .uabb-modal-action-wrap .uabb-modal-action .uabb-modal-icon {
     font-size: <?php echo $settings->icon_size; ?>px;
     color: <?php echo $settings->icon_color; ?>;
 }
 
-.fl-node-<?php echo $id; ?> .uabb-modal-action:hover .uabb-modal-icon {
+.fl-node-<?php echo $id; ?> .fl-module-content .uabb-modal-action-wrap .uabb-modal-action:hover .uabb-modal-icon {
     color: <?php echo $settings->icon_hover_color; ?>;
 }
 
@@ -212,7 +212,7 @@ $settings->ct_content_color = UABB_Helper::uabb_colorpicker( $settings, 'ct_cont
                 width: <?php echo $settings->modal_width; ?>px;
                 max-width: 100%;
         }
-
+        
         <?php $size = $module->get_width_height(); ?>
         <?php if ( $settings->content_type == 'youtube' || $settings->content_type == 'vimeo' ) { ?>
         .uamodal-<?php echo $id; ?> .uabb-modal-content-data {
@@ -221,7 +221,7 @@ $settings->ct_content_color = UABB_Helper::uabb_colorpicker( $settings, 'ct_cont
             max-width: 100%;
             /*max-height: 100%;*/
         }
-        @media ( max-height: <?php echo $size['height'] .'px'; ?> ) {
+        @media ( max-height: <?php echo $size['height'] .'px'; ?> ) { 
             .uamodal-<?php echo $id; ?> .uabb-modal-content-data {
                 height: auto;
             }
@@ -277,7 +277,7 @@ $settings->ct_content_color = UABB_Helper::uabb_colorpicker( $settings, 'ct_cont
 
 /* Responsive Center CSS */
 <?php if ( $settings->modal_width != '' ) { ?>
- @media ( max-width: <?php echo ( intval($settings->modal_width) + 50 ) . 'px'; ?> ) {
+ @media ( max-width: <?php echo ( intval($settings->modal_width) + 50 ) . 'px'; ?> ) { 
     /*.uamodal-<?php echo $id; ?> .uabb-modal,*/
     .uamodal-<?php echo $id; ?> .uabb-content {
         width : 80%;
@@ -286,12 +286,12 @@ $settings->ct_content_color = UABB_Helper::uabb_colorpicker( $settings, 'ct_cont
 <?php } ?>
 
 /* Title Typography */
-<?php if (  $settings->enable_title ) { ?>
+<?php if (  $settings->enable_title ) { ?> 
 .uamodal-<?php echo $id; ?> <?php echo $settings->title_tag_selection; ?>.uabb-modal-title {
     <?php if ( $settings->title_color != ''  ) { ?>
     color: <?php echo $settings->title_color; ?>;
     <?php } ?>
-
+    
     <?php if( $settings->title_font_family['family'] != "Default") : ?>
         <?php UABB_Helper::uabb_font_css( $settings->title_font_family ); ?>
     <?php endif; ?>
@@ -299,7 +299,7 @@ $settings->ct_content_color = UABB_Helper::uabb_colorpicker( $settings, 'ct_cont
     font-size: <?php echo $settings->title_font_size['desktop']; ?>px;
     line-height: <?php echo $settings->title_font_size['desktop'] + 2; ?>px;
     <?php endif; ?>
-
+        
     <?php if( $settings->title_line_height['desktop'] != '' ) : ?>
     line-height: <?php echo $settings->title_line_height['desktop']; ?>px;
     <?php endif; ?>
@@ -308,7 +308,7 @@ $settings->ct_content_color = UABB_Helper::uabb_colorpicker( $settings, 'ct_cont
 /* End Title Typography */
 
 /* Modal Content Typography */
-<?php if (  $settings->content_type == 'content' ) { ?>
+<?php if (  $settings->content_type == 'content' ) { ?> 
 .uamodal-<?php echo $id; ?> .uabb-modal-text {
     <?php if( $settings->ct_content_font_family['family'] != "Default") : ?>
         <?php UABB_Helper::uabb_font_css( $settings->ct_content_font_family ); ?>
@@ -317,7 +317,7 @@ $settings->ct_content_color = UABB_Helper::uabb_colorpicker( $settings, 'ct_cont
     font-size: <?php echo $settings->ct_content_font_size['desktop']; ?>px;
     line-height: <?php echo $settings->ct_content_font_size['desktop'] + 2; ?>px;
     <?php endif; ?>
-
+        
     <?php if( $settings->ct_content_line_height['desktop'] != '' ) : ?>
     line-height: <?php echo $settings->ct_content_line_height['desktop']; ?>px;
     <?php endif; ?>
@@ -330,10 +330,10 @@ $settings->ct_content_color = UABB_Helper::uabb_colorpicker( $settings, 'ct_cont
 /* End Modal Content Typography */
 
 
-<?php if($global_settings->responsive_enabled) { // Global Setting If started
+<?php if($global_settings->responsive_enabled) { // Global Setting If started 
     if( $settings->font_size['medium'] != "" || $settings->line_height['medium'] != "" || $settings->btn_font_size['medium'] != "" || $settings->btn_line_height['medium'] != "" || $settings->ct_content_font_size['medium'] != "" || $settings->ct_content_line_height['medium'] != "" || $settings->title_font_size['medium'] != "" || $settings->title_line_height['medium'] != "" )
     {
-        /* Medium Breakpoint media query */
+        /* Medium Breakpoint media query */ 
     ?>
         @media ( max-width: <?php echo $global_settings->medium_breakpoint .'px'; ?> ) {
             <?php if ( $settings->modal_on == 'button' ) { ?>
@@ -343,11 +343,11 @@ $settings->ct_content_color = UABB_Helper::uabb_colorpicker( $settings, 'ct_cont
                 font-size: <?php echo $settings->btn_font_size['medium']; ?>px;
                 line-height: <?php echo $settings->btn_font_size['medium'] + 2; ?>px;
                 <?php endif; ?>
-
+                
                 <?php if ( $settings->btn_line_height['medium'] != '' ) : ?>
                 line-height: <?php echo $settings->btn_line_height['medium']; ?>px;
                 <?php endif; ?>
-
+                
             }
             <?php } ?>
 
@@ -357,45 +357,45 @@ $settings->ct_content_color = UABB_Helper::uabb_colorpicker( $settings, 'ct_cont
                 font-size: <?php echo $settings->font_size['medium']; ?>px;
                 line-height: <?php echo $settings->font_size['medium'] + 2; ?>px;
                 <?php endif; ?>
-
+                
                 <?php if ( $settings->line_height['medium'] != '' ) : ?>
                 line-height: <?php echo $settings->line_height['medium']; ?>px;
                 <?php endif; ?>
-
+                
             }
             <?php } ?>
 
-            <?php if (  $settings->content_type == 'content' ) { ?>
+            <?php if (  $settings->content_type == 'content' ) { ?> 
             .uamodal-<?php echo $id; ?> .uabb-modal-text {
                 <?php if( $settings->ct_content_font_size['medium'] != '' ) : ?>
                 font-size: <?php echo $settings->ct_content_font_size['medium']; ?>px;
                 line-height: <?php echo $settings->ct_content_font_size['medium'] + 2; ?>px;
                 <?php endif; ?>
-
+                    
                 <?php if( $settings->ct_content_line_height['medium'] != '' ) : ?>
                 line-height: <?php echo $settings->ct_content_line_height['medium']; ?>px;
                 <?php endif; ?>
             }
             <?php } ?>
 
-            <?php if (  $settings->enable_title ) { ?>
+            <?php if (  $settings->enable_title ) { ?> 
             .uamodal-<?php echo $id; ?> <?php echo $settings->title_tag_selection; ?>.uabb-modal-title {
                 <?php if( $settings->title_font_size['medium'] != '' ) : ?>
                 font-size: <?php echo $settings->title_font_size['medium']; ?>px;
                 line-height: <?php echo $settings->title_font_size['medium'] + 2; ?>px;
                 <?php endif; ?>
-
+                    
                 <?php if( $settings->title_line_height['medium'] != '' ) : ?>
                 line-height: <?php echo $settings->title_line_height['medium']; ?>px;
                 <?php endif; ?>
             }
             <?php } ?>
-        }
+        }       
     <?php
     }
     if( $settings->font_size['small'] != "" || $settings->line_height['small'] != "" || $settings->btn_font_size['small'] != "" || $settings->btn_line_height['small'] != "" || $settings->ct_content_font_size['small'] != "" || $settings->ct_content_line_height['small'] != "" || $settings->title_font_size['small'] != "" || $settings->title_line_height['small'] != "")
     {
-        /* Small Breakpoint media query */
+        /* Small Breakpoint media query */  
     ?>
         @media ( max-width: <?php echo $global_settings->responsive_breakpoint .'px'; ?> ) {
             <?php if ( $settings->modal_on == 'button' ) { ?>
@@ -425,32 +425,32 @@ $settings->ct_content_color = UABB_Helper::uabb_colorpicker( $settings, 'ct_cont
             }
             <?php } ?>
 
-            <?php if (  $settings->content_type == 'content' ) { ?>
+            <?php if (  $settings->content_type == 'content' ) { ?> 
             .uamodal-<?php echo $id; ?> .uabb-modal-text {
                 <?php if( $settings->ct_content_font_size['small'] != '' ) : ?>
                 font-size: <?php echo $settings->ct_content_font_size['small']; ?>px;
                 line-height: <?php echo $settings->ct_content_font_size['small'] + 2; ?>px;
                 <?php endif; ?>
-
+                    
                 <?php if( $settings->ct_content_line_height['small'] != '' ) : ?>
                 line-height: <?php echo $settings->ct_content_line_height['small']; ?>px;
                 <?php endif; ?>
             }
             <?php } ?>
 
-            <?php if (  $settings->enable_title ) { ?>
+            <?php if (  $settings->enable_title ) { ?> 
             .uamodal-<?php echo $id; ?> <?php echo $settings->title_tag_selection; ?>.uabb-modal-title {
                 <?php if( $settings->title_font_size['small'] != '' ) : ?>
                 font-size: <?php echo $settings->title_font_size['small']; ?>px;
                 line-height: <?php echo $settings->title_font_size['small'] + 2; ?>px;
                 <?php endif; ?>
-
+                    
                 <?php if( $settings->title_line_height['small'] != '' ) : ?>
                 line-height: <?php echo $settings->title_line_height['small']; ?>px;
                 <?php endif; ?>
             }
             <?php } ?>
-        }
+        }       
     <?php
     }
 }

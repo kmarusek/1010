@@ -20,7 +20,7 @@
 				enable_separator 	= form.find('select[name=enable_separator]'),
 				separator_width 	= form.find('input[name=separator_width]'),
 				mobile_view 		= form.find('select[name=mobile_view]'),
-
+				
 				border_top 			= form.find('input[name=uabb_border_top]'),
 				border_bottom 		= form.find('input[name=uabb_border_bottom]'),
 				border_left 		= form.find('input[name=uabb_border_left]'),
@@ -40,7 +40,7 @@
 			this._widthToggle();
 			this._InfoBoxPadding();
 
-
+			
 			// Validation events.
 			/*imageType.on('change', this._imageTypeChanged);*/
 			ctaType.on('change', this._ctaTypeChanged);
@@ -70,7 +70,7 @@
 			bg_type.on('change', this._InfoBoxPadding);
 
 			UABBButton.init();
-
+			
 		},
 
 		_InfoBoxPadding: function() {
@@ -86,13 +86,13 @@
 					border_type 		= form.find('select[name=uabb_border_type]').val(),
 					infoBoxPadding 		= form.find('#fl-field-info_box_padding'),
 					bg_type 			= form.find('select[name=bg_type]').val();
-
+				
 				infoBoxPadding.hide();
-
+	
 				var border = (border_type != 'none' && ( border_top > 0 || border_left > 0 || border_bottom > 0 || border_right > 0 ));
-
+				
 				var bg = ( bg_type == 'color' ? bg_color != '' : ( bg_type == 'gradient' ? (bg_gradient_one != '' && bg_gradient_two != '') : false ) ) ;
-
+	
 				if( border || bg ) {
 					infoBoxPadding.show();
 				}
@@ -100,11 +100,11 @@
 		},
 
 		_widthToggle: function() {
-
+			
 			var form        = $('.fl-builder-settings'),
 				enable_separator 	= form.find('select[name=enable_separator]').val(),
 				separator_width = form.find('input[name=separator_width]').val();
-
+				
 			if( enable_separator == 'block' ) {
 				form.find('#fl-field-separator_color').show();
 				form.find('#fl-field-separator_height').show();
@@ -153,7 +153,7 @@
 				position = form.find('#fl-field-img_icon_position').find('select[name=img_icon_position]').val(),
 				mobile_view = form.find('select[name=mobile_view]').val();
 
-
+			
 
 			if( image_type != 'none' ) {
 				if( position == 'right' ) {
@@ -162,7 +162,7 @@
 					} else {
 						form.find('#fl-field-stacking_order').hide();
 					}
-
+					
 				} else {
 					form.find('#fl-field-stacking_order').hide();
 				}
@@ -170,7 +170,7 @@
 				form.find('#fl-field-stacking_order').hide();
 			}
 		},
-
+		
 		_toggleBorderOptions: function() {
 			var form		= $('.fl-builder-settings'),
 				show_border = false
@@ -180,7 +180,7 @@
 				image_style 	= form.find('select[name=image_style]').val(),
 				img_border_style 	= form.find('select[name=img_border_style]').val();
 
-
+			
 			if( image_type == 'icon' ){
 				if( icon_style == 'custom'  ){
 					show_border = true;
@@ -224,7 +224,7 @@
 				image_style = form.find('select[name=image_style]').val();
 
 			form.find('#fl-builder-settings-section-img_icon_margins').hide();
-
+			
 			if( image_type == 'photo' && image_style == 'custom' ){
 				show_color = true;
 			}
@@ -256,12 +256,12 @@
 
 				form.find('#fl-builder-settings-section-img_basic').hide();
 				form.find('#fl-builder-settings-section-img_style').hide();
-
+				
 				form.find('#fl-field-img_icon_position').show();
 				//form.find('#fl-field-align_items').show();
 				//form.find('#fl-field-mobile_view').show();
 
-
+				
 				//console.log( position );
 				if( position == 'above-title' || position == 'below-title' || position == 'left' || position == 'right' ) {
 					form.find('#fl-builder-settings-section-img_icon_margins').show();
@@ -313,8 +313,8 @@
 				form.find('#fl-field-stacking_order').hide();
 
 				form.find('#fl-builder-settings-section-img_icon_margins').show();
-
-
+				
+				
 				if( position == 'above-title' || position == 'below-title' || position == 'left' || position == 'right' ) {
 					form.find('#fl-builder-settings-section-img_icon_margins').show();
 				}else{
@@ -400,10 +400,10 @@
 				imageType   = form.find('select[name=image_type]').val(),
 				photo       = form.find('input[name=photo]'),
 				icon       = form.find('input[name=icon]');
-
+				
 			photo.rules('remove');
 			icon.rules('remove');
-
+			
 			if(imageType == 'photo') {
 				photo.rules('add', { required: true });
 			}
@@ -411,28 +411,28 @@
 				icon.rules('add', { required: true });
 			}
 		},*/
-
+		
 		_ctaTypeChanged: function()
 		{
 			var form    = $('.fl-builder-settings'),
 				ctaType = form.find('select[name=cta_type]').val(),
 				ctaText = form.find('input[name=cta_text]');
-
+				
 			ctaText.rules('remove');
-
+			
 			if(ctaType != 'none') {
 				ctaText.rules('add', {
 					required: true
 				});
 			}
 		},
-
+		
 		_previewAlign: function()
 		{
 			var form   = $('.fl-builder-settings'),
 				align  = form.find('select[name=align]').val(),
 				wrap   = FLBuilder.preview.elements.node.find('.infobox');
-
+				
 			wrap.removeClass('infobox-left');
 			wrap.removeClass('infobox-center');
 			wrap.removeClass('infobox-right');

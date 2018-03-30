@@ -7,7 +7,7 @@
 				required: true
 			}
 		},
-
+		
 		init: function()
 		{
 			UABBButton.init();

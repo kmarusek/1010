@@ -1,5 +1,5 @@
 
-<?php
+<?php 
 $settings->text_color = UABB_Helper::uabb_colorpicker( $settings, 'text_color' );
 $settings->number_color = UABB_Helper::uabb_colorpicker( $settings, 'number_color' );
 $settings->border_color = UABB_Helper::uabb_colorpicker( $settings, 'border_color' );
@@ -14,22 +14,22 @@ $settings->before_after_color = UABB_Helper::uabb_colorpicker( $settings, 'befor
 
 .fl-node-<?php echo $id; ?> .uabb-pb-list li {
 	display: inline-block;
-
+	
 	<?php if( $settings->overall_alignment == 'left' ) : ?>
 		margin: 0 <?php echo ( $settings->spacing != '' ) ? $settings->spacing : '10'; ?>px 30px 0;
-
+	
 	<?php elseif( $settings->overall_alignment == 'right' ) : ?>
 		margin: 0 0 30px <?php echo ( $settings->spacing != '' ) ? $settings->spacing : '10'; ?>px;
-
+	
 	<?php else: ?>
 		margin: 0 <?php echo ( $settings->spacing != '' ) ? $settings->spacing / 2 : '5'; ?>px 30px <?php echo ( $settings->spacing != '' ) ? $settings->spacing / 2 : '5'; ?>px;
-	<?php endif;
+	<?php endif; 
 
 	if( $settings->layout == 'circular' ) { ?>
 		width: <?php echo !empty( $settings->circular_thickness ) ? $settings->circular_thickness : '300'; ?>px;
 		height: <?php echo !empty( $settings->circular_thickness ) ? $settings->circular_thickness : '300'; ?>px;
 		max-width: 100%;
-
+	
 	<?php } else if( $settings->layout == 'semi-circular' ) { ?>
 		width: <?php echo !empty( $settings->circular_thickness ) ? $settings->circular_thickness : '300'; ?>px;
 		height: auto;
@@ -62,7 +62,7 @@ $settings->before_after_color = UABB_Helper::uabb_colorpicker( $settings, 'befor
 	} else {
 		echo ( $settings->border_radius != '' ) ? 'border-radius: ' . $settings->border_radius . 'px;' : '';
 	}
-
+	
 	?>
 	overflow: hidden;
 }
@@ -212,7 +212,7 @@ if( count( $settings->horizontal ) > 0 ) {
 }
 
 .fl-node-<?php echo $id; ?> .uabb-layout-horizontal.uabb-progress-bar-style-style4.uabb-progress-bar-<?php echo $i; ?> .uabb-progress-box .uabb-progress-info {
-    width: 0%;
+    width: 0%;    
 }
 <?php
 			} else if( $settings->layout == 'vertical' ) {
@@ -239,10 +239,10 @@ if( count( $settings->horizontal ) > 0 ) {
 		-webkit-background-size: 40px 40px;
 
 		background-size: 40px 40px;
-
+	
 	<?php else : ?>
 		background: <?php echo uabb_theme_base_color( $tmp[$i]->gradient_color ); ?>;
-
+	
 	<?php endif; ?>
 }
 
@@ -251,7 +251,7 @@ if( count( $settings->horizontal ) > 0 ) {
 ?>
 
 .fl-node-<?php echo $id; ?> .uabb-layout-<?php echo $settings->layout; ?>.uabb-progress-bar-<?php echo $i; ?> .uabb-svg-wrap svg circle {
-<?php
+<?php 
 	$stroke_thickness = ( $settings->stroke_thickness != '' ) ? $settings->stroke_thickness : '10';
 	echo 'stroke-width: '. $stroke_thickness .'px;';
 ?>
@@ -269,7 +269,7 @@ if( count( $settings->horizontal ) > 0 ) {
 		echo 'stroke: transparent;';
 	}
 	//echo 'stroke: '. uabb_theme_base_color( $tmp[$i]->gradient_color ) .';';
-
+	
 ?>
 }
 <?php
@@ -356,7 +356,7 @@ if( $global_settings->responsive_enabled ) { // Global Setting If started
         } else if( $settings->layout == 'vertical' ) {
         	if( $settings->vertical_responsive == 'yes' ) {
         ?>
-        .fl-node-<?php echo $id; ?> .uabb-pb-list li {
+        .fl-node-<?php echo $id; ?> .uabb-pb-list li { 
             width: <?php echo ( $settings->vertical_responsive_width != '' ) ? $settings->vertical_responsive_width : '150'; ?>px;
         }
         .fl-node-<?php echo $id; ?> .uabb-layout-vertical .uabb-progress-wrap {
@@ -373,7 +373,7 @@ if( $global_settings->responsive_enabled ) { // Global Setting If started
 		.fl-node-<?php echo $id; ?> .uabb-responsive-list .uabb-progress-info {
 			position: relative;
 			transform: translateX(-50%);
-			left: 50%;
+			left: 50%;	
 		}
 
 		.fl-node-<?php echo $id; ?> .uabb-responsive-list .uabb-progress-title {
@@ -407,7 +407,7 @@ if( $global_settings->responsive_enabled ) { // Global Setting If started
         }
         ?>
     }
-
+ 
      @media ( max-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {
      	.fl-node-<?php echo $id; ?> .uabb-progress-title {
 			<?php

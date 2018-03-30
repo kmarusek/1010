@@ -132,7 +132,7 @@ if( $settings->show_spacing == 'no' ) {
 $border_size = ( $settings->border_size != '' ) ? $settings->border_size : 1;
 ?>
 
-.fl-node-<?php echo $id; ?> .uabb-featured-pricing-box {
+.fl-node-<?php echo $id; ?> .uabb-featured-pricing-box {  
   bottom: 100%;
   <?php if( $settings->responsive_size != 'yes' ) { ?>
   bottom: calc(100% + <?php echo $border_size; ?>px);
@@ -209,11 +209,11 @@ for($i = 0; $i < count($settings->pricing_columns); $i++) :
 				echo 'color: ' . uabb_theme_text_color( $settings->pricing_columns[$i]->featured_color ) . ';';
 				echo ( $settings->pricing_columns[$i]->featured_font_family['family'] != 'Default' ) ? 'font-family: ' . $settings->pricing_columns[$i]->featured_font_family['family'] . ';' : '';
 				echo ( $settings->pricing_columns[$i]->featured_font_family['weight'] != 'default' ) ? 'font-weight: ' . $settings->pricing_columns[$i]->featured_font_family['weight'] . ';' : '';
-
+				
 				echo 'background: ' . uabb_theme_base_color( $settings->pricing_columns[$i]->featured_f_background_color ) . ';';
 
 				//echo 'margin: 0 ' .
-
+				
 				?>
 			}
 
@@ -221,7 +221,7 @@ for($i = 0; $i < count($settings->pricing_columns); $i++) :
 			if( $global_settings->responsive_enabled ) { // Global Setting If started
 			?>
 			    @media ( max-width: <?php echo $global_settings->medium_breakpoint; ?>px ) {
-
+			 
 			        .fl-builder-content .fl-node-<?php echo $id; ?> .uabb-pricing-table-column-<?php echo $i+1; ?> .uabb-featured-pricing-box {
 			            <?php
 			            echo ( $settings->pricing_columns[$i]->featured_line_height['medium'] != '' ) ? 'line-height: ' . $settings->pricing_columns[$i]->featured_line_height['medium'] . 'px;' : '';
@@ -229,7 +229,7 @@ for($i = 0; $i < count($settings->pricing_columns); $i++) :
 			            ?>
 			        }
 			    }
-
+			 
 			     @media ( max-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {
 			        .fl-builder-content .fl-node-<?php echo $id; ?> .uabb-pricing-table-column-<?php echo $i+1; ?> .uabb-featured-pricing-box {
 			            <?php
@@ -278,11 +278,11 @@ if( $settings->responsive_size == 'yes' ) {
 				border-bottom: 0;
 				width: 100%;
 				<?php $total_border = intval($border_size) * 2; ?>
-				<?php if( $settings->show_spacing != 'yes' ) {
-
+				<?php if( $settings->show_spacing != 'yes' ) { 
+					
 					if( isset( $settings->pricing_columns[ $i + 1 ] ) ) {
 
-						if( $i < count($settings->pricing_columns) && $settings->pricing_columns[ $i + 1 ]->set_featured == 'yes' ) {
+						if( $i < count($settings->pricing_columns) && $settings->pricing_columns[ $i + 1 ]->set_featured == 'yes' ) { 
 							$total_border -= intval($border_size);
 							?>
 							margin: auto;
@@ -295,7 +295,7 @@ if( $settings->responsive_size == 'yes' ) {
 					<?php
 					}
 					if( isset( $settings->pricing_columns[ $i - 1 ] ) ) {
-						if( $i > 0 && $settings->pricing_columns[ $i - 1 ]->set_featured == 'yes' ) {
+						if( $i > 0 && $settings->pricing_columns[ $i - 1 ]->set_featured == 'yes' ) { 
 							$total_border -= intval($border_size);
 							?>
 							margin: auto;
@@ -307,7 +307,7 @@ if( $settings->responsive_size == 'yes' ) {
 						margin-left: -<?php echo $border_size ?>px;
 					<?php
 					}
-
+						
 				} else { ?>
 					margin-left: -<?php echo $border_size ?>px;
 				<?php } ?>
@@ -460,7 +460,7 @@ if( $isFeaturedSet ) {
 
 <?php
 if( $settings->add_legend == 'yes' ) { ?>
-
+	
 	.fl-node-<?php echo $id; ?> .uabb-pricing-table .uabb-pricing-table-column-0 .uabb-pricing-table-features li,
 	.fl-node-<?php echo $id; ?> .uabb-pricing-table .uabb-pricing-table-column .uabb-pricing-table-features .uabb-pricing-ledgend {
 		<?php echo ( $settings->legend_column->legend_font_family->family != 'Default' ) ? 'font-family: ' . $settings->legend_column->legend_font_family->family . ';' : ''; ?>

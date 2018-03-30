@@ -22,7 +22,8 @@ class UABBSocialShare extends FLBuilderModule {
             'url'           => BB_ULTIMATE_ADDON_URL . 'modules/uabb-social-share/',
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
-            'partial_refresh'  => true
+            'partial_refresh'  => true,
+            'icon'             => 'share-alt2.svg',
         ));
     }
 
@@ -72,7 +73,7 @@ FLBuilder::register_module('UABBSocialShare', array(
                         'maxlength'     => '3',
                         'size'          => '4',
                         'description'   => 'px'
-                    ),
+                    ),                  
                     'spacing'       => array(
                         'type'          => 'text',
                         'label'         => __('Spacing', 'uabb'),
@@ -262,13 +263,13 @@ FLBuilder::register_settings_form('uabb_social_share_form', array(
                 'colors'        => array( // Section
                     'title'         => __('Colors', 'uabb'), // Section Title
                     'fields'        => array( // Section Fields
-                        'icocolor' => array(
+                        'icocolor' => array( 
                             'type'       => 'color',
                             'label'      => __('Color', 'uabb'),
                             'default'    => '',
                             'show_reset' => true,
                         ),
-                        'icohover_color' => array(
+                        'icohover_color' => array( 
                             'type'       => 'color',
                             'label'      => __('Hover Color', 'uabb'),
                             'default'    => '',
@@ -277,13 +278,13 @@ FLBuilder::register_settings_form('uabb_social_share_form', array(
                                     'type'      => 'none',
                             )
                         ),
-                        'bg_color' => array(
+                        'bg_color' => array( 
                             'type'       => 'color',
                             'label'      => __('Background Color', 'uabb'),
                             'default'    => '',
                             'show_reset' => true,
                         ),
-                        'bg_color_opc' => array(
+                        'bg_color_opc' => array( 
                             'type'        => 'text',
                             'label'       => __('Opacity', 'uabb'),
                             'default'     => '',
@@ -291,8 +292,8 @@ FLBuilder::register_settings_form('uabb_social_share_form', array(
                             'maxlength'   => '3',
                             'size'        => '5',
                         ),
-
-                        'bg_hover_color' => array(
+                        
+                        'bg_hover_color' => array( 
                             'type'       => 'color',
                             'label'      => __('Background Hover Color', 'uabb'),
                             'default'    => '',
@@ -301,7 +302,7 @@ FLBuilder::register_settings_form('uabb_social_share_form', array(
                                     'type'      => 'none',
                             )
                         ),
-                        'bg_hover_color_opc' => array(
+                        'bg_hover_color_opc' => array( 
                             'type'        => 'text',
                             'label'       => __('Opacity', 'uabb'),
                             'default'     => '',
@@ -309,15 +310,15 @@ FLBuilder::register_settings_form('uabb_social_share_form', array(
                             'maxlength'   => '3',
                             'size'        => '5',
                         ),
-
+                        
                         /* Border Color Dependent on Border Style for ICon */
-                        'border_color' => array(
+                        'border_color' => array( 
                             'type'       => 'color',
                             'label'      => __('Border Color', 'uabb'),
                             'default'    => '',
                             'show_reset' => true,
                         ),
-                        'border_hover_color' => array(
+                        'border_hover_color' => array( 
                             'type'       => 'color',
                             'label'      => __('Border Hover Color', 'uabb'),
                             'default'    => '',

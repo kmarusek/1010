@@ -26,7 +26,7 @@
 
 				jQuery(window).trigger('resize');
 			}
-
+			
 		});
 
 		/* Accordion Click Trigger */
@@ -38,12 +38,12 @@
 
 				jQuery(window).trigger('resize');
 			}
-
+			
 		});
 
 		/* Tab Click Trigger */
 		UABBTrigger.addHook( 'uabb-tab-click', function( argument, selector ) {
-
+			
 			var child_id = jQuery( selector + ' .fl-module-uabb-beforeafterslider' ).data('node');
 
 			if( child_id != '' ) {
@@ -55,7 +55,7 @@
 	});
 
 	jQuery(window).load(function() {
-
+		
 		setTimeout(function(){
 
 			new UABBBeforeAfterSlider( args );
@@ -71,7 +71,7 @@
 
 			document_width = jQuery( document ).width();
 			document_height = jQuery( document ).height();
-
+			
 			jQuery( ".baslider-<?php echo $id; ?>" ).css( 'width', '' );
 			jQuery( ".baslider-<?php echo $id; ?>" ).css( 'height', '' );
 

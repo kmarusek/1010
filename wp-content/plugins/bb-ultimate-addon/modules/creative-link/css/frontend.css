@@ -510,7 +510,7 @@
     -moz-transform-origin: 100% 0;
     transform-origin: 100% 0;
 }
-.uabb-cl-style13 a::before,
+.uabb-cl-style13 a::before, 
 .uabb-cl-style13 a::after {
     position: absolute;
     width: 45px;
@@ -932,7 +932,7 @@
 .internet-explorer .uabb-cl-style2 a:focus span:before {
     -webkit-transform: rotateX(10deg);
        -moz-transform: rotateX(10deg);
-            transform: rotateX(10deg);
+            transform: rotateX(10deg);  
 }
 .internet-explorer .uabb-cl-style2 a:hover span,
 .internet-explorer .uabb-cl-style2 a:focus span {

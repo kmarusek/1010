@@ -30,7 +30,7 @@ class InteractiveBanner1Module extends FLBuilderModule {
         ));
         $this->add_css('font-awesome');
     }
-
+    
     /**
      * @method get_data
      */
@@ -102,7 +102,7 @@ class InteractiveBanner1Module extends FLBuilderModule {
     public function render_icon() {
         if( $this->settings->icon != '' ) {
             $imageicon_array = array(
-
+ 
                 /* General Section */
                 'image_type' => 'icon',
 
@@ -132,7 +132,7 @@ class InteractiveBanner1Module extends FLBuilderModule {
                 'img_border_style' => '',
                 'img_border_width' => '',
                 'img_bg_border_radius' => '',
-            );
+            ); 
             /* Render HTML Function */
             FLBuilder::render_module_html( 'image-icon', $imageicon_array );
         }
@@ -277,7 +277,7 @@ FLBuilder::register_module('InteractiveBanner1Module', array(
                         ),
                         'connections'   => array( 'string', 'html' )
                     ),
-                    'overlay_background_color'    => array(
+                    'overlay_background_color'    => array( 
                         'type'       => 'color',
                         'label'      => __('Background Overlay Color', 'uabb'),
                         'default'    => '808080',
@@ -288,7 +288,7 @@ FLBuilder::register_module('InteractiveBanner1Module', array(
                             'property'         => 'background',
                         ),
                     ),
-                    'overlay_background_color_opc'    => array(
+                    'overlay_background_color_opc'    => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -306,7 +306,7 @@ FLBuilder::register_module('InteractiveBanner1Module', array(
                         'label'         => __('Icon', 'uabb'),
                         'show_remove'   => true,
                     ),
-                    'icon_color' => array(
+                    'icon_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Icon Color', 'uabb'),
                         'default'    => '',
@@ -439,7 +439,7 @@ FLBuilder::register_module('InteractiveBanner1Module', array(
                             'unit'            => 'px'
                         )
                     ),
-                    'title_typography_color'        => array(
+                    'title_typography_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',
@@ -450,7 +450,7 @@ FLBuilder::register_module('InteractiveBanner1Module', array(
                             'selector' => '.uabb-ib1-title',
                         ),
                     ),
-                    'title_typography_title_background_color' => array(
+                    'title_typography_title_background_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Title Background Color', 'uabb'),
                         'default'    => '',
@@ -461,7 +461,7 @@ FLBuilder::register_module('InteractiveBanner1Module', array(
                             'selector' => '.uabb-ib1-title',
                         ),
                     ),
-                    'title_typography_title_background_color_opc' => array(
+                    'title_typography_title_background_color_opc' => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -516,7 +516,7 @@ FLBuilder::register_module('InteractiveBanner1Module', array(
                             'unit'            => 'px'
                         )
                     ),
-                    'desc_typography_color'        => array(
+                    'desc_typography_color'        => array( 
                         'type'       => 'color',
                         'label' => __('Description Text Color', 'uabb'),
                         'preview'         => array(

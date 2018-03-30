@@ -1,8 +1,8 @@
 jQuery(document).ready(function( $ ) {
 	<?php if($settings->click_action == 'lightbox') : ?>
-	<?php if($settings->layout == 'masonary'){
+	<?php if($settings->layout == 'masonary'){ 
 			$selector = '.uabb-masonary-content'; ?>
-		<?php }else{
+		<?php }else{ 
 			$selector = '.uabb-photo-gallery'; ?>
 		<?php } ?>
 		var gallery_selector = $( '.fl-node-<?php echo $id; ?> <?php echo $selector; ?>' );
@@ -27,7 +27,7 @@ jQuery(document).ready(function( $ ) {
 			});
 		}
 	<?php endif; ?>
-
+	
 	<?php if($settings->layout == 'masonary') : ?>
 	var $grid = $('.fl-node-<?php echo $id; ?> .uabb-masonary-content').imagesLoaded( function() {
 		$grid.masonry({
@@ -35,13 +35,13 @@ jQuery(document).ready(function( $ ) {
 		  itemSelector: '.uabb-masonary-item'
 		});
 	});
-
+	
 	/* Tab Click Trigger */
 	UABBTrigger.addHook( 'uabb-tab-click', function( argument, selector ) {
 		if( $(selector).find('.uabb-masonary-content') ){
 			setTimeout(function() {
 				var el_masonary = $(selector).find('.uabb-masonary-content');
-
+				
 				el_masonary.masonry( 'reload' );
 
 			}, 100);

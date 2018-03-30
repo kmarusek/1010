@@ -31,7 +31,7 @@ $angle_init = trim($settings->first_thumb_pos) > 0 ? $settings->first_thumb_pos 
 $angle_gap   = 360 / $total_circle;
 
 foreach( $settings->add_circle_item as $item ) {
-
+    
     if( !is_object( $item ) ) { continue; }
 
     $circle_item_count++;
@@ -40,14 +40,14 @@ foreach( $settings->add_circle_item as $item ) {
 
         /* General Section */
         'image_type' => $item->image_type,
-
+     
         /* Icon Basics */
         'icon' => $item->icon,
         'icon_align' => 'center',
         'icon_style' => $settings->thumb_style,
         'icon_bg_border_radius' => $settings->thumb_custom_radius,
         'icon_size' =>  $settings->thumbnail_size / 2,
-
+     
         /* Image Basics */
         'photo_source' => $item->photo_source,
         'photo' => $item->photo,
@@ -60,7 +60,7 @@ foreach( $settings->add_circle_item as $item ) {
         'img_border_style' => 'none',
         'photo_src' => ( isset( $item->photo_src ) ) ? $item->photo_src : '' ,
 
-        /* Icon Colors */
+        /* Icon Colors */ 
         'icon_color' => $item->icon_color,
         'icon_hover_color' => $item->icon_hover_color,
         'icon_bg_color' => $item->icon_bg_color,
@@ -69,12 +69,12 @@ foreach( $settings->add_circle_item as $item ) {
         'icon_bg_hover_color_opc' => '',
         'icon_three_d' => $item->icon_gradient,
         'icon_border_style' => 'none',
-    );
-
-    /* CSS Render Function */
+    ); 
+   
+    /* CSS Render Function */ 
     FLBuilder::render_module_css( 'image-icon', $id . " .uabb-circle-". $circle_item_count, $imageicon_array );
 
-
+    
     /* Render Info Icon CSS Info Area Icon/Image */
     if( $settings->info_area_icon != 'no' ) {
         $settings->icon_img_border_radius = ( $settings->icon_img_border_radius != '' ) ? $settings->icon_img_border_radius : '0';
@@ -104,7 +104,7 @@ foreach( $settings->add_circle_item as $item ) {
             'img_bg_border_radius' => $settings->icon_img_border_radius,
             'photo_src' => ( isset( $item->photo_src ) ) ? $item->photo_src : '' ,
 
-            /* Icon Colors */
+            /* Icon Colors */ 
             'icon_color' => $settings->icon_img_color,
             'icon_hover_color' => $settings->icon_img_color, // Hover color same as normal
             'icon_bg_color' => $settings->icon_img_bg_color,
@@ -116,9 +116,9 @@ foreach( $settings->add_circle_item as $item ) {
             'icon_border_style' => $settings->info_icon_img_border_style,
             'icon_border_width' => $settings->info_icon_img_border_width,
             'icon_border_color' => $settings->info_icon_img_border_color,
-        );
-
-        /* CSS Render Function */
+        ); 
+        
+        /* CSS Render Function */ 
         FLBuilder::render_module_css( 'image-icon', $id . " .uabb-info-circle-in-". $circle_item_count, $info_imageicon_array );
     }
 
@@ -193,8 +193,8 @@ foreach( $settings->add_circle_item as $item ) {
                 <?php endif; ?>
             }
             /* Responsive CSS for CTA Text */
-            <?php if($global_settings->responsive_enabled) { ?>
-
+            <?php if($global_settings->responsive_enabled) { ?> 
+    
                 @media ( max-width: <?php echo $global_settings->medium_breakpoint .'px'; ?> ) {
                     .fl-node-<?php echo $id; ?> .uabb-info-circle-in-<?php echo $circle_item_count ?> .uabb-info-circle-cta-text .uabb-infoc-link {
                         <?php if( $item->btn_font_size->medium != '' ) : ?>
@@ -207,7 +207,7 @@ foreach( $settings->add_circle_item as $item ) {
                         <?php endif; ?>
                     }
                 }
-
+            
                 @media ( max-width: <?php echo $global_settings->responsive_breakpoint .'px'; ?> ) {
                     .fl-node-<?php echo $id; ?> .uabb-info-circle-in-<?php echo $circle_item_count ?> .uabb-info-circle-cta-text .uabb-infoc-link {
                         <?php if( $item->btn_font_size->small != '' ) : ?>
@@ -219,13 +219,13 @@ foreach( $settings->add_circle_item as $item ) {
                         line-height: <?php echo $item->btn_line_height->small; ?>px;
                         <?php endif; ?>
                     }
-                }
+                }       
                 <?php
             }
         }
 
     endif;
-
+    
     $item->inner_circle_bg_color = UABB_Helper::uabb_colorpicker( $item, 'inner_circle_bg_color', true );
     $item->icon_hover_color = UABB_Helper::uabb_colorpicker( $item, 'icon_hover_color' );
     $item->icon_bg_hover_color = UABB_Helper::uabb_colorpicker( $item, 'icon_bg_hover_color' );
@@ -239,11 +239,11 @@ foreach( $settings->add_circle_item as $item ) {
 
 ?>
 
-    .fl-node-<?php echo $id; ?> .active .uabb-circle-<?php echo $circle_item_count ?> .uabb-icon i,
+    .fl-node-<?php echo $id; ?> .active .uabb-circle-<?php echo $circle_item_count ?> .uabb-icon i, 
     .fl-node-<?php echo $id; ?> .active .uabb-circle-<?php echo $circle_item_count ?> .uabb-icon i:before {
         <?php if ( $item->icon_gradient ) { ?>
         <?php
-
+        
         $bg_hover_color      = ( !empty($item->icon_bg_hover_color) ) ? uabb_parse_color_to_hex( $item->icon_bg_hover_color ) : uabb_parse_color_to_hex( $item->icon_bg_hover_color ) ;
         $bg_grad_start = '#'.FLBuilderColor::adjust_brightness($bg_hover_color, 40, 'lighten');
         ?>
@@ -278,8 +278,8 @@ foreach( $settings->add_circle_item as $item ) {
     <?php $responsive_bg_set = false; ?>
     @media ( max-width: <?php echo $responsive_breakpoint .'px'; ?> ) {
         .fl-node-<?php echo $id; ?> .uabb-ic-<?php echo $circle_item_count; ?> {
-
-            <?php if( $settings->content_width == 'custom' ) : // If Inner global Color not exists
+        
+            <?php if( $settings->content_width == 'custom' ) : // If Inner global Color not exists 
                 if ( $settings->outer_bg_type == 'color' ) : ?>
                     background-color: <?php echo $settings->outer_bg_color; ?>;
                 <?php elseif ( $settings->outer_bg_type == 'image' ) : ?>
@@ -302,14 +302,14 @@ foreach( $settings->add_circle_item as $item ) {
 
         <?php /* Information Circle Background Color for Responsive */
             if( $settings->responsive_nature == 'true' ) : ?>
-            @media ( max-width: <?php echo $responsive_breakpoint .'px'; ?> ) {
+            @media ( max-width: <?php echo $responsive_breakpoint .'px'; ?> ) { 
                 .fl-node-<?php echo $id; ?> .uabb-ic-<?php echo $circle_item_count; ?> {
                     background: <?php echo $item->inner_circle_bg_color; ?>;
                 }
             }
         <?php endif; ?>
-
-    <?php /* Information Circle Background Image */
+    
+    <?php /* Information Circle Background Image */ 
         elseif ( $item->inner_circle_bg_type == 'image' && FLBuilderPhoto::get_attachment_data($item->inner_circle_bg_img)->url != '' ) : ?>
         .fl-node-<?php echo $id; ?> .uabb-info-circle-in-<?php echo $circle_item_count; ?> {
             background-image: url(<?php echo FLBuilderPhoto::get_attachment_data($item->inner_circle_bg_img)->url; ?>);
@@ -320,7 +320,7 @@ foreach( $settings->add_circle_item as $item ) {
 
         <?php /* Information Circle Background Image for Responsive */
             if( $settings->responsive_nature == 'true' ) : ?>
-            @media ( max-width: <?php echo $responsive_breakpoint .'px'; ?> ) {
+            @media ( max-width: <?php echo $responsive_breakpoint .'px'; ?> ) { 
                 .fl-node-<?php echo $id; ?> .uabb-ic-<?php echo $circle_item_count; ?> {
                     background: url(<?php echo FLBuilderPhoto::get_attachment_data($item->inner_circle_bg_img)->url; ?>);
                     background-position: <?php echo $item->inner_circle_bg_img_pos; ?>;
@@ -329,14 +329,14 @@ foreach( $settings->add_circle_item as $item ) {
                 }
             }
         <?php endif; ?>
-    <?php /* Information Circle Background Global Color */
-        elseif( $settings->info_bg_color != '' ) : ?>
+    <?php /* Information Circle Background Global Color */ 
+        elseif( $settings->info_bg_color != '' ) : ?> 
         .fl-node-<?php echo $id; ?> .uabb-info-circle-in-<?php echo $circle_item_count; ?> {
             background-color: <?php echo $settings->info_bg_color; ?>;
         }
         <?php /* Information Circle Background Image for Responsive */
             if( $settings->responsive_nature == 'true' ) : ?>
-            @media ( max-width: <?php echo $responsive_breakpoint .'px'; ?> ) {
+            @media ( max-width: <?php echo $responsive_breakpoint .'px'; ?> ) { 
                 .fl-node-<?php echo $id; ?> .uabb-ic-<?php echo $circle_item_count; ?> {
                     background: <?php echo $settings->info_bg_color; ?>;
                 }
@@ -344,9 +344,9 @@ foreach( $settings->add_circle_item as $item ) {
         <?php endif; ?>
 
     <?php endif; ?>
+    
 
-
-<?php
+<?php 
     $angle_init += $angle_gap;
 } /* End Foreach */
 ?>
@@ -357,7 +357,7 @@ foreach( $settings->add_circle_item as $item ) {
 
 <?php /* Thumbnail Custom Style */
 if( $settings->thumb_style == 'custom' ) : ?>
-.fl-node-<?php echo $id; ?> .uabb-info-circle-small .uabb-icon-wrap .uabb-icon i,
+.fl-node-<?php echo $id; ?> .uabb-info-circle-small .uabb-icon-wrap .uabb-icon i, 
 .fl-node-<?php echo $id; ?> .uabb-info-circle-small .uabb-icon-wrap .uabb-icon i:before {
     line-height: <?php echo $settings->thumbnail_size; ?>px;
     width: <?php echo $settings->thumbnail_size; ?>px;
@@ -381,19 +381,19 @@ if ( $settings->thumb_border_style != 'none' ) : ?>
 
     <?php if ( $settings->thumb_border_style == 'solid' ) : ?>
     .fl-node-<?php echo $id; ?> .uabb-info-circle-small .uabb-image .uabb-photo-img {
-        background-color: <?php echo $settings->thumb_border_color; ?>;
+        background-color: <?php echo $settings->thumb_border_color; ?>;    
     }
     .fl-node-<?php echo $id; ?> .active .uabb-info-circle-small .uabb-image .uabb-photo-img {
         background-color: <?php echo $settings->thumb_active_border_color; ?>;
     }
     <?php endif; ?>
-
+    
 <?php endif; ?>
 
-<?php /* Connector Border Style */
-if ( $settings->connector_border_style != 'none' ) :
+<?php /* Connector Border Style */ 
+if ( $settings->connector_border_style != 'none' ) : 
     $conn_border_width = ($settings->connector_border_width != '') ? $settings->connector_border_width : '1'; ?>
-
+    
     .fl-node-<?php echo $id; ?> .uabb-info-circle-wrap:before {
         border: <?php echo $conn_border_width . 'px ' . $settings->connector_border_style . ' ' . $settings->connector_border_color; ?>;
     }
@@ -404,7 +404,7 @@ if ( $settings->connector_border_style != 'none' ) :
     .fl-node-<?php echo $id; ?> .uabb-info-circle-out {
         background-color: <?php echo $settings->outer_bg_color; ?>;
     }
-<?php /* Outer Circle Background Image */
+<?php /* Outer Circle Background Image */ 
     elseif ( $settings->outer_bg_type == 'image' ) : ?>
     .fl-node-<?php echo $id; ?> .uabb-info-circle-out {
         background-image: url(<?php echo FLBuilderPhoto::get_attachment_data($settings->outer_bg_img)->url; ?>);
@@ -416,10 +416,10 @@ if ( $settings->connector_border_style != 'none' ) :
 
 <?php /* Information Circle Size */ ?>
 .fl-node-<?php echo $id; ?> .uabb-info-circle-in {
-    <?php
+    <?php 
         $inner_width = 80;
         if ( $settings->content_width == 'custom' ) {
-            $inner_width = ( trim($settings->inner_area_size) != '' ) ? $settings->inner_area_size : '80';
+            $inner_width = ( trim($settings->inner_area_size) != '' ) ? $settings->inner_area_size : '80'; 
             $inner_width = ( $inner_width < 100 ) ? $inner_width : 100;
             $inner_width = ( $inner_width >= 0 ) ? $inner_width : 80;
             $inner_width -= 20;
@@ -442,16 +442,16 @@ if ( $settings->connector_border_style != 'none' ) :
 <?php /* Information Circle Responsive Enabled */ ?>
 <?php if( $settings->responsive_nature == 'true' ) : ?>
     @media ( max-width: <?php echo $responsive_breakpoint .'px'; ?> ) {
-
+        
         .fl-node-<?php echo $id; ?> .uabb-info-circle .uabb-imgicon-wrap .uabb-image {
             display: inline-block;
         }
-
+        
         .fl-node-<?php echo $id; ?> .uabb-info-circle-wrap {
             height: auto !important;
         }
-
-        .fl-node-<?php echo $id; ?> .uabb-info-circle-in {
+        
+        .fl-node-<?php echo $id; ?> .uabb-info-circle-in { 
             background: none;
             display: block !important;
             opacity: 1 !important;
@@ -462,7 +462,7 @@ if ( $settings->connector_border_style != 'none' ) :
         }
 
         <?php $responsive_width = trim($settings->thumbnail_size_mobile) != '' ? $settings->thumbnail_size_mobile : '60'; ?>
-        .fl-node-<?php echo $id; ?> .uabb-info-circle-small .uabb-icon-wrap .uabb-icon i,
+        .fl-node-<?php echo $id; ?> .uabb-info-circle-small .uabb-icon-wrap .uabb-icon i, 
         .fl-node-<?php echo $id; ?> .uabb-info-circle-small .uabb-icon-wrap .uabb-icon i:before,
         .fl-node-<?php echo $id; ?> .uabb-info-circle-small .uabb-image .uabb-photo-img {
             font-size: <?php echo $responsive_width / 2; ?>px;
@@ -470,8 +470,8 @@ if ( $settings->connector_border_style != 'none' ) :
             height: <?php echo $responsive_width; ?>px;
             width: <?php echo $responsive_width; ?>px;
         }
-
-        .fl-node-<?php echo $id; ?> .uabb-info-circle-icon-content {
+        
+        .fl-node-<?php echo $id; ?> .uabb-info-circle-icon-content { 
             padding: 20px;
         }
 
@@ -484,7 +484,7 @@ if ( $settings->connector_border_style != 'none' ) :
         .fl-node-<?php echo $id; ?> .uabb-info-circle-wrap:before {
             display: none;
         }
-
+        
         .fl-node-<?php echo $id; ?> .uabb-info-circle-in,
         .fl-node-<?php echo $id; ?> .uabb-info-circle-small,
         .fl-node-<?php echo $id; ?> .uabb-info-circle-in .uabb-info-circle-content {
@@ -555,8 +555,8 @@ if ( $settings->connector_border_style != 'none' ) :
 }
 
 <?php /* Global Setting If started */ ?>
-<?php if($global_settings->responsive_enabled) { ?>
-
+<?php if($global_settings->responsive_enabled) { ?> 
+    
         <?php /* Medium Breakpoint media query */  ?>
         @media ( max-width: <?php echo $global_settings->medium_breakpoint .'px'; ?> ) {
             /* Info Circle Title */
@@ -582,7 +582,7 @@ if ( $settings->connector_border_style != 'none' ) :
                 <?php endif; ?>
             }
         }
-
+    
         <?php /* Small Breakpoint media query */ ?>
         @media ( max-width: <?php echo $global_settings->responsive_breakpoint .'px'; ?> ) {
             /* Info Circle Title */
@@ -607,6 +607,6 @@ if ( $settings->connector_border_style != 'none' ) :
                 line-height: <?php echo $settings->desc_line_height['small']; ?>px;
                 <?php endif; ?>
             }
-        }
+        }       
     <?php
 }

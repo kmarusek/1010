@@ -22,13 +22,14 @@ class GoogleMapModule extends FLBuilderModule {
             'url'           => BB_ULTIMATE_ADDON_URL . 'modules/google-map/',
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
-            'partial_refresh'  => true
+            'partial_refresh'  => true,
+            'icon'              => 'location.svg',
         ));
 
         add_filter( 'fl_builder_render_settings_field', array( $this , 'uabb_google_map_settings_field' ), 10, 3 );
 
         $uabb_setting_options = UABB_Init::$uabb_options['fl_builder_uabb'];
-
+        
         $google_api_key = '';
 
         if ( isset( $uabb_setting_options['uabb-google-map-api'] ) && !empty( $uabb_setting_options['uabb-google-map-api'] ) ) {
@@ -94,10 +95,10 @@ class GoogleMapModule extends FLBuilderModule {
                     $settings->uabb_gmap_addresses[0]->info_window_text = ( $settings->info_window_text != '' ) ? $settings->info_window_text : '';
                 }
             }
-
+                
         }
 
-
+            
         return $field;
     }
 
@@ -107,7 +108,7 @@ $google_api_key = '';
 
 $style1 = 'line-height: 1.45em; color: #a94442;';
 $style2 = 'font-weight:bold;color: #a94442;';
-$notice = sprintf(
+$notice = sprintf( 
         __( '<span style="%s">To display customized Google Map without an issue, you need to configure Google Map API key in <span style="%s">General Settings</span>. Please configure API key from <a href="%s" class="uabb-google-map-notice" target="_blank" rel="noopener">here</a></span>.' , 'uabb' ),
         $style1, $style2, admin_url( 'options-general.php?page=uabb-builder-settings#uabb' ) );
 
@@ -135,7 +136,7 @@ FLBuilder::register_module('GoogleMapModule', array(
                         'type'         => 'form',
                         'label'        => __('Address', 'uabb'),
                         'form'         => 'uabb_google_map_addresses',
-                        'preview_text' => 'map_lattitude',
+                        // 'preview_text' => 'map_name',
                         'multiple'     => true
                     ),
                 )
@@ -324,6 +325,13 @@ FLBuilder::register_settings_form('uabb_google_map_addresses', array(
                 'features'       => array(
                     'title'         => __( 'Address', 'uabb' ),
                     'fields'        => array(
+                        'map_name'     => array(
+                            'type'          => 'text',
+                            'label'         => __('Name', 'uabb'),
+                            'default'       => 'Name',
+                            'placeholder'   => 'Name the Address',
+                            'help'   => __('Name the Address to identify while editing','uabb'),
+                        ),
                         'map_lattitude'     => array(
                             'type'          => 'text',
                             'label'         => __('Latitude', 'uabb'),

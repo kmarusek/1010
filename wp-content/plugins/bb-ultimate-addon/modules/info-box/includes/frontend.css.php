@@ -30,11 +30,11 @@ if($settings->cta_type == 'button') {
 	FLBuilder::render_module_css('uabb-button', $id, array(
 		/* General Section */
         'text'              => $settings->btn_text,
-
+        
         /* Link Section */
         'link'              => $settings->btn_link,
         'link_target'       => $settings->btn_link_target,
-
+        
         /* Style Section */
         'style'             => $settings->btn_style,
         'border_size'       => $settings->btn_border_size,
@@ -54,7 +54,7 @@ if($settings->cta_type == 'button') {
         /* Icon */
         'icon'              => $settings->btn_icon,
         'icon_position'     => $settings->btn_icon_position,
-
+        
         /* Structure */
         'width'              => $settings->btn_width,
         'custom_width'       => $settings->btn_custom_width,
@@ -88,21 +88,21 @@ if( $settings->enable_separator == 'block' ) {
 <?php }
 /* Render Image Icon CSS */
 /* CSS "$settings" Array */
-
+ 
  /* Icon Image Render */
 if( $settings->image_type != 'none' ) {
 
 	/* CSS "$settings" Array */
  	$imageicon_array = array(
-
+      
       	/* General Section */
       	'image_type' => $settings->image_type,
-
+ 
       	/* Icon Basics */
       	'icon' => $settings->icon,
       	'icon_size' => $settings->icon_size,
       	'icon_align' => '',
-
+ 
       	/* Image Basics */
       	'photo_source' => $settings->photo_source,
       	'photo' => $settings->photo,
@@ -111,25 +111,25 @@ if( $settings->image_type != 'none' ) {
       	'responsive_img_size' => $settings->responsive_img_size,
       	'img_align' => '',
       	'photo_src' => ( isset( $settings->photo_src ) ) ? $settings->photo_src : '' ,
-
+ 
       	/* Icon Style */
       	'icon_style' => $settings->icon_style,
       	'icon_bg_size' => $settings->icon_bg_size,
       	'icon_border_style' => $settings->icon_border_style,
       	'icon_border_width' => $settings->icon_border_width,
       	'icon_bg_border_radius' => $settings->icon_bg_border_radius,
-
+ 
       	/* Image Style */
       	'image_style' => $settings->image_style,
       	'img_bg_size' => $settings->img_bg_size,
       	'img_border_style' => $settings->img_border_style,
       	'img_border_width' => $settings->img_border_width,
       	'img_bg_border_radius' => $settings->img_bg_border_radius,
-
+ 		
  		/* Preset Color variable new */
       	'icon_color_preset' => $settings->icon_color_preset,
 
-      	/* Icon Colors */
+      	/* Icon Colors */ 
       	'icon_color' => $settings->icon_color,
       	'icon_hover_color' => $settings->icon_hover_color,
       	'icon_bg_color' => $settings->icon_bg_color,
@@ -139,7 +139,7 @@ if( $settings->image_type != 'none' ) {
       	'icon_border_color' => $settings->icon_border_color,
       	'icon_border_hover_color' => $settings->icon_border_hover_color,
       	'icon_three_d' => $settings->icon_three_d,
-
+ 
       	/* Image Colors */
       	'img_bg_color' => $settings->img_bg_color,
       	'img_bg_color_opc' => $settings->img_bg_color_opc,
@@ -148,8 +148,8 @@ if( $settings->image_type != 'none' ) {
       	'img_border_color' => $settings->img_border_color,
       	'img_border_hover_color' => $settings->img_border_hover_color,
  	);
-
- 	/* CSS Render Function */
+ 
+ 	/* CSS Render Function */ 
  	FLBuilder::render_module_css( 'image-icon', $id, $imageicon_array );
 }
 ?>
@@ -169,8 +169,8 @@ if( $settings->image_type != 'none' ) {
 /* Code Can Be Removed */
 /*if ( $settings->image_type == 'icon' ) { ?>
 	<?php if( $settings->img_icon_position == 'left-title' || $settings->img_icon_position == 'right-title'  ) {
-
-.fl-node-<?php echo $id; ?> .infobox .uabb-icon-wrap .uabb-icon i,
+ 
+.fl-node-<?php echo $id; ?> .infobox .uabb-icon-wrap .uabb-icon i, 
 .fl-node-<?php echo $id; ?> .infobox .uabb-icon-wrap .uabb-icon i:before {
     text-align: <?php echo ( $settings->img_icon_position == 'left-title' ) ? 'left' : 'right'; ?>;
 }
@@ -178,7 +178,7 @@ if( $settings->image_type != 'none' ) {
 	}
 	if( $settings->img_icon_position == 'above-title' || $settings->img_icon_position == 'below-title'  ) {
 
-.fl-node-<?php echo $id; ?> .infobox .uabb-icon-wrap .uabb-icon i,
+.fl-node-<?php echo $id; ?> .infobox .uabb-icon-wrap .uabb-icon i, 
 .fl-node-<?php echo $id; ?> .infobox .uabb-icon-wrap .uabb-icon i:before {
     text-align: <?php echo $settings->align; ?>;
 }
@@ -225,26 +225,26 @@ if( $settings->image_type != 'none' ) {
 <?php if($settings->uabb_border_type != 'none') : ?>
 		.fl-builder-content .fl-node-<?php echo $id; ?> .uabb-infobox {
 			border-style: <?php echo $settings->uabb_border_type; ?>;
-
+			
 			<?php if( $settings->uabb_border_color != "" ) : ?>
 				border-color: <?php echo $settings->uabb_border_color; ?>;
 			<?php endif; ?>
-
+			
 			border-top-width: <?php echo  $settings->uabb_border_top ? $settings->uabb_border_top : '0'; ?>px;
 			border-bottom-width: <?php echo $settings->uabb_border_bottom ? $settings->uabb_border_bottom : '0'; ?>px;
 			border-left-width: <?php echo $settings->uabb_border_left ? $settings->uabb_border_left : '0'; ?>px;
 			border-right-width: <?php echo $settings->uabb_border_right ? $settings->uabb_border_right : '0'; ?>px;
-
+			
 			<?php if( $settings->uabb_border_top > 0 || $settings->uabb_border_bottom > 0 || $settings->uabb_border_left > 0 || $settings->uabb_border_right > 0 ) : ?>
 				<?php echo $settings->info_box_padding; ?>;
 			<?php endif; ?>
 		}
-
+	
 <?php endif; ?>
 
 /* Background Property */
 <?php if ( !empty( $settings->bg_type ) ) { ?>
-	.fl-node-<?php echo $id; ?> .uabb-infobox {
+	.fl-node-<?php echo $id; ?> .uabb-infobox { 
 	<?php if( $settings->bg_type == 'color' && !empty($settings->bg_color) ) : ?>
 			background: <?php echo $settings->bg_color; ?>;
 			<?php echo $settings->info_box_padding; ?>;
@@ -263,10 +263,10 @@ if( $settings->image_type != 'none' ) {
 	text-align: <?php echo $settings->align; ?>;
 }
 
-/* Minimum Height and Vertical Alignment */
+/* Minimum Height and Vertical Alignment */	
 <?php if( $settings->min_height_switch == 'custom' && $settings->min_height != "" ) : ?>
 .fl-node-<?php echo $id; ?> .uabb-infobox {
-
+	
 	min-height: <?php echo $settings->min_height; ?>px;
 	display: flex;
 	align-items: <?php echo $settings->vertical_align; ?>;
@@ -292,8 +292,8 @@ if( $settings->image_type != 'none' ) {
 <?php } ?>
 
 /* Heading Color */
-<?php if( !empty($settings->title_color) ) : ?>
-.fl-node-<?php echo $id; ?> <?php echo $settings->title_tag_selection; ?>.uabb-infobox-title,
+<?php if( !empty($settings->title_color) ) : ?> 
+.fl-node-<?php echo $id; ?> <?php echo $settings->title_tag_selection; ?>.uabb-infobox-title, 
 .fl-node-<?php echo $id; ?> <?php echo $settings->title_tag_selection; ?>.uabb-infobox-title span a,
 .fl-node-<?php echo $id; ?> <?php echo $settings->title_tag_selection; ?>.uabb-infobox-title * {
 	color: <?php echo $settings->title_color; ?>
@@ -306,7 +306,7 @@ if( $settings->image_type != 'none' ) {
 }
 
 /* Description Color */
-
+ 
 .fl-node-<?php echo $id; ?> .uabb-infobox-text {
 	color: <?php echo uabb_theme_text_color( $settings->subhead_color ); ?>;
 }
@@ -354,7 +354,7 @@ if( $settings->image_type != 'none' ) {
 <?php } ?>
 
 /* Link Color */
-<?php if( !empty($settings->link_color) ) : ?>
+<?php if( !empty($settings->link_color) ) : ?> 
 .fl-builder-content .fl-node-<?php echo $id; ?> a,
 .fl-builder-content .fl-node-<?php echo $id; ?> a *,
 .fl-builder-content .fl-node-<?php echo $id; ?> a:visited {
@@ -365,7 +365,7 @@ if( $settings->image_type != 'none' ) {
 /* Typography Options for Title */
 .fl-builder-content .fl-node-<?php echo $id; ?> <?php /*echo $settings->title_tag_selection;*/ ?>.uabb-infobox-title,
 .fl-builder-content .fl-node-<?php echo $id; ?> <?php /*echo $settings->title_tag_selection;*/ ?>.uabb-infobox-title a {
-
+	
 	<?php if( $settings->title_font_family['family'] != "Default") : ?>
 		<?php UABB_Helper::uabb_font_css( $settings->title_font_family ); ?>
 	<?php endif; ?>
@@ -382,7 +382,7 @@ if( $settings->image_type != 'none' ) {
 
 /* Typography Options for Description */
 .fl-builder-content .fl-node-<?php echo $id; ?> .uabb-infobox-text {
-
+	
 	<?php if( $settings->subhead_font_family['family'] != "Default") : ?>
 		<?php UABB_Helper::uabb_font_css( $settings->subhead_font_family ); ?>
 	<?php endif; ?>
@@ -399,7 +399,7 @@ if( $settings->image_type != 'none' ) {
 
 /* Typography Options for Prefix */
 .fl-builder-content .fl-node-<?php echo $id; ?> .uabb-infobox-title-prefix {
-
+	
 	<?php if( $settings->prefix_font_family['family'] != "Default") : ?>
 		<?php UABB_Helper::uabb_font_css( $settings->prefix_font_family ); ?>
 	<?php endif; ?>
@@ -436,7 +436,7 @@ if( $settings->image_type != 'none' ) {
 /* Module Link */
 <?php  if( $settings->cta_type == 'module' && !empty($settings->link) ) { ?>
 	.fl-builder-content .fl-node-<?php echo $id; ?> .uabb-infobox {
-		position: relative;
+		position: relative; 
 	}
 	.fl-node-<?php echo $id; ?> .uabb-infobox-module-link:hover ~ .uabb-infobox-content .uabb-imgicon-wrap i,
 	.fl-node-<?php echo $id; ?> .uabb-infobox-module-link:hover ~ .uabb-infobox-content .uabb-imgicon-wrap i:before,
@@ -448,7 +448,7 @@ if( $settings->image_type != 'none' ) {
 	.fl-node-<?php echo $id; ?> .uabb-infobox-module-link:hover ~ .uabb-imgicon-wrap i {
 		background-color: <?php echo $settings->icon_bg_hover_color; ?>;
 
-		<?php if($settings->icon_three_d && !empty($settings->icon_bg_hover_color)) : // 3D Styles
+		<?php if($settings->icon_three_d && !empty($settings->icon_bg_hover_color)) : // 3D Styles 
 
 		$bg_hover_color = ( !empty($settings->icon_bg_hover_color) ) ? uabb_parse_color_to_hex( $settings->icon_bg_hover_color ) : '' ;
 		$bg_hover_grad_start = '#'.FLBuilderColor::adjust_brightness($bg_hover_color, 40, 'lighten');
@@ -463,7 +463,7 @@ if( $settings->image_type != 'none' ) {
 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='<?php echo $bg_hover_grad_start; ?>', endColorstr='<?php echo $settings->icon_bg_hover_color; ?>',GradientType=0 ); /* IE6-9 */
 		<?php if($settings->icon_style == 'circle' || $settings->icon_style == 'square') : ?>
 		    border: 1px solid <?php echo $border_hover_color; ?>;
-		<?php endif; ?>
+		<?php endif; ?>    
 		<?php endif; ?>
 
 		<?php if($settings->icon_style == 'custom' && $settings->icon_border_style != 'none') : ?>
@@ -492,7 +492,7 @@ if( $settings->image_type != 'none' ) {
 <?php 	$class 		= '';
 		$pos 		= '';
 		$cal_width 	= '';
-if( $settings->image_type == 'icon' ) {
+if( $settings->image_type == 'icon' ) { 
 	/*$class = 'uabb-number-'.$settings->image_type.'-'.$settings->icon_position;*/
 	$class = 'infobox-icon-' . $settings->img_icon_position;
 	$pos = $settings->img_icon_position;
@@ -560,18 +560,18 @@ if( $settings->uabb_border_type != 'none' || $settings->bg_type != 'none' ) {
 			border: none;
 			<?php echo ( $settings->bg_type != 'none' ) ? '' : 'padding: 0;'; ?>
 		}
-	}
+	}	
 	<?php
 	endif;
 }
 ?>
-
+	
 
 <?php echo '@media (max-width: '. $global_settings->medium_breakpoint .'px) { '; ?>
-
+	
 	.fl-builder-content .fl-node-<?php echo $id; ?> <?php echo $settings->title_tag_selection; ?>.uabb-infobox-title,
 	.fl-builder-content .fl-node-<?php echo $id; ?> <?php echo $settings->title_tag_selection; ?>.uabb-infobox-title a {
-
+		
 		<?php if( $settings->title_font_size['medium'] != '' ) : ?>
 		font-size: <?php echo $settings->title_font_size['medium']; ?>px;
 		line-height: <?php echo $settings->title_font_size['medium'] + 2; ?>px;
@@ -583,7 +583,7 @@ if( $settings->uabb_border_type != 'none' || $settings->bg_type != 'none' ) {
 	}
 
 	.fl-builder-content .fl-node-<?php echo $id; ?> .uabb-infobox-text {
-
+		
 		<?php if( $settings->subhead_font_size['medium'] != '' ) : ?>
 		font-size: <?php echo $settings->subhead_font_size['medium']; ?>px;
 		line-height: <?php echo $settings->subhead_font_size['medium'] + 2; ?>px;
@@ -595,7 +595,7 @@ if( $settings->uabb_border_type != 'none' || $settings->bg_type != 'none' ) {
 	}
 
 	.fl-builder-content .fl-node-<?php echo $id; ?> .uabb-infobox-title-prefix {
-
+		
 		<?php if( $settings->prefix_font_size['medium'] != '' ) : ?>
 		font-size: <?php echo $settings->prefix_font_size['medium']; ?>px;
 		line-height: <?php echo $settings->prefix_font_size['medium'] + 2; ?>px;
@@ -616,19 +616,25 @@ if( $settings->uabb_border_type != 'none' || $settings->bg_type != 'none' ) {
 		line-height: <?php echo $settings->link_line_height['medium']; ?>px;
 		<?php endif; ?>
 	}
+
+	<?php if( $settings->min_height_switch == 'custom' && $settings->min_height_medium != "" ) : ?>
+		.fl-node-<?php echo $id; ?> .uabb-infobox {
+			min-height: <?php echo $settings->min_height_medium; ?>px;
+		}
+	<?php endif; ?>
 }
 
 <?php echo '@media (max-width: '. $global_settings->responsive_breakpoint .'px) { '; ?>
-
+	
 	<?php
 	if( $settings->uabb_border_type != 'none' || $settings->bg_type != 'none' ) {
  		if( $settings->responsive_border == 'yes' ) : ?>
  		.fl-builder-content .fl-node-<?php echo $id; ?> .uabb-infobox {
  			border: none;
  			<?php echo ( $settings->bg_type != 'none' ) ? '' : 'padding: 0;'; ?>
- 		}
+ 		}	
  		<?php
- 		endif;
+ 		endif; 
  	}
 
 
@@ -666,11 +672,11 @@ if( $settings->uabb_border_type != 'none' || $settings->bg_type != 'none' ) {
 	.fl-node-<?php echo $id; ?> .infobox-responsive-<?php echo $settings->mobile_align; ?> {
         text-align: <?php echo $settings->mobile_align; ?>;
     }
-
+    
 
 	.fl-builder-content .fl-node-<?php echo $id; ?> <?php echo $settings->title_tag_selection; ?>.uabb-infobox-title,
 	.fl-builder-content .fl-node-<?php echo $id; ?> <?php echo $settings->title_tag_selection; ?>.uabb-infobox-title a {
-
+		
 		<?php if( $settings->title_font_size['small'] != '' ) : ?>
 		font-size: <?php echo $settings->title_font_size['small']; ?>px;
 		line-height: <?php echo $settings->title_font_size['small'] + 2; ?>px;
@@ -682,7 +688,7 @@ if( $settings->uabb_border_type != 'none' || $settings->bg_type != 'none' ) {
 	}
 
 	.fl-builder-content .fl-node-<?php echo $id; ?> .uabb-infobox-text {
-
+		
 		<?php if( $settings->subhead_font_size['small'] != '' ) : ?>
 		font-size: <?php echo $settings->subhead_font_size['small']; ?>px;
 		line-height: <?php echo $settings->subhead_font_size['small'] + 2; ?>px;
@@ -693,8 +699,14 @@ if( $settings->uabb_border_type != 'none' || $settings->bg_type != 'none' ) {
 		<?php endif; ?>
 	}
 
-	.fl-builder-content .fl-node-<?php echo $id; ?> .uabb-infobox-title-prefix {
+	<?php if( $settings->min_height_switch == 'custom' && $settings->min_height_responsive != "" ) : ?>
+		.fl-node-<?php echo $id; ?> .uabb-infobox {
+			min-height: <?php echo $settings->min_height_responsive; ?>px;
+		}
+	<?php endif; ?>
 
+	.fl-builder-content .fl-node-<?php echo $id; ?> .uabb-infobox-title-prefix {
+		
 		<?php if( $settings->prefix_font_size['small'] != '' ) : ?>
 		font-size: <?php echo $settings->prefix_font_size['small']; ?>px;
 		line-height: <?php echo $settings->prefix_font_size['small'] + 2; ?>px;

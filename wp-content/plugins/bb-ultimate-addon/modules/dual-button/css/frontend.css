@@ -5,7 +5,7 @@
     display: flex;
 }
 
-.uabb-dual-button .uabb-dual-button-wrapper {
+.uabb-dual-button .uabb-dual-button-wrapper { 
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -30,12 +30,12 @@
 .uabb-dual-button .uabb-btn-horizontal {
     display: -webkit-box;
     display: -ms-flexbox;
-    display: flex;
+    display: flex; 
     position: relative;
 }
 /* End Global Horizontal Style */
 
-/* Middle Text */
+/* Middle Text */ 
 .uabb-dual-button .uabb-middle-text {
     position: absolute;
     top: 50%;
@@ -437,7 +437,7 @@
     flex-direction: column;
     position: relative;
 }
-
+    
 .uabb-dual-button-one.uabb-btn-vertical {
     position: relative;
 }

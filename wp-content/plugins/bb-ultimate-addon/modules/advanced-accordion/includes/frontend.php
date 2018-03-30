@@ -11,7 +11,7 @@
 				global $wp_embed;
 				echo wpautop( $wp_embed->autoembed( $settings->acc_items[ $i ]->acc_content ) );
 			}else{
-				echo $module->get_accordion_content( $settings->acc_items[ $i ] );
+				echo $module->get_accordion_content( $settings->acc_items[ $i ] ); 
 			} ?>
 			<?php /*global $wp_embed;
 				echo wpautop( $wp_embed->autoembed( $settings->acc_items[ $i ]->acc_content ) ) */

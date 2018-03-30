@@ -1,7 +1,7 @@
 (function($){
 
 	FLBuilder.registerModuleHelper('uabb-contact-form', {
-
+    
 		init: function() {
 			var form      = $( '.fl-builder-settings' ),
 				action    = form.find( 'select[name=success_action]' ),
@@ -14,16 +14,16 @@
 				hover_attribute = form.find('select[name=hover_attribute]'),
 				enable_label = form.find( 'select[name=enable_label]' ),
 				btn_style   = form.find('select[name=btn_style]');
-
+				
 			this._actionChanged();
 			this._labelTypography();
 			this._updateMailTags();
 			this._btn_styleChanged();
-
+			
 			action.on( 'change', this._actionChanged );
 			form_style.on( 'change', this._labelTypography );
 			enable_label.on( 'change', this._labelTypography );
-
+			
 			name_toggle.on( 'change', this._updateMailTags );
 			email_toggle.on( 'change', this._updateMailTags );
 			subject_toggle.on( 'change', this._updateMailTags );
@@ -33,7 +33,7 @@
 			btn_style.on( 'change', $.proxy( this._btn_styleChanged, this ) );
 
 			// Toggle reCAPTCHA display
-
+			
 			this._uabbToggleReCaptcha();
 
 			$( 'input[name=recaptcha_site_key]' ).on( 'change', $.proxy( this._uabbToggleReCaptcha, this ) );
@@ -57,7 +57,7 @@
 			var form      			= $( '.fl-builder-settings' ),
 				nodeId    			= form.attr( 'data-node' ),
 				toggle    			= form.find( 'select[name=uabb_recaptcha_toggle]' ),
-				recaptcha_theme		= form.find( 'select[name=uabb_recaptcha_theme]' ),
+				recaptcha_theme		= form.find( 'select[name=uabb_recaptcha_theme]' ), 
 				captchaKey			= form.find( 'input[name=uabb_recaptcha_site_key]' ).val(),
 				reCaptcha 			= $( '.fl-node-'+ nodeId ).find( '.uabb-grecaptcha' ),
 				reCaptchaId 		= nodeId +'-uabb-grecaptcha',
@@ -130,7 +130,7 @@
 			var form        = $('.fl-builder-settings'),
 				btn_style   = form.find('select[name=btn_style]').val(),
 				hover_attribute = form.find('select[name=hover_attribute]').val();
-
+				
 
             if( btn_style == 'transparent' ) {
             	form.find("#fl-field-hover_attribute").show();
@@ -167,31 +167,31 @@
 
 			cf_mail_tags.html( tags.join(', ') );
 		},
-
+    
 		_actionChanged: function() {
 			var form      = $( '.fl-builder-settings' ),
 				action    = form.find( 'select[name=success_action]' ).val(),
 				url       = form.find( 'input[name=success_url]' );
-
+				
 			url.rules('remove');
-
+				
 			if ( 'redirect' == action ) {
 				url.rules( 'add', { required: true } );
 			}
 		},
-
+		
 		_labelTypography: function() {
 			var form      = $( '.fl-builder-settings' ),
 				form_style = form.find( 'select[name=form_style]' ).val(),
 				enable_label = form.find( 'select[name=enable_label]' ).val(),
 				label_Section = form.find( '#fl-builder-settings-section-label_typography' );
-
+				
 
 			label_Section.hide();
 			if ( form_style == 'style1' && enable_label == 'yes' ) {
 				label_Section.show();
 			}
-
+						
 		}
 	});
 

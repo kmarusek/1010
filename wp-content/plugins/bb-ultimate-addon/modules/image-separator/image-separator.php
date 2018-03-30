@@ -28,7 +28,8 @@ class UABBImageSeparatorModule extends FLBuilderModule {
             'group'         => UABB_CAT,
 			'dir'           	=> BB_ULTIMATE_ADDON_DIR . 'modules/image-separator/',
             'url'           	=> BB_ULTIMATE_ADDON_URL . 'modules/image-separator/',
-            'partial_refresh'  => true
+            'partial_refresh'   => true,
+			'icon'				=> 'format-image.svg',
 		));
 
 		$this->add_js('jquery-waypoints');
@@ -97,8 +98,8 @@ class UABBImageSeparatorModule extends FLBuilderModule {
 			$new_height   = $size['height'];
 
 			// Get the crop ratios.
-
-
+			
+			
 			if($this->settings->image_style == 'circle') {
 				$ratio_1 = 1;
 				$ratio_2 = 1;
@@ -163,18 +164,18 @@ class UABBImageSeparatorModule extends FLBuilderModule {
 	public function get_classes()
 	{
 		$classes = array( 'uabb-photo-img' );
-
+		
 		if ( ! empty( $this->settings->photo ) ) {
-
+			
 			$data = self::get_data();
-
+			
 			if ( is_object( $data ) ) {
 				$classes[] = 'wp-image-' . $data->id;
 
 				if ( isset( $data->sizes ) ) {
 
 					foreach ( $data->sizes as $key => $size ) {
-
+						
 						if ( $size->url == $this->settings->photo_src ) {
 							$classes[] = 'size-' . $key;
 							break;
@@ -183,9 +184,9 @@ class UABBImageSeparatorModule extends FLBuilderModule {
 				}
 			}
 		}
-
+			
 		return implode( ' ', $classes );
-	}
+	} 
 
 	/**
 	 * @method get_src
@@ -253,13 +254,13 @@ class UABBImageSeparatorModule extends FLBuilderModule {
 	/*public function get_attributes()
 	{
 		$attrs = '';
-
+		
 		if ( isset( $this->settings->attributes ) ) {
 			foreach ( $this->settings->attributes as $key => $val ) {
 				$attrs .= $key . '="' . $val . '" ';
 			}
 		}
-
+		
 		return $attrs;
 	}*/
 
@@ -312,12 +313,12 @@ class UABBImageSeparatorModule extends FLBuilderModule {
 			$filename    = uniqid(); // Return a file that doesn't exist.
 		}
 		else {
-
+			
 			if ( stristr( $url, '?' ) ) {
 				$parts = explode( '?', $url );
 				$url   = $parts[0];
 			}
-
+			
 			$pathinfo    = pathinfo($url);
 			$dir         = $pathinfo['dirname'];
 			$ext         = $pathinfo['extension'];
@@ -444,7 +445,7 @@ FLBuilder::register_module('UABBImageSeparatorModule', array(
                             ),
                             'custom' => array(
                                 'sections'  => array( 'img_colors' ),
-                                'fields'	=> array( 'img_bg_size', 'img_border_style', 'img_bg_border_radius' )
+                                'fields'	=> array( 'img_bg_size', 'img_border_style', 'img_bg_border_radius' ) 
                             )
                         )
                 	),
@@ -533,7 +534,7 @@ FLBuilder::register_module('UABBImageSeparatorModule', array(
                 'title'         => __('Colors', 'uabb'), // Section Title
                 'fields'        => array( // Section Fields
                     /* Background Color Dependent on Icon Style **/
-                    'img_bg_color' => array(
+                    'img_bg_color' => array( 
 						'type'       => 'color',
 	                	'label'      => __('Background Color', 'uabb'),
 						'default'    => '',
@@ -544,7 +545,7 @@ FLBuilder::register_module('UABBImageSeparatorModule', array(
                         		'property'	=> 'background',
                         )
 					),
-		            'img_bg_color_opc' => array(
+		            'img_bg_color_opc' => array( 
 						'type'        => 'text',
 						'label'       => __('Opacity', 'uabb'),
 						'default'     => '',
@@ -552,7 +553,7 @@ FLBuilder::register_module('UABBImageSeparatorModule', array(
 						'maxlength'   => '3',
 						'size'        => '5',
 					),
-                    'img_bg_hover_color' => array(
+                    'img_bg_hover_color' => array( 
 						'type'       => 'color',
 	                    'label'      => __('Background Hover Color', 'uabb'),
 						'default'    => '',
@@ -561,7 +562,7 @@ FLBuilder::register_module('UABBImageSeparatorModule', array(
                         		'type' 		=> 'none',
                         )
 					),
-		            'img_bg_hover_color_opc' => array(
+		            'img_bg_hover_color_opc' => array( 
 						'type'        => 'text',
 						'label'       => __('Opacity', 'uabb'),
 						'default'     => '',
@@ -569,9 +570,9 @@ FLBuilder::register_module('UABBImageSeparatorModule', array(
 						'maxlength'   => '3',
 						'size'        => '5',
 					),
-
+                    
                      /* Border Color Dependent on Border Style for Image */
-                    'img_border_color' => array(
+                    'img_border_color' => array( 
 						'type'       => 'color',
 	                    'label'      => __('Border Color', 'uabb'),
 						'default'    => '',
@@ -582,7 +583,7 @@ FLBuilder::register_module('UABBImageSeparatorModule', array(
                         		'property'	=> 'border-color',
                         )
 					),
-		            'img_border_hover_color' => array(
+		            'img_border_hover_color' => array( 
 						'type'       => 'color',
 	                    'label'      => __('Border Hover Color', 'uabb'),
 						'default'    => '',
@@ -631,10 +632,10 @@ FLBuilder::register_module('UABBImageSeparatorModule', array(
                         	'right'      => __('Right', 'uabb')
                         ),
                         'toggle'		=> array(
-                        	'left'	=> array(
+                        	'left'	=> array( 
                         		'fields'	=> array( 'gutter_lr', 'responsive_center' )
                         	),
-                        	'right'	=> array(
+                        	'right'	=> array( 
                         		'fields'	=> array( 'gutter_lr' , 'responsive_center' )
                         	)
                         )
@@ -651,7 +652,7 @@ FLBuilder::register_module('UABBImageSeparatorModule', array(
                         'description'   => '%',
                     ),
 
-
+                    
                     'responsive_center'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Responsive Alignment', 'uabb' ),

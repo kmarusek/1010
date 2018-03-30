@@ -18,13 +18,14 @@ class UABBCountdownModule extends FLBuilderModule {
             'url'           => BB_ULTIMATE_ADDON_URL . 'modules/uabb-countdown/',
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
-            'partial_refresh'  => true
+            'partial_refresh'  => true,
+            'icon'             => 'clock.svg',
 		) );
 
 	}
 
     public function enqueue_scripts() {
-
+        
         $this->add_js('countdown-plug', $this->url . 'js/jquery.plugin.js', array('jquery'), '', true );
         $this->add_js('countdown-library', $this->url . 'js/jquery.countdown.js', array('jquery'), '', true );
         $this->add_js('countdown-cookie', $this->url . 'js/jquery.cookie.js', array('jquery'), '', true );
@@ -33,7 +34,7 @@ class UABBCountdownModule extends FLBuilderModule {
     public function render_normal_countdown( $str1, $str2 ) {
 
         ob_start();
-
+        
         ?><div class="uabb-countdown-holding <?php echo $this->settings->timer_style; ?>"><div class="uabb-countdown-digit-wrapper <?php echo $this->settings->timer_style; ?>"><<?php echo $this->settings->digit_tag_selection; ?> class="uabb-count-down-digit <?php echo $this->settings->timer_style; ?>"><?php echo $str1; ?></<?php echo $this->settings->digit_tag_selection; ?>></div><div class="uabb-countdown-unit-names"><<?php echo $this->settings->unit_tag_selection; ?> class="uabb-count-down-unit <?php  echo $this->settings->timer_style; ?>"><?php echo $str2; ?></<?php echo $this->settings->unit_tag_selection; ?>></div></div><?php
 
         $html = ob_get_contents();
@@ -44,7 +45,7 @@ class UABBCountdownModule extends FLBuilderModule {
     public function render_normal_above_countdown( $str1, $str2, $str3 ) {
 
         ob_start();
-
+        
         ?><div class="uabb-countdown-holding <?php echo $this->settings->timer_style; ?>"><div class="uabb-countdown-digit-wrapper <?php echo $this->settings->timer_style; ?>"><div class="uabb-countdown-unit-names"><<?php echo $this->settings->unit_tag_selection; ?> class="uabb-count-down-unit <?php echo $this->settings->timer_style; ?>"><?php echo $str2; ?></<?php echo $this->settings->unit_tag_selection; ?>></div><<?php echo $this->settings->digit_tag_selection; ?> class="uabb-count-down-digit <?php echo $this->settings->timer_style; ?>"><?php echo $str1; ?></<?php echo $this->settings->digit_tag_selection; ?>></div><?php echo $str3; ?></div><?php
 
         $html = ob_get_contents();
@@ -55,7 +56,7 @@ class UABBCountdownModule extends FLBuilderModule {
     public function render_inside_below_countdown( $str1, $str2, $str3 ) {
 
         ob_start();
-
+        
         ?><div class="uabb-countdown-holding <?php echo $this->settings->timer_style; ?>"><div class="uabb-countdown-digit-wrapper <?php echo $this->settings->timer_style; ?>"><div class="uabb-countdown-digit-content"><<?php echo $this->settings->digit_tag_selection; ?> class="uabb-count-down-digit <?php echo $this->settings->timer_style; ?>"><?php echo $str1; ?></<?php echo $this->settings->digit_tag_selection; ?>></div><div class="uabb-countdown-unit-names"><<?php echo $this->settings->unit_tag_selection; ?> class="uabb-count-down-unit <?php echo $this->settings->timer_style; ?>"><?php echo $str2; ?></<?php echo $this->settings->unit_tag_selection; ?>></div></div><?php echo $str3; ?></div><?php
 
         $html = ob_get_contents();
@@ -66,7 +67,7 @@ class UABBCountdownModule extends FLBuilderModule {
     public function render_inside_above_countdown( $str1, $str2, $str3 ) {
 
         ob_start();
-
+        
         ?><div class="uabb-countdown-holding <?php echo $this->settings->timer_style; ?>"><div class="uabb-countdown-digit-wrapper <?php echo $this->settings->timer_style; ?>"><div class="uabb-countdown-unit-names"><<?php echo $this->settings->unit_tag_selection; ?> class="uabb-count-down-unit <?php echo $this->settings->timer_style; ?>"><?php echo $str2; ?></<?php echo $this->settings->unit_tag_selection; ?>></div><<?php echo $this->settings->digit_tag_selection; ?> class="uabb-count-down-digit <?php echo $this->settings->timer_style; ?>"><?php echo $str1; ?></<?php echo $this->settings->digit_tag_selection; ?>></div><?php echo $str3; ?></div><?php
 
         $html = ob_get_contents();
@@ -77,7 +78,7 @@ class UABBCountdownModule extends FLBuilderModule {
     public function render_outside_countdown( $str1, $str2, $str3 ) {
 
         ob_start();
-
+        
         ?><div class="uabb-countdown-holding <?php echo $this->settings->timer_style; ?>"><div class="uabb-countdown-unit-names"><<?php echo $this->settings->unit_tag_selection; ?> class="uabb-count-down-unit <?php echo $this->settings->timer_style; ?>"><?php echo $str2; ?></<?php echo $this->settings->unit_tag_selection; ?>></div><div class="uabb-countdown-digit-wrapper <?php echo $this->settings->timer_style; ?>"><<?php echo $this->settings->digit_tag_selection; ?> class="uabb-count-down-digit <?php echo $this->settings->timer_style; ?>"><?php echo $str1; ?></<?php echo $this->settings->digit_tag_selection; ?>></div><?php echo $str3; ?></div><?php
 
         $html = ob_get_contents();
@@ -86,7 +87,7 @@ class UABBCountdownModule extends FLBuilderModule {
     }
 
     /**
-     * Get time zone GMT offset
+     * Get time zone GMT offset 
      */
      public function get_gmt_difference( $settings ) {
 
@@ -264,7 +265,7 @@ FLBuilder::register_module('UABBCountdownModule', array(
                             'small'         => '',
                         ),
                     ),
-                    'message_color'        => array(
+                    'message_color'        => array( 
                         'type'       => 'color',
                         'label' => __('Choose Color', 'uabb'),
                         'preview'         => array(
@@ -316,7 +317,7 @@ FLBuilder::register_module('UABBCountdownModule', array(
                         'label'         => __('Space Between Elements', 'uabb'),
                         'help'         => __('This option controls the left-right spacing of each Countdown Element.', 'uabb'),
                         'class'         => '',
-                    ),
+                    ), 
                 )
             ),
             'style'       => array( // Section
@@ -348,7 +349,7 @@ FLBuilder::register_module('UABBCountdownModule', array(
                             )
                         )
                     ),
-                    'timer_background_color' => array(
+                    'timer_background_color' => array( 
                         'type'       => 'color',
                         'label'         => __('Digit Background Color', 'uabb'),
                         'default'    => '',
@@ -402,7 +403,7 @@ FLBuilder::register_module('UABBCountdownModule', array(
                         'label'         => __('Digit Border Width', 'uabb'),
                         'class'         => '',
                     ),
-                    'digit_border_color' => array(
+                    'digit_border_color' => array( 
                         'type'       => 'color',
                         'label'         => __('Digit Border Color', 'uabb'),
                         'default'    => '',
@@ -526,7 +527,7 @@ FLBuilder::register_module('UABBCountdownModule', array(
                         'description'   => '',
                         'placeholder'   => __('Year','uabb'),
                     ),
-
+                    
 
                     // Months
                     'month_string'   => array(
@@ -765,7 +766,7 @@ FLBuilder::register_module('UABBCountdownModule', array(
                             'unit'             => 'px'
                         )
                     ),
-                    'digit_color'        => array(
+                    'digit_color'        => array( 
                         'type'       => 'color',
                         'label' => __('Choose Color', 'uabb'),
                         'preview'         => array(
@@ -839,7 +840,7 @@ FLBuilder::register_module('UABBCountdownModule', array(
                             'unit'              => 'px'
                         )
                     ),
-                    'unit_color'        => array(
+                    'unit_color'        => array( 
                         'type'       => 'color',
                         'default'    => '',
                         'show_reset' => true,

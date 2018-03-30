@@ -11,11 +11,11 @@ $settings->img_border_width = ( $settings->img_border_width != '' ) ? $settings-
 $settings->icon_border_width = ( $settings->icon_border_width != '' ) ? $settings->icon_border_width : '1';
 
 /* Render CSS */
-
+ 
 /* CSS "$settings" Array */
-
+ 
 $imageicon_array = array(
-
+      
     /* General Section */
     'image_type' => $settings->image_type,
 
@@ -49,7 +49,7 @@ $imageicon_array = array(
     /* Preset Color variable new */
     'icon_color_preset' => 'preset1',
 
-    /* Icon Colors */
+    /* Icon Colors */ 
     'icon_color' => $settings->icon_color,
     'icon_hover_color' => $settings->icon_hover_color,
     'icon_bg_color' => $settings->icon_bg_color,
@@ -68,8 +68,8 @@ $imageicon_array = array(
     'img_border_color' => $settings->img_border_color,
     'img_border_hover_color' => $settings->img_border_hover_color,
 );
-
-/* CSS Render Function */
+ 
+/* CSS Render Function */ 
 FLBuilder::render_module_css( 'image-icon', $id, $imageicon_array );
 
 ?>
@@ -129,23 +129,23 @@ if( $settings->align == 'center' ) {
 <?php } ?>
 <?php if ( $settings->align == "flex-end" ) { ?>
 .fl-node-<?php echo $id; ?> .uabb-list-icon-wrap {
-    direction: rtl;
-    text-align: right;
+    direction: rtl;  
+    text-align: right;  
 }
 .fl-node-<?php echo $id; ?> .uabb-list-icon-wrap .uabb-list-icon-text {
-    direction: ltr;
+    direction: ltr;  
 }
 <?php } ?>
 
 .fl-node-<?php echo $id; ?> .uabb-list-icon-wrap .uabb-callout-outter {
     <?php if ( $settings->align == "flex-end" ) { ?>
-    margin-left: <?php  echo ( $settings->icon_text_spacing !== '' ) ? $settings->icon_text_spacing : '10'; ?>px;
+    margin-left: <?php  echo ( $settings->icon_text_spacing !== '' ) ? $settings->icon_text_spacing : '10'; ?>px;    
     <?php }else{ ?>
     margin-right: <?php  echo ( $settings->icon_text_spacing !== '' ) ? $settings->icon_text_spacing : '10'; ?>px;
     <?php } ?>
 }
 .fl-node-<?php echo $id; ?> .uabb-list-icon-wrap .uabb-list-icon-text {
-    <?php
+    <?php 
     if ( $settings->image_type == "icon" ) {
         $im_icon_backside = 0;
         $im_icon_size =  0;
@@ -168,23 +168,23 @@ if( $settings->align == 'center' ) {
         }else{
             $im_backside = 0;
         }
-
+        
         $get_icon_img_width = $settings->img_size + $im_backside  + $settings->icon_text_spacing;
     }
     else {
-        $get_icon_img_width = 0;
+        $get_icon_img_width = 0;   
     }
     ?>
 
     <?php if ( $settings->icon_struc_align == 'horizontal' ||( $settings->icon_struc_align == 'vertical' && $settings->align != 'center' ) ) { ?>
-
+     
     width: calc( 100% - <?php echo $get_icon_img_width;?>px  );
     <?php } ?>
 }
 
-<?php
+<?php   
     $flex_align = $settings->align;
-    $v_align = ( $flex_align != "center" ) ? str_replace( 'flex-','', $flex_align ) : $flex_align;
+    $v_align = ( $flex_align != "center" ) ? str_replace( 'flex-','', $flex_align ) : $flex_align; 
 ?>
 
 <?php if ( $settings->icon_struc_align == 'horizontal' ) { ?>
@@ -192,7 +192,7 @@ if( $settings->align == 'center' ) {
         -webkit-flex-wrap: wrap;
             -ms-flex-wrap: wrap;
                 flex-wrap: wrap;
-
+    
         -webkit-box-orient: horizontal;
         -webkit-box-direction: normal;
         -webkit-flex-direction: row;
@@ -223,7 +223,7 @@ if( $settings->align == 'center' ) {
 <?php } ?>
 
 .fl-node-<?php echo $id; ?> .uabb-list-icon .uabb-list-icon-text .uabb-list-icon-text-heading {
-
+    
     <?php if( !empty($settings->typography_color) ) : ?>
     color : <?php echo $settings->typography_color; ?>;
     <?php endif; ?>
@@ -251,13 +251,13 @@ if( $global_settings->responsive_enabled ) { // Global Setting If started
             ?>
         }
     }
-
+ 
     @media ( max-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {
 
         .fl-node-<?php echo $id; ?> .uabb-list-icon .uabb-list-icon-text .uabb-list-icon-text-heading {
             <?php
-            echo ( $settings->typography_font_size['small'] != '' ) ? 'font-size: ' . $settings->typography_font_size['medium'] . 'px;' : '';
-            echo ( $settings->typography_line_height['small'] != '' ) ? 'line-height: ' . $settings->typography_line_height['medium'] . 'px;' : '';
+            echo ( $settings->typography_font_size['small'] != '' ) ? 'font-size: ' . $settings->typography_font_size['small'] . 'px;' : '';
+            echo ( $settings->typography_line_height['small'] != '' ) ? 'line-height: ' . $settings->typography_line_height['small'] . 'px;' : '';
             ?>
         }
         .fl-node-<?php echo $id; ?> .uabb-list-icon-wrap  {

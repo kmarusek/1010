@@ -15,7 +15,7 @@ $settings->back_desc_typography_color = UABB_Helper::uabb_colorpicker( $settings
 <?php
 if( $settings->show_button == 'yes' ) {
     ( $settings->button != '' ) ? FLBuilder::render_module_css( 'uabb-button', $id, $settings->button ) : '';
-
+    
     if( $settings->button->style == 'flat' && $settings->button->flat_button_options != 'none' ) {
     ?>
     .fl-node-<?php echo $id; ?> .uabb-button-wrap .uabb-creative-flat-btn .uabb-button-text {
@@ -33,7 +33,7 @@ if( $settings->smile_icon != '' && $settings->smile_icon->icon != '' ) {
     //$settings->smile_icon['image_type'] = 'icon';
     $settings->smile_icon->image_type = 'icon';
 
-    /* CSS Render Function */
+    /* CSS Render Function */ 
     FLBuilder::render_module_css( 'image-icon', $id, $settings->smile_icon );
 }
 ?>
@@ -175,7 +175,7 @@ if( $global_settings->responsive_enabled ) { // Global Setting If started
             .fl-node-<?php echo $id; ?> .uabb-flip-box {
                 height: <?php echo $settings->flip_box_min_height_medium; ?>px;
             }
-        <?php
+        <?php  
             }
         }
         ?>
@@ -209,7 +209,7 @@ if( $global_settings->responsive_enabled ) { // Global Setting If started
             ?>
         }
     }
-
+ 
      @media ( max-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {
 
         <?php
@@ -226,7 +226,7 @@ if( $global_settings->responsive_enabled ) { // Global Setting If started
             .fl-node-<?php echo $id; ?> .uabb-flip-box {
                 height: <?php echo $settings->flip_box_min_height_small; ?>px;
             }
-        <?php
+        <?php  
             }
         }
         ?>

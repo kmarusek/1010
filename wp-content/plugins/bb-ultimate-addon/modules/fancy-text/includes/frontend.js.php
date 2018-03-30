@@ -1,4 +1,4 @@
-  <?php if ( $settings->effect_type == 'type' ) {
+  <?php if ( $settings->effect_type == 'type' ) { 
       $strings = $typeSpeed = $startDelay = $backSpeed = $backDelay = $loop = $loopCount = $showCursor = $cursorChar = '';
       // Order of replacement
       $order   = array("\r\n", "\n", "\r", "<br/>", "<br>");
@@ -8,13 +8,13 @@
       $lines = explode("|", $str);
       $count_lines = count($lines);
 
-      $strings = '[';
-      foreach($lines as $key => $line) {
+      $strings = '['; 
+      foreach($lines as $key => $line) { 
         $strings .= '"'.__(trim(htmlspecialchars_decode(strip_tags($line))),'uabb').'"';
           if( $key != ($count_lines-1) ) {
-            $strings .= ',';
+            $strings .= ','; 
           }
-      }
+      } 
       $strings .= ']';
 
       $typeSpeed = ( !empty($settings->typing_speed) ) ? $settings->typing_speed : 35;
@@ -23,7 +23,7 @@
       $backDelay = ( !empty($settings->back_delay) ) ? $settings->back_delay : 1500;
       $loop = ( $settings->enable_loop == 'no' ) ? 'false' : 'true';
       //$loopCount = false;
-
+      
       if( $settings->show_cursor == 'yes' ) {
         $showCursor = 'true';
         $cursorChar = ( !empty($settings->cursor_text) ) ? $settings->cursor_text : "|";
@@ -51,8 +51,8 @@
 
 <?php }elseif ( $settings->effect_type == 'slide_up' ) {
       $speed = $pause = $mousePause = '';
-
-      $speed = ( !empty($settings->animation_speed) ) ? $settings->animation_speed : 200;
+      
+      $speed = ( !empty($settings->animation_speed) ) ? $settings->animation_speed : 200; 
       $pause = ( !empty($settings->pause_time) ) ? $settings->pause_time : 3000;
       $mousePause = ( $settings->pause_hover == 'yes') ? true : false;
       /*$showItems = ( !empty($settings->show_items) ) ? $settings->show_items : 'true';*/
@@ -69,7 +69,10 @@
         animation:    '<?php echo $settings->effect_type; ?>',
         speed:      <?php echo $speed; ?>,
         pause:    <?php echo $pause; ?>,
-        mousePause:   Boolean( '<?php echo $mousePause; ?>' )
+        mousePause:   Boolean( '<?php echo $mousePause; ?>' ),
+        suffix: '<?php echo $settings->suffix; ?>',
+        prefix: '<?php echo $settings->prefix; ?>',
+        alignment: '<?php echo $settings->alignment; ?>',
       });
 
       $( window ).resize(function() {

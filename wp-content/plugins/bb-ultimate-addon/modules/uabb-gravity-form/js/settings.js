@@ -15,7 +15,7 @@
 
 			// Init validation events.
             this._btn_styleChanged();
-
+            
             // Validation events.
             btn_style.on('change',  $.proxy( this._btn_styleChanged, this ) );
             btn_style_opt.on('change',  $.proxy( this._btn_styleChanged, this ) );
@@ -23,7 +23,7 @@
 			custom.on('change',  $.proxy( this._useCustomStyle, this ) );
 			font_f.on('change',  $.proxy( this._useCustomStyle, this ) );
 			font_w.on('change',  $.proxy( this._useCustomStyle, this ) );
-
+			
 			$( this._useCustomStyle, this );
 
 		},
@@ -37,7 +37,7 @@
 
 			if( is_custom == 'false' ) {
 				$('.uabb-gf-style').find('.gfield_checkbox li label').css( 'font-family', font_family );
-				$('.uabb-gf-style').find('.gfield .gfield_checkbox li label').css( 'font-weight', font_weight );
+				$('.uabb-gf-style').find('.gfield .gfield_checkbox li label').css( 'font-weight', font_weight );	
 			}
 
 		},

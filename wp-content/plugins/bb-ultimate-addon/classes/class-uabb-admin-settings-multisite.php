@@ -31,7 +31,7 @@ final class UABBBuilderMultisiteSettings {
 		if ( current_user_can( 'manage_network_plugins' ) ) {
 			return network_admin_url( '/settings.php?page=uabb-builder-multisite-settings#license' );
 		}
-
+		
 		return $url;
 	}
 
@@ -61,7 +61,7 @@ final class UABBBuilderMultisiteSettings {
 		$cap   = 'manage_network_plugins';
 		$slug  = 'uabb-builder-multisite-settings';
 		$func  = 'UABBBuilderAdminSettings::render';
-
+		
 		add_submenu_page( 'settings.php', $title, $title, $cap, $slug, $func );
 	}
 }

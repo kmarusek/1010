@@ -30,7 +30,7 @@
 }
 
 .uabb-cf7-style input[type=submit],
-.uabb-cf7-style input[type=submit]:hover,
+.uabb-cf7-style input[type=submit]:hover, 
 .uabb-cf7-style input[type=submit]:active,
 .uabb-cf7-style input[type=submit]:focus {
 	display: block;

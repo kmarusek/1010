@@ -55,7 +55,7 @@ if( $settings->link_color != '' || $settings->link_typography_line_height['deskt
 	<?php
 	echo ( $settings->link_typography_line_height['desktop'] != '' ) ? 'line-height: ' . $settings->link_typography_line_height['desktop'] . 'px;' : '';
 	echo ( $settings->link_typography_font_size['desktop'] != '' ) ? 'font-size: ' . $settings->link_typography_font_size['desktop'] . 'px;' : '';
-
+	
 	if( $settings->link_typography_font_family['family'] != 'Default' ) {
 		UABB_Helper::uabb_font_css( $settings->link_typography_font_family );
 	}
@@ -73,7 +73,7 @@ if( $settings->link_color != '' || $settings->link_typography_line_height['deskt
 	font-family: inherit;
 	font-weight: inherit;
 }
-<?php
+<?php 
 if( $settings->link_style != 'style15' && $settings->link_style != 'style19' ) {
 ?>
 .fl-node-<?php echo $id; ?> .uabb-cl-wrap .uabb-creative-link a:hover,
@@ -94,7 +94,7 @@ if( $settings->link_style != 'style15' && $settings->link_style != 'style19' ) {
 		margin-left: <?php echo ( $settings->spacing / 2 ); ?>px;
 		margin-right: <?php echo ( $settings->spacing / 2 ); ?>px;
 	<?php endif; ?>
-
+    
     margin-bottom: <?php echo ( $settings->bottom_spacing ); ?>px;
 }
 
@@ -277,7 +277,7 @@ if( $settings->link_style != 'style15' && $settings->link_style != 'style19' ) {
 
 /* Style 13 */
 
-.fl-node-<?php echo $id; ?> .uabb-cl-style13 a::before,
+.fl-node-<?php echo $id; ?> .uabb-cl-style13 a::before, 
 .fl-node-<?php echo $id; ?> .uabb-cl-style13 a::after {
     height: <?php echo $settings->border_size; ?>px;
     <?php
@@ -475,7 +475,7 @@ if( $global_settings->responsive_enabled ) { // Global Setting If started
 			?>
 		}
     }
-
+ 
      @media ( max-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {
      	.fl-node-<?php echo $id; ?> .uabb-cl-wrap .uabb-cl-heading a {
 			<?php
@@ -489,7 +489,7 @@ if( $global_settings->responsive_enabled ) { // Global Setting If started
     		margin-left: 0;
     		margin-right: 0;
     		display: block;
-    	}
+    	}	
 		<?php } ?>
     }
 <?php

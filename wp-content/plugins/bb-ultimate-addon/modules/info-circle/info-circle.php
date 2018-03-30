@@ -41,11 +41,11 @@ class UABBInfoCircleModule extends FLBuilderModule {
 		$imageicon_array = array(
 			/* General Section */
 			'image_type' => $item->image_type,
-
+			
 			/* Icon Basics */
 			'icon' => $item->icon,
 			'icon_align' => "center",
-
+			
 			/* Image Basics */
 			'photo_source' => $photo_source,
 			'photo' => $photo,
@@ -54,7 +54,7 @@ class UABBInfoCircleModule extends FLBuilderModule {
 			// 'img_bg_size'  => $settings->thumb_custom_bg_size,
 			'image_style' => $this->settings->thumb_style,
 			'photo_src' =>  $photo_src,
-		);
+		); 
 		/* Render HTML Function */
 		FLBuilder::render_module_html( 'image-icon', $imageicon_array );
 	}
@@ -65,7 +65,7 @@ class UABBInfoCircleModule extends FLBuilderModule {
 	function render_cta( $item ) {
 
 		if( $item->desc_cta_type == 'button' ) {
-
+			
 			$btn_settings = array(
 
 				/* General Section */
@@ -431,13 +431,13 @@ FLBuilder::register_module('UABBInfoCircleModule', array(
 						'size'			=> '5',
 						'description'	=> 'px',
 					),
-					'thumb_border_color' => array(
+					'thumb_border_color' => array( 
 						'type'       => 'color',
 						'label'		 => __( 'Border Color', 'uabb' ),
 						'default'    => '',
 						'show_reset' => true,
 					),
-					'thumb_active_border_color' => array(
+					'thumb_active_border_color' => array( 
 						'type'       => 'color',
 						'label'		 => __( 'Active Border Color', 'uabb' ),
 						'default'    => '',
@@ -475,7 +475,7 @@ FLBuilder::register_module('UABBInfoCircleModule', array(
 							),
 						),
 					),
-					'info_bg_color' => array(
+					'info_bg_color' => array( 
 						'type'       => 'color',
 						'label'		 => __( 'Background Color', 'uabb' ),
 						'default'    => '',
@@ -487,7 +487,7 @@ FLBuilder::register_module('UABBInfoCircleModule', array(
 						    'property'        => 'background',
 						)
 					),
-					'info_bg_color_opc' => array(
+					'info_bg_color_opc' => array( 
 						'type'        => 'text',
 						'label'		  => __( 'Background Color Opacity', 'uabb' ),
 						'default'     => '',
@@ -507,13 +507,13 @@ FLBuilder::register_module('UABBInfoCircleModule', array(
 						'size'			=> '5',
 						'description'	=> 'px',
 					),
-					'icon_img_color' => array(
+					'icon_img_color' => array( 
 						'type'       => 'color',
 						'label'		 => __( 'Icon Color', 'uabb' ),
 						'default'    => '',
 						'show_reset' => true,
 					),
-					'icon_img_bg_color' => array(
+					'icon_img_bg_color' => array( 
 						'type'       => 'color',
 						'label'		 => __( 'Icon/Image Background Color', 'uabb' ),
 						'default'    => '',
@@ -566,7 +566,7 @@ FLBuilder::register_module('UABBInfoCircleModule', array(
 						'size'			=> '5',
 						'description'	=> 'px',
 					),
-					'info_icon_img_border_color' => array(
+					'info_icon_img_border_color' => array( 
 						'type'       => 'color',
 						'label'		 => __( 'Icon/Image Border Color', 'uabb' ),
 						'default'    => '',
@@ -689,7 +689,7 @@ FLBuilder::register_module('UABBInfoCircleModule', array(
                             'unit'		=> 'px'
                     	),
 					),
-					'connector_border_color' => array(
+					'connector_border_color' => array( 
 						'type'       => 'color',
 						'label'		 => __( 'Line Color', 'uabb' ),
 						'default'    => '',
@@ -768,7 +768,7 @@ FLBuilder::register_module('UABBInfoCircleModule', array(
 								'inherit'	=> __( 'Inherit', 'uabb' ),
 							),
 					),
-					'outer_bg_color' => array(
+					'outer_bg_color' => array( 
 						'type'       => 'color',
 						'label'		 => __( 'Background Color', 'uabb' ),
 						'default'    => '',
@@ -779,7 +779,7 @@ FLBuilder::register_module('UABBInfoCircleModule', array(
                             'property'        => 'background',
                         )
 					),
-					'outer_bg_color_opc' => array(
+					'outer_bg_color_opc' => array( 
 						'type'        => 'text',
 						'label'		  => __( 'Background Color Opacity', 'uabb' ),
 						'default'     => '',
@@ -855,7 +855,7 @@ FLBuilder::register_module('UABBInfoCircleModule', array(
                             'unit'		=> 'px'
                     	),
                     ),
-                    'color'        => array(
+                    'color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',
@@ -941,7 +941,7 @@ FLBuilder::register_module('UABBInfoCircleModule', array(
                             'unit'		=> 'px'
                     	),
                     ),
-                    'desc_color'        => array(
+                    'desc_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',
@@ -1007,7 +1007,7 @@ FLBuilder::register_settings_form('info_circle_items_form', array(
 						),
 					)
 				),
-				'description'	=> array(
+				'description'	=> array( 
 					'title'  		=> __( 'Description - This is the content which will be displayed inside the circle', 'uabb' ),
 					'fields' 		=> array(
 						'circle_item_description'	=> array(
@@ -1160,7 +1160,7 @@ FLBuilder::register_settings_form('info_circle_items_form', array(
 									'inherit'	=> __( 'Inherit', 'uabb' ),
 								),
 						),
-						'inner_circle_bg_color' => array(
+						'inner_circle_bg_color' => array( 
 							'type'       => 'color',
 							'label'		 => __( 'Background Color', 'uabb' ),
 							'default'    => '',
@@ -1171,7 +1171,7 @@ FLBuilder::register_settings_form('info_circle_items_form', array(
 	                            'property'        => 'background',
 	                        )
 						),
-						'inner_circle_bg_color_opc' => array(
+						'inner_circle_bg_color_opc' => array( 
 							'type'        => 'text',
 							'label'		=> __( 'Background Color Opacity', 'uabb' ),
 							'default'     => '',
@@ -1179,7 +1179,7 @@ FLBuilder::register_settings_form('info_circle_items_form', array(
 							'maxlength'   => '3',
 							'size'        => '5',
 						),
-						'separator_color' => array(
+						'separator_color' => array( 
 							'type'       => 'color',
 							'label'		 => __( 'Separator Color', 'uabb' ),
 							'default'    => '',
@@ -1231,13 +1231,13 @@ FLBuilder::register_settings_form('info_circle_items_form', array(
 				'icon_colors' => array( // Section
 					'title'		=> __( 'Icon Colors', 'uabb' ), // Section Title
 					'fields'	=> array( // Section Fields
-						'icon_color' => array(
+						'icon_color' => array( 
 							'type'       => 'color',
 							'label'	=> __( 'Icon Color', 'uabb' ),
 							'default'    => '',
 							'show_reset' => true,
 						),
-						'icon_bg_color' => array(
+						'icon_bg_color' => array( 
 							'type'       => 'color',
 							'label'		 => __( 'Icon Background Color', 'uabb' ),
 							'default'    => '',
@@ -1258,13 +1258,13 @@ FLBuilder::register_settings_form('info_circle_items_form', array(
 				'icon_active_colors' => array( // Section
 					'title'		=> __( 'Icon Active Colors', 'uabb' ), // Section Title
 					'fields'	=> array( // Section Fields
-						'icon_hover_color' => array(
+						'icon_hover_color' => array( 
 							'type'       => 'color',
 							'label'		 => __( 'Icon Hover/Active Color', 'uabb' ),
 							'default'    => '',
 							'show_reset' => true,
 						),
-						'icon_bg_hover_color' => array(
+						'icon_bg_hover_color' => array( 
 							'type'       => 'color',
 							'label'		 => __( 'Icon Hover/Active Background Color', 'uabb' ),
 							'default'    => '',
@@ -1451,13 +1451,13 @@ FLBuilder::register_settings_form('info_circle_items_form', array(
 				'btn-colors'     => array( // Section
 	                'title'         => __('Colors', 'uabb'),
 	                'fields'        => array(
-	                    'btn_text_color'        => array(
+	                    'btn_text_color'        => array( 
 	                        'type'       => 'color',
 	                        'label'      => __('Text Color', 'uabb'),
 	                        'default'    => '',
 	                        'show_reset' => true,
 	                    ),
-	                    'btn_text_hover_color'        => array(
+	                    'btn_text_hover_color'        => array( 
 	                        'type'       => 'color',
 	                        'label'      => __('Text Hover Color', 'uabb'),
 	                        'default'    => '',
@@ -1466,13 +1466,13 @@ FLBuilder::register_settings_form('info_circle_items_form', array(
 	                            'type'          => 'none'
 	                        )
 	                    ),
-	                    'btn_bg_color'        => array(
+	                    'btn_bg_color'        => array( 
 	                        'type'       => 'color',
 	                        'label'      => __('Background Color', 'uabb'),
 	                        'default'    => '',
 	                        'show_reset' => true,
 	                    ),
-	                    'btn_bg_color_opc'    => array(
+	                    'btn_bg_color_opc'    => array( 
 	                        'type'        => 'text',
 	                        'label'       => __('Opacity', 'uabb'),
 	                        'default'     => '',
@@ -1481,7 +1481,7 @@ FLBuilder::register_settings_form('info_circle_items_form', array(
 	                        'size'        => '5',
 	                    ),
 
-	                    'btn_bg_hover_color'        => array(
+	                    'btn_bg_hover_color'        => array( 
 	                        'type'       => 'color',
 	                        'label'         => __('Background Hover Color', 'uabb'),
 	                        'default'    => '',
@@ -1490,7 +1490,7 @@ FLBuilder::register_settings_form('info_circle_items_form', array(
 	                            'type'          => 'none'
 	                        )
 	                    ),
-	                    'btn_bg_hover_color_opc'    => array(
+	                    'btn_bg_hover_color_opc'    => array( 
 	                        'type'        => 'text',
 	                        'label'       => __('Opacity', 'uabb'),
 	                        'default'     => '',
@@ -1609,7 +1609,7 @@ FLBuilder::register_settings_form('info_circle_items_form', array(
 	                            'small'         => '',
 	                        ),
 	                    ),
-	                    'btn_color'        => array(
+	                    'btn_color'        => array( 
 	                        'type'       => 'color',
 	                        'label'      => __('Color', 'uabb'),
 	                        'default'    => '',

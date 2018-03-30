@@ -1,7 +1,7 @@
 .uabb-photo-content.uabb-img-grayscale img {
   -webkit-filter: grayscale(100%);
   -webkit-filter: grayscale(1);
-          filter: grayscale(100%);
+          filter: grayscale(100%);  		  
   		  filter: gray;
 }
 

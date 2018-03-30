@@ -28,7 +28,7 @@ if( $settings->image_type != 'none' ) : // Condition contain whole Style
             text-align: <?php echo $settings->icon_align; ?>;
         <?php } else if ( $settings->image_type == 'photo') { ?>
             text-align: <?php echo $settings->img_align; ?>;
-        <?php } ?>
+        <?php } ?>   
     }
 
     <?php
@@ -59,7 +59,7 @@ if( $settings->image_type != 'none' ) : // Condition contain whole Style
         }
         if($settings->icon_three_d && !empty($settings->icon_bg_hover_color)) {
             $bg_hover_color = ( !empty($settings->icon_bg_hover_color) ) ? uabb_parse_color_to_hex( $settings->icon_bg_hover_color ) : '' ;
-
+            
             $bg_hover_grad_start = '#'.FLBuilderColor::adjust_brightness($bg_hover_color, 40, 'lighten');
             $border_hover_color  = '#'.FLBuilderColor::adjust_brightness($bg_hover_color, 20, 'darken');
         }
@@ -69,7 +69,7 @@ if( $settings->image_type != 'none' ) : // Condition contain whole Style
         /* Icon Css */
         .fl-node-<?php echo $id; ?> .uabb-icon-wrap .uabb-icon i,
         .fl-node-<?php echo $id; ?> .uabb-icon-wrap .uabb-icon i:before {
-
+            
             <?php if ( !empty( $settings->icon_color ) ) {
                 /* Icon Color */
                 echo 'color: '.$settings->icon_color;
@@ -87,26 +87,26 @@ if( $settings->image_type != 'none' ) : // Condition contain whole Style
             <?php } if( $settings->icon_style == 'circle' || $settings->icon_style == 'square' || $settings->icon_style == 'custom' ){ ?>
                 line-height: <?php echo (
                     ( (  $settings->icon_style != 'custom' ) ? ($settings->icon_size * 2) : $settings->icon_size )
-                    +
-                    ( ( $settings->icon_style == 'custom' ) ? $settings->icon_bg_size : 0 )
+                    + 
+                    ( ( $settings->icon_style == 'custom' ) ? $settings->icon_bg_size : 0 ) 
                     );
                     ?>px;
 
                 height: <?php echo (
                     ( (  $settings->icon_style != 'custom' ) ? ($settings->icon_size * 2) : $settings->icon_size )
-                    +
-                    ( ( $settings->icon_style == 'custom' ) ? $settings->icon_bg_size : 0 )
+                    + 
+                    ( ( $settings->icon_style == 'custom' ) ? $settings->icon_bg_size : 0 ) 
                     );
                     ?>px;
                 width: <?php echo (
                     ( (  $settings->icon_style != 'custom' ) ? ($settings->icon_size * 2) : $settings->icon_size )
-                    +
-                    ( ( $settings->icon_style == 'custom' ) ? $settings->icon_bg_size : 0 )
+                    + 
+                    ( ( $settings->icon_style == 'custom' ) ? $settings->icon_bg_size : 0 ) 
                     );
                     ?>px;
                 text-align: center;
-            <?php }
-                    } else {  //else rounded style ?>
+            <?php } 
+                    } else {  //else rounded style ?> 
                 line-height: <?php echo $settings->icon_size; ?>px;
                 height: <?php echo $settings->icon_size; ?>px;
                 width: <?php echo $settings->icon_size; ?>px;
@@ -117,11 +117,11 @@ if( $settings->image_type != 'none' ) : // Condition contain whole Style
             <?php if($settings->icon_style == 'custom' && $settings->icon_border_style != 'none') : ?>
                 border-style: <?php echo $settings->icon_border_style; ?>;
                 box-sizing:content-box;
-
+                
                 <?php if( !empty( $settings->icon_border_color ) ) : ?>
                     border-color: <?php echo $settings->icon_border_color; ?>;
                 <?php endif; ?>
-
+                
                 border-width: <?php echo $settings->icon_border_width; ?>px;
             <?php endif; ?>
 
@@ -160,13 +160,13 @@ if( $settings->image_type != 'none' ) : // Condition contain whole Style
                 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='<?php echo $bg_hover_grad_start; ?>', endColorstr='<?php echo $settings->icon_bg_hover_color; ?>',GradientType=0 ); /* IE6-9 */
                 /*<?php if($settings->icon_style == 'circle' || $settings->icon_style == 'square') : ?>
                     border: 1px solid <?php echo $border_hover_color; ?>;
-                <?php endif; ?>  */
+                <?php endif; ?>  */  
                 <?php endif; ?>
             <?php endif; ?>
 
-
+            
             color: <?php echo $settings->icon_hover_color; ?>;
-
+            
             <?php /* Border Style */?>
             <?php if($settings->icon_style == 'custom' && $settings->icon_border_style != 'none') : ?>
                 <?php if( !empty( $settings->icon_border_color ) ) : ?>
@@ -179,7 +179,7 @@ if( $settings->image_type != 'none' ) : // Condition contain whole Style
             background: none;
         }
         /* Icon Css End */
-    <?php } /* $settings->icon_style == 'icon' end */
+    <?php } /* $settings->icon_style == 'icon' end */ 
     elseif ( $settings->image_type == 'photo') { ?>
 
         .fl-node-<?php echo $id; ?> .uabb-image .uabb-photo-img {
@@ -202,7 +202,7 @@ if( $settings->image_type != 'none' ) : // Condition contain whole Style
                 background: <?php echo uabb_theme_base_color( $settings->img_bg_color );?>;
 
                 border-width: <?php echo ( $settings->img_border_width !== '' ) ? $settings->img_border_width : '1'; ?>px;
-
+                
 
                 <?php if( !empty( $settings->img_border_color ) ): ?>
                     border-color: <?php echo $settings->img_border_color; ?>;
@@ -213,7 +213,7 @@ if( $settings->image_type != 'none' ) : // Condition contain whole Style
         }
 
         /* Responsive Photo Size */
-        <?php if( isset( $settings->responsive_img_size ) && !empty( $settings->responsive_img_size )  && $global_settings->responsive_enabled ) { // Global Setting If started ?>
+        <?php if( isset( $settings->responsive_img_size ) && !empty( $settings->responsive_img_size )  && $global_settings->responsive_enabled ) { // Global Setting If started ?> 
                 @media ( max-width: <?php echo $global_settings->responsive_breakpoint .'px'; ?> ) {
                     .fl-node-<?php echo $id; ?> .uabb-image .uabb-photo-img{
                     <?php if( is_numeric( $settings->responsive_img_size ) ) : ?>
@@ -229,11 +229,11 @@ if( $settings->image_type != 'none' ) : // Condition contain whole Style
             <?php if( !empty( $settings->img_bg_hover_color ) ): ?>
                 background: <?php echo $settings->img_bg_hover_color;?>;
             <?php endif; ?>
-
+            
             <?php if( !empty( $settings->img_border_hover_color ) ): ?>
                 border-color: <?php echo $settings->img_border_hover_color; ?>;
             <?php endif; ?>
-
+            
         }
         <?php endif; ?>
     <?php } // Condition for Photo ?>

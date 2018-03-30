@@ -1,4 +1,4 @@
-<?php
+<?php 
 	$settings->overlay_color = UABB_Helper::uabb_colorpicker( $settings, 'overlay_color', true );
 	$settings->color = UABB_Helper::uabb_colorpicker( $settings, 'color' );
 	$settings->caption_bg_color = UABB_Helper::uabb_colorpicker( $settings, 'caption_bg_color', true );
@@ -37,7 +37,7 @@
 				case 'square': ?>
 				background: <?php echo ( $settings->arrow_background_color != '' ) ? $settings->arrow_background_color : '#efefef'; ?>;
 	<?php 		break;
-
+		
 				case 'circle': ?>
 				border-radius: 50%;
 				background: <?php echo ( $settings->arrow_background_color != '' ) ? $settings->arrow_background_color : '#efefef'; ?>;
@@ -81,7 +81,7 @@
 <?php if($settings->click_action == 'lightbox' && !empty($settings->show_captions)) : ?>
 .mfp-gallery img.mfp-img {
 	padding: 40px 0;
-}
+}	
 
 .mfp-counter {
 	display: block !important;
@@ -122,24 +122,24 @@
 
 <?php if($global_settings->responsive_enabled) { // Global Setting If started ?>
 	@media ( max-width: <?php echo $global_settings->medium_breakpoint .'px'; ?> ) {
-
+		
 		.fl-node-<?php echo $id; ?> .uabb-image-carousel-caption,
 		.fl-node-<?php echo $id; ?> .uabb-background-mask .uabb-caption  {
 			<?php if( $settings->font_size['medium'] != '' ) : ?>
 			font-size: <?php echo $settings->font_size['medium']; ?>px;
 			<?php endif; ?>
-
+	
 			<?php if( $settings->line_height['medium'] != '' ) : ?>
 			line-height: <?php echo $settings->line_height['medium']; ?>px;
 			<?php endif; ?>
 		}
 	}
 	@media ( max-width: <?php echo $global_settings->responsive_breakpoint .'px'; ?> ) {
-
+		
 		.fl-node-<?php echo $id; ?> div.uabb-image-carousel .slick-prev,
 		.fl-node-<?php echo $id; ?> [dir='rtl'] div.uabb-image-carousel .slick-next {
 		    left: <?php echo $settings->photo_spacing / 2; ?>px;
-
+			
 		}
 		.fl-node-<?php echo $id; ?> div.uabb-image-carousel .slick-next,
 		.fl-node-<?php echo $id; ?> [dir='rtl'] div.uabb-image-carousel .slick-prev
@@ -163,7 +163,7 @@
 			<?php if( $settings->font_size['small'] != '' ) : ?>
 			font-size: <?php echo $settings->font_size['small']; ?>px;
 			<?php endif; ?>
-
+	
 			<?php if( $settings->line_height['small'] != '' ) : ?>
 			line-height: <?php echo $settings->line_height['small']; ?>px;
 			<?php endif; ?>

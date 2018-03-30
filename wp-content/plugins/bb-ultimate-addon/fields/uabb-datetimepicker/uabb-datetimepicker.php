@@ -9,7 +9,7 @@ if( !class_exists( 'UABB_DateTimePicker_Param' ) ) {
 
 
 		function __construct()
-		{
+		{	
 			add_action('fl_builder_control_uabb-datetimepicker', array( $this, 'uabb_datetimepicker' ), 1, 4);
 			add_action( 'wp_enqueue_scripts', array( $this, 'uabb_datetimepicker_assets' ), 100 );
 		}

@@ -7,7 +7,7 @@
             var a = $('.fl-builder-flip-box-settings').find('.fl-builder-settings-tabs a');
 
             a.on('click', this._toggleBackTab);
-
+            
             $( '.fl-builder-content' ).on( 'fl-builder.layout-rendered', this._toggleAfterRender );
         },
 
@@ -23,7 +23,7 @@
         },
 
         _toggleAfterRender: function() {
-
+            
             var anchorHref = jQuery( '.fl-builder-settings-tabs' ).children('.fl-active').attr( 'href' );
             var node = jQuery( '.fl-builder-settings-tabs a' ).closest( 'form' ).attr( 'data-node' );
             if( anchorHref == '#fl-builder-settings-tab-flip_back' ){
@@ -33,7 +33,7 @@
             }
         },
     });
-
+    
     FLBuilder.registerModuleHelper('button_form_field', {
 
         init: function()
@@ -43,8 +43,8 @@
                 transparent_button_options = form.find('select[name=transparent_button_options]'),
                 hover_attribute = form.find('select[name=hover_attribute]'),
                 creative_button_styles     = form.find('select[name=style]');
-
-
+            
+            
             this.imgicon_postion();
             this._btn_styleChanged();
 
@@ -66,9 +66,9 @@
                 hover_attribute = form.find('select[name=hover_attribute]').val(),
                 transparent_button_options = form.find('select[name=transparent_button_options]').val(),
                 icon       = form.find('input[name=icon]');
-
+                
             icon.rules('remove');
-
+            
             if(btn_style == 'flat' && btn_style_opt != 'none' ) {
                 icon.rules('add', { required: true });
             }
@@ -130,7 +130,7 @@
                     },100);
                 }else{
                     jQuery("#fl-field-icon_position").show();
-                }
+                } 
         },
     });
 

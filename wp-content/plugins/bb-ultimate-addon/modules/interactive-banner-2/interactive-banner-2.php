@@ -123,13 +123,13 @@ FLBuilder::register_module('InteractiveBanner2Module', array(
                             )
                         )
                     ),
-                    'title_background_color'    => array(
+                    'title_background_color'    => array( 
                         'type'       => 'color',
                         'label'         => __('Title Background Color', 'uabb'),
                         'default'    => 'fafafa',
                         'show_reset' => true,
                     ),
-                    'title_background_color_opc'    => array(
+                    'title_background_color_opc'    => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -157,7 +157,7 @@ FLBuilder::register_module('InteractiveBanner2Module', array(
                             'unit'          => 'px'
                         )
                     ),
-                    'img_overlay_color'    => array(
+                    'img_overlay_color'    => array( 
                         'type'       => 'color',
                         'label'         => __('Image Overlay Color', 'uabb'),
                         'default'    => '',
@@ -172,13 +172,13 @@ FLBuilder::register_module('InteractiveBanner2Module', array(
                         'maxlength'   => '3',
                         'size'        => '5',
                     ),
-                    'img_background_color'    => array(
+                    'img_background_color'    => array( 
                         'type'       => 'color',
                         'label'         => __('Image Hover Overlay Color', 'uabb'),
                         'default'    => 'cccccc',
                         'show_reset' => true,
                     ),
-                    'img_background_color_opc'    => array(
+                    'img_background_color_opc'    => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -289,7 +289,7 @@ FLBuilder::register_module('InteractiveBanner2Module', array(
                             'unit'            => 'px'
                         )
                     ),
-                    'title_typography_color'        => array(
+                    'title_typography_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',
@@ -369,7 +369,7 @@ FLBuilder::register_module('InteractiveBanner2Module', array(
                             'unit'            => 'px'
                         )
                     ),
-                    'desc_typography_color'        => array(
+                    'desc_typography_color'        => array( 
                         'type'       => 'color',
                         'label' => __('Description Text Color', 'uabb'),
                         'default'    => '',

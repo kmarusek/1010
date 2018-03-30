@@ -18,16 +18,16 @@
 		x  = n.split('.');
 		x1 = x[0];
 		x2 = x.length > 1 ? '.' + x[1] : '';
-
+		
 		while (rgx.test(x1)) {
 			x1 = x1.replace(rgx, '$1' + ',' + '$2');
 		}
-
+		
 		return x1 + x2;
 	};
 
 	UABBProgressBar.prototype = {
-
+	
 		settings	: {},
 		nodeClass   : '',
 		animation   : '',
@@ -44,14 +44,14 @@
 				});
 			}
 		},
-
+		
 		/**
 		 * Initiate animation.
 		 *
 		 * @since 0.0.7
 		 * @access private
 		 * @method _initProgressBar
-		 */
+		 */ 
 
 		_initProgressBar: function()
 		{
@@ -110,7 +110,7 @@
 		{
 			<?php $settings->animation_speed = ( $settings->animation_speed != '' ) ? $settings->animation_speed : '1'; ?>
 			var ani_speed = parseInt('<?php echo ( $settings->animation_speed * 1000 ); ?>');
-
+			
 			jQuery( '.fl-node-<?php echo $id ?>' ).find( '.uabb-layout-<?php echo $settings->layout; ?>' ).each(	function( index ) {
 				var form = jQuery( '.fl-node-<?php echo $id ?>' ).find( '.uabb-layout-<?php echo $settings->layout; ?>.uabb-progress-bar-' + index );
 
@@ -228,7 +228,7 @@
 
 					var r      = <?php echo $radius; ?>,
 						circlePi = Math.PI*(r*2);
-
+					
 					var pct = ( ( 100 - circular_number ) /100) * circlePi;
 				    circle.animate({
 				        strokeDashoffset: pct
@@ -285,5 +285,5 @@
 		animation_speed: '<?php echo ( $settings->animation_speed ); ?>',
 		viewport_position: 90
 	});
-
+	
 })(jQuery);

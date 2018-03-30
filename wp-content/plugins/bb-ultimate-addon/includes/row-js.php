@@ -22,12 +22,12 @@ function uabb_row_dependency_js( $js, $nodes, $global_settings ) {
                     linear_advance_option = form.find( 'input[name=uabb_row_linear_advance_options]:checked' ).val(),
                     radial_advance_option = form.find( 'input[name=uabb_row_radial_advance_options]:checked' ).val(),
                     gradient_type         = form.find( 'input[name=uabb_row_gradient_type]:checked' ).val();
-
+                
                 if( background_type == 'uabb_gradient' ) {
 
                     if( gradient_type == 'radial' ) {
 
-                        setTimeout( function() {
+                        setTimeout( function() { 
                             form.find('#fl-field-uabb_row_linear_direction').hide();
                             form.find('#fl-field-uabb_row_linear_gradient_primary_loc').hide();
                             form.find('#fl-field-uabb_row_linear_gradient_secondary_loc').hide();
@@ -41,7 +41,7 @@ function uabb_row_dependency_js( $js, $nodes, $global_settings ) {
 
                     if( gradient_type == 'linear' ) {
 
-                        setTimeout( function() {
+                        setTimeout( function() { 
                             form.find('#fl-field-uabb_row_radial_gradient_primary_loc').hide();
                             form.find('#fl-field-uabb_row_radial_gradient_secondary_loc').hide();
                         }, 1);
@@ -54,12 +54,12 @@ function uabb_row_dependency_js( $js, $nodes, $global_settings ) {
                             form.find('#fl-field-uabb_row_linear_gradient_primary_loc').show();
                             form.find('#fl-field-uabb_row_linear_gradient_secondary_loc').show();
                         }
-                    }
+                    }   
                 }
             });
 
         })(jQuery);
-
+        
     <?php
     $js .= ob_get_clean();
     return $js;

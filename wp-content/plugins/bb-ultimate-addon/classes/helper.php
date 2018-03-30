@@ -19,7 +19,7 @@ if( !class_exists( 'UABB_Helper' ) ) {
 		 */
 		static public function uabb_font_css( $font ){
 			$css = '';
-
+			
 			if( array_key_exists( $font['family'], FLBuilderFontFamilies::$system ) ){
 				$css .= 'font-family: '. $font['family'] .','. FLBuilderFontFamilies::$system[ $font['family'] ]['fallback'] .';';
 			} else {
@@ -30,8 +30,8 @@ if( !class_exists( 'UABB_Helper' ) ) {
 				$css .= 'font-weight: normal;';
 			}else {
 				$css .= 'font-weight: '. $font['weight'] .';';
-			}
-
+			}	
+			
 			echo $css;
 		}
 
@@ -75,18 +75,18 @@ if( !class_exists( 'UABB_Helper' ) ) {
 		 * @since 	1.0
 		 */
 		static public function uabb_hex2rgba($color, $opacity = false, $is_array = false ) {
-
+ 
 			$default = $color;
-
+		 
 			//Return default if no color provided
 			if(empty($color))
-		          return $default;
-
-			//Sanitize $color if "#" is provided
+		          return $default; 
+		 
+			//Sanitize $color if "#" is provided 
 	        if ($color[0] == '#' ) {
 	        	$color = substr( $color, 1 );
 	        }
-
+	 
 	        //Check if color has 6 or 3 characters and get values
 	        if (strlen($color) == 6) {
 	                $hex = array( $color[0] . $color[1], $color[2] . $color[3], $color[4] . $color[5] );
@@ -95,10 +95,10 @@ if( !class_exists( 'UABB_Helper' ) ) {
 	        } else {
 	                return $default;
 	        }
-
+	 
 	        //Convert hexadec to rgb
 	        $rgb =  array_map('hexdec', $hex);
-
+	 
 	        //Check if opacity is set(rgba or rgb)
 	       if( $opacity !== false && $opacity !== '' ){
 	        	if(abs($opacity) > 1) {
@@ -109,7 +109,7 @@ if( !class_exists( 'UABB_Helper' ) ) {
 	        } else {
 	        	$output = 'rgb('.implode(",",$rgb).')';
 	        }
-
+	 
 	 		if ( $is_array ) {
 	        	return $rgb;
 	 		}else{
@@ -127,12 +127,12 @@ if( !class_exists( 'UABB_Helper' ) ) {
 		 * @since 	1.0
 		 */
 		static public function uabb_colorpicker( $settings, $name = '', $opc = false ) {
-
+			
 			$hex_color = $opacity = '';
 			$hex_color = $settings->$name;
 
 			if ( $hex_color != '' && $hex_color[0] != 'r' && $hex_color[0] != 'R' ) {
-
+					
 		        //var_dump( $name );
 		        //echo "From Function\n";
 				//var_dump( $hex_color );
@@ -146,18 +146,18 @@ if( !class_exists( 'UABB_Helper' ) ) {
 						return $rgba;
 					}
 				}
-
+				
 				if ( $hex_color[0] != '#' ) {
-
+					
 					return '#'.$hex_color;
 				}
 			}
 
 			return $hex_color;
-
+			
 			/*if ( apply_filters( 'uabb_colorpicker', true ) == true && self::$enable_colorpicker ) {
 				if ( $hex_color != '' && $hex_color[0] != 'r' && $hex_color[0] != '#' ) {
-
+			      
 					return '#'.$hex_color;
 				}
 				return $hex_color;
@@ -167,10 +167,10 @@ if( !class_exists( 'UABB_Helper' ) ) {
 				// print_r($settings);
 				// echo $opc;
 				// echo '</pre>';
-
+				
 				if ( $hex_color != '' ) {
 					$hex_color = $hex_color;
-
+					
 			        //var_dump( $name );
 			        //echo "From Function\n";
 					//var_dump( $hex_color );
@@ -186,12 +186,12 @@ if( !class_exists( 'UABB_Helper' ) ) {
 
 
 				if ( $hex_color != '' && $hex_color[0] != '#' ) {
-
+					
 			        //$hex_color = substr( $hex_color, 1 );
-
+			       
 					return '#'.$hex_color;
 				}
-
+				
 				return $hex_color;
 			}*/
 		}
@@ -243,12 +243,12 @@ if( !class_exists( 'UABB_Helper' ) ) {
 			$angle = abs( $gradient_angle - 450 ) % 360;
 
 			if ( $color1 != '' && $color2 != '' ) {
-
+				
 				$css .= 'background: -webkit-linear-gradient('.$gradient_angle.'deg, '.$color1.' 0%, '.$color2.' 100%);';
 				$css .= 'background: -o-linear-gradient('.$gradient_angle.'deg, '.$color1.' 0%, '.$color2.' 100%);';
 				$css .= 'background: -ms-linear-gradient('.$gradient_angle.'deg, '.$color1.' 0%, '.$color2.' 100%);';
 				$css .= 'background: -moz-linear-gradient('.$gradient_angle.'deg, '.$color1.' 0%, '.$color2.' 100%);';
-				$css .= 'background: linear-gradient('.$angle.'deg, '.$color1.' 0%, '.$color2.' 100%);';
+				$css .= 'background: linear-gradient('.$angle.'deg, '.$color1.' 0%, '.$color2.' 100%);';			
 			}
 			echo $css;
 		}

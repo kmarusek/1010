@@ -31,6 +31,7 @@ class UABBPhotoModule extends FLBuilderModule {
 			'partial_refresh'	=> true,
 			'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
+			'icon'				=> 'format-image.svg',
 		));
 	}
 
@@ -189,19 +190,19 @@ class UABBPhotoModule extends FLBuilderModule {
 	public function get_classes()
 	{
 		$classes = array( 'uabb-photo-img' );
-
+		
 		if ( ! empty( $this->settings->photo ) ) {
-
+			
 			$data = self::get_data();
-
+			
 			if ( is_object( $data ) ) {
-
+				
 				$classes[] = 'wp-image-' . $data->id;
 
 				if ( isset( $data->sizes ) ) {
 
 					foreach ( $data->sizes as $key => $size ) {
-
+						
 						if ( $size->url == $this->settings->photo_src ) {
 							$classes[] = 'size-' . $key;
 							break;
@@ -210,7 +211,7 @@ class UABBPhotoModule extends FLBuilderModule {
 				}
 			}
 		}
-
+		
 		return implode( ' ', $classes );
 	}
 
@@ -305,13 +306,13 @@ class UABBPhotoModule extends FLBuilderModule {
 	public function get_attributes()
 	{
 		$attrs = '';
-
+		
 		if ( isset( $this->settings->attributes ) ) {
 			foreach ( $this->settings->attributes as $key => $val ) {
 				$attrs .= $key . '="' . $val . '" ';
 			}
 		}
-
+		
 		return $attrs;
 	}
 
@@ -367,12 +368,12 @@ class UABBPhotoModule extends FLBuilderModule {
 			$filename    = uniqid(); // Return a file that doesn't exist.
 		}
 		else {
-
+			
 			if ( stristr( $url, '?' ) ) {
 				$parts = explode( '?', $url );
 				$url   = $parts[0];
 			}
-
+			
 			$pathinfo    = pathinfo($url);
 			$dir         = $pathinfo['dirname'];
 			$ext         = isset( $pathinfo['extension'] ) ? $pathinfo['extension'] :'';
@@ -486,7 +487,7 @@ FLBuilder::register_module('UABBPhotoModule', array(
 					),
 					'responsive_align'         => array(
 						'type'          => 'select',
-						'label'         => __('Mobile Alignment', 'uabb'),
+						'label'         => __('Mobile Alignment', 'uabb'),	
 						'default'       => 'center',
 						'help'          => __('This alignment will apply on Mobile', 'uabb'),
 						'options'       => array(
@@ -629,7 +630,7 @@ FLBuilder::register_module('UABBPhotoModule', array(
                         )
                     ),
 
-                    'style_bg_color'    => array(
+                    'style_bg_color'    => array( 
 						'type'       => 'color',
                         'label'      => __('Background Color', 'uabb'),
 						'default'    => '',
@@ -640,7 +641,7 @@ FLBuilder::register_module('UABBPhotoModule', array(
                             'property'  => 'background-color',
                         )
 					),
-                    'style_bg_color_opc'    => array(
+                    'style_bg_color_opc'    => array( 
 						'type'        => 'text',
 						'label'       => __('Opacity', 'uabb'),
 						'default'     => '',

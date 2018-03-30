@@ -11,8 +11,4 @@ function uabb_column_settings_init() {
     uabb_column_render_js();
 }
 
-$module = UABB_Init::$uabb_options['fl_builder_uabb'];
-$colgrad = isset( $module["uabb-col-gradient"] ) ? $module["uabb-col-gradient"] : true;
-if( $colgrad ) {
-		uabb_column_settings_init();
-}
+uabb_column_settings_init();

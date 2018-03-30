@@ -1,9 +1,9 @@
-<?php
+<?php 
 if( !function_exists( 'uabb_gf_function' ) ) {
 
 	function uabb_gf_function() {
 		$field_options = array();
-
+	
 		if ( class_exists( 'GFForms' ) ) {
 			$forms = RGFormsModel::get_forms( null, 'title' );
 
@@ -19,13 +19,13 @@ if( !function_exists( 'uabb_gf_function' ) ) {
 		}
 
 		return $field_options;
-	}
+	}	
 }
 
 if( !function_exists( 'uabb_gf_get_form_id' ) ) {
 
 	function uabb_gf_get_form_id() {
-
+		
 		if ( class_exists( 'GFForms' ) ) {
 			$forms = RGFormsModel::get_forms( null, 'title' );
 
@@ -37,5 +37,5 @@ if( !function_exists( 'uabb_gf_get_form_id' ) ) {
 		}
 
 		return -1;
-	}
+	}	
 }

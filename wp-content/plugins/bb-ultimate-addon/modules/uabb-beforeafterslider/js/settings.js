@@ -7,7 +7,7 @@
 				required: true
 			}
 		},
-
+		
 		init: function()
 		{
 			var form    	= $('.fl-builder-settings'),
@@ -21,7 +21,7 @@
 			var form		= $('.fl-builder-settings'),
 				advance_option 	= form.find('select[name=advance_opt]').val(),
 				shadow_option 	= form.find('select[name=shadow_opt]').val();
-
+			
 			if ( advance_option == "" && shadow_option == "Y") {
 				$("#fl-field-handle_shadow").css({"display":"none"});
 				$("#fl-field-handle_shadow_color").css({"display":"none"});
@@ -31,6 +31,6 @@
 				$("#fl-field-handle_shadow_color").css({"display":"table-row"});
 			}
 		}
-
+		
 	});
 })(jQuery);

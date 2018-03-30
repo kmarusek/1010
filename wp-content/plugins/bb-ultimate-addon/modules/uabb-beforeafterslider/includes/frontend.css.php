@@ -1,27 +1,27 @@
 <?php if ( isset( $settings->before_label_text ) && $settings->before_label_text != "" ) {?>
 	.fl-node-<?php echo $id; ?> .baslider-<?php echo $module->node ;?> .twentytwenty-before-label:before
 	{
-	    content: "<?php echo $settings->before_label_text;?>";
+	    content: "<?php echo $settings->before_label_text;?>"; 
 	}
 <?php } ?>
 
 <?php if ( isset( $settings->after_label_text ) && $settings->after_label_text != "" ) {?>
 	.fl-node-<?php echo $id; ?> .baslider-<?php echo $module->node ;?> .twentytwenty-after-label:before
 	{
-	    content: "<?php echo $settings->after_label_text;?>";
+	    content: "<?php echo $settings->after_label_text;?>"; 
 	}
 <?php } ?>
 
-<?php
-$settings->handle_color = UABB_Helper::uabb_colorpicker( $settings, 'handle_color' );
+<?php 
+$settings->handle_color = UABB_Helper::uabb_colorpicker( $settings, 'handle_color' ); 
 $settings->handle_triangle_color = UABB_Helper::uabb_colorpicker( $settings, 'handle_triangle_color' );
 $settings->handle_color = ( $settings->handle_color != '' ) ? $settings->handle_color : '#fff';
 $settings->handle_triangle_color = ( $settings->handle_triangle_color != '' ) ? $settings->handle_triangle_color : $settings->handle_color;
 
 
 $settings->slider_label_back_color = UABB_Helper::uabb_colorpicker( $settings, 'slider_label_back_color' );
-$settings->slider_color = UABB_Helper::uabb_colorpicker( $settings, 'slider_color' );
-$settings->handle_back_overlay = UABB_Helper::uabb_colorpicker( $settings, 'handle_back_overlay', true );
+$settings->slider_color = UABB_Helper::uabb_colorpicker( $settings, 'slider_color' ); 
+$settings->handle_back_overlay = UABB_Helper::uabb_colorpicker( $settings, 'handle_back_overlay', true ); 
 if ( isset( $settings->handle_shadow_color ) ) {
 $settings->handle_shadow_color = UABB_Helper::uabb_colorpicker( $settings, 'handle_shadow_color' );
 }
@@ -43,7 +43,7 @@ if( $settings->overall_alignment == 'center' ) {
 	margin-left: auto;
 <?php
 }
-?>
+?>	
 }
 
 <?php if ( $settings->handle_thickness == "" ) { $settings->handle_thickness = 5; } ?>
@@ -51,11 +51,11 @@ if( $settings->overall_alignment == 'center' ) {
 .fl-node-<?php echo $id; ?> .baslider-<?php echo $module->node ;?> .twentytwenty-handle {
 	border-color: <?php echo $settings->handle_color;?>;
 	<?php if ( $settings->handle_thickness != "" ) { ?>
-
+	
 	border-width:<?php echo $settings->handle_thickness; ?>px;
 	<?php } ?>
-
-	<?php
+	
+	<?php 
 	if ( $settings->advance_opt == 'Y' && isset( $settings->handle_radius ) && $settings->handle_radius == "" ){
 		$settings->handle_radius = 100;
 	}
@@ -89,7 +89,7 @@ if( $settings->overall_alignment == 'center' ) {
 	<?php }else{ ?>
 	margin-left: <?php echo $settings->handle_thickness + 10; ?>px;
 	<?php } ?>
-
+	
 	box-shadow: 0 0 0 <?php echo $settings->handle_color;?>;
 	<?php } ?>
 	<?php if ( $settings->before_after_orientation == "horizontal" && $settings->handle_thickness != "" ) { ?>
@@ -104,14 +104,14 @@ if( $settings->overall_alignment == 'center' ) {
 	<?php } ?>
 }
 .fl-node-<?php echo $id; ?> .baslider-<?php echo $module->node ;?> .twentytwenty-handle:after{
-
+	
 	<?php if ( $settings->before_after_orientation == "vertical" && $settings->handle_thickness != "" ) { ?>
 	<?php if ( $settings->handle_circle_width != 45 ) { ?>
 	margin-right: <?php echo $settings->handle_circle_width / 2; ?>px;
 	<?php } else { ?>
 	margin-right: <?php echo $settings->handle_thickness + 10; ?>px;
 	<?php } ?>
-
+	
 	box-shadow: 0 0 0 <?php echo $settings->handle_color;?>;
 	<?php } ?>
 
@@ -149,7 +149,7 @@ if( $settings->move_on_hover == 'false' ) {
 }
 ?>
 
-<?php if ( $settings->advance_opt == 'Y' && $settings->before_after_orientation == "vertical" ){
+<?php if ( $settings->advance_opt == 'Y' && $settings->before_after_orientation == "vertical" ){ 
 	if ( $settings->handle_triangle_size != "" ) { $triangle_size = $settings->handle_triangle_size; }else{ $triangle_size = 6; }
 ?>
 .fl-node-<?php echo $id; ?> .baslider-<?php echo $module->node ;?> .twentytwenty-handle .twentytwenty-up-arrow {
@@ -159,7 +159,7 @@ if( $settings->move_on_hover == 'false' ) {
 	border-top: <?php echo $triangle_size;?>px solid <?php echo $settings->handle_triangle_color;?>;
 }
 <?php }
-if ( $settings->advance_opt == 'Y' && $settings->before_after_orientation == "horizontal" ){
+if ( $settings->advance_opt == 'Y' && $settings->before_after_orientation == "horizontal" ){ 
 	if ( $settings->handle_triangle_size != "" ) { $triangle_size = $settings->handle_triangle_size; }else{ $triangle_size = 6; }
 ?>
 .fl-node-<?php echo $id; ?> .baslider-<?php echo $module->node ;?> .twentytwenty-handle .twentytwenty-left-arrow {
@@ -181,7 +181,7 @@ if( $settings->advance_opt == 'Y' ) {
 <?php
 }
 
-if ( $settings->advance_opt == '' && $settings->before_after_orientation == "vertical" ){
+if ( $settings->advance_opt == '' && $settings->before_after_orientation == "vertical" ){ 
 	$triangle_size = 6;
 ?>
 .fl-node-<?php echo $id; ?> .baslider-<?php echo $module->node ;?> .twentytwenty-handle .twentytwenty-up-arrow {
@@ -191,7 +191,7 @@ if ( $settings->advance_opt == '' && $settings->before_after_orientation == "ver
 	border-top: <?php echo $triangle_size;?>px solid <?php echo $settings->handle_color;?>;
 }
 <?php }
-if ( $settings->advance_opt == '' && $settings->before_after_orientation == "horizontal" ){
+if ( $settings->advance_opt == '' && $settings->before_after_orientation == "horizontal" ){ 
 	$triangle_size = 6;
 ?>
 .fl-node-<?php echo $id; ?> .baslider-<?php echo $module->node ;?> .twentytwenty-handle .twentytwenty-left-arrow {
@@ -275,16 +275,19 @@ if ( ( isset( $settings->slider_font_family['family'] ) && $settings->slider_fon
 	<?php if( isset( $settings->slider_label_letter_spacing ) && $settings->slider_label_letter_spacing != '' ) : ?>
 		letter-spacing: <?php echo $settings->slider_label_letter_spacing; ?>px;
 	<?php endif; ?>
-	width:auto;
-
-
-
+	width: auto;
+	<?php if( $settings->before_after_orientation == 'horizontal' ) { ?>
+		max-width: calc( 100% / 2 - 30px );
+	<?php } else if ( $settings->before_after_orientation == 'vertical' ) { ?>
+		max-width: calc( 100% - 30px );
+	<?php } ?>
+	
 }
 <?php } ?>
 
 
-/* Typography responsive layout starts here */
-<?php if($global_settings->responsive_enabled) { // Global Setting If started
+/* Typography responsive layout starts here */ 
+<?php if($global_settings->responsive_enabled) { // Global Setting If started 
 	if( ( isset( $settings->slider_font_size['medium'] ) && $settings->slider_font_size['medium'] !="" ) || ( isset( $settings->slider_line_height['medium'] ) && $settings->slider_line_height['medium'] != "" ) ) {
 	?>
 		@media ( max-width: <?php echo $global_settings->medium_breakpoint .'px'; ?> ) {
@@ -307,7 +310,7 @@ if ( ( isset( $settings->slider_font_family['family'] ) && $settings->slider_fon
 	?>
 		@media ( max-width: <?php echo $global_settings->responsive_breakpoint .'px'; ?> ) {
 			<?php if( ( isset( $settings->slider_font_size['small'] ) && $settings->slider_font_size['small'] !="" ) || ( isset( $settings->slider_line_height['small'] ) && $settings->slider_line_height['small'] != "" ) ) { ?>
-
+				
 				.fl-node-<?php echo $id;?> .baslider-<?php echo $module->node ;?> .twentytwenty-before-label:before,
 				.fl-node-<?php echo $id;?> .baslider-<?php echo $module->node ;?> .twentytwenty-after-label:before {
 					<?php if( isset( $settings->slider_font_size['small'] ) && $settings->slider_font_size['small'] != '' ) : ?>

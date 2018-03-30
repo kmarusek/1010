@@ -8,7 +8,7 @@
 
 if ( !class_exists( 'UABBGlobalSettingsOptions' ) ) {
 	/**
-	*
+	* 
 	*/
 	class UABBGlobalSettingsOptions 	{
 		public $uabb_setting_options;
@@ -21,10 +21,10 @@ if ( !class_exists( 'UABBGlobalSettingsOptions' ) ) {
 
 			add_filter( 'uabb/global/theme_color', array( $this, 'uabb_global_theme_color' ) );
 			add_filter( 'uabb/global/text_color', array( $this, 'uabb_global_text_color' ) );
-
+			
 			add_filter( 'uabb/global/link_color', array( $this, 'uabb_global_link_color' ) );
 			add_filter( 'uabb/global/link_hover_color', array( $this, 'uabb_global_link_hover_color' ) );
-
+			
 			add_filter( 'uabb/global/button_font_family', array( $this, 'uabb_global_button_font_family' ) );
 			add_filter( 'uabb/global/button_font_size', array( $this, 'uabb_global_button_font_size' ) );
 			add_filter( 'uabb/global/button_line_height', array( $this, 'uabb_global_button_line_height' ) );
@@ -36,7 +36,7 @@ if ( !class_exists( 'UABBGlobalSettingsOptions' ) ) {
 			add_filter( 'uabb/global/button_text_hover_color', array( $this, 'uabb_global_button_text_hover_color' ) );
 			add_filter( 'uabb/global/button_bg_color', array( $this, 'uabb_global_button_bg_color' ) );
 			add_filter( 'uabb/global/button_bg_hover_color', array( $this, 'uabb_global_button_bg_hover_color' ) );
-
+			
 			add_filter( 'uabb/global/button_border_radius', array( $this, 'uabb_global_button_border_radius' ) );
 			add_filter( 'uabb/global/button_padding', array( $this, 'uabb_global_button_padding' ) );
 			add_filter( 'uabb/global/button_vertical_padding', array( $this, 'uabb_global_button_vertical_padding' ) );
@@ -45,18 +45,18 @@ if ( !class_exists( 'UABBGlobalSettingsOptions' ) ) {
 
 		function uabb_get_global_option( $option, $color = false, $opc = false ){
 			$uabb_setting_options = $this->uabb_setting_options;
-
+			
 			if ( isset( $uabb_setting_options->enable_global ) && ( $uabb_setting_options->enable_global == 'no' ) ) {
 				return '';
 			}elseif ( isset( $uabb_setting_options->$option ) && !empty( $uabb_setting_options->$option ) ) {
-
+			 	
 			 	if ( $color ) {
 			 		$uabb_setting_options->$option = UABB_Helper::uabb_colorpicker( $uabb_setting_options, $option, $opc );
 			 	}
 			 	return $uabb_setting_options->$option;
 			}
 
-			return '';
+			return ''; 
 		}
 		/**
 		 * Theme Color -
@@ -116,7 +116,7 @@ if ( !class_exists( 'UABBGlobalSettingsOptions' ) ) {
 		 */
 		function uabb_global_button_font_size() {
 			$font_size = $this->uabb_get_global_option( 'btn_font_size' );
-
+			
 			return $font_size;
 		}
 
@@ -125,7 +125,7 @@ if ( !class_exists( 'UABBGlobalSettingsOptions' ) ) {
 		 */
 		function uabb_global_button_line_height() {
 			$line_height = $this->uabb_get_global_option( 'btn_line_height' );
-
+			
 			return $line_height;
 		}
 
@@ -135,7 +135,7 @@ if ( !class_exists( 'UABBGlobalSettingsOptions' ) ) {
 		 */
 		function uabb_global_button_letter_spacing() {
 			$letter_spacing = $this->uabb_get_global_option( 'btn_letter_spacing' );
-
+			
 			return $letter_spacing;
 		}
 
@@ -145,7 +145,7 @@ if ( !class_exists( 'UABBGlobalSettingsOptions' ) ) {
 		 */
 		function uabb_global_button_text_transform() {
 			$text_transform = $this->uabb_get_global_option( 'btn_text_transform' );
-
+			
 			return $text_transform;
 		}
 

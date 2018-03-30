@@ -1,5 +1,5 @@
 <div class="uabb-gf-style <?php echo 'uabb-gf-form-style1' ?>">
-	<?php
+	<?php 
 		$title = '';
 		$description = '';
 		if ( $settings->form_title_option == 'yes' ) {
@@ -19,7 +19,7 @@
 	?>
 		<<?php echo $settings->form_title_tag_selection; ?> class="uabb-gf-form-title"><?php echo $title; ?></<?php echo $settings->form_title_tag_selection; ?>>
 	<?php } ?>
-
+	
 	<?php if ( '' != $description ) { ?>
 		<p class="uabb-gf-form-desc"><?php echo $description; ?></p>
 	<?php } ?>

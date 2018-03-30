@@ -2,7 +2,7 @@
 <?php
 $icon_count = 1;
 if( count($settings->social_icons) > 0 ) {
-
+	
 	foreach($settings->social_icons as $icon) {
 
 		if(!is_object($icon)) {
@@ -97,7 +97,7 @@ if( count($settings->social_icons) > 0 ) {
 			'img_bg_border_radius' => $settings->bg_border_radius,
 
 			/* Preset Color variable new */
-			'icon_color_preset' => 'preset1',
+			'icon_color_preset' => 'preset1', 
 			'icon_three_d' => $settings->three_d,
 
 		);

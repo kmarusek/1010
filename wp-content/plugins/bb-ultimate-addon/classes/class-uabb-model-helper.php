@@ -42,9 +42,9 @@ if( !class_exists( 'UABB_Model_Helper' ) ) {
 				) );
 
 			$templates = array();
-
+		
 			foreach ( $posts as $post ) {
-
+				
 				$templates[] = array(
 					'id'     => $post->ID,
 					'name'   => $post->post_title,
@@ -52,7 +52,7 @@ if( !class_exists( 'UABB_Model_Helper' ) ) {
 					//'link' => add_query_arg( 'fl_builder', '', get_permalink( $post->ID ) ),
 				);
 			}
-
+			
 			return $templates;
 		}
 
@@ -62,15 +62,15 @@ if( !class_exists( 'UABB_Model_Helper' ) ) {
 		 *
 		 * @return  $option_array
 		 * @since 	1.1.0.1
-		 */
+		 */		
 		static public function get_saved_page_template() {
 			if ( FLBuilderModel::node_templates_enabled() ) {
-
+				
 				$page_templates = UABB_Model_Helper::get_post_template( 'layout' );
 				//$node_template  = FLBuilderModel::is_post_node_template();
-
+				
 				$options = array();
-
+				
 				if ( count($page_templates) ) {
 					foreach ($page_templates as $page_template) {
                 		$options[$page_template['id']] = $page_template['name'];
@@ -87,13 +87,13 @@ if( !class_exists( 'UABB_Model_Helper' ) ) {
 		 *
 		 * @return  $option_array
 		 * @since 	1.1.0.1
-		 */
+		 */		
 		static public function get_saved_row_template() {
 			if ( FLBuilderModel::node_templates_enabled() ) {
-
+			
 				$saved_rows    = UABB_Model_Helper::get_post_template( 'row' );
 				//$node_template = FLBuilderModel::is_post_node_template();
-
+				
 				// Don't show global rows for node templates.
 				/*foreach ( $saved_rows as $key => $val ) {
 					if ( $node_template && $val['global'] ) {
@@ -117,13 +117,13 @@ if( !class_exists( 'UABB_Model_Helper' ) ) {
 		 *
 		 * @return  $option_array
 		 * @since 	1.1.0.1
-		 */
+		 */		
 		static public function get_saved_module_template() {
 			if ( FLBuilderModel::node_templates_enabled() ) {
-
+			
 				$saved_modules = UABB_Model_Helper::get_post_template( 'module' );
 				//$node_template = FLBuilderModel::is_post_node_template();
-
+				
 				// Don't show global rows for node templates.
 				/*foreach ( $saved_modules as $key => $val ) {
 					if ( $node_template && $val['global'] ) {

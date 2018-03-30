@@ -29,7 +29,7 @@
 			});
 		}
 
-
+		
 		/* Accordion Click Trigger */
 		UABBTrigger.addHook( 'uabb-accordion-click', function( argument, selector ) {
 			new UABBFlipBox( args );
@@ -44,7 +44,7 @@
 		UABBTrigger.addHook( 'uabb-modal-click', function( argument, selector ) {
 			new UABBFlipBox( args );
 		});
-
+		
 	});
 
 	jQuery(window).load( function() {

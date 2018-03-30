@@ -12,7 +12,7 @@ class BlogPostsModule extends FLBuilderModule {
      */
     protected $_editor = null;
     protected $uabb_args = array();
-
+    
     /**
      *
      * @method __construct
@@ -29,15 +29,24 @@ class BlogPostsModule extends FLBuilderModule {
             'url'           => BB_ULTIMATE_ADDON_URL . 'modules/blog-posts/',
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
-            'partial_refresh'  => true
+            'partial_refresh'  => true,
+            'icon'              => 'schedule.svg',
         ));
         $this->add_css('font-awesome');
         add_filter( 'wp_footer', array( $this, 'enqueue_scripts' ) );
-        add_filter( 'redirect_canonical', array( $this, 'uabb_disable_redirect_canonical' ) );
         add_filter( 'fl_builder_loop_query_args', array( $this, 'uabb_loop_query_args' ), 1 );
         // pagination.
-        add_action( 'init', array( $this, 'uabb_init_rewrite_rules') );
-        add_filter( 'redirect_canonical',  array( $this, 'uabb_override_canonical' ), 1, 2 );
+        // add_action( 'init', array( $this, 'uabb_init_rewrite_rules') );
+        // add_filter( 'redirect_canonical',  array( $this, 'uabb_override_canonical' ), 1, 2 );
+    }
+
+    /**
+     * @since 1.10.7
+     */
+    public function update( $settings ) {
+        global $wp_rewrite;
+        $wp_rewrite->flush_rules( false );
+        return $settings;
     }
 
     /**
@@ -76,17 +85,7 @@ class BlogPostsModule extends FLBuilderModule {
         $this->add_js( 'carousel', $this->url . 'js/jquery-carousel.js', array('jquery'), '', true);
         $this->add_js( 'jquery-infinitescroll' );
     }
-
-    /**
-     * @method uabb_disable_redirect_canonical
-     * @public
-     */
-
-    public function uabb_disable_redirect_canonical( $redirect_url ) {
-        if ( is_singular('post') ) $redirect_url = false;
-        return $redirect_url;
-    }
-
+    
     /**
      * Returns an array of data for post types supported.
      *
@@ -308,7 +307,7 @@ class BlogPostsModule extends FLBuilderModule {
 
         // Return pagination html
         if($total_pages > 1) {
-
+        
             $current_page = $paged;
             if ( ! $current_page ) {
                 $current_page = 1;
@@ -355,7 +354,7 @@ class BlogPostsModule extends FLBuilderModule {
                 } else {
                     $args['posts_per_page'] = ( $this->settings->total_posts_switch == 'all' ) ? '-1' : $this->settings->total_posts;
                 }
-
+                
             } else {
                 $args['posts_per_page'] = ( isset( $this->settings->posts_per_page ) ) ? ( ( $this->settings->posts_per_page != '' ) ? $this->settings->posts_per_page : '10' ) : '10';
             }
@@ -545,7 +544,7 @@ class BlogPostsModule extends FLBuilderModule {
 
                 }
             }
-        }
+        }   
     }
 
 
@@ -568,7 +567,7 @@ class BlogPostsModule extends FLBuilderModule {
                 $img_url = $img_data['image'];
 
                 if( $img_url != '' ) {
-
+                    
                     if ( $this->settings->is_carousel == 'carousel' && $this->settings->lazyload == 'yes' ) {
                         $img_url = 'data-lazy="'.$img_url.'"';
                     }else{
@@ -654,7 +653,7 @@ class BlogPostsModule extends FLBuilderModule {
         return $html;
     }
 
-
+    
     /**
      * @method render_title_section
      * @protected
@@ -664,12 +663,7 @@ class BlogPostsModule extends FLBuilderModule {
         if( $show_title == 'yes' ) {
         ?>
             <<?php echo $this->settings->title_tag_selection; ?> class="uabb-post-heading uabb-blog-post-section">
-                <?php
-
-                $title = '<a href='. apply_filters( "uabb_blog_posts_link", get_permalink( $obj->ID ), $obj->ID, $this->settings ) .' title=' . the_title_attribute('echo=0') . ' tabindex="0" class="">'. get_the_title() .'</a>';
-
-                echo apply_filters( 'uabb_advanced_post_title_link', $title, get_the_title(), get_permalink( $obj->ID ), $obj->ID, $this->settings );
-                ?>
+                 <a href="<?php echo apply_filters( 'uabb_blog_posts_link', get_permalink( $obj->ID ), $obj->ID ); ?>" title="<?php the_title_attribute(); ?>" tabindex="0" class=""><?php the_title(); ?></a>
             </<?php echo $this->settings->title_tag_selection; ?>>
         <?php
         }
@@ -700,12 +694,12 @@ class BlogPostsModule extends FLBuilderModule {
             } else {
                 $txt = $obj->post_content;
                 $txt = do_shortcode ( $txt );
-
+                
                 if( $content_type == 'custom' ) {
-                    if( $excerpt_count != '' ) {
+                    if( $excerpt_count != '' ) { 
                         $content = wp_trim_words ( $txt, $excerpt_count, ' ...' );
                     } else {
-                        $content = wp_trim_words ( $txt, 55, ' ...' );
+                        $content = wp_trim_words ( $txt, 55, ' ...' );      
                     }
                 } else {
                     $content = $txt;
@@ -744,7 +738,7 @@ class BlogPostsModule extends FLBuilderModule {
                 $author = ( get_the_author_meta( 'display_name', $obj->post_author ) != '' ) ? get_the_author_meta( 'display_name', $obj->post_author ) : get_the_author_meta( 'user_nicename', $obj->post_author );
 
                 echo $author; ?></a>
-            </span>
+            </span> 
             <?php
         }
         $html = ob_get_contents();
@@ -803,7 +797,7 @@ class BlogPostsModule extends FLBuilderModule {
                 }
             }
         }
-
+        
         if( $show_tags == 'yes' ) {
 
             $tag_detail = get_the_tags( $obj->ID );
@@ -883,7 +877,7 @@ class BlogPostsModule extends FLBuilderModule {
                              case 'comment':
                                 $output = $this->render_comment_section( $obj );
                                 break;
-
+                            
                             default:
                                 // Nothing to do here
                                 break;
@@ -903,7 +897,7 @@ class BlogPostsModule extends FLBuilderModule {
      * @method render_blog_content
      */
     public function render_blog_content( $obj, $i ) {
-
+        
         $link = apply_filters( 'uabb_blog_posts_link', get_permalink( $obj->ID ), $obj->ID, $this->settings );
         $show_title = ( isset( $this->settings->show_title ) ) ? $this->settings->show_title : 'yes';
         $show_excerpt = ( isset( $this->settings->show_excerpt ) ) ? $this->settings->show_excerpt : 'yes';
@@ -1176,19 +1170,19 @@ FLBuilder::register_module('BlogPostsModule', array(
                             ),
                         )
                     ),
-                    'arrow_color' => array(
+                    'arrow_color' => array( 
                         'type'       => 'color',
                         'label'         => __('Arrow Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'arrow_background_color' => array(
+                    'arrow_background_color' => array( 
                         'type'       => 'color',
                         'label'         => __('Arrow Background Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'arrow_background_color_opc' => array(
+                    'arrow_background_color_opc' => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -1196,7 +1190,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                         'maxlength'   => '3',
                         'size'        => '5',
                     ),
-                    'arrow_color_border' => array(
+                    'arrow_color_border' => array( 
                         'type'       => 'color',
                         'label'         => __('Arrow Border Color', 'uabb'),
                         'default'    => '',
@@ -1584,13 +1578,13 @@ FLBuilder::register_module('BlogPostsModule', array(
             'btn-colors'     => array( // Section
                 'title'         => __('Colors', 'uabb'),
                 'fields'        => array(
-                    'btn_text_color'        => array(
+                    'btn_text_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Text Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'btn_text_hover_color'        => array(
+                    'btn_text_hover_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Text Hover Color', 'uabb'),
                         'default'    => '',
@@ -1599,13 +1593,13 @@ FLBuilder::register_module('BlogPostsModule', array(
                             'type'          => 'none'
                         )
                     ),
-                    'btn_bg_color'        => array(
+                    'btn_bg_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Background Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'btn_bg_color_opc'    => array(
+                    'btn_bg_color_opc'    => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -1614,7 +1608,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                         'size'        => '5',
                     ),
 
-                    'btn_bg_hover_color'        => array(
+                    'btn_bg_hover_color'        => array( 
                         'type'       => 'color',
                         'label'         => __('Background Hover Color', 'uabb'),
                         'default'    => '',
@@ -1623,7 +1617,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                             'type'          => 'none'
                         )
                     ),
-                    'btn_bg_hover_color_opc'    => array(
+                    'btn_bg_hover_color_opc'    => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -1733,13 +1727,13 @@ FLBuilder::register_module('BlogPostsModule', array(
                             ),
                         )
                     ),
-                    'overlay_color' => array(
+                    'overlay_color' => array( 
                         'type'       => 'color',
                         'label'         => __('Overlay Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'overlay_color_opc' => array(
+                    'overlay_color_opc' => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -1794,7 +1788,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                         ),
                     )
                 )
-            )
+            ) 
         )
     ),
     'style'       => array( // Tab
@@ -1929,7 +1923,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                             'unit'          => 'px',
                         )
                     ),
-                    'content_background_color' => array(
+                    'content_background_color' => array( 
                         'type'       => 'color',
                         'label'         => __('Content Background Color', 'uabb'),
                         'default'       => 'f6f6f6',
@@ -1941,7 +1935,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                             'property'      => 'background',
                         )
                     ),
-                    'content_background_color_opc' => array(
+                    'content_background_color_opc' => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -2078,7 +2072,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                         'size'          => '8',
                         'max_lenght'    => '3'
                     ),
-                    'pagination_color' => array(
+                    'pagination_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',
@@ -2089,13 +2083,13 @@ FLBuilder::register_module('BlogPostsModule', array(
                             'property'      => 'color',
                         )
                     ),
-                    'pagination_hover_color' => array(
+                    'pagination_hover_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Hover Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'pagination_active_color' => array(
+                    'pagination_active_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Active Color', 'uabb'),
                         'default'    => '',
@@ -2106,7 +2100,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                             'property'      => 'color',
                         )
                     ),
-                    'pagination_background_color' => array(
+                    'pagination_background_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Background Color', 'uabb'),
                         'default'    => '',
@@ -2117,7 +2111,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                             'property'      => 'background',
                         )
                     ),
-                    'pagination_background_color_opc' => array(
+                    'pagination_background_color_opc' => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -2125,13 +2119,13 @@ FLBuilder::register_module('BlogPostsModule', array(
                         'maxlength'   => '3',
                         'size'        => '5',
                     ),
-                    'pagination_hover_background_color' => array(
+                    'pagination_hover_background_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Background Hover Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'pagination_hover_background_color_opc' => array(
+                    'pagination_hover_background_color_opc' => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -2139,7 +2133,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                         'maxlength'   => '3',
                         'size'        => '5',
                     ),
-                    'pagination_active_background_color' => array(
+                    'pagination_active_background_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Background Active Color', 'uabb'),
                         'default'    => '',
@@ -2150,7 +2144,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                             'property'      => 'background',
                         )
                     ),
-                    'pagination_active_background_color_opc' => array(
+                    'pagination_active_background_color_opc' => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -2158,13 +2152,13 @@ FLBuilder::register_module('BlogPostsModule', array(
                         'maxlength'   => '3',
                         'size'        => '5',
                     ),
-                    'pagination_color_border' => array(
+                    'pagination_color_border' => array( 
                         'type'       => 'color',
                         'label'      => __('Border Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'pagination_active_color_border' => array(
+                    'pagination_active_color_border' => array( 
                         'type'       => 'color',
                         'label'      => __('Border Active Color', 'uabb'),
                         'default'    => '',
@@ -2247,31 +2241,31 @@ FLBuilder::register_module('BlogPostsModule', array(
                         'placeholder'   => '2',
                         'size'          => '8',
                     ),
-                    'masonary_text_color' => array(
+                    'masonary_text_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Text Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'masonary_text_hover_color' => array(
+                    'masonary_text_hover_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Hover Text Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'masonary_active_color' => array(
+                    'masonary_active_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Active Text Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'masonary_background_color' => array(
+                    'masonary_background_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Background Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'masonary_background_color_opc' => array(
+                    'masonary_background_color_opc' => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -2279,13 +2273,13 @@ FLBuilder::register_module('BlogPostsModule', array(
                         'maxlength'   => '3',
                         'size'        => '5',
                     ),
-                    'masonary_background_hover_color' => array(
+                    'masonary_background_hover_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Hover Background Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'masonary_background_hover_color_opc' => array(
+                    'masonary_background_hover_color_opc' => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -2293,13 +2287,13 @@ FLBuilder::register_module('BlogPostsModule', array(
                         'maxlength'   => '3',
                         'size'        => '5',
                     ),
-                    'masonary_background_active_color' => array(
+                    'masonary_background_active_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Active Background Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'masonary_background_active_color_opc' => array(
+                    'masonary_background_active_color_opc' => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -2307,13 +2301,13 @@ FLBuilder::register_module('BlogPostsModule', array(
                         'maxlength'   => '3',
                         'size'        => '5',
                     ),
-                    'masonary_color_border' => array(
+                    'masonary_color_border' => array( 
                         'type'       => 'color',
                         'label'      => __('Border Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'masonary_active_color_border' => array(
+                    'masonary_active_color_border' => array( 
                         'type'       => 'color',
                         'label'      => __('Border Active Color', 'uabb'),
                         'default'    => '',
@@ -2424,7 +2418,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                             'unit'          => 'px'
                         )
                     ),
-                    'selfilter_color_border' => array(
+                    'selfilter_color_border' => array( 
                         'type'       => 'color',
                         'label'      => __('Border Color', 'uabb'),
                         'default'    => '',
@@ -2514,7 +2508,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                             'unit'            => 'px'
                         )
                     ),
-                    'title_color'        => array(
+                    'title_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',
@@ -2572,7 +2566,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                             'unit'            => 'px'
                         )
                     ),
-                    'desc_color'        => array(
+                    'desc_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',
@@ -2646,7 +2640,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                             'unit'            => 'px'
                         )
                     ),
-                    'meta_text_color'        => array(
+                    'meta_text_color'        => array( 
                         'type'       => 'color',
                         'label'         => __('Meta Color', 'uabb'),
                         'default'    => '',
@@ -2668,7 +2662,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                             'property'        => 'color',
                         )
                     ),
-                    'meta_hover_color' => array(
+                    'meta_hover_color' => array( 
                         'type'       => 'color',
                         'label'         => __('Meta Link Hover Color', 'uabb'),
                         'default'    => '',
@@ -2722,7 +2716,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                             'unit'      => 'px'
                         ),
                     ),
-                    'date_color'        => array(
+                    'date_color'        => array( 
                         'type'       => 'color',
                         'label'         => __('Date Color', 'uabb'),
                         'default'    => '',
@@ -2733,7 +2727,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                             'property'  => 'color',
                         ),
                     ),
-                    'date_background_color' => array(
+                    'date_background_color' => array( 
                         'type'       => 'color',
                         'label'         => __('Date Background Color', 'uabb'),
                         'default'    => '',
@@ -2744,7 +2738,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                             'property'  => 'background',
                         ),
                     ),
-                    'date_background_color_opc' => array(
+                    'date_background_color_opc' => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -2799,7 +2793,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                             'unit'      => 'px'
                         ),
                     ),
-                    'link_color'        => array(
+                    'link_color'        => array( 
                         'type'       => 'color',
                         'label'         => __('Link Color', 'uabb'),
                         'default'    => '',
@@ -2810,7 +2804,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                             'property'  => 'color',
                         ),
                     ),
-                    'link_more_arrow_color' => array(
+                    'link_more_arrow_color' => array( 
                         'type'       => 'color',
                         'label'         => __('Arrow Color', 'uabb'),
                         'default'    => '',
@@ -2859,7 +2853,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                 )
             ),
             'taxonomy_filter_select_field_typography'    =>  array(
-                'title' => __( 'Drop-down Taxonomy Filter', 'uabb' ),
+                'title' => __( 'Taxonomy Filter', 'uabb' ),
                 'fields'    => array(
                     'taxonomy_filter_select_font_family'       => array(
                         'type'          => 'font',
@@ -2870,7 +2864,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                         ),
                         'preview'   => array(
                             'type'      => 'font',
-                            'selector'  => 'select.uabb-masonary-filters'
+                            'selector'  => 'select.uabb-masonary-filters, ul.uabb-masonary-filters'
                         ),
                     ),
                     'taxonomy_filter_select_font_size'     => array(
@@ -2883,19 +2877,19 @@ FLBuilder::register_module('BlogPostsModule', array(
                         ),
                         'preview'   => array(
                             'type'      => 'css',
-                            'selector'  => 'select.uabb-masonary-filters',
+                            'selector'  => 'select.uabb-masonary-filters, ul.uabb-masonary-filters',
                             'property'  => 'font-size',
                             'unit'      => 'px'
                         ),
-                    ),
-                    'taxonomy_filter_select_color' => array(
+                    ),                   
+                    'taxonomy_filter_select_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Text Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                         'preview'         => array(
                             'type'          => 'css',
-                            'selector'      => 'select.uabb-masonary-filters',
+                            'selector'      => 'select.uabb-masonary-filters, ul.uabb-masonary-filters li',
                             'property'      => 'color',
                         )
                     ),

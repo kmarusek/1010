@@ -17,7 +17,8 @@ class UABBPricingTableModule extends FLBuilderModule {
             'group'         => UABB_CAT,
 			'dir'           	=> BB_ULTIMATE_ADDON_DIR . 'modules/pricing-box/',
             'url'           	=> BB_ULTIMATE_ADDON_URL . 'modules/pricing-box/',
-			'partial_refresh'	=> true
+			'partial_refresh'	=> true,
+			'icon'				=> 'editor-table.svg',
 		));
 		$this->add_css('font-awesome');
 		add_filter( 'fl_builder_render_settings_field', array( $this , 'uabb_price_box_settings_field' ), 10, 3 );
@@ -61,6 +62,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 			'padding_top_bottom'         => $this->settings->pricing_columns[$column]->btn_padding_top_bottom,
 			'padding_left_right'         => $this->settings->pricing_columns[$column]->btn_padding_left_right,
 			'border_radius'              => $this->settings->pricing_columns[$column]->btn_border_radius,
+            'custom_class'       		 => $this->settings->pricing_columns[$column]->btn_custom_class,
 			'align'                      => '',
 			'mob_align'                  => '',
 			'font_family'                => $this->settings->pricing_columns[$column]->button_typography_font_family,
@@ -97,7 +99,7 @@ FLBuilder::register_module('UABBPricingTableModule', array(
 							'no' => array(
 								'fields' => array()
 							)
-						),
+						),						
 						'help'          => __( 'Legend Box can be used to highlight the features that you are comparing in price box columns.', 'uabb'),
 					),
 					'legend_column'     => array(
@@ -124,14 +126,14 @@ FLBuilder::register_module('UABBPricingTableModule', array(
 			'spacing'       => array(
 				'title'         => '',
 				'fields'        => array(
-					'foreground_outside'        => array(
+					'foreground_outside'        => array( 
 						'type'       => 'color',
                         'label'      => __('Box Background Color', 'uabb'),
 						'default'    => '',
 						'show_reset' => true,
                         'help'		 => __( 'Use this color only when you want same color for all Price Boxes and for unique color add in individual Price Box Items', 'uabb' ),
 					),
-					'foreground_outside_opc'        => array(
+					'foreground_outside_opc'        => array( 
 						'type'        => 'text',
 						'label'       => __('Opacity', 'uabb'),
 						'default'     => '',
@@ -200,14 +202,14 @@ FLBuilder::register_module('UABBPricingTableModule', array(
 						),
 						'help'			=> __( 'To attract user attention you can Highlight Price or Title.', 'uabb' )
 					),
-					'column_background'        => array(
+					'column_background'        => array( 
 						'type'       => 'color',
                         'label'      => __('Highlight Color', 'uabb'),
 						'default'    => '',
 						'show_reset' => true,
                         'help'		 => __( 'Use this color only when you want same color for Highlighted area and for unique color use Price Box Items.', 'uabb' )
 					),
-                    'column_background_opc'        => array(
+                    'column_background_opc'        => array( 
 						'type'        => 'text',
 						'label'       => __('Opacity', 'uabb'),
 						'default'     => '',
@@ -262,7 +264,7 @@ FLBuilder::register_module('UABBPricingTableModule', array(
                             'unit'		=> 'px'
                         )
 					),
-					'border_color'        => array(
+					'border_color'        => array( 
 						'type'       => 'color',
                         'label'      => __('Box Border Color', 'uabb'),
 						'default'    => '',
@@ -626,19 +628,19 @@ FLBuilder::register_settings_form('pricing_table_column_form', array(
 				'price-box'       => array(
 					'title'         => __( 'Price Box', 'uabb' ),
 					'fields'        => array(
-						'title_typography_color' => array(
+						'title_typography_color' => array( 
 							'type'       => 'color',
 	                        'label'      => __('Title Color', 'uabb'),
 							'default'    => '',
 							'show_reset' => true,
 						),
-	                    'price_typography_color' => array(
+	                    'price_typography_color' => array( 
 							'type'       => 'color',
 	                        'label'      => __('Price Color', 'uabb'),
 							'default'    => '',
 							'show_reset' => true,
 						),
-	                    'duration_typography_color' => array(
+	                    'duration_typography_color' => array( 
 							'type'       => 'color',
 	                        'label'      => __('Duration Color', 'uabb'),
 							'default'    => '',
@@ -664,14 +666,14 @@ FLBuilder::register_settings_form('pricing_table_column_form', array(
 							'maxlength'   => '3',
 							'size'        => '5',
 						),
-						'foreground'        => array(
+						'foreground'        => array( 
 							'type'       => 'color',
 	                        'label'      => __('Box Background Color', 'uabb'),
 							'default'    => '',
 							'show_reset' => true,
 	                        'help'       => __( 'Select the background for specific Price Box. Keep default for global background color.', 'uabb'),
 						),
-						'foreground_opc' => array(
+						'foreground_opc' => array( 
 							'type'        => 'text',
 							'label'       => __('Opacity', 'uabb'),
 							'default'     => '',
@@ -691,7 +693,7 @@ FLBuilder::register_settings_form('pricing_table_column_form', array(
 							'placeholder'   => __( 'One feature per line.', 'uabb' ),
 							'multiple'      => true,
 						),
-						'features_color'        => array(
+						'features_color'        => array( 
 							'type'       => 'color',
 	                        'label'      => __('List Color', 'uabb'),
 							'default'    => '',
@@ -703,14 +705,14 @@ FLBuilder::register_settings_form('pricing_table_column_form', array(
 				'even_properties'       => array(
 					'title'         => __( 'Even Properties', 'uabb' ),
 					'fields'        => array(
-						'even_properties_bg'        => array(
+						'even_properties_bg'        => array( 
 							'type'       => 'color',
 	                        'label'      => __('Background Color', 'uabb'),
 							'default'	 => 'ffffff',
 							'show_reset' => true,
 							'help'		 => __( 'Choose even properties background color', 'uabb' ),
 						),
-						'even_properties_bg_opc'        => array(
+						'even_properties_bg_opc'        => array( 
 							'type'        => 'text',
 							'label'       => __('Opacity', 'uabb'),
 							'default'     => '',
@@ -880,13 +882,13 @@ FLBuilder::register_settings_form('pricing_table_column_form', array(
 				'btn-colors'     => array( // Section
 	                'title'         => __('Colors', 'uabb'),
 	                'fields'        => array(
-	                    'btn_text_color'        => array(
+	                    'btn_text_color'        => array( 
 	                        'type'       => 'color',
 	                        'label'      => __('Text Color', 'uabb'),
 	                        'default'    => '',
 	                        'show_reset' => true,
 	                    ),
-	                    'btn_text_hover_color'        => array(
+	                    'btn_text_hover_color'        => array( 
 	                        'type'       => 'color',
 	                        'label'      => __('Text Hover Color', 'uabb'),
 	                        'default'    => '',
@@ -895,13 +897,13 @@ FLBuilder::register_settings_form('pricing_table_column_form', array(
 	                            'type'          => 'none'
 	                        )
 	                    ),
-	                    'btn_bg_color'        => array(
+	                    'btn_bg_color'        => array( 
 	                        'type'       => 'color',
 	                        'label'      => __('Background Color', 'uabb'),
 	                        'default'    => '',
 	                        'show_reset' => true,
 	                    ),
-	                    'btn_bg_color_opc'    => array(
+	                    'btn_bg_color_opc'    => array( 
 	                        'type'        => 'text',
 	                        'label'       => __('Opacity', 'uabb'),
 	                        'default'     => '',
@@ -910,7 +912,7 @@ FLBuilder::register_settings_form('pricing_table_column_form', array(
 	                        'size'        => '5',
 	                    ),
 
-	                    'btn_bg_hover_color'        => array(
+	                    'btn_bg_hover_color'        => array( 
 	                        'type'       => 'color',
 	                        'label'         => __('Background Hover Color', 'uabb'),
 	                        'default'    => '',
@@ -919,7 +921,7 @@ FLBuilder::register_settings_form('pricing_table_column_form', array(
 	                            'type'          => 'none'
 	                        )
 	                    ),
-	                    'btn_bg_hover_color_opc'    => array(
+	                    'btn_bg_hover_color_opc'    => array( 
 	                        'type'        => 'text',
 	                        'label'       => __('Opacity', 'uabb'),
 	                        'default'     => '',
@@ -1001,6 +1003,14 @@ FLBuilder::register_settings_form('pricing_table_column_form', array(
 	                        'maxlength'     => '3',
 	                        'size'          => '4',
 	                        'description'   => 'px'
+	                    ),
+	                    'btn_custom_class'          => array(
+							'type'          => 'text',
+							'label'         => __('Custom Class', 'uabb'),
+							'default'		=> '',
+							'preview'       => array(
+								'type'          => 'none'
+							),
 	                    ),
 	                )
 	            ),
@@ -1089,19 +1099,19 @@ FLBuilder::register_settings_form('pricing_table_column_form', array(
 	                            'small'         => '',
 	                        ),
 	                    ),
-	                    'featured_color'        => array(
+	                    'featured_color'        => array( 
 	                        'type'       => 'color',
 							'label' 	 => __('Featured Text Color', 'uabb' ),
 	                        'default'    => '',
 	                        'show_reset' => true,
 	                    ),
-						'featured_f_background_color'        => array(
+						'featured_f_background_color'        => array( 
 							'type'       => 'color',
 						    'label'      => __('Featured Text Background Color', 'uabb'),
 							'default'    => '',
 							'show_reset' => true,
 						),
-						'featured_f_background_color_opc'        => array(
+						'featured_f_background_color_opc'        => array( 
 							'type'        => 'text',
 							'label'       => __('Opacity', 'uabb'),
 							'default'     => '',
@@ -1129,20 +1139,20 @@ FLBuilder::register_settings_form('legend_column_form', array(
 						'legend_align'         => array(
 							'type'          => 'select',
 							'label'         => __('Alignment', 'uabb'),
-							'default'       => 'right',
+							'default'       => 'right',							
 							'options'       => array(
 								'center'        => __('Center', 'uabb'),
 								'left'          => __('Left', 'uabb'),
 								'right'         => __('Right', 'uabb')
 							)
 						),
-						'foreground'        => array(
+						'foreground'        => array( 
 							'type'       => 'color',
 	                        'label'      => __('Box Background Color', 'uabb'),
 							'default'    => '',
 							'show_reset' => true,
 						),
-						'foreground_opc'        => array(
+						'foreground_opc'        => array( 
 							'type'        => 'text',
 							'label'       => __('Opacity', 'uabb'),
 							'default'     => '',
@@ -1166,14 +1176,14 @@ FLBuilder::register_settings_form('legend_column_form', array(
 				'even_properties'       => array(
 					'title'         => __( 'Even Properties', 'uabb' ),
 					'fields'        => array(
-						'even_properties_bg'        => array(
+						'even_properties_bg'        => array( 
 							'type'       => 'color',
 	                        'label'      => __('Background Color', 'uabb'),
 	                        'default'	 => 'ffffff',
 							'show_reset' => true,
 							'help'		 => __( 'Choose even properties background color', 'uabb' )
 						),
-						'even_properties_bg_opc'        => array(
+						'even_properties_bg_opc'        => array( 
 							'type'        => 'text',
 							'label'       => __('Opacity', 'uabb'),
 							'default'     => '',
@@ -1217,7 +1227,7 @@ FLBuilder::register_settings_form('legend_column_form', array(
 	                            'small'         => '',
 	                        ),
 	                    ),
-	                    'legend_color'        => array(
+	                    'legend_color'        => array( 
 	                        'type'       => 'color',
 	                        'label'      => __('Color', 'uabb'),
 	                        'default'    => '',

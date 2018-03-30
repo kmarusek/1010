@@ -16,7 +16,7 @@ class UABB_Init {
 	public function __construct() {
 
 		//register_activation_hook( __FILE__, array( __CLASS__, '::reset' ) );
-
+		
 		if ( class_exists( 'FLBuilder' ) ) {
 
 			/**
@@ -25,7 +25,7 @@ class UABB_Init {
 			 */
 			self::set_uabb_options();
 
-			add_filter( 'fl_builder_settings_form_defaults', array( $this, 'uabb_global_settings_form_defaults' ), 10, 2 );
+			add_filter( 'fl_builder_settings_form_defaults', array( $this, 'uabb_global_settings_form_defaults' ), 10, 2 );	
 			// Load all the required files of bb-ultimate-addon
 			self::includes();
 			add_action( 'init', array( $this, 'init' ) );
@@ -34,6 +34,9 @@ class UABB_Init {
 
 			// Enqueue scripts
 			add_action( 'wp_enqueue_scripts', array( $this, 'load_scripts' ), 100 );
+
+			add_action( 'wp_head', array( $this, 'uabb_render_scripts' ) );
+
 
 		} else {
 
@@ -61,6 +64,7 @@ class UABB_Init {
 
 		require_once BB_ULTIMATE_ADDON_DIR . 'classes/class-uabb-attachment.php';
 		require_once BB_ULTIMATE_ADDON_DIR . 'classes/class-uabb-blog-posts.php';
+		require_once BB_ULTIMATE_ADDON_DIR . 'classes/class-uabb-wpml.php';
 
 		// Advanced Menu Walker
 		require_once BB_ULTIMATE_ADDON_DIR . 'classes/class-uabb-menu-walker.php';
@@ -99,34 +103,38 @@ class UABB_Init {
 	}
 
 	function uabb_global_settings_form_defaults( $defaults, $form_type ) {
+		
 
-		if ( ( class_exists( 'FLCustomizer' ) || function_exists( 'generate_customize_register' ) ) && 'uabb-global' == $form_type ) {
+		if ( ( !apply_filters( 'uabb_global_support', true ) || class_exists( 'FLCustomizer' ) || function_exists( 'generate_customize_register' ) ) && 'uabb-global' == $form_type ) {
+	
+			$defaults->enable_global = 'no';
 
-        	$defaults->enable_global = 'no';
 	    }
 
 	    return $defaults; // Must be returned!
 	}
 
 	function init() {
-
-		if ( apply_filters( 'uabb_global_support', true ) && class_exists( 'FLBuilderAJAX' ) ) {
+		
+		
+		if ( apply_filters( 'uabb_global_support_form', true ) && class_exists( 'FLBuilderAJAX' ) ) {
 			require_once BB_ULTIMATE_ADDON_DIR . 'classes/uabb-global-settings.php';
 			require_once BB_ULTIMATE_ADDON_DIR . 'classes/uabb-global-integration.php';
 		}
+		
 
 		add_filter( 'bsf_allow_beta_updates_uabb', array( $this, 'uabb_beta_updates_check' ) );
 		add_filter( 'bsf_license_not_activate_message_uabb', array( $this, 'license_not_active_message' ), 10, 3 );
 
 		if ( class_exists( 'FLCustomizer' ) ) {
 			$uabb_global_style = UABB_Global_Styling::get_uabb_global_settings();
-
+			
 			if ( ( isset( $uabb_global_style->enable_global ) && ( $uabb_global_style->enable_global == 'no' ) ) ) {
 				require_once BB_ULTIMATE_ADDON_DIR . 'classes/uabb-bbtheme-global-integration.php';
 			}
 		} else if ( function_exists( 'generate_customize_register' ) ) {
 			$uabb_global_style = UABB_Global_Styling::get_uabb_global_settings();
-
+			
 			if ( ( isset( $uabb_global_style->enable_global ) && ( $uabb_global_style->enable_global == 'no' ) ) ) {
 				require_once BB_ULTIMATE_ADDON_DIR . 'classes/uabb-generatepress-global-integration.php';
 			}
@@ -172,7 +180,7 @@ class UABB_Init {
 		else if ( file_exists( $mofile_local ) ) {
 			//Look in local /wp-content/plugins/bb-ultimate-addon/languages/ folder
 			return load_textdomain( 'uabb', $mofile_local );
-		}
+		} 
 
 		//Nothing found
 		return false;
@@ -181,7 +189,7 @@ class UABB_Init {
 	function load_scripts() {
 
 		if( FLBuilderModel::is_builder_active() ) {
-
+			
 			wp_enqueue_style( 'uabb-builder-css', BB_ULTIMATE_ADDON_URL . 'assets/css/uabb-builder.css', array() );
 			wp_enqueue_script('uabb-builder-js',  BB_ULTIMATE_ADDON_URL . 'assets/js/uabb-builder.js', array('jquery'), '', true);
 
@@ -195,10 +203,10 @@ class UABB_Init {
 				}
 			}
 
-			if ( apply_filters( 'uabb_global_support', true ) ) {
-
+			if ( apply_filters( 'uabb_global_support_form', true ) ) {
+				
 				wp_localize_script( 'uabb-builder-js', 'uabb_global', array( 'show_global_button' => true ) );
-
+				
 				$uabb = UABB_Global_Styling::get_uabb_global_settings();
 
 				if( isset( $uabb->enable_global ) && ( $uabb->enable_global == 'no' ) ) {
@@ -211,12 +219,12 @@ class UABB_Init {
         if(is_rtl()) {
             wp_enqueue_style('uabb-rtl-css', BB_ULTIMATE_ADDON_URL . 'assets/css/uabb-rtl.css', array() );
         }
-
+		
 	}
 
 	function admin_notices() {
 
-		if ( file_exists( plugin_dir_path( 'bb-plugin-agency/fl-builder.php' ) )
+		if ( file_exists( plugin_dir_path( 'bb-plugin-agency/fl-builder.php' ) ) 
 			|| file_exists( plugin_dir_path( 'beaver-builder-lite-version/fl-builder.php' ) ) ) {
 
 			$url = network_admin_url() . 'plugins.php?s=Beaver+Builder+Plugin';
@@ -233,11 +241,11 @@ class UABB_Init {
   		$uabb = UABB_Init::$uabb_options['fl_builder_uabb'];
 
   		$beta_enable = isset( $uabb['uabb-enable-beta-updates'] ) ? $uabb['uabb-enable-beta-updates'] : false;
-
+  		
   		if ( $beta_enable == true ) {
   			return true;
   		}
-
+  		
   		return false;
   	}
 
@@ -277,6 +285,66 @@ class UABB_Init {
 			}
 		}
   	}
+
+	/**
+	 * Custom inline scripts.
+	 *
+	 * @since 1.6.8
+	 * @return void
+	 */
+	public function uabb_render_scripts()
+	{
+		$branding         = BB_Ultimate_Addon_Helper::get_builder_uabb_branding();
+		$branding_name    = 'UABB';
+		if ( is_array( $branding ) && array_key_exists( 'uabb-plugin-short-name', $branding ) && $branding['uabb-plugin-short-name'] != '' ) {
+			$branding_name = $branding['uabb-plugin-short-name'];
+		}
+
+		if( is_user_logged_in() ) {
+			?>
+			<style>
+				form[class*="fl-builder-adv-testimonials"] .fl-lightbox-header h1:before,
+				form[class*="fl-builder-advanced-accordion"] .fl-lightbox-header h1:before,
+				form[class*="fl-builder-advanced-icon"] .fl-lightbox-header h1:before,
+				form[class*="fl-builder-advanced-separator"] .fl-lightbox-header h1:before,
+				form[class*="fl-builder-advanced-tabs"] .fl-lightbox-header h1:before,
+				form[class*="fl-builder-blog-posts"] .fl-lightbox-header h1:before,
+				form[class*="fl-builder-creative-link"] .fl-lightbox-header h1:before,
+				form[class*="fl-builder-dual-button"] .fl-lightbox-header h1:before,
+				form[class*="fl-builder-dual-color-heading"] .fl-lightbox-header h1:before,
+				form[class*="fl-builder-fancy-text"] .fl-lightbox-header h1:before,
+				form[class*="fl-builder-flip-box"] .fl-lightbox-header h1:before,
+				form[class*="fl-builder-google-map"] .fl-lightbox-header h1:before,
+				form[class*="fl-builder-ihover"] .fl-lightbox-header h1:before,
+				form[class*="fl-builder-image-icon"] .fl-lightbox-header h1:before,
+				form[class*="fl-builder-image-separator"] .fl-lightbox-header h1:before,
+				form[class*="fl-builder-info-banner"] .fl-lightbox-header h1:before,
+				form[class*="fl-builder-info-box"] .fl-lightbox-header h1:before,
+				form[class*="fl-builder-info-circle"] .fl-lightbox-header h1:before,
+				form[class*="fl-builder-info-list"] .fl-lightbox-header h1:before,
+				form[class*="fl-builder-info-table"] .fl-lightbox-header h1:before,
+				form[class*="fl-builder-interactive-banner-1"] .fl-lightbox-header h1:before,
+				form[class*="fl-builder-interactive-banner-2"] .fl-lightbox-header h1:before,
+				form[class*="fl-builder-list-icon"] .fl-lightbox-header h1:before,
+				form[class*="fl-builder-mailchimp-subscribe-form"] .fl-lightbox-header h1:before,
+				form[class*="fl-builder-modal-popup"] .fl-lightbox-header h1:before,
+				form[class*="fl-builder-photo-gallery"] .fl-lightbox-header h1:before,
+				form[class*="fl-builder-pricing-box"] .fl-lightbox-header h1:before,
+				form[class*="fl-builder-progress-bar"] .fl-lightbox-header h1:before,
+				form[class*="fl-builder-ribbon"] .fl-lightbox-header h1:before,
+				form[class*="fl-builder-slide-box"] .fl-lightbox-header h1:before,
+				form[class*="fl-builder-spacer-gap"] .fl-lightbox-header h1:before,
+				form[class*="fl-builder-team"] .fl-lightbox-header h1:before,
+				form[class*="fl-builder-uabb-"] .fl-lightbox-header h1:before {
+					content: "<?php echo $branding_name; ?> ";
+					position: relative;
+					display: inline-block;
+					margin-right: 5px;
+				}
+			</style>
+		<?php
+		}
+	}
 }
 
 /**

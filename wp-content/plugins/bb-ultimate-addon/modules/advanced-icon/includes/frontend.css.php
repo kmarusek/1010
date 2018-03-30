@@ -1,4 +1,4 @@
-<?php
+<?php 
 	$settings->size = ( $settings->size != '' ) ? $settings->size : '40';
 	$settings->spacing = ( $settings->spacing != '' ) ? $settings->spacing : '10';
 ?>
@@ -8,6 +8,7 @@
 
 .fl-node-<?php echo $id; ?> .adv-icon-horizontal .adv-icon-link {
 	margin-bottom: <?php echo $settings->spacing; ?>px;
+	display: inline-block;
 }
 
 /* Left */
@@ -29,7 +30,7 @@
 <?php } ?>
 
 <?php if ( $settings->icon_struc_align == 'vertical' ) { ?>
-
+	
 
 .fl-node-<?php echo $id; ?> .adv-icon-vertical .adv-icon-link {
 	margin-bottom: <?php echo $settings->spacing; ?>px;
@@ -37,12 +38,12 @@
 
 <?php } ?>
 
-<?php
+<?php 
 $icon_count = 1;
 $settings->bg_border_radius = ( $settings->bg_border_radius !== '' ) ? $settings->bg_border_radius : '0';
 $settings->bg_size = ( $settings->bg_size != '' ) ? (int) trim( $settings->bg_size ) : 0;
 
-foreach ( $settings->icons as $i => $icon ) :
+foreach ( $settings->icons as $i => $icon ) : 	
 	$imageicon_array = array(
 
 	  /* General Section */
@@ -76,8 +77,8 @@ foreach ( $settings->icons as $i => $icon ) :
 	  'img_bg_border_radius' => $settings->bg_border_radius,
 
 	  /* Preset Color variable new */
-	  'icon_color_preset' => $settings->color_preset,
-
+	  'icon_color_preset' => $settings->color_preset, 
+	  
 	  /* Icon Colors */
 	  'icon_color' => ( !empty( $icon->icocolor ) ) ? $icon->icocolor : $settings->color,
 	  'icon_hover_color' => ( !empty( $icon->icohover_color ) ) ? $icon->icohover_color : $settings->hover_color,

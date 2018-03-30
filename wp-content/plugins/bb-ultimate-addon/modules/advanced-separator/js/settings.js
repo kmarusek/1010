@@ -3,7 +3,7 @@
 	FLBuilder.registerModuleHelper('advanced-separator', {
 
 		init: function()
-		{
+		{	
 			var form    	= $('.fl-builder-advanced-separator-settings'),
 				image_type 	= form.find('select[name=separator]'),
 				icon_style	= form.find('select[name=icon_style]'),
@@ -26,7 +26,7 @@
 			width.on('keyup', $.proxy( this._toggleAlignOptions, this ) ) ;
 			//image_type.trigger('change');
 		},
-
+		
 		_toggleBorderOptions: function() {
 			var form		= $('.fl-builder-advanced-separator-settings'),
 				show_border = false
@@ -36,12 +36,12 @@
 				image_style 	= form.find('select[name=image_style]').val(),
 				img_border_style 	= form.find('select[name=img_border_style]').val();
 
-
+			
 			if( image_type == 'line_icon' ){
 				if( icon_style == 'custom'  ){
 					show_border = true;
 				}
-
+				
 				if( show_border == false ){
 					form.find('#fl-field-icon_border_width').hide();
 					form.find('#fl-field-icon_border_color').hide();
@@ -76,7 +76,7 @@
 				show_color 	= false,
 				image_type 	= form.find('select[name=separator]').val(),
 				image_style = form.find('select[name=image_style]').val();
-
+			
 			//console.log( this );
 			//console.log( image_style );
 			if( image_type == 'line_image' && image_style == 'custom' ){
@@ -84,7 +84,7 @@
 			}else{
 				form.find('#fl-builder-settings-section-img_colors').hide();
 			}
-
+			
 			this._toggleBorderOptions();
 			this._photoSourceChanged();
 			this._toggleAlignOptions();
@@ -116,7 +116,7 @@
 			var form    		= $('.fl-builder-advanced-separator-settings'),
 				width      		= form.find('input[name=width]'),
 				width_val  		= width.val();
-
+							
 			if ( parseInt( width_val ) < 100 ) {
 				form.find('#fl-field-alignment').show();
 			}else{

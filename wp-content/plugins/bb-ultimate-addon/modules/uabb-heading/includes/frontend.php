@@ -1,5 +1,5 @@
 <div class="uabb-module-content uabb-heading-wrapper uabb-heading-align-<?php echo $settings->alignment; ?> <?php echo ( $settings->separator_style == 'line_text' ) ? $settings->responsive_compatibility : ''; ?>">
-
+	
 	<?php $module->render_separator( 'top' ); ?>
 
 	<<?php echo $settings->tag; ?> class="uabb-heading">
@@ -11,9 +11,9 @@
 		</a>
 		<?php endif; ?>
 	</<?php echo $settings->tag; ?>>
-
+	
 	<?php $module->render_separator( 'center' ); ?>
-
+	
 	<?php if( $settings->description != '' ) : ?>
 	<div class="uabb-subheading uabb-text-editor">
 		<?php echo $settings->description; ?>

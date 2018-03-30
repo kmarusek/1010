@@ -21,6 +21,7 @@ class UABBInfoTableModule extends FLBuilderModule {
             'editor_export'     => true, // Defaults to true and can be omitted.
             'enabled'           => true, // Defaults to true and can be omitted.
             'partial_refresh'   => true, // Defaults to false and can be omitted.
+            'icon'              => 'editor-table.svg',
         ));
     }
 }
@@ -68,7 +69,7 @@ FLBuilder::register_module('UABBInfoTableModule', array(
                     ),
                     'it_link_type'          => array(
                         'type'          => 'select',
-                        'label'         => __( 'Add Link', 'uabb' ),
+                        'label'         => __( 'Add Link', 'uabb' ),  
                         'default'       => 'no',
                         'options'       => array(
                             'no'        => __( 'No Link', 'uabb' ),
@@ -120,7 +121,7 @@ FLBuilder::register_module('UABBInfoTableModule', array(
                 'fields'        => array(
                     'box_design'          => array(
                         'type'          => 'select',
-                        'label'         => __( 'Select Design Style', 'uabb' ),
+                        'label'         => __( 'Select Design Style', 'uabb' ),  
                         'default'       => 'design01',
                         'options'       => array(
                             'design01'        => __( 'Design 01', 'uabb' ),
@@ -150,7 +151,7 @@ FLBuilder::register_module('UABBInfoTableModule', array(
                     ),
                     'color_scheme'          => array(
                         'type'          => 'select',
-                        'label'         => __( 'Select Color Scheme', 'uabb' ),
+                        'label'         => __( 'Select Color Scheme', 'uabb' ),  
                         'default'       => 'black',
                         'options'       => array(
                             'black'        => __( 'Black', 'uabb' ),
@@ -167,13 +168,13 @@ FLBuilder::register_module('UABBInfoTableModule', array(
                             ),
                         )
                     ),
-                    'heading_back_color'    => array(
+                    'heading_back_color'    => array( 
                         'type'       => 'color',
                         'label'      => __('Main background Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'heading_back_color_opc'    => array(
+                    'heading_back_color_opc'    => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -182,13 +183,13 @@ FLBuilder::register_module('UABBInfoTableModule', array(
                         'size'        => '5',
                     ),
 
-                    'desc_back_color'    => array(
+                    'desc_back_color'    => array( 
                         'type'       => 'color',
                         'label'      => __('Highlight background Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'desc_back_color_opc'    => array(
+                    'desc_back_color_opc'    => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -196,10 +197,10 @@ FLBuilder::register_module('UABBInfoTableModule', array(
                         'maxlength'   => '3',
                         'size'        => '5',
                     ),
-
+                    
                     'hover_effect'          => array(
                         'type'          => 'select',
-                        'label'         => __( 'Hover Effect', 'uabb' ),
+                        'label'         => __( 'Hover Effect', 'uabb' ),  
                         'default'       => 'shadow',
                         'options'       => array(
                             'none'        => __( 'None', 'uabb' ),
@@ -208,7 +209,7 @@ FLBuilder::register_module('UABBInfoTableModule', array(
                     ),
                     'min_height'    => array(
                         'type'          => 'text',
-                        'label'         => __( 'Min Height', 'uabb' ),
+                        'label'         => __( 'Min Height', 'uabb' ),  
                         'maxlength'     => '5',
                         'size'          => '6',
                         'description'   => 'px',
@@ -225,13 +226,13 @@ FLBuilder::register_module('UABBInfoTableModule', array(
                 'title'            => __( 'CTA Button Style', 'uabb' ),
                 'fields'        => array(
 
-                    'btn_text_color'        => array(
+                    'btn_text_color'        => array( 
                         'type'       => 'color',
                         'label'         => __('Text Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'btn_text_hover_color'        => array(
+                    'btn_text_hover_color'        => array( 
                         'type'       => 'color',
                         'label'         => __('Text Hover Color', 'uabb'),
                         'default'    => '',
@@ -240,13 +241,13 @@ FLBuilder::register_module('UABBInfoTableModule', array(
                             'type'          => 'none'
                         )
                     ),
-                    'btn_bg_color'    => array(
+                    'btn_bg_color'    => array( 
                         'type'       => 'color',
                         'label'      => __('Background Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'btn_bg_color_opc'    => array(
+                    'btn_bg_color_opc'    => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -255,13 +256,13 @@ FLBuilder::register_module('UABBInfoTableModule', array(
                         'size'        => '5',
                     ),
 
-                    'btn_bg_hover_color'    => array(
+                    'btn_bg_hover_color'    => array( 
                         'type'       => 'color',
                         'label'      => __('Background Hover Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'btn_bg_hover_color_opc'    => array(
+                    'btn_bg_hover_color_opc'    => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -350,7 +351,7 @@ FLBuilder::register_module('UABBInfoTableModule', array(
                     ),
                 )
             ),
-
+            
             /* Image Basic Setting */
             'img_basic'     =>  array( // Section
                 'title'         => __('Image Basics','uabb'), // Section Title
@@ -448,7 +449,7 @@ FLBuilder::register_module('UABBInfoTableModule', array(
                             )
                         ),
                     ),
-
+                    
                     /* Icon Background SIze */
                     'icon_bg_size'          => array(
                         'type'          => 'text',
@@ -537,14 +538,14 @@ FLBuilder::register_module('UABBInfoTableModule', array(
                             ),
                             'custom' => array(
                                 'sections'  => array( 'img_colors' ),
-                                'fields'    => array( 'img_bg_size', 'img_border_style', 'img_border_width', 'img_bg_border_radius' )
+                                'fields'    => array( 'img_bg_size', 'img_border_style', 'img_border_width', 'img_bg_border_radius' ) 
                             )
                         ),
                         'trigger'       => array(
                             'custom'           => array(
                                 'fields'        => array('img_border_style')
                             ),
-
+                            
                         )
                     ),
 
@@ -613,7 +614,7 @@ FLBuilder::register_module('UABBInfoTableModule', array(
             'icon_colors'   => array( // Section
                 'title'         => __('Colors', 'uabb'), // Section Title
                 'fields'        => array( // Section Fields
-
+                            
                     /* Style Options */
                     'icon_color_preset'     => array(
                         'type'          => 'uabb-toggle-switch',
@@ -627,13 +628,13 @@ FLBuilder::register_module('UABBInfoTableModule', array(
                         'help'          => __('Preset 1 => Icon : White, Background : Theme </br>Preset 2 => Icon : Theme, Background : #f3f3f3', 'uabb')
                     ),
                     /* Icon Color */
-                    'icon_color' => array(
+                    'icon_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Icon Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'icon_hover_color' => array(
+                    'icon_hover_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Icon Hover Color', 'uabb'),
                         'default'    => '',
@@ -644,13 +645,13 @@ FLBuilder::register_module('UABBInfoTableModule', array(
                     ),
 
                     /* Background Color Dependent on Icon Style **/
-                    'icon_bg_color' => array(
+                    'icon_bg_color' => array( 
                         'type'       => 'color',
                         'label'         => __('Background Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'icon_bg_color_opc' => array(
+                    'icon_bg_color_opc' => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -658,7 +659,7 @@ FLBuilder::register_module('UABBInfoTableModule', array(
                         'maxlength'   => '3',
                         'size'        => '5',
                     ),
-                    'icon_bg_hover_color' => array(
+                    'icon_bg_hover_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Background Hover Color', 'uabb'),
                         'default'    => '',
@@ -667,7 +668,7 @@ FLBuilder::register_module('UABBInfoTableModule', array(
                                 'type'      => 'none',
                         )
                     ),
-                    'icon_bg_hover_color_opc' => array(
+                    'icon_bg_hover_color_opc' => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -677,19 +678,19 @@ FLBuilder::register_module('UABBInfoTableModule', array(
                     ),
 
                      /* Border Color Dependent on Border Style for ICon */
-                    'icon_border_color' => array(
+                    'icon_border_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Border Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'icon_border_hover_color' => array(
+                    'icon_border_hover_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Border Hover Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-
+                    
                     /* Gradient Color Option */
                     'icon_three_d'       => array(
                         'type'          => 'select',
@@ -706,13 +707,13 @@ FLBuilder::register_module('UABBInfoTableModule', array(
                 'title'         => __('Colors', 'uabb'), // Section Title
                 'fields'        => array( // Section Fields
                     /* Background Color Dependent on Icon Style **/
-                    'img_bg_color' => array(
+                    'img_bg_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Background Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'img_bg_color_opc' => array(
+                    'img_bg_color_opc' => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -720,7 +721,7 @@ FLBuilder::register_module('UABBInfoTableModule', array(
                         'maxlength'   => '3',
                         'size'        => '5',
                     ),
-                    'img_bg_hover_color' => array(
+                    'img_bg_hover_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Background Hover Color', 'uabb'),
                         'default'    => '',
@@ -729,7 +730,7 @@ FLBuilder::register_module('UABBInfoTableModule', array(
                                 'type'      => 'none',
                         )
                     ),
-                    'img_bg_hover_color_opc' => array(
+                    'img_bg_hover_color_opc' => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -739,13 +740,13 @@ FLBuilder::register_module('UABBInfoTableModule', array(
                     ),
 
                      /* Border Color Dependent on Border Style for Image */
-                    'img_border_color' => array(
+                    'img_border_color' => array( 
                         'type'       => 'color',
                         'label'         => __('Border Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'img_border_hover_color' => array(
+                    'img_border_hover_color' => array( 
                         'type'       => 'color',
                         'label'         => __('Border Hover Color', 'uabb'),
                         'default'    => '',
@@ -819,7 +820,7 @@ FLBuilder::register_module('UABBInfoTableModule', array(
                             'unit'            => 'px'
                         )
                     ),
-                    'heading_color'        => array(
+                    'heading_color'        => array( 
                         'type'       => 'color',
                         'label'     => __( 'Color', 'uabb' ),
                         'default'    => '',
@@ -893,7 +894,7 @@ FLBuilder::register_module('UABBInfoTableModule', array(
                             'unit'            => 'px',
                         )
                     ),
-                    'sub_heading_color'        => array(
+                    'sub_heading_color'        => array( 
                         'type'       => 'color',
                         'label'     => __( 'Color', 'uabb' ),
                         'default'    => '',
@@ -951,7 +952,7 @@ FLBuilder::register_module('UABBInfoTableModule', array(
                             'unit'            => 'px',
                         )
                     ),
-                    'description_color'        => array(
+                    'description_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',

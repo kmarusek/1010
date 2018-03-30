@@ -46,7 +46,7 @@
             var form = $('.fl-builder-settings'),
                 id   = form.data('node'),
                 anchorHref = $(this).attr('href');
-
+                
             if( anchorHref == '#fl-builder-settings-tab-submenu' ){
                 jQuery( '.fl-node-' + id + ' .uabb-creative-menu .menu .sub-menu' ).first().css({ 'display': 'block', 'visibility': 'visible', 'opacity': '1' });
             } else {

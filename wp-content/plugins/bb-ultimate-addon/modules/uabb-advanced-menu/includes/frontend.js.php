@@ -6,8 +6,7 @@
 	$mobile_breakpoint 	= isset( $settings->creative_menu_mobile_breakpoint ) ? $settings->creative_menu_mobile_breakpoint : 'mobile';
  ?>
 
-(function($) {
-
+jQuery(document).ready(function(){
     new UABBCreativeMenu({
     	id: '<?php echo $id ?>',
     	type: '<?php echo $type ?>',
@@ -23,5 +22,5 @@
 		fullScreenAnimation: '',
 		isBuilderActive: <?php echo ( FLBuilderModel::is_builder_active() ) ? 'true' : 'false'; ?>
     });
+});
 
-})(jQuery);

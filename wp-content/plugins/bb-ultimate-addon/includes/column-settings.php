@@ -2,7 +2,16 @@
 
 function uabb_column_register_settings() {
 
-    add_filter( 'fl_builder_register_settings_form', 'uabb_column_gradient', 10, 2 );
+    $module = UABB_Init::$uabb_options['fl_builder_uabb'];
+    $colgrad = isset( $module["uabb-col-gradient"] ) ? $module["uabb-col-gradient"] : true;
+    if( $colgrad ) {
+        add_filter( 'fl_builder_register_settings_form', 'uabb_column_gradient', 10, 2 );
+    }
+
+    $colshadow = isset( $module["uabb-col-shadow"] ) ? $module["uabb-col-shadow"] : true;
+    if( $colshadow ) {
+        add_filter( 'fl_builder_register_settings_form', 'uabb_column_shadow', 10, 2 );
+    }
 }
 
 function uabb_column_gradient( $form, $id ) {
@@ -106,7 +115,7 @@ function uabb_column_gradient( $form, $id ) {
                     'no'    => __( 'No', 'uabb' ),
                 ),
                 'toggle'    => array(
-                    'yes'    => array(
+                    'yes'    => array(  
                         'fields'    => array( 'uabb_col_linear_gradient_primary_loc', 'uabb_col_linear_gradient_secondary_loc' )
                     ),
                     'no'    => array(
@@ -178,4 +187,172 @@ function uabb_column_gradient( $form, $id ) {
 
     return $form;
 
+}
+
+function uabb_column_shadow( $form, $id ) {
+
+    if ( 'col' != $id ) {
+        return $form;
+    }
+
+    $advanced = $form['tabs']['advanced'];
+    unset($form['tabs']['advanced']);
+
+    $form['tabs']['col_shadow'] =  array(
+        'title'     => __('Shadow', 'uabb'),
+        'sections'  => array(
+            'box_shadow'    => array(
+                'title'         => __('Box Shadow', 'uabb'),
+                'fields'        => array(
+                    'col_drop_shadow'  => array(
+                        'type'          => 'uabb-toggle-switch',
+                        'label'         => __( 'Box Shadow', 'uabb' ),
+                        'default'       => 'no',
+                        'options'       => array(
+                            'yes'           => __( 'Yes', 'uabb' ),
+                            'no'            => __( 'No', 'uabb' ),
+                        ),
+                        'toggle'        => array(
+                            'yes'        => array(
+                                'fields'        => array( 'col_shadow_color_hor', 'col_shadow_color_ver', 'col_shadow_color_blur', 'col_shadow_color_spr', 'col_shadow_color', 'col_shadow_color_opc' ),
+                                'sections'      => array( 'col_drop_shadow_responsive' )
+                            )
+                        )
+                    ),
+                    'col_shadow_color_hor' => array(
+                        'type'          => 'text',
+                        'label'         => __('Horizontal Length', 'uabb'),
+                        'default'       => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                    ),
+                    'col_shadow_color_ver' => array(
+                        'type'          => 'text',
+                        'label'         => __('Vertical Length', 'uabb'),
+                        'default'       => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                    ),
+                    'col_shadow_color_blur' => array(
+                        'type'          => 'text',
+                        'label'         => __('Blur Radius', 'uabb'),
+                        'default'       => '7',
+                        'size'          => '5',
+                        'description'   => 'px',
+                    ),
+                    'col_shadow_color_spr' => array(
+                        'type'          => 'text',
+                        'label'         => __('Spread Radius', 'uabb'),
+                        'default'       => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                    ),
+                    'col_shadow_color' => array(
+                        'type'       => 'color',
+                        'label'      => __('Shadow Color', 'uabb'),
+                        'default'    => 'rgba(168,168,168,0.5)',
+                        'show_reset' => true,
+                        'show_alpha' => true,
+                    ),                 
+                )
+            ),
+            'col_drop_shadow_color_hover'    => array(
+                'title'         => __('Hover Style', 'uabb'),
+                'fields'        => array(
+                    'col_hover_shadow'  => array(
+                        'type'          => 'uabb-toggle-switch',
+                        'label'         => __( 'Change On Hover', 'uabb' ),
+                        'default'       => 'no',
+                        'options'       => array(
+                            'yes'           => __( 'Yes', 'uabb' ),
+                            'no'            => __( 'No', 'uabb' ),
+                        ),
+                        'toggle'        => array(
+                            'yes'        => array(
+                                'fields'          => array( 'col_shadow_color_hor_hover', 'col_shadow_color_ver_hover', 'col_shadow_color_blur_hover', 'col_shadow_color_spr_hover', 'col_shadow_color_hover', 'col_shadow_hover_transition' ),
+                            )
+                        )
+                    ),
+                    'col_shadow_color_hor_hover' => array(
+                        'type'          => 'text',
+                        'label'         => __('Horizontal Length', 'uabb'),
+                        'default'       => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                    ),
+                    'col_shadow_color_ver_hover' => array(
+                        'type'          => 'text',
+                        'label'         => __('Vertical Length', 'uabb'),
+                        'default'       => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                    ),
+                    'col_shadow_color_blur_hover' => array(
+                        'type'          => 'text',
+                        'label'         => __('Blur Radius', 'uabb'),
+                        'default'       => '10',
+                        'size'          => '5',
+                        'description'   => 'px',
+                    ),
+                    'col_shadow_color_spr_hover' => array(
+                        'type'          => 'text',
+                        'label'         => __('Spread Radius', 'uabb'),
+                        'default'       => '1',
+                        'size'          => '5',
+                        'description'   => 'px',
+                    ),
+                    'col_shadow_color_hover' => array(
+                        'type'       => 'color',
+                        'label'      => __('Shadow Color', 'uabb'),
+                        'default'    => 'rgba(168,168,168,0.9)',
+                        'show_reset' => true,
+                        'show_alpha' => true,
+                    ), 
+                    'col_shadow_hover_transition' => array(
+                        'type'         => 'text',
+                        'label'        => __('Transition Speed', 'uabb'),
+                        'default'      => 200,
+                        'description'  => 'ms',
+                        'size'         => 5,
+                        'maxlength'    => 5,
+                        'help'         => __('Enter value in milliseconds.', 'uabb'),
+                        'preview'      => array(
+                            'type'         => 'none'
+                        )
+                    ),              
+                )
+            ),
+            'col_drop_shadow_responsive'    => array(
+                'title'         => __('Responsive', 'uabb'),
+                'fields'        => array(
+                    'col_responsive_shadow'   => array(
+                        'type'          => 'uabb-toggle-switch',
+                        'label'         => __('Hide on Medium & Small Devices', 'uabb'),
+                        'default'       => 'no',
+                        'options'       => array(
+                            'yes'   => __( 'Yes', 'uabb' ),
+                            'no'    => __( 'No', 'uabb' )
+                        ),
+                        'toggle'        => array(
+                            'no'        => array(
+                                'fields'          => array( 'col_small_shadow' ),
+                            )
+                        )
+                    ),
+                    'col_small_shadow'   => array(
+                        'type'          => 'uabb-toggle-switch',
+                        'label'         => __('Hide on Small Devices', 'uabb'),
+                        'default'       => 'no',
+                        'options'       => array(
+                            'yes'   => __( 'Yes', 'uabb' ),
+                            'no'    => __( 'No', 'uabb' )
+                        )
+                    ),            
+                )
+            ),
+        )
+    );
+    $form['tabs']['advanced'] = $advanced;
+    
+    return $form;
 }

@@ -46,8 +46,8 @@ foreach($settings->icons as $icon) {
 		  'img_bg_border_radius' => $settings->bg_border_radius,
 
 		  /* Preset Color variable new */
-		  'icon_color_preset' => 'preset1',
-
+		  'icon_color_preset' => 'preset1', 
+		  
 		  /* Icon Colors */
 		  'icon_color' => $settings->color,
 		  'icon_hover_color' => $settings->hover_color,

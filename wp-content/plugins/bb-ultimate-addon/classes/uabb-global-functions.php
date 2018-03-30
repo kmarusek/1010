@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 /**
  * = Global functions
@@ -40,13 +40,13 @@ if ( !function_exists('array_replace_recursive') ) {
     	if ( !is_array($base) ) {
       		return $base;
     	}
-
+    
     	for ($i = 1; $i < count($args); $i++) {
       		if ( is_array($args[$i]) ) {
         		$base = recurse($base, $args[$i]);
       		}
     	}
-
+    
     	return $base;
   	}
 
@@ -61,10 +61,10 @@ if ( !function_exists('array_replace_recursive') ) {
         	if (is_array($value)) {
           		$value = recurse($base[$key], $value);
         	}
-
+        	
         	$base[$key] = $value;
       	}
-
+      	
       	return $base;
     }
 }
@@ -81,7 +81,7 @@ function uabb_theme_base_color( $default ) {
 	if ( $default == '' ) {
 
 		$color = apply_filters( 'uabb/global/theme_color', $default );
-
+		
 		if ( $color == '' ) {
 			$color = apply_filters( 'uabb_theme_theme_color', $default );
 		}
@@ -105,7 +105,7 @@ function uabb_theme_text_color( $default ) {
 	if ( $default == '' ) {
 
 		$color = apply_filters( 'uabb/global/text_color', $default );
-
+		
 		if ( $color == '' ) {
 			$color = apply_filters( 'uabb_theme_text_color', $default );
 		}
@@ -129,7 +129,7 @@ function uabb_theme_link_color( $default ) {
 	if ( $default == '' ) {
 
 		$color = apply_filters( 'uabb/global/link_color', $default );
-
+				
 		if ( $color == '' ) {
 			$color = apply_filters( 'uabb_theme_link_color', $default );
 		}
@@ -153,7 +153,7 @@ function uabb_theme_link_hover_color( $default ) {
 	if ( $default == '' ) {
 
 		$color = apply_filters( 'uabb/global/link_hover_color', $default );
-
+				
 		if ( $color == '' ) {
 			$color = apply_filters( 'uabb_theme_link_hover_color', $default );
 		}
@@ -194,7 +194,7 @@ function uabb_theme_button_font_size( $default ) {
 	if ( $default == '' ) {
 
 		$font_size = apply_filters( 'uabb/global/button_font_size', $default );
-
+				
 		if ( $font_size == '' ) {
 			$font_size = apply_filters( 'uabb_theme_button_font_size', $default );
 		}else{
@@ -216,7 +216,7 @@ function uabb_theme_button_line_height( $default ) {
 	if ( $default == '' ) {
 
 		$line_height = apply_filters( 'uabb/global/button_line_height', $default );
-
+				
 		if ( $line_height == '' ) {
 			$line_height = apply_filters( 'uabb_theme_button_line_height', $default );
 		}else{
@@ -238,7 +238,7 @@ function uabb_theme_button_letter_spacing( $default ) {
 	if ( $default == '' ) {
 
 		$letter_spacing = apply_filters( 'uabb/global/button_letter_spacing', $default );
-
+				
 		if ( $letter_spacing == '' ) {
 			$letter_spacing = apply_filters( 'uabb_theme_button_letter_spacing', $default );
 		}else{
@@ -260,7 +260,7 @@ function uabb_theme_button_text_transform( $default ) {
 	if ( $default == '' ) {
 
 		$text_transform = apply_filters( 'uabb/global/button_text_transform', $default );
-
+				
 		if ( $text_transform == '' ) {
 			$text_transform = apply_filters( 'uabb_theme_button_text_transform', $default );
 		}
@@ -284,7 +284,7 @@ function uabb_theme_button_bg_color( $default ) {
 	if ( $default == '' ) {
 
 		$color = apply_filters( 'uabb/global/button_bg_color', $default );
-
+				
 		if ( $color == '' ) {
 			$color = apply_filters( 'uabb_theme_button_bg_color', $default );
 		}
@@ -308,7 +308,7 @@ function uabb_theme_button_bg_hover_color( $default ) {
 	if ( $default == '' ) {
 
 		$color = apply_filters( 'uabb/global/button_bg_hover_color', $default );
-
+				
 		if ( $color == '' ) {
 			$color = apply_filters( 'uabb_theme_button_bg_hover_color', $default );
 		}
@@ -332,7 +332,7 @@ function uabb_theme_button_text_color( $default ) {
 	if ( $default == '' ) {
 
 		$color = apply_filters( 'uabb/global/button_text_color', $default );
-
+				
 		if ( $color == '' ) {
 			$color = apply_filters( 'uabb_theme_button_text_color', $default );
 		}
@@ -356,7 +356,7 @@ function uabb_theme_button_text_hover_color( $default ) {
 	if ( $default == '' ) {
 
 		$color = apply_filters( 'uabb/global/button_text_hover_color', $default );
-
+				
 		if ( $color == '' ) {
 			$color = apply_filters( 'uabb_theme_button_text_hover_color', $default );
 		}
@@ -380,7 +380,7 @@ function uabb_theme_button_padding( $default ) {
 	if ( $default == '' ) {
 
 		$padding = apply_filters( 'uabb/global/button_padding', $default );
-
+							
 		if ( $padding == '' ) {
 			$padding = apply_filters( 'uabb_theme_button_padding', $default );
 			if ( $padding == '' ) {
@@ -400,7 +400,7 @@ function uabb_theme_button_vertical_padding( $default ) {
 	if ( $default == '' ) {
 
 		$padding = apply_filters( 'uabb/global/button_vertical_padding', $default );
-
+							
 		if ( $padding == '' ) {
 			$padding = apply_filters( 'uabb_theme_button_vertical_padding', $default );
 			if ( $padding == '' ) {
@@ -420,7 +420,7 @@ function uabb_theme_button_horizontal_padding( $default ) {
 	if ( $default == '' ) {
 
 		$padding = apply_filters( 'uabb/global/button_horizontal_padding', $default );
-
+							
 		if ( $padding == '' ) {
 			$padding = apply_filters( 'uabb_theme_button_horizontal_padding', $default );
 			if ( $padding == '' ) {
@@ -445,7 +445,7 @@ function uabb_theme_button_border_radius( $default ) {
 	$radius = '';
 
 	if ( $default == '' ) {
-
+	
 		$radius = apply_filters( 'uabb/global/button_border_radius', $default );
 
 		if ( $radius == '' ) {

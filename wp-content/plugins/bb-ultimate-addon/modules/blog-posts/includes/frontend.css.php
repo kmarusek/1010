@@ -112,11 +112,11 @@ if( $settings->cta_type == 'button' ) {
 	FLBuilder::render_module_css('uabb-button', $id , array(
 		/* General Section */
         'text'              => $settings->btn_text,
-
+        
         /* Link Section */
         /*'link'              => $settings->btn_link,
         'link_target'       => $settings->btn_link_target,*/
-
+        
         /* Style Section */
         'style'             => $settings->btn_style,
         'border_size'       => $settings->btn_border_size,
@@ -136,7 +136,7 @@ if( $settings->cta_type == 'button' ) {
         /* Icon */
         'icon'              => $settings->btn_icon,
         'icon_position'     => $settings->btn_icon_position,
-
+        
         /* Structure */
         'width'              => $settings->btn_width,
         'custom_width'       => $settings->btn_custom_width,
@@ -235,6 +235,19 @@ if( $settings->is_carousel == 'masonary' ) {
 	border: <?php echo $settings->selfilter_border_size . 'px ' . $border_style . ' ' . uabb_theme_base_color( $settings->selfilter_color_border ) ?>;
 }
 
+.fl-node-<?php echo $id; ?> ul.uabb-masonary-filters {
+
+	<?php if( $settings->taxonomy_filter_select_font_family['family'] != 'Default' ) {
+		UABB_Helper::uabb_font_css( $settings->taxonomy_filter_select_font_family );
+	} ?>
+	<?php echo ( $settings->taxonomy_filter_select_font_size['desktop'] != '' ) ? 'font-size: ' . $settings->taxonomy_filter_select_font_size['desktop'] . 'px;' : ''; ?>
+
+}
+
+.fl-node-<?php echo $id; ?> ul.uabb-masonary-filters li {
+	<?php echo ( uabb_theme_text_color( $settings->taxonomy_filter_select_color ) != '' ) ? 'color: ' . uabb_theme_text_color( $settings->taxonomy_filter_select_color ) . ';' : ''; ?>
+}
+
 .fl-node-<?php echo $id; ?> .uabb-masonary-filters-wrapper {
 	text-align: <?php echo $settings->selfilter_overall_alignment; ?>;
 }
@@ -246,11 +259,11 @@ if( $settings->is_carousel == 'masonary' ) {
     } else {
     	echo ( uabb_theme_base_color( $settings->masonary_color_border ) != '' ) ? 'border: ' . $settings->masonary_border_size . 'px ' . $settings->masonary_border_style . ' ' . uabb_theme_base_color( $settings->masonary_color_border ) . ';' : '';
     }
-
+    
 
     echo ( uabb_theme_text_color( $settings->masonary_text_color ) != '' ) ? 'color: ' . uabb_theme_text_color( $settings->masonary_text_color ) . ';' : '';
     echo ( $settings->masonary_overall_alignment == 'left' ) ? 'margin-right: 10px;' : ( ( $settings->masonary_overall_alignment == 'right' ) ? 'margin-left: 10px;' : 'margin-right: 5px; margin-left: 5px;' );
-
+    
     echo $settings->masonary_padding;
     ?>
     border-radius: <?php echo ( $settings->masonary_border_radius != '' ) ? $settings->masonary_border_radius : '2'; ?>px;
@@ -261,8 +274,8 @@ if( $settings->is_carousel == 'masonary' ) {
     if( $settings->masonary_button_style == 'square' ) {
     	echo ( $settings->masonary_background_hover_color != '' ) ? 'background: ' . $settings->masonary_background_hover_color . ';' : '';
 
-	    echo ( $settings->masonary_text_hover_color != '' ) ? 'color: ' . $settings->masonary_text_hover_color . ';' : '';
-
+	    echo ( $settings->masonary_text_hover_color != '' ) ? 'color: ' . $settings->masonary_text_hover_color . ';' : '';    
+    
     }
     ?>
 }
@@ -272,10 +285,10 @@ if( $settings->is_carousel == 'masonary' ) {
     echo ( uabb_theme_text_color( $settings->masonary_active_color ) != '' ) ? 'color: ' . uabb_theme_text_color( $settings->masonary_active_color ) . ';' : '';
     if( $settings->masonary_button_style == 'square' ) {
     	echo ( uabb_theme_base_color( $settings->masonary_background_active_color ) != '' ) ? 'background: ' . uabb_theme_base_color( $settings->masonary_background_active_color ) . ';' : '';
-
+	    
     } else {
     	echo ( uabb_theme_base_color( $settings->masonary_active_color_border ) != '' ) ? 'border: ' . $settings->masonary_border_size . 'px ' . $settings->masonary_border_style . ' ' . uabb_theme_base_color( $settings->masonary_active_color_border ) . '; !important' : '';
-    }
+    } 
     ?>
 }
 
@@ -318,14 +331,14 @@ if( $settings->is_carousel == 'masonary' ) {
 	$date_background_color = ( $color != '' ) ? $color : '#EFEFEF';
 	echo 'color: ' . $settings->date_color . ';' ;
 	echo ( $settings->date_font_size['desktop'] != '' ) ? 'font-size: ' . $settings->date_font_size['desktop'] . 'px;' : '';
-
+	
 	if( $settings->date_font_family['family'] != 'Default' ) {
 		UABB_Helper::uabb_font_css( $settings->date_font_family );
 	}
 	?>
 	background: <?php echo $date_background_color; ?>;
 	left: 0;
-
+	
 }
 
 <?php
@@ -352,7 +365,7 @@ if( $settings->show_meta == 'yes' ) {
 	echo ( $settings->meta_font_size['desktop'] != '' ) ? 'font-size: ' . $settings->meta_font_size['desktop'] . 'px;' : '';
 
 	echo ( $settings->meta_text_color != '' ) ? 'color: ' . $settings->meta_text_color . ';' : '';
-
+	
 	if( $settings->meta_font_family['family'] != 'Default' ) {
 		UABB_Helper::uabb_font_css( $settings->meta_font_family );
 	}
@@ -418,7 +431,7 @@ if( $settings->is_carousel == 'carousel' ) {
 	background: <?php echo ( $settings->arrow_background_color != '' ) ? $settings->arrow_background_color : '#efefef'; ?>;
 	<?php
 			break;
-
+		
 		case 'circle':
 	?>
 	border-radius: 50%;
@@ -499,7 +512,7 @@ if( $settings->is_carousel == 'carousel' ) {
 	echo 'color: ' . uabb_theme_text_color( $settings->link_color ) . ';' ;
 	echo ( $settings->link_line_height['desktop'] != '' ) ? 'line-height: ' . $settings->link_line_height['desktop'] . 'px;' : '';
 	echo ( $settings->link_font_size['desktop'] != '' ) ? 'font-size: ' . $settings->link_font_size['desktop'] . 'px;' : '';
-
+	
 	if( $settings->link_font_family['family'] != 'Default' ) {
 		UABB_Helper::uabb_font_css( $settings->link_font_family );
 	}
@@ -511,7 +524,7 @@ if( $settings->is_carousel == 'carousel' ) {
 	echo 'color: ' . uabb_theme_text_color( $settings->desc_color ) . ';' ;
 	echo ( $settings->desc_line_height['desktop'] != '' ) ? 'line-height: ' . $settings->desc_line_height['desktop'] . 'px;' : '';
 	echo ( $settings->desc_font_size['desktop'] != '' ) ? 'font-size: ' . $settings->desc_font_size['desktop'] . 'px;' : '';
-
+	
 	if( $settings->desc_font_family['family'] != 'Default' ) {
 		UABB_Helper::uabb_font_css( $settings->desc_font_family );
 	}
@@ -519,7 +532,7 @@ if( $settings->is_carousel == 'carousel' ) {
 	?>
 }
 
-<?php
+<?php 
 	if( isset( $settings->post_layout ) && $settings->post_layout != 'custom' ) {
 	?>
 		.fl-node-<?php echo $id; ?> <?php echo $settings->title_tag_selection; ?>.uabb-post-heading,
@@ -539,7 +552,7 @@ if( $settings->is_carousel == 'carousel' ) {
 			echo ( $settings->title_margin_bottom != '' ) ? 'margin-bottom: ' . $settings->title_margin_bottom . 'px;' : '';
 			?>
 		}
-	<?php }
+	<?php } 
 	else { ?>
 
 		.fl-node-<?php echo $id; ?> .uabb-post-heading,
@@ -656,7 +669,7 @@ if( $global_settings->responsive_enabled ) { // Global Setting If started
 			.fl-node-<?php echo $id; ?> .uabb-blog-posts-col-4,
 			.fl-node-<?php echo $id; ?> .uabb-blog-posts-col-3,
 			.fl-node-<?php echo $id; ?> .uabb-blog-posts-col-2,
-			.fl-node-<?php echo $id; ?> .uabb-blog-posts-col-1 {
+			.fl-node-<?php echo $id; ?> .uabb-blog-posts-col-1 { 
 				width: <?php echo ( 100 / $settings->post_per_grid_medium ); ?>%;
 			}
 
@@ -683,7 +696,7 @@ if( $global_settings->responsive_enabled ) { // Global Setting If started
 			<?php
 			echo ( $settings->meta_line_height['medium'] != '' ) ? 'line-height: ' . $settings->meta_line_height['medium'] . 'px;' : '';
 			echo ( $settings->meta_font_size['medium'] != '' ) ? 'font-size: ' . $settings->meta_font_size['medium'] . 'px;' : '';
-
+			
 			?>
 		}
 		<?php
@@ -791,11 +804,12 @@ if( $global_settings->responsive_enabled ) { // Global Setting If started
 		<?php
 		}
 		?>
-		.fl-node-<?php echo $id; ?> select.uabb-masonary-filters {
+		.fl-node-<?php echo $id; ?> select.uabb-masonary-filters,
+    	.fl-node-<?php echo $id; ?> ul.uabb-masonary-filters {
 			<?php echo ( $settings->taxonomy_filter_select_font_size['medium'] != '' ) ? 'font-size: ' . $settings->taxonomy_filter_select_font_size['medium'] . 'px;' : ''; ?>
 		}
     }
-
+ 
     @media ( max-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {
 
      	<?php
@@ -849,12 +863,12 @@ if( $global_settings->responsive_enabled ) { // Global Setting If started
 			.fl-node-<?php echo $id; ?> .uabb-blog-posts-col-4,
 			.fl-node-<?php echo $id; ?> .uabb-blog-posts-col-3,
 			.fl-node-<?php echo $id; ?> .uabb-blog-posts-col-2,
-			.fl-node-<?php echo $id; ?> .uabb-blog-posts-col-1 {
+			.fl-node-<?php echo $id; ?> .uabb-blog-posts-col-1 { 
 				width: <?php echo ( 100 / $settings->post_per_grid_small ); ?>%;
 			}
      	<?php
      	}
-
+     	
     	if( $settings->link_line_height['small'] != '' || $settings->link_font_size['small'] != '' ) {
     	?>
      	.fl-node-<?php echo $id; ?> .uabb-blog-post-content .uabb-read-more-text,
@@ -888,7 +902,7 @@ if( $global_settings->responsive_enabled ) { // Global Setting If started
 			<?php
 			echo ( $settings->meta_line_height['small'] != '' ) ? 'line-height: ' . $settings->meta_line_height['small'] . 'px;' : '';
 			echo ( $settings->meta_font_size['small'] != '' ) ? 'font-size: ' . $settings->meta_font_size['small'] . 'px;' : '';
-
+			
 			?>
 		}
 		<?php
@@ -962,8 +976,9 @@ if( $global_settings->responsive_enabled ) { // Global Setting If started
 			}
 		}
 		?>
-
-    	.fl-node-<?php echo $id; ?> select.uabb-masonary-filters {
+    	
+    	.fl-node-<?php echo $id; ?> select.uabb-masonary-filters,
+    	.fl-node-<?php echo $id; ?> ul.uabb-masonary-filters {
 			<?php echo ( $settings->taxonomy_filter_select_font_size['small'] != '' ) ? 'font-size: ' . $settings->taxonomy_filter_select_font_size['small'] . 'px;' : ''; ?>
 		}
     }

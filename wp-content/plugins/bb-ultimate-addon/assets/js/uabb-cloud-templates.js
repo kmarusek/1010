@@ -2,7 +2,7 @@ jQuery( function( $ ) {
 
 	/**
 	 * AJAX Request Queue
-	 *
+	 * 
 	 * - add()
 	 * - remove()
 	 * - run()
@@ -18,7 +18,7 @@ jQuery( function( $ ) {
 
 			/**
 			 * Add AJAX request
-			 *
+			 * 
 			 * @since 1.2.0.8
 			 */
 			add:  function(opt) {
@@ -51,7 +51,7 @@ jQuery( function( $ ) {
 			             if( typeof(oriSuc) === 'function' ) oriSuc();
 			             requests.shift();
 			             self.run.apply(self, []);
-			        };
+			        };   
 
 			        jQuery.ajax(requests[0]);
 
@@ -78,7 +78,7 @@ jQuery( function( $ ) {
 	}());
 
 	jQuery(document).ready(function($) {
-
+		
 		/**
 		 *	Lazy Load
 		 */
@@ -208,7 +208,7 @@ jQuery( function( $ ) {
 							+ '<span class="msg"> '+UABBCloudTemplates.btnTextInstall+' </span></span>';
 				jQuery('#TB_title').append( output );
 			}
-
+	
 			//	hide iframe until complete load and show loader
 			//	once complete iframe loaded then disable loader
 			jQuery('#TB_iframeContent').hide();
@@ -312,7 +312,7 @@ jQuery( function( $ ) {
 									}
 					break;
 			}
-
+			
 			if( processAJAX ) {
 
 		       	UABBajaxQueue.add({
@@ -423,7 +423,7 @@ jQuery( function( $ ) {
 							 * Something went wrong
 							 */
 							if( '' != msg ) {
-
+	
 								btn.find('.msg').html( UABBCloudTemplates.errorMessageTryAgain );
 								btn.find('i').removeClass('uabb-reloading-iconfonts');
 
@@ -431,7 +431,7 @@ jQuery( function( $ ) {
 								btn_template_image.append( message );
 
 							} else {
-								btn.find('.msg').html( status );
+								btn.find('.msg').html( status );								
 							}
 						}
 					}

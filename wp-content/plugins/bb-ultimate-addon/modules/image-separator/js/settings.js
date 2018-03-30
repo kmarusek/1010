@@ -7,15 +7,15 @@
 		},
 
 		init: function()
-		{
+		{	
 			var form    	= $('.fl-builder-settings'),
 				image_style	= form.find('select[name=image_style]');
-
+			
 			this._toggleBorderOptions();
 
 			image_style.on('change', $.proxy( this._toggleBorderOptions, this ) ) ;
 		},
-
+		
 		_toggleBorderOptions: function() {
 			var form		= $('.fl-builder-settings'),
 				image_style 	= form.find('select[name=image_style]').val(),
@@ -39,11 +39,11 @@
 
 			this._toggleImageIcon();
 		},
-
+		
 		_toggleImageIcon: function() {
 			var form        = $('.fl-builder-settings'),
 				image_style = form.find('select[name=image_style]').val();
-
+			
 			if( image_style == 'custom' ) {
 				form.find('#fl-builder-settings-section-img_colors').show();
 			}else {

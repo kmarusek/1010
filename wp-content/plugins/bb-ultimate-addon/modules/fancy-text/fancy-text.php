@@ -17,7 +17,9 @@ class UABBFancyTextModule extends FLBuilderModule {
             'group'         => UABB_CAT,
 			'dir'           	=> BB_ULTIMATE_ADDON_DIR . 'modules/fancy-text/',
             'url'           	=> BB_ULTIMATE_ADDON_URL . 'modules/fancy-text/',
-            'partial_refresh'	=> true
+            'partial_refresh'	=> true,
+			'icon'				=> 'text.svg',
+
 		));
 
 		$this->add_js('jquery-waypoints');
@@ -252,7 +254,7 @@ FLBuilder::register_module('UABBFancyTextModule', array(
 							'type'            => 'css',
 							'selector'        => '.uabb-fancy-text-prefix',
 							'property'        => 'margin-right',
-							'unit'			  => 'px'
+							'unit'			  => 'px'	
 						),
 						'help'			=> __('Space between Prefix and Fancy Text.', 'uabb')
 					),
@@ -356,7 +358,7 @@ FLBuilder::register_module('UABBFancyTextModule', array(
                             'unit'		=> 'px'
                     	),
                     ),
-                    'color'        => array(
+                    'color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',
@@ -414,7 +416,7 @@ FLBuilder::register_module('UABBFancyTextModule', array(
                             'unit'		=> 'px'
                     	),
                     ),
-                    'fancy_color'        => array(
+                    'fancy_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',

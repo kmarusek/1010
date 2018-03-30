@@ -42,7 +42,7 @@ $info_banner_id = rand(1000, 9999);
 
 			// Link CTA
 			$module->render_link();
-			// Button CTA
+			// Button CTA 
 			$module->render_button();
 		}
 		?>

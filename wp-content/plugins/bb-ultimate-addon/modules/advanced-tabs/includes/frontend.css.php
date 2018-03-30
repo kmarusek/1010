@@ -6,10 +6,10 @@
     $settings->title_background_color = UABB_Helper::uabb_colorpicker( $settings, 'title_background_color', true );
     $settings->title_background_hover_color = UABB_Helper::uabb_colorpicker( $settings, 'title_background_hover_color', true );
     $settings->title_active_background_color = UABB_Helper::uabb_colorpicker( $settings, 'title_active_background_color', true );
-
+    
     $settings->underline_border_color = UABB_Helper::uabb_colorpicker( $settings, 'underline_border_color' );
     //$settings->underline_separation_color = UABB_Helper::uabb_colorpicker( $settings, 'underline_separation_color' );
-
+    
     $settings->icon_color = UABB_Helper::uabb_colorpicker( $settings, 'icon_color');
     $settings->icon_hover_color = UABB_Helper::uabb_colorpicker( $settings, 'icon_hover_color' );
     $settings->icon_active_color = UABB_Helper::uabb_colorpicker( $settings, 'icon_active_color' );
@@ -18,7 +18,7 @@
     $settings->content_background_color = UABB_Helper::uabb_colorpicker( $settings, 'content_background_color', true );
 
     $settings->content_border_color = UABB_Helper::uabb_colorpicker( $settings, 'content_border_color' );
-
+    
     /* Fallback depricated underline Style */
     if( $settings->style == 'underline' ) {
         $settings->style = 'topline';
@@ -35,7 +35,7 @@ if( $settings->style != 'iconfall' && $settings->style != 'linebox' ) {
 ?>
     .fl-node-<?php echo $id; ?> .uabb-tabs .uabb-tabs-nav<?php echo $id; ?> ul {
         <?php echo ( $settings->tab_style_alignment != 'left' ) ? ( ( $settings->tab_style_alignment != 'center' ) ? 'justify-content: flex-end;' : 'justify-content: center;' ) : 'justify-content: flex-start;'; ?>
-
+        
     }
 <?php
     } else {
@@ -80,7 +80,7 @@ if( $settings->style != 'iconfall' && $settings->style != 'linebox' ) {
 $equal_width = false;
 
 if ( $settings->tab_style_width == 'equal' ) {
-
+    
     if ( $settings->style == 'simple' || $settings->style == 'bar' || $settings->style == 'topline' || $settings->style == 'linebox' ) {
         if ( $settings->style != 'linebox' && $settings->tab_style == 'full' ) {
             $equal_width = true;
@@ -94,7 +94,7 @@ if ( $settings->tab_style_width == 'equal' ) {
 
 if( $equal_width == true ) { ?>
     .fl-node-<?php echo $id; ?> .uabb-tabs .uabb-tabs-nav<?php echo $id; ?> ul li {
-        flex-basis: 1px;
+        flex-basis: 1px;    
     }
 
     .fl-node-<?php echo $id; ?> .uabb-tabs .uabb-tabs-nav<?php echo $id; ?> ul li .uabb-tab-link {
@@ -102,13 +102,13 @@ if( $equal_width == true ) { ?>
         height: 100%;
     }
 
-    .fl-node-<?php echo $id; ?> .uabb-tabs .uabb-tabs-nav<?php echo $id; ?> ul li .uabb-tag-selected {
+    .fl-node-<?php echo $id; ?> .uabb-tabs .uabb-tabs-nav<?php echo $id; ?> ul li .uabb-tag-selected {        
         height: 100%;
     }
 
     <?php if ( $settings->show_icon == 'yes' && ( $settings->icon_position == 'left' || $settings->icon_position == 'right' ) ) { ?>
         .fl-node-<?php echo $id; ?> .uabb-tabs .uabb-tabs-nav<?php echo $id; ?> ul li .uabb-tab-title {
-            display: initial;
+            display: initial; 
         }
     <?php } ?>
 
@@ -182,8 +182,8 @@ if( $settings->style != 'iconfall' ) {
 .fl-node-<?php echo $id; ?> .uabb-tabs .uabb-tabs-nav<?php echo $id; ?> li a,
 .fl-node-<?php echo $id; ?> .uabb-tab-acc-title .uabb-title-tag {
     color: <?php echo uabb_theme_text_color( $settings->title_color ); ?>;
-    <?php
-    if( $settings->title_font_family['family'] != 'Default' ) {
+    <?php 
+    if( $settings->title_font_family['family'] != 'Default' ) { 
         UABB_Helper::uabb_font_css( $settings->title_font_family );
     }
     echo ( $settings->title_font_size['desktop'] != '' ) ? 'font-size: ' . $settings->title_font_size['desktop'] . 'px;' : '';
@@ -260,7 +260,7 @@ if( $settings->icon_hover_color != '' ) {
     <?php echo ( $settings->icon_hover_color != '' ) ? 'color:' . $settings->icon_hover_color . ';' : ''; ?>
 }
 <?php
-   }
+   } 
 }
 
 if( $settings->title_active_color != '' ) {
@@ -301,7 +301,7 @@ if( $settings->icon_active_color != '' ) {
     if( $settings->content_border_style == 'none' && $settings->content_border_radius != '' ) {
         echo 'border-radius: ' . $settings->content_border_radius . 'px;';
     }
-
+    
     echo 'text-align: ' . $settings->content_alignment . ';';
     ?>
 }
@@ -325,7 +325,7 @@ if( $settings->style == 'bar' ) {
     color: <?php echo uabb_theme_text_color( $settings->content_color ); ?>;
     <?php
     if( $settings->content_font_family['family'] != 'Default' ) {
-        UABB_Helper::uabb_font_css( $settings->content_font_family );
+        UABB_Helper::uabb_font_css( $settings->content_font_family );        
     }
     echo ( $settings->content_font_size['desktop'] != '' ) ? 'font-size: ' . $settings->content_font_size['desktop'] . 'px;' : '';
     echo ( $settings->content_line_height['desktop'] != '' ) ? 'line-height: ' . $settings->content_line_height['desktop'] . 'px;' : '';
@@ -453,9 +453,9 @@ if( $global_settings->responsive_enabled ) { // Global Setting If started
         .fl-node-<?php echo $id; ?> .uabb-tab-acc-title .uabb-acc-icon {
             <?php echo ( $settings->title_line_height['medium'] != '' ) ? 'line-height: ' . $settings->title_line_height['medium'] . 'px;' : ''; ?>
         }
-
+        
     }
-
+ 
     @media ( max-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {
 
         .fl-node-<?php echo $id; ?> .uabb-content-wrap<?php echo $id; ?> > .section > .uabb-text-editor {

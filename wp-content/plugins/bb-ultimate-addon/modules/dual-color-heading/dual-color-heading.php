@@ -14,6 +14,7 @@ class UABBDualColorModule extends FLBuilderModule {
             'editor_export'   => true, // Defaults to true and can be omitted.
             'enabled'         => true, // Defaults to true and can be omitted.
             'partial_refresh' => true, // Defaults to false and can be omitted.
+            'icon'            => 'text.svg',
         ));
     }
 }
@@ -80,7 +81,7 @@ FLBuilder::register_module('UABBDualColorModule', array(
                             'property'        => 'margin-right',
                             'unit'            => 'px'
                         )
-
+                       
                     ),
                     'heading_margin'     => array(
                         'type'          => 'text',
@@ -91,26 +92,26 @@ FLBuilder::register_module('UABBDualColorModule', array(
                         'description'   => 'px',
                         'help'          => __( 'Enter value for the spacing between first & second heading.', 'uabb' )
                     ),
-                    'first_heading_color' => array(
+                    'first_heading_color' => array( 
                         'type'       => 'color',
                         'label'         => __('First Heading Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                         'preview'         => array(
                             'type'            => 'css',
-                            'selector'        => '.uabb-first-heading-text',
+                            'selector'        => '.fl-module-content .uabb-module-content.uabb-dual-color-heading .uabb-first-heading-text',
                             'property'        => 'color'
                         ),
                         'help'          => __( 'Select color for first part of heading.', 'uabb' )
                     ),
-                    'second_heading_color' => array(
+                    'second_heading_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Second Heading Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                         'preview'         => array(
                             'type'            => 'css',
-                            'selector'        => '.uabb-second-heading-text',
+                            'selector'        => '.fl-module-content .uabb-module-content.uabb-dual-color-heading .uabb-second-heading-text',
                             'property'        => 'color'
                         ),
                         'help'          => __( 'Select color for second part of heading.', 'uabb' )

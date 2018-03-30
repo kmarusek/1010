@@ -46,7 +46,7 @@ if ( $settings->list_connector_option == "yes" ) {
 		}
 	?>
 	.fl-node-<?php echo $id;?> .uabb-info-list-connector {
-
+		
 		<?php if( $settings->align_items == 'center' ) : ?>
 		top: calc( 50% + <?php echo ( $settings->icon_image_size / 2 ) + $icon_extra_padding - $space_element; ?>px );
 		height: calc( 50% - <?php echo ( $settings->icon_image_size / 2 ) + $icon_extra_padding - $space_element; ?>px );
@@ -63,7 +63,7 @@ if ( $settings->list_connector_option == "yes" ) {
 		height: calc( 50% - <?php echo ( ( $settings->icon_image_size / 2 ) + $icon_extra_padding ); ?>px );
 	}
 	<?php endif; ?>
-
+	
 	.fl-node-<?php echo $id;?> .uabb-info-list-wrapper.uabb-info-list-top li .uabb-info-list-connector {
 		border-top-style: <?php //echo $settings->list_connector_style;?>;
     	border-top-width: 1px;
@@ -95,7 +95,7 @@ if( $settings->icon_position == 'left' || $settings->icon_position == 'right' ) 
 .fl-node-<?php echo $id;?> .uabb-info-list-wrapper .uabb-info-list-item:last-child {
 	padding-bottom: 0;
 }
-
+	
 <?php
 
 /* Code As per Image position */
@@ -120,7 +120,7 @@ if( $settings->icon_position == "left" ){ ?>
 	.fl-node-<?php echo $id;?> .uabb-info-list-wrapper.uabb-info-list-left li .uabb-info-list-connector-top {
 		<?php
 		if ( $settings->list_icon_style === "custom" && $settings->list_icon_bg_padding != "" ) {
-			$extra_padding = $settings->list_icon_bg_padding * 2 / 2;
+			$extra_padding = $settings->list_icon_bg_padding * 2 / 2; 
 			if ( $settings->list_icon_border_style != "none" ) {
 				$extra_padding = $extra_padding + $settings->list_icon_border_width;
 			}
@@ -148,7 +148,7 @@ if( $settings->icon_position == "left" ){ ?>
 			}
 		}else{
 			$extra_padding = 0;
-		}
+		} 
 		$icon_image_size = $settings->icon_image_size;
 		?>
 		width: calc( 100% - <?php echo $icon_image_size + 20 + $extra_padding;?>px );
@@ -164,7 +164,7 @@ if( $settings->icon_position == "left" ){ ?>
 		}else{
 			$extra_padding = 0;
 		}
-
+		
 		$icon_image_size = $settings->icon_image_size;
 		?>
 		right: <?php echo $icon_image_size / 2 + $extra_padding ;?>px;
@@ -178,7 +178,7 @@ if( $settings->icon_position == "left" ){ ?>
 <?php
 } if( $settings->icon_position == "top" ){ ?>
 	.fl-node-<?php echo $id;?> .uabb-info-list-wrapper.uabb-info-list-top li .uabb-info-list-connector {
-
+		
 		<?php if ( $settings->list_icon_style === "custom" &&  $settings->list_icon_bg_padding != "" ) {
 			$extra_padding = $settings->list_icon_bg_padding;
 			$extra_padding_top = $settings->list_icon_bg_padding * 2;
@@ -205,7 +205,7 @@ if( $settings->icon_position == "left" ){ ?>
 		?>
 		top: <?php echo ( $settings->icon_image_size / 2 ) + $extra_padding ;?>px;
 	}
-
+	
 	<?php if ( $settings->space_between_elements != "" ) { ?>
 		.fl-node-<?php echo $id;?> .uabb-info-list-wrapper .uabb-info-list-item {
 			padding-bottom: <?php echo ( $settings->space_between_elements );?>px;
@@ -229,14 +229,14 @@ if( $settings->icon_position == "left" ){ ?>
 }
 ?>
 
-<?php /* Assign Style to inner Items*/
+<?php /* Assign Style to inner Items*/ 
 	$list_item_counter = 0;
 	foreach( $settings->add_list_item as $item ){
 
 		/*if ( $settings->list_icon_style == 'simple' && ( $settings->icon_position == "right" || $settings->icon_position == "left" ) ) {
 			if ( $item->image_type == 'icon' ) {
 	?>
-			.fl-node-<?php echo $id; ?> .uabb-info-list .uabb-info-list-icon .uabb-icon-wrap .uabb-icon i,
+			.fl-node-<?php echo $id; ?> .uabb-info-list .uabb-info-list-icon .uabb-icon-wrap .uabb-icon i, 
 			.fl-node-<?php echo $id; ?> .uabb-info-list .uabb-info-list-icon .uabb-icon-wrap .uabb-icon i:before {
 			    width: 1.3em;
 			    height: 1.3em;
@@ -277,8 +277,8 @@ if( $settings->icon_position == "left" ){ ?>
 			<?php } ?>
 			<?php
 			}
-			else {
-				$custom_extra_width = 0;
+			else { 
+				$custom_extra_width = 0; 
 			} ?>
 
 			text-align: center;
@@ -306,7 +306,7 @@ if( $settings->icon_position == "left" ){ ?>
             'icon' => ( isset( $item->icon ) ) ? $item->icon : '',
             'icon_size' => $infolist_icon_size,
             'icon_align' => "center",
-
+         
             /* Image Basics */
             'photo_source' => ( isset( $item->photo_source ) ) ? $item->photo_source : '',
             'photo' => ( isset( $item->photo ) ) ? $item->photo : '',
@@ -314,14 +314,14 @@ if( $settings->icon_position == "left" ){ ?>
             'img_size' => $settings->icon_image_size,
             'img_align' => "center",
             'photo_src' => ( isset( $item->photo_src ) ) ? $item->photo_src : '',
-
+         
             /* Icon Style */
             'icon_style' => $settings->list_icon_style,
             'icon_bg_size' => $settings->list_icon_bg_padding * 2,
             'icon_border_style' => $settings->list_icon_border_style,
             'icon_border_width' => $settings->list_icon_border_width,
             'icon_bg_border_radius' => $settings->list_icon_bg_border_radius,
-
+         
             /* Image Style */
             'image_style' => $settings->list_icon_style,
             'img_bg_size' => $settings->list_icon_bg_padding,
@@ -329,7 +329,7 @@ if( $settings->icon_position == "left" ){ ?>
             'img_border_width' => $settings->list_icon_border_width,
             'img_bg_border_radius' => $settings->list_icon_bg_border_radius,
 
-            /* Icon Colors */
+            /* Icon Colors */ 
 		    'icon_color' => ( isset( $item->icon_color ) ) ?  $item->icon_color : '',
 		    'icon_hover_color' => "",
 		    'icon_bg_color' => $settings->list_icon_bg_color,
@@ -338,15 +338,15 @@ if( $settings->icon_position == "left" ){ ?>
 		    'icon_border_color' => $settings->list_icon_border_color,
 		    'icon_border_hover_color' => "",
 		    'icon_three_d' => "",
-
+		 
 		    /* Image Colors */
 		    'img_bg_color' => $settings->list_icon_bg_color,
 		    'img_bg_color_opc' => $settings->list_icon_bg_color_opc,
 		    'img_bg_hover_color' => "",
 		    'img_border_color' => $settings->list_icon_border_color,
 		    'img_border_hover_color' => "",
-        );
-        /* CSS Render Function */
+        ); 
+        /* CSS Render Function */ 
  		FLBuilder::render_module_css( 'image-icon', $id . " .info-list-icon-dynamic". $list_item_counter, $imageicon_array );
 
  		/* If No image no Icon selected than run this */
@@ -354,7 +354,7 @@ if( $settings->icon_position == "left" ){ ?>
  		{
  		?>
  		.fl-node-<?php echo $id;?> .info-list-icon-dynamic<?php echo $list_item_counter;?> .uabb-imgicon-wrap {
-
+ 			
 			<?php if ( $settings->list_icon_style =="custom" ) {
 				$custom_extra_width = $settings->list_icon_bg_padding * 2;
 				if ( $settings->list_icon_border_style != "none" ) {
@@ -374,19 +374,19 @@ if( $settings->icon_position == "left" ){ ?>
 			<?php if ( $settings->list_icon_style =="simple" ) { ?>
 			background: <?php echo uabb_theme_base_color( '' );?>;
 			<?php }else { ?>
- 			background: <?php echo uabb_theme_base_color( $settings->list_icon_bg_color );?>;
- 			<?php
- 				}
- 			} ?>
+			background: <?php echo uabb_theme_base_color( $settings->list_icon_bg_color );?>;
+			<?php 
+				}
+			} ?>
 
- 			<?php if ( $settings->list_icon_style =="circle" ) { ?>
- 			border-radius: 50%;
- 			<?php } ?>
- 			<?php if ( $settings->icon_position =="top" ) { ?>
- 			margin: auto;
- 			<?php } ?>
- 		}
- 		<?php
+			<?php if ( $settings->list_icon_style =="circle" ) { ?>
+			border-radius: 50%;
+			<?php } ?>
+			<?php if ( $settings->icon_position =="top" ) { ?>
+			margin: auto;
+			<?php } ?>
+		}
+		<?php	
  		}
  		if( ( isset( $item->image_type ) && $item->image_type != "none" ) || ( ( isset( $item->icon ) && $item->icon != "" ) || ( isset( $item->photo_src ) && $item->photo_src != "" ) || ( isset( $item->photo_url ) && $item->photo_url != "" ) ) )
  		{
@@ -396,8 +396,8 @@ if( $settings->icon_position == "left" ){ ?>
 	 			background: <?php echo uabb_theme_base_color( $settings->list_icon_bg_color );?>;
 	 			<?php } ?>
 	 		}
-	 	<?php
-	 	}
+	 	<?php 
+	 	} 
 	 	if( ( isset( $item->image_type ) && $item->image_type == "none" ) && ( isset( $item->icon_position ) && $settings->icon_position != 'top' ) ) {
 	 	?>
 			.fl-node-<?php echo $id;?> .uabb-info-list-content-wrapper.<?php echo $settings->icon_position; ?> .info-list-content-dynamic<?php echo $list_item_counter;?> {
@@ -409,19 +409,20 @@ if( $settings->icon_position == "left" ){ ?>
 		if( ( isset( $item->image_type ) && $item->image_type == 'photo' ) && ( $settings->list_icon_style === "custom" || $settings->list_icon_style === "simple" ) ) :
 			$img_size = array();
 			if( $item->photo_source == 'library' && $item->photo != '' ) :
-				$img_size = ( isset( FLBuilderPhoto::get_attachment_data($item->photo)->url ) ) ? getimagesize( FLBuilderPhoto::get_attachment_data($item->photo)->url ) : '';
+				$img_size[0] = ( isset( FLBuilderPhoto::get_attachment_data($item->photo)->width ) ) ? FLBuilderPhoto::get_attachment_data($item->photo)->width : '';
+				$img_size[1] = ( isset( FLBuilderPhoto::get_attachment_data($item->photo)->height ) ) ? FLBuilderPhoto::get_attachment_data($item->photo)->height : '';
 			elseif( trim($item->photo_url) != '' ) :
 				$img_size = getimagesize( $item->photo_url );
 			endif;
 
-			if( isset($img_size[0]) && isset($img_size[1]) ) :
+			if( isset($img_size[0]) && isset($img_size[1]) && $img_size[0] != 0 ) :
 				$actual_height = ( $settings->icon_image_size * $img_size[1] ) / $img_size[0];
-
+				
 				if( $actual_height > $settings->icon_image_size ) :
 					$need_to_add = $actual_height - $settings->icon_image_size;
 				else :
 					$need_to_add = $settings->icon_image_size - $actual_height;
-				endif;
+				endif; 
 
 
 				if ( $settings->list_connector_option == "yes" ) : ?>
@@ -450,15 +451,15 @@ if( $settings->icon_position == "left" ){ ?>
 ?>
 
 .fl-node-<?php echo $id;?> .uabb-icon i {
-	float: none;
+	float: none;	
 }
 .fl-node-<?php echo $id;?> .uabb-icon {
-	display: block;
+	display: block;	
 }
 
 
-<?php
-/* Typography style starts here  */
+<?php 
+/* Typography style starts here  */ 
 
 if ( $settings->heading_font_family['family'] != "Default" || $settings->heading_font_size['desktop'] != '' || $settings->heading_line_height['desktop'] != '' || $settings->heading_color != '' || $settings->heading_margin_top != '' || $settings->heading_margin_bottom != '' ) { ?>
 	.fl-node-<?php echo $id;?> .uabb-info-list-content .uabb-info-list-title{
@@ -500,14 +501,14 @@ if ( $settings->description_font_family['family'] != "Default" || $settings->des
 		<?php endif; ?>
 	}
 
-<?php }
+<?php } 
 
-/* Typography style Ends here  */
+/* Typography style Ends here  */ 
 ?>
 
-/* Typography responsive layout starts here */
+/* Typography responsive layout starts here */ 
 
-<?php if($global_settings->responsive_enabled) { // Global Setting If started
+<?php if($global_settings->responsive_enabled) { // Global Setting If started 
 	if( $settings->heading_font_size['medium'] !="" || $settings->heading_line_height['medium'] != "" || $settings->description_font_size['medium'] !="" || $settings->description_line_height['medium'] != "" ) {
 	?>
 		@media ( max-width: <?php echo $global_settings->medium_breakpoint .'px'; ?> ) {

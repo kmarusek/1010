@@ -1,11 +1,11 @@
 /**
  *
- * This file should contain frontend styles that
+ * This file should contain frontend styles that 
  * will be applied to individual module instances of Slide Box.
  *
  */
 
-<?php
+<?php 
     $settings->icon_color = UABB_Helper::uabb_colorpicker( $settings, 'icon_color' );
     $settings->icon_hover_color = UABB_Helper::uabb_colorpicker( $settings, 'icon_hover_color' );
     $settings->overlay_icon_color = UABB_Helper::uabb_colorpicker( $settings, 'overlay_icon_color' );
@@ -82,7 +82,7 @@
         'img_bg_border_radius' => '',
 
         /* Preset Color variable new */
-        'icon_color_preset' => 'preset1',
+        'icon_color_preset' => 'preset1', 
 
         /* Icon Colors */
         'icon_color' => $settings->icon_color,
@@ -101,8 +101,8 @@
         'img_border_hover_color' => '',
 
     );
-
-    /* CSS Render Function */
+     
+    /* CSS Render Function */ 
     FLBuilder::render_module_css( 'image-icon', $id, $imageicon_array );
 ?>
 
@@ -129,7 +129,7 @@ if( $settings->icon_hover_color != '' /*&& $settings->slide_type == 'style1'*/ )
 
 ?>
 
-/*.fl-node-<?php //echo $id; ?> .uabb-slide-box-wrap .uabb-icon-wrap .uabb-icon i,
+/*.fl-node-<?php //echo $id; ?> .uabb-slide-box-wrap .uabb-icon-wrap .uabb-icon i, 
 .fl-node-<?php //echo $id; ?> .uabb-slide-box-wrap .uabb-icon-wrap .uabb-icon i:before {
     width: 1.3em;
     height: 1.3em;
@@ -148,9 +148,9 @@ if( $settings->icon_hover_color != '' /*&& $settings->slide_type == 'style1'*/ )
     }
 <?php } ?>
 
-.fl-node-<?php echo $id; ?> .fl-module-content .uabb-slide-dropdown .uabb-icon i,
+.fl-node-<?php echo $id; ?> .fl-module-content .uabb-slide-dropdown .uabb-icon i, 
 .fl-node-<?php echo $id; ?> .fl-module-content .uabb-slide-dropdown .uabb-icon i:before {
-
+    
     font-size: <?php echo $settings->dropdown_icon_size; ?>px;
     <?php
     if( $settings->slide_type == "style2" ) {
@@ -173,7 +173,7 @@ if( $settings->icon_hover_color != '' /*&& $settings->slide_type == 'style1'*/ )
     ?>
 }
 
-.fl-node-<?php echo $id; ?> .uabb-slide-box-overlay .uabb-icon i,
+.fl-node-<?php echo $id; ?> .uabb-slide-box-overlay .uabb-icon i, 
 .fl-node-<?php echo $id; ?> .uabb-slide-box-overlay .uabb-icon i:before {
     color: <?php echo uabb_theme_base_color ( $settings->overlay_icon_color ); ?>;
     font-size: <?php echo $settings->overlay_icon_size; ?>px;
@@ -195,7 +195,7 @@ if( $settings->icon_hover_color != '' /*&& $settings->slide_type == 'style1'*/ )
     <?php if( $settings->set_min_height != 'default' && !empty($settings->slide_min_height) ) { ?>
     min-height: <?php echo $settings->slide_min_height; ?>px;
     justify-content : <?php echo $settings->slide_vertical_align; ?>;
-    <?php } ?>
+    <?php } ?> 
 }
 
 /*  Front Slide Vertical Alignment */
@@ -211,14 +211,14 @@ if( $settings->icon_hover_color != '' /*&& $settings->slide_type == 'style1'*/ )
     <?php
     }
     ?>
-
+    
 }
 
 /* Calculated Width Slidebox */
 <?php if ( $settings->front_img_icon_position != 'above-title' && $settings->image_type != 'none' ) { ?>
-    <?php
+    <?php 
     $extra_width = 0;
-    if ( $settings->image_type == "photo" ) {
+    if ( $settings->image_type == "photo" ) { 
 
         $extra_width = $settings->img_size;
         if ( $settings->image_style == 'custom' ) {
@@ -244,8 +244,8 @@ if( $settings->icon_hover_color != '' /*&& $settings->slide_type == 'style1'*/ )
 
         <?php if ( $settings->front_icon_border == 'yes' ) { ?>
         .fl-node-<?php echo $id; ?> .uabb-slide-icon-border {
-            position: absolute;
-            height: 100%;
+            position: absolute; 
+            height: 100%; 
             top: 0;
             transition: all linear 300ms;
         }
@@ -253,20 +253,20 @@ if( $settings->icon_hover_color != '' /*&& $settings->slide_type == 'style1'*/ )
         .fl-node-<?php echo $id; ?> .uabb-slide-front-right-text {
             width: calc( 100% - <?php echo ( $extra_width + $settings->front_icon_border_size );?>px );
         }
-
+        
         .fl-node-<?php echo $id; ?> .open-slidedown .uabb-slide-icon-border {
             <?php echo ( $settings->front_icon_border_hover_color != '' ) ? 'border-color: '.$settings->front_icon_border_hover_color.';' : ''; ?>
         }
-
+       
         .fl-node-<?php echo $id; ?> .uabb-slide-icon-left .uabb-slide-icon-border,
         .fl-node-<?php echo $id; ?> .uabb-slide-photo-left .uabb-slide-icon-border {
-            border-right-style: solid;
+            border-right-style: solid; 
             <?php echo ( $settings->front_icon_border_color != '' ) ? 'border-right-color: '.$settings->front_icon_border_color.';' : ''; ?>
             border-right-width: <?php echo $settings->front_icon_border_size; ?>px
         }
         .fl-node-<?php echo $id; ?> .uabb-slide-icon-right .uabb-slide-icon-border,
         .fl-node-<?php echo $id; ?> .uabb-slide-photo-right .uabb-slide-icon-border {
-            border-left-style: solid;
+            border-left-style: solid; 
             <?php echo ( $settings->front_icon_border_color != '' ) ? 'border-left-color: '.$settings->front_icon_border_color.';' : ''; ?>
             border-left-width: <?php echo $settings->front_icon_border_size; ?>px
         }
@@ -350,7 +350,7 @@ if( $settings->slide_type == "style1" ) { ?>
 
 <?php
 if( $settings->slide_type == "style2" ) {
-?>
+?>  
     .fl-node-<?php echo $id; ?> .uabb-slide-box-wrap {
         <?php echo ( $settings->dropdown_icon_size != '' ) ? 'margin-bottom: ' . ( ( $settings->dropdown_icon_size * 1.75 ) / 2 ) . 'px;' : ''; ?>
     }
@@ -388,8 +388,8 @@ if( $settings->slide_type == "style2" ) {
     <?php
     }
     ?>
-
-
+        
+            
 <?php
 }
 ?>
@@ -397,7 +397,7 @@ if( $settings->slide_type == "style2" ) {
 <?php
 if( $settings->slide_type == "style3" ) {
 ?>
-    .fl-node-<?php echo $id; ?> .uabb-style3 .uabb-slide-dropdown .uabb-icon i,
+    .fl-node-<?php echo $id; ?> .uabb-style3 .uabb-slide-dropdown .uabb-icon i, 
     .fl-node-<?php echo $id; ?> .uabb-style3 .uabb-slide-dropdown .uabb-icon i:before {
         line-height: 1em;
         height: 1em;
@@ -433,7 +433,7 @@ if( $settings->slide_type == "style3" ) {
 
 /* Font Front Slide Heading (Desktop) */
 .fl-node-<?php echo $id; ?> .uabb-slide-box .uabb-slide-face-text-title {
-
+    
     <?php if( $settings->front_title_font_family['family'] != "Default") : ?>
         <?php UABB_Helper::uabb_font_css( $settings->front_title_font_family ); ?>
     <?php endif; ?>
@@ -474,7 +474,7 @@ if( $settings->slide_type == "style3" ) {
 
 /* Font Back Slide Heading (Desktop) */
 .fl-node-<?php echo $id; ?> .uabb-slide-box .uabb-slide-back-text-title {
-
+    
     <?php if( $settings->back_title_font_family['family'] != "Default") : ?>
         <?php UABB_Helper::uabb_font_css( $settings->back_title_font_family ); ?>
     <?php endif; ?>
@@ -515,7 +515,7 @@ if( $settings->slide_type == "style3" ) {
 }
 
 /* Link Color */
-<?php if( !empty($settings->link_color) ) : ?>
+<?php if( !empty($settings->link_color) ) : ?> 
 .fl-builder-content .fl-node-<?php echo $id; ?> a.uabb-callout-cta-link,
 .fl-builder-content .fl-node-<?php echo $id; ?> a.uabb-callout-cta-link *,
 .fl-builder-content .fl-node-<?php echo $id; ?> a.uabb-callout-cta-link:visited {
@@ -582,7 +582,7 @@ if( $global_settings->responsive_enabled ) { // Global Setting If started
             <?php endif; ?>
         }
     }
-
+ 
      @media ( max-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {
 
         .fl-node-<?php echo $id; ?> .uabb-slide-box .uabb-slide-box-section-content {
@@ -675,7 +675,7 @@ if( $global_settings->responsive_enabled ) { // Global Setting If started
                     -webkit-box-direction: reverse;
                     -ms-flex-direction: column-reverse;
                     flex-direction: column-reverse;
-                }
+                } 
                 <?php endif; ?>
 
             <?php else : ?>
@@ -686,7 +686,7 @@ if( $global_settings->responsive_enabled ) { // Global Setting If started
                     <?php echo ( $settings->dropdown_icon_size != '' ) ? 'padding-bottom: ' . ( $settings->dropdown_icon_size + 10 ) . 'px;' : ''; ?>
                 }
             <?php endif; ?>
-
+        
         <?php endif; ?>
     }
 <?php

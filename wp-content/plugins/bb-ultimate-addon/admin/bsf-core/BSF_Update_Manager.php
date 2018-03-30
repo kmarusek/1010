@@ -37,12 +37,8 @@ if ( ! class_exists( 'BSF_Update_Manager' ) ) {
 				$_transient_data = new stdClass;
 			}
 
-			if ( 'plugins.php' == $pagenow && 'update-core.php' !== $pagenow ) {
-				return $_transient_data;
-			}
-
 			$update_data = $this->bsf_update_transient_data( 'plugins' );
-
+			
 			foreach ( $update_data as $key => $product ) {
 
 				if ( isset( $product['template'] ) && $product['template'] != '' ) {
@@ -113,13 +109,13 @@ if ( ! class_exists( 'BSF_Update_Manager' ) ) {
 
 				$themes                = array();
 				$themes['theme']       = isset( $template ) ? $template : '';
-
+				
 				if ( $this->use_beta_version( $product['id'] ) ) {
 					$themes['new_version'] = isset( $product['version_beta'] ) ? $product['version_beta'] : '';
 				} else {
-					$themes['new_version'] = isset( $product['remote'] ) ? $product['remote'] : '';
+					$themes['new_version'] = isset( $product['remote'] ) ? $product['remote'] : '';	
 				}
-
+				
 				$themes['url']         = isset( $product['purchase_url'] ) ? $product['purchase_url'] : '';
 				if ( BSF_License_Manager::bsf_is_active_license( $product['id'] ) == 'registered' ) {
 					$themes['package'] = $this->bsf_get_package_uri( $product['id'] );
@@ -173,9 +169,9 @@ if ( ! class_exists( 'BSF_Update_Manager' ) ) {
 					if ( $this->use_beta_version( $id ) ) {
 						$info->new_version = isset( $product['version_beta'] ) ? $product['version_beta'] : '';
 					} else {
-						$info->new_version = isset( $product['remote'] ) ? $product['remote'] : '';
+						$info->new_version = isset( $product['remote'] ) ? $product['remote'] : '';	
 					}
-
+					
 					$product_name      = isset( $product['name'] ) ? $product['name'] : '';
 					$info->name        = apply_filters( "bsf_product_name_{$id}", $product_name );
 					$info->slug        = $product_slug;
@@ -230,7 +226,19 @@ if ( ! class_exists( 'BSF_Update_Manager' ) ) {
 				}
 			}
 
-			return array_unique( $product_parent );
+			// Bundled plugins are installed when the demo is imported on Ajax request and bundled products should be unchanged in the ajax.
+			if ( ! defined( 'DOING_AJAX' ) ) {
+
+				$key = array_search( 'astra-pro-sites', $product_parent );
+
+				if ( false !== $key ) {
+					unset( $product_parent[ $key ] );
+				}
+			}
+
+			$product_parent = apply_filters( 'bsf_is_product_bundled', array_unique( $product_parent ), $bsf_product, $search_by );			
+
+			return $product_parent;
 		}
 
 		public function bsf_get_package_uri( $product_id ) {
@@ -294,12 +302,23 @@ if ( ! class_exists( 'BSF_Update_Manager' ) ) {
 				)
 			);
 
+			// Request http URL if the https version fails.
+			if ( is_wp_error( $request ) && wp_remote_retrieve_response_code( $request ) !== 200 ) {
+				$path    = get_api_url( true ) . '?referer=package-' . $product_id;
+				$request = wp_remote_post(
+					$path, array(
+						'body'      => $data,
+						'timeout'   => '30'
+					)
+				);
+			}
+
 			if ( ! is_wp_error( $request ) || wp_remote_retrieve_response_code( $request ) === 200 ) {
 
 				$result = json_decode( wp_remote_retrieve_body( $request ) );
 
 				if ( isset( $result->error ) && ! $result->error ) {
-
+					
 					if ( $this->use_beta_version( $product_id ) ) {
 						$download_path = $result->update_data->download_url_beta;
 					} else {
@@ -355,7 +374,7 @@ if ( ! class_exists( 'BSF_Update_Manager' ) ) {
 					array_push( $update_required, $product );
 				}
 			}
-
+			
 			return $update_required;
 		}
 
@@ -377,7 +396,7 @@ if ( ! class_exists( 'BSF_Update_Manager' ) ) {
 			$status  = false;
 
 			$bsf_local_transient = (int) get_option( 'bsf_local_transient', false );
-
+			
 			if ( $bsf_local_transient != false ) {
 
 				// Find seconds passed since the last timestamp update (i.e. last request made)
@@ -450,20 +469,22 @@ if ( ! class_exists( 'BSF_Update_Manager' ) ) {
 					$id = $product['id'];
 
 					if ( BSF_License_Manager::bsf_is_active_license( $id ) == false ) {
-
 						if ( isset( $product['template'] ) && $product['template'] != '' ) {
 							$template = $product['template'];
 						} elseif ( isset( $product['init'] ) && $product['init'] != '' ) {
 							$template = $product['init'];
 						}
 
-						add_action( "in_plugin_update_message-$template", array(
-							$this,
-							'bsf_add_registration_message'
-						), 9, 2 );
+						if ( is_plugin_active( $template ) ) {
+							add_action( "in_plugin_update_message-$template", array(
+								$this,
+								'bsf_add_registration_message'
+							), 9, 2 );
+						}
 					}
 				}
 			}
+
 		}
 
 		public function brainstorm_all_products() {
@@ -506,6 +527,7 @@ if ( ! class_exists( 'BSF_Update_Manager' ) ) {
 
 			if ( ! empty( $bundled ) ) {
 				$parent_id   = $bundled[0];
+				$registration_page 	= bsf_registration_page_url( '', $parent_id );
 				$parent_name = apply_filters( "bsf_product_name_{$parent_id}", brainstrom_product_name( $parent_id ) );
 				printf( __( ' <br>This plugin is came bundled with the <i>%1$s</i>. For receiving updates, you need to register license of <i>%2$s</i> <a href="%3$s">here</a>.' ), $parent_name, $parent_name, $registration_page );
 			} else {
@@ -522,10 +544,11 @@ if ( ! class_exists( 'BSF_Update_Manager' ) ) {
 			if ( isset( $current->skin->plugin_info ) ) {
 				$plugin_info = $current->skin->plugin_info;
 
-				$plugin_name = $plugin_info['Name'];
-				$product_id  = brainstrom_product_id_by_name( $plugin_name );
-				$plugin_name = apply_filters( "bsf_product_name_{$product_id}", $plugin_name );
-				$is_bundled  = self::bsf_is_product_bundled( $plugin_name, 'name' );
+				$plugin_name 			= $plugin_info['Name'];
+				$product_id  			= brainstrom_product_id_by_name( $plugin_name );
+				$plugin_name 			= apply_filters( "bsf_product_name_{$product_id}", $plugin_name );
+				$is_bundled  			= self::bsf_is_product_bundled( $plugin_name, 'name' );
+				$registration_page_url 	= bsf_registration_page_url( '', $product_id );
 
 				if ( empty( $is_bundled ) ) {
 					if ( strcasecmp( $plugin_info['Author'], "Brainstorm Force" ) !== 0 ) {
@@ -536,22 +559,23 @@ if ( ! class_exists( 'BSF_Update_Manager' ) ) {
 				} else {
 					$is_bundled  = isset( $is_bundled[0] ) ? $is_bundled[0] : $plugin_name;
 					$plugin_name = apply_filters( "bsf_product_name_{$is_bundled}", brainstrom_product_name( $is_bundled ) );
+					$registration_page_url = bsf_registration_page_url( '', $is_bundled );
 				}
 
 				$strings['downloading_package'] = 'Downloading the package...';
 
 				if ( $plugin_info['Author'] == 'Brainstorm Force' ) {
 					$strings['no_package'] = sprintf(
-						__( 'Click <a target="_blank" href="%1s" rel="noopener">here</a> to activate license of <i>%2s</i> to receive automatic updates.' ),
-						bsf_registration_page_url( '', $product_id ),
+						__( 'Click <a target="_blank" href="%1s">here</a> to activate license of <i>%2s</i> to receive automatic updates.' ),
+						$registration_page_url,
 						$plugin_name
 					);
 				} elseif ( $is_bundled !== '' ) {
 					$strings['no_package'] = sprintf(
-						__( 'This plugin is came bundled with the <i>%1s</i>. For receiving updates, you need to register license of <i>%2s</i> <a target="_blank" rel="noopener" href="%3s">here</a>.' ),
+						__( 'This plugin is came bundled with the <i>%1s</i>. For receiving updates, you need to register license of <i>%2s</i> <a target="_blank" href="%3s">here</a>.' ),
 						$plugin_name,
 						$plugin_name,
-						bsf_registration_page_url( '', $product_id )
+						$registration_page_url
 					);
 				}
 
@@ -564,7 +588,7 @@ if ( ! class_exists( 'BSF_Update_Manager' ) ) {
 				if ( $theme_author == 'Brainstorm Force' ) {
 					$strings['downloading_package'] = 'Downloading the package...';
 					$strings['no_package']          = sprintf(
-						__( 'Click <a target="_blank" rel="noopener" href="%1s">here</a> to activate license of <i>%2s</i> to receive automatic updates.' ),
+						__( 'Click <a target="_blank" href="%1s">here</a> to activate license of <i>%2s</i> to receive automatic updates.' ),
 						bsf_registration_page_url( '', $product_id ),
 						$theme_name
 					);
@@ -582,4 +606,3 @@ if ( ! class_exists( 'BSF_Update_Manager' ) ) {
 
 	new BSF_Update_Manager();
 }
-

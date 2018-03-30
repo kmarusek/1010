@@ -1,9 +1,9 @@
-<?php
+<?php 
     $settings->input_text_color = UABB_Helper::uabb_colorpicker( $settings, 'input_text_color' );
     $settings->input_background_color = UABB_Helper::uabb_colorpicker( $settings, 'input_background_color', true );
     $settings->input_border_color = UABB_Helper::uabb_colorpicker( $settings, 'input_border_color' );
     $settings->input_border_active_color = UABB_Helper::uabb_colorpicker( $settings, 'input_border_active_color' );
-
+    
     $settings->btn_text_color = UABB_Helper::uabb_colorpicker( $settings, 'btn_text_color' );
     $settings->btn_text_hover_color = UABB_Helper::uabb_colorpicker( $settings, 'btn_text_hover_color' );
     $settings->btn_background_color = UABB_Helper::uabb_colorpicker( $settings, 'btn_background_color', true );
@@ -17,7 +17,7 @@
     $settings->success_msg_color = UABB_Helper::uabb_colorpicker( $settings, 'success_msg_color' );
     $settings->error_msg_color = UABB_Helper::uabb_colorpicker( $settings, 'error_msg_color' );
     $settings->invalid_border_color = UABB_Helper::uabb_colorpicker( $settings, 'invalid_border_color' );
-
+    
 ?>
 .fl-node-<?php echo $id; ?> {
 	width: 100%;
@@ -51,8 +51,8 @@
 	color: <?php echo $settings->invalid_msg_color; ?>;
 }
 
-.fl-node-<?php echo $id; ?> .uabb-success,
-.fl-node-<?php echo $id; ?> .uabb-success-none,
+.fl-node-<?php echo $id; ?> .uabb-success, 
+.fl-node-<?php echo $id; ?> .uabb-success-none, 
 .fl-node-<?php echo $id; ?> .uabb-success-msg {
 	color: <?php echo $settings->success_msg_color; ?>;
 }
@@ -61,9 +61,16 @@
 	color: <?php echo $settings->error_msg_color; ?>;
 }
 
-.fl-node-<?php echo $id; ?> .uabb-contact-form .uabb-input-group-wrap .uabb-error textarea,
-.fl-node-<?php echo $id; ?> .uabb-contact-form .uabb-input-group-wrap .uabb-error input[type=text],
-.fl-node-<?php echo $id; ?> .uabb-contact-form .uabb-input-group-wrap .uabb-error input[type=tel],
+.fl-node-<?php echo $id; ?> .uabb-success-none, 
+.fl-node-<?php echo $id; ?> .uabb-success-msg,
+.fl-node-<?php echo $id; ?> .uabb-send-error {
+	text-align: <?php echo $settings->error_msg_alignment; ?>;
+}
+
+
+.fl-node-<?php echo $id; ?> .uabb-contact-form .uabb-input-group-wrap .uabb-error textarea, 
+.fl-node-<?php echo $id; ?> .uabb-contact-form .uabb-input-group-wrap .uabb-error input[type=text], 
+.fl-node-<?php echo $id; ?> .uabb-contact-form .uabb-input-group-wrap .uabb-error input[type=tel], 
 .fl-node-<?php echo $id; ?> .uabb-contact-form .uabb-input-group-wrap .uabb-error input[type=email] {
 	border-color: <?php echo $settings->invalid_border_color; ?>;
 }
@@ -127,7 +134,7 @@
 }
 
 .fl-node-<?php echo $id; ?> .uabb-input-group-wrap .uabb-input-group .uabb-error input:-ms-input-placeholder,
-.fl-node-<?php echo $id; ?> .uabb-input-group-wrap .uabb-input-group .uabb-error textarea:-ms-input-placeholder {
+.fl-node-<?php echo $id; ?> .uabb-input-group-wrap .uabb-input-group .uabb-error textarea:-ms-input-placeholder {  
 	color: <?php echo $settings->invalid_msg_color; ?> !important;
 }
 
@@ -150,7 +157,7 @@
 }
 
 .fl-node-<?php echo $id; ?> .uabb-input-group-wrap .uabb-input-group input:-ms-input-placeholder,
-.fl-node-<?php echo $id; ?> .uabb-input-group-wrap .uabb-input-group textarea:-ms-input-placeholder {
+.fl-node-<?php echo $id; ?> .uabb-input-group-wrap .uabb-input-group textarea:-ms-input-placeholder {  
 	color: <?php echo uabb_theme_text_color( $settings->input_text_color ); ?>;
 }
 
@@ -244,9 +251,9 @@ if ( $settings->btn_align != 'full' ) { ?>
 }
 <?php } ?>
 
-.fl-node-<?php echo $id; ?> .uabb-contact-form .uabb-contact-form-submit {
+.fl-builder-content .fl-node-<?php echo $id; ?> .uabb-module-content.uabb-contact-form .uabb-contact-form-submit {
 	border-radius: <?php echo  ( $settings->btn_radius != '' ) ? $settings->btn_radius : '4'; ?>px;
-
+	
 	<?php if ( $settings->btn_style == 'flat' ) { ?>
 		background: <?php echo uabb_theme_base_color( $settings->btn_background_color ); ?>;
 	<?php }elseif ( $settings->btn_style == 'transparent' ) { ?>
@@ -273,7 +280,7 @@ if ( $settings->btn_align != 'full' ) { ?>
 	<?php } ?>
 
 	color: <?php echo uabb_theme_text_color( $settings->btn_text_color ); ?>;
-
+	
 	<?php if ( $settings->btn_align == 'full' ) { ?>
 		width:100%;
 	<?php } ?>
@@ -285,7 +292,7 @@ if ( $settings->btn_align != 'full' ) { ?>
 }
 
 
-.fl-node-<?php echo $id; ?> .uabb-contact-form .uabb-contact-form-submit:hover {
+.fl-builder-content .fl-node-<?php echo $id; ?> .uabb-module-content.uabb-contact-form .uabb-contact-form-submit:hover {
 	<?php if ( $settings->btn_style == 'flat' ) { ?>
 		<?php if( $settings->btn_text_hover_color != '' ) { ?>
 		color: <?php echo $settings->btn_text_hover_color; ?>;
@@ -309,7 +316,7 @@ if ( $settings->btn_align != 'full' ) { ?>
 		<?php
 		}
 		?>
-
+		
 		border-width: <?php echo $settings->btn_border_width; ?>px;
 	<?php }elseif ( $settings->btn_style == 'gradient' ) { ?>
 		<?php if( $settings->btn_text_hover_color != '' ) { ?>
@@ -329,11 +336,11 @@ if ( $settings->btn_align != 'full' ) { ?>
 	<?php } ?>
 
 
-
+	
 }
 
 
-.fl-node-<?php echo $id; ?> .uabb-contact-form .uabb-contact-form-submit:active {
+.fl-builder-content .fl-node-<?php echo $id; ?> .uabb-module-content.uabb-contact-form .uabb-contact-form-submit:active {
 	<?php if ( $settings->btn_style == '3d' ) { ?>
 		top: 6px;
 		box-shadow: 0 0px <?php echo uabb_theme_base_color( $shadow_color ); ?>;
@@ -344,7 +351,7 @@ if ( $settings->btn_align != 'full' ) { ?>
 /* Typography CSS */
 .fl-node-<?php echo $id; ?> .uabb-contact-form input,
 .fl-node-<?php echo $id; ?> .uabb-contact-form textarea {
-
+	
 	<?php if( $settings->font_family['family'] != "Default") : ?>
 		<?php UABB_Helper::uabb_font_css( $settings->font_family ); ?>
 	<?php endif; ?>
@@ -361,7 +368,7 @@ if ( $settings->btn_align != 'full' ) { ?>
 
 .fl-node-<?php echo $id; ?> .uabb-contact-form-submit {
 	<?php $uabb_theme_btn_family = apply_filters( 'uabb_theme_button_font_family', '' ); ?>
-
+	
 	<?php if ( uabb_theme_button_letter_spacing('') != '' ) { ?>
 	letter-spacing: <?php echo uabb_theme_button_letter_spacing(''); ?>;
 	<?php } ?>
@@ -375,8 +382,8 @@ if ( $settings->btn_align != 'full' ) { ?>
 	<?php else : ?>
 		<?php if( isset( $uabb_theme_btn_family['family'] ) ) { ?>
 		font-family: <?php echo $uabb_theme_btn_family['family']; ?>;
-		<?php } ?>
-
+		<?php } ?> 
+		
 		<?php if ( isset( $uabb_theme_btn_family['weight'] ) ) { ?>
 		font-weight: <?php echo $uabb_theme_btn_family['weight']; ?>;
 		<?php } ?>
@@ -429,7 +436,7 @@ if ( $settings->btn_align != 'full' ) { ?>
 			?>
 			.fl-node-<?php echo $id; ?> .uabb-contact-form input,
 			.fl-node-<?php echo $id; ?> .uabb-contact-form textarea {
-
+				
 				<?php if( $settings->font_size['medium'] != '' ) : ?>
 				font-size: <?php echo $settings->font_size['medium']; ?>px;
 				line-height: <?php echo $settings->font_size['medium'] + 2; ?>px;
@@ -441,7 +448,7 @@ if ( $settings->btn_align != 'full' ) { ?>
 			}
 
 			.fl-node-<?php echo $id; ?> .uabb-contact-form-submit {
-
+				
 				<?php if( $settings->btn_font_size['medium'] != '' ) : ?>
 				font-size: <?php echo $settings->btn_font_size['medium']; ?>px;
 				line-height: <?php echo $settings->btn_font_size['medium'] + 2; ?>px;
@@ -454,7 +461,7 @@ if ( $settings->btn_align != 'full' ) { ?>
 
 			<?php if ( $settings->form_style == 'style1' && $settings->enable_label == 'yes' ) { ?>
 			.fl-node-<?php echo $id; ?> .uabb-contact-form label {
-
+				
 				<?php if( $settings->label_font_size["medium"] != '' ) : ?>
 				font-size: <?php echo $settings->label_font_size['medium']; ?>px;
 				<?php endif; ?>
@@ -496,7 +503,7 @@ if ( $settings->btn_align != 'full' ) { ?>
 
 			<?php if ( $settings->form_style == 'style1' && $settings->enable_label == 'yes' ) { ?>
 			.fl-node-<?php echo $id; ?> .uabb-contact-form label {
-
+				
 				<?php if( $settings->label_font_size["small"] != '' ) : ?>
 				font-size: <?php echo $settings->label_font_size['small']; ?>px;
 				<?php endif; ?>

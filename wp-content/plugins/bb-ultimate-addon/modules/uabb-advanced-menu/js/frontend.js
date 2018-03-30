@@ -54,7 +54,7 @@
 		 * @return bool
 		 */
 		_isMobile: function() {
-			return $( window ).width() < this.breakPoints.small ? true : false;
+			return $( window ).width() <= this.breakPoints.small ? true : false;
 		},
 
 		/**
@@ -303,7 +303,11 @@
 				$menu    = $wrapper.children( '.menu' );
 
 				if( !$wrapper.find( '.uabb-creative-menu-mobile-toggle' ).hasClass( 'uabb-active' ) ) {
-					$menu.css({ display: 'none' });
+					if( window.innerWidth <= this.mediaBreakpoint ) {
+						$menu.css({ display: 'none' });
+					} else {
+						$menu.css({ display: 'block' });
+					}
 				}
 
 				$wrapper.off().on( 'click', '.uabb-creative-menu-mobile-toggle', function( e ) {
@@ -378,7 +382,7 @@
 		},
 
 		/**
-		 * Trigger the toggle event for off-canvas
+		 * Trigger the toggle event for off-canvas.
 		 * and full-screen overlay menus.
 		 *
 		 * @since  	1.6.0
@@ -400,6 +404,7 @@
 			$(self.nodeClass).find('.uabb-creative-menu .uabb-menu-close-btn, .uabb-clear' ).on( 'click', function() {
 				$(self.nodeClass).find('.uabb-creative-menu').addClass('menu-close');
 				$(self.nodeClass).find('.uabb-creative-menu').removeClass('menu-open');
+
 			} );
 
 			if ( this.isBuilderActive ) {
@@ -416,6 +421,8 @@
 					}
 					if ( ! $(self.nodeClass).find('.uabb-creative-menu').hasClass('menu-open') ) {
 						$('.uabb-creative-menu').removeClass('menu-open');
+						$('.uabb-creative-menu-mobile-toggle').removeClass('uabb-active');
+
 						$(self.nodeClass).find('.uabb-creative-menu-mobile-toggle').trigger('click');
 					}
 				});
@@ -434,7 +441,7 @@
 			var module     = $( this.nodeClass ),
 				rowContent = module.closest( '.fl-row-content' ),
 				rowWidth   = rowContent.width(),
-				rowOffset  = rowContent.offset().left,
+				rowOffset  = ( rowContent.offset.left != undefined ) ? rowContent.offset().left : '',
 				megas      = module.find( '.mega-menu' ),
 				disabled   = module.find( '.mega-menu-disabled' ),
 				isToggle   = this._isMenuToggle();

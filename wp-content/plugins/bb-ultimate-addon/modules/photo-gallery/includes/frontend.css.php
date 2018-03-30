@@ -1,4 +1,4 @@
-<?php
+<?php 
 	$settings->overlay_color = ( $settings->overlay_color == '' ) ? '000000' : $settings->overlay_color;
 	$settings->overlay_color = UABB_Helper::uabb_colorpicker( $settings, 'overlay_color', true );
 	$settings->caption_bg_color = UABB_Helper::uabb_colorpicker( $settings, 'caption_bg_color', true );
@@ -43,7 +43,7 @@
 <?php if($settings->click_action == 'lightbox' && !empty($settings->show_captions)) : ?>
 .mfp-gallery img.mfp-img {
 	padding: 40px 0;
-}
+}	
 
 .mfp-counter {
 	display: block !important;
@@ -84,13 +84,13 @@
 
 <?php if($global_settings->responsive_enabled) { // Global Setting If started ?>
 	@media ( max-width: <?php echo $global_settings->medium_breakpoint .'px'; ?> ) {
-
+		
 		.fl-node-<?php echo $id; ?> .uabb-photo-gallery-caption,
 		.fl-node-<?php echo $id; ?> .uabb-background-mask .uabb-caption  {
 			<?php if( $settings->font_size['medium'] != '' ) : ?>
 			font-size: <?php echo $settings->font_size['medium']; ?>px;
 			<?php endif; ?>
-
+	
 			<?php if( $settings->line_height['medium'] != '' ) : ?>
 			line-height: <?php echo $settings->line_height['medium']; ?>px;
 			<?php endif; ?>
@@ -112,7 +112,7 @@
 			.fl-node-<?php echo $id; ?> .uabb-photo-gallery-item:nth-child(<?php echo $settings->medium_grid_column; ?>n+0){
 				clear: right;
 			}
-		<?php } elseif($settings->layout == 'masonary' && $settings->grid_column != $settings->medium_grid_column) { ?>
+		<?php } elseif($settings->layout == 'masonary' && $settings->grid_column != $settings->medium_grid_column) { ?>	
 			.fl-node-<?php echo $id; ?> .uabb-grid-sizer {
 				width: <?php echo 100/$settings->medium_grid_column; ?>%;
 			}
@@ -123,13 +123,13 @@
 		<?php } ?>
 	}
 	@media ( max-width: <?php echo $global_settings->responsive_breakpoint .'px'; ?> ) {
-
+		
 		.fl-node-<?php echo $id; ?> .uabb-photo-gallery-caption,
 		.fl-node-<?php echo $id; ?> .uabb-background-mask .uabb-caption  {
 			<?php if( $settings->font_size['small'] != '' ) : ?>
 			font-size: <?php echo $settings->font_size['small']; ?>px;
 			<?php endif; ?>
-
+	
 			<?php if( $settings->line_height['small'] != '' ) : ?>
 			line-height: <?php echo $settings->line_height['small']; ?>px;
 			<?php endif; ?>
@@ -144,7 +144,7 @@
 			.fl-node-<?php echo $id; ?> .uabb-photo-gallery-item:nth-child(<?php echo $settings->grid_column; ?>n+0)
 			<?php if ( $settings->grid_column != $settings->medium_grid_column ) { ?>
 			, .fl-node-<?php echo $id; ?> .uabb-photo-gallery-item:nth-child(<?php echo $settings->medium_grid_column; ?>n+1),
-			.fl-node-<?php echo $id; ?> .uabb-photo-gallery-item:nth-child(<?php echo $settings->medium_grid_column; ?>n+0)
+			.fl-node-<?php echo $id; ?> .uabb-photo-gallery-item:nth-child(<?php echo $settings->medium_grid_column; ?>n+0) 
 			<?php } ?> {
 				clear: none;
 			}
@@ -155,7 +155,7 @@
 			.fl-node-<?php echo $id; ?> .uabb-photo-gallery-item:nth-child(<?php echo $settings->responsive_grid_column; ?>n+0){
 				clear: right;
 			}
-		<?php } elseif($settings->layout == 'masonary' && $settings->grid_column != $settings->responsive_grid_column) { ?>
+		<?php } elseif($settings->layout == 'masonary' && $settings->grid_column != $settings->responsive_grid_column) { ?>	
 			.fl-node-<?php echo $id; ?> .uabb-grid-sizer {
 				width: <?php echo 100/$settings->responsive_grid_column; ?>%;
 			}

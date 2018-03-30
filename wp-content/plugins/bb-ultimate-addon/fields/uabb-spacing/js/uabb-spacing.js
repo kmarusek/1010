@@ -3,7 +3,7 @@
     UABBSpacing = {
 
         _init: function()
-        {
+        {   
             UABBSpacing._spacingReady();
             $('body').delegate( '.uabb-spacing-wrapper .simplify', 'click', UABBSpacing._toggleExapndCollapse);
             $('body').delegate( '.uabb-size-wrap .uabb-spacing-input.all', 'keyup', UABBSpacing._allChange);
@@ -38,8 +38,8 @@
                                   }
                                   break;
               }
-        },
-
+        }, 
+       
                 /*  TOGGLE CLICK */
         _toggleExapndCollapse: function()
         {
@@ -51,7 +51,7 @@
                     hidden_spacing = t.find('.hidden-spacing');
 
                     icon.toggleClass('dashicons-no-alt dashicons-minus');
-
+                    
               switch(status) {
                 case 'expand':    t.find('.simplify').attr('uabb-toggle', 'collapse');
                                   t.find('.uabb-size-wrap').show();           //for ALL
@@ -69,7 +69,7 @@
                                   t.find('.uabb-size-wrap').find('.uabb-spacing-input.all').trigger('keyup');
                                   break;
                 case 'collapse':  t.find('.simplify').attr('uabb-toggle', 'expand');
-                                  t.find('.uabb-size-wrap').hide();
+                                  t.find('.uabb-size-wrap').hide();                                 
                                   t.find('.uabb-spacing-size-wrap').show();
                                   h_value.val('expand');
 
@@ -95,7 +95,7 @@
         },
 
         _allChange: function()
-        {
+        { 
           //console.log('fired');
           var t = $(this).closest('.uabb-spacing-wrapper'),
               mode = t.find('.uabb-size-wrap').data('mode'),
@@ -111,17 +111,17 @@
               mode = t.find('.uabb-size-wrap').data('mode'),
               hidden_spacing = t.find(".hidden-spacing");
 
-          hidden_spacing.val("");
-          t.find(".uabb-spacing-input.expanded").each(function(){
+          hidden_spacing.val(""); 
+          t.find(".uabb-spacing-input.expanded").each(function(){ 
             var field = $(this).data('field'),
                 css_prop = mode+'-'+field+': ',
                 value = ( $(this).val() != '' ) ? css_prop + $(this).val() + 'px; ' : '';
-
-            hidden_spacing.val( hidden_spacing.val()+value );
+    
+            hidden_spacing.val( hidden_spacing.val()+value ); 
           });
         },
         _uabbPreviewCSS: function(field, target, preview)
-        {
+        { 
           /*** Imp Note ***
               Here we used "FLBuilder.preview" object from "fl-builder.js" file to call methods.
               Imp file for previw is "fl-builder-preview.js". Both files from Beaver Builder.
@@ -132,18 +132,18 @@
               property = preview.property,
               unit     = typeof preview.unit == 'undefined' ? '' : preview.unit,
               value    = target.val();
-
+            
           if(unit == '%') {
             value = parseInt(value)/100;
           }
           else {
             value += unit;
           }
-
+          
           FLBuilder.preview.updateCSSRule(selector, property, value);
         },
     };
-
+    
     $(function(){
 
       UABBSpacing._init();
@@ -156,7 +156,7 @@
         } else{*/
         /*initSettingsForms();
       };*/
-
+        
     });
-
+    
 })(jQuery);

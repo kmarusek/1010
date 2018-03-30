@@ -23,13 +23,13 @@ if( $settings->style == 'underline' ) {
 			</ul>
 		</nav>
 		<div class="uabb-content-wrap uabb-content-wrap<?php echo $id; ?>">
-			<?php for($i = 0; $i < count($settings->items); $i++) :
-				if(!is_object($settings->items[$i]))
+			<?php for($i = 0; $i < count($settings->items); $i++) : 
+				if(!is_object($settings->items[$i])) 
 					continue;
 
 				$class = ( $settings->show_icon == 'yes' || $settings->style == 'iconfall' ) ? '<span class="uabb-tabs-icon"><i class= " ' . $settings->items[$i]->tab_icon . '"></i></span>' : ''; ?>
-
-			<div id="section-<?php echo $settings->style; ?>-<?php echo $i; ?>" class="section <?php echo ($i == 0) ? 'uabb-content-current' : ''; ?>">
+			
+			<div id="section-<?php echo $settings->style; ?>-<?php echo $i; ?>" class="<?php echo $settings->id.'-'.$i; ?> section <?php echo ($i == 0) ? 'uabb-content-current' : ''; ?>">
 				<?php if( $settings->responsive == 'accordion' ) : ?>
 				<div class="uabb-tab-acc-title uabb-acc-<?php echo $i; ?>">
 					<<?php echo $settings->title_tag_selection; ?> class="uabb-title-tag">
@@ -45,10 +45,10 @@ if( $settings->style == 'underline' ) {
 						global $wp_embed;
 						echo wpautop( $wp_embed->autoembed( $settings->items[ $i ]->content ) );
 					}else{
-						echo $module->get_tab_content( $settings->items[ $i ] );
+						echo $module->get_tab_content( $settings->items[ $i ] ); 
 					} ?>
 				</div>
-			</div>
+			</div>	
 			<?php endfor; ?>
 		</div><!-- /content -->
 	</div><!-- /tabs -->

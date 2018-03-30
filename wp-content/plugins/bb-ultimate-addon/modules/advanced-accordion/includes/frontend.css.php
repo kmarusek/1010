@@ -1,7 +1,7 @@
-<?php
+<?php 
 	$settings->title_color = UABB_Helper::uabb_colorpicker( $settings, 'title_color' );
 	$settings->title_hover_color = UABB_Helper::uabb_colorpicker( $settings, 'title_hover_color' );
-
+	
 	$settings->title_bg_color = UABB_Helper::uabb_colorpicker( $settings, 'title_bg_color', true );
 	$settings->title_bg_hover_color = UABB_Helper::uabb_colorpicker( $settings, 'title_bg_hover_color', true );
 
@@ -14,7 +14,7 @@
 	$settings->content_bg_color = UABB_Helper::uabb_colorpicker( $settings, 'content_bg_color', true );
 
 	$settings->content_border_color = UABB_Helper::uabb_colorpicker( $settings, 'content_border_color' );
-
+	
 	$settings->title_margin = ( $settings->title_margin != '' ) ? $settings->title_margin : '10';
 	$settings->icon_size = ( $settings->icon_size != '' ) ? $settings->icon_size : '16';
 	$settings->title_border_top = ( $settings->title_border_top != '' ) ? $settings->title_border_top : '1';
@@ -46,7 +46,7 @@
          -o-transition: all 15ms linear;
 			transition: all 15ms linear;
 <?php } ?>
-	border-radius: <?php echo $settings->title_border_radius; ?>px;
+	border-radius: <?php echo $settings->title_border_radius; ?>px;	
 
 	<?php if( $settings->open_icon == '' && $settings->close_icon == '' ) : ?>
 	width: 100%;
@@ -168,7 +168,7 @@
 }
 
 
-<?php if($global_settings->responsive_enabled) { // Global Setting If started
+<?php if($global_settings->responsive_enabled) { // Global Setting If started 
 	if( $settings->font_size['medium'] != "" || $settings->line_height['medium'] != "" ) { ?>
 		@media ( max-width: <?php echo $global_settings->medium_breakpoint .'px'; ?> ) {
 			.fl-node-<?php echo $id; ?> .uabb-adv-accordion-button<?php echo $id; ?> .uabb-adv-accordion-button-label {
@@ -180,10 +180,10 @@
 				line-height: <?php echo $settings->line_height['medium']; ?>px;
 				<?php endif; ?>
 			}
-		}
+		}		
 	<?php } ?>
 	<?php if( $settings->font_size['small'] != "" || $settings->line_height['small'] != "" ) {
-		/* Small Breakpoint media query */
+		/* Small Breakpoint media query */	
 	?>
 		@media ( max-width: <?php echo $global_settings->responsive_breakpoint .'px'; ?> ) {
 			.fl-node-<?php echo $id; ?> .uabb-adv-accordion-button<?php echo $id; ?> .uabb-adv-accordion-button-label {
@@ -195,7 +195,7 @@
 				line-height: <?php echo $settings->line_height['small']; ?>px;
 				<?php endif; ?>
 			}
-		}
+		}		
 	<?php
 	}
 
@@ -211,10 +211,10 @@
 				line-height: <?php echo $settings->content_line_height['medium']; ?>px;
 				<?php endif; ?>
 			}
-		}
+		}		
 	<?php } ?>
 	<?php if( $settings->content_font_size['small'] != "" || $settings->content_line_height['small'] != "" ) {
-		/* Small Breakpoint media query */
+		/* Small Breakpoint media query */	
 	?>
 		@media ( max-width: <?php echo $global_settings->responsive_breakpoint .'px'; ?> ) {
 			.fl-node-<?php echo $id; ?> .uabb-adv-accordion-content<?php echo $id; ?>.uabb-accordion-desc {
@@ -226,7 +226,7 @@
 				line-height: <?php echo $settings->content_line_height['small']; ?>px;
 				<?php endif; ?>
 			}
-		}
+		}		
 	<?php
 	}
 } ?>

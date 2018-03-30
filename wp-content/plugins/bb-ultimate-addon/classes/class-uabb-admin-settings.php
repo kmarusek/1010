@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Handles logic for the admin settings page.
+ * Handles logic for the admin settings page. 
  *
  * @since 1.3.0
  */
 final class UABBBuilderAdminSettings {
-
+	
 	/**
 	 * Holds any errors that may arise from
 	 * saving admin settings.
@@ -15,8 +15,8 @@ final class UABBBuilderAdminSettings {
 	 * @var array $errors
 	 */
 	static public $errors = array();
-
-	/**
+	
+	/** 
 	 * Initializes the admin settings.
 	 *
 	 * @since 1.3.0
@@ -26,8 +26,8 @@ final class UABBBuilderAdminSettings {
 	{
 		add_action( 'after_setup_theme', __CLASS__ . '::init_hooks' );
 	}
-
-	/**
+	
+	/** 
 	 * Adds the admin menu and enqueues CSS/JS if we are on
 	 * the builder admin settings page.
 	 *
@@ -39,26 +39,26 @@ final class UABBBuilderAdminSettings {
 		if ( ! is_admin() ) {
 			return;
 		}
-
+		
 		add_action( 'network_admin_menu', __CLASS__ . '::menu' );
 		add_action( 'admin_menu', __CLASS__ . '::menu' );
-
+			
 		if ( isset( $_REQUEST['page'] ) && 'uabb-builder-settings' == $_REQUEST['page'] ) {
 			add_action( 'admin_enqueue_scripts', __CLASS__ . '::styles_scripts' );
 			self::save();
 		}
 	}
-
-	/**
+	
+	/** 
 	 * Renders the admin settings menu.
 	 *
 	 * @since 1.3.0
 	 * @return void
 	 */
-	static public function menu()
+	static public function menu() 
 	{
 		if ( current_user_can( 'manage_options' )) {
-
+			
 			$title = UABB_PREFIX;
 			$cap   = 'manage_options';
 			$slug  = 'uabb-builder-settings';
@@ -66,8 +66,8 @@ final class UABBBuilderAdminSettings {
 			add_submenu_page( 'options-general.php', $title, $title, $cap, $slug, $func );
 		}
 	}
-
-	/**
+	
+	/** 
 	 * Enqueues the needed CSS/JS for the builder's admin settings page.
 	 *
 	 * @since 1.3.0
@@ -123,8 +123,8 @@ final class UABBBuilderAdminSettings {
 			wp_enqueue_style( 'fl-builder-admin-settings' );
 		}
 	}
-
-	/**
+	
+	/** 
 	 * Renders the admin settings.
 	 *
 	 * @since 1.3.0
@@ -134,8 +134,8 @@ final class UABBBuilderAdminSettings {
 	{
 		include BB_ULTIMATE_ADDON_DIR . 'includes/admin-settings.php';
 	}
-
-	/**
+	
+	/** 
 	 * Renders the page class for network installs and single site installs.
 	 *
 	 * @since 1.3.0
@@ -150,8 +150,8 @@ final class UABBBuilderAdminSettings {
 			echo 'fl-settings-single-install';
 		}
 	}
-
-	/**
+	
+	/** 
 	 * Renders the admin settings page heading.
 	 *
 	 * @since 1.3.0
@@ -161,20 +161,20 @@ final class UABBBuilderAdminSettings {
 	{
 		//$icon = FLBuilderModel::get_branding_icon();
 		//$name = FLBuilderModel::get_branding();
-
+		
 		if ( ! empty( $icon ) ) {
 			echo '<img src="' . $icon . '" />';
 		}
-
+		
 		echo '<span>' . sprintf( _x( '%s Settings', '%s stands for custom branded "UABB" name.', 'uabb' ), UABB_PREFIX ) . '</span>';
 	}
-
-	/**
+	
+	/** 
 	 * Renders the update message.
 	 *
 	 * @since 1.3.0
 	 * @return void
-	 */
+	 */	 
 	static public function render_update_message()
 	{
 		if ( ! empty( self::$errors ) ) {
@@ -186,13 +186,13 @@ final class UABBBuilderAdminSettings {
 			echo '<div class="updated"><p>' . __( 'Settings updated!', 'uabb' ) . '</p></div>';
 		}
 	}
-
-	/**
+	
+	/** 
 	 * Renders the nav items for the admin settings menu.
 	 *
 	 * @since 1.3.0
 	 * @return void
-	 */
+	 */	
 	static public function render_nav_items()
 	{
 		$items['uabb-license'] = array(
@@ -214,7 +214,7 @@ final class UABBBuilderAdminSettings {
 		);
 
 		if ( BB_Ultimate_Addon_Helper::get_builder_uabb_branding( 'uabb-enable-template-cloud' ) ) {
-
+ 			
 			$items['uabb-cloud-templates'] = array(
 				'title' 	=> __( 'Template Cloud', 'uabb' ),
 				'show'		=>  is_network_admin() || ! FLBuilderAdminSettings::multisite_support(),
@@ -237,16 +237,16 @@ final class UABBBuilderAdminSettings {
 		}
 
 		$item_data = apply_filters( 'uabb_builder_admin_settings_nav_items', $items );
-
+		
 		$sorted_data = array();
-
+		
 		foreach ( $item_data as $key => $data ) {
 			$data['key'] = $key;
 			$sorted_data[ $data['priority'] ] = $data;
 		}
-
+		
 		ksort( $sorted_data );
-
+		
 		foreach ( $sorted_data as $data ) {
 			if ( $data['show'] ) {
 				echo '<li><a href="#' . $data['key'] . '">' . $data['title'] . '</a></li>';
@@ -254,13 +254,13 @@ final class UABBBuilderAdminSettings {
 		}
 
 	}
-
-	/**
+	
+	/** 
 	 * Renders the admin settings forms.
 	 *
 	 * @since 1.3.0
 	 * @return void
-	 */
+	 */	   
 	static public function render_forms()
 	{
 		// License
@@ -278,28 +278,28 @@ final class UABBBuilderAdminSettings {
 		// Let extensions hook into form rendering.
 		do_action( 'uabb_builder_admin_settings_render_forms' );
 	}
-
-	/**
+	
+	/** 
 	 * Renders an admin settings form based on the type specified.
 	 *
 	 * @since 1.3.0
 	 * @param string $type The type of form to render.
 	 * @return void
-	 */
+	 */	   
 	static public function render_form( $type )
 	{
 		if ( self::has_support( $type ) ) {
 			include BB_ULTIMATE_ADDON_DIR . 'includes/admin-settings-' . $type . '.php';
 		}
 	}
-
-	/**
+	
+	/** 
 	 * Renders the action for a form.
 	 *
 	 * @since 1.3.0
 	 * @param string $type The type of form being rendered.
 	 * @return void
-	 */
+	 */	  
 	static public function render_form_action( $type = '' )
 	{
 		if ( is_network_admin() ) {
@@ -309,14 +309,14 @@ final class UABBBuilderAdminSettings {
 			echo admin_url( '/options-general.php?page=uabb-builder-settings#' . $type );
 		}
 	}
-
-	/**
+	
+	/** 
 	 * Returns the action for a form.
 	 *
 	 * @since 1.3.0
 	 * @param string $type The type of form being rendered.
 	 * @return string The URL for the form action.
-	 */
+	 */	 
 	static public function get_form_action( $type = '' )
 	{
 		if ( is_network_admin() ) {
@@ -326,48 +326,48 @@ final class UABBBuilderAdminSettings {
 			return admin_url( '/options-general.php?page=uabb-builder-settings#' . $type );
 		}
 	}
-
-	/**
+	
+	/** 
 	 * Checks to see if a settings form is supported.
 	 *
 	 * @since 1.3.0
 	 * @param string $type The type of form to check.
 	 * @return bool
-	 */
+	 */ 
 	static public function has_support( $type )
 	{
 		return file_exists( BB_ULTIMATE_ADDON_DIR . 'includes/admin-settings-' . $type . '.php' );
 	}
-
-	/**
+	
+	/** 
 	 * Checks to see if multisite is supported.
 	 *
 	 * @since 1.3.0
 	 * @return bool
-	 */
+	 */ 
 	static public function multisite_support()
 	{
 		return is_multisite() && class_exists( 'FLBuilderMultisiteSettings' );
 	}
-
-	/**
+	
+	/** 
 	 * Adds an error message to be rendered.
 	 *
 	 * @since 1.3.0
 	 * @param string $message The error message to add.
 	 * @return void
-	 */
+	 */	 
 	static public function add_error( $message )
 	{
 		self::$errors[] = $message;
 	}
-
-	/**
+	
+	/** 
 	 * Saves the admin settings.
 	 *
 	 * @since 1.3.0
 	 * @return void
-	 */
+	 */	 
 	static public function save()
 	{
 		// Only admins can save settings.
@@ -404,7 +404,13 @@ final class UABBBuilderAdminSettings {
 			/* Enable / Disable Template Cloud */
 			$uabb['uabb-enable-template-cloud'] = false;
 			if( isset( $_POST['uabb-enable-template-cloud'] ) ) {
-				$uabb['uabb-enable-template-cloud'] = true;
+				$uabb['uabb-enable-template-cloud'] = true;	
+			}
+
+			/* Enable / Disable Template Cloud */
+			$uabb['uabb-global-module-listing'] = false;
+			if( isset( $_POST['uabb-global-module-listing'] ) ) {
+				$uabb['uabb-global-module-listing'] = true;
 			}
 
 			/* Enable / Disable KB */
@@ -431,24 +437,24 @@ final class UABBBuilderAdminSettings {
 
 		if ( isset( $_POST['fl-uabb-modules-nonce'] ) && wp_verify_nonce( $_POST['fl-uabb-modules-nonce'], 'uabb-modules' ) ) {
 			$modules = array();
-
+			
 			$modules_array   = BB_Ultimate_Addon_Helper::get_all_modules();
 
 			if ( isset( $_POST['uabb-modules'] ) && is_array( $_POST['uabb-modules'] ) ) {
-
+				
 				$modules = array_map( 'sanitize_text_field', $_POST['uabb-modules'] );
-
+				
 				foreach ( $modules_array as $key => $value ) {
 					if ( !array_key_exists( $key, $modules ) ) {
 						$modules[$key] = 'false';
 					}
 				}
-
+				
 				$modules['image-icon'] 				= 'image-icon';
 				$modules['advanced-separator'] 		= 'advanced-separator';
 				$modules['uabb-separator' ] 		= 'uabb-separator';
 				$modules['uabb-button' ] 			= 'uabb-button';
-
+			
 			}else{
 				$modules = array( 'unset_all' => 'unset_all' );
 			}

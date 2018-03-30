@@ -30,7 +30,7 @@ class UABB_IconFonts {
 
 		//	Update initially
 	    $uabb_icons = get_option( '_uabb_enabled_icons', 0 );
-
+	    
 	    if( 0 == $uabb_icons ) {
 
 			//	Copy IconFonts from UABB to BB

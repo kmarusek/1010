@@ -1,4 +1,4 @@
-<?php
+<?php 
     $settings->color = UABB_Helper::uabb_colorpicker( $settings, 'color' );
     $settings->desc_color = UABB_Helper::uabb_colorpicker( $settings, 'desc_color' );
 
@@ -9,7 +9,7 @@
     $settings->img_size = ( trim($settings->img_size) !== '' ) ? $settings->img_size : '50';
 
     if( $settings->separator_style != 'none' ) {
-
+    	
     	$position = '0';
 		if( $settings->alignment == 'center' ) {
 			$position = '50';
@@ -44,7 +44,7 @@
 			'img_border_width' => $settings->img_border_width,
 			'img_bg_border_radius' => $settings->img_bg_border_radius,*/
 			'responsive_img_size' => $settings->responsive_img_size,
-
+			
 			/* Image Basics */
 			'img_size' => $settings->img_size,
 
@@ -56,9 +56,9 @@
 			'text_line_height' => $settings->separator_text_line_height,
 			'text_color' => $settings->separator_text_color,
 
-		);
-
-		/* CSS Render Function */
+		); 
+		
+		/* CSS Render Function */ 
     	FLBuilder::render_module_css( 'advanced-separator', $id , $separator_array );
 	}
 ?>
@@ -73,14 +73,19 @@
 	margin-bottom: <?php echo $settings->desc_margin_bottom; ?>px;
 }
 
-/* Heading Typography */
-.fl-node-<?php echo $id; ?> <?php /* echo $settings->tag; */?>.uabb-heading,
-.fl-node-<?php echo $id; ?> <?php /* echo $settings->tag; */?>.uabb-heading * {
-
+/* Heading Color */
+.fl-node-<?php echo $id; ?> .fl-module-content.fl-node-content .uabb-heading,
+.fl-node-<?php echo $id; ?> .fl-module-content.fl-node-content .uabb-heading .uabb-heading-text,
+.fl-node-<?php echo $id; ?> .fl-module-content.fl-node-content .uabb-heading * {
+	
 	<?php if(!empty($settings->color)) : ?>
 		color: <?php echo $settings->color; ?>;
 	<?php endif; ?>
+}
 
+.fl-node-<?php echo $id; ?> <?php /* echo $settings->tag; */?>.uabb-heading,
+.fl-node-<?php echo $id; ?> <?php /* echo $settings->tag; */?>.uabb-heading * {
+	
 	<?php if( !empty($settings->font) && $settings->font['family'] != 'Default' ) : ?>
 		<?php UABB_Helper::uabb_font_css( $settings->font ); ?>
 	<?php endif; ?>
@@ -96,11 +101,14 @@
 	<?php endif; ?>
 }
 
+/* Heading's Description Color */
+.fl-node-<?php echo $id; ?> .fl-module-content.fl-node-content .uabb-module-content .uabb-text-editor {
+	color: <?php echo uabb_theme_text_color( $settings->desc_color ); ?>;
+}
+
 /* Heading's Description Typography */
 .fl-node-<?php echo $id; ?> .uabb-text-editor {
-
-	color: <?php echo uabb_theme_text_color( $settings->desc_color ); ?>;
-
+	
 	<?php if( !empty($settings->desc_font_family) && $settings->desc_font_family['family'] != 'Default' ) : ?>
 		<?php UABB_Helper::uabb_font_css( $settings->desc_font_family ); ?>
 	<?php endif; ?>
@@ -114,8 +122,8 @@
 }
 
 <?php /* Global Setting If started */ ?>
-<?php if($global_settings->responsive_enabled) { ?>
-
+<?php if($global_settings->responsive_enabled) { ?> 
+    
         <?php /* Medium Breakpoint media query */  ?>
         @media ( max-width: <?php echo $global_settings->medium_breakpoint .'px'; ?> ) {
 
@@ -131,7 +139,7 @@
 
 
             .fl-node-<?php echo $id; ?> <?php /* echo $settings->tag; */?>.uabb-heading,
-            .fl-node-<?php echo $id; ?> <?php /* echo $settings->tag; */?>.uabb-heading * {
+            .fl-node-<?php echo $id; ?> <?php /* echo $settings->tag; */?>.uabb-heading * { 
 				<?php if( $settings->new_font_size['medium'] != '' ) : ?>
 					font-size: <?php echo $settings->new_font_size['medium']; ?>px;
 				<?php endif; ?>
@@ -148,7 +156,7 @@
 				<?php endif; ?>
 			}
         }
-
+    
         <?php /* Small Breakpoint media query */ ?>
         @media ( max-width: <?php echo $global_settings->responsive_breakpoint .'px'; ?> ) {
 
@@ -163,9 +171,9 @@
 			.fl-node-<?php echo $id; ?> .uabb-responsive-mobile .uabb-divider-content <?php echo $settings->separator_text_tag_selection; ?> {
 			    white-space: normal;
 			}
-
+        	
             .fl-node-<?php echo $id; ?> <?php /* echo $settings->tag; */?>.uabb-heading,
-            .fl-node-<?php echo $id; ?> <?php /* echo $settings->tag; */?>.uabb-heading * {
+            .fl-node-<?php echo $id; ?> <?php /* echo $settings->tag; */?>.uabb-heading * { 
 				<?php if( $settings->new_font_size['small'] != '' ) : ?>
 					font-size: <?php echo $settings->new_font_size['small']; ?>px;
 				<?php elseif( isset( $settings->r_font_size ) && isset( $settings->r_custom_font_size ) && $settings->r_font_size == 'custom' && $settings->r_custom_font_size != '' ) : ?>
@@ -196,7 +204,7 @@
 				$r_position = '0';
 				if( $settings->r_custom_alignment == 'center' ) {
 					$r_position = '50'; ?>
-
+				
 					.fl-node-<?php echo $id; ?> .uabb-separator-wrap.uabb-separator-<?php echo $settings->alignment; ?> {
 						margin-left: auto;
 						margin-right: auto;
@@ -204,14 +212,14 @@
 
 				<?php } elseif( $settings->r_custom_alignment == 'right' ) {
 					$r_position = '100'; ?>
-
+					
 					.fl-node-<?php echo $id; ?> .uabb-separator-wrap.uabb-separator-<?php echo $settings->alignment; ?> {
 						margin-left: auto;
 						margin-right: 0;
 					}
 
 				<?php } else { ?>
-
+					
 					.fl-node-<?php echo $id; ?> .uabb-separator-wrap.uabb-separator-<?php echo $settings->alignment; ?> {
 						margin-left: 0;
 						margin-right: auto;

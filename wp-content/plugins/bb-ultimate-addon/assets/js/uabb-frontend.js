@@ -575,7 +575,7 @@
       {
         $( 'body' ).trigger( 'uabb-trigger.' + hook, args );
       },
-
+    
       /**
        * Add a hook.
        *
@@ -588,7 +588,7 @@
       {
         $( 'body' ).on( 'uabb-trigger.' + hook, callback );
       },
-
+    
       /**
        * Remove a hook.
        *
@@ -606,12 +606,18 @@
 
 jQuery(document).ready(function( $ ) {
 
-  var uabb_browser   = bowser.name,
-      uabb_browser_v = bowser.version,
-      uabb_browser_class = uabb_browser.replace(/\s+/g, '-').toLowerCase(),
-      uabb_browser_v_class = uabb_browser_class + parseInt( uabb_browser_v );
+    if( typeof bowser !== 'undefined' && bowser !== null ) {
 
+      var uabb_browser   = bowser.name,
+          uabb_browser_v = bowser.version,
+          uabb_browser_class = uabb_browser.replace(/\s+/g, '-').toLowerCase(),
+          uabb_browser_v_class = uabb_browser_class + parseInt( uabb_browser_v );
+      
       $('html').addClass(uabb_browser_class).addClass(uabb_browser_v_class);
-      $('.uabb-row-separator').parents('.fl-builder').css('overflow-x', 'hidden');
-      $('.uabb-row-separator').parents('.fl-builder').css('overflow-y', 'visible');
+      
+    }
+
+    $('.uabb-row-separator').parents('.fl-builder').css('overflow-x', 'hidden');
+    $('.uabb-row-separator').parents('.fl-builder').css('overflow-y', 'visible');      
+
 });

@@ -1,5 +1,5 @@
 .uabb-tabs .uabb-text-editor p:last-of-type {
-    margin-bottom: 0;
+    margin-bottom: 0; 
 }
 /*****************************/
 /* Default Tab Style */
@@ -10,7 +10,7 @@
 }
 .uabb-tabs *,
 .uabb-tabs *:after,
-.uabb-tabs *:before {
+.uabb-tabs *:before { 
     -webkit-box-sizing: border-box; box-sizing: border-box;
 }
 
@@ -195,7 +195,7 @@ div.uabb-tabs > nav {
     overflow: visible;
     padding: 1em 0 2em;
     line-height: 1;
-    -webkit-transition: color 150ms cubic-bezier(0.7,0,0.3,1);
+    -webkit-transition: color 150ms cubic-bezier(0.7,0,0.3,1); 
     transition: color 150ms cubic-bezier(0.7,0,0.3,1);
 }
 
@@ -306,7 +306,7 @@ div.uabb-tabs > nav {
     font-size: 20px;
     line-height: 30px;
     vertical-align: middle;
-
+    
 }
 
 .uabb-tabs .uabb-content-current .uabb-tab-acc-title .uabb-acc-icon i {
@@ -330,15 +330,15 @@ div.uabb-tabs > nav {
 
 /* Text editor support */
 
-.uabb-module-content .uabb-text-editor.uabb-tabs-desc *:not(a) {
+.uabb-module-content .uabb-text-editor.uabb-tabs-desc *:not(a):not(div.mejs-audio) {
     color: inherit;
 }
 .uabb-module-content .uabb-text-editor.uabb-tabs-desc *:not(i) {
     font-family: inherit;
 }
-.uabb-module-content .uabb-text-editor.uabb-tabs-desc *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
+.uabb-module-content .uabb-text-editor.uabb-tabs-desc *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(div.mejs-audio) {
     font-size: inherit;
-    line-height: inherit;
+    line-height: inherit;   
 }
 .uabb-module-content .uabb-text-editor.uabb-tabs-desc *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(strong):not(b) {
     font-weight: inherit;

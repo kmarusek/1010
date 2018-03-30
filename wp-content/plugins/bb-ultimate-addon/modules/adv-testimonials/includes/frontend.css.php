@@ -5,7 +5,7 @@
 	$settings->arrow_color_border = uabb_theme_base_color( $settings->arrow_color_border );
 	$settings->layout_background = uabb_theme_base_color( $settings->layout_background );
 	$settings->rating_color = uabb_theme_base_color( $settings->rating_color );
-
+	
 	$settings->arrow_color = UABB_Helper::uabb_colorpicker( $settings, 'arrow_color' );
 	$settings->arrow_color_back = UABB_Helper::uabb_colorpicker( $settings, 'arrow_color_back', true );
 	$settings->arrow_color_border = UABB_Helper::uabb_colorpicker( $settings, 'arrow_color_border' );
@@ -14,7 +14,7 @@
 	$settings->testimonial_icon_bg_color_noslider = UABB_Helper::uabb_colorpicker( $settings, 'testimonial_icon_bg_color_noslider', true );
 	$settings->layout_background = UABB_Helper::uabb_colorpicker( $settings, 'layout_background', true );
 	$settings->rating_color = UABB_Helper::uabb_colorpicker( $settings, 'rating_color' );
-
+	
 	$settings->testimonial_icon_bg_color = UABB_Helper::uabb_colorpicker( $settings, 'testimonial_icon_bg_color', true );
 
 	$settings->testimonial_heading_color = UABB_Helper::uabb_colorpicker( $settings, 'testimonial_heading_color' );
@@ -24,7 +24,7 @@
 	$settings->testimonial_icon_image_size = ( $settings->testimonial_icon_image_size !== '' ) ? $settings->testimonial_icon_image_size : '75';
 	$settings->testimonial_icon_bg_border_radius = ( $settings->testimonial_icon_bg_border_radius !== '' ) ? $settings->testimonial_icon_bg_border_radius : '0';
 	$settings->testimonial_icon_bg_size = ( $settings->testimonial_icon_bg_size != '' ) ? $settings->testimonial_icon_bg_size : '10';
-
+	
 	$settings->testimonial_icon_image_size_noslider = ( $settings->testimonial_icon_image_size_noslider !== '' ) ? $settings->testimonial_icon_image_size_noslider : '75';
 	$settings->testimonial_icon_bg_border_radius_noslider = ( $settings->testimonial_icon_bg_border_radius_noslider !== '' ) ? $settings->testimonial_icon_bg_border_radius_noslider : '0';
 	$settings->testimonial_icon_bg_size_noslider = ( $settings->testimonial_icon_bg_size_noslider !== '' ) ? $settings->testimonial_icon_bg_size_noslider : '10';
@@ -48,7 +48,7 @@
 	.fl-node-<?php echo $id; ?> .bx-pager.bx-default-pager a {
 		opacity: 0.2;
 	}
-
+	
 
 /* Style Navigations */
 
@@ -103,11 +103,11 @@
 /* When Overall position top */
 <?php if ( $settings->testimonial_image_position == "top" ) { ?>
 .fl-node-<?php echo $id; ?> .uabb-testimonials.uabb-testimonial-top .uabb-testimonial{
-	flex-direction: column;
+	flex-direction: column;	
 }
 <?php } ?>
 
-<?php /* Assign Style to inner Items*/
+<?php /* Assign Style to inner Items*/ 
 	$testimonial_list_counter = 0;
 	foreach( $settings->testimonials as $item ){
 		if ( $settings->testimonial_icon_style == 'circle' ) {
@@ -120,16 +120,16 @@
 			$testimonial_icon_size = $settings->testimonial_icon_image_size;
 		}
 
-
+		
 		$imageicon_array = array(
 		    /* General Section */
 		    'image_type' => $item->image_type,
-
+		 
 		    /* Icon Basics */
 		    'icon' => $item->icon,
 		    'icon_size' => $testimonial_icon_size,
 		    'icon_align' => 'center',
-
+		 
 		    /* Image Basics */
 		    'photo_source' => $item->photo_source,
 		    'photo' => $item->photo,
@@ -137,14 +137,14 @@
 		    'img_size' => $settings->testimonial_icon_image_size,
 		    'img_align' => "center",
 		    'photo_src' => ( isset( $item->photo_src ) ) ? $item->photo_src : '' ,
-
+		 
 		    /* Icon Style */
 		    'icon_style' => $settings->testimonial_icon_style,
 		    'icon_bg_size' => $settings->testimonial_icon_bg_size * 2,
 		    'icon_border_style' => "none",
 		    'icon_border_width' => "",
 		    'icon_bg_border_radius' => $settings->testimonial_icon_bg_border_radius,
-
+		 
 		    /* Image Style */
 		    'image_style' => $settings->testimonial_icon_style,
 		    'img_bg_size' => $settings->testimonial_icon_bg_size,
@@ -156,7 +156,7 @@
 		    /* Preset Color variable new */
       		'icon_color_preset' => "preset1",
 
-		    /* Icon Colors */
+		    /* Icon Colors */ 
 		    'icon_color' => $item->icon_color,
 		    'icon_hover_color' => "",
 		    'icon_bg_color' => $settings->testimonial_icon_bg_color,
@@ -165,14 +165,14 @@
 		    'icon_border_color' => "",
 		    'icon_border_hover_color' => "",
 		    'icon_three_d' => "",
-
+		 	
 		 	/* Image Colors */
 		  	'img_bg_color' => $settings->testimonial_icon_bg_color,
 		  	'img_bg_color_opc' => $settings->testimonial_icon_bg_color_opc,
 		  	'img_bg_hover_color' => "",
 		  	'img_border_color' => "",
 		    'img_border_hover_color' => "",
-		);
+		); 
 		/* Render HTML Function */
 		FLBuilder::render_module_css( 'image-icon',$id . " .uabb-testimonial.uabb-testimonial".$testimonial_list_counter, $imageicon_array );
 
@@ -180,7 +180,7 @@
 		?>
 			<?php if ( $settings->testimonial_image_position != "top" ) : ?>
 				.fl-node-<?php echo $id;?> .uabb-testimonials .uabb-testimonial<?php echo $testimonial_list_counter;?> .uabb-testimonial-photo .uabb-imgicon-wrap {
-					<?php
+					<?php 
 						$extra_padding = 0;
 						if ( $settings->testimonial_icon_style == 'custom' ) {
 							$extra_padding = $settings->testimonial_icon_bg_size * 2;
@@ -199,7 +199,7 @@
 				<?php if ( $settings->testimonial_image_position == "top" ) { ?>
 					width: 100%;
 				<?php } else { ?>
-					<?php
+					<?php 
 					if ( $settings->testimonial_icon_style == 'custom' ) {
 						$extra_padding = $settings->testimonial_icon_bg_size * 2 + 5;
 					}else{ $extra_padding = 0; }
@@ -272,12 +272,12 @@ if ( $settings->testimonial_icon_style_noslider == 'circle' ) {
 $imageicon_array = array(
     /* General Section */
     'image_type' => $settings->image_type_noslider,
-
+ 
     /* Icon Basics */
     'icon' => $settings->icon_noslider,
     'icon_size' => $testimonial_icon_size_noslider,
     'icon_align' => 'center',
-
+ 
     /* Image Basics */
     'photo_source' => $settings->photo_source_noslider,
     'photo' => $settings->photo_noslider,
@@ -285,14 +285,14 @@ $imageicon_array = array(
     'img_size' => $settings->testimonial_icon_image_size_noslider,
     'img_align' => "center",
     'photo_src' => ( isset( $settings->photo_noslider_src ) ) ? $settings->photo_noslider_src : '' ,
-
+ 
     /* Icon Style */
     'icon_style' => $settings->testimonial_icon_style_noslider,
     'icon_bg_size' => $settings->testimonial_icon_bg_size_noslider * 2,
     'icon_border_style' => "none",
     'icon_border_width' => "",
     'icon_bg_border_radius' => $settings->testimonial_icon_bg_border_radius_noslider,
-
+ 
     /* Image Style */
     'image_style' => $settings->testimonial_icon_style_noslider,
     'img_bg_size' => $settings->testimonial_icon_bg_size_noslider,
@@ -301,7 +301,7 @@ $imageicon_array = array(
     'img_bg_border_radius' => $settings->testimonial_icon_bg_border_radius_noslider,
     'responsive_img_size' => $settings->responsive_img_size,
 
-    /* Icon Colors */
+    /* Icon Colors */ 
     'icon_color' => $settings->icon_color_noslider,
     'icon_hover_color' => "",
     'icon_bg_color' => $settings->testimonial_icon_bg_color_noslider,
@@ -310,14 +310,14 @@ $imageicon_array = array(
     'icon_border_color' => "",
     'icon_border_hover_color' => "",
     'icon_three_d' => "",
-
+ 	
  	/* Image Colors */
   	'img_bg_color' => $settings->testimonial_icon_bg_color_noslider,
   	'img_bg_color_opc' => $settings->testimonial_icon_bg_color_noslider_opc,
   	'img_bg_hover_color' => "",
   	'img_border_color' => "",
     'img_border_hover_color' => "",
-);
+); 
 /* Render HTML Function */
 FLBuilder::render_module_css( 'image-icon',$id , $imageicon_array );
 /* Image Icon Object CSS Render Ends */
@@ -332,7 +332,7 @@ FLBuilder::render_module_css( 'image-icon',$id , $imageicon_array );
 
 <?php if ( $settings->testimonial_image_position != "top" ) : ?>
 	.fl-node-<?php echo $id;?> .uabb-testimonials .uabb-testimonial-photo .uabb-imgicon-wrap {
-		<?php
+		<?php 
 			$extra_padding = 0;
 			if ( $settings->testimonial_icon_style_noslider == 'custom' ) {
 				$extra_padding = $settings->testimonial_icon_bg_size_noslider * 2;
@@ -354,7 +354,7 @@ FLBuilder::render_module_css( 'image-icon',$id , $imageicon_array );
 		background: <?php echo $settings->layout_background; ?>;
 		padding: 20px 40px;
 	}
-
+	
 	.fl-node-<?php echo $id;?> .testimonial-arrow-down{
 		border-top: 40px solid <?php echo $settings->layout_background; ?>;
 	}
@@ -386,7 +386,7 @@ FLBuilder::render_module_css( 'image-icon',$id , $imageicon_array );
 /* When Overall position top */
 <?php if ( $settings->testimonial_image_position == "top" ) { ?>
 .uabb-testimonials.uabb-testimonial-top .uabb-testimonial{
-	flex-direction: column;
+	flex-direction: column;	
 }
 <?php } ?>
 
@@ -478,7 +478,7 @@ FLBuilder::render_module_css( 'image-icon',$id , $imageicon_array );
 
 /* Typography Media queries*/
 
-<?php if($global_settings->responsive_enabled) { // Global Setting If started
+<?php if($global_settings->responsive_enabled) { // Global Setting If started 
 	if( $settings->testimonial_heading_font_size['medium'] != "" || $settings->testimonial_heading_line_height['medium'] !="" || $settings->testimonial_designation_font_size['medium'] != "" || $settings->testimonial_designation_line_height['medium'] != "" || $settings->testimonial_description_opt_font_size['medium'] != "" || $settings->testimonial_description_opt_line_height['medium'] != "" || $settings->rating_font_size['medium'] != '' )
 	{
 	?>
@@ -531,7 +531,7 @@ FLBuilder::render_module_css( 'image-icon',$id , $imageicon_array );
 				}
 			<?php } ?>
 		}
-	<?php
+	<?php 
 	}
 
 	if( $settings->testimonial_heading_font_size['small'] != "" || $settings->testimonial_heading_line_height['small'] !="" || $settings->testimonial_designation_font_size['small'] != "" || $settings->testimonial_designation_line_height['small'] != "" || $settings->testimonial_description_opt_font_size['small'] != "" || $settings->testimonial_description_opt_line_height['small'] != "" || $settings->responsive_img_size != '' || $settings->testimonial_image_position != "top" || $settings->rating_font_size['small'] != '' || $settings->mobile_view == 'stack' )
@@ -594,7 +594,7 @@ FLBuilder::render_module_css( 'image-icon',$id , $imageicon_array );
 					<?php if( $settings->testimonial_description_opt_line_height['small'] != '' ) : ?>
 					line-height: <?php echo $settings->testimonial_description_opt_line_height['small']; ?>px;
 					<?php endif; ?>
-
+					
 				}
 				.fl-node-<?php echo $id;?> .uabb-testimonial-info .testimonial-author-description<?php echo $id; ?> *{
 					<?php if( $settings->testimonial_description_opt_font_size['small'] != '' ) : ?>
@@ -603,7 +603,7 @@ FLBuilder::render_module_css( 'image-icon',$id , $imageicon_array );
 					<?php if( $settings->testimonial_description_opt_line_height['small'] != '' ) : ?>
 					line-height: inherit;
 					<?php endif; ?>
-
+					
 				}
 			<?php } ?>
 
@@ -630,7 +630,7 @@ FLBuilder::render_module_css( 'image-icon',$id , $imageicon_array );
 
 			<?php } ?>
 		}
-	<?php
-	}
+	<?php 
+	} 
 }
 ?>

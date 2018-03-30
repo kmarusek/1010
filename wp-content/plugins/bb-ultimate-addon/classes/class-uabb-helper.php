@@ -4,7 +4,7 @@
  * Custom modules
  */
 if( !class_exists( "BB_Ultimate_Addon_Helper" ) ) {
-
+	
 	class BB_Ultimate_Addon_Helper {
 
 		/**
@@ -48,12 +48,20 @@ if( !class_exists( "BB_Ultimate_Addon_Helper" ) ) {
 				$branding_modules = sprintf( __( '%s', 'uabb' ), $branding_name );
 			}
 
+			if( isset( $branding['uabb-global-module-listing'] ) && $branding['uabb-global-module-listing'] ) {
+
+				$branding_modules = '';
+				if ( version_compare( '2.0', FL_BUILDER_VERSION, '>' ) ) {
+					$branding_modules = 'Advanced Modules';
+				}
+			}
+
 			define( 'UABB_PREFIX', $branding_name );
 			define( 'UABB_CAT', $branding_modules );
 		}
-
+		
 		static public function module_cat( $cat ) {
-		    return class_exists( 'FLBuilderUIContentPanel' ) ? $cat : UABB_CAT;
+			return class_exists( 'FLBuilderUIContentPanel' ) ? $cat : UABB_CAT;
 		}
 
 		static public function get_builder_uabb()
@@ -113,14 +121,14 @@ if( !class_exists( "BB_Ultimate_Addon_Helper" ) ) {
 			}
 
 			$uabb = apply_filters( 'uabb_get_builder_uabb_branding', $uabb );
-
+			
 			/**
 			 * Return specific requested branding value
 			 */
 			if( !empty( $request_key ) ) {
 				if( is_array($uabb) ) {
 					$uabb = ( array_key_exists( $request_key, $uabb ) ) ? $uabb[ $request_key ] : '';
-				}
+				}				
 			}
 
 			return $uabb;
@@ -133,7 +141,7 @@ if( !class_exists( "BB_Ultimate_Addon_Helper" ) ) {
 			//$is_updated = false;
 			$is_updated = get_option( 'uabb_old_modules' );
 			if ( $is_updated != 'updated' ) {
-
+				
 				$uabb 				= UABB_Init::$uabb_options['fl_builder_uabb_modules'];
 				$old_modules 		= self::get_old_modules();
 
@@ -196,7 +204,7 @@ if( !class_exists( "BB_Ultimate_Addon_Helper" ) ) {
 				'adv-testimonials'         	=> 'Testimonials',
 				'ihover'                   	=> 'iHover',
 			);
-
+			
 			return $modules_array;
 		}
 		/* Remove it after 2 update */
@@ -269,7 +277,8 @@ if( !class_exists( "BB_Ultimate_Addon_Helper" ) ) {
 				'uabb-row-separator'		=> 'Row Separator',
 				'uabb-row-gradient'			=> 'Row Gradient Background',
 				'uabb-col-gradient'			=> 'Column Gradient Background',
-				);
+				'uabb-col-shadow'			=> 'Column Shadow',
+			);
 			return $extenstions_array;
 		}
 
@@ -311,7 +320,7 @@ if( !class_exists( "BB_Ultimate_Addon_Helper" ) ) {
 
 			return apply_filters( 'uabb_get_builder_uabb_modules', $uabb );
 		}
-
+		
 		/**
 		 *	Template status
 		 *
@@ -333,7 +342,7 @@ if( !class_exists( "BB_Ultimate_Addon_Helper" ) ) {
 					//	Individual type array - [page-templates], [layout] or [row]
 					if( $type_templates ) {
 						foreach( $type_templates as $template_id => $template_data ) {
-
+							
 							/**
 							 *	Check [status] & [dat_url_local] exist
 							 */
@@ -341,7 +350,8 @@ if( !class_exists( "BB_Ultimate_Addon_Helper" ) ) {
 								isset( $template_data['status'] ) && $template_data['status'] == true &&
 								isset( $template_data['dat_url_local'] ) && !empty( $template_data['dat_url_local'] )
 							) {
-								$exist_templates[$type] = ( count( $exist_templates[$type] ) + 1 );
+								
+								$exist_templates[$type] = ( count( ( is_array($exist_templates[$type]) || is_object($exist_templates[$type]) ) ? $exist_templates[$type] : array() ) + 1 );
 							}
 						}
 					}

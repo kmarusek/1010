@@ -5,7 +5,7 @@
 .uabb-number,
 .uabb-number .uabb-number-circle-container,
 .uabb-number .uabb-number-semi-circle-container {
-	margin: 0 auto;
+	margin: 0 auto; 
 }
 
 .uabb-number.uabb-number-photo-left,
@@ -23,11 +23,11 @@
 .uabb-number-after-text {
 	display: block;
 }
-.uabb-number-before-text {
-	margin-bottom: 10px;
+.uabb-number-before-text { 
+	margin-bottom: 10px; 
 }
-.uabb-number-after-text {
-	margin-top: 10px;
+.uabb-number-after-text { 
+	margin-top: 10px; 
 }
 
 .uabb-counter-before-text {
@@ -38,10 +38,10 @@
 	float: right;
 }
 
-.uabb-number .uabb-number-string {
+.uabb-number .uabb-number-string { 
 	line-height: 1;
 	word-wrap: normal;
-	/*white-space: nowrap;*/
+	/*white-space: nowrap;*/ 
 	/*overflow: hidden;*/
 }
 
@@ -155,12 +155,12 @@
 /* Bar Css */
 
 /*.uabb-number.uabb-number-bars .uabb-number-text{ text-align: left; }*/
-.uabb-number .uabb-number-bar{
+.uabb-number .uabb-number-bar{ 
 	/*text-align: right;*/
-	padding: 5px;
+	padding: 5px; 
 }
-
-/*.uabb-number-position-default .uabb-number-before-text,
+ 
+/*.uabb-number-position-default .uabb-number-before-text, 
 .uabb-number-position-above .uabb-number-before-text,
 .uabb-number-position-above .uabb-number-before-text,
 .uabb-number-position-below .uabb-number-before-text,
@@ -201,9 +201,9 @@
 }
 
 
-/***
+/*** 
  * Left of Only Title
- * Right Of Only Title
+ * Right Of Only Title 
  ***/
 /*.uabb-number .uabb-left-title-image .uabb-number-icon,
 .uabb-number .uabb-right-title-image .uabb-number-icon {

@@ -1,5 +1,5 @@
 <?php
-$settings->overlay_background_color = uabb_theme_base_color( $settings->overlay_background_color );
+$settings->overlay_background_color = uabb_theme_base_color( $settings->overlay_background_color ); 
 $settings->overlay_background_color = UABB_Helper::uabb_colorpicker( $settings, 'overlay_background_color', true );
 
 $settings->title_typography_color = UABB_Helper::uabb_colorpicker( $settings, 'title_typography_color' );
@@ -45,7 +45,7 @@ if( $settings->icon != '' ) {
         'img_bg_border_radius' => '',
 
         /* Preset Color variable new */
-        'icon_color_preset' => 'preset1',
+        'icon_color_preset' => 'preset1', 
 
         /* Icon Colors */
         'icon_color' => $settings->icon_color,
@@ -63,9 +63,9 @@ if( $settings->icon != '' ) {
         'img_border_hover_color' => '',
     );
 
-    /* CSS Render Function */
+    /* CSS Render Function */ 
     FLBuilder::render_module_css( 'image-icon', $id, $imageicon_array );
-
+    
 }
 if( $settings->show_button == 'yes' ) {
     ( $settings->button != '' ) ? FLBuilder::render_module_css( 'uabb-button', $id, $settings->button ) : '';
@@ -78,7 +78,7 @@ if( $settings->show_button == 'yes' ) {
         height: 100%;
         justify-content: center;
     }
-
+    
     .fl-node-<?php echo $id; ?> .uabb-ib1-block .uabb-back-icon {
         padding: 0;
     }
@@ -117,11 +117,11 @@ if( $settings->show_button == 'yes' ) {
 .fl-node-<?php echo $id; ?> .uabb-ib1-description {
     color: <?php echo uabb_theme_text_color( $settings->desc_typography_color ); ?>;
     <?php
-
+    
     if( $settings->desc_typography_font_family['family'] != 'Default' ){
         UABB_Helper::uabb_font_css( $settings->desc_typography_font_family );
     }
-
+    
     echo ( $settings->desc_typography_font_size['desktop'] != '' ) ? 'font-size: ' . $settings->desc_typography_font_size['desktop'] . 'px;' : '';
     echo ( $settings->desc_typography_line_height['desktop'] != '' ) ? 'line-height: ' . $settings->desc_typography_line_height['desktop'] . 'px;' : '';
     ?>
@@ -134,7 +134,7 @@ if( $settings->show_button == 'yes' ) {
     if( $settings->title_typography_font_family['family'] != 'Default' ){
         UABB_Helper::uabb_font_css( $settings->title_typography_font_family );
     }
-
+    
     echo ( $settings->title_typography_line_height['desktop'] != '' ) ? 'line-height: ' . $settings->title_typography_line_height['desktop'] . 'px;' : '';
     echo ( $settings->title_typography_font_size['desktop'] != '' ) ? 'font-size: ' . $settings->title_typography_font_size['desktop'] . 'px;' : '';
     ?>
@@ -143,14 +143,14 @@ if( $settings->show_button == 'yes' ) {
 .fl-node-<?php echo $id; ?> .uabb-bb-box .uabb-background {
     <?php
     echo 'background: ' . $settings->overlay_background_color . ';';
-    ?>
+    ?>    
 }
 
 <?php
 if( $global_settings->responsive_enabled ) { // Global Setting If started
 ?>
     @media ( max-width: <?php echo $global_settings->medium_breakpoint; ?>px ) {
-
+ 
         .fl-node-<?php echo $id; ?> .uabb-ib1-description  {
             <?php
             echo ( $settings->desc_typography_line_height['medium'] != '' ) ? 'line-height: ' . $settings->desc_typography_line_height['medium'] . 'px;' : '';
@@ -165,7 +165,7 @@ if( $global_settings->responsive_enabled ) { // Global Setting If started
             ?>
         }
     }
-
+ 
      @media ( max-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {
         .fl-node-<?php echo $id; ?> .uabb-ib1-description {
             <?php

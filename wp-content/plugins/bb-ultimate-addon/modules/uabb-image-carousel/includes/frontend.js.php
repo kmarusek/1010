@@ -3,18 +3,18 @@ jQuery(document).ready(function( $ ) {
 	    	id: '<?php echo $id; ?>',
 	    	infinite: <?php echo ( $settings->infinite_loop == 'yes' ) ? 'true' : 'false'; ?>,
 	    	arrows: <?php echo ( $settings->enable_arrow == 'yes' ) ? 'true' : 'false'; ?>,
-
+	    	
 	    	desktop: <?php echo $settings->grid_column; ?>,
 	    	medium: <?php echo $settings->medium_grid_column; ?>,
 	    	small: <?php echo $settings->responsive_grid_column; ?>,
-
+			
 			slidesToScroll: <?php echo ( $settings->slides_to_scroll != '' ) ? $settings->slides_to_scroll : 1; ?>,
 			autoplay: <?php echo ( $settings->autoplay == 'yes' ) ? 'true' : 'false'; ?>,
 	  		autoplaySpeed: <?php echo ( $settings->animation_speed != '' ) ? $settings->animation_speed : '1000'; ?>,
 	  		small_breakpoint: <?php echo $global_settings->responsive_breakpoint; ?>,
 	  		medium_breakpoint: <?php echo $global_settings->medium_breakpoint; ?>,
 	    };
-
+		
 
 	UABBImageCarousel_<?php echo $id; ?> = new UABBImageCarousel( args );
 
@@ -25,7 +25,7 @@ jQuery(document).ready(function( $ ) {
 
 	var UABBImageCarouselResize_<?php echo $id; ?>;
 	$( window ).resize(function() {
-
+		
 		clearTimeout( UABBImageCarouselResize_<?php echo $id; ?> );
 		UABBImageCarouselResize_<?php echo $id; ?> = setTimeout( UABBImageCarousel_<?php echo $id; ?>._adaptiveImageHeight, 500);
 	});

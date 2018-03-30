@@ -1,14 +1,14 @@
 (function($) {
 
 	$(function() {
-
+	
 		new UABBAdvAccordion({
 			id: '<?php echo $id ?>',
 			close_icon: '<?php $words = explode(' ', $settings->close_icon);
-							$lastWord = end($words);
+							$lastWord = end($words); 
 							echo $settings->close_icon; ?>',
 			open_icon: '<?php $words = explode(' ', $settings->open_icon);
-							$lastWord = end($words);
+							$lastWord = end($words); 
 							echo $settings->open_icon; ?>',
 			icon_animation: '<?php echo $settings->icon_animation; ?>',
 			enable_first: '<?php echo $settings->enable_first; ?>',
@@ -21,7 +21,6 @@
 		tab_id = hashval.replace( '-' + dataindex, '' );
 	if( tab_id != '' ) {
 		if( jQuery( tab_id ).length > 0 ) {
-			console.log(jQuery( tab_id + ' .uabb-adv-accordion-button' ).eq(dataindex));
 		    if( jQuery(tab_id).find( '.uabb-adv-accordion > .uabb-adv-accordion-item[data-index="' + dataindex + '"]' ) ) {
 
 				jQuery('html, body').animate({
@@ -36,5 +35,5 @@
 			}
 		}
 	}
-
+	
 })(jQuery);

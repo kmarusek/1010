@@ -18,7 +18,8 @@ class UABBSeparatorModule extends FLBuilderModule {
 			'dir'           	=> BB_ULTIMATE_ADDON_DIR . 'modules/uabb-separator/',
             'url'           	=> BB_ULTIMATE_ADDON_URL . 'modules/uabb-separator/',
             'editor_export' 	=> false,
-			'partial_refresh'	=> true
+			'partial_refresh'	=> true,
+			'icon'				=> 'minus.svg',
 		));
 	}
 }
@@ -33,7 +34,7 @@ FLBuilder::register_module('UABBSeparatorModule', array(
 			'general'       => array( // Section
 				'title'         => '', // Section Title
 				'fields'        => array( // Section Fields
-					'color' => array(
+					'color' => array( 
 						'type'       => 'color',
 						'label'      => __('Color', 'uabb'),
 						'default'    => '',

@@ -20,7 +20,7 @@
         },
 
         _toggleAfterRender: function() {
-
+            
             var anchorHref = jQuery( '.fl-builder-settings-tabs' ).children('.fl-active').attr( 'href' );
             var node = jQuery( '.fl-builder-settings-tabs a' ).closest( 'form' ).attr( 'data-node' );
             if( anchorHref == '#fl-builder-settings-tab-hover' || anchorHref == '#fl-builder-settings-tab-typography' ){
@@ -32,12 +32,12 @@
     });
 
     FLBuilder.registerModuleHelper('ihover_item_form', {
-
+        
         rules: {
             photo: {
                 required: true
             }
-        },
+        },  
     });
 
 })(jQuery);

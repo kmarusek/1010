@@ -21,15 +21,15 @@ $settings->img_border_width = ( trim( $settings->img_border_width ) !== '' ) ? $
 
 /* Render image icon css */
 $imageicon_array = array(
-
+      
     /* General Section */
     'image_type' => $settings->image_type,
-
+ 
     /* Icon Basics */
     'icon' => $settings->icon,
     'icon_size' => $settings->icon_size,
     'icon_align' => 'center',//$settings->icon_align,
-
+ 
     /* Image Basics */
     'photo_source' => $settings->photo_source,
     'photo' => $settings->photo,
@@ -37,24 +37,24 @@ $imageicon_array = array(
     'img_size' => $settings->img_size,
     'img_align' => 'center',//$settings->img_align,
     'photo_src' => ( isset( $settings->photo_src ) ) ? $settings->photo_src : '' ,
-
+ 
     /* Icon Style */
     'icon_style' => $settings->icon_style,
     'icon_bg_size' => $settings->icon_bg_size,
     'icon_border_style' => $settings->icon_border_style,
     'icon_border_width' => $settings->icon_border_width,
     'icon_bg_border_radius' => $settings->icon_bg_border_radius,
-
+ 
     /* Image Style */
     'image_style' => $settings->image_style,
     'img_bg_size' => $settings->img_bg_size,
     'img_border_style' => $settings->img_border_style,
     'img_border_width' => $settings->img_border_width,
     'img_bg_border_radius' => $settings->img_bg_border_radius,
-
+ 
     /* Preset Color variable new */
-    'icon_color_preset' => $settings->icon_color_preset,
-
+    'icon_color_preset' => $settings->icon_color_preset, 
+      
     /* Icon Colors */
     'icon_color' => $settings->icon_color,
     'icon_hover_color' => $settings->icon_hover_color,
@@ -65,7 +65,7 @@ $imageicon_array = array(
     'icon_border_color' => $settings->icon_border_color,
     'icon_border_hover_color' => $settings->icon_border_hover_color,
     'icon_three_d' => $settings->icon_three_d,
-
+ 
     /* Image Colors */
     'img_bg_color' => $settings->img_bg_color,
     'img_bg_color_opc' => $settings->img_bg_color_opc,
@@ -74,14 +74,14 @@ $imageicon_array = array(
     'img_border_color' => $settings->img_border_color,
     'img_border_hover_color' => $settings->img_border_hover_color,
 );
-/* CSS Render Function */
+/* CSS Render Function */ 
 FLBuilder::render_module_css( 'image-icon', $id, $imageicon_array );
 ?>
 
 
 
 /* Box Styling */
-<?php
+<?php 
 	$icon_bg_color = '';
 	$bg_color_code = '';
 	$bg_head_color_code = '';
@@ -95,13 +95,13 @@ FLBuilder::render_module_css( 'image-icon', $id, $imageicon_array );
 
 
 <?php if ( $settings->color_scheme != "custom" ) { ?>
-	<?php
+	<?php 
 		if ( $settings->color_scheme == "black" ) {
 			if ( $settings->box_design == "design01" || $settings->box_design == "design03") {
 				$bg_color_code = "#333333";
 				$icon_bg_color = "#333333";
 			}elseif( $settings->box_design == "design02" ){
-				$icon_bg_color = "#fbfbfb";
+				$icon_bg_color = "#fbfbfb"; 
 				$border_color = "#dcdcdc";
 				$bg_color_code = "#f0f0f0";
 				$bg_head_color_code = "#333333";
@@ -124,7 +124,7 @@ FLBuilder::render_module_css( 'image-icon', $id, $imageicon_array );
 				$bg_color_code = "#df4130";
 				$icon_bg_color = "#333333";
 			}elseif( $settings->box_design == "design02" ){
-				$icon_bg_color = "#fbfbfb";
+				$icon_bg_color = "#fbfbfb"; 
 				$border_color = "#dcdcdc";
 				$bg_color_code = "#f0f0f0";
 				$bg_head_color_code = "#df4130";
@@ -147,7 +147,7 @@ FLBuilder::render_module_css( 'image-icon', $id, $imageicon_array );
 				$bg_color_code = "#2867b6";
 				$icon_bg_color = "#333333";
 			}elseif( $settings->box_design == "design02" ){
-				$icon_bg_color = "#fbfbfb";
+				$icon_bg_color = "#fbfbfb"; 
 				$border_color = "#dcdcdc";
 				$bg_color_code = "#f0f0f0";
 				$bg_head_color_code = "#2867b6";
@@ -170,7 +170,7 @@ FLBuilder::render_module_css( 'image-icon', $id, $imageicon_array );
 				$bg_color_code = "#f1a90f";
 				$icon_bg_color = "#333333";
 			}elseif( $settings->box_design == "design02" ){
-				$icon_bg_color = "#fbfbfb";
+				$icon_bg_color = "#fbfbfb"; 
 				$border_color = "#dcdcdc";
 				$bg_color_code = "#f0f0f0";
 				$bg_head_color_code = "#f1a90f";
@@ -193,7 +193,7 @@ FLBuilder::render_module_css( 'image-icon', $id, $imageicon_array );
 				$bg_color_code = "#17924b";
 				$icon_bg_color = "#333333";
 			}elseif( $settings->box_design == "design02" ){
-				$icon_bg_color = "#fbfbfb";
+				$icon_bg_color = "#fbfbfb"; 
 				$border_color = "#dcdcdc";
 				$bg_color_code = "#f0f0f0";
 				$bg_head_color_code = "#17924b";
@@ -216,7 +216,7 @@ FLBuilder::render_module_css( 'image-icon', $id, $imageicon_array );
 				$bg_color_code = "#d9dee0";
 				$icon_bg_color = "#333333";
 			}elseif( $settings->box_design == "design02" ){
-				$icon_bg_color = "#fbfbfb";
+				$icon_bg_color = "#fbfbfb"; 
 				$border_color = "#dcdcdc";
 				$bg_color_code = "#f0f0f0";
 				$bg_head_color_code = "#d9dee0";
@@ -245,7 +245,7 @@ FLBuilder::render_module_css( 'image-icon', $id, $imageicon_array );
 		background: linear-gradient(to bottom,  <?php echo $bg_grad_start; ?> 0%,<?php echo $bg_color_code; ?> 100%); /* W3C */
 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='<?php echo $bg_grad_start; ?>', endColorstr='<?php echo $bg_color_code; ?>',GradientType=0 ); /* IE6-9 */
 	}
-
+		
 	/* Design Two */
 	.fl-node-<?php echo $id;?> .info-table-design02.info-table-cs-<?php echo $settings->color_scheme; ?> .info-table-heading {
 		background: <?php echo $bg_head_color_code;?>;
@@ -254,19 +254,19 @@ FLBuilder::render_module_css( 'image-icon', $id, $imageicon_array );
 		background: <?php echo $icon_bg_color;?>;
 		border-bottom: 4px double <?php echo $border_color;?>;
 	}
-
+	
 	<?php if ( $settings->hover_effect == 'shadow' ) { ?>
 	.fl-node-<?php echo $id;?> .info-table:hover {
 	    box-shadow: 0 0 7px rgba(167,167,167,.5);
 	}
 	<?php } ?>
-
+	
 
 	/* Design Three */
 	.fl-node-<?php echo $id;?> .info-table-design03.info-table-cs-<?php echo $settings->color_scheme; ?> .info-table-icon {
 		background: <?php echo $icon_bg_color;?>;
 	}
-
+	
 
 	/* Design Four */
 	.fl-node-<?php echo $id;?> .info-table-design04.info-table-cs-<?php echo $settings->color_scheme; ?> .info-table {
@@ -395,7 +395,7 @@ FLBuilder::render_module_css( 'image-icon', $id, $imageicon_array );
 		$bg_color_code = ( $settings->desc_back_color ) ? $settings->desc_back_color : "#333333";
 		$bg_grad_start = "#" .FLBuilderColor::adjust_brightness( uabb_parse_color_to_hex( $bg_color_code ), 30, 'lighten' );
 	}elseif( $settings->box_design == "design02" ) {
-		$icon_bg_color = "#fbfbfb";
+		$icon_bg_color = "#fbfbfb"; 
 		$border_color = "#dcdcdc";
 		$bg_head_color_code = ( $settings->heading_back_color ) ? $settings->heading_back_color : "#333333";
 		$bg_color_code = ( $settings->desc_back_color ) ? $settings->desc_back_color : "#f0f0f0";
@@ -430,7 +430,7 @@ FLBuilder::render_module_css( 'image-icon', $id, $imageicon_array );
 			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='<?php echo $bg_grad_start; ?>', endColorstr='<?php echo $bg_color_code; ?>',GradientType=0 ); /* IE6-9 */
 		}
 	<?php } ?>
-
+	
 	/* Design Two */
 	.fl-node-<?php echo $id;?> .info-table-design02.info-table-cs-<?php echo $settings->color_scheme; ?> .info-table-heading {
 		background: <?php echo $bg_head_color_code;?>;
@@ -471,13 +471,13 @@ FLBuilder::render_module_css( 'image-icon', $id, $imageicon_array );
 	    box-shadow: 0 0 7px rgba(167,167,167,.5);
 	}
 	<?php } ?>
-
+	
 
 	/* Design Three */
 	.fl-node-<?php echo $id;?> .info-table-design03.info-table-cs-<?php echo $settings->color_scheme; ?> .info-table-icon {
 		background: <?php echo $icon_bg_color;?>;
 	}
-
+	
 
 	/* Design Four */
 	.fl-node-<?php echo $id;?> .info-table-design04.info-table-cs-<?php echo $settings->color_scheme; ?> .info-table {
@@ -507,7 +507,7 @@ FLBuilder::render_module_css( 'image-icon', $id, $imageicon_array );
 		background: <?php echo $bg_head_color_code;?>;
 	}
 
-	<?php
+	<?php 
 	$cal_width = 0;
 	$original_width = 0;
 	if ( $settings->image_type == 'icon' ) {
@@ -521,7 +521,7 @@ FLBuilder::render_module_css( 'image-icon', $id, $imageicon_array );
 				}
 			}
 		}
-		$original_width = intval( $cal_width );
+		$original_width = intval( $cal_width ); 
 		$cal_width = ( intval( $cal_width ) / 2 ) + 25;
 	}
 
@@ -560,7 +560,7 @@ FLBuilder::render_module_css( 'image-icon', $id, $imageicon_array );
 			background: <?php echo uabb_theme_base_color( $settings->btn_bg_color ); ?>;
 			padding: <?php echo uabb_theme_button_padding( '' ); ?>;
 		}
-
+		
 		<?php if ( $settings->box_design != 'design02' ) { ?>
 			.fl-node-<?php echo $id;?> .info-table-wrap .info-table-button a {
 				border-radius: <?php echo ( $settings->btn_radius != '' ) ? $settings->btn_radius : '3'; ?>px;
@@ -617,7 +617,7 @@ FLBuilder::render_module_css( 'image-icon', $id, $imageicon_array );
 		<?php } ?>
 	<?php } ?>
 	/* Button Design Ends */
-<?php
+<?php	
 } ?>
 
 <?php
@@ -630,8 +630,8 @@ if( $settings->box_design != 'design02' ) {
 }
 ?>
 
-<?php
-/* Typography style starts here  */
+<?php 
+/* Typography style starts here  */ 
 if ( $settings->heading_font_family['family'] != "Default" || $settings->heading_font_size['desktop'] != '' || $settings->heading_line_height['desktop'] != '' || $settings->heading_color != '' ) { ?>
 	.fl-node-<?php echo $id;?> .info-table-heading .info-table-main-heading {
 		<?php if( $settings->heading_font_family['family'] != "Default") : ?>
@@ -696,7 +696,7 @@ if ( $settings->btn_font_family['family'] != "Default" || $settings->btn_font_si
 	}
 <?php }
 
-if($global_settings->responsive_enabled) { // Global Setting If started
+if($global_settings->responsive_enabled) { // Global Setting If started 
 	?>
 		@media ( max-width: <?php echo $global_settings->medium_breakpoint .'px'; ?> ) {
 			<?php if( $settings->heading_font_size['medium'] !="" || $settings->heading_line_height['medium'] != "" ) { ?>

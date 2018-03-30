@@ -7,10 +7,10 @@ if(!class_exists('UABB_Hotspot_Draggable'))
 {
 	class UABB_Hotspot_Draggable
 	{
-		function __construct() {
+		function __construct() {	
 			add_action( 'fl_builder_control_uabb-draggable', array($this, 'uabb_draggable'), 1, 4 );
 		}
-
+		
 		function uabb_draggable($name, $value, $field, $settings) {
 
                   $val = ( isset( $value ) && $value != '' ) ? $value : '0,0';

@@ -1,8 +1,8 @@
-<?php ob_start();
+<?php ob_start(); 
 
 /**
  * Write Your Dynamic CSS Below This
- */
+ */ 
 ?>
 
 /* Theme Button
@@ -15,11 +15,11 @@
 
 .uabb-creative-button-wrap a,
 .uabb-creative-button-wrap a:visited {
-
+	
 	<?php if( isset( $uabb_theme_btn_family['family'] ) ) { ?>
 	font-family: <?php echo $uabb_theme_btn_family['family']; ?>;
-	<?php } ?>
-
+	<?php } ?> 
+	
 	<?php if ( isset( $uabb_theme_btn_family['weight'] ) ) { ?>
 	font-weight: <?php echo $uabb_theme_btn_family['weight']; ?>;
 	<?php } ?>
@@ -45,12 +45,12 @@
 .uabb-dual-button .uabb-btn:visited {
 	<?php if( isset( $uabb_theme_btn_family['family'] ) ) { ?>
 	font-family: <?php echo $uabb_theme_btn_family['family']; ?>;
-	<?php } ?>
-
+	<?php } ?> 
+	
 	<?php if ( isset( $uabb_theme_btn_family['weight'] ) ) { ?>
 	font-weight: <?php echo $uabb_theme_btn_family['weight']; ?>;
 	<?php } ?>
-
+		
 	<?php if ( uabb_theme_button_font_size('') != '' ) { ?>
 	font-size: <?php echo uabb_theme_button_font_size(''); ?>;
 	<?php } ?>
@@ -71,8 +71,8 @@
 
 /* Responsive Js Breakpoint Css */
 
-#uabb-js-breakpoint {
-	content:"default";
+#uabb-js-breakpoint { 
+	content:"default"; 
 	display:none;
 }
 <?php if($global_settings->responsive_enabled) { ?>
@@ -92,8 +92,8 @@
 
 <?php
 /**
- * Write Your Dynamic CSS Above This
+ * Write Your Dynamic CSS Above This 
  */
 
-	return ob_get_clean();
+	return ob_get_clean(); 
 ?>

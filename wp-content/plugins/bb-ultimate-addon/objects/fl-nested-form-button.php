@@ -75,7 +75,7 @@ FLBuilder::register_settings_form('button_form_field', array(
                                 'flat'   => array(
                                     'fields'    => array( 'flat_button_options' )
                                 ),
-
+                                
                             )
                         ),
                         'border_size'   => array(
@@ -153,13 +153,13 @@ FLBuilder::register_settings_form('button_form_field', array(
                 'colors'        => array(
                     'title'         => __('Colors', 'uabb'),
                     'fields'        => array(
-                        'text_color'        => array(
+                        'text_color'        => array( 
                             'type'       => 'color',
                             'label'         => __('Text Color', 'uabb'),
                             'default'    => '',
                             'show_reset' => true,
                         ),
-                        'text_hover_color' => array(
+                        'text_hover_color' => array( 
                             'type'       => 'color',
                             'label'   => __('Text Hover Color', 'uabb'),
                             'default' => '',
@@ -167,14 +167,14 @@ FLBuilder::register_settings_form('button_form_field', array(
                             'preview' => array(
                                 'type'          => 'none'
                             )
-                        ),
-                        'bg_color'        => array(
+                        ),                        
+                        'bg_color'        => array( 
                             'type'       => 'color',
                             'label'         => __('Background Color', 'uabb'),
                             'default'    => '',
                             'show_reset' => true,
                         ),
-                        'bg_color_opc'    => array(
+                        'bg_color_opc'    => array( 
                             'type'        => 'text',
                             'label'       => __('Opacity', 'uabb'),
                             'default'     => '',
@@ -182,7 +182,7 @@ FLBuilder::register_settings_form('button_form_field', array(
                             'maxlength'   => '3',
                             'size'        => '5',
                         ),
-                        'bg_hover_color'        => array(
+                        'bg_hover_color'        => array( 
                             'type'       => 'color',
                             'label'         => __('Background Hover Color', 'uabb'),
                             'default'    => '',
@@ -191,7 +191,7 @@ FLBuilder::register_settings_form('button_form_field', array(
                                 'type'          => 'none'
                             )
                         ),
-                        'bg_hover_color_opc'    => array(
+                        'bg_hover_color_opc'    => array( 
                             'type'        => 'text',
                             'label'       => __('Opacity', 'uabb'),
                             'default'     => '',

@@ -13,7 +13,7 @@
 					return;
 				}
 				else {
-					widgetID = grecaptcha.render( $(this).attr('id'), {
+					widgetID = grecaptcha.render( $(this).attr('id'), { 
 						sitekey : self.data( 'sitekey' ),
 						theme	: self.data( 'theme' ),
 						callback: function( response ){
@@ -22,7 +22,7 @@
 							}
 						}
 					});
-					self.attr( 'data-widgetid', widgetID );
+					self.attr( 'data-widgetid', widgetID );					
 				}
 			});
 		}
@@ -37,13 +37,16 @@
 		this.email_required = settings.email_required;
 		this.subject_required = settings.subject_required;
 		this.phone_required = settings.phone_required;
-		this.msg_required = settings.msg_required;
+		this.msg_required = settings.msg_required;		
+		this.button_text = settings.button_text;
+		this.form 		= $( this.nodeClass + ' .uabb-contact-form' );
+		this.button		= this.form.find( '.uabb-contact-form-submit' );
 
 		this._init();
 	};
 
 	UABBContactForm.prototype = {
-
+	
 		settings	: {},
 		nodeClass	: '',
 		ajaxurl 	: '',
@@ -52,14 +55,14 @@
 		subject_required : 'no',
 		phone_required : 'no',
 		msg_required : 'no',
-
+		
 		_init: function()
 		{
 			var phone		= $(this.nodeClass + ' .uabb-phone input');
 			phone.on('keyup', this._removeExtraSpaces);
 			$( this.nodeClass + ' .uabb-contact-form-submit' ).click( $.proxy( this._submit, this ) );
 		},
-
+		
 		_submit: function( e )
 		{
 			var theForm	  	= $(this.nodeClass + ' .uabb-contact-form'),
@@ -93,7 +96,7 @@
 			if (submit.hasClass('uabb-disabled')) {
 				return;
 			}
-
+			
 			// validate the name
 			if( this.name_required == 'yes' ) {
 				if(name.length) {
@@ -102,14 +105,14 @@
 						name.parent().addClass('uabb-error');
 						name.addClass( 'uabb-form-error' );
 						name.siblings( '.uabb-form-error-message' ).show();
-					}
+					} 
 					else if (name.parent().hasClass('uabb-error')) {
 						name.parent().removeClass('uabb-error');
 						name.siblings( '.uabb-form-error-message' ).hide();
 					}
 				}
 			}
-
+			
 			// validate the email
 			if( this.email_required == 'yes' ) {
 				if(email.length) {
@@ -118,7 +121,7 @@
 						email.parent().addClass('uabb-error');
 						email.siblings( '.uabb-form-error-message' ).show();
 						email.siblings().addClass('uabb-form-error-message-required');
-					}
+					} 
 					else {
 						email.siblings().removeClass('uabb-form-error-message-required');
 						email.parent().removeClass('uabb-error');
@@ -149,14 +152,14 @@
 						isValid = false;
 						subject.parent().addClass('uabb-error');
 						subject.siblings( '.uabb-form-error-message' ).show();
-					}
+					} 
 					else if (subject.parent().hasClass('uabb-error')) {
 						subject.parent().removeClass('uabb-error');
 						subject.siblings( '.uabb-form-error-message' ).hide();
 					}
 				}
 			}
-
+			
 			// validate the phone..just make sure it's there
 			if( this.phone_required == 'yes' ) {
 				if(phone.length) {
@@ -187,14 +190,14 @@
 					}
 				}
 			}
-
+			
 			// validate the message..just make sure it's there
 			if( this.msg_required == 'yes' ) {
 				if (message.val().trim() === '') {
 					isValid = false;
 					message.parent().addClass('uabb-error');
 					message.siblings( '.uabb-form-error-message' ).show();
-				}
+				} 
 				else if (message.parent().hasClass('uabb-error')) {
 					message.parent().removeClass('uabb-error');
 					message.siblings( '.uabb-form-error-message' ).hide();
@@ -210,16 +213,17 @@
 					reCaptchaField.parent().removeClass('uabb-error');
 				}
 			}
-
+			
 			// end if we're invalid, otherwise go on..
 			if (!isValid) {
 				return false;
-			}
+			} 
 			else {
-
+			
 				// disable send button
 				submit.addClass('uabb-disabled');
-
+				submit.html( '<span>'+this.button.closest( '.uabb-contact-form-button' ).data( 'wait-text' )+'</span>' );
+				
 				// post the form data
 				$.post(ajaxurl, {
 					action	: 'uabb_builder_email',
@@ -242,7 +246,7 @@
 		    textValue = textValue.replace( / /g,"" );
 			$( this ).val( textValue )
 		},
-
+		
 		_removeErrorClass: function(){
 			$( this ).parent().removeClass('uabb-error');
 			$( this ).siblings('.uabb-form-error-message').hide();
@@ -250,16 +254,19 @@
 
 		_submitComplete: function( response ) {
 			var urlField 	= $( this.nodeClass + ' .uabb-success-url' ),
+				submit	  	= $(this.nodeClass + ' .uabb-contact-form-submit'),
 				noMessage 	= $( this.nodeClass + ' .uabb-success-none' );
 
+			submit.html( '<span>'+this.button_text+'</span>' );
+			
 			// On success show the success message
-			if (response === '1') {
+			if(response === '1' || response == 1 || response == '1') {
 
 				$( this.nodeClass + ' .uabb-send-error' ).fadeOut();
-
+				
 				if ( urlField.length > 0 ) {
 					window.location.href = urlField.val();
-				}
+				} 
 				else if ( noMessage.length > 0 ) {
 					noMessage.fadeIn();
 				}
@@ -267,7 +274,7 @@
 					$( this.nodeClass + ' .uabb-contact-form' ).hide();
 					$( this.nodeClass + ' .uabb-success-msg' ).fadeIn();
 				}
-			}
+			} 
 			// On failure show fail message and re-enable the send button
 			else {
 				$(this.nodeClass + ' .uabb-contact-form-submit').removeClass('uabb-disabled');
@@ -276,5 +283,5 @@
 			}
 		}
 	};
-
+	
 })(jQuery);

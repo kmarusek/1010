@@ -50,7 +50,7 @@ class UABB_Global_Styling {
 			update_option( '_uabb_global_settings', $default );
 		}
 	}
-
+	
 	static public function init_actions()
 	{
 		FLBuilderAJAX::add_action( 'render_uabb_global_settings', 'UABB_Global_Styling::render_uabb_global_settings' );
@@ -61,7 +61,7 @@ class UABB_Global_Styling {
 
 		$settings 	= self::get_uabb_global_settings();
 		$form 		= FLBuilderModel::$settings_forms['uabb-global'];
-
+		
 		return FLBuilder::render_settings(array(
 			'class'   	=> 'fl-builder-uabb-global-settings',
 			'title'   	=> $form['title'],
@@ -72,10 +72,10 @@ class UABB_Global_Styling {
 
 	static public function get_uabb_global_settings()
 	{
-		$settings = UABB_Init::$uabb_options['uabb_global_settings'];
+		$settings = UABB_Init::$uabb_options['uabb_global_settings'];		
 
 		$defaults = FLBuilderModel::get_settings_form_defaults( 'uabb-global' );
-
+		
 		//var_dump( $settings  );
 		//die();
 
@@ -90,7 +90,7 @@ class UABB_Global_Styling {
 	{
 		$old_settings = self::get_uabb_global_settings();
 		$new_settings = (object)array_merge((array)$old_settings, (array)$settings);
-
+		
 		FLBuilderModel::delete_asset_cache_for_all_posts();
 
 		/**

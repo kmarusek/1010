@@ -30,7 +30,7 @@
 }
 .uabb-module-content .uabb-text-editor *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
     font-size: inherit;
-    line-height: inherit;
+    line-height: inherit;   
 }
 .uabb-module-content .uabb-text-editor *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(strong):not(b) {
     font-weight: inherit;
@@ -377,7 +377,7 @@
             transform: translate(25%, -50%)
 }
 
-/* Slide Left Center Right Postion Hover */
+/* Slide Left Center Right Postion Hover */ 
 .uabb-ib-slide-left:hover .uabb-ultb3-img.uabb-ultb3-img-center-right {
     -webkit-transform: translate(20%, -50%);
        -moz-transform: translate(20%, -50%);
@@ -500,8 +500,8 @@
 /***
  * Pan
  **********************************************/
-/*  Top Left
-    Top Right
+/*  Top Left 
+    Top Right 
     Bottom Left
     Bottom Right */
 .uabb-ib-pan:hover .uabb-ultb3-img.uabb-ultb3-img-top-left,
@@ -656,14 +656,14 @@
         -ms-transform: translateY(-50%) scale(1.1);
          -o-transform: translateY(-50%) scale(1.1);
             transform: translateY(-50%) scale(1.1);
-}
+} 
 .uabb-ib-zoom-out:hover .uabb-ultb3-img.uabb-ultb3-img-center-right {
     -webkit-transform: translateY(-50%) scale(1);
        -moz-transform: translateY(-50%) scale(1);
         -ms-transform: translateY(-50%) scale(1);
          -o-transform: translateY(-50%) scale(1);
             transform: translateY(-50%) scale(1);
-}
+}        
 
 /* Center Center */
 .uabb-ib-zoom-out .uabb-ultb3-img.uabb-ultb3-img-center {
@@ -716,7 +716,7 @@
 /* Center Left */
 /* Center Right */
 .uabb-ib-zoom-in:hover .uabb-ultb3-img.uabb-ultb3-img-center-left,
-.uabb-ib-zoom-in:hover .uabb-ultb3-img.uabb-ultb3-img-center-right {
+.uabb-ib-zoom-in:hover .uabb-ultb3-img.uabb-ultb3-img-center-right { 
     -webkit-transform: translateY(-50%) scale(1.15);
        -moz-transform: translateY(-50%) scale(1.15);
         -ms-transform: translateY(-50%) scale(1.15);

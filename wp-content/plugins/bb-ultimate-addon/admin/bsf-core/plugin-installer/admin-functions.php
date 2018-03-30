@@ -81,6 +81,17 @@ if ( ! function_exists( 'get_bundled_plugins' ) ) {
 			)
 		);
 
+		// Request http URL if the https version fails.
+		if ( is_wp_error( $request ) && wp_remote_retrieve_response_code( $request ) !== 200 ) {
+			$path = get_api_url( true ) . '?referer=' . $ultimate_referer;
+			$request = wp_remote_post(
+				$path, array(
+					'body'      => $data,
+					'timeout'   => '30'
+				)
+			);
+		}
+
 		if ( ! is_wp_error( $request ) || wp_remote_retrieve_response_code( $request ) === 200 ) {
 			$brainstrom_bundled_products = get_option( 'brainstrom_bundled_products', array() );
 			$result                      = json_decode( $request['body'] );
@@ -100,9 +111,9 @@ if ( ! function_exists( 'get_bundled_plugins' ) ) {
 
 			// update 'brainstorm_products'
 			$simple = json_decode( json_encode( $result->simple ) , 1 );
-
+			
 			foreach ( $brainstrom_products as $type => $products ) {
-
+				
 				foreach ( $products as $key => $product ) {
 					$old_id = isset( $product['id'] ) ? $product['id'] : '';
 					$old_template = $product['template'];
@@ -115,7 +126,7 @@ if ( ! function_exists( 'get_bundled_plugins' ) ) {
 					$simple[ $type ][ $old_id ][ 'message' ] = isset( $brainstrom_products[ $type ][ $old_id ][ 'message' ] ) ? $brainstrom_products[ $type ][ $old_id ][ 'message' ] : '';
 				}
 			}
-
+			
 			update_option( 'brainstrom_products', $simple );
 		}
 	}
@@ -158,7 +169,7 @@ if ( ! function_exists( 'get_bundled_plugins' ) ) {
 //}
 if(!function_exists('install_bsf_product')) {
 	function install_bsf_product($install_id) {
-
+		
 		if ( ! current_user_can('install_plugins') )
 			wp_die(__('You do not have sufficient permissions to install plugins for this site.','bsf'));
 		$brainstrom_bundled_products = (get_option('brainstrom_bundled_products')) ? get_option('brainstrom_bundled_products') : array();
@@ -284,9 +295,9 @@ if(!function_exists('bsf_install_callback')) {
 	function bsf_install_callback () {
 		$product_id = esc_attr( $_POST['product_id'] );
 		$bundled    = esc_attr( $_POST['bundled'] );
-
+		
 		$response = install_bsf_product($product_id);
-
+		
 		$redirect_url 		  = apply_filters( "redirect_after_extension_install", $redirect_url = '', $product_id );
 		$response['redirect'] = $redirect_url;
 

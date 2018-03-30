@@ -158,7 +158,7 @@ FLBuilder::register_module('RibbonModule', array(
                             ),
                         )
                     ),
-                    'ribbon_color' => array(
+                    'ribbon_color' => array( 
                         'type'       => 'color',
                         'label'         => __('Ribbon Color', 'uabb'),
                         'default'    => '',
@@ -179,19 +179,19 @@ FLBuilder::register_module('RibbonModule', array(
                             'angle'     => '0'
                         ),
                     ),
-                    'icon_color' => array(
+                    'icon_color' => array( 
                         'type'       => 'color',
                         'label'         => __('Icon Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'fold_color' => array(
+                    'fold_color' => array( 
                         'type'       => 'color',
                         'label'         => __('Ribbon Fold Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'end_color' => array(
+                    'end_color' => array( 
                         'type'       => 'color',
                         'label'         => __('Ribbon Wings Color', 'uabb'),
                         'default'    => '',
@@ -265,7 +265,7 @@ FLBuilder::register_module('RibbonModule', array(
                             'unit'            => 'px'
                         )
                     ),
-                    'text_color'        => array(
+                    'text_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',
@@ -276,7 +276,7 @@ FLBuilder::register_module('RibbonModule', array(
                             'property'        => 'color',
                         )
                     ),
-                    'text_shadow_color' => array(
+                    'text_shadow_color' => array( 
                         'type'       => 'color',
                         'label'         => __('Text Shadow Color', 'uabb'),
                         'default'    => '',

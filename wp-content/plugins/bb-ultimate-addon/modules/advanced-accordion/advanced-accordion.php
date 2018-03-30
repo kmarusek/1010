@@ -17,18 +17,19 @@ class UABBAdvancedAccordionModule extends FLBuilderModule {
             'group'         => UABB_CAT,
 			'dir'           	=> BB_ULTIMATE_ADDON_DIR . 'modules/advanced-accordion/',
             'url'           	=> BB_ULTIMATE_ADDON_URL . 'modules/advanced-accordion/',
-			'partial_refresh'	=> true
+			'partial_refresh'	=> true,
+			'icon'				=> 'layout.svg',
 		));
 
 		add_filter( 'fl_builder_render_settings_field', array( $this , 'uabb_accordion_render_settings_field' ), 10, 3 );
-
+		
 		$this->add_css('font-awesome');
 	}
 
 	function uabb_accordion_render_settings_field( $field, $name, $settings ) {
-
+		
 		if ( isset( $field['form'] ) && $field['form'] == 'uabb_advAccordion_items_form' ) {
-
+			
 			foreach( $settings->acc_items as $acc_item ) {
 
 				if( is_object( $acc_item ) && isset( $acc_item->acc_content ) && $acc_item->ct_content == ''  ) {
@@ -80,7 +81,7 @@ class UABBAdvancedAccordionModule extends FLBuilderModule {
 	function render_icon( $pos )
 	{
 		if ( $pos == $this->settings->icon_position && ( $this->settings->open_icon != '' || $this->settings->close_icon != '' ) ) {
-
+			
 			if ( $this->settings->icon_animation == 'none' ) {
 				$output = '<div class="uabb-adv-accordion-icon-wrap">';
 				$output .= '<i class="uabb-adv-accordion-button-icon '.$this->settings->close_icon.'"></i>';
@@ -96,7 +97,7 @@ class UABBAdvancedAccordionModule extends FLBuilderModule {
 					$output .= '<i class="uabb-adv-accordion-button-icon uabb-adv-accordion-close-icon '.$this->settings->close_icon.'"></i>';
 					$output .= '<i class="uabb-adv-accordion-button-icon uabb-adv-accordion-open-icon '.$this->settings->open_icon.'"></i>';
 				}
-
+				
 				$output .= '</div>';
 				$output .= '</div>';
 			}
@@ -208,7 +209,7 @@ FLBuilder::register_module('UABBAdvancedAccordionModule', array(
                             'property'      => 'text-align',
                         )
 					),
-					'title_color' => array(
+					'title_color' => array( 
 						'type'       => 'color',
 						'label'      => __('Color', 'uabb'),
 						'default'    => '',
@@ -219,7 +220,7 @@ FLBuilder::register_module('UABBAdvancedAccordionModule', array(
                             'property'      => 'color',
                         )
 					),
-                    'title_hover_color' => array(
+                    'title_hover_color' => array( 
 						'type'       => 'color',
 						'label'      => __('Hover Color', 'uabb'),
 						'default'    => '',
@@ -260,7 +261,7 @@ FLBuilder::register_module('UABBAdvancedAccordionModule', array(
                             'property'      => 'background',
                         )
 					),
-                    'title_bg_hover_color_opc' => array(
+                    'title_bg_hover_color_opc' => array( 
 						'type'        => 'text',
 						'label'       => __('Opacity', 'uabb'),
 						'default'     => '',
@@ -378,7 +379,7 @@ FLBuilder::register_module('UABBAdvancedAccordionModule', array(
                             'unit'			=>	'px',
                         )
 		            ),
-		            'title_border_color' => array(
+		            'title_border_color' => array( 
 						'type'       => 'color',
 						'label'      => __('Color', 'uabb'),
 						'default'    => '',
@@ -441,7 +442,7 @@ FLBuilder::register_module('UABBAdvancedAccordionModule', array(
 							'push-out-left'        => __('Push Out from Left', 'uabb'),
 						)
 					),
-					'icon_color' => array(
+					'icon_color' => array( 
 						'type'       => 'color',
                         'label'      => __('Icon Color', 'uabb'),
 						'default'    => '',
@@ -452,7 +453,7 @@ FLBuilder::register_module('UABBAdvancedAccordionModule', array(
                             'property'      => 'color',
                         )
 					),
-					'icon_hover_color' => array(
+					'icon_hover_color' => array( 
 						'type'       => 'color',
 						'label'      => __('Icon Hover/Focus Color', 'uabb'),
 						'default'    => '',
@@ -501,7 +502,7 @@ FLBuilder::register_module('UABBAdvancedAccordionModule', array(
                             'property'      => 'text-align',
                         )
 					),
-					'content_color' => array(
+					'content_color' => array( 
 						'type'       => 'color',
 						'label'      => __('Color', 'uabb'),
 						'default'    => '',
@@ -512,7 +513,7 @@ FLBuilder::register_module('UABBAdvancedAccordionModule', array(
                             'property'      => 'color',
                         )
 					),
-					'content_bg_color' => array(
+					'content_bg_color' => array( 
 						'type'       => 'color',
 						'label'      => __('Background Color', 'uabb'),
 						'default'    => '',
@@ -523,7 +524,7 @@ FLBuilder::register_module('UABBAdvancedAccordionModule', array(
                             'property'      => 'background',
                         )
 					),
-                    'content_bg_color_opc' => array(
+                    'content_bg_color_opc' => array( 
 						'type'        => 'text',
 						'label'       => __('Opacity', 'uabb'),
 						'default'     => '',

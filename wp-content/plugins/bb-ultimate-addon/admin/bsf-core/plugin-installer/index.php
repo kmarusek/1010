@@ -44,7 +44,7 @@
 
     $extensions_installer_subheading = apply_filters( "bsf_extinstaller_subheading_{$product_id}", 'iMedica is already very flexible & feature rich theme. It further aims to be all-in-one solution for your WordPress needs. Install any necessary extensions you like from below and take it on the steroids.' );
 
-    $status = check_bsf_product_status( $product_id );
+    $status = check_bsf_product_status( $product_id );    
     $reset_bundled_url = bsf_exension_installer_url( $product_id . '&remove-bundled-products&redirect=' . $redirect_url );
 
 ?>

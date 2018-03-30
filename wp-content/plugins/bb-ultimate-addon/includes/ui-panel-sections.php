@@ -26,7 +26,7 @@
 
 				<?php
 
-				/**
+				/** 
 				* Renders UABB categorized row templates in the UI panel.
 				*
 				* @see render_ui_panel_row_templates()
@@ -37,7 +37,7 @@
 
 					if ( count( $uabb_row_templates ) > 0 ) :
 
-						foreach ( $uabb_row_templates['categorized'] as $cat ) :
+						foreach ( $uabb_row_templates['categorized'] as $cat ) : 
 
 							// avoid 'Uncategorized'
 							if( trim( $cat['name'] ) != 'Uncategorized' ) : ?>
@@ -77,9 +77,9 @@
 					<a href="#" onclick="window.open('<?php echo admin_url(); ?>options-general.php?page=uabb-builder-settings#uabb-cloud-templates');" target="_blank" rel="noopener"><i class="fa fa-external-link-square"></i> <?php echo sprintf( __( 'Note - You can enable, disable and manage %s sections here.', 'uabb' ), UABB_PREFIX );?></a>
 				</div>
 				<?php } ?>
-				<div class="fl-builder-modules-cta">
-					<a href="#" target="_self"><?php echo __( 'Note - Images used in the templates are hotlinked from our server and are subject to copyright. It is strongly recommended that you replace them with your own.', 'uabb' );?></a>
-				</div>
+				<!-- div class="fl-builder-modules-cta">
+					<a href="#" target="_self"><?php //echo __( 'Note - Images used in the templates are hotlinked from our server and are subject to copyright. It is strongly recommended that you replace them with your own.', 'uabb' );?></a>
+				</div -->
 			</div>
 		</div>
 	</div>

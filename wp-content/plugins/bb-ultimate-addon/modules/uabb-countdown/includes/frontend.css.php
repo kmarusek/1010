@@ -1,6 +1,6 @@
 <?php if ( isset( $settings->count_animation ) && $settings->count_animation == "flash" ) { ?>
 .fl-node-<?php echo $id;?> .uabb-count-down-digit {
-	-webkit-animation-name: flash;
+	-webkit-animation-name: flash; 
     animation-name: flash;
     -webkit-animation-duration: 4s;
  	animation-duration: 4s;
@@ -8,15 +8,15 @@
 <?php }
 if ( isset( $settings->count_animation ) && $settings->count_animation == "pulse" ) { ?>
 .fl-node-<?php echo $id;?> .uabb-count-down-digit {
-	-webkit-animation-name: pulse !important;
-    animation-name: pulse !important;
+	-webkit-animation-name: pulse !important; 
+    animation-name: pulse !important; 
 
     -webkit-animation-name: bounceIn;
  	-webkit-animation-duration: 4s;
  	-webkit-animation-iteration-count: 10;
  	-webkit-animation-timing-function: ease-out;
  	-webkit-animation-fill-mode: forwards;
-
+	
  	animation-name: bounceIn;
  	animation-duration: 4s;
  	animation-iteration-count: 10;
@@ -31,23 +31,23 @@ if ( isset( $settings->count_animation ) && $settings->count_animation == "bounc
 
     -webkit-animation-name: bounceIn;
     -webkit-animation-duration: 4s;
-
+    
     animation-name: bounceIn;
     animation-duration: 4s;
 }
 <?php }
 if ( isset( $settings->count_animation ) && $settings->count_animation == "shake" ) { ?>
 .fl-node-<?php echo $id;?> .uabb-count-down-digit {
-    -webkit-animation-name: shake !important;
-    animation-name: shake !important;
-
+    -webkit-animation-name: shake !important; 
+    animation-name: shake !important; 
+    
 
     -webkit-animation-name: bounceIn;
  	-webkit-animation-duration: 4s;
  	-webkit-animation-iteration-count: 10;
  	-webkit-animation-timing-function: ease-out;
  	-webkit-animation-fill-mode: forwards;
-
+	
  	animation-name: bounceIn;
  	animation-duration: 4s;
  	animation-iteration-count: 10;
@@ -74,28 +74,28 @@ if ( isset( $settings->counter_alignment ) && $settings->counter_alignment == "c
 .fl-node-<?php echo $id;?> .uabb-countdown-holding {
 	<?php
 		if ( isset( $settings->counter_alignment ) && $settings->counter_alignment == "right" ) {
-			if( isset( $settings->timer_out_spacing ) && $settings->timer_out_spacing !="" ){
+			if( isset( $settings->timer_out_spacing ) && $settings->timer_out_spacing !="" ){ 
 				echo "margin-left: ".$settings->timer_out_spacing."px;";
-			}else{
+			}else{ 
 				echo "margin-left: 10px;";
 			}
 		}
 
 		if ( isset( $settings->counter_alignment ) && $settings->counter_alignment == "left" ) {
-			if( isset( $settings->timer_out_spacing ) && $settings->timer_out_spacing !="" ){
+			if( isset( $settings->timer_out_spacing ) && $settings->timer_out_spacing !="" ){ 
 				echo "margin-right: ".$settings->timer_out_spacing."px;";
-			}else{
+			}else{ 
 				echo "margin-right: 10px;";
 			}
 		}
 
 		if ( isset( $settings->counter_alignment ) && $settings->counter_alignment == "center" ) {
-			if( isset( $settings->timer_out_spacing ) && $settings->timer_out_spacing !="" ){
+			if( isset( $settings->timer_out_spacing ) && $settings->timer_out_spacing !="" ){ 
 				$margin_val = $settings->timer_out_spacing/2;
 				echo "margin-left: ".$margin_val."px;";
 				echo "margin-right: ".$margin_val."px;";
 				//echo "margin-bottom: ".$settings->timer_out_spacing."px;";
-			}else{
+			}else{ 
 				$margin_val = 10 / 2;
 				echo "margin-left: ".$margin_val."px;";
 				echo "margin-right: ".$margin_val."px;";
@@ -103,9 +103,9 @@ if ( isset( $settings->counter_alignment ) && $settings->counter_alignment == "c
 			}
 		}
 
-
+		
 	?>
-
+	
 	<?php if ( isset( $settings->unit_position ) && $settings->unit_position == "outside" && isset( $settings->outside_options ) && $settings->outside_options == "out_right" ) { ?>
 		/*float:right;*/
 	<?php } if ( isset( $settings->unit_position ) && $settings->unit_position == "outside" && isset( $settings->outside_options ) && $settings->outside_options == "out_left" ) { ?>
@@ -127,12 +127,12 @@ if ( isset( $settings->counter_alignment ) && $settings->counter_alignment == "c
 }
 <?php } ?>
 .fl-node-<?php echo $id;?> .uabb-countdown-unit-names {
-	<?php
-		/*if( isset( $settings->unit_out_spacing ) && $settings->unit_out_spacing != "" ){
+	<?php 
+		/*if( isset( $settings->unit_out_spacing ) && $settings->unit_out_spacing != "" ){ 
 			$margin_val = $settings->unit_out_spacing/2;
 			echo "margin-top: ".$settings->unit_out_spacing."px;";
 			echo "margin-bottom: ".$settings->unit_out_spacing."px;";
-		}else{
+		}else{ 
 			echo "margin-top: 10px;";
 			echo "margin-bottom: 10px;";
 		} */
@@ -199,7 +199,7 @@ if ( isset( $settings->timer_style ) && $settings->timer_style == "custom") {
 	height:<?php if( isset( $settings->digit_area_width ) && $settings->digit_area_width != "" ){ echo $settings->digit_area_width; }else{ echo 100; }?>px;
 	display:flex;
 	justify-content:center;
-	align-items:center;
+	align-items:center;	
     flex-direction: column;
 }
 <?php
@@ -303,12 +303,12 @@ if( isset( $settings->evergreen_timer_action ) && $settings->evergreen_timer_act
 <?php
 }
 
-/* Typography style starts here  */
+/* Typography style starts here  */ 
 if ( ( isset( $settings->digit_font_family['family'] ) && $settings->digit_font_family['family'] != "Default" ) || ( isset( $settings->digit_font_size['desktop'] ) && $settings->digit_font_size['desktop'] != '' ) || ( isset( $settings->digit_line_height['desktop'] ) && $settings->digit_line_height['desktop'] != '' ) || ( isset( $settings->digit_color ) && $settings->digit_color != '' ) ) { ?>
 
 	.fl-node-<?php echo $id;?> .uabb-countdown-fixed-timer .uabb-count-down-digit,
 	.fl-node-<?php echo $id;?> .uabb-countdown-evergreen-timer .uabb-count-down-digit {
-
+	
 		<?php if( isset( $settings->digit_font_family['family'] ) && $settings->digit_font_family['family'] != "Default") : ?>
 			<?php UABB_Helper::uabb_font_css( $settings->digit_font_family ); ?>
 		<?php endif; ?>
@@ -327,7 +327,7 @@ if ( ( isset( $settings->digit_font_family['family'] ) && $settings->digit_font_
 <?php if ( ( isset( $settings->unit_font_family['family'] ) && $settings->unit_font_family['family'] != "Default" ) || ( isset( $settings->unit_font_size['desktop'] ) && $settings->unit_font_size['desktop'] != '' ) || ( isset( $settings->unit_line_height['desktop'] ) && $settings->unit_line_height['desktop'] != '' ) || ( isset( $settings->unit_color ) && $settings->unit_color != '' ) ) { ?>
 
 	.fl-node-<?php echo $id;?> .uabb-countdown-fixed-timer .uabb-count-down-unit,
-	.fl-node-<?php echo $id;?> .uabb-countdown-evergreen-timer .uabb-count-down-unit {
+	.fl-node-<?php echo $id;?> .uabb-countdown-evergreen-timer .uabb-count-down-unit {	
 		<?php if( isset( $settings->unit_font_family['family'] ) && $settings->unit_font_family['family'] != "Default") : ?>
 			<?php UABB_Helper::uabb_font_css( $settings->unit_font_family ); ?>
 		<?php endif; ?>
@@ -344,8 +344,8 @@ if ( ( isset( $settings->digit_font_family['family'] ) && $settings->digit_font_
 <?php } ?>
 
 
-/* Typography responsive layout starts here */
-<?php if($global_settings->responsive_enabled) { // Global Setting If started
+/* Typography responsive layout starts here */ 
+<?php if($global_settings->responsive_enabled) { // Global Setting If started 
 	if( ( isset( $settings->digit_font_size['medium'] ) && $settings->digit_font_size['medium'] !="" ) || ( isset( $settings->digit_line_height['medium'] ) && $settings->digit_line_height['medium'] != "" ) || ( isset( $settings->unit_font_size['medium'] ) && $settings->unit_font_size['medium'] !="" ) || ( isset( $settings->unit_line_height['medium'] ) && $settings->unit_line_height['medium'] != "" ) ) {
 	?>
 		@media ( max-width: <?php echo $global_settings->medium_breakpoint .'px'; ?> ) {
@@ -371,7 +371,7 @@ if ( ( isset( $settings->digit_font_family['family'] ) && $settings->digit_font_
 						line-height: <?php echo $settings->unit_line_height['medium']; ?>px;
 					<?php endif; ?>
 				}
-
+				
 			<?php } ?>
 
 			<?php if( ( isset( $settings->message_font_size['medium'] ) && $settings->message_font_size['medium'] !="" ) || ( isset( $settings->message_line_height['medium'] ) && $settings->message_line_height['medium'] != "" ) ) {
@@ -385,8 +385,8 @@ if ( ( isset( $settings->digit_font_family['family'] ) && $settings->digit_font_
 						line-height: <?php echo $settings->message_line_height['medium']; ?>px;
 					<?php endif; ?>
 				}
-
-			<?php
+				
+			<?php 
 				}
 				if( isset( $settings->fixed_timer_action ) && $settings->fixed_timer_action == "msg" ){
 				?>
@@ -432,7 +432,7 @@ if ( ( isset( $settings->digit_font_family['family'] ) && $settings->digit_font_
 				}
 			<?php } ?>
 
-			<?php if( ( isset( $settings->message_font_size['small'] ) && $settings->message_font_size['small'] !="" ) || ( isset( $settings->message_line_height['small'] ) && $settings->message_line_height['small'] != "" ) ) {
+			<?php if( ( isset( $settings->message_font_size['small'] ) && $settings->message_font_size['small'] !="" ) || ( isset( $settings->message_line_height['small'] ) && $settings->message_line_height['small'] != "" ) ) { 
 				if( isset( $settings->evergreen_timer_action ) && $settings->evergreen_timer_action == "msg" ){
 				?>
 				.fl-node-<?php echo $id;?> .uabb-countdown-expire-message {
@@ -443,7 +443,7 @@ if ( ( isset( $settings->digit_font_family['family'] ) && $settings->digit_font_
 						line-height: <?php echo $settings->message_line_height['small']; ?>px;
 					<?php endif; ?>
 				}
-			<?php
+			<?php 
 				}
 				if( isset( $settings->fixed_timer_action ) && $settings->fixed_timer_action == "msg" ){
 				?>

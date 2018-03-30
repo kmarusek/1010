@@ -14,13 +14,13 @@ function _hideAll_SlideBox( slidebox ) {
             var thisNode = jQuery(this).data('node'),
                 slideboxNode = jQuery(slidebox).data('node');
 
-                if( thisNode != slideboxNode ) {
+                if( thisNode != slideboxNode ) { 
                     var style1 = jQuery(this).find('.uabb-style1'),
                         slidebox_wrap = style1.closest('.uabb-slide-box-wrap');
 
                         style1.removeClass('open-slidedown');
                         slidebox_wrap.removeClass('set-z-index');
-
+                        
                     var style2 = jQuery(this).find('.uabb-style2'),
                         dropdown_icon = style2.find('.uabb-slide-dropdown .fa'),
                         slidebox_wrap = style2.closest('.uabb-slide-box-wrap');
@@ -61,28 +61,28 @@ jQuery(document).ready(function(){
     });
 
     function _setHeight( selector ) {
-
+            
         if( selector != '' ) {
             var  front_slide = jQuery(selector).find('.uabb-slide-front:first').outerHeight(),
                 back_slide = jQuery(selector).find('.uabb-slide-down:first').outerHeight(),
                 total = parseInt(front_slide) /*+ parseInt(back_slide)*/;
-
+            
             jQuery(selector).find('> .fl-module-content').css('height', total+'px');
 
         } else {
             jQuery(document).find('.fl-module-slide-box').each(function(i,e) {
                 // Add Initial Height for Tabs & Accordion
                 if( jQuery(this).closest('.uabb-tab-acc-content').length > 0 || jQuery(this).closest('.uabb-adv-accordion-content').length > 0 ) {
-
+                    
                     var front_slide = jQuery(this).find('.uabb-slide-front:first').outerHeight(),
                         back_slide = jQuery(this).find('.uabb-slide-down:first').outerHeight(),
                         total = parseInt(front_slide) /*+ parseInt(back_slide)*/;
-
+                    
                     jQuery(this).find('> .fl-module-content').css('height', total+'px');
                 }
             });
         }
     }
 
-    _setHeight( '' );
+    _setHeight( '' );   
 });

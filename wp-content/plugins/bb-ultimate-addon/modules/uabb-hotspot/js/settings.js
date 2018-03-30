@@ -159,7 +159,7 @@
                 form.find('#fl-builder-settings-section-icon_basic').hide();
                 form.find('#fl-builder-settings-section-icon_style').hide();
                 form.find('#fl-builder-settings-section-icon_colors').hide();
-
+                
                 form.find('#fl-builder-settings-section-text_typography').show();
 
                 form.find('#fl-field-img_bg_size').hide();

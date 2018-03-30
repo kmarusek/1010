@@ -89,6 +89,17 @@ if(!function_exists('bsf_register_product_callback')) {
 			)
 		);
 
+		// Request http URL if the https version fails.
+		if ( is_wp_error( $request ) && wp_remote_retrieve_response_code( $request ) !== 200 ) {
+			$path 		= get_api_url( true )  . '?referer=register-product-' . $id;
+			$request 	= wp_remote_post(
+				$path, array(
+					'body' => $data,
+					'timeout' => '30'
+				)
+			);
+		}
+
 		if (!is_wp_error($request) || wp_remote_retrieve_response_code($request) === 200)
 		{
 			$result = json_decode($request['body']);
@@ -146,7 +157,7 @@ if(!function_exists('bsf_register_product_callback')) {
 add_action( 'wp_ajax_bsf_deregister_product', 'bsf_deregister_product_callback' );
 if(!function_exists('bsf_deregister_product_callback')) {
 	function bsf_deregister_product_callback() {
-
+		
 		$brainstrom_products = (get_option('brainstrom_products')) ? get_option('brainstrom_products') : array();
 
 		$bsf_product_plugins = $bsf_product_themes = array();
@@ -165,7 +176,7 @@ if(!function_exists('bsf_deregister_product_callback')) {
 				$bsf_license_manager = new BSF_License_Manager();
 				$purchase_key = $bsf_license_manager->bsf_get_product_info( $id, 'purchase_key');
 			}
-
+			
 		}
 
 		if(!empty($brainstrom_products)) :
@@ -222,6 +233,17 @@ if(!function_exists('bsf_deregister_product_callback')) {
 			)
 		);
 
+		// Request http URL if the https version fails.
+		if ( is_wp_error( $request ) && wp_remote_retrieve_response_code( $request ) !== 200 ) {
+			$path 		= get_api_url( true )  . '?referer=deregister-product-' . $id;
+			$request 	= wp_remote_post(
+				$path, array(
+					'body' => $data,
+					'timeout' => '30'
+				)
+			);
+		}
+
 		if (!is_wp_error($request) || wp_remote_retrieve_response_code($request) === 200)
 		{
 			$result = json_decode($request['body']);
@@ -245,7 +267,7 @@ if(!function_exists('bsf_deregister_product_callback')) {
 add_action( 'wp_ajax_bsf_register_user', 'bsf_register_user_callback' );
 if(!function_exists('bsf_register_user_callback')) {
 	function bsf_register_user_callback() {
-
+		
 		$brainstrom_users = (get_option('brainstrom_users')) ? get_option('brainstrom_users') : array();
 
 		$bsf_username = isset($_POST['bsf_username']) ? $_POST['bsf_username'] : '';
@@ -284,7 +306,7 @@ if(!function_exists('bsf_register_user_callback')) {
 			}
 		}
 
-		$path = get_api_url();
+		$path = get_api_url() . '&referrer=user_registration';
 
 		$data = array(
 				'action' => 'bsf_user_registration',
@@ -302,6 +324,16 @@ if(!function_exists('bsf_register_user_callback')) {
 				'timeout' => '60'
 			)
 		);
+
+		if ( is_wp_error( $request ) && wp_remote_retrieve_response_code( $request ) !== 200 ) {
+			$path = get_api_url( true ) . '&referrer=user_registration';
+			$request = wp_remote_post(
+				$path, array(
+					'body' => $data,
+					'timeout' => '60'
+				)
+			);
+		}
 
 		if (!is_wp_error($request) || wp_remote_retrieve_response_code($request) === 200)
 		{
@@ -468,7 +500,7 @@ if ( ! function_exists( 'bsf_update_all_product_version' ) ) {
 
 		update_option( 'brainstrom_products', $brainstrom_products );
 
-		if ( $bundled_product_updated ) {
+		if ( $bundled_product_updated ) {			
 			update_option( 'brainstrom_bundled_products', $brainstrom_bundled_products );
 		}
 	}
@@ -596,7 +628,8 @@ if(!function_exists('bsf_notices')) {
 
 					$url = bsf_registration_page_url( '', $product['id'] );
 
-					$message = __('Please','bsf').' <a href="'.$url.'">'.__('activate','bsf').'</a> '.__('your copy of the','bsf').' <i>'.$product['product_name'].'</i> '.__('to get update notifications, access to support features & other resources!','bsf');
+					$message = __('Please','bsf').' <a href="'.$url.'" class="bsf-core-license-form-btn" plugin-slug="'. $product[ 'id' ] .'">'.__('activate','bsf').'</a> '.__('your copy of the','bsf').' <i>'.$product['product_name'].'</i> '.__('to get update notifications, access to support features & other resources!','bsf');
+					$message = apply_filters( "bsf_product_activation_notice_{$product['id']}", $message, $url, $product['product_name'] );
 
 					if(($is_multisite && $is_network_admin) || !$is_multisite)
 						echo '<div class="update-nag bsf-update-nag">'.$message.'</div>';
@@ -655,7 +688,7 @@ if(!function_exists('bsf_grant_developer_access')) {
 }
 if(!function_exists('bsf_allow_developer_access')) {
 	function bsf_allow_developer_access($username, $url, $process){
-
+		
 		$path = get_api_url()  . '?referer=allow-developer-access';
 		$new_url = $url;
 		$user = $username;
@@ -863,7 +896,7 @@ if(!function_exists('bsf_sort')) {
 
 /**
  * Brainstorm Switch
- *
+ * 
  * Outputs markup for the switch
  *
  * @param $name (string) - name for the switch, this will be the reference for saving the value
@@ -891,14 +924,14 @@ if ( ! function_exists( 'brainstorm_switch' ) ) {
 
 		return $switch;
 	}
-
+	
 }
 
 /**
  * Save option brainstorm updater advanced/debug settings
  */
 if ( ! function_exists( 'update_bsf_core_options_callback' ) ) {
-
+	
 	function update_bsf_core_options_callback() {
 
 		$option = isset( $_POST['option'] ) ? esc_attr( $_POST['option'] ) : '';

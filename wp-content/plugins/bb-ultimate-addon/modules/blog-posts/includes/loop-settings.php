@@ -38,7 +38,7 @@ do_action( 'uabb_loop_settings_before_form', $settings ); // e.g Add custom FLBu
 </div>
 <div class="fl-custom-query fl-loop-data-source" data-source="custom_query">
 <div id="fl-builder-settings-section-general" class="fl-loop-builder uabb-settings-section">
-<h3 class="fl-builder-settings-title"><?php _e('Custom Query', 'uabb'); ?></h3>
+<h3 class="fl-builder-settings-title"><span class="fl-builder-settings-title-text-wrap"><?php _e('Custom Query', 'uabb'); ?></span></h3>
 	<table class="fl-form-table">
 	<?php
 
@@ -178,7 +178,8 @@ do_action( 'uabb_loop_settings_before_form', $settings ); // e.g Add custom FLBu
 </div>
 
 <div id="fl-builder-settings-section-filter" class="uabb-settings-section">
-	<h3 class="fl-builder-settings-title"><?php _e('Filter', 'uabb'); ?></h3>
+<h3 class="fl-builder-settings-title"><span class="fl-builder-settings-title-text-wrap"><?php _e('Filter', 'uabb'); ?></span></h3>
+
 	<?php foreach(FLBuilderLoop::post_types() as $slug => $type) : ?>
 		<table class="fl-form-table fl-loop-builder-filter fl-loop-builder-<?php echo $slug; ?>-filter" <?php if($slug == $settings->post_type) echo 'style="display:table;"'; ?>>
 		<?php
@@ -187,9 +188,9 @@ do_action( 'uabb_loop_settings_before_form', $settings ); // e.g Add custom FLBu
 			'type'          => 'select',
 			'label'         => $type->label,
 			'options'       => array(
-		        '1'  => sprintf( __( 'Match these %s', '%s is an object like posts or taxonomies.', 'uabb' ), $type->label, $type->label ),
-		        '0'    => sprintf( __( 'Do not match these %s', '%s is an object like posts or taxonomies.', 'uabb' ), $type->label, $type->label ),
-		    ),
+				'1'  => sprintf( __( 'Match these %s', '%s is an object like posts or taxonomies.', 'uabb' ), $type->label, $type->label ),
+				'0'  => sprintf( __( 'Do not match these %s', '%s is an object like posts or taxonomies.', 'uabb' ), $type->label, $type->label ),
+			),
 			'help'          => sprintf(__('Enter a comma separated list of %s. Only these %s will be shown.', 'uabb'), $type->label, $type->label)
 		), $settings);
 		// Posts

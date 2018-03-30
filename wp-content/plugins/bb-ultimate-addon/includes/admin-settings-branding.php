@@ -10,7 +10,7 @@
 			<?php _e('Override network settings?', 'uabb'); ?>
 		</label>
 		<?php endif; ?>
-
+		
 		<div class="fl-settings-form-content">
 
 			<?php
@@ -32,33 +32,35 @@
 					$uabb_contact_support_url = ( array_key_exists( 'uabb-contact-support-url' , $uabb ) ) ? $uabb['uabb-contact-support-url' ] : '';
 
 					$uabb_hide_branding		  = ( get_option( 'uabb_hide_branding' ) != false ) ? ' checked' : '' ;
-
+					
 					$uabb_enable_template_cloud = ( array_key_exists( 'uabb-enable-template-cloud' , $uabb ) && $uabb['uabb-enable-template-cloud'] == 1 ) ? ' checked' : '';
+
+					$uabb_global_module_listing = ( array_key_exists( 'uabb-global-module-listing' , $uabb ) && $uabb['uabb-global-module-listing'] == 1 ) ? ' checked' : '';
 
 					$uabb_enable_knowledge_base = ( array_key_exists( 'uabb-enable-knowledge-base' , $uabb ) && $uabb['uabb-enable-knowledge-base'] != 1 ) ? '' : 'checked';
 
 					$uabb_enable_contact_support = ( array_key_exists( 'uabb-enable-contact-support' , $uabb ) && $uabb['uabb-enable-contact-support'] != 1 ) ? '' : 'checked';
 				} ?>
 
-			<?php /* Plugin Name*/ ?>
+			<?php /* Plugin Name*/ ?> 
 			<div class="uabb-branding-fields" style="margin-top: 30px;">
 			<h4 class="field-title"><?php _e( 'Plugin Name', 'uabb' ); ?></h4>
 			<input type="text" name="uabb-plugin-name" placeholder="Ultimate Addon for Beaver Builder" value="<?php echo $uabb_plugin_name; ?>" class="regular-text uabb-plugin-name" />
 			</div>
 
-			<?php /* Plugin Short Name*/ ?>
+			<?php /* Plugin Short Name*/ ?> 
 			<div class="uabb-branding-fields">
 			<h4 class="field-title"><?php _e( 'Plugin Short Name', 'uabb' ); ?></h4>
 			<input type="text" name="uabb-plugin-short-name" placeholder="UABB" value="<?php echo $uabb_plugin_short_name; ?>" class="regular-text uabb-plugin-short-name" />
 			</div>
-
-			<?php /* Plugin Description */ ?>
+		
+			<?php /* Plugin Description */ ?> 
 			<div class="uabb-branding-fields">
 			<h4 class="field-title"><?php _e( 'Plugin Description', 'uabb' ); ?></h4>
 			<input type="text" name="uabb-plugin-desc" placeholder="Ultimate Addons is a premium extension for Beaver Builder that adds 30+ modules, 100+ templates and works on top of any Beaver Builder Package. (Free, Standard, Pro and Agency) You can use it with on any WordPress theme." value="<?php echo $uabb_plugin_desc; ?>" class="regular-text uabb-plugin-desc" />
 			</div>
-
-			<?php /* Author Name */ ?>
+			
+			<?php /* Author Name */ ?> 
 			<div class="uabb-branding-fields">
 			<h4 class="field-title"><?php _e( 'Author / Agency Name', 'uabb' ); ?></h4>
 			<input type="text" name="uabb-author-name" placeholder="Brainstorm Force" value="<?php echo $uabb_author_name; ?>" class="regular-text uabb-author-name" />
@@ -98,11 +100,19 @@
 				</label>
 			</div>
 
+			<div class="uabb-form-setting">
+				<h4><?php echo _e( 'List Modules under Standard Modules', 'uabb' ); ?></h4>
+				<p class="uabb-admin-help"><?php _e('Enable this to list UABB Modules under standard modules.', 'uabb'); ?></p>
+				<label>
+					<input type="checkbox" class="uabb-global-module-listing" name="uabb-global-module-listing" value="" <?php echo $uabb_global_module_listing; ?> ><?php _e( 'Enable UABB modules listing in default Standard category', 'uabb' ); ?>
+				</label>
+			</div>
+
 			<?php /* Hide This Form */ ?>
 			<div class="uabb-form-setting">
 				<h4><?php echo _e( 'Hide White Label Settings', 'uabb' ); ?></h4>
 				<p class="uabb-admin-help"><?php _e('Enable this option to hide White Label settings. Re-activate the plugin to enable this form again.', 'uabb'); ?></p>
-				<label>
+				<label>					
 					<input type="checkbox" class="uabb-hide-branding" name="uabb-hide-branding" value="" <?php echo $uabb_hide_branding; ?> ><?php _e( 'Hide White Label Settings', 'uabb' ); ?>
 				</label>
 			</div>

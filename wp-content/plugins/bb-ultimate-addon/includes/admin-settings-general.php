@@ -8,7 +8,7 @@
 
 			<?php
 
-				$hidden_class 		 = '';
+				$hidden_class 		 = ''; 
 				$uabb                = BB_Ultimate_Addon_Helper::get_builder_uabb();
 				$branding_name       = BB_Ultimate_Addon_Helper::get_builder_uabb_branding( 'uabb-plugin-name' );
 				$branding_short_name = BB_Ultimate_Addon_Helper::get_builder_uabb_branding( 'uabb-plugin-short-name' );
@@ -24,7 +24,7 @@
 				} ?>
 
 			<?php if ( class_exists( 'FLBuilderUIContentPanel' ) ) {
-				$hidden_class = 'uabb-hidden';
+				$hidden_class = 'uabb-hidden'; 
 			} ?>
 			<!-- Load Panels -->
 			<div class="uabb-form-setting <?php echo $hidden_class; ?>">
@@ -37,7 +37,7 @@
 					endif;
 					?>
 				</p>
-				<label>
+				<label>					
 					<input type="checkbox" class="uabb-enabled-panels" name="uabb-enabled-panels" value="" <?php echo $is_load_panels; ?> ><?php _e( 'Enable UI Design', 'uabb' ); ?>
 				</label>
 			</div>
@@ -46,7 +46,7 @@
 			<div class="uabb-form-setting <?php echo $hidden_class; ?>">
 				<h4><?php _e( 'Enable Live Preview', 'uabb' ); ?></h4>
 				<p class="uabb-admin-help"><?php _e('Enable this setting to see live preview of a page without leaving the editor.', 'uabb'); ?></p>
-				<label>
+				<label>					
 					<input type="checkbox" class="uabb-live-preview" name="uabb-live-preview" value="" <?php echo $uabb_live_preview; ?> ><?php _e( 'Enable Live Preview', 'uabb' ); ?>
 				</label>
 			</div>
@@ -55,7 +55,7 @@
 			<div class="uabb-form-setting">
 				<h4><?php echo _e( 'Allow Beta Updates', 'uabb' ); ?></h4>
 				<p class="uabb-admin-help"><?php _e('Enable this option to receive update notifications for beta versions.', 'uabb'); ?></p>
-				<label>
+				<label>					
 					<input type="checkbox" class="uabb-enable-beta-updates" name="uabb-enable-beta-updates" value="" <?php echo $uabb_beta_updates; ?> ><?php _e( 'Enable Beta Updates', 'uabb' ); ?>
 				</label>
 			</div>
@@ -74,7 +74,7 @@
 					?>
 				</p>
 				<input type="text" class="uabb-google-map-api" name="uabb-google-map-api" value="<?php echo $uabb_google_map_api; ?>" class="uabb-wp-text uabb-google-map-api" />
-			</div>
+			</div>				
 			<p></p>
 		</div>
 

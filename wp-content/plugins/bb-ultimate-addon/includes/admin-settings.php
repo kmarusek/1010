@@ -3,7 +3,7 @@
 	<h2 class="fl-settings-heading">
 		<?php UABBBuilderAdminSettings::render_page_heading(); ?>
 	</h2>
-
+	
 	<?php UABBBuilderAdminSettings::render_update_message(); ?>
 
 	<div class="fl-settings-nav">

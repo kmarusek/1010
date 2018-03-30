@@ -1,7 +1,7 @@
 var UABBFlipBox;
 
 (function($) {
-
+    
     /**
      * Class for Blog Posts Module
      *
@@ -21,7 +21,7 @@ var UABBFlipBox;
         this.medium_breakpoint              = settings.medium_breakpoint;
         this.responsive_compatibility       = settings.responsive_compatibility;
         //console.log(settings);
-        this._init();
+        this._init();   
     };
 
     UABBFlipBox.prototype = {
@@ -134,7 +134,7 @@ var UABBFlipBox;
                 medium_breakpoint = this.medium_breakpoint,
                 small_breakpoint = this.small_breakpoint,
         		frontFlipSection = frontFlip.find( '.uabb-flip-box-section' );
-
+            
 
             setTimeout(function() {
                 backFlip.css( 'height', '100%' );
@@ -147,7 +147,7 @@ var UABBFlipBox;
                 } else {
                     $( currentFlipBox ).css( 'height', flip_box_min_height_medium );
                 }
-
+                
                 if( display_vertically_center != 'no' ) {
                     if( ( parseInt( backFlipSection.outerHeight() ) ) >= ( parseInt( backFlip.outerHeight() ) ) ) {
                         backFlipSection.addClass( 'uabb_disable_middle' );
@@ -156,9 +156,9 @@ var UABBFlipBox;
                     if( ( parseInt( frontFlipSection.outerHeight() ) ) >= ( parseInt( frontFlip.outerHeight() ) ) ) {
                         frontFlipSection.addClass( 'uabb_disable_middle' );
                     }
-                }
-            }, 200);
+                } 
+            }, 200); 
         }
     };
-
+        
 })(jQuery);

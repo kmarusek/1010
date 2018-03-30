@@ -18,7 +18,8 @@ class UABBImageCarouselModule extends FLBuilderModule {
 			'dir'           	=> BB_ULTIMATE_ADDON_DIR . 'modules/uabb-image-carousel/',
             'url'           	=> BB_ULTIMATE_ADDON_URL . 'modules/uabb-image-carousel/',
 			'editor_export'  	=> false,
-			'partial_refresh'	=> true
+			'partial_refresh'	=> true,
+			'icon'				=> 'slides.svg',
 		));
 
         $this->add_js( 'carousel', BB_ULTIMATE_ADDON_URL . 'assets/js/global-scripts/jquery-carousel.js', array('jquery'), '', true );
@@ -71,7 +72,7 @@ class UABBImageCarouselModule extends FLBuilderModule {
 
 			// Use the cache if we didn't get a photo from the id.
 			if ( ! $photo ) {
-
+				
 				if ( ! isset( $this->settings->photo_data ) ) {
 					continue;
 				}
@@ -88,7 +89,7 @@ class UABBImageCarouselModule extends FLBuilderModule {
 
 
 			$data = new stdClass();
-
+			
 			// Only use photos who have the sizes object.
 			if(isset($photo->sizes)) {
 
@@ -100,7 +101,7 @@ class UABBImageCarouselModule extends FLBuilderModule {
 				$data->title = $photo->title;
 
 				// Collage photo src
-
+				
 
 				if($this->settings->photo_size == 'thumbnail' && isset($photo->sizes->thumbnail)) {
 					$data->src = $photo->sizes->thumbnail->url;
@@ -123,7 +124,7 @@ class UABBImageCarouselModule extends FLBuilderModule {
 				/*echo '<pre>';
 				print_r( $photo->sizes );
 				echo '</pre>';*/
-
+				
 				// Push the photo data
 				$photos[$id] = $data;
 			}
@@ -402,7 +403,7 @@ FLBuilder::register_module('UABBImageCarouselModule', array(
 		                    ),
 		                )
 		            ),
-		            'arrow_color' => array(
+		            'arrow_color' => array( 
 						'type'       => 'color',
 						'label'         => __('Arrow Color', 'uabb'),
 						'default'    => '',
@@ -413,7 +414,7 @@ FLBuilder::register_module('UABBImageCarouselModule', array(
                             'property'        => 'color'
                         )
 					),
-		            'arrow_background_color' => array(
+		            'arrow_background_color' => array( 
 						'type'       => 'color',
 						'label'         => __('Arrow Background Color', 'uabb'),
 						'default'    => '',
@@ -424,7 +425,7 @@ FLBuilder::register_module('UABBImageCarouselModule', array(
                             'property'        => 'background'
                         )
 					),
-		            'arrow_background_color_opc' => array(
+		            'arrow_background_color_opc' => array( 
 						'type'        => 'text',
 						'label'       => __('Opacity', 'uabb'),
 						'default'     => '',
@@ -432,7 +433,7 @@ FLBuilder::register_module('UABBImageCarouselModule', array(
 						'maxlength'   => '3',
 						'size'        => '5',
 					),
-		            'arrow_color_border' => array(
+		            'arrow_color_border' => array( 
 						'type'       => 'color',
 						'label'         => __('Arrow Border Color', 'uabb'),
 						'default'    => '',
@@ -496,14 +497,14 @@ FLBuilder::register_module('UABBImageCarouselModule', array(
 			'overlay'       => array(
 				'title'         => __( 'Overlay', 'uabb' ),
 				'fields'        => array(
-					'overlay_color' => array(
+					'overlay_color' => array( 
 						'type'       => 'color',
 						'label'     => __('Overlay Color', 'uabb'),
 						'preview'	=> 'none',
 						'default'	=> '000000',
 						'show_reset' => true,
 					),
-					'overlay_color_opc'    => array(
+					'overlay_color_opc'    => array( 
 						'type'        => 'text',
 						'label'       => __('Opacity', 'uabb'),
 						'default'     => '70',
@@ -541,7 +542,7 @@ FLBuilder::register_module('UABBImageCarouselModule', array(
 						'description'   => 'px',
 						'preview'	=> 'none',
 					),
-					'overlay_icon_color' => array(
+					'overlay_icon_color' => array( 
 						'type'       => 'color',
 						'label'     => __('Overlay Icon Color', 'uabb'),
 						'preview'	=> 'none',
@@ -616,7 +617,7 @@ FLBuilder::register_module('UABBImageCarouselModule', array(
                             'unit'			=> 'px'
                         )
                     ),
-                    'color'        => array(
+                    'color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',
@@ -627,7 +628,7 @@ FLBuilder::register_module('UABBImageCarouselModule', array(
                             'property'		=> 'color',
                         )
                     ),
-                    'caption_bg_color' => array(
+                    'caption_bg_color' => array( 
                         'type'       => 'color',
                         'label'     => __('Background Color', 'uabb'),
                         'default'    => '',
@@ -638,7 +639,7 @@ FLBuilder::register_module('UABBImageCarouselModule', array(
                             'property'		=> 'background',
                         )
 					),
-					'caption_bg_color_opc'    => array(
+					'caption_bg_color_opc'    => array( 
 						'type'        => 'text',
 						'label'       => __('Opacity', 'uabb'),
 						'default'     => '',

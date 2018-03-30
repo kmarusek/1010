@@ -8,12 +8,13 @@ class UABBSpacerGap extends FLBuilderModule {
             'name'            => __( 'Spacer / Gap', 'uabb' ),
             'description'     => __( 'A totally awesome module!', 'uabb' ),
             'category'      => BB_Ultimate_Addon_Helper::module_cat( BB_Ultimate_Addon_Helper::$extra_additions ),
-            'group'         => UABB_CAT,
+            'group'         => UABB_CAT,  
             'dir'             => BB_ULTIMATE_ADDON_DIR . 'modules/spacer-gap/',
             'url'             => BB_ULTIMATE_ADDON_URL . 'modules/spacer-gap/',
             'editor_export'   => true, // Defaults to true and can be omitted.
             'enabled'         => true, // Defaults to true and can be omitted.
             'partial_refresh' => true, // Defaults to false and can be omitted.
+            'icon'            => 'minus.svg',
         ));
     }
 }

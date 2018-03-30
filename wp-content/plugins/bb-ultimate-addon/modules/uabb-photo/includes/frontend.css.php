@@ -1,4 +1,4 @@
-<?php
+<?php 
     $settings->style_bg_color = UABB_Helper::uabb_colorpicker( $settings, 'style_bg_color', true );
 ?>
 .fl-node-<?php echo $id; ?> {
@@ -6,7 +6,7 @@
 }
 
 .fl-node-<?php echo $id; ?> .uabb-photo-content {
-
+    
     <?php  if ( $settings->style != "simple" ) {
        // if( $settings->bg_size != '' && $settings->bg_size != '0' ) { ?>
     background-color: <?php echo uabb_theme_base_color( $settings->style_bg_color ); ?>;
@@ -46,11 +46,11 @@
     border-radius: calc( 50% );
     <?php endif; ?>
 }
-.fl-node-<?php echo $id; ?> .uabb-photo-caption {
+.fl-node-<?php echo $id; ?> .uabb-photo-caption { 
     <?php if( $settings->show_caption == 'hover' && ( $settings->style == 'circle' || $settings->style == 'custom' )  ) : ?>
     top: 50%;
     bottom: auto;
-    transform: translateY(-50%);
+    transform: translateY(-50%);    
     <?php endif; ?>
 }
 
@@ -67,7 +67,7 @@
         opacity: <?php echo ($settings->opacity != '') ? $settings->opacity / 100 : 100; ?>;
     }
     .fl-node-<?php echo $id; ?> .uabb-photo-content .uabb-photo-img:hover {
-        opacity: <?php echo ($settings->hover_opacity != '') ? $settings->hover_opacity / 100 : 100; ?>;
+        opacity: <?php echo ($settings->hover_opacity != '') ? $settings->hover_opacity / 100 : 100; ?>; 
     }
 <?php elseif( $settings->hover_effect == 'style2' ) : ?>
     /*.fl-node-<?php echo $id; ?> .uabb-photo-content .uabb-photo-img:hover {
@@ -157,9 +157,9 @@ if( $settings->hover_effect == 'simple' ) {
 }
 ?>
 
-<?php
+<?php 
 // Responsive button Alignment
-if( $global_settings->responsive_enabled ) : ?>
+if( $global_settings->responsive_enabled ) : ?> 
 @media ( max-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {
     .fl-node-<?php echo $id; ?> .uabb-photo-mob-align-<?php echo $settings->responsive_align; ?> {
         text-align: <?php echo $settings->responsive_align; ?>;

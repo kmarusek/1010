@@ -14,7 +14,7 @@
 			{
 				/* Global Setting */
 				FLBuilder.addHook( 'actions-lightbox-settings', function( e, settings ){
-
+					
 					if ( 'fl-builder-tools-actions' == settings.className ) {
 						settings.buttons[ 45 ] = {
 							'key': 'uabb-global-settings',
@@ -59,21 +59,21 @@
 					data     = form.serializeArray(),
 					settings = {},
 					i        = 0;
-
+					
 				if(valid) {
-
+						 
 					for( ; i < data.length; i++) {
 						settings[data[i].name] = data[i].value;
 					}
-
+					
 					FLBuilder.showAjaxLoader();
 					FLBuilder._layoutSettingsCSSCache = null;
-
+					
 					FLBuilder.ajax({
 						action: 'save_uabb_global_settings',
 						settings: settings
 					}, FLBuilder._updateLayout);
-
+						
 					FLBuilder._lightbox.close();
 				}
 			},
@@ -98,9 +98,9 @@
 			{
 				/* Global Setting */
 				FLBuilder.addHook( 'actions-lightbox-settings', function( e, settings ){
-
+					
 					if ( 'fl-builder-help-actions' == settings.className ) {
-
+									
 						settings.buttons[ 45 ] = {
 							'key': 'uabb-knowledge-base',
 							'label': FLBuilderStrings.uabbKnowledgeBase
@@ -159,7 +159,7 @@
 			// Init validation events.
 			this._btn_styleChanged();
 			this.imgicon_postion();
-
+			
 			// Validation events.
 			btn_style.on('change',  $.proxy( this._btn_styleChanged, this ) );
 			btn_style_opt.on('change',  $.proxy( this._btn_styleChanged, this ) );
@@ -175,9 +175,9 @@
 				hover_attribute = form.find('select[name=hover_attribute]').val(),
 				transparent_button_options = form.find('select[name=btn_transparent_button_options]').val(),
 				icon       = form.find('input[name=btn_icon]');
-
+				
 			icon.rules('remove');
-
+			
 			if(btn_style == 'flat' && btn_style_opt != 'none' ) {
 				icon.rules('add', { required: true });
 			}
@@ -261,7 +261,7 @@
 			$(".uabb-live-preview-button").css({ left: title_width });
 
 
-			$(".uabb-live-preview-button").click(function() {
+			$(".uabb-live-preview-button").click(function() {   
 				$('html').toggleClass('uabb-active-live-preview');
 				var live_preview 	= $(this),
 					html 			= $('html');
@@ -273,19 +273,19 @@
 					}
 					$('.fl-builder-bar').stop(true, true).slideUp(500);
 					html.animate({ marginTop: '0px !important' }, 1000);
-
+					
 					FLBuilder._destroyOverlayEvents();
 					//live_preview.removeClass('fa-eye').addClass('fa-eye-slash');
 				} else {
 					$('.fl-builder-panel').stop(true, true).animate({ right : 0 }, 500);
 					$('.fl-builder-bar').stop(true, true).slideDown(500);
-
+					
 					FLBuilder._bindOverlayEvents();
 					//live_preview.removeClass('fa-eye-slash').addClass('fa-eye');
 				}
 			});
 		}
-
+		
 		UABBHelp._init();
 	});
 

@@ -6,7 +6,7 @@
 		document_height = $( document ).height();
 
 		<?php
-		$photo_src = ( $settings->photo_source != 'url' ) ? ( ( isset( $settings->photo_src ) && $settings->photo_src != '' ) ? $settings->photo_src : '' ) : ( ( $settings->photo_url != '' ) ? $settings->photo_url : '' );
+		$photo_src = ( $settings->photo_source != 'url' ) ? ( ( isset( $settings->photo_src ) && $settings->photo_src != '' ) ? $settings->photo_src : '' ) : ( ( $settings->photo_url != '' ) ? $settings->photo_url : '' ); 
 
 		if( isset( $photo_src ) ) {
 			if( $photo_src != '' ) {
@@ -58,9 +58,9 @@
 						?>
 							jQuery('.fl-node-<?php echo $id; ?> .uabb-hotspot-item-<?php echo $i; ?> .uabb-hotspot-wrap .uabb-imgicon-wrap').click(function(event){
 								event.stopPropagation();
-
+								
 								var selector = jQuery('.fl-node-<?php echo $id; ?> .uabb-hotspot-item-<?php echo $i; ?>');
-
+								
 								if( selector.hasClass( 'uabb-hotspot-hover' ) ){
 							        selector.removeClass('uabb-hotspot-hover');
 							    } else {
@@ -92,12 +92,12 @@
 
 						jQuery( 'body' ).click( function( event ) {
 							if(  !jQuery(event.target).is('.fl-node-<?php echo $id; ?> .uabb-hotspot-item') && !jQuery(event.target).closest('.fl-node-<?php echo $id; ?> .uabb-hotspot-item').length ) {
-
+								
 								var bselector = jQuery('.fl-node-<?php echo $id; ?> .uabb-hotspot-item');
-
+								
 								if( bselector.hasClass( 'uabb-hotspot-hover' ) ){
 							        bselector.removeClass('uabb-hotspot-hover');
-							    }
+							    }										
 							}
 						} );
 
@@ -135,7 +135,7 @@
 
 	function responsiveTooltipShift() {
 		<?php
-		$photo_src = ( $settings->photo_source != 'url' ) ? ( ( isset( $settings->photo_src ) && $settings->photo_src != '' ) ? $settings->photo_src : '' ) : ( ( $settings->photo_url != '' ) ? $settings->photo_url : '' );
+		$photo_src = ( $settings->photo_source != 'url' ) ? ( ( isset( $settings->photo_src ) && $settings->photo_src != '' ) ? $settings->photo_src : '' ) : ( ( $settings->photo_url != '' ) ? $settings->photo_url : '' ); 
 
 		if( isset( $photo_src ) ) {
 			if( $photo_src != '' ) {
@@ -150,7 +150,7 @@
 			tooltipSelector = jQuery('.fl-node-<?php echo $id ?> .uabb-hotspot-item-<?php echo $i; ?> .uabb-hotspot-tooltip-content');
 
 		var tooltipWidth = tooltipSelector.outerWidth(true);
-
+		
 		if( tooltip_style != 'round' ) {
 			if( tooltip_content_position == 'left' ) {
 				//console.log('left - '+itemPosition.left);
@@ -165,7 +165,7 @@
 			if( tooltip_style == 'curved' ) {
 				tooltipWidth += 42;
 			}
-
+			
 			if( tooltip_content_position == 'right' ) {
 				//console.log(tooltipWidth + 45);
 				//console.log('right - '+( outerContainerWidth - itemPosition.left ));

@@ -1,6 +1,6 @@
 <?php
 /**
- * Update and backward compatibility.
+ * Update and backward compatibility. 
  *
  * @since 1.5.0
  */
@@ -59,7 +59,7 @@ if ( ! class_exists( 'UABB_Plugin_Update' ) ) {
 			}
 
 			do_action( 'uabb_update_version_before' );
-
+			
 			// Update saved version number.
 			update_option( '_uabb_saved_version', BB_ULTIMATE_ADDON_VER );
 

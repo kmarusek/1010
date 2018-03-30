@@ -1,8 +1,8 @@
 (function($){
 	FLBuilder.registerModuleHelper('image-icon', {
-
+		
 		init: function()
-		{
+		{	
 			var form    	= $('.fl-builder-settings'),
 				image_type 	= form.find('select[name=image_type]'),
 				icon_style	= form.find('select[name=icon_style]'),
@@ -10,7 +10,7 @@
 				photoSource     = form.find('select[name=photo_source]'),
 				librarySource   = form.find('select[name=photo_src]'),
 				urlSource       = form.find('input[name=photo_url]');
-
+			
 			//console.log( this );
 			// Init validation events.
 			//this._photoSourceChanged();
@@ -23,7 +23,7 @@
 			image_style.on('change', $.proxy( this._toggleBorderOptions, this ) ) ;
 			//image_type.trigger('change');
 		},
-
+		
 		_toggleBorderOptions: function() {
 			var form		= $('.fl-builder-settings'),
 				show_border = false
@@ -33,7 +33,7 @@
 				image_style 	= form.find('select[name=image_style]').val(),
 				img_border_style 	= form.find('select[name=img_border_style]').val();
 
-
+			
 			if( image_type == 'icon' ){
 				if( icon_style == 'custom'  ){
 					show_border = true;
@@ -73,7 +73,7 @@
 				show_color 	= false,
 				image_type 	= form.find('select[name=image_type]').val(),
 				image_style = form.find('select[name=image_style]').val();
-
+			
 			//console.log( this );
 			//console.log( image_style );
 			if( image_type == 'photo' && image_style == 'custom' ){

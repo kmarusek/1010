@@ -5,15 +5,15 @@ $settings->second_heading_color = UABB_Helper::uabb_colorpicker( $settings, 'sec
 ?>
 /* First heading styling */
 <?php if ( $settings->first_heading_color != "" || $settings->add_spacing_option == "yes" ) { ?>
-.fl-node-<?php echo $id; ?> .uabb-dual-color-heading .uabb-first-heading-text {
+.fl-node-<?php echo $id; ?> .fl-module-content .uabb-module-content.uabb-dual-color-heading .uabb-first-heading-text {
 	<?php if ( !empty( $settings->first_heading_color ) ) { ?>
 	color: <?php echo $settings->first_heading_color; ?>;
 	<?php } ?>
-    <?php
+    <?php 
     if( $settings->add_spacing_option === "yes"  ){
     ?>
  		margin-right:<?php echo ( isset( $settings->heading_margin ) && $settings->heading_margin != '' ) ? $settings->heading_margin . 'px' : '10px' ; ?>;
-    <?php
+    <?php	
     }
     ?>
 }
@@ -36,7 +36,7 @@ $settings->second_heading_color = UABB_Helper::uabb_colorpicker( $settings, 'sec
 
 /* Second heading styling */
 <?php //if ( $settings->second_heading_color != "" ) { ?>
-	.fl-node-<?php echo $id; ?> .uabb-dual-color-heading .uabb-second-heading-text {
+	.fl-node-<?php echo $id; ?> .fl-module-content .uabb-module-content.uabb-dual-color-heading .uabb-second-heading-text {
 		<?php //if ( !empty( $settings->second_heading_color ) ) { ?>
 	    color: <?php echo uabb_theme_base_color( $settings->second_heading_color ); ?>;
 	    <?php //} ?>
@@ -50,7 +50,7 @@ $settings->second_heading_color = UABB_Helper::uabb_colorpicker( $settings, 'sec
 
 /* Typography styling for desktop */
 
-<?php
+<?php 
 if( $settings->dual_font_family['family'] != "Default" || $settings->dual_font_size['desktop'] != '' || $settings->dual_line_height['desktop'] != '') { ?>
 	.fl-node-<?php echo $id; ?> .uabb-dual-color-heading * {
 		<?php if( $settings->dual_font_family['family'] != "Default") : ?>
@@ -66,10 +66,10 @@ if( $settings->dual_font_family['family'] != "Default" || $settings->dual_font_s
 <?php } ?>
 
 
-/* Typography responsive layout starts here */
+/* Typography responsive layout starts here */ 
 
 
-<?php if($global_settings->responsive_enabled) { // Global Setting If started
+<?php if($global_settings->responsive_enabled) { // Global Setting If started 
 	if( $settings->dual_font_size['medium'] != "" || $settings->dual_line_height['medium'] != "" || $settings->responsive_compatibility == 'uabb-responsive-medsmall' ) {
 	?>
 		@media ( max-width: <?php echo $global_settings->medium_breakpoint .'px'; ?> ) {

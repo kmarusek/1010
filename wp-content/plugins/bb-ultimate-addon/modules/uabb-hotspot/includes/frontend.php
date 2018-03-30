@@ -1,5 +1,5 @@
 <?php
-$photo_src = ( $settings->photo_source != 'url' ) ? ( ( isset( $settings->photo_src ) && $settings->photo_src != '' ) ? $settings->photo_src : '' ) : ( ( $settings->photo_url != '' ) ? $settings->photo_url : '' );
+$photo_src = ( $settings->photo_source != 'url' ) ? ( ( isset( $settings->photo_src ) && $settings->photo_src != '' ) ? $settings->photo_src : '' ) : ( ( $settings->photo_url != '' ) ? $settings->photo_url : '' ); 
 
 
 if( isset( $photo_src ) ) {
@@ -66,7 +66,7 @@ if( isset( $photo_src ) ) {
 							</span>
 							<?php
 							}
-							?>
+							?>	
 						</span>
 						<?php
 						}

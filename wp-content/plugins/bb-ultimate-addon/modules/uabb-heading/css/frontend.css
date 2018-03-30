@@ -1,8 +1,3 @@
-.uabb-heading-wrapper .uabb-heading,
-.uabb-heading-wrapper .uabb-heading,
-.uabb-heading-wrapper .uabb-heading,
-.uabb-heading-wrapper .uabb-heading,
-.uabb-heading-wrapper .uabb-heading,
 .uabb-heading-wrapper .uabb-heading {
 	padding: 0;
 	margin: 0;
@@ -43,7 +38,7 @@
 }
 .uabb-module-content .uabb-text-editor *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
     font-size: inherit;
-    line-height: inherit;
+    line-height: inherit;	
 }
 .uabb-module-content .uabb-text-editor *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(strong):not(b) {
 	font-weight: inherit;

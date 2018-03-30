@@ -1,5 +1,5 @@
 /* Global Number Counter CSS */
-<?php
+<?php 
     $settings->separator_color = UABB_Helper::uabb_colorpicker( $settings, 'separator_color' );
     $settings->circle_color = UABB_Helper::uabb_colorpicker( $settings, 'circle_color', true );
     $settings->circle_bg_color = UABB_Helper::uabb_colorpicker( $settings, 'circle_bg_color', true );
@@ -89,7 +89,7 @@ if( $settings->layout == "default" ) {
 	<?php endif; ?>
 }
 
-/* Custom Spacing Style Css */
+/* Custom Spacing Style Css */ 
 <?php if( $settings->layout == "default" ) { ?>
 	<?php if( $settings->number_bottom_margin != '' || $settings->number_top_margin != '' ) { ?>
 		<?php if( $settings->img_icon_position == 'left-title' || $settings->img_icon_position == 'right-title' ) { ?>
@@ -97,28 +97,28 @@ if( $settings->layout == "default" ) {
 		<?php }else{ ?>
 			.fl-node-<?php echo $id ?> <?php echo $settings->num_tag_selection; ?>.uabb-number-string {
 		<?php } ?>
-		<?php
-
+		<?php 
+			
 			if( isset( $settings->number_bottom_margin ) && $settings->number_bottom_margin != '' ) {
 				echo 'margin-bottom: '. $settings->number_bottom_margin .'px;';
 			}
 			if( isset( $settings->number_top_margin ) && $settings->number_top_margin != '' ) {
 				echo 'margin-top: '. $settings->number_top_margin .'px;';
-			}
+			} 
 		?>
 		}
 	<?php } ?>
 <?php }else{ ?>
 	<?php if( ( $settings->number_bottom_margin != '' ) || ( $settings->number_top_margin != '' ) ) { ?>
 		.fl-node-<?php echo $id ?> <?php echo $settings->num_tag_selection; ?>.uabb-number-string{
-		<?php
-
+		<?php 
+			
 			if( isset( $settings->number_bottom_margin ) && $settings->number_bottom_margin != '' ) {
 				echo 'margin-bottom: '. $settings->number_bottom_margin .'px;';
 			}
 			if( isset( $settings->number_top_margin ) && $settings->number_top_margin != '' ) {
 				echo 'margin-top: '. $settings->number_top_margin .'px;';
-			}
+			} 
 		?>
 		}
 	<?php }?>
@@ -126,7 +126,7 @@ if( $settings->layout == "default" ) {
 
 /* Icon Margin */
 <?php if ( $settings->image_type == 'icon' ) { ?>
-	<?php
+	<?php 
 		$pos = '';
 		if( $settings->layout == 'circle' || $settings->layout == 'semi-circle'  ){
 			$pos = $settings->circle_position;
@@ -142,7 +142,7 @@ if( $settings->layout == "default" ) {
 <?php } ?>
 /* Image Margin */
 <?php if ( $settings->image_type == 'photo' ) { ?>
-	<?php
+	<?php 
 		$pos = '';
 		if( $settings->layout == 'circle' || $settings->layout == 'semi-circle'  ){
 			$pos = $settings->circle_position;
@@ -163,15 +163,15 @@ if( $settings->layout == "default" ) {
 
 	/* CSS "$settings" Array */
  	$imageicon_array = array(
-
+      
       	/* General Section */
       	'image_type' => $settings->image_type,
-
+ 
       	/* Icon Basics */
       	'icon' => $settings->icon,
       	'icon_size' => $settings->icon_size,
       	'icon_align' => ( $settings->layout == 'default' ) ? $settings->align : 'center',
-
+ 
       	/* Image Basics */
       	'photo_source' => $settings->photo_source,
       	'photo' => $settings->photo,
@@ -179,25 +179,25 @@ if( $settings->layout == "default" ) {
       	'img_size' => $settings->img_size,
       	'img_align' => ( $settings->layout == 'default' ) ? $settings->align : 'center',
       	'photo_src' => ( isset( $settings->photo_src ) ) ? $settings->photo_src : '' ,
-
+ 
       	/* Icon Style */
       	'icon_style' => $settings->icon_style,
       	'icon_bg_size' => $settings->icon_bg_size,
       	'icon_border_style' => $settings->icon_border_style,
       	'icon_border_width' => $settings->icon_border_width,
       	'icon_bg_border_radius' => $settings->icon_bg_border_radius,
-
+ 
       	/* Image Style */
       	'image_style' => $settings->image_style,
       	'img_bg_size' => $settings->img_bg_size,
       	'img_border_style' => $settings->img_border_style,
       	'img_border_width' => $settings->img_border_width,
       	'img_bg_border_radius' => $settings->img_bg_border_radius,
-
+ 		
  		/* Preset Color variable new */
       	'icon_color_preset' => $settings->icon_color_preset,
 
-      	/* Icon Colors */
+      	/* Icon Colors */ 
       	'icon_color' => $settings->icon_color,
       	'icon_hover_color' => $settings->icon_hover_color,
       	'icon_bg_color' => $settings->icon_bg_color,
@@ -207,7 +207,7 @@ if( $settings->layout == "default" ) {
       	'icon_border_color' => $settings->icon_border_color,
       	'icon_border_hover_color' => $settings->icon_border_hover_color,
       	'icon_three_d' => $settings->icon_three_d,
-
+ 
       	/* Image Colors */
       	'img_bg_color' => $settings->img_bg_color,
       	'img_bg_color_opc' => $settings->img_bg_color_opc,
@@ -216,8 +216,8 @@ if( $settings->layout == "default" ) {
       	'img_border_color' => $settings->img_border_color,
       	'img_border_hover_color' => $settings->img_border_hover_color,
  	);
-
- 	/* CSS Render Function */
+ 
+ 	/* CSS Render Function */ 
  	FLBuilder::render_module_css( 'image-icon', $id, $imageicon_array );
 } ?>
 
@@ -268,7 +268,7 @@ if( $settings->layout == "default" ) {
         <?php } ?>
 	}
 	.fl-node-<?php echo $id ?> .uabb-number-circle-container, .fl-node-<?php echo $id ?> .uabb-number-semi-circle-container {
-		<?php
+		<?php 
 			if( !empty( $settings->circle_width ) ) {
 				echo 'max-width: '. $settings->circle_width .'px;';
 			} else {
@@ -283,7 +283,7 @@ if( $settings->layout == "default" ) {
 	}
 
 	.fl-node-<?php echo $id ?> .uabb-number-circle-container {
-		<?php
+		<?php 
 			if( !empty( $settings->circle_width ) ) {
 				echo 'max-height: '. $settings->circle_width .'px;';
 			} else {
@@ -293,7 +293,7 @@ if( $settings->layout == "default" ) {
 	}
 
 	.fl-node-<?php echo $id ?> .uabb-number-semi-circle-container {
-		<?php
+		<?php 
 			if( !empty( $settings->circle_width ) ) {
 				$circle_height = $settings->circle_width / 2;
 				echo 'max-height: '. $circle_height .'px;';
@@ -304,7 +304,7 @@ if( $settings->layout == "default" ) {
 	}
 
 	.fl-node-<?php echo $id ?> .svg circle, .fl-node-<?php echo $id ?> .semi-circle-svg circle{
-	<?php
+	<?php 
 		if( !empty( $settings->circle_dash_width ) ) {
 			echo 'stroke-width: '. $settings->circle_dash_width .'px;';
 		}
@@ -312,7 +312,7 @@ if( $settings->layout == "default" ) {
 	}
 
 	.fl-node-<?php echo $id ?> .svg .uabb-bar-bg, .fl-node-<?php echo $id ?> .semi-circle-svg .uabb-bar-bg{
-	<?php
+	<?php 
 		if( !empty( $settings->circle_bg_color ) ) {
 			echo 'stroke: '. $settings->circle_bg_color .';';
 		} else {
@@ -322,7 +322,7 @@ if( $settings->layout == "default" ) {
 	}
 
 	.fl-node-<?php echo $id ?> .svg .uabb-bar, .fl-node-<?php echo $id ?> .semi-circle-svg .uabb-bar{
-	<?php
+	<?php 
 			echo 'stroke: '. uabb_theme_base_color( $settings->circle_color ).';';
 	?>
 	}
@@ -342,7 +342,7 @@ if( $settings->layout == "default" ) {
 <?php $class 		= '';
 		$pos 		= '';
 		$cal_width 	= '';
-if( $settings->image_type == 'icon' && $settings->layout == 'default' ) {
+if( $settings->image_type == 'icon' && $settings->layout == 'default' ) { 
 	$class = 'uabb-number-'.$settings->image_type.'-'.$settings->img_icon_position;
 	$pos = $settings->img_icon_position;
 	if ( $pos == 'left' || $pos == 'right' || $pos == 'left-title' || $pos == 'right-title'  ) {
@@ -395,8 +395,8 @@ die();*/
 /* Responsive Typography */
 
 
-<?php if($global_settings->responsive_enabled) { // Global Setting If started
-	if( $settings->num_font_size['medium'] != "" || $settings->num_line_height['medium'] != "" ||
+<?php if($global_settings->responsive_enabled) { // Global Setting If started 
+	if( $settings->num_font_size['medium'] != "" || $settings->num_line_height['medium'] != "" || 
 		$settings->ba_font_size['medium'] != "" || $settings->ba_line_height['medium'] != "" )
 	{
 		/* Medium Breakpoint media query */
@@ -427,13 +427,13 @@ die();*/
 				line-height: <?php echo $settings->ba_line_height['medium']; ?>px;
 				<?php endif; ?>
 			}
-		}
+		}		
 	<?php
 	}
-	if( $settings->num_font_size['small'] != "" || $settings->num_line_height['small'] != "" ||
+	if( $settings->num_font_size['small'] != "" || $settings->num_line_height['small'] != "" || 
 		$settings->ba_font_size['small'] != "" || $settings->ba_line_height['small'] != "" )
 	{
-		/* Small Breakpoint media query */
+		/* Small Breakpoint media query */	
 	?>
 		@media ( max-width: <?php echo $global_settings->responsive_breakpoint .'px'; ?> ) {
 			/* Number Text Typography */
@@ -461,7 +461,7 @@ die();*/
 				line-height: <?php echo $settings->ba_line_height['small']; ?>px;
 				<?php endif; ?>
 			}
-		}
+		}		
 	<?php
 	}
 } /* Typography responsive layout Ends here*/ ?>

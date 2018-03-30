@@ -131,7 +131,7 @@ if(!class_exists('UABB_Date_Field')) {
                             echo '<option value="'.$i.'" '.$selected.'>'.$i.'</option>';
                         }
                   }
-                  echo '</select></br><label>' . __( 'Minutes', 'uabb' ) . '</label></div><div>';
+                  echo '</select></br><label>' . __( 'Minutes', 'uabb' ) . '</label></div><div>';   
             }
 
             function uabb_evergreen_date($name, $value, $field, $settings) {
@@ -220,9 +220,9 @@ if(!class_exists('UABB_Date_Field')) {
                             echo '<option value="'.$i.'" '.$selected.'>'.$i.'</option>';
                         }
                   }
-                  echo '</select></br><label>' . __( 'Seconds', 'uabb' ) . '</label></div></div>';
+                  echo '</select></br><label>' . __( 'Seconds', 'uabb' ) . '</label></div></div>';  
             }
       }
-
+	
       $UABB_Date_Field = new UABB_Date_Field();
 }

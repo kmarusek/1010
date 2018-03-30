@@ -1,13 +1,27 @@
 <?php
 
+$notice = '';
+$style1 = 'line-height: 1.45em; color: #a94442;';
+$theme = wp_get_theme();
+$theme_name = ( $theme->name ? $theme->name : $theme->parent_theme );
+$branding_name    = __( 'Ultimate Addons for Beaver Builder', 'uabb' );
+
+if ( UABB_PREFIX != '' && UABB_PREFIX != 'UABB' ) {
+	$branding_name = UABB_PREFIX;
+}
+
+if ( 'Astra' == $theme->name || 'Astra' == $theme->parent_theme || 'Beaver Builder Theme' == $theme->name || 'Beaver Builder Theme' == $theme->parent_theme || 'GeneratePress' == $theme->name || 'GeneratePress' == $theme->parent_theme ) {
+	$notice = sprintf( 
+		__( '<span style="%s"> %s offers extra compatibility with Astra, GeneratePress and Beaver Builder theme and it can automatically adapt colors and other settings from the theme customizer. <br> If you would like Ultimate Addons to automatically take settings from the theme, select No. But if you would rather like to make your own global settings, select Yes. </span>' , 'uabb' ),
+        $style1, $branding_name, $theme_name );
+}
+
 FLBuilder::register_settings_form('uabb-global', array(
-	'title' => sprintf(
-						esc_attr__( '%s - Global Settings', 'uabb' ),
-						UABB_PREFIX
-					),
+	'title' => __( ' - Global Settings', 'uabb' ),
 	'tabs' => array(
 		'general'  => array(
 			'title'         => __('Style', 'uabb'),
+			'description'   => $notice,
 			'sections'      => array(
 				'enable_disable'	=> array(
 					'title'		=> __( 'Global Styling', 'uabb'),
@@ -31,13 +45,13 @@ FLBuilder::register_settings_form('uabb-global', array(
 				'theme'  => array(
 					'title'         => __('General', 'uabb'),
 					'fields'        => array(
-						'theme_color'	=> array(
+						'theme_color'	=> array( 
 							'type'       => 'color',
 			                'label'         => __('Primary Color', 'uabb'),
 			                'default'       => 'f7b91a',
 							'show_reset' => true,
 						),
-			            'theme_text_color'  => array(
+			            'theme_text_color'  => array( 
 							'type'       => 'color',
 			                'label'         => __('Primary Text Color', 'uabb'),
 			                'default'       => '808285',
@@ -48,13 +62,13 @@ FLBuilder::register_settings_form('uabb-global', array(
 				'button'  => array(
 					'title'         => __('Button', 'uabb'),
 					'fields'        => array(
-						'btn_bg_color'        => array(
+						'btn_bg_color'        => array( 
 							'type'       => 'color',
 			                'label'         => __('Background Color', 'uabb'),
 			                'default'       => 'f7b91a',
 			                'show_reset' => true,
 						),
-			            'btn_bg_color_opc'    => array(
+			            'btn_bg_color_opc'    => array( 
 							'type'        => 'text',
 							'label'       => __('Opacity', 'uabb'),
 							'default'     => '',
@@ -62,7 +76,7 @@ FLBuilder::register_settings_form('uabb-global', array(
 							'maxlength'   => '3',
 							'size'        => '5',
 						),
-			            'btn_bg_hover_color'	=> array(
+			            'btn_bg_hover_color'	=> array( 
 							'type'       => 'color',
 			                'label'         => __('Background Hover Color', 'uabb'),
 			                'default'       => '000000',
@@ -71,7 +85,7 @@ FLBuilder::register_settings_form('uabb-global', array(
 		                        'type'          => 'none'
 		                    )
 						),
-						'btn_bg_hover_color_opc' => array(
+						'btn_bg_hover_color_opc' => array( 
 							'type'        => 'text',
 							'label'       => __('Opacity', 'uabb'),
 							'default'     => '',
@@ -79,20 +93,20 @@ FLBuilder::register_settings_form('uabb-global', array(
 							'maxlength'   => '3',
 							'size'        => '5',
 						),
-			            'btn_text_color'        => array(
+			            'btn_text_color'        => array( 
 							'type'       => 'color',
 			                'label'         => __('Text Color', 'uabb'),
 			                'default'       => 'ffffff',
 							'show_reset' => true,
 						),
-			            'btn_text_hover_color'	=> array(
+			            'btn_text_hover_color'	=> array( 
 							'type'       => 'color',
 							'label'      => __('Text Hover Color', 'uabb'),
 			                'default'    => 'ffffff',
 							'show_reset' => true,
 			                'preview'    => array(
 		                        'type' => 'none'
-		                    )
+		                    ) 
 						),
 			            'btn_font_size'  => array(
 			                'type'          => 'text',

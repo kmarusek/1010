@@ -57,7 +57,7 @@ if( $settings->img_overlay_color != '' ) {
     if( $settings->desc_typography_font_family['family'] != 'Default' ){
         UABB_Helper::uabb_font_css( $settings->desc_typography_font_family );
     }
-
+    
     echo ( $settings->desc_typography_line_height['desktop'] != '' ) ? 'line-height: ' . $settings->desc_typography_line_height['desktop'] . 'px;' : '';
     echo ( $settings->desc_typography_font_size['desktop'] != '' ) ? 'font-size: ' . $settings->desc_typography_font_size['desktop'] . 'px;' : '';
     ?>
@@ -95,7 +95,7 @@ if( $settings->banner_style == 'style5' ) {
 if( $global_settings->responsive_enabled ) { // Global Setting If started
 ?>
     @media ( max-width: <?php echo $global_settings->medium_breakpoint; ?>px ) {
-
+ 
         .fl-node-<?php echo $id; ?> .uabb-new-ib-content {
             <?php
             echo ( $settings->desc_typography_line_height['medium'] != '' ) ? 'line-height: ' . $settings->desc_typography_line_height['medium'] . 'px;' : '';
@@ -110,7 +110,7 @@ if( $global_settings->responsive_enabled ) { // Global Setting If started
             ?>
         }
     }
-
+ 
      @media ( max-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {
         .fl-node-<?php echo $id; ?> .uabb-new-ib-content {
             <?php

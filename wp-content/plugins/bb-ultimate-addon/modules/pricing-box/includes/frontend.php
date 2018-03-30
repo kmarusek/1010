@@ -80,9 +80,9 @@ if( $settings->add_legend == 'yes' ) {
 
 							<?php echo $pricingColumn->features[$j]; ?>
 						</li>
-						<?php endif; ?>
-						<?php endfor; ?>
-					<?php endif; ?>
+						<?php endif; ?> 
+						<?php endfor; ?>	
+					<?php endif; ?> 
 				</ul>
 				<?php ( $settings->pricing_columns[$i]->show_button == 'yes' ) ? $module->render_button($i) : ''; ?>
 				<?php do_action( 'uabb_price_box_button', $i ); ?>

@@ -62,7 +62,7 @@
             }).parent('.fl-builder-block').show().closest('.fl-builder-blocks-section').addClass('fl-active');
 
             if( $.trim( $(this).val() ) == '' ) {
-				parent.find('.fl-builder-blocks-section').removeClass('fl-active');
+				parent.find('.fl-builder-blocks-section').removeClass('fl-active');            	
             }
 	    });
 	    $('.fl-builder-blocks-section').click(function(event) {

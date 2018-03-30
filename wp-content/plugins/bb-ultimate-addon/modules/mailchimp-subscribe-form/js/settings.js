@@ -7,7 +7,7 @@
 				required: true
 			}
 		},
-
+		
 		init: function()
 		{
 			var form      = $( '.fl-builder-settings' ),
@@ -24,11 +24,11 @@
 
 			this._actionChanged();
 			this._flatBtnOption();
-
+			
 			action.on( 'change', this._actionChanged );
 
 			// Button background color change
-			$( 'input[name=btn_bg_color]' ).on( 'change', this._bgColorChange );
+			$( 'input[name=btn_bg_color]' ).on( 'change', this._bgColorChange );			
 			this._bgColorChange();
 
 			btn_flat_button_options.on('change', this._flatBtnOption);
@@ -52,7 +52,7 @@
 				res_spacing.css('display', 'table-row');
 			}
 		},
-
+		
 		submit: function()
 		{
 			var form       = $( '.fl-builder-settings' ),
@@ -60,7 +60,7 @@
 				serviceVal = service.val(),
 				account    = form.find( '.fl-builder-service-account-select' ),
 				list       = form.find( '.fl-builder-service-list-select' );
-
+				
 			/*if ( 0 === account.length ) {
 				FLBuilder.alert( FLBuilderStrings.subscriptionModuleConnectError );
 				return false;
@@ -70,28 +70,28 @@
 				return false;
 			}
 			else if ( ( 0 === list.length || '' == list.val() ) && 'email-address' != serviceVal && 'sendy' != serviceVal ) {
-
+				
 				if ( 'drip' == serviceVal || 'hatchbuck' == serviceVal ) {
-					FLBuilder.alert( FLBuilderStrings.subscriptionModuleTagsError );
+					FLBuilder.alert( FLBuilderStrings.subscriptionModuleTagsError );	
 				}
 				else {
 					FLBuilder.alert( FLBuilderStrings.subscriptionModuleListError );
 				}
-
+				
 				return false;
 			}*/
-
+			
 			return true;
 		},
-
+		
 		_actionChanged: function()
 		{
 			var form      = $( '.fl-builder-settings' ),
 				action    = form.find( 'select[name=success_action]' ).val(),
 				url       = form.find( 'input[name=success_url]' );
-
+				
 			url.rules('remove');
-
+				
 			if ( 'redirect' == action ) {
 				url.rules( 'add', { required: true } );
 			}
@@ -119,7 +119,7 @@
 		{
 			var bgColor = $( 'input[name=btn_bg_color]' ),
 				style   = $( '#fl-builder-settings-section-btn_style' );
-
+			
 
 			if ( '' == bgColor.val() ) {
 				style.hide();

@@ -12,7 +12,7 @@
     $(window).resize(function(){
         uabb_ihover_init();
     });
-
+    
     function uabb_ihover_init() {
         $('.uabb-ih-list').each(function(index, el){
             var s   = $(el).attr('data-shape');
@@ -21,7 +21,7 @@
             var rh = $(el).attr('data-res_height');
             var rw  = $(el).attr('data-res_width');
             var ww = jQuery(window).width() || '';
-
+                
             $(el).find('li').each(function(){
                 // Shape
                 $(el).find('.uabb-ih-item').addClass('uabb-ih-' + s);

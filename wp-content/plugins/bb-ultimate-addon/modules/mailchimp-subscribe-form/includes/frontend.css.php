@@ -84,7 +84,7 @@ if( $settings->btn_margin_top != '' ) {
 .fl-node-<?php echo $id; ?> .uabb-subscribe-form-stacked .uabb-form-button {
     margin-top: <?php echo $settings->btn_margin_top; ?>px;
 }
-<?php
+<?php 
 }
 ?>
 
@@ -218,7 +218,7 @@ if( $settings->btn_margin_top != '' ) {
     echo ( $settings->input_text_color != '' ) ? 'color: ' . $settings->input_text_color . ';' : '';
     ?>
     bottom: <?php echo ( $settings->vertical_padding != '' ) ? $settings->vertical_padding : '12'; ?>px;
-
+    
     <?php if( $settings->layout == 'inline' ) { ?>
     left: <?php echo (( $settings->horizontal_padding != '' ) ? $settings->horizontal_padding : '15') + $settings->spacing / 2; ?>px;
     <?php } else { ?>
@@ -247,13 +247,13 @@ if( $settings->btn_margin_top != '' ) {
 }
 
 <?php if( $settings->overall_alignment == 'left' ) : ?>
-.fl-node-<?php echo $id; ?> .uabb-subscribe-form-inline .uabb-form-wrap {
+.fl-node-<?php echo $id; ?> .uabb-subscribe-form-inline .uabb-form-wrap { 
     -webkit-box-pack: start;
     -ms-flex-pack: start;
     justify-content: flex-start;
 }
 <?php elseif( $settings->overall_alignment == 'right' ) : ?>
-.fl-node-<?php echo $id; ?> .uabb-subscribe-form-inline .uabb-form-wrap {
+.fl-node-<?php echo $id; ?> .uabb-subscribe-form-inline .uabb-form-wrap { 
     -webkit-box-pack: end;
     -ms-flex-pack: end;
     justify-content: flex-end;
@@ -340,7 +340,7 @@ if( $global_settings->responsive_enabled ) { // Global Setting If started
             <?php endif; ?>
         }
 
-        .fl-node-<?php echo $id; ?> .uabb-subscribe-form-inline .uabb-form-wrap {
+        .fl-node-<?php echo $id; ?> .uabb-subscribe-form-inline .uabb-form-wrap { 
             display: block;
         }
 
@@ -350,23 +350,23 @@ if( $global_settings->responsive_enabled ) { // Global Setting If started
             }
 
             <?php if( $settings->resp_overall_alignment == 'left' ) : ?>
-            .fl-node-<?php echo $id; ?> .uabb-subscribe-form-inline .uabb-form-wrap {
+            .fl-node-<?php echo $id; ?> .uabb-subscribe-form-inline .uabb-form-wrap { 
                 -webkit-box-pack: start;
                 -ms-flex-pack: start;
                 justify-content: flex-start;
             }
             <?php elseif( $settings->resp_overall_alignment == 'right' ) : ?>
-            .fl-node-<?php echo $id; ?> .uabb-subscribe-form-inline .uabb-form-wrap {
+            .fl-node-<?php echo $id; ?> .uabb-subscribe-form-inline .uabb-form-wrap { 
                 -webkit-box-pack: end;
                 -ms-flex-pack: end;
                 justify-content: flex-end;
             }
             <?php endif; ?>
         <?php endif; ?>
-
+        
         <?php endif; ?>
     }
-
+ 
     @media ( max-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {
 
         .fl-node-<?php echo $id; ?> <?php echo $settings->heading_tag_selection; ?>.uabb-sf-heading {
@@ -446,7 +446,7 @@ if( $global_settings->responsive_enabled ) { // Global Setting If started
                 display: block;
             <?php endif; ?>
         }
-        .fl-node-<?php echo $id; ?> .uabb-subscribe-form-inline .uabb-form-wrap {
+        .fl-node-<?php echo $id; ?> .uabb-subscribe-form-inline .uabb-form-wrap { 
             display: block;
         }
         <?php endif; ?>
@@ -456,13 +456,13 @@ if( $global_settings->responsive_enabled ) { // Global Setting If started
                 text-align: <?php echo $settings->resp_overall_alignment; ?>;
             }
             <?php if( $settings->resp_overall_alignment == 'left' ) : ?>
-            .fl-node-<?php echo $id; ?> .uabb-subscribe-form-inline .uabb-form-wrap {
+            .fl-node-<?php echo $id; ?> .uabb-subscribe-form-inline .uabb-form-wrap { 
                 -webkit-box-pack: start;
                 -ms-flex-pack: start;
                 justify-content: flex-start;
             }
             <?php elseif( $settings->resp_overall_alignment == 'right' ) : ?>
-            .fl-node-<?php echo $id; ?> .uabb-subscribe-form-inline .uabb-form-wrap {
+            .fl-node-<?php echo $id; ?> .uabb-subscribe-form-inline .uabb-form-wrap { 
                 -webkit-box-pack: end;
                 -ms-flex-pack: end;
                 justify-content: flex-end;

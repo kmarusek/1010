@@ -9,8 +9,8 @@ jQuery(document).ready(function(){
 		} else {
 			jQuery(this).parents(".switch-wrapper").find("#"+id).attr('value','1');
 		}
-
+		
 		jQuery(this).parents(".switch-wrapper").find(".bsf-switch-input").trigger('change');
-
+	
 	});
 });

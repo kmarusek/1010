@@ -1,7 +1,7 @@
 (function($) {
 
 	$(document).ready(function() {
-
+	
 		new UABBAnimation({
 			id: '<?php echo $id ?>',
 			animation_delay: '<?php echo ( $settings->img_animation_delay != '' && $settings->img_animation_delay != '0' ) ? $settings->img_animation_delay : ''; ?>',
@@ -10,5 +10,5 @@
 
 		});
 	});
-
+	
 })(jQuery);

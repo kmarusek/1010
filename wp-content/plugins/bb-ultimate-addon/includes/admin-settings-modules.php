@@ -24,7 +24,7 @@
 				<input class="uabb-module-all-cb" type="checkbox" name="uabb-modules[all]" value="all" <?php echo $checked; ?> />
 				<?php _ex( 'All', 'Plugin setup page: Modules.', 'uabb' ); ?>
 			</label>
-
+			
 			<h3><?php echo sprintf( __( '%s Modules', 'uabb' ), UABB_PREFIX ); ?></h3>
 			<?php foreach ( $modules_array as $slug => $name ) : ?>
 					<?php

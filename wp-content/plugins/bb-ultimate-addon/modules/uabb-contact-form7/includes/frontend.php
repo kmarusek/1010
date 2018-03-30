@@ -2,7 +2,7 @@
 	<?php if ( $settings->form_title ) { ?>
 		<<?php echo $settings->form_title_tag_selection; ?> class="uabb-cf7-form-title"><?php echo $settings->form_title; ?></<?php echo $settings->form_title_tag_selection; ?>>
 	<?php } ?>
-
+	
 	<?php if ( $settings->form_desc ) { ?>
 		<p class="uabb-cf7-form-desc"><?php echo $settings->form_desc; ?></p>
 	<?php }

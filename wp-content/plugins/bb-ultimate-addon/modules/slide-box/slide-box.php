@@ -22,6 +22,7 @@ class SlideBoxModule extends FLBuilderModule {
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
             'partial_refresh' => true,
+            'icon'              => 'slides.svg',
         ));
         $this->add_css('font-awesome');
     }
@@ -82,7 +83,7 @@ class SlideBoxModule extends FLBuilderModule {
                 'img_bg_border_radius' => '',
 
                 /* Preset Color variable new */
-                'icon_color_preset' => 'preset1',
+                'icon_color_preset' => 'preset1', 
 
                 /* Icon Colors */
                 'icon_color' => $this->settings->icon_color,
@@ -99,7 +100,7 @@ class SlideBoxModule extends FLBuilderModule {
                 'img_border_color' => '',
                 'img_border_hover_color' => '',
             );
-
+            
             /* Render HTML Function */
             FLBuilder::render_module_html( 'image-icon', $imageicon_array );
         }
@@ -107,12 +108,12 @@ class SlideBoxModule extends FLBuilderModule {
 
     public function render_overlay_icon()
     {
-        if( $this->settings->slide_type == "style1" && $this->settings->overlay == "yes" ) {
+        if( $this->settings->slide_type == "style1" && $this->settings->overlay == "yes" ) { 
             /* Render HTML Function */
             echo '<div class="uabb-slide-box-overlay">';
             echo    '<span class="uabb-icon-wrap">
                         <span class="uabb-icon">
-                            <i class="' . $this->settings->overlay_icon . '"></i>
+                            <i class="' . $this->settings->overlay_icon . '"></i> 
                         </span>
                     </span>';
             echo '</div>';
@@ -138,11 +139,11 @@ class SlideBoxModule extends FLBuilderModule {
             echo '<div class="uabb-slide-dropdown">';
             echo    '<span class="uabb-icon-wrap">
                         <span class="uabb-icon">
-                            <i class="fa fa-angle-down"></i>
+                            <i class="fa fa-angle-down"></i> 
                         </span>
                     </span>';
             echo '</div>';
-        }
+        } 
 
         if( $this->settings->slide_type == "style3" ) {
 
@@ -156,11 +157,11 @@ class SlideBoxModule extends FLBuilderModule {
             echo '<div class="uabb-slide-dropdown">';
             echo    '<span class="uabb-icon-wrap">
                         <span class="uabb-icon">
-                            <i class="fa fa-plus"></i>
+                            <i class="fa fa-plus"></i> 
                         </span>
                     </span>';
             echo '</div>';
-        }
+        }   
     }
 }
 
@@ -229,7 +230,7 @@ FLBuilder::register_module('SlideBoxModule', array(
                         'default'          => 'ua-icon ua-icon-head',
                         'show_remove' => true
                     ),
-                    'icon_color' => array(
+                    'icon_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Icon Color', 'uabb'),
                         'default'    => '',
@@ -240,7 +241,7 @@ FLBuilder::register_module('SlideBoxModule', array(
                             'property'  => 'color',
                         ),
                     ),
-                    'icon_hover_color' => array(
+                    'icon_hover_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Icon Hover Color', 'uabb'),
                         'default'    => '',
@@ -298,14 +299,14 @@ FLBuilder::register_module('SlideBoxModule', array(
                             ),
                             'custom' => array(
                                 'sections'  => array( 'img_colors' ),
-                                'fields'    => array( 'img_bg_size', 'img_bg_color', 'img_bg_color_opc' )
+                                'fields'    => array( 'img_bg_size', 'img_bg_color', 'img_bg_color_opc' ) 
                             )
                         ),
                         'trigger'       => array(
                             'custom'           => array(
                                 'fields'        => array('img_border_style')
                             ),
-
+                            
                         )
                     ),
                     'img_size'     => array(
@@ -325,13 +326,13 @@ FLBuilder::register_module('SlideBoxModule', array(
                         'size'          => '6',
                         'description'   => 'px',
                     ),
-                    'img_bg_color' => array(
+                    'img_bg_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Background Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'img_bg_color_opc' => array(
+                    'img_bg_color_opc' => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -341,7 +342,7 @@ FLBuilder::register_module('SlideBoxModule', array(
                     ),
                 )
             ),
-
+           
             'img_icon_styles'       => array( // Section
                 'title'         => __('Image / Icon Position', 'uabb'), // Section Title
                 'fields'        => array( // Section Fields
@@ -403,7 +404,7 @@ FLBuilder::register_module('SlideBoxModule', array(
                         ),
                         'toggle'        => array(
                             'yes'   => array(
-                                'fields'    => array('front_icon_border_size', 'front_icon_border_color', 'front_icon_border_color_opc', 'front_icon_border_hover_color', 'front_icon_border_hover_color_opc')
+                                'fields'    => array('front_icon_border_size', 'front_icon_border_color', 'front_icon_border_color_opc', 'front_icon_border_hover_color', 'front_icon_border_hover_color_opc')    
                             )
                         )
                     ),
@@ -415,13 +416,13 @@ FLBuilder::register_module('SlideBoxModule', array(
                         'size'          => '6',
                         'description'   => 'px',
                     ),
-                    'front_icon_border_color'    => array(
+                    'front_icon_border_color'    => array( 
                         'type'       => 'color',
                         'label'      => __('Border Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'front_icon_border_color_opc'    => array(
+                    'front_icon_border_color_opc'    => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -429,14 +430,14 @@ FLBuilder::register_module('SlideBoxModule', array(
                         'maxlength'   => '3',
                         'size'        => '5',
                     ),
-
-                    'front_icon_border_hover_color'    => array(
+                    
+                    'front_icon_border_hover_color'    => array( 
                         'type'       => 'color',
                         'label'      => __('Border Hover / Focus Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'front_icon_border_hover_color_opc'    => array(
+                    'front_icon_border_hover_color_opc'    => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -613,7 +614,7 @@ FLBuilder::register_module('SlideBoxModule', array(
                         'default'   => 'padding: 25px;',
                         'help'     => __( 'To apply padding to Slide Box Front use this setting', 'uabb' ),
                     ),
-                    'front_background_color'    => array(
+                    'front_background_color'    => array( 
                         'type'       => 'color',
                         'label'      => __('Background Color', 'uabb'),
                         'default'       => 'f6f6f6',
@@ -624,7 +625,7 @@ FLBuilder::register_module('SlideBoxModule', array(
                             'property'        => 'background'
                         )
                     ),
-                    'front_background_color_opc'    => array(
+                    'front_background_color_opc'    => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -632,8 +633,8 @@ FLBuilder::register_module('SlideBoxModule', array(
                         'maxlength'   => '3',
                         'size'        => '5',
                     ),
-
-                    'focused_front_background_color'    => array(
+                    
+                    'focused_front_background_color'    => array( 
                         'type'       => 'color',
                         'label'      => __('Background Hover/Focus Color', 'uabb'),
                         'default'    => 'e5e5e5',
@@ -644,7 +645,7 @@ FLBuilder::register_module('SlideBoxModule', array(
                             'property'      => 'background',
                         )
                     ),
-                    'focused_front_background_color_opc'    => array(
+                    'focused_front_background_color_opc'    => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -652,7 +653,7 @@ FLBuilder::register_module('SlideBoxModule', array(
                         'maxlength'   => '3',
                         'size'        => '5',
                     ),
-
+                    
                 )
             ),
             'back_styles'       => array( // Section
@@ -680,7 +681,7 @@ FLBuilder::register_module('SlideBoxModule', array(
                             'property'        => 'text-align'
                         )
                     ),
-                    'back_background_color'    => array(
+                    'back_background_color'    => array( 
                         'type'       => 'color',
                         'label'         => __('Background Color', 'uabb'),
                         'default'    => '',
@@ -692,7 +693,7 @@ FLBuilder::register_module('SlideBoxModule', array(
                             'property'        => 'background'
                         )
                     ),
-                    'back_background_color_opc'    => array(
+                    'back_background_color_opc'    => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -700,7 +701,7 @@ FLBuilder::register_module('SlideBoxModule', array(
                         'maxlength'   => '3',
                         'size'        => '5',
                     ),
-
+                    
                 )
             ),
             'overlay'       => array( // Section
@@ -723,13 +724,13 @@ FLBuilder::register_module('SlideBoxModule', array(
                             )
                         )
                     ),
-                    'overlay_color'    => array(
+                    'overlay_color'    => array( 
                         'type'       => 'color',
                         'label'         => __('Overlay Color', 'uabb'),
                         'default'       => '000000',
                         'show_reset' => true,
                     ),
-                    'overlay_color_opc'    => array(
+                    'overlay_color_opc'    => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '50',
@@ -737,27 +738,27 @@ FLBuilder::register_module('SlideBoxModule', array(
                         'maxlength'   => '3',
                         'size'        => '5',
                     ),
-
+                    
                     'overlay_icon'          => array(
                         'type'          => 'icon',
                         'default'       => 'fa fa-plus-square-o',
                         'label'         => __('Icon', 'uabb'),
                         'show_remove'   => true,
                     ),
-                    'overlay_icon_color'    => array(
+                    'overlay_icon_color'    => array( 
                         'type'       => 'color',
                         'label'         => __('Icon Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-
-                    'overlay_icon_bg_color'    => array(
+                    
+                    'overlay_icon_bg_color'    => array( 
                         'type'       => 'color',
                         'label'         => __('Icon Background Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'overlay_icon_bg_color_opc'    => array(
+                    'overlay_icon_bg_color_opc'    => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -778,25 +779,25 @@ FLBuilder::register_module('SlideBoxModule', array(
             'dropdown_icon'       => array( // Section
                 'title'         => __('Drop Down Icon', 'uabb'), // Section Title
                 'fields'        => array( // Section Fields
-                    'dropdown_icon_color'    => array(
+                    'dropdown_icon_color'    => array( 
                         'type'       => 'color',
                         'label'         => __('Icon Color', 'uabb'),
                         'default'       => 'ffffff',
                         'show_reset' => true,
                     ),
-                    'dropdown_plus_icon_color'    => array(
+                    'dropdown_plus_icon_color'    => array( 
                         'type'       => 'color',
                         'label'         => __('Icon Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'dropdown_icon_bg_color'    => array(
+                    'dropdown_icon_bg_color'    => array( 
                         'type'       => 'color',
                         'label'         => __('Icon Background Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'dropdown_icon_bg_color_opc'    => array(
+                    'dropdown_icon_bg_color_opc'    => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -804,7 +805,7 @@ FLBuilder::register_module('SlideBoxModule', array(
                         'maxlength'   => '3',
                         'size'        => '5',
                     ),
-
+                    
                     'dropdown_icon_size'     => array(
                         'type'          => 'text',
                         'label'         => __('Icon Size', 'uabb'),
@@ -947,7 +948,7 @@ FLBuilder::register_module('SlideBoxModule', array(
                             'unit'             => 'px'
                         )
                     ),
-                    'front_title_color'        => array(
+                    'front_title_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',
@@ -958,7 +959,7 @@ FLBuilder::register_module('SlideBoxModule', array(
                             'property'         => 'color',
                         )
                     ),
-                    'front_title_focused_color'    => array(
+                    'front_title_focused_color'    => array( 
                         'type'       => 'color',
                         'label'         => __('Hover/Focus Color', 'uabb'),
                         'default'    => '',
@@ -966,7 +967,7 @@ FLBuilder::register_module('SlideBoxModule', array(
                         'preview'         => array(
                             'type'            => 'none',
                         )
-                    ),
+                    ),                    
                     'front_title_margin_top'     => array(
                         'type'          => 'text',
                         'label'         => __('Margin Top', 'uabb'),
@@ -1039,7 +1040,7 @@ FLBuilder::register_module('SlideBoxModule', array(
                             'unit'          => 'px'
                         )
                     ),
-                    'front_desc_color'        => array(
+                    'front_desc_color'        => array( 
                         'type'       => 'color',
                         'label'         => __('Description Color', 'uabb'),
                         'default'    => '',
@@ -1050,7 +1051,7 @@ FLBuilder::register_module('SlideBoxModule', array(
                             'property'         => 'color',
                         )
                     ),
-                    'front_desc_focused_color'    => array(
+                    'front_desc_focused_color'    => array( 
                         'type'       => 'color',
                         'label'         => __('Hover/Focus Color', 'uabb'),
                         'default'    => '',
@@ -1143,7 +1144,7 @@ FLBuilder::register_module('SlideBoxModule', array(
                             'unit'             => 'px'
                         )
                     ),
-                    'back_title_color'        => array(
+                    'back_title_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',
@@ -1225,7 +1226,7 @@ FLBuilder::register_module('SlideBoxModule', array(
                             'unit'             => 'px'
                         )
                     ),
-                    'back_desc_color'        => array(
+                    'back_desc_color'        => array( 
                         'type'       => 'color',
                         'default'    => '',
                         'show_reset' => true,
@@ -1308,7 +1309,7 @@ FLBuilder::register_module('SlideBoxModule', array(
                             'unit'      => 'px'
                         ),
                     ),
-                    'link_color'        => array(
+                    'link_color'        => array( 
                         'type'       => 'color',
                         'label'         => __('Color', 'uabb'),
                         'default'    => '',

@@ -18,7 +18,8 @@ class UABBPhotoGalleryModule extends FLBuilderModule {
 			'dir'           	=> BB_ULTIMATE_ADDON_DIR . 'modules/photo-gallery/',
             'url'           	=> BB_ULTIMATE_ADDON_URL . 'modules/photo-gallery/',
 			'editor_export'  	=> false,
-			'partial_refresh'	=> true
+			'partial_refresh'	=> true,
+			'icon'				=> 'format-gallery.svg',
 		));
 
 		$this->add_js('jquery-magnificpopup-uabb', BB_ULTIMATE_ADDON_URL . 'assets/js/global-scripts/jquery.magnificpopup.min.js', array('jquery'), '', true);
@@ -51,16 +52,16 @@ class UABBPhotoGalleryModule extends FLBuilderModule {
 
 		if ( $this->settings->photo_order == 'random' && is_array( $default_order )) {
 
-			$keys = array_keys( $default_order );
-			shuffle($keys);
-
-			foreach ($keys as $key) {
-				$photos_id[$key] = $default_order[$key];
+			$keys = array_keys( $default_order ); 
+			shuffle($keys); 
+			
+			foreach ($keys as $key) { 
+				$photos_id[$key] = $default_order[$key]; 
 			}
 
 		}else{
 			$photos_id = $default_order;
-		}
+		} 
 
 		return $photos_id;
 
@@ -75,8 +76,8 @@ class UABBPhotoGalleryModule extends FLBuilderModule {
 		$ids        = $this->settings->photos;
 		$medium_w   = get_option('medium_size_w');
 		$large_w    = get_option('large_size_w');
-
-		/* Template Cache */
+		
+		/* Template Cache */ 
 		$photo_from_template = false;
 		$photo_attachment_data = false;
 
@@ -100,7 +101,7 @@ class UABBPhotoGalleryModule extends FLBuilderModule {
 
 			// Use the cache if we didn't get a photo from the id.
 			if ( ! $photo && $photo_from_template ) {
-
+				
 				if ( ! isset( $this->settings->photo_data ) ) {
 					continue;
 				}
@@ -114,13 +115,13 @@ class UABBPhotoGalleryModule extends FLBuilderModule {
 					continue;
 				}
 			}
-
+			
 
 			// Only use photos who have the sizes object.
 			if(isset($photo->sizes)) {
 
 				$data = new stdClass();
-
+				
 				// Photo data object
 				$data->id = $id;
 				$data->alt = $photo->alt;
@@ -145,13 +146,13 @@ class UABBPhotoGalleryModule extends FLBuilderModule {
 				else {
 					$data->link = $photo->sizes['large']->url;
 				}
-
+				
 				// Push the photo data
-
+				
 				/* Add Custom field attachment data to object */
 	 			$cta_link = get_post_meta( $id, 'uabb-cta-link', true );
 	 			$data->cta_link = $cta_link;
-
+				
 				$photos[$id] = $data;
 			}
 
@@ -288,7 +289,7 @@ FLBuilder::register_module('UABBPhotoGalleryModule', array(
 						),
 						'help'   		=> __('This is how many images you want to show at one time on mobile devices.','uabb')
 					),
-
+					
 				)
 			),
 			'photo_settings' => array(
@@ -399,14 +400,14 @@ FLBuilder::register_module('UABBPhotoGalleryModule', array(
 			'overlay'       => array(
 				'title'         => __( 'Overlay', 'uabb' ),
 				'fields'        => array(
-					'overlay_color' => array(
+					'overlay_color' => array( 
 						'type'       => 'color',
 						'label'     => __('Overlay Color', 'uabb'),
 						'default'	=> '000000',
 						'show_reset' => true,
 						'preview'	=> 'none',
 					),
-					'overlay_color_opc'    => array(
+					'overlay_color_opc'    => array( 
 						'type'        => 'text',
 						'label'       => __('Opacity', 'uabb'),
 						'default'     => '70',
@@ -444,7 +445,7 @@ FLBuilder::register_module('UABBPhotoGalleryModule', array(
 						'description'   => 'px',
 						'preview'	=> 'none',
 					),
-					'overlay_icon_color' => array(
+					'overlay_icon_color' => array( 
 						'type'       => 'color',
 						'label'     => __('Overlay Icon Color', 'uabb'),
 						'default'    => '',
@@ -519,7 +520,7 @@ FLBuilder::register_module('UABBPhotoGalleryModule', array(
                             'unit'			=> 'px',
                         )
                     ),
-                    'color'        => array(
+                    'color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',
@@ -530,7 +531,7 @@ FLBuilder::register_module('UABBPhotoGalleryModule', array(
                             'property'		=> 'color',
                         )
                     ),
-                    'caption_bg_color' => array(
+                    'caption_bg_color' => array( 
 						'type'       => 'color',
 						'label'     => __('Background Color', 'uabb'),
 						'default'    => '',
@@ -541,7 +542,7 @@ FLBuilder::register_module('UABBPhotoGalleryModule', array(
                             'property'		=> 'background',
                         )
 					),
-					'caption_bg_color_opc'    => array(
+					'caption_bg_color_opc'    => array( 
 						'type'        => 'text',
 						'label'       => __('Opacity', 'uabb'),
 						'default'     => '',

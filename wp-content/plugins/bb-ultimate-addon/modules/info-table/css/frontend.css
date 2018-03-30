@@ -12,7 +12,7 @@
 	padding: 20px;
 }
 .info-table-wrap .info-table .info-table-icon {
-	padding: 20px;
+	padding: 20px;	
 }
 .info-table-wrap .info-table .info-table-description {
 	padding: 15px;
@@ -65,11 +65,11 @@
 /* Design 6 */
 
 .info-table-design06 .info-table .info-table-icon {
-	padding: 0;
+	padding: 0;	
 	position: relative;
 }
 
-.info-table-design06 .info-table .uabb-imgicon-wrap {
+.info-table-design06 .info-table .uabb-imgicon-wrap { 
     position: absolute;
     left: 50%;
     bottom: 0;
@@ -88,7 +88,7 @@
 }
 .uabb-module-content .uabb-text-editor *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
     font-size: inherit;
-    line-height: inherit;
+    line-height: inherit;	
 }
 .uabb-module-content .uabb-text-editor *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(strong):not(b) {
 	font-weight: inherit;

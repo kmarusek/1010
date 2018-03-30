@@ -10,7 +10,7 @@ if ( $settings->tetimonial_layout == "slider" ) {
 	// Clear the controls in case they were already created.
 	jQuery('.fl-node-<?php echo $id; ?> .uabb-slider-next').empty();
 	jQuery('.fl-node-<?php echo $id; ?> .uabb-slider-prev').empty();
-
+	
 	// Create the slider.
 	var testimonial_<?php echo $id; ?> = jQuery('.fl-node-<?php echo $id; ?> .uabb-testimonials').bxSlider({
 		autoStart : <?php echo $settings->auto_play ?>,
@@ -28,8 +28,8 @@ if ( $settings->tetimonial_layout == "slider" ) {
 		nextText: '<i class="fa fa-chevron-right"></i>',
 		prevText: '<i class="fa fa-chevron-left"></i>',
 		controls : <?php echo ($settings->navigation == 'compact') ? 1 : 0; ?>,
-		onSliderLoad: function() {
-			jQuery('.fl-node-<?php echo $id; ?> .uabb-testimonials').addClass('uabb-testimonials-loaded');
+		onSliderLoad: function() { 
+			jQuery('.fl-node-<?php echo $id; ?> .uabb-testimonials').addClass('uabb-testimonials-loaded'); 
 		}
 	});
 
@@ -62,9 +62,7 @@ if ( $settings->tetimonial_layout == "slider" ) {
 		if( jQuery(selector).find('.uabb-testimonials') ){
 			setTimeout(function() {
 				var child_id = jQuery(selector).find('.fl-module-adv-testimonials').data('node');
-				console.log(child_id);
 				if( child_id != null && arrObj['testimonial_' + child_id] != undefined ) {
-					console.log(arrObj['testimonial_' + child_id]);
 					arrObj['testimonial_' + child_id].reloadSlider();
 				}
 			}, 250);
@@ -77,9 +75,9 @@ if ( $settings->tetimonial_layout == "slider" ) {
 <?php
 }
 ?>
-	<?php
+	<?php 
 		if ( $settings->tetimonial_layout == 'box' && $settings->icon_position_half_box == 'yes' && $settings->testimonial_image_position == 'top' ) { ?>
-
+		
 		function testimonial_<?php echo $id; ?>() {
 			var testimonial_node_class = jQuery( '.fl-node-<?php echo $id; ?>' ),
 				image_height = testimonial_node_class.find('.uabb-testimonial-photo.uabb_half_top').innerHeight(),
@@ -93,7 +91,7 @@ if ( $settings->tetimonial_layout == "slider" ) {
 		jQuery(document).ready( function() {
 			testimonial_<?php echo $id; ?>();
 		});
-
+		
 		jQuery(window).load( function() {
 			testimonial_<?php echo $id; ?>();
 		});
@@ -101,7 +99,7 @@ if ( $settings->tetimonial_layout == "slider" ) {
 		jQuery(window).resize(function() {
 			testimonial_<?php echo $id; ?>();
 		});
-		<?php
+		<?php 
 		}
 	?>
 })(jQuery);

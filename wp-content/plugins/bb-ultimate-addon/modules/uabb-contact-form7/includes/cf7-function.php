@@ -1,10 +1,10 @@
-<?php
+<?php 
 
 if( !function_exists( 'uabb_cf7_function' ) ) {
 
 	function uabb_cf7_function() {
-		$field_options = array();
-
+		$field_options = array(); 
+	
 		if ( class_exists( 'WPCF7_ContactForm' ) ) {
 			$args = array( 'post_type' => 'wpcf7_contact_form', 'posts_per_page' => -1 );
 			$forms = get_posts( $args );
@@ -21,7 +21,7 @@ if( !function_exists( 'uabb_cf7_function' ) ) {
 		}
 
 		return $field_options;
-	}
+	}	
 }
 
 if( !function_exists( 'uabb_cf7_get_form_id' ) ) {
@@ -39,5 +39,5 @@ if( !function_exists( 'uabb_cf7_get_form_id' ) ) {
 		}
 
 		return -1;
-	}
+	}	
 }

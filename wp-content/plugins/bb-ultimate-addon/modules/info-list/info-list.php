@@ -14,6 +14,7 @@ class UABBInfoList extends FLBuilderModule {
             'editor_export'   => true, // Defaults to true and can be omitted.
             'enabled'         => true, // Defaults to true and can be omitted.
             'partial_refresh' => true, // Defaults to false and can be omitted.
+            'icon'              => 'layout.svg',
         ));
         $this->add_js( 'jquery-waypoints' );
         // Register and enqueue your own.
@@ -37,7 +38,7 @@ class UABBInfoList extends FLBuilderModule {
             $infolist_icon_size = (int) $settings->icon_image_size;
         }
         $imageicon_array = array(
-
+ 
             /* General Section */
             'image_type' => ( isset( $item->image_type ) ) ? $item->image_type : 'none',
 
@@ -45,7 +46,7 @@ class UABBInfoList extends FLBuilderModule {
             'icon' => $item->icon,
             'icon_size' => $infolist_icon_size,
             'icon_align' => "center",
-
+         
             /* Image Basics */
             'photo_source' => $item->photo_source,
             'photo' => $item->photo,
@@ -53,21 +54,21 @@ class UABBInfoList extends FLBuilderModule {
             'img_size' => (int) $settings->icon_image_size,
             'img_align' => "center",
             'photo_src' => ( isset( $item->photo_src ) ) ? $item->photo_src : '' ,
-
+         
             /* Icon Style */
             'icon_style' => $settings->list_icon_style,
             'icon_bg_size' => $settings->list_icon_bg_padding,
             'icon_border_style' => "",
             'icon_border_width' => "",
             'icon_bg_border_radius' => $settings->list_icon_bg_border_radius,
-
+         
             /* Image Style */
             'image_style' => $settings->list_icon_style,
             'img_bg_size' => $settings->list_icon_bg_padding,
             'img_border_style' => "",
             'img_border_width' => "",
             'img_bg_border_radius' => $settings->list_icon_bg_border_radius,
-        );
+        ); 
         /* Render HTML Function */
         FLBuilder::render_module_html( 'image-icon', $imageicon_array );
 
@@ -117,7 +118,7 @@ class UABBInfoList extends FLBuilderModule {
 
         }
         echo '</'. $this->settings->heading_tag_selection . ' >';
-
+        
         if( isset( $item->list_item_description ) && $item->list_item_description != '' ) {
             echo '<div class="uabb-info-list-description uabb-text-editor info-list-description-dynamic'. $list_item_counter.'">';
             if ( strpos( $item->list_item_description, "</p>" ) > 0 ) {
@@ -139,7 +140,7 @@ class UABBInfoList extends FLBuilderModule {
             }
             echo '<div class="uabb-info-list-connector uabb-info-list-'. $this->settings->icon_position.'"></div>';
         }
-
+        
         echo '</li>';
     }
     /**
@@ -257,13 +258,13 @@ FLBuilder::register_module('UABBInfoList', array(
                             )
                         )
                     ),
-                    'list_icon_bg_color'    => array(
+                    'list_icon_bg_color'    => array( 
                         'type'       => 'color',
                         'label'         => __('Color Option for Background', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'list_icon_bg_color_opc'    => array(
+                    'list_icon_bg_color_opc'    => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -309,7 +310,7 @@ FLBuilder::register_module('UABBInfoList', array(
                         'size'          => '6',
                         'placeholder'   => '1',
                     ),
-                    'list_icon_border_color' => array(
+                    'list_icon_border_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Border Color', 'uabb'),
                         'default'    => '',
@@ -348,7 +349,7 @@ FLBuilder::register_module('UABBInfoList', array(
                         )
 
                     ),
-                    'list_connector_color'    => array(
+                    'list_connector_color'    => array( 
                         'type'       => 'color',
                         'label'      => __('Connector Line Color', 'uabb'),
                         'default'    => '',
@@ -444,7 +445,7 @@ FLBuilder::register_module('UABBInfoList', array(
                             'unit'          => 'px'
                         )
                     ),
-                    'heading_color'        => array(
+                    'heading_color'        => array( 
                         'type'       => 'color',
                         'default'    => '',
                         'show_reset' => true,
@@ -528,7 +529,7 @@ FLBuilder::register_module('UABBInfoList', array(
                             'unit'            => 'px'
                         )
                     ),
-                    'description_color'        => array(
+                    'description_color'        => array( 
                         'type'       => 'color',
                         'label' => __('Choose Color', 'uabb'),
                         'preview'         => array(
@@ -654,7 +655,7 @@ FLBuilder::register_settings_form('info_list_item_form', array(
                             'label'         => __('Icon', 'uabb'),
                             'show_remove' => true
                         ),
-                        'icon_color' => array(
+                        'icon_color' => array( 
                             'type'       => 'color',
                             'label'      => __('Icon Color', 'uabb'),
                             'default'    => '',
@@ -705,7 +706,7 @@ FLBuilder::register_settings_form('info_list_item_form', array(
                             'label'         => __('Custom Text', 'uabb'),
                             'description'   => '',
                         ),
-                        'custom_color' => array(
+                        'custom_color' => array( 
                             'type'       => 'color',
                             'label'      => __('Icon Color', 'uabb'),
                             'default'    => '',

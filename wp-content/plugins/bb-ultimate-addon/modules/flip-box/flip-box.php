@@ -106,7 +106,7 @@ FLBuilder::register_settings_form('flip_box_icon_form_field', array(
                                 )
                             ),
                         ),
-
+                        
                         /* Icon Background SIze */
                         'icon_bg_size'          => array(
                             'type'          => 'text',
@@ -167,7 +167,7 @@ FLBuilder::register_settings_form('flip_box_icon_form_field', array(
                 'icon_colors' => array( // Section
                     'title'         => __('Colors', 'uabb'), // Section Title
                     'fields'        => array( // Section Fields
-
+                                
                         /* Style Options */
                         'icon_color_preset'     => array(
                             'type'          => 'uabb-toggle-switch',
@@ -180,7 +180,7 @@ FLBuilder::register_settings_form('flip_box_icon_form_field', array(
                             'help'          => __('Preset 1 => Icon : White, Background : Theme </br>Preset 2 => Icon : Theme, Background : #f3f3f3', 'uabb')
                         ),
                         /* Icon Color */
-                        'icon_color' => array(
+                        'icon_color' => array( 
                             'type'       => 'color',
                             'label'     => __('Icon Color', 'uabb'),
                             'default'    => '',
@@ -188,13 +188,13 @@ FLBuilder::register_settings_form('flip_box_icon_form_field', array(
                         ),
 
                         /* Background Color Dependent on Icon Style **/
-                        'icon_bg_color'    => array(
+                        'icon_bg_color'    => array( 
                             'type'       => 'color',
                             'label'         => __('Background Color', 'uabb'),
                             'default'    => '',
                             'show_reset' => true,
                         ),
-                        'icon_bg_color_opc'    => array(
+                        'icon_bg_color_opc'    => array( 
                             'type'        => 'text',
                             'label'       => __('Opacity', 'uabb'),
                             'default'     => '',
@@ -204,13 +204,13 @@ FLBuilder::register_settings_form('flip_box_icon_form_field', array(
                         ),
 
                          /* Border Color Dependent on Border Style for ICon */
-                        'icon_border_color' => array(
+                        'icon_border_color' => array( 
                             'type'       => 'color',
                             'label'         => __('Border Color', 'uabb'),
                             'default'    => '',
                             'show_reset' => true,
                         ),
-
+                        
                         /* Gradient Color Option */
                         'icon_three_d'       => array(
                             'type'          => 'select',
@@ -268,7 +268,7 @@ FLBuilder::register_module('FlipBoxModule', array(
                         )
                     ),
                 )
-            ),
+            ),     
             'front_styles'       => array( // Section
                 'title'         => __('Front Styles', 'uabb'), // Section Title
                 'fields'        => array( // Section Fields
@@ -330,7 +330,7 @@ FLBuilder::register_module('FlipBoxModule', array(
                             'contain'   => __('Contain','uabb'),
                         ),
                     ),
-                    'front_background_color'    => array(
+                    'front_background_color'    => array( 
                         'type'       => 'color',
                         'label'      => __('Background Color', 'uabb'),
                         'default'    => '',
@@ -341,7 +341,7 @@ FLBuilder::register_module('FlipBoxModule', array(
                             'property'      => 'background'
                         )
                     ),
-                    'front_background_color_opc'    => array(
+                    'front_background_color_opc'    => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -407,7 +407,7 @@ FLBuilder::register_module('FlipBoxModule', array(
                             'unit'             => 'px'
                         )
                     ),
-                    'front_border_color'    => array(
+                    'front_border_color'    => array( 
                         'type'       => 'color',
                         'label'      => __('Border Color', 'uabb'),
                         'default'    => 'dbdbdb',
@@ -419,7 +419,7 @@ FLBuilder::register_module('FlipBoxModule', array(
                         )
                     ),
                 )
-            ),
+            ),       
         )
     ),
     'flip_back'       => array( // Tab
@@ -450,7 +450,7 @@ FLBuilder::register_module('FlipBoxModule', array(
                             'type'          => 'text',
                             'selector'      => '.uabb-back-flip-box-section-content',
                         )
-                    ),
+                    ),                 
                 )
             ),
             'back_styles'       => array( // Section
@@ -514,7 +514,7 @@ FLBuilder::register_module('FlipBoxModule', array(
                             'contain'   => __('Contain','uabb'),
                         ),
                     ),
-                    'back_background_color'    => array(
+                    'back_background_color'    => array( 
                         'type'       => 'color',
                         'label'      => __('Background Color', 'uabb'),
                         'default'    => '',
@@ -525,7 +525,7 @@ FLBuilder::register_module('FlipBoxModule', array(
                             'property'      => 'background'
                         )
                     ),
-                    'back_background_color_opc'    => array(
+                    'back_background_color_opc'    => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -591,7 +591,7 @@ FLBuilder::register_module('FlipBoxModule', array(
                             'unit'             => 'px'
                         )
                     ),
-                    'back_border_color' => array(
+                    'back_border_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Border Color', 'uabb'),
                         'default'    => 'dbdbdb',
@@ -789,7 +789,7 @@ FLBuilder::register_module('FlipBoxModule', array(
                             'unit'          => 'px',
                         ),
                     ),
-                    'front_title_typography_color'        => array(
+                    'front_title_typography_color'        => array( 
                         'type'       => 'color',
                         'label'         => __('Front Title Color', 'uabb'),
                         'default'    => '',
@@ -873,7 +873,7 @@ FLBuilder::register_module('FlipBoxModule', array(
                             'unit'      => 'px'
                         ),
                     ),
-                    'front_desc_typography_color'        => array(
+                    'front_desc_typography_color'        => array( 
                         'type'       => 'color',
                         'label'         => __('Front Description Color', 'uabb'),
                         'default'    => '',
@@ -973,7 +973,7 @@ FLBuilder::register_module('FlipBoxModule', array(
                             'unit'      => 'px'
                         ),
                     ),
-                    'back_title_typography_color'        => array(
+                    'back_title_typography_color'        => array( 
                         'type'       => 'color',
                         'label'         => __('Back Title Color', 'uabb'),
                         'default'    => '',
@@ -1057,7 +1057,7 @@ FLBuilder::register_module('FlipBoxModule', array(
                             'unit'      => 'px'
                         ),
                     ),
-                    'back_desc_typography_color'        => array(
+                    'back_desc_typography_color'        => array( 
                         'type'       => 'color',
                         'label'         => __('Back Description Color', 'uabb'),
                         'default'    => '',

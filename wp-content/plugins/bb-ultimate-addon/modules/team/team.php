@@ -20,7 +20,7 @@ class UABBTeamModule extends FLBuilderModule {
             'partial_refresh'	=> true
 		));
 	}
-
+	
 
 	/**
 	 * @method render_image
@@ -33,12 +33,12 @@ class UABBTeamModule extends FLBuilderModule {
 
 			    /* General Section */
 			    'image_type' => 'photo',
-
+			 
 			    /* Icon Basics */
 			    'icon' => '',
 			    'icon_size' => '',
 			    'icon_align' => '',
-
+			 
 			    /* Image Basics */
 			    'photo_source' => $this->settings->photo_source,
 			    'photo' => $this->settings->photo,
@@ -46,22 +46,22 @@ class UABBTeamModule extends FLBuilderModule {
 			    'img_size' => $this->settings->img_size,
 			    'img_align' => '',
 			    'photo_src' => ( isset( $this->settings->photo_src ) ) ? $this->settings->photo_src : '' ,
-
+			 	
 			 	/* Icon Style */
 			    'icon_style' => '',
 			    'icon_bg_size' => '',
 			    'icon_border_style' => '',
 			    'icon_border_width' => '',
 			    'icon_bg_border_radius' => '',
-
+			 	
 			 	/* Image Style */
 			    'image_style' => $this->settings->image_style,
 			    'img_bg_size' => '',// $this->settings->img_bg_size,
 			    'img_border_style' => '', // $this->settings->img_border_style,
 			    'img_border_width' => '', // $this->settings->img_border_width,
 			    'img_bg_border_radius' => '', // $this->settings->img_bg_border_radius,
-			);
-
+			); 
+			
 			/* Render HTML Function */
 			echo ( isset( $this->settings->enable_custom_link ) && $this->settings->enable_custom_link != 'no' ) ? '<a href="' . $this->settings->custom_link . '" target ="' . $this->settings->custom_link_target . '">' : '';
 			FLBuilder::render_module_html( 'image-icon', $imageicon_array );
@@ -84,7 +84,7 @@ class UABBTeamModule extends FLBuilderModule {
 			echo $output;
 		}
 	}
-
+	
 	/**
 	 * @method Render Designation
 	 */
@@ -97,7 +97,7 @@ class UABBTeamModule extends FLBuilderModule {
 			echo $output;
 		}
 	}
-
+	
 	/**
 	 * @method Render Desc
 	 */
@@ -115,7 +115,7 @@ class UABBTeamModule extends FLBuilderModule {
 	 * @method render_social_icons
 	 */
 	public function render_social_icons()
-	{
+	{	
 		if ( $this->settings->enable_social_icons == 'yes'  ) {
 			$icon_count = 1;
 			foreach( $this->settings->icons as $icon ) {
@@ -158,8 +158,8 @@ class UABBTeamModule extends FLBuilderModule {
 				  'img_bg_border_radius' 	=> '',
 
 				  /* Preset Color variable new */
-				  'icon_color_preset' => $this->settings->icon_color_preset,
-
+				  'icon_color_preset' => $this->settings->icon_color_preset, 
+				  
 				  /* Icon Colors */
 				  'icon_color' 				=> ( !empty($icon->icocolor) ) ? $icon->icocolor : $this->settings->icon_color,
 				  'icon_hover_color' 		=> ( !empty($icon->icohover_color) ) ? $icon->icohover_color : $this->settings->icon_hover_color,
@@ -200,7 +200,7 @@ class UABBTeamModule extends FLBuilderModule {
 			echo '<div class="uabb-team-separator">';
 			FLBuilder::render_module_html('uabb-separator', $separator_settings);
 			echo '</div>';
-		}
+		}		
 	}
 }
 
@@ -211,8 +211,8 @@ FLBuilder::register_module('UABBTeamModule', array(
 	'imageicon' => array(
 		'title'         => __('Image', 'uabb'),
 		'sections'      => array(
-
-
+			 
+			
 			/* Image Basic Setting */
 			'img_basic'	=> 	array( // Section
                 'title'         => __('Image Basics','uabb'), // Section Title
@@ -287,7 +287,7 @@ FLBuilder::register_module('UABBTeamModule', array(
                             'unit'			=> 'px'
                         )
 					),
-					'img_bg_color'    => array(
+					'img_bg_color'    => array( 
 						'type'       => 'color',
                     	'label'      => __('Background Color', 'uabb'),
 						'default'    => '',
@@ -299,7 +299,7 @@ FLBuilder::register_module('UABBTeamModule', array(
                             'property'      => 'background',
                         )
 					),
-                    'img_bg_color_opc'    => array(
+                    'img_bg_color_opc'    => array( 
 						'type'        => 'text',
 						'label'       => __('Opacity', 'uabb'),
 						'default'     => '',
@@ -400,7 +400,7 @@ FLBuilder::register_module('UABBTeamModule', array(
 							'unit'			=> 'px',
 						)
 					),
-					'text_bg_color'    => array(
+					'text_bg_color'    => array( 
 						'type'       => 'color',
                     	'label'      => __('Background Color', 'uabb'),
 						'default'    => '',
@@ -411,7 +411,7 @@ FLBuilder::register_module('UABBTeamModule', array(
 							'property'		=> 'background',
 						)
 					),
-                    'text_bg_color_opc'    => array(
+                    'text_bg_color_opc'    => array( 
 						'type'        => 'text',
 						'label'       => __('Opacity', 'uabb'),
 						'default'     => '',
@@ -535,7 +535,7 @@ FLBuilder::register_module('UABBTeamModule', array(
 						),
 						'help'          => __('The type of border to use. Double borders must have a height of at least 3px to render properly.', 'uabb'),
 					),
-					'separator_color'    => array(
+					'separator_color'    => array( 
 						'type'       => 'color',
 						'label'      => __('Color', 'uabb'),
 						'default'    => '',
@@ -617,7 +617,7 @@ FLBuilder::register_module('UABBTeamModule', array(
 			),
 		)
 	),
-
+	
 	'social_links_section'           => array(
 		'title'         => __('Social Links', 'uabb'),
 		'sections'      => array(
@@ -711,7 +711,7 @@ FLBuilder::register_module('UABBTeamModule', array(
                             )
                         ),
                     ),
-
+                    
                     /* Icon Background SIze */
                     'icon_bg_size'          => array(
                         'type'          => 'text',
@@ -772,7 +772,7 @@ FLBuilder::register_module('UABBTeamModule', array(
 			'icon_colors'		=> 	array( // Section
                 'title'         => __('Colors', 'uabb'), // Section Title
                 'fields'        => array( // Section Fields
-
+                            
                     /* Style Options */
                     'icon_color_preset'     => array(
                         'type'          => 'uabb-toggle-switch',
@@ -786,13 +786,13 @@ FLBuilder::register_module('UABBTeamModule', array(
                         'help'          => __('Preset 1 => Icon : White, Background : Theme </br>Preset 2 => Icon : Theme, Background : #f3f3f3', 'uabb')
                     ),
                     /* Icon Color */
-                    'icon_color' => array(
+                    'icon_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Icon Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'icon_hover_color' => array(
+                    'icon_hover_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Icon Hover Color', 'uabb'),
                         'default'    => '',
@@ -803,13 +803,13 @@ FLBuilder::register_module('UABBTeamModule', array(
                     ),
 
                     /* Background Color Dependent on Icon Style **/
-                    'icon_bg_color' => array(
+                    'icon_bg_color' => array( 
                         'type'       => 'color',
                         'label'         => __('Background Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'icon_bg_color_opc' => array(
+                    'icon_bg_color_opc' => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -817,7 +817,7 @@ FLBuilder::register_module('UABBTeamModule', array(
                         'maxlength'   => '3',
                         'size'        => '5',
                     ),
-                    'icon_bg_hover_color' => array(
+                    'icon_bg_hover_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Background Hover Color', 'uabb'),
                         'default'    => '',
@@ -826,7 +826,7 @@ FLBuilder::register_module('UABBTeamModule', array(
                                 'type'      => 'none',
                         )
                     ),
-                    'icon_bg_hover_color_opc' => array(
+                    'icon_bg_hover_color_opc' => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -836,19 +836,19 @@ FLBuilder::register_module('UABBTeamModule', array(
                     ),
 
                      /* Border Color Dependent on Border Style for ICon */
-                    'icon_border_color' => array(
+                    'icon_border_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Border Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'icon_border_hover_color' => array(
+                    'icon_border_hover_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Border Hover Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-
+                    
                     /* Gradient Color Option */
                     'icon_three_d'       => array(
                         'type'          => 'select',
@@ -927,7 +927,7 @@ FLBuilder::register_module('UABBTeamModule', array(
                             'unit'		=> 'px',
                     	),
                     ),
-                    'color'        => array(
+                    'color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',
@@ -1013,7 +1013,7 @@ FLBuilder::register_module('UABBTeamModule', array(
                             'unit'		=> 'px',
                     	),
                     ),
-                    'desg_color'        => array(
+                    'desg_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',
@@ -1099,7 +1099,7 @@ FLBuilder::register_module('UABBTeamModule', array(
                             'unit'		=> 'px'
                     	),
                     ),
-                    'desc_color'        => array(
+                    'desc_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',
@@ -1200,25 +1200,25 @@ FLBuilder::register_settings_form('uabb_social_icon_form', array(
 				'colors'        => array( // Section
 					'title'         => __('Colors', 'uabb'), // Section Title
 					'fields'        => array( // Section Fields
-						'icocolor'    => array(
+						'icocolor'    => array( 
 							'type'       => 'color',
 							'label'      => __('Color', 'uabb'),
 							'default'    => '',
 							'show_reset' => true,
 						),
-						'icohover_color'    => array(
+						'icohover_color'    => array( 
 							'type'       => 'color',
 					    	'label'      => __('Hover Color', 'uabb'),
 							'default'    => '',
 							'show_reset' => true,
 						),
-						'icobg_color'    => array(
+						'icobg_color'    => array( 
 							'type'       => 'color',
 					    	'label'      => __('Background Color', 'uabb'),
 							'default'    => '',
 							'show_reset' => true,
 						),
-						'icobg_color_opc'    => array(
+						'icobg_color_opc'    => array( 
 							'type'        => 'text',
 							'label'       => __('Opacity', 'uabb'),
 							'default'     => '',
@@ -1235,7 +1235,7 @@ FLBuilder::register_settings_form('uabb_social_icon_form', array(
 								'type'          => 'none'
 							)
 						),
-						'icobg_hover_color_opc'    => array(
+						'icobg_hover_color_opc'    => array( 
 							'type'        => 'text',
 							'label'       => __('Opacity', 'uabb'),
 							'default'     => '',
@@ -1246,14 +1246,14 @@ FLBuilder::register_settings_form('uabb_social_icon_form', array(
 								'type'          => 'none'
 							)
 						),
-						'icoborder_color'    => array(
+						'icoborder_color'    => array( 
 							'type'       => 'color',
 					    	'label'      => __('Border Color', 'uabb'),
 							'default'    => '',
 							'show_reset' => true,
 						),
 
-						'icoborder_hover_color'    => array(
+						'icoborder_hover_color'    => array( 
 							'type'       => 'color',
 					    	'label'         => __('Border Hover Color', 'uabb'),
 							'default'    => '',

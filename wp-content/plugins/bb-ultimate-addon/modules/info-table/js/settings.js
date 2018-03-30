@@ -5,7 +5,7 @@
 				required: true
 			}
 		},
-
+		
 		init: function()
 		{
 			var form    		= $('.fl-builder-settings'),
@@ -52,7 +52,7 @@
 			var form			= $('.fl-builder-settings'),
 				it_link_type	= form.find('select[name=it_link_type]').val(),
 				it_link         = form.find('input[name=it_link]');
-
+			
 
 			if ( it_link_type != 'no' ) {
 				it_link.rules('add', { required: true });
@@ -69,7 +69,7 @@
 				image_style 	= form.find('select[name=image_style]').val(),
 				img_border_style 	= form.find('select[name=img_border_style]').val();
 
-
+			
 			if( image_type == 'icon' ){
 				if( icon_style == 'custom'  ){
 					show_border = true;
@@ -109,7 +109,7 @@
 				show_color 	= false,
 				image_type 	= form.find('select[name=image_type]').val(),
 				image_style = form.find('select[name=image_style]').val();
-
+			
 			//console.log( this );
 			//console.log( image_style );
 			if( image_type == 'photo' && image_style == 'custom' ){

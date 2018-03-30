@@ -18,7 +18,8 @@ class UABBGravityFormModule extends FLBuilderModule {
 			'dir'           	=> BB_ULTIMATE_ADDON_DIR . 'modules/uabb-gravity-form/',
             'url'           	=> BB_ULTIMATE_ADDON_URL . 'modules/uabb-gravity-form/',
 			'editor_export'  	=> false,
-			'partial_refresh'	=> true
+			'partial_refresh'	=> true,
+			'icon'				=> 'editor-table.svg',
 		));
 
 		add_filter( 'fl_builder_render_settings_field', array( $this , 'uabb_gravity_form_render_settings_field' ), 10, 3 );
@@ -31,7 +32,7 @@ class UABBGravityFormModule extends FLBuilderModule {
 		}
         return $field;
 	}
-
+	
 }
 
 require_once BB_ULTIMATE_ADDON_DIR . 'modules/uabb-gravity-form/includes/gf-function.php';
@@ -216,7 +217,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
 								'inherit'	=> __( 'Inherit', 'uabb' ),
 							),
 					),
-					'form_bg_color' => array(
+					'form_bg_color' => array( 
 						'type'       => 'color',
 						'label'      => __('Background Color', 'uabb'),
 						'default'    => 'efefef',
@@ -227,7 +228,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                             'property'      => 'background',
                         )
 					),
-					'form_bg_color_opc' => array(
+					'form_bg_color_opc' => array( 
 						'type'        => 'text',
 						'label'		=> __( 'Background Color Opacity', 'uabb' ),
 						'default'     => '',
@@ -271,13 +272,13 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                             'property'      => 'text-align',
                         )
 					),
-
+					
 				)
 			),
 			'input-size-align'   => array(
 				'title'         => __('Input Style', 'uabb'),
 				'fields'        => array(
-					'input_background_type'    => array(
+					'input_background_type'    => array( 
 						'type'          => 'uabb-toggle-switch',
                         'label'         => __( 'Input Background Color', 'uabb' ),
                         'default'       => 'bg',
@@ -293,7 +294,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                         'default' => 'color',
                         'width'	=> '75px'
 					),
-					'input_background_color'    => array(
+					'input_background_color'    => array( 
 						'type'       => 'color',
 						'label'         => __('Background Color', 'uabb'),
 						'default'    => '',
@@ -304,7 +305,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                             'property'      => 'background',
                         )
 					),
-					'input_background_color_opc'    => array(
+					'input_background_color_opc'    => array( 
 						'type'        => 'text',
 						'label'       => __('Opacity', 'uabb'),
 						'default'     => '',
@@ -322,7 +323,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
 							'center'    => __('Center', 'uabb'),
 							'right'    => __('Right', 'uabb'),
 						)
-					),
+					),					
 					'input_padding'	=> array(
 						'type'          => 'uabb-spacing',
                         'label'         => __( 'Input Padding', 'uabb' ),
@@ -371,7 +372,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                             )
                         )
                     ),
-                    'placeholder_color' => array(
+                    'placeholder_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',
@@ -408,7 +409,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                             'unit'			=> 'px'
                         )
 		            ),
-                    'input_border_color'    => array(
+                    'input_border_color'    => array( 
 						'type'       => 'color',
 						'label'      => __('Border Color', 'uabb'),
 						'default'    => 'cccccc',
@@ -418,8 +419,8 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                             'selector'      => '.uabb-gf-style input[type=text], .uabb-gf-style textarea,  .uabb-gf-style select',
                             'property'      => 'border-color',
                         )
-					),
-                    'input_border_active_color'    => array(
+					),                    
+                    'input_border_active_color'    => array( 
 						'type'       => 'color',
 						'label'      => __('Border Active Color', 'uabb'),
 						'default'    => 'bbbbbb',
@@ -466,11 +467,11 @@ FLBuilder::register_module('UABBGravityFormModule', array(
 						            'selector'     => '.uabb-gf-style .gform_body .ginput_container_checkbox .gfield_checkbox input[type="checkbox"] + label:before, .uabb-gf-style .gform_body .ginput_container_radio .gfield_radio input[type="radio"] + label:before',
 						            'property'     => 'height',
 						            'unit'		=> 'px'
-						        ),
+						        ),    
 						    )
 						),
 		            ),
-                    'radio_check_bgcolor'    => array(
+                    'radio_check_bgcolor'    => array( 
 						'type'       	=> 'color',
 						'label'      	=> __('Background Color', 'uabb'),
 						'default'    	=> 'DEDEDE',
@@ -480,13 +481,13 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                             'selector'	=> '.uabb-gf-style .gform_body .ginput_container_checkbox .gfield_checkbox input[type="checkbox"] + label:before, .uabb-gf-style .gform_body .ginput_container_radio .gfield_radio input[type="radio"] + label:before',
                             'property'	=> 'background',
                     	),
-					),
-					'radio_check_selected_color'    => array(
+					), 
+					'radio_check_selected_color'    => array( 
 						'type'       	=> 'color',
 						'label'      	=> __('Checked Color', 'uabb'),
 						'default'    	=> '3A3A3A',
 						'show_reset' 	=> true,
-					),
+					), 
 					'radio_check_border_width'    => array(
 		                'type'          => 'text',
 		                'label'         => __('Border Width', 'uabb'),
@@ -500,7 +501,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                             'unit'		=> 'px'
                     	),
 		            ),
-                    'radio_check_border_color'    => array(
+                    'radio_check_border_color'    => array( 
 						'type'       	=> 'color',
 						'label'      	=> __('Border Color', 'uabb'),
 						'default'    	=> 'CCCCCC',
@@ -511,7 +512,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                             'property'	=> 'border-color',
                     	),
 					),
-					'radio_btn_border_radius'    => array(
+					'radio_btn_border_radius'    => array( 
 						'type'       	=> 'text',
 						'label'      	=> __('Radio Button Round Corners', 'uabb'),
 						'default'		=> '50',
@@ -525,7 +526,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                             'unit'		=> 'px'
                     	),
 					),
-					'checkbox_border_radius'    => array(
+					'checkbox_border_radius'    => array( 
 						'type'       	=> 'text',
 						'label'      	=> __('Checkbox Round Corners', 'uabb'),
 						'default'		=> '0',
@@ -540,7 +541,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                     	),
 					),
 				)
-			),
+			),			
 		)
 	),
 	'button' => array(
@@ -563,13 +564,13 @@ FLBuilder::register_module('UABBGravityFormModule', array(
 							'flat'        => array(
 								'fields'	=> array( 'btn_background_hover_color', 'btn_background_hover_color_opc', 'btn_text_hover_color' )
 							),
-							'transparent' => array(
+							'transparent' => array( 
 								'fields'	=> array( 'btn_border_width', 'btn_background_hover_color', 'btn_background_hover_color_opc', 'btn_text_hover_color' )
 							),
-							'gradient'	  => array(
+							'gradient'	  => array( 
 								'fields'	=> array( 'btn_background_hover_color', 'btn_background_hover_color_opc', 'btn_text_hover_color' )
 							),
-							'3d'	  => array(
+							'3d'	  => array( 
 								'fields'	=> array( 'btn_background_hover_color', 'btn_text_hover_color', 'btn_background_hover_color_opc' )
 							)
 						)
@@ -587,7 +588,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
 			'btn-colors'     => array(
             	'title'         => __('Button Colors', 'uabb'),
             	'fields' => array(
-            		'btn_text_color'    => array(
+            		'btn_text_color'    => array( 
 						'type'       => 'color',
 						'label'         => __('Text Color', 'uabb'),
 						'default'    => '',
@@ -598,7 +599,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                             'property'      => 'color',
                         )
 					),
-                    'btn_text_hover_color'    => array(
+                    'btn_text_hover_color'    => array( 
 						'type'       => 'color',
 						'label'         => __('Text Hover Color', 'uabb'),
                     	'preview'		=> array(
@@ -608,7 +609,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
 						'show_reset' => true,
 					),
 
-                    'btn_background_color'    => array(
+                    'btn_background_color'    => array( 
 						'type'       => 'color',
 						'label'         => __('Background Color', 'uabb'),
 						'default'    => '',
@@ -619,7 +620,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                             'property'      => 'background',
                         )
 					),
-                    'btn_background_color_opc'    => array(
+                    'btn_background_color_opc'    => array( 
 						'type'        => 'text',
 						'label'       => __('Opacity', 'uabb'),
 						'default'     => '',
@@ -628,7 +629,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
 						'size'        => '5',
 						'placeholder' => '100',
 					),
-                    'btn_background_hover_color'    => array(
+                    'btn_background_hover_color'    => array( 
 						'type'       => 'color',
 						'label'         => __('Background Hover Color', 'uabb'),
                     	'preview'		=> array(
@@ -637,7 +638,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
 						'default'    => '',
 						'show_reset' => true,
 					),
-                    'btn_background_hover_color_opc' => array(
+                    'btn_background_hover_color_opc' => array( 
 						'type'        => 'text',
 						'label'       => __('Hover Opacity', 'uabb'),
 						'default'     => '',
@@ -733,7 +734,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
 					                'selector'     => '.gform_wrapper .gform_footer input[type=submit], .uabb-gf-style .gform_page .gform_page_footer input[type=button], .uabb-gf-style .gform_page .gform_page_footer input[type=submit]',
 					                'property'     => 'padding-bottom',
 					                'unit'			=> 'px'
-					            ),
+					            ),    
 					        )
 					    )
 		            ),
@@ -764,7 +765,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                             'selector'      => '.uabb-gf-style .gform_wrapper .gform_footer, .uabb-gf-style .gform_page .gform_page_footer',
                             'property'      => 'text-align',
                         )
-
+		                
 		            ),
 		        )
            	),
@@ -840,7 +841,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
 			'input-msg-section'       => array(
 				'title'         => __('Input Field Message', 'uabb'),
 				'fields'        => array(
-					'input_msg_color' => array(
+					'input_msg_color' => array( 
 						'type'       => 'color',
 						'label'		 => __( 'Message Color', 'uabb' ),
 						'default'    => 'ce0000',
@@ -901,7 +902,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
 			'validation-msg-section'       => array(
 				'title'         => __('Validation Message', 'uabb'),
 				'fields'        => array(
-					'validation_msg_color' => array(
+					'validation_msg_color' => array( 
 						'type'       => 'color',
 						'label'		=> __( 'Message Color', 'uabb' ),
 						'help'		=> __( 'This color would be applied to validation message in input field', 'uabb' ),
@@ -923,13 +924,13 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                         'mode'			=> 'padding',
                         'default'       => 'padding: 10px;' // Optional
 					),
-					'validation_bg_color' => array(
+					'validation_bg_color' => array( 
 						'type'       => 'color',
 						'label'		=> __( 'Background Color', 'uabb' ),
 						'default'    => '',
 						'show_reset' => true,
 					),
-					'validation_bg_color_opc' => array(
+					'validation_bg_color_opc' => array( 
 						'type'        => 'text',
 						'label'		=> __( 'Background Color Opacity', 'uabb' ),
 						'default'     => '',
@@ -976,7 +977,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
 		                'maxlength'     => '2',
 		                'size'          => '6',
 		            ),
-                    'validation_border_color'    => array(
+                    'validation_border_color'    => array( 
 						'type'       => 'color',
 						'label'         => __('Border Color', 'uabb'),
                     	'default'		=> '790000',
@@ -995,7 +996,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
 			'input-success-section'       => array(
 				'title'         => __('Input Success Message', 'uabb'),
 				'fields'        => array(
-					'input_success_msg_color' => array(
+					'input_success_msg_color' => array( 
 						'type'       => 'color',
 						'label'		=> __( 'Message Color', 'uabb' ),
 						'default'    => '3c763d',
@@ -1010,7 +1011,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
 						'description'   => 'px',
 						'placeholder'	=> '15',
 					),
-
+					
 				)
 			),
 		)
@@ -1093,7 +1094,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                             'unit'		=> 'px'
                         ),
                     ),
-                    'form_title_color'        => array(
+                    'form_title_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',
@@ -1180,7 +1181,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                             'unit'		=> 'px'
                         ),
                     ),
-                    'form_desc_color'        => array(
+                    'form_desc_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',
@@ -1269,7 +1270,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                             'unit'      => 'px'
                         )
                     ),
-                    'label_color'        => array(
+                    'label_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'       => '',
@@ -1295,7 +1296,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                         'preview'   => array(
                             'type'      => 'font',
                             'selector'  => '.gform_wrapper .gfield input, .gform_wrapper .gfield input::placeholder, .gform_wrapper .gfield select, .gform_wrapper .gfield textarea',
-                        ),
+                        ),	
                     ),
                     'font_size'     => array(
                         'type'          => 'uabb-simplify',
@@ -1312,7 +1313,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                             'unit'      => 'px'
                         ),
                     ),
-                    'color'        => array(
+                    'color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',
@@ -1323,7 +1324,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                             'property'  => 'color',
                         ),
                     ),
-					'input_description_color'    => array(
+					'input_description_color'    => array( 
 						'type'       => 'color',
 						'label'         => __('Description Color', 'uabb'),
 						'show_reset' => true,
@@ -1411,7 +1412,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                             'unit'		=> 'px'
                         ),
                     ),
-                    'radio_checkbox_color'        => array(
+                    'radio_checkbox_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',

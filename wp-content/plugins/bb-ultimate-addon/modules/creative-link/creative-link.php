@@ -43,7 +43,7 @@ class CreativeLink extends FLBuilderModule {
             case 'style20':
                 echo trim( $title , '' );
                 break;
-
+            
             case 'style2':
             case 'style5':
             case 'style17':
@@ -216,12 +216,6 @@ FLBuilder::register_module('CreativeLink', array(
                         'size'          => '8',
                         'description'   => 'px',
                         'help'          => __( 'This option controls the left-right spacing of each link.', 'uabb' ),
-                        'preview'         => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-cl-wrap .uabb-cl-ul li',
-                            'property'      => 'margin-right',
-                            'unit'          => 'px'
-                        )
                     ),
                     'bottom_spacing'    => array(
                         'type'          => 'text',
@@ -260,7 +254,7 @@ FLBuilder::register_module('CreativeLink', array(
             'color_settings'       => array( // Section
                 'title'         => __('Color Settings', 'uabb'), // Section Title
                 'fields'        => array( // Section Fields
-                    'link_color' => array(
+                    'link_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Link Color', 'uabb'),
                         'default'    => '',
@@ -271,7 +265,7 @@ FLBuilder::register_module('CreativeLink', array(
                             'property'      => 'color',
                         )
                     ),
-                    'link_hover_color' => array(
+                    'link_hover_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Link Hover Color', 'uabb'),
                         'default'    => '',
@@ -280,7 +274,7 @@ FLBuilder::register_module('CreativeLink', array(
                             'type'            => 'none',
                         )
                     ),
-                    'background_color' => array(
+                    'background_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Background Color', 'uabb'),
                         'default'    => '',
@@ -291,8 +285,8 @@ FLBuilder::register_module('CreativeLink', array(
                             'property'      => 'background',
                         )
                     ),
-
-                    'background_hover_color' => array(
+                    
+                    'background_hover_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Background Hover Color', 'uabb'),
                         'default'    => '',
@@ -324,13 +318,13 @@ FLBuilder::register_module('CreativeLink', array(
                         'size'          => '8',
                         'description'   => 'px',
                     ),
-                    'border_color' => array(
+                    'border_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Border Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'border_hover_color' => array(
+                    'border_hover_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Border Hover Color', 'uabb'),
                         'default'    => '',

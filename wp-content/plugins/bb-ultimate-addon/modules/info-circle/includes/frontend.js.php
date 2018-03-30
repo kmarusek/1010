@@ -1,5 +1,5 @@
 jQuery(document).ready(function() {
-
+	
 	new UABBInfoCircle({
 		id: '<?php echo $id; ?>',
 		autoplay: '<?php echo $settings->autoplay; ?>',

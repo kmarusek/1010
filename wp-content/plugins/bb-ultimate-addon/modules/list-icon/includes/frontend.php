@@ -1,12 +1,12 @@
 <?php //echo '<xmp>'; print_r($settings); echo '</xmp>'; ?>
 <div class="uabb-module-content uabb-list-icon">
 <?php
-foreach($settings->list_items as $item) {
+foreach($settings->list_items as $item) { 
 
 	if( !is_object($item) ) {
 		continue;
 	}
-
+	
 	// check if themer connection is set.
 	if( ! empty( $item->connections->title ) && empty( $item->title ) && ! FLBuilderModel::is_builder_active() ) {
 		echo "";

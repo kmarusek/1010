@@ -12,7 +12,7 @@
 		{
 			var form    		= $('.fl-builder-settings'),
 				width	= form.find('input[name=width]');
-
+				
 			this._toggleSeparatorAlignment();
 
 			width.on('keyup', $.proxy( this._toggleSeparatorAlignment, this ) );
@@ -24,7 +24,7 @@
 				alignment	= form.find('#fl-field-alignment');
 
 			if( width != '' && width < 100 ) {
-				alignment.show();
+				alignment.show();				
 			} else {
 				alignment.hide();
 			}

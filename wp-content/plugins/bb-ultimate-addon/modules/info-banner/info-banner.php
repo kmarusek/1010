@@ -101,15 +101,15 @@ class InfoBannerModule extends FLBuilderModule {
     {
         if($this->settings->cta_type == 'button') {
             $btn_settings = array(
-
+                
                 /* General Section */
                 'text'              => $this->settings->btn_text,
-
+                
                 /* Link Section */
                 'link'              => $this->settings->btn_link,
                 'link_target'       => $this->settings->btn_link_target,
                 'link_nofollow'       => $this->settings->btn_link_nofollow,
-
+                
                 /* Style Section */
                 'style'             => $this->settings->btn_style,
                 'border_size'       => $this->settings->btn_border_size,
@@ -127,7 +127,7 @@ class InfoBannerModule extends FLBuilderModule {
                 /* Icon */
                 'icon'              => $this->settings->btn_icon,
                 'icon_position'     => $this->settings->btn_icon_position,
-
+                
                 /* Structure */
                 'width'              => $this->settings->btn_width,
                 'custom_width'       => $this->settings->btn_custom_width,
@@ -192,7 +192,7 @@ FLBuilder::register_module('InfoBannerModule', array(
             'styles' => array( // Section
                 'title'         => __('Style', 'uabb'), // Section Title
                 'fields'        => array( // Section Fields
-                    'background_color'    => array(
+                    'background_color'    => array( 
                         'type'       => 'color',
                         'label'      => __('Background Color', 'uabb'),
                         'default'    => 'f2f2f2',
@@ -203,7 +203,7 @@ FLBuilder::register_module('InfoBannerModule', array(
                             'property'      => 'background',
                         )
                     ),
-                    'background_color_opc'    => array(
+                    'background_color_opc'    => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -321,13 +321,13 @@ FLBuilder::register_module('InfoBannerModule', array(
                             "uabb-ultb3-img-bottom-right" => __("Bottom Right","uabb"),
                         ),
                     ),
-                    'overlay_color'    => array(
+                    'overlay_color'    => array( 
                         'type'       => 'color',
                         'label'      => __('Overlay Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'overlay_color_opc'    => array(
+                    'overlay_color_opc'    => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -367,7 +367,7 @@ FLBuilder::register_module('InfoBannerModule', array(
                         'placeholder'   => 'auto',
                     ),
                 ),
-
+                
             ),
             'animation' => array( // Section
                 'title'         => __('Animation', 'uabb'), // Section Title
@@ -583,7 +583,7 @@ FLBuilder::register_module('InfoBannerModule', array(
             'btn-colors'     => array( // Section
                 'title'         => __('Colors', 'uabb'),
                 'fields'        => array(
-                    'btn_text_color'        => array(
+                    'btn_text_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Text Color', 'uabb'),
                         'default'    => '',
@@ -594,7 +594,7 @@ FLBuilder::register_module('InfoBannerModule', array(
                             'property'         => 'color',
                         ),
                     ),
-                    'btn_text_hover_color'        => array(
+                    'btn_text_hover_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Text Hover Color', 'uabb'),
                         'default'    => '',
@@ -603,13 +603,13 @@ FLBuilder::register_module('InfoBannerModule', array(
                             'type'          => 'none'
                         )
                     ),
-                    'btn_bg_color'        => array(
+                    'btn_bg_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Background Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'btn_bg_color_opc'    => array(
+                    'btn_bg_color_opc'    => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -618,7 +618,7 @@ FLBuilder::register_module('InfoBannerModule', array(
                         'size'        => '5',
                     ),
 
-                    'btn_bg_hover_color'        => array(
+                    'btn_bg_hover_color'        => array( 
                         'type'       => 'color',
                         'label'         => __('Background Hover Color', 'uabb'),
                         'default'    => '',
@@ -627,7 +627,7 @@ FLBuilder::register_module('InfoBannerModule', array(
                             'type'          => 'none'
                         )
                     ),
-                    'btn_bg_hover_color_opc'    => array(
+                    'btn_bg_hover_color_opc'    => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -815,7 +815,7 @@ FLBuilder::register_module('InfoBannerModule', array(
                             'unit'      => 'px'
                         ),
                     ),
-                    'color'        => array(
+                    'color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',
@@ -901,7 +901,7 @@ FLBuilder::register_module('InfoBannerModule', array(
                             'unit'      => 'px'
                         ),
                     ),
-                    'desc_color'        => array(
+                    'desc_color'        => array( 
                         'type'       => 'color',
                         'label'     => __('Description Color', 'uabb'),
                         'default'    => '',

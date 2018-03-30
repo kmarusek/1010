@@ -119,7 +119,7 @@
 .uabb-pricing-table .uabb-pricing-table-features li {
 	padding: 14px 30px;
 	margin: 0;
-	list-style-type: none;
+	list-style-type: none;    
 }
 .uabb-pricing-table .uabb-pricing-table-features li:last-child {
 	border-bottom: 0;

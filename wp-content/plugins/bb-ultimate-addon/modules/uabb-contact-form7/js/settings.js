@@ -12,12 +12,12 @@
 
 			// Init validation events.
 			this._btn_styleChanged();
-
+			
 			// Validation events.
 			btn_style.on('change',  $.proxy( this._btn_styleChanged, this ) );
 			btn_style_opt.on('change',  $.proxy( this._btn_styleChanged, this ) );
 			hover_attribute.on( 'change', $.proxy( this._btn_styleChanged, this ) );
-
+			
 		},
 
 		_btn_styleChanged: function()

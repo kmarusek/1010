@@ -7,7 +7,7 @@
 				required: true
 			}
 		},
-
+		
 		init: function()
 		{
 			var form = $('.fl-builder-settings');

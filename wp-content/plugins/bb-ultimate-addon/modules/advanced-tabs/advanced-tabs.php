@@ -21,7 +21,8 @@ class AdvancedTabsModule extends FLBuilderModule {
             'url'           => BB_ULTIMATE_ADDON_URL . 'modules/advanced-tabs/',
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
-            'partial_refresh'   => true
+            'partial_refresh'   => true,
+            'icon'              => 'layout.svg',
         ));
 
         add_filter( 'fl_builder_render_settings_field', array( $this , 'uabb_tab_render_settings_field' ), 10, 3 );
@@ -33,7 +34,7 @@ class AdvancedTabsModule extends FLBuilderModule {
      * @method uabb_tab_render_settings_field
      */
     function uabb_tab_render_settings_field( $field, $name, $settings ) {
-
+        
         if ( isset( $field['form'] ) && $field['form'] == 'uabb_tab_items_form' ) {
 
             foreach( $settings->items as $item ) {
@@ -205,7 +206,7 @@ FLBuilder::register_module('AdvancedTabsModule', array(
                             'accordion'     => __('Accordion', 'uabb'),
                         ),
                         'toggle'        => array(
-                            'accordion'     => array(
+                            'accordion'     => array( 
                                 'fields'        => array('responsive_breakpoint','enable_first'),
                             )
                         ),
@@ -260,13 +261,13 @@ FLBuilder::register_module('AdvancedTabsModule', array(
                         'description'   => 'px',
                         'help'   => __( 'If icon size is kept bank then title font size would be applied', 'uabb' ),
                     ),
-                    'icon_color' => array(
+                    'icon_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Icon Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'icon_hover_color' => array(
+                    'icon_hover_color' => array( 
                         'type'       => 'color',
                         'label'         => __('Icon Hover Color', 'uabb'),
                         'default'    => '',
@@ -275,7 +276,7 @@ FLBuilder::register_module('AdvancedTabsModule', array(
                                 'type'      => 'none',
                         ),
                     ),
-                    'icon_active_color' => array(
+                    'icon_active_color' => array( 
                         'type'       => 'color',
                         'label'         => __('Icon Active Color', 'uabb'),
                         'default'    => '',
@@ -332,13 +333,13 @@ FLBuilder::register_module('AdvancedTabsModule', array(
                             'property'      => 'color',
                         )
                     ),
-                    'title_hover_color' => array(
+                    'title_hover_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Text Hover Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'title_active_color' => array(
+                    'title_active_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Text Active Color', 'uabb'),
                         'default'    => '',
@@ -360,7 +361,7 @@ FLBuilder::register_module('AdvancedTabsModule', array(
                             'property'      => 'background',
                         )
                     ),
-                    'title_background_color_opc' => array(
+                    'title_background_color_opc' => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -368,13 +369,13 @@ FLBuilder::register_module('AdvancedTabsModule', array(
                         'maxlength'   => '3',
                         'size'        => '5',
                     ),
-                    'title_background_hover_color' => array(
+                    'title_background_hover_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Background Hover Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'title_background_hover_color_opc' => array(
+                    'title_background_hover_color_opc' => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -382,8 +383,8 @@ FLBuilder::register_module('AdvancedTabsModule', array(
                         'maxlength'   => '3',
                         'size'        => '5',
                     ),
-
-                    'title_active_background_color' => array(
+                    
+                    'title_active_background_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Active Background Color', 'uabb'),
                         'default'    => '',
@@ -394,7 +395,7 @@ FLBuilder::register_module('AdvancedTabsModule', array(
                             'property'      => 'background-color',
                         )
                     ),
-                    'title_active_background_color_opc' => array(
+                    'title_active_background_color_opc' => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -402,7 +403,7 @@ FLBuilder::register_module('AdvancedTabsModule', array(
                         'maxlength'   => '3',
                         'size'        => '5',
                     ),
-
+                    
                 )
             ),
             'underline_settings' => array(
@@ -425,13 +426,13 @@ FLBuilder::register_module('AdvancedTabsModule', array(
                         'help'          => __('To change the Highlight border thickness use this options','uabb'),
                         'description'   => 'px',
                     ),
-                    'underline_border_color' => array(
+                    'underline_border_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Border Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
                     ),
-
+                    
                 )
             ),
             'label_border' => array(
@@ -460,7 +461,7 @@ FLBuilder::register_module('AdvancedTabsModule', array(
                         'description'   => 'px',
                     ),
                 )
-            ),
+            ),          
         )
     ),
     'content' => array(
@@ -511,9 +512,9 @@ FLBuilder::register_module('AdvancedTabsModule', array(
                             'selector'      => '.uabb-content-wrap',
                             'property'      => 'background',
                         )
-
+                        
                     ),
-                    'content_background_color_opc' => array(
+                    'content_background_color_opc' => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -574,7 +575,7 @@ FLBuilder::register_module('AdvancedTabsModule', array(
                             'unit'          => 'px'
                         )
                     ),
-                    'content_border_color' => array(
+                    'content_border_color' => array( 
                         'type'       => 'color',
                         'label'         => __('Border Color', 'uabb'),
                         'default'       => 'f6f6f6',

@@ -42,7 +42,7 @@
 		'{s<}'+ '<?php echo $module->render_normal_countdown( '{snn}', '{sl}' ); ?>' +
 		'{s>}';
 <?php } else if ( $settings->timer_style == "normal" && $settings->normal_options == "normal_above" ) { ?>
-
+	
 	var default_layout = '';
 	<?php if( $settings->timer_type != "evergreen" ) { ?>
 	default_layout += '{y<}' + '<?php echo $module->render_normal_above_countdown( '{ynn}', '{yl}', '{y>}' ); ?>';
@@ -60,7 +60,7 @@
 	default_layout += '{y<}'+ '<?php echo $module->render_normal_countdown( '{ynn}', '{yl}' ); ?>' +
 		'{y>}';
 	<?php } ?>
-
+	
 	default_layout = '{o<}'+ '<?php echo $module->render_normal_countdown( '{onn}', '{ol}' ); ?>' +
 		'{o>}'+
 		'{d<}'+ '<?php echo $module->render_normal_countdown( '{dnn}', '{dl}' ); ?>' +
@@ -78,7 +78,7 @@
 	<?php if( $settings->timer_type != "evergreen" ) { ?>
 	default_layout += '{y<}' + '<?php echo $module->render_inside_below_countdown( '{ynn}', '{yl}', '{y>}' ); ?>';
 	<?php } ?>
-
+	
 	default_layout += '{o<}' + '<?php echo $module->render_inside_below_countdown( '{onn}', '{ol}', '{o>}' ); ?>' +
 		'{d<}' + '<?php echo $module->render_inside_below_countdown( '{dnn}', '{dl}', '{d>}' ); ?>' +
 		'{h<}' + '<?php echo $module->render_inside_below_countdown( '{hnn}', '{hl}', '{h>}' ); ?>' +
@@ -86,7 +86,7 @@
 		'{s<}' + '<?php echo $module->render_inside_below_countdown( '{snn}', '{sl}', '{s>}' ); ?>';
 
 <?php } else if ( $settings->unit_position == "inside" && $settings->inside_options == "in_above" ) { ?>
-
+	
 	var default_layout = '';
 	<?php if( $settings->timer_type != "evergreen" ) { ?>
 	default_layout += '{y<}' + '<?php echo $module->render_inside_above_countdown( '{ynn}', '{yl}', '{y>}' ); ?>';
@@ -103,7 +103,7 @@
 	<?php if( $settings->timer_type != "evergreen" ) { ?>
 	default_layout += '{y<}' + '<?php echo $module->render_outside_countdown( '{ynn}', '{yl}', '{y>}' ); ?>';
 	<?php } ?>
-
+	
 	default_layout += '{o<}' + '<?php echo $module->render_outside_countdown( '{onn}', '{ol}', '{o>}' ); ?>' +
 		'{d<}' + '<?php echo $module->render_outside_countdown( '{dnn}', '{dl}', '{d>}' ); ?>' +
 		'{h<}' + '<?php echo $module->render_outside_countdown( '{hnn}', '{hl}', '{h>}' ); ?>' +
@@ -123,7 +123,7 @@
 	<?php
 	}
 	?>
-
+	
 	new UABBCountdown({
 		id: '<?php echo $id; ?>',
 		fixed_timer_action: '<?php echo $settings->fixed_timer_action; ?>',

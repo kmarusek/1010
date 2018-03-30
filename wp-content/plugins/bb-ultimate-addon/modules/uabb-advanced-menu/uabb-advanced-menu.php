@@ -20,7 +20,8 @@ class UABBCreativeMenu extends FLBuilderModule {
             'url'           	=> BB_ULTIMATE_ADDON_URL . 'modules/uabb-advanced-menu/',
             'editor_export' 	=> true, // Defaults to true and can be omitted.
             'enabled'       	=> true, // Defaults to true and can be omitted.
-            'partial_refresh'   => true
+            'partial_refresh'   => true,
+            'icon'              => 'hamburger-menu.svg',
         ));
         $this->add_css('font-awesome');
 	}
@@ -255,13 +256,13 @@ FLBuilder::register_module('UABBCreativeMenu', array(
                         'type'          => 'uabb-spacing',
                         'label'         => __( 'Link Margin', 'uabb' ),
                         'mode'			=> 'margin',
-                        'default'       => 'margin:5px;', // Optional
+                        'default'       => 'margin:5px;', // Optional 
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-creative-menu .menu > li',
                             'property'        => 'margin',
                             'unit'            => 'px'
-                        )
+                        )                    
                     ),
                     'creative_menu_link_spacing'    => array(
                         'type'          => 'uabb-spacing',
@@ -408,7 +409,7 @@ FLBuilder::register_module('UABBCreativeMenu', array(
 					),
 				)
 			),
-
+			
 			'creative_menu_submenu_color'	=> array(
 				'title'		=> __( 'Color Settings', 'uabb' ),
 				'fields'	=> array(
@@ -545,7 +546,7 @@ FLBuilder::register_module('UABBCreativeMenu', array(
 		                'label'         => __('Border Width', 'uabb'),
 		                'default'		=> 'padding:1px',
 		                'mode'			=> 'padding',
-		                'size'          => '6',
+		                'size'          => '6',		                
 						'preview'         => array(
 							'type'            => 'css',
 							'selector'        => '.uabb-creative-menu .sub-menu',
@@ -628,7 +629,7 @@ FLBuilder::register_module('UABBCreativeMenu', array(
                     ),
 				)
 			),
-
+			
         )
     ),
 	'responsive'       	=> array( // Tab
@@ -678,6 +679,21 @@ FLBuilder::register_module('UABBCreativeMenu', array(
                             'type'      => 'css',
                             'selector'  => '.uabb-creative-menu-mobile-toggle',
                             'property'  => 'color'
+                        )
+                    ),
+                    'creative_menu_navigation_alignment'    => array(
+                        'type'          => 'uabb-toggle-switch',
+                        'label'         => __('Navigation Alignment', 'uabb'),
+                        'default'       => 'center',
+                        'options'       => array(
+                            'left'          => __('Left', 'uabb'),
+                            'center'        => __( 'Center', 'uabb' ),
+                            'right'         => __('Right', 'uabb'),
+                        ),
+                        'preview'    => array(
+                            'type'      => 'css',
+                            'selector'  => '.uabb-creative-menu-mobile-toggle-container, .uabb-creative-menu-mobile-toggle-container > .uabb-creative-menu-mobile-toggle.text',
+                            'property'  => 'text-align'
                         )
                     ),
                 )
@@ -912,7 +928,7 @@ FLBuilder::register_module('UABBCreativeMenu', array(
                         )
                     ),
                 )
-            ),
+            ),        
         )
     ),
     'typography'       	=> array( // Tab
@@ -1003,7 +1019,7 @@ FLBuilder::register_module('UABBCreativeMenu', array(
                             'none'                  => __('Default', 'uabb'),
                             'uppercase'                => __('UPPERCASE', 'uabb'),
                             'lowercase'                => __('lowercase', 'uabb'),
-                          	'capitalize'               => __('Capitalize', 'uabb'),
+                          	'capitalize'               => __('Capitalize', 'uabb'),  
                         ),
 						'preview'           => array(
 							'type'			=> 'css',
@@ -1098,7 +1114,7 @@ FLBuilder::register_module('UABBCreativeMenu', array(
                             'none'                  => __('Default', 'uabb'),
                             'uppercase'                => __('UPPERCASE', 'uabb'),
                             'lowercase'                => __('lowercase', 'uabb'),
-                          	'capitalize'               => __('Capitalize', 'uabb'),
+                          	'capitalize'               => __('Capitalize', 'uabb'),  
                         ),
 						'preview'           => array(
 							'type'			=> 'css',

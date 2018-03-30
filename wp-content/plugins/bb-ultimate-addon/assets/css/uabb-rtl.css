@@ -186,8 +186,8 @@
     padding-right: 5px;
 }
 
-.uabb-module-content.uabb-contact-form .uabb-input-group-wrap input[type="text"],
-.uabb-module-content.uabb-contact-form .uabb-input-group-wrap input[type=tel],
+.uabb-module-content.uabb-contact-form .uabb-input-group-wrap input[type="text"], 
+.uabb-module-content.uabb-contact-form .uabb-input-group-wrap input[type=tel], 
 .uabb-module-content.uabb-contact-form .uabb-input-group-wrap input[type=email],
 .uabb-module-content.uabb-contact-form .uabb-input-group-wrap textarea {
     text-align: right;
@@ -234,7 +234,7 @@
 .uabb-horizontal .uabb-btn.uabb-btn-one {
     border-top-left-radius: 0 !important;
     border-bottom-left-radius: 0 !important;
-}
+} 
 /*-- Dual Buttons End --*/
 
 /*-- Testimonials Start --*/

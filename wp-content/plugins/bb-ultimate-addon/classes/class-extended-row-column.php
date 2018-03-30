@@ -9,7 +9,7 @@
 class UABB_Extend_RowColumn {
 
 	public function init() {
-
+		
 		//	Register column setting
 		add_filter( 'fl_builder_register_settings_form', array( $this, 'column_settings' ), 10, 2);
 
@@ -25,7 +25,7 @@ class UABB_Extend_RowColumn {
 		}
 
 		if ( $enable_row_separator ) {
-
+			
 			add_filter( 'fl_builder_register_settings_form',	array( $this, 'row_settings'), 10, 2);
 			add_filter( 'fl_builder_row_custom_class', 			array( $this, 'row_class'), 10, 2);
 			add_action( 'fl_builder_before_render_row_bg', 		array( $this, 'row_top_html'), 10, 1 );
@@ -60,6 +60,67 @@ class UABB_Extend_RowColumn {
 	 */
 	function row_settings( $form, $id ) {
 		if ( $id == 'row' ) {
+
+			$top_sep_option = apply_filters( 'uabb_row_separator_top_options',
+				array(
+					'none'						=>	__( 'None', 'uabb' ),
+					'arrow_outward'				=>	__( 'Arrow Inward', 'uabb' ),
+					'arrow_inward'				=>	__( 'Arrow Outward', 'uabb' ),
+					'xlarge_triangle'			=>	__( 'Big Triangle', 'uabb' ),
+					'big_triangle'				=>	__( 'Big Triangle Reverse', 'uabb' ),
+					'xlarge_triangle_left'		=>	__( 'Big Triangle Left', 'uabb' ),
+					'xlarge_triangle_right'		=>	__( 'Big Triangle Right', 'uabb' ),
+					'clouds'					=>	__( 'Clouds', 'uabb' ),
+					'xlarge_circle'				=>	__( 'Curve Center', 'uabb' ),
+					'curve_up'					=>	__( 'Curve Left', 'uabb' ),
+					'curve_down'				=>	__( 'Curve Right', 'uabb' ),
+					'grass'						=>	__( 'Grass', 'uabb' ),
+					'grass_bend'				=>	__( 'Grass Bend', 'uabb' ),
+					'circle_svg'				=>	__( 'Half Circle', 'uabb' ),
+					'multi_triangle'			=>	__( 'Multi Triangle', 'uabb' ),
+					'mul_triangles'				=>	__( 'Multiple Triangles', 'uabb' ),
+					'pine_tree'					=>	__( 'Pine Tree', 'uabb' ),
+					'pine_tree_bend'			=>	__( 'Pine Tree Bend', 'uabb' ),
+					'round_split'				=>	__( 'Round Split', 'uabb' ),
+					'slime'						=>	__( 'Slime', 'uabb' ),
+					'stamp'						=>	__( 'Stamp', 'uabb' ),
+					'tilt_left'					=>	__( 'Tilt Left', 'uabb' ),
+					'tilt_right'				=>	__( 'Tilt Right', 'uabb' ),
+					'triangle_svg'				=>	__( 'Triangle', 'uabb' ),
+					'waves'						=>	__( 'Waves', 'uabb' ),
+					'wave_slide'				=>	__( 'Wave Slide', 'uabb' ),
+				), 10, 1 );
+
+			$bot_sep_options = apply_filters( 'uabb_row_separator_bot_options',
+				array(
+					'none'						=>	__( 'None', 'uabb' ),
+					'arrow_outward'				=>	__( 'Arrow Inward', 'uabb' ),
+					'arrow_inward'				=>	__( 'Arrow Outward', 'uabb' ),
+					'xlarge_triangle'			=>	__( 'Big Triangle', 'uabb' ),
+					'big_triangle'				=>	__( 'Big Triangle Reverse', 'uabb' ),
+					'xlarge_triangle_left'		=>	__( 'Big Triangle Left', 'uabb' ),
+					'xlarge_triangle_right'		=>	__( 'Big Triangle Right', 'uabb' ),
+					'clouds'					=>	__( 'Clouds', 'uabb' ),
+					'xlarge_circle'				=>	__( 'Curve Center', 'uabb' ),
+					'curve_up'					=>	__( 'Curve Left', 'uabb' ),
+					'curve_down'				=>	__( 'Curve Right', 'uabb' ),
+					'grass'						=>	__( 'Grass', 'uabb' ),
+					'grass_bend'				=>	__( 'Grass Bend', 'uabb' ),
+					'circle_svg'				=>	__( 'Half Circle', 'uabb' ),
+					'multi_triangle'			=>	__( 'Multi Triangle', 'uabb' ),
+					'mul_triangles'				=>	__( 'Multiple Triangles', 'uabb' ),
+					'pine_tree'					=>	__( 'Pine Tree', 'uabb' ),
+					'pine_tree_bend'			=>	__( 'Pine Tree Bend', 'uabb' ),
+					'round_split'				=>	__( 'Round Split', 'uabb' ),
+					'slime'						=>	__( 'Slime', 'uabb' ),
+					'stamp'						=>	__( 'Stamp', 'uabb' ),
+					'tilt_left'					=>	__( 'Tilt Left', 'uabb' ),
+					'tilt_right'				=>	__( 'Tilt Right', 'uabb' ),
+					'triangle_svg'				=>	__( 'Triangle', 'uabb' ),
+					'waves'						=>	__( 'Waves', 'uabb' ),
+					'wave_slide'				=>	__( 'Wave Slide', 'uabb' ),
+				), 10, 1 );
+
 			$row_setting_arr = array(
 				'title'         => __('Effects', 'uabb'),
 				'sections'      => array(
@@ -70,34 +131,7 @@ class UABB_Extend_RowColumn {
 								'type'          => 'select',
 								'label'         => __('Type', 'uabb'),
 								'default'       => 'none',
-								'options'       => array(
-									'none'						=>	__( 'None', 'uabb' ),
-									'arrow_outward'				=>	__( 'Arrow Inward', 'uabb' ),
-									'arrow_inward'				=>	__( 'Arrow Outward', 'uabb' ),
-									'xlarge_triangle'			=>	__( 'Big Triangle', 'uabb' ),
-									'big_triangle'				=>	__( 'Big Triangle Reverse', 'uabb' ),
-									'xlarge_triangle_left'		=>	__( 'Big Triangle Left', 'uabb' ),
-									'xlarge_triangle_right'		=>	__( 'Big Triangle Right', 'uabb' ),
-									'clouds'					=>	__( 'Clouds', 'uabb' ),
-									'xlarge_circle'				=>	__( 'Curve Center', 'uabb' ),
-									'curve_up'					=>	__( 'Curve Left', 'uabb' ),
-									'curve_down'				=>	__( 'Curve Right', 'uabb' ),
-									'grass'						=>	__( 'Grass', 'uabb' ),
-									'grass_bend'				=>	__( 'Grass Bend', 'uabb' ),
-									'circle_svg'				=>	__( 'Half Circle', 'uabb' ),
-									'multi_triangle'			=>	__( 'Multi Triangle', 'uabb' ),
-									'mul_triangles'				=>	__( 'Multiple Triangles', 'uabb' ),
-									'pine_tree'					=>	__( 'Pine Tree', 'uabb' ),
-									'pine_tree_bend'			=>	__( 'Pine Tree Bend', 'uabb' ),
-									'round_split'				=>	__( 'Round Split', 'uabb' ),
-									'slime'						=>	__( 'Slime', 'uabb' ),
-									'stamp'						=>	__( 'Stamp', 'uabb' ),
-									'tilt_left'					=>	__( 'Tilt Left', 'uabb' ),
-									'tilt_right'				=>	__( 'Tilt Right', 'uabb' ),
-									'triangle_svg'				=>	__( 'Triangle', 'uabb' ),
-									'waves'						=>	__( 'Waves', 'uabb' ),
-									'wave_slide'				=>	__( 'Wave Slide', 'uabb' ),
-								),
+								'options'       => $top_sep_option,
 								'toggle'	=> array(
 									'triangle_svg'				=> array(
 										'fields'		=> array( 'separator_shape_height', 'uabb_row_separator_color', 'uabb_row_separator_color_opc', 'uabb_row_separator_z_index' )
@@ -210,14 +244,14 @@ class UABB_Extend_RowColumn {
 									),
 								),
 							),
-							'uabb_row_separator_color' => array(
+							'uabb_row_separator_color' => array( 
 								'type'       => 'color',
 								'label'      => __('Background', 'uabb'),
 								'default'    => '',
 								'show_reset' => true,
 								'help'       => __('Mostly, this should be background color of your adjacent row section.', 'uabb'),
 							),
-		                	'uabb_row_separator_color_opc' => array(
+		                	'uabb_row_separator_color_opc' => array( 
 								'type'        => 'text',
 								'label'       => __('Opacity', 'uabb'),
 								'default'     => '100',
@@ -244,34 +278,7 @@ class UABB_Extend_RowColumn {
 								'type'          => 'select',
 								'label'         => __('Type', 'uabb'),
 								'default'       => 'none',
-								'options'       => array(
-									'none'						=>	__( 'None', 'uabb' ),
-									'arrow_outward'				=>	__( 'Arrow Inward', 'uabb' ),
-									'arrow_inward'				=>	__( 'Arrow Outward', 'uabb' ),
-									'xlarge_triangle'			=>	__( 'Big Triangle', 'uabb' ),
-									'big_triangle'				=>	__( 'Big Triangle Reverse', 'uabb' ),
-									'xlarge_triangle_left'		=>	__( 'Big Triangle Left', 'uabb' ),
-									'xlarge_triangle_right'		=>	__( 'Big Triangle Right', 'uabb' ),
-									'clouds'					=>	__( 'Clouds', 'uabb' ),
-									'xlarge_circle'				=>	__( 'Curve Center', 'uabb' ),
-									'curve_up'					=>	__( 'Curve Left', 'uabb' ),
-									'curve_down'				=>	__( 'Curve Right', 'uabb' ),
-									'grass'						=>	__( 'Grass', 'uabb' ),
-									'grass_bend'				=>	__( 'Grass Bend', 'uabb' ),
-									'circle_svg'				=>	__( 'Half Circle', 'uabb' ),
-									'multi_triangle'			=>	__( 'Multi Triangle', 'uabb' ),
-									'mul_triangles'				=>	__( 'Multiple Triangles', 'uabb' ),
-									'pine_tree'					=>	__( 'Pine Tree', 'uabb' ),
-									'pine_tree_bend'			=>	__( 'Pine Tree Bend', 'uabb' ),
-									'round_split'				=>	__( 'Round Split', 'uabb' ),
-									'slime'						=>	__( 'Slime', 'uabb' ),
-									'stamp'						=>	__( 'Stamp', 'uabb' ),
-									'tilt_left'					=>	__( 'Tilt Left', 'uabb' ),
-									'tilt_right'				=>	__( 'Tilt Right', 'uabb' ),
-									'triangle_svg'				=>	__( 'Triangle', 'uabb' ),
-									'waves'						=>	__( 'Waves', 'uabb' ),
-									'wave_slide'				=>	__( 'Wave Slide', 'uabb' ),
-								),
+								'options'       => $bot_sep_options,
 								'toggle'	=> array(
 									'triangle_svg'				=> array(
 										'fields'		=> array( 'bot_separator_shape_height', 'bot_separator_color', 'bot_separator_color_opc', 'bot_separator_z_index' )
@@ -391,14 +398,14 @@ class UABB_Extend_RowColumn {
 									),
 								),
 							),
-							'bot_separator_color' => array(
+							'bot_separator_color' => array( 
 								'type'       => 'color',
 								'label'         => __('Background', 'uabb'),
 								'default'		=> '',
 								'show_reset' => true,
 								'help'			=> __('Mostly, this should be background color of your adjacent row section.', 'uabb'),
 							),
-		                	'bot_separator_color_opc' => array(
+		                	'bot_separator_color_opc' => array( 
 								'type'        => 'text',
 								'label'       => __('Opacity', 'uabb'),
 								'default'     => '100',
@@ -420,18 +427,18 @@ class UABB_Extend_RowColumn {
 					),
 				)
 			);
-
+				
 			/*$advanced = $form['tabs']['advanced'];
         	unset($form['tabs']['advanced']);
-
+			
 			$form['tabs']['effects'] = $row_setting_arr;
-
+			
 			$form['tabs']['advanced'] = $advanced;*/
 
 			$form['tabs'] = array_merge(
-				array_slice( $form['tabs'], 0, 1 ),
+				array_slice( $form['tabs'], 0, 1 ), 
 				array( 'effect' => $row_setting_arr ),
-				array_slice( $form['tabs'], 1 )
+				array_slice( $form['tabs'], 1 ) 
 			);
 			/*print_r( $form['tabs'] );*/
 		}

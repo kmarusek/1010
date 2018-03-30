@@ -39,7 +39,7 @@ class Creative_Menu_Walker extends Walker_Nav_Menu {
 
         $item_output = $args->has_children ? '<div class="uabb-has-submenu-container">' : '';
         $item_output .= $args->before;
-        $item_output .= '<a'. $attributes .'"><span class="menu-item-text">';
+        $item_output .= '<a'. $attributes .'><span class="menu-item-text">';
         $item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
 		if( $args->has_children ) {
 			$item_output .= '<span class="uabb-menu-toggle"></span>';

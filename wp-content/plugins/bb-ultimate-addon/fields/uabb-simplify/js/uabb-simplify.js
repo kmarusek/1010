@@ -3,12 +3,12 @@
     UABBResponsive = {
 
         _init: function()
-        {
+        {   
             $('body').delegate( '.uabb-simplify-wrapper .simplify', 'click', UABBResponsive._toggleExapndCollapse);
             /*$('body').delegate('.uabb-help-tooltip', 'mouseover', UABBResponsive._showHelpTooltip);
             $('body').delegate('.uabb-help-tooltip', 'mouseout', UABBResponsive._hideHelpTooltip);*/
         },
-
+       
                 /*  TOGGLE CLICK */
         _toggleExapndCollapse: function()
         {
@@ -30,22 +30,22 @@
                                   break;
               }
         },
-
+         
         /*_showHelpTooltip: function()
-        {
+        {   
             var h = $(this).closest('.uabb-icon, .simplify');
             h.find('.uabb-tooltip').fadeIn();
         },
-
+        
         _hideHelpTooltip: function()
         {
             var h = $(this).closest('.uabb-icon, .simplify');
             h.find('.uabb-tooltip').fadeOut();
         },*/
     };
-
+    
     $(function(){
         UABBResponsive._init();
     });
-
+    
 })(jQuery);

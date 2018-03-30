@@ -1,7 +1,7 @@
-<?php
+<?php 
 /*
 	Declaration op array  For - Font Size, Line Height or Responsive Width, Height
-
+	
 	Ex.	'font_spacing'     => array(
                         'type'          => 'uabb-spacing',
                         'label'         => __( 'Padding', 'uabb' ),
@@ -32,11 +32,11 @@ if(!class_exists('UABB_Spacing'))
 	class UABB_Spacing
 	{
 		function __construct()
-		{
+		{	
 			add_action( 'fl_builder_control_uabb-spacing', array($this, 'uabb_spacing'), 1, 4 );
 			//add_action( 'wp_enqueue_scripts', array( $this, 'uabb_spacing_assets' ) );
 		}
-
+		
 		function uabb_spacing($name, $value, $field, $settings) {
 
 			$name_def = $name;
@@ -89,33 +89,33 @@ if(!class_exists('UABB_Spacing'))
 					switch ( $ch ) {
 						case 'margin-top':
 						case 'padding-top':
-							$medias_options['top'] 		= $array_value ;
+							$medias_options['top'] 		= $array_value ; 
 							break;
-
+						
 						case 'margin-right':
 						case 'padding-right':
 							$medias_options['right'] 	= $array_value ;
 							break;
-
+						
 						case 'margin-bottom':
 						case 'padding-bottom':
 							$medias_options['bottom']	= $array_value ;
 							break;
-
+						
 						case 'margin-left':
 						case 'padding-left':
 							$medias_options['left']		= $array_value ;
 							break;
-
+						
 						case 'margin':
 						case 'padding':
 							//$medias_options['all']		= $array_value ;
-
+							
 							if ( isset( $uabb_default[1] ) && $uabb_default[1] != '' ) {
 								$uabb_default[1] =  preg_split('/\s+/', trim( $uabb_default[1] ) );
 								switch ( count( $uabb_default[1] )) {
 									case 1:
-										$medias_all['all'] = $uabb_default[1][0];
+										$medias_all['all'] = $uabb_default[1][0]; 
 										break;
 									case 2:
 										$medias_options['top']		= $medias_options['bottom']	= $uabb_default[1][0];
@@ -136,16 +136,16 @@ if(!class_exists('UABB_Spacing'))
 							}
 							break;
 					}
-
+					
 				}
 			}
-
+			
 
 
 			/*if ( isset( $uabb_default[0] ) && $uabb_default[0] != '' ) {
 				switch ( count( $uabb_default )) {
 					case 1:
-						$medias_all['all'] = $uabb_default[0];
+						$medias_all['all'] = $uabb_default[0]; 
 						break;
 					case 2:
 						$medias_options['top']		= $medias_options['bottom']	= $uabb_default[0];
@@ -164,24 +164,24 @@ if(!class_exists('UABB_Spacing'))
 						break;
 				}
 			}*/
-
+		
 			$medias =  array_merge( $medias_all, $medias_options );
 
 			if( $medias_options['top'] != '' || $medias_options['right'] != '' || $medias_options['bottom'] != '' || $medias_options['left'] != '' ){
 				$simplify = 'expand';
 			}
-
+			
 			$simplify = ( isset($value['simplify']) ) ? $value['simplify'] : $simplify ;
-
+			
 			$spacing = '';
 			if( $simplify == 'collapse' ) {
-				$spacing .= ( $medias_all['all'] != '' ) ? $mode.': '.$medias_all['all'].'px;' : '';
+				$spacing .= ( $medias_all['all'] != '' ) ? $mode.': '.$medias_all['all'].'px;' : ''; 
 			}else{
 				$spacing .= ( $medias_options['top'] ) ? $mode.'-top: '.$medias_options['top'].'px; ' : '';
 				$spacing .= ( $medias_options['right'] ) ? $mode.'-right: '.$medias_options['right'].'px; ' : '';
 				$spacing .= ( $medias_options['bottom'] ) ? $mode.'-bottom: '.$medias_options['bottom'].'px; ' : '';
 				$spacing .= ( $medias_options['left'] ) ? $mode.'-left: '.$medias_options['left'].'px;' : '';
-			}
+			} 
 
 			$simplify_style = ( $simplify == 'collapse' ) ? 'style="display:inline-block;"' : 'style="display:none;"';
 			$simplify_option_style = ( $simplify == 'collapse' ) ? 'style="display:none;"' : 'style="display:inline-block;"';
@@ -195,19 +195,19 @@ if(!class_exists('UABB_Spacing'))
 										<i class='simplify-icon dashicons dashicons-no-alt uabb-help-tooltip'></i>
 										<div class='uabb-tooltip simplify-options'>".__("Expand/Collapse Options","uabb")."</div>
 									  </div></div>";
-
+				
 				foreach($medias as $key => $default_value ) {
 					//$html .= $key;
 					switch ($key) {
-						case 'all':
+						case 'all': 
 							$selector = $this->uabb_preview( $field, $key, $mode );
 							$input_class = 'all';
 
-							//$selector = ' data-type="text" data-preview=\'' . $preview . '\'';
+							//$selector = ' data-type="text" data-preview=\'' . $preview . '\''; 
 							$class = 'fl-field require';
 							$data_id  = strtolower((preg_replace('/\s+/', '_', $key)));
 							$dashicon = "<i class='dashicons dashicons-editor-distractionfree uabb-help-tooltip'></i>";
-
+							
 							$html .= "<div class='uabb-size-wrap' ".$simplify_style.$data_mode.">";
 							$html .= $this->uabb_spacing_param_media($name, $class, $dashicon, $key, $default_value ,$selector, $data_id, $input_class, $placeholder['all']);
 							$html .= "</div>";
@@ -221,7 +221,7 @@ if(!class_exists('UABB_Spacing'))
 							$dashicon = "<i class='dashicons dashicons-arrow-up-alt uabb-help-tooltip' style='transform: rotate(90deg);'></i>";
 							$html .= $this->uabb_spacing_param_media($name, $class, $dashicon, $key, $default_value ,$selector, $data_id, $input_class, $placeholder['top']);
 						break;
-						case 'right':
+						case 'right':       
 							$input_class = 'expanded';
 							$selector = $this->uabb_preview( $field, $key, $mode );
 							$class = 'fl-field optional';
@@ -229,7 +229,7 @@ if(!class_exists('UABB_Spacing'))
 							$dashicon = "<i class='dashicons dashicons-arrow-right-alt uabb-help-tooltip'></i>";
 							$html .= $this->uabb_spacing_param_media($name, $class, $dashicon, $key, $default_value , $selector, $data_id, $input_class, $placeholder['right']);
 						break;
-						case 'bottom':
+						case 'bottom':        
 							$input_class = 'expanded';
 							$selector = $this->uabb_preview( $field, $key, $mode );
 							$class = 'fl-field optional';
@@ -237,7 +237,7 @@ if(!class_exists('UABB_Spacing'))
 							$dashicon = "<i class='dashicons dashicons-arrow-down-alt uabb-help-tooltip' style='transform: rotate(90deg);'></i>";
 							$html .= $this->uabb_spacing_param_media($name, $class, $dashicon, $key, $default_value , $selector, $data_id, $input_class, $placeholder['bottom']);
 						break;
-						case 'left':
+						case 'left':        
 							$input_class = 'expanded';
 							$selector = $this->uabb_preview( $field, $key, $mode );
 							$class = 'fl-field optional';
@@ -251,12 +251,12 @@ if(!class_exists('UABB_Spacing'))
 			$html .= '  </div>';
 			//$html .= $this->get_units($unit);
 			//$html .= '  <input type="hidden" data-unit="'.$unit.'"  name="'.$settings['param_name'].'" class="wpb_vc_param_value ultimate-responsive-value '.$settings['param_name'].' '.$settings['type'].'_field" value="'.$value.'" '.$dependency.' />';
-
+	
 			$html .= '</div>';
-
+		
 			echo $html;
 		}
-
+		
 		/*function uabb_spacing_assets() {
 		    if ( class_exists( 'FLBuilderModel' ) && FLBuilderModel::is_builder_active() ) {
 		    	wp_enqueue_style( 'uabb-spacing', BB_ULTIMATE_ADDON_URL . 'fields/uabb-spacing/css/uabb-spacing.css', array(), '' );
@@ -270,7 +270,7 @@ if(!class_exists('UABB_Spacing'))
 				case 'all':
 					$uabb_preview = isset($field['preview']) ? json_encode($field['preview']) : json_encode(array('type' => 'refresh'));
 					break;
-
+				
 				case 'top':
 				case 'right':
 				case 'bottom':
@@ -282,7 +282,7 @@ if(!class_exists('UABB_Spacing'))
 					}
 					$uabb_preview = json_encode($field['preview']) ;
 					break;
-
+				
 				default:
 					$uabb_preview = json_encode(array('type' => 'refresh'));
 					break;
@@ -300,7 +300,7 @@ if(!class_exists('UABB_Spacing'))
 			$html .= '  </div>';
 			return $html;
 		}
-
+	
 	}
 	new UABB_Spacing();
 }

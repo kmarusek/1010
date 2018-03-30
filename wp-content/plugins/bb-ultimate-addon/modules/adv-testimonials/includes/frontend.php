@@ -1,6 +1,6 @@
 <?php
 if ( $settings->tetimonial_layout == "slider" ) {
-
+	
 	$settings->testimonial_icon_image_size = ( $settings->testimonial_icon_image_size != '' ) ? $settings->testimonial_icon_image_size : '75';
 	$settings->testimonial_icon_image_size_noslider = ( $settings->testimonial_icon_image_size_noslider != '' ) ? $settings->testimonial_icon_image_size_noslider : '75';
 
@@ -8,13 +8,13 @@ if ( $settings->tetimonial_layout == "slider" ) {
 	?>
 	<div class="uabb-module-content <?php echo $testimonials_class; ?>">
 		<div class="uabb-testimonials uabb-testimonial-<?php echo $settings->testimonial_image_position;?>">
-			<?php
+			<?php 
 			$testimonial_list_counter = 0;
 			foreach( $settings->testimonials as $testimonial_item )
 			{
 			?>
 				<div class="uabb-testimonial uabb-testimonial<?php echo $testimonial_list_counter;?>">
-					<?php
+					<?php 
 					if ( $testimonial_item->image_type != "none" && ( ( isset( $testimonial_item->photo_src ) && $testimonial_item->photo_src != "" ) || ( isset( $testimonial_item->photo_url ) && $testimonial_item->photo_url != "" ) || ( isset( $testimonial_item->icon ) && $testimonial_item->icon != "" ) )  ) {
 					?>
 					<div class="uabb-testimonial-photo uabb-testimonial-<?php echo $settings->testimonial_image_position;?> testimonial-photo<?php echo $id;?> <?php echo $settings->testimonial_icon_style;?>">
@@ -23,12 +23,12 @@ if ( $settings->tetimonial_layout == "slider" ) {
 
 						    /* General Section */
 						    'image_type' => $testimonial_item->image_type,
-
+						 
 						    /* Icon Basics */
 						    'icon' => $testimonial_item->icon,
 						    'icon_size' => $settings->testimonial_icon_image_size,
 						    'icon_align' => 'center',
-
+						 
 						    /* Image Basics */
 						    'photo_source' => $testimonial_item->photo_source,
 						    'photo' => $testimonial_item->photo,
@@ -36,21 +36,21 @@ if ( $settings->tetimonial_layout == "slider" ) {
 						    'img_size' => $settings->testimonial_icon_image_size,
 						    'img_align' => "center",
 						    'photo_src' => ( isset( $testimonial_item->photo_src ) ) ? $testimonial_item->photo_src : '' ,
-
+						 
 						    /* Icon Style */
 						    'icon_style' => $settings->testimonial_icon_style,
 						    'icon_bg_size' => $settings->testimonial_icon_bg_size,
 						    'icon_border_style' => "none",
 						    'icon_border_width' => "",
 						    'icon_bg_border_radius' => $settings->testimonial_icon_bg_border_radius,
-
+						 
 						    /* Image Style */
 						    'image_style' => $settings->testimonial_icon_style,
 						    'img_bg_size' => $settings->testimonial_icon_bg_size,
 						    'img_border_style' => "none",
 						    'img_border_width' => "",
 						    'img_bg_border_radius' => $settings->testimonial_icon_bg_border_radius,
-						);
+						); 
 						/* Render HTML Function */
 						FLBuilder::render_module_html( 'image-icon', $imageicon_array );
 						?>
@@ -65,7 +65,7 @@ if ( $settings->tetimonial_layout == "slider" ) {
 								<?php if ( $testimonial_item->testimonial_author !="" ) {
 									echo "<".$settings->testimonial_heading_tag_selection." class='uabb-testimonial-author-name testimonial-author-name". $id ."'>";
 									echo $testimonial_item->testimonial_author;
-									echo "</".$settings->testimonial_heading_tag_selection.">";
+									echo "</".$settings->testimonial_heading_tag_selection.">";	
 								}
 								if( isset( $settings->enable_rating ) && $settings->enable_rating == 'yes' ) {
 									$module->render_ratings($testimonial_item->slider_rating);
@@ -73,7 +73,7 @@ if ( $settings->tetimonial_layout == "slider" ) {
 								?>
 								<div class="uabb-testimonial-author-designation testimonial-author-designation<?php echo $id; ?>">
 									<?php if ( $testimonial_item->testimonial_designation !="" ) {
-										echo $testimonial_item->testimonial_designation;
+										echo $testimonial_item->testimonial_designation;	
 									}
 									?>
 								</div>
@@ -81,7 +81,7 @@ if ( $settings->tetimonial_layout == "slider" ) {
 						<?php
 						}
 						?>
-
+						
 						<div class="uabb-testimonial-author-description uabb-text-editor testimonial-author-description<?php echo $id; ?>">
 							<?php if ( $testimonial_item->testimonial !="" ) {
 								if ( strpos( $testimonial_item->testimonial, "</p>" ) > 0 ) {
@@ -99,7 +99,7 @@ if ( $settings->tetimonial_layout == "slider" ) {
 								<?php if ( $testimonial_item->testimonial_author !="" ) {
 									echo "<".$settings->testimonial_heading_tag_selection." class='uabb-testimonial-author-name testimonial-author-name". $id ."'>";
 									echo $testimonial_item->testimonial_author;
-									echo "</".$settings->testimonial_heading_tag_selection.">";
+									echo "</".$settings->testimonial_heading_tag_selection.">";	
 								}
 								if( isset( $settings->enable_rating ) && $settings->enable_rating == 'yes' ) {
 									$module->render_ratings($testimonial_item->slider_rating);
@@ -107,7 +107,7 @@ if ( $settings->tetimonial_layout == "slider" ) {
 								?>
 								<div class="uabb-testimonial-author-designation testimonial-author-designation<?php echo $id; ?>">
 									<?php if ( $testimonial_item->testimonial_designation !="" ) {
-										echo $testimonial_item->testimonial_designation;
+										echo $testimonial_item->testimonial_designation;	
 									}
 									?>
 								</div>
@@ -117,7 +117,7 @@ if ( $settings->tetimonial_layout == "slider" ) {
 						?>
 					</div>
 				</div>
-			<?php
+			<?php 
 				$testimonial_list_counter = $testimonial_list_counter + 1;
 			}
 			?>
@@ -141,7 +141,7 @@ if ( $settings->tetimonial_layout == "slider-no" || $settings->tetimonial_layout
 ?>
 		<div class="uabb-module-content uabb-testimonials <?php echo $settings->tetimonial_layout ." uabb-testimonial-". $settings->testimonial_image_position . $uabb_half_box;?>">
 			<div class="uabb-testimonial<?php echo $uabb_half_box;?>">
-				<?php
+				<?php 
 				if ( $settings->image_type_noslider != "none" && ( ( isset( $settings->photo_noslider_src ) && $settings->photo_noslider_src != "" ) || ( isset( $settings->photo_url_noslider ) && $settings->photo_url_noslider != "" ) || ( isset( $settings->icon_noslider ) && $settings->icon_noslider != "" ) )  ) {
 				?>
 				<div class="uabb-testimonial-photo uabb-testimonial-<?php echo $settings->testimonial_image_position;?> testimonial-photo<?php echo $id;?> <?php echo $settings->testimonial_icon_style;?><?php echo $uabb_half_box;?>">
@@ -149,12 +149,12 @@ if ( $settings->tetimonial_layout == "slider-no" || $settings->tetimonial_layout
 					$imageicon_array = array(
 					    /* General Section */
 					    'image_type' => $settings->image_type_noslider,
-
+					 
 					    /* Icon Basics */
 					    'icon' => $settings->icon_noslider,
 					    'icon_size' => $settings->testimonial_icon_image_size_noslider,
 					    'icon_align' => 'center',
-
+					 
 					    /* Image Basics */
 					    'photo_source' => $settings->photo_source_noslider,
 					    'photo' => $settings->photo_noslider,
@@ -162,21 +162,21 @@ if ( $settings->tetimonial_layout == "slider-no" || $settings->tetimonial_layout
 					    'img_size' => $settings->testimonial_icon_image_size_noslider,
 					    'img_align' => "center",
 					    'photo_src' => ( isset( $settings->photo_noslider_src ) ) ? $settings->photo_noslider_src : '' ,
-
+					 
 					    /* Icon Style */
 					    'icon_style' => $settings->testimonial_icon_style_noslider,
 					    'icon_bg_size' => $settings->testimonial_icon_bg_size,
 					    'icon_border_style' => "none",
 					    'icon_border_width' => "",
 					    'icon_bg_border_radius' => $settings->testimonial_icon_bg_border_radius_noslider,
-
+					 
 					    /* Image Style */
 					    'image_style' => $settings->testimonial_icon_style_noslider,
 					    'img_bg_size' => $settings->testimonial_icon_bg_size,
 					    'img_border_style' => "none",
 					    'img_border_width' => "",
 					    'img_bg_border_radius' => $settings->testimonial_icon_bg_border_radius_noslider,
-					);
+					); 
 					/* Render HTML Function */
 					FLBuilder::render_module_html( 'image-icon', $imageicon_array );
 					?>
@@ -190,7 +190,7 @@ if ( $settings->tetimonial_layout == "slider-no" || $settings->tetimonial_layout
 							<?php if ( $settings->testimonial_author_no_slider !="" ) {
 								echo "<".$settings->testimonial_heading_tag_selection." class='uabb-testimonial-author-name testimonial-author-name". $id ."'>";
 								echo $settings->testimonial_author_no_slider;
-								echo "</".$settings->testimonial_heading_tag_selection.">";
+								echo "</".$settings->testimonial_heading_tag_selection.">";	
 							}
 							if( isset( $settings->enable_rating ) && $settings->enable_rating == 'yes' ) {
 								$module->render_ratings($settings->box_rating);
@@ -198,7 +198,7 @@ if ( $settings->tetimonial_layout == "slider-no" || $settings->tetimonial_layout
 							?>
 							<div class="uabb-testimonial-author-designation testimonial-author-designation<?php echo $id; ?>">
 								<?php if ( $settings->testimonial_designation_no_slider !="" ) {
-									echo $settings->testimonial_designation_no_slider;
+									echo $settings->testimonial_designation_no_slider;	
 								}
 								?>
 							</div>
@@ -206,10 +206,10 @@ if ( $settings->tetimonial_layout == "slider-no" || $settings->tetimonial_layout
 					<?php
 					}
 					?>
-
+					
 					<div class="uabb-testimonial-author-description uabb-text-editor testimonial-author-description<?php echo $id; ?>">
 						<?php if ( $settings->testimonial_description !="" ) {
-							echo $settings->testimonial_description;
+							echo $settings->testimonial_description;	
 						}
 						?>
 					</div>
@@ -220,7 +220,7 @@ if ( $settings->tetimonial_layout == "slider-no" || $settings->tetimonial_layout
 							<?php if ( $settings->testimonial_author_no_slider !="" ) {
 								echo "<".$settings->testimonial_heading_tag_selection." class='uabb-testimonial-author-name testimonial-author-name". $id ."'>";
 								echo $settings->testimonial_author_no_slider;
-								echo "</".$settings->testimonial_heading_tag_selection.">";
+								echo "</".$settings->testimonial_heading_tag_selection.">";	
 							}
 							if( isset( $settings->enable_rating ) && $settings->enable_rating == 'yes' ) {
 									$module->render_ratings($settings->box_rating);
@@ -228,7 +228,7 @@ if ( $settings->tetimonial_layout == "slider-no" || $settings->tetimonial_layout
 							?>
 							<div class="uabb-testimonial-author-designation testimonial-author-designation<?php echo $id; ?>">
 								<?php if ( $settings->testimonial_designation_no_slider !="" ) {
-									echo $settings->testimonial_designation_no_slider;
+									echo $settings->testimonial_designation_no_slider;	
 								}
 								?>
 							</div>

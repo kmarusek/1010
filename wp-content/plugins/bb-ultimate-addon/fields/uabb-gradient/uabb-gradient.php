@@ -1,7 +1,7 @@
-<?php
+<?php 
 /*
 	Declaration of array
-
+	
 	Ex.	'YOUR_VARIABLE_NAME'     => array(
                         'type'          => 'uabb-gradient',
                         'label'         => __( 'Gradient', 'uabb' ),
@@ -13,7 +13,7 @@
                     )
 
 Note : Default value is required here. Either pass it NULL or enter your own value.
-
+	
     How to access variables
 
         .fl-node-<?php echo $id; ?> .YOUR-CLASS{
@@ -26,11 +26,11 @@ if(!class_exists('UABB_Gradient'))
 	class UABB_Gradient
 	{
 		function __construct()
-		{
+		{	
 			add_action( 'fl_builder_control_uabb-gradient', array($this, 'uabb_gradient'), 1, 4 );
 			//add_action( 'wp_enqueue_scripts', array( $this, 'uabb_gradient_assets' ) );
 		}
-
+		
 		function uabb_gradient($name, $value, $field, $settings) {
 
 			$name_new = 'uabb_'.$name;
@@ -51,7 +51,7 @@ if(!class_exists('UABB_Gradient'))
 			$html = '<div class="uabb-gradient-wrapper '.$colorpick_class.'">';
 
 			// if ( $this->is_uabb_colorpicker() ) {
-
+				
 			// 	/* Color One */
 			//     $html .= '<div class="uabb-gradient-item uabb-color uabb-gradient-color-one color-all-wrap-ajax fl-field" data-type="color" data-preview=\'' . $preview . '\'>';
 			//     $html .= '<label for="uabb-gradient-color-one" class="uabb-gradient-label">Color 1</label>';
@@ -116,10 +116,10 @@ if(!class_exists('UABB_Gradient'))
 					$html .= '<span class="fl-field-description">deg</span>';
 				$html .= '</div>';
 			$html .= '</div>';
-
+		
 			echo $html;
 		}
-
+		
 		function is_uabb_colorpicker(){
 			$uabb_options = UABB_Init::$uabb_options['fl_builder_uabb'];
 

@@ -30,7 +30,7 @@
 
 .uabb-gradient-wrapper .wp-picker-container,
 .uabb-gradient-wrapper .fl-color-picker {
-    display: inline-block;
+  /*  display: inline-block;*/
     vertical-align: top;
     position: absolute;
     top: 0;

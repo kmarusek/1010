@@ -35,12 +35,12 @@
 				} else if( $settings->layout == 'semi-circular' ) {
 				?>
 				<div class="uabb-percent-wrap">
-
+					
 					<div class="uabb-percent-counter">0%</div>
 				</div>
 				<div class="uabb-svg-wrap" data-number="<?php echo $tmp[$i]->horizontal_number; ?>">
 					<?php $module->render_semi_circle_progress_bar( $tmp[$i], $i ); ?>
-
+					
 				</div>
 				<span class="uabb-semi-progress-before uabb-ba-text"><?php echo $tmp[$i]->circular_before_number; ?></span>
 				<span class="uabb-semi-progress-after uabb-ba-text"><?php echo $tmp[$i]->circular_after_number; ?></span>
@@ -53,4 +53,4 @@
 			}
 		}
 		?></ul>
-</div>
+</div>		

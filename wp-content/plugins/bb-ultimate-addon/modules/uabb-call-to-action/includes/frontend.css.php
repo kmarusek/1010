@@ -1,4 +1,4 @@
-<?php
+<?php 
     $settings->bg_color = UABB_Helper::uabb_colorpicker( $settings, 'bg_color', true );
     $settings->title_color = UABB_Helper::uabb_colorpicker( $settings, 'title_color' );
     $settings->subhead_color = UABB_Helper::uabb_colorpicker( $settings, 'subhead_color' );
@@ -10,14 +10,14 @@
 }
 <?php endif; ?>
 <?php if(is_numeric($settings->spacing)) : ?>
-.fl-node-<?php echo $id; ?> .fl-module-content {
+.fl-node-<?php echo $id; ?> .fl-module-content { 
 	padding: <?php echo $settings->spacing; ?>px;
 }
 <?php endif; ?>
 <?php
 
 FLBuilder::render_module_css('uabb-button', $id, array(
-
+	
 	/* General Section */
         'text'              => $settings->btn_text,
 
@@ -45,7 +45,7 @@ FLBuilder::render_module_css('uabb-button', $id, array(
         /* Icon */
         'icon'              => $settings->btn_icon,
         'icon_position'     => $settings->btn_icon_position,
-
+        
         /* Structure */
         'width'              => $settings->btn_width,
         'custom_width'       => $settings->btn_custom_width,
@@ -63,7 +63,7 @@ FLBuilder::render_module_css('uabb-button', $id, array(
 ));
 ?>
 
-<?php if ( $settings->layout == 'inline' ) { ?>
+<?php if ( $settings->layout == 'inline' ) { ?> 
 	@media ( min-width: <?php echo ( $global_settings->responsive_breakpoint + 1 ); ?>px ) {
 		<?php if ( $settings->btn_width == 'auto' || $settings->btn_width == 'full' ) : ?>
 		.fl-node-<?php echo $id; ?> .uabb-cta-inline .uabb-cta-text {
@@ -80,7 +80,7 @@ FLBuilder::render_module_css('uabb-button', $id, array(
 <?php } ?>
 
 <?php if ( $settings->btn_width == 'auto' ) { ?>
-	<?php if ( $settings->layout == 'inline' ) { ?>
+	<?php if ( $settings->layout == 'inline' ) { ?> 
 	@media ( min-width: <?php echo ( $global_settings->responsive_breakpoint + 1 ); ?>px ) {
 		.fl-node-<?php echo $id; ?> .uabb-creative-button-wrap {
 			text-align: right;
@@ -90,7 +90,7 @@ FLBuilder::render_module_css('uabb-button', $id, array(
 <?php } ?>
 <?php if ( $settings->btn_width == 'custom' ) { ?>
 	@media ( min-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {
-		.fl-node-<?php echo $id; ?> .fl-module-content .uabb-button {
+		.fl-node-<?php echo $id; ?> .fl-module-content .uabb-button { 
 			margin-right: 0;
 			margin-left: auto;
 		}
@@ -118,7 +118,7 @@ if( $settings->subhead_color != '' ) {
 ?>
 
 /* Typography Options for Title */
-<?php
+<?php 
 if( $settings->title_font_family['family'] != "Default" || $settings->title_font_size['desktop'] != '' || $settings->title_line_height['desktop'] != '' ) { ?>
 	.fl-node-<?php echo $id; ?> <?php echo $settings->title_tag_selection; ?>.uabb-cta-title {
 		<?php if( $settings->title_font_family['family'] != "Default") : ?>
@@ -138,10 +138,10 @@ if( $settings->title_font_family['family'] != "Default" || $settings->title_font
 
 /* Typography Options for Description */
 
-<?php
+<?php 
 if( $settings->subhead_font_family['family'] != "Default" || $settings->subhead_font_size['desktop'] != '' || $settings->subhead_line_height['desktop'] != '' ) { ?>
 	.fl-node-<?php echo $id; ?> .uabb-text-editor {
-
+		
 		<?php if( $settings->subhead_font_family['family'] != "Default") : ?>
 			<?php UABB_Helper::uabb_font_css( $settings->subhead_font_family ); ?>
 		<?php endif; ?>
@@ -158,7 +158,7 @@ if( $settings->subhead_font_family['family'] != "Default" || $settings->subhead_
 <?php } ?>
 
 /* Typography responsive css */
-<?php if($global_settings->responsive_enabled) { // Global Setting If started
+<?php if($global_settings->responsive_enabled) { // Global Setting If started 
 	/*if( $settings->title_font_size['medium'] != "" || $settings->title_line_height['medium'] != "" || $settings->subhead_font_size['medium'] != "" || $settings->subhead_line_height['medium'] != "" )
 	{*/
 	?>
@@ -188,7 +188,7 @@ if( $settings->subhead_font_family['family'] != "Default" || $settings->subhead_
 
 			<?php if( $settings->subhead_font_size['medium'] != "" || $settings->subhead_line_height['medium'] != "" ) { ?>
 				.fl-node-<?php echo $id; ?> .uabb-text-editor {
-
+					
 					<?php if( $settings->subhead_font_size['medium'] != '' ) : ?>
 					font-size: <?php echo $settings->subhead_font_size['medium']; ?>px;
 					line-height: <?php echo $settings->subhead_font_size['medium'] + 2; ?>px;
@@ -231,7 +231,7 @@ if( $settings->subhead_font_family['family'] != "Default" || $settings->subhead_
 
 			<?php if( $settings->subhead_font_size['small'] != "" || $settings->subhead_line_height['small'] != "" ) { ?>
 				.fl-node-<?php echo $id; ?> .uabb-text-editor {
-
+					
 					<?php if( $settings->subhead_font_size['small'] != '' ) : ?>
 					font-size: <?php echo $settings->subhead_font_size['small']; ?>px;
 					line-height: <?php echo $settings->subhead_font_size['small'] + 2; ?>px;

@@ -64,7 +64,7 @@ $settings->fancy_color = UABB_Helper::uabb_colorpicker( $settings, 'fancy_color'
 	<?php endif; ?>
 }
 
-<?php
+<?php 
 if( $settings->effect_type == 'type' && $settings->show_cursor == 'yes' && $settings->cursor_blink == 'yes' ) { ?>
 	.uabb-fancy-text-wrap .typed-cursor{
 	    opacity: 1;
@@ -92,10 +92,10 @@ if( $settings->effect_type == 'type' && $settings->show_cursor == 'yes' && $sett
 
 
 <?php
-/* Need it later for background
+/* Need it later for background 
 .fl-node-<?php echo $id; ?> .uabb-fancy-text-main
 {
-	<?php
+	<?php 
 	if( !empty( $settings->fancy_text_color) ){
 		echo 'color: '.$settings->fancy_text_color.';';
 	}
@@ -108,13 +108,13 @@ if( $settings->effect_type == 'type' && $settings->show_cursor == 'yes' && $sett
 	if( !empty( $settings->ft_lr_padding) ){
 		echo 'padding: 0'.$settings->ft_lr_padding.'px;';
 	}
-
+	
 	?>
 }*/
 ?>
 
 
-/* Typography responsive layout starts here */
+/* Typography responsive layout starts here */ 
 
 
 <?php if($global_settings->responsive_enabled) { // Global Setting If started ?>
@@ -176,6 +176,7 @@ if( $settings->effect_type == 'type' && $settings->show_cursor == 'yes' && $sett
 				<?php if( $settings->fancy_line_height['small'] != '' ) : ?>
 				line-height: <?php echo $settings->fancy_line_height['small']; ?>px;
 				<?php endif; ?>
+				width: auto !important;
 			}
 	    }
 	<?php

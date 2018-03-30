@@ -8,10 +8,10 @@
  */
 class UABBSubscribeFormModule extends FLBuilderModule {
 
-	/**
+	/** 
 	 * @since 1.5.2
 	 * @return void
-	 */
+	 */  
 	public function __construct()
 	{
 		parent::__construct( array(
@@ -21,19 +21,20 @@ class UABBSubscribeFormModule extends FLBuilderModule {
             'group'         => UABB_CAT,
 			'dir'           	=> BB_ULTIMATE_ADDON_DIR . 'modules/mailchimp-subscribe-form/',
             'url'           	=> BB_ULTIMATE_ADDON_URL . 'modules/mailchimp-subscribe-form/',
-			'partial_refresh'	=> true
+			'partial_refresh'	=> true,
+			'icon'				=> 'editor-table.svg',
 		));
-
+		
 		add_action( 'wp_ajax_uabb_subscribe_form_submit', array( $this, 'submit' ) );
 		add_action( 'wp_ajax_nopriv_uabb_subscribe_form_submit', array( $this, 'submit' ) );
 	}
 
-	/**
-	 * Called via AJAX to submit the subscribe form.
+	/** 
+	 * Called via AJAX to submit the subscribe form. 
 	 *
 	 * @since 1.5.2
 	 * @return string The JSON encoded response.
-	 */
+	 */  
 	public function submit()
 	{
 		$fname       		= isset( $_POST['fname'] ) ? sanitize_text_field( $_POST['fname'] ) : false;
@@ -49,9 +50,9 @@ class UABBSubscribeFormModule extends FLBuilderModule {
 			'message'   		=> false,
 			'url'       		=> false
 		);
-
+		
 		if ( $email && $node_id ) {
-
+			
 			// Get the module settings.
 			if ( $template_id ) {
 				$post_id  = FLBuilderModel::get_node_template_post_id( $template_id );
@@ -62,20 +63,20 @@ class UABBSubscribeFormModule extends FLBuilderModule {
 				$module   = FLBuilderModel::get_module( $node_id );
 				$settings = $module->settings;
 			}
-
+			
 			// Subscribe.
 			$instance = FLBuilderServices::get_service_instance( $settings->service );
 			$response = $instance->subscribe( $settings, $email, $name );
-
+			
 			// Check for an error from the service.
 			if ( $response['error'] ) {
 				$result['error'] = $response['error'];
 			}
 			// Setup the success data.
 			else {
-
+				
 				$result['action'] = $settings->success_action;
-
+				
 				if ( 'message' == $settings->success_action ) {
 					$result['message']  = $settings->success_message;
 				}
@@ -87,9 +88,9 @@ class UABBSubscribeFormModule extends FLBuilderModule {
 		else {
 			$result['error'] = __( 'There was an error subscribing. Please try again.', 'uabb' );
 		}
-
+		
 		echo json_encode( $result );
-
+		
 		die();
 	}
 }
@@ -236,7 +237,7 @@ FLBuilder::register_module( 'UABBSubscribeFormModule', array(
 							)
 						),
 						'preview'       => array(
-							'type'             => 'none'
+							'type'             => 'none'  
 						)
 					),
 					'success_message' => array(
@@ -246,7 +247,7 @@ FLBuilder::register_module( 'UABBSubscribeFormModule', array(
 						'rows'          => 8,
 						'default'       => __( 'Thanks for subscribing! Please check your email for further instructions.', 'uabb' ),
 						'preview'       => array(
-							'type'             => 'none'
+							'type'             => 'none'  
 						),
 						'connections'	=> array( 'string', 'html' )
 					),
@@ -254,7 +255,7 @@ FLBuilder::register_module( 'UABBSubscribeFormModule', array(
 						'type'          => 'link',
 						'label'         => __( 'Success URL', 'uabb' ),
 						'preview'       => array(
-							'type'             => 'none'
+							'type'             => 'none'  
 						),
 						'connections' => array( 'url' )
 					)
@@ -294,10 +295,10 @@ FLBuilder::register_module( 'UABBSubscribeFormModule', array(
 					'padding' => array(
                         'type'      => 'uabb-spacing',
                         'label'     => __( 'Padding', 'uabb' ),
-                        'mode'      => 'padding',
+                        'mode'      => 'padding',                        
 						'help'          => __( 'Apply padding to your element from all sides.', 'uabb'),
                     ),
-                    'background_color' => array(
+                    'background_color' => array( 
 						'type'       => 'color',
                         'label'         => __('Background Color', 'uabb'),
 						'default'    => '',
@@ -308,7 +309,7 @@ FLBuilder::register_module( 'UABBSubscribeFormModule', array(
                             'property'      => 'background',
                         )
 					),
-					'background_color_opc'    => array(
+					'background_color_opc'    => array( 
 						'type'        => 'text',
 						'label'       => __('Opacity', 'uabb'),
 						'default'     => '',
@@ -391,7 +392,7 @@ FLBuilder::register_module( 'UABBSubscribeFormModule', array(
 							)
 						)
 					),
-					'input_text_color' => array(
+					'input_text_color' => array( 
 						'type'       => 'color',
                         'label'         => __('Text Color', 'uabb'),
 						'default'    => '',
@@ -402,7 +403,7 @@ FLBuilder::register_module( 'UABBSubscribeFormModule', array(
                             'property'      => 'color',
                         )
 					),
-                    'input_background_color' => array(
+                    'input_background_color' => array( 
 						'type'       => 'color',
                         'label'         => __('Background Color', 'uabb'),
 						'default'    => '',
@@ -413,7 +414,7 @@ FLBuilder::register_module( 'UABBSubscribeFormModule', array(
                             'property'      => 'background',
                         )
 					),
-                    'input_background_color_opc'    => array(
+                    'input_background_color_opc'    => array( 
 						'type'        => 'text',
 						'label'       => __('Opacity', 'uabb'),
 						'default'     => '',
@@ -435,7 +436,7 @@ FLBuilder::register_module( 'UABBSubscribeFormModule', array(
                             'unit'			=> 'px'
                         )
 					),
-					'border_color' => array(
+					'border_color' => array( 
 						'type'       => 'color',
                         'label'         => __('Border Color', 'uabb'),
 						'default'    => '',
@@ -446,7 +447,7 @@ FLBuilder::register_module( 'UABBSubscribeFormModule', array(
                             'property'      => 'border-color',
                         )
 					),
-                    'border_active_color' => array(
+                    'border_active_color' => array( 
 						'type'       => 'color',
                         'label'         => __('Border Active Color', 'uabb'),
 						'default'    => '',
@@ -471,7 +472,7 @@ FLBuilder::register_module( 'UABBSubscribeFormModule', array(
 					                'selector'     => '.uabb-form-field input',
 					                'property'     => 'padding-bottom',
 					                'unit'		=> 'px'
-					            ),
+					            ),    
 					        )
 					    )
 					),
@@ -494,7 +495,7 @@ FLBuilder::register_module( 'UABBSubscribeFormModule', array(
 					                'selector'     => '.uabb-form-field input',
 					                'property'     => 'padding-right',
 					                'unit'		=> 'px'
-					            ),
+					            ),    
 					        )
 					    )
 					),
@@ -517,6 +518,14 @@ FLBuilder::register_module( 'UABBSubscribeFormModule', array(
                             'selector'      => '.uabb-form-button .uabb-button-text',
                         )
 		            ),
+					'btn_processing_text'	=> array(
+						'type'          => 'text',
+						'label'         => __('Processing Text', 'uabb'),
+						'default'       => 'Please Wait...',
+                        'preview'       => array(
+                            'type'          => 'none'
+                        )
+					),
 		        )
 			),
             'btn-style'      => array(
@@ -609,7 +618,7 @@ FLBuilder::register_module( 'UABBSubscribeFormModule', array(
             'btn-colors'     => array( // Section
                 'title'         => __('Colors', 'uabb'),
                 'fields'        => array(
-                    'btn_text_color'        => array(
+                    'btn_text_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Text Color', 'uabb'),
                         'default'    => '',
@@ -620,7 +629,7 @@ FLBuilder::register_module( 'UABBSubscribeFormModule', array(
                             'property'		=> 'color'
                         )
                     ),
-                    'btn_text_hover_color'        => array(
+                    'btn_text_hover_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Text Hover Color', 'uabb'),
                         'default'    => '',
@@ -629,7 +638,7 @@ FLBuilder::register_module( 'UABBSubscribeFormModule', array(
                             'type'          => 'none'
                         )
                     ),
-                    'btn_bg_color'        => array(
+                    'btn_bg_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Background Color', 'uabb'),
                         'default'    => '',
@@ -642,13 +651,13 @@ FLBuilder::register_module( 'UABBSubscribeFormModule', array(
 					                'property'     => 'border-color'
 					            ),
 					            array(
-					                'selector'     => '.uabb-form-button .uabb-button-wrap a',
+					                'selector'     => '.uabb-button:not(.uabb-creative-transparent-btn) .uabb-form-button .uabb-button-wrap a',
 					                'property'     => 'background'
-					            ),
+					            ),    
 					        )
 					    )
                     ),
-                    'btn_bg_color_opc'    => array(
+                    'btn_bg_color_opc'    => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -657,7 +666,7 @@ FLBuilder::register_module( 'UABBSubscribeFormModule', array(
                         'size'        => '5',
                     ),
 
-                    'btn_bg_hover_color'        => array(
+                    'btn_bg_hover_color'        => array( 
                         'type'       => 'color',
                         'label'         => __('Background Hover Color', 'uabb'),
                         'default'    => '',
@@ -666,7 +675,7 @@ FLBuilder::register_module( 'UABBSubscribeFormModule', array(
                             'type'          => 'none'
                         )
                     ),
-                    'btn_bg_hover_color_opc'    => array(
+                    'btn_bg_hover_color_opc'    => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -757,7 +766,7 @@ FLBuilder::register_module( 'UABBSubscribeFormModule', array(
 					                'selector'     => '.uabb-creative-button-wrap a',
 					                'property'     => 'padding-bottom',
 					                'unit'			=> 'px'
-					            ),
+					            ),    
 					        )
 					    )
                     ),
@@ -780,7 +789,7 @@ FLBuilder::register_module( 'UABBSubscribeFormModule', array(
 					                'selector'     => '.uabb-creative-button-wrap a',
 					                'property'     => 'padding-right',
 					                'unit'			=> 'px'
-					            ),
+					            ),    
 					        )
 					    )
                     ),
@@ -952,7 +961,7 @@ FLBuilder::register_module( 'UABBSubscribeFormModule', array(
 						    'unit'			=> 'px'
 						)
                     ),
-                    'subheading_color'        => array(
+                    'subheading_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',
@@ -1023,7 +1032,7 @@ FLBuilder::register_module( 'UABBSubscribeFormModule', array(
                             'unit'			=> 'px'
                         )
                     ),
-                    'text_color'        => array(
+                    'text_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',

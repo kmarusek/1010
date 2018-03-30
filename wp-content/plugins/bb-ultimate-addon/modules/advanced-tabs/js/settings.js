@@ -19,13 +19,13 @@
 			this._iconStyleChanged();
 			icon_style.on('change', $.proxy( this._iconStyleChanged, this ) ) ;
 		},
-
+		
 		_styleChanged: function() {
 			var form		= $('.fl-builder-settings'),
 				style 	= form.find('select[name=style]').val(),
 				tab_style 	= form.find('select[name=tab_style]').val();
 
-
+			
 			if( style != 'linebox' && style != 'iconfall' ){
 				form.find('#fl-field-tab_style').show();
 				if( tab_style == 'inline'  ){
@@ -131,7 +131,7 @@
 				/* Individul Tab Style */
 				tab_style = form.find('select[name=tab_style]').val();
 
-
+ 
 				if ( style == 'simple' || style == 'bar' || style == 'topline' || style == 'linebox' ) {
 					if ( style != 'linebox' && tab_style == 'full' ) {
 						form.find('#fl-field-tab_style_width').show();

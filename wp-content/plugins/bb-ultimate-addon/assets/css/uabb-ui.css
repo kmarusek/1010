@@ -124,3 +124,7 @@
 .fl-builder-blocks-section-content .fl-builder-block-module-template:hover .fl-builder-block-title {
     visibility: visible;
 }
+.fl-loop-builder-filter + .fl-form-table .fl-field td.fl-field-control select,
+.fl-loop-builder-filter .fl-field td.fl-field-control select {
+	width: 100%;
+}

@@ -19,7 +19,8 @@ class UABBBeforeaftersliderModule extends FLBuilderModule {
             'url'           => BB_ULTIMATE_ADDON_URL . 'modules/uabb-beforeafterslider/',
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
-            'partial_refresh'  => true
+            'partial_refresh'  => true,
+            'icon'             => 'slides.svg',
 		));
         $this->add_css('baslider-foundation', $this->url . 'css/foundation.css');
         $this->add_css('baslider-twentytwenty', $this->url . 'css/twentytwenty.css');
@@ -184,7 +185,7 @@ FLBuilder::register_module('UABBBeforeaftersliderModule', array(
                             '0.9'             => __('0.9', 'uabb'),
                         ),
                     ),
-                    'handle_color' => array(
+                    'handle_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Comparison Handle Color', 'uabb'),
                         'default'    => '',
@@ -197,7 +198,7 @@ FLBuilder::register_module('UABBBeforeaftersliderModule', array(
                         'placeholder'   => '5',
                         'description'   => "px"
                     ),
-                    'handle_back_overlay' => array(
+                    'handle_back_overlay' => array( 
                         'type'       => 'color',
                         'label'      => __('Slider Overlay Color', 'uabb'),
                         'default'    => '000000',
@@ -248,7 +249,7 @@ FLBuilder::register_module('UABBBeforeaftersliderModule', array(
                         'placeholder'   => __( '6', 'uabb' ),
                         'description'   => 'px'
                     ),
-                    'handle_triangle_color' => array(
+                    'handle_triangle_color' => array( 
                         'type'       => 'color',
                         'label' => __('Comparison Triangle Color', 'uabb'),
                         'default'    => '',
@@ -276,7 +277,7 @@ FLBuilder::register_module('UABBBeforeaftersliderModule', array(
                         'placeholder'   => '5',
                         'description'   => 'px'
                     ),
-                    'handle_shadow_color' => array(
+                    'handle_shadow_color' => array( 
                         'type'       => 'color',
                         'label' => __('Comparison Handle Shadow Color', 'uabb'),
                         'default'    => '',
@@ -322,7 +323,7 @@ FLBuilder::register_module('UABBBeforeaftersliderModule', array(
                             'small'         => '',
                         ),
                     ),
-                    'slider_color'        => array(
+                    'slider_color'        => array( 
                         'type'       => 'color',
                         'label' => __('Label Color', 'uabb'),
                         'preview'         => array(
@@ -333,7 +334,7 @@ FLBuilder::register_module('UABBBeforeaftersliderModule', array(
                         'default'    => '',
                         'show_reset' => true,
                     ),
-                    'slider_label_back_color' => array(
+                    'slider_label_back_color' => array( 
                         'type'       => 'color',
                         'label' => __('Label Background Color', 'uabb'),
                         'default'    => '',

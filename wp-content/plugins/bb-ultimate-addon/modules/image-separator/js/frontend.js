@@ -14,20 +14,20 @@
 	};
 
 	UABBAnimation.prototype = {
-
+	
 		settings	: {},
 		nodeClass   : '',
 		animation   : '',
 		animation_delay : 0,
 		viewport_position : 90,
-
+		
 		/**
 		 * Initiate animation.
 		 *
 		 * @since 0.0.7
 		 * @access private
 		 * @method _initAnimations
-		 */
+		 */ 
 		_initAnimations: function()
 		{
 			if(typeof jQuery.fn.waypoint !== 'undefined' /*&& !FLBuilderLayout._isMobile()*/ ) {
@@ -37,19 +37,19 @@
 				});
 			}
 		},
-
+		
 		/**
 		 * Runs a module animation.
 		 *
 		 * @since 0.0.7
 		 * @access private
 		 * @method _executeAnimation
-		 */
+		 */ 
 		_executeAnimation: function( e )
 		{
 
 			var module = $( this.nodeClass ).find('.uabb-imgseparator-wrap'),
-				animation_class = this.animation,
+				animation_class = this.animation, 
 				delay  = parseInt( this.animation_delay );
 			if( delay > 0) {
 				setTimeout(function(){
@@ -61,5 +61,5 @@
 			}
 		},
 	};
-
+	
 })(jQuery);

@@ -96,7 +96,7 @@ if( $settings->is_carousel == 'masonary' ) {
 			            }
 		            }
 	            }
-	        }
+	        } 
 		}
 
 		$top_featured_image_content = $module->render_featured_image( 'top', $the_query->posts[$i], $i );
@@ -111,8 +111,8 @@ if( $settings->is_carousel == 'masonary' ) {
 		?>
 	<div class="uabb-blog-posts-col-<?php echo $col; ?> uabb-post-wrapper <?php echo ( $settings->is_carousel == 'masonary' ) ? ' uabb-blog-posts-masonary-item-' . $module->node . ' ' : ''; ?> <?php echo ( $settings->is_carousel == 'masonary' ) ? $class : ''; ?>">
 		<div class="uabb-blog-posts-shadow clearfix">
-			<div class="uabb-blog-post-inner-wrap <?php echo 'uabb-thumbnail-position-' . $settings->blog_image_position; ?> <?php echo ( $settings->layout_sort_order != 'img,title,meta,content,cta' ) ? 'uabb-blog-reordered' : ''; ?> <?php echo $left_hide_class; ?>">
 
+			<div class="uabb-blog-post-inner-wrap <?php echo 'uabb-thumbnail-position-' . $settings->blog_image_position; ?> <?php echo ( $settings->layout_sort_order != 'img,title,meta,content,cta' ) ? 'uabb-blog-reordered' : ''; ?> <?php echo $left_hide_class; ?>">
 			<?php
 				if( isset($settings->post_layout) && $settings->post_layout == 'custom' && defined( 'FL_THEME_BUILDER_DIR' ) ) {
 					include BB_ULTIMATE_ADDON_DIR . 'includes/' . $module->slug . '-frontend.php';

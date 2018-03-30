@@ -34,17 +34,17 @@ class UABBHotspot extends FLBuilderModule {
     ?>
         <div class="uabb-hspot-sonar">
             <svg class="uabb-sonar" viewBox="-25 -25 50 50">
-
-                <g transform="scale(0)">
+  
+                <g>
                     <circle cx="0" cy="0" r="8px" fill="none" stroke="<?php echo $color; ?>" stroke-opacity="0.5" stroke-width="1" vector-effect="non-scaling-stroke"></circle>
                 </g>
-                <g transform="scale(0)">
+                <g>
                     <circle cx="0" cy="0" r="8px" fill="none" stroke="<?php echo $color; ?>" stroke-opacity="0.5" stroke-width="1" vector-effect="non-scaling-stroke"></circle>
                 </g>
-                <g transform="scale(0)">
+                <g>
                     <circle cx="0" cy="0" r="8px" fill="none" stroke="<?php echo $color; ?>" stroke-opacity="0.5" stroke-width="1" vector-effect="non-scaling-stroke"></circle>
                 </g>
-                <g transform="scale(0)">
+                <g>
                     <circle cx="0" cy="0" r="8px" fill="none" stroke="<?php echo $color; ?>" stroke-opacity="0.5" stroke-width="1" vector-effect="non-scaling-stroke"></circle>
                 </g>
             </svg>
@@ -241,7 +241,7 @@ FLBuilder::register_settings_form('hotspot_coordinates_form', array(
                                 )
                             ),*/
                         ),
-
+                        
                         /* Icon Background SIze */
                         'icon_bg_size'          => array(
                             'type'          => 'text',
@@ -327,14 +327,14 @@ FLBuilder::register_settings_form('hotspot_coordinates_form', array(
                                 ),
                                 'custom' => array(
                                     'sections'  => array( 'img_colors' ),
-                                    'fields'    => array( 'img_bg_size', 'img_border_style', 'img_border_width', 'img_bg_border_radius' )
+                                    'fields'    => array( 'img_bg_size', 'img_border_style', 'img_border_width', 'img_bg_border_radius' ) 
                                 )
                             ),*/
                             /*'trigger'       => array(
                                 'custom'           => array(
                                     'fields'        => array('img_border_style')
                                 ),
-
+                                
                             )*/
                         ),
 
@@ -397,7 +397,7 @@ FLBuilder::register_settings_form('hotspot_coordinates_form', array(
                 'icon_colors'  => array( // Section
                     'title'         => __('Colors', 'uabb'), // Section Title
                     'fields'        => array( // Section Fields
-
+                                
                         /* Style Options */
                         'icon_color_preset'     => array(
                             'type'          => 'uabb-toggle-switch',
@@ -411,13 +411,13 @@ FLBuilder::register_settings_form('hotspot_coordinates_form', array(
                             'help'          => __('Preset 1 => Icon : White, Background : Theme </br>Preset 2 => Icon : Theme, Background : #f3f3f3', 'uabb')
                         ),
                         /* Icon Color */
-                        'icon_color' => array(
+                        'icon_color' => array( 
                             'type'       => 'color',
                             'label'      => __('Icon Color', 'uabb'),
                             'default'    => '',
                             'show_reset' => true,
                         ),
-                        'icon_hover_color' => array(
+                        'icon_hover_color' => array( 
                             'type'       => 'color',
                             'label'      => __('Icon Hover Color', 'uabb'),
                             'default'    => '',
@@ -428,13 +428,13 @@ FLBuilder::register_settings_form('hotspot_coordinates_form', array(
                         ),
 
                         /* Background Color Dependent on Icon Style **/
-                        'icon_bg_color' => array(
+                        'icon_bg_color' => array( 
                             'type'       => 'color',
                             'label'         => __('Background Color', 'uabb'),
                             'default'    => '',
                             'show_reset' => true,
                         ),
-                        'icon_bg_color_opc' => array(
+                        'icon_bg_color_opc' => array( 
                             'type'        => 'text',
                             'label'       => __('Opacity', 'uabb'),
                             'default'     => '',
@@ -442,7 +442,7 @@ FLBuilder::register_settings_form('hotspot_coordinates_form', array(
                             'maxlength'   => '3',
                             'size'        => '5',
                         ),
-                        'icon_bg_hover_color' => array(
+                        'icon_bg_hover_color' => array( 
                             'type'       => 'color',
                             'label'      => __('Background Hover Color', 'uabb'),
                             'default'    => '',
@@ -451,7 +451,7 @@ FLBuilder::register_settings_form('hotspot_coordinates_form', array(
                                     'type'      => 'none',
                             )
                         ),
-                        'icon_bg_hover_color_opc' => array(
+                        'icon_bg_hover_color_opc' => array( 
                             'type'        => 'text',
                             'label'       => __('Opacity', 'uabb'),
                             'default'     => '',
@@ -461,19 +461,19 @@ FLBuilder::register_settings_form('hotspot_coordinates_form', array(
                         ),
 
                          /* Border Color Dependent on Border Style for ICon */
-                        'icon_border_color' => array(
+                        'icon_border_color' => array( 
                             'type'       => 'color',
                             'label'      => __('Border Color', 'uabb'),
                             'default'    => '',
                             'show_reset' => true,
                         ),
-                        'icon_border_hover_color' => array(
+                        'icon_border_hover_color' => array( 
                             'type'       => 'color',
                             'label'      => __('Border Hover Color', 'uabb'),
                             'default'    => '',
                             'show_reset' => true,
                         ),
-
+                        
                         /* Gradient Color Option */
                         'icon_three_d'       => array(
                             'type'          => 'select',
@@ -490,13 +490,13 @@ FLBuilder::register_settings_form('hotspot_coordinates_form', array(
                     'title'         => __('Colors', 'uabb'), // Section Title
                     'fields'        => array( // Section Fields
                         /* Background Color Dependent on Icon Style **/
-                        'img_bg_color' => array(
+                        'img_bg_color' => array( 
                             'type'       => 'color',
                             'label'      => __('Background Color', 'uabb'),
                             'default'    => '',
                             'show_reset' => true,
                         ),
-                        'img_bg_color_opc' => array(
+                        'img_bg_color_opc' => array( 
                             'type'        => 'text',
                             'label'       => __('Opacity', 'uabb'),
                             'default'     => '',
@@ -504,7 +504,7 @@ FLBuilder::register_settings_form('hotspot_coordinates_form', array(
                             'maxlength'   => '3',
                             'size'        => '5',
                         ),
-                        'img_bg_hover_color' => array(
+                        'img_bg_hover_color' => array( 
                             'type'       => 'color',
                             'label'      => __('Background Hover Color', 'uabb'),
                             'default'    => '',
@@ -513,7 +513,7 @@ FLBuilder::register_settings_form('hotspot_coordinates_form', array(
                                     'type'      => 'none',
                             )
                         ),
-                        'img_bg_hover_color_opc' => array(
+                        'img_bg_hover_color_opc' => array( 
                             'type'        => 'text',
                             'label'       => __('Opacity', 'uabb'),
                             'default'     => '',
@@ -523,13 +523,13 @@ FLBuilder::register_settings_form('hotspot_coordinates_form', array(
                         ),
 
                          /* Border Color Dependent on Border Style for Image */
-                        'img_border_color' => array(
+                        'img_border_color' => array( 
                             'type'       => 'color',
                             'label'         => __('Border Color', 'uabb'),
                             'default'    => '',
                             'show_reset' => true,
                         ),
-                        'img_border_hover_color' => array(
+                        'img_border_hover_color' => array( 
                             'type'       => 'color',
                             'label'         => __('Border Hover Color', 'uabb'),
                             'default'    => '',
@@ -555,7 +555,7 @@ FLBuilder::register_settings_form('hotspot_coordinates_form', array(
                                 )
                             )
                         ),
-                        'animation_color' => array(
+                        'animation_color' => array( 
                             'type'       => 'color',
                             'label'      => __('Animation Color', 'uabb'),
                             'default'    => '',
@@ -702,31 +702,31 @@ FLBuilder::register_settings_form('hotspot_coordinates_form', array(
                                 'small'         => '',
                             ),
                         ),
-                        'text_typography_color'        => array(
+                        'text_typography_color'        => array( 
                             'type'       => 'color',
                             'label' => __( 'Color', 'uabb' ),
                             'default'    => '',
                             'show_reset' => true,
                         ),
-                        /*'text_typography_hover_color'        => array(
+                        /*'text_typography_hover_color'        => array( 
                             'type'       => 'color',
                             'label' => __( 'Hover Color', 'uabb' ),
                             'default'    => '',
                             'show_reset' => true,
                         ),*/
-                        'text_typography_active_color'        => array(
+                        'text_typography_active_color'        => array( 
                             'type'       => 'color',
                             'label' => __( 'Hover/Active Color', 'uabb' ),
                             'default'    => '',
                             'show_reset' => true,
                         ),
-                        'text_typography_bg_color'        => array(
+                        'text_typography_bg_color'        => array( 
                             'type'       => 'color',
                             'label' => __( 'Background Color', 'uabb' ),
                             'default'    => '',
                             'show_reset' => true,
                         ),
-                        'text_typography_bg_color_opc' => array(
+                        'text_typography_bg_color_opc' => array( 
                             'type'        => 'text',
                             'label'       => __('Opacity', 'uabb'),
                             'default'     => '',
@@ -734,13 +734,13 @@ FLBuilder::register_settings_form('hotspot_coordinates_form', array(
                             'maxlength'   => '3',
                             'size'        => '5',
                         ),
-                        /*'text_typography_bg_hover_color'        => array(
+                        /*'text_typography_bg_hover_color'        => array( 
                             'type'       => 'color',
                             'label' => __( 'Background Hover Color', 'uabb' ),
                             'default'    => '',
                             'show_reset' => true,
                         ),
-                        'text_typography_bg_hover_color_opc' => array(
+                        'text_typography_bg_hover_color_opc' => array( 
                             'type'        => 'text',
                             'label'       => __('Opacity', 'uabb'),
                             'default'     => '',
@@ -748,13 +748,13 @@ FLBuilder::register_settings_form('hotspot_coordinates_form', array(
                             'maxlength'   => '3',
                             'size'        => '5',
                         ),*/
-                        'text_typography_bg_active_color'        => array(
+                        'text_typography_bg_active_color'        => array( 
                             'type'       => 'color',
                             'label' => __( 'Background Hover/Active Color', 'uabb' ),
                             'default'    => '',
                             'show_reset' => true,
                         ),
-                        'text_typography_bg_active_color_opc' => array(
+                        'text_typography_bg_active_color_opc' => array( 
                             'type'        => 'text',
                             'label'       => __('Opacity', 'uabb'),
                             'default'     => '',
@@ -804,13 +804,13 @@ FLBuilder::register_settings_form('hotspot_coordinates_form', array(
                                 'small'         => '',
                             ),
                         ),
-                        'tooltip_color'        => array(
+                        'tooltip_color'        => array( 
                             'type'       => 'color',
                             'label' => __( 'Tooltip Color', 'uabb' ),
                             'default'    => '',
                             'show_reset' => true,
                         ),
-                        'tooltip_bg_color' => array(
+                        'tooltip_bg_color' => array( 
                             'type'       => 'color',
                             'label'     => __('Tooltip Background Color', 'uabb'),
                             'default'    => '',
@@ -874,8 +874,8 @@ FLBuilder::register_module('UABBHotspot', array(
                         'placeholder'   => 'http://www.example.com/my-photo.jpg',
                     ),
                 )
-            ),
-
+            ),     
+                   
         )
     ),
      'marker_section'       => array( // Tab

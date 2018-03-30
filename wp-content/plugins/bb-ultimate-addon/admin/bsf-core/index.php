@@ -30,24 +30,30 @@ if ( ! defined( 'BSF_UPDATER_SHORTNAME' ) ) {
 	define( 'BSF_UPDATER_SHORTNAME', apply_filters( 'agency_updater_shortname', 'Brainstorm' ) );
 }
 
+if ( ! defined( 'BSF_UPDATER_VERSION' ) ) {
+	global $bsf_core_version;
+	define( 'BSF_UPDATER_VERSION', $bsf_core_version );
+}
+
 /* product registration */
 require_once 'auto-update/admin-functions.php';
 require_once 'auto-update/updater.php';
 require_once 'BSF_License_Manager.php';
 require_once 'BSF_Update_Manager.php';
+require_once 'class-bsf-core-update.php';
 
 if ( defined( 'WP_CLI' ) ) {
 	require 'BSF_WP_CLI_Command.php';
 }
 
-function get_api_site() {
+function get_api_site( $prefer_unsecure = false ) {
 
 	if ( defined( 'BSF_API_URL' ) ) {
 		$bsf_api_site = BSF_API_URL;
 	} else {
 		$bsf_api_site = 'http://support.brainstormforce.com/';
 
-		if ( wp_http_supports( array( 'ssl' ) ) ) {
+		if ( false == $prefer_unsecure && wp_http_supports( array( 'ssl' ) ) ) {
 		    $bsf_api_site = set_url_scheme( $bsf_api_site, 'https' );
 		}
 	}
@@ -55,8 +61,8 @@ function get_api_site() {
 	return $bsf_api_site;
 }
 
-function get_api_url() {
-	$url = get_api_site() . 'wp-admin/admin-ajax.php';
+function get_api_url( $prefer_unsecure = false ) {
+	$url = get_api_site( $prefer_unsecure ) . 'wp-admin/admin-ajax.php';
 
 	return $url;
 }
@@ -94,8 +100,8 @@ if ( ! function_exists( 'register_bsf_products_registration_page' ) ) {
 
 		if ( ( defined( 'BSF_UNREG_MENU' ) && ( BSF_UNREG_MENU === true || BSF_UNREG_MENU === 'true' ) ) ||
 			$skip_brainstorm_menu == true ) {
-
-			add_submenu_page(
+			
+			add_submenu_page( 
 		        'options.php',
 		        BSF_UPDATER_FULLNAME,
 		        BSF_UPDATER_SHORTNAME,
@@ -114,7 +120,7 @@ if ( ! function_exists( 'register_bsf_products_registration_page' ) ) {
 			}
 			if( is_multisite() && is_network_admin() ) {
 				if(defined('BSF_REG_MENU_TO_SETTINGS') && (BSF_REG_MENU_TO_SETTINGS == true || BSF_REG_MENU_TO_SETTINGS == 'true')) {
-					$page = add_submenu_page('settings.php', BSF_UPDATER_FULLNAME, BSF_UPDATER_SHORTNAME, 'administrator', 'bsf-registration', 'bsf_registration');
+					$page = add_submenu_page('settings.php', BSF_UPDATER_FULLNAME, BSF_UPDATER_SHORTNAME, 'administrator', 'bsf-registration', 'bsf_registration'); 
 				} else {
 					$page = add_menu_page(BSF_UPDATER_FULLNAME, BSF_UPDATER_SHORTNAME, 'administrator', 'bsf-registration', 'bsf_registration','',$place);
 				}
@@ -494,7 +500,9 @@ if(!function_exists('register_bsf_core_admin_styles')) {
 			'index_page_bsf-registration',
 			'admin_page_bsf-extensions',
 			'settings_page_bsf-registration',
-			'admin_page_bsf-registration'
+			'admin_page_bsf-registration',
+			'plugins.php',
+			'imedica_page_product-license'
 		);
 		$hook_array = apply_filters('bsf_core_style_screens',$hook_array);
 
@@ -508,7 +516,7 @@ if(!function_exists('register_bsf_core_admin_styles')) {
 
 			wp_register_style( 'brainstorm-switch', $bsf_core_url.'/assets/css/switch.css', '' );
 			wp_enqueue_style( 'brainstorm-switch' );
-
+			
 			wp_register_script( 'brainstorm-switch', $bsf_core_url.'/assets/js/switch.js', array( 'jquery' ), '', true );
 			wp_enqueue_script( 'brainstorm-switch' );
 
@@ -579,8 +587,11 @@ if ( ! function_exists( 'bsf_flush_bundled_products' ) ) {
 		if ( $bsf_force_check_extensions == true ) {
 			delete_site_option( 'brainstrom_bundled_products' );
 			delete_site_transient( 'bsf_get_bundled_products' );
+
 			global $ultimate_referer;
-			$ultimate_referer = 'on-flush-bundled-products';
+			if ( empty( $ultimate_referer ) ) {
+				$ultimate_referer = 'on-flush-bundled-products';
+			}
 			get_bundled_plugins();
 
 			update_site_option( 'bsf_force_check_extensions', false );
@@ -646,7 +657,7 @@ if ( ! function_exists( 'brainstrom_product_id_by_name' ) ) {
 	function brainstrom_product_id_by_name( $product_name ) {
 		$product_id = '';
 		$brainstrom_products =  get_option( 'brainstrom_products', '' );
-
+		
 		foreach ( $brainstrom_products as $key => $value ) {
 			foreach ( $value as $key => $product ) {
 				if ( isset( $product['product_name'] ) && strcasecmp( $product['product_name'], $product_name ) == 0 ) {
@@ -660,7 +671,7 @@ if ( ! function_exists( 'brainstrom_product_id_by_name' ) ) {
 }
 
 if ( ! function_exists( 'brainstrom_product_id_by_init' ) ) {
-
+	
 	function brainstrom_product_id_by_init( $plugin_init ) {
 
 		$brainstrom_products = get_option( 'brainstrom_products', array() );
@@ -670,7 +681,7 @@ if ( ! function_exists( 'brainstrom_product_id_by_init' ) ) {
 		$all_products = $brainstorm_plugins + $brainstorm_themes;
 
 		foreach ( $all_products as $key => $product ) {
-
+			
 			$template = isset( $product[ 'template' ] ) ? $product[ 'template' ] : '';
 			if ( $plugin_init == $template ) {
 
@@ -682,17 +693,17 @@ if ( ! function_exists( 'brainstrom_product_id_by_init' ) ) {
 }
 
 if ( ! function_exists( 'get_brainstorm_product' ) ) {
-
+	
 	function get_brainstorm_product( $product_id = '' ) {
 
 		$all_products = brainstorm_get_all_products();
 
 		foreach ( $all_products as $key => $product ) {
-
+			
 			$product_id_bsf = isset( $product[ 'id' ] ) ? $product[ 'id' ] : '';
 
 			if ( $product_id == $product_id_bsf ) {
-
+				
 				return $product;
 			}
 		}
@@ -701,7 +712,7 @@ if ( ! function_exists( 'get_brainstorm_product' ) ) {
 }
 
 if ( ! function_exists( 'brainstorm_get_all_products' ) ) {
-
+	
 	function brainstorm_get_all_products( $skip_plugins = false, $skip_themes = false, $skip_bundled = false ) {
 
 		$brainstrom_products = get_option( 'brainstrom_products', array() );
@@ -718,7 +729,7 @@ if ( ! function_exists( 'brainstorm_get_all_products' ) ) {
 		}
 
 		if ( $skip_bundled == false ) {
-
+			
 			foreach ( $brainstrom_bundled_products as $parent_id => $parent ) {
 
 				foreach ( $parent as $key => $product ) {
@@ -729,7 +740,7 @@ if ( ! function_exists( 'brainstorm_get_all_products' ) ) {
 						$all_products[ $product->id ] = (array) $product;
 					}
 				}
-			}
+			}	
 		}
 
 		return $all_products;
@@ -872,7 +883,7 @@ if ( ! function_exists( 'bsf_nag_brainstorm_updater_multisite' ) ) {
 			__('Looks like you are on a WordPress Multisite, you will need to install and network activate %1$s Brainstorm Updater for Multisite %2$s plugin. Download it from %3$s here %4$s', 'bsf' ) ,
 				'<strong><em>',
 				'</strong></em>',
-				'<a href="http://bsf.io/bsf-updater-mu" target="_blank" rel="noopener">',
+				'<a href="http://bsf.io/bsf-updater-mu" target="_blank">',
 				'</a>'
 			 );
 
@@ -984,6 +995,7 @@ if ( ! function_exists( 'bsf_registration_page_url' ) ) {
 				}
 			}
 		}
+
 	}
 }
 
@@ -1012,7 +1024,7 @@ if ( ! function_exists( 'bsf_exension_installer_url' ) ) {
  * Check whether the brainstorm menu needs to be added to WordPress settings menu
  */
 if ( ! function_exists( 'bsf_check_brainstorm_menu_location' ) ) {
-
+	
 	function bsf_check_brainstorm_menu_location() {
 
 		$bsf_updater_options = get_option( 'bsf_updater_options', array() );
@@ -1080,7 +1092,7 @@ if ( ! function_exists( 'bsf_set_options' ) ) {
 				$ids[] = $product['id'];
 			}
 
-		}
+		}		
 
 		if ( isset( $_GET['bsf-skip-author'] ) || empty( $ids ) && $skip_author_option == '' ) {
 			update_site_option( 'bsf_skip_author', true );
@@ -1093,7 +1105,10 @@ if ( ! function_exists( 'bsf_set_options' ) ) {
 			'uabb',
 			'convertpro',
 			'astra-addon',
-			'astra-pro-sites'
+			'astra-pro-sites',
+			'wp-schema-pro',
+			'6892199',
+			'astra-sites-showcase'
 		);
 
 		$skip_brainstorm_menu_products = apply_filters( 'bsf_skip_braisntorm_menu', $default_skip_brainstorm_menu );
@@ -1141,7 +1156,7 @@ if ( ! function_exists( 'bsf_set_options' ) ) {
 
 				$redirect = add_query_arg( 'bsf-reload-page', '', $redirect );
 				echo '<script type="text/javascript">window.location = "' . $redirect . '";</script>';
-			}
+			}			
 		}
 
 	}
@@ -1172,7 +1187,7 @@ if ( ! function_exists( 'bsf_get_brainstorm_products' ) ) {
 
 	function bsf_get_brainstorm_products( $mix = false ) {
 		$brainstorm_products = get_option( 'brainstrom_products', array() );
-
+		
 		if ( $mix == true ) {
 			$plugins = ( isset( $brainstorm_products['plugins'] ) ) ? $brainstorm_products['plugins'] : array();
 			$themes  = ( isset( $brainstorm_products['themes'] ) ) ? $brainstorm_products['themes'] : array();
@@ -1250,8 +1265,7 @@ function bsf_systeminfo() {
 		<tr>
 			<td>BSF Updater Path</td>
 			<td>
-				<?php global $bsf_core_version; ?>
-				<?php echo '(v' . $bsf_core_version . ') ' . BSF_UPDATER_PATH; ?>
+				<?php echo '(v' . BSF_UPDATER_VERSION . ') ' . BSF_UPDATER_PATH; ?>
 			</td>
 		</tr>
 		<?php if ( defined( 'WPB_VC_VERSION' ) ) : ?>
@@ -1343,26 +1357,52 @@ function bsf_systeminfo() {
 			</td>
 		</tr>
 		<tr class="<?php echo ( ! function_exists( 'curl_version' ) ) ? 'bsf-alert' : ''; ?>">
+			<td>SimpleXML</td>
+			<td>
+				<?php
+				if ( extension_loaded( 'simplexml' ) ) {
+					echo "SimpleXML extension is installed";
+				} else {
+					echo "SimpleXML extension is not enabled.";
+				}
+				?>
+			</td>
+		</tr>
+		<tr class="<?php echo ( ! function_exists( 'curl_version' ) ) ? 'bsf-alert' : ''; ?>">
 			<td>cURL</td>
 			<td>
 				<?php
 				if ( function_exists( 'curl_version' ) ) {
 					$curl_info = curl_version();
-					echo $curl_info['version'];
+					?>
+
+					<div>Version : <strong><?php echo $curl_info['version']; ?></strong></div>
+					<div>SSL Version : <strong><?php echo $curl_info['ssl_version']; ?></strong></div>
+					<div>Host : <strong><?php echo $curl_info['host']; ?></strong></div>
+
+					<?php
 				} else {
 					echo 'Not Enabled';
 				}
 				?>
 			</td>
 		</tr>
-		<tr class="<?php echo ( ! function_exists( 'curl_version' ) ) ? 'bsf-alert' : ''; ?>">
-			<td>SimpleXML</td>
+		<?php
+		$connection 	= wp_remote_get( get_api_site() );
+		$support_class 	= ( is_wp_error( $connection ) || 200 !== wp_remote_retrieve_response_code( $connection ) )  ? 'bsf-alert' : '';
+
+		?>
+		<tr class="<?php echo esc_attr( $support_class ); ?>">
+			<td>Connection to Support API</td>
 			<td>
 				<?php
-				if ( extension_loaded( 'simplexml' ) ) {
-					echo "All good, extension is installed";
+				if ( is_wp_error( $connection ) || 200 !== wp_remote_retrieve_response_code( $connection ) ) {
+					echo "Connection to Support API has error";
+					echo '<p class="description">Status Code: ' . wp_remote_retrieve_response_code( $connection ) . '</p>';
+					echo '<p class="description">Error Message: ' . $connection->get_error_message() . '</p>';
 				} else {
-					echo "Oops! extension not installed, Icon Manager will not work";
+					echo 'Connecion to Support API was successful';
+					echo '<p class="description">Status Code: ' . wp_remote_retrieve_response_code( $connection ) . '</p>';
 				}
 				?>
 			</td>
@@ -1447,7 +1487,7 @@ function bsf_envato_redirect_url_callback() {
 
 	$form_data['product_id'] 	= isset( $_GET['product_id'] ) ? esc_attr( $_GET['product_id'] ) : '';
 	$form_data['url'] 			= isset( $_GET['url'] ) ? esc_url_raw( $_GET['url'] ) : '';
-	$form_data['redirect'] 		= isset( $_GET['redirect'] ) ? esc_url_raw( $_GET['redirect'] ) : '';
+	$form_data['redirect'] 		= isset( $_GET['redirect'] ) ? rawurlencode( $_GET['redirect'] ) : '';
 
 	$url = $envato_activate->envato_activation_url( $form_data );
 

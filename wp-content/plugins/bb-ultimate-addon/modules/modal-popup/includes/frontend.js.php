@@ -1,5 +1,6 @@
 jQuery(document).ready(function($){
-	var UABBModalPopup_<?php echo $id; ?> =  new UABBModalPopup({
+	if( 'function' == typeof UABBModalPopup ) {
+		var UABBModalPopup_<?php echo $id; ?> =  new UABBModalPopup({
 			id: '<?php echo $id ?>',
 			modal_on: '<?php echo $settings->modal_on; ?>',
 			modal_custom: '<?php echo $settings->modal_custom; ?>',
@@ -14,42 +15,43 @@ jQuery(document).ready(function($){
 			small_device: '<?php echo $global_settings->responsive_breakpoint; ?>',
 		});
 
-	<?php if ( $settings->modal_width != '' && /*$settings->modal_size == 'custom'*/ ( $settings->content_type == 'youtube' || $settings->content_type == 'vimeo' ) ) { ?>
-		setTimeout(function(){
-			$(".uamodal-<?php echo $id; ?> .uabb-modal-content-data").fitVids();
-		}, 300);
-	<?php } ?>
-
-	/*<?php if ( $settings->modal_on == 'custom' && $settings->modal_custom != '' ) { ?>
-		var custom_wrap = $("<?php echo $settings->modal_custom; ?>");
-
-		custom_wrap.addClass("uabb-modal-action uabb-trigger");
-		custom_wrap.attr( 'data-modal', "modal-<?php echo $id; ?>" );
-	<?php } ?>*/
-	<?php if ( $settings->modal_on == 'automatic' && !FLBuilderModel::is_builder_active()) { ?>
-		<?php if ( $settings->after_second ) { ?>
-			setTimeout(function() {
-				UABBModalPopup_<?php echo $id; ?>._showAutomaticModalPopup();
-			},<?php echo $settings->after_second_value.'000' ?>);
+		<?php if ( $settings->modal_width != '' && /*$settings->modal_size == 'custom'*/ ( $settings->content_type == 'youtube' || $settings->content_type == 'vimeo' ) ) { ?>
+			setTimeout(function(){  
+				$(".uamodal-<?php echo $id; ?> .uabb-modal-content-data").fitVids();
+			}, 300);
 		<?php } ?>
 
-		<?php if ( $settings->exit_intent ) { ?>
-			$(this).on('mouseleave', function(e){
-			    if( e.clientY < 0 ) {
+		/*<?php if ( $settings->modal_on == 'custom' && $settings->modal_custom != '' ) { ?>
+			var custom_wrap = $("<?php echo $settings->modal_custom; ?>");
+
+			custom_wrap.addClass("uabb-modal-action uabb-trigger");
+			custom_wrap.attr( 'data-modal', "modal-<?php echo $id; ?>" );
+		<?php } ?>*/
+		<?php if ( $settings->modal_on == 'automatic' && !FLBuilderModel::is_builder_active()) { ?>
+			<?php if ( $settings->after_second ) { ?>
+				setTimeout(function() {     
 					UABBModalPopup_<?php echo $id; ?>._showAutomaticModalPopup();
-				}
+				},<?php echo $settings->after_second_value.'000' ?>);
+			<?php } ?>
+			
+			<?php if ( $settings->exit_intent ) { ?>
+				$(this).on('mouseleave', function(e){
+				    if( e.clientY < 0 ) {
+						UABBModalPopup_<?php echo $id; ?>._showAutomaticModalPopup();
+					}
+				});
+			<?php } ?>
+		<?php }  ?>
+
+		<?php if ( FLBuilderModel::is_builder_active()) { ?>
+			$( ".uabb-live-preview-button" ).click(function() {
+				setTimeout(function(){
+					UABBModalPopup_<?php echo $id; ?>._initModalPopup();
+				}, 200);
 			});
 		<?php } ?>
-	<?php }  ?>
 
-	<?php if ( FLBuilderModel::is_builder_active()) { ?>
-		$( ".uabb-live-preview-button" ).click(function() {
-			setTimeout(function(){
-				UABBModalPopup_<?php echo $id; ?>._initModalPopup();
-			}, 200);
-		});
-	<?php } ?>
-
-	//console.log( e );
-	//console.log( UABBModalPopup_<?php echo $id; ?> );
+		//console.log( e );
+		//console.log( UABBModalPopup_<?php echo $id; ?> );
+	}
 });

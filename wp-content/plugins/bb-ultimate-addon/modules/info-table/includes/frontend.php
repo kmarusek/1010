@@ -15,20 +15,20 @@
 			<div class="info-table-button">
 				<a href="<?php echo $settings->it_link;?>" target="<?php echo $settings->it_link_target; ?>" <?php BB_Ultimate_Addon_Helper::get_link_rel( $settings->it_link_target, 0, 1 ); ?>><?php echo $settings->button_text;?></a>
 			</div>
-			<?php } ?>
+			<?php } ?>	
 		</div>
 		<div class="info-table-icon">
 			<?php
 			$imageicon_array = array(
-
+ 
 		    /* General Section */
 		    'image_type' => $settings->image_type,
-
+		 	
 		 	/* Icon Basics */
 		    'icon' => $settings->icon,
 		    'icon_size' => $settings->icon_size,
 		    'icon_align' => 'center',//$settings->icon_align,
-
+		 	
 		 	/* Image Basics */
 		    'photo_source' => $settings->photo_source,
 		    'photo' => $settings->photo,
@@ -36,21 +36,21 @@
 		    'img_size' => $settings->img_size,
 		    'img_align' => 'center',//$settings->img_align,
 		    'photo_src' => ( isset( $settings->photo_src ) ) ? $settings->photo_src : '' ,
-
+		 	
 		 	/* Icon Style */
 		    'icon_style' => $settings->icon_style,
 		    'icon_bg_size' => $settings->icon_bg_size,
 		    'icon_border_style' => $settings->icon_border_style,
 		    'icon_border_width' => $settings->icon_border_width,
 		    'icon_bg_border_radius' => $settings->icon_bg_border_radius,
-
+		 	
 		 	/* Image Style */
 		    'image_style' => $settings->image_style,
 		    'img_bg_size' => $settings->img_bg_size,
 		    'img_border_style' => $settings->img_border_style,
 		    'img_border_width' => $settings->img_border_width,
 		    'img_bg_border_radius' => $settings->img_bg_border_radius,
-		);
+		); 
 		/* Render HTML Function */
 		FLBuilder::render_module_html( 'image-icon', $imageicon_array );
 		?>

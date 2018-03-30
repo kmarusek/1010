@@ -17,9 +17,9 @@
 				$( '.fl-builder-content' ).on( 'fl-builder.layout-rendered', this._previewRenderContentTab );
 			}
 		},
-
+		
 		_previewContentTab: function()
-		{
+		{	
 			var form    = $('.fl-builder-settings'),
 				node	= '.fl-node-' + form.data('node'),
 				button 	= $(  node + ' .uabb-adv-accordion-button'),
@@ -36,7 +36,7 @@
 				}
 			};
 		},
-		_previewRenderContentTab: function()
+		_previewRenderContentTab: function() 
 		{
 			var active_tab = jQuery('.fl-builder-settings-tabs a.fl-active');
 
@@ -61,7 +61,7 @@
 				}
 			};
 		},
-		_formButton: function()
+		_formButton: function() 
 		{
 		    var form    = $('.fl-builder-settings'),
 				node	= '.fl-node-' + form.data('node'),
@@ -69,7 +69,7 @@
 				flag	= button.eq(0).parent('.uabb-adv-accordion-item').hasClass('uabb-adv-accordion-item-active');
 
 		    if( $(this).hasClass('fl-builder-settings-cancel') ){
-
+		        
 		        if ( flag ) {
 					button[0].click();
 				}

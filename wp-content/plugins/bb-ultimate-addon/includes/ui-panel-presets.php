@@ -26,7 +26,7 @@
 
 				<?php
 
-				/**
+				/** 
 				* Renders UABB categorized module templates in the UI panel.
 				*
 				* @see render_ui_panel_modules_templates()
@@ -36,7 +36,7 @@
 					$uabb_module_templates = UABB_UI_Panels::uabb_templates_data( $module_templates, 'includes' );
 
 					if ( count( $uabb_module_templates ) > 0 ) :
-						foreach ( $uabb_module_templates['categorized'] as $cat ) :
+						foreach ( $uabb_module_templates['categorized'] as $cat ) : 
 
 							// avoid 'Uncategorized'
 							if( trim( $cat['name'] ) != 'Uncategorized' ) :
@@ -48,8 +48,8 @@
 									</span>
 									<div class="fl-builder-blocks-section-content fl-builder-module-templates">
 
-										<?php foreach ( $cat['templates'] as $template ) :
-
+										<?php foreach ( $cat['templates'] as $template ) : 
+ 
 											//	Get tags
 											$tags = '';
 											if( is_array( $template['tags'] ) && count( $template['tags'] ) > 0 ) {
@@ -65,7 +65,7 @@
 										<?php endforeach; ?>
 									</div>
 								</div>
-								<?php
+								<?php 
 							endif;
 						endforeach;
 					endif;
@@ -76,9 +76,9 @@
 				<div class="fl-builder-modules-cta">
 					<a href="#" onclick="window.open('<?php echo admin_url(); ?>options-general.php?page=fl-builder-settings#uabb-template-manager');" target="_blank" rel="noopener"><i class="fa fa-external-link-square"></i> <?php echo sprintf( __( 'Note - You can enable, disable and manage %s presets here.', 'uabb' ), UABB_PREFIX );?></a>
 				</div>
-				<div class="fl-builder-modules-cta">
-					<a href="#" target="_self"><?php echo __( 'Note - Images used in the templates are hotlinked from our server and are subject to copyright. It is strongly recommended that you replace them with your own.', 'uabb' );?></a>
-				</div>
+				<!--div class="fl-builder-modules-cta">
+					<a href="#" target="_self"><?php //echo __( 'Note - Images used in the templates are hotlinked from our server and are subject to copyright. It is strongly recommended that you replace them with your own.', 'uabb' );?></a>
+				</div -->
 			</div>
 		</div>
 	</div>

@@ -1,5 +1,5 @@
-<?php
-	$count 			= 0;
+<?php 
+	$count 			= 0; 
 	$name_class 	= '';
 	$email_class 	= '';
 	$subject_class	= '';
@@ -15,7 +15,7 @@
 			$name_class .= ' uabb-io-padding-right';
 		}
 
-	}
+	} 
 
 	if( $settings->email_toggle == 'show' && $settings->email_width == '50' ) {
 		$count = ++$count;
@@ -26,7 +26,7 @@
 			$email_class .= ' uabb-io-padding-right';
 		}
 
-	}
+	} 
 
 	if( $settings->subject_toggle == 'show' && $settings->subject_width == '50' ) {
 		$count = ++$count;
@@ -75,7 +75,7 @@
 		</div>
 	</div>
 	<?php endif; ?>
-
+	
 	<?php if ($settings->email_toggle == 'show') : ?>
 	<div class="uabb-input-group uabb-email <?php echo $email_class; ?>">
 		<?php if ( $settings->form_style == 'style1' && $settings->enable_label == 'yes' ) { ?>
@@ -136,18 +136,20 @@
 	</div>
 
 	<div class="uabb-submit-btn">
-		<button type="submit" class="uabb-contact-form-submit">
-		<?php if( isset( $settings->btn_icon ) && isset( $settings->btn_icon_position ) ) { echo ( $settings->btn_icon != '' && $settings->btn_icon_position == 'before' ) ? '<i class="' . $settings->btn_icon . '"></i>' : ''; } ?><span><?php echo $settings->btn_text; ?></span><?php if( isset( $settings->btn_icon ) && isset( $settings->btn_icon_position ) ) { echo ( $settings->btn_icon != '' && $settings->btn_icon_position == 'after' ) ? '<i class="' . $settings->btn_icon . '"></i>' : ''; } ?></button>
+		<div class="uabb-contact-form-button" data-wait-text="<?php echo $settings->btn_processing_text; ?>">
+			<button type="submit" class="uabb-contact-form-submit">
+			<?php if( isset( $settings->btn_icon ) && isset( $settings->btn_icon_position ) ) { echo ( $settings->btn_icon != '' && $settings->btn_icon_position == 'before' ) ? '<i class="' . $settings->btn_icon . '"></i>' : ''; } ?><span><?php echo $settings->btn_text; ?></span><?php if( isset( $settings->btn_icon ) && isset( $settings->btn_icon_position ) ) { echo ( $settings->btn_icon != '' && $settings->btn_icon_position == 'after' ) ? '<i class="' . $settings->btn_icon . '"></i>' : ''; } ?></button>
+		</div>
 	</div>
 	<?php if ($settings->success_action == 'redirect') : ?>
-		<input type="text" value="<?php echo $settings->success_url; ?>" style="display: none;" class="uabb-success-url">
-	<?php elseif($settings->success_action == 'none') : ?>
+		<input type="text" value="<?php echo $settings->success_url; ?>" style="display: none;" class="uabb-success-url">  
+	<?php elseif($settings->success_action == 'none') : ?>  
 		<span class="uabb-success-none" style="display:none;"><?php echo $settings->email_sccess; ?></span>
-	<?php endif; ?>
+	<?php endif; ?> 
 	<span class="uabb-send-error" style="display:none;"><?php echo $settings->email_error; ?></span>
-
+    
 </form>
-<?php if($settings->success_action == 'show_message') : ?>
+<?php if($settings->success_action == 'show_message') : ?>  
   <span class="uabb-success-msg uabb-text-editor" style="display:none;"><?php echo $settings->success_message; ?></span>
-<?php endif; ?>
+<?php endif; ?>  
 

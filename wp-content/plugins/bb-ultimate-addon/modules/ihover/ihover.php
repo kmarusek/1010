@@ -81,7 +81,7 @@ FLBuilder::register_module('iHoverModule', array(
                             'selector'        => '.uabb-ih-list',
                             'property'        => 'text-align',
                         )
-                    ),
+                    ),                    
                     'spacing'      => array(
                         'type'          => 'text',
                         'label'         => __('Spacing', 'uabb'),
@@ -148,7 +148,7 @@ FLBuilder::register_module('iHoverModule', array(
                                     'selector'     => '.uabb-ih-image-block, .uabb-ih-item, .uabb-ih-list-item',
                                     'property'     => 'height',
                                     'unit'         => 'px'
-                                ),
+                                ),    
                             )
                         )
                     ),
@@ -274,7 +274,7 @@ FLBuilder::register_module('iHoverModule', array(
                             'type'            => 'css',
                             'selector'        => '.uabb-ih-description',
                             'property'         => 'font-size',
-                            'unit'              => 'px'
+                            'unit'              => 'px' 
                         )
                     ),
                     'desc_typography_line_height'    => array(
@@ -289,7 +289,7 @@ FLBuilder::register_module('iHoverModule', array(
                             'type'            => 'css',
                             'selector'        => '.uabb-ih-description',
                             'property'         => 'line-height',
-                            'unit'              => 'px'
+                            'unit'              => 'px' 
                         )
                     ),
                 )
@@ -665,33 +665,33 @@ FLBuilder::register_settings_form('ihover_item_form', array(
                                 'right_to_left'      => __('Towards Left', 'uabb'),
                             ),
                         ),
-                        'title_color' => array(
+                        'title_color' => array( 
                             'type'       => 'color',
                             'label'      => __('Title Color', 'uabb'),
                             'default'    => '',
                             'show_reset' => true,
                         ),
-                        'description_color' => array(
+                        'description_color' => array( 
                             'type'       => 'color',
                             'label'      => __('Description Color', 'uabb'),
                             'default'    => '',
                             'show_reset' => true,
                         ),
-                        'background_color'    => array(
+                        'background_color'    => array( 
                             'type'       => 'color',
                             'label'      => __('Background Color', 'uabb'),
                             'default'    => '',
                             'show_reset' => true,
                         ),
-                        'background_color_opc'    => array(
+                        'background_color_opc'    => array( 
                             'type'        => 'text',
                             'label'       => __('Opacity', 'uabb'),
                             'default'     => '',
                             'description' => '%',
                             'maxlength'   => '3',
                             'size'        => '5',
-                        ),
-                        'separator_color' => array(
+                        ),                       
+                        'separator_color' => array( 
                             'type'       => 'color',
                             'label'      => __('Divider Color', 'uabb'),
                             'default'    => '',
@@ -727,13 +727,13 @@ FLBuilder::register_settings_form('ihover_item_form', array(
                             'description'   => 'px',
                             'help'          => __( 'Enter value in pixels.', 'uabb' ),
                         ),
-                        'border_color' => array(
+                        'border_color' => array( 
                             'type'       => 'color',
                             'label'      => __('Border Color', 'uabb'),
                             'default'    => '',
                             'show_reset' => true,
                         ),
-                        'border_color_opc' => array(
+                        'border_color_opc' => array( 
                             'type'        => 'text',
                             'label'       => __('Opacity', 'uabb'),
                             'default'     => '',

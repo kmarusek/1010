@@ -7,14 +7,14 @@ $settings->img_border_hover_color = UABB_Helper::uabb_colorpicker( $settings, 'i
 
 ?>
 
-<?php
+<?php 
     $settings->gutter =  ( $settings->gutter != '' ) ? $settings->gutter : '50';
     $settings->gutter_lr =  ( $settings->gutter_lr != '' ) ? $settings->gutter_lr : '0';
 ?>
 .fl-node-<?php echo $id; ?>,
 .fl-row.fl-block-overlay-active .fl-node-<?php echo $id; ?> {
     max-width: 100%;
-    <?php if( !empty( $settings->img_size ) ) :
+    <?php if( !empty( $settings->img_size ) ) : 
         $margin_left = $settings->margin_left != '' ? $settings->margin_left : '20';
         $margin_right = $settings->margin_right != '' ? $settings->margin_right : '20'; ?>
         width: <?php echo $settings->img_size + $margin_left + $margin_right; ?>px;
@@ -99,7 +99,7 @@ $settings->img_border_hover_color = UABB_Helper::uabb_colorpicker( $settings, 'i
 }
 
 /* Responsive Photo Size */
-<?php if( $global_settings->responsive_enabled ) { // Global Setting If started ?>
+<?php if( $global_settings->responsive_enabled ) { // Global Setting If started ?> 
         @media ( max-width: <?php echo $global_settings->medium_breakpoint .'px'; ?> ) {
             <?php if (  $settings->medium_img_size != '' ) { ?>
                 .fl-node-<?php echo $id; ?> {
@@ -183,7 +183,7 @@ $settings->img_border_hover_color = UABB_Helper::uabb_colorpicker( $settings, 'i
                     }
                 <?php }
             }
-            ?>
+            ?>  
         }
 <?php } ?>
 
@@ -201,12 +201,12 @@ $settings->img_border_hover_color = UABB_Helper::uabb_colorpicker( $settings, 'i
         <?php if( !empty( $settings->img_bg_hover_color ) ): ?>
             background: <?php echo $settings->img_bg_hover_color;?>;
         <?php endif; ?>
-
+        
         <?php if( !empty( $settings->img_border_hover_color ) ): ?>
             border-color: <?php echo $settings->img_border_hover_color; ?>;
         <?php endif; ?>
     <?php endif; ?>
-
+    
 }
 
 

@@ -115,11 +115,11 @@ if($settings->cta_type == 'button') {
 
     	/* General Section */
         'text'              => $settings->btn_text,
-
+        
         /* Link Section */
         'link'              => $settings->btn_link,
         'link_target'       => $settings->btn_link_target,
-
+        
         /* Style Section */
         'style'             => $settings->btn_style,
         'border_size'       => $settings->btn_border_size,
@@ -139,7 +139,7 @@ if($settings->cta_type == 'button') {
         /* Icon */
         'icon'              => $settings->btn_icon,
         'icon_position'     => $settings->btn_icon_position,
-
+        
         /* Structure */
         'width'              => $settings->btn_width,
         'custom_width'       => $settings->btn_custom_width,
@@ -162,7 +162,7 @@ if($settings->cta_type == 'button') {
 .fl-node-<?php echo $id; ?> .uabb-ultb3-box-overlay {
     <?php if ( $settings->overlay_color != '' ) { ?>
     	background-color: <?php echo $settings->overlay_color; ?>;
-    <?php } ?>
+    <?php } ?> 
 }
 
 /* Typography Options for Link Text */
@@ -181,7 +181,7 @@ if($settings->cta_type == 'button') {
 }
 
 /* Link Color */
-<?php if( !empty($settings->link_color) ) : ?>
+<?php if( !empty($settings->link_color) ) : ?> 
 .fl-builder-content .fl-node-<?php echo $id; ?> a,
 .fl-builder-content .fl-node-<?php echo $id; ?> a *,
 .fl-builder-content .fl-node-<?php echo $id; ?> a:visited {
@@ -190,7 +190,7 @@ if($settings->cta_type == 'button') {
 <?php endif; ?>
 
 
-<?php if($global_settings->responsive_enabled) { // Global Setting If started
+<?php if($global_settings->responsive_enabled) { // Global Setting If started 
 	if( $settings->desc_font_size['medium'] != "" || $settings->desc_line_height['medium'] != "" || $settings->font_size['medium'] != "" || $settings->line_height['medium'] != "" )
 	{
 	?>
@@ -263,7 +263,7 @@ if($settings->cta_type == 'button') {
 				<?php endif; ?>
 			}
 
-			<?php if( $settings->responsive_min_height_switch == 'custom' ) {
+			<?php if( $settings->responsive_min_height_switch == 'custom' ) { 
 
 				$vertical_align = 'center';
 				$prefix_vertical_align = 'center';
@@ -280,10 +280,6 @@ if($settings->cta_type == 'button') {
     	  			  align-items: <?php echo $vertical_align; ?>;
 			}
 
-			.internet-explorer .fl-node-<?php echo $id; ?> .uabb-ultb3-box {
-				height: <?php echo $settings->responsive_min_height; ?>px;
-			}
-
 			<?php } ?>
 
 	    }
@@ -297,7 +293,7 @@ if($settings->cta_type == 'button') {
 		@media ( max-width: <?php echo $global_settings->medium_breakpoint .'px'; ?> ) {
 			.fl-node-<?php echo $id; ?> .uabb-ultb3-img {
 				width: <?php echo $settings->res_medium_width; ?>px !important;
-			}
+			}		
 		}
 		<?php endif;
 
@@ -305,7 +301,7 @@ if($settings->cta_type == 'button') {
 		@media ( max-width: <?php echo $global_settings->responsive_breakpoint .'px'; ?> ) {
 			.fl-node-<?php echo $id; ?> .uabb-ultb3-img {
 				width: <?php echo $settings->res_small_width; ?>px !important;
-			}
+			}		
 		}
 		<?php endif;
 	endif;

@@ -1,10 +1,10 @@
-<?php
+<?php 
 	$settings->form_bg_color = UABB_Helper::uabb_colorpicker( $settings, 'form_bg_color', true );
 
     $settings->input_background_color = UABB_Helper::uabb_colorpicker( $settings, 'input_background_color', true );
     $settings->input_border_color = UABB_Helper::uabb_colorpicker( $settings, 'input_border_color' );
     $settings->input_border_active_color = UABB_Helper::uabb_colorpicker( $settings, 'input_border_active_color' );
-
+    
     $settings->btn_text_color = UABB_Helper::uabb_colorpicker( $settings, 'btn_text_color' );
     $settings->btn_text_hover_color = UABB_Helper::uabb_colorpicker( $settings, 'btn_text_hover_color' );
     $settings->btn_background_color = UABB_Helper::uabb_colorpicker( $settings, 'btn_background_color', true );
@@ -14,15 +14,15 @@
 
     $settings->form_title_color = UABB_Helper::uabb_colorpicker( $settings, 'form_title_color' );
     $settings->form_desc_color = UABB_Helper::uabb_colorpicker( $settings, 'form_desc_color' );
-
+    
     $settings->label_color = UABB_Helper::uabb_colorpicker( $settings, 'label_color' );
     /* Input Color */
     $settings->color = UABB_Helper::uabb_colorpicker( $settings, 'color' );
-
+    
     $settings->input_msg_color = UABB_Helper::uabb_colorpicker( $settings, 'input_msg_color' );
     $settings->validation_msg_color = UABB_Helper::uabb_colorpicker( $settings, 'validation_msg_color' );
     $settings->validation_bg_color = UABB_Helper::uabb_colorpicker( $settings, 'validation_bg_color', true );
-
+    
     $settings->validation_border_color = UABB_Helper::uabb_colorpicker( $settings, 'validation_border_color' );
     $settings->input_padding = ( $settings->input_padding != '' ) ? $settings->input_padding : 10;
     $settings->radio_check_size = ( $settings->radio_check_size != '' ) ? $settings->radio_check_size : 20;
@@ -67,7 +67,6 @@
 .fl-node-<?php echo $id; ?> .uabb-gf-style .gform_wrapper form .gform_body input:not([type='radio']):not([type='checkbox']):not([type='submit']):not([type='button']):not([type='image']):not([type='file']),
 .fl-node-<?php echo $id; ?> .gform_wrapper textarea,
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield .ginput_container select {
-	width: 100%;
 	<?php if ( $settings->input_padding != ''  ) { ?>
 		<?php echo $settings->input_padding; ?>;
 	<?php } ?>
@@ -171,14 +170,14 @@
     <?php } ?>
 }
 
-.fl-node-<?php echo $id; ?> .uabb-gf-style .gform_body .ginput_container_checkbox .gfield_checkbox li,
+.fl-node-<?php echo $id; ?> .uabb-gf-style .gform_body .ginput_container_checkbox .gfield_checkbox li, 
 .fl-node-<?php echo $id; ?> .uabb-gf-style .gform_body .ginput_container_radio .gfield_radio li {
     <?php if( $settings->input_text_align ) { ?>
     text-align: <?php echo $settings->input_text_align; ?>;
     <?php } ?>
 }
 
-.fl-node-<?php echo $id; ?> .uabb-gf-style .gform_wrapper .gfield_radio li label,
+.fl-node-<?php echo $id; ?> .uabb-gf-style .gform_wrapper .gfield_radio li label, 
 .fl-node-<?php echo $id; ?> .uabb-gf-style .gform_wrapper .gfield_checkbox li label {
 	<?php if( $settings->radio_check_custom_option == 'true' ) {?>
 		<?php if( $settings->radio_checkbox_font_family['family'] != 'Default' ) { ?>
@@ -190,7 +189,7 @@
 		<?php if( $settings->radio_checkbox_color ) { ?>
 	    	color: #<?php echo $settings->radio_checkbox_color; ?>;
 	    <?php } ?>
-	<?php } else if( $settings->radio_check_custom_option == 'false' ) { ?>
+	<?php } else if( $settings->radio_check_custom_option == 'false' ) { ?>		
 		<?php if( $settings->label_font_family['family'] != "Default") : ?>
 			<?php UABB_Helper::uabb_font_css( $settings->label_font_family ); ?>
 		<?php endif; ?>
@@ -202,10 +201,10 @@
 }
 
 <?php
-if( $settings->radio_check_custom_option == 'true') {
+if( $settings->radio_check_custom_option == 'true') { 
 	$font_size = $settings->radio_check_size / 1.3;
 	?>
-	.fl-node-<?php echo $id; ?> .uabb-gf-style .gform_body .ginput_container_checkbox .gfield_checkbox input[type='checkbox'],
+	.fl-node-<?php echo $id; ?> .uabb-gf-style .gform_body .ginput_container_checkbox .gfield_checkbox input[type='checkbox'], 
 	.fl-node-<?php echo $id; ?> .uabb-gf-style .gform_body .ginput_container_radio .gfield_radio input[type='radio'] {
 	    display: none;
 	}
@@ -245,8 +244,8 @@ if( $settings->radio_check_custom_option == 'true') {
 	    border-radius: <?php echo $settings->radio_btn_border_radius ?>px;
 	}
 
-<?php
-}
+<?php 
+} 
 ?>
 
 
@@ -392,13 +391,13 @@ if ( $settings->btn_style == 'gradient' ) {
 	<?php } ?>
 
 	color: <?php echo uabb_theme_text_color( $settings->btn_text_color ); ?>;
-
-
+	
+	
 	<?php if ( $settings->btn_width == 'full' ) { ?>
 		padding: <?php echo uabb_theme_button_padding( '' ); ?>;
 		width:100%;
-	<?php }elseif( $settings->btn_width == 'custom' ) {
-
+	<?php }elseif( $settings->btn_width == 'custom' ) { 
+		
 		$padding_top_bottom = ( $settings->btn_padding_top_bottom !== '' ) ? $settings->btn_padding_top_bottom : uabb_theme_button_vertical_padding('');
 	?>
 
@@ -407,7 +406,7 @@ if ( $settings->btn_style == 'gradient' ) {
 		<?php if ( $settings->btn_custom_width != ''  ) { ?>
 			width: <?php echo $settings->btn_custom_width; ?>px;
 		<?php } ?>
-
+		
 		<?php if ( $settings->btn_custom_height != ''  ) { ?>
 			min-height: <?php echo $settings->btn_custom_height; ?>px;
 		<?php } ?>
@@ -526,7 +525,7 @@ if ( $settings->btn_style == 'gradient' ) {
 		<?php endif; ?>
 
 		text-align: <?php echo $settings->form_text_align; ?>;
-
+		
 		margin: 0 0 <?php echo ( $settings->form_title_bottom_margin != '' ) ? $settings->form_title_bottom_margin : '0'; ?>px;
 	<?php } ?>
 }
@@ -589,7 +588,7 @@ if ( $settings->btn_style == 'gradient' ) {
 .fl-node-<?php echo $id; ?> .uabb-gf-style .gform_page .gform_page_footer input[type=submit] {
 	margin-right : 0;
 	<?php $uabb_theme_btn_family = apply_filters( 'uabb/theme/button_font_family', '' ); ?>
-
+	
 	<?php if ( uabb_theme_button_letter_spacing('') != '' ) { ?>
 	letter-spacing: <?php echo uabb_theme_button_letter_spacing(''); ?>;
 	<?php } ?>
@@ -603,8 +602,8 @@ if ( $settings->btn_style == 'gradient' ) {
 	<?php else : ?>
 		<?php if( isset( $uabb_theme_btn_family['family'] ) ) { ?>
 		font-family: <?php echo $uabb_theme_btn_family['family']; ?>;
-		<?php } ?>
-
+		<?php } ?> 
+		
 		<?php if ( isset( $uabb_theme_btn_family['weight'] ) ) { ?>
 		font-weight: <?php echo $uabb_theme_btn_family['weight']; ?>;
 		<?php } ?>
@@ -669,7 +668,7 @@ if ( $settings->btn_style == 'gradient' ) {
 		?>
 		@media ( max-width: <?php echo $global_settings->medium_breakpoint .'px'; ?> ) {
 			.fl-node-<?php echo $id; ?> .uabb-gf-style .uabb-gf-form-title {
-
+				
 				<?php if( $settings->form_title_font_size["medium"] != '' ) : ?>
 				font-size: <?php echo $settings->form_title_font_size['medium']; ?>px;
 				<?php endif; ?>
@@ -679,7 +678,7 @@ if ( $settings->btn_style == 'gradient' ) {
 				<?php endif; ?>
 			}
 
-			.fl-node-<?php echo $id; ?> .uabb-gf-style .gform_wrapper .gfield .gfield_radio li label,
+			.fl-node-<?php echo $id; ?> .uabb-gf-style .gform_wrapper .gfield .gfield_radio li label, 
 			.fl-node-<?php echo $id; ?> .uabb-gf-style .gform_wrapper .gfield .gfield_checkbox li label {
 			    <?php if( $settings->radio_checkbox_font_size["medium"] != '' && $settings->radio_check_custom_option == 'true' ) : ?>
 					font-size: <?php echo $settings->radio_checkbox_font_size['medium']; ?>px;
@@ -687,7 +686,7 @@ if ( $settings->btn_style == 'gradient' ) {
 			}
 
 			.fl-node-<?php echo $id; ?> .uabb-gf-style .uabb-gf-form-desc {
-
+				
 				<?php if( $settings->form_desc_font_size["medium"] != '' ) : ?>
 				font-size: <?php echo $settings->form_desc_font_size['medium']; ?>px;
 				<?php endif; ?>
@@ -705,7 +704,7 @@ if ( $settings->btn_style == 'gradient' ) {
 			.fl-node-<?php echo $id; ?> .uabb-gf-style .gform_wrapper <?php echo '#gform_' . $settings->form_id; ?> input[type=date],
 			.fl-node-<?php echo $id; ?> .uabb-gf-style .gform_wrapper <?php echo '#gform_' . $settings->form_id; ?> select,
 			.fl-node-<?php echo $id; ?> .uabb-gf-style .gform_wrapper <?php echo '#gform_' . $settings->form_id; ?> textarea {
-
+				
 				<?php if( $settings->font_size['medium'] != '' ) : ?>
 				font-size: <?php echo $settings->font_size['medium']; ?>px;
 				<?php endif; ?>
@@ -714,7 +713,7 @@ if ( $settings->btn_style == 'gradient' ) {
 			.fl-node-<?php echo $id; ?> .uabb-gf-style .gform_wrapper .gform_footer input[type=submit],
 			.fl-node-<?php echo $id; ?> .uabb-gf-style .gform_page .gform_page_footer input[type=button],
 			.fl-node-<?php echo $id; ?> .uabb-gf-style .gform_page .gform_page_footer input[type=submit] {
-
+				
 				<?php if( $settings->btn_font_size['medium'] != '' ) : ?>
 				font-size: <?php echo $settings->btn_font_size['medium']; ?>px;
 				<?php endif; ?>
@@ -725,7 +724,7 @@ if ( $settings->btn_style == 'gradient' ) {
 			}
 
 			.fl-node-<?php echo $id; ?> .uabb-gf-style form:not(input) {
-
+				
 				<?php if( $settings->label_font_size["medium"] != '' ) : ?>
 				font-size: <?php echo $settings->label_font_size['medium']; ?>px;
 				<?php endif; ?>
@@ -742,7 +741,7 @@ if ( $settings->btn_style == 'gradient' ) {
 	?>
 		@media ( max-width: <?php echo $global_settings->responsive_breakpoint .'px'; ?> ) {
 			.fl-node-<?php echo $id; ?> .uabb-gf-style .uabb-gf-form-title {
-
+				
 				<?php if( $settings->form_title_font_size["small"] != '' ) : ?>
 				font-size: <?php echo $settings->form_title_font_size['small']; ?>px;
 				<?php endif; ?>
@@ -752,7 +751,7 @@ if ( $settings->btn_style == 'gradient' ) {
 				<?php endif; ?>
 			}
 
-			.fl-node-<?php echo $id; ?> .uabb-gf-style .gform_wrapper .gfield .gfield_radio li label,
+			.fl-node-<?php echo $id; ?> .uabb-gf-style .gform_wrapper .gfield .gfield_radio li label, 
 			.fl-node-<?php echo $id; ?> .uabb-gf-style .gform_wrapper .gfield .gfield_checkbox li label {
 			    <?php if( $settings->radio_checkbox_font_size["small"] != '' && $settings->radio_check_custom_option == 'true' ) : ?>
 					font-size: <?php echo $settings->radio_checkbox_font_size['small']; ?>px;
@@ -760,7 +759,7 @@ if ( $settings->btn_style == 'gradient' ) {
 			}
 
 			.fl-node-<?php echo $id; ?> .uabb-gf-style .uabb-gf-form-desc {
-
+				
 				<?php if( $settings->form_desc_font_size["small"] != '' ) : ?>
 				font-size: <?php echo $settings->form_desc_font_size['small']; ?>px;
 				<?php endif; ?>
@@ -796,7 +795,7 @@ if ( $settings->btn_style == 'gradient' ) {
 			}
 
 			.fl-node-<?php echo $id; ?> .uabb-gf-style form:not(input) {
-
+				
 				<?php if( $settings->label_font_size["small"] != '' ) : ?>
 				font-size: <?php echo $settings->label_font_size['small']; ?>px;
 				<?php endif; ?>
@@ -820,7 +819,7 @@ if ( $settings->btn_style == 'gradient' ) {
 	color: <?php echo $settings->validation_msg_color; ?>;
 	line-height: 1.5em;
 	font-size: <?php echo $settings->validation_msg_font_size; ?>px;
-
+	
 	background: <?php echo $settings->validation_bg_color; ?>;
 	<?php if ( $settings->validation_border_type != ''  ) { ?>
 	<?php $settings->validation_border_width = $settings->validation_border_width != '' ? $settings->validation_border_width : '2'; ?>
@@ -828,7 +827,7 @@ if ( $settings->btn_style == 'gradient' ) {
 	<?php }else{ ?>
 		border: none;
 	<?php } ?>
-
+	
 	border-radius: <?php echo $settings->validation_border_radius; ?>px;
 
 	<?php if ( $settings->validation_spacing  != '' ) {

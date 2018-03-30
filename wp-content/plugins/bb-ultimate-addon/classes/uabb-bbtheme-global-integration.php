@@ -6,12 +6,12 @@
  */
 
 if ( !class_exists( 'UABB_BBThemeGlobalIntegration' ) ) {
-
+	
 	class UABB_BBThemeGlobalIntegration {
 		public $bb_options;
-
+			
 		function __construct() {
-			/**
+			/** 
 			 *	**
 			 *	* Tracing Beaver Builder Theme Colors
 			 *	**
@@ -35,12 +35,12 @@ if ( !class_exists( 'UABB_BBThemeGlobalIntegration' ) ) {
 			$var['theme_color']			= FLColor::hex( array( $mods['fl-accent'] ) );
 			/* Primary Text Color */
 			$var['theme_text_color']    = FLColor::hex( $mods['fl-body-text-color'] );
-
+			
 			/* Button */
 			/* Background Colors */
 			$var['btn_bg_color']		 = FLColor::hex( array( $mods['fl-accent'] ) );
 			$var['btn_bg_hover_color']	 = FLColor::hex( array( $mods['fl-accent-hover'] ) );
-
+			
 			/* Text Colors */
 			$var['btn_text_color']		 = FLColor::foreground( $var['btn_bg_color'] );
 			$var['btn_text_hover_color'] = FLColor::foreground( $var['btn_bg_hover_color'] );

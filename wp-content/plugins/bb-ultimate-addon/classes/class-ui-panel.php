@@ -12,12 +12,12 @@ class UABB_UI_Panels {
 	*  Constructor
 	*/
 	public function __construct() {
-
+		
 		// Enqueue CSS & JS
 		add_action( 'wp_enqueue_scripts', array( $this, 'uabb_panel_css_js' ) );
 
 		add_action( 'wp_footer', array( $this, 'render_live_preview'), 9 );
-
+		
 		//	Render JS & CSS
 		add_filter( 'fl_builder_render_css', array( $this, 'fl_uabb_render_css' ), 10, 3 );
 		add_filter( 'fl_builder_render_js', array( $this, 'fl_uabb_render_js' ), 10, 3 );
@@ -44,7 +44,7 @@ class UABB_UI_Panels {
 
 		//	Added ui panel
 		add_action( 'wp_footer', array( $this, 'render_ui'), 9 );
-
+		
 		//	Added buttons in ui panel
 		add_filter( 'fl_builder_ui_bar_buttons', array( $this, 'builder_ui_bar_buttons') );
 
@@ -76,20 +76,20 @@ class UABB_UI_Panels {
 
 	/* Affiliate link override function */
 	function uabb_affiliate_url( $url )	{
-
+		
 		$url = 'https://www.wpbeaverbuilder.com/?fla=713';
 		return $url;
 	}
 
 	function tools_key_shortcuts( $key_shortcuts ) {
-
+	
 		$key_shortcuts['showUABBGlobalSettings'] = 'b';
 
 		return $key_shortcuts;
 	}
 	function tools_menu_button($views) {
 
-		if ( apply_filters( 'uabb_global_support', true ) && !class_exists( 'FLCustomizer' ) && !function_exists( 'generate_customize_register' ) ) {
+		if ( apply_filters( 'uabb_global_support_form', true ) ) {
 			$views['main']['items'][66] = array(
 				'label' => sprintf(
 							esc_attr__( '%s - Global Settings', 'uabb' ),
@@ -120,7 +120,7 @@ class UABB_UI_Panels {
 						),
 				'type' 	=> 'link',
 				'url' 	=> $uabb_knowledge_base_url,
-			);
+			);			
 		}
 
 		if( $enble_support != false ) {
@@ -198,7 +198,7 @@ class UABB_UI_Panels {
 	}
 
 	function config() {
-
+		
 		$is_templates_exist = BB_Ultimate_Addon_Helper::is_templates_exist();
 		if( $is_templates_exist ) {
 			$this->load_templates();
@@ -235,7 +235,7 @@ class UABB_UI_Panels {
 
 		if( is_array( $templates ) && count( $templates ) > 0 ) {
 			foreach( $templates as $type => $type_templates ) {
-
+				
 				if ( $type == 'sections' ) {
 					$group = UABB_PREFIX;
 				}else{
@@ -245,7 +245,7 @@ class UABB_UI_Panels {
 				//	Individual type array - [page-templates], [layout] or [row]
 				if( $type_templates ) {
 					foreach( $type_templates as $template_id => $template_data ) {
-
+						
 						/**
 						 *	Check [status] & [dat_url_local] exist
 						 */
@@ -275,7 +275,7 @@ class UABB_UI_Panels {
 				<input type="text" id="module_search" placeholder="<?php _e('Search Module...', 'uabb'); ?>" style="width: 100%;">
 				<div class="filter-count"></div>
 			</div><!-- Search Module -->
-		<?php
+		<?php 
 	}
 
 	/**
@@ -294,16 +294,16 @@ class UABB_UI_Panels {
 
 					// Return all templates 'excluding' UABB templates
 					if( $status == 'exclude' ) {
-						if(
+						if( 
 							( isset( $cat_data['author'] ) && $cat_data['author'] == 'brainstormforce' )
 						) {
 							unset( $templates['categorized'][$ind]['templates'][$cat_id] );
 						}
-
+					
 					// Return ONLY UABB templates
 					} else {
-						if(
-							( isset( $cat_data['author'] ) && $cat_data['author'] != 'brainstormforce' )
+						if( 
+							( isset( $cat_data['author'] ) && $cat_data['author'] != 'brainstormforce' ) 
 						) {
 							unset( $templates['categorized'][$ind]['templates'][$cat_id] );
 						}
@@ -341,12 +341,12 @@ class UABB_UI_Panels {
 			'label' => __( 'Presets', 'uabb' ),
 			'show'	=> ( ! $simple_ui && $has_presets ),
 		);
-
+		
 		$buttons['add-ultimate-rows'] = array(
 			'label' => __( 'Sections', 'uabb' ),
 			'show'	=> ( ! $simple_ui && $has_sections ),
 		);
-
+		
 		// Move button 'Add Content' at the start
 		$add_content = $buttons['add-content'];
 		unset($buttons['add-content']);
@@ -367,9 +367,9 @@ class UABB_UI_Panels {
 
 		if ( FLBuilderModel::is_builder_active() ) {
 
-
+			
 			if( is_callable('FLBuilderUserAccess::current_user_can') ) {
-				$has_editing_cap 	= FLBuilderUserAccess::current_user_can( 'unrestricted_editing' );
+				$has_editing_cap 	= FLBuilderUserAccess::current_user_can( 'unrestricted_editing' ); 
 				$simple_ui    		= ! $has_editing_cap;
 			} else {
 				$has_editing_cap 	= FLBuilderModel::current_user_has_editing_capability();
@@ -380,7 +380,7 @@ class UABB_UI_Panels {
 			$post_id            = $wp_the_query->post->ID;
 			$categories         = FLBuilderModel::get_categorized_modules();
 
-			/**
+			/** 
 			 * Renders categorized row & module templates in the UI panel.
 			 **/
 			$is_row_template    = FLBuilderModel::is_post_user_template( 'row' );
@@ -404,7 +404,7 @@ class UABB_UI_Panels {
 			$uabb = BB_Ultimate_Addon_Helper::get_builder_uabb();
 
 			if ( is_array( $uabb ) && array_key_exists( 'uabb-live-preview', $uabb ) && $uabb['uabb-live-preview'] == 1 ) {
-
+				
 				/* Live Preview HTML */
 				$live_preview = '<span class="uabb-live-preview-button fl-builder-button-primary fl-builder-button" >Live Preview</span>';
 

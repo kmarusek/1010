@@ -2,14 +2,14 @@
 var UABBBlogPosts;
 
 (function($) {
-
+    
     /**
      * Class for Blog Posts Module
      *
      * @since 1.6.1
      */
     UABBBlogPosts = function( settings ){
-
+        
         // set params
         this.nodeClass           = '.fl-node-' + settings.id;
         this.id                 = settings.id;
@@ -200,7 +200,7 @@ var UABBBlogPosts;
         },
 
         _uabbBlogPostCarouselEqualHeight: function() {
-
+            
             var id = this.id,
                 nodeClass = this.nodeClass,
                 small_breakpoint = this.small_breakpoint,
@@ -248,11 +248,11 @@ var UABBBlogPosts;
                     var $this = jQuery( this );
 
                     $this.find( '.uabb-blog-posts-shadow' ).css( 'height', max_height );
-                });
+                });     
 
                 grid.find('.slick-list.draggable').animate({ height: max_height }, { duration: 200, easing: 'linear' });
                 //grid.find('.slick-list.draggable').css( 'height', wrapper_height );
-
+                
                 max_height = -1;
                 wrapper_height = -1;
 
@@ -270,7 +270,7 @@ var UABBBlogPosts;
         },
 
         _uabbBlogPostCarouselHeight: function( slick, currentSlide ) {
-
+                
             var id = $( this ).parents( '.fl-module-blog-posts' ).data( 'node' ),
                 nodeClass = '.fl-node-' + id,
                 grid = $( nodeClass ).find( '.uabb-blog-posts-carousel' ),
@@ -278,7 +278,7 @@ var UABBBlogPosts;
                 post_active = grid.find('.uabb-post-wrapper.slick-active'),
                 max_height = -1,
                 wrapper_height = -1;
-
+            
             post_active.each(function( i ) {
                 var this_height = $( this ).outerHeight(),
                     blog_post = $( this ).find( '.uabb-blog-post-inner-wrap' ),
@@ -299,10 +299,10 @@ var UABBBlogPosts;
             });
 
             grid.find('.slick-list.draggable').animate({ height: max_height }, { duration: 200, easing: 'linear' });
-
+           
             max_height = -1;
             wrapper_height = -1;
-
+            
             post_wrapper.each(function() {
                 var $this = jQuery( this ),
                     selector = $this.find( '.uabb-blog-posts-shadow' ),
@@ -354,12 +354,12 @@ var UABBBlogPosts;
                 medium_breakpoint = this.medium_breakpoint,
                 node = jQuery( nodeClass ),
                 grid = node.find( '.uabb-blog-posts' );
-
+            
             grid.find( '.uabb-post-wrapper' ).each(function() {
                 var img_selector = jQuery(this).find('.uabb-post-thumbnail'),
                     img_wrap_height = parseInt( img_selector.height() ),
                     img_height = parseInt( img_selector.find('img').height() );
-
+                    
                 if( !isNaN( img_wrap_height ) && !isNaN( img_height ) ) {
                     if( img_wrap_height >= img_height ) {
                         img_selector.find('img').css( 'min-height', '100%' );

@@ -26,14 +26,14 @@ final class UABBBranding {
 
 		$branding = BB_Ultimate_Addon_Helper::get_builder_uabb_branding();
 		$basename = plugin_basename( BB_ULTIMATE_ADDON_DIR . 'bb-ultimate-addon.php' );
-
+		
 		if ( isset( $plugins[ $basename ] ) && is_array( $branding ) ) {
 
 			$plugin_name = ( array_key_exists( 'uabb-plugin-name', $branding ) ) ? $branding['uabb-plugin-name'] : '';
 			$plugin_desc = ( array_key_exists( 'uabb-plugin-desc', $branding ) ) ? $branding['uabb-plugin-desc'] : '';
 			$author_name = ( array_key_exists( 'uabb-author-name', $branding ) ) ? $branding['uabb-author-name'] : '';
 			$author_url  = ( array_key_exists( 'uabb-author-url', $branding ) )  ? $branding['uabb-author-url']  : '';
-
+			
 			if ( $plugin_name != '' ) {
 				$plugins[ $basename ]['Name']  = $plugin_name;
 				$plugins[ $basename ]['Title'] = $plugin_name;

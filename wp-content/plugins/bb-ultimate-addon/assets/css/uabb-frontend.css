@@ -176,11 +176,11 @@
 
 .uabb-top-row-separator.uabb-big-triangle svg {
     left: 50%;
-    -webkit-transform: translateX(-50%) scale(1.1);
-       -moz-transform: translateX(-50%) scale(1.1);
-        -ms-transform: translateX(-50%) scale(1.1);
-         -o-transform: translateX(-50%) scale(1.1);
-            transform: translateX(-50%) scale(1.1);
+    -webkit-transform: translateX(-50%) scale(1);
+       -moz-transform: translateX(-50%) scale(1);
+        -ms-transform: translateX(-50%) scale(1);
+         -o-transform: translateX(-50%) scale(1);
+            transform: translateX(-50%) scale(1);
 }
 
 /**
@@ -249,38 +249,38 @@
 
 .uabb-top-row-separator.uabb-tilt-left-separator svg {
     left: 50%;
-    -webkit-transform: translateX(-50%) scale(-1) scaleX(1.05);
-       -moz-transform: translateX(-50%) scale(-1) scaleX(1.05);
-        -ms-transform: translateX(-50%) scale(-1) scaleX(1.05);
-         -o-transform: translateX(-50%) scale(-1) scaleX(1.05);
-            transform: translateX(-50%) scale(-1) scaleX(1.05);
+    -webkit-transform: translateX(-50%) scale(-1);
+       -moz-transform: translateX(-50%) scale(-1);
+        -ms-transform: translateX(-50%) scale(-1);
+         -o-transform: translateX(-50%) scale(-1);
+            transform: translateX(-50%) scale(-1);
 }
 
 .uabb-top-row-separator.uabb-tilt-right-separator svg{
     left: 50%;
-    -webkit-transform: translateX(-50%) scaleY(-1) scaleX(1.05);
-       -moz-transform: translateX(-50%) scaleY(-1) scaleX(1.05);
-        -ms-transform: translateX(-50%) scaleY(-1) scaleX(1.05);
-         -o-transform: translateX(-50%) scaleY(-1) scaleX(1.05);
-            transform: translateX(-50%) scaleY(-1) scaleX(1.05);
+    -webkit-transform: translateX(-50%) scaleY(-1);
+       -moz-transform: translateX(-50%) scaleY(-1);
+        -ms-transform: translateX(-50%) scaleY(-1);
+         -o-transform: translateX(-50%) scaleY(-1);
+            transform: translateX(-50%) scaleY(-1);
 }
 
 .uabb-bottom-row-separator.uabb-tilt-left-separator svg {
     left: 50%;
-    -webkit-transform: translateX(-50%) scaleX(1.1);
-       -moz-transform: translateX(-50%) scaleX(1.1);
-        -ms-transform: translateX(-50%) scaleX(1.1);
-         -o-transform: translateX(-50%) scaleX(1.1);
-            transform: translateX(-50%) scaleX(1.1);
+    -webkit-transform: translateX(-50%);
+       -moz-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+         -o-transform: translateX(-50%);
+            transform: translateX(-50%);
 }
 
 .uabb-bottom-row-separator.uabb-tilt-right-separator svg {
     left: 50%;
-    -webkit-transform: translateX(-50%) scaleX(-1.1);
-       -moz-transform: translateX(-50%) scaleX(-1.1);
-        -ms-transform: translateX(-50%) scaleX(-1.1);
-         -o-transform: translateX(-50%) scaleX(-1.1);
-            transform: translateX(-50%) scaleX(-1.1);
+    -webkit-transform: translateX(-50%) scaleX(-1);
+       -moz-transform: translateX(-50%) scaleX(-1);
+        -ms-transform: translateX(-50%) scaleX(-1);
+         -o-transform: translateX(-50%) scaleX(-1);
+            transform: translateX(-50%) scaleX(-1);
 }
 
 .uabb-top-row-separator.uabb-tilt-left-separator,
@@ -1072,24 +1072,24 @@ a.uabb-creative-threed-btn.uabb-animate_right-btn {
 }
 
 /* Media/Video CSS */
-.uabb-tab-acc-content .wp-video,
-.uabb-tab-acc-content video.wp-video-shortcode,
-.uabb-tab-acc-content .mejs-container,
+.uabb-tab-acc-content .wp-video, 
+.uabb-tab-acc-content video.wp-video-shortcode, 
+.uabb-tab-acc-content .mejs-container:not(.mejs-audio), 
 .uabb-tab-acc-content .mejs-overlay.load,
-.uabb-adv-accordion-content .wp-video,
-.uabb-adv-accordion-content video.wp-video-shortcode,
-.uabb-adv-accordion-content .mejs-container,
+.uabb-adv-accordion-content .wp-video, 
+.uabb-adv-accordion-content video.wp-video-shortcode, 
+.uabb-adv-accordion-content .mejs-container:not(.mejs-audio), 
 .uabb-adv-accordion-content .mejs-overlay.load {
     width: 100% !important;
     height: 100% !important;
 }
-.uabb-tab-acc-content .mejs-container,
-.uabb-adv-accordion-content .mejs-container {
+.uabb-tab-acc-content .mejs-container:not(.mejs-audio),
+.uabb-adv-accordion-content .mejs-container:not(.mejs-audio) {
     padding-top: 56.25%;
 }
-.uabb-tab-acc-content .wp-video,
+.uabb-tab-acc-content .wp-video, 
 .uabb-tab-acc-content video.wp-video-shortcode,
-.uabb-adv-accordion-content .wp-video,
+.uabb-adv-accordion-content .wp-video, 
 .uabb-adv-accordion-content video.wp-video-shortcode {
     max-width: 100% !important;
 }
@@ -1097,8 +1097,8 @@ a.uabb-creative-threed-btn.uabb-animate_right-btn {
 .uabb-adv-accordion-content video.wp-video-shortcode {
     position: relative;
 }
-.uabb-tab-acc-content .mejs-mediaelement,
-.uabb-adv-accordion-content .mejs-mediaelement {
+.uabb-tab-acc-content .mejs-container:not(.mejs-audio) .mejs-mediaelement,
+.uabb-adv-accordion-content .mejs-container:not(.mejs-audio) .mejs-mediaelement {
     position: absolute;
     top: 0;
     right: 0;

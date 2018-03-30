@@ -12,7 +12,7 @@
 }
 
 /* Info Msg */
-.uabb-msg.uabb-msg-info,
+.uabb-msg.uabb-msg-info, 
 .uabb-msg.uabb-msg-info * {
   color: #31708f;
   background-color: #d9edf7;
@@ -20,7 +20,7 @@
 }
 
 /* Success Msg */
-.uabb-msg.uabb-msg-success,
+.uabb-msg.uabb-msg-success, 
 .uabb-msg.uabb-msg-success * {
   color: #3c763d;
   background-color: #dff0d8;
@@ -28,7 +28,7 @@
 }
 
 /* Warning Msg */
-.uabb-msg.uabb-msg-warning,
+.uabb-msg.uabb-msg-warning, 
 .uabb-msg.uabb-msg-warning * {
   color: #8a6d3b;
   background-color: #fcf8e3;
@@ -36,7 +36,7 @@
 }
 
 /* Danger Msg */
-.uabb-msg.uabb-msg-danger,
+.uabb-msg.uabb-msg-danger, 
 .uabb-msg.uabb-msg-danger * {
   color: #a94442;
   background-color: #f2dede;

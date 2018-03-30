@@ -7,7 +7,7 @@
 				required: true
 			}
 		},
-
+		
 		init: function()
 		{
 			var form    	= $('.fl-builder-settings'),
@@ -15,11 +15,11 @@
 				list_icon_border_style = form.find('select[name=list_icon_border_style]');
 
 			this.image_style_changed();
-
+			
 			image_style.on('change', this.image_style_changed );
 			list_icon_border_style.on('change', this.image_style_changed );
 		},
-
+		
 		image_style_changed: function() {
 			var form		= $('.fl-builder-settings'),
 				image_style 	= form.find('select[name=list_icon_style]').val(),

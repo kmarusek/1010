@@ -4,7 +4,7 @@
  * Attachment Data Extra fields
  */
 if( !class_exists( "UABB_Attachment" ) ) {
-
+	
 	class UABB_Attachment {
 
 		/*
@@ -24,7 +24,7 @@ if( !class_exists( "UABB_Attachment" ) ) {
 			 * @param $post object, attachment record in database
 			 * @return $form_fields, modified form fields
 			 */
-
+			 
 			function uabb_attachment_field_cta( $form_fields, $post ) {
 				$form_fields['uabb-cta-link'] = array(
 					'label' => __( 'Image Link', 'uabb' ),
@@ -51,8 +51,8 @@ if( !class_exists( "UABB_Attachment" ) ) {
 
 				return $post;
 			}
-
-
+			
+		
 	}
 	new UABB_Attachment();
 }

@@ -20,17 +20,17 @@ if( $settings->photo_style == 'simple' ) {
 <div class="uabb-module-content uabb-team-wrap">
 	<div class="uabb-team-member-wrap">
 		<div class="uabb-team-image <?php echo $grayscale_class; ?>">
-		<?php
+		<?php 
 			// Render Team Image
-			$module->render_image();
+			$module->render_image(); 
 		?>
-		</div>
-		<?php
+		</div> 
+		<?php	
 			$module->render_separator('below_image');
 		?>
 		<div class="uabb-team-content">
-		<?php
-			// Text
+		<?php 
+			// Text 
 			$module->render_name();
 			$module->render_separator('below_name');
 			$module->render_desgn();
@@ -40,10 +40,10 @@ if( $settings->photo_style == 'simple' ) {
 		?>
 			<?php if ( $settings->enable_social_icons == 'yes' ) { ?>
 				<div class="uabb-team-social">
-				<?php
+				<?php 
 					$module->render_social_icons();
 				?>
-				</div>
+				</div> 
 			<?php } ?>
 		</div>
 	</div>

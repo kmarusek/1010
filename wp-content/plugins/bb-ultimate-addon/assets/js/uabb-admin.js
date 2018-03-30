@@ -15,7 +15,7 @@ UABB_Admin = {
 			jQuery('.uabb-admin-fields').show();
 		} else {
 			jQuery('.uabb-admin-fields').hide();
-		}
+		}		
 	},
 
 	_moduleAllCheckboxClicked: function() {
@@ -28,14 +28,14 @@ UABB_Admin = {
 
 	_moduleCheckboxClicked: function() {
 		var allChecked = true;
-
+				
 		jQuery('.uabb-module-cb').each(function() {
-
+			
 			if( !jQuery(this).is(':checked') ) {
 				allChecked = false;
 			}
 		});
-
+		
 		if( allChecked ) {
 			jQuery('.uabb-module-all-cb').prop('checked', true);
 		} else {

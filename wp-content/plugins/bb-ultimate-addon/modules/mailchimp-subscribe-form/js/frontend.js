@@ -13,12 +13,12 @@
 	};
 
 	UABBSubscribeFormModule.prototype = {
-
+	
 		settings	: {},
 		nodeClass	: '',
 		form		: null,
 		button		: null,
-
+		
 		_init: function()
 		{
 			this.button.on( 'click', $.proxy( this._submitForm, this ) );
@@ -50,7 +50,7 @@
 				$( this ).parent().removeClass( 'open' );
 			}
 		},
-
+		
 		_removeErrorClass: function(){
 			$( this ).removeClass('uabb-form-error');
 		},
@@ -68,7 +68,7 @@
 				email       	= this.form.find( 'input[name=uabb-subscribe-form-email]' ),
 				re          	= /\S+@\S+\.\S+/,
 				valid       	= true;
-
+				
 			e.preventDefault();
 
 			if ( this.button.hasClass( 'uabb-form-button-disabled' ) ) {
@@ -84,14 +84,14 @@
 				email.siblings( '.uabb-form-error-message' ).show();
 				valid = false;
 			}
-
+			
 			if ( valid ) {
-
+				
 				this.form.find( '> .uabb-form-error-message' ).hide();
 				this.button.find( '.uabb-button-text' ).text( waitText );
 				this.button.data( 'original-text', buttonText );
 				this.button.addClass( 'uabb-form-button-disabled' );
-
+				
 				$.post( FLBuilderLayoutConfig.paths.wpAjaxUrl, {
 					action  			: 'uabb_subscribe_form_submit',
 					lname    			: lname.val(),
@@ -104,30 +104,33 @@
 				}, $.proxy( this._submitFormComplete, this ) );
 			}
 		},
-
+		
 		_submitFormComplete: function( response )
 		{
 			var data        = JSON.parse( response ),
 				buttonText  = this.button.data( 'original-text' );
-
+				
 			if ( data.error ) {
-
-				if ( data.error ) {
-					this.form.find( '> .uabb-form-error-message' ).text( data.error );
-				}
-
+				
+				this.form.find( '> .uabb-form-error-message' ).text( data.error );
 				this.form.find( '> .uabb-form-error-message' ).show();
 				this.button.removeClass( 'uabb-form-button-disabled' );
 				this.button.find( '.uabb-button-text' ).text( buttonText );
+			} else {
+				
+				this.button.removeClass( 'uabb-form-button-disabled' );
+				this.button.find( '.uabb-button-text' ).text( buttonText );				
+				
+				if ( 'message' == data.action ) {
+					this.form.find( '> *' ).hide();
+					this.form.append( '<div class="uabb-form-success-message">' + data.message + '</div>' );
+				}
+				else if ( 'redirect' == data.action ) {
+					window.location.href = data.url;
+				}
 			}
-			else if ( 'message' == data.action ) {
-				this.form.find( '> *' ).hide();
-				this.form.append( '<div class="uabb-form-success-message">' + data.message + '</div>' );
-			}
-			else if ( 'redirect' == data.action ) {
-				window.location.href = data.url;
-			}
+
 		}
 	}
-
+	
 })( jQuery );

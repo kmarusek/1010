@@ -11,7 +11,7 @@
 
 			var self = this;
 			var form   = $('.fl-builder-settings'),
-
+			
 				timer_type    = form.find('select[name=timer_type]').val(),
 				day    = parseInt( form.find('select[name=fixed_date_days]').val() ),
 				month  = parseInt( form.find('select[name=fixed_date_month]').val() ),
@@ -239,7 +239,7 @@
 			/*if ( timer_type == "evergreen" ) {
 				$("#fl-field-year_custom_label").hide();
 				$("#fl-field-month_custom_label").hide();
-
+				
 				$("#fl-field-year_plural_label").hide();
 				$("#fl-field-year_singular_label").hide();
 				$("#fl-field-month_plural_label").hide();
@@ -302,19 +302,19 @@
 		},
 		hide_margin_fields:function()
 		{
-
+			
 			var form		= $('.fl-builder-settings'),
 			    unit_position = form.find('select[name=unit_position]').val(),
 			    timer_style = form.find('select[name=timer_style]').val(),
 			    inside_options = form.find('select[name=inside_options]').val(),
 			    outside_options = form.find('select[name=outside_options]').val(),
 			    normal_options = form.find('select[name=normal_options]').val();
-
-
+			    
+			
 			if ( unit_position == "inside" && ( inside_options == "in_below" || inside_options == "in_above" ) ) {
 				$("#fl-field-normal_options").hide();
 				$("#fl-field-inside_options").show();
-
+				
 			}
 
 			if ( unit_position == "outside" && ( outside_options == "out_below" || outside_options == "out_above" || outside_options == "out_right" || outside_options == "out_left" )  ) {

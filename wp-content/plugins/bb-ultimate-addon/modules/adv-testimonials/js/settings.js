@@ -18,12 +18,12 @@
 				enable_rating = form.find('select[name=enable_rating]');
 
 			enable_rating_global = enable_rating.val();
-
+			
 			// Init validation events.
 			this._testimonial_layoutChanged();
 			this.navigation_changed();
 			this._iconStyleChanged();
-
+			
 			// Validation events.
 			testimonial_icon_style_noslider.on('change', this._iconStyleChanged);
 			image_type_noslider.on('change', this._iconStyleChanged);
@@ -41,8 +41,6 @@
 			var form        = $('.fl-builder-settings'),
 				testimonial_icon_style_noslider   = form.find('select[name=testimonial_icon_style_noslider]').val(),
 				image_type_noslider = form.find('select[name=image_type_noslider]').val();
-
-			// console.log(testimonial_icon_style_noslider);
 
 			if( image_type_noslider != 'icon' ) {
 				if( testimonial_icon_style_noslider != 'custom' ) {
@@ -84,7 +82,7 @@
 			if ( testimonial_layout == "slider" ) {
 				$("#fl-builder-settings-section-testimonial_image_icon_width").css({"display" : "block"});
 				$("#fl-builder-settings-section-testimonial_image_icon_width_noslider").css({"display" : "none"});
-
+				
 				// Hide Other image icon upload fields
 				jQuery("#fl-builder-settings-section-img_basic_noslider").css({ "display" : "none" });
 				jQuery("#fl-builder-settings-section-icon_basic_noslider").css({ "display" : "none" });
@@ -132,8 +130,6 @@
         init: function()
         {
             var form = $('.fl-builder-settings ');
-
-            //console.log(enable_rating_global);
 
             if( enable_rating_global == 'yes' ) {
             	form.find('#fl-field-slider_rating').show();

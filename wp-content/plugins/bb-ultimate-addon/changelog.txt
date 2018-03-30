@@ -1,3 +1,45 @@
+Version 1.6.9 - Wednesday, 21th February 2018
+- Improvement: Contact Form - Add option to modify the processing text
+- improvement: Info Box - Add Responsive height options for the infobox
+- Improvement: Subscription Form - Add option to modify the processing text
+- Fixed: Button - Icons visible even when icon type is set to none
+- Fixed: Contact Form - Email submission from name should be the website's title
+- Fixed: Fancy text - Fancy text jumps when heading width sizes are different
+- Fixed: Modal popup - Modal Popup input fields cursor issue in iOS devices
+- Fixed: Modal popup - Autoplay video generates flash at the beginning
+
+Version 1.6.8 - Wednesday, 10th January 2018
+- New: Introduced Column Shadow setting
+- Improvement: Advanced Menu - Added responsive navigation alignment option
+- Improvement: Contact Form - Added success/error message alignment option
+- Improvement: Modal popup - Added option to hide video title and player controls on YouTube
+- Improvement: Pricing Box - Added option to add custom class to the button link
+- Improvement: Row Separator - Added filters to add custom row separators
+- Improvement: Testimonials - Added field connections support to the author name, designation and testimonial field
+- Improvement: Added plugin shortname prefix to all module's settings heading
+- Improvement: Global Settings option visibility for UABB compatible themes
+- Fixed: Advanced Posts - Pagination and redirection issues
+- Fixed: Contact Form - Email delivery issue for some email providers
+- Fixed: Contact Form - Added text loader on form submission
+- Fixed: Counter - Counter number increment issue in IE
+- Fixed: Google Maps - Google map's conflict with Beaver Themer
+- Fixed: Google Maps - Unable to edit Google Map
+- Fixed: Hotspot - Hotspot animation not working in Mozilla Firefox
+
+Version 1.6.7 - Tuesday, 14th November 2017
+- New: WPML Support
+- New: Added option in branding tab to list all UABB modules under Core BB Modules
+- Improvement: Advanced Accordion - Open accordion on link click from the same page
+- Improvement: Advanced Posts - Added typography option to advanced posts taxonomy filter
+- Improvement: Advanced Tabs - Open tab on link click from the same page
+- Improvement: Google Map - Add name option to identify address
+- Improvement: Modal popup - Option to hide related videos on YouTube
+- Improvement: Info List - Replace getimagesize function which was affecting loading time
+- Improvement: Info Box - Added option to add custom class to the button link
+- Fixed: Gradient color field design conflict with BB 2.0
+- Fixed: Modal popup - Close button on preview not visible
+- Fixed: HotSpot - Fix tool-tip issue on Internet explorer and mobile devices
+
 Version 1.6.6 - Tuesday, 3rd October 2017
 - Improvement: Added nofollow options to all buttons and links
 - Improvement: Advanced Posts - Added settings parameter to hooks

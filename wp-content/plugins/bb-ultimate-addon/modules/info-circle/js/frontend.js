@@ -18,7 +18,7 @@
 
 		_initInfoCircle : function() {
 			this.infoCircle = $('.fl-node-'+this.node_IC).find('.uabb-info-circle-wrap');
-
+			
 			if ( this.initial_animation != 'no' ) {
 				this._setInitialAnimation();
 			}
@@ -35,7 +35,7 @@
 		_setInitialAnimation : function() {
 			var initial_animation = this.initial_animation,
 				infoCircle = this.infoCircle;
-
+			
 			this.infoCircle.find('.uabb-info-circle-small > div').addClass('animated '+initial_animation);
 
 			setTimeout(function(){
@@ -44,7 +44,7 @@
 		},
 
 		/**
-		 * Disable Animation on mouseleave when Autopaly is disabled
+		 * Disable Animation on mouseleave when Autopaly is disabled 
 		 */
 		_disableActiveAnimation : function() {
 			var infoCircle = this.infoCircle;
@@ -82,7 +82,7 @@
 
 	function autoPlaySelector( autoplay, infoCircle ) {
 		if( autoplay ) {
-
+			
 			var removefrom = infoCircle.find('.uabb-info-circle-icon-content.active'),
 				addto = removefrom.next('.uabb-info-circle-icon-content');
 
@@ -96,8 +96,8 @@
 
 	/* Function to Update active class */
 	function updateActiveInfoCircle( removefrom, addto ) {
-
-
+		
+		
 
 		removefrom.find('.uabb-info-circle-in').fadeOut(300);
 		addto.find('.uabb-info-circle-in').fadeIn(300);
@@ -114,11 +114,11 @@
 			addto.find('.uabb-info-circle-small > div').addClass('animated ' + ThumbActiveAnimation);
 		}
 	}
-
+	
 	/* Implement Height on Initially */
 	$(document).ready(function(){
 		resize_info_cirlce();
-
+		
 		/* On Hover trigger */
 		$('.uabb-info-circle-wrap.on-hover').on('mouseenter', '.uabb-info-circle-small .uabb-icon-wrap, .uabb-info-circle-small .uabb-image', function() {
 
@@ -169,7 +169,7 @@
 	}
 
 	function resize_info_cirlce_callback( info_circle_wrap ) {
-
+		
 		info_circle_wrap.each(function(i,e) {
 			var info_circle_width = $(this).outerWidth();
 			$(this).css('height',info_circle_width);

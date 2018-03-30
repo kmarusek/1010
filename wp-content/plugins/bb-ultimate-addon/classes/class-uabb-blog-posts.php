@@ -9,7 +9,7 @@ if( !class_exists( 'UABB_Blog_Posts' ) ) {
 
 final class UABB_Blog_Posts {
 
-	/**
+	/** 
 	 * Initializes blog posts.
 	 *
 	 * @since 1.4.7
@@ -23,7 +23,7 @@ final class UABB_Blog_Posts {
 			add_filter( 'fl_builder_render_css',               __CLASS__ . '::blog_posts_css', 10, 2 );
 		}
 	}
-
+	
 	/**
 	 * Adds the custom code settings for blog posts module
 	 * module layouts.

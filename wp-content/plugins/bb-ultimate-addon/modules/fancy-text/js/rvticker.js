@@ -21,9 +21,9 @@
     startPaused: false
   };
 
-  var internal = {
+  var internal = { 
 
-    moveUp: function(state, attribs) {
+    moveUp: function(state, attribs) {    
       internal.animate(state, attribs, 'up');
     },
 
@@ -39,15 +39,15 @@
       var selector = (dir === 'up') ? '.uabb-slide-block:first' : '.uabb-slide-block:last';
 
       el.trigger("vticker.beforeTick");
-
+      
       var clone = obj.children(selector).clone(true);
 
       if(options.height > 0) height = obj.children('.uabb-slide-block:first').height();
       height += (options.margin) + (options.padding*2); // adjust for margins & padding
-
+      
       if(dir==='down') obj.css('top', '-' + height + 'px').prepend(clone);
 
-      //if ( el.hasClass('uabb-adjust-width') ) {
+      //if ( el.hasClass('uabb-adjust-width') ) { 
         var width_t = el
                       .children('.uabb-slide-main_ul')
                       .children('.uabb-slide-block:nth-child(2)').find('.uabb-slide_text').width();
@@ -86,7 +86,7 @@
       if(!state) return;
       var options = state.options;
       var initThis = this;
-      state.intervalId = setInterval(function(){
+      state.intervalId = setInterval(function(){ 
         internal.nextUsePause.call( initThis );
       }, options.pause);
     },
@@ -113,7 +113,7 @@
       var defaultsClone = jQuery.extend({}, defaults);
       var options = $.extend(defaultsClone, options);
       var el = $(this);
-      var state = {
+      var state = { 
         itemCount: el.children('.uabb-slide-main_ul').children('.uabb-slide-block').length,
         itemHeight: 0,
         itemMargin: 0,
@@ -138,7 +138,7 @@
         .children('.uabb-slide-main_ul').css({position: 'relative', margin: 0, padding: 0})
         .children('.uabb-slide-block').css({margin: options.margin, padding: options.padding});
       };
-
+      
 
       if(isNaN(options.height) || options.height === 0)
       {
@@ -172,15 +172,15 @@
       {
         el.bind("mouseenter", function () {
           //if the automatic scroll is paused, don't change that.
-          if (state.isPaused === true) return;
-          state.pausedByCode = true;
+          if (state.isPaused === true) return; 
+          state.pausedByCode = true; 
           // stop interval
           internal.stopInterval.call( initThis );
           methods.pause.call( initThis, true );
         }).bind("mouseleave", function () {
           //if the automatic scroll is paused, don't change that.
           if (state.isPaused === true && !state.pausedByCode) return;
-          state.pausedByCode = false;
+          state.pausedByCode = false; 
           methods.pause.call(initThis, false);
           // restart interval
           internal.startInterval.call( initThis );
@@ -204,12 +204,12 @@
       }
     },
 
-    next: function(attribs) {
+    next: function(attribs) { 
       var state = $(this).data('state');
       if(!state) return undefined;
       if(state.animating || state.itemCount < 2) return false;
       internal.restartInterval.call( this );
-      internal.moveUp(state, attribs);
+      internal.moveUp(state, attribs); 
     },
 
     prev: function(attribs) {
@@ -217,7 +217,7 @@
       if(!state) return undefined;
       if(state.animating || state.itemCount < 2) return false;
       internal.restartInterval.call( this );
-      internal.moveDown(state, attribs);
+      internal.moveDown(state, attribs); 
     },
 
     stop: function() {
@@ -235,7 +235,7 @@
       el.remove();
     },
   };
-
+ 
   $.fn.vTicker = function( method ) {
     if ( methods[method] ) {
       return methods[method].apply( this, Array.prototype.slice.call( arguments, 1 ));
@@ -243,6 +243,6 @@
       return methods.init.apply( this, arguments );
     } else {
       $.error( 'Method ' +  method + ' does not exist on jQuery.vTicker' );
-    }
+    }    
   };
 })(jQuery);

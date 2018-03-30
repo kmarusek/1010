@@ -3,25 +3,25 @@
 	FLBuilder.registerModuleHelper('uabb-social-share', {
 
 		init: function()
-		{
+		{	
 			var form    	= $('.fl-builder-settings'),
 				icoimage_style	= form.find('select[name=icoimage_style]');
-
+							
 			this._toggleBorderOptions();
 
 
 				// Validation events
 			icoimage_style.on('change', $.proxy( this._toggleBorderOptions, this ) ) ;
-
+			
 		},
-
+		
 		_toggleBorderOptions: function() {
 			var form		= $('.fl-builder-settings'),
 				icoimage_style 	= form.find('select[name=icoimage_style]').val(),
 				border_style 	= form.find('select[name=border_style]').val();
 
 			ico_image_style = icoimage_style;
-
+				
 			if( icoimage_style == 'custom' ){
 				if ( border_style != 'none' ) {
 					form.find('#fl-field-border_width').show();
@@ -36,10 +36,10 @@
 			}
 		},
 	});
-
+	
 	FLBuilder.registerModuleHelper('uabb_social_share_form', {
 
-		init: function() {
+		init: function() {	
 
 			var form    		= $('.fl-builder-settings'),
 				image_type		= form.find('select[name=image_type]');
@@ -73,7 +73,7 @@
 					}
 					form.find('.fl-builder-settings-tabs a[href="#fl-builder-settings-tab-form_style"]').show();
 				}
-
+				
 			} else if ( image_type == 'icon' ) {
 				icon.rules('add', { required: true });
 				form.find('.fl-builder-settings-tabs a[href="#fl-builder-settings-tab-form_style"]').show();
@@ -99,7 +99,7 @@
 					form.find('#fl-field-border_color').show();
 					form.find('#fl-field-border_hover_color').show();
 				}
-			}
+			}	
 		}
 	});
 

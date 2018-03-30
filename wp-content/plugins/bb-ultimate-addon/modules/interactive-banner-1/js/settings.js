@@ -1,7 +1,7 @@
 (function($){
 
 	FLBuilder.registerModuleHelper('interactive-banner-1', {
-
+		
 		rules: {
 			banner_image: {
 				required: true
@@ -38,7 +38,7 @@
                     }
                 }
             });
-
+            
             var anchorHref = jQuery( '.fl-builder-settings-tabs' ).children('.fl-active').attr( 'href' );
             var node = jQuery( '.fl-builder-settings-tabs a' ).closest( 'form' ).attr( 'data-node' );
             if( anchorHref == '#fl-builder-settings-tab-hover' || anchorHref == '#fl-builder-settings-tab-typography' ){
@@ -58,7 +58,7 @@
                 transparent_button_options = form.find('select[name=transparent_button_options]'),
                 hover_attribute = form.find('select[name=hover_attribute]'),
                 style = form.find('select[name=style]');
-
+            
             this._flatBtnOption();
 
             transparent_button_options.on( 'change', $.proxy( this._flatBtnOption, this ) );

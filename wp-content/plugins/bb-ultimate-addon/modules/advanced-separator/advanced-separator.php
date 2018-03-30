@@ -18,7 +18,8 @@ class AdvancedSeparatorModule extends FLBuilderModule {
 			'dir'           	=> BB_ULTIMATE_ADDON_DIR . 'modules/advanced-separator/',
             'url'           	=> BB_ULTIMATE_ADDON_URL . 'modules/advanced-separator/',
             'editor_export' 	=> false,
-			'partial_refresh'	=> true
+			'partial_refresh'	=> true,
+			'icon'				=> 'minus.svg',
 		));
 	}
 
@@ -29,7 +30,7 @@ class AdvancedSeparatorModule extends FLBuilderModule {
 	{
 		if( $this->settings->separator == 'line_image' || $this->settings->separator == 'line_icon' ) {
 			$imageicon_array = array(
-
+	 
 				/* General Section */
 				'image_type' => ( $this->settings->separator == 'line_image' ) ? 'photo' : ( ( $this->settings->separator == 'line_icon' ) ? 'icon' : '' ),
 
@@ -59,7 +60,7 @@ class AdvancedSeparatorModule extends FLBuilderModule {
 				'img_border_style' => $this->settings->img_border_style,
 				'img_border_width' => $this->settings->img_border_width,
 				'img_bg_border_radius' => $this->settings->img_bg_border_radius,
-			);
+			); 
 			/* Render HTML Function */
 			if( $this->settings->separator == 'line_image' ) {
 				echo '<div class="uabb-image-outter-wrap">';
@@ -72,7 +73,7 @@ class AdvancedSeparatorModule extends FLBuilderModule {
 	}
 }
 
-
+	
 
 
 /**
@@ -235,7 +236,7 @@ FLBuilder::register_module('AdvancedSeparatorModule', array(
 		                    )
 		                ),
 		            ),
-
+		            
 		            /* Icon Background SIze */
 		            'icon_bg_size'          => array(
 		                'type'          => 'text',
@@ -321,14 +322,14 @@ FLBuilder::register_module('AdvancedSeparatorModule', array(
 		                    ),
 		                    'custom' => array(
 		                        'sections'  => array( 'img_colors' ),
-		                        'fields'    => array( 'img_bg_size', 'img_border_style', 'img_border_width', 'img_bg_border_radius' )
+		                        'fields'    => array( 'img_bg_size', 'img_border_style', 'img_border_width', 'img_bg_border_radius' ) 
 		                    )
 		                ),
 		                'trigger'       => array(
 		                    'custom'           => array(
 		                        'fields'        => array('img_border_style')
 		                    ),
-
+		                    
 		                )
 		            ),
 
@@ -408,7 +409,7 @@ FLBuilder::register_module('AdvancedSeparatorModule', array(
 			'icon_colors'	=> array( // Section
 		        'title'         => __('Colors', 'uabb'), // Section Title
 		        'fields'        => array( // Section Fields
-
+		                    
 		            /* Style Options */
 		            'icon_color_preset'     => array(
 		                'type'          => 'uabb-toggle-switch',
@@ -423,13 +424,13 @@ FLBuilder::register_module('AdvancedSeparatorModule', array(
 		                ),
 		                'help'          => __('Preset 1 => Icon : White, Background : Theme </br>Preset 2 => Icon : Theme, Background : #f3f3f3', 'uabb')
 		            ),
-                    'icon_color' => array(
+                    'icon_color' => array( 
 						'type'       => 'color',
 		                'label'     => __('Icon Color', 'uabb'),
 						'default'    => '',
 						'show_reset' => true,
 					),
-					'icon_hover_color' => array(
+					'icon_hover_color' => array( 
 						'type'       => 'color',
 	                    'label'         => __('Icon Hover Color', 'uabb'),
 						'default'    => '',
@@ -440,13 +441,13 @@ FLBuilder::register_module('AdvancedSeparatorModule', array(
 					),
 
 		            /* Background Color Dependent on Icon Style **/
-		           'icon_bg_color' => array(
+		           'icon_bg_color' => array( 
 						'type'       => 'color',
 						'label'         => __('Background Color', 'uabb'),
 						'default'    => '',
 						'show_reset' => true,
 					),
-					'icon_bg_color_opc' => array(
+					'icon_bg_color_opc' => array( 
 						'type'        => 'text',
 						'label'       => __('Opacity', 'uabb'),
 						'default'     => '',
@@ -454,7 +455,7 @@ FLBuilder::register_module('AdvancedSeparatorModule', array(
 						'maxlength'   => '3',
 						'size'        => '5',
 					),
-		            'icon_bg_hover_color' => array(
+		            'icon_bg_hover_color' => array( 
 						'type'       => 'color',
 						'label'         => __('Background Hover Color', 'uabb'),
 						'default'    => '',
@@ -463,7 +464,7 @@ FLBuilder::register_module('AdvancedSeparatorModule', array(
 	                            'type'      => 'none',
 	                    )
 					),
-					'icon_bg_hover_color_opc' => array(
+					'icon_bg_hover_color_opc' => array( 
 						'type'        => 'text',
 						'label'       => __('Opacity', 'uabb'),
 						'default'     => '',
@@ -473,19 +474,19 @@ FLBuilder::register_module('AdvancedSeparatorModule', array(
 					),
 
                      /* Border Color Dependent on Border Style for ICon */
-                    'icon_border_color' => array(
+                    'icon_border_color' => array( 
 						'type'       => 'color',
 						'label'         => __('Border Color', 'uabb'),
 						'default'    => '',
 						'show_reset' => true,
 					),
-		            'icon_border_hover_color' => array(
+		            'icon_border_hover_color' => array( 
 						'type'       => 'color',
 						'label'         => __('Border Hover Color', 'uabb'),
 						'default'    => '',
 						'show_reset' => true,
 					),
-
+		            
 		            /* Gradient Color Option */
 		            'icon_three_d'       => array(
 		                'type'          => 'select',
@@ -501,7 +502,7 @@ FLBuilder::register_module('AdvancedSeparatorModule', array(
 			'img_colors'	=> array( // Section
 		        'title'         => __('Colors', 'uabb'), // Section Title
 		        'fields'        => array( // Section Fields
-		        	'img_bg_color' => array(
+		        	'img_bg_color' => array( 
 						'type'       => 'color',
 						'label'         => __('Background Color', 'uabb'),
 						'default'    => '',
@@ -512,7 +513,7 @@ FLBuilder::register_module('AdvancedSeparatorModule', array(
                             'property'      => 'background',
                         )
 					),
-					'img_bg_color_opc' => array(
+					'img_bg_color_opc' => array( 
 						'type'        => 'text',
 						'label'       => __('Opacity', 'uabb'),
 						'default'     => '',
@@ -520,7 +521,7 @@ FLBuilder::register_module('AdvancedSeparatorModule', array(
 						'maxlength'   => '3',
 						'size'        => '5',
 					),
-		            'img_bg_hover_color' => array(
+		            'img_bg_hover_color' => array( 
 						'type'       => 'color',
 						'label'         => __('Background Hover Color', 'uabb'),
 						'default'    => '',
@@ -529,7 +530,7 @@ FLBuilder::register_module('AdvancedSeparatorModule', array(
 	                            'type'      => 'none',
 	                    )
 					),
-					'img_bg_hover_color_opc' => array(
+					'img_bg_hover_color_opc' => array( 
 						'type'        => 'text',
 						'label'       => __('Opacity', 'uabb'),
 						'default'     => '',
@@ -539,7 +540,7 @@ FLBuilder::register_module('AdvancedSeparatorModule', array(
 					),
 
                      /* Border Color Dependent on Border Style for Image */
-                    'img_border_color' => array(
+                    'img_border_color' => array( 
 						'type'       => 'color',
 						'label'         => __('Border Color', 'uabb'),
 						'default'    => '',
@@ -550,7 +551,7 @@ FLBuilder::register_module('AdvancedSeparatorModule', array(
                             'property'      => 'border-color',
                         )
 					),
-		            'img_border_hover_color' => array(
+		            'img_border_hover_color' => array( 
 						'type'       => 'color',
 						'label'         => __('Border Hover Color', 'uabb'),
 						'default'    => '',
@@ -706,7 +707,7 @@ FLBuilder::register_module('AdvancedSeparatorModule', array(
 							'property'      => 'border-top-style'
 						)
 					),
-					'color' => array(
+					'color' => array( 
 						'type'       => 'color',
 						'label'      => __('Color', 'uabb'),
 						'default'    => '',
@@ -754,5 +755,5 @@ FLBuilder::register_module('AdvancedSeparatorModule', array(
 			)
 		)
 	),
-
+	
 ));

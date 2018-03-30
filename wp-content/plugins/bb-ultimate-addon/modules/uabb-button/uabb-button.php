@@ -19,7 +19,8 @@ class UABBButtonModule extends FLBuilderModule {
             'url'           => BB_ULTIMATE_ADDON_URL . 'modules/uabb-button/',
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
-            'partial_refresh' => true
+            'partial_refresh' => true,
+			'icon'				=> 'button.svg',
 		));
 	}
 
@@ -245,6 +246,24 @@ FLBuilder::register_module('UABBButtonModule', array(
 			'icon'    => array(
 				'title'         => __('Icons', 'uabb'),
 				'fields'        => array(
+					'icon_type'    => array(
+						'type'          => 'select',
+						'label'         => __('Image Type', 'uabb'),
+						'default'       => 'icon',
+						'options'       => array(
+						    'none'          => __('None', 'uabb' ),
+						    'icon'          => __('Icon', 'uabb'),
+						    'photo'         => __('Photo', 'uabb'),
+						),
+						'toggle'        => array(
+						    'icon'          => array(
+						        'fields'   => array( 'icon', 'icon_position' ),
+						    ),
+						    'photo'         => array(
+						        'fields'   => array( 'photo', 'img_width' ),
+						    )
+						),
+					),
 					'icon'          => array(
 						'type'          => 'icon',
 						'label'         => __('Icon', 'uabb'),
@@ -283,7 +302,7 @@ FLBuilder::register_module('UABBButtonModule', array(
 			'colors'        => array(
 				'title'         => __('Colors', 'uabb'),
 				'fields'        => array(
-					'text_color'        => array(
+					'text_color'        => array( 
 						'type'       => 'color',
                         'label'         => __('Text Color', 'uabb'),
 						'default'    => '',
@@ -294,7 +313,7 @@ FLBuilder::register_module('UABBButtonModule', array(
                             'property'      => 'color',
                         )
 					),
-					'text_hover_color'   => array(
+					'text_hover_color'   => array( 
 						'type'       => 'color',
                         'label'         => __('Text Hover Color', 'uabb'),
 						'default'    => '',
@@ -303,13 +322,13 @@ FLBuilder::register_module('UABBButtonModule', array(
 							'type'          => 'none'
 						)
 					),
-					'bg_color'        => array(
+					'bg_color'        => array( 
 						'type'       => 'color',
                         'label'         => __('Background Color', 'uabb'),
 						'default'    => '',
 						'show_reset' => true,
 					),
-                    'bg_color_opc'    => array(
+                    'bg_color_opc'    => array( 
 						'type'        => 'text',
 						'label'       => __('Opacity', 'uabb'),
 						'default'     => '',
@@ -326,7 +345,7 @@ FLBuilder::register_module('UABBButtonModule', array(
 							'type'          => 'none'
 						)
 					),
-                    'bg_hover_color_opc'    => array(
+                    'bg_hover_color_opc'    => array( 
 						'type'        => 'text',
 						'label'       => __('Opacity', 'uabb'),
 						'default'     => '',
@@ -417,7 +436,7 @@ FLBuilder::register_module('UABBButtonModule', array(
 					                'selector'     => '.uabb-creative-button-wrap a',
 					                'property'     => 'padding-bottom',
 					                'unit'		=> 'px'
-					            ),
+					            ),    
 					        )
 					    )
 					),
@@ -440,7 +459,7 @@ FLBuilder::register_module('UABBButtonModule', array(
 					                'selector'     => '.uabb-creative-button-wrap a',
 					                'property'     => 'padding-right',
 					                'unit'		=> 'px'
-					            ),
+					            ),    
 					        )
 					    )
 					),

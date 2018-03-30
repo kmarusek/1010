@@ -94,7 +94,7 @@
 }
 .uabb-module-content .uabb-text-editor *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
     font-size: inherit;
-    line-height: inherit;
+    line-height: inherit;   
 }
 .uabb-module-content .uabb-text-editor *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(strong):not(b) {
     font-weight: inherit;
@@ -760,7 +760,7 @@ a.uabb-link {
     padding: 15px 1.5em 0px;
 }
 
-/* Button Transition Reduced */
+/* Button Transition Reduced */ 
 .uabb-ib1-block .uabb-transparent-btn:hover,
 .uabb-ib1-block .uabb-flat-btn:hover,
 .uabb-ib1-block .uabb-gradient-btn:hover {

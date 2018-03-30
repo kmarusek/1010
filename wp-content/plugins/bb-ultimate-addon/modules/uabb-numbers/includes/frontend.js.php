@@ -1,5 +1,5 @@
-<?php
-
+<?php 
+	
 	// set defaults
 	$settings->number = trim( $settings->number );
 	$layout = isset( $settings->layout ) ? $settings->layout : 'default';

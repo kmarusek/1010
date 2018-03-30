@@ -1,7 +1,7 @@
 var UABBNumber;
 
 (function($) {
-
+	
 	/**
 	 * Class for Number Counter Module
 	 *
@@ -22,11 +22,11 @@ var UABBNumber;
 		this.delay 				 = settings.delay;
 		this.breakPoints         = settings.breakPoints;
 		this.currentBrowserWidth = $( window ).width();
-		// initialize the menu
+		// initialize the menu 
 		this._initNumber();
-
+		
 	};
-
+	
 	UABBNumber.addCommas = function( n ){
 
 		var rgx = /(\d+)(\d{3})/;
@@ -34,7 +34,7 @@ var UABBNumber;
 		x  = n.split('.');
 		x1 = x[0];
 		x2 = x.length > 1 ? '.' + x[1] : '';
-
+		
 		while (rgx.test(x1)) {
 			x1 = x1.replace(rgx, '$1' + ',' + '$2');
 		}
@@ -106,11 +106,23 @@ var UABBNumber;
 				$counter_number = this.number;
 				current = 0;
 
+			var sAgent = window.navigator.userAgent;
+			var Idx = sAgent.indexOf("MSIE");
+			
+		 	if (Idx > 0 || !!navigator.userAgent.match(/Trident\/7\./) ) {
+				Number.isInteger = Number.isInteger || function(value) {
+					return typeof value === "number" &&
+					isFinite(value) &&
+					Math.floor(value) === value;
+				};
+		  	}
+
 			if( Number.isInteger( $counter_number ) ) {
 				var digits = 0;
 			} else {
 				var digits = $counter_number.toString().split(".")[1].length;
 			}
+
 			if ( ! $number.hasClass( 'uabb-number-animated') ) {
 
 	        	var $numFormat = this.numberFormat;
@@ -145,12 +157,12 @@ var UABBNumber;
 				circle = Math.PI*(r*2),
 				val    = this.number,
 				max    = this.type == 'percent' ? 100 : this.max;
-
+   
 			if (val < 0) { val = 0;}
 			if (val > max) { val = max;}
-
+			
 			if( this.type == 'percent' ){
-				var pct = ( ( 100 - val ) /100) * circle;
+				var pct = ( ( 100 - val ) /100) * circle;			
 			} else {
 				var pct = ( 1 - ( val / max ) ) * circle;
 			}
@@ -161,7 +173,7 @@ var UABBNumber;
 		        duration: this.speed,
 		        easing: 'swing'
 		    });
-
+			
 		},
 
 		_triggerSemiCircle: function(){
@@ -174,9 +186,9 @@ var UABBNumber;
 
 			if (val < 0) { val = 0;}
 			if (val > max) { val = max;}
-
+			
 			if( this.type == 'percent' ){
-				var pct = ( ( 100 - val ) /100) * circle;
+				var pct = ( ( 100 - val ) /100) * circle;			
 			} else {
 				var pct = ( 1 - ( val / max ) ) * circle;
 			}
@@ -187,7 +199,7 @@ var UABBNumber;
 		        duration: this.speed,
 		        easing: 'swing'
 		    });
-
+			
 		},
 
 		_triggerBar: function(){
@@ -208,7 +220,7 @@ var UABBNumber;
 		    });
 
 		}
-
+	
 	};
-
+		
 })(jQuery);

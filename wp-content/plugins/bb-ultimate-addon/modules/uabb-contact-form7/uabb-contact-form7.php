@@ -18,7 +18,8 @@ class UABBContactForm7Module extends FLBuilderModule {
 			'dir'           	=> BB_ULTIMATE_ADDON_DIR . 'modules/uabb-contact-form7/',
             'url'           	=> BB_ULTIMATE_ADDON_URL . 'modules/uabb-contact-form7/',
 			'editor_export'  	=> false,
-			'partial_refresh'	=> true
+			'partial_refresh'	=> true,
+			'icon'				=> 'editor-table.svg',
 		));
 	}
 }
@@ -146,7 +147,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
 								'inherit'	=> __( 'Inherit', 'uabb' ),
 							),
 					),
-					'form_bg_color' => array(
+					'form_bg_color' => array( 
 						'type'       => 'color',
 						'label'		=> __( 'Background Color', 'uabb' ),
 						'default'    => 'efefef',
@@ -157,7 +158,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                             'property'      => 'background',
                         )
 					),
-					'form_bg_color_opc' => array(
+					'form_bg_color_opc' => array( 
 						'type'        => 'text',
 						'label'       => __('Opacity', 'uabb'),
 						'default'     => '',
@@ -206,7 +207,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
 					            array(
 					                'selector'     => '.uabb-cf7-form-desc',
 					                'property'     => 'text-align'
-					            ),
+					            ),    
 					        )
 					    )
 					),
@@ -215,7 +216,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
 			'input-size-align'   => array(
 				'title'         => __('Input Style', 'uabb'),
 				'fields'        => array(
-					'input_background_type'    => array(
+					'input_background_type'    => array( 
 						'type'          => 'uabb-toggle-switch',
                         'label'         => __( 'Input Background Color', 'uabb' ),
                         'default'       => 'bg',
@@ -231,7 +232,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                         'default' => 'color',
                         'width'	=> '75px'
 					),
-					'input_background_color'    => array(
+					'input_background_color'    => array( 
 						'type'       	=> 'color',
 						'label'        	=> __('Background Color', 'uabb'),
 						'default'    	=> '',
@@ -242,7 +243,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                             'property'      => 'background',
                         )
 					),
-					'input_background_color_opc'    => array(
+					'input_background_color_opc'    => array( 
 						'type'        	=> 'text',
 						'label'       	=> __('Opacity', 'uabb'),
 						'default'     	=> '',
@@ -327,7 +328,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                             'unit'			=> 'px'
                         )
 					),
-                    'input_border_color'    => array(
+                    'input_border_color'    => array( 
 						'type'       => 'color',
 						'label'         => __('Border Color', 'uabb'),
                     	'default'		=> 'cccccc',
@@ -337,8 +338,8 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                             'selector'      => '.uabb-cf7-style input[type=email], .uabb-cf7-style input[type=text], .uabb-cf7-style input[type=url], .uabb-cf7-style input[type=number], .uabb-cf7-style input[type=date], .uabb-cf7-style select, .uabb-cf7-style textarea',
                             'property'      => 'border-color',
                         )
-					),
-                    'input_border_active_color'    => array(
+					),                    
+                    'input_border_active_color'    => array( 
 						'type'       => 'color',
 						'label'         => __('Border Active Color', 'uabb'),
                     	'default'		=> 'bbbbbb',
@@ -385,11 +386,11 @@ FLBuilder::register_module('UABBContactForm7Module', array(
 						            'selector'     => '.uabb-cf7-style .wpcf7-checkbox input[type="checkbox"] + span:before, .uabb-cf7-style .wpcf7-radio input[type="radio"] + span:before',
 						            'property'     => 'height',
 						            'unit'		=> 'px'
-						        ),
+						        ),    
 						    )
 						),
 		            ),
-                    'radio_check_bgcolor'    => array(
+                    'radio_check_bgcolor'    => array( 
 						'type'       	=> 'color',
 						'label'      	=> __('Background Color', 'uabb'),
 						'default'    	=> 'DEDEDE',
@@ -399,8 +400,8 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                             'selector'	=> '.uabb-cf7-style .wpcf7-checkbox input[type="checkbox"] + span:before, .uabb-cf7-style .wpcf7-radio input[type="radio"] + span:before',
                             'property'	=> 'background',
                     	),
-					),
-					'radio_check_selected_color'    => array(
+					), 
+					'radio_check_selected_color'    => array( 
 						'type'       	=> 'color',
 						'label'      	=> __('Checked Color', 'uabb'),
 						'default'    	=> '3A3A3A',
@@ -410,7 +411,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                             'selector'	=> '.uabb-cf7-style .wpcf7-checkbox input[type="checkbox"]:checked + span:before, .uabb-cf7-style .wpcf7-radio input[type="radio"]:checked + span:before',
                             'property'	=> 'background',
                     	),
-					),
+					), 
 					'radio_check_border_width'    => array(
 		                'type'          => 'text',
 		                'label'         => __('Border Width', 'uabb'),
@@ -424,7 +425,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                             'unit'		=> 'px'
                     	),
 		            ),
-                    'radio_check_border_color'    => array(
+                    'radio_check_border_color'    => array( 
 						'type'       	=> 'color',
 						'label'      	=> __('Border Color', 'uabb'),
 						'default'    	=> 'CCCCCC',
@@ -435,7 +436,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                             'property'	=> 'border-color',
                     	),
 					),
-					'radio_btn_border_radius'    => array(
+					'radio_btn_border_radius'    => array( 
 						'type'       	=> 'text',
 						'label'      	=> __('Radio Button Round Corners', 'uabb'),
 						'default'		=> '50',
@@ -449,7 +450,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                             'unit'		=> 'px'
                     	),
 					),
-					'checkbox_border_radius'    => array(
+					'checkbox_border_radius'    => array( 
 						'type'       	=> 'text',
 						'label'      	=> __('Checkbox Round Corners', 'uabb'),
 						'default'		=> '0',
@@ -487,13 +488,13 @@ FLBuilder::register_module('UABBContactForm7Module', array(
 							'flat'        => array(
 								'fields'	=> array( 'btn_background_hover_color', 'btn_text_hover_color' )
 							),
-							'transparent' => array(
+							'transparent' => array( 
 								'fields'	=> array( 'btn_border_width', 'btn_background_hover_color', 'btn_text_hover_color' )
 							),
-							'gradient'	  => array(
+							'gradient'	  => array( 
 								'fields'	=> array( 'btn_background_hover_color', 'btn_text_hover_color' )
 							),
-							'3d'	  => array(
+							'3d'	  => array( 
 								'fields'	=> array( 'btn_background_hover_color', 'btn_text_hover_color' )
 							)
 						)
@@ -512,7 +513,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
 			'btn-colors'     => array(
             	'title'         => __('Button Colors', 'uabb'),
             	'fields' => array(
-            		'btn_text_color'    => array(
+            		'btn_text_color'    => array( 
 						'type'       => 'color',
 						'label'         => __('Text Color', 'uabb'),
 						'default'    => '',
@@ -523,7 +524,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                             'property'      => 'color',
                         )
 					),
-                    'btn_text_hover_color'    => array(
+                    'btn_text_hover_color'    => array( 
 						'type'       => 'color',
 						'label'         => __('Text Hover Color', 'uabb'),
                     	'preview'		=> array(
@@ -533,7 +534,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
 						'show_reset' => true,
 					),
 
-                    'btn_background_color'    => array(
+                    'btn_background_color'    => array( 
 						'type'       => 'color',
 						'label'      => __('Background Color', 'uabb'),
 						'default'    => '0085ba',
@@ -544,7 +545,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                             'property'      => 'background',
                         )
 					),
-                    'btn_background_color_opc'    => array(
+                    'btn_background_color_opc'    => array( 
 						'type'        => 'text',
 						'label'       => __('Opacity', 'uabb'),
 						'default'     => '',
@@ -553,7 +554,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
 						'size'        => '5',
 						'placeholder' => '100',
 					),
-                    'btn_background_hover_color'    => array(
+                    'btn_background_hover_color'    => array( 
 						'type'       	=> 'color',
 						'label'         => __('Background Hover Color', 'uabb'),
 						'default'    => '0085ba',
@@ -562,7 +563,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                         	'type'			=> 'none'
                         ),
 					),
-                    'btn_background_hover_color_opc' => array(
+                    'btn_background_hover_color_opc' => array( 
 						'type'        => 'text',
                         'label'       => __('Hover Opacity', 'uabb'),
                         'placeholder' => '100',
@@ -721,7 +722,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
 					                'selector'     => '.uabb-cf7-style input[type=submit]',
 					                'property'     => 'padding-bottom',
 					                'unit'		=> 'px'
-					            ),
+					            ),    
 					        )
 					    )
 		            ),
@@ -758,7 +759,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
 			'input-msg-section'       => array(
 				'title'         => __('Input Field Message', 'uabb'),
 				'fields'        => array(
-					'input_msg_color' => array(
+					'input_msg_color' => array( 
 						'type'       => 'color',
 						'label'		=> __( 'Message Color', 'uabb' ),
 						'default'    => 'ce0000',
@@ -773,13 +774,13 @@ FLBuilder::register_module('UABBContactForm7Module', array(
 						'description'   => 'px',
 						'placeholder'	=> '12',
 					),
-
+					
 				)
 			),
 			'validation-msg-section'       => array(
 				'title'         => __('Validation Message', 'uabb'),
 				'fields'        => array(
-					'validation_msg_color' => array(
+					'validation_msg_color' => array( 
 						'type'       => 'color',
 						'label'		=> __( 'Message Color', 'uabb' ),
 						'help'		=> __( 'This color would be applied to validation message in input field', 'uabb' ),
@@ -795,13 +796,13 @@ FLBuilder::register_module('UABBContactForm7Module', array(
 						'description'   => 'px',
 						'placeholder'	=> '15',
 					),
-					'validation_bg_color' => array(
+					'validation_bg_color' => array( 
 						'type'       => 'color',
 						'label'		=> __( 'Background Color', 'uabb' ),
 						'default'    => '',
 						'show_reset' => true,
 					),
-					'validation_bg_color_opc' => array(
+					'validation_bg_color_opc' => array( 
 						'type'        => 'text',
 						'label'       => __('Background Color Opacity', 'uabb'),
 						'default'     => '',
@@ -849,7 +850,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
 		                'maxlength'     => '2',
 		                'size'          => '6',
 		            ),
-                    'validation_border_color'    => array(
+                    'validation_border_color'    => array( 
 						'type'       => 'color',
 						'label'         => __('Border Color', 'uabb'),
                     	'default'		=> 'cccccc',
@@ -937,7 +938,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                             'unit'      => 'px'
                         ),
                     ),
-                    'form_title_color'        => array(
+                    'form_title_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',
@@ -1010,7 +1011,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                             'unit'      => 'px'
                         ),
                     ),
-                    'form_desc_color'        => array(
+                    'form_desc_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',
@@ -1083,7 +1084,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                             'unit'      => 'px'
                         ),
                     ),
-                    'label_color'        => array(
+                    'label_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',
@@ -1141,7 +1142,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                             'unit'      => 'px'
                         ),
                     ),
-                    'color'        => array(
+                    'color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',
@@ -1197,7 +1198,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                         'preview'   => array(
                             'type'      => 'font',
                             'selector'  => '.uabb-cf7-style .wpcf7-checkbox input[type="checkbox"] + span, .uabb-cf7-style .wpcf7-radio input[type="radio"] + span',
-                        ),
+                        ),  
                     ),
                     'radio_checkbox_font_size'     => array(
                         'type'          => 'uabb-simplify',
@@ -1212,9 +1213,9 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                             'selector'  => '.uabb-cf7-style .wpcf7-checkbox input[type="checkbox"] + span, .uabb-cf7-style .wpcf7-radio input[type="radio"] + span',
                             'property'  => 'font-size',
                             'unit'      => 'px'
-                        ),
+                        ),  
                     ),
-                    'radio_checkbox_color'        => array(
+                    'radio_checkbox_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',

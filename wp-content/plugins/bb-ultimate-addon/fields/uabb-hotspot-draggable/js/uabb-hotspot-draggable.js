@@ -15,11 +15,11 @@
                         wd = form.find('.uabb-hotspot-draggable').width(),
                         ht = form.find('.uabb-hotspot-draggable').height(),
                         coord_value = ( ( left/wd ) * 100 ) + ',' +  ( ( top/ht ) * 100 );
-
+                        
                     form.find('input[name='+name+']').val( coord_value );
                 }
             });
         }
     };
-
+    
 })(jQuery);

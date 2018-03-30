@@ -18,7 +18,8 @@ class UABBContactFormModule extends FLBuilderModule {
 			'dir'				=> BB_ULTIMATE_ADDON_DIR . 'modules/uabb-contact-form/',
 			'url'				=> BB_ULTIMATE_ADDON_URL . 'modules/uabb-contact-form/',
 			'editor_export'		=> false,
-			'partial_refresh'	=> true
+			'partial_refresh'	=> true,
+			'icon'				=> 'editor-table.svg',
 		));
 
 		add_action('wp_ajax_uabb_builder_email', array($this, 'send_mail'));
@@ -75,8 +76,9 @@ class UABBContactFormModule extends FLBuilderModule {
 		$node_id			= isset( $_POST['node_id'] ) ? sanitize_text_field( $_POST['node_id'] ) : false;
 		$template_id    	= isset( $_POST['template_id'] ) ? sanitize_text_field( $_POST['template_id'] ) : false;
 		$template_node_id   = isset( $_POST['template_node_id'] ) ? sanitize_text_field( $_POST['template_node_id'] ) : false;
-
-
+		$admin_email 		= get_option( 'admin_email' );
+		$site_name 			= get_option( 'blogname' );
+		
 		$mailto = get_option('admin_email');
 
 		if ( $node_id ) {
@@ -97,13 +99,13 @@ class UABBContactFormModule extends FLBuilderModule {
 		}
 		$subject =  $settings->email_subject;
 		if ( $subject != '' ) {
-
+			
 			if ( isset( $_POST['name'] ) )  $subject = str_replace( '[NAME]', $_POST['name'], $subject );
 			if ( isset( $_POST['subject'] ) ) $subject = str_replace( '[SUBJECT]', $_POST['subject'], $subject );
 			if ( isset( $_POST['email'] ) ) $subject = str_replace( '[EMAIL]', $_POST['email'], $subject );
 			if ( isset( $_POST['phone'] ) ) $subject = str_replace( '[PHONE]', $_POST['phone'], $subject );
 			if ( isset( $_POST['message'] ) ) $subject = str_replace( '[MESSAGE]', $_POST['message'], $subject );
-
+			
 		} else {
 			$subject = __('Contact Form Submission', 'uabb');
 		}
@@ -116,9 +118,11 @@ class UABBContactFormModule extends FLBuilderModule {
 
 		add_filter('wp_mail_from', 'UABBContactFormModule::mail_from');
 		add_filter('wp_mail_from_name', 'UABBContactFormModule::from_name');
-
+		
+		/* If the From: address doesn't match the domain you're sending the email from. The mail server you're sending the email to likely rejected the email when it saw that you were trying to spoof the sender address. */
 		$headers =	array(
-			'From:' . $uabb_contact_from_name . ' <' . $uabb_contact_from_email . '>',
+			// 'From:' . $uabb_contact_from_name . ' <' . $uabb_contact_from_email . '>',
+			'From: ' . $site_name . ' <' . $admin_email . '>',
 			'Reply-To:' . $uabb_contact_from_name . ' <' . $uabb_contact_from_email . '>',
 			'Content-Type: text/html; charset=UTF-8',
 		);
@@ -542,7 +546,7 @@ FLBuilder::register_module('UABBContactFormModule', array(
 			'input-colors'       => array(
 				'title'         => __('Input Color', 'uabb'),
 				'fields'        => array(
-					'input_text_color'    => array(
+					'input_text_color'    => array( 
 						'type'       => 'color',
                     	'label'         => __('Text Color', 'uabb'),
                     	'default'         => '333333',
@@ -553,7 +557,7 @@ FLBuilder::register_module('UABBContactFormModule', array(
                             'property'      => 'color',
                         )
 					),
-					'input_background_color'    => array(
+					'input_background_color'    => array( 
 						'type'       => 'color',
                     	'label'         => __('Background Color', 'uabb'),
 						'default'    => '',
@@ -564,14 +568,14 @@ FLBuilder::register_module('UABBContactFormModule', array(
                             'property'      => 'background',
                         )
 					),
-					'input_background_color_opc'    => array(
+					'input_background_color_opc'    => array( 
 						'type'        => 'text',
 						'label'       => __('Opacity', 'uabb'),
 						'default'     => '',
 						'description' => '%',
 						'maxlength'   => '3',
 						'size'        => '5',
-					),
+					),                 
 				)
 			),
 			'input-border-style' => array(
@@ -591,8 +595,8 @@ FLBuilder::register_module('UABBContactFormModule', array(
                             'unit'			=> 'px'
                         )
 		            ),
-
-                    'input_border_color'    => array(
+                    
+                    'input_border_color'    => array( 
 						'type'       => 'color',
                     	'label'         => __('Border Color', 'uabb'),
                     	'default'		=> 'cccccc',
@@ -603,7 +607,7 @@ FLBuilder::register_module('UABBContactFormModule', array(
                             'property'      => 'border-color',
                         )
 					),
-                    /*'input_border_color_opc'    => array(
+                    /*'input_border_color_opc'    => array( 
 						'type'        => 'text',
 						'label'       => __('Opacity', 'uabb'),
 						'default'     => '',
@@ -611,7 +615,7 @@ FLBuilder::register_module('UABBContactFormModule', array(
 						'maxlength'   => '3',
 						'size'        => '5',
 					),*/
-                    'input_border_active_color'    => array(
+                    'input_border_active_color'    => array( 
 						'type'       => 'color',
                     	'label'         => __('Border Active Color', 'uabb'),
                     	'default'		=> 'bbbbbb',
@@ -620,7 +624,7 @@ FLBuilder::register_module('UABBContactFormModule', array(
                         	'type'	=> 'none'
                         )
 					),
-                    /*'input_border_active_color_opc'    => array(
+                    /*'input_border_active_color_opc'    => array( 
 						'type'        => 'text',
 						'label'       => __('Opacity', 'uabb'),
 						'default'     => '',
@@ -634,7 +638,7 @@ FLBuilder::register_module('UABBContactFormModule', array(
 				)
 			),
 			'input-fields'       => array(
-				'title'         => __('Input Size and Aignment', 'uabb'),
+				'title'         => __('Input Size and Alignment', 'uabb'),
 				'fields'        => array(
 					'input_text_align'   => array(
 						'type'          => 'select',
@@ -676,15 +680,15 @@ FLBuilder::register_module('UABBContactFormModule', array(
 					        'type'          => 'css',
 					        'rules'           => array(
 					            array(
-								 	'selector'      => '.uabb-contact-form .uabb-input-group-wrap input',
+								 	'selector'      => '.uabb-contact-form .uabb-input-group-wrap input',         
 					                'property'     => 'padding-top',
 					                'unit'			=> 'px'
 					            ),
 					            array(
-								 	'selector'      => '.uabb-contact-form .uabb-input-group-wrap input',
+								 	'selector'      => '.uabb-contact-form .uabb-input-group-wrap input',            
 					                'property'     => 'padding-bottom',
 					                'unit'			=> 'px'
-					            ),
+					            ),    
 					        )
 					    )
 					),
@@ -700,18 +704,18 @@ FLBuilder::register_module('UABBContactFormModule', array(
 					        'type'          => 'css',
 					        'rules'           => array(
 					            array(
-									'selector'      => '.uabb-contact-form .uabb-input-group-wrap input',
+									'selector'      => '.uabb-contact-form .uabb-input-group-wrap input',            
 					                'property'     => 'padding-left',
 					                'unit'			=> 'px'
 					            ),
 					            array(
-									'selector'      => '.uabb-contact-form .uabb-input-group-wrap input',
+									'selector'      => '.uabb-contact-form .uabb-input-group-wrap input',              
 					                'property'     => 'padding-right',
 					                'unit'			=> 'px'
-					            ),
+					            ),    
 					        )
 					    )
-					),
+					),                    
 				)
 			),
 			'form-style'       => array(
@@ -792,7 +796,7 @@ FLBuilder::register_module('UABBContactFormModule', array(
 								'inherit'	=> __( 'Inherit', 'uabb' ),
 							),
 					),
-					'form_bg_color' => array(
+					'form_bg_color' => array( 
 						'type'       => 'color',
 						'label'		=> __( 'Background Color', 'uabb' ),
 						'default'    => '',
@@ -803,7 +807,7 @@ FLBuilder::register_module('UABBContactFormModule', array(
                             'property'      => 'background-color',
                         )
 					),
-					'form_bg_color_opc' => array(
+					'form_bg_color_opc' => array( 
 						'type'        => 'text',
 						'label'		=> __( 'Background Color Opacity', 'uabb' ),
 						'default'     => '',
@@ -836,7 +840,7 @@ FLBuilder::register_module('UABBContactFormModule', array(
 			'error-style'       => array(
 				'title'         => __('Validation Style','uabb'),
 				'fields'        => array(
-					'invalid_msg_color' => array(
+					'invalid_msg_color' => array( 
 						'type'       => 'color',
 						'label'		=> __( 'Input Message Color', 'uabb' ),
 						'default'    => '',
@@ -844,7 +848,7 @@ FLBuilder::register_module('UABBContactFormModule', array(
 						'help'		=> __( 'This color would be applied to validation message and error icon in input field', 'uabb' ),
 						'preview'	=> 'none'
 					),
-					'invalid_border_color' => array(
+					'invalid_border_color' => array( 
 						'type'       => 'color',
 						'label'		=> __( 'Input border color', 'uabb' ),
 						'default'    => '',
@@ -852,20 +856,31 @@ FLBuilder::register_module('UABBContactFormModule', array(
 						'help'		=> __( 'If the validation is not right then this color would be applied to input border', 'uabb' ),
 						'preview'	=> 'none'
 					),
-					'success_msg_color' => array(
+					'success_msg_color' => array( 
 						'type'       => 'color',
 						'label'		=> __( 'Success Message Color', 'uabb' ),
 						'default'    => '',
 						'show_reset' => true,
 						'preview'	=> 'none'
 					),
-					'error_msg_color' => array(
+					'error_msg_color' => array( 
 						'type'       => 'color',
 						'label'		=> __( 'Error Message color', 'uabb' ),
 						'default'    => '',
 						'show_reset' => true,
 						'preview'	=> 'none'
 					),
+                    'error_msg_alignment'    => array(
+                        'type'          => 'uabb-toggle-switch',
+                        'label'         => __('Message Alignment', 'uabb'),
+                        'default'       => 'left',
+                        'options'       => array(
+                            'left'          => __('Left', 'uabb'),
+                            'center'        => __( 'Center', 'uabb' ),
+                            'right'         => __('Right', 'uabb'),
+                        ),
+						'preview'	=> 'none'
+                    ),					
 				)
 			),
 		)
@@ -899,6 +914,14 @@ FLBuilder::register_module('UABBContactFormModule', array(
 							'after'         => __('After Text', 'uabb')
 						)
 					),
+					'btn_processing_text'	=> array(
+						'type'          => 'text',
+						'label'         => __('Processing Text', 'uabb'),
+						'default'       => 'Please Wait...',
+                        'preview'       => array(
+                            'type'          => 'none'
+                        )
+					),
 				)
 			),
 			'btn-style'      => array(
@@ -915,7 +938,7 @@ FLBuilder::register_module('UABBContactFormModule', array(
 							'3d'    		=> __('3D', 'uabb'),
 						),
 						'toggle'		=> array(
-							'transparent' => array(
+							'transparent' => array( 
 								'fields'	=> array( 'btn_border_width', 'hover_attribute' )
 							),
 						)
@@ -933,7 +956,7 @@ FLBuilder::register_module('UABBContactFormModule', array(
 			'btn-colors'     => array(
             	'title'         => __('Button Colors', 'uabb'),
             	'fields' => array(
-            		'btn_text_color'        => array(
+            		'btn_text_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Text Color', 'uabb'),
                         'default'    => '',
@@ -944,7 +967,7 @@ FLBuilder::register_module('UABBContactFormModule', array(
                             'property'      => 'color',
                         )
                     ),
-                    'btn_text_hover_color'        => array(
+                    'btn_text_hover_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Text Hover Color', 'uabb'),
                         'default'    => '',
@@ -953,7 +976,7 @@ FLBuilder::register_module('UABBContactFormModule', array(
                             'type'          => 'none'
                         )
                     ),
-                    'btn_background_color'    => array(
+                    'btn_background_color'    => array( 
                         'type'       => 'color',
                         'label'      => __('Background Color', 'uabb'),
                         'default'    => '',
@@ -964,7 +987,7 @@ FLBuilder::register_module('UABBContactFormModule', array(
                             'property'      => 'background',
                         )
                     ),
-                    'btn_background_color_opc'    => array(
+                    'btn_background_color_opc'    => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -975,7 +998,7 @@ FLBuilder::register_module('UABBContactFormModule', array(
                             'type'          => 'none'
                         )
                     ),
-                    'btn_background_hover_color'    => array(
+                    'btn_background_hover_color'    => array( 
                         'type'       => 'color',
                         'label'         => __('Background Hover Color', 'uabb'),
                         'default'    => '',
@@ -984,7 +1007,7 @@ FLBuilder::register_module('UABBContactFormModule', array(
                             'type'          => 'none'
                         )
                     ),
-                    'btn_background_hover_color_opc' => array(
+                    'btn_background_hover_color_opc' => array( 
                         'type'        => 'text',
                         'label'       => __('Opacity', 'uabb'),
                         'default'     => '',
@@ -1020,7 +1043,7 @@ FLBuilder::register_module('UABBContactFormModule', array(
 							'center'    => __('Center', 'uabb'),
 							'right'    => __('Right', 'uabb'),
 						)
-					),
+					),                   
                     'btn_radius'	=> array(
 						'type'          => 'text',
 						'label'         => __('Border Radius', 'uabb'),
@@ -1048,15 +1071,15 @@ FLBuilder::register_module('UABBContactFormModule', array(
 					        'type'          => 'css',
 					        'rules'           => array(
 					            array(
-									'selector'      => '.uabb-contact-form .uabb-contact-form-submit',
+									'selector'      => '.uabb-contact-form .uabb-contact-form-submit',                
 					                'property'     => 'padding-top',
 					                'unit'			=> 'px'
 					            ),
 					            array(
-									'selector'      => '.uabb-contact-form .uabb-contact-form-submit',
+									'selector'      => '.uabb-contact-form .uabb-contact-form-submit',               
 					                'property'     => 'padding-bottom',
 					                'unit'			=> 'px'
-					            ),
+					            ),    
 					        )
 					    )
 					),
@@ -1072,15 +1095,15 @@ FLBuilder::register_module('UABBContactFormModule', array(
 					        'type'          => 'css',
 					        'rules'           => array(
 					            array(
-									'selector'      => '.uabb-contact-form .uabb-contact-form-submit',
+									'selector'      => '.uabb-contact-form .uabb-contact-form-submit',              
 					                'property'     => 'padding-left',
 					                'unit'			=> 'px'
 					            ),
 					            array(
-									'selector'      => '.uabb-contact-form .uabb-contact-form-submit',
+									'selector'      => '.uabb-contact-form .uabb-contact-form-submit',               
 					                'property'     => 'padding-right',
 					                'unit'			=> 'px'
-					            ),
+					            ),    
 					        )
 					    )
 					),
@@ -1359,7 +1382,7 @@ FLBuilder::register_module('UABBContactFormModule', array(
                             'unit'      => 'px'
                         ),
                     ),
-                    'label_color'        => array(
+                    'label_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',

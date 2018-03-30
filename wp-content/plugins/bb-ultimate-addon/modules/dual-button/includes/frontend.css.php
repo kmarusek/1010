@@ -57,8 +57,8 @@ $settings->spacing_between_buttons = ( $settings->spacing_between_buttons != '' 
         $fn_calc     = '';
     if( ( $settings->divider_options != 'none' && $settings->dual_button_width_type == "custom" ) || ( $settings->_divider_font_size['desktop'] != '' ) ) :
         if( ( $settings->dual_button_pad_top_bot != '' ||  $settings->dual_button_pad_lef_rig != '' ) ||  ( $settings->_divider_font_size['desktop'] != '' && $settings->divider_options == 'text' ) ) :
-			$tb_padding = $settings->dual_button_pad_top_bot * 2;
-			$lr_padding = $settings->dual_button_pad_lef_rig * 2;
+			$tb_padding = (int) $settings->dual_button_pad_top_bot * 2;
+			$lr_padding = (int) $settings->dual_button_pad_lef_rig * 2;
 			$sm_pad_value = (min ($tb_padding,$lr_padding) );
 			if( $settings->dual_button_pad_lef_rig == '' ) {
 				$sm_pad_value = $tb_padding;
@@ -67,7 +67,7 @@ $settings->spacing_between_buttons = ( $settings->spacing_between_buttons != '' 
 			if( $settings->dual_button_pad_top_bot == '' ) {
 				$sm_pad_value = $lr_padding;
 			}
-
+			
 			$mul_logic = $sm_pad_value * 1.25;
 			$fn_calc = $mul_logic;
 			if( $settings->divider_options == 'text' ) {
@@ -191,6 +191,25 @@ $settings->spacing_between_buttons = ( $settings->spacing_between_buttons != '' 
 	display: block;
 }
 
+.fl-node-<?php echo $id;?> .uabb-horizontal .uabb-btn.uabb-btn-one {
+	color: <?php echo uabb_theme_button_text_color( $settings->_btn_one_text_color ); ?>;
+}
+.fl-node-<?php echo $id;?> .uabb-horizontal .uabb-btn.uabb-btn-two {
+	color: <?php echo uabb_theme_button_text_color( $settings->_btn_two_text_color ); ?>;
+}
+
+.fl-node-<?php echo $id;?> .uabb-btn-one:hover {
+	color: <?php echo uabb_theme_button_text_color( $settings->_btn_one_text_hover_color ); ?>;
+}
+
+.fl-node-<?php echo $id;?> .uabb-btn-two:hover{
+	color: <?php echo uabb_theme_button_text_color( $settings->_btn_two_text_hover_color ); ?>;
+}
+
+.fl-node-<?php echo $id;?> .uabb-dual-button .uabb-middle-text {
+	color: <?php echo uabb_theme_base_color( $settings->divider_color ); ?>;
+}
+
 .fl-node-<?php echo $id;?> .uabb-btn-one .uabb-btn-one-text,
 .fl-node-<?php echo $id;?> .uabb-btn-one .uabb-imgicon-wrap .uabb-icon i {
 	color: <?php echo uabb_theme_button_text_color( $settings->_btn_one_text_color ); ?>;
@@ -262,7 +281,7 @@ $settings->spacing_between_buttons = ( $settings->spacing_between_buttons != '' 
 
 /* Vertical Style */
 <?php if ( $settings->dual_button_type == 'vertical' ) { ?>
-
+	
 	.fl-node-<?php echo $id;?> .uabb-vertical .uabb-btn.uabb-btn-one {
 		border-top-left-radius: <?php echo $settings->dual_button_radius;?>px;
 		border-top-right-radius: <?php echo $settings->dual_button_radius;?>px;
@@ -865,6 +884,22 @@ if( $settings->dual_button_type == 'horizontal' && $settings->join_buttons == 'n
 	border-radius: <?php echo $settings->dual_button_radius;?>px;
 }
 
+.fl-node-<?php echo $id;?> .uabb-horizontal .uabb-btn.uabb-btn-one {
+	color: <?php echo uabb_theme_button_text_color( $settings->_btn_one_text_color ); ?>;
+}
+.fl-node-<?php echo $id;?> .uabb-horizontal .uabb-btn.uabb-btn-two {
+	color: <?php echo uabb_theme_button_text_color( $settings->_btn_two_text_color ); ?>;
+}
+
+.fl-node-<?php echo $id;?> .uabb-horizontal .uabb-btn-one:hover {
+	color: <?php echo uabb_theme_button_text_color( $settings->_btn_one_text_hover_color ); ?>;
+}
+
+.fl-node-<?php echo $id;?> .uabb-horizontal .uabb-btn-two:hover {
+	color: <?php echo uabb_theme_button_text_color( $settings->_btn_two_text_hover_color ); ?>;
+}
+
+
 <?php
 }
 ?>
@@ -916,11 +951,11 @@ if( $settings->dual_button_type == 'horizontal' && $settings->join_buttons == 'n
 	<?php if ( $settings->dual_button_style == 'transparent' ) { ?>
 		.fl-node-<?php echo $id;?> .uabb-btn.uabb-btn-one,
 		.fl-node-<?php echo $id;?> .uabb-btn.uabb-btn-two {
-
+			
 			border-width: <?php echo $settings->button_border_width; ?>px;
 			border-style: <?php echo $settings->dual_button_border_style; ?>;
 			border-color: <?php echo uabb_theme_base_color( $settings->button_border_color ); ?>;
-
+			
 		}
 		<?php
 		if( $settings->dual_button_type == 'horizontal' && $settings->join_buttons != 'no' ) {

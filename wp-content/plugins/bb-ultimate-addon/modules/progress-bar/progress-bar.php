@@ -77,7 +77,7 @@ class ProgressBarModule extends FLBuilderModule {
     }
 
     public function render_vertical_content( $obj, $style = '', $i ) {
-
+        
         if( $this->settings->vertical_style == $style ) {
             if( $style != 'style3' ) {
                 echo '<div class="uabb-progress-info uabb-progress-bar-info-' . $i . '">
@@ -128,7 +128,7 @@ class ProgressBarModule extends FLBuilderModule {
             <circle class="uabb-bar" r="'. $radius .'" cx="'. $pos .'" cy="'. $pos .'" fill="transparent" stroke-dasharray="'. $dash .'" stroke-dashoffset="'. $dash .'" transform="rotate(-90.1 '. $pos .' '. $pos .')"></circle>
         </svg>';
         //$html .= '</div>';
-
+        
         $txt = '<svg class="svg" viewBox="0 0 '. $width .' '. $width .'" version="1.1" preserveAspectRatio="xMinYMin meet">
             <circle class="uabb-bar-bg" r="'. $radius .'" cx="'. $pos .'" cy="'. $pos .'" fill=" ' . $obj->background_color . ' " stroke-dasharray="'. $dash .'" stroke-dashoffset="0" ></circle>
             <circle class="uabb-bar" r="'. $radius .'" cx="'. $pos .'" cy="'. $pos .'" fill="transparent" stroke-dasharray="'. $dash .'" stroke-dashoffset="'. $dash .'"></circle>
@@ -257,7 +257,7 @@ FLBuilder::register_module('ProgressBarModule', array(
                     'horizontal_style'          => array(
                         'type'          => 'select',
                         'label'         => __('Style', 'uabb'),
-                        'default'       => 'style1',
+                        'default'       => 'style1',                        
                         'help'          => __( 'Select the different positons to display Progress Value and Number', 'uabb' ),
                         'options'       => array(
                             'style1'         => __('Number and Text Above the Progress Bar', 'uabb'),
@@ -286,7 +286,7 @@ FLBuilder::register_module('ProgressBarModule', array(
                             'type'            => 'css',
                             'selector'        => '.uabb-layout-horizontal .uabb-progress-box',
                             'property'        => 'height',
-                            'unit'             => 'px'
+                            'unit'             => 'px' 
                         )
                     ),
                     'horizontal_space_above'     => array(
@@ -299,7 +299,7 @@ FLBuilder::register_module('ProgressBarModule', array(
                             'type'            => 'css',
                             'selector'        => '.uabb-progress-title, .uabb-progress-value',
                             'property'        => 'padding-top',
-                            'unit'             => 'px'
+                            'unit'             => 'px' 
                         )
                     ),
                     'horizontal_space_below'     => array(
@@ -312,7 +312,7 @@ FLBuilder::register_module('ProgressBarModule', array(
                             'type'            => 'css',
                             'selector'        => '.uabb-progress-title, .uabb-progress-value',
                             'property'        => 'padding-bottom',
-                            'unit'             => 'px'
+                            'unit'             => 'px' 
                         )
                     ),
                     'horizontal_vert_padding'     => array(
@@ -333,7 +333,7 @@ FLBuilder::register_module('ProgressBarModule', array(
                                     'selector'     => '.uabb-progress-title, .uabb-progress-value',
                                     'property'     => 'padding-bottom',
                                     'unit'             => 'px'
-                                ),
+                                ),    
                             )
                         )
                     ),
@@ -355,7 +355,7 @@ FLBuilder::register_module('ProgressBarModule', array(
                                     'selector'     => '.uabb-progress-title, .uabb-progress-value',
                                     'property'     => 'padding-right',
                                     'unit'             => 'px'
-                                ),
+                                ),    
                             )
                         )
                     ),
@@ -367,7 +367,7 @@ FLBuilder::register_module('ProgressBarModule', array(
                     'vertical_style'          => array(
                         'type'          => 'select',
                         'label'         => __('Style', 'uabb'),
-                        'default'       => 'style1',
+                        'default'       => 'style1',                        
                         'help'          => __( 'Select the different positons to display Progress Value and Number', 'uabb' ),
                         'options'       => array(
                             'style1'         => __('Number and Text Above the Progress Bar', 'uabb'),
@@ -527,7 +527,7 @@ FLBuilder::register_module('ProgressBarModule', array(
                             'unit'             => 'px'
                         )
                     ),
-                    'border_color' => array(
+                    'border_color' => array( 
                         'type'       => 'color',
                         'label'      => __('Border Color', 'uabb'),
                         'default'    => 'dbdbdb',
@@ -638,7 +638,7 @@ FLBuilder::register_module('ProgressBarModule', array(
                             'unit'            => 'px'
                         )
                     ),
-                    'text_color'        => array(
+                    'text_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',
@@ -696,7 +696,7 @@ FLBuilder::register_module('ProgressBarModule', array(
                             'unit'              => 'px'
                         )
                     ),
-                    'before_after_color'        => array(
+                    'before_after_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
                         'default'    => '',
@@ -754,7 +754,7 @@ FLBuilder::register_module('ProgressBarModule', array(
                             'unit'             => 'px'
                         )
                     ),
-                    'number_color'        => array(
+                    'number_color'        => array( 
                         'type'       => 'color',
                         'label'      => __('Progress Color', 'uabb'),
                         'default'    => '',
@@ -889,14 +889,14 @@ FLBuilder::register_settings_form('progress_bar_horizontal_item_form', array(
                                     'inherit'   => __( 'Inherit', 'uabb' ),
                                 ),
                         ),
-                        'gradient_color' => array(
+                        'gradient_color' => array( 
                             'type'       => 'color',
                             'label'      => __('Progress Color', 'uabb'),
                             'default'    => '',
                             'show_reset' => true,
                             'help'       => __( 'This is the animated progress color, that animates above background color.', 'uabb'),
                         ),
-                        'gradient_color_opc' => array(
+                        'gradient_color_opc' => array( 
                             'type'        => 'text',
                             'label'       => __('Opacity', 'uabb'),
                             'default'     => '',
@@ -905,14 +905,14 @@ FLBuilder::register_settings_form('progress_bar_horizontal_item_form', array(
                             'size'        => '5',
                         ),
 
-                        'background_color' => array(
+                        'background_color' => array( 
                             'type'       => 'color',
                             'label'      => __('Background Color', 'uabb'),
                             'default'    => 'e5e5e5',
                             'show_reset' => true,
                             'help'       => __( 'This color goes behind the progress color', 'uabb' )
                         ),
-                        'background_color_opc' => array(
+                        'background_color_opc' => array( 
                             'type'        => 'text',
                             'label'       => __('Opacity', 'uabb'),
                             'default'     => '',

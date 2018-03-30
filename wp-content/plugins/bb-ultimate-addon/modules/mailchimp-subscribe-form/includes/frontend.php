@@ -14,7 +14,7 @@ if( defined( 'FL_BUILDER_VERSION' ) ) {
 		<div class="uabb-module-content uabb-subscribe-form uabb-subscribe-form-<?php echo $settings->layout; ?> uabb-sf-style-<?php echo $settings->form_style; ?> uabb-form fl-clearfix" <?php if ( isset( $module->template_id ) ) echo 'data-template-id="' . $module->template_id . '" data-template-node-id="' . $module->template_node_id . '"'; ?>>
 
 			<div class="uabb-head-wrap">
-
+				
 				<<?php echo $settings->heading_tag_selection; ?> class="uabb-sf-heading"><?php echo $settings->heading; ?></<?php echo $settings->heading_tag_selection; ?>>
 
 				<<?php echo $settings->subheading_tag_selection; ?> class="uabb-sf-subheading"><?php echo $settings->subheading; ?></<?php echo $settings->subheading_tag_selection; ?>>
@@ -22,7 +22,7 @@ if( defined( 'FL_BUILDER_VERSION' ) ) {
 			</div>
 
 			<div class="uabb-form-wrap fl-clearfix">
-
+				
 				<?php if ( 'yes' == $settings->show_fname ) : ?><div class="uabb-form-field">
 					<input type="text" name="uabb-subscribe-form-fname" id="uabb-subscribe-form-fname" placeholder="<?php echo ( $settings->form_style != 'style2' ) ? ( ( $settings->fname_label != '' ) ? $settings->fname_label : __( 'Your Name', 'uabb' ) ) : ''; ?>" />
 					<?php
@@ -33,7 +33,7 @@ if( defined( 'FL_BUILDER_VERSION' ) ) {
 					}
 					?>
 					<div class="uabb-form-error-message">!</div>
-				</div><?php endif; ?><!-- Inline Block Space Fix
+				</div><?php endif; ?><!-- Inline Block Space Fix 
 
 				--><?php if ( 'yes' == $settings->show_lname ) : ?><div class="uabb-form-field">
 					<input type="text" name="uabb-subscribe-form-lname" id="uabb-subscribe-form-lname" placeholder="<?php echo ( $settings->form_style != 'style2' ) ? ( ( $settings->lname_label != '' ) ? $settings->lname_label : __( 'Last Name', 'uabb' ) ) : ''; ?>" />
@@ -58,8 +58,8 @@ if( defined( 'FL_BUILDER_VERSION' ) ) {
 					?>
 					<div class="uabb-form-error-message">!</div>
 				</div><!-- Inline Block Space Fix
-
-				--><div class="uabb-form-button" data-wait-text="<?php esc_attr_e( 'Please Wait...', 'uabb' ); ?>">
+				
+				--><div class="uabb-form-button" data-wait-text="<?php echo $settings->btn_processing_text ?>">
 				<?php
 				$resp_overall_alignment = $settings->resp_overall_alignment != 'default' ? $settings->resp_overall_alignment : $settings->overall_alignment;
 				$btn_settings = array(
@@ -91,7 +91,7 @@ if( defined( 'FL_BUILDER_VERSION' ) ) {
 			}
 			?>
 			<div class="uabb-form-error-message"><?php _e( 'Something went wrong. Please check your entries and try again.', 'uabb' ); ?></div>
-
+			
 		</div>
 <?php
 	}

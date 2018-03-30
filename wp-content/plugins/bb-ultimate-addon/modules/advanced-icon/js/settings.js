@@ -2,10 +2,10 @@
 	FLBuilder.registerModuleHelper('advanced-icon', {
 
 		init: function()
-		{
+		{	
 			var form    	= $('.fl-builder-settings'),
 				icoimage_style	= form.find('select[name=icoimage_style]');
-
+							
 			//console.log( this );
 			// Init validation events.
 			//this._photoSourceChanged();
@@ -14,14 +14,14 @@
 
 				// Validation events
 			icoimage_style.on('change', $.proxy( this._toggleBorderOptions, this ) ) ;
-
+			
 		},
-
+		
 		_toggleBorderOptions: function() {
 			var form		= $('.fl-builder-settings'),
 				icoimage_style 	= form.find('select[name=icoimage_style]').val(),
 				border_style 	= form.find('select[name=border_style]').val();
-
+				
 			if( icoimage_style == 'custom' ){
 				if ( border_style != 'none' ) {
 					form.find('#fl-field-border_width').show();
@@ -36,10 +36,10 @@
 			}
 		},
 	});
-
+	
 	FLBuilder.registerModuleHelper('uabb_advicon_group_form', {
 
-		init: function() {
+		init: function() {	
 
 			var form    		= $('.fl-builder-settings'),
 				image_type		= form.find('select[name=image_type]');
@@ -61,7 +61,7 @@
 
 			if ( image_type == 'photo' ) {
 				photo.rules('add', { required: true });
-
+				
 			} else if ( image_type == 'icon' ) {
 				icon.rules('add', { required: true });
 			}

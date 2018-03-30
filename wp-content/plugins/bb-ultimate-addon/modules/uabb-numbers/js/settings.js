@@ -1,9 +1,9 @@
 (function($){
 
 	FLBuilder.registerModuleHelper('uabb-numbers', {
-
+		
 		init: function()
-		{
+		{	
 			var form    			= $('.fl-builder-uabb-numbers-settings'),
 				image_type 			= form.find('select[name=image_type]'),
 				icon_style			= form.find('select[name=icon_style]'),
@@ -16,11 +16,11 @@
 				separator_width		= form.find('input[name=separator_width]'),
 				default_position 	= form.find('select[name=img_icon_position]'),
 				circle_position 	= form.find('select[name=circle_position]');
-
+			
 			this._toggleImageIcon();
 			this._toggleMaxNumber();
 			this._toggleSeparatorAlignment();
-
+			
 			photoSource.on('change', $.proxy( this._photoSourceChanged, this ) );
 			image_type.on('change', $.proxy( this._toggleImageIcon, this ) );
 			image_type.on('change', $.proxy( this._toggleMaxNumber, this ) );
@@ -36,14 +36,14 @@
 		},
 
 		_toggleSeparatorAlignment: function() {
-
+			
 			var form    			= $('.fl-builder-settings'),
 				separator_width		= form.find('input[name=separator_width]').val(),
 				show_separator  	= form.find('select[name=show_separator]').val(),
 				separator_alignment	= form.find('#fl-field-separator_alignment');
 
 			if( show_separator == 'yes' && separator_width != '' && separator_width < 100 ) {
-				separator_alignment.show();
+				separator_alignment.show();				
 			} else {
 				separator_alignment.hide();
 			}
@@ -62,9 +62,9 @@
 				}
 			}
 		},*/
-
+		
 		_toggleMaxNumber: function()
-		{
+		{	
 
 			var form        = $('.fl-builder-settings'),
 				layout  	= form.find('select[name=layout]').val(),
@@ -72,8 +72,8 @@
 				numberType  = form.find('select[name=number_type]').val(),
 				maxNumber   = form.find('#fl-field-max_number'),
 				position 	= form.find('select[name=img_icon_position]').val(),
-				show_separator = form.find('select[name=show_separator]').val();
-
+				show_separator = form.find('select[name=show_separator]').val(); 
+			
 			/* Hide Alignment */
 
 			if( image_type == 'none' ){
@@ -145,7 +145,7 @@
 				image_style 	= form.find('select[name=image_style]').val(),
 				img_border_style 	= form.find('select[name=img_border_style]').val();
 
-
+			
 			if( image_type == 'icon' ){
 				if( icon_style == 'custom'  ){
 					show_border = true;
@@ -186,8 +186,8 @@
 				layout  	= form.find('select[name=layout]').val(),
 				image_type 	= form.find('select[name=image_type]').val(),
 				image_style = form.find('select[name=image_style]').val();
-
-
+			
+			
 			form.find('#fl-builder-settings-section-img_icon_margins').show();
 			if ( image_type == 'photo' || image_type == 'icon' ) {
 				if ( layout == 'default' ) {

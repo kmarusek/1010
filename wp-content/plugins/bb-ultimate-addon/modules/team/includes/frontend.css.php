@@ -1,14 +1,14 @@
-<?php
+<?php 
     $settings->img_bg_color = UABB_Helper::uabb_colorpicker( $settings, 'img_bg_color', true );
     $settings->text_bg_color = UABB_Helper::uabb_colorpicker( $settings, 'text_bg_color', true );
-
+    
     // $settings->icobg_color = UABB_Helper::uabb_colorpicker( $settings, 'icobg_color', true );
     // $settings->icobg_hover_color = UABB_Helper::uabb_colorpicker( $settings, 'icobg_hover_color', true );
     // $settings->icoborder_color = UABB_Helper::uabb_colorpicker( $settings, 'icoborder_color', true );
     // $settings->icoborder_hover_color = UABB_Helper::uabb_colorpicker( $settings, 'icoborder_hover_color', true );
     // $settings->icocolor = UABB_Helper::uabb_colorpicker( $settings, 'icocolor' );
     // $settings->icohover_color = UABB_Helper::uabb_colorpicker( $settings, 'icohover_color' );
-
+    
     $settings->separator_color = UABB_Helper::uabb_colorpicker( $settings, 'separator_color' );
     $settings->color = UABB_Helper::uabb_colorpicker( $settings, 'color' );
     $settings->desg_color = UABB_Helper::uabb_colorpicker( $settings, 'desg_color' );
@@ -75,15 +75,15 @@ if( $settings->enable_separator == 'block' ) {
 /* Render Team Image */
 /* CSS "$settings" Array */
 $imageicon_array = array(
-
+  	
   	/* General Section */
     'image_type' 	=> 'photo',
-
+ 
     /* Icon Basics */
     'icon' 			=> '',
     'icon_size' 	=> '',
     'icon_align' 	=> '',
-
+ 
     /* Image Basics */
     'photo_source' 	=> $settings->photo_source,
     'photo' 		=> $settings->photo,
@@ -91,25 +91,25 @@ $imageicon_array = array(
     'img_size' 		=> $settings->img_size,
     'img_align' 	=> 'center',
     'photo_src' 	=> ( isset( $settings->photo_src ) ) ? $settings->photo_src : '' ,
-
+ 	
  	/* Icon Style */
     'icon_style' 			=> '',
     'icon_bg_size' 			=> '',
     'icon_border_style' 	=> '',
     'icon_border_width' 	=> '',
     'icon_bg_border_radius' => '',
-
+ 	
  	/* Image Style */
     'image_style' 			=> $settings->image_style,
     'img_bg_size' 			=> '', //$settings->img_bg_size,
     'img_border_style' 		=> '', //$settings->img_border_style,
     'img_border_width' 		=> '', //$settings->img_border_width,
     'img_bg_border_radius' 	=> '', //$settings->img_bg_border_radius,
-
+		
 		/* Preset Color variable new */
   	'icon_color_preset' 	=> 'preset1',
 
-  	/* Icon Colors */
+  	/* Icon Colors */ 
   	'icon_color' 			=> '',
   	'icon_hover_color' 		=> '',
   	'icon_bg_color' 		=> '',
@@ -124,8 +124,8 @@ $imageicon_array = array(
   	'img_border_color' 		=> '',//$settings->img_border_color,
   	'img_border_hover_color'=> '',//$settings->img_border_hover_color,
 );
-
-/* CSS Render Function */
+ 
+/* CSS Render Function */ 
 FLBuilder::render_module_css( 'image-icon', $id, $imageicon_array );
 if( $settings->img_size != '' && $settings->photo != '' ) {
 ?>
@@ -165,14 +165,14 @@ if( $settings->photo_style == 'simple' ) {
 	.fl-node-<?php echo $id; ?> .uabb-team-wrap:hover img {
     	-webkit-filter: grayscale(0);
 		        filter: none;
-
+	  
 	}
 <?php }elseif ( $settings->img_grayscale == 'color_gray'  ) { ?>
  .fl-node-<?php echo $id; ?> .uabb-team-wrap:hover img {
 	  -webkit-filter: grayscale(100%);
 	  -webkit-filter: grayscale(1);
 	          filter: grayscale(100%);
-
+	  		  
 	  		  filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feColorMatrix type="matrix" color-interpolation-filters="sRGB" values="0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0 0 0 1 0" /></filter></svg>#filter');
 	  		  filter: gray;
 	}
@@ -196,10 +196,10 @@ if( $settings->photo_style == 'simple' ) {
 
 /* Render Social Icons */
 
-<?php
+<?php 
 if ( $settings->enable_social_icons == 'yes' ) {
 	$icon_count = 1;
-	foreach ( $settings->icons as $i => $icon ) :
+	foreach ( $settings->icons as $i => $icon ) : 	
 		$icon->icobg_color = UABB_Helper::uabb_colorpicker( $icon, 'icobg_color', true );
     	$icon->icobg_hover_color = UABB_Helper::uabb_colorpicker( $icon, 'icobg_hover_color', true );
     	$icon->icoborder_color = UABB_Helper::uabb_colorpicker( $icon, 'icoborder_color' );
@@ -240,8 +240,8 @@ if ( $settings->enable_social_icons == 'yes' ) {
 				  'img_bg_border_radius' 	=> '',
 
 				  /* Preset Color variable new */
-				  'icon_color_preset' => $settings->icon_color_preset,
-
+				  'icon_color_preset' => $settings->icon_color_preset, 
+				  
 				  /* Icon Colors */
 				  'icon_color' 				=> ( !empty($icon->icocolor) ) ? $icon->icocolor : $settings->icon_color,
 				  'icon_hover_color' 		=> ( !empty($icon->icohover_color) ) ? $icon->icohover_color : $settings->icon_hover_color,
@@ -274,21 +274,21 @@ if ( $settings->enable_social_icons == 'yes' ) {
 	<?php }elseif ( $settings->text_alignment == 'right' ) { ?>
 		<?php $social_margin = ( trim( $settings->spacing ) !== '' ) ? $settings->spacing : '10'; ?>
 		.fl-node-<?php echo $id; ?> .uabb-team-icon-link {
-			margin: 0 0 <?php echo $social_margin; ?>px <?php echo $social_margin; ?>px;
+			margin: 0 0 <?php echo $social_margin; ?>px <?php echo $social_margin; ?>px;  
 		}
 		.fl-node-<?php echo $id; ?> .uabb-team-icon-link:first-child {
 			margin-left: 0px;
 		}
 	<?php }else{ ?>
-		<?php $social_margin = ( trim( $settings->spacing ) !== '' ) ? $settings->spacing : '10';
+		<?php $social_margin = ( trim( $settings->spacing ) !== '' ) ? $settings->spacing : '10'; 
 		  	  $social_margin_lr = ( intval($social_margin) !== 0 ) ? intval($social_margin)/2 : $social_margin;
 			?>
 		.fl-node-<?php echo $id; ?> .uabb-team-icon-link {
-			margin: 0 <?php echo $social_margin_lr; ?>px <?php echo $social_margin; ?>px <?php echo $social_margin_lr; ?>px;
+			margin: 0 <?php echo $social_margin_lr; ?>px <?php echo $social_margin; ?>px <?php echo $social_margin_lr; ?>px;  
 		}
 	<?php } ?>
 
-
+	
 <?php } ?>
 
 /* Typography */
@@ -360,12 +360,12 @@ if ( $settings->enable_social_icons == 'yes' ) {
 
 
 
-<?php if($global_settings->responsive_enabled) { // Global Setting If started
-	if( $settings->font_size['medium'] != "" || $settings->line_height['medium'] != "" ||
-		$settings->desg_font_size['medium'] != "" || $settings->desg_line_height['medium'] != "" ||
+<?php if($global_settings->responsive_enabled) { // Global Setting If started 
+	if( $settings->font_size['medium'] != "" || $settings->line_height['medium'] != "" || 
+		$settings->desg_font_size['medium'] != "" || $settings->desg_line_height['medium'] != "" || 
 		$settings->desc_font_size['medium'] != "" || $settings->desc_line_height['medium'] != "" )
 	{
-		/* Medium Breakpoint media query */
+		/* Medium Breakpoint media query */	
 	?>
 		@media ( max-width: <?php echo $global_settings->medium_breakpoint .'px'; ?> ) {
 			/* Name Text Typography */
@@ -401,14 +401,14 @@ if ( $settings->enable_social_icons == 'yes' ) {
 				line-height: <?php echo $settings->desg_line_height['medium']; ?>px;
 				<?php endif; ?>
 			}
-		}
+		}		
 	<?php
 	}
-	if( $settings->font_size['small'] != "" || $settings->line_height['small'] != "" ||
-		$settings->desg_font_size['small'] != "" || $settings->desg_line_height['small'] != "" ||
+	if( $settings->font_size['small'] != "" || $settings->line_height['small'] != "" || 
+		$settings->desg_font_size['small'] != "" || $settings->desg_line_height['small'] != "" || 
 		$settings->desc_font_size['small'] != "" || $settings->desc_line_height['small'] != "" )
 	{
-		/* Small Breakpoint media query */
+		/* Small Breakpoint media query */	
 	?>
 		@media ( max-width: <?php echo $global_settings->responsive_breakpoint .'px'; ?> ) {
 			/* Name Text Typography */
@@ -444,7 +444,7 @@ if ( $settings->enable_social_icons == 'yes' ) {
 				line-height: <?php echo $settings->desg_line_height['small']; ?>px;
 				<?php endif; ?>
 			}
-		}
+		}		
 	<?php
 	}
 }

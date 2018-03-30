@@ -34,9 +34,9 @@
 			hashval = hashval.replace( '#' , '' );
 
 		if( hashval != '' ) {
-
+			
 			jQuery('.fl-node-<?php echo $id; ?> .uabb-masonary-filters li').removeClass('uabb-masonary-current');
-
+			
 			jQuery('.fl-node-<?php echo $id; ?> .uabb-masonary-filters li[data-filter=".uabb-masonary-cat-' + hashval + '"]').addClass('uabb-masonary-current');
 
 		    jQuery( '.fl-node-<?php echo $id; ?> .uabb-masonary-filters .uabb-masonary-filter-<?php echo $id; ?>.uabb-masonary-current' ).trigger('click');
@@ -44,7 +44,7 @@
 
 		document_width = $( document ).width();
 		document_height = $( document ).height();
-
+		
 		/* Accordion Click Trigger */
 		UABBTrigger.addHook( 'uabb-accordion-click', function( argument, selector ) {
 
@@ -144,7 +144,7 @@
 	});
 
 	jQuery(window).load( function() {
-
+		
 		new UABBBlogPosts( args );
 	});
 

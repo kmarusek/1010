@@ -17,7 +17,7 @@
 	width: <?php echo ( 2 * ( (int)$settings->img_border_width ) ) + ( 2 * ( (int)$settings->img_bg_size ) ) + ( (int)$settings->img_size ); ?>px;
 }
 
-<?php if( $settings->separator == 'line' ) { ?>
+<?php if( $settings->separator == 'line' ) { ?> 
 .fl-node-<?php echo $id; ?> .uabb-separator {
 	border-top:<?php echo $settings->height; ?>px <?php echo $settings->style; ?> <?php echo uabb_theme_base_color( $settings->color ); ?>;
 	width: <?php echo $settings->width; ?>%;
@@ -30,13 +30,13 @@
 <?php //( $settings->separator == 'line_icon'  ) ? FLBuilder::render_module_css( 'uabb-icon', $id, $settings->icon ) : ''; ?>
 
 <?php if( $settings->separator == 'line_image' || $settings->separator == 'line_icon' ){
-
+	
 	/* Render CSS */
-
+	 
 	/* CSS "$settings" Array */
-
+	 
 	 $imageicon_array = array(
-
+	      
 		/* General Section */
 		'image_type' => ( $settings->separator == 'line_image' ) ? 'photo' : ( ( $settings->separator == 'line_icon' ) ? 'icon' : '' ),
 		/* Icon Basics */
@@ -68,7 +68,7 @@
 		'img_bg_border_radius' => $settings->img_bg_border_radius,
 
 		/* Preset Color variable new */
-		'icon_color_preset' => $settings->icon_color_preset,
+		'icon_color_preset' => $settings->icon_color_preset, 
 
 		/* Icon Colors */
 		'icon_color' => $settings->icon_color,
@@ -89,8 +89,8 @@
 		'img_border_color' => $settings->img_border_color,
 		'img_border_hover_color' => $settings->img_border_hover_color,
 	);
-
-	/* CSS Render Function */
+	 
+	/* CSS Render Function */ 
 	FLBuilder::render_module_css( 'image-icon', $id, $imageicon_array );
 
 	//FLBuilder::render_module_css( 'uabb-photo', $id, $settings->photo );
@@ -192,7 +192,7 @@ if( $settings->separator == 'line_text' || $settings->separator == 'line_image' 
 	if( $global_settings->responsive_enabled ) { // Global Setting If started
 ?>
 	    @media ( max-width: <?php echo $global_settings->medium_breakpoint; ?>px ) {
-
+	    	
 	    	<?php
 	    	if( $settings->text_font_size['medium'] != '' || $settings->text_line_height['medium'] != '' ) {
 	    	?>
@@ -218,7 +218,7 @@ if( $settings->separator == 'line_text' || $settings->separator == 'line_image' 
 
 
 	    }
-
+	 
 	     @media ( max-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {
 
 	     	<?php

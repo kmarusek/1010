@@ -1,13 +1,13 @@
-<?php
+<?php 
 /*
 	Declaration op array  For - Font Size, Line Height or Responsive Width, Height
-
+	
 	Ex.	'font_responsive'     => array(
                         'type'          => 'uabb-simplify',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'           => '32',  	//optional
-                            'medium'            => '28',	//optional
+                        'default'       => array(				
+                            'desktop'           => '32',  	//optional 
+                            'medium'            => '28',	//optional	
                             'small'            	=> '18'		//optional
                         ),
                         'preview'         => array(			//optional
@@ -30,15 +30,15 @@ if(!class_exists('UABB_Simplify'))
 	class UABB_Simplify
 	{
 		function __construct()
-		{
+		{	
 			add_action( 'fl_builder_control_uabb-simplify', array($this, 'uabb_simplify'), 1, 4 );
 			// add_action( 'wp_enqueue_scripts', array( $this, 'uabb_simplify_assets' ) );
 
 		}
-
+		
 		function uabb_simplify($name, $value, $field, $settings) {
 			if ( is_object( $value ) ) {
-			    	$value = json_decode(json_encode( $value ), True);
+			    	$value = json_decode(json_encode( $value ), True); 
 			}
 			$preview = isset($field['preview']) ? json_encode($field['preview']) : json_encode(array('type' => 'refresh'));
 			$selector = '';
@@ -54,23 +54,23 @@ if(!class_exists('UABB_Simplify'))
 			if( $medias['medium_device'] != '' || $medias['small_device'] != '' ){
 				$simplify = 'expand';
 			}
-
+			
 			$simplify = ( isset($value['simplify']) ) ? $value['simplify'] : $simplify ;
 			$simplify_style = ( $simplify == 'collapse' ) ? 'style="display:none;"' : 'style="display:inline-block;"';
 
 			$html  = '<div class="uabb-simplify-wrapper">';
 				$html .= '  <div class="uabb-simplify-items" >';
-
+				
 				foreach($medias as $key => $default_value ) {
 					//$html .= $key;
 					switch ($key) {
-						case 'desktop':
+						case 'desktop': 
 							$style = '';
-							$selector = ' data-type="text" data-preview=\'' . $preview . '\'';
+							$selector = ' data-type="text" data-preview=\'' . $preview . '\''; 
 							$class = 'fl-field require';
 							$data_id  = strtolower((preg_replace('/\s+/', '_', $key)));
 							$dashicon = "<i class='dashicons dashicons-desktop uabb-help-tooltip'></i>";
-
+							
 							$html .= "<div class='uabb-size-wrap'>";
 							$html .= $this->uabb_simplify_param_media($name, $class, $dashicon, $key, $default_value ,$selector, $data_id, $style);
 							$html .= "<div class='simplify' uabb-toggle='".$simplify."'>
@@ -80,7 +80,7 @@ if(!class_exists('UABB_Simplify'))
 									  </div>";
 							$html .= "</div>";
 						break;
-						case 'medium_device':
+						case 'medium_device':   
 							$style = $simplify_style;
 							$selector = '';
 							$class = 'optional';
@@ -89,8 +89,8 @@ if(!class_exists('UABB_Simplify'))
 							$html .= "<div class='uabb-simplify-size-wrap'>";
 							$html .= $this->uabb_simplify_param_media($name, $class, $dashicon, $key, $default_value ,$selector, $data_id, $style);
 						break;
-
-						case 'small_device':
+						
+						case 'small_device':        
 							$style = $simplify_style;
 							$selector = '';
 							$class = 'optional';
@@ -104,12 +104,12 @@ if(!class_exists('UABB_Simplify'))
 			$html .= '  </div>';
 			//$html .= $this->get_units($unit);
 			//$html .= '  <input type="hidden" data-unit="'.$unit.'"  name="'.$settings['param_name'].'" class="wpb_vc_param_value ultimate-responsive-value '.$settings['param_name'].' '.$settings['type'].'_field" value="'.$value.'" '.$dependency.' />';
-
+	
 			$html .= '</div>';
-
+		
 			echo $html;
 		}
-
+		
 		/*function uabb_simplify_assets() {
 		    if ( class_exists( 'FLBuilderModel' ) && FLBuilderModel::is_builder_active() ) {
 		    	wp_enqueue_style( 'uabb-simplify', BB_ULTIMATE_ADDON_URL . 'fields/uabb-simplify/css/uabb-simplify.css', array(), '' );

@@ -21,7 +21,7 @@
 				}
 			}
 			?>
-
+			
 			if( jQuery( this ).hasClass( "uabb-banner-block-custom-height" ) ) {
 				var heading_ht = jQuery(this).find('.uabb-ib1-title').outerHeight();
 				var custom_ht = jQuery(this).outerHeight();
@@ -93,7 +93,7 @@
 				}
 			}
 			?>
-
+			
 			if( jQuery( this ).hasClass( "uabb-banner-block-custom-height" ) ) {
 				var heading_ht = jQuery(this).find('.uabb-ib1-title').outerHeight();
 				var custom_ht = jQuery(this).outerHeight();

@@ -1,7 +1,7 @@
 (function($){
 
 	FLBuilder.registerModuleHelper('interactive-banner-2', {
-
+		
 		rules: {
 			banner_image: {
 				required: true
@@ -26,7 +26,7 @@
         },
 
         _toggleAfterRender: function() {
-
+            
             var anchorHref = jQuery( '.fl-builder-settings-tabs' ).children('.fl-active').attr( 'href' );
             var node = jQuery( '.fl-builder-settings-tabs a' ).closest( 'form' ).attr( 'data-node' );
             if( anchorHref == '#fl-builder-settings-tab-description' ){

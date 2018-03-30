@@ -9,7 +9,7 @@
 
 			},
 
-
+			
 			_settingsSwitchChanged: function() {
 				var $this 		= $(this),
 					switch_wrap = $this.closest(".uabb-toggle-switch"),
@@ -22,6 +22,6 @@
 		};
 
 		UABBToggleSwitch._init();
-
+		
 	});
 })(jQuery);

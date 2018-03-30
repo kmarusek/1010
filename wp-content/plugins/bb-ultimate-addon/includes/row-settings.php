@@ -48,7 +48,7 @@ function uabb_row_gradient( $form, $id ) {
             'uabb_row_gradient_secondary_color'    => array(
                 'type'              => 'color',
                 'label'             => __('Second Color', 'uabb'),
-                'show_reset'        => true,
+                'show_reset'        => true,    
                 'default'           => '',
             ),
             'uabb_row_radial_direction'  => array(
@@ -107,7 +107,7 @@ function uabb_row_gradient( $form, $id ) {
                     'no'    => __( 'No', 'uabb' ),
                 ),
                 'toggle'    => array(
-                    'yes'    => array(
+                    'yes'    => array(  
                         'fields'    => array( 'uabb_row_linear_gradient_primary_loc', 'uabb_row_linear_gradient_secondary_loc' )
                     ),
                     'no'    => array(

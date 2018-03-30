@@ -6,12 +6,12 @@
  */
 
 if ( !class_exists( 'UABB_GeneratepressGlobalIntegration' ) ) {
-
+	
 	class UABB_GeneratepressGlobalIntegration {
 		public $gp_options;
-
+			
 		function __construct() {
-			/**
+			/** 
 			 *	**
 			 *	* Tracing Beaver Builder Theme Colors
 			 *	**
@@ -29,22 +29,24 @@ if ( !class_exists( 'UABB_GeneratepressGlobalIntegration' ) ) {
 			 **/
 
 			/* Get BB Theme Customizer Options */
-
-			$mods = wp_parse_args(
-				get_option( 'generate_settings', array() ),
-				generate_get_color_defaults()
-			);
+			
+			if( function_exists( 'generate_get_color_defaults' ) ) {
+				$mods = wp_parse_args( 
+					get_option( 'generate_settings', array() ), 
+						generate_get_color_defaults() 
+				);
+			}
 
 			/* Primary Color */
 			$var['theme_color']			= ( isset( $mods['link_color'] ) ) ? $mods['link_color'] : '';
 			/* Primary Text Color */
 			$var['theme_text_color']    = ( isset( $mods['text_color'] ) ) ? $mods['text_color'] : '';
-
+			
 			/* Button */
 			/* Background Colors */
 			$var['btn_bg_color']		 = $mods['form_button_background_color'];
 			$var['btn_bg_hover_color']	 = $mods['form_button_background_color_hover'];
-
+			
 			/* Text Colors */
 			$var['btn_text_color']		 = $mods['form_button_text_color'];
 			$var['btn_text_hover_color'] = $mods['form_button_text_color_hover'];

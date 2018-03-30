@@ -102,7 +102,7 @@
 
 /* Radio button and Checkbox */
 
-.gfield_checkbox li {
+.gfield_checkbox li {   
     position: relative;
     padding-left: 40px;
 }
@@ -112,13 +112,13 @@ input[type="checkbox"] + label {
     cursor: pointer;
 }
 
-.uabb-gf-style .gform_wrapper ul.gfield_radio li,
+.uabb-gf-style .gform_wrapper ul.gfield_radio li, 
 .uabb-gf-style .gform_wrapper ul.gfield_checkbox li {
     margin-bottom: 10px;
-    padding-left: 0;
+    padding-left: 0; 
 }
 
-.uabb-gf-style .gform_wrapper ul.gfield_radio li label,
+.uabb-gf-style .gform_wrapper ul.gfield_radio li label, 
 .uabb-gf-style .gform_wrapper ul.gfield_checkbox li label {
     display: inline-block;
     line-height: 1.2;
