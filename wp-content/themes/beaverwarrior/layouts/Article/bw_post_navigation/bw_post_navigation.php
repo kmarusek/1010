@@ -53,12 +53,12 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         'type'      => 'uabb-spacing',
                         'label' => __('Space Between Posts', 'uabb'),
                         'help'         => __('Manage the spacing between two posts.', 'uabb'),
-                        'default'   => 'margin: 0px;',    //optional
-                        'mode'      => 'margin',
+                        'default'   => 'padding: 0px;',    //optional
+                        'mode'      => 'padding',
                         'preview'         => array(
                             'type'          => 'css',
                             'selector'      => '.Article-related_post_gutter',
-                            'property'      => 'margin',
+                            'property'      => 'padding',
                             'unit'          => 'px',
                         )
                     ),
