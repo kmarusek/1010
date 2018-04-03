@@ -20,7 +20,7 @@ if ($tags) {
 
     $related_query = new WP_Query(array (
         'post_type' => $post->post_type,
-        'tag__in' => array($tag_ids),
+        'tag__in' => $tag_ids,
         'post__not_in' => array($post->ID),
         'posts_per_page' => $settings->post_limit,
         'caller_get_posts' => 1
