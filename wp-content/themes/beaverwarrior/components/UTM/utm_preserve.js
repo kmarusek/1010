@@ -61,6 +61,8 @@
         var $form = $("#gform_" + form_id), i, k,
             old_action = $form.attr("action");
         
+        utm_variables = look_for_utm_variables();
+        
         //Remove any existing query vars.
         //TODO: should we bother preserving old vars that aren't UTMs?
         old_action = old_action.split("?")[0];
