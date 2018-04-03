@@ -80,7 +80,16 @@
         
         $form.attr("action", old_action);
         
-        //TODO: Can we auto-insert UTM variables into hidden fields?
+        //We can't auto-insert UTM variables into hidden fields, so instead we
+        //replace by hidden values.
+        $form.find("input[type='hidden']").each(function (index, ielem) {
+            var $ielem = $(ielem), old_value = $ielem.attr("value"), new_key;
+            
+            if (old_value.startsWith("replace_param[") && old_value.endsWith("]")) {
+                new_key = old_value.split("[")[1].split("]")[0];
+                $ielem.val(utm_variables[new_key]);
+            }
+        })
     }
     
     $(document).bind("gform_post_render", do_gform_insertion);
