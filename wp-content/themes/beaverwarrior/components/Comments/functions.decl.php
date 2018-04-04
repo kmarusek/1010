@@ -124,6 +124,23 @@ function beaver_warrior_Comment_customize_register() {
         "priority" => 5,
     )));
     
+    $wp_customize->add_setting("bw-comments-spacing", array(
+        "default" => 10
+    ));
+    
+    $wp_customize->add_control(new FLCustomizerControl($wp_customize, "bw-comments-spacing", array(
+        "section" => "bw-comments",
+        "settings" => "bw-comments-spacing",
+        "label" => __("Comment-to-comment spacing", 'skeleton_warrior'),
+        "type" => "slider",
+        "priority" => 6,
+        'choices' => array(
+            'min'  => 0,
+            'max'  => 30,
+            'step' => 1
+        )
+    )));
+    
     $wp_customize->add_setting("bw-comments-form-hilight-color", array(
         "default" => "#ED5B32"
     ));
@@ -132,7 +149,7 @@ function beaver_warrior_Comment_customize_register() {
         "section" => "bw-comments",
         "settings" => "bw-comments-form-hilight-color",
         "label" => __("Comment Form Highlight Color", 'skeleton_warrior'),
-        "priority" => 5,
+        "priority" => 7,
     )));
 }
 add_action("customize_register", "beaver_warrior_Comment_customize_register", 11);
@@ -144,6 +161,7 @@ function beaver_warrior_Comment_bw_less_vars($vars, $mods) {
     $vars["bw-comments-border-radius"] = get_theme_mod("bw-comments-border-radius", 10) . "px";
     $vars["bw-comments-link-color"] = FLColor::hex_or_transparent(get_theme_mod("bw-comments-link-color"));
     $vars["bw-comments-form-hilight-color"] = FLColor::hex_or_transparent(get_theme_mod("bw-comments-form-hilight-color"));
+    $vars["bw-comments-spacing"] = get_theme_mod("bw-comments-spacing", 10) . "px";
     
     return $vars;
 }
