@@ -12,6 +12,10 @@
 @Comments-submit_action--bg_color: @bw-comments-submit-bg-color;
 @Comments-submit_action--color: @bw-comments-submit-color;
 
+.fl-node-content .Comments {
+    margin: 0;
+}
+
 .Comments-list {
     margin: 0;
 }
@@ -30,10 +34,14 @@
     
     padding: @Comments-comment--padding;
     border-radius: @Comments-comment--border_radius;
-    max-width: 80%;
+    max-width: 95%;
     
     a {
         color: @Comments-comment_link--color;
+    }
+    
+    @media (min-width: @Viewport-sm) {
+        max-width: 80%;
     }
 }
 
@@ -57,11 +65,19 @@
 .Comments-list .children, .fl-module .Comments-list .children, .fl-rich-text .Comments-list .children {
     .Comments-list();
     
-    padding-left: 10%;
+    padding-left: 5%;
     margin-top: @Comments-comment--spacing;
     
     .Comments-comment {
-        max-width: 90%;
+        max-width: 100%;
+    }
+    
+    @media (min-width: @Viewport-sm) {
+        padding-left: 10%;
+        
+        .Comments-comment {
+            max-width: 90%;
+        }
     }
 }
 
