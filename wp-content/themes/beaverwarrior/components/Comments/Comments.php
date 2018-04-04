@@ -44,11 +44,6 @@ $comment_form_args = array(
     'submit_field' => '<div class="FormItem--actions">%1$s %2$s</div>',
     'title_reply_before'   => '<h3 id="reply-title" class="Comments-form_title">',
     'comment_notes_before' => '<p class="Comments-form_notes"><span id="email-notes">' . __( 'Your email address will not be published.' ) . '</span>'. ( $req ? $required_text : '' ) . '</p>',
-    'comment_field' =>
-        '<div class="Comments-form_comment FormItem">
-            <label for="comment">' . _x( 'Comment', 'noun' ) . ( $aria_req ? '<span class="required">*</span>' : '' ) . '</label>
-            <textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea>
-        </div>',
     'fields' => apply_filters( 'comment_form_default_fields', array(
         'author' =>
             '<div class="Comments-form_author FormItem">' .
@@ -68,5 +63,10 @@ $comment_form_args = array(
                 '<input id="url" name="url" type="text" value="' . esc_attr( $commenter['comment_author_url'] ) . '" size="30" />
             </div>'
         )),
+    'comment_field' =>
+        '<div class="Comments-form_comment FormItem">
+            <label for="comment">' . _x( 'Comment', 'noun' ) . ( $aria_req ? '<span class="required">*</span>' : '' ) . '</label>
+            <textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea>
+        </div>',
 ); ?>
 <section class="Comments-form"><?php comment_form($comment_form_args); ?></section>
