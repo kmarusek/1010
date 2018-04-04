@@ -129,8 +129,8 @@ add_action("customize_register", "beaver_warrior_Comment_customize_register", 11
 function beaver_warrior_Comment_bw_less_vars($vars, $mods) {
     $vars["bw-comments-bg-color"] = FLColor::hex_or_transparent(get_theme_mod("bw-comments-bg-color"));
     $vars["bw-comments-color"] = FLColor::hex_or_transparent(get_theme_mod("bw-comments-color"));
-    $vars["bw-comments-padding"] = get_theme_mod("bw-comments-padding") . "px";
-    $vars["bw-comments-border-radius"] = get_theme_mod("bw-comments-border-radius") . "px";
+    $vars["bw-comments-padding"] = get_theme_mod("bw-comments-padding", 20) . "px";
+    $vars["bw-comments-border-radius"] = get_theme_mod("bw-comments-border-radius", 10) . "px";
     $vars["bw-comments-link-color"] = FLColor::hex_or_transparent(get_theme_mod("bw-comments-link-color"));
     
     return $vars;
