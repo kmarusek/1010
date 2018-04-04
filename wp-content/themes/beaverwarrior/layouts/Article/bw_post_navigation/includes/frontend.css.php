@@ -24,7 +24,7 @@ $settings->post_permalink_color = UABB_Helper::uabb_colorpicker($settings, "post
     <?php echo $settings->post_image_margin; ?>
 }
 
-.fl-node-<?php echo $id; ?> .Article-related_post_title {
+.fl-node-<?php echo $id; ?> .Article-related_post_title, .fl-node-<?php echo $id; ?> .Article-related_post_title a {
     <?php echo $settings->post_title_margin; ?>
     <?php if ($settings->post_title_color != '') echo "color: " . uabb_theme_text_color($settings->post_title_color) . ";"; ?>
     <?php if ($settings->post_title_font['family'] != 'Default') UABB_Helper::uabb_font_css($settings->post_title_font); ?>

@@ -50,13 +50,15 @@ while ($related_query->have_posts()) {
                         case 'img':
                             if ($settings->show_featured_image === 'yes' || !isset($settings->show_featured_image)) { ?>
                                 <div class="Article-related_post_thumbnail_wrapper">
-                                    <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="Article-related_post_thumbnail">
+                                    <a href="<?php echo get_permalink(); ?>">
+                                       <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="Article-related_post_thumbnail">
+                                    </a>
                                 </div>
                             <?php }
                             break;
                         case 'title':
                             if ($settings->show_title === 'yes' || !isset($settings->show_title)) { ?>
-                                <h3 class="Article-related_post_title"><?php the_title(); ?></h3>
+                                <h3 class="Article-related_post_title"><a href="<?php echo get_permalink(); ?>"><?php the_title(); ?></a></h3>
                             <?php }
                             break;
                         case 'meta':
