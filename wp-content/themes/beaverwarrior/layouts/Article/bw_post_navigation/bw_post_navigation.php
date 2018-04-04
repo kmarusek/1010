@@ -24,7 +24,7 @@ class BWPostNavigationModule extends FLBuilderModule {
 
 FLBuilder::register_module( 'BWPostNavigationModule', array(
 		'general'       => array(
-			'title'         => __( 'Settings', 'fl-theme-builder' ),
+			'title'         => __( 'General', 'fl-theme-builder' ),
 			'sections'      => array(
              'related' => array(
                 "title" => __("Related Posts", "skeleton-warrior"),
@@ -39,6 +39,168 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                             '4' => '4'
                         )
                     ),
+                )
+            ),
+			),
+		),
+		'layout'       => array(
+			'title'         => __( 'Layout', 'fl-theme-builder' ),
+			'sections'      => array(
+             'related' => array(
+                "title" => __("Related Posts", "skeleton-warrior"),
+                 "fields" => array(
+                    'layout_sort_order' => array(
+                        'type' => 'uabb-sortable',
+                        'label' => __('Layout Order', 'skeleton-warrior'),
+                        'description' => __('Hidden components will still show here, but won\'t be visible elsewhere.', 'skeleton-warrior'),
+                        'default' => 'img,title,meta,content,cta',
+                        'options' => array(
+                            'img' => __('Featured Image','uabb'),
+                            'title' => __('Title', 'uabb'),
+                            'meta' => __('Meta', 'uabb'),
+                            'content' => __('Content', 'uabb'),
+                            'cta' => __('CTA', 'uabb'),
+                        ),
+                    ),
+                )
+             ),
+             'featured_image' => array(
+                "title" => __("Featured Image", "skeleton-warrior"),
+                 "fields" => array(
+                    'show_featured_image' => array(
+                        'type'          => 'uabb-toggle-switch',
+                        'label'         => __( 'Display Featured Image', 'uabb' ),
+                        'help'          => __('Enable this to display featured image of posts in a module.', 'uabb'),
+                        'default'       => 'yes',
+                        'options'       => array(
+                            'yes'       => __( 'Yes', 'uabb' ),
+                            'no'        => __( 'No', 'uabb' ),
+                        ),
+                        'toggle'    => array(
+                            'yes'    => array(
+                                'fields' => array('post_image_margin')
+                            )
+                        ),
+                    ),
+                ),
+            ),
+             'title' => array(
+                "title" => __("Title", "skeleton-warrior"),
+                 "fields" => array(
+                    'show_title' => array(
+                        'type'          => 'uabb-toggle-switch',
+                        'label'         => __( 'Display Title', 'uabb' ),
+                        'help'          => __('Enable this to display title of posts in a module.', 'uabb'),
+                        'default'       => 'yes',
+                        'options'       => array(
+                            'yes'       => __( 'Yes', 'uabb' ),
+                            'no'        => __( 'No', 'uabb' ),
+                        ),
+                        'toggle' => array(
+                            'yes' => array(
+                                'fields' => array('post_title_color', 'post_title_font', 'post_title_font_size', 'post_title_line_height', 'post_title_margin')
+                            )
+                        )
+                    ),
+                )
+            ),
+             'meta' => array(
+                "title" => __("Metadata", "skeleton-warrior"),
+                 "fields" => array(
+                    'show_meta' => array(
+                        'type'          => 'uabb-toggle-switch',
+                        'label'         => __( 'Display Meta Information', 'uabb' ),
+                        'help'          => __('Enable this to display post meta information in a module.', 'uabb'),
+                        'default'       => 'yes',
+                        'options'       => array(
+                            'yes'       => __( 'Yes', 'uabb' ),
+                            'no'        => __( 'No', 'uabb' ),
+                        ),
+                        'toggle'    => array(
+                            'yes'    => array(
+                                'fields' => array('meta_sort_order', 'show_meta_author', 'show_meta_date', 'post_meta_color', 'post_meta_font', 'post_meta_font_size', 'post_meta_line_height', 'post_meta_margin')
+                            )
+                        ),
+                    ),
+                    'meta_sort_order' => array(
+                        'type' => 'uabb-sortable',
+                        'label' => __('', 'uabb'),
+                        'default' => 'author,date',
+                        'options' => array(
+                            'author'    => __('Author', 'uabb'),
+                            'date'      => __('Date', 'uabb'),
+                        ),
+                    ),
+                    'show_meta_author' => array(
+                        'type'          => 'uabb-toggle-switch',
+                        'label'         => __( 'Display Author', 'uabb' ),
+                        'help'          => __('Enable this to display author of posts.', 'skeleton-warrior'),
+                        'default'       => 'yes',
+                        'options'       => array(
+                            'yes'       => __( 'Yes', 'uabb' ),
+                            'no'        => __( 'No', 'uabb' ),
+                        )
+                    ),
+                    'show_meta_date' => array(
+                        'type'          => 'uabb-toggle-switch',
+                        'label'         => __( 'Display Date', 'uabb' ),
+                        'help'          => __('Enable this to display publication date of posts.', 'skeleton-warrior'),
+                        'default'       => 'yes',
+                        'options'       => array(
+                            'yes'       => __( 'Yes', 'uabb' ),
+                            'no'        => __( 'No', 'uabb' ),
+                        )
+                    ),
+                 )
+             ),
+             'excerpt' => array(
+                "title" => __("Excerpt", "skeleton-warrior"),
+                 "fields" => array(
+                    'show_excerpt' => array(
+                        'type'          => 'uabb-toggle-switch',
+                        'label'         => __( 'Display Content', 'uabb' ),
+                        'help'          => __('Enable this to display content of posts in a module.', 'uabb'),
+                        'default'       => 'yes',
+                        'options'       => array(
+                            'yes'       => __( 'Yes', 'uabb' ),
+                            'no'        => __( 'No', 'uabb' ),
+                        ),
+                        'toggle'    => array(
+                            'yes'    => array(
+                                'fields' => array('post_excerpt_color', 'post_excerpt_font', 'post_excerpt_font_size', 'post_excerpt_line_height', 'post_excerpt_margin')
+                            )
+                        ),
+                    ),
+                )
+            ),
+             'cta' => array(
+                "title" => __("Permalink/CTA", "skeleton-warrior"),
+                 "fields" => array(
+                    'show_cta' => array(
+                        'type'          => 'uabb-toggle-switch',
+                        'label'         => __( 'Display CTA', 'uabb' ),
+                        'help'          => __('Enable this to display call to action in a module.', 'uabb'),
+                        'default'       => 'yes',
+                        'options'       => array(
+                            'yes'       => __( 'Yes', 'uabb' ),
+                            'no'        => __( 'No', 'uabb' ),
+                        ),
+                        'toggle'    => array(
+                            'yes'    => array(
+                                'fields' => array('post_permalink_color', 'post_permalink_font', 'post_permalink_font_size', 'post_permalink_line_height', 'post_permalink_margin')
+                            )
+                        ),
+                    ),
+                )
+            ),
+         )
+      ),
+		'style'       => array(
+			'title'         => __( 'Style', 'fl-theme-builder' ),
+			'sections'      => array(
+             'related' => array(
+                "title" => __("Related Posts", "skeleton-warrior"),
+                 "fields" => array(
                     'post_align'        => array(
                         'type'       => 'select',
                         'label'      => __('Posts Alignment', 'skeleton-warrior'),
@@ -86,39 +248,11 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                             'unit'          => 'px',
                         )
                     ),
-                    'layout_sort_order' => array(
-                        'type' => 'uabb-sortable',
-                        'label' => __('Layout Order', 'skeleton-warrior'),
-                        'description' => __('Hidden components will still show here, but won\'t be visible elsewhere.', 'skeleton-warrior'),
-                        'default' => 'img,title,meta,content,cta',
-                        'options' => array(
-                            'img' => __('Featured Image','uabb'),
-                            'title' => __('Title', 'uabb'),
-                            'meta' => __('Meta', 'uabb'),
-                            'content' => __('Content', 'uabb'),
-                            'cta' => __('CTA', 'uabb'),
-                        ),
-                    ),
-                )
-            ),
+                 )
+             ),
              'featured_image' => array(
                 "title" => __("Featured Image", "skeleton-warrior"),
                  "fields" => array(
-                    'show_featured_image' => array(
-                        'type'          => 'uabb-toggle-switch',
-                        'label'         => __( 'Display Featured Image', 'uabb' ),
-                        'help'          => __('Enable this to display featured image of posts in a module.', 'uabb'),
-                        'default'       => 'yes',
-                        'options'       => array(
-                            'yes'       => __( 'Yes', 'uabb' ),
-                            'no'        => __( 'No', 'uabb' ),
-                        ),
-                        'toggle'    => array(
-                            'yes'    => array(
-                                'fields' => array('post_image_margin')
-                            )
-                        ),
-                    ),
                     'post_image_margin'        => array(
                         'type'      => 'uabb-spacing',
                         'label' => __('Spacing', 'skeleton-warrior'),
@@ -131,26 +265,11 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                             'unit'          => 'px',
                         )
                     ),
-                ),
-            ),
+                )
+             ),
              'title' => array(
                 "title" => __("Title", "skeleton-warrior"),
                  "fields" => array(
-                    'show_title' => array(
-                        'type'          => 'uabb-toggle-switch',
-                        'label'         => __( 'Display Title', 'uabb' ),
-                        'help'          => __('Enable this to display title of posts in a module.', 'uabb'),
-                        'default'       => 'yes',
-                        'options'       => array(
-                            'yes'       => __( 'Yes', 'uabb' ),
-                            'no'        => __( 'No', 'uabb' ),
-                        ),
-                        'toggle' => array(
-                            'yes' => array(
-                                'fields' => array('post_title_color', 'post_title_font_size', 'post_title_line_height', 'post_title_margin')
-                            )
-                        )
-                    ),
                     'post_title_color'        => array(
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
@@ -221,50 +340,6 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
              'meta' => array(
                 "title" => __("Metadata", "skeleton-warrior"),
                  "fields" => array(
-                    'show_meta' => array(
-                        'type'          => 'uabb-toggle-switch',
-                        'label'         => __( 'Display Meta Information', 'uabb' ),
-                        'help'          => __('Enable this to display post meta information in a module.', 'uabb'),
-                        'default'       => 'yes',
-                        'options'       => array(
-                            'yes'       => __( 'Yes', 'uabb' ),
-                            'no'        => __( 'No', 'uabb' ),
-                        ),
-                        'toggle'    => array(
-                            'yes'    => array(
-                                'fields' => array('meta_sort_order', 'show_meta_author', 'show_meta_date', 'post_meta_color', 'post_meta_font_size', 'post_meta_line_height', 'post_meta_margin')
-                            )
-                        ),
-                    ),
-                    'meta_sort_order' => array(
-                        'type' => 'uabb-sortable',
-                        'label' => __('', 'uabb'),
-                        'default' => 'author,date',
-                        'options' => array(
-                            'author'    => __('Author', 'uabb'),
-                            'date'      => __('Date', 'uabb'),
-                        ),
-                    ),
-                    'show_meta_author' => array(
-                        'type'          => 'uabb-toggle-switch',
-                        'label'         => __( 'Display Author', 'uabb' ),
-                        'help'          => __('Enable this to display author of posts.', 'skeleton-warrior'),
-                        'default'       => 'yes',
-                        'options'       => array(
-                            'yes'       => __( 'Yes', 'uabb' ),
-                            'no'        => __( 'No', 'uabb' ),
-                        )
-                    ),
-                    'show_meta_date' => array(
-                        'type'          => 'uabb-toggle-switch',
-                        'label'         => __( 'Display Date', 'uabb' ),
-                        'help'          => __('Enable this to display publication date of posts.', 'skeleton-warrior'),
-                        'default'       => 'yes',
-                        'options'       => array(
-                            'yes'       => __( 'Yes', 'uabb' ),
-                            'no'        => __( 'No', 'uabb' ),
-                        )
-                    ),
                     'post_meta_color'        => array(
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
@@ -335,21 +410,6 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
              'excerpt' => array(
                 "title" => __("Excerpt", "skeleton-warrior"),
                  "fields" => array(
-                    'show_excerpt' => array(
-                        'type'          => 'uabb-toggle-switch',
-                        'label'         => __( 'Display Content', 'uabb' ),
-                        'help'          => __('Enable this to display content of posts in a module.', 'uabb'),
-                        'default'       => 'yes',
-                        'options'       => array(
-                            'yes'       => __( 'Yes', 'uabb' ),
-                            'no'        => __( 'No', 'uabb' ),
-                        ),
-                        'toggle'    => array(
-                            'yes'    => array(
-                                'fields' => array('post_excerpt_color', 'post_excerpt_font_size', 'post_excerpt_line_height', 'post_excerpt_margin')
-                            )
-                        ),
-                    ),
                     'post_excerpt_color'        => array(
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
@@ -420,21 +480,6 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
              'cta' => array(
                 "title" => __("Permalink/CTA", "skeleton-warrior"),
                  "fields" => array(
-                    'show_cta' => array(
-                        'type'          => 'uabb-toggle-switch',
-                        'label'         => __( 'Display CTA', 'uabb' ),
-                        'help'          => __('Enable this to display call to action in a module.', 'uabb'),
-                        'default'       => 'yes',
-                        'options'       => array(
-                            'yes'       => __( 'Yes', 'uabb' ),
-                            'no'        => __( 'No', 'uabb' ),
-                        ),
-                        'toggle'    => array(
-                            'yes'    => array(
-                                'fields' => array('post_permalink_color', 'post_permalink_font_size', 'post_permalink_line_height', 'post_permalink_margin')
-                            )
-                        ),
-                    ),
                     'post_permalink_color'        => array(
                         'type'       => 'color',
                         'label'      => __('Color', 'uabb'),
@@ -501,7 +546,77 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         )
                     ),
                  )
-             )
-			),
-		),
-) );
+            ),
+             'cta' => array(
+                "title" => __("Permalink/CTA", "skeleton-warrior"),
+                 "fields" => array(
+                    'post_permalink_color'        => array(
+                        'type'       => 'color',
+                        'label'      => __('Color', 'uabb'),
+                        'default'    => '',
+                        'show_reset' => true,
+                        'preview'         => array(
+                            'type'            => 'css',
+                            'selector'        => '.Article-related_post_permalink',
+                            'property'        => 'color',
+                        )
+                    ),
+                     "post_permalink_font" => array(
+                        'type'          => 'font',
+                        'label'         => __( 'Font Family', 'uabb' ),
+                        'default'       => array(
+                            'family'        => 'Default',
+                            'weight'        => 'Default'
+                        ),
+                        'preview'         => array(
+                            'type'            => 'font',
+                            'selector'        => '.Article-related_post_permalink'
+                        )
+                    ),
+                     "post_permalink_font_size" => array(
+                        'type'          => 'uabb-simplify',
+                        'label'         => __( 'Font Size', 'uabb' ),
+                        'default'       => array(
+                            'desktop'       => '',
+                            'medium'        => '',
+                            'small'         => '',
+                        ),
+                        'preview'         => array(
+                            'type'            => 'css',
+                            'selector'        => '.Article-related_post_permalink',
+                            'property'        => 'font-size',
+                            'unit'            => 'px'
+                        )
+                    ),
+                    'post_permalink_line_height'    => array(
+                        'type'          => 'uabb-simplify',
+                        'label'         => __( 'Line Height', 'uabb' ),
+                        'default'       => array(
+                            'desktop'       => '',
+                            'medium'        => '',
+                            'small'         => '',
+                        ),
+                        'preview'         => array(
+                            'type'            => 'css',
+                            'selector'        => '.Article-related_post_permalink',
+                            'property'        => 'line-height',
+                            'unit'            => 'px'
+                        )
+                    ),
+                    'post_permalink_margin'        => array(
+                        'type'      => 'uabb-spacing',
+                        'label' => __('Spacing', 'skeleton-warrior'),
+                        'default'   => 'margin: 0px;',    //optional
+                        'mode'      => 'margin',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.Article-related_post_permalink',
+                            'property'      => 'margin',
+                            'unit'          => 'px',
+                        )
+                    ),
+                 )
+            )
+        ),
+    )
+));
