@@ -323,6 +323,22 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                             'unit'            => 'px'
                         )
                     ),
+                    'post_title_text_transform'        => array(
+                        'type'       => 'select',
+                        'label'      => __('Text transform', 'skeleton-warrior'),
+                        'default'    => 'none',
+                        'options'    => array(
+                            'none' => __("Leave text as-is", 'skeleton-warrior'),
+                            'capitalize' => __("Capitalize All Words", 'skeleton-warrior'),
+                            'uppercase' => __("FORCE UPPERCASE", 'skeleton-warrior'),
+                            'lowercase' => __("force lowercase", 'skeleton-warrior'),
+                        ),
+                        'preview'         => array(
+                            'type'            => 'css',
+                            'selector'        => '.Article-related_post_title',
+                            'property'        => 'text-transform',
+                        )
+                    ),
                     'post_title_margin'        => array(
                         'type'      => 'uabb-spacing',
                         'label' => __('Spacing', 'skeleton-warrior'),
@@ -391,6 +407,22 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                             'selector'        => '.Article-related_post_meta',
                             'property'        => 'line-height',
                             'unit'            => 'px'
+                        )
+                    ),
+                    'post_meta_text_transform'        => array(
+                        'type'       => 'select',
+                        'label'      => __('Text transform', 'skeleton-warrior'),
+                        'default'    => 'none',
+                        'options'    => array(
+                            'none' => __("Leave text as-is", 'skeleton-warrior'),
+                            'capitalize' => __("Capitalize All Words", 'skeleton-warrior'),
+                            'uppercase' => __("FORCE UPPERCASE", 'skeleton-warrior'),
+                            'lowercase' => __("force lowercase", 'skeleton-warrior'),
+                        ),
+                        'preview'         => array(
+                            'type'            => 'css',
+                            'selector'        => '.Article-related_post_meta',
+                            'property'        => 'text-transform',
                         )
                     ),
                     'post_meta_margin'        => array(
@@ -463,6 +495,22 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                             'unit'            => 'px'
                         )
                     ),
+                    'post_excerpt_text_transform'        => array(
+                        'type'       => 'select',
+                        'label'      => __('Text transform', 'skeleton-warrior'),
+                        'default'    => 'none',
+                        'options'    => array(
+                            'none' => __("Leave text as-is", 'skeleton-warrior'),
+                            'capitalize' => __("Capitalize All Words", 'skeleton-warrior'),
+                            'uppercase' => __("FORCE UPPERCASE", 'skeleton-warrior'),
+                            'lowercase' => __("force lowercase", 'skeleton-warrior'),
+                        ),
+                        'preview'         => array(
+                            'type'            => 'css',
+                            'selector'        => '.Article-related_post_excerpt',
+                            'property'        => 'text-transform',
+                        )
+                    ),
                     'post_excerpt_margin'        => array(
                         'type'      => 'uabb-spacing',
                         'label' => __('Spacing', 'skeleton-warrior'),
@@ -533,74 +581,20 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                             'unit'            => 'px'
                         )
                     ),
-                    'post_permalink_margin'        => array(
-                        'type'      => 'uabb-spacing',
-                        'label' => __('Spacing', 'skeleton-warrior'),
-                        'default'   => 'margin: 0px;',    //optional
-                        'mode'      => 'margin',
-                        'preview'         => array(
-                            'type'          => 'css',
-                            'selector'      => '.Article-related_post_permalink',
-                            'property'      => 'margin',
-                            'unit'          => 'px',
-                        )
-                    ),
-                 )
-            ),
-             'cta' => array(
-                "title" => __("Permalink/CTA", "skeleton-warrior"),
-                 "fields" => array(
-                    'post_permalink_color'        => array(
-                        'type'       => 'color',
-                        'label'      => __('Color', 'uabb'),
-                        'default'    => '',
-                        'show_reset' => true,
-                        'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.Article-related_post_permalink',
-                            'property'        => 'color',
-                        )
-                    ),
-                     "post_permalink_font" => array(
-                        'type'          => 'font',
-                        'label'         => __( 'Font Family', 'uabb' ),
-                        'default'       => array(
-                            'family'        => 'Default',
-                            'weight'        => 'Default'
-                        ),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.Article-related_post_permalink'
-                        )
-                    ),
-                     "post_permalink_font_size" => array(
-                        'type'          => 'uabb-simplify',
-                        'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
+                    'post_permalink_text_transform'        => array(
+                        'type'       => 'select',
+                        'label'      => __('Text transform', 'skeleton-warrior'),
+                        'default'    => 'none',
+                        'options'    => array(
+                            'none' => __("Leave text as-is", 'skeleton-warrior'),
+                            'capitalize' => __("Capitalize All Words", 'skeleton-warrior'),
+                            'uppercase' => __("FORCE UPPERCASE", 'skeleton-warrior'),
+                            'lowercase' => __("force lowercase", 'skeleton-warrior'),
                         ),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.Article-related_post_permalink',
-                            'property'        => 'font-size',
-                            'unit'            => 'px'
-                        )
-                    ),
-                    'post_permalink_line_height'    => array(
-                        'type'          => 'uabb-simplify',
-                        'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
-                        'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.Article-related_post_permalink',
-                            'property'        => 'line-height',
-                            'unit'            => 'px'
+                            'property'        => 'text-transform',
                         )
                     ),
                     'post_permalink_margin'        => array(
@@ -616,7 +610,7 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         )
                     ),
                  )
-            )
+            ),
         ),
     )
 ));
