@@ -160,7 +160,7 @@ function beaver_warrior_Comment_customize_register() {
         "section" => "bw-comments",
         "settings" => "bw-comments-form-bg-color",
         "label" => __("Comment Form Background Color", 'skeleton_warrior'),
-        "priority" => 7,
+        "priority" => 8,
     )));
     
     $wp_customize->add_setting("bw-comments-form-color", array(
@@ -171,7 +171,29 @@ function beaver_warrior_Comment_customize_register() {
         "section" => "bw-comments",
         "settings" => "bw-comments-form-color",
         "label" => __("Comment Form Color", 'skeleton_warrior'),
-        "priority" => 7,
+        "priority" => 9,
+    )));
+    
+    $wp_customize->add_setting("bw-comments-submit-bg-color", array(
+        "default" => "#222222"
+    ));
+    
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, "bw-comments-submit-bg-color", array(
+        "section" => "bw-comments",
+        "settings" => "bw-comments-submit-bg-color",
+        "label" => __("Comment Submit Button Background Color", 'skeleton_warrior'),
+        "priority" => 10,
+    )));
+    
+    $wp_customize->add_setting("bw-comments-submit-color", array(
+        "default" => "#ffffff"
+    ));
+    
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, "bw-comments-submit-color", array(
+        "section" => "bw-comments",
+        "settings" => "bw-comments-submit-color",
+        "label" => __("Comment Submit Button Color", 'skeleton_warrior'),
+        "priority" => 11,
     )));
 }
 add_action("customize_register", "beaver_warrior_Comment_customize_register", 11);
@@ -186,6 +208,8 @@ function beaver_warrior_Comment_bw_less_vars($vars, $mods) {
     $vars["bw-comments-form-hilight-color"] = FLColor::hex_or_transparent(get_theme_mod("bw-comments-form-hilight-color"));
     $vars["bw-comments-form-bg-color"] = FLColor::hex_or_transparent(get_theme_mod("bw-comments-form-bg-color"));
     $vars["bw-comments-form-color"] = FLColor::hex_or_transparent(get_theme_mod("bw-comments-form-color"));
+    $vars["bw-comments-submit-bg-color"] = FLColor::hex_or_transparent(get_theme_mod("bw-comments-submit-bg-color"));
+    $vars["bw-comments-submit-color"] = FLColor::hex_or_transparent(get_theme_mod("bw-comments-submit-color"));
     
     return $vars;
 }

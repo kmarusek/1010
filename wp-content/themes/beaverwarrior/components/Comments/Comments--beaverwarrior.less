@@ -9,6 +9,9 @@
 @Comments-form_comment--bg_color: @bw-comments-form-bg-color;
 @Comments-form_comment--color: @bw-comments-form-color;
 
+@Comments-submit_action--bg_color: @bw-comments-submit-bg-color;
+@Comments-submit_action--color: @bw-comments-submit-color;
+
 .Comments-list {
     margin: 0;
 }
@@ -82,4 +85,14 @@
     background-color: @Comments-form_comment--bg_color;
     color: @Comments-form_comment--color;
     margin-top: 0;
+}
+
+.Comments-submit_action,
+input[type="submit"].Comments-submit_action {
+    background-color: @Comments-submit_action--bg_color;
+    color: @Comments-submit_action--color;
+    
+    border-width: 0px;
+    border-radius: 0px;
+    width: 100%;
 }

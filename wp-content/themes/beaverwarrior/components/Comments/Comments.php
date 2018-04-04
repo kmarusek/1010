@@ -40,7 +40,7 @@ $required_text = sprintf( ' ' . __('Required fields are marked %s'), '<span clas
 
 $comment_form_args = array(
     'class_form' => 'Comments-form_inner',
-    'class_submit' => 'FormItem-action FormItem-action--primary',
+    'class_submit' => 'FormItem-action FormItem-action--primary Comments-submit_action',
     'submit_field' => '<div class="FormItem--actions">%1$s %2$s</div>',
     'title_reply_before'   => '<h3 id="reply-title" class="Comments-form_title">',
     'comment_notes_before' => '<p class="Comments-form_notes"><span id="email-notes">' . __( 'Your email address will not be published.' ) . '</span>'. ( $req ? $required_text : '' ) . '</p>',
