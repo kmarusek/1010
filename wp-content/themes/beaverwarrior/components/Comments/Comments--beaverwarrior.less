@@ -6,6 +6,8 @@
 @Comments-comment_link--color: @bw-comments-link-color;
 
 @Comments-form_comment--hilight_color: @bw-comments-form-hilight-color;
+@Comments-form_comment--bg_color: @bw-comments-form-bg-color;
+@Comments-form_comment--color: @bw-comments-form-color;
 
 .Comments-list {
     margin: 0;
@@ -60,9 +62,24 @@
     }
 }
 
+.Comments-form .logged-in-as {
+    .make-Gutter();
+    
+    a {
+        color: @Comments-comment_link--color;
+    }
+}
+
+.Comments-form_comment textarea {
+    min-height: 100px;
+}
+
 .Comments-form_comment textarea,
 .Comments-form_author input,
 .Comments-form_email input,
 .Comments-form_url input {
     border-color: @Comments-form_comment--hilight_color;
+    background-color: @Comments-form_comment--bg_color;
+    color: @Comments-form_comment--color;
+    margin-top: 0;
 }

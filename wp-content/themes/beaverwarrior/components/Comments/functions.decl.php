@@ -151,6 +151,28 @@ function beaver_warrior_Comment_customize_register() {
         "label" => __("Comment Form Highlight Color", 'skeleton_warrior'),
         "priority" => 7,
     )));
+    
+    $wp_customize->add_setting("bw-comments-form-bg-color", array(
+        "default" => "#ffffff"
+    ));
+    
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, "bw-comments-form-bg-color", array(
+        "section" => "bw-comments",
+        "settings" => "bw-comments-form-bg-color",
+        "label" => __("Comment Form Background Color", 'skeleton_warrior'),
+        "priority" => 7,
+    )));
+    
+    $wp_customize->add_setting("bw-comments-form-color", array(
+        "default" => "#000000"
+    ));
+    
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, "bw-comments-form-color", array(
+        "section" => "bw-comments",
+        "settings" => "bw-comments-form-color",
+        "label" => __("Comment Form Color", 'skeleton_warrior'),
+        "priority" => 7,
+    )));
 }
 add_action("customize_register", "beaver_warrior_Comment_customize_register", 11);
 
@@ -160,8 +182,10 @@ function beaver_warrior_Comment_bw_less_vars($vars, $mods) {
     $vars["bw-comments-padding"] = get_theme_mod("bw-comments-padding", 20) . "px";
     $vars["bw-comments-border-radius"] = get_theme_mod("bw-comments-border-radius", 10) . "px";
     $vars["bw-comments-link-color"] = FLColor::hex_or_transparent(get_theme_mod("bw-comments-link-color"));
-    $vars["bw-comments-form-hilight-color"] = FLColor::hex_or_transparent(get_theme_mod("bw-comments-form-hilight-color"));
     $vars["bw-comments-spacing"] = get_theme_mod("bw-comments-spacing", 10) . "px";
+    $vars["bw-comments-form-hilight-color"] = FLColor::hex_or_transparent(get_theme_mod("bw-comments-form-hilight-color"));
+    $vars["bw-comments-form-bg-color"] = FLColor::hex_or_transparent(get_theme_mod("bw-comments-form-bg-color"));
+    $vars["bw-comments-form-color"] = FLColor::hex_or_transparent(get_theme_mod("bw-comments-form-color"));
     
     return $vars;
 }
