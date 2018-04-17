@@ -1,3 +1,35 @@
+== 2.5.2 ==
+Release date: April 11, 2018
+* Enhancement: Photo Gallery - Upgraded to Fancybox v3
+* Enhancement: Smart Heading - Added Text Shadow option for Title
+* Enhancement: Smart Heading - Added Gradient Color option for Title
+* Enhancement: Image Carousel - Added alpha channel for Arrow background color field
+* Enhancement: Facebook Page - Added option for width
+* Enhancement: Facebook Comments - Added option for width
+* Enhancement: Subscribe Form - Added option to display a checkbox for GDPR compliance
+* Enhancement: Contact Form - Added option to display a checkbox for GDPR compliance
+* Enhancement: Restaurant Menu - Added field connections for Price & Unit fields
+* Enhancement: Info Box - Added hook pp_infobox_layout_path for custom layout
+* Fix: Content Grid - Missing first post when used with Beaver Themer for Archive Layouts
+* Fix: Info Box - Icon alignment issue
+* Fix: Image Carousel - Large thumbnail image sizes
+* Fix: Image Carousel - Extra padding when pagination is disabled
+* Fix: Modal Box - Empty width field causing JS error
+* Fix: Content Tiles - Broken HTML markup when the number of posts on the front end was less than the number of posts in tile layout
+* Fix: Content Tiles - PHP notice due to new image size options
+* Fix: 3D Slider - Magnific Popup CSS conflict with other plugins using MFP
+* Fix: Filterable Gallery - Magnific Popup CSS conflict with other plugins using MFP
+* Fix: Smart Button - Responsive typography settings
+* Fix: Facebook Modules - SDK error
+* Fix: Facebook Embed - PHP notice due to undefined variable
+* Fix: Restaurant Menu - Incorrect positioning of the module when Page Builder was active
+* Fix: Filterable Gallery - Filter via URL not working with some caching plugins
+* Fix: Smart Headings - Use responsive breakpoints from BB settings
+* Fix: Smart Banner - Animation not working on mobile devices
+* Fix: Advanced Tabs - Label styling issues
+* Fix: PHP Error when using "Add New" option for Saved Modules in Builder admin
+* Fix: Templates Library was not working sometimes due to server configuration
+
 == 2.5.1 ==
 Release date: March 23, 2018
 * Enhancement: Hover Cards - Added options for Title & Description Hover colors

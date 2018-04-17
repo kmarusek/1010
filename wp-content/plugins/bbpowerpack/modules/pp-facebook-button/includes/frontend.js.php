@@ -1,11 +1,9 @@
 ;(function($) {
 	$(document).ready(function() {
-		if ( $( '#fb-root' ).length === 0 ) {
-			$('body').append('<div id="fb-root"></div>');
-		}
-		
 		new PPFacebookButton({
 			id: '<?php echo $id; ?>',
+			sdkUrl: '<?php echo pp_get_fb_sdk_url(); ?>',
+			currentUrl: '<?php echo get_permalink(); ?>'
 		});
 	});
 })(jQuery);

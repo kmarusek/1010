@@ -175,6 +175,59 @@
 	margin-left: <?php echo $settings->space_bt_icon_text; ?>px;
 }
 
+<?php if ( 'left' == $settings->alignment ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-1 .pp-infobox-description,
+	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-2 .pp-infobox-description,
+	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-1 .pp-heading-wrapper,
+	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-2 .pp-heading-wrapper {
+		float: left;
+	}
+	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-4 .pp-heading-wrapper {
+		flex: 0 1 auto;
+	}
+<?php } ?>
+
+<?php if ( 'center' == $settings->alignment ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-1 .pp-infobox-description,
+	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-2 .pp-infobox-description {
+		float: none;
+	}
+	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-1 .pp-heading-wrapper,
+	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-2 .pp-heading-wrapper {
+		margin: 0 auto;
+		float: none;
+	}
+	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-3 .pp-heading-wrapper,
+	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-3 .pp-icon-wrapper,
+	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-4 .pp-heading-wrapper,
+	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-4 .pp-icon-wrapper {
+		flex: auto;
+	}
+<?php } ?>
+
+<?php if ( 'right' == $settings->alignment ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-1 .pp-heading-wrapper,
+	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-2 .pp-heading-wrapper,
+	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-1 .pp-infobox-description,
+	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-2 .pp-infobox-description {
+		float: right;
+	}
+	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-3 .pp-icon-wrapper {
+		flex: 1;
+		text-align: right;
+	}
+	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-3 .pp-heading-wrapper {
+		flex: 0 1 auto;
+	}
+	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-4 .pp-heading-wrapper {
+		flex: 1;
+	}
+	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-4 .pp-icon-wrapper {
+		flex: 0;
+		text-align: right;
+	}
+<?php } ?>
+
 @media only screen and (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) {
 	.fl-node-<?php echo $id; ?> .pp-infobox-title-prefix {
 		<?php if( $settings->title_prefix_font_size_medium ) { ?>font-size: <?php echo $settings->title_prefix_font_size_medium; ?>px;<?php } ?>

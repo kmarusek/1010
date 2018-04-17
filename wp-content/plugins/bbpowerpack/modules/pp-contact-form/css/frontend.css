@@ -37,6 +37,11 @@
 	display: inline-block;
 	margin-right: 10px;
 }
+.pp-contact-form .pp-checkbox label {
+	font-weight: 400;
+	display: inline !important;
+	cursor: pointer !important;
+}
 .pp-contact-form .pp-contact-error {
 	color: #DD4420;
 	display: none;
@@ -73,6 +78,7 @@
 }
 .pp-disabled {
 	opacity: 0.5;
+	pointer-events: none;
 }
 
 .pp-contact-form .fl-button-wrap,

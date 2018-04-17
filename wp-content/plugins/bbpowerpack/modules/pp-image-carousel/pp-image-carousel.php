@@ -157,6 +157,17 @@ class PPImageCarouselModule extends FLBuilderModule {
 					$data->link = $photo->sizes->full->url;
 				}
 
+				// Set thumbnail link
+				if ( isset($photo->sizes->thumbnail) ) {
+					$data->thumb_link = $photo->sizes->thumbnail->url;
+				} elseif ( isset($photo->sizes->medium) ) {
+					$data->thumb_link = $photo->sizes->medium->url;
+				} elseif ( isset($photo->sizes->large) ) {
+					$data->thumb_link = $photo->sizes->large->url;
+				} else {
+					$data->thumb_link = $photo->sizes->full->url;
+				}
+
 				/* Add Custom field attachment data to object */
 	 			$cta_link = get_post_meta( $id, 'gallery_external_link', true );
 				if(!empty($cta_link) && $this->settings->click_action == 'custom-link' ) {
@@ -572,7 +583,7 @@ FLBuilder::register_module('PPImageCarouselModule', array(
 						'default'       => 0,
 						'preview'         => array(
 							'type'            => 'css',
-							'selector'        => '.pp-image-carousel-item, .pp-image-carousel .pp-image-carousel-content .pp-carousel-img',
+							'selector'        => '.pp-image-carousel-item, .pp-image-overlay, .pp-carousel-image-container',
 							'property'        => 'border-radius',
 							'unit'            => 'px'
 						)
@@ -596,20 +607,6 @@ FLBuilder::register_module('PPImageCarouselModule', array(
 							'unit' 		=> 'px'
 						),
                     ),
-					'image_border_radius'	=> array(
-						'type'          => 'text',
-						'label'         => __( 'Round Corners', 'bb-powerpack' ),
-						'description'   => 'px',
-						'size'      	=> 5,
-						'maxlength' 	=> 3,
-						'default'       => '0',
-						'preview'         => array(
-							'type'            => 'css',
-							'selector'        => '.pp-image-carousel-item',
-							'property'        => 'border-radius',
-							'unit'            => 'px'
-						)
-					),
 				)
 			),
 			'overlay_style'	=> array(
@@ -773,15 +770,17 @@ FLBuilder::register_module('PPImageCarouselModule', array(
 						)
 					),
                     'arrow_bg_color'       => array(
-						'type'      => 'color',
-                        'label'     => __( 'Background Color', 'bb-powerpack' ),
-						'show_reset' => true,
-                        'default'   => 'eaeaea',
+						'type'      	=> 'color',
+                        'label'     	=> __( 'Background Color', 'bb-powerpack' ),
+						'show_reset' 	=> true,
+						'show_alpha'	=> true,
+                        'default'   	=> 'eaeaea',
 					),
                     'arrow_bg_hover'       => array(
 						'type'      => 'color',
                         'label'     => __( 'Background Hover Color', 'bb-powerpack' ),
 						'show_reset' => true,
+						'show_alpha'	=> true,
                         'default'   => '4c4c4c'
 					),
 					'arrow_color'       => array(

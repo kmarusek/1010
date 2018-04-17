@@ -25,7 +25,7 @@ class PPRestaurantMenuModule extends FLBuilderModule {
             'url'               => BB_POWERPACK_URL . 'modules/pp-restaurant-menu/',
             'editor_export'     => true,
             'enabled'           => true,
-            'partial_refresh'   => false,
+            'partial_refresh'   => true,
             'icon'				=> 'text.svg',
         ));
     }
@@ -1056,12 +1056,14 @@ FLBuilder::register_settings_form('restaurant_menu_form', array(
                            'type'          => 'text',
                            'label'         => __('Price', 'bb-powerpack'),
                            'size'          =>'8',
-                           'default'       => '9.99',
+						   'default'       => '9.99',
+						   'connections'	=> array('string')
                        ),
                        'menu_items_unit'    => array(
                            'type'               => 'text',
                            'label'              => __('Unit', 'bb-powerpack'),
-                           'help'               => __('For example, per person, pint, or lb etc.', 'bb-powerpack')
+						   'help'               => __('For example, per person, pint, or lb etc.', 'bb-powerpack'),
+						   'connections'		=> array('string')
                        ),
                     )
                 )

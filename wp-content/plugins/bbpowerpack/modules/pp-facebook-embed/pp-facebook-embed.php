@@ -21,13 +21,6 @@ class PPFBEmbedModule extends FLBuilderModule {
 			'enabled'       	=> true, // Defaults to true and can be omitted.
 		));
 	}
-
-	/**
-	 * @method enqueue_scripts
-	 */
-	public function enqueue_scripts() {
-		$this->add_js( 'pp-facebook-sdk' );
-	}
 }
 
 /**

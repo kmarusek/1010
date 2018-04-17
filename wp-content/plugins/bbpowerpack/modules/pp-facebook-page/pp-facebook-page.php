@@ -21,13 +21,6 @@ class PPFBPageModule extends FLBuilderModule {
 			'enabled'       	=> true, // Defaults to true and can be omitted.
 		));
 	}
-
-	/**
-	 * @method enqueue_scripts
-	 */
-	public function enqueue_scripts() {
-		$this->add_js( 'pp-facebook-sdk' );
-	}
 }
 
 /**
@@ -96,6 +89,13 @@ FLBuilder::register_module( 'PPFBPageModule', array(
 							'yes'       	=> __( 'Yes', 'bb-powerpack' ),
 							'no'			=> __( 'No', 'bb-powerpack' ),
 						),
+					),
+					'width'	=> array(
+						'type'			=> 'text',
+						'label'     	=> __( 'Width', 'bb-powerpack' ),
+						'description'	=> __( 'px', 'bb-powerpack' ),
+						'default'		=> '340',
+						'size'			=> 5,
 					),
 					'height'	=> array(
 						'type'			=> 'text',

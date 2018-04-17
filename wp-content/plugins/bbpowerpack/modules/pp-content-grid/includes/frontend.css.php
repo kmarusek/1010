@@ -626,6 +626,12 @@ if($settings->layout == 'grid' || $settings->layout == 'carousel') { // GRID ?>
 		<?php } ?>
 	}
 
+	.fl-node-<?php echo $id; ?> .pp-content-post.pp-grid-style-8 .pp-post-image,
+	.fl-node-<?php echo $id; ?> .pp-content-post.pp-grid-style-8 .pp-content-body {
+		float: none;
+		width: 100%;
+	}
+
 	.fl-node-<?php echo $id; ?> .pp-content-post .pp-post-meta,
     .fl-node-<?php echo $id; ?> .pp-content-post .pp-product-price {
 	   <?php if( $settings->post_meta_font_size >= 0 ) { ?>

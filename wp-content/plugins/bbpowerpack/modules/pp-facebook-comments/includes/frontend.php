@@ -13,7 +13,8 @@ if ( 'current_page' == $settings->url_type ) {
 	$permalink			= esc_url( $settings->url );
 }
 
-$attrs['data-href']	= $permalink;
+$attrs['data-href']		= $permalink;
+$attrs['data-width']	= $settings->width;
 
 foreach ( $attrs as $key => $value ) {
 	$attr .= $key;

@@ -1,36 +1,5 @@
 ;(function($) {
 
-	<?php if ( 'lightbox' == $settings->click_action ) : ?>
-
-		<?php
-		if ( 'lightbox' == $settings->click_action && 'no' == $settings->show_lightbox_thumb ) {
-			$selector = '.fancybox-button';
-		} elseif ( 'yes' == $settings->show_lightbox_thumb ) {
-			$selector = '.fancybox-thumb';
-		}
-		?>
-
-		$(".fl-node-<?php echo $id; ?> .fancybox-button").fancybox({
-			closeBtn		: true,
-			closeClick		: true,
-			modal			: false,
-			wrapCSS			: 'fancybox-<?php echo $id; ?>',
-			helpers		: {
-				title	: { type : 'inside' },
-				<?php if ( 'yes' == $settings->show_lightbox_thumb ) { ?>
-					thumbs	: {
-						width	: 50,
-						height	: 50
-					},
-				<?php } ?>
-			},
-			afterLoad: function(current, previous) {
-				$(".fancybox-<?php echo $id; ?>").parent().addClass('fancybox-<?php echo $id; ?>-overlay');
-			}
-		});
-
-	<?php endif; ?>
-
 	$(".fl-node-<?php echo $id; ?> .pp-photo-gallery-item, .fl-node-<?php echo $id; ?> .pp-gallery-masonry-item").find('.pp-photo-gallery-caption-below').parent().addClass('has-caption');
 
 	<?php
@@ -42,8 +11,10 @@
 		id: '<?php echo $id ?>',
 		layout: '<?php echo $settings->gallery_layout; ?>',
 		spacing: <?php echo '' == $settings->justified_spacing ? 0 : $settings->justified_spacing; ?>,
-		rowheight: <?php echo $row_height; ?>,
-		maxrowheight: <?php echo $max_row_height; ?>,
-		lastrow: '<?php echo $settings->last_row; ?>',
+		rowHeight: <?php echo $row_height; ?>,
+		maxRowHeight: <?php echo $max_row_height; ?>,
+		lastRow: '<?php echo $settings->last_row; ?>',
+		lightbox: <?php echo 'lightbox' == $settings->click_action ? 'true' : 'false'; ?>,
+		lightboxThumbs: <?php echo 'yes' == $settings->show_lightbox_thumb ? 'true' : 'false'; ?>,
 	});
 })(jQuery);

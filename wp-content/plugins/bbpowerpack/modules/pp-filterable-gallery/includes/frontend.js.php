@@ -25,7 +25,8 @@
 							return item.el.next('.fl-node-<?php echo $id; ?> .pp-photo-gallery-caption').text();
 						<?php endif; ?>
 					}
-				}
+				},
+				mainClass: 'mfp-<?php echo $id; ?>'
 			});
 		}
 	<?php endif; ?>

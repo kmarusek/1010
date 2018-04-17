@@ -53,7 +53,9 @@ class PPContentTilesModule extends FLBuilderModule {
 	static public function schema_meta()
 	{
 		// General Schema Meta
-		echo '<meta itemscope itemprop="mainEntityOfPage" itemid="' . get_permalink() . '" />';
+		echo '<meta itemscope itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage" itemid="' . esc_url( get_permalink() ) . '" content="' . the_title_attribute( array(
+			'echo' => false,
+		) ) . '" />';
 		echo '<meta itemprop="datePublished" content="' . get_the_time('Y-m-d') . '" />';
 		echo '<meta itemprop="dateModified" content="' . get_the_modified_date('Y-m-d') . '" />';
 

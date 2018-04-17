@@ -40,7 +40,7 @@
 
 			}
 
-			this._hashChange();
+			$(window).on('load', $.proxy( this._hashChange, this));
 
 			$(window).on('hashchange', $.proxy( this._hashChange, this ));
 

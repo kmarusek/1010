@@ -269,6 +269,7 @@ FLBuilder::register_module('PPContactFormModule', array(
 						'type'		  		=> 'text',
 						'label'		  		=> __( 'Email Subject', 'bb-powerpack' ),
 						'default'			=> __( 'Contact Form Submission', 'bb-powerpack' ),
+						'connections'		=> array( 'string' ),
 						'help'				=> __( 'You can choose the subject of the email. Defaults to Contact Form Submission.', 'bb-powerpack' ),
 					),
 					'message_toggle'   => array(
@@ -279,6 +280,29 @@ FLBuilder::register_module('PPContactFormModule', array(
 							'show'      => __('Show', 'bb-powerpack'),
 							'hide'      => __('Hide', 'bb-powerpack'),
 						)
+					),
+					'checkbox_toggle'	=> array(
+						'type'          => 'pp-switch',
+						'label'         => __('Custom Checkbox Field', 'bb-powerpack'),
+						'default'       => 'hide',
+						'options'       => array(
+							'show'      => __('Show', 'bb-powerpack'),
+							'hide'      => __('Hide', 'bb-powerpack'),
+						),
+						'toggle'		=> array(
+							'show'			=> array(
+								'fields'		=> array('checked_default', 'checkbox_label')
+							)
+						)
+					),
+					'checked_default'	=> array(
+						'type'          => 'pp-switch',
+						'label'         => __('Checked by default', 'bb-powerpack'),
+						'default'       => 'no',
+						'options'       => array(
+							'yes'      		=> __('Yes', 'bb-powerpack'),
+							'no'      		=> __('No', 'bb-powerpack'),
+						),
 					),
 					'display_labels'   => array(
                         'type'         => 'pp-switch',
@@ -297,28 +321,39 @@ FLBuilder::register_module('PPContactFormModule', array(
 					'name_label'	=> array(
 						'type'			=> 'text',
 						'label'			=> __('Name', 'bb-powerpack'),
-						'default'		=> _x( 'Name', 'Contact form Name field label.', 'bb-powerpack' )
+						'default'		=> _x( 'Name', 'Contact form Name field label.', 'bb-powerpack' ),
+						'connections'	=> array( 'string' )
 					),
 					'email_label'	=> array(
 						'type'			=> 'text',
 						'label'			=> __('Email', 'bb-powerpack'),
-						'default'		=> _x( 'Email', 'Contact form Email field label.', 'bb-powerpack' )
+						'default'		=> _x( 'Email', 'Contact form Email field label.', 'bb-powerpack' ),
+						'connections'	=> array( 'string' )
 					),
 					'phone_label'	=> array(
 						'type'			=> 'text',
 						'label'			=> __('Phone', 'bb-powerpack'),
-						'default'		=> _x( 'Phone', 'Contact form Phone field label.', 'bb-powerpack' )
+						'default'		=> _x( 'Phone', 'Contact form Phone field label.', 'bb-powerpack' ),
+						'connections'	=> array( 'string' )
 					),
 					'subject_label'	=> array(
 						'type'			=> 'text',
 						'label'			=> __('Subject', 'bb-powerpack'),
-						'default'		=> _x( 'Subject', 'Contact form Subject field label.', 'bb-powerpack' )
+						'default'		=> _x( 'Subject', 'Contact form Subject field label.', 'bb-powerpack' ),
+						'connections'	=> array( 'string' )
 					),
 					'message_label'	=> array(
 						'type'			=> 'text',
 						'label'			=> __('Message', 'bb-powerpack'),
-						'default'		=> _x( 'Your Message', 'Contact form Message field label.', 'bb-powerpack' )
+						'default'		=> _x( 'Your Message', 'Contact form Message field label.', 'bb-powerpack' ),
+						'connections'	=> array( 'string' )
 					),
+					'checkbox_label'	=> array(
+						'type'			=> 'text',
+						'label'			=> __('Custom Checkbox Field', 'bb-powerpack'),
+						'default'		=> _x( 'I accept the Terms & Conditions', 'Contact form custom checkbox label.', 'bb-powerpack' ),
+						'connections'	=> array( 'string' )
+					)
 				)
 			),
 			'success'       => array(
@@ -351,6 +386,7 @@ FLBuilder::register_module('PPContactFormModule', array(
 						'media_buttons' => false,
 						'rows'          => 8,
 						'default'       => __( 'Thanks for your message! We’ll be in touch soon.', 'bb-powerpack' ),
+						'connections'	=> array( 'string', 'html' ),
 						'preview'       => array(
 							'type'             => 'none'
 						)
@@ -358,6 +394,7 @@ FLBuilder::register_module('PPContactFormModule', array(
 					'success_url'  => array(
 						'type'          => 'link',
 						'label'         => __( 'Success URL', 'bb-powerpack' ),
+						'connections'	=> array( 'url' ),
 						'preview'       => array(
 							'type'             => 'none'
 						)

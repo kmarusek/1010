@@ -514,16 +514,6 @@ if ( 'justified' != $settings->gallery_layout ) {
 	<?php endif; ?>
 }
 
-.fancybox-<?php echo $id; ?> .fancybox-skin {
-	<?php if ( '' != $settings->lightbox_border_width ) { ?>
-		padding: <?php echo $settings->lightbox_border_width; ?>px !important;
-	<?php } ?>
-	<?php if ( '' != $settings->lightbox_border_radius ) { ?>
-		border-radius: <?php echo $settings->lightbox_border_radius; ?>px;
-	<?php } ?>
-	background: <?php echo ( $settings->lightbox_border_color ) ? '#' . $settings->lightbox_border_color : 'transparent'; ?>;
-}
-
 @media only screen and ( max-width: <?php echo $global_settings->medium_breakpoint; ?>px ) {
 	
 	<?php if ( 'justified' != $settings->gallery_layout ) { ?>

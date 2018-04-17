@@ -137,6 +137,8 @@
 	border-style: solid;
 	border-color: transparent;
 	border-bottom: none !important;
+}
+.pp-tabs-horizontal.pp-tabs-default .pp-tabs-label.pp-tab-active {
 	top: 1px;
 }
 

@@ -40,6 +40,14 @@
 				<div class="pp-form-error-message"><?php esc_html_e( 'Please enter a valid email address.', 'bb-powerpack' ); ?></div>
 			</div>
 
+			<?php if ( isset( $settings->checkbox_field ) && 'show' == $settings->checkbox_field ) : ?>
+			<div class="pp-form-field pp-acceptance-field pp-checkbox-input">
+				<input type="checkbox" name="pp-subscribe-form-acceptance" id="pp-subscribe-form-acceptance-<?php echo $id; ?>" value="1" />
+				<label for="pp-subscribe-form-acceptance-<?php echo $id; ?>"><?php echo $settings->checkbox_field_text; ?></label>
+				<div class="pp-form-error-message"><?php esc_html_e( 'Please check the required field.', 'bb-powerpack' ); ?></div>
+			</div>
+			<?php endif; ?>
+
 			<div class="pp-form-button pp-button-wrap" data-wait-text="<?php esc_attr_e( 'Please Wait...', 'bb-powerpack' ); ?>">
 
 				<?php

@@ -41,8 +41,8 @@
         layout: '<?php echo $settings->modal_layout; ?>',
         <?php echo 'yes' == $settings->modal_height_auto ? 'auto_height: true' : 'auto_height: false'; ?>,
         <?php echo 'no' == $settings->modal_height_auto ? 'height:' . $settings->modal_height . ',' : ''; ?>
-        width: <?php echo $settings->modal_width; ?>,
-        breakpoint: <?php echo intval($settings->media_breakpoint); ?>,
+        width: <?php echo empty( $settings->modal_width ) ? 550 : intval( $settings->modal_width ); ?>,
+        breakpoint: <?php echo intval( $settings->media_breakpoint ); ?>,
         <?php if ( $responsive_display != '' && $breakpoint != '' ) { ?>
         visible: $(window).width() <?php echo $breakpoint; ?>,
         <?php } ?>

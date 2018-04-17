@@ -175,6 +175,8 @@
         var parent = button.parents('.pp-template, .pp-template-overlay');
         parent.addClass('activating');
 
+		console.log('Template is downloading...');
+
         jQuery.ajax({
             url: '<?php echo admin_url( 'admin-ajax.php' ); ?>',
             type: 'post',
@@ -190,8 +192,9 @@
                     }
                     parent.removeClass('activating').addClass('active');
                     parent.find('.pp-template-category span').html('Active: ');
+					console.info('Template has downloaded and activated successfully.');
                 } else {
-                    console.log(response);
+                    console.error(response);
                 }
             }
         });
@@ -205,6 +208,8 @@
         var button = jQuery(this);
         var parent = button.parents('.pp-template, .pp-template-overlay');
         parent.addClass('activating').removeClass('active');
+
+		console.log('Template is deactivating...');
 
         jQuery.ajax({
             url: '<?php echo admin_url( 'admin-ajax.php' ); ?>',
@@ -221,9 +226,10 @@
                     }
                     parent.removeClass('activating').removeClass('active');
                     parent.find('.pp-template-category span').html('');
+					console.info('Template has deactivated successfully.');
                 } else {
                     parent.addClass('active')
-                    console.log(response);
+                    console.error(response);
                 }
             }
         });

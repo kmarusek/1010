@@ -45,10 +45,6 @@ div.mfp-wrap .mfp-bottom-bar {
     overflow: hidden;
 }
 
-.pp-image-carousel.pp-carousel-navigation-outside {
-	padding-bottom: 30px;
-}
-
 .pp-image-carousel-item {
     float: left;
 	text-align: center;

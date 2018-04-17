@@ -66,7 +66,7 @@
 	<?php if( $settings->arrow_color ) { ?>
 	color: #<?php echo $settings->arrow_color; ?>;
     <?php } ?>
-    background: <?php echo ($settings->arrow_bg_color) ? '#' . $settings->arrow_bg_color : 'transparent'; ?>;
+    background: <?php echo ( false === strpos( $settings->arrow_bg_color, 'rgb' ) ) ? '#' . $settings->arrow_bg_color : $settings->arrow_bg_color; ?>;
     <?php if( $settings->arrow_border_radius >= 0 ) { ?>
     border-radius: <?php echo $settings->arrow_border_radius; ?>px;
     <?php } ?>
@@ -98,12 +98,18 @@
     color: #<?php echo $settings->arrow_color_hover; ?>;
     <?php } ?>
     <?php if( $settings->arrow_bg_hover ) { ?>
-    background: #<?php echo $settings->arrow_bg_hover; ?>;
+    background: <?php echo ( false === strpos( $settings->arrow_bg_hover, 'rgb' ) ) ? '#' . $settings->arrow_bg_hover : $settings->arrow_bg_hover; ?>;
     <?php } ?>
     <?php if( $settings->arrow_border_hover ) { ?>
     border-color: #<?php echo $settings->arrow_border_hover; ?>;
     <?php } ?>
 }
+
+<?php if( 'bullets' == $settings->pagination_type || 'fraction' == $settings->pagination_type ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-image-carousel.pp-carousel-navigation-outside {
+		padding-bottom: 30px;
+	}
+<?php } ?>
 
 
 <?php if($settings->click_action == 'lightbox') : ?>

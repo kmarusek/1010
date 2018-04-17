@@ -21,13 +21,6 @@ class PPFBButtonModule extends FLBuilderModule {
 			'enabled'       	=> true, // Defaults to true and can be omitted.
 		));
 	}
-
-	/**
-	 * @method enqueue_scripts
-	 */
-	public function enqueue_scripts() {
-		$this->add_js( 'pp-facebook-sdk' );
-	}
 }
 
 /**
@@ -57,6 +50,9 @@ FLBuilder::register_module( 'PPFBButtonModule', array(
 								'fields'	=> array( 'show_share', 'url_type' ),
 							),
 						),
+						'preview'		=> array(
+							'type'			=> 'none'
+						)
 					),
 					'layout'  => array(
 						'type'			=> 'select',
@@ -73,6 +69,9 @@ FLBuilder::register_module( 'PPFBButtonModule', array(
 								'fields'	=> array( 'show_faces' ),
 							),
 						),
+						'preview'		=> array(
+							'type'			=> 'none'
+						)
 					),
 					'size'  => array(
 						'type'			=> 'pp-switch',
@@ -82,6 +81,9 @@ FLBuilder::register_module( 'PPFBButtonModule', array(
 							'small'       	=> __( 'Small', 'bb-powerpack' ),
 							'large'			=> __( 'Large', 'bb-powerpack' ),
 						),
+						'preview'		=> array(
+							'type'			=> 'none'
+						)
 					),
 					'color_scheme'  => array(
 						'type'			=> 'pp-switch',
@@ -91,6 +93,9 @@ FLBuilder::register_module( 'PPFBButtonModule', array(
 							'light'       	=> __( 'Light', 'bb-powerpack' ),
 							'dark'			=> __( 'Dark', 'bb-powerpack' ),
 						),
+						'preview'		=> array(
+							'type'			=> 'none'
+						)
 					),
 					'show_share'  => array(
 						'type'			=> 'pp-switch',
@@ -100,6 +105,9 @@ FLBuilder::register_module( 'PPFBButtonModule', array(
 							'yes'       	=> __( 'Yes', 'bb-powerpack' ),
 							'no'			=> __( 'No', 'bb-powerpack' ),
 						),
+						'preview'		=> array(
+							'type'			=> 'none'
+						)
 					),
 					'show_faces'  => array(
 						'type'			=> 'pp-switch',
@@ -109,6 +117,9 @@ FLBuilder::register_module( 'PPFBButtonModule', array(
 							'yes'       	=> __( 'Yes', 'bb-powerpack' ),
 							'no'			=> __( 'No', 'bb-powerpack' ),
 						),
+						'preview'		=> array(
+							'type'			=> 'none'
+						)
 					),
 					'url_type'  => array(
 						'type'			=> 'pp-switch',
@@ -123,12 +134,18 @@ FLBuilder::register_module( 'PPFBButtonModule', array(
 								'fields'	=> array( 'url' ),
 							),
 						),
+						'preview'		=> array(
+							'type'			=> 'none'
+						)
 					),
 					'url'	=> array(
 						'type'          	=> 'text',
 						'label'         	=> __( 'URL', 'bb-powerpack' ),
 						'placeholder'		=> __( 'http://your-link.com', 'bb-powerpack' ),
 						'connections'   	=> array( 'url' ),
+						'preview'			=> array(
+							'type'				=> 'none'
+						)
 					),
 				),
 			),

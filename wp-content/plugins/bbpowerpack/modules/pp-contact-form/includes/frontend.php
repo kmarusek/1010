@@ -73,7 +73,15 @@
 			<div id="<?php echo $id; ?>-fl-grecaptcha" class="fl-grecaptcha" data-sitekey="<?php echo $settings->recaptcha_site_key; ?>"<?php if ( isset( $settings->recaptcha_validate_type ) ) { echo ' data-validate="' . $settings->recaptcha_validate_type . '"';} ?><?php if ( isset( $settings->recaptcha_theme ) ) { echo ' data-theme="' . $settings->recaptcha_theme . '"';} ?>></div>
 		</div>
 		<?php endif; ?>
-    </div>
+	</div>
+	
+	<?php if ($settings->checkbox_toggle == 'show') : ?>
+    	<div class="pp-input-group pp-checkbox">
+		<input type="checkbox" name="pp-checkbox" id="pp-checkbox_<?php echo $id; ?>" value="1"<?php echo ( isset( $settings->checked_default ) && 'yes' == $settings->checked_default ) ? ' checked="checked"' : ''; ?> />
+		<label for="pp-checkbox_<?php echo $id; ?>"><?php echo ( ! isset( $settings->checkbox_label ) ) ? _x( 'I accept the Terms & Conditions', 'Contact form custom checkbox field label.', 'bb-powerpack' ) : $settings->checkbox_label;?></label>
+		<span class="pp-contact-error"><?php esc_html_e('Please check this field.', 'bb-powerpack');?></span>
+	</div>
+	<?php endif; ?>
 
     <div class="pp-button-wrap fl-button-wrap">
     	<a href="#" target="_self" class="fl-button<?php if ('enable' == $settings->btn_icon_animation): ?> fl-button-icon-animation<?php endif; ?>" role="button">

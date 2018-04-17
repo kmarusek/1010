@@ -32,6 +32,7 @@
 				waitText    	= this.button.closest( '.pp-form-button' ).data( 'wait-text' ),
 				name        	= this.form.find( 'input[name=pp-subscribe-form-name]' ),
 				email       	= this.form.find( 'input[name=pp-subscribe-form-email]' ),
+				acceptance   	= this.form.find( 'input[name=pp-subscribe-form-acceptance]'),
 				re          	= /\S+@\S+\.\S+/,
 				valid       	= true;
 
@@ -40,15 +41,35 @@
 			if ( this.button.hasClass( 'pp-form-button-disabled' ) ) {
 				return; // Already submitting
 			}
-			if ( name.length > 0 && name.val() == '' ) {
-				name.addClass( 'pp-form-error' );
-				name.siblings( '.pp-form-error-message' ).show();
-				valid = false;
+			if ( name.length > 0 ) {
+				if ( name.val() == '' ) {
+					name.addClass( 'pp-form-error' );
+					name.siblings( '.pp-form-error-message' ).show();
+					valid = false;
+				} else {
+					name.removeClass( 'pp-form-error' );
+					name.siblings( '.pp-form-error-message' ).hide();
+				}
 			}
 			if ( '' == email.val() || ! re.test( email.val() ) ) {
 				email.addClass( 'pp-form-error' );
 				email.siblings( '.pp-form-error-message' ).show();
 				valid = false;
+			} else {
+				email.removeClass( 'pp-form-error' );
+				email.siblings( '.pp-form-error-message' ).hide();
+			}
+
+			if ( acceptance.length ) {
+				if ( ! acceptance.is(':checked') ) {
+					valid = false;
+					acceptance.addClass( 'pp-form-error' );
+					acceptance.parent().find( '.pp-form-error-message' ).show();
+				}
+				else {
+					acceptance.removeClass( 'pp-form-error' );
+					acceptance.parent().find( '.pp-form-error-message' ).hide();
+				}
 			}
 
 			if ( valid ) {

@@ -171,7 +171,7 @@ class PPContentGridModule extends FLBuilderModule {
 			return $args;
 		}
 
-		if ( ! isset( $settings->exclude_current_post ) ) {
+		if ( ! isset( $settings->exclude_current_post ) || 'no' == $settings->exclude_current_post ) {
 			return $args;
 		}
 
@@ -347,7 +347,7 @@ FLBuilder::register_module('PPContentGridModule', array(
 						)
 					),
 					'exclude_current_post'	=> array(
-						'type'					=> 'select',
+						'type'					=> 'pp-switch',
 						'label'					=> __('Exclude Current Post', 'bb-powerpack'),
 						'default'				=> 'no',
 						'options'				=> array(

@@ -115,7 +115,11 @@
 	color: #<?php echo $settings->label_active_text_color; ?>;
 }
 
-
+.fl-node-<?php echo $id; ?> .pp-tabs-horizontal.pp-tabs-default .pp-tabs-label.pp-tab-active {
+	<?php if ( ! empty( $settings->label_background_active_color ) ) { ?>
+	top: 0;
+	<?php } ?>
+}
 
 /*  Style 1
 ------------------------------------ */
@@ -141,10 +145,6 @@
 	background: <?php echo pp_hex2rgba('#'.$settings->border_color, '0.7'); ?>;
 }
 
-.fl-node-<?php echo $id; ?> .pp-tabs-style-2 .pp-tabs-label:hover {
-	color: #<?php echo $settings->label_text_color; ?>;
-}
-
 /*  Style 3
 ------------------------------------ */
 
@@ -154,6 +154,7 @@
 
 .fl-node-<?php echo $id; ?> .pp-tabs-style-3 .pp-tabs-label:hover {
 	color: #<?php echo $settings->label_text_color; ?>;
+	background-color: #<?php echo $settings->label_background_color; ?>;
 }
 
 
@@ -162,6 +163,11 @@
 
 .fl-node-<?php echo $id; ?> .pp-tabs-style-4 .pp-tabs-label:before {
 	background-color: #<?php echo $settings->label_active_text_color; ?>;
+}
+
+.fl-node-<?php echo $id; ?> .pp-tabs-style-4 .pp-tabs-label:hover {
+	color: #<?php echo $settings->label_text_color; ?>;
+	background-color: #<?php echo $settings->label_background_color; ?>;
 }
 
 /*  Style 5
@@ -203,7 +209,8 @@
 .fl-node-<?php echo $id; ?> .pp-tabs-style-6 .pp-tabs-label.pp-tab-active,
 .fl-node-<?php echo $id; ?> .pp-tabs-style-6 .pp-tabs-label.pp-tab-active:hover,
 .fl-node-<?php echo $id; ?> .pp-tabs .pp-tabs-style-6 .pp-tabs-label:hover {
-	background-color: transparent;
+	background-color: transparent !important;
+	color: #<?php echo $settings->label_text_color; ?> !important;
 }
 
 .fl-node-<?php echo $id; ?> .pp-tabs-style-6 .pp-tabs-label:last-child:before {

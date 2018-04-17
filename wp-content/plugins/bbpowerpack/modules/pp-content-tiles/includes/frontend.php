@@ -43,17 +43,14 @@ if($query->have_posts()) :
 		
 		$image_size = 'large';
 
-		if ( $count == 1 ) {
-			$image_size = $settings->image_size_large_tile;
-		}
-		if ( $count == 2 && $layout == 1 ) {
-			$image_size = $settings->image_size_large_tile;
+		if ( $count == 1 || ( $count == 2 && $layout == 1 ) ) {
+			$image_size = isset( $settings->image_size_large_tile ) ? $settings->image_size_large_tile : $image_size;
 		}
 		if ( ( $count == 2 || $count == 4 ) && $layout == 2 ) {
-			$image_size = $settings->image_size_small_tile;
+			$image_size = isset( $settings->image_size_small_tile ) ? $settings->image_size_small_tile : $image_size;
 		}
 		if ( ( $count == 3 || $count == 4 ) && ( $layout == 1 || $layout == 2 || $layout == 4 ) ) {
-			$image_size = $settings->image_size_small_tile;
+			$image_size = isset( $settings->image_size_small_tile ) ? $settings->image_size_small_tile : $image_size;
 		}
 
 		if ( in_array( $settings->layout, array(1,2,3,4) ) ) :
@@ -70,7 +67,7 @@ if($query->have_posts()) :
 			if ( $count == 1 ) {
 				echo '</div>';
 			}
-			if ( ($count == 3 && $settings->layout == 3) || ($count == 3 && $settings->layout == 4) || ($count == 4 && $settings->layout == 1) || ($count == 5 && $settings->layout == 2) ) {
+			if ( ( $query->post_count == $count ) || ($count == 3 && $settings->layout == 3) || ($count == 3 && $settings->layout == 4) || ($count == 4 && $settings->layout == 1) || ($count == 5 && $settings->layout == 2) ) {
 				echo '</div>';
 			}
 

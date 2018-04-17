@@ -9,6 +9,38 @@ $space_mobile = ( $settings->photo_grid_count['mobile'] - 1 ) * $settings->photo
 $photo_columns_mobile = ( 100 - $space_mobile ) / $settings->photo_grid_count['mobile'];
 ?>
 
+div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-close {
+	opacity: 1;
+    background-color: rgba(0,0,0,0.8) !important;
+    padding: 1px 7px !important;
+    height: 30px;
+    width: 30px;
+    border-radius: 0;
+    line-height: 1 !important;
+    font-family: inherit !important;
+    font-weight: bold !important;
+	font-size: 16px;
+    text-align: center !important;
+    top: 0 !important;
+    right: 0 !important;
+}
+
+.admin-bar div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-close,
+.admin-bar div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-close:active,
+.admin-bar div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-close:hover,
+.admin-bar div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-close:focus {
+    top: 0 !important;
+}
+
+div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-close:hover,
+div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-close:focus {
+	background-color: #000 !important;
+}
+
+div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-bottom-bar {
+    margin-top: 10px;
+}
+
 .fl-node-<?php echo $id; ?> .pp-photo-gallery,
 .fl-node-<?php echo $id; ?> .pp-masonry-content {
 	margin: -<?php echo $settings->photo_spacing / 2; ?>px;

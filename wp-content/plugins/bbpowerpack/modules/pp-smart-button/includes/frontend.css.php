@@ -723,39 +723,45 @@ if( $settings->style == 'flat' ) {
 }
 ?>
 
-<?php if ( $settings->responsive_bp >= 768 ) { ?>
-@media only screen and ( max-width: <?php echo $settings->responsive_bp; ?>px ) {
+<?php
+$responsive_bp = empty( $settings->responsive_bp ) ? 768 : absint( $settings->responsive_bp );
+?>
+
+<?php if ( $responsive_bp >= 768 ) { ?>
+@media only screen and ( max-width: <?php echo $responsive_bp; ?>px ) {
 	.fl-node-<?php echo $id; ?> .pp-button-wrap.pp-button-left {
 		text-align: center;
 	}
 }
 <?php } ?>
-<?php if ( isset( $settings->line_height['tablet'] ) && '' != $settings->line_height['tablet'] ) { ?>
-@media only screen and ( max-width: 768px ) {
-	.fl-node-<?php echo $id; ?> .pp-button-wrap a.pp-button,
-	.fl-node-<?php echo $id; ?> .pp-button-wrap a.pp-button:visited {
-		line-height: <?php echo $settings->line_height['tablet']; ?>;
-	}
-	.fl-node-<?php echo $id; ?> a.pp-button .pp-button-text {
-		font-size: <?php echo $settings->font_size['tablet']; ?>px;
-	}
-}
-<?php } ?>
 
-@media only screen and (max-width: <?php echo $settings->responsive_bp; ?>px) {
+@media only screen and ( max-width: <?php echo $responsive_bp; ?>px ) {
+	<?php if ( isset( $settings->line_height['tablet'] ) && '' != $settings->line_height['tablet'] ) { ?>
+		.fl-node-<?php echo $id; ?> .pp-button-wrap a.pp-button,
+		.fl-node-<?php echo $id; ?> .pp-button-wrap a.pp-button:visited {
+			line-height: <?php echo $settings->line_height['tablet']; ?>;
+		}
+	<?php } ?>
+	<?php if ( isset( $settings->font_size['tablet'] ) && '' != $settings->font_size['tablet'] ) { ?>
+		.fl-node-<?php echo $id; ?> a.pp-button .pp-button-text {
+			font-size: <?php echo $settings->font_size['tablet']; ?>px;
+		}
+	<?php } ?>
 	.fl-node-<?php echo $id; ?> .pp-button-wrap {
 		text-align: <?php echo $settings->responsive_align; ?> !important;
 	}
 }
 
-<?php if ( isset( $settings->line_height['mobile'] ) && '' != $settings->line_height['mobile'] ) { ?>
 @media only screen and ( max-width: 480px ) {
-	.fl-node-<?php echo $id; ?> .pp-button-wrap a.pp-button,
-	.fl-node-<?php echo $id; ?> .pp-button-wrap a.pp-button:visited {
-		line-height: <?php echo $settings->line_height['mobile']; ?>;
-	}
-	.fl-node-<?php echo $id; ?> a.pp-button .pp-button-text {
-		font-size: <?php echo $settings->font_size['mobile']; ?>px;
-	}
+	<?php if ( isset( $settings->line_height['mobile'] ) && '' != $settings->line_height['mobile'] ) { ?>
+		.fl-node-<?php echo $id; ?> .pp-button-wrap a.pp-button,
+		.fl-node-<?php echo $id; ?> .pp-button-wrap a.pp-button:visited {
+			line-height: <?php echo $settings->line_height['mobile']; ?>;
+		}
+	<?php } ?>
+	<?php if ( isset( $settings->font_size['mobile'] ) && '' != $settings->font_size['mobile'] ) { ?>
+		.fl-node-<?php echo $id; ?> a.pp-button .pp-button-text {
+			font-size: <?php echo $settings->font_size['mobile']; ?>px;
+		}
+	<?php } ?>
 }
-<?php } ?>

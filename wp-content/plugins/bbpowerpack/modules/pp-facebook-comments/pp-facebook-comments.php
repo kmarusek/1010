@@ -21,13 +21,6 @@ class PPFBCommentsModule extends FLBuilderModule {
 			'enabled'       	=> true, // Defaults to true and can be omitted.
 		));
 	}
-
-	/**
-	 * @method enqueue_scripts
-	 */
-	public function enqueue_scripts() {
-		$this->add_js( 'pp-facebook-sdk' );
-	}
 }
 
 /**
@@ -77,6 +70,13 @@ FLBuilder::register_module( 'PPFBCommentsModule', array(
 						'label'         	=> __( 'URL', 'bb-powerpack' ),
 						'placeholder'		=> __( 'http://your-link.com', 'bb-powerpack' ),
 						'connections'   	=> array( 'url' ),
+					),
+					'width'	=> array(
+						'type'			=> 'text',
+						'label'     	=> __( 'Width', 'bb-powerpack' ),
+						'description'	=> __( 'px', 'bb-powerpack' ),
+						'default'		=> '550',
+						'size'			=> 5,
 					),
 				),
 			),

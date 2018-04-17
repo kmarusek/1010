@@ -42,6 +42,7 @@ class PPSubscribeFormModule extends FLBuilderModule {
 	{
 		$name       		= isset( $_POST['name'] ) ? sanitize_text_field( $_POST['name'] ) : false;
 		$email      		= isset( $_POST['email'] ) ? sanitize_email( $_POST['email'] ) : false;
+		$acceptance      	= isset( $_POST['acceptance'] ) && 1 == $_POST['acceptance'] ? true : false;
 		$post_id     		= isset( $_POST['post_id'] ) ? $_POST['post_id'] : false;
 		$node_id    		= isset( $_POST['node_id'] ) ? sanitize_text_field( $_POST['node_id'] ) : false;
 		$template_id    	= isset( $_POST['template_id'] ) ? sanitize_text_field( $_POST['template_id'] ) : false;
@@ -66,28 +67,35 @@ class PPSubscribeFormModule extends FLBuilderModule {
 				$settings = $module->settings;
 			}
 
-			// Subscribe.
-			$instance = FLBuilderServices::get_service_instance( $settings->service );
-			$response = $instance->subscribe( $settings, $email, $name );
-
-			// Check for an error from the service.
-			if ( $response['error'] ) {
-				$result['error'] = $response['error'];
+			// Validate terms and conditions if enabled
+			if ( ( isset( $settings->checkbox_field ) && 'show' == $settings->checkbox_field ) && ! $acceptance ) {
+				$result['error'] = __( 'Please check the required field.', 'bb-powerpack' );
 			}
-			// Setup the success data.
-			else {
 
-				$result['action'] = $settings->success_action;
+			if ( ! $result['error'] ) {
+				// Subscribe.
+				$instance = FLBuilderServices::get_service_instance( $settings->service );
+				$response = $instance->subscribe( $settings, $email, $name );
 
-				if ( 'message' == $settings->success_action ) {
-					$result['message']  = $settings->success_message;
+				// Check for an error from the service.
+				if ( $response['error'] ) {
+					$result['error'] = $response['error'];
 				}
+				// Setup the success data.
 				else {
-					$result['url']  = $settings->success_url;
-				}
-			}
 
-			do_action( 'pp_subscribe_form_submission_complete', $response, $settings, $email, $name, $template_id, $post_id );
+					$result['action'] = $settings->success_action;
+
+					if ( 'message' == $settings->success_action ) {
+						$result['message']  = $settings->success_message;
+					}
+					else {
+						$result['url']  = $settings->success_url;
+					}
+				}
+
+				do_action( 'pp_subscribe_form_submission_complete', $response, $settings, $email, $name, $template_id, $post_id );
+			}
 		}
 		else {
 			$result['error'] = __( 'There was an error subscribing. Please try again.', 'bb-powerpack' );
@@ -358,6 +366,20 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 							)
 						)
 					),
+					'checkbox_field'	=> array(
+						'type'          => 'pp-switch',
+						'label'         => __( 'Checkbox Field', 'bb-powerpack' ),
+						'default'       => 'hide',
+						'options'       => array(
+							'show'          => __( 'Show', 'bb-powerpack' ),
+							'hide'          => __( 'Hide', 'bb-powerpack' ),
+						),
+						'toggle'		=> array(
+							'show'			=> array(
+								'fields'		=> array('checkbox_field_text')
+							)
+						)
+					),
 					'input_name_placeholder' 	=> array(
                         'type'          	=> 'text',
                         'label'         	=> __('Name Field Placeholder Text', 'bb-powerpack'),
@@ -369,7 +391,12 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
                         'label'         	=> __('Email Field Placeholder Text', 'bb-powerpack'),
                         'description'   	=> '',
                         'default'       	=> __('Email Address', 'bb-powerpack'),
-                    ),
+					),
+					'checkbox_field_text'	=> array(
+						'type'					=> 'text',
+						'label'					=> __('Checkbox Field Text'),
+						'default'				=> __('I accept the Terms & Conditions', 'bb-powerpack')
+					)
 				),
 			),
 			'form_footer'	=> array(

@@ -23,10 +23,10 @@ if ( 'video' == $settings->embed_type ) {
 	$attrs['data-show-text'] 		= ( 'yes' == $settings->show_text ) ? 'true' : 'false';
 	$attrs['data-allowfullscreen'] 	= ( 'yes' == $settings->video_allowfullscreen ) ? 'true' : 'false';
 	$attrs['data-autoplay'] 		= ( 'yes' == $settings->video_autoplay ) ? 'true' : 'false';
-	$attrs['data-show-captions'] 	= ( 'yes' == $settings->video_show_captions ) ? 'true' : 'false';
+	$attrs['data-show-captions'] 	= ( 'yes' == $settings->show_captions ) ? 'true' : 'false';
 }
 
-if( '' != $settings->width ) {
+if ( '' != $settings->width ) {
 	$attrs['data-width'] 	= $settings->width;
 }
 

@@ -23,7 +23,7 @@ $item_class .= ( 'justified' == $settings->gallery_layout ) ? ' pp-gallery-justi
 					$click_action_link = $photo->link;
 				}
 			?>
-			<a href="<?php echo $click_action_link; ?>" <?php if ( 'custom-link' == $settings->click_action ) { ?>target="<?php echo $click_action_target; ?>"<?php } ?> <?php if ( 'lightbox' == $settings->click_action ) { ?>class="fancybox-button" rel="fancybox-button"<?php } ?>>
+			<a href="<?php echo $click_action_link; ?>" <?php if ( 'custom-link' == $settings->click_action ) { ?>target="<?php echo $click_action_target; ?>"<?php } ?> <?php if ( 'lightbox' == $settings->click_action ) { ?>rel="nofollow" data-fancybox="images"<?php } ?>>
 			<?php endif; ?>
 
 			<img class="pp-gallery-img" src="<?php echo $photo->src; ?>" alt="<?php echo $photo->alt; ?>" data-no-lazy="1" />

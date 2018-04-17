@@ -7,6 +7,7 @@ if ( ! empty( $settings->page_url ) ) {
 
 	$attrs['data-href'] 			= $settings->page_url;
 	$attrs['data-tabs'] 			= implode( ',', $settings->layout );
+	$attrs['data-width'] 			= $settings->width;
 	$attrs['data-height'] 			= $settings->height;
 	$attrs['data-small-header'] 	= ( 'yes' == $settings->small_header ) ? 'true' : 'false';
 	$attrs['data-hide-cover'] 		= ( 'yes' == $settings->cover ) ? 'false' : 'true';

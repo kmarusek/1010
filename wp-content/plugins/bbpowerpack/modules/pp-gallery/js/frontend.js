@@ -6,7 +6,7 @@
 		this.wrapperClass   = this.nodeClass + ' .pp-photo-gallery';
 		this.itemClass      = this.wrapperClass + ' .pp-photo-gallery-item';
 
-		if(this._hasItem()) {
+		if ( this._hasItem() ) {
 			this._initLayout();
 		}
 	};
@@ -32,6 +32,10 @@
 
 			if ( this.settings.layout === 'justified' ) {
 				this._justifiedLayout();
+			}
+
+			if ( this.settings.lightbox ) {
+				this._initLightbox();
 			}
 
 			$(this.itemClass).css('visibility', 'visible');
@@ -63,14 +67,37 @@
 			wrap.imagesLoaded( $.proxy(function () {
 				$(this.wrapperClass).justifiedGallery({
 					margins: this.settings.spacing,
-					rowHeight: this.settings.rowheight,
-					maxRowHeight: this.settings.maxrowheight,
-					lastRow: this.settings.lastrow,
+					rowHeight: this.settings.rowHeight,
+					maxRowHeight: this.settings.maxRowHeight,
+					lastRow: this.settings.lastRow,
 				});
 			}, this));
 		},
 
+		_initLightbox: function()
+		{
+			var id = this.id;
+			var options = {
+				modal			: false,
+				baseClass		: 'fancybox-' + id,
+				buttons			: [
+					'zoom',
+					'slideShow',
+					'fullScreen',
+					'close'
+				],
+				wheel			: false,
+				afterLoad		: function(current, previous) {
+					$('.fancybox-' + id).find('.fancybox-bg').addClass('fancybox-' + id + '-overlay');
+				}
+			};
 
+			if ( this.settings.lightboxThumbs ) {
+				options.buttons.push( 'thumbs' );
+			}
+
+			$(this.nodeClass).find('a[data-fancybox="images"]').fancybox( options );
+		}
 	};
 
 })(jQuery);

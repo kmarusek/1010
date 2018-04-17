@@ -905,8 +905,89 @@ FLBuilder::register_module('PPHeadingModule', array(
                             'property'  => 'margin-bottom',
                             'unit'      => 'px'
                         )
-                    ),
-                )
+					),
+					'heading_show_shadow'	=> array(
+						'type'                 => 'pp-switch',
+                        'label'                => __( 'Enable Text Shadow', 'bb-powerpack' ),
+                        'default'              => 'no',
+                        'options'              => array(
+                            'yes'          	=> __( 'Yes', 'bb-powerpack' ),
+                            'no'            => __( 'No', 'bb-powerpack' ),
+                        ),
+                        'toggle'    =>  array(
+                            'yes'   => array(
+                                'fields'    => array( 'heading_shadow', 'heading_shadow_color' ),
+							),
+                        ),
+					),
+					'heading_shadow' 		=> array(
+						'type'              => 'pp-multitext',
+						'label'             => __( 'Text Shadow', 'bb-powerpack' ),
+						'default'           => array(
+							'vertical'			=> 2,
+							'horizontal'		=> 2,
+							'blur'				=> 0,
+						),
+						'options'			=> array(
+							'horizontal'		=> array(
+								'placeholder'		=> __('Horizontal', 'bb-powerpack'),
+								'tooltip'			=> __('Horizontal', 'bb-powerpack'),
+								'icon'				=> 'fa-arrows-h'
+							),
+							'vertical'			=> array(
+								'placeholder'		=> __('Vertical', 'bb-powerpack'),
+								'tooltip'			=> __('Vertical', 'bb-powerpack'),
+								'icon'				=> 'fa-arrows-v'
+							),
+							'blur'				=> array(
+								'placeholder'		=> __('Blur', 'bb-powerpack'),
+								'tooltip'			=> __('Blur', 'bb-powerpack'),
+								'icon'				=> 'fa-circle-o'
+							),
+						)
+					),
+					'heading_shadow_color' => array(
+                        'type'              => 'color',
+                        'label'             => __( 'Shadow Color', 'bb-powerpack' ),
+                        'default'           => 'rgba(0,0,0,0.3)',
+						'show_alpha'		=> true
+					),
+					'heading_gradient'	=> array(
+						'type'                 => 'pp-switch',
+                        'label'                => __( 'Enable Gradient Text', 'bb-powerpack' ),
+                        'default'              => 'no',
+                        'options'              => array(
+                            'yes'          	=> __( 'Yes', 'bb-powerpack' ),
+                            'no'            => __( 'No', 'bb-powerpack' ),
+                        ),
+                        'toggle'    =>  array(
+                            'yes'   => array(
+                                'fields'    => array( 'heading_gradient_primary_color', 'heading_gradient_secondary_color', 'heading_gradient_degree' ),
+							),
+                        ),
+					),
+					'heading_gradient_primary_color'	=> array(
+						'type'          		=> 'color',
+						'label'         		=> __( 'Primary Color', 'bb-powerpack' ),
+						'default'       		=> '',
+						'show_reset'    		=> true,
+						'show_alpha'			=> true,
+					),
+					'heading_gradient_secondary_color'	=> array(
+						'type'			=> 'color',
+						'label'     	=> __( 'Secondary Color', 'bb-powerpack' ),
+						'default'		=> '',
+						'show_reset' 	=> true,
+						'show_alpha'	=> true,
+					),
+					'heading_gradient_degree'	=> array(
+						'type'			=> 'text',
+						'label'			=> __('Degree', 'bb-powerpack'),
+						'default'		=> '-90',
+						'placeholder'	=> '-90',
+						'size'			=> '5'
+					)
+                ),
             ),
             'heading2_style'       => array( // Section
                 'title'         => __('Secondary Title', 'bb-powerpack'), // Section Title
@@ -1084,7 +1165,88 @@ FLBuilder::register_module('PPHeadingModule', array(
                             'property'  => 'margin-left',
                             'unit'      => 'px'
                         )
-                    ),
+					),
+					'heading2_show_shadow'	=> array(
+						'type'                 => 'pp-switch',
+                        'label'                => __( 'Enable Text Shadow', 'bb-powerpack' ),
+                        'default'              => 'no',
+                        'options'              => array(
+                            'yes'          	=> __( 'Yes', 'bb-powerpack' ),
+                            'no'            => __( 'No', 'bb-powerpack' ),
+                        ),
+                        'toggle'    =>  array(
+                            'yes'   => array(
+                                'fields'    => array( 'heading2_shadow', 'heading2_shadow_color' ),
+							),
+                        ),
+					),
+					'heading2_shadow' 		=> array(
+						'type'              => 'pp-multitext',
+						'label'             => __( 'Text Shadow', 'bb-powerpack' ),
+						'default'           => array(
+							'vertical'			=> 2,
+							'horizontal'		=> 2,
+							'blur'				=> 0,
+						),
+						'options'			=> array(
+							'horizontal'		=> array(
+								'placeholder'		=> __('Horizontal', 'bb-powerpack'),
+								'tooltip'			=> __('Horizontal', 'bb-powerpack'),
+								'icon'				=> 'fa-arrows-h'
+							),
+							'vertical'			=> array(
+								'placeholder'		=> __('Vertical', 'bb-powerpack'),
+								'tooltip'			=> __('Vertical', 'bb-powerpack'),
+								'icon'				=> 'fa-arrows-v'
+							),
+							'blur'				=> array(
+								'placeholder'		=> __('Blur', 'bb-powerpack'),
+								'tooltip'			=> __('Blur', 'bb-powerpack'),
+								'icon'				=> 'fa-circle-o'
+							),
+						)
+					),
+					'heading2_shadow_color' => array(
+                        'type'              => 'color',
+                        'label'             => __( 'Shadow Color', 'bb-powerpack' ),
+						'default'           => 'rgba(0,0,0,0.3)',
+						'show_alpha'		=> true
+					),
+					'heading2_gradient'	=> array(
+						'type'                 => 'pp-switch',
+                        'label'                => __( 'Enable Gradient Text', 'bb-powerpack' ),
+                        'default'              => 'no',
+                        'options'              => array(
+                            'yes'          	=> __( 'Yes', 'bb-powerpack' ),
+                            'no'            => __( 'No', 'bb-powerpack' ),
+                        ),
+                        'toggle'    =>  array(
+                            'yes'   => array(
+                                'fields'    => array( 'heading2_gradient_primary_color', 'heading2_gradient_secondary_color', 'heading2_gradient_degree' ),
+							),
+                        ),
+					),
+					'heading2_gradient_primary_color'	=> array(
+						'type'          		=> 'color',
+						'label'         		=> __( 'Primary Color', 'bb-powerpack' ),
+						'default'       		=> '',
+						'show_reset'    		=> true,
+						'show_alpha'			=> true,
+					),
+					'heading2_gradient_secondary_color'	=> array(
+						'type'			=> 'color',
+						'label'     	=> __( 'Secondary Color', 'bb-powerpack' ),
+						'default'		=> '',
+						'show_reset' 	=> true,
+						'show_alpha'	=> true,
+					),
+					'heading2_gradient_degree'	=> array(
+						'type'			=> 'text',
+						'label'			=> __('Degree', 'bb-powerpack'),
+						'default'		=> '-90',
+						'placeholder'	=> '-90',
+						'size'			=> '5'
+					)
                 )
             ),
             'sub_heading_style'       => array( // Section

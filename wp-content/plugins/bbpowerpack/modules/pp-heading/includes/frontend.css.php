@@ -44,6 +44,19 @@ div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading .heading-title sp
 	<?php if( 'default' != $settings->heading_text_transform && 'none' != $settings->heading_text_transform ) { ?>
 		text-transform: <?php echo $settings->heading_text_transform; ?>;
 	<?php } ?>
+	<?php if( isset( $settings->heading_show_shadow ) && 'yes' == $settings->heading_show_shadow ) { ?>
+		text-shadow: <?php echo $settings->heading_shadow['horizontal']; ?>px <?php echo $settings->heading_shadow['vertical']; ?>px <?php echo $settings->heading_shadow['blur']; ?>px <?php echo ( false === strpos( $settings->heading_shadow_color, 'rgb' ) ) ? '#' . $settings->heading_shadow_color : $settings->heading_shadow_color; ?>;
+	<?php } ?>
+	<?php if ( isset( $settings->heading_gradient ) && 'yes' == $settings->heading_gradient ) { ?>
+        color: #<?php echo $settings->heading_gradient_primary_color; ?>;
+		<?php $gradient_deg = empty( $settings->heading_gradient_degree ) ? '-90' : intval( $settings->heading_gradient_degree ); ?>
+        background-image: -webkit-linear-gradient(<?php echo $gradient_deg; ?>deg, #<?php echo $settings->heading_gradient_primary_color; ?>, #<?php echo $settings->heading_gradient_secondary_color; ?>);
+        background-image: -moz-linear-gradient(<?php echo $gradient_deg; ?>deg, #<?php echo $settings->heading_gradient_primary_color; ?>, #<?php echo $settings->heading_gradient_secondary_color; ?>);
+        background-image: -ms-linear-gradient(<?php echo $gradient_deg; ?>deg, #<?php echo $settings->heading_gradient_primary_color; ?>, #<?php echo $settings->heading_gradient_secondary_color; ?>);
+        background-image: -o-linear-gradient(<?php echo $gradient_deg; ?>deg, #<?php echo $settings->heading_gradient_primary_color; ?>, #<?php echo $settings->heading_gradient_secondary_color; ?>);
+        -webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	<?php } ?>
 }
 
 div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading .heading-title span.pp-secondary-title {
@@ -78,6 +91,19 @@ div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading .heading-title sp
 	margin-left: <?php echo $settings->heading2_left_margin; ?>px;
 	<?php if( 'default' != $settings->heading2_text_transform ) { ?>
 		text-transform: <?php echo $settings->heading2_text_transform; ?>;
+	<?php } ?>
+	<?php if( isset( $settings->heading2_show_shadow ) && 'yes' == $settings->heading2_show_shadow ) { ?>
+		text-shadow: <?php echo $settings->heading2_shadow['horizontal']; ?>px <?php echo $settings->heading2_shadow['vertical']; ?>px <?php echo $settings->heading2_shadow['blur']; ?>px <?php echo ( false === strpos( $settings->heading2_shadow_color, 'rgb' ) ) ? '#' . $settings->heading2_shadow_color : $settings->heading2_shadow_color; ?>;
+	<?php } ?>
+	<?php if ( isset( $settings->heading2_gradient ) && 'yes' == $settings->heading2_gradient ) { ?>
+		color: #<?php echo $settings->heading2_gradient_primary_color; ?>;
+		<?php $gradient2_deg = empty( $settings->heading2_gradient_degree ) ? '-90' : intval( $settings->heading2_gradient_degree ); ?>
+        background-image: -webkit-linear-gradient(<?php echo $gradient2_deg; ?>deg, #<?php echo $settings->heading2_gradient_primary_color; ?>, #<?php echo $settings->heading2_gradient_secondary_color; ?>);
+        background-image: -moz-linear-gradient(<?php echo $gradient2_deg; ?>deg, #<?php echo $settings->heading2_gradient_primary_color; ?>, #<?php echo $settings->heading2_gradient_secondary_color; ?>);
+        background-image: -ms-linear-gradient(<?php echo $gradient2_deg; ?>deg, #<?php echo $settings->heading2_gradient_primary_color; ?>, #<?php echo $settings->heading2_gradient_secondary_color; ?>);
+        background-image: -o-linear-gradient(<?php echo $gradient2_deg; ?>deg, #<?php echo $settings->heading2_gradient_primary_color; ?>, #<?php echo $settings->heading2_gradient_secondary_color; ?>);
+        -webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
 	<?php } ?>
 }
 
@@ -327,7 +353,7 @@ div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading-separator.line_wi
 	<?php } ?>
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) {
 	div.fl-node-<?php echo $id; ?> .pp-heading-content {
 		text-align: <?php echo $settings->heading_tablet_alignment; ?>;
 	}
@@ -374,7 +400,7 @@ div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading-separator.line_wi
 	}
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
 	div.fl-node-<?php echo $id; ?> .pp-heading-content {
 		text-align: <?php echo $settings->heading_mobile_alignment; ?>;
 	}

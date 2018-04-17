@@ -36,7 +36,14 @@
 				$(location.hash).trigger('click');
 			}
 			else if( location.hash && $(location.hash).length > 0 ) {
-				$(location.hash).trigger('click');
+				if ( ! $(location.hash).hasClass('pp-tab-active') ) {
+					$(location.hash).trigger('click');
+				}
+				$('html, body').animate({
+					scrollTop: $(location.hash).offset().top - 120
+				}, 500);
+				
+				location.href = '#';
 			}
 		},
 

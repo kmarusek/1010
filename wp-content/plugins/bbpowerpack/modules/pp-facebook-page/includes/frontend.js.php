@@ -1,12 +1,8 @@
 ;(function($) {
-
 	$(document).ready(function() {
-		if ( $( '#fb-root' ).length === 0 ) {
-			$('body').append('<div id="fb-root"></div>');
-		}
-
 		new PPFacebookPage({
 			id: '<?php echo $id; ?>',
+			sdkUrl: '<?php echo pp_get_fb_sdk_url(); ?>'
 		});
 	});
 })(jQuery);

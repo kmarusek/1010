@@ -83,102 +83,6 @@ function pp_get_upload_dir()
 }
 
 /**
- * Downloads template file.
- *
- * @since 1.1.7
- * @return bool
- */
-function pp_download_template( $url, $path, $filename = '' )
-{
-    // Initialize the flag.
-    $downloaded = false;
-
-    // Download file.
-    $file = basename( parse_url( $url, PHP_URL_PATH ) );
-	if ( '' != $filename ) {
-		$file = $filename;
-	}
-    if ( $file ) {
-		$path = $path . $file;
-
-		// Delete the file if is already exists.
-		if ( file_exists( $path ) ) {
-			unlink($path);
-		}
-
-		if ( function_exists( 'curl_init' ) ) {
-			$ch = curl_init();
-	        curl_setopt( $ch, CURLOPT_URL, $url );
-	        curl_setopt( $ch, CURLOPT_CONNECTTIMEOUT, 30 );
-	        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-	        $content = curl_exec($ch);
-	        if ( curl_errno($ch) ) {
-	            pp_set_error( 'fetch_error' );
-	            $content = '';
-	        } else {
-	            curl_close($ch);
-	        }
-
-			if ( $content != '' ) {
-				$file = $content;
-	        	file_put_contents( $path, $file );
-	        	$downloaded = true;
-			}
-		}
-
-		// If not downloaded, retrive the content in a new file.
-		if ( ! $downloaded ) {
-			$file = @file_get_contents( $url );
-			if ( ! $file ) {
-				pp_set_error('connection_lost');
-			} else {
-				file_put_contents( $path, $file );
-			}
-		}
-    }
-
-    // Set the flag true if is downloaded.
-    if ( file_exists( $path ) ) {
-        $downloaded = true;
-    }
-
-    return $downloaded;
-}
-
-function pp_download_template_data( $request = '' )
-{
-	if ( 'new' != $request && file_exists( BB_PowerPack::$upload_dir['path'] . 'page-templates.json' ) && file_exists( BB_PowerPack::$upload_dir['path'] . 'row-templates.json' ) ) {
-		return;
-	}
-
-	$page = pp_download_template( 'https://wpbeaveraddons.com/page-templates/template-data/?show=page&export', BB_PowerPack::$upload_dir['path'], 'page-templates.json' );
-	$row = pp_download_template( 'https://wpbeaveraddons.com/page-templates/template-data/?show=row&export', BB_PowerPack::$upload_dir['path'], 'row-templates.json' );
-
-	if ( ! $page || ! $row ) {
-		pp_set_error('connection_lost');
-	}
-}
-
-function pp_get_template_data( $type )
-{
-	$path = BB_PowerPack::$upload_dir['path'];
-	$file = $path . $type . '-templates.json';
-
-	if ( ! file_exists( $file ) ) {
-		pp_download_template_data();
-	}
-
-	$data = @file_get_contents( $file );
-	if ( $data ) {
-		$data = json_decode( $data, true );
-	}
-
-	BB_PowerPack_Admin_Settings::$templates_count[$type] = count( $data );
-
-	return $data;
-}
-
-/**
  * Row templates categories
  */
 function pp_row_templates_categories()
@@ -213,7 +117,7 @@ function pp_row_templates_categories()
  */
 function pp_templates_categories( $type )
 {
-	$templates = pp_get_template_data( $type );
+	$templates = BB_PowerPack_Templates_Lib::get_templates_data( $type );
 	$data = array();
 
 	if ( is_array( $templates ) ) {
@@ -260,7 +164,7 @@ function pp_templates_src( $type = 'page', $category = '' )
 	$url = 'https://s3.amazonaws.com/ppbeaver/data/';
 
 	if ( $type == 'row' ) {
-		$mode 	= BB_PowerPack_Admin_Settings::get_template_scheme();
+		$mode 	= 'color';
 		$url 	= $url . $mode . '/';
 	}
 
@@ -282,7 +186,7 @@ function pp_templates_preview_src( $type = 'page', $category = '' )
 {
     $url = 'https://wpbeaveraddons.com/page-templates/';
 
-	$templates = pp_get_template_data( $type );
+	$templates = BB_PowerPack_Templates_Lib::get_templates_data( $type );
 	$data = array();
 
 	if ( is_array( $templates ) ) {
@@ -611,6 +515,23 @@ function pp_get_fb_app_id()
 	$app_id = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_fb_app_id' );
 
 	return $app_id;
+}
+
+/**
+ * Build the URL of Facebook SDK.
+ *
+ * @since 2.4
+ * @return string
+ */
+function pp_get_fb_sdk_url()
+{
+	$app_id = pp_get_fb_app_id();
+	
+	if ( $app_id && ! empty( $app_id ) ) {
+		return sprintf( 'https://connect.facebook.net/%s/sdk.js#xfbml=1&version=v2.12&appId=%s', get_locale(), $app_id );
+	}
+
+	return sprintf( 'https://connect.facebook.net/%s/sdk.js#xfbml=1&version=v2.12', get_locale() );
 }
 
 function pp_get_fb_app_settings_url()

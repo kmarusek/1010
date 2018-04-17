@@ -407,13 +407,15 @@
             $(this).parent().find('span').removeClass('pp-switch-active');
             $(this).addClass('pp-switch-active');
             if(typeof preview !== 'undefined') {
-                if(preview.type !== 'css') {
-                    setTimeout(function() {
-                       FLBuilder.preview.preview();
-                    }, 100);
-                } else {
-                    PPFields._initFieldCSSPreview( $(this).parents('tr.fl-field') );
-                }
+				if ( preview.type !== 'none' ) {
+					if(preview.type !== 'css') {
+						setTimeout(function() {
+						   FLBuilder.preview.preview();
+						}, 100);
+					} else {
+						PPFields._initFieldCSSPreview( $(this).parents('tr.fl-field') );
+					}
+				}
             }
         },
 

@@ -37,10 +37,6 @@ class PPGalleryModule extends FLBuilderModule {
 		$this->add_css( 'jquery-fancybox' );
 		$this->add_js( 'jquery-fancybox' );
 
-		$this->add_css( 'jquery-fancybox-thumbs' );
-		$this->add_js( 'jquery-fancybox-thumbs' );
-		$this->add_js( 'jquery-fancybox-media' );
-
 		$this->add_css( 'jquery-justifiedgallery' );
 		$this->add_js( 'jquery-justifiedgallery' );
 	}
@@ -929,28 +925,6 @@ FLBuilder::register_module('PPGalleryModule', array(
 						'default'    	=> 'rgba(0,0,0,0.5)',
 						'show_reset'	=> true,
 						'show_alpha'	=> true
-					),
-					'lightbox_border_width'     => array(
-						'type'          => 'text',
-						'label'         => __('Border Width', 'bb-powerpack'),
-						'default'   	=> '',
-						'maxlength'     => 5,
-						'size'          => 6,
-						'description'   => 'px',
-					),
-					'lightbox_border_color' => array(
-						'type'       	=> 'color',
-						'label'     	=> __('Border Color', 'bb-powerpack'),
-						'default'    	=> 'ffffff',
-						'show_reset'	=> true,
-					),
-					'lightbox_border_radius'     => array(
-						'type'          => 'text',
-						'label'         => __('Round Corners', 'bb-powerpack'),
-						'default'   	=> '',
-						'maxlength'     => 5,
-						'size'          => 6,
-						'description'   => 'px',
 					),
 				),
 			)

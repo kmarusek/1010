@@ -16,6 +16,7 @@
 					enabled: true,
 					navigateByImgClick: true,
 				},
+				mainClass: 'mfp-<?php echo $id; ?>'
 			});
 		}
 	<?php } ?>
