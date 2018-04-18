@@ -1,14 +1,15 @@
 .Article-related_posts {
     &--2up {
-        .make-Matrix(2; @Border-width: 0px);
+        .make-Matrix(2; min; @Viewport-xs; @Border-width: 0px);
     }
 
     &--3up {
-        .make-Matrix(3; @Border-width: 0px);
+        .make-Matrix(3; min; @Viewport-sm; @Border-width: 0px);
     }
 
     &--4up {
-        .make-Matrix(4; @Border-width: 0px);
+        .make-Matrix(2; min; @Viewport-xs; @Border-width: 0px);
+        .make-Matrix(4; min; @Viewport-md; @Matrix--previous_column_count: 2; @Border-width: 0px);
     }
 }
 
