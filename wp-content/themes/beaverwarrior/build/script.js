@@ -4071,61 +4071,6 @@ if (!Array.prototype.indexOf) {
 (function (root, factory) {
     "use strict";
     if (typeof define === 'function' && define.amd) {
-        define("StaffGrid", ["jquery", "Behaviors"], factory);
-    } else {
-        root.StaffGrid = factory(root.jQuery, root.Behaviors);
-    }
-}(this, function ($, Behaviors) {
-    "use strict";
-
-    var module = {};
-    
-    function StaffGridSlider() {
-        Behaviors.init(StaffGridSlider, this, arguments);
-        
-        this.$elem.slick({
-            prevArrow: this.$elem.find('[data-staffgrid-prev]'),
-            nextArrow: this.$elem.find('[data-staffgrid-next]')
-        });
-    }
-    
-    Behaviors.inherit(StaffGridSlider, Behaviors.Behavior);
-    
-    StaffGridSlider.QUERY = "[data-staffgrid-slider]";
-    
-    StaffGridSlider.prototype.goto = function (id, animate) {
-        this.$elem.slick('slickGoTo', id, animate);
-    }
-    
-    function StaffGridModal() {
-        Behaviors.init(StaffGridModal, this, arguments);
-        
-        this.slider = StaffGridSlider.locate(this.$elem.find('[data-staffgrid-slider]'));
-        this.$elem.on("offcanvas-open", this.modal_reveal_intent.bind(this));
-    }
-    
-    Behaviors.inherit(StaffGridModal, Behaviors.Behavior);
-    
-    StaffGridModal.QUERY = "[data-staffgrid-modal]";
-    
-    StaffGridModal.prototype.modal_reveal_intent = function (evt) {
-        var slideIndex = $(evt.originalEvent.toggle).data('staffgrid-slider-index');
-        
-        this.slider.goto(slideIndex, true);
-    };
-    
-    Behaviors.register_behavior(StaffGridModal);
-    Behaviors.register_behavior(StaffGridSlider);
-    
-    module.StaffGridModal = StaffGridModal;
-    module.StaffGridSlider = StaffGridSlider;
-    
-    return module;
-}));
-
-(function (root, factory) {
-    "use strict";
-    if (typeof define === 'function' && define.amd) {
         define("accountslidein", ["jquery", "betteroffcanvas"], factory);
     } else {
         // Browser globals
@@ -4183,6 +4128,61 @@ if (!Array.prototype.indexOf) {
     $(window).on("scroll", update_scroll);
 
     update_scroll();
+}));
+
+(function (root, factory) {
+    "use strict";
+    if (typeof define === 'function' && define.amd) {
+        define("StaffGrid", ["jquery", "Behaviors"], factory);
+    } else {
+        root.StaffGrid = factory(root.jQuery, root.Behaviors);
+    }
+}(this, function ($, Behaviors) {
+    "use strict";
+
+    var module = {};
+    
+    function StaffGridSlider() {
+        Behaviors.init(StaffGridSlider, this, arguments);
+        
+        this.$elem.slick({
+            prevArrow: this.$elem.find('[data-staffgrid-prev]'),
+            nextArrow: this.$elem.find('[data-staffgrid-next]')
+        });
+    }
+    
+    Behaviors.inherit(StaffGridSlider, Behaviors.Behavior);
+    
+    StaffGridSlider.QUERY = "[data-staffgrid-slider]";
+    
+    StaffGridSlider.prototype.goto = function (id, animate) {
+        this.$elem.slick('slickGoTo', id, animate);
+    }
+    
+    function StaffGridModal() {
+        Behaviors.init(StaffGridModal, this, arguments);
+        
+        this.slider = StaffGridSlider.locate(this.$elem.find('[data-staffgrid-slider]'));
+        this.$elem.on("offcanvas-open", this.modal_reveal_intent.bind(this));
+    }
+    
+    Behaviors.inherit(StaffGridModal, Behaviors.Behavior);
+    
+    StaffGridModal.QUERY = "[data-staffgrid-modal]";
+    
+    StaffGridModal.prototype.modal_reveal_intent = function (evt) {
+        var slideIndex = $(evt.originalEvent.toggle).data('staffgrid-slider-index');
+        
+        this.slider.goto(slideIndex, true);
+    };
+    
+    Behaviors.register_behavior(StaffGridModal);
+    Behaviors.register_behavior(StaffGridSlider);
+    
+    module.StaffGridModal = StaffGridModal;
+    module.StaffGridSlider = StaffGridSlider;
+    
+    return module;
 }));
 
 /*global define, console, document, window*/
@@ -4504,7 +4504,7 @@ if (!Array.prototype.indexOf) {
     //VideoPlayer.QUERY = "";
 
     VideoPlayer.prototype.locate_children = function () {
-        var $parent_modal;
+        var $parent_modal, $parent_hover;
         
         this.playpause = VideoPlayer_playpause.find_markup(this.$elem, this);
         this.scrubbers = VideoPlayer_scrubber.find_markup(this.$elem, this);
@@ -4517,13 +4517,19 @@ if (!Array.prototype.indexOf) {
             this.modal = VideoPlayer_offcanvas.locate($parent_modal[0], this);
         }
         
+        $parent_hover = this.$elem.parents().filter(VideoPlayer_hover.QUERY);
+        
+        if ($parent_hover.length > 0) {
+            this.hover = VideoPlayer_hover.locate($parent_hover[0], this);
+        }
+        
         //Now see if we're supposed to autoplay...
         if (this.$elem.data("videoplayer-autoplay") !== undefined) {
             this.play();
-            
-            if (this.$elem.data("videoplayer-loop") !== undefined) {
-                this.add_statechange_listener(this.loopcheck.bind(this));
-            }
+        }
+        
+        if (this.$elem.data("videoplayer-loop") !== undefined) {
+            this.add_statechange_listener(this.loopcheck.bind(this));
         }
     };
     
@@ -4533,7 +4539,7 @@ if (!Array.prototype.indexOf) {
             var current_time = values[1];
             var duration = values[2];
             
-            if (is_paused && current_time === duration) {
+            if (current_time === duration) {
                 this.seek(0);
                 this.play();
             }
@@ -4655,6 +4661,46 @@ if (!Array.prototype.indexOf) {
     };
 
     VideoPlayer_offcanvas.prototype.on_dismiss_intent = function () {
+        var that = this;
+
+        that.parent.is_paused().then(function (is_paused) {
+            if (!is_paused) {
+                that.parent.pause();
+            }
+        });
+    };
+
+    /* Allows a video modal to be started and stopped based on the hover state
+     * of an element. Won't work on mobile.
+     * 
+     * Place this on the element that gets hovered.
+     */
+    function VideoPlayer_hover(elem, parent) {
+        var that = this;
+
+        Behaviors.init(VideoPlayer_hover, that, arguments);
+
+        that.parent = parent;
+
+        that.$elem.on("mouseenter", that.on_hover_intent.bind(that));
+        that.$elem.on("mouseleave", that.on_leave_intent.bind(that));
+    }
+
+    Behaviors.inherit(VideoPlayer_hover, Behaviors.Behavior);
+
+    VideoPlayer_hover.QUERY = "[data-videoplayer-hover]";
+
+    VideoPlayer_hover.prototype.on_hover_intent = function () {
+        var that = this;
+
+        that.parent.is_paused().then(function (is_paused) {
+            if (is_paused) {
+                that.parent.play();
+            }
+        });
+    };
+
+    VideoPlayer_hover.prototype.on_leave_intent = function () {
         var that = this;
 
         that.parent.is_paused().then(function (is_paused) {
@@ -5487,9 +5533,9 @@ if (!Array.prototype.indexOf) {
      */
     VideoPlayer__vimeo.prototype.add_statechange_listener = function (listen) {
         return this.ready().then(function () {
-            return this.player.on("play", listen);
-            return this.player.on("pause", listen);
-            return this.player.on("ended", listen);
+            this.player.on("play", listen);
+            this.player.on("pause", listen);
+            this.player.on("ended", listen);
         }.bind(this));
     };
 
@@ -5520,6 +5566,7 @@ if (!Array.prototype.indexOf) {
     module.VideoPlayer_scrubber = VideoPlayer_scrubber;
     module.VideoPlayer_mute = VideoPlayer_mute;
     module.VideoPlayer_offcanvas = VideoPlayer_offcanvas;
+    module.VideoPlayer_hover = VideoPlayer_hover;
     module.VideoPlayer__html5 = VideoPlayer__html5;
     module.VideoPlayer__youtube = VideoPlayer__youtube;
     module.VideoPlayer__vimeo = VideoPlayer__vimeo;
