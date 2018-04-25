@@ -407,7 +407,7 @@ final class BWCustomizerLess {
     static private function _steal_panels() {
         $panel_thief = Closure::bind(static function () {
             return self::$_panels;
-        }, null, FLCustomizer);
+        }, null, "FLCustomizer");
 
         $_parPanels = $panel_thief();
 
