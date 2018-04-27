@@ -24,6 +24,7 @@ final class FLBuilderTemplatesOverride {
 		add_filter( 'fl_builder_render_ui_panel',                  __CLASS__ . '::render_ui_panel' );
 		add_filter( 'fl_builder_template_selector_data',           __CLASS__ . '::selector_data', 10, 2 );
 		add_filter( 'fl_builder_row_templates_data',               __CLASS__ . '::row_templates_data' );
+		add_filter( 'fl_builder_column_templates_data',            __CLASS__ . '::column_templates_data' );
 		add_filter( 'fl_builder_module_templates_data',            __CLASS__ . '::module_templates_data' );
 		add_filter( 'fl_builder_override_apply_node_template',     __CLASS__ . '::apply_node', 10, 2 );
 		add_filter( 'fl_builder_override_apply_template',          __CLASS__ . '::apply', 10, 2 );
@@ -53,6 +54,7 @@ final class FLBuilderTemplatesOverride {
 
 			$site_id 		= self::get_source_site_id();
 			$show_rows  	= self::show_rows();
+			$show_columns  	= self::show_columns();
 			$show_modules  	= self::show_modules();
 
 			include FL_BUILDER_TEMPLATES_OVERRIDE_DIR . 'includes/admin-settings-templates-override.php';
@@ -98,9 +100,10 @@ final class FLBuilderTemplatesOverride {
 			// Row and module templates
 			if ( is_network_admin() || ! is_multisite() ) {
 				update_site_option( '_fl_builder_templates_override_rows', isset( $_POST['fl-templates-override-rows'] ) );
+				update_site_option( '_fl_builder_templates_override_columns', isset( $_POST['fl-templates-override-columns'] ) );
 				update_site_option( '_fl_builder_templates_override_modules', isset( $_POST['fl-templates-override-modules'] ) );
 			}
-		}// End if().
+		}
 	}
 
 	/**
@@ -121,6 +124,16 @@ final class FLBuilderTemplatesOverride {
 	 */
 	static public function show_rows() {
 		return get_site_option( '_fl_builder_templates_override_rows', false );
+	}
+
+	/**
+	 * Checks to see if column templates should be shown in the builder panel.
+	 *
+	 * @since 2.1
+	 * @return bool
+	 */
+	static public function show_columns() {
+		return get_site_option( '_fl_builder_templates_override_columns', false );
 	}
 
 	/**
@@ -203,7 +216,7 @@ final class FLBuilderTemplatesOverride {
 
 			return $data;
 
-		}// End if().
+		}
 
 		return false;
 	}
@@ -233,6 +246,21 @@ final class FLBuilderTemplatesOverride {
 	static public function row_templates_data( $data ) {
 		if ( self::get_source_site_id() && self::show_rows() ) {
 			$data = self::get_selector_data( 'row' );
+		}
+
+		return $data;
+	}
+
+	/**
+	 * Adds user template data for column templates in the UI panel.
+	 *
+	 * @since 2.1
+	 * @param array $data
+	 * @return array
+	 */
+	static public function column_templates_data( $data ) {
+		if ( self::get_source_site_id() && self::show_columns() ) {
+			$data = self::get_selector_data( 'column' );
 		}
 
 		return $data;

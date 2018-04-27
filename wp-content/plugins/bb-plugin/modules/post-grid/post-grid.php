@@ -25,10 +25,12 @@ class FLPostGridModule extends FLBuilderModule {
 	public function enqueue_scripts() {
 		if ( FLBuilderModel::is_builder_active() || 'columns' == $this->settings->layout ) {
 			$this->add_js( 'jquery-imagesloaded' );
+			$this->add_css( 'font-awesome-5' );
 		}
 		if ( FLBuilderModel::is_builder_active() || 'grid' == $this->settings->layout ) {
 			$this->add_js( 'jquery-imagesloaded' );
 			$this->add_js( 'jquery-masonry' );
+			$this->add_css( 'font-awesome-5' );
 		}
 		if ( FLBuilderModel::is_builder_active() || 'gallery' == $this->settings->layout ) {
 			$this->add_js( 'fl-gallery-grid' );
@@ -196,6 +198,38 @@ class FLPostGridModule extends FLBuilderModule {
 	}
 
 	/**
+	 * Get the terms for the current post.
+	 *
+	 * @since 1.10.8
+	 * @return string|null
+	 */
+	public function get_post_terms() {
+		$post_type = get_post_type();
+		$taxonomies = get_object_taxonomies( $post_type, 'objects' );
+		$terms_list = array();
+		$terms_separator = '<span class="fl-sep-term">' . $this->settings->terms_separator . '</span>';
+
+		if ( ! $taxonomies || empty( $taxonomies ) ) {
+			return;
+		}
+
+		foreach ( $taxonomies as $name => $tax ) {
+			if ( ! $tax->hierarchical ) {
+				continue;
+			}
+
+			$term_list = get_the_term_list( get_the_ID(), $name, '', $terms_separator, '' );
+			if ( ! empty( $term_list ) ) {
+				$terms_list[] = $term_list;
+			}
+		}
+
+		if ( count( $terms_list ) > 0 ) {
+			return join( $terms_separator, $terms_list );
+		}
+	}
+
+	/**
 	 * Renders the schema structured data for the current
 	 * post in the loop.
 	 *
@@ -290,18 +324,18 @@ FLBuilder::register_module('FLPostGridModule', array(
 						'toggle'        => array(
 							'columns'       => array(
 								'sections'      => array( 'posts', 'image', 'content', 'post_style', 'text_style' ),
-								'fields'        => array( 'match_height', 'post_columns', 'post_spacing', 'post_padding', 'grid_image_position', 'grid_image_spacing', 'show_author', 'show_comments_grid', 'info_separator' ),
+								'fields'        => array( 'match_height', 'post_columns', 'post_spacing', 'post_padding', 'grid_image_position', 'grid_image_spacing', 'show_author', 'show_comments_grid', 'info_separator', 'show_terms' ),
 							),
 							'grid'          => array(
 								'sections'      => array( 'posts', 'image', 'content', 'post_style', 'text_style' ),
-								'fields'        => array( 'match_height', 'post_width', 'post_spacing', 'post_padding', 'grid_image_position', 'grid_image_spacing', 'show_author', 'show_comments_grid', 'info_separator' ),
+								'fields'        => array( 'match_height', 'post_width', 'post_spacing', 'post_padding', 'grid_image_position', 'grid_image_spacing', 'show_author', 'show_comments_grid', 'info_separator', 'show_terms' ),
 							),
 							'gallery'		=> array(
 								'sections'      => array( 'gallery_general', 'overlay_style', 'icons' ),
 							),
 							'feed'          => array(
 								'sections'      => array( 'posts', 'image', 'content', 'post_style', 'text_style' ),
-								'fields'        => array( 'feed_post_spacing', 'feed_post_padding', 'image_position', 'image_spacing', 'image_width', 'show_author', 'show_comments', 'info_separator', 'content_type' ),
+								'fields'        => array( 'feed_post_spacing', 'feed_post_padding', 'image_position', 'image_spacing', 'image_width', 'show_author', 'show_comments', 'info_separator', 'show_terms', 'content_type' ),
 							),
 						),
 					),
@@ -522,6 +556,39 @@ FLBuilder::register_module('FLPostGridModule', array(
 						'preview'       => array(
 							'type'			=> 'text',
 							'selector'		=> '.fl-sep',
+						),
+					),
+					'show_terms'        => array(
+						'type'          => 'select',
+						'label'         => __( 'Terms', 'fl-builder' ),
+						'default'       => '0',
+						'options'       => array(
+							'1'             => __( 'Show', 'fl-builder' ),
+							'0'             => __( 'Hide', 'fl-builder' ),
+						),
+						'toggle'        => array(
+							'1'             => array(
+								'fields'        => array( 'terms_separator', 'terms_list_label' ),
+							),
+						),
+					),
+					'terms_list_label' => array(
+						'type'          => 'text',
+						'label'         => __( 'Terms Label', 'fl-builder' ),
+						'default'       => __( 'Posted in ', 'fl-builder' ),
+						'preview'       => array(
+							'type'			=> 'text',
+							'selector'		=> '.fl-terms-label',
+						),
+					),
+					'terms_separator' => array(
+						'type'          => 'text',
+						'label'         => __( 'Terms Separator', 'fl-builder' ),
+						'default'       => ', ',
+						'size'          => '4',
+						'preview'       => array(
+							'type'			=> 'text',
+							'selector'		=> '.fl-sep-term',
 						),
 					),
 				),

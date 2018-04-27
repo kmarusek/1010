@@ -337,7 +337,7 @@ final class FL_Debug {
 			);
 			self::register( 'bb_sub_lite', $args );
 
-		} else {
+		} elseif ( class_exists( 'FLUpdater' ) ) {
 			$subscription = FLUpdater::get_subscription_info();
 			$args = array(
 				'name' => 'Beaver Builder License',
@@ -379,6 +379,38 @@ final class FL_Debug {
 			'data' => $_SERVER['SERVER_SOFTWARE'],
 		);
 		self::register( 'server', $args );
+
+		$args = array(
+			'name' => 'htaccess files',
+			'data' => self::divider(),
+		);
+		self::register( 'up_htaccess', $args );
+
+		// detect uploads folder .htaccess file and display it if found.
+		$uploads = wp_upload_dir();
+		$uploads_htaccess = trailingslashit( $uploads['basedir'] ) . '.htaccess';
+		$root_htaccess    = trailingslashit( ABSPATH ) . '.htaccess';
+
+		if ( file_exists( $root_htaccess ) ) {
+			ob_start();
+			readfile( $root_htaccess );
+			$htaccess = ob_get_clean();
+			$args = array(
+				'name' => $root_htaccess . "\n",
+				'data' => $htaccess,
+			);
+			self::register( 'up_htaccess_root', $args );
+		}
+		if ( file_exists( $uploads_htaccess ) ) {
+			ob_start();
+			readfile( $uploads_htaccess );
+			$htaccess = ob_get_clean();
+			$args = array(
+				'name' => $uploads_htaccess . "\n",
+				'data' => $htaccess,
+			);
+			self::register( 'up_htaccess_uploads', $args );
+		}
 	}
 }
 add_action( 'plugins_loaded', array( 'FL_Debug', 'init' ) );

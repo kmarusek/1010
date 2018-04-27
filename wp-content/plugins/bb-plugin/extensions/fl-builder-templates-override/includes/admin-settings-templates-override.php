@@ -14,11 +14,17 @@
 </p>
 <?php endif; ?>
 <div class="fl-templates-override-nodes">
-	<p><?php _e( 'Show saved row and module categories as sections in the page builder sidebar. A new section will be created for category.', 'fl-builder' ); ?></p>
+	<p><?php _e( 'Show saved row, column and module categories as sections in the page builder sidebar. A new section will be created for category.', 'fl-builder' ); ?></p>
 	<p>
 		<label>
 			<input type="checkbox" name="fl-templates-override-rows" value="1" <?php checked( $show_rows, 1 ); ?> />
 			<span><?php _e( 'Show Saved Row Categories?', 'fl-builder' ); ?></span>
+		</label>
+	</p>
+	<p>
+		<label>
+			<input type="checkbox" name="fl-templates-override-columns" value="1" <?php checked( $show_columns, 1 ); ?> />
+			<span><?php _e( 'Show Saved Column Categories?', 'fl-builder' ); ?></span>
 		</label>
 	</p>
 	<p>

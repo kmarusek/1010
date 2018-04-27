@@ -111,6 +111,33 @@ final class FLBuilderWhiteLabel {
 	}
 
 	/**
+	 * Checks if white label is enabled. Will check for the default branding
+	 * and Page Builder since Page Builder was the original default.
+	 *
+	 * @since 2.1
+	 * @return bool
+	 */
+	static public function is_white_labeled() {
+		$defaults = array(
+			self::get_default_branding(),
+		);
+
+		$is_white_labeled = ! in_array( self::get_branding(), $defaults );
+
+		return apply_filters( 'fl_builder_is_white_labeled', $is_white_labeled );
+	}
+
+	/**
+	 * Returns the default branding.
+	 *
+	 * @since 2.1
+	 * @return string
+	 */
+	static public function get_default_branding() {
+		return apply_filters( 'fl_builder_default_branding', __( 'Beaver Builder', 'fl-builder' ) );
+	}
+
+	/**
 	 * Returns the custom branding string.
 	 *
 	 * @since 1.3.1
@@ -119,7 +146,17 @@ final class FLBuilderWhiteLabel {
 	static public function get_branding() {
 		$value = FLBuilderModel::get_admin_settings_option( '_fl_builder_branding', false );
 
-		return ! $value ? __( 'Page Builder', 'fl-builder' ) : stripcslashes( $value );
+		return ! $value ? self::get_default_branding() : stripcslashes( $value );
+	}
+
+	/**
+	 * Returns the default branding icon.
+	 *
+	 * @since 2.1
+	 * @return string
+	 */
+	static public function get_default_branding_icon() {
+		return apply_filters( 'fl_builder_default_branding_icon', FL_BUILDER_URL . 'img/beaver.png' );
 	}
 
 	/**
@@ -131,7 +168,7 @@ final class FLBuilderWhiteLabel {
 	static public function get_branding_icon() {
 		$value = FLBuilderModel::get_admin_settings_option( '_fl_builder_branding_icon', false );
 
-		return false === $value ? FL_BUILDER_URL . 'img/beaver.png' : $value;
+		return false === $value ? self::get_default_branding_icon() : $value;
 	}
 
 	/**
@@ -213,7 +250,7 @@ final class FLBuilderWhiteLabel {
 			}
 
 			FLBuilderModel::update_admin_settings_option( '_fl_builder_help_button', $settings, false );
-		}// End if().
+		}
 	}
 
 	/**
@@ -224,8 +261,9 @@ final class FLBuilderWhiteLabel {
 	 */
 	static public function get_help_button_settings() {
 		$value = FLBuilderModel::get_admin_settings_option( '_fl_builder_help_button', false );
+		$defaults = apply_filters( 'fl_builder_help_button_defaults', FLBuilderModel::get_help_button_defaults() );
 
-		return false === $value ? FLBuilderModel::get_help_button_defaults() : $value;
+		return false === $value ? $defaults : $value;
 	}
 
 	/**
@@ -236,11 +274,10 @@ final class FLBuilderWhiteLabel {
 	 * @return array
 	 */
 	static public function plugins_page( $plugins ) {
-		$default  = __( 'Page Builder', 'fl-builder' );
-		$branding = FLBuilderModel::get_branding();
+		$branding = self::get_branding();
 		$key	  = FLBuilderModel::plugin_basename();
 
-		if ( isset( $plugins[ $key ] ) && $branding != $default ) {
+		if ( isset( $plugins[ $key ] ) && $branding !== $plugins[ $key ]['Name'] && self::is_white_labeled() ) {
 			$plugins[ $key ]['Name']	   = $branding;
 			$plugins[ $key ]['Title']	   = $branding;
 			$plugins[ $key ]['Author']	   = '';
@@ -357,7 +394,7 @@ final class FLBuilderWhiteLabel {
 				$headers->setAccessible( false );
 				$headers_sanitized->setAccessible( false );
 			}
-		}// End if().
+		}
 		return $themes;
 	}
 
@@ -412,9 +449,8 @@ final class FLBuilderWhiteLabel {
 			&& 'update-core.php' == $pagenow
 			&& 'Beaver Builder Plugin (Lite Version)' !== $original
 			&& false !== strpos( $original, 'Beaver Builder Plugin' ) ) {
-			$brand = FLBuilderModel::get_branding();
-			if ( 'Page Builder' !== $brand ) {
-				$text = $brand;
+			if ( self::is_white_labeled() ) {
+				$text = self::get_branding();
 			}
 		}
 		return $text;
@@ -428,9 +464,8 @@ final class FLBuilderWhiteLabel {
 	 */
 	static public function fl_plugin_info( $info, $response ) {
 		if ( false !== strpos( $info->name, 'Beaver Builder Plugin' ) ) {
-			$brand = FLBuilderModel::get_branding();
-			if ( 'Page Builder' !== $brand ) {
-				$info->name = $brand;
+			if ( self::is_white_labeled() ) {
+				$info->name = self::get_branding();
 			}
 		}
 		return $info;
@@ -460,12 +495,8 @@ final class FLBuilderWhiteLabel {
 	 * @since 2.0.5
 	 */
 	static public function update_icon_branding( $icons, $response, $settings ) {
-
-		$default  = __( 'Page Builder', 'fl-builder' );
-		$branding = FLBuilderModel::get_branding();
-
 		if ( in_array( $settings['slug'], array( 'bb-plugin', 'bb-theme-builder' ) ) ) {
-			if ( $default != $branding ) {
+			if ( self::is_white_labeled() ) {
 				$icons = array(
 					'1x' => self::get_branding_icon(),
 					'2x' => self::get_branding_icon(),

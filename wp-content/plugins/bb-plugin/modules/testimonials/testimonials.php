@@ -18,7 +18,7 @@ class FLTestimonialsModule extends FLBuilderModule {
 		));
 
 		$this->add_css( 'jquery-bxslider' );
-		$this->add_css( 'font-awesome' );
+		$this->add_css( 'font-awesome-5' );
 		$this->add_js( 'jquery-bxslider' );
 	}
 }
