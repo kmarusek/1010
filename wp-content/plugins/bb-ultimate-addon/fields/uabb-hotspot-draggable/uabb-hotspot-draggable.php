@@ -9,6 +9,13 @@ if(!class_exists('UABB_Hotspot_Draggable'))
 	{
 		function __construct() {	
 			add_action( 'fl_builder_control_uabb-draggable', array($this, 'uabb_draggable'), 1, 4 );
+			add_action( 'fl_builder_custom_fields', array( $this, 'ui_fields' ), 10, 1 );
+		}
+
+		function ui_fields( $fields ) {
+			$fields['uabb-draggable'] = BB_ULTIMATE_ADDON_DIR . 'fields/uabb-hotspot-draggable/ui-field-uabb-draggable.php';
+
+			return $fields;
 		}
 		
 		function uabb_draggable($name, $value, $field, $settings) {

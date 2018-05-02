@@ -38,7 +38,280 @@ class BlogPostsModule extends FLBuilderModule {
         // pagination.
         // add_action( 'init', array( $this, 'uabb_init_rewrite_rules') );
         // add_filter( 'redirect_canonical',  array( $this, 'uabb_override_canonical' ), 1, 2 );
+
+        add_filter( 'fl_builder_layout_data', array( $this , 'render_new_data' ), 10, 3 );
     }
+
+    function render_new_data( $data ) {
+
+		foreach ( $data as &$node ) {
+			
+			if ( isset( $node->settings->type ) && 'blog-posts' === $node->settings->type ) {
+
+				if( isset( $node->settings->overall_padding ) &&  !isset( $node->settings->overall_padding_dimension_top ) &&  !isset( $node->settings->overall_padding_dimension_bottom ) &&  !isset( $node->settings->overall_padding_dimension_left ) &&  !isset( $node->settings->overall_padding_dimension_right ) ) {
+                     
+                    $value = "";
+                    $value = str_replace("px","", $node->settings->overall_padding );
+                    
+                    $output = array();
+                    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
+                    
+                    $node->settings->overall_padding_dimension_top    = '0';
+                    $node->settings->overall_padding_dimension_bottom = '0';
+                    $node->settings->overall_padding_dimension_left   = '0';
+                    $node->settings->overall_padding_dimension_right  = '0';
+                    
+                    foreach($uabb_default as $val) {
+                        $new = explode(':',$val);
+                         $output[] = $new;
+                    }
+                    for ($i=0; $i < count( $output ); $i++) { 
+                        switch ( $output[$i][0] ) {
+                            case 'padding-top':
+                               $node->settings->overall_padding_dimension_top    = (int)$output[$i][1];
+                                break;
+                            case 'padding-bottom':
+                                $node->settings->overall_padding_dimension_bottom = (int)$output[$i][1];
+                                break;
+                            case 'padding-right':
+                                $node->settings->overall_padding_dimension_right  = (int)$output[$i][1];
+                                break;
+                            case 'padding-left':
+                                $node->settings->overall_padding_dimension_left   = (int)$output[$i][1];
+                                break;
+                            case 'padding':
+                                $node->settings->overall_padding_dimension_top    = (int)$output[$i][1];
+                                $node->settings->overall_padding_dimension_bottom = (int)$output[$i][1];
+                                $node->settings->overall_padding_dimension_left   = (int)$output[$i][1];
+                                $node->settings->overall_padding_dimension_right  = (int)$output[$i][1];
+                                break;
+                        }
+                    }
+                } 
+
+                if( isset( $node->settings->content_padding ) &&  !isset( $node->settings->content_padding_dimension_top ) &&  !isset( $node->settings->content_padding_dimension_bottom ) &&  !isset( $node->settings->content_padding_dimension_left ) &&  !isset( $node->settings->content_padding_dimension_right ) ) {
+                     
+                    $value = "";
+                    $value = str_replace("px","", $node->settings->content_padding );
+                    
+                    $output = array();
+                    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
+                    
+                    $node->settings->content_padding_dimension_top    = '0';
+                    $node->settings->content_padding_dimension_bottom = '0';
+                    $node->settings->content_padding_dimension_left   = '0';
+                    $node->settings->content_padding_dimension_right  = '0';
+                    
+                    foreach($uabb_default as $val) {
+                        $new = explode(':',$val);
+                         $output[] = $new;
+                    }
+                    for ($i=0; $i < count( $output ); $i++) { 
+                        switch ( $output[$i][0] ) {
+                            case 'padding-top':
+                               $node->settings->content_padding_dimension_top    = (int)$output[$i][1];
+                                break;
+                            case 'padding-bottom':
+                                $node->settings->content_padding_dimension_bottom = (int)$output[$i][1];
+                                break;
+                            case 'padding-right':
+                                $node->settings->content_padding_dimension_right  = (int)$output[$i][1];
+                                break;
+                            case 'padding-left':
+                                $node->settings->content_padding_dimension_left   = (int)$output[$i][1];
+                                break;
+                            case 'padding':
+                                $node->settings->content_padding_dimension_top    = (int)$output[$i][1];
+                                $node->settings->content_padding_dimension_bottom = (int)$output[$i][1];
+                                $node->settings->content_padding_dimension_left   = (int)$output[$i][1];
+                                $node->settings->content_padding_dimension_right  = (int)$output[$i][1];
+                                break;
+                        }
+                    }
+                } 
+
+                if( isset( $node->settings->masonary_padding ) &&  !isset( $node->settings->masonary_padding_dimension_top ) &&  !isset( $node->settings->masonary_padding_dimension_bottom ) &&  !isset( $node->settings->masonary_padding_dimension_left ) &&  !isset( $node->settings->masonary_padding_dimension_right ) ) {
+                     
+                    $value = "";
+                    $value = str_replace("px","", $node->settings->masonary_padding );
+                    
+                    $output = array();
+                    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
+                    
+                    $node->settings->masonary_padding_dimension_top    = '0';
+                    $node->settings->masonary_padding_dimension_bottom = '0';
+                    $node->settings->masonary_padding_dimension_left   = '0';
+                    $node->settings->masonary_padding_dimension_right  = '0';
+                    
+                    foreach($uabb_default as $val) {
+                        $new = explode(':',$val);
+                         $output[] = $new;
+                    }
+                    for ($i=0; $i < count( $output ); $i++) { 
+                        switch ( $output[$i][0] ) {
+                            case 'padding-top':
+                               $node->settings->masonary_padding_dimension_top    = (int)$output[$i][1];
+                                break;
+                            case 'padding-bottom':
+                                $node->settings->masonary_padding_dimension_bottom = (int)$output[$i][1];
+                                break;
+                            case 'padding-right':
+                                $node->settings->masonary_padding_dimension_right  = (int)$output[$i][1];
+                                break;
+                            case 'padding-left':
+                                $node->settings->masonary_padding_dimension_left   = (int)$output[$i][1];
+                                break;
+                            case 'padding':
+                                $node->settings->masonary_padding_dimension_top    = (int)$output[$i][1];
+                                $node->settings->masonary_padding_dimension_bottom = (int)$output[$i][1];
+                                $node->settings->masonary_padding_dimension_left   = (int)$output[$i][1];
+                                $node->settings->masonary_padding_dimension_right  = (int)$output[$i][1];
+                                break;
+                        }
+                    }
+                } 
+
+				if ( isset( $node->settings->title_font_size['small']) && !isset( $node->settings->title_font_size_unit_responsive ) ) {
+					$node->settings->title_font_size_unit_responsive = $node->settings->title_font_size['small'];
+				}
+				if( isset( $node->settings->title_font_size['medium']) && !isset( $node->settings->title_font_size_unit_medium ) ) {
+					$node->settings->title_font_size_unit_medium = $node->settings->title_font_size['medium'];
+				}
+				if( isset( $node->settings->title_font_size['desktop']) && !isset( $node->settings->title_font_size_unit ) ) {
+					$node->settings->title_font_size_unit = $node->settings->title_font_size['desktop'];
+				}
+
+				if ( isset( $node->settings->title_line_height['small']) && isset( $node->settings->title_font_size['small'] ) && $node->settings->title_font_size['small'] != 0 && !isset( $node->settings->title_line_height_unit_responsive ) ) {
+                    if( is_numeric( $node->settings->title_line_height['small']) && is_numeric( $node->settings->title_font_size['small'] ) )
+					$node->settings->title_line_height_unit_responsive = round( $node->settings->title_line_height['small'] / $node->settings->title_font_size['small'], 2 );
+				}
+				if( isset( $node->settings->title_line_height['medium']) && isset( $node->settings->title_font_size['medium'] ) && $node->settings->title_font_size['medium'] != 0 && !isset( $node->settings->title_line_height_unit_medium ) ) {
+                    if( is_numeric( $node->settings->title_line_height['medium']) && is_numeric( $node->settings->title_font_size['medium'] ) )
+					$node->settings->title_line_height_unit_medium = round( $node->settings->title_line_height['medium'] / $node->settings->title_font_size['medium'], 2 );
+				}
+				if( isset( $node->settings->title_line_height['desktop']) && isset( $node->settings->title_font_size['desktop'] )  && $node->settings->title_font_size['desktop'] != 0 && !isset( $node->settings->title_line_height_unit ) ) {
+                    if( is_numeric( $node->settings->title_line_height['desktop']) && is_numeric( $node->settings->title_font_size['desktop'] ) )
+					$node->settings->title_line_height_unit = round( $node->settings->title_line_height['desktop'] / $node->settings->title_font_size['desktop'], 2 );
+				}
+
+				if ( isset( $node->settings->desc_font_size['small']) && !isset( $node->settings->desc_font_size_unit_responsive ) ) {
+					$node->settings->desc_font_size_unit_responsive = $node->settings->desc_font_size['small'];
+				}
+				if( isset( $node->settings->desc_font_size['medium']) && !isset( $node->settings->desc_font_size_unit_medium ) ) {
+					$node->settings->desc_font_size_unit_medium = $node->settings->desc_font_size['medium'];
+				}
+				if( isset( $node->settings->desc_font_size['desktop']) && !isset( $node->settings->desc_font_size_unit ) ) {
+					$node->settings->desc_font_size_unit = $node->settings->desc_font_size['desktop'];
+				}
+
+				if ( isset( $node->settings->desc_line_height['small']) && isset( $node->settings->desc_font_size['small'] ) && $node->settings->desc_font_size['small'] != 0 && !isset( $node->settings->desc_line_height_unit_responsive ) ) {
+                    if( is_numeric( $node->settings->desc_line_height['small']) && is_numeric( $node->settings->desc_font_size['small'] ) )
+					$node->settings->desc_line_height_unit_responsive = round( $node->settings->desc_line_height['small'] / $node->settings->desc_font_size['small'], 2 );
+				}
+				if( isset( $node->settings->desc_line_height['medium']) && isset( $node->settings->desc_font_size['medium'] ) && $node->settings->desc_font_size['medium'] != 0 && !isset( $node->settings->desc_line_height_unit_medium ) ) {
+                    if( is_numeric( $node->settings->desc_line_height['medium']) && is_numeric( $node->settings->desc_font_size['medium'] ) )
+					$node->settings->desc_line_height_unit_medium = round( $node->settings->desc_line_height['medium'] / $node->settings->desc_font_size['medium'], 2 );
+				}
+				if( isset( $node->settings->desc_line_height['desktop']) && isset( $node->settings->desc_font_size['desktop'] ) && $node->settings->desc_font_size['desktop'] != 0 && !isset( $node->settings->desc_line_height_unit ) ) {
+                    if( is_numeric( $node->settings->desc_line_height['desktop']) && is_numeric( $node->settings->desc_font_size['desktop'] ) )
+					$node->settings->desc_line_height_unit = round( $node->settings->desc_line_height['desktop'] / $node->settings->desc_font_size['desktop'], 2 );
+				}
+				
+				if ( isset( $node->settings->meta_font_size['small']) && !isset( $node->settings->meta_font_size_unit_responsive ) ) {
+					$node->settings->meta_font_size_unit_responsive = $node->settings->meta_font_size['small'];
+				}
+				if( isset( $node->settings->meta_font_size['medium']) && !isset( $node->settings->meta_font_size_unit_medium ) ) {
+					$node->settings->meta_font_size_unit_medium = $node->settings->meta_font_size['medium'];
+				}
+				if( isset( $node->settings->meta_font_size['desktop']) && !isset( $node->settings->meta_font_size_unit ) ) {
+					$node->settings->meta_font_size_unit = $node->settings->meta_font_size['desktop'];
+				}
+
+				if ( isset( $node->settings->meta_line_height['small']) && isset( $node->settings->meta_font_size['small'] ) && $node->settings->meta_font_size['small'] != 0 && !isset( $node->settings->meta_line_height_unit_responsive ) ) {
+                    if( is_numeric( $node->settings->meta_line_height['small']) && is_numeric( $node->settings->meta_font_size['small'] ) )
+					$node->settings->meta_line_height_unit_responsive = round( $node->settings->meta_line_height['small'] / $node->settings->meta_font_size['small'], 2 );
+				}
+				if( isset( $node->settings->meta_line_height['medium']) && isset( $node->settings->meta_font_size['medium'] ) && $node->settings->meta_font_size['medium'] != 0 && !isset( $node->settings->meta_line_height_unit_medium ) ) {
+                    if( is_numeric( $node->settings->meta_line_height['medium']) && is_numeric( $node->settings->meta_font_size['medium'] ) )
+					$node->settings->meta_line_height_unit_medium = round( $node->settings->meta_line_height['medium'] / $node->settings->meta_font_size['medium'], 2 );
+				}
+				if( isset( $node->settings->meta_line_height['desktop']) && isset( $node->settings->meta_font_size['desktop'] ) && $node->settings->meta_font_size['desktop'] != 0 && !isset( $node->settings->meta_line_height_unit ) ) {
+                    if( is_numeric( $node->settings->meta_line_height['desktop']) && is_numeric( $node->settings->meta_font_size['desktop'] ) )
+					$node->settings->meta_line_height_unit = round( $node->settings->meta_line_height['desktop'] / $node->settings->meta_font_size['desktop'], 2 );
+				}
+
+				if ( isset( $node->settings->date_font_size['small']) && !isset( $node->settings->date_font_size_unit_responsive ) ) {
+					$node->settings->date_font_size_unit_responsive = $node->settings->date_font_size['small'];
+				}
+				if( isset( $node->settings->date_font_size['medium']) && !isset( $node->settings->date_font_size_unit_medium ) ) {
+					$node->settings->date_font_size_unit_medium = $node->settings->date_font_size['medium'];
+				}
+				if( isset( $node->settings->date_font_size['desktop']) && !isset( $node->settings->date_font_size_unit ) ) {
+					$node->settings->date_font_size_unit = $node->settings->date_font_size['desktop'];
+				}
+
+				if ( isset( $node->settings->link_font_size['small']) && !isset( $node->settings->link_font_size_unit_responsive ) ) {
+					$node->settings->link_font_size_unit_responsive = $node->settings->link_font_size['small'];
+				}
+				if( isset( $node->settings->link_font_size['medium']) && !isset( $node->settings->link_font_size_unit_medium ) ) {
+					$node->settings->link_font_size_unit_medium = $node->settings->link_font_size['medium'];
+				}
+				if( isset( $node->settings->link_font_size['desktop']) && !isset( $node->settings->link_font_size_unit ) ) {
+					$node->settings->link_font_size_unit = $node->settings->link_font_size['desktop'];
+				}
+
+				if ( isset( $node->settings->link_line_height['small']) && isset( $node->settings->link_font_size['small'] ) && $node->settings->link_font_size['small'] != 0 && !isset( $node->settings->link_line_height_unit_responsive ) ) {
+                    if( is_numeric( $node->settings->link_line_height['small']) && is_numeric( $node->settings->link_font_size['small'] ) )
+					$node->settings->link_line_height_unit_responsive = round( $node->settings->link_line_height['small'] / $node->settings->link_font_size['small'], 2 );
+				}
+				if( isset( $node->settings->link_line_height['medium']) && isset( $node->settings->link_font_size['medium'] ) && $node->settings->link_font_size['medium'] != 0 && !isset( $node->settings->link_line_height_unit_medium ) ) {
+                    if( is_numeric( $node->settings->link_line_height['medium']) && is_numeric( $node->settings->link_font_size['medium'] ) )
+					$node->settings->link_line_height_unit_medium = round( $node->settings->link_line_height['medium'] / $node->settings->link_font_size['medium'], 2 );
+				}
+				if( isset( $node->settings->link_line_height['desktop']) && isset( $node->settings->link_font_size['desktop'] ) && $node->settings->link_font_size['desktop'] != 0 && !isset( $node->settings->link_line_height_unit ) ) {
+                    if( is_numeric( $node->settings->link_line_height['desktop']) && is_numeric( $node->settings->link_font_size['desktop'] ) )
+					$node->settings->link_line_height_unit = round( $node->settings->link_line_height['desktop'] / $node->settings->link_font_size['desktop'], 2 );
+				}
+
+				if ( isset( $node->settings->btn_font_size['small']) && !isset( $node->settings->btn_font_size_unit_responsive ) ) {
+					$node->settings->btn_font_size_unit_responsive = $node->settings->btn_font_size['small'];
+				}
+				if( isset( $node->settings->btn_font_size['medium']) && !isset( $node->settings->btn_font_size_unit_medium ) ) {
+					$node->settings->btn_font_size_unit_medium = $node->settings->btn_font_size['medium'];
+				}
+				if( isset( $node->settings->btn_font_size['desktop']) && !isset( $node->settings->btn_font_size_unit ) ) {
+					$node->settings->btn_font_size_unit = $node->settings->btn_font_size['desktop'];
+				}
+
+				if ( isset( $node->settings->btn_line_height['small']) && isset( $node->settings->btn_font_size['small'] ) && $node->settings->btn_font_size['small'] != 0 && !isset( $node->settings->btn_line_height_unit_responsive ) ) {
+                    if( is_numeric( $node->settings->btn_line_height['small']) && is_numeric( $node->settings->btn_font_size['small'] ) )
+					$node->settings->btn_line_height_unit_responsive = round( $node->settings->btn_line_height['small'] / $node->settings->btn_font_size['small'], 2 );
+				}
+				if( isset( $node->settings->btn_line_height['medium']) && isset( $node->settings->btn_font_size['medium'] ) && $node->settings->btn_font_size['medium'] != 0 && !isset( $node->settings->btn_line_height_unit_medium ) ) {
+                    if( is_numeric( $node->settings->btn_line_height['medium']) && is_numeric( $node->settings->btn_font_size['medium'] ) )
+					$node->settings->btn_line_height_unit_medium = round( $node->settings->btn_line_height['medium'] / $node->settings->btn_font_size['medium'], 2 );
+				}
+				if( isset( $node->settings->btn_line_height['desktop']) && isset( $node->settings->btn_font_size['desktop'] ) && $node->settings->btn_font_size['desktop'] != 0 && !isset( $node->settings->btn_line_height_unit ) ) {
+                    if( is_numeric( $node->settings->btn_line_height['desktop']) && is_numeric( $node->settings->btn_font_size['desktop'] ) )
+					$node->settings->btn_line_height_unit = round( $node->settings->btn_line_height['desktop'] / $node->settings->btn_font_size['desktop'], 2 );
+				}
+
+				if ( isset( $node->settings->taxonomy_filter_select_font_size['small']) && !isset( $node->settings->taxonomy_filter_select_font_size_unit_responsive ) ) {
+					$node->settings->taxonomy_filter_select_font_size_unit_responsive = $node->settings->taxonomy_filter_select_font_size['small'];
+				}
+				if( isset( $node->settings->taxonomy_filter_select_font_size['medium']) && !isset( $node->settings->taxonomy_filter_select_font_size_unit_medium ) ) {
+					$node->settings->taxonomy_filter_select_font_size_unit_medium = $node->settings->taxonomy_filter_select_font_size['medium'];
+				}
+				if( isset( $node->settings->taxonomy_filter_select_font_size['desktop']) && !isset( $node->settings->taxonomy_filter_select_font_size_unit ) ) {
+					$node->settings->taxonomy_filter_select_font_size_unit = $node->settings->taxonomy_filter_select_font_size['desktop'];
+				}
+
+
+			}
+		}
+
+		return $data;
+	}
 
     /**
      * @since 1.10.7
@@ -256,7 +529,7 @@ class BlogPostsModule extends FLBuilderModule {
     public function render_pagination( $query ) {
         // Get current page number
         $permalink_structure = get_option( 'permalink_structure' );
-        $base = get_pagenum_link();
+        $base = untrailingslashit( html_entity_decode( get_pagenum_link() ) );
         $paged = FLBuilderLoop::get_paged();
 
         $this->settings->total_posts_switch = ( isset( $this->settings->total_posts_switch ) ? $this->settings->total_posts_switch : 'all' );
@@ -266,30 +539,8 @@ class BlogPostsModule extends FLBuilderModule {
         // Get total number of posts from query
         $total_posts = ( $this->settings->total_posts_switch == 'all' ) ? $query->found_posts : ( ( $this->settings->total_posts != '' ) ? $this->settings->total_posts : '6' );
 
-        if ( FLBuilderLoop::$loop_counter > 1 ) {
-                $page_prefix = 'paged-' . FLBuilderLoop::$loop_counter;
-        } else {
-            $page_prefix = empty( $permalink_structure ) ? 'paged' : 'page';
-        }
-
-        if ( empty( $permalink_structure ) || is_search() ) {
-            $format = '&' . $page_prefix . '=%#%';
-        } elseif ( '/' == substr( $base, -1 ) ) {
-            $format = $page_prefix . '/%#%/';
-        } else {
-            $format = '/' . $page_prefix . '/%#%';
-        }
-
-        if ( ! empty( $permalink_structure ) && isset( $_GET['lang'] ) ) {
-            $base = untrailingslashit( add_query_arg( array(
-                'lang' => false,
-            ), $base ) );
-        }
-
-        $pos = strrpos( $base, 'paged-' );
-        if ( $pos ) {
-            $base = substr_replace( $base, '', $pos, strlen( $base ) );
-        }
+        $base = FLBuilderLoop::build_base_url( $permalink_structure, $base );
+        $format = FLBuilderLoop::paged_format( $permalink_structure, $base );
 
         // Offset value if any
         $offset = ( ! isset( $this->settings->offset ) || ! is_int( ( int )$this->settings->offset ) ) ? 0 : ( ( $this->settings->offset != '' ) ? $this->settings->offset : 0 );
@@ -411,9 +662,17 @@ class BlogPostsModule extends FLBuilderModule {
                 'mob_align'          => '',
 
                 /* Typography */
-                'font_size'         => $this->settings->btn_font_size,
-                'line_height'       => $this->settings->btn_line_height,
+                'font_size'                     => ( isset($this->settings->btn_font_size) ) ? $this->settings->btn_font_size : '',
+                'line_height'                   => ( isset($this->settings->btn_line_height) ) ? $this->settings->btn_line_height : '',
+                'line_height_unit'              => $this->settings->btn_line_height_unit,
+                'font_size_unit'                => $this->settings->btn_font_size_unit,
+                'font_size_unit_medium'         => $this->settings->btn_font_size_unit_medium,
+                'line_height_unit_medium'       => $this->settings->btn_line_height_unit_medium,
+                'font_size_unit_responsive'     => $this->settings->btn_font_size_unit_responsive,
+                'line_height_unit_responsive'   => $this->settings->btn_line_height_unit_responsive,
+
                 'font_family'       => $this->settings->btn_font_family,
+                 
             );
             echo '<div class="uabb-blog-post-section">';
             FLBuilder::render_module_html('uabb-button', $btn_settings);
@@ -509,32 +768,34 @@ class BlogPostsModule extends FLBuilderModule {
 
                         echo '<div class="uabb-masonary-filters-wrapper">';
 
+                        $all_text = 'uabb_masonary_filter_all_edit_' . $post_type;
+
                         $filter_type = 'uabb_masonary_filter_type_' . $post_type;
                         if( isset( $this->settings->$filter_type ) && $this->settings->$filter_type == "drop-down" ) {
                             echo '<select class="uabb-masonary-filters">';
-                            echo '<option class="uabb-masonary-filter-' . $this->node . ' uabb-masonary-current" data-filter="*" value="all">'. __( 'All', 'uabb' ) .'</option>';
+                            echo '<option class="uabb-masonary-filter-' . $this->node . ' uabb-masonary-current" data-filter="*" value="all">' . ( isset( $this->settings->$all_text ) ? $this->settings->$all_text : __( 'All', 'uabb' ) ) . '</option>';
 
                                 foreach( $category_detail as $cat_details ){
                                     if( !empty( $tax_value ) ) {
                                         if( in_array( $cat_details->term_id, $tax_value ) ) {
-                                            echo '<option class="uabb-masonary-filter-' . $this->node . '" data-filter=".uabb-masonary-cat-' . $cat_details->slug . '">' . $cat_details->name . '</option>';
+                                            echo '<option class="uabb-masonary-filter-' . $this->node . '" data-filter=".uabb-masonary-cat-' . $cat_details->term_id . '">' . $cat_details->name . '</option>';
                                         }
                                     } else {
-                                        echo '<option class="uabb-masonary-filter-' . $this->node . '" data-filter=".uabb-masonary-cat-' . $cat_details->slug . '">' . $cat_details->name . '</option>';
+                                        echo '<option class="uabb-masonary-filter-' . $this->node . '" data-filter=".uabb-masonary-cat-' . $cat_details->term_id . '">' . $cat_details->name . '</option>';
                                     }
                                 }
                             echo '</select>';
                         }
                         else {
                                 echo '<ul class="uabb-masonary-filters">';
-                                echo '<li class="uabb-masonary-filter-' . $this->node . ' uabb-masonary-current" data-filter="*">' . __( 'All', 'uabb' ) . '</li>';
+                                echo '<li class="uabb-masonary-filter-' . $this->node . ' uabb-masonary-current" data-filter="*">' . ( isset( $this->settings->$all_text ) ? $this->settings->$all_text : __( 'All', 'uabb' ) ) . '</li>';
                                 foreach( $category_detail as $cat_details ){
                                     if( !empty( $tax_value ) ) {
                                         if( in_array( $cat_details->term_id, $tax_value ) ) {
-                                            echo '<li class="uabb-masonary-filter-' . $this->node . '" data-filter=".uabb-masonary-cat-' . $cat_details->slug . '">' . $cat_details->name . '</li>';
+                                            echo '<li class="uabb-masonary-filter-' . $this->node . '" data-filter=".uabb-masonary-cat-' . $cat_details->term_id . '">' . $cat_details->name . '</li>';
                                         }
                                     } else {
-                                        echo '<li class="uabb-masonary-filter-' . $this->node . '" data-filter=".uabb-masonary-cat-' . $cat_details->slug . '">' . $cat_details->name . '</li>';
+                                        echo '<li class="uabb-masonary-filter-' . $this->node . '" data-filter=".uabb-masonary-cat-' . $cat_details->term_id . '">' . $cat_details->name . '</li>';
                                     }
                                 }
                                 echo '</ul>';
@@ -663,7 +924,11 @@ class BlogPostsModule extends FLBuilderModule {
         if( $show_title == 'yes' ) {
         ?>
             <<?php echo $this->settings->title_tag_selection; ?> class="uabb-post-heading uabb-blog-post-section">
-                 <a href="<?php echo apply_filters( 'uabb_blog_posts_link', get_permalink( $obj->ID ), $obj->ID ); ?>" title="<?php the_title_attribute(); ?>" tabindex="0" class=""><?php the_title(); ?></a>
+                <?php 
+                $title = '<a href='. apply_filters( "uabb_blog_posts_link", get_permalink( $obj->ID ), $obj->ID ) .' title=' . the_title_attribute('echo=0') . ' tabindex="0" class="">'. get_the_title() .'</a>';
+
+                echo apply_filters( 'uabb_advanced_post_title_link', $title, get_the_title(), get_permalink( $obj->ID ), $obj->ID, $this->settings );
+                ?>
             </<?php echo $this->settings->title_tag_selection; ?>>
         <?php
         }
@@ -1074,7 +1339,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                         'size'          => '8',
                     ),
                     'autoplay'     => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Autoplay Post Scroll', 'uabb' ),
                         'help'          => __( 'Enables auto play of posts.', 'uabb' ),
                         'default'       => 'no',
@@ -1097,7 +1362,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                         'description'   => __( 'ms', 'uabb' )
                     ),
                     'infinite_loop'     => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Infinite Loop', 'uabb' ),
                         'help'          => __( 'Enable this to scroll posts in infinite loop.', 'uabb' ),
                         'default'       => 'yes',
@@ -1107,7 +1372,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                         ),
                     ),
                     'lazyload'     => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Enable Lazy Load', 'uabb' ),
                         'help'          => __( 'Enable this to load the image as soon as user slide to it.', 'uabb' ),
                         'default'       => 'no',
@@ -1117,7 +1382,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                         ),
                     ),
                     'enable_arrow' => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Enable Arrows', 'uabb' ),
                         'help'          => __( 'Enable Next/Prev arrows to your carousel slider.', 'uabb' ),
                         'default'       => 'yes',
@@ -1219,7 +1484,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                 'title' => __( 'Featured Image', 'uabb' ),
                 'fields' => array(
                     'show_featured_image' => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Display Featured Image', 'uabb' ),
                         'help'          => __('Enable this to display featured image of posts in a module.', 'uabb'),
                         'default'       => 'yes',
@@ -1260,7 +1525,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                 'title' => __( 'Title', 'uabb' ),
                 'fields' => array(
                     'show_title' => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Display Title', 'uabb' ),
                         'help'          => __('Enable this to display title of posts in a module.', 'uabb'),
                         'default'       => 'yes',
@@ -1280,7 +1545,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                 'title' => __( 'Post Meta', 'uabb' ),
                 'fields' => array(
                     'show_meta' => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Display Meta Information', 'uabb' ),
                         'help'          => __('Enable this to display post meta information in a module.', 'uabb'),
                         'default'       => 'yes',
@@ -1296,7 +1561,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                         ),
                     ),
                     'show_author' => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Show Author', 'uabb' ),
                         'default'       => 'yes',
                         'options'       => array(
@@ -1305,7 +1570,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                         ),
                     ),
                     'show_date' => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Show Date', 'uabb' ),
                         'default'       => 'yes',
                         'options'       => array(
@@ -1343,7 +1608,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                         )
                     ),
                     'show_categories' => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Show Categories', 'uabb' ),
                         'default'       => 'no',
                         'options'       => array(
@@ -1352,7 +1617,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                         ),
                     ),
                     'show_tags' => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Show Tags', 'uabb' ),
                         'default'       => 'no',
                         'options'       => array(
@@ -1361,7 +1626,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                         ),
                     ),
                     'show_comments' => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Show Comments', 'uabb' ),
                         'default'       => 'no',
                         'options'       => array(
@@ -1375,7 +1640,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                 'title' => __( 'Content', 'uabb' ),
                 'fields' => array(
                     'show_excerpt' => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Display Content', 'uabb' ),
                         'help'          => __('Enable this to display content of posts in a module.', 'uabb'),
                         'default'       => 'yes',
@@ -1406,7 +1671,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                         )
                     ),
                     'strip_content_html' => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Remove Line Breaks', 'uabb' ),
                         'help'          => __('Enable this to display content without paragraphs and line breaks.', 'uabb'),
                         'default'       => 'yes',
@@ -1476,7 +1741,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                         )
                     ),
                     'link_nofollow'   => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __('Link nofollow', 'uabb'),
                         'description'   => '',
                         'default'       => '0',
@@ -1626,7 +1891,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                         'size'        => '5',
                     ),
                     'hover_attribute' => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Apply Hover Color To', 'uabb' ),
                         'default'       => 'bg',
                         'options'       => array(
@@ -1742,7 +2007,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                         'size'        => '5',
                     ),
                     'mobile_structure' => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __('Mobile Structure', 'uabb'),
                         'default'       => 'inline',
                         'options'       => array(
@@ -1751,7 +2016,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                         ),
                     ),
                     /*'stacking_order' => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __('Stacking Order', 'uabb'),
                         'default'       => 'default',
                         'options'       => array(
@@ -1813,18 +2078,24 @@ FLBuilder::register_module('BlogPostsModule', array(
                             'property'      => 'text-align',
                         )
                     ),
-                    'overall_padding' => array(
-                        'type'      => 'uabb-spacing',
+                    'overall_padding_dimension' => array(
+                        'type'      => 'dimension',
                         'label'     => __( 'Overall Padding', 'uabb' ),
                         'help'         => __('Manage the outside spacing of entire area of post.', 'uabb'),
-                        'default'   => 'padding: 0px;',    //optional
-                        'mode'      => 'padding',
+                        'description'  => 'px',
                         'preview'         => array(
                             'type'          => 'css',
                             'selector'      => '.uabb-blog-post-inner-wrap',
                             'property'      => 'padding',
                             'unit'          => 'px',
-                        )
+                        ),
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '0',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ),
                     ),
                     'element_space' => array(
                         'type' => 'text',
@@ -1848,7 +2119,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                         )
                     ),
                     'show_box_shadow'     => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Show Box Shadow', 'uabb' ),
                         'help'         => __('Enable this to display box shadow for each individual post.', 'uabb'),
                         'default'       => 'yes',
@@ -1858,7 +2129,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                         ),
                     ),
                     'show_date_box'     => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Show Date Box', 'uabb' ),
                         'help'         => __('Enable this to display date box at top left corner of each individual post.', 'uabb'),
                         'default'       => 'no',
@@ -1886,7 +2157,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                         )
                     ),
                     'equal_height_box'     => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Equal Height Boxes', 'uabb' ),
                         'help'         => __('Enable this to display all posts with same height.', 'uabb'),
                         'default'       => 'yes',
@@ -1896,7 +2167,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                         ),
                     ),
                     'mesonry_equal_height'     => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Masonry Equal Height', 'uabb' ),
                         'help'         => __('Enable this to display all posts with same height.', 'uabb'),
                         'default'       => 'no',
@@ -1910,18 +2181,24 @@ FLBuilder::register_module('BlogPostsModule', array(
             'style' => array(
                 'title' => __( 'Content Area Styling', 'uabb' ),
                 'fields' => array(
-                    'content_padding' => array(
-                        'type'      => 'uabb-spacing',
+                    'content_padding_dimension' => array(
+                        'type'      => 'dimension',
                         'label'     => __( 'Content Padding', 'uabb' ),
                         'help'         => __('Manage the outside spacing of content area of post.', 'uabb'),
-                        'default'   => 'padding: 25px;',    //optional
-                        'mode'      => 'padding',
+                        'description'  => 'px',
                         'preview'         => array(
                             'type'          => 'css',
                             'selector'      => '.uabb-blog-post-content',
                             'property'      => 'padding',
                             'unit'          => 'px',
-                        )
+                        ),
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '25',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ),
                     ),
                     'content_background_color' => array( 
                         'type'       => 'color',
@@ -1950,7 +2227,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                 'title' => __('Pagination', 'uabb'),
                 'fields' => array(
                     'show_pagination' => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Show Pagination', 'uabb' ),
                         'default'       => 'no',
                         'options'       => array(
@@ -1982,7 +2259,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                         )
                     ),
                     'show_paginate_loader' => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Show Loader', 'uabb' ),
                         'default'       => 'yes',
                         'options'       => array(
@@ -2188,11 +2465,17 @@ FLBuilder::register_module('BlogPostsModule', array(
                         'size'          => '8',
                         'help'          => __('Use this setting to manage the space between filters and post.', 'uabb')
                     ),
-                    'masonary_padding' => array(
-                        'type'      => 'uabb-spacing',
+                    'masonary_padding_dimension' => array(
+                        'type'      => 'dimension',
                         'label'     => __( 'Button Padding', 'uabb' ),
-                        'default'   => 'padding: 12px;',    //optional
-                        'mode'      => 'padding',
+                        'description' => 'px',
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '12',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ),
                     ),
                     'masonary_button_style'       => array(
                         'type'          => 'select',
@@ -2361,7 +2644,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                         )
                     ),
                     'selfilter_border_enable'  => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Show Border', 'uabb' ),
                         'default'       => 'yes',
                         'options'       => array(
@@ -2478,35 +2761,41 @@ FLBuilder::register_module('BlogPostsModule', array(
                             'selector'        => '.uabb-post-heading a'
                         )
                     ),
-                    'title_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'title_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'px',
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-post-heading a',
                             'property'        => 'font-size',
                             'unit'            => 'px'
-                        )
-                    ),
-                    'title_line_height'    => array(
-                        'type'          => 'uabb-simplify',
-                        'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
                         ),
+                        'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
+                    ),
+                    'title_line_height_unit'    => array(
+                        'type'          => 'unit',
+                        'label'         => __( 'Line Height', 'uabb' ),
+                        'description'   => 'em',
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-post-heading a',
                             'property'        => 'line-height',
-                            'unit'            => 'px'
-                        )
+                            'unit'            => 'em'
+                        ),
+                        'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                     ),
                     'title_color'        => array( 
                         'type'       => 'color',
@@ -2536,35 +2825,41 @@ FLBuilder::register_module('BlogPostsModule', array(
                             'selector'        => '.uabb-blog-posts-description'
                         )
                     ),
-                    'desc_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'desc_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'px',
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-blog-posts-description',
                             'property'        => 'font-size',
                             'unit'            => 'px'
-                        )
-                    ),
-                    'desc_line_height'    => array(
-                        'type'          => 'uabb-simplify',
-                        'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
                         ),
+                        'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
+                    ),
+                    'desc_line_height_unit'    => array(
+                        'type'          => 'unit',
+                        'label'         => __( 'Line Height', 'uabb' ),
+                        'description'   => 'em',
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-blog-posts-description',
                             'property'        => 'line-height',
-                            'unit'            => 'px'
-                        )
+                            'unit'            => 'em'
+                        ),
+                        'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                     ),
                     'desc_color'        => array( 
                         'type'       => 'color',
@@ -2610,35 +2905,41 @@ FLBuilder::register_module('BlogPostsModule', array(
                             'selector'        => '.uabb-post-meta'
                         )
                     ),
-                    'meta_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'meta_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'px',
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-post-meta',
                             'property'        => 'font-size',
                             'unit'            => 'px'
-                        )
-                    ),
-                    'meta_line_height'    => array(
-                        'type'          => 'uabb-simplify',
-                        'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
                         ),
+                        'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
+                    ),
+                    'meta_line_height_unit'    => array(
+                        'type'          => 'unit',
+                        'label'         => __( 'Line Height', 'uabb' ),
+                        'description'   => 'em',
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-post-meta',
                             'property'        => 'line-height',
-                            'unit'            => 'px'
-                        )
+                            'unit'            => 'em'
+                        ),
+                        'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                     ),
                     'meta_text_color'        => array( 
                         'type'       => 'color',
@@ -2701,20 +3002,23 @@ FLBuilder::register_module('BlogPostsModule', array(
                             'selector'  => '.uabb-posted-on'
                         ),
                     ),
-                    'date_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'date_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'px',
                         'preview'   => array(
                             'type'      => 'css',
                             'selector'  => '.uabb-posted-on',
                             'property'  => 'font-size',
                             'unit'      => 'px'
                         ),
+                        'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                     ),
                     'date_color'        => array( 
                         'type'       => 'color',
@@ -2763,35 +3067,41 @@ FLBuilder::register_module('BlogPostsModule', array(
                             'selector'  => '.uabb-read-more-text a'
                         ),
                     ),
-                    'link_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'link_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'px',
                         'preview'   => array(
                             'type'      => 'css',
                             'selector'  => '.uabb-blog-post-content .uabb-read-more-text a',
                             'property'  => 'font-size',
                             'unit'      => 'px'
                         ),
+                        'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                     ),
-                    'link_line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                    'link_line_height_unit'    => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'em',
                         'preview'   => array(
                             'type'      => 'css',
                             'selector'  => '.uabb-blog-post-content .uabb-read-more-text a',
                             'property'  => 'line-height',
-                            'unit'      => 'px'
+                            'unit'      => 'em'
                         ),
+                        'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                     ),
                     'link_color'        => array( 
                         'type'       => 'color',
@@ -2832,23 +3142,29 @@ FLBuilder::register_module('BlogPostsModule', array(
                             'selector'  => 'a.uabb-button'
                         ),
                     ),
-                    'btn_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'btn_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'px',
+                        'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                     ),
-                    'btn_line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                    'btn_line_height_unit'    => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'em',
+                        'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                     ),
                 )
             ),
@@ -2867,20 +3183,23 @@ FLBuilder::register_module('BlogPostsModule', array(
                             'selector'  => 'select.uabb-masonary-filters, ul.uabb-masonary-filters'
                         ),
                     ),
-                    'taxonomy_filter_select_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'taxonomy_filter_select_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'px',
                         'preview'   => array(
                             'type'      => 'css',
                             'selector'  => 'select.uabb-masonary-filters, ul.uabb-masonary-filters',
                             'property'  => 'font-size',
                             'unit'      => 'px'
                         ),
+                        'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                     ),                   
                     'taxonomy_filter_select_color' => array( 
                         'type'       => 'color',

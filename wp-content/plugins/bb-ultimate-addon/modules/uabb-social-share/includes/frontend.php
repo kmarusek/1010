@@ -9,10 +9,16 @@ if( count($settings->social_icons) > 0 ) {
 			continue;
 		}
 		$url = 'javascript:void(0);';
-		$current_page = urlencode('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+
+		if( ( isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off' ) || $_SERVER['SERVER_PORT'] == 443 ) {
+			$current_page = urlencode('https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+		} else {
+			$current_page = urlencode('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+		}
+
 		switch( $icon->social_share_type ) {
 			case 'facebook':
-							 $url = "http://www.facebook.com/sharer.php?u=".$current_page;
+							 $url = "https://www.facebook.com/sharer.php?u=".$current_page;
 				  break;
 
 			case 'twitter':
@@ -27,7 +33,7 @@ if( count($settings->social_icons) > 0 ) {
 							 $url = "https://pinterest.com/pin/create/link/?url=".$current_page;
 				  break;
 			case 'linkedin':
-							 $url = "http://www.linkedin.com/shareArticle?url=".$current_page;
+							 $url = "https://www.linkedin.com/shareArticle?url=".$current_page;
 				  break;
 
 			case 'digg':
@@ -39,11 +45,11 @@ if( count($settings->social_icons) > 0 ) {
 				  break;
 
 			case 'reddit':
-							 $url = "http://reddit.com/submit?url=".$current_page;
+							 $url = "https://reddit.com/submit?url=".$current_page;
 				  break;
 
 			case 'stumbleupon':
-							 $url = "http://www.stumbleupon.com/submit?url=".$current_page;
+							 $url = "https://www.stumbleupon.com/submit?url=".$current_page;
 				  break;
 
 			case 'tumblr':
@@ -51,11 +57,11 @@ if( count($settings->social_icons) > 0 ) {
 				  break;
 
 			case 'myspace':
-						 $url = "https://myspace.com/post?u=".$current_page;
+							 $url = "https://myspace.com/post?u=".$current_page;
 			 	 break;
 
 			case 'email':
-						 $url = "mailto:?body=".$current_page;
+						 	 $url = "mailto:?body=".$current_page;
 			 	 break;
 
 		}

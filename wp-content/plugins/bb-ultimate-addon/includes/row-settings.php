@@ -23,7 +23,7 @@ function uabb_row_gradient( $form, $id ) {
         'title'     => __('Gradient', 'uabb'),
         'fields'    => array(
             'uabb_row_gradient_type' => array(
-                'type'      => 'uabb-toggle-switch',
+                'type'      => 'select',
                 'label'     => __('Type', 'uabb'),
                 'default'   => 'linear',
                 'options'   => array(
@@ -99,7 +99,7 @@ function uabb_row_gradient( $form, $id ) {
                 'size'              => '3',
             ),
             'uabb_row_linear_advance_options'  => array(
-                'type'              => 'uabb-toggle-switch',
+                'type'              => 'select',
                 'label'             => __('Advanced Options', 'uabb'),
                 'default'           => 'no',
                 'options'           => array(
@@ -136,7 +136,7 @@ function uabb_row_gradient( $form, $id ) {
                 'size'              => '3',
             ),
             'uabb_row_radial_advance_options'  => array(
-                'type'              => 'uabb-toggle-switch',
+                'type'              => 'select',
                 'label'             => __('Advanced Options', 'uabb'),
                 'default'           => 'no',
                 'options'           => array(

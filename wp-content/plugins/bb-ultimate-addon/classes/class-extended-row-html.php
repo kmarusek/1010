@@ -966,6 +966,7 @@ if ( $row->separator_flag == 'bottom' ) {
 		default:
 			if( has_filter( 'uabb_row_bot_separator_svg_' . $row->bot_separator_shape ) ) {
 				$is_svg = true;
+				$separator_class .= ' uabb-has-svg';
 			}
 
 			$separator_class .= ' uabb-' . $row->separator_flag . '-' . $row->bot_separator_shape;
@@ -1925,6 +1926,7 @@ if ( $row->separator_flag == 'bottom' ) {
 		default:
 			if( has_filter( 'uabb_row_separator_svg_' . $row->separator_shape ) ) {
 				$is_svg = true;
+				$separator_class .= ' uabb-has-svg';
 			}
 
 			$separator_class .= ' uabb-' . $row->separator_flag . '-' . $row->separator_shape;

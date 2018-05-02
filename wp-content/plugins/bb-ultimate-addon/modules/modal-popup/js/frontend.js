@@ -461,13 +461,30 @@ jQuery(document).ready(function( $ ) {
 
 				if ( $( '#modal-' + this.node ).hasClass('uabb-center-modal') ) {
 		        	$( '#modal-' + this.node ).removeClass('uabb-center-modal');
-				}
-				var top_pos  = (($(window).height() - $( '#modal-' + this.node ).outerHeight()) / 2);
 
-				if ( popup_wrap.find( '.uabb-content' ).outerHeight() > $(window).height() ) {
-   		            $(node).find( modal_popup ).css( 'top', '0' );
+				}
+
+				if( $( '#modal-' + this.node + '.uabb-show' ).outerHeight() != null ) {
+
+					var top_pos  = (($(window).height() - $( '#modal-' + this.node + '.uabb-show' ).outerHeight()) / 2);
+					
+					if ( popup_wrap.find( '.uabb-content' ).outerHeight() > $(window).height() ) {
+	   		            $(node).find( modal_popup ).css( 'top', '0' );
+						$(node).find( modal_popup ).css( 'transform', 'none' );
+					} else {
+						$(node).find( modal_popup ).css( 'top', + top_pos +'px' );
+						$(node).find( modal_popup ).css( 'transform', 'none' );
+					}
+					
 				} else {
-					$(node).find( modal_popup ).css( 'top', + top_pos +'px' );
+					
+					if ( popup_wrap.find( '.uabb-content' ).outerHeight() > $(window).height() ) {
+	   		            $(node).find( modal_popup ).css( 'top', '0' );
+						$(node).find( modal_popup ).css( 'transform', 'none' );
+					} else {
+						$(node).find( modal_popup ).css( 'top', '50%' );
+						$(node).find( modal_popup ).css( 'transform', 'translateY(-50%)' );
+					}
 				}
 
 			},

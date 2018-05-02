@@ -1,3 +1,17 @@
+Version 1.7.0  - Wednesday, 02nd May 2018
+- New: Custom field compatibility with Beaver Builder 2.0
+- Improvement: Testimonials - Added option to show Arrow and Dots in Navigation
+- Improvement: Advanced Posts - Added option to change "All" text in Masonry Filter
+- Improvement: Deprecated uabb-simplify field and replaced it with BB's unit field
+- Improvement: Deprecated uabb-spacing field and replaced it with BB's dimension field
+- Improvement: Deprecated uabb-toggle-switch field and replaced it with BB's select field
+- Improvement: Deprecated uabb-datetimepicker field
+- Fixed: Advanced Posts - Pagination issue with search page
+- Fixed: Hotspot - Hotspot image not working in module settings
+- fixed: Social Share - Share link includes http rather than https
+- Fixed: Advanced Post - Masonry Filter not working if language is not recognized
+- Fixed: Remove duplicate uabb-js-breakpoint id
+
 Version 1.6.9 - Wednesday, 21th February 2018
 - Improvement: Contact Form - Add option to modify the processing text
 - improvement: Info Box - Add Responsive height options for the infobox

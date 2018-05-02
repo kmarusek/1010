@@ -22,12 +22,12 @@ if ( $settings->tetimonial_layout == "slider" ) {
 		pause : <?php echo $settings->pause * 1000; ?>,
 		mode : '<?php echo $settings->transition; ?>',
 		speed : <?php echo $settings->speed * 1000;  ?>,
-		pager : <?php echo ($settings->navigation == 'wide') ? 1 : 0; ?>,
+		pager : <?php echo ( $settings->navigation == 'wide' || $settings->navigation == 'compact-wide' ) ? 1 : 0; ?>,
 		nextSelector : '.fl-node-<?php echo $id; ?> .uabb-slider-next',
 		prevSelector : '.fl-node-<?php echo $id; ?> .uabb-slider-prev',
 		nextText: '<i class="fa fa-chevron-right"></i>',
 		prevText: '<i class="fa fa-chevron-left"></i>',
-		controls : <?php echo ($settings->navigation == 'compact') ? 1 : 0; ?>,
+		controls : <?php echo ($settings->navigation == 'compact' || $settings->navigation == 'compact-wide' ) ? 1 : 0; ?>,
 		onSliderLoad: function() { 
 			jQuery('.fl-node-<?php echo $id; ?> .uabb-testimonials').addClass('uabb-testimonials-loaded'); 
 		}

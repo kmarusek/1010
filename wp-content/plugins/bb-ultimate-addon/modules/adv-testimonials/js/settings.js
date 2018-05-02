@@ -117,6 +117,9 @@
 				}else if ( navigation == "wide" ) {
 					$("#fl-builder-settings-section-slider_arrow").css({"display":"none"});
 					$("#fl-builder-settings-section-slider_dots").css({"display":"block"});
+				}else if ( navigation == "compact-wide" ) {
+					$("#fl-builder-settings-section-slider_arrow").css({"display":"block"});
+					$("#fl-builder-settings-section-slider_dots").css({"display":"block"});
 				}
 			}else{
 				$("#fl-builder-settings-section-slider_arrow").css({"display":"none"});

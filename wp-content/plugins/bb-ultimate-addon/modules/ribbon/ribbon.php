@@ -10,8 +10,7 @@ class RibbonModule extends FLBuilderModule {
      *
      * @method __construct
      */
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct(array(
             'name'          => __('Ribbon', 'uabb'),
             'description'   => __('Ribbon', 'uabb'),
@@ -21,13 +20,64 @@ class RibbonModule extends FLBuilderModule {
             'url'           => BB_ULTIMATE_ADDON_URL . 'modules/ribbon/',
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
-            'partial_refresh'   => true
+            'partial_refresh'   => true,
+            'icon'              => 'ribbon.svg'
         ));
+
+        add_filter( 'fl_builder_layout_data', array( $this , 'render_new_data' ), 10, 3 );
+    }
+    
+    /**
+     * @method get_icons
+     */
+    public function get_icon( $icon = '' ) {
+        // check if $icon is referencing an included icon.
+        if ( '' != $icon && file_exists( BB_ULTIMATE_ADDON_DIR . 'modules/ribbon/icon/' . $icon ) ) {
+            $path = BB_ULTIMATE_ADDON_DIR . 'modules/ribbon/icon/' . $icon;
+        }
+
+        if ( file_exists( $path ) ) {
+            return file_get_contents( $path );
+        } else {
+            return '';
+        }
+    }
+
+    function render_new_data( $data ) {
+
+        foreach ( $data as &$node ) {
+            
+            if ( isset( $node->settings->type ) && 'ribbon' === $node->settings->type ) {
+                
+                if ( isset( $node->settings->text_font_size['small']) && !isset( $node->settings->text_font_size_unit_responsive ) ) {
+                    $node->settings->text_font_size_unit_responsive = $node->settings->text_font_size['small'];
+                }
+                if( isset( $node->settings->text_font_size['medium']) && !isset( $node->settings->text_font_size_unit_medium ) ) {
+                    $node->settings->text_font_size_unit_medium = $node->settings->text_font_size['medium'];
+                }
+                if( isset( $node->settings->text_font_size['desktop']) && !isset( $node->settings->text_font_size_unit ) ) {
+                    $node->settings->text_font_size_unit = $node->settings->text_font_size['desktop'];
+                }
+                
+                if( isset( $node->settings->text_line_height['small']) && isset( $node->settings->text_font_size['small'] ) && $node->settings->text_font_size['small'] != 0 && !isset( $node->settings->text_line_height_unit_responsive ) ) {
+                    if( is_numeric( $node->settings->text_line_height['small']) && is_numeric( $node->settings->text_font_size['small']) )
+                    $node->settings->text_line_height_unit_responsive = round( $node->settings->text_line_height['small'] / $node->settings->text_font_size['small'], 2 );
+                }
+                if( isset( $node->settings->text_line_height['medium']) && isset( $node->settings->text_font_size['medium'] ) && $node->settings->text_font_size['medium'] != 0 && !isset( $node->settings->text_line_height_unit_medium ) ) {
+                    if( is_numeric( $node->settings->text_line_height['medium']) && is_numeric( $node->settings->text_font_size['medium']) )
+                    $node->settings->text_line_height_unit_medium = round( $node->settings->text_line_height['medium'] / $node->settings->text_font_size['medium'], 2 );
+                }
+                if( isset( $node->settings->text_line_height['desktop']) && isset( $node->settings->text_font_size['desktop'] ) && $node->settings->text_font_size['desktop'] != 0 && !isset( $node->settings->text_line_height_unit ) ) {
+                    if( is_numeric( $node->settings->text_line_height['desktop']) && is_numeric( $node->settings->text_font_size['desktop']) )
+                    $node->settings->text_line_height_unit = round( $node->settings->text_line_height['desktop'] / $node->settings->text_font_size['desktop'], 2 );
+                }
+            }
+        }
+
+        return $data;
     }
 
 }
-
-
 
 /**
  * Register the module and its form settings.
@@ -117,7 +167,7 @@ FLBuilder::register_module('RibbonModule', array(
                         )
                     ),
                     'stitching'     => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Stitching', 'uabb' ),
                         'default'       => 'yes',
                         'options'       => array(
@@ -127,7 +177,7 @@ FLBuilder::register_module('RibbonModule', array(
                         'help' => __( 'To give Stitch effect on Ribbon', 'uabb' )
                     ),
                     'shadow'     => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Ribbon Shadow', 'uabb' ),
                         'default'       => 'yes',
                         'options'       => array(
@@ -235,13 +285,16 @@ FLBuilder::register_module('RibbonModule', array(
                             'selector'        => '.uabb-ribbon-text'
                         )
                     ),
-                    'text_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'text_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
+                        'description'   => 'px',
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
                         ),
                         'preview'         => array(
                             'type'            => 'css',
@@ -250,19 +303,22 @@ FLBuilder::register_module('RibbonModule', array(
                             'unit'            => 'px'
                         )
                     ),
-                    'text_line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                    'text_line_height_unit'    => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
+                        'description'   => 'em',
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
                         ),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-ribbon-text',
                             'property'        => 'line-height',
-                            'unit'            => 'px'
+                            'unit'            => 'em'
                         )
                     ),
                     'text_color'        => array( 

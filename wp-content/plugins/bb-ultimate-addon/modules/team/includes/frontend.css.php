@@ -27,7 +27,21 @@
 
 /* Image Section Spacing */
 .fl-node-<?php echo $id; ?> .uabb-team-image {
-	<?php echo $settings->img_spacing; ?>px;
+     <?php 
+        if(isset($settings->img_spacing_dimension_top) ){
+            echo ( $settings->img_spacing_dimension_top != '' ) ? 'padding-top:'.$settings->img_spacing_dimension_top.'px;' : ''; 
+        }
+        if(isset($settings->img_spacing_dimension_bottom) ){
+            echo ( $settings->img_spacing_dimension_bottom != '' ) ? 'padding-bottom:'.$settings->img_spacing_dimension_bottom.'px;' : '';
+        }
+        if(isset($settings->img_spacing_dimension_left) ){
+            echo ( $settings->img_spacing_dimension_left != '' ) ? 'padding-left:'.$settings->img_spacing_dimension_left.'px;' : '';
+        }
+        if(isset($settings->img_spacing_dimension_right) ){
+            echo ( $settings->img_spacing_dimension_right != '' ) ? 'padding-right:'.$settings->img_spacing_dimension_right.'px;' : '';
+        } 
+    ?>
+
 	<?php if ( !empty( $settings->img_bg_color ) ) { ?>
 		background: <?php echo $settings->img_bg_color; ?>;
 	<?php } ?>
@@ -46,7 +60,22 @@
 
 /* Text BG Color and Spacing */
 .fl-node-<?php echo $id; ?> .uabb-team-content {
-	<?php echo $settings->text_spacing; ?>px;
+
+	 <?php 
+        if(isset($settings->text_spacing_dimension_top) ){
+            echo ( $settings->text_spacing_dimension_top != '' ) ? 'padding-top:'.$settings->text_spacing_dimension_top.'px;' : 'padding-top: 15px;'; 
+        }
+        if(isset($settings->text_spacing_dimension_bottom) ){
+            echo ( $settings->text_spacing_dimension_bottom != '' ) ? 'padding-bottom:'.$settings->text_spacing_dimension_bottom.'px;' : 'padding-bottom: 15px;';
+        }
+        if(isset($settings->text_spacing_dimension_left) ){
+            echo ( $settings->text_spacing_dimension_left != '' ) ? 'padding-left:'.$settings->text_spacing_dimension_left.'px;' : 'padding-left: 15px;';
+        }
+        if(isset($settings->text_spacing_dimension_right) ){
+            echo ( $settings->text_spacing_dimension_right != '' ) ? 'padding-right:'.$settings->text_spacing_dimension_right.'px;' : 'padding-right: 15px;';
+        } 
+    ?>
+
 	<?php if ( !empty( $settings->text_bg_color ) ) { ?>
 		background: <?php echo $settings->text_bg_color; ?>;
 	<?php } ?>
@@ -301,12 +330,16 @@ if ( $settings->enable_social_icons == 'yes' ) {
 			<?php endif; ?>
 	<?php endif; ?>
 
-	<?php if( $settings->font_size['desktop'] != '' ) : ?>
-	font-size: <?php echo $settings->font_size['desktop']; ?>px;
+	<?php if( isset( $settings->font_size_unit ) && $settings->font_size_unit != '' ) : ?>
+		font-size: <?php echo $settings->font_size_unit; ?>px;
 	<?php endif; ?>
 
-	<?php if( $settings->line_height['desktop'] != '' ) : ?>
-	line-height: <?php echo $settings->line_height['desktop']; ?>px;
+	<?php if( isset( $settings->font_size['desktop'] ) && $settings->font_size['desktop'] == '' && isset( $settings->line_height['desktop'] ) && $settings->line_height['desktop'] != '' && $settings->line_height_unit == '' ) { ?>
+	    line-height: <?php echo $settings->line_height['desktop']; ?>px;
+	<?php } ?>
+
+	<?php if( isset( $settings->line_height_unit ) && $settings->line_height_unit != '' ) : ?>
+		line-height: <?php echo $settings->line_height_unit; ?>em;
 	<?php endif; ?>
 
 	<?php if( $settings->color != '' ) : ?>
@@ -323,13 +356,18 @@ if ( $settings->enable_social_icons == 'yes' ) {
 			<?php endif; ?>
 	<?php endif; ?>
 
-	<?php if( $settings->desg_font_size['desktop'] != '' ) : ?>
-	font-size: <?php echo $settings->desg_font_size['desktop']; ?>px;
+	<?php if( isset( $settings->desg_font_size_unit ) && $settings->desg_font_size_unit != '' ) : ?>
+		font-size: <?php echo $settings->desg_font_size_unit; ?>px;
+	<?php endif; ?>
+    
+    <?php if( isset( $settings->desg_font_size['desktop'] ) && $settings->desg_font_size['desktop'] == '' && isset( $settings->desg_line_height['desktop'] ) && $settings->desg_line_height['desktop'] != '' && $settings->desg_line_height_unit == '' ) { ?>
+	    line-height: <?php echo $settings->desg_line_height['desktop']; ?>px;
+	<?php } ?>
+
+	<?php if( isset( $settings->desg_line_height_unit ) && $settings->desg_line_height_unit != '' ) : ?>
+		line-height: <?php echo $settings->desg_line_height_unit; ?>em;
 	<?php endif; ?>
 
-	<?php if( $settings->desg_line_height['desktop'] != '' ) : ?>
-	line-height: <?php echo $settings->desg_line_height['desktop']; ?>px;
-	<?php endif; ?>
 
 	<?php if( $settings->desg_color != '' ) : ?>
 	color: <?php echo $settings->desg_color; ?>;
@@ -345,14 +383,18 @@ if ( $settings->enable_social_icons == 'yes' ) {
 			<?php endif; ?>
 	<?php endif; ?>
 
-	<?php if( $settings->desc_font_size['desktop'] != '' ) : ?>
-	font-size: <?php echo $settings->desc_font_size['desktop']; ?>px;
+	<?php if( isset( $settings->desc_font_size_unit ) && $settings->desc_font_size_unit != '' ) : ?>
+		font-size: <?php echo $settings->desc_font_size_unit; ?>px;
 	<?php endif; ?>
+    
+    <?php if( isset( $settings->desc_font_size['desktop'] ) && $settings->desc_font_size['desktop'] == '' && isset( $settings->desc_line_height['desktop'] ) && $settings->desc_line_height['desktop'] != '' && $settings->desc_line_height_unit == '' ) { ?>
+	    line-height: <?php echo $settings->desc_line_height['desktop']; ?>px;
+	<?php } ?>
 
-	<?php if( $settings->desc_line_height['desktop'] != '' ) : ?>
-	line-height: <?php echo $settings->desc_line_height['desktop']; ?>px;
+	<?php if( isset( $settings->desc_line_height_unit ) && $settings->desc_line_height_unit != '' ) : ?>
+		line-height: <?php echo $settings->desc_line_height_unit; ?>em;
 	<?php endif; ?>
-
+	
 	<?php if( $settings->desc_color != '' ) : ?>
 	color: <?php echo $settings->desc_color; ?>;
 	<?php endif; ?>
@@ -361,88 +403,207 @@ if ( $settings->enable_social_icons == 'yes' ) {
 
 
 <?php if($global_settings->responsive_enabled) { // Global Setting If started 
-	if( $settings->font_size['medium'] != "" || $settings->line_height['medium'] != "" || 
-		$settings->desg_font_size['medium'] != "" || $settings->desg_line_height['medium'] != "" || 
-		$settings->desc_font_size['medium'] != "" || $settings->desc_line_height['medium'] != "" )
+	if( isset( $settings->font_size['medium'] ) || isset( $settings->line_height['medium'] ) || 
+		isset( $settings->desg_font_size['medium'] ) || isset( $settings->desg_line_height['medium'] ) 
+	    || isset( $settings->desc_font_size['medium'] ) || isset( $settings->desc_line_height['medium'] 
+	    ) || isset($settings->font_size_unit_medium) || isset( $settings->line_height_unit_medium ) ||
+	    isset( $settings->desg_font_size_unit_medium ) || isset( $settings->desg_line_height_unit_medium
+	    ) || isset( $settings->desc_font_size_unit_medium ) || isset( $settings->desc_line_height_unit_medium ) || isset( $settings->desg_line_height_unit ) )
 	{
 		/* Medium Breakpoint media query */	
 	?>
 		@media ( max-width: <?php echo $global_settings->medium_breakpoint .'px'; ?> ) {
+
+		    .fl-node-<?php echo $id; ?> .uabb-team-image {
+			    <?php 
+			        if(isset($settings->img_spacing_dimension_top_medium) ){
+			            echo ( $settings->img_spacing_dimension_top_medium != '' ) ? 'padding-top:'.$settings->img_spacing_dimension_top_medium.'px;' : ''; 
+			        }
+			        if(isset($settings->img_spacing_dimension_bottom_medium) ){
+			            echo ( $settings->img_spacing_dimension_bottom_medium != '' ) ? 'padding-bottom:'.$settings->img_spacing_dimension_bottom_medium.'px;' : '';
+			        }
+			        if(isset($settings->img_spacing_dimension_left_medium) ){
+			            echo ( $settings->img_spacing_dimension_left_medium != '' ) ? 'padding-left:'.$settings->img_spacing_dimension_left_medium.'px;' : '';
+			        }
+			        if(isset($settings->img_spacing_dimension_right_medium) ){
+			            echo ( $settings->img_spacing_dimension_right_medium != '' ) ? 'padding-right:'.$settings->img_spacing_dimension_right_medium.'px;' : '';
+			        } 
+			    ?>
+			}
+
+			.fl-node-<?php echo $id; ?> .uabb-team-content {
+
+				<?php 
+			        if(isset($settings->text_spacing_dimension_top_medium) ){
+			            echo ( $settings->text_spacing_dimension_top_medium != '' ) ? 'padding-top:'.$settings->text_spacing_dimension_top_medium.'px;' : ''; 
+			        }
+			        if(isset($settings->text_spacing_dimension_bottom_medium) ){
+			            echo ( $settings->text_spacing_dimension_bottom_medium != '' ) ? 'padding-bottom:'.$settings->text_spacing_dimension_bottom_medium.'px;' : '';
+			        }
+			        if(isset($settings->text_spacing_dimension_left_medium) ){
+			            echo ( $settings->text_spacing_dimension_left_medium != '' ) ? 'padding-left:'.$settings->text_spacing_dimension_left_medium.'px;' : '';
+			        }
+			        if(isset($settings->text_spacing_dimension_right_medium) ){
+			            echo ( $settings->text_spacing_dimension_right_medium != '' ) ? 'padding-right:'.$settings->text_spacing_dimension_right_medium.'px;' : '';
+			        } 
+			    ?>
+			}
+
 			/* Name Text Typography */
 			.fl-node-<?php echo $id; ?> <?php echo $settings->tag_selection; ?>.uabb-team-name-text {
-				<?php if( $settings->font_size['medium'] != '' ) : ?>
-				font-size: <?php echo $settings->font_size['medium']; ?>px;
-				line-height: <?php echo $settings->font_size['medium'] + 2; ?>px;
-				<?php endif; ?>
 
-				<?php if( $settings->line_height['medium'] != '' ) : ?>
-				line-height: <?php echo $settings->line_height['medium']; ?>px;
+				<?php if( isset( $settings->font_size_unit_medium ) && $settings->font_size_unit_medium != '' && $settings->font_size_unit_medium != 0 ) : ?>
+					font-size: <?php echo $settings->font_size_unit_medium; ?>px;
+					<?php if($settings->line_height_unit_medium == "")?>
+					line-height: <?php echo  $settings->font_size_unit_medium + 2; ?>px;
 				<?php endif; ?>
+			    
+			    <?php if( isset( $settings->font_size['medium'] ) && $settings->font_size['medium'] == '' && isset( $settings->line_height['medium'] ) && $settings->line_height['medium'] != '' && $settings->line_height_unit_medium == '' && $settings->line_height_unit == '' ) { ?>
+					line-height: <?php echo $settings->line_height['medium']; ?>px;
+				<?php } ?>
+
+				<?php if( isset( $settings->line_height_unit_medium ) && $settings->line_height_unit_medium != '' ) : ?>
+					line-height: <?php echo $settings->line_height_unit_medium; ?>em;
+				<?php endif; ?>		
 			}
 
 			/* Desg Text */
 			.fl-node-<?php echo $id; ?> .uabb-team-desgn-text {
-				<?php if( $settings->desg_font_size['medium'] != '' ) : ?>
-				font-size: <?php echo $settings->desg_font_size['medium']; ?>px;
-				<?php endif; ?>
 
-				<?php if( $settings->desg_line_height['medium'] != '' ) : ?>
-				line-height: <?php echo $settings->desg_line_height['medium']; ?>px;
+				<?php if( isset( $settings->desg_font_size_unit_medium ) && $settings->desg_font_size_unit_medium != '' ) : ?>
+					font-size: <?php echo $settings->desg_font_size_unit_medium; ?>px;
 				<?php endif; ?>
+	            
+	            <?php if( isset( $settings->desg_font_size['medium'] ) && $settings->desg_font_size['medium'] == '' && isset( $settings->desg_line_height['medium'] ) && $settings->desg_line_height['medium'] != '' && $settings->desg_line_height_unit_medium == '' && $settings->desg_line_height_unit == '' ) { ?>
+					    line-height: <?php echo $settings->desg_line_height['medium']; ?>px;
+				<?php } ?>
+    
+				<?php if( isset( $settings->desg_line_height_unit_medium ) && $settings->desg_line_height_unit_medium != '' ) : ?>
+					line-height: <?php echo $settings->desg_line_height_unit_medium; ?>em;
+				<?php endif; ?>
+				
 			}
 
 			/* Desc Text */
-			.fl-node-<?php echo $id; ?> .uabb-team-desc-text {
-				<?php if( $settings->desg_font_size['medium'] != '' ) : ?>
-				font-size: <?php echo $settings->desg_font_size['medium']; ?>px;
+            .fl-node-<?php echo $id; ?> .uabb-team-desc-text {
+	            
+				<?php if( isset( $settings->desc_font_size_unit_medium ) && $settings->desc_font_size_unit_medium != '' ) : ?>
+					font-size: <?php echo $settings->desc_font_size_unit_medium; ?>px;
 				<?php endif; ?>
-
-				<?php if( $settings->desg_line_height['medium'] != '' ) : ?>
-				line-height: <?php echo $settings->desg_line_height['medium']; ?>px;
+	            
+	            <?php if( isset( $settings->desc_font_size['medium'] ) && $settings->desc_font_size['medium'] == '' && isset( $settings->desc_line_height['medium'] ) && $settings->desc_line_height['medium'] != '' && $settings->desc_line_height_unit_medium == '' && $settings->desc_line_height_unit == '' ) { ?>
+					    line-height: <?php echo $settings->desc_line_height['medium']; ?>px;
+				<?php } ?>
+  
+				<?php if( isset( $settings->desc_line_height_unit_medium ) && $settings->desc_line_height_unit_medium != '' ) : ?>
+					line-height: <?php echo $settings->desc_line_height_unit_medium; ?>em;
 				<?php endif; ?>
+				
 			}
+
 		}		
 	<?php
 	}
-	if( $settings->font_size['small'] != "" || $settings->line_height['small'] != "" || 
-		$settings->desg_font_size['small'] != "" || $settings->desg_line_height['small'] != "" || 
-		$settings->desc_font_size['small'] != "" || $settings->desc_line_height['small'] != "" )
+	if( isset( $settings->font_size['small'] ) || isset( $settings->line_height['small'] ) || 
+		isset( $settings->desg_font_size['small'] ) || isset( $settings->desg_line_height['small'] ) || 
+		isset( $settings->desc_font_size['small'] ) || isset( $settings->desc_line_height['small'] ) ||
+		isset( $settings->font_size_unit_responsive ) || isset( $settings->line_height_unit_responsive )
+		|| isset( $settings->desg_font_size_unit_responsive ) || isset( $settings->desg_line_height_unit_responsive ) || isset( $settings->desc_font_size_unit_responsive ) || $settings->desc_line_height_unit_responsive != "" )
 	{
 		/* Small Breakpoint media query */	
 	?>
 		@media ( max-width: <?php echo $global_settings->responsive_breakpoint .'px'; ?> ) {
+
+		    .fl-node-<?php echo $id; ?> .uabb-team-content {
+
+				 <?php 
+			        if(isset($settings->text_spacing_dimension_top_responsive) ){
+			            echo ( $settings->text_spacing_dimension_top_responsive != '' ) ? 'padding-top:'.$settings->text_spacing_dimension_top_responsive.'px;' : ''; 
+			        }
+			        if(isset($settings->text_spacing_dimension_bottom_responsive) ){
+			            echo ( $settings->text_spacing_dimension_bottom_responsive != '' ) ? 'padding-bottom:'.$settings->text_spacing_dimension_bottom_responsive.'px;' : '';
+			        }
+			        if(isset($settings->text_spacing_dimension_left_responsive) ){
+			            echo ( $settings->text_spacing_dimension_left_responsive != '' ) ? 'padding-left:'.$settings->text_spacing_dimension_left_responsive.'px;' : '';
+			        }
+			        if(isset($settings->text_spacing_dimension_right_responsive) ){
+			            echo ( $settings->text_spacing_dimension_right_responsive != '' ) ? 'padding-right:'.$settings->text_spacing_dimension_right_responsive.'px;' : '';
+			        } 
+			    ?>
+			}
+
+		    .fl-node-<?php echo $id; ?> .uabb-team-image {
+			    <?php 
+			        if(isset($settings->img_spacing_dimension_top_responsive) ){
+			            echo ( $settings->img_spacing_dimension_top_responsive != '' ) ? 'padding-top:'.$settings->img_spacing_dimension_top_responsive.'px;' : ''; 
+			        }
+			        if(isset($settings->img_spacing_dimension_bottom_responsive) ){
+			            echo ( $settings->img_spacing_dimension_bottom_responsive != '' ) ? 'padding-bottom:'.$settings->img_spacing_dimension_bottom_responsive.'px;' : '';
+			        }
+			        if(isset($settings->img_spacing_dimension_left_responsive) ){
+			            echo ( $settings->img_spacing_dimension_left_responsive != '' ) ? 'padding-left:'.$settings->img_spacing_dimension_left_responsive.'px;' : '';
+			        }
+			        if(isset($settings->img_spacing_dimension_right_responsive) ){
+			            echo ( $settings->img_spacing_dimension_right_responsive != '' ) ? 'padding-right:'.$settings->img_spacing_dimension_right_responsive.'px;' : '';
+			        } 
+			    ?>
+			}
+
 			/* Name Text Typography */
 			.fl-node-<?php echo $id; ?> <?php echo $settings->tag_selection; ?>.uabb-team-name-text {
-				<?php if( $settings->font_size['small'] != '' ) : ?>
-				font-size: <?php echo $settings->font_size['small']; ?>px;
-				line-height: <?php echo $settings->font_size['small'] + 2; ?>px;
+
+				<?php if( isset( $settings->font_size_unit_responsive ) && $settings->font_size_unit_responsive != '' ) : ?>
+					font-size: <?php echo $settings->font_size_unit_responsive; ?>px;
+					<?php if($settings->font_size_unit_responsive == "") ?>
+					line-height: <?php echo $settings->font_size_unit_responsive + 2 ; ?>px;
+				<?php endif; ?>
+			   
+			    <?php if( isset( $settings->font_size['small'] ) && $settings->font_size['small'] == '' && isset( $settings->line_height['small'] ) && $settings->line_height['small'] != '' && $settings->line_height_unit_responsive == '' && $settings->line_height_unit_medium == '' && $settings->line_height_unit == '' ) { ?>
+					    line-height: <?php echo $settings->line_height['small']; ?>px;
+				<?php } ?>
+
+				<?php if( isset( $settings->line_height_unit_responsive ) && $settings->line_height_unit_responsive != '' ) : ?>
+					line-height: <?php echo $settings->line_height_unit_responsive; ?>em;
 				<?php endif; ?>
 
-				<?php if( $settings->line_height['small'] != '' ) : ?>
-				line-height: <?php echo $settings->line_height['small']; ?>px;
-				<?php endif; ?>
 			}
 
 			/* Desg Text */
 			.fl-node-<?php echo $id; ?> .uabb-team-desgn-text {
-				<?php if( $settings->desg_font_size['small'] != '' ) : ?>
-				font-size: <?php echo $settings->desg_font_size['small']; ?>px;
+					
+				<?php if( isset( $settings->desg_font_size_unit_responsive ) && $settings->desg_font_size_unit_responsive != '' ) : ?>
+					font-size: <?php echo $settings->desg_font_size_unit_responsive; ?>px;
+					<?php if( $settings->desg_line_height_unit_responsive == "" ) ?>
+					line-height: <?php echo  $settings->desg_font_size_unit_responsive + 2 ; ?>px;
 				<?php endif; ?>
-
-				<?php if( $settings->desg_line_height['small'] != '' ) : ?>
-				line-height: <?php echo $settings->desg_line_height['small']; ?>px;
+			    
+			    <?php if( isset( $settings->desg_font_size['small'] ) && $settings->desg_font_size['small'] == '' && isset( $settings->desg_line_height['small'] ) && $settings->desg_line_height['small'] != '' && $settings->desg_line_height_unit_responsive == '' && $settings->desg_line_height_unit_medium == '' && $settings->desg_line_height_unit == '' ) { ?>
+					    line-height: <?php echo $settings->desg_line_height['small']; ?>px;
+				<?php } ?>
+			
+				<?php if( isset( $settings->desg_line_height_unit_responsive ) && $settings->desg_line_height_unit_responsive != '' ) : ?>
+					line-height: <?php echo $settings->desg_line_height_unit_responsive; ?>em;
 				<?php endif; ?>
+				
 			}
 
 			/* Desc Text */
 			.fl-node-<?php echo $id; ?> .uabb-team-desc-text {
-				<?php if( $settings->desg_font_size['small'] != '' ) : ?>
-				font-size: <?php echo $settings->desg_font_size['small']; ?>px;
+                
+				<?php if( isset( $settings->desc_font_size_unit_responsive ) && $settings->desc_font_size_unit_responsive != '' && $settings->desc_font_size_unit_responsive != 0 ) : ?>
+					font-size: <?php echo $settings->desc_font_size_unit_responsive; ?>px;
+					<?php if( $settings->desc_line_height_unit_responsive == "" ) ?>
+					line-height: <?php echo $settings->desc_font_size_unit_responsive + 2; ?>px;
 				<?php endif; ?>
-
-				<?php if( $settings->desg_line_height['small'] != '' ) : ?>
-				line-height: <?php echo $settings->desg_line_height['small']; ?>px;
+			    
+			    <?php if( isset( $settings->desc_font_size['small'] ) && $settings->desc_font_size['small'] == '' && isset( $settings->desc_line_height['small'] ) && $settings->desc_line_height['small'] != '' && $settings->desc_line_height_unit_responsive == '' && $settings->desc_line_height_unit_medium == '' && $settings->desc_line_height_unit == '' ) { ?>
+					    line-height: <?php echo $settings->desc_line_height['small']; ?>px;
+				<?php } ?>
+			
+				<?php if( isset( $settings->desc_line_height_unit_responsive ) && $settings->desc_line_height_unit_responsive != '' ) : ?>
+					line-height: <?php echo $settings->desc_line_height_unit_responsive ; ?>em;
 				<?php endif; ?>
+				
 			}
 		}		
 	<?php

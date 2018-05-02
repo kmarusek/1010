@@ -52,7 +52,7 @@ FLBuilder::register_module('UABBAdvancedIconModule', array(
 				'title'         => __('Structure', 'uabb'), // Section Title
 				'fields'        => array( // Section Fields
 					'icon_struc_align'     => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Icons Structure', 'uabb' ),
                         'default'       => 'horizontal',
                         'options'       => array(
@@ -187,7 +187,7 @@ FLBuilder::register_module('UABBAdvancedIconModule', array(
 				'title'         => __('Colors', 'uabb'), // Section Title
 				'fields'        => array( // Section Fields
 					 'color_preset'     => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Icon Color Presets', 'uabb' ),
                         'default'       => 'preset1',
                         'options'       => array(
@@ -330,7 +330,7 @@ FLBuilder::register_settings_form('uabb_advicon_group_form', array(
 							)
 						),
 						'link_nofollow'   => array(
-							'type'          => 'uabb-toggle-switch',
+							'type'          => 'select',
 							'label'         => __('Link nofollow', 'uabb'),
 							'description'   => '',
 							'default'       => '0',

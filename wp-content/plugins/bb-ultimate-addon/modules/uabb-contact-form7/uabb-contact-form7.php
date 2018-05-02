@@ -21,10 +21,316 @@ class UABBContactForm7Module extends FLBuilderModule {
 			'partial_refresh'	=> true,
 			'icon'				=> 'editor-table.svg',
 		));
+
+		add_filter( 'fl_builder_layout_data', array( $this , 'render_new_data' ), 10, 3 );
+	
 	}
+
+	function render_new_data( $data ) {
+
+		foreach ( $data as &$node ) {
+			
+			if ( isset( $node->settings->type ) && 'uabb-contact-form7' === $node->settings->type ) {
+				
+				if ( isset( $node->settings->btn_font_size['small']) && !isset( $node->settings->btn_font_size_unit_responsive ) ) {
+					$node->settings->btn_font_size_unit_responsive = $node->settings->btn_font_size['small'];
+				}
+				if( isset( $node->settings->btn_font_size['medium']) && !isset( $node->settings->btn_font_size_unit_medium ) ) {
+					$node->settings->btn_font_size_unit_medium = $node->settings->btn_font_size['medium'];
+				}
+				if( isset( $node->settings->btn_font_size['desktop']) && !isset( $node->settings->btn_font_size_unit ) ) {
+					$node->settings->btn_font_size_unit = $node->settings->btn_font_size['desktop'];
+				}
+                
+                if( isset( $node->settings->btn_line_height['small']) && isset( $node->settings->btn_font_size['small'] ) && $node->settings->btn_font_size['small'] != 0 && !isset( $node->settings->btn_line_height_unit_responsive ) ) {
+					if( is_numeric( $node->settings->btn_line_height['small']) && is_numeric( $node->settings->btn_font_size['small']) )
+                    $node->settings->btn_line_height_unit_responsive = round( $node->settings->btn_line_height['small'] / $node->settings->btn_font_size['small'], 2 );
+				}
+				if( isset( $node->settings->btn_line_height['medium']) && isset( $node->settings->btn_font_size['medium'] ) && $node->settings->btn_font_size['medium'] != 0 && !isset( $node->settings->btn_line_height_unit_medium ) ) {
+					if( is_numeric( $node->settings->btn_line_height['medium']) && is_numeric( $node->settings->btn_font_size['medium']) )
+                    $node->settings->btn_line_height_unit_medium = round( $node->settings->btn_line_height['medium'] / $node->settings->btn_font_size['medium'], 2 );
+				}
+				if( isset( $node->settings->btn_line_height['desktop']) && isset( $node->settings->btn_font_size['desktop'] ) && $node->settings->btn_font_size['desktop'] != 0 && !isset( $node->settings->btn_line_height_unit ) ) {
+					if( is_numeric( $node->settings->btn_line_height['desktop']) && is_numeric( $node->settings->btn_font_size['desktop']) )
+                    $node->settings->btn_line_height_unit = round( $node->settings->btn_line_height['desktop'] / $node->settings->btn_font_size['desktop'], 2 );
+				}
+
+				if ( isset( $node->settings->form_title_font_size['small']) && !isset( $node->settings->form_title_font_size_unit_responsive ) ) {
+					$node->settings->form_title_font_size_unit_responsive = $node->settings->form_title_font_size['small'];
+				}
+				if( isset( $node->settings->form_title_font_size['medium']) && !isset( $node->settings->form_title_font_size_unit_medium ) ) {
+					$node->settings->form_title_font_size_unit_medium = $node->settings->form_title_font_size['medium'];
+				}
+				if( isset( $node->settings->form_title_font_size['desktop']) && !isset( $node->settings->form_title_font_size_unit ) ) {
+					$node->settings->form_title_font_size_unit = $node->settings->form_title_font_size['desktop'];
+				}
+
+                if( isset( $node->settings->form_title_line_height['small']) && isset( $node->settings->form_title_font_size['small'] ) && $node->settings->form_title_font_size['small'] != 0 && !isset( $node->settings->form_title_line_height_unit_responsive ) ) {
+					if( is_numeric( $node->settings->form_title_line_height['small']) && is_numeric( $node->settings->form_title_font_size['small']) )
+                    $node->settings->form_title_line_height_unit_responsive = round( $node->settings->form_title_line_height['small'] / $node->settings->form_title_font_size['small'], 2 );
+				}
+				if( isset( $node->settings->form_title_line_height['medium']) && isset( $node->settings->form_title_font_size['medium'] ) && $node->settings->form_title_font_size['medium'] != 0 && !isset( $node->settings->form_title_line_height_unit_medium ) ) {
+					if( is_numeric( $node->settings->form_title_line_height['medium']) && is_numeric( $node->settings->form_title_font_size['medium']) )
+                    $node->settings->form_title_line_height_unit_medium = round( $node->settings->form_title_line_height['medium'] / $node->settings->form_title_font_size['medium'], 2 );
+				}
+				if( isset( $node->settings->form_title_line_height['desktop']) && isset( $node->settings->form_title_font_size['desktop'] ) && $node->settings->form_title_font_size['desktop'] != 0 && !isset( $node->settings->form_title_line_height_unit ) ) {
+					if( is_numeric( $node->settings->form_title_line_height['desktop']) && is_numeric( $node->settings->form_title_font_size['desktop']) )
+                    $node->settings->form_title_line_height_unit = round( $node->settings->form_title_line_height['desktop'] / $node->settings->form_title_font_size['desktop'], 2 );
+				}
+
+				if ( isset( $node->settings->form_desc_font_size['small']) && !isset( $node->settings->form_desc_font_size_unit_responsive ) ) {
+					$node->settings->form_desc_font_size_unit_responsive = $node->settings->form_desc_font_size['small'];
+				}
+				if( isset( $node->settings->form_desc_font_size['medium']) && !isset( $node->settings->form_desc_font_size_unit_medium ) ) {
+					$node->settings->form_desc_font_size_unit_medium = $node->settings->form_desc_font_size['medium'];
+				}
+				if( isset( $node->settings->form_desc_font_size['desktop']) && !isset( $node->settings->form_desc_font_size_unit ) ) {
+					$node->settings->form_desc_font_size_unit = $node->settings->form_desc_font_size['desktop'];
+				}
+
+                if( isset( $node->settings->form_desc_line_height['small']) && isset( $node->settings->form_desc_font_size['small'] ) && $node->settings->form_desc_font_size['small'] != 0 && !isset( $node->settings->form_desc_line_height_unit_responsive ) ) {
+					if( is_numeric( $node->settings->form_desc_line_height['small']) && is_numeric( $node->settings->form_desc_font_size['small']) )
+                    $node->settings->form_desc_line_height_unit_responsive = round( $node->settings->form_desc_line_height['small'] / $node->settings->form_desc_font_size['small'], 2 );
+				}
+				if( isset( $node->settings->form_desc_line_height['medium']) && isset( $node->settings->form_desc_font_size['medium'] ) && $node->settings->form_desc_font_size['medium'] != 0 && !isset( $node->settings->form_desc_line_height_unit_medium ) ) {
+					if( is_numeric( $node->settings->form_desc_line_height['medium']) && is_numeric( $node->settings->form_desc_font_size['medium']) )
+                    $node->settings->form_desc_line_height_unit_medium = round( $node->settings->form_desc_line_height['medium'] / $node->settings->form_desc_font_size['medium'], 2 );
+				}
+				if( isset( $node->settings->form_desc_line_height['desktop']) && isset( $node->settings->form_desc_font_size['desktop'] ) && $node->settings->form_desc_font_size['desktop'] != 0 && !isset( $node->settings->form_desc_line_height_unit ) ) {
+					if( is_numeric( $node->settings->form_desc_line_height['desktop']) && is_numeric( $node->settings->form_desc_font_size['desktop']) )
+                    $node->settings->form_desc_line_height_unit = round( $node->settings->form_desc_line_height['desktop'] / $node->settings->form_desc_font_size['desktop'], 2 );
+				}
+
+				if ( isset( $node->settings->label_font_size['small']) && !isset( $node->settings->label_font_size_unit_responsive ) ) {
+					$node->settings->label_font_size_unit_responsive = $node->settings->label_font_size['small'];
+				}
+				if( isset( $node->settings->label_font_size['medium']) && !isset( $node->settings->label_font_size_unit_medium ) ) {
+					$node->settings->label_font_size_unit_medium = $node->settings->label_font_size['medium'];
+				}
+				if( isset( $node->settings->label_font_size['desktop']) && !isset( $node->settings->label_font_size_unit ) ) {
+					$node->settings->label_font_size_unit = $node->settings->label_font_size['desktop'];
+				}
+
+                if( isset( $node->settings->label_line_height['small']) && isset( $node->settings->label_font_size['small'] ) && $node->settings->label_font_size['small'] != 0 && !isset( $node->settings->label_line_height_unit_responsive ) ) {
+					if( is_numeric( $node->settings->label_line_height['small']) && is_numeric( $node->settings->label_font_size['small']) )
+                    $node->settings->label_line_height_unit_responsive = round( $node->settings->label_line_height['small'] / $node->settings->label_font_size['small'], 2 );
+				}
+				if( isset( $node->settings->label_line_height['medium']) && isset( $node->settings->label_font_size['medium'] ) && $node->settings->label_font_size['medium'] != 0 && !isset( $node->settings->label_line_height_unit_medium ) ) {
+					if( is_numeric( $node->settings->label_line_height['medium']) && is_numeric( $node->settings->label_font_size['medium']) )
+                    $node->settings->label_line_height_unit_medium = round( $node->settings->label_line_height['medium'] / $node->settings->label_font_size['medium'], 2 );
+				}
+				if( isset( $node->settings->label_line_height['desktop']) && isset( $node->settings->label_font_size['desktop'] ) && $node->settings->label_font_size['desktop'] != 0 && !isset( $node->settings->label_line_height_unit ) ) {
+					if( is_numeric( $node->settings->label_line_height['desktop']) && is_numeric( $node->settings->label_font_size['desktop']) )
+                    $node->settings->label_line_height_unit = round( $node->settings->label_line_height['desktop'] / $node->settings->label_font_size['desktop'], 2 );
+				}
+
+				if ( isset( $node->settings->font_size['small']) && !isset( $node->settings->font_size_unit_responsive ) ) {
+					$node->settings->font_size_unit_responsive = $node->settings->font_size['small'];
+				}
+				if( isset( $node->settings->font_size['medium']) && !isset( $node->settings->font_size_unit_medium ) ) {
+					$node->settings->font_size_unit_medium = $node->settings->font_size['medium'];
+				}
+				if( isset( $node->settings->font_size['desktop']) && !isset( $node->settings->font_size_unit ) ) {
+					$node->settings->font_size_unit = $node->settings->font_size['desktop'];
+				}
+
+                if( isset( $node->settings->line_height['small']) && isset( $node->settings->font_size['small'] ) && $node->settings->font_size['small'] != 0 && !isset( $node->settings->line_height_unit_responsive ) ) {
+					if( is_numeric( $node->settings->line_height['small']) && is_numeric( $node->settings->font_size['small']) )
+                    $node->settings->line_height_unit_responsive = round( $node->settings->line_height['small'] / $node->settings->font_size['small'], 2 );
+				}
+				if( isset( $node->settings->line_height['medium']) && isset( $node->settings->font_size['medium'] ) && $node->settings->font_size['medium'] != 0 && !isset( $node->settings->line_height_unit_medium ) ) {
+					if( is_numeric( $node->settings->line_height['medium']) && is_numeric( $node->settings->font_size['medium']) )
+                    $node->settings->line_height_unit_medium = round( $node->settings->line_height['medium'] / $node->settings->font_size['medium'], 2 );
+				}
+				if( isset( $node->settings->line_height['desktop']) && isset( $node->settings->font_size['desktop'] ) && $node->settings->font_size['desktop'] != 0 && !isset( $node->settings->line_height_unit ) ) {
+					if( is_numeric( $node->settings->line_height['desktop']) && is_numeric( $node->settings->font_size['desktop']) )
+                    $node->settings->line_height_unit = round( $node->settings->line_height['desktop'] / $node->settings->font_size['desktop'], 2 );
+				}
+
+				if ( isset( $node->settings->radio_checkbox_font_size['small']) && !isset( $node->settings->radio_checkbox_font_size_unit_responsive ) ) {
+					$node->settings->radio_checkbox_font_size_unit_responsive = $node->settings->radio_checkbox_font_size['small'];
+				}
+				if( isset( $node->settings->radio_checkbox_font_size['medium']) && !isset( $node->settings->radio_checkbox_font_size_unit_medium ) ) {
+					$node->settings->radio_checkbox_font_size_unit_medium = $node->settings->radio_checkbox_font_size['medium'];
+				}
+				if( isset( $node->settings->radio_checkbox_font_size['desktop']) && !isset( $node->settings->radio_checkbox_font_size_unit ) ) {
+					$node->settings->radio_checkbox_font_size_unit = $node->settings->radio_checkbox_font_size['desktop'];
+				}
+
+				if( isset( $node->settings->form_spacing ) &&  !isset( $node->settings->form_spacing_dimension_top ) &&  !isset( $node->settings->form_spacing_dimension_bottom ) &&  !isset( $node->settings->form_spacing_dimension_left ) &&  !isset( $node->settings->form_spacing_dimension_right ) ) {
+				
+				    $value = "";
+				    $value = str_replace("px","", $node->settings->form_spacing );
+				    
+				    $output = array();
+				    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
+				    
+				    $node->settings->form_spacing_dimension_top    = '0';
+				    $node->settings->form_spacing_dimension_bottom = '0';
+				    $node->settings->form_spacing_dimension_left   = '0';
+				    $node->settings->form_spacing_dimension_right  = '0';
+				    
+				    foreach($uabb_default as $val) {
+				        $new = explode(':',$val);
+				         $output[] = $new;
+				    }
+				    for ($i=0; $i < count( $output ); $i++) { 
+				        switch ( $output[$i][0] ) {
+				            case 'padding-top':
+				               $node->settings->form_spacing_dimension_top    = (int)$output[$i][1];
+				                break;
+				            case 'padding-bottom':
+				                $node->settings->form_spacing_dimension_bottom = (int)$output[$i][1];
+				                break;
+				            case 'padding-right':
+				                $node->settings->form_spacing_dimension_right  = (int)$output[$i][1];
+				                break;
+				            case 'padding-left':
+				                $node->settings->form_spacing_dimension_left   = (int)$output[$i][1];
+				                break;
+				            case 'padding':
+				                $node->settings->form_spacing_dimension_top    = (int)$output[$i][1];
+				                $node->settings->form_spacing_dimension_bottom = (int)$output[$i][1];
+				                $node->settings->form_spacing_dimension_left   = (int)$output[$i][1];
+				                $node->settings->form_spacing_dimension_right  = (int)$output[$i][1];
+				                break;
+				        }
+				    }
+				}
+
+				if( isset( $node->settings->input_padding ) &&  !isset( $node->settings->input_padding_dimension_top ) &&  !isset( $node->settings->input_padding_dimension_bottom ) &&  !isset( $node->settings->input_padding_dimension_left ) &&  !isset( $node->settings->input_padding_dimension_right ) ) {
+				
+				    $value = "";
+				    $value = str_replace("px","", $node->settings->input_padding );
+				    
+				    $output = array();
+				    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
+				    
+				    $node->settings->input_padding_dimension_top    = '0';
+				    $node->settings->input_padding_dimension_bottom = '0';
+				    $node->settings->input_padding_dimension_left   = '0';
+				    $node->settings->input_padding_dimension_right  = '0';
+				    
+				    foreach($uabb_default as $val) {
+				        $new = explode(':',$val);
+				         $output[] = $new;
+				    }
+				    for ($i=0; $i < count( $output ); $i++) { 
+				        switch ( $output[$i][0] ) {
+				            case 'padding-top':
+				               $node->settings->input_padding_dimension_top    = (int)$output[$i][1];
+				                break;
+				            case 'padding-bottom':
+				                $node->settings->input_padding_dimension_bottom = (int)$output[$i][1];
+				                break;
+				            case 'padding-right':
+				                $node->settings->input_padding_dimension_right  = (int)$output[$i][1];
+				                break;
+				            case 'padding-left':
+				                $node->settings->input_padding_dimension_left   = (int)$output[$i][1];
+				                break;
+				            case 'padding':
+				                $node->settings->input_padding_dimension_top    = (int)$output[$i][1];
+				                $node->settings->input_padding_dimension_bottom = (int)$output[$i][1];
+				                $node->settings->input_padding_dimension_left   = (int)$output[$i][1];
+				                $node->settings->input_padding_dimension_right  = (int)$output[$i][1];
+				                break;
+				        }
+				    }
+				}
+
+				if( isset( $node->settings->input_border_width ) &&  !isset( $node->settings->input_border_width_dimension_top ) &&  !isset( $node->settings->input_border_width_dimension_bottom ) &&  !isset( $node->settings->input_border_width_dimension_left ) &&  !isset( $node->settings->input_border_width_dimension_right ) ) {
+				
+				    $value = "";
+				    $value = str_replace("px","", $node->settings->input_border_width );
+				    
+				    $output = array();
+				    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
+				    
+				    $node->settings->input_border_width_dimension_top    = '0';
+				    $node->settings->input_border_width_dimension_bottom = '0';
+				    $node->settings->input_border_width_dimension_left   = '0';
+				    $node->settings->input_border_width_dimension_right  = '0';
+				    
+				    foreach($uabb_default as $val) {
+				        $new = explode(':',$val);
+				         $output[] = $new;
+				    }
+				    for ($i=0; $i < count( $output ); $i++) { 
+				        switch ( $output[$i][0] ) {
+				            case 'padding-top':
+				               $node->settings->input_border_width_dimension_top    = (int)$output[$i][1];
+				                break;
+				            case 'padding-bottom':
+				                $node->settings->input_border_width_dimension_bottom = (int)$output[$i][1];
+				                break;
+				            case 'padding-right':
+				                $node->settings->input_border_width_dimension_right  = (int)$output[$i][1];
+				                break;
+				            case 'padding-left':
+				                $node->settings->input_border_width_dimension_left   = (int)$output[$i][1];
+				                break;
+				            case 'padding':
+				                $node->settings->input_border_width_dimension_top    = (int)$output[$i][1];
+				                $node->settings->input_border_width_dimension_bottom = (int)$output[$i][1];
+				                $node->settings->input_border_width_dimension_left   = (int)$output[$i][1];
+				                $node->settings->input_border_width_dimension_right  = (int)$output[$i][1];
+				                break;
+				        }
+				    }
+				}
+
+				if( isset( $node->settings->validation_spacing ) &&  !isset( $node->settings->validation_spacing_dimension_top ) &&  !isset( $node->settings->validation_spacing_dimension_bottom ) &&  !isset( $node->settings->validation_spacing_dimension_left ) &&  !isset( $node->settings->validation_spacing_dimension_right ) ) {
+				
+				    $value = "";
+				    $value = str_replace("px","", $node->settings->validation_spacing );
+				    
+				    $output = array();
+				    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
+				    
+				    $node->settings->validation_spacing_dimension_top    = '0';
+				    $node->settings->validation_spacing_dimension_bottom = '0';
+				    $node->settings->validation_spacing_dimension_left   = '0';
+				    $node->settings->validation_spacing_dimension_right  = '0';
+				    
+				    foreach($uabb_default as $val) {
+				        $new = explode(':',$val);
+				         $output[] = $new;
+				    }
+				    for ($i=0; $i < count( $output ); $i++) { 
+				        switch ( $output[$i][0] ) {
+				            case 'padding-top':
+				               $node->settings->validation_spacing_dimension_top    = (int)$output[$i][1];
+				                break;
+				            case 'padding-bottom':
+				                $node->settings->validation_spacing_dimension_bottom = (int)$output[$i][1];
+				                break;
+				            case 'padding-right':
+				                $node->settings->validation_spacing_dimension_right  = (int)$output[$i][1];
+				                break;
+				            case 'padding-left':
+				                $node->settings->validation_spacing_dimension_left   = (int)$output[$i][1];
+				                break;
+				            case 'padding':
+				                $node->settings->validation_spacing_dimension_top    = (int)$output[$i][1];
+				                $node->settings->validation_spacing_dimension_bottom = (int)$output[$i][1];
+				                $node->settings->validation_spacing_dimension_left   = (int)$output[$i][1];
+				                $node->settings->validation_spacing_dimension_right  = (int)$output[$i][1];
+				                break;
+				        }
+				    }
+				}
+
+			}
+		}
+
+		return $data;
+	}
+
 }
 
 require_once BB_ULTIMATE_ADDON_DIR . 'modules/uabb-contact-form7/includes/cf7-function.php';
+
 
 /**
  * Register the module and its form settings.
@@ -167,11 +473,17 @@ FLBuilder::register_module('UABBContactForm7Module', array(
 						'maxlength'   => '3',
 						'size'        => '5',
 					),
-					'form_spacing'		=> array(
-						'type'          => 'uabb-spacing',
+					'form_spacing_dimension'		=> array(
+						'type'          => 'dimension',
                         'label'         => __( 'Form Padding', 'uabb' ),
-                        'mode'			=> 'padding',
-                        'default'       => 'padding:20px;' // Optional
+                        'description' =>'px',
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '20',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ),
 					),
 					'form_radius'	=> array(
 						'type'          => 'text',
@@ -217,7 +529,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
 				'title'         => __('Input Style', 'uabb'),
 				'fields'        => array(
 					'input_background_type'    => array( 
-						'type'          => 'uabb-toggle-switch',
+						'type'          => 'select',
                         'label'         => __( 'Input Background Color', 'uabb' ),
                         'default'       => 'bg',
                         'options'       => array(
@@ -295,25 +607,34 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                             'unit'			=> 'px'
                         )
 					),
-					'input_padding'	=> array(
-						'type'          => 'uabb-spacing',
+					'input_padding_dimension'	=> array(
+						'type'          => 'dimension',
                         'label'         => __( 'Input Padding', 'uabb' ),
-                        'mode'			=> 'padding',
-                        'default'       => 'padding:10px;' // Optional
+                        'description' =>'px',
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '10',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ),
 					),
 				)
 			),
 			'input-border-style' => array(
 				'title' => __('Input Border Style', 'uabb'),
 				'fields' => array(
-					'input_border_width'    => array(
-		                'type'          => 'uabb-spacing',
+					'input_border_width_dimension'    => array(
+		                'type'          => 'dimension',
 		                'label'         => __('Border Width', 'uabb'),
-		                'placeholder'	=> '1',
-		                'maxlength'     => '2',
-		                'mode'			=> 'padding',
-		                'size'          => '6',
-		                'default'		=> 'padding:1px;',
+                        'description' =>'px',
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '1',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ),
 		            ),
 					'input_border_radius' => array(
 		                'type'          => 'text',
@@ -354,7 +675,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
 				'title' => __('Radio and Checkbox Style', 'uabb'),
 				'fields' => array(
 					'radio_check_custom_option' => array(
-                    	'type'          => 'uabb-toggle-switch',
+                    	'type'          => 'select',
                         'label'         => __( 'Use Custom Style', 'uabb' ),
                         'default'       => 'false',
                         'options'       => array(
@@ -576,7 +897,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                         )
 					),
 					'hover_attribute' => array(
-                    	'type'          => 'uabb-toggle-switch',
+                    	'type'          => 'select',
                         'label'         => __( 'Apply Hover Color To', 'uabb' ),
                         'default'       => 'bg',
                         'options'       => array(
@@ -602,34 +923,40 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                             'selector'  => 'input[type=submit]'
                         ),
                     ),
-                    'btn_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'btn_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'px',
                         'preview'   => array(
                             'type'      => 'css',
                             'selector'  => 'input[type=submit]',
                             'property'  => 'font-size',
                             'unit'      => 'px'
                         ),
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                     ),
-                    'btn_line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                    'btn_line_height_unit'    => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'em',
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                         'preview'   => array(
                             'type'      => 'css',
                             'selector'  => 'input[type=submit]',
                             'property'  => 'line-height',
-                            'unit'      => 'px'
+                            'unit'      => 'em'
                         ),
                     ),
                     'btn_text_transform' => array(
@@ -864,11 +1191,17 @@ FLBuilder::register_module('UABBContactForm7Module', array(
 		                'size'          => '4',
 		                'description'   => 'px'
 		            ),
-					'validation_spacing'		=> array(
-						'type'          => 'uabb-spacing',
+					'validation_spacing_dimension'		=> array(
+						'type'          => 'dimension',
                         'label'         => __( 'Message Padding', 'uabb' ),
-                        'mode'			=> 'padding',
-                        'default'       => 'padding: 10px;' // Optional
+                        'description' =>'px',
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '10',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ),
 					),
 				)
 			),
@@ -908,35 +1241,41 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                             'selector'  => '.uabb-cf7-form-title'
                         ),
                     ),
-                    'form_title_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'form_title_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'px',
                         'preview'   => array(
                             'type'      => 'css',
                             'selector'  => '.uabb-cf7-form-title',
                             'property'  => 'font-size',
                             'unit'      => 'px'
                         ),
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                     ),
-                    'form_title_line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                    'form_title_line_height_unit'    => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'em',
                         'preview'   => array(
                             'type'      => 'css',
                             'selector'  => '.uabb-cf7-form-title',
                             'property'  => 'line-height',
-                            'unit'      => 'px'
+                            'unit'      => 'em'
                         ),
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                     ),
                     'form_title_color'        => array( 
                         'type'       => 'color',
@@ -981,35 +1320,41 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                             'selector'  => '.uabb-cf7-form-desc'
                         ),
                     ),
-                    'form_desc_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'form_desc_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'px',
                         'preview'   => array(
                             'type'      => 'css',
                             'selector'  => '.uabb-cf7-form-desc',
                             'property'  => 'font-size',
                             'unit'      => 'px'
                         ),
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                     ),
-                    'form_desc_line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                    'form_desc_line_height_unit'    => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'em',
                         'preview'   => array(
                             'type'      => 'css',
                             'selector'  => '.uabb-cf7-form-desc',
                             'property'  => 'line-height',
-                            'unit'      => 'px'
+                            'unit'      => 'em'
                         ),
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                     ),
                     'form_desc_color'        => array( 
                         'type'       => 'color',
@@ -1054,35 +1399,41 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                             'selector'  => 'label'
                         ),
                     ),
-                    'label_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'label_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'px',
                         'preview'   => array(
                             'type'      => 'css',
                             'selector'  => 'label',
                          	'property'  => 'font-size',
                             'unit'      => 'px'
                         ),
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                     ),
-                    'label_line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                    'label_line_height_unit'    => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'em',
                         'preview'   => array(
                             'type'      => 'css',
                             'selector'  => 'label',
                          	'property'  => 'line-height',
-                            'unit'      => 'px'
+                            'unit'      => 'em'
                         ),
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                     ),
                     'label_color'        => array( 
                         'type'       => 'color',
@@ -1112,14 +1463,17 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                             'selector'  => 'input[type=tel], input[type=email], input[type=text], input, textarea'
                         ),
                     ),
-                    'font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'px',
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                         'preview'   => array(
                             'type'      => 'css',
                             'selector'  => 'input[type=tel], input[type=email], input[type=text], input, textarea',
@@ -1127,19 +1481,22 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                             'unit'      => 'px'
                         ),
                     ),
-                    'line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                    'line_height_unit'    => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'em',
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                         'preview'   => array(
                             'type'      => 'css',
                             'selector'  => 'input[type=tel], input[type=email], input[type=text], input, textarea',
                             'property'  => 'line-height',
-                            'unit'      => 'px'
+                            'unit'      => 'em'
                         ),
                     ),
                     'color'        => array( 
@@ -1200,14 +1557,17 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                             'selector'  => '.uabb-cf7-style .wpcf7-checkbox input[type="checkbox"] + span, .uabb-cf7-style .wpcf7-radio input[type="radio"] + span',
                         ),  
                     ),
-                    'radio_checkbox_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'radio_checkbox_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '15',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'px',
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                         'preview'   => array(
                             'type'      => 'css',
                             'selector'  => '.uabb-cf7-style .wpcf7-checkbox input[type="checkbox"] + span, .uabb-cf7-style .wpcf7-radio input[type="radio"] + span',

@@ -57,7 +57,7 @@ FLBuilder::register_module('UABBSocialShare', array(
                 'title'         => __('Structure', 'uabb'), // Section Title
                 'fields'        => array( // Section Fields
                     'icon_struc_align'     => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Icon / Image Structure', 'uabb' ),
                         'default'       => 'horizontal',
                         'options'       => array(

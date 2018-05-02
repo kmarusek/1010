@@ -71,19 +71,19 @@
 
 /* Responsive Js Breakpoint Css */
 
-#uabb-js-breakpoint { 
+.uabb-js-breakpoint { 
 	content:"default"; 
 	display:none;
 }
 <?php if($global_settings->responsive_enabled) { ?>
 @media screen and (max-width: <?php echo $global_settings->medium_breakpoint .'px'; ?>) {
-	#uabb-js-breakpoint {
+	.uabb-js-breakpoint {
 		content:"<?php echo $global_settings->medium_breakpoint; ?>";
 	}
 }
 
 @media screen and (max-width: <?php echo $global_settings->responsive_breakpoint .'px'; ?>) {
-	#uabb-js-breakpoint {
+	.uabb-js-breakpoint {
 		content:"<?php echo $global_settings->responsive_breakpoint; ?>";
 	}
 }

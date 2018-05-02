@@ -91,13 +91,15 @@ if( $settings->is_carousel == 'masonary' ) {
 			            $class = '';
 			            if( count( $category_detail ) > 0 ) {
 			                foreach( $category_detail as $cat_details ) {
-			                    $class .= ' uabb-masonary-cat-' . $cat_details->slug . ' ';
+			                    $class .= ' uabb-masonary-cat-' . $cat_details->term_id . ' ';
 			                }
 			            }
+
 		            }
 	            }
 	        } 
 		}
+
 
 		$top_featured_image_content = $module->render_featured_image( 'top', $the_query->posts[$i], $i );
 

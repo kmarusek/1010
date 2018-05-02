@@ -28,6 +28,42 @@ class UABBImageCarouselModule extends FLBuilderModule {
 		$this->add_css('jquery-magnificpopup-uabb', BB_ULTIMATE_ADDON_URL . 'assets/css/global-styles/jquery.magnificpopup.css', array(), '');
 		// $this->add_js('jquery-magnificpopup');
 		// $this->add_css('jquery-magnificpopup');
+
+		add_filter( 'fl_builder_layout_data', array( $this , 'render_new_data' ), 10, 3 );
+	}
+
+    function render_new_data( $data ) {
+
+		foreach ( $data as &$node ) {
+			
+			if ( isset( $node->settings->type ) && 'uabb-image-carousel' === $node->settings->type ) {
+
+				if ( isset( $node->settings->font_size['small']) && !isset( $node->settings->font_size_unit_responsive ) ) {
+					$node->settings->font_size_unit_responsive = $node->settings->font_size['small'];
+				}
+				if( isset( $node->settings->font_size['medium']) && !isset( $node->settings->font_size_unit_medium ) ) {
+					$node->settings->font_size_unit_medium = $node->settings->font_size['medium'];
+				}
+				if( isset( $node->settings->font_size['desktop']) && !isset( $node->settings->font_size_unit ) ) {
+					$node->settings->font_size_unit = $node->settings->font_size['desktop'];
+				}
+                
+				if( isset( $node->settings->line_height['small']) && isset( $node->settings->font_size['small'] ) && $node->settings->font_size['small'] != 0 && !isset( $node->settings->line_height_unit_responsive ) ) {
+					if( is_numeric( $node->settings->line_height['small']) && is_numeric( $node->settings->font_size['small']) )
+                    $node->settings->line_height_unit_responsive = round( $node->settings->line_height['small'] / $node->settings->font_size['small'], 2 );
+				}
+				if( isset( $node->settings->line_height['medium']) && isset( $node->settings->font_size['medium'] ) && $node->settings->font_size['medium'] != 0 && !isset( $node->settings->line_height_unit_medium ) ) {
+					if( is_numeric( $node->settings->line_height['medium']) && is_numeric( $node->settings->font_size['medium']) )
+                    $node->settings->line_height_unit_medium = round( $node->settings->line_height['medium'] / $node->settings->font_size['medium'], 2 );
+				}
+				if( isset( $node->settings->line_height['desktop']) && isset( $node->settings->font_size['desktop'] ) && $node->settings->font_size['desktop'] != 0 && !isset( $node->settings->line_height_unit ) ) {
+					if( is_numeric( $node->settings->line_height['desktop']) && is_numeric( $node->settings->font_size['desktop']) )
+                    $node->settings->line_height_unit = round( $node->settings->line_height['desktop'] / $node->settings->font_size['desktop'], 2 );
+				}
+			}
+		}
+
+		return $data;
 	}
 
 	/**
@@ -307,7 +343,7 @@ FLBuilder::register_module('UABBImageCarouselModule', array(
 		                'size'          => '8',
 		            ),
 		            'autoplay'     => array(
-		                'type'          => 'uabb-toggle-switch',
+		                'type'          => 'select',
 		                'label'         => __( 'Autoplay Image Scroll', 'uabb' ),
 		                'help'          => __( 'Enables auto play of images.', 'uabb' ),
 		                'default'       => 'no',
@@ -330,7 +366,7 @@ FLBuilder::register_module('UABBImageCarouselModule', array(
 		                'description'   => 'ms'
 		            ),
 		            'infinite_loop'     => array(
-		                'type'          => 'uabb-toggle-switch',
+		                'type'          => 'select',
 		                'label'         => __( 'Infinite Loop', 'uabb' ),
 		                'help'          => __( 'Enable this to scroll images in infinite loop.', 'uabb' ),
 		                'default'       => 'yes',
@@ -340,7 +376,7 @@ FLBuilder::register_module('UABBImageCarouselModule', array(
 		                ),
 		            ),
 		            'lazyload'     => array(
-		                'type'          => 'uabb-toggle-switch',
+		                'type'          => 'select',
 		                'label'         => __( 'Enable Lazy Load', 'uabb' ),
 		                'help'          => __( 'Enable this to load the image as soon as user slide to it.', 'uabb' ),
 		                'default'       => 'no',
@@ -350,7 +386,7 @@ FLBuilder::register_module('UABBImageCarouselModule', array(
 		                ),
 		            ),
 		            'enable_arrow' => array(
-		                'type'          => 'uabb-toggle-switch',
+		                'type'          => 'select',
 		                'label'         => __( 'Enable Arrows', 'uabb' ),
 		                'help'          => __( 'Enable Next/Prev arrows to your carousel slider.', 'uabb' ),
 		                'default'       => 'yes',
@@ -513,7 +549,7 @@ FLBuilder::register_module('UABBImageCarouselModule', array(
 						'size'        => '5',
 					),
 					'icon' => array(
-						'type'          => 'uabb-toggle-switch',
+						'type'          => 'select',
 						'label'         => __('Overlay Icon', 'uabb'),
 						'default'       => '0',
 						'options'       => array(
@@ -587,35 +623,41 @@ FLBuilder::register_module('UABBImageCarouselModule', array(
                             'selector'        => '.uabb-image-carousel-caption'
                         )
                     ),
-                    'font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'px',
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-image-carousel-caption',
                             'property'		=> 'font-size',
                             'unit'			=> 'px'
-                        )
-                    ),
-                    'line_height'    => array(
-                        'type'          => 'uabb-simplify',
-                        'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
                         ),
+                        'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
+                    ),
+                    'line_height_unit'    => array(
+                        'type'          => 'unit',
+                        'label'         => __( 'Line Height', 'uabb' ),
+                        'description'   => 'em',
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-image-carousel-caption',
                             'property'		=> 'line-height',
-                            'unit'			=> 'px'
-                        )
+                            'unit'			=> 'em'
+                        ),
+                        'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                     ),
                     'color'        => array( 
                         'type'       => 'color',

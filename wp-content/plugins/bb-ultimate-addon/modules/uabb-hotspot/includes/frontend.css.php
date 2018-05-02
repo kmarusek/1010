@@ -19,12 +19,12 @@ if( $photo_src != '' ) {
 			//$settings->hotspot_marker[$i]->text_typography_bg_hover_color = UABB_Helper::uabb_colorpicker( $settings->hotspot_marker[$i], 'text_typography_bg_hover_color', true );
 			$settings->hotspot_marker[$i]->text_typography_bg_active_color = UABB_Helper::uabb_colorpicker( $settings->hotspot_marker[$i], 'text_typography_bg_active_color', true );
 			$settings->hotspot_marker[$i]->icon_size = ( $settings->hotspot_marker[$i]->icon_size != '' ) ? $settings->hotspot_marker[$i]->icon_size : '30';
-			$settings->hotspot_marker[$i]->text_typography_line_height = ( array ) $settings->hotspot_marker[$i]->text_typography_line_height;
-			$settings->hotspot_marker[$i]->text_typography_font_size = ( array ) $settings->hotspot_marker[$i]->text_typography_font_size;
+			$settings->hotspot_marker[$i]->text_typography_line_height = ( isset( $settings->hotspot_marker[$i]->text_typography_line_height ) ) ? ( array ) $settings->hotspot_marker[$i]->text_typography_line_height : '';
+			$settings->hotspot_marker[$i]->text_typography_font_size = ( isset( $settings->hotspot_marker[$i]->text_typography_font_size ) ) ? ( array ) $settings->hotspot_marker[$i]->text_typography_font_size : '';
 			$settings->hotspot_marker[$i]->text_typography_font_family = ( array ) $settings->hotspot_marker[$i]->text_typography_font_family;
 
-			$settings->hotspot_marker[$i]->tooltip_line_height = ( array ) $settings->hotspot_marker[$i]->tooltip_line_height;
-			$settings->hotspot_marker[$i]->tooltip_font_size = ( array ) $settings->hotspot_marker[$i]->tooltip_font_size ;
+			$settings->hotspot_marker[$i]->tooltip_line_height = ( isset( $settings->hotspot_marker[$i]->tooltip_line_height ) ) ? ( array ) $settings->hotspot_marker[$i]->tooltip_line_height : '';
+			$settings->hotspot_marker[$i]->tooltip_font_size = ( isset( $settings->hotspot_marker[$i]->tooltip_font_size ) ) ? ( array ) $settings->hotspot_marker[$i]->tooltip_font_size : '';
 			$settings->hotspot_marker[$i]->tooltip_font_family = ( array ) $settings->hotspot_marker[$i]->tooltip_font_family;
 			
 			if ( $settings->hotspot_marker[$i]->hotspot_marker_type != "text" ) {
@@ -128,9 +128,20 @@ if( $photo_src != '' ) {
 
 			 	.fl-node-<?php echo $id; ?> .uabb-hotspot-item-<?php echo $i; ?> .uabb-hotspot-text {
 			 		<?php
-					echo 'color: ' . uabb_theme_text_color( $settings->hotspot_marker[$i]->text_typography_color ) . ';' ;
-					echo ( $settings->hotspot_marker[$i]->text_typography_line_height['desktop'] != '' ) ? 'line-height: ' . $settings->hotspot_marker[$i]->text_typography_line_height['desktop'] . 'px;' : '';
-					echo ( $settings->hotspot_marker[$i]->text_typography_font_size['desktop'] != '' ) ? 'font-size: ' . $settings->hotspot_marker[$i]->text_typography_font_size['desktop'] . 'px;' : '';
+					echo 'color: ' . uabb_theme_text_color( $settings->hotspot_marker[$i]->text_typography_color ) . ';' ; ?>
+				
+					<?php if( isset( $settings->hotspot_marker[$i]->text_typography_font_size_unit ) && $settings->hotspot_marker[$i]->text_typography_font_size_unit != '' ) : ?>
+						font-size: <?php echo $settings->hotspot_marker[$i]->text_typography_font_size_unit; ?>px;
+					<?php endif; ?>
+					
+					<?php if( isset( $settings->hotspot_marker[$i]->text_typography_font_size['desktop'] ) && $settings->hotspot_marker[$i]->text_typography_font_size['desktop'] == '' && isset( $settings->hotspot_marker[$i]->text_typography_line_height['desktop'] ) && $settings->hotspot_marker[$i]->text_typography_line_height['desktop'] != '' &&  $settings->hotspot_marker[$i]->text_typography_line_height_unit == '' ) { ?>
+						line-height: <?php echo $settings->hotspot_marker[$i]->text_typography_line_height['desktop']; ?>px;
+					<?php } ?>
+				   
+					<?php if( isset( $settings->hotspot_marker[$i]->text_typography_line_height_unit ) && $settings->hotspot_marker[$i]->text_typography_line_height_unit != '' ) : ?>
+					line-height: <?php echo $settings->hotspot_marker[$i]->text_typography_line_height_unit; ?>em;
+					<?php endif; ?>
+					<?php 
 
 					if( $settings->hotspot_marker[$i]->text_typography_font_family['family'] != 'Default' ) {
 						UABB_Helper::uabb_font_css( $settings->hotspot_marker[$i]->text_typography_font_family );
@@ -140,7 +151,20 @@ if( $photo_src != '' ) {
 			 	}
 			 	.fl-node-<?php echo $id; ?> .uabb-hotspot-item-<?php echo $i; ?> .uabb-hotspot-text {
 			 		background: <?php echo uabb_theme_base_color( $settings->hotspot_marker[$i]->text_typography_bg_color ); ?>;
-			 		<?php echo $settings->hotspot_marker[$i]->text_typography_padding; ?>
+			 		<?php 
+			 		    if(isset($settings->hotspot_marker[$i]->text_typography_padding_dimension_top) ){
+			 		        echo ( $settings->hotspot_marker[$i]->text_typography_padding_dimension_top != '' ) ? 'padding-top:'.$settings->hotspot_marker[$i]->text_typography_padding_dimension_top.'px;' : 'padding-top: 10px;'; 
+			 		    }
+			 		    if(isset($settings->hotspot_marker[$i]->text_typography_padding_dimension_bottom) ){
+			 		        echo ( $settings->hotspot_marker[$i]->text_typography_padding_dimension_bottom != '' ) ? 'padding-bottom:'.$settings->hotspot_marker[$i]->text_typography_padding_dimension_bottom.'px;' : 'padding-bottom: 10px;';
+			 		    }
+			 		    if(isset($settings->hotspot_marker[$i]->text_typography_padding_dimension_left) ){
+			 		        echo ( $settings->hotspot_marker[$i]->text_typography_padding_dimension_left != '' ) ? 'padding-left:'.$settings->hotspot_marker[$i]->text_typography_padding_dimension_left.'px;' : 'padding-left: 10px;';
+			 		    }
+			 		    if(isset($settings->hotspot_marker[$i]->text_typography_padding_dimension_right) ){
+			 		        echo ( $settings->hotspot_marker[$i]->text_typography_padding_dimension_right != '' ) ? 'padding-right:'.$settings->hotspot_marker[$i]->text_typography_padding_dimension_right.'px;' : 'padding-right: 10px;';
+			 		    } 
+			 		?>
 			 	}
 
 			 	.fl-node-<?php echo $id; ?> .uabb-hotspot-container .uabb-hotspot-items .uabb-hotspot-item-<?php echo $i; ?> {
@@ -199,12 +223,37 @@ if( $photo_src != '' ) {
 				.fl-node-<?php echo $id; ?> .uabb-hotspot-item-<?php echo $i; ?> .uabb-hotspot-tooltip-content {
 					color: <?php echo uabb_theme_text_color( $settings->hotspot_marker[$i]->tooltip_color ); ?>;
 					background: <?php echo uabb_theme_base_color( $settings->hotspot_marker[$i]->tooltip_bg_color ); ?>;
-					<?php echo $settings->hotspot_marker[$i]->tooltip_padding; ?>;
 
-					<?php
-					echo ( $settings->hotspot_marker[$i]->tooltip_line_height['desktop'] != '' ) ? 'line-height: ' . $settings->hotspot_marker[$i]->tooltip_line_height['desktop'] . 'px;' : '';
-					echo ( $settings->hotspot_marker[$i]->tooltip_font_size['desktop'] != '' ) ? 'font-size: ' . $settings->hotspot_marker[$i]->tooltip_font_size['desktop'] . 'px;' : '';
+					<?php 
+					    if(isset($settings->hotspot_marker[$i]->tooltip_padding_dimension_top) ){
+					        echo ( $settings->hotspot_marker[$i]->tooltip_padding_dimension_top != '' ) ? 'padding-top:'.$settings->hotspot_marker[$i]->tooltip_padding_dimension_top.'px;' : 'padding-top: 15px;'; 
+					    }
+					    if(isset($settings->hotspot_marker[$i]->tooltip_padding_dimension_bottom) ){
+					        echo ( $settings->hotspot_marker[$i]->tooltip_padding_dimension_bottom != '' ) ? 'padding-bottom:'.$settings->hotspot_marker[$i]->tooltip_padding_dimension_bottom.'px;' : 'padding-bottom: 15px;';
+					    }
+					    if(isset($settings->hotspot_marker[$i]->tooltip_padding_dimension_left) ){
+					        echo ( $settings->hotspot_marker[$i]->tooltip_padding_dimension_left != '' ) ? 'padding-left:'.$settings->hotspot_marker[$i]->tooltip_padding_dimension_left.'px;' : 'padding-left: 15px;';
+					    }
+					    if(isset($settings->hotspot_marker[$i]->tooltip_padding_dimension_right) ){
+					        echo ( $settings->hotspot_marker[$i]->tooltip_padding_dimension_right != '' ) ? 'padding-right:'.$settings->hotspot_marker[$i]->tooltip_padding_dimension_right.'px;' : 'padding-right: 15px;';
+					    } 
+					?>
+                    
+                    
+					<?php if( isset( $settings->hotspot_marker[$i]->tooltip_font_size_unit ) && $settings->hotspot_marker[$i]->tooltip_font_size_unit != '' ) : ?>
+						font-size: <?php echo $settings->hotspot_marker[$i]->tooltip_font_size_unit; ?>px;
+					<?php endif; ?>
 					
+					<?php if( isset( $settings->hotspot_marker[$i]->tooltip_font_size['desktop'] ) && $settings->hotspot_marker[$i]->tooltip_font_size['desktop'] == '' && isset( $settings->hotspot_marker[$i]->tooltip_line_height['desktop'] ) && $settings->hotspot_marker[$i]->tooltip_line_height['desktop'] != '' && $settings->hotspot_marker[$i]->tooltip_line_height_unit != '' ) { ?>
+						line-height: <?php echo $settings->hotspot_marker[$i]->tooltip_line_height['desktop']; ?>px;
+					<?php } ?>
+
+					<?php if( isset( $settings->hotspot_marker[$i]->tooltip_line_height_unit ) && $settings->hotspot_marker[$i]->tooltip_line_height_unit != '' ) : ?>
+					line-height: <?php echo $settings->hotspot_marker[$i]->tooltip_line_height_unit; ?>em;
+					<?php endif; ?>
+					
+
+					<?php		
 					if( $settings->hotspot_marker[$i]->tooltip_font_family['family'] != 'Default' ) {
 						UABB_Helper::uabb_font_css( $settings->hotspot_marker[$i]->tooltip_font_family );
 					}
@@ -330,18 +379,67 @@ if( $photo_src != '' ) {
 			?>
 				@media ( max-width: <?php echo $global_settings->medium_breakpoint .'px'; ?> ) {
 					.fl-node-<?php echo $id; ?> .uabb-hotspot-item-<?php echo $i; ?> .uabb-hotspot-text {
-				 		<?php
-						echo ( $settings->hotspot_marker[$i]->text_typography_line_height['medium'] != '' ) ? 'line-height: ' . $settings->hotspot_marker[$i]->text_typography_line_height['medium'] . 'px;' : '';
-						echo ( $settings->hotspot_marker[$i]->text_typography_font_size['medium'] != '' ) ? 'font-size: ' . $settings->hotspot_marker[$i]->text_typography_font_size['medium'] . 'px;' : '';					
+					
+						<?php if( isset( $settings->hotspot_marker[$i]->text_typography_font_size_unit_medium ) && $settings->hotspot_marker[$i]->text_typography_font_size_unit_medium != '' ) : ?>
+							font-size: <?php echo $settings->hotspot_marker[$i]->text_typography_font_size_unit_medium; ?>px;
+						<?php endif; ?>
+					
+						<?php if( isset( $settings->hotspot_marker[$i]->text_typography_font_size['medium'] ) &&  $settings->hotspot_marker[$i]->text_typography_font_size['medium'] == '' && isset( $settings->hotspot_marker[$i]->text_typography_line_height['medium'] ) && $settings->hotspot_marker[$i]->text_typography_line_height['medium'] != '' && $settings->hotspot_marker[$i]->text_typography_line_height_unit_medium == '' && $settings->hotspot_marker[$i]->text_typography_line_height_unit == '' )  { ?>
+						    line-height: <?php echo $settings->hotspot_marker[$i]->text_typography_line_height['medium']; ?>px;
+						<?php } ?>
+				
+						<?php if( isset( $settings->hotspot_marker[$i]->text_typography_line_height_unit_medium ) && $settings->hotspot_marker[$i]->text_typography_line_height_unit_medium != '' ) : ?>
+							line-height: <?php echo $settings->hotspot_marker[$i]->text_typography_line_height_unit_medium; ?>em;
+						<?php endif; ?>
+						<?php 
+						    if(isset($settings->hotspot_marker[$i]->text_typography_padding_dimension_top_medium) ){
+						        echo ( $settings->hotspot_marker[$i]->text_typography_padding_dimension_top_medium != '' ) ? 'padding-top:'.$settings->hotspot_marker[$i]->text_typography_padding_dimension_top_medium.'px;' : ''; 
+						    }
+						    if(isset($settings->hotspot_marker[$i]->text_typography_padding_dimension_bottom_medium ) ){
+						        echo ( $settings->hotspot_marker[$i]->text_typography_padding_dimension_bottom_medium != '' ) ? 'padding-bottom:'.$settings->hotspot_marker[$i]->text_typography_padding_dimension_bottom_medium.'px;' : '';
+						    }
+						    if(isset($settings->hotspot_marker[$i]->text_typography_padding_dimension_left_medium ) ){
+						        echo ( $settings->hotspot_marker[$i]->text_typography_padding_dimension_left_medium != '' ) ? 'padding-left:'.$settings->hotspot_marker[$i]->text_typography_padding_dimension_left_medium.'px;' : '';
+						    }
+						    if(isset($settings->hotspot_marker[$i]->text_typography_padding_dimension_right_medium ) ){
+						        echo ( $settings->hotspot_marker[$i]->text_typography_padding_dimension_right_medium != '' ) ? 'padding-right:'.$settings->hotspot_marker[$i]->text_typography_padding_dimension_right_medium.'px;' : '';
+						    } 
 						?>
+					
 				 	}
 
 				 	.fl-node-<?php echo $id; ?> .uabb-hotspot-item-<?php echo $i; ?> .uabb-hotspot-tooltip-content {
-				 		<?php
-						echo ( $settings->hotspot_marker[$i]->tooltip_line_height['medium'] != '' ) ? 'line-height: ' . $settings->hotspot_marker[$i]->tooltip_line_height['medium'] . 'px;' : '';
-						echo ( $settings->hotspot_marker[$i]->tooltip_font_size['medium'] != '' ) ? 'font-size: ' . $settings->hotspot_marker[$i]->tooltip_font_size['medium'] . 'px;' : '';
+				 	    
+						<?php if( isset( $settings->hotspot_marker[$i]->tooltip_font_size_unit_medium ) && $settings->hotspot_marker[$i]->tooltip_font_size_unit_medium != '' ) : ?>
+							font-size: <?php echo $settings->hotspot_marker[$i]->tooltip_font_size_unit_medium; ?>px;
+						<?php endif; ?>
 						
+                        <?php if( isset( $settings->hotspot_marker[$i]->tooltip_font_size['medium'] ) && $settings->hotspot_marker[$i]->tooltip_font_size['medium'] == '' && isset( $settings->hotspot_marker[$i]->tooltip_line_height['medium'] ) && $settings->hotspot_marker[$i]->tooltip_line_height['medium'] != '' && $settings->hotspot_marker[$i]->tooltip_line_height_unit_medium == '' && $settings->hotspot_marker[$i]->tooltip_line_height_unit == '') { ?>
+						    line-height: <?php echo $settings->hotspot_marker[$i]->tooltip_line_height['medium']; ?>px;
+						<?php } ?>
+
+						<?php if( isset( $settings->hotspot_marker[$i]->tooltip_line_height_unit_medium ) && $settings->hotspot_marker[$i]->tooltip_line_height_unit_medium != '' ) : ?>
+							line-height: <?php echo $settings->hotspot_marker[$i]->tooltip_line_height_unit_medium; ?>em;
+						<?php endif; ?>
+
+						<?php 
+						    if(isset($settings->hotspot_marker[$i]->tooltip_padding_dimension_top_medium) ){
+						        echo ( $settings->hotspot_marker[$i]->tooltip_padding_dimension_top_medium != '' ) ? 'padding-top:'.$settings->hotspot_marker[$i]->tooltip_padding_dimension_top_medium.'px;' : ''; 
+						    }
+						    if(isset($settings->hotspot_marker[$i]->tooltip_padding_dimension_bottom_medium) ){
+						        echo ( $settings->hotspot_marker[$i]->tooltip_padding_dimension_bottom_medium != '' ) ? 'padding-bottom:'.$settings->hotspot_marker[$i]->tooltip_padding_dimension_bottom_medium.'px;' : '';
+						    }
+						    if(isset($settings->hotspot_marker[$i]->tooltip_padding_dimension_left_medium) ){
+						        echo ( $settings->hotspot_marker[$i]->tooltip_padding_dimension_left_medium != '' ) ? 'padding-left:'.$settings->hotspot_marker[$i]->tooltip_padding_dimension_left_medium.'px;' : '';
+						    }
+						    if(isset($settings->hotspot_marker[$i]->tooltip_padding_dimension_right_medium) ){
+						        echo ( $settings->hotspot_marker[$i]->tooltip_padding_dimension_right_medium != '' ) ? 'padding-right:'.$settings->hotspot_marker[$i]->tooltip_padding_dimension_right_medium.'px;' : '';
+						    }				
 						?>
+						
+				 	}
+				 	.fl-node-<?php echo $id; ?> .uabb-hotspot-item-<?php echo $i; ?> .uabb-hotspot-text {
+				 		
 				 	}
 				 	.fl-node-<?php echo $id; ?> .uabb-hotspot-hover .uabb-hspot-sonar {
 					    width: 100px;
@@ -351,18 +449,65 @@ if( $photo_src != '' ) {
 
 				@media ( max-width: <?php echo $global_settings->responsive_breakpoint .'px'; ?> ) {
 					.fl-node-<?php echo $id; ?> .uabb-hotspot-item-<?php echo $i; ?> .uabb-hotspot-text {
-				 		<?php
-						echo ( $settings->hotspot_marker[$i]->text_typography_line_height['small'] != '' ) ? 'line-height: ' . $settings->hotspot_marker[$i]->text_typography_line_height['small'] . 'px;' : '';
-						echo ( $settings->hotspot_marker[$i]->text_typography_font_size['small'] != '' ) ? 'font-size: ' . $settings->hotspot_marker[$i]->text_typography_font_size['small'] . 'px;' : '';					
+						
+						<?php if( isset( $settings->hotspot_marker[$i]->text_typography_font_size_unit_responsive ) && $settings->hotspot_marker[$i]->text_typography_font_size_unit_responsive != '' ) : ?>
+							font-size: <?php echo $settings->hotspot_marker[$i]->text_typography_font_size_unit_responsive; ?>px;
+						<?php endif; ?>
+						
+						<?php if( isset( $settings->hotspot_marker[$i]->text_typography_font_size['small'] ) && $settings->hotspot_marker[$i]->text_typography_font_size['small'] == '' && isset( $settings->hotspot_marker[$i]->text_typography_line_height['small'] ) && $settings->hotspot_marker[$i]->text_typography_line_height['small'] != '' && $settings->hotspot_marker[$i]->text_typography_line_height_unit_responsive == '' && $settings->hotspot_marker[$i]->text_typography_line_height_unit_medium == '' && $settings->hotspot_marker[$i]->text_typography_line_height_unit == '' ) { ?>
+				   			 line-height: <?php echo $settings->hotspot_marker[$i]->text_typography_line_height['small']; ?>px;
+						<?php } ?>
+					   
+						<?php if( isset( $settings->hotspot_marker[$i]->text_typography_line_height_unit_responsive ) && $settings->hotspot_marker[$i]->text_typography_line_height_unit_responsive != '' ) : ?>
+							line-height: <?php echo $settings->hotspot_marker[$i]->text_typography_line_height_unit_responsive; ?>em;
+						<?php endif; ?>	
+						
+						<?php 
+						    if(isset($settings->hotspot_marker[$i]->text_typography_padding_dimension_top_responsive) ){
+						        echo ( $settings->hotspot_marker[$i]->text_typography_padding_dimension_top_responsive != '' ) ? 'padding-top:'.$settings->hotspot_marker[$i]->text_typography_padding_dimension_top_responsive.'px;' : ''; 
+						    }
+						    if(isset($settings->hotspot_marker[$i]->text_typography_padding_dimension_bottom_responsive ) ){
+						        echo ( $settings->hotspot_marker[$i]->text_typography_padding_dimension_bottom_responsive != '' ) ? 'padding-bottom:'.$settings->hotspot_marker[$i]->text_typography_padding_dimension_bottom_responsive.'px;' : '';
+						    }
+						    if(isset($settings->hotspot_marker[$i]->text_typography_padding_dimension_left_responsive ) ){
+						        echo ( $settings->hotspot_marker[$i]->text_typography_padding_dimension_left_responsive != '' ) ? 'padding-left:'.$settings->hotspot_marker[$i]->text_typography_padding_dimension_left_responsive.'px;' : '';
+						    }
+						    if(isset($settings->hotspot_marker[$i]->text_typography_padding_dimension_right_responsive ) ){
+						        echo ( $settings->hotspot_marker[$i]->text_typography_padding_dimension_right_responsive != '' ) ? 'padding-right:'.$settings->hotspot_marker[$i]->text_typography_padding_dimension_right_responsive.'px;' : '';
+						    } 
 						?>
+
 				 	}
 
 				 	.fl-node-<?php echo $id; ?> .uabb-hotspot-item-<?php echo $i; ?> .uabb-hotspot-tooltip-content {
-				 		<?php
-						echo ( $settings->hotspot_marker[$i]->tooltip_line_height['small'] != '' ) ? 'line-height: ' . $settings->hotspot_marker[$i]->tooltip_line_height['small'] . 'px;' : '';
-						echo ( $settings->hotspot_marker[$i]->tooltip_font_size['small'] != '' ) ? 'font-size: ' . $settings->hotspot_marker[$i]->tooltip_font_size['small'] . 'px;' : '';
+
+						<?php if( isset( $settings->hotspot_marker[$i]->tooltip_font_size_unit_responsive ) && $settings->hotspot_marker[$i]->tooltip_font_size_unit_responsive != '' ) : ?>
+							font-size: <?php echo $settings->hotspot_marker[$i]->tooltip_font_size_unit_responsive; ?>px;
+						<?php endif; ?>
 						
+						<?php if( isset( $settings->hotspot_marker[$i]->tooltip_font_size['small'] ) && $settings->hotspot_marker[$i]->tooltip_font_size['small'] == '' && isset( $settings->hotspot_marker[$i]->tooltip_line_height['small'] ) && $settings->hotspot_marker[$i]->tooltip_line_height['small'] != '' && $settings->hotspot_marker[$i]->tooltip_line_height_unit_responsive == '' && $settings->hotspot_marker[$i]->tooltip_line_height_unit_medium == '' && $settings->hotspot_marker[$i]->tooltip_line_height_unit == '') { ?>
+				   			 line-height: <?php echo $settings->hotspot_marker[$i]->tooltip_line_height['small']; ?>px;
+						<?php } ?>
+
+						<?php if( isset( $settings->hotspot_marker[$i]->tooltip_line_height_unit_responsive ) && $settings->hotspot_marker[$i]->tooltip_line_height_unit_responsive != '' ) : ?>
+							line-height: <?php echo $settings->hotspot_marker[$i]->tooltip_line_height_unit_responsive; ?>em;
+						<?php endif; ?>
+
+						<?php 
+						    if(isset($settings->hotspot_marker[$i]->tooltip_padding_dimension_top_responsive) ){
+						        echo ( $settings->hotspot_marker[$i]->tooltip_padding_dimension_top_responsive != '' ) ? 'padding-top:'.$settings->hotspot_marker[$i]->tooltip_padding_dimension_top_responsive.'px;' : ''; 
+						    }
+						    if(isset($settings->hotspot_marker[$i]->tooltip_padding_dimension_bottom_responsive) ){
+						        echo ( $settings->hotspot_marker[$i]->tooltip_padding_dimension_bottom_responsive != '' ) ? 'padding-bottom:'.$settings->hotspot_marker[$i]->tooltip_padding_dimension_bottom_responsive.'px;' : '';
+						    }
+						    if(isset($settings->hotspot_marker[$i]->tooltip_padding_dimension_left_responsive) ){
+						        echo ( $settings->hotspot_marker[$i]->tooltip_padding_dimension_left_responsive != '' ) ? 'padding-left:'.$settings->hotspot_marker[$i]->tooltip_padding_dimension_left_responsive.'px;' : '';
+						    }
+						    if(isset($settings->hotspot_marker[$i]->tooltip_padding_dimension_right_responsive) ){
+						        echo ( $settings->hotspot_marker[$i]->tooltip_padding_dimension_right_responsive != '' ) ? 'padding-right:'.$settings->hotspot_marker[$i]->tooltip_padding_dimension_right_responsive.'px;' : '';
+						    }				
 						?>
+						
 				 	}
 				}
 			<?php

@@ -175,7 +175,7 @@ FLBuilder::register_module('GoogleMapModule', array(
                         ),
                     ),
                     'map_fit_marker'     => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Auto Zoom', 'uabb' ),
                         'default'       => 'no',
                         'options'       => array(
@@ -217,7 +217,7 @@ FLBuilder::register_module('GoogleMapModule', array(
                         ),
                     ),
 					'map_expand'     => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Disable map zoom on mouse wheel scroll', 'uabb' ),
                         'default'       => 'yes',
                         'options'       => array(
@@ -239,7 +239,7 @@ FLBuilder::register_module('GoogleMapModule', array(
                 'title'         => __('Advanced Controls', 'uabb'), // Section Title
                 'fields'        => array( // Section Fields
                     'street_view'     => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Street view control', 'uabb' ),
                         'default'       => 'false',
                         'options'       => array(
@@ -248,7 +248,7 @@ FLBuilder::register_module('GoogleMapModule', array(
                         )
                     ),
                     'map_type_control'     => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Map type control', 'uabb' ),
                         'default'       => 'false',
                         'options'       => array(
@@ -257,7 +257,7 @@ FLBuilder::register_module('GoogleMapModule', array(
                         )
                     ),
                     'zoom'     => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Zoom control', 'uabb' ),
                         'default'       => 'false',
                         'options'       => array(
@@ -284,7 +284,7 @@ FLBuilder::register_module('GoogleMapModule', array(
                         )
                     ),
                     'dragging'     => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Disable dragging on Mobile', 'uabb' ),
                         'default'       => 'false',
                         'options'       => array(
@@ -357,7 +357,7 @@ FLBuilder::register_settings_form('uabb_google_map_addresses', array(
                     'title'         => '',
                     'fields'        => array(
                         'marker_point'     => array(
-                            'type'          => 'uabb-toggle-switch',
+                            'type'          => 'select',
                             'label'         => __( 'Marker Point Icon', 'uabb' ),
                             'default'       => 'default',
                             'options'       => array(
@@ -386,7 +386,7 @@ FLBuilder::register_settings_form('uabb_google_map_addresses', array(
                     'title'         => '', // Section Title
                     'fields'        => array( // Section Fields
                         'enable_info'     => array(
-                            'type'          => 'uabb-toggle-switch',
+                            'type'          => 'select',
                             'label'         => __( 'Show Info Text', 'uabb' ),
                             'default'       => 'yes',
                             'options'       => array(
@@ -407,7 +407,7 @@ FLBuilder::register_settings_form('uabb_google_map_addresses', array(
                             'connections'   => array( 'string', 'html' )
                         ),
                         'open_marker'     => array(
-                            'type'          => 'uabb-toggle-switch',
+                            'type'          => 'select',
                             'label'         => __( 'Disable Info Window On Load', 'uabb' ),
                             'default'       => 'no',
                             'options'       => array(

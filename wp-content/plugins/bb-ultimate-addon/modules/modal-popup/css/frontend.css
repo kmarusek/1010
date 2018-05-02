@@ -19,6 +19,7 @@
 	height:100%;
 	overflow-y: scroll;
 	top: 0 !important;
+	transform: none !important;
 }
 
 .uabb-modal.uabb-modal-scroll .uabb-modal-content-data {

@@ -17,11 +17,189 @@ class UABBTeamModule extends FLBuilderModule {
             'group'         => UABB_CAT,
 			'dir'           	=> BB_ULTIMATE_ADDON_DIR . 'modules/team/',
             'url'           	=> BB_ULTIMATE_ADDON_URL . 'modules/team/',
-            'partial_refresh'	=> true
+            'partial_refresh'	=> true,
+            'icon'              => 'team.svg'
 		));
-	}
-	
 
+		add_filter( 'fl_builder_layout_data', array( $this , 'render_new_data' ), 10, 3 );
+	}
+
+	function render_new_data( $data ) {
+
+		foreach ( $data as &$node ) {
+			
+			if ( isset( $node->settings->type ) && 'team' === $node->settings->type ) {
+
+				if( isset( $node->settings->img_spacing ) &&  !isset( $node->settings->img_spacing_dimension_top ) &&  !isset( $node->settings->img_spacing_dimension_bottom ) &&  !isset( $node->settings->img_spacing_dimension_left ) &&  !isset( $node->settings->img_spacing_dimension_right ) ) {
+                    
+                    $value = "";
+                    $value = str_replace("px","", $node->settings->img_spacing );
+                    
+                    $output = array();
+                    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
+                    $node->settings->img_spacing_dimension_top    = '0';
+                    $node->settings->img_spacing_dimension_bottom = '0';
+                    $node->settings->img_spacing_dimension_right  = '0';
+                    $node->settings->img_spacing_dimension_left   = '0';
+                    foreach($uabb_default as $val) {
+                        $new = explode(':',$val);
+                         $output[] = $new;
+                    }
+                    for ($i=0; $i < count( $output ); $i++) { 
+
+                        switch ( $output[$i][0] ) {
+                            case 'padding-top':
+                               $node->settings->img_spacing_dimension_top    = (int)$output[$i][1];
+                                break;
+                            case 'padding-bottom':
+                                $node->settings->img_spacing_dimension_bottom = (int)$output[$i][1];
+                                break;
+                            case 'padding-right':
+                                $node->settings->img_spacing_dimension_right  = (int)$output[$i][1];
+                                break;
+                            case 'padding-left':
+                                $node->settings->img_spacing_dimension_left   = (int)$output[$i][1];
+                                break;
+                            case 'padding':
+                                $node->settings->img_spacing_dimension_top    = (int)$output[$i][1];
+                                $node->settings->img_spacing_dimension_bottom = (int)$output[$i][1];
+                                $node->settings->img_spacing_dimension_left   = (int)$output[$i][1];
+                                $node->settings->img_spacing_dimension_right  = (int)$output[$i][1];
+                                break;
+                        }
+                    }
+                }
+
+                if( isset( $node->settings->text_spacing ) &&  !isset( $node->settings->text_spacing_dimension_top ) &&  !isset( $node->settings->text_spacing_dimension_bottom ) &&  !isset( $node->settings->text_spacing_dimension_left ) &&  !isset( $node->settings->text_spacing_dimension_right ) ) {
+         
+                $value = "";
+                $value = str_replace("px","", $node->settings->text_spacing );
+                
+                $output = array();
+                $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
+                $node->settings->text_spacing_dimension_top    = '0';
+                $node->settings->text_spacing_dimension_bottom = '0';
+                $node->settings->text_spacing_dimension_right  = '0';
+                $node->settings->text_spacing_dimension_left   = '0';
+                    foreach($uabb_default as $val) {
+                        $new = explode(':',$val);
+                         $output[] = $new;
+                    }
+                    for ($i=0; $i < count( $output ); $i++) { 
+                        switch ( $output[$i][0] ) {
+
+                            case 'padding-top':
+                               $node->settings->text_spacing_dimension_top    = (int)$output[$i][1];
+                                break;
+                            case 'padding-bottom':
+                                $node->settings->text_spacing_dimension_bottom = (int)$output[$i][1];
+                                break;
+                            case 'padding-right':
+                                $node->settings->text_spacing_dimension_right  = (int)$output[$i][1];
+                                break;
+                            case 'padding-left':
+                                $node->settings->text_spacing_dimension_left   = (int)$output[$i][1];
+                                break;
+                            case 'padding':
+                                $node->settings->text_spacing_dimension_top    = (int)$output[$i][1];
+                                $node->settings->text_spacing_dimension_bottom = (int)$output[$i][1];
+                                $node->settings->text_spacing_dimension_left   = (int)$output[$i][1];
+                                $node->settings->text_spacing_dimension_right  = (int)$output[$i][1];
+                                break;
+                        }
+                    }
+                }
+
+				if ( isset( $node->settings->font_size['small']) && !isset( $node->settings->font_size_unit_responsive ) ) {
+					$node->settings->font_size_unit_responsive = $node->settings->font_size['small'];
+				}
+				if( isset( $node->settings->font_size['medium']) && !isset( $node->settings->font_size_unit_medium ) ) {
+					$node->settings->font_size_unit_medium = $node->settings->font_size['medium'];
+				}
+				if( isset( $node->settings->font_size['desktop']) && !isset( $node->settings->font_size_unit ) ) {
+					$node->settings->font_size_unit = $node->settings->font_size['desktop'];
+				}
+                
+                if( isset( $node->settings->line_height['small']) && isset( $node->settings->font_size['small'] ) && $node->settings->font_size['small'] != 0 && !isset( $node->settings->line_height_unit_responsive ) ) {
+					if( is_numeric( $node->settings->line_height['small']) && is_numeric( $node->settings->font_size['small']) )
+                    $node->settings->line_height_unit_responsive = round( $node->settings->line_height['small'] / $node->settings->font_size['small'], 2 );
+				}
+				if( isset( $node->settings->line_height['medium']) && isset( $node->settings->font_size['medium'] ) && $node->settings->font_size['medium'] != 0 && !isset( $node->settings->line_height_unit_medium ) ) {
+					if( is_numeric( $node->settings->line_height['medium']) && is_numeric( $node->settings->font_size['medium']) )
+                    $node->settings->line_height_unit_medium = round( $node->settings->line_height['medium'] / $node->settings->font_size['medium'], 2 );
+				}
+				if( isset( $node->settings->line_height['desktop']) && isset( $node->settings->font_size['desktop'] ) && $node->settings->font_size['desktop'] != 0 && !isset( $node->settings->line_height_unit ) ) {
+					if( is_numeric( $node->settings->line_height['desktop']) && is_numeric( $node->settings->font_size['desktop']) )
+                    $node->settings->line_height_unit = round( $node->settings->line_height['desktop'] / $node->settings->font_size['desktop'], 2 );
+				}
+
+				if ( isset( $node->settings->desg_font_size['small']) && !isset( $node->settings->desg_font_size_unit_responsive ) ) {
+					$node->settings->desg_font_size_unit_responsive = $node->settings->desg_font_size['small'];
+				}
+				if( isset( $node->settings->desg_font_size['medium']) && !isset( $node->settings->desg_font_size_unit_medium ) ) {
+					$node->settings->desg_font_size_unit_medium = $node->settings->desg_font_size['medium'];
+				}
+				if( isset( $node->settings->desg_font_size['desktop']) && !isset( $node->settings->desg_font_size_unit ) ) {
+					$node->settings->desg_font_size_unit = $node->settings->desg_font_size['desktop'];
+				}
+                
+                if( isset( $node->settings->desg_line_height['small']) && isset( $node->settings->desg_font_size['small'] ) && $node->settings->desg_font_size['small'] != 0 && !isset( $node->settings->desg_line_height_unit_responsive ) ) {
+					if( is_numeric( $node->settings->desg_line_height['small']) && is_numeric( $node->settings->desg_font_size['small']) )
+                    $node->settings->desg_line_height_unit_responsive = round( $node->settings->desg_line_height['small'] / $node->settings->desg_font_size['small'], 2 );
+				}
+				if( isset( $node->settings->desg_line_height['medium']) && isset( $node->settings->desg_font_size['medium'] ) && $node->settings->desg_font_size['medium'] != 0 && !isset( $node->settings->desg_line_height_unit_medium ) ) {
+					if( is_numeric( $node->settings->desg_line_height['medium']) && is_numeric( $node->settings->desg_font_size['medium']) )
+                    $node->settings->desg_line_height_unit_medium = round( $node->settings->desg_line_height['medium'] / $node->settings->desg_font_size['medium'], 2 );
+				}
+				if( isset( $node->settings->desg_line_height['desktop']) && isset( $node->settings->desg_font_size['desktop'] ) && $node->settings->desg_font_size['desktop'] != 0 && !isset( $node->settings->desg_line_height_unit ) ) {
+					if( is_numeric( $node->settings->desg_line_height['desktop']) && is_numeric( $node->settings->desg_font_size['desktop']) )
+                    $node->settings->desg_line_height_unit = round( $node->settings->desg_line_height['desktop'] / $node->settings->desg_font_size['desktop'], 2 );
+				}
+				
+				if ( isset( $node->settings->desc_font_size['small']) && !isset( $node->settings->desc_font_size_unit_responsive ) ) {
+					$node->settings->desc_font_size_unit_responsive = $node->settings->desc_font_size['small'];
+				}
+				if( isset( $node->settings->desc_font_size['medium']) && !isset( $node->settings->desc_font_size_unit_medium ) ) {
+					$node->settings->desc_font_size_unit_medium = $node->settings->desc_font_size['medium'];
+				}
+				if( isset( $node->settings->desc_font_size['desktop']) && !isset( $node->settings->desc_font_size_unit ) ) {
+					$node->settings->desc_font_size_unit = $node->settings->desc_font_size['desktop'];
+				}
+
+				if( isset( $node->settings->desc_line_height['small']) && isset( $node->settings->desc_font_size['small'] ) && $node->settings->desc_font_size['small'] != 0 && !isset( $node->settings->desc_line_height_unit_responsive ) ) {
+					if( is_numeric( $node->settings->desc_line_height['small']) && is_numeric( $node->settings->desc_font_size['small']) )
+                    $node->settings->desc_line_height_unit_responsive = round( $node->settings->desc_line_height['small'] / $node->settings->desc_font_size['small'], 2 );
+				}
+				if( isset( $node->settings->desc_line_height['medium']) && isset( $node->settings->desc_font_size['medium'] ) && $node->settings->desc_font_size['medium'] != 0 && !isset( $node->settings->desc_line_height_unit_medium ) ) {
+					if( is_numeric( $node->settings->desc_line_height['medium']) && is_numeric( $node->settings->desc_font_size['medium']) )
+                    $node->settings->desc_line_height_unit_medium = round( $node->settings->desc_line_height['medium'] / $node->settings->desc_font_size['medium'], 2 );
+				}
+				if( isset( $node->settings->desc_line_height['desktop']) && isset( $node->settings->desc_font_size['desktop'] ) && $node->settings->desc_font_size['desktop'] != 0 && !isset( $node->settings->desc_line_height_unit ) ) {
+					if( is_numeric( $node->settings->desc_line_height['desktop']) && is_numeric( $node->settings->desc_font_size['desktop']) )
+                    $node->settings->desc_line_height_unit = round( $node->settings->desg_line_height['desktop'] / $node->settings->desc_font_size['desktop'], 2 );
+				}
+			}
+		}
+
+		return $data;
+	}
+
+	/**
+     * @method get_icons
+     */
+    public function get_icon( $icon = '' ) {
+        // check if $icon is referencing an included icon.
+        if ( '' != $icon && file_exists( BB_ULTIMATE_ADDON_DIR . 'modules/team/icon/' . $icon ) ) {
+            $path = BB_ULTIMATE_ADDON_DIR . 'modules/team/icon/' . $icon;
+        }
+
+        if ( file_exists( $path ) ) {
+            return file_get_contents( $path );
+        } else {
+            return '';
+        }
+    }
+	
 	/**
 	 * @method render_image
 	 */
@@ -275,17 +453,23 @@ FLBuilder::register_module('UABBTeamModule', array(
 						),
 						'class'			=> 'uabb-image-icon-style',
 					),
-					'img_spacing'		=> array(
-						'type'          => 'uabb-spacing',
+					'img_spacing_dimension'		=> array(
+						'type'          => 'dimension',
 			            'label'         => __( 'Image Section Padding', 'uabb' ),
-			            'mode'			=> 'padding',
-			            'default'       => 'padding: 0px;', // Optional
+			            'description'   => 'px',
 			            'preview'         => array(
                             'type'          => 'css',
                             'selector'      => '.uabb-team-image',
                             'property'      => 'padding',
                             'unit'			=> 'px'
-                        )
+                        ),
+                         'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ), 
 					),
 					'img_bg_color'    => array( 
 						'type'       => 'color',
@@ -388,17 +572,23 @@ FLBuilder::register_module('UABBTeamModule', array(
 			'text_style' => array(
 				'title'         => __('Content Style', 'uabb'),
 				'fields'        => array(
-					'text_spacing'		=> array(
-						'type'          => 'uabb-spacing',
+					'text_spacing_dimension'		=> array(
+						'type'          => 'dimension',
                         'label'         => __( 'Padding', 'uabb' ),
-                        'mode'			=> 'padding',
-                        'default'       => 'padding: 15px;', // Optional
+                        'description'   => 'px',
                         'preview'       => array(
 							'type'          => 'css',
 							'selector'      => '.uabb-team-content',
 							'property'		=> 'padding',
 							'unit'			=> 'px',
-						)
+						),
+						 'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '15',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ), 
 					),
 					'text_bg_color'    => array( 
 						'type'       => 'color',
@@ -455,7 +645,7 @@ FLBuilder::register_module('UABBTeamModule', array(
 				'title'         => __('Custom Link', 'uabb'), // Section Title
 				'fields'        => array( // Section Fields
 					'enable_custom_link' =>	array(
-		                'type'          => 'uabb-toggle-switch',
+		                'type'          => 'select',
 		                'label'         => __( 'Enable Custom Link', 'uabb' ),
 		                'default'       => 'no',
 		                'options'       => array(
@@ -625,7 +815,7 @@ FLBuilder::register_module('UABBTeamModule', array(
 				'title'         => '',
 				'fields'        => array(
 					'enable_social_icons' =>	array(
-		                'type'          => 'uabb-toggle-switch',
+		                'type'          => 'select',
 		                'label'         => __( 'Enable Social Icons', 'uabb' ),
 		                'default'       => 'yes',
 		                'options'       => array(
@@ -775,7 +965,7 @@ FLBuilder::register_module('UABBTeamModule', array(
                             
                     /* Style Options */
                     'icon_color_preset'     => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Icon Color Presets', 'uabb' ),
                         'default'       => 'preset1',
                         'options'       => array(
@@ -897,35 +1087,41 @@ FLBuilder::register_module('UABBTeamModule', array(
                             'selector'	=> '.uabb-team-name-text'
                     	),
                     ),
-                    'font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'px',
                         'preview'	=> array(
                             'type'		=> 'css',
                             'selector'	=> '.uabb-team-name-text, .uabb-team-name-text a',
                             'property'	=> 'font-size',
                             'unit'		=> 'px',
                     	),
+                    	'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                     ),
-                    'line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                    'line_height_unit'    => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'em',
                         'preview'	=> array(
                             'type'		=> 'css',
                             'selector'	=> '.uabb-team-name-text',
                             'property'	=> 'line-height',
-                            'unit'		=> 'px',
+                            'unit'		=> 'em',
                     	),
+                    	'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                     ),
                     'color'        => array( 
                         'type'       => 'color',
@@ -983,35 +1179,41 @@ FLBuilder::register_module('UABBTeamModule', array(
                             'selector'	=> '.uabb-team-desgn-text'
                     	),
                     ),
-                    'desg_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'desg_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'px',
                         'preview'	=> array(
                             'type'		=> 'css',
                             'selector'	=> '.uabb-team-desgn-text',
                             'property'	=> 'font-size',
                             'unit'		=> 'px',
                     	),
+                    	'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                     ),
-                    'desg_line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                    'desg_line_height_unit'    => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'em',
                         'preview'	=> array(
                             'type'		=> 'css',
                             'selector'	=> '.uabb-team-desgn-text',
                             'property'	=> 'line-height',
-                            'unit'		=> 'px',
+                            'unit'		=> 'em',
                     	),
+                    	'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                     ),
                     'desg_color'        => array( 
                         'type'       => 'color',
@@ -1069,35 +1271,41 @@ FLBuilder::register_module('UABBTeamModule', array(
                             'selector'	=> '.uabb-team-desc-text'
                     	),
                     ),
-                    'desc_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'desc_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'px',
                         'preview'	=> array(
                             'type'		=> 'css',
                             'selector'	=> '.uabb-team-desc-text',
                             'property'	=> 'font-size',
                             'unit'		=> 'px'
                     	),
+                    	'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                     ),
-                    'desc_line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                    'desc_line_height_unit'    => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'em',
                         'preview'	=> array(
                             'type'		=> 'css',
                             'selector'	=> '.uabb-team-desc-text',
                             'property'	=> 'line-height',
-                            'unit'		=> 'px'
+                            'unit'		=> 'em'
                     	),
+                    	'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                     ),
                     'desc_color'        => array( 
                         'type'       => 'color',
@@ -1192,7 +1400,7 @@ FLBuilder::register_settings_form('uabb_social_icon_form', array(
 					'fields'        => array( // Section Fields
 						'social_message' => array(
 							'type'     => 'uabb-msgbox',
-							'msg-type' => 'info',
+							'msg_type' => 'info',
 							'content'  => 'Below Background / Border color properties will work only when Icon background style is not simple.',
 						),
 					)

@@ -206,6 +206,7 @@ if( !class_exists( 'UABB_Helper' ) ) {
 		 */
 
 		static public function uabb_gradient_css( $gradient ){
+			$gradient['angle'] = ( isset( $gradient['angle'] ) ) ? $gradient['angle'] : '';
 			$gradient_angle = intval( $gradient['angle'] );
 			$direction      = $gradient['direction'];
 			$color1         = '';

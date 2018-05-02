@@ -51,7 +51,7 @@ do_action( 'uabb_loop_settings_before_form', $settings ); // e.g Add custom FLBu
 
 
 	FLBuilder::render_settings_field('total_posts_switch', array(
-		'type'          => 'uabb-toggle-switch',
+		'type'          => 'select',
         'label'         => __( 'Number of Posts to Display', 'uabb' ),
         'help' 			=> __( 'Choose the number of posts you want to display in module.', 'uabb' ),
         'default'       => 'custom',
@@ -171,6 +171,14 @@ do_action( 'uabb_loop_settings_before_form', $settings ); // e.g Add custom FLBu
 						'buttons'       => __( 'Button', 'uabb' ),
 						'drop-down'       => __( 'Drop Down', 'uabb' ),
 					),
+			), $settings);
+
+			FLBuilder::render_settings_field('uabb_masonary_filter_all_edit_' . $slug, array(
+				'type'          => 'text',
+				'label'         => __( '"All" Filter Label', 'uabb' ),
+				'default'		=> __( 'All', 'uabb' ),
+				'placeholder'	=> __( 'All', 'uabb' ),
+				'connections'	=> array('string')
 			), $settings);
 		?>
 		</table>

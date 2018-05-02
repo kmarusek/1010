@@ -8,8 +8,7 @@ class UABBHeadingModule extends FLBuilderModule {
 	/**
 	 * @method __construct
 	 */
-	public function __construct()
-	{
+	public function __construct() {
 		parent::__construct(array(
 			'name'          	=> __('Heading', 'uabb'),
 			'description'   	=> __('Display a title/page heading.', 'uabb'),
@@ -21,21 +20,89 @@ class UABBHeadingModule extends FLBuilderModule {
 			'icon'				=> 'text.svg',
 		));
 	
-		add_filter( 'fl_builder_render_settings_field', array( $this , 'uabb_heading_render_settings_field' ), 10, 3 );
+		add_filter( 'fl_builder_layout_data', array( $this , 'render_new_data' ), 10, 3 );
 	}
 
-	function uabb_heading_render_settings_field( $field, $name, $settings ) {
-        
-        if( isset( $settings->new_font_size['desktop'] ) && isset( $settings->font_size ) && isset( $settings->custom_font_size ) && $settings->font_size == 'custom' && $settings->custom_font_size != '' ) {
-            $settings->new_font_size['desktop'] = $settings->custom_font_size;
-        }
+	function render_new_data( $data ) {
 
-        if( isset( $settings->new_font_size['small'] ) && isset( $settings->r_font_size ) && isset( $settings->r_custom_font_size ) && $settings->r_font_size == 'custom' && $settings->r_custom_font_size != '' ) {
-            $settings->new_font_size['small'] = $settings->r_custom_font_size;
-        }
+		foreach ( $data as &$node ) {
+			
+			if ( isset( $node->settings->type ) && 'uabb-heading' === $node->settings->type ) {
+				
+				if ( isset( $node->settings->new_font_size['small']) && !isset( $node->settings->font_size_unit_responsive ) ) {
+					$node->settings->font_size_unit_responsive = $node->settings->new_font_size['small'];
+				}
+				if( isset( $node->settings->new_font_size['medium']) && !isset( $node->settings->font_size_unit_medium ) ) {
+					$node->settings->font_size_unit_medium = $node->settings->new_font_size['medium'];
+				}
+				if( isset( $node->settings->new_font_size['desktop']) && !isset( $node->settings->font_size_unit ) ) {
+					$node->settings->font_size_unit = $node->settings->new_font_size['desktop'];
+				}
 
-        return $field;
-    }
+				if ( isset( $node->settings->line_height['small']) && isset( $node->settings->new_font_size['small']) && $node->settings->new_font_size['small'] != 0 && !isset( $node->settings->line_height_unit_responsive ) ) {
+					if( is_numeric( $node->settings->line_height['small']) && is_numeric( $node->settings->new_font_size['small']) )
+					$node->settings->line_height_unit_responsive = round( $node->settings->line_height['small'] / $node->settings->new_font_size['small'], 2 );
+				}
+				if( isset( $node->settings->line_height['medium']) && isset( $node->settings->new_font_size['medium']) && $node->settings->new_font_size['medium'] != 0 && !isset( $node->settings->line_height_unit_medium ) ) {
+					if( is_numeric( $node->settings->line_height['medium']) && is_numeric( $node->settings->new_font_size['medium']) )
+					$node->settings->line_height_unit_medium = round( $node->settings->line_height['medium'] / $node->settings->new_font_size['medium'], 2 );
+				}
+				if( isset( $node->settings->line_height['desktop']) && isset( $node->settings->new_font_size['desktop']) && $node->settings->new_font_size['desktop'] != 0 && !isset( $node->settings->line_height_unit ) ) {
+					if( is_numeric( $node->settings->line_height['desktop']) && is_numeric( $node->settings->new_font_size['desktop']) )
+					$node->settings->line_height_unit = round( $node->settings->line_height['desktop'] / $node->settings->new_font_size['desktop'], 2 );
+				}
+
+				if ( isset( $node->settings->desc_font_size['small']) && !isset( $node->settings->desc_font_size_unit_responsive ) ) {
+					$node->settings->desc_font_size_unit_responsive = $node->settings->desc_font_size['small'];
+				}
+				if( isset( $node->settings->desc_font_size['medium']) && !isset( $node->settings->desc_font_size_unit_medium ) ) {
+					$node->settings->desc_font_size_unit_medium = $node->settings->desc_font_size['medium'];
+				}
+				if( isset( $node->settings->desc_font_size['desktop']) && !isset( $node->settings->desc_font_size_unit ) ) {
+					$node->settings->desc_font_size_unit = $node->settings->desc_font_size['desktop'];
+				}
+
+				if ( isset( $node->settings->desc_line_height['small']) && isset( $node->settings->desc_font_size['small']) && $node->settings->desc_font_size['small'] != 0 && !isset( $node->settings->desc_line_height_unit_responsive ) ) {
+					if( is_numeric( $node->settings->desc_line_height['small']) && is_numeric( $node->settings->desc_font_size['small']) )
+					$node->settings->desc_line_height_unit_responsive = round( $node->settings->desc_line_height['small'] / $node->settings->desc_font_size['small'], 2 );
+				}
+				if( isset( $node->settings->desc_line_height['medium']) && isset( $node->settings->desc_font_size['medium']) && $node->settings->desc_font_size['medium'] != 0 && !isset( $node->settings->desc_line_height_unit_medium ) ) {
+					if( is_numeric( $node->settings->desc_line_height['medium']) && is_numeric( $node->settings->desc_font_size['medium']) )
+					$node->settings->desc_line_height_unit_medium = round( $node->settings->desc_line_height['medium'] / $node->settings->desc_font_size['medium'], 2 );
+				}
+				if( isset( $node->settings->desc_line_height['desktop']) && isset( $node->settings->desc_font_size['desktop']) && $node->settings->desc_font_size['desktop'] != 0 && !isset( $node->settings->desc_line_height_unit ) ) {
+					if( is_numeric( $node->settings->desc_line_height['desktop']) && is_numeric( $node->settings->desc_font_size['desktop']) )
+					$node->settings->desc_line_height_unit = round( $node->settings->desc_line_height['desktop'] / $node->settings->desc_font_size['desktop'], 2 );
+				}
+
+				if ( isset( $node->settings->separator_text_font_size['small']) && !isset( $node->settings->separator_text_font_size_unit_responsive ) ) {
+					$node->settings->separator_text_font_size_unit_responsive = $node->settings->separator_text_font_size['small'];
+				}
+				if( isset( $node->settings->separator_text_font_size['medium']) && !isset( $node->settings->separator_text_font_size_unit_medium ) ) {
+					$node->settings->separator_text_font_size_unit_medium = $node->settings->separator_text_font_size['medium'];
+				}
+				if( isset( $node->settings->separator_text_font_size['desktop']) && !isset( $node->settings->separator_text_font_size_unit ) ) {
+					$node->settings->separator_text_font_size_unit = $node->settings->separator_text_font_size['desktop'];
+				}
+
+				if ( isset( $node->settings->separator_text_line_height['small']) && isset( $node->settings->separator_text_font_size['small']) && $node->settings->separator_text_font_size['small'] != 0 && !isset( $node->settings->separator_text_line_height_unit_responsive ) ) {
+					if( is_numeric( $node->settings->separator_text_line_height['small']) && is_numeric( $node->settings->separator_text_font_size['small']) )
+					$node->settings->separator_text_line_height_unit_responsive = round( $node->settings->separator_text_line_height['small'] / $node->settings->separator_text_font_size['small'], 2 );
+				}
+				if( isset( $node->settings->separator_text_line_height['medium']) && isset( $node->settings->separator_text_font_size['medium']) && $node->settings->separator_text_font_size['medium'] != 0 && !isset( $node->settings->separator_text_line_height_unit_medium ) ) {
+					if( is_numeric( $node->settings->separator_text_line_height['medium']) && is_numeric( $node->settings->separator_text_font_size['medium']) )
+					$node->settings->separator_text_line_height_unit_medium = round( $node->settings->separator_text_line_height['medium'] / $node->settings->separator_text_font_size['medium'], 2 );
+				}
+				if( isset( $node->settings->separator_text_line_height['desktop']) && isset( $node->settings->separator_text_font_size['desktop']) && $node->settings->separator_text_font_size['desktop'] != 0 && !isset( $node->settings->separator_text_line_height_unit ) ) {
+					if( is_numeric( $node->settings->separator_text_line_height['desktop']) && is_numeric( $node->settings->separator_text_font_size['desktop']) )
+					$node->settings->separator_text_line_height_unit = round( $node->settings->separator_text_line_height['desktop'] / $node->settings->separator_text_font_size['desktop'], 2 );
+				}
+
+			}
+		}
+
+		return $data;
+	}
 
 	public function render_separator( $pos ) {
 		if( $this->settings->separator_style != 'none' && $this->settings->separator_position == $pos ) {
@@ -75,8 +142,14 @@ class UABBHeadingModule extends FLBuilderModule {
 				'text_inline' => $this->settings->text_inline,
 				'text_tag_selection' => $this->settings->separator_text_tag_selection,
 				'text_font_family' => $this->settings->separator_text_font_family,
-				'text_font_size' => $this->settings->separator_text_font_size,
-				'text_line_height' => $this->settings->separator_text_line_height,
+				'text_font_size' => isset( $this->settings->separator_text_font_size ) ? $this->settings->separator_text_font_size : '',
+				'text_line_height' => isset( $this->settings->separator_text_line_height ) ? $this->settings->separator_text_line_height : '',
+				'text_font_size_unit_responsive' => $this->settings->separator_text_font_size_unit_responsive,
+				'text_line_height_unit_responsive' => $this->settings->separator_text_line_height_unit_responsive,
+				'text_font_size_unit_medium' => $this->settings->separator_text_font_size_unit_medium,
+				'text_line_height_unit_medium' => $this->settings->separator_text_line_height_unit_medium,
+				'text_font_size_unit' => $this->settings->separator_text_font_size_unit,
+				'text_line_height_unit' => $this->settings->separator_text_line_height_unit,
 				'text_color' => $this->settings->separator_text_color,
 
 			); 
@@ -427,35 +500,41 @@ FLBuilder::register_module('UABBHeadingModule', array(
 							'selector'        => '.uabb-heading .uabb-heading-text'
 						)
 					),
-					'new_font_size'     => array(
-						'type'          => 'uabb-simplify',
-						'label'         => __( 'Font Size', 'uabb' ),
-						'default'       => array(
-							'desktop'       => '',
-							'medium'        => '',
-							'small'         => '',
+					'font_size_unit' => array(
+						'type' => 'unit',
+						'label' => __('Font Size', 'uabb'),
+						'description' => 'px',
+						'preview' => array(
+							'type' 		=> 'css',
+							'selector'	=> '.uabb-heading .uabb-heading-text',
+							'property'	=> 'font-size',
+							'unit' 		=> 'px'
 						),
-						'preview'         => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-heading .uabb-heading-text',
-                            'property'      => 'font-size',
-                            'unit'			=> 'px'
-                        )
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
 					),
-					'line_height'    => array(
-						'type'          => 'uabb-simplify',
-						'label'         => __( 'Line Height', 'uabb' ),
-						'default'       => array(
-							'desktop'       => '',
-							'medium'        => '',
-							'small'         => '',
+					'line_height_unit' => array(
+						'type' => 'unit',
+						'label' => __('Line height', 'uabb'),
+						'description' => 'em',
+						'preview' => array(
+							'type' 		=> 'css',
+							'selector'	=> '.uabb-heading .uabb-heading-text',
+							'property'	=> 'line-height',
+							'unit' 		=> 'em'
 						),
-						'preview'         => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-heading .uabb-heading-text',
-                            'property'      => 'line-height',
-                            'unit'			=> 'px'
-                        )
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
 					),
 					'color'    => array( 
 						'type'       => 'color',
@@ -511,36 +590,42 @@ FLBuilder::register_module('UABBHeadingModule', array(
 							'selector'        => '.uabb-subheading, .uabb-subheading *'
 						)
 		            ),
-		            'desc_font_size'     => array(
-		                'type'          => 'uabb-simplify',
-		                'label'         => __( 'Font Size', 'uabb' ),
-		                'default'       => array(
-		                    'desktop'       => '',
-		                    'medium'        => '',
-		                    'small'         => '',
-		                ),
-		                'preview'		=> array(
-							'type' => 'css',
+					'desc_font_size_unit' => array(
+						'type' => 'unit',
+						'label' => __('Font Size', 'uabb'),
+						'description' => 'px',
+						'preview' => array(
+							'type' 		=> 'css',
+							'selector'	=> '.uabb-subheading, .uabb-subheading *',
 							'property'	=> 'font-size',
-							'selector'  => '.uabb-subheading, .uabb-subheading *',
-							'unit'		=> 'px',
-						)
-		            ),
-		            'desc_line_height'    => array(
-		                'type'          => 'uabb-simplify',
-		                'label'         => __( 'Line Height', 'uabb' ),
-		                'default'       => array(
-		                    'desktop'       => '',
-		                    'medium'        => '',
-		                    'small'         => '',
-		                ),
-		                'preview'		=> array(
-							'type' => 'css',
+							'unit' 		=> 'px'
+						),
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
+					),
+					'desc_line_height_unit' => array(
+						'type' => 'unit',
+						'label' => __('Line height', 'uabb'),
+						'description' => 'em',
+						'preview' => array(
+							'type' 		=> 'css',
+							'selector'	=> '.uabb-subheading, .uabb-subheading *',
 							'property'	=> 'line-height',
-							'selector'  => '.uabb-subheading, .uabb-subheading *',
-							'unit'		=> 'px',
-						)
-		            ),
+							'unit' 		=> 'em'
+						),
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
+					),
 		            'desc_color'        => array( 
 						'type'       => 'color',
 						'label'      => __('Color', 'uabb'),
@@ -611,14 +696,17 @@ FLBuilder::register_module('UABBHeadingModule', array(
                             'selector'        => '.uabb-divider-text'
                         )
 		            ),
-		            'separator_text_font_size'     => array(
-		                'type'          => 'uabb-simplify',
+		            'separator_text_font_size_unit'     => array(
+		                'type'          => 'unit',
 		                'label'         => __( 'Font Size', 'uabb' ),
-		                'default'       => array(
-		                    'desktop'       => '',
-		                    'medium'        => '',
-		                    'small'         => '',
-		                ),
+						'description' => 'px',
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
 	                  	'preview'		=> array(
 							'type' => 'css',
 							'property'	=> 'font-size',
@@ -626,19 +714,22 @@ FLBuilder::register_module('UABBHeadingModule', array(
 							'unit'		=> 'px',
 						)
 		            ),
-		            'separator_text_line_height'    => array(
-		                'type'          => 'uabb-simplify',
+		            'separator_text_line_height_unit'    => array(
+		                'type'          => 'unit',
 		                'label'         => __( 'Line Height', 'uabb' ),
-		                'default'       => array(
-		                    'desktop'       => '',
-		                    'medium'        => '',
-		                    'small'         => '',
-		                ),
+						'description' => 'em',
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
 		                'preview'		=> array(
 							'type' => 'css',
 							'property'	=> 'line-height',
 							'selector'  => '.uabb-divider-text',
-							'unit'		=> 'px',
+							'unit'		=> 'em',
 						)
 		            ),
 		            'separator_text_color' => array( 

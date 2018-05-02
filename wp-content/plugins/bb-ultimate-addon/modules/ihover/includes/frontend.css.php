@@ -57,8 +57,22 @@ if( count( $settings->ihover_item ) > 0 ) {
             }
 
             .fl-node-<?php echo $id; ?> .uabb-ih-content {
-                <?php echo $settings->content_padding; ?>
+                 <?php 
+                if(isset($settings->content_padding_dimension_top) ){
+                    echo ( $settings->content_padding_dimension_top != '' ) ? 'padding-top:'.$settings->content_padding_dimension_top.'px;' : ''; 
+                }
+                if(isset($settings->content_padding_dimension_bottom) ){
+                    echo ( $settings->content_padding_dimension_bottom != '' ) ? 'padding-bottom:'.$settings->content_padding_dimension_bottom.'px;' : '';
+                }
+                if(isset($settings->content_padding_dimension_left) ){
+                    echo ( $settings->content_padding_dimension_left != '' ) ? 'padding-left:'.$settings->content_padding_dimension_left.'px;' : '';
+                }
+                if(isset($settings->content_padding_dimension_right) ){
+                    echo ( $settings->content_padding_dimension_right != '' ) ? 'padding-right:'.$settings->content_padding_dimension_right.'px;' : '';
+                } 
+            ?>
             }
+
             <?php
             if( $settings->ihover_item[$i]->separator_style != 'none' ) {
             ?>
@@ -97,27 +111,44 @@ if( count( $settings->ihover_item ) > 0 ) {
     <?php
     if( $settings->title_typography_font_family['family'] != 'Default' ) {
         UABB_Helper::uabb_font_css( $settings->title_typography_font_family );
-    }
-    
-    echo ( $settings->title_typography_font_size['desktop'] != '' ) ? 'font-size: ' . $settings->title_typography_font_size['desktop'] . 'px;' : '';
-    echo ( $settings->title_typography_line_height['desktop'] != '' ) ? 'line-height: ' . $settings->title_typography_line_height['desktop'] . 'px;' : '';
+    } ?>
+
+    <?php if( isset( $settings->title_typography_font_size_unit ) && $settings->title_typography_font_size_unit != '' ) : ?>
+        font-size: <?php echo $settings->title_typography_font_size_unit; ?>px;
+    <?php endif; ?>
+
+    <?php if( isset( $settings->title_typography_font_size['desktop'] ) && $settings->title_typography_font_size['desktop'] == '' && isset( $settings->title_typography_line_height['desktop'] ) && $settings->title_typography_line_height['desktop'] != '' && $settings->title_typography_line_height_unit == '' ) { ?>
+      line-height: <?php echo $settings->title_typography_line_height['desktop']; ?>px;
+    <?php } ?>
+
+    <?php if( isset( $settings->title_typography_line_height_unit ) && $settings->title_typography_line_height_unit != '' ) : ?>
+        line-height: <?php echo $settings->title_typography_line_height_unit; ?>em;
+    <?php endif; ?>
+
     echo 'margin-top: ' . $settings->title_margin_top . 'px;';
     echo 'margin-bottom: ' . $settings->title_margin_bottom . 'px;';       
     ?>
 }
 
-<?php if( $settings->desc_typography_font_family['family'] != 'Default' || $settings->desc_typography_font_size['desktop'] != '' || $settings->desc_typography_line_height['desktop'] != '' ) { ?>
-    .fl-node-<?php echo $id; ?> .uabb-ih-description,
-    .fl-node-<?php echo $id; ?> a .uabb-ih-description {
-        <?php
-        if( $settings->desc_typography_font_family['family'] != 'Default' ) {
-            UABB_Helper::uabb_font_css( $settings->desc_typography_font_family );
-        }
-        echo ( $settings->desc_typography_font_size['desktop'] != '' ) ? 'font-size: ' . $settings->desc_typography_font_size['desktop'] . 'px;' : '';
-        echo ( $settings->desc_typography_line_height['desktop'] != '' ) ? 'line-height: ' . $settings->desc_typography_line_height['desktop'] . 'px;' : '';
-        ?>
-    }
-<?php } ?>
+.fl-node-<?php echo $id; ?> .uabb-ih-description,
+.fl-node-<?php echo $id; ?> a .uabb-ih-description {
+    <?php
+    if( $settings->desc_typography_font_family['family'] != 'Default' ) {
+        UABB_Helper::uabb_font_css( $settings->desc_typography_font_family );
+    } ?>
+
+    <?php if( isset( $settings->desc_typography_font_size_unit ) && $settings->desc_typography_font_size_unit != '' ) : ?>
+        font-size: <?php echo $settings->desc_typography_font_size_unit; ?>px;
+    <?php endif; ?>
+
+    <?php if( isset( $settings->desc_typography_font_size['desktop'] ) && $settings->desc_typography_font_size['desktop'] == '' && isset( $settings->desc_typography_line_height['desktop'] ) && $settings->desc_typography_line_height['desktop'] != '' && $settings->desc_typography_line_height_unit == '' ) { ?>
+      line-height: <?php echo $settings->desc_typography_line_height['desktop']; ?>px;
+    <?php } ?>
+
+    <?php if( isset( $settings->desc_typography_line_height_unit ) && $settings->desc_typography_line_height_unit != '' ) : ?>
+    line-height: <?php echo $settings->desc_typography_line_height_unit; ?>em;
+    <?php endif; ?>
+}
 
 .fl-node-<?php echo $id; ?> .uabb-ih-description-block {
     margin-top: <?php echo $settings->desc_margin_top; ?>px;
@@ -133,53 +164,117 @@ if( count( $settings->ihover_item ) > 0 ) {
 if( $global_settings->responsive_enabled ) { // Global Setting If started
 ?>
     @media ( max-width: <?php echo $global_settings->medium_breakpoint; ?>px ) {
-        <?php
-        if( $settings->responsive_size == 'yes' ) {
+
+        .fl-node-<?php echo $id; ?> .uabb-ih-content {
+             <?php 
+            if(isset($settings->content_padding_dimension_top_medium) ){
+                echo ( $settings->content_padding_dimension_top_medium != '' ) ? 'padding-top:'.$settings->content_padding_dimension_top_medium.'px;' : ''; 
+            }
+            if(isset($settings->content_padding_dimension_bottom_medium) ){
+                echo ( $settings->content_padding_dimension_bottom_medium != '' ) ? 'padding-bottom:'.$settings->content_padding_dimension_bottom_medium.'px;' : '';
+            }
+            if(isset($settings->content_padding_dimension_left_medium) ){
+                echo ( $settings->content_padding_dimension_left_medium != '' ) ? 'padding-left:'.$settings->content_padding_dimension_left_medium.'px;' : '';
+            }
+            if(isset($settings->content_padding_dimension_right_medium) ){
+                echo ( $settings->content_padding_dimension_right_medium != '' ) ? 'padding-right:'.$settings->content_padding_dimension_right_medium.'px;' : '';
+            } 
         ?>
-        .fl-node-<?php echo $id; ?> .uabb-ih-image-block,
-        .fl-node-<?php echo $id; ?> .uabb-ih-item,
-        .fl-node-<?php echo $id; ?> .uabb-ih-list-item {
-            height: <?php echo $settings->height_width_responsive; ?>px;
-            width: <?php echo $settings->height_width_responsive; ?>px;
         }
-        <?php
-        }
-        ?>
+
+        <?php if( $settings->responsive_size == 'yes' ) {  ?>
+            .fl-node-<?php echo $id; ?> .uabb-ih-image-block,
+            .fl-node-<?php echo $id; ?> .uabb-ih-item,
+            .fl-node-<?php echo $id; ?> .uabb-ih-list-item {
+                height: <?php echo $settings->height_width_responsive; ?>px;
+                width: <?php echo $settings->height_width_responsive; ?>px;
+            }
+        <?php } ?>
 
         .fl-node-<?php echo $id; ?> .uabb-ih-description,
         .fl-node-<?php echo $id; ?> a .uabb-ih-description {
-            <?php
-            echo ( $settings->desc_typography_line_height['medium'] != '' ) ? 'line-height: ' . $settings->desc_typography_line_height['medium'] . 'px;' : '';
-            echo ( $settings->desc_typography_font_size['medium'] != '' ) ? 'font-size: ' . $settings->desc_typography_font_size['medium'] . 'px;' : '';
-            ?>
+
+            <?php if( isset( $settings->desc_typography_font_size_unit_medium ) && $settings->desc_typography_font_size_unit_medium != '' ) : ?>
+                font-size: <?php echo $settings->desc_typography_font_size_unit_medium; ?>px;
+            <?php endif; ?>
+
+            <?php if( isset( $settings->desc_typography_font_size['medium'] ) && $settings->desc_typography_font_size['medium'] == '' && isset( $settings->desc_typography_line_height['medium'] ) && $settings->desc_typography_line_height['medium'] != '' && $settings->desc_typography_line_height_unit_medium == '' && $settings->desc_typography_line_height_unit == '' ) { ?>
+              line-height: <?php echo $settings->desc_typography_line_height['medium']; ?>px;
+            <?php } ?>
+
+            <?php if( isset( $settings->desc_typography_line_height_unit_medium ) && $settings->desc_typography_line_height_unit_medium != '' ) : ?>
+                line-height: <?php echo $settings->desc_typography_line_height_unit_medium; ?>em;
+            <?php endif; ?>
+
         }
 
 
         .fl-node-<?php echo $id; ?> .uabb-ih-heading,
         .fl-node-<?php echo $id; ?> a.uabb-ih-link .uabb-ih-heading {
-            <?php
-            echo ( $settings->title_typography_line_height['medium'] != '' ) ? 'line-height: ' . $settings->title_typography_line_height['medium'] . 'px;' : '';
-            echo ( $settings->title_typography_font_size['medium'] != '' ) ? 'font-size: ' . $settings->title_typography_font_size['medium'] . 'px;' : '';
-            ?>
+
+                <?php if( isset( $settings->title_typography_font_size_unit_medium ) && $settings->title_typography_font_size_unit_medium != '' ) : ?>
+                    font-size: <?php echo $settings->title_typography_font_size_unit_medium; ?>px;
+                <?php endif; ?>
+
+                <?php if( isset( $settings->title_typography_font_size['medium'] ) && $settings->title_typography_font_size['medium'] == '' && isset( $settings->title_typography_line_height['medium'] ) && $settings->title_typography_line_height['medium'] != '' && $settings->title_typography_line_height_unit_medium == '' && $settings->title_typography_line_height_unit == '' ) { ?>
+                  line-height: <?php echo $settings->title_typography_line_height['medium']; ?>px;
+                <?php } ?>
+
+                <?php if( isset( $settings->title_typography_line_height_unit_medium ) && $settings->title_typography_line_height_unit_medium != '' ) : ?>
+                    line-height: <?php echo $settings->title_typography_line_height_unit_medium; ?>em;
+                <?php endif; ?>
         }
     }
  
      @media ( max-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {
 
+        .fl-node-<?php echo $id; ?> .uabb-ih-content {
+             <?php 
+            if(isset($settings->content_padding_dimension_top_responsive) ){
+                echo ( $settings->content_padding_dimension_top_responsive != '' ) ? 'padding-top:'.$settings->content_padding_dimension_top_responsive.'px;' : ''; 
+            }
+            if(isset($settings->content_padding_dimension_bottom_responsive) ){
+                echo ( $settings->content_padding_dimension_bottom_responsive != '' ) ? 'padding-bottom:'.$settings->content_padding_dimension_bottom_responsive.'px;' : '';
+            }
+            if(isset($settings->content_padding_dimension_left_responsive) ){
+                echo ( $settings->content_padding_dimension_left_responsive != '' ) ? 'padding-left:'.$settings->content_padding_dimension_left_responsive.'px;' : '';
+            }
+            if(isset($settings->content_padding_dimension_right_responsive) ){
+                echo ( $settings->content_padding_dimension_right_responsive != '' ) ? 'padding-right:'.$settings->content_padding_dimension_right_responsive.'px;' : '';
+            } 
+        ?>
+        }
+
         .fl-node-<?php echo $id; ?> .uabb-ih-description,
         .fl-node-<?php echo $id; ?> a .uabb-ih-description {
-            <?php
-            echo ( $settings->desc_typography_line_height['small'] != '' ) ? 'line-height: ' . $settings->desc_typography_line_height['small'] . 'px;' : '';
-            echo ( $settings->desc_typography_font_size['small'] != '' ) ? 'font-size: ' . $settings->desc_typography_font_size['small'] . 'px;' : '';
-            ?>
+
+                <?php if( isset( $settings->desc_typography_font_size_unit_responsive ) && $settings->desc_typography_font_size_unit_responsive != '' ) : ?>
+                    font-size: <?php echo $settings->desc_typography_font_size_unit_responsive; ?>px;
+                <?php endif; ?>
+
+                <?php if( isset( $settings->desc_typography_font_size['small'] ) && $settings->desc_typography_font_size['small'] == '' && isset( $settings->desc_typography_line_height['small'] ) && $settings->desc_typography_line_height['small'] != '' && $settings->desc_typography_line_height_unit_responsive == '' && $settings->desc_typography_line_height_unit_medium == '' && $settings->desc_typography_line_height_unit == '' ) { ?>
+                  line-height: <?php echo $settings->desc_typography_line_height['small']; ?>px;
+                <?php } ?>
+
+                <?php if( isset( $settings->desc_typography_line_height_unit_responsive ) && $settings->desc_typography_line_height_unit_responsive != '' ) : ?>
+                    line-height: <?php echo $settings->desc_typography_line_height_unit_responsive; ?>em;
+                <?php endif; ?>
         }
 
         .fl-node-<?php echo $id; ?> .uabb-ih-heading,
         .fl-node-<?php echo $id; ?> a.uabb-ih-link .uabb-ih-heading {
-            <?php
-            echo ( $settings->title_typography_line_height['small'] != '' ) ? 'line-height: ' . $settings->title_typography_line_height['small'] . 'px;' : '';
-            echo ( $settings->title_typography_font_size['small'] != '' ) ? 'font-size: ' . $settings->title_typography_font_size['small'] . 'px;' : '';
-            ?>
+
+            <?php if( isset( $settings->title_typography_font_size_unit_responsive ) && $settings->title_typography_font_size_unit_responsive != '' ) : ?>
+                font-size: <?php echo $settings->title_typography_font_size_unit_responsive; ?>px;
+            <?php endif; ?>
+
+            <?php if( isset( $settings->title_typography_font_size['small'] ) && $settings->title_typography_font_size['small'] == '' && isset( $settings->title_typography_line_height['small'] ) && $settings->title_typography_line_height['small'] != '' && $settings->title_typography_line_height_unit_responsive == '' && $settings->title_typography_line_height_unit_medium == '' && $settings->title_typography_line_height_unit == '' ) { ?>
+              line-height: <?php echo $settings->title_typography_line_height['small']; ?>px;
+            <?php } ?>
+
+            <?php if( isset( $settings->title_typography_line_height_unit_responsive ) && $settings->title_typography_line_height_unit_responsive != '' ) : ?>
+                line-height: <?php echo $settings->title_typography_line_height_unit_responsive; ?>em;
+            <?php endif; ?>
         }
 
         <?php

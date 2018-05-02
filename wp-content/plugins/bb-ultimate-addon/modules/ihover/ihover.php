@@ -22,8 +22,127 @@ class iHoverModule extends FLBuilderModule {
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
             'partial_refresh'   => true,
+            'icon'             => 'ihover.svg'
         ));
+
+       add_filter( 'fl_builder_layout_data', array( $this , 'render_new_data' ), 10, 3 ); 
     }
+
+    function render_new_data( $data ) {
+
+        foreach ( $data as &$node ) {
+            
+            if ( isset( $node->settings->type ) && 'ihover' === $node->settings->type ) {
+
+                 if( isset( $node->settings->content_padding ) &&  !isset( $node->settings->content_padding_dimension_top ) &&  !isset( $node->settings->content_padding_dimension_bottom ) &&  !isset( $node->settings->content_padding_dimension_left ) &&  !isset( $node->settings->content_padding_dimension_right ) ) {
+                     
+                    $value = "";
+                    $value = str_replace("px","", $node->settings->content_padding );
+                    
+                    $output = array();
+                    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
+                    
+                    $node->settings->content_padding_dimension_top    = '0';
+                    $node->settings->content_padding_dimension_bottom = '0';
+                    $node->settings->content_padding_dimension_left   = '0';
+                    $node->settings->content_padding_dimension_right  = '0';
+                    
+                    foreach($uabb_default as $val) {
+                        $new = explode(':',$val);
+                         $output[] = $new;
+                    }
+                    for ($i=0; $i < count( $output ); $i++) { 
+                        switch ( $output[$i][0] ) {
+                            case 'padding-top':
+                               $node->settings->content_padding_dimension_top    = (int)$output[$i][1];
+                                break;
+                            case 'padding-bottom':
+                                $node->settings->content_padding_dimension_bottom = (int)$output[$i][1];
+                                break;
+                            case 'padding-right':
+                                $node->settings->content_padding_dimension_right  = (int)$output[$i][1];
+                                break;
+                            case 'padding-left':
+                                $node->settings->content_padding_dimension_left   = (int)$output[$i][1];
+                                break;
+                            case 'padding':
+                                $node->settings->content_padding_dimension_top    = (int)$output[$i][1];
+                                $node->settings->content_padding_dimension_bottom = (int)$output[$i][1];
+                                $node->settings->content_padding_dimension_left   = (int)$output[$i][1];
+                                $node->settings->content_padding_dimension_right  = (int)$output[$i][1];
+                                break;
+                        }
+                    }
+                } 
+
+                if ( isset( $node->settings->title_typography_font_size['small']) && !isset( $node->settings->title_typography_font_size_unit_responsive ) ) {
+                    $node->settings->title_typography_font_size_unit_responsive = $node->settings->title_typography_font_size['small'];
+                }
+                if( isset( $node->settings->title_typography_font_size['medium']) && !isset( $node->settings->title_typography_font_size_unit_medium ) ) {
+                    $node->settings->title_typography_font_size_unit_medium = $node->settings->title_typography_font_size['medium'];
+                }
+                if( isset( $node->settings->title_typography_font_size['desktop']) && !isset( $node->settings->title_typography_font_size_unit ) ) {
+                    $node->settings->title_typography_font_size_unit = $node->settings->title_typography_font_size['desktop'];
+                }
+
+                if ( isset( $node->settings->title_typography_line_height['small']) && isset( $node->settings->title_typography_font_size['small']) && $node->settings->title_typography_font_size['small'] != 0 && !isset( $node->settings->title_typography_line_height_unit_responsive ) ) {
+                    if( is_numeric( $node->settings->title_typography_line_height['small']) && is_numeric( $node->settings->title_typography_font_size['small']) )
+                    $node->settings->title_typography_line_height_unit_responsive = round( $node->settings->title_typography_line_height['small'] / $node->settings->title_typography_font_size['small'], 2 );
+                }
+                if( isset( $node->settings->title_typography_line_height['medium']) && isset( $node->settings->title_typography_font_size['medium']) && $node->settings->title_typography_font_size['medium'] != 0 && !isset( $node->settings->title_typography_line_height_unit_medium ) ) {
+                    if( is_numeric( $node->settings->title_typography_line_height['medium']) && is_numeric( $node->settings->title_typography_font_size['medium']) )
+                    $node->settings->title_typography_line_height_unit_medium = round( $node->settings->title_typography_line_height['medium'] / $node->settings->title_typography_font_size['medium'], 2 );
+                }
+                if( isset( $node->settings->title_typography_line_height['desktop']) && isset( $node->settings->title_typography_font_size['desktop']) && $node->settings->title_typography_font_size['desktop'] != 0 && !isset( $node->settings->title_typography_line_height_unit ) ) {
+                    if( is_numeric( $node->settings->title_typography_line_height['desktop']) && is_numeric( $node->settings->title_typography_font_size['desktop']) )
+                    $node->settings->title_typography_line_height_unit = round( $node->settings->title_typography_line_height['desktop'] / $node->settings->title_typography_font_size['desktop'], 2 );
+                }
+
+                if ( isset( $node->settings->desc_typography_font_size['small']) && !isset( $node->settings->desc_typography_font_size_unit_responsive ) ) {
+                    $node->settings->desc_typography_font_size_unit_responsive = $node->settings->desc_typography_font_size['small'];
+                }
+                if( isset( $node->settings->desc_typography_font_size['medium']) && !isset( $node->settings->desc_typography_font_size_unit_medium ) ) {
+                    $node->settings->desc_typography_font_size_unit_medium = $node->settings->desc_typography_font_size['medium'];
+                }
+                if( isset( $node->settings->desc_typography_font_size['desktop']) && !isset( $node->settings->desc_typography_font_size_unit ) ) {
+                    $node->settings->desc_typography_font_size_unit = $node->settings->desc_typography_font_size['desktop'];
+                }
+
+                if ( isset( $node->settings->desc_typography_line_height['small']) && isset( $node->settings->desc_typography_font_size['small']) && $node->settings->desc_typography_font_size['small'] != 0 && !isset( $node->settings->desc_typography_line_height_unit_responsive ) ) {
+                    if( is_numeric( $node->settings->desc_typography_line_height['small']) && is_numeric( $node->settings->desc_typography_font_size['small']) )
+                    $node->settings->desc_typography_line_height_unit_responsive = round( $node->settings->desc_typography_line_height['small'] / $node->settings->desc_typography_font_size['small'], 2 );
+                }
+                if( isset( $node->settings->desc_typography_line_height['medium']) && isset( $node->settings->desc_typography_font_size['medium']) && $node->settings->desc_typography_font_size['medium'] != 0 && !isset( $node->settings->desc_typography_line_height_unit_medium ) ) {
+                    if( is_numeric( $node->settings->desc_typography_line_height['medium']) && is_numeric( $node->settings->desc_typography_font_size['medium']) )
+                    $node->settings->desc_typography_line_height_unit_medium = round( $node->settings->desc_typography_line_height['medium'] / $node->settings->desc_typography_font_size['medium'], 2 );
+                }
+                if( isset( $node->settings->desc_typography_line_height['desktop']) && isset( $node->settings->desc_typography_font_size['desktop']) && $node->settings->desc_typography_font_size['desktop'] != 0 && !isset( $node->settings->desc_typography_line_height_unit ) ) {
+                    if( is_numeric( $node->settings->desc_typography_line_height['desktop']) && is_numeric( $node->settings->desc_typography_font_size['desktop']) )
+                    $node->settings->desc_typography_line_height_unit = round( $node->settings->desc_typography_line_height['desktop'] / $node->settings->desc_typography_font_size['desktop'], 2 );
+                }
+            }
+        }
+
+        return $data;
+    }
+    
+    /**
+     * @method get_icons
+     */
+    public function get_icon( $icon = '' ) {
+
+        // check if $icon is referencing an included icon.
+        if ( '' != $icon && file_exists( BB_ULTIMATE_ADDON_DIR . 'modules/ihover/icon/' . $icon ) ) {
+            $path = BB_ULTIMATE_ADDON_DIR . 'modules/ihover/icon/' . $icon;
+        }
+
+        if ( file_exists( $path ) ) {
+            return file_get_contents( $path );
+        } else {
+            return '';
+        }
+    }
+
 
     /**
      * @method render_image
@@ -90,12 +209,17 @@ FLBuilder::register_module('iHoverModule', array(
                         'description'   => 'px',
                         'help'          => __('Spacing between two iHovers','uabb'),
                     ),
-                    'content_padding' => array(
-                        'type'      => 'uabb-spacing',
+                    'content_padding_dimension' => array(
+                        'type'      => 'dimension',
                         'label'     => __( 'Content Padding', 'uabb' ),
                         'help'         => __('To manage the inner padding use this setting.', 'uabb'),
-                        'default'   => '',    //optional
-                        'mode'      => 'padding',
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ),
                     ),
                 )
             ),
@@ -113,7 +237,7 @@ FLBuilder::register_module('iHoverModule', array(
                         ),
                     ),
                     'height_width_options'     => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __('Thumbnail Height & Width', 'uabb'),
                         'default'       => 'default',
                         'help'          => __( 'By selecting Custom, you can decide the height and width of iHover Box, by Default 250px height and width is applied', 'uabb'),
@@ -153,7 +277,7 @@ FLBuilder::register_module('iHoverModule', array(
                         )
                     ),
                     'responsive_size'     => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __('Responsive Size', 'uabb'),
                         'default'       => 'no',
                         'help'          => __( 'Add responsive size for medium devices', 'uabb'),
@@ -215,35 +339,41 @@ FLBuilder::register_module('iHoverModule', array(
                             'selector'        => '.uabb-ih-heading'
                         )
                     ),
-                    'title_typography_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'title_typography_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'px',
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-ih-heading',
                             'property'        => 'font-size',
                             'unit'          => 'px'
-                        )
-                    ),
-                    'title_typography_line_height'    => array(
-                        'type'          => 'uabb-simplify',
-                        'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
                         ),
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ),
+                    ),
+                    'title_typography_line_height_unit'    => array(
+                        'type'          => 'unit',
+                        'label'         => __( 'Line Height', 'uabb' ),
+                        'description'   => 'em',
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-ih-heading',
                             'property'        => 'line-height',
-                            'unit'          => 'px'
-                        )
+                            'unit'          => 'em'
+                        ),
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ),
                     ),
                 )
             ),
@@ -262,35 +392,41 @@ FLBuilder::register_module('iHoverModule', array(
                             'selector'        => '.uabb-ih-description'
                         )
                     ),
-                    'desc_typography_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'desc_typography_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'px',
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-ih-description',
                             'property'         => 'font-size',
                             'unit'              => 'px' 
-                        )
-                    ),
-                    'desc_typography_line_height'    => array(
-                        'type'          => 'uabb-simplify',
-                        'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
                         ),
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ),
+                    ),
+                    'desc_typography_line_height_unit'    => array(
+                        'type'          => 'unit',
+                        'label'         => __( 'Line Height', 'uabb' ),
+                        'description'   => 'em',
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-ih-description',
                             'property'         => 'line-height',
-                            'unit'              => 'px' 
-                        )
+                            'unit'              => 'em' 
+                        ),
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ),
                     ),
                 )
             ),

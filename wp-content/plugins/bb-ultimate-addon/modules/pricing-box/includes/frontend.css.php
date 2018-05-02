@@ -169,8 +169,6 @@ for($i = 0; $i < count($settings->pricing_columns); $i++) :
 	// Pricing Box Settings
 	$pricing_column = $settings->pricing_columns[$i];
 			$settings->pricing_columns[$i]->featured_font_family = ( array ) $settings->pricing_columns[$i]->featured_font_family;
-			$settings->pricing_columns[$i]->featured_font_size = ( array ) $settings->pricing_columns[$i]->featured_font_size;
-			$settings->pricing_columns[$i]->featured_line_height = ( array ) $settings->pricing_columns[$i]->featured_line_height;
 
 			$settings->pricing_columns[$i]->foreground = UABB_Helper::uabb_colorpicker( $settings->pricing_columns[$i], 'foreground', true );
 
@@ -203,9 +201,20 @@ for($i = 0; $i < count($settings->pricing_columns); $i++) :
 			}
 			?>
 			.fl-builder-content .fl-node-<?php echo $id; ?> .uabb-pricing-table-column-<?php echo $i+1; ?> .uabb-featured-pricing-box {
-				<?php
-				echo ( $settings->pricing_columns[$i]->featured_font_size['desktop'] != '' ) ? 'font-size: ' . $settings->pricing_columns[$i]->featured_font_size['desktop'] . 'px;' : '';
-				echo ( $settings->pricing_columns[$i]->featured_line_height['desktop'] != '' ) ? 'line-height: ' . $settings->pricing_columns[$i]->featured_line_height['desktop'] . 'px;' : '';
+				
+				<?php if( isset( $settings->pricing_columns[$i]->featured_font_size_unit ) && $settings->pricing_columns[$i]->featured_font_size_unit != '' ) : ?>
+					font-size: <?php echo $settings->pricing_columns[$i]->featured_font_size_unit; ?>px;
+				<?php endif; ?>
+				
+                <?php if( isset( $settings->pricing_columns[$i]->featured_font_size['desktop'] ) && $settings->pricing_columns[$i]->featured_font_size['desktop'] == '' && isset( $settings->pricing_columns[$i]->featured_line_height['desktop'] ) && $settings->pricing_columns[$i]->featured_line_height['desktop'] != '' && $settings->pricing_columns[$i]->featured_line_height_unit == '' ) { ?>
+					line-height: <?php echo $settings->pricing_columns[$i]->featured_line_height['desktop']; ?>px;
+				<?php } ?>
+
+				<?php if( isset( $settings->pricing_columns[$i]->featured_line_height_unit ) && $settings->pricing_columns[$i]->featured_line_height_unit != '' ) : ?>
+					line-height: <?php echo $settings->pricing_columns[$i]->featured_line_height_unit; ?>em;
+				<?php endif; ?>
+				
+                <?php
 				echo 'color: ' . uabb_theme_text_color( $settings->pricing_columns[$i]->featured_color ) . ';';
 				echo ( $settings->pricing_columns[$i]->featured_font_family['family'] != 'Default' ) ? 'font-family: ' . $settings->pricing_columns[$i]->featured_font_family['family'] . ';' : '';
 				echo ( $settings->pricing_columns[$i]->featured_font_family['weight'] != 'default' ) ? 'font-weight: ' . $settings->pricing_columns[$i]->featured_font_family['weight'] . ';' : '';
@@ -223,19 +232,39 @@ for($i = 0; $i < count($settings->pricing_columns); $i++) :
 			    @media ( max-width: <?php echo $global_settings->medium_breakpoint; ?>px ) {
 			 
 			        .fl-builder-content .fl-node-<?php echo $id; ?> .uabb-pricing-table-column-<?php echo $i+1; ?> .uabb-featured-pricing-box {
-			            <?php
-			            echo ( $settings->pricing_columns[$i]->featured_line_height['medium'] != '' ) ? 'line-height: ' . $settings->pricing_columns[$i]->featured_line_height['medium'] . 'px;' : '';
-			            echo ( $settings->pricing_columns[$i]->featured_font_size['medium'] != '' ) ? 'font-size: ' . $settings->pricing_columns[$i]->featured_font_size['medium'] . 'px;' : '';
-			            ?>
+
+					<?php if( isset( $settings->pricing_columns[$i]->featured_font_size_unit_medium ) && $settings->pricing_columns[$i]->featured_font_size_unit_medium != '' ) : ?>
+						font-size: <?php echo $settings->pricing_columns[$i]->featured_font_size_unit_medium; ?>px;
+					<?php endif; ?>
+					
+					<?php if( isset( $settings->pricing_columns[$i]->featured_font_size['medium'] ) && $settings->pricing_columns[$i]->featured_font_size['medium'] == '' && isset( $settings->pricing_columns[$i]->featured_line_height['medium'] ) && $settings->pricing_columns[$i]->featured_line_height['medium'] != '' && $settings->pricing_columns[$i]->featured_line_height_unit_medium == '' ) { ?>
+					    line-height: <?php echo $settings->pricing_columns[$i]->featured_line_height['medium']; ?>px;
+					<?php } ?>
+
+					<?php if( isset( $settings->pricing_columns[$i]->featured_line_height_unit_medium ) && $settings->pricing_columns[$i]->featured_line_height_unit_medium != '' ) : ?>
+						line-height: <?php echo $settings->pricing_columns[$i]->featured_line_height_unit_medium; ?>em;
+					<?php endif; ?>
+					
 			        }
 			    }
 			 
 			     @media ( max-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {
 			        .fl-builder-content .fl-node-<?php echo $id; ?> .uabb-pricing-table-column-<?php echo $i+1; ?> .uabb-featured-pricing-box {
-			            <?php
-			            echo ( $settings->pricing_columns[$i]->featured_line_height['small'] != '' ) ? 'line-height: ' . $settings->pricing_columns[$i]->featured_line_height['small'] . 'px;' : '';
-			            echo ( $settings->pricing_columns[$i]->featured_font_size['small'] != '' ) ? 'font-size: ' . $settings->pricing_columns[$i]->featured_font_size['small'] . 'px;' : '';
-			            ?>
+			            
+						<?php if( isset( $settings->pricing_columns[$i]->featured_font_size_unit_responsive ) && $settings->pricing_columns[$i]->featured_font_size_unit_responsive != '' ) : ?>
+							font-size: <?php echo $settings->pricing_columns[$i]->featured_font_size_unit_responsive; ?>px;
+							<?php if($settings->pricing_columns[$i]->featured_line_height['small'] == "")?>
+							line-height: <?php echo $settings->pricing_columns[$i]->featured_font_size_unit_responsive + 2 ; ?>px;
+						<?php endif; ?>
+						
+						<?php if( isset( $settings->pricing_columns[$i]->featured_font_size['small'] ) && $settings->pricing_columns[$i]->featured_font_size['small'] == '' && isset( $settings->pricing_columns[$i]->featured_line_height['small'] ) && $settings->pricing_columns[$i]->featured_line_height['small'] != '' && $settings->pricing_columns[$i]->featured_line_height_unit_responsive == '' ) { ?>
+			   			 	line-height: <?php echo $settings->pricing_columns[$i]->featured_line_height['small']; ?>px;
+						<?php } ?>
+
+						<?php if( isset( $settings->pricing_columns[$i]->featured_line_height_unit_responsive ) && $settings->pricing_columns[$i]->featured_line_height_unit_responsive != '' ) : ?>
+							line-height: <?php echo $settings->pricing_columns[$i]->featured_line_height_unit_responsive; ?>em;
+						<?php endif; ?>
+			
 			        }
 			    }
 				<?php
@@ -386,6 +415,10 @@ if( $settings->pricing_columns[$i]->features_color != '' ) {
 <?php
 if( $settings->pricing_columns[$i]->show_button == 'yes' ) {
 	$btn_id = $id . ' .uabb-pricing-table-outter-' . ( $i+1 );
+	$font_size = ( isset( $settings->pricing_columns[$i]->button_typography_font_size_unit ) ) ? $settings->pricing_columns[$i]->button_typography_font_size_unit : $settings->pricing_columns[$i]->button_typography_font_size;
+
+	$line_height = ( isset( $settings->pricing_columns[$i]->button_typography_line_height_unit ) ) ? $settings->pricing_columns[$i]->button_typography_line_height_unit : $settings->pricing_columns[$i]->button_typography_line_height;
+
 	FLBuilder::render_module_css('uabb-button', $btn_id , array(
 
 		'icon' => $settings->pricing_columns[$i]->btn_icon,
@@ -410,10 +443,15 @@ if( $settings->pricing_columns[$i]->show_button == 'yes' ) {
 	    'border_radius'      => $settings->pricing_columns[$i]->btn_border_radius,
 	    'align'             => '',
 	    'mob_align'          => '',
-
 		'font_family' => $settings->pricing_columns[$i]->button_typography_font_family,
-		'font_size' => $settings->pricing_columns[$i]->button_typography_font_size,
-		'line_height' => $settings->pricing_columns[$i]->button_typography_line_height,
+		'font_size'         		=> ( isset( $settings->pricing_columns[$i]->button_typography_font_size ) ) ? $settings->pricing_columns[$i]->button_typography_font_size : '',
+        'line_height'       		=> ( isset( $settings->pricing_columns[$i]->button_typography_line_height ) ) ? $settings->pricing_columns[$i]->button_typography_line_height : '',
+		'font_size_unit'         		=> $settings->pricing_columns[$i]->button_typography_font_size_unit,
+        'line_height_unit'       		=> $settings->pricing_columns[$i]->button_typography_line_height_unit,
+        'font_size_unit_medium'     	=> $settings->pricing_columns[$i]->button_typography_font_size_unit_medium,
+        'line_height_unit_medium'   	=> $settings->pricing_columns[$i]->button_typography_line_height_unit_medium,
+        'font_size_unit_responsive'    	=> $settings->pricing_columns[$i]->button_typography_font_size_unit_responsive,
+        'line_height_unit_responsive'  	=> $settings->pricing_columns[$i]->button_typography_line_height_unit_responsive,
 	));
 }
 ?>
@@ -430,30 +468,75 @@ if( $isFeaturedSet ) {
 
 /* Pricing Box Typography {Desktop} */
 .fl-builder-content .fl-node-<?php echo $id; ?> .uabb-pricing-table-column .uabb-pricing-table-title {
-	<?php echo ( $settings->title_typography_font_size['desktop'] != '' ) ? 'font-size: ' . $settings->title_typography_font_size['desktop'] . 'px;' : ''; ?>
-	<?php echo ( $settings->title_typography_line_height['desktop'] != '' ) ? 'line-height: ' . $settings->title_typography_line_height['desktop'] . 'px;' : ''; ?>
+
+	<?php if( isset( $settings->title_typography_font_size_unit ) && $settings->title_typography_font_size_unit != '' ) : ?>
+		font-size: <?php echo $settings->title_typography_font_size_unit; ?>px;
+	<?php endif; ?>
+
+    <?php if( isset( $settings->title_typography_font_size['desktop'] ) && $settings->title_typography_font_size['desktop'] == '' && isset( $settings->title_typography_line_height['desktop'] ) && $settings->title_typography_line_height['desktop'] != '' && $settings->title_typography_line_height_unit == '' ) { ?>
+		line-height: <?php echo $settings->title_typography_line_height['desktop']; ?>px;
+	<?php } ?>
+
+	<?php if( isset( $settings->title_typography_line_height_unit ) && $settings->title_typography_line_height_unit != '' ) : ?>
+		line-height: <?php echo $settings->title_typography_line_height_unit; ?>em;
+	<?php endif; ?>
+
 	<?php echo ( $settings->title_typography_font_family['family'] != 'Default' ) ? 'font-family: ' . $settings->title_typography_font_family['family'] . ';' : ''; ?>
 	<?php echo ( $settings->title_typography_font_family['weight'] != 'default' ) ? 'font-weight: ' . $settings->title_typography_font_family['weight'] . ';' : ''; ?>
 }
 
 .fl-builder-content .fl-node-<?php echo $id; ?> .uabb-pricing-table-column .uabb-pricing-table-price {
-	<?php echo ( $settings->price_typography_font_size['desktop'] != '' ) ? 'font-size: ' . $settings->price_typography_font_size['desktop'] . 'px;' : ''; ?>
-	<?php echo ( $settings->price_typography_line_height['desktop'] != '' ) ? 'line-height: ' . $settings->price_typography_line_height['desktop'] . 'px;' : ''; ?>
+
+	<?php if( isset( $settings->price_typography_font_size_unit ) && $settings->price_typography_font_size_unit != '' ) : ?>
+		font-size: <?php echo $settings->price_typography_font_size_unit; ?>px;
+	<?php endif; ?>
+    
+    <?php if( isset( $settings->price_typography_font_size['desktop'] ) && $settings->price_typography_font_size['desktop'] == '' && isset( $settings->price_typography_line_height['desktop'] ) && $settings->price_typography_line_height['desktop'] != '' && $settings->price_typography_line_height_unit == '' ) { ?>
+		line-height: <?php echo $settings->price_typography_line_height['desktop']; ?>px;
+	<?php } ?>
+
+	<?php if( isset( $settings->price_typography_line_height_unit ) && $settings->price_typography_line_height_unit != '' ) : ?>
+		line-height: <?php echo $settings->price_typography_line_height_unit; ?>em;
+	<?php endif; ?>
+	
 	<?php echo ( $settings->price_typography_font_family['family'] != 'Default' ) ? 'font-family: ' . $settings->price_typography_font_family['family'] . ';' : ''; ?>
 	<?php echo ( $settings->price_typography_font_family['weight'] != 'default' ) ? 'font-weight: ' . $settings->price_typography_font_family['weight'] . ';' : ''; ?>
 }
 
 .fl-node-<?php echo $id; ?> .uabb-pricing-table .uabb-pricing-table-duration {
-	<?php echo ( $settings->duration_typography_font_size['desktop'] != '' ) ? 'font-size: ' . $settings->duration_typography_font_size['desktop'] . 'px;' : ''; ?>
-	<?php echo ( $settings->duration_typography_line_height['desktop'] != '' ) ? 'line-height: ' . $settings->duration_typography_line_height['desktop'] . 'px;' : ''; ?>
+    
+	<?php if( isset( $settings->duration_typography_font_size_unit ) && $settings->duration_typography_font_size_unit != '' ) : ?>
+		font-size: <?php echo $settings->duration_typography_font_size_unit; ?>px;
+	<?php endif; ?>
+    
+    <?php if( isset( $settings->duration_typography_font_size['desktop'] ) && $settings->duration_typography_font_size['desktop'] == '' && isset( $settings->duration_typography_line_height['desktop'] ) && $settings->duration_typography_line_height['desktop'] != '' && $settings->duration_typography_line_height_unit == '' ) { ?>
+		line-height: <?php echo $settings->duration_typography_line_height['desktop']; ?>px;
+	<?php } ?>
+
+	<?php if( isset( $settings->duration_typography_line_height_unit ) && $settings->duration_typography_line_height_unit != '' ) : ?>
+		line-height: <?php echo $settings->duration_typography_line_height_unit; ?>em;
+	<?php endif; ?>
+	
+
 	<?php echo ( $settings->duration_typography_font_family['family'] != 'Default' ) ? 'font-family: ' . $settings->duration_typography_font_family['family'] . ';' : ''; ?>
 	<?php echo ( $settings->duration_typography_font_family['weight'] != 'default' ) ? 'font-weight: ' . $settings->duration_typography_font_family['weight'] . ';' : ''; ?>
 }
 
 .fl-node-<?php echo $id; ?> .uabb-pricing-table li {
 	text-align: <?php echo $settings->features_align; ?>;
-	<?php echo ( $settings->feature_typography_font_size['desktop'] != '' ) ? 'font-size: ' . $settings->feature_typography_font_size['desktop'] . 'px;' : ''; ?>
-	<?php echo ( $settings->feature_typography_line_height['desktop'] != '' ) ? 'line-height: ' . $settings->feature_typography_line_height['desktop'] . 'px;' : ''; ?>
+
+	<?php if( isset( $settings->feature_typography_font_size_unit ) && $settings->feature_typography_font_size_unit != '' ) : ?>
+		font-size: <?php echo $settings->feature_typography_font_size_unit; ?>px;
+	<?php endif; ?>
+    
+    <?php if( isset( $settings->feature_typography_font_size['desktop'] ) && $settings->feature_typography_font_size['desktop'] == '' && isset( $settings->feature_typography_line_height['desktop'] ) && $settings->feature_typography_line_height['desktop'] != '' && $settings->feature_typography_line_height_unit == '' ) { ?>
+		line-height: <?php echo $settings->feature_typography_line_height['desktop']; ?>px;
+	<?php } ?>
+
+	<?php if( isset( $settings->feature_typography_line_height_unit ) && $settings->feature_typography_line_height_unit != '' ) : ?>
+		line-height: <?php echo $settings->feature_typography_line_height_unit; ?>em;
+	<?php endif; ?>
+	
 	<?php echo ( $settings->feature_typography_font_family['family'] != 'Default' ) ? 'font-family: ' . $settings->feature_typography_font_family['family'] . ';' : ''; ?>
 	<?php echo ( $settings->feature_typography_font_family['weight'] != 'default' ) ? 'font-weight: ' . $settings->feature_typography_font_family['weight'] . ';' : ''; ?>
 }
@@ -465,8 +548,19 @@ if( $settings->add_legend == 'yes' ) { ?>
 	.fl-node-<?php echo $id; ?> .uabb-pricing-table .uabb-pricing-table-column .uabb-pricing-table-features .uabb-pricing-ledgend {
 		<?php echo ( $settings->legend_column->legend_font_family->family != 'Default' ) ? 'font-family: ' . $settings->legend_column->legend_font_family->family . ';' : ''; ?>
 		<?php echo ( $settings->legend_column->legend_font_family->weight != 'default' ) ? 'font-weight: ' . $settings->legend_column->legend_font_family->weight . ';' : ''; ?>
-		<?php echo ( $settings->legend_column->legend_font_size->desktop != '' ) ? 'font-size: ' . $settings->legend_column->legend_font_size->desktop . 'px;' : ''; ?>
-		<?php echo ( $settings->legend_column->legend_line_height->desktop != '' ) ? 'line-height: ' . $settings->legend_column->legend_line_height->desktop . 'px;' : ''; ?>
+
+		<?php if( isset( $settings->legend_column->legend_font_size_unit ) && $settings->legend_column->legend_font_size_unit != '' ) : ?>
+			font-size: <?php echo $settings->legend_column->legend_font_size_unit; ?>px;
+		<?php endif; ?>
+		
+        <?php if( isset( $settings->legend_column->legend_font_size->desktop ) && $settings->legend_column->legend_font_size->desktop == '' && isset( $settings->legend_column->legend_line_height->desktop ) && $settings->legend_column->legend_line_height->desktop != '' && $settings->legend_column->legend_line_height_unit == '' ) { ?>
+		    line-height: <?php echo $settings->legend_column->legend_line_height->desktop; ?>px;
+		<?php } ?>
+
+		<?php if( isset( $settings->legend_column->legend_line_height_unit ) && $settings->legend_column->legend_line_height_unit != '' ) : ?>
+		line-height: <?php echo $settings->legend_column->legend_line_height_unit; ?>em;
+		<?php endif; ?>
+	
 	}
 
 	.fl-node-<?php echo $id; ?> .uabb-pricing-table .uabb-pricing-table-column-0 .uabb-pricing-table-features li {
@@ -531,60 +625,167 @@ if( $settings->responsive_size == 'yes' ) {
 <?php if( $global_settings->responsive_enabled ) { // Responsive Typography ?>
 	@media ( max-width: <?php echo $global_settings->medium_breakpoint; ?>px ) {
 		.fl-builder-content .fl-node-<?php echo $id; ?> .uabb-pricing-table-column .uabb-pricing-table-title {
-			<?php echo ( $settings->title_typography_font_size['medium'] != '' ) ? 'font-size: ' . $settings->title_typography_font_size['medium'] . 'px;' : ''; ?>
-			<?php echo ( $settings->title_typography_line_height['medium'] != '' ) ? 'line-height: ' . $settings->title_typography_line_height['medium'] . 'px;' : ''; ?>
+				
+			<?php if( isset( $settings->title_typography_font_size_unit_medium ) && $settings->title_typography_font_size_unit_medium != '' ) : ?>
+				font-size: <?php echo $settings->title_typography_font_size_unit_medium; ?>px;
+			<?php endif; ?>
+		    
+		     <?php if( isset( $settings->title_typography_font_size['medium'] ) && $settings->title_typography_font_size['medium'] == '' && isset( $settings->title_typography_line_height['medium'] ) && $settings->title_typography_line_height['medium'] != '' && $settings->title_typography_line_height_unit_medium == '' ) { ?>
+			    line-height: <?php echo $settings->title_typography_line_height['medium']; ?>px;
+			<?php } ?>
+
+			<?php if( isset( $settings->title_typography_line_height_unit_medium ) && $settings->title_typography_line_height_unit_medium != '' ) : ?>
+				line-height: <?php echo $settings->title_typography_line_height_unit_medium; ?>em;
+			<?php endif; ?>
+				
 		}
 
 		.fl-builder-content .fl-node-<?php echo $id; ?> .uabb-pricing-table-column .uabb-pricing-table-price {
-			<?php echo ( $settings->price_typography_font_size['medium'] != '' ) ? 'font-size: ' . $settings->price_typography_font_size['medium'] . 'px;' : ''; ?>
-			<?php echo ( $settings->price_typography_line_height['medium'] != '' ) ? 'line-height: ' . $settings->price_typography_line_height['medium'] . 'px;' : ''; ?>
+
+			<?php if( isset( $settings->price_typography_font_size_unit_medium ) && $settings->price_typography_font_size_unit_medium != '' ) : ?>
+				font-size: <?php echo $settings->price_typography_font_size_unit_medium; ?>px;
+			<?php endif; ?>
+		    
+		     <?php if( isset( $settings->price_typography_font_size['medium'] ) && $settings->price_typography_font_size['medium'] == '' && isset( $settings->price_typography_line_height['medium'] ) && $settings->price_typography_line_height['medium'] != '' && $settings->price_typography_line_height_unit_medium == '' ) { ?>
+			    line-height: <?php echo $settings->price_typography_line_height['medium']; ?>px;
+			<?php } ?>
+		
+			<?php if( isset( $settings->price_typography_line_height_unit_medium ) && $settings->price_typography_line_height_unit_medium != '' ) : ?>
+				line-height: <?php echo $settings->price_typography_line_height_unit_medium; ?>em;
+			<?php endif; ?>
+			
 		}
 
 		.fl-node-<?php echo $id; ?> .uabb-pricing-table .uabb-pricing-table-duration {
-			<?php echo ( $settings->duration_typography_font_size['medium'] != '' ) ? 'font-size: ' . $settings->duration_typography_font_size['medium'] . 'px;' : ''; ?>
-			<?php echo ( $settings->duration_typography_line_height['medium'] != '' ) ? 'line-height: ' . $settings->duration_typography_line_height['medium'] . 'px;' : ''; ?>
+
+			<?php if( isset( $settings->duration_typography_font_size_unit_medium ) && $settings->duration_typography_font_size_unit_medium != '' ) : ?>
+				font-size: <?php echo $settings->duration_typography_font_size_unit_medium; ?>px;
+			<?php endif; ?>
+		    
+		     <?php if( isset( $settings->duration_typography_font_size['medium'] ) && $settings->duration_typography_font_size['medium'] == '' && isset( $settings->duration_typography_line_height['medium'] ) && $settings->duration_typography_line_height['medium'] != '' && $settings->duration_typography_line_height_unit_medium == '' ) { ?>
+			    line-height: <?php echo $settings->duration_typography_line_height['medium']; ?>px;
+			<?php } ?>
+
+			<?php if( isset( $settings->duration_typography_line_height_unit_medium ) && $settings->duration_typography_line_height_unit_medium != '' ) : ?>
+				line-height: <?php echo $settings->duration_typography_line_height_unit_medium; ?>em;
+			<?php endif; ?>
+			
 		}
 
 		.fl-node-<?php echo $id; ?> .uabb-pricing-table li {
-			<?php echo ( $settings->feature_typography_font_size['medium'] != '' ) ? 'font-size: ' . $settings->feature_typography_font_size['medium'] . 'px;' : ''; ?>
-			<?php echo ( $settings->feature_typography_line_height['medium'] != '' ) ? 'line-height: ' . $settings->feature_typography_line_height['medium'] . 'px;' : ''; ?>
+	
+			<?php if( isset( $settings->feature_typography_font_size_unit_medium ) && $settings->feature_typography_font_size_unit_medium != '' ) : ?>
+				font-size: <?php echo $settings->feature_typography_font_size_unit_medium; ?>px;
+			<?php endif; ?>
+		    
+		     <?php if( isset( $settings->feature_typography_font_size['medium'] ) && $settings->feature_typography_font_size['medium'] == '' && isset( $settings->feature_typography_line_height['medium'] ) && $settings->feature_typography_line_height['medium'] != '' && $settings->feature_typography_line_height_unit_medium == '' ) : ?>
+			    line-height: <?php echo $settings->feature_typography_line_height['medium']; ?>px;
+			<?php endif; ?>
+
+			<?php if( isset( $settings->feature_typography_line_height_unit_medium ) && $settings->feature_typography_line_height_unit_medium != '' ) : ?>
+				line-height: <?php echo $settings->feature_typography_line_height_unit_medium; ?>em;
+			<?php endif; ?>	
 		}
 
 		<?php if( $settings->add_legend == 'yes' ) : ?>
 		.fl-node-<?php echo $id; ?> .uabb-pricing-table .uabb-pricing-table-column-0 .uabb-pricing-table-features li,
 		.fl-node-<?php echo $id; ?> .uabb-pricing-table .uabb-pricing-table-column .uabb-pricing-table-features .uabb-pricing-ledgend {
-			<?php echo ( $settings->legend_column->legend_font_size->medium != '' ) ? 'font-size: ' . $settings->legend_column->legend_font_size->medium . 'px;' : ''; ?>
-			<?php echo ( $settings->legend_column->legend_line_height->medium != '' ) ? 'line-height: ' . $settings->legend_column->legend_line_height->medium . 'px;' : ''; ?>
+
+			<?php if( isset( $settings->legend_column->legend_font_size_unit_medium ) && $settings->legend_column->legend_font_size_unit_medium != '' ) : ?>
+				font-size: <?php echo $settings->legend_column->legend_font_size_unit_medium; ?>px;
+		    <?php endif; ?>
+
+			<?php if( isset($settings->legend_column->legend_font_size->medium ) &&$settings->legend_column->legend_font_size->medium == '' && isset( $settings->legend_column->legend_line_height->medium ) && $settings->legend_column->legend_line_height->_medium != '' && $settings->legend_column->legend_line_height_unit_medium == '' ) { ?>
+			    line-height: <?php echo $settings->legend_column->legend_line_height->medium; ?>px;
+			<?php } ?>
+
+			<?php if( isset( $settings->legend_column->legend_line_height_unit_medium ) && $settings->legend_column->legend_line_height_unit_medium != '' ) : ?>
+				line-height: <?php echo $settings->legend_column->legend_line_height_unit_medium; ?>em;
+			<?php endif; ?>
+			
 		}
 		<?php endif; ?>
 	}
 
 	@media ( max-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {
 		.fl-builder-content .fl-node-<?php echo $id; ?> .uabb-pricing-table-column .uabb-pricing-table-title {
-			<?php echo ( $settings->title_typography_font_size['small'] != '' ) ? 'font-size: ' . $settings->title_typography_font_size['small'] . 'px;' : ''; ?>
-			<?php echo ( $settings->title_typography_line_height['small'] != '' ) ? 'line-height: ' . $settings->title_typography_line_height['small'] . 'px;' : ''; ?>
+
+			<?php if( isset( $settings->title_typography_font_size_unit_responsive ) && $settings->title_typography_font_size_unit_responsive != '' ) : ?>
+				font-size: <?php echo $settings->title_typography_font_size_unit_responsive; ?>px;
+			<?php endif; ?>
+		    
+		    <?php if( isset( $settings->title_typography_font_size['small'] ) && $settings->title_typography_font_size['small'] == '' && isset( $settings->title_typography_line_height['small'] ) && $settings->title_typography_line_height['small'] != '' && $settings->title_typography_line_height_unit_responsive == '' ) { ?>
+			    line-height: <?php echo $settings->title_typography_line_height['small']; ?>px;
+			<?php } ?>
+
+			<?php if( isset( $settings->title_typography_line_height_unit_responsive ) && $settings->title_typography_line_height_unit_responsive != '' ) : ?>
+				line-height: <?php echo $settings->title_typography_line_height_unit_responsive; ?>em;
+			<?php endif; ?>
 		}
 
 		.fl-builder-content .fl-node-<?php echo $id; ?> .uabb-pricing-table-column .uabb-pricing-table-price {
-			<?php echo ( $settings->price_typography_font_size['small'] != '' ) ? 'font-size: ' . $settings->price_typography_font_size['small'] . 'px;' : ''; ?>
-			<?php echo ( $settings->price_typography_line_height['small'] != '' ) ? 'line-height: ' . $settings->price_typography_line_height['small'] . 'px;' : ''; ?>
+	
+			<?php if( isset( $settings->price_typography_font_size_unit_responsive ) && $settings->price_typography_font_size_unit_responsive != '' ) : ?>
+				font-size: <?php echo $settings->price_typography_font_size_unit_responsive; ?>px;
+			<?php endif; ?>
+		    
+		    <?php if( isset( $settings->price_typography_font_size['small'] ) && $settings->price_typography_font_size['small'] == '' && isset( $settings->price_typography_line_height['small'] ) && $settings->price_typography_line_height['small'] != '' && $settings->price_typography_line_height_unit_responsive == '' ) { ?>
+			    line-height: <?php echo $settings->price_typography_line_height['small']; ?>px;
+			<?php } ?>
+
+			<?php if( isset( $settings->price_typography_line_height_unit_responsive ) && $settings->price_typography_line_height_unit_responsive != '' ) : ?>
+				line-height: <?php echo $settings->price_typography_line_height_unit_responsive; ?>em;
+			<?php endif; ?>	
+
 		}
 
 		.fl-node-<?php echo $id; ?> .uabb-pricing-table .uabb-pricing-table-duration {
-			<?php echo ( $settings->duration_typography_font_size['small'] != '' ) ? 'font-size: ' . $settings->duration_typography_font_size['small'] . 'px;' : ''; ?>
-			<?php echo ( $settings->duration_typography_line_height['small'] != '' ) ? 'line-height: ' . $settings->duration_typography_line_height['small'] . 'px;' : ''; ?>
+			
+			<?php if( isset( $settings->duration_typography_font_size_unit_responsive ) && $settings->duration_typography_font_size_unit_responsive != '' ) : ?>
+				font-size: <?php echo $settings->duration_typography_font_size_unit_responsive; ?>px;
+			<?php endif; ?>
+		    
+		    <?php if( isset( $settings->duration_typography_font_size['small'] ) && $settings->duration_typography_font_size['small'] == '' && isset( $settings->duration_typography_line_height['small'] ) && $settings->duration_typography_line_height['small'] != '' && $settings->duration_typography_line_height_unit_responsive == '' ) { ?>
+			    line-height: <?php echo $settings->duration_typography_line_height['small']; ?>px;
+			<?php } ?>
+		
+			<?php if( isset( $settings->duration_typography_line_height_unit_responsive ) && $settings->duration_typography_line_height_unit_responsive != '' ) : ?>
+				line-height: <?php echo $settings->duration_typography_line_height_unit_responsive; ?>em;
+			<?php endif; ?>
+			
 		}
 
 		.fl-node-<?php echo $id; ?> .uabb-pricing-table li {
-			<?php echo ( $settings->feature_typography_font_size['small'] != '' ) ? 'font-size: ' . $settings->feature_typography_font_size['small'] . 'px;' : ''; ?>
-			<?php echo ( $settings->feature_typography_line_height['small'] != '' ) ? 'line-height: ' . $settings->feature_typography_line_height['small'] . 'px;' : ''; ?>
+
+			<?php if( isset( $settings->feature_typography_font_size_unit_responsive ) && $settings->feature_typography_font_size_unit_responsive != '' ) : ?>
+				font-size: <?php echo $settings->feature_typography_font_size_unit_responsive; ?>px;
+			<?php endif; ?>
+		    
+		    <?php if( isset( $settings->feature_typography_font_size['small'] ) && $settings->feature_typography_font_size['small'] == '' && isset( $settings->feature_typography_line_height['small'] ) && $settings->feature_typography_line_height['small'] != '' && $settings->feature_typography_line_height_unit_responsive == '' ) { ?>
+		   		line-height: <?php echo $settings->feature_typography_line_height['small']; ?>px;
+			<?php } ?>
+
+			<?php if( isset( $settings->feature_typography_line_height_unit_responsive ) && $settings->feature_typography_line_height_unit_responsive != '' ) : ?>
+				line-height: <?php echo $settings->feature_typography_line_height_unit_responsive; ?>em;
+			<?php endif; ?>
+			
 		}
 
 		<?php if( $settings->add_legend == 'yes' ) : ?>
 		.fl-node-<?php echo $id; ?> .uabb-pricing-table .uabb-pricing-table-column-0 .uabb-pricing-table-features li,
 		.fl-node-<?php echo $id; ?> .uabb-pricing-table .uabb-pricing-table-column .uabb-pricing-table-features .uabb-pricing-ledgend {
-			<?php echo ( $settings->legend_column->legend_font_size->small != '' ) ? 'font-size: ' . $settings->legend_column->legend_font_size->small . 'px;' : ''; ?>
-			<?php echo ( $settings->legend_column->legend_line_height->small != '' ) ? 'line-height: ' . $settings->legend_column->legend_line_height->small . 'px;' : ''; ?>
+
+			<?php if( isset( $settings->legend_column->legend_font_size_unit_responsive ) && $settings->legend_column->legend_font_size_unit_responsive != '' ) : ?>
+				font-size: <?php echo $settings->legend_column->legend_font_size_unit_responsive; ?>px;
+			<?php endif; ?>
+			
+			<?php if( isset( $settings->legend_column->legend_font_size->small ) && $settings->legend_column->legend_font_size->small == '' && isset( $settings->legend_column->legend_line_height->small ) && $settings->legend_column->legend_line_height->small != '' && $settings->legend_column->legend_line_height_unit_responsive == '' ) { ?>
+			    line-height: <?php echo $settings->legend_column->legend_line_height->small; ?>px;
+			<?php } ?>
+
+			<?php if( isset( $settings->legend_column->legend_line_height_unit_responsive ) && $settings->legend_column->legend_line_height_unit_responsive != '' ) : ?>
+				line-height: <?php echo $settings->legend_column->legend_line_height_unit_responsive; ?>em;
+			<?php endif; ?>
 		}
 		<?php endif; ?>
 	}

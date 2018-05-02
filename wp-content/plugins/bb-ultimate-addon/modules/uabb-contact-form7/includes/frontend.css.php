@@ -42,17 +42,28 @@
 .fl-node-<?php echo $id; ?> .uabb-cf7-style {
 	<?php if ( $settings->form_bg_type == 'color' ) { ?>
 		background-color: <?php echo $settings->form_bg_color; ?>;
-	<?php }elseif ( $settings->form_bg_type == 'image' && isset( FLBuilderPhoto::get_attachment_data($settings->form_bg_img)->url ) ) { ?>
+	<?php } elseif ( $settings->form_bg_type == 'image' && isset( FLBuilderPhoto::get_attachment_data($settings->form_bg_img)->url ) ) { ?>
 		background-image: url(<?php echo FLBuilderPhoto::get_attachment_data($settings->form_bg_img)->url; ?>);
 		background-position: <?php echo $settings->form_bg_img_pos; ?>;
 		background-size: <?php echo $settings->form_bg_img_size; ?>;
 		background-repeat: <?php echo $settings->form_bg_img_repeat; ?>;
-	<?php }elseif( $settings->form_bg_type == 'gradient' ) { ?>
+	<?php } elseif( $settings->form_bg_type == 'gradient' ) { ?>
 		<?php UABB_Helper::uabb_gradient_css( $settings->form_bg_gradient ); ?>
 	<?php } ?>
-	<?php if ( $settings->form_spacing != ''  ) { ?>
-		<?php echo $settings->form_spacing; ?>;
-	<?php } ?>
+	<?php 
+	    if(isset($settings->form_spacing_dimension_top) ){
+	        echo ( $settings->form_spacing_dimension_top != '' ) ? 'padding-top:'.$settings->form_spacing_dimension_top.'px;' : 'padding-top: 20px;'; 
+	    }
+	    if(isset($settings->form_spacing_dimension_bottom) ){
+	        echo ( $settings->form_spacing_dimension_bottom != '' ) ? 'padding-bottom:'.$settings->form_spacing_dimension_bottom.'px;' : 'padding-bottom: 20px;';
+	    }
+	    if(isset($settings->form_spacing_dimension_left) ){
+	        echo ( $settings->form_spacing_dimension_left != '' ) ? 'padding-left:'.$settings->form_spacing_dimension_left.'px;' : 'padding-left: 20px;';
+	    }
+	    if(isset($settings->form_spacing_dimension_right) ){
+	        echo ( $settings->form_spacing_dimension_right != '' ) ? 'padding-right:'.$settings->form_spacing_dimension_right.'px;' : 'padding-right: 20px;';
+	    } 
+	?>
 	<?php if ( $settings->form_radius != ''  ) { ?>
 		border-radius:<?php echo $settings->form_radius; ?>px;
 	<?php } ?>
@@ -68,9 +79,20 @@
 .fl-node-<?php echo $id; ?> .uabb-cf7-style form input[type=date],
 .fl-node-<?php echo $id; ?> .uabb-cf7-style form select,
 .fl-node-<?php echo $id; ?> .uabb-cf7-style form textarea {
-	<?php if ( $settings->input_padding != '' ) { ?>
-		<?php echo $settings->input_padding; ?>;
-	<?php } ?>
+	<?php 
+	    if(isset($settings->input_padding_dimension_top) ){
+	        echo ( $settings->input_padding_dimension_top != '' ) ? 'padding-top:'.$settings->input_padding_dimension_top.'px;' : 'padding-top: 10px;'; 
+	    }
+	    if(isset($settings->input_padding_dimension_bottom) ){
+	        echo ( $settings->input_padding_dimension_bottom != '' ) ? 'padding-bottom:'.$settings->input_padding_dimension_bottom.'px;' : 'padding-bottom: 10px;';
+	    }
+	    if(isset($settings->input_padding_dimension_left) ){
+	        echo ( $settings->input_padding_dimension_left != '' ) ? 'padding-left:'.$settings->input_padding_dimension_left.'px;' : 'padding-left: 10px;';
+	    }
+	    if(isset($settings->input_padding_dimension_right) ){
+	        echo ( $settings->input_padding_dimension_right != '' ) ? 'padding-right:'.$settings->input_padding_dimension_right.'px;' : 'padding-right: 10px;';
+	    } 
+	?>
 }
 
 .fl-node-<?php echo $id; ?> .uabb-cf7-style textarea {
@@ -98,6 +120,7 @@
     -webkit-appearance: menulist !important;
 }
 
+.fl-node-<?php echo $id; ?> .uabb-cf7-style select,
 .fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=tel],
 .fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=email],
 .fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=text],
@@ -105,6 +128,7 @@
 .fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=number],
 .fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=date],
 .fl-node-<?php echo $id; ?> .uabb-cf7-style textarea,
+.fl-node-<?php echo $id; ?> .uabb-cf7-style select:focus,
 .fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=tel]:focus,
 .fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=email]:focus,
 .fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=text]:focus,
@@ -129,39 +153,20 @@
     background: <?php echo $bgcolor; ?>;
     border-style: solid;
     border-color: <?php echo uabb_theme_text_color( $settings->input_border_color ); ?>;
-    <?php
-    $str = '';
-    if( isset( $settings->uabb_input_border_width ) ) {
-		if( is_array( $settings->uabb_input_border_width ) ) {
-			if( $settings->uabb_input_border_width['simplify'] == 'collapse' ) {
-				if( $settings->uabb_input_border_width['all'] == '' || $settings->uabb_input_border_width['all'] == '0' ) {
-					$settings->uabb_input_border_width['all'] = '0';
-				}
-				$str = $settings->uabb_input_border_width['all'] . 'px';
-			} else {
-
-		    	if( $settings->uabb_input_border_width['top'] == '' || $settings->uabb_input_border_width['top'] == '0' ) {
-		    		$settings->uabb_input_border_width['top'] = '0';
-		    	}
-		    	if( $settings->uabb_input_border_width['bottom'] == '' || $settings->uabb_input_border_width['bottom'] == '0' ) {
-		    		$settings->uabb_input_border_width['bottom'] = '0';
-		    	}
-		    	if( $settings->uabb_input_border_width['right'] == '' || $settings->uabb_input_border_width['right'] == '0' ) {
-		    		$settings->uabb_input_border_width['right'] = '0';
-		    	}
-		    	if( $settings->uabb_input_border_width['left'] == '' || $settings->uabb_input_border_width['left'] == '0' ) {
-		    		$settings->uabb_input_border_width['left'] = '0';
-		    	}
-
-				$str = ( $settings->uabb_input_border_width['top'] != '' ) ? $settings->uabb_input_border_width['top'] . 'px ' : '0 ';
-				$str .= ( $settings->uabb_input_border_width['right'] != '' ) ? $settings->uabb_input_border_width['right'] . 'px ' : '0 ';
-				$str .= ( $settings->uabb_input_border_width['bottom'] != '' ) ? $settings->uabb_input_border_width['bottom'] . 'px ' : '0 ';
-				$str .= ( $settings->uabb_input_border_width['left'] != '' ) ? $settings->uabb_input_border_width['left'] . 'px ' : '0;';
-			}
-		}
-    }
+    <?php 
+        if(isset($settings->input_border_width_dimension_top) ){
+            echo ( $settings->input_border_width_dimension_top != '' ) ? 'border-top-width:'.$settings->input_border_width_dimension_top.'px;' : 'border-top-width: 1px;'; 
+        }
+        if(isset($settings->input_border_width_dimension_bottom) ){
+            echo ( $settings->input_border_width_dimension_bottom != '' ) ? 'border-bottom-width:'.$settings->input_border_width_dimension_bottom.'px;' : 'border-bottom-width: 1px;';
+        }
+        if(isset($settings->input_border_width_dimension_left) ){
+            echo ( $settings->input_border_width_dimension_left != '' ) ? 'border-left-width:'.$settings->input_border_width_dimension_left.'px;' : 'border-left-width: 1px;';
+        }
+        if(isset($settings->input_border_width_dimension_right) ){
+            echo ( $settings->input_border_width_dimension_right != '' ) ? 'border-right-width:'.$settings->input_border_width_dimension_right.'px;' : 'border-right-width: 1px;';
+        } 
     ?>
-    border-width: <?php echo $str; ?>
 }
 
 <?php if( $settings->input_border_active_color != '' ) { ?>
@@ -256,11 +261,13 @@ if( $settings->radio_check_custom_option == 'true') {
 	<?php if( $settings->radio_check_custom_option == 'true' ) { 
 		if( $settings->radio_checkbox_font_family['family'] != "Default") : ?>
 			<?php UABB_Helper::uabb_font_css( $settings->radio_checkbox_font_family ); 
-		endif;
-		if( $settings->radio_checkbox_font_size["desktop"] != '' ) : ?>
-			font-size: <?php echo $settings->radio_checkbox_font_size['desktop']; ?>px;
-		<?php endif;
-		if( $settings->radio_checkbox_color!= '' ) : ?>
+		endif;?>
+
+		<?php if( isset( $settings->radio_checkbox_font_size_unit ) && $settings->radio_checkbox_font_size_unit != '' ) : ?>
+			font-size: <?php echo $settings->radio_checkbox_font_size_unit; ?>px;
+		<?php endif; ?>
+		
+		<?php if( $settings->radio_checkbox_color!= '' ) : ?>
 			color: #<?php echo $settings->radio_checkbox_color ?>;
 		<?php endif;
 	} ?>
@@ -308,12 +315,12 @@ if ( $settings->btn_style == 'gradient' ) {
 	
 	<?php if ( $settings->btn_style == 'flat' ) { ?>
 		background: <?php echo uabb_theme_base_color( $settings->btn_background_color ); ?>;
-	<?php }elseif ( $settings->btn_style == 'transparent' ) { ?>
+	<?php } elseif ( $settings->btn_style == 'transparent' ) { ?>
 		background-color: rgba(0, 0, 0, 0);
 		border-style: solid;
 		border-color: <?php echo $border_color; ?>;
 		border-width: <?php echo $settings->btn_border_width; ?>px;
-	<?php }elseif ( $settings->btn_style == 'gradient' ) { ?>
+	<?php } elseif ( $settings->btn_style == 'gradient' ) { ?>
 		background: -moz-linear-gradient(top,  <?php echo $bg_grad_start; ?> 0%, <?php echo $settings->btn_background_color; ?> 100%); /* FF3.6+ */
 		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,<?php echo $bg_grad_start; ?>), color-stop(100%,<?php echo $settings->btn_background_color; ?>)); /* Chrome,Safari4+ */
 		background: -webkit-linear-gradient(top,  <?php echo $bg_grad_start; ?> 0%,<?php echo $settings->btn_background_color; ?> 100%); /* Chrome10+,Safari5.1+ */
@@ -321,7 +328,7 @@ if ( $settings->btn_style == 'gradient' ) {
 		background: -ms-linear-gradient(top,  <?php echo $bg_grad_start; ?> 0%,<?php echo $settings->btn_background_color; ?> 100%); /* IE10+ */
 		background: linear-gradient(to bottom,  <?php echo $bg_grad_start; ?> 0%,<?php echo $settings->btn_background_color; ?> 100%); /* W3C */
 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='<?php echo $bg_grad_start; ?>', endColorstr='<?php echo $settings->btn_background_color; ?>',GradientType=0 ); /* IE6-9 */
-	<?php }elseif ( $settings->btn_style == '3d' ) { ?>
+	<?php } elseif ( $settings->btn_style == '3d' ) { ?>
 		position: relative;
 		-webkit-transition: none;
 		   -moz-transition: none;
@@ -336,7 +343,7 @@ if ( $settings->btn_style == 'gradient' ) {
 	<?php if ( $settings->btn_width == 'full' ) { ?>
 		width:100%;
 		padding: <?php echo uabb_theme_button_padding( '' ); ?>;
-	<?php }elseif( $settings->btn_width == 'custom' ) { 
+	<?php } elseif( $settings->btn_width == 'custom' ) { 
 		
 		$padding_top_bottom = ( $settings->btn_padding_top_bottom !== '' ) ? $settings->btn_padding_top_bottom : uabb_theme_button_vertical_padding('');
 	?>
@@ -356,7 +363,6 @@ if ( $settings->btn_style == 'gradient' ) {
 	<?php	} ?>
 
 }
-
 
 .fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=submit]:hover {
 	<?php if ( $settings->btn_style == 'flat' ) { ?>
@@ -436,12 +442,16 @@ if ( $settings->btn_style == 'gradient' ) {
 		<?php UABB_Helper::uabb_font_css( $settings->form_title_font_family ); ?>
 	<?php endif; ?>
 
-	<?php if( $settings->form_title_font_size["desktop"] != '' ) : ?>
-	font-size: <?php echo $settings->form_title_font_size['desktop']; ?>px;
+	<?php if( isset( $settings->form_title_font_size_unit ) && $settings->form_title_font_size_unit != '' ) : ?>
+		font-size: <?php echo $settings->form_title_font_size_unit; ?>px;
 	<?php endif; ?>
+    
+    <?php if( isset( $settings->form_title_font_size['desktop'] ) && $settings->form_title_font_size['desktop'] == '' && isset( $settings->form_title_line_height['desktop'] ) && $settings->form_title_line_height['desktop'] != '' && $settings->form_title_line_height_unit == '' ) { ?>
+	    line-height: <?php echo $settings->form_title_line_height['desktop']; ?>px;
+	<?php } ?>
 
-	<?php if( $settings->form_title_line_height['desktop'] != '' ) : ?>
-	line-height: <?php echo $settings->form_title_line_height['desktop']; ?>px;
+	<?php if( isset( $settings->form_title_line_height_unit ) && $settings->form_title_line_height_unit != '' ) : ?>
+		line-height: <?php echo $settings->form_title_line_height_unit; ?>em;
 	<?php endif; ?>
 
 	<?php if( $settings->form_title_color != '' ) : ?>
@@ -458,14 +468,18 @@ if ( $settings->btn_style == 'gradient' ) {
 		<?php UABB_Helper::uabb_font_css( $settings->form_desc_font_family ); ?>
 	<?php endif; ?>
 
-	<?php if( $settings->form_desc_font_size["desktop"] != '' ) : ?>
-	font-size: <?php echo $settings->form_desc_font_size['desktop']; ?>px;
+	<?php if( isset( $settings->form_desc_font_size_unit ) && $settings->form_desc_font_size_unit != '' ) : ?>
+		font-size: <?php echo $settings->form_desc_font_size_unit; ?>px;
 	<?php endif; ?>
-
-	<?php if( $settings->form_desc_line_height['desktop'] != '' ) : ?>
-	line-height: <?php echo $settings->form_desc_line_height['desktop']; ?>px;
+    
+    <?php if( isset( $settings->form_desc_font_size['desktop'] ) && $settings->form_desc_font_size['desktop'] == '' && isset( $settings->form_desc_line_height['desktop'] ) && $settings->form_desc_line_height['desktop'] != '' && $settings->form_desc_line_height_unit == '' ) { ?>
+	    line-height: <?php echo $settings->form_desc_line_height['desktop']; ?>px;
+	<?php } ?>
+ 
+	<?php if( isset( $settings->form_desc_line_height_unit ) && $settings->form_desc_line_height_unit != '' ) : ?>
+		line-height: <?php echo $settings->form_desc_line_height_unit; ?>em;
 	<?php endif; ?>
-
+	
 	<?php if( $settings->form_desc_color != '' ) : ?>
 	color: <?php echo $settings->form_desc_color; ?>;
 	<?php endif; ?>
@@ -488,13 +502,17 @@ if ( $settings->btn_style == 'gradient' ) {
 		<?php UABB_Helper::uabb_font_css( $settings->font_family ); ?>
 	<?php endif; ?>
 
-	<?php if( $settings->font_size["desktop"] != '' ) : ?>
-	font-size: <?php echo $settings->font_size['desktop']; ?>px;
+	<?php if( isset( $settings->font_size_unit ) && $settings->font_size_unit != '' ) : ?>
+		font-size: <?php echo $settings->font_size_unit; ?>px;
 	<?php endif; ?>
+    
+    <?php if( isset( $settings->font_size['desktop'] ) && $settings->font_size['desktop'] == '' && isset( $settings->line_height['desktop'] ) && $settings->line_height['desktop'] != '' && $settings->line_height_unit == '' ) { ?>
+		    line-height: <?php echo $settings->line_height['desktop']; ?>px;
+	<?php } ?>
 
-	<?php if( $settings->line_height['desktop'] != '' ) : ?>
-	line-height: <?php echo $settings->line_height['desktop']; ?>px;
-	<?php endif; ?>
+	<?php if( isset( $settings->line_height_unit ) && $settings->line_height_unit != '' ) : ?>
+		line-height: <?php echo $settings->line_height_unit; ?>em;
+	<?php endif; ?>	
 }
 
 .fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=submit] {
@@ -524,20 +542,23 @@ if ( $settings->btn_style == 'gradient' ) {
 		<?php } ?>
 	<?php endif; ?>
 
-	<?php if( $settings->btn_font_size["desktop"] != '' ) : ?>
-	font-size: <?php echo $settings->btn_font_size['desktop']; ?>px;
+	<?php if( isset( $settings->btn_font_size_unit ) && $settings->btn_font_size_unit != '' ) : ?>
+		font-size: <?php echo $settings->btn_font_size_unit; ?>px;
 	<?php else : ?>
 		<?php if ( uabb_theme_button_font_size('') != '' ) { ?>
 		font-size: <?php echo uabb_theme_button_font_size(''); ?>;
 		<?php } ?>
+	<?php endif; ?>	
+    
+    <?php if( isset( $settings->btn_font_size['desktop'] ) && $settings->btn_font_size['desktop'] == '' && isset( $settings->btn_line_height['desktop'] ) && $settings->btn_line_height['desktop'] != '' && $settings->btn_line_height_unit == '' ) { ?>
+		    line-height: <?php echo $settings->btn_line_height['desktop']; ?>px;
+	<?php } ?>
 
-	<?php endif; ?>
-
-	<?php if( $settings->btn_line_height['desktop'] != '' ) : ?>
-	line-height: <?php echo $settings->btn_line_height['desktop']; ?>px;
+	<?php if( isset( $settings->btn_line_height_unit ) && $settings->btn_line_height_unit != '' ) : ?>
+		line-height: <?php echo $settings->btn_line_height_unit; ?>em;
 	<?php else : ?>
-		<?php if ( uabb_theme_button_line_height('') != '' ) { ?>
-		line-height: <?php echo uabb_theme_button_line_height(''); ?>;
+		<?php if ( uabb_theme_button_font_size('') != '' ) { ?>
+		line-height: <?php echo uabb_theme_button_font_size(''); ?>;
 		<?php } ?>
 	<?php endif; ?>
 }
@@ -547,177 +568,24 @@ if ( $settings->btn_style == 'gradient' ) {
 		<?php UABB_Helper::uabb_font_css( $settings->label_font_family ); ?>
 	<?php endif; ?>
 
-	<?php if( $settings->label_font_size["desktop"] != '' ) : ?>
-	font-size: <?php echo $settings->label_font_size['desktop']; ?>px;
+	<?php if( isset( $settings->label_font_size_unit ) && $settings->label_font_size_unit != '' ) : ?>
+		font-size: <?php echo $settings->label_font_size_unit; ?>px;
 	<?php endif; ?>
+    
+    <?php if( isset( $settings->label_font_size['desktop'] ) && $settings->label_font_size['desktop'] == '' && isset( $settings->label_line_height_unit['desktop'] ) && $settings->label_line_height_unit['desktop'] != '' && $settings->label_line_height_unit == '' ) { ?>
+		    line-height: <?php echo $settings->label_line_height_unit['desktop']; ?>px;
+	<?php } ?>
 
-	<?php if( $settings->label_line_height['desktop'] != '' ) : ?>
-	line-height: <?php echo $settings->label_line_height['desktop']; ?>px;
+	<?php if( isset( $settings->label_line_height_unit ) && $settings->label_line_height_unit != '' ) : ?>
+		line-height: <?php echo $settings->label_line_height_unit; ?>em;
 	<?php endif; ?>
-
+	
 	<?php if( $settings->label_color != '' ) : ?>
 	color: <?php echo $settings->label_color; ?>;
 	<?php endif; ?>
 
 	text-align: <?php echo $settings->input_text_align; ?>;
 }
-
-/* Typography responsive css */
-<?php if($global_settings->responsive_enabled) { // Global Setting If started ?>
-		<?php
-		if( $settings->font_size['medium'] != "" || $settings->line_height['medium'] != "" || $settings->btn_font_size['medium'] != "" || $settings->btn_line_height['medium'] != "" || $settings->label_font_size['medium'] != "" || $settings->label_line_height['medium'] != "" || $settings->form_title_font_size['medium'] != "" || $settings->form_title_line_height['medium'] != "" || $settings->radio_checkbox_font_size['medium'] != "" || $settings->form_desc_font_size['medium'] != "" || $settings->form_desc_line_height['medium'] != "") {
-		?>
-		@media ( max-width: <?php echo $global_settings->medium_breakpoint .'px'; ?> ) {
-			.fl-node-<?php echo $id; ?> .uabb-cf7-style .uabb-cf7-form-title {
-				
-				<?php if( $settings->form_title_font_size["medium"] != '' ) : ?>
-				font-size: <?php echo $settings->form_title_font_size['medium']; ?>px;
-				<?php endif; ?>
-
-				<?php if( $settings->form_title_line_height['medium'] != '' ) : ?>
-				line-height: <?php echo $settings->form_title_line_height['medium']; ?>px;
-				<?php endif; ?>
-			}
-
-			.fl-builder-content .fl-node-<?php echo $id; ?> .uabb-cf7-style .wpcf7-checkbox input[type='checkbox'] + span, 
-			.fl-builder-content .fl-node-<?php echo $id; ?> .uabb-cf7-style .wpcf7-radio input[type='radio'] + span {
-				<?php if( $settings->radio_check_custom_option == 'true' ) { 
-					if( $settings->radio_checkbox_font_size["medium"] != '' ) : ?>
-						font-size: <?php echo $settings->radio_checkbox_font_size['medium']; ?>px;
-					<?php endif;
-				} ?>
-			}
-
-			.fl-node-<?php echo $id; ?> .uabb-cf7-style .uabb-cf7-form-desc {
-				
-				<?php if( $settings->form_desc_font_size["medium"] != '' ) : ?>
-				font-size: <?php echo $settings->form_desc_font_size['medium']; ?>px;
-				<?php endif; ?>
-
-				<?php if( $settings->form_desc_line_height['medium'] != '' ) : ?>
-				line-height: <?php echo $settings->form_desc_line_height['medium']; ?>px;
-				<?php endif; ?>
-			}
-
-			.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=tel],
-			.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=email],
-			.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=text],
-			.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=url],
-			.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=number],
-			.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=date],
-			.fl-node-<?php echo $id; ?> .uabb-cf7-style select,
-			.fl-node-<?php echo $id; ?> .uabb-contact-form textarea {
-				
-				<?php if( $settings->font_size['medium'] != '' ) : ?>
-				font-size: <?php echo $settings->font_size['medium']; ?>px;
-				<?php endif; ?>
-
-				<?php if( $settings->line_height['medium'] != '' ) : ?>
-				line-height: <?php echo $settings->line_height['medium']; ?>px;
-				<?php endif; ?>
-			}
-
-			.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=submit] {
-				
-				<?php if( $settings->btn_font_size['medium'] != '' ) : ?>
-				font-size: <?php echo $settings->btn_font_size['medium']; ?>px;
-				<?php endif; ?>
-
-				<?php if( $settings->btn_line_height['medium'] != '' ) : ?>
-				line-height: <?php echo $settings->btn_line_height['medium']; ?>px;
-				<?php endif; ?>
-			}
-
-			.fl-node-<?php echo $id; ?> .uabb-cf7-style form:not(input) {
-				
-				<?php if( $settings->label_font_size["medium"] != '' ) : ?>
-				font-size: <?php echo $settings->label_font_size['medium']; ?>px;
-				<?php endif; ?>
-
-				<?php if( $settings->label_line_height['medium'] != '' ) : ?>
-				line-height: <?php echo $settings->label_line_height['medium']; ?>px;
-				<?php endif; ?>
-			}
-	    }
-	<?php } ?>
-	<?php
-	if( $settings->font_size['small'] != "" || $settings->line_height['small'] != "" || $settings->btn_font_size['small'] != "" || $settings->btn_line_height['small'] != "" || $settings->label_font_size['small'] != "" || $settings->label_line_height['small'] != "" || $settings->form_title_font_size['small'] != "" || $settings->form_title_line_height['small'] != "" || $settings->radio_checkbox_font_size["small"] != '' || $settings->form_desc_font_size['small'] != "" || $settings->form_desc_line_height['small'] != "")
-	{
-	?>
-		@media ( max-width: <?php echo $global_settings->responsive_breakpoint .'px'; ?> ) {
-			.fl-node-<?php echo $id; ?> .uabb-cf7-style .uabb-cf7-form-title {
-				
-				<?php if( $settings->form_title_font_size["small"] != '' ) : ?>
-				font-size: <?php echo $settings->form_title_font_size['small']; ?>px;
-				<?php endif; ?>
-
-				<?php if( $settings->form_title_line_height['small'] != '' ) : ?>
-				line-height: <?php echo $settings->form_title_line_height['small']; ?>px;
-				<?php endif; ?>
-			}
-
-			.fl-builder-content .fl-node-<?php echo $id; ?> .uabb-cf7-style .wpcf7-checkbox input[type='checkbox'] + span, 
-			.fl-builder-content .fl-node-<?php echo $id; ?> .uabb-cf7-style .wpcf7-radio input[type='radio'] + span {
-				<?php if( $settings->radio_check_custom_option == 'true' ) { 
-					if( $settings->radio_checkbox_font_size["small"] != '' ) : ?>
-						font-size: <?php echo $settings->radio_checkbox_font_size['small']; ?>px;
-					<?php endif;
-				} ?>
-			}
-
-			.fl-node-<?php echo $id; ?> .uabb-cf7-style .uabb-cf7-form-desc {
-				
-				<?php if( $settings->form_desc_font_size["small"] != '' ) : ?>
-				font-size: <?php echo $settings->form_desc_font_size['small']; ?>px;
-				<?php endif; ?>
-
-				<?php if( $settings->form_desc_line_height['small'] != '' ) : ?>
-				line-height: <?php echo $settings->form_desc_line_height['small']; ?>px;
-				<?php endif; ?>
-			}
-
-			.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=tel],
-			.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=email],
-			.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=text],
-			.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=url],
-			.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=number],
-			.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=date],
-			.fl-node-<?php echo $id; ?> .uabb-cf7-style select,
-			.fl-node-<?php echo $id; ?> .uabb-contact-form textarea {
-				<?php if( $settings->font_size['small'] != '' ) : ?>
-				font-size: <?php echo $settings->font_size['small']; ?>px;
-				<?php endif; ?>
-
-				<?php if( $settings->line_height['small'] != '' ) : ?>
-				line-height: <?php echo $settings->line_height['small']; ?>px;
-				<?php endif; ?>
-			}
-
-			.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=submit] {
-				<?php if( $settings->btn_font_size['small'] != '' ) : ?>
-				font-size: <?php echo $settings->btn_font_size['small']; ?>px;
-				<?php endif; ?>
-
-				<?php if( $settings->btn_line_height['small'] != '' ) : ?>
-				line-height: <?php echo $settings->btn_line_height['small']; ?>px;
-				<?php endif; ?>
-			}
-
-			.fl-node-<?php echo $id; ?> .uabb-cf7-style form:not(input) {
-				
-				<?php if( $settings->label_font_size["small"] != '' ) : ?>
-				font-size: <?php echo $settings->label_font_size['small']; ?>px;
-				<?php endif; ?>
-
-				<?php if( $settings->label_line_height['small'] != '' ) : ?>
-				line-height: <?php echo $settings->label_line_height['small']; ?>px;
-				<?php endif; ?>
-			}
-	    }
-	<?php
-	}
-}
-?>
 
 /* Error Styling */
 
@@ -740,7 +608,401 @@ if ( $settings->btn_style == 'gradient' ) {
 	
 	border-radius: <?php echo $settings->validation_border_radius; ?>px;
 
-	<?php if ( $settings->validation_spacing  != '' ) {
-		echo $settings->validation_spacing;
-	} ?>
+	<?php 
+	    if(isset($settings->validation_spacing_dimension_top) ){
+	        echo ( $settings->validation_spacing_dimension_top != '' ) ? 'padding-top:'.$settings->validation_spacing_dimension_top.'px;' : 'padding-top: 10px;'; 
+	    }
+	    if(isset($settings->validation_spacing_dimension_bottom) ){
+	        echo ( $settings->validation_spacing_dimension_bottom != '' ) ? 'padding-bottom:'.$settings->validation_spacing_dimension_bottom.'px;' : 'padding-bottom: 10px;';
+	    }
+	    if(isset($settings->validation_spacing_dimension_left) ){
+	        echo ( $settings->validation_spacing_dimension_left != '' ) ? 'padding-left:'.$settings->validation_spacing_dimension_left.'px;' : 'padding-left: 10px;';
+	    }
+	    if(isset($settings->validation_spacing_dimension_right) ){
+	        echo ( $settings->validation_spacing_dimension_right != '' ) ? 'padding-right:'.$settings->validation_spacing_dimension_right.'px;' : 'padding-right: 10px;';
+	    } 
+	?>
 }
+
+/* Typography responsive css */
+<?php if($global_settings->responsive_enabled) { // Global Setting If started ?>
+
+	@media ( max-width: <?php echo $global_settings->medium_breakpoint .'px'; ?> ) {
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style .uabb-cf7-form-title {
+
+			<?php if( isset( $settings->form_title_font_size_unit_medium ) && $settings->form_title_font_size_unit_medium != '' ) : ?>
+				font-size: <?php echo $settings->form_title_font_size_unit_medium; ?>px;
+			<?php endif; ?>
+		    
+		    <?php if( isset( $settings->form_title_font_size['medium'] ) && $settings->form_title_font_size['medium'] == '' && isset( $settings->form_title_line_height['medium'] ) && $settings->form_title_line_height['medium'] != '' && $settings->form_title_line_height_unit == '' && $settings->form_title_line_height_unit_medium == '' ) { ?>
+				    line-height: <?php echo $settings->form_title_line_height['medium']; ?>px;
+			<?php } ?>
+		
+			<?php if( isset( $settings->form_title_line_height_unit_medium ) && $settings->form_title_line_height_unit_medium != '' ) : ?>
+				line-height: <?php echo $settings->form_title_line_height_unit_medium; ?>em;
+			<?php endif; ?>
+			
+		}
+
+		.fl-builder-content .fl-node-<?php echo $id; ?> .uabb-cf7-style .wpcf7-checkbox input[type='checkbox'] + span, 
+		.fl-builder-content .fl-node-<?php echo $id; ?> .uabb-cf7-style .wpcf7-radio input[type='radio'] + span {
+			<?php if( $settings->radio_check_custom_option == 'true' ) { ?>
+				<?php if( isset( $settings->radio_checkbox_font_size_unit_medium ) && $settings->radio_checkbox_font_size_unit_medium != '' ) : ?>
+					font-size: <?php echo $settings->radio_checkbox_font_size_unit_medium; ?>px;
+				<?php endif; ?>
+			<?php } ?>
+		}
+
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style .uabb-cf7-form-desc {
+			
+			<?php if( isset( $settings->form_desc_font_size_unit_medium ) && $settings->form_desc_font_size_unit_medium != '' ) : ?>
+				font-size: <?php echo $settings->form_desc_font_size_unit_medium; ?>px;
+			<?php endif; ?>
+		    
+		    <?php if( isset( $settings->form_desc_font_size['medium'] ) && $settings->form_desc_font_size['medium'] == '' && isset( $settings->form_desc_line_height['medium'] ) && $settings->form_desc_line_height['medium'] != '' && $settings->form_desc_line_height_unit == '' && $settings->form_desc_line_height_unit_medium == '' ) { ?>
+				    line-height: <?php echo $settings->form_desc_line_height['medium']; ?>px;
+			<?php } ?>
+		
+			<?php if( isset( $settings->form_desc_line_height_unit_medium ) && $settings->form_desc_line_height_unit_medium != '' ) : ?>
+				line-height: <?php echo $settings->form_desc_line_height_unit_medium; ?>em;
+			<?php endif; ?>
+			
+		}
+
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=tel],
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=email],
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=text],
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=url],
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=number],
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=date],
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style select,
+		.fl-node-<?php echo $id; ?> .uabb-contact-form textarea {
+
+			<?php if( isset( $settings->font_size_unit_medium ) && $settings->font_size_unit_medium != '' ) : ?>
+				font-size: <?php echo $settings->font_size_unit_medium; ?>px;
+			<?php endif; ?>
+		    
+		    <?php if( isset( $settings->font_size_unit['medium'] ) && $settings->font_size_unit['medium'] == '' && isset( $settings->line_height_unit['medium'] ) && $settings->line_height_unit['medium'] != '' && $settings->line_height_unit_unit == '' && $settings->line_height_unit_unit_medium == '' ) { ?>
+				    line-height: <?php echo $settings->line_height_unit['medium']; ?>px;
+			<?php } ?>
+		
+			<?php if( isset( $settings->line_height_unit_medium ) && $settings->line_height_unit_medium != '' ) : ?>
+				line-height: <?php echo $settings->line_height_unit_medium; ?>em;
+			<?php endif; ?>
+		}
+
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=submit] {
+			
+			<?php if( isset( $settings->btn_font_size_unit_medium ) && $settings->btn_font_size_unit_medium != '' ) : ?>
+				font-size: <?php echo $settings->btn_font_size_unit_medium; ?>px;
+			<?php endif; ?>
+			
+			<?php if( isset( $settings->btn_font_size['medium'] ) && $settings->btn_font_size['medium'] == '' && isset( $settings->btn_line_height['medium'] ) && $settings->btn_line_height['medium'] != '' && $settings->btn_line_height_unit == '' && $settings->btn_line_height_unit_medium == '' ) { ?>
+				    line-height: <?php echo $settings->btn_line_height['medium']; ?>px;
+			<?php } ?>	
+
+			<?php if( isset( $settings->btn_line_height_unit_medium ) && $settings->btn_line_height_unit_medium != '' ) : ?>
+				line-height: <?php echo $settings->btn_line_height_unit_medium; ?>em;
+			<?php endif; ?>
+			
+		}
+
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style form:not(input) {
+			<?php if( isset( $settings->label_font_size_unit_medium ) && $settings->label_font_size_unit_medium != '' ) : ?>
+				font-size: <?php echo $settings->label_font_size_unit_medium; ?>px;
+			<?php endif; ?>
+
+	        <?php if( isset( $settings->label_font_size['medium'] ) && $settings->label_font_size['medium'] == '' && isset( $settings->label_line_height['medium'] ) && $settings->label_line_height['medium'] != '' && $settings->label_line_height_unit == '' && $settings->label_line_height_unit_medium == '' ) { ?>
+				    line-height: <?php echo $settings->label_line_height['medium']; ?>px;
+			<?php } ?>
+		
+			<?php if( isset( $settings->label_line_height_unit_medium ) && $settings->label_line_height_unit_medium != '' ) : ?>
+				line-height: <?php echo $settings->label_line_height_unit_medium; ?>em;
+			<?php endif; ?>
+
+		}
+
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style .wpcf7-response-output {
+			<?php 
+			    if(isset($settings->validation_spacing_dimension_top_medium) ){
+			        echo ( $settings->validation_spacing_dimension_top_medium != '' ) ? 'padding-top:'.$settings->validation_spacing_dimension_top_medium.'px;' : ''; 
+			    }
+			    if(isset($settings->validation_spacing_dimension_bottom_medium) ){
+			        echo ( $settings->validation_spacing_dimension_bottom_medium != '' ) ? 'padding-bottom:'.$settings->validation_spacing_dimension_bottom_medium.'px;' : '';
+			    }
+			    if(isset($settings->validation_spacing_dimension_left_medium) ){
+			        echo ( $settings->validation_spacing_dimension_left_medium != '' ) ? 'padding-left:'.$settings->validation_spacing_dimension_left_medium.'px;' : '';
+			    }
+			    if(isset($settings->validation_spacing_dimension_right_medium) ){
+			        echo ( $settings->validation_spacing_dimension_right_medium != '' ) ? 'padding-right:'.$settings->validation_spacing_dimension_right_medium.'px;' : '';
+			    } 
+			?>
+		}
+
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style {
+			<?php 
+			    if(isset($settings->form_spacing_dimension_top_medium) ){
+			        echo ( $settings->form_spacing_dimension_top_medium != '' ) ? 'padding-top:'.$settings->form_spacing_dimension_top_medium.'px;' : ''; 
+			    }
+			    if(isset($settings->form_spacing_dimension_bottom_medium) ){
+			        echo ( $settings->form_spacing_dimension_bottom_medium != '' ) ? 'padding-bottom:'.$settings->form_spacing_dimension_bottom_medium.'px;' : '';
+			    }
+			    if(isset($settings->form_spacing_dimension_left_medium) ){
+			        echo ( $settings->form_spacing_dimension_left_medium != '' ) ? 'padding-left:'.$settings->form_spacing_dimension_left_medium.'px;' : '';
+			    }
+			    if(isset($settings->form_spacing_dimension_right_medium) ){
+			        echo ( $settings->form_spacing_dimension_right_medium != '' ) ? 'padding-right:'.$settings->form_spacing_dimension_right_medium.'px;' : '';
+			    } 
+			?>
+
+		}
+
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style form input[type=tel],
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style form input[type=email],
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style form input[type=text],
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style form input[type=url],
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style form input[type=number],
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style form input[type=date],
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style form select,
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style form textarea {
+			<?php 
+			    if(isset($settings->input_padding_dimension_top_medium) ){
+			        echo ( $settings->input_padding_dimension_top_medium != '' ) ? 'padding-top:'.$settings->input_padding_dimension_top_medium.'px;' : ''; 
+			    }
+			    if(isset($settings->input_padding_dimension_bottom_medium) ){
+			        echo ( $settings->input_padding_dimension_bottom_medium != '' ) ? 'padding-bottom:'.$settings->input_padding_dimension_bottom_medium.'px;' : '';
+			    }
+			    if(isset($settings->input_padding_dimension_left_medium) ){
+			        echo ( $settings->input_padding_dimension_left_medium != '' ) ? 'padding-left:'.$settings->input_padding_dimension_left_medium.'px;' : '';
+			    }
+			    if(isset($settings->input_padding_dimension_right_medium) ){
+			        echo ( $settings->input_padding_dimension_right_medium != '' ) ? 'padding-right:'.$settings->input_padding_dimension_right_medium.'px;' : '';
+			    } 
+			?>
+		}
+
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=tel],
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=email],
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=text],
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=url],
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=number],
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=date],
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style textarea,
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style select,
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style select:focus,
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=tel]:focus,
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=email]:focus,
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=text]:focus,
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=url]:focus,
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=number]:focus,
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=date]:focus,
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style textarea:focus {
+		    <?php 
+		        if( isset($settings->input_border_width_dimension_top_medium) ) {
+		            echo ( $settings->input_border_width_dimension_top_medium != '' ) ? 'border-top-width:'.$settings->input_border_width_dimension_top_medium.'px;' : '';
+		        }
+		        if( isset($settings->input_border_width_dimension_bottom_medium) ) {
+		            echo ( $settings->input_border_width_dimension_bottom_medium != '' ) ? 'border-bottom-width:'.$settings->input_border_width_dimension_bottom_medium.'px;' : '';
+		        }
+		        if( isset($settings->input_border_width_dimension_left_medium) ) {
+		            echo ( $settings->input_border_width_dimension_left_medium != '' ) ? 'border-left-width:'.$settings->input_border_width_dimension_left_medium.'px;' : '';
+		        }
+		        if( isset($settings->input_border_width_dimension_right_medium) ) {
+		            echo ( $settings->input_border_width_dimension_right_medium != '' ) ? 'border-right-width:'.$settings->input_border_width_dimension_right_medium.'px;' : '';
+		        } 
+		    ?>
+		}
+    }
+
+	@media ( max-width: <?php echo $global_settings->responsive_breakpoint .'px'; ?> ) {
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style .uabb-cf7-form-title {
+			
+			<?php if( isset( $settings->form_title_font_size_unit_responsive ) && $settings->form_title_font_size_unit_responsive != '' ) : ?>
+				font-size: <?php echo $settings->form_title_font_size_unit_responsive; ?>px;
+			<?php endif; ?>
+		    
+		    <?php if( isset( $settings->form_title_font_size['small'] ) && $settings->form_title_font_size['small'] == '' && isset( $settings->form_title_line_height['small'] ) && $settings->form_title_line_height['small'] != '' && $settings->form_title_line_height_unit_responsive == '' && $settings->form_title_line_height_unit_medium == '' && $settings->form_title_line_height_unit == '' ) { ?>
+				    line-height: <?php echo $settings->form_title_line_height['small']; ?>px;
+			<?php } ?>
+
+			<?php if( isset( $settings->form_title_line_height_unit_responsive ) && $settings->form_title_line_height_unit_responsive != '' ) : ?>
+				line-height: <?php echo $settings->form_title_line_height_unit_responsive; ?>em;
+			<?php endif; ?>
+							
+		}
+
+		.fl-builder-content .fl-node-<?php echo $id; ?> .uabb-cf7-style .wpcf7-checkbox input[type='checkbox'] + span, 
+		.fl-builder-content .fl-node-<?php echo $id; ?> .uabb-cf7-style .wpcf7-radio input[type='radio'] + span {
+			<?php if( $settings->radio_check_custom_option == 'true' ) { ?>
+
+				<?php if( isset( $settings->radio_checkbox_font_size_unit_responsive ) && $settings->radio_checkbox_font_size_unit_responsive != '' ) : ?>
+					font-size: <?php echo $settings->radio_checkbox_font_size_unit_responsive; ?>px;
+				<?php endif; ?>
+			
+			<?php } ?>
+		}
+
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style .uabb-cf7-form-desc {
+
+			<?php if( isset( $settings->form_desc_font_size_unit_responsive ) && $settings->form_desc_font_size_unit_responsive != '' ) : ?>
+				font-size: <?php echo $settings->form_desc_font_size_unit_responsive; ?>px;
+			<?php endif; ?>
+		    
+		    <?php if( isset( $settings->form_desc_font_size['small'] ) && $settings->form_desc_font_size['small'] == '' && isset( $settings->form_desc_line_height['small'] ) && $settings->form_desc_line_height['small'] != '' && $settings->form_desc_line_height_unit_responsive == '' && $settings->form_desc_line_height_unit_medium == '' && $settings->form_desc_line_height_unit == '' ) { ?>
+				    line-height: <?php echo $settings->form_desc_line_height['small']; ?>px;
+			<?php } ?>
+		
+			<?php if( isset( $settings->form_desc_line_height_unit_responsive ) && $settings->form_desc_line_height_unit_responsive != '' ) : ?>
+				line-height: <?php echo $settings->form_desc_line_height_unit_responsive; ?>em;
+			<?php endif; ?>	
+		}
+
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=tel],
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=email],
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=text],
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=url],
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=number],
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=date],
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style select,
+		.fl-node-<?php echo $id; ?> .uabb-contact-form textarea {
+
+			<?php if( isset( $settings->font_size_unit_responsive ) && $settings->font_size_unit_responsive != '' ) : ?>
+				font-size: <?php echo $settings->font_size_unit_responsive; ?>px;
+			<?php endif; ?>
+		    
+		    <?php if( isset( $settings->font_size['small'] ) && $settings->font_size['small'] == '' && isset( $settings->line_height['small'] ) && $settings->line_height['small'] != '' && $settings->line_height_unit_responsive == '' && $settings->line_height_unit_medium == '' && $settings->line_height_unit == '' ) { ?>
+				    line-height: <?php echo $settings->line_height['small']; ?>px;
+			<?php } ?>
+
+			<?php if( isset( $settings->line_height_unit_responsive ) && $settings->line_height_unit_responsive != '' ) : ?>
+				line-height: <?php echo $settings->line_height_unit_responsive; ?>em;
+			<?php endif; ?>
+		
+		}
+
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=submit] {
+
+			<?php if( isset( $settings->btn_font_size_unit_responsive ) && $settings->btn_font_size_unit_responsive != '' ) : ?>
+				font-size: <?php echo $settings->btn_font_size_unit_responsive; ?>px;
+			<?php endif; ?>
+		    
+		    <?php if( isset( $settings->btn_font_size['small'] ) && $settings->btn_font_size['small'] == '' && isset( $settings->btn_line_height['small'] ) && $settings->btn_line_height['small'] != '' && $settings->btn_line_height_unit_responsive == '' && $settings->btn_line_height_unit_medium == '' && $settings->btn_line_height_unit == '' ) { ?>
+				    line-height: <?php echo $settings->btn_line_height['small']; ?>px;
+			<?php } ?>
+
+			<?php if( isset( $settings->btn_line_height_unit_responsive ) && $settings->btn_line_height_unit_responsive != '' ) : ?>
+				line-height: <?php echo $settings->btn_line_height_unit_responsive; ?>em;
+			<?php endif; ?>
+			
+		}
+
+		.fl-node-<?php echo $id; ?> .uabb-cf7-style form:not(input) {
+			
+			<?php if( isset( $settings->label_font_size_unit_responsive ) && $settings->label_font_size_unit_responsive != '' ) : ?>
+				font-size: <?php echo $settings->label_font_size_unit_responsive; ?>px;
+			<?php endif; ?>
+		    
+		    <?php if( isset( $settings->label_font_size['small'] ) && $settings->label_font_size['small'] == '' && isset( $settings->label_line_height['small'] ) && $settings->label_line_height['small'] != '' && $settings->label_line_height_unit_responsive == '' && $settings->label_line_height_unit_medium == '' && $settings->label_line_height_unit == '' ) { ?>
+				    line-height: <?php echo $settings->label_line_height['small']; ?>px;
+			<?php } ?>
+
+			<?php if( isset( $settings->label_line_height_unit_responsive ) && $settings->label_line_height_unit_responsive != '' ) : ?>
+				line-height: <?php echo $settings->label_line_height_unit_responsive; ?>em;
+			<?php endif; ?>
+			
+	    }
+
+	    .fl-node-<?php echo $id; ?> .uabb-cf7-style .wpcf7-response-output {
+	    	<?php 
+	    	    if(isset($settings->validation_spacing_dimension_top_responsive) ){
+	    	        echo ( $settings->validation_spacing_dimension_top_responsive != '' ) ? 'padding-top:'.$settings->validation_spacing_dimension_top_responsive.'px;' : ''; 
+	    	    }
+	    	    if(isset($settings->validation_spacing_dimension_bottom_responsive) ){
+	    	        echo ( $settings->validation_spacing_dimension_bottom_responsive != '' ) ? 'padding-bottom:'.$settings->validation_spacing_dimension_bottom_responsive.'px;' : '';
+	    	    }
+	    	    if(isset($settings->validation_spacing_dimension_left_responsive) ){
+	    	        echo ( $settings->validation_spacing_dimension_left_responsive != '' ) ? 'padding-left:'.$settings->validation_spacing_dimension_left_responsive.'px;' : '';
+	    	    }
+	    	    if(isset($settings->validation_spacing_dimension_right_responsive) ){
+	    	        echo ( $settings->validation_spacing_dimension_right_responsive != '' ) ? 'padding-right:'.$settings->validation_spacing_dimension_right_responsive.'px;' : '';
+	    	    } 
+	    	?>
+	    }
+
+	    .fl-node-<?php echo $id; ?> .uabb-cf7-style {
+	    	<?php 
+	    	    if(isset($settings->form_spacing_dimension_top_responsive) ){
+	    	        echo ( $settings->form_spacing_dimension_top_responsive != '' ) ? 'padding-top:'.$settings->form_spacing_dimension_top_responsive.'px;' : ''; 
+	    	    }
+	    	    if(isset($settings->form_spacing_dimension_bottom_responsive) ){
+	    	        echo ( $settings->form_spacing_dimension_bottom_responsive != '' ) ? 'padding-bottom:'.$settings->form_spacing_dimension_bottom_responsive.'px;' : '';
+	    	    }
+	    	    if(isset($settings->form_spacing_dimension_left_responsive) ){
+	    	        echo ( $settings->form_spacing_dimension_left_responsive != '' ) ? 'padding-left:'.$settings->form_spacing_dimension_left_responsive.'px;' : '';
+	    	    }
+	    	    if(isset($settings->form_spacing_dimension_right_responsive) ){
+	    	        echo ( $settings->form_spacing_dimension_right_responsive != '' ) ? 'padding-right:'.$settings->form_spacing_dimension_right_responsive.'px;' : '';
+	    	    } 
+	    	?>
+
+	    }
+
+	    .fl-node-<?php echo $id; ?> .uabb-cf7-style form input[type=tel],
+	    .fl-node-<?php echo $id; ?> .uabb-cf7-style form input[type=email],
+	    .fl-node-<?php echo $id; ?> .uabb-cf7-style form input[type=text],
+	    .fl-node-<?php echo $id; ?> .uabb-cf7-style form input[type=url],
+	    .fl-node-<?php echo $id; ?> .uabb-cf7-style form input[type=number],
+	    .fl-node-<?php echo $id; ?> .uabb-cf7-style form input[type=date],
+	    .fl-node-<?php echo $id; ?> .uabb-cf7-style form select,
+	    .fl-node-<?php echo $id; ?> .uabb-cf7-style form textarea {
+	    	<?php 
+	    	    if(isset($settings->input_padding_dimension_top_responsive) ){
+	    	        echo ( $settings->input_padding_dimension_top_responsive != '' ) ? 'padding-top:'.$settings->input_padding_dimension_top_responsive.'px;' : ''; 
+	    	    }
+	    	    if(isset($settings->input_padding_dimension_bottom_responsive) ){
+	    	        echo ( $settings->input_padding_dimension_bottom_responsive != '' ) ? 'padding-bottom:'.$settings->input_padding_dimension_bottom_responsive.'px;' : '';
+	    	    }
+	    	    if(isset($settings->input_padding_dimension_left_responsive) ){
+	    	        echo ( $settings->input_padding_dimension_left_responsive != '' ) ? 'padding-left:'.$settings->input_padding_dimension_left_responsive.'px;' : '';
+	    	    }
+	    	    if(isset($settings->input_padding_dimension_right_responsive) ){
+	    	        echo ( $settings->input_padding_dimension_right_responsive != '' ) ? 'padding-right:'.$settings->input_padding_dimension_right_responsive.'px;' : '';
+	    	    } 
+	    	?>
+	    }
+
+	    .fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=tel],
+	    .fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=email],
+	    .fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=text],
+	    .fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=url],
+	    .fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=number],
+	    .fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=date],
+	    .fl-node-<?php echo $id; ?> .uabb-cf7-style textarea,
+	    .fl-node-<?php echo $id; ?> .uabb-cf7-style select,
+	    .fl-node-<?php echo $id; ?> .uabb-cf7-style select:focus,
+	    .fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=tel]:focus,
+	    .fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=email]:focus,
+	    .fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=text]:focus,
+	    .fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=url]:focus,
+	    .fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=number]:focus,
+	    .fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=date]:focus,
+	    .fl-node-<?php echo $id; ?> .uabb-cf7-style textarea:focus {
+	        <?php 
+	            if(isset($settings->input_border_width_dimension_top_responsive) ){
+	                echo ( $settings->input_border_width_dimension_top_responsive != '' ) ? 'border-top-width:'.$settings->input_border_width_dimension_top_responsive.'px;' : '';
+	            }
+	            if(isset($settings->input_border_width_dimension_bottom_responsive) ){
+	                echo ( $settings->input_border_width_dimension_bottom_responsive != '' ) ? 'border-bottom-width:'.$settings->input_border_width_dimension_bottom_responsive.'px;' : '';
+	            }
+	            if(isset($settings->input_border_width_dimension_left_responsive) ){
+	                echo ( $settings->input_border_width_dimension_left_responsive != '' ) ? 'border-left-width:'.$settings->input_border_width_dimension_left_responsive.'px;' : '';
+	            }
+	            if(isset($settings->input_border_width_dimension_right_responsive) ){
+	                echo ( $settings->input_border_width_dimension_right_responsive != '' ) ? 'border-right-width:'.$settings->input_border_width_dimension_right_responsive.'px;' : '';
+	            } 
+	        ?>
+	    }
+	
+    }
+<?php } ?>
+
