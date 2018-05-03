@@ -62,7 +62,7 @@ final class FLBuilder {
 	 * @since 2.1
 	 */
 	static public $fa4_url = 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css';
-	static public $fa5_url = 'https://use.fontawesome.com/releases/v5.0.9/css/all.css';
+	static public $fa5_url = 'https://use.fontawesome.com/releases/v5.0.10/css/all.css';
 
 	/**
 	 * Initializes hooks.
@@ -377,6 +377,8 @@ final class FLBuilder {
 		$js_url  = plugins_url( '/js/', FL_BUILDER_FILE );
 		$min     = ( self::is_debug() ) ? '' : '.min';
 
+		$fa5_url = ( apply_filters( 'fl_enable_fa5_pro', false ) ) ? str_replace( 'use', 'pro', self::$fa5_url ) : self::$fa5_url;
+
 		// Register additional CSS
 		wp_register_style( 'fl-slideshow',           $css_url . 'fl-slideshow.css', array( 'yui3' ), $ver );
 		wp_register_style( 'jquery-bxslider',        $css_url . 'jquery.bxslider.css', array(), $ver );
@@ -385,7 +387,7 @@ final class FLBuilder {
 
 		// Register icon CDN CSS
 		wp_register_style( 'font-awesome',           self::$fa4_url, array(), $ver );
-		wp_register_style( 'font-awesome-5',         self::$fa5_url, array(), $ver );
+		wp_register_style( 'font-awesome-5',         $fa5_url, array(), $ver );
 		wp_register_style( 'foundation-icons',       'https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css', array(), $ver );
 
 		// Register additional JS
@@ -636,10 +638,14 @@ final class FLBuilder {
 			/* Frontend builder styles */
 			wp_enqueue_style( 'dashicons' );
 
-			// need to make sure fa4 loads AFTER fa5 here.
-			wp_deregister_style( 'font-awesome' );
-			wp_register_style( 'font-awesome', self::$fa4_url, array( 'font-awesome-5' ), $ver );
-			wp_enqueue_style( 'font-awesome' );
+			/**
+			 * FA4 css and FA5 css do not mix well and actually break some of the icvons in the selector.
+			 */
+			if ( in_array( 'font-awesome', FLBuilderModel::get_enabled_icons() ) ) {
+				wp_enqueue_style( 'font-awesome' );
+			} else {
+				wp_enqueue_style( 'font-awesome-5' );
+			}
 
 			wp_enqueue_style( 'foundation-icons' );
 			wp_enqueue_style( 'jquery-nanoscroller',     $css_url . 'jquery.nanoscroller.css', array(), $ver );

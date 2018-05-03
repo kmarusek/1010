@@ -52,7 +52,7 @@ final class BWCustomizerLess {
 	 * @access private
 	 * @var string $_css_key
 	 */
-	static private $_css_key = 'fl_theme_css_key';
+	static private $_css_key = 'bw_theme_css_key';
 
 	/**
 	 * Adds Customizer panel data to the $_panels array.

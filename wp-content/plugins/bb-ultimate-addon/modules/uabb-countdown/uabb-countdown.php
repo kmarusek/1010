@@ -22,7 +22,90 @@ class UABBCountdownModule extends FLBuilderModule {
             'icon'             => 'clock.svg',
 		) );
 
+        add_filter( 'fl_builder_layout_data', array( $this , 'render_new_data' ), 10, 3 );
+
 	}
+
+    function render_new_data( $data ) {
+
+        foreach ( $data as &$node ) {
+            
+            if ( isset( $node->settings->type ) && 'uabb-countdown' === $node->settings->type ) {
+
+                if ( isset( $node->settings->message_font_size['small']) && !isset( $node->settings->message_font_size_unit_responsive ) ) {
+                    $node->settings->message_font_size_unit_responsive = $node->settings->message_font_size['small'];
+                }
+                if( isset( $node->settings->message_font_size['medium']) && !isset( $node->settings->message_font_size_unit_medium ) ) {
+                    $node->settings->message_font_size_unit_medium = $node->settings->message_font_size['medium'];
+                }
+                if( isset( $node->settings->message_font_size['desktop']) && !isset( $node->settings->message_font_size_unit ) ) {
+                    $node->settings->message_font_size_unit = $node->settings->message_font_size['desktop'];
+                }
+                
+                if( isset( $node->settings->message_line_height['small']) && isset( $node->settings->message_font_size['small'] ) && $node->settings->message_font_size['small'] != 0 && !isset( $node->settings->message_line_height_unit_responsive ) ) {
+                    if( is_numeric( $node->settings->message_line_height['small']) && is_numeric( $node->settings->message_font_size['small']) )
+                    $node->settings->message_line_height_unit_responsive = round( $node->settings->message_line_height['small'] / $node->settings->message_font_size['small'], 2 );
+                }
+                if( isset( $node->settings->message_line_height['medium']) && isset( $node->settings->message_font_size['medium'] ) && $node->settings->message_font_size['medium'] != 0 && !isset( $node->settings->message_line_height_unit_medium ) ) {
+                    if( is_numeric( $node->settings->message_line_height['medium']) && is_numeric( $node->settings->message_font_size['medium']) )
+                    $node->settings->message_line_height_unit_medium = round( $node->settings->message_line_height['medium'] / $node->settings->message_font_size['medium'], 2 );
+                }
+                if( isset( $node->settings->message_line_height['desktop']) && isset( $node->settings->message_font_size['desktop'] ) && $node->settings->message_font_size['desktop'] != 0 && !isset( $node->settings->message_line_height_unit ) ) {
+                    if( is_numeric( $node->settings->message_line_height['desktop']) && is_numeric( $node->settings->message_font_size['desktop']) )
+                    $node->settings->message_line_height_unit = round( $node->settings->message_line_height['desktop'] / $node->settings->message_font_size['desktop'], 2 );
+                }
+
+                if ( isset( $node->settings->digit_font_size['small']) && !isset( $node->settings->digit_font_size_unit_responsive ) ) {
+                    $node->settings->digit_font_size_unit_responsive = $node->settings->digit_font_size['small'];
+                }
+                if( isset( $node->settings->digit_font_size['medium']) && !isset( $node->settings->digit_font_size_unit_medium ) ) {
+                    $node->settings->digit_font_size_unit_medium = $node->settings->digit_font_size['medium'];
+                }
+                if( isset( $node->settings->digit_font_size['desktop']) && !isset( $node->settings->digit_font_size_unit ) ) {
+                    $node->settings->digit_font_size_unit = $node->settings->digit_font_size['desktop'];
+                }
+
+                if( isset( $node->settings->digit_line_height['small']) && isset( $node->settings->digit_font_size['small'] ) && $node->settings->digit_font_size['small'] != 0 && !isset( $node->settings->digit_line_height_unit_responsive ) ) {
+                    if( is_numeric( $node->settings->digit_line_height['small']) && is_numeric( $node->settings->digit_font_size['small']) )
+                    $node->settings->digit_line_height_unit_responsive = round( $node->settings->digit_line_height['small'] / $node->settings->digit_font_size['small'], 2 );
+                }
+                if( isset( $node->settings->digit_line_height['medium']) && isset( $node->settings->digit_font_size['medium'] ) && $node->settings->digit_font_size['medium'] != 0 && !isset( $node->settings->digit_line_height_unit_medium ) ) {
+                    if( is_numeric( $node->settings->digit_line_height['medium']) && is_numeric( $node->settings->digit_font_size['medium']) )
+                    $node->settings->digit_line_height_unit_medium = round( $node->settings->digit_line_height['medium'] / $node->settings->digit_font_size['medium'], 2 );
+                }
+                if( isset( $node->settings->digit_line_height['desktop']) && isset( $node->settings->digit_font_size['desktop'] ) && $node->settings->digit_font_size['desktop'] != 0 && !isset( $node->settings->digit_line_height_unit ) ) {
+                    if( is_numeric( $node->settings->digit_line_height['desktop']) && is_numeric( $node->settings->digit_font_size['desktop']) )
+                    $node->settings->digit_line_height_unit = round( $node->settings->digit_line_height['desktop'] / $node->settings->digit_font_size['desktop'], 2 );
+                }
+                
+                if ( isset( $node->settings->unit_font_size['small']) && !isset( $node->settings->unit_font_size_new_responsive ) ) {
+                    $node->settings->unit_font_size_new_responsive = $node->settings->unit_font_size['small'];
+                }
+                if( isset( $node->settings->unit_font_size['medium']) && !isset( $node->settings->unit_font_size_new_medium ) ) {
+                    $node->settings->unit_font_size_new_medium = $node->settings->unit_font_size['medium'];
+                }
+                if( isset( $node->settings->unit_font_size['desktop']) && !isset( $node->settings->unit_font_size_new ) ) {
+                    $node->settings->unit_font_size_new = $node->settings->unit_font_size['desktop'];
+                }
+                
+                if( isset( $node->settings->unit_line_height['small']) && isset( $node->settings->unit_font_size['small'] ) && $node->settings->unit_font_size['small'] != 0 && !isset( $node->settings->unit_line_height_new_responsive ) ) {
+                    if( is_numeric( $node->settings->unit_line_height['small']) && is_numeric( $node->settings->unit_font_size['small']) )
+                    $node->settings->unit_line_height_new_responsive = round( $node->settings->unit_line_height['small'] / $node->settings->unit_font_size['small'], 2 );
+                }
+                if( isset( $node->settings->unit_line_height['medium']) && isset( $node->settings->unit_font_size['medium'] ) && $node->settings->unit_font_size['medium'] != 0 && !isset( $node->settings->unit_line_height_new_medium ) ) {
+                    if( is_numeric( $node->settings->unit_line_height['medium']) && is_numeric( $node->settings->unit_font_size['medium']) )
+                    $node->settings->unit_line_height_new_medium = round( $node->settings->unit_line_height['medium'] / $node->settings->unit_font_size['medium'], 2 );
+                }
+                if( isset( $node->settings->unit_line_height['desktop']) && isset( $node->settings->unit_font_size['desktop'] ) && $node->settings->unit_font_size['desktop'] != 0 && !isset( $node->settings->unit_line_height_new ) ) {
+                    if( is_numeric( $node->settings->unit_line_height['desktop']) && is_numeric( $node->settings->unit_font_size['desktop']) )
+                    $node->settings->unit_line_height_new = round( $node->settings->unit_line_height['desktop'] / $node->settings->unit_font_size['desktop'], 2 );
+                }
+            }
+        }
+
+        return $data;
+    }
+
 
     public function enqueue_scripts() {
         
@@ -247,23 +330,30 @@ FLBuilder::register_module('UABBCountdownModule', array(
                             'selector'        => '.uabb-info-list-title'
                         )
                     ),
-                    'message_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'message_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
+                        'description'   => 'px',
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
                         ),
                     ),
-                    'message_line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                    'message_line_height_unit'    => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
+                        'description'   => 'em',
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
                         ),
+
                     ),
                     'message_color'        => array( 
                         'type'       => 'color',
@@ -496,7 +586,7 @@ FLBuilder::register_module('UABBCountdownModule', array(
                 'title'         => __('Timer Strings','uabb'), // Section Title
                 'fields'        => array( // Section Fields
                     'year_string'   => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __('Years', 'uabb'),
                         'description'   => '',
                         'default'       => 'Y',
@@ -506,7 +596,7 @@ FLBuilder::register_module('UABBCountdownModule', array(
                         ),
                     ),
                     'year_custom_label'   => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __('Custom Label', 'uabb'),
                         'description'   => '',
                         'default'       => 'no',
@@ -531,7 +621,7 @@ FLBuilder::register_module('UABBCountdownModule', array(
 
                     // Months
                     'month_string'   => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __('Months', 'uabb'),
                         'description'   => '',
                         'default'       => 'O',
@@ -541,7 +631,7 @@ FLBuilder::register_module('UABBCountdownModule', array(
                         ),
                     ),
                     'month_custom_label'   => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __('Custom Label', 'uabb'),
                         'description'   => '',
                         'default'       => 'no',
@@ -565,7 +655,7 @@ FLBuilder::register_module('UABBCountdownModule', array(
 
                     // Days
                     'day_string'   => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __('Days', 'uabb'),
                         'description'   => '',
                         'default'       => 'D',
@@ -575,7 +665,7 @@ FLBuilder::register_module('UABBCountdownModule', array(
                         ),
                     ),
                     'day_custom_label'   => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __('Custom Label', 'uabb'),
                         'description'   => '',
                         'default'       => 'no',
@@ -599,7 +689,7 @@ FLBuilder::register_module('UABBCountdownModule', array(
 
                     // Hours
                     'hour_string'   => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __('Hours', 'uabb'),
                         'description'   => '',
                         'default'       => 'H',
@@ -609,7 +699,7 @@ FLBuilder::register_module('UABBCountdownModule', array(
                         ),
                     ),
                     'hour_custom_label'   => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __('Custom Label', 'uabb'),
                         'description'   => '',
                         'default'       => 'no',
@@ -633,7 +723,7 @@ FLBuilder::register_module('UABBCountdownModule', array(
 
                     // Minutes
                     'minute_string'   => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __('Minutes', 'uabb'),
                         'description'   => '',
                         'default'       => 'M',
@@ -643,7 +733,7 @@ FLBuilder::register_module('UABBCountdownModule', array(
                         ),
                     ),
                     'minute_custom_label'   => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __('Custom Label', 'uabb'),
                         'description'   => '',
                         'default'       => 'no',
@@ -667,7 +757,7 @@ FLBuilder::register_module('UABBCountdownModule', array(
 
                     // Seconds
                     'second_string'   => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __('Seconds', 'uabb'),
                         'description'   => '',
                         'default'       => 'S',
@@ -677,7 +767,7 @@ FLBuilder::register_module('UABBCountdownModule', array(
                         ),
                     ),
                     'second_custom_label'   => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __('Custom Label', 'uabb'),
                         'description'   => '',
                         'default'       => 'no',
@@ -736,35 +826,41 @@ FLBuilder::register_module('UABBCountdownModule', array(
                             'selector'        => '.uabb-count-down-digit'
                         )
                     ),
-                    'digit_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'digit_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'px',
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-count-down-digit',
                             'property'        => 'font-size',
                             'unit'             => 'px'
-                        )
-                    ),
-                    'digit_line_height'    => array(
-                        'type'          => 'uabb-simplify',
-                        'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
                         ),
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ),
+                    ),
+                    'digit_line_height_unit'    => array(
+                        'type'          => 'unit',
+                        'label'         => __( 'Line Height', 'uabb' ),
+                        'description'   => 'em',
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-count-down-digit',
                             'property'        => 'line-height',
-                            'unit'             => 'px'
-                        )
+                            'unit'             => 'em'
+                        ),
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ),
                     ),
                     'digit_color'        => array( 
                         'type'       => 'color',
@@ -810,35 +906,41 @@ FLBuilder::register_module('UABBCountdownModule', array(
                             'selector'        => '.uabb-count-down-unit',
                         )
                     ),
-                    'unit_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'unit_font_size_new'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'px',
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-count-down-unit',
                             'property'         => 'font-size',
                             'unit'              => 'px'
-                        )
-                    ),
-                    'unit_line_height'    => array(
-                        'type'          => 'uabb-simplify',
-                        'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
                         ),
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ),
+                    ),
+                    'unit_line_height_new'    => array(
+                        'type'          => 'unit',
+                        'label'         => __( 'Line Height', 'uabb' ),
+                        'description'   => 'em',
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-count-down-unit',
                             'property'         => 'line-height',
-                            'unit'              => 'px'
-                        )
+                            'unit'              => 'em'
+                        ),
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ),
                     ),
                     'unit_color'        => array( 
                         'type'       => 'color',

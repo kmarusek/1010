@@ -1,3 +1,20 @@
+Version 1.7.1  - Thursday, 03rd May 2018
+- Fixed: Price Box - Fixed PHP error produced by Price Box Module
+
+Version 1.7.0  - Wednesday, 02nd May 2018
+- New: Custom field compatibility with Beaver Builder 2.0
+- Improvement: Testimonials - Added option to show Arrow and Dots in Navigation
+- Improvement: Advanced Posts - Added option to change "All" text in Masonry Filter
+- Improvement: Deprecated uabb-simplify field and replaced it with BB's unit field
+- Improvement: Deprecated uabb-spacing field and replaced it with BB's dimension field
+- Improvement: Deprecated uabb-toggle-switch field and replaced it with BB's select field
+- Improvement: Deprecated uabb-datetimepicker field
+- Fixed: Advanced Posts - Pagination issue with search page
+- Fixed: Hotspot - Hotspot image not working in module settings
+- Fixed: Social Share - Share link includes http rather than https
+- Fixed: Advanced Post - Masonry Filter not working if language is not recognized
+- Fixed: Remove duplicate uabb-js-breakpoint id
+
 Version 1.6.9 - Wednesday, 21th February 2018
 - Improvement: Contact Form - Add option to modify the processing text
 - improvement: Info Box - Add Responsive height options for the infobox
@@ -13,7 +30,7 @@ Version 1.6.8 - Wednesday, 10th January 2018
 - Improvement: Advanced Menu - Added responsive navigation alignment option
 - Improvement: Contact Form - Added success/error message alignment option
 - Improvement: Modal popup - Added option to hide video title and player controls on YouTube
-- Improvement: Pricing Box - Added option to add custom class to the button link
+- Improvement: Price Box - Added option to add custom class to the button link
 - Improvement: Row Separator - Added filters to add custom row separators
 - Improvement: Testimonials - Added field connections support to the author name, designation and testimonial field
 - Improvement: Added plugin shortname prefix to all module's settings heading
@@ -264,7 +281,7 @@ Version 1.4.0 - Wednesday, 18 January, 2017
 - Fixed: Modal Popup - Mozilla not closing issue fixed
 - Fixed: Photo Gallery - Lightbox js issue fixed
 - Fixed: Photo Gallery - Lightbox visibility issue when used with Modal Popup
-- Fixed: Pricing Box - Highlight color issue fixed
+- Fixed: Price Box - Highlight color issue fixed
 - Fixed: Row Separator - Color Conflict with third party BB addon fixed
 - Fixed: Team - Not selected image fix
 - Fixed: Text Editor - Styling issue fixed

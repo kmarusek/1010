@@ -22,7 +22,14 @@ if(!class_exists('UABB_Sortable_Field'))
 		function __construct()
 		{	
 			add_action( 'fl_builder_control_uabb-sortable', array($this, 'uabb_sortable'), 1, 4 );
+                  add_action( 'fl_builder_custom_fields', array( $this, 'ui_fields' ), 10, 1 );
 		}
+
+            function ui_fields( $fields ) {
+                  $fields['uabb-sortable'] = BB_ULTIMATE_ADDON_DIR . 'fields/uabb-sortable/ui-field-uabb-sortable.php';
+
+                  return $fields;
+            }
 		
 		function uabb_sortable($name, $value, $field, $settings) {
       		
@@ -33,8 +40,6 @@ if(!class_exists('UABB_Sortable_Field'))
                   $assign_val = ( $value != '' ) ? $value : $default;
 
                   $preview = isset( $field['preview'] ) ? json_encode( $field['preview'] ) : json_encode( array( 'type' => 'refresh' ) );
-
-      		$msg_content = '';
 
                   if( isset( $field['options'] ) ) {
                         if( $field['options'] != '' ) {

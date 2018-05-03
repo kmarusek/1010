@@ -52,7 +52,7 @@
 
 /* Style Navigations */
 
-<?php if ( $settings->navigation == "compact" ) { ?>
+<?php if ( $settings->navigation == "compact" || $settings->navigation == "compact-wide" ) { ?>
 
 <?php if ( $settings->arrow_style == 'square' ) { ?>
 	.fl-node-<?php echo $id; ?> .bx-prev i,
@@ -249,9 +249,9 @@
 
 .fl-node-<?php echo $id;?> .uabb-testimonial .uabb-rating .uabb-rating__ico {
 	color: <?php echo $settings->rating_color; ?>;
-	<?php if( $settings->rating_font_size['desktop'] != '' ) { ?>
-	font-size: <?php echo $settings->rating_font_size['desktop']; ?>px;
-	<?php } ?>
+	<?php if( isset( $settings->rating_font_size_unit ) && $settings->rating_font_size_unit != '' ) : ?>
+		font-size: <?php echo $settings->rating_font_size_unit; ?>px;
+	<?php endif; ?>
 }
 
 
@@ -396,18 +396,25 @@ FLBuilder::render_module_css( 'image-icon',$id , $imageicon_array );
 
 /* Typography */
 
-<?php if ( $settings->testimonial_heading_font_family['family'] != "Default" || $settings->testimonial_heading_font_size['desktop'] != "" || $settings->testimonial_heading_line_height['desktop'] != "" || $settings->testimonial_heading_color != '' || $settings->testimonial_heading_margin_top != '' || $settings->testimonial_heading_margin_bottom != '' ) { //Class for heading section ?>
+<?php if ( isset( $settings->testimonial_heading_line_height_unit ) || isset( $settings->testimonial_heading_font_size_unit ) || $settings->testimonial_heading_font_family['family'] != "Default" || isset( $settings->testimonial_heading_font_size['desktop'] ) || isset( $settings->testimonial_heading_line_height['desktop'] ) || isset( $settings->testimonial_heading_color ) || isset( $settings->testimonial_heading_margin_top ) || isset( $settings->testimonial_heading_margin_bottom ) ) { //Class for heading section ?>
 	.fl-node-<?php echo $id;?> .uabb-testimonial-info .testimonial-author-name<?php echo $id; ?> {
 
 		<?php if( $settings->testimonial_heading_font_family['family'] != "Default") : ?>
 			<?php UABB_Helper::uabb_font_css( $settings->testimonial_heading_font_family ); ?>
 		<?php endif; ?>
-		<?php if( $settings->testimonial_heading_font_size['desktop'] != '' ) : ?>
-			font-size: <?php echo $settings->testimonial_heading_font_size['desktop']; ?>px;
+
+		<?php if( isset( $settings->testimonial_heading_font_size_unit ) && $settings->testimonial_heading_font_size_unit != '' ) : ?>
+			font-size: <?php echo $settings->testimonial_heading_font_size_unit; ?>px;
 		<?php endif; ?>
-		<?php if( $settings->testimonial_heading_line_height['desktop'] != '' ) : ?>
-			line-height: <?php echo $settings->testimonial_heading_line_height['desktop']; ?>px;
+
+		<?php if( isset( $settings->testimonial_heading_font_size['desktop'] ) && $settings->testimonial_heading_font_size['desktop'] == '' && isset( $settings->testimonial_heading_line_height['desktop'] ) && $settings->testimonial_heading_line_height['desktop'] != '' && $settings->testimonial_heading_line_height_unit == '' ) { ?>
+		    line-height: <?php echo $settings->testimonial_heading_line_height['desktop']; ?>px;
+		<?php } ?>
+
+		<?php if( isset( $settings->testimonial_heading_line_height_unit ) && $settings->testimonial_heading_line_height_unit != '' ) : ?>
+			line-height: <?php echo $settings->testimonial_heading_line_height_unit; ?>em;
 		<?php endif; ?>
+		
 		<?php if( $settings->testimonial_heading_color != '' ) : ?>
 			color: <?php echo $settings->testimonial_heading_color; ?>;
 		<?php endif; ?>
@@ -418,17 +425,24 @@ FLBuilder::render_module_css( 'image-icon',$id , $imageicon_array );
 	}
 <?php } ?>
 
-<?php if ( $settings->testimonial_designation_font_family['family'] != "Default" || $settings->testimonial_designation_font_size['desktop'] != "" || $settings->testimonial_designation_line_height['desktop'] != "" || $settings->testimonial_designation_color != '' || $settings->testimonial_designation_margin_top != "" || $settings->testimonial_designation_margin_bottom != "" ) { //Class for designation section?>
+<?php if ( isset( $settings->testimonial_designation_font_size_unit ) || isset( $settings->testimonial_designation_line_height_unit ) || $settings->testimonial_designation_font_family['family'] != "Default" || isset( $settings->testimonial_designation_font_size['desktop'] ) || isset( $settings->testimonial_designation_line_height['desktop'] ) || isset( $settings->testimonial_designation_color ) || isset( $settings->testimonial_designation_margin_top ) || isset( $settings->testimonial_designation_margin_bottom ) ) { //Class for designation section?>
 	.fl-node-<?php echo $id;?> .uabb-testimonial-info .testimonial-author-designation<?php echo $id; ?>{
 		<?php if( $settings->testimonial_designation_font_family['family'] != "Default") : ?>
 			<?php UABB_Helper::uabb_font_css( $settings->testimonial_designation_font_family ); ?>
 		<?php endif; ?>
-		<?php if( $settings->testimonial_designation_font_size['desktop'] != '' ) : ?>
-			font-size: <?php echo $settings->testimonial_designation_font_size['desktop']; ?>px;
+
+		<?php if( isset( $settings->testimonial_designation_font_size_unit ) && $settings->testimonial_designation_font_size_unit != '' ) : ?>
+			font-size: <?php echo $settings->testimonial_designation_font_size_unit; ?>px;
 		<?php endif; ?>
-		<?php if( $settings->testimonial_designation_line_height['desktop'] != '' ) : ?>
-			line-height: <?php echo $settings->testimonial_designation_line_height['desktop']; ?>px;
+
+		<?php if( isset( $settings->testimonial_designation_font_size['desktop'] ) && $settings->testimonial_designation_font_size['desktop'] == '' && isset( $settings->testimonial_designation_line_height['desktop'] ) && $settings->testimonial_designation_line_height['desktop'] != '' && $settings->testimonial_designation_line_height_unit == '' ) { ?>
+		    line-height: <?php echo $settings->testimonial_designation_line_height['desktop']; ?>px;
+		<?php } ?>
+
+		<?php if( isset( $settings->testimonial_designation_line_height_unit ) && $settings->testimonial_designation_line_height_unit != '' ) : ?>
+			line-height: <?php echo $settings->testimonial_designation_line_height_unit; ?>em;
 		<?php endif; ?>
+
 		<?php if( $settings->testimonial_designation_color != '' ) : ?>
 			color: <?php echo $settings->testimonial_designation_color; ?>;
 		<?php endif; ?>
@@ -439,17 +453,24 @@ FLBuilder::render_module_css( 'image-icon',$id , $imageicon_array );
 	}
 <?php } ?>
 
-<?php if ( $settings->testimonial_description_opt_font_family['family'] != "Default" || $settings->testimonial_description_opt_font_size['desktop'] != "" || $settings->testimonial_description_opt_line_height['desktop'] != "" || $settings->testimonial_description_opt_color != '' || $settings->testimonial_description_opt_margin_top != '' || $settings->testimonial_description_opt_margin_bottom != '' ) { //Class for Description section?>
+<?php if ( isset( $settings->testimonial_description_opt_font_size_unit ) || isset( $settings->testimonial_description_opt_line_height_unit ) || $settings->testimonial_description_opt_font_family['family'] != "Default" || isset( $settings->testimonial_description_opt_font_size['desktop'] )  || isset( $settings->testimonial_description_opt_line_height['desktop'] ) || isset( $settings->testimonial_description_opt_color ) || isset( $settings->testimonial_description_opt_margin_top ) || isset( $settings->testimonial_description_opt_margin_bottom ) ) { //Class for Description section?>
 	.fl-node-<?php echo $id;?> .uabb-testimonial-info .testimonial-author-description<?php echo $id; ?> {
 		<?php if( $settings->testimonial_description_opt_font_family['family'] != "Default") : ?>
 			<?php UABB_Helper::uabb_font_css( $settings->testimonial_description_opt_font_family ); ?>
 		<?php endif; ?>
-		<?php if( $settings->testimonial_description_opt_font_size['desktop'] != '' ) : ?>
-			font-size: <?php echo $settings->testimonial_description_opt_font_size['desktop']; ?>px;
+
+		<?php if( isset( $settings->testimonial_description_opt_font_size_unit ) && $settings->testimonial_description_opt_font_size_unit != '' ) : ?>
+			font-size: <?php echo $settings->testimonial_description_opt_font_size_unit; ?>px;
 		<?php endif; ?>
-		<?php if( $settings->testimonial_description_opt_line_height['desktop'] != '' ) : ?>
-			line-height: <?php echo $settings->testimonial_description_opt_line_height['desktop']; ?>px;
+
+		<?php if( isset( $settings->testimonial_description_opt_font_size['desktop'] ) && $settings->testimonial_description_opt_font_size['desktop'] == '' && isset( $settings->testimonial_description_opt_line_height['desktop'] ) && $settings->testimonial_description_opt_line_height['desktop'] != '' && $settings->testimonial_description_opt_line_height_unit == '' ) { ?>
+		    line-height: <?php echo $settings->testimonial_description_opt_line_height['desktop']; ?>px;
+		<?php } ?>
+
+		<?php if( isset( $settings->testimonial_description_opt_line_height_unit ) && $settings->testimonial_description_opt_line_height_unit != '' ) : ?>
+			line-height: <?php echo $settings->testimonial_description_opt_line_height_unit; ?>em;
 		<?php endif; ?>
+
 		<?php if( $settings->testimonial_description_opt_color != '' ) : ?>
 			color: <?php echo $settings->testimonial_description_opt_color; ?>;
 		<?php endif; ?>
@@ -464,10 +485,10 @@ FLBuilder::render_module_css( 'image-icon',$id , $imageicon_array );
 			font-family: inherit;
 			font-weight: inherit;
 		<?php endif; ?>
-		<?php if( $settings->testimonial_description_opt_font_size['desktop'] != '' ) : ?>
+		<?php if( isset( $settings->testimonial_description_opt_font_size['desktop'] ) && $settings->testimonial_description_opt_font_size['desktop'] != '' || isset( $settings->testimonial_description_opt_font_size_unit ) && $settings->testimonial_description_opt_font_size_unit != '' ) : ?>
 			font-size: inherit;
 		<?php endif; ?>
-		<?php if( $settings->testimonial_description_opt_line_height['desktop'] != '' ) : ?>
+		<?php if( isset( $settings->testimonial_description_opt_line_height['desktop'] ) && $settings->testimonial_description_opt_line_height['desktop'] != '' || isset( $settings->testimonial_description_opt_line_height_unit ) && $settings->testimonial_description_opt_line_height_unit != '' ) : ?>
 			line-height: inherit;
 		<?php endif; ?>
 		<?php if( $settings->testimonial_description_opt_color != '' ) : ?>
@@ -479,62 +500,84 @@ FLBuilder::render_module_css( 'image-icon',$id , $imageicon_array );
 /* Typography Media queries*/
 
 <?php if($global_settings->responsive_enabled) { // Global Setting If started 
-	if( $settings->testimonial_heading_font_size['medium'] != "" || $settings->testimonial_heading_line_height['medium'] !="" || $settings->testimonial_designation_font_size['medium'] != "" || $settings->testimonial_designation_line_height['medium'] != "" || $settings->testimonial_description_opt_font_size['medium'] != "" || $settings->testimonial_description_opt_line_height['medium'] != "" || $settings->rating_font_size['medium'] != '' )
+	if( isset( $settings->rating_font_size_unit_medium ) || isset( $settings->testimonial_description_opt_font_size_unit_medium ) || isset( $settings->testimonial_description_opt_line_height_unit_medium ) || isset( $settings->testimonial_description_opt_line_height_unit ) || isset( $settings->testimonial_designation_font_size_unit_medium ) || isset( $settings->testimonial_designation_line_height_unit_medium ) || isset( $settings->testimonial_designation_line_height_unit ) || isset( $settings->testimonial_heading_font_size_unit_medium ) || isset( $settings->testimonial_heading_line_height_unit_medium ) || isset( $settings->testimonial_heading_line_height_unit ) || isset( $settings->testimonial_heading_font_size['medium'] ) || isset( $settings->testimonial_heading_line_height['medium'] ) || isset( $settings->testimonial_designation_font_size['medium'] ) || isset( $settings->testimonial_designation_line_height['medium'] ) || isset( $settings->testimonial_description_opt_font_size['medium'] ) || isset( $settings->testimonial_description_opt_line_height['medium'] ) || isset( $settings->rating_font_size['medium'] ) ) 
 	{
 	?>
 		@media ( max-width: <?php echo $global_settings->medium_breakpoint .'px'; ?> ) {
 			/* Heading section class */
-			<?php if( $settings->testimonial_heading_font_size['medium'] != "" || $settings->testimonial_heading_line_height['medium'] != "" ) { ?>
-				.fl-node-<?php echo $id;?> .uabb-testimonial-info .testimonial-author-name<?php echo $id; ?> {
-					<?php if( $settings->testimonial_heading_font_size['medium'] != '' ) : ?>
-					font-size: <?php echo $settings->testimonial_heading_font_size['medium']; ?>px;
-					<?php endif; ?>
-					<?php if( $settings->testimonial_heading_line_height['medium'] != '' ) : ?>
-					line-height: <?php echo $settings->testimonial_heading_line_height['medium']; ?>px;
-					<?php endif; ?>
-				}
-			<?php } ?>
+			
+			.fl-node-<?php echo $id;?> .uabb-testimonial-info .testimonial-author-name<?php echo $id; ?> {
 
+				<?php if( isset( $settings->testimonial_heading_font_size_unit_medium ) && $settings->testimonial_heading_font_size_unit_medium != '' ) : ?>
+					font-size: <?php echo $settings->testimonial_heading_font_size_unit_medium; ?>px;
+				<?php endif; ?>
+
+				<?php if( isset( $settings->testimonial_heading_font_size['medium'] ) && $settings->testimonial_heading_font_size['medium'] == '' && isset( $settings->testimonial_heading_line_height['medium'] ) && $settings->testimonial_heading_line_height['medium'] != '' && $settings->testimonial_heading_line_height_unit == '' && $settings->testimonial_heading_line_height_unit_medium == '' ) { ?>
+				    line-height: <?php echo $settings->testimonial_heading_line_height['medium']; ?>px;
+				<?php } ?>
+
+				<?php if( isset( $settings->testimonial_heading_line_height_unit_medium ) && $settings->testimonial_heading_line_height_unit_medium != '' ) : ?>
+					line-height: <?php echo $settings->testimonial_heading_line_height_unit_medium; ?>em;
+				<?php endif; ?>					
+			}
+		
 			.fl-node-<?php echo $id;?> .uabb-testimonial .uabb-rating .uabb-rating__ico {
-				font-size: <?php echo $settings->rating_font_size['medium']; ?>px;
+
+				<?php if( isset( $settings->rating_font_size_unit_medium ) && $settings->rating_font_size_unit_medium != '' ) : ?>
+					font-size: <?php echo $settings->rating_font_size_unit_medium; ?>px;
+				<?php endif; ?>
+				
 			}
 
 			/* Designation section class */
-			<?php if( $settings->testimonial_designation_font_size['medium'] != "" || $settings->testimonial_designation_line_height['medium'] != "" ) { ?>
-				.fl-node-<?php echo $id;?> .uabb-testimonial-info .testimonial-author-designation<?php echo $id; ?> {
-					<?php if( $settings->testimonial_designation_font_size['medium'] != '' ) : ?>
-					font-size: <?php echo $settings->testimonial_designation_font_size['medium']; ?>px;
-					<?php endif; ?>
-					<?php if( $settings->testimonial_designation_line_height['medium'] != '' ) : ?>
-					line-height: <?php echo $settings->testimonial_designation_line_height['medium']; ?>px;
-					<?php endif; ?>
-				}
-			<?php } ?>
+	
+			.fl-node-<?php echo $id;?> .uabb-testimonial-info .testimonial-author-designation<?php echo $id; ?> {
+
+				<?php if( isset( $settings->testimonial_designation_font_size_unit_medium ) && $settings->testimonial_designation_font_size_unit_medium != '' ) : ?>
+					font-size: <?php echo $settings->testimonial_designation_font_size_unit_medium; ?>px;
+				<?php endif; ?>
+
+				<?php if( isset( $settings->testimonial_designation_font_size['medium'] ) && $settings->testimonial_designation_font_size['medium'] == '' && isset( $settings->testimonial_designation_line_height['medium'] ) && $settings->testimonial_designation_line_height['medium'] != '' && $settings->testimonial_designation_line_height_unit == '' && $settings->testimonial_designation_line_height_unit_medium == '' ) { ?>
+				    line-height: <?php echo $settings->testimonial_designation_line_height['medium']; ?>px;
+				<?php } ?>
+
+				<?php if( isset( $settings->testimonial_designation_line_height_unit_medium ) && $settings->testimonial_designation_line_height_unit_medium != '' ) : ?>
+					line-height: <?php echo $settings->testimonial_designation_line_height_unit_medium; ?>em;
+				<?php endif; ?>
+			}
+		
 
 			/* Description section class */
-			<?php if( $settings->testimonial_description_opt_font_size['medium'] != "" || $settings->testimonial_description_opt_line_height['medium'] != "" ) { ?>
-				.fl-node-<?php echo $id;?> .uabb-testimonial-info .testimonial-author-description<?php echo $id; ?> {
-					<?php if( $settings->testimonial_description_opt_font_size['medium'] != '' ) : ?>
-					font-size: <?php echo $settings->testimonial_description_opt_font_size['medium']; ?>px;
-					<?php endif; ?>
-					<?php if( $settings->testimonial_description_opt_line_height['medium'] != '' ) : ?>
-					line-height: <?php echo $settings->testimonial_description_opt_line_height['medium']; ?>px;
-					<?php endif; ?>
-				}
-				.fl-node-<?php echo $id;?> .uabb-testimonial-info .testimonial-author-description<?php echo $id; ?> *{
-					<?php if( $settings->testimonial_description_opt_font_size['medium'] != '' ) : ?>
-					font-size: inherit;
-					<?php endif; ?>
-					<?php if( $settings->testimonial_description_opt_line_height['medium'] != '' ) : ?>
-					line-height: inherit;
-					<?php endif; ?>
-				}
-			<?php } ?>
+		
+			.fl-node-<?php echo $id;?> .uabb-testimonial-info .testimonial-author-description<?php echo $id; ?> {
+
+				<?php if( isset( $settings->testimonial_description_opt_font_size_unit_medium ) && $settings->testimonial_description_opt_font_size_unit_medium != '' ) : ?>
+					font-size: <?php echo $settings->testimonial_description_opt_font_size_unit_medium; ?>px;
+				<?php endif; ?>
+
+				<?php if( isset( $settings->testimonial_description_opt_font_size['medium'] ) && $settings->testimonial_description_opt_font_size['medium'] == '' && isset( $settings->testimonial_description_opt_line_height['medium'] ) && $settings->testimonial_description_opt_line_height['medium'] != '' && $settings->testimonial_description_opt_line_height_unit_medium == '' && $settings->testimonial_description_opt_line_height_unit == '' ) { ?>
+				    line-height: <?php echo $settings->testimonial_description_opt_line_height['medium']; ?>px;
+				<?php } ?>
+
+				<?php if( isset( $settings->testimonial_description_opt_line_height_unit_medium ) && $settings->testimonial_description_opt_line_height_unit_medium != '' ) : ?>
+					line-height: <?php echo $settings->testimonial_description_opt_line_height_unit_medium; ?>em;
+				<?php endif; ?>
+				
+			}
+			.fl-node-<?php echo $id;?> .uabb-testimonial-info .testimonial-author-description<?php echo $id; ?> *{
+				<?php if( isset( $settings->testimonial_description_opt_font_size['medium'] ) && $settings->testimonial_description_opt_font_size['medium'] != '' || isset( $settings->testimonial_description_opt_font_size_unit_medium ) && $settings->testimonial_description_opt_font_size_unit_medium != '' ) : ?>
+				font-size: inherit;
+				<?php endif; ?>
+				<?php if( isset( $settings->testimonial_description_opt_line_height['medium'] ) && $settings->testimonial_description_opt_line_height['medium'] != '' || isset( $settings->testimonial_description_opt_line_height_unit_medium ) && $settings->testimonial_description_opt_line_height_unit_medium != '' ) : ?>
+				line-height: inherit;
+				<?php endif; ?>
+			}
+			
 		}
 	<?php 
 	}
 
-	if( $settings->testimonial_heading_font_size['small'] != "" || $settings->testimonial_heading_line_height['small'] !="" || $settings->testimonial_designation_font_size['small'] != "" || $settings->testimonial_designation_line_height['small'] != "" || $settings->testimonial_description_opt_font_size['small'] != "" || $settings->testimonial_description_opt_line_height['small'] != "" || $settings->responsive_img_size != '' || $settings->testimonial_image_position != "top" || $settings->rating_font_size['small'] != '' || $settings->mobile_view == 'stack' )
+	if( isset( $settings->rating_font_size_unit_responsive ) || isset( $settings->testimonial_description_opt_font_size_unit_responsive ) || isset( $settings->testimonial_description_opt_line_height_unit_responsive ) || isset( $settings->testimonial_description_opt_line_height_unit_medium ) || isset( $settings->testimonial_description_opt_line_height_unit ) || isset( $settings->testimonial_designation_font_size_unit_responsive ) || isset( $settings->testimonial_designation_line_height_unit_responsive ) || isset( $settings->testimonial_designation_line_height_unit_medium ) || isset( $settings->testimonial_designation_line_height_unit ) || isset( $settings->testimonial_heading_font_size_unit_responsive ) || isset( $settings->testimonial_heading_line_height_unit_responsive ) || isset( $settings->testimonial_heading_line_height_unit_medium ) || isset( $settings->testimonial_heading_line_height_unit ) || isset( $settings->testimonial_heading_font_size['small'] ) || isset( $settings->testimonial_heading_line_height['small'] ) || isset( $settings->testimonial_designation_font_size['small'] ) || isset( $settings->testimonial_designation_line_height['small'] ) || isset( $settings->testimonial_description_opt_font_size['small'] ) || isset( $settings->testimonial_description_opt_line_height['small'] ) || $settings->testimonial_image_position != "top" || $settings->rating_font_size['small'] != '' || $settings->mobile_view == 'stack' )
 	{
 	?>
 		@media ( max-width: <?php echo $global_settings->responsive_breakpoint .'px'; ?> ) {
@@ -561,54 +604,74 @@ FLBuilder::render_module_css( 'image-icon',$id , $imageicon_array );
 			//}
 			?>
 
+			.fl-node-<?php echo $id;?> .uabb-testimonial-info .testimonial-author-name<?php echo $id; ?> {
 
-			<?php if( $settings->testimonial_heading_font_size['small'] != "" || $settings->testimonial_heading_line_height['small'] != "" ) { ?>
-				.fl-node-<?php echo $id;?> .uabb-testimonial-info .testimonial-author-name<?php echo $id; ?> {
-					<?php if( $settings->testimonial_heading_font_size['small'] != '' ) : ?>
-					font-size: <?php echo $settings->testimonial_heading_font_size['small']; ?>px;
-					<?php endif; ?>
-					<?php if( $settings->testimonial_heading_line_height['small'] != '' ) : ?>
-					line-height: <?php echo $settings->testimonial_heading_line_height['small']; ?>px;
-					<?php endif; ?>
-				}
-			<?php } ?>
+				<?php if( isset( $settings->testimonial_heading_font_size_unit_responsive ) && $settings->testimonial_heading_font_size_unit_responsive != '' ) : ?>
+					font-size: <?php echo $settings->testimonial_heading_font_size_unit_responsive; ?>px;
+				<?php endif; ?>
+
+				<?php if( isset( $settings->testimonial_heading_font_size['small'] ) && $settings->testimonial_heading_font_size['small'] == '' && isset( $settings->testimonial_heading_line_height['small'] ) && $settings->testimonial_heading_line_height['small'] != '' && $settings->testimonial_heading_line_height_unit_responsive == '' && $settings->testimonial_heading_line_height_unit_medium == '' && $settings->testimonial_heading_line_height_unit == '' ) { ?>
+				    line-height: <?php echo $settings->testimonial_heading_line_height['small']; ?>px;
+				<?php } ?>
+
+				<?php if( isset( $settings->testimonial_heading_line_height_unit_responsive ) && $settings->testimonial_heading_line_height_unit_responsive != '' ) : ?>
+					line-height: <?php echo $settings->testimonial_heading_line_height_unit_responsive; ?>em;
+				<?php endif; ?>
+			}
 
 			/* Designation section class */
-			<?php if( $settings->testimonial_designation_font_size['small'] != "" || $settings->testimonial_designation_line_height['small'] != "" ) { ?>
-				.fl-node-<?php echo $id;?> .uabb-testimonial-info .testimonial-author-designation<?php echo $id; ?> {
-					<?php if( $settings->testimonial_designation_font_size['small'] != '' ) : ?>
-					font-size: <?php echo $settings->testimonial_designation_font_size['small']; ?>px;
-					<?php endif; ?>
-					<?php if( $settings->testimonial_designation_line_height['small'] != '' ) : ?>
-					line-height: <?php echo $settings->testimonial_designation_line_height['small']; ?>px;
-					<?php endif; ?>
-				}
-			<?php } ?>
+			
+			.fl-node-<?php echo $id;?> .uabb-testimonial-info .testimonial-author-designation<?php echo $id; ?> {
+
+				<?php if( isset( $settings->testimonial_designation_font_size_unit_responsive ) && $settings->testimonial_designation_font_size_unit_responsive != '' ) : ?>
+					font-size: <?php echo $settings->testimonial_designation_font_size_unit_responsive; ?>px;
+				<?php endif; ?>
+
+				<?php if( isset( $settings->testimonial_designation_font_size['small'] ) && $settings->testimonial_designation_font_size['small'] == '' && isset( $settings->testimonial_designation_line_height['small'] ) && $settings->testimonial_designation_line_height['small'] != '' && $settings->testimonial_designation_line_height_unit_responsive == '' && $settings->testimonial_designation_line_height_unit_medium == '' && $settings->testimonial_designation_line_height_unit == '' ) { ?>
+				    line-height: <?php echo $settings->testimonial_designation_line_height['small']; ?>px;
+				<?php } ?>
+
+				<?php if( isset( $settings->testimonial_designation_line_height_unit_responsive ) && $settings->testimonial_designation_line_height_unit_responsive != '' ) : ?>
+					line-height: <?php echo $settings->testimonial_designation_line_height_unit_responsive; ?>em;
+				<?php endif; ?>
+			}
+		
 
 			/* Description section class */
-			<?php if( $settings->testimonial_description_opt_font_size['small'] != "" || $settings->testimonial_description_opt_line_height['small'] != "") { ?>
-				.fl-node-<?php echo $id;?> .uabb-testimonial-info .testimonial-author-description<?php echo $id; ?> {
-					<?php if( $settings->testimonial_description_opt_font_size['small'] != '' ) : ?>
-					font-size: <?php echo $settings->testimonial_description_opt_font_size['small']; ?>px;
-					<?php endif; ?>
-					<?php if( $settings->testimonial_description_opt_line_height['small'] != '' ) : ?>
-					line-height: <?php echo $settings->testimonial_description_opt_line_height['small']; ?>px;
-					<?php endif; ?>
-					
-				}
-				.fl-node-<?php echo $id;?> .uabb-testimonial-info .testimonial-author-description<?php echo $id; ?> *{
-					<?php if( $settings->testimonial_description_opt_font_size['small'] != '' ) : ?>
-					font-size: inherit;
-					<?php endif; ?>
-					<?php if( $settings->testimonial_description_opt_line_height['small'] != '' ) : ?>
-					line-height: inherit;
-					<?php endif; ?>
-					
-				}
-			<?php } ?>
+		
+			.fl-node-<?php echo $id;?> .uabb-testimonial-info .testimonial-author-description<?php echo $id; ?> {
+			
+				<?php if( isset( $settings->testimonial_description_opt_font_size_unit_responsive ) && $settings->testimonial_description_opt_font_size_unit_responsive != '' ) : ?>
+					font-size: <?php echo $settings->testimonial_description_opt_font_size_unit_responsive; ?>px;
+				<?php endif; ?>
+
+				<?php if( isset( $settings->testimonial_description_opt_font_size['small'] ) && $settings->testimonial_description_opt_font_size['small'] == '' && isset( $settings->testimonial_description_opt_line_height['small'] ) && $settings->testimonial_description_opt_line_height['small'] != '' && $settings->testimonial_description_opt_line_height_unit_responsive == '' && $settings->testimonial_description_opt_line_height_unit_medium == '' && $settings->testimonial_description_opt_line_height_unit == '' ) { ?>
+				    line-height: <?php echo $settings->testimonial_description_opt_line_height['small']; ?>px;
+				<?php } ?>
+
+				<?php if( isset( $settings->testimonial_description_opt_line_height_unit_responsive ) && $settings->testimonial_description_opt_line_height_unit_responsive != '' ) : ?>
+					line-height: <?php echo $settings->testimonial_description_opt_line_height_unit_responsive; ?>em;
+				<?php endif; ?>
+
+				
+				
+			}
+			.fl-node-<?php echo $id;?> .uabb-testimonial-info .testimonial-author-description<?php echo $id; ?> *{
+				<?php if( isset( $settings->testimonial_description_opt_font_size['small'] ) && $settings->testimonial_description_opt_font_size['small'] != '' || isset( $settings->testimonial_description_opt_font_size_unit_responsive ) && $settings->testimonial_description_opt_font_size_unit_responsive != '' ) : ?>
+				font-size: inherit;
+				<?php endif; ?>
+				<?php if( isset( $settings->testimonial_description_opt_line_height['small'] ) && $settings->testimonial_description_opt_line_height['small'] != '' || isset( $settings->testimonial_description_opt_line_height_unit_responsive ) && $settings->testimonial_description_opt_line_height_unit_responsive != '' ) : ?>
+				line-height: inherit;
+				<?php endif; ?>
+				
+			}
+	
 
 			.fl-node-<?php echo $id;?> .uabb-testimonial .uabb-rating .uabb-rating__ico {
-				font-size: <?php echo $settings->rating_font_size['small']; ?>px;
+
+				<?php if( isset( $settings->rating_font_size_unit_responsive ) && $settings->rating_font_size_unit_responsive != '' ) : ?>
+					font-size: <?php echo $settings->rating_font_size_unit_responsive; ?>px;
+				<?php endif; ?>
 			}
 			<?php if( $settings->mobile_view == 'stack' ) { ?>
 				.fl-node-<?php echo $id;?> .uabb-testimonials .uabb-testimonial-photo.testimonial-photo<?php echo $id;?> {

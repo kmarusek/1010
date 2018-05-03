@@ -23,13 +23,10 @@
                 icon_style              = form.find('select[name=icon_style]'),
                 image_style             = form.find('select[name=image_style]'),
                 photo_source            = form.find('select[name=photo_source]'),
-                img_src = $('.fl-builder-uabb-hotspot-settings').find('#fl-field-photo img').attr('src'),
                 img_border_style        = form.find('select[name=img_border_style]'),
                 icon_border_style        = form.find('select[name=icon_border_style]'),
-                n = img_src.lastIndexOf('-150x150');
-
-            img_src = img_src.slice(0, n) + img_src.slice(n).replace('-150x150', '');
-
+                img_src = $('.fl-builder-uabb-hotspot-settings').find('#fl-field-photo .fl-photo-preview .fl-photo-preview-controls select').val();
+            
             form.find('.uabb-hotspot-draggable').append('<img src="'+img_src+'" />');
 
             this._imageTypeChange();

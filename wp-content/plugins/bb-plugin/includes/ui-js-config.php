@@ -51,6 +51,7 @@ echo 'FLBuilderConfig              = ' . json_encode( apply_filters('fl_builder_
 	'rowResize'						=> FLBuilderModel::get_row_resize_settings(),
 	'notifications'                 => FLBuilderNotifications::get_notifications(),
 	'isWhiteLabeled'                => FLBuilderModel::is_white_labeled(),
+	'inlineEnabled'                 => FLBuilderModel::is_inline_enabled(),
 ) ) ) . ';';
 
 echo 'FLBuilderStrings             = ' . json_encode( apply_filters('fl_builder_ui_js_strings', array(

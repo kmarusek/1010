@@ -23,6 +23,7 @@ class UABBGravityFormModule extends FLBuilderModule {
 		));
 
 		add_filter( 'fl_builder_render_settings_field', array( $this , 'uabb_gravity_form_render_settings_field' ), 10, 3 );
+		add_filter( 'fl_builder_layout_data', array( $this , 'render_new_data' ), 10, 3 );
 	}
 
 	function uabb_gravity_form_render_settings_field(  $field, $name, $settings  ) {
@@ -31,6 +32,294 @@ class UABBGravityFormModule extends FLBuilderModule {
 	        $settings->mul_form_option = 'true';
 		}
         return $field;
+	}
+
+	function render_new_data( $data ) {
+
+		foreach ( $data as &$node ) {
+			
+			if ( isset( $node->settings->type ) && 'uabb-gravity-form' === $node->settings->type ) {
+				
+				if ( isset( $node->settings->btn_font_size['small']) && !isset( $node->settings->btn_font_size_unit_responsive ) ) {
+					$node->settings->btn_font_size_unit_responsive = $node->settings->btn_font_size['small'];
+				}
+				if( isset( $node->settings->btn_font_size['medium']) && !isset( $node->settings->btn_font_size_unit_medium ) ) {
+					$node->settings->btn_font_size_unit_medium = $node->settings->btn_font_size['medium'];
+				}
+				if( isset( $node->settings->btn_font_size['desktop']) && !isset( $node->settings->btn_font_size_unit ) ) {
+					$node->settings->btn_font_size_unit = $node->settings->btn_font_size['desktop'];
+				}
+
+				if( isset( $node->settings->btn_line_height['small']) && isset( $node->settings->btn_font_size['small'] ) && $node->settings->btn_font_size['small'] != 0 && !isset( $node->settings->btn_line_height_unit_responsive ) ) {
+					if( is_numeric( $node->settings->btn_line_height['small']) && is_numeric( $node->settings->btn_font_size['small']) )
+                    $node->settings->btn_line_height_unit_responsive = round( $node->settings->btn_line_height['small'] / $node->settings->btn_font_size['small'], 2 );
+				}
+				if( isset( $node->settings->btn_line_height['medium']) && isset( $node->settings->btn_font_size['medium'] ) && $node->settings->btn_font_size['medium'] != 0 && !isset( $node->settings->btn_line_height_unit_medium ) ) {
+					if( is_numeric( $node->settings->btn_line_height['medium']) && is_numeric( $node->settings->btn_font_size['medium']) )
+                    $node->settings->btn_line_height_unit_medium = round( $node->settings->btn_line_height['medium'] / $node->settings->btn_font_size['medium'], 2 );
+				}
+				if( isset( $node->settings->btn_line_height['desktop']) && isset( $node->settings->btn_font_size['desktop'] ) && $node->settings->btn_font_size['desktop'] != 0 && !isset( $node->settings->btn_line_height_unit ) ) {
+					if( is_numeric( $node->settings->btn_line_height['desktop']) && is_numeric( $node->settings->btn_font_size['desktop']) )
+                    $node->settings->btn_line_height_unit = round( $node->settings->btn_line_height['desktop'] / $node->settings->btn_font_size['desktop'], 2 );
+				}
+
+				if ( isset( $node->settings->form_title_font_size['small']) && !isset( $node->settings->form_title_font_size_unit_responsive ) ) {
+					$node->settings->form_title_font_size_unit_responsive = $node->settings->form_title_font_size['small'];
+				}
+				if( isset( $node->settings->form_title_font_size['medium']) && !isset( $node->settings->form_title_font_size_unit_medium ) ) {
+					$node->settings->form_title_font_size_unit_medium = $node->settings->form_title_font_size['medium'];
+				}
+				if( isset( $node->settings->form_title_font_size['desktop']) && !isset( $node->settings->form_title_font_size_unit ) ) {
+					$node->settings->form_title_font_size_unit = $node->settings->form_title_font_size['desktop'];
+				}
+                
+                if( isset( $node->settings->form_title_line_height['small']) && isset( $node->settings->form_title_font_size['small'] ) && $node->settings->form_title_font_size['small'] != 0 && !isset( $node->settings->form_title_line_height_unit_responsive ) ) {
+					if( is_numeric( $node->settings->form_title_line_height['small']) && is_numeric( $node->settings->form_title_font_size['small']) )
+                    $node->settings->form_title_line_height_unit_responsive = round( $node->settings->form_title_line_height['small'] / $node->settings->form_title_font_size['small'], 2 );
+				}
+				if( isset( $node->settings->form_title_line_height['medium']) && isset( $node->settings->form_title_font_size['medium'] ) && $node->settings->form_title_font_size['medium'] != 0 && !isset( $node->settings->form_title_line_height_unit_medium ) ) {
+					if( is_numeric( $node->settings->form_title_line_height['medium']) && is_numeric( $node->settings->form_title_font_size['medium']) )
+                    $node->settings->form_title_line_height_unit_medium = round( $node->settings->form_title_line_height['medium'] / $node->settings->form_title_font_size['medium'], 2 );
+				}
+				if( isset( $node->settings->form_title_line_height['desktop']) && isset( $node->settings->form_title_font_size['desktop'] ) && $node->settings->form_title_font_size['desktop'] != 0 && !isset( $node->settings->form_title_line_height_unit ) ) {
+					if( is_numeric( $node->settings->form_title_line_height['desktop']) && is_numeric( $node->settings->form_title_font_size['desktop']) )
+                    $node->settings->form_title_line_height_unit = round( $node->settings->form_title_line_height['desktop'] / $node->settings->form_title_font_size['desktop'], 2 );
+				}
+			
+				if ( isset( $node->settings->form_desc_font_size['small']) && !isset( $node->settings->form_desc_font_size_unit_responsive ) ) {
+					$node->settings->form_desc_font_size_unit_responsive = $node->settings->form_desc_font_size['small'];
+				}
+				if( isset( $node->settings->form_desc_font_size['medium']) && !isset( $node->settings->form_desc_font_size_unit_medium ) ) {
+					$node->settings->form_desc_font_size_unit_medium = $node->settings->form_desc_font_size['medium'];
+				}
+				if( isset( $node->settings->form_desc_font_size['desktop']) && !isset( $node->settings->form_desc_font_size_unit ) ) {
+					$node->settings->form_desc_font_size_unit = $node->settings->form_desc_font_size['desktop'];
+				}
+                
+                if( isset( $node->settings->form_desc_line_height['small']) && isset( $node->settings->form_desc_font_size['small'] ) && $node->settings->form_desc_font_size['small'] != 0 && !isset( $node->settings->form_desc_line_height_unit_responsive ) ) {
+					if( is_numeric( $node->settings->form_desc_line_height['small']) && is_numeric( $node->settings->form_desc_font_size['small']) )
+                    $node->settings->form_desc_line_height_unit_responsive = round( $node->settings->form_desc_line_height['small'] / $node->settings->form_desc_font_size['small'], 2 );
+				}
+				if( isset( $node->settings->form_desc_line_height['medium']) && isset( $node->settings->form_desc_font_size['medium'] ) && $node->settings->form_desc_font_size['medium'] != 0 && !isset( $node->settings->form_desc_line_height_unit_medium ) ) {
+					if( is_numeric( $node->settings->form_desc_line_height['medium']) && is_numeric( $node->settings->form_desc_font_size['medium']) )
+                    $node->settings->form_desc_line_height_unit_medium = round( $node->settings->form_desc_line_height['medium'] / $node->settings->form_desc_font_size['medium'], 2 );
+				}
+				if( isset( $node->settings->form_desc_line_height['desktop']) && isset( $node->settings->form_desc_font_size['desktop'] ) && $node->settings->form_desc_font_size['desktop'] != 0 && !isset( $node->settings->form_desc_line_height_unit ) ) {
+					if( is_numeric( $node->settings->form_desc_line_height['desktop']) && is_numeric( $node->settings->form_desc_font_size['desktop']) )
+                    $node->settings->form_desc_line_height_unit = round( $node->settings->form_desc_line_height['desktop'] / $node->settings->form_desc_font_size['desktop'], 2 );
+				}
+
+				if ( isset( $node->settings->label_font_size['small']) && !isset( $node->settings->label_font_size_unit_responsive ) ) {
+					$node->settings->label_font_size_unit_responsive = $node->settings->label_font_size['small'];
+				}
+				if( isset( $node->settings->label_font_size['medium']) && !isset( $node->settings->label_font_size_unit_medium ) ) {
+					$node->settings->label_font_size_unit_medium = $node->settings->label_font_size['medium'];
+				}
+				if( isset( $node->settings->label_font_size['desktop']) && !isset( $node->settings->label_font_size_unit ) ) {
+					$node->settings->label_font_size_unit = $node->settings->label_font_size['desktop'];
+				}
+
+                if( isset( $node->settings->label_line_height['small']) && isset( $node->settings->label_font_size['small'] ) && $node->settings->label_font_size['small'] != 0 && !isset( $node->settings->label_line_height_unit_responsive ) ) {
+					if( is_numeric( $node->settings->label_line_height['small']) && is_numeric( $node->settings->label_font_size['small']) )
+                    $node->settings->label_line_height_unit_responsive = round( $node->settings->label_line_height['small'] / $node->settings->label_font_size['small'], 2 );
+				}
+				if( isset( $node->settings->label_line_height['medium']) && isset( $node->settings->label_font_size['medium'] ) && $node->settings->label_font_size['medium'] != 0 && !isset( $node->settings->label_line_height_unit_medium ) ) {
+					if( is_numeric( $node->settings->label_line_height['medium']) && is_numeric( $node->settings->label_font_size['medium']) )
+                    $node->settings->label_line_height_unit_medium = round( $node->settings->label_line_height['medium'] / $node->settings->label_font_size['medium'], 2 );
+				}
+				if( isset( $node->settings->label_line_height['desktop']) && isset( $node->settings->label_font_size['desktop'] ) && $node->settings->label_font_size['desktop'] != 0 && !isset( $node->settings->label_line_height_unit ) ) {
+					if( is_numeric( $node->settings->label_line_height['desktop']) && is_numeric( $node->settings->label_font_size['desktop']) )
+                    $node->settings->label_line_height_unit = round( $node->settings->label_line_height['desktop'] / $node->settings->label_font_size['desktop'], 2 );
+				}
+
+				if ( isset( $node->settings->font_size['small']) && !isset( $node->settings->font_size_unit_responsive ) ) {
+					$node->settings->font_size_unit_responsive = $node->settings->font_size['small'];
+				}
+				if( isset( $node->settings->font_size['medium']) && !isset( $node->settings->font_size_unit_medium ) ) {
+					$node->settings->font_size_unit_medium = $node->settings->font_size['medium'];
+				}
+				if( isset( $node->settings->font_size['desktop']) && !isset( $node->settings->font_size_unit ) ) {
+					$node->settings->font_size_unit = $node->settings->font_size['desktop'];
+				}
+
+				if ( isset( $node->settings->radio_checkbox_font_size['small']) && !isset( $node->settings->radio_checkbox_font_size_unit_responsive ) ) {
+					$node->settings->radio_checkbox_font_size_unit_responsive = $node->settings->radio_checkbox_font_size['small'];
+				}
+				if( isset( $node->settings->radio_checkbox_font_size['medium']) && !isset( $node->settings->radio_checkbox_font_size_unit_medium ) ) {
+					$node->settings->radio_checkbox_font_size_unit_medium = $node->settings->radio_checkbox_font_size['medium'];
+				}
+				if( isset( $node->settings->radio_checkbox_font_size['desktop']) && !isset( $node->settings->radio_checkbox_font_size_unit ) ) {
+					$node->settings->radio_checkbox_font_size_unit = $node->settings->radio_checkbox_font_size['desktop'];
+				}
+
+				if( isset( $node->settings->form_spacing ) &&  !isset( $node->settings->form_spacing_dimension_top ) &&  !isset( $node->settings->form_spacing_dimension_bottom ) &&  !isset( $node->settings->form_spacing_dimension_left ) &&  !isset( $node->settings->form_spacing_dimension_right ) ) {
+				
+				    $value = "";
+				    $value = str_replace("px","", $node->settings->form_spacing );
+				    
+				    $output = array();
+				    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
+				    
+				    $node->settings->form_spacing_dimension_top    = '0';
+				    $node->settings->form_spacing_dimension_bottom = '0';
+				    $node->settings->form_spacing_dimension_left   = '0';
+				    $node->settings->form_spacing_dimension_right  = '0';
+				    
+				    foreach($uabb_default as $val) {
+				        $new = explode(':',$val);
+				         $output[] = $new;
+				    }
+				    for ($i=0; $i < count( $output ); $i++) { 
+				        switch ( $output[$i][0] ) {
+				            case 'padding-top':
+				               $node->settings->form_spacing_dimension_top    = (int)$output[$i][1];
+				                break;
+				            case 'padding-bottom':
+				                $node->settings->form_spacing_dimension_bottom = (int)$output[$i][1];
+				                break;
+				            case 'padding-right':
+				                $node->settings->form_spacing_dimension_right  = (int)$output[$i][1];
+				                break;
+				            case 'padding-left':
+				                $node->settings->form_spacing_dimension_left   = (int)$output[$i][1];
+				                break;
+				            case 'padding':
+				                $node->settings->form_spacing_dimension_top    = (int)$output[$i][1];
+				                $node->settings->form_spacing_dimension_bottom = (int)$output[$i][1];
+				                $node->settings->form_spacing_dimension_left   = (int)$output[$i][1];
+				                $node->settings->form_spacing_dimension_right  = (int)$output[$i][1];
+				                break;
+				        }
+				    }
+				}
+
+				if( isset( $node->settings->input_padding ) &&  !isset( $node->settings->input_padding_dimension_top ) &&  !isset( $node->settings->input_padding_dimension_bottom ) &&  !isset( $node->settings->input_padding_dimension_left ) &&  !isset( $node->settings->input_padding_dimension_right ) ) {
+				
+				    $value = "";
+				    $value = str_replace("px","", $node->settings->input_padding );
+				    
+				    $output = array();
+				    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
+				    
+				    $node->settings->input_padding_dimension_top    = '0';
+				    $node->settings->input_padding_dimension_bottom = '0';
+				    $node->settings->input_padding_dimension_left   = '0';
+				    $node->settings->input_padding_dimension_right  = '0';
+				    
+				    foreach($uabb_default as $val) {
+				        $new = explode(':',$val);
+				         $output[] = $new;
+				    }
+				    for ($i=0; $i < count( $output ); $i++) { 
+				        switch ( $output[$i][0] ) {
+				            case 'padding-top':
+				               $node->settings->input_padding_dimension_top    = (int)$output[$i][1];
+				                break;
+				            case 'padding-bottom':
+				                $node->settings->input_padding_dimension_bottom = (int)$output[$i][1];
+				                break;
+				            case 'padding-right':
+				                $node->settings->input_padding_dimension_right  = (int)$output[$i][1];
+				                break;
+				            case 'padding-left':
+				                $node->settings->input_padding_dimension_left   = (int)$output[$i][1];
+				                break;
+				            case 'padding':
+				                $node->settings->input_padding_dimension_top    = (int)$output[$i][1];
+				                $node->settings->input_padding_dimension_bottom = (int)$output[$i][1];
+				                $node->settings->input_padding_dimension_left   = (int)$output[$i][1];
+				                $node->settings->input_padding_dimension_right  = (int)$output[$i][1];
+				                break;
+				        }
+				    }
+				}
+
+				if( isset( $node->settings->input_border_width ) &&  !isset( $node->settings->input_border_width_dimension_top ) &&  !isset( $node->settings->input_border_width_dimension_bottom ) &&  !isset( $node->settings->input_border_width_dimension_left ) &&  !isset( $node->settings->input_border_width_dimension_right ) ) {
+				
+				    $value = "";
+				    $value = str_replace("px","", $node->settings->input_border_width );
+				    
+				    $output = array();
+				    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
+				    
+				    $node->settings->input_border_width_dimension_top    = '0';
+				    $node->settings->input_border_width_dimension_bottom = '0';
+				    $node->settings->input_border_width_dimension_left   = '0';
+				    $node->settings->input_border_width_dimension_right  = '0';
+				    
+				    foreach($uabb_default as $val) {
+				        $new = explode(':',$val);
+				         $output[] = $new;
+				    }
+				    for ($i=0; $i < count( $output ); $i++) { 
+				        switch ( $output[$i][0] ) {
+				            case 'padding-top':
+				               $node->settings->input_border_width_dimension_top    = (int)$output[$i][1];
+				                break;
+				            case 'padding-bottom':
+				                $node->settings->input_border_width_dimension_bottom = (int)$output[$i][1];
+				                break;
+				            case 'padding-right':
+				                $node->settings->input_border_width_dimension_right  = (int)$output[$i][1];
+				                break;
+				            case 'padding-left':
+				                $node->settings->input_border_width_dimension_left   = (int)$output[$i][1];
+				                break;
+				            case 'padding':
+				                $node->settings->input_border_width_dimension_top    = (int)$output[$i][1];
+				                $node->settings->input_border_width_dimension_bottom = (int)$output[$i][1];
+				                $node->settings->input_border_width_dimension_left   = (int)$output[$i][1];
+				                $node->settings->input_border_width_dimension_right  = (int)$output[$i][1];
+				                break;
+				        }
+				    }
+				}
+
+				if( isset( $node->settings->validation_spacing ) &&  !isset( $node->settings->validation_spacing_dimension_top ) &&  !isset( $node->settings->validation_spacing_dimension_bottom ) &&  !isset( $node->settings->validation_spacing_dimension_left ) &&  !isset( $node->settings->validation_spacing_dimension_right ) ) {
+				
+				    $value = "";
+				    $value = str_replace("px","", $node->settings->validation_spacing );
+				    
+				    $output = array();
+				    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
+				    
+				    $node->settings->validation_spacing_dimension_top    = '0';
+				    $node->settings->validation_spacing_dimension_bottom = '0';
+				    $node->settings->validation_spacing_dimension_left   = '0';
+				    $node->settings->validation_spacing_dimension_right  = '0';
+				    
+				    foreach($uabb_default as $val) {
+				        $new = explode(':',$val);
+				         $output[] = $new;
+				    }
+				    for ($i=0; $i < count( $output ); $i++) { 
+				        switch ( $output[$i][0] ) {
+				            case 'padding-top':
+				               $node->settings->validation_spacing_dimension_top    = (int)$output[$i][1];
+				                break;
+				            case 'padding-bottom':
+				                $node->settings->validation_spacing_dimension_bottom = (int)$output[$i][1];
+				                break;
+				            case 'padding-right':
+				                $node->settings->validation_spacing_dimension_right  = (int)$output[$i][1];
+				                break;
+				            case 'padding-left':
+				                $node->settings->validation_spacing_dimension_left   = (int)$output[$i][1];
+				                break;
+				            case 'padding':
+				                $node->settings->validation_spacing_dimension_top    = (int)$output[$i][1];
+				                $node->settings->validation_spacing_dimension_bottom = (int)$output[$i][1];
+				                $node->settings->validation_spacing_dimension_left   = (int)$output[$i][1];
+				                $node->settings->validation_spacing_dimension_right  = (int)$output[$i][1];
+				                break;
+				        }
+				    }
+				}
+
+			}
+		}
+
+		return $data;
 	}
 	
 }
@@ -98,7 +387,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                         ),
 					),
 					'form_ajax_option'     => array(
-						'type'          => 'uabb-toggle-switch',
+						'type'          => 'select',
                         'label'         => __( 'Ajax Based Form Submission', 'uabb' ),
                         'default'       => 'true',
                         'options'       => array(
@@ -107,7 +396,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                         ),
 					),
 					'mul_form_option'     => array(
-						'type'          => 'uabb-toggle-switch',
+						'type'          => 'select',
                         'label'         => __( 'Using Multiple Gravity Form On This Page', 'uabb' ),
                         'default'       => 'false',
                         'options'       => array(
@@ -236,11 +525,17 @@ FLBuilder::register_module('UABBGravityFormModule', array(
 						'maxlength'   => '3',
 						'size'        => '5',
 					),
-					'form_spacing'		=> array(
-						'type'          => 'uabb-spacing',
+					'form_spacing_dimension'		=> array(
+						'type'          => 'dimension',
                         'label'         => __( 'Form Padding', 'uabb' ),
-                        'mode'			=> 'padding',
-                        'default'       => 'padding:20px;' // Optional
+                        'description' =>'px',
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '20',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ),
 					),
 					'form_radius'	=> array(
 						'type'          => 'text',
@@ -279,7 +574,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
 				'title'         => __('Input Style', 'uabb'),
 				'fields'        => array(
 					'input_background_type'    => array( 
-						'type'          => 'uabb-toggle-switch',
+						'type'          => 'select',
                         'label'         => __( 'Input Background Color', 'uabb' ),
                         'default'       => 'bg',
                         'options'       => array(
@@ -324,11 +619,17 @@ FLBuilder::register_module('UABBGravityFormModule', array(
 							'right'    => __('Right', 'uabb'),
 						)
 					),					
-					'input_padding'	=> array(
-						'type'          => 'uabb-spacing',
+					'input_padding_dimension'	=> array(
+						'type'          => 'dimension',
                         'label'         => __( 'Input Padding', 'uabb' ),
-                        'mode'			=> 'padding',
-                        'default'       => 'padding:15px;' // Optional
+                        'description' =>'px',
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '15',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ),
 					),
                     'input_field_height'    => array(
                         'type'          => 'text',
@@ -359,7 +660,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                         )
 					),
 					'input_placeholder_display' 	=> array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __('Show Placeholder', 'uabb'),
                         'default'       => 'block',
                         'options'		=> array(
@@ -388,13 +689,17 @@ FLBuilder::register_module('UABBGravityFormModule', array(
 			'input-border-style' => array(
 				'title' => __('Input Border Style', 'uabb'),
 				'fields' => array(
-					'input_border_width'    => array(
-		                'type'          => 'uabb-spacing',
+					'input_border_width_dimension'    => array(
+		                'type'          => 'dimension',
 		                'label'         => __('Border Width', 'uabb'),
-		                'placeholder'	=> '1',
-		                'maxlength'     => '2',
-		                'mode'			=> 'padding',
-		                'size'          => '6',
+                        'description' =>'px',
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '1',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ),
 		            ),
 				    'input_border_radius' => array(
 		                'type'          => 'text',
@@ -435,7 +740,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
 				'title' => __('Radio and Checkbox Style', 'uabb'),
 				'fields' => array(
 					'radio_check_custom_option' => array(
-                    	'type'          => 'uabb-toggle-switch',
+                    	'type'          => 'select',
                         'label'         => __( 'Use Custom Style', 'uabb' ),
                         'default'       => 'false',
                         'options'       => array(
@@ -651,7 +956,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                         )
 					),
 					'hover_attribute' => array(
-                    	'type'          => 'uabb-toggle-switch',
+                    	'type'          => 'select',
                         'label'         => __( 'Apply Hover Color To', 'uabb' ),
                         'default'       => 'bg',
                         'options'       => array(
@@ -784,14 +1089,17 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                             'selector'  => '.uabb-gf-style .gform_wrapper .gform_footer input[type=submit], .uabb-gf-style .gform_page .gform_page_footer input[type=button], .uabb-gf-style .gform_page .gform_page_footer input[type=submit]'
                         ),
                     ),
-                    'btn_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'btn_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'px',
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                         'preview'   => array(
                             'type'      => 'css',
                             'selector'  => '.uabb-gf-style .gform_wrapper .gform_footer input[type=submit], .uabb-gf-style .gform_page .gform_page_footer input[type=button], .uabb-gf-style .gform_page .gform_page_footer input[type=submit]',
@@ -799,19 +1107,22 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                             'unit'		=> 'px'
                         ),
                     ),
-                    'btn_line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                    'btn_line_height_unit'    => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'em',
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                     	'preview'   => array(
                             'type'      => 'css',
                             'selector'  => '.uabb-gf-style .gform_wrapper .gform_footer input[type=submit], .uabb-gf-style .gform_page .gform_page_footer input[type=button], .uabb-gf-style .gform_page .gform_page_footer input[type=submit]',
                             'property'	=> 'line-height',
-                            'unit'		=> 'px'
+                            'unit'		=> 'em'
                         ),
                     ),
                     'btn_text_transform' => array(
@@ -857,7 +1168,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
 						'placeholder'	=> '12',
 					),
 					'input_error_display' 	=> array(
-                        'type'          	=> 'uabb-toggle-switch',
+                        'type'          	=> 'select',
                         'label'        		=> __('Advance Settings', 'uabb'),
                         'default'       	=> 'no',
                         'options'			=> array(
@@ -918,11 +1229,17 @@ FLBuilder::register_module('UABBGravityFormModule', array(
 						'description'   => 'px',
 						'placeholder'	=> '15',
 					),
-					'validation_spacing'		=> array(
-						'type'          => 'uabb-spacing',
+					'validation_spacing_dimension'		=> array(
+						'type'          => 'dimension',
                         'label'         => __( 'Message Padding', 'uabb' ),
-                        'mode'			=> 'padding',
-                        'default'       => 'padding: 10px;' // Optional
+                        'description' =>'px',
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '10',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ),
 					),
 					'validation_bg_color' => array( 
 						'type'       => 'color',
@@ -1023,7 +1340,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                 'title' => __('Form Title', 'uabb' ),
                 'fields'    => array(
                 	'typo_show_title' 	=> array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __('Show Title', 'uabb'),
                         'default'       => 'block',
                         'options'		=> array(
@@ -1064,14 +1381,17 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                             'selector'  => '.uabb-gf-form-title'
                         ),
                     ),
-                    'form_title_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'form_title_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'px',
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                         'preview'   => array(
                             'type'      => 'css',
                             'selector'  => '.uabb-gf-form-title',
@@ -1079,19 +1399,22 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                             'unit'		=> 'px'
                         ),
                     ),
-                    'form_title_line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                    'form_title_line_height_unit'    => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'em',
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                         'preview'   => array(
                             'type'      => 'css',
                             'selector'  => '.uabb-gf-form-title',
                             'property'	=> 'line-height',
-                            'unit'		=> 'px'
+                            'unit'		=> 'em'
                         ),
                     ),
                     'form_title_color'        => array( 
@@ -1126,7 +1449,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                 'title' => __('Form Description', 'uabb' ),
                 'fields'    => array(
                 	'typo_show_desc' 	=> array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __('Show Description', 'uabb'),
                         'default'       => 'block',
                         'options'		=> array(
@@ -1151,14 +1474,17 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                             'selector'  => '.uabb-gf-form-desc'
                         ),
                     ),
-                    'form_desc_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'form_desc_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'px',
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                         'preview'   => array(
                             'type'      => 'css',
                             'selector'  => '.uabb-gf-form-desc',
@@ -1166,19 +1492,22 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                             'unit'		=> 'px'
                         ),
                     ),
-                    'form_desc_line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                    'form_desc_line_height_unit'    => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'em',
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                         'preview'   => array(
                             'type'      => 'css',
                             'selector'  => '.uabb-gf-form-desc',
                             'property'	=> 'line-height',
-                            'unit'		=> 'px'
+                            'unit'		=> 'em'
                         ),
                     ),
                     'form_desc_color'        => array( 
@@ -1213,7 +1542,7 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                 'title' => __('Form Label', 'uabb' ),
                 'fields'    => array(
                 	'typo_show_label' 	=> array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __('Show Label', 'uabb'),
                         'default'       => 'block',
                         'options'		=> array(
@@ -1238,14 +1567,17 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                             'selector'  => '.gform_wrapper .gfield .gfield_label, .gform_wrapper .gfield .gfield_description, .gform_wrapper .gfield .ginput_container span label',
                         ),
                     ),
-                    'label_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'label_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'px',
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                         'show_reset'    => true,
                         'preview'       => array(
                             'type'      => 'css',
@@ -1254,20 +1586,23 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                             'unit'      => 'px'
                         )
                     ),
-                    'label_line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                    'label_line_height_unit'    => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'em',
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                         'show_reset'    => true,
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.uabb-gf-style form .gform_body .gfield_label',
                             'property'  => 'line-height',
-                            'unit'      => 'px'
+                            'unit'      => 'em'
                         )
                     ),
                     'label_color'        => array( 
@@ -1298,14 +1633,17 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                             'selector'  => '.gform_wrapper .gfield input, .gform_wrapper .gfield input::placeholder, .gform_wrapper .gfield select, .gform_wrapper .gfield textarea',
                         ),	
                     ),
-                    'font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'px',
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.gform_wrapper .gfield input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .gform_wrapper .gfield select, .gform_wrapper .gfield textarea',
@@ -1397,14 +1735,16 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                             'selector'  => '.gform_wrapper .gfield .gfield_radio li label, .gform_wrapper .gfield .gfield_checkbox li label',
                         ),
                     ),
-                    'radio_checkbox_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'radio_checkbox_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '15',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                         'preview'   => array(
                             'type'      => 'css',
                             'selector'  => '.gform_wrapper .gfield .gfield_radio li label, .gform_wrapper .gfield .gfield_checkbox li label',

@@ -125,23 +125,23 @@
 	?>
 	
 	new UABBCountdown({
-		id: '<?php echo $id; ?>',
-		fixed_timer_action: '<?php echo $settings->fixed_timer_action; ?>',
-		evergreen_timer_action: '<?php echo $settings->evergreen_timer_action; ?>',
-		timertype: '<?php echo $settings->timer_type; ?>',
+		id: "<?php echo $id; ?>",
+		fixed_timer_action: "<?php echo $settings->fixed_timer_action; ?>",
+		evergreen_timer_action: "<?php echo $settings->evergreen_timer_action; ?>",
+		timertype: "<?php echo $settings->timer_type; ?>",
 		timer_date: moduleDay,
-		timer_format: '<?php if( isset( $settings->year_string ) ){ echo $settings->year_string; }?><?php if( isset( $settings->month_string ) ){ echo $settings->month_string; }?><?php if( isset( $settings->day_string ) ){ echo $settings->day_string; }?><?php if( isset( $settings->hour_string ) ){ echo $settings->hour_string; }?><?php if( isset( $settings->minute_string ) ){ echo $settings->minute_string; }?><?php if( isset( $settings->second_string ) ){ echo $settings->second_string; }?>',
+		timer_format: "<?php if( isset( $settings->year_string ) ){ echo $settings->year_string; }?><?php if( isset( $settings->month_string ) ){ echo $settings->month_string; }?><?php if( isset( $settings->day_string ) ){ echo $settings->day_string; }?><?php if( isset( $settings->hour_string ) ){ echo $settings->hour_string; }?><?php if( isset( $settings->minute_string ) ){ echo $settings->minute_string; }?><?php if( isset( $settings->second_string ) ){ echo $settings->second_string; }?>",
 		timer_layout: default_layout,
-		redirect_link_target: '<?php echo ( $settings->redirect_link_target != '' ) ? $settings->redirect_link_target : ''; ?>',
-		redirect_link: '<?php echo ( $settings->redirect_link != '' ) ? $settings->redirect_link : ''; ?>',
-		expire_message: '<?php echo ( $settings->expire_message != '' ) ? preg_replace('/\s+/', ' ', $settings->expire_message) : ''; ?>',
-		timer_labels: '<?php echo $fixed_plural_year; ?>,<?php echo $fixed_plural_month; ?>,,<?php echo $fixed_plural_day; ?>,<?php echo $fixed_plural_hour; ?>,<?php echo $fixed_plural_minute; ?>,<?php echo $fixed_plural_second; ?>',
-		timer_labels_singular: 	'<?php echo $fixed_singular_year; ?>,<?php echo $fixed_singular_month; ?>,,<?php echo $fixed_singular_day; ?>,<?php echo $fixed_singular_hour; ?>,<?php echo $fixed_singular_minute; ?>,<?php echo $fixed_singular_second; ?>',
-		evergreen_date_days: '<?php echo isset( $settings->evergreen_date_days ) ? $settings->evergreen_date_days : ''; ?>',
-		evergreen_date_hour: '<?php echo isset( $settings->evergreen_date_hour ) ? $settings->evergreen_date_hour : ''; ?>',
-		evergreen_date_minutes: '<?php echo isset( $settings->evergreen_date_minutes ) ? $settings->evergreen_date_minutes : ''; ?>',
-		evergreen_date_seconds: '<?php echo isset( $settings->evergreen_date_seconds ) ? $settings->evergreen_date_seconds : ''; ?>',
-		time_zone: '<?php echo $module->get_gmt_difference( $settings ); ?>',
+		redirect_link_target: "<?php echo ( $settings->redirect_link_target != '' ) ? $settings->redirect_link_target : ''; ?>",
+		redirect_link: "<?php echo ( $settings->redirect_link != '' ) ? $settings->redirect_link : ''; ?>",
+		expire_message: "<?php echo ( $settings->expire_message != '' ) ? preg_replace('/\s+/', ' ', $settings->expire_message) : ''; ?>",
+		timer_labels: "<?php echo $fixed_plural_year; ?>,<?php echo $fixed_plural_month; ?>,,<?php echo $fixed_plural_day; ?>,<?php echo $fixed_plural_hour; ?>,<?php echo $fixed_plural_minute; ?>,<?php echo $fixed_plural_second; ?>",
+		timer_labels_singular: 	"<?php echo $fixed_singular_year; ?>,<?php echo $fixed_singular_month; ?>,,<?php echo $fixed_singular_day; ?>,<?php echo $fixed_singular_hour; ?>,<?php echo $fixed_singular_minute; ?>,<?php echo $fixed_singular_second; ?>",
+		evergreen_date_days: "<?php echo isset( $settings->evergreen_date_days ) ? $settings->evergreen_date_days : ''; ?>",
+		evergreen_date_hour: "<?php echo isset( $settings->evergreen_date_hour ) ? $settings->evergreen_date_hour : ''; ?>",
+		evergreen_date_minutes: "<?php echo isset( $settings->evergreen_date_minutes ) ? $settings->evergreen_date_minutes : ''; ?>",
+		evergreen_date_seconds: "<?php echo isset( $settings->evergreen_date_seconds ) ? $settings->evergreen_date_seconds : ''; ?>",
+		time_zone: "<?php echo $module->get_gmt_difference( $settings ); ?>",
 		<?php if( isset( $settings->fixed_timer_action ) && $settings->fixed_timer_action == "msg"){ ?>
 		timer_exp_text: '<div class="uabb-countdown-expire-message">'+ $.cookie( "countdown-<?php echo $id ;?>expiremsg" ) +'</div>'
 		<?php } ?>

@@ -26,7 +26,16 @@ if(!class_exists('UABB_Date_Field')) {
 		function __construct() {
                   add_action('fl_builder_control_uabb-normal-date', array( $this, 'uabb_normal_date' ), 1, 4);
                   add_action('fl_builder_control_uabb-evergreen-date', array( $this, 'uabb_evergreen_date' ), 1, 4);
+                  add_action( 'fl_builder_custom_fields', array( $this, 'ui_fields' ), 10, 1 );
 		}
+
+    function ui_fields( $fields ) {
+      $fields['uabb-normal-date'] = BB_ULTIMATE_ADDON_DIR . 'fields/uabb-date/ui-field-uabb-normal-date.php';
+
+      $fields['uabb-evergreen-date'] = BB_ULTIMATE_ADDON_DIR . 'fields/uabb-date/ui-field-uabb-evergreen-date.php';
+      
+      return $fields;
+    }
 
             function uabb_normal_date($name, $value, $field, $settings) {
 

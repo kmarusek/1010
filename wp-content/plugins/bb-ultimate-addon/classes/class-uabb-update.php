@@ -58,8 +58,19 @@ if ( ! class_exists( 'UABB_Plugin_Update' ) ) {
 				return;
 			}
 
-			do_action( 'uabb_update_version_before' );
+			$old_jrn_details = get_option( '_journey_details', '0' );
 			
+			if( $old_jrn_details == '0' ) {
+				$old_jrn_details = array();
+			}
+
+			$new_jrn_details = array( 'previous_version' => $saved_version, 'current_version' => BB_ULTIMATE_ADDON_VER );
+
+			array_push( $old_jrn_details, $new_jrn_details );
+
+			update_option( '_journey_details', $old_jrn_details );
+			
+			do_action( 'uabb_update_version_before' );
 			// Update saved version number.
 			update_option( '_uabb_saved_version', BB_ULTIMATE_ADDON_VER );
 

@@ -1,3 +1,22 @@
+= 1.5.0 = 
+* Fixed: Critical Update as having fixes that makes the plugin compatible with php > 7.2
+* Fixed: Issue in name field validation, forced required validation for the middle name field is getting applied.
+
+= 1.4.0 = 
+* Fixed: Critical Issue when User hits submit button more than once, form getting submitted multiple times. 
+* Fixed: Resolved conflict with Yoast SEO plugin and moved rendering for the script over wp_footer, to prevent form process over admin calls.
+
+= 1.3.0 = 
+
+* Fixed: Some functionality issues with the Save & Continue feature of gravity forms.
+* Fixed: Text-domain modified in last update, but not implemented, now fixed. 
+* Added: A callback function to modify the scroll offset of the field position, raised by a support ticket. 
+
+= 1.2.0 = 
+* Fixed: Fatal Error coming when partial entry saving AJAX gets fired.
+* Added: Compatibility with Gforms 2.2.5 & WordPress 4.9
+
+
 = 1.1.0 =
 -- Fixed: Checkbox conditional logic was not working when RTV is on on that input.
 -- Fixed: Critical bug: When inputs are getting disabled by our non visible fields logic, field values was not submitting after form submission. In multi step

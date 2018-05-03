@@ -25,7 +25,196 @@ class ModalPopupModule extends FLBuilderModule {
       	/*$this->add_js('uabbpopup-classie', $this->url . 'js/classie.js', array(), '', true);*/
 		$this->add_js('jquery-fitvids');
       	$this->add_js('uabbpopup-cookies', $this->url . 'js/js_cookie.js', array(), '', true);
-	}
+
+	    add_filter( 'fl_builder_layout_data', array( $this , 'render_new_data' ), 10, 3 );
+
+    }
+
+    function render_new_data( $data ) {
+
+        foreach ( $data as &$node ) {
+            
+            if ( isset( $node->settings->type ) && 'modal-popup' === $node->settings->type ) {
+
+                if( isset( $node->settings->title_spacing ) &&  !isset( $node->settings->title_spacing_dimension_top ) &&  !isset( $node->settings->title_spacing_dimension_bottom ) &&  !isset( $node->settings->title_spacing_dimension_left ) &&  !isset( $node->settings->title_spacing_dimension_right ) ) {
+                     
+                    $value = "";
+                    $value = str_replace("px","", $node->settings->title_spacing );
+                    
+                    $output = array();
+                    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
+                    
+                    $node->settings->title_spacing_dimension_top    = '0';
+                    $node->settings->title_spacing_dimension_bottom = '0';
+                    $node->settings->title_spacing_dimension_left   = '0';
+                    $node->settings->title_spacing_dimension_right  = '0';
+                    
+                    foreach($uabb_default as $val) {
+                        $new = explode(':',$val);
+                         $output[] = $new;
+                    }
+                    for ($i=0; $i < count( $output ); $i++) { 
+                        switch ( $output[$i][0] ) {
+                            case 'padding-top':
+                               $node->settings->title_spacing_dimension_top    = (int)$output[$i][1];
+                                break;
+                            case 'padding-bottom':
+                                $node->settings->title_spacing_dimension_bottom = (int)$output[$i][1];
+                                break;
+                            case 'padding-right':
+                                $node->settings->title_spacing_dimension_right  = (int)$output[$i][1];
+                                break;
+                            case 'padding-left':
+                                $node->settings->title_spacing_dimension_left   = (int)$output[$i][1];
+                                break;
+                            case 'padding':
+                                $node->settings->title_spacing_dimension_top    = (int)$output[$i][1];
+                                $node->settings->title_spacing_dimension_bottom = (int)$output[$i][1];
+                                $node->settings->title_spacing_dimension_left   = (int)$output[$i][1];
+                                $node->settings->title_spacing_dimension_right  = (int)$output[$i][1];
+                                break;
+                        }
+                    }
+                }   
+
+                if( isset( $node->settings->modal_spacing ) &&  !isset( $node->settings->modal_spacing_dimension_top ) &&  !isset( $node->settings->modal_spacing_dimension_bottom ) &&  !isset( $node->settings->modal_spacing_dimension_left ) &&  !isset( $node->settings->modal_spacing_dimension_right ) ) {
+             
+                    $value = "";
+                    $value = str_replace("px","", $node->settings->modal_spacing );
+                    
+                    $output = array();
+                    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
+                    
+                    $node->settings->modal_spacing_dimension_top    = '0';
+                    $node->settings->modal_spacing_dimension_bottom = '0';
+                    $node->settings->modal_spacing_dimension_left   = '0';
+                    $node->settings->modal_spacing_dimension_right  = '0';
+                    
+                    foreach($uabb_default as $val) {
+                        $new = explode(':',$val);
+                         $output[] = $new;
+                    }
+                    for ($i=0; $i < count( $output ); $i++) { 
+                        switch ( $output[$i][0] ) {
+                            case 'padding-top':
+                               $node->settings->modal_spacing_dimension_top    = (int)$output[$i][1];
+                                break;
+                            case 'padding-bottom':
+                                $node->settings->modal_spacing_dimension_bottom = (int)$output[$i][1];
+                                break;
+                            case 'padding-right':
+                                $node->settings->modal_spacing_dimension_right  = (int)$output[$i][1];
+                                break;
+                            case 'padding-left':
+                                $node->settings->modal_spacing_dimension_left   = (int)$output[$i][1];
+                                break;
+                            case 'padding':
+                                $node->settings->modal_spacing_dimension_top    = (int)$output[$i][1];
+                                $node->settings->modal_spacing_dimension_bottom = (int)$output[$i][1];
+                                $node->settings->modal_spacing_dimension_left   = (int)$output[$i][1];
+                                $node->settings->modal_spacing_dimension_right  = (int)$output[$i][1];
+                                break;
+                        }
+                    }
+                }   
+                
+                if ( isset( $node->settings->title_font_size['small']) && !isset( $node->settings->title_font_size_unit_responsive ) ) {
+                    $node->settings->title_font_size_unit_responsive = $node->settings->title_font_size['small'];
+                }
+                if( isset( $node->settings->title_font_size['medium']) && !isset( $node->settings->title_font_size_unit_medium ) ) {
+                    $node->settings->title_font_size_unit_medium = $node->settings->title_font_size['medium'];
+                }
+                if( isset( $node->settings->title_font_size['desktop']) && !isset( $node->settings->title_font_size_unit ) ) {
+                    $node->settings->title_font_size_unit = $node->settings->title_font_size['desktop'];
+                }
+                
+                if( isset( $node->settings->title_line_height['small']) && isset( $node->settings->title_font_size['small'] ) && $node->settings->title_font_size['small'] != 0 && !isset( $node->settings->title_line_height_unit_responsive ) ) {
+                    if( is_numeric( $node->settings->title_line_height['small']) && is_numeric( $node->settings->title_font_size['small']) )
+                    $node->settings->title_line_height_unit_responsive = round( $node->settings->title_line_height['small'] / $node->settings->title_font_size['small'], 2 );
+                }
+                if( isset( $node->settings->title_line_height['medium']) && isset( $node->settings->title_font_size['medium'] ) && $node->settings->title_font_size['medium'] != 0 && !isset( $node->settings->title_line_height_unit_medium ) ) {
+                    if( is_numeric( $node->settings->title_line_height['medium']) && is_numeric( $node->settings->title_font_size['medium']) )
+                    $node->settings->title_line_height_unit_medium = round( $node->settings->title_line_height['medium'] / $node->settings->title_font_size['medium'], 2 );
+                }
+                if( isset( $node->settings->title_line_height['desktop']) && isset( $node->settings->title_font_size['desktop'] ) && $node->settings->title_font_size['desktop'] != 0 && !isset( $node->settings->title_line_height_unit ) ) {
+                    if( is_numeric( $node->settings->title_line_height['desktop']) && is_numeric( $node->settings->title_font_size['desktop']) )
+                    $node->settings->title_line_height_unit = round( $node->settings->title_line_height['desktop'] / $node->settings->title_font_size['desktop'], 2 );
+                }
+
+                if ( isset( $node->settings->ct_content_font_size['small']) && !isset( $node->ct_content_font_size_unit_responsive ) ) {
+                    $node->settings->ct_content_font_size_unit_responsive = $node->settings->ct_content_font_size['small'];
+                }
+                if( isset( $node->settings->ct_content_font_size['medium']) && !isset( $node->settings->ct_content_font_size_unit_medium ) ) {
+                    $node->settings->ct_content_font_size_unit_medium = $node->settings->ct_content_font_size['medium'];
+                }
+                if( isset( $node->settings->ct_content_font_size['desktop']) && !isset( $node->settings->ct_content_font_size_unit ) ) {
+                    $node->settings->ct_content_font_size_unit = $node->settings->ct_content_font_size['desktop'];
+                }
+
+                if( isset( $node->settings->ct_content_line_height['small']) && isset( $node->settings->ct_content_font_size['small'] ) && $node->settings->ct_content_font_size['small'] != 0 && !isset( $node->settings->ct_content_line_height_unit_responsive ) ) {
+                    if( is_numeric( $node->settings->ct_content_line_height['small']) && is_numeric( $node->settings->ct_content_font_size['small']) )
+                    $node->settings->ct_content_line_height_unit_responsive = round( $node->settings->ct_content_line_height['small'] / $node->settings->ct_content_font_size['small'], 2 );
+                }
+                if( isset( $node->settings->ct_content_line_height['medium']) && isset( $node->settings->ct_content_font_size['medium'] ) && $node->settings->ct_content_font_size['medium'] != 0 && !isset( $node->settings->ct_content_line_height_unit_medium ) ) {
+                    if( is_numeric( $node->settings->ct_content_line_height['medium']) && is_numeric( $node->settings->ct_content_font_size['medium']) )
+                    $node->settings->ct_content_line_height_unit_medium = round( $node->settings->ct_content_line_height['medium'] / $node->settings->ct_content_font_size['medium'], 2 );
+                }
+                if( isset( $node->settings->ct_content_line_height['desktop']) && isset( $node->settings->ct_content_font_size['desktop'] ) && $node->settings->ct_content_font_size['desktop'] != 0 && !isset( $node->settings->ct_content_line_height_unit ) ) {
+                    if( is_numeric( $node->settings->ct_content_line_height['desktop']) && is_numeric( $node->settings->ct_content_font_size['desktop']) )
+                    $node->settings->ct_content_line_height_unit = round( $node->settings->ct_content_line_height['desktop'] / $node->settings->ct_content_font_size['desktop'], 2 );
+                }
+
+                if ( isset( $node->settings->font_size['small']) && !isset( $node->font_size_unit_responsive ) ) {
+                    $node->settings->font_size_unit_responsive = $node->settings->font_size['small'];
+                }
+                if( isset( $node->settings->font_size['medium']) && !isset( $node->settings->font_size_unit_medium ) ) {
+                    $node->settings->font_size_unit_medium = $node->settings->font_size['medium'];
+                }
+                if( isset( $node->settings->font_size['desktop']) && !isset( $node->settings->font_size_unit ) ) {
+                    $node->settings->font_size_unit = $node->settings->font_size['desktop'];
+                }
+
+                if( isset( $node->settings->line_height['small']) && isset( $node->settings->font_size['small'] ) && $node->settings->font_size['small'] != 0 && !isset( $node->settings->line_height_unit_responsive ) ) {
+                    if( is_numeric( $node->settings->line_height['small']) && is_numeric( $node->settings->font_size['small']) )
+                    $node->settings->line_height_unit_responsive = round( $node->settings->line_height['small'] / $node->settings->font_size['small'], 2 );
+                }
+                if( isset( $node->settings->line_height['medium']) && isset( $node->settings->font_size['medium'] ) && $node->settings->font_size['medium'] != 0 && !isset( $node->settings->line_height_unit_medium ) ) {
+                    if( is_numeric( $node->settings->line_height['medium']) && is_numeric( $node->settings->font_size['medium']) )
+                    $node->settings->line_height_unit_medium = round( $node->settings->line_height['medium'] / $node->settings->font_size['medium'], 2 );
+                }
+                if( isset( $node->settings->line_height['desktop']) && isset( $node->settings->font_size['desktop'] ) && $node->settings->font_size['desktop'] != 0 && !isset( $node->settings->line_height_unit ) ) {
+                    if( is_numeric( $node->settings->line_height['desktop']) && is_numeric( $node->settings->font_size['desktop']) )
+                    $node->settings->line_height_unit = round( $node->settings->line_height['desktop'] / $node->settings->font_size['desktop'], 2 );
+                }
+
+                if ( isset( $node->settings->btn_font_size['small']) && !isset( $node->btn_font_size_unit_responsive ) ) {
+                    $node->settings->btn_font_size_unit_responsive = $node->settings->btn_font_size['small'];
+                }
+                if( isset( $node->settings->btn_font_size['medium']) && !isset( $node->settings->btn_font_size_unit_medium ) ) {
+                    $node->settings->btn_font_size_unit_medium = $node->settings->btn_font_size['medium'];
+                }
+                if( isset( $node->settings->btn_font_size['desktop']) && !isset( $node->settings->btn_font_size_unit ) ) {
+                    $node->settings->btn_font_size_unit = $node->settings->btn_font_size['desktop'];
+                }
+                
+                if( isset( $node->settings->btn_line_height['small']) && isset( $node->settings->btn_font_size['small'] ) && $node->settings->btn_font_size['small'] != 0 && !isset( $node->settings->btn_line_height_unit_responsive ) ) {
+                    if( is_numeric( $node->settings->btn_line_height['small']) && is_numeric( $node->settings->btn_font_size['small']) )
+                    $node->settings->btn_line_height_unit_responsive = round( $node->settings->btn_line_height['small'] / $node->settings->btn_font_size['small'], 2 );
+                }
+                if( isset( $node->settings->btn_line_height['medium']) && isset( $node->settings->btn_font_size['medium'] ) && $node->settings->btn_font_size['medium'] != 0 && !isset( $node->settings->btn_line_height_unit_medium ) ) {
+                    if( is_numeric( $node->settings->btn_line_height['medium']) && is_numeric( $node->settings->btn_font_size['medium']) )
+                    $node->settings->btn_line_height_unit_medium = round( $node->settings->btn_line_height['medium'] / $node->settings->btn_font_size['medium'], 2 );
+                }
+                if( isset( $node->settings->btn_line_height['desktop']) && isset( $node->settings->btn_font_size['desktop'] ) && $node->settings->btn_font_size['desktop'] != 0 && !isset( $node->settings->btn_line_height_unit ) ) {
+                    if( is_numeric( $node->settings->btn_line_height['desktop']) && is_numeric( $node->settings->btn_font_size['desktop']) )
+                    $node->settings->btn_line_height_unit = round( $node->settings->btn_line_height['desktop'] / $node->settings->btn_font_size['desktop'], 2 );
+                }
+
+            }
+        }
+
+        return $data;
+    }
 
 	/*public function enqueue_scripts()
 	{
@@ -204,7 +393,7 @@ FLBuilder::register_module('ModalPopupModule', array(
 				'title'		 => '',
 				'fields'	 => array(
 					'preview_modal'     => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Preview Modal Popup', 'uabb' ),
                         'default'       => '1',
                         'options'       => array(
@@ -219,7 +408,7 @@ FLBuilder::register_module('ModalPopupModule', array(
 				'title'		 => __( 'Title', 'uabb' ),
 				'fields'	 => array(
 					'enable_title'     => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Enable Title', 'uabb' ),
                         'default'       => '0',
                         'options'       => array(
@@ -228,7 +417,7 @@ FLBuilder::register_module('ModalPopupModule', array(
                         ),
                         'toggle' 		=> array(
 							'1'	 => array(
-								'fields' 	=> array( 'title', 'title_spacing', 'title_alignment' ),
+								'fields' 	=> array( 'title', 'title_spacing_dimension', 'title_alignment' ),
 								'sections'	=> array( 'title_typo' )
 							),
 						)
@@ -258,17 +447,21 @@ FLBuilder::register_module('ModalPopupModule', array(
                             'property'      => 'text-align',
                         )
                     ),
-					'title_spacing'     => array(
-						'type'          => 'uabb-spacing',
+					'title_spacing_dimension'     => array(
+						'type'          => 'dimension',
 						'label'         => __('Title Padding', 'uabb'),
-                        'mode'			=> 'padding',
-                        'default'       => '',
-                        'placeholder'	=> array(
-                        	'top'		=> '5',
-                        	'right'		=> '25',
-                        	'bottom'	=> '5',
-                        	'left'		=> '25'
-                        )
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => array(
+                                    'top'       => '5',
+                                    'right'     => '25',
+                                    'bottom'    => '5',
+                                    'left'      => '25'
+                                ),
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ),
 					),
 				)
 			),
@@ -387,7 +580,7 @@ FLBuilder::register_module('ModalPopupModule', array(
 						),
 					),
                     'video_autoplay' => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Autoplay', 'uabb' ),
                         'default'       => 'no',
                         'options'       => array(
@@ -396,7 +589,7 @@ FLBuilder::register_module('ModalPopupModule', array(
                         ),
                     ),                    
                     'youtube_related_videos' => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Disable Related Videos', 'uabb' ),
                         'default'       => 'no',
                         'options'       => array(
@@ -405,7 +598,7 @@ FLBuilder::register_module('ModalPopupModule', array(
                         ),
                     ),                    
                     'youtube_title_controls' => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Disable Video Title', 'uabb' ),
                         'default'       => 'no',
                         'options'       => array(
@@ -414,7 +607,7 @@ FLBuilder::register_module('ModalPopupModule', array(
                         ),
                     ),                   
                     'youtube_player_controls' => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Disable Player Controls', 'uabb' ),
                         'default'       => 'no',
                         'options'       => array(
@@ -457,11 +650,17 @@ FLBuilder::register_module('ModalPopupModule', array(
 						'description'   => 'px',
 						'help'         => __('If you keep this empty title will not display', 'uabb'),
 					),
-					'modal_spacing'     => array(
-						'type'          => 'uabb-spacing',
+					'modal_spacing_dimension'     => array(
+						'type'          => 'dimension',
 						'label'         => __('Content Padding', 'uabb'),
-                        'mode'			=> 'padding',
-                        'default'       => 'padding: 25px;' // Optional
+                        'description'   => 'px',
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '25',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ),
 					),
 					'modal_effect'         => array(
                     	'type'          => 'select',
@@ -834,7 +1033,7 @@ FLBuilder::register_module('ModalPopupModule', array(
                         'size'        => '5',
                     ),
                     'hover_attribute' => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Apply Hover Color To', 'uabb' ),
                         'default'       => 'bg',
                         'options'       => array(
@@ -1003,7 +1202,7 @@ FLBuilder::register_module('ModalPopupModule', array(
 				'fields'        => array( // Section Fields
 					/* Style Options */
 					'exit_intent'     => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Before User Leaves / Exit Intent', 'uabb' ),
                         'default'       => '0',
                         'options'       => array(
@@ -1013,7 +1212,7 @@ FLBuilder::register_module('ModalPopupModule', array(
                         'help'			=> __('If enabled, modal popup will load right before user is about to leave your website.', 'uabb')
                     ),
                     'after_second'     => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'After Few Seconds', 'uabb' ),
                         'default'       => '0',
                         'options'       => array(
@@ -1042,7 +1241,7 @@ FLBuilder::register_module('ModalPopupModule', array(
 				'title'         => __('Repeat Control', 'uabb'), // Section Title
 				'fields'        => array( // Section Fields
 					'enable_cookies'     => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Enable Cookies', 'uabb' ),
                         'default'       => '0',
                         'options'       => array(
@@ -1144,7 +1343,7 @@ FLBuilder::register_module('ModalPopupModule', array(
 				'title'         => __( 'Close Modal On', 'uabb'), // Section Title
 				'fields'        => array( // Section Fields
 					'esc_keypress'     => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'ESC Keypress', 'uabb' ),
                         'default'       => '0',
                         'options'       => array(
@@ -1153,7 +1352,7 @@ FLBuilder::register_module('ModalPopupModule', array(
                         ),
                     ),
 					'overlay_click'     => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Overlay Click', 'uabb' ),
                         'default'       => '0',
                         'options'       => array(
@@ -1199,13 +1398,16 @@ FLBuilder::register_module('ModalPopupModule', array(
                             'selector'        => '.uabb-modal-title'
                         )
                     ),
-                    'title_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'title_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
+                        'description'   => 'px',
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
                         ),
                         'preview'         => array(
                             'type'            => 'css',
@@ -1214,19 +1416,22 @@ FLBuilder::register_module('ModalPopupModule', array(
                             'unit'              => 'px'
                         )
                     ),
-                    'title_line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                    'title_line_height_unit'    => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
+                        'description'   => 'em',
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
                         ),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-modal-title',
                             'property'        => 'line-height',
-                            'unit'              => 'px'
+                            'unit'              => 'em'
                         )
                     ),
                     'title_color'        => array( 
@@ -1276,13 +1481,16 @@ FLBuilder::register_module('ModalPopupModule', array(
                             'selector'        => '.uabb-modal-text'
                         )
                     ),
-                    'ct_content_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'ct_content_font_size_unit'     => array(
+                        'type'          => 'unit',
+                        'description'   => 'px',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
                         ),
                         'preview'         => array(
                             'type'            => 'css',
@@ -1291,19 +1499,22 @@ FLBuilder::register_module('ModalPopupModule', array(
                             'unit'              => 'px'
                         )
                     ),
-                    'ct_content_line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                    'ct_content_line_height_unit'    => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
+                        'description'   => 'em',
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
                         ),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-modal-text',
                             'property'        => 'line-height',
-                            'unit'              => 'px'
+                            'unit'              => 'em'
                         )
                     ),
                     'ct_content_color'        => array( 
@@ -1334,13 +1545,16 @@ FLBuilder::register_module('ModalPopupModule', array(
                             'selector'        => '.uabb-modal-action'
                         )
                     ),
-                    'font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
+                        'description'   => 'px',
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
                         ),
                         'preview'         => array(
                             'type'            => 'css',
@@ -1349,19 +1563,22 @@ FLBuilder::register_module('ModalPopupModule', array(
                             'unit'            => 'px'
                         )
                     ),
-                    'line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                    'line_height_unit'    => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
+                        'description'   => 'em',
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
                         ),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-modal-action',
                             'property'        => 'line-height',
-                            'unit'            => 'px'
+                            'unit'            => 'em'
                         )
                     ),
                 )
@@ -1381,13 +1598,16 @@ FLBuilder::register_module('ModalPopupModule', array(
                             'selector'        => '.uabb-creative-button'
                         )
                     ),
-                    'btn_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'btn_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
+                        'description'   => 'px',
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
                         ),
                         'preview'         => array(
                             'type'            => 'css',
@@ -1396,19 +1616,22 @@ FLBuilder::register_module('ModalPopupModule', array(
                             'unit'            => 'px'
                         )
                     ),
-                    'btn_line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                    'btn_line_height_unit'    => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
+                        'description'   => 'em',
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
                         ),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-creative-button',
                             'property'        => 'line-height',
-                            'unit'            => 'px'
+                            'unit'            => 'em'
                         )
                     ),
                 )

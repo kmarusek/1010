@@ -15,7 +15,7 @@ if (!class_exists('Gravity_Forms_Live_Validation')) {
          *
          * @var     string
          */
-        const VERSION = '1.4.0';
+        const VERSION = '1.5.0';
 
         /*
          * Plugin slug : used plugin wide
@@ -173,7 +173,8 @@ if (!class_exists('Gravity_Forms_Live_Validation')) {
             if (is_null($validation) || !$validation) {
                 return;
             }
-            if ($field['type'] == "email" && count($field['inputs']) > 1) {
+            $inputs = $field['inputs'];
+            if ($field['type'] == "email" && is_array($inputs) && count($inputs) > 1) {
                 echo ' hasSubFields.push("email"); ';
             }
 
@@ -276,8 +277,8 @@ if (!class_exists('Gravity_Forms_Live_Validation')) {
 
                                 case "radio":
 
-
-                                    for ($i = 0; $i <= (count($field['choices']) - 1); $i++) {
+                                        $choices = $field['choices'];
+                                    for ($i = 0; $i <= (count($choices) - 1); $i++) {
                                         echo ' var f' . $field['id'] . '_' . $i . ' = new LiveValidation("choice_' . $field['formId'] . '_' . $field['id'] . '_' . $i . '",jqr.extend({validMessage: " ", jqObj: jqr,fieldType:"' . $field['type'] . '" },additional_data )); ';
                                         echo "all_validations[". $field['formId']."][" . $field['id'] . "] = f" . $field['id'] . "_" . $i . ";";
                                         echo 'f' . $field['id'] . '_' . $i . '.add(Validate.AcceptanceRadio,{ failureMessage: "' . $get_default_error . '" ,validMessage: " " ,jqObj: jqr,name_field:"input_' . $field['id'] . '",form_id:"' . $field['formId'] . '" });';
@@ -302,13 +303,12 @@ if (!class_exists('Gravity_Forms_Live_Validation')) {
                                             echo 'f' . $field['id'] . '_' . $i . '.add(Validate.AcceptanceCheckbox,{ failureMessage: "' . $get_default_error . '" ,validMessage: " " ,jqObj: jqr,field_name:"input_' . $field['id'] . '",field_id:"' . $field['id'] . '",form_id:"' . $field['formId'] . '"});';
                                         }
                                     } else {
-                                        // for ($i = 1; $i <= (count($field['choices'])); $i++) {
-
+                                       
 
                                         echo ' var f' . $field['id'] . ' = new LiveValidation("input_' . $field['formId'] . '_' . $field['id'] . '",jqr.extend({validMessage: " ", jqObj: jqr ,fieldType:"' . $field['type'] . '"},additional_data ));';
                                         echo "all_validations[". $field['formId']." ][" . $field['id'] . "] = f" . $field['id'] . ";";
                                         echo 'f' . $field['id'] . '.add(Validate.GFCheckboxes,{ failureMessage: "' . $get_default_error . '" ,validMessage: " " ,jqObj: jqr,field_name:"input_' . $field['formId'] . '_' . $field['id'] . '",field_id:"' . $field['id'] . '"});';
-                                        // }
+                                    
                                     }
 
 
@@ -415,12 +415,12 @@ if (!class_exists('Gravity_Forms_Live_Validation')) {
 
                     foreach ($form['fields'] as $key => $value) {
 
-
-                        if (is_array($value['lv_validation']) && count($value['lv_validation']) > 0 && (($value->pageNumber == $i))) {
+                                $validation  = $value['lv_validation'];
+                        if (is_array($validation) && count($validation) > 0 && (($value->pageNumber == $i))) {
 
 
                             $validation = $this->sanitize_validations($value['lv_validation'], $default);
-
+                                           
 
                             $this->get_validation_string($validation, $value);
                         }
@@ -448,8 +448,8 @@ if (!class_exists('Gravity_Forms_Live_Validation')) {
 
                 foreach ($form['fields'] as $key => $value) {
 
-
-                    if (is_array($value['lv_validation']) && count($value['lv_validation']) > 0 && (($value->pageNumber == $current_page))) {
+                        $validation = $value['lv_validation'];
+                    if (is_array($validation) && count($validation) > 0 && (($value->pageNumber == $current_page))) {
 
 
                         $validation = $this->sanitize_validations($value['lv_validation'], $default);
@@ -639,15 +639,32 @@ if (!class_exists('Gravity_Forms_Live_Validation')) {
             switch (rgar($field, 'type')):
 
                 case "name":
-
+                             
                     foreach (rgar($field, 'inputs') as $k => $subfield) {
-
+                     
                         if (isset($subfield['isHidden']) && $subfield['isHidden'] == true) {
                             continue;
                         }
+                        
                         if (!isset($validations[$k])) {
                             continue;
                         }
+                        
+                        
+                        /**
+                         * Handling for the optional middle name field in the name field,
+                         * removing presense validation from the validations.```
+                         */
+                        if(2 === $k) {
+                              $getallvalidations = wp_list_pluck($validations[$k],'type' );
+                              $get_prresense_validation = array_search('presence',$getallvalidations);
+                              
+                              if(false !== $get_prresense_validation) {
+                                  unset($validations[$k][$get_prresense_validation]);
+                              }
+                              $validations[$k] = array_values($validations[$k]);
+                        }
+                        
                         $apply_validation[$k] = $validations[$k];
 
 

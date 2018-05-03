@@ -311,17 +311,6 @@ function fl_ee_suppress_notices() {
 add_action( 'wp', 'fl_ee_suppress_notices' );
 
 /**
- * Dont load ee core, fixes the text editor tabs missing issue.
- * @since 2.1
- */
-function fl_ee_no_load_builder_active() {
-	if ( isset( $_GET['fl_builder'] ) && class_exists( 'EE_System' ) ) {
-		remove_action( 'init', array( EE_System::instance(), 'core_loaded_and_ready' ), 9 );
-	}
-}
-add_action( 'after_setup_theme', 'fl_ee_no_load_builder_active' );
-
-/**
  * Stops ee from outputting HTML into our ajax responses.
  * @since 2.1
  */
@@ -420,3 +409,26 @@ function fl_render_ninja_forms_js( $response ) {
 	}
 	return $response;
 }
+
+/**
+ * Reorder font awesome css.
+ * If font-awesome-4 and font-awesome-5 are both in the styles queue font-awesome-5
+ * must load first.
+ */
+function fl_builder_fa_fix() {
+
+	global $wp_styles;
+
+	$queue = $wp_styles->queue;
+
+	$fa4 = array_search( 'font-awesome',   $queue );
+	$fa5 = array_search( 'font-awesome-5', $queue );
+
+	if ( $fa4 && $fa5 && $fa4 < $fa5 ) {
+		wp_dequeue_style( 'font-awesome' );
+		wp_dequeue_style( 'font-awesome-5' );
+		wp_deregister_style( 'font-awesome' );
+		wp_enqueue_style( 'font-awesome', FLBuilder::$fa4_url, array( 'font-awesome-5' ) );
+	}
+}
+add_action( 'wp_enqueue_scripts', 'fl_builder_fa_fix', 11 );

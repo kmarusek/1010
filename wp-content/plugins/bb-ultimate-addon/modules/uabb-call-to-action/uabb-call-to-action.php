@@ -22,7 +22,89 @@ class UABBCtaModule extends FLBuilderModule {
             'partial_refresh'  => true,
             'icon'             => 'megaphone.svg',
 		));
-	}
+
+	   add_filter( 'fl_builder_layout_data', array( $this , 'render_new_data' ), 10, 3 );
+    }
+
+    function render_new_data( $data ) {
+
+        foreach ( $data as &$node ) {
+            
+            if ( isset( $node->settings->type ) && 'uabb-call-to-action' === $node->settings->type ) {
+                
+                if ( isset( $node->settings->title_font_size['small']) && !isset( $node->settings->title_font_size_unit_responsive ) ) {
+                    $node->settings->title_font_size_unit_responsive = $node->settings->title_font_size['small'];
+                }
+                if( isset( $node->settings->title_font_size['medium']) && !isset( $node->settings->title_font_size_unit_medium ) ) {
+                    $node->settings->title_font_size_unit_medium = $node->settings->title_font_size['medium'];
+                }
+                if( isset( $node->settings->title_font_size['desktop']) && !isset( $node->settings->title_font_size_unit ) ) {
+                    $node->settings->title_font_size_unit = $node->settings->title_font_size['desktop'];
+                }
+                
+                if( isset( $node->settings->title_line_height['small']) && isset( $node->settings->title_font_size['small'] ) && $node->settings->title_font_size['small'] != 0 && !isset( $node->settings->title_line_height_unit_responsive ) ) {
+					if( is_numeric( $node->settings->title_line_height['small']) && is_numeric( $node->settings->title_font_size['small']) )
+                    $node->settings->title_line_height_unit_responsive = round( $node->settings->title_line_height['small'] / $node->settings->title_font_size['small'], 2 );
+				}
+				if( isset( $node->settings->title_line_height['medium']) && isset( $node->settings->title_font_size['medium'] ) && $node->settings->title_font_size['medium'] != 0 && !isset( $node->settings->title_line_height_unit_medium ) ) {
+					if( is_numeric( $node->settings->title_line_height['medium']) && is_numeric( $node->settings->title_font_size['medium']) )
+                    $node->settings->title_line_height_unit_medium = round( $node->settings->title_line_height['medium'] / $node->settings->title_font_size['medium'], 2 );
+				}
+				if( isset( $node->settings->title_line_height['desktop']) && isset( $node->settings->title_font_size['desktop'] ) && $node->settings->title_font_size['desktop'] != 0 && !isset( $node->settings->title_line_height_unit ) ) {
+					if( is_numeric( $node->settings->title_line_height['desktop']) && is_numeric( $node->settings->title_font_size['desktop']) )
+                    $node->settings->title_line_height_unit = round( $node->settings->title_line_height['desktop'] / $node->settings->title_font_size['desktop'], 2 );
+				}
+
+                if ( isset( $node->settings->subhead_font_size['small']) && !isset( $node->settings->subhead_font_size_unit_responsive ) ) {
+                    $node->settings->subhead_font_size_unit_responsive = $node->settings->subhead_font_size['small'];
+                }
+                if( isset( $node->settings->subhead_font_size['medium']) && !isset( $node->settings->subhead_font_size_unit_medium ) ) {
+                    $node->settings->subhead_font_size_unit_medium = $node->settings->subhead_font_size['medium'];
+                }
+                if( isset( $node->settings->subhead_font_size['desktop']) && !isset( $node->settings->subhead_font_size_unit ) ) {
+                    $node->settings->subhead_font_size_unit = $node->settings->subhead_font_size['desktop'];
+                }
+
+                if( isset( $node->settings->subhead_line_height['small']) && isset( $node->settings->subhead_font_size['small'] ) && $node->settings->subhead_font_size['small'] != 0 && !isset( $node->settings->subhead_line_height_unit_responsive ) ) {
+					if( is_numeric( $node->settings->subhead_line_height['small']) && is_numeric( $node->settings->subhead_font_size['small']) )
+                    $node->settings->subhead_line_height_unit_responsive = round( $node->settings->subhead_line_height['small'] / $node->settings->subhead_font_size['small'], 2 );
+				}
+				if( isset( $node->settings->subhead_line_height['medium']) && isset( $node->settings->subhead_font_size['medium'] ) && $node->settings->subhead_font_size['medium'] != 0 && !isset( $node->settings->subhead_line_height_unit_medium ) ) {
+					if( is_numeric( $node->settings->subhead_line_height['medium']) && is_numeric( $node->settings->subhead_font_size['medium']) )
+                    $node->settings->subhead_line_height_unit_medium = round( $node->settings->subhead_line_height['medium'] / $node->settings->subhead_font_size['medium'], 2 );
+				}
+				if( isset( $node->settings->subhead_line_height['desktop']) && isset( $node->settings->subhead_font_size['desktop'] ) && $node->settings->subhead_font_size['desktop'] != 0 && !isset( $node->settings->subhead_line_height_unit ) ) {
+					if( is_numeric( $node->settings->subhead_line_height['desktop']) && is_numeric( $node->settings->subhead_font_size['desktop']) )
+                    $node->settings->subhead_line_height_unit = round( $node->settings->subhead_line_height['desktop'] / $node->settings->subhead_font_size['desktop'], 2 );
+				}
+
+                if ( isset( $node->settings->btn_font_size['small']) && !isset( $node->settings->btn_font_size_unit_responsive ) ) {
+                    $node->settings->btn_font_size_unit_responsive = $node->settings->btn_font_size['small'];
+                }
+                if( isset( $node->settings->btn_font_size['medium']) && !isset( $node->settings->btn_font_size_unit_medium ) ) {
+                    $node->settings->btn_font_size_unit_medium = $node->settings->btn_font_size['medium'];
+                }
+                if( isset( $node->settings->btn_font_size['desktop']) && !isset( $node->settings->btn_font_size_unit ) ) {
+                    $node->settings->btn_font_size_unit = $node->settings->btn_font_size['desktop'];
+                }
+
+                if( isset( $node->settings->btn_line_height['small']) && isset( $node->settings->btn_font_size['small'] ) && $node->settings->btn_font_size['small'] != 0 && !isset( $node->settings->btn_line_height_unit_responsive ) ) {
+					if( is_numeric( $node->settings->btn_line_height['small']) && is_numeric( $node->settings->btn_font_size['small']) )
+                    $node->settings->btn_line_height_unit_responsive = round( $node->settings->btn_line_height['small'] / $node->settings->btn_font_size['small'], 2 );
+				}
+				if( isset( $node->settings->btn_line_height['medium']) && isset( $node->settings->btn_font_size['medium'] ) && $node->settings->btn_font_size['medium'] != 0 && !isset( $node->settings->btn_line_height_unit_medium ) ) {
+					if( is_numeric( $node->settings->btn_line_height['medium']) && is_numeric( $node->settings->btn_font_size['medium']) )
+                    $node->settings->btn_line_height_unit_medium = round( $node->settings->btn_line_height['medium'] / $node->settings->btn_font_size['medium'], 2 );
+				}
+				if( isset( $node->settings->btn_line_height['desktop']) && isset( $node->settings->btn_font_size['desktop'] ) && $node->settings->btn_font_size['desktop'] != 0 && !isset( $node->settings->btn_line_height_unit ) ) {
+					if( is_numeric( $node->settings->btn_line_height['desktop']) && is_numeric( $node->settings->btn_font_size['desktop']) )
+                    $node->settings->btn_line_height_unit = round( $node->settings->btn_line_height['desktop'] / $node->settings->btn_font_size['desktop'], 2 );
+				}
+            }
+        }
+
+        return $data;
+    }
 
 	/**
 	 * @method get_classname
@@ -81,9 +163,15 @@ class UABBCtaModule extends FLBuilderModule {
             'mob_align'          => '',
 
             /* Typography */
-            'font_size'         => $this->settings->btn_font_size,
-            'line_height'       => $this->settings->btn_line_height,
-            'font_family'       => $this->settings->btn_font_family,
+            'font_size'         				=> ( isset( $this->settings->btn_font_size ) ) ? $this->settings->btn_font_size : '',
+            'line_height'       				=> ( isset( $this->settings->btn_line_height ) ) ? $this->settings->btn_line_height : '',
+            'font_size_unit'                    => $this->settings->btn_font_size_unit,
+            'line_height_unit'                  => $this->settings->btn_line_height_unit,
+            'font_size_unit_medium'             => $this->settings->btn_font_size_unit_medium,
+            'line_height_unit_medium'           => $this->settings->btn_line_height_unit_medium,
+            'font_size_unit_responsive'         => $this->settings->btn_font_size_unit_responsive,
+            'line_height_unit_responsive'       => $this->settings->btn_line_height_unit_responsive,
+            'font_family'                       => $this->settings->btn_font_family,
 		);
 
 		FLBuilder::render_module_html('uabb-button', $btn_settings);
@@ -253,7 +341,7 @@ FLBuilder::register_module('UABBCtaModule', array(
 		                )
 		            ),
                     'btn_link_nofollow'   => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __('Link nofollow', 'uabb'),
                         'description'   => '',
                         'default'       => '0',
@@ -412,7 +500,7 @@ FLBuilder::register_module('UABBCtaModule', array(
                         'size'        => '5',
                     ),
                     'hover_attribute' => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Apply Hover Color To', 'uabb' ),
                         'default'       => 'bg',
                         'options'       => array(
@@ -557,13 +645,16 @@ FLBuilder::register_module('UABBCtaModule', array(
                             'selector'        => '.uabb-cta-title'
                         )
                     ),
-                    'title_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'title_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
+                        'description'	=> 'px',
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
                         ),
                         'preview'         => array(
                             'type'            => 'css',
@@ -572,19 +663,22 @@ FLBuilder::register_module('UABBCtaModule', array(
                             'unit'            => 'px'
                         )
                     ),
-                    'title_line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                    'title_line_height_unit'    => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
+                        'description'	=> 'em',
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
                         ),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-cta-title',
                             'property'        => 'line-height',
-                            'unit'            => 'px'
+                            'unit'            => 'em'
                         )
                     ),
                     'title_color'        => array( 
@@ -615,13 +709,16 @@ FLBuilder::register_module('UABBCtaModule', array(
                             'selector'        => '.uabb-cta-text-content p'
                         )
                     ),
-                    'subhead_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'subhead_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
+                        'description'	=> 'px',
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
                         ),
                         'preview'         => array(
                             'type'        => 'css',
@@ -630,19 +727,22 @@ FLBuilder::register_module('UABBCtaModule', array(
                             'unit'        =>  'px'
                         )
                     ),
-                    'subhead_line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                    'subhead_line_height_unit'    => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
+                        'description'	=> 'em',
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
                         ),
                         'preview'         => array(
                             'type'        => 'css',
                             'selector'    => '.uabb-cta-text-content p',
                             'property'    => 'line-height',
-                            'unit'        => 'px'
+                            'unit'        => 'em'
                         )
                     ),
                     'subhead_color'        => array( 
@@ -673,13 +773,16 @@ FLBuilder::register_module('UABBCtaModule', array(
                             'selector'        => '.uabb-creative-button-wrap a, .uabb-creative-button-wrap a:visited'
                         )
                     ),
-                    'btn_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'btn_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
+                        'description'	=> 'px',
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
                         ),
                         'preview'         => array(
                             'type'          => 'css',
@@ -688,19 +791,22 @@ FLBuilder::register_module('UABBCtaModule', array(
                             'unit'          => 'px',
                         )
                     ),
-                    'btn_line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                    'btn_line_height_unit'    => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
+                        'description'	=> 'em',
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
                         ),
                         'preview'         => array(
                             'type'          => 'css',
                             'selector'      => '.uabb-creative-button-wrap a, .uabb-creative-button-wrap a:visited',
                             'property'      =>  'line-height',
-                            'unit'          => 'px',
+                            'unit'          => 'em',
                         )
                     ),
                 )

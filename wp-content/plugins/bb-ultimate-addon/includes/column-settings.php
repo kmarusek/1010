@@ -32,7 +32,7 @@ function uabb_column_gradient( $form, $id ) {
         'title'     => __('Gradient', 'uabb'),
         'fields'    => array(
             'uabb_col_gradient_type' => array(
-                'type'      => 'uabb-toggle-switch',
+                'type'      => 'select',
                 'label'     => __('Type', 'uabb'),
                 'default'   => 'linear',
                 'options'   => array(
@@ -107,7 +107,7 @@ function uabb_column_gradient( $form, $id ) {
                 'size'              => '3',
             ),
             'uabb_col_linear_advance_options'  => array(
-                'type'              => 'uabb-toggle-switch',
+                'type'              => 'select',
                 'label'             => __('Advanced Options', 'uabb'),
                 'default'           => 'no',
                 'options'           => array(
@@ -144,7 +144,7 @@ function uabb_column_gradient( $form, $id ) {
                 'size'              => '3',
             ),
             'uabb_col_radial_advance_options'  => array(
-                'type'              => 'uabb-toggle-switch',
+                'type'              => 'select',
                 'label'             => __('Advanced Options', 'uabb'),
                 'default'           => 'no',
                 'options'           => array(
@@ -205,7 +205,7 @@ function uabb_column_shadow( $form, $id ) {
                 'title'         => __('Box Shadow', 'uabb'),
                 'fields'        => array(
                     'col_drop_shadow'  => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Box Shadow', 'uabb' ),
                         'default'       => 'no',
                         'options'       => array(
@@ -260,7 +260,7 @@ function uabb_column_shadow( $form, $id ) {
                 'title'         => __('Hover Style', 'uabb'),
                 'fields'        => array(
                     'col_hover_shadow'  => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Change On Hover', 'uabb' ),
                         'default'       => 'no',
                         'options'       => array(
@@ -326,7 +326,7 @@ function uabb_column_shadow( $form, $id ) {
                 'title'         => __('Responsive', 'uabb'),
                 'fields'        => array(
                     'col_responsive_shadow'   => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __('Hide on Medium & Small Devices', 'uabb'),
                         'default'       => 'no',
                         'options'       => array(
@@ -340,7 +340,7 @@ function uabb_column_shadow( $form, $id ) {
                         )
                     ),
                     'col_small_shadow'   => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __('Hide on Small Devices', 'uabb'),
                         'default'       => 'no',
                         'options'       => array(

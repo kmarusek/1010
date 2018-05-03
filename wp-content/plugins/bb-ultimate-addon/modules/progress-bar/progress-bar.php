@@ -21,9 +21,111 @@ class ProgressBarModule extends FLBuilderModule {
             'url'           => BB_ULTIMATE_ADDON_URL . 'modules/progress-bar/',
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
-            'partial_refresh'  => true
+            'partial_refresh'  => true,
+            'icon'             => 'progress-bar.svg'
         ));
+
+        add_filter( 'fl_builder_layout_data', array( $this , 'render_new_data' ), 10, 3 ); 
+
         $this->add_js('jquery-waypoints');
+    }
+    
+    /**
+     * @method get_icons
+     */
+    public function get_icon( $icon = '' ) {
+
+        // check if $icon is referencing an included icon.
+        if ( '' != $icon && file_exists( BB_ULTIMATE_ADDON_DIR . 'modules/progress-bar/icon/' . $icon ) ) {
+            $path = BB_ULTIMATE_ADDON_DIR . 'modules/progress-bar/icon/' . $icon;
+        }
+
+        if ( file_exists( $path ) ) {
+            return file_get_contents( $path );
+        } else {
+            return '';
+        }
+    }
+
+    function render_new_data( $data ) {
+
+        foreach ( $data as &$node ) {
+            
+            if ( isset( $node->settings->type ) && 'progress-bar' === $node->settings->type ) {
+
+                if ( isset( $node->settings->text_font_size['small']) && !isset( $node->settings->text_font_size_unit_responsive ) ) {
+                    $node->settings->text_font_size_unit_responsive = $node->settings->text_font_size['small'];
+                }
+                if( isset( $node->settings->text_font_size['medium']) && !isset( $node->settings->text_font_size_unit_medium ) ) {
+                    $node->settings->text_font_size_unit_medium = $node->settings->text_font_size['medium'];
+                }
+                if( isset( $node->settings->text_font_size['desktop']) && !isset( $node->settings->text_font_size_unit ) ) {
+                    $node->settings->text_font_size_unit = $node->settings->text_font_size['desktop'];
+                }
+
+                if( isset( $node->settings->text_line_height['small']) && isset( $node->settings->text_font_size['small'] ) && $node->settings->text_font_size['small'] != 0 && !isset( $node->settings->text_line_height_unit_responsive ) ) {
+                    if( is_numeric( $node->settings->text_line_height['small']) && is_numeric( $node->settings->text_font_size['small']) )
+                    $node->settings->text_line_height_unit_responsive = round( $node->settings->text_line_height['small'] / $node->settings->text_font_size['small'], 2 );
+                }
+                if( isset( $node->settings->text_line_height['medium']) && isset( $node->settings->text_font_size['medium'] ) && $node->settings->text_font_size['medium'] != 0 && !isset( $node->settings->text_line_height_unit_medium ) ) {
+                    if( is_numeric( $node->settings->text_line_height['medium']) && is_numeric( $node->settings->text_font_size['medium']) )
+                    $node->settings->text_line_height_unit_medium = round( $node->settings->text_line_height['medium'] / $node->settings->text_font_size['medium'], 2 );
+                }
+                if( isset( $node->settings->text_line_height['desktop']) && isset( $node->settings->text_font_size['desktop'] ) && $node->settings->text_font_size['desktop'] != 0 && !isset( $node->settings->text_line_height_unit ) ) {
+                    if( is_numeric( $node->settings->text_line_height['desktop']) && is_numeric( $node->settings->text_font_size['desktop']) )
+                    $node->settings->text_line_height_unit = round( $node->settings->text_line_height['desktop'] / $node->settings->text_font_size['desktop'], 2 );
+                }
+
+                if ( isset( $node->settings->before_after_font_size['small']) && !isset( $node->settings->before_after_font_size_unit_responsive ) ) {
+                    $node->settings->before_after_font_size_unit_responsive = $node->settings->before_after_font_size['small'];
+                }
+                if( isset( $node->settings->before_after_font_size['medium']) && !isset( $node->settings->before_after_font_size_unit_medium ) ) {
+                    $node->settings->before_after_font_size_unit_medium = $node->settings->before_after_font_size['medium'];
+                }
+                if( isset( $node->settings->before_after_font_size['desktop']) && !isset( $node->settings->before_after_font_size_unit ) ) {
+                    $node->settings->before_after_font_size_unit = $node->settings->before_after_font_size['desktop'];
+                }
+                
+                if( isset( $node->settings->before_after_line_height['small']) && isset( $node->settings->before_after_font_size['small'] ) && $node->settings->before_after_font_size['small'] != 0 && !isset( $node->settings->before_after_line_height_unit_responsive ) ) {
+                    if( is_numeric( $node->settings->before_after_line_height['small']) && is_numeric( $node->settings->before_after_font_size['small']) )
+                    $node->settings->before_after_line_height_unit_responsive = round( $node->settings->before_after_line_height['small'] / $node->settings->before_after_font_size['small'], 2 );
+                }
+                if( isset( $node->settings->before_after_line_height['medium']) && isset( $node->settings->before_after_font_size['medium'] ) && $node->settings->before_after_font_size['medium'] != 0 && !isset( $node->settings->before_after_line_height_unit_medium ) ) {
+                    if( is_numeric( $node->settings->before_after_line_height['medium']) && is_numeric( $node->settings->before_after_font_size['medium']) )
+                    $node->settings->before_after_line_height_unit_medium = round( $node->settings->before_after_line_height['medium'] / $node->settings->before_after_font_size['medium'], 2 );
+                }
+                if( isset( $node->settings->before_after_line_height['desktop']) && isset( $node->settings->before_after_font_size['desktop'] ) && $node->settings->before_after_font_size['desktop'] != 0 && !isset( $node->settings->before_after_line_height_unit ) ) {
+                    if( is_numeric( $node->settings->before_after_line_height['desktop']) && is_numeric( $node->settings->before_after_font_size['desktop']) )
+                    $node->settings->before_after_line_height_unit = round( $node->settings->before_after_line_height['desktop'] / $node->settings->before_after_font_size['desktop'], 2 );
+                }
+
+                if ( isset( $node->settings->number_font_size['small']) && !isset( $node->settings->number_font_size_unit_responsive ) ) {
+                    $node->settings->number_font_size_unit_responsive = $node->settings->number_font_size['small'];
+                }
+                if( isset( $node->settings->number_font_size['medium']) && !isset( $node->settings->number_font_size_unit_medium ) ) {
+                    $node->settings->number_font_size_unit_medium = $node->settings->number_font_size['medium'];
+                }
+                if( isset( $node->settings->number_font_size['desktop']) && !isset( $node->settings->number_font_size_unit ) ) {
+                    $node->settings->number_font_size_unit = $node->settings->number_font_size['desktop'];
+                }
+
+                if( isset( $node->settings->number_line_height['small']) && isset( $node->settings->number_font_size['small'] ) && $node->settings->number_font_size['small'] != 0 && !isset( $node->settings->number_line_height_unit_responsive ) ) {
+                    if( is_numeric( $node->settings->number_line_height['small']) && is_numeric( $node->settings->number_font_size['small']) )
+                    $node->settings->number_line_height_unit_responsive = round( $node->settings->number_line_height['small'] / $node->settings->number_font_size['small'], 2 );
+                }
+                if( isset( $node->settings->number_line_height['medium']) && isset( $node->settings->number_font_size['medium'] ) && $node->settings->number_font_size['medium'] != 0 && !isset( $node->settings->number_line_height_unit_medium ) ) {
+                    if( is_numeric( $node->settings->number_line_height['medium']) && is_numeric( $node->settings->number_font_size['medium']) )
+                    $node->settings->number_line_height_unit_medium = round( $node->settings->number_line_height['medium'] / $node->settings->number_font_size['medium'], 2 );
+                }
+                if( isset( $node->settings->number_line_height['desktop']) && isset( $node->settings->number_font_size['desktop'] ) && $node->settings->number_font_size['desktop'] != 0 && !isset( $node->settings->number_line_height_unit ) ) {
+                    if( is_numeric( $node->settings->number_line_height['desktop']) && is_numeric( $node->settings->number_font_size['desktop']) )
+                    $node->settings->number_line_height_unit = round( $node->settings->number_line_height['desktop'] / $node->settings->number_font_size['desktop'], 2 );
+                }
+                            
+            }
+        }
+
+        return $data;
     }
 
     public function render_horizontal_content( $obj, $style = '', $position = '', $i ) {
@@ -240,7 +342,7 @@ FLBuilder::register_module('ProgressBarModule', array(
                         'description'   => 'px',
                     ),
                     'stripped'     => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Striped Selector', 'uabb' ),
                         'default'       => 'yes',
                         'help'          => __( 'Enable to display stripes on progress, this option will only work if Progress type is color.', 'uabb' ),
@@ -267,7 +369,7 @@ FLBuilder::register_module('ProgressBarModule', array(
                         ),
                     ),
                     'text_position'     => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Text Position', 'uabb' ),
                         'default'       => 'above',
                         'options'       => array(
@@ -405,7 +507,7 @@ FLBuilder::register_module('ProgressBarModule', array(
                         'description'   => 'px',
                     ),
                     'vertical_responsive'     => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Responsive Size', 'uabb' ),
                         'default'       => 'no',
                         'help'          => __( 'Add responsive size for medium devices', 'uabb'),
@@ -454,7 +556,7 @@ FLBuilder::register_module('ProgressBarModule', array(
                         'help'          => __( 'This is the thickness of stroke.', 'uabb'),
                     ),
                     'circular_responsive'     => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Responsive Size', 'uabb' ),
                         'default'       => 'no',
                         'help'          => __( 'Add responsive size for medium devices', 'uabb'),
@@ -608,35 +710,41 @@ FLBuilder::register_module('ProgressBarModule', array(
                             'selector'        => '.uabb-progress-title'
                         )
                     ),
-                    'text_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'text_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'px',
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-progress-title',
                             'property'        => 'font-size',
                             'unit'            => 'px'
-                        )
-                    ),
-                    'text_line_height'    => array(
-                        'type'          => 'uabb-simplify',
-                        'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
                         ),
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ),
+                    ),
+                    'text_line_height_unit'    => array(
+                        'type'          => 'unit',
+                        'label'         => __( 'Line Height', 'uabb' ),
+                        'description'   => 'em',
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-progress-title',
                             'property'        => 'line-height',
-                            'unit'            => 'px'
-                        )
+                            'unit'            => 'em'
+                        ),
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ),
                     ),
                     'text_color'        => array( 
                         'type'       => 'color',
@@ -666,35 +774,41 @@ FLBuilder::register_module('ProgressBarModule', array(
                             'selector'        => '.uabb-ba-text'
                         )
                     ),
-                    'before_after_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'before_after_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'px',
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-ba-text',
                             'property'        => 'font-size',
                             'unit'              => 'px'
-                        )
-                    ),
-                    'before_after_line_height'    => array(
-                        'type'          => 'uabb-simplify',
-                        'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
                         ),
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ),
+                    ),
+                    'before_after_line_height_unit'    => array(
+                        'type'          => 'unit',
+                        'label'         => __( 'Line Height', 'uabb' ),
+                        'description'   => 'em',
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-ba-text',
                             'property'        => 'line-height',
-                            'unit'              => 'px'
-                        )
+                            'unit'              => 'em'
+                        ),
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ),
                     ),
                     'before_after_color'        => array( 
                         'type'       => 'color',
@@ -724,35 +838,41 @@ FLBuilder::register_module('ProgressBarModule', array(
                             'selector'        => '.uabb-progress-value, .uabb-percent-counter'
                         )
                     ),
-                    'number_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'number_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'px',
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-progress-value, .uabb-percent-counter',
                             'property'         => 'font-size',
                             'unit'             => 'px'
-                        )
-                    ),
-                    'number_line_height'    => array(
-                        'type'          => 'uabb-simplify',
-                        'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
                         ),
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ),
+                    ),
+                    'number_line_height_unit'    => array(
+                        'type'          => 'unit',
+                        'label'         => __( 'Line Height', 'uabb' ),
+                        'description'   => 'em',
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-progress-value, .uabb-percent-counter',
                             'property'         => 'line-height',
-                            'unit'             => 'px'
-                        )
+                            'unit'             => 'em'
+                        ),
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ),
                     ),
                     'number_color'        => array( 
                         'type'       => 'color',

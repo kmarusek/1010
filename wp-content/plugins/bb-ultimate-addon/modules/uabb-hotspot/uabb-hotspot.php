@@ -20,8 +20,177 @@ class UABBHotspot extends FLBuilderModule {
             'url'           => BB_ULTIMATE_ADDON_URL . 'modules/uabb-hotspot/',
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
-            'partial_refresh'  => true
+            'partial_refresh' => true,
+            'icon'            => 'uabb-hotspot.svg'
         ));
+
+        add_filter( 'fl_builder_layout_data', array( $this , 'render_new_data' ), 10, 3 );
+    }
+
+
+    function render_new_data( $data ) {
+
+        foreach ( $data as &$node ) {
+            
+            if ( isset( $node->settings->type ) && 'uabb-hotspot' === $node->settings->type ) {
+
+                for( $i = 0; $i < count( $node->settings->hotspot_marker ); $i++ ) {
+
+                    if ( isset( $node->settings->hotspot_marker[$i]->text_typography_font_size->small) && !isset( $node->settings->hotspot_marker[$i]->text_typography_font_size_unit_responsive ) ) {
+                        $node->settings->hotspot_marker[$i]->text_typography_font_size_unit_responsive = $node->settings->hotspot_marker[$i]->text_typography_font_size->small;
+                    }
+                    if( isset( $node->settings->hotspot_marker[$i]->text_typography_font_size->medium) && !isset( $node->settings->hotspot_marker[$i]->text_typography_font_size_unit_medium ) ) {
+                        $node->settings->hotspot_marker[$i]->text_typography_font_size_unit_medium = $node->settings->hotspot_marker[$i]->text_typography_font_size->medium;
+                    }
+                    if( isset( $node->settings->hotspot_marker[$i]->text_typography_font_size->desktop) && !isset( $node->settings->hotspot_marker[$i]->text_typography_font_size_unit ) ) {
+                        $node->settings->hotspot_marker[$i]->text_typography_font_size_unit = $node->settings->hotspot_marker[$i]->text_typography_font_size->desktop;
+                    }
+
+                    if ( isset( $node->settings->hotspot_marker[$i]->text_typography_line_height->small) && isset( $node->settings->hotspot_marker[$i]->text_typography_font_size->small)  && $node->settings->hotspot_marker[$i]->text_typography_font_size->small != 0 && !isset( $node->settings->hotspot_marker[$i]->text_typography_line_height_unit_responsive ) ) {
+                        if( is_numeric( $node->settings->hotspot_marker[$i]->text_typography_line_height->small) && is_numeric( $node->settings->hotspot_marker[$i]->text_typography_font_size->small ) )
+                        $node->settings->hotspot_marker[$i]->text_typography_line_height_unit_responsive = round( $node->settings->hotspot_marker[$i]->text_typography_line_height->small / $node->settings->hotspot_marker[$i]->text_typography_font_size->small );
+                    }
+                    if( isset( $node->settings->hotspot_marker[$i]->text_typography_line_height->medium ) && isset( $node->settings->hotspot_marker[$i]->text_typography_font_size->medium )  && $node->settings->hotspot_marker[$i]->text_typography_font_size->medium != 0 && !isset( $node->settings->hotspot_marker[$i]->text_typography_line_height_unit_medium ) ) {
+                        if( is_numeric( $node->settings->hotspot_marker[$i]->text_typography_line_height->medium) && is_numeric( $node->settings->hotspot_marker[$i]->text_typography_font_size->medium ) )
+                        $node->settings->hotspot_marker[$i]->text_typography_line_height_unit_medium = round( $node->settings->hotspot_marker[$i]->text_typography_line_height->medium / $node->settings->hotspot_marker[$i]->text_typography_font_size->medium );
+                    }
+                    if( isset( $node->settings->hotspot_marker[$i]->text_typography_line_height->desktop) && isset( $node->settings->hotspot_marker[$i]->text_typography_font_size->desktop) && $node->settings->hotspot_marker[$i]->text_typography_font_size->desktop != 0 && !isset( $node->settings->hotspot_marker[$i]->text_typography_line_height_unit ) ) {
+                        if( is_numeric( $node->settings->hotspot_marker[$i]->text_typography_line_height->desktop) && is_numeric( $node->settings->hotspot_marker[$i]->text_typography_font_size->desktop ))
+                        $node->settings->hotspot_marker[$i]->text_typography_line_height_unit = round( $node->settings->hotspot_marker[$i]->text_typography_line_height->desktop / $node->settings->hotspot_marker[$i]->text_typography_font_size->desktop );
+                    }
+
+                    if ( isset( $node->settings->hotspot_marker[$i]->tooltip_font_size->small) && !isset( $node->settings->hotspot_marker[$i]->tooltip_font_size_unit_responsive ) ) {
+                        $node->settings->hotspot_marker[$i]->tooltip_font_size_unit_responsive = $node->settings->hotspot_marker[$i]->tooltip_font_size->small;
+                    }
+                    if( isset( $node->settings->hotspot_marker[$i]->tooltip_font_size->medium) && !isset( $node->settings->hotspot_marker[$i]->tooltip_font_size_unit_medium ) ) {
+                        $node->settings->hotspot_marker[$i]->tooltip_font_size_unit_medium = $node->settings->hotspot_marker[$i]->tooltip_font_size->medium;
+                    }
+                    if( isset( $node->settings->hotspot_marker[$i]->tooltip_font_size->desktop) && !isset( $node->settings->hotspot_marker[$i]->tooltip_font_size_unit ) ) {
+                        $node->settings->hotspot_marker[$i]->tooltip_font_size_unit = $node->settings->hotspot_marker[$i]->tooltip_font_size->desktop;
+                    }
+                     
+                    if ( isset( $node->settings->hotspot_marker[$i]->tooltip_line_height->small) && isset( $node->settings->hotspot_marker[$i]->tooltip_font_size->small ) && $node->settings->hotspot_marker[$i]->tooltip_font_size->small != 0 && !isset( $node->settings->hotspot_marker[$i]->tooltip_line_height_unit_responsive ) ) {
+                        if( is_numeric( $node->settings->hotspot_marker[$i]->tooltip_line_height->small) && is_numeric( $node->settings->hotspot_marker[$i]->tooltip_font_size->small) )
+                        $node->settings->hotspot_marker[$i]->tooltip_line_height_unit_responsive = round( $node->settings->hotspot_marker[$i]->tooltip_line_height->small /$node->settings->hotspot_marker[$i]->tooltip_font_size->small ) ;
+                    }
+                    if( isset( $node->settings->hotspot_marker[$i]->tooltip_line_height->medium) && isset( $node->settings->hotspot_marker[$i]->tooltip_font_size->medium ) && $node->settings->hotspot_marker[$i]->tooltip_font_size->medium != 0 && !isset( $node->settings->hotspot_marker[$i]->tooltip_line_height_unit_medium ) ) {
+                        if( is_numeric( $node->settings->hotspot_marker[$i]->tooltip_line_height->medium) && is_numeric( $node->settings->hotspot_marker[$i]->tooltip_font_size->medium) )
+                        $node->settings->hotspot_marker[$i]->tooltip_line_height_unit_medium = round( $node->settings->hotspot_marker[$i]->tooltip_line_height->medium / $node->settings->hotspot_marker[$i]->tooltip_font_size->medium );
+                    }
+                    if( isset( $node->settings->hotspot_marker[$i]->tooltip_line_height->desktop) && isset( $node->settings->hotspot_marker[$i]->tooltip_font_size->desktop )&& $node->settings->hotspot_marker[$i]->tooltip_font_size->desktop != 0 && !isset( $node->settings->hotspot_marker[$i]->tooltip_line_height_unit ) ) {
+                        if( is_numeric( $node->settings->hotspot_marker[$i]->tooltip_line_height->desktop) && is_numeric( $node->settings->hotspot_marker[$i]->tooltip_font_size->desktop) )
+                        $node->settings->hotspot_marker[$i]->tooltip_line_height_unit = round( $node->settings->hotspot_marker[$i]->tooltip_line_height->desktop / $node->settings->hotspot_marker[$i]->tooltip_font_size->desktop );
+                    }
+
+                    if( isset( $node->settings->hotspot_marker[$i]->tooltip_padding ) &&  !isset( $node->settings->hotspot_marker[$i]->tooltip_padding_dimension_top ) &&  !isset( $node->settings->hotspot_marker[$i]->tooltip_padding_dimension_bottom ) &&  !isset( $node->settings->hotspot_marker[$i]->tooltip_padding_dimension_left ) &&  !isset( $node->settings->hotspot_marker[$i]->tooltip_padding_dimension_right ) ) {
+                    
+                        $value = "";
+                        $value = str_replace("px","", $node->settings->hotspot_marker[$i]->tooltip_padding );
+                        
+                        $output = array();
+                        $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
+                        
+                        foreach($uabb_default as $val) {
+                            $new = explode(':',$val);
+                             $output[] = $new;
+                        }
+                        
+                        $node->settings->hotspot_marker[$i]->tooltip_padding_dimension_top    = '0';
+                        $node->settings->hotspot_marker[$i]->tooltip_padding_dimension_bottom = '0';
+                        $node->settings->hotspot_marker[$i]->tooltip_padding_dimension_left   = '0';
+                        $node->settings->hotspot_marker[$i]->tooltip_padding_dimension_right  = '0';
+                        
+                        for ($j = 0; $j < count($output); $j++ ) { 
+                        
+                            switch ( $output[$j][0] ) {
+                                case 'padding-top':
+                                   $node->settings->hotspot_marker[$i]->tooltip_padding_dimension_top     = ( !empty( $output[$j][1] ) ) ? (int)$output[$j][1] : '0';
+                                    break;
+                                case 'padding-bottom':
+                                    $node->settings->hotspot_marker[$i]->tooltip_padding_dimension_bottom = ( !empty( $output[$j][1] ) ) ? (int)$output[$j][1] : '0';
+                                    break;
+                                case 'padding-right':
+                                    $node->settings->hotspot_marker[$i]->tooltip_padding_dimension_right  = ( !empty( $output[$j][1] ) ) ? (int)$output[$j][1] : '0';
+                                    break;
+                                case 'padding-left':
+                                    $node->settings->hotspot_marker[$i]->tooltip_padding_dimension_left   = ( !empty( $output[$j][1] ) ) ? (int)$output[$j][1] : '0';
+                                    break;
+                                case 'padding':
+                                    $node->settings->hotspot_marker[$i]->tooltip_padding_dimension_top    = ( !empty( $output[$j][1] ) ) ? (int)$output[$j][1] : '0';
+                                    $node->settings->hotspot_marker[$i]->tooltip_padding_dimension_bottom = ( !empty( $output[$j][1] ) ) ? (int)$output[$j][1] : '0';
+                                    $node->settings->hotspot_marker[$i]->tooltip_padding_dimension_left   = ( !empty( $output[$j][1] ) ) ? (int)$output[$j][1] : '0';
+                                    $node->settings->hotspot_marker[$i]->tooltip_padding_dimension_right  = ( !empty( $output[$j][1] ) ) ? (int)$output[$j][1] : '0';
+                                    break;
+                            }
+                        }
+                    } 
+
+                    if( isset( $node->settings->hotspot_marker[$i]->text_typography_padding ) &&  !isset( $node->settings->hotspot_marker[$i]->text_typography_padding_dimension_top ) &&  !isset( $node->settings->hotspot_marker[$i]->text_typography_padding_dimension_bottom ) &&  !isset( $node->settings->hotspot_marker[$i]->text_typography_padding_dimension_left ) &&  !isset( $node->settings->hotspot_marker[$i]->text_typography_padding_dimension_right ) ) {
+                    
+                        $value = "";
+                        $value = str_replace("px","", $node->settings->hotspot_marker[$i]->text_typography_padding );
+                        
+                        $output = array();
+                        $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
+                        
+                        
+                        foreach($uabb_default as $val) {
+                            $new = explode(':',$val);
+                             $output[] = $new;
+                        }
+                        
+
+                        $node->settings->hotspot_marker[$i]->text_typography_padding_dimension_top    = '0';
+                        $node->settings->hotspot_marker[$i]->text_typography_padding_dimension_bottom = '0';
+                        $node->settings->hotspot_marker[$i]->text_typography_padding_dimension_left   = '0';
+                        $node->settings->hotspot_marker[$i]->text_typography_padding_dimension_right  = '0';
+
+                        for ($j=0; $j < count( $output ); $j++) { 
+                            
+                            switch ( $output[$j][0] ) {
+                                case 'padding-top':
+                                   $node->settings->hotspot_marker[$i]->text_typography_padding_dimension_top     = ( !empty( $output[$j][1] ) ) ? (int)$output[$j][1] : '0';
+                                    break;
+                                case 'padding-bottom':
+                                    $node->settings->hotspot_marker[$i]->text_typography_padding_dimension_bottom = ( !empty( $output[$j][1] ) ) ? (int)$output[$j][1] : '0';
+                                    break;
+                                case 'padding-right':
+                                    $node->settings->hotspot_marker[$i]->text_typography_padding_dimension_right  = ( !empty( $output[$j][1] ) ) ? (int)$output[$j][1] : '0';
+                                    break;
+                                case 'padding-left':
+                                    $node->settings->hotspot_marker[$i]->text_typography_padding_dimension_left   = ( !empty( $output[$j][1] ) ) ? (int)$output[$j][1] : '0';
+                                    break;
+                                case 'padding':
+                                    $node->settings->hotspot_marker[$i]->text_typography_padding_dimension_top    = ( !empty( $output[$j][1] ) ) ? (int)$output[$j][1] : '0';
+                                    $node->settings->hotspot_marker[$i]->text_typography_padding_dimension_bottom = ( !empty( $output[$j][1] ) ) ? (int)$output[$j][1] : '0';
+                                    $node->settings->hotspot_marker[$i]->text_typography_padding_dimension_left   = ( !empty( $output[$j][1] ) ) ? (int)$output[$j][1] : '0';
+                                    $node->settings->hotspot_marker[$i]->text_typography_padding_dimension_right  = ( !empty( $output[$j][1] ) ) ? (int)$output[$j][1] : '0';
+                                    break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return $data;
+    }
+
+    /**
+     * @method get_icons
+     */
+    public function get_icon( $icon = '' ) {
+
+        // check if $icon is referencing an included icon.
+        if ( '' != $icon && file_exists( BB_ULTIMATE_ADDON_DIR . 'modules/uabb-hotspot/icon/' . $icon ) ) {
+            $path = BB_ULTIMATE_ADDON_DIR . 'modules/uabb-hotspot/icon/' . $icon;
+        }
+
+        if ( file_exists( $path ) ) {
+            return file_get_contents( $path );
+        } else {
+            return '';
+        }
     }
 
 
@@ -29,6 +198,7 @@ class UABBHotspot extends FLBuilderModule {
      * @method render_animation
      */
     public function render_animation( $obj ) {
+
         $color = UABB_Helper::uabb_colorpicker( $obj, 'animation_color' );
         $color = uabb_theme_base_color( $color );
     ?>
@@ -400,7 +570,7 @@ FLBuilder::register_settings_form('hotspot_coordinates_form', array(
                                 
                         /* Style Options */
                         'icon_color_preset'     => array(
-                            'type'          => 'uabb-toggle-switch',
+                            'type'          => 'select',
                             'label'         => __( 'Icon Color Presets', 'uabb' ),
                             'default'       => 'preset1',
                             'options'       => array(
@@ -541,7 +711,7 @@ FLBuilder::register_settings_form('hotspot_coordinates_form', array(
                     'title' => __( 'Animation', 'uabb' ),
                     'fields' => array(
                         'show_animation'  => array(
-                            'type'          => 'uabb-toggle-switch',
+                            'type'          => 'select',
                             'label'         => __('Show Animation', 'uabb'),
                             'default'       => 'no',
                             'help'          => __( 'If enabled this animation will be shown depending on Trigger selected in Action tab. Default will be on Hover', 'uabb' ),
@@ -627,7 +797,7 @@ FLBuilder::register_settings_form('hotspot_coordinates_form', array(
                             ),
                         ),
                         'tooltip_trigger_on'  => array(
-                            'type'          => 'uabb-toggle-switch',
+                            'type'          => 'select',
                             'label'         => __('Trigger On', 'uabb'),
                             'default'       => 'hover',
                             'options'       => array(
@@ -635,12 +805,18 @@ FLBuilder::register_settings_form('hotspot_coordinates_form', array(
                                 'click'     => __('Click', 'uabb'),
                             ),
                         ),
-                        'tooltip_padding' => array(
-                            'type'      => 'uabb-spacing',
-                            'label'     => __( 'Tooltip Padding', 'uabb' ),
-                            'help'         => __('Manage the outside spacing of tooltip area.', 'uabb'),
-                            'default'   => 'padding: 15px;',    //optional
-                            'mode'      => 'padding',
+                        'tooltip_padding_dimension' => array(
+                            'type'       => 'dimension',
+                            'label'      => __( 'Tooltip Padding', 'uabb' ),
+                            'help'       => __('Manage the outside spacing of tooltip area.', 'uabb'),
+                            'description'    => 'px',    //optional
+                            'responsive' => array(
+                                'placeholder' => array(
+                                    'default'    => '15',
+                                    'medium'     => '',
+                                    'responsive' => '',
+                                ),
+                            ), 
                         ),
                     )
                 ),
@@ -684,23 +860,29 @@ FLBuilder::register_settings_form('hotspot_coordinates_form', array(
                                 'selector' => '.uabb-hotspot-text, .uabb-hotspot-text *'
                             )
                         ),
-                        'text_typography_font_size'     => array(
-                            'type'          => 'uabb-simplify',
+                        'text_typography_font_size_unit'     => array(
+                            'type'          => 'unit',
                             'label'         => __( 'Font Size', 'uabb' ),
-                            'default'       => array(
-                                'desktop'       => '',
-                                'medium'        => '',
-                                'small'         => '',
+                            'description'   => 'px',
+                            'responsive' => array(
+                                'placeholder' => array(
+                                    'default' => '',
+                                    'medium' => '',
+                                    'responsive' => '',
+                                ),
                             ),
                         ),
-                        'text_typography_line_height'    => array(
-                            'type'          => 'uabb-simplify',
+                        'text_typography_line_height_unit'    => array(
+                            'type'          => 'unit',
                             'label'         => __( 'Line Height', 'uabb' ),
-                            'default'       => array(
-                                'desktop'       => '',
-                                'medium'        => '',
-                                'small'         => '',
-                            ),
+                            'description'   => 'em',
+                            'responsive' => array(
+                                'placeholder' => array(
+                                    'default' => '',
+                                    'medium' => '',
+                                    'responsive' => '',
+                                ),
+                            ),  
                         ),
                         'text_typography_color'        => array( 
                             'type'       => 'color',
@@ -762,12 +944,18 @@ FLBuilder::register_settings_form('hotspot_coordinates_form', array(
                             'maxlength'   => '3',
                             'size'        => '5',
                         ),
-                        'text_typography_padding' => array(
-                            'type'      => 'uabb-spacing',
+                        'text_typography_padding_dimension' => array(
+                            'type'      => 'dimension',
                             'label'     => __( 'Padding', 'uabb' ),
                             'help'         => __('Manage the outside spacing of text area.', 'uabb'),
-                            'default'   => 'padding: 10px;',    //optional
-                            'mode'      => 'padding',
+                            'description'    => 'px',    //optional
+                            'responsive' => array(
+                                'placeholder' => array(
+                                    'default'    => '10',
+                                    'medium'     => '',
+                                    'responsive' => '',
+                                ),
+                            ), 
                         ),
                     )
                 ),
@@ -786,22 +974,28 @@ FLBuilder::register_settings_form('hotspot_coordinates_form', array(
                                 'selector' => '.uabb-hotspot-tooltip-content, .uabb-hotspot-tooltip-content *'
                             )
                         ),
-                        'tooltip_font_size'     => array(
-                            'type'          => 'uabb-simplify',
+                        'tooltip_font_size_unit'     => array(
+                            'type'          => 'unit',
                             'label'         => __( 'Font Size', 'uabb' ),
-                            'default'       => array(
-                                'desktop'       => '',
-                                'medium'        => '',
-                                'small'         => '',
+                            'description'   => 'px',
+                            'responsive' => array(
+                                'placeholder' => array(
+                                    'default' => '',
+                                    'medium' => '',
+                                    'responsive' => '',
+                                ),
                             ),
                         ),
-                        'tooltip_line_height'    => array(
-                            'type'          => 'uabb-simplify',
+                        'tooltip_line_height_unit'    => array(
+                            'type'          => 'unit',
                             'label'         => __( 'Line Height', 'uabb' ),
-                            'default'       => array(
-                                'desktop'       => '',
-                                'medium'        => '',
-                                'small'         => '',
+                            'description'   => 'em',
+                            'responsive' => array(
+                                'placeholder' => array(
+                                    'default' => '',
+                                    'medium' => '',
+                                    'responsive' => '',
+                                ),
                             ),
                         ),
                         'tooltip_color'        => array( 

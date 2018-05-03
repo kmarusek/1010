@@ -168,6 +168,7 @@
                 }
 
             } else {
+                form.find
                 form.find('#fl-field-content_type').hide();
                 form.find('#fl-field-excerpt_count').hide();
                 form.find('#fl-field-strip_content_html').hide();
@@ -293,7 +294,8 @@
                 show_pagination = form.find('select[name=show_pagination]').val(),
                 pagination = form.find('select[name=pagination]').val(),
                 filter_type    = form.find('select[name=uabb_masonary_filter_type_'+post_type+']').val(),
-                is_no_filter = form.find('select[name=masonary_filter_'+post_type+']').val();
+                is_no_filter = form.find('select[name=masonary_filter_'+post_type+']').val(),
+                edit_label_all = form.find('select[name=uabb_masonary_filter_all_edit_'+post_type+']');
 
                 form.find('.fl-loop-builder-filter').hide();
                 form.find('.fl-loop-builder-' + post_type + '-filter').show();
@@ -316,7 +318,9 @@
                         form.find('#fl-builder-settings-section-masonary_style').hide();
                         form.find('#fl-builder-settings-section-masonary_select_style').hide();
                         form.find('#fl-builder-settings-section-taxonomy_filter_select_field_typography').hide();
+                        edit_label_all.hide();
                     } else {
+                        edit_label_all.show();
                         form.find('#fl-builder-settings-section-pagination_setting').hide();
                         form.find('#fl-builder-settings-section-pagination_style').hide();
                         form.find('#fl-builder-settings-section-taxonomy_filter_select_field_typography').show();

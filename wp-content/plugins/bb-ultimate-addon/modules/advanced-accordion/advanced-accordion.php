@@ -22,8 +22,150 @@ class UABBAdvancedAccordionModule extends FLBuilderModule {
 		));
 
 		add_filter( 'fl_builder_render_settings_field', array( $this , 'uabb_accordion_render_settings_field' ), 10, 3 );
+
+		add_filter( 'fl_builder_layout_data', array( $this , 'render_new_data' ), 10, 3 );
 		
 		$this->add_css('font-awesome');
+	}
+
+	function render_new_data( $data ) {
+
+		foreach ( $data as &$node ) {
+			
+			if ( isset( $node->settings->type ) && 'advanced-accordion' === $node->settings->type ) {
+
+			    if( isset( $node->settings->title_spacing ) &&  !isset( $node->settings->title_spacing_dimension_top ) &&  !isset( $node->settings->title_spacing_dimension_bottom ) &&  !isset( $node->settings->title_spacing_dimension_left ) &&  !isset( $node->settings->title_spacing_dimension_right ) ) {
+                 
+                    $value = "";
+                    $value = str_replace("px","", $node->settings->title_spacing );
+                    
+                    $output = array();
+                    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
+                    
+                    $node->settings->title_spacing_dimension_top    = '0';
+                    $node->settings->title_spacing_dimension_bottom = '0';
+                    $node->settings->title_spacing_dimension_left   = '0';
+                    $node->settings->title_spacing_dimension_right  = '0';
+                    
+                    foreach($uabb_default as $val) {
+                        $new = explode(':',$val);
+                         $output[] = $new;
+                    }
+                    for ($i=0; $i < count( $output ); $i++) { 
+                        switch ( $output[$i][0] ) {
+                            case 'padding-top':
+                               $node->settings->title_spacing_dimension_top    = (int)$output[$i][1];
+                                break;
+                            case 'padding-bottom':
+                                $node->settings->title_spacing_dimension_bottom = (int)$output[$i][1];
+                                break;
+                            case 'padding-right':
+                                $node->settings->title_spacing_dimension_right  = (int)$output[$i][1];
+                                break;
+                            case 'padding-left':
+                                $node->settings->title_spacing_dimension_left   = (int)$output[$i][1];
+                                break;
+                            case 'padding':
+                                $node->settings->title_spacing_dimension_top    = (int)$output[$i][1];
+                                $node->settings->title_spacing_dimension_bottom = (int)$output[$i][1];
+                                $node->settings->title_spacing_dimension_left   = (int)$output[$i][1];
+                                $node->settings->title_spacing_dimension_right  = (int)$output[$i][1];
+                                break;
+                        }
+                    }
+                } 
+
+                if( isset( $node->settings->content_spacing ) &&  !isset( $node->settings->content_spacing_dimension_top ) &&  !isset( $node->settings->content_spacing_dimension_bottom ) &&  !isset( $node->settings->content_spacing_dimension_left ) &&  !isset( $node->settings->content_spacing_dimension_right ) ) {
+                 
+                    $value = "";
+                    $value = str_replace("px","", $node->settings->content_spacing );
+                    
+                    $output = array();
+                    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
+                    
+                    $node->settings->content_spacing_dimension_top    = '0';
+                    $node->settings->content_spacing_dimension_bottom = '0';
+                    $node->settings->content_spacing_dimension_left   = '0';
+                    $node->settings->content_spacing_dimension_right  = '0';
+                    
+                    foreach($uabb_default as $val) {
+                        $new = explode(':',$val);
+                         $output[] = $new;
+                    }
+                    for ($i=0; $i < count( $output ); $i++) { 
+                        switch ( $output[$i][0] ) {
+                            case 'padding-top':
+                               $node->settings->content_spacing_dimension_top    = (int)$output[$i][1];
+                                break;
+                            case 'padding-bottom':
+                                $node->settings->content_spacing_dimension_bottom = (int)$output[$i][1];
+                                break;
+                            case 'padding-right':
+                                $node->settings->content_spacing_dimension_right  = (int)$output[$i][1];
+                                break;
+                            case 'padding-left':
+                                $node->settings->content_spacing_dimension_left   = (int)$output[$i][1];
+                                break;
+                            case 'padding':
+                                $node->settings->content_spacing_dimension_top    = (int)$output[$i][1];
+                                $node->settings->content_spacing_dimension_bottom = (int)$output[$i][1];
+                                $node->settings->content_spacing_dimension_left   = (int)$output[$i][1];
+                                $node->settings->content_spacing_dimension_right  = (int)$output[$i][1];
+                                break;
+                        }
+                    }
+                }   
+				
+				if ( isset( $node->settings->font_size['small']) && !isset( $node->settings->font_size_unit_responsive ) ) {
+					$node->settings->font_size_unit_responsive = $node->settings->font_size['small'];
+				}
+				if( isset( $node->settings->font_size['medium']) && !isset( $node->settings->font_size_unit_medium ) ) {
+					$node->settings->font_size_unit_medium = $node->settings->font_size['medium'];
+				}
+				if( isset( $node->settings->font_size['desktop']) && !isset( $node->settings->font_size_unit ) ) {
+					$node->settings->font_size_unit = $node->settings->font_size['desktop'];
+				}
+
+				if( isset( $node->settings->line_height['small']) && isset( $node->settings->font_size['small'] ) && $node->settings->font_size['small'] != 0 && !isset( $node->settings->line_height_unit_responsive ) ) {
+					if( is_numeric( $node->settings->line_height['small']) && is_numeric( $node->settings->font_size['small'] ) )
+                    $node->settings->line_height_unit_responsive = round( $node->settings->line_height['small'] / $node->settings->font_size['small'], 2 );
+				}
+				if( isset( $node->settings->line_height['medium']) && isset( $node->settings->font_size['medium'] ) && $node->settings->font_size['medium'] != 0 && !isset( $node->settings->line_height_unit_medium )) {
+					if( is_numeric( $node->settings->line_height['medium']) && is_numeric( $node->settings->font_size['medium'] ) )
+    				$node->settings->line_height_unit_medium = round( $node->settings->line_height['medium'] / $node->settings->font_size['medium'], 2 );
+				}
+				if( isset( $node->settings->line_height['desktop']) && isset( $node->settings->font_size['desktop'] ) && $node->settings->font_size['desktop'] != 0 && !isset( $node->settings->line_height_unit )) {
+					if( is_numeric( $node->settings->line_height['desktop']) && is_numeric( $node->settings->font_size['desktop'] ) )
+					 $node->settings->line_height_unit = round( $node->settings->line_height['desktop'] / $node->settings->font_size['desktop'], 2 );
+				}
+
+				if ( isset( $node->settings->content_font_size['small']) && !isset( $node->settings->content_font_size_unit_responsive ) ) {
+					$node->settings->content_font_size_unit_responsive = $node->settings->content_font_size['small'];
+				}
+				if( isset( $node->settings->content_font_size['medium']) && !isset( $node->settings->content_font_size_unit_medium ) ) {
+					$node->settings->content_font_size_unit_medium = $node->settings->content_font_size['medium'];
+				}
+				if( isset( $node->settings->content_font_size['desktop']) && !isset( $node->settings->content_font_size_unit ) ) {
+					$node->settings->content_font_size_unit = $node->settings->content_font_size['desktop'];
+				}
+
+				if ( isset( $node->settings->content_line_height['small']) && isset( $node->settings->content_font_size['small'] ) && $node->settings->content_font_size['small'] != 0 && !isset( $node->settings->content_line_height_unit_responsive ) ) {
+					if( is_numeric( $node->settings->content_line_height['small']) && is_numeric( $node->settings->content_font_size['small'] ) )
+					$node->settings->content_line_height_unit_responsive = round( $node->settings->content_line_height['small'] / $node->settings->content_font_size['small'], 2 );
+				}
+				if( isset( $node->settings->content_line_height['medium']) && isset( $node->settings->content_font_size['medium'] ) && $node->settings->content_font_size['medium'] != 0 && !isset( $node->settings->content_line_height_unit_medium )) {
+					if( is_numeric( $node->settings->content_line_height['medium']) && is_numeric( $node->settings->content_font_size['medium'] ) )
+					$node->settings->content_line_height_unit_medium = round( $node->settings->content_line_height['medium'] / $node->settings->content_font_size['medium'], 2 );
+				}
+				if( isset( $node->settings->content_line_height['desktop']) && isset( $node->settings->content_font_size['desktop'] )  && $node->settings->content_font_size['desktop'] != 0 && !isset( $node->settings->content_line_height_unit ) ) {
+					if( is_numeric( $node->settings->content_line_height['desktop']) && is_numeric( $node->settings->content_font_size['desktop'] ) )
+					$node->settings->content_line_height_unit = round( $node->settings->content_line_height['desktop'] / $node->settings->content_font_size['desktop'], 2 );
+				}
+
+			}
+		}
+
+		return $data;
 	}
 
 	function uabb_accordion_render_settings_field( $field, $name, $settings ) {
@@ -167,11 +309,17 @@ FLBuilder::register_module('UABBAdvancedAccordionModule', array(
 			'title_style'	=> array(
 				'title'         => __('Title Style', 'uabb'),
 				'fields'		=> array(
-					'title_spacing'		=> array(
-						'type'          => 'uabb-spacing',
+					'title_spacing_dimension'		=> array(
+						'type'          => 'dimension',
                         'label'         => __( 'Padding', 'uabb' ),
-                        'mode'			=> 'padding',
-                        'default'       => 'padding: 15px;', // Optional
+                        'description'   => 'px', // Optional
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '15',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ),  
                         'preview'         => array(
                             'type'          => 'css',
                             'selector'      => '.uabb-adv-accordion-button',
@@ -474,17 +622,23 @@ FLBuilder::register_module('UABBAdvancedAccordionModule', array(
 			'content_style'	=> array(
 				'title'         => __('Content Style', 'uabb'),
 				'fields'	=> array(
-					'content_spacing'		=> array(
-						'type'          => 'uabb-spacing',
-                        'label'         => __( 'Padding', 'uabb' ),
-                        'mode'			=> 'padding',
-                        'default'       => 'padding: 20px;', // Optional
+					'content_spacing_dimension'		=> array(
+						'type'          => 'dimension',
+						'label'         => __('padding' , 'uabb' ),
+						'description'   => 'px',
+						'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '20',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ),
                         'preview'         => array(
                             'type'          => 'css',
                             'selector'      => '.uabb-adv-accordion-content',
                             'property'      => 'padding',
                             'unit'			=> 'px'
-                        )
+                        ),    
 					),
 					'content_align'         => array(
 						'type'          => 'select',
@@ -691,35 +845,41 @@ FLBuilder::register_module('UABBAdvancedAccordionModule', array(
                             'selector'        => '.uabb-adv-accordion-button-label'
                         )
                     ),
-                    'font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'  => 'px',
+                        'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-adv-accordion-button-label',
                             'property'      => 'font-size',
                             'unit'      => 'px',
-                        )
-                    ),
-                    'line_height'    => array(
-                        'type'          => 'uabb-simplify',
-                        'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
                         ),
+                    ),
+                    'line_height_unit'    => array(
+                        'type'          => 'unit',
+                        'label'         => __( 'Line Height', 'uabb' ),
+                        'description' => 'em',
+                        'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-adv-accordion-button-label',
                             'property'      => 'line-height',
-                            'unit'      => 'px',
-                        )
+                            'unit'      => 'em',
+                        ),
                     ),
                 )
             ),
@@ -738,35 +898,41 @@ FLBuilder::register_module('UABBAdvancedAccordionModule', array(
                             'selector'        => '.uabb-adv-accordion-content, .uabb-adv-accordion-content *'
                         )
                     ),
-                    'content_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'content_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'px',
+                        'responsive'    => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-adv-accordion-content, .uabb-adv-accordion-content *',
                             'property'      => 'font-size',
                             'unit'      => 'px',
-                        )
-                    ),
-                    'content_line_height'    => array(
-                        'type'          => 'uabb-simplify',
-                        'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
                         ),
+                    ),
+                    'content_line_height_unit'    => array(
+                        'type'          => 'unit',
+                        'label'         => __( 'Line Height', 'uabb' ),
+                        'description'   => 'em',
+                        'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                         'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.uabb-adv-accordion-content, .uabb-adv-accordion-content *',
+                            'type'           => 'css',
+                            'selector'       => '.uabb-adv-accordion-content, .uabb-adv-accordion-content *',
                             'property'      => 'line-height',
-                            'unit'      => 'px',
-                        )
+                            'unit'          => 'em',
+                        ),
                     ),
                 )
             ),

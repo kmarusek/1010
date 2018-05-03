@@ -28,39 +28,47 @@
 }
 .fl-node-<?php echo $id; ?> .uabb-cl-wrap .uabb-cl-ul li a span {
  	display: block;
-}
+} 
 <?php
 }*/
 ?>
 
 <?php
-if( $settings->link_color != '' || $settings->link_typography_line_height['desktop'] != '' || $settings->link_typography_font_size['desktop'] != '' || $settings->link_typography_font_family['family'] != 'Default' ) {
+if( $settings->link_color != '' || isset($settings->link_typography_line_height['desktop']) && $settings->link_typography_line_height['desktop'] != '' || isset($settings->link_typography_font_size['desktop']) &&  $settings->link_typography_font_size['desktop'] != '' || isset($settings->link_typography_line_height_unit) || isset($settings->link_typography_font_size_unit)  || $settings->link_typography_font_family['family'] != 'Default' ) {
 ?>
 
-.fl-node-<?php echo $id; ?> .uabb-cl-wrap .uabb-creative-link a {
-	<?php
-	switch ( $settings->link_style ) {
-		case 'style2':
-			$color = uabb_theme_base_color( $settings->background_color );
-			$bg_color = ( $color != '' ) ? $color : '#f7f7f7';
-			echo 'background: ' . $bg_color . ';';
-			break;
+	.fl-node-<?php echo $id; ?> .uabb-cl-wrap .uabb-creative-link a {
+		<?php
+		switch ( $settings->link_style ) {
+			case 'style2':
+				$color = uabb_theme_base_color( $settings->background_color );
+				$bg_color = ( $color != '' ) ? $color : '#f7f7f7';
+				echo 'background: ' . $bg_color . ';';
+				break;
+		}
+
+		echo ( $settings->link_color != '' ) ? 'color: ' . $settings->link_color . ';' : '';
+		?>
 	}
 
-	echo ( $settings->link_color != '' ) ? 'color: ' . $settings->link_color . ';' : '';
-	?>
-}
+	.fl-node-<?php echo $id; ?> .uabb-cl-wrap .uabb-cl-heading a {
+		
+		<?php if( isset( $settings->link_typography_font_size_unit ) && $settings->link_typography_font_size_unit != '' ) : ?>
+			font-size: <?php echo $settings->link_typography_font_size_unit; ?>px;
+		<?php endif; ?>
 
-.fl-node-<?php echo $id; ?> .uabb-cl-wrap .uabb-cl-heading a {
-	<?php
-	echo ( $settings->link_typography_line_height['desktop'] != '' ) ? 'line-height: ' . $settings->link_typography_line_height['desktop'] . 'px;' : '';
-	echo ( $settings->link_typography_font_size['desktop'] != '' ) ? 'font-size: ' . $settings->link_typography_font_size['desktop'] . 'px;' : '';
-	
-	if( $settings->link_typography_font_family['family'] != 'Default' ) {
-		UABB_Helper::uabb_font_css( $settings->link_typography_font_family );
+	    <?php if( isset( $settings->link_typography_font_size['desktop'] ) && $settings->link_typography_font_size['desktop'] == '' && isset( $settings->link_typography_line_height['desktop'] ) && $settings->link_typography_line_height['desktop'] != '' && $settings->link_typography_line_height_unit == '' ) { ?>
+			line-height: <?php echo $settings->link_typography_line_height['desktop']; ?>px;
+		<?php } ?>
+
+		<?php if( isset( $settings->link_typography_line_height_unit ) && $settings->link_typography_line_height_unit != '' ) : ?>
+		line-height: <?php echo $settings->link_typography_line_height_unit; ?>em;
+		<?php endif; ?>
+		
+		<?php if( $settings->link_typography_font_family['family'] != 'Default' ) {
+			UABB_Helper::uabb_font_css( $settings->link_typography_font_family );
+		}?>
 	}
-	?>
-}
 
 <?php
 }
@@ -469,19 +477,38 @@ if( $global_settings->responsive_enabled ) { // Global Setting If started
 ?>
     @media ( max-width: <?php echo $global_settings->medium_breakpoint; ?>px ) {
     	.fl-node-<?php echo $id; ?> .uabb-cl-wrap .uabb-cl-heading a {
-			<?php
-			echo ( $settings->link_typography_line_height['medium'] != '' ) ? 'line-height: ' . $settings->link_typography_line_height['medium'] . 'px;' : '';
-			echo ( $settings->link_typography_font_size['medium'] != '' ) ? 'font-size: ' . $settings->link_typography_font_size['medium'] . 'px;' : '';
-			?>
+
+			<?php if( isset( $settings->link_typography_font_size_unit_medium ) && $settings->link_typography_font_size_unit_medium != '' ) : ?>
+				font-size: <?php echo $settings->link_typography_font_size_unit_medium; ?>px;
+			<?php endif; ?>
+            
+            <?php if( isset( $settings->link_typography_font_size['medium'] ) && $settings->link_typography_font_size['medium'] == '' && isset( $settings->link_typography_line_height['medium'] ) && $settings->link_typography_line_height['medium'] != '' && $settings->link_typography_line_height_unit_medium == '' && $settings->link_typography_line_height_unit == '' ) { ?>
+			    line-height: <?php echo $settings->link_typography_line_height['medium']; ?>px;
+			<?php } ?>
+
+			<?php if( isset( $settings->link_typography_line_height_unit_medium ) && $settings->link_typography_line_height_unit_medium != '' ) : ?>
+				line-height: <?php echo $settings->link_typography_line_height_unit_medium; ?>em;
+			<?php endif; ?>
+			
 		}
     }
  
      @media ( max-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {
      	.fl-node-<?php echo $id; ?> .uabb-cl-wrap .uabb-cl-heading a {
-			<?php
-			echo ( $settings->link_typography_line_height['small'] != '' ) ? 'line-height: ' . $settings->link_typography_line_height['small'] . 'px;' : '';
-			echo ( $settings->link_typography_font_size['small'] != '' ) ? 'font-size: ' . $settings->link_typography_font_size['small'] . 'px;' : '';
-			?>
+
+			<?php if( isset( $settings->link_typography_font_size_unit_responsive ) && $settings->link_typography_font_size_unit_responsive != '' ) : ?>
+				font-size: <?php echo $settings->link_typography_font_size_unit_responsive; ?>px;
+			<?php endif; ?>
+		    
+		    <?php if( isset( $settings->link_typography_font_size['small'] ) && $settings->link_typography_font_size['small'] == '' && isset( $settings->link_typography_line_height['small'] ) && $settings->link_typography_line_height['small'] != '' && $settings->link_typography_line_height_unit_responsive == '' && $settings->link_typography_line_height_unit_medium == '' && $settings->link_typography_line_height_unit == '' ) : ?>
+		    	line-height: <?php echo $settings->link_typography_line_height['small']; ?>px;
+			<?php endif; ?>
+            
+			<?php if( isset( $settings->link_typography_line_height_unit_responsive ) && $settings->link_typography_line_height_unit_responsive != '' ) : ?>
+				line-height: <?php echo $settings->link_typography_line_height_unit_responsive; ?>em;
+			<?php endif; ?>
+						
+		?>
 		}
 
 		<?php if( $settings->mobile_structure == 'stacked' ) { ?>

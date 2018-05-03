@@ -157,7 +157,7 @@ class UABB_Init {
 
 	public function uabb_customizer_save()
 	{
-		if( UABB_Init::$uabb_options['uabb_global_settings']['enable_global'] == 'no' ) {
+		if( isset( UABB_Init::$uabb_options['uabb_global_settings']['enable_global'] ) && UABB_Init::$uabb_options['uabb_global_settings']['enable_global'] == 'no' ) {
 			if ( class_exists( 'FLCustomizer' ) ) {
 				new UABB_BBThemeGlobalIntegration();
 			}

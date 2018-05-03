@@ -18,11 +18,158 @@ class UABBInfoCircleModule extends FLBuilderModule {
             'group'         => UABB_CAT,
 			'dir'           	=> BB_ULTIMATE_ADDON_DIR . 'modules/info-circle/',
             'url'           	=> BB_ULTIMATE_ADDON_URL . 'modules/info-circle/',
-            'partial_refresh'	=> true
+            'partial_refresh'	=> true,
+            'icon'              => 'info-circle.svg'
 		));
-
 		$this->add_css( 'uabb-animate', BB_ULTIMATE_ADDON_URL . 'assets/css/uabb-animate.css' );
+
+		add_filter( 'fl_builder_layout_data', array( $this , 'render_new_data' ), 10, 3 );
 	}
+
+	function render_new_data( $data ) {
+
+		foreach ( $data as &$node ) {
+			
+			if ( isset( $node->settings->type ) && 'info-circle' === $node->settings->type ) {
+
+				if( isset( $node->settings->info_area_spacing ) &&  !isset( $node->settings->info_area_spacing_dimension_top ) &&  !isset( $node->settings->info_area_spacing_dimension_bottom ) &&  !isset( $node->settings->info_area_spacing_dimension_left ) &&  !isset( $node->settings->info_area_spacing_dimension_right ) ) {
+                     
+                    $value = "";
+                    $value = str_replace("px","", $node->settings->info_area_spacing );
+                    
+                    $output = array();
+                    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
+                    
+                    $node->settings->info_area_spacing_dimension_top    = '0';
+                    $node->settings->info_area_spacing_dimension_bottom = '0';
+                    $node->settings->info_area_spacing_dimension_left   = '0';
+                    $node->settings->info_area_spacing_dimension_right  = '0';
+                    
+                    foreach($uabb_default as $val) {
+                        $new = explode(':',$val);
+                         $output[] = $new;
+                    }
+                    for ($i=0; $i < count( $output ); $i++) { 
+                        switch ( $output[$i][0] ) {
+                            case 'padding-top':
+                               $node->settings->info_area_spacing_dimension_top    = (int)$output[$i][1];
+                                break;
+                            case 'padding-bottom':
+                                $node->settings->info_area_spacing_dimension_bottom = (int)$output[$i][1];
+                                break;
+                            case 'padding-right':
+                                $node->settings->info_area_spacing_dimension_right  = (int)$output[$i][1];
+                                break;
+                            case 'padding-left':
+                                $node->settings->info_area_spacing_dimension_left   = (int)$output[$i][1];
+                                break;
+                            case 'padding':
+                                $node->settings->info_area_spacing_dimension_top    = (int)$output[$i][1];
+                                $node->settings->info_area_spacing_dimension_bottom = (int)$output[$i][1];
+                                $node->settings->info_area_spacing_dimension_left   = (int)$output[$i][1];
+                                $node->settings->info_area_spacing_dimension_right  = (int)$output[$i][1];
+                                break;
+                        }
+                    }
+                }                                         
+                        
+				
+				if ( isset( $node->settings->font_size['small']) && !isset( $node->settings->font_size_unit_responsive ) ) {
+					$node->settings->font_size_unit_responsive = $node->settings->font_size['small'];
+				}
+				if( isset( $node->settings->font_size['medium']) && !isset( $node->settings->font_size_unit_medium ) ) {
+					$node->settings->font_size_unit_medium = $node->settings->font_size['medium'];
+				}
+				if( isset( $node->settings->font_size['desktop']) && !isset( $node->settings->font_size_unit ) ) {
+					$node->settings->font_size_unit = $node->settings->font_size['desktop'];
+				}
+
+				if ( isset( $node->settings->line_height['small']) && isset( $node->settings->font_size['small']) && $node->settings->font_size['small'] != 0 && !isset( $node->settings->line_height_unit_responsive ) ) {
+				    if( is_numeric( $node->settings->line_height['small'] ) && is_numeric( $node->settings->font_size['small'] ) )
+				    $node->settings->line_height_unit_responsive = round( $node->settings->line_height['small'] / $node->settings->font_size['small'], 2 );
+				}
+				if( isset( $node->settings->line_height['medium'] ) && isset( $node->settings->font_size['medium']) && $node->settings->font_size['medium'] != 0 && !isset( $node->settings->line_height_unit_medium ) ) {
+				    if( is_numeric( $node->settings->line_height['medium'] ) && is_numeric( $node->settings->font_size['medium'] ) )
+				    $node->settings->line_height_unit_medium = round( $node->settings->line_height['medium'] / $node->settings->font_size['medium'], 2 );
+				}
+				if( isset( $node->settings->line_height['desktop']) && isset( $node->settings->font_size['desktop']) && $node->settings->font_size['desktop'] != 0 && !isset( $node->settings->line_height_unit ) ) {
+				    if( is_numeric( $node->settings->line_height['desktop']) && is_numeric( $node->settings->font_size['desktop']) )
+				    $node->settings->line_height_unit = round( $node->settings->line_height['desktop'] / $node->settings->font_size['desktop'], 2 );
+				}
+
+				if ( isset( $node->settings->desc_font_size['small']) && !isset( $node->settings->desc_font_size_unit_responsive ) ) {
+					$node->settings->desc_font_size_unit_responsive = $node->settings->desc_font_size['small'];
+				}
+				if( isset( $node->settings->desc_font_size['medium']) && !isset( $node->settings->desc_font_size_unit_medium ) ) {
+					$node->settings->desc_font_size_unit_medium = $node->settings->desc_font_size['medium'];
+				}
+				if( isset( $node->settings->desc_font_size['desktop']) && !isset( $node->settings->desc_font_size_unit ) ) {
+					$node->settings->desc_font_size_unit = $node->settings->desc_font_size['desktop'];
+				}
+
+				if ( isset( $node->settings->desc_line_height) && isset( $node->settings->desc_font_size['small']) && $node->settings->desc_font_size['small'] != 0 && !isset( $node->settings->desc_line_height_unit_responsive ) ) {
+				    if( is_numeric( $node->settings->desc_line_height['small']) && is_numeric( $node->settings->desc_font_size['small']) )
+				    $node->settings->desc_line_height_unit_responsive = round( $node->settings->desc_line_height['small'] / $node->settings->desc_font_size['small'], 2 );
+				}
+				if( isset( $node->settings->desc_line_height['medium']) && isset( $node->settings->desc_font_size['medium']) && $node->settings->desc_font_size['medium'] != 0 && !isset( $node->settings->desc_line_height_unit_medium ) ) {
+				    if( is_numeric( $node->settings->desc_line_height['medium']) && is_numeric( $node->settings->desc_font_size['medium']) )
+				    $node->settings->desc_line_height_unit_medium = round( $node->settings->desc_line_height['medium'] / $node->settings->desc_font_size['medium'], 2 );
+				}
+				if( isset( $node->settings->desc_line_height['desktop']) && isset( $node->settings->desc_font_size['desktop']) && $node->settings->desc_font_size['desktop'] != 0 && !isset( $node->settings->desc_line_height_unit ) ) {
+				    if( is_numeric( $node->settings->desc_line_height['desktop']) && is_numeric( $node->settings->desc_font_size['desktop']) )
+				    $node->settings->desc_line_height_unit = round( $node->settings->desc_line_height['desktop'] / $node->settings->desc_font_size['desktop'], 2 );
+				}
+
+				for( $i = 0; $i < count( $node->settings->add_circle_item ); $i++ ) {
+
+                    if ( isset( $node->settings->add_circle_item[$i]->btn_font_size->small) && !isset( $node->settings->add_circle_item[$i]->btn_font_size_unit_responsive ) ) {
+                        $node->settings->add_circle_item[$i]->btn_font_size_unit_responsive = $node->settings->add_circle_item[$i]->btn_font_size->small;
+                    }
+                    if ( isset( $node->settings->add_circle_item[$i]->btn_font_size->medium) && !isset( $node->settings->add_circle_item[$i]->btn_font_size_unit_medium ) ) {
+                        $node->settings->add_circle_item[$i]->btn_font_size_unit_medium = $node->settings->add_circle_item[$i]->btn_font_size->medium;
+                    }
+                    if ( isset( $node->settings->add_circle_item[$i]->btn_font_size->desktop) && !isset( $node->settings->add_circle_item[$i]->btn_font_size_unit ) ) {
+                        $node->settings->add_circle_item[$i]->btn_font_size_unit = $node->settings->add_circle_item[$i]->btn_font_size->desktop;
+                    }
+
+                    if ( isset( $node->settings->add_circle_item[$i]->btn_line_height->small) && isset( $node->settings->add_circle_item[$i]->btn_font_size->small) && $node->settings->add_circle_item[$i]->btn_font_size->small != 0 && !isset( $node->settings->add_circle_item[$i]->btn_line_height_unit_responsive ) ) {
+                        if( is_numeric( $node->settings->add_circle_item[$i]->btn_line_height->small) && is_numeric( $node->settings->add_circle_item[$i]->btn_font_size->small) )
+                        $node->settings->add_circle_item[$i]->btn_line_height_unit_responsive = round( $node->settings->add_circle_item[$i]->btn_line_height->small / $node->settings->add_circle_item[$i]->btn_font_size->small, 2 );
+                    }
+
+                    if ( isset( $node->settings->add_circle_item[$i]->btn_line_height->medium) && isset( $node->settings->add_circle_item[$i]->btn_font_size->medium) && $node->settings->add_circle_item[$i]->btn_font_size->medium != 0 && !isset( $node->settings->add_circle_item[$i]->btn_line_height_unit_medium ) ) {
+                        if( is_numeric( $node->settings->add_circle_item[$i]->btn_line_height->medium) && is_numeric( $node->settings->add_circle_item[$i]->btn_font_size->medium) )
+                        $node->settings->add_circle_item[$i]->btn_line_height_unit_medium = round( $node->settings->add_circle_item[$i]->btn_line_height->medium / $node->settings->add_circle_item[$i]->btn_font_size->medium, 2 );
+                    }
+
+                    if ( isset( $node->settings->add_circle_item[$i]->btn_line_height->desktop) && isset( $node->settings->add_circle_item[$i]->btn_font_size->desktop) && $node->settings->add_circle_item[$i]->btn_font_size->desktop != 0 && !isset( $node->settings->add_circle_item[$i]->btn_line_height_unit ) ) {
+                        if( is_numeric( $node->settings->add_circle_item[$i]->btn_line_height->desktop) && is_numeric( $node->settings->add_circle_item[$i]->btn_font_size->desktop) )
+                        $node->settings->add_circle_item[$i]->btn_line_height_unit = round( $node->settings->add_circle_item[$i]->btn_line_height->desktop / $node->settings->add_circle_item[$i]->btn_font_size->desktop, 2 );
+                    }
+                }
+
+			}
+		}
+
+		return $data;
+	}
+	
+	/**
+     * @method get_icons
+     */
+    public function get_icon( $icon = '' ) {
+
+        // check if $icon is referencing an included icon.
+        if ( '' != $icon && file_exists( BB_ULTIMATE_ADDON_DIR . 'modules/info-circle/icon/' . $icon ) ) {
+            $path = BB_ULTIMATE_ADDON_DIR . 'modules/info-circle/icon/' . $icon;
+        }
+
+        if ( file_exists( $path ) ) {
+            return file_get_contents( $path );
+        } else {
+            return '';
+        }
+    }
 
 	/* Render Icon/Photo */
 	function render_icon_image( $item, $active = '' ) {
@@ -104,9 +251,15 @@ class UABBInfoCircleModule extends FLBuilderModule {
 				'mob_align'          => 'center',
 
 				/* Typography */
-				'font_size'         => $item->btn_font_size,
-				'line_height'       => $item->btn_line_height,
-				'font_family'       => $item->btn_font_family,
+				'font_size'                     => ( isset( $item->btn_font_size ) ) ? $item->btn_font_size : '',
+				'line_height'                   => ( isset( $item->btn_line_height ) ) ? $item->btn_line_height : '',
+				'font_size_unit'         		=> $item->btn_font_size_unit,
+				'line_height_unit'       		=> $item->btn_line_height_unit,
+				'font_size_unit_medium'         => $item->btn_font_size_unit_medium,
+				'line_height_unit_medium'       => $item->btn_line_height_unit_medium,
+				'font_size_unit_responsive'     => $item->btn_font_size_unit_responsive,
+				'line_height_unit_responsive'   => $item->btn_line_height_unit_responsive,
+				'font_family'       			=> $item->btn_font_family,
 			);
 
 			FLBuilder::render_module_html( 'uabb-button', $btn_settings );
@@ -132,12 +285,6 @@ FLBuilder::register_module('UABBInfoCircleModule', array(
 			'info_circle_general' => array(
 				'title'		=> '',
 				'fields'	=> array(
-					/*'info_circle_info' => array(
-						'type'     => 'uabb-msgbox',
-						'label'    => '',
-						'msg-type' => 'info',
-						'content'  => $notice,
-					),*/
 					'add_circle_item' => array(
 						'type'			=> 'form',
 						'label'			=> __( 'Info Circle Item', 'uabb' ),
@@ -156,7 +303,7 @@ FLBuilder::register_module('UABBInfoCircleModule', array(
 				'title'		=> __( 'General', 'uabb' ),
 				'fields'	=> array(
 					'autoplay'     => array(
-						'type'          => 'uabb-toggle-switch',
+						'type'          => 'select',
 						'label'         => __( 'Autoplay', 'uabb' ),
 						'default'       => 'yes',
 						'options'       => array(
@@ -178,7 +325,7 @@ FLBuilder::register_module('UABBInfoCircleModule', array(
 						'description'	=> 'sec(s)',
 					),
 					'content_width'     => array(
-						'type'          => 'uabb-toggle-switch',
+						'type'          => 'select',
 						'label'         => __( 'Content Area Width', 'uabb' ),
 						'default'       => 'custom',
 						'options'       => array(
@@ -202,7 +349,7 @@ FLBuilder::register_module('UABBInfoCircleModule', array(
 						'help'	=> __( 'Enter the width of your content area. This is proportionate with overall Info Circle area.', 'uabb' ),
 					),
 					'info_trigger_type'     => array(
-						'type'          => 'uabb-toggle-switch',
+						'type'          => 'select',
 						'label'         => __( 'Action to Display Content', 'uabb' ),
 						'default'       => 'hover',
 						'options'       => array(
@@ -212,7 +359,7 @@ FLBuilder::register_module('UABBInfoCircleModule', array(
 						'help'	=> __( 'Select the action to display info circle\'s individual item\'s content inside the content area.', 'uabb' ),
 					),
 					'responsive_nature'     => array(
-						'type'          => 'uabb-toggle-switch',
+						'type'          => 'select',
 						'label'         => __( 'Responsive Fallback Structure', 'uabb' ),
 						'default'       => 'true',
 						'options'       => array(
@@ -448,12 +595,18 @@ FLBuilder::register_module('UABBInfoCircleModule', array(
 			'information_area'	=> array(
 				'title'         => __( 'Information Area', 'uabb' ),
 				'fields'        => array(
-					'info_area_spacing'		=> array(
-						'type'          => 'uabb-spacing',
+					'info_area_spacing_dimension'		=> array(
+						'type'          => 'dimension',
                         'label'         => __( 'Content Padding', 'uabb' ),
-                        'mode'			=> 'padding',
                         'help'			=> __( 'To give padding to Information Area use this setting', 'uabb' ),
-                        'default'       => 'padding: 25px;' // Optional
+                        'description'  => 'px',
+                         'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '25',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ),   
 					),
 					'info_area_icon'     => array(
 						'type'          => 'select',
@@ -825,14 +978,17 @@ FLBuilder::register_module('UABBInfoCircleModule', array(
                             'selector'	=> '.uabb-info-circle-title'
                     	),
                     ),
-                    'font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'	=> 'px',
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                         'preview'	=> array(
                             'type'		=> 'css',
                             'selector'	=> '.uabb-info-circle-title',
@@ -840,19 +996,22 @@ FLBuilder::register_module('UABBInfoCircleModule', array(
                             'unit'		=> 'px'
                     	),
                     ),
-                    'line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                    'line_height_unit'    => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'	=> 'em',
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                     	'preview'	=> array(
                             'type'		=> 'css',
                             'selector'	=> '.uabb-info-circle-title',
                             'property'	=> 'line-height',
-                            'unit'		=> 'px'
+                            'unit'		=> 'em'
                     	),
                     ),
                     'color'        => array( 
@@ -911,14 +1070,17 @@ FLBuilder::register_module('UABBInfoCircleModule', array(
                             'selector'	=> '.uabb-info-circle-desc'
                     	),
                     ),
-                    'desc_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'desc_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'	=> 'px',
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                         'preview'	=> array(
                             'type'		=> 'css',
                             'selector'	=> '.uabb-info-circle-desc',
@@ -926,19 +1088,22 @@ FLBuilder::register_module('UABBInfoCircleModule', array(
                             'unit'		=> 'px'
                     	),
                     ),
-                    'desc_line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                    'desc_line_height_unit'    => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'	=> 'em',
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                         'preview'	=> array(
                             'type'		=> 'css',
                             'selector'	=> '.uabb-info-circle-desc',
                             'property'	=> 'line-height',
-                            'unit'		=> 'px'
+                            'unit'		=> 'em'
                     	),
                     ),
                     'desc_color'        => array( 
@@ -1245,7 +1410,7 @@ FLBuilder::register_settings_form('info_circle_items_form', array(
 							'show_alpha' => true,
 						),
 						'icon_gradient'     => array(
-							'type'          => 'uabb-toggle-switch',
+							'type'          => 'select',
 							'label'         => __( 'Gradient', 'uabb' ),
 							'default'       => '0',
 							'options'       => array(
@@ -1499,7 +1664,7 @@ FLBuilder::register_settings_form('info_circle_items_form', array(
 	                        'size'        => '5',
 	                    ),
 	                    'hover_attribute' => array(
-	                        'type'          => 'uabb-toggle-switch',
+	                        'type'          => 'select',
 	                        'label'         => __( 'Apply Hover Color To', 'uabb' ),
 	                        'default'       => 'bg',
 	                        'options'       => array(
@@ -1591,22 +1756,28 @@ FLBuilder::register_settings_form('info_circle_items_form', array(
 	                            'weight'        => 'Default'
 	                        ),
 	                    ),
-	                    'btn_font_size'     => array(
-	                        'type'          => 'uabb-simplify',
+	                    'btn_font_size_unit'     => array(
+	                        'type'          => 'unit',
 	                        'label'         => __( 'Font Size', 'uabb' ),
-	                        'default'       => array(
-	                            'desktop'       => '',
-	                            'medium'        => '',
-	                            'small'         => '',
-	                        ),
+                        	'description'	=> 'px',
+							'responsive' => array(
+								'placeholder' => array(
+									'default' => '',
+									'medium' => '',
+									'responsive' => '',
+								),
+							),
 	                    ),
-	                    'btn_line_height'    => array(
-	                        'type'          => 'uabb-simplify',
+	                    'btn_line_height_unit'    => array(
+	                        'type'          => 'unit',
 	                        'label'         => __( 'Line Height', 'uabb' ),
-	                        'default'       => array(
-	                            'desktop'       => '',
-	                            'medium'        => '',
-	                            'small'         => '',
+                        	'description'	=> 'em',	                        
+	                        'responsive' => array(
+	                        	'placeholder' => array(
+	                        		'default' => '',
+	                        		'medium' => '',
+	                        		'responsive' => '',
+	                        	),
 	                        ),
 	                    ),
 	                    'btn_color'        => array( 

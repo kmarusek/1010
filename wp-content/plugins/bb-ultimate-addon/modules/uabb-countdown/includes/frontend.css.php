@@ -250,20 +250,6 @@ if ( isset( $settings->timer_style ) && $settings->timer_style == "normal" && is
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* Typography style Assign CSS for message after expires*/
 if( isset( $settings->fixed_timer_action ) && $settings->fixed_timer_action == "msg" ){
 ?>
@@ -271,12 +257,19 @@ if( isset( $settings->fixed_timer_action ) && $settings->fixed_timer_action == "
 	<?php if( isset( $settings->message_font_family['family'] ) && $settings->message_font_family['family'] != "Default") : ?>
 		<?php UABB_Helper::uabb_font_css( $settings->message_font_family ); ?>
 	<?php endif; ?>
-	<?php if( isset( $settings->message_font_size['desktop'] ) && $settings->message_font_size['desktop'] != '' ) : ?>
-		font-size: <?php if ( isset( $settings->message_font_size['desktop'] ) ) { echo $settings->message_font_size['desktop']; } ?>px;
+
+	<?php if( isset( $settings->message_font_size_unit ) && $settings->message_font_size_unit != '' ) : ?>
+		font-size: <?php echo $settings->message_font_size_unit; ?>px;
 	<?php endif; ?>
-	<?php if( isset( $settings->message_line_height['desktop'] ) && $settings->message_line_height['desktop'] != '' ) : ?>
-		line-height: <?php if ( isset( $settings->message_line_height['desktop'] ) ) { echo $settings->message_line_height['desktop']; } ?>px;
+
+	<?php if( isset( $settings->message_font_size['desktop'] ) && $settings->message_font_size['desktop'] == '' && isset( $settings->message_line_height['desktop'] ) && $settings->message_line_height['desktop'] != '' && $settings->message_line_height_unit == '' ) { ?>
+	    line-height: <?php echo $settings->message_line_height['desktop']; ?>px;
+	<?php } ?>
+
+	<?php if( isset( $settings->message_line_height_unit ) && $settings->message_line_height_unit != '' ) : ?>
+	line-height: <?php echo $settings->message_line_height_unit; ?>em;
 	<?php endif; ?>
+
 	<?php if( isset( $settings->message_color ) && $settings->message_color != '' ) : ?>
 		color: <?php echo $settings->message_color; ?>;
 	<?php endif; ?>
@@ -290,12 +283,19 @@ if( isset( $settings->evergreen_timer_action ) && $settings->evergreen_timer_act
 	<?php if( isset( $settings->message_font_family['family'] ) && $settings->message_font_family['family'] != "Default") : ?>
 		<?php UABB_Helper::uabb_font_css( $settings->message_font_family ); ?>
 	<?php endif; ?>
-	<?php if( isset( $settings->message_font_size['desktop'] ) && $settings->message_font_size['desktop'] != '' ) : ?>
-		font-size: <?php if ( isset( $settings->message_font_size['desktop'] ) ) { echo $settings->message_font_size['desktop']; } ?>px;
-	<?php endif; ?>
-	<?php if( isset( $settings->message_line_height['desktop'] ) && $settings->message_line_height['desktop'] != '' ) : ?>
-		line-height: <?php if ( isset( $settings->message_line_height['desktop'] ) ) { echo $settings->message_line_height['desktop']; } ?>px;
-	<?php endif; ?>
+    
+		<?php if( isset( $settings->message_font_size_unit ) && $settings->message_font_size_unit != '' ) : ?>
+			font-size: <?php echo $settings->message_font_size_unit; ?>px;
+		<?php endif; ?>
+
+		<?php if( isset( $settings->message_font_size['desktop'] ) && $settings->message_font_size['desktop'] == '' && isset( $settings->message_line_height['desktop'] ) && $settings->message_line_height['desktop'] != '' && $settings->message_line_height_unit == '' ) { ?>
+		    line-height: <?php echo $settings->message_line_height['desktop']; ?>px;
+		<?php } ?>
+
+		<?php if( isset( $settings->message_line_height_unit ) && $settings->message_line_height_unit != '' ) : ?>
+			line-height: <?php echo $settings->message_line_height_unit; ?>em;
+		<?php endif; ?>
+
 	<?php if( isset( $settings->message_color ) && $settings->message_color != '' ) : ?>
 		color: <?php echo $settings->message_color; ?>;
 	<?php endif; ?>
@@ -304,7 +304,7 @@ if( isset( $settings->evergreen_timer_action ) && $settings->evergreen_timer_act
 }
 
 /* Typography style starts here  */ 
-if ( ( isset( $settings->digit_font_family['family'] ) && $settings->digit_font_family['family'] != "Default" ) || ( isset( $settings->digit_font_size['desktop'] ) && $settings->digit_font_size['desktop'] != '' ) || ( isset( $settings->digit_line_height['desktop'] ) && $settings->digit_line_height['desktop'] != '' ) || ( isset( $settings->digit_color ) && $settings->digit_color != '' ) ) { ?>
+if ( ( isset( $settings->digit_font_family['family'] ) && $settings->digit_font_family['family'] != "Default" ) || isset( $settings->digit_font_size['desktop'] ) || isset( $settings->digit_line_height['desktop'] ) || isset( $settings->digit_font_size_unit ) || isset( $settings->digit_line_height_unit ) || isset( $settings->digit_color ) ) { ?>
 
 	.fl-node-<?php echo $id;?> .uabb-countdown-fixed-timer .uabb-count-down-digit,
 	.fl-node-<?php echo $id;?> .uabb-countdown-evergreen-timer .uabb-count-down-digit {
@@ -312,31 +312,45 @@ if ( ( isset( $settings->digit_font_family['family'] ) && $settings->digit_font_
 		<?php if( isset( $settings->digit_font_family['family'] ) && $settings->digit_font_family['family'] != "Default") : ?>
 			<?php UABB_Helper::uabb_font_css( $settings->digit_font_family ); ?>
 		<?php endif; ?>
-		<?php if( isset( $settings->digit_font_size['desktop'] ) && $settings->digit_font_size['desktop'] != '' ) : ?>
-			font-size: <?php echo $settings->digit_font_size['desktop']; ?>px;
+
+		<?php if( isset( $settings->digit_font_size_unit ) && $settings->digit_font_size_unit != '' ) : ?>
+			font-size: <?php echo $settings->digit_font_size_unit; ?>px;
 		<?php endif; ?>
-		<?php if( isset( $settings->digit_line_height['desktop'] ) && $settings->digit_line_height['desktop'] != '' ) : ?>
-			line-height: <?php echo $settings->digit_line_height['desktop']; ?>px;
+
+		<?php if( isset( $settings->digit_font_size['desktop'] ) && $settings->digit_font_size['desktop'] == '' && isset( $settings->digit_line_height['desktop'] ) && $settings->digit_line_height['desktop'] != '' && $settings->digit_line_height_unit == '' ) { ?>
+		    line-height: <?php echo $settings->digit_line_height['desktop']; ?>px;
+		<?php } ?>
+
+		<?php if( isset( $settings->digit_line_height_unit ) && $settings->digit_line_height_unit != '' ) : ?>
+		line-height: <?php echo $settings->digit_line_height_unit; ?>em;
 		<?php endif; ?>
+
 		<?php if( isset( $settings->digit_color ) && $settings->digit_color != '' ) : ?>
 			color: <?php echo $settings->digit_color; ?>;
 		<?php endif; ?>
 	}
 <?php } ?>
 
-<?php if ( ( isset( $settings->unit_font_family['family'] ) && $settings->unit_font_family['family'] != "Default" ) || ( isset( $settings->unit_font_size['desktop'] ) && $settings->unit_font_size['desktop'] != '' ) || ( isset( $settings->unit_line_height['desktop'] ) && $settings->unit_line_height['desktop'] != '' ) || ( isset( $settings->unit_color ) && $settings->unit_color != '' ) ) { ?>
+<?php if ( ( isset( $settings->unit_font_family['family'] ) && $settings->unit_font_family['family'] != "Default" ) || isset( $settings->unit_font_size['desktop'] ) || isset( $settings->unit_line_height['desktop'] ) || isset( $settings->unit_font_size_new ) || isset( $settings->unit_line_height_new ) || isset( $settings->unit_color ) ) { ?>
 
 	.fl-node-<?php echo $id;?> .uabb-countdown-fixed-timer .uabb-count-down-unit,
 	.fl-node-<?php echo $id;?> .uabb-countdown-evergreen-timer .uabb-count-down-unit {	
 		<?php if( isset( $settings->unit_font_family['family'] ) && $settings->unit_font_family['family'] != "Default") : ?>
 			<?php UABB_Helper::uabb_font_css( $settings->unit_font_family ); ?>
 		<?php endif; ?>
-		<?php if( isset( $settings->unit_font_size['desktop'] ) && $settings->unit_font_size['desktop'] != '' ) : ?>
-			font-size: <?php echo $settings->unit_font_size['desktop']; ?>px;
+
+		<?php if( isset( $settings->unit_font_size_new ) && $settings->unit_font_size_new != '' ) : ?>
+			font-size: <?php echo $settings->unit_font_size_new; ?>px;
 		<?php endif; ?>
-		<?php if( isset( $settings->unit_line_height['desktop'] ) && $settings->unit_line_height['desktop'] != '' ) : ?>
-			line-height: <?php echo $settings->unit_line_height['desktop']; ?>px;
+
+		<?php if( isset( $settings->unit_font_size['desktop'] ) && $settings->unit_font_size['desktop'] == '' && isset( $settings->unit_line_height['desktop'] ) && $settings->unit_line_height['desktop'] != '' && $settings->unit_line_height_new == '' ) { ?>
+		    line-height: <?php echo $settings->unit_line_height['desktop']; ?>px;
+		<?php } ?>
+
+		<?php if( isset( $settings->unit_line_height_new ) && $settings->unit_line_height_new != '' ) : ?>
+		line-height: <?php echo $settings->unit_line_height_new; ?>em;
 		<?php endif; ?>
+
 		<?php if( isset( $settings->unit_color ) && $settings->unit_color != '' ) : ?>
 			color: <?php echo $settings->unit_color; ?>;
 		<?php endif; ?>
@@ -346,43 +360,60 @@ if ( ( isset( $settings->digit_font_family['family'] ) && $settings->digit_font_
 
 /* Typography responsive layout starts here */ 
 <?php if($global_settings->responsive_enabled) { // Global Setting If started 
-	if( ( isset( $settings->digit_font_size['medium'] ) && $settings->digit_font_size['medium'] !="" ) || ( isset( $settings->digit_line_height['medium'] ) && $settings->digit_line_height['medium'] != "" ) || ( isset( $settings->unit_font_size['medium'] ) && $settings->unit_font_size['medium'] !="" ) || ( isset( $settings->unit_line_height['medium'] ) && $settings->unit_line_height['medium'] != "" ) ) {
-	?>
+	if( isset( $settings->message_font_size['medium'] ) || isset( $settings->message_line_height['medium'] ) || isset( $settings->digit_font_size['medium'] ) || isset( $settings->digit_line_height['medium'] ) || isset( $settings->unit_font_size['medium'] ) || isset( $settings->unit_line_height['medium'] ) || isset( $settings->digit_font_size_unit_medium ) || isset( $settings->digit_line_height_unit_medium ) || isset( $settings->digit_line_height_unit ) || isset( $settings->unit_font_size_new_medium ) || isset( $settings->unit_line_height_new_medium ) || isset( $settings->unit_line_height_new ) || isset( $settings->message_font_size_unit_medium ) || isset( $settings->message_line_height_unit_medium ) || isset( $settings->message_line_height_message ) || isset( $settings->evergreen_timer_action ) || isset( $settings->fixed_timer_action ) ) { ?>
 		@media ( max-width: <?php echo $global_settings->medium_breakpoint .'px'; ?> ) {
-			<?php if( $settings->digit_font_size['medium'] !="" || $settings->digit_line_height['medium'] != "" ) { ?>
+			<?php if( isset($settings->digit_font_size['medium']) &&  $settings->digit_font_size['medium'] !="" || isset($settings->digit_line_height['medium']) || isset($settings->digit_font_size_unit_medium) || isset($settings->digit_line_height_unit_medium)  ) { ?>
 				.fl-node-<?php echo $id;?> .uabb-countdown-fixed-timer .uabb-count-down-digit,
 				.fl-node-<?php echo $id;?> .uabb-countdown-evergreen-timer .uabb-count-down-digit {
-					<?php if( isset( $settings->digit_font_size['medium'] ) && $settings->digit_font_size['medium'] != '' ) : ?>
-						font-size: <?php echo $settings->digit_font_size['medium']; ?>px;
+					
+					<?php if( isset( $settings->digit_font_size_unit_medium ) && $settings->digit_font_size_unit_medium != '' ) : ?>
+						font-size: <?php echo $settings->digit_font_size_unit_medium; ?>px;
 					<?php endif; ?>
-					<?php if( isset( $settings->digit_line_height['medium'] ) && $settings->digit_line_height['medium'] != '' ) : ?>
-						line-height: <?php echo $settings->digit_line_height['medium']; ?>px;
+
+					<?php if( isset( $settings->digit_font_size['medium'] ) && $settings->digit_font_size['medium'] == '' && isset( $settings->digit_line_height['medium'] ) && $settings->digit_line_height['medium'] != '' && $settings->digit_line_height_unit_medium == '' && $settings->digit_line_height_unit == '' ) { ?>
+					    line-height: <?php echo $settings->digit_line_height['medium']; ?>px;
+					<?php } ?>
+
+					<?php if( isset( $settings->digit_line_height_unit_medium ) && $settings->digit_line_height_unit_medium != '' ) : ?>
+						line-height: <?php echo $settings->digit_line_height_unit_medium; ?>em;
 					<?php endif; ?>
+
 				}
 			<?php } ?>
 
-			<?php if( ( isset( $settings->digit_font_size['medium'] ) && $settings->unit_font_size['medium'] !="" ) || ( isset( $settings->digit_line_height['medium'] ) && $settings->unit_line_height['medium'] != "" ) ) { ?>
+			<?php if( isset( $settings->unit_font_size['medium'] ) || isset( $settings->unit_line_height['medium'] ) ||isset( $settings->digit_font_size_unit_medium ) || isset( $settings->unit_font_size_new_medium ) ) { ?>
 				.fl-node-<?php echo $id;?> .uabb-countdown-fixed-timer .uabb-count-down-unit,
 				.fl-node-<?php echo $id;?> .uabb-countdown-evergreen-timer .uabb-count-down-unit {
-					<?php if( isset( $settings->unit_font_size['medium'] ) && $settings->unit_font_size['medium'] != '' ) : ?>
-						font-size: <?php echo $settings->unit_font_size['medium']; ?>px;
+					
+					<?php if( isset( $settings->unit_font_size_new_medium ) && $settings->unit_font_size_new_medium != '' ) : ?>
+						font-size: <?php echo $settings->unit_font_size_new_medium; ?>px;
 					<?php endif; ?>
-					<?php if( isset( $settings->unit_line_height['medium'] ) && $settings->unit_line_height['medium'] != '' ) : ?>
-						line-height: <?php echo $settings->unit_line_height['medium']; ?>px;
+
+					<?php if( isset( $settings->unit_font_size['medium'] ) && $settings->unit_font_size['medium'] == '' && isset( $settings->unit_line_height['medium'] ) && $settings->unit_line_height['medium'] != '' && $settings->unit_line_height_new_medium == '' && $settings->unit_line_height_new == '') { ?>
+					    line-height: <?php echo $settings->unit_line_height['medium']; ?>px;
+					<?php } ?>
+
+					<?php if( isset( $settings->unit_line_height_new_medium ) && $settings->unit_line_height_new_medium != '' ) : ?>
+						line-height: <?php echo $settings->unit_line_height_new_medium; ?>em;
 					<?php endif; ?>
 				}
 				
 			<?php } ?>
 
-			<?php if( ( isset( $settings->message_font_size['medium'] ) && $settings->message_font_size['medium'] !="" ) || ( isset( $settings->message_line_height['medium'] ) && $settings->message_line_height['medium'] != "" ) ) {
+			<?php if( isset( $settings->message_font_size['medium'] ) || isset( $settings->message_line_height['medium'] ) || isset( $settings->message_font_size_unit_medium ) || isset( $settings->message_line_height_unit_medium ) ) {
 				if( isset( $settings->evergreen_timer_action ) && $settings->evergreen_timer_action == "msg" ){
 			 ?>
 				.fl-node-<?php echo $id;?> .uabb-countdown-expire-message {
-					<?php if( isset( $settings->message_font_size['medium'] ) && $settings->message_font_size['medium'] != '' ) : ?>
-						font-size: <?php echo $settings->message_font_size['medium']; ?>px;
+					<?php if( isset( $settings->message_font_size_unit ) && $settings->message_font_size_unit != '' ) : ?>
+						font-size: <?php echo $settings->message_font_size_unit; ?>px;
 					<?php endif; ?>
-					<?php if( isset( $settings->message_line_height['medium'] ) && $settings->message_line_height['medium'] != '' ) : ?>
-						line-height: <?php echo $settings->message_line_height['medium']; ?>px;
+
+					<?php if( isset( $settings->message_font_size['medium'] ) && $settings->message_font_size['medium'] == '' && isset( $settings->message_line_height['medium'] ) && $settings->message_line_height['medium'] != '' && $settings->message_line_height_unit_medium == ''  && $settings->message_line_height_unit == '') { ?>
+					    line-height: <?php echo $settings->message_line_height['medium']; ?>px;
+					<?php } ?>
+
+					<?php if( isset( $settings->message_line_height_unit_medium ) && $settings->message_line_height_unit_medium != '' ) : ?>
+						line-height: <?php echo $settings->message_line_height_unit_medium; ?>em;
 					<?php endif; ?>
 				}
 				
@@ -391,11 +422,16 @@ if ( ( isset( $settings->digit_font_family['family'] ) && $settings->digit_font_
 				if( isset( $settings->fixed_timer_action ) && $settings->fixed_timer_action == "msg" ){
 				?>
 				.fl-node-<?php echo $id;?> .uabb-countdown-expire-message {
-					<?php if( isset( $settings->message_font_size['medium'] ) && $settings->message_font_size['medium'] != '' ) : ?>
-						font-size: <?php echo $settings->message_font_size['medium']; ?>px;
+					<?php if( isset( $settings->message_font_size_unit ) && $settings->message_font_size_unit != '' ) : ?>
+						font-size: <?php echo $settings->message_font_size_unit; ?>px;
 					<?php endif; ?>
-					<?php if( isset( $settings->message_line_height['medium'] ) && $settings->message_line_height['medium'] != '' ) : ?>
-						line-height: <?php echo $settings->message_line_height['medium']; ?>px;
+
+					<?php if( isset( $settings->message_font_size['medium'] ) && $settings->message_font_size['medium'] == '' && isset( $settings->message_line_height['medium'] ) && $settings->message_line_height['medium'] != '' && $settings->message_line_height_unit_medium == ''  && $settings->message_line_height_unit == '') { ?>
+					    line-height: <?php echo $settings->message_line_height['medium']; ?>px;
+					<?php } ?>
+
+					<?php if( isset( $settings->message_line_height_unit_medium ) && $settings->message_line_height_unit_medium != '' ) : ?>
+						line-height: <?php echo $settings->message_line_height_unit_medium; ?>em;
 					<?php endif; ?>
 				}
 				<?php
@@ -405,42 +441,61 @@ if ( ( isset( $settings->digit_font_family['family'] ) && $settings->digit_font_
 	<?php
 	}
 
-	if( ( isset( $settings->digit_font_size['small'] ) && $settings->digit_font_size['small'] != "" ) || ( isset( $settings->digit_line_height['small'] ) && $settings->digit_line_height['small'] != "" ) || ( isset( $settings->unit_font_size['small'] ) && $settings->unit_font_size['small'] != "" ) || ( isset( $settings->unit_line_height['small'] ) && $settings->unit_line_height['small'] != "" ) || ( isset( $settings->mobile_view ) && $settings->mobile_view == 'stack' ) ) {
+	if( isset( $settings->message_font_size['small'] ) || isset( $settings->message_line_height['small'] ) || isset( $settings->digit_font_size['small'] ) || isset( $settings->digit_line_height['small'] ) || isset( $settings->unit_font_size['small'] ) || isset( $settings->unit_line_height['small'] ) || isset( $settings->digit_font_size_unit_responsive ) || isset( $settings->digit_line_height_unit_responsive ) || isset( $settings->digit_line_height_unit_medium ) || isset( $settings->digit_line_height_unit ) || isset( $settings->unit_font_size_new_responsive ) || isset( $settings->unit_line_height_new_responsive ) || isset( $settings->unit_line_height_new_medium ) || isset( $settings->unit_line_height_new ) || isset( $settings->message_font_size_unit_responsive ) || isset( $settings->message_line_height_unit_responsive ) || isset( $settings->message_line_height_unit_medium ) || isset( $settings->message_line_height_unit ) || isset( $settings->evergreen_timer_action ) || isset( $settings->fixed_timer_action ) ) {
 	?>
 		@media ( max-width: <?php echo $global_settings->responsive_breakpoint .'px'; ?> ) {
-			<?php if( ( isset( $settings->digit_font_size['small'] ) && $settings->digit_font_size['small'] !="" ) || ( isset( $settings->digit_line_height['small'] ) && $settings->digit_line_height['small'] != "" ) ) { ?>
+			<?php if( isset( $settings->digit_font_size['small'] ) || isset( $settings->digit_line_height['small'] ) || isset( $settings->digit_font_size_unit_responsive ) || isset( $settings->digit_line_height_unit_responsive ) ) { ?>
 				.fl-node-<?php echo $id;?> .uabb-countdown-fixed-timer .uabb-count-down-digit,
 				.fl-node-<?php echo $id;?> .uabb-countdown-evergreen-timer .uabb-count-down-digit {
-					<?php if( isset( $settings->digit_font_size['small'] ) && $settings->digit_font_size['small'] != '' ) : ?>
-						font-size: <?php echo $settings->digit_font_size['small']; ?>px;
+					
+					<?php if( isset( $settings->digit_font_size_unit_responsive ) && $settings->digit_font_size_unit_responsive != '' ) : ?>
+						font-size: <?php echo $settings->digit_font_size_unit_responsive; ?>px;
 					<?php endif; ?>
-					<?php if( isset( $settings->digit_line_height['small'] ) && $settings->digit_line_height['small'] != '' ) : ?>
-						line-height: <?php echo $settings->digit_line_height['small']; ?>px;
+
+					<?php if( isset( $settings->digit_font_size['small'] ) && $settings->digit_font_size['small'] == '' && isset( $settings->digit_line_height['small'] ) && $settings->digit_line_height['small'] != '' && $settings->digit_line_height_unit_responsive == '' && $settings->digit_line_height_unit == '' &&  $settings->digit_line_height_unit_medium == '') { ?>
+					    line-height: <?php echo $settings->digit_line_height['small']; ?>px;
+					<?php } ?>
+
+					<?php if( isset( $settings->digit_line_height_unit_responsive ) && $settings->digit_line_height_unit_responsive != '' ) : ?>
+						line-height: <?php echo $settings->digit_line_height_unit_responsive; ?>em;
 					<?php endif; ?>
+
 				}
 			<?php } ?>
 
-			<?php if( ( isset( $settings->unit_font_size['small'] ) && $settings->unit_font_size['small'] !="" ) || ( isset( $settings->unit_line_height['small'] ) && $settings->unit_line_height['small'] != "" ) ) { ?>
+			<?php if( isset( $settings->unit_font_size['small'] ) || isset( $settings->unit_line_height['small'] ) || isset( $settings->unit_font_size_new_responsive ) || isset( $settings->unit_line_height_new_responsive ) ) { ?>
 				.fl-node-<?php echo $id;?> .uabb-countdown-fixed-timer .uabb-count-down-unit,
 				.fl-node-<?php echo $id;?> .uabb-countdown-evergreen-timer .uabb-count-down-unit {
-					<?php if( isset( $settings->unit_font_size['small'] ) && $settings->unit_font_size['small'] != '' ) : ?>
-						font-size: <?php echo $settings->unit_font_size['small']; ?>px;
-					<?php endif; ?>
-					<?php if( isset( $settings->unit_line_height['small'] ) && $settings->unit_line_height['small'] != '' ) : ?>
-						line-height: <?php echo $settings->unit_line_height['small']; ?>px;
-					<?php endif; ?>
+
+						<?php if( isset( $settings->unit_font_size_new_responsive ) && $settings->unit_font_size_new_responsive != '' ) : ?>
+							font-size: <?php echo $settings->unit_font_size_new_responsive; ?>px;	
+						<?php endif; ?>
+
+						<?php if( isset( $settings->unit_font_size['small'] ) && $settings->unit_font_size['small'] == '' && isset( $settings->unit_line_height['small'] ) && $settings->unit_line_height['small'] != '' && $settings->unit_line_height_new_responsive == '' && $settings->unit_line_height_new == '' &&  $settings->unit_line_height_new_medium == '' ) { ?>
+						    line-height: <?php echo $settings->unit_line_height['small']; ?>px;
+						<?php } ?>
+
+						<?php if( isset( $settings->unit_line_height_new_responsive ) && $settings->unit_line_height_new_responsive != '' ) : ?>
+							line-height: <?php echo $settings->unit_line_height_new_responsive; ?>em;
+						<?php endif; ?>
 				}
 			<?php } ?>
 
-			<?php if( ( isset( $settings->message_font_size['small'] ) && $settings->message_font_size['small'] !="" ) || ( isset( $settings->message_line_height['small'] ) && $settings->message_line_height['small'] != "" ) ) { 
+			<?php if( isset( $settings->message_font_size['small'] ) || isset( $settings->message_line_height['small'] ) || isset( $settings->message_font_size_unit_responsive ) || isset( $settings->message_line_height_unit_responsive ) ) { 
 				if( isset( $settings->evergreen_timer_action ) && $settings->evergreen_timer_action == "msg" ){
 				?>
 				.fl-node-<?php echo $id;?> .uabb-countdown-expire-message {
-					<?php if( isset( $settings->message_font_size['small'] ) && $settings->message_font_size['small'] != '' ) : ?>
-						font-size: <?php echo $settings->message_font_size['small']; ?>px;
+
+					<?php if( isset( $settings->message_font_size_unit_responsive ) && $settings->message_font_size_unit_responsive != '' ) : ?>
+						font-size: <?php echo $settings->message_font_size_unit_responsive; ?>px;
 					<?php endif; ?>
-					<?php if( isset( $settings->message_line_height['small'] ) && $settings->message_line_height['small'] != '' ) : ?>
-						line-height: <?php echo $settings->message_line_height['small']; ?>px;
+
+					<?php if( isset( $settings->message_font_size['small'] ) && $settings->message_font_size['small'] == '' && isset( $settings->message_line_height['small'] ) && $settings->message_line_height['small'] != '' && $settings->message_line_height_unit_responsive == '' && $settings->message_line_height_unit == '' &&  $settings->message_line_height_unit_medium == '') { ?>
+					    line-height: <?php echo $settings->message_line_height['small']; ?>px;
+					<?php } ?>
+
+					<?php if( isset( $settings->message_line_height_unit_responsive ) && $settings->message_line_height_unit_responsive != '' ) : ?>
+						line-height: <?php echo $settings->message_line_height_unit_responsive; ?>em;
 					<?php endif; ?>
 				}
 			<?php 
@@ -448,11 +503,17 @@ if ( ( isset( $settings->digit_font_family['family'] ) && $settings->digit_font_
 				if( isset( $settings->fixed_timer_action ) && $settings->fixed_timer_action == "msg" ){
 				?>
 				.fl-node-<?php echo $id;?> .uabb-countdown-expire-message {
-					<?php if( isset( $settings->message_font_size['small'] ) && $settings->message_font_size['small'] != '' ) : ?>
-						font-size: <?php echo $settings->message_font_size['small']; ?>px;
+ 
+					<?php if( isset( $settings->message_font_size_unit_responsive ) && $settings->message_font_size_unit_responsive != '' ) : ?>
+						font-size: <?php echo $settings->message_font_size_unit_responsive; ?>px;
 					<?php endif; ?>
-					<?php if( isset( $settings->message_line_height['small'] ) && $settings->message_line_height['small'] != '' ) : ?>
-						line-height: <?php echo $settings->message_line_height['small']; ?>px;
+
+					<?php if( isset( $settings->message_font_size['small'] ) && $settings->message_font_size['small'] == '' && isset( $settings->message_line_height['small'] ) && $settings->message_line_height['small'] != '' && $settings->message_line_height_unit_responsive == '' && $settings->message_line_height_unit == '' &&  $settings->message_line_height_unit_medium == '') { ?>
+					    line-height: <?php echo $settings->message_line_height['small']; ?>px;
+					<?php } ?>
+
+					<?php if( isset( $settings->message_line_height_unit_responsive ) && $settings->message_line_height_unit_responsive != '' ) : ?>
+						line-height: <?php echo $settings->message_line_height_unit_responsive; ?>em;
 					<?php endif; ?>
 				}
 				<?php

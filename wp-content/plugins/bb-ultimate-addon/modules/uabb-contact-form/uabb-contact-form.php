@@ -25,7 +25,131 @@ class UABBContactFormModule extends FLBuilderModule {
 		add_action('wp_ajax_uabb_builder_email', array($this, 'send_mail'));
 		add_action('wp_ajax_nopriv_uabb_builder_email', array($this, 'send_mail'));
 		add_filter( 'script_loader_tag', array( $this, 'uabb_add_async_attribute' ), 10, 2 );
+
+		add_filter( 'fl_builder_layout_data', array( $this , 'render_new_data' ), 10, 3 );
 	}
+
+    function render_new_data( $data ) {
+
+		foreach ( $data as &$node ) {
+			
+			if ( isset( $node->settings->type ) && 'uabb-contact-form' === $node->settings->type ) {
+
+				if ( isset( $node->settings->font_size['small']) && !isset( $node->settings->font_size_unit_responsive ) ) {
+					$node->settings->font_size_unit_responsive = $node->settings->font_size['small'];
+				}
+				if( isset( $node->settings->font_size['medium']) && !isset( $node->settings->font_size_unit_medium ) ) {
+					$node->settings->font_size_unit_medium = $node->settings->font_size['medium'];
+				}
+				if( isset( $node->settings->font_size['desktop']) && !isset( $node->settings->font_size_unit ) ) {
+					$node->settings->font_size_unit = $node->settings->font_size['desktop'];
+				}
+
+				if( isset( $node->settings->line_height['small']) && isset( $node->settings->font_size['small'] ) && $node->settings->font_size['small'] != 0 && !isset( $node->settings->line_height_unit_responsive ) ) {
+					if( is_numeric( $node->settings->line_height['small']) && is_numeric( $node->settings->font_size['small']) )
+                    $node->settings->line_height_unit_responsive = round( $node->settings->line_height['small'] / $node->settings->font_size['small'], 2 );
+				}
+				if( isset( $node->settings->line_height['medium']) && isset( $node->settings->font_size['medium'] ) && $node->settings->font_size['medium'] != 0 && !isset( $node->settings->line_height_unit_medium ) ) {
+					if( is_numeric( $node->settings->line_height['medium']) && is_numeric( $node->settings->font_size['medium']) )
+                    $node->settings->line_height_unit_medium = round( $node->settings->line_height['medium'] / $node->settings->font_size['medium'], 2 );
+				}
+				if( isset( $node->settings->line_height['desktop']) && isset( $node->settings->font_size['desktop'] ) && $node->settings->font_size['desktop'] != 0 && !isset( $node->settings->line_height_unit ) ) {
+					if( is_numeric( $node->settings->line_height['desktop']) && is_numeric( $node->settings->font_size['desktop']) )
+                    $node->settings->line_height_unit = round( $node->settings->line_height['desktop'] / $node->settings->font_size['desktop'], 2 );
+				}
+
+				if ( isset( $node->settings->btn_font_size['small']) && !isset( $node->settings->btn_font_size_unit_responsive ) ) {
+					$node->settings->btn_font_size_unit_responsive = $node->settings->btn_font_size['small'];
+				}
+				if( isset( $node->settings->btn_font_size['medium']) && !isset( $node->settings->btn_font_size_unit_medium ) ) {
+					$node->settings->btn_font_size_unit_medium = $node->settings->btn_font_size['medium'];
+				}
+				if( isset( $node->settings->btn_font_size['desktop']) && !isset( $node->settings->btn_font_size_unit ) ) {
+					$node->settings->btn_font_size_unit = $node->settings->btn_font_size['desktop'];
+				}
+
+                if( isset( $node->settings->btn_line_height['small']) && isset( $node->settings->btn_font_size['small'] ) && $node->settings->btn_font_size['small'] != 0 && !isset( $node->settings->btn_line_height_unit_responsive ) ) {
+					if( is_numeric( $node->settings->btn_line_height['small']) && is_numeric( $node->settings->btn_font_size['small']) )
+                    $node->settings->btn_line_height_unit_responsive = round( $node->settings->btn_line_height['small'] / $node->settings->btn_font_size['small'], 2 );
+				}
+				if( isset( $node->settings->btn_line_height['medium']) && isset( $node->settings->btn_font_size['medium'] ) && $node->settings->btn_font_size['medium'] != 0 && !isset( $node->settings->btn_line_height_unit_medium ) ) {
+					if( is_numeric( $node->settings->btn_line_height['medium']) && is_numeric( $node->settings->btn_font_size['medium']) )
+                    $node->settings->btn_line_height_unit_medium = round( $node->settings->btn_line_height['medium'] / $node->settings->btn_font_size['medium'], 2 );
+				}
+				if( isset( $node->settings->btn_line_height['desktop']) && isset( $node->settings->btn_font_size['desktop'] ) && $node->settings->btn_font_size['desktop'] != 0 && !isset( $node->settings->btn_line_height_unit ) ) {
+					if( is_numeric( $node->settings->btn_line_height['desktop']) && is_numeric( $node->settings->btn_font_size['desktop']) )
+                    $node->settings->btn_line_height_unit = round( $node->settings->btn_line_height['desktop'] / $node->settings->btn_font_size['desktop'], 2 );
+				}
+				
+				if ( isset( $node->settings->label_font_size['small']) && !isset( $node->settings->label_font_size_unit_responsive ) ) {
+					$node->settings->label_font_size_unit_responsive = $node->settings->label_font_size['small'];
+				}
+				if( isset( $node->settings->label_font_size['medium']) && !isset( $node->settings->label_font_size_unit_medium ) ) {
+					$node->settings->label_font_size_unit_medium = $node->settings->label_font_size['medium'];
+				}
+				if( isset( $node->settings->label_font_size['desktop']) && !isset( $node->settings->label_font_size_unit ) ) {
+					$node->settings->label_font_size_unit = $node->settings->label_font_size['desktop'];
+				}
+                
+                if( isset( $node->settings->label_line_height['small']) && isset( $node->settings->label_font_size['small'] ) && $node->settings->label_font_size['small'] != 0 && !isset( $node->settings->label_line_height_unit_responsive ) ) {
+					if( is_numeric( $node->settings->label_line_height['small']) && is_numeric( $node->settings->label_font_size['small']) )
+                    $node->settings->label_line_height_unit_responsive = round( $node->settings->label_line_height['small'] / $node->settings->label_font_size['small'], 2 );
+				}
+				if( isset( $node->settings->label_line_height['medium']) && isset( $node->settings->label_font_size['medium'] ) && $node->settings->label_font_size['medium'] != 0 && !isset( $node->settings->label_line_height_unit_medium ) ) {
+					if( is_numeric( $node->settings->label_line_height['medium']) && is_numeric( $node->settings->label_font_size['medium']) )
+                    $node->settings->label_line_height_unit_medium = round( $node->settings->label_line_height['medium'] / $node->settings->label_font_size['medium'], 2 );
+				}
+				if( isset( $node->settings->label_line_height['desktop']) && isset( $node->settings->label_font_size['desktop'] ) && $node->settings->label_font_size['desktop'] != 0 && !isset( $node->settings->label_line_height_unit ) ) {
+					if( is_numeric( $node->settings->label_line_height['desktop']) && is_numeric( $node->settings->label_font_size['desktop']) )
+                    $node->settings->label_line_height_unit = round( $node->settings->label_line_height['desktop'] / $node->settings->label_font_size['desktop'], 2 );
+				}
+
+				if( isset( $node->settings->form_spacing ) &&  !isset( $node->settings->form_spacing_dimension_top ) &&  !isset( $node->settings->form_spacing_dimension_bottom ) &&  !isset( $node->settings->form_spacing_dimension_left ) &&  !isset( $node->settings->form_spacing_dimension_right ) ) {
+				
+				    $value = "";
+				    $value = str_replace("px","", $node->settings->form_spacing );
+				    
+				    $output = array();
+				    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
+				    
+				    $node->settings->form_spacing_dimension_top    = '0';
+				    $node->settings->form_spacing_dimension_bottom = '0';
+				    $node->settings->form_spacing_dimension_left   = '0';
+				    $node->settings->form_spacing_dimension_right  = '0';
+				    
+				    foreach($uabb_default as $val) {
+				        $new = explode(':',$val);
+				         $output[] = $new;
+				    }
+				    for ($i=0; $i < count( $output ); $i++) { 
+				        switch ( $output[$i][0] ) {
+				            case 'padding-top':
+				               $node->settings->form_spacing_dimension_top    = (int)$output[$i][1];
+				                break;
+				            case 'padding-bottom':
+				                $node->settings->form_spacing_dimension_bottom = (int)$output[$i][1];
+				                break;
+				            case 'padding-right':
+				                $node->settings->form_spacing_dimension_right  = (int)$output[$i][1];
+				                break;
+				            case 'padding-left':
+				                $node->settings->form_spacing_dimension_left   = (int)$output[$i][1];
+				                break;
+				            case 'padding':
+				                $node->settings->form_spacing_dimension_top    = (int)$output[$i][1];
+				                $node->settings->form_spacing_dimension_bottom = (int)$output[$i][1];
+				                $node->settings->form_spacing_dimension_left   = (int)$output[$i][1];
+				                $node->settings->form_spacing_dimension_right  = (int)$output[$i][1];
+				                break;
+				        }
+				    }
+				}
+			}
+		}
+
+		return $data;
+	}
+
 
 	static public function mailto_email()
 	{
@@ -227,7 +351,7 @@ FLBuilder::register_module('UABBContactFormModule', array(
                         )
 					),
 					'name_required'     => array(
-						'type'          => 'uabb-toggle-switch',
+						'type'          => 'select',
 						'label'         => __( 'Required', 'uabb' ),
 						'help'          => __( 'Enable to make name field compulsary.', 'uabb' ),
 						'default'       => 'no',
@@ -281,7 +405,7 @@ FLBuilder::register_module('UABBContactFormModule', array(
                         )
 					),
 					'email_required'     => array(
-						'type'          => 'uabb-toggle-switch',
+						'type'          => 'select',
 						'label'         => __( 'Required', 'uabb' ),
 						'help'          => __( 'Enable to make email field compulsary.', 'uabb' ),
 						'default'       => 'yes',
@@ -336,7 +460,7 @@ FLBuilder::register_module('UABBContactFormModule', array(
                         )
 					),
 					'subject_required'     => array(
-						'type'          => 'uabb-toggle-switch',
+						'type'          => 'select',
 						'label'         => __( 'Required', 'uabb' ),
 						'help'          => __( 'Enable to make subject field compulsary.', 'uabb' ),
 						'default'       => 'no',
@@ -391,7 +515,7 @@ FLBuilder::register_module('UABBContactFormModule', array(
                         )
 					),
 					'phone_required'     => array(
-						'type'          => 'uabb-toggle-switch',
+						'type'          => 'select',
 						'label'         => __( 'Required', 'uabb' ),
 						'help'          => __( 'Enable to make phone field compulsary.', 'uabb' ),
 						'default'       => 'no',
@@ -445,7 +569,7 @@ FLBuilder::register_module('UABBContactFormModule', array(
                         )
 					),
 					'msg_required'     => array(
-						'type'          => 'uabb-toggle-switch',
+						'type'          => 'select',
 						'label'         => __( 'Required', 'uabb' ),
 						'help'          => __( 'Enable to make message field compulsary.', 'uabb' ),
 						'default'       => 'no',
@@ -815,11 +939,17 @@ FLBuilder::register_module('UABBContactFormModule', array(
 						'maxlength'   => '3',
 						'size'        => '5',
 					),
-					'form_spacing'		=> array(
-						'type'          => 'uabb-spacing',
+					'form_spacing_dimension'		=> array(
+						'type'          => 'dimension',
 						'label'         => __( 'Form Padding', 'uabb' ),
-						'mode'			=> 'padding',
-						'default'       => '' // Optional
+                        'description' =>'px',
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
+                        ),
 					),
 					'form_radius'	=> array(
 						'type'          => 'text',
@@ -871,7 +1001,7 @@ FLBuilder::register_module('UABBContactFormModule', array(
 						'preview'	=> 'none'
 					),
                     'error_msg_alignment'    => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __('Message Alignment', 'uabb'),
                         'default'       => 'left',
                         'options'       => array(
@@ -1019,7 +1149,7 @@ FLBuilder::register_module('UABBContactFormModule', array(
                         )
                     ),
                     'hover_attribute' => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Apply Hover Color To', 'uabb' ),
                         'default'       => 'bg',
                         'options'       => array(
@@ -1120,7 +1250,7 @@ FLBuilder::register_module('UABBContactFormModule', array(
 					'email_template_info' => array(
 						'type'     => 'uabb-msgbox',
 						'label'    => '',
-						'msg-type' => 'info',
+						'msg_type' => 'info',
 						'content'  => __('In the following subject & email template fields, you can use these mail-tags:<br/><br/><span class="uabb_cf_mail_tags"></span>', 'uabb'),
 					),
 					'mailto_email'     => array(
@@ -1184,35 +1314,41 @@ FLBuilder::register_module('UABBContactFormModule', array(
                             'selector'  => 'input, textarea'
                         ),
                     ),
-                    'font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'px',
                     	'preview'   => array(
                             'type'      => 'css',
                             'selector'  => 'input, textarea',
                             'property'  => 'font-size',
                             'unit'      => 'px'
                         ),
+                        'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                     ),
-                    'line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                    'line_height_unit'    => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'em',
                     	'preview'   => array(
                             'type'      => 'css',
                             'selector'  => 'input, textarea',
                             'property'  => 'line-height',
-                            'unit'      => 'px'
+                            'unit'      => 'em'
                         ),
+                        'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                     ),
                     'input_top_margin'   => array(
 						'type'          => 'text',
@@ -1291,35 +1427,41 @@ FLBuilder::register_module('UABBContactFormModule', array(
                             'selector'  => '.uabb-contact-form-submit'
                         ),
                     ),
-                    'btn_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'btn_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'px',
                     	'preview'   => array(
                             'type'      => 'css',
                             'selector'  => '.uabb-contact-form-submit',
                             'property'  => 'font-size',
                             'unit'      => 'px'
                         ),
+                        'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                     ),
-                    'btn_line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                    'btn_line_height_unit'    => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'em',
                     	'preview'   => array(
                             'type'      => 'css',
                             'selector'  => '.uabb-contact-form-submit',
                             'property'  => 'line-height',
-                            'unit'      => 'px'
+                            'unit'      => 'em'
                         ),
+                        'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                     ),
                     'btn_top_margin'   => array(
 						'type'          => 'text',
@@ -1352,35 +1494,41 @@ FLBuilder::register_module('UABBContactFormModule', array(
                             'selector'  => '.uabb-contact-form label'
                         ),
                     ),
-                    'label_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'label_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'px',
                     	'preview'   => array(
                             'type'      => 'css',
                             'selector'  => '.uabb-contact-form label',
                             'property'  => 'font-size',
                             'unit'      => 'px'
                         ),
+                        'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                     ),
-                    'label_line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                    'label_line_height_unit'    => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                        'description'   => 'em',
                     	'preview'   => array(
                             'type'      => 'css',
                             'selector'  => '.uabb-contact-form label',
                             'property'  => 'line-height',
-                            'unit'      => 'px'
+                            'unit'      => 'em'
                         ),
+                        'responsive' => array(
+							'placeholder' => array(
+								'default' => '',
+								'medium' => '',
+								'responsive' => '',
+							),
+						),
                     ),
                     'label_color'        => array( 
                         'type'       => 'color',

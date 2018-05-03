@@ -1,3 +1,38 @@
+/*.adv-icon-wrap .adv-icon-link {
+	display: inline-block;
+	margin-bottom: 10px;
+	margin-top: 10px;
+}*/
+
+/* Horizontal Pos */
+.adv-icon-horizontal .adv-icon-link {
+	display: inline-block;
+	/*margin-bottom: 10px;
+	margin-top: 10px;*/
+	vertical-align: top;
+}
+
+.adv-icon-vertical .adv-icon-link {
+	display: block;
+	/*margin-left: 10px;
+	margin-right: 10px;*/
+}
+
+/* Left */
+.adv-icon-left {
+	text-align: left;
+}
+
+/* Center */
+.adv-icon-center {
+	text-align: center;
+}
+
+/* Right */
+.adv-icon-right {
+	text-align: right;
+}
+
 <?php 
 	$settings->size = ( $settings->size != '' ) ? $settings->size : '40';
 	$settings->spacing = ( $settings->spacing != '' ) ? $settings->spacing : '10';

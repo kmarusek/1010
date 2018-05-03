@@ -230,12 +230,19 @@ if( $settings->align == 'center' ) {
     <?php
     if( $settings->typography_font_family['family'] != 'Default' ){
         UABB_Helper::uabb_font_css( $settings->typography_font_family );
-    }
-    echo ( $settings->typography_font_size['desktop'] != '' ) ? 'font-size: ' . $settings->typography_font_size['desktop'] . 'px;' : '';
+    }?>
 
-    echo ( $settings->typography_line_height['desktop'] != '' ) ? 'line-height: ' . $settings->typography_line_height['desktop'] . 'px;' : '';
+    <?php if( isset( $settings->typography_font_size_unit ) && $settings->typography_font_size_unit != '' ) : ?>
+        font-size: <?php echo $settings->typography_font_size_unit; ?>px;
+    <?php endif; ?>
+    
+    <?php if( isset( $settings->typography_font_size['desktop'] ) && $settings->typography_font_size['desktop'] == '' && isset( $settings->typography_line_height['desktop'] ) && $settings->typography_line_height['desktop'] != '' && $settings->typography_line_height_unit == '' ) { ?>
+        line-height: <?php echo $settings->typography_line_height['desktop']; ?>px;
+    <?php } ?>
 
-    ?>
+    <?php if( isset( $settings->typography_line_height_unit ) && $settings->typography_line_height_unit != '' ) : ?>
+        line-height: <?php echo $settings->typography_line_height_unit; ?>em;
+    <?php endif; ?>   
 
 }
 
@@ -245,20 +252,40 @@ if( $global_settings->responsive_enabled ) { // Global Setting If started
     @media ( max-width: <?php echo $global_settings->medium_breakpoint; ?>px ) {
 
         .fl-node-<?php echo $id; ?> .uabb-list-icon .uabb-list-icon-text .uabb-list-icon-text-heading {
-            <?php
-            echo ( $settings->typography_font_size['medium'] != '' ) ? 'font-size: ' . $settings->typography_font_size['medium'] . 'px;' : '';
-            echo ( $settings->typography_line_height['medium'] != '' ) ? 'line-height: ' . $settings->typography_line_height['medium'] . 'px;' : '';
-            ?>
+          
+            <?php if( isset( $settings->typography_font_size_unit_medium ) && $settings->typography_font_size_unit_medium != '' ) : ?>
+                font-size: <?php echo $settings->typography_font_size_unit_medium; ?>px;
+            <?php endif; ?>
+            
+            <?php if( isset( $settings->typography_font_size['medium'] ) && $settings->typography_font_size['medium'] == '' && isset( $settings->typography_line_height['medium'] ) && $settings->typography_line_height['medium'] != '' && $settings->typography_line_height_unit_medium == '' && $settings->typography_line_height_unit == '' ) :?>
+                line-height: <?php echo $settings->typography_line_height['medium']; ?>px;
+            <?php endif; ?>
+
+            <?php if( isset( $settings->typography_line_height_unit_medium ) && $settings->typography_line_height_unit_medium != '' ) : ?>
+                line-height: <?php echo $settings->typography_line_height_unit_medium; ?>em;
+            <?php endif; ?>
+                
         }
     }
  
     @media ( max-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {
 
         .fl-node-<?php echo $id; ?> .uabb-list-icon .uabb-list-icon-text .uabb-list-icon-text-heading {
-            <?php
-            echo ( $settings->typography_font_size['small'] != '' ) ? 'font-size: ' . $settings->typography_font_size['small'] . 'px;' : '';
-            echo ( $settings->typography_line_height['small'] != '' ) ? 'line-height: ' . $settings->typography_line_height['small'] . 'px;' : '';
-            ?>
+            
+            <?php if( isset( $settings->typography_font_size_unit_responsive ) && $settings->typography_font_size_unit_responsive != '' ) : ?>
+                font-size: <?php echo $settings->typography_font_size_unit_responsive; ?>px;
+                <?php if($settings->typography_line_height_unit_responsive == "") ?>
+                line-height: <?php echo $settings->typography_font_size_unit_responsive + 2; ?>px;
+            <?php endif; ?>
+            
+            <?php if( isset( $settings->typography_font_size['small'] ) && $settings->typography_font_size['small'] == '' && isset( $settings->typography_line_height['small'] ) && $settings->typography_line_height['small'] != '' && $settings->typography_line_height_unit_responsive == '' && $settings->typography_line_height_unit_medium == '' && $settings->typography_line_height_unit == '' ) : ?>
+                 line-height: <?php echo $settings->typography_line_height['small']; ?>px;
+            <?php endif; ?>
+
+            <?php if( isset( $settings->typography_line_height_unit_responsive ) && $settings->typography_line_height_unit_responsive != '' ) : ?>
+                line-height: <?php echo $settings->typography_line_height_unit_responsive; ?>em;
+            <?php endif; ?>
+            
         }
         .fl-node-<?php echo $id; ?> .uabb-list-icon-wrap  {
             margin-bottom: <?php  echo ( $settings->mobile_spacing !== '' ) ? $settings->mobile_spacing : '10'; ?>px;

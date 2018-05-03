@@ -5951,6 +5951,16 @@ final class FLBuilderModel {
 	}
 
 	/**
+	 * Returns whether the inline editing is enabled.
+	 *
+	 * @since 2.1
+	 * @return bool
+	 */
+	static public function is_inline_enabled() {
+		return apply_filters( 'fl_inline_editing_enabled', true );
+	}
+
+	/**
 	 * Returns the custom branding string.
 	 *
 	 * @since 1.3.1

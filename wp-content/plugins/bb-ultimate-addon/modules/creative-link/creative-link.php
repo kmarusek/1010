@@ -21,8 +21,60 @@ class CreativeLink extends FLBuilderModule {
             'url'           => BB_ULTIMATE_ADDON_URL . 'modules/creative-link/',
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
-            'partial_refresh' => true
+            'partial_refresh' => true,
+            'icon'              => 'creative-link.svg',
         ));
+
+        add_filter( 'fl_builder_layout_data', array( $this , 'render_new_data' ), 10, 3 );
+    }
+
+    function render_new_data( $data ) {
+
+        foreach ( $data as &$node ) {
+            
+            if ( isset( $node->settings->type ) && 'creative-link' === $node->settings->type ) {
+
+                if ( isset( $node->settings->link_typography_font_size['small']) && !isset( $node->settings->link_typography_font_size_unit_responsive ) ) {
+                    $node->settings->link_typography_font_size_unit_responsive = $node->settings->link_typography_font_size['small'];
+                }
+                if( isset( $node->settings->link_typography_font_size['medium']) && !isset( $node->settings->link_typography_font_size_unit_medium ) ) {
+                    $node->settings->link_typography_font_size_unit_medium = $node->settings->link_typography_font_size['medium'];
+                }
+                if( isset( $node->settings->link_typography_font_size['desktop']) && !isset( $node->settings->link_typography_font_size_unit ) ) {
+                    $node->settings->link_typography_font_size_unit = $node->settings->link_typography_font_size['desktop'];
+                }
+
+                if ( isset( $node->settings->link_typography_line_height['small']) && isset( $node->settings->link_typography_font_size['small'] ) && $node->settings->link_typography_font_size['small'] != 0 && !isset( $node->settings->link_typography_line_height_unit_responsive ) ) {
+                    if( is_numeric( $node->settings->link_typography_line_height['small']) && is_numeric( $node->settings->link_typography_font_size['small'] ) )
+                    $node->settings->link_typography_line_height_unit_responsive = round( $node->settings->link_typography_line_height['small'] / $node->settings->link_typography_font_size['small'], 2 );
+                }
+                if( isset( $node->settings->link_typography_line_height['medium']) && isset( $node->settings->link_typography_font_size['medium'] ) && $node->settings->link_typography_font_size['medium'] != 0 && !isset( $node->settings->link_typography_line_height_unit_medium )) {
+                    if( is_numeric( $node->settings->link_typography_line_height['medium']) && is_numeric( $node->settings->link_typography_font_size['medium'] ) )
+                    $node->settings->link_typography_line_height_unit_medium = round( $node->settings->link_typography_line_height['medium'] / $node->settings->link_typography_font_size['medium'], 2 );
+                }
+                if( isset( $node->settings->link_typography_line_height['desktop']) && isset( $node->settings->link_typography_font_size['desktop'] ) && $node->settings->link_typography_font_size['desktop'] != 0 && !isset( $node->settings->link_typography_line_height_unit )) {
+                    if( is_numeric( $node->settings->link_typography_line_height['desktop']) && is_numeric( $node->settings->link_typography_font_size['desktop'] ) )
+                    $node->settings->link_typography_line_height_unit = round( $node->settings->link_typography_line_height['desktop'] / $node->settings->link_typography_font_size['desktop'], 2 );
+                }
+
+            }
+        }
+
+        return $data;
+    }
+
+    public function get_icon( $icon = '' ) {
+
+        // check if $icon is referencing an included icon.
+        if ( '' != $icon && file_exists( BB_ULTIMATE_ADDON_DIR . 'modules/creative-link/icon/' . $icon ) ) {
+            $path = BB_ULTIMATE_ADDON_DIR . 'modules/creative-link/icon/' . $icon;
+        }
+
+        if ( file_exists( $path ) ) {
+            return file_get_contents( $path );
+        } else {
+            return '';
+        }
     }
 
     public function render_text( $title ) {
@@ -233,7 +285,7 @@ FLBuilder::register_module('CreativeLink', array(
                     ),
 
                     'mobile_structure' => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __('Mobile Structure', 'uabb'),
                         'default'       => 'stacked',
                         'options'       => array(
@@ -371,35 +423,41 @@ FLBuilder::register_module('CreativeLink', array(
                             'selector'        => '.uabb-creative-link a, .uabb-creative-link a span'
                         )
                     ),
-                    'link_typography_font_size'     => array(
-                        'type'          => 'uabb-simplify',
+                    'link_typography_font_size_unit'     => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
+                        'description'   => 'px',
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
                         ),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-creative-link a, .uabb-creative-link a span',
                             'property'        => 'font-size',
                             'unit'            => 'px'
-                        )
+                        ),
                     ),
-                    'link_typography_line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                    'link_typography_line_height_unit'    => array(
+                        'type'          => 'unit',
                         'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
+                        'description'   => 'em',
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => '',
+                                'medium' => '',
+                                'responsive' => '',
+                            ),
                         ),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.uabb-creative-link a, .uabb-creative-link a span',
                             'property'        => 'line-height',
-                            'unit'            => 'px'
-                        )
+                            'unit'            => 'em'
+                        ),
                     ),
                 )
             ),

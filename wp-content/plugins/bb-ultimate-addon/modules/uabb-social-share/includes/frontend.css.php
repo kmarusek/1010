@@ -1,3 +1,24 @@
+.uabb-social-share-horizontal .uabb-social-share-link-wrap {
+	vertical-align: top;
+	display: inline-block;
+}
+
+.uabb-social-share-vertical .uabb-social-share-link-wrap {
+	display: block;
+}
+.uabb-social-share-vertical .uabb-social-share-link {
+	display: inline-block;
+}
+
+.uabb-social-share-link,
+.uabb-social-share-link:hover,
+.uabb-social-share-link:focus,
+.uabb-social-share-link:active,
+.uabb-social-share-link:visited {
+	text-decoration: none;
+	outline: none;
+}
+
 <?php 
 	$settings->size = ( $settings->size != '' ) ? $settings->size : '40';
 	$settings->spacing = ( $settings->spacing != '' ) ? $settings->spacing : '10';

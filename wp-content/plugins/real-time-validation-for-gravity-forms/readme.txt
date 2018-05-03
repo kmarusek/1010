@@ -3,7 +3,7 @@ Contributors: wisetr, djeet
 Tags: gravity forms,gravity forms addon,gravity forms fields validation,live validation,jquery validation,client side validation,javascript validation
 Requires at least: 4.2.1
 Tested up to: 4.9.1
-Stable tag: 1.4.0
+Stable tag: 1.5.0
 License: GPLv2 or later
 
 Real Time Validation for Gravity Forms increases conversion rates of your Gravity Form using inline validation messages as user types in field.
@@ -62,6 +62,8 @@ Here is the example of how to use hook for invalid state-
 });
 
 = Latest Updates =
+* April , 29th 2018: Compatibility With PHP 7.2
+* April , 29th 2018: Compatibility With Gravity Forms 2.3
 * December, 21st 2017: Compatibility With Partial Entry addon
 * December, 21st 2017: Compatibility upto Gravity Forms 2.2.5
 * December, 21st 2016: Compatibility Fix: Multiple forms on one page with real-time validation ON.
@@ -138,6 +140,9 @@ PS: You'll need a working Gravity Forms to use it.
 
 
 == Changelog ==
+= 1.5.0 = 
+* Fixed: Critical Update as having fixes that makes the plugin compatible with php > 7.2
+* Fixed: Issue in name field validation, forced required validation for the middle name field is getting applied.
 
 = 1.4.0 = 
 * Fixed: Critical Issue when User hits submit button more than once, form getting submitted multiple times. 
