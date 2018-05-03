@@ -18472,7 +18472,7 @@ var InlineEditor = function (_Component) {
 	}, {
 		key: 'setupHooks',
 		value: function setupHooks() {
-			if (!window.tinymce || this.hooked) {
+			if (!window.tinymce || this.hooked || !FLBuilderConfig.inlineEnabled) {
 				return;
 			}
 

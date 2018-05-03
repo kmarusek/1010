@@ -4056,7 +4056,7 @@ span.select2-container.select2-container--open {
 .fl-help-tooltip-icon {
 	color: #999 !important;
 	cursor: pointer;
-	font-family: Font Awesome\ 5 Free;
+	/* font-family: Font Awesome\ 5 Free; */
 	font-size: 15px !important;
 	padding: 5px;
 	vertical-align: middle;

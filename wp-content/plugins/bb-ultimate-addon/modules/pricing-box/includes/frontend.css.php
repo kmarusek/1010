@@ -206,8 +206,8 @@ for($i = 0; $i < count($settings->pricing_columns); $i++) :
 					font-size: <?php echo $settings->pricing_columns[$i]->featured_font_size_unit; ?>px;
 				<?php endif; ?>
 				
-                <?php if( isset( $settings->pricing_columns[$i]->featured_font_size['desktop'] ) && $settings->pricing_columns[$i]->featured_font_size['desktop'] == '' && isset( $settings->pricing_columns[$i]->featured_line_height['desktop'] ) && $settings->pricing_columns[$i]->featured_line_height['desktop'] != '' && $settings->pricing_columns[$i]->featured_line_height_unit == '' ) { ?>
-					line-height: <?php echo $settings->pricing_columns[$i]->featured_line_height['desktop']; ?>px;
+                <?php if( is_object( $settings->pricing_columns[$i]->featured_font_size->desktop ) && is_object( $settings->pricing_columns[$i]->featured_line_height->desktop ) && isset( $settings->pricing_columns[$i]->featured_font_size->desktop ) && $settings->pricing_columns[$i]->featured_font_size->desktop == '' && isset( $settings->pricing_columns[$i]->featured_line_height->desktop ) && $settings->pricing_columns[$i]->featured_line_height->desktop != '' && $settings->pricing_columns[$i]->featured_line_height_unit == '' ) { ?>
+					line-height: <?php echo $settings->pricing_columns[$i]->featured_line_height->desktop; ?>px;
 				<?php } ?>
 
 				<?php if( isset( $settings->pricing_columns[$i]->featured_line_height_unit ) && $settings->pricing_columns[$i]->featured_line_height_unit != '' ) : ?>
@@ -237,8 +237,8 @@ for($i = 0; $i < count($settings->pricing_columns); $i++) :
 						font-size: <?php echo $settings->pricing_columns[$i]->featured_font_size_unit_medium; ?>px;
 					<?php endif; ?>
 					
-					<?php if( isset( $settings->pricing_columns[$i]->featured_font_size['medium'] ) && $settings->pricing_columns[$i]->featured_font_size['medium'] == '' && isset( $settings->pricing_columns[$i]->featured_line_height['medium'] ) && $settings->pricing_columns[$i]->featured_line_height['medium'] != '' && $settings->pricing_columns[$i]->featured_line_height_unit_medium == '' ) { ?>
-					    line-height: <?php echo $settings->pricing_columns[$i]->featured_line_height['medium']; ?>px;
+					<?php if( is_object($settings->pricing_columns[$i]->featured_font_size->medium) && is_object($settings->pricing_columns[$i]->featured_line_height->medium) && isset( $settings->pricing_columns[$i]->featured_font_size->medium ) && $settings->pricing_columns[$i]->featured_font_size->medium == '' && isset( $settings->pricing_columns[$i]->featured_line_height->medium ) && $settings->pricing_columns[$i]->featured_line_height->medium != '' && $settings->pricing_columns[$i]->featured_line_height_unit_medium == '' ) { ?>
+					    line-height: <?php echo $settings->pricing_columns[$i]->featured_line_height->medium; ?>px;
 					<?php } ?>
 
 					<?php if( isset( $settings->pricing_columns[$i]->featured_line_height_unit_medium ) && $settings->pricing_columns[$i]->featured_line_height_unit_medium != '' ) : ?>
@@ -253,12 +253,12 @@ for($i = 0; $i < count($settings->pricing_columns); $i++) :
 			            
 						<?php if( isset( $settings->pricing_columns[$i]->featured_font_size_unit_responsive ) && $settings->pricing_columns[$i]->featured_font_size_unit_responsive != '' ) : ?>
 							font-size: <?php echo $settings->pricing_columns[$i]->featured_font_size_unit_responsive; ?>px;
-							<?php if($settings->pricing_columns[$i]->featured_line_height['small'] == "")?>
+							<?php if($settings->pricing_columns[$i]->featured_line_height->small == "")?>
 							line-height: <?php echo $settings->pricing_columns[$i]->featured_font_size_unit_responsive + 2 ; ?>px;
 						<?php endif; ?>
 						
-						<?php if( isset( $settings->pricing_columns[$i]->featured_font_size['small'] ) && $settings->pricing_columns[$i]->featured_font_size['small'] == '' && isset( $settings->pricing_columns[$i]->featured_line_height['small'] ) && $settings->pricing_columns[$i]->featured_line_height['small'] != '' && $settings->pricing_columns[$i]->featured_line_height_unit_responsive == '' ) { ?>
-			   			 	line-height: <?php echo $settings->pricing_columns[$i]->featured_line_height['small']; ?>px;
+						<?php if( is_object($settings->pricing_columns[$i]->featured_font_size->small) && is_object($settings->pricing_columns[$i]->featured_line_height->small) && isset( $settings->pricing_columns[$i]->featured_font_size->small ) && $settings->pricing_columns[$i]->featured_font_size->small == '' && isset( $settings->pricing_columns[$i]->featured_line_height->small ) && $settings->pricing_columns[$i]->featured_line_height->small != '' && $settings->pricing_columns[$i]->featured_line_height_unit_responsive == '' ) { ?>
+			   			 	line-height: <?php echo $settings->pricing_columns[$i]->featured_line_height->small; ?>px;
 						<?php } ?>
 
 						<?php if( isset( $settings->pricing_columns[$i]->featured_line_height_unit_responsive ) && $settings->pricing_columns[$i]->featured_line_height_unit_responsive != '' ) : ?>

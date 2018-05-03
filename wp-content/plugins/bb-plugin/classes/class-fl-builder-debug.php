@@ -6,8 +6,7 @@ final class FL_Debug {
 
 	public static function init() {
 		if ( isset( $_GET['fldebug'] ) && get_option( 'fl_debug_mode', false ) === $_GET['fldebug'] ) {
-			self::prepare_tests();
-			self::display_tests();
+			add_action( 'init', array( 'FL_Debug', 'display_tests' ) );
 		}
 
 		if ( get_option( 'fl_debug_mode', false ) ) {
@@ -21,7 +20,9 @@ final class FL_Debug {
 		@error_reporting( E_ALL ); // @codingStandardsIgnoreLine
 	}
 
-	private static function display_tests() {
+	public static function display_tests() {
+
+		self::prepare_tests();
 
 		header( 'Content-Type:text/plain' );
 

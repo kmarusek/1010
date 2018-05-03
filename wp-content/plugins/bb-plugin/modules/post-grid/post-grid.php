@@ -25,18 +25,21 @@ class FLPostGridModule extends FLBuilderModule {
 	public function enqueue_scripts() {
 		if ( FLBuilderModel::is_builder_active() || 'columns' == $this->settings->layout ) {
 			$this->add_js( 'jquery-imagesloaded' );
-			$this->add_css( 'font-awesome-5' );
 		}
 		if ( FLBuilderModel::is_builder_active() || 'grid' == $this->settings->layout ) {
 			$this->add_js( 'jquery-imagesloaded' );
 			$this->add_js( 'jquery-masonry' );
-			$this->add_css( 'font-awesome-5' );
+
 		}
 		if ( FLBuilderModel::is_builder_active() || 'gallery' == $this->settings->layout ) {
 			$this->add_js( 'fl-gallery-grid' );
 		}
 		if ( FLBuilderModel::is_builder_active() || 'scroll' == $this->settings->pagination || 'load_more' == $this->settings->pagination ) {
 			$this->add_js( 'jquery-infinitescroll' );
+		}
+
+		if ( FLBuilderModel::is_builder_active() || $this->settings->show_comments ) {
+			$this->add_css( 'font-awesome-5' );
 		}
 
 		// Jetpack sharing has settings to enable sharing on posts, post types and pages.
