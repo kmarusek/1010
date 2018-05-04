@@ -1,3 +1,32 @@
+== 2.6.0 ==
+Release date: May 3, 2018
+* New: Countdown module
+* New: Twitter Embedded Tweet module
+* New: Twitter Embedded Grid module
+* New: Twitter Embedded Timeline module
+* New: Twitter Buttons module
+* New: Header and Footer templates
+* Enhancement: Image Module - Added responsive alignment option
+* Enhancement: Info Box - Added responsive alignment option
+* Enhancement: Pricing Table - Moved Items section to top under Items Box tab
+* Enhancement: Pricing Table - Added CSS classes to pricing table items
+* Enhancement: Content Grid - Added support for The Events Calendar
+* Enhancement: Content Grid - Added option to show or hide the post title
+* Enhancement: Content Grid - Added CSS class "pp-post-meta-term" to terms elements in post meta
+* Enhancement: Advanced Menu - Added option for hamburger icon responsive alignment
+* Enhancement: Updated fancybox library to the latest version
+* Enhancement: Minor enhancements in Templates Library
+* Fix: Advanced Menu - Builder layout failed to load due to empty breakpoint fields in global settings
+* Fix: Photo Gallery - Conflict with easy-fancybox plugin
+* Fix: Photo Gallery - Thumbnail were not appearing in lightbox by default when show thumbnail option set to true
+* Fix: Filterable Gallery - Shortcode output in caption when lightbox is open
+* Fix: Info Box - alignment issues
+* Fix: Modal Box - Multiple modal box on the same page were causing some issues
+* Fix: Content Grid - PHP errors when changing post type but filter setting returns taxonomy of previous post type
+* Fix: Content Grid - has_post_thumbnail function was returning true when no feature image is set
+* Fix: Subscribe Form - Checkbox field was not being rendered properly when using inline or compact layout
+* Fix: Facebook App ID setting was interfering with license activation
+
 == 2.5.2 ==
 Release date: April 11, 2018
 * Enhancement: Photo Gallery - Upgraded to Fancybox v3

@@ -107,6 +107,18 @@
     }
 }
 
+@media only screen and (max-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
+	.pp-photo-container .pp-photo-align-responsive-left {
+		text-align: left !important;
+	}
+	.pp-photo-container .pp-photo-align-responsive-center {
+		text-align: center !important;
+	}
+	.pp-photo-container .pp-photo-align-responsive-right {
+		text-align: right !important;
+	}
+}
+
 @media only screen and ( max-width: 480px ) {
     .fl-node-<?php echo $id; ?> .pp-photo-caption {
         font-size: <?php echo ($settings->caption_font_size['mobile'] >= 0) ? $settings->caption_font_size['mobile'].'px' : '18px'; ?>;

@@ -356,7 +356,7 @@ final class BB_PowerPack_Admin_Settings {
 	 */
 	static private function save_integration()
 	{
-		if ( isset( $_POST['bb_powerpack_fb_app_id'] ) ) {
+		if ( isset( $_POST['bb_powerpack_fb_app_id'] ) && ( ! isset( $_POST['bb_powerpack_license_deactivate'] ) && ! isset( $_POST['bb_powerpack_license_activate'] ) ) ) {
 			
 			// Validate App ID.
 			if ( ! empty( $_POST['bb_powerpack_fb_app_id'] ) ) {

@@ -1,12 +1,5 @@
 (function($){
 
-    /**
-     * Use this file to register a module helper that
-     * adds additional logic to the settings form. The
-     * method 'FLBuilder._registerModuleHelper' accepts
-     * two parameters, the module slug (same as the folder name)
-     * and an object containing the helper methods and properties.
-     */
     FLBuilder._registerModuleHelper('pp-modal-box', {
 
         /**
@@ -103,7 +96,10 @@
         },
         init: function() {
             $('select[name="button_type"]').trigger('change');
-            $('select[name="modal_load"]').trigger('change');
+			$('select[name="modal_load"]').trigger('change');
+			
+			var nodeId = $('#fl-field-modal_css_class').parents('.fl-builder-settings').data('node');
+			$('#fl-field-modal_css_class input').val( 'modal-' + nodeId );
         }
     });
 

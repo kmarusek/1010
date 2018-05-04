@@ -176,9 +176,7 @@
 }
 
 <?php if ( 'left' == $settings->alignment ) { ?>
-	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-1 .pp-infobox-description,
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-2 .pp-infobox-description,
-	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-1 .pp-heading-wrapper,
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-2 .pp-heading-wrapper {
 		float: left;
 	}
@@ -208,9 +206,11 @@
 <?php if ( 'right' == $settings->alignment ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-1 .pp-heading-wrapper,
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-2 .pp-heading-wrapper,
-	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-1 .pp-infobox-description,
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-2 .pp-infobox-description {
 		float: right;
+	}
+	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-1 .pp-infobox-description {
+		clear: both;
 	}
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-3 .pp-icon-wrapper {
 		flex: 1;
@@ -256,4 +256,64 @@
 		<?php if( $settings->text_font_size_responsive ) { ?>font-size: <?php echo $settings->text_font_size_responsive; ?>px;<?php } ?>
 		line-height: <?php echo $settings->text_line_height_responsive; ?>;
 	}
+	<?php if ( isset( $settings->alignment_responsive ) && 'default' != $settings->alignment_responsive ) { ?>
+		<?php if ( 'left' == $settings->alignment_responsive ) { ?>
+			.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-2 .pp-infobox-description,
+			.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-2 .pp-heading-wrapper {
+				float: left;
+			}
+			.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-4 .pp-heading-wrapper {
+				flex: 0 1 auto;
+			}
+		<?php } ?>
+
+		<?php if ( 'center' == $settings->alignment_responsive ) { ?>
+			.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-1 .pp-infobox-description,
+			.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-2 .pp-infobox-description {
+				float: none;
+				text-align: center;
+			}
+			.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-1 .pp-heading-wrapper,
+			.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-2 .pp-heading-wrapper {
+				margin: 0 auto;
+				float: none;
+			}
+			.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-3 .pp-heading-wrapper,
+			.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-3 .pp-icon-wrapper,
+			.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-4 .pp-heading-wrapper,
+			.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-4 .pp-icon-wrapper {
+				flex: auto;
+			}
+			.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-3 .layout-3-wrapper,
+			.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-4 .layout-4-wrapper,
+			.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-5 {
+				text-align: center;
+			}
+		<?php } ?>
+
+		<?php if ( 'right' == $settings->alignment_responsive ) { ?>
+			.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-1 .pp-heading-wrapper,
+			.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-2 .pp-heading-wrapper,
+			.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-2 .pp-infobox-description {
+				float: right;
+			}
+			.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-1 .pp-infobox-description {
+				clear: both;
+			}
+			.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-3 .pp-icon-wrapper {
+				flex: 1;
+				text-align: right;
+			}
+			.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-3 .pp-heading-wrapper {
+				flex: 0 1 auto;
+			}
+			.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-4 .pp-heading-wrapper {
+				flex: 1;
+			}
+			.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-4 .pp-icon-wrapper {
+				flex: 0;
+				text-align: right;
+			}
+		<?php } ?>
+	<?php } ?>	
 }

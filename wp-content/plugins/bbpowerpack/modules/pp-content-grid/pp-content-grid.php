@@ -2398,6 +2398,65 @@ FLBuilder::register_module('PPContentGridModule', array(
 					),
 				)
 			),
+			'events_calendar_style'	=> array(
+				'title'		=> __('The Events Calendar', 'bb-powerpack'),
+				'fields'	=> array(
+					'event_date_color'	=> array(
+						'type'				=> 'color',
+						'label'				=> __('Date Color', 'bb-powerpack'),
+						'default'			=> '',
+						'show_reset'		=> true,
+						'preview'			=> array(
+							'type'				=> 'css',
+							'selector'			=> '.pp-post-event-calendar-date, .pp-post-event-calendar-date span',
+							'property'			=> 'color'
+						)
+					),
+					'event_date_case'	=> array(
+						'type'				=> 'select',
+						'label'				=> __('Text Transform', 'bb-powerpack'),
+						'default'			=> 'default',
+						'options'			=> array(
+							'default'			=> __('Default', 'bb-powerpack'),
+							'lowercase'			=> __('lowercase', 'bb-powerpack'),
+							'uppercase'			=> __('UPPERCASE', 'bb-powerpack'),
+						),
+						'preview'			=> array(
+							'type'				=> 'css',
+							'selector'			=> '.pp-post-event-calendar-date, .pp-post-event-calendar-date span',
+							'property'			=> 'text-transform'
+						)
+					),
+					'field_separator_e1'	=> array(
+						'type'		=> 'pp-separator'
+					),
+					'event_venue_color'	=> array(
+						'type'				=> 'color',
+						'label'				=> __('Venue Color', 'bb-powerpack'),
+						'default'			=> '',
+						'show_reset'		=> true,
+						'preview'			=> array(
+							'type'				=> 'css',
+							'selector'			=> '.pp-post-event-calendar-venue, .pp-post-event-calendar-venue span.tribe-address',
+							'property'			=> 'color'
+						)
+					),
+					'field_separator_e2'	=> array(
+						'type'		=> 'pp-separator'
+					),
+					'event_cost_color'	=> array(
+						'type'				=> 'color',
+						'label'				=> __('Cost Color', 'bb-powerpack'),
+						'default'			=> '',
+						'show_reset'		=> true,
+						'preview'			=> array(
+							'type'				=> 'css',
+							'selector'			=> '.pp-post-event-calendar-cost, .pp-post-event-calendar-cost span.ticket-cost',
+							'property'			=> 'color'
+						)
+					),
+				)
+			),
 			'button_typography'  => array(
                 'title' => __('Read More Link/Button', 'bb-powerpack'),
                 'fields'    => array(

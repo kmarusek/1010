@@ -407,6 +407,17 @@ FLBuilder::register_module('PPPricingTableModule', array(
 	'matrix_items'      => array(
 		'title'         => __('Items Box', 'bb-powerpack'),
 		'sections'      => array(
+			'matrix_column'	=> array(
+				'title'	=> __( 'Items', 'bb-powerpack' ),
+				'fields'	=> array(
+					'matrix_items'	=> array(
+						'type'          => 'text',
+						'label'         => '',
+						'placeholder'   => __( 'One feature per line. HTML is okay.', 'bb-powerpack' ),
+						'multiple'      => true,
+					)
+				)
+			),
 			'general'	=> array(
 				'title'	=> __( 'Style', 'bb-powerpack' ),
 				'fields'	=> array(
@@ -506,17 +517,6 @@ FLBuilder::register_module('PPPricingTableModule', array(
 					),
 				)
 			),
-			'matrix_column'	=> array(
-				'title'	=> __( 'Items', 'bb-powerpack' ),
-				'fields'	=> array(
-					'matrix_items'	=> array(
-						'type'          => 'text',
-						'label'         => '',
-						'placeholder'   => __( 'One feature per line. HTML is okay.', 'bb-powerpack' ),
-						'multiple'      => true,
-					)
-				)
-			)
 		)
 	),
 	'style'       => array(

@@ -12,7 +12,7 @@ if( 'hover' == $settings->show_caption ) {
 }
 ?>
 <div class="pp-photo-container">
-	<div class="pp-photo<?php if ( ! empty( $settings->crop ) ) echo ' pp-photo-crop-' . $settings->crop ; ?> pp-photo-align-<?php echo $settings->align; ?>" itemscope itemtype="http://schema.org/ImageObject">
+	<div class="pp-photo<?php if ( ! empty( $settings->crop ) ) echo ' pp-photo-crop-' . $settings->crop ; ?> pp-photo-align-<?php echo $settings->align; ?> pp-photo-align-responsive-<?php echo $settings->align_responsive; ?>" itemscope itemtype="http://schema.org/ImageObject">
 		<div class="pp-photo-content <?php echo $class; ?>">
 			<div class="pp-photo-content-inner">
 				<?php if(!empty($link)) : ?>

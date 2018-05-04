@@ -20,11 +20,14 @@
     }
 ?>
 
+var pp_modal_<?php echo $id; ?> = false;
+
 ;(function($) {
 
     var modal_<?php echo $id; ?> = {
         id: '<?php echo $id; ?>',
         type: '<?php echo $settings->modal_type; ?>',
+		trigger_type: '<?php echo $settings->modal_load; ?>',
         <?php echo ( 'auto' == $settings->modal_load ) ? 'auto_load: true' : 'auto_load: false'; ?>,
         <?php echo ( 'exit_intent' == $settings->modal_load ) ? 'exit_intent: true' : 'exit_intent: false'; ?>,
         <?php if ( 'exit_intent' == $settings->modal_load ) { ?>
@@ -65,7 +68,7 @@
         // If the URL contains a hash beginning with modal, trigger that modal box.
         if ( tabHash && tabHash.indexOf('modal-') >= 0 ) {
             if ( modalId === '<?php echo $id; ?>' ) {
-                PPModal.init(modal_<?php echo $id; ?>);
+                pp_modal_<?php echo $id; ?> = new PPModalBox(modal_<?php echo $id; ?>);
             }
         }
 
@@ -76,57 +79,48 @@
             // If the URL contains a hash beginning with modal, trigger that modal box.
             if ( tabHash && tabHash.indexOf('modal-') >= 0 ) {
                 if ( modalId === '<?php echo $id; ?>' ) {
-                    PPModal.init(modal_<?php echo $id; ?>);
+                    pp_modal_<?php echo $id; ?> = new PPModalBox(modal_<?php echo $id; ?>);
                 }
             }
         });
     });
+
+		<?php if ( 'exit_intent' == $settings->modal_load ) { // Exit Intent ?>
+		document.addEventListener('mouseout', function(e) {
+			e = e ? e : window.event;
+			var pos = e.relatedTarget || e.toElement;
+			if ( (!pos || null === pos) && ( ! pp_modal_<?php echo $id; ?> || ( pp_modal_<?php echo $id; ?> && !pp_modal_<?php echo $id; ?>.isActive) ) ) {
+				pp_modal_<?php echo $id; ?> = new PPModalBox(modal_<?php echo $id; ?>);
+			}
+		});
+		<?php } ?>
+
+		<?php if ( 'auto' == $settings->modal_load ) { ?>
+		pp_modal_<?php echo $id; ?> = new PPModalBox(modal_<?php echo $id; ?>);
+    	<?php } ?>
     <?php } ?>
 
-    <?php if ( 'onclick' == $settings->modal_load || 'other' == $settings->modal_load ) { ?>
+    <?php if ( 'onclick' == $settings->modal_load || 'other' == $settings->modal_load ) { // Click ?>
     $(document).on('click', '.modal-<?php echo $id; ?>', function(e) {
         e.preventDefault();
-        PPModal.init(modal_<?php echo $id; ?>);
+        pp_modal_<?php echo $id; ?> = new PPModalBox(modal_<?php echo $id; ?>);
     });
-    <?php } ?>
-
-    <?php if ( 'exit_intent' == $settings->modal_load ) { ?>
-        <?php if ( ! FLBuilderModel::is_builder_active() ) { ?>
-            document.addEventListener('mouseout', function(e) {
-                e = e ? e : window.event;
-                var pos = e.relatedTarget || e.toElement;
-                if((!pos || null === pos) && !PPModal.isActive) {
-                    PPModal.init(modal_<?php echo $id; ?>);
-                }
-            });
-        <?php } ?>
-    <?php } ?>
-
-    <?php if ( FLBuilderModel::is_builder_active() && 'enabled' == $settings->modal_preview ) { ?>
-    setTimeout(function() {
-        $( '.fl-node-<?php echo $id; ?>' ).on( 'click', function() {
-            if(!PPModal.isActive) {
-                PPModal.init(modal_<?php echo $id; ?>);
-            }
-        } );
-        if(!PPModal.isActive && $('form[data-type="pp-modal-box"]').length > 0) {
-            if('<?php echo $id; ?>' === $('form[data-type="pp-modal-box"]').data('node')) {
-                PPModal.init(modal_<?php echo $id; ?>);
-            }
-        }
-    }, 600);
-    <?php } ?>
-    <?php if ( ! FLBuilderModel::is_builder_active() && 'auto' == $settings->modal_load ) { ?>
-    PPModal.init(modal_<?php echo $id; ?>);
     <?php } ?>
 
     <?php if ( FLBuilderModel::is_builder_active() ) { ?>
-        FLBuilder.addHook('settings-form-init', function() {
-            $('.fl-builder-settings[data-node="<?php echo $id; ?>"] .modal-trigger-class').val('modal-<?php echo $id; ?>').attr('readonly', 'readonly').removeAttr('name').removeClass('text-full').off('change').off('keydown').off('keyup').off('keypress');
-            $(document).on('click', '.fl-builder-settings[data-node="<?php echo $id; ?>"] .modal-trigger-class', function () {
-                this.select();
-            });
-        });
+		<?php if ( 'enabled' == $settings->modal_preview ) { ?>
+		setTimeout(function() {
+			$( '.fl-node-<?php echo $id; ?>' ).on( 'click', function() {
+				pp_modal_<?php echo $id; ?> = new PPModalBox(modal_<?php echo $id; ?>);
+			} );
+
+			if ( $('form[data-type="pp-modal-box"]').length > 0 ) {
+				if('<?php echo $id; ?>' === $('form[data-type="pp-modal-box"]').data('node')) {
+					pp_modal_<?php echo $id; ?> = new PPModalBox(modal_<?php echo $id; ?>);
+				}
+			}
+		}, 600);
+		<?php } ?>
     <?php } ?>
 
 })(jQuery);

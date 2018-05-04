@@ -85,6 +85,9 @@ $post_columns_mobile = ( 100 - $space_mobile ) / $settings->post_grid_count['mob
 }
 
 .fl-node-<?php echo $id; ?> .pp-content-post .pp-post-title {
+	<?php if ( isset( $settings->show_title ) && 'no' == $settings->show_title ) { ?>
+		display: none;
+	<?php } ?>
 	<?php if( $settings->title_font['family'] != 'Default' ) { ?>
 	   <?php FLBuilderFonts::font_css( $settings->title_font ); ?>
    <?php } ?>
@@ -140,6 +143,29 @@ $post_columns_mobile = ( 100 - $space_mobile ) / $settings->post_grid_count['mob
 	<?php } ?>
 	<?php if( $settings->description_margin['bottom'] >= 0 ) { ?>
 		margin-bottom: <?php echo $settings->description_margin['bottom']; ?>px;
+	<?php } ?>
+}
+
+<?php /* The Events Calendar */ ?>
+.fl-node-<?php echo $id; ?> .pp-post-event-calendar-date,
+.fl-node-<?php echo $id; ?> .pp-post-event-calendar-date span {
+	<?php if ( isset( $settings->event_date_color ) && ! empty( $settings->event_date_color ) ) { ?>
+		color: #<?php echo $settings->event_date_color; ?>;
+	<?php } ?>
+	<?php if ( isset( $settings->event_date_case ) && 'default' != $settings->event_date_case ) { ?>
+		text-transform: <?php echo $settings->event_date_case; ?>;
+	<?php } ?>
+}
+.fl-node-<?php echo $id; ?> .pp-post-event-calendar-venue,
+.fl-node-<?php echo $id; ?> .pp-post-event-calendar-venue span.tribe-address {
+	<?php if ( isset( $settings->event_venue_color ) && ! empty( $settings->event_venue_color ) ) { ?>
+		color: #<?php echo $settings->event_venue_color; ?>;
+	<?php } ?>
+}
+.fl-node-<?php echo $id; ?> .pp-post-event-calendar-cost,
+.fl-node-<?php echo $id; ?> .pp-post-event-calendar-cost span.ticket-cost {
+	<?php if ( isset( $settings->event_cost_color ) && ! empty( $settings->event_cost_color ) ) { ?>
+		color: #<?php echo $settings->event_cost_color; ?>;
 	<?php } ?>
 }
 
@@ -575,7 +601,7 @@ if($settings->layout == 'grid' || $settings->layout == 'carousel') { // GRID ?>
 	}
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 767px) {
 
 	.fl-node-<?php echo $id; ?> .pp-content-grid-post {
 		width: <?php echo $post_columns_mobile; ?>%;

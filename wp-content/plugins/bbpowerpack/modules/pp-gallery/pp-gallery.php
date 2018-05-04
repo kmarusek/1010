@@ -34,8 +34,8 @@ class PPGalleryModule extends FLBuilderModule {
 
 		$this->add_js( 'jquery-isotope' );
 
-		$this->add_css( 'jquery-fancybox' );
-		$this->add_js( 'jquery-fancybox' );
+		$this->add_css( 'pp-jquery-fancybox' );
+		$this->add_js( 'pp-jquery-fancybox' );
 
 		$this->add_css( 'jquery-justifiedgallery' );
 		$this->add_js( 'jquery-justifiedgallery' );

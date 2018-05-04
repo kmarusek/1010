@@ -31,8 +31,6 @@
 	</div>
 	<div class="pp-infobox-description">
 		<?php echo $settings->description; ?>
-		<?php if( $settings->pp_infobox_link_type == 'read_more' || $settings->pp_infobox_link_type == 'button' ) { ?>
-			<?php $module->render_link(); ?>
-		<?php } ?>
+		<?php $module->render_link(); ?>
 	</div>
 </div>

@@ -579,6 +579,21 @@ body .pp-post-feed-meta {
 	margin: 0 auto !important;
 }
 
+/* The Events Calendar */
+.pp-post-event-calendar-date {
+	margin-bottom: 5px;
+}
+.pp-post-event-calendar-date,
+.pp-post-event-calendar-date span {
+	font-weight: bold;
+}
+.pp-post-event-calendar-venue {
+	font-style: italic;
+}
+.pp-post-event-calendar-cost {
+	margin-top: 12px;
+    margin-bottom: 12px;
+}
 
 @media only screen and (max-width: 768px) {
 	.pp-content-post-carousel .owl-theme .owl-controls .owl-buttons div.owl-prev {

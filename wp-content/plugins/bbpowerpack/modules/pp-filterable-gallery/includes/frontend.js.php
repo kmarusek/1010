@@ -20,9 +20,9 @@
 				'image': {
 					titleSrc: function(item) {
 						<?php if($settings->show_captions == 'below') : ?>
-							return item.el.parent().next('.fl-node-<?php echo $id; ?> .pp-photo-gallery-caption').text();
+							return item.el.parent().next('.fl-node-<?php echo $id; ?> .pp-photo-gallery-caption').html();
 						<?php elseif($settings->show_captions == 'hover') : ?>
-							return item.el.next('.fl-node-<?php echo $id; ?> .pp-photo-gallery-caption').text();
+							return item.el.next('.fl-node-<?php echo $id; ?> .pp-photo-gallery-caption').html();
 						<?php endif; ?>
 					}
 				},
