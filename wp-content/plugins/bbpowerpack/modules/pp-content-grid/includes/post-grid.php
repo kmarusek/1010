@@ -137,9 +137,9 @@ if ( $settings->post_type == 'product' ) {
 							foreach ($terms_list as $term):
 								?>
 							<?php if( $i == count($terms_list) ) { ?>
-								<a href="<?php echo get_term_link($term); ?>"><?php echo $term->name; ?></a>
+								<a href="<?php echo get_term_link($term); ?>" class="pp-post-meta-term"><?php echo $term->name; ?></a>
 							<?php } else { ?>
-								<a href="<?php echo get_term_link($term); ?>"><?php echo $term->name; ?></a> /
+								<a href="<?php echo get_term_link($term); ?>" class="pp-post-meta-term"><?php echo $term->name; ?></a> /
 							<?php } ?>
 							<?php $i++; endforeach; ?>
 						<?php } ?>
@@ -151,6 +151,10 @@ if ( $settings->post_type == 'product' ) {
 
 			<?php if( $settings->post_type == 'product' && $settings->product_rating == 'yes' && class_exists( 'WooCommerce' ) ) { ?>
 				<?php include $module_dir . 'includes/templates/product-rating.php'; ?>
+			<?php } ?>
+
+			<?php if ( 'tribe_events' == $settings->post_type && ( class_exists( 'Tribe__Events__Main' ) && class_exists( 'FLThemeBuilderLoader' ) ) ) { ?>
+				<?php include $module_dir . 'includes/templates/event-content.php'; ?>
 			<?php } ?>
 
 			<?php do_action( 'pp_cg_before_post_content', get_the_ID() ); ?>

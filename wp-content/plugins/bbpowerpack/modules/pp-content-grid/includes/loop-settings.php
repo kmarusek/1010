@@ -215,6 +215,21 @@ do_action( 'pp_cg_loop_settings_before_form', $settings ); // e.g Add custom FLB
 	<h3 class="fl-builder-settings-title"><?php esc_html_e('Content Settings', 'bb-powerpack'); ?></h3>
 	<table class="fl-form-table">
 		<?php
+		FLBuilder::render_settings_field('show_title', array(
+			'type'          => 'pp-switch',
+			'label'         => __('Show Title', 'bb-powerpack'),
+			'default'       => 'yes',
+			'options'       => array(
+				'yes'          	=> __('Yes', 'bb-powerpack'),
+				'no'         	=> __('No', 'bb-powerpack'),
+			),
+			'toggle'	=> array(
+				'yes'		=> array(
+					'sections'	=> array('title_typography')
+				)
+			)
+		), $settings);
+
 		FLBuilder::render_settings_field('show_content', array(
 			'type'          => 'pp-switch',
 			'label'         => __('Show Content', 'bb-powerpack'),
@@ -386,6 +401,61 @@ do_action( 'pp_cg_loop_settings_before_form', $settings ); // e.g Add custom FLB
 			)
 		), $settings);
 
+		?>
+	</table>
+</div>
+<?php endif; ?>
+
+<?php if ( class_exists( 'Tribe__Events__Main' ) && class_exists( 'FLThemeBuilderLoader' ) ) : ?>
+<div id="fl-builder-settings-section-events-calendar-settings" class="fl-builder-settings-section">
+	<h3 class="fl-builder-settings-title"><?php esc_html_e('The Events Calendar', 'bb-powerpack'); ?></h3>
+	<table class="fl-form-table">
+		<?php
+		FLBuilder::render_settings_field( 'event_enable', array(
+			'type'		=> 'pp-switch',
+			'label'		=> __('Enable Events Calendar', 'bb-powerpack'),
+			'default'	=> 'no',
+			'options'	=> array(
+				'yes'		=> __('Yes', 'bb-powerpack'),
+				'no'		=> __('No', 'bb-powerpack'),
+			),
+			'toggle'	=> array(
+				'yes'		=> array(
+					'sections'	=> array( 'events_calendar_style' ),
+					'fields'	=> array( 'event_date', 'event_venue', 'event_cost' )
+				)
+			)
+		), $settings );
+
+		FLBuilder::render_settings_field( 'event_date', array(
+			'type'		=> 'pp-switch',
+			'label'		=> __('Show Event Date', 'bb-powerpack'),
+			'default'	=> 'no',
+			'options'	=> array(
+				'yes'		=> __('Yes', 'bb-powerpack'),
+				'no'		=> __('No', 'bb-powerpack'),
+			)
+		), $settings );
+
+		FLBuilder::render_settings_field( 'event_venue', array(
+			'type'		=> 'pp-switch',
+			'label'		=> __('Show Event Venue', 'bb-powerpack'),
+			'default'	=> 'no',
+			'options'	=> array(
+				'yes'		=> __('Yes', 'bb-powerpack'),
+				'no'		=> __('No', 'bb-powerpack'),
+			)
+		), $settings );
+
+		FLBuilder::render_settings_field( 'event_cost', array(
+			'type'		=> 'pp-switch',
+			'label'		=> __('Show Event Cost', 'bb-powerpack'),
+			'default'	=> 'no',
+			'options'	=> array(
+				'yes'		=> __('Yes', 'bb-powerpack'),
+				'no'		=> __('No', 'bb-powerpack'),
+			)
+		), $settings );
 		?>
 	</table>
 </div>

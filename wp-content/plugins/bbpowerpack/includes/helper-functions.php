@@ -103,6 +103,8 @@ function pp_row_templates_categories()
         'pp-testimonials'       => __('Testimonials', 'bb-powerpack'),
         'pp-features'           => __('Features', 'bb-powerpack'),
         'pp-services'           => __('Services', 'bb-powerpack'),
+        'pp-header'           	=> __('Header', 'bb-powerpack'),
+        'pp-footer'           	=> __('Footer', 'bb-powerpack'),
     );
 
 	if ( is_array( $cats ) ) {
@@ -131,7 +133,7 @@ function pp_templates_categories( $type )
 			}
 		}
 
-    	ksort($data);
+    	$data = array_reverse($data);
 	}
 
     return $data;

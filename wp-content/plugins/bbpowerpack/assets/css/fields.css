@@ -284,6 +284,9 @@ span.pp-multitext.fa-long-arrow-right:before {
 .fl-builder-ui-skin--dark .fl-builder-settings .pp-field-separator {
     background: #101215 !important;
 }
+.fl-builder-settings .pp-field-separator {
+	margin-left: -8px;
+}
 
 .pp-color-picker {
 	margin-bottom: 5px;
@@ -722,4 +725,40 @@ span.pp-switch-button:not(.pp-switch-active):hover {
     left: -4px;
     width: 200px;
     height: 200px
+}
+
+.pp-date-wrap:before,
+.pp-date-wrap:after {
+	content: " ";
+	display: table;
+}
+.pp-date-wrap:after {
+	clear: both;
+}
+.pp-countdown-custom-fields {
+    float: left;
+	text-align: center;
+}
+.pp-countdown-custom-fields label {
+	font-size: 10px !important;
+    text-transform: uppercase;
+}
+.pp-countdown-custom-fields select {
+	border-radius: 0 !important;
+	padding-left: 5px;
+}
+.pp-countdown-custom-fields.pp-countdown-field-days {
+	max-width: 60px !important;
+}
+.pp-countdown-custom-fields.pp-countdown-field-hours,
+.pp-countdown-custom-fields.pp-countdown-field-minutes,
+.pp-countdown-custom-fields.pp-countdown-field-seconds {
+	max-width: 55px !important;
+}
+.pp-countdown-custom-fields.pp-countdown-field-months {
+	max-width: 65px !important;
+}
+.pp-countdown-custom-fields.pp-countdown-field-years {
+	margin-right: 6px !important;
+	max-width: 78px !important;
 }

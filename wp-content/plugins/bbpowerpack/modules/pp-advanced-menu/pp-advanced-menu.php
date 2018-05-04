@@ -973,7 +973,18 @@ FLBuilder::register_module('PPAdvancedMenu', array(
                             'top'       => __('Top', 'bb-powerpack'),
                             'center'    => __('Center', 'bb-powerpack')
                         )
-                    ),
+					),
+					'responsive_toggle_alignment'	=> array(
+						'type'          => 'pp-switch',
+                        'label'         => __('Hamburger Icon Alignment', 'bb-powerpack'),
+                        'default'       => 'default',
+                        'options'       => array(
+							'default'		=> __('Default', 'bb-powerpack'),
+                            'left'         	=> __('Left', 'bb-powerpack'),
+                            'center'        => __('Center', 'bb-powerpack'),
+                            'right'        	=> __('Right', 'bb-powerpack'),
+                        ),
+					),
 					'responsive_overlay_bg_color' => array(
                         'type'       => 'color',
                         'label'      => __('Background Color', 'bb-powerpack'),

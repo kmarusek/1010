@@ -13,8 +13,8 @@
     	type: '<?php echo $type ?>',
     	mobile: '<?php echo $mobile ?>',
 		breakPoints: {
-			medium: <?php echo $global_settings->medium_breakpoint; ?>,
-			small: <?php echo $global_settings->responsive_breakpoint; ?>,
+			medium: <?php echo empty( $global_settings->medium_breakpoint ) ? '' : $global_settings->medium_breakpoint; ?>,
+			small: <?php echo empty( $global_settings->responsive_breakpoint ) ? '' : $global_settings->responsive_breakpoint; ?>,
 			custom: <?php echo empty($settings->custom_breakpoint) ? 0 : $settings->custom_breakpoint; ?>
 		},
 		mobileBreakpoint: '<?php echo $mobile_breakpoint ?>',

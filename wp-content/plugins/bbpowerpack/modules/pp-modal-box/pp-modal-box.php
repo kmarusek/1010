@@ -325,7 +325,7 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         'help'              => __('Other - modal can be triggered through any other element(s) on this page by providing modal CSS class to that element.', 'bb-powerpack')
                     ),
                     'modal_css_class'       => array(
-                        'type'                  => 'text',
+                        'type'                  => 'pp-css-class',
                         'label'                 => __('CSS Class', 'bb-powerpack'),
                         'default'               => '',
                         'disabled'              => 'disabled',

@@ -811,6 +811,9 @@ if( isset( $settings->mobile_toggle ) && $settings->mobile_toggle != 'expanded' 
 
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu-mobile-toggle {
 		<?php if( $settings->mobile_toggle_font_size == 'custom' && $settings->mobile_toggle_font_size_custom_responsive ) { ?>font-size: <?php echo $settings->mobile_toggle_font_size_custom_responsive; ?>px;<?php } ?>
+		<?php if ( isset( $settings->responsive_toggle_alignment ) && 'default' != $settings->responsive_toggle_alignment ) { ?>
+		text-align: <?php echo $settings->responsive_toggle_alignment; ?>
+		<?php } ?>
 	}
 }
 

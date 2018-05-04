@@ -726,7 +726,18 @@ FLBuilder::register_module('PPInfoBoxModule', array(
                             'center'    => __('Center', 'bb-powerpack'),
                             'right'     => __('Right', 'bb-powerpack'),
                         )
-                    )
+					),
+					'alignment_responsive' => array(
+						'type'      => 'pp-switch',
+						'label'     => __('Responsive Alignment', 'bb-powerpack'),
+						'default'   => 'default',
+						'options'   => array(
+							'default'	=> __('Default', 'bb-powerpack'),
+							'left'      => __('Left', 'bb-powerpack'),
+							'center'    => __('Center', 'bb-powerpack'),
+							'right'     => __('Right', 'bb-powerpack'),
+						)
+					)
                 )
             ),
 			'title_prefix_style'   => array(

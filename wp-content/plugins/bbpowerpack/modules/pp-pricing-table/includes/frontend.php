@@ -27,9 +27,11 @@
 					&nbsp;
 				</div>
 				<ul class="pp-pricing-table-features">
-					<?php if (!empty($settings->matrix_items)) foreach ($settings->matrix_items as $item) : ?>
-					<li><?php echo trim($item); ?></li>
-					<?php endforeach; ?>
+					<?php if ( ! empty( $settings->matrix_items ) ) : $item_count = 0; ?>
+						<?php foreach ($settings->matrix_items as $item) : $item_count++; ?>
+						<li class="pp-pricing-table-item-<?php echo $item_count; ?>"><?php echo trim( $item ); ?></li>
+						<?php endforeach; ?>
+					<?php endif; ?>
 				</ul>
 			</div>
 		</div>
@@ -83,9 +85,11 @@
 					<<?php echo $settings->title_tag; ?> class="pp-pricing-table-title"><?php echo $pricingColumn->title; ?></<?php echo $settings->title_tag; ?>>
 				<?php } ?>
 				<ul class="pp-pricing-table-features">
-					<?php if (!empty($pricingColumn->features)) foreach ($pricingColumn->features as $feature) : ?>
-					<li><?php echo trim($feature); ?></li>
-					<?php endforeach; ?>
+					<?php if ( ! empty( $pricingColumn->features ) ) : $item_count = 0; ?>
+						<?php foreach ( $pricingColumn->features as $feature ) : $item_count++; ?>
+						<li class="pp-pricing-table-item-<?php echo $item_count; ?>"><?php echo trim( $feature ); ?></li>
+						<?php endforeach; ?>
+					<?php endif; ?>
 				</ul>
 
 				<?php $module->render_button($i); ?>

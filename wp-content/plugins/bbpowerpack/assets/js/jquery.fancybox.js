@@ -1,5 +1,5 @@
 // ==================================================
-// fancyBox v3.3.2
+// fancyBox v3.3.5
 //
 // Licensed GPLv3 for open source use
 // or fancyBox Commercial License for commercial use
@@ -527,27 +527,15 @@
         $container,
         buttonStr;
 
-      // iOS hack; https://bugs.webkit.org/show_bug.cgi?id=176896
-      if (
-        firstItem.type !== "image" &&
-        /iPad|iPhone|iPod/.test(navigator.userAgent) &&
-        !window.MSStream &&
-        !$("body").hasClass("fancybox-iosfix")
-      ) {
-        $("body")
-          .addClass("fancybox-iosfix")
-          .css("top", -$W.scrollTop());
-      }
-
       // Hide scrollbars
       // ===============
 
-      if (!$.fancybox.getInstance()) {
+      if (!$.fancybox.getInstance() && firstItemOpts.hideScrollbar !== false) {
         $("body").addClass("fancybox-active");
 
         if (!$.fancybox.isMobile && document.body.scrollHeight > window.innerHeight) {
           if (scrollbarWidth === undefined) {
-            $scrollDiv = $('<div style="width:50px;height:50px;overflow:scroll;" />').appendTo("body");
+            $scrollDiv = $('<div style="width:100px;height:100px;overflow:scroll;" />').appendTo("body");
 
             scrollbarWidth = $.fancybox.scrollbarWidth = $scrollDiv[0].offsetWidth - $scrollDiv[0].clientWidth;
 
@@ -2638,14 +2626,6 @@
         $body.removeClass("fancybox-active compensate-for-scrollbar");
 
         $("#fancybox-style-noscroll").remove();
-
-        if ($body.hasClass("fancybox-iosfix")) {
-          scrollTop = parseInt($body[0].style.top, 10);
-
-          $body.css("top", "").removeClass("fancybox-iosfix");
-
-          $W.scrollTop(-scrollTop);
-        }
       }
     },
 
@@ -2765,7 +2745,7 @@
   });
 
   $.fancybox = {
-    version: "3.3.2",
+    version: "3.3.5",
     defaults: defaults,
 
     // Get current instance and execute a command.
@@ -3253,7 +3233,11 @@
       thumb =
         $.type(providerOpts.thumb) === "function" ? providerOpts.thumb.call(this, rez, params, item) : format(providerOpts.thumb, rez);
 
-      if (providerName === "vimeo") {
+      if (providerName === "youtube") {
+        url = url.replace(/&t=((\d+)m)?(\d+)s/, function(match, p1, m, s) {
+          return "&start=" + ((m ? parseInt(m, 10) * 60 : 0) + parseInt(s, 10));
+        });
+      } else if (providerName === "vimeo") {
         url = url.replace("&%23", "#");
       }
 

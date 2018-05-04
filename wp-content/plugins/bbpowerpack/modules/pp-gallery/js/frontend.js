@@ -94,6 +94,12 @@
 
 			if ( this.settings.lightboxThumbs ) {
 				options.buttons.push( 'thumbs' );
+				options['thumbs'] = {
+					autoStart: true, // Display thumbnails on opening
+					hideOnClose: true, // Hide thumbnail grid when closing animation starts
+					parentEl: ".fancybox-container", // Container is injected into this element
+					axis: "y" // Vertical (y) or horizontal (x) scrolling
+				}
 			}
 
 			$(this.nodeClass).find('a[data-fancybox="images"]').fancybox( options );

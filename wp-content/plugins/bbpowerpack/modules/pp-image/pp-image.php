@@ -493,6 +493,17 @@ FLBuilder::register_module('PPImageModule', array(
 							'center'        => __('Center', 'bb-powerpack'),
 							'right'         => __('Right', 'bb-powerpack')
 						),
+					),
+					'align_responsive'  => array(
+						'type'          => 'pp-switch',
+						'label'         => __('Responsive Alignment', 'bb-powerpack'),
+						'default'       => 'default',
+						'options'       => array(
+							'default'		=> __('Default', 'bb-powerpack'),
+							'left'          => __('Left', 'bb-powerpack'),
+							'center'        => __('Center', 'bb-powerpack'),
+							'right'         => __('Right', 'bb-powerpack')
+						),
 					)
 				)
 			),

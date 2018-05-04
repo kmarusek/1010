@@ -1,9 +1,14 @@
 <div class="pp-content-grid-image pp-post-image">
     <?php if ( has_post_thumbnail() ) { ?>
-        <?php //echo $module->pp_render_img( get_the_id(), $settings->image_thumb_crop ); ?>
+        <?php $featured_image_url = wp_get_attachment_url( get_post_thumbnail_id( get_the_ID() ) );
+
+		if ( ! empty( $featured_image_url ) ) { ?>
+
         <div class="pp-post-featured-img">
 		    <?php FLBuilder::render_module_html( 'photo', BB_PowerPack_Post_Helper::post_image_get_settings( get_the_ID(), $settings->image_thumb_crop, $settings ) ); ?>
 		</div>
+
+		<?php } ?>
     <?php } else {
 		$img_src = '';
 

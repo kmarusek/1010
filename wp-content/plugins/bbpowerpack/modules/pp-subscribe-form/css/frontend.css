@@ -16,6 +16,10 @@
 	height: auto;
 	width: 100%;
 }
+.pp-subscribe-form .pp-form-field.pp-acceptance-field {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
 .pp-form-field.pp-checkbox-input input {
 	width: auto;
 	display: inline-block;
