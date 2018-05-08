@@ -18723,7 +18723,9 @@ var InlineEditor = function (_Component) {
 					textarea.val(content);
 				}
 			} else {
-				settings.find('[name="' + field.name + '"]').val(content);
+				var _textarea = document.createElement('textarea');
+				_textarea.innerHTML = content;
+				settings.find('[name="' + field.name + '"]').val(_textarea.value);
 			}
 		}
 	}, {
