@@ -62,7 +62,7 @@ final class FLBuilder {
 	 * @since 2.1
 	 */
 	static public $fa4_url = 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css';
-	static public $fa5_url = 'https://use.fontawesome.com/releases/v5.0.10/css/all.css';
+	static public $fa5_url = 'https://use.fontawesome.com/releases/v5.0.12/css/all.css';
 
 	/**
 	 * Initializes hooks.
@@ -1364,7 +1364,7 @@ final class FLBuilder {
 
 		echo '<span class="fl-builder--saving-indicator"></span>';
 
-		if ( ! FLBuilderModel::is_white_labeled() && $notifications['data'] && '{}' !== $notifications['data'] && ! apply_filters( 'fl_disable_notifications', false ) ) {
+		if ( ! $simple_ui && ! FLBuilderModel::is_white_labeled() && $notifications['data'] && '{}' !== $notifications['data'] && ! apply_filters( 'fl_disable_notifications', false ) ) {
 			echo '<span class="fl-builder-bar-spacer"></span>';
 			echo '<button id="fl-builder-toggle-notifications" class="fl-builder-button fl-builder-button-silent">';
 			include FL_BUILDER_DIR . 'img/svg/bell-active.svg';

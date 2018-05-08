@@ -5,7 +5,7 @@ Tags: pods, custom post types, custom taxonomies, content types, custom fields, 
 Requires at least: 4.5
 Requires PHP: 5.3
 Tested up to: 4.9.5
-Stable tag: 2.7.2
+Stable tag: 2.7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -179,6 +179,27 @@ Join us in further translating the Pods interface at: [https://translate.wordpre
 We also have a dedicated [Slack Chat](https://pods.io/chat/) channel to help our translators get started and to support them on the process.
 
 == Changelog ==
+
+= 2.7.3 - May 6th 2018  =
+
+**Bug Fixes**
+
+* Fixed: 'search' param for Pods shortcodes #4909 (@pglewis)
+* Fixed: 'before_content' and 'after_content' were ignored in widgets #4891 (@pglewis)
+
+= 2.7.2.1 - May 5th 2018 =
+
+**Developer and deployment enhancements**
+
+* Added: .editorconfig file [http://editorconfig.org/](http://editorconfig.org/) #4571 (@JoryHogeveen)
+* Updated: export-ignore list #4898 (@pglewis)
+
+**Bug Fixes**
+
+* Fixed: Pods Widget output #4891 (@pglewis)
+* Fixed: Slider controls not showing #4895 (@pglewis)
+* Fixed: Fatal exception attempting to parse Persian DateTime strings #4896 (@sc0ttkclark)
+* Fixed: Array to string conversion notice in Pods form #4886 (@sc0ttkclark)
 
 = 2.7.2 - May 3rd 2018 =
 

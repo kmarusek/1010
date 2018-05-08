@@ -1,17 +1,35 @@
-<h4>2.1.1 - 05/02/2018</h4>
+<h4>2.1.1.2 - 05/07/2018</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Added <code>fl_code_checking_enabled</code> filter to disable all code checking.</li>
+	<li>Added <code>fl_builder_get_layout_metadata</code> filter for filtering layout data when it comes out of the database.</li>
+	<li>Disabled notifications in restricted editing mode.</li>
+	<li>Updated Font Awesome to 5.0.12.</li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fixed characters being encoded in text inputs when using inline editing.</li>
+	<li>Fixed invalid code errors preventing saving of code fields.</li>
+	<li>Fixed a fatal error with corrupted global rows.</li>
+</ul>
+
+<h4>2.1.1.1 - 05/02/2018</h4>
 <p><strong>Enhancements</strong></p>
 <ul>
 	<li>Font Awesome PRO support added! See <code>https://kb.wpbeaverbuilder.com/article/645-font-awesome-5-icons</code> for instructions.</li>
+</ul>
+
+<h4>2.1.1 - 05/02/2018</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
 	<li>New filter <code>fl_inline_editing_enabled</code> to disable inline editing.</li>
 	<li>Removed obsolete Event Espresso code now covered by their official addon found at <code>https://github.com/eventespresso/eea-beaver-builder</code></li>
 </ul>
-
 <p><strong>Bug Fixes</strong></p>
 <ul>
 	<li>Fixed JS error when canceling out of a settings form during responsive preview.</li>
 	<li>Fixed various icon issues and added a compatibility function to make sure css files are loaded in right order.</li>
 </ul>
-
 
 <h4>2.1.0.2 - 04/27/2018</h4>
 <p><strong>Hot Fix</strong></p>
