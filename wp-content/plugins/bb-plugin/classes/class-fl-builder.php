@@ -643,10 +643,8 @@ final class FLBuilder {
 			 */
 			if ( in_array( 'font-awesome', FLBuilderModel::get_enabled_icons() ) ) {
 				wp_enqueue_style( 'font-awesome' );
-			} else {
-				wp_enqueue_style( 'font-awesome-5' );
 			}
-
+			wp_enqueue_style( 'font-awesome-5' );
 			wp_enqueue_style( 'foundation-icons' );
 			wp_enqueue_style( 'jquery-nanoscroller',     $css_url . 'jquery.nanoscroller.css', array(), $ver );
 			wp_enqueue_style( 'jquery-autosuggest',      $css_url . 'jquery.autoSuggest.min.css', array(), $ver );

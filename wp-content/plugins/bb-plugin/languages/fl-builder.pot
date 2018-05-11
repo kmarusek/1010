@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bb-plugin\n"
 "Report-Msgid-Bugs-To: hello@wpbeaverbuilder.com\n"
-"POT-Creation-Date: 2018-05-07 19:57:10+00:00\n"
+"POT-Creation-Date: 2018-05-10 18:04:31+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -61,7 +61,7 @@ msgid "Icons"
 msgstr ""
 
 #: classes/class-fl-builder-admin-settings.php:192
-#: classes/class-fl-builder.php:962
+#: classes/class-fl-builder.php:960
 msgid "Tools"
 msgstr ""
 
@@ -1372,85 +1372,85 @@ msgstr ""
 msgid "Rebuilt the theme cache"
 msgstr ""
 
-#: classes/class-fl-builder.php:954
+#: classes/class-fl-builder.php:952
 msgid "Unnamed Menu"
 msgstr ""
 
-#: classes/class-fl-builder.php:970
+#: classes/class-fl-builder.php:968
 #: extensions/fl-builder-user-templates/includes/user-template-settings.php:4
 #: includes/ui-js-config.php:141
 msgid "Save Template"
 msgstr ""
 
-#: classes/class-fl-builder.php:978
+#: classes/class-fl-builder.php:976
 msgid "Duplicate Layout"
 msgstr ""
 
-#: classes/class-fl-builder.php:984
+#: classes/class-fl-builder.php:982
 msgid "Preview Layout"
 msgstr ""
 
-#: classes/class-fl-builder.php:995
+#: classes/class-fl-builder.php:993
 msgid "Layout CSS & Javascript"
 msgstr ""
 
-#: classes/class-fl-builder.php:1002 includes/global-settings.php:4
+#: classes/class-fl-builder.php:1000 includes/global-settings.php:4
 #: includes/ui-js-config.php:92
 msgid "Global Settings"
 msgstr ""
 
-#: classes/class-fl-builder.php:1013
+#: classes/class-fl-builder.php:1011
 msgid "Change UI Brightness"
 msgstr ""
 
-#: classes/class-fl-builder.php:1020 classes/class-fl-builder.php:1043
+#: classes/class-fl-builder.php:1018 classes/class-fl-builder.php:1041
 msgid "WordPress Admin"
 msgstr ""
 
-#: classes/class-fl-builder.php:1027 classes/class-fl-builder.php:1097
+#: classes/class-fl-builder.php:1025 classes/class-fl-builder.php:1095
 msgid "Help"
 msgstr ""
 
-#: classes/class-fl-builder.php:1034
+#: classes/class-fl-builder.php:1032
 msgid "Keyboard Shortcuts"
 msgstr ""
 
-#: classes/class-fl-builder.php:1072 includes/ui-js-config.php:106
+#: classes/class-fl-builder.php:1070 includes/ui-js-config.php:106
 msgid "Manage Templates"
 msgstr ""
 
-#: classes/class-fl-builder.php:1086
+#: classes/class-fl-builder.php:1084
 msgid "Customize Theme"
 msgstr ""
 
-#: classes/class-fl-builder.php:1116
+#: classes/class-fl-builder.php:1114
 msgid "Take A Tour"
 msgstr ""
 
-#: classes/class-fl-builder.php:1124
+#: classes/class-fl-builder.php:1122
 msgid "View Knowledge Base"
 msgstr ""
 
-#: classes/class-fl-builder.php:1132
+#: classes/class-fl-builder.php:1130
 #: extensions/fl-builder-white-label/includes/admin-settings-help-button.php:59
 #: includes/ui-js-config.php:181
 msgid "Contact Support"
 msgstr ""
 
-#: classes/class-fl-builder.php:1320
+#: classes/class-fl-builder.php:1318
 msgid "Upgrade Today"
 msgstr ""
 
-#: classes/class-fl-builder.php:1324
+#: classes/class-fl-builder.php:1322
 msgid "Buy Now"
 msgstr ""
 
-#: classes/class-fl-builder.php:1328 includes/ui-js-config.php:87
+#: classes/class-fl-builder.php:1326 includes/ui-js-config.php:87
 #: includes/ui-js-templates.php:278
 msgid "Done"
 msgstr ""
 
-#: classes/class-fl-builder.php:3020
+#: classes/class-fl-builder.php:3018
 msgid "The uploaded file is not a valid %s extension."
 msgstr ""
 
@@ -1641,7 +1641,7 @@ msgstr ""
 
 #: extensions/fl-builder-core-templates-admin/includes/admin-core-templates.php:48
 #: extensions/fl-builder-user-templates/classes/class-fl-builder-user-templates-admin-edit.php:85
-#: includes/ui-field-photo.php:44
+#: includes/ui-field-photo.php:53
 msgid "Edit"
 msgstr ""
 
@@ -3426,11 +3426,11 @@ msgstr ""
 msgid "Left"
 msgstr ""
 
-#: includes/ui-field-icon.php:5 includes/ui-field-photo.php:48
+#: includes/ui-field-icon.php:5 includes/ui-field-photo.php:57
 msgid "Replace"
 msgstr ""
 
-#: includes/ui-field-icon.php:7 includes/ui-field-photo.php:46
+#: includes/ui-field-icon.php:7 includes/ui-field-photo.php:55
 #: includes/ui-js-config.php:128 includes/ui-js-templates.php:27
 #: includes/ui-js-templates.php:73 includes/ui-js-templates.php:165
 msgid "Remove"
@@ -3472,7 +3472,7 @@ msgstr ""
 msgid "Add Photos"
 msgstr ""
 
-#: includes/ui-field-photo.php:27 includes/ui-js-config.php:143
+#: includes/ui-field-photo.php:36 includes/ui-js-config.php:143
 msgid "Select Photo"
 msgstr ""
 
@@ -7237,82 +7237,82 @@ msgctxt "current blog name"
 msgid "Rebuilt the theme cache for blog %s"
 msgstr ""
 
-#: classes/class-fl-builder.php:1063
+#: classes/class-fl-builder.php:1061
 msgctxt "label for the WordPress Dashboard link"
 msgid "Dashboard"
 msgstr ""
 
-#: classes/class-fl-builder.php:1153
+#: classes/class-fl-builder.php:1151
 msgctxt "A keyboard shortcut with no label given"
 msgid "Untitled Shortcut"
 msgstr ""
 
-#: classes/class-fl-builder.php:1161
+#: classes/class-fl-builder.php:1159
 msgctxt "Keyboard action to show modules tab"
 msgid "Open Modules Tab"
 msgstr ""
 
-#: classes/class-fl-builder.php:1165
+#: classes/class-fl-builder.php:1163
 msgctxt "Keyboard action to show rows tab"
 msgid "Open Rows Tab"
 msgstr ""
 
-#: classes/class-fl-builder.php:1169
+#: classes/class-fl-builder.php:1167
 msgctxt "Keyboard action to show templates tab"
 msgid "Open Templates Tab"
 msgstr ""
 
-#: classes/class-fl-builder.php:1173
+#: classes/class-fl-builder.php:1171
 msgctxt "Keyboard action to show saved tab"
 msgid "Open Saved Tab"
 msgstr ""
 
-#: classes/class-fl-builder.php:1178
+#: classes/class-fl-builder.php:1176
 msgctxt "Keyboard action to open save template form"
 msgid "Save New Template"
 msgstr ""
 
-#: classes/class-fl-builder.php:1183
+#: classes/class-fl-builder.php:1181
 msgctxt "Keyboard action to toggle preview mode"
 msgid "Toggle Preview Mode"
 msgstr ""
 
-#: classes/class-fl-builder.php:1187
+#: classes/class-fl-builder.php:1185
 msgctxt "Keyboard action to open the global settings panel"
 msgid "Open Global Settings"
 msgstr ""
 
-#: classes/class-fl-builder.php:1191
+#: classes/class-fl-builder.php:1189
 msgctxt "Keyboard action to open the layout settings panel"
 msgid "Open Layout Settings"
 msgstr ""
 
-#: classes/class-fl-builder.php:1195
+#: classes/class-fl-builder.php:1193
 msgctxt "Keyboard action to switch between light and dark UI brightness"
 msgid "Change UI Brightness"
 msgstr ""
 
-#: classes/class-fl-builder.php:1199
+#: classes/class-fl-builder.php:1197
 msgctxt "Keyboard action to open the module search panel"
 msgid "Display Module Search"
 msgstr ""
 
-#: classes/class-fl-builder.php:1204
+#: classes/class-fl-builder.php:1202
 msgctxt "Keyboard action to save changes"
 msgid "Save Layout"
 msgstr ""
 
-#: classes/class-fl-builder.php:1209
+#: classes/class-fl-builder.php:1207
 msgctxt "Keyboard action to publish any pending changes"
 msgid "Publish changes without leaving builder"
 msgstr ""
 
-#: classes/class-fl-builder.php:1214
+#: classes/class-fl-builder.php:1212
 msgctxt "Keyboard action to dismiss the current task or panel"
 msgid "Dismiss Active Panel"
 msgstr ""
 
-#: classes/class-fl-builder.php:1296
+#: classes/class-fl-builder.php:1294
 msgctxt "Currently editing message"
 msgid "Currently Editing %s"
 msgstr ""
