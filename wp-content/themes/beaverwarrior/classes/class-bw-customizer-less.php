@@ -256,6 +256,11 @@ final class BWCustomizerLess {
 			self::_compile_css();
 			return self::css_url();
 		}
+       
+       if (self::_css_mtime(self::$_presets[ $preset ]['skin']) > filemtime($css_path)) {
+           self::_compile_css();
+           return self::css_url();
+       }
 
 		// Return the url.
 		return $css_url;
@@ -777,6 +782,65 @@ final class BWCustomizerLess {
 
 		return $slug;
 	}
+    
+    static private function _css_paths($skin = null) {
+        // BB Events Calendar
+        $paths[] = file_get_contents( FL_THEME_DIR . '/less/the-events-calendar.less' );
+        
+        $paths[] = FL_THEME_DIR . '/less/theme.less';
+
+        // BB WooCommerce
+        if ( 'disabled' != $mods['fl-woo-css'] ) {
+           $paths[] = FL_THEME_DIR . '/less/woocommerce.less';
+        }
+
+        // BB Skin
+        if ( isset( $skin ) ) {
+           if ( stristr( $skin, '.css' ) || stristr( $skin, '.less' ) ) {
+              $skin_file = $skin;
+           } else {
+              $skin_file = FL_THEME_DIR . '/less/skin-' . $skin . '.less';
+           }
+
+           if ( file_exists( $skin_file ) ) {
+              $paths[] = $skin_file;
+           }
+        }
+
+        // Phylactery
+        $paths[] = FL_CHILD_THEME_DIR . '/stylesheets/main.less';
+
+        // Skin
+        if ( isset( $skin ) ) {
+           if ( stristr( $skin, '.css' ) || stristr( $skin, '.less' ) ) {
+              $skin_file = $skin;
+           } else {
+              $skin_file = FL_THEME_DIR . '/less/skin-' . $skin . '.less';
+           }
+
+           if ( file_exists( $skin_file ) ) {
+              $paths[] = $skin_file;
+           }
+        }
+
+        // Filter the array of paths
+        $paths = apply_filters( 'bw_theme_compile_less_paths', $paths );
+        
+        return $paths;
+    }
+    
+    static private function _css_mtime($skin = null) {
+        $paths = self::_css_paths($skin);
+        $newest_mtime = 0;
+        
+        foreach ($paths as $path) {
+            if (file_exists($path) && filemtime($path) > $newest_mtime) {
+                $newest_mtime = filemtime($path);
+            }
+        }
+        
+        return $newest_mtime;
+    }
 
 	/**
 	 * Compiles the cached CSS file.
@@ -794,56 +858,7 @@ final class BWCustomizerLess {
 		$css_slug     = self::_css_slug();
 		$css          = '';
 		$filename     = $cache_dir['path'] . $css_slug . '-' . $new_css_key . '.css';
-		$paths = array();
-
-		// BB Theme stylesheet
-		$paths[] = FL_THEME_DIR . '/less/theme.less';
-
-		// BB WooCommerce
-		if ( 'disabled' != $mods['fl-woo-css'] ) {
-			$paths[] = FL_THEME_DIR . '/less/woocommerce.less';
-		}
-
-		// BB Events Calendar
-		$css .= file_get_contents( FL_THEME_DIR . '/less/the-events-calendar.less' );
-
-		// BB Skin
-		if ( isset( self::$_presets[ $preset ]['skin'] ) ) {
-
-			$skin = self::$_presets[ $preset ]['skin'];
-
-			if ( stristr( $skin, '.css' ) || stristr( $skin, '.less' ) ) {
-				$skin_file = $skin;
-			} else {
-				$skin_file = FL_THEME_DIR . '/less/skin-' . $skin . '.less';
-			}
-
-			if ( file_exists( $skin_file ) ) {
-				$paths[] = $skin_file;
-			}
-		}
-
-		// Phylactery
-		$paths[] = FL_CHILD_THEME_DIR . '/stylesheets/main.less';
-
-		// Skin
-		if ( isset( self::$_presets[ $preset ]['skin'] ) ) {
-
-			$skin = self::$_presets[ $preset ]['skin'];
-
-			if ( stristr( $skin, '.css' ) || stristr( $skin, '.less' ) ) {
-				$skin_file = $skin;
-			} else {
-				$skin_file = FL_THEME_DIR . '/less/skin-' . $skin . '.less';
-			}
-
-			if ( file_exists( $skin_file ) ) {
-				$paths[] = $skin_file;
-			}
-		}
-
-		// Filter the array of paths
-		$paths = apply_filters( 'bw_theme_compile_less_paths', $paths );
+		$paths = self::_css_paths(self::$_presets[ $preset ]['skin']);
 
 		// Loop over paths and get contents
 		$css = '';
