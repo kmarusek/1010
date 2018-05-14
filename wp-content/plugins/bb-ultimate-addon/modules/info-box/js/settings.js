@@ -84,7 +84,7 @@
 					bg_gradient_one 	= form.find('input[name="bg_gradient[][color_one]"]').val(),
 					bg_gradient_two 	= form.find('input[name="bg_gradient[][color_two]"]').val(),
 					border_type 		= form.find('select[name=uabb_border_type]').val(),
-					infoBoxPadding 		= form.find('#fl-field-info_box_padding'),
+					infoBoxPadding 		= form.find('#fl-field-info_box_padding_dimension'),
 					bg_type 			= form.find('select[name=bg_type]').val();
 				
 				infoBoxPadding.hide();

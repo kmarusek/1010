@@ -22,10 +22,14 @@ class UABBPricingTableModule extends FLBuilderModule {
 		));
 		$this->add_css('font-awesome');
 		add_filter( 'fl_builder_render_settings_field', array( $this , 'uabb_price_box_settings_field' ), 10, 3 );
-		add_filter( 'fl_builder_layout_data', array( $this , 'render_new_data' ), 10, 3 );
+	    add_filter( 'fl_builder_layout_data', array( $this , 'render_new_data' ), 10, 3 );
 	}
 
     function render_new_data( $data ) {
+
+    	if( FLBuilderModel::is_builder_enabled() !== true ) {
+    		return $data;
+    	}
 
 		foreach ( $data as &$node ) {
 			

@@ -25,260 +25,8 @@ class UABBCreativeMenu extends FLBuilderModule {
         ));
         
         $this->add_css('font-awesome');
-
-        add_filter( 'fl_builder_layout_data', array( $this , 'render_new_data' ), 10, 3 );
-	}
-    
-    function render_new_data( $data ) {
-
-        foreach ( $data as &$node ) {
-            
-            if ( isset( $node->settings->type ) && 'uabb-advanced-menu' === $node->settings->type ) {
-
-                if( isset( $node->settings->creative_menu_link_margin ) &&  !isset( $node->settings->creative_menu_link_margin_dimension_top ) &&  !isset( $node->settings->creative_menu_link_margin_dimension_bottom ) &&  !isset( $node->settings->creative_menu_link_margin_dimension_left ) &&  !isset( $node->settings->creative_menu_link_margin_dimension_right ) ) {
-
-                    $value = "";
-                    $value = str_replace("px","", $node->settings->creative_menu_link_margin );
-                    
-                    $output = array();
-                    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
-                    
-                    $node->settings->creative_menu_link_margin_dimension_top    = '0';
-                    $node->settings->creative_menu_link_margin_dimension_bottom = '0';
-                    $node->settings->creative_menu_link_margin_dimension_left   = '0';
-                    $node->settings->creative_menu_link_margin_dimension_right  = '0';
-                    
-                    foreach($uabb_default as $val) {
-                        $new = explode(':',$val);
-                         $output[] = $new;
-                    }
-                    for ($i=0; $i < count( $output ); $i++) { 
-                        switch ( $output[$i][0] ) {
-                            case 'margin-top':
-                               $node->settings->creative_menu_link_margin_dimension_top    = (int)$output[$i][1];
-                                break;
-                            case 'margin-bottom':
-                                $node->settings->creative_menu_link_margin_dimension_bottom = (int)$output[$i][1];
-                                break;
-                            case 'margin-right':
-                                $node->settings->creative_menu_link_margin_dimension_right  = (int)$output[$i][1];
-                                break;
-                            case 'margin-left':
-                                $node->settings->creative_menu_link_margin_dimension_left   = (int)$output[$i][1];
-                                break;
-                            case 'margin':
-                                $node->settings->creative_menu_link_margin_dimension_top    = (int)$output[$i][1];
-                                $node->settings->creative_menu_link_margin_dimension_bottom = (int)$output[$i][1];
-                                $node->settings->creative_menu_link_margin_dimension_left   = (int)$output[$i][1];
-                                $node->settings->creative_menu_link_margin_dimension_right  = (int)$output[$i][1];
-                                break;
-                        }
-                    }
-                }
-               
-                if( isset( $node->settings->creative_menu_link_spacing ) &&  !isset( $node->settings->creative_menu_link_spacing_dimension_top ) &&  !isset( $node->settings->creative_menu_link_spacing_dimension_bottom ) &&  !isset( $node->settings->creative_menu_link_spacing_dimension_left ) &&  !isset( $node->settings->creative_menu_link_spacing_dimension_right ) ) {
-         
-                    $value = "";
-                    $value = str_replace("px","", $node->settings->creative_menu_link_spacing );
-                    
-                    $output = array();
-                    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
-                    $node->settings->creative_menu_link_spacing_dimension_top    = '0';
-                    $node->settings->creative_menu_link_spacing_dimension_bottom = '0';
-                    $node->settings->creative_menu_link_spacing_dimension_right  = '0';
-                    $node->settings->creative_menu_link_spacing_dimension_left   = '0';
-                    foreach($uabb_default as $val) {
-                        $new = explode(':',$val);
-                         $output[] = $new;
-                    }
-                    for ($i=0; $i < count( $output ); $i++) { 
-                        switch ( $output[$i][0] ) {
-
-                            case 'padding-top':
-                               $node->settings->creative_menu_link_spacing_dimension_top    = (int)$output[$i][1];
-                                break;
-                            case 'padding-bottom':
-                                $node->settings->creative_menu_link_spacing_dimension_bottom = (int)$output[$i][1];
-                                break;
-                            case 'padding-right':
-                                $node->settings->creative_menu_link_spacing_dimension_right  = (int)$output[$i][1];
-                                break;
-                            case 'padding-left':
-                                $node->settings->creative_menu_link_spacing_dimension_left   = (int)$output[$i][1];
-                                break;
-                            case 'padding':
-                                $node->settings->creative_menu_link_spacing_dimension_top    = (int)$output[$i][1];
-                                $node->settings->creative_menu_link_spacing_dimension_bottom = (int)$output[$i][1];
-                                $node->settings->creative_menu_link_spacing_dimension_left   = (int)$output[$i][1];
-                                $node->settings->creative_menu_link_spacing_dimension_right  = (int)$output[$i][1];
-                                break;
-                        }
-                    }
-                }
-
-                if( isset( $node->settings->creative_menu_border_width ) &&  !isset( $node->settings->creative_menu_border_width_dimension_top ) &&  !isset( $node->settings->creative_menu_border_width_dimension_bottom ) &&  !isset( $node->settings->creative_menu_border_width_dimension_left ) &&  !isset( $node->settings->creative_menu_border_width_dimension_right ) ) {
-         
-                    $value = "";
-                    $value = str_replace("px","", $node->settings->creative_menu_border_width );
-                    
-                    $output = array();
-                    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
-                    $node->settings->creative_menu_border_width_dimension_top    = '0';
-                    $node->settings->creative_menu_border_width_dimension_bottom = '0';
-                    $node->settings->creative_menu_border_width_dimension_right  = '0';
-                    $node->settings->creative_menu_border_width_dimension_left   = '0';
-                    foreach($uabb_default as $val) {
-                        $new = explode(':',$val);
-                         $output[] = $new;
-                    }
-                    for ($i=0; $i < count( $output ); $i++) { 
-                        switch ( $output[$i][0] ) {
-
-                            case 'padding-top':
-                               $node->settings->creative_menu_border_width_dimension_top    = (int)$output[$i][1];
-                                break;
-                            case 'padding-bottom':
-                                $node->settings->creative_menu_border_width_dimension_bottom = (int)$output[$i][1];
-                                break;
-                            case 'padding-right':
-                                $node->settings->creative_menu_border_width_dimension_right  = (int)$output[$i][1];
-                                break;
-                            case 'padding-left':
-                                $node->settings->creative_menu_border_width_dimension_left   = (int)$output[$i][1];
-                                break;
-                            case 'padding':
-                                $node->settings->creative_menu_border_width_dimension_top    = (int)$output[$i][1];
-                                $node->settings->creative_menu_border_width_dimension_bottom = (int)$output[$i][1];
-                                $node->settings->creative_menu_border_width_dimension_left   = (int)$output[$i][1];
-                                $node->settings->creative_menu_border_width_dimension_right  = (int)$output[$i][1];
-                                break;
-                        }
-                    }
-                }
-
-                if( isset( $node->settings->creative_submenu_link_padding ) &&  !isset( $node->settings->creative_submenu_link_padding_dimension_top ) &&  !isset( $node->settings->creative_submenu_link_padding_dimension_bottom ) &&  !isset( $node->settings->creative_submenu_link_padding_dimension_left ) &&  !isset( $node->settings->creative_submenu_link_padding_dimension_right ) ) {
-         
-                    $value = "";
-                    $value = str_replace("px","", $node->settings->creative_submenu_link_padding );
-                    
-                    $output = array();
-                    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
-                    $node->settings->creative_submenu_link_padding_dimension_top    = '0';
-                    $node->settings->creative_submenu_link_padding_dimension_bottom = '0';
-                    $node->settings->creative_submenu_link_padding_dimension_right  = '0';
-                    $node->settings->creative_submenu_link_padding_dimension_left   = '0';
-                    foreach($uabb_default as $val) {
-                        $new = explode(':',$val);
-                         $output[] = $new;
-                    }
-                    for ($i=0; $i < count( $output ); $i++) { 
-                        switch ( $output[$i][0] ) {
-
-                            case 'padding-top':
-                               $node->settings->creative_submenu_link_padding_dimension_top    = (int)$output[$i][1];
-                                break;
-                            case 'padding-bottom':
-                                $node->settings->creative_submenu_link_padding_dimension_bottom = (int)$output[$i][1];
-                                break;
-                            case 'padding-right':
-                                $node->settings->creative_submenu_link_padding_dimension_right  = (int)$output[$i][1];
-                                break;
-                            case 'padding-left':
-                                $node->settings->creative_submenu_link_padding_dimension_left   = (int)$output[$i][1];
-                                break;
-                            case 'padding':
-                                $node->settings->creative_submenu_link_padding_dimension_top    = (int)$output[$i][1];
-                                $node->settings->creative_submenu_link_padding_dimension_bottom = (int)$output[$i][1];
-                                $node->settings->creative_submenu_link_padding_dimension_left   = (int)$output[$i][1];
-                                $node->settings->creative_submenu_link_padding_dimension_right  = (int)$output[$i][1];
-                                break;
-                        }
-                    }
-                }
-                
-                if( isset( $node->settings->creative_submenu_border_width ) &&  !isset( $node->settings->creative_submenu_border_width_dimension_top ) &&  !isset( $node->settings->creative_submenu_border_width_dimension_bottom ) &&  !isset( $node->settings->creative_submenu_border_width_dimension_left ) &&  !isset( $node->settings->creative_submenu_border_width_dimension_right ) ) {
-         
-                    $value = "";
-                    $value = str_replace("px","", $node->settings->creative_submenu_border_width );
-                    
-                    $output = array();
-                    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
-                    $node->settings->creative_submenu_border_width_dimension_top    = '0';
-                    $node->settings->creative_submenu_border_width_dimension_bottom = '0';
-                    $node->settings->creative_submenu_border_width_dimension_right  = '0';
-                    $node->settings->creative_submenu_border_width_dimension_left   = '0';
-                    foreach($uabb_default as $val) {
-                        $new = explode(':',$val);
-                         $output[] = $new;
-                    }
-                    for ($i=0; $i < count( $output ); $i++) { 
-                        switch ( $output[$i][0] ) {
-
-                            case 'padding-top':
-                               $node->settings->creative_submenu_border_width_dimension_top    = (int)$output[$i][1];
-                                break;
-                            case 'padding-bottom':
-                                $node->settings->creative_submenu_border_width_dimension_bottom = (int)$output[$i][1];
-                                break;
-                            case 'padding-right':
-                                $node->settings->creative_submenu_border_width_dimension_right  = (int)$output[$i][1];
-                                break;
-                            case 'padding-left':
-                                $node->settings->creative_submenu_border_width_dimension_left   = (int)$output[$i][1];
-                                break;
-                            case 'padding':
-                                $node->settings->creative_submenu_border_width_dimension_top    = (int)$output[$i][1];
-                                $node->settings->creative_submenu_border_width_dimension_bottom = (int)$output[$i][1];
-                                $node->settings->creative_submenu_border_width_dimension_left   = (int)$output[$i][1];
-                                $node->settings->creative_submenu_border_width_dimension_right  = (int)$output[$i][1];
-                                break;
-                        }
-                    }
-                }
-                if( isset( $node->settings->creative_menu_responsive_overlay_padding ) &&  !isset( $node->settings->creative_menu_responsive_overlay_padding_dimension_top ) &&  !isset( $node->settings->creative_menu_responsive_overlay_padding_dimension_bottom ) &&  !isset( $node->settings->creative_menu_responsive_overlay_padding_dimension_left ) &&  !isset( $node->settings->creative_menu_responsive_overlay_padding_dimension_right ) ) {
-         
-                    $value = "";
-                    $value = str_replace("px","", $node->settings->creative_menu_responsive_overlay_padding );
-                    
-                    $output = array();
-                    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
-                    $node->settings->creative_menu_responsive_overlay_padding_dimension_top    = '0';
-                    $node->settings->creative_menu_responsive_overlay_padding_dimension_bottom = '0';
-                    $node->settings->creative_menu_responsive_overlay_padding_dimension_right  = '0';
-                    $node->settings->creative_menu_responsive_overlay_padding_dimension_left   = '0';
-                    foreach($uabb_default as $val) {
-                        $new = explode(':',$val);
-                         $output[] = $new;
-                    }
-                    for ($i=0; $i < count( $output ); $i++) { 
-                        switch ( $output[$i][0] ) {
-
-                            case 'padding-top':
-                               $node->settings->creative_menu_responsive_overlay_padding_dimension_top    = (int)$output[$i][1];
-                                break;
-                            case 'padding-bottom':
-                                $node->settings->creative_menu_responsive_overlay_padding_dimension_bottom = (int)$output[$i][1];
-                                break;
-                            case 'padding-right':
-                                $node->settings->creative_menu_responsive_overlay_padding_dimension_right  = (int)$output[$i][1];
-                                break;
-                            case 'padding-left':
-                                $node->settings->creative_menu_responsive_overlay_padding_dimension_left   = (int)$output[$i][1];
-                                break;
-                            case 'padding':
-                                $node->settings->creative_menu_responsive_overlay_padding_dimension_top    = (int)$output[$i][1];
-                                $node->settings->creative_menu_responsive_overlay_padding_dimension_bottom = (int)$output[$i][1];
-                                $node->settings->creative_menu_responsive_overlay_padding_dimension_left   = (int)$output[$i][1];
-                                $node->settings->creative_menu_responsive_overlay_padding_dimension_right  = (int)$output[$i][1];
-                                break;
-                        }
-                    }
-                }
-            }
-        }
-        return $data;
     }
-
+    
 	public static function render_menus() {
 		$nav_menus =  get_terms( 'nav_menu', array( 'hide_empty' => true ) );
 		$fields = array(
@@ -619,12 +367,12 @@ FLBuilder::register_module('UABBCreativeMenu', array(
                         'description'   => 'px',
                         'responsive' => array(
                             'placeholder' => array(
-                                'default' => '1',
+                                'default' => '',
                                 'medium' => '',
                                 'responsive' => '',
                             ),
                             'default' => array(
-                                'default' => '1',
+                                'default' => '',
                                 'medium' => '',
                                 'responsive' => '',
                             ),
@@ -842,7 +590,7 @@ FLBuilder::register_module('UABBCreativeMenu', array(
                         'description'   => 'px',
                         'responsive' => array(
                             'placeholder' => array(
-                                'default' => '1',
+                                'default' => '',
                                 'medium' => '',
                                 'responsive' => '',
                             ),

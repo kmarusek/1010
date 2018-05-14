@@ -25,8 +25,6 @@ class ProgressBarModule extends FLBuilderModule {
             'icon'             => 'progress-bar.svg'
         ));
 
-        add_filter( 'fl_builder_layout_data', array( $this , 'render_new_data' ), 10, 3 ); 
-
         $this->add_js('jquery-waypoints');
     }
     
@@ -45,87 +43,6 @@ class ProgressBarModule extends FLBuilderModule {
         } else {
             return '';
         }
-    }
-
-    function render_new_data( $data ) {
-
-        foreach ( $data as &$node ) {
-            
-            if ( isset( $node->settings->type ) && 'progress-bar' === $node->settings->type ) {
-
-                if ( isset( $node->settings->text_font_size['small']) && !isset( $node->settings->text_font_size_unit_responsive ) ) {
-                    $node->settings->text_font_size_unit_responsive = $node->settings->text_font_size['small'];
-                }
-                if( isset( $node->settings->text_font_size['medium']) && !isset( $node->settings->text_font_size_unit_medium ) ) {
-                    $node->settings->text_font_size_unit_medium = $node->settings->text_font_size['medium'];
-                }
-                if( isset( $node->settings->text_font_size['desktop']) && !isset( $node->settings->text_font_size_unit ) ) {
-                    $node->settings->text_font_size_unit = $node->settings->text_font_size['desktop'];
-                }
-
-                if( isset( $node->settings->text_line_height['small']) && isset( $node->settings->text_font_size['small'] ) && $node->settings->text_font_size['small'] != 0 && !isset( $node->settings->text_line_height_unit_responsive ) ) {
-                    if( is_numeric( $node->settings->text_line_height['small']) && is_numeric( $node->settings->text_font_size['small']) )
-                    $node->settings->text_line_height_unit_responsive = round( $node->settings->text_line_height['small'] / $node->settings->text_font_size['small'], 2 );
-                }
-                if( isset( $node->settings->text_line_height['medium']) && isset( $node->settings->text_font_size['medium'] ) && $node->settings->text_font_size['medium'] != 0 && !isset( $node->settings->text_line_height_unit_medium ) ) {
-                    if( is_numeric( $node->settings->text_line_height['medium']) && is_numeric( $node->settings->text_font_size['medium']) )
-                    $node->settings->text_line_height_unit_medium = round( $node->settings->text_line_height['medium'] / $node->settings->text_font_size['medium'], 2 );
-                }
-                if( isset( $node->settings->text_line_height['desktop']) && isset( $node->settings->text_font_size['desktop'] ) && $node->settings->text_font_size['desktop'] != 0 && !isset( $node->settings->text_line_height_unit ) ) {
-                    if( is_numeric( $node->settings->text_line_height['desktop']) && is_numeric( $node->settings->text_font_size['desktop']) )
-                    $node->settings->text_line_height_unit = round( $node->settings->text_line_height['desktop'] / $node->settings->text_font_size['desktop'], 2 );
-                }
-
-                if ( isset( $node->settings->before_after_font_size['small']) && !isset( $node->settings->before_after_font_size_unit_responsive ) ) {
-                    $node->settings->before_after_font_size_unit_responsive = $node->settings->before_after_font_size['small'];
-                }
-                if( isset( $node->settings->before_after_font_size['medium']) && !isset( $node->settings->before_after_font_size_unit_medium ) ) {
-                    $node->settings->before_after_font_size_unit_medium = $node->settings->before_after_font_size['medium'];
-                }
-                if( isset( $node->settings->before_after_font_size['desktop']) && !isset( $node->settings->before_after_font_size_unit ) ) {
-                    $node->settings->before_after_font_size_unit = $node->settings->before_after_font_size['desktop'];
-                }
-                
-                if( isset( $node->settings->before_after_line_height['small']) && isset( $node->settings->before_after_font_size['small'] ) && $node->settings->before_after_font_size['small'] != 0 && !isset( $node->settings->before_after_line_height_unit_responsive ) ) {
-                    if( is_numeric( $node->settings->before_after_line_height['small']) && is_numeric( $node->settings->before_after_font_size['small']) )
-                    $node->settings->before_after_line_height_unit_responsive = round( $node->settings->before_after_line_height['small'] / $node->settings->before_after_font_size['small'], 2 );
-                }
-                if( isset( $node->settings->before_after_line_height['medium']) && isset( $node->settings->before_after_font_size['medium'] ) && $node->settings->before_after_font_size['medium'] != 0 && !isset( $node->settings->before_after_line_height_unit_medium ) ) {
-                    if( is_numeric( $node->settings->before_after_line_height['medium']) && is_numeric( $node->settings->before_after_font_size['medium']) )
-                    $node->settings->before_after_line_height_unit_medium = round( $node->settings->before_after_line_height['medium'] / $node->settings->before_after_font_size['medium'], 2 );
-                }
-                if( isset( $node->settings->before_after_line_height['desktop']) && isset( $node->settings->before_after_font_size['desktop'] ) && $node->settings->before_after_font_size['desktop'] != 0 && !isset( $node->settings->before_after_line_height_unit ) ) {
-                    if( is_numeric( $node->settings->before_after_line_height['desktop']) && is_numeric( $node->settings->before_after_font_size['desktop']) )
-                    $node->settings->before_after_line_height_unit = round( $node->settings->before_after_line_height['desktop'] / $node->settings->before_after_font_size['desktop'], 2 );
-                }
-
-                if ( isset( $node->settings->number_font_size['small']) && !isset( $node->settings->number_font_size_unit_responsive ) ) {
-                    $node->settings->number_font_size_unit_responsive = $node->settings->number_font_size['small'];
-                }
-                if( isset( $node->settings->number_font_size['medium']) && !isset( $node->settings->number_font_size_unit_medium ) ) {
-                    $node->settings->number_font_size_unit_medium = $node->settings->number_font_size['medium'];
-                }
-                if( isset( $node->settings->number_font_size['desktop']) && !isset( $node->settings->number_font_size_unit ) ) {
-                    $node->settings->number_font_size_unit = $node->settings->number_font_size['desktop'];
-                }
-
-                if( isset( $node->settings->number_line_height['small']) && isset( $node->settings->number_font_size['small'] ) && $node->settings->number_font_size['small'] != 0 && !isset( $node->settings->number_line_height_unit_responsive ) ) {
-                    if( is_numeric( $node->settings->number_line_height['small']) && is_numeric( $node->settings->number_font_size['small']) )
-                    $node->settings->number_line_height_unit_responsive = round( $node->settings->number_line_height['small'] / $node->settings->number_font_size['small'], 2 );
-                }
-                if( isset( $node->settings->number_line_height['medium']) && isset( $node->settings->number_font_size['medium'] ) && $node->settings->number_font_size['medium'] != 0 && !isset( $node->settings->number_line_height_unit_medium ) ) {
-                    if( is_numeric( $node->settings->number_line_height['medium']) && is_numeric( $node->settings->number_font_size['medium']) )
-                    $node->settings->number_line_height_unit_medium = round( $node->settings->number_line_height['medium'] / $node->settings->number_font_size['medium'], 2 );
-                }
-                if( isset( $node->settings->number_line_height['desktop']) && isset( $node->settings->number_font_size['desktop'] ) && $node->settings->number_font_size['desktop'] != 0 && !isset( $node->settings->number_line_height_unit ) ) {
-                    if( is_numeric( $node->settings->number_line_height['desktop']) && is_numeric( $node->settings->number_font_size['desktop']) )
-                    $node->settings->number_line_height_unit = round( $node->settings->number_line_height['desktop'] / $node->settings->number_font_size['desktop'], 2 );
-                }
-                            
-            }
-        }
-
-        return $data;
     }
 
     public function render_horizontal_content( $obj, $style = '', $position = '', $i ) {

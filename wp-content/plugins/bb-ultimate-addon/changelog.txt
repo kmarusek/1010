@@ -1,7 +1,12 @@
-Version 1.7.1  - Thursday, 03rd May 2018
+Version 1.7.2 - Thursday, 10th May 2018
+- Improvement: Updated the Template Cloud data for new typography & padding field compatibility
+- Fix: Improved performance of the field replacement functionlity
+- Fix: Reduced the frontend data render calls to help with performance
+
+Version 1.7.1 - Thursday, 03rd May 2018
 - Fixed: Price Box - Fixed PHP error produced by Price Box Module
 
-Version 1.7.0  - Wednesday, 02nd May 2018
+Version 1.7.0 - Wednesday, 02nd May 2018
 - New: Custom field compatibility with Beaver Builder 2.0
 - Improvement: Testimonials - Added option to show Arrow and Dots in Navigation
 - Improvement: Advanced Posts - Added option to change "All" text in Masonry Filter
