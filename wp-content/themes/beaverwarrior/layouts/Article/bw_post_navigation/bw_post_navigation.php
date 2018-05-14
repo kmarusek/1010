@@ -294,7 +294,7 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         )
                     ),
                      "post_title_font_size" => array(
-                        'type'          => 'uabb-simplify',
+                        'type'          => 'text',
                         'label'         => __( 'Font Size', 'uabb' ),
                         'default'       => array(
                             'desktop'       => '',
@@ -309,7 +309,7 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         )
                     ),
                     'post_title_line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                        'type'          => 'text',
                         'label'         => __( 'Line Height', 'uabb' ),
                         'default'       => array(
                             'desktop'       => '',
@@ -380,7 +380,7 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         )
                     ),
                      "post_meta_font_size" => array(
-                        'type'          => 'uabb-simplify',
+                        'type'          => 'text',
                         'label'         => __( 'Font Size', 'uabb' ),
                         'default'       => array(
                             'desktop'       => '',
@@ -395,7 +395,7 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         )
                     ),
                     'post_meta_line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                        'type'          => 'text',
                         'label'         => __( 'Line Height', 'uabb' ),
                         'default'       => array(
                             'desktop'       => '',
@@ -466,7 +466,7 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         )
                     ),
                      "post_excerpt_font_size" => array(
-                        'type'          => 'uabb-simplify',
+                        'type'          => 'text',
                         'label'         => __( 'Font Size', 'uabb' ),
                         'default'       => array(
                             'desktop'       => '',
@@ -481,7 +481,7 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         )
                     ),
                     'post_excerpt_line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                        'type'          => 'text',
                         'label'         => __( 'Line Height', 'uabb' ),
                         'default'       => array(
                             'desktop'       => '',
@@ -552,7 +552,7 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         )
                     ),
                      "post_permalink_font_size" => array(
-                        'type'          => 'uabb-simplify',
+                        'type'          => 'text',
                         'label'         => __( 'Font Size', 'uabb' ),
                         'default'       => array(
                             'desktop'       => '',
@@ -567,7 +567,7 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         )
                     ),
                     'post_permalink_line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                        'type'          => 'text',
                         'label'         => __( 'Line Height', 'uabb' ),
                         'default'       => array(
                             'desktop'       => '',
