@@ -29,67 +29,6 @@ class InteractiveBanner2Module extends FLBuilderModule {
             'partial_refresh'   => true,
             'icon'             => 'ib-2.svg'
         ));
-
-        add_filter( 'fl_builder_layout_data', array( $this , 'render_new_data' ), 10, 3 );
-    }
-
-
-    function render_new_data( $data ) {
-
-        foreach ( $data as &$node ) {
-            
-            if ( isset( $node->settings->type ) && 'interactive-banner-2' === $node->settings->type ) {
-
-                if ( isset( $node->settings->title_typography_font_size['small']) && !isset( $node->settings->title_typography_font_size_unit_responsive ) ) {
-                    $node->settings->title_typography_font_size_unit_responsive = $node->settings->title_typography_font_size['small'];
-                }
-                if( isset( $node->settings->title_typography_font_size['medium']) && !isset( $node->settings->title_typography_font_size_unit_medium ) ) {
-                    $node->settings->title_typography_font_size_unit_medium = $node->settings->title_typography_font_size['medium'];
-                }
-                if( isset( $node->settings->title_typography_font_size['desktop']) && !isset( $node->settings->title_typography_font_size_unit ) ) {
-                    $node->settings->title_typography_font_size_unit = $node->settings->title_typography_font_size['desktop'];
-                }
-                
-                if( isset( $node->settings->title_typography_line_height['small']) && isset( $node->settings->title_typography_font_size['small'] ) && $node->settings->title_typography_font_size['small'] != 0 && !isset( $node->settings->title_typography_line_height_unit_responsive ) ) {
-                    if( is_numeric( $node->settings->title_typography_line_height['small']) && is_numeric( $node->settings->title_typography_font_size['small']) )
-                    $node->settings->title_typography_line_height_unit_responsive = round( $node->settings->title_typography_line_height['small'] / $node->settings->title_typography_font_size['small'], 2 );
-                }
-                if( isset( $node->settings->title_typography_line_height['medium']) && isset( $node->settings->title_typography_font_size['medium'] ) && $node->settings->title_typography_font_size['medium'] != 0 && !isset( $node->settings->title_typography_line_height_unit_medium ) ) {
-                    if( is_numeric( $node->settings->title_typography_line_height['medium']) && is_numeric( $node->settings->title_typography_font_size['medium']) )
-                    $node->settings->title_typography_line_height_unit_medium = round( $node->settings->title_typography_line_height['medium'] / $node->settings->title_typography_font_size['medium'], 2 );
-                }
-                if( isset( $node->settings->title_typography_line_height['desktop']) && isset( $node->settings->title_typography_font_size['desktop'] ) && $node->settings->title_typography_font_size['desktop'] != 0 && !isset( $node->settings->title_typography_line_height_unit ) ) {
-                    if( is_numeric( $node->settings->title_typography_line_height['desktop']) && is_numeric( $node->settings->title_typography_font_size['desktop']) )
-                    $node->settings->title_typography_line_height_unit = round( $node->settings->title_typography_line_height['desktop'] / $node->settings->title_typography_font_size['desktop'], 2 );
-                }
-
-                if ( isset( $node->settings->desc_typography_font_size['small']) && !isset( $node->settings->desc_typography_font_size_unit_responsive ) ) {
-                    $node->settings->desc_typography_font_size_unit_responsive = $node->settings->desc_typography_font_size['small'];
-                }
-                if( isset( $node->settings->desc_typography_font_size['medium']) && !isset( $node->settings->desc_typography_font_size_unit_medium ) ) {
-                    $node->settings->desc_typography_font_size_unit_medium = $node->settings->desc_typography_font_size['medium'];
-                }
-                if( isset( $node->settings->desc_typography_font_size['desktop']) && !isset( $node->settings->desc_typography_font_size_unit ) ) {
-                    $node->settings->desc_typography_font_size_unit = $node->settings->desc_typography_font_size['desktop'];
-                }
-                
-                if( isset( $node->settings->desc_typography_line_height['small']) && isset( $node->settings->desc_typography_font_size['small'] ) && $node->settings->desc_typography_font_size['small'] != 0 && !isset( $node->settings->desc_typography_line_height_unit_responsive ) ) {
-                    if( is_numeric( $node->settings->desc_typography_line_height['small']) && is_numeric( $node->settings->desc_typography_font_size['small']) )
-                    $node->settings->desc_typography_line_height_unit_responsive = round( $node->settings->desc_typography_line_height['small'] / $node->settings->desc_typography_font_size['small'], 2 );
-                }
-                if( isset( $node->settings->desc_typography_line_height['medium']) && isset( $node->settings->desc_typography_font_size['medium'] ) && $node->settings->desc_typography_font_size['medium'] != 0 && !isset( $node->settings->desc_typography_line_height_unit_medium ) ) {
-                    if( is_numeric( $node->settings->desc_typography_line_height['medium']) && is_numeric( $node->settings->desc_typography_font_size['medium']) )
-                    $node->settings->desc_typography_line_height_unit_medium = round( $node->settings->desc_typography_line_height['medium'] / $node->settings->desc_typography_font_size['medium'], 2 );
-                }
-                if( isset( $node->settings->desc_typography_line_height['desktop']) && isset( $node->settings->desc_typography_font_size['desktop'] ) && $node->settings->desc_typography_font_size['desktop'] != 0 && !isset( $node->settings->desc_typography_line_height_unit ) ) {
-                    if( is_numeric( $node->settings->desc_typography_line_height['desktop']) && is_numeric( $node->settings->desc_typography_font_size['desktop']) )
-                    $node->settings->desc_typography_line_height_unit = round( $node->settings->desc_typography_line_height['desktop'] / $node->settings->desc_typography_font_size['desktop'], 2 );
-                }
-
-            }
-        }
-
-        return $data;
     }
 
     /**
