@@ -1,8 +1,7 @@
 ;(function($) {
-
-	<?php if( $settings->post_timeline_layout == 'horizontal' ) { ?>
-
-		$( '.pp-post-timeline-slide-navigation' ).each(function( index ) {
+<?php if( $settings->post_timeline_layout == 'horizontal' ) { ?>
+$('.fl-node-<?php echo $id; ?>').imagesLoaded(function() {
+	$( '.pp-post-timeline-slide-navigation' ).each(function( index ) {
 
 		var sconf       	= {};
 		var slider_id   	= $(this).attr('id');
@@ -77,24 +76,21 @@
 
 	$('.fl-node-<?php echo $id; ?> .pp-post-timeline-content-wrapper').each(function(){
 
-      // Cache the highest
-      var highestBox = 0;
+		// Cache the highest box height
+		var highestBox = 0;
 
-      // Select and loop the elements you want to equalise
-      $('.pp-post-timeline-item', this).each(function(){
+		$('.pp-post-timeline-item', this).each(function(){
 
-        // If this box is higher than the cached highest then store it
-        if($(this).height() > highestBox) {
-          highestBox = $(this).height();
-        }
+			if ( $(this).height() > highestBox ) {
+				highestBox = $(this).height();
+			}
 
-      });
+		});
 
-      // Set the height of all those children to whichever was highest
-      $('.pp-post-timeline-item',this).height(highestBox);
+		// Set the height of all those children to whichever was highest
+		$('.pp-post-timeline-item',this).height(highestBox);
 
-    });
-
-	<?php } ?>
-
+	});
+});
+<?php } ?>
 })(jQuery);

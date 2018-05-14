@@ -237,7 +237,11 @@
 }
 
 .fl-node-<?php echo $id; ?> .pp-restaurant-menu-item-inline .pp-restaurant-menu-item-inline-right-content {
-	width: <?php echo 80 - ($settings->inline_image_width); ?>%;
+	<?php if ( $settings->show_price == 'no' || empty( $menu_item->menu_items_price ) ) { ?>
+		width: <?php echo 100 - ($settings->inline_image_width); ?>%;
+	<?php } else { ?>
+		width: <?php echo 80 - ($settings->inline_image_width); ?>%;
+	<?php } ?>
 }
 
  <?php
@@ -274,7 +278,11 @@ foreach ( $settings->menu_items as $key => $menu_item ) {
 	if ( $menu_item->restaurant_select_images == 'none' ){
 	 	?>
 			.fl-node-<?php echo $id; ?> .pp-restaurant-menu-item-inline-<?php echo $key; ?> .pp-restaurant-menu-item-inline-right-content {
- 				width: 80% !important;
+				<?php if ( $settings->show_price == 'no' || empty( $menu_item->menu_items_price ) ) { ?>
+					width: 100% !important;
+				<?php } else { ?>
+ 					width: 80% !important;
+				<?php } ?>
  				padding-bottom: 20px;
  			}
 			.fl-node-<?php echo $id; ?> .pp-restaurant-menu-item-inline-<?php echo $key; ?> .pp-restaurant-menu-item-wrap-in pp-restaurant-menu-item-inline h2 {

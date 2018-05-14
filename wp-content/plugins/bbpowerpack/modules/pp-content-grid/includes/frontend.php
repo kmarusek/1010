@@ -1,9 +1,31 @@
 <?php
 FLBuilderModel::default_settings($settings, array(
+	'data_source'		=> is_post_type_archive() ? 'main_query' : 'custom_query',
+	'post_type' 		=> 'post',
+	'order_by'  		=> 'date',
+	'order'     		=> 'DESC',
+	'offset'    		=> 0,
+	'users'     		=> '',
+	'show_image' 		=> 'yes',
+	'show_author'		=> 'yes',
+	'show_date'			=> 'yes',
+	'show_categories'	=> 'no',
+	'meta_separator'	=> ' | ',
+	'show_content'		=> 'yes',
+	'content_type'		=> 'excerpt',
+	'content_length'	=> 300,
+	'more_link_type'	=> 'box',
+	'more_link_text'	=> __('Read More', 'bb-powerpack'),
 	'post_grid_filters_display' => 'no',
-	'post_type'	=> 'post',
-	'post_grid_filters'	=> 'none'
-
+	'post_grid_filters'	=> 'none',
+	'post_grid_filters_type'	=> 'static',
+	'all_filter_label'	=> __('All', 'bb-powerpack'),
+	'post_taxonomies'	=> 'none',
+	'product_rating'	=> 'yes',
+	'product_price'		=> 'yes',
+	'product_button'	=> 'yes',
+	'product_button_text'	=> __('Add to Cart', 'bb-powerpack'),
+	'fallback_image'	=> 'default'
 ));
 
 $module_dir = $module->dir;
