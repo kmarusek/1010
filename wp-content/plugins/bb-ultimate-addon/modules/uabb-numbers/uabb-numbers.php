@@ -24,67 +24,7 @@ class UABBNumbersModule extends FLBuilderModule {
 		$this->add_js( 'jquery-waypoints' );
 		$this->add_css( 'font-awesome' );
 
-		add_filter( 'fl_builder_layout_data', array( $this , 'render_new_data' ), 10, 3 );
 	}
-
-    function render_new_data( $data ) {
-
-		foreach ( $data as &$node ) {
-			
-			if ( isset( $node->settings->type ) && 'uabb-numbers' === $node->settings->type ) {
-
-				if ( isset( $node->settings->num_font_size['small']) && !isset( $node->settings->num_font_size_unit_responsive ) ) {
-					$node->settings->num_font_size_unit_responsive = $node->settings->num_font_size['small'];
-				}
-				if( isset( $node->settings->num_font_size['medium']) && !isset( $node->settings->num_font_size_unit_medium ) ) {
-					$node->settings->num_font_size_unit_medium = $node->settings->num_font_size['medium'];
-				}
-				if( isset( $node->settings->num_font_size['desktop']) && !isset( $node->settings->num_font_size_unit ) ) {
-					$node->settings->num_font_size_unit = $node->settings->num_font_size['desktop'];
-				}
-
-				if ( isset( $node->settings->num_line_height['small']) && isset( $node->settings->num_font_size['small'])  && $node->settings->num_font_size['small'] != 0 && !isset( $node->settings->num_line_height_unit_responsive ) ) {
-					if( is_numeric( $node->settings->num_line_height['small']) && is_numeric( $node->settings->num_font_size['small']) )
-					$node->settings->num_line_height_unit_responsive = round( $node->settings->num_line_height['small'] / $node->settings->num_font_size['small'] , 2 ) ;
-				}
-				if( isset( $node->settings->num_line_height['medium']) && isset( $node->settings->num_font_size['medium'] ) && $node->settings->num_font_size['medium'] != 0 && !isset( $node->settings->num_line_height_unit_medium ) ) {
-					if( is_numeric( $node->settings->num_line_height['medium']) && is_numeric( $node->settings->num_font_size['medium']) )
-					$node->settings->num_line_height_unit_medium = round( $node->settings->num_line_height['medium'] / $node->settings->num_font_size['medium'], 2 ) ;
-				}
-				if( isset( $node->settings->num_line_height['desktop']) && isset($node->settings->num_font_size['desktop']) && $node->settings->num_font_size['desktop'] != 0 && !isset( $node->settings->num_line_height_unit ) ) {
-					if( is_numeric( $node->settings->num_line_height['desktop']) && is_numeric( $node->settings->num_font_size['desktop']) )
-					$node->settings->num_line_height_unit = round( $node->settings->num_line_height['desktop'] / $node->settings->num_font_size['desktop'], 2 );
-				}
-
-				if ( isset( $node->settings->ba_font_size['small']) && !isset( $node->settings->ba_font_size_unit_responsive ) ) {
-					$node->settings->ba_font_size_unit_responsive = $node->settings->ba_font_size['small'];
-				}
-				if( isset( $node->settings->ba_font_size['medium']) && !isset( $node->settings->ba_font_size_unit_medium ) ) {
-					$node->settings->ba_font_size_unit_medium = $node->settings->ba_font_size['medium'];
-				}
-				if( isset( $node->settings->ba_font_size['desktop']) && !isset( $node->settings->ba_font_size_unit ) ) {
-					$node->settings->ba_font_size_unit = $node->settings->ba_font_size['desktop'];
-				}
-
-				if ( isset( $node->settings->ba_line_height['small']) && isset($node->settings->ba_font_size['small'])  && $node->settings->ba_font_size['small'] != 0 && !isset( $node->settings->ba_line_height_unit_responsive )  ) {
-					if( is_numeric( $node->settings->ba_line_height['small']) && is_numeric( $node->settings->ba_font_size['small']) )
-					$node->settings->ba_line_height_unit_responsive = round( $node->settings->ba_line_height['small'] / $node->settings->ba_font_size['small'], 2 );
-				}
-				if( isset( $node->settings->ba_line_height['medium']) && isset( $node->settings->ba_font_size['medium'] ) && $node->settings->ba_font_size['medium'] != 0 && !isset( $node->settings->ba_line_height_unit_medium ) ) {
-					if( is_numeric( $node->settings->ba_line_height['medium']) && is_numeric( $node->settings->ba_font_size['medium']) )
-					$node->settings->ba_line_height_unit_medium = round( $node->settings->ba_line_height['medium'] / $node->settings->ba_font_size['medium'], 2);
-				}
-				if( isset( $node->settings->ba_line_height['desktop']) && isset( $node->settings->ba_font_size['desktop'] ) && $node->settings->ba_font_size['desktop'] != 0 && !isset( $node->settings->ba_line_height_unit )) {
-					if( is_numeric( $node->settings->ba_line_height['desktop']) && is_numeric( $node->settings->ba_font_size['desktop']) )
-					$node->settings->ba_line_height_unit = round( $node->settings->ba_line_height['desktop'] / $node->settings->ba_font_size['desktop'], 2 );
-				}
-
-			}
-		}
-
-		return $data;
-	}
-
 
 	/**
 	 * @method update

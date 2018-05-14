@@ -26,43 +26,7 @@ class UABBBeforeaftersliderModule extends FLBuilderModule {
         $this->add_css('baslider-twentytwenty', $this->url . 'css/twentytwenty.css');
         $this->add_js('baslider-move', $this->url ."js/jquery.event.move.js", array(), '', true);
         $this->add_js('baslider-plug', $this->url ."js/jquery.twentytwenty.js", array(), '',true);
-
-        add_filter( 'fl_builder_layout_data', array( $this , 'render_new_data' ), 10, 3 );
 	}
-
-    function render_new_data( $data ) {
-
-        foreach ( $data as &$node ) {
-            
-            if ( isset( $node->settings->type ) && 'uabb-beforeafterslider' === $node->settings->type ) {
-
-                if ( isset( $node->settings->slider_font_size['small']) && !isset( $node->settings->slider_font_size_unit_responsive ) ) {
-                    $node->settings->slider_font_size_unit_responsive = $node->settings->slider_font_size['small'];
-                }
-                if( isset( $node->settings->slider_font_size['medium']) && !isset( $node->settings->slider_font_size_unit_medium ) ) {
-                    $node->settings->slider_font_size_unit_medium = $node->settings->slider_font_size['medium'];
-                }
-                if( isset( $node->settings->slider_font_size['desktop']) && !isset( $node->settings->slider_font_size_unit ) ) {
-                    $node->settings->slider_font_size_unit = $node->settings->slider_font_size['desktop'];
-                }
-                
-                if( isset( $node->settings->slider_line_height['small']) && isset( $node->settings->slider_font_size['small'] ) && $node->settings->slider_font_size['small'] != 0 && !isset( $node->settings->slider_line_height_unit_responsive ) ) {
-                    if( is_numeric( $node->settings->slider_line_height['small']) && is_numeric( $node->settings->slider_font_size['small']) )
-                    $node->settings->slider_line_height_unit_responsive = round( $node->settings->slider_line_height['small'] / $node->settings->slider_font_size['small'], 2 );
-                }
-                if( isset( $node->settings->slider_line_height['medium']) && isset( $node->settings->slider_font_size['medium'] ) && $node->settings->slider_font_size['medium'] != 0 && !isset( $node->settings->slider_line_height_unit_medium ) ) {
-                    if( is_numeric( $node->settings->slider_line_height['medium']) && is_numeric( $node->settings->slider_font_size['medium']) )
-                    $node->settings->slider_line_height_unit_medium = round( $node->settings->slider_line_height['medium'] / $node->settings->slider_font_size['medium'], 2 );
-                }
-                if( isset( $node->settings->slider_line_height['desktop']) && isset( $node->settings->slider_font_size['desktop'] ) && $node->settings->slider_font_size['desktop'] != 0 && !isset( $node->settings->slider_line_height_unit ) ) {
-                    if( is_numeric( $node->settings->slider_line_height['desktop']) && is_numeric( $node->settings->slider_font_size['desktop']) )
-                    $node->settings->slider_line_height_unit = round( $node->settings->slider_line_height['desktop'] / $node->settings->slider_font_size['desktop'], 2 );
-                }
-            }
-        }
-
-        return $data;
-    }
 }
 
 /**

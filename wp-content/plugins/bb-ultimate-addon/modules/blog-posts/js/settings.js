@@ -87,14 +87,14 @@
 
                         if( blog_image_position == 'top' ) {
                             if( input.substring(0, 3) == 'img' || input.slice(-3) == 'img' ) {
-                                form.find('#fl-field-overall_padding').show();
+                                form.find('#fl-field-overall_padding_dimension').show();
                             } else {
-                                form.find('#fl-field-overall_padding').hide();
+                                form.find('#fl-field-overall_padding_dimension').hide();
                             }
                         } else if( blog_image_position == 'background' ) {
-                            form.find('#fl-field-overall_padding').hide();
+                            form.find('#fl-field-overall_padding_dimension').hide();
                         } else {
-                            form.find('#fl-field-overall_padding').show();
+                            form.find('#fl-field-overall_padding_dimension').show();
                         }
                     } , 500);
                 }
@@ -435,14 +435,14 @@
             
             if( blog_image_position == 'top' ) {
                 if( input.substring(0, 3) == 'img' || input.slice(-3) == 'img' ) {
-                    form.find('#fl-field-overall_padding').show();
+                    form.find('#fl-field-overall_padding_dimension').show();
                 } else {
-                    form.find('#fl-field-overall_padding').hide();
+                    form.find('#fl-field-overall_padding_dimension').hide();
                 }
             } else if( blog_image_position == 'background' ) {
-                form.find('#fl-field-overall_padding').hide();
+                form.find('#fl-field-overall_padding_dimension').hide();
             } else {
-                form.find('#fl-field-overall_padding').show();
+                form.find('#fl-field-overall_padding_dimension').show();
             }
 
             if( blog_image_position == 'left' || blog_image_position == 'right' ) {
