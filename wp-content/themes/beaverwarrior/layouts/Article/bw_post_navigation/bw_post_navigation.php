@@ -68,7 +68,7 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                 "title" => __("Featured Image", "skeleton-warrior"),
                  "fields" => array(
                     'show_featured_image' => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Display Featured Image', 'uabb' ),
                         'help'          => __('Enable this to display featured image of posts in a module.', 'uabb'),
                         'default'       => 'yes',
@@ -88,7 +88,7 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                 "title" => __("Title", "skeleton-warrior"),
                  "fields" => array(
                     'show_title' => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Display Title', 'uabb' ),
                         'help'          => __('Enable this to display title of posts in a module.', 'uabb'),
                         'default'       => 'yes',
@@ -108,7 +108,7 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                 "title" => __("Metadata", "skeleton-warrior"),
                  "fields" => array(
                     'show_meta' => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Display Meta Information', 'uabb' ),
                         'help'          => __('Enable this to display post meta information in a module.', 'uabb'),
                         'default'       => 'yes',
@@ -132,7 +132,7 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         ),
                     ),
                     'show_meta_author' => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Display Author', 'uabb' ),
                         'help'          => __('Enable this to display author of posts.', 'skeleton-warrior'),
                         'default'       => 'yes',
@@ -142,7 +142,7 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         )
                     ),
                     'show_meta_date' => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Display Date', 'uabb' ),
                         'help'          => __('Enable this to display publication date of posts.', 'skeleton-warrior'),
                         'default'       => 'yes',
@@ -157,7 +157,7 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                 "title" => __("Excerpt", "skeleton-warrior"),
                  "fields" => array(
                     'show_excerpt' => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Display Content', 'uabb' ),
                         'help'          => __('Enable this to display content of posts in a module.', 'uabb'),
                         'default'       => 'yes',
@@ -177,7 +177,7 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                 "title" => __("Permalink/CTA", "skeleton-warrior"),
                  "fields" => array(
                     'show_cta' => array(
-                        'type'          => 'uabb-toggle-switch',
+                        'type'          => 'select',
                         'label'         => __( 'Display CTA', 'uabb' ),
                         'help'          => __('Enable this to display call to action in a module.', 'uabb'),
                         'default'       => 'yes',
