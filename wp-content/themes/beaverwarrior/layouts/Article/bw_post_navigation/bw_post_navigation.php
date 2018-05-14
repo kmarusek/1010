@@ -212,7 +212,7 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         )
                     ),
                     'post_margin'        => array(
-                        'type'      => 'uabb-spacing',
+                        'type'      => 'dimension',
                         'label' => __('Space Between Posts', 'uabb'),
                         'help'         => __('Manage the spacing between two posts.', 'uabb'),
                         'default'   => 'padding: 0px;',    //optional
@@ -236,7 +236,7 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         )
                     ),
                     'post_padding'        => array(
-                        'type'      => 'uabb-spacing',
+                        'type'      => 'dimension',
                         'label'     => __( 'Overall Padding', 'uabb' ),
                         'help'         => __('Manage the outside spacing of entire area of post.', 'uabb'),
                         'default'   => 'padding: 0px;',    //optional
@@ -254,9 +254,9 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                 "title" => __("Featured Image", "skeleton-warrior"),
                  "fields" => array(
                     'post_image_margin'        => array(
-                        'type'      => 'uabb-spacing',
+                        'type'      => 'dimension',
                         'label' => __('Spacing', 'skeleton-warrior'),
-                        'default'   => 'margin: 0px;',    //optional
+                        'description' => 'px',
                         'mode'      => 'margin',
                         'preview'         => array(
                             'type'          => 'css',
@@ -346,9 +346,9 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         )
                     ),
                     'post_title_margin'        => array(
-                        'type'      => 'uabb-spacing',
+                        'type'      => 'dimension',
                         'label' => __('Spacing', 'skeleton-warrior'),
-                        'default'   => 'margin: 0px;',    //optional
+                        'description' => 'px',
                         'mode'      => 'margin',
                         'preview'         => array(
                             'type'          => 'css',
@@ -438,9 +438,9 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         )
                     ),
                     'post_meta_margin'        => array(
-                        'type'      => 'uabb-spacing',
+                        'type'      => 'dimension',
                         'label' => __('Spacing', 'skeleton-warrior'),
-                        'default'   => 'margin: 0px;',    //optional
+                        'description' => 'px',
                         'mode'      => 'margin',
                         'preview'         => array(
                             'type'          => 'css',
@@ -530,9 +530,9 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         )
                     ),
                     'post_excerpt_margin'        => array(
-                        'type'      => 'uabb-spacing',
+                        'type'      => 'dimension',
                         'label' => __('Spacing', 'skeleton-warrior'),
-                        'default'   => 'margin: 0px;',    //optional
+                        'description' => 'px',
                         'mode'      => 'margin',
                         'preview'         => array(
                             'type'          => 'css',
@@ -622,9 +622,9 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         )
                     ),
                     'post_permalink_margin'        => array(
-                        'type'      => 'uabb-spacing',
+                        'type'      => 'dimension',
                         'label' => __('Spacing', 'skeleton-warrior'),
-                        'default'   => 'margin: 0px;',    //optional
+                        'description' => 'px',
                         'mode'      => 'margin',
                         'preview'         => array(
                             'type'          => 'css',
