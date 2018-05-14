@@ -6,6 +6,8 @@ define( 'BEAVER_ADDONS_URL', 'https://wpbeaveraddons.com' ); // you should use y
 // the name of your product. This should match the download name in EDD exactly
 define( 'BEAVER_ADDONS_ITEM_NAME', 'PowerPack for Beaver Builder' ); // you should use your own CONSTANT name, and be sure to replace it throughout this file
 
+define( 'BEAVER_ADDONS_LICENSE_PAGE', BB_PowerPack_Admin_Settings::get_form_action( '&tab=general' ) );
+
 if( !class_exists( 'PP_Plugin_Updater' ) ) {
 	// load our custom updater
 	include('class-plugin-updater.php' );
@@ -60,7 +62,7 @@ add_action( 'admin_init', 'bb_powerpack_plugin_updater', 0 );
 function bb_powerpack_activate_license() {
 
 	// listen for our activate button to be clicked
-	if( isset( $_POST['bb_powerpack_license_key'] ) ) {
+	if( isset( $_POST['bb_powerpack_license_activate'] ) && isset( $_POST['bb_powerpack_license_key'] ) ) {
 
 		// run a quick security check
 	 	if( ! isset( $_POST['bb_powerpack_nonce'] ) || ! wp_verify_nonce( $_POST['bb_powerpack_nonce'], 'bb_powerpack_nonce' ) )
@@ -81,16 +83,81 @@ function bb_powerpack_activate_license() {
 		$response = wp_remote_post( BEAVER_ADDONS_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
 
 		// make sure the response came back okay
-		if ( is_wp_error( $response ) )
-			return false;
+		if (is_wp_error($response) || 200 !== wp_remote_retrieve_response_code($response)) {
 
-		// decode the license data
-		$license_data = json_decode( wp_remote_retrieve_body( $response ) );
+			if (is_wp_error($response)) {
+				$message = $response->get_error_message();
+			}
+			else {
+				$message = __('An error occurred, please try again.', 'bb-powerpack');
+			}
+
+		}
+		else {
+			// decode the license data
+			$license_data = json_decode( wp_remote_retrieve_body( $response ) );
+
+			if (false === $license_data->success) {
+
+				switch ($license_data->error) {
+
+					case 'expired' :
+
+						$message = sprintf(
+							__('Your license key expired on %s.', 'bb-powerpack'),
+							date_i18n(get_option('date_format'), strtotime($license_data->expires, current_time('timestamp')))
+						);
+						break;
+
+					case 'revoked' :
+
+						$message = __('Your license key has been disabled.', 'bb-powerpack');
+						break;
+
+					case 'missing' :
+
+						$message = __('Invalid license.', 'bb-powerpack');
+						break;
+
+					case 'invalid' :
+					case 'site_inactive' :
+
+						$message = __('Your license is not active for this URL.', 'bb-powerpack');
+						break;
+
+					case 'item_name_mismatch' :
+
+						$message = sprintf(__('This appears to be an invalid license key for %s.', 'bb-powerpack'), BEAVER_ADDONS_ITEM_NAME);
+						break;
+
+					case 'no_activations_left':
+
+						$message = __('Your license key has reached its activation limit.', 'bb-powerpack');
+						break;
+
+					default :
+
+						$message = __('An error occurred, please try again.', 'bb-powerpack');
+						break;
+				}
+			}
+		}
+
+		// Check if anything passed on a message constituting a failure
+		if (!empty($message)) {
+			$base_url = BEAVER_ADDONS_LICENSE_PAGE;
+			$redirect = add_query_arg(array('sl_activation' => 'false', 'message' => urlencode($message)), $base_url);
+
+			wp_redirect($redirect);
+			exit();
+		}
 
 		// $license_data->license will be either "valid" or "invalid"
 
 		bb_powerpack_update( 'bb_powerpack_license_status', $license_data->license );
 
+		wp_redirect(BEAVER_ADDONS_LICENSE_PAGE);
+        exit();
 	}
 }
 add_action('admin_init', 'bb_powerpack_activate_license');
@@ -103,14 +170,14 @@ add_action('admin_init', 'bb_powerpack_activate_license');
 function bb_powerpack_deactivate_license() {
 
 	// listen for our activate button to be clicked
-	if( isset( $_POST['bb_powerpack_license_deactivate'] ) && isset( $_POST['bb_powerpack_license_key'] ) ) {
+	if( isset( $_POST['bb_powerpack_license_deactivate'] ) ) {
 
 		// run a quick security check
 	 	if( ! isset( $_POST['bb_powerpack_nonce'] ) || ! wp_verify_nonce( $_POST['bb_powerpack_nonce'], 'bb_powerpack_nonce' ) )
 			return; // get out if we didn't click the Activate button
 
 		// retrieve the license from the database
-		$license = trim( $_POST['bb_powerpack_license_key'] );
+		$license = trim( bb_powerpack_get( 'bb_powerpack_license_key' ) );
 
 		// data to send in our API request
 		$api_params = array(
@@ -124,16 +191,31 @@ function bb_powerpack_deactivate_license() {
 		$response = wp_remote_post( BEAVER_ADDONS_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
 
 		// make sure the response came back okay
-		if ( is_wp_error( $response ) )
-			return false;
+		if (is_wp_error($response) || 200 !== wp_remote_retrieve_response_code($response)) {
+
+			if (is_wp_error($response)) {
+				$message = $response->get_error_message();
+			}
+			else {
+				$message = __('An error occurred, please try again.', 'bb-powerpack');
+			}
+
+			$redirect = add_query_arg(array('sl_activation' => 'false', 'message' => urlencode($message)), BEAVER_ADDONS_LICENSE_PAGE);
+
+			wp_redirect($redirect);
+			exit();
+		}
 
 		// decode the license data
 		$license_data = json_decode( wp_remote_retrieve_body( $response ) );
 
 		// $license_data->license will be either "deactivated" or "failed"
-		if( $license_data->license == 'deactivated' )
+		if ( $license_data->license == 'deactivated' ) {
 			bb_powerpack_delete( 'bb_powerpack_license_status' );
+		}
 
+		wp_redirect(BEAVER_ADDONS_LICENSE_PAGE);
+        exit();
 	}
 }
 add_action('admin_init', 'bb_powerpack_deactivate_license');
@@ -190,7 +272,7 @@ function bb_powerpack_update_message( $plugin_data, $response ) {
 		$message .= '<p style="padding: 5px 10px; margin-top: 10px; background: #d54e21; color: #fff;">';
 		$message .= __( '<strong>UPDATE UNAVAILABLE!</strong>', 'bb-powerpack' );
 		$message .= '&nbsp;&nbsp;&nbsp;';
-		$message .= __( 'Please activate the license key to enable automatic updates for this plugin.', 'bb-powerpack' );
+		$message .= __( 'Please activate the license to enable automatic updates for this plugin.', 'bb-powerpack' );
 
 		$message .= ' <a href="' . BEAVER_ADDONS_URL . '" target="_blank" style="color: #fff; text-decoration: underline;">';
 		$message .= __( 'Buy Now', 'bb-powerpack' );

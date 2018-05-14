@@ -27,6 +27,7 @@ class PPPostTimelineModule extends FLBuilderModule {
         ));
 
 		$this->add_css( 'font-awesome' );
+		$this->add_js( 'jquery-imagesloaded' );
 		$this->add_css( 'jquery-slick' );
 		$this->add_css( 'jquery-slick-theme' );
 		$this->add_js( 'jquery-slick' );

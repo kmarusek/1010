@@ -294,13 +294,16 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         )
                     ),
                      "post_title_font_size" => array(
-                        'type'          => 'uabb-simplify',
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                         'description' => 'px',
+                         'responsive' => array(
+                             'placeholder' => array(
+                                 'default' => 18,
+                                 'medium' => 16,
+                                 'responsive' => 14,
+                             )
+                         ),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.Article-related_post_title',
@@ -309,12 +312,15 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         )
                     ),
                     'post_title_line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                        'type'          => 'unit',
                         'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
+                        'description' => 'px',
+                        'responsive' => array(
+                            'placeholder' => array(
+                                'default' => 18,
+                                'medium' => 16,
+                                'responsive' => 14,
+                            )
                         ),
                         'preview'         => array(
                             'type'            => 'css',
@@ -380,13 +386,16 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         )
                     ),
                      "post_meta_font_size" => array(
-                        'type'          => 'uabb-simplify',
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                         'description' => 'px',
+                         'responsive' => array(
+                             'placeholder' => array(
+                                 'default' => 18,
+                                 'medium' => 16,
+                                 'responsive' => 14,
+                             )
+                         ),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.Article-related_post_meta',
@@ -395,13 +404,16 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         )
                     ),
                     'post_meta_line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                        'type'          => 'unit',
                         'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                         'description' => 'px',
+                         'responsive' => array(
+                             'placeholder' => array(
+                                 'default' => 18,
+                                 'medium' => 16,
+                                 'responsive' => 14,
+                             )
+                         ),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.Article-related_post_meta',
@@ -466,13 +478,16 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         )
                     ),
                      "post_excerpt_font_size" => array(
-                        'type'          => 'uabb-simplify',
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                         'description' => 'px',
+                         'responsive' => array(
+                             'placeholder' => array(
+                                 'default' => 18,
+                                 'medium' => 16,
+                                 'responsive' => 14,
+                             )
+                         ),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.Article-related_post_excerpt',
@@ -481,13 +496,16 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         )
                     ),
                     'post_excerpt_line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                        'type'          => 'unit',
                         'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                         'description' => 'px',
+                         'responsive' => array(
+                             'placeholder' => array(
+                                 'default' => 18,
+                                 'medium' => 16,
+                                 'responsive' => 14,
+                             )
+                         ),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.Article-related_post_excerpt',
@@ -552,13 +570,16 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         )
                     ),
                      "post_permalink_font_size" => array(
-                        'type'          => 'uabb-simplify',
+                        'type'          => 'unit',
                         'label'         => __( 'Font Size', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                         'description' => 'px',
+                         'responsive' => array(
+                             'placeholder' => array(
+                                 'default' => 18,
+                                 'medium' => 16,
+                                 'responsive' => 14,
+                             )
+                         ),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.Article-related_post_permalink',
@@ -567,13 +588,16 @@ FLBuilder::register_module( 'BWPostNavigationModule', array(
                         )
                     ),
                     'post_permalink_line_height'    => array(
-                        'type'          => 'uabb-simplify',
+                        'type'          => 'unit',
                         'label'         => __( 'Line Height', 'uabb' ),
-                        'default'       => array(
-                            'desktop'       => '',
-                            'medium'        => '',
-                            'small'         => '',
-                        ),
+                         'description' => 'px',
+                         'responsive' => array(
+                             'placeholder' => array(
+                                 'default' => 18,
+                                 'medium' => 16,
+                                 'responsive' => 14,
+                             )
+                         ),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.Article-related_post_permalink',

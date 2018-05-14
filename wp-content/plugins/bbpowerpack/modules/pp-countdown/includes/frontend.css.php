@@ -1,5 +1,6 @@
 <?php
 $settings->block_bg_color_opc = ( '' != $settings->block_bg_color_opc ) ? $settings->block_bg_color_opc : 100;
+$block_spacing = ( isset( $settings->block_spacing ) && ! empty( $settings->block_spacing ) ) ? $settings->block_spacing : 10;
 ?>
 
 <?php
@@ -19,32 +20,30 @@ if ( isset( $settings->counter_alignment ) && 'center' == $settings->counter_ali
 .fl-node-<?php echo $id;?> .pp-countdown-item {
 	<?php
 	if ( isset( $settings->counter_alignment ) && 'right' == $settings->counter_alignment ) {
-		if ( isset( $settings->block_spacing ) && '' != $settings->block_spacing ) {
-			echo 'margin-left: ' . $settings->block_spacing . 'px;';
+		if ( $block_spacing ) {
+			echo 'margin-left: ' . $block_spacing . 'px;';
 		} else {
 			echo 'margin-left: 20px;';
 		}
 	}
 
 	if ( isset( $settings->counter_alignment ) && 'left' == $settings->counter_alignment ) {
-		if ( isset( $settings->block_spacing ) && '' != $settings->block_spacing ) {
-			echo 'margin-right: ' . $settings->block_spacing . 'px;';
+		if ( $block_spacing ) {
+			echo 'margin-right: ' . $block_spacing . 'px;';
 		} else {
 			echo 'margin-right: 20px;';
 		}
 	}
 
 	if ( isset( $settings->counter_alignment ) && 'center' == $settings->counter_alignment ) {
-		if ( isset( $settings->block_spacing ) && '' != $settings->block_spacing ) {
-			$margin_val = $settings->block_spacing / 2;
+		if ( $block_spacing ) {
+			$margin_val = $block_spacing / 2;
 			echo 'margin-left: ' . $margin_val . 'px;';
 			echo 'margin-right: ' . $margin_val . 'px;';
-			//echo "margin-bottom: ".$settings->block_spacing."px;";
 		} else {
 			$margin_val = 10 / 2;
 			echo 'margin-left: ' . $margin_val . 'px;';
 			echo 'margin-right: ' . $margin_val . 'px;';
-			//echo "margin-bottom: 10px;";
 		}
 	}
 	?>
@@ -66,41 +65,48 @@ if ( isset( $settings->counter_alignment ) && 'center' == $settings->counter_ali
 <?php } ?>
 
 
-<?php if ( isset( $settings->block_spacing ) && ! empty( $settings->block_spacing ) ) { ?>
-.fl-node-<?php echo $id; ?> .pp-countdown.pp-countdown-separator-line .pp-countdown-item,
-.fl-node-<?php echo $id; ?> .pp-countdown.pp-countdown-separator-colon .pp-countdown-item {
-	padding-left: <?php echo ( 30 + ( $settings->block_spacing / 2 ) ); ?>px;
-	padding-right: <?php echo ( 30 + ( $settings->block_spacing / 2 ) ); ?>px;
+<?php if ( 'default' == $settings->block_style && $block_spacing ) { ?>
+.fl-node-<?php echo $id; ?> .pp-countdown.pp-countdown-separator-colon .pp-countdown-item .pp-countdown-digit-wrapper {
+	padding-left: <?php echo $block_spacing; ?>px;
+	padding-right: <?php echo $block_spacing; ?>px;
 }
 <?php } ?>
 
-<?php if ( 'default' == $settings->block_style && '' != $settings->block_spacing ) { ?>
-.fl-node-<?php echo $id; ?> .pp-countdown.pp-countdown-separator-line .pp-countdown-item,
-.fl-node-<?php echo $id; ?> .pp-countdown.pp-countdown-separator-colon .pp-countdown-item {
-	padding-left: <?php echo $settings->block_spacing; ?>px;
-	padding-right: <?php echo $settings->block_spacing; ?>px;
-}
-<?php } ?>
+<?php if ( 'yes' == $settings->show_separator ) : ?>
+	<?php if ( 'colon' == $settings->separator_type ) : ?>
+		.fl-node-<?php echo $id; ?> .pp-countdown.pp-countdown-separator-colon .pp-countdown-item .pp-countdown-digit-wrapper:after {
+			<?php
+			if ( isset( $settings->separator_size ) ) {
+				echo 'font-size:' . $settings->separator_size . 'px;';
+			} ?>
+			<?php if ( isset( $settings->separator_color ) ) { ?>
+				color: <?php echo ( false === strpos( $settings->separator_color, 'rgb' ) ) ? '#' . $settings->separator_color : $settings->separator_color; ?>;
+			<?php } ?>
+			right: -<?php echo $block_spacing / 2; ?>px;
+		}
+	<?php endif; ?>
 
-<?php if ( 'yes' == $settings->show_separator && 'colon' == $settings->separator_type ) : ?>
-	.fl-node-<?php echo $id; ?> .pp-countdown.pp-countdown-separator-colon .pp-countdown-item:after {
-		<?php
-		if ( isset( $settings->separator_size ) ) {
-			echo 'font-size:' . $settings->separator_size . 'px;';
-		} ?>
-		<?php if ( isset( $settings->separator_color ) ) { ?>
-			color: <?php echo ( false === strpos( $settings->separator_color, 'rgb' ) ) ? '#' . $settings->separator_color : $settings->separator_color; ?>;
+	<?php if ( 'line' == $settings->separator_type ) : ?>
+		.fl-node-<?php echo $id; ?> .pp-countdown.pp-countdown-separator-line .pp-countdown-item:after {
+			right: 0;
+			<?php if ( isset( $settings->separator_color ) ) { ?>
+				border-color: <?php echo ( false === strpos( $settings->separator_color, 'rgb' ) ) ? '#' . $settings->separator_color : $settings->separator_color; ?>;
+			<?php } ?>
+		}
+		<?php if ( $block_spacing ) { ?>
+		.fl-node-<?php echo $id; ?> .pp-countdown.pp-countdown-separator-line .pp-countdown-item {
+			padding-left: <?php echo ( ( $block_spacing / 2 ) ); ?>px;
+			padding-right: <?php echo ( ( $block_spacing / 2 ) ); ?>px;
+		}
 		<?php } ?>
-	}
-<?php endif; ?>
 
-<?php if ( 'yes' == $settings->show_separator && 'line' == $settings->separator_type ) : ?>
-	.fl-node-<?php echo $id; ?> .pp-countdown.pp-countdown-separator-line .pp-countdown-item:after {
-		right: 0;
-		<?php if ( isset( $settings->separator_color ) ) { ?>
-			border-color: <?php echo ( false === strpos( $settings->separator_color, 'rgb' ) ) ? '#' . $settings->separator_color : $settings->separator_color; ?>;
+		<?php if ( 'default' == $settings->block_style && $block_spacing ) { ?>
+		.fl-node-<?php echo $id; ?> .pp-countdown.pp-countdown-separator-line .pp-countdown-item {
+			padding-left: <?php echo $block_spacing; ?>px;
+			padding-right: <?php echo $block_spacing; ?>px;
+		}
 		<?php } ?>
-	}
+	<?php endif; ?>
 <?php endif; ?>
 
 <?php

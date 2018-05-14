@@ -1,3 +1,14 @@
+== 2.6.1 ==
+Release date: May 8, 2018
+* Enhancement: Content Grid - Button styling options will work The Events Calendar RSVP button
+* Fix: Dot / One Page Navigation - incorrect alignment for left position
+* Fix: Content Grid - PHP error when building archive layout using Beaver Themer
+* Fix: Content Grid - Dynamic / AJAX filters were not working on custom post type archive layout built with Beaver Themer
+* Fix: Post Timeline - Content cut-off issue
+* Fix: Countdown - Colon separator was not appearing vertically center to the digits
+* Fix: Restaurant Menu - extra spacing issue in menu items when price is hidden or not set 
+* Fix: License re-activation issues
+
 == 2.6.0 ==
 Release date: May 3, 2018
 * New: Countdown module

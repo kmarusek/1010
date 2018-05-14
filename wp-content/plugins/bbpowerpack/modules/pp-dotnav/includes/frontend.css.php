@@ -1,12 +1,3 @@
-/**
- * This file should contain frontend styles that
- * will be applied to individual module instances.
- *
- * $module An instance of your module class.
- * $id The module's ID.
- * $settings The module's settings.
- */
-
 .fl-node-<?php echo $id; ?> {
     postion: relative;
 }
@@ -22,7 +13,7 @@
     transform: translateY(-50%);
     z-index: 10;
 }
-.fl-node-<?php echo $id; ?> .pp-dotnav pp-dots {
+.fl-node-<?php echo $id; ?> .pp-dotnav .pp-dots {
     margin: 0;
     padding: 0;
 }
@@ -56,6 +47,9 @@
     top: 5px;
     height: <?php echo $settings->dot_size; ?>px;
     width: <?php echo $settings->dot_size; ?>px;
+	<?php if ( 'left' == $settings->dot_position ) { ?>
+	float: left;
+	<?php } ?>
     -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
     -ms-transition: all 0.3s ease;

@@ -108,19 +108,19 @@
 
 .pp-countdown-digit-wrapper,
 .pp-countdown-label-wrapper {
-    text-align: center;
+	text-align: center;
+	position: relative;
 }
 
 /* Timer separator */
-.pp-countdown.pp-countdown-separator-line .pp-countdown-item,
-.pp-countdown.pp-countdown-separator-colon .pp-countdown-item {
+.pp-countdown.pp-countdown-separator-line .pp-countdown-item {
 	position: relative;
-	padding: 0 30px;
+	padding: 0;
 	margin-left: 0;
 	margin-right: 0;
 }
 
-.pp-countdown.pp-countdown-separator-colon .pp-countdown-item:after {
+.pp-countdown.pp-countdown-separator-colon .pp-countdown-item .pp-countdown-digit-wrapper:after {
 	content: ':';
 	display: inline-block;
 	font-size: 30px;
@@ -141,7 +141,7 @@
 	z-index: 10;
 	border-right: 1px solid #ccc;
 }
-.pp-countdown.pp-countdown-separator-colon .pp-countdown-item:last-child:after,
+.pp-countdown.pp-countdown-separator-colon .pp-countdown-item:last-child .pp-countdown-digit-wrapper:after,
 .pp-countdown.pp-countdown-separator-line .pp-countdown-item:last-child:after {
 	content: none;
 }

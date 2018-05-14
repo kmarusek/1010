@@ -168,9 +168,13 @@ $post_columns_mobile = ( 100 - $space_mobile ) / $settings->post_grid_count['mob
 		color: #<?php echo $settings->event_cost_color; ?>;
 	<?php } ?>
 }
+.fl-node-<?php echo $id; ?> .pp-post-event-calendar-cost form {
+	margin-top: 10px;
+}
 
 .fl-node-<?php echo $id; ?> .pp-content-post .pp-more-link-button,
-.fl-node-<?php echo $id; ?> .pp-content-post .pp-add-to-cart a {
+.fl-node-<?php echo $id; ?> .pp-content-post .pp-add-to-cart a,
+.fl-node-<?php echo $id; ?> .pp-post-event-calendar-cost form .tribe-button {
 	<?php if((isset( $settings->more_link_type ) && $settings->more_link_type == 'button') || (isset($settings->product_button) && $settings->product_button == 'yes') ) { ?>
 		background: <?php echo ($settings->button_background['primary']) ? '#'.$settings->button_background['primary'] : 'transparent'; ?>;
 		<?php if( $settings->button_border_color['primary'] ) { ?>border-color: #<?php echo $settings->button_border_color['primary']; ?>;<?php } ?>
@@ -241,7 +245,8 @@ $post_columns_mobile = ( 100 - $space_mobile ) / $settings->post_grid_count['mob
 
 .fl-node-<?php echo $id; ?> .pp-content-grid-post .pp-content-grid-more:hover,
 .fl-node-<?php echo $id; ?> .pp-content-carousel-post .pp-content-carousel-more:hover,
-.fl-node-<?php echo $id; ?> .pp-content-grid-post .pp-add-to-cart a:hover {
+.fl-node-<?php echo $id; ?> .pp-content-grid-post .pp-add-to-cart a:hover,
+.fl-node-<?php echo $id; ?> .pp-post-event-calendar-cost form .tribe-button:hover {
 	<?php if( $settings->button_background['secondary'] ) { ?>background: #<?php echo $settings->button_background['secondary']; ?>;<?php } ?>
 	<?php if( $settings->button_color['secondary'] ) { ?>color: #<?php echo $settings->button_color['secondary']; ?>;<?php } ?>
 	<?php if( $settings->button_border_color['secondary'] ) { ?>border-color: #<?php echo $settings->button_border_color['secondary']; ?>;<?php } ?>
