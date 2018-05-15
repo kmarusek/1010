@@ -11,14 +11,22 @@ function bw_animated_background_row_settings_layer($layer_id) {
                 'type' => 'select',
                 'label' => sprintf(_n('Enable layer %d', 'Enable layer %d', $layer_id, 'skeleton-warrior'), $layer_id),
                 'options' => array(
-                    'yes' => __("Yes"),
-                    'no' => __("No"),
+                    'image' => __("Static image"),
+                    'atlas' => __("Atlas animation"),
+                    'no' => __("Nothing"),
                 ),
                 'default' => 'no',
                 'toggle' => array(
-                    'yes' => array(
+                    'image' => array(
                         'fields' => array(
                             'bw_ab_layer_' . $layer_id . '_image',
+                            'bw_ab_layer_' . $layer_id . '_depth',
+                        )
+                    ),
+                    'atlas' => array(
+                        'fields' => array(
+                            'bw_ab_layer_' . $layer_id . '_image',
+                            'bw_ab_layer_' . $layer_id . '_animdata',
                             'bw_ab_layer_' . $layer_id . '_depth',
                         )
                     )
@@ -28,6 +36,10 @@ function bw_animated_background_row_settings_layer($layer_id) {
                 'type' => 'photo',
                 'label' => __("Background image", 'skeleton-warrior'),
                 'show_remove' => true
+            ),
+            'bw_ab_layer_' . $layer_id . '_animdata' => array(
+                'type' => 'textarea',
+                'label' => __("Animation data", 'skeleton-warrior')
             ),
             'bw_ab_layer_' . $layer_id . '_depth' => array(
                 'type' => 'unit',
