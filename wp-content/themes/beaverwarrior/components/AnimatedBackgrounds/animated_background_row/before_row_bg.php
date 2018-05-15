@@ -1,4 +1,4 @@
-<ul data-scrollalax data-scrollalax-depthrange="outside">
+<ul data-scrollalax data-scrollalax-depthrange="inside" class="AnimatedBackgrounds">
     <?php $i = 1;
 
     while (true) {
@@ -12,7 +12,7 @@
 
         ?>
             <li data-scrollalax-depth="<?php echo $rows->settings->$layer_depth; ?>">
-                <img src="<?php echo $rows->settings->$layer_image_src; ?>">
+                <div class="AnimatedBackgrounds-static_bg" style="background-image: url('<?php echo $rows->settings->$layer_image_src; ?>');"></div>
             </li>
         <?php
 
