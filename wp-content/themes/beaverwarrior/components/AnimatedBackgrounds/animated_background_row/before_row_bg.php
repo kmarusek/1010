@@ -30,7 +30,7 @@
             case "atlas":
                 ?>
                     <li data-scrollalax-depth="<?php echo $rows->settings->$layer_depth; ?>">
-                        <img class="AnimatedBackgrounds-atlas_source" src="<?php echo $rows->settings->$layer_image_src; ?>" srcset="<?php echo $rows->settings->$layer_srcset; ?>" alt="" id="<?php echo $layer_id . "-image"; ?>">
+                        <img class="AnimatedBackgrounds-atlas_source" src="<?php echo $rows->settings->$layer_image_src; ?>" srcset="<?php echo $layer_srcset; ?>" alt="" id="<?php echo $layer_id . "-image"; ?>">
                         <canvas class="AnimatedBackgrounds-atlas_player" data-atlasplayer data-atlasplayer-image="#<?php echo $layer_id . "-image"; ?>" data-atlasplayer-data='<?php echo $layer_animdata_text; ?>'></canvas>
                     </li>
                 <?php

@@ -1,4 +1,5 @@
 (function($){
+    if (window.FLBuilder === undefined) return;
 
 	FLBuilder.registerModuleHelper('pp-advanced-menu', {
 

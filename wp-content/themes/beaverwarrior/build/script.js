@@ -1435,6 +1435,120 @@ if (typeof Object.create !== 'function') {
     return module;
 }));
 
+/*global define, console, document, window*/
+(function (root, factory) {
+    "use strict";
+    if (typeof define === 'function' && define.amd) {
+        define("Animations", ["jquery", "Behaviors"], factory);
+    } else {
+        root.Animations = factory(root.jQuery, root.Behaviors);
+    }
+}(this, function ($, Behaviors) {
+    "use strict";
+    
+    var module = {};
+
+    /* Watches for the start and end of an animation.
+     *
+     * The .promise attribute stores a promise which resolves whenever the
+     * animation has completed or no animation events were detected over a
+     * timeout period of 5 second.
+     *
+     * An important caveat: Animations with delay longer than 5 seconds will
+     * fail to fire events and the animation watcher will trigger the timeout
+     * behavior instead. You can avoid this behavior by triggering another
+     * animation of any kind during the timeout period and keeping it alive
+     * until the delayed animation begins.
+     */
+    function AnimationWatcher($elem) {
+        var Class = this.constructor,
+            eventSelector = Class.get_unique_id(),
+            that = this,
+            evtStartNames = "animationstart." + eventSelector +
+                      " webkitAnimationStart." + eventSelector +
+                      " oanimationstart." + eventSelector +
+                      " MSAnimationStart." + eventSelector,
+            evtEndNames = "animationend." + eventSelector +
+                      " webkitAnimationEnd." + eventSelector +
+                      " oanimationend." + eventSelector +
+                      " MSAnimationEnd." + eventSelector,
+            animation_start = this.animation_start.bind(this),
+            animation_end = this.animation_end.bind(this),
+            animation_timeout_delay = 5000;
+
+        this.eventSelector = eventSelector;
+
+        this.$elem = $elem;
+        this.$elem.on(evtStartNames, animation_start);
+        this.$elem.on(evtEndNames, animation_end);
+
+        if (window.Modernizr && window.Modernizr.cssanimations === false) {
+            animation_timeout_delay = 0;
+        }
+
+        this.timeout = window.setTimeout(this.abort_animation.bind(this), animation_timeout_delay);
+        this.remaining_animations = [];
+
+        //We remove event handlers after one of the handlers resolves the
+        //animation promise.
+        this.promise = new Promise(function (resolve, reject) {
+            that.resolve = resolve;
+            that.reject = reject;
+        }).then(function () {
+            that.$elem.off(evtStartNames, animation_start);
+            that.$elem.off(evtEndNames, animation_end);
+        });
+
+        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Created");
+    }
+
+    AnimationWatcher.count = 0;
+
+    AnimationWatcher.get_unique_id = function () {
+        var Class = this,
+            sel = "." + Class.name + "_" + Class.count;
+
+        Class.count += 1;
+        return sel;
+    };
+
+    AnimationWatcher.prototype.animation_start = function (evt) {
+        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Begun (" + evt.originalEvent.animationName + ")");
+        if (this.timeout !== null) {
+            window.clearTimeout(this.timeout);
+            this.timeout = null;
+        }
+
+        this.remaining_animations.push(evt.originalEvent.animationName);
+    };
+
+    AnimationWatcher.prototype.animation_end = function (evt) {
+        var loc = this.remaining_animations.indexOf(evt.originalEvent.animationName);
+
+        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Ended (" + evt.originalEvent.animationName + ")");
+
+        if (loc !== -1) {
+            this.remaining_animations.splice(loc, 1);
+        }
+
+        if (this.remaining_animations.length === 0) {
+            this.resolve();
+        }
+    };
+
+    AnimationWatcher.prototype.abort_animation = function (evt) {
+        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Abort timeout triggered");
+
+        if (this.remaining_animations.length === 0) {
+            this.resolve();
+        }
+    };
+
+    module.AnimationWatcher = AnimationWatcher;
+
+    return module;
+}));
+
 /*global define, console, window, HTMLImageElement, Promise*/
 
 (function (root, factory) {
@@ -1820,120 +1934,6 @@ if (typeof Object.create !== 'function') {
     Behaviors.register_behavior(AtlasPlayer);
 
     module.AtlasPlayer = AtlasPlayer;
-
-    return module;
-}));
-
-/*global define, console, document, window*/
-(function (root, factory) {
-    "use strict";
-    if (typeof define === 'function' && define.amd) {
-        define("Animations", ["jquery", "Behaviors"], factory);
-    } else {
-        root.Animations = factory(root.jQuery, root.Behaviors);
-    }
-}(this, function ($, Behaviors) {
-    "use strict";
-    
-    var module = {};
-
-    /* Watches for the start and end of an animation.
-     *
-     * The .promise attribute stores a promise which resolves whenever the
-     * animation has completed or no animation events were detected over a
-     * timeout period of 5 second.
-     *
-     * An important caveat: Animations with delay longer than 5 seconds will
-     * fail to fire events and the animation watcher will trigger the timeout
-     * behavior instead. You can avoid this behavior by triggering another
-     * animation of any kind during the timeout period and keeping it alive
-     * until the delayed animation begins.
-     */
-    function AnimationWatcher($elem) {
-        var Class = this.constructor,
-            eventSelector = Class.get_unique_id(),
-            that = this,
-            evtStartNames = "animationstart." + eventSelector +
-                      " webkitAnimationStart." + eventSelector +
-                      " oanimationstart." + eventSelector +
-                      " MSAnimationStart." + eventSelector,
-            evtEndNames = "animationend." + eventSelector +
-                      " webkitAnimationEnd." + eventSelector +
-                      " oanimationend." + eventSelector +
-                      " MSAnimationEnd." + eventSelector,
-            animation_start = this.animation_start.bind(this),
-            animation_end = this.animation_end.bind(this),
-            animation_timeout_delay = 5000;
-
-        this.eventSelector = eventSelector;
-
-        this.$elem = $elem;
-        this.$elem.on(evtStartNames, animation_start);
-        this.$elem.on(evtEndNames, animation_end);
-
-        if (window.Modernizr && window.Modernizr.cssanimations === false) {
-            animation_timeout_delay = 0;
-        }
-
-        this.timeout = window.setTimeout(this.abort_animation.bind(this), animation_timeout_delay);
-        this.remaining_animations = [];
-
-        //We remove event handlers after one of the handlers resolves the
-        //animation promise.
-        this.promise = new Promise(function (resolve, reject) {
-            that.resolve = resolve;
-            that.reject = reject;
-        }).then(function () {
-            that.$elem.off(evtStartNames, animation_start);
-            that.$elem.off(evtEndNames, animation_end);
-        });
-
-        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Created");
-    }
-
-    AnimationWatcher.count = 0;
-
-    AnimationWatcher.get_unique_id = function () {
-        var Class = this,
-            sel = "." + Class.name + "_" + Class.count;
-
-        Class.count += 1;
-        return sel;
-    };
-
-    AnimationWatcher.prototype.animation_start = function (evt) {
-        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Begun (" + evt.originalEvent.animationName + ")");
-        if (this.timeout !== null) {
-            window.clearTimeout(this.timeout);
-            this.timeout = null;
-        }
-
-        this.remaining_animations.push(evt.originalEvent.animationName);
-    };
-
-    AnimationWatcher.prototype.animation_end = function (evt) {
-        var loc = this.remaining_animations.indexOf(evt.originalEvent.animationName);
-
-        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Ended (" + evt.originalEvent.animationName + ")");
-
-        if (loc !== -1) {
-            this.remaining_animations.splice(loc, 1);
-        }
-
-        if (this.remaining_animations.length === 0) {
-            this.resolve();
-        }
-    };
-
-    AnimationWatcher.prototype.abort_animation = function (evt) {
-        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Abort timeout triggered");
-
-        if (this.remaining_animations.length === 0) {
-            this.resolve();
-        }
-    };
-
-    module.AnimationWatcher = AnimationWatcher;
 
     return module;
 }));
@@ -3852,6 +3852,197 @@ if (!Array.prototype.indexOf) {
     return module;
 }));
 
+/*global define, console*/
+
+(function (root, factory) {
+    "use strict";
+    if (typeof define === 'function' && define.amd) {
+        define("ScrollEffects", ["jquery", "Behaviors"], factory);
+    } else {
+        root.ScrollEffects = factory(root.jQuery, root.Behaviors);
+    }
+}(this, function ($, Behaviors) {
+    "use strict";
+
+    var module = {};
+
+    function ScrollEffects(elem) {
+        Behaviors.init(ScrollEffects, this, arguments);
+
+        this.$elem = $(elem);
+        this.$scrollCtxt = $(window); //TODO: Allow CSS overflow scrolling
+        
+        this.scrollHandler = this.on_scroll_intent.bind(this);
+
+        this.$scrollCtxt.on("scroll", this.scrollHandler);
+    }
+
+    Behaviors.inherit(ScrollEffects, Behaviors.Behavior);
+
+    ScrollEffects.QUERY = "[data-scrolleffects]";
+    ScrollEffects.THROTTLE_TIMEOUT = 200;
+    
+    /* Deinitialize our scroll handler if needed.
+     */
+    ScrollEffects.prototype.deinitialize = function () {
+        this.$scrollCtxt.off("scroll", this.scrollHandler);
+    };
+    
+    /* Return a list of all available scroll effect modes on this bit.
+     */
+    ScrollEffects.prototype.activation_modes = function () {
+        return this.$elem.data("scrolleffects").split(" ");
+    };
+
+    ScrollEffects.prototype.update_css_classes = function () {
+        var activation_modes = this.activation_modes(),
+            active = false;
+
+        if (this.isTopVisible && activation_modes.indexOf("top_visible") !== -1) {
+            active = true;
+        }
+
+        if (this.isBottomVisible && activation_modes.indexOf("bottom_visible") !== -1) {
+            active = true;
+        }
+
+        if (this.isVisible && activation_modes.indexOf("visible") !== -1) {
+            active = true;
+        }
+
+        if (this.onceTopVisible && activation_modes.indexOf("top_visible_once") !== -1) {
+            active = true;
+        }
+
+        if (this.onceBottomVisible && activation_modes.indexOf("bottom_visible_once") !== -1) {
+            active = true;
+        }
+
+        if (this.onceVisible && activation_modes.indexOf("visible_once") !== -1) {
+            active = true;
+        }
+
+        if (active) {
+            this.$elem.addClass("is-ScrollEffects--active");
+            this.$elem.removeClass("is-ScrollEffects--inactive");
+        } else {
+            this.$elem.removeClass("is-ScrollEffects--active");
+            this.$elem.addClass("is-ScrollEffects--inactive");
+        }
+    };
+
+    ScrollEffects.prototype.on_scroll_intent = function () {
+        var top = this.$elem.offset().top,
+            height = this.$elem.height(),
+            bottom = top + height,
+            contextOffset = this.$scrollCtxt.offset(),
+            contextScrollTop = contextOffset !== undefined
+                                ? contextOffset.top + this.$scrollCtxt.scrollTop()
+                                : this.$scrollCtxt.scrollTop(),
+            contextHeight = this.$scrollCtxt.height(),
+            contextScrollBottom = contextScrollTop + contextHeight;
+
+        this.isTopVisible = contextScrollTop <= top && top <= contextScrollBottom;
+        this.isBottomVisible = contextScrollTop <= bottom && bottom <= contextScrollBottom;
+        this.isVisible = this.isTopVisible || this.isBottomVisible
+            || (top <= contextScrollTop && contextScrollTop <= bottom)
+            || (top <= contextScrollBottom && contextScrollBottom <= bottom);
+
+        this.onceTopVisible = this.onceTopVisible || this.isTopVisible;
+        this.onceBottomVisible = this.onceBottomVisible || this.isBottomVisible;
+        this.onceVisible = this.onceVisible || this.isVisible;
+
+        this.top = top;
+        this.bottom = bottom;
+        this.contextScrollTop = contextScrollTop;
+        this.contextScrollBottom = contextScrollBottom;
+
+        this.update_css_classes();
+    };
+
+    Behaviors.register_behavior(ScrollEffects);
+
+    function ScrollAlax() {
+        Behaviors.init(ScrollAlax, this, arguments);
+
+        this.$layers = this.$elem.find("li");
+        this.depth = this.$elem.height() * -0.5;
+
+        if (this.$elem.data('scrollalax-depthrange') === 'outside') {
+            this.anim_scale = 1;
+        } else {
+            this.anim_scale = -1;
+        }
+
+        this.weights = this.weight_layers(this.$layers);
+
+        this.on_scroll_intent();
+    }
+
+    Behaviors.inherit(ScrollAlax, ScrollEffects);
+
+    ScrollAlax.QUERY = "[data-scrollalax]";
+
+    /* Determine the weights of each layer on the parallax group. */
+    ScrollAlax.prototype.weight_layers = function ($layers) {
+        var min = Infinity, max = -Infinity, w = [];
+
+        $layers.each(function (index, elem) {
+            var depth = $(elem).data("scrollalax-depth");
+
+            if (min > depth) {
+                min = depth;
+            }
+
+            if (max < depth) {
+                max = depth;
+            }
+        }.bind(this));
+
+        $layers.each(function (index, elem) {
+            var depth = $(elem).data("scrollalax-depth");
+
+            if (this.anim_scale === -1) {
+                w.push(-1 + (depth - min) / (max - min));
+            } else {
+                w.push((depth - min) / (max - min));
+            }
+        }.bind(this));
+
+        return w;
+    }
+
+    /* Calculate X or Y positions of a layer. */
+    ScrollAlax.prototype.apply_transform_css = function(style, index, xPct, yPct) {
+        var pct_Xdrag = this.weights[index] * xPct * this.anim_scale,
+            pct_Ydrag = this.weights[index] * yPct * this.anim_scale,
+            xDisp = this.depth * pct_Xdrag * this.anim_scale,
+            yDisp = this.depth * pct_Ydrag * this.anim_scale;
+
+        //style.left = xDisp + "px";
+        //style.top = yDisp + "px";
+
+        style.transform = "translate3D(" + xDisp + "px, " + yDisp + "px, 0px)";
+    };
+
+    /* Update the scroll animation. */
+    ScrollAlax.prototype.update_css_classes = function (evt) {
+        this.$layers.each(function (index, layer_elem) {
+            var pct_down = Math.max(Math.min((this.contextScrollTop - this.top) / this.$elem.height(), 1.0), 0.0),
+                $layer_elem = $(layer_elem);
+
+            this.apply_transform_css(layer_elem.style, index, 0, pct_down);
+        }.bind(this));
+    };
+
+    Behaviors.register_behavior(ScrollAlax);
+
+    module.ScrollEffects = ScrollEffects;
+    module.ScrollAlax = ScrollAlax;
+
+    return module;
+}));
+
 /*global define, console, document, window, Promise*/
 (function (root, factory) {
     "use strict";
@@ -4266,197 +4457,6 @@ if (!Array.prototype.indexOf) {
     return module;
 }));
 
-/*global define, console*/
-
-(function (root, factory) {
-    "use strict";
-    if (typeof define === 'function' && define.amd) {
-        define("ScrollEffects", ["jquery", "Behaviors"], factory);
-    } else {
-        root.ScrollEffects = factory(root.jQuery, root.Behaviors);
-    }
-}(this, function ($, Behaviors) {
-    "use strict";
-
-    var module = {};
-
-    function ScrollEffects(elem) {
-        Behaviors.init(ScrollEffects, this, arguments);
-
-        this.$elem = $(elem);
-        this.$scrollCtxt = $(window); //TODO: Allow CSS overflow scrolling
-        
-        this.scrollHandler = this.on_scroll_intent.bind(this);
-
-        this.$scrollCtxt.on("scroll", this.scrollHandler);
-    }
-
-    Behaviors.inherit(ScrollEffects, Behaviors.Behavior);
-
-    ScrollEffects.QUERY = "[data-scrolleffects]";
-    ScrollEffects.THROTTLE_TIMEOUT = 200;
-    
-    /* Deinitialize our scroll handler if needed.
-     */
-    ScrollEffects.prototype.deinitialize = function () {
-        this.$scrollCtxt.off("scroll", this.scrollHandler);
-    };
-    
-    /* Return a list of all available scroll effect modes on this bit.
-     */
-    ScrollEffects.prototype.activation_modes = function () {
-        return this.$elem.data("scrolleffects").split(" ");
-    };
-
-    ScrollEffects.prototype.update_css_classes = function () {
-        var activation_modes = this.activation_modes(),
-            active = false;
-
-        if (this.isTopVisible && activation_modes.indexOf("top_visible") !== -1) {
-            active = true;
-        }
-
-        if (this.isBottomVisible && activation_modes.indexOf("bottom_visible") !== -1) {
-            active = true;
-        }
-
-        if (this.isVisible && activation_modes.indexOf("visible") !== -1) {
-            active = true;
-        }
-
-        if (this.onceTopVisible && activation_modes.indexOf("top_visible_once") !== -1) {
-            active = true;
-        }
-
-        if (this.onceBottomVisible && activation_modes.indexOf("bottom_visible_once") !== -1) {
-            active = true;
-        }
-
-        if (this.onceVisible && activation_modes.indexOf("visible_once") !== -1) {
-            active = true;
-        }
-
-        if (active) {
-            this.$elem.addClass("is-ScrollEffects--active");
-            this.$elem.removeClass("is-ScrollEffects--inactive");
-        } else {
-            this.$elem.removeClass("is-ScrollEffects--active");
-            this.$elem.addClass("is-ScrollEffects--inactive");
-        }
-    };
-
-    ScrollEffects.prototype.on_scroll_intent = function () {
-        var top = this.$elem.offset().top,
-            height = this.$elem.height(),
-            bottom = top + height,
-            contextOffset = this.$scrollCtxt.offset(),
-            contextScrollTop = contextOffset !== undefined
-                                ? contextOffset.top + this.$scrollCtxt.scrollTop()
-                                : this.$scrollCtxt.scrollTop(),
-            contextHeight = this.$scrollCtxt.height(),
-            contextScrollBottom = contextScrollTop + contextHeight;
-
-        this.isTopVisible = contextScrollTop <= top && top <= contextScrollBottom;
-        this.isBottomVisible = contextScrollTop <= bottom && bottom <= contextScrollBottom;
-        this.isVisible = this.isTopVisible || this.isBottomVisible
-            || (top <= contextScrollTop && contextScrollTop <= bottom)
-            || (top <= contextScrollBottom && contextScrollBottom <= bottom);
-
-        this.onceTopVisible = this.onceTopVisible || this.isTopVisible;
-        this.onceBottomVisible = this.onceBottomVisible || this.isBottomVisible;
-        this.onceVisible = this.onceVisible || this.isVisible;
-
-        this.top = top;
-        this.bottom = bottom;
-        this.contextScrollTop = contextScrollTop;
-        this.contextScrollBottom = contextScrollBottom;
-
-        this.update_css_classes();
-    };
-
-    Behaviors.register_behavior(ScrollEffects);
-
-    function ScrollAlax() {
-        Behaviors.init(ScrollAlax, this, arguments);
-
-        this.$layers = this.$elem.find("li");
-        this.depth = this.$elem.height() * -0.5;
-
-        if (this.$elem.data('scrollalax-depthrange') === 'outside') {
-            this.anim_scale = 1;
-        } else {
-            this.anim_scale = -1;
-        }
-
-        this.weights = this.weight_layers(this.$layers);
-
-        this.on_scroll_intent();
-    }
-
-    Behaviors.inherit(ScrollAlax, ScrollEffects);
-
-    ScrollAlax.QUERY = "[data-scrollalax]";
-
-    /* Determine the weights of each layer on the parallax group. */
-    ScrollAlax.prototype.weight_layers = function ($layers) {
-        var min = Infinity, max = -Infinity, w = [];
-
-        $layers.each(function (index, elem) {
-            var depth = $(elem).data("scrollalax-depth");
-
-            if (min > depth) {
-                min = depth;
-            }
-
-            if (max < depth) {
-                max = depth;
-            }
-        }.bind(this));
-
-        $layers.each(function (index, elem) {
-            var depth = $(elem).data("scrollalax-depth");
-
-            if (this.anim_scale === -1) {
-                w.push(-1 + (depth - min) / (max - min));
-            } else {
-                w.push((depth - min) / (max - min));
-            }
-        }.bind(this));
-
-        return w;
-    }
-
-    /* Calculate X or Y positions of a layer. */
-    ScrollAlax.prototype.apply_transform_css = function(style, index, xPct, yPct) {
-        var pct_Xdrag = this.weights[index] * xPct * this.anim_scale,
-            pct_Ydrag = this.weights[index] * yPct * this.anim_scale,
-            xDisp = this.depth * pct_Xdrag * this.anim_scale,
-            yDisp = this.depth * pct_Ydrag * this.anim_scale;
-
-        //style.left = xDisp + "px";
-        //style.top = yDisp + "px";
-
-        style.transform = "translate3D(" + xDisp + "px, " + yDisp + "px, 0px)";
-    };
-
-    /* Update the scroll animation. */
-    ScrollAlax.prototype.update_css_classes = function (evt) {
-        this.$layers.each(function (index, layer_elem) {
-            var pct_down = Math.max(Math.min((this.contextScrollTop - this.top) / this.$elem.height(), 1.0), 0.0),
-                $layer_elem = $(layer_elem);
-
-            this.apply_transform_css(layer_elem.style, index, 0, pct_down);
-        }.bind(this));
-    };
-
-    Behaviors.register_behavior(ScrollAlax);
-
-    module.ScrollEffects = ScrollEffects;
-    module.ScrollAlax = ScrollAlax;
-
-    return module;
-}));
-
 (function (root, factory) {
     "use strict";
     if (typeof define === 'function' && define.amd) {
@@ -4738,111 +4738,6 @@ if (!Array.prototype.indexOf) {
 
     module.TabbedContentSet = TabbedContentSet;
 
-    return module;
-}));
-
-/*jslint continue: true, es5: true*/
-/*global detectZoom, console, jQuery, define, Float32Array, Uint16Array*/
-(function (root, factory) {
-    "use strict";
-    if (typeof define === 'function' && define.amd) {
-        define("UTM", ["jquery", "Behaviors"], factory);
-    } else {
-        root.UTM = factory(root.jQuery, root.Behaviors);
-    }
-}(this, function ($, Behaviors) {
-    "use strict";
-    var module = {},
-        utm_variables = {},
-        wanted_vars = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
-
-    function getQueryVariable(variable) {
-        var query = window.location.search.substring(1);
-        var vars = query.split('&');
-        for (var i = 0; i < vars.length; i++) {
-            var pair = vars[i].split('=');
-            if (decodeURIComponent(pair[0]) == variable) {
-                return decodeURIComponent(pair[1]);
-            }
-        }
-    }
-
-    /* Given a query string, return an object whose keys are matched UTM vars.
-     */
-    function look_for_utm_variables() {
-        var new_utm_variables = {}, i;
-
-        for (i = 0; i < wanted_vars.length; i += 1) {
-            new_utm_variables[wanted_vars[i]] = getQueryVariable(wanted_vars[i]);
-        }
-
-        return new_utm_variables;
-    }
-
-    function do_utm_replace($context) {
-        utm_variables = look_for_utm_variables();
-
-        $context.find("a[href]").each(function (index, elem) {
-            var k, $elem = $(elem),
-                old_href = $elem.attr("href");
-
-            for (k in utm_variables) {
-                if (utm_variables.hasOwnProperty(k) && utm_variables[k] !== undefined) {
-                    if (old_href.indexOf("?") !== -1) {
-                        old_href = old_href + "&" + k + "=" + utm_variables[k];
-                    } else {
-                        old_href = old_href + "?" + k + "=" + utm_variables[k];
-                    }
-                }
-            }
-
-            $elem.attr("href", old_href);
-        })
-    }
-    
-    function do_gform_insertion(evt, form_id, current_page) {
-        var $form = $("#gform_" + form_id), i, k,
-            old_action = $form.attr("action");
-        
-        utm_variables = look_for_utm_variables();
-        
-        //Remove any existing query vars.
-        //TODO: should we bother preserving old vars that aren't UTMs?
-        old_action = old_action.split("?")[0];
-        
-        //Add UTM variables as seen by the client.
-        for (k in utm_variables) {
-            if (utm_variables.hasOwnProperty(k) && utm_variables[k] !== undefined) {
-                if (old_action.indexOf("?") !== -1) {
-                    old_action = old_action + "&" + k + "=" + utm_variables[k];
-                } else {
-                    old_action = old_action + "?" + k + "=" + utm_variables[k];
-                }
-            }
-        }
-        
-        $form.attr("action", old_action);
-        
-        //We can't auto-insert UTM variables into hidden fields, so instead we
-        //replace by hidden values.
-        $form.find("input[type='hidden']").each(function (index, ielem) {
-            var $ielem = $(ielem), old_value = $ielem.attr("value"), new_key;
-            
-            if (old_value.startsWith("replace_param[") && old_value.endsWith("]")) {
-                new_key = old_value.split("[")[1].split("]")[0];
-                $ielem.val(utm_variables[new_key]);
-            }
-        })
-    }
-    
-    $(document).bind("gform_post_render", do_gform_insertion);
-    
-    Behaviors.register_content_listener(do_utm_replace);
-    
-    module.do_utm_replace = do_utm_replace;
-    module.look_for_utm_variables = look_for_utm_variables;
-    module.getQueryVariable = getQueryVariable;
-    
     return module;
 }));
 
@@ -5962,6 +5857,111 @@ if (!Array.prototype.indexOf) {
     return module;
 }));
 
+/*jslint continue: true, es5: true*/
+/*global detectZoom, console, jQuery, define, Float32Array, Uint16Array*/
+(function (root, factory) {
+    "use strict";
+    if (typeof define === 'function' && define.amd) {
+        define("UTM", ["jquery", "Behaviors"], factory);
+    } else {
+        root.UTM = factory(root.jQuery, root.Behaviors);
+    }
+}(this, function ($, Behaviors) {
+    "use strict";
+    var module = {},
+        utm_variables = {},
+        wanted_vars = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
+
+    function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split('&');
+        for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split('=');
+            if (decodeURIComponent(pair[0]) == variable) {
+                return decodeURIComponent(pair[1]);
+            }
+        }
+    }
+
+    /* Given a query string, return an object whose keys are matched UTM vars.
+     */
+    function look_for_utm_variables() {
+        var new_utm_variables = {}, i;
+
+        for (i = 0; i < wanted_vars.length; i += 1) {
+            new_utm_variables[wanted_vars[i]] = getQueryVariable(wanted_vars[i]);
+        }
+
+        return new_utm_variables;
+    }
+
+    function do_utm_replace($context) {
+        utm_variables = look_for_utm_variables();
+
+        $context.find("a[href]").each(function (index, elem) {
+            var k, $elem = $(elem),
+                old_href = $elem.attr("href");
+
+            for (k in utm_variables) {
+                if (utm_variables.hasOwnProperty(k) && utm_variables[k] !== undefined) {
+                    if (old_href.indexOf("?") !== -1) {
+                        old_href = old_href + "&" + k + "=" + utm_variables[k];
+                    } else {
+                        old_href = old_href + "?" + k + "=" + utm_variables[k];
+                    }
+                }
+            }
+
+            $elem.attr("href", old_href);
+        })
+    }
+    
+    function do_gform_insertion(evt, form_id, current_page) {
+        var $form = $("#gform_" + form_id), i, k,
+            old_action = $form.attr("action");
+        
+        utm_variables = look_for_utm_variables();
+        
+        //Remove any existing query vars.
+        //TODO: should we bother preserving old vars that aren't UTMs?
+        old_action = old_action.split("?")[0];
+        
+        //Add UTM variables as seen by the client.
+        for (k in utm_variables) {
+            if (utm_variables.hasOwnProperty(k) && utm_variables[k] !== undefined) {
+                if (old_action.indexOf("?") !== -1) {
+                    old_action = old_action + "&" + k + "=" + utm_variables[k];
+                } else {
+                    old_action = old_action + "?" + k + "=" + utm_variables[k];
+                }
+            }
+        }
+        
+        $form.attr("action", old_action);
+        
+        //We can't auto-insert UTM variables into hidden fields, so instead we
+        //replace by hidden values.
+        $form.find("input[type='hidden']").each(function (index, ielem) {
+            var $ielem = $(ielem), old_value = $ielem.attr("value"), new_key;
+            
+            if (old_value.startsWith("replace_param[") && old_value.endsWith("]")) {
+                new_key = old_value.split("[")[1].split("]")[0];
+                $ielem.val(utm_variables[new_key]);
+            }
+        })
+    }
+    
+    $(document).bind("gform_post_render", do_gform_insertion);
+    
+    Behaviors.register_content_listener(do_utm_replace);
+    
+    module.do_utm_replace = do_utm_replace;
+    module.look_for_utm_variables = look_for_utm_variables;
+    module.getQueryVariable = getQueryVariable;
+    
+    return module;
+}));
+
 (function($) {
 
 	/**
@@ -6596,6 +6596,7 @@ if (!Array.prototype.indexOf) {
 })(jQuery);
 
 (function($){
+    if (window.FLBuilder === undefined) return;
 
 	FLBuilder.registerModuleHelper('pp-advanced-menu', {
 

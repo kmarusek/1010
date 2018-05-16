@@ -82,6 +82,9 @@ function bw_animated_background_row_settings($form, $id) {
                 'bw_ab_layer_3' => bw_animated_background_row_settings_layer(3),
                 'bw_ab_layer_4' => bw_animated_background_row_settings_layer(4),
                 'bw_ab_layer_5' => bw_animated_background_row_settings_layer(5),
+                'bw_ab_layer_6' => bw_animated_background_row_settings_layer(6),
+                'bw_ab_layer_7' => bw_animated_background_row_settings_layer(7),
+                'bw_ab_layer_8' => bw_animated_background_row_settings_layer(8),
             )
         );
     }
