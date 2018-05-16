@@ -39,7 +39,10 @@ function bw_animated_background_row_settings_layer($layer_id) {
             ),
             'bw_ab_layer_' . $layer_id . '_animdata' => array(
                 'type' => 'textarea',
-                'label' => __("Animation data", 'skeleton-warrior')
+                'label' => __("Animation data", 'skeleton-warrior'),
+                'default' => '',
+                'description' => __('Copy the JSON data you got from the Photoshop script: https://github.com/tonioloewald/Layer-Group-Atlas', 'skeleton-warrior'),
+                'rows' => 6
             ),
             'bw_ab_layer_' . $layer_id . '_depth' => array(
                 'type' => 'unit',
