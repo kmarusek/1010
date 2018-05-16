@@ -1,5 +1,11 @@
 <?php
 
+function bw_animated_background_fix_json($json) {
+    if (!is_string($json)) $json = json_encode($json);
+    
+    return $json;
+}
+
 /**
  * Constructs a setting form section for a single layer of the animated background settings.
  */
@@ -42,7 +48,8 @@ function bw_animated_background_row_settings_layer($layer_id) {
                 'label' => __("Animation data", 'skeleton-warrior'),
                 'default' => '',
                 'description' => __('Copy the JSON data you got from the Photoshop script: https://github.com/tonioloewald/Layer-Group-Atlas', 'skeleton-warrior'),
-                'rows' => 6
+                'rows' => 6,
+                'sanitize' => "bw_animated_background_fix_json",
             ),
             'bw_ab_layer_' . $layer_id . '_depth' => array(
                 'type' => 'unit',
