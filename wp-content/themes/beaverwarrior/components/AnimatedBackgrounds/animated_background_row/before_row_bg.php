@@ -1,4 +1,4 @@
-<ul data-scrollalax data-scrollalax-depthrange="inside" class="AnimatedBackgrounds">
+<ul data-scrollalax data-scrollalax-depthrange="inside" class="AnimatedBackgrounds is-ScrollEffects--unloaded">
     <?php $i = 1;
     $id = "AnimatedBackgrounds--" . uniqid();
 

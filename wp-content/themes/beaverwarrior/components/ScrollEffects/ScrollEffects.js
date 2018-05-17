@@ -1,13 +1,13 @@
-/*global define, console*/
+/*global window, define, Promise*/
 
 (function (root, factory) {
     "use strict";
     if (typeof define === 'function' && define.amd) {
-        define("ScrollEffects", ["jquery", "Behaviors"], factory);
+        define("ScrollEffects", ["jquery", "Behaviors", "AtlasPlayer"], factory);
     } else {
-        root.ScrollEffects = factory(root.jQuery, root.Behaviors);
+        root.ScrollEffects = factory(root.jQuery, root.Behaviors, root.AtlasPlayer);
     }
-}(this, function ($, Behaviors) {
+}(this, function ($, Behaviors, AtlasPlayer) {
     "use strict";
 
     var module = {};
@@ -75,6 +75,14 @@
             this.$elem.removeClass("is-ScrollEffects--active");
             this.$elem.addClass("is-ScrollEffects--inactive");
         }
+        
+        if (this.loaded) {
+            this.$elem.removeClass("is-ScrollEffects--unloaded");
+            this.$elem.addClass("is-ScrollEffects--loaded");
+        } else {
+            this.$elem.addClass("is-ScrollEffects--unloaded");
+            this.$elem.removeClass("is-ScrollEffects--loaded");
+        }
     };
 
     ScrollEffects.prototype.on_scroll_intent = function () {
@@ -112,6 +120,9 @@
         Behaviors.init(ScrollAlax, this, arguments);
 
         this.$layers = this.$elem.find("li");
+        this.$atlasplayers = this.$elem.find(AtlasPlayer.AtlasPlayer.QUERY);
+        this.atlasplayers = AtlasPlayer.AtlasPlayer.find_markup(this.$atlasplayers);
+        
         this.depth = this.$elem.height() * -0.5;
 
         if (this.$elem.data('scrollalax-depthrange') === 'outside') {
@@ -123,6 +134,9 @@
         this.weights = this.weight_layers(this.$layers);
 
         this.on_scroll_intent();
+        
+        this.loaded = false;
+        this.load().then(this.on_loaded.bind(this));
     }
 
     Behaviors.inherit(ScrollAlax, ScrollEffects);
@@ -156,10 +170,10 @@
         }.bind(this));
 
         return w;
-    }
+    };
 
     /* Calculate X or Y positions of a layer. */
-    ScrollAlax.prototype.apply_transform_css = function(style, index, xPct, yPct) {
+    ScrollAlax.prototype.apply_transform_css = function (style, index, xPct, yPct) {
         var pct_Xdrag = this.weights[index] * xPct * this.anim_scale,
             pct_Ydrag = this.weights[index] * yPct * this.anim_scale,
             xDisp = this.depth * pct_Xdrag * this.anim_scale,
@@ -179,6 +193,65 @@
 
             this.apply_transform_css(layer_elem.style, index, 0, pct_down);
         }.bind(this));
+        
+        if (this.loaded) {
+            this.$elem.removeClass("is-ScrollEffects--unloaded");
+            this.$elem.addClass("is-ScrollEffects--loaded");
+        } else {
+            this.$elem.addClass("is-ScrollEffects--unloaded");
+            this.$elem.removeClass("is-ScrollEffects--loaded");
+        }
+    };
+    
+    /**
+     * Ensure all layers have their images loaded.
+     * 
+     * Returns a promise that resolves when all images in all layers have
+     * loaded.
+     */
+    ScrollAlax.prototype.load = function () {
+        var promises = [];
+        
+        this.$layers.each(function (index, layer_elem) {
+            var $backgrounds = $(layer_elem).find("[style*='background-image']"),
+                $images = $(layer_elem).find("img[src]");
+            
+            $backgrounds.each(function (index, bgelem) {
+                var src = $(bgelem).css("background-image").slice(5, -2);
+                
+                promises.push(new Promise(function (resolve) {
+                    $("body").append($("<img/>").attr("src", src).on('load', function () {
+                        $(this).remove();
+                        resolve();
+                    }));
+                }.bind(this)));
+            }.bind(this));
+            
+            $images.each(function (index, imgelem) {
+                var src = $(imgelem).attr("src");
+                
+                promises.push(new Promise(function (resolve) {
+                    $("body").append($("<img/>").attr("src", src).on('load', function () {
+                        $(this).remove();
+                        resolve();
+                    }));
+                }.bind(this)));
+            }.bind(this));
+        });
+        
+        return Promise.all(promises);
+    };
+    
+    ScrollAlax.prototype.on_loaded = function () {
+        var i = 0;
+        
+        for (i = 0; i < this.atlasplayers.length; i += 1) {
+            this.atlasplayers[i].seek(0);
+            this.atlasplayers[i].play();
+        }
+        
+        this.loaded = true;
+        this.update_css_classes();
     };
 
     Behaviors.register_behavior(ScrollAlax);
