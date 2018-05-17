@@ -220,10 +220,10 @@
                 var src = $(bgelem).css("background-image").slice(5, -2);
                 
                 promises.push(new Promise(function (resolve) {
-                    $("body").append($("<img/>").attr("src", src).on('load', function () {
+                    $("<img/>").attr("src", src).on('load', function () {
                         $(this).remove();
                         resolve();
-                    }));
+                    });
                 }.bind(this)));
             }.bind(this));
             
@@ -231,10 +231,10 @@
                 var src = $(imgelem).attr("src");
                 
                 promises.push(new Promise(function (resolve) {
-                    $("body").append($("<img/>").attr("src", src).on('load', function () {
+                    $("<img/>").attr("src", src).on('load', function () {
                         $(this).remove();
                         resolve();
-                    }));
+                    });
                 }.bind(this)));
             }.bind(this));
         });
