@@ -250,12 +250,14 @@
     };
     
     ScrollAlax.prototype.on_loaded = function () {
-        var i = 0;
-        
-        for (i = 0; i < this.atlasplayers.length; i += 1) {
-            this.atlasplayers[i].seek(0);
-            this.atlasplayers[i].play();
-        }
+        window.setTimeout(function () {
+            var i = 0;
+
+            for (i = 0; i < this.atlasplayers.length; i += 1) {
+                this.atlasplayers[i].seek(0);
+                this.atlasplayers[i].play();
+            }
+        }, 500);
         
         this.loaded = true;
         this.update_css_classes();
