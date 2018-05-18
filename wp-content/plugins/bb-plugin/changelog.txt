@@ -1,3 +1,42 @@
+<h4>2.1.2.2 - 05/17/2018</h4>
+<strong>Bug Fixes</strong>
+<ul>
+	<li>Reverted menu accessibility code added in 2.1.2.</li>
+</ul>
+
+<h4>2.1.2.1 - 05/16/2018</h4>
+<strong>Bug Fixes</strong>
+<ul>
+	<li>Fixed a JS error preventing settings from opening.</li>
+</ul>
+
+<h4>2.1.2 - 05/16/2018</h4>
+<strong>Enhancements</strong>
+<ul>
+	<li>Updated Font Awesome 5 icons</li>
+	<li>Added support for new WP 4.9.6 Privacy Page and data exporter.</li>
+	<li>Added Themer support to Audio module</li>
+	<li>Added is_writable method to filesystem class</li>
+	<li>Added Ontraport support to Subscribe Module</li>
+	<li>Settings lightbox will now resize height when first opening if they are taller than the window</li>
+	<li>Improved accessibility in Menu Module</li>
+	<li>Limit revisions in Builder UI to 25 for performance reasons <code>fl_builder_revisions_number</code> also added</li>
+	<li>Hide overlays when right clicked so the underlying node can be inspected.</li>
+	<li>Remove panel caret when less than 500px</li>
+</ul>
+<strong>Bug Fixes</strong>
+<ul>
+	<li>Fixed a compatibility issues with Enjoy Plugin for Instagram and MailerLite plugin</li>
+	<li>Fixed gap underneath menu items on Themer menu module</li>
+	<li>Fixed Builder permissions appearing blank if Themer plugin is enabled first</li>
+	<li>Fixed a JS error thrown while resizing rows</li>
+	<li>Fixed a PHP warning if no default icon sets are available</li>
+	<li>Fixed a PHP warning on debug page if there are no deactivated plugins installed</li>
+	<li>Fixed an issue where archive pages would enqueue a layout css/js file for every post in the archive</li>
+	<li>Fixed saved columns still showing if Enable Core Templates Only is selected</li>
+	<li>Fixed PHP warnings in Subscribe Module when using Infusionsoft</li>
+</ul>
+
 <h4>2.1.1.3 - 05/10/2018</h4>
 <p><strong>Hot Fix</strong></p>
 <ul>
