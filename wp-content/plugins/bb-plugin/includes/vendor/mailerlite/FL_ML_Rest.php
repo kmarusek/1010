@@ -1,10 +1,10 @@
 <?php
 
-require_once dirname(__FILE__) . '/ML_Rest_Base.php';
+require_once dirname(__FILE__) . '/FL_ML_Rest_Base.php';
 
-class ML_Rest extends ML_Rest_Base
+class FL_ML_Rest extends FL_ML_Rest_Base
 {
-    var $name = '';    
+    var $name = '';
     var $id = null;
 
     function __construct($api_key){

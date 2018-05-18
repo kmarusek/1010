@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bb-plugin\n"
 "Report-Msgid-Bugs-To: hello@wpbeaverbuilder.com\n"
-"POT-Creation-Date: 2018-05-10 18:04:31+00:00\n"
+"POT-Creation-Date: 2018-05-16 22:53:58+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -33,7 +33,7 @@ msgid "License"
 msgstr ""
 
 #: classes/class-fl-builder-admin-settings.php:167
-#: classes/class-fl-builder-ui-content-panel.php:239
+#: classes/class-fl-builder-ui-content-panel.php:219
 msgid "Upgrade"
 msgstr ""
 
@@ -61,7 +61,7 @@ msgid "Icons"
 msgstr ""
 
 #: classes/class-fl-builder-admin-settings.php:192
-#: classes/class-fl-builder.php:960
+#: classes/class-fl-builder.php:961
 msgid "Tools"
 msgstr ""
 
@@ -145,7 +145,7 @@ msgstr ""
 msgid "This does not appear to be a WXR file, missing/invalid WXR version number"
 msgstr ""
 
-#: classes/class-fl-builder-loader.php:150
+#: classes/class-fl-builder-loader.php:151
 msgid ""
 "Beaver Builder may not be functioning correctly as it does not have "
 "permission to write files to the WordPress uploads directory on your "
@@ -153,7 +153,7 @@ msgid ""
 "continuing or contact your host for assistance."
 msgstr ""
 
-#: classes/class-fl-builder-loader.php:163
+#: classes/class-fl-builder-loader.php:164
 msgid ""
 "You currently have two versions of Beaver Builder active on this site. "
 "Please <a href=\"%s\">deactivate one</a> before continuing."
@@ -324,8 +324,19 @@ msgstr ""
 msgid "Advanced Modules"
 msgstr ""
 
-#: classes/class-fl-builder-revisions.php:92
-#: classes/class-fl-builder-revisions.php:98
+#: classes/class-fl-builder-privacy.php:22
+msgid "Beaver Builder Plugin"
+msgstr ""
+
+#: classes/class-fl-builder-privacy.php:77
+msgid ""
+"<p>In terms of GDPR, Beaver Builder products do not collect any personal "
+"information from your users. However some modules such as videos and maps "
+"might need you to update your privacy policy accordingly.</p>"
+msgstr ""
+
+#: classes/class-fl-builder-revisions.php:94
+#: classes/class-fl-builder-revisions.php:100
 msgid "Revisions"
 msgstr ""
 
@@ -346,6 +357,7 @@ msgstr ""
 #: classes/class-fl-builder-service-madmimi.php:69
 #: classes/class-fl-builder-service-mailchimp.php:65
 #: classes/class-fl-builder-service-mailrelay.php:79
+#: classes/class-fl-builder-service-ontraport.php:71
 #: classes/class-fl-builder-service-sendy.php:70
 msgid "Error: You must provide an API key."
 msgstr ""
@@ -378,6 +390,7 @@ msgstr ""
 #: classes/class-fl-builder-service-mailchimp.php:100
 #: classes/class-fl-builder-service-mailerlite.php:107
 #: classes/class-fl-builder-service-mailrelay.php:127
+#: classes/class-fl-builder-service-ontraport.php:124
 #: classes/class-fl-builder-service-sendy.php:124
 msgid "API Key"
 msgstr ""
@@ -418,8 +431,9 @@ msgstr ""
 #: classes/class-fl-builder-service-mailpoet.php:110
 #: classes/class-fl-builder-service-mailrelay.php:182
 #: classes/class-fl-builder-service-mautic.php:210
+#: classes/class-fl-builder-service-ontraport.php:179
 #: classes/class-fl-builder-service-sendinblue.php:153
-#: classes/class-fl-builder-services.php:338
+#: classes/class-fl-builder-services.php:344
 #: extensions/fl-builder-user-templates/includes/admin-add-new-form.php:26
 #: extensions/fl-builder-user-templates/includes/admin-add-new-form.php:40
 #: includes/ui-service-settings.php:7 modules/woocommerce/woocommerce.php:58
@@ -1098,6 +1112,36 @@ msgstr ""
 msgid "There was an error subscribing to Mautic. %s"
 msgstr ""
 
+#: classes/class-fl-builder-service-ontraport.php:68
+msgid "Error: You must provide an APP ID."
+msgstr ""
+
+#: classes/class-fl-builder-service-ontraport.php:91
+msgid "Error: Please check your API token. Code: %s"
+msgstr ""
+
+#: classes/class-fl-builder-service-ontraport.php:113
+msgid "APP ID"
+msgstr ""
+
+#: classes/class-fl-builder-service-ontraport.php:114
+msgid "Your APP ID can be found in your Ontraport account."
+msgstr ""
+
+#: classes/class-fl-builder-service-ontraport.php:125
+msgid "Your API key can be found in your Ontraport account."
+msgstr ""
+
+#: classes/class-fl-builder-service-ontraport.php:221
+msgid ""
+"There was an error subscribing to Ontraport. The account is no longer "
+"connected."
+msgstr ""
+
+#: classes/class-fl-builder-service-ontraport.php:247
+msgid "There was an error subscribing to Ontraport. Code: %s"
+msgstr ""
+
 #: classes/class-fl-builder-service-sendinblue.php:65
 msgid "Error: You must provide an Access Key."
 msgstr ""
@@ -1172,25 +1216,25 @@ msgstr ""
 msgid "There was an error subscribing to Sendy. %s"
 msgstr ""
 
-#: classes/class-fl-builder-services.php:303
+#: classes/class-fl-builder-services.php:309
 msgid "Account Name"
 msgstr ""
 
-#: classes/class-fl-builder-services.php:304
+#: classes/class-fl-builder-services.php:310
 msgid ""
 "Used to identify this connection within the accounts list and can be "
 "anything you like."
 msgstr ""
 
-#: classes/class-fl-builder-services.php:317
+#: classes/class-fl-builder-services.php:323
 msgid "Connect"
 msgstr ""
 
-#: classes/class-fl-builder-services.php:346
+#: classes/class-fl-builder-services.php:352
 msgid "Add Account..."
 msgstr ""
 
-#: classes/class-fl-builder-services.php:353
+#: classes/class-fl-builder-services.php:359
 msgid "Account"
 msgstr ""
 
@@ -1225,14 +1269,6 @@ msgstr ""
 #: modules/woocommerce/woocommerce.php:103
 #: modules/woocommerce/woocommerce.php:174
 msgid "Columns"
-msgstr ""
-
-#: classes/class-fl-builder-ui-content-panel.php:155
-#: extensions/fl-builder-user-templates/classes/class-fl-builder-user-templates-admin-list.php:103
-#: extensions/fl-builder-user-templates/classes/class-fl-builder-user-templates-admin-menu.php:43
-#: extensions/fl-builder-user-templates/classes/class-fl-builder-user-templates.php:244
-#: extensions/fl-builder-user-templates/includes/ui-js-templates.php:79
-msgid "Saved Columns"
 msgstr ""
 
 #: classes/class-fl-builder-ui-settings-forms.php:451
@@ -1372,85 +1408,85 @@ msgstr ""
 msgid "Rebuilt the theme cache"
 msgstr ""
 
-#: classes/class-fl-builder.php:952
+#: classes/class-fl-builder.php:953
 msgid "Unnamed Menu"
 msgstr ""
 
-#: classes/class-fl-builder.php:968
+#: classes/class-fl-builder.php:969
 #: extensions/fl-builder-user-templates/includes/user-template-settings.php:4
 #: includes/ui-js-config.php:141
 msgid "Save Template"
 msgstr ""
 
-#: classes/class-fl-builder.php:976
+#: classes/class-fl-builder.php:977
 msgid "Duplicate Layout"
 msgstr ""
 
-#: classes/class-fl-builder.php:982
+#: classes/class-fl-builder.php:983
 msgid "Preview Layout"
 msgstr ""
 
-#: classes/class-fl-builder.php:993
+#: classes/class-fl-builder.php:994
 msgid "Layout CSS & Javascript"
 msgstr ""
 
-#: classes/class-fl-builder.php:1000 includes/global-settings.php:4
+#: classes/class-fl-builder.php:1001 includes/global-settings.php:4
 #: includes/ui-js-config.php:92
 msgid "Global Settings"
 msgstr ""
 
-#: classes/class-fl-builder.php:1011
+#: classes/class-fl-builder.php:1012
 msgid "Change UI Brightness"
 msgstr ""
 
-#: classes/class-fl-builder.php:1018 classes/class-fl-builder.php:1041
+#: classes/class-fl-builder.php:1019 classes/class-fl-builder.php:1042
 msgid "WordPress Admin"
 msgstr ""
 
-#: classes/class-fl-builder.php:1025 classes/class-fl-builder.php:1095
+#: classes/class-fl-builder.php:1026 classes/class-fl-builder.php:1096
 msgid "Help"
 msgstr ""
 
-#: classes/class-fl-builder.php:1032
+#: classes/class-fl-builder.php:1033
 msgid "Keyboard Shortcuts"
 msgstr ""
 
-#: classes/class-fl-builder.php:1070 includes/ui-js-config.php:106
+#: classes/class-fl-builder.php:1071 includes/ui-js-config.php:106
 msgid "Manage Templates"
 msgstr ""
 
-#: classes/class-fl-builder.php:1084
+#: classes/class-fl-builder.php:1085
 msgid "Customize Theme"
 msgstr ""
 
-#: classes/class-fl-builder.php:1114
+#: classes/class-fl-builder.php:1115
 msgid "Take A Tour"
 msgstr ""
 
-#: classes/class-fl-builder.php:1122
+#: classes/class-fl-builder.php:1123
 msgid "View Knowledge Base"
 msgstr ""
 
-#: classes/class-fl-builder.php:1130
+#: classes/class-fl-builder.php:1131
 #: extensions/fl-builder-white-label/includes/admin-settings-help-button.php:59
 #: includes/ui-js-config.php:181
 msgid "Contact Support"
 msgstr ""
 
-#: classes/class-fl-builder.php:1318
+#: classes/class-fl-builder.php:1319
 msgid "Upgrade Today"
 msgstr ""
 
-#: classes/class-fl-builder.php:1322
+#: classes/class-fl-builder.php:1323
 msgid "Buy Now"
 msgstr ""
 
-#: classes/class-fl-builder.php:1326 includes/ui-js-config.php:87
+#: classes/class-fl-builder.php:1327 includes/ui-js-config.php:87
 #: includes/ui-js-templates.php:278
 msgid "Done"
 msgstr ""
 
-#: classes/class-fl-builder.php:3018
+#: classes/class-fl-builder.php:3022
 msgid "The uploaded file is not a valid %s extension."
 msgstr ""
 
@@ -1491,10 +1527,10 @@ msgstr ""
 #: includes/global-settings.php:114 includes/global-settings.php:128
 #: includes/row-settings.php:320 includes/row-settings.php:425
 #: includes/ui-loop-settings.php:115 modules/accordion/accordion.php:92
-#: modules/accordion/accordion.php:104 modules/audio/audio.php:120
-#: modules/audio/audio.php:132 modules/audio/audio.php:157
-#: modules/audio/audio.php:171 modules/audio/audio.php:183
-#: modules/audio/audio.php:192 modules/button/button.php:176
+#: modules/accordion/accordion.php:104 modules/audio/audio.php:121
+#: modules/audio/audio.php:133 modules/audio/audio.php:158
+#: modules/audio/audio.php:172 modules/audio/audio.php:184
+#: modules/audio/audio.php:193 modules/button/button.php:176
 #: modules/callout/callout.php:417 modules/callout/callout.php:471
 #: modules/content-slider/content-slider.php:244
 #: modules/content-slider/content-slider.php:258
@@ -1548,10 +1584,10 @@ msgstr ""
 #: includes/global-settings.php:115 includes/global-settings.php:129
 #: includes/row-settings.php:321 includes/row-settings.php:426
 #: includes/ui-loop-settings.php:114 modules/accordion/accordion.php:91
-#: modules/accordion/accordion.php:105 modules/audio/audio.php:121
-#: modules/audio/audio.php:133 modules/audio/audio.php:158
-#: modules/audio/audio.php:172 modules/audio/audio.php:184
-#: modules/audio/audio.php:193 modules/button/button.php:175
+#: modules/accordion/accordion.php:105 modules/audio/audio.php:122
+#: modules/audio/audio.php:134 modules/audio/audio.php:159
+#: modules/audio/audio.php:173 modules/audio/audio.php:185
+#: modules/audio/audio.php:194 modules/button/button.php:175
 #: modules/callout/callout.php:418 modules/callout/callout.php:470
 #: modules/content-slider/content-slider.php:245
 #: modules/content-slider/content-slider.php:259
@@ -1803,9 +1839,16 @@ msgstr ""
 
 #: extensions/fl-builder-user-templates/classes/class-fl-builder-user-templates-admin-list.php:101
 #: extensions/fl-builder-user-templates/classes/class-fl-builder-user-templates-admin-menu.php:42
-#: extensions/fl-builder-user-templates/classes/class-fl-builder-user-templates.php:284
+#: extensions/fl-builder-user-templates/classes/class-fl-builder-user-templates.php:288
 #: extensions/fl-builder-user-templates/includes/ui-js-templates.php:42
 msgid "Saved Rows"
+msgstr ""
+
+#: extensions/fl-builder-user-templates/classes/class-fl-builder-user-templates-admin-list.php:103
+#: extensions/fl-builder-user-templates/classes/class-fl-builder-user-templates-admin-menu.php:43
+#: extensions/fl-builder-user-templates/classes/class-fl-builder-user-templates.php:248
+#: extensions/fl-builder-user-templates/includes/ui-js-templates.php:79
+msgid "Saved Columns"
 msgstr ""
 
 #: extensions/fl-builder-user-templates/classes/class-fl-builder-user-templates-admin-list.php:105
@@ -1865,12 +1908,12 @@ msgstr ""
 msgid "The selected roles will be able to edit global rows and modules."
 msgstr ""
 
-#: extensions/fl-builder-user-templates/classes/class-fl-builder-user-templates.php:318
+#: extensions/fl-builder-user-templates/classes/class-fl-builder-user-templates.php:322
 msgid "Saved Templates"
 msgstr ""
 
-#: extensions/fl-builder-user-templates/classes/class-fl-builder-user-templates.php:350
 #: extensions/fl-builder-user-templates/classes/class-fl-builder-user-templates.php:354
+#: extensions/fl-builder-user-templates/classes/class-fl-builder-user-templates.php:358
 #: includes/ui-js-config.php:189
 msgid "Saved"
 msgstr ""
@@ -2470,7 +2513,7 @@ msgstr ""
 
 #: includes/column-settings.php:7 includes/module-settings.php:85
 #: includes/row-settings.php:10 modules/accordion/accordion.php:46
-#: modules/audio/audio.php:145 modules/button/button.php:231
+#: modules/audio/audio.php:146 modules/button/button.php:231
 #: modules/button/button.php:269 modules/button/button.php:273
 #: modules/callout/callout.php:235 modules/callout/callout.php:577
 #: modules/contact-form/contact-form.php:458
@@ -4361,42 +4404,42 @@ msgstr ""
 msgid "Link"
 msgstr ""
 
-#: modules/audio/audio.php:117 modules/content-slider/content-slider.php:241
+#: modules/audio/audio.php:118 modules/content-slider/content-slider.php:241
 #: modules/post-carousel/post-carousel.php:151
 #: modules/post-slider/post-slider.php:382 modules/slideshow/slideshow.php:369
 #: modules/testimonials/testimonials.php:92 modules/video/video.php:125
 msgid "Auto Play"
 msgstr ""
 
-#: modules/audio/audio.php:129 modules/content-slider/content-slider.php:273
+#: modules/audio/audio.php:130 modules/content-slider/content-slider.php:273
 #: modules/post-carousel/post-carousel.php:167
 #: modules/post-slider/post-slider.php:398 modules/video/video.php:137
 msgid "Loop"
 msgstr ""
 
-#: modules/audio/audio.php:148 modules/contact-form/contact-form.php:614
+#: modules/audio/audio.php:149 modules/contact-form/contact-form.php:614
 #: modules/subscribe-form/subscribe-form.php:488
 msgid "Light"
 msgstr ""
 
-#: modules/audio/audio.php:149 modules/contact-form/contact-form.php:615
+#: modules/audio/audio.php:150 modules/contact-form/contact-form.php:615
 #: modules/subscribe-form/subscribe-form.php:489
 msgid "Dark"
 msgstr ""
 
-#: modules/audio/audio.php:154
+#: modules/audio/audio.php:155
 msgid "Show Playlist"
 msgstr ""
 
-#: modules/audio/audio.php:168
+#: modules/audio/audio.php:169
 msgid "Show Track Numbers"
 msgstr ""
 
-#: modules/audio/audio.php:180
+#: modules/audio/audio.php:181
 msgid "Show Thumbnail"
 msgstr ""
 
-#: modules/audio/audio.php:189
+#: modules/audio/audio.php:190
 msgid "Show Artist Name"
 msgstr ""
 
@@ -7176,22 +7219,27 @@ msgctxt "A list of subscribers group from a Mailrelay account."
 msgid "Group"
 msgstr ""
 
-#: classes/class-fl-builder-services.php:219
+#: classes/class-fl-builder-service-ontraport.php:192
+msgctxt "An email campaign from your Ontraport account."
+msgid "Campaign"
+msgstr ""
+
+#: classes/class-fl-builder-services.php:225
 msgctxt "Third party service such as MailChimp."
 msgid "Error: Missing service type."
 msgstr ""
 
-#: classes/class-fl-builder-services.php:221
+#: classes/class-fl-builder-services.php:227
 msgctxt "Connection data such as an API key."
 msgid "Error: Missing service data."
 msgstr ""
 
-#: classes/class-fl-builder-services.php:223
+#: classes/class-fl-builder-services.php:229
 msgctxt "Account name for a third party service such as MailChimp."
 msgid "Error: Missing account name."
 msgstr ""
 
-#: classes/class-fl-builder-services.php:232
+#: classes/class-fl-builder-services.php:238
 msgctxt "Account name for a third party service such as MailChimp."
 msgid "Error: An account with that name already exists."
 msgstr ""
@@ -7237,82 +7285,82 @@ msgctxt "current blog name"
 msgid "Rebuilt the theme cache for blog %s"
 msgstr ""
 
-#: classes/class-fl-builder.php:1061
+#: classes/class-fl-builder.php:1062
 msgctxt "label for the WordPress Dashboard link"
 msgid "Dashboard"
 msgstr ""
 
-#: classes/class-fl-builder.php:1151
+#: classes/class-fl-builder.php:1152
 msgctxt "A keyboard shortcut with no label given"
 msgid "Untitled Shortcut"
 msgstr ""
 
-#: classes/class-fl-builder.php:1159
+#: classes/class-fl-builder.php:1160
 msgctxt "Keyboard action to show modules tab"
 msgid "Open Modules Tab"
 msgstr ""
 
-#: classes/class-fl-builder.php:1163
+#: classes/class-fl-builder.php:1164
 msgctxt "Keyboard action to show rows tab"
 msgid "Open Rows Tab"
 msgstr ""
 
-#: classes/class-fl-builder.php:1167
+#: classes/class-fl-builder.php:1168
 msgctxt "Keyboard action to show templates tab"
 msgid "Open Templates Tab"
 msgstr ""
 
-#: classes/class-fl-builder.php:1171
+#: classes/class-fl-builder.php:1172
 msgctxt "Keyboard action to show saved tab"
 msgid "Open Saved Tab"
 msgstr ""
 
-#: classes/class-fl-builder.php:1176
+#: classes/class-fl-builder.php:1177
 msgctxt "Keyboard action to open save template form"
 msgid "Save New Template"
 msgstr ""
 
-#: classes/class-fl-builder.php:1181
+#: classes/class-fl-builder.php:1182
 msgctxt "Keyboard action to toggle preview mode"
 msgid "Toggle Preview Mode"
 msgstr ""
 
-#: classes/class-fl-builder.php:1185
+#: classes/class-fl-builder.php:1186
 msgctxt "Keyboard action to open the global settings panel"
 msgid "Open Global Settings"
 msgstr ""
 
-#: classes/class-fl-builder.php:1189
+#: classes/class-fl-builder.php:1190
 msgctxt "Keyboard action to open the layout settings panel"
 msgid "Open Layout Settings"
 msgstr ""
 
-#: classes/class-fl-builder.php:1193
+#: classes/class-fl-builder.php:1194
 msgctxt "Keyboard action to switch between light and dark UI brightness"
 msgid "Change UI Brightness"
 msgstr ""
 
-#: classes/class-fl-builder.php:1197
+#: classes/class-fl-builder.php:1198
 msgctxt "Keyboard action to open the module search panel"
 msgid "Display Module Search"
 msgstr ""
 
-#: classes/class-fl-builder.php:1202
+#: classes/class-fl-builder.php:1203
 msgctxt "Keyboard action to save changes"
 msgid "Save Layout"
 msgstr ""
 
-#: classes/class-fl-builder.php:1207
+#: classes/class-fl-builder.php:1208
 msgctxt "Keyboard action to publish any pending changes"
 msgid "Publish changes without leaving builder"
 msgstr ""
 
-#: classes/class-fl-builder.php:1212
+#: classes/class-fl-builder.php:1213
 msgctxt "Keyboard action to dismiss the current task or panel"
 msgid "Dismiss Active Panel"
 msgstr ""
 
-#: classes/class-fl-builder.php:1294
+#: classes/class-fl-builder.php:1295
 msgctxt "Currently editing message"
 msgid "Currently Editing %s"
 msgstr ""
@@ -7526,7 +7574,7 @@ msgctxt "Custom taxonomy label."
 msgid "Type"
 msgstr ""
 
-#: extensions/fl-builder-user-templates/classes/class-fl-builder-user-templates.php:443
+#: extensions/fl-builder-user-templates/classes/class-fl-builder-user-templates.php:447
 #: extensions/fl-builder-user-templates/includes/ui-js-templates.php:7
 #: extensions/fl-builder-user-templates/includes/ui-js-templates.php:57
 #: extensions/fl-builder-user-templates/includes/ui-js-templates.php:94
