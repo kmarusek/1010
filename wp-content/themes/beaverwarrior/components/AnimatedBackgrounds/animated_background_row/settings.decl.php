@@ -74,6 +74,16 @@ function bw_animated_background_row_settings($form, $id) {
                                 'no' => __("No"),
                             ),
                             'default' => 'no',
+                        ),
+                        'bw_ab_loadanim' => array(
+                            'type' => 'select',
+                            'label' => __("Load animation present", 'skeleton-warrior'),
+                            'description' => __("Indicates that a load animation has been applied in CSS. If so, the load animation will remain active until it has completed. Not to be used on a looping animation.", 'skeleton-warrior'),
+                            'options' => array(
+                                'yes' => __("Yes"),
+                                'no' => __("No"),
+                            ),
+                            'default' => 'no',
                         )
                     )
                 ),
