@@ -3,6 +3,7 @@
         "script.js": {
             "files": [
                 "./build/interim/handlebars.js",
+                "./assets/js/AniamtedBackgrounds/*.js",
                 "./assets/js/*.js",
                 "./components/**/*.js",
                 "./layouts/**/*.js"

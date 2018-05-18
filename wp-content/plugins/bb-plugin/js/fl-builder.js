@@ -701,7 +701,7 @@
 			$('body').delegate('.fl-builder-alert-close', 'click', FLBuilder._alertClose);
 
 			/* General Overlays */
-			$('body').delegate('.fl-block-overlay', 'contextmenu', FLBuilder._removeAllOverlays);
+			$('body').delegate('.fl-block-overlay', 'contextmenu', FLBuilder._onContextmenu);
 
 			/* Rows */
 			$('body').delegate('.fl-row-overlay .fl-block-remove', 'click', FLBuilder._deleteRowClicked);
@@ -871,6 +871,21 @@
 			content.undelegate('.fl-col', 'mouseleave', FLBuilder._colMouseleave);
 			content.undelegate('.fl-module', 'mouseenter', FLBuilder._moduleMouseenter);
 			content.undelegate('.fl-module', 'mouseleave', FLBuilder._moduleMouseleave);
+		},
+
+		/**
+		 * Hides overlays when the contextmenu event is fired on them.
+		 * This allows us to inspect the actual node in the console
+		 * instead of getting the overlay.
+		 *
+		 * @since 2.2
+		 * @access private
+		 * @method _onContextmenu
+		 * @param {Object} e The event object.
+		 */
+		_onContextmenu: function( e )
+		{
+		    $( this ).hide();
 		},
 
 		/**
@@ -2816,7 +2831,9 @@
 			// Build the menu if we have overflow items.
 			if ( overflowItems.length > 0 ) {
 
-				overflowItems.unshift( visibleItems.pop().remove() );
+				if( visibleItems.length > 0 ) {
+					overflowItems.unshift( visibleItems.pop().remove() );
+				}
 
 				for( i = 0; i < overflowItems.length; i++ ) {
 

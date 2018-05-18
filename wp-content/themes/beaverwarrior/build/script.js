@@ -1435,120 +1435,6 @@ if (typeof Object.create !== 'function') {
     return module;
 }));
 
-/*global define, console, document, window*/
-(function (root, factory) {
-    "use strict";
-    if (typeof define === 'function' && define.amd) {
-        define("Animations", ["jquery", "Behaviors"], factory);
-    } else {
-        root.Animations = factory(root.jQuery, root.Behaviors);
-    }
-}(this, function ($, Behaviors) {
-    "use strict";
-    
-    var module = {};
-
-    /* Watches for the start and end of an animation.
-     *
-     * The .promise attribute stores a promise which resolves whenever the
-     * animation has completed or no animation events were detected over a
-     * timeout period of 5 second.
-     *
-     * An important caveat: Animations with delay longer than 5 seconds will
-     * fail to fire events and the animation watcher will trigger the timeout
-     * behavior instead. You can avoid this behavior by triggering another
-     * animation of any kind during the timeout period and keeping it alive
-     * until the delayed animation begins.
-     */
-    function AnimationWatcher($elem) {
-        var Class = this.constructor,
-            eventSelector = Class.get_unique_id(),
-            that = this,
-            evtStartNames = "animationstart." + eventSelector +
-                      " webkitAnimationStart." + eventSelector +
-                      " oanimationstart." + eventSelector +
-                      " MSAnimationStart." + eventSelector,
-            evtEndNames = "animationend." + eventSelector +
-                      " webkitAnimationEnd." + eventSelector +
-                      " oanimationend." + eventSelector +
-                      " MSAnimationEnd." + eventSelector,
-            animation_start = this.animation_start.bind(this),
-            animation_end = this.animation_end.bind(this),
-            animation_timeout_delay = 5000;
-
-        this.eventSelector = eventSelector;
-
-        this.$elem = $elem;
-        this.$elem.on(evtStartNames, animation_start);
-        this.$elem.on(evtEndNames, animation_end);
-
-        if (window.Modernizr && window.Modernizr.cssanimations === false) {
-            animation_timeout_delay = 0;
-        }
-
-        this.timeout = window.setTimeout(this.abort_animation.bind(this), animation_timeout_delay);
-        this.remaining_animations = [];
-
-        //We remove event handlers after one of the handlers resolves the
-        //animation promise.
-        this.promise = new Promise(function (resolve, reject) {
-            that.resolve = resolve;
-            that.reject = reject;
-        }).then(function () {
-            that.$elem.off(evtStartNames, animation_start);
-            that.$elem.off(evtEndNames, animation_end);
-        });
-
-        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Created");
-    }
-
-    AnimationWatcher.count = 0;
-
-    AnimationWatcher.get_unique_id = function () {
-        var Class = this,
-            sel = "." + Class.name + "_" + Class.count;
-
-        Class.count += 1;
-        return sel;
-    };
-
-    AnimationWatcher.prototype.animation_start = function (evt) {
-        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Begun (" + evt.originalEvent.animationName + ")");
-        if (this.timeout !== null) {
-            window.clearTimeout(this.timeout);
-            this.timeout = null;
-        }
-
-        this.remaining_animations.push(evt.originalEvent.animationName);
-    };
-
-    AnimationWatcher.prototype.animation_end = function (evt) {
-        var loc = this.remaining_animations.indexOf(evt.originalEvent.animationName);
-
-        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Ended (" + evt.originalEvent.animationName + ")");
-
-        if (loc !== -1) {
-            this.remaining_animations.splice(loc, 1);
-        }
-
-        if (this.remaining_animations.length === 0) {
-            this.resolve();
-        }
-    };
-
-    AnimationWatcher.prototype.abort_animation = function (evt) {
-        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Abort timeout triggered");
-
-        if (this.remaining_animations.length === 0) {
-            this.resolve();
-        }
-    };
-
-    module.AnimationWatcher = AnimationWatcher;
-
-    return module;
-}));
-
 /*global define, console, window, HTMLImageElement, Promise*/
 
 (function (root, factory) {
@@ -1934,6 +1820,120 @@ if (typeof Object.create !== 'function') {
     Behaviors.register_behavior(AtlasPlayer);
 
     module.AtlasPlayer = AtlasPlayer;
+
+    return module;
+}));
+
+/*global define, console, document, window*/
+(function (root, factory) {
+    "use strict";
+    if (typeof define === 'function' && define.amd) {
+        define("Animations", ["jquery", "Behaviors"], factory);
+    } else {
+        root.Animations = factory(root.jQuery, root.Behaviors);
+    }
+}(this, function ($, Behaviors) {
+    "use strict";
+    
+    var module = {};
+
+    /* Watches for the start and end of an animation.
+     *
+     * The .promise attribute stores a promise which resolves whenever the
+     * animation has completed or no animation events were detected over a
+     * timeout period of 5 second.
+     *
+     * An important caveat: Animations with delay longer than 5 seconds will
+     * fail to fire events and the animation watcher will trigger the timeout
+     * behavior instead. You can avoid this behavior by triggering another
+     * animation of any kind during the timeout period and keeping it alive
+     * until the delayed animation begins.
+     */
+    function AnimationWatcher($elem) {
+        var Class = this.constructor,
+            eventSelector = Class.get_unique_id(),
+            that = this,
+            evtStartNames = "animationstart." + eventSelector +
+                      " webkitAnimationStart." + eventSelector +
+                      " oanimationstart." + eventSelector +
+                      " MSAnimationStart." + eventSelector,
+            evtEndNames = "animationend." + eventSelector +
+                      " webkitAnimationEnd." + eventSelector +
+                      " oanimationend." + eventSelector +
+                      " MSAnimationEnd." + eventSelector,
+            animation_start = this.animation_start.bind(this),
+            animation_end = this.animation_end.bind(this),
+            animation_timeout_delay = 5000;
+
+        this.eventSelector = eventSelector;
+
+        this.$elem = $elem;
+        this.$elem.on(evtStartNames, animation_start);
+        this.$elem.on(evtEndNames, animation_end);
+
+        if (window.Modernizr && window.Modernizr.cssanimations === false) {
+            animation_timeout_delay = 0;
+        }
+
+        this.timeout = window.setTimeout(this.abort_animation.bind(this), animation_timeout_delay);
+        this.remaining_animations = [];
+
+        //We remove event handlers after one of the handlers resolves the
+        //animation promise.
+        this.promise = new Promise(function (resolve, reject) {
+            that.resolve = resolve;
+            that.reject = reject;
+        }).then(function () {
+            that.$elem.off(evtStartNames, animation_start);
+            that.$elem.off(evtEndNames, animation_end);
+        });
+
+        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Created");
+    }
+
+    AnimationWatcher.count = 0;
+
+    AnimationWatcher.get_unique_id = function () {
+        var Class = this,
+            sel = "." + Class.name + "_" + Class.count;
+
+        Class.count += 1;
+        return sel;
+    };
+
+    AnimationWatcher.prototype.animation_start = function (evt) {
+        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Begun (" + evt.originalEvent.animationName + ")");
+        if (this.timeout !== null) {
+            window.clearTimeout(this.timeout);
+            this.timeout = null;
+        }
+
+        this.remaining_animations.push(evt.originalEvent.animationName);
+    };
+
+    AnimationWatcher.prototype.animation_end = function (evt) {
+        var loc = this.remaining_animations.indexOf(evt.originalEvent.animationName);
+
+        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Ended (" + evt.originalEvent.animationName + ")");
+
+        if (loc !== -1) {
+            this.remaining_animations.splice(loc, 1);
+        }
+
+        if (this.remaining_animations.length === 0) {
+            this.resolve();
+        }
+    };
+
+    AnimationWatcher.prototype.abort_animation = function (evt) {
+        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Abort timeout triggered");
+
+        if (this.remaining_animations.length === 0) {
+            this.resolve();
+        }
+    };
+
+    module.AnimationWatcher = AnimationWatcher;
 
     return module;
 }));
@@ -3852,16 +3852,16 @@ if (!Array.prototype.indexOf) {
     return module;
 }));
 
-/*global define, console*/
+/*global window, define, Promise*/
 
 (function (root, factory) {
     "use strict";
     if (typeof define === 'function' && define.amd) {
-        define("ScrollEffects", ["jquery", "Behaviors"], factory);
+        define("ScrollEffects", ["jquery", "Behaviors", "AtlasPlayer"], factory);
     } else {
-        root.ScrollEffects = factory(root.jQuery, root.Behaviors);
+        root.ScrollEffects = factory(root.jQuery, root.Behaviors, root.AtlasPlayer);
     }
-}(this, function ($, Behaviors) {
+}(this, function ($, Behaviors, AtlasPlayer) {
     "use strict";
 
     var module = {};
@@ -3929,6 +3929,14 @@ if (!Array.prototype.indexOf) {
             this.$elem.removeClass("is-ScrollEffects--active");
             this.$elem.addClass("is-ScrollEffects--inactive");
         }
+        
+        if (this.loaded) {
+            this.$elem.removeClass("is-ScrollEffects--unloaded");
+            this.$elem.addClass("is-ScrollEffects--loaded");
+        } else {
+            this.$elem.addClass("is-ScrollEffects--unloaded");
+            this.$elem.removeClass("is-ScrollEffects--loaded");
+        }
     };
 
     ScrollEffects.prototype.on_scroll_intent = function () {
@@ -3966,6 +3974,9 @@ if (!Array.prototype.indexOf) {
         Behaviors.init(ScrollAlax, this, arguments);
 
         this.$layers = this.$elem.find("li");
+        this.$atlasplayers = this.$elem.find(AtlasPlayer.AtlasPlayer.QUERY);
+        this.atlasplayers = AtlasPlayer.AtlasPlayer.find_markup(this.$atlasplayers);
+        
         this.depth = this.$elem.height() * -0.5;
 
         if (this.$elem.data('scrollalax-depthrange') === 'outside') {
@@ -3977,6 +3988,9 @@ if (!Array.prototype.indexOf) {
         this.weights = this.weight_layers(this.$layers);
 
         this.on_scroll_intent();
+        
+        this.loaded = false;
+        this.load().then(this.on_loaded.bind(this));
     }
 
     Behaviors.inherit(ScrollAlax, ScrollEffects);
@@ -4010,10 +4024,10 @@ if (!Array.prototype.indexOf) {
         }.bind(this));
 
         return w;
-    }
+    };
 
     /* Calculate X or Y positions of a layer. */
-    ScrollAlax.prototype.apply_transform_css = function(style, index, xPct, yPct) {
+    ScrollAlax.prototype.apply_transform_css = function (style, index, xPct, yPct) {
         var pct_Xdrag = this.weights[index] * xPct * this.anim_scale,
             pct_Ydrag = this.weights[index] * yPct * this.anim_scale,
             xDisp = this.depth * pct_Xdrag * this.anim_scale,
@@ -4033,6 +4047,65 @@ if (!Array.prototype.indexOf) {
 
             this.apply_transform_css(layer_elem.style, index, 0, pct_down);
         }.bind(this));
+        
+        if (this.loaded) {
+            this.$elem.removeClass("is-ScrollEffects--unloaded");
+            this.$elem.addClass("is-ScrollEffects--loaded");
+        } else {
+            this.$elem.addClass("is-ScrollEffects--unloaded");
+            this.$elem.removeClass("is-ScrollEffects--loaded");
+        }
+    };
+    
+    /**
+     * Ensure all layers have their images loaded.
+     * 
+     * Returns a promise that resolves when all images in all layers have
+     * loaded.
+     */
+    ScrollAlax.prototype.load = function () {
+        var promises = [];
+        
+        this.$layers.each(function (index, layer_elem) {
+            var $backgrounds = $(layer_elem).find("[style*='background-image']"),
+                $images = $(layer_elem).find("img[src]");
+            
+            $backgrounds.each(function (index, bgelem) {
+                var src = $(bgelem).css("background-image").slice(5, -2);
+                
+                promises.push(new Promise(function (resolve) {
+                    $("<img/>").attr("src", src).on('load', function () {
+                        $(this).remove();
+                        resolve();
+                    });
+                }.bind(this)));
+            }.bind(this));
+            
+            $images.each(function (index, imgelem) {
+                var src = $(imgelem).attr("src");
+                
+                promises.push(new Promise(function (resolve) {
+                    $("<img/>").attr("src", src).on('load', function () {
+                        $(this).remove();
+                        resolve();
+                    });
+                }.bind(this)));
+            }.bind(this));
+        });
+        
+        return Promise.all(promises);
+    };
+    
+    ScrollAlax.prototype.on_loaded = function () {
+        var i = 0;
+        
+        for (i = 0; i < this.atlasplayers.length; i += 1) {
+            this.atlasplayers[i].seek(0);
+            this.atlasplayers[i].play();
+        }
+        
+        this.loaded = true;
+        this.update_css_classes();
     };
 
     Behaviors.register_behavior(ScrollAlax);
@@ -4738,6 +4811,111 @@ if (!Array.prototype.indexOf) {
 
     module.TabbedContentSet = TabbedContentSet;
 
+    return module;
+}));
+
+/*jslint continue: true, es5: true*/
+/*global detectZoom, console, jQuery, define, Float32Array, Uint16Array*/
+(function (root, factory) {
+    "use strict";
+    if (typeof define === 'function' && define.amd) {
+        define("UTM", ["jquery", "Behaviors"], factory);
+    } else {
+        root.UTM = factory(root.jQuery, root.Behaviors);
+    }
+}(this, function ($, Behaviors) {
+    "use strict";
+    var module = {},
+        utm_variables = {},
+        wanted_vars = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
+
+    function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split('&');
+        for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split('=');
+            if (decodeURIComponent(pair[0]) == variable) {
+                return decodeURIComponent(pair[1]);
+            }
+        }
+    }
+
+    /* Given a query string, return an object whose keys are matched UTM vars.
+     */
+    function look_for_utm_variables() {
+        var new_utm_variables = {}, i;
+
+        for (i = 0; i < wanted_vars.length; i += 1) {
+            new_utm_variables[wanted_vars[i]] = getQueryVariable(wanted_vars[i]);
+        }
+
+        return new_utm_variables;
+    }
+
+    function do_utm_replace($context) {
+        utm_variables = look_for_utm_variables();
+
+        $context.find("a[href]").each(function (index, elem) {
+            var k, $elem = $(elem),
+                old_href = $elem.attr("href");
+
+            for (k in utm_variables) {
+                if (utm_variables.hasOwnProperty(k) && utm_variables[k] !== undefined) {
+                    if (old_href.indexOf("?") !== -1) {
+                        old_href = old_href + "&" + k + "=" + utm_variables[k];
+                    } else {
+                        old_href = old_href + "?" + k + "=" + utm_variables[k];
+                    }
+                }
+            }
+
+            $elem.attr("href", old_href);
+        })
+    }
+    
+    function do_gform_insertion(evt, form_id, current_page) {
+        var $form = $("#gform_" + form_id), i, k,
+            old_action = $form.attr("action");
+        
+        utm_variables = look_for_utm_variables();
+        
+        //Remove any existing query vars.
+        //TODO: should we bother preserving old vars that aren't UTMs?
+        old_action = old_action.split("?")[0];
+        
+        //Add UTM variables as seen by the client.
+        for (k in utm_variables) {
+            if (utm_variables.hasOwnProperty(k) && utm_variables[k] !== undefined) {
+                if (old_action.indexOf("?") !== -1) {
+                    old_action = old_action + "&" + k + "=" + utm_variables[k];
+                } else {
+                    old_action = old_action + "?" + k + "=" + utm_variables[k];
+                }
+            }
+        }
+        
+        $form.attr("action", old_action);
+        
+        //We can't auto-insert UTM variables into hidden fields, so instead we
+        //replace by hidden values.
+        $form.find("input[type='hidden']").each(function (index, ielem) {
+            var $ielem = $(ielem), old_value = $ielem.attr("value"), new_key;
+            
+            if (old_value.startsWith("replace_param[") && old_value.endsWith("]")) {
+                new_key = old_value.split("[")[1].split("]")[0];
+                $ielem.val(utm_variables[new_key]);
+            }
+        })
+    }
+    
+    $(document).bind("gform_post_render", do_gform_insertion);
+    
+    Behaviors.register_content_listener(do_utm_replace);
+    
+    module.do_utm_replace = do_utm_replace;
+    module.look_for_utm_variables = look_for_utm_variables;
+    module.getQueryVariable = getQueryVariable;
+    
     return module;
 }));
 
@@ -5854,111 +6032,6 @@ if (!Array.prototype.indexOf) {
     module.VideoPlayer__html5 = VideoPlayer__html5;
     module.VideoPlayer__youtube = VideoPlayer__youtube;
     module.VideoPlayer__vimeo = VideoPlayer__vimeo;
-    return module;
-}));
-
-/*jslint continue: true, es5: true*/
-/*global detectZoom, console, jQuery, define, Float32Array, Uint16Array*/
-(function (root, factory) {
-    "use strict";
-    if (typeof define === 'function' && define.amd) {
-        define("UTM", ["jquery", "Behaviors"], factory);
-    } else {
-        root.UTM = factory(root.jQuery, root.Behaviors);
-    }
-}(this, function ($, Behaviors) {
-    "use strict";
-    var module = {},
-        utm_variables = {},
-        wanted_vars = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
-
-    function getQueryVariable(variable) {
-        var query = window.location.search.substring(1);
-        var vars = query.split('&');
-        for (var i = 0; i < vars.length; i++) {
-            var pair = vars[i].split('=');
-            if (decodeURIComponent(pair[0]) == variable) {
-                return decodeURIComponent(pair[1]);
-            }
-        }
-    }
-
-    /* Given a query string, return an object whose keys are matched UTM vars.
-     */
-    function look_for_utm_variables() {
-        var new_utm_variables = {}, i;
-
-        for (i = 0; i < wanted_vars.length; i += 1) {
-            new_utm_variables[wanted_vars[i]] = getQueryVariable(wanted_vars[i]);
-        }
-
-        return new_utm_variables;
-    }
-
-    function do_utm_replace($context) {
-        utm_variables = look_for_utm_variables();
-
-        $context.find("a[href]").each(function (index, elem) {
-            var k, $elem = $(elem),
-                old_href = $elem.attr("href");
-
-            for (k in utm_variables) {
-                if (utm_variables.hasOwnProperty(k) && utm_variables[k] !== undefined) {
-                    if (old_href.indexOf("?") !== -1) {
-                        old_href = old_href + "&" + k + "=" + utm_variables[k];
-                    } else {
-                        old_href = old_href + "?" + k + "=" + utm_variables[k];
-                    }
-                }
-            }
-
-            $elem.attr("href", old_href);
-        })
-    }
-    
-    function do_gform_insertion(evt, form_id, current_page) {
-        var $form = $("#gform_" + form_id), i, k,
-            old_action = $form.attr("action");
-        
-        utm_variables = look_for_utm_variables();
-        
-        //Remove any existing query vars.
-        //TODO: should we bother preserving old vars that aren't UTMs?
-        old_action = old_action.split("?")[0];
-        
-        //Add UTM variables as seen by the client.
-        for (k in utm_variables) {
-            if (utm_variables.hasOwnProperty(k) && utm_variables[k] !== undefined) {
-                if (old_action.indexOf("?") !== -1) {
-                    old_action = old_action + "&" + k + "=" + utm_variables[k];
-                } else {
-                    old_action = old_action + "?" + k + "=" + utm_variables[k];
-                }
-            }
-        }
-        
-        $form.attr("action", old_action);
-        
-        //We can't auto-insert UTM variables into hidden fields, so instead we
-        //replace by hidden values.
-        $form.find("input[type='hidden']").each(function (index, ielem) {
-            var $ielem = $(ielem), old_value = $ielem.attr("value"), new_key;
-            
-            if (old_value.startsWith("replace_param[") && old_value.endsWith("]")) {
-                new_key = old_value.split("[")[1].split("]")[0];
-                $ielem.val(utm_variables[new_key]);
-            }
-        })
-    }
-    
-    $(document).bind("gform_post_render", do_gform_insertion);
-    
-    Behaviors.register_content_listener(do_utm_replace);
-    
-    module.do_utm_replace = do_utm_replace;
-    module.look_for_utm_variables = look_for_utm_variables;
-    module.getQueryVariable = getQueryVariable;
-    
     return module;
 }));
 

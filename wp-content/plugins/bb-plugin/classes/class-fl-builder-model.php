@@ -641,7 +641,7 @@ final class FLBuilderModel {
 	 * @return array
 	 */
 	static public function get_upload_dir() {
-		$wp_info  = wp_upload_dir();
+		$wp_info  = wp_upload_dir( null, false );
 		$dir_name = basename( FL_BUILDER_DIR );
 
 		// We use bb-plugin for the lite version as well.
