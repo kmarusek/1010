@@ -257,7 +257,7 @@
                 this.atlasplayers[i].seek(0);
                 this.atlasplayers[i].play();
             }
-        }.bind(this), 500);
+        }.bind(this), 1500);
         
         this.loaded = true;
         this.update_css_classes();

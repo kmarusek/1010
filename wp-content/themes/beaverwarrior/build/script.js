@@ -4525,7 +4525,7 @@ if (!Array.prototype.indexOf) {
                 this.atlasplayers[i].seek(0);
                 this.atlasplayers[i].play();
             }
-        }.bind(this), 500);
+        }.bind(this), 1500);
         
         this.loaded = true;
         this.update_css_classes();
@@ -4541,123 +4541,6 @@ if (!Array.prototype.indexOf) {
     module.ScrollEffects = ScrollEffects;
     module.ScrollAlax = ScrollAlax;
 
-    return module;
-}));
-
-(function (root, factory) {
-    "use strict";
-    if (typeof define === 'function' && define.amd) {
-        define("accountslidein", ["jquery", "betteroffcanvas"], factory);
-    } else {
-        // Browser globals
-        root.accountslidein = factory(root.jQuery, root.betteroffcanvas);
-    }
-}(this, function ($, betteroffcanvas) {
-    "use strict";
-    "feel good";
-
-    $('.Account_slide-login--button').click(function(){
-        $(this).hide();
-        $('.Account_slide-form--password').removeClass('Account_slide-form--visible')
-        $('.Account_slide-form--login').addClass('Account_slide-form--visible');
-        return false;
-    });
-
-    $('.Account_slide-password_recovery').click(function(){
-        $('.Account_slide-login--button').show();
-        $('.Account_slide-form--login').removeClass('Account_slide-form--visible');
-        $('.Account_slide-form--password').addClass('Account_slide-form--visible');
-        return false;
-    });
-
-
-    $('.Account_slide-close').click(function(){
-        betteroffcanvas.dismissOffcanvas($('#SiteHeader-accounts'));
-    });
-}));
-
-(function (root, factory) {
-    "use strict";
-    if (typeof define === 'function' && define.amd) {
-        define("siteheader", ["jquery", "betteroffcanvas"], factory);
-    } else {
-        // Browser globals
-        root.siteheader = factory(root.jQuery, root.betteroffcanvas);
-    }
-}(this, function ($, betteroffcanvas, ajaxCart, Handlebars) {
-    "use strict";
-    "feel good";
-
-    function update_scroll() {
-        var scrollTop = $(window).scrollTop(),
-            $SiteHeader = $("[data-siteheader='siteheader']");
-
-        if (scrollTop === 0) {
-            $SiteHeader.addClass("is-SiteHeader--at_top");
-            $SiteHeader.removeClass("is-SiteHeader--scrolled");
-        } else {
-            $SiteHeader.removeClass("is-SiteHeader--at_top");
-            $SiteHeader.addClass("is-SiteHeader--scrolled");
-        }
-    };
-
-    $(window).on("scroll", update_scroll);
-
-    update_scroll();
-}));
-
-(function (root, factory) {
-    "use strict";
-    if (typeof define === 'function' && define.amd) {
-        define("StaffGrid", ["jquery", "Behaviors"], factory);
-    } else {
-        root.StaffGrid = factory(root.jQuery, root.Behaviors);
-    }
-}(this, function ($, Behaviors) {
-    "use strict";
-
-    var module = {};
-    
-    function StaffGridSlider() {
-        Behaviors.init(StaffGridSlider, this, arguments);
-        
-        this.$elem.slick({
-            prevArrow: this.$elem.find('[data-staffgrid-prev]'),
-            nextArrow: this.$elem.find('[data-staffgrid-next]')
-        });
-    }
-    
-    Behaviors.inherit(StaffGridSlider, Behaviors.Behavior);
-    
-    StaffGridSlider.QUERY = "[data-staffgrid-slider]";
-    
-    StaffGridSlider.prototype.goto = function (id, animate) {
-        this.$elem.slick('slickGoTo', id, animate);
-    }
-    
-    function StaffGridModal() {
-        Behaviors.init(StaffGridModal, this, arguments);
-        
-        this.slider = StaffGridSlider.locate(this.$elem.find('[data-staffgrid-slider]'));
-        this.$elem.on("offcanvas-open", this.modal_reveal_intent.bind(this));
-    }
-    
-    Behaviors.inherit(StaffGridModal, Behaviors.Behavior);
-    
-    StaffGridModal.QUERY = "[data-staffgrid-modal]";
-    
-    StaffGridModal.prototype.modal_reveal_intent = function (evt) {
-        var slideIndex = $(evt.originalEvent.toggle).data('staffgrid-slider-index');
-        
-        this.slider.goto(slideIndex, true);
-    };
-    
-    Behaviors.register_behavior(StaffGridModal);
-    Behaviors.register_behavior(StaffGridSlider);
-    
-    module.StaffGridModal = StaffGridModal;
-    module.StaffGridSlider = StaffGridSlider;
-    
     return module;
 }));
 
@@ -4826,6 +4709,123 @@ if (!Array.prototype.indexOf) {
     module.TabbedContentSet = TabbedContentSet;
 
     return module;
+}));
+
+(function (root, factory) {
+    "use strict";
+    if (typeof define === 'function' && define.amd) {
+        define("StaffGrid", ["jquery", "Behaviors"], factory);
+    } else {
+        root.StaffGrid = factory(root.jQuery, root.Behaviors);
+    }
+}(this, function ($, Behaviors) {
+    "use strict";
+
+    var module = {};
+    
+    function StaffGridSlider() {
+        Behaviors.init(StaffGridSlider, this, arguments);
+        
+        this.$elem.slick({
+            prevArrow: this.$elem.find('[data-staffgrid-prev]'),
+            nextArrow: this.$elem.find('[data-staffgrid-next]')
+        });
+    }
+    
+    Behaviors.inherit(StaffGridSlider, Behaviors.Behavior);
+    
+    StaffGridSlider.QUERY = "[data-staffgrid-slider]";
+    
+    StaffGridSlider.prototype.goto = function (id, animate) {
+        this.$elem.slick('slickGoTo', id, animate);
+    }
+    
+    function StaffGridModal() {
+        Behaviors.init(StaffGridModal, this, arguments);
+        
+        this.slider = StaffGridSlider.locate(this.$elem.find('[data-staffgrid-slider]'));
+        this.$elem.on("offcanvas-open", this.modal_reveal_intent.bind(this));
+    }
+    
+    Behaviors.inherit(StaffGridModal, Behaviors.Behavior);
+    
+    StaffGridModal.QUERY = "[data-staffgrid-modal]";
+    
+    StaffGridModal.prototype.modal_reveal_intent = function (evt) {
+        var slideIndex = $(evt.originalEvent.toggle).data('staffgrid-slider-index');
+        
+        this.slider.goto(slideIndex, true);
+    };
+    
+    Behaviors.register_behavior(StaffGridModal);
+    Behaviors.register_behavior(StaffGridSlider);
+    
+    module.StaffGridModal = StaffGridModal;
+    module.StaffGridSlider = StaffGridSlider;
+    
+    return module;
+}));
+
+(function (root, factory) {
+    "use strict";
+    if (typeof define === 'function' && define.amd) {
+        define("accountslidein", ["jquery", "betteroffcanvas"], factory);
+    } else {
+        // Browser globals
+        root.accountslidein = factory(root.jQuery, root.betteroffcanvas);
+    }
+}(this, function ($, betteroffcanvas) {
+    "use strict";
+    "feel good";
+
+    $('.Account_slide-login--button').click(function(){
+        $(this).hide();
+        $('.Account_slide-form--password').removeClass('Account_slide-form--visible')
+        $('.Account_slide-form--login').addClass('Account_slide-form--visible');
+        return false;
+    });
+
+    $('.Account_slide-password_recovery').click(function(){
+        $('.Account_slide-login--button').show();
+        $('.Account_slide-form--login').removeClass('Account_slide-form--visible');
+        $('.Account_slide-form--password').addClass('Account_slide-form--visible');
+        return false;
+    });
+
+
+    $('.Account_slide-close').click(function(){
+        betteroffcanvas.dismissOffcanvas($('#SiteHeader-accounts'));
+    });
+}));
+
+(function (root, factory) {
+    "use strict";
+    if (typeof define === 'function' && define.amd) {
+        define("siteheader", ["jquery", "betteroffcanvas"], factory);
+    } else {
+        // Browser globals
+        root.siteheader = factory(root.jQuery, root.betteroffcanvas);
+    }
+}(this, function ($, betteroffcanvas, ajaxCart, Handlebars) {
+    "use strict";
+    "feel good";
+
+    function update_scroll() {
+        var scrollTop = $(window).scrollTop(),
+            $SiteHeader = $("[data-siteheader='siteheader']");
+
+        if (scrollTop === 0) {
+            $SiteHeader.addClass("is-SiteHeader--at_top");
+            $SiteHeader.removeClass("is-SiteHeader--scrolled");
+        } else {
+            $SiteHeader.removeClass("is-SiteHeader--at_top");
+            $SiteHeader.addClass("is-SiteHeader--scrolled");
+        }
+    };
+
+    $(window).on("scroll", update_scroll);
+
+    update_scroll();
 }));
 
 /*global define, window, document, Promise*/
