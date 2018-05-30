@@ -38,12 +38,15 @@ final class FLThemeBuilderLayoutAdminEdit {
 		global $pagenow;
 
 		$post_type = isset( $_GET['post_type'] ) ? $_GET['post_type'] : null;
+		$args = $_GET;
 
 		if ( 'post-new.php' == $pagenow && 'fl-theme-layout' == $post_type ) {
 
-			$url = admin_url( '/edit.php?post_type=fl-builder-template&page=fl-builder-add-new&fl-builder-template-type=theme-layout' );
+			$args['post_type'] = 'fl-builder-template';
+			$args['page'] = 'fl-builder-add-new';
+			$args['fl-builder-template-type'] = 'theme-layout';
 
-			wp_redirect( $url );
+			wp_redirect( admin_url( '/edit.php?' . http_build_query( $args ) ) );
 
 			exit;
 		}
