@@ -3,11 +3,11 @@
 (function (root, factory) {
     "use strict";
     if (typeof define === 'function' && define.amd) {
-        define("ScrollEffects", ["jquery", "Behaviors", "AtlasPlayer"], factory);
+        define("ScrollEffects", ["jquery", "Behaviors", "AtlasPlayer", "Animations"], factory);
     } else {
-        root.ScrollEffects = factory(root.jQuery, root.Behaviors, root.AtlasPlayer);
+        root.ScrollEffects = factory(root.jQuery, root.Behaviors, root.AtlasPlayer, root.Animations);
     }
-}(this, function ($, Behaviors, AtlasPlayer) {
+}(this, function ($, Behaviors, AtlasPlayer, Animations) {
     "use strict";
 
     var module = {};
@@ -21,6 +21,8 @@
         this.scrollHandler = this.on_scroll_intent.bind(this);
 
         this.$scrollCtxt.on("scroll", this.scrollHandler);
+        
+        this.has_load_animation = $(elem).data("scrolleffects-loadanimation") !== false;
     }
 
     Behaviors.inherit(ScrollEffects, Behaviors.Behavior);
@@ -137,6 +139,11 @@
         
         this.loaded = false;
         this.load().then(this.on_loaded.bind(this));
+        
+        this.load_animation_watcher = new Animations.AnimationWatcher(this.$elem);
+        this.load_animation_watcher.promise.then(this.on_load_animation_complete.bind(this));
+        
+        this.load_animation_playing = this.has_load_animation;
     }
 
     Behaviors.inherit(ScrollAlax, ScrollEffects);
@@ -194,7 +201,7 @@
             this.apply_transform_css(layer_elem.style, index, 0, pct_down);
         }.bind(this));
         
-        if (this.loaded) {
+        if (this.loaded && !this.load_animation_playing) {
             this.$elem.removeClass("is-ScrollEffects--unloaded");
             this.$elem.addClass("is-ScrollEffects--loaded");
         } else {
@@ -243,14 +250,21 @@
     };
     
     ScrollAlax.prototype.on_loaded = function () {
-        var i = 0;
-        
-        for (i = 0; i < this.atlasplayers.length; i += 1) {
-            this.atlasplayers[i].seek(0);
-            this.atlasplayers[i].play();
-        }
+        window.setTimeout(function () {
+            var i = 0;
+
+            for (i = 0; i < this.atlasplayers.length; i += 1) {
+                this.atlasplayers[i].seek(0);
+                this.atlasplayers[i].play();
+            }
+        }.bind(this), 1500);
         
         this.loaded = true;
+        this.update_css_classes();
+    };
+    
+    ScrollAlax.prototype.on_load_animation_complete = function () {
+        this.load_animation_playing = false;
         this.update_css_classes();
     };
 
