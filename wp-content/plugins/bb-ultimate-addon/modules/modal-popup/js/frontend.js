@@ -216,6 +216,7 @@ jQuery(document).ready(function( $ ) {
 
 
 				    if ( this.overlay_click == 1 ) {
+
 						this.overlay.on( 'click', function( ev ) {
 							current_this.modal_popup.removeClass( 'uabb-show' );
 							current_this._stopVideo();

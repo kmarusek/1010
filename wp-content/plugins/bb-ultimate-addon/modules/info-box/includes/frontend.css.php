@@ -243,7 +243,7 @@ if( $settings->image_type != 'none' ) {
 			
 			<?php if( $settings->uabb_border_top > 0 || $settings->uabb_border_bottom > 0 || $settings->uabb_border_left > 0 || $settings->uabb_border_right > 0 ) : ?>
 				<?php 
-					if( isset( $settings->info_box_padding ) && $settings->info_box_padding != '' && isset( $settings->info_box_padding_dimension_top ) && ( $settings->info_box_padding_dimension_top == '' || $settings->info_box_padding_dimension_top == '0' ) && isset( $settings->info_box_padding_dimension_bottom ) && ( $settings->info_box_padding_dimension_bottom == '' || $settings->info_box_padding_dimension_bottom == '0' ) && isset( $settings->info_box_padding_dimension_left ) && ( $settings->info_box_padding_dimension_left == '' || $settings->info_box_padding_dimension_left == '0' ) && isset( $settings->info_box_padding_dimension_right ) && ( $settings->info_box_padding_dimension_right == '' || $settings->info_box_padding_dimension_right == '0' ) ) {
+					if( isset( $settings->info_box_padding ) && $settings->info_box_padding != '' && isset( $settings->info_box_padding_dimension_top ) && $settings->info_box_padding_dimension_top == '' && isset( $settings->info_box_padding_dimension_bottom ) && $settings->info_box_padding_dimension_bottom == '' && isset( $settings->info_box_padding_dimension_left ) && $settings->info_box_padding_dimension_left == ''  && isset( $settings->info_box_padding_dimension_right ) && $settings->info_box_padding_dimension_right == '' ) {
 						echo $settings->info_box_padding; ?>;
 					<?php } else { ?>
 					<?php  

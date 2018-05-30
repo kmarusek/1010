@@ -186,15 +186,15 @@ class UABBInfoBoxModule extends FLBuilderModule {
                 'mob_align'          => '',
 
                 /* Typography */
-                'font_size'                   => $this->settings->btn_font_size,
+                'font_size'                   => ( isset($this->settings->btn_font_size) ) ? $this->settings->btn_font_size : '',
+        		'line_height'                 => ( isset($this->settings->btn_line_height) ) ? $this->settings->btn_line_height : '',
                 'font_size_unit'              => $this->settings->btn_font_size_unit,
                 'font_size_unit_medium'       => $this->settings->btn_font_size_unit_medium,
                 'font_size_unit_responsive'   => $this->settings->btn_font_size_unit_responsive,
-                'line_height'                 => $this->settings->btn_line_height,
                 'line_height_unit'            => $this->settings->btn_line_height_unit,
                 'line_height_unit_medium'     => $this->settings->btn_line_height_unit_medium,
                 'line_height_unit_responsive' => $this->settings->btn_line_height_unit_responsive,
-                'font_family'       => $this->settings->btn_font_family,
+                'font_family'       		  => $this->settings->btn_font_family,
 			);
 
 			echo '<div class="uabb-infobox-button">';

@@ -153,7 +153,6 @@
 .uabb-form-error-message {
 	clear: both;
 	display: none;
-	/*padding-top: 8px;*/
 	font-weight: bold;
 	position: absolute;
     opacity: 0;
@@ -271,3 +270,45 @@
 .uabb-success-none {
 	display: block;
 }
+
+/* Terms Checkbox and Text CSS */
+
+.uabb-contact-form .uabb-terms-checkbox .checkbox-label {
+	height: 26px;
+	display: table-cell;
+	vertical-align: middle;
+	position: relative;
+}
+
+.uabb-contact-form .uabb-terms-checkbox-text {
+	margin: 10px 0;
+}
+
+.uabb-contact-form .uabb-terms-checkbox input[type="checkbox"] {
+	display: none;
+}
+
+.uabb-contact-form .uabb-terms-checkbox input[type="checkbox"] + span:before {
+	content: '';
+    width: 24px;
+    height: 24px;
+    padding: 2px;
+    margin-right: 10px;
+    text-align: center;
+    border-radius: 1px;
+    border-style: solid;
+    border-radius: 0;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.uabb-contact-form .uabb-input-group-wrap input[type="checkbox"]:checked + span:before {
+    content: "\2714";
+    color: #3A3A3A;
+    font-size: 20px;
+    line-height: 18px;
+    font-weight: bold;
+    padding-top: 2px;
+}
+
+/* Terms Checkbox and Text CSS end */

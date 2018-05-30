@@ -179,7 +179,7 @@ if( $settings->blog_image_position != 'top' && $settings->blog_image_position !=
 ?>
 .fl-node-<?php echo $id; ?> .uabb-blog-posts .uabb-blog-post-inner-wrap {
 	<?php 
-	if( isset( $settings->overall_padding ) && $settings->overall_padding != '' && isset( $settings->overall_padding_dimension_top ) && ( $settings->overall_padding_dimension_top == '' || $settings->overall_padding_dimension_top == '0' ) && isset( $settings->overall_padding_dimension_bottom ) && ( $settings->overall_padding_dimension_bottom == '' || $settings->overall_padding_dimension_bottom == '0' ) && isset( $settings->overall_padding_dimension_left ) && ( $settings->overall_padding_dimension_left == '' || $settings->overall_padding_dimension_left == '0' ) && isset( $settings->overall_padding_dimension_right ) && ( $settings->overall_padding_dimension_right == '' || $settings->overall_padding_dimension_right == '0' ) ) {
+	if( isset( $settings->overall_padding ) && $settings->overall_padding != '' && isset( $settings->overall_padding_dimension_top ) && $settings->overall_padding_dimension_top == '' && isset( $settings->overall_padding_dimension_bottom ) && $settings->overall_padding_dimension_bottom == '' && isset( $settings->overall_padding_dimension_left ) && $settings->overall_padding_dimension_left == '' && isset( $settings->overall_padding_dimension_right ) && $settings->overall_padding_dimension_right == '' ) {
 		echo $settings->overall_padding; ?>;
 	<?php } else {
 	    if(isset($settings->overall_padding_dimension_top) ){
@@ -204,7 +204,7 @@ if( $settings->blog_image_position != 'top' && $settings->blog_image_position !=
 ?>
 			.fl-node-<?php echo $id; ?> .uabb-blog-posts .uabb-blog-post-inner-wrap {
 				<?php 
-				if( isset( $settings->overall_padding ) && $settings->overall_padding != '' && isset( $settings->overall_padding_dimension_top ) && ( $settings->overall_padding_dimension_top == '' || $settings->overall_padding_dimension_top == '0' ) && isset( $settings->overall_padding_dimension_bottom ) && ( $settings->overall_padding_dimension_bottom == '' || $settings->overall_padding_dimension_bottom == '0' ) && isset( $settings->overall_padding_dimension_left ) && ( $settings->overall_padding_dimension_left == '' || $settings->overall_padding_dimension_left == '0' ) && isset( $settings->overall_padding_dimension_right ) && ( $settings->overall_padding_dimension_right == '' || $settings->overall_padding_dimension_right == '0' ) ) {
+				if( isset( $settings->overall_padding ) && $settings->overall_padding != '' && isset( $settings->overall_padding_dimension_top ) && $settings->overall_padding_dimension_top == '' && isset( $settings->overall_padding_dimension_bottom ) && $settings->overall_padding_dimension_bottom == '' && isset( $settings->overall_padding_dimension_left ) && $settings->overall_padding_dimension_left == '' && isset( $settings->overall_padding_dimension_right ) && $settings->overall_padding_dimension_right == '' ) {
 					echo $settings->overall_padding; ?>;
 				<?php } else {
 				    if(isset($settings->overall_padding_dimension_top) ){
@@ -312,7 +312,7 @@ if( $settings->is_carousel == 'masonary' ) {
     echo ( $settings->masonary_overall_alignment == 'left' ) ? 'margin-right: 10px;' : ( ( $settings->masonary_overall_alignment == 'right' ) ? 'margin-left: 10px;' : 'margin-right: 5px; margin-left: 5px;' ); ?>
 
     <?php 
-	if( isset( $settings->masonary_padding ) && $settings->masonary_padding != '' && isset( $settings->masonary_padding_dimension_top ) && ( $settings->masonary_padding_dimension_top == '' || $settings->masonary_padding_dimension_top == '0' ) && isset( $settings->masonary_padding_dimension_bottom ) && ( $settings->masonary_padding_dimension_bottom == '' || $settings->masonary_padding_dimension_bottom == '0' ) && isset( $settings->masonary_padding_dimension_left ) && ( $settings->masonary_padding_dimension_left == '' || $settings->masonary_padding_dimension_left == '0' ) && isset( $settings->masonary_padding_dimension_right ) && ( $settings->masonary_padding_dimension_right == '' || $settings->masonary_padding_dimension_right == '0' ) ) {
+	if( isset( $settings->masonary_padding ) && $settings->masonary_padding != '' && isset( $settings->masonary_padding_dimension_top ) && $settings->masonary_padding_dimension_top == '' && isset( $settings->masonary_padding_dimension_bottom ) && $settings->masonary_padding_dimension_bottom == '' && isset( $settings->masonary_padding_dimension_left ) && $settings->masonary_padding_dimension_left == '' && isset( $settings->masonary_padding_dimension_right ) && $settings->masonary_padding_dimension_right == '' ) {
 		echo $settings->masonary_padding; ?>;
 	<?php } else { ?>
 		<?php 
@@ -387,7 +387,7 @@ if( $settings->is_carousel == 'masonary' ) {
 
 .fl-node-<?php echo $id; ?> .uabb-post-wrapper .uabb-blog-post-content {
     <?php 
-	if( isset( $settings->content_padding ) && $settings->content_padding != '' && isset( $settings->content_padding_dimension_top ) && ( $settings->content_padding_dimension_top == '' || $settings->content_padding_dimension_top == '0' ) && isset( $settings->content_padding_dimension_bottom ) && ( $settings->content_padding_dimension_bottom == '' || $settings->content_padding_dimension_bottom == '0' ) && isset( $settings->content_padding_dimension_left ) && ( $settings->content_padding_dimension_left == '' || $settings->content_padding_dimension_left == '0' ) && isset( $settings->content_padding_dimension_right ) && ( $settings->content_padding_dimension_right == '' || $settings->content_padding_dimension_right == '0' ) ) {
+	if( isset( $settings->content_padding ) && $settings->content_padding != '' && isset( $settings->content_padding_dimension_top ) && $settings->content_padding_dimension_top == '' && isset( $settings->content_padding_dimension_bottom ) && $settings->content_padding_dimension_bottom == '' && isset( $settings->content_padding_dimension_left ) && $settings->content_padding_dimension_left == '' && isset( $settings->content_padding_dimension_right ) && $settings->content_padding_dimension_right == '' ) {
 		echo $settings->content_padding; ?>;
 	<?php } else { ?>
 		<?php 

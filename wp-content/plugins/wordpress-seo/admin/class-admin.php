@@ -96,6 +96,7 @@ class WPSEO_Admin {
 		$integrations[] = new WPSEO_Statistic_Integration();
 		$integrations[] = new WPSEO_Slug_Change_Watcher();
 		$integrations[] = new WPSEO_Capability_Manager_Integration( WPSEO_Capability_Manager_Factory::get() );
+		$integrations[] = new WPSEO_Admin_Media_Purge_Notification();
 		$integrations   = array_merge( $integrations, $this->initialize_seo_links() );
 
 		/** @var WPSEO_WordPress_Integration $integration */
@@ -333,11 +334,10 @@ class WPSEO_Admin {
 		}
 
 		/*
-		 * The Whip message shouldn't be shown from WordPress 4.9.5 and higher because
+		 * The Whip message shouldn't be shown from WordPress 5.0.0 and higher because
 		 * that version introduces Serve Happy which is almost similar to Whip.
 		 */
-		$minimal_wp_version = '4.9.5';
-
+		$minimal_wp_version = '5.0.0';
 		if ( version_compare( $GLOBALS['wp_version'], $minimal_wp_version, '>=' ) ) {
 			return;
 		}

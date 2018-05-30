@@ -57,8 +57,23 @@ if( defined( 'FL_BUILDER_VERSION' ) ) {
 					}
 					?>
 					<div class="uabb-form-error-message">!</div>
-				</div><!-- Inline Block Space Fix
-				
+				</div><!-- Inline Block Space Fix	
+				--><?php if ( 'show' == $settings->terms_checkbox ) : ?>
+					<div class="uabb-form-field uabb-input-group uabb-terms-checkbox">
+						<?php if ( isset( $settings->terms_text ) && ! empty( $settings->terms_text ) ) : ?>
+							<div class="uabb-terms-text"><?php echo $settings->terms_text; ?></div>
+						<?php endif; ?>
+						<div class="uabb-terms-wrap">
+							<label class="uabb-terms-label" for="uabb-terms-checkbox-<?php echo $id; ?>">
+								<input type="checkbox" id="uabb-terms-checkbox-<?php echo $id; ?>" name="uabb-terms-checkbox" value="1" />
+								<span class="terms-checkbox">
+									<?php echo $settings->terms_checkbox_text; ?>
+								</span>
+							</label>
+							<span class="uabb-form-error-message"><?php _e( 'Terms and Conditions checkbox is required.', 'uabb' );?></span>
+						</div>
+					</div>
+				<?php endif; ?><!-- Inline Block Space Fix	
 				--><div class="uabb-form-button" data-wait-text="<?php echo $settings->btn_processing_text ?>">
 				<?php
 				$resp_overall_alignment = $settings->resp_overall_alignment != 'default' ? $settings->resp_overall_alignment : $settings->overall_alignment;

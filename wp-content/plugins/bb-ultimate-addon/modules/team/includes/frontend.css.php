@@ -28,7 +28,7 @@
 /* Image Section Spacing */
 .fl-node-<?php echo $id; ?> .uabb-team-image {
     <?php 
-    if( isset( $settings->img_spacing ) && $settings->img_spacing != '' && isset( $settings->img_spacing_dimension_top ) && ( $settings->img_spacing_dimension_top == '' || $settings->img_spacing_dimension_top == '0' ) && isset( $settings->img_spacing_dimension_bottom ) && ( $settings->img_spacing_dimension_bottom == '' || $settings->img_spacing_dimension_bottom == '0' ) && isset( $settings->img_spacing_dimension_left ) && ( $settings->img_spacing_dimension_left == '' || $settings->img_spacing_dimension_left == '0' ) && isset( $settings->img_spacing_dimension_right ) && ( $settings->img_spacing_dimension_right == '' || $settings->img_spacing_dimension_right == '0' ) ) {
+    if( isset( $settings->img_spacing ) && $settings->img_spacing != '' && isset( $settings->img_spacing_dimension_top ) && $settings->img_spacing_dimension_top == '' && isset( $settings->img_spacing_dimension_bottom ) && $settings->img_spacing_dimension_bottom == '' && isset( $settings->img_spacing_dimension_left ) && $settings->img_spacing_dimension_left == '' && isset( $settings->img_spacing_dimension_right ) && $settings->img_spacing_dimension_right == '' ) {
     	echo $settings->img_spacing; ?>;
     <?php } else { ?>
     	<?php  
@@ -67,7 +67,7 @@
 .fl-node-<?php echo $id; ?> .uabb-team-content {
 
 	<?php 
-	if( isset( $settings->text_spacing ) && $settings->text_spacing != '' && isset( $settings->text_spacing_dimension_top ) && ( $settings->text_spacing_dimension_top == '' || $settings->text_spacing_dimension_top == '0' ) && isset( $settings->text_spacing_dimension_bottom ) && ( $settings->text_spacing_dimension_bottom == '' || $settings->text_spacing_dimension_bottom == '0' ) && isset( $settings->text_spacing_dimension_left ) && ( $settings->text_spacing_dimension_left == '' || $settings->text_spacing_dimension_left == '0' ) && isset( $settings->text_spacing_dimension_right ) && ( $settings->text_spacing_dimension_right == '' || $settings->text_spacing_dimension_right == '0' ) ) {
+	if( isset( $settings->text_spacing ) && $settings->text_spacing != '' && isset( $settings->text_spacing_dimension_top ) && $settings->text_spacing_dimension_top == '' && isset( $settings->text_spacing_dimension_bottom ) && $settings->text_spacing_dimension_bottom == '' && isset( $settings->text_spacing_dimension_left ) && $settings->text_spacing_dimension_left == '' && isset( $settings->text_spacing_dimension_right ) && $settings->text_spacing_dimension_right == '' ) {
 		echo $settings->text_spacing; ?>;
 	<?php } else { ?>
 		<?php  

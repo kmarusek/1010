@@ -362,15 +362,9 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
 
 			$update_journey = get_option( '_journey_details', '0' );
 
-			if ( is_array( $update_journey ) ) {
-				$last_array = end( $update_journey );
+			$new_user = get_option( '_uabb_1_7_2_ver', '0' );
 
-				if ( isset( $last_array['previous_version'] ) ) {
-					if ( 0 <= version_compare( $last_array['previous_version'], '1.7.2' ) ) {
-						return;
-					}
-				}
-			}else{
+			if( 'yes' == $new_user ) {
 				return;
 			}
 
@@ -720,10 +714,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
                          $output[] = $new;
                     }
                     
-                    $settings->hotspot_marker[$i]->tooltip_padding_dimension_top    = '0';
-                    $settings->hotspot_marker[$i]->tooltip_padding_dimension_bottom = '0';
-                    $settings->hotspot_marker[$i]->tooltip_padding_dimension_left   = '0';
-                    $settings->hotspot_marker[$i]->tooltip_padding_dimension_right  = '0';
+                    $settings->hotspot_marker[$i]->tooltip_padding_dimension_top    = '';
+                    $settings->hotspot_marker[$i]->tooltip_padding_dimension_bottom = '';
+                    $settings->hotspot_marker[$i]->tooltip_padding_dimension_left   = '';
+                    $settings->hotspot_marker[$i]->tooltip_padding_dimension_right  = '';
                     
                     for ($j = 0; $j < count($output); $j++ ) { 
                     
@@ -765,10 +759,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
                     }
                     
 
-                    $settings->hotspot_marker[$i]->text_typography_padding_dimension_top    = '0';
-                    $settings->hotspot_marker[$i]->text_typography_padding_dimension_bottom = '0';
-                    $settings->hotspot_marker[$i]->text_typography_padding_dimension_left   = '0';
-                    $settings->hotspot_marker[$i]->text_typography_padding_dimension_right  = '0';
+                    $settings->hotspot_marker[$i]->text_typography_padding_dimension_top    = '';
+                    $settings->hotspot_marker[$i]->text_typography_padding_dimension_bottom = '';
+                    $settings->hotspot_marker[$i]->text_typography_padding_dimension_left   = '';
+                    $settings->hotspot_marker[$i]->text_typography_padding_dimension_right  = '';
 
                     for ($j=0; $j < count( $output ); $j++) { 
                         
@@ -813,10 +807,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
                 $output = array();
                 $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
                 
-                $settings->title_spacing_dimension_top    = '0';
-                $settings->title_spacing_dimension_bottom = '0';
-                $settings->title_spacing_dimension_left   = '0';
-                $settings->title_spacing_dimension_right  = '0';
+                $settings->title_spacing_dimension_top    = '';
+                $settings->title_spacing_dimension_bottom = '';
+                $settings->title_spacing_dimension_left   = '';
+                $settings->title_spacing_dimension_right  = '';
                 
                 foreach($uabb_default as $val) {
                     $new = explode(':',$val);
@@ -854,10 +848,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
                 $output = array();
                 $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
                 
-                $settings->content_spacing_dimension_top    = '0';
-                $settings->content_spacing_dimension_bottom = '0';
-                $settings->content_spacing_dimension_left   = '0';
-                $settings->content_spacing_dimension_right  = '0';
+                $settings->content_spacing_dimension_top    = '';
+                $settings->content_spacing_dimension_bottom = '';
+                $settings->content_spacing_dimension_left   = '';
+                $settings->content_spacing_dimension_right  = '';
                 
                 foreach($uabb_default as $val) {
                     $new = explode(':',$val);
@@ -1094,10 +1088,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
 			    $output = array();
 			    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
 			    
-			    $settings->form_spacing_dimension_top    = '0';
-			    $settings->form_spacing_dimension_bottom = '0';
-			    $settings->form_spacing_dimension_left   = '0';
-			    $settings->form_spacing_dimension_right  = '0';
+			    $settings->form_spacing_dimension_top    = '';
+			    $settings->form_spacing_dimension_bottom = '';
+			    $settings->form_spacing_dimension_left   = '';
+			    $settings->form_spacing_dimension_right  = '';
 			    
 			    foreach($uabb_default as $val) {
 			        $new = explode(':',$val);
@@ -1106,7 +1100,7 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
 			    for ($i=0; $i < count( $output ); $i++) { 
 			        switch ( $output[$i][0] ) {
 			            case 'padding-top':
-			               $settings->form_spacing_dimension_top    = (int)$output[$i][1];
+			               	$settings->form_spacing_dimension_top    = (int)$output[$i][1];
 			                break;
 			            case 'padding-bottom':
 			                $settings->form_spacing_dimension_bottom = (int)$output[$i][1];
@@ -1135,10 +1129,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
 			    $output = array();
 			    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
 			    
-			    $settings->input_padding_dimension_top    = '0';
-			    $settings->input_padding_dimension_bottom = '0';
-			    $settings->input_padding_dimension_left   = '0';
-			    $settings->input_padding_dimension_right  = '0';
+			    $settings->input_padding_dimension_top    = '';
+			    $settings->input_padding_dimension_bottom = '';
+			    $settings->input_padding_dimension_left   = '';
+			    $settings->input_padding_dimension_right  = '';
 			    
 			    foreach($uabb_default as $val) {
 			        $new = explode(':',$val);
@@ -1176,10 +1170,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
 			    $output = array();
 			    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
 			    
-			    $settings->input_border_width_dimension_top    = '0';
-			    $settings->input_border_width_dimension_bottom = '0';
-			    $settings->input_border_width_dimension_left   = '0';
-			    $settings->input_border_width_dimension_right  = '0';
+			    $settings->input_border_width_dimension_top    = '';
+			    $settings->input_border_width_dimension_bottom = '';
+			    $settings->input_border_width_dimension_left   = '';
+			    $settings->input_border_width_dimension_right  = '';
 			    
 			    foreach($uabb_default as $val) {
 			        $new = explode(':',$val);
@@ -1217,10 +1211,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
 			    $output = array();
 			    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
 			    
-			    $settings->validation_spacing_dimension_top    = '0';
-			    $settings->validation_spacing_dimension_bottom = '0';
-			    $settings->validation_spacing_dimension_left   = '0';
-			    $settings->validation_spacing_dimension_right  = '0';
+			    $settings->validation_spacing_dimension_top    = '';
+			    $settings->validation_spacing_dimension_bottom = '';
+			    $settings->validation_spacing_dimension_left   = '';
+			    $settings->validation_spacing_dimension_right  = '';
 			    
 			    foreach($uabb_default as $val) {
 			        $new = explode(':',$val);
@@ -1267,10 +1261,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
 			    $output = array();
 			    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
 			    
-			    $settings->tab_padding_dimension_top    = '0';
-			    $settings->tab_padding_dimension_bottom = '0';
-			    $settings->tab_padding_dimension_left   = '0';
-			    $settings->tab_padding_dimension_right  = '0';
+			    $settings->tab_padding_dimension_top    = '';
+			    $settings->tab_padding_dimension_bottom = '';
+			    $settings->tab_padding_dimension_left   = '';
+			    $settings->tab_padding_dimension_right  = '';
 			    
 			    foreach($uabb_default as $val) {
 			        $new = explode(':',$val);
@@ -1308,10 +1302,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
 			    $output = array();
 			    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
 			    
-			    $settings->content_padding_dimension_top    = '0';
-			    $settings->content_padding_dimension_bottom = '0';
-			    $settings->content_padding_dimension_left   = '0';
-			    $settings->content_padding_dimension_right  = '0';
+			    $settings->content_padding_dimension_top    = '';
+			    $settings->content_padding_dimension_bottom = '';
+			    $settings->content_padding_dimension_left   = '';
+			    $settings->content_padding_dimension_right  = '';
 			    
 			    foreach($uabb_default as $val) {
 			        $new = explode(':',$val);
@@ -1404,10 +1398,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
                 $output = array();
                 $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
                 
-                $settings->overall_padding_dimension_top    = '0';
-                $settings->overall_padding_dimension_bottom = '0';
-                $settings->overall_padding_dimension_left   = '0';
-                $settings->overall_padding_dimension_right  = '0';
+                $settings->overall_padding_dimension_top    = '';
+                $settings->overall_padding_dimension_bottom = '';
+                $settings->overall_padding_dimension_left   = '';
+                $settings->overall_padding_dimension_right  = '';
                 
                 foreach($uabb_default as $val) {
                     $new = explode(':',$val);
@@ -1445,10 +1439,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
                 $output = array();
                 $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
                 
-                $settings->content_padding_dimension_top    = '0';
-                $settings->content_padding_dimension_bottom = '0';
-                $settings->content_padding_dimension_left   = '0';
-                $settings->content_padding_dimension_right  = '0';
+                $settings->content_padding_dimension_top    = '';
+                $settings->content_padding_dimension_bottom = '';
+                $settings->content_padding_dimension_left   = '';
+                $settings->content_padding_dimension_right  = '';
                 
                 foreach($uabb_default as $val) {
                     $new = explode(':',$val);
@@ -1486,10 +1480,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
                 $output = array();
                 $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
                 
-                $settings->masonary_padding_dimension_top    = '0';
-                $settings->masonary_padding_dimension_bottom = '0';
-                $settings->masonary_padding_dimension_left   = '0';
-                $settings->masonary_padding_dimension_right  = '0';
+                $settings->masonary_padding_dimension_top    = '';
+                $settings->masonary_padding_dimension_bottom = '';
+                $settings->masonary_padding_dimension_left   = '';
+                $settings->masonary_padding_dimension_right  = '';
                 
                 foreach($uabb_default as $val) {
                     $new = explode(':',$val);
@@ -1906,10 +1900,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
 			    $output = array();
 			    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
 			    
-			    $settings->form_spacing_dimension_top    = '0';
-			    $settings->form_spacing_dimension_bottom = '0';
-			    $settings->form_spacing_dimension_left   = '0';
-			    $settings->form_spacing_dimension_right  = '0';
+			    $settings->form_spacing_dimension_top    = '';
+			    $settings->form_spacing_dimension_bottom = '';
+			    $settings->form_spacing_dimension_left   = '';
+			    $settings->form_spacing_dimension_right  = '';
 			    
 			    foreach($uabb_default as $val) {
 			        $new = explode(':',$val);
@@ -1947,10 +1941,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
 			    $output = array();
 			    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
 			    
-			    $settings->input_padding_dimension_top    = '0';
-			    $settings->input_padding_dimension_bottom = '0';
-			    $settings->input_padding_dimension_left   = '0';
-			    $settings->input_padding_dimension_right  = '0';
+			    $settings->input_padding_dimension_top    = '';
+			    $settings->input_padding_dimension_bottom = '';
+			    $settings->input_padding_dimension_left   = '';
+			    $settings->input_padding_dimension_right  = '';
 			    
 			    foreach($uabb_default as $val) {
 			        $new = explode(':',$val);
@@ -1988,10 +1982,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
 			    $output = array();
 			    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
 			    
-			    $settings->input_border_width_dimension_top    = '0';
-			    $settings->input_border_width_dimension_bottom = '0';
-			    $settings->input_border_width_dimension_left   = '0';
-			    $settings->input_border_width_dimension_right  = '0';
+			    $settings->input_border_width_dimension_top    = '';
+			    $settings->input_border_width_dimension_bottom = '';
+			    $settings->input_border_width_dimension_left   = '';
+			    $settings->input_border_width_dimension_right  = '';
 			    
 			    foreach($uabb_default as $val) {
 			        $new = explode(':',$val);
@@ -2029,10 +2023,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
 			    $output = array();
 			    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
 			    
-			    $settings->validation_spacing_dimension_top    = '0';
-			    $settings->validation_spacing_dimension_bottom = '0';
-			    $settings->validation_spacing_dimension_left   = '0';
-			    $settings->validation_spacing_dimension_right  = '0';
+			    $settings->validation_spacing_dimension_top    = '';
+			    $settings->validation_spacing_dimension_bottom = '';
+			    $settings->validation_spacing_dimension_left   = '';
+			    $settings->validation_spacing_dimension_right  = '';
 			    
 			    foreach($uabb_default as $val) {
 			        $new = explode(':',$val);
@@ -2231,10 +2225,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
                 $output = array();
                 $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
                 
-                $settings->inner_padding_dimension_top    = '0';
-                $settings->inner_padding_dimension_bottom = '0';
-                $settings->inner_padding_dimension_left   = '0';
-                $settings->inner_padding_dimension_right  = '0';
+                $settings->inner_padding_dimension_top    = '';
+                $settings->inner_padding_dimension_bottom = '';
+                $settings->inner_padding_dimension_left   = '';
+                $settings->inner_padding_dimension_right  = '';
                 
                 foreach($uabb_default as $val) {
                     $new = explode(':',$val);
@@ -2396,10 +2390,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
                 $output = array();
                 $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
                 
-                $settings->content_padding_dimension_top    = '0';
-                $settings->content_padding_dimension_bottom = '0';
-                $settings->content_padding_dimension_left   = '0';
-                $settings->content_padding_dimension_right  = '0';
+                $settings->content_padding_dimension_top    = '';
+                $settings->content_padding_dimension_bottom = '';
+                $settings->content_padding_dimension_left   = '';
+                $settings->content_padding_dimension_right  = '';
                 
                 foreach($uabb_default as $val) {
                     $new = explode(':',$val);
@@ -2593,10 +2587,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
         	            $output = array();
         	            $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
         	            
-        	            $settings->info_box_padding_dimension_top    = '0';
-        	            $settings->info_box_padding_dimension_bottom = '0';
-        	            $settings->info_box_padding_dimension_left   = '0';
-        	            $settings->info_box_padding_dimension_right  = '0';
+        	            $settings->info_box_padding_dimension_top    = '';
+        	            $settings->info_box_padding_dimension_bottom = '';
+        	            $settings->info_box_padding_dimension_left   = '';
+        	            $settings->info_box_padding_dimension_right  = '';
         	            
         	            foreach($uabb_default as $val) {
         	                $new = explode(':',$val);
@@ -2758,10 +2752,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
                 $output = array();
                 $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
                 
-                $settings->info_area_spacing_dimension_top    = '0';
-                $settings->info_area_spacing_dimension_bottom = '0';
-                $settings->info_area_spacing_dimension_left   = '0';
-                $settings->info_area_spacing_dimension_right  = '0';
+                $settings->info_area_spacing_dimension_top    = '';
+                $settings->info_area_spacing_dimension_bottom = '';
+                $settings->info_area_spacing_dimension_left   = '';
+                $settings->info_area_spacing_dimension_right  = '';
                 
                 foreach($uabb_default as $val) {
                     $new = explode(':',$val);
@@ -3208,10 +3202,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
                 $output = array();
                 $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
                 
-                $settings->padding_dimension_top    = '0';
-                $settings->padding_dimension_bottom = '0';
-                $settings->padding_dimension_left   = '0';
-                $settings->padding_dimension_right  = '0';
+                $settings->padding_dimension_top    = '';
+                $settings->padding_dimension_bottom = '';
+                $settings->padding_dimension_left   = '';
+                $settings->padding_dimension_right  = '';
                 
                 foreach($uabb_default as $val) {
                     $new = explode(':',$val);
@@ -3374,10 +3368,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
 			    $output = array();
 			    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
 			    
-			    $settings->title_spacing_dimension_top    = '0';
-			    $settings->title_spacing_dimension_bottom = '0';
-			    $settings->title_spacing_dimension_left   = '0';
-			    $settings->title_spacing_dimension_right  = '0';
+			    $settings->title_spacing_dimension_top    = '';
+			    $settings->title_spacing_dimension_bottom = '';
+			    $settings->title_spacing_dimension_left   = '';
+			    $settings->title_spacing_dimension_right  = '';
 			    
 			    foreach($uabb_default as $val) {
 			        $new = explode(':',$val);
@@ -3415,10 +3409,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
 			    $output = array();
 			    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
 			    
-			    $settings->modal_spacing_dimension_top    = '0';
-			    $settings->modal_spacing_dimension_bottom = '0';
-			    $settings->modal_spacing_dimension_left   = '0';
-			    $settings->modal_spacing_dimension_right  = '0';
+			    $settings->modal_spacing_dimension_top    = '';
+			    $settings->modal_spacing_dimension_bottom = '';
+			    $settings->modal_spacing_dimension_left   = '';
+			    $settings->modal_spacing_dimension_right  = '';
 			    
 			    foreach($uabb_default as $val) {
 			        $new = explode(':',$val);
@@ -3809,10 +3803,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
 			    $output = array();
 			    $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
 			    
-			    $settings->form_spacing_dimension_top    = '0';
-			    $settings->form_spacing_dimension_bottom = '0';
-			    $settings->form_spacing_dimension_left   = '0';
-			    $settings->form_spacing_dimension_right  = '0';
+			    $settings->form_spacing_dimension_top    = '';
+			    $settings->form_spacing_dimension_bottom = '';
+			    $settings->form_spacing_dimension_left   = '';
+			    $settings->form_spacing_dimension_right  = '';
 			    
 			    foreach($uabb_default as $val) {
 			        $new = explode(':',$val);
@@ -4002,10 +3996,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
                 $output = array();
                 $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
                 
-                $settings->creative_menu_link_margin_dimension_top    = '0';
-                $settings->creative_menu_link_margin_dimension_bottom = '0';
-                $settings->creative_menu_link_margin_dimension_left   = '0';
-                $settings->creative_menu_link_margin_dimension_right  = '0';
+                $settings->creative_menu_link_margin_dimension_top    = '';
+                $settings->creative_menu_link_margin_dimension_bottom = '';
+                $settings->creative_menu_link_margin_dimension_left   = '';
+                $settings->creative_menu_link_margin_dimension_right  = '';
                 
                 foreach($uabb_default as $val) {
                     $new = explode(':',$val);
@@ -4042,10 +4036,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
                 
                 $output = array();
                 $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
-                $settings->creative_menu_link_spacing_dimension_top    = '0';
-                $settings->creative_menu_link_spacing_dimension_bottom = '0';
-                $settings->creative_menu_link_spacing_dimension_right  = '0';
-                $settings->creative_menu_link_spacing_dimension_left   = '0';
+                $settings->creative_menu_link_spacing_dimension_top    = '';
+                $settings->creative_menu_link_spacing_dimension_bottom = '';
+                $settings->creative_menu_link_spacing_dimension_right  = '';
+                $settings->creative_menu_link_spacing_dimension_left   = '';
                 foreach($uabb_default as $val) {
                     $new = explode(':',$val);
                      $output[] = $new;
@@ -4082,10 +4076,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
                 
                 $output = array();
                 $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
-                $settings->creative_menu_border_width_dimension_top    = '0';
-                $settings->creative_menu_border_width_dimension_bottom = '0';
-                $settings->creative_menu_border_width_dimension_right  = '0';
-                $settings->creative_menu_border_width_dimension_left   = '0';
+                $settings->creative_menu_border_width_dimension_top    = '';
+                $settings->creative_menu_border_width_dimension_bottom = '';
+                $settings->creative_menu_border_width_dimension_right  = '';
+                $settings->creative_menu_border_width_dimension_left   = '';
                 foreach($uabb_default as $val) {
                     $new = explode(':',$val);
                      $output[] = $new;
@@ -4122,10 +4116,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
                 
                 $output = array();
                 $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
-                $settings->creative_submenu_link_padding_dimension_top    = '0';
-                $settings->creative_submenu_link_padding_dimension_bottom = '0';
-                $settings->creative_submenu_link_padding_dimension_right  = '0';
-                $settings->creative_submenu_link_padding_dimension_left   = '0';
+                $settings->creative_submenu_link_padding_dimension_top    = '';
+                $settings->creative_submenu_link_padding_dimension_bottom = '';
+                $settings->creative_submenu_link_padding_dimension_right  = '';
+                $settings->creative_submenu_link_padding_dimension_left   = '';
                 foreach($uabb_default as $val) {
                     $new = explode(':',$val);
                      $output[] = $new;
@@ -4162,10 +4156,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
                 
                 $output = array();
                 $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
-                $settings->creative_submenu_border_width_dimension_top    = '0';
-                $settings->creative_submenu_border_width_dimension_bottom = '0';
-                $settings->creative_submenu_border_width_dimension_right  = '0';
-                $settings->creative_submenu_border_width_dimension_left   = '0';
+                $settings->creative_submenu_border_width_dimension_top    = '';
+                $settings->creative_submenu_border_width_dimension_bottom = '';
+                $settings->creative_submenu_border_width_dimension_right  = '';
+                $settings->creative_submenu_border_width_dimension_left   = '';
                 foreach($uabb_default as $val) {
                     $new = explode(':',$val);
                      $output[] = $new;
@@ -4201,10 +4195,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
                 
                 $output = array();
                 $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
-                $settings->creative_menu_responsive_overlay_padding_dimension_top    = '0';
-                $settings->creative_menu_responsive_overlay_padding_dimension_bottom = '0';
-                $settings->creative_menu_responsive_overlay_padding_dimension_right  = '0';
-                $settings->creative_menu_responsive_overlay_padding_dimension_left   = '0';
+                $settings->creative_menu_responsive_overlay_padding_dimension_top    = '';
+                $settings->creative_menu_responsive_overlay_padding_dimension_bottom = '';
+                $settings->creative_menu_responsive_overlay_padding_dimension_right  = '';
+                $settings->creative_menu_responsive_overlay_padding_dimension_left   = '';
                 foreach($uabb_default as $val) {
                     $new = explode(':',$val);
                      $output[] = $new;
@@ -4250,10 +4244,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
                 
                 $output = array();
                 $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
-                $settings->img_spacing_dimension_top    = '0';
-                $settings->img_spacing_dimension_bottom = '0';
-                $settings->img_spacing_dimension_right  = '0';
-                $settings->img_spacing_dimension_left   = '0';
+                $settings->img_spacing_dimension_top    = '';
+                $settings->img_spacing_dimension_bottom = '';
+                $settings->img_spacing_dimension_right  = '';
+                $settings->img_spacing_dimension_left   = '';
                 foreach($uabb_default as $val) {
                     $new = explode(':',$val);
                      $output[] = $new;
@@ -4290,10 +4284,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
             
             $output = array();
             $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
-            $settings->text_spacing_dimension_top    = '0';
-            $settings->text_spacing_dimension_bottom = '0';
-            $settings->text_spacing_dimension_right  = '0';
-            $settings->text_spacing_dimension_left   = '0';
+            $settings->text_spacing_dimension_top    = '';
+            $settings->text_spacing_dimension_bottom = '';
+            $settings->text_spacing_dimension_right  = '';
+            $settings->text_spacing_dimension_left   = '';
                 foreach($uabb_default as $val) {
                     $new = explode(':',$val);
                      $output[] = $new;
@@ -4408,10 +4402,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
                 
                 $output = array();
                 $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
-                $settings->front_padding_dimension_top    = '0';
-                $settings->front_padding_dimension_bottom = '0';
-                $settings->front_padding_dimension_right  = '0';
-                $settings->front_padding_dimension_left   = '0';
+                $settings->front_padding_dimension_top    = '';
+                $settings->front_padding_dimension_bottom = '';
+                $settings->front_padding_dimension_right  = '';
+                $settings->front_padding_dimension_left   = '';
                 foreach($uabb_default as $val) {
                     $new = explode(':',$val);
                      $output[] = $new;
@@ -4448,10 +4442,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
 	            
 	            $output = array();
 	            $uabb_default = array_filter( preg_split("/\s*;\s*/", $value) );
-	            $settings->back_padding_dimension_top    = '0';
-	            $settings->back_padding_dimension_bottom = '0';
-	            $settings->back_padding_dimension_right  = '0';
-	            $settings->back_padding_dimension_left   = '0';
+	            $settings->back_padding_dimension_top    = '';
+	            $settings->back_padding_dimension_bottom = '';
+	            $settings->back_padding_dimension_right  = '';
+	            $settings->back_padding_dimension_left   = '';
                 foreach($uabb_default as $val) {
                     $new = explode(':',$val);
                      $output[] = $new;

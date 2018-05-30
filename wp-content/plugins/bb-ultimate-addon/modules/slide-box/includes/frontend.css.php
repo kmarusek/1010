@@ -41,7 +41,7 @@
 
 .fl-node-<?php echo $id; ?> .uabb-slide-box-wrap .uabb-slide-front {
     <?php 
-    if( isset( $settings->front_padding ) && $settings->front_padding != '' && isset( $settings->front_padding_dimension_top ) && ( $settings->front_padding_dimension_top == '' || $settings->front_padding_dimension_top == '0' ) && isset( $settings->front_padding_dimension_bottom ) && ( $settings->front_padding_dimension_bottom == '' || $settings->front_padding_dimension_bottom == '0' ) && isset( $settings->front_padding_dimension_left ) && ( $settings->front_padding_dimension_left == '' || $settings->front_padding_dimension_left == '0' ) && isset( $settings->front_padding_dimension_right ) && ( $settings->front_padding_dimension_right == '' || $settings->front_padding_dimension_right == '0' ) ) {
+    if( isset( $settings->front_padding ) && $settings->front_padding != '' && isset( $settings->front_padding_dimension_top ) && $settings->front_padding_dimension_top == '' && isset( $settings->front_padding_dimension_bottom ) && $settings->front_padding_dimension_bottom == '' && isset( $settings->front_padding_dimension_left ) && $settings->front_padding_dimension_left == '' && isset( $settings->front_padding_dimension_right ) && $settings->front_padding_dimension_right == '' ) {
         echo $settings->front_padding; ?>;
     <?php } else { ?>
         <?php 
@@ -62,7 +62,7 @@
 }
 .fl-node-<?php echo $id; ?> .uabb-slide-box-wrap .uabb-slide-down {
     <?php 
-    if( isset( $settings->back_padding ) && $settings->back_padding != '' && isset( $settings->back_padding_dimension_top ) && ( $settings->back_padding_dimension_top == '' || $settings->back_padding_dimension_top == '0' ) && isset( $settings->back_padding_dimension_bottom ) && ( $settings->back_padding_dimension_bottom == '' || $settings->back_padding_dimension_bottom == '0' ) && isset( $settings->back_padding_dimension_left ) && ( $settings->back_padding_dimension_left == '' || $settings->back_padding_dimension_left == '0' ) && isset( $settings->back_padding_dimension_right ) && ( $settings->back_padding_dimension_right == '' || $settings->back_padding_dimension_right == '0' ) ) {
+    if( isset( $settings->back_padding ) && $settings->back_padding != '' && isset( $settings->back_padding_dimension_top ) && $settings->back_padding_dimension_top == '' && isset( $settings->back_padding_dimension_bottom ) && $settings->back_padding_dimension_bottom == '' && isset( $settings->back_padding_dimension_left ) && $settings->back_padding_dimension_left == '' && isset( $settings->back_padding_dimension_right ) && $settings->back_padding_dimension_right == '' ) {
         echo $settings->back_padding; ?>;
     <?php } else { ?>
         <?php  

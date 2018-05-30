@@ -15,7 +15,6 @@
 				btn_style = form.find('select[name=btn_style]'),
 				action    = form.find( 'select[name=success_action]' ),
 				msg_box = form.find('#fl-field-mailchimp_warning_msg td').html();
-				//console.log(type(msg_box));
 				if( msg_box.trim() == '' ) {
 					form.find('#fl-builder-settings-section-service_msg').hide();
 				} else {
