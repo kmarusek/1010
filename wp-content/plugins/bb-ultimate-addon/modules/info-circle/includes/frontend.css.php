@@ -402,7 +402,7 @@ foreach( $settings->add_circle_item as $item ) {
 
 .fl-node-<?php echo $id; ?> .uabb-info-circle-wrap .uabb-info-circle-content {
     <?php 
-    if( isset( $settings->info_area_spacing ) && $settings->info_area_spacing != '' && isset( $settings->info_area_spacing_dimension_top ) && ( $settings->info_area_spacing_dimension_top == '' || $settings->info_area_spacing_dimension_top == '0' ) && isset( $settings->info_area_spacing_dimension_bottom ) && ( $settings->info_area_spacing_dimension_bottom == '' || $settings->info_area_spacing_dimension_bottom == '0' ) && isset( $settings->info_area_spacing_dimension_left ) && ( $settings->info_area_spacing_dimension_left == '' || $settings->info_area_spacing_dimension_left == '0' ) && isset( $settings->info_area_spacing_dimension_right ) && ( $settings->info_area_spacing_dimension_right == '' || $settings->info_area_spacing_dimension_right == '0' ) ) {
+    if( isset( $settings->info_area_spacing ) && $settings->info_area_spacing != '' && isset( $settings->info_area_spacing_dimension_top ) && $settings->info_area_spacing_dimension_top == '' && isset( $settings->info_area_spacing_dimension_bottom ) && $settings->info_area_spacing_dimension_bottom == '' && isset( $settings->info_area_spacing_dimension_left ) && $settings->info_area_spacing_dimension_left == '' && isset( $settings->info_area_spacing_dimension_right ) && $settings->info_area_spacing_dimension_right == '' ) {
         echo $settings->info_area_spacing; ?>;
     <?php } else { ?>
         <?php 

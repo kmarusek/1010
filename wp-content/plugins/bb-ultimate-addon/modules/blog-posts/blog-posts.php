@@ -1195,7 +1195,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                         'default'       => '1',
                         'description'   => 'px',
                         'size'          => '8',
-                        'max_lenght'    => '3'
+                        'max_length'    => '3'
                     ),
                 )
             ),
@@ -2075,7 +2075,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                         'placeholder'   => '2',
                         'description'   => 'px',
                         'size'          => '8',
-                        'max_lenght'    => '3'
+                        'max_length'    => '3'
                     ),
                     'pagination_color' => array( 
                         'type'       => 'color',

@@ -5,7 +5,7 @@ Plugin URI: http://fastvelocity.com
 Description: Improve your speed score on GTmetrix, Pingdom Tools and Google PageSpeed Insights by merging and minifying CSS and JavaScript files into groups, compressing HTML and other speed optimizations. 
 Author: Raul Peixoto
 Author URI: http://fastvelocity.com
-Version: 2.2.8
+Version: 2.3.0
 License: GPL2
 
 ------------------------------------------------------------------------
@@ -60,10 +60,18 @@ function fvm_compat_checker() {
 add_action('admin_init', 'fvm_compat_checker');
 
 
-# get the plugin directory and include functions
-$plugindir = plugin_dir_path( __FILE__ ); # with trailing slash
+# get the plugin directory
+$plugindir = plugin_dir_path( __FILE__ ); # prints with trailing slash
+
+# reusable functions
 include($plugindir.'inc/functions.php');
 include($plugindir.'inc/functions-serverinfo.php');
+
+# wp-cli support
+if ( defined( 'WP_CLI' ) && WP_CLI ) { 
+	include($plugindir.'inc/functions-cli.php');
+}
+
 
 # get cache directories and urls
 $cachepath = fvm_cachepath();
@@ -114,6 +122,7 @@ $force_inline_css_footer = get_option('fastvelocity_min_force_inline_css_footer'
 $force_inline_googlefonts = get_option('fastvelocity_min_force_inline_googlefonts');
 $remove_googlefonts = get_option('fastvelocity_min_remove_googlefonts');
 $defer_for_pagespeed = get_option('fastvelocity_min_defer_for_pagespeed');
+$defer_for_pagespeed_optimize = get_option('fastvelocity_min_defer_for_pagespeed_optimize');
 $exclude_defer_login = get_option('fastvelocity_min_exclude_defer_login');
 $preload = array_map('trim', explode("\n", get_option('fastvelocity_min_preload')));
 $preconnect = array_map('trim', explode("\n", get_option('fastvelocity_min_preconnect')));
@@ -131,7 +140,7 @@ $exc = array('/html5shiv.js', '/html5shiv-printshiv.min.js', '/excanvas.js', '/a
 if(!is_array($blacklist) || strlen(implode($blacklist)) == 0) { update_option('fastvelocity_min_blacklist', implode("\n", $exc)); }
 
 # default ignore list
-$exc = array('/Avada/assets/js/main.min.js', '/woocommerce-product-search/js/product-search.js', '/includes/builder/scripts/frontend-builder-scripts.js', '/assets/js/jquery.themepunch.tools.min.js');
+$exc = array('/Avada/assets/js/main.min.js', '/woocommerce-product-search/js/product-search.js', '/includes/builder/scripts/frontend-builder-scripts.js', '/assets/js/jquery.themepunch.tools.min.js', '/js/TweenMax.min.js');
 if(!is_array($ignorelist) || strlen(implode($ignorelist)) == 0) { update_option('fastvelocity_min_ignorelist', implode("\n", $exc)); }
 
 
@@ -269,6 +278,7 @@ function fastvelocity_min_register_settings() {
 	register_setting('fvm-group', 'fastvelocity_min_force_inline_googlefonts');
 	register_setting('fvm-group', 'fastvelocity_min_remove_googlefonts');
 	register_setting('fvm-group', 'fastvelocity_min_defer_for_pagespeed');
+	register_setting('fvm-group', 'fastvelocity_min_defer_for_pagespeed_optimize');
 	register_setting('fvm-group', 'fastvelocity_min_exclude_defer_login');
 	register_setting('fvm-group', 'fastvelocity_min_preload');
 	register_setting('fvm-group', 'fastvelocity_min_preconnect');
@@ -557,6 +567,11 @@ Enable defer parsing of JS files globally <span class="note-info">[ Not all brow
 <label for="fastvelocity_min_defer_for_pagespeed">
 <input name="fastvelocity_min_defer_for_pagespeed" type="checkbox" id="fastvelocity_min_defer_for_pagespeed" value="1" <?php echo checked(1 == get_option('fastvelocity_min_defer_for_pagespeed'), true, false); ?>>
 Enable defer of JS for Pagespeed Insights <span class="note-info">[ Defer JS files for Pagespeed Insights only, <a target="_blank" href="https://www.chromestatus.com/feature/5718547946799104">except external scripts</a> (avoid using a CDN for JS files) ]</span></label>
+<br />
+
+<label for="fastvelocity_min_defer_for_pagespeed_optimize">
+<input name="fastvelocity_min_defer_for_pagespeed_optimize" type="checkbox" id="fastvelocity_min_defer_for_pagespeed_optimize" value="1" <?php echo checked(1 == get_option('fastvelocity_min_defer_for_pagespeed_optimize'), true, false); ?>>
+Also defer the "ignore list" for Pagespeed Insights <span class="note-info">[ Defer JS files on the ignore list for Pagespeed Insights only ]</span></label>
 <br />
 
 <label for="fastvelocity_min_exclude_defer_jquery">
@@ -1162,7 +1177,7 @@ if (stripos($tag, "\n") !== false) { return $tag; }
 
 # print code if there are no linebreaks, or return
 if(!empty($tagdefer)) { 
-	$deferinsights = '<script type="text/javascript">if(navigator.userAgent.match(/speed|gtmetrix|x11.*firefox\/53|x11.*chrome\/39/i)){document.write('.json_encode($tagdefer).');}else{document.write('.json_encode($tag).');}</script>';	
+	$deferinsights = '<script type="text/javascript">if(navigator.userAgent.match(/speed|Lighthouse|gtmetrix|x11.*firefox\/53|x11.*chrome\/39/i)){document.write('.json_encode($tagdefer).');}else{document.write('.json_encode($tag).');}</script>';	
 	return preg_replace('#<script(.*?)>(.*?)</script>#is', $deferinsights, $tag);
 }
 
@@ -1763,10 +1778,55 @@ echo implode('', $meta);
 }
 
 
+
+###########################################
+# optimize the ignore list for pagespeed insights
+###########################################
+function fastvelocity_min_defer_js_optimize($tag, $handle, $src) {
+global $defer_for_pagespeed, $defer_for_pagespeed_optimize, $fvm_fix_editor;
+	
+# return if there are linebreaks (will break document.write)
+if (stripos($tag, "\n") !== false) { return $tag; }
+
+# fix page editors
+if($fvm_fix_editor == true && is_user_logged_in()) { return $tag; }
+
+# return if external script url https://www.chromestatus.com/feature/5718547946799104
+if (fvm_is_local_domain($src) == true) { return $tag; }
+
+# exclude ignored scripts
+if(substr($handle, 0, 4) != "fvm-" && $defer_for_pagespeed == true && $defer_for_pagespeed_optimize == true) {
+
+	# get available nodes and add create with defer tag (if not async)
+	$dom = new DOMDocument();
+	libxml_use_internal_errors(true);
+	@$dom->loadHTML($tag);
+	$nodes = $dom->getElementsByTagName('script'); 
+	$tagdefer = '';
+	if ($nodes->length != 0) { 
+		$node = $dom->getElementsByTagName('script')->item(0);
+		if (!$node->hasAttribute('async')) { $node->setAttribute('defer','defer'); };
+		$tagdefer = $dom->saveHTML($node);
+	}
+
+	# print code if there are no linebreaks, or return
+	if(!empty($tagdefer)) { 
+		$deferinsights = '<script type="text/javascript">if(!navigator.userAgent.match(/speed|Lighthouse|gtmetrix|x11.*firefox\/53|x11.*chrome\/39/i)){document.write('.json_encode($tag).');}</script>';	
+		return preg_replace('#<script(.*?)>(.*?)</script>#is', $deferinsights, $tag);
+	}
+
+}
+
+# fallback
+return $tag; 
+}
+
+
 # remove query from static assets and process defering (if enabled)
 if (!is_admin()) {
-add_filter('script_loader_tag', 'fastvelocity_min_defer_js', 10, 3); 
 add_filter('style_loader_src', 'fastvelocity_remove_cssjs_ver', 10, 2);
+add_filter('script_loader_tag', 'fastvelocity_min_defer_js', 10, 3); 
+add_filter('script_loader_tag', 'fastvelocity_min_defer_js_optimize', 10, 3); 
 }
 
 

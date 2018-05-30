@@ -32,7 +32,7 @@
 .fl-node-<?php echo $id; ?> .uabb-adv-accordion-button<?php echo $id; ?> {
 	
 	<?php 
-	if( isset( $settings->title_spacing ) && $settings->title_spacing != '' && isset( $settings->title_spacing_dimension_top ) && ( $settings->title_spacing_dimension_top == '' || $settings->title_spacing_dimension_top == '0' ) && isset( $settings->title_spacing_dimension_bottom ) && ( $settings->title_spacing_dimension_bottom == '' || $settings->title_spacing_dimension_bottom == '0' ) && isset( $settings->title_spacing_dimension_left ) && ( $settings->title_spacing_dimension_left == '' || $settings->title_spacing_dimension_left == '0' ) && isset( $settings->title_spacing_dimension_right ) && ( $settings->title_spacing_dimension_right == '' || $settings->title_spacing_dimension_right == '0' ) ) {
+	if( isset( $settings->title_spacing ) && $settings->title_spacing != '' && isset( $settings->title_spacing_dimension_top ) && $settings->title_spacing_dimension_top == '' && isset( $settings->title_spacing_dimension_bottom ) && $settings->title_spacing_dimension_bottom == ''  && isset( $settings->title_spacing_dimension_left ) && $settings->title_spacing_dimension_left == ''  && isset( $settings->title_spacing_dimension_right ) && $settings->title_spacing_dimension_right == '' ) {
 		echo $settings->title_spacing; ?>;
 	<?php } else { ?>
 		<?php 
@@ -117,7 +117,7 @@
 .fl-node-<?php echo $id; ?> .uabb-adv-accordion-content<?php echo $id; ?> {
 	background: <?php echo $settings->content_bg_color; ?>;
 	<?php 
-	if( isset( $settings->content_spacing ) && $settings->content_spacing != '' && isset( $settings->content_spacing_dimension_top ) && ( $settings->content_spacing_dimension_top == '' || $settings->content_spacing_dimension_top == '0' ) && isset( $settings->content_spacing_dimension_bottom ) && ( $settings->content_spacing_dimension_bottom == '' || $settings->content_spacing_dimension_bottom == '0' ) && isset( $settings->content_spacing_dimension_left ) && ( $settings->content_spacing_dimension_left == '' || $settings->content_spacing_dimension_left == '0' ) && isset( $settings->content_spacing_dimension_right ) && ( $settings->content_spacing_dimension_right == '' || $settings->content_spacing_dimension_right == '0' ) ) {
+	if( isset( $settings->content_spacing ) && $settings->content_spacing != '' && isset( $settings->content_spacing_dimension_top ) && $settings->content_spacing_dimension_top == '' && isset( $settings->content_spacing_dimension_bottom ) && $settings->content_spacing_dimension_bottom == '' && isset( $settings->content_spacing_dimension_left ) && $settings->content_spacing_dimension_left == '' && isset( $settings->content_spacing_dimension_right ) && $settings->content_spacing_dimension_right == '' ) {
 		echo $settings->content_spacing; ?>;
 		<?php } else { ?>
 			<?php 

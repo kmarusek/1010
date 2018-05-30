@@ -459,4 +459,20 @@ final class FLPageDataPost {
 		}
 		return $meta;
 	}
+
+	/**
+	* @return string
+	*/
+	static public function get_id() {
+		global $post;
+		return (string) $post->ID;
+	}
+
+	/**
+	* @return string
+	*/
+	static public function get_slug() {
+		global $post;
+		return $post->post_name;
+	}
 }

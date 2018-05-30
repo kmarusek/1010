@@ -125,6 +125,23 @@
 	</div>
 	<?php endif; ?>
 
+	<?php if ($settings->terms_checkbox == 'show' ) : ?>
+		<div class="uabb-input-group uabb-terms-checkbox">
+			<?php if ( isset( $settings->terms_text ) && ! empty( $settings->terms_text ) ) : ?>
+				<div class="uabb-terms-text"><?php echo $settings->terms_text; ?></div>
+			<?php endif; ?>
+			<div class="uabb-form-outter">
+				<label class="uabb-terms-label" for="uabb-terms-checkbox-<?php echo $id; ?>">
+					<input type="checkbox" class="checkbox-inline" id="uabb-terms-checkbox-<?php echo $id; ?>" name="uabb-terms-checkbox" value="1" /> 
+					<span class="checkbox-label">
+						<?php echo $settings->terms_checkbox_text; ?>
+					</span>
+				</label>
+			</div>
+			<label class="uabb-contact-error"><?php _e( 'Terms and Conditions checkbox is required.', 'uabb' );?></label>
+		</div>
+	<?php endif; ?>
+
 	<?php
 	if ( 'show' == $settings->uabb_recaptcha_toggle && (isset( $settings->uabb_recaptcha_site_key ) && ! empty( $settings->uabb_recaptcha_site_key )) ) : ?>
 	<div class="uabb-input-group uabb-recaptcha">

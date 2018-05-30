@@ -58,7 +58,7 @@ if( count( $settings->ihover_item ) > 0 ) {
 
             .fl-node-<?php echo $id; ?> .uabb-ih-content {
                 <?php 
-                if( isset( $settings->content_padding ) && $settings->content_padding != '' && isset( $settings->content_padding_dimension_top ) && ( $settings->content_padding_dimension_top == '' || $settings->content_padding_dimension_top == '0' ) && isset( $settings->content_padding_dimension_bottom ) && ( $settings->content_padding_dimension_bottom == '' || $settings->content_padding_dimension_bottom == '0' ) && isset( $settings->content_padding_dimension_left ) && ( $settings->content_padding_dimension_left == '' || $settings->content_padding_dimension_left == '0' ) && isset( $settings->content_padding_dimension_right ) && ( $settings->content_padding_dimension_right == '' || $settings->content_padding_dimension_right == '0' ) ) {
+                if( isset( $settings->content_padding ) && $settings->content_padding != '' && isset( $settings->content_padding_dimension_top ) && $settings->content_padding_dimension_top == '' && isset( $settings->content_padding_dimension_bottom ) && $settings->content_padding_dimension_bottom == '' && isset( $settings->content_padding_dimension_left ) && $settings->content_padding_dimension_left == '' && isset( $settings->content_padding_dimension_right ) && $settings->content_padding_dimension_right == '' ) {
                     echo $settings->content_padding; ?>;
                 <?php } else { ?>
                     <?php 

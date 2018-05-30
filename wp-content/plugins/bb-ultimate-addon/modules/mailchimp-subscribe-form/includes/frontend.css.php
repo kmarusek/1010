@@ -8,6 +8,8 @@ $settings->border_active_color = UABB_Helper::uabb_colorpicker( $settings, 'bord
 $settings->heading_color = UABB_Helper::uabb_colorpicker( $settings, 'heading_color');
 $settings->subheading_color = UABB_Helper::uabb_colorpicker( $settings, 'subheading_color');
 $settings->text_color = UABB_Helper::uabb_colorpicker( $settings, 'text_color' );
+$settings->checkbox_color = UABB_Helper::uabb_colorpicker( $settings, 'checkbox_color' );
+$settings->terms_color = UABB_Helper::uabb_colorpicker( $settings, 'terms_color' );
 
 $settings->spacing = ( $settings->spacing != '' ) ? $settings->spacing : '10';
 
@@ -238,10 +240,113 @@ if( $settings->btn_margin_top != '' ) {
     margin-top: <?php echo ( $settings->text_margin_top != '' ) ? $settings->text_margin_top : '20' ?>px;
 }
 
+<?php if ( $settings->terms_checkbox == 'show' ) { ?>
+
+    .fl-node-<?php echo $id; ?> .uabb-subscribe-form .uabb-terms-label {
+        <?php if( $settings->checkbox_font_family['family'] != "Default") : ?>
+            <?php UABB_Helper::uabb_font_css( $settings->checkbox_font_family ); ?>
+        <?php endif; ?>
+
+        <?php if( isset( $settings->checkbox_font_size ) && $settings->checkbox_font_size != '' ) : ?>
+            font-size: <?php echo $settings->checkbox_font_size; ?>px;
+        <?php endif; ?>
+
+        <?php if( isset( $settings->checkbox_line_height ) && $settings->checkbox_line_height != '' ) : ?>
+            line-height: <?php echo $settings->checkbox_line_height; ?>em;
+        <?php endif; ?>
+
+        <?php if ( isset( $settings->checkbox_color ) && $settings->checkbox_color != '' ) : ?>
+            color: <?php echo ( false === strpos( $settings->checkbox_color, 'rgb' ) ) ? $settings->checkbox_color : $settings->checkbox_color; ?>;
+            transition: color 300ms ease;
+        <?php endif; ?>
+
+        <?php if( $settings->checkbox_text_transform != '' ) : ?>
+            text-transform: <?php echo $settings->checkbox_text_transform; ?>;
+        <?php endif; ?>
+
+        <?php if( $settings->checkbox_text_letter_spacing != '' ) { ?>
+            letter-spacing: <?php echo $settings->checkbox_text_letter_spacing; ?>px;
+        <?php } ?> 
+    }
+<?php } ?>
+
+<?php if ( $settings->terms_checkbox == 'show' ) { ?>
+    .fl-node-<?php echo $id; ?> .uabb-subscribe-form .uabb-terms-text {
+        <?php if( $settings->terms_font_family['family'] != "Default") : ?>
+            <?php UABB_Helper::uabb_font_css( $settings->terms_font_family ); ?>
+        <?php endif; ?>
+
+        <?php if( isset( $settings->terms_font_size ) && $settings->terms_font_size != '' ) : ?>
+            font-size: <?php echo $settings->terms_font_size; ?>px;
+        <?php endif; ?>
+
+        <?php if( isset( $settings->terms_line_height ) && $settings->terms_line_height != '' ) : ?>
+            line-height: <?php echo $settings->terms_line_height; ?>em;
+        <?php endif; ?>
+
+        <?php if ( isset( $settings->terms_color ) && $settings->terms_color != ''  ) : ?>
+            color: <?php echo ( false === strpos( $settings->terms_color, 'rgb' ) ) ? $settings->terms_color : $settings->terms_color; ?>;
+            transition: color 300ms ease;
+        <?php endif; ?>
+
+        <?php if( $settings->terms_text_transform != '' ) : ?>
+            text-transform: <?php echo $settings->terms_text_transform; ?>;
+        <?php endif; ?>
+
+        <?php if( $settings->terms_text_letter_spacing != '' ) { ?>
+            letter-spacing: <?php echo $settings->terms_text_letter_spacing; ?>px;
+        <?php } ?>
+    }
+<?php } ?>
+
+.fl-node-<?php echo $id; ?> .uabb-subscribe-form .uabb-input-group input[type="checkbox"] + span:before {
+    background: #fafafa;
+}
+
+<?php
+$font_size = intval( $settings->checkbox_size );
+$checked_width = $font_size - intval( $settings->checkbox_border_width );
+?>
+.fl-node-<?php echo $id; ?> .uabb-subscribe-form .uabb-input-group input[type="checkbox"] {
+    display: none;
+}
+
+.fl-node-<?php echo $id; ?> .uabb-subscribe-form .uabb-input-group .uabb-terms-label input[type="checkbox"] + span:before {
+    content: '';
+    <?php  if (  isset( $settings->checkbox_bgcolor ) && $settings->checkbox_bgcolor != '' ) : ?>
+    transition: background-color 300ms ease;
+    background-color: <?php echo ( false === strpos( $settings->checkbox_bgcolor, 'rgb' ) ) ? '#' . $settings->checkbox_bgcolor : $settings->checkbox_bgcolor; ?>; 
+    <?php endif; ?>
+    border-width: <?php echo $settings->checkbox_border_width ?>px;
+    border-color: #<?php echo $settings->checkbox_border_color  ?>;
+    vertical-align: middle;
+    width: <?php echo $settings->checkbox_size ?>px;
+    height: <?php echo $settings->checkbox_size ?>px;
+    padding: 2px;
+    margin-right: 10px;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    align-content: center;
+}
+
+.fl-node-<?php echo $id; ?> .uabb-subscribe-form .uabb-input-group .uabb-terms-label input[type="checkbox"]:checked + span:before {
+    content: "\2714";
+    font-weight: bold;
+    font-size: <?php echo $checked_width ?>px;
+    line-height: <?php echo $checked_width ?>px;
+    color: #<?php echo $settings->checkbox_selected_color ?>;
+    padding-top: 2px;
+}
+
+.fl-node-<?php echo $id; ?> .uabb-subscribe-form .uabb-input-group input[type="checkbox"] + span:before {
+    border-radius: <?php echo $settings->checkbox_border_radius ?>px;
+}
+
 .fl-node-<?php echo $id; ?> .uabb-subscribe-form {
     
     <?php 
-    if( isset( $settings->padding ) && $settings->padding != '' && isset( $settings->padding_dimension_top ) && ( $settings->padding_dimension_top == '' || $settings->padding_dimension_top == '0' ) && isset( $settings->padding_dimension_bottom ) && ( $settings->padding_dimension_bottom == '' || $settings->padding_dimension_bottom == '0' ) && isset( $settings->padding_dimension_left ) && ( $settings->padding_dimension_left == '' || $settings->padding_dimension_left == '0' ) && isset( $settings->padding_dimension_right ) && ( $settings->padding_dimension_right == '' || $settings->padding_dimension_right == '0' ) ) {
+    if( isset( $settings->padding ) && $settings->padding != '' && isset( $settings->padding_dimension_top ) && $settings->padding_dimension_top == ''&& isset( $settings->padding_dimension_bottom ) && $settings->padding_dimension_bottom == '' && isset( $settings->padding_dimension_left ) && $settings->padding_dimension_left == '' && isset( $settings->padding_dimension_right ) && $settings->padding_dimension_right == '' ) {
         echo $settings->padding; ?>;
     <?php } else { ?>
         <?php 
@@ -284,6 +389,14 @@ if( $settings->btn_margin_top != '' ) {
     ?>
 }
 
+.fl-node-<?php echo $id; ?> .uabb-sf-style-style1 .uabb-form-field input[type="checkbox"] + span:before {
+    <?php
+    echo ( $settings->input_background_color != '' ) ? 'background: ' . $settings->input_background_color . ';' : '';
+    echo ( $settings->border_color != '' ) ? 'border-color: ' . $settings->border_color . ';' : '';
+    echo ( $settings->border_width != '' ) ? 'border-width: ' . $settings->border_width . 'px;' : 'border-width: 1px;';
+    ?>
+}
+
 <?php } ?>
 
 <?php if( $settings->form_style == 'style2' ) { ?>
@@ -312,28 +425,41 @@ if( $settings->btn_margin_top != '' ) {
     padding: <?php echo ( $settings->vertical_padding != '' ) ? $settings->vertical_padding : '12'; ?>px <?php echo ( $settings->horizontal_padding != '' ) ? $settings->horizontal_padding : '15'; ?>px;
 }
 
+.fl-node-<?php echo $id; ?> .uabb-sf-style-style2 .uabb-form-field input[type="checkbox"] + span:before {
+     <?php
+    echo ( $settings->input_text_color != '' ) ? 'color: ' . $settings->input_text_color . ';' : '';
+    echo ( $settings->border_color != '' ) ? 'border-color: ' . $settings->border_color . ';' : '';
+    echo ( $settings->border_width != '' ) ? 'border-width: ' . $settings->border_width . 'px;' : 'border-width: 1px;';
+    ?>
+}
+
 <?php } ?>
 
 .fl-node-<?php echo $id; ?> .uabb-subscribe-form .uabb-form-field input:focus,
-.fl-node-<?php echo $id; ?> .uabb-subscribe-form .uabb-form-field input:active {
+.fl-node-<?php echo $id; ?> .uabb-subscribe-form .uabb-form-field input:active,
+.fl-node-<?php echo $id; ?> .uabb-subscribe-form .uabb-form-field input[type="checkbox"] + span:active:before,
+.fl-node-<?php echo $id; ?> .uabb-subscribe-form .uabb-form-field input[type="checkbox"] + span:focus:before {
     <?php
     echo ( $settings->border_active_color != '' ) ? 'border-color: ' . $settings->border_active_color . ';' : '';
     ?>
 }
 
 <?php if( $settings->overall_alignment == 'left' ) : ?>
-.fl-node-<?php echo $id; ?> .uabb-subscribe-form-inline .uabb-form-wrap { 
+.fl-node-<?php echo $id; ?> .uabb-subscribe-form-inline .uabb-form-wrap,
+.fl-node-<?php echo $id; ?> .uabb-subscribe-form-inline .uabb-form-wrap .uabb-terms-wrap { 
     -webkit-box-pack: start;
     -ms-flex-pack: start;
     justify-content: flex-start;
 }
 <?php elseif( $settings->overall_alignment == 'right' ) : ?>
-.fl-node-<?php echo $id; ?> .uabb-subscribe-form-inline .uabb-form-wrap { 
+.fl-node-<?php echo $id; ?> .uabb-subscribe-form-inline .uabb-form-wrap,
+.fl-node-<?php echo $id; ?> .uabb-subscribe-form-inline .uabb-form-wrap .uabb-terms-wrap { 
     -webkit-box-pack: end;
     -ms-flex-pack: end;
     justify-content: flex-end;
 }
 <?php endif; ?>
+
 <?php
 if( $global_settings->responsive_enabled ) { // Global Setting If started
 ?>
@@ -426,6 +552,26 @@ if( $global_settings->responsive_enabled ) { // Global Setting If started
                 <?php endif; ?>
             <?php } ?>
                         
+        }
+
+        .fl-node-<?php echo $id; ?> .uabb-subscribe-form .uabb-terms-text {
+            <?php if( isset( $settings->terms_font_size_medium ) && $settings->terms_font_size_medium != '' ) : ?>
+                font-size: <?php echo $settings->terms_font_size_medium; ?>px;
+            <?php endif; ?>
+            
+            <?php if( isset( $settings->terms_line_height_medium ) && $settings->terms_line_height_medium != '' ) : ?>
+                line-height: <?php echo $settings->terms_line_height_medium; ?>em;
+            <?php endif; ?>
+        }
+
+        .fl-node-<?php echo $id; ?> .uabb-subscribe-form .uabb-terms-label {
+            <?php if( isset( $settings->checkbox_font_size_medium ) && $settings->checkbox_font_size_medium != '' ) : ?>
+                font-size: <?php echo $settings->checkbox_font_size_medium; ?>px;
+            <?php endif; ?>
+            
+            <?php if( isset( $settings->checkbox_line_height_medium ) && $settings->checkbox_line_height_medium != '' ) : ?>
+                line-height: <?php echo $settings->checkbox_line_height_medium; ?>em;
+            <?php endif; ?>
         }
 
         .fl-node-<?php echo $id; ?> .uabb-form-field input[type="text"],
@@ -606,6 +752,26 @@ if( $global_settings->responsive_enabled ) { // Global Setting If started
                 <?php endif; ?>
             <?php } ?>
             
+        }
+
+        .fl-node-<?php echo $id; ?> .uabb-subscribe-form .uabb-terms-text {
+            <?php if( isset( $settings->terms_font_size_responsive ) && $settings->terms_font_size_responsive != '' ) : ?>
+                font-size: <?php echo $settings->terms_font_size_responsive; ?>px;
+            <?php endif; ?>
+            
+            <?php if( isset( $settings->terms_line_height_responsive ) && $settings->terms_line_height_responsive != '' ) : ?>
+                line-height: <?php echo $settings->terms_line_height_responsive; ?>em;
+            <?php endif; ?>
+        }
+
+        .fl-node-<?php echo $id; ?> .uabb-subscribe-form .uabb-terms-label {
+            <?php if( isset( $settings->checkbox_font_size_responsive ) && $settings->checkbox_font_size_responsive != '' ) : ?>
+                font-size: <?php echo $settings->checkbox_font_size_responsive; ?>px;
+            <?php endif; ?>
+            
+            <?php if( isset( $settings->checkbox_line_height_responsive ) && $settings->checkbox_line_height_responsive != '' ) : ?>
+                line-height: <?php echo $settings->checkbox_line_height_responsive; ?>em;
+            <?php endif; ?>
         }
 
         .fl-node-<?php echo $id; ?> .uabb-form-field input[type="text"],

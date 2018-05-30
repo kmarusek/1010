@@ -234,7 +234,7 @@ if( $settings->style != 'iconfall' ) {
 
 .fl-node-<?php echo $id; ?> .uabb-content-wrap<?php echo $id; ?> > .section > .uabb-tab-acc-title {
     <?php 
-    if( isset( $settings->tab_padding ) && $settings->tab_padding != '' && isset( $settings->tab_padding_dimension_top ) && ( $settings->tab_padding_dimension_top == '' || $settings->tab_padding_dimension_top == '0' ) && isset( $settings->tab_padding_dimension_bottom ) && ( $settings->tab_padding_dimension_bottom == '' || $settings->tab_padding_dimension_bottom == '0' ) && isset( $settings->tab_padding_dimension_left ) && ( $settings->tab_padding_dimension_left == '' || $settings->tab_padding_dimension_left == '0' ) && isset( $settings->tab_padding_dimension_right ) && ( $settings->tab_padding_dimension_right == '' || $settings->tab_padding_dimension_right == '0' ) ) {
+    if( isset( $settings->tab_padding ) && $settings->tab_padding != '' && isset( $settings->tab_padding_dimension_top ) && $settings->tab_padding_dimension_top == '' && isset( $settings->tab_padding_dimension_bottom ) && $settings->tab_padding_dimension_bottom == '' && isset( $settings->tab_padding_dimension_left ) && $settings->tab_padding_dimension_left == '' && isset( $settings->tab_padding_dimension_right ) && $settings->tab_padding_dimension_right == '' ) {
         echo $settings->tab_padding; ?>;
     <?php } else { ?>
         <?php 
@@ -362,7 +362,7 @@ if( $settings->icon_active_color != '' ) {
 .fl-node-<?php echo $id; ?> .uabb-content-wrap<?php echo $id; ?> > .section > .uabb-tab-acc-content {
 
     <?php 
-    if( isset( $settings->content_padding ) && $settings->content_padding != '' && isset( $settings->content_padding_dimension_top ) && ( $settings->content_padding_dimension_top == '' || $settings->content_padding_dimension_top == '0' ) && isset( $settings->content_padding_dimension_bottom ) && ( $settings->content_padding_dimension_bottom == '' || $settings->content_padding_dimension_bottom == '0' ) && isset( $settings->content_padding_dimension_left ) && ( $settings->content_padding_dimension_left == '' || $settings->content_padding_dimension_left == '0' ) && isset( $settings->content_padding_dimension_right ) && ( $settings->content_padding_dimension_right == '' || $settings->content_padding_dimension_right == '0' ) ) {
+    if( isset( $settings->content_padding ) && $settings->content_padding != '' && isset( $settings->content_padding_dimension_top ) && $settings->content_padding_dimension_top == '' && isset( $settings->content_padding_dimension_bottom ) && $settings->content_padding_dimension_bottom == '' && isset( $settings->content_padding_dimension_left ) && $settings->content_padding_dimension_left == '' && isset( $settings->content_padding_dimension_right ) && $settings->content_padding_dimension_right == '' ) {
         echo $settings->content_padding; ?>;
     <?php } else { ?>
         <?php  

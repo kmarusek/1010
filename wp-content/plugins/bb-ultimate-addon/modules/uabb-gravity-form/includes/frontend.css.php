@@ -24,7 +24,6 @@
     $settings->validation_bg_color = UABB_Helper::uabb_colorpicker( $settings, 'validation_bg_color', true );
     
     $settings->validation_border_color = UABB_Helper::uabb_colorpicker( $settings, 'validation_border_color' );
-    $settings->input_padding = ( isset( $settings->input_padding ) && $settings->input_padding != '' ) ? $settings->input_padding : 10;
     $settings->radio_check_size = ( $settings->radio_check_size != '' ) ? $settings->radio_check_size : 20;
     $settings->radio_check_border_width = ( $settings->radio_check_border_width != '' ) ? $settings->radio_check_border_width : 1;
     $settings->radio_btn_border_radius = ( $settings->radio_btn_border_radius != '' ) ? $settings->radio_btn_border_radius : 50;
@@ -54,7 +53,7 @@
 		<?php UABB_Helper::uabb_gradient_css( $settings->form_bg_gradient ); ?>
 	<?php } ?>
 	<?php 
-	if( isset( $settings->form_spacing ) && $settings->form_spacing != '' && isset( $settings->form_spacing_dimension_top ) && ( $settings->form_spacing_dimension_top == '' || $settings->form_spacing_dimension_top == '0' ) && isset( $settings->form_spacing_dimension_bottom ) && ( $settings->form_spacing_dimension_bottom == '' || $settings->form_spacing_dimension_bottom == '0' ) && isset( $settings->form_spacing_dimension_left ) && ( $settings->form_spacing_dimension_left == '' || $settings->form_spacing_dimension_left == '0' ) && isset( $settings->form_spacing_dimension_right ) && ( $settings->form_spacing_dimension_right == '' || $settings->form_spacing_dimension_right == '0' ) ) {
+	if( isset( $settings->form_spacing ) && $settings->form_spacing != '' && isset( $settings->form_spacing_dimension_top ) && $settings->form_spacing_dimension_top == '' && isset( $settings->form_spacing_dimension_bottom ) && $settings->form_spacing_dimension_bottom == '' && isset( $settings->form_spacing_dimension_left ) && $settings->form_spacing_dimension_left == '' && isset( $settings->form_spacing_dimension_right ) && $settings->form_spacing_dimension_right == '' ) {
 		echo $settings->form_spacing; ?>;
 	<?php } else { ?>
 		<?php  
@@ -84,8 +83,9 @@
 .fl-node-<?php echo $id; ?> .gform_wrapper textarea,
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield .ginput_container select {
 	<?php 
-	if( isset( $settings->input_padding ) && $settings->input_padding != '' && isset( $settings->input_padding_dimension_top ) && ( $settings->input_padding_dimension_top == '' || $settings->input_padding_dimension_top == '0' ) && isset( $settings->input_padding_dimension_bottom ) && ( $settings->input_padding_dimension_bottom == '' || $settings->input_padding_dimension_bottom == '0' ) && isset( $settings->input_padding_dimension_left ) && ( $settings->input_padding_dimension_left == '' || $settings->input_padding_dimension_left == '0' ) && isset( $settings->input_padding_dimension_right ) && ( $settings->input_padding_dimension_right == '' || $settings->input_padding_dimension_right == '0' ) ) {
-		echo $settings->input_padding; ?>;
+	if( isset( $settings->input_padding ) && $settings->input_padding != '' && isset( $settings->input_padding_dimension_top ) && $settings->input_padding_dimension_top == '' && isset( $settings->input_padding_dimension_bottom ) && $settings->input_padding_dimension_bottom == '' && isset( $settings->input_padding_dimension_left ) && $settings->input_padding_dimension_left == '' && isset( $settings->input_padding_dimension_right ) && $settings->input_padding_dimension_right == '' ) {
+        $settings->input_padding = ( isset( $settings->input_padding ) && $settings->input_padding != '' ) ? $settings->input_padding : 15;
+		$settings->input_padding; ?>px;
 	<?php } else { ?>
 		<?php  
 	    if(isset($settings->input_padding_dimension_top) ){
@@ -140,17 +140,17 @@
     border-style: solid;
     border-color: <?php echo uabb_theme_text_color( $settings->input_border_color ); ?>;
     <?php 
-    if( isset( $settings->uabb_input_border_width ) && is_array( $settings->uabb_input_border_width ) && isset( $settings->input_border_width_dimension_top ) && ( $settings->input_border_width_dimension_top == '' || $settings->input_border_width_dimension_top == '0' ) && isset( $settings->input_border_width_dimension_bottom ) && ( $settings->input_border_width_dimension_bottom == '' || $settings->input_border_width_dimension_bottom == '0' ) && isset( $settings->input_border_width_dimension_left ) && ( $settings->input_border_width_dimension_left == '' || $settings->input_border_width_dimension_left == '0' ) && isset( $settings->input_border_width_dimension_right ) && ( $settings->input_border_width_dimension_right == '' || $settings->input_border_width_dimension_right == '0' ) ) { ?>
+    if( isset( $settings->uabb_input_border_width ) && is_array( $settings->uabb_input_border_width ) && isset( $settings->input_border_width_dimension_top ) && $settings->input_border_width_dimension_top == ''  && isset( $settings->input_border_width_dimension_bottom ) && $settings->input_border_width_dimension_bottom == '' && isset( $settings->input_border_width_dimension_left ) &&  $settings->input_border_width_dimension_left == '' && isset( $settings->input_border_width_dimension_right ) && $settings->input_border_width_dimension_right == '' ) { ?>
         <?php
             $str = '0;';
     		if( is_array( $settings->uabb_input_border_width ) ) {
     			if( $settings->uabb_input_border_width['simplify'] == 'collapse' ) {
-    				$str = ( $settings->uabb_input_border_width['all'] != '' ) ? $settings->uabb_input_border_width['all'] . 'px;' : '0;';
+    				$str = ( $settings->uabb_input_border_width['all'] != '' ) ? $settings->uabb_input_border_width['all'] . 'px;' : '1;';
     			} else {
-    				$str = ( $settings->uabb_input_border_width['top'] != '' ) ? $settings->uabb_input_border_width['top'] . 'px ' : '0 ';
-    				$str .= ( $settings->uabb_input_border_width['right'] != '' ) ? $settings->uabb_input_border_width['right'] . 'px ' : '0 ';
-    				$str .= ( $settings->uabb_input_border_width['bottom'] != '' ) ? $settings->uabb_input_border_width['bottom'] . 'px ' : '0 ';
-    				$str .= ( $settings->uabb_input_border_width['left'] != '' ) ? $settings->uabb_input_border_width['left'] . 'px ' : '0;';
+    				$str = ( $settings->uabb_input_border_width['top'] != '' ) ? $settings->uabb_input_border_width['top'] . 'px ' : '1 ';
+    				$str .= ( $settings->uabb_input_border_width['right'] != '' ) ? $settings->uabb_input_border_width['right'] . 'px ' : '1 ';
+    				$str .= ( $settings->uabb_input_border_width['bottom'] != '' ) ? $settings->uabb_input_border_width['bottom'] . 'px ' : '1 ';
+    				$str .= ( $settings->uabb_input_border_width['left'] != '' ) ? $settings->uabb_input_border_width['left'] . 'px ' : '1;';
     			}
     		}
             ?>
@@ -159,16 +159,16 @@
     <?php } else { ?>
         <?php  
         if(isset($settings->input_border_width_dimension_top) ){
-            echo ( $settings->input_border_width_dimension_top != '' ) ? 'border-top-width:'.$settings->input_border_width_dimension_top.'px;' : 'border-top-width: 0;'; 
+            echo ( $settings->input_border_width_dimension_top != '' ) ? 'border-top-width:'.$settings->input_border_width_dimension_top.'px;' : 'border-top-width: 1;'; 
         }
         if(isset($settings->input_border_width_dimension_bottom) ){
-            echo ( $settings->input_border_width_dimension_bottom != '' ) ? 'border-bottom-width:'.$settings->input_border_width_dimension_bottom.'px;' : 'border-bottom-width: 0;';
+            echo ( $settings->input_border_width_dimension_bottom != '' ) ? 'border-bottom-width:'.$settings->input_border_width_dimension_bottom.'px;' : 'border-bottom-width: 1;';
         }
         if(isset($settings->input_border_width_dimension_left) ){
-            echo ( $settings->input_border_width_dimension_left != '' ) ? 'border-left-width:'.$settings->input_border_width_dimension_left.'px;' : 'border-left-width: 0;';
+            echo ( $settings->input_border_width_dimension_left != '' ) ? 'border-left-width:'.$settings->input_border_width_dimension_left.'px;' : 'border-left-width: 1;';
         }
         if(isset($settings->input_border_width_dimension_right) ){
-            echo ( $settings->input_border_width_dimension_right != '' ) ? 'border-right-width:'.$settings->input_border_width_dimension_right.'px;' : 'border-right-width: 0;';
+            echo ( $settings->input_border_width_dimension_right != '' ) ? 'border-right-width:'.$settings->input_border_width_dimension_right.'px;' : 'border-right-width: 1;';
         } 
     }
     ?>
@@ -794,7 +794,7 @@ if ( $settings->btn_style == 'gradient' ) {
 	border-radius: <?php echo $settings->validation_border_radius; ?>px;
 
 	<?php 
-	if( isset( $settings->validation_spacing ) && $settings->validation_spacing != '' && isset( $settings->validation_spacing_dimension_top ) && ( $settings->validation_spacing_dimension_top == '' || $settings->validation_spacing_dimension_top == '0' ) && isset( $settings->validation_spacing_dimension_bottom ) && ( $settings->validation_spacing_dimension_bottom == '' || $settings->validation_spacing_dimension_bottom == '0' ) && isset( $settings->validation_spacing_dimension_left ) && ( $settings->validation_spacing_dimension_left == '' || $settings->validation_spacing_dimension_left == '0' ) && isset( $settings->validation_spacing_dimension_right ) && ( $settings->validation_spacing_dimension_right == '' || $settings->validation_spacing_dimension_right == '0' ) ) {
+	if( isset( $settings->validation_spacing ) && $settings->validation_spacing != '' && isset( $settings->validation_spacing_dimension_top ) && $settings->validation_spacing_dimension_top == '' && isset( $settings->validation_spacing_dimension_bottom ) && $settings->validation_spacing_dimension_bottom == '' && isset( $settings->validation_spacing_dimension_left ) && $settings->validation_spacing_dimension_left == '' && isset( $settings->validation_spacing_dimension_right ) && $settings->validation_spacing_dimension_right == '' ) {
 		echo $settings->validation_spacing; ?>;
 	<?php } else { ?>
 		<?php 

@@ -211,7 +211,7 @@ $settings->ct_content_color = UABB_Helper::uabb_colorpicker( $settings, 'ct_cont
     text-align: <?php echo $settings->title_alignment; ?>;
 
     <?php 
-    if( isset( $settings->title_spacing ) && $settings->title_spacing != '' && isset( $settings->title_spacing_dimension_top ) && ( $settings->title_spacing_dimension_top == '' || $settings->title_spacing_dimension_top == '0' ) && isset( $settings->title_spacing_dimension_bottom ) && ( $settings->title_spacing_dimension_bottom == '' || $settings->title_spacing_dimension_bottom == '0' ) && isset( $settings->title_spacing_dimension_left ) && ( $settings->title_spacing_dimension_left == '' || $settings->title_spacing_dimension_left == '0' ) && isset( $settings->title_spacing_dimension_right ) && ( $settings->title_spacing_dimension_right == '' || $settings->title_spacing_dimension_right == '0' ) ) {
+    if( isset( $settings->title_spacing ) && $settings->title_spacing != '' && isset( $settings->title_spacing_dimension_top ) && $settings->title_spacing_dimension_top == '' && isset( $settings->title_spacing_dimension_bottom ) && $settings->title_spacing_dimension_bottom == '' && isset( $settings->title_spacing_dimension_left ) && $settings->title_spacing_dimension_left == '' && isset( $settings->title_spacing_dimension_right ) && $settings->title_spacing_dimension_right == '' ) {
         echo $settings->title_spacing; ?>;
     <?php } else { ?>
         <?php 
@@ -243,7 +243,7 @@ $settings->ct_content_color = UABB_Helper::uabb_colorpicker( $settings, 'ct_cont
 
 .uamodal-<?php echo $id; ?> .uabb-modal-content-data {
     <?php 
-    if( isset( $settings->modal_spacing ) && $settings->modal_spacing != '' && isset( $settings->modal_spacing_dimension_top ) && ( $settings->modal_spacing_dimension_top == '' || $settings->modal_spacing_dimension_top == '0' ) && isset( $settings->modal_spacing_dimension_bottom ) && ( $settings->modal_spacing_dimension_bottom == '' || $settings->modal_spacing_dimension_bottom == '0' ) && isset( $settings->modal_spacing_dimension_left ) && ( $settings->modal_spacing_dimension_left == '' || $settings->modal_spacing_dimension_left == '0' ) && isset( $settings->modal_spacing_dimension_right ) && ( $settings->modal_spacing_dimension_right == '' || $settings->modal_spacing_dimension_right == '0' ) ) {
+    if( isset( $settings->modal_spacing ) && $settings->modal_spacing != '' && isset( $settings->modal_spacing_dimension_top ) && $settings->modal_spacing_dimension_top == '' && isset( $settings->modal_spacing_dimension_bottom ) && $settings->modal_spacing_dimension_bottom == '' && isset( $settings->modal_spacing_dimension_left ) && $settings->modal_spacing_dimension_left == '' && isset( $settings->modal_spacing_dimension_right ) && $settings->modal_spacing_dimension_right == '' ) {
         echo $settings->modal_spacing; ?>;
     <?php } else { ?>
         <?php  

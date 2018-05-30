@@ -79,6 +79,7 @@
 				email_regex = /\S+@\S+\.\S+/,
 				phone_regex = /^[ 0-9.()\[\]+-]*$/,
 				isValid	  	= true;
+				termsCheckbox 	= $(this.nodeClass + ' .uabb-terms-checkbox input'),
 				postId      	= theForm.closest( '.fl-builder-content' ).data( 'post-id' ),
 				templateId		= theForm.data( 'template-id' ),
 				templateNodeId	= theForm.data( 'template-node-id' ),
@@ -204,6 +205,16 @@
 				}
 			}
 
+			if ( termsCheckbox.length ) {
+				if ( ! termsCheckbox.is(':checked') ) {
+					isValid = false;
+					termsCheckbox.closest('.uabb-contact-form .uabb-terms-checkbox').addClass('uabb-error');
+				}
+				else if (termsCheckbox.closest('.uabb-contact-form .uabb-terms-checkbox').hasClass('uabb-error')) {
+					termsCheckbox.closest('.uabb-contact-form .uabb-terms-checkbox').removeClass('uabb-error');
+				}
+			}
+
 			// validate if reCAPTCHA is enabled and checked
 			if ( reCaptchaField.length > 0 ) {
 				if ( 'undefined' === typeof reCaptchaValue || reCaptchaValue === false ) {
@@ -233,6 +244,7 @@
 					phone	: phone.val(),
 					mailto	: mailto.val(),
 					message	: message.val(),
+					terms_checked		: termsCheckbox.is(':checked') ? '1' : '0',
 					post_id 			: postId,
 					node_id 			: nodeId,
 					template_id 		: templateId,

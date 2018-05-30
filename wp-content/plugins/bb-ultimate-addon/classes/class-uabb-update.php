@@ -53,10 +53,15 @@ if ( ! class_exists( 'UABB_Plugin_Update' ) ) {
 			// Get saved version number.
 			$saved_version = get_option( '_uabb_saved_version', '0' );
 
+			if( '0' === $saved_version ) {
+				update_option( '_uabb_1_7_2_ver', 'yes' );
+			}
+
 			// If matches the current version then skip the next steps.
 			if ( version_compare( $saved_version, BB_ULTIMATE_ADDON_VER, '=' ) ) {
 				return;
 			}
+
 
 			$old_jrn_details = get_option( '_journey_details', '0' );
 			
@@ -65,6 +70,7 @@ if ( ! class_exists( 'UABB_Plugin_Update' ) ) {
 			}
 
 			$new_jrn_details = array( 'previous_version' => $saved_version, 'current_version' => BB_ULTIMATE_ADDON_VER );
+
 
 			array_push( $old_jrn_details, $new_jrn_details );
 

@@ -66,6 +66,7 @@
 				fname        	= this.form.find( 'input[name=uabb-subscribe-form-fname]' ),
 				lname        	= this.form.find( 'input[name=uabb-subscribe-form-lname]' ),
 				email       	= this.form.find( 'input[name=uabb-subscribe-form-email]' ),
+				termsCheckbox   = this.form.find( 'input[name=uabb-terms-checkbox]'),
 				re          	= /\S+@\S+\.\S+/,
 				valid       	= true;
 				
@@ -83,6 +84,18 @@
 				email.addClass( 'uabb-form-error' );
 				email.siblings( '.uabb-form-error-message' ).show();
 				valid = false;
+			}
+
+			if ( termsCheckbox.val() ) {
+				if ( ! termsCheckbox.is(':checked') ) {
+					valid = false;
+					termsCheckbox.closest('.uabb-terms-wrap').addClass( 'uabb-form-error' );
+					termsCheckbox.parent().siblings( '.uabb-form-error-message' ).show();
+				}
+				else {
+					termsCheckbox.removeClass( 'uabb-form-error-message' );
+					termsCheckbox.parent().siblings( '.uabb-form-error-message' ).hide();
+				}
 			}
 			
 			if ( valid ) {
