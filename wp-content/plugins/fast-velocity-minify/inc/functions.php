@@ -3,6 +3,10 @@
 # handle better utf-8 and unicode encoding
 if(function_exists('mb_internal_encoding')) { mb_internal_encoding('UTF-8'); }
 
+# must have
+@ini_set('pcre.backtrack_limit',5000000); 
+@ini_set('pcre.recursion_limit',5000000);
+
 # Consider fallback to PHP Minify [2017.12.17] from https://github.com/matthiasmullie/minify (must be defined on the outer scope)
 $path = $plugindir . 'libs/matthiasmullie';
 require_once $path . '/minify/src/Minify.php';
@@ -143,8 +147,14 @@ function fastvelocity_min_in_arrayi($hurl, $ignore){
 
 # better compatibility urls, fix bootstrap 4 svg images https://www.w3.org/TR/SVG/intro.html#NamespaceAndDTDIdentifiers
 function fvm_compat_urls($code) {
-	$code = str_ireplace(array('http://', 'https://'), '//', $code); 
-	$code = str_ireplace('//www.w3.org/2000/svg', 'http://www.w3.org/2000/svg', $code);
+	$default_protocol = get_option('fastvelocity_min_default_protocol', 'dynamic');
+	if($default_protocol == 'dynamic' || empty($default_protocol)) { 
+		$default_protocol = '//'; 
+	} else { 
+		$default_protocol = $default_protocol.'://'; 
+	}
+	$code = str_ireplace(array('http://', 'https://'), $default_protocol, $code);
+	$code = str_ireplace($default_protocol.'www.w3.org/2000/svg', 'http://www.w3.org/2000/svg', $code);
 	return $code;
 }
 
@@ -161,7 +171,10 @@ return fvm_compat_urls($css);
 
 # find if we are running windows
 function fvm_server_is_windows() {
-	if(defined('PHP_OS_FAMILY') && strtolower(PHP_OS_FAMILY) == 'windows') { return true; } # PHP 7.2.0+
+	# PHP 7.2.0+
+	if(defined('PHP_OS_FAMILY')) {
+		if(strtolower(PHP_OS_FAMILY) == 'windows') { return true; }
+	}
 	if(function_exists('php_uname')) {
 		$os = @php_uname('s');
 		if (stripos($os, 'Windows') !== false) { 
@@ -298,7 +311,9 @@ global $wp_domain;
 $css = fastvelocity_min_remove_utf8_bom($css); 
 
 # fix url paths
-if(!empty($url)) { $css = preg_replace("/url\(\s*['\"]?(?!data:)(?!http)(?![\/'\"])(.+?)['\"]?\s*\)/ui", "url(".dirname($url)."/$1)", $css); } 
+if(!empty($url)) { 
+	$css = preg_replace("/url\(\s*['\"]?(?!data:)(?!http)(?![\/'\"])(.+?)['\"]?\s*\)/ui", "url(".dirname($url)."/$1)", $css); 
+} 
 
 # remove query strings from fonts (for better seo, but add a small cache buster based on most recent updates)
 $ctime = get_option('fvm-last-cache-update', '0'); # last update or zero
@@ -581,12 +596,14 @@ function fastvelocity_min_readme($url) {
 	$file = str_replace('www.', 'http://www.', $file);
 	$file = preg_replace('#(^|[^\"=]{1})(http://|ftp://|mailto:|https://)([^\s<>]+)([\s\n<>]|$)#', '$1<a target="_blank" href="$2$3">$2$3</a>$4', $file);
 	
+	# extra linebreaks
+	$file = str_replace('<p>...</p>', "", $file);
+	
 	# extract faqs
 	$prefix = "Frequently Asked Questions";
 	$faq = substr($file, strpos($file, $prefix) + strlen($prefix));
 	$faq = substr($faq, 0, strpos($faq, '<p><h3>'));
-	
-	
+
 	return trim($faq);
 }
 
@@ -661,8 +678,6 @@ foreach( $transient_keys as $t ) { delete_transient( $t ); } # delete
 
 # purge all caches
 function fvm_purge_all() {
-
-
 
 # get cache directories and urls
 $cachepath = fvm_cachepath();
@@ -804,7 +819,7 @@ function fastvelocity_godaddy_request( $method, $url = null ) {
 
 function fastvelocity_purge_others(){
 	
-# wodpress default cache
+# wordpress default cache
 if (function_exists('wp_cache_flush')) {
 wp_cache_flush();
 }
@@ -877,3 +892,5 @@ if (method_exists('WpeCommon', 'purge_varnish_cache')) { WpeCommon::purge_varnis
 }
 
 }
+
+
