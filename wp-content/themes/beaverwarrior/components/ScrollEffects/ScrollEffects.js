@@ -250,14 +250,15 @@
     };
     
     ScrollAlax.prototype.on_loaded = function () {
-        window.setTimeout(function () {
-            var i = 0;
+        var i = 0;
 
-            for (i = 0; i < this.atlasplayers.length; i += 1) {
-                this.atlasplayers[i].seek(0);
-                this.atlasplayers[i].play();
-            }
-        }.bind(this), 1500);
+        for (i = 0; i < this.atlasplayers.length; i += 1) {
+            this.atlasplayers[i].seek(0);
+            this.atlasplayers[i].stop();
+        }
+        
+        this.unload_animation_watcher = new Animations.AnimationWatcher(this.$elem);
+        this.unload_animation_watcher.promise.then(this.on_unload_animation_complete.bind(this));
         
         this.loaded = true;
         this.update_css_classes();
@@ -266,6 +267,15 @@
     ScrollAlax.prototype.on_load_animation_complete = function () {
         this.load_animation_playing = false;
         this.update_css_classes();
+    };
+    
+    ScrollAlax.prototype.on_unload_animation_complete = function () {
+        var i = 0;
+
+        for (i = 0; i < this.atlasplayers.length; i += 1) {
+            this.atlasplayers[i].seek(0);
+            this.atlasplayers[i].play();
+        }
     };
 
     Behaviors.register_behavior(ScrollAlax);
