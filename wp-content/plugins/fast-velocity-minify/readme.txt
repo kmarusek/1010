@@ -2,7 +2,7 @@
 Contributors: Alignak
 Tags: PHP Minify, YUI Compressor, GTmetrix, Pingdom, Pagespeed, CSS Merging, JS Merging, CSS Minification, JS Minification, Speed Optimization, HTML Minification, Performance
 Requires at least: 4.5
-Stable tag: 2.3.0
+Stable tag: 2.3.2
 Tested up to: 4.9.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -81,7 +81,7 @@ I can offer you aditional `custom made` optimization on top of this plugin. If y
 == Frequently Asked Questions ==
 
 = Why is Sucuri saying that there is a "potential" backdoor, or malware on the Server Info page ? =
-It’s a false positive, and “potential” doesn’t mean it is. The serverinfo.php page, is what you see when you click on the Server Info tab. That page exists for you to be able to diagnose what your server is running, so it’s basically an information page that fetches technical information from the server and shows it there. Furthermore, the plugins are manually reviewed by the WordPress Team, before going live, precisely to avoid that kind of malware situation. Kindly refer to this topic, for a more indepth explanation: https://wordpress.org/support/topic/malware-alert-3/
+It’s a false positive, but for a more indepth explanation: https://wordpress.org/support/topic/malware-alert-3/ In addition, note that I have reached out to Sucuri, which confirmed that they are aware of the false positive and are updating their signatures to remove that notice.
 
 ...
 
@@ -270,6 +270,14 @@ Note: Kindly re-save all options and purge all caches (the plugin cache as well 
 
 
 == Changelog ==
+
+= 2.3.2 [2018.06.03] =
+* added some compatibility fixes when merging and minifying JS files
+* added an option to enable an "FVM Purge" button on the admin bar
+* moved all large transients (cached css or js code) to temporary disk files to reduce the database load
+
+= 2.3.1 [2018.06.01] =
+* bug fixes and performance tweaks for the "fix page editors" option
 
 = 2.3.0 [2018.05.24] =
 * added wp cli support for purge cache (usage: wp fvm purge)
