@@ -192,7 +192,7 @@
 				isPinned = ( lightbox.closest( '.fl-builder-ui-pinned' ).length ),
 				settings = this._getPositionSettings();
 
-			if ( ! isPinned && settings ) {
+			if ( ! isPinned && settings && this._defaults.resizable ) {
 				lightbox.css( settings );
 			}
 

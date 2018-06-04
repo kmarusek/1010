@@ -1,3 +1,27 @@
+<h4>2.1.2.4 - 05/31/2018</h4>
+<strong>Bug Fixes</strong>
+<ul>
+	<li>Fixed module settings opening when clicking the column icon.</li>
+</ul>
+
+<h4>2.1.2.3 - 05/31/2018</h4>
+<strong>Enhancements</strong>
+<ul>
+	<li>Show warning message if plugin is installed in wrong folder as it breaks auto-updates.</li>
+	<li>Allow users to <em>Save With Errors</em> in the CSS/HTML code editor.</li>
+</ul>
+<strong>Bug Fixes</strong>
+<ul>
+	<li>Fixed adjacent module settings opening when highlighting text with inline editing.</li>
+	<li>Fixed incorrect text showing after inline editing.</li>
+	<li>Fixed inline editing performance issues.</li>
+	<li>Fixed Contact Form Module field connections.</li>
+	<li>Fixed pinned content panel covering 2px of the content area.</li>
+	<li>Fixed UI lightboxes appearing in wrong positions.</li>
+	<li>Added link to change logs from wp-admin plugins page.</li>
+	<li>Fixed color picker position in responsive editing mode.</li>
+</ul>
+
 <h4>2.1.2.2 - 05/17/2018</h4>
 <strong>Bug Fixes</strong>
 <ul>
