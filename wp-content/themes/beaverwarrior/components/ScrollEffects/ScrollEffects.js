@@ -257,16 +257,23 @@
             this.atlasplayers[i].stop();
         }
         
-        this.unload_animation_watcher = new Animations.AnimationWatcher(this.$elem);
-        this.unload_animation_watcher.promise.then(this.on_unload_animation_complete.bind(this));
-        
         this.loaded = true;
         this.update_css_classes();
+        
+        if (!this.load_animation_playing) {
+            this.unload_animation_watcher = new Animations.AnimationWatcher(this.$elem);
+            this.unload_animation_watcher.promise.then(this.on_unload_animation_complete.bind(this));
+        }
     };
     
     ScrollAlax.prototype.on_load_animation_complete = function () {
         this.load_animation_playing = false;
         this.update_css_classes();
+        
+        if (this.loaded) {
+            this.unload_animation_watcher = new Animations.AnimationWatcher(this.$elem);
+            this.unload_animation_watcher.promise.then(this.on_unload_animation_complete.bind(this));
+        }
     };
     
     ScrollAlax.prototype.on_unload_animation_complete = function () {
