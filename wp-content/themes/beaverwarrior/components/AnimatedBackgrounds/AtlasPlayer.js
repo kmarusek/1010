@@ -291,6 +291,12 @@
             window.requestAnimationFrame(this.animation_krnl.bind(this));
             return;
         }
+        
+        if (this.anim_length === undefined) {
+            //Don't animate if we haven't loaded yet
+            window.requestAnimationFrame(this.animation_krnl.bind(this));
+            return;
+        }
 
         total_frames = this.atlas_data.layers.length;
         step = this.anim_length / total_frames;

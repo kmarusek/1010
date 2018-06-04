@@ -1898,6 +1898,11 @@ final class FLBuilderModel {
 			$row->settings->ss_photo_data = new StdClass();
 		}
 
+		// This class does not exist in Lite version.
+		if ( ! class_exists( 'FLSlideshowModule' ) ) {
+			return false;
+		}
+
 		// Hijack the slideshow module to get the source.
 		$ss								= new FLSlideshowModule();
 		$ss->settings					= new StdClass();

@@ -1728,6 +1728,12 @@ if (typeof Object.create !== 'function') {
             window.requestAnimationFrame(this.animation_krnl.bind(this));
             return;
         }
+        
+        if (this.anim_length === undefined) {
+            //Don't animate if we haven't loaded yet
+            window.requestAnimationFrame(this.animation_krnl.bind(this));
+            return;
+        }
 
         total_frames = this.atlas_data.layers.length;
         step = this.anim_length / total_frames;
@@ -4518,22 +4524,39 @@ if (!Array.prototype.indexOf) {
     };
     
     ScrollAlax.prototype.on_loaded = function () {
-        window.setTimeout(function () {
-            var i = 0;
+        var i = 0;
 
-            for (i = 0; i < this.atlasplayers.length; i += 1) {
-                this.atlasplayers[i].seek(0);
-                this.atlasplayers[i].play();
-            }
-        }.bind(this), 1500);
+        for (i = 0; i < this.atlasplayers.length; i += 1) {
+            this.atlasplayers[i].seek(0);
+            this.atlasplayers[i].stop();
+        }
         
         this.loaded = true;
         this.update_css_classes();
+        
+        if (!this.load_animation_playing) {
+            this.unload_animation_watcher = new Animations.AnimationWatcher(this.$elem);
+            this.unload_animation_watcher.promise.then(this.on_unload_animation_complete.bind(this));
+        }
     };
     
     ScrollAlax.prototype.on_load_animation_complete = function () {
         this.load_animation_playing = false;
         this.update_css_classes();
+        
+        if (this.loaded) {
+            this.unload_animation_watcher = new Animations.AnimationWatcher(this.$elem);
+            this.unload_animation_watcher.promise.then(this.on_unload_animation_complete.bind(this));
+        }
+    };
+    
+    ScrollAlax.prototype.on_unload_animation_complete = function () {
+        var i = 0;
+
+        for (i = 0; i < this.atlasplayers.length; i += 1) {
+            this.atlasplayers[i].seek(0);
+            this.atlasplayers[i].play();
+        }
     };
 
     Behaviors.register_behavior(ScrollAlax);
@@ -4541,6 +4564,123 @@ if (!Array.prototype.indexOf) {
     module.ScrollEffects = ScrollEffects;
     module.ScrollAlax = ScrollAlax;
 
+    return module;
+}));
+
+(function (root, factory) {
+    "use strict";
+    if (typeof define === 'function' && define.amd) {
+        define("accountslidein", ["jquery", "betteroffcanvas"], factory);
+    } else {
+        // Browser globals
+        root.accountslidein = factory(root.jQuery, root.betteroffcanvas);
+    }
+}(this, function ($, betteroffcanvas) {
+    "use strict";
+    "feel good";
+
+    $('.Account_slide-login--button').click(function(){
+        $(this).hide();
+        $('.Account_slide-form--password').removeClass('Account_slide-form--visible')
+        $('.Account_slide-form--login').addClass('Account_slide-form--visible');
+        return false;
+    });
+
+    $('.Account_slide-password_recovery').click(function(){
+        $('.Account_slide-login--button').show();
+        $('.Account_slide-form--login').removeClass('Account_slide-form--visible');
+        $('.Account_slide-form--password').addClass('Account_slide-form--visible');
+        return false;
+    });
+
+
+    $('.Account_slide-close').click(function(){
+        betteroffcanvas.dismissOffcanvas($('#SiteHeader-accounts'));
+    });
+}));
+
+(function (root, factory) {
+    "use strict";
+    if (typeof define === 'function' && define.amd) {
+        define("siteheader", ["jquery", "betteroffcanvas"], factory);
+    } else {
+        // Browser globals
+        root.siteheader = factory(root.jQuery, root.betteroffcanvas);
+    }
+}(this, function ($, betteroffcanvas, ajaxCart, Handlebars) {
+    "use strict";
+    "feel good";
+
+    function update_scroll() {
+        var scrollTop = $(window).scrollTop(),
+            $SiteHeader = $("[data-siteheader='siteheader']");
+
+        if (scrollTop === 0) {
+            $SiteHeader.addClass("is-SiteHeader--at_top");
+            $SiteHeader.removeClass("is-SiteHeader--scrolled");
+        } else {
+            $SiteHeader.removeClass("is-SiteHeader--at_top");
+            $SiteHeader.addClass("is-SiteHeader--scrolled");
+        }
+    };
+
+    $(window).on("scroll", update_scroll);
+
+    update_scroll();
+}));
+
+(function (root, factory) {
+    "use strict";
+    if (typeof define === 'function' && define.amd) {
+        define("StaffGrid", ["jquery", "Behaviors"], factory);
+    } else {
+        root.StaffGrid = factory(root.jQuery, root.Behaviors);
+    }
+}(this, function ($, Behaviors) {
+    "use strict";
+
+    var module = {};
+    
+    function StaffGridSlider() {
+        Behaviors.init(StaffGridSlider, this, arguments);
+        
+        this.$elem.slick({
+            prevArrow: this.$elem.find('[data-staffgrid-prev]'),
+            nextArrow: this.$elem.find('[data-staffgrid-next]')
+        });
+    }
+    
+    Behaviors.inherit(StaffGridSlider, Behaviors.Behavior);
+    
+    StaffGridSlider.QUERY = "[data-staffgrid-slider]";
+    
+    StaffGridSlider.prototype.goto = function (id, animate) {
+        this.$elem.slick('slickGoTo', id, animate);
+    }
+    
+    function StaffGridModal() {
+        Behaviors.init(StaffGridModal, this, arguments);
+        
+        this.slider = StaffGridSlider.locate(this.$elem.find('[data-staffgrid-slider]'));
+        this.$elem.on("offcanvas-open", this.modal_reveal_intent.bind(this));
+    }
+    
+    Behaviors.inherit(StaffGridModal, Behaviors.Behavior);
+    
+    StaffGridModal.QUERY = "[data-staffgrid-modal]";
+    
+    StaffGridModal.prototype.modal_reveal_intent = function (evt) {
+        var slideIndex = $(evt.originalEvent.toggle).data('staffgrid-slider-index');
+        
+        this.slider.goto(slideIndex, true);
+    };
+    
+    Behaviors.register_behavior(StaffGridModal);
+    Behaviors.register_behavior(StaffGridSlider);
+    
+    module.StaffGridModal = StaffGridModal;
+    module.StaffGridSlider = StaffGridSlider;
+    
     return module;
 }));
 
@@ -4711,121 +4851,109 @@ if (!Array.prototype.indexOf) {
     return module;
 }));
 
+/*jslint continue: true, es5: true*/
+/*global detectZoom, console, jQuery, define, Float32Array, Uint16Array*/
 (function (root, factory) {
     "use strict";
     if (typeof define === 'function' && define.amd) {
-        define("StaffGrid", ["jquery", "Behaviors"], factory);
+        define("UTM", ["jquery", "Behaviors"], factory);
     } else {
-        root.StaffGrid = factory(root.jQuery, root.Behaviors);
+        root.UTM = factory(root.jQuery, root.Behaviors);
     }
 }(this, function ($, Behaviors) {
     "use strict";
+    var module = {},
+        utm_variables = {},
+        wanted_vars = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
 
-    var module = {};
-    
-    function StaffGridSlider() {
-        Behaviors.init(StaffGridSlider, this, arguments);
-        
-        this.$elem.slick({
-            prevArrow: this.$elem.find('[data-staffgrid-prev]'),
-            nextArrow: this.$elem.find('[data-staffgrid-next]')
-        });
+    function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split('&');
+        for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split('=');
+            if (decodeURIComponent(pair[0]) == variable) {
+                return decodeURIComponent(pair[1]);
+            }
+        }
+    }
+
+    /* Given a query string, return an object whose keys are matched UTM vars.
+     */
+    function look_for_utm_variables() {
+        var new_utm_variables = {}, i;
+
+        for (i = 0; i < wanted_vars.length; i += 1) {
+            new_utm_variables[wanted_vars[i]] = getQueryVariable(wanted_vars[i]);
+        }
+
+        return new_utm_variables;
+    }
+
+    function do_utm_replace($context) {
+        utm_variables = look_for_utm_variables();
+
+        $context.find("a[href]").each(function (index, elem) {
+            var k, $elem = $(elem),
+                old_href = $elem.attr("href");
+
+            for (k in utm_variables) {
+                if (utm_variables.hasOwnProperty(k) && utm_variables[k] !== undefined) {
+                    if (old_href.indexOf("?") !== -1) {
+                        old_href = old_href + "&" + k + "=" + utm_variables[k];
+                    } else {
+                        old_href = old_href + "?" + k + "=" + utm_variables[k];
+                    }
+                }
+            }
+
+            $elem.attr("href", old_href);
+        })
     }
     
-    Behaviors.inherit(StaffGridSlider, Behaviors.Behavior);
-    
-    StaffGridSlider.QUERY = "[data-staffgrid-slider]";
-    
-    StaffGridSlider.prototype.goto = function (id, animate) {
-        this.$elem.slick('slickGoTo', id, animate);
+    function do_gform_insertion(evt, form_id, current_page) {
+        var $form = $("#gform_" + form_id), i, k,
+            old_action = $form.attr("action");
+        
+        utm_variables = look_for_utm_variables();
+        
+        //Remove any existing query vars.
+        //TODO: should we bother preserving old vars that aren't UTMs?
+        old_action = old_action.split("?")[0];
+        
+        //Add UTM variables as seen by the client.
+        for (k in utm_variables) {
+            if (utm_variables.hasOwnProperty(k) && utm_variables[k] !== undefined) {
+                if (old_action.indexOf("?") !== -1) {
+                    old_action = old_action + "&" + k + "=" + utm_variables[k];
+                } else {
+                    old_action = old_action + "?" + k + "=" + utm_variables[k];
+                }
+            }
+        }
+        
+        $form.attr("action", old_action);
+        
+        //We can't auto-insert UTM variables into hidden fields, so instead we
+        //replace by hidden values.
+        $form.find("input[type='hidden']").each(function (index, ielem) {
+            var $ielem = $(ielem), old_value = $ielem.attr("value"), new_key;
+            
+            if (old_value.startsWith("replace_param[") && old_value.endsWith("]")) {
+                new_key = old_value.split("[")[1].split("]")[0];
+                $ielem.val(utm_variables[new_key]);
+            }
+        })
     }
     
-    function StaffGridModal() {
-        Behaviors.init(StaffGridModal, this, arguments);
-        
-        this.slider = StaffGridSlider.locate(this.$elem.find('[data-staffgrid-slider]'));
-        this.$elem.on("offcanvas-open", this.modal_reveal_intent.bind(this));
-    }
+    $(document).bind("gform_post_render", do_gform_insertion);
     
-    Behaviors.inherit(StaffGridModal, Behaviors.Behavior);
+    Behaviors.register_content_listener(do_utm_replace);
     
-    StaffGridModal.QUERY = "[data-staffgrid-modal]";
-    
-    StaffGridModal.prototype.modal_reveal_intent = function (evt) {
-        var slideIndex = $(evt.originalEvent.toggle).data('staffgrid-slider-index');
-        
-        this.slider.goto(slideIndex, true);
-    };
-    
-    Behaviors.register_behavior(StaffGridModal);
-    Behaviors.register_behavior(StaffGridSlider);
-    
-    module.StaffGridModal = StaffGridModal;
-    module.StaffGridSlider = StaffGridSlider;
+    module.do_utm_replace = do_utm_replace;
+    module.look_for_utm_variables = look_for_utm_variables;
+    module.getQueryVariable = getQueryVariable;
     
     return module;
-}));
-
-(function (root, factory) {
-    "use strict";
-    if (typeof define === 'function' && define.amd) {
-        define("accountslidein", ["jquery", "betteroffcanvas"], factory);
-    } else {
-        // Browser globals
-        root.accountslidein = factory(root.jQuery, root.betteroffcanvas);
-    }
-}(this, function ($, betteroffcanvas) {
-    "use strict";
-    "feel good";
-
-    $('.Account_slide-login--button').click(function(){
-        $(this).hide();
-        $('.Account_slide-form--password').removeClass('Account_slide-form--visible')
-        $('.Account_slide-form--login').addClass('Account_slide-form--visible');
-        return false;
-    });
-
-    $('.Account_slide-password_recovery').click(function(){
-        $('.Account_slide-login--button').show();
-        $('.Account_slide-form--login').removeClass('Account_slide-form--visible');
-        $('.Account_slide-form--password').addClass('Account_slide-form--visible');
-        return false;
-    });
-
-
-    $('.Account_slide-close').click(function(){
-        betteroffcanvas.dismissOffcanvas($('#SiteHeader-accounts'));
-    });
-}));
-
-(function (root, factory) {
-    "use strict";
-    if (typeof define === 'function' && define.amd) {
-        define("siteheader", ["jquery", "betteroffcanvas"], factory);
-    } else {
-        // Browser globals
-        root.siteheader = factory(root.jQuery, root.betteroffcanvas);
-    }
-}(this, function ($, betteroffcanvas, ajaxCart, Handlebars) {
-    "use strict";
-    "feel good";
-
-    function update_scroll() {
-        var scrollTop = $(window).scrollTop(),
-            $SiteHeader = $("[data-siteheader='siteheader']");
-
-        if (scrollTop === 0) {
-            $SiteHeader.addClass("is-SiteHeader--at_top");
-            $SiteHeader.removeClass("is-SiteHeader--scrolled");
-        } else {
-            $SiteHeader.removeClass("is-SiteHeader--at_top");
-            $SiteHeader.addClass("is-SiteHeader--scrolled");
-        }
-    };
-
-    $(window).on("scroll", update_scroll);
-
-    update_scroll();
 }));
 
 /*global define, window, document, Promise*/
@@ -5941,111 +6069,6 @@ if (!Array.prototype.indexOf) {
     module.VideoPlayer__html5 = VideoPlayer__html5;
     module.VideoPlayer__youtube = VideoPlayer__youtube;
     module.VideoPlayer__vimeo = VideoPlayer__vimeo;
-    return module;
-}));
-
-/*jslint continue: true, es5: true*/
-/*global detectZoom, console, jQuery, define, Float32Array, Uint16Array*/
-(function (root, factory) {
-    "use strict";
-    if (typeof define === 'function' && define.amd) {
-        define("UTM", ["jquery", "Behaviors"], factory);
-    } else {
-        root.UTM = factory(root.jQuery, root.Behaviors);
-    }
-}(this, function ($, Behaviors) {
-    "use strict";
-    var module = {},
-        utm_variables = {},
-        wanted_vars = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
-
-    function getQueryVariable(variable) {
-        var query = window.location.search.substring(1);
-        var vars = query.split('&');
-        for (var i = 0; i < vars.length; i++) {
-            var pair = vars[i].split('=');
-            if (decodeURIComponent(pair[0]) == variable) {
-                return decodeURIComponent(pair[1]);
-            }
-        }
-    }
-
-    /* Given a query string, return an object whose keys are matched UTM vars.
-     */
-    function look_for_utm_variables() {
-        var new_utm_variables = {}, i;
-
-        for (i = 0; i < wanted_vars.length; i += 1) {
-            new_utm_variables[wanted_vars[i]] = getQueryVariable(wanted_vars[i]);
-        }
-
-        return new_utm_variables;
-    }
-
-    function do_utm_replace($context) {
-        utm_variables = look_for_utm_variables();
-
-        $context.find("a[href]").each(function (index, elem) {
-            var k, $elem = $(elem),
-                old_href = $elem.attr("href");
-
-            for (k in utm_variables) {
-                if (utm_variables.hasOwnProperty(k) && utm_variables[k] !== undefined) {
-                    if (old_href.indexOf("?") !== -1) {
-                        old_href = old_href + "&" + k + "=" + utm_variables[k];
-                    } else {
-                        old_href = old_href + "?" + k + "=" + utm_variables[k];
-                    }
-                }
-            }
-
-            $elem.attr("href", old_href);
-        })
-    }
-    
-    function do_gform_insertion(evt, form_id, current_page) {
-        var $form = $("#gform_" + form_id), i, k,
-            old_action = $form.attr("action");
-        
-        utm_variables = look_for_utm_variables();
-        
-        //Remove any existing query vars.
-        //TODO: should we bother preserving old vars that aren't UTMs?
-        old_action = old_action.split("?")[0];
-        
-        //Add UTM variables as seen by the client.
-        for (k in utm_variables) {
-            if (utm_variables.hasOwnProperty(k) && utm_variables[k] !== undefined) {
-                if (old_action.indexOf("?") !== -1) {
-                    old_action = old_action + "&" + k + "=" + utm_variables[k];
-                } else {
-                    old_action = old_action + "?" + k + "=" + utm_variables[k];
-                }
-            }
-        }
-        
-        $form.attr("action", old_action);
-        
-        //We can't auto-insert UTM variables into hidden fields, so instead we
-        //replace by hidden values.
-        $form.find("input[type='hidden']").each(function (index, ielem) {
-            var $ielem = $(ielem), old_value = $ielem.attr("value"), new_key;
-            
-            if (old_value.startsWith("replace_param[") && old_value.endsWith("]")) {
-                new_key = old_value.split("[")[1].split("]")[0];
-                $ielem.val(utm_variables[new_key]);
-            }
-        })
-    }
-    
-    $(document).bind("gform_post_render", do_gform_insertion);
-    
-    Behaviors.register_content_listener(do_utm_replace);
-    
-    module.do_utm_replace = do_utm_replace;
-    module.look_for_utm_variables = look_for_utm_variables;
-    module.getQueryVariable = getQueryVariable;
-    
     return module;
 }));
 

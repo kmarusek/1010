@@ -1,5 +1,6 @@
 <?php
 
+# only for wp-cli
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
 
 
@@ -29,12 +30,5 @@ WP_CLI::add_command( 'fvm', 'fastvelocity_WPCLI' );
 
 
 
-
-
-
 ###################################################
-
 }
-
-
-
