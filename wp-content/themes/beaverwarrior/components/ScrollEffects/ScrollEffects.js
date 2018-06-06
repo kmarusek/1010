@@ -230,6 +230,12 @@
                     $("<img/>").attr("src", src).on('load', function () {
                         $(this).remove();
                         resolve();
+                    }).on('error', function () {
+                        //This should be reject, but some browsers will
+                        //spuriously fire error if the image was cached instead
+                        //of firing load. This is a workaround.
+                        $(this).remove();
+                        resolve();
                     });
                 }.bind(this)));
             }.bind(this));
@@ -239,6 +245,12 @@
                 
                 promises.push(new Promise(function (resolve) {
                     $("<img/>").attr("src", src).on('load', function () {
+                        $(this).remove();
+                        resolve();
+                    }).on('error', function () {
+                        //This should be reject, but some browsers will
+                        //spuriously fire error if the image was cached instead
+                        //of firing load. This is a workaround.
                         $(this).remove();
                         resolve();
                     });
