@@ -1,3 +1,4 @@
+!function(e){function n(){}function t(e,n){return function(){e.apply(n,arguments)}}function o(e){if("object"!=typeof this)throw new TypeError("Promises must be constructed via new");if("function"!=typeof e)throw new TypeError("not a function");this._state=0,this._handled=!1,this._value=void 0,this._deferreds=[],s(e,this)}function i(e,n){for(;3===e._state;)e=e._value;return 0===e._state?void e._deferreds.push(n):(e._handled=!0,void o._immediateFn(function(){var t=1===e._state?n.onFulfilled:n.onRejected;if(null===t)return void(1===e._state?r:u)(n.promise,e._value);var o;try{o=t(e._value)}catch(i){return void u(n.promise,i)}r(n.promise,o)}))}function r(e,n){try{if(n===e)throw new TypeError("A promise cannot be resolved with itself.");if(n&&("object"==typeof n||"function"==typeof n)){var i=n.then;if(n instanceof o)return e._state=3,e._value=n,void f(e);if("function"==typeof i)return void s(t(i,n),e)}e._state=1,e._value=n,f(e)}catch(r){u(e,r)}}function u(e,n){e._state=2,e._value=n,f(e)}function f(e){2===e._state&&0===e._deferreds.length&&o._immediateFn(function(){e._handled||o._unhandledRejectionFn(e._value)});for(var n=0,t=e._deferreds.length;n<t;n++)i(e,e._deferreds[n]);e._deferreds=null}function c(e,n,t){this.onFulfilled="function"==typeof e?e:null,this.onRejected="function"==typeof n?n:null,this.promise=t}function s(e,n){var t=!1;try{e(function(e){t||(t=!0,r(n,e))},function(e){t||(t=!0,u(n,e))})}catch(o){if(t)return;t=!0,u(n,o)}}var a=setTimeout;o.prototype["catch"]=function(e){return this.then(null,e)},o.prototype.then=function(e,t){var o=new this.constructor(n);return i(this,new c(e,t,o)),o},o.all=function(e){var n=Array.prototype.slice.call(e);return new o(function(e,t){function o(r,u){try{if(u&&("object"==typeof u||"function"==typeof u)){var f=u.then;if("function"==typeof f)return void f.call(u,function(e){o(r,e)},t)}n[r]=u,0===--i&&e(n)}catch(c){t(c)}}if(0===n.length)return e([]);for(var i=n.length,r=0;r<n.length;r++)o(r,n[r])})},o.resolve=function(e){return e&&"object"==typeof e&&e.constructor===o?e:new o(function(n){n(e)})},o.reject=function(e){return new o(function(n,t){t(e)})},o.race=function(e){return new o(function(n,t){for(var o=0,i=e.length;o<i;o++)e[o].then(n,t)})},o._immediateFn="function"==typeof setImmediate&&function(e){setImmediate(e)}||function(e){a(e,0)},o._unhandledRejectionFn=function(e){"undefined"!=typeof console&&console&&console.warn("Possible Unhandled Promise Rejection:",e)},o._setImmediateFn=function(e){o._immediateFn=e},o._setUnhandledRejectionFn=function(e){o._unhandledRejectionFn=e},"undefined"!=typeof module&&module.exports?module.exports=o:e.Promise||(e.Promise=o)}(this);
 //https://github.com/JamesMGreene/Function.name/blob/master/Function.name.js
 (function() {
 
@@ -117,7 +118,6 @@ if (needsPolyfill) {
 }
 
 })();
-!function(e){function n(){}function t(e,n){return function(){e.apply(n,arguments)}}function o(e){if("object"!=typeof this)throw new TypeError("Promises must be constructed via new");if("function"!=typeof e)throw new TypeError("not a function");this._state=0,this._handled=!1,this._value=void 0,this._deferreds=[],s(e,this)}function i(e,n){for(;3===e._state;)e=e._value;return 0===e._state?void e._deferreds.push(n):(e._handled=!0,void o._immediateFn(function(){var t=1===e._state?n.onFulfilled:n.onRejected;if(null===t)return void(1===e._state?r:u)(n.promise,e._value);var o;try{o=t(e._value)}catch(i){return void u(n.promise,i)}r(n.promise,o)}))}function r(e,n){try{if(n===e)throw new TypeError("A promise cannot be resolved with itself.");if(n&&("object"==typeof n||"function"==typeof n)){var i=n.then;if(n instanceof o)return e._state=3,e._value=n,void f(e);if("function"==typeof i)return void s(t(i,n),e)}e._state=1,e._value=n,f(e)}catch(r){u(e,r)}}function u(e,n){e._state=2,e._value=n,f(e)}function f(e){2===e._state&&0===e._deferreds.length&&o._immediateFn(function(){e._handled||o._unhandledRejectionFn(e._value)});for(var n=0,t=e._deferreds.length;n<t;n++)i(e,e._deferreds[n]);e._deferreds=null}function c(e,n,t){this.onFulfilled="function"==typeof e?e:null,this.onRejected="function"==typeof n?n:null,this.promise=t}function s(e,n){var t=!1;try{e(function(e){t||(t=!0,r(n,e))},function(e){t||(t=!0,u(n,e))})}catch(o){if(t)return;t=!0,u(n,o)}}var a=setTimeout;o.prototype["catch"]=function(e){return this.then(null,e)},o.prototype.then=function(e,t){var o=new this.constructor(n);return i(this,new c(e,t,o)),o},o.all=function(e){var n=Array.prototype.slice.call(e);return new o(function(e,t){function o(r,u){try{if(u&&("object"==typeof u||"function"==typeof u)){var f=u.then;if("function"==typeof f)return void f.call(u,function(e){o(r,e)},t)}n[r]=u,0===--i&&e(n)}catch(c){t(c)}}if(0===n.length)return e([]);for(var i=n.length,r=0;r<n.length;r++)o(r,n[r])})},o.resolve=function(e){return e&&"object"==typeof e&&e.constructor===o?e:new o(function(n){n(e)})},o.reject=function(e){return new o(function(n,t){t(e)})},o.race=function(e){return new o(function(n,t){for(var o=0,i=e.length;o<i;o++)e[o].then(n,t)})},o._immediateFn="function"==typeof setImmediate&&function(e){setImmediate(e)}||function(e){a(e,0)},o._unhandledRejectionFn=function(e){"undefined"!=typeof console&&console&&console.warn("Possible Unhandled Promise Rejection:",e)},o._setImmediateFn=function(e){o._immediateFn=e},o._setUnhandledRejectionFn=function(e){o._unhandledRejectionFn=e},"undefined"!=typeof module&&module.exports?module.exports=o:e.Promise||(e.Promise=o)}(this);
 /*global define, window, document*/
 
 //Polyfill for Object.create.
@@ -985,515 +985,6 @@ if (typeof Object.create !== 'function') {
 }).call(this);
 
 /*global define, console, document, window*/
-(function (root, factory) {
-    "use strict";
-    if (typeof define === 'function' && define.amd) {
-        define("Animations", ["jquery", "Behaviors"], factory);
-    } else {
-        root.Animations = factory(root.jQuery, root.Behaviors);
-    }
-}(this, function ($, Behaviors) {
-    "use strict";
-    
-    var module = {};
-
-    /* Watches for the start and end of an animation.
-     *
-     * The .promise attribute stores a promise which resolves whenever the
-     * animation has completed or no animation events were detected over a
-     * timeout period of 5 second.
-     *
-     * An important caveat: Animations with delay longer than 5 seconds will
-     * fail to fire events and the animation watcher will trigger the timeout
-     * behavior instead. You can avoid this behavior by triggering another
-     * animation of any kind during the timeout period and keeping it alive
-     * until the delayed animation begins.
-     */
-    function AnimationWatcher($elem) {
-        var Class = this.constructor,
-            eventSelector = Class.get_unique_id(),
-            that = this,
-            evtStartNames = "animationstart." + eventSelector +
-                      " webkitAnimationStart." + eventSelector +
-                      " oanimationstart." + eventSelector +
-                      " MSAnimationStart." + eventSelector,
-            evtEndNames = "animationend." + eventSelector +
-                      " webkitAnimationEnd." + eventSelector +
-                      " oanimationend." + eventSelector +
-                      " MSAnimationEnd." + eventSelector,
-            animation_start = this.animation_start.bind(this),
-            animation_end = this.animation_end.bind(this),
-            animation_timeout_delay = 5000;
-
-        this.eventSelector = eventSelector;
-
-        this.$elem = $elem;
-        this.$elem.on(evtStartNames, animation_start);
-        this.$elem.on(evtEndNames, animation_end);
-
-        if (window.Modernizr && window.Modernizr.cssanimations === false) {
-            animation_timeout_delay = 0;
-        }
-
-        this.timeout = window.setTimeout(this.abort_animation.bind(this), animation_timeout_delay);
-        this.remaining_animations = [];
-
-        //We remove event handlers after one of the handlers resolves the
-        //animation promise.
-        this.promise = new Promise(function (resolve, reject) {
-            that.resolve = resolve;
-            that.reject = reject;
-        }).then(function () {
-            that.$elem.off(evtStartNames, animation_start);
-            that.$elem.off(evtEndNames, animation_end);
-        });
-
-        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Created");
-    }
-
-    AnimationWatcher.count = 0;
-
-    AnimationWatcher.get_unique_id = function () {
-        var Class = this,
-            sel = "." + Class.name + "_" + Class.count;
-
-        Class.count += 1;
-        return sel;
-    };
-
-    AnimationWatcher.prototype.animation_start = function (evt) {
-        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Begun (" + evt.originalEvent.animationName + ")");
-        if (this.timeout !== null) {
-            window.clearTimeout(this.timeout);
-            this.timeout = null;
-        }
-
-        this.remaining_animations.push(evt.originalEvent.animationName);
-    };
-
-    AnimationWatcher.prototype.animation_end = function (evt) {
-        var loc = this.remaining_animations.indexOf(evt.originalEvent.animationName);
-
-        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Ended (" + evt.originalEvent.animationName + ")");
-
-        if (loc !== -1) {
-            this.remaining_animations.splice(loc, 1);
-        }
-
-        if (this.remaining_animations.length === 0) {
-            this.resolve();
-        }
-    };
-
-    AnimationWatcher.prototype.abort_animation = function (evt) {
-        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Abort timeout triggered");
-
-        if (this.remaining_animations.length === 0) {
-            this.resolve();
-        }
-    };
-
-    module.AnimationWatcher = AnimationWatcher;
-
-    return module;
-}));
-
-/*global define, console, window, HTMLImageElement, Promise*/
-
-(function (root, factory) {
-    "use strict";
-    if (typeof define === 'function' && define.amd) {
-        define("AtlasPlayer", ["jquery", "Behaviors"], factory);
-    } else {
-        root.AtlasPlayer = factory(root.jQuery, root.Behaviors);
-    }
-}(this, function ($, Behaviors) {
-    "use strict";
-    var module = {};
-
-    /* A Behavior that plays an image atlas on a canvas.
-     *
-     * Atlas description format is that which is generated by the following
-     * Photoshop script: https://github.com/tonioloewald/Layer-Group-Atlas
-     */
-    function AtlasPlayer() {
-        Behaviors.init(AtlasPlayer, this, arguments);
-
-        this.deinitialize_stop = false;
-
-        this.$canvas = this.$elem;
-        if (!this.$canvas.is("canvas")) {
-            this.$canvas = this.$elem.find("canvas");
-        }
-
-        this.context = this.$canvas[0].getContext("2d");
-
-        this.image = undefined;
-        this.atlas_data = undefined;
-
-        //TODO: Make configurable
-        this.anim_player_running = false;
-
-        this.ready().then(function () {
-            $(window).on("resize", this.size_canvas_to_fit.bind(this));
-            
-            this.anim_length = this.find_anim_length();
-            
-            if (this.atlas_data.autoplay === true) {
-                this.play();
-            }
-        }.bind(this));
-    }
-
-    Behaviors.inherit(AtlasPlayer, Behaviors.Behavior);
-
-    AtlasPlayer.QUERY = "[data-atlasplayer]";
-
-    /* Cause AtlasPlayer to ensure it's image and atlas are ready.
-     *
-     * Returns a promise which resolves when the atlas is ready for playback.
-     * Promise will reject if the image is an image tag which has failed to
-     * load.
-     */
-    AtlasPlayer.prototype.ready = function () {
-        if (this.ready_promise === undefined) {
-            this.ready_promise = new Promise(function (resolve, reject) {
-                this.ready_resolve = resolve;
-                this.ready_reject = reject;
-            }.bind(this));
-
-            this.find_image();
-            this.find_atlas();
-            this.is_ready();
-        }
-
-        return this.ready_promise;
-    };
-
-    /* Determine if the atlas is ready for playback.
-     *
-     * Calling this function also has the side effect of resolving the ready
-     * promise if it has not already been done. If this function returns true
-     * for the first time, then the promise has been resolved. If it returns
-     * false, it may have been rejected (say, if the image fails to load).
-     */
-    AtlasPlayer.prototype.is_ready = function () {
-        var image_ready, atlas_ready, total_ready;
-
-        if (this.image === undefined) {
-            image_ready = false;
-        } else if (this.image.constructor === HTMLImageElement) {
-            if (this.image.complete) {
-                if (this.image.naturalHeight === 0) {
-                    //Something has gone horribly wrong
-                    this.ready_reject();
-                    image_ready = false;
-                } else {
-                    image_ready = true;
-                }
-            } else {
-                image_ready = false;
-            }
-        } else {
-            //Other drawables are presumed already loaded
-            image_ready = true;
-        }
-
-        if (this.atlas_data !== undefined && this.atlas_data.then !== undefined) {
-            //Not ready, since a promise was provided
-            atlas_ready = false;
-        } else {
-            atlas_ready = this.atlas_data !== undefined;
-        }
-
-        total_ready = image_ready && atlas_ready;
-
-        if (total_ready) {
-            this.ready_resolve();
-        }
-
-        return total_ready;
-    };
-
-    /* Called to find the image we're drawing our animation from, if present.
-     */
-    AtlasPlayer.prototype.find_image = function () {
-        var image_id = this.$elem.data("atlasplayer-image");
-
-        if (this.image !== undefined) {
-            return;
-        }
-
-        if (image_id !== undefined) {
-            this.image = $(image_id)[0];
-
-            if (this.image.constructor === HTMLImageElement) {
-                $(this.image).on("load", this.is_ready.bind(this));
-            }
-        }
-    };
-
-    /* Called to find and load our atlas data.
-     */
-    AtlasPlayer.prototype.find_atlas = function () {
-        var atlas_data = this.$elem.data("atlasplayer-data");
-
-        if (this.atlas_data !== undefined) {
-            return;
-        }
-
-        if (typeof atlas_data === "string") {
-            //Atlas data is a URL.
-            this.atlas_data = this.load_atlas_data(atlas_data)
-                .then(function (data) {
-                    this.atlas_data = data;
-                    this.is_ready();
-                }.bind(this))
-                .catch(this.ready_reject);
-        } else {
-            //Atlas data is immediately provided.
-            this.atlas_data = atlas_data;
-        }
-    };
-    
-    AtlasPlayer.prototype.find_anim_length = function () {
-        var anim_length = this.$elem.data("atlasplayer-animlength");
-        
-        if (anim_length === undefined) {
-            anim_length = this.atlas_data.time;
-        }
-        
-        if (anim_length === undefined) {
-            anim_length = "5s";
-        }
-        
-        anim_length = parseFloat(anim_length, 10);
-        
-        if (isNaN(anim_length) || anim_length === 0) {
-            anim_length = 5000;
-        } else {
-            anim_length *= 1000;
-        }
-        
-        return anim_length;
-    };
-
-    /* Load the atlas data.
-     *
-     * Returns a promise which resolves when the atlas data has loaded.
-     */
-    AtlasPlayer.prototype.load_atlas_data = function (url) {
-        var promiseResolve, promiseReject,
-            myPromise = new Promise(function (resolve, reject) {
-                promiseResolve = resolve;
-                promiseReject = reject;
-            });
-
-        $.ajax({
-            "url": url,
-            "dataType": "json"
-        }).done(function (data) {
-            promiseResolve(data);
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-            promiseReject([textStatus, errorThrown]);
-        });
-
-        return myPromise;
-    };
-
-    /* Cause the canvas to draw a particular atlas frame.
-     */
-    AtlasPlayer.prototype.draw_frame = function (frame_id) {
-        var layerData = this.atlas_data.layers[this.atlas_data.layers.length - frame_id - 1];
-        
-        if (layerData.width <= 0) {
-            return;
-        }
-        
-        if (layerData.height <= 0) {
-            return;
-        }
-
-        this.context.drawImage(this.image,
-                               //Location of the atlas slice
-                               layerData.packedOrigin.x * this.image_x_space,
-                               layerData.packedOrigin.y * this.image_y_space,
-                               layerData.width * this.image_x_space,
-                               layerData.height * this.image_y_space,
-                               //Where we want it
-                               layerData.left,
-                               layerData.top,
-                               layerData.width,
-                               layerData.height
-                              );
-    };
-    
-    /* Size the canvas to fit our data.
-     */
-    AtlasPlayer.prototype.size_canvas_to_fit = function () {
-        //Determine the device-specific pixel size of this AtlasPlayer.
-        this.canvas_scale_factor = window.devicePixelRatio;
-        this.$canvas[0].width = this.$canvas.width() * this.canvas_scale_factor;
-        this.$canvas[0].height = this.$canvas.height() * this.canvas_scale_factor;
-        
-        //Reset the current canvas transform, if any.
-        this.context.setTransform(1, 0, 0, 1, 0, 0);
-        
-        //Scale down our coordinate space
-        this.context.scale(this.canvas_scale_factor, this.canvas_scale_factor);
-        
-        //Determine if cropping is needed.
-        this.css_aspect_ratio = this.$canvas.width() / this.$canvas.height();
-        this.atlas_aspect_ratio = this.atlas_data.width / this.atlas_data.height;
-        if (this.css_aspect_ratio > this.atlas_aspect_ratio) {
-            this.context.translate(0, (this.$canvas.width() / this.atlas_aspect_ratio - this.$canvas.height()) / -2);
-            
-            this.canvas_transform_scale_factor = this.$canvas.width() / this.atlas_aspect_ratio / this.atlas_data.height;
-            this.context.scale(this.canvas_transform_scale_factor, this.canvas_transform_scale_factor);
-        } else if (this.css_aspect_ratio < this.atlas_aspect_ratio) {
-            this.context.translate((this.$canvas.height() * this.atlas_aspect_ratio - this.$canvas.width()) / -2, 0);
-            
-            this.canvas_transform_scale_factor = this.$canvas.height() * this.atlas_aspect_ratio / this.atlas_data.width;
-            this.context.scale(this.canvas_transform_scale_factor, this.canvas_transform_scale_factor);
-        }
-        
-        //We also need to determine if our atlas image is scaled down and adjust
-        //our source coordinate space to match.
-        this.image_x_space = this.image.width / this.atlas_data.atlas.width;
-        this.image_y_space = this.image.height / this.atlas_data.atlas.height;
-        
-        //Since we just clared the canvas, if we aren't animated, then we need
-        //to manually repopulate ourselves:
-        if (this.last_frame_drawn !== undefined) {
-            this.draw_frame(this.last_frame_drawn);
-        }
-    };
-
-    AtlasPlayer.prototype.animation_krnl = function (time) {
-        var step, frame, total_frames;
-
-        if (this.deinitialize_stop) {
-            return;
-        }
-        
-        if (this.playing === false) {
-            this.anim_player_running = false;
-            
-            if (this.on_animation_complete) {
-                this.on_animation_complete();
-                this.on_animation_complete = undefined;
-            }
-            return;
-        }
-
-        if (this.anim_first_time === undefined) {
-            this.anim_first_time = time;
-            window.requestAnimationFrame(this.animation_krnl.bind(this));
-            return;
-        }
-        
-        if (this.anim_length === undefined) {
-            //Don't animate if we haven't loaded yet
-            window.requestAnimationFrame(this.animation_krnl.bind(this));
-            return;
-        }
-
-        total_frames = this.atlas_data.layers.length;
-        step = this.anim_length / total_frames;
-        time = time - this.anim_first_time;
-        frame = Math.max(Math.min(Math.round(time / step), total_frames - 1), 0);
-
-        if (this.reverse) {
-            frame = (total_frames - 1) - frame;
-        }
-
-        this.context.clearRect(0,0,this.atlas_data.width, this.atlas_data.height);
-        this.draw_frame(frame);
-        
-        this.last_frame_drawn = frame;
-        
-        if (time > this.anim_length) {
-            if (this.atlas_data.loop === true) {
-                this.anim_first_time = undefined;
-            } else {
-                this.anim_player_running = false;
-                
-                if (this.on_animation_complete) {
-                    this.on_animation_complete();
-                    this.on_animation_complete = undefined;
-                }
-                return;
-            }
-        }
-        
-        window.requestAnimationFrame(this.animation_krnl.bind(this));
-    };
-
-    AtlasPlayer.prototype.update_animation_state = function () {
-        if (this.playing && this.anim_player_running === false) {
-            if (this.on_animation_complete) {
-                this.on_animation_complete();
-            }
-            
-            this.animation_promise = new Promise(function (resolve, reject) {
-                this.on_animation_complete = resolve;
-            }.bind(this));
-            
-            this.size_canvas_to_fit();
-            this.anim_player_running = true;
-            window.requestAnimationFrame(this.animation_krnl.bind(this));
-        }
-        
-        return this.animation_promise;
-    };
-    
-    AtlasPlayer.prototype.play = function () {
-        this.playing = true;
-        this.reverse = false;
-        this.anim_first_time = undefined;
-        return this.update_animation_state();
-    };
-
-    AtlasPlayer.prototype.play_reverse = function () {
-        this.playing = true;
-        this.reverse = true;
-        this.anim_first_time = undefined;
-        return this.update_animation_state();
-    };
-    
-    /* Request the animation to stop playing on the next frame.
-     * 
-     * This function also resets the animation to play again.
-     */
-    AtlasPlayer.prototype.stop = function () {
-        //A bit of subtlety: We don't clear anim_player_running since we don't
-        //cancel the animation frame when you stop the animation. We instead
-        //wait for the animation to stop itself.
-        this.playing = false;
-        this.reverse = false;
-        this.anim_first_time = undefined;
-        return this.update_animation_state();
-    };
-    
-    AtlasPlayer.prototype.seek = function (frame) {
-        if (frame < 0) {
-            frame = this.atlas_data.layers.length - frame - 2;
-        }
-
-        this.context.clearRect(0,0,this.atlas_data.width, this.atlas_data.height);
-        this.draw_frame(frame);
-
-        this.last_frame_drawn = frame;
-    };
-
-    Behaviors.register_behavior(AtlasPlayer);
-
-    module.AtlasPlayer = AtlasPlayer;
-
-    return module;
-}));
-
-/*global define, console, document, window*/
 /*jslint continue:true*/
 (function (root, factory) {
     "use strict";
@@ -1940,6 +1431,515 @@ if (typeof Object.create !== 'function') {
 
     module.Affix = Affix;
     module.AffixColumn = AffixColumn;
+
+    return module;
+}));
+
+/*global define, console, window, HTMLImageElement, Promise*/
+
+(function (root, factory) {
+    "use strict";
+    if (typeof define === 'function' && define.amd) {
+        define("AtlasPlayer", ["jquery", "Behaviors"], factory);
+    } else {
+        root.AtlasPlayer = factory(root.jQuery, root.Behaviors);
+    }
+}(this, function ($, Behaviors) {
+    "use strict";
+    var module = {};
+
+    /* A Behavior that plays an image atlas on a canvas.
+     *
+     * Atlas description format is that which is generated by the following
+     * Photoshop script: https://github.com/tonioloewald/Layer-Group-Atlas
+     */
+    function AtlasPlayer() {
+        Behaviors.init(AtlasPlayer, this, arguments);
+
+        this.deinitialize_stop = false;
+
+        this.$canvas = this.$elem;
+        if (!this.$canvas.is("canvas")) {
+            this.$canvas = this.$elem.find("canvas");
+        }
+
+        this.context = this.$canvas[0].getContext("2d");
+
+        this.image = undefined;
+        this.atlas_data = undefined;
+
+        //TODO: Make configurable
+        this.anim_player_running = false;
+
+        this.ready().then(function () {
+            $(window).on("resize", this.size_canvas_to_fit.bind(this));
+            
+            this.anim_length = this.find_anim_length();
+            
+            if (this.atlas_data.autoplay === true) {
+                this.play();
+            }
+        }.bind(this));
+    }
+
+    Behaviors.inherit(AtlasPlayer, Behaviors.Behavior);
+
+    AtlasPlayer.QUERY = "[data-atlasplayer]";
+
+    /* Cause AtlasPlayer to ensure it's image and atlas are ready.
+     *
+     * Returns a promise which resolves when the atlas is ready for playback.
+     * Promise will reject if the image is an image tag which has failed to
+     * load.
+     */
+    AtlasPlayer.prototype.ready = function () {
+        if (this.ready_promise === undefined) {
+            this.ready_promise = new Promise(function (resolve, reject) {
+                this.ready_resolve = resolve;
+                this.ready_reject = reject;
+            }.bind(this));
+
+            this.find_image();
+            this.find_atlas();
+            this.is_ready();
+        }
+
+        return this.ready_promise;
+    };
+
+    /* Determine if the atlas is ready for playback.
+     *
+     * Calling this function also has the side effect of resolving the ready
+     * promise if it has not already been done. If this function returns true
+     * for the first time, then the promise has been resolved. If it returns
+     * false, it may have been rejected (say, if the image fails to load).
+     */
+    AtlasPlayer.prototype.is_ready = function () {
+        var image_ready, atlas_ready, total_ready;
+
+        if (this.image === undefined) {
+            image_ready = false;
+        } else if (this.image.constructor === HTMLImageElement) {
+            if (this.image.complete) {
+                if (this.image.naturalHeight === 0) {
+                    //Something has gone horribly wrong
+                    this.ready_reject();
+                    image_ready = false;
+                } else {
+                    image_ready = true;
+                }
+            } else {
+                image_ready = false;
+            }
+        } else {
+            //Other drawables are presumed already loaded
+            image_ready = true;
+        }
+
+        if (this.atlas_data !== undefined && this.atlas_data.then !== undefined) {
+            //Not ready, since a promise was provided
+            atlas_ready = false;
+        } else {
+            atlas_ready = this.atlas_data !== undefined;
+        }
+
+        total_ready = image_ready && atlas_ready;
+
+        if (total_ready) {
+            this.ready_resolve();
+        }
+
+        return total_ready;
+    };
+
+    /* Called to find the image we're drawing our animation from, if present.
+     */
+    AtlasPlayer.prototype.find_image = function () {
+        var image_id = this.$elem.data("atlasplayer-image");
+
+        if (this.image !== undefined) {
+            return;
+        }
+
+        if (image_id !== undefined) {
+            this.image = $(image_id)[0];
+
+            if (this.image.constructor === HTMLImageElement) {
+                $(this.image).on("load", this.is_ready.bind(this));
+            }
+        }
+    };
+
+    /* Called to find and load our atlas data.
+     */
+    AtlasPlayer.prototype.find_atlas = function () {
+        var atlas_data = this.$elem.data("atlasplayer-data");
+
+        if (this.atlas_data !== undefined) {
+            return;
+        }
+
+        if (typeof atlas_data === "string") {
+            //Atlas data is a URL.
+            this.atlas_data = this.load_atlas_data(atlas_data)
+                .then(function (data) {
+                    this.atlas_data = data;
+                    this.is_ready();
+                }.bind(this))
+                .catch(this.ready_reject);
+        } else {
+            //Atlas data is immediately provided.
+            this.atlas_data = atlas_data;
+        }
+    };
+    
+    AtlasPlayer.prototype.find_anim_length = function () {
+        var anim_length = this.$elem.data("atlasplayer-animlength");
+        
+        if (anim_length === undefined) {
+            anim_length = this.atlas_data.time;
+        }
+        
+        if (anim_length === undefined) {
+            anim_length = "5s";
+        }
+        
+        anim_length = parseFloat(anim_length, 10);
+        
+        if (isNaN(anim_length) || anim_length === 0) {
+            anim_length = 5000;
+        } else {
+            anim_length *= 1000;
+        }
+        
+        return anim_length;
+    };
+
+    /* Load the atlas data.
+     *
+     * Returns a promise which resolves when the atlas data has loaded.
+     */
+    AtlasPlayer.prototype.load_atlas_data = function (url) {
+        var promiseResolve, promiseReject,
+            myPromise = new Promise(function (resolve, reject) {
+                promiseResolve = resolve;
+                promiseReject = reject;
+            });
+
+        $.ajax({
+            "url": url,
+            "dataType": "json"
+        }).done(function (data) {
+            promiseResolve(data);
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            promiseReject([textStatus, errorThrown]);
+        });
+
+        return myPromise;
+    };
+
+    /* Cause the canvas to draw a particular atlas frame.
+     */
+    AtlasPlayer.prototype.draw_frame = function (frame_id) {
+        var layerData = this.atlas_data.layers[this.atlas_data.layers.length - frame_id - 1];
+        
+        if (layerData.width <= 0) {
+            return;
+        }
+        
+        if (layerData.height <= 0) {
+            return;
+        }
+
+        this.context.drawImage(this.image,
+                               //Location of the atlas slice
+                               layerData.packedOrigin.x * this.image_x_space,
+                               layerData.packedOrigin.y * this.image_y_space,
+                               layerData.width * this.image_x_space,
+                               layerData.height * this.image_y_space,
+                               //Where we want it
+                               layerData.left,
+                               layerData.top,
+                               layerData.width,
+                               layerData.height
+                              );
+    };
+    
+    /* Size the canvas to fit our data.
+     */
+    AtlasPlayer.prototype.size_canvas_to_fit = function () {
+        //Determine the device-specific pixel size of this AtlasPlayer.
+        this.canvas_scale_factor = window.devicePixelRatio;
+        this.$canvas[0].width = this.$canvas.width() * this.canvas_scale_factor;
+        this.$canvas[0].height = this.$canvas.height() * this.canvas_scale_factor;
+        
+        //Reset the current canvas transform, if any.
+        this.context.setTransform(1, 0, 0, 1, 0, 0);
+        
+        //Scale down our coordinate space
+        this.context.scale(this.canvas_scale_factor, this.canvas_scale_factor);
+        
+        //Determine if cropping is needed.
+        this.css_aspect_ratio = this.$canvas.width() / this.$canvas.height();
+        this.atlas_aspect_ratio = this.atlas_data.width / this.atlas_data.height;
+        if (this.css_aspect_ratio > this.atlas_aspect_ratio) {
+            this.context.translate(0, (this.$canvas.width() / this.atlas_aspect_ratio - this.$canvas.height()) / -2);
+            
+            this.canvas_transform_scale_factor = this.$canvas.width() / this.atlas_aspect_ratio / this.atlas_data.height;
+            this.context.scale(this.canvas_transform_scale_factor, this.canvas_transform_scale_factor);
+        } else if (this.css_aspect_ratio < this.atlas_aspect_ratio) {
+            this.context.translate((this.$canvas.height() * this.atlas_aspect_ratio - this.$canvas.width()) / -2, 0);
+            
+            this.canvas_transform_scale_factor = this.$canvas.height() * this.atlas_aspect_ratio / this.atlas_data.width;
+            this.context.scale(this.canvas_transform_scale_factor, this.canvas_transform_scale_factor);
+        }
+        
+        //We also need to determine if our atlas image is scaled down and adjust
+        //our source coordinate space to match.
+        this.image_x_space = this.image.width / this.atlas_data.atlas.width;
+        this.image_y_space = this.image.height / this.atlas_data.atlas.height;
+        
+        //Since we just clared the canvas, if we aren't animated, then we need
+        //to manually repopulate ourselves:
+        if (this.last_frame_drawn !== undefined) {
+            this.draw_frame(this.last_frame_drawn);
+        }
+    };
+
+    AtlasPlayer.prototype.animation_krnl = function (time) {
+        var step, frame, total_frames;
+
+        if (this.deinitialize_stop) {
+            return;
+        }
+        
+        if (this.playing === false) {
+            this.anim_player_running = false;
+            
+            if (this.on_animation_complete) {
+                this.on_animation_complete();
+                this.on_animation_complete = undefined;
+            }
+            return;
+        }
+
+        if (this.anim_first_time === undefined) {
+            this.anim_first_time = time;
+            window.requestAnimationFrame(this.animation_krnl.bind(this));
+            return;
+        }
+        
+        if (this.anim_length === undefined) {
+            //Don't animate if we haven't loaded yet
+            window.requestAnimationFrame(this.animation_krnl.bind(this));
+            return;
+        }
+
+        total_frames = this.atlas_data.layers.length;
+        step = this.anim_length / total_frames;
+        time = time - this.anim_first_time;
+        frame = Math.max(Math.min(Math.round(time / step), total_frames - 1), 0);
+
+        if (this.reverse) {
+            frame = (total_frames - 1) - frame;
+        }
+
+        this.context.clearRect(0,0,this.atlas_data.width, this.atlas_data.height);
+        this.draw_frame(frame);
+        
+        this.last_frame_drawn = frame;
+        
+        if (time > this.anim_length) {
+            if (this.atlas_data.loop === true) {
+                this.anim_first_time = undefined;
+            } else {
+                this.anim_player_running = false;
+                
+                if (this.on_animation_complete) {
+                    this.on_animation_complete();
+                    this.on_animation_complete = undefined;
+                }
+                return;
+            }
+        }
+        
+        window.requestAnimationFrame(this.animation_krnl.bind(this));
+    };
+
+    AtlasPlayer.prototype.update_animation_state = function () {
+        if (this.playing && this.anim_player_running === false) {
+            if (this.on_animation_complete) {
+                this.on_animation_complete();
+            }
+            
+            this.animation_promise = new Promise(function (resolve, reject) {
+                this.on_animation_complete = resolve;
+            }.bind(this));
+            
+            this.size_canvas_to_fit();
+            this.anim_player_running = true;
+            window.requestAnimationFrame(this.animation_krnl.bind(this));
+        }
+        
+        return this.animation_promise;
+    };
+    
+    AtlasPlayer.prototype.play = function () {
+        this.playing = true;
+        this.reverse = false;
+        this.anim_first_time = undefined;
+        return this.update_animation_state();
+    };
+
+    AtlasPlayer.prototype.play_reverse = function () {
+        this.playing = true;
+        this.reverse = true;
+        this.anim_first_time = undefined;
+        return this.update_animation_state();
+    };
+    
+    /* Request the animation to stop playing on the next frame.
+     * 
+     * This function also resets the animation to play again.
+     */
+    AtlasPlayer.prototype.stop = function () {
+        //A bit of subtlety: We don't clear anim_player_running since we don't
+        //cancel the animation frame when you stop the animation. We instead
+        //wait for the animation to stop itself.
+        this.playing = false;
+        this.reverse = false;
+        this.anim_first_time = undefined;
+        return this.update_animation_state();
+    };
+    
+    AtlasPlayer.prototype.seek = function (frame) {
+        if (frame < 0) {
+            frame = this.atlas_data.layers.length - frame - 2;
+        }
+
+        this.context.clearRect(0,0,this.atlas_data.width, this.atlas_data.height);
+        this.draw_frame(frame);
+
+        this.last_frame_drawn = frame;
+    };
+
+    Behaviors.register_behavior(AtlasPlayer);
+
+    module.AtlasPlayer = AtlasPlayer;
+
+    return module;
+}));
+
+/*global define, console, document, window*/
+(function (root, factory) {
+    "use strict";
+    if (typeof define === 'function' && define.amd) {
+        define("Animations", ["jquery", "Behaviors"], factory);
+    } else {
+        root.Animations = factory(root.jQuery, root.Behaviors);
+    }
+}(this, function ($, Behaviors) {
+    "use strict";
+    
+    var module = {};
+
+    /* Watches for the start and end of an animation.
+     *
+     * The .promise attribute stores a promise which resolves whenever the
+     * animation has completed or no animation events were detected over a
+     * timeout period of 5 second.
+     *
+     * An important caveat: Animations with delay longer than 5 seconds will
+     * fail to fire events and the animation watcher will trigger the timeout
+     * behavior instead. You can avoid this behavior by triggering another
+     * animation of any kind during the timeout period and keeping it alive
+     * until the delayed animation begins.
+     */
+    function AnimationWatcher($elem) {
+        var Class = this.constructor,
+            eventSelector = Class.get_unique_id(),
+            that = this,
+            evtStartNames = "animationstart." + eventSelector +
+                      " webkitAnimationStart." + eventSelector +
+                      " oanimationstart." + eventSelector +
+                      " MSAnimationStart." + eventSelector,
+            evtEndNames = "animationend." + eventSelector +
+                      " webkitAnimationEnd." + eventSelector +
+                      " oanimationend." + eventSelector +
+                      " MSAnimationEnd." + eventSelector,
+            animation_start = this.animation_start.bind(this),
+            animation_end = this.animation_end.bind(this),
+            animation_timeout_delay = 5000;
+
+        this.eventSelector = eventSelector;
+
+        this.$elem = $elem;
+        this.$elem.on(evtStartNames, animation_start);
+        this.$elem.on(evtEndNames, animation_end);
+
+        if (window.Modernizr && window.Modernizr.cssanimations === false) {
+            animation_timeout_delay = 0;
+        }
+
+        this.timeout = window.setTimeout(this.abort_animation.bind(this), animation_timeout_delay);
+        this.remaining_animations = [];
+
+        //We remove event handlers after one of the handlers resolves the
+        //animation promise.
+        this.promise = new Promise(function (resolve, reject) {
+            that.resolve = resolve;
+            that.reject = reject;
+        }).then(function () {
+            that.$elem.off(evtStartNames, animation_start);
+            that.$elem.off(evtEndNames, animation_end);
+        });
+
+        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Created");
+    }
+
+    AnimationWatcher.count = 0;
+
+    AnimationWatcher.get_unique_id = function () {
+        var Class = this,
+            sel = "." + Class.name + "_" + Class.count;
+
+        Class.count += 1;
+        return sel;
+    };
+
+    AnimationWatcher.prototype.animation_start = function (evt) {
+        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Begun (" + evt.originalEvent.animationName + ")");
+        if (this.timeout !== null) {
+            window.clearTimeout(this.timeout);
+            this.timeout = null;
+        }
+
+        this.remaining_animations.push(evt.originalEvent.animationName);
+    };
+
+    AnimationWatcher.prototype.animation_end = function (evt) {
+        var loc = this.remaining_animations.indexOf(evt.originalEvent.animationName);
+
+        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Ended (" + evt.originalEvent.animationName + ")");
+
+        if (loc !== -1) {
+            this.remaining_animations.splice(loc, 1);
+        }
+
+        if (this.remaining_animations.length === 0) {
+            this.resolve();
+        }
+    };
+
+    AnimationWatcher.prototype.abort_animation = function (evt) {
+        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Abort timeout triggered");
+
+        if (this.remaining_animations.length === 0) {
+            this.resolve();
+        }
+    };
+
+    module.AnimationWatcher = AnimationWatcher;
 
     return module;
 }));
@@ -4950,6 +4950,13 @@ if (!Array.prototype.indexOf) {
         $form.find("input[type='hidden']").each(function (index, ielem) {
             var $ielem = $(ielem), old_value = $ielem.attr("value"), new_key;
             
+            // Polyfill for IE11/pre-ES5
+            if (!String.prototype.startsWith) {
+                String.prototype.startsWith = function(search, pos) {
+                    return this.substr(!pos || pos < 0 ? 0 : +pos, search.length) === search;
+                };
+            }
+
             if (old_value.startsWith("replace_param[") && old_value.endsWith("]")) {
                 new_key = old_value.split("[")[1].split("]")[0];
                 $ielem.val(utm_variables[new_key]);
