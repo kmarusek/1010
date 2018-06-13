@@ -327,8 +327,8 @@ LiveValidation.prototype = {
                                 var getConfig = str.split("_");
                                 var separator = 'input_' + getConfig[1] + "_";
                                 var get_match = str.split(separator).pop();
-
-                                if (typeof all_validations[getConfig[1]][getConfig[2] + "_" + getConfig[3]] !== "undefined") {
+                                        
+                                if (typeof all_validations[getConfig[1]] !== "undefined" && typeof all_validations[getConfig[1]][getConfig[2] + "_" + getConfig[3]] !== "undefined") {
 
 
                                     all_validations[getConfig[1]][getConfig[2] + "_" + getConfig[3]].validate();
@@ -1420,11 +1420,15 @@ var Validate = {
         return true;
     },
     ConfirmEmail: function(value, paramsObj) {
-
+       
         var paramsObj = paramsObj || {};
         var message = paramsObj.failureMessage || "Must be accepted!";
-
+ console.log('runs');
         var ParentValue = document.getElementById(paramsObj.parentField).value;
+                console.log(value);
+                console.log(ParentValue);
+
+
         if (value !== ParentValue) {
             Validate.fail(message);
         }

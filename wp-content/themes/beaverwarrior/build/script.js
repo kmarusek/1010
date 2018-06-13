@@ -4957,6 +4957,15 @@ if (!Array.prototype.indexOf) {
                 };
             }
 
+            if (!String.prototype.endsWith) {
+                String.prototype.endsWith = function(search, this_len) {
+                    if (this_len === undefined || this_len > this.length) {
+                        this_len = this.length;
+                    }
+                    return this.substring(this_len - search.length, this_len) === search;
+                };
+            }
+
             if (old_value.startsWith("replace_param[") && old_value.endsWith("]")) {
                 new_key = old_value.split("[")[1].split("]")[0];
                 $ielem.val(utm_variables[new_key]);
