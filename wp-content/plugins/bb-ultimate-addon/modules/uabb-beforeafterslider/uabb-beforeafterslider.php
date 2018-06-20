@@ -22,7 +22,6 @@ class UABBBeforeaftersliderModule extends FLBuilderModule {
             'partial_refresh'  => true,
             'icon'             => 'slides.svg',
 		));
-        $this->add_css('baslider-foundation', $this->url . 'css/foundation.css');
         $this->add_css('baslider-twentytwenty', $this->url . 'css/twentytwenty.css');
         $this->add_js('baslider-move', $this->url ."js/jquery.event.move.js", array(), '', true);
         $this->add_js('baslider-plug', $this->url ."js/jquery.twentytwenty.js", array(), '',true);
@@ -366,6 +365,22 @@ FLBuilder::register_module('UABBBeforeaftersliderModule', array(
                             'left'             => __('Left', 'uabb'),
                             'center'             => __('Center', 'uabb'),
                             'right'             => __('Right', 'uabb'),
+                        ),
+                    ),
+                    'slider_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => 'none',
+                        'options'       => array(
+                            'none'           =>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-count-down-digit',
+                            'property'      => 'text-transform'
                         ),
                     ),
                     'slider_label_padding'     => array(

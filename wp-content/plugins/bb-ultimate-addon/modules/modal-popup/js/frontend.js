@@ -306,6 +306,8 @@ jQuery(document).ready(function( $ ) {
 				
 				//console.log( $this );
 
+				jQuery(".uabb-modal-title-wrap").siblings(".uabb-modal-close").css("top", "0");
+
 				var modal = $( '#modal-' + this.node );
 
 				if( this.modal_content == 'youtube' || this.modal_content == 'vimeo' ) {

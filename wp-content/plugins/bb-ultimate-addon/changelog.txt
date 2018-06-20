@@ -1,11 +1,30 @@
+Version 1.8.1 - Wednesday, 20th June 2018
+- Fixed: Advanced Menu - Default padding size is not applying to submenu
+- Fixed: Advanced Menu - Submenu color not working
+- Fixed: PHP fatal error produced by Price Box module
+
+Version 1.8.0 - Tuesday, 19th June 2018
+- New: Introduced Content Toggle
+- Improvements: Added "Text Transform" and "Letter Spacing" option for all modules
+- Fixed: Counter - Full Circle is visible in Internet Explorer while semi circle is selected
+- Fixed: Gravity Form - Added support for the Select box
+- Fixed: Google Map - Updated Latitude, Longitude tool link for Google Map
+- Fixed: Info List - Title color not working when link is provided to the title
+- Fixed: Modal Popup - Close button not displaying properly with title enabled
+- Fixed: Slide Box - Console error issue fixed on responsive devices
+- Fixed: Spacer / Gap - Fixed the issue of spacer jump
+- Fixed: Emptying the current value for typography and dimension field inherits previous value
+- Fixed: Module SVG icons breaking Beaver Builder editor on some servers
+- Fixed: PHP warning on fresh installations
+
 Version 1.7.3 - Monday, 21st May 2018
 - Improvement: Contact Form - Added optional Terms and Conditions to comply with GDPR
 - Improvement: Subscription Form - Added optional Terms and Conditions to comply with GDPR
 
 Version 1.7.2 - Thursday, 10th May 2018
 - Improvement: Updated the Template Cloud data for new typography & padding field compatibility
-- Fix: Improved performance of the field replacement functionlity
-- Fix: Reduced the frontend data render calls to help with performance
+- Fixed: Improved performance of the field replacement functionlity
+- Fixed: Reduced the frontend data render calls to help with performance
 
 Version 1.7.1 - Thursday, 03rd May 2018
 - Fixed: Price Box - Fixed PHP error produced by Price Box Module

@@ -647,7 +647,7 @@ FLBuilder::register_module('SlideBoxModule', array(
                         'show_reset' => true,
                         'preview'         => array(
                             'type'          => 'css',
-                            'selector'      => '.uabb-slide-box-wrap .open-slidedown .uabb-slide-front',
+                            'selector'      => '.uabb-slide-box-wrap .open-slidedown .uabb-slide-front:hover,.uabb-slide-box-wrap .open-slidedown .uabb-slide-front',
                             'property'      => 'background',
                         )
                     ),
@@ -984,7 +984,36 @@ FLBuilder::register_module('SlideBoxModule', array(
                         'preview'         => array(
                             'type'            => 'none',
                         )
-                    ),                    
+                    ), 
+                    'front_title_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => 'none',
+                        'options'       => array(
+                            'none'           =>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-slide-face-text-title',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'front_title_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-slide-face-text-title',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
+                    ),                   
                     'front_title_margin_top'     => array(
                         'type'          => 'text',
                         'label'         => __('Margin Top', 'uabb'),
@@ -1092,6 +1121,35 @@ FLBuilder::register_module('SlideBoxModule', array(
                             'unit'             => 'px'
                         )
                     ),
+                    'front_desc_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => 'none',
+                        'options'       => array(
+                            'none'           =>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-slide-box-section-content',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'front_desc_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-slide-box-section-content',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
+                    ),
                     'front_desc_margin_bottom'     => array(
                         'type'          => 'text',
                         'label'         => __('Margin Bottom', 'uabb'),
@@ -1184,6 +1242,35 @@ FLBuilder::register_module('SlideBoxModule', array(
                             'selector' => '.uabb-slide-back-text-title'
                         )
                     ),
+                    'back_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => 'none',
+                        'options'       => array(
+                            'none'           =>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-slide-back-text-title',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'back_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-slide-back-text-title',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
+                    ),
                     'back_title_margin_top'     => array(
                         'type'          => 'text',
                         'label'         => __('Margin Top', 'uabb'),
@@ -1270,6 +1357,35 @@ FLBuilder::register_module('SlideBoxModule', array(
                             'type' => 'css',
                             'property' => 'color',
                             'selector' => '.uabb-slide-down-box-section-content'
+                        )
+                    ),
+                    'back_desc_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => 'none',
+                        'options'       => array(
+                            'none'           =>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-slide-down-box-section-content',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'back_desc_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-slide-down-box-section-content',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
                         )
                     ),
                     'back_desc_margin_top'     => array(
@@ -1360,6 +1476,35 @@ FLBuilder::register_module('SlideBoxModule', array(
                             'selector'  => '.uabb-callout-cta-link',
                             'property'  => 'color',
                         ),
+                    ),
+                    'link_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => 'none',
+                        'options'       => array(
+                            'none'           =>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-callout-cta-link',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'link_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-callout-cta-link',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
                     ),
                 )
             ),

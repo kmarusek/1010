@@ -1,3 +1,7 @@
+.fl-node-<?php echo $id; ?>.uabb-desktop-spacer-height-adjustment{
+	position: absolute;
+	height: 30px;
+}
 .fl-node-<?php echo $id; ?> {
     width: 100%;
 }
@@ -15,6 +19,10 @@
 	?>
 		
 		@media ( max-width: <?php echo $global_settings->medium_breakpoint .'px'; ?> ) {
+		    .fl-node-<?php echo $id; ?>.uabb-tab-spacer-height-adjustment{
+				position: absolute;
+				height: 30px;
+			}
 			.fl-node-<?php echo $id; ?> .uabb-spacer-gap-preview.uabb-spacer-gap {
 				height: <?php echo ( $settings->medium_device != "" ) ? $settings->medium_device : 10; ?>px;
 			    clear: both;
@@ -27,6 +35,10 @@
 		/* Small Breakpoint media query */	
 	?>
 		@media ( max-width: <?php echo $global_settings->responsive_breakpoint .'px'; ?> ) {
+		    .fl-node-<?php echo $id; ?>.uabb-mobile-spacer-height-adjustment{
+				position: absolute;
+				height: 30px;
+			}
 			.fl-node-<?php echo $id; ?> .uabb-spacer-gap-preview.uabb-spacer-gap {
 				height: <?php echo ( $settings->small_device != "" ) ? $settings->small_device : 10; ?>px;
 			    clear: both;

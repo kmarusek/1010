@@ -90,6 +90,8 @@ class UABBCtaModule extends FLBuilderModule {
             'font_size_unit_responsive'         => $this->settings->btn_font_size_unit_responsive,
             'line_height_unit_responsive'       => $this->settings->btn_line_height_unit_responsive,
             'font_family'                       => $this->settings->btn_font_family,
+            'transform'                         => $this->settings->btn_transform,
+            'letter_spacing'                    => $this->settings->btn_letter_spacing,
 		);
 
 		FLBuilder::render_module_html('uabb-button', $btn_settings);
@@ -610,6 +612,35 @@ FLBuilder::register_module('UABBCtaModule', array(
                             'property'        => 'color',
                         )
                     ),
+                    'title_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => 'none',
+                        'options'       => array(
+                            'none'           =>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-cta-title',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'title_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-cta-title',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
+                    ),
                 )
             ),
 			'subhead_typography'    =>  array(
@@ -674,6 +705,35 @@ FLBuilder::register_module('UABBCtaModule', array(
                             'property'    => 'color',
                         )
                     ),
+                    'subhead_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => 'none',
+                        'options'       => array(
+                            'none'           =>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-text-editor',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'subhead_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-text-editor',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
+                    ),
                 )
             ),
 			'typography'    =>  array(
@@ -725,6 +785,35 @@ FLBuilder::register_module('UABBCtaModule', array(
                             'selector'      => '.uabb-creative-button-wrap a, .uabb-creative-button-wrap a:visited',
                             'property'      =>  'line-height',
                             'unit'          => 'em',
+                        )
+                    ),
+                    'btn_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => 'none',
+                        'options'       => array(
+                            'none'           =>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-creative-button-wrap a, .uabb-creative-button-wrap a:visited',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'btn_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-creative-button-wrap a, .uabb-creative-button-wrap a:visited',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
                         )
                     ),
                 )

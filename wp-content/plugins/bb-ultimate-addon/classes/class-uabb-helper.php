@@ -257,6 +257,7 @@ if( !class_exists( "BB_Ultimate_Addon_Helper" ) ) {
 				'spacer-gap'               	=> 'Spacer / Gap',
 				'team'                     	=> 'Team',
 				'adv-testimonials'         	=> 'Testimonials',
+				'uabb-content-toggle'		=> 'Content Toggle',
 			);
 
 			/* Include Contact form styler */

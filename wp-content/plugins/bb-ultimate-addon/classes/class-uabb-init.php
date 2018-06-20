@@ -271,17 +271,18 @@ class UABB_Init {
 			$addon_path		= $addon_dir . $module_path;
 
 			// Check for the module class in a child theme.
-			if( $is_child_theme && file_exists($child_path) ) {
+
+			if( $is_child_theme && file_exists($child_path) && !is_admin() ) {
 				require_once $child_path;
 			}
 
 			// Check for the module class in a parent theme.
-			else if( file_exists($theme_path) ) {
+			else if( file_exists($theme_path) && !is_admin() ) {
 				require_once $theme_path;
 			}
 
 			// Check for the module class in the builder directory.
-			else if( file_exists($addon_path) ) {
+			else if( file_exists($addon_path) && !is_admin() ) {
 				require_once $addon_path;
 			}
 		}
