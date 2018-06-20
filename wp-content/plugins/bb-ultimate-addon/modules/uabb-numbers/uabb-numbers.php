@@ -1202,6 +1202,19 @@ FLBuilder::register_module('UABBNumbersModule', array(
                            'property'	=> 'color',
                     	),
                     ),
+                    'letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-number-string',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
+                    ),
                 )
             ),
 			'ba_text_typography' => array(
@@ -1265,6 +1278,35 @@ FLBuilder::register_module('UABBNumbersModule', array(
                             'selector'	=> '.uabb-number-before-text, .uabb-number-after-text, .uabb-counter-before-text, .uabb-counter-after-text',
                             'property'	=> 'color',
                     	),
+                    ),
+                    'ba_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => 'none',
+                        'options'       => array(
+                            'none'           =>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-number-before-text, .uabb-number-after-text, .uabb-counter-before-text, .uabb-counter-after-text',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'ba_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-number-before-text, .uabb-number-after-text, .uabb-counter-before-text, .uabb-counter-after-text',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
                     ),
                 )
             ),

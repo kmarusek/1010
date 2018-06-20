@@ -62,7 +62,7 @@ if( device == null ) {
 	});	
 } 
 else if( device != null ) {
-	jQuery('.fl-node-<?php echo $id;?>').find('.uabb-slide-box-wrap').click( function() {
+	jQuery('.fl-node-<?php echo $id;?>').find('.uabb-slide-box-wrap').click( function(e) {
 		
 		var style1 = jQuery(this).find('.uabb-style1');
 		$this = jQuery(this);

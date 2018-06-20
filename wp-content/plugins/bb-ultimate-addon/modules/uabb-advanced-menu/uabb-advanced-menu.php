@@ -580,6 +580,7 @@ FLBuilder::register_module('UABBCreativeMenu', array(
                     'creative_submenu_border_width_dimension'    => array(
 		                'type'          => 'dimension',
 		                'label'         => __('Border Width', 'uabb'),
+                        'default'       => '1',
 		                'size'          => '6',		                
 						'preview'         => array(
 							'type'            => 'css',
@@ -590,7 +591,7 @@ FLBuilder::register_module('UABBCreativeMenu', array(
                         'description'   => 'px',
                         'responsive' => array(
                             'placeholder' => array(
-                                'default' => '',
+                                'default' => '1',
                                 'medium' => '',
                                 'responsive' => '',
                             ),
@@ -1062,18 +1063,31 @@ FLBuilder::register_module('UABBCreativeMenu', array(
 					'creative_menu_link_text_transform'    => array(
                         'type'                      => 'select',
                         'label'                     => __('Text Transform', 'uabb'),
-                        'default'                   => 'none',
-                        'options'                   => array(
-                            'none'                  => __('Default', 'uabb'),
-                            'uppercase'                => __('UPPERCASE', 'uabb'),
-                            'lowercase'                => __('lowercase', 'uabb'),
-                          	'capitalize'               => __('Capitalize', 'uabb'),  
+                        'default'       => 'none',
+                        'options'       => array(
+                            'none'           =>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
                         ),
 						'preview'           => array(
 							'type'			=> 'css',
 							'selector'      => '.uabb-creative-menu .menu > li > a, .uabb-creative-menu .menu > li > .uabb-has-submenu-container > a, .uabb-creative-menu-mobile-toggle-label',
 							'property'      => 'text-transform',
 						),
+                    ),
+                    'creative_menu_link_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-creative-menu .menu > li > a, .uabb-creative-menu .menu > li > .uabb-has-submenu-container > a, .uabb-creative-menu-mobile-toggle-label',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
                     ),
                 )
             ),
@@ -1157,18 +1171,31 @@ FLBuilder::register_module('UABBCreativeMenu', array(
 					'creative_submenu_link_text_transform'    => array(
                         'type'                      => 'select',
                         'label'                     => __('Text Transform', 'uabb'),
-                        'default'                   => 'none',
-                        'options'                   => array(
-                            'none'                  => __('Default', 'uabb'),
-                            'uppercase'                => __('UPPERCASE', 'uabb'),
-                            'lowercase'                => __('lowercase', 'uabb'),
-                          	'capitalize'               => __('Capitalize', 'uabb'),  
+                        'default'       => 'none',
+                        'options'       => array(
+                            'none'           =>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
                         ),
 						'preview'           => array(
 							'type'			=> 'css',
 							'selector'      => '.uabb-creative-menu .sub-menu a',
 							'property'      => 'text-transform',
 						),
+                    ),
+                    'creative_submenu_link_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-creative-menu .sub-menu a',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
                     ),
                 )
             ),

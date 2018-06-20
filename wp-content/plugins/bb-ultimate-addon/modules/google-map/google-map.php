@@ -136,7 +136,7 @@ FLBuilder::register_module('GoogleMapModule', array(
                         'type'         => 'form',
                         'label'        => __('Address', 'uabb'),
                         'form'         => 'uabb_google_map_addresses',
-                        // 'preview_text' => 'map_name',
+                        'preview_text' => 'map_name',
                         'multiple'     => true
                     ),
                 )
@@ -307,7 +307,7 @@ FLBuilder::register_module('GoogleMapModule', array(
                         'label'     => '',
                         'rows'      => 25,
                         'media_buttons' => false,
-                        'description'   => __('<br/><br/><a target="_blank" rel="noopener" href="http://googlemaps.github.io/js-samples/styledmaps/wizard/index.html">Click here</a> to get the style JSON code for styling your map.','uabb'),
+                        'description'   => __('<br/><br/><a target="_blank" rel="noopener" href="https://www.latlong.net/convert-address-to-lat-long.html">Click here</a> to get the style JSON code for styling your map.','uabb'),
                         'connections'   => array( 'string', 'html' )
                     ),
                 )
@@ -336,14 +336,14 @@ FLBuilder::register_settings_form('uabb_google_map_addresses', array(
                             'type'          => 'text',
                             'label'         => __('Latitude', 'uabb'),
                             'placeholder'   => '40.76142',
-                            'description'   => __('</br></br><a href="http://universimmedia.pagesperso-orange.fr/geo/loc.htm" target="_blank" rel="noopener">Here is a tool</a> where you can find Latitude & Longitude of your location','uabb'),
+                            'description'   => __('</br></br><a href="https://www.latlong.net/convert-address-to-lat-long.html" target="_blank" rel="noopener">Here is a tool</a> where you can find Latitude & Longitude of your location','uabb'),
                             'connections'       => array( 'custom_field' ),
                         ),
                         'map_longitude'     => array(
                             'type'          => 'text',
                             'label'         => __('Longitude', 'uabb'),
                             'placeholder'   => '-73.97712',
-                            'description'   => __('</br></br><a href="http://universimmedia.pagesperso-orange.fr/geo/loc.htm" target="_blank" rel="noopener">Here is a tool</a> where you can find Latitude & Longitude of your location','uabb'),
+                            'description'   => __('</br></br><a href="https://www.latlong.net/convert-address-to-lat-long.html" target="_blank" rel="noopener">Here is a tool</a> where you can find Latitude & Longitude of your location','uabb'),
                             'connections'       => array( 'custom_field' ),
                         ),
                     )

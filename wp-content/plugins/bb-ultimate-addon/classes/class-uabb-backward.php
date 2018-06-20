@@ -38,7 +38,7 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
 		public function __construct() {
 
 			// UABB Updates.
-			add_action( 'fl_builder_editing_enabled', array( $this, 'update_data' ) );
+			add_action( 'wp', array( $this, 'update_data' ) );
 
 			add_action( 'transition_post_status', array( $this, 'post_status' ), 10, 3 );
 		}
@@ -359,6 +359,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
 		 * @return void
 		 */
 		public function update_data() {
+			// Enable editing if the builder is active.
+			if ( ! FLBuilderModel::is_builder_active() && FLBuilderAJAX::doing_ajax() ) {
+				return;
+			}
 
 			$update_journey = get_option( '_journey_details', '0' );
 
@@ -3691,6 +3695,19 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
 				if( isset( $settings->pricing_columns[$i]->button_typography_line_height->desktop ) && isset( $settings->pricing_columns[$i]->button_typography_font_size->desktop ) && $settings->pricing_columns[$i]->button_typography_font_size->desktop != 0 && !isset( $settings->pricing_columns[$i]->button_typography_line_height_unit ) ) {
 				if( is_numeric( $settings->pricing_columns[$i]->button_typography_line_height->desktop ) && is_numeric( $settings->pricing_columns[$i]->button_typography_font_size->desktop) )
                 $settings->pricing_columns[$i]->button_typography_line_height_unit = round( $settings->pricing_columns[$i]->button_typography_line_height->desktop / $settings->pricing_columns[$i]->button_typography_font_size->desktop, 2 );
+				}
+
+				if( isset( $settings->legend_column->legend_font_size->small) && isset( $settings->legend_column->legend_font_size->small ) && $settings->legend_column->legend_font_size->small != 0 && !isset( $settings->legend_column->legend_font_size_unit_responsive ) ) {
+				if( is_numeric( $settings->legend_column->legend_font_size->small) && is_numeric( $settings->legend_column->legend_font_size->small) )
+                $settings->legend_column->legend_font_size_unit_responsive = round( $settings->legend_column->legend_font_size->small / $settings->legend_column->legend_font_size->small, 2 );
+				}
+				if( isset( $settings->legend_column->legend_font_size->medium) && isset( $settings->legend_column->legend_font_size->medium ) && $settings->legend_column->legend_font_size->medium != 0 && !isset(  $settings->legend_column->legend_font_size_unit_medium ) ) {
+				if( is_numeric( $settings->legend_column->legend_font_size->medium) && is_numeric( $settings->legend_column->legend_font_size->medium) )
+                 $settings->legend_column->legend_font_size_unit_medium = round( $settings->legend_column->legend_font_size->medium / $settings->legend_column->legend_font_size->medium, 2 );
+				}
+				if( isset( $settings->legend_column->legend_font_size->desktop ) && isset( $settings->legend_column->legend_font_size->desktop ) && $settings->legend_column->legend_font_size->desktop != 0 && !isset( $settings->legend_column->legend_font_size_unit ) ) {
+				if( is_numeric( $settings->legend_column->legend_font_size->desktop ) && is_numeric( $settings->legend_column->legend_font_size->desktop) )
+                $settings->legend_column->legend_font_size_unit = round( $settings->legend_column->legend_font_size->desktop / $settings->legend_column->legend_font_size->desktop, 2 );
 				}
 
 				if ( isset( $settings->pricing_columns[$i]->featured_font_size->small) && !isset( $settings->pricing_columns[$i]->featured_font_size_unit_responsive ) ) {

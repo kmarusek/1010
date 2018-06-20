@@ -478,16 +478,16 @@ class UABB_Extend_RowColumn {
 												'fields'        => array()
 											),
 											'solid'         => array(
-												'fields'        => array('hide_border_mobile')
+												'fields'        => array( 'border_color', 'border_opacity', 'border', 'hide_border_mobile' )
 											),
 											'dashed'        => array(
-												'fields'        => array('hide_border_mobile')
+												'fields'        => array( 'border_color', 'border_opacity', 'border', 'hide_border_mobile' )
 											),
 											'dotted'        => array(
-												'fields'        => array('hide_border_mobile')
+												'fields'        => array( 'border_color', 'border_opacity', 'border', 'hide_border_mobile' )
 											),
 											'double'        => array(
-												'fields'        => array('hide_border_mobile')
+												'fields'        => array( 'border_color', 'border_opacity', 'border', 'hide_border_mobile' )
 											)
 										),
 										'preview'         => array(
