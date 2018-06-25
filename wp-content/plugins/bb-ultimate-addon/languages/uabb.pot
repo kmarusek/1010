@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the Ultimate Addon for Beaver Builder package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ultimate Addon for Beaver Builder 1.8.1\n"
+"Project-Id-Version: Ultimate Addon for Beaver Builder 1.8.2\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/bb-ultimate-addon\n"
-"POT-Creation-Date: 2018-06-20 13:31:44+00:00\n"
+"POT-Creation-Date: 2018-06-21 15:46:21+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -565,8 +565,8 @@ msgstr ""
 #: modules/uabb-contact-form/uabb-contact-form.php:775
 #: modules/uabb-contact-form7/uabb-contact-form7.php:79
 #: modules/uabb-contact-form7/uabb-contact-form7.php:661
-#: modules/uabb-content-toggle/uabb-content-toggle.php:439
-#: modules/uabb-content-toggle/uabb-content-toggle.php:551
+#: modules/uabb-content-toggle/uabb-content-toggle.php:460
+#: modules/uabb-content-toggle/uabb-content-toggle.php:572
 #: modules/uabb-countdown/uabb-countdown.php:162
 #: modules/uabb-countdown/uabb-countdown.php:184
 #: modules/uabb-countdown/uabb-countdown.php:453
@@ -971,6 +971,7 @@ msgstr ""
 #: modules/blog-posts/blog-posts.php:1962
 #: modules/blog-posts/blog-posts.php:1994
 #: modules/blog-posts/blog-posts.php:2379
+#: modules/blog-posts/includes/loop-settings.php:143
 #: modules/dual-button/dual-button.php:164
 #: modules/dual-button/dual-button.php:244
 #: modules/dual-color-heading/dual-color-heading.php:67
@@ -1031,8 +1032,8 @@ msgstr ""
 #: modules/uabb-contact-form/uabb-contact-form.php:576
 #: modules/uabb-contact-form/uabb-contact-form.php:585
 #: modules/uabb-contact-form7/uabb-contact-form7.php:376
-#: modules/uabb-content-toggle/uabb-content-toggle.php:414
-#: modules/uabb-content-toggle/uabb-content-toggle.php:526
+#: modules/uabb-content-toggle/uabb-content-toggle.php:435
+#: modules/uabb-content-toggle/uabb-content-toggle.php:547
 #: modules/uabb-countdown/uabb-countdown.php:549
 #: modules/uabb-countdown/uabb-countdown.php:584
 #: modules/uabb-countdown/uabb-countdown.php:618
@@ -1097,6 +1098,7 @@ msgstr ""
 #: modules/blog-posts/blog-posts.php:1963
 #: modules/blog-posts/blog-posts.php:1995
 #: modules/blog-posts/blog-posts.php:2380
+#: modules/blog-posts/includes/loop-settings.php:144
 #: modules/dual-button/dual-button.php:165
 #: modules/dual-button/dual-button.php:243
 #: modules/dual-color-heading/dual-color-heading.php:68
@@ -1160,8 +1162,8 @@ msgstr ""
 #: modules/uabb-contact-form/uabb-contact-form.php:577
 #: modules/uabb-contact-form/uabb-contact-form.php:586
 #: modules/uabb-contact-form7/uabb-contact-form7.php:377
-#: modules/uabb-content-toggle/uabb-content-toggle.php:415
-#: modules/uabb-content-toggle/uabb-content-toggle.php:527
+#: modules/uabb-content-toggle/uabb-content-toggle.php:436
+#: modules/uabb-content-toggle/uabb-content-toggle.php:548
 #: modules/uabb-countdown/uabb-countdown.php:550
 #: modules/uabb-countdown/uabb-countdown.php:585
 #: modules/uabb-countdown/uabb-countdown.php:619
@@ -1406,8 +1408,8 @@ msgstr ""
 #: classes/class-uabb-cloud-templates.php:541
 #: modules/blog-posts/blog-posts.php:504 modules/blog-posts/blog-posts.php:519
 #: modules/blog-posts/includes/loop-settings.php:59
-#: modules/blog-posts/includes/loop-settings.php:179
-#: modules/blog-posts/includes/loop-settings.php:180
+#: modules/blog-posts/includes/loop-settings.php:190
+#: modules/blog-posts/includes/loop-settings.php:191
 msgid "All"
 msgstr ""
 
@@ -1445,7 +1447,7 @@ msgstr ""
 #: modules/mailchimp-subscribe-form/mailchimp-subscribe-form.php:136
 #: modules/mailchimp-subscribe-form/mailchimp-subscribe-form.php:943
 #: modules/uabb-content-toggle/uabb-content-toggle.php:109
-#: modules/uabb-content-toggle/uabb-content-toggle.php:185
+#: modules/uabb-content-toggle/uabb-content-toggle.php:187
 #: modules/uabb-heading/uabb-heading.php:13
 #: modules/uabb-heading/uabb-heading.php:94
 #: modules/uabb-heading/uabb-heading.php:395
@@ -1475,7 +1477,7 @@ msgstr ""
 
 #: classes/class-uabb-wpml.php:82 classes/uabb-global-settings-form.php:71
 #: modules/blog-posts/blog-posts.php:1431
-#: modules/blog-posts/includes/loop-settings.php:171
+#: modules/blog-posts/includes/loop-settings.php:182
 #: modules/flip-box/flip-box.php:632 modules/info-banner/info-banner.php:439
 #: modules/info-banner/info-banner.php:1041 modules/info-box/info-box.php:1342
 #: modules/info-circle/info-circle.php:1157
@@ -2101,7 +2103,7 @@ msgstr ""
 #: modules/uabb-contact-form/uabb-contact-form.php:1070
 #: modules/uabb-contact-form7/uabb-contact-form7.php:69
 #: modules/uabb-contact-form7/uabb-contact-form7.php:494
-#: modules/uabb-content-toggle/uabb-content-toggle.php:255
+#: modules/uabb-content-toggle/uabb-content-toggle.php:259
 #: modules/uabb-gravity-form/uabb-gravity-form.php:138
 #: modules/uabb-gravity-form/uabb-gravity-form.php:570
 #: modules/uabb-heading/uabb-heading.php:338
@@ -2253,8 +2255,8 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7.php:410
 #: modules/uabb-contact-form7/uabb-contact-form7.php:554
 #: modules/uabb-contact-form7/uabb-contact-form7.php:852
-#: modules/uabb-content-toggle/uabb-content-toggle.php:425
-#: modules/uabb-content-toggle/uabb-content-toggle.php:537
+#: modules/uabb-content-toggle/uabb-content-toggle.php:446
+#: modules/uabb-content-toggle/uabb-content-toggle.php:558
 #: modules/uabb-gravity-form/uabb-gravity-form.php:221
 #: modules/uabb-gravity-form/uabb-gravity-form.php:304
 #: modules/uabb-gravity-form/uabb-gravity-form.php:491
@@ -2443,10 +2445,10 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7.php:1204
 #: modules/uabb-contact-form7/uabb-contact-form7.php:1297
 #: modules/uabb-contact-form7/uabb-contact-form7.php:1420
-#: modules/uabb-content-toggle/uabb-content-toggle.php:690
-#: modules/uabb-content-toggle/uabb-content-toggle.php:785
-#: modules/uabb-content-toggle/uabb-content-toggle.php:880
-#: modules/uabb-content-toggle/uabb-content-toggle.php:975
+#: modules/uabb-content-toggle/uabb-content-toggle.php:711
+#: modules/uabb-content-toggle/uabb-content-toggle.php:806
+#: modules/uabb-content-toggle/uabb-content-toggle.php:901
+#: modules/uabb-content-toggle/uabb-content-toggle.php:996
 #: modules/uabb-countdown/uabb-countdown.php:251
 #: modules/uabb-countdown/uabb-countdown.php:776
 #: modules/uabb-countdown/uabb-countdown.php:869
@@ -2550,10 +2552,10 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7.php:1114
 #: modules/uabb-contact-form7/uabb-contact-form7.php:1222
 #: modules/uabb-contact-form7/uabb-contact-form7.php:1315
-#: modules/uabb-content-toggle/uabb-content-toggle.php:709
-#: modules/uabb-content-toggle/uabb-content-toggle.php:804
-#: modules/uabb-content-toggle/uabb-content-toggle.php:899
-#: modules/uabb-content-toggle/uabb-content-toggle.php:994
+#: modules/uabb-content-toggle/uabb-content-toggle.php:730
+#: modules/uabb-content-toggle/uabb-content-toggle.php:825
+#: modules/uabb-content-toggle/uabb-content-toggle.php:920
+#: modules/uabb-content-toggle/uabb-content-toggle.php:1015
 #: modules/uabb-countdown/uabb-countdown.php:263
 #: modules/uabb-countdown/uabb-countdown.php:794
 #: modules/uabb-countdown/uabb-countdown.php:887
@@ -2658,10 +2660,10 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7.php:1267
 #: modules/uabb-contact-form7/uabb-contact-form7.php:1360
 #: modules/uabb-contact-form7/uabb-contact-form7.php:1464
-#: modules/uabb-content-toggle/uabb-content-toggle.php:755
-#: modules/uabb-content-toggle/uabb-content-toggle.php:850
-#: modules/uabb-content-toggle/uabb-content-toggle.php:945
-#: modules/uabb-content-toggle/uabb-content-toggle.php:1040
+#: modules/uabb-content-toggle/uabb-content-toggle.php:776
+#: modules/uabb-content-toggle/uabb-content-toggle.php:871
+#: modules/uabb-content-toggle/uabb-content-toggle.php:966
+#: modules/uabb-content-toggle/uabb-content-toggle.php:1061
 #: modules/uabb-countdown/uabb-countdown.php:303
 #: modules/uabb-countdown/uabb-countdown.php:823
 #: modules/uabb-countdown/uabb-countdown.php:932
@@ -2741,7 +2743,7 @@ msgstr ""
 #: modules/uabb-contact-form/uabb-contact-form.php:842
 #: modules/uabb-contact-form7/uabb-contact-form7.php:147
 #: modules/uabb-contact-form7/uabb-contact-form7.php:665
-#: modules/uabb-content-toggle/uabb-content-toggle.php:404
+#: modules/uabb-content-toggle/uabb-content-toggle.php:425
 #: modules/uabb-gravity-form/uabb-gravity-form.php:216
 msgid "Inherit"
 msgstr ""
@@ -2765,8 +2767,8 @@ msgstr ""
 #: modules/list-icon/list-icon.php:386 modules/pricing-box/pricing-box.php:286
 #: modules/progress-bar/progress-bar.php:567 modules/team/team.php:797
 #: modules/uabb-contact-form/uabb-contact-form.php:1187
-#: modules/uabb-content-toggle/uabb-content-toggle.php:489
-#: modules/uabb-content-toggle/uabb-content-toggle.php:601
+#: modules/uabb-content-toggle/uabb-content-toggle.php:510
+#: modules/uabb-content-toggle/uabb-content-toggle.php:622
 #: modules/uabb-hotspot/uabb-hotspot.php:318
 #: modules/uabb-hotspot/uabb-hotspot.php:413
 #: modules/uabb-numbers/uabb-numbers.php:865
@@ -3053,12 +3055,12 @@ msgid "Bottom to Top"
 msgstr ""
 
 #: fields/uabb-gradient/ui-field-uabb-gradient.php:25
-#: modules/uabb-content-toggle/uabb-content-toggle.php:285
+#: modules/uabb-content-toggle/uabb-content-toggle.php:306
 msgid "Color 1"
 msgstr ""
 
 #: fields/uabb-gradient/ui-field-uabb-gradient.php:33
-#: modules/uabb-content-toggle/uabb-content-toggle.php:305
+#: modules/uabb-content-toggle/uabb-content-toggle.php:326
 msgid "Color 2"
 msgstr ""
 
@@ -4142,7 +4144,7 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7.php:202
 #: modules/uabb-contact-form7/uabb-contact-form7.php:266
 #: modules/uabb-contact-form7/uabb-contact-form7.php:782
-#: modules/uabb-content-toggle/uabb-content-toggle.php:385
+#: modules/uabb-content-toggle/uabb-content-toggle.php:406
 #: modules/uabb-countdown/uabb-countdown.php:330
 #: modules/uabb-gravity-form/uabb-gravity-form.php:270
 #: modules/uabb-gravity-form/uabb-gravity-form.php:327
@@ -4211,7 +4213,7 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7.php:204
 #: modules/uabb-contact-form7/uabb-contact-form7.php:268
 #: modules/uabb-contact-form7/uabb-contact-form7.php:783
-#: modules/uabb-content-toggle/uabb-content-toggle.php:387
+#: modules/uabb-content-toggle/uabb-content-toggle.php:408
 #: modules/uabb-countdown/uabb-countdown.php:331
 #: modules/uabb-gravity-form/uabb-gravity-form.php:272
 #: modules/uabb-gravity-form/uabb-gravity-form.php:329
@@ -4284,7 +4286,7 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7.php:203
 #: modules/uabb-contact-form7/uabb-contact-form7.php:267
 #: modules/uabb-contact-form7/uabb-contact-form7.php:781
-#: modules/uabb-content-toggle/uabb-content-toggle.php:386
+#: modules/uabb-content-toggle/uabb-content-toggle.php:407
 #: modules/uabb-countdown/uabb-countdown.php:332
 #: modules/uabb-gravity-form/uabb-gravity-form.php:271
 #: modules/uabb-gravity-form/uabb-gravity-form.php:328
@@ -4379,16 +4381,16 @@ msgstr ""
 #: modules/mailchimp-subscribe-form/mailchimp-subscribe-form.php:371
 #: modules/slide-box/slide-box.php:454
 #: modules/uabb-call-to-action/uabb-call-to-action.php:153
-#: modules/uabb-content-toggle/uabb-content-toggle.php:396
-#: modules/uabb-content-toggle/uabb-content-toggle.php:406
+#: modules/uabb-content-toggle/uabb-content-toggle.php:417
+#: modules/uabb-content-toggle/uabb-content-toggle.php:427
 msgid "Inline"
 msgstr ""
 
 #: modules/adv-testimonials/adv-testimonials.php:636
 #: modules/blog-posts/blog-posts.php:1743 modules/info-box/info-box.php:1077
 #: modules/info-list/info-list.php:239 modules/slide-box/slide-box.php:455
-#: modules/uabb-content-toggle/uabb-content-toggle.php:395
-#: modules/uabb-content-toggle/uabb-content-toggle.php:405
+#: modules/uabb-content-toggle/uabb-content-toggle.php:416
+#: modules/uabb-content-toggle/uabb-content-toggle.php:426
 msgid "Stack"
 msgstr ""
 
@@ -4448,7 +4450,7 @@ msgstr ""
 #: modules/uabb-call-to-action/uabb-call-to-action.php:535
 #: modules/uabb-contact-form/uabb-contact-form.php:1308
 #: modules/uabb-contact-form7/uabb-contact-form7.php:953
-#: modules/uabb-content-toggle/uabb-content-toggle.php:671
+#: modules/uabb-content-toggle/uabb-content-toggle.php:692
 #: modules/uabb-countdown/uabb-countdown.php:741
 #: modules/uabb-gravity-form/uabb-gravity-form.php:1130
 #: modules/uabb-heading/uabb-heading.php:392
@@ -4523,7 +4525,7 @@ msgstr ""
 #: modules/team/team.php:910
 #: modules/uabb-call-to-action/uabb-call-to-action.php:545
 #: modules/uabb-contact-form7/uabb-contact-form7.php:963
-#: modules/uabb-content-toggle/uabb-content-toggle.php:372
+#: modules/uabb-content-toggle/uabb-content-toggle.php:393
 #: modules/uabb-countdown/uabb-countdown.php:751
 #: modules/uabb-countdown/uabb-countdown.php:844
 #: modules/uabb-gravity-form/uabb-gravity-form.php:1154
@@ -4563,7 +4565,7 @@ msgstr ""
 #: modules/team/team.php:911
 #: modules/uabb-call-to-action/uabb-call-to-action.php:546
 #: modules/uabb-contact-form7/uabb-contact-form7.php:964
-#: modules/uabb-content-toggle/uabb-content-toggle.php:373
+#: modules/uabb-content-toggle/uabb-content-toggle.php:394
 #: modules/uabb-countdown/uabb-countdown.php:752
 #: modules/uabb-countdown/uabb-countdown.php:845
 #: modules/uabb-gravity-form/uabb-gravity-form.php:1155
@@ -4603,7 +4605,7 @@ msgstr ""
 #: modules/team/team.php:912
 #: modules/uabb-call-to-action/uabb-call-to-action.php:547
 #: modules/uabb-contact-form7/uabb-contact-form7.php:965
-#: modules/uabb-content-toggle/uabb-content-toggle.php:374
+#: modules/uabb-content-toggle/uabb-content-toggle.php:395
 #: modules/uabb-countdown/uabb-countdown.php:753
 #: modules/uabb-countdown/uabb-countdown.php:846
 #: modules/uabb-gravity-form/uabb-gravity-form.php:1156
@@ -4643,7 +4645,7 @@ msgstr ""
 #: modules/team/team.php:913
 #: modules/uabb-call-to-action/uabb-call-to-action.php:548
 #: modules/uabb-contact-form7/uabb-contact-form7.php:966
-#: modules/uabb-content-toggle/uabb-content-toggle.php:375
+#: modules/uabb-content-toggle/uabb-content-toggle.php:396
 #: modules/uabb-countdown/uabb-countdown.php:754
 #: modules/uabb-countdown/uabb-countdown.php:847
 #: modules/uabb-gravity-form/uabb-gravity-form.php:1157
@@ -4683,7 +4685,7 @@ msgstr ""
 #: modules/team/team.php:914
 #: modules/uabb-call-to-action/uabb-call-to-action.php:549
 #: modules/uabb-contact-form7/uabb-contact-form7.php:967
-#: modules/uabb-content-toggle/uabb-content-toggle.php:376
+#: modules/uabb-content-toggle/uabb-content-toggle.php:397
 #: modules/uabb-countdown/uabb-countdown.php:755
 #: modules/uabb-countdown/uabb-countdown.php:848
 #: modules/uabb-gravity-form/uabb-gravity-form.php:1158
@@ -4723,7 +4725,7 @@ msgstr ""
 #: modules/team/team.php:915
 #: modules/uabb-call-to-action/uabb-call-to-action.php:550
 #: modules/uabb-contact-form7/uabb-contact-form7.php:968
-#: modules/uabb-content-toggle/uabb-content-toggle.php:377
+#: modules/uabb-content-toggle/uabb-content-toggle.php:398
 #: modules/uabb-countdown/uabb-countdown.php:756
 #: modules/uabb-countdown/uabb-countdown.php:849
 #: modules/uabb-gravity-form/uabb-gravity-form.php:1159
@@ -4932,10 +4934,10 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7.php:1192
 #: modules/uabb-contact-form7/uabb-contact-form7.php:1285
 #: modules/uabb-contact-form7/uabb-contact-form7.php:1408
-#: modules/uabb-content-toggle/uabb-content-toggle.php:678
-#: modules/uabb-content-toggle/uabb-content-toggle.php:773
-#: modules/uabb-content-toggle/uabb-content-toggle.php:868
-#: modules/uabb-content-toggle/uabb-content-toggle.php:963
+#: modules/uabb-content-toggle/uabb-content-toggle.php:699
+#: modules/uabb-content-toggle/uabb-content-toggle.php:794
+#: modules/uabb-content-toggle/uabb-content-toggle.php:889
+#: modules/uabb-content-toggle/uabb-content-toggle.php:984
 #: modules/uabb-countdown/uabb-countdown.php:239
 #: modules/uabb-countdown/uabb-countdown.php:764
 #: modules/uabb-countdown/uabb-countdown.php:857
@@ -5015,10 +5017,10 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7.php:1240
 #: modules/uabb-contact-form7/uabb-contact-form7.php:1333
 #: modules/uabb-contact-form7/uabb-contact-form7.php:1438
-#: modules/uabb-content-toggle/uabb-content-toggle.php:727
-#: modules/uabb-content-toggle/uabb-content-toggle.php:822
-#: modules/uabb-content-toggle/uabb-content-toggle.php:917
-#: modules/uabb-content-toggle/uabb-content-toggle.php:1012
+#: modules/uabb-content-toggle/uabb-content-toggle.php:748
+#: modules/uabb-content-toggle/uabb-content-toggle.php:843
+#: modules/uabb-content-toggle/uabb-content-toggle.php:938
+#: modules/uabb-content-toggle/uabb-content-toggle.php:1033
 #: modules/uabb-gravity-form/uabb-gravity-form.php:149
 #: modules/uabb-gravity-form/uabb-gravity-form.php:291
 #: modules/uabb-gravity-form/uabb-gravity-form.php:388
@@ -5116,10 +5118,10 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7.php:1251
 #: modules/uabb-contact-form7/uabb-contact-form7.php:1344
 #: modules/uabb-contact-form7/uabb-contact-form7.php:1448
-#: modules/uabb-content-toggle/uabb-content-toggle.php:739
-#: modules/uabb-content-toggle/uabb-content-toggle.php:834
-#: modules/uabb-content-toggle/uabb-content-toggle.php:929
-#: modules/uabb-content-toggle/uabb-content-toggle.php:1024
+#: modules/uabb-content-toggle/uabb-content-toggle.php:760
+#: modules/uabb-content-toggle/uabb-content-toggle.php:855
+#: modules/uabb-content-toggle/uabb-content-toggle.php:950
+#: modules/uabb-content-toggle/uabb-content-toggle.php:1045
 #: modules/uabb-countdown/uabb-countdown.php:287
 #: modules/uabb-countdown/uabb-countdown.php:916
 #: modules/uabb-gravity-form/uabb-gravity-form.php:935
@@ -5242,8 +5244,8 @@ msgstr ""
 #: modules/mailchimp-subscribe-form/mailchimp-subscribe-form.php:334
 #: modules/team/team.php:420
 #: modules/uabb-advanced-menu/uabb-advanced-menu.php:417
-#: modules/uabb-content-toggle/uabb-content-toggle.php:500
-#: modules/uabb-content-toggle/uabb-content-toggle.php:612
+#: modules/uabb-content-toggle/uabb-content-toggle.php:521
+#: modules/uabb-content-toggle/uabb-content-toggle.php:633
 #: modules/uabb-hotspot/uabb-hotspot.php:832
 msgid "Padding"
 msgstr ""
@@ -5271,7 +5273,7 @@ msgstr ""
 #: modules/uabb-button/uabb-button.php:481
 #: modules/uabb-call-to-action/uabb-call-to-action.php:168
 #: modules/uabb-contact-form7/uabb-contact-form7.php:778
-#: modules/uabb-content-toggle/uabb-content-toggle.php:382
+#: modules/uabb-content-toggle/uabb-content-toggle.php:403
 #: modules/uabb-gravity-form/uabb-gravity-form.php:771
 #: modules/uabb-heading/uabb-heading.php:141
 #: modules/uabb-numbers/uabb-numbers.php:614
@@ -5360,8 +5362,8 @@ msgstr ""
 #: modules/uabb-advanced-menu/uabb-advanced-menu.php:339
 #: modules/uabb-advanced-menu/uabb-advanced-menu.php:569
 #: modules/uabb-advanced-menu/uabb-advanced-menu.php:636
-#: modules/uabb-content-toggle/uabb-content-toggle.php:440
-#: modules/uabb-content-toggle/uabb-content-toggle.php:552
+#: modules/uabb-content-toggle/uabb-content-toggle.php:461
+#: modules/uabb-content-toggle/uabb-content-toggle.php:573
 #: modules/uabb-countdown/uabb-countdown.php:428
 #: modules/uabb-heading/uabb-heading.php:341
 #: modules/uabb-hotspot/uabb-hotspot.php:288
@@ -5404,8 +5406,8 @@ msgstr ""
 #: modules/uabb-advanced-menu/uabb-advanced-menu.php:340
 #: modules/uabb-advanced-menu/uabb-advanced-menu.php:570
 #: modules/uabb-advanced-menu/uabb-advanced-menu.php:637
-#: modules/uabb-content-toggle/uabb-content-toggle.php:443
-#: modules/uabb-content-toggle/uabb-content-toggle.php:555
+#: modules/uabb-content-toggle/uabb-content-toggle.php:464
+#: modules/uabb-content-toggle/uabb-content-toggle.php:576
 #: modules/uabb-countdown/uabb-countdown.php:429
 #: modules/uabb-heading/uabb-heading.php:342
 #: modules/uabb-hotspot/uabb-hotspot.php:289
@@ -5448,8 +5450,8 @@ msgstr ""
 #: modules/uabb-advanced-menu/uabb-advanced-menu.php:342
 #: modules/uabb-advanced-menu/uabb-advanced-menu.php:572
 #: modules/uabb-advanced-menu/uabb-advanced-menu.php:639
-#: modules/uabb-content-toggle/uabb-content-toggle.php:442
-#: modules/uabb-content-toggle/uabb-content-toggle.php:554
+#: modules/uabb-content-toggle/uabb-content-toggle.php:463
+#: modules/uabb-content-toggle/uabb-content-toggle.php:575
 #: modules/uabb-countdown/uabb-countdown.php:430
 #: modules/uabb-heading/uabb-heading.php:343
 #: modules/uabb-hotspot/uabb-hotspot.php:290
@@ -5492,8 +5494,8 @@ msgstr ""
 #: modules/uabb-advanced-menu/uabb-advanced-menu.php:341
 #: modules/uabb-advanced-menu/uabb-advanced-menu.php:571
 #: modules/uabb-advanced-menu/uabb-advanced-menu.php:638
-#: modules/uabb-content-toggle/uabb-content-toggle.php:441
-#: modules/uabb-content-toggle/uabb-content-toggle.php:553
+#: modules/uabb-content-toggle/uabb-content-toggle.php:462
+#: modules/uabb-content-toggle/uabb-content-toggle.php:574
 #: modules/uabb-heading/uabb-heading.php:344
 #: modules/uabb-hotspot/uabb-hotspot.php:291
 #: modules/uabb-hotspot/uabb-hotspot.php:386
@@ -5636,9 +5638,9 @@ msgstr ""
 #: modules/modal-popup/modal-popup.php:280
 #: modules/modal-popup/modal-popup.php:287
 #: modules/modal-popup/modal-popup.php:1311
-#: modules/uabb-content-toggle/uabb-content-toggle.php:122
-#: modules/uabb-content-toggle/uabb-content-toggle.php:198
-#: modules/uabb-content-toggle/uabb-content-toggle.php:519
+#: modules/uabb-content-toggle/uabb-content-toggle.php:123
+#: modules/uabb-content-toggle/uabb-content-toggle.php:201
+#: modules/uabb-content-toggle/uabb-content-toggle.php:540
 msgid "Content"
 msgstr ""
 
@@ -5670,24 +5672,24 @@ msgstr ""
 #: modules/advanced-accordion/advanced-accordion.php:891
 #: modules/advanced-tabs/advanced-tabs.php:843
 #: modules/modal-popup/modal-popup.php:291
-#: modules/uabb-content-toggle/uabb-content-toggle.php:124
-#: modules/uabb-content-toggle/uabb-content-toggle.php:200
+#: modules/uabb-content-toggle/uabb-content-toggle.php:125
+#: modules/uabb-content-toggle/uabb-content-toggle.php:203
 msgid "Saved Rows"
 msgstr ""
 
 #: modules/advanced-accordion/advanced-accordion.php:895
 #: modules/advanced-tabs/advanced-tabs.php:847
 #: modules/modal-popup/modal-popup.php:295
-#: modules/uabb-content-toggle/uabb-content-toggle.php:128
-#: modules/uabb-content-toggle/uabb-content-toggle.php:204
+#: modules/uabb-content-toggle/uabb-content-toggle.php:129
+#: modules/uabb-content-toggle/uabb-content-toggle.php:207
 msgid "Saved Modules"
 msgstr ""
 
 #: modules/advanced-accordion/advanced-accordion.php:899
 #: modules/advanced-tabs/advanced-tabs.php:851
 #: modules/modal-popup/modal-popup.php:299
-#: modules/uabb-content-toggle/uabb-content-toggle.php:132
-#: modules/uabb-content-toggle/uabb-content-toggle.php:208
+#: modules/uabb-content-toggle/uabb-content-toggle.php:133
+#: modules/uabb-content-toggle/uabb-content-toggle.php:211
 msgid "Saved Page Templates"
 msgstr ""
 
@@ -5706,24 +5708,24 @@ msgstr ""
 #: modules/advanced-accordion/advanced-accordion.php:942
 #: modules/advanced-tabs/advanced-tabs.php:894
 #: modules/modal-popup/modal-popup.php:361
-#: modules/uabb-content-toggle/uabb-content-toggle.php:161
-#: modules/uabb-content-toggle/uabb-content-toggle.php:237
+#: modules/uabb-content-toggle/uabb-content-toggle.php:163
+#: modules/uabb-content-toggle/uabb-content-toggle.php:241
 msgid "Select Row"
 msgstr ""
 
 #: modules/advanced-accordion/advanced-accordion.php:947
 #: modules/advanced-tabs/advanced-tabs.php:899
 #: modules/modal-popup/modal-popup.php:366
-#: modules/uabb-content-toggle/uabb-content-toggle.php:166
-#: modules/uabb-content-toggle/uabb-content-toggle.php:242
+#: modules/uabb-content-toggle/uabb-content-toggle.php:168
+#: modules/uabb-content-toggle/uabb-content-toggle.php:246
 msgid "Select Module"
 msgstr ""
 
 #: modules/advanced-accordion/advanced-accordion.php:952
 #: modules/advanced-tabs/advanced-tabs.php:904
 #: modules/modal-popup/modal-popup.php:371
-#: modules/uabb-content-toggle/uabb-content-toggle.php:171
-#: modules/uabb-content-toggle/uabb-content-toggle.php:247
+#: modules/uabb-content-toggle/uabb-content-toggle.php:173
+#: modules/uabb-content-toggle/uabb-content-toggle.php:251
 msgid "Select Page Template"
 msgstr ""
 
@@ -5789,7 +5791,7 @@ msgstr ""
 #: modules/pricing-box/pricing-box.php:167
 #: modules/progress-bar/progress-bar.php:260
 #: modules/uabb-call-to-action/uabb-call-to-action.php:184
-#: modules/uabb-content-toggle/uabb-content-toggle.php:631
+#: modules/uabb-content-toggle/uabb-content-toggle.php:652
 #: modules/uabb-social-share/uabb-social-share.php:79
 msgid "Spacing"
 msgstr ""
@@ -5859,8 +5861,8 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7.php:432
 #: modules/uabb-contact-form7/uabb-contact-form7.php:519
 #: modules/uabb-contact-form7/uabb-contact-form7.php:897
-#: modules/uabb-content-toggle/uabb-content-toggle.php:467
-#: modules/uabb-content-toggle/uabb-content-toggle.php:579
+#: modules/uabb-content-toggle/uabb-content-toggle.php:488
+#: modules/uabb-content-toggle/uabb-content-toggle.php:600
 #: modules/uabb-gravity-form/uabb-gravity-form.php:404
 #: modules/uabb-gravity-form/uabb-gravity-form.php:508
 #: modules/uabb-gravity-form/uabb-gravity-form.php:595
@@ -5988,8 +5990,8 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7.php:348
 #: modules/uabb-contact-form7/uabb-contact-form7.php:445
 #: modules/uabb-contact-form7/uabb-contact-form7.php:906
-#: modules/uabb-content-toggle/uabb-content-toggle.php:478
-#: modules/uabb-content-toggle/uabb-content-toggle.php:590
+#: modules/uabb-content-toggle/uabb-content-toggle.php:499
+#: modules/uabb-content-toggle/uabb-content-toggle.php:611
 #: modules/uabb-gravity-form/uabb-gravity-form.php:429
 #: modules/uabb-gravity-form/uabb-gravity-form.php:521
 #: modules/uabb-gravity-form/uabb-gravity-form.php:1045
@@ -7464,7 +7466,7 @@ msgstr ""
 #: modules/progress-bar/progress-bar.php:894 modules/ribbon/ribbon.php:55
 #: modules/uabb-advanced-menu/uabb-advanced-menu.php:184
 #: modules/uabb-call-to-action/uabb-call-to-action.php:150
-#: modules/uabb-content-toggle/uabb-content-toggle.php:392
+#: modules/uabb-content-toggle/uabb-content-toggle.php:413
 msgid "Layout"
 msgstr ""
 
@@ -7803,8 +7805,8 @@ msgid "CTA Button"
 msgstr ""
 
 #: modules/blog-posts/blog-posts.php:3076
-#: modules/blog-posts/includes/loop-settings.php:142
-#: modules/blog-posts/includes/loop-settings.php:162
+#: modules/blog-posts/includes/loop-settings.php:153
+#: modules/blog-posts/includes/loop-settings.php:173
 msgid "Taxonomy Filter"
 msgstr ""
 
@@ -7912,69 +7914,77 @@ msgstr ""
 msgid "Ascending"
 msgstr ""
 
-#: modules/blog-posts/includes/loop-settings.php:152
-msgid "No Filter"
+#: modules/blog-posts/includes/loop-settings.php:139
+msgid "Exclude Current Post"
+msgstr ""
+
+#: modules/blog-posts/includes/loop-settings.php:141
+msgid "Exclude the current post from the query."
 msgstr ""
 
 #: modules/blog-posts/includes/loop-settings.php:163
+msgid "No Filter"
+msgstr ""
+
+#: modules/blog-posts/includes/loop-settings.php:174
 msgid "Select post filter criteria to display post filter at top of the module."
 msgstr ""
 
-#: modules/blog-posts/includes/loop-settings.php:169
+#: modules/blog-posts/includes/loop-settings.php:180
 msgid "Select Filter Layout"
 msgstr ""
 
-#: modules/blog-posts/includes/loop-settings.php:172
+#: modules/blog-posts/includes/loop-settings.php:183
 msgid "Drop Down"
 msgstr ""
 
-#: modules/blog-posts/includes/loop-settings.php:178
+#: modules/blog-posts/includes/loop-settings.php:189
 msgid "\"All\" Filter Label"
 msgstr ""
 
-#: modules/blog-posts/includes/loop-settings.php:189
+#: modules/blog-posts/includes/loop-settings.php:200
 msgid "Filter"
 msgstr ""
 
-#: modules/blog-posts/includes/loop-settings.php:199
-#: modules/blog-posts/includes/loop-settings.php:224
+#: modules/blog-posts/includes/loop-settings.php:210
+#: modules/blog-posts/includes/loop-settings.php:235
 msgid "Match these %s"
 msgstr ""
 
-#: modules/blog-posts/includes/loop-settings.php:200
-#: modules/blog-posts/includes/loop-settings.php:225
+#: modules/blog-posts/includes/loop-settings.php:211
+#: modules/blog-posts/includes/loop-settings.php:236
 msgid "Do not match these %s"
 msgstr ""
 
-#: modules/blog-posts/includes/loop-settings.php:202
+#: modules/blog-posts/includes/loop-settings.php:213
 msgid "Enter a comma separated list of %s. Only these %s will be shown."
 msgstr ""
 
-#: modules/blog-posts/includes/loop-settings.php:222
-#: modules/blog-posts/includes/loop-settings.php:227
+#: modules/blog-posts/includes/loop-settings.php:233
+#: modules/blog-posts/includes/loop-settings.php:238
 msgid "Enter a comma separated list of %s. Only posts with these %s will be shown."
 msgstr ""
 
-#: modules/blog-posts/includes/loop-settings.php:248
+#: modules/blog-posts/includes/loop-settings.php:259
 msgid "Authors"
 msgstr ""
 
-#: modules/blog-posts/includes/loop-settings.php:249
-#: modules/blog-posts/includes/loop-settings.php:254
+#: modules/blog-posts/includes/loop-settings.php:260
+#: modules/blog-posts/includes/loop-settings.php:265
 msgid ""
 "Enter a comma separated list of authors usernames. Only posts with these "
 "authors will be shown."
 msgstr ""
 
-#: modules/blog-posts/includes/loop-settings.php:251
+#: modules/blog-posts/includes/loop-settings.php:262
 msgid "Match these Authors"
 msgstr ""
 
-#: modules/blog-posts/includes/loop-settings.php:252
+#: modules/blog-posts/includes/loop-settings.php:263
 msgid "Do not match these Authors"
 msgstr ""
 
-#: modules/blog-posts/includes/loop-settings.php:260
+#: modules/blog-posts/includes/loop-settings.php:271
 msgid "&nbsp"
 msgstr ""
 
@@ -12479,7 +12489,7 @@ msgstr ""
 
 #: modules/uabb-advanced-menu/uabb-advanced-menu.php:745
 #: modules/uabb-advanced-menu/uabb-advanced-menu.php:749
-#: modules/uabb-content-toggle/uabb-content-toggle.php:401
+#: modules/uabb-content-toggle/uabb-content-toggle.php:422
 msgid "Responsive Layout"
 msgstr ""
 
@@ -13288,101 +13298,109 @@ msgid "An animated content toggle."
 msgstr ""
 
 #: modules/uabb-content-toggle/uabb-content-toggle.php:103
-#: modules/uabb-content-toggle/uabb-content-toggle.php:267
+#: modules/uabb-content-toggle/uabb-content-toggle.php:271
 msgid "Content 1"
 msgstr ""
 
-#: modules/uabb-content-toggle/uabb-content-toggle.php:118
-#: modules/uabb-content-toggle/uabb-content-toggle.php:194
+#: modules/uabb-content-toggle/uabb-content-toggle.php:119
+#: modules/uabb-content-toggle/uabb-content-toggle.php:197
 msgid "Section"
 msgstr ""
 
-#: modules/uabb-content-toggle/uabb-content-toggle.php:179
-#: modules/uabb-content-toggle/uabb-content-toggle.php:268
+#: modules/uabb-content-toggle/uabb-content-toggle.php:181
+#: modules/uabb-content-toggle/uabb-content-toggle.php:272
 msgid "Content 2"
 msgstr ""
 
-#: modules/uabb-content-toggle/uabb-content-toggle.php:258
+#: modules/uabb-content-toggle/uabb-content-toggle.php:262
 msgid "Switcher"
 msgstr ""
 
-#: modules/uabb-content-toggle/uabb-content-toggle.php:262
+#: modules/uabb-content-toggle/uabb-content-toggle.php:266
 msgid "Default Display"
 msgstr ""
 
-#: modules/uabb-content-toggle/uabb-content-toggle.php:263
+#: modules/uabb-content-toggle/uabb-content-toggle.php:267
 msgid "Select the content you wish to display first."
 msgstr ""
 
-#: modules/uabb-content-toggle/uabb-content-toggle.php:273
+#: modules/uabb-content-toggle/uabb-content-toggle.php:277
 msgid "Switch Style"
 msgstr ""
 
-#: modules/uabb-content-toggle/uabb-content-toggle.php:277
+#: modules/uabb-content-toggle/uabb-content-toggle.php:281
 msgid "Round 1"
 msgstr ""
 
-#: modules/uabb-content-toggle/uabb-content-toggle.php:278
+#: modules/uabb-content-toggle/uabb-content-toggle.php:282
 msgid "Round 2"
 msgstr ""
 
-#: modules/uabb-content-toggle/uabb-content-toggle.php:279
+#: modules/uabb-content-toggle/uabb-content-toggle.php:283
 msgid "Rectangle"
 msgstr ""
 
-#: modules/uabb-content-toggle/uabb-content-toggle.php:280
+#: modules/uabb-content-toggle/uabb-content-toggle.php:284
 msgid "Label Box"
 msgstr ""
 
-#: modules/uabb-content-toggle/uabb-content-toggle.php:325
+#: modules/uabb-content-toggle/uabb-content-toggle.php:294
+msgid "ON Text field"
+msgstr ""
+
+#: modules/uabb-content-toggle/uabb-content-toggle.php:300
+msgid "OFF Text field"
+msgstr ""
+
+#: modules/uabb-content-toggle/uabb-content-toggle.php:346
 msgid "Controller Color"
 msgstr ""
 
-#: modules/uabb-content-toggle/uabb-content-toggle.php:345
+#: modules/uabb-content-toggle/uabb-content-toggle.php:366
 msgid "Switch Size"
 msgstr ""
 
-#: modules/uabb-content-toggle/uabb-content-toggle.php:365
+#: modules/uabb-content-toggle/uabb-content-toggle.php:386
 msgid "Headings"
 msgstr ""
 
-#: modules/uabb-content-toggle/uabb-content-toggle.php:369
+#: modules/uabb-content-toggle/uabb-content-toggle.php:390
 #: modules/uabb-heading/uabb-heading.php:399
 msgid "HTML Tag"
 msgstr ""
 
-#: modules/uabb-content-toggle/uabb-content-toggle.php:411
-#: modules/uabb-content-toggle/uabb-content-toggle.php:523
+#: modules/uabb-content-toggle/uabb-content-toggle.php:432
+#: modules/uabb-content-toggle/uabb-content-toggle.php:544
 msgid "Advanced"
 msgstr ""
 
-#: modules/uabb-content-toggle/uabb-content-toggle.php:436
-#: modules/uabb-content-toggle/uabb-content-toggle.php:548
+#: modules/uabb-content-toggle/uabb-content-toggle.php:457
+#: modules/uabb-content-toggle/uabb-content-toggle.php:569
 #: modules/uabb-gravity-form/uabb-gravity-form.php:1007
 msgid "Border Type"
 msgstr ""
 
-#: modules/uabb-content-toggle/uabb-content-toggle.php:635
+#: modules/uabb-content-toggle/uabb-content-toggle.php:656
 msgid "Button & Headings Spacing"
 msgstr ""
 
-#: modules/uabb-content-toggle/uabb-content-toggle.php:648
+#: modules/uabb-content-toggle/uabb-content-toggle.php:669
 msgid "Content Top Spacing"
 msgstr ""
 
-#: modules/uabb-content-toggle/uabb-content-toggle.php:674
+#: modules/uabb-content-toggle/uabb-content-toggle.php:695
 msgid "Heading 1"
 msgstr ""
 
-#: modules/uabb-content-toggle/uabb-content-toggle.php:769
+#: modules/uabb-content-toggle/uabb-content-toggle.php:790
 msgid "Heading 2"
 msgstr ""
 
-#: modules/uabb-content-toggle/uabb-content-toggle.php:864
+#: modules/uabb-content-toggle/uabb-content-toggle.php:885
 msgid "content 1"
 msgstr ""
 
-#: modules/uabb-content-toggle/uabb-content-toggle.php:959
+#: modules/uabb-content-toggle/uabb-content-toggle.php:980
 msgid "content 2"
 msgstr ""
 

@@ -112,6 +112,7 @@ FLBuilder::register_module('UABBContentToggleModule', array(
                             'type'          => 'text',
                             'selector'      => '.uabb-rbs-head-1',
                         ),
+                        'connections'   => array( 'string', 'html' )
                     ),
                     'cont1_section'   => array(
                         'type'          => 'select',
@@ -155,6 +156,7 @@ FLBuilder::register_module('UABBContentToggleModule', array(
                             'type'          => 'text',
                             'selector'      => '.uabb-rbs-toggle-sections .uabb-rbs-content-1',
                         ),
+                        'connections'   => array( 'string', 'html' )
                     ),
                     'cont1_saved_rows'      => array(
                         'type'                  => 'select',
@@ -188,6 +190,7 @@ FLBuilder::register_module('UABBContentToggleModule', array(
                             'type'          => 'text',
                             'selector'      => '.uabb-rbs-head-2',
                         ),
+                        'connections'   => array( 'string', 'html' )
                     ),
                     'cont2_section'   => array(
                         'type'          => 'select',
@@ -230,7 +233,8 @@ FLBuilder::register_module('UABBContentToggleModule', array(
                         'preview'       => array(
                             'type'          => 'text',
                             'selector'      => '.uabb-rbs-toggle-sections .uabb-rbs-content-2',
-                        )
+                        ),
+                        'connections'   => array( 'string', 'html' )
                     ),
                     'cont2_saved_rows'      => array(
                         'type'                  => 'select',
@@ -279,6 +283,23 @@ FLBuilder::register_module('UABBContentToggleModule', array(
                         'rectangle'  => __('Rectangle', 'uabb'),
                         'label_box'  => __('Label Box', 'uabb')
                     ),
+                    'toggle'        => array(
+                        'label_box'    => array(
+                            'fields'        => array( 'label_box_off', 'label_box_on' ),
+                        ),
+                    ),
+                ),
+                'label_box_on'     => array(
+                    'type'          => 'text',
+                    'label'         => __('ON Text field', 'uabb'),
+                    'default'       => 'ON',
+                    'connections'   => array( 'string', 'html' )          
+                ), 
+                'label_box_off'     => array(
+                    'type'          => 'text',
+                    'label'         => __('OFF Text field', 'uabb'),
+                    'default'       => 'OFF',
+                    'connections'   => array( 'string', 'html' )
                 ),
                 'color1'        => array( 
                     'type'         => 'color',

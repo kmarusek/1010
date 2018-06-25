@@ -134,6 +134,17 @@ do_action( 'uabb_loop_settings_before_form', $settings ); // e.g Add custom FLBu
 		)
 	), $settings);
 
+	FLBuilder::render_settings_field('exclude_self', array(
+		'type'          => 'select',
+		'label'         => __( 'Exclude Current Post', 'uabb' ),
+		'default'       => 'no',
+		'help'          => __( 'Exclude the current post from the query.', 'uabb' ),
+		'options'       => array(
+			'yes'          => __( 'Yes', 'uabb' ),
+			'no'           => __( 'No', 'uabb' ),
+		),
+	), $settings);
+
 	?>
 	</table>
 </div>

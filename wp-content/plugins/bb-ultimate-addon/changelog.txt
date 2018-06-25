@@ -1,3 +1,12 @@
+Version 1.8.2 - Thursday, 21st June 2018
+- Improvement: Advanced Posts - Added Exclude Current Post option
+- Improvement: Content Toggle - Added connections to text and editor fields
+- Improvement: Content Toggle - Added ON/OFF text fields under Label Box
+- Improvement: Added Filter to enable modules in backend
+- Fixed: Fancy Text - Resolved console error for input fields
+- Fixed: Content Toggle - Updated Label Box ON/OFF values
+- Fixed: CF7 Styler - Resolved CSS issue of reponsive options
+
 Version 1.8.1 - Wednesday, 20th June 2018
 - Fixed: Advanced Menu - Default padding size is not applying to submenu
 - Fixed: Advanced Menu - Submenu color not working

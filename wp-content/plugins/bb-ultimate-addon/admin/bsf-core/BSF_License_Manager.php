@@ -411,9 +411,9 @@ if ( ! class_exists( 'BSF_License_Manager' ) ) {
 				$html .= apply_filters( "bsf_license_not_activate_message_{$product_id}", $not_activate, $license_status_class, $license_not_activate_message );
 
 				if ( $bsf_license_allow_email == true ) {
-					$popup_license_subtitle = apply_filters( "bsf_license_key_form_inactive_subtitle_{$product_id}", __( '<p>Enter your purchase key and activate automatic updates.</p>', 'bsf' ) );
-				} else {
 					$popup_license_subtitle = apply_filters( "bsf_license_key_form_inactive_subtitle_{$product_id}", __( '<p>Click on the button below to activate your license and subscribe to our newsletter.</p>', 'bsf' ) );
+				} else {
+					$popup_license_subtitle = apply_filters( "bsf_license_key_form_inactive_subtitle_{$product_id}", __( '<p>Enter your purchase key and activate automatic updates.</p>', 'bsf' ) );
 				}
 
 				

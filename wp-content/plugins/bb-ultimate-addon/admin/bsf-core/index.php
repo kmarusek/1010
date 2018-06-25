@@ -67,6 +67,22 @@ function get_api_url( $prefer_unsecure = false ) {
 	return $url;
 }
 
+if ( ! function_exists( 'bsf_convert_core_path_to_relative' ) ) {
+	
+	/**
+	 * Depracate bsf_convert_core_path_to_relative() to in favour of bsf_core_url()
+	 * 
+	 * @param  $path $path depracated
+	 * @return String       URL of bsf-core directory.
+	 */
+	function bsf_convert_core_path_to_relative( $path ) {
+		_deprecated_function( __FUNCTION__, '1.22.46', 'bsf_core_url' );
+
+		return bsf_core_url( '' );
+	}
+
+}
+
 if( ! function_exists( 'bsf_core_url' ) ) {
 
 	function bsf_core_url( $append ) {
