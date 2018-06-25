@@ -29,6 +29,10 @@ if ( 'on' === $settings->default_display ) {
 } else {
 	$rbs_section_2 .= 'style="display:none;"';
 }
+
+$label_off = ( isset( $settings->label_box_off ) ) ? $settings->label_box_off : 'OFF';
+$label_on = ( isset( $settings->label_box_on ) ) ? $settings->label_box_on : 'ON';
+
 ?>
 <div class="<?php echo $rbs_wrapper; ?>">
 	<div class="uabb-rbs-toggle">
@@ -57,7 +61,7 @@ if ( 'on' === $settings->default_display ) {
 					break;
 
 				case 'label_box':
-					$switch_html = '<div class="uabb-label-box uabb-clickable"><input type="checkbox" name="uabb-label-box" class="uabb-label-box-checkbox uabb-switch-label-box uabb-clickable" ' . $is_checked . ' id="myonoffswitch"><label for="myonoffswitch" class="uabb-label-box-label switch4"><span class="uabb-label-box-inner"><span class="uabb-label-box-inactive"><span class="uabb-label-box-switch">ON</span></span><span class="uabb-label-box-active"><span class="uabb-label-box-switch">OFF</span></span></span></label></div>';
+					$switch_html = '<div class="uabb-label-box uabb-clickable"><input type="checkbox" name="uabb-label-box" class="uabb-label-box-checkbox uabb-switch-label-box uabb-clickable" ' . $is_checked . ' id="myonoffswitch"><label for="myonoffswitch" class="uabb-label-box-label switch4"><span class="uabb-label-box-inner"><span class="uabb-label-box-inactive"><span class="uabb-label-box-switch">' . $label_off . '</span></span><span class="uabb-label-box-active"><span class="uabb-label-box-switch">' . $label_on . '</span></span></span></label></div>';
 					break;
 
 				default:

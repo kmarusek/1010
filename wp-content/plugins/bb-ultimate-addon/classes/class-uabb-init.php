@@ -270,19 +270,28 @@ class UABB_Init {
 			$theme_path		= $theme_dir . $module_path;
 			$addon_path		= $addon_dir . $module_path;
 
-			// Check for the module class in a child theme.
+			$admin_backend = apply_filters( 'enable_uabb_modules_backend', false, 10, 1 );
 
-			if( $is_child_theme && file_exists($child_path) && !is_admin() ) {
+			$enable_backend = '';
+
+			if( true === $admin_backend ) {
+				$enable_backend = true;
+			} else if ( false === $admin_backend ) {
+				$enable_backend = !is_admin();
+			}
+
+			// Check for the module class in a child theme.
+			if( $is_child_theme && file_exists($child_path) && $enable_backend ) {
 				require_once $child_path;
 			}
 
 			// Check for the module class in a parent theme.
-			else if( file_exists($theme_path) && !is_admin() ) {
+			else if( file_exists($theme_path) && $enable_backend ) {
 				require_once $theme_path;
 			}
 
 			// Check for the module class in the builder directory.
-			else if( file_exists($addon_path) && !is_admin() ) {
+			else if( file_exists($addon_path) && $enable_backend ) {
 				require_once $addon_path;
 			}
 		}
