@@ -2184,7 +2184,7 @@ final class FLBuilder {
 		if ( ! empty( $module->settings->responsive_display ) ) {
 			$attrs['class'][] = 'fl-visible-' . $module->settings->responsive_display;
 		}
-		if ( ! empty( $module->settings->animation ) ) {
+		if ( ! empty( $module->settings->animation ) && is_string( $module->settings->animation ) ) {
 			$attrs['class'][] = 'fl-animation fl-' . $module->settings->animation;
 			$attrs['data-animation-delay'][] = $module->settings->animation_delay;
 		}

@@ -321,9 +321,9 @@ final class FLBuilderFonts {
 											'weights'	=> $weights,
 										);
 
-										// Remove enqueued google font style, so we would only have one HTTP request.
-										wp_dequeue_style( $handle );
 									}
+									// Remove enqueued google font style, so we would only have one HTTP request.
+									wp_dequeue_style( $handle );
 								}
 							}
 						}

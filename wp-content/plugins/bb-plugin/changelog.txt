@@ -1,3 +1,22 @@
+<h4>2.1.3.4 - 06/25/2018</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Removed the Chrome parallax fix as the issue is now fixed in Chrome beta and canary.</li>
+</ul>
+
+<h4>2.1.3.3 - 06/20/2018</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Tweaked Chrome fix CSS as it broke editing modules inside a parllax row. Sorry.</li>
+</ul>
+
+<h4>2.1.3.2 - 06/20/2018</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Fixed a Chrome issue with parallax and overlay backgrounds.</li>
+	<li>Fixed a Google Font enqueue issue.</li>
+</ul>
+
 <h4>2.1.3.1 - 06/19/2018</h4>
 <p><strong>Hot Fix</strong></p>
 <ul>
