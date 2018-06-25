@@ -1,5 +1,6 @@
 <?php
 
+
 // The class we're going to use for links with event tracking attributes
 define('PP_SMART_BUTTON_EVENT_TRACKING_CLASS', 'pp-button-ga-event');
 
