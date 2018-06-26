@@ -33,7 +33,7 @@ if ($event_tracking_enabled){
     // Get the path of this file relative to the theme directory
     $relative_directory_path = str_replace(get_stylesheet_directory(), "", __DIR__);
     // Enqueue the frontend script
-    wp_register_script("smart-button-event-tracking", get_stylesheet_directory_uri(). "/$relative_directory_path/../js/frontend.js", array('jquery'), true);
+    wp_register_script("smart-button-event-tracking", get_stylesheet_directory_uri(). "/$relative_directory_path/../js/pp-smart-button-link-modifier.js", array('jquery'), true);
 
     wp_localize_script(
         'smart-button-event-tracking',
