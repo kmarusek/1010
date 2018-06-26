@@ -1,6 +1,5 @@
 <?php
 
-
 // The class we're going to use for links with event tracking attributes
 define('PP_SMART_BUTTON_EVENT_TRACKING_CLASS', 'pp-button-ga-event');
 
@@ -682,17 +681,9 @@ FLBuilder::register_module('PPSmartButtonModule', array(
 						),
 						'toggle'		=> array(
 							true		=> array(
-								'sections'	=> array('event_tracking_values_message','event_tracking_values')
+								'sections'	=> array('event_tracking_values')
 							)
 						)
-					)
-				)
-			),
-			'event_tracking_values_message' => array(
-				'title'         => false,
-				'fields'        => array(
-					'event_tracking_values_message'	=> array(
-						'label' => 'To track this link via Google Tag Manager, add an event listener for the class <code>.' . PP_SMART_BUTTON_EVENT_TRACKING_CLASS . '</code>. Values will be added to the anchor in the form of attributes prefixed with <code>data-ga</code> (i.e, <code>&lt;a class=&quot;' . PP_SMART_BUTTON_EVENT_TRACKING_CLASS . '&quot; data-ga-category=&quot;foo&quot;&gt;</code>).'
 					)
 				)
 			),

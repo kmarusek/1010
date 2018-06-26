@@ -1,6 +1,7 @@
 <?php
 // Default classes for the button
 $anchor_classes = array('pp-button');
+// From the original module
 $nofollow = isset( $settings->link_no_follow ) && 'yes' == $settings->link_no_follow ? ' rel="nofollow"' : '';
 // If we're using event tracking
 $event_tracking_enabled = isset($settings->event_tracking_enabled) && $settings->event_tracking_enabled;
@@ -29,6 +30,20 @@ if ($event_tracking_enabled){
     }
     // Now redeclare our attributes string
     $event_tracking_attributes_string = implode(' ', $event_tracking_attributes);
+    // Get the path of this file relative to the theme directory
+    $relative_directory_path = str_replace(get_stylesheet_directory(), "", __DIR__);
+    // Enqueue the frontend script
+    wp_register_script("smart-button-event-tracking", get_stylesheet_directory_uri(). "/$relative_directory_path/../js/frontend.js", array('jquery'), true);
+
+    wp_localize_script(
+        'smart-button-event-tracking',
+        'smart_button_event_object',
+        array(
+            'smart_button_class' => PP_SMART_BUTTON_EVENT_TRACKING_CLASS
+        )
+    );
+
+    wp_enqueue_script("smart-button-event-tracking");
 }
 ?>
 <div class="<?php echo $module->get_classname(); ?>">
