@@ -65,7 +65,7 @@ class SolrPower_Sync {
 	function handle_modified( $post_id ) {
 		global $current_blog;
 
-		$post_info = get_post( $post_id );
+		$post_info  = get_post( $post_id );
 		$post_types = SolrPower::get_post_types();
 
 		if ( ! in_array( $post_info->post_type, (array) $post_types, true ) ) {
@@ -180,7 +180,7 @@ class SolrPower_Sync {
 	 * Handle the status change event.
 	 *
 	 * @param integer $post_id   Post ID.
-	 * @param array   $post_info Array of post information.
+	 * @param WP_Post $post_info Post object.
 	 */
 	function handle_status_change( $post_id, $post_info = null ) {
 		if ( ! $post_info ) {
@@ -197,20 +197,20 @@ class SolrPower_Sync {
 	/**
 	 * Build a Solarium document
 	 *
-	 * @param Solarium\QueryType\Update\Query\Document\Document $doc       Existing Solarium doc.
-	 * @param array                                             $post_info Post information.
+	 * @param Solarium\QueryType\Update\Query\Document\Document $doc       Existing Solarium document.
+	 * @param WP_Post                                           $post_info Post object.
 	 * @param string                                            $domain    Domain context.
 	 * @param string                                            $path      Path context.
-	 * @return Document
+	 * @return Solarium\QueryType\Update\Query\Document\Document Generated Solarium document.
 	 */
 	function build_document(
 		Solarium\QueryType\Update\Query\Document\Document $doc, $post_info, $domain = null,
 		$path = null
 	) {
-		$plugin_s4wp_settings   = solr_options();
-		$exclude_ids            = ( is_array( $plugin_s4wp_settings['s4wp_exclude_pages'] ) ) ? $plugin_s4wp_settings['s4wp_exclude_pages'] : explode( ',', $plugin_s4wp_settings['s4wp_exclude_pages'] );
-		$categoy_as_taxonomy    = $plugin_s4wp_settings['s4wp_cat_as_taxo'];
-		$index_comments         = $plugin_s4wp_settings['s4wp_index_comments'];
+		$plugin_s4wp_settings = solr_options();
+		$exclude_ids          = ( is_array( $plugin_s4wp_settings['s4wp_exclude_pages'] ) ) ? $plugin_s4wp_settings['s4wp_exclude_pages'] : explode( ',', $plugin_s4wp_settings['s4wp_exclude_pages'] );
+		$categoy_as_taxonomy  = $plugin_s4wp_settings['s4wp_cat_as_taxo'];
+		$index_comments       = $plugin_s4wp_settings['s4wp_index_comments'];
 		/**
 		 * Filter indexed custom fields
 		 *
@@ -218,7 +218,7 @@ class SolrPower_Sync {
 		 *
 		 * @param array $index_custom_fields Array of custom field slugs for indexing.
 		 */
-		$index_custom_fields 	= apply_filters( 'solr_index_custom_fields', $plugin_s4wp_settings['s4wp_index_custom_fields'] );
+		$index_custom_fields = apply_filters( 'solr_index_custom_fields', $plugin_s4wp_settings['s4wp_index_custom_fields'] );
 
 		if ( $post_info ) {
 
@@ -277,7 +277,7 @@ class SolrPower_Sync {
 			$doc->setField( 'month_i', date( 'm', $post_time ) );
 			$doc->setField( 'day_i', date( 'd', $post_time ) );
 			$doc->setField( 'week_i', date( 'W', $post_time ) );
-			$doc->setField( 'dayofweek_i', (date( 'w', $post_time ) + 1) );
+			$doc->setField( 'dayofweek_i', ( date( 'w', $post_time ) + 1 ) );
 			$doc->setField( 'dayofweek_iso_i', date( 'w', $post_time ) );
 			$doc->setField( 'hour_i', date( 'H', $post_time ) );
 			$doc->setField( 'minute_i', date( 'i', $post_time ) );
@@ -288,7 +288,7 @@ class SolrPower_Sync {
 			$doc->setField( 'post_modified_month_i', date( 'm', $post_time ) );
 			$doc->setField( 'post_modified_day_i', date( 'd', $post_time ) );
 			$doc->setField( 'post_modified_week_i', date( 'W', $post_time ) );
-			$doc->setField( 'post_modified_dayofweek_i', (date( 'w', $post_time ) + 1) );
+			$doc->setField( 'post_modified_dayofweek_i', ( date( 'w', $post_time ) + 1 ) );
 			$doc->setField( 'post_modified_dayofweek_iso_i', date( 'w', $post_time ) );
 			$doc->setField( 'post_modified_hour_i', date( 'H', $post_time ) );
 			$doc->setField( 'post_modified_minute_i', date( 'i', $post_time ) );
@@ -324,9 +324,11 @@ class SolrPower_Sync {
 			}
 
 			// get all the taxonomy names used by wp.
-			$taxonomies = (array) get_taxonomies( array(
-				'_builtin' => false,
-			), 'names' );
+			$taxonomies = (array) get_taxonomies(
+				array(
+					'_builtin' => false,
+				), 'names'
+			);
 			foreach ( $taxonomies as $parent ) {
 				$terms = get_the_terms( $post_info->ID, $parent );
 				if ( (array) $terms === $terms ) {
@@ -381,8 +383,8 @@ class SolrPower_Sync {
 		/**
 		 * Filter the generated Solr document.
 		 *
-		 * @param object $doc       Generated Solr document.
-		 * @param object $post_info Original post object.
+		 * @param Solarium\QueryType\Update\Query\Document\Document $doc       Generated Solr document.
+		 * @param WP_Post                                           $post_info Original post object.
 		 */
 		return apply_filters( 'solr_build_document', $doc, $post_info );
 	}
@@ -462,6 +464,7 @@ class SolrPower_Sync {
 	 * Delete all documents in the index.
 	 */
 	function delete_all() {
+		global $wpdb;
 		try {
 			$solr = get_solr();
 
@@ -472,6 +475,11 @@ class SolrPower_Sync {
 				$solr->update( $update );
 			}
 			wp_cache_delete( 'solr_index_stats', 'solr' );
+
+			$option_names = $wpdb->get_col( "SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE 'solr_power_batch_%';" );
+			foreach ( $option_names as $option_name ) {
+				delete_option( $option_name );
+			}
 
 			return true;
 		} catch ( Exception $e ) {
