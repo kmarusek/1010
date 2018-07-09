@@ -1,3 +1,17 @@
+<h4>1.1.2.1 - 07/02/2018</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Updated default template data files to use font awesome 5 icons.</li>
+	<li>New filter <code>fl_theme_builder_get_excerpt</code></li>
+</ul>
+
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fixed <code>wpbb post:excerpt</code> not working as expected.</li>
+	<li>Fixed post title issue, titles were not properly sanitized when saving locations.</li>
+	<li>Fixed compatibility issue with other plugins that use the Select2 library.</li>
+</ul>
+
 <h4>1.1.2 - 05/21/2018</h4>
 <p><strong>Enhancements</strong></p>
 <ul>
