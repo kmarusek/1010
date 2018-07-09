@@ -175,7 +175,7 @@ FLBuilder::register_module('UABBCtaModule', array(
 						),
                         'preview'         => array(
                             'type'          => 'css',
-                            'selector'      => '.uabb-cta-left',
+                            'selector'      => '.uabb-cta-left, .uabb-cta-wrap',
                             'property'      => 'text-align',
                         )
 					),
@@ -390,8 +390,16 @@ FLBuilder::register_module('UABBCtaModule', array(
                         'show_reset' => true,
                         'preview'       => array(
                             'type'          => 'css',
-                            'selector'      => '.uabb-creative-button-wrap a',
-                            'property'      => 'background'
+                            'rules'    => array(
+                                array(
+                                    'selector'     => '.uabb-creative-button-wrap a.uabb-creative-flat-btn',
+                                    'property'     => 'background'
+                                ),
+                                array(
+                                    'selector'     => '.uabb-creative-button-wrap a.uabb-creative-transparent-btn',
+                                    'property'     => 'border-color'
+                                ),    
+                            )
                         )
                     ),
                     'btn_bg_color_opc'    => array( 
@@ -615,9 +623,9 @@ FLBuilder::register_module('UABBCtaModule', array(
                     'title_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''                  =>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -708,9 +716,9 @@ FLBuilder::register_module('UABBCtaModule', array(
                     'subhead_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''                  =>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -790,9 +798,9 @@ FLBuilder::register_module('UABBCtaModule', array(
                     'btn_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''                  =>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 

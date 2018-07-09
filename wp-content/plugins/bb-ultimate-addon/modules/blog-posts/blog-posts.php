@@ -2539,9 +2539,9 @@ FLBuilder::register_module('BlogPostsModule', array(
                     'transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''                  =>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -2632,9 +2632,9 @@ FLBuilder::register_module('BlogPostsModule', array(
                     'desc_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''                  =>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -2697,7 +2697,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                         'description'   => 'px',
                         'preview'         => array(
                             'type'            => 'css',
-                            'selector'        => '.uabb-post-meta',
+                            'selector'        => '.uabb-post-meta a,.uabb-post-meta',
                             'property'        => 'font-size',
                             'unit'            => 'px'
                         ),
@@ -2758,9 +2758,9 @@ FLBuilder::register_module('BlogPostsModule', array(
                     'meta_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''                  =>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -2868,9 +2868,9 @@ FLBuilder::register_module('BlogPostsModule', array(
                     'date_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''                  =>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -2973,9 +2973,9 @@ FLBuilder::register_module('BlogPostsModule', array(
                     'link_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''                  =>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -3044,9 +3044,9 @@ FLBuilder::register_module('BlogPostsModule', array(
                     'btn_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''                  =>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -3119,9 +3119,9 @@ FLBuilder::register_module('BlogPostsModule', array(
                     'taxonomy_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''                  =>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 

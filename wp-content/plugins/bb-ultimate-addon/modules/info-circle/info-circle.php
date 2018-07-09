@@ -905,9 +905,9 @@ FLBuilder::register_module('UABBInfoCircleModule', array(
                     'transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -1026,9 +1026,9 @@ FLBuilder::register_module('UABBInfoCircleModule', array(
                     'desc_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -1211,7 +1211,8 @@ FLBuilder::register_settings_form('info_circle_items_form', array(
 										'fields'	=> array( 'inner_circle_bg_color', 'inner_circle_bg_color_opc' )
 									),
 									'image'	=> array(
-										'fields'	=> array( 'inner_circle_bg_img', 'inner_circle_bg_img_pos', 'inner_circle_bg_img_size', 'inner_circle_bg_img_repeat' )
+										'fields'	=> array( 'inner_circle_bg_img', 'inner_circle_bg_img_pos', 'inner_circle_bg_img_size', 'inner_circle_bg_img_repeat',
+											'inner_circle_bg_overlay' )
 									),
 								),
 								'help'          => __( 'Select the background for content area. Keep default for global background color.', 'uabb' ),
@@ -1259,6 +1260,13 @@ FLBuilder::register_settings_form('info_circle_items_form', array(
 									'initial'	=> __( 'Initial', 'uabb' ),
 									'inherit'	=> __( 'Inherit', 'uabb' ),
 								),
+						),
+						'inner_circle_bg_overlay'=>array(
+							'type'		 =>'color',
+							'label'		 => __( 'Background Image Overlay', 'uabb' ),
+							'default'    => '',
+							'show_reset' => true,
+							'show_alpha' => true,
 						),
 						'inner_circle_bg_color' => array( 
 							'type'       => 'color',
@@ -1718,9 +1726,9 @@ FLBuilder::register_settings_form('info_circle_items_form', array(
 	                    'btn_transform'     => array(
 	                        'type'          => 'select',
 	                        'label'         => __( 'Transform', 'uabb' ),
-	                        'default'       => 'none',
+	                        'default'       => '',
 	                        'options'       => array(
-	                            'none'           =>  'Default',
+	                            ''           		=>  'Default',
 	                            'uppercase'         =>  'UPPERCASE',
 	                            'lowercase'         =>  'lowercase',
 	                            'capitalize'        =>  'Capitalize'                 

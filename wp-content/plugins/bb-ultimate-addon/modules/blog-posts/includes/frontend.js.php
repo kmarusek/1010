@@ -33,6 +33,8 @@
 		var hashval = window.location.hash,
 			hashval = hashval.replace( '#' , '' );
 
+		jQuery( '.uabb-masonary-filters .uabb-masonary-current' ).trigger('click');
+
 		if( hashval != '' ) {
 			
 			jQuery('.fl-node-<?php echo $id; ?> .uabb-masonary-filters li').removeClass('uabb-masonary-current');

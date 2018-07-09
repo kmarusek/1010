@@ -137,7 +137,7 @@ if( $settings->btn_margin_top != '' ) {
 
     margin-bottom: <?php echo ( $settings->heading_margin_bottom != '' ) ? $settings->heading_margin_bottom : '0' ?>px;
 
-    <?php if( $settings->heading_transform != '' ) ?>
+    <?php if( $settings->heading_transform != 'none' ) ?>
        text-transform: <?php echo $settings->heading_transform; ?>;
 
     <?php if( $settings->heading_letter_spacing != '' ) ?>
@@ -171,7 +171,7 @@ if( $settings->btn_margin_top != '' ) {
 
     margin-bottom: <?php echo ( $settings->subheading_margin_bottom != '' ) ? $settings->subheading_margin_bottom : '20' ?>px;
    
-    <?php if( $settings->subheading_transform != '' ) ?>
+    <?php if( $settings->subheading_transform != 'none' ) ?>
        text-transform: <?php echo $settings->subheading_transform; ?>;
 
     <?php if( $settings->subheading_letter_spacing != '' ) ?>
@@ -201,7 +201,7 @@ if( $settings->btn_margin_top != '' ) {
         line-height: <?php echo $settings->input_line_height['desktop']; ?>px;
     <?php } ?>
 
-    <?php if( $settings->input_transform != '' ) ?>
+    <?php if( $settings->input_transform != 'none' ) ?>
        text-transform: <?php echo $settings->input_transform; ?>;
 
     <?php if( $settings->input_letter_spacing != '' ) ?>
@@ -249,7 +249,7 @@ if( $settings->btn_margin_top != '' ) {
 
     margin-top: <?php echo ( $settings->text_margin_top != '' ) ? $settings->text_margin_top : '20' ?>px;
 
-    <?php if( $settings->text_transform != '' ) ?>
+    <?php if( $settings->text_transform != 'none' ) ?>
        text-transform: <?php echo $settings->text_transform; ?>;
 
     <?php if( $settings->text_letter_spacing != '' ) ?>
@@ -276,7 +276,7 @@ if( $settings->btn_margin_top != '' ) {
             transition: color 300ms ease;
         <?php endif; ?>
 
-        <?php if( $settings->checkbox_text_transform != '' ) : ?>
+        <?php if( $settings->checkbox_text_transform != 'none' ) : ?>
             text-transform: <?php echo $settings->checkbox_text_transform; ?>;
         <?php endif; ?>
 
@@ -305,7 +305,7 @@ if( $settings->btn_margin_top != '' ) {
             transition: color 300ms ease;
         <?php endif; ?>
 
-        <?php if( $settings->terms_text_transform != '' ) : ?>
+        <?php if( $settings->terms_text_transform != 'none' ) : ?>
             text-transform: <?php echo $settings->terms_text_transform; ?>;
         <?php endif; ?>
 

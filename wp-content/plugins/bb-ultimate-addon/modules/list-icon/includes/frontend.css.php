@@ -250,7 +250,7 @@ if( $settings->align == 'center' ) {
         line-height: <?php echo $settings->typography_line_height['desktop']; ?>px;
     <?php } ?>
 
-    <?php if( $settings->typography_transform != '' ) ?>
+    <?php if( $settings->typography_transform != 'none' ) ?>
        text-transform: <?php echo $settings->typography_transform; ?>;
 
     <?php if( $settings->typography_letter_spacing != '' ) ?>

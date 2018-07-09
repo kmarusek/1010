@@ -110,7 +110,7 @@ if( $settings->layout == "default" ) {
 	color: <?php echo $settings->ba_color; ?>;
 	<?php endif; ?>
 
-	<?php if( $settings->ba_transform != '' ) ?>
+	<?php if( $settings->ba_transform != 'none' ) ?>
 	   text-transform: <?php echo $settings->ba_transform; ?>;
 
     <?php if( $settings->ba_letter_spacing != '' ) ?>

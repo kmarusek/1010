@@ -64,10 +64,18 @@ class FlipBoxModule extends FLBuilderModule {
      * @method render_icon
      */
     public function render_icon() {
-        if( $this->settings->smile_icon != '' && $this->settings->smile_icon->icon != '' ) {
-            $this->settings->smile_icon->image_type = 'icon';
-            FLBuilder::render_module_html( 'image-icon', $this->settings->smile_icon );
+        if($this->settings->image_types=='icon'){
+            if( $this->settings->smile_icon != '' && $this->settings->smile_icon->icon != '' ) {
+                $this->settings->smile_icon->image_type = 'icon';
+                FLBuilder::render_module_html( 'image-icon', $this->settings->smile_icon );
+            }
         }
+        if($this->settings->image_types=='photo'){
+           if( $this->settings->smile_photo != '' && $this->settings->smile_photo->photo != '' ) {
+                    $this->settings->smile_photo->image_type = 'photo';
+                    FLBuilder::render_module_html( 'image-icon', $this->settings->smile_photo );
+            }
+        } 
     }
 }
 
@@ -252,6 +260,73 @@ FLBuilder::register_settings_form('flip_box_icon_form_field', array(
     )
 ));
 
+FLBuilder::register_settings_form('flip_box_photo_form_field', array(
+    'title' => __('Photo', 'uabb'),
+    'tabs'  => array(
+        array(
+            'title' => __('Image / Icon', 'uabb'),
+            'sections'      => array(
+                'photo_basic'    => array(
+                    'title'      => __('Photo Basics','uabb'),
+                    'fields'        => array(
+                        'photo_source'=>array(
+                            'type'      =>'select',
+                            'label'     =>__('Photo Source','uabb'),
+                            'default'   =>'library',
+                            'options'   =>array(
+                                'library'    => __('Media Library', 'uabb'),
+                                'url'        => __('URL', 'uabb')
+                            ),
+                            'toggle'   =>array(
+                                'library'=>array(
+                                    'fields'        => array('photo')
+                                ),
+                                'url'   =>array(
+                                    'fields'    =>array('photo_url')
+                                ),
+                            ),
+                        ),
+                        'photo'     =>array(
+                            'type'          =>'photo',
+                            'label'         =>__('Photo','uabb'),
+                            'show_remove'   =>true,
+                            'connections'   => array( 'photo' ),
+                        ),
+                        'photo_url'  =>array(
+                            'type'          =>'text',
+                            'label'         =>__('Photo URL', 'uabb'),
+                            'placeholder'   => 'http://www.example.com/my-photo.jpg',
+                            'connections'   => array( 'url' ),
+                        ),
+                        'img_size'   => array(
+                            'type'          => 'text',
+                            'label'         => __('Size', 'uabb'),
+                            'placeholder'   => '150',
+                            'default'       =>'150',
+                            'maxlength'     => '5',
+                            'size'          => '6',
+                            'description'   => 'px',
+                            'preview'       => array(
+                                'type'          => 'css',
+                                'selector'      => '.uabb-photo-img',
+                                'property'      => 'width',
+                                'unit'          => 'px'
+                            ),
+                        ),
+                        'responsive_img_size'=> array(
+                            'type'           => 'text',
+                            'label'          => __('Responsive Size', 'uabb'),
+                            'maxlength'      => '5',
+                            'size'           => '6',
+                            'description'    => 'px',
+                            'help'           => __( 'Image size below medium devices. Leave it blank if you want to keep same size', 'uabb' )
+                        ),
+                    ),
+                ),
+            ),
+        ),
+    ),
+));
 /**
  * Register the module and its form settings.
  */
@@ -262,11 +337,35 @@ FLBuilder::register_module('FlipBoxModule', array(
             'title'       => array( // Section
                 'title'         => __('Front', 'uabb'), // Section Title
                 'fields'        => array( // Section Fields
+                    'image_types'=>array(
+                        'type'      =>'select',
+                        'label'     =>__('Image Type','uabb'),
+                        'default'   =>'icon',
+                        'class'     => 'class_image_type',
+                        'options'   =>array(
+                            'icon'  =>__('Icon','uabb'),
+                            'photo' =>__('Photo','uabb'),
+                        ),
+                        'toggle'    =>array(
+                            'icon'=>array(
+                                'fields'=>array('smile_icon'),
+                            ),
+                            'photo'=>array(
+                                'fields'=>array('smile_photo'),
+                            ),
+                        ),
+                    ),
                     'smile_icon' => array(
                         'type'          => 'form',
                         'label'         => __('Icon Settings', 'uabb'),
                         'form'          => 'flip_box_icon_form_field', // ID of a registered form.
                         'preview_text'  => 'icon', // ID of a field to use for the preview text.
+                    ),
+                    'smile_photo'=>array(
+                        'type'          =>'form',
+                        'label'         =>__('Photo Settings','uabb'),
+                        'form'          =>'flip_box_photo_form_field',
+                        //'preview_text'  => 'photo',
                     ),
                     'title_front'     => array(
                         'type'          => 'text',
@@ -836,9 +935,9 @@ FLBuilder::register_module('FlipBoxModule', array(
                     'front_title_typography_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''                  =>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -955,9 +1054,9 @@ FLBuilder::register_module('FlipBoxModule', array(
                     'front_desc_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''                  =>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -1090,9 +1189,9 @@ FLBuilder::register_module('FlipBoxModule', array(
                     'back_title_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''                  =>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -1209,9 +1308,9 @@ FLBuilder::register_module('FlipBoxModule', array(
                     'back_desc_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''                  =>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 

@@ -499,7 +499,7 @@ if ( $settings->heading_font_family['family'] != "Default" || isset( $settings->
 			margin-bottom: <?php echo $settings->heading_margin_bottom; ?>px;
 		<?php endif; ?>
 
-		<?php if( $settings->heading_transform != '' ) ?>
+		<?php if( $settings->heading_transform != 'none' ) ?>
 		   text-transform: <?php echo $settings->heading_transform; ?>;
 
         <?php if( $settings->heading_letter_spacing != '' ) ?>
@@ -536,7 +536,7 @@ if ( $settings->description_font_family['family'] != "Default" || isset( $settin
 			color: <?php echo $settings->description_color; ?>;
 		<?php endif; ?>
 
-		<?php if( $settings->description_transform != '' ) ?>
+		<?php if( $settings->description_transform != 'none' ) ?>
 		   text-transform: <?php echo $settings->description_transform; ?>;
 
 	    <?php if( $settings->description_letter_spacing != '' ) ?>

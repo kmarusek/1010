@@ -801,13 +801,13 @@ FLBuilder::register_settings_form('hotspot_coordinates_form', array(
                         'text_typography_transform'     => array(
                             'type'          => 'select',
                             'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
-                        'options'       => array(
-                            'none'           =>  'Default',
-                            'uppercase'         =>  'UPPERCASE',
-                            'lowercase'         =>  'lowercase',
-                            'capitalize'        =>  'Capitalize'                 
-                        ),
+                            'default'       => '',
+                            'options'       => array(
+                                ''                  =>  'Default',
+                                'uppercase'         =>  'UPPERCASE',
+                                'lowercase'         =>  'lowercase',
+                                'capitalize'        =>  'Capitalize'                 
+                            ),
                             'preview'       => array(
                                 'type'          => 'css',
                                 'selector'      => '.uabb-hotspot-text, .uabb-hotspot-text *',
@@ -896,13 +896,13 @@ FLBuilder::register_settings_form('hotspot_coordinates_form', array(
                         'tooltip_transform'     => array(
                             'type'          => 'select',
                             'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
-                        'options'       => array(
-                            'none'           =>  'Default',
-                            'uppercase'         =>  'UPPERCASE',
-                            'lowercase'         =>  'lowercase',
-                            'capitalize'        =>  'Capitalize'                 
-                        ),
+                            'default'       => '',
+                            'options'       => array(
+                                ''                  =>  'Default',
+                                'uppercase'         =>  'UPPERCASE',
+                                'lowercase'         =>  'lowercase',
+                                'capitalize'        =>  'Capitalize'                 
+                            ),
                             'preview'       => array(
                                 'type'          => 'css',
                                 'selector'      => '.uabb-hotspot-tooltip-content, .uabb-hotspot-tooltip-content *',

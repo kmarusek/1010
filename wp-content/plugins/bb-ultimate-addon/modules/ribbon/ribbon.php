@@ -309,9 +309,9 @@ FLBuilder::register_module('RibbonModule', array(
                     'text_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''                  =>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 

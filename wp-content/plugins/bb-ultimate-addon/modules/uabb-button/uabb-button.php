@@ -184,9 +184,9 @@ FLBuilder::register_module('UABBButtonModule', array(
 							'flat'          => __('Flat', 'uabb'),
 							'gradient'      => __('Gradient', 'uabb'),
 							'transparent'   => __('Transparent', 'uabb'),
-							'threed'          => __('3D', 'uabb'),
+							'threed'        => __('3D', 'uabb'),
 						),
-					),
+					),					
 					'border_size'   => array(
 						'type'          => 'text',
 						'label'         => __('Border Size', 'uabb'),
@@ -309,7 +309,7 @@ FLBuilder::register_module('UABBButtonModule', array(
 						'show_reset' => true,
 						'preview'         => array(
                             'type'          => 'css',
-                            'selector'      => '.uabb-creative-button-wrap a *',
+                            'selector'      => '.uabb-creative-button-wrap a *, .uabb-creative-button-wrap a.uabb-button *',
                             'property'      => 'color',
                         )
 					),
@@ -322,11 +322,34 @@ FLBuilder::register_module('UABBButtonModule', array(
 							'type'          => 'none'
 						)
 					),
+					'button_gradient'         => array(
+						'type'          => 'uabb-gradient',
+						'label'         => __('Gradient', 'uabb'),
+						'default'       => array(
+							'color_one' => '',
+							'color_two' => '',
+							'direction' => 'left_right',
+							'angle'		=> '0'
+						),
+					),
 					'bg_color'        => array( 
 						'type'       => 'color',
                         'label'         => __('Background Color', 'uabb'),
 						'default'    => '',
 						'show_reset' => true,
+						'preview'       => array(
+                            'type'          => 'css',
+                            'rules'    => array(
+                                array(
+                                    'selector'     => '.uabb-creative-button-wrap a.uabb-creative-flat-btn',
+                                    'property'     => 'background'
+                                ),
+                                array(
+                                    'selector'     => '.uabb-creative-button-wrap a.uabb-creative-transparent-btn',
+                                    'property'     => 'border-color'
+                                ),    
+                            )
+                        )
 					),
                     'bg_color_opc'    => array( 
 						'type'        => 'text',
@@ -565,9 +588,9 @@ FLBuilder::register_module('UABBButtonModule', array(
                     'transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 

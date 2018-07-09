@@ -221,7 +221,7 @@ for($i = 0; $i < count($settings->pricing_columns); $i++) :
 			    	line-height: <?php echo $settings->pricing_columns[$i]->featured_line_height->desktop; ?>px;
 			    <?php } ?>
 
-				<?php if( $settings->pricing_columns[$i]->featured_transform != '' )?>
+				<?php if( $settings->pricing_columns[$i]->featured_transform != 'none' )?>
 				   text-transform: <?php echo $settings->pricing_columns[$i]->featured_transform; ?>;
 
 		        <?php if( $settings->pricing_columns[$i]->featured_letter_spacing != '' )?>
@@ -511,7 +511,7 @@ if( $isFeaturedSet ) {
     	line-height: <?php echo $settings->title_typography_line_height['desktop']; ?>px;
     <?php } ?>
 
-	<?php if( $settings->title_transform != '' ) ?>
+	<?php if( $settings->title_transform != 'none' ) ?>
 	   text-transform: <?php echo $settings->title_transform; ?>;
 
     <?php if( $settings->title_letter_spacing != '' ) ?>
@@ -571,7 +571,7 @@ if( $isFeaturedSet ) {
     	line-height: <?php echo $settings->duration_typography_line_height['desktop']; ?>px;
     <?php } ?>
 	
-	<?php if( $settings->duration_typography_transform != '' ) ?>
+	<?php if( $settings->duration_typography_transform != 'none' ) ?>
 	   text-transform: <?php echo $settings->duration_typography_transform; ?>;
 
     <?php if( $settings->duration_typography_letter_spacing != '' ) ?>
@@ -601,7 +601,7 @@ if( $isFeaturedSet ) {
     	line-height: <?php echo $settings->feature_typography_line_height['desktop']; ?>px;
     <?php } ?>
 
-	<?php if( $settings->feature_content_transform != '' ) ?>
+	<?php if( $settings->feature_content_transform != 'none' ) ?>
 	   text-transform: <?php echo $settings->feature_content_transform; ?>;
 
     <?php if( $settings->feature_content_letter_spacing != '' ) ?>
@@ -637,7 +637,7 @@ if( $settings->add_legend == 'yes' ) { ?>
 	    	line-height: <?php echo $settings->legend_column->legend_line_height->desktop; ?>px;
 	    <?php } ?>
 
-		<?php if( $settings->legend_column->legend_transform != '' ) ?>
+		<?php if( $settings->legend_column->legend_transform != 'none' ) ?>
 		   text-transform: <?php echo $settings->legend_column->legend_transform; ?>;
 
         <?php if( $settings->legend_column->legend_letter_spacing != '' ) ?>

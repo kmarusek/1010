@@ -662,7 +662,7 @@ if ( $settings->heading_font_family['family'] != "Default" || isset( $settings->
 			color: <?php echo $settings->heading_color; ?>;
 		<?php endif; ?>
 
-		<?php if( $settings->heading_transform != '' ) ?>
+		<?php if( $settings->heading_transform != 'none' ) ?>
 	   		text-transform: <?php echo $settings->heading_transform; ?>;
 
     	<?php if( $settings->heading_letter_spacing != '' ) ?>
@@ -703,7 +703,7 @@ if ( $settings->sub_heading_font_family['family'] != "Default" || isset( $settin
 			color: <?php echo $settings->sub_heading_color; ?>;
 		<?php endif; ?>
 		
-		<?php if( $settings->sub_transform != '' ) ?>
+		<?php if( $settings->sub_transform != 'none' ) ?>
 	   		text-transform: <?php echo $settings->sub_transform; ?>;
 
     	<?php if( $settings->sub_letter_spacing != '' ) ?>
@@ -743,7 +743,7 @@ if ( $settings->description_font_family['family'] != "Default" || isset( $settin
 			color: <?php echo $settings->description_color; ?>;
 		<?php endif; ?>
 
-		<?php if( $settings->description_transform != '' ) ?>
+		<?php if( $settings->description_transform != 'none' ) ?>
 	   		text-transform: <?php echo $settings->description_transform; ?>;
 
 	    <?php if( $settings->description_letter_spacing != '' ) ?>
@@ -778,10 +778,10 @@ if ( $settings->btn_font_family['family'] != "Default" || isset( $settings->btn_
 	    	line-height: <?php echo $settings->btn_line_height['desktop']; ?>px;
 	    <?php } ?>
 
-		<?php if( $settings->btn_transform!= "")?>
+		<?php if( $settings->btn_transform!= 'none' )?>
 		   text-transform: <?php echo $settings->btn_transform; ?>;
 
-	    <?php if( $settings->btn_letter_spacing!= "")?>
+	    <?php if( $settings->btn_letter_spacing!= '' )?>
 		   letter-spacing: <?php echo $settings->btn_letter_spacing; ?>px;
 	}
 <?php } ?>

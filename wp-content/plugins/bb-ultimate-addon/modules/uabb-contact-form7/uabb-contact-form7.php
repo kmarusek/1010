@@ -654,21 +654,21 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                         ),
                     ),
                     'btn_text_transform' => array(
-							'type'          => 'select',
-							'label'         => __( 'Text Transform', 'uabb' ),
-							'default'       => 'none',
-							'options'       => array(
-								'none'	=> __( 'None', 'uabb' ),
-								'capitalize'	=> __( 'Capitalize', 'uabb' ),
-								'uppercase'	=> __( 'UPPERCASE', 'uabb' ),
-								'lowercase'	=> __( 'lowercase', 'uabb' ),
-								'inherit'	=> __( 'Inherit', 'uabb' ),
-							),
-							'preview'         => array(
-	                            'type'          => 'css',
-	                            'selector'      => '.uabb-cf7-style input[type=submit]',
-	                            'property'      => 'text-transform',
-	                        )
+						'type'          => 'select',
+						'label'         => __( 'Text Transform', 'uabb' ),
+						'default'       => '',
+						'options'       => array(
+							''				=> __( 'None', 'uabb' ),
+							'capitalize'	=> __( 'Capitalize', 'uabb' ),
+							'uppercase'		=> __( 'UPPERCASE', 'uabb' ),
+							'lowercase'		=> __( 'lowercase', 'uabb' ),
+							'inherit'		=> __( 'Inherit', 'uabb' ),
+						),
+						'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-cf7-style input[type=submit]',
+                            'property'      => 'text-transform',
+                        )
 					),
                     'btn_letter_spacing'       => array(
                         'type'          => 'text',
@@ -811,9 +811,9 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                     'input_msg_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -930,9 +930,9 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                     'validate_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -1033,9 +1033,9 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                     'form_title_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -1141,9 +1141,9 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                     'form_desc_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -1249,9 +1249,9 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                     'label_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -1335,20 +1335,20 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                         'show_reset' => true,
                         'preview'   => array(
                             'type'      => 'css',
-                            'selector'  => 'input[type=tel], input[type=email], input[type=text], input, textarea',
+                            'selector'  => 'input[type=tel], input[type=tel]::placeholder, input[type=email], input[type=email]::placeholder, input[type=text], input[type=text]::placeholder, input, input::placeholder, textarea, textarea::placeholder',
                             'property'  => 'color',
                         ),
                     ),
                     'transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
-	                        'options'       => array(
-	                            'none'           =>  'Default',
-	                            'uppercase'         =>  'UPPERCASE',
-	                            'lowercase'         =>  'lowercase',
-	                            'capitalize'        =>  'Capitalize',
-	                        ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''           		=>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize',
+                        ),
                         'preview'       => array(
                             'type'          => 'css',
                             'selector'      => 'input[type=tel], input[type=email], input[type=text], input, textarea',
@@ -1446,9 +1446,9 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                     'radio_checkbox_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 

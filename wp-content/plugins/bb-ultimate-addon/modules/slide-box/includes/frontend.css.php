@@ -495,7 +495,7 @@ if( $settings->slide_type == "style3" ) {
         line-height: <?php echo $settings->front_title_line_height['desktop']; ?>px;
     <?php } ?>  
 
-    <?php if( $settings->front_title_transform != '' ) ?>
+    <?php if( $settings->front_title_transform != 'none' ) ?>
        text-transform: <?php echo $settings->front_title_transform; ?>;
 
     <?php if( $settings->front_title_letter_spacing != '' ) ?>
@@ -534,7 +534,7 @@ if( $settings->slide_type == "style3" ) {
     <?php echo ( $settings->front_desc_margin_bottom != '' ) ? 'margin-bottom: ' . $settings->front_desc_margin_bottom . 'px;' : ''; ?>
     <?php echo ( $settings->front_desc_color != '' ) ? 'color: ' . $settings->front_desc_color . ';' : ''; ?>
 
-   <?php if( $settings->front_desc_transform != '' ) ?>
+   <?php if( $settings->front_desc_transform != 'none' ) ?>
        text-transform: <?php echo $settings->front_desc_transform; ?>;
 
     <?php if( $settings->front_desc_letter_spacing != '' ) ?>
@@ -569,7 +569,7 @@ if( $settings->slide_type == "style3" ) {
     echo ( $settings->back_title_margin_top != '' ) ? 'margin-top: ' . $settings->back_title_margin_top . 'px;' : '';
     echo ( $settings->back_title_margin_bottom != '' ) ? 'margin-bottom: ' . $settings->back_title_margin_bottom . 'px;' : '';
     ?>
-    <?php if( $settings->back_transform != '' ) ?>
+    <?php if( $settings->back_transform != 'none' ) ?>
        text-transform: <?php echo $settings->back_transform; ?>;
 
     <?php if( $settings->back_letter_spacing != '' ) ?>
@@ -599,7 +599,7 @@ if( $settings->slide_type == "style3" ) {
         line-height: <?php echo $settings->back_desc_line_height['desktop']; ?>px;
     <?php } ?>
     
-    <?php if( $settings->back_desc_transform != '' ) ?>
+    <?php if( $settings->back_desc_transform != 'none' ) ?>
        text-transform: <?php echo $settings->back_desc_transform; ?>;
 
     <?php if( $settings->back_desc_letter_spacing != '' ) ?>
@@ -641,7 +641,7 @@ if( $settings->slide_type == "style3" ) {
         line-height: <?php echo $settings->link_line_height['desktop']; ?>px;
     <?php } ?>
     
-    <?php if( $settings->link_transform != '' ) ?>
+    <?php if( $settings->link_transform != 'none' ) ?>
        text-transform: <?php echo $settings->link_transform; ?>;
 
     <?php if( $settings->link_letter_spacing != '' ) ?>

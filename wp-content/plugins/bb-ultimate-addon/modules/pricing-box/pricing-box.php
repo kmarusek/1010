@@ -418,9 +418,9 @@ FLBuilder::register_module('UABBPricingTableModule', array(
                     'title_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -582,9 +582,9 @@ FLBuilder::register_module('UABBPricingTableModule', array(
                     'duration_typography_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -664,9 +664,9 @@ FLBuilder::register_module('UABBPricingTableModule', array(
                     'feature_content_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -1186,13 +1186,13 @@ FLBuilder::register_settings_form('pricing_table_column_form', array(
 	                    'button_transform'     => array(
 	                        'type'          => 'select',
 	                        'label'         => __( 'Transform', 'uabb' ),
-							'default'       => 'none',
-		                        'options'       => array(
-		                            'none'           =>  'Default',
-		                            'uppercase'         =>  'UPPERCASE',
-		                            'lowercase'         =>  'lowercase',
-		                            'capitalize'        =>  'Capitalize'                 
-		                        ),
+							'default'       => '',
+	                        'options'       => array(
+	                            ''           		=>  'Default',
+	                            'uppercase'         =>  'UPPERCASE',
+	                            'lowercase'         =>  'lowercase',
+	                            'capitalize'        =>  'Capitalize'                 
+	                        ),
                     	),
 	                    'button_letter_spacing'       => array(
 	                        'type'          => 'text',
@@ -1282,13 +1282,13 @@ FLBuilder::register_settings_form('pricing_table_column_form', array(
 						'featured_transform'     => array(
 	                        'type'          => 'select',
 	                        'label'         => __( 'Transform', 'uabb' ),
-				'			default'       => 'none',
-		                        'options'       => array(
-		                            'none'           =>  'Default',
-		                            'uppercase'         =>  'UPPERCASE',
-		                            'lowercase'         =>  'lowercase',
-		                            'capitalize'        =>  'Capitalize'                 
-		                        ),
+							'default'       => '',
+	                        'options'       => array(
+	                            ''           		=>  'Default',
+	                            'uppercase'         =>  'UPPERCASE',
+	                            'lowercase'         =>  'lowercase',
+	                            'capitalize'        =>  'Capitalize'                 
+	                        ),
 	                    ),
 	                    'featured_letter_spacing'       => array(
 	                        'type'          => 'text',
@@ -1420,13 +1420,13 @@ FLBuilder::register_settings_form('legend_column_form', array(
 	                    'legend_transform'     => array(
 	                        'type'          => 'select',
 	                        'label'         => __( 'Transform', 'uabb' ),
-							'default'       => 'none',
-		                        'options'       => array(
-		                            'none'           =>  'Default',
-		                            'uppercase'         =>  'UPPERCASE',
-		                            'lowercase'         =>  'lowercase',
-		                            'capitalize'        =>  'Capitalize'                 
-		                        ),
+							'default'       => '',
+	                        'options'       => array(
+	                            ''           		=>  'Default',
+	                            'uppercase'         =>  'UPPERCASE',
+	                            'lowercase'         =>  'lowercase',
+	                            'capitalize'        =>  'Capitalize'                 
+	                        ),
 	                    ),
 	                    'legend_letter_spacing'       => array(
 	                        'type'          => 'text',

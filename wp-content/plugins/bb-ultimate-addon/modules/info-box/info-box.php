@@ -111,11 +111,13 @@ class UABBInfoBoxModule extends FLBuilderModule {
 			echo '<' . $this->settings->prefix_tag_selection . ' class="uabb-infobox-title-prefix">'. $this->settings->heading_prefix.'</' . $this->settings->prefix_tag_selection . '>';
 		}
 
+		if(!empty($this->settings->title)){
 		echo '<' . $this->settings->title_tag_selection . ' class="uabb-infobox-title">';
 		//echo '<span>';
 		echo $this->settings->title;
 		//echo '</span>';
 		echo '</' . $this->settings->title_tag_selection . '>';
+		}
 		echo '</div>';$this->render_image('right-title');
 
 		if ($flag) {
@@ -1537,9 +1539,17 @@ FLBuilder::register_module('UABBInfoBoxModule', array(
                         'default'    => '',
                         'show_reset' => true,
                         'preview'       => array(
-							'type'          => 'css',
-							'selector'      => '.uabb-creative-button-wrap a',
-							'property'		=> 'background',
+                        	'type'          => 'css',
+                        	'rules'    => array(
+	                            array(
+	                                'selector'     => '.uabb-creative-button-wrap a.uabb-creative-flat-btn',
+	                                'property'     => 'background'
+	                            ),
+	                            array(
+	                                'selector'     => '.uabb-creative-button-wrap a.uabb-creative-transparent-btn',
+	                                'property'     => 'border-color'
+	                            ),    
+	                        )
 						)
                     ),
                     'btn_bg_color_opc'    => array( 
@@ -1824,9 +1834,9 @@ FLBuilder::register_module('UABBInfoBoxModule', array(
                     'prefix_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -1933,9 +1943,9 @@ FLBuilder::register_module('UABBInfoBoxModule', array(
                     'title_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -2026,9 +2036,9 @@ FLBuilder::register_module('UABBInfoBoxModule', array(
                     'subhead_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -2108,9 +2118,9 @@ FLBuilder::register_module('UABBInfoBoxModule', array(
                     'btn_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -2224,9 +2234,9 @@ FLBuilder::register_module('UABBInfoBoxModule', array(
                     'link_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 

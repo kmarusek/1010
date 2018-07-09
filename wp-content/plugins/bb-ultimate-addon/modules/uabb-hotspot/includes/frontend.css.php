@@ -153,7 +153,7 @@ if( $photo_src != '' ) {
 						UABB_Helper::uabb_font_css( $settings->hotspot_marker[$i]->text_typography_font_family );
 					} ?>
 					
-					<?php if( $settings->hotspot_marker[$i]->text_typography_transform != '' ) ?>
+					<?php if( $settings->hotspot_marker[$i]->text_typography_transform != 'none' ) ?>
 					   text-transform: <?php echo $settings->hotspot_marker[$i]->text_typography_transform; ?>;
 
 			        <?php if( $settings->hotspot_marker[$i]->text_typography_letter_spacing != '' ) ?>
@@ -271,7 +271,7 @@ if( $photo_src != '' ) {
 					    line-height: <?php echo $settings->hotspot_marker[$i]->tooltip_line_height['desktop']; ?>px;
 					<?php } ?>
 
-					<?php if( $settings->hotspot_marker[$i]->tooltip_transform != '' ) ?>
+					<?php if( $settings->hotspot_marker[$i]->tooltip_transform != 'none' ) ?>
 					   text-transform: <?php echo $settings->hotspot_marker[$i]->tooltip_transform; ?>;
 
 			        <?php if( $settings->hotspot_marker[$i]->tooltip_letter_spacing != '' ) ?>

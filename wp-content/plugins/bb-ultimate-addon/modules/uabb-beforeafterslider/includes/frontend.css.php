@@ -291,7 +291,7 @@ if ( ( isset( $settings->slider_font_family['family'] ) && $settings->slider_fon
 	<?php if( isset( $settings->slider_label_letter_spacing ) && $settings->slider_label_letter_spacing != '' ) : ?>
 		letter-spacing: <?php echo $settings->slider_label_letter_spacing; ?>px;
 	<?php endif; ?>
-	<?php if( $settings->slider_transform != '' ) ?>
+	<?php if( $settings->slider_transform != 'none' ) ?>
 		   text-transform: <?php echo $settings->slider_transform; ?>;
 	width: auto;
 	<?php if( $settings->before_after_orientation == 'horizontal' ) { ?>

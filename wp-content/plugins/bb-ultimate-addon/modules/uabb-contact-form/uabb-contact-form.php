@@ -598,8 +598,7 @@ FLBuilder::register_module('UABBContactFormModule', array(
 						'show_reset' => true,
 						'preview'         => array(
                             'type'          => 'css',
-                            'type'			=> 'refresh',
-                            'selector'      => '.uabb-contact-form .uabb-input-group-wrap input',
+                            'selector'      => '.uabb-contact-form .uabb-input-group-wrap input, .uabb-contact-form .uabb-input-group-wrap input[type=text]::placeholder, .uabb-contact-form .uabb-input-group-wrap input[type=email]::placeholder, .uabb-contact-form .uabb-input-group-wrap textarea::placeholder',
                             'property'      => 'color',
                         )
 					),
@@ -1361,9 +1360,9 @@ FLBuilder::register_module('UABBContactFormModule', array(
                     'transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -1506,9 +1505,9 @@ FLBuilder::register_module('UABBContactFormModule', array(
                     'btn_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -1601,9 +1600,9 @@ FLBuilder::register_module('UABBContactFormModule', array(
                     'label_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -1735,9 +1734,9 @@ FLBuilder::register_module('UABBContactFormModule', array(
                     'checkbox_text_transform' => array( 
                         'type'          => 'select',
                         'label'         => __('Text Transform', 'uabb'),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'       => __( 'Default', 'uabb' ),
+                            ''       		=> __( 'Default', 'uabb' ),
                             'uppercase'		=> __( 'Uppercase', 'uabb' ),
 							'lowercase'		=> __( 'Lowercase', 'uabb' ),
 							'capitalize'	=> __( 'Capitalize', 'uabb' ),
@@ -1829,9 +1828,9 @@ FLBuilder::register_module('UABBContactFormModule', array(
                     'terms_text_transform'        => array( 
                         'type'          => 'select',
                         'label'         => __('Text Transform', 'uabb'),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'       => __( 'Default', 'uabb' ),
+                            ''       		=> __( 'Default', 'uabb' ),
                             'uppercase'		=> __( 'Uppercase', 'uabb' ),
 							'lowercase'		=> __( 'Lowercase', 'uabb' ),
 							'capitalize'	=> __( 'Capitalize', 'uabb' ),

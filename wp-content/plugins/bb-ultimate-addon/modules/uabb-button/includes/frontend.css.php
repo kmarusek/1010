@@ -100,10 +100,10 @@ if ( ! empty( $settings->bg_hover_color ) ) {
         line-height: <?php echo $settings->line_height->desktop; ?>px;
 	<?php } ?>
 
-	<?php if($settings->transform != "" )?>
+	<?php if($settings->transform != 'none' ) ?>
 	   text-transform: <?php echo $settings->transform; ?>;
 
-    <?php if($settings->letter_spacing != "" )?>
+    <?php if($settings->letter_spacing != '' ) ?>
 	   letter-spacing: <?php echo $settings->letter_spacing; ?>px;
 	
 	<?php if( $settings->width == 'custom' ) { 
@@ -141,16 +141,15 @@ if ( ! empty( $settings->bg_hover_color ) ) {
 	<?php endif; ?>
 
 	<?php if ( ! empty( $settings->bg_color ) ) : ?>
-	background: <?php echo $settings->bg_color; ?>;
-	border: <?php echo $border_size; ?>px solid <?php echo $border_color; ?>;
+		background: <?php echo $settings->bg_color; ?>;
+		border: <?php echo $border_size; ?>px solid <?php echo $border_color; ?>;
+	<?php endif; ?>
 	
-		<?php if ( 'transparent' == $settings->style ) : // Transparent 
-//background-color: rgba(<?php echo implode( ',', "#" . FLBuilderColor::hex_to_rgb( $settings->bg_color ) ) , 0);
-		?>
-			background: none;
-		<?php endif; ?>
+	<?php if ( 'transparent' == $settings->style ) : ?>
+		background: none;
+	<?php endif; ?>
 
-		<?php if( 'gradient' == $settings->style ) : // Gradient ?>
+	<?php if( ! empty( $settings->bg_color ) && 'gradient' == $settings->style ) : ?>
 		background: -moz-linear-gradient(top,  <?php echo $bg_grad_start; ?> 0%, <?php echo $settings->bg_color; ?> 100%); /* FF3.6+ */
 		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,<?php echo $bg_grad_start; ?>), color-stop(100%,<?php echo $settings->bg_color; ?>)); /* Chrome,Safari4+ */
 		background: -webkit-linear-gradient(top,  <?php echo $bg_grad_start; ?> 0%,<?php echo $settings->bg_color; ?> 100%); /* Chrome10+,Safari5.1+ */
@@ -158,9 +157,11 @@ if ( ! empty( $settings->bg_hover_color ) ) {
 		background: -ms-linear-gradient(top,  <?php echo $bg_grad_start; ?> 0%,<?php echo $settings->bg_color; ?> 100%); /* IE10+ */
 		background: linear-gradient(to bottom,  <?php echo $bg_grad_start; ?> 0%,<?php echo $settings->bg_color; ?> 100%); /* W3C */
 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='<?php echo $bg_grad_start; ?>', endColorstr='<?php echo $settings->bg_color; ?>',GradientType=0 ); /* IE6-9 */
-		<?php endif; ?>
-	
-	<?php endif; ?>
+	<?php endif; ?>	
+
+	<?php if ( 'gradient' == $settings->style ) {
+		UABB_Helper::uabb_gradient_css( $settings->button_gradient );
+	} ?>
 }
 
 <?php if ( isset( $settings->line_height ) && is_array( $settings->line_height ) && 'custom' == $settings->width && $settings->custom_height != '' && ( isset( $settings->line_height['desktop'] ) && $settings->line_height['desktop'] == '' || ( intval($settings->custom_height) > intval($settings->line_height['desktop']) ) ) ) { ?>
@@ -196,26 +197,22 @@ if ( ! empty( $settings->bg_hover_color ) ) {
 <?php endif; ?>
 
 <?php if ( ! empty( $settings->text_color ) ) : ?>
-.fl-node-<?php echo $id; ?> .uabb-creative-button-wrap a,
-.fl-node-<?php echo $id; ?> .uabb-creative-button-wrap a *,
-.fl-node-<?php echo $id; ?> .uabb-creative-button-wrap a:visited,
-.fl-node-<?php echo $id; ?> .uabb-creative-button-wrap a:visited * {
+.fl-builder-content .fl-node-<?php echo $id; ?> .uabb-creative-button-wrap a.uabb-button,
+.fl-builder-content .fl-node-<?php echo $id; ?> .uabb-creative-button-wrap a.uabb-button *,
+.fl-builder-content .fl-node-<?php echo $id; ?> .uabb-creative-button-wrap a.uabb-button:visited,
+.fl-builder-content .fl-node-<?php echo $id; ?> .uabb-creative-button-wrap a.uabb-button:visited * {
 	color: <?php echo $settings->text_color; ?>;
 }
 <?php endif; ?>
 
 <?php if ( ! empty( $settings->bg_hover_color ) ) : ?>
 .fl-node-<?php echo $id; ?> .uabb-creative-button-wrap a:hover {
-	<?php if( $settings->style != "transparent" && $settings->style != "gradient"  ){ ?>
+	<?php if( $settings->style != "transparent" ){ ?>
 		background: <?php echo $settings->bg_hover_color; ?>;
 	<?php } ?>
 	border: <?php echo $border_size; ?>px solid <?php echo $border_hover_color; ?>;
-	
-	<?php /*if ( 'transparent' == $settings->style ) : // Transparent ?>
-	background-color: rgba(<?php echo implode( ',', FLBuilderColor::hex_to_rgb( $settings->bg_hover_color ) ) ?>, 1 );
-	<?php endif; */?>
 
-	<?php if ( 'gradient' == $settings->style ) : // Gradient ?>
+	<?php if( ! empty( $settings->bg_hover_color ) && 'gradient' == $settings->style ) : ?>
 	background: -moz-linear-gradient(top,  <?php echo $bg_hover_grad_start; ?> 0%, <?php echo $settings->bg_hover_color; ?> 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,<?php echo $bg_hover_grad_start; ?>), color-stop(100%,<?php echo $settings->bg_hover_color; ?>)); /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(top,  <?php echo $bg_hover_grad_start; ?> 0%,<?php echo $settings->bg_hover_color; ?> 100%); /* Chrome10+,Safari5.1+ */
@@ -228,8 +225,8 @@ if ( ! empty( $settings->bg_hover_color ) ) {
 <?php endif; ?>
 
 <?php if ( ! empty( $settings->text_hover_color ) ) : ?>
-.fl-node-<?php echo $id; ?> .uabb-creative-button-wrap a:hover,
-.fl-node-<?php echo $id; ?> .uabb-creative-button-wrap a:hover * {
+.fl-builder-content .fl-node-<?php echo $id; ?> .uabb-creative-button-wrap a.uabb-button:hover,
+.fl-builder-content .fl-node-<?php echo $id; ?> .uabb-creative-button-wrap a.uabb-button:hover * {
 	color: <?php echo $settings->text_hover_color; ?>;
 }
 <?php endif; ?>

@@ -29,7 +29,8 @@ if( $settings->show_button == 'yes' ) {
     <?php
     }
 }
-if( $settings->smile_icon != '' && $settings->smile_icon->icon != '' ) {
+if($settings->image_types=='icon'){
+    if( $settings->smile_icon != '' && $settings->smile_icon->icon != '' ) {
     /* Render CSS */
 
     /* CSS "$settings" Array */
@@ -38,7 +39,20 @@ if( $settings->smile_icon != '' && $settings->smile_icon->icon != '' ) {
 
     /* CSS Render Function */ 
     FLBuilder::render_module_css( 'image-icon', $id, $settings->smile_icon );
+    }
 }
+if($settings->image_types=='photo'){
+    if( $settings->smile_photo != '' && $settings->smile_photo->photo != '' ) {
+    /* Render CSS */
+
+    /* CSS "$settings" Array */
+    $settings->smile_photo->image_type = 'photo';
+
+    /* CSS Render Function */ 
+    FLBuilder::render_module_css( 'image-icon', $id, $settings->smile_photo );
+    }
+}
+
 ?>
 
 <?php
@@ -111,7 +125,7 @@ if( $settings->flip_box_min_height_options == 'uabb-custom-height' ) {
     echo ( $settings->front_desc_typography_margin_bottom != '' ) ? 'margin-bottom: ' . $settings->front_desc_typography_margin_bottom . 'px;' : 'margin-bottom: 25px;';
     ?>
 
-    <?php if( $settings->front_desc_transform != '' ) ?>
+    <?php if( $settings->front_desc_transform != 'none' ) ?>
        text-transform: <?php echo $settings->front_desc_transform; ?>;
 
     <?php if( $settings->front_desc_letter_spacing != '' ) ?>
@@ -164,7 +178,7 @@ if( $settings->flip_box_min_height_options == 'uabb-custom-height' ) {
         line-height: <?php echo $settings->front_title_typography_line_height['desktop']; ?>px;
     <?php } ?>
 
-    <?php if( $settings->front_title_typography_transform != '' ) ?>
+    <?php if( $settings->front_title_typography_transform != 'none' ) ?>
        text-transform: <?php echo $settings->front_title_typography_transform; ?>;
 
     <?php if( $settings->front_title_typography_letter_spacing != '' ) ?>
@@ -202,7 +216,7 @@ if( $settings->flip_box_min_height_options == 'uabb-custom-height' ) {
         line-height: <?php echo $settings->back_desc_typography_line_height['desktop']; ?>px;
     <?php } ?>
 
-    <?php if( $settings->back_desc_transform != '' ) ?>
+    <?php if( $settings->back_desc_transform != 'none' ) ?>
        text-transform: <?php echo $settings->back_desc_transform; ?>;
 
     <?php if( $settings->back_desc_letter_spacing != '' ) ?>
@@ -253,7 +267,7 @@ if( $settings->flip_box_min_height_options == 'uabb-custom-height' ) {
         line-height: <?php echo $settings->back_title_typography_line_height['desktop']; ?>px;
     <?php } ?>
     
-    <?php if( $settings->back_title_transform != '' ) ?>
+    <?php if( $settings->back_title_transform != 'none' ) ?>
        text-transform: <?php echo $settings->back_title_transform; ?>;
 
     <?php if( $settings->back_title_letter_spacing != '' ) ?>

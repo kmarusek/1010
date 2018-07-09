@@ -756,7 +756,7 @@ if( !empty( $settings->creative_menu_background_hover_color ) || $settings->crea
 		echo $settings->creative_submenu_link_padding; ?>;
 	<?php } ?>
 
-	<?php if ( $settings->creative_submenu_link_text_transform != ''  ) { ?>
+	<?php if ( $settings->creative_submenu_link_text_transform != 'none'  ) { ?>
 		<?php echo 'text-transform:' . $settings->creative_submenu_link_text_transform; ?>;
 	<?php } ?>
 	

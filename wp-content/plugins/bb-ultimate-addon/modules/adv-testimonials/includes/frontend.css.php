@@ -430,7 +430,7 @@ FLBuilder::render_module_css( 'image-icon',$id , $imageicon_array );
 	    	line-height: <?php echo $settings->testimonial_heading_line_height['desktop']; ?>px;
 	    <?php } ?>
 
-    	<?php if( $settings->testimonial_transform != '' ) ?>
+    	<?php if( $settings->testimonial_transform != 'none' ) ?>
     	   text-transform: <?php echo $settings->testimonial_transform; ?>;
 
         <?php if( $settings->testimonial_letter_spacing != '' ) ?>
@@ -480,7 +480,7 @@ FLBuilder::render_module_css( 'image-icon',$id , $imageicon_array );
 			margin-bottom: <?php echo $settings->testimonial_designation_margin_bottom ."px"; ?>;
 		<?php endif; ?>
 
-		<?php if( $settings->testimonial_designation_transform != '' ) ?>
+		<?php if( $settings->testimonial_designation_transform != 'none' ) ?>
 		   text-transform: <?php echo $settings->testimonial_designation_transform; ?>;
 
 	    <?php if( $settings->testimonial_designation_letter_spacing != '' ) ?>
@@ -520,7 +520,7 @@ FLBuilder::render_module_css( 'image-icon',$id , $imageicon_array );
 			padding-bottom: <?php echo $settings->testimonial_description_opt_margin_bottom ."px"; ?>;
 		<?php endif; ?>
 	
-		<?php if( $settings->testimonial_description_transform != '' ) ?>
+		<?php if( $settings->testimonial_description_transform != 'none' ) ?>
 		   text-transform: <?php echo $settings->testimonial_description_transform; ?>;
 
         <?php if( $settings->testimonial_description_letter_spacing != '' ) ?>

@@ -314,11 +314,11 @@ if( $settings->radio_check_custom_option == 'true') {
             font-size: <?php echo $settings->radio_checkbox_font_size_unit; ?>px;
         <?php endif; ?>
         
-        <?php if( $settings->radio_checkbox_color!= '' ) : ?>
+        <?php if( $settings->radio_checkbox_color != '' ) : ?>
             color: #<?php echo $settings->radio_checkbox_color ?>;
         <?php endif;?>
 
-        <?php if( $settings->radio_checkbox_transform != '' ) ?>
+        <?php if( $settings->radio_checkbox_transform != 'none' ) ?>
            text-transform: <?php echo $settings->radio_checkbox_transform; ?>;
 
         <?php if( $settings->radio_checkbox_letter_spacing != '' ) ?>
@@ -513,7 +513,7 @@ if ( $settings->btn_style == 'gradient' ) {
         line-height: <?php echo $settings->form_title_line_height['desktop']; ?>px;
     <?php } ?>
 
-    <?php if( $settings->form_title_transform != '' ) ?>
+    <?php if( $settings->form_title_transform != 'none' ) ?>
        text-transform: <?php echo $settings->form_title_transform; ?>;
 
     <?php if( $settings->form_title_letter_spacing != '' ) ?>
@@ -550,7 +550,7 @@ if ( $settings->btn_style == 'gradient' ) {
         line-height: <?php echo $settings->form_desc_line_height['desktop']; ?>px;
     <?php } ?>
     
-    <?php if( $settings->form_desc_transform != '' ) ?>
+    <?php if( $settings->form_desc_transform != 'none' ) ?>
        text-transform: <?php echo $settings->form_desc_transform; ?>;
 
     <?php if( $settings->form_desc_letter_spacing != '' ) ?>
@@ -594,7 +594,7 @@ if ( $settings->btn_style == 'gradient' ) {
         line-height: <?php echo $settings->line_height['desktop']; ?>px;
     <?php } ?>
 
-    <?php if( $settings->transform != '' ) ?>
+    <?php if( $settings->transform != 'none' ) ?>
        text-transform: <?php echo $settings->transform; ?>;
 
     <?php if( $settings->letter_spacing != '' ) ?>
@@ -608,7 +608,7 @@ if ( $settings->btn_style == 'gradient' ) {
     letter-spacing: <?php echo uabb_theme_button_letter_spacing(''); ?>;
     <?php } ?>
 
-    <?php if ( $settings->btn_text_transform != '' ) { ?>
+    <?php if ( $settings->btn_text_transform != 'none' ) { ?>
         text-transform: <?php echo $settings->btn_text_transform; ?>;
     <?php } ?>
     
@@ -683,7 +683,7 @@ if ( $settings->btn_style == 'gradient' ) {
     color: <?php echo $settings->label_color; ?>;
     <?php endif; ?>
     
-    <?php if( $settings->label_transform != '' ) ?>
+    <?php if( $settings->label_transform != 'none' ) ?>
        text-transform: <?php echo $settings->label_transform; ?>;
 
     <?php if( $settings->label_letter_spacing != '' ) ?>
@@ -698,7 +698,7 @@ if ( $settings->btn_style == 'gradient' ) {
     color: <?php echo $settings->input_msg_color; ?>;
     font-size: <?php echo $settings->input_msg_font_size; ?>px;
 
-    <?php if( $settings->input_msg_transform != '' ) ?>
+    <?php if( $settings->input_msg_transform != 'none' ) ?>
        text-transform: <?php echo $settings->input_msg_transform; ?>;
 
     <?php if( $settings->input_msg_letter_spacing != '' ) ?>
@@ -709,7 +709,7 @@ if ( $settings->btn_style == 'gradient' ) {
     color: <?php echo $settings->validation_msg_color; ?>;
     font-size: <?php echo $settings->validation_msg_font_size; ?>px;
 
-    <?php if( $settings->validate_transform != '' ) ?>
+    <?php if( $settings->validate_transform != 'none' ) ?>
        text-transform: <?php echo $settings->validate_transform; ?>;
 
     <?php if( $settings->validate_letter_spacing != '' ) ?>

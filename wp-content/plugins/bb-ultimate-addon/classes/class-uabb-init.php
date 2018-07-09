@@ -270,7 +270,7 @@ class UABB_Init {
 			$theme_path		= $theme_dir . $module_path;
 			$addon_path		= $addon_dir . $module_path;
 
-			$admin_backend = apply_filters( 'enable_uabb_modules_backend', false, 10, 1 );
+			$admin_backend = apply_filters( 'enable_uabb_modules_backend', true, 10, 1 );
 
 			$enable_backend = '';
 

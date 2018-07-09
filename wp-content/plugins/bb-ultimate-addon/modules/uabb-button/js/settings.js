@@ -75,6 +75,11 @@
 			}
 
             if( btn_style == 'threed' ) {
+            	form.find('#fl-field-bg_color').show();
+            	form.find('#fl-field-bg_hover_color').show();
+            	form.find('#fl-field-bg_hover_color_opc').show();
+            	form.find('#fl-field-bg_color_opc').show();
+            	form.find("#fl-field-button_gradient").hide();
             	form.find('#fl-field-threed_button_options').show();
             	form.find("#fl-field-hover_attribute").hide();
             	form.find('#fl-field-bg_color th label').text('Background Color');
@@ -83,6 +88,11 @@
             	form.find("#fl-field-transparent_button_options").hide();
             	form.find('#fl-field-flat_button_options').hide();
             } else if( btn_style == 'flat' ) {
+            	form.find('#fl-field-bg_color').show();
+            	form.find('#fl-field-bg_hover_color').show();
+            	form.find('#fl-field-bg_hover_color_opc').show();
+            	form.find('#fl-field-bg_color_opc').show();
+            	form.find('#fl-field-button_gradient').hide();
             	form.find('#fl-field-flat_button_options').show();
             	form.find("#fl-field-hover_attribute").hide();
             	form.find('#fl-field-bg_color th label').text('Background Color');
@@ -91,11 +101,17 @@
             	form.find("#fl-field-border_size").hide();
             	form.find("#fl-field-transparent_button_options").hide();
             } else if( btn_style == 'transparent' ) {
+            	form.find('#fl-field-bg_color').show();
+            	form.find('#fl-field-bg_hover_color').show();
+            	form.find('#fl-field-bg_hover_color_opc').show();
+            	form.find('#fl-field-bg_color_opc').show();
+            	form.find("#fl-field-button_gradient").hide();
             	form.find("#fl-field-border_size").show();
             	form.find("#fl-field-transparent_button_options").show();
             	form.find('#fl-field-threed_button_options').hide();
             	form.find('#fl-field-flat_button_options').hide();
             	form.find('#fl-field-bg_color th label').text('Border Color');
+
             	if( transparent_button_options == 'none' ) {
             		form.find("#fl-field-hover_attribute").show();
             		if( hover_attribute == 'bg' ) {
@@ -107,15 +123,27 @@
             		form.find("#fl-field-hover_attribute").hide();
             		form.find('#fl-field-bg_hover_color th label').text('Background Hover Color');
             	}
-            } else {
-            	form.find("#fl-field-hover_attribute").hide();
-            	form.find('#fl-field-bg_color th label').text('Background Color');
-            	form.find('#fl-field-bg_hover_color th label').text('Background Hover Color');
+            } else if( btn_style == 'gradient' ) {            	
+            	form.find("#fl-field-button_gradient").show();            	
+            	form.find('#fl-field-bg_color').hide();
+            	form.find('#fl-field-bg_hover_color').hide();
+            	form.find('#fl-field-bg_hover_color_opc').hide();
+            	form.find('#fl-field-bg_color_opc').hide();
+            	form.find("#fl-field-hover_attribute").hide();            	
             	form.find("#fl-field-border_size").hide();
-            	form.find("#fl-field-transparent_button_options").hide();
-            	form.find('#fl-field-threed_button_options').hide();
             	form.find('#fl-field-flat_button_options').hide();
-            }
+            	form.find('#fl-field-threed_button_options').hide();            	
+            	form.find("#fl-field-transparent_button_options").hide();
+            } else {            	
+				form.find("#fl-field-button_gradient").hide();
+				form.find("#fl-field-hover_attribute").hide();
+				form.find('#fl-field-bg_color th label').text('Background Color');
+				form.find('#fl-field-bg_hover_color th label').text('Background Hover Color');
+				form.find("#fl-field-border_size").hide();
+				form.find("#fl-field-transparent_button_options").hide();
+				form.find('#fl-field-threed_button_options').hide();
+				form.find('#fl-field-flat_button_options').hide();
+			}
             this._icon_typeChanged();
 			this.imgicon_postion();
 		},

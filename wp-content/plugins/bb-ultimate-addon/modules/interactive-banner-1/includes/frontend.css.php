@@ -141,7 +141,7 @@ if( $settings->show_button == 'yes' ) {
         line-height: <?php echo $settings->desc_typography_line_height['desktop']; ?>px;
     <?php } ?>
     
-    <?php if( $settings->desc_transform != '' ) ?>
+    <?php if( $settings->desc_transform != 'none' ) ?>
        text-transform: <?php echo $settings->desc_transform; ?>;
 
     <?php if( $settings->desc_letter_spacing != '' ) ?>
@@ -175,7 +175,7 @@ if( $settings->show_button == 'yes' ) {
         line-height: <?php echo $settings->title_typography_line_height['desktop']; ?>px;
     <?php } ?>
 
-    <?php if( $settings->title_transform != '' ) ?>
+    <?php if( $settings->title_transform != 'none' ) ?>
        text-transform: <?php echo $settings->title_transform; ?>;
 
     <?php if( $settings->title_letter_spacing != '' ) ?>

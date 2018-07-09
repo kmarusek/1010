@@ -400,7 +400,7 @@ if ( $settings->btn_align != 'full' ) { ?>
         line-height: <?php echo $settings->line_height['desktop']; ?>px;
     <?php } ?>
 
-	<?php if( $settings->transform != '' ) ?>
+	<?php if( $settings->transform != 'none' ) ?>
        text-transform: <?php echo $settings->transform; ?>;
 
     <?php if( $settings->letter_spacing != '' ) ?>
@@ -445,7 +445,7 @@ if ( $settings->btn_align != 'full' ) { ?>
                 <?php } ?>
         <?php } ?>
 
-    <?php if( $settings->btn_transform != '' ) ?>
+    <?php if( $settings->btn_transform != 'none' ) ?>
        text-transform: <?php echo $settings->btn_transform; ?>;
 
     <?php if( $settings->btn_letter_spacing != '' ) ?>
@@ -494,7 +494,7 @@ if ( $settings->btn_align != 'full' ) { ?>
 		color: <?php echo $settings->label_color; ?>;
 	<?php endif; ?>
 
-	<?php if( $settings->label_transform != '' ) ?>
+	<?php if( $settings->label_transform != 'none' ) ?>
        text-transform: <?php echo $settings->label_transform; ?>;
 
     <?php if( $settings->label_letter_spacing != '' ) ?>
@@ -522,7 +522,7 @@ if ( $settings->btn_align != 'full' ) { ?>
 	color: <?php echo ( false === strpos( $settings->checkbox_color, 'rgb' ) ) ? $settings->checkbox_color : $settings->checkbox_color; ?>;
 	<?php endif; ?> 
 
-	<?php if( $settings->checkbox_text_transform != '' ) : ?>
+	<?php if( $settings->checkbox_text_transform != 'none' ) : ?>
 	text-transform: <?php echo $settings->checkbox_text_transform; ?>;
 	<?php endif; ?>
 
@@ -551,7 +551,7 @@ if ( $settings->btn_align != 'full' ) { ?>
 	color: <?php echo ( false === strpos( $settings->terms_color, 'rgb' ) ) ?  $settings->terms_color : $settings->terms_color; ?>;
 	<?php endif; ?>
 
-	<?php if( $settings->terms_text_transform != '' ) : ?>
+	<?php if( $settings->terms_text_transform != 'none' ) : ?>
 	text-transform: <?php echo $settings->terms_text_transform; ?>;
 	<?php endif; ?>
 

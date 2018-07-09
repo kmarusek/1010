@@ -102,7 +102,7 @@ $settings->ct_content_color = UABB_Helper::uabb_colorpicker( $settings, 'ct_cont
             line-height: <?php echo $settings->btn_line_height['desktop']; ?>px;
         <?php } ?>
 
-        <?php if( $settings->btn_transform != '' ) ?>
+        <?php if( $settings->btn_transform != 'none' ) ?>
            text-transform: <?php echo $settings->btn_transform; ?>;
 
         <?php if( $settings->btn_letter_spacing != '' ) ?>
@@ -145,7 +145,7 @@ $settings->ct_content_color = UABB_Helper::uabb_colorpicker( $settings, 'ct_cont
         line-height: <?php echo $settings->line_height['desktop']; ?>px;
     <?php } ?>
 
-    <?php if( $settings->transform != '' ) ?>
+    <?php if( $settings->transform != 'none' ) ?>
        text-transform: <?php echo $settings->transform; ?>;
 
     <?php if( $settings->letter_spacing != '' ) ?>
@@ -384,7 +384,7 @@ $settings->ct_content_color = UABB_Helper::uabb_colorpicker( $settings, 'ct_cont
         line-height: <?php echo $settings->title_line_height['desktop']; ?>px;
     <?php } ?> 
 
-    <?php if( $settings->title_transform != '' ) ?>
+    <?php if( $settings->title_transform != 'none' ) ?>
        text-transform: <?php echo $settings->title_transform; ?>;
 
     <?php if( $settings->title_letter_spacing != '' ) ?>
@@ -425,7 +425,7 @@ $settings->ct_content_color = UABB_Helper::uabb_colorpicker( $settings, 'ct_cont
     color: <?php echo $settings->ct_content_color; ?>;
     <?php endif; ?>
 
-    <?php if( $settings->ct_transform != '' ) ?>
+    <?php if( $settings->ct_transform != 'none' ) ?>
        text-transform: <?php echo $settings->ct_transform; ?>;
 
     <?php if( $settings->ct_letter_spacing != '' ) ?>

@@ -119,7 +119,7 @@
     	line-height: <?php echo $settings->line_height['desktop']; ?>px;
     <?php } ?>
 
-	<?php if( $settings->transform != '' ) ?>
+	<?php if( $settings->transform != 'none' ) ?>
 	   text-transform: <?php echo $settings->transform; ?>;
 
     <?php if( $settings->letter_spacing != '' ) ?>
@@ -156,7 +156,7 @@
 		line-height: <?php echo $settings->desc_line_height['desktop']; ?>px;
 	<?php } ?>	
 
-	<?php if( $settings->desc_transform != '' ) ?>
+	<?php if( $settings->desc_transform != 'none' ) ?>
 	   text-transform: <?php echo $settings->desc_transform; ?>;
 
     <?php if( $settings->desc_letter_spacing != '' ) ?>

@@ -1,5 +1,5 @@
 .fl-node-<?php echo $id; ?>.uabb-desktop-spacer-height-adjustment{
-	position: absolute;
+	position: relative;
 	height: 30px;
 }
 .fl-node-<?php echo $id; ?> {
@@ -20,7 +20,7 @@
 		
 		@media ( max-width: <?php echo $global_settings->medium_breakpoint .'px'; ?> ) {
 		    .fl-node-<?php echo $id; ?>.uabb-tab-spacer-height-adjustment{
-				position: absolute;
+				position: relative;
 				height: 30px;
 			}
 			.fl-node-<?php echo $id; ?> .uabb-spacer-gap-preview.uabb-spacer-gap {
@@ -36,7 +36,7 @@
 	?>
 		@media ( max-width: <?php echo $global_settings->responsive_breakpoint .'px'; ?> ) {
 		    .fl-node-<?php echo $id; ?>.uabb-mobile-spacer-height-adjustment{
-				position: absolute;
+				position: relative;
 				height: 30px;
 			}
 			.fl-node-<?php echo $id; ?> .uabb-spacer-gap-preview.uabb-spacer-gap {

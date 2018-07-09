@@ -618,6 +618,7 @@
     -ms-transform: scale(0.5) translateY(100%);
     -o-transform: scale(0.5) translateY(100%);
     transform: scale(0.5) translateY(100%);
+    z-index: 12;
 }
 .uabb-ih-item.uabb-ih-circle.uabb-ih-effect3.uabb-ih-top_to_bottom.uabb-ih-hover .uabb-ih-info,
 .uabb-ih-item.uabb-ih-square.uabb-ih-effect3.uabb-ih-top_to_bottom.uabb-ih-hover .uabb-ih-info {

@@ -95,7 +95,7 @@ if( $settings->background_color != '' ) {
    		margin-bottom: <?php echo $settings->title_margin_bottom; ?>px;
    	<?php } ?>
 
-   	<?php if( $settings->transform != '' ) ?>
+   	<?php if( $settings->transform != 'none' ) ?>
 	   text-transform: <?php echo $settings->transform; ?>;
 
     <?php if( $settings->letter_spacing != '' ) ?>
@@ -136,7 +136,7 @@ if( $settings->background_color != '' ) {
    		margin-bottom: <?php echo $settings->desc_margin_bottom; ?>px;
    	<?php } ?>
 
-   	<?php if( $settings->desc_transform != '' ) ?>
+   	<?php if( $settings->desc_transform != 'none' ) ?>
 	   text-transform: <?php echo $settings->desc_transform; ?>;
 
     <?php if( $settings->desc_letter_spacing != '' ) ?>
@@ -233,7 +233,7 @@ if($settings->cta_type == 'button') {
 	    line-height: <?php echo $settings->link_line_height['desktop']; ?>px;
 	<?php } ?>    
 
-	<?php if( $settings->link_transform != '' ) ?>
+	<?php if( $settings->link_transform != 'none' ) ?>
 	   text-transform: <?php echo $settings->link_transform; ?>;
 
     <?php if( $settings->link_letter_spacing != '' ) ?>

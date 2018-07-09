@@ -836,20 +836,20 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                         ),
                     ),
                     'btn_text_transform' => array(
-							'type'          => 'select',
-							'label'         => __( 'Text Transform', 'uabb' ),
-                        'default'       => 'none',
+						'type'          => 'select',
+						'label'         => __( 'Text Transform', 'uabb' ),
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
                         ),
-							'preview'   => array(
-	                            'type'      => 'css',
-	                            'selector'  => '.uabb-gf-style .gform_wrapper .gform_footer input[type=submit], .uabb-gf-style .gform_page .gform_page_footer input[type=button], .uabb-gf-style .gform_page .gform_page_footer input[type=submit]',
-	                            'property'	=> 'text-transform',
-	                        ),
+						'preview'   => array(
+                            'type'      => 'css',
+                            'selector'  => '.uabb-gf-style .gform_wrapper .gform_footer input[type=submit], .uabb-gf-style .gform_page .gform_page_footer input[type=button], .uabb-gf-style .gform_page .gform_page_footer input[type=submit]',
+                            'property'	=> 'text-transform',
+                        ),
 					),
                     'btn_letter_spacing'       => array(
                         'type'          => 'text',
@@ -933,15 +933,9 @@ FLBuilder::register_module('UABBGravityFormModule', array(
 					'input_error_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
-                            'uppercase'         =>  'UPPERCASE',
-                            'lowercase'         =>  'lowercase',
-                            'capitalize'        =>  'Capitalize'                 
-                        ),                        'default'       => 'none',
-                        'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -1057,15 +1051,9 @@ FLBuilder::register_module('UABBGravityFormModule', array(
 		            'validate_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
-                            'uppercase'         =>  'UPPERCASE',
-                            'lowercase'         =>  'lowercase',
-                            'capitalize'        =>  'Capitalize'                 
-                        ),                        'default'       => 'none',
-                        'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -1101,15 +1089,9 @@ FLBuilder::register_module('UABBGravityFormModule', array(
 		            'input_success_msg_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
-                            'uppercase'         =>  'UPPERCASE',
-                            'lowercase'         =>  'lowercase',
-                            'capitalize'        =>  'Capitalize'                 
-                        ),                        'default'       => 'none',
-                        'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -1224,19 +1206,13 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                     'form_title_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
-                        ),                        'default'       => 'none',
-                        'options'       => array(
-                            'none'           =>  'Default',
-                            'uppercase'         =>  'UPPERCASE',
-                            'lowercase'         =>  'lowercase',
-                            'capitalize'        =>  'Capitalize'                 
-                        ),
+                        ), 
                         'preview'       => array(
                             'type'          => 'css',
                             'selector'      => '.uabb-gf-form-title',
@@ -1352,15 +1328,9 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                     'form_desc_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
-                            'uppercase'         =>  'UPPERCASE',
-                            'lowercase'         =>  'lowercase',
-                            'capitalize'        =>  'Capitalize'                 
-                        ),                        'default'       => 'none',
-                        'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -1482,15 +1452,9 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                     'label_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
-                            'uppercase'         =>  'UPPERCASE',
-                            'lowercase'         =>  'lowercase',
-                            'capitalize'        =>  'Capitalize'                 
-                        ),                        'default'       => 'none',
-                        'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -1601,15 +1565,9 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                     'input_desc_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
-                            'uppercase'         =>  'UPPERCASE',
-                            'lowercase'         =>  'lowercase',
-                            'capitalize'        =>  'Capitalize'                 
-                        ),                        'default'       => 'none',
-                        'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -1699,15 +1657,9 @@ FLBuilder::register_module('UABBGravityFormModule', array(
                     'radio_checkbox_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
-                            'uppercase'         =>  'UPPERCASE',
-                            'lowercase'         =>  'lowercase',
-                            'capitalize'        =>  'Capitalize'                 
-                        ),                        'default'       => 'none',
-                        'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 

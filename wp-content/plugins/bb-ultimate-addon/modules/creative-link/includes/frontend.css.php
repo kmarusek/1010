@@ -76,7 +76,7 @@ if( $settings->link_color != '' || isset($settings->link_typography_line_height[
 			UABB_Helper::uabb_font_css( $settings->link_typography_font_family );
 		}?>
 
-		<?php if( $settings->link_typography_transform != '' ) ?>
+		<?php if( $settings->link_typography_transform != 'none' ) ?>
 	   text-transform: <?php echo $settings->link_typography_transform; ?>;
 
 	    <?php if( $settings->link_typography_letter_spacing != '' )?>

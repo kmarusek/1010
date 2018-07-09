@@ -30,6 +30,8 @@
 				bg_gradient_two 	= form.find('input[name="bg_gradient[][color_two]"]'),
 				border_type 		= form.find('select[name=uabb_border_type]'),
 				bg_type 			= form.find('select[name=bg_type]');
+				info_title			= form.find('input[name=title]');
+				info_title_perfix	= form.find('input[name=heading_prefix]');
 
 			// Init validation events.
 			/*this._imageTypeChanged();*/
@@ -68,6 +70,8 @@
 			bg_gradient_two.on('change', this._InfoBoxPadding);
 			border_type.on('change', this._InfoBoxPadding);
 			bg_type.on('change', this._InfoBoxPadding);
+			info_title.on('change',this._InfoBoxTitle);
+			info_title_perfix.on('change',this._InfoBoxTitlePerfix);
 
 			UABBButton.init();
 			
@@ -437,6 +441,28 @@
 			wrap.removeClass('infobox-center');
 			wrap.removeClass('infobox-right');
 			wrap.addClass('infobox-' + align);
+		},
+		_InfoBoxTitle: function(){
+			var form  	= $('.fl-builder-settings');
+				title 	= form.find('input[name=title]').val();
+				node 	= jQuery(this).closest( 'form' ).attr( 'data-node' );
+			if(title==''){
+				jQuery('.fl-node-' + node).find('.uabb-infobox-title').hide();
+			}
+			else{
+				jQuery('.fl-node-' + node).find('.uabb-infobox-title').show();
+			}	
+		},
+		_InfoBoxTitlePerfix:function(){
+			var form  			= $('.fl-builder-settings');
+				title_perfix	= form.find('input[name=heading_prefix]').val();
+				node 			= jQuery(this).closest( 'form' ).attr( 'data-node' );
+			if(title_perfix==''){
+				jQuery('.fl-node-' + node).find('.uabb-infobox-title-prefix').hide();
+			}
+			else{
+				jQuery('.fl-node-' + node).find('.uabb-infobox-title-prefix').show();
+			}
 		}
 	});
 

@@ -78,7 +78,7 @@ if( $settings->img_overlay_color != '' ) {
         line-height: <?php echo $settings->desc_typography_line_height['desktop']; ?>px;
     <?php } ?>
 
-    <?php if( $settings->desc_typography_transform != '' )?>
+    <?php if( $settings->desc_typography_transform != 'none' )?>
        text-transform: <?php echo $settings->desc_typography_transform; ?>;
 
     <?php if( $settings->desc_typography_letter_spacing != '' )?>
@@ -109,7 +109,7 @@ if( $settings->img_overlay_color != '' ) {
         line-height: <?php echo $settings->title_typography_line_height['desktop']; ?>px;
     <?php } ?>
 
-    <?php if( $settings->title_typography_transform != '' )?>
+    <?php if( $settings->title_typography_transform != 'none' )?>
        text-transform: <?php echo $settings->title_typography_transform; ?>;
 
     <?php if( $settings->title_typography_letter_spacing != '' )?>

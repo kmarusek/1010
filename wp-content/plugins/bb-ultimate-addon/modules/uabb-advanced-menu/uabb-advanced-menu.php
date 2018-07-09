@@ -456,7 +456,7 @@ FLBuilder::register_module('UABBCreativeMenu', array(
                         'show_reset' => true,
 						'preview'         => array(
 							'type'            => 'css',
-							'selector'        => '.sub-menu > li > a *, .sub-menu > li > .uabb-has-submenu-container > a *',
+							'selector'        => '.sub-menu > li > a *, .sub-menu > li > .uabb-has-submenu-container > a *,.uabb-creative-menu .sub-menu > li.uabb-creative-menu > a > span',
 							'property'        => 'color',
 						)
                     ),
@@ -1061,11 +1061,11 @@ FLBuilder::register_module('UABBCreativeMenu', array(
 						),
 					),
 					'creative_menu_link_text_transform'    => array(
-                        'type'                      => 'select',
-                        'label'                     => __('Text Transform', 'uabb'),
-                        'default'       => 'none',
+                        'type'          => 'select',
+                        'label'         => __('Text Transform', 'uabb'),
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''                  =>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -1169,11 +1169,11 @@ FLBuilder::register_module('UABBCreativeMenu', array(
 						),
 					),
 					'creative_submenu_link_text_transform'    => array(
-                        'type'                      => 'select',
-                        'label'                     => __('Text Transform', 'uabb'),
-                        'default'       => 'none',
+                        'type'          => 'select',
+                        'label'         => __('Text Transform', 'uabb'),
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''                  =>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 

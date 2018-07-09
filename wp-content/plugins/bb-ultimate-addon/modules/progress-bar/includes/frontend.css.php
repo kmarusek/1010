@@ -102,7 +102,7 @@ $settings->before_after_color = UABB_Helper::uabb_colorpicker( $settings, 'befor
         line-height: <?php echo $settings->text_line_height['desktop']; ?>px;
     <?php } ?>
 	
-	<?php if( $settings->text_transform != '' ) ?>
+	<?php if( $settings->text_transform != 'none' ) ?>
 	   text-transform: <?php echo $settings->text_transform; ?>;
 
     <?php if( $settings->text_letter_spacing != '' ) ?>
@@ -167,7 +167,7 @@ $settings->before_after_color = UABB_Helper::uabb_colorpicker( $settings, 'befor
         line-height: <?php echo $settings->before_after_line_height['desktop']; ?>px;
     <?php } ?>
 
-	<?php if( $settings->before_after_transform != '' ) ?>
+	<?php if( $settings->before_after_transform != 'none' ) ?>
 	   text-transform: <?php echo $settings->before_after_transform; ?>;
 
 	<?php if( $settings->before_after_letter_spacing != '' ) ?>

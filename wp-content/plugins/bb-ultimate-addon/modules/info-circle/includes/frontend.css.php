@@ -212,7 +212,7 @@ foreach( $settings->add_circle_item as $item ) {
                     line-height: <?php echo $item->btn_line_height->desktop; ?>px;
                 <?php } ?>
 
-                <?php if( $item->btn_transform != '' ) ?>
+                <?php if( $item->btn_transform != 'none' ) ?>
                    text-transform: <?php echo $item->btn_transform; ?>;
 
                 <?php if( $item->btn_letter_spacing != '' ) ?>
@@ -281,6 +281,7 @@ foreach( $settings->add_circle_item as $item ) {
     $item->icon_hover_color = UABB_Helper::uabb_colorpicker( $item, 'icon_hover_color' );
     $item->icon_bg_hover_color = UABB_Helper::uabb_colorpicker( $item, 'icon_bg_hover_color' );
     $item->separator_color = UABB_Helper::uabb_colorpicker( $item, 'separator_color' );
+    $item->inner_circle_bg_overlay=UABB_Helper::uabb_colorpicker( $item, 'inner_circle_bg_overlay' );
 
     /* Calculate & Set Info Circle Coordinates */
     $angle = ( $angle_init - 90 ) * M_PI / 180;
@@ -369,6 +370,17 @@ foreach( $settings->add_circle_item as $item ) {
             background-repeat: <?php echo $item->inner_circle_bg_img_repeat; ?>;
         }
 
+        <?php if(isset($item->inner_circle_bg_overlay)&&$item->inner_circle_bg_overlay !='') :?>
+        .fl-node-<?php echo $id; ?> .uabb-info-circle.uabb-info-circle-in-<?php echo $circle_item_count; ?>:before{
+                content: '';
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background:<?php echo $item->inner_circle_bg_overlay;?>;
+            }
+        <?php endif;?>
         <?php /* Information Circle Background Image for Responsive */
             if( $settings->responsive_nature == 'true' ) : ?>
             @media ( max-width: <?php echo $responsive_breakpoint .'px'; ?> ) { 
@@ -601,7 +613,7 @@ if ( $settings->connector_border_style != 'none' ) :
     color: <?php echo $settings->color; ?>;
     <?php endif; ?>
     
-    <?php if( $settings->transform != '' ) ?>
+    <?php if( $settings->transform != 'none' ) ?>
        text-transform: <?php echo $settings->transform; ?>;
 
     <?php if( $settings->letter_spacing != '' ) ?>
@@ -640,7 +652,7 @@ if ( $settings->connector_border_style != 'none' ) :
     color: <?php echo $settings->desc_color; ?>;
     <?php endif; ?>
     
-    <?php if( $settings->desc_transform != '' ) ?>
+    <?php if( $settings->desc_transform != 'none' ) ?>
        text-transform: <?php echo $settings->desc_transform; ?>;
 
     <?php if( $settings->desc_letter_spacing != '' ) ?>

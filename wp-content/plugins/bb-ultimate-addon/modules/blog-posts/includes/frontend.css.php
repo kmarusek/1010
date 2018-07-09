@@ -290,7 +290,7 @@ if( $settings->is_carousel == 'masonary' ) {
 		font-size: <?php echo $settings->taxonomy_filter_select_font_size_unit; ?>px;
 	<?php endif; ?>
 
-	<?php if( $settings->taxonomy_transform != '' ) ?>
+	<?php if( $settings->taxonomy_transform != 'none' ) ?>
 	   text-transform: <?php echo $settings->taxonomy_transform; ?>;
 
     <?php if( $settings->taxonomy_letter_spacing != '' ) ?>
@@ -428,7 +428,7 @@ if( $settings->is_carousel == 'masonary' ) {
 	} ?>
 	background: <?php echo $date_background_color; ?>;
 	left: 0;
-	<?php if( $settings->date_transform != '' ) ?>
+	<?php if( $settings->date_transform != 'none' ) ?>
 	   text-transform: <?php echo $settings->date_transform; ?>;
 
     <?php if( $settings->date_letter_spacing != '' ) ?>
@@ -454,7 +454,8 @@ if( $settings->meta_color != '' || $settings->meta_hover_color != '' ) {
 
 if( $settings->show_meta == 'yes' ) {
 ?>
-	.fl-node-<?php echo $id; ?> .uabb-blog-post-content .uabb-post-meta {
+	.fl-node-<?php echo $id; ?> .uabb-post-meta a,
+	.fl-node-<?php echo $id; ?> .uabb-blog-post-content .uabb-post-meta{
         <?php if( $converted === 'yes' || isset( $settings->meta_font_size_unit ) && $settings->meta_font_size_unit != '' ){ ?>
         	font-size: <?php echo $settings->meta_font_size_unit; ?>px; 
         <?php } else if(isset( $settings->meta_font_size_unit ) && $settings->meta_font_size_unit == '' && isset( $settings->meta_font_size['desktop'] ) && $settings->meta_font_size['desktop'] != '') {?>
@@ -478,7 +479,7 @@ if( $settings->show_meta == 'yes' ) {
 		}
 		?>
 
-		<?php if( $settings->meta_transform != '' )?>
+		<?php if( $settings->meta_transform != 'none' )?>
 		   text-transform: <?php echo $settings->meta_transform; ?>;
  
         <?php if( $settings->meta_letter_spacing != '' )?>
@@ -503,7 +504,7 @@ if( $settings->is_carousel == 'grid' ) {
 ?>
 @media all and ( min-width: <?php echo $global_settings->medium_breakpoint; ?>px ) {
     .fl-node-<?php echo $id; ?> .uabb-post-wrapper:nth-child(<?php echo $settings->post_per_grid; ?>n+1){
-        clear: left;
+        <!-- clear: left; -->
     }
     .fl-node-<?php echo $id; ?> .uabb-post-wrapper:nth-child(<?php echo $settings->post_per_grid; ?>n+0) {
         clear: right;
@@ -646,7 +647,7 @@ if( $settings->is_carousel == 'carousel' ) {
 	}
 	?>
 
-	<?php if( $settings->link_transform != '' )?>
+	<?php if( $settings->link_transform != 'none' )?>
 	   text-transform: <?php echo $settings->link_transform; ?>;
 
     <?php if( $settings->link_letter_spacing != '' )?>
@@ -679,7 +680,7 @@ if( $settings->is_carousel == 'carousel' ) {
 	}
     ?>
 
-    <?php if( $settings->desc_transform != '' )?>
+    <?php if( $settings->desc_transform != 'none' )?>
 	   text-transform: <?php echo $settings->desc_transform; ?>;
 
     <?php if( $settings->desc_letter_spacing != '' )?>
@@ -715,7 +716,7 @@ if( $settings->is_carousel == 'carousel' ) {
 		  		line-height: <?php echo $settings->title_line_height['desktop']; ?>px;
 		    <?php } ?>
 
-            <?php if( $settings->transform != '' ) ?>
+            <?php if( $settings->transform != 'none' ) ?>
 			   text-transform: <?php echo $settings->transform; ?>;
 
 	        <?php if( $settings->letter_spacing != '' ) ?>
@@ -757,7 +758,7 @@ if( $settings->is_carousel == 'carousel' ) {
 		  		line-height: <?php echo $settings->title_line_height['desktop']; ?>px;
 		    <?php } ?>
 
-	        <?php if( $settings->transform != '' ) ?>
+	        <?php if( $settings->transform != 'none' ) ?>
 		       text-transform: <?php echo $settings->transform; ?>;
 
 		    <?php if( $settings->letter_spacing != '' ) ?>

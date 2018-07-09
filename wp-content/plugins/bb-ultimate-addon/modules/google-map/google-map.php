@@ -95,13 +95,10 @@ class GoogleMapModule extends FLBuilderModule {
                     $settings->uabb_gmap_addresses[0]->info_window_text = ( $settings->info_window_text != '' ) ? $settings->info_window_text : '';
                 }
             }
-                
         }
 
-            
         return $field;
     }
-
 }
 
 $google_api_key = '';
@@ -153,15 +150,15 @@ FLBuilder::register_module('GoogleMapModule', array(
                         'type'          => 'text',
                         'label'         => __('Width', 'uabb'),
                         'placeholder'   => '100',
-                        'size'			=> '6',
-                        'description'	=> '%',
+                        'size'          => '6',
+                        'description'   => '%',
                     ),
                     'map_height'     => array(
                         'type'          => 'text',
                         'label'         => __('Height', 'uabb'),
                         'placeholder'   => '300',
-                        'size'			=> '6',
-                        'description'	=> 'px'
+                        'size'          => '6',
+                        'description'   => 'px'
                     ),
                     'map_type' => array(
                         'type'          => 'select',
@@ -173,7 +170,21 @@ FLBuilder::register_module('GoogleMapModule', array(
                             'HYBRID'      => __('Hybrid', 'uabb'),
                             'TERRAIN'      => __('Terrain', 'uabb'),
                         ),
-                    ),
+                        'toggle'        => array(
+                            'ROADMAP'  => array(
+                                'fields'    => array( 'map_skin' )
+                            ),
+                            'SATELLITE'  => array(
+                                'fields'    => array( '' )
+                            ),
+                            'HYBRID'  => array(
+                                'fields'    => array( 'map_skin' )
+                            ),
+                            'TERRAIN'  => array(
+                                'fields'    => array( 'map_skin' )
+                            ),
+                        )
+                    ),                    
                     'map_fit_marker'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Auto Zoom', 'uabb' ),
@@ -187,7 +198,6 @@ FLBuilder::register_module('GoogleMapModule', array(
                                 'fields'    => array( 'map_zoom' )
                             )
                         )
-
                     ),
                     'map_zoom' => array(
                         'type'          => 'select',
@@ -216,18 +226,18 @@ FLBuilder::register_module('GoogleMapModule', array(
                             '20'      => __('20', 'uabb'),
                         ),
                     ),
-					'map_expand'     => array(
+                    'map_expand'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Disable map zoom on mouse wheel scroll', 'uabb' ),
                         'default'       => 'yes',
                         'options'       => array(
-                         	'yes'		=> __('Yes','uabb'),
-                          	'no'		=> __('No','uabb'),
+                            'yes'       => __('Yes','uabb'),
+                            'no'        => __('No','uabb'),
                         ),
                         'preview'       => array(
                             'type'  => 'none'
                         )
-	                ),
+                    ),
                 )
             ),
         )
@@ -301,13 +311,36 @@ FLBuilder::register_module('GoogleMapModule', array(
         'sections'      => array( // Tab Sections
             'title'       => array( // Section
                 'title'         => __('Map Style', 'uabb'), // Section Title
-                'fields'        => array( // Section Fields
+                'fields'        => array( // Section Fields                    
+                    'map_skin'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Map Skin', 'uabb' ),
+                        'default'       => 'custom',
+                        'options'       => array(
+                            'standard'     => __( 'Standard', 'uabb' ),
+                            'silver'       => __( 'Silver', 'uabb' ),
+                            'retro'        => __( 'Retro', 'uabb' ),
+                            'dark'         => __( 'Dark', 'uabb' ),
+                            'night'        => __( 'Night', 'uabb' ),
+                            'aubergine'    => __( 'Aubergine', 'uabb' ),
+                            'aqua'         => __( 'Aqua', 'uabb' ),
+                            'classic_blue' => __( 'Classic Blue', 'uabb' ),
+                            'earth'        => __( 'Earth', 'uabb' ),
+                            'magnesium'    => __( 'Magnesium', 'uabb' ),
+                            'custom'       => __( 'Custom', 'uabb' ),
+                        ),
+                        'toggle'        => array(
+                            'custom'  => array(
+                                'fields'    => array( 'map_style' )
+                            )
+                        )
+                    ),
                     'map_style'     => array(
                         'type'      => 'editor',
                         'label'     => '',
                         'rows'      => 25,
                         'media_buttons' => false,
-                        'description'   => __('<br/><br/><a target="_blank" rel="noopener" href="https://www.latlong.net/convert-address-to-lat-long.html">Click here</a> to get the style JSON code for styling your map.','uabb'),
+                        'description'   => __('<br/><br/><a target="_blank" rel="noopener" href="https://mapstyle.withgoogle.com/">Click here</a> to get the style JSON code for styling your map.','uabb'),
                         'connections'   => array( 'string', 'html' )
                     ),
                 )
@@ -328,7 +361,6 @@ FLBuilder::register_settings_form('uabb_google_map_addresses', array(
                         'map_name'     => array(
                             'type'          => 'text',
                             'label'         => __('Name', 'uabb'),
-                            'default'       => 'Name',
                             'placeholder'   => 'Name the Address',
                             'help'   => __('Name the Address to identify while editing','uabb'),
                         ),
@@ -397,7 +429,6 @@ FLBuilder::register_settings_form('uabb_google_map_addresses', array(
                                 'yes'   => array(
                                     'fields'    => array( 'info_window_text', 'open_marker' )
                                 )
-
                             )
                         ),
                         'info_window_text' => array(

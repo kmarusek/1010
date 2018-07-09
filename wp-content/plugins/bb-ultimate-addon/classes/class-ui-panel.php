@@ -9,6 +9,24 @@
 class UABB_UI_Panels {
 
 	/**
+	 * Class instance.
+	 *
+	 * @access private
+	 * @var $instance Class instance.
+	 */
+	private static $instance;
+
+	/**
+	 * Initiator
+	 */
+	public static function get_instance() {
+		if ( ! isset( self::$instance ) ) {
+			self::$instance = new self();
+		}
+		return self::$instance;
+	}
+
+	/**
 	*  Constructor
 	*/
 	public function __construct() {
@@ -423,5 +441,4 @@ class UABB_UI_Panels {
 	}
 
 }
-
-new UABB_UI_Panels();
+UABB_UI_Panels::get_instance();

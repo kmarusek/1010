@@ -808,11 +808,11 @@ FLBuilder::register_module('ModalPopupModule', array(
                             'type'          => 'css',
                             'rules'           => array(
                                 array(
-                                    'selector'     => '.uabb-creative-button-wrap a',
+                                    'selector'     => '.uabb-creative-button-wrap a.uabb-creative-flat-btn',
                                     'property'     => 'background'
                                 ),
                                 array(
-                                    'selector'     => '.uabb-creative-button-wrap a',
+                                    'selector'     => '.uabb-creative-button-wrap a.uabb-creative-transparent-btn',
                                     'property'     => 'border-color'
                                 ),    
                             )
@@ -1279,9 +1279,9 @@ FLBuilder::register_module('ModalPopupModule', array(
                     'title_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''                  =>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -1372,9 +1372,9 @@ FLBuilder::register_module('ModalPopupModule', array(
                     'ct_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''                  =>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -1454,9 +1454,9 @@ FLBuilder::register_module('ModalPopupModule', array(
                     'transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''                  =>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -1536,9 +1536,9 @@ FLBuilder::register_module('ModalPopupModule', array(
                     'btn_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''                  =>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 

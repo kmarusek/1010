@@ -456,7 +456,7 @@ if( $settings->image_type != 'none' ) {
 	    line-height: <?php echo $settings->title_line_height['desktop']; ?>px;
 	<?php } ?>  
 
-	<?php if( $settings->title_transform != '' ) ?>
+	<?php if( $settings->title_transform != 'none' ) ?>
 	   text-transform: <?php echo $settings->title_transform; ?>;
 
     <?php if( $settings->title_letter_spacing != '' ) ?>
@@ -491,7 +491,7 @@ if( $settings->image_type != 'none' ) {
 	    line-height: <?php echo $settings->subhead_line_height['desktop']; ?>px;
 	<?php } ?> 
 
-	<?php if( $settings->subhead_transform != '' )?>
+	<?php if( $settings->subhead_transform != 'none' )?>
 	   text-transform: <?php echo $settings->subhead_transform; ?>;
 
     <?php if( $settings->subhead_letter_spacing != '' )?>
@@ -529,7 +529,7 @@ if( $settings->image_type != 'none' ) {
 	color: <?php echo $settings->prefix_color; ?>;
 	<?php endif; ?>
 
-	<?php if( $settings->prefix_transform != '' ) ?>
+	<?php if( $settings->prefix_transform != 'none' ) ?>
 	   text-transform: <?php echo $settings->prefix_transform; ?>;
 
     <?php if( $settings->prefix_letter_spacing != '' ) ?>
@@ -562,7 +562,7 @@ if( $settings->image_type != 'none' ) {
 	    line-height: <?php echo $settings->link_line_height['desktop']; ?>px;
 	<?php } ?>
 
-	<?php if( $settings->link_transform != '' ) ?>
+	<?php if( $settings->link_transform != 'none' ) ?>
 	   text-transform: <?php echo $settings->link_transform; ?>;
 
     <?php if( $settings->link_letter_spacing != '' ) ?>

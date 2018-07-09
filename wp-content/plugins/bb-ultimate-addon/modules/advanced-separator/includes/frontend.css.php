@@ -136,10 +136,10 @@
 		    line-height: <?php echo $settings->text_line_height['desktop']; ?>px;
 		<?php } ?>
 
-		<?php if($settings->text_transform!= "")?>
+		<?php if($settings->text_transform!= 'none' ) ?>
 		   text-transform: <?php echo $settings->text_transform; ?>;
 
-        <?php if($settings->text_letter_spacing!= "")?>
+        <?php if($settings->text_letter_spacing!= '' ) ?>
 		   letter-spacing: <?php echo $settings->text_letter_spacing; ?>px;
 
 	}

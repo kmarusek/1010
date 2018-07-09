@@ -1,3 +1,29 @@
+Version 1.8.3 - Monday, 9th July 2018
+- Improvement: Advanced Posts - Added support for ACF Relationship fields
+- Improvement: Button Module - Updated Gradient style with two colors and direction field
+- Improvement: Flip Box - Added Image option for Flip Box front Image type
+- Improvement: Info Circle - Added overlay option to Background Image for Info Circle item
+- Improvement: Added multiple default skins for Google Maps JSON Styles
+- Fixed: Advanced Accordion - Icon Preview not working for Right and Bottom
+- Fixed: Advanced Posts - Fixed alignment issue of Grid layout for medium devices
+- Fixed: Advanced Posts - Font size is not working for author name
+- Fixed: Advanced Posts - Post stack issue is fixed for masonry layout
+- Fixed: Advanced Menu - Sub menu text color preview not working
+- Fixed: Button - Fixed text color not responding in preview mode
+- Fixed: Button - Fixed column text color overriding button text color issue
+- Fixed: Call to Action - Overall alignment issue in preview mode
+- Fixed: Google Map - Broken link updated for JSON styles
+- Fixed: Gravity Form - Styles not applying to the Enhanced User Interface Select Box
+- Fixed: iHover Module - Front Image overlapping on responsive devices on click
+- Fixed: Info Table - Added to default value "Read More" for CTA button
+- Fixed: Input text color not reflecting in preview mode of Subscription form, Contact Form, CF7 Form
+- Fixed: Info Box - Resolved blank space with empty Info Box title and prefix
+- Fixed: Interactive Banner 2 - On click action not working on Firefox browser's responsive mode
+- Fixed: Modal Popup - Overlay click not working when scroll is applied on Exit Intent option
+- Fixed: Modal Popup - Video placeholder added for YouTube and Vimeo content
+- Fixed: Spacer Module - Adjustment issue with modules and columns
+- Fixed: UABB Gradient - Fixed Gradient field's layout
+
 Version 1.8.2 - Thursday, 21st June 2018
 - Improvement: Advanced Posts - Added Exclude Current Post option
 - Improvement: Content Toggle - Added connections to text and editor fields
@@ -6,6 +32,7 @@ Version 1.8.2 - Thursday, 21st June 2018
 - Fixed: Fancy Text - Resolved console error for input fields
 - Fixed: Content Toggle - Updated Label Box ON/OFF values
 - Fixed: CF7 Styler - Resolved CSS issue of reponsive options
+- Fixed: Typography values not inheriting theme typography values
 
 Version 1.8.1 - Wednesday, 20th June 2018
 - Fixed: Advanced Menu - Default padding size is not applying to submenu
@@ -14,7 +41,7 @@ Version 1.8.1 - Wednesday, 20th June 2018
 
 Version 1.8.0 - Tuesday, 19th June 2018
 - New: Introduced Content Toggle
-- Improvements: Added "Text Transform" and "Letter Spacing" option for all modules
+- Improvement: Added "Text Transform" and "Letter Spacing" option for all modules
 - Fixed: Counter - Full Circle is visible in Internet Explorer while semi circle is selected
 - Fixed: Gravity Form - Added support for the Select box
 - Fixed: Google Map - Updated Latitude, Longitude tool link for Google Map

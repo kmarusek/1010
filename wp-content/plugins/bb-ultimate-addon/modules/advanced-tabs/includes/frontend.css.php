@@ -206,7 +206,7 @@ if( $settings->style != 'iconfall' ) {
         line-height: <?php echo $settings->title_line_height['desktop']; ?>px;
     <?php } ?>   
 
-    <?php if( $settings->title_transform != '' ) ?>
+    <?php if( $settings->title_transform != 'none' ) ?>
        text-transform: <?php echo $settings->title_transform; ?>;
 
     <?php if( $settings->title_letter_spacing != '' ) ?>
@@ -428,7 +428,7 @@ if( $settings->style == 'bar' ) {
         line-height: <?php echo $settings->content_line_height['desktop']; ?>px;
     <?php } ?>  
 
-    <?php if( $settings->content_transform != '' ) ?>
+    <?php if( $settings->content_transform != 'none' ) ?>
        text-transform: <?php echo $settings->content_transform; ?>;
 
     <?php if( $settings->content_letter_spacing != '' ) ?>

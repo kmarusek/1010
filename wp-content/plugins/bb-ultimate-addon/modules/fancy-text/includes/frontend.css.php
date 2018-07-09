@@ -58,7 +58,7 @@ $settings->fancy_color = UABB_Helper::uabb_colorpicker( $settings, 'fancy_color'
 	color: <?php echo $settings->color; ?>;
 	<?php endif; ?>
 
-	<?php if( $settings->transform != '' ) ?>
+	<?php if( $settings->transform != 'none' ) ?>
 	   text-transform: <?php echo $settings->transform; ?>;
 
     <?php if( $settings->letter_spacing != '' ) ?>
@@ -95,7 +95,7 @@ $settings->fancy_color = UABB_Helper::uabb_colorpicker( $settings, 'fancy_color'
 	color: <?php echo $settings->fancy_color; ?>;
 	<?php endif; ?>
 
-	<?php if( $settings->fancy_transform != '' ) ?>
+	<?php if( $settings->fancy_transform != 'none' ) ?>
 	   text-transform: <?php echo $settings->fancy_transform; ?>;
 
     <?php if( $settings->fancy_letter_spacing != '' ) ?>

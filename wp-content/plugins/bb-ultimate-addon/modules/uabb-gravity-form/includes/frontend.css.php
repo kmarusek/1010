@@ -85,7 +85,8 @@
 
 .fl-node-<?php echo $id; ?> .uabb-gf-style .gform_wrapper form .gform_body input:not([type='radio']):not([type='checkbox']):not([type='submit']):not([type='button']):not([type='image']):not([type='file']),
 .fl-node-<?php echo $id; ?> .gform_wrapper textarea,
-.fl-node-<?php echo $id; ?> .gform_wrapper .gfield .ginput_container select {
+.fl-node-<?php echo $id; ?> .gform_wrapper .gfield .ginput_container select,
+.fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_select .chosen-container-single .chosen-single {
 
     <?php 
     if( $converted === 'yes' || isset($settings->input_padding_dimension_top) && isset( $settings->input_padding_dimension_bottom ) && isset( $settings->input_padding_dimension_left ) && isset( $settings->input_padding_dimension_right )  ) {
@@ -123,9 +124,9 @@
 .fl-node-<?php echo $id; ?> .uabb-gf-style input[type=date]:focus,
 .fl-node-<?php echo $id; ?> .uabb-gf-style select:focus,
 .fl-node-<?php echo $id; ?> .uabb-gf-style textarea:focus,
-.gform_wrapper .ginput_container_select .chosen-container-single .chosen-single,
-.chosen-container .chosen-container-single .chosen-container-active .chosen-with-drop,
-.gform_wrapper .ginput_container_select .chosen-container-active.chosen-with-drop .chosen-single {
+.fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_select .chosen-container-single .chosen-single,
+.fl-node-<?php echo $id; ?> .chosen-container .chosen-container-single .chosen-container-active .chosen-with-drop,
+.fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_select .chosen-container-active.chosen-with-drop .chosen-single {
     <?php
     if( isset( $settings->input_border_radius ) ) { ?>
         border-radius: <?php echo $settings->input_border_radius; ?>px;
@@ -195,8 +196,8 @@
 .fl-node-<?php echo $id; ?> .uabb-gf-style select:active,
 .fl-node-<?php echo $id; ?> .uabb-gf-style textarea:active,
 .fl-node-<?php echo $id; ?> .uabb-gf-style textarea:focus,
-.gform_wrapper .chosen-container-active.chosen-with-drop .chosen-single,
-.gform_wrapper .ginput_container_select .chosen-container-active.chosen-with-drop .chosen-single {
+.fl-node-<?php echo $id; ?> .gform_wrapper .chosen-container-active.chosen-with-drop .chosen-single,
+.fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_select .chosen-container-active.chosen-with-drop .chosen-single {
     border-color: <?php echo $settings->input_border_active_color; ?>;
 }
 <?php } ?>
@@ -215,7 +216,7 @@
         <?php FLBuilderFonts::font_css( $settings->label_font_family ); ?>
     <?php } ?>
 
-    <?php if( $settings->input_desc_transform != '' ) ?>
+    <?php if( $settings->input_desc_transform != 'none' ) ?>
        text-transform: <?php echo $settings->input_desc_transform; ?>;
 
     <?php if( $settings->input_desc_letter_spacing != '' ) ?>
@@ -262,7 +263,7 @@
         <?php endif; ?>
     <?php } ?>
 
-    <?php if( $settings->radio_checkbox_transform != '' ) ?>
+    <?php if( $settings->radio_checkbox_transform != 'none' ) ?>
        text-transform: <?php echo $settings->radio_checkbox_transform; ?>;
 
     <?php if( $settings->radio_checkbox_letter_spacing != '' ) ?>
@@ -429,7 +430,7 @@ if ( $settings->btn_style == 'gradient' ) {
         border-radius: <?php echo $settings->btn_border_radius; ?>px;
     <?php } ?>
 
-    <?php if ( $settings->btn_text_transform != '' ) { ?>
+    <?php if ( $settings->btn_text_transform != 'none' ) { ?>
         text-transform: <?php echo $settings->btn_text_transform; ?>;
     <?php } ?>
 
@@ -603,7 +604,7 @@ if ( $settings->btn_style == 'gradient' ) {
         
         margin: 0 0 <?php echo ( $settings->form_title_bottom_margin != '' ) ? $settings->form_title_bottom_margin : '0'; ?>px;
 
-        <?php if( $settings->form_title_transform != '' ) ?>
+        <?php if( $settings->form_title_transform != 'none' ) ?>
            text-transform: <?php echo $settings->form_title_transform; ?>;
 
         <?php if( $settings->form_title_letter_spacing != '' ) ?>
@@ -644,7 +645,7 @@ if ( $settings->btn_style == 'gradient' ) {
 
         margin: 0 0 <?php echo ( $settings->form_desc_bottom_margin != '' ) ? $settings->form_desc_bottom_margin : '20'; ?>px;
 
-        <?php if( $settings->form_desc_transform != '' ) ?>
+        <?php if( $settings->form_desc_transform != 'none' ) ?>
            text-transform: <?php echo $settings->form_desc_transform; ?>;
 
         <?php if( $settings->form_desc_letter_spacing != '' ) ?>
@@ -656,7 +657,7 @@ if ( $settings->btn_style == 'gradient' ) {
 
 .fl-node-<?php echo $id; ?> .uabb-gf-style input:not([type='radio']):not([type='checkbox']):not([type='submit']):not([type='button']):not([type='image']):not([type='file']),
 .fl-node-<?php echo $id; ?> .uabb-gf-style select,
-.gform_wrapper .ginput_container_select .chosen-container-single .chosen-single {
+.fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_select .chosen-container-single .chosen-single {
     <?php if( $settings->input_field_height == '' ) { ?>
         height: auto;
     <?php } else { ?>
@@ -668,7 +669,7 @@ if ( $settings->btn_style == 'gradient' ) {
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield input:focus,
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield select,
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield textarea,
-.gform_wrapper .ginput_container_select .chosen-container-single .chosen-single {
+.fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_select .chosen-container-single .chosen-single {
 
     <?php if( $settings->font_family['family'] != 'Default' ) { ?>
     <?php FLBuilderFonts::font_css( $settings->font_family ); ?>
@@ -735,10 +736,10 @@ if ( $settings->btn_style == 'gradient' ) {
         line-height: <?php echo $settings->btn_line_height['desktop']; ?>px;
     <?php } ?>
 
-    <?php if($settings->btn_text_transform!= "")?>
+    <?php if($settings->btn_text_transform!= 'none' ) ?>
        text-transform: <?php echo $settings->btn_text_transform; ?>;
 
-    <?php if($settings->btn_letter_spacing!= "")?>
+    <?php if($settings->btn_letter_spacing!= '' ) ?>
 	   letter-spacing: <?php echo $settings->btn_letter_spacing; ?>px;
 }
 
@@ -767,7 +768,7 @@ if ( $settings->btn_style == 'gradient' ) {
             line-height: <?php echo $settings->label_line_height['desktop']; ?>px;
         <?php } ?>
         
-        <?php if( $settings->label_transform != '' ) ?>
+        <?php if( $settings->label_transform != 'none' ) ?>
            text-transform: <?php echo $settings->label_transform; ?>;
 
         <?php if( $settings->label_letter_spacing != '' ) ?>
@@ -794,7 +795,7 @@ if ( $settings->btn_style == 'gradient' ) {
     color: <?php echo $settings->input_msg_color; ?>;
     font-size: <?php echo $settings->input_msg_font_size; ?>px;
 
-    <?php if( $settings->input_error_transform != '' ) ?>
+    <?php if( $settings->input_error_transform != 'none' ) ?>
        text-transform: <?php echo $settings->input_error_transform; ?>;
 
     <?php if( $settings->input_error_letter_spacing != '' ) ?>
@@ -871,7 +872,7 @@ if ( $settings->btn_style == 'gradient' ) {
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield_error input:not([type='radio']):not([type='checkbox']):not([type='submit']):not([type='button']):not([type='image']):not([type='file']),
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield_error .ginput_container select,
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield_error .ginput_container textarea,
-.gform_wrapper .ginput_container_select .chosen-container-single .chosen-single { ?>
+.fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_select .chosen-container-single .chosen-single { ?>
     <?php if( $settings->input_error_border_color && $settings->input_error_display == 'yes' ) { ?>
         border-color: <?php echo '#' . $settings->input_error_border_color; ?>;
     <?php } ?>
@@ -889,7 +890,7 @@ if ( $settings->btn_style == 'gradient' ) {
     <?php if( $settings->input_success_msg_font_size != '' ) { ?>
         font-size: <?php echo $settings->input_success_msg_font_size ?>px;
     <?php } ?>
-    <?php if( $settings->input_success_msg_transform != '' ) ?>
+    <?php if( $settings->input_success_msg_transform != 'none' ) ?>
        text-transform: <?php echo $settings->input_success_msg_transform; ?>;
 
     <?php if( $settings->input_success_msg_letter_spacing != '' ) ?>
@@ -978,7 +979,7 @@ if ( $settings->btn_style == 'gradient' ) {
 		.fl-node-<?php echo $id; ?> .uabb-gf-style .gform_wrapper <?php echo '#gform_' . $settings->form_id; ?> input[type=date],
 		.fl-node-<?php echo $id; ?> .uabb-gf-style .gform_wrapper <?php echo '#gform_' . $settings->form_id; ?> select,
 		.fl-node-<?php echo $id; ?> .uabb-gf-style .gform_wrapper <?php echo '#gform_' . $settings->form_id; ?> textarea,
-		.gform_wrapper .ginput_container_select .chosen-container-single .chosen-single {
+		.fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_select .chosen-container-single .chosen-single {
 			
 			<?php if( isset( $settings->font_size_unit_medium ) && $settings->font_size_unit_medium != '' ) : ?>
 				font-size: <?php echo $settings->font_size_unit_medium; ?>px;
@@ -1061,7 +1062,7 @@ if ( $settings->btn_style == 'gradient' ) {
         .fl-node-<?php echo $id; ?> .uabb-gf-style input[type=date]:focus,
         .fl-node-<?php echo $id; ?> .uabb-gf-style select:focus,
         .fl-node-<?php echo $id; ?> .uabb-gf-style textarea:focus,
-        .gform_wrapper .ginput_container_select .chosen-container-single .chosen-single {
+        .fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_select .chosen-container-single .chosen-single {
             <?php 
                 if(isset($settings->input_border_width_dimension_top_medium) ){
                     echo ( $settings->input_border_width_dimension_top_medium != '' ) ? 'padding-top:'.$settings->input_border_width_dimension_top_medium.'px;' : ''; 
@@ -1082,7 +1083,7 @@ if ( $settings->btn_style == 'gradient' ) {
         .fl-node-<?php echo $id; ?> .uabb-gf-style .gform_wrapper form .gform_body input:not([type='radio']):not([type='checkbox']):not([type='submit']):not([type='button']):not([type='image']):not([type='file']),
         .fl-node-<?php echo $id; ?> .gform_wrapper textarea,
         .fl-node-<?php echo $id; ?> .gform_wrapper .gfield .ginput_container select,
-        .gform_wrapper .ginput_container_select .chosen-container-single .chosen-single {
+        .fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_select .chosen-container-single .chosen-single {
             <?php 
                 if(isset($settings->input_padding_dimension_top_medium) ){
                     echo ( $settings->input_padding_dimension_top_medium != '' ) ? 'padding-top:'.$settings->input_padding_dimension_top_medium.'px;' : ''; 
@@ -1196,7 +1197,7 @@ if ( $settings->btn_style == 'gradient' ) {
 		.fl-node-<?php echo $id; ?> .uabb-gf-style .gform_wrapper <?php echo '#gform_' . $settings->form_id; ?> input[type=date],
 		.fl-node-<?php echo $id; ?> .uabb-gf-style .gform_wrapper <?php echo '#gform_' . $settings->form_id; ?> select,
 		.fl-node-<?php echo $id; ?> .uabb-gf-style .gform_wrapper <?php echo '#gform_' . $settings->form_id; ?> textarea,
-		.gform_wrapper .ginput_container_select .chosen-container-single .chosen-single {
+		.fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_select .chosen-container-single .chosen-single {
 
 			<?php if( isset( $settings->font_size_unit_responsive ) && $settings->font_size_unit_responsive != '' ) : ?>
 				font-size: <?php echo $settings->font_size_unit_responsive; ?>px;
@@ -1279,7 +1280,7 @@ if ( $settings->btn_style == 'gradient' ) {
         .fl-node-<?php echo $id; ?> .uabb-gf-style input[type=date]:focus,
         .fl-node-<?php echo $id; ?> .uabb-gf-style select:focus,
         .fl-node-<?php echo $id; ?> .uabb-gf-style textarea:focus,
-        .gform_wrapper .ginput_container_select .chosen-container-single .chosen-single {
+        .fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_select .chosen-container-single .chosen-single {
             <?php 
                 if(isset($settings->input_border_width_dimension_top_responsive) ){
                     echo ( $settings->input_border_width_dimension_top_responsive != '' ) ? 'padding-top:'.$settings->input_border_width_dimension_top_responsive.'px;' : ''; 
@@ -1300,7 +1301,7 @@ if ( $settings->btn_style == 'gradient' ) {
         .fl-node-<?php echo $id; ?> .uabb-gf-style .gform_wrapper form .gform_body input:not([type='radio']):not([type='checkbox']):not([type='submit']):not([type='button']):not([type='image']):not([type='file']),
         .fl-node-<?php echo $id; ?> .gform_wrapper textarea,
         .fl-node-<?php echo $id; ?> .gform_wrapper .gfield .ginput_container select,
-        .gform_wrapper .ginput_container_select .chosen-container-single .chosen-single {
+        .fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_select .chosen-container-single .chosen-single {
             <?php 
                 if(isset($settings->input_padding_dimension_top_responsive) ){
                     echo ( $settings->input_padding_dimension_top_responsive != '' ) ? 'padding-top:'.$settings->input_padding_dimension_top_responsive.'px;' : ''; 

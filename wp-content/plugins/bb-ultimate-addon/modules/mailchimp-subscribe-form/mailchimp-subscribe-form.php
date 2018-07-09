@@ -440,10 +440,10 @@ FLBuilder::register_module( 'UABBSubscribeFormModule', array(
 						'type'       => 'color',
                         'label'         => __('Text Color', 'uabb'),
 						'default'    => '',
-						'show_reset' => true,
+                        'show_reset' => true,
 						'preview'         => array(
                             'type'          => 'css',
-                            'selector'      => '.uabb-form-field input',
+                            'selector'      => '.uabb-form-field input, .uabb-subscribe-form input[type=text]::placeholder',
                             'property'      => 'color',
                         )
 					),
@@ -1009,9 +1009,9 @@ FLBuilder::register_module( 'UABBSubscribeFormModule', array(
                     'heading_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -1142,9 +1142,9 @@ FLBuilder::register_module( 'UABBSubscribeFormModule', array(
                     'subheading_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -1248,9 +1248,9 @@ FLBuilder::register_module( 'UABBSubscribeFormModule', array(
                     'text_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -1343,9 +1343,9 @@ FLBuilder::register_module( 'UABBSubscribeFormModule', array(
                     'input_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -1425,9 +1425,9 @@ FLBuilder::register_module( 'UABBSubscribeFormModule', array(
                     'btn_transform'     => array(
                         'type'          => 'select',
                         'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'           =>  'Default',
+                            ''           		=>  'Default',
                             'uppercase'         =>  'UPPERCASE',
                             'lowercase'         =>  'lowercase',
                             'capitalize'        =>  'Capitalize'                 
@@ -1531,9 +1531,9 @@ FLBuilder::register_module( 'UABBSubscribeFormModule', array(
                     'checkbox_text_transform' => array( 
                         'type'          => 'select',
                         'label'         => __('Text Transform', 'uabb'),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'       => __( 'Default', 'uabb' ),
+                            ''       		=> __( 'Default', 'uabb' ),
                             'uppercase'		=> __( 'Uppercase', 'uabb' ),
 							'lowercase'		=> __( 'Lowercase', 'uabb' ),
 							'capitalize'	=> __( 'Capitalize', 'uabb' ),
@@ -1625,9 +1625,9 @@ FLBuilder::register_module( 'UABBSubscribeFormModule', array(
                     'terms_text_transform'        => array( 
                         'type'          => 'select',
                         'label'         => __('Text Transform', 'uabb'),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'       => __( 'Default', 'uabb' ),
+                            ''       		=> __( 'Default', 'uabb' ),
                             'uppercase'		=> __( 'Uppercase', 'uabb' ),
 							'lowercase'		=> __( 'Lowercase', 'uabb' ),
 							'capitalize'	=> __( 'Capitalize', 'uabb' ),

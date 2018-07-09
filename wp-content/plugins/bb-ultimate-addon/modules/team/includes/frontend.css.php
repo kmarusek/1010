@@ -362,7 +362,7 @@ if ( $settings->enable_social_icons == 'yes' ) {
 	color: <?php echo $settings->color; ?>;
 	<?php endif; ?>
 
-	<?php if( $settings->transform != '' ) ?>
+	<?php if( $settings->transform != 'none' ) ?>
 	   text-transform: <?php echo $settings->transform; ?>;
 
     <?php if( $settings->letter_spacing != '' ) ?>
@@ -395,7 +395,7 @@ if ( $settings->enable_social_icons == 'yes' ) {
     	line-height: <?php echo $settings->desg_line_height['desktop']; ?>px;
     <?php } ?>
 
-	<?php if( $settings->desg_transform != '' ) ?>
+	<?php if( $settings->desg_transform != 'none' ) ?>
 	   text-transform: <?php echo $settings->desg_transform; ?>;
 
     <?php if( $settings->desg_letter_spacing != '' ) ?>
@@ -436,10 +436,10 @@ if ( $settings->enable_social_icons == 'yes' ) {
 	color: <?php echo $settings->desc_color; ?>;
 	<?php endif; ?>
 
-	<?php if( $settings->desc_transform!= "" )?>
+	<?php if( $settings->desc_transform != 'none' ) ?>
 	   text-transform: <?php echo $settings->desc_transform; ?>;
 
-    <?php if( $settings->desc_letter_spacing!= "" )?>
+    <?php if( $settings->desc_letter_spacing != '' ) ?>
 	   letter-spacing: <?php echo $settings->desc_letter_spacing; ?>px;
 }
 

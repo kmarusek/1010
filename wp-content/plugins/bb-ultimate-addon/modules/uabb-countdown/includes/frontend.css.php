@@ -284,7 +284,7 @@ if( isset( $settings->fixed_timer_action ) && $settings->fixed_timer_action == "
 		color: <?php echo $settings->message_color; ?>;
 	<?php endif; ?>
 
-	<?php if( $settings->message_transform != '' ) ?>
+	<?php if( $settings->message_transform != 'none' ) ?>
 	   text-transform: <?php echo $settings->message_transform; ?>;
 
     <?php if( $settings->message_letter_spacing != '' ) ?>
@@ -321,7 +321,7 @@ if( isset( $settings->evergreen_timer_action ) && $settings->evergreen_timer_act
 		color: <?php echo $settings->message_color; ?>;
 	<?php endif; ?>
 
-	<?php if( $settings->message_transform != '' ) ?>
+	<?php if( $settings->message_transform != 'none' ) ?>
 	   text-transform: <?php echo $settings->message_transform; ?>;
 
     <?php if( $settings->message_letter_spacing != '' ) ?>
@@ -398,7 +398,7 @@ if ( ( isset( $settings->digit_font_family['family'] ) && $settings->digit_font_
 			color: <?php echo $settings->unit_color; ?>;
 		<?php endif; ?>
 
-		<?php if( $settings->unit_transform != '' ) ?>
+		<?php if( $settings->unit_transform != 'none' ) ?>
 	   		text-transform: <?php echo $settings->unit_transform; ?>;
 
     	<?php if( $settings->unit_letter_spacing != '' ) ?>
