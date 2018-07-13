@@ -11,7 +11,7 @@
         $layer_animdata = "bw_ab_layer_" . $i . "_animdata";
         $layer_image = "bw_ab_layer_" . $i . "_image";
         $layer_image_src = "bw_ab_layer_" . $i . "_image_src";
-        $layer_srcset = wp_get_attachment_image_srcset($rows->settings->$layer_image);
+        $layer_srcset = wp_get_attachment_image_srcset($rows->settings->$layer_image, 'full');
         $layer_id = $id . "_" . $i;
         
         if (isset($rows->settings->$layer_animdata) && is_object($rows->settings->$layer_animdata)) {
