@@ -282,6 +282,35 @@ FLBuilder::register_module('UABBCountdownModule', array(
                         'default'    => '',
                         'show_reset' => true,
                     ),
+                    'message_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''                  =>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-info-list-title',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'message_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-info-list-title',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
+                    ),
                 )
             ),
 		)
@@ -789,6 +818,19 @@ FLBuilder::register_module('UABBCountdownModule', array(
                         'default'    => '',
                         'show_reset' => true,
                     ),
+                    'digit_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-count-down-digit',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
+                    ),
                 )
             ),
             'unit_typography'    =>  array(
@@ -867,6 +909,35 @@ FLBuilder::register_module('UABBCountdownModule', array(
                             'type'            => 'css',
                             'selector'        => '.uabb-count-down-unit',
                             'property'        => 'color'
+                        )
+                    ),
+                     'unit_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''                  =>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-count-down-unit',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'unit_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-count-down-unit',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
                         )
                     ),
                 )

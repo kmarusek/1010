@@ -72,7 +72,7 @@ function uabb_column_gradient_css( $css, $nodes, $global_settings ) {
             ?>
 
             <?php if ( $column->settings->uabb_col_gradient_type == 'linear' ) { ?>
-                .fl-node-<?php echo $column->node; ?> .fl-col-content {
+                .fl-node-<?php echo $column->node; ?> > .fl-col-content {
                     background-color: #<?php echo $column->settings->uabb_col_gradient_primary_color; ?>;
                     background-image: -webkit-linear-gradient(<?php echo $column->settings->uabb_col_linear_direction . 'deg'; ?>, <?php echo '#'.$column->settings->uabb_col_gradient_primary_color; ?> <?php echo $column->settings->uabb_col_linear_gradient_primary_loc . '%' ; ?>, <?php echo '#'.$column->settings->uabb_col_gradient_secondary_color; ?> <?php echo $column->settings->uabb_col_linear_gradient_secondary_loc . '%' ; ?>);
                     background-image: -moz-linear-gradient(<?php echo $column->settings->uabb_col_linear_direction . 'deg'; ?>, <?php echo '#'.$column->settings->uabb_col_gradient_primary_color; ?> <?php echo $column->settings->uabb_col_linear_gradient_primary_loc . '%' ; ?>, <?php echo '#'.$column->settings->uabb_col_gradient_secondary_color; ?> <?php echo $column->settings->uabb_col_linear_gradient_secondary_loc . '%' ; ?>);
@@ -82,7 +82,7 @@ function uabb_column_gradient_css( $css, $nodes, $global_settings ) {
                 }
             <?php } ?>
             <?php if ( $column->settings->uabb_col_gradient_type == 'radial' ) { ?>
-                .fl-node-<?php echo $column->node; ?> .fl-col-content {
+                .fl-node-<?php echo $column->node; ?> > .fl-col-content {
                     background-color: #<?php echo $column->settings->uabb_col_gradient_primary_color; ?>;
                     background-image: -webkit-radial-gradient(<?php echo 'at ' . $column->settings->uabb_col_radial_direction ?>, <?php echo '#'.$column->settings->uabb_col_gradient_primary_color; ?> <?php echo $column->settings->uabb_col_radial_gradient_primary_loc . '%' ; ?>, <?php echo '#'.$column->settings->uabb_col_gradient_secondary_color; ?> <?php echo $column->settings->uabb_col_radial_gradient_secondary_loc . '%' ; ?>);
                     background-image: -moz-radial-gradient(<?php echo 'at ' . $column->settings->uabb_col_radial_direction ?>, <?php echo '#'.$column->settings->uabb_col_gradient_primary_color; ?> <?php echo $column->settings->uabb_col_radial_gradient_primary_loc . '%' ; ?>, <?php echo '#'.$column->settings->uabb_col_gradient_secondary_color; ?> <?php echo $column->settings->uabb_col_radial_gradient_secondary_loc . '%' ; ?>);

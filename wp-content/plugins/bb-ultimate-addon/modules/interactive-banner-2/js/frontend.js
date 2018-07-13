@@ -4,7 +4,7 @@
 
 			if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 				$(this).click(function(){
-					event.stopPropagation();
+					//event.stopPropagation();
 					var node = jQuery(this).closest( '.fl-module-interactive-banner-2' ).attr( 'data-node' );
 					if( jQuery('.fl-node-' + node + ' .uabb-ib2-outter').hasClass( 'uabb-ib2-hover' ) ){
 				        jQuery('.fl-node-' + node + ' .uabb-ib2-outter').removeClass('uabb-ib2-hover');

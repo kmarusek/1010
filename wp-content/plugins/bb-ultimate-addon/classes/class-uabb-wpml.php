@@ -65,6 +65,11 @@ final class UABB_WPML_Translatable {
 					'type'        => __( 'Description', 'uabb' ),
 					'editor_type' => 'VISUAL'
 				),
+				array(
+					'field'       => 'text_inline',
+					'type'        => __( 'Heading : Separator Text', 'uabb' ),
+					'editor_type' => 'LINE'
+				),
 			),
 		);
 
@@ -268,6 +273,16 @@ final class UABB_WPML_Translatable {
 					'type'        => __( 'Subscription Form : Success URL', 'uabb' ),
 					'editor_type' => 'LINK'
 				),
+				array(
+					'field'       => 'terms_checkbox_text',
+					'type'        => __( 'Subscription Form : Checkbox Text', 'uabb' ),
+					'editor_type' => 'LINE'
+				),
+				array(
+					'field'       => 'terms_text',
+					'type'        => __( 'Subscription Form : Terms Text', 'uabb' ),
+					'editor_type' => 'VISUAL'
+				),
 			),
 		);
 
@@ -373,6 +388,16 @@ final class UABB_WPML_Translatable {
 					'field'       => 'btn_text',
 					'type'        => __( 'Contact Form : Button Text', 'uabb' ),
 					'editor_type' => 'LINE'
+				),
+				array(
+					'field'       => 'terms_checkbox_text',
+					'type'        => __( 'Contact Form : Checkbox Text', 'uabb' ),
+					'editor_type' => 'LINE'
+				),
+				array(
+					'field'       => 'terms_text',
+					'type'        => __( 'Contact Form : Terms Text', 'uabb' ),
+					'editor_type' => 'VISUAL'
 				),
 			),
 		);
@@ -933,6 +958,33 @@ final class UABB_WPML_Translatable {
 			'integration-class' => 'WPML_UABB_Listicon',
 		);
 
+		// Content Toggle
+		$form['uabb-content-toggle'] = array(
+			'conditions' 		=> array( 'type' => 'uabb-content-toggle' ),
+			'fields'     		=> array(
+				array(
+					'field'       => 'cont1_heading',
+					'type'        => __( 'Content Toggle : Heading 1', 'uabb' ),
+					'editor_type' => 'LINE'
+				),
+				array(
+					'field'       => 'content_editor',
+					'type'        => __( 'Content Toggle : Content 1', 'uabb' ),
+					'editor_type' => 'VISUAL'
+				),
+				array(
+					'field'       => 'cont2_heading',
+					'type'        => __( 'Content Toggle : Heading 2', 'uabb' ),
+					'editor_type' => 'LINE'
+				),
+				array(
+					'field'       => 'content2_editor',
+					'type'        => __( 'Content Toggle : Content 2', 'uabb' ),
+					'editor_type' => 'VISUAL'
+				),
+
+			),
+		);
 
 		return $form;
 	}

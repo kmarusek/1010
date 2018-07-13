@@ -88,6 +88,7 @@ FLBuilder::register_module('UABBInfoTableModule', array(
                     ),
                     'button_text'   => array(
                         'type'      => 'text',
+                        'default'       => 'Read More',
                         'label'     => __( 'Call to action button text', 'uabb' ),
                         'connections'   => array( 'string', 'html' )
                     ),
@@ -837,6 +838,35 @@ FLBuilder::register_module('UABBInfoTableModule', array(
                             'property'        => 'color',
                         )
                     ),
+                    'heading_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''                  =>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.info-table-main-heading',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'heading_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.info-table-main-heading',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
+                    ),
                 )
             ),
             'sub_heading_typography'    =>  array(
@@ -917,6 +947,35 @@ FLBuilder::register_module('UABBInfoTableModule', array(
                             'property'        => 'color',
                         )
                     ),
+                    'sub_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''                  =>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.info-table-sub-heading',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'sub_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.info-table-sub-heading',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
+                    ),
                 )
             ),
             'description_typography'    =>  array(
@@ -981,6 +1040,35 @@ FLBuilder::register_module('UABBInfoTableModule', array(
                                 'property'        => 'color',
                         )
                     ),
+                    'description_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''                  =>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.info-table-description *',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'description_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.info-table-description *',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
+                    ),
                 )
             ),
             'btn_typography'    =>  array(
@@ -1021,6 +1109,24 @@ FLBuilder::register_module('UABBInfoTableModule', array(
                                 'responsive' => '',
                             ),
                         ),
+                    ),
+                    'btn_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''                  =>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                    ),
+                    'btn_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
                     ),
                 )
             ),

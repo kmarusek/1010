@@ -557,6 +557,35 @@ FLBuilder::register_module('UABBPhotoGalleryModule', array(
 						'maxlength'   => '3',
 						'size'        => '5',
 					),
+                    'transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''           		=>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-photo-gallery-caption',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-photo-gallery-caption',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
+                    ),
                 )
             ),
 		)

@@ -35,7 +35,12 @@ class UABBInfoCircleModule extends FLBuilderModule {
         }
 
         if ( file_exists( $path ) ) {
-            return file_get_contents( $path );
+            $remove_icon = apply_filters( 'uabb_remove_svg_icon', false, 10, 1 );
+            if( true === $remove_icon ) {
+                return;
+            } else {
+                return file_get_contents( $path );
+            }
         } else {
             return '';
         }
@@ -130,6 +135,8 @@ class UABBInfoCircleModule extends FLBuilderModule {
 				'font_size_unit_responsive'     => $item->btn_font_size_unit_responsive,
 				'line_height_unit_responsive'   => $item->btn_line_height_unit_responsive,
 				'font_family'       			=> $item->btn_font_family,
+				'transform'                     => $item->btn_transform,
+				'letter-spacing'                => $item->btn_letter_spacing,
 			);
 
 			FLBuilder::render_module_html( 'uabb-button', $btn_settings );
@@ -895,6 +902,35 @@ FLBuilder::register_module('UABBInfoCircleModule', array(
                             'property'	=> 'color',
                     	),
                     ),
+                    'transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''           		=>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-info-circle-title',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-info-circle-title',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
+                    ),
                     'title_margin_top' => array(
 						'type'              => 'text',
 						'label'             => __( 'Margin Top', 'uabb' ),
@@ -986,6 +1022,35 @@ FLBuilder::register_module('UABBInfoCircleModule', array(
                             'selector'	=> '.uabb-info-circle-desc',
                             'property'	=> 'color',
                     	),
+                    ),
+                    'desc_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''           		=>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-info-circle-desc',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'desc_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-info-circle-desc',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
                     ),
                     'desc_margin_top' => array(
 						'type'              => 'text',
@@ -1146,7 +1211,8 @@ FLBuilder::register_settings_form('info_circle_items_form', array(
 										'fields'	=> array( 'inner_circle_bg_color', 'inner_circle_bg_color_opc' )
 									),
 									'image'	=> array(
-										'fields'	=> array( 'inner_circle_bg_img', 'inner_circle_bg_img_pos', 'inner_circle_bg_img_size', 'inner_circle_bg_img_repeat' )
+										'fields'	=> array( 'inner_circle_bg_img', 'inner_circle_bg_img_pos', 'inner_circle_bg_img_size', 'inner_circle_bg_img_repeat',
+											'inner_circle_bg_overlay' )
 									),
 								),
 								'help'          => __( 'Select the background for content area. Keep default for global background color.', 'uabb' ),
@@ -1194,6 +1260,13 @@ FLBuilder::register_settings_form('info_circle_items_form', array(
 									'initial'	=> __( 'Initial', 'uabb' ),
 									'inherit'	=> __( 'Inherit', 'uabb' ),
 								),
+						),
+						'inner_circle_bg_overlay'=>array(
+							'type'		 =>'color',
+							'label'		 => __( 'Background Image Overlay', 'uabb' ),
+							'default'    => '',
+							'show_reset' => true,
+							'show_alpha' => true,
 						),
 						'inner_circle_bg_color' => array( 
 							'type'       => 'color',
@@ -1649,6 +1722,24 @@ FLBuilder::register_settings_form('info_circle_items_form', array(
 	                        		'responsive' => '',
 	                        	),
 	                        ),
+	                    ),
+	                    'btn_transform'     => array(
+	                        'type'          => 'select',
+	                        'label'         => __( 'Transform', 'uabb' ),
+	                        'default'       => '',
+	                        'options'       => array(
+	                            ''           		=>  'Default',
+	                            'uppercase'         =>  'UPPERCASE',
+	                            'lowercase'         =>  'lowercase',
+	                            'capitalize'        =>  'Capitalize'                 
+	                        ),
+	                    ),
+	                    'btn_letter_spacing'       => array(
+	                        'type'          => 'text',
+	                        'label'         => __('Letter Spacing', 'uabb'),
+	                        'placeholder'   => '0',
+	                        'size'          => '5',
+	                        'description'   => 'px',
 	                    ),
 	                    'btn_color'        => array( 
 	                        'type'       => 'color',

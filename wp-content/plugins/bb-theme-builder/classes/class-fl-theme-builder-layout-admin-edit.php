@@ -76,8 +76,8 @@ final class FLThemeBuilderLayoutAdminEdit {
 			wp_enqueue_style( 'fl-theme-builder-layout-admin-edit', FL_THEME_BUILDER_URL . 'css/fl-theme-builder-layout-admin-edit.css', array(), $version );
 
 			// Scripts
-			wp_enqueue_script( 'jquery-tiptip', FL_BUILDER_URL . 'js/jquery.tiptip.min.js', array( 'jquery' ), $version, true );
-			wp_enqueue_script( 'select2', FL_THEME_BUILDER_URL . 'js/select2.full.min.js', array( 'jquery' ), $version, true );
+			wp_enqueue_script( 'jquery-tiptip', FL_BUILDER_URL . 'js/jquery.tiptip.min.js', array( 'jquery' ), $version );
+			wp_enqueue_script( 'select2', FL_THEME_BUILDER_URL . 'js/select2.full.min.js', array( 'jquery' ), $version );
 			wp_enqueue_script( 'fl-theme-builder-layout-admin-edit', FL_THEME_BUILDER_URL . 'js/fl-theme-builder-layout-admin-edit.js', array( 'wp-util' ), $version );
 
 			// JS Config

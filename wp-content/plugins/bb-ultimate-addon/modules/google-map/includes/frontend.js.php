@@ -100,6 +100,7 @@ if( isset( $settings->info_window_text ) ) {
 							  $map_style = strip_tags( $settings->map_style );
 							  echo rawurldecode( str_replace( $order, '', $map_style ) ); 
 						?>',
+			map_skin: '<?php echo $settings->map_skin; ?>',
 			marker_point: marker_point,
 			marker_img_src: marker_img_src,
 			info_window_text: info_window_text,

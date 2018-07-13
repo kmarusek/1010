@@ -36,7 +36,12 @@ class UABBHotspot extends FLBuilderModule {
         }
 
         if ( file_exists( $path ) ) {
-            return file_get_contents( $path );
+            $remove_icon = apply_filters( 'uabb_remove_svg_icon', false, 10, 1 );
+            if( true === $remove_icon ) {
+                return;
+            } else {
+                return file_get_contents( $path );
+            }
         } else {
             return '';
         }
@@ -793,6 +798,35 @@ FLBuilder::register_settings_form('hotspot_coordinates_form', array(
                             'maxlength'   => '3',
                             'size'        => '5',
                         ),
+                        'text_typography_transform'     => array(
+                            'type'          => 'select',
+                            'label'         => __( 'Transform', 'uabb' ),
+                            'default'       => '',
+                            'options'       => array(
+                                ''                  =>  'Default',
+                                'uppercase'         =>  'UPPERCASE',
+                                'lowercase'         =>  'lowercase',
+                                'capitalize'        =>  'Capitalize'                 
+                            ),
+                            'preview'       => array(
+                                'type'          => 'css',
+                                'selector'      => '.uabb-hotspot-text, .uabb-hotspot-text *',
+                                'property'      => 'text-transform'
+                            ),
+                        ),
+                        'text_typography_letter_spacing'       => array(
+                            'type'          => 'text',
+                            'label'         => __('Letter Spacing', 'uabb'),
+                            'placeholder'   => '0',
+                            'size'          => '5',
+                            'description'   => 'px',
+                            'preview'         => array(
+                                'type'          => 'css',
+                                'selector'      => '.uabb-hotspot-text, .uabb-hotspot-text *',
+                                'property'      => 'letter-spacing',
+                                'unit'          => 'px'
+                            )
+                        ),
                         'text_typography_padding_dimension' => array(
                             'type'      => 'dimension',
                             'label'     => __( 'Padding', 'uabb' ),
@@ -858,6 +892,35 @@ FLBuilder::register_settings_form('hotspot_coordinates_form', array(
                             'label'     => __('Tooltip Background Color', 'uabb'),
                             'default'    => '',
                             'show_reset' => true,
+                        ),
+                        'tooltip_transform'     => array(
+                            'type'          => 'select',
+                            'label'         => __( 'Transform', 'uabb' ),
+                            'default'       => '',
+                            'options'       => array(
+                                ''                  =>  'Default',
+                                'uppercase'         =>  'UPPERCASE',
+                                'lowercase'         =>  'lowercase',
+                                'capitalize'        =>  'Capitalize'                 
+                            ),
+                            'preview'       => array(
+                                'type'          => 'css',
+                                'selector'      => '.uabb-hotspot-tooltip-content, .uabb-hotspot-tooltip-content *',
+                                'property'      => 'text-transform'
+                            ),
+                        ),
+                        'tooltip_letter_spacing'       => array(
+                            'type'          => 'text',
+                            'label'         => __('Letter Spacing', 'uabb'),
+                            'placeholder'   => '0',
+                            'size'          => '5',
+                            'description'   => 'px',
+                            'preview'         => array(
+                                'type'          => 'css',
+                                'selector'      => '.uabb-hotspot-tooltip-content, .uabb-hotspot-tooltip-content *',
+                                'property'      => 'letter-spacing',
+                                'unit'          => 'px'
+                            )
                         ),
                     )
                 ),

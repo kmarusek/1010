@@ -739,6 +739,35 @@ FLBuilder::register_module('UABBAdvancedAccordionModule', array(
                             'unit'      => 'em',
                         ),
                     ),
+                    'transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''           		=>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-adv-accordion-button-label',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-adv-accordion-button-label',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
+                    ),
                 )
             ),
 			'content_typogrphy'	=> array(
@@ -791,6 +820,35 @@ FLBuilder::register_module('UABBAdvancedAccordionModule', array(
                             'property'      => 'line-height',
                             'unit'          => 'em',
                         ),
+                    ),
+                    'content_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''           		=>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-adv-accordion-content, .uabb-adv-accordion-content *',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'content_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-adv-accordion-content, .uabb-adv-accordion-content *',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
                     ),
                 )
             ),

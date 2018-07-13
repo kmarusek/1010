@@ -33,6 +33,18 @@ class Ai1wm_Extensions {
 	public static function get() {
 		$extensions = array();
 
+		// Add Backblaze B2 extension
+		if ( defined( 'AI1WMAE_PLUGIN_NAME' ) ) {
+			$extensions[ AI1WMAE_PLUGIN_NAME ] = array(
+				'key'      => AI1WMAE_PLUGIN_KEY,
+				'about'    => AI1WMAE_PLUGIN_ABOUT,
+				'basename' => AI1WMAE_PLUGIN_BASENAME,
+				'version'  => AI1WMAE_VERSION,
+				'requires' => '1.0',
+				'short'    => AI1WMAE_PLUGIN_SHORT,
+			);
+		}
+
 		// Add Box Extension
 		if ( defined( 'AI1WMBE_PLUGIN_NAME' ) ) {
 			$extensions[ AI1WMBE_PLUGIN_NAME ] = array(
@@ -81,6 +93,18 @@ class Ai1wm_Extensions {
 			);
 		}
 
+		// Add Google Cloud Storage Extension
+		if ( defined( 'AI1WMCE_PLUGIN_NAME' ) ) {
+			$extensions[ AI1WMCE_PLUGIN_NAME ] = array(
+				'key'      => AI1WMCE_PLUGIN_KEY,
+				'about'    => AI1WMCE_PLUGIN_ABOUT,
+				'basename' => AI1WMCE_PLUGIN_BASENAME,
+				'version'  => AI1WMCE_VERSION,
+				'requires' => '1.0',
+				'short'    => AI1WMCE_PLUGIN_SHORT,
+			);
+		}
+
 		// Add Google Drive Extension
 		if ( defined( 'AI1WMGE_PLUGIN_NAME' ) ) {
 			$extensions[ AI1WMGE_PLUGIN_NAME ] = array(
@@ -112,7 +136,7 @@ class Ai1wm_Extensions {
 				'about'    => AI1WMME_PLUGIN_ABOUT,
 				'basename' => AI1WMME_PLUGIN_BASENAME,
 				'version'  => AI1WMME_VERSION,
-				'requires' => '3.51',
+				'requires' => '3.52',
 				'short'    => AI1WMME_PLUGIN_SHORT,
 			);
 		}

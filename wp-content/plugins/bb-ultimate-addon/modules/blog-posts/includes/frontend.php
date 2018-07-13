@@ -76,7 +76,9 @@ if( $settings->is_carousel == 'masonary' ) {
 	<?php
 	$class = '';
 
-	for ( $i=0; $i < count( $the_query->posts ); $i++ ) {
+	$condition = ( is_array($the_query->posts) || is_object($the_query->posts) ) ? count( $the_query->posts ) : '';
+	
+	for ( $i=0; $i < $condition; $i++ ) {
 		setup_postdata( $the_query->posts[$i] );
 		$the_query->the_post();
 

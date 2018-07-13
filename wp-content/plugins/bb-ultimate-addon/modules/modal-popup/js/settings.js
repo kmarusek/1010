@@ -24,8 +24,10 @@
 			modal_effect.on('change', $.proxy( this._showModalPreview, this ) );
 			form_button.on('click', $.proxy( this._closeModal, this ) );
 			content_type.on('change', $.proxy( this._toggleTypography, this ) );
+			content_type.on('change',this._videoPlaceholder);
+			$(this._videoPlaceholder,this);
 		},
-
+		
 		_toggleTypography: function() {
 			var form			= $('.fl-builder-settings'),
 				content_type     	= form.find('select[name=content_type]').val();
@@ -89,6 +91,16 @@
 				$('#modal-'+ node_id ).removeClass('uabb-show');
 				$('#modal-'+ node_id ).addClass('uabb-drag-fix');
 			}
-		}
+		},
+		_videoPlaceholder: function(){
+			var form			= $('.fl-builder-settings');
+				content_type	= form.find('select[name=content_type]').val();
+				placeholder 	= form.find('input[name=video_url]');
+				if(content_type=='youtube'){
+					placeholder.removeAttr("placeholder").attr('placeholder','https://www.youtube.com/watch?v=HJRzUQMhJMQ');
+				} else if(content_type=='vimeo'){
+					placeholder.removeAttr("placeholder").attr('placeholder','https://vimeo.com/274860274');
+				}
+		}	
 	});
 })(jQuery);

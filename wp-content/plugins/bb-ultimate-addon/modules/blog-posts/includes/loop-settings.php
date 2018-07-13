@@ -36,6 +36,29 @@ do_action( 'uabb_loop_settings_before_form', $settings ); // e.g Add custom FLBu
 	?>
 	</table>
 </div>
+<div class="fl-loop-data-source-acf fl-loop-data-source" data-source="acf_relationship">
+	<table class="fl-form-table">
+	<?php
+
+	// ACF Compatibility
+	FLBuilder::render_settings_field('data_source_acf_relational_type', array(
+		'type'		=> 'select',
+		'label'		=> __( 'Type', 'uabb' ),
+		'default'       => 'relationship',
+		'options'       => array(
+			'relationship'  => __( 'Relationship', 'uabb' ),
+			'user'          => __( 'User', 'uabb' ),
+		),
+	), $settings);
+
+	FLBuilder::render_settings_field('data_source_acf_relational_key', array(
+		'type'          => 'text',
+		'label'         => __( 'Key', 'uabb' ),
+	), $settings);
+	
+	?>
+	</table>
+</div>
 <div class="fl-custom-query fl-loop-data-source" data-source="custom_query">
 <div id="fl-builder-settings-section-general" class="fl-loop-builder uabb-settings-section">
 <h3 class="fl-builder-settings-title"><span class="fl-builder-settings-title-text-wrap"><?php _e('Custom Query', 'uabb'); ?></span></h3>
@@ -132,6 +155,17 @@ do_action( 'uabb_loop_settings_before_form', $settings ); // e.g Add custom FLBu
 			'DESC'          => __('Descending', 'uabb'),
 			'ASC'           => __('Ascending', 'uabb'),
 		)
+	), $settings);
+
+	FLBuilder::render_settings_field('exclude_self', array(
+		'type'          => 'select',
+		'label'         => __( 'Exclude Current Post', 'uabb' ),
+		'default'       => 'no',
+		'help'          => __( 'Exclude the current post from the query.', 'uabb' ),
+		'options'       => array(
+			'yes'          => __( 'Yes', 'uabb' ),
+			'no'           => __( 'No', 'uabb' ),
+		),
 	), $settings);
 
 	?>

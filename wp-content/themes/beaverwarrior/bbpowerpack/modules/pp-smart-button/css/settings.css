@@ -1,0 +1,7 @@
+#fl-field-event_tracking_values_message .fl-field-label{
+    width:100% !important;
+}
+
+#fl-field-event_tracking_values_message .fl-field-control{
+    display: none;
+}

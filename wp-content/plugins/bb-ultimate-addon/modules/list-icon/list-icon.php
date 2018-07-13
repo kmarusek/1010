@@ -615,6 +615,35 @@ FLBuilder::register_module('UABBIconListModule', array(
 							'property' => 'color'
 						)
                     ),
+                    'typography_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''           		=>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-list-icon .uabb-list-icon-text .uabb-list-icon-text-heading',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'typography_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-list-icon .uabb-list-icon-text .uabb-list-icon-text-heading',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
+                    ),
                 )
             ),
 			'structure'     => array( // Section

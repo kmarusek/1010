@@ -685,6 +685,35 @@ FLBuilder::register_module('AdvancedTabsModule', array(
                             'unit'             => 'em'
                         ),
                     ),
+                    'title_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''                  =>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-tabs ul li a *',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'title_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-tabs ul li a *',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
+                    ), 
                 )
             ),
             'content_typography' => array(
@@ -737,6 +766,35 @@ FLBuilder::register_module('AdvancedTabsModule', array(
                             'property' => 'line-height',
                             'unit'     => 'em'
                         ),
+                    ),
+                    'content_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''                  =>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-content-wrap .uabb-content, .uabb-content-wrap .uabb-content-current, .uabb-content-wrap .uabb-content p, .uabb-content-wrap .uabb-content-current p',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'content_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-content-wrap .uabb-content, .uabb-content-wrap .uabb-content-current, .uabb-content-wrap .uabb-content p, .uabb-content-wrap .uabb-content-current p',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
                     ),
                 )
             ),

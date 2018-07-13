@@ -2536,6 +2536,35 @@ FLBuilder::register_module('BlogPostsModule', array(
                             'property'        => 'color',
                         )
                     ),
+                    'transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''                  =>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-post-heading a',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-post-heading a',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
+                    )
                 )
             ),
             'desc_typography' => array(
@@ -2600,6 +2629,35 @@ FLBuilder::register_module('BlogPostsModule', array(
                             'property'        => 'color',
                         )
                     ),
+                    'desc_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''                  =>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-blog-posts-description',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'desc_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-blog-posts-description',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
+                    ),  
                 )
             ),
             'meta_typography' => array(
@@ -2639,7 +2697,7 @@ FLBuilder::register_module('BlogPostsModule', array(
                         'description'   => 'px',
                         'preview'         => array(
                             'type'            => 'css',
-                            'selector'        => '.uabb-post-meta',
+                            'selector'        => '.uabb-post-meta a,.uabb-post-meta',
                             'property'        => 'font-size',
                             'unit'            => 'px'
                         ),
@@ -2696,6 +2754,35 @@ FLBuilder::register_module('BlogPostsModule', array(
                         'label'         => __('Meta Link Hover Color', 'uabb'),
                         'default'    => '',
                         'show_reset' => true,
+                    ),
+                    'meta_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''                  =>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-post-meta a',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'meta_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-post-meta a',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
                     ),
                 )
             ),
@@ -2778,6 +2865,36 @@ FLBuilder::register_module('BlogPostsModule', array(
                         'maxlength'   => '3',
                         'size'        => '5',
                     ),
+                    'date_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''                  =>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-posted-on',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'date_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-posted-on',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
+                    )
+
                 )
             ),
             'link_typography'    =>  array(
@@ -2853,6 +2970,36 @@ FLBuilder::register_module('BlogPostsModule', array(
                             'property'  => 'color',
                         ),
                     ),
+                    'link_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''                  =>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-blog-post-content .uabb-read-more-text a',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'link_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-blog-post-content .uabb-read-more-text a',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
+                    )
+
                 )
             ),
             'btn_typography'    =>  array(
@@ -2894,6 +3041,35 @@ FLBuilder::register_module('BlogPostsModule', array(
 							),
 						),
                     ),
+                    'btn_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''                  =>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),                 
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => 'a.uabb-button',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'btn_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => 'a.uabb-button',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
+                    )
                 )
             ),
             'taxonomy_filter_select_field_typography'    =>  array(
@@ -2938,6 +3114,35 @@ FLBuilder::register_module('BlogPostsModule', array(
                             'type'          => 'css',
                             'selector'      => 'select.uabb-masonary-filters, ul.uabb-masonary-filters li',
                             'property'      => 'color',
+                        )
+                    ),
+                    'taxonomy_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''                  =>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => 'select.uabb-masonary-filters, ul.uabb-masonary-filters li',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'taxonomy_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => 'select.uabb-masonary-filters, ul.uabb-masonary-filters li',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
                         )
                     ),
                 )

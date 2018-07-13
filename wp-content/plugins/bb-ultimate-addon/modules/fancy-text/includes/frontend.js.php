@@ -70,8 +70,8 @@
         speed:      <?php echo $speed; ?>,
         pause:    <?php echo $pause; ?>,
         mousePause:   Boolean( '<?php echo $mousePause; ?>' ),
-        suffix: '<?php echo $settings->suffix; ?>',
-        prefix: '<?php echo $settings->prefix; ?>',
+        suffix: "<?php echo $settings->suffix; ?>",
+        prefix: "<?php echo $settings->prefix; ?>",
         alignment: '<?php echo $settings->alignment; ?>',
       });
 

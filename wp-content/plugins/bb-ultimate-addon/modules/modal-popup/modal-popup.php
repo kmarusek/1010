@@ -465,6 +465,7 @@ FLBuilder::register_module('ModalPopupModule', array(
 						'type'          => 'dimension',
 						'label'         => __('Content Padding', 'uabb'),
                         'description'   => 'px',
+                        'default'       => '25',
                         'responsive' => array(
                             'placeholder' => array(
                                 'default' => '25',
@@ -807,11 +808,11 @@ FLBuilder::register_module('ModalPopupModule', array(
                             'type'          => 'css',
                             'rules'           => array(
                                 array(
-                                    'selector'     => '.uabb-creative-button-wrap a',
+                                    'selector'     => '.uabb-creative-button-wrap a.uabb-creative-flat-btn',
                                     'property'     => 'background'
                                 ),
                                 array(
-                                    'selector'     => '.uabb-creative-button-wrap a',
+                                    'selector'     => '.uabb-creative-button-wrap a.uabb-creative-transparent-btn',
                                     'property'     => 'border-color'
                                 ),    
                             )
@@ -1275,6 +1276,35 @@ FLBuilder::register_module('ModalPopupModule', array(
 						'maxlength'   => '3',
 						'size'        => '5',
 					),
+                    'title_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''                  =>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-modal-title',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'title_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-modal-title',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
+                    ),
                 )
             ),
 			'ct_content_typo'    =>  array(
@@ -1339,6 +1369,35 @@ FLBuilder::register_module('ModalPopupModule', array(
                             'property'        => 'color',
                         )
                     ),
+                    'ct_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''                  =>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-modal-text',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'ct_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-modal-text',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
+                    ),
                 )
             ),
             'text_typography'    =>  array(
@@ -1392,6 +1451,35 @@ FLBuilder::register_module('ModalPopupModule', array(
                             'unit'            => 'em'
                         )
                     ),
+                    'transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''                  =>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-modal-action',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-modal-action',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
+                    ),
                 )
             ),
             'btn_typography'    =>  array(
@@ -1443,6 +1531,35 @@ FLBuilder::register_module('ModalPopupModule', array(
                             'selector'        => '.uabb-creative-button',
                             'property'        => 'line-height',
                             'unit'            => 'em'
+                        )
+                    ),
+                    'btn_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''                  =>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-creative-button',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'btn_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-creative-button',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
                         )
                     ),
                 )

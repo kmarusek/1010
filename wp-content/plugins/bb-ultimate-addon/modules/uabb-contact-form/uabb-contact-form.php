@@ -598,8 +598,7 @@ FLBuilder::register_module('UABBContactFormModule', array(
 						'show_reset' => true,
 						'preview'         => array(
                             'type'          => 'css',
-                            'type'			=> 'refresh',
-                            'selector'      => '.uabb-contact-form .uabb-input-group-wrap input',
+                            'selector'      => '.uabb-contact-form .uabb-input-group-wrap input, .uabb-contact-form .uabb-input-group-wrap input[type=text]::placeholder, .uabb-contact-form .uabb-input-group-wrap input[type=email]::placeholder, .uabb-contact-form .uabb-input-group-wrap textarea::placeholder',
                             'property'      => 'color',
                         )
 					),
@@ -1358,6 +1357,34 @@ FLBuilder::register_module('UABBContactFormModule', array(
 							),
 						),
                     ),
+                    'transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''           		=>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => 'input, textarea',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => 'input, textarea',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
+                    ),
                     'input_top_margin'   => array(
 						'type'          => 'text',
 						'label'         => __('Input Top Margin', 'uabb'),
@@ -1475,6 +1502,34 @@ FLBuilder::register_module('UABBContactFormModule', array(
 							),
 						),
                     ),
+                    'btn_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''           		=>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-contact-form-submit',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'btn_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-contact-form-submit',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
+                    ),
                     'btn_top_margin'   => array(
 						'type'          => 'text',
 						'label'         => __('Button Top Margin', 'uabb'),
@@ -1541,6 +1596,34 @@ FLBuilder::register_module('UABBContactFormModule', array(
 								'responsive' => '',
 							),
 						),
+                    ),
+                    'label_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''           		=>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-contact-form label',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'label_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-contact-form label',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
                     ),
                     'label_color'        => array( 
                         'type'       => 'color',
@@ -1651,9 +1734,9 @@ FLBuilder::register_module('UABBContactFormModule', array(
                     'checkbox_text_transform' => array( 
                         'type'          => 'select',
                         'label'         => __('Text Transform', 'uabb'),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'       => __( 'Default', 'uabb' ),
+                            ''       		=> __( 'Default', 'uabb' ),
                             'uppercase'		=> __( 'Uppercase', 'uabb' ),
 							'lowercase'		=> __( 'Lowercase', 'uabb' ),
 							'capitalize'	=> __( 'Capitalize', 'uabb' ),
@@ -1745,9 +1828,9 @@ FLBuilder::register_module('UABBContactFormModule', array(
                     'terms_text_transform'        => array( 
                         'type'          => 'select',
                         'label'         => __('Text Transform', 'uabb'),
-                        'default'       => 'none',
+                        'default'       => '',
                         'options'       => array(
-                            'none'       => __( 'Default', 'uabb' ),
+                            ''       		=> __( 'Default', 'uabb' ),
                             'uppercase'		=> __( 'Uppercase', 'uabb' ),
 							'lowercase'		=> __( 'Lowercase', 'uabb' ),
 							'capitalize'	=> __( 'Capitalize', 'uabb' ),

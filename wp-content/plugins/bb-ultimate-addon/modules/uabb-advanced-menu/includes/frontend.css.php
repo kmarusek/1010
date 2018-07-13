@@ -1,5 +1,8 @@
 <?php
 
+    global $post;
+    $converted = get_post_meta( $post->ID,'_uabb_converted', true );
+    
 if( isset( $settings->creative_submenu_shadow_color_opc ) && $settings->creative_submenu_shadow_color_opc == '' ) {
 	$settings->creative_submenu_shadow_color_opc = '100';
 }
@@ -203,25 +206,23 @@ if( isset( $settings->creative_menu_close_icon_size ) && $settings->creative_men
  */
 
 .fl-node-<?php echo $id; ?> .uabb-creative-menu .menu > li {
-		<?php 
-		if( isset( $settings->creative_menu_link_margin ) && $settings->creative_menu_link_margin != '' && isset( $settings->creative_menu_link_margin_dimension_top ) && $settings->creative_menu_link_margin_dimension_top == '' && isset( $settings->creative_menu_link_margin_dimension_bottom ) && $settings->creative_menu_link_margin_dimension_bottom == '' && isset( $settings->creative_menu_link_margin_dimension_left ) && $settings->creative_menu_link_margin_dimension_left == '' && isset( $settings->creative_menu_link_margin_dimension_right ) && $settings->creative_menu_link_margin_dimension_right == '' ) {
-			echo $settings->creative_menu_link_margin; ?>;
-		<?php } else { ?>
-			<?php 
-	        if(isset($settings->creative_menu_link_margin_dimension_top) ){
-	            echo ( $settings->creative_menu_link_margin_dimension_top != '' ) ? 'margin-top:'.$settings->creative_menu_link_margin_dimension_top.'px;' : 'margin-top: 5px;'; 
-	        }
-	        if(isset($settings->creative_menu_link_margin_dimension_bottom) ){
-	            echo ( $settings->creative_menu_link_margin_dimension_bottom != '' ) ? 'margin-bottom:'.$settings->creative_menu_link_margin_dimension_bottom.'px;' : 'margin-bottom: 5px;';
-	        }
-	        if(isset($settings->creative_menu_link_margin_dimension_left) ){
-	            echo ( $settings->creative_menu_link_margin_dimension_left != '' ) ? 'margin-left:'.$settings->creative_menu_link_margin_dimension_left.'px;' : 'margin-left: 5px;';
-	        }
-	        if(isset($settings->creative_menu_link_margin_dimension_right) ){
-	            echo ( $settings->creative_menu_link_margin_dimension_right != '' ) ? 'margin-right:'.$settings->creative_menu_link_margin_dimension_right.'px;' : 'margin-right: 5px;';
-	        }
-	    }
-    ?>
+
+	<?php if( $converted === 'yes' || isset( $settings->creative_menu_link_margin_dimension_top ) && isset( $settings->creative_menu_link_margin_dimension_bottom ) && isset( $settings->creative_menu_link_margin_dimension_left ) && isset( $settings->creative_menu_link_margin_dimension_right ) ){
+        if(isset($settings->creative_menu_link_margin_dimension_top) ){
+            echo ( $settings->creative_menu_link_margin_dimension_top != '' ) ? 'margin-top:'.$settings->creative_menu_link_margin_dimension_top.'px;' : 'margin-top: 5px;'; 
+        }
+        if(isset($settings->creative_menu_link_margin_dimension_bottom) ){
+            echo ( $settings->creative_menu_link_margin_dimension_bottom != '' ) ? 'margin-bottom:'.$settings->creative_menu_link_margin_dimension_bottom.'px;' : 'margin-bottom: 5px;';
+        }
+        if(isset($settings->creative_menu_link_margin_dimension_left) ){
+            echo ( $settings->creative_menu_link_margin_dimension_left != '' ) ? 'margin-left:'.$settings->creative_menu_link_margin_dimension_left.'px;' : 'margin-left: 5px;';
+        }
+        if(isset($settings->creative_menu_link_margin_dimension_right) ){
+            echo ( $settings->creative_menu_link_margin_dimension_right != '' ) ? 'margin-right:'.$settings->creative_menu_link_margin_dimension_right.'px;' : 'margin-right: 5px;';
+        }
+	} else if( isset( $settings->creative_menu_link_margin ) && $settings->creative_menu_link_margin != '' && isset( $settings->creative_menu_link_margin_dimension_top ) && $settings->creative_menu_link_margin_dimension_top == '' && isset( $settings->creative_menu_link_margin_dimension_bottom ) && $settings->creative_menu_link_margin_dimension_bottom == '' && isset( $settings->creative_menu_link_margin_dimension_left ) && $settings->creative_menu_link_margin_dimension_left == '' && isset( $settings->creative_menu_link_margin_dimension_right ) && $settings->creative_menu_link_margin_dimension_right == '' ){
+		echo $settings->creative_menu_link_margin; ?>;
+	<?php } ?>
 }
 
 <?php if( $settings->creative_menu_responsive_toggle == 'arrows' ) { ?>
@@ -530,29 +531,27 @@ if( $global_settings->responsive_enabled ) { ?>
 	<?php if( $settings->creative_menu_link_font_size == 'custom' && $settings->creative_menu_link_font_size_custom ) { ?>font-size: <?php echo $settings->creative_menu_link_font_size_custom; ?>px;<?php } ?>
   	<?php if( $settings->creative_menu_link_line_height == 'custom' && $settings->creative_menu_link_line_height_custom ) { ?>line-height: <?php echo $settings->creative_menu_link_line_height_custom; ?>;<?php } ?>
 	text-transform: <?php echo $settings->creative_menu_link_text_transform; ?>;
+	letter-spacing: <?php echo $settings->creative_menu_link_letter_spacing; ?>px;
 }
 
 .fl-node-<?php echo $id; ?> .uabb-creative-menu.uabb-menu-default .menu > li > a,
 .fl-node-<?php echo $id; ?> .uabb-creative-menu.uabb-menu-default .menu > li > .uabb-has-submenu-container > a {
-	<?php 
-	if( isset( $settings->creative_menu_link_spacing ) && $settings->creative_menu_link_spacing != '' && isset( $settings->creative_menu_link_spacing_dimension_top ) && $settings->creative_menu_link_spacing_dimension_top == '' && isset( $settings->creative_menu_link_spacing_dimension_bottom ) && $settings->creative_menu_link_spacing_dimension_bottom == '' && isset( $settings->creative_menu_link_spacing_dimension_left ) && $settings->creative_menu_link_spacing_dimension_left == '' && isset( $settings->creative_menu_link_spacing_dimension_right ) && $settings->creative_menu_link_spacing_dimension_right == '' ) {
-		echo $settings->creative_menu_link_spacing; ?>;
-	<?php } else { ?>
-		<?php 
-        if(isset($settings->creative_menu_link_spacing_dimension_top) ){
-            echo ( $settings->creative_menu_link_spacing_dimension_top != '' ) ? 'padding-top:'.$settings->creative_menu_link_spacing_dimension_top.'px;' : 'padding-top: 10px;'; 
-        }
-        if(isset($settings->creative_menu_link_spacing_dimension_bottom) ){
-            echo ( $settings->creative_menu_link_spacing_dimension_bottom != '' ) ? 'padding-bottom:'.$settings->creative_menu_link_spacing_dimension_bottom.'px;' : 'padding-bottom: 10px;';
-        }
-        if(isset($settings->creative_menu_link_spacing_dimension_left) ){
-            echo ( $settings->creative_menu_link_spacing_dimension_left != '' ) ? 'padding-left:'.$settings->creative_menu_link_spacing_dimension_left.'px;' : 'padding-left: 10px;';
-        }
-        if(isset($settings->creative_menu_link_spacing_dimension_right) ){
-            echo ( $settings->creative_menu_link_spacing_dimension_right != '' ) ? 'padding-right:'.$settings->creative_menu_link_spacing_dimension_right.'px;' : 'padding-right: 10px;';
-        }
-    }
-    ?>
+	<?php if( $converted === 'yes' || isset( $settings->creative_menu_link_spacing_dimension_top ) && isset( $settings->creative_menu_link_spacing_dimension_bottom ) && isset( $settings->creative_menu_link_spacing_dimension_left ) && isset( $settings->creative_menu_link_spacing_dimension_right ) ){
+			if(isset($settings->creative_menu_link_spacing_dimension_top) ){
+		        echo ( $settings->creative_menu_link_spacing_dimension_top != '' ) ? 'padding-top:'.$settings->creative_menu_link_spacing_dimension_top.'px;' : 'padding-top: 10px;'; 
+		    }
+		    if(isset($settings->creative_menu_link_spacing_dimension_bottom) ){
+		        echo ( $settings->creative_menu_link_spacing_dimension_bottom != '' ) ? 'padding-bottom:'.$settings->creative_menu_link_spacing_dimension_bottom.'px;' : 'padding-bottom: 10px;';
+		    }
+		    if(isset($settings->creative_menu_link_spacing_dimension_left) ){
+		        echo ( $settings->creative_menu_link_spacing_dimension_left != '' ) ? 'padding-left:'.$settings->creative_menu_link_spacing_dimension_left.'px;' : 'padding-left: 10px;';
+		    }
+		    if(isset($settings->creative_menu_link_spacing_dimension_right) ){
+		        echo ( $settings->creative_menu_link_spacing_dimension_right != '' ) ? 'padding-right:'.$settings->creative_menu_link_spacing_dimension_right.'px;' : 'padding-right: 10px;';
+		    }
+		} else if( isset( $settings->creative_menu_link_spacing ) && $settings->creative_menu_link_spacing != '' && isset( $settings->creative_menu_link_spacing_dimension_top ) && $settings->creative_menu_link_spacing_dimension_top == '' && isset( $settings->creative_menu_link_spacing_dimension_bottom ) && $settings->creative_menu_link_spacing_dimension_bottom == '' && isset( $settings->creative_menu_link_spacing_dimension_left ) && $settings->creative_menu_link_spacing_dimension_left == '' && isset( $settings->creative_menu_link_spacing_dimension_right ) && $settings->creative_menu_link_spacing_dimension_right == '' ){
+			echo $settings->creative_menu_link_spacing; ?>;
+		<?php } ?> 
 }
 
 .fl-node-<?php echo $id; ?> .uabb-creative-menu .menu > li > a,
@@ -561,9 +560,22 @@ if( $global_settings->responsive_enabled ) { ?>
 		<?php if ( $settings->creative_menu_border_style != ''  ) { ?>
 			border-style:<?php echo $settings->creative_menu_border_style; ?>;
 		<?php } ?>
-		<?php
-		if( isset( $settings->uabb_creative_menu_border_width ) && is_array( $settings->uabb_creative_menu_border_width ) && isset( $settings->creative_menu_border_width_dimension_top ) && $settings->creative_menu_border_width_dimension_top == '' && isset( $settings->creative_menu_border_width_dimension_bottom ) && $settings->creative_menu_border_width_dimension_bottom == '' && isset( $settings->creative_menu_border_width_dimension_left ) && $settings->creative_menu_border_width_dimension_left == '' && isset( $settings->creative_menu_border_width_dimension_right ) && $settings->creative_menu_border_width_dimension_right == '' ) {
-			$str = '1px;';
+
+		<?php if( $converted === 'yes' || isset( $settings->creative_menu_border_width_dimension_top ) && isset( $settings->creative_menu_border_width_dimension_bottom ) && isset( $settings->creative_menu_border_width_dimension_left ) && isset( $settings->creative_menu_border_width_dimension_right ) ){
+	        if(isset( $settings->creative_menu_border_width_dimension_top) ){
+	            echo ( $settings->creative_menu_border_width_dimension_top != '' ) ? 'border-top-width:'.$settings->creative_menu_border_width_dimension_top.'px;' : 'border-top-width: 0;'; 
+	        }
+	        if(isset($settings->creative_menu_border_width_dimension_bottom) ){
+	            echo ( $settings->creative_menu_border_width_dimension_bottom != '' ) ? 'border-bottom-width:'.$settings->creative_menu_border_width_dimension_bottom.'px;' : 'border-bottom-width: 0;';
+	        }
+	        if(isset($settings->creative_menu_border_width_dimension_left) ){
+	            echo ( $settings->creative_menu_border_width_dimension_left != '' ) ? 'border-left-width:'.$settings->creative_menu_border_width_dimension_left.'px;' : 'border-left-width: 0;';
+	        }
+	        if(isset($settings->creative_menu_border_width_dimension_right) ){
+	            echo ( $settings->creative_menu_border_width_dimension_right != '' ) ? 'border-right-width:'.$settings->creative_menu_border_width_dimension_right.'px;' : 'border-right-width: 0;';
+	        }
+		} else if( isset( $settings->uabb_creative_menu_border_width ) && $settings->uabb_creative_menu_border_width != '' && isset( $settings->uabb_creative_menu_border_width_dimension_top ) && $settings->uabb_creative_menu_border_width_dimension_top == '' && isset( $settings->uabb_creative_menu_border_width_dimension_bottom ) && $settings->uabb_creative_menu_border_width_dimension_bottom == '' && isset( $settings->uabb_creative_menu_border_width_dimension_left ) && $settings->uabb_creative_menu_border_width_dimension_left == '' && isset( $settings->uabb_creative_menu_border_width_dimension_right ) && $settings->uabb_creative_menu_border_width_dimension_right == '' ){
+						$str = '1px;';
 		 	if( isset( $settings->uabb_creative_menu_border_width ) ) {
 				if( is_array( $settings->uabb_creative_menu_border_width ) ) {
 					if( $settings->uabb_creative_menu_border_width['simplify'] == 'collapse' ) {
@@ -577,24 +589,8 @@ if( $global_settings->responsive_enabled ) { ?>
 				}
 			} ?>
 			border-width: <?php echo $str; ?>
-
-		<?php } else { ?>
-			<?php 
-	        if(isset( $settings->creative_menu_border_width_dimension_top) ){
-	            echo ( $settings->creative_menu_border_width_dimension_top != '' ) ? 'border-top-width:'.$settings->creative_menu_border_width_dimension_top.'px;' : 'border-top-width: 1px;'; 
-	        }
-	        if(isset($settings->creative_menu_border_width_dimension_bottom) ){
-	            echo ( $settings->creative_menu_border_width_dimension_bottom != '' ) ? 'border-bottom-width:'.$settings->creative_menu_border_width_dimension_bottom.'px;' : 'border-bottom-width: 1px;';
-	        }
-	        if(isset($settings->creative_menu_border_width_dimension_left) ){
-	            echo ( $settings->creative_menu_border_width_dimension_left != '' ) ? 'border-left-width:'.$settings->creative_menu_border_width_dimension_left.'px;' : 'border-left-width: 1px;';
-	        }
-	        if(isset($settings->creative_menu_border_width_dimension_right) ){
-	            echo ( $settings->creative_menu_border_width_dimension_right != '' ) ? 'border-right-width:'.$settings->creative_menu_border_width_dimension_right.'px;' : 'border-right-width: 1px;';
-	        }
-	    }
-		?>
-
+		<?php } ?>
+		
 		<?php if ( $settings->creative_menu_border_color != ''  ) { ?>
 			border-color: <?php echo ( false === strpos( $settings->creative_menu_border_color, 'rgb' ) ) ? '#' . $settings->creative_menu_border_color : $settings->creative_menu_border_color; ?>;
 		<?php } ?>
@@ -742,29 +738,31 @@ if( !empty( $settings->creative_menu_background_hover_color ) || $settings->crea
     <?php if( $settings->creative_submenu_link_font_size == 'custom' && $settings->creative_submenu_link_font_size_custom ) { ?>font-size: <?php echo $settings->creative_submenu_link_font_size_custom; ?>px;<?php } ?>
   	<?php if( $settings->creative_submenu_link_line_height == 'custom' && $settings->creative_submenu_link_line_height_custom ) { ?>line-height: <?php echo $settings->creative_submenu_link_line_height_custom; ?>;<?php } ?>
 	
-    <?php 
-    if( isset( $settings->creative_submenu_link_padding ) && $settings->creative_submenu_link_padding != '' && isset( $settings->creative_submenu_link_padding_dimension_top ) && $settings->creative_submenu_link_padding_dimension_top == '' && isset( $settings->creative_submenu_link_padding_dimension_bottom ) && $settings->creative_submenu_link_padding_dimension_bottom == '' && isset( $settings->creative_submenu_link_padding_dimension_left ) && $settings->creative_submenu_link_padding_dimension_left == '' && isset( $settings->creative_submenu_link_padding_dimension_right ) && $settings->creative_submenu_link_padding_dimension_right == '' ) {
-    	echo $settings->creative_submenu_link_padding; ?>;
-    <?php } else { ?>
-    	<?php
-        if(isset($settings->creative_submenu_link_padding_dimension_top) ){
-            echo ( $settings->creative_submenu_link_padding_dimension_top != '' ) ? 'padding-top:'.$settings->creative_submenu_link_padding_dimension_top.'px;' : 'padding-top: 15px;'; 
-        }
-        if(isset($settings->creative_submenu_link_padding_dimension_bottom) ){
-            echo ( $settings->creative_submenu_link_padding_dimension_bottom != '' ) ? 'padding-bottom:'.$settings->creative_submenu_link_padding_dimension_bottom.'px;' : 'padding-bottom: 15px;';
-        }
-        if(isset($settings->creative_submenu_link_padding_dimension_left) ){
-            echo ( $settings->creative_submenu_link_padding_dimension_left != '' ) ? 'padding-left:'.$settings->creative_submenu_link_padding_dimension_left.'px;' : 'padding-left: 15px;';
-        }
-        if(isset($settings->creative_submenu_link_padding_dimension_right) ){
-            echo ( $settings->creative_submenu_link_padding_dimension_right != '' ) ? 'padding-right:'.$settings->creative_submenu_link_padding_dimension_right.'px;' : 'padding-right: 15px;';
-        }
-    }
-    ?>
+	<?php 
+	if( $converted === 'yes' || isset( $settings->creative_submenu_link_padding_dimension_top ) && isset( $settings->creative_submenu_link_padding_dimension_bottom ) && isset( $settings->creative_submenu_link_padding_dimension_left ) && isset( $settings->creative_submenu_link_padding_dimension_right ) ){
+		if(isset($settings->creative_submenu_link_padding_dimension_top) ){
+	        echo ( $settings->creative_submenu_link_padding_dimension_top != '' ) ? 'padding-top:'.$settings->creative_submenu_link_padding_dimension_top.'px;' : 'padding-top: 15px;'; 
+	    }
+	    if(isset($settings->creative_submenu_link_padding_dimension_bottom) ){
+	        echo ( $settings->creative_submenu_link_padding_dimension_bottom != '' ) ? 'padding-bottom:'.$settings->creative_submenu_link_padding_dimension_bottom.'px;' : 'padding-bottom: 15px;';
+	    }
+	    if(isset($settings->creative_submenu_link_padding_dimension_left) ){
+	        echo ( $settings->creative_submenu_link_padding_dimension_left != '' ) ? 'padding-left:'.$settings->creative_submenu_link_padding_dimension_left.'px;' : 'padding-left: 15px;';
+	    }
+	    if(isset($settings->creative_submenu_link_padding_dimension_right) ){
+	        echo ( $settings->creative_submenu_link_padding_dimension_right != '' ) ? 'padding-right:'.$settings->creative_submenu_link_padding_dimension_right.'px;' : 'padding-right: 15px;';
+	    }
+	} else if( isset( $settings->creative_submenu_link_padding ) && $settings->creative_submenu_link_padding != '' && isset( $settings->creative_submenu_link_padding_dimension_top ) && $settings->creative_submenu_link_padding_dimension_top == '' && isset( $settings->creative_submenu_link_padding_dimension_bottom ) && $settings->creative_submenu_link_padding_dimension_bottom == '' && isset( $settings->creative_submenu_link_padding_dimension_left ) && $settings->creative_submenu_link_padding_dimension_left == '' && isset( $settings->creative_submenu_link_padding_dimension_right ) && $settings->creative_submenu_link_padding_dimension_right == '' ){
+		echo $settings->creative_submenu_link_padding; ?>;
+	<?php } ?>
 
-	<?php if ( $settings->creative_submenu_link_text_transform != ''  ) { ?>
+	<?php if ( $settings->creative_submenu_link_text_transform != 'none'  ) { ?>
 		<?php echo 'text-transform:' . $settings->creative_submenu_link_text_transform; ?>;
 	<?php } ?>
+	
+	<?php if( $settings->creative_submenu_link_letter_spacing != '' ) ?>
+		letter-spacing: <?php echo $settings->creative_submenu_link_letter_spacing; ?>px;
+
 	background-color: <?php echo ( false === strpos( $settings->creative_submenu_background_color, 'rgb' ) ) ? '#' . $settings->creative_submenu_background_color : $settings->creative_submenu_background_color; ?>;
 }
 
@@ -825,8 +823,22 @@ if( !empty( $settings->creative_menu_background_hover_color ) || $settings->crea
 .fl-node-<?php echo $id; ?> .uabb-creative-menu .uabb-creative-menu-horizontal .sub-menu {
 	<?php if ( isset( $settings->creative_submenu_border_settings_option ) && $settings->creative_submenu_border_settings_option == 'yes' ) { ?>
 	    border-style: <?php echo $settings->creative_submenu_border_style; ?>;
+
 	    <?php 
-	    if( isset( $settings->uabb_creative_submenu_border_width ) && is_array( $settings->uabb_creative_submenu_border_width ) && isset( $settings->creative_submenu_border_width_dimension_top ) && $settings->creative_submenu_border_width_dimension_top == '' && isset( $settings->creative_submenu_border_width_dimension_bottom ) && $settings->creative_submenu_border_width_dimension_bottom == '' && isset( $settings->creative_submenu_border_width_dimension_left ) && $settings->creative_submenu_border_width_dimension_left == '' && isset( $settings->creative_submenu_border_width_dimension_right ) && $settings->creative_submenu_border_width_dimension_right == '' ) {
+		if( $converted === 'yes' || isset( $settings->creative_submenu_border_width_dimension_top )  && isset( $settings->creative_submenu_border_width_dimension_bottom )  && isset( $settings->creative_submenu_border_width_dimension_left )  && isset( $settings->creative_submenu_border_width_dimension_right ) ){
+			if(isset($settings->creative_submenu_border_width_dimension_top) ){
+	            echo ( $settings->creative_submenu_border_width_dimension_top != '' ) ? 'border-top-width:'.$settings->creative_submenu_border_width_dimension_top.'px;' : 'border-top-width: 1px;'; 
+	        }
+	        if(isset($settings->creative_submenu_border_width_dimension_bottom) ){
+	            echo ( $settings->creative_submenu_border_width_dimension_bottom != '' ) ? 'border-bottom-width:'.$settings->creative_submenu_border_width_dimension_bottom.'px;' : 'border-bottom-width: 1px;';
+	        }
+	        if(isset($settings->creative_submenu_border_width_dimension_left) ){
+	            echo ( $settings->creative_submenu_border_width_dimension_left != '' ) ? 'border-left-width:'.$settings->creative_submenu_border_width_dimension_left.'px;' : 'border-left-width: 1px;';
+	        }
+	        if(isset($settings->creative_submenu_border_width_dimension_right) ){
+	            echo ( $settings->creative_submenu_border_width_dimension_right != '' ) ? 'border-right-width:'.$settings->creative_submenu_border_width_dimension_right.'px;' : 'border-right-width: 1px;';
+	        }
+		} else if( isset( $settings->uabb_creative_submenu_border_width ) && $settings->uabb_creative_submenu_border_width != '' && isset( $settings->creative_submenu_border_width_dimension_top ) && $settings->creative_submenu_border_width_dimension_top == '' && isset( $settings->creative_submenu_border_width_dimension_bottom ) && $settings->creative_submenu_border_width_dimension_bottom == '' && isset( $settings->creative_submenu_border_width_dimension_left ) && $settings->creative_submenu_border_width_dimension_left == '' && isset( $settings->creative_submenu_border_width_dimension_right ) && $settings->creative_submenu_border_width_dimension_right == '' ){
 	    	$str = '1px;';
 		 	if( isset( $settings->uabb_creative_submenu_border_width ) ) {
 				if( is_array( $settings->uabb_creative_submenu_border_width ) ) {
@@ -841,23 +853,8 @@ if( !empty( $settings->creative_menu_background_hover_color ) || $settings->crea
 				}
 			} ?>
 			border-width: <?php echo $str; ?>
+		<?php } ?>
 
-	    <?php } else { ?>
-	    	<?php 
-	        if(isset($settings->creative_submenu_border_width_dimension_top) ){
-	            echo ( $settings->creative_submenu_border_width_dimension_top != '' ) ? 'border-top-width:'.$settings->creative_submenu_border_width_dimension_top.'px;' : 'border-top-width: 1px;'; 
-	        }
-	        if(isset($settings->creative_submenu_border_width_dimension_bottom) ){
-	            echo ( $settings->creative_submenu_border_width_dimension_bottom != '' ) ? 'border-bottom-width:'.$settings->creative_submenu_border_width_dimension_bottom.'px;' : 'border-bottom-width: 1px;';
-	        }
-	        if(isset($settings->creative_submenu_border_width_dimension_left) ){
-	            echo ( $settings->creative_submenu_border_width_dimension_left != '' ) ? 'border-left-width:'.$settings->creative_submenu_border_width_dimension_left.'px;' : 'border-left-width: 1px;';
-	        }
-	        if(isset($settings->creative_submenu_border_width_dimension_right) ){
-	            echo ( $settings->creative_submenu_border_width_dimension_right != '' ) ? 'border-right-width:'.$settings->creative_submenu_border_width_dimension_right.'px;' : 'border-right-width: 1px;';
-	        }
-	    }    
-		?>
 	    border-color: <?php echo ( false === strpos( $settings->creative_submenu_border_color, 'rgb' ) ) ? '#' . $settings->creative_submenu_border_color : $settings->creative_submenu_border_color; ?>;
 	<?php } ?>
 }
@@ -866,8 +863,22 @@ if( !empty( $settings->creative_menu_background_hover_color ) || $settings->crea
 .fl-node-<?php echo $id; ?> .uabb-creative-menu .uabb-creative-menu-accordion.menu > .uabb-has-submenu > .sub-menu {
 	<?php if ( isset( $settings->creative_submenu_border_settings_option ) && $settings->creative_submenu_border_settings_option == 'yes' ) { ?>
 	    border-style: <?php echo $settings->creative_submenu_border_style; ?>;
-        <?php 
-        if( isset( $settings->uabb_creative_submenu_border_width ) && is_array( $settings->uabb_creative_submenu_border_width ) && isset( $settings->creative_submenu_border_width_dimension_top ) && ( $settings->creative_submenu_border_width_dimension_top == '' || $settings->creative_submenu_border_width_dimension_top == '0' ) && isset( $settings->creative_submenu_border_width_dimension_bottom ) && ( $settings->creative_submenu_border_width_dimension_bottom == '' || $settings->creative_submenu_border_width_dimension_bottom == '0' ) && isset( $settings->creative_submenu_border_width_dimension_left ) && ( $settings->creative_submenu_border_width_dimension_left == '' || $settings->creative_submenu_border_width_dimension_left == '0' ) && isset( $settings->creative_submenu_border_width_dimension_right ) && ( $settings->creative_submenu_border_width_dimension_right == '' || $settings->creative_submenu_border_width_dimension_right == '0' ) ) {
+
+		<?php 
+		if( $converted === 'yes' || isset( $settings->creative_submenu_border_width_dimension_top ) && isset( $settings->creative_submenu_border_width_dimension_bottom ) && isset( $settings->creative_submenu_border_width_dimension_left )  && isset( $settings->creative_submenu_border_width_dimension_right ) ){
+            if(isset($settings->creative_submenu_border_width_dimension_top) ){
+                echo ( $settings->creative_submenu_border_width_dimension_top != '' ) ? 'border-top-width:'.$settings->creative_submenu_border_width_dimension_top.'px;' : 'border-top-width: 1px;'; 
+            }
+            if(isset($settings->creative_submenu_border_width_dimension_bottom) ){
+                echo ( $settings->creative_submenu_border_width_dimension_bottom != '' ) ? 'border-bottom-width:'.$settings->creative_submenu_border_width_dimension_bottom.'px;' : 'border-bottom-width: 1px;';
+            }
+            if(isset($settings->creative_submenu_border_width_dimension_left) ){
+                echo ( $settings->creative_submenu_border_width_dimension_left != '' ) ? 'border-left-width:'.$settings->creative_submenu_border_width_dimension_left.'px;' : 'border-left-width: 1px;';
+            }
+            if(isset($settings->creative_submenu_border_width_dimension_right) ){
+                echo ( $settings->creative_submenu_border_width_dimension_right != '' ) ? 'border-right-width:'.$settings->creative_submenu_border_width_dimension_right.'px;' : 'border-right-width: 1px;';
+            }
+		} else if(  isset( $settings->uabb_creative_submenu_border_width ) && is_array( $settings->uabb_creative_submenu_border_width ) && isset( $settings->creative_submenu_border_width_dimension_top ) && ( $settings->creative_submenu_border_width_dimension_top == '' || $settings->creative_submenu_border_width_dimension_top == '0' ) && isset( $settings->creative_submenu_border_width_dimension_bottom ) && ( $settings->creative_submenu_border_width_dimension_bottom == '' || $settings->creative_submenu_border_width_dimension_bottom == '0' ) && isset( $settings->creative_submenu_border_width_dimension_left ) && ( $settings->creative_submenu_border_width_dimension_left == '' || $settings->creative_submenu_border_width_dimension_left == '0' ) && isset( $settings->creative_submenu_border_width_dimension_right ) && ( $settings->creative_submenu_border_width_dimension_right == '' || $settings->creative_submenu_border_width_dimension_right == '0' ) ){
         	$str = '1px;';
 		 	if( isset( $settings->uabb_creative_submenu_border_width ) ) {
 				if( is_array( $settings->uabb_creative_submenu_border_width ) ) {
@@ -882,23 +893,8 @@ if( !empty( $settings->creative_menu_background_hover_color ) || $settings->crea
 				}
 			} ?>
 			border-width: <?php echo $str; ?>
+		<?php } ?>
 
-        <?php } else { ?>
-        	<?php 
-            if(isset($settings->creative_submenu_border_width_dimension_top) ){
-                echo ( $settings->creative_submenu_border_width_dimension_top != '' ) ? 'border-top-width:'.$settings->creative_submenu_border_width_dimension_top.'px;' : 'border-top-width: 1px;'; 
-            }
-            if(isset($settings->creative_submenu_border_width_dimension_bottom) ){
-                echo ( $settings->creative_submenu_border_width_dimension_bottom != '' ) ? 'border-bottom-width:'.$settings->creative_submenu_border_width_dimension_bottom.'px;' : 'border-bottom-width: 1px;';
-            }
-            if(isset($settings->creative_submenu_border_width_dimension_left) ){
-                echo ( $settings->creative_submenu_border_width_dimension_left != '' ) ? 'border-left-width:'.$settings->creative_submenu_border_width_dimension_left.'px;' : 'border-left-width: 1px;';
-            }
-            if(isset($settings->creative_submenu_border_width_dimension_right) ){
-                echo ( $settings->creative_submenu_border_width_dimension_right != '' ) ? 'border-right-width:'.$settings->creative_submenu_border_width_dimension_right.'px;' : 'border-right-width: 1px;';
-            }
-        }     
-    	?>
 	    border-color: <?php echo ( false === strpos( $settings->creative_submenu_border_color, 'rgb' ) ) ? '#' . $settings->creative_submenu_border_color : $settings->creative_submenu_border_color; ?>;
 	<?php } ?>
 }
@@ -1460,11 +1456,9 @@ if( !empty( $settings->creative_menu_background_hover_color ) || $settings->crea
 	/* Links */
 	.fl-node-<?php echo $id; ?> .uabb-creative-menu.full-screen .menu > li > a,
 	.fl-node-<?php echo $id; ?> .uabb-creative-menu.full-screen .menu > li > .uabb-has-submenu-container > a {
+    	
     	<?php 
-    	if( isset( $settings->creative_menu_link_spacing ) && $settings->creative_menu_link_spacing != '' && isset( $settings->creative_menu_link_spacing_dimension_top ) && ( $settings->creative_menu_link_spacing_dimension_top == '' || $settings->creative_menu_link_spacing_dimension_top == '0' ) && isset( $settings->creative_menu_link_spacing_dimension_bottom ) && ( $settings->creative_menu_link_spacing_dimension_bottom == '' || $settings->creative_menu_link_spacing_dimension_bottom == '0' ) && isset( $settings->creative_menu_link_spacing_dimension_left ) && ( $settings->creative_menu_link_spacing_dimension_left == '' || $settings->creative_menu_link_spacing_dimension_left == '0' ) && isset( $settings->creative_menu_link_spacing_dimension_right ) && ( $settings->creative_menu_link_spacing_dimension_right == '' || $settings->creative_menu_link_spacing_dimension_right == '0' ) ) {
-    		echo $settings->creative_menu_link_spacing; ?>;
-    	<?php } else { ?>
-    		<?php 
+		if( $converted === 'yes' || isset( $settings->creative_menu_link_spacing_dimension_top ) && isset( $settings->creative_menu_link_spacing_dimension_bottom ) && isset( $settings->creative_menu_link_spacing_dimension_left ) && isset( $settings->creative_menu_link_spacing_dimension_right ) ){
             if(isset($settings->creative_menu_link_spacing_dimension_top) ){
                 echo ( $settings->creative_menu_link_spacing_dimension_top != '' ) ? 'padding-top:'.$settings->creative_menu_link_spacing_dimension_top.'px;' : 'padding-top: 10px;'; 
             }
@@ -1477,8 +1471,9 @@ if( !empty( $settings->creative_menu_background_hover_color ) || $settings->crea
             if(isset($settings->creative_menu_link_spacing_dimension_right) ){
                 echo ( $settings->creative_menu_link_spacing_dimension_right != '' ) ? 'padding-right:'.$settings->creative_menu_link_spacing_dimension_right.'px;' : 'padding-right: 10px;';
             }
-        }
-        ?>
+		} else if( isset( $settings->creative_menu_link_spacing ) && $settings->creative_menu_link_spacing != '' && isset( $settings->creative_menu_link_spacing_dimension_top ) && ( $settings->creative_menu_link_spacing_dimension_top == '' || $settings->creative_menu_link_spacing_dimension_top == '0' ) && isset( $settings->creative_menu_link_spacing_dimension_bottom ) && ( $settings->creative_menu_link_spacing_dimension_bottom == '' || $settings->creative_menu_link_spacing_dimension_bottom == '0' ) && isset( $settings->creative_menu_link_spacing_dimension_left ) && ( $settings->creative_menu_link_spacing_dimension_left == '' || $settings->creative_menu_link_spacing_dimension_left == '0' ) && isset( $settings->creative_menu_link_spacing_dimension_right ) && ( $settings->creative_menu_link_spacing_dimension_right == '' || $settings->creative_menu_link_spacing_dimension_right == '0' ) ){
+			echo $settings->creative_menu_link_spacing; ?>;
+		<?php } ?>
 	}
 	.fl-node-<?php echo $id; ?> .uabb-creative-menu.full-screen .menu {
 		text-align: <?php echo $settings->creative_menu_responsive_alignment; ?>;
@@ -1719,11 +1714,9 @@ if( !empty( $settings->creative_menu_background_hover_color ) || $settings->crea
 	/* Container */
 	.fl-node-<?php echo $id; ?> .uabb-creative-menu .uabb-off-canvas-menu {
 		background-color: <?php echo ( false === strpos( $settings->creative_menu_responsive_overlay_bg_color, 'rgb' ) ) ? '#' . $settings->creative_menu_responsive_overlay_bg_color : $settings->creative_menu_responsive_overlay_bg_color; ?>;
+
     	<?php 
-    	if( isset( $settings->creative_menu_responsive_overlay_padding ) && $settings->creative_menu_responsive_overlay_padding != '' && isset( $settings->creative_menu_responsive_overlay_padding_dimension_top ) && $settings->creative_menu_responsive_overlay_padding_dimension_top == '' && isset( $settings->creative_menu_responsive_overlay_padding_dimension_bottom ) && $settings->creative_menu_responsive_overlay_padding_dimension_bottom == '' && isset( $settings->creative_menu_responsive_overlay_padding_dimension_left ) && $settings->creative_menu_responsive_overlay_padding_dimension_left == '' && isset( $settings->creative_menu_responsive_overlay_padding_dimension_right ) && $settings->creative_menu_responsive_overlay_padding_dimension_right == '' ) {
-    		echo $settings->creative_menu_responsive_overlay_padding; ?>;
-    	<?php } else { ?>
-    		<?php 
+		if( $converted === 'yes' || isset( $settings->creative_menu_responsive_overlay_padding_dimension_top )  && isset( $settings->creative_menu_responsive_overlay_padding_dimension_bottom ) && isset( $settings->creative_menu_responsive_overlay_padding_dimension_left )  && isset( $settings->creative_menu_responsive_overlay_padding_dimension_right )  ){
             if(isset($settings->creative_menu_responsive_overlay_padding_dimension_top) ){
                 echo ( $settings->creative_menu_responsive_overlay_padding_dimension_top != '' ) ? 'padding-top:'.$settings->creative_menu_responsive_overlay_padding_dimension_top.'px;' : 'padding-top: 10px;'; 
             }
@@ -1736,8 +1729,10 @@ if( !empty( $settings->creative_menu_background_hover_color ) || $settings->crea
             if(isset($settings->creative_menu_responsive_overlay_padding_dimension_right) ){
                 echo ( $settings->creative_menu_responsive_overlay_padding_dimension_right != '' ) ? 'padding-right:'.$settings->creative_menu_responsive_overlay_padding_dimension_right.'px;' : 'padding-right: 10px;';
             }
-        }
-        ?>
+		} else if( isset( $settings->creative_menu_responsive_overlay_padding ) && $settings->creative_menu_responsive_overlay_padding != '' && isset( $settings->creative_menu_responsive_overlay_padding_dimension_top ) && $settings->creative_menu_responsive_overlay_padding_dimension_top == '' && isset( $settings->creative_menu_responsive_overlay_padding_dimension_bottom ) && $settings->creative_menu_responsive_overlay_padding_dimension_bottom == '' && isset( $settings->creative_menu_responsive_overlay_padding_dimension_left ) && $settings->creative_menu_responsive_overlay_padding_dimension_left == '' && isset( $settings->creative_menu_responsive_overlay_padding_dimension_right ) && $settings->creative_menu_responsive_overlay_padding_dimension_right == '' ){
+			echo $settings->creative_menu_responsive_overlay_padding; ?>;
+		<?php } ?>
+
 	}
 
 	<?php if(  $settings->creative_menu_off_canvas_shadow == 'yes' ) {

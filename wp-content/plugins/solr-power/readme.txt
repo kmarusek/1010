@@ -2,8 +2,8 @@
 Contributors: getpantheon, Outlandish Josh, 10up, collinsinternet, andrew.taylor
 Tags: search
 Requires at least: 4.6
-Tested up to: 4.8
-Stable tag: 1.4.1
+Tested up to: 4.9
+Stable tag: 1.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -163,7 +163,14 @@ To support searching by author name (e.g. where "Pantheon" would return posts au
 
 == Changelog ==
 
+= 1.5.0 =
+* Adds support for queries using `post__in` and `post__not_in`.
+* Clears batch cache when entire index is deleted.
+* CLI: Errors early when there are no posts to index.
+* Update Composer dependencies
+
 = 1.4.1 =
+* Introduce `batch_size` argument for `wp solr index`
 * Ensure custom taxonomies are included in widget facets
 * Mention available Docker containers in README
 * Properly handle negative integers when indexing and querying

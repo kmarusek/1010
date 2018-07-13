@@ -68,6 +68,8 @@ class UABBHeadingModule extends FLBuilderModule {
 				'text_font_size_unit' => $this->settings->separator_text_font_size_unit,
 				'text_line_height_unit' => $this->settings->separator_text_line_height_unit,
 				'text_color' => $this->settings->separator_text_color,
+				'text_transform' => $this->settings->separator_transform,
+				'text_letter_spacing' => $this->settings->separator_letter_spacing,
 
 			); 
 			/* Render HTML Function */
@@ -464,6 +466,35 @@ FLBuilder::register_module('UABBHeadingModule', array(
 							'selector' => '.fl-module-content.fl-node-content .uabb-heading  .uabb-heading-text'
 						)
 					),
+                    'transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''           		=>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.fl-module-content.fl-node-content .uabb-heading  .uabb-heading-text',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.fl-module-content.fl-node-content .uabb-heading  .uabb-heading-text',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
+                    ),
 					'heading_margin_top'       => array(
 						'type'          => 'text',
 						'label'         => __('Margin Top', 'uabb'),
@@ -554,6 +585,35 @@ FLBuilder::register_module('UABBHeadingModule', array(
 							'selector' => '.fl-module-content.fl-node-content .uabb-subheading, .fl-module-content.fl-node-content .uabb-subheading *'
 						)
 					),
+                    'desc_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''           		=>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.fl-module-content.fl-node-content .uabb-subheading, .fl-module-content.fl-node-content .uabb-subheading *',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'desc_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.fl-module-content.fl-node-content .uabb-subheading, .fl-module-content.fl-node-content .uabb-subheading *',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
+                    ),
 					'desc_margin_top'       => array(
 						'type'          => 'text',
 						'label'         => __('Margin Top', 'uabb'),
@@ -660,6 +720,35 @@ FLBuilder::register_module('UABBHeadingModule', array(
 							'selector'  => '.uabb-divider-text',
 						)
 					),
+                    'separator_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''           		=>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ), 
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-divider-text',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'separator_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-divider-text',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
+                    )
 		        )
 		    ),
 		)

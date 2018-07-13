@@ -43,7 +43,12 @@ class InteractiveBanner1Module extends FLBuilderModule {
         }
 
         if ( file_exists( $path ) ) {
-            return file_get_contents( $path );
+            $remove_icon = apply_filters( 'uabb_remove_svg_icon', false, 10, 1 );
+            if( true === $remove_icon ) {
+                return;
+            } else {
+                return file_get_contents( $path );
+            }
         } else {
             return '';
         }
@@ -493,6 +498,35 @@ FLBuilder::register_module('InteractiveBanner1Module', array(
                         'maxlength'   => '3',
                         'size'        => '5',
                     ),
+                    'title_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''                  =>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-ib1-title',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'title_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-ib1-title',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
+                    ),
                 )
             ),
             'desc_typography' => array(
@@ -556,6 +590,35 @@ FLBuilder::register_module('InteractiveBanner1Module', array(
                         ),
                         'default'    => '',
                         'show_reset' => true,
+                    ),
+                    'desc_transform'     => array(
+                        'type'          => 'select',
+                        'label'         => __( 'Transform', 'uabb' ),
+                        'default'       => '',
+                        'options'       => array(
+                            ''                  =>  'Default',
+                            'uppercase'         =>  'UPPERCASE',
+                            'lowercase'         =>  'lowercase',
+                            'capitalize'        =>  'Capitalize'                 
+                        ),
+                        'preview'       => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-ib1-description',
+                            'property'      => 'text-transform'
+                        ),
+                    ),
+                    'desc_letter_spacing'       => array(
+                        'type'          => 'text',
+                        'label'         => __('Letter Spacing', 'uabb'),
+                        'placeholder'   => '0',
+                        'size'          => '5',
+                        'description'   => 'px',
+                        'preview'         => array(
+                            'type'          => 'css',
+                            'selector'      => '.uabb-ib1-description',
+                            'property'      => 'letter-spacing',
+                            'unit'          => 'px'
+                        )
                     ),
                 )
             ),

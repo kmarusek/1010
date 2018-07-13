@@ -31,7 +31,7 @@ define( 'AI1WM_DEBUG', false );
 // ==================
 // = Plugin Version =
 // ==================
-define( 'AI1WM_VERSION', '6.69' );
+define( 'AI1WM_VERSION', '6.71' );
 
 // ===============
 // = Plugin Name =
@@ -182,6 +182,11 @@ define( 'AI1WM_ENDURANCE_PHP_EDGE_NAME', 'endurance-php-edge.php' );
 // = Endurance Browser Cache Name =
 // ================================
 define( 'AI1WM_ENDURANCE_BROWSER_CACHE_NAME', 'endurance-browser-cache.php' );
+
+// =========================
+// = GD System Plugin Name =
+// =========================
+define( 'AI1WM_GD_SYSTEM_PLUGIN_NAME', 'gd-system-plugin.php' );
 
 // ===================
 // = Export Log Name =
@@ -349,6 +354,36 @@ if ( defined( 'AI1WM_PLUGIN_BASENAME' ) ) {
 	define( 'AI1WM_PLUGIN_BASEDIR', 'all-in-one-wp-migration' );
 }
 
+// ===================================
+// = Backblaze B2 Extension Base Dir =
+// ===================================
+if ( defined( 'AI1WMAE_PLUGIN_BASENAME' ) ) {
+	define( 'AI1WMAE_PLUGIN_BASEDIR', dirname( AI1WMAE_PLUGIN_BASENAME ) );
+} else {
+	define( 'AI1WMAE_PLUGIN_BASEDIR', 'all-in-one-wp-migration-b2-extension' );
+}
+
+// ================================
+// = Backblaze B2 Extension About =
+// ================================
+if ( ! defined( 'AI1WMAE_PLUGIN_ABOUT' ) ) {
+	define( 'AI1WMAE_PLUGIN_ABOUT', 'https://servmask.com/products/backblaze-b2-extension/about' );
+}
+
+// ==============================
+// = Backblaze B2 Extension Key =
+// ==============================
+if ( ! defined( 'AI1WMAE_PLUGIN_KEY' ) ) {
+	define( 'AI1WMAE_PLUGIN_KEY', 'ai1wmae_plugin_key' );
+}
+
+// ================================
+// = Backblaze B2 Extension Short =
+// ================================
+if ( ! defined( 'AI1WMAE_PLUGIN_SHORT' ) ) {
+	define( 'AI1WMAE_PLUGIN_SHORT', 'b2' );
+}
+
 // ==========================
 // = Box Extension Base Dir =
 // ==========================
@@ -467,6 +502,36 @@ if ( ! defined( 'AI1WMFE_PLUGIN_KEY' ) ) {
 // =======================
 if ( ! defined( 'AI1WMFE_PLUGIN_SHORT' ) ) {
 	define( 'AI1WMFE_PLUGIN_SHORT', 'ftp' );
+}
+
+// ===========================================
+// = Google Cloud Storage Extension Base Dir =
+// ===========================================
+if ( defined( 'AI1WMCE_PLUGIN_BASENAME' ) ) {
+	define( 'AI1WMCE_PLUGIN_BASEDIR', dirname( AI1WMCE_PLUGIN_BASENAME ) );
+} else {
+	define( 'AI1WMCE_PLUGIN_BASEDIR', 'all-in-one-wp-migration-gcloud-storage-extension' );
+}
+
+// ========================================
+// = Google Cloud Storage Extension About =
+// ========================================
+if ( ! defined( 'AI1WMCE_PLUGIN_ABOUT' ) ) {
+	define( 'AI1WMCE_PLUGIN_ABOUT', 'https://servmask.com/products/google-cloud-storage-extension/about' );
+}
+
+// ======================================
+// = Google Cloud Storage Extension Key =
+// ======================================
+if ( ! defined( 'AI1WMCE_PLUGIN_KEY' ) ) {
+	define( 'AI1WMCE_PLUGIN_KEY', 'ai1wmce_plugin_key' );
+}
+
+// ========================================
+// = Google Cloud Storage Extension Short =
+// ========================================
+if ( ! defined( 'AI1WMCE_PLUGIN_SHORT' ) ) {
+	define( 'AI1WMCE_PLUGIN_SHORT', 'gcloud-storage' );
 }
 
 // ===================================
