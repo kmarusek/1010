@@ -19757,6 +19757,9 @@ var InlineEditor = function (_Component) {
 			var overlay = jQuery('<div id="' + editorId + '" class="fl-inline-editor"></div>');
 			var form = jQuery('.fl-builder-settings[data-node=' + nodeId + ']');
 			var settings = FLBuilderSettingsConfig.nodes[nodeId];
+			if (typeof settings === 'undefined') {
+				return false;
+			}
 			var connections = settings.connections;
 
 
@@ -20310,14 +20313,23 @@ var NotificationsManager = exports.NotificationsManager = function (_Component2)
 
         var _this2 = _possibleConstructorReturn(this, (NotificationsManager.__proto__ || Object.getPrototypeOf(NotificationsManager)).call(this, props));
 
+        var out = '';
+
         var _FLBuilderConfig$noti = FLBuilderConfig.notifications,
             read = _FLBuilderConfig$noti.read,
             data = _FLBuilderConfig$noti.data;
 
+        // make sure we have valid json.
+
+        try {
+            out = JSON.parse(data);
+        } catch (e) {
+            out = {};
+        }
 
         _this2.state = {
             shouldShowNotifications: false,
-            posts: JSON.parse(data)
+            posts: out
         };
 
         FLBuilder.addHook('toggleNotifications', _this2.onToggleNotifications.bind(_this2));

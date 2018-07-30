@@ -4,7 +4,7 @@ Tags: move, transfer, copy, migrate, backup, clone, restore, db migration, wordp
 Requires at least: 3.3
 Tested up to: 4.9
 Requires PHP: 5.2.17
-Stable tag: 6.71
+Stable tag: 6.73
 License: GPLv2 or later
 
 Move, transfer, copy, migrate, and backup a site with 1-click. Quick, easy, and reliable.
@@ -57,6 +57,7 @@ Mobile device compatible: All in One WP Plugin is the first plugin to offer true
 * [DigitalOcean Spaces](https://servmask.com/products/digitalocean-spaces-extension)
 * [Backblaze B2](https://servmask.com/products/backblaze-b2-extension)
 * [Google Cloud Storage](https://servmask.com/products/google-cloud-storage-extension)
+* [Microsoft Azure Storage](https://servmask.com/products/microsoft-azure-storage-extension)
 
 = Supported hosting providers =
 **The plugin does not have any dependancies, making it compatible with all PHP hosting providers. We support a vast range of hosting providers. Some of the most popular include:**
@@ -102,6 +103,20 @@ Alternatively you can download the plugin using the download button on this page
 All-in-One WP Migration **asks for your consent** to collect **requester's email address** when filling plugin's contact form. [GDPR Compliant Privacy Policy](https://www.iubenda.com/privacy-policy/946881)
 
 == Changelog ==
+= 6.73 =
+**Fixed**
+
+* Improvements to the export and import process
+
+= 6.72 =
+**Added**
+
+* Support for Microsoft Azure Storage
+
+**Fixed**
+
+* The plugin incorrectly reports Disk is full on some hostings
+
 = 6.71 =
 **Added**
 
