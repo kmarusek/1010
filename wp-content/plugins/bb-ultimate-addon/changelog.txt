@@ -1,3 +1,23 @@
+Version 1.9.0 - Thursday, 26th July 2018
+- New: Introduced Business Hours
+- Improvement: CF7 Styler - Added help field in Use Custom Style option on how to use this field
+- Improvement: CF7 Styler - Added Top and Bottom Margin options for Submit button
+- Improvement: Contact Form - Added Top and Bottom Margin options for Submit button
+- Improvement: Gravity Form Styler - Added Top and Bottom Margin options for Submit button
+- Improvement: Image Carousel - Added filters to add custom Photo size
+- Improvement: Subscription Form - Added Bottom Margin option for Submit button
+- Improvement: Module's categories are now ready to translate
+- Improvement: Plugin's code formatted
+- Fixed: Button - Need to set icon for setting photo with after text position
+- Fixed: Contact Form - Phone field input color, background color not reflecting in preview mode
+- Fixed: Contact Form - Form padding is not applying to Form
+- Fixed: Fancy Text - Accept single and double quotes in prefix and suffix fields
+- Fixed: Gravity Form Styler- Input text color not working for Select box, Conditional select box
+- Fixed: Gravity Form Styler- Background color not working for Conditional select box
+- Fixed: Info Box - Resolved default padding issue
+- Fixed: Photo Gallery - Photo Size filter not working
+- Fixed: Text Transform values not applying in certain cases
+
 Version 1.8.3 - Monday, 9th July 2018
 - Improvement: Advanced Posts - Added support for ACF Relationship fields
 - Improvement: Button Module - Updated Gradient style with two colors and direction field
@@ -23,6 +43,7 @@ Version 1.8.3 - Monday, 9th July 2018
 - Fixed: Modal Popup - Video placeholder added for YouTube and Vimeo content
 - Fixed: Spacer Module - Adjustment issue with modules and columns
 - Fixed: UABB Gradient - Fixed Gradient field's layout
+- Fixed: Transform values of module not inheriting theme's transform values
 
 Version 1.8.2 - Thursday, 21st June 2018
 - Improvement: Advanced Posts - Added Exclude Current Post option

@@ -16,29 +16,29 @@ if( $settings->image_type != 'none' ) {
 	if( $settings->cta_type == 'module' && !empty($settings->link) ) {
 		echo '<a href="' . $settings->link . '" target="' . $settings->link_target . '" '. BB_Ultimate_Addon_Helper::get_link_rel( $settings->link_target, 0, 0 ) .' class="uabb-infobox-module-link"></a>';
 	}
-	// Image left
+	// Image left.
 	$module->render_image('left'); 
 	
 	?><div class="uabb-infobox-content">
 			<?php 
-			// Image above title
+			// Image above title.
 			$module->render_image('above-title');
-			// Title
+			// Title.
 			$module->render_title();
-			// Image below title
+			// Image below title.
 			$module->render_image('below-title');
-			// Separator
+			// Separator.
 			$module->render_separator();
 			
 			if( $settings->text != "" || $settings->cta_type == 'link' || $settings->cta_type == 'button' ) {
 			?>
 			<div class="uabb-infobox-text-wrap">
 				<?php 
-				// Text 
+				// Text.
 				$module->render_text();
-				// Link CTA
+				// Link CTA.
 				$module->render_link();
-				// Button CTA 
+				// Button CTA.
 				$module->render_button();
 				?>
 			</div> 
@@ -46,7 +46,7 @@ if( $settings->image_type != 'none' ) {
 			}
 			?>
 		</div><?php
-		// Image right
+		// Image right.
 		$module->render_image('right'); 
 		?>
 	</div>

@@ -95,11 +95,13 @@ if( $settings->background_color != '' ) {
    		margin-bottom: <?php echo $settings->title_margin_bottom; ?>px;
    	<?php } ?>
 
-   	<?php if( $settings->transform != 'none' ) ?>
+   	<?php if( $settings->transform != 'none' ) : ?>
 	   text-transform: <?php echo $settings->transform; ?>;
+    <?php endif; ?> 
 
-    <?php if( $settings->letter_spacing != '' ) ?>
+    <?php if( $settings->letter_spacing != '' ) : ?>
 	   letter-spacing: <?php echo $settings->letter_spacing; ?>px;
+    <?php endif; ?>
 }
 
 /* Description Typography and Color */
@@ -136,11 +138,13 @@ if( $settings->background_color != '' ) {
    		margin-bottom: <?php echo $settings->desc_margin_bottom; ?>px;
    	<?php } ?>
 
-   	<?php if( $settings->desc_transform != 'none' ) ?>
+   	<?php if( $settings->desc_transform != 'none' ) : ?>
 	   text-transform: <?php echo $settings->desc_transform; ?>;
+    <?php endif; ?>
 
-    <?php if( $settings->desc_letter_spacing != '' ) ?>
+    <?php if( $settings->desc_letter_spacing != '' ) : ?>
 	   letter-spacing: <?php echo $settings->desc_letter_spacing; ?>px;
+    <?php endif; ?>
 }
 
 
@@ -233,11 +237,13 @@ if($settings->cta_type == 'button') {
 	    line-height: <?php echo $settings->link_line_height['desktop']; ?>px;
 	<?php } ?>    
 
-	<?php if( $settings->link_transform != 'none' ) ?>
-	   text-transform: <?php echo $settings->link_transform; ?>;
+	<?php if( $settings->link_transform != 'none' ) : ?>
+	  text-transform: <?php echo $settings->link_transform; ?>;
+  <?php endif; ?>
 
-    <?php if( $settings->link_letter_spacing != '' ) ?>
-	   letter-spacing: <?php echo $settings->link_letter_spacing; ?>px;	 
+  <?php if( $settings->link_letter_spacing != '' ) : ?>
+	  letter-spacing: <?php echo $settings->link_letter_spacing; ?>px;
+  <?php endif; ?>
 
 }
 

@@ -36,11 +36,13 @@ $settings->spacing_between_buttons = ( $settings->spacing_between_buttons != '' 
 
 /* Divider Styles */
 .fl-node-<?php echo $id;?> .uabb-middle-text {
- 	<?php if( $settings->_divider_transform != 'none' ) ?>
+ 	<?php if( $settings->_divider_transform != 'none' ) : ?>
 	   text-transform: <?php echo $settings->_divider_transform; ?>;
+	<?php endif; ?>
 
-	<?php if( $settings->_divider_letter_spacing != '' ) ?>
+	<?php if( $settings->_divider_letter_spacing != '' ) : ?>
 	   letter-spacing: <?php echo $settings->_divider_letter_spacing; ?>px;
+	<?php endif; ?>
 	   
 	color: <?php echo uabb_theme_base_color( $settings->divider_color ); ?>;
 	background: <?php echo uabb_theme_base_color( $settings->divider_background_color ); ?>;
@@ -1031,11 +1033,13 @@ if ( $settings->_btn_one_font_family['family'] != "Default" || isset($settings->
 			    line-height: <?php echo $settings->_btn_one_line_height['desktop']; ?>px;
 			<?php } ?>
 
-			<?php if( $settings->_btn_one_text_transform != 'none' )?>
+			<?php if( $settings->_btn_one_text_transform != 'none' ) : ?>
 			   text-transform: <?php echo $settings->_btn_one_text_transform; ?>;
+			<?php endif; ?>
 
-		    <?php if( $settings->_btn_one_text_letter_spacing != '' )?>
+		    <?php if( $settings->_btn_one_text_letter_spacing != '' ) : ?>
 			   letter-spacing: <?php echo $settings->_btn_one_text_letter_spacing; ?>px;
+			<?php endif; ?>
 		}
 
 <?php } ?>
@@ -1066,11 +1070,13 @@ if ( $settings->_btn_one_font_family['family'] != "Default" || isset($settings->
 		    line-height: <?php echo $settings->_btn_two_line_height['desktop']; ?>px;
 		<?php } ?>
 
-		<?php if( $settings->_btn_two_text_transform != 'none' )?>
+		<?php if( $settings->_btn_two_text_transform != 'none' ) : ?>
 		   text-transform: <?php echo $settings->_btn_two_text_transform; ?>;
+		<?php endif; ?>
 
-		<?php if( $settings->_btn_two_text_letter_spacing != '' )?>
+		<?php if( $settings->_btn_two_text_letter_spacing != '' ) : ?>
 			letter-spacing: <?php echo $settings->_btn_two_text_letter_spacing; ?>px;
+		<?php endif; ?>
 		
 	}
 <?php } ?>

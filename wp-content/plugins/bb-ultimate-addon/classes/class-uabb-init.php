@@ -1,77 +1,88 @@
 <?php
-
 /**
  * UABB initial setup
  *
  * @since 1.1.0.4
+ * @package UABB Initial Setup
+ */
+
+/**
+ * This class initializes UABB Init
+ *
+ * @class UABB_Init
  */
 class UABB_Init {
 
+	/**
+	 * Variable for UABB opotions
+	 *
+	 * @var string $uabb_options
+	 */
 	public static $uabb_options;
 
 	/**
-	*  Constructor
-	*/
-
+	 *  Constructor
+	 */
 	public function __construct() {
 
-		//register_activation_hook( __FILE__, array( __CLASS__, '::reset' ) );
-		
 		if ( class_exists( 'FLBuilder' ) ) {
 
 			/**
-			 *	For Performance
-			 *	Set UABB static object to store data from database.
+			 *  For Performance
+			 *  Set UABB static object to store data from database.
 			 */
 			self::set_uabb_options();
 
-			add_filter( 'fl_builder_settings_form_defaults', array( $this, 'uabb_global_settings_form_defaults' ), 10, 2 );	
-			// Load all the required files of bb-ultimate-addon
+			add_filter( 'fl_builder_settings_form_defaults', array( $this, 'uabb_global_settings_form_defaults' ), 10, 2 );
+			// Load all the required files of bb-ultimate-addon.
 			self::includes();
 			add_action( 'init', array( $this, 'init' ) );
 
 			add_action( 'customize_preview_init', array( $this, 'uabb_customizer_save' ), 11 );
 
-			// Enqueue scripts
+			// Enqueue scripts.
 			add_action( 'wp_enqueue_scripts', array( $this, 'load_scripts' ), 100 );
 
 			add_action( 'wp_head', array( $this, 'uabb_render_scripts' ) );
 
-
 		} else {
 
-			// disable UABB activation ntices in admin panel
+			// disable UABB activation ntices in admin panel.
 			define( 'BSF_UABB_NOTICES', false );
 
-			// Display admin notice for activating beaver builder
+			// Display admin notice for activating beaver builder.
 			add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 			add_action( 'network_admin_notices', array( $this, 'admin_notices' ) );
 		}
 
 	}
 
+	/**
+	 * Function that includes necessary files
+	 *
+	 * @since x.x.x
+	 */
 	function includes() {
 
 		require_once BB_ULTIMATE_ADDON_DIR . 'classes/class-uabb-update.php';
 		require_once BB_ULTIMATE_ADDON_DIR . 'classes/class-uabb-backward.php';
 		require_once BB_ULTIMATE_ADDON_DIR . 'classes/class-uabb-helper.php';
- 		require_once BB_ULTIMATE_ADDON_DIR . 'classes/class-uabb-cloud-templates.php';
+		require_once BB_ULTIMATE_ADDON_DIR . 'classes/class-uabb-cloud-templates.php';
 		require_once BB_ULTIMATE_ADDON_DIR . 'classes/class-uabb-admin-settings.php';
 		require_once BB_ULTIMATE_ADDON_DIR . 'classes/class-uabb-admin-settings-multisite.php';
 
 		require_once BB_ULTIMATE_ADDON_DIR . 'classes/uabb-global-functions.php';
 
-		// Attachment Fields
-
+		// Attachment Fields.
 		require_once BB_ULTIMATE_ADDON_DIR . 'classes/class-uabb-attachment.php';
 		require_once BB_ULTIMATE_ADDON_DIR . 'classes/class-uabb-blog-posts.php';
 		require_once BB_ULTIMATE_ADDON_DIR . 'classes/class-uabb-wpml.php';
 
-		// Advanced Menu Walker
+		// Advanced Menu Walker.
 		require_once BB_ULTIMATE_ADDON_DIR . 'classes/class-uabb-menu-walker.php';
 
-		//	fields
-		require_once BB_ULTIMATE_ADDON_DIR . 'fields/_config.php';
+		// fields.
+		require_once BB_ULTIMATE_ADDON_DIR . 'fields/config.php';
 
 		require_once BB_ULTIMATE_ADDON_DIR . 'classes/class-uabb-branding.php';
 		require_once BB_ULTIMATE_ADDON_DIR . 'classes/class-uabb-graupi-branding.php';
@@ -84,64 +95,73 @@ class UABB_Init {
 		require_once BB_ULTIMATE_ADDON_DIR . 'includes/row.php';
 		require_once BB_ULTIMATE_ADDON_DIR . 'includes/column.php';
 
-		// Load the appropriate text-domain
+		// Load the appropriate text-domain.
 		$this->load_plugin_textdomain();
 
 	}
 
 	/**
-	*	For Performance
-	*	Set UABB static object to store data from database.
-	*/
+	 *   For Performance.
+	 *   Set UABB static object to store data from database.
+	 */
 	static function set_uabb_options() {
 		self::$uabb_options = array(
 			'fl_builder_uabb'          => FLBuilderModel::get_admin_settings_option( '_fl_builder_uabb', true ),
 			'fl_builder_uabb_branding' => FLBuilderModel::get_admin_settings_option( '_fl_builder_uabb_branding', false ),
-			'uabb_global_settings'     => get_option('_uabb_global_settings'),
+			'uabb_global_settings'     => get_option( '_uabb_global_settings' ),
 
-			'fl_builder_uabb_modules' => FLBuilderModel::get_admin_settings_option( '_fl_builder_uabb_modules', false ),
+			'fl_builder_uabb_modules'  => FLBuilderModel::get_admin_settings_option( '_fl_builder_uabb_modules', false ),
 		);
 	}
 
+	/**
+	 * Function that renders UABB Global Settings form defaults
+	 *
+	 * @since x.x.x
+	 * @param array  $defaults gets the array for the form defaults.
+	 * @param string $form_type gets an array to check the form type.
+	 */
 	function uabb_global_settings_form_defaults( $defaults, $form_type ) {
-		
 
-		if ( ( !apply_filters( 'uabb_global_support', true ) || class_exists( 'FLCustomizer' ) || function_exists( 'generate_customize_register' ) ) && 'uabb-global' == $form_type ) {
-	
+		if ( ( ! apply_filters( 'uabb_global_support', true ) || class_exists( 'FLCustomizer' ) || function_exists( 'generate_customize_register' ) ) && 'uabb-global' == $form_type ) {
+
 			$defaults->enable_global = 'no';
 
-	    }
+		}
 
-	    return $defaults; // Must be returned!
+		return $defaults; // Must be returned!.
 	}
 
+	/**
+	 * Function that initializes init function
+	 *
+	 * @since x.x.x
+	 */
 	function init() {
-		
-		
+
 		if ( apply_filters( 'uabb_global_support_form', true ) && class_exists( 'FLBuilderAJAX' ) ) {
 			require_once BB_ULTIMATE_ADDON_DIR . 'classes/uabb-global-settings.php';
 			require_once BB_ULTIMATE_ADDON_DIR . 'classes/uabb-global-integration.php';
 		}
-		
 
 		add_filter( 'bsf_allow_beta_updates_uabb', array( $this, 'uabb_beta_updates_check' ) );
 		add_filter( 'bsf_license_not_activate_message_uabb', array( $this, 'license_not_active_message' ), 10, 3 );
 
 		if ( class_exists( 'FLCustomizer' ) ) {
 			$uabb_global_style = UABB_Global_Styling::get_uabb_global_settings();
-			
-			if ( ( isset( $uabb_global_style->enable_global ) && ( $uabb_global_style->enable_global == 'no' ) ) ) {
+
+			if ( ( isset( $uabb_global_style->enable_global ) && ( 'no' == $uabb_global_style->enable_global ) ) ) {
 				require_once BB_ULTIMATE_ADDON_DIR . 'classes/uabb-bbtheme-global-integration.php';
 			}
-		} else if ( function_exists( 'generate_customize_register' ) ) {
+		} elseif ( function_exists( 'generate_customize_register' ) ) {
 			$uabb_global_style = UABB_Global_Styling::get_uabb_global_settings();
-			
-			if ( ( isset( $uabb_global_style->enable_global ) && ( $uabb_global_style->enable_global == 'no' ) ) ) {
+
+			if ( ( isset( $uabb_global_style->enable_global ) && ( 'no' == $uabb_global_style->enable_global ) ) ) {
 				require_once BB_ULTIMATE_ADDON_DIR . 'classes/uabb-generatepress-global-integration.php';
 			}
 		}
 
-		//	Nested forms
+		// Nested forms.
 		require_once BB_ULTIMATE_ADDON_DIR . 'objects/fl-nested-form-button.php';
 
 		require_once BB_ULTIMATE_ADDON_DIR . 'classes/class-uabb-iconfonts.php';
@@ -150,15 +170,27 @@ class UABB_Init {
 		$this->load_modules();
 	}
 
+	/**
+	 * Function that renders license not active message
+	 *
+	 * @since x.x.x
+	 * @param array  $not_activate gets the HTML if license not active.
+	 * @param string $license_status_class gets the license status class.
+	 * @param string $license_not_activate_message gets an string to display the message.
+	 */
 	public function license_not_active_message( $not_activate, $license_status_class, $license_not_activate_message ) {
 		$not_activate = '<span class="license-error-heading ' . $license_status_class . ' ' . $license_not_activate_message . '">UPDATES UNAVAILABLE! Please enter your license key below to enable automatic updates.</span>';
 
 		return $not_activate;
 	}
 
-	public function uabb_customizer_save()
-	{
-		if( isset( UABB_Init::$uabb_options['uabb_global_settings']['enable_global'] ) && UABB_Init::$uabb_options['uabb_global_settings']['enable_global'] == 'no' ) {
+	/**
+	 * Function that saves UABB customizer settings
+	 *
+	 * @since x.x.x
+	 */
+	public function uabb_customizer_save() {
+		if ( isset( UABB_Init::$uabb_options['uabb_global_settings']['enable_global'] ) && ( 'no' == UABB_Init::$uabb_options['uabb_global_settings']['enable_global'] ) ) {
 			if ( class_exists( 'FLCustomizer' ) ) {
 				new UABB_BBThemeGlobalIntegration();
 			}
@@ -166,66 +198,79 @@ class UABB_Init {
 		}
 	}
 
+	/**
+	 * Function that renders UABB's Text-domain
+	 *
+	 * @since 1.4.6
+	 */
 	function load_plugin_textdomain() {
-		//Traditional WordPress plugin locale filter
+		// Traditional WordPress plugin locale filter.
 		$locale = apply_filters( 'plugin_locale', get_locale(), 'uabb' );
 
-		//Setup paths to current locale file
+		// Setup paths to current locale file.
 		$mofile_global = trailingslashit( WP_LANG_DIR ) . 'plugins/bb-ultimate-addon/' . $locale . '.mo';
 		$mofile_local  = trailingslashit( BB_ULTIMATE_ADDON_DIR ) . 'languages/' . $locale . '.mo';
 
 		if ( file_exists( $mofile_global ) ) {
-			//Look in global /wp-content/languages/plugins/bb-ultimate-addon/ folder
+			// Look in global /wp-content/languages/plugins/bb-ultimate-addon/ folder.
 			return load_textdomain( 'uabb', $mofile_global );
-		}
-		else if ( file_exists( $mofile_local ) ) {
-			//Look in local /wp-content/plugins/bb-ultimate-addon/languages/ folder
+		} elseif ( file_exists( $mofile_local ) ) {
+			// Look in local /wp-content/plugins/bb-ultimate-addon/languages/ folder.
 			return load_textdomain( 'uabb', $mofile_local );
-		} 
+		}
 
-		//Nothing found
+		// Nothing found.
 		return false;
 	}
 
+	/**
+	 * Function that loads UABB's scripts
+	 *
+	 * @since x.x.x
+	 */
 	function load_scripts() {
 
-		if( FLBuilderModel::is_builder_active() ) {
-			
+		if ( FLBuilderModel::is_builder_active() ) {
+
 			wp_enqueue_style( 'uabb-builder-css', BB_ULTIMATE_ADDON_URL . 'assets/css/uabb-builder.css', array() );
-			wp_enqueue_script('uabb-builder-js',  BB_ULTIMATE_ADDON_URL . 'assets/js/uabb-builder.js', array('jquery'), '', true);
+			wp_enqueue_script( 'uabb-builder-js', BB_ULTIMATE_ADDON_URL . 'assets/js/uabb-builder.js', array( 'jquery' ), '', true );
 
 			$uabb_options = UABB_Init::$uabb_options['fl_builder_uabb'];
 
-			if( is_array( $uabb_options ) ) {
-				if( array_key_exists( 'load_panels', $uabb_options ) ) {
-					if( $uabb_options['load_panels'] == 1 ) {
+			if ( is_array( $uabb_options ) ) {
+				if ( array_key_exists( 'load_panels', $uabb_options ) ) {
+					if ( 1 == $uabb_options['load_panels'] ) {
 						wp_enqueue_style( 'uabb-builder-css111', BB_ULTIMATE_ADDON_URL . 'assets/css/uabb-ui.css', array() );
 					}
 				}
 			}
 
 			if ( apply_filters( 'uabb_global_support_form', true ) ) {
-				
+
 				wp_localize_script( 'uabb-builder-js', 'uabb_global', array( 'show_global_button' => true ) );
-				
+
 				$uabb = UABB_Global_Styling::get_uabb_global_settings();
 
-				if( isset( $uabb->enable_global ) && ( $uabb->enable_global == 'no' ) ) {
+				if ( isset( $uabb->enable_global ) && ( 'no' == $uabb->enable_global ) ) {
 					wp_localize_script( 'uabb-builder-js', 'uabb_presets', array( 'show_presets' => true ) );
 				}
 			}
 		}
 
 		/* RTL Support */
-        if(is_rtl()) {
-            wp_enqueue_style('uabb-rtl-css', BB_ULTIMATE_ADDON_URL . 'assets/css/uabb-rtl.css', array() );
-        }
-		
-	}
+		if ( is_rtl() ) {
+			wp_enqueue_style( 'uabb-rtl-css', BB_ULTIMATE_ADDON_URL . 'assets/css/uabb-rtl.css', array() );
+		}
 
+	}
+	/**
+	 * Function that renders admin notices
+	 *
+	 * @since x.x.x
+	 */
 	function admin_notices() {
 
-		if ( file_exists( plugin_dir_path( 'bb-plugin-agency/fl-builder.php' ) ) 
+		if ( file_exists( plugin_dir_path( 'bb-plugin-agency/fl-builder.php' ) )
 			|| file_exists( plugin_dir_path( 'beaver-builder-lite-version/fl-builder.php' ) ) ) {
 
 			$url = network_admin_url() . 'plugins.php?s=Beaver+Builder+Plugin';
@@ -234,68 +279,73 @@ class UABB_Init {
 		}
 
 		echo '<div class="notice notice-error">';
-	    echo "<p>The <strong>Ultimate Addon for Beaver Builder</strong> " . __( 'plugin requires', 'uabb' )." <strong><a href='".$url."'>Beaver Builder</strong></a>" . __( ' plugin installed & activated.', 'uabb' ) . "</p>";
-	    echo '</div>';
-  	}
+		echo '<p>The <strong>Ultimate Addon for Beaver Builder</strong> ' . __( 'plugin requires', 'uabb' ) . " <strong><a href='" . $url . "'>Beaver Builder</strong></a>" . __( ' plugin installed & activated.', 'uabb' ) . '</p>';
+		echo '</div>';
+	}
 
-  	function uabb_beta_updates_check() {
-  		$uabb = UABB_Init::$uabb_options['fl_builder_uabb'];
+	/**
+	 * Function that renders UABB Beta Updates Check
+	 *
+	 * @since x.x.x
+	 */
+	function uabb_beta_updates_check() {
+		$uabb = UABB_Init::$uabb_options['fl_builder_uabb'];
 
-  		$beta_enable = isset( $uabb['uabb-enable-beta-updates'] ) ? $uabb['uabb-enable-beta-updates'] : false;
-  		
-  		if ( $beta_enable == true ) {
-  			return true;
-  		}
-  		
-  		return false;
-  	}
+		$beta_enable = isset( $uabb['uabb-enable-beta-updates'] ) ? $uabb['uabb-enable-beta-updates'] : false;
 
-  	function load_modules() {
+		if ( true == $beta_enable ) {
+			return true;
+		}
 
-  		$enable_modules = BB_Ultimate_Addon_Helper::get_builder_uabb_modules();
+		return false;
+	}
 
-		$is_child_theme	= is_child_theme();
-		$child_dir		= get_stylesheet_directory() . '/bb-ultimate-addon/modules/';
-		$theme_dir		= get_template_directory() . '/bb-ultimate-addon/modules/';
-		$addon_dir		= BB_ULTIMATE_ADDON_DIR . 'modules/';
+	/**
+	 * Function that loads the modules.
+	 *
+	 * @since x.x.x
+	 */
+	function load_modules() {
+
+		$enable_modules = BB_Ultimate_Addon_Helper::get_builder_uabb_modules();
+
+		$is_child_theme = is_child_theme();
+		$child_dir      = get_stylesheet_directory() . '/bb-ultimate-addon/modules/';
+		$theme_dir      = get_template_directory() . '/bb-ultimate-addon/modules/';
+		$addon_dir      = BB_ULTIMATE_ADDON_DIR . 'modules/';
 
 		foreach ( $enable_modules as $file => $name ) {
 
-			if ( $name == 'false' ) {
+			if ( 'false' == $name ) {
 				continue;
 			}
 
-			$module_path	= $file . '/' .$file . '.php';
-			$child_path		= $child_dir . $module_path;
-			$theme_path		= $theme_dir . $module_path;
-			$addon_path		= $addon_dir . $module_path;
+			$module_path = $file . '/' . $file . '.php';
+			$child_path  = $child_dir . $module_path;
+			$theme_path  = $theme_dir . $module_path;
+			$addon_path  = $addon_dir . $module_path;
 
 			$admin_backend = apply_filters( 'enable_uabb_modules_backend', true, 10, 1 );
 
 			$enable_backend = '';
 
-			if( true === $admin_backend ) {
+			if ( true === $admin_backend ) {
 				$enable_backend = true;
-			} else if ( false === $admin_backend ) {
-				$enable_backend = !is_admin();
+			} elseif ( false === $admin_backend ) {
+				$enable_backend = ! is_admin();
 			}
-
 			// Check for the module class in a child theme.
-			if( $is_child_theme && file_exists($child_path) && $enable_backend ) {
+			if ( $is_child_theme && file_exists( $child_path ) && $enable_backend ) {
 				require_once $child_path;
-			}
-
-			// Check for the module class in a parent theme.
-			else if( file_exists($theme_path) && $enable_backend ) {
+			} elseif ( file_exists( $theme_path ) && $enable_backend ) {
+				// Check for the module class in a parent theme.
 				require_once $theme_path;
-			}
-
-			// Check for the module class in the builder directory.
-			else if( file_exists($addon_path) && $enable_backend ) {
+			} elseif ( file_exists( $addon_path ) && $enable_backend ) {
+				// Check for the module class in the builder directory.
 				require_once $addon_path;
 			}
 		}
-  	}
+	}
 
 	/**
 	 * Custom inline scripts.
@@ -303,15 +353,14 @@ class UABB_Init {
 	 * @since 1.6.8
 	 * @return void
 	 */
-	public function uabb_render_scripts()
-	{
-		$branding         = BB_Ultimate_Addon_Helper::get_builder_uabb_branding();
-		$branding_name    = 'UABB';
-		if ( is_array( $branding ) && array_key_exists( 'uabb-plugin-short-name', $branding ) && $branding['uabb-plugin-short-name'] != '' ) {
+	public function uabb_render_scripts() {
+		$branding      = BB_Ultimate_Addon_Helper::get_builder_uabb_branding();
+		$branding_name = 'UABB';
+		if ( is_array( $branding ) && array_key_exists( 'uabb-plugin-short-name', $branding ) && '' != $branding['uabb-plugin-short-name'] ) {
 			$branding_name = $branding['uabb-plugin-short-name'];
 		}
 
-		if( is_user_logged_in() ) {
+		if ( is_user_logged_in() ) {
 			?>
 			<style>
 				form[class*="fl-builder-adv-testimonials"] .fl-lightbox-header h1:before,
@@ -353,7 +402,7 @@ class UABB_Init {
 					margin-right: 5px;
 				}
 			</style>
-		<?php
+			<?php
 		}
 	}
 }
@@ -361,9 +410,8 @@ class UABB_Init {
 /**
  * Initialize the class only after all the plugins are loaded.
  */
-
 function init_uabb() {
-	$UABB_Init = new UABB_Init();
+	$uabb_init = new UABB_Init();
 }
 
 add_action( 'plugins_loaded', 'init_uabb' );

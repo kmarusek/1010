@@ -212,11 +212,13 @@ foreach( $settings->add_circle_item as $item ) {
                     line-height: <?php echo $item->btn_line_height->desktop; ?>px;
                 <?php } ?>
 
-                <?php if( $item->btn_transform != 'none' ) ?>
+                <?php if( $item->btn_transform != 'none' ) : ?>
                    text-transform: <?php echo $item->btn_transform; ?>;
+                <?php endif; ?>
 
-                <?php if( $item->btn_letter_spacing != '' ) ?>
+                <?php if( $item->btn_letter_spacing != '' ) : ?>
                    letter-spacing: <?php echo $item->btn_letter_spacing; ?>px;
+                <?php endif; ?>
 
             }
             /* Responsive CSS for CTA Text */
@@ -613,11 +615,13 @@ if ( $settings->connector_border_style != 'none' ) :
     color: <?php echo $settings->color; ?>;
     <?php endif; ?>
     
-    <?php if( $settings->transform != 'none' ) ?>
+    <?php if( $settings->transform != 'none' ) : ?>
        text-transform: <?php echo $settings->transform; ?>;
+    <?php endif; ?>
 
-    <?php if( $settings->letter_spacing != '' ) ?>
+    <?php if( $settings->letter_spacing != '' ) : ?>
        letter-spacing: <?php echo $settings->letter_spacing; ?>px;
+    <?php endif; ?>
 
     margin-top: <?php echo ( $settings->title_margin_top != '' ) ? $settings->title_margin_top : 0; ?>px;
     margin-bottom: <?php echo ( $settings->title_margin_bottom != '' ) ? $settings->title_margin_bottom : 20; ?>px;
@@ -652,11 +656,13 @@ if ( $settings->connector_border_style != 'none' ) :
     color: <?php echo $settings->desc_color; ?>;
     <?php endif; ?>
     
-    <?php if( $settings->desc_transform != 'none' ) ?>
+    <?php if( $settings->desc_transform != 'none' ) : ?>
        text-transform: <?php echo $settings->desc_transform; ?>;
+    <?php endif; ?>
 
-    <?php if( $settings->desc_letter_spacing != '' ) ?>
+    <?php if( $settings->desc_letter_spacing != '' ) : ?>
        letter-spacing: <?php echo $settings->desc_letter_spacing; ?>px;
+    <?php endif; ?>
 
     margin-top: <?php echo ( $settings->desc_margin_top != '' ) ? $settings->desc_margin_top : 20; ?>px;
     margin-bottom: <?php echo ( $settings->desc_margin_bottom != '' ) ? $settings->desc_margin_bottom : 0; ?>px;

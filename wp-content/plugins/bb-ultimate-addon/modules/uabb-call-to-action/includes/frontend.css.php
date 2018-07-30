@@ -157,11 +157,13 @@ if( $settings->subhead_color != '' ) {
 		    line-height: <?php echo $settings->title_line_height['desktop']; ?>px;
 		<?php } ?>
 
-		<?php if($settings->title_transform!= 'none' ) ?>
+		<?php if($settings->title_transform != 'none' ) : ?>
 	   		text-transform: <?php echo $settings->title_transform; ?>;
+	   	<?php endif; ?>
 
-		<?php if($settings->title_letter_spacing!= '' ) ?>
-	   		letter-spacing: <?php echo $settings->title_letter_spacing; ?>px;	
+		<?php if($settings->title_letter_spacing != '' ) : ?>
+	   		letter-spacing: <?php echo $settings->title_letter_spacing; ?>px;
+	   	<?php endif; ?>
 	}
 
 <?php } ?>
@@ -196,11 +198,13 @@ if( $settings->subhead_font_family['family'] != "Default" || isset( $settings->s
 		    line-height: <?php echo $settings->subhead_line_height['desktop']; ?>px;
 		<?php } ?>
 
-		<?php if($settings->subhead_transform != 'none' ) ?>
+		<?php if($settings->subhead_transform != 'none' ) : ?>
 		   text-transform: <?php echo $settings->subhead_transform; ?>;
+		<?php endif; ?>
 
-	    <?php if($settings->subhead_letter_spacing != '' ) ?>
+	    <?php if($settings->subhead_letter_spacing != '' ) : ?>
 		   letter-spacing: <?php echo $settings->subhead_letter_spacing; ?>px;
+		<?php endif; ?>
 	}
 <?php } ?>
 

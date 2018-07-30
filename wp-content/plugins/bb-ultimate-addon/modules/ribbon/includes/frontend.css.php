@@ -43,11 +43,13 @@ $settings->icon_color = uabb_theme_text_color( $settings->icon_color );
             line-height: <?php echo $settings->text_line_height['desktop']; ?>px;
         <?php } ?>
 
-        <?php if( $settings->text_transform != 'none' ) ?>
+        <?php if( $settings->text_transform != 'none' ) : ?>
            text-transform: <?php echo $settings->text_transform; ?>;
+        <?php endif; ?>
 
-        <?php if( $settings->text_letter_spacing != '' ) ?>
+        <?php if( $settings->text_letter_spacing != '' ) : ?>
            letter-spacing: <?php echo $settings->text_letter_spacing; ?>px;
+        <?php endif; ?>
     
     <?php
     echo ( $settings->text_color != '' ) ? 'color: ' . $settings->text_color . ';' : '';

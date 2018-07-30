@@ -290,11 +290,13 @@ if( $settings->is_carousel == 'masonary' ) {
 		font-size: <?php echo $settings->taxonomy_filter_select_font_size_unit; ?>px;
 	<?php endif; ?>
 
-	<?php if( $settings->taxonomy_transform != 'none' ) ?>
+	<?php if( $settings->taxonomy_transform != 'none' ) : ?>
 	   text-transform: <?php echo $settings->taxonomy_transform; ?>;
+	<?php endif; ?>
 
-    <?php if( $settings->taxonomy_letter_spacing != '' ) ?>
+    <?php if( $settings->taxonomy_letter_spacing != '' ) : ?>
 	   letter-spacing: <?php echo $settings->taxonomy_letter_spacing; ?>px;
+	<?php endif; ?>
 
 }
 
@@ -428,11 +430,13 @@ if( $settings->is_carousel == 'masonary' ) {
 	} ?>
 	background: <?php echo $date_background_color; ?>;
 	left: 0;
-	<?php if( $settings->date_transform != 'none' ) ?>
+	<?php if( $settings->date_transform != 'none' ) : ?>
 	   text-transform: <?php echo $settings->date_transform; ?>;
+	<?php endif; ?>
 
-    <?php if( $settings->date_letter_spacing != '' ) ?>
+    <?php if( $settings->date_letter_spacing != '' ) : ?>
 	   letter-spacing: <?php echo $settings->date_letter_spacing; ?>px;
+	<?php endif; ?>
 	
 }
 
@@ -479,11 +483,14 @@ if( $settings->show_meta == 'yes' ) {
 		}
 		?>
 
-		<?php if( $settings->meta_transform != 'none' )?>
+		<?php if( $settings->meta_transform != 'none' ) : ?>
 		   text-transform: <?php echo $settings->meta_transform; ?>;
+		<?php endif; ?>
  
-        <?php if( $settings->meta_letter_spacing != '' )?>
+        <?php if( $settings->meta_letter_spacing != '' ) : ?>
 		   letter-spacing: <?php echo $settings->meta_letter_spacing; ?>px;
+		<?php endif; ?>
+		   
 		?>
 	}
 <?php
@@ -647,11 +654,13 @@ if( $settings->is_carousel == 'carousel' ) {
 	}
 	?>
 
-	<?php if( $settings->link_transform != 'none' )?>
+	<?php if( $settings->link_transform != 'none' ) : ?>
 	   text-transform: <?php echo $settings->link_transform; ?>;
+	<?php endif; ?>
 
-    <?php if( $settings->link_letter_spacing != '' )?>
+    <?php if( $settings->link_letter_spacing != '' ) : ?>
 	   letter-spacing: <?php echo $settings->link_letter_spacing; ?>px;
+	<?php endif; ?>
 }
 
 .fl-node-<?php echo $id; ?> .uabb-text-editor {
@@ -680,11 +689,13 @@ if( $settings->is_carousel == 'carousel' ) {
 	}
     ?>
 
-    <?php if( $settings->desc_transform != 'none' )?>
+    <?php if( $settings->desc_transform != 'none' ) : ?>
 	   text-transform: <?php echo $settings->desc_transform; ?>;
+	<?php endif; ?>
 
-    <?php if( $settings->desc_letter_spacing != '' )?>
+    <?php if( $settings->desc_letter_spacing != '' ) : ?>
 	   letter-spacing: <?php echo $settings->desc_letter_spacing; ?>px;
+	<?php endif; ?>
 	?>
 }
 
@@ -716,11 +727,13 @@ if( $settings->is_carousel == 'carousel' ) {
 		  		line-height: <?php echo $settings->title_line_height['desktop']; ?>px;
 		    <?php } ?>
 
-            <?php if( $settings->transform != 'none' ) ?>
+            <?php if( $settings->transform != 'none' ) : ?>
 			   text-transform: <?php echo $settings->transform; ?>;
+			<?php endif; ?>
 
-	        <?php if( $settings->letter_spacing != '' ) ?>
+	        <?php if( $settings->letter_spacing != '' ) : ?>
 			   letter-spacing: <?php echo $settings->letter_spacing; ?>px;
+			<?php endif; ?>
 
 			<?php  
 			if( $settings->title_font_family['family'] != 'Default' ) {
@@ -758,11 +771,13 @@ if( $settings->is_carousel == 'carousel' ) {
 		  		line-height: <?php echo $settings->title_line_height['desktop']; ?>px;
 		    <?php } ?>
 
-	        <?php if( $settings->transform != 'none' ) ?>
+	        <?php if( $settings->transform != 'none' ) : ?>
 		       text-transform: <?php echo $settings->transform; ?>;
+		    <?php endif; ?>
 
-		    <?php if( $settings->letter_spacing != '' ) ?>
+		    <?php if( $settings->letter_spacing != '' ) : ?>
 		       letter-spacing: <?php echo $settings->letter_spacing; ?>px;
+		    <?php endif; ?>
 			       
 			<?php if( $settings->title_font_family['family'] != 'Default' ) {
 					UABB_Helper::uabb_font_css( $settings->title_font_family );

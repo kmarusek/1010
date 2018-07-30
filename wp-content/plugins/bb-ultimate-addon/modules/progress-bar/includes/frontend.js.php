@@ -61,22 +61,22 @@
 			if( !isNaN( delay ) && delay > 0 ) {
 				setTimeout( function(){
 					<?php
-					if( $settings->layout == 'vertical' ) {
-					?>
+					if ( $settings->layout == 'vertical' ) {
+						?>
 					this._executeProgressBarVertical();
-					<?php
-					} elseif( $settings->layout == 'horizontal' ) {
-					?>
+						<?php
+					} elseif ( $settings->layout == 'horizontal' ) {
+						?>
 					this._executeProgressBarHorizontal();
-					<?php
-					} elseif( $settings->layout == 'circular' ) {
-					?>
+						<?php
+					} elseif ( $settings->layout == 'circular' ) {
+						?>
 					this._executeProgressBarCircular();
-					<?php
-					} elseif( $settings->layout == 'semi-circular' ) {
-					?>
+						<?php
+					} elseif ( $settings->layout == 'semi-circular' ) {
+						?>
 					this._executeProgressBarSemiCircular();
-					<?php
+						<?php
 					}
 					?>
 					this._countProgressNumber();
@@ -84,22 +84,22 @@
 			}
 			else {
 				<?php
-				if( $settings->layout == 'vertical' ) {
-				?>
+				if ( $settings->layout == 'vertical' ) {
+					?>
 				this._executeProgressBarVertical();
-				<?php
-				} elseif( $settings->layout == 'horizontal' ) {
-				?>
+					<?php
+				} elseif ( $settings->layout == 'horizontal' ) {
+					?>
 				this._executeProgressBarHorizontal();
-				<?php
-				} elseif( $settings->layout == 'circular' ) {
-				?>
+					<?php
+				} elseif ( $settings->layout == 'circular' ) {
+					?>
 				this._executeProgressBarCircular();
-				<?php
-				} elseif( $settings->layout == 'semi-circular' ) {
-				?>
+					<?php
+				} elseif ( $settings->layout == 'semi-circular' ) {
+					?>
 				this._executeProgressBarSemiCircular();
-				<?php
+					<?php
 				}
 				?>
 				this._countProgressNumber();
@@ -111,20 +111,20 @@
 			<?php $settings->animation_speed = ( $settings->animation_speed != '' ) ? $settings->animation_speed : '1'; ?>
 			var ani_speed = parseInt('<?php echo ( $settings->animation_speed * 1000 ); ?>');
 			
-			jQuery( '.fl-node-<?php echo $id ?>' ).find( '.uabb-layout-<?php echo $settings->layout; ?>' ).each(	function( index ) {
-				var form = jQuery( '.fl-node-<?php echo $id ?>' ).find( '.uabb-layout-<?php echo $settings->layout; ?>.uabb-progress-bar-' + index );
+			jQuery( '.fl-node-<?php echo $id; ?>' ).find( '.uabb-layout-<?php echo $settings->layout; ?>' ).each(	function( index ) {
+				var form = jQuery( '.fl-node-<?php echo $id; ?>' ).find( '.uabb-layout-<?php echo $settings->layout; ?>.uabb-progress-bar-' + index );
 
 				<?php
-				if( $settings->layout == 'vertical' || $settings->layout == 'horizontal' ) {
-				?>
+				if ( $settings->layout == 'vertical' || $settings->layout == 'horizontal' ) {
+					?>
 				var text_field = form.find('.uabb-progress-value');
 				var number = form.data( 'number' );
-				<?php
-				} elseif( $settings->layout == 'circular' || $settings->layout == 'semi-circular' ) {
-				?>
+					<?php
+				} elseif ( $settings->layout == 'circular' || $settings->layout == 'semi-circular' ) {
+					?>
 				var text_field = form.find('.uabb-percent-counter');
 				var number = form.find('.uabb-svg-wrap').data( 'number' );
-				<?php
+					<?php
 				}
 				?>
 
@@ -132,19 +132,19 @@
 				if( !completeClass ) {
 
 					text_field.animate({
-				        Counter: number
-				    }, {
-				        duration: (ani_speed),
-				        easing: 'linear',
-				        step: function ( now ) {
-				            <?php if( $settings->layout == 'horizontal' && $settings->horizontal_style == 'style4' ) : ?>
-				            	text_field.find('span').text( UABBProgressBar.addCommas( Math.ceil( now ) ) + '%' );
-				        	<?php else : ?>
-				            	text_field.text( UABBProgressBar.addCommas( Math.ceil( now ) ) + '%' );
-				        	<?php endif; ?>
-				        }
-				    });
-				    form.addClass( 'uabb-progress-complete-number' );
+						Counter: number
+					}, {
+						duration: (ani_speed),
+						easing: 'linear',
+						step: function ( now ) {
+							<?php if ( $settings->layout == 'horizontal' && $settings->horizontal_style == 'style4' ) : ?>
+								text_field.find('span').text( UABBProgressBar.addCommas( Math.ceil( now ) ) + '%' );
+							<?php else : ?>
+								text_field.text( UABBProgressBar.addCommas( Math.ceil( now ) ) + '%' );
+							<?php endif; ?>
+						}
+					});
+					form.addClass( 'uabb-progress-complete-number' );
 				}
 			});
 		},
@@ -154,27 +154,28 @@
 			<?php $settings->animation_speed = ( $settings->animation_speed != '' ) ? $settings->animation_speed : '1'; ?>
 			var ani_speed = parseInt('<?php echo ( $settings->animation_speed * 1000 ); ?>');
 
-			jQuery( '.fl-node-<?php echo $id ?>' ).find( '.uabb-layout-horizontal' ).each(	function( index ) {
-				var form = jQuery( '.fl-node-<?php echo $id ?>' ).find( '.uabb-layout-horizontal.uabb-progress-bar-' + index );
+			jQuery( '.fl-node-<?php echo $id; ?>' ).find( '.uabb-layout-horizontal' ).each(	function( index ) {
+				var form = jQuery( '.fl-node-<?php echo $id; ?>' ).find( '.uabb-layout-horizontal.uabb-progress-bar-' + index );
 				var completeClass = form.hasClass('uabb-progress-complete');
 				if( !completeClass ) {
 					var number = Math.ceil( form.data( 'number' ) );
 					form.find('.uabb-progress-bar').animate({
-				        width: number + '%'
-				    }, {
-				        duration: ani_speed,
-				        easing: 'linear',
-				        queue: false
-				    });
+						width: number + '%'
+					}, {
+						duration: ani_speed,
+						easing: 'linear',
+						queue: false
+					});
 
-				    <?php if( $settings->horizontal_style == 'style4' ) {
+					<?php
+					if ( $settings->horizontal_style == 'style4' ) {
 						?>
 						form.find('.uabb-progress-box .uabb-progress-info').animate({
-						    width: ( number / 2 ) + '%'
+							width: ( number / 2 ) + '%'
 						}, {
-						    duration: ani_speed,
-						    easing: 'linear',
-						    queue: false
+							duration: ani_speed,
+							easing: 'linear',
+							queue: false
 						});
 					<?php } ?>
 					form.addClass( 'uabb-progress-complete' );
@@ -186,21 +187,21 @@
 		{
 			<?php $settings->animation_speed = ( $settings->animation_speed != '' ) ? $settings->animation_speed : '1'; ?>
 			var ani_speed = parseInt('<?php echo ( $settings->animation_speed * 1000 ); ?>');
-			jQuery( '.fl-node-<?php echo $id ?>' ).find( '.uabb-layout-vertical' ).each(	function( index ) {
-				var form = jQuery( '.fl-node-<?php echo $id ?>' ).find( '.uabb-layout-vertical.uabb-progress-bar-' + index );
+			jQuery( '.fl-node-<?php echo $id; ?>' ).find( '.uabb-layout-vertical' ).each(	function( index ) {
+				var form = jQuery( '.fl-node-<?php echo $id; ?>' ).find( '.uabb-layout-vertical.uabb-progress-bar-' + index );
 
 				var completeClass = form.hasClass('uabb-progress-complete');
 				if( !completeClass ) {
 					var number = Math.ceil( form.data( 'number' ) );
 					var progressBarWidth = number + '%';
 					form.find('.uabb-progress-bar').animate({
-				        height: number + '%'
-				    }, {
-				        duration: ani_speed,
-				        easing: 'linear'
-				    });
+						height: number + '%'
+					}, {
+						duration: ani_speed,
+						easing: 'linear'
+					});
 
-				    form.addClass( 'uabb-progress-complete' );
+					form.addClass( 'uabb-progress-complete' );
 				}
 			});
 		},
@@ -209,20 +210,20 @@
 		{
 			<?php $settings->animation_speed = ( $settings->animation_speed != '' ) ? $settings->animation_speed : '1'; ?>
 			var ani_speed = parseInt('<?php echo ( $settings->animation_speed * 1000 ); ?>');
-			jQuery( '.fl-node-<?php echo $id ?>' ).find( '.uabb-layout-circular' ).each(	function( index ) {
+			jQuery( '.fl-node-<?php echo $id; ?>' ).find( '.uabb-layout-circular' ).each(	function( index ) {
 
-				var form = jQuery( '.fl-node-<?php echo $id ?>' ).find( '.uabb-layout-circular.uabb-progress-bar-' + index );
+				var form = jQuery( '.fl-node-<?php echo $id; ?>' ).find( '.uabb-layout-circular.uabb-progress-bar-' + index );
 
 				var completeClass = form.hasClass('uabb-progress-complete');
 
 				if( !completeClass ) {
 
 					var circle = form.find('.uabb-bar'),
-				    	circular_number = Math.ceil( form.find('.uabb-svg-wrap').data( 'number' ) );
+						circular_number = Math.ceil( form.find('.uabb-svg-wrap').data( 'number' ) );
 
 					<?php
-					$width = !empty( $settings->circular_thickness ) ? $settings->circular_thickness : 300;
-					$pos = ( $width / 2 );
+					$width  = ! empty( $settings->circular_thickness ) ? $settings->circular_thickness : 300;
+					$pos    = ( $width / 2 );
 					$radius = $pos - 10;
 					?>
 
@@ -230,14 +231,14 @@
 						circlePi = Math.PI*(r*2);
 					
 					var pct = ( ( 100 - circular_number ) /100) * circlePi;
-				    circle.animate({
-				        strokeDashoffset: pct
-				    }, {
-				        duration: ani_speed,
-				        easing: 'linear'
-				    });
+					circle.animate({
+						strokeDashoffset: pct
+					}, {
+						duration: ani_speed,
+						easing: 'linear'
+					});
 
-				    form.addClass( 'uabb-progress-complete' );
+					form.addClass( 'uabb-progress-complete' );
 				}
 			});
 		},
@@ -246,9 +247,9 @@
 		{
 			<?php $settings->animation_speed = ( $settings->animation_speed != '' ) ? $settings->animation_speed : '1'; ?>
 			var ani_speed = parseInt('<?php echo ( $settings->animation_speed * 1000 ); ?>');
-			jQuery( '.fl-node-<?php echo $id ?>' ).find( '.uabb-layout-semi-circular' ).each(	function( index ) {
+			jQuery( '.fl-node-<?php echo $id; ?>' ).find( '.uabb-layout-semi-circular' ).each(	function( index ) {
 
-				var form = jQuery( '.fl-node-<?php echo $id ?>' ).find( '.uabb-layout-semi-circular.uabb-progress-bar-' + index );
+				var form = jQuery( '.fl-node-<?php echo $id; ?>' ).find( '.uabb-layout-semi-circular.uabb-progress-bar-' + index );
 
 				var completeClass = form.hasClass('uabb-progress-complete');
 
@@ -258,10 +259,10 @@
 					circular_number = Math.ceil( form.find('.uabb-svg-wrap').data( 'number' ) ) / 2;
 
 					<?php
-					$stroke_thickness = !empty( $settings->stroke_thickness ) ? $settings->stroke_thickness : 10;
-					$width = !empty( $settings->circular_thickness ) ? $settings->circular_thickness : 300;
-					$pos = ( $width / 2 );
-					$radius = $pos - ( $stroke_thickness / 2 );
+					$stroke_thickness = ! empty( $settings->stroke_thickness ) ? $settings->stroke_thickness : 10;
+					$width            = ! empty( $settings->circular_thickness ) ? $settings->circular_thickness : 300;
+					$pos              = ( $width / 2 );
+					$radius           = $pos - ( $stroke_thickness / 2 );
 					?>
 					var r      = <?php echo $radius; ?>,
 						circlePi = Math.PI*(r*2);
@@ -280,7 +281,7 @@
 	};
 
 	new UABBProgressBar({
-		id: '<?php echo $id ?>',
+		id: '<?php echo $id; ?>',
 		animation_delay: '<?php echo ( $settings->delay ); ?>',
 		animation_speed: '<?php echo ( $settings->animation_speed ); ?>',
 		viewport_position: 90

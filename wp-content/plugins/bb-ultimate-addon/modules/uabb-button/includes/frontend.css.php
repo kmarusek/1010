@@ -100,11 +100,13 @@ if ( ! empty( $settings->bg_hover_color ) ) {
         line-height: <?php echo $settings->line_height->desktop; ?>px;
 	<?php } ?>
 
-	<?php if($settings->transform != 'none' ) ?>
+	<?php if($settings->transform != 'none' ) : ?>
 	   text-transform: <?php echo $settings->transform; ?>;
+	<?php endif; ?>
 
-    <?php if($settings->letter_spacing != '' ) ?>
+    <?php if($settings->letter_spacing != '' ) : ?>
 	   letter-spacing: <?php echo $settings->letter_spacing; ?>px;
+	<?php endif; ?>
 	
 	<?php if( $settings->width == 'custom' ) { 
 			$padding_top_bottom = ( $settings->padding_top_bottom !== '' ) ? $settings->padding_top_bottom : '0';

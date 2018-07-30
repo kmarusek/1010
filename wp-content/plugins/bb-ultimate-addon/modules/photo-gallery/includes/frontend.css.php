@@ -93,11 +93,13 @@
 	color: <?php echo $settings->color; ?>;
 	<?php endif; ?>
 
-	<?php if($settings->transform != 'none' ) ?>
+	<?php if($settings->transform != 'none' ) : ?>
 	   text-transform: <?php echo $settings->transform; ?>;
+	<?php endif; ?>
 
-    <?php if($settings->letter_spacing != '' ) ?>
+    <?php if($settings->letter_spacing != '' ) : ?>
 	   letter-spacing: <?php echo $settings->letter_spacing; ?>px;
+	<?php endif; ?>
 }
 
 <?php if($global_settings->responsive_enabled) { // Global Setting If started ?>

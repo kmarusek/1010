@@ -136,11 +136,13 @@
 		    line-height: <?php echo $settings->text_line_height['desktop']; ?>px;
 		<?php } ?>
 
-		<?php if($settings->text_transform!= 'none' ) ?>
+		<?php if($settings->text_transform!= 'none' ) : ?>
 		   text-transform: <?php echo $settings->text_transform; ?>;
+		<?php endif; ?>   
 
-        <?php if($settings->text_letter_spacing!= '' ) ?>
+        <?php if($settings->text_letter_spacing!= '' ) : ?>
 		   letter-spacing: <?php echo $settings->text_letter_spacing; ?>px;
+		<?php endif; ?>   
 
 	}
 <?php } ?>
@@ -288,7 +290,7 @@ if( $settings->separator == 'line_text' || $settings->separator == 'line_image' 
 
 			<?php if ( $settings->responsive_img_size != '' ) { ?>
 			.fl-node-<?php echo $id; ?> .uabb-image-outter-wrap {
-				width: <?php echo ( 2 * ( $settings->img_border_width ) ) + ( 2 * ( $settings->img_bg_size ) ) + ( $settings->responsive_img_size ); ?>px;
+				width: <?php echo ( 2 * ( (int)$settings->img_border_width ) ) + ( 2 * ( (int)$settings->img_bg_size ) ) + ( (int)$settings->responsive_img_size ); ?>px;
 			}
 			<?php } ?>
 

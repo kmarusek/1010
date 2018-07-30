@@ -110,11 +110,13 @@ if( $settings->layout == "default" ) {
 	color: <?php echo $settings->ba_color; ?>;
 	<?php endif; ?>
 
-	<?php if( $settings->ba_transform != 'none' ) ?>
+	<?php if( $settings->ba_transform != 'none' ) : ?>
 	   text-transform: <?php echo $settings->ba_transform; ?>;
+	<?php endif; ?>
 
-    <?php if( $settings->ba_letter_spacing != '' ) ?>
+    <?php if( $settings->ba_letter_spacing != '' ) : ?>
 	   letter-spacing: <?php echo $settings->ba_letter_spacing; ?>px;
+	<?php endif; ?>
 }
 
 /* Custom Spacing Style Css */ 

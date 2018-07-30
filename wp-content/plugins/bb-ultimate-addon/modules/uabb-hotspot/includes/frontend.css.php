@@ -153,11 +153,13 @@ if( $photo_src != '' ) {
 						UABB_Helper::uabb_font_css( $settings->hotspot_marker[$i]->text_typography_font_family );
 					} ?>
 					
-					<?php if( $settings->hotspot_marker[$i]->text_typography_transform != 'none' ) ?>
+					<?php if( $settings->hotspot_marker[$i]->text_typography_transform != 'none' ) : ?>
 					   text-transform: <?php echo $settings->hotspot_marker[$i]->text_typography_transform; ?>;
+					<?php endif; ?>
 
-			        <?php if( $settings->hotspot_marker[$i]->text_typography_letter_spacing != '' ) ?>
+			        <?php if( $settings->hotspot_marker[$i]->text_typography_letter_spacing != '' ) : ?>
 					   letter-spacing: <?php echo $settings->hotspot_marker[$i]->text_typography_letter_spacing; ?>px;
+					<?php endif; ?>
 					
 			 	}
 			 	.fl-node-<?php echo $id; ?> .uabb-hotspot-item-<?php echo $i; ?> .uabb-hotspot-text {
@@ -271,11 +273,13 @@ if( $photo_src != '' ) {
 					    line-height: <?php echo $settings->hotspot_marker[$i]->tooltip_line_height['desktop']; ?>px;
 					<?php } ?>
 
-					<?php if( $settings->hotspot_marker[$i]->tooltip_transform != 'none' ) ?>
+					<?php if( $settings->hotspot_marker[$i]->tooltip_transform != 'none' ) : ?>
 					   text-transform: <?php echo $settings->hotspot_marker[$i]->tooltip_transform; ?>;
+					<?php endif; ?>
 
-			        <?php if( $settings->hotspot_marker[$i]->tooltip_letter_spacing != '' ) ?>
+			        <?php if( $settings->hotspot_marker[$i]->tooltip_letter_spacing != '' ) : ?>
 					   letter-spacing: <?php echo $settings->hotspot_marker[$i]->tooltip_letter_spacing; ?>px;
+					<?php endif; ?>
 
 					<?php		
 					if( $settings->hotspot_marker[$i]->tooltip_font_family['family'] != 'Default' ) {

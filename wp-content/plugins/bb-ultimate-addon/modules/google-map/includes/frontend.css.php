@@ -1,5 +1,5 @@
 .fl-node-<?php echo $id; ?> {
-    width: 100%;
+	width: 100%;
 }
 
 .fl-node-<?php echo $id; ?> .uabb-google-map-wrapper {

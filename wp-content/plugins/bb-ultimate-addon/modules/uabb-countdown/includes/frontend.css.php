@@ -284,11 +284,13 @@ if( isset( $settings->fixed_timer_action ) && $settings->fixed_timer_action == "
 		color: <?php echo $settings->message_color; ?>;
 	<?php endif; ?>
 
-	<?php if( $settings->message_transform != 'none' ) ?>
+	<?php if( $settings->message_transform != 'none' ) : ?>
 	   text-transform: <?php echo $settings->message_transform; ?>;
+	<?php endif; ?>
 
-    <?php if( $settings->message_letter_spacing != '' ) ?>
+    <?php if( $settings->message_letter_spacing != '' ) : ?>
 	   letter-spacing: <?php echo $settings->message_letter_spacing; ?>px;
+	<?php endif; ?>
 }
 <?php
 }
@@ -321,11 +323,13 @@ if( isset( $settings->evergreen_timer_action ) && $settings->evergreen_timer_act
 		color: <?php echo $settings->message_color; ?>;
 	<?php endif; ?>
 
-	<?php if( $settings->message_transform != 'none' ) ?>
+	<?php if( $settings->message_transform != 'none' ): ?>
 	   text-transform: <?php echo $settings->message_transform; ?>;
+	<?php endif; ?>
 
-    <?php if( $settings->message_letter_spacing != '' ) ?>
+    <?php if( $settings->message_letter_spacing != '' ) : ?>
 	   letter-spacing: <?php echo $settings->message_letter_spacing; ?>px;
+	<?php endif; ?>
 }
 <?php
 }
@@ -398,11 +402,13 @@ if ( ( isset( $settings->digit_font_family['family'] ) && $settings->digit_font_
 			color: <?php echo $settings->unit_color; ?>;
 		<?php endif; ?>
 
-		<?php if( $settings->unit_transform != 'none' ) ?>
+		<?php if( $settings->unit_transform != 'none' ) : ?>
 	   		text-transform: <?php echo $settings->unit_transform; ?>;
+	   	<?php endif; ?>
 
-    	<?php if( $settings->unit_letter_spacing != '' ) ?>
+    	<?php if( $settings->unit_letter_spacing != '' ) : ?>
 	   		letter-spacing: <?php echo $settings->unit_letter_spacing; ?>px;
+	   	<?php endif; ?>
 	}
 <?php } ?>
 

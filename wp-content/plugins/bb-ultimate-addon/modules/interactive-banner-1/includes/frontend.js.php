@@ -4,20 +4,20 @@
 	$(window).on( 'load', function(a){
 		jQuery('.fl-node-<?php echo $id; ?> .uabb-ib1-block').each(function(index, value){
 			<?php
-			if( $settings->banner_height_options == 'custom' && $settings->image_size_compatibility != 'none' ) {
-				if( $settings->image_size_compatibility == 'small' ) {
-			?>
+			if ( $settings->banner_height_options == 'custom' && $settings->image_size_compatibility != 'none' ) {
+				if ( $settings->image_size_compatibility == 'small' ) {
+					?>
 			if( jQuery( document ).width() <= parseInt( '<?php echo $global_settings->responsive_breakpoint; ?>' ) ) {
 				jQuery( this ).removeClass( "uabb-banner-block-custom-height" );
 			}
-			<?php
+					<?php
 				}
-				if( $settings->image_size_compatibility == 'medium' ) {
-			?>
+				if ( $settings->image_size_compatibility == 'medium' ) {
+					?>
 			if( jQuery( document ).width() <= parseInt( '<?php echo $global_settings->medium_breakpoint; ?>' ) ) {
 				jQuery( this ).removeClass( "uabb-banner-block-custom-height" );
 			}
-			<?php
+					<?php
 				}
 			}
 			?>
@@ -37,10 +37,10 @@
 				$(this).click(function(){
 					//event.stopPropagation();
 					if( jQuery('.fl-node-<?php echo $id; ?> .uabb-ib1-block').hasClass( 'uabb-ib1-hover' ) ){
-				        jQuery('.fl-node-<?php echo $id; ?> .uabb-ib1-block').removeClass('uabb-ib1-hover');
-				    } else {
-				        jQuery('.fl-node-<?php echo $id; ?> .uabb-ib1-block').addClass('uabb-ib1-hover');
-				    }
+						jQuery('.fl-node-<?php echo $id; ?> .uabb-ib1-block').removeClass('uabb-ib1-hover');
+					} else {
+						jQuery('.fl-node-<?php echo $id; ?> .uabb-ib1-block').addClass('uabb-ib1-hover');
+					}
 				});
 			}
 		});
@@ -64,9 +64,9 @@
 	$(window).on( 'resize', function(a){
 		jQuery('.fl-node-<?php echo $id; ?> .uabb-ib1-block').each(function(index, value){
 			<?php
-			if( $settings->banner_height_options == 'custom' && $settings->image_size_compatibility != 'none' ) {
-				if( $settings->image_size_compatibility == 'small' ) {
-			?>
+			if ( $settings->banner_height_options == 'custom' && $settings->image_size_compatibility != 'none' ) {
+				if ( $settings->image_size_compatibility == 'small' ) {
+					?>
 			if( jQuery( document ).width() <= parseInt( '<?php echo $global_settings->responsive_breakpoint; ?>' ) ) {
 				jQuery( this ).removeClass( "uabb-banner-block-custom-height" );
 				jQuery( this ).find('.uabb-image-wrap img').css( 'width', '' );
@@ -76,10 +76,10 @@
 					jQuery( this ).addClass( "uabb-banner-block-custom-height" );
 				}
 			}
-			<?php
+					<?php
 				}
-				if( $settings->image_size_compatibility == 'medium' ) {
-			?>
+				if ( $settings->image_size_compatibility == 'medium' ) {
+					?>
 			if( jQuery( document ).width() <= parseInt( '<?php echo $global_settings->medium_breakpoint; ?>' ) ) {
 				jQuery( this ).removeClass( "uabb-banner-block-custom-height" );
 				jQuery( this ).find('.uabb-image-wrap img').css( 'width', '' );
@@ -89,7 +89,7 @@
 					jQuery( this ).addClass( "uabb-banner-block-custom-height" );
 				}
 			}
-			<?php
+					<?php
 				}
 			}
 			?>

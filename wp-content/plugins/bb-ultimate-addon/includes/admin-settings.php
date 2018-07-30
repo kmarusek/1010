@@ -1,9 +1,16 @@
+<?php
+/**
+ * Admin Settings
+ *
+ * @package Render UABB Admin settings
+ */
+
+?>
 <div class="wrap <?php UABBBuilderAdminSettings::render_page_class(); ?>">
 
 	<h2 class="fl-settings-heading">
 		<?php UABBBuilderAdminSettings::render_page_heading(); ?>
-	</h2>
-	
+	</h2>	
 	<?php UABBBuilderAdminSettings::render_update_message(); ?>
 
 	<div class="fl-settings-nav">

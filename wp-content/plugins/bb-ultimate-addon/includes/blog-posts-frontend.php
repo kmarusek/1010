@@ -1,3 +1,11 @@
+<?php
+/**
+ * Blog Posts frontend content
+ *
+ * @package Blog Post
+ */
+
+?>
 <div class="uabb-blog-post-content">
 	<?php
 	FLPostGridModule::schema_meta();

@@ -1,7 +1,7 @@
 jQuery(document).ready(function($){
 	if( 'function' == typeof UABBModalPopup ) {
 		var UABBModalPopup_<?php echo $id; ?> =  new UABBModalPopup({
-			id: '<?php echo $id ?>',
+			id: '<?php echo $id; ?>',
 			modal_on: '<?php echo $settings->modal_on; ?>',
 			modal_custom: '<?php echo $settings->modal_custom; ?>',
 			modal_content: '<?php echo $settings->content_type; ?>',
@@ -27,23 +27,23 @@ jQuery(document).ready(function($){
 			custom_wrap.addClass("uabb-modal-action uabb-trigger");
 			custom_wrap.attr( 'data-modal', "modal-<?php echo $id; ?>" );
 		<?php } ?>*/
-		<?php if ( $settings->modal_on == 'automatic' && !FLBuilderModel::is_builder_active()) { ?>
+		<?php if ( $settings->modal_on == 'automatic' && ! FLBuilderModel::is_builder_active() ) { ?>
 			<?php if ( $settings->after_second ) { ?>
 				setTimeout(function() {     
 					UABBModalPopup_<?php echo $id; ?>._showAutomaticModalPopup();
-				},<?php echo $settings->after_second_value.'000' ?>);
+				},<?php echo $settings->after_second_value . '000'; ?>);
 			<?php } ?>
 			
 			<?php if ( $settings->exit_intent ) { ?>
 				$(this).on('mouseleave', function(e){
-				    if( e.clientY < 0 ) {
+					if( e.clientY < 0 ) {
 						UABBModalPopup_<?php echo $id; ?>._showAutomaticModalPopup();
 					}
 				});
 			<?php } ?>
-		<?php }  ?>
+		<?php } ?>
 
-		<?php if ( FLBuilderModel::is_builder_active()) { ?>
+		<?php if ( FLBuilderModel::is_builder_active() ) { ?>
 			$( ".uabb-live-preview-button" ).click(function() {
 				setTimeout(function(){
 					UABBModalPopup_<?php echo $id; ?>._initModalPopup();

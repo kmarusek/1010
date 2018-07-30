@@ -1,10 +1,18 @@
+<?php
+/**
+ *  UI Field Message Box alert file
+ *
+ *  @package UI Field Message Box
+ */
+
+?>
 <#
 var field   = data.field,
-    name    = data.name,
-    value   = data.value,
-    msg_type = ( typeof field.msg_type != 'undefined' && field.msg_type != '' ) ? field.msg_type : 'info',
-    custom_class = ( typeof field.class != 'undefined' && field.class != '' ) ? field.class : '',
-    msg_content = '';
+	name    = data.name,
+	value   = data.value,
+	msg_type = ( typeof field.msg_type != 'undefined' && field.msg_type != '' ) ? field.msg_type : 'info',
+	custom_class = ( typeof field.class != 'undefined' && field.class != '' ) ? field.class : '',
+	msg_content = '';
 
 custom_class += ' uabb-msg-' + msg_type;
 

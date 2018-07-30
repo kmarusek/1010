@@ -1,11 +1,19 @@
 <?php
+/**
+ *  UABB Contact Form 7 Module file
+ *
+ *  @package UABB Contact Form 7 Module
+ */
 
 /**
+ * Function that initializes UABB Contact Form 7 Module
+ *
  * @class UABBContactForm7Module
  */
 class UABBContactForm7Module extends FLBuilderModule {
-
 	/**
+	 * Constructor function that constructs default values for the Contact Form 7 Module
+	 *
 	 * @method __construct
 	 */
 	public function __construct()
@@ -245,7 +253,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
 						'show_reset' 	=> true,
 						'preview'         => array(
                             'type'          => 'css',
-                            'selector'      => '.uabb-cf7-style input[type=email], .uabb-cf7-style input[type=text], .uabb-cf7-style input[type=url], .uabb-cf7-style input[type=number], .uabb-cf7-style input[type=date], .uabb-cf7-style select, .uabb-cf7-style textarea',
+                            'selector'      => '.uabb-cf7-style input[type=email], .uabb-cf7-style input[type=text], .uabb-cf7-style input[type=url], .uabb-cf7-style input[type=number], .uabb-cf7-style input[type=date], .uabb-cf7-style select, .uabb-cf7-style textarea, .uabb-cf7-style input[type=tel]',
                             'property'      => 'background',
                         )
 					),
@@ -372,6 +380,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                     	'type'          => 'select',
                         'label'         => __( 'Use Custom Style', 'uabb' ),
                         'default'       => 'false',
+                        'help'			=> __( 'To use this option you need to select "Wrap each item with label element" in the Contact Form 7 checkbox and radio button settings or add use_label_element while creating both radio buttons and checkboxes.', 'uabb' ),
                         'options'       => array(
                             'true'    => __( 'Yes', 'uabb' ),
                             'false'   => __( 'No', 'uabb' ),
@@ -781,8 +790,39 @@ FLBuilder::register_module('UABBContactForm7Module', array(
 		                    'center'        => __('Center', 'uabb'),
 		                    'left'          => __('Left', 'uabb'),
 		                    'right'         => __('Right', 'uabb')
-		                )
+		                ),
+		                'preview'		=> array(
+							'type' 		=> 'css',
+							'property'	=> 'text-align',
+							'selector' 	=> '.uabb-cf7-style input[type=submit]'
+						)
 		            ),
+		            'btn_margin_top'       => array(
+						'type'          => 'text',
+						'label'         => __('Margin Top', 'uabb'),
+						'placeholder'	=> '',
+						'size'			=> '5',
+						'description'	=> 'px',
+						'preview'		=> array(
+							'type' 		=> 'css',
+							'property' 	=> 'margin-top',
+							'selector' 	=> '.uabb-cf7-style input[type=submit]',
+							'unit'		=> 'px',
+						)
+					),
+					'btn_margin_bottom'       => array(
+						'type'          => 'text',
+						'label'         => __('Margin Bottom', 'uabb'),
+						'placeholder'	=> '',
+						'size'			=> '5',
+						'description'	=> 'px',
+						'preview'		=> array(
+							'type' => 'css',
+							'property'	=> 'margin-bottom',
+							'selector'	=> '.uabb-cf7-style input[type=submit]',
+							'unit'		=> 'px',
+						)
+					),
 		        )
            	),
 		)

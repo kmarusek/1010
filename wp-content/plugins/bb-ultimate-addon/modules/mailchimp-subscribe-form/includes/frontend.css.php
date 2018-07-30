@@ -96,6 +96,7 @@ if( $settings->btn_margin_top != '' ) {
 ?>
 .fl-node-<?php echo $id; ?> .uabb-subscribe-form-stacked .uabb-form-button {
     margin-top: <?php echo $settings->btn_margin_top; ?>px;
+    margin-bottom: <?php echo $settings->btn_margin_bottom; ?>px;
 }
 <?php 
 }
@@ -137,11 +138,13 @@ if( $settings->btn_margin_top != '' ) {
 
     margin-bottom: <?php echo ( $settings->heading_margin_bottom != '' ) ? $settings->heading_margin_bottom : '0' ?>px;
 
-    <?php if( $settings->heading_transform != 'none' ) ?>
+    <?php if( $settings->heading_transform != 'none' ) : ?>
        text-transform: <?php echo $settings->heading_transform; ?>;
+    <?php endif; ?>
 
-    <?php if( $settings->heading_letter_spacing != '' ) ?>
+    <?php if( $settings->heading_letter_spacing != '' ) : ?>
        letter-spacing: <?php echo $settings->heading_letter_spacing; ?>px;
+    <?php endif; ?>
 }
 
 .fl-node-<?php echo $id; ?> <?php echo $settings->subheading_tag_selection; ?>.uabb-sf-subheading {
@@ -171,11 +174,13 @@ if( $settings->btn_margin_top != '' ) {
 
     margin-bottom: <?php echo ( $settings->subheading_margin_bottom != '' ) ? $settings->subheading_margin_bottom : '20' ?>px;
    
-    <?php if( $settings->subheading_transform != 'none' ) ?>
+    <?php if( $settings->subheading_transform != 'none' ) : ?>
        text-transform: <?php echo $settings->subheading_transform; ?>;
+    <?php endif; ?>
 
-    <?php if( $settings->subheading_letter_spacing != '' ) ?>
+    <?php if( $settings->subheading_letter_spacing != '' ) : ?>
        letter-spacing: <?php echo $settings->subheading_letter_spacing; ?>px;
+    <?php endif; ?>
 
 }
 
@@ -201,11 +206,13 @@ if( $settings->btn_margin_top != '' ) {
         line-height: <?php echo $settings->input_line_height['desktop']; ?>px;
     <?php } ?>
 
-    <?php if( $settings->input_transform != 'none' ) ?>
+    <?php if( $settings->input_transform != 'none' ) : ?>
        text-transform: <?php echo $settings->input_transform; ?>;
+    <?php endif; ?>
 
-    <?php if( $settings->input_letter_spacing != '' ) ?>
+    <?php if( $settings->input_letter_spacing != '' ) : ?>
        letter-spacing: <?php echo $settings->input_letter_spacing; ?>px;
+    <?php endif; ?>
 
 }
 
@@ -249,11 +256,13 @@ if( $settings->btn_margin_top != '' ) {
 
     margin-top: <?php echo ( $settings->text_margin_top != '' ) ? $settings->text_margin_top : '20' ?>px;
 
-    <?php if( $settings->text_transform != 'none' ) ?>
+    <?php if( $settings->text_transform != 'none' ) : ?>
        text-transform: <?php echo $settings->text_transform; ?>;
+    <?php endif; ?>
 
-    <?php if( $settings->text_letter_spacing != '' ) ?>
+    <?php if( $settings->text_letter_spacing != '' ) : ?>
        letter-spacing: <?php echo $settings->text_letter_spacing; ?>px;
+    <?php endif; ?>
 }
 
 <?php if ( $settings->terms_checkbox == 'show' ) { ?>
@@ -309,9 +318,9 @@ if( $settings->btn_margin_top != '' ) {
             text-transform: <?php echo $settings->terms_text_transform; ?>;
         <?php endif; ?>
 
-        <?php if( $settings->terms_text_letter_spacing != '' ) { ?>
+        <?php if( $settings->terms_text_letter_spacing != '' ) : ?>
             letter-spacing: <?php echo $settings->terms_text_letter_spacing; ?>px;
-        <?php } ?>
+        <?php endif; ?>
     }
 <?php } ?>
 

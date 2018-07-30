@@ -141,11 +141,13 @@ if( count( $settings->ihover_item ) > 0 ) {
     echo 'margin-bottom: ' . $settings->title_margin_bottom . 'px;';       
     ?>
 
-    <?php if( $settings->title_typography_transform != 'none' ) ?>
+    <?php if( $settings->title_typography_transform != 'none' ) : ?>
        text-transform: <?php echo $settings->title_typography_transform; ?>;
+    <?php endif; ?>
 
-    <?php if( $settings->title_typography_letter_spacing != '' ) ?>
+    <?php if( $settings->title_typography_letter_spacing != '' ) : ?>
        letter-spacing: <?php echo $settings->title_typography_letter_spacing; ?>px;
+    <?php endif; ?>
 }
 
 .fl-node-<?php echo $id; ?> .uabb-ih-description,
@@ -171,11 +173,13 @@ if( count( $settings->ihover_item ) > 0 ) {
         line-height: <?php echo $settings->desc_typography_line_height['desktop']; ?>px;
     <?php } ?>
 
-    <?php if( $settings->desc_typography_transform != 'none' ) ?>
+    <?php if( $settings->desc_typography_transform != 'none' ) : ?>
        text-transform: <?php echo $settings->desc_typography_transform; ?>;
+    <?php endif; ?>
 
-    <?php if( $settings->desc_typography_letter_spacing != '' ) ?>
+    <?php if( $settings->desc_typography_letter_spacing != '' ) : ?>
        letter-spacing: <?php echo $settings->desc_typography_letter_spacing; ?>px;    
+    <?php endif; ?>
 
 }
 

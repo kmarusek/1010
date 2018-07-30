@@ -362,11 +362,13 @@ if ( $settings->enable_social_icons == 'yes' ) {
 	color: <?php echo $settings->color; ?>;
 	<?php endif; ?>
 
-	<?php if( $settings->transform != 'none' ) ?>
+	<?php if( $settings->transform != 'none' ) : ?>
 	   text-transform: <?php echo $settings->transform; ?>;
+	<?php endif; ?>
 
-    <?php if( $settings->letter_spacing != '' ) ?>
+    <?php if( $settings->letter_spacing != '' ) : ?>
 	   letter-spacing: <?php echo $settings->letter_spacing; ?>px;
+	<?php endif; ?>
 }
 
 /* Designation Text Typography */
@@ -395,14 +397,16 @@ if ( $settings->enable_social_icons == 'yes' ) {
     	line-height: <?php echo $settings->desg_line_height['desktop']; ?>px;
     <?php } ?>
 
-	<?php if( $settings->desg_transform != 'none' ) ?>
+	<?php if( $settings->desg_transform != 'none' ) : ?>
 	   text-transform: <?php echo $settings->desg_transform; ?>;
+	<?php endif; ?>
 
-    <?php if( $settings->desg_letter_spacing != '' ) ?>
+    <?php if( $settings->desg_letter_spacing != '' ) : ?>
 	   letter-spacing: <?php echo $settings->desg_letter_spacing; ?>px;
+	<?php endif; ?>
 
 	<?php if( $settings->desg_color != '' ) : ?>
-	color: <?php echo $settings->desg_color; ?>;
+		color: <?php echo $settings->desg_color; ?>;
 	<?php endif; ?>
 }
 
@@ -433,14 +437,16 @@ if ( $settings->enable_social_icons == 'yes' ) {
     <?php } ?>
 	
 	<?php if( $settings->desc_color != '' ) : ?>
-	color: <?php echo $settings->desc_color; ?>;
+		color: <?php echo $settings->desc_color; ?>;
 	<?php endif; ?>
 
-	<?php if( $settings->desc_transform != 'none' ) ?>
+	<?php if( $settings->desc_transform != 'none' ) : ?>
 	   text-transform: <?php echo $settings->desc_transform; ?>;
+	<?php endif; ?>
 
-    <?php if( $settings->desc_letter_spacing != '' ) ?>
+    <?php if( $settings->desc_letter_spacing != '' ) : ?>
 	   letter-spacing: <?php echo $settings->desc_letter_spacing; ?>px;
+	<?php endif; ?>
 }
 
 

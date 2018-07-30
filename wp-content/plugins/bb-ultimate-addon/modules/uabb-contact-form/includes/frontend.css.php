@@ -41,7 +41,7 @@
 		<?php UABB_Helper::uabb_gradient_css( $settings->form_bg_gradient ); ?>
 	<?php } ?>
 	<?php
-	if( $converted === 'yes' || $settings->form_spacing_dimension_top != '' && isset($settings->form_spacing_dimension_top) && isset( $settings->form_spacing_dimension_bottom ) && $settings->form_spacing_dimension_bottom != ''  && isset( $settings->form_spacing_dimension_left ) && $settings->form_spacing_dimension_left != ''  && isset( $settings->front_padding_dimension_right ) && $settings->front_padding_dimension_right != '' ) {
+	if( $converted === 'yes' || $settings->form_spacing_dimension_top != '' && isset($settings->form_spacing_dimension_top) && isset( $settings->form_spacing_dimension_bottom ) && $settings->form_spacing_dimension_bottom != ''  && isset( $settings->form_spacing_dimension_left ) && $settings->form_spacing_dimension_left != ''  && isset( $settings->form_spacing_dimension_right ) && $settings->form_spacing_dimension_right != '' ) {
         if(isset($settings->form_spacing_dimension_top) ){
 	        echo ( $settings->form_spacing_dimension_top != '' ) ? 'padding-top:'.$settings->form_spacing_dimension_top.'px;' : ''; 
 	    }
@@ -55,7 +55,7 @@
 	        echo ( $settings->form_spacing_dimension_right != '' ) ? 'padding-right:'.$settings->form_spacing_dimension_right.'px;' : '';
 	    }
     }
-    else if( isset( $settings->form_spacing ) && $settings->form_spacing != '' && isset( $settings->form_spacing_dimension_top ) && $settings->form_spacing_dimension_top == '' && isset( $settings->form_spacing_dimension_bottom ) && $settings->form_spacing_dimension_bottom == ''  && isset( $settings->form_spacing_dimension_left ) && $settings->form_spacing_dimension_left == ''  && isset( $settings->front_padding_dimension_right ) && $settings->front_padding_dimension_right == '' ) {
+    else if( isset( $settings->form_spacing ) && $settings->form_spacing != '' && isset( $settings->form_spacing_dimension_top ) && $settings->form_spacing_dimension_top == '' && isset( $settings->form_spacing_dimension_bottom ) && $settings->form_spacing_dimension_bottom == ''  && isset( $settings->form_spacing_dimension_left ) && $settings->form_spacing_dimension_left == ''  && isset( $settings->form_spacing_dimension_right ) && $settings->form_spacing_dimension_right == '' ) {
         echo $settings->form_spacing; ?>;
     <?php } ?>
 
@@ -199,6 +199,8 @@
 
 .fl-node-<?php echo $id; ?> .uabb-contact-form .uabb-submit-btn {
 	<?php echo ( $settings->btn_top_margin != '' ) ? 'margin-top: '.$settings->btn_top_margin.'px;' : 'margin-top: 0;'; ?>
+
+	<?php echo ( $settings->btn_bottom_margin != '' ) ? 'margin-bottom: '.$settings->btn_bottom_margin.'px;' : 'margin-bottom: 0;'; ?>
 }
 
 /* Label */
@@ -400,11 +402,13 @@ if ( $settings->btn_align != 'full' ) { ?>
         line-height: <?php echo $settings->line_height['desktop']; ?>px;
     <?php } ?>
 
-	<?php if( $settings->transform != 'none' ) ?>
+	<?php if( $settings->transform != 'none' ) : ?>
        text-transform: <?php echo $settings->transform; ?>;
+    <?php endif; ?>
 
-    <?php if( $settings->letter_spacing != '' ) ?>
+    <?php if( $settings->letter_spacing != '' ) : ?>
        letter-spacing: <?php echo $settings->letter_spacing; ?>px;
+    <?php endif; ?>
 }
 
 .fl-node-<?php echo $id; ?> .uabb-contact-form-submit {
@@ -445,11 +449,13 @@ if ( $settings->btn_align != 'full' ) { ?>
                 <?php } ?>
         <?php } ?>
 
-    <?php if( $settings->btn_transform != 'none' ) ?>
+    <?php if( $settings->btn_transform != 'none' ) : ?>
        text-transform: <?php echo $settings->btn_transform; ?>;
+    <?php endif; ?>
 
-    <?php if( $settings->btn_letter_spacing != '' ) ?>
+    <?php if( $settings->btn_letter_spacing != '' ) : ?>
        letter-spacing: <?php echo $settings->btn_letter_spacing; ?>px;
+    <?php endif; ?>
 
     <?php if( isset( $settings->btn_font_size['desktop'] ) && $settings->btn_font_size['desktop'] == '' && isset( $settings->btn_line_height['desktop'] ) && $settings->btn_line_height['desktop'] != '' && $settings->btn_line_height_unit == '' ) { ?>
 		line-height: <?php echo $settings->btn_line_height['desktop']; ?>px;
@@ -494,11 +500,13 @@ if ( $settings->btn_align != 'full' ) { ?>
 		color: <?php echo $settings->label_color; ?>;
 	<?php endif; ?>
 
-	<?php if( $settings->label_transform != 'none' ) ?>
+	<?php if( $settings->label_transform != 'none' ) : ?>
        text-transform: <?php echo $settings->label_transform; ?>;
+    <?php endif; ?>
 
-    <?php if( $settings->label_letter_spacing != '' ) ?>
+    <?php if( $settings->label_letter_spacing != '' ) : ?>
        letter-spacing: <?php echo $settings->label_letter_spacing; ?>px;
+    <?php endif; ?>
 }
 <?php } ?>
 
@@ -526,9 +534,9 @@ if ( $settings->btn_align != 'full' ) { ?>
 	text-transform: <?php echo $settings->checkbox_text_transform; ?>;
 	<?php endif; ?>
 
-	<?php if( $settings->checkbox_text_letter_spacing != '' ) { ?>
+	<?php if( $settings->checkbox_text_letter_spacing != '' ) : ?>
 	letter-spacing: <?php echo $settings->checkbox_text_letter_spacing; ?>px;
-	<?php } ?>
+	<?php endif; ?>
 }
 <?php } ?>
 
@@ -555,9 +563,9 @@ if ( $settings->btn_align != 'full' ) { ?>
 	text-transform: <?php echo $settings->terms_text_transform; ?>;
 	<?php endif; ?>
 
-	<?php if( $settings->terms_text_letter_spacing != '' ) { ?>
+	<?php if( $settings->terms_text_letter_spacing != '' ) : ?>
 	letter-spacing: <?php echo $settings->terms_text_letter_spacing; ?>px;
-	<?php } ?>	
+	<?php endif; ?>	
 }
 <?php } ?>
 
@@ -611,10 +619,10 @@ $checked_width = $font_size - intval($settings->checkbox_border_width);
     border-radius: <?php echo $settings->checkbox_border_radius ?>px;
 }
 
-<!-- Terms and Conditions code ends here -->
+/* Terms and Conditions code ends here */
 
 /* Typography responsive css */
-<?php if($global_settings->responsive_enabled) { // Global Setting If started ?>
+<?php if( $global_settings->responsive_enabled ) { // Global Setting If started ?>
 
 	@media ( max-width: <?php echo $global_settings->medium_breakpoint .'px'; ?> ) {
 		.fl-node-<?php echo $id; ?> .uabb-contact-form input,

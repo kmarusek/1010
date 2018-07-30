@@ -495,11 +495,13 @@ if( $settings->slide_type == "style3" ) {
         line-height: <?php echo $settings->front_title_line_height['desktop']; ?>px;
     <?php } ?>  
 
-    <?php if( $settings->front_title_transform != 'none' ) ?>
+    <?php if( $settings->front_title_transform != 'none' ) : ?>
        text-transform: <?php echo $settings->front_title_transform; ?>;
+    <?php endif; ?>
 
-    <?php if( $settings->front_title_letter_spacing != '' ) ?>
+    <?php if( $settings->front_title_letter_spacing != '' ) : ?>
        letter-spacing: <?php echo $settings->front_title_letter_spacing; ?>px;
+    <?php endif; ?>
 
     <?php echo ( $settings->front_title_color != '' ) ? 'color: ' . $settings->front_title_color . ';' : '';
     echo ( $settings->front_title_margin_top != '' ) ? 'margin-top: ' . $settings->front_title_margin_top . 'px;' : '';
@@ -534,11 +536,13 @@ if( $settings->slide_type == "style3" ) {
     <?php echo ( $settings->front_desc_margin_bottom != '' ) ? 'margin-bottom: ' . $settings->front_desc_margin_bottom . 'px;' : ''; ?>
     <?php echo ( $settings->front_desc_color != '' ) ? 'color: ' . $settings->front_desc_color . ';' : ''; ?>
 
-   <?php if( $settings->front_desc_transform != 'none' ) ?>
+    <?php if( $settings->front_desc_transform != 'none' ) : ?>
        text-transform: <?php echo $settings->front_desc_transform; ?>;
+    <?php endif; ?>
 
-    <?php if( $settings->front_desc_letter_spacing != '' ) ?>
+    <?php if( $settings->front_desc_letter_spacing != '' ) : ?>
        letter-spacing: <?php echo $settings->front_desc_letter_spacing; ?>px;
+    <?php endif; ?>
 }
 
 /* Font Back Slide Heading (Desktop) */
@@ -569,11 +573,13 @@ if( $settings->slide_type == "style3" ) {
     echo ( $settings->back_title_margin_top != '' ) ? 'margin-top: ' . $settings->back_title_margin_top . 'px;' : '';
     echo ( $settings->back_title_margin_bottom != '' ) ? 'margin-bottom: ' . $settings->back_title_margin_bottom . 'px;' : '';
     ?>
-    <?php if( $settings->back_transform != 'none' ) ?>
+    <?php if( $settings->back_transform != 'none' ) : ?>
        text-transform: <?php echo $settings->back_transform; ?>;
+    <?php endif; ?>
 
-    <?php if( $settings->back_letter_spacing != '' ) ?>
+    <?php if( $settings->back_letter_spacing != '' ) : ?>
        letter-spacing: <?php echo $settings->back_letter_spacing; ?>px;
+    <?php endif; ?>
 }
 
 /* Font Back Slide Description (Desktop) */
@@ -599,11 +605,13 @@ if( $settings->slide_type == "style3" ) {
         line-height: <?php echo $settings->back_desc_line_height['desktop']; ?>px;
     <?php } ?>
     
-    <?php if( $settings->back_desc_transform != 'none' ) ?>
+    <?php if( $settings->back_desc_transform != 'none' ) : ?>
        text-transform: <?php echo $settings->back_desc_transform; ?>;
+    <?php endif; ?>
 
-    <?php if( $settings->back_desc_letter_spacing != '' ) ?>
+    <?php if( $settings->back_desc_letter_spacing != '' ) : ?>
        letter-spacing: <?php echo $settings->back_desc_letter_spacing; ?>px;
+    <?php endif; ?>
 
     <?php echo ( $settings->back_desc_margin_top != '' ) ? 'margin-top: ' . $settings->back_desc_margin_top . 'px;' : ''; ?>
     <?php echo ( $settings->back_desc_margin_bottom != '' ) ? 'margin-bottom: ' . $settings->back_desc_margin_bottom . 'px;' : 'margin-bottom: 10px;'; ?>
@@ -641,11 +649,13 @@ if( $settings->slide_type == "style3" ) {
         line-height: <?php echo $settings->link_line_height['desktop']; ?>px;
     <?php } ?>
     
-    <?php if( $settings->link_transform != 'none' ) ?>
+    <?php if( $settings->link_transform != 'none' ) : ?>
        text-transform: <?php echo $settings->link_transform; ?>;
+    <?php endif; ?>
 
-    <?php if( $settings->link_letter_spacing != '' ) ?>
+    <?php if( $settings->link_letter_spacing != '' ) : ?>
        letter-spacing: <?php echo $settings->link_letter_spacing; ?>px;
+    <?php endif; ?>
 }
 
 <?php

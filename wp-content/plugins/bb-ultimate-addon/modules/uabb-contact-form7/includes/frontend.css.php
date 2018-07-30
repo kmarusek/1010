@@ -318,11 +318,13 @@ if( $settings->radio_check_custom_option == 'true') {
             color: #<?php echo $settings->radio_checkbox_color ?>;
         <?php endif;?>
 
-        <?php if( $settings->radio_checkbox_transform != 'none' ) ?>
+        <?php if( $settings->radio_checkbox_transform != 'none' ) : ?>
            text-transform: <?php echo $settings->radio_checkbox_transform; ?>;
+        <?php endif; ?>
 
-        <?php if( $settings->radio_checkbox_letter_spacing != '' ) ?>
+        <?php if( $settings->radio_checkbox_letter_spacing != '' ) : ?>
            letter-spacing: <?php echo $settings->radio_checkbox_letter_spacing; ?>px;
+        <?php endif; ?>
 
     <?php  } ?>
 }
@@ -365,6 +367,14 @@ if ( $settings->btn_style == 'gradient' ) {
 
     <?php if ( $settings->btn_border_radius != '' ) { ?>
         border-radius: <?php echo $settings->btn_border_radius; ?>px;
+    <?php } ?>
+
+    <?php if( isset( $settings->btn_margin_top ) && $settings->btn_margin_top != '' ) { ?>
+        margin-top: <?php echo $settings->btn_margin_top; ?>px;
+    <?php } ?>
+
+    <?php if( isset( $settings->btn_margin_bottom ) && $settings->btn_margin_bottom != '' ) { ?>
+        margin-bottom: <?php echo $settings->btn_margin_bottom; ?>px;
     <?php } ?>
     
     <?php if ( $settings->btn_style == 'flat' ) { ?>
@@ -513,11 +523,13 @@ if ( $settings->btn_style == 'gradient' ) {
         line-height: <?php echo $settings->form_title_line_height['desktop']; ?>px;
     <?php } ?>
 
-    <?php if( $settings->form_title_transform != 'none' ) ?>
+    <?php if( $settings->form_title_transform != 'none' ) : ?>
        text-transform: <?php echo $settings->form_title_transform; ?>;
+    <?php endif; ?>
 
-    <?php if( $settings->form_title_letter_spacing != '' ) ?>
+    <?php if( $settings->form_title_letter_spacing != '' ) : ?>
        letter-spacing: <?php echo $settings->form_title_letter_spacing; ?>px;
+    <?php endif; ?>
 
     <?php if( $settings->form_title_color != '' ) : ?>
     color: <?php echo $settings->form_title_color; ?>;
@@ -550,11 +562,13 @@ if ( $settings->btn_style == 'gradient' ) {
         line-height: <?php echo $settings->form_desc_line_height['desktop']; ?>px;
     <?php } ?>
     
-    <?php if( $settings->form_desc_transform != 'none' ) ?>
+    <?php if( $settings->form_desc_transform != 'none' ) : ?>
        text-transform: <?php echo $settings->form_desc_transform; ?>;
+    <?php endif; ?>
 
-    <?php if( $settings->form_desc_letter_spacing != '' ) ?>
+    <?php if( $settings->form_desc_letter_spacing != '' ) : ?>
        letter-spacing: <?php echo $settings->form_desc_letter_spacing; ?>px;
+    <?php endif; ?>
 
     <?php if( $settings->form_desc_color != '' ) : ?>
     color: <?php echo $settings->form_desc_color; ?>;
@@ -594,11 +608,13 @@ if ( $settings->btn_style == 'gradient' ) {
         line-height: <?php echo $settings->line_height['desktop']; ?>px;
     <?php } ?>
 
-    <?php if( $settings->transform != 'none' ) ?>
+    <?php if( $settings->transform != 'none' ) : ?>
        text-transform: <?php echo $settings->transform; ?>;
+    <?php endif; ?>
 
-    <?php if( $settings->letter_spacing != '' ) ?>
+    <?php if( $settings->letter_spacing != '' ) : ?>
        letter-spacing: <?php echo $settings->letter_spacing; ?>px;  
+    <?php endif; ?>
 }
 
 .fl-node-<?php echo $id; ?> .uabb-cf7-style input[type=submit] {
@@ -608,13 +624,13 @@ if ( $settings->btn_style == 'gradient' ) {
     letter-spacing: <?php echo uabb_theme_button_letter_spacing(''); ?>;
     <?php } ?>
 
-    <?php if ( $settings->btn_text_transform != 'none' ) { ?>
+    <?php if ( $settings->btn_text_transform != 'none' ) : ?>
         text-transform: <?php echo $settings->btn_text_transform; ?>;
-    <?php } ?>
+    <?php endif; ?>
     
-    <?php if ( $settings->btn_letter_spacing != '' ) { ?>
+    <?php if ( $settings->btn_letter_spacing != '' ) : ?>
         letter-spacing: <?php echo $settings->btn_letter_spacing; ?>;
-    <?php } ?>
+    <?php endif; ?>
 
     <?php if ( uabb_theme_button_text_transform('') != '' ) { ?>
     text-transform: <?php echo uabb_theme_button_text_transform(''); ?>;
@@ -683,11 +699,13 @@ if ( $settings->btn_style == 'gradient' ) {
     color: <?php echo $settings->label_color; ?>;
     <?php endif; ?>
     
-    <?php if( $settings->label_transform != 'none' ) ?>
+    <?php if( $settings->label_transform != 'none' ) : ?>
        text-transform: <?php echo $settings->label_transform; ?>;
+    <?php endif; ?>
 
-    <?php if( $settings->label_letter_spacing != '' ) ?>
+    <?php if( $settings->label_letter_spacing != '' ) : ?>
        letter-spacing: <?php echo $settings->label_letter_spacing; ?>px;
+    <?php endif; ?>
 
     text-align: <?php echo $settings->input_text_align; ?>;
 }
@@ -698,22 +716,26 @@ if ( $settings->btn_style == 'gradient' ) {
     color: <?php echo $settings->input_msg_color; ?>;
     font-size: <?php echo $settings->input_msg_font_size; ?>px;
 
-    <?php if( $settings->input_msg_transform != 'none' ) ?>
+    <?php if( $settings->input_msg_transform != 'none' ) : ?>
        text-transform: <?php echo $settings->input_msg_transform; ?>;
+    <?php endif; ?>
 
-    <?php if( $settings->input_msg_letter_spacing != '' ) ?>
+    <?php if( $settings->input_msg_letter_spacing != '' ) : ?>
        letter-spacing: <?php echo $settings->input_msg_letter_spacing; ?>px;
+    <?php endif; ?>
 }
 
 .fl-node-<?php echo $id; ?> .uabb-cf7-style .wpcf7-response-output {
     color: <?php echo $settings->validation_msg_color; ?>;
     font-size: <?php echo $settings->validation_msg_font_size; ?>px;
 
-    <?php if( $settings->validate_transform != 'none' ) ?>
+    <?php if( $settings->validate_transform != 'none' ) : ?>
        text-transform: <?php echo $settings->validate_transform; ?>;
+    <?php endif; ?>
 
-    <?php if( $settings->validate_letter_spacing != '' ) ?>
+    <?php if( $settings->validate_letter_spacing != '' ) : ?>
        letter-spacing: <?php echo $settings->validate_letter_spacing; ?>px;
+    <?php endif; ?>
     
     background: <?php echo $settings->validation_bg_color; ?>;
     <?php if ( $settings->validation_border_type != ''  ) { ?>

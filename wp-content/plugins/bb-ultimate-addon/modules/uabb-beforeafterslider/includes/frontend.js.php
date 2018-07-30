@@ -3,10 +3,10 @@
 	var document_width, document_height;
 
 	var args = {
-	        id : '<?php echo $id; ?>',
-	        before_after_orientation : '<?php echo $settings->before_after_orientation; ?>',
-	        initial_offset : '<?php echo $settings->initial_offset; ?>',
-	        move_on_hover : '<?php echo $settings->move_on_hover; ?>',
+			id : '<?php echo $id; ?>',
+			before_after_orientation : '<?php echo $settings->before_after_orientation; ?>',
+			initial_offset : '<?php echo $settings->initial_offset; ?>',
+			move_on_hover : '<?php echo $settings->move_on_hover; ?>',
 		};
 
 

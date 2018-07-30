@@ -756,12 +756,13 @@ if( !empty( $settings->creative_menu_background_hover_color ) || $settings->crea
 		echo $settings->creative_submenu_link_padding; ?>;
 	<?php } ?>
 
-	<?php if ( $settings->creative_submenu_link_text_transform != 'none'  ) { ?>
+	<?php if ( $settings->creative_submenu_link_text_transform != 'none'  ) : ?>
 		<?php echo 'text-transform:' . $settings->creative_submenu_link_text_transform; ?>;
-	<?php } ?>
+	<?php endif; ?>
 	
-	<?php if( $settings->creative_submenu_link_letter_spacing != '' ) ?>
+	<?php if( $settings->creative_submenu_link_letter_spacing != '' ) : ?>
 		letter-spacing: <?php echo $settings->creative_submenu_link_letter_spacing; ?>px;
+	<?php endif; ?>
 
 	background-color: <?php echo ( false === strpos( $settings->creative_submenu_background_color, 'rgb' ) ) ? '#' . $settings->creative_submenu_background_color : $settings->creative_submenu_background_color; ?>;
 }

@@ -141,12 +141,13 @@ if( $settings->show_button == 'yes' ) {
         line-height: <?php echo $settings->desc_typography_line_height['desktop']; ?>px;
     <?php } ?>
     
-    <?php if( $settings->desc_transform != 'none' ) ?>
+    <?php if( $settings->desc_transform != 'none' ) : ?>
        text-transform: <?php echo $settings->desc_transform; ?>;
+    <?php endif; ?>
 
-    <?php if( $settings->desc_letter_spacing != '' ) ?>
-       letter-spacing: <?php echo $settings->desc_letter_spacing; ?>px;    
-
+    <?php if( $settings->desc_letter_spacing != '' ) : ?>
+       letter-spacing: <?php echo $settings->desc_letter_spacing; ?>px;
+    <?php endif; ?>
    
 }
 
@@ -175,11 +176,13 @@ if( $settings->show_button == 'yes' ) {
         line-height: <?php echo $settings->title_typography_line_height['desktop']; ?>px;
     <?php } ?>
 
-    <?php if( $settings->title_transform != 'none' ) ?>
+    <?php if( $settings->title_transform != 'none' ) : ?>
        text-transform: <?php echo $settings->title_transform; ?>;
+    <?php endif; ?>
 
-    <?php if( $settings->title_letter_spacing != '' ) ?>
-       letter-spacing: <?php echo $settings->title_letter_spacing; ?>px;   
+    <?php if( $settings->title_letter_spacing != '' ) : ?>
+       letter-spacing: <?php echo $settings->title_letter_spacing; ?>px;
+    <?php endif; ?>
     
 }
 

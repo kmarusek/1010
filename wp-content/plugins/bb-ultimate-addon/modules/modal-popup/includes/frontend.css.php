@@ -102,11 +102,13 @@ $settings->ct_content_color = UABB_Helper::uabb_colorpicker( $settings, 'ct_cont
             line-height: <?php echo $settings->btn_line_height['desktop']; ?>px;
         <?php } ?>
 
-        <?php if( $settings->btn_transform != 'none' ) ?>
+        <?php if( $settings->btn_transform != 'none' ) : ?>
            text-transform: <?php echo $settings->btn_transform; ?>;
+        <?php endif; ?>
 
-        <?php if( $settings->btn_letter_spacing != '' ) ?>
+        <?php if( $settings->btn_letter_spacing != '' ) : ?>
            letter-spacing: <?php echo $settings->btn_letter_spacing; ?>px;
+        <?php endif; ?>
 
     }
 
@@ -145,11 +147,13 @@ $settings->ct_content_color = UABB_Helper::uabb_colorpicker( $settings, 'ct_cont
         line-height: <?php echo $settings->line_height['desktop']; ?>px;
     <?php } ?>
 
-    <?php if( $settings->transform != 'none' ) ?>
+    <?php if( $settings->transform != 'none' ) : ?>
        text-transform: <?php echo $settings->transform; ?>;
+    <?php endif; ?>
 
-    <?php if( $settings->letter_spacing != '' ) ?>
+    <?php if( $settings->letter_spacing != '' ) : ?>
        letter-spacing: <?php echo $settings->letter_spacing; ?>px;
+    <?php endif; ?>
 }
 
 <?php }elseif( $settings->modal_on == 'icon') { ?>
@@ -384,11 +388,13 @@ $settings->ct_content_color = UABB_Helper::uabb_colorpicker( $settings, 'ct_cont
         line-height: <?php echo $settings->title_line_height['desktop']; ?>px;
     <?php } ?> 
 
-    <?php if( $settings->title_transform != 'none' ) ?>
+    <?php if( $settings->title_transform != 'none' ) : ?>
        text-transform: <?php echo $settings->title_transform; ?>;
+    <?php endif; ?>
 
-    <?php if( $settings->title_letter_spacing != '' ) ?>
+    <?php if( $settings->title_letter_spacing != '' ) : ?>
        letter-spacing: <?php echo $settings->title_letter_spacing; ?>px;
+    <?php endif; ?>
 
 }
 <?php } ?>
@@ -425,11 +431,13 @@ $settings->ct_content_color = UABB_Helper::uabb_colorpicker( $settings, 'ct_cont
     color: <?php echo $settings->ct_content_color; ?>;
     <?php endif; ?>
 
-    <?php if( $settings->ct_transform != 'none' ) ?>
+    <?php if( $settings->ct_transform != 'none' ) : ?>
        text-transform: <?php echo $settings->ct_transform; ?>;
+    <?php endif; ?>
 
-    <?php if( $settings->ct_letter_spacing != '' ) ?>
+    <?php if( $settings->ct_letter_spacing != '' ) : ?>
        letter-spacing: <?php echo $settings->ct_letter_spacing; ?>px;
+    <?php endif; ?>
 
 }
 <?php } ?>

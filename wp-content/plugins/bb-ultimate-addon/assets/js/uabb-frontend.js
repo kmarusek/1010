@@ -617,7 +617,5 @@ jQuery(document).ready(function( $ ) {
       
     }
 
-    $('.uabb-row-separator').parents('.fl-builder').css('overflow-x', 'hidden');
-    $('.uabb-row-separator').parents('.fl-builder').css('overflow-y', 'visible');      
-
+    $('.uabb-row-separator').parents('html').css('overflow-x', 'hidden');
 });

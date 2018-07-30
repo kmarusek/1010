@@ -119,11 +119,13 @@
     	line-height: <?php echo $settings->line_height['desktop']; ?>px;
     <?php } ?>
 
-	<?php if( $settings->transform != 'none' ) ?>
+	<?php if( $settings->transform != 'none' ) : ?>
 	   text-transform: <?php echo $settings->transform; ?>;
+	<?php endif; ?>
 
-    <?php if( $settings->letter_spacing != '' ) ?>
+    <?php if( $settings->letter_spacing != '' ) : ?>
 	   letter-spacing: <?php echo $settings->letter_spacing; ?>px;
+	<?php endif; ?>
 }
 
 /* Heading's Description Color */
@@ -156,11 +158,13 @@
 		line-height: <?php echo $settings->desc_line_height['desktop']; ?>px;
 	<?php } ?>	
 
-	<?php if( $settings->desc_transform != 'none' ) ?>
+	<?php if( $settings->desc_transform != 'none' ) : ?>
 	   text-transform: <?php echo $settings->desc_transform; ?>;
+	<?php endif; ?>
 
-    <?php if( $settings->desc_letter_spacing != '' ) ?>
+    <?php if( $settings->desc_letter_spacing != '' ) : ?>
 	   letter-spacing: <?php echo $settings->desc_letter_spacing; ?>px;
+	<?php endif; ?>
 }
 
 <?php /* Global Setting If started */ ?>

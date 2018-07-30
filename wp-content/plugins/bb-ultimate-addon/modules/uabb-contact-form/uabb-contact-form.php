@@ -1,20 +1,27 @@
 <?php
+/**
+ *  UABB Contact Form Module file
+ *
+ *  @package UABB Contact Form Module
+ */
 
 /**
- * @class FLHtmlModule
+ * Function that initializes UABB Contact Form Module
+ *
+ * @class UABBContactFormModule
  */
 class UABBContactFormModule extends FLBuilderModule {
-
 	/**
+	 * Constructor function that constructs default values for the Contact Form Module
+	 *
 	 * @method __construct
 	 */
-	public function __construct()
-	{
+	public function __construct() {
 		parent::__construct(array(
 			'name'				=> __('Contact Form', 'uabb'),
 			'description'		=> __('A very simple contact form.', 'uabb'),
-			'category'      => BB_Ultimate_Addon_Helper::module_cat( BB_Ultimate_Addon_Helper::$lead_generation ),
-            'group'         => UABB_CAT,
+			'category'          => BB_Ultimate_Addon_Helper::module_cat( BB_Ultimate_Addon_Helper::$lead_generation ),
+            'group'             => UABB_CAT,
 			'dir'				=> BB_ULTIMATE_ADDON_DIR . 'modules/uabb-contact-form/',
 			'url'				=> BB_ULTIMATE_ADDON_URL . 'modules/uabb-contact-form/',
 			'editor_export'		=> false,
@@ -26,17 +33,23 @@ class UABBContactFormModule extends FLBuilderModule {
 		add_action('wp_ajax_nopriv_uabb_builder_email', array($this, 'send_mail'));
 		add_filter( 'script_loader_tag', array( $this, 'uabb_add_async_attribute' ), 10, 2 );
 	}
-
+	/**
+	 * Function that gets mailto email
+	 *
+	 * @method mailto_email
+	 */
 	static public function mailto_email() {
 		return $this->settings->mailto_email;
 	}
 
 	/**
+	 * Function that enqueue's the scripts
+	 *
 	 * @method enqueue_scripts
 	 */
 	public function enqueue_scripts() {
 		$settings = $this->settings;
-		if ( isset( $settings->uabb_recaptcha_toggle ) && $settings->uabb_recaptcha_toggle == 'show' && isset( $settings->uabb_recaptcha_site_key ) && ! empty( $settings->uabb_recaptcha_site_key ) ) {
+		if ( isset( $settings->uabb_recaptcha_toggle ) && 'show' == $settings->uabb_recaptcha_toggle && isset( $settings->uabb_recaptcha_site_key ) && ! empty( $settings->uabb_recaptcha_site_key ) ) {
 
 			$site_lang = substr( get_locale(), 0, 2 );
 			$post_id    = FLBuilderModel::get_post_id();
@@ -52,12 +65,14 @@ class UABBContactFormModule extends FLBuilderModule {
 	}
 
 	/**
+	 * Function that adds async attribute
+	 *
 	 * @method  uabb_add_async_attribute for the enqueued `uabb-g-recaptcha` script
 	 * @param string $tag    Script tag
 	 * @param string $handle Registered script handle
 	 */
 	public function uabb_add_async_attribute( $tag, $handle ) {
-		if ( ( $handle !== 'uabb-g-recaptcha'  ) || (  $handle === 'uabb-g-recaptcha' && strpos( $tag, 'uabb-g-recaptcha-api' ) !== false ) ) {
+		if ( ( 'uabb-g-recaptcha' !== $handle ) || (  'uabb-g-recaptcha' === $handle && strpos( $tag, 'uabb-g-recaptcha-api' ) !== false ) ) {
 			return $tag;
 		}
 
@@ -65,13 +80,15 @@ class UABBContactFormModule extends FLBuilderModule {
 	}
 
 	/**
+	 * Function that sends mail
+	 *
 	 * @method send_mail
 	 */
 	static public function send_mail($params = array()) {
 
 		global $uabb_contact_from_name, $uabb_contact_from_email, $uabb_filter_from_email, $uabb_filter_from_name;
 
-		// Get the contact form post data
+		// Get the contact form post data.
 		$node_id			= isset( $_POST['node_id'] ) ? sanitize_text_field( $_POST['node_id'] ) : false;
 		$template_id    	= isset( $_POST['template_id'] ) ? sanitize_text_field( $_POST['template_id'] ) : false;
 		$template_node_id   = isset( $_POST['template_node_id'] ) ? sanitize_text_field( $_POST['template_node_id'] ) : false;
@@ -129,7 +146,6 @@ class UABBContactFormModule extends FLBuilderModule {
 		
 		/* If the From: address doesn't match the domain you're sending the email from. The mail server you're sending the email to likely rejected the email when it saw that you were trying to spoof the sender address. */
 		$headers =	array(
-			// 'From:' . $uabb_contact_from_name . ' <' . $uabb_contact_from_email . '>',
 			'From: ' . $site_name . ' <' . $admin_email . '>',
 			'Reply-To:' . $uabb_contact_from_name . ' <' . $uabb_contact_from_email . '>',
 			'Content-Type: text/html; charset=UTF-8',
@@ -143,7 +159,7 @@ class UABBContactFormModule extends FLBuilderModule {
 		if ( isset( $_POST['message'] ) ) $template = str_replace( '[MESSAGE]', $_POST['message'], $template );
 
 		$template = wpautop( $template );
-		// Double check the mailto email is proper and send
+		// Double check the mailto email is proper and send.
 		if ($mailto) {
 			wp_mail($mailto, stripslashes($subject), do_shortcode( stripslashes($template) ), $headers);
 			die('1');
@@ -151,13 +167,23 @@ class UABBContactFormModule extends FLBuilderModule {
 			die($mailto);
 		}
 	}
-
+	/**
+	 * Function that gets the mail from
+	 *
+	 * @method mail_from
+	 * @param var $original_email_address gets the original email address.
+	 */
 	static public function mail_from($original_email_address) {
 		global $uabb_contact_from_email, $uabb_filter_from_email;
 
 		return ( $uabb_contact_from_email != $uabb_filter_from_email ) ? $uabb_filter_from_email : $original_email_address;
 	}
-
+	/**
+	 * Function that gets from name
+	 *
+	 * @method from_name
+	 * @param var $originl_name gets the original name.
+	 */
 	static public function from_name($original_name) {
 
 		global $uabb_contact_from_name, $uabb_filter_from_name;
@@ -598,7 +624,7 @@ FLBuilder::register_module('UABBContactFormModule', array(
 						'show_reset' => true,
 						'preview'         => array(
                             'type'          => 'css',
-                            'selector'      => '.uabb-contact-form .uabb-input-group-wrap input, .uabb-contact-form .uabb-input-group-wrap input[type=text]::placeholder, .uabb-contact-form .uabb-input-group-wrap input[type=email]::placeholder, .uabb-contact-form .uabb-input-group-wrap textarea::placeholder',
+                            'selector'      => '.uabb-contact-form .uabb-input-group-wrap input, .uabb-contact-form .uabb-input-group-wrap input[type=text]::placeholder, .uabb-contact-form .uabb-input-group-wrap input[type=email]::placeholder, .uabb-contact-form .uabb-input-group-wrap input[type=tel]::placeholder, .uabb-contact-form .uabb-input-group-wrap textarea::placeholder',
                             'property'      => 'color',
                         )
 					),
@@ -1243,7 +1269,7 @@ FLBuilder::register_module('UABBContactFormModule', array(
 					            ),    
 					        )
 					    )
-					),
+					),										
         		)
            	),
 		)
@@ -1529,21 +1555,34 @@ FLBuilder::register_module('UABBContactFormModule', array(
                             'property'      => 'letter-spacing',
                             'unit'          => 'px'
                         )
-                    ),
+                    ), 
                     'btn_top_margin'   => array(
 						'type'          => 'text',
-						'label'         => __('Button Top Margin', 'uabb'),
-						'placeholder'	=> '0',
+						'label'         => __('Top Margin', 'uabb'),
+						'placeholder'	=> '',
 						'description'   => 'px',
 						'maxlength'     => '3',
 						'size'          => '6',
-						'preview'   => array(
+						'preview'   	=> array(
                             'type'      => 'css',
-                            'selector'  => '.uabb-contact-form-submit',
+                            'selector'  => '.uabb-submit-btn',
                             'property'  => 'margin-top',
                             'unit'      => 'px'
                         ),
 					),
+					'btn_bottom_margin' => array(
+						'type'          => 'text',
+						'label'         => __('Bottom Margin', 'uabb'),
+						'placeholder'	=> '',
+						'size'			=> '5',
+						'description'	=> 'px',
+						'preview'		=> array(
+							'type' 		=> 'css',
+							'property'	=> 'margin-bottom',
+							'selector'	=> '.uabb-submit-btn',
+							'unit'		=> 'px',
+						)
+					),                   
                 )
             ),
 			'label_typography'    =>  array(
@@ -1867,14 +1906,14 @@ FLBuilder::register_module('UABBContactFormModule', array(
 					'uabb_recaptcha_toggle' => array(
 						'type' 			=> 'select',
 						'label' 		=> 'reCAPTCHA Field',
-						'default'		  => 'hide',
-						'options'		  => array(
-							'show'	   => __( 'Show', 'uabb' ),
-							'hide'	   => __( 'Hide', 'uabb' ),
+						'default'		=> 'hide',
+						'options'		=> array(
+							'show'		=> __( 'Show', 'uabb' ),
+							'hide'		=> __( 'Hide', 'uabb' ),
 						),
 						'help' 			=> __( 'If you want to show this field, please provide valid Site and Secret Keys.', 'uabb' ),
 						'preview'		  => array(
-							'type'		   => 'none',
+							'type'			=> 'none',
 						),
 						'toggle'		=> array(
 							'show'		=> array(
@@ -1885,16 +1924,16 @@ FLBuilder::register_module('UABBContactFormModule', array(
 					'uabb_recaptcha_site_key'		=> array(
 						'type'			=> 'text',
 						'label' 		=> __( 'Site Key', 'uabb' ),
-						'default'		  => '',
-						'preview'		  => array(
+						'default'		=> '',
+						'preview'		=> array(
 							'type'		   => 'none',
 						),
 					),
 					'uabb_recaptcha_secret_key'	=> array(
 						'type'			=> 'text',
 						'label' 		=> __( 'Secret Key', 'uabb' ),
-						'default'		  => '',
-						'preview'		  => array(
+						'default'		=> '',
+						'preview'		=> array(
 							'type'		   => 'none',
 						),
 					),
@@ -1903,13 +1942,13 @@ FLBuilder::register_module('UABBContactFormModule', array(
 						'label'         => __('Theme', 'uabb'),
 						'default'       => 'light',
 						'options'       => array(
-							'light'      => __('Light', 'uabb'),
-							'dark'       => __('Dark', 'uabb'),
+							'light'      => __( 'Light', 'uabb' ),
+							'dark'       => __( 'Dark', 'uabb' ),
 						),
 					),
 				),
 			),
 		),
-		'description'	  => sprintf( __( 'Please register keys for your website at <a%s>Google Admin Console</a>.', 'uabb' ), ' href="https://www.google.com/recaptcha/admin" target="_blank"' ),
+		'description'	  => sprintf( /* translators: a%s: search term */ __( 'Please register keys for your website at <a%s>Google Admin Console</a>.', 'uabb' ), ' href="https://www.google.com/recaptcha/admin" target="_blank"' ),
 	),
 ));

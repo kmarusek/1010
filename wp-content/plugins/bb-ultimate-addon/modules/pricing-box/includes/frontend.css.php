@@ -221,11 +221,13 @@ for($i = 0; $i < count($settings->pricing_columns); $i++) :
 			    	line-height: <?php echo $settings->pricing_columns[$i]->featured_line_height->desktop; ?>px;
 			    <?php } ?>
 
-				<?php if( $settings->pricing_columns[$i]->featured_transform != 'none' )?>
+				<?php if( $settings->pricing_columns[$i]->featured_transform != 'none' ) : ?>
 				   text-transform: <?php echo $settings->pricing_columns[$i]->featured_transform; ?>;
+				<?php endif; ?>
 
-		        <?php if( $settings->pricing_columns[$i]->featured_letter_spacing != '' )?>
+		        <?php if( $settings->pricing_columns[$i]->featured_letter_spacing != '' ) : ?>
 				   letter-spacing: <?php echo $settings->pricing_columns[$i]->featured_letter_spacing; ?>px;
+				<?php endif; ?>
 				
                 <?php
 				echo 'color: ' . uabb_theme_text_color( $settings->pricing_columns[$i]->featured_color ) . ';';
@@ -511,11 +513,13 @@ if( $isFeaturedSet ) {
     	line-height: <?php echo $settings->title_typography_line_height['desktop']; ?>px;
     <?php } ?>
 
-	<?php if( $settings->title_transform != 'none' ) ?>
+	<?php if( $settings->title_transform != 'none' ) : ?>
 	   text-transform: <?php echo $settings->title_transform; ?>;
+	<?php endif; ?>
 
-    <?php if( $settings->title_letter_spacing != '' ) ?>
+    <?php if( $settings->title_letter_spacing != '' ) : ?>
 	   letter-spacing: <?php echo $settings->title_letter_spacing; ?>px;
+	<?php endif; ?>
 
 	<?php echo ( $settings->title_typography_font_family['family'] != 'Default' ) ? 'font-family: ' . $settings->title_typography_font_family['family'] . ';' : ''; ?>
 	<?php echo ( $settings->title_typography_font_family['weight'] != 'default' ) ? 'font-weight: ' . $settings->title_typography_font_family['weight'] . ';' : ''; ?>
@@ -571,11 +575,13 @@ if( $isFeaturedSet ) {
     	line-height: <?php echo $settings->duration_typography_line_height['desktop']; ?>px;
     <?php } ?>
 	
-	<?php if( $settings->duration_typography_transform != 'none' ) ?>
+	<?php if( $settings->duration_typography_transform != 'none' ) : ?>
 	   text-transform: <?php echo $settings->duration_typography_transform; ?>;
+	<?php endif; ?>
 
-    <?php if( $settings->duration_typography_letter_spacing != '' ) ?>
+    <?php if( $settings->duration_typography_letter_spacing != '' ) : ?>
 	   letter-spacing: <?php echo $settings->duration_typography_letter_spacing; ?>px;
+	<?php endif; ?>
 
 	<?php echo ( $settings->duration_typography_font_family['family'] != 'Default' ) ? 'font-family: ' . $settings->duration_typography_font_family['family'] . ';' : ''; ?>
 	<?php echo ( $settings->duration_typography_font_family['weight'] != 'default' ) ? 'font-weight: ' . $settings->duration_typography_font_family['weight'] . ';' : ''; ?>
@@ -601,11 +607,13 @@ if( $isFeaturedSet ) {
     	line-height: <?php echo $settings->feature_typography_line_height['desktop']; ?>px;
     <?php } ?>
 
-	<?php if( $settings->feature_content_transform != 'none' ) ?>
+	<?php if( $settings->feature_content_transform != 'none' ) : ?>
 	   text-transform: <?php echo $settings->feature_content_transform; ?>;
+	<?php endif; ?>
 
-    <?php if( $settings->feature_content_letter_spacing != '' ) ?>
+    <?php if( $settings->feature_content_letter_spacing != '' ) : ?>
 	   letter-spacing: <?php echo $settings->feature_content_letter_spacing; ?>px;
+	<?php endif; ?>
 
 	<?php echo ( $settings->feature_typography_font_family['family'] != 'Default' ) ? 'font-family: ' . $settings->feature_typography_font_family['family'] . ';' : ''; ?>
 	<?php echo ( $settings->feature_typography_font_family['weight'] != 'default' ) ? 'font-weight: ' . $settings->feature_typography_font_family['weight'] . ';' : ''; ?>
@@ -637,11 +645,13 @@ if( $settings->add_legend == 'yes' ) { ?>
 	    	line-height: <?php echo $settings->legend_column->legend_line_height->desktop; ?>px;
 	    <?php } ?>
 
-		<?php if( $settings->legend_column->legend_transform != 'none' ) ?>
+		<?php if( $settings->legend_column->legend_transform != 'none' ) : ?>
 		   text-transform: <?php echo $settings->legend_column->legend_transform; ?>;
+		<?php endif; ?>
 
-        <?php if( $settings->legend_column->legend_letter_spacing != '' ) ?>
+        <?php if( $settings->legend_column->legend_letter_spacing != '' ) : ?>
 		   letter-spacing: <?php echo $settings->legend_column->legend_letter_spacing; ?>px;
+		<?php endif; ?>
 	
 	}
 

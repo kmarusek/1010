@@ -1,27 +1,53 @@
 <?php
-
 /**
  * Custom modules
+ *
+ * @package UABB Helper
  */
-if( !class_exists( "BB_Ultimate_Addon_Helper" ) ) {
-	
+
+if ( ! class_exists( 'BB_Ultimate_Addon_Helper' ) ) {
+
+	/**
+	 * This class initializes BB Ultiamte Addon Helper
+	 *
+	 * @class BB_Ultimate_Addon_Helper
+	 */
 	class BB_Ultimate_Addon_Helper {
 
 		/**
 		 * Holds any category strings of modules.
 		 *
 		 * @since 1.3.0
-		 * @var Category Strings
+		 * @var $creative_modules Category Strings
 		 */
 		static public $creative_modules = 'Creative Modules';
-		static public $content_modules 	= 'Content Modules';
+		/**
+		 * Holds any category strings of modules.
+		 *
+		 * @since 1.3.0
+		 * @var $content_modules Category Strings
+		 */
+		static public $content_modules = 'Content Modules';
+		/**
+		 * Holds any category strings of modules.
+		 *
+		 * @since 1.3.0
+		 * @var $lead_generation Category Strings
+		 */
 		static public $lead_generation = 'Lead Generation';
+		/**
+		 * Holds any category strings of modules.
+		 *
+		 * @since 1.3.0
+		 * @var $extra_additions Category Strings
+		 */
 		static public $extra_additions = 'Extra Additions';
 
-		/*
-		* Constructor function that initializes required actions and hooks
-		* @Since 1.0
-		*/
+		/**
+		 * Constructor function that initializes required actions and hooks
+		 *
+		 * @since 1.0
+		 */
 		function __construct() {
 
 			$this->set_constants();
@@ -29,26 +55,35 @@ if( !class_exists( "BB_Ultimate_Addon_Helper" ) ) {
 			$this->update_enable_modules_db();
 		}
 
+		/**
+		 * Function that set constants for UABB
+		 *
+		 * @since x.x.x
+		 */
 		function set_constants() {
+
+			self::$creative_modules	= __( 'Creative Modules', 'uabb' );
+			self::$content_modules	= __( 'Content Modules', 'uabb' );
+			self::$lead_generation	= __( 'Lead Generation', 'uabb' );
+			self::$extra_additions	= __( 'Extra Additions', 'uabb' );
+	
 			$branding         = BB_Ultimate_Addon_Helper::get_builder_uabb_branding();
 			$branding_name    = 'UABB';
-			$branding_modules = __('UABB Modules', 'uabb');
+			$branding_modules = __( 'UABB Modules', 'uabb' );
 
-			//	Branding - %s
+			// Branding - %s.
 			if (
 				is_array( $branding ) &&
-				array_key_exists( 'uabb-plugin-short-name', $branding ) &&
-				$branding['uabb-plugin-short-name'] != ''
-			) {
+				array_key_exists( 'uabb-plugin-short-name', $branding ) && '' != $branding['uabb-plugin-short-name'] ) {
 				$branding_name = $branding['uabb-plugin-short-name'];
 			}
 
-			//	Branding - %s Modules
-			if ( $branding_name != 'UABB') {
+			// Branding - %s Modules.
+			if ( 'UABB' != $branding_name ) { /* translators: %s: search term */
 				$branding_modules = sprintf( __( '%s', 'uabb' ), $branding_name );
 			}
 
-			if( isset( $branding['uabb-global-module-listing'] ) && $branding['uabb-global-module-listing'] ) {
+			if ( isset( $branding['uabb-global-module-listing'] ) && $branding['uabb-global-module-listing'] ) {
 
 				$branding_modules = '';
 				if ( version_compare( '2.0', FL_BUILDER_VERSION, '>' ) ) {
@@ -59,34 +94,44 @@ if( !class_exists( "BB_Ultimate_Addon_Helper" ) ) {
 			define( 'UABB_PREFIX', $branding_name );
 			define( 'UABB_CAT', $branding_modules );
 		}
-		
+
+		/**
+		 * Function that renders BB's modules category
+		 *
+		 * @since x.x.x
+		 * @param array $cat gets the BB's UI ControlPanel Category.
+		 */
 		static public function module_cat( $cat ) {
 			return class_exists( 'FLBuilderUIContentPanel' ) ? $cat : UABB_CAT;
 		}
 
-		static public function get_builder_uabb()
-		{
+		/**
+		 * Function that renders builder UABB
+		 *
+		 * @since x.x.x
+		 */
+		static public function get_builder_uabb() {
 			$uabb = UABB_Init::$uabb_options['fl_builder_uabb'];
 
 			$defaults = array(
-				'load_panels'			=> 1,
-				'uabb-live-preview'		=> 1,
-				'load_templates' 		=> 1,
-				'uabb-google-map-api'	=> '',
-				'uabb-colorpicker'		=> 1,
-				'uabb-row-separator'    => 1,
-				'uabb-enable-beta-updates' => 0
+				'load_panels'              => 1,
+				'uabb-live-preview'        => 1,
+				'load_templates'           => 1,
+				'uabb-google-map-api'      => '',
+				'uabb-colorpicker'         => 1,
+				'uabb-row-separator'       => 1,
+				'uabb-enable-beta-updates' => 0,
 			);
 
-			//	if empty add all defaults
-			if( empty( $uabb ) ) {
+			// if empty add all defaults.
+			if ( empty( $uabb ) ) {
 				$uabb = $defaults;
 			} else {
 
-				//	add new key
-				foreach( $defaults as $key => $value ) {
-					if( is_array( $uabb ) && !array_key_exists( $key, $uabb ) ) {
-						$uabb[$key] = $value;
+				// add new key.
+				foreach ( $defaults as $key => $value ) {
+					if ( is_array( $uabb ) && ! array_key_exists( $key, $uabb ) ) {
+						$uabb[ $key ] = $value;
 					} else {
 						$uabb = wp_parse_args( $uabb, $defaults );
 					}
@@ -95,25 +140,28 @@ if( !class_exists( "BB_Ultimate_Addon_Helper" ) ) {
 
 			return apply_filters( 'uabb_get_builder_uabb', $uabb );
 		}
-
-		static public function get_builder_uabb_branding( $request_key = '' )
-		{
+		/**
+		 * Function that renders extensions for the UABB
+		 *
+		 * @since x.x.x
+		 * @param string $request_key gets the request key's value.
+		 */
+		static public function get_builder_uabb_branding( $request_key = '' ) {
 			$uabb = UABB_Init::$uabb_options['fl_builder_uabb_branding'];
 
 			$defaults = array(
 				'uabb-enable-template-cloud' => 1,
 			);
 
-
-			//	if empty add all defaults
-			if( empty( $uabb ) ) {
+			// if empty add all defaults.
+			if ( empty( $uabb ) ) {
 				$uabb = $defaults;
 			} else {
 
-				//	add new key
-				foreach( $defaults as $key => $value ) {
-					if( is_array( $uabb ) && !array_key_exists( $key, $uabb ) ) {
-						$uabb[$key] = $value;
+				// add new key.
+				foreach ( $defaults as $key => $value ) {
+					if ( is_array( $uabb ) && ! array_key_exists( $key, $uabb ) ) {
+						$uabb[ $key ] = $value;
 					} else {
 						$uabb = wp_parse_args( $uabb, $defaults );
 					}
@@ -121,34 +169,36 @@ if( !class_exists( "BB_Ultimate_Addon_Helper" ) ) {
 			}
 
 			$uabb = apply_filters( 'uabb_get_builder_uabb_branding', $uabb );
-			
+
 			/**
 			 * Return specific requested branding value
 			 */
-			if( !empty( $request_key ) ) {
-				if( is_array($uabb) ) {
+			if ( ! empty( $request_key ) ) {
+				if ( is_array( $uabb ) ) {
 					$uabb = ( array_key_exists( $request_key, $uabb ) ) ? $uabb[ $request_key ] : '';
-				}				
+				}
 			}
 
 			return $uabb;
 		}
 
-		/* Enable Disbale Modules function */
 		/* Remove it after 2 update */
-		function update_enable_modules_db()
-		{
-			//$is_updated = false;
+		/**
+		 * Function that Enable Disbale Modules function in the WordPress Dashboard
+		 *
+		 * @since 1.8.1
+		 */
+		function update_enable_modules_db() {
 			$is_updated = get_option( 'uabb_old_modules' );
-			if ( $is_updated != 'updated' ) {
-				
-				$uabb 				= UABB_Init::$uabb_options['fl_builder_uabb_modules'];
-				$old_modules 		= self::get_old_modules();
+			if ( 'updated' != $is_updated ) {
 
-				if( !empty( $uabb ) ) {
-					foreach( $old_modules as $key => $value ) {
-						if( is_array( $uabb ) && !array_key_exists( $key, $uabb ) ) {
-							$uabb[$key] = 'false';
+				$uabb        = UABB_Init::$uabb_options['fl_builder_uabb_modules'];
+				$old_modules = self::get_old_modules();
+
+				if ( ! empty( $uabb ) ) {
+					foreach ( $old_modules as $key => $value ) {
+						if ( is_array( $uabb ) && ! array_key_exists( $key, $uabb ) ) {
+							$uabb[ $key ] = 'false';
 						}
 					}
 				}
@@ -161,103 +211,112 @@ if( !class_exists( "BB_Ultimate_Addon_Helper" ) ) {
 			}
 
 		}
-		static public function get_old_modules()
-		{
+		/**
+		 * Function that renders all the UABB modules
+		 *
+		 * @since x.x.x
+		 */
+		static public function get_old_modules() {
 			$modules_array = array(
-				'advanced-accordion'       	=> 'Advanced Accordion',
-				'advanced-icon'            	=> 'Advanced Icons',
-				'blog-posts'               	=> 'Advanced Posts',
-				'advanced-separator'       	=> 'Advanced Separator',
-				'advanced-tabs'            	=> 'Advanced Tabs',
-				'uabb-button'              	=> 'Button',
-				'uabb-call-to-action'      	=> 'Call to Action',
-				'uabb-contact-form'        	=> 'Contact Form',
-				'uabb-numbers'             	=> 'Counter',
-				'creative-link'            	=> 'Creative Link',
-				'dual-button'              	=> 'Dual Button',
-				'dual-color-heading'       	=> 'Dual Color Heading',
-				'fancy-text'               	=> 'Fancy Text',
-				'flip-box'                 	=> 'Flip Box',
-				'google-map'               	=> 'Google Map',
-				'uabb-heading'             	=> 'Heading',
-				'image-icon'               	=> 'Image / Icon',
-				'image-separator'          	=> 'Image Separator',
-				'info-banner'              	=> 'Info Banner',
-				'info-box'                 	=> 'Info Box',
-				'info-circle'              	=> 'Info Circle',
-				'info-list'                	=> 'Info List',
-				'info-table'               	=> 'Info Table',
-				'interactive-banner-1'     	=> 'Interactive Banner 1',
-				'interactive-banner-2'     	=> 'Interactive Banner 2',
-				'list-icon'                	=> 'List Icon',
-				'mailchimp-subscribe-form' 	=> 'MailChimp Subscription Form',
-				'modal-popup'              	=> 'Modal Popup',
-				'uabb-photo'               	=> 'Photo',
-				'photo-gallery'            	=> 'Photo Gallery',
-				'pricing-box'              	=> 'Price Box',
-				'progress-bar'             	=> 'Progress Bar',
-				'ribbon'                   	=> 'Ribbon',
-				'uabb-separator'           	=> 'Simple Separator',
-				'slide-box'                	=> 'Slide Box',
-				'spacer-gap'               	=> 'Spacer / Gap',
-				'team'                     	=> 'Team',
-				'adv-testimonials'         	=> 'Testimonials',
-				'ihover'                   	=> 'iHover',
+				'advanced-accordion'       => 'Advanced Accordion',
+				'advanced-icon'            => 'Advanced Icons',
+				'blog-posts'               => 'Advanced Posts',
+				'advanced-separator'       => 'Advanced Separator',
+				'advanced-tabs'            => 'Advanced Tabs',
+				'uabb-button'              => 'Button',
+				'uabb-call-to-action'      => 'Call to Action',
+				'uabb-contact-form'        => 'Contact Form',
+				'uabb-numbers'             => 'Counter',
+				'creative-link'            => 'Creative Link',
+				'dual-button'              => 'Dual Button',
+				'dual-color-heading'       => 'Dual Color Heading',
+				'fancy-text'               => 'Fancy Text',
+				'flip-box'                 => 'Flip Box',
+				'google-map'               => 'Google Map',
+				'uabb-heading'             => 'Heading',
+				'image-icon'               => 'Image / Icon',
+				'image-separator'          => 'Image Separator',
+				'info-banner'              => 'Info Banner',
+				'info-box'                 => 'Info Box',
+				'info-circle'              => 'Info Circle',
+				'info-list'                => 'Info List',
+				'info-table'               => 'Info Table',
+				'interactive-banner-1'     => 'Interactive Banner 1',
+				'interactive-banner-2'     => 'Interactive Banner 2',
+				'list-icon'                => 'List Icon',
+				'mailchimp-subscribe-form' => 'MailChimp Subscription Form',
+				'modal-popup'              => 'Modal Popup',
+				'uabb-photo'               => 'Photo',
+				'photo-gallery'            => 'Photo Gallery',
+				'pricing-box'              => 'Price Box',
+				'progress-bar'             => 'Progress Bar',
+				'ribbon'                   => 'Ribbon',
+				'uabb-separator'           => 'Simple Separator',
+				'slide-box'                => 'Slide Box',
+				'spacer-gap'               => 'Spacer / Gap',
+				'team'                     => 'Team',
+				'adv-testimonials'         => 'Testimonials',
+				'ihover'                   => 'iHover',
 			);
-			
+
 			return $modules_array;
 		}
-		/* Remove it after 2 update */
 
-		static public function get_all_modules()
-		{
+		/* Remove it after 2 update */
+		/**
+		 * Function that renders all the UABB modules
+		 *
+		 * @since x.x.x
+		 */
+		static public function get_all_modules() {
 			$modules_array = array(
-				'advanced-accordion'       	=> 'Advanced Accordion',
-				'advanced-icon'            	=> 'Advanced Icons',
-				'uabb-advanced-menu'        => 'Advanced Menu',
-				'blog-posts'               	=> 'Advanced Posts',
-				'advanced-separator'       	=> 'Advanced Separator',
-				'advanced-tabs'            	=> 'Advanced Tabs',
-				'uabb-beforeafterslider'   	=> 'Before After Slider',
-				'uabb-button'              	=> 'Button',
-				'uabb-call-to-action'      	=> 'Call to Action',
-				'uabb-contact-form'        	=> 'Contact Form',
-				'uabb-countdown'           	=> 'Countdown',
-				'uabb-numbers'             	=> 'Counter',
-				'creative-link'            	=> 'Creative Link',
-				'dual-button'              	=> 'Dual Button',
-				'dual-color-heading'       	=> 'Dual Color Heading',
-				'fancy-text'               	=> 'Fancy Text',
-				'flip-box'                 	=> 'Flip Box',
-				'google-map'               	=> 'Google Map',
-				'uabb-heading'             	=> 'Heading',
-				'uabb-hotspot'				=> 'Hotspot',
-				'ihover'                   	=> 'iHover',
-				'image-icon'               	=> 'Image / Icon',
-				'image-separator'          	=> 'Image Separator',
-				'uabb-image-carousel'	   	=> 'Image Carousel',
-				'info-banner'              	=> 'Info Banner',
-				'info-box'                 	=> 'Info Box',
-				'info-circle'              	=> 'Info Circle',
-				'info-list'                	=> 'Info List',
-				'info-table'               	=> 'Info Table',
-				'interactive-banner-1'     	=> 'Interactive Banner 1',
-				'interactive-banner-2'     	=> 'Interactive Banner 2',
-				'list-icon'                	=> 'List Icon',
-				'mailchimp-subscribe-form' 	=> 'MailChimp Subscription Form',
-				'modal-popup'              	=> 'Modal Popup',
-				'uabb-photo'               	=> 'Photo',
-				'photo-gallery'            	=> 'Photo Gallery',
-				'pricing-box'              	=> 'Price Box',
-				'progress-bar'             	=> 'Progress Bar',
-				'ribbon'                   	=> 'Ribbon',
-				'uabb-separator'           	=> 'Simple Separator',
-				'slide-box'                	=> 'Slide Box',
-				'uabb-social-share'	    	=> 'Social Share',
-				'spacer-gap'               	=> 'Spacer / Gap',
-				'team'                     	=> 'Team',
-				'adv-testimonials'         	=> 'Testimonials',
-				'uabb-content-toggle'		=> 'Content Toggle',
+				'advanced-accordion'       => 'Advanced Accordion',
+				'advanced-icon'            => 'Advanced Icons',
+				'uabb-advanced-menu'       => 'Advanced Menu',
+				'blog-posts'               => 'Advanced Posts',
+				'advanced-separator'       => 'Advanced Separator',
+				'advanced-tabs'            => 'Advanced Tabs',
+				'uabb-beforeafterslider'   => 'Before After Slider',
+				'uabb-button'              => 'Button',
+				'uabb-call-to-action'      => 'Call to Action',
+				'uabb-contact-form'        => 'Contact Form',
+				'uabb-countdown'           => 'Countdown',
+				'uabb-numbers'             => 'Counter',
+				'creative-link'            => 'Creative Link',
+				'dual-button'              => 'Dual Button',
+				'dual-color-heading'       => 'Dual Color Heading',
+				'fancy-text'               => 'Fancy Text',
+				'flip-box'                 => 'Flip Box',
+				'google-map'               => 'Google Map',
+				'uabb-heading'             => 'Heading',
+				'uabb-hotspot'             => 'Hotspot',
+				'ihover'                   => 'iHover',
+				'image-icon'               => 'Image / Icon',
+				'image-separator'          => 'Image Separator',
+				'uabb-image-carousel'      => 'Image Carousel',
+				'info-banner'              => 'Info Banner',
+				'info-box'                 => 'Info Box',
+				'info-circle'              => 'Info Circle',
+				'info-list'                => 'Info List',
+				'info-table'               => 'Info Table',
+				'interactive-banner-1'     => 'Interactive Banner 1',
+				'interactive-banner-2'     => 'Interactive Banner 2',
+				'list-icon'                => 'List Icon',
+				'mailchimp-subscribe-form' => 'MailChimp Subscription Form',
+				'modal-popup'              => 'Modal Popup',
+				'uabb-photo'               => 'Photo',
+				'photo-gallery'            => 'Photo Gallery',
+				'pricing-box'              => 'Price Box',
+				'progress-bar'             => 'Progress Bar',
+				'ribbon'                   => 'Ribbon',
+				'uabb-separator'           => 'Simple Separator',
+				'slide-box'                => 'Slide Box',
+				'uabb-social-share'        => 'Social Share',
+				'spacer-gap'               => 'Spacer / Gap',
+				'team'                     => 'Team',
+				'adv-testimonials'         => 'Testimonials',
+				'uabb-content-toggle'      => 'Content Toggle',
+				'uabb-business-hours'		=> 'Business Hours',
 			);
 
 			/* Include Contact form styler */
@@ -272,61 +331,64 @@ if( !class_exists( "BB_Ultimate_Addon_Helper" ) ) {
 			return $modules_array;
 		}
 
-		static public function get_all_extenstions()
-		{
+		/**
+		 * Function that renders extensions for the UABB
+		 *
+		 * @since x.x.x
+		 */
+		static public function get_all_extenstions() {
 			$extenstions_array = array(
-				'uabb-row-separator'		=> 'Row Separator',
-				'uabb-row-gradient'			=> 'Row Gradient Background',
-				'uabb-col-gradient'			=> 'Column Gradient Background',
-				'uabb-col-shadow'			=> 'Column Shadow',
+				'uabb-row-separator' => 'Row Separator',
+				'uabb-row-gradient'  => 'Row Gradient Background',
+				'uabb-col-gradient'  => 'Column Gradient Background',
+				'uabb-col-shadow'    => 'Column Shadow',
 			);
 			return $extenstions_array;
 		}
 
-		static public function get_builder_uabb_modules()
-		{
-			$uabb 			= UABB_Init::$uabb_options['fl_builder_uabb_modules'];
-			$all_modules 	= self::get_all_modules();
+		/**
+		 * Function that renders UABB's modules
+		 *
+		 * @since x.x.x
+		 */
+		static public function get_builder_uabb_modules() {
+			$uabb           = UABB_Init::$uabb_options['fl_builder_uabb_modules'];
+			$all_modules    = self::get_all_modules();
 			$is_all_modules = true;
 
-			/* Delte below after test */
-			//$uabb 			= self::get_all_modules();
-			/* Delte above after test */
-
-			//	if empty add all defaults
-			if( empty( $uabb ) ) {
-				$uabb 			= self::get_all_modules();
-				$uabb['all'] 	= 'all';
-			}else {
-				if ( !isset( $uabb['unset_all'] ) ) {
-					//	add new key
-					foreach( $all_modules as $key => $value ) {
-						if( is_array( $uabb ) && !array_key_exists( $key, $uabb ) ) {
-							$uabb[$key] = $key;
-							// $is_all_modules = false;
-							// break;
+			if ( empty( $uabb ) ) {
+				$uabb        = self::get_all_modules();
+				$uabb['all'] = 'all';
+			} else {
+				if ( ! isset( $uabb['unset_all'] ) ) {
+					// add new key.
+					foreach ( $all_modules as $key => $value ) {
+						if ( is_array( $uabb ) && ! array_key_exists( $key, $uabb ) ) {
+							$uabb[ $key ] = $key;
 						}
 					}
 				}
 			}
 
-			if ( $is_all_modules == false && isset( $uabb['all'] ) ) {
+			if ( false == $is_all_modules && isset( $uabb['all'] ) ) {
 				unset( $uabb['all'] );
 			}
 
-			$uabb['image-icon'] 			= 'image-icon';
-			$uabb['advanced-separator'] 	= 'advanced-separator';
-			$uabb['uabb-separator' ] 		= 'uabb-separator';
-			$uabb['uabb-button' ] 			= 'uabb-button';
+			$uabb['image-icon']         = 'image-icon';
+			$uabb['advanced-separator'] = 'advanced-separator';
+			$uabb['uabb-separator']     = 'uabb-separator';
+			$uabb['uabb-button']        = 'uabb-button';
 
 			return apply_filters( 'uabb_get_builder_uabb_modules', $uabb );
 		}
-		
+
 		/**
-		 *	Template status
+		 *  Template status
 		 *
-		 *	Return the status of pages, sections, presets or all templates. Default: all
-		 *	@return boolean
+		 *  Return the status of pages, sections, presets or all templates. Default: all
+		 *
+		 *  @param string $templates_type gets the templates type.
+		 *  @return boolean
 		 */
 		public static function is_templates_exist( $templates_type = 'all' ) {
 
@@ -334,25 +396,19 @@ if( !class_exists( "BB_Ultimate_Addon_Helper" ) ) {
 			$exist_templates = array(
 				'page-templates' => 0,
 				'sections'       => 0,
-				'presets'        => 0
+				'presets'        => 0,
 			);
 
-			if( is_array( $templates ) && count( $templates ) > 0 ) {
-				foreach( $templates as $type => $type_templates ) {
+			if ( is_array( $templates ) && count( $templates ) > 0 ) {
+				foreach ( $templates as $type => $type_templates ) {
 
-					//	Individual type array - [page-templates], [layout] or [row]
-					if( $type_templates ) {
-						foreach( $type_templates as $template_id => $template_data ) {
-							
-							/**
-							 *	Check [status] & [dat_url_local] exist
-							 */
-							if(
-								isset( $template_data['status'] ) && $template_data['status'] == true &&
-								isset( $template_data['dat_url_local'] ) && !empty( $template_data['dat_url_local'] )
-							) {
-								
-								$exist_templates[$type] = ( count( ( is_array($exist_templates[$type]) || is_object($exist_templates[$type]) ) ? $exist_templates[$type] : array() ) + 1 );
+					// Individual type array - [page-templates], [layout] or [row].
+					if ( $type_templates ) {
+						foreach ( $type_templates as $template_id => $template_data ) {
+
+							if ( isset( $template_data['status'] ) && true == $template_data['status'] && isset( $template_data['dat_url_local'] ) && ! empty( $template_data['dat_url_local'] ) ) {
+
+								$exist_templates[ $type ] = ( count( ( is_array( $exist_templates[ $type ] ) || is_object( $exist_templates[ $type ] ) ) ? $exist_templates[ $type ] : array() ) + 1 );
 							}
 						}
 					}
@@ -362,52 +418,56 @@ if( !class_exists( "BB_Ultimate_Addon_Helper" ) ) {
 			switch ( $templates_type ) {
 				case 'page-templates':
 								$_templates_exist = ( $exist_templates['page-templates'] >= 1 ) ? true : false;
-				break;
+					break;
 
 				case 'sections':
 								$_templates_exist = ( $exist_templates['sections'] >= 1 ) ? true : false;
-				break;
+					break;
 
 				case 'presets':
 								$_templates_exist = ( $exist_templates['presets'] >= 1 ) ? true : false;
-				break;
+					break;
 
 				case 'all':
-					default:
-								$_templates_exist = ( $exist_templates['page-templates'] >= 1 || $exist_templates['sections'] >= 1 || $exist_templates['presets'] >= 1 ) ? true : false;
-				break;
+				default:
+							$_templates_exist = ( $exist_templates['page-templates'] >= 1 || $exist_templates['sections'] >= 1 || $exist_templates['presets'] >= 1 ) ? true : false;
+					break;
 			}
 
 			return $_templates_exist;
 		}
 
 		/**
-		 *	Get link rel attribute
+		 *  Get link rel attribute
 		 *
-	 	 *  @since 1.6.1
-		 *	@return string
+		 *  @since 1.6.1
+		 *  @param string $target gets an string for the link.
+		 *  @param string $is_nofollow gets an string for is no follow.
+		 *  @param string $echo gets an string for echo.
+		 *  @return string
 		 */
-		static public function get_link_rel( $target, $is_nofollow = 0, $echo = 0 )  {
+		static public function get_link_rel( $target, $is_nofollow = 0, $echo = 0 ) {
 
 			$attr = '';
-			if( '_blank' == $target ) {
-				$attr.= 'noopener';
+			if ( '_blank' == $target ) {
+				$attr .= 'noopener';
 			}
 
-			if( 1 == $is_nofollow ) {
-				$attr.= ' nofollow';
+			if ( 1 == $is_nofollow ) {
+				$attr .= ' nofollow';
 			}
 
-			if( '' == $attr ) {
+			if ( '' == $attr ) {
 				return;
 			}
 
-			$attr = trim($attr);
-			if ( ! $echo  ) {
-				return 'rel="'.$attr.'"';
+			$attr = trim( $attr );
+			if ( ! $echo ) {
+				return 'rel="' . $attr . '"';
 			}
-			echo 'rel="'.$attr.'"';
+			echo 'rel="' . $attr . '"';
 		}
-	}
+	}	
+
 	new BB_Ultimate_Addon_Helper();
 }

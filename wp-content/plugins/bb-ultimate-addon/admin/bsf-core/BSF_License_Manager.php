@@ -543,15 +543,15 @@ if ( ! class_exists( 'BSF_License_Manager' ) ) {
 		 */
 		public function get_bsf_inline_license_form( $links, $args, $license_from_type ) {
 
-			if ( is_multisite() && ! is_network_admin() ) {
-				return $links;
-			}
-
 			$product_id = $args['product_id'];
 
 			if( ! isset( $product_id ) ) {
 				return $links;
 			}
+
+			if ( is_multisite() && ! is_network_admin() && false == apply_filters( "bsf_core_popup_license_form_per_network_site_{$product_id}", false ) ) {
+				return $links;
+			}			
 
 			$status         = 'inactive';
 			$license_string = __( 'Activate License', 'bsf-core' );

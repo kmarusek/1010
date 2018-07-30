@@ -76,11 +76,13 @@ if( $settings->dual_font_family['family'] != "Default" || isset($settings->dual_
 		    line-height: <?php echo $settings->dual_line_height['desktop']; ?>px;
 		<?php } ?>
  	
-	   <?php if( $settings->dual_transform != 'none' )?>
-		   text-transform: <?php echo $settings->dual_transform; ?>;
+	   	<?php if( $settings->dual_transform != 'none' ) : ?>
+			text-transform: <?php echo $settings->dual_transform; ?>;
+		<?php endif; ?>
 
-	    <?php if( $settings->dual_letter_spacing !='' )?>
+	    <?php if( $settings->dual_letter_spacing != '' ) : ?>
 		   letter-spacing: <?php echo $settings->dual_letter_spacing; ?>px;
+		<?php endif; ?>
 	}
 	
 <?php } ?>

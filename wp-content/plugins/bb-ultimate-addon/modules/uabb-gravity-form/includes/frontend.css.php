@@ -126,7 +126,8 @@
 .fl-node-<?php echo $id; ?> .uabb-gf-style textarea:focus,
 .fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_select .chosen-container-single .chosen-single,
 .fl-node-<?php echo $id; ?> .chosen-container .chosen-container-single .chosen-container-active .chosen-with-drop,
-.fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_select .chosen-container-active.chosen-with-drop .chosen-single {
+.fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_select .chosen-container-active.chosen-with-drop .chosen-single,
+.fl-node-<?php echo $id; ?> .gform_wrapper .chosen-container .chosen-drop {
     <?php
     if( isset( $settings->input_border_radius ) ) { ?>
         border-radius: <?php echo $settings->input_border_radius; ?>px;
@@ -216,11 +217,13 @@
         <?php FLBuilderFonts::font_css( $settings->label_font_family ); ?>
     <?php } ?>
 
-    <?php if( $settings->input_desc_transform != 'none' ) ?>
+    <?php if( $settings->input_desc_transform != 'none' ) : ?>
        text-transform: <?php echo $settings->input_desc_transform; ?>;
+    <?php endif; ?>
 
-    <?php if( $settings->input_desc_letter_spacing != '' ) ?>
+    <?php if( $settings->input_desc_letter_spacing != '' ) : ?>
        letter-spacing: <?php echo $settings->input_desc_letter_spacing; ?>px;
+    <?php endif; ?>
 }
 
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield .ginput_container span label {
@@ -263,11 +266,13 @@
         <?php endif; ?>
     <?php } ?>
 
-    <?php if( $settings->radio_checkbox_transform != 'none' ) ?>
+    <?php if( $settings->radio_checkbox_transform != 'none' ) : ?>
        text-transform: <?php echo $settings->radio_checkbox_transform; ?>;
+    <?php endif; ?>
 
-    <?php if( $settings->radio_checkbox_letter_spacing != '' ) ?>
+    <?php if( $settings->radio_checkbox_letter_spacing != '' ) : ?>
        letter-spacing: <?php echo $settings->radio_checkbox_letter_spacing; ?>px;
+    <?php endif; ?>
 }
 
 <?php
@@ -322,7 +327,9 @@ if( $settings->radio_check_custom_option == 'true') {
 <?php
 /* Placeholder Colors  */
 if( $settings->placeholder_color && $settings->input_placeholder_display == 'block' ) { ?>
-    .fl-node-<?php echo $id; ?> .gform_wrapper .gfield input::-webkit-input-placeholder {
+    .fl-node-<?php echo $id; ?> .gform_wrapper .gfield input::-webkit-input-placeholder,
+    .fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_select .chosen-container-single .chosen-single, 
+    .fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_select select {
         color: #<?php echo $settings->placeholder_color; ?>;
     }
     .fl-node-<?php echo $id; ?> .gform_wrapper .gfield input:-moz-placeholder {
@@ -604,11 +611,13 @@ if ( $settings->btn_style == 'gradient' ) {
         
         margin: 0 0 <?php echo ( $settings->form_title_bottom_margin != '' ) ? $settings->form_title_bottom_margin : '0'; ?>px;
 
-        <?php if( $settings->form_title_transform != 'none' ) ?>
+        <?php if( $settings->form_title_transform != 'none' ) : ?>
            text-transform: <?php echo $settings->form_title_transform; ?>;
+        <?php endif; ?>
 
-        <?php if( $settings->form_title_letter_spacing != '' ) ?>
+        <?php if( $settings->form_title_letter_spacing != '' ) : ?>
            letter-spacing: <?php echo $settings->form_title_letter_spacing; ?>px;
+        <?php endif; ?>
 
     <?php } ?>
 }
@@ -645,11 +654,13 @@ if ( $settings->btn_style == 'gradient' ) {
 
         margin: 0 0 <?php echo ( $settings->form_desc_bottom_margin != '' ) ? $settings->form_desc_bottom_margin : '20'; ?>px;
 
-        <?php if( $settings->form_desc_transform != 'none' ) ?>
+        <?php if( $settings->form_desc_transform != 'none' ) : ?>
            text-transform: <?php echo $settings->form_desc_transform; ?>;
+        <?php endif; ?>
 
-        <?php if( $settings->form_desc_letter_spacing != '' ) ?>
+        <?php if( $settings->form_desc_letter_spacing != '' ) : ?>
            letter-spacing: <?php echo $settings->form_desc_letter_spacing; ?>px;
+        <?php endif; ?>
 
     <?php } ?>
 
@@ -736,11 +747,22 @@ if ( $settings->btn_style == 'gradient' ) {
         line-height: <?php echo $settings->btn_line_height['desktop']; ?>px;
     <?php } ?>
 
-    <?php if($settings->btn_text_transform!= 'none' ) ?>
+    <?php if($settings->btn_text_transform!= 'none' ) : ?>
        text-transform: <?php echo $settings->btn_text_transform; ?>;
+    <?php endif; ?>
 
-    <?php if($settings->btn_letter_spacing!= '' ) ?>
+    <?php if($settings->btn_letter_spacing!= '' ) : ?>
 	   letter-spacing: <?php echo $settings->btn_letter_spacing; ?>px;
+    <?php endif; ?>
+
+    <?php if( isset( $settings->btn_margin_top ) && $settings->btn_margin_top != '' ) { ?>
+        margin-top: <?php echo $settings->btn_margin_top; ?>px;
+    <?php } ?>
+
+    <?php if( isset( $settings->btn_margin_bottom ) && $settings->btn_margin_bottom != '' ) { ?>
+        margin-bottom: <?php echo $settings->btn_margin_bottom; ?>px;
+    <?php } ?>
+
 }
 
 .fl-node-<?php echo $id; ?> .uabb-gf-style form .gform_body .gfield_label {
@@ -768,11 +790,13 @@ if ( $settings->btn_style == 'gradient' ) {
             line-height: <?php echo $settings->label_line_height['desktop']; ?>px;
         <?php } ?>
         
-        <?php if( $settings->label_transform != 'none' ) ?>
+        <?php if( $settings->label_transform != 'none' ) : ?>
            text-transform: <?php echo $settings->label_transform; ?>;
+        <?php endif; ?>
 
-        <?php if( $settings->label_letter_spacing != '' ) ?>
+        <?php if( $settings->label_letter_spacing != '' ) : ?>
            letter-spacing: <?php echo $settings->label_letter_spacing; ?>px;
+        <?php endif; ?>
 
         <?php if( $settings->label_color != '' ) : ?>
         color: <?php echo $settings->label_color; ?>;
@@ -795,11 +819,13 @@ if ( $settings->btn_style == 'gradient' ) {
     color: <?php echo $settings->input_msg_color; ?>;
     font-size: <?php echo $settings->input_msg_font_size; ?>px;
 
-    <?php if( $settings->input_error_transform != 'none' ) ?>
+    <?php if( $settings->input_error_transform != 'none' ) : ?>
        text-transform: <?php echo $settings->input_error_transform; ?>;
+    <?php endif; ?>
 
-    <?php if( $settings->input_error_letter_spacing != '' ) ?>
+    <?php if( $settings->input_error_letter_spacing != '' ) : ?>
        letter-spacing: <?php echo $settings->input_error_letter_spacing; ?>px;
+    <?php endif; ?>
 }
 
 .fl-node-<?php echo $id; ?> .uabb-gf-style .gform_wrapper div.validation_error {
@@ -807,11 +833,13 @@ if ( $settings->btn_style == 'gradient' ) {
     line-height: 1.5em;
     font-size: <?php echo $settings->validation_msg_font_size; ?>px;
 
-    <?php if( $settings->validate_transform != '' ) ?>
+    <?php if( $settings->validate_transform != 'none' ) : ?>
        text-transform: <?php echo $settings->validate_transform; ?>;
+    <?php endif; ?>
 
-    <?php if( $settings->validate_letter_spacing != '' ) ?>
+    <?php if( $settings->validate_letter_spacing != '' ) : ?>
        letter-spacing: <?php echo $settings->validate_letter_spacing; ?>px;
+    <?php endif; ?>
 	
 	background: <?php echo $settings->validation_bg_color; ?>;
 	<?php if ( $settings->validation_border_type != ''  ) { ?>
@@ -890,11 +918,13 @@ if ( $settings->btn_style == 'gradient' ) {
     <?php if( $settings->input_success_msg_font_size != '' ) { ?>
         font-size: <?php echo $settings->input_success_msg_font_size ?>px;
     <?php } ?>
-    <?php if( $settings->input_success_msg_transform != 'none' ) ?>
+    <?php if( $settings->input_success_msg_transform != 'none' ) : ?>
        text-transform: <?php echo $settings->input_success_msg_transform; ?>;
+    <?php endif; ?>
 
-    <?php if( $settings->input_success_msg_letter_spacing != '' ) ?>
+    <?php if( $settings->input_success_msg_letter_spacing != '' ) : ?>
        letter-spacing: <?php echo $settings->input_success_msg_letter_spacing; ?>px;
+    <?php endif; ?>
 }
 
 /* Typography responsive css */

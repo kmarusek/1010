@@ -1,34 +1,45 @@
 <?php
+/**
+ *  UABB Button Module file
+ *
+ *  @package UABB Button Module
+ */
 
 /**
+ * Function that initializes UABB Button Module
+ *
  * @class UABBButtonModule
  */
 class UABBButtonModule extends FLBuilderModule {
-
 	/**
+	 * Constructor function that constructs default values for the Button Module
+	 *
 	 * @method __construct
 	 */
-	public function __construct()
-	{
-		parent::__construct(array(
-			'name'          => __('Button', 'uabb'),
-			'description'   => __('A simple call to action button.', 'uabb'),
-			'category'      => BB_Ultimate_Addon_Helper::module_cat( BB_Ultimate_Addon_Helper::$lead_generation ),
-            'group'         => UABB_CAT,
-			'dir'           => BB_ULTIMATE_ADDON_DIR . 'modules/uabb-button/',
-            'url'           => BB_ULTIMATE_ADDON_URL . 'modules/uabb-button/',
-            'editor_export' => true, // Defaults to true and can be omitted.
-            'enabled'       => true, // Defaults to true and can be omitted.
-            'partial_refresh' => true,
-			'icon'				=> 'button.svg',
-		));
+	public function __construct() {
+		parent::__construct(
+			array(
+				'name'            => __( 'Button', 'uabb' ),
+				'description'     => __( 'A simple call to action button.', 'uabb' ),
+				'category'        => BB_Ultimate_Addon_Helper::module_cat( BB_Ultimate_Addon_Helper::$lead_generation ),
+				'group'           => UABB_CAT,
+				'dir'             => BB_ULTIMATE_ADDON_DIR . 'modules/uabb-button/',
+				'url'             => BB_ULTIMATE_ADDON_URL . 'modules/uabb-button/',
+				'editor_export'   => true, // Defaults to true and can be omitted.
+				'enabled'         => true, // Defaults to true and can be omitted.
+				'partial_refresh' => true,
+				'icon'            => 'button.svg',
+			)
+		);
 	}
 
 	/**
+	 * Function that gets the update settings
+	 *
 	 * @method update
+	 * @param object $settings gets the settings for the button module.
 	 */
-	public function update( $settings )
-	{
+	public function update( $settings ) {
 		// Remove the old three_d setting.
 		if ( isset( $settings->three_d ) ) {
 			unset( $settings->three_d );
@@ -38,55 +49,60 @@ class UABBButtonModule extends FLBuilderModule {
 	}
 
 	/**
+	 * Function that gets the class names
+	 *
 	 * @method get_classname
 	 */
-	public function get_classname()
-	{
+	public function get_classname() {
 		$classname = 'uabb-button-wrap uabb-creative-button-wrap';
 
-		if(!empty($this->settings->width)) {
+		if ( ! empty( $this->settings->width ) ) {
 			$classname .= ' uabb-button-width-' . $this->settings->width;
 			$classname .= ' uabb-creative-button-width-' . $this->settings->width;
 		}
-		if(!empty($this->settings->align)) {
+		if ( ! empty( $this->settings->align ) ) {
 			$classname .= ' uabb-button-' . $this->settings->align;
 			$classname .= ' uabb-creative-button-' . $this->settings->align;
 		}
-		if(!empty($this->settings->mob_align)) {
+		if ( ! empty( $this->settings->mob_align ) ) {
 			$classname .= ' uabb-button-reponsive-' . $this->settings->mob_align;
 			$classname .= ' uabb-creative-button-reponsive-' . $this->settings->mob_align;
 		}
-		if(!empty($this->settings->icon)) {
+		if ( ! empty( $this->settings->icon ) ) {
 			$classname .= ' uabb-button-has-icon';
 			$classname .= ' uabb-creative-button-has-icon';
 		}
 
-		if( empty($this->settings->text) ) {
+		if ( empty( $this->settings->text ) ) {
 			$classname .= ' uabb-creative-button-icon-no-text';
 		}
 
 		return $classname;
 	}
 	/**
+	 * Function that gets the button styling
+	 *
 	 * @method get_button_style
 	 */
-	public function get_button_style()
-	{
+	public function get_button_style() {
 		$btn_style = '';
 
-		if(!empty($this->settings->style) && $this->settings->style == "transparent" ) {
-			if( isset( $this->settings->transparent_button_options ) && !empty( $this->settings->transparent_button_options ) )
-			$btn_style .= ' uabb-' . $this->settings->transparent_button_options .'-btn';
+		if ( ! empty( $this->settings->style ) && 'transparent' == $this->settings->style ) {
+			if ( isset( $this->settings->transparent_button_options ) && ! empty( $this->settings->transparent_button_options ) ) {
+				$btn_style .= ' uabb-' . $this->settings->transparent_button_options . '-btn';
+			}
 		}
 
-		if(!empty($this->settings->style) && $this->settings->style == "threed" ) {
-			if( isset( $this->settings->threed_button_options ) && !empty( $this->settings->threed_button_options ) )
-			$btn_style .= ' uabb-' . $this->settings->threed_button_options .'-btn';
+		if ( ! empty( $this->settings->style ) && 'threed' == $this->settings->style ) {
+			if ( isset( $this->settings->threed_button_options ) && ! empty( $this->settings->threed_button_options ) ) {
+				$btn_style .= ' uabb-' . $this->settings->threed_button_options . '-btn';
+			}
 		}
 
-		if(!empty($this->settings->style) && $this->settings->style == "flat" ) {
-			if( isset( $this->settings->flat_button_options ) && !empty( $this->settings->flat_button_options ) )
-			$btn_style .= ' uabb-' . $this->settings->flat_button_options .'-btn';
+		if ( ! empty( $this->settings->style ) && 'flat' == $this->settings->style ) {
+			if ( isset( $this->settings->flat_button_options ) && ! empty( $this->settings->flat_button_options ) ) {
+				$btn_style .= ' uabb-' . $this->settings->flat_button_options . '-btn';
+			}
 		}
 
 		return $btn_style;
@@ -96,526 +112,526 @@ class UABBButtonModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('UABBButtonModule', array(
-	'general'       => array(
-		'title'         => __('General', 'uabb'),
-		'sections'      => array(
-			'general'       => array(
-				'title'         => '',
-				'fields'        => array(
-					'text'          => array(
-						'type'          => 'text',
-						'label'         => __('Text', 'uabb'),
-						'default'       => __('Click Here', 'uabb'),
-						'preview'         => array(
-							'type'            => 'text',
-							'selector'        => '.uabb-creative-button-text'
+FLBuilder::register_module(
+	'UABBButtonModule', array(
+		'general'             => array(
+			'title'    => __( 'General', 'uabb' ),
+			'sections' => array(
+				'general'          => array(
+					'title'  => '',
+					'fields' => array(
+						'text' => array(
+							'type'        => 'text',
+							'label'       => __( 'Text', 'uabb' ),
+							'default'     => __( 'Click Here', 'uabb' ),
+							'preview'     => array(
+								'type'     => 'text',
+								'selector' => '.uabb-creative-button-text',
+							),
+							'connections' => array( 'string', 'html' ),
 						),
-						'connections'	=> array( 'string', 'html' )
-					),
 
-				)
-			),
-			'link'          => array(
-				'title'         => __('Link', 'uabb'),
-				'fields'        => array(
-					'link'          => array(
-						'type'          => 'link',
-						'label'         => __('Link', 'uabb'),
-						'placeholder'   => 'http://www.example.com',
-						'default'		=> '#',
-						'preview'       => array(
-							'type'          => 'none'
-						),
-						'connections'	=> array( 'url' )
 					),
-					'link_target'   => array(
-						'type'          => 'select',
-						'label'         => __('Link Target', 'uabb'),
-						'default'       => '_self',
-						'options'       => array(
-							'_self'         => __('Same Window', 'uabb'),
-							'_blank'        => __('New Window', 'uabb')
-						),
-						'preview'       => array(
-							'type'          => 'none'
-						)
-					),
-					'link_nofollow'   => array(
-						'type'          => 'select',
-						'label'         => __('Link nofollow', 'uabb'),
-						'description'   => '',
-						'default'       => '0',
-						'help'			=> __('Enable this to make this link nofollow', 'uabb'),
-						'options'       => array(
-							'1'       => __('Yes','uabb'),
-							'0'       => __('No','uabb'),
-						),
-					),
-				)
-			),
-			'btn_html_element'          => array(
-				'title'         => __('HTML Element', 'uabb'),
-				'fields'        => array(
-					'custom_class'          => array(
-						'type'          => 'text',
-						'label'         => __('Custom Class', 'uabb'),
-						'default'		=> '',
-						'preview'       => array(
-							'type'          => 'none'
-						),
-					),
-				)
-			),
-		)
-	),
-	'style'         => array(
-		'title'         => __('Style', 'uabb'),
-		'sections'      => array(
-			'style'         => array(
-				'title'         => __('Style', 'uabb'),
-				'fields'        => array(
-					'style'         => array(
-						'type'          => 'select',
-						'label'         => __('Style', 'uabb'),
-						'default'       => 'flat',
-						'class'			=> 'creative_button_styles',
-						'options'       => array(
-							'flat'          => __('Flat', 'uabb'),
-							'gradient'      => __('Gradient', 'uabb'),
-							'transparent'   => __('Transparent', 'uabb'),
-							'threed'        => __('3D', 'uabb'),
-						),
-					),					
-					'border_size'   => array(
-						'type'          => 'text',
-						'label'         => __('Border Size', 'uabb'),
-						'description'   => 'px',
-						'maxlength'     => '3',
-						'size'          => '5',
-						'placeholder'   => '2'
-					),
-					'transparent_button_options'         => array(
-						'type'          => 'select',
-						'label'         => __('Hover Styles', 'uabb'),
-						'default'       => 'transparent-fade',
-						'options'       => array(
-							'none'          => __('None', 'uabb'),
-							'transparent-fade'          => __('Fade Background', 'uabb'),
-							'transparent-fill-top'      => __('Fill Background From Top', 'uabb'),
-							'transparent-fill-bottom'      => __('Fill Background From Bottom', 'uabb'),
-							'transparent-fill-left'     => __('Fill Background From Left', 'uabb'),
-							'transparent-fill-right'     => __('Fill Background From Right', 'uabb'),
-							'transparent-fill-center'   	=> __('Fill Background Vertical', 'uabb'),
-							'transparent-fill-diagonal'   	=> __('Fill Background Diagonal', 'uabb'),
-							'transparent-fill-horizontal'  => __('Fill Background Horizontal', 'uabb'),
-						),
-						'preview'         => array(
-                            'type'          => 'none',
-                        )
-					),
-					'threed_button_options'         => array(
-						'type'          => 'select',
-						'label'         => __('Hover Styles', 'uabb'),
-						'default'       => 'threed_down',
-						'options'       => array(
-							'threed_down'          => __('Move Down', 'uabb'),
-							'threed_up'      => __('Move Up', 'uabb'),
-							'threed_left'      => __('Move Left', 'uabb'),
-							'threed_right'     => __('Move Right', 'uabb'),
-							'animate_top'     => __('Animate Top', 'uabb'),
-							'animate_bottom'     => __('Animate Bottom', 'uabb'),
-							/*'animate_left'     => __('Animate Left', 'uabb'),
-							'animate_right'     => __('Animate Right', 'uabb'),*/
-						),
-					),
-					'flat_button_options'         => array(
-						'type'          => 'select',
-						'label'         => __('Hover Styles', 'uabb'),
-						'default'       => 'none',
-						'options'       => array(
-							'none'          => __('None', 'uabb'),
-							'animate_to_left'      => __('Appear Icon From Right', 'uabb'),
-							'animate_to_right'          => __('Appear Icon From Left', 'uabb'),
-							'animate_from_top'      => __('Appear Icon From Top', 'uabb'),
-							'animate_from_bottom'     => __('Appear Icon From Bottom', 'uabb'),
-						),
-					),
-				)
-			),
-			'icon'    => array(
-				'title'         => __('Icons', 'uabb'),
-				'fields'        => array(
-					'icon_type'    => array(
-						'type'          => 'select',
-						'label'         => __('Image Type', 'uabb'),
-						'default'       => 'icon',
-						'options'       => array(
-						    'none'          => __('None', 'uabb' ),
-						    'icon'          => __('Icon', 'uabb'),
-						    'photo'         => __('Photo', 'uabb'),
-						),
-						'toggle'        => array(
-						    'icon'          => array(
-						        'fields'   => array( 'icon', 'icon_position' ),
-						    ),
-						    'photo'         => array(
-						        'fields'   => array( 'photo', 'img_width' ),
-						    )
-						),
-					),
-					'icon'          => array(
-						'type'          => 'icon',
-						'label'         => __('Icon', 'uabb'),
-						'show_remove'   => true
-					),
-					'photo'         => array(
-                        'type'          => 'photo',
-                        'label'         => __('Photo', 'uabb'),
-                        'show_remove'   => true,
-                    ),
-                    'img_width' => array(
-                        'type'          => 'text',
-                        'label'         => __('Photo Width', 'uabb'),
-                        'placeholder'   => '20',
-                        'default'		=> '20',
-                        'description'   => 'px',
-                        'size'          => '8',
-                        'preview'         => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-button .uabb-btn-img',
-                            'property'      => 'width',
-                            'unit'			=> 'px'
-                        )
-                    ),
-					'icon_position' => array(
-						'type'          => 'select',
-						'label'         => __('Icon Position', 'uabb'),
-						'default'       => 'after',
-						'options'       => array(
-							'before'        => __('Before Text', 'uabb'),
-							'after'         => __('After Text', 'uabb')
-						)
-					)
-				)
-			),
-			'colors'        => array(
-				'title'         => __('Colors', 'uabb'),
-				'fields'        => array(
-					'text_color'        => array( 
-						'type'       => 'color',
-                        'label'         => __('Text Color', 'uabb'),
-						'default'    => '',
-						'show_reset' => true,
-						'preview'         => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-creative-button-wrap a *, .uabb-creative-button-wrap a.uabb-button *',
-                            'property'      => 'color',
-                        )
-					),
-					'text_hover_color'   => array( 
-						'type'       => 'color',
-                        'label'         => __('Text Hover Color', 'uabb'),
-						'default'    => '',
-						'show_reset' => true,
-                        'preview'       => array(
-							'type'          => 'none'
-						)
-					),
-					'button_gradient'         => array(
-						'type'          => 'uabb-gradient',
-						'label'         => __('Gradient', 'uabb'),
-						'default'       => array(
-							'color_one' => '',
-							'color_two' => '',
-							'direction' => 'left_right',
-							'angle'		=> '0'
-						),
-					),
-					'bg_color'        => array( 
-						'type'       => 'color',
-                        'label'         => __('Background Color', 'uabb'),
-						'default'    => '',
-						'show_reset' => true,
-						'preview'       => array(
-                            'type'          => 'css',
-                            'rules'    => array(
-                                array(
-                                    'selector'     => '.uabb-creative-button-wrap a.uabb-creative-flat-btn',
-                                    'property'     => 'background'
-                                ),
-                                array(
-                                    'selector'     => '.uabb-creative-button-wrap a.uabb-creative-transparent-btn',
-                                    'property'     => 'border-color'
-                                ),    
-                            )
-                        )
-					),
-                    'bg_color_opc'    => array( 
-						'type'        => 'text',
-						'label'       => __('Opacity', 'uabb'),
-						'default'     => '',
-						'description' => '%',
-						'maxlength'   => '3',
-						'size'        => '5',
-					),
-					'bg_hover_color'        => array(
-						'type'       => 'color',
-                        'label'      => __('Background Hover Color', 'uabb'),
-						'default'    => '',
-						'show_reset' => true,
-                        'preview'       => array(
-							'type'          => 'none'
-						)
-					),
-                    'bg_hover_color_opc'    => array( 
-						'type'        => 'text',
-						'label'       => __('Opacity', 'uabb'),
-						'default'     => '',
-						'description' => '%',
-						'maxlength'   => '3',
-						'size'        => '5',
-					),
-                    'hover_attribute' => array(
-                    	'type'          => 'select',
-                        'label'         => __( 'Apply Hover Color To', 'uabb' ),
-                        'default'       => 'bg',
-                        'options'       => array(
-                            'border'    => __( 'Border', 'uabb' ),
-                            'bg'        => __( 'Background', 'uabb' ),
-                        ),
-                        'width'	=> '75px'
-                    ),
-				)
-			),
-			'formatting'    => array(
-				'title'         => __('Structure', 'uabb'),
-				'fields'        => array(
-					'width'         => array(
-						'type'          => 'select',
-						'label'         => __('Width', 'uabb'),
-						'default'       => 'auto',
-						'options'       => array(
-							'auto'          => _x( 'Auto', 'Width.', 'uabb' ),
-							'full'          => __('Full Width', 'uabb'),
-							'custom'        => __('Custom', 'uabb')
-						),
-						'toggle'        => array(
-							'auto'          => array(
-								'fields'        => array('align', 'mob_align' )
+				),
+				'link'             => array(
+					'title'  => __( 'Link', 'uabb' ),
+					'fields' => array(
+						'link'          => array(
+							'type'        => 'link',
+							'label'       => __( 'Link', 'uabb' ),
+							'placeholder' => 'http://www.example.com',
+							'default'     => '#',
+							'preview'     => array(
+								'type' => 'none',
 							),
-							'full'          => array(
-								'fields'		=> array()
+							'connections' => array( 'url' ),
+						),
+						'link_target'   => array(
+							'type'    => 'select',
+							'label'   => __( 'Link Target', 'uabb' ),
+							'default' => '_self',
+							'options' => array(
+								'_self'  => __( 'Same Window', 'uabb' ),
+								'_blank' => __( 'New Window', 'uabb' ),
 							),
-							'custom'        => array(
-								'fields'        => array('align', 'mob_align', 'custom_width', 'custom_height', 'padding_top_bottom', 'padding_left_right' )
-							)
-						)
-					),
-					'custom_width'  => array(
-						'type'          => 'text',
-						'label'         => __('Custom Width', 'uabb'),
-						'default'   	=> '200',
-						'maxlength'     => '3',
-						'size'          => '4',
-						'description'   => 'px',
-						'preview'         => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-creative-button-wrap a',
-                            'property'      => 'width',
-                            'unit'			=> 'px'
-                        )
-					),
-					'custom_height'  => array(
-						'type'          => 'text',
-						'label'         => __('Custom Height', 'uabb'),
-						'default'   	=> '45',
-						'maxlength'     => '3',
-						'size'          => '4',
-						'description'   => 'px',
-						'preview'         => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-creative-button-wrap a',
-                            'property'      => 'min-height',
-                            'unit'			=> 'px'
-                        )
-					),
-					'padding_top_bottom'       => array(
-						'type'          => 'text',
-						'label'         => __('Padding Top/Bottom', 'uabb'),
-						'placeholder'   => '0',
-						'maxlength'     => '3',
-						'size'          => '4',
-						'description'   => 'px',
-						'preview'       => array(
-					        'type'          => 'css',
-					        'rules'           => array(
-					            array(
-					                'selector'     => '.uabb-creative-button-wrap a',
-					                'property'     => 'padding-top',
-					                'unit'		=> 'px'
-					            ),
-					            array(
-					                'selector'     => '.uabb-creative-button-wrap a',
-					                'property'     => 'padding-bottom',
-					                'unit'		=> 'px'
-					            ),    
-					        )
-					    )
-					),
-					'padding_left_right'       => array(
-						'type'          => 'text',
-						'label'         => __('Padding Left/Right', 'uabb'),
-						'placeholder'   => '0',
-						'maxlength'     => '3',
-						'size'          => '4',
-						'description'   => 'px',
-						'preview'       => array(
-					        'type'          => 'css',
-					        'rules'           => array(
-					            array(
-					                'selector'     => '.uabb-creative-button-wrap a',
-					                'property'     => 'padding-left',
-					                'unit'		=> 'px'
-					            ),
-					            array(
-					                'selector'     => '.uabb-creative-button-wrap a',
-					                'property'     => 'padding-right',
-					                'unit'		=> 'px'
-					            ),    
-					        )
-					    )
-					),
-					'border_radius' => array(
-						'type'          => 'text',
-						'label'         => __('Round Corners', 'uabb'),
-						'maxlength'     => '3',
-						'size'          => '4',
-						'description'   => 'px',
-						'preview'         => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-creative-button-wrap a',
-                            'property'      => 'border-radius',
-                            'unit'			=> 'px'
-                        )
-					),
-					'align'         => array(
-						'type'          => 'select',
-						'label'         => __('Alignment', 'uabb'),
-						'default'       => 'center',
-						'options'       => array(
-							'center'        => __('Center', 'uabb'),
-							'left'          => __('Left', 'uabb'),
-							'right'         => __('Right', 'uabb')
-						),
-						'preview'         => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-creative-button-wrap',
-                            'property'      => 'text-align',
-                        )
-					),
-					'mob_align'         => array(
-						'type'          => 'select',
-						'label'         => __('Mobile Alignment', 'uabb'),
-						'default'       => 'center',
-						'options'       => array(
-							'center'        => __('Center', 'uabb'),
-							'left'          => __('Left', 'uabb'),
-							'right'         => __('Right', 'uabb')
-						),
-						'preview'         => array(
-                            'type'          => 'none',
-                        )
-					),
-				)
-			)
-		)
-	),
-	'creative_typography'         => array(
-		'title'         => __('Typography', 'uabb'),
-		'sections'      => array(
-			'typography'    =>  array(
-                'title'     => __('Button Settings', 'uabb' ) ,
-		        'fields'    => array(
-		            'font_family'       => array(
-		                'type'          => 'font',
-		                'label'         => __('Font Family', 'uabb'),
-		                'default'       => array(
-		                    'family'        => 'Default',
-		                    'weight'        => 'Default'
-		                ),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.uabb-creative-button'
-                        )
-		            ),
-		            'font_size_unit'     => array(
-		                'type'          => 'unit',
-		                'label'         => __( 'Font Size', 'uabb' ),
-		                'description'   => 'px',
-						'responsive' => array(
-							'placeholder' => array(
-								'default' => '',
-								'medium' => '',
-								'responsive' => '',
+							'preview' => array(
+								'type' => 'none',
 							),
 						),
-		                'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.uabb-creative-button',
-                            'property'		=>	'font-size',
-                            'unit'			=> 'px'
-                        )
-		            ),
-		            'line_height_unit'    => array(
-		                'type'          => 'unit',
-		                'label'         => __( 'Line Height', 'uabb' ),
-		                'description'   => 'em',
-						'responsive' => array(
-							'placeholder' => array(
-								'default' => '',
-								'medium' => '',
-								'responsive' => '',
+						'link_nofollow' => array(
+							'type'        => 'select',
+							'label'       => __( 'Link nofollow', 'uabb' ),
+							'description' => '',
+							'default'     => '0',
+							'help'        => __( 'Enable this to make this link nofollow', 'uabb' ),
+							'options'     => array(
+								'1' => __( 'Yes', 'uabb' ),
+								'0' => __( 'No', 'uabb' ),
 							),
 						),
-		                'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.uabb-creative-button',
-                            'property'		=>	'line-height',
-                            'unit'			=> 'em'
-                        )
-		            ),
-                    'transform'     => array(
-                        'type'          => 'select',
-                        'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => '',
-                        'options'       => array(
-                            ''           		=>  'Default',
-                            'uppercase'         =>  'UPPERCASE',
-                            'lowercase'         =>  'lowercase',
-                            'capitalize'        =>  'Capitalize'                 
-                        ),
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-creative-button',
-                            'property'      => 'text-transform'
-                        ),
-                    ),
-                    'letter_spacing'       => array(
-                        'type'          => 'text',
-                        'label'         => __('Letter Spacing', 'uabb'),
-                        'placeholder'   => '0',
-                        'size'          => '5',
-                        'description'   => 'px',
-                        'preview'         => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-creative-button',
-                            'property'      => 'letter-spacing',
-                            'unit'          => 'px'
-                        )
-                    ),
-		        )
-		    ),
-		)
+					),
+				),
+				'btn_html_element' => array(
+					'title'  => __( 'HTML Element', 'uabb' ),
+					'fields' => array(
+						'custom_class' => array(
+							'type'    => 'text',
+							'label'   => __( 'Custom Class', 'uabb' ),
+							'default' => '',
+							'preview' => array(
+								'type' => 'none',
+							),
+						),
+					),
+				),
+			),
+		),
+		'style'               => array(
+			'title'    => __( 'Style', 'uabb' ),
+			'sections' => array(
+				'style'      => array(
+					'title'  => __( 'Style', 'uabb' ),
+					'fields' => array(
+						'style'                      => array(
+							'type'    => 'select',
+							'label'   => __( 'Style', 'uabb' ),
+							'default' => 'flat',
+							'class'   => 'creative_button_styles',
+							'options' => array(
+								'flat'        => __( 'Flat', 'uabb' ),
+								'gradient'    => __( 'Gradient', 'uabb' ),
+								'transparent' => __( 'Transparent', 'uabb' ),
+								'threed'      => __( '3D', 'uabb' ),
+							),
+						),
+						'border_size'                => array(
+							'type'        => 'text',
+							'label'       => __( 'Border Size', 'uabb' ),
+							'description' => 'px',
+							'maxlength'   => '3',
+							'size'        => '5',
+							'placeholder' => '2',
+						),
+						'transparent_button_options' => array(
+							'type'    => 'select',
+							'label'   => __( 'Hover Styles', 'uabb' ),
+							'default' => 'transparent-fade',
+							'options' => array(
+								'none'                    => __( 'None', 'uabb' ),
+								'transparent-fade'        => __( 'Fade Background', 'uabb' ),
+								'transparent-fill-top'    => __( 'Fill Background From Top', 'uabb' ),
+								'transparent-fill-bottom' => __( 'Fill Background From Bottom', 'uabb' ),
+								'transparent-fill-left'   => __( 'Fill Background From Left', 'uabb' ),
+								'transparent-fill-right'  => __( 'Fill Background From Right', 'uabb' ),
+								'transparent-fill-center' => __( 'Fill Background Vertical', 'uabb' ),
+								'transparent-fill-diagonal' => __( 'Fill Background Diagonal', 'uabb' ),
+								'transparent-fill-horizontal' => __( 'Fill Background Horizontal', 'uabb' ),
+							),
+							'preview' => array(
+								'type' => 'none',
+							),
+						),
+						'threed_button_options'      => array(
+							'type'    => 'select',
+							'label'   => __( 'Hover Styles', 'uabb' ),
+							'default' => 'threed_down',
+							'options' => array(
+								'threed_down'    => __( 'Move Down', 'uabb' ),
+								'threed_up'      => __( 'Move Up', 'uabb' ),
+								'threed_left'    => __( 'Move Left', 'uabb' ),
+								'threed_right'   => __( 'Move Right', 'uabb' ),
+								'animate_top'    => __( 'Animate Top', 'uabb' ),
+								'animate_bottom' => __( 'Animate Bottom', 'uabb' ),
+							),
+						),
+						'flat_button_options'        => array(
+							'type'    => 'select',
+							'label'   => __( 'Hover Styles', 'uabb' ),
+							'default' => 'none',
+							'options' => array(
+								'none'                => __( 'None', 'uabb' ),
+								'animate_to_left'     => __( 'Appear Icon From Right', 'uabb' ),
+								'animate_to_right'    => __( 'Appear Icon From Left', 'uabb' ),
+								'animate_from_top'    => __( 'Appear Icon From Top', 'uabb' ),
+								'animate_from_bottom' => __( 'Appear Icon From Bottom', 'uabb' ),
+							),
+						),
+					),
+				),
+				'icon'       => array(
+					'title'  => __( 'Icons', 'uabb' ),
+					'fields' => array(
+						'icon_type'     => array(
+							'type'    => 'select',
+							'label'   => __( 'Image Type', 'uabb' ),
+							'default' => 'icon',
+							'options' => array(
+								'none'  => __( 'None', 'uabb' ),
+								'icon'  => __( 'Icon', 'uabb' ),
+								'photo' => __( 'Photo', 'uabb' ),
+							),
+							'toggle'  => array(
+								'icon'  => array(
+									'fields' => array( 'icon', 'icon_position' ),
+								),
+								'photo' => array(
+									'fields' => array( 'photo', 'img_width' ),
+								),
+							),
+						),
+						'icon'          => array(
+							'type'        => 'icon',
+							'label'       => __( 'Icon', 'uabb' ),
+							'show_remove' => true,
+						),
+						'photo'         => array(
+							'type'        => 'photo',
+							'label'       => __( 'Photo', 'uabb' ),
+							'show_remove' => true,
+						),
+						'img_width'     => array(
+							'type'        => 'text',
+							'label'       => __( 'Photo Width', 'uabb' ),
+							'placeholder' => '20',
+							'default'     => '20',
+							'description' => 'px',
+							'size'        => '8',
+							'preview'     => array(
+								'type'     => 'css',
+								'selector' => '.uabb-button .uabb-btn-img',
+								'property' => 'width',
+								'unit'     => 'px',
+							),
+						),
+						'icon_position' => array(
+							'type'    => 'select',
+							'label'   => __( 'Icon Position', 'uabb' ),
+							'default' => 'after',
+							'options' => array(
+								'before' => __( 'Before Text', 'uabb' ),
+								'after'  => __( 'After Text', 'uabb' ),
+							),
+						),
+					),
+				),
+				'colors'     => array(
+					'title'  => __( 'Colors', 'uabb' ),
+					'fields' => array(
+						'text_color'         => array(
+							'type'       => 'color',
+							'label'      => __( 'Text Color', 'uabb' ),
+							'default'    => '',
+							'show_reset' => true,
+							'preview'    => array(
+								'type'     => 'css',
+								'selector' => '.uabb-creative-button-wrap a *, .uabb-creative-button-wrap a.uabb-button *',
+								'property' => 'color',
+							),
+						),
+						'text_hover_color'   => array(
+							'type'       => 'color',
+							'label'      => __( 'Text Hover Color', 'uabb' ),
+							'default'    => '',
+							'show_reset' => true,
+							'preview'    => array(
+								'type' => 'none',
+							),
+						),
+						'button_gradient'    => array(
+							'type'    => 'uabb-gradient',
+							'label'   => __( 'Gradient', 'uabb' ),
+							'default' => array(
+								'color_one' => '',
+								'color_two' => '',
+								'direction' => 'left_right',
+								'angle'     => '0',
+							),
+						),
+						'bg_color'           => array(
+							'type'       => 'color',
+							'label'      => __( 'Background Color', 'uabb' ),
+							'default'    => '',
+							'show_reset' => true,
+							'preview'    => array(
+								'type'  => 'css',
+								'rules' => array(
+									array(
+										'selector' => '.uabb-creative-button-wrap a.uabb-creative-flat-btn',
+										'property' => 'background',
+									),
+									array(
+										'selector' => '.uabb-creative-button-wrap a.uabb-creative-transparent-btn',
+										'property' => 'border-color',
+									),
+								),
+							),
+						),
+						'bg_color_opc'       => array(
+							'type'        => 'text',
+							'label'       => __( 'Opacity', 'uabb' ),
+							'default'     => '',
+							'description' => '%',
+							'maxlength'   => '3',
+							'size'        => '5',
+						),
+						'bg_hover_color'     => array(
+							'type'       => 'color',
+							'label'      => __( 'Background Hover Color', 'uabb' ),
+							'default'    => '',
+							'show_reset' => true,
+							'preview'    => array(
+								'type' => 'none',
+							),
+						),
+						'bg_hover_color_opc' => array(
+							'type'        => 'text',
+							'label'       => __( 'Opacity', 'uabb' ),
+							'default'     => '',
+							'description' => '%',
+							'maxlength'   => '3',
+							'size'        => '5',
+						),
+						'hover_attribute'    => array(
+							'type'    => 'select',
+							'label'   => __( 'Apply Hover Color To', 'uabb' ),
+							'default' => 'bg',
+							'options' => array(
+								'border' => __( 'Border', 'uabb' ),
+								'bg'     => __( 'Background', 'uabb' ),
+							),
+							'width'   => '75px',
+						),
+					),
+				),
+				'formatting' => array(
+					'title'  => __( 'Structure', 'uabb' ),
+					'fields' => array(
+						'width'              => array(
+							'type'    => 'select',
+							'label'   => __( 'Width', 'uabb' ),
+							'default' => 'auto',
+							'options' => array(
+								'auto'   => _x( 'Auto', 'Width.', 'uabb' ),
+								'full'   => __( 'Full Width', 'uabb' ),
+								'custom' => __( 'Custom', 'uabb' ),
+							),
+							'toggle'  => array(
+								'auto'   => array(
+									'fields' => array( 'align', 'mob_align' ),
+								),
+								'full'   => array(
+									'fields' => array(),
+								),
+								'custom' => array(
+									'fields' => array( 'align', 'mob_align', 'custom_width', 'custom_height', 'padding_top_bottom', 'padding_left_right' ),
+								),
+							),
+						),
+						'custom_width'       => array(
+							'type'        => 'text',
+							'label'       => __( 'Custom Width', 'uabb' ),
+							'default'     => '200',
+							'maxlength'   => '3',
+							'size'        => '4',
+							'description' => 'px',
+							'preview'     => array(
+								'type'     => 'css',
+								'selector' => '.uabb-creative-button-wrap a',
+								'property' => 'width',
+								'unit'     => 'px',
+							),
+						),
+						'custom_height'      => array(
+							'type'        => 'text',
+							'label'       => __( 'Custom Height', 'uabb' ),
+							'default'     => '45',
+							'maxlength'   => '3',
+							'size'        => '4',
+							'description' => 'px',
+							'preview'     => array(
+								'type'     => 'css',
+								'selector' => '.uabb-creative-button-wrap a',
+								'property' => 'min-height',
+								'unit'     => 'px',
+							),
+						),
+						'padding_top_bottom' => array(
+							'type'        => 'text',
+							'label'       => __( 'Padding Top/Bottom', 'uabb' ),
+							'placeholder' => '0',
+							'maxlength'   => '3',
+							'size'        => '4',
+							'description' => 'px',
+							'preview'     => array(
+								'type'  => 'css',
+								'rules' => array(
+									array(
+										'selector' => '.uabb-creative-button-wrap a',
+										'property' => 'padding-top',
+										'unit'     => 'px',
+									),
+									array(
+										'selector' => '.uabb-creative-button-wrap a',
+										'property' => 'padding-bottom',
+										'unit'     => 'px',
+									),
+								),
+							),
+						),
+						'padding_left_right' => array(
+							'type'        => 'text',
+							'label'       => __( 'Padding Left/Right', 'uabb' ),
+							'placeholder' => '0',
+							'maxlength'   => '3',
+							'size'        => '4',
+							'description' => 'px',
+							'preview'     => array(
+								'type'  => 'css',
+								'rules' => array(
+									array(
+										'selector' => '.uabb-creative-button-wrap a',
+										'property' => 'padding-left',
+										'unit'     => 'px',
+									),
+									array(
+										'selector' => '.uabb-creative-button-wrap a',
+										'property' => 'padding-right',
+										'unit'     => 'px',
+									),
+								),
+							),
+						),
+						'border_radius'      => array(
+							'type'        => 'text',
+							'label'       => __( 'Round Corners', 'uabb' ),
+							'maxlength'   => '3',
+							'size'        => '4',
+							'description' => 'px',
+							'preview'     => array(
+								'type'     => 'css',
+								'selector' => '.uabb-creative-button-wrap a',
+								'property' => 'border-radius',
+								'unit'     => 'px',
+							),
+						),
+						'align'              => array(
+							'type'    => 'select',
+							'label'   => __( 'Alignment', 'uabb' ),
+							'default' => 'center',
+							'options' => array(
+								'center' => __( 'Center', 'uabb' ),
+								'left'   => __( 'Left', 'uabb' ),
+								'right'  => __( 'Right', 'uabb' ),
+							),
+							'preview' => array(
+								'type'     => 'css',
+								'selector' => '.uabb-creative-button-wrap',
+								'property' => 'text-align',
+							),
+						),
+						'mob_align'          => array(
+							'type'    => 'select',
+							'label'   => __( 'Mobile Alignment', 'uabb' ),
+							'default' => 'center',
+							'options' => array(
+								'center' => __( 'Center', 'uabb' ),
+								'left'   => __( 'Left', 'uabb' ),
+								'right'  => __( 'Right', 'uabb' ),
+							),
+							'preview' => array(
+								'type' => 'none',
+							),
+						),
+					),
+				),
+			),
+		),
+		'creative_typography' => array(
+			'title'    => __( 'Typography', 'uabb' ),
+			'sections' => array(
+				'typography' => array(
+					'title'  => __( 'Button Settings', 'uabb' ),
+					'fields' => array(
+						'font_family'      => array(
+							'type'    => 'font',
+							'label'   => __( 'Font Family', 'uabb' ),
+							'default' => array(
+								'family' => 'Default',
+								'weight' => 'Default',
+							),
+							'preview' => array(
+								'type'     => 'font',
+								'selector' => '.uabb-creative-button',
+							),
+						),
+						'font_size_unit'   => array(
+							'type'        => 'unit',
+							'label'       => __( 'Font Size', 'uabb' ),
+							'description' => 'px',
+							'responsive'  => array(
+								'placeholder' => array(
+									'default'    => '',
+									'medium'     => '',
+									'responsive' => '',
+								),
+							),
+							'preview'     => array(
+								'type'     => 'css',
+								'selector' => '.uabb-creative-button',
+								'property' => 'font-size',
+								'unit'     => 'px',
+							),
+						),
+						'line_height_unit' => array(
+							'type'        => 'unit',
+							'label'       => __( 'Line Height', 'uabb' ),
+							'description' => 'em',
+							'responsive'  => array(
+								'placeholder' => array(
+									'default'    => '',
+									'medium'     => '',
+									'responsive' => '',
+								),
+							),
+							'preview'     => array(
+								'type'     => 'css',
+								'selector' => '.uabb-creative-button',
+								'property' => 'line-height',
+								'unit'     => 'em',
+							),
+						),
+						'transform'        => array(
+							'type'    => 'select',
+							'label'   => __( 'Transform', 'uabb' ),
+							'default' => '',
+							'options' => array(
+								''           => 'Default',
+								'uppercase'  => 'UPPERCASE',
+								'lowercase'  => 'lowercase',
+								'capitalize' => 'Capitalize',
+							),
+							'preview' => array(
+								'type'     => 'css',
+								'selector' => '.uabb-creative-button',
+								'property' => 'text-transform',
+							),
+						),
+						'letter_spacing'   => array(
+							'type'        => 'text',
+							'label'       => __( 'Letter Spacing', 'uabb' ),
+							'placeholder' => '0',
+							'size'        => '5',
+							'description' => 'px',
+							'preview'     => array(
+								'type'     => 'css',
+								'selector' => '.uabb-creative-button',
+								'property' => 'letter-spacing',
+								'unit'     => 'px',
+							),
+						),
+					),
+				),
+			),
+		),
 	)
-));
+);

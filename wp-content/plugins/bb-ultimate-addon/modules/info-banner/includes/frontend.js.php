@@ -34,4 +34,4 @@ jQuery(document).ready(function(){
 	}
 });
 */
-<?php //$module->example_method(); ?>
+<?php // $module->example_method(); ?>
