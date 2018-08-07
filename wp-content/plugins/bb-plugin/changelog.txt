@@ -1,8 +1,22 @@
+<h4>2.1.4.2 - 08/06/2018</h4>
+<p><strong>HotFix</strong></p>
+<ul>
+	<li>Fixed text editors losing formatting when publishing because of WP 4.9.8 update.</li>
+</ul>
+
+<h4>2.1.4.1 - 08/02/2018</h4>
+<p><strong>HotFix</strong></p>
+<ul>
+	<li>Fixed switching between Gutenberg and Beaver Builder.</li>
+	<li>Fixed <code>fl_schema_meta_publisher_image_url</code> filter.</li>
+	<li>Updated translation files.</li>
+</ul>
+
 <h4>2.1.4 - 07/30/2018</h4>
 <p><strong>Enhancements</strong></p>
 <ul>
 	<li>Font Awesome updated to 5.2! The font is now part of the plugin package, no more glitchy CDN.</li>
-	<li>Visible indicator added if a node has visibilty rules applied.</li>
+	<li>Visible indicator added if a node has visibility rules applied.</li>
 	<li>Add repeater support to <code>fl_builder_before_control</code> and <code>fl_builder_after_control</code>. Props Ian Forrest.</li>
 	<li>Allow users to select/deselect all modules. Show a warning if all modules are disabled.</li>
 	<li>Allow users to filter the default config for the ace editor using filter <code>fl_ace_editor_settings</code>.</li>

@@ -266,7 +266,7 @@ class FLPostGridModule extends FLBuilderModule {
 		$image = apply_filters( 'fl_schema_meta_publisher_image_url', $image );
 		if ( $image ) {
 			echo '<div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">';
-			echo '<meta itemprop="url" content="' . FLTheme::get_setting( 'fl-logo-image' ) . '">';
+			echo '<meta itemprop="url" content="' . $image . '">';
 			echo '</div>';
 		}
 
