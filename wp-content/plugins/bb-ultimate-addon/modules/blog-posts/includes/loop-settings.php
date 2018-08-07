@@ -275,6 +275,7 @@ do_action( 'uabb_loop_settings_before_form', $settings ); // e.g Add custom FLBu
 				'options' => array(
 					'1' => sprintf( __( 'Match these %s', '%s is an object like posts or taxonomies.', 'uabb' ), $type->label, $type->label ),
 					'0' => sprintf( __( 'Do not match these %s', '%s is an object like posts or taxonomies.', 'uabb' ), $type->label, $type->label ),
+
 				),
 				'help'    => sprintf( __( 'Enter a comma separated list of %1$s. Only these %2$s will be shown.', 'uabb' ), $type->label, $type->label ),
 			), $settings
@@ -304,6 +305,7 @@ do_action( 'uabb_loop_settings_before_form', $settings ); // e.g Add custom FLBu
 					'options' => array(
 						'1' => sprintf( __( 'Match these %s', '%s is an object like posts or taxonomies.', 'uabb' ), $tax->label, $tax->label ),
 						'0' => sprintf( __( 'Do not match these %s', '%s is an object like posts or taxonomies.', 'uabb' ), $tax->label, $tax->label ),
+
 					),
 					'help'    => sprintf( __( 'Enter a comma separated list of %1$s. Only posts with these %2$s will be shown.', 'uabb' ), $tax->label, $tax->label ),
 				), $settings

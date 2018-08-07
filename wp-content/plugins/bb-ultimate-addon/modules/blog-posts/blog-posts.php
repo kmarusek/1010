@@ -718,7 +718,7 @@ class BlogPostsModule extends FLBuilderModule {
 			?>
 			<<?php echo $this->settings->title_tag_selection; ?> class="uabb-post-heading uabb-blog-post-section">
 				<?php
-				$title = '<a href=' . apply_filters( 'uabb_blog_posts_link', get_permalink( $obj->ID ), $obj->ID ) . ' title=' . the_title_attribute( 'echo=0' ) . ' tabindex="0" class="">' . get_the_title() . '</a>';
+				$title = '<a href=' . apply_filters( 'uabb_blog_posts_link', get_permalink( $obj->ID ), $obj->ID ) . ' title="' . the_title_attribute( 'echo=0' ) . '" tabindex="0" class="">' . get_the_title() . '</a>';
 
 				echo apply_filters( 'uabb_advanced_post_title_link', $title, get_the_title(), get_permalink( $obj->ID ), $obj->ID, $this->settings );
 				?>

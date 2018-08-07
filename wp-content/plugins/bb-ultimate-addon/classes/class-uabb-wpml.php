@@ -1009,6 +1009,35 @@ if ( ! class_exists( 'UABB_WPML_Translatable' ) ) {
 				),
 			);
 
+			// Woo - Add to Cart.
+			$form['uabb-woo-add-to-cart'] = array(
+				'conditions' => array( 'type' => 'uabb-woo-add-to-cart' ),
+				'fields'     => array(
+					array(
+						'field'       => 'btn_text',
+						'type'        => __( 'Button: Text', 'uabb' ),
+						'editor_type' => 'LINE',
+					),
+				),
+			);
+
+			// Woo - Products.
+			$form['uabb-woo-products'] = array(
+				'conditions' => array( 'type' => 'uabb-woo-products' ),
+				'fields'     => array(
+					array(
+						'field'       => 'sale_flash_content',
+						'type'        => __( 'Sale Flash: Flash Content', 'uabb' ),
+						'editor_type' => 'LINE',
+					),
+					array(
+						'field'       => 'featured_flash_content',
+						'type'        => __( 'Featured Flash: Flash Content', 'uabb' ),
+						'editor_type' => 'LINE',
+					),
+				),
+			);
+
 			return $form;
 		}
 	}

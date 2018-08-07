@@ -1,6 +1,7 @@
 <?php
 $uabb_args = $module->get_uabb_args();
 $args      = $module->render_args();
+
 $uabb_args = apply_filters( 'uabb_blog_posts_query_args', $args, $settings );
 
 $module->set_uabb_args( $uabb_args );

@@ -1,3 +1,9 @@
+Version 1.10.0 - Thursday, 2nd August 2018
+- New: Introduced Woo - Products
+- New: Introduced Woo - Categories
+- New: Introduced Woo - Add to Cart
+- Fixed: Countdown - Resolved Invalid or Unexpected Token console error
+
 Version 1.9.0 - Thursday, 26th July 2018
 - New: Introduced Business Hours
 - Improvement: CF7 Styler - Added help field in Use Custom Style option on how to use this field

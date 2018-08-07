@@ -209,5 +209,47 @@ if ( ! class_exists( 'UABB_Helper' ) ) {
 			}
 			echo $css;
 		}
+
+		/**
+		 *  Get - Gradient color CSS
+		 *
+		 * @param array  $settings  returns settings object.
+		 * @param string $name     returns name.
+		 * @param string $property  returns Property.
+		 * @param string $media  returns media.
+		 * @since   1.0
+		 */
+		static public function uabb_dimention_css( $settings, $name, $property = 'padding', $media = 'desktop' ) {
+
+			$css    = '';
+			$device = '';
+
+			if ( 'medium' === $media ) {
+				$device = '_medium';
+			} elseif ( 'responsive' === $media ) {
+				$device = '_responsive';
+			}
+
+			if ( 'padding' === $property || 'margin' === $property ) {
+
+				if ( '' !== $settings->{ $name . '_top' } ) {
+					$css .= $property . '-top:' . $settings->{ $name . '_top' . $device } . 'px;';
+				}
+
+				if ( '' !== $settings->{ $name . '_right' } ) {
+					$css .= $property . '-right:' . $settings->{ $name . '_right' . $device } . 'px;';
+				}
+
+				if ( '' !== $settings->{ $name . '_bottom' } ) {
+					$css .= $property . '-bottom:' . $settings->{ $name . '_bottom' . $device } . 'px;';
+				}
+
+				if ( '' !== $settings->{ $name . '_left' } ) {
+					$css .= $property . '-left:' . $settings->{ $name . '_left' . $device } . 'px;';
+				}
+			}
+
+			echo $css;
+		}
 	}
 }

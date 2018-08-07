@@ -79,6 +79,7 @@ class UABBCountdownModule extends FLBuilderModule {
 
 		<?php
 		$html = ob_get_contents();
+		$html = trim( $html );
 		ob_end_clean();
 		return $html;
 	}
@@ -98,6 +99,7 @@ class UABBCountdownModule extends FLBuilderModule {
 		<div class="uabb-countdown-holding <?php echo $this->settings->timer_style; ?>"><div class="uabb-countdown-digit-wrapper <?php echo $this->settings->timer_style; ?>"><div class="uabb-countdown-digit-content"><<?php echo $this->settings->digit_tag_selection; ?> class="uabb-count-down-digit <?php echo $this->settings->timer_style; ?>"><?php echo $str1; ?></<?php echo $this->settings->digit_tag_selection; ?>></div><div class="uabb-countdown-unit-names"><<?php echo $this->settings->unit_tag_selection; ?> class="uabb-count-down-unit <?php echo $this->settings->timer_style; ?>"><?php echo $str2; ?></<?php echo $this->settings->unit_tag_selection; ?>></div></div><?php echo $str3; ?></div>
 		<?php
 		$html = ob_get_contents();
+		$html = trim( $html );
 		ob_end_clean();
 		return $html;
 	}
@@ -118,6 +120,7 @@ class UABBCountdownModule extends FLBuilderModule {
 		<?php
 
 		$html = ob_get_contents();
+		$html = trim( $html );
 		ob_end_clean();
 		return $html;
 	}
@@ -138,6 +141,7 @@ class UABBCountdownModule extends FLBuilderModule {
 		<?php
 
 		$html = ob_get_contents();
+		$html = trim( $html );
 		ob_end_clean();
 		return $html;
 	}

@@ -91,7 +91,7 @@ if ( ! function_exists( 'array_replace_recursive' ) ) {
 function uabb_theme_base_color( $default ) {
 	$color = '';
 
-	if ( '' == $default ) {
+	if ( '' == $default || '#' === $default ) {
 
 		$color = apply_filters( 'uabb/global/theme_color', $default );
 
@@ -300,7 +300,7 @@ function uabb_theme_button_text_transform( $default ) {
 function uabb_theme_button_bg_color( $default ) {
 	$color = '';
 
-	if ( '' == $default ) {
+	if ( '' == $default || '#' === $default ) {
 
 		$color = apply_filters( 'uabb/global/button_bg_color', $default );
 
@@ -324,7 +324,7 @@ function uabb_theme_button_bg_color( $default ) {
 function uabb_theme_button_bg_hover_color( $default ) {
 	$color = '';
 
-	if ( '' == $default ) {
+	if ( '' == $default || '#' === $default ) {
 
 		$color = apply_filters( 'uabb/global/button_bg_hover_color', $default );
 
@@ -348,7 +348,7 @@ function uabb_theme_button_bg_hover_color( $default ) {
 function uabb_theme_button_text_color( $default ) {
 	$color = '';
 
-	if ( '' == $default ) {
+	if ( '' == $default || '#' === $default ) {
 
 		$color = apply_filters( 'uabb/global/button_text_color', $default );
 
@@ -373,7 +373,7 @@ function uabb_theme_button_text_color( $default ) {
 function uabb_theme_button_text_hover_color( $default ) {
 	$color = '';
 
-	if ( '' == $default ) {
+	if ( '' == $default || '#' === $default ) {
 
 		$color = apply_filters( 'uabb/global/button_text_hover_color', $default );
 

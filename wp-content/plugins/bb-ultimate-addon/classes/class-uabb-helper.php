@@ -20,28 +20,29 @@ if ( ! class_exists( 'BB_Ultimate_Addon_Helper' ) ) {
 		 * @since 1.3.0
 		 * @var $creative_modules Category Strings
 		 */
-		static public $creative_modules = 'Creative Modules';
+		static public $creative_modules = '';
 		/**
 		 * Holds any category strings of modules.
 		 *
 		 * @since 1.3.0
 		 * @var $content_modules Category Strings
 		 */
-		static public $content_modules = 'Content Modules';
+		static public $content_modules = '';
 		/**
 		 * Holds any category strings of modules.
 		 *
 		 * @since 1.3.0
 		 * @var $lead_generation Category Strings
 		 */
-		static public $lead_generation = 'Lead Generation';
+		static public $lead_generation = '';
 		/**
 		 * Holds any category strings of modules.
 		 *
 		 * @since 1.3.0
 		 * @var $extra_additions Category Strings
 		 */
-		static public $extra_additions = 'Extra Additions';
+		static public $extra_additions = '';
+		static public $woo_modules = '';
 
 		/**
 		 * Constructor function that initializes required actions and hooks
@@ -66,6 +67,7 @@ if ( ! class_exists( 'BB_Ultimate_Addon_Helper' ) ) {
 			self::$content_modules	= __( 'Content Modules', 'uabb' );
 			self::$lead_generation	= __( 'Lead Generation', 'uabb' );
 			self::$extra_additions	= __( 'Extra Additions', 'uabb' );
+			self::$woo_modules		= __( 'Woo Modules', 'uabb' );
 	
 			$branding         = BB_Ultimate_Addon_Helper::get_builder_uabb_branding();
 			$branding_name    = 'UABB';
@@ -326,6 +328,12 @@ if ( ! class_exists( 'BB_Ultimate_Addon_Helper' ) ) {
 			/* Include Gravity form styler */
 			if ( class_exists( 'GFForms' ) ) {
 				$modules_array['uabb-gravity-form'] = 'Gravity Forms Styler';
+			}
+			/* Include WooCommerce modules*/
+			if ( class_exists( 'WooCommerce' ) ) {
+				$modules_array['uabb-woo-products'] = 'Woo - Products';
+				$modules_array['uabb-woo-categories'] = 'Woo - Categories';
+				$modules_array['uabb-woo-add-to-cart'] = 'Woo - Add To Cart';
 			}
 			natcasesort( $modules_array );
 			return $modules_array;

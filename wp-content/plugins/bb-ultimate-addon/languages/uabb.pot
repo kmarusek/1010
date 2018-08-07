@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the Ultimate Addons for Beaver Builder package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ultimate Addons for Beaver Builder 1.9.0\n"
+"Project-Id-Version: Ultimate Addons for Beaver Builder 1.10.0\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/bb-ultimate-addon\n"
-"POT-Creation-Date: 2018-07-26 09:49:18+00:00\n"
+"POT-Creation-Date: 2018-08-02 09:03:55+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -574,9 +574,9 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7.php:670
 #: modules/uabb-content-toggle/uabb-content-toggle.php:488
 #: modules/uabb-content-toggle/uabb-content-toggle.php:600
-#: modules/uabb-countdown/uabb-countdown.php:221
-#: modules/uabb-countdown/uabb-countdown.php:233
-#: modules/uabb-countdown/uabb-countdown.php:485
+#: modules/uabb-countdown/uabb-countdown.php:225
+#: modules/uabb-countdown/uabb-countdown.php:237
+#: modules/uabb-countdown/uabb-countdown.php:489
 #: modules/uabb-gravity-form/uabb-gravity-form.php:81
 #: modules/uabb-gravity-form/uabb-gravity-form.php:166
 #: modules/uabb-heading/uabb-heading.php:202
@@ -589,6 +589,11 @@ msgstr ""
 #: modules/uabb-numbers/uabb-numbers.php:874
 #: modules/uabb-numbers/uabb-numbers.php:975
 #: modules/uabb-social-share/uabb-social-share.php:154
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:329
+#: modules/uabb-woo-products/includes/loop-settings.php:91
+#: modules/uabb-woo-products/uabb-woo-products.php:1131
+#: modules/uabb-woo-products/uabb-woo-products.php:1225
+#: modules/uabb-woo-products/uabb-woo-products.php:1353
 #: objects/fl-nested-form-button.php:96 objects/fl-nested-form-button.php:125
 msgid "None"
 msgstr ""
@@ -741,6 +746,7 @@ msgstr ""
 #: modules/info-box/info-box.php:1332 modules/modal-popup/modal-popup.php:285
 #: modules/slide-box/slide-box.php:529
 #: modules/uabb-contact-form7/uabb-contact-form7.php:907
+#: modules/uabb-woo-products/uabb-woo-products.php:1350
 msgid "Type"
 msgstr ""
 
@@ -1047,12 +1053,12 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7.php:385
 #: modules/uabb-content-toggle/uabb-content-toggle.php:463
 #: modules/uabb-content-toggle/uabb-content-toggle.php:575
-#: modules/uabb-countdown/uabb-countdown.php:568
-#: modules/uabb-countdown/uabb-countdown.php:603
-#: modules/uabb-countdown/uabb-countdown.php:637
-#: modules/uabb-countdown/uabb-countdown.php:671
-#: modules/uabb-countdown/uabb-countdown.php:705
-#: modules/uabb-countdown/uabb-countdown.php:739
+#: modules/uabb-countdown/uabb-countdown.php:572
+#: modules/uabb-countdown/uabb-countdown.php:607
+#: modules/uabb-countdown/uabb-countdown.php:641
+#: modules/uabb-countdown/uabb-countdown.php:675
+#: modules/uabb-countdown/uabb-countdown.php:709
+#: modules/uabb-countdown/uabb-countdown.php:743
 #: modules/uabb-gravity-form/uabb-gravity-form.php:131
 #: modules/uabb-gravity-form/uabb-gravity-form.php:395
 #: modules/uabb-gravity-form/uabb-gravity-form.php:475
@@ -1067,6 +1073,24 @@ msgstr ""
 #: modules/uabb-numbers/uabb-numbers.php:610
 #: modules/uabb-numbers/uabb-numbers.php:1108
 #: modules/uabb-social-share/uabb-social-share.php:197
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:194
+#: modules/uabb-woo-categories/includes/loop-settings.php:75
+#: modules/uabb-woo-categories/includes/loop-settings.php:90
+#: modules/uabb-woo-categories/uabb-woo-categories.php:376
+#: modules/uabb-woo-categories/uabb-woo-categories.php:399
+#: modules/uabb-woo-categories/uabb-woo-categories.php:409
+#: modules/uabb-woo-categories/uabb-woo-categories.php:419
+#: modules/uabb-woo-products/includes/loop-settings.php:154
+#: modules/uabb-woo-products/uabb-woo-products.php:775
+#: modules/uabb-woo-products/uabb-woo-products.php:798
+#: modules/uabb-woo-products/uabb-woo-products.php:808
+#: modules/uabb-woo-products/uabb-woo-products.php:818
+#: modules/uabb-woo-products/uabb-woo-products.php:978
+#: modules/uabb-woo-products/uabb-woo-products.php:992
+#: modules/uabb-woo-products/uabb-woo-products.php:1006
+#: modules/uabb-woo-products/uabb-woo-products.php:1020
+#: modules/uabb-woo-products/uabb-woo-products.php:1034
+#: modules/uabb-woo-products/uabb-woo-products.php:1048
 msgid "Yes"
 msgstr ""
 
@@ -1180,12 +1204,12 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7.php:386
 #: modules/uabb-content-toggle/uabb-content-toggle.php:464
 #: modules/uabb-content-toggle/uabb-content-toggle.php:576
-#: modules/uabb-countdown/uabb-countdown.php:569
-#: modules/uabb-countdown/uabb-countdown.php:604
-#: modules/uabb-countdown/uabb-countdown.php:638
-#: modules/uabb-countdown/uabb-countdown.php:672
-#: modules/uabb-countdown/uabb-countdown.php:706
-#: modules/uabb-countdown/uabb-countdown.php:740
+#: modules/uabb-countdown/uabb-countdown.php:573
+#: modules/uabb-countdown/uabb-countdown.php:608
+#: modules/uabb-countdown/uabb-countdown.php:642
+#: modules/uabb-countdown/uabb-countdown.php:676
+#: modules/uabb-countdown/uabb-countdown.php:710
+#: modules/uabb-countdown/uabb-countdown.php:744
 #: modules/uabb-gravity-form/uabb-gravity-form.php:132
 #: modules/uabb-gravity-form/uabb-gravity-form.php:396
 #: modules/uabb-gravity-form/uabb-gravity-form.php:476
@@ -1200,6 +1224,24 @@ msgstr ""
 #: modules/uabb-numbers/uabb-numbers.php:611
 #: modules/uabb-numbers/uabb-numbers.php:1107
 #: modules/uabb-social-share/uabb-social-share.php:196
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:195
+#: modules/uabb-woo-categories/includes/loop-settings.php:76
+#: modules/uabb-woo-categories/includes/loop-settings.php:91
+#: modules/uabb-woo-categories/uabb-woo-categories.php:377
+#: modules/uabb-woo-categories/uabb-woo-categories.php:400
+#: modules/uabb-woo-categories/uabb-woo-categories.php:410
+#: modules/uabb-woo-categories/uabb-woo-categories.php:420
+#: modules/uabb-woo-products/includes/loop-settings.php:155
+#: modules/uabb-woo-products/uabb-woo-products.php:776
+#: modules/uabb-woo-products/uabb-woo-products.php:799
+#: modules/uabb-woo-products/uabb-woo-products.php:809
+#: modules/uabb-woo-products/uabb-woo-products.php:819
+#: modules/uabb-woo-products/uabb-woo-products.php:979
+#: modules/uabb-woo-products/uabb-woo-products.php:993
+#: modules/uabb-woo-products/uabb-woo-products.php:1007
+#: modules/uabb-woo-products/uabb-woo-products.php:1021
+#: modules/uabb-woo-products/uabb-woo-products.php:1035
+#: modules/uabb-woo-products/uabb-woo-products.php:1049
 msgid "No"
 msgstr ""
 
@@ -1332,6 +1374,8 @@ msgstr ""
 #: modules/uabb-contact-form/uabb-contact-form.php:1872
 #: modules/uabb-numbers/uabb-numbers.php:664
 #: modules/uabb-social-share/uabb-social-share.php:111
+#: modules/uabb-woo-products/uabb-woo-products.php:1132
+#: modules/uabb-woo-products/uabb-woo-products.php:1226
 msgid "Default"
 msgstr ""
 
@@ -1363,9 +1407,12 @@ msgstr ""
 #: modules/uabb-button/uabb-button.php:416
 #: modules/uabb-call-to-action/uabb-call-to-action.php:461
 #: modules/uabb-contact-form7/uabb-contact-form7.php:707
-#: modules/uabb-countdown/uabb-countdown.php:402
+#: modules/uabb-countdown/uabb-countdown.php:406
 #: modules/uabb-gravity-form/uabb-gravity-form.php:709
-#: modules/uabb-photo/uabb-photo.php:598 objects/fl-nested-form-button.php:224
+#: modules/uabb-photo/uabb-photo.php:598
+#: modules/uabb-woo-products/uabb-woo-products.php:1133
+#: modules/uabb-woo-products/uabb-woo-products.php:1227
+#: objects/fl-nested-form-button.php:224
 msgid "Custom"
 msgstr ""
 
@@ -1449,36 +1496,40 @@ msgstr ""
 msgid "Templates are disabled from RestAPI."
 msgstr ""
 
-#: classes/class-uabb-helper.php:65
+#: classes/class-uabb-helper.php:66
 msgid "Creative Modules"
 msgstr ""
 
-#: classes/class-uabb-helper.php:66
+#: classes/class-uabb-helper.php:67
 msgid "Content Modules"
 msgstr ""
 
-#: classes/class-uabb-helper.php:67
+#: classes/class-uabb-helper.php:68
 msgid "Lead Generation"
 msgstr ""
 
-#: classes/class-uabb-helper.php:68
+#: classes/class-uabb-helper.php:69
 msgid "Extra Additions"
 msgstr ""
 
-#: classes/class-uabb-helper.php:72
+#: classes/class-uabb-helper.php:70
+msgid "Woo Modules"
+msgstr ""
+
+#: classes/class-uabb-helper.php:74
 msgid "UABB Modules"
 msgstr ""
 
-#: classes/class-uabb-helper.php:83
+#: classes/class-uabb-helper.php:85
 #. translators: %s: search term
 msgid "%s"
 msgstr ""
 
-#: classes/class-uabb-init.php:282
+#: classes/class-uabb-init.php:291
 msgid "plugin requires"
 msgstr ""
 
-#: classes/class-uabb-init.php:282
+#: classes/class-uabb-init.php:291
 msgid " plugin installed & activated."
 msgstr ""
 
@@ -1511,6 +1562,8 @@ msgstr ""
 #: modules/uabb-call-to-action/uabb-call-to-action.php:664
 #: modules/uabb-heading/uabb-heading.php:143
 #: modules/uabb-heading/uabb-heading.php:545
+#: modules/uabb-woo-categories/includes/loop-settings.php:104
+#: modules/uabb-woo-categories/uabb-woo-categories.php:796
 msgid "Description"
 msgstr ""
 
@@ -1533,6 +1586,8 @@ msgstr ""
 #: modules/uabb-contact-form/uabb-contact-form.php:1052
 #: modules/uabb-contact-form7/uabb-contact-form7.php:496
 #: modules/uabb-gravity-form/uabb-gravity-form.php:581
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:203
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:430
 #: objects/fl-nested-form-button.php:10
 msgid "Button"
 msgstr ""
@@ -2063,6 +2118,18 @@ msgstr ""
 msgid "Business Hours : Enter Time"
 msgstr ""
 
+#: classes/class-uabb-wpml.php:1018
+msgid "Button: Text"
+msgstr ""
+
+#: classes/class-uabb-wpml.php:1030
+msgid "Sale Flash: Flash Content"
+msgstr ""
+
+#: classes/class-uabb-wpml.php:1035
+msgid "Featured Flash: Flash Content"
+msgstr ""
+
 #: classes/class-ui-panel.php:360
 msgid "Search Module..."
 msgstr ""
@@ -2170,6 +2237,11 @@ msgstr ""
 #: modules/uabb-separator/uabb-separator.php:95
 #: modules/uabb-social-share/uabb-social-share.php:62
 #: modules/uabb-social-share/uabb-social-share.php:270
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:295
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:298
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:302
+#: modules/uabb-woo-categories/uabb-woo-categories.php:503
+#: modules/uabb-woo-products/uabb-woo-products.php:1076
 #: objects/fl-nested-form-button.php:54 objects/fl-nested-form-button.php:57
 #: objects/fl-nested-form-button.php:61
 msgid "Style"
@@ -2225,7 +2297,7 @@ msgstr ""
 #: modules/uabb-call-to-action/uabb-call-to-action.php:236
 #: modules/uabb-contact-form/uabb-contact-form.php:219
 #: modules/uabb-contact-form7/uabb-contact-form7.php:42
-#: modules/uabb-countdown/uabb-countdown.php:174
+#: modules/uabb-countdown/uabb-countdown.php:178
 #: modules/uabb-gravity-form/uabb-gravity-form.php:62
 #: modules/uabb-heading/uabb-heading.php:105
 #: modules/uabb-hotspot/uabb-hotspot.php:898
@@ -2234,6 +2306,9 @@ msgstr ""
 #: modules/uabb-photo/uabb-photo.php:436
 #: modules/uabb-separator/uabb-separator.php:43
 #: modules/uabb-social-share/uabb-social-share.php:212
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:167
+#: modules/uabb-woo-categories/uabb-woo-categories.php:289
+#: modules/uabb-woo-products/uabb-woo-products.php:679
 #: objects/fl-nested-form-button.php:13
 msgid "General"
 msgstr ""
@@ -2327,6 +2402,13 @@ msgstr ""
 #: modules/uabb-numbers/uabb-numbers.php:1119
 #: modules/uabb-photo/uabb-photo.php:643
 #: modules/uabb-social-share/uabb-social-share.php:292
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:369
+#: modules/uabb-woo-categories/uabb-woo-categories.php:590
+#: modules/uabb-woo-categories/uabb-woo-categories.php:671
+#: modules/uabb-woo-products/uabb-woo-products.php:1205
+#: modules/uabb-woo-products/uabb-woo-products.php:1299
+#: modules/uabb-woo-products/uabb-woo-products.php:1407
+#: modules/uabb-woo-products/uabb-woo-products.php:2015
 #: objects/fl-nested-form-button.php:173
 msgid "Background Color"
 msgstr ""
@@ -2366,6 +2448,10 @@ msgstr ""
 #: modules/uabb-numbers/uabb-numbers.php:1071
 #: modules/uabb-numbers/uabb-numbers.php:1133
 #: modules/uabb-social-share/uabb-social-share.php:307
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:389
+#: modules/uabb-woo-categories/uabb-woo-categories.php:614
+#: modules/uabb-woo-categories/uabb-woo-categories.php:695
+#: modules/uabb-woo-products/uabb-woo-products.php:2027
 #: objects/fl-nested-form-button.php:187
 msgid "Background Hover Color"
 msgstr ""
@@ -2392,6 +2478,7 @@ msgstr ""
 #: modules/uabb-gravity-form/uabb-gravity-form.php:626
 #: modules/uabb-heading/uabb-heading.php:478
 #: modules/uabb-heading/uabb-heading.php:732
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:347
 #: objects/fl-nested-form-button.php:158
 msgid "Text Color"
 msgstr ""
@@ -2411,6 +2498,7 @@ msgstr ""
 #: modules/uabb-contact-form/uabb-contact-form.php:1135
 #: modules/uabb-contact-form7/uabb-contact-form7.php:553
 #: modules/uabb-gravity-form/uabb-gravity-form.php:637
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:359
 #: objects/fl-nested-form-button.php:164
 msgid "Text Hover Color"
 msgstr ""
@@ -2508,9 +2596,9 @@ msgstr ""
 #: modules/uabb-content-toggle/uabb-content-toggle.php:834
 #: modules/uabb-content-toggle/uabb-content-toggle.php:929
 #: modules/uabb-content-toggle/uabb-content-toggle.php:1024
-#: modules/uabb-countdown/uabb-countdown.php:283
-#: modules/uabb-countdown/uabb-countdown.php:795
-#: modules/uabb-countdown/uabb-countdown.php:888
+#: modules/uabb-countdown/uabb-countdown.php:287
+#: modules/uabb-countdown/uabb-countdown.php:799
+#: modules/uabb-countdown/uabb-countdown.php:892
 #: modules/uabb-gravity-form/uabb-gravity-form.php:822
 #: modules/uabb-gravity-form/uabb-gravity-form.php:1205
 #: modules/uabb-gravity-form/uabb-gravity-form.php:1327
@@ -2525,6 +2613,16 @@ msgstr ""
 #: modules/uabb-image-carousel/uabb-image-carousel.php:590
 #: modules/uabb-numbers/uabb-numbers.php:1202
 #: modules/uabb-numbers/uabb-numbers.php:1279
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:446
+#: modules/uabb-woo-categories/uabb-woo-categories.php:730
+#: modules/uabb-woo-categories/uabb-woo-categories.php:813
+#: modules/uabb-woo-products/uabb-woo-products.php:1548
+#: modules/uabb-woo-products/uabb-woo-products.php:1643
+#: modules/uabb-woo-products/uabb-woo-products.php:1766
+#: modules/uabb-woo-products/uabb-woo-products.php:1860
+#: modules/uabb-woo-products/uabb-woo-products.php:1955
+#: modules/uabb-woo-products/uabb-woo-products.php:2085
+#: modules/uabb-woo-products/uabb-woo-products.php:2149
 #: objects/fl-nested-form-button.php:321
 msgid "Font Size"
 msgstr ""
@@ -2617,9 +2715,9 @@ msgstr ""
 #: modules/uabb-content-toggle/uabb-content-toggle.php:853
 #: modules/uabb-content-toggle/uabb-content-toggle.php:948
 #: modules/uabb-content-toggle/uabb-content-toggle.php:1043
-#: modules/uabb-countdown/uabb-countdown.php:295
-#: modules/uabb-countdown/uabb-countdown.php:813
-#: modules/uabb-countdown/uabb-countdown.php:906
+#: modules/uabb-countdown/uabb-countdown.php:299
+#: modules/uabb-countdown/uabb-countdown.php:817
+#: modules/uabb-countdown/uabb-countdown.php:910
 #: modules/uabb-gravity-form/uabb-gravity-form.php:840
 #: modules/uabb-gravity-form/uabb-gravity-form.php:1223
 #: modules/uabb-gravity-form/uabb-gravity-form.php:1345
@@ -2630,6 +2728,7 @@ msgstr ""
 #: modules/uabb-image-carousel/uabb-image-carousel.php:608
 #: modules/uabb-numbers/uabb-numbers.php:1220
 #: modules/uabb-numbers/uabb-numbers.php:1297
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:464
 #: objects/fl-nested-form-button.php:333
 msgid "Line Height"
 msgstr ""
@@ -2727,9 +2826,9 @@ msgstr ""
 #: modules/uabb-content-toggle/uabb-content-toggle.php:899
 #: modules/uabb-content-toggle/uabb-content-toggle.php:994
 #: modules/uabb-content-toggle/uabb-content-toggle.php:1089
-#: modules/uabb-countdown/uabb-countdown.php:335
-#: modules/uabb-countdown/uabb-countdown.php:842
-#: modules/uabb-countdown/uabb-countdown.php:951
+#: modules/uabb-countdown/uabb-countdown.php:339
+#: modules/uabb-countdown/uabb-countdown.php:846
+#: modules/uabb-countdown/uabb-countdown.php:955
 #: modules/uabb-gravity-form/uabb-gravity-form.php:874
 #: modules/uabb-gravity-form/uabb-gravity-form.php:990
 #: modules/uabb-gravity-form/uabb-gravity-form.php:1108
@@ -2747,6 +2846,16 @@ msgstr ""
 #: modules/uabb-image-carousel/uabb-image-carousel.php:672
 #: modules/uabb-numbers/uabb-numbers.php:1249
 #: modules/uabb-numbers/uabb-numbers.php:1342
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:498
+#: modules/uabb-woo-categories/uabb-woo-categories.php:782
+#: modules/uabb-woo-categories/uabb-woo-categories.php:865
+#: modules/uabb-woo-products/uabb-woo-products.php:1612
+#: modules/uabb-woo-products/uabb-woo-products.php:1719
+#: modules/uabb-woo-products/uabb-woo-products.php:1830
+#: modules/uabb-woo-products/uabb-woo-products.php:1924
+#: modules/uabb-woo-products/uabb-woo-products.php:2055
+#: modules/uabb-woo-products/uabb-woo-products.php:2119
+#: modules/uabb-woo-products/uabb-woo-products.php:2183
 #: objects/fl-nested-form-button.php:361
 msgid "Letter Spacing"
 msgstr ""
@@ -2980,38 +3089,39 @@ msgstr ""
 #: fields/uabb-date/ui-field-uabb-normal-date.php:48
 #: modules/blog-posts/blog-posts.php:1861
 #: modules/blog-posts/includes/loop-settings.php:139
+#: modules/uabb-woo-products/includes/loop-settings.php:114
 msgid "Date"
 msgstr ""
 
 #: fields/uabb-date/uabb-date.php:99
 #: fields/uabb-date/ui-field-uabb-normal-date.php:52
-#: modules/uabb-countdown/uabb-countdown.php:617
+#: modules/uabb-countdown/uabb-countdown.php:621
 msgid "Month"
 msgstr ""
 
 #: fields/uabb-date/uabb-date.php:112
 #: fields/uabb-date/ui-field-uabb-normal-date.php:151
-#: modules/uabb-countdown/uabb-countdown.php:589
-#: modules/uabb-countdown/uabb-countdown.php:611
+#: modules/uabb-countdown/uabb-countdown.php:593
+#: modules/uabb-countdown/uabb-countdown.php:615
 msgid "Months"
 msgstr ""
 
 #: fields/uabb-date/uabb-date.php:115
 #: fields/uabb-date/ui-field-uabb-normal-date.php:156
-#: modules/uabb-countdown/uabb-countdown.php:582
+#: modules/uabb-countdown/uabb-countdown.php:586
 msgid "Year"
 msgstr ""
 
 #: fields/uabb-date/uabb-date.php:129
 #: fields/uabb-date/ui-field-uabb-normal-date.php:176
-#: modules/uabb-countdown/uabb-countdown.php:554
-#: modules/uabb-countdown/uabb-countdown.php:575
+#: modules/uabb-countdown/uabb-countdown.php:558
+#: modules/uabb-countdown/uabb-countdown.php:579
 msgid "Years"
 msgstr ""
 
 #: fields/uabb-date/uabb-date.php:131
 #: fields/uabb-date/ui-field-uabb-normal-date.php:181
-#: modules/uabb-countdown/uabb-countdown.php:685
+#: modules/uabb-countdown/uabb-countdown.php:689
 msgid "Hour"
 msgstr ""
 
@@ -3021,8 +3131,8 @@ msgstr ""
 #: fields/uabb-date/ui-field-uabb-evergreen-date.php:76
 #: fields/uabb-date/ui-field-uabb-normal-date.php:207
 #: modules/uabb-business-hours/uabb-business-hours.php:409
-#: modules/uabb-countdown/uabb-countdown.php:657
-#: modules/uabb-countdown/uabb-countdown.php:679
+#: modules/uabb-countdown/uabb-countdown.php:661
+#: modules/uabb-countdown/uabb-countdown.php:683
 msgid "Hours"
 msgstr ""
 
@@ -3032,24 +3142,24 @@ msgstr ""
 #: fields/uabb-date/ui-field-uabb-evergreen-date.php:107
 #: fields/uabb-date/ui-field-uabb-normal-date.php:211
 #: fields/uabb-date/ui-field-uabb-normal-date.php:237
-#: modules/uabb-countdown/uabb-countdown.php:691
-#: modules/uabb-countdown/uabb-countdown.php:713
+#: modules/uabb-countdown/uabb-countdown.php:695
+#: modules/uabb-countdown/uabb-countdown.php:717
 msgid "Minutes"
 msgstr ""
 
 #: fields/uabb-date/uabb-date.php:190 fields/uabb-date/uabb-date.php:207
 #: fields/uabb-date/ui-field-uabb-evergreen-date.php:21
 #: fields/uabb-date/ui-field-uabb-evergreen-date.php:46
-#: modules/uabb-countdown/uabb-countdown.php:623
-#: modules/uabb-countdown/uabb-countdown.php:645
+#: modules/uabb-countdown/uabb-countdown.php:627
+#: modules/uabb-countdown/uabb-countdown.php:649
 msgid "Days"
 msgstr ""
 
 #: fields/uabb-date/uabb-date.php:249 fields/uabb-date/uabb-date.php:266
 #: fields/uabb-date/ui-field-uabb-evergreen-date.php:112
 #: fields/uabb-date/ui-field-uabb-evergreen-date.php:137
-#: modules/uabb-countdown/uabb-countdown.php:725
-#: modules/uabb-countdown/uabb-countdown.php:747
+#: modules/uabb-countdown/uabb-countdown.php:729
+#: modules/uabb-countdown/uabb-countdown.php:751
 msgid "Seconds"
 msgstr ""
 
@@ -3587,6 +3697,7 @@ msgstr ""
 
 #: modules/adv-testimonials/adv-testimonials.php:114
 #: modules/adv-testimonials/adv-testimonials.php:880
+#: modules/uabb-woo-products/uabb-woo-products.php:1733
 msgid "Rating"
 msgstr ""
 
@@ -3654,6 +3765,8 @@ msgstr ""
 #: modules/adv-testimonials/adv-testimonials.php:240
 #: modules/blog-posts/blog-posts.php:1238
 #: modules/uabb-image-carousel/uabb-image-carousel.php:381
+#: modules/uabb-woo-categories/uabb-woo-categories.php:442
+#: modules/uabb-woo-products/uabb-woo-products.php:851
 msgid "Arrow Style"
 msgstr ""
 
@@ -3670,6 +3783,8 @@ msgstr ""
 #: modules/uabb-numbers/uabb-numbers.php:832
 #: modules/uabb-photo/uabb-photo.php:594
 #: modules/uabb-social-share/uabb-social-share.php:124
+#: modules/uabb-woo-categories/uabb-woo-categories.php:445
+#: modules/uabb-woo-products/uabb-woo-products.php:854
 msgid "Square Background"
 msgstr ""
 
@@ -3686,18 +3801,24 @@ msgstr ""
 #: modules/uabb-numbers/uabb-numbers.php:831
 #: modules/uabb-photo/uabb-photo.php:593
 #: modules/uabb-social-share/uabb-social-share.php:123
+#: modules/uabb-woo-categories/uabb-woo-categories.php:446
+#: modules/uabb-woo-products/uabb-woo-products.php:855
 msgid "Circle Background"
 msgstr ""
 
 #: modules/adv-testimonials/adv-testimonials.php:245
 #: modules/blog-posts/blog-posts.php:1243
 #: modules/uabb-image-carousel/uabb-image-carousel.php:386
+#: modules/uabb-woo-categories/uabb-woo-categories.php:447
+#: modules/uabb-woo-products/uabb-woo-products.php:856
 msgid "Square Border"
 msgstr ""
 
 #: modules/adv-testimonials/adv-testimonials.php:246
 #: modules/blog-posts/blog-posts.php:1244
 #: modules/uabb-image-carousel/uabb-image-carousel.php:387
+#: modules/uabb-woo-categories/uabb-woo-categories.php:448
+#: modules/uabb-woo-products/uabb-woo-products.php:857
 msgid "Circle Border"
 msgstr ""
 
@@ -3705,18 +3826,24 @@ msgstr ""
 #: modules/blog-posts/blog-posts.php:1263
 #: modules/blog-posts/blog-posts.php:3058
 #: modules/uabb-image-carousel/uabb-image-carousel.php:406
+#: modules/uabb-woo-categories/uabb-woo-categories.php:467
+#: modules/uabb-woo-products/uabb-woo-products.php:876
 msgid "Arrow Color"
 msgstr ""
 
 #: modules/adv-testimonials/adv-testimonials.php:276
 #: modules/blog-posts/blog-posts.php:1269
 #: modules/uabb-image-carousel/uabb-image-carousel.php:417
+#: modules/uabb-woo-categories/uabb-woo-categories.php:474
+#: modules/uabb-woo-products/uabb-woo-products.php:883
 msgid "Arrow Background Color"
 msgstr ""
 
 #: modules/adv-testimonials/adv-testimonials.php:290
 #: modules/blog-posts/blog-posts.php:1283
 #: modules/uabb-image-carousel/uabb-image-carousel.php:436
+#: modules/uabb-woo-categories/uabb-woo-categories.php:481
+#: modules/uabb-woo-products/uabb-woo-products.php:890
 msgid "Arrow Border Color"
 msgstr ""
 
@@ -3739,6 +3866,9 @@ msgstr ""
 #: modules/uabb-button/uabb-button.php:209
 #: modules/uabb-call-to-action/uabb-call-to-action.php:304
 #: modules/uabb-image-carousel/uabb-image-carousel.php:442
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:317
+#: modules/uabb-woo-categories/uabb-woo-categories.php:488
+#: modules/uabb-woo-products/uabb-woo-products.php:897
 #: objects/fl-nested-form-button.php:85
 msgid "Border Size"
 msgstr ""
@@ -3786,6 +3916,9 @@ msgstr ""
 #: modules/uabb-business-hours/uabb-business-hours.php:533
 #: modules/uabb-call-to-action/uabb-call-to-action.php:125
 #: modules/uabb-call-to-action/uabb-call-to-action.php:555
+#: modules/uabb-woo-products/includes/loop-settings.php:121
+#: modules/uabb-woo-products/uabb-woo-products.php:989
+#: modules/uabb-woo-products/uabb-woo-products.php:1626
 msgid "Title"
 msgstr ""
 
@@ -3829,6 +3962,7 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7.php:90
 #: modules/uabb-gravity-form/uabb-gravity-form.php:169
 #: modules/uabb-hotspot/uabb-hotspot.php:177
+#: modules/uabb-woo-products/uabb-woo-products.php:956
 msgid "Image"
 msgstr ""
 
@@ -3911,6 +4045,7 @@ msgstr ""
 #: modules/uabb-numbers/uabb-numbers.php:760
 #: modules/uabb-social-share/uabb-social-share.php:241
 #: modules/uabb-social-share/uabb-social-share.php:255
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:270
 #: objects/fl-nested-form-button.php:139
 msgid "Icon"
 msgstr ""
@@ -4223,7 +4358,7 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7.php:274
 #: modules/uabb-contact-form7/uabb-contact-form7.php:791
 #: modules/uabb-content-toggle/uabb-content-toggle.php:434
-#: modules/uabb-countdown/uabb-countdown.php:362
+#: modules/uabb-countdown/uabb-countdown.php:366
 #: modules/uabb-gravity-form/uabb-gravity-form.php:288
 #: modules/uabb-gravity-form/uabb-gravity-form.php:345
 #: modules/uabb-gravity-form/uabb-gravity-form.php:793
@@ -4236,6 +4371,14 @@ msgstr ""
 #: modules/uabb-separator/uabb-separator.php:83
 #: modules/uabb-social-share/uabb-social-share.php:101
 #: modules/uabb-social-share/uabb-social-share.php:113
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:221
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:232
+#: modules/uabb-woo-categories/uabb-woo-categories.php:543
+#: modules/uabb-woo-categories/uabb-woo-categories.php:553
+#: modules/uabb-woo-categories/uabb-woo-categories.php:635
+#: modules/uabb-woo-products/uabb-woo-products.php:1088
+#: modules/uabb-woo-products/uabb-woo-products.php:1098
+#: modules/uabb-woo-products/uabb-woo-products.php:1372
 #: objects/fl-nested-form-button.php:283 objects/fl-nested-form-button.php:293
 msgid "Left"
 msgstr ""
@@ -4294,7 +4437,7 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7.php:276
 #: modules/uabb-contact-form7/uabb-contact-form7.php:792
 #: modules/uabb-content-toggle/uabb-content-toggle.php:436
-#: modules/uabb-countdown/uabb-countdown.php:363
+#: modules/uabb-countdown/uabb-countdown.php:367
 #: modules/uabb-gravity-form/uabb-gravity-form.php:290
 #: modules/uabb-gravity-form/uabb-gravity-form.php:347
 #: modules/uabb-gravity-form/uabb-gravity-form.php:794
@@ -4307,6 +4450,14 @@ msgstr ""
 #: modules/uabb-separator/uabb-separator.php:84
 #: modules/uabb-social-share/uabb-social-share.php:102
 #: modules/uabb-social-share/uabb-social-share.php:114
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:222
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:233
+#: modules/uabb-woo-categories/uabb-woo-categories.php:544
+#: modules/uabb-woo-categories/uabb-woo-categories.php:554
+#: modules/uabb-woo-categories/uabb-woo-categories.php:636
+#: modules/uabb-woo-products/uabb-woo-products.php:1089
+#: modules/uabb-woo-products/uabb-woo-products.php:1099
+#: modules/uabb-woo-products/uabb-woo-products.php:1373
 #: objects/fl-nested-form-button.php:284 objects/fl-nested-form-button.php:294
 msgid "Right"
 msgstr ""
@@ -4369,7 +4520,7 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7.php:275
 #: modules/uabb-contact-form7/uabb-contact-form7.php:790
 #: modules/uabb-content-toggle/uabb-content-toggle.php:435
-#: modules/uabb-countdown/uabb-countdown.php:364
+#: modules/uabb-countdown/uabb-countdown.php:368
 #: modules/uabb-gravity-form/uabb-gravity-form.php:289
 #: modules/uabb-gravity-form/uabb-gravity-form.php:346
 #: modules/uabb-gravity-form/uabb-gravity-form.php:792
@@ -4381,6 +4532,14 @@ msgstr ""
 #: modules/uabb-separator/uabb-separator.php:82
 #: modules/uabb-social-share/uabb-social-share.php:100
 #: modules/uabb-social-share/uabb-social-share.php:112
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:220
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:231
+#: modules/uabb-woo-categories/uabb-woo-categories.php:542
+#: modules/uabb-woo-categories/uabb-woo-categories.php:552
+#: modules/uabb-woo-categories/uabb-woo-categories.php:634
+#: modules/uabb-woo-products/uabb-woo-products.php:1087
+#: modules/uabb-woo-products/uabb-woo-products.php:1097
+#: modules/uabb-woo-products/uabb-woo-products.php:1371
 #: objects/fl-nested-form-button.php:282 objects/fl-nested-form-button.php:292
 msgid "Center"
 msgstr ""
@@ -4534,12 +4693,15 @@ msgstr ""
 #: modules/uabb-contact-form/uabb-contact-form.php:1333
 #: modules/uabb-contact-form7/uabb-contact-form7.php:993
 #: modules/uabb-content-toggle/uabb-content-toggle.php:720
-#: modules/uabb-countdown/uabb-countdown.php:760
+#: modules/uabb-countdown/uabb-countdown.php:764
 #: modules/uabb-gravity-form/uabb-gravity-form.php:1156
 #: modules/uabb-heading/uabb-heading.php:410
 #: modules/uabb-hotspot/uabb-hotspot.php:679
 #: modules/uabb-image-carousel/uabb-image-carousel.php:555
 #: modules/uabb-numbers/uabb-numbers.php:1167
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:427
+#: modules/uabb-woo-categories/uabb-woo-categories.php:710
+#: modules/uabb-woo-products/uabb-woo-products.php:1528
 #: objects/fl-nested-form-button.php:302
 msgid "Typography"
 msgstr ""
@@ -4547,6 +4709,7 @@ msgstr ""
 #: modules/adv-testimonials/adv-testimonials.php:744
 #: modules/blog-posts/blog-posts.php:1860
 #: modules/blog-posts/includes/loop-settings.php:142
+#: modules/uabb-woo-products/includes/loop-settings.php:112
 msgid "Author"
 msgstr ""
 
@@ -4609,8 +4772,8 @@ msgstr ""
 #: modules/uabb-call-to-action/uabb-call-to-action.php:562
 #: modules/uabb-contact-form7/uabb-contact-form7.php:1003
 #: modules/uabb-content-toggle/uabb-content-toggle.php:421
-#: modules/uabb-countdown/uabb-countdown.php:770
-#: modules/uabb-countdown/uabb-countdown.php:863
+#: modules/uabb-countdown/uabb-countdown.php:774
+#: modules/uabb-countdown/uabb-countdown.php:867
 #: modules/uabb-gravity-form/uabb-gravity-form.php:1180
 #: modules/uabb-heading/uabb-heading.php:671
 #: modules/uabb-image-carousel/uabb-image-carousel.php:565
@@ -4649,8 +4812,8 @@ msgstr ""
 #: modules/uabb-call-to-action/uabb-call-to-action.php:563
 #: modules/uabb-contact-form7/uabb-contact-form7.php:1004
 #: modules/uabb-content-toggle/uabb-content-toggle.php:422
-#: modules/uabb-countdown/uabb-countdown.php:771
-#: modules/uabb-countdown/uabb-countdown.php:864
+#: modules/uabb-countdown/uabb-countdown.php:775
+#: modules/uabb-countdown/uabb-countdown.php:868
 #: modules/uabb-gravity-form/uabb-gravity-form.php:1181
 #: modules/uabb-heading/uabb-heading.php:672
 #: modules/uabb-image-carousel/uabb-image-carousel.php:566
@@ -4689,8 +4852,8 @@ msgstr ""
 #: modules/uabb-call-to-action/uabb-call-to-action.php:564
 #: modules/uabb-contact-form7/uabb-contact-form7.php:1005
 #: modules/uabb-content-toggle/uabb-content-toggle.php:423
-#: modules/uabb-countdown/uabb-countdown.php:772
-#: modules/uabb-countdown/uabb-countdown.php:865
+#: modules/uabb-countdown/uabb-countdown.php:776
+#: modules/uabb-countdown/uabb-countdown.php:869
 #: modules/uabb-gravity-form/uabb-gravity-form.php:1182
 #: modules/uabb-heading/uabb-heading.php:673
 #: modules/uabb-image-carousel/uabb-image-carousel.php:567
@@ -4729,8 +4892,8 @@ msgstr ""
 #: modules/uabb-call-to-action/uabb-call-to-action.php:565
 #: modules/uabb-contact-form7/uabb-contact-form7.php:1006
 #: modules/uabb-content-toggle/uabb-content-toggle.php:424
-#: modules/uabb-countdown/uabb-countdown.php:773
-#: modules/uabb-countdown/uabb-countdown.php:866
+#: modules/uabb-countdown/uabb-countdown.php:777
+#: modules/uabb-countdown/uabb-countdown.php:870
 #: modules/uabb-gravity-form/uabb-gravity-form.php:1183
 #: modules/uabb-heading/uabb-heading.php:674
 #: modules/uabb-image-carousel/uabb-image-carousel.php:568
@@ -4769,8 +4932,8 @@ msgstr ""
 #: modules/uabb-call-to-action/uabb-call-to-action.php:566
 #: modules/uabb-contact-form7/uabb-contact-form7.php:1007
 #: modules/uabb-content-toggle/uabb-content-toggle.php:425
-#: modules/uabb-countdown/uabb-countdown.php:774
-#: modules/uabb-countdown/uabb-countdown.php:867
+#: modules/uabb-countdown/uabb-countdown.php:778
+#: modules/uabb-countdown/uabb-countdown.php:871
 #: modules/uabb-gravity-form/uabb-gravity-form.php:1184
 #: modules/uabb-heading/uabb-heading.php:675
 #: modules/uabb-image-carousel/uabb-image-carousel.php:569
@@ -4809,8 +4972,8 @@ msgstr ""
 #: modules/uabb-call-to-action/uabb-call-to-action.php:567
 #: modules/uabb-contact-form7/uabb-contact-form7.php:1008
 #: modules/uabb-content-toggle/uabb-content-toggle.php:426
-#: modules/uabb-countdown/uabb-countdown.php:775
-#: modules/uabb-countdown/uabb-countdown.php:868
+#: modules/uabb-countdown/uabb-countdown.php:779
+#: modules/uabb-countdown/uabb-countdown.php:872
 #: modules/uabb-gravity-form/uabb-gravity-form.php:1185
 #: modules/uabb-heading/uabb-heading.php:676
 #: modules/uabb-image-carousel/uabb-image-carousel.php:570
@@ -4847,8 +5010,8 @@ msgstr ""
 #: modules/team/team.php:929
 #: modules/uabb-call-to-action/uabb-call-to-action.php:568
 #: modules/uabb-contact-form7/uabb-contact-form7.php:1009
-#: modules/uabb-countdown/uabb-countdown.php:776
-#: modules/uabb-countdown/uabb-countdown.php:869
+#: modules/uabb-countdown/uabb-countdown.php:780
+#: modules/uabb-countdown/uabb-countdown.php:873
 #: modules/uabb-gravity-form/uabb-gravity-form.php:1186
 #: modules/uabb-heading/uabb-heading.php:677
 #: modules/uabb-image-carousel/uabb-image-carousel.php:571
@@ -4885,8 +5048,8 @@ msgstr ""
 #: modules/team/team.php:930
 #: modules/uabb-call-to-action/uabb-call-to-action.php:569
 #: modules/uabb-contact-form7/uabb-contact-form7.php:1010
-#: modules/uabb-countdown/uabb-countdown.php:777
-#: modules/uabb-countdown/uabb-countdown.php:870
+#: modules/uabb-countdown/uabb-countdown.php:781
+#: modules/uabb-countdown/uabb-countdown.php:874
 #: modules/uabb-gravity-form/uabb-gravity-form.php:1187
 #: modules/uabb-heading/uabb-heading.php:678
 #: modules/uabb-image-carousel/uabb-image-carousel.php:572
@@ -4923,8 +5086,8 @@ msgstr ""
 #: modules/team/team.php:931
 #: modules/uabb-call-to-action/uabb-call-to-action.php:570
 #: modules/uabb-contact-form7/uabb-contact-form7.php:1011
-#: modules/uabb-countdown/uabb-countdown.php:778
-#: modules/uabb-countdown/uabb-countdown.php:871
+#: modules/uabb-countdown/uabb-countdown.php:782
+#: modules/uabb-countdown/uabb-countdown.php:875
 #: modules/uabb-gravity-form/uabb-gravity-form.php:1188
 #: modules/uabb-heading/uabb-heading.php:679
 #: modules/uabb-image-carousel/uabb-image-carousel.php:573
@@ -5021,9 +5184,9 @@ msgstr ""
 #: modules/uabb-content-toggle/uabb-content-toggle.php:822
 #: modules/uabb-content-toggle/uabb-content-toggle.php:917
 #: modules/uabb-content-toggle/uabb-content-toggle.php:1012
-#: modules/uabb-countdown/uabb-countdown.php:271
-#: modules/uabb-countdown/uabb-countdown.php:783
-#: modules/uabb-countdown/uabb-countdown.php:876
+#: modules/uabb-countdown/uabb-countdown.php:275
+#: modules/uabb-countdown/uabb-countdown.php:787
+#: modules/uabb-countdown/uabb-countdown.php:880
 #: modules/uabb-gravity-form/uabb-gravity-form.php:810
 #: modules/uabb-gravity-form/uabb-gravity-form.php:1193
 #: modules/uabb-gravity-form/uabb-gravity-form.php:1315
@@ -5037,6 +5200,7 @@ msgstr ""
 #: modules/uabb-image-carousel/uabb-image-carousel.php:578
 #: modules/uabb-numbers/uabb-numbers.php:1190
 #: modules/uabb-numbers/uabb-numbers.php:1267
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:434
 #: objects/fl-nested-form-button.php:309
 msgid "Font Family"
 msgstr ""
@@ -5123,6 +5287,17 @@ msgstr ""
 #: modules/uabb-numbers/uabb-numbers.php:1315
 #: modules/uabb-separator/uabb-separator.php:50
 #: modules/uabb-social-share/uabb-social-share.php:277
+#: modules/uabb-woo-categories/uabb-woo-categories.php:578
+#: modules/uabb-woo-categories/uabb-woo-categories.php:659
+#: modules/uabb-woo-products/uabb-woo-products.php:1194
+#: modules/uabb-woo-products/uabb-woo-products.php:1287
+#: modules/uabb-woo-products/uabb-woo-products.php:1383
+#: modules/uabb-woo-products/uabb-woo-products.php:1584
+#: modules/uabb-woo-products/uabb-woo-products.php:1679
+#: modules/uabb-woo-products/uabb-woo-products.php:1737
+#: modules/uabb-woo-products/uabb-woo-products.php:1802
+#: modules/uabb-woo-products/uabb-woo-products.php:1896
+#: modules/uabb-woo-products/uabb-woo-products.php:1991
 msgid "Color"
 msgstr ""
 
@@ -5210,8 +5385,8 @@ msgstr ""
 #: modules/uabb-content-toggle/uabb-content-toggle.php:883
 #: modules/uabb-content-toggle/uabb-content-toggle.php:978
 #: modules/uabb-content-toggle/uabb-content-toggle.php:1073
-#: modules/uabb-countdown/uabb-countdown.php:319
-#: modules/uabb-countdown/uabb-countdown.php:935
+#: modules/uabb-countdown/uabb-countdown.php:323
+#: modules/uabb-countdown/uabb-countdown.php:939
 #: modules/uabb-gravity-form/uabb-gravity-form.php:979
 #: modules/uabb-gravity-form/uabb-gravity-form.php:1097
 #: modules/uabb-gravity-form/uabb-gravity-form.php:1135
@@ -5227,6 +5402,16 @@ msgstr ""
 #: modules/uabb-hotspot/uabb-hotspot.php:857
 #: modules/uabb-image-carousel/uabb-image-carousel.php:656
 #: modules/uabb-numbers/uabb-numbers.php:1326
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:482
+#: modules/uabb-woo-categories/uabb-woo-categories.php:766
+#: modules/uabb-woo-categories/uabb-woo-categories.php:849
+#: modules/uabb-woo-products/uabb-woo-products.php:1596
+#: modules/uabb-woo-products/uabb-woo-products.php:1703
+#: modules/uabb-woo-products/uabb-woo-products.php:1814
+#: modules/uabb-woo-products/uabb-woo-products.php:1908
+#: modules/uabb-woo-products/uabb-woo-products.php:2039
+#: modules/uabb-woo-products/uabb-woo-products.php:2103
+#: modules/uabb-woo-products/uabb-woo-products.php:2167
 #: objects/fl-nested-form-button.php:345
 msgid "Transform"
 msgstr ""
@@ -5271,6 +5456,7 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7.php:815
 #: modules/uabb-heading/uabb-heading.php:531
 #: modules/uabb-heading/uabb-heading.php:650
+#: modules/uabb-woo-products/uabb-woo-products.php:1332
 msgid "Margin Bottom"
 msgstr ""
 
@@ -5341,6 +5527,9 @@ msgstr ""
 #: modules/uabb-content-toggle/uabb-content-toggle.php:549
 #: modules/uabb-content-toggle/uabb-content-toggle.php:661
 #: modules/uabb-hotspot/uabb-hotspot.php:791
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:240
+#: modules/uabb-woo-products/uabb-woo-products.php:1172
+#: modules/uabb-woo-products/uabb-woo-products.php:1265
 msgid "Padding"
 msgstr ""
 
@@ -5375,6 +5564,10 @@ msgstr ""
 #: modules/uabb-photo/uabb-photo.php:483
 #: modules/uabb-separator/uabb-separator.php:79
 #: modules/uabb-social-share/uabb-social-share.php:96
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:217
+#: modules/uabb-woo-categories/uabb-woo-categories.php:539
+#: modules/uabb-woo-categories/uabb-woo-categories.php:631
+#: modules/uabb-woo-products/uabb-woo-products.php:1084
 #: objects/fl-nested-form-button.php:279
 msgid "Alignment"
 msgstr ""
@@ -5388,6 +5581,10 @@ msgstr ""
 #: modules/advanced-icon/advanced-icon.php:376
 #: modules/blog-posts/blog-posts.php:2181 modules/team/team.php:1364
 #: modules/uabb-social-share/uabb-social-share.php:283
+#: modules/uabb-woo-categories/uabb-woo-categories.php:602
+#: modules/uabb-woo-categories/uabb-woo-categories.php:683
+#: modules/uabb-woo-products/uabb-woo-products.php:1691
+#: modules/uabb-woo-products/uabb-woo-products.php:2003
 msgid "Hover Color"
 msgstr ""
 
@@ -5461,7 +5658,7 @@ msgstr ""
 #: modules/uabb-business-hours/uabb-business-hours.php:234
 #: modules/uabb-content-toggle/uabb-content-toggle.php:489
 #: modules/uabb-content-toggle/uabb-content-toggle.php:601
-#: modules/uabb-countdown/uabb-countdown.php:460
+#: modules/uabb-countdown/uabb-countdown.php:464
 #: modules/uabb-heading/uabb-heading.php:359
 #: modules/uabb-hotspot/uabb-hotspot.php:293
 #: modules/uabb-hotspot/uabb-hotspot.php:367
@@ -5507,7 +5704,7 @@ msgstr ""
 #: modules/uabb-business-hours/uabb-business-hours.php:236
 #: modules/uabb-content-toggle/uabb-content-toggle.php:492
 #: modules/uabb-content-toggle/uabb-content-toggle.php:604
-#: modules/uabb-countdown/uabb-countdown.php:461
+#: modules/uabb-countdown/uabb-countdown.php:465
 #: modules/uabb-heading/uabb-heading.php:360
 #: modules/uabb-hotspot/uabb-hotspot.php:294
 #: modules/uabb-hotspot/uabb-hotspot.php:368
@@ -5553,7 +5750,7 @@ msgstr ""
 #: modules/uabb-business-hours/uabb-business-hours.php:235
 #: modules/uabb-content-toggle/uabb-content-toggle.php:491
 #: modules/uabb-content-toggle/uabb-content-toggle.php:603
-#: modules/uabb-countdown/uabb-countdown.php:462
+#: modules/uabb-countdown/uabb-countdown.php:466
 #: modules/uabb-heading/uabb-heading.php:361
 #: modules/uabb-hotspot/uabb-hotspot.php:295
 #: modules/uabb-hotspot/uabb-hotspot.php:369
@@ -5663,6 +5860,7 @@ msgstr ""
 #: modules/uabb-button/uabb-button.php:308
 #: modules/uabb-call-to-action/uabb-call-to-action.php:363
 #: modules/uabb-contact-form/uabb-contact-form.php:1073
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:275
 #: objects/fl-nested-form-button.php:144
 msgid "Icon Position"
 msgstr ""
@@ -5680,6 +5878,7 @@ msgstr ""
 #: modules/uabb-button/uabb-button.php:311
 #: modules/uabb-call-to-action/uabb-call-to-action.php:366
 #: modules/uabb-contact-form/uabb-contact-form.php:1076
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:278
 #: objects/fl-nested-form-button.php:147
 msgid "Before Text"
 msgstr ""
@@ -5697,6 +5896,7 @@ msgstr ""
 #: modules/uabb-button/uabb-button.php:312
 #: modules/uabb-call-to-action/uabb-call-to-action.php:367
 #: modules/uabb-contact-form/uabb-contact-form.php:1077
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:279
 #: objects/fl-nested-form-button.php:148
 msgid "After Text"
 msgstr ""
@@ -5743,6 +5943,9 @@ msgstr ""
 #: modules/uabb-content-toggle/uabb-content-toggle.php:149
 #: modules/uabb-content-toggle/uabb-content-toggle.php:227
 #: modules/uabb-content-toggle/uabb-content-toggle.php:568
+#: modules/uabb-woo-categories/uabb-woo-categories.php:713
+#: modules/uabb-woo-products/uabb-woo-products.php:971
+#: modules/uabb-woo-products/uabb-woo-products.php:1080
 msgid "Content"
 msgstr ""
 
@@ -5895,6 +6098,7 @@ msgstr ""
 #: modules/uabb-call-to-action/uabb-call-to-action.php:196
 #: modules/uabb-content-toggle/uabb-content-toggle.php:680
 #: modules/uabb-social-share/uabb-social-share.php:87
+#: modules/uabb-woo-products/uabb-woo-products.php:1456
 msgid "Spacing"
 msgstr ""
 
@@ -5986,6 +6190,9 @@ msgstr ""
 #: modules/uabb-button/uabb-button.php:534
 #: modules/uabb-photo/uabb-photo.php:498
 #: modules/uabb-social-share/uabb-social-share.php:107
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:228
+#: modules/uabb-woo-categories/uabb-woo-categories.php:549
+#: modules/uabb-woo-products/uabb-woo-products.php:1094
 #: objects/fl-nested-form-button.php:289
 msgid "Mobile Alignment"
 msgstr ""
@@ -5993,6 +6200,9 @@ msgstr ""
 #: modules/advanced-icon/advanced-icon.php:187
 #: modules/info-box/info-box.php:1055 modules/uabb-photo/uabb-photo.php:500
 #: modules/uabb-social-share/uabb-social-share.php:109
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:236
+#: modules/uabb-woo-categories/uabb-woo-categories.php:556
+#: modules/uabb-woo-products/uabb-woo-products.php:1101
 msgid "This alignment will apply on Mobile"
 msgstr ""
 
@@ -6102,6 +6312,7 @@ msgstr ""
 #: modules/uabb-numbers/uabb-numbers.php:1090
 #: modules/uabb-numbers/uabb-numbers.php:1152
 #: modules/uabb-social-share/uabb-social-share.php:326
+#: modules/uabb-woo-products/uabb-woo-products.php:1431
 msgid "Border Color"
 msgstr ""
 
@@ -6143,7 +6354,7 @@ msgstr ""
 #: modules/pricing-box/pricing-box.php:924 modules/slide-box/slide-box.php:562
 #: modules/team/team.php:1325 modules/uabb-button/uabb-button.php:151
 #: modules/uabb-call-to-action/uabb-call-to-action.php:264
-#: modules/uabb-countdown/uabb-countdown.php:254
+#: modules/uabb-countdown/uabb-countdown.php:258
 #: modules/uabb-heading/uabb-heading.php:130
 #: modules/uabb-image-carousel/uabb-image-carousel.php:279
 #: modules/uabb-photo/uabb-photo.php:567 objects/fl-nested-form-button.php:42
@@ -6164,7 +6375,7 @@ msgstr ""
 #: modules/pricing-box/pricing-box.php:927 modules/slide-box/slide-box.php:565
 #: modules/team/team.php:1329 modules/uabb-button/uabb-button.php:154
 #: modules/uabb-call-to-action/uabb-call-to-action.php:267
-#: modules/uabb-countdown/uabb-countdown.php:257
+#: modules/uabb-countdown/uabb-countdown.php:261
 #: modules/uabb-heading/uabb-heading.php:133
 #: modules/uabb-image-carousel/uabb-image-carousel.php:283
 #: modules/uabb-photo/uabb-photo.php:570 objects/fl-nested-form-button.php:45
@@ -6185,7 +6396,7 @@ msgstr ""
 #: modules/pricing-box/pricing-box.php:928 modules/slide-box/slide-box.php:566
 #: modules/team/team.php:1330 modules/uabb-button/uabb-button.php:155
 #: modules/uabb-call-to-action/uabb-call-to-action.php:268
-#: modules/uabb-countdown/uabb-countdown.php:258
+#: modules/uabb-countdown/uabb-countdown.php:262
 #: modules/uabb-heading/uabb-heading.php:134
 #: modules/uabb-image-carousel/uabb-image-carousel.php:284
 #: modules/uabb-photo/uabb-photo.php:571 objects/fl-nested-form-button.php:46
@@ -6324,9 +6535,11 @@ msgstr ""
 #: modules/info-box/info-box.php:780 modules/info-circle/info-circle.php:428
 #: modules/info-list/info-list.php:294 modules/info-table/info-table.php:530
 #: modules/list-icon/list-icon.php:315 modules/slide-box/slide-box.php:306
-#: modules/team/team.php:313 modules/uabb-countdown/uabb-countdown.php:400
+#: modules/team/team.php:313 modules/uabb-countdown/uabb-countdown.php:404
 #: modules/uabb-hotspot/uabb-hotspot.php:342
 #: modules/uabb-numbers/uabb-numbers.php:927
+#: modules/uabb-woo-products/uabb-woo-products.php:1158
+#: modules/uabb-woo-products/uabb-woo-products.php:1251
 msgid "Circle"
 msgstr ""
 
@@ -6336,9 +6549,11 @@ msgstr ""
 #: modules/info-box/info-box.php:781 modules/info-circle/info-circle.php:429
 #: modules/info-list/info-list.php:293 modules/info-table/info-table.php:531
 #: modules/list-icon/list-icon.php:316 modules/slide-box/slide-box.php:307
-#: modules/team/team.php:314 modules/uabb-countdown/uabb-countdown.php:401
+#: modules/team/team.php:314 modules/uabb-countdown/uabb-countdown.php:405
 #: modules/uabb-hotspot/uabb-hotspot.php:343
 #: modules/uabb-numbers/uabb-numbers.php:928
+#: modules/uabb-woo-products/uabb-woo-products.php:1159
+#: modules/uabb-woo-products/uabb-woo-products.php:1252
 msgid "Square"
 msgstr ""
 
@@ -6386,6 +6601,7 @@ msgstr ""
 #: modules/uabb-heading/uabb-heading.php:327
 #: modules/uabb-heading/uabb-heading.php:331
 #: modules/uabb-hotspot/uabb-hotspot.php:176
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:207
 #: objects/fl-nested-form-button.php:20
 msgid "Text"
 msgstr ""
@@ -6569,12 +6785,12 @@ msgstr ""
 #: modules/info-circle/info-circle.php:264
 #: modules/info-circle/info-circle.php:513
 #: modules/photo-gallery/photo-gallery.php:427
-#: modules/uabb-countdown/uabb-countdown.php:559
-#: modules/uabb-countdown/uabb-countdown.php:594
-#: modules/uabb-countdown/uabb-countdown.php:628
-#: modules/uabb-countdown/uabb-countdown.php:662
-#: modules/uabb-countdown/uabb-countdown.php:696
-#: modules/uabb-countdown/uabb-countdown.php:730
+#: modules/uabb-countdown/uabb-countdown.php:563
+#: modules/uabb-countdown/uabb-countdown.php:598
+#: modules/uabb-countdown/uabb-countdown.php:632
+#: modules/uabb-countdown/uabb-countdown.php:666
+#: modules/uabb-countdown/uabb-countdown.php:700
+#: modules/uabb-countdown/uabb-countdown.php:734
 #: modules/uabb-gravity-form/uabb-gravity-form.php:123
 #: modules/uabb-image-carousel/uabb-image-carousel.php:519
 msgid "Disable"
@@ -6583,12 +6799,12 @@ msgstr ""
 #: modules/advanced-tabs/advanced-tabs.php:261
 #: modules/info-circle/info-circle.php:263
 #: modules/photo-gallery/photo-gallery.php:426
-#: modules/uabb-countdown/uabb-countdown.php:558
-#: modules/uabb-countdown/uabb-countdown.php:593
-#: modules/uabb-countdown/uabb-countdown.php:627
-#: modules/uabb-countdown/uabb-countdown.php:661
-#: modules/uabb-countdown/uabb-countdown.php:695
-#: modules/uabb-countdown/uabb-countdown.php:729
+#: modules/uabb-countdown/uabb-countdown.php:562
+#: modules/uabb-countdown/uabb-countdown.php:597
+#: modules/uabb-countdown/uabb-countdown.php:631
+#: modules/uabb-countdown/uabb-countdown.php:665
+#: modules/uabb-countdown/uabb-countdown.php:699
+#: modules/uabb-countdown/uabb-countdown.php:733
 #: modules/uabb-gravity-form/uabb-gravity-form.php:122
 #: modules/uabb-image-carousel/uabb-image-carousel.php:518
 msgid "Enable"
@@ -6675,6 +6891,8 @@ msgstr ""
 
 #: modules/advanced-tabs/advanced-tabs.php:476
 #: modules/flip-box/flip-box.php:1385
+#: modules/uabb-woo-products/uabb-woo-products.php:1183
+#: modules/uabb-woo-products/uabb-woo-products.php:1276
 msgid "Margin"
 msgstr ""
 
@@ -6712,11 +6930,15 @@ msgstr ""
 
 #: modules/blog-posts/blog-posts.php:1076
 #: modules/uabb-image-carousel/uabb-image-carousel.php:295
+#: modules/uabb-woo-categories/uabb-woo-categories.php:300
+#: modules/uabb-woo-products/uabb-woo-products.php:690
 msgid "Carousel"
 msgstr ""
 
 #: modules/blog-posts/blog-posts.php:1077
 #: modules/photo-gallery/photo-gallery.php:182
+#: modules/uabb-woo-categories/uabb-woo-categories.php:299
+#: modules/uabb-woo-products/uabb-woo-products.php:689
 msgid "Grid"
 msgstr ""
 
@@ -6864,6 +7086,7 @@ msgid "Carousel Filter"
 msgstr ""
 
 #: modules/blog-posts/blog-posts.php:1159
+#: modules/uabb-woo-products/uabb-woo-products.php:764
 msgid "Posts to Scroll"
 msgstr ""
 
@@ -6872,33 +7095,46 @@ msgid "This is how many posts you want to scroll at a time."
 msgstr ""
 
 #: modules/blog-posts/blog-posts.php:1166
+#: modules/uabb-woo-products/uabb-woo-products.php:771
 msgid "Autoplay Post Scroll"
 msgstr ""
 
 #: modules/blog-posts/blog-posts.php:1167
+#: modules/uabb-woo-categories/uabb-woo-categories.php:373
+#: modules/uabb-woo-products/uabb-woo-products.php:772
 msgid "Enables auto play of posts."
 msgstr ""
 
 #: modules/blog-posts/blog-posts.php:1181
 #: modules/uabb-image-carousel/uabb-image-carousel.php:324
+#: modules/uabb-woo-categories/uabb-woo-categories.php:387
+#: modules/uabb-woo-products/uabb-woo-products.php:786
 msgid "Autoplay Speed"
 msgstr ""
 
 #: modules/blog-posts/blog-posts.php:1182
+#: modules/uabb-woo-categories/uabb-woo-categories.php:388
+#: modules/uabb-woo-products/uabb-woo-products.php:787
 msgid "Enter the time interval to scroll post automatically."
 msgstr ""
 
 #: modules/blog-posts/blog-posts.php:1185
 #: modules/uabb-advanced-menu/uabb-advanced-menu.php:839
+#: modules/uabb-woo-categories/uabb-woo-categories.php:391
+#: modules/uabb-woo-products/uabb-woo-products.php:790
 msgid "ms"
 msgstr ""
 
 #: modules/blog-posts/blog-posts.php:1189
 #: modules/uabb-image-carousel/uabb-image-carousel.php:332
+#: modules/uabb-woo-categories/uabb-woo-categories.php:395
+#: modules/uabb-woo-products/uabb-woo-products.php:794
 msgid "Infinite Loop"
 msgstr ""
 
 #: modules/blog-posts/blog-posts.php:1190
+#: modules/uabb-woo-categories/uabb-woo-categories.php:396
+#: modules/uabb-woo-products/uabb-woo-products.php:795
 msgid "Enable this to scroll posts in infinite loop."
 msgstr ""
 
@@ -6914,26 +7150,36 @@ msgstr ""
 
 #: modules/blog-posts/blog-posts.php:1209
 #: modules/uabb-image-carousel/uabb-image-carousel.php:352
+#: modules/uabb-woo-categories/uabb-woo-categories.php:415
+#: modules/uabb-woo-products/uabb-woo-products.php:814
 msgid "Enable Arrows"
 msgstr ""
 
 #: modules/blog-posts/blog-posts.php:1210
 #: modules/uabb-image-carousel/uabb-image-carousel.php:353
+#: modules/uabb-woo-categories/uabb-woo-categories.php:416
+#: modules/uabb-woo-products/uabb-woo-products.php:815
 msgid "Enable Next/Prev arrows to your carousel slider."
 msgstr ""
 
 #: modules/blog-posts/blog-posts.php:1219
 #: modules/uabb-image-carousel/uabb-image-carousel.php:372
+#: modules/uabb-woo-categories/uabb-woo-categories.php:433
+#: modules/uabb-woo-products/uabb-woo-products.php:832
 msgid "Arrow Position"
 msgstr ""
 
 #: modules/blog-posts/blog-posts.php:1222
 #: modules/uabb-image-carousel/uabb-image-carousel.php:375
+#: modules/uabb-woo-categories/uabb-woo-categories.php:436
+#: modules/uabb-woo-products/uabb-woo-products.php:835
 msgid "Outside"
 msgstr ""
 
 #: modules/blog-posts/blog-posts.php:1223
 #: modules/uabb-image-carousel/uabb-image-carousel.php:376
+#: modules/uabb-woo-categories/uabb-woo-categories.php:437
+#: modules/uabb-woo-products/uabb-woo-products.php:836
 msgid "Inside"
 msgstr ""
 
@@ -6946,6 +7192,8 @@ msgid "Right Arrow Icon"
 msgstr ""
 
 #: modules/blog-posts/blog-posts.php:1300
+#: modules/uabb-woo-categories/uabb-woo-categories.php:499
+#: modules/uabb-woo-products/uabb-woo-products.php:908
 msgid "Query"
 msgstr ""
 
@@ -7150,6 +7398,7 @@ msgstr ""
 #: modules/uabb-contact-form/uabb-contact-form.php:1098
 #: modules/uabb-contact-form7/uabb-contact-form7.php:506
 #: modules/uabb-gravity-form/uabb-gravity-form.php:591
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:306
 #: objects/fl-nested-form-button.php:65
 msgid "Flat"
 msgstr ""
@@ -7170,6 +7419,7 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7.php:507
 #: modules/uabb-gravity-form/uabb-gravity-form.php:310
 #: modules/uabb-gravity-form/uabb-gravity-form.php:592
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:307
 #: objects/fl-nested-form-button.php:67
 msgid "Transparent"
 msgstr ""
@@ -7216,6 +7466,7 @@ msgstr ""
 #: modules/uabb-call-to-action/uabb-call-to-action.php:312
 #: modules/uabb-call-to-action/uabb-call-to-action.php:328
 #: modules/uabb-call-to-action/uabb-call-to-action.php:341
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:326
 #: objects/fl-nested-form-button.php:93 objects/fl-nested-form-button.php:109
 #: objects/fl-nested-form-button.php:122
 msgid "Hover Styles"
@@ -7230,6 +7481,7 @@ msgstr ""
 #: modules/pricing-box/pricing-box.php:976
 #: modules/uabb-button/uabb-button.php:221
 #: modules/uabb-call-to-action/uabb-call-to-action.php:316
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:330
 #: objects/fl-nested-form-button.php:97
 msgid "Fade Background"
 msgstr ""
@@ -7243,6 +7495,7 @@ msgstr ""
 #: modules/pricing-box/pricing-box.php:977
 #: modules/uabb-button/uabb-button.php:222
 #: modules/uabb-call-to-action/uabb-call-to-action.php:317
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:331
 #: objects/fl-nested-form-button.php:98
 msgid "Fill Background From Top"
 msgstr ""
@@ -7256,6 +7509,7 @@ msgstr ""
 #: modules/pricing-box/pricing-box.php:978
 #: modules/uabb-button/uabb-button.php:223
 #: modules/uabb-call-to-action/uabb-call-to-action.php:318
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:332
 #: objects/fl-nested-form-button.php:99
 msgid "Fill Background From Bottom"
 msgstr ""
@@ -7269,6 +7523,7 @@ msgstr ""
 #: modules/pricing-box/pricing-box.php:979
 #: modules/uabb-button/uabb-button.php:224
 #: modules/uabb-call-to-action/uabb-call-to-action.php:319
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:333
 #: objects/fl-nested-form-button.php:100
 msgid "Fill Background From Left"
 msgstr ""
@@ -7282,6 +7537,7 @@ msgstr ""
 #: modules/pricing-box/pricing-box.php:980
 #: modules/uabb-button/uabb-button.php:225
 #: modules/uabb-call-to-action/uabb-call-to-action.php:320
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:334
 #: objects/fl-nested-form-button.php:101
 msgid "Fill Background From Right"
 msgstr ""
@@ -7295,6 +7551,7 @@ msgstr ""
 #: modules/pricing-box/pricing-box.php:981
 #: modules/uabb-button/uabb-button.php:226
 #: modules/uabb-call-to-action/uabb-call-to-action.php:321
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:335
 #: objects/fl-nested-form-button.php:102
 msgid "Fill Background Vertical"
 msgstr ""
@@ -7308,6 +7565,7 @@ msgstr ""
 #: modules/pricing-box/pricing-box.php:982
 #: modules/uabb-button/uabb-button.php:227
 #: modules/uabb-call-to-action/uabb-call-to-action.php:322
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:336
 #: objects/fl-nested-form-button.php:103
 msgid "Fill Background Diagonal"
 msgstr ""
@@ -7321,6 +7579,7 @@ msgstr ""
 #: modules/pricing-box/pricing-box.php:983
 #: modules/uabb-button/uabb-button.php:228
 #: modules/uabb-call-to-action/uabb-call-to-action.php:323
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:337
 #: objects/fl-nested-form-button.php:104
 msgid "Fill Background Horizontal"
 msgstr ""
@@ -7526,6 +7785,7 @@ msgstr ""
 #: modules/uabb-call-to-action/uabb-call-to-action.php:505
 #: modules/uabb-contact-form7/uabb-contact-form7.php:751
 #: modules/uabb-gravity-form/uabb-gravity-form.php:753
+#: modules/uabb-woo-products/uabb-woo-products.php:1316
 #: objects/fl-nested-form-button.php:256
 msgid "Padding Top/Bottom"
 msgstr ""
@@ -7539,6 +7799,7 @@ msgstr ""
 #: modules/pricing-box/pricing-box.php:1144
 #: modules/uabb-button/uabb-button.php:483
 #: modules/uabb-call-to-action/uabb-call-to-action.php:513
+#: modules/uabb-woo-products/uabb-woo-products.php:1324
 #: objects/fl-nested-form-button.php:264
 msgid "Padding Left/Right"
 msgstr ""
@@ -7559,6 +7820,7 @@ msgstr ""
 #: modules/uabb-gravity-form/uabb-gravity-form.php:434
 #: modules/uabb-gravity-form/uabb-gravity-form.php:776
 #: modules/uabb-gravity-form/uabb-gravity-form.php:1090
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:258
 #: objects/fl-nested-form-button.php:272
 msgid "Round Corners"
 msgstr ""
@@ -7570,6 +7832,11 @@ msgstr ""
 #: modules/uabb-advanced-menu/uabb-advanced-menu.php:232
 #: modules/uabb-call-to-action/uabb-call-to-action.php:162
 #: modules/uabb-content-toggle/uabb-content-toggle.php:441
+#: modules/uabb-woo-categories/uabb-woo-categories.php:296
+#: modules/uabb-woo-categories/uabb-woo-categories.php:506
+#: modules/uabb-woo-products/uabb-woo-products.php:686
+#: modules/uabb-woo-products/uabb-woo-products.php:912
+#: modules/uabb-woo-products/uabb-woo-products.php:915
 msgid "Layout"
 msgstr ""
 
@@ -7629,7 +7896,7 @@ msgstr ""
 #: modules/slide-box/slide-box.php:396 modules/slide-box/slide-box.php:702
 #: modules/uabb-advanced-menu/uabb-advanced-menu.php:958
 #: modules/uabb-beforeafterslider/uabb-beforeafterslider.php:157
-#: modules/uabb-countdown/uabb-countdown.php:358
+#: modules/uabb-countdown/uabb-countdown.php:362
 #: modules/uabb-numbers/uabb-numbers.php:494
 msgid "Overall Alignment"
 msgstr ""
@@ -7715,6 +7982,7 @@ msgid ""
 msgstr ""
 
 #: modules/blog-posts/blog-posts.php:2038
+#: modules/uabb-woo-products/uabb-woo-products.php:1346
 msgid "Pagination"
 msgstr ""
 
@@ -7728,6 +7996,7 @@ msgid "Pagination Style"
 msgstr ""
 
 #: modules/blog-posts/blog-posts.php:2059
+#: modules/uabb-woo-products/uabb-woo-products.php:1354
 msgid "Numbers"
 msgstr ""
 
@@ -7764,6 +8033,7 @@ msgstr ""
 #: modules/uabb-contact-form/uabb-contact-form.php:447
 #: modules/uabb-contact-form/uabb-contact-form.php:501
 #: modules/uabb-contact-form/uabb-contact-form.php:1911
+#: modules/uabb-woo-products/uabb-woo-products.php:1068
 msgid "Show"
 msgstr ""
 
@@ -7776,6 +8046,7 @@ msgstr ""
 #: modules/uabb-contact-form/uabb-contact-form.php:448
 #: modules/uabb-contact-form/uabb-contact-form.php:502
 #: modules/uabb-contact-form/uabb-contact-form.php:1912
+#: modules/uabb-woo-products/uabb-woo-products.php:1067
 msgid "Hide"
 msgstr ""
 
@@ -7784,6 +8055,7 @@ msgid "Shows the search form if no posts are found."
 msgstr ""
 
 #: modules/blog-posts/blog-posts.php:2108
+#: modules/uabb-woo-products/uabb-woo-products.php:1368
 msgid "Pagination Alignment"
 msgstr ""
 
@@ -7931,6 +8203,7 @@ msgstr ""
 
 #: modules/blog-posts/includes/loop-settings.php:29
 #: modules/blog-posts/includes/loop-settings.php:72
+#: modules/uabb-woo-products/includes/loop-settings.php:30
 msgid "Custom Query"
 msgstr ""
 
@@ -7993,39 +8266,49 @@ msgid "Choose the parameter to sort your posts."
 msgstr ""
 
 #: modules/blog-posts/includes/loop-settings.php:138
+#: modules/uabb-woo-products/includes/loop-settings.php:116
 msgid "ID"
 msgstr ""
 
 #: modules/blog-posts/includes/loop-settings.php:140
+#: modules/uabb-woo-products/includes/loop-settings.php:115
 msgid "Date Last Modified"
 msgstr ""
 
 #: modules/blog-posts/includes/loop-settings.php:143
+#: modules/uabb-woo-products/includes/loop-settings.php:113
 msgid "Comment Count"
 msgstr ""
 
 #: modules/blog-posts/includes/loop-settings.php:144
+#: modules/uabb-woo-products/includes/loop-settings.php:117
 msgid "Menu Order"
 msgstr ""
 
 #: modules/blog-posts/includes/loop-settings.php:145
+#: modules/uabb-woo-products/includes/loop-settings.php:118
 msgid "Meta Value (Alphabetical)"
 msgstr ""
 
 #: modules/blog-posts/includes/loop-settings.php:146
+#: modules/uabb-woo-products/includes/loop-settings.php:119
 msgid "Meta Value (Numeric)"
 msgstr ""
 
 #: modules/blog-posts/includes/loop-settings.php:147
 #: modules/photo-gallery/photo-gallery.php:225
+#: modules/uabb-woo-products/includes/loop-settings.php:120
 msgid "Random"
 msgstr ""
 
 #: modules/blog-posts/includes/loop-settings.php:164
+#: modules/uabb-woo-products/includes/loop-settings.php:136
 msgid "Meta Key"
 msgstr ""
 
 #: modules/blog-posts/includes/loop-settings.php:172
+#: modules/uabb-woo-categories/includes/loop-settings.php:111
+#: modules/uabb-woo-products/includes/loop-settings.php:100
 msgid "Order"
 msgstr ""
 
@@ -8034,10 +8317,14 @@ msgid "Choose the order to display your posts."
 msgstr ""
 
 #: modules/blog-posts/includes/loop-settings.php:176
+#: modules/uabb-woo-categories/includes/loop-settings.php:114
+#: modules/uabb-woo-products/includes/loop-settings.php:102
 msgid "Descending"
 msgstr ""
 
 #: modules/blog-posts/includes/loop-settings.php:177
+#: modules/uabb-woo-categories/includes/loop-settings.php:115
+#: modules/uabb-woo-products/includes/loop-settings.php:103
 msgid "Ascending"
 msgstr ""
 
@@ -8070,50 +8357,53 @@ msgid "\"All\" Filter Label"
 msgstr ""
 
 #: modules/blog-posts/includes/loop-settings.php:260
+#: modules/uabb-woo-categories/includes/loop-settings.php:19
+#: modules/uabb-woo-products/includes/loop-settings.php:81
 msgid "Filter"
 msgstr ""
 
 #: modules/blog-posts/includes/loop-settings.php:276
-#: modules/blog-posts/includes/loop-settings.php:305
+#: modules/blog-posts/includes/loop-settings.php:306
 msgid "Match these %s"
 msgstr ""
 
 #: modules/blog-posts/includes/loop-settings.php:277
-#: modules/blog-posts/includes/loop-settings.php:306
+#: modules/blog-posts/includes/loop-settings.php:307
 msgid "Do not match these %s"
 msgstr ""
 
-#: modules/blog-posts/includes/loop-settings.php:279
+#: modules/blog-posts/includes/loop-settings.php:280
 msgid "Enter a comma separated list of %1$s. Only these %2$s will be shown."
 msgstr ""
 
-#: modules/blog-posts/includes/loop-settings.php:303
-#: modules/blog-posts/includes/loop-settings.php:308
+#: modules/blog-posts/includes/loop-settings.php:304
+#: modules/blog-posts/includes/loop-settings.php:310
 msgid ""
 "Enter a comma separated list of %1$s. Only posts with these %2$s will be "
 "shown."
 msgstr ""
 
-#: modules/blog-posts/includes/loop-settings.php:332
+#: modules/blog-posts/includes/loop-settings.php:334
+#: modules/uabb-woo-products/includes/loop-settings.php:71
 msgid "Authors"
 msgstr ""
 
-#: modules/blog-posts/includes/loop-settings.php:333
-#: modules/blog-posts/includes/loop-settings.php:338
+#: modules/blog-posts/includes/loop-settings.php:335
+#: modules/blog-posts/includes/loop-settings.php:340
 msgid ""
 "Enter a comma separated list of authors usernames. Only posts with these "
 "authors will be shown."
 msgstr ""
 
-#: modules/blog-posts/includes/loop-settings.php:335
+#: modules/blog-posts/includes/loop-settings.php:337
 msgid "Match these Authors"
 msgstr ""
 
-#: modules/blog-posts/includes/loop-settings.php:336
+#: modules/blog-posts/includes/loop-settings.php:338
 msgid "Do not match these Authors"
 msgstr ""
 
-#: modules/blog-posts/includes/loop-settings.php:346
+#: modules/blog-posts/includes/loop-settings.php:348
 msgid "&nbsp"
 msgstr ""
 
@@ -8543,8 +8833,8 @@ msgstr ""
 #: modules/dual-color-heading/dual-color-heading.php:171
 #: modules/info-list/info-list.php:440 modules/info-table/info-table.php:772
 #: modules/info-table/info-table.php:881
-#: modules/uabb-countdown/uabb-countdown.php:767
-#: modules/uabb-countdown/uabb-countdown.php:860
+#: modules/uabb-countdown/uabb-countdown.php:771
+#: modules/uabb-countdown/uabb-countdown.php:864
 msgid "Select Tag"
 msgstr ""
 
@@ -9216,6 +9506,7 @@ msgstr ""
 #: modules/google-map/google-map.php:380 modules/team/team.php:403
 #: modules/team/team.php:916
 #: modules/uabb-contact-form/uabb-contact-form.php:226
+#: modules/uabb-woo-categories/includes/loop-settings.php:101
 msgid "Name"
 msgstr ""
 
@@ -10738,9 +11029,9 @@ msgid "Connector Line Style"
 msgstr ""
 
 #: modules/info-list/info-list.php:506 modules/info-list/info-list.php:623
-#: modules/uabb-countdown/uabb-countdown.php:308
-#: modules/uabb-countdown/uabb-countdown.php:831
-#: modules/uabb-countdown/uabb-countdown.php:926
+#: modules/uabb-countdown/uabb-countdown.php:312
+#: modules/uabb-countdown/uabb-countdown.php:835
+#: modules/uabb-countdown/uabb-countdown.php:930
 msgid "Choose Color"
 msgstr ""
 
@@ -11698,7 +11989,7 @@ msgid "Display Order"
 msgstr ""
 
 #: modules/photo-gallery/photo-gallery.php:224
-#: modules/uabb-countdown/uabb-countdown.php:399
+#: modules/uabb-countdown/uabb-countdown.php:403
 msgid "Normal"
 msgstr ""
 
@@ -11913,6 +12204,8 @@ msgstr ""
 
 #: modules/pricing-box/pricing-box.php:217
 #: modules/pricing-box/pricing-box.php:470
+#: modules/uabb-woo-products/uabb-woo-products.php:1017
+#: modules/uabb-woo-products/uabb-woo-products.php:1750
 msgid "Price"
 msgstr ""
 
@@ -12730,7 +13023,7 @@ msgstr ""
 #: modules/uabb-advanced-menu/uabb-advanced-menu.php:869
 #: modules/uabb-beforeafterslider/uabb-beforeafterslider.php:132
 #: modules/uabb-business-hours/uabb-business-hours.php:552
-#: modules/uabb-countdown/uabb-countdown.php:351
+#: modules/uabb-countdown/uabb-countdown.php:355
 msgid "Styling"
 msgstr ""
 
@@ -12963,7 +13256,7 @@ msgstr ""
 
 #: modules/uabb-business-hours/uabb-business-hours.php:40
 #: modules/uabb-business-hours/uabb-business-hours.php:299
-#: modules/uabb-countdown/uabb-countdown.php:651
+#: modules/uabb-countdown/uabb-countdown.php:655
 msgid "Day"
 msgstr ""
 
@@ -13009,6 +13302,15 @@ msgstr ""
 #: modules/uabb-business-hours/uabb-business-hours.php:307
 #: modules/uabb-business-hours/uabb-business-hours.php:417
 #: modules/uabb-heading/uabb-heading.php:434
+#: modules/uabb-woo-categories/uabb-woo-categories.php:721
+#: modules/uabb-woo-categories/uabb-woo-categories.php:804
+#: modules/uabb-woo-products/uabb-woo-products.php:1539
+#: modules/uabb-woo-products/uabb-woo-products.php:1634
+#: modules/uabb-woo-products/uabb-woo-products.php:1758
+#: modules/uabb-woo-products/uabb-woo-products.php:1852
+#: modules/uabb-woo-products/uabb-woo-products.php:1946
+#: modules/uabb-woo-products/uabb-woo-products.php:2077
+#: modules/uabb-woo-products/uabb-woo-products.php:2141
 msgid "Font"
 msgstr ""
 
@@ -13118,15 +13420,15 @@ msgstr ""
 
 #: modules/uabb-contact-form/uabb-contact-form.php:203
 msgid ""
-"<strong>From:</strong> [NAME]\n"
-"<strong>Email:</strong> [EMAIL]\n"
-"<strong>Subject:</strong> [SUBJECT]\n"
-"\n"
-"<strong>Message Body:</strong>\n"
-"[MESSAGE]\n"
-"\n"
-"----\n"
-"You have received a new submission from %s\n"
+"<strong>From:</strong> [NAME]\r\n"
+"<strong>Email:</strong> [EMAIL]\r\n"
+"<strong>Subject:</strong> [SUBJECT]\r\n"
+"\r\n"
+"<strong>Message Body:</strong>\r\n"
+"[MESSAGE]\r\n"
+"\r\n"
+"----\r\n"
+"You have received a new submission from %s\r\n"
 "(%s)"
 msgstr ""
 
@@ -13155,6 +13457,7 @@ msgstr ""
 #: modules/uabb-contact-form/uabb-contact-form.php:366
 #: modules/uabb-contact-form/uabb-contact-form.php:421
 #: modules/uabb-contact-form/uabb-contact-form.php:475
+#: modules/uabb-woo-products/templates/quick-view-product-image.php:54
 msgid "Placeholder"
 msgstr ""
 
@@ -13325,6 +13628,7 @@ msgstr ""
 #: modules/uabb-contact-form/uabb-contact-form.php:1120
 #: modules/uabb-contact-form7/uabb-contact-form7.php:538
 #: modules/uabb-gravity-form/uabb-gravity-form.php:622
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:343
 msgid "Button Colors"
 msgstr ""
 
@@ -13704,250 +14008,252 @@ msgstr ""
 msgid "An animated countdown area."
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:181
+#: modules/uabb-countdown/uabb-countdown.php:185
 msgid "Timer Type"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:185
+#: modules/uabb-countdown/uabb-countdown.php:189
 msgid "Fixed"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:186
+#: modules/uabb-countdown/uabb-countdown.php:190
 msgid "Evergreen"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:199
+#: modules/uabb-countdown/uabb-countdown.php:203
 msgid "Time Zone"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:205
+#: modules/uabb-countdown/uabb-countdown.php:209
 msgid "Select Date & Time"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:211
+#: modules/uabb-countdown/uabb-countdown.php:215
 msgid "Expire Countdown In"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:217
-#: modules/uabb-countdown/uabb-countdown.php:229
+#: modules/uabb-countdown/uabb-countdown.php:221
+#: modules/uabb-countdown/uabb-countdown.php:233
 msgid "Action After Timer Expiry"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:222
-#: modules/uabb-countdown/uabb-countdown.php:234
+#: modules/uabb-countdown/uabb-countdown.php:226
+#: modules/uabb-countdown/uabb-countdown.php:238
 msgid "Hide Timer"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:223
-#: modules/uabb-countdown/uabb-countdown.php:236
+#: modules/uabb-countdown/uabb-countdown.php:227
+#: modules/uabb-countdown/uabb-countdown.php:240
 msgid "Display Message"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:224
-#: modules/uabb-countdown/uabb-countdown.php:237
+#: modules/uabb-countdown/uabb-countdown.php:228
+#: modules/uabb-countdown/uabb-countdown.php:241
 msgid "Redirect User to New URL"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:235
+#: modules/uabb-countdown/uabb-countdown.php:239
 msgid "Reset Timer"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:245
+#: modules/uabb-countdown/uabb-countdown.php:249
 msgid "Enter message text here."
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:250
+#: modules/uabb-countdown/uabb-countdown.php:254
 msgid "Enter URL"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:267
+#: modules/uabb-countdown/uabb-countdown.php:271
 msgid "Expiry Message Settings"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:375
+#: modules/uabb-countdown/uabb-countdown.php:379
 msgid "Space Between Timer Unit & Digit"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:384
+#: modules/uabb-countdown/uabb-countdown.php:388
 msgid "Space Between Elements"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:385
+#: modules/uabb-countdown/uabb-countdown.php:389
 msgid "This option controls the left-right spacing of each Countdown Element."
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:391
+#: modules/uabb-countdown/uabb-countdown.php:395
 msgid "Timer Digit Styling"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:395
+#: modules/uabb-countdown/uabb-countdown.php:399
 msgid "Digit Area Shape"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:421
+#: modules/uabb-countdown/uabb-countdown.php:425
 msgid "Digit Background Color"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:432
+#: modules/uabb-countdown/uabb-countdown.php:436
 msgid "Digit Background Opacity"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:443
+#: modules/uabb-countdown/uabb-countdown.php:447
 msgid "Digit Area Width"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:451
+#: modules/uabb-countdown/uabb-countdown.php:455
 msgid "Digit Border Radius"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:456
+#: modules/uabb-countdown/uabb-countdown.php:460
 msgid "Digit Border Style"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:470
+#: modules/uabb-countdown/uabb-countdown.php:474
 msgid "Digit Border Width"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:475
+#: modules/uabb-countdown/uabb-countdown.php:479
 msgid "Digit Border Color"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:481
+#: modules/uabb-countdown/uabb-countdown.php:485
 msgid "On Count Animation"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:486
+#: modules/uabb-countdown/uabb-countdown.php:490
+#: modules/uabb-woo-products/uabb-woo-products.php:1128
+#: modules/uabb-woo-products/uabb-woo-products.php:1222
 msgid "Flash"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:487
+#: modules/uabb-countdown/uabb-countdown.php:491
 msgid "Shake"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:488
+#: modules/uabb-countdown/uabb-countdown.php:492
 msgid "Bounce"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:489
+#: modules/uabb-countdown/uabb-countdown.php:493
 msgid "Pulse"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:495
+#: modules/uabb-countdown/uabb-countdown.php:499
 msgid "Timer Unit Styling"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:499
+#: modules/uabb-countdown/uabb-countdown.php:503
 msgid "Timer Unit Position"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:503
+#: modules/uabb-countdown/uabb-countdown.php:507
 msgid "Inside Digit Area"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:504
+#: modules/uabb-countdown/uabb-countdown.php:508
 msgid "Outside Digit Area"
-msgstr ""
-
-#: modules/uabb-countdown/uabb-countdown.php:517
-#: modules/uabb-countdown/uabb-countdown.php:527
-#: modules/uabb-countdown/uabb-countdown.php:539
-msgid "Select Position"
 msgstr ""
 
 #: modules/uabb-countdown/uabb-countdown.php:521
 #: modules/uabb-countdown/uabb-countdown.php:531
 #: modules/uabb-countdown/uabb-countdown.php:543
+msgid "Select Position"
+msgstr ""
+
+#: modules/uabb-countdown/uabb-countdown.php:525
+#: modules/uabb-countdown/uabb-countdown.php:535
+#: modules/uabb-countdown/uabb-countdown.php:547
 msgid "Below Digit"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:522
-#: modules/uabb-countdown/uabb-countdown.php:532
-#: modules/uabb-countdown/uabb-countdown.php:544
+#: modules/uabb-countdown/uabb-countdown.php:526
+#: modules/uabb-countdown/uabb-countdown.php:536
+#: modules/uabb-countdown/uabb-countdown.php:548
 msgid "Above Digit"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:533
+#: modules/uabb-countdown/uabb-countdown.php:537
 msgid "Right Side of Digit"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:534
+#: modules/uabb-countdown/uabb-countdown.php:538
 msgid "Left Side of Digit"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:550
+#: modules/uabb-countdown/uabb-countdown.php:554
 msgid "Timer Strings"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:564
-#: modules/uabb-countdown/uabb-countdown.php:599
-#: modules/uabb-countdown/uabb-countdown.php:633
-#: modules/uabb-countdown/uabb-countdown.php:667
-#: modules/uabb-countdown/uabb-countdown.php:701
-#: modules/uabb-countdown/uabb-countdown.php:735
+#: modules/uabb-countdown/uabb-countdown.php:568
+#: modules/uabb-countdown/uabb-countdown.php:603
+#: modules/uabb-countdown/uabb-countdown.php:637
+#: modules/uabb-countdown/uabb-countdown.php:671
+#: modules/uabb-countdown/uabb-countdown.php:705
+#: modules/uabb-countdown/uabb-countdown.php:739
 msgid "Custom Label"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:574
+#: modules/uabb-countdown/uabb-countdown.php:578
 msgid "Years Label ( Plural )"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:580
+#: modules/uabb-countdown/uabb-countdown.php:584
 msgid "Year Label ( Singular )"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:609
+#: modules/uabb-countdown/uabb-countdown.php:613
 msgid "Months Label ( Plural )"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:615
+#: modules/uabb-countdown/uabb-countdown.php:619
 msgid "Month Label ( Singular )"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:643
+#: modules/uabb-countdown/uabb-countdown.php:647
 msgid "Days Label ( Plural )"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:649
+#: modules/uabb-countdown/uabb-countdown.php:653
 msgid "Day Label ( Singular )"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:677
+#: modules/uabb-countdown/uabb-countdown.php:681
 msgid "Hours Label ( Plural )"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:683
+#: modules/uabb-countdown/uabb-countdown.php:687
 msgid "Hour Label ( Singular )"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:711
+#: modules/uabb-countdown/uabb-countdown.php:715
 msgid "Minutes Label ( Plural )"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:717
+#: modules/uabb-countdown/uabb-countdown.php:721
 msgid "Minute Label ( Singular )"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:719
+#: modules/uabb-countdown/uabb-countdown.php:723
 msgid "Minute"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:745
+#: modules/uabb-countdown/uabb-countdown.php:749
 msgid "Seconds Label ( Plural )"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:751
+#: modules/uabb-countdown/uabb-countdown.php:755
 msgid "Second Label ( Singular )"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:753
+#: modules/uabb-countdown/uabb-countdown.php:757
 msgid "Second"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:763
+#: modules/uabb-countdown/uabb-countdown.php:767
 msgid "Timer Digit"
 msgstr ""
 
-#: modules/uabb-countdown/uabb-countdown.php:856
+#: modules/uabb-countdown/uabb-countdown.php:860
 msgid "Timer Unit"
 msgstr ""
 
@@ -14079,6 +14385,13 @@ msgstr ""
 
 #: modules/uabb-heading/uabb-heading.php:460
 #: modules/uabb-heading/uabb-heading.php:579
+#: modules/uabb-woo-categories/uabb-woo-categories.php:748
+#: modules/uabb-woo-categories/uabb-woo-categories.php:831
+#: modules/uabb-woo-products/uabb-woo-products.php:1566
+#: modules/uabb-woo-products/uabb-woo-products.php:1661
+#: modules/uabb-woo-products/uabb-woo-products.php:1784
+#: modules/uabb-woo-products/uabb-woo-products.php:1878
+#: modules/uabb-woo-products/uabb-woo-products.php:1973
 msgid "Line height"
 msgstr ""
 
@@ -14157,6 +14470,7 @@ msgid "Tooltip Style"
 msgstr ""
 
 #: modules/uabb-hotspot/uabb-hotspot.php:616
+#: modules/uabb-woo-products/uabb-woo-products.php:708
 msgid "Classic"
 msgstr ""
 
@@ -14608,6 +14922,359 @@ msgstr ""
 msgid "Myspace"
 msgstr ""
 
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:20
+msgid "Woo - Add To Cart"
+msgstr ""
+
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:21
+msgid "Display WooCommerce Add to Cart button."
+msgstr ""
+
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:37
+msgid "View cart"
+msgstr ""
+
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:153
+msgid "Please select the product"
+msgstr ""
+
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:177
+msgid "Product"
+msgstr ""
+
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:178
+msgid "Enter the Product."
+msgstr ""
+
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:183
+msgid "Quantity"
+msgstr ""
+
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:191
+msgid "Auto Redirect to Cart Page"
+msgstr ""
+
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:197
+msgid "Select Yes to redirect to cart page after the product gets added to cart."
+msgstr ""
+
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:208
+#: modules/uabb-woo-products/uabb-woo-products.php:1045
+#: modules/uabb-woo-products/uabb-woo-products.php:1312
+#: modules/uabb-woo-products/uabb-woo-products.php:1938
+msgid "Add to Cart"
+msgstr ""
+
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:223
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:234
+msgid "Justify"
+msgstr ""
+
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:284
+msgid "Icon Spacing"
+msgstr ""
+
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:399
+msgid "View Cart Text"
+msgstr ""
+
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart.php:412
+msgid "View Cart Hover Text"
+msgstr ""
+
+#: modules/uabb-woo-categories/includes/loop-settings.php:33
+msgid "Filter Rule"
+msgstr ""
+
+#: modules/uabb-woo-categories/includes/loop-settings.php:35
+msgid "Show All"
+msgstr ""
+
+#: modules/uabb-woo-categories/includes/loop-settings.php:36
+msgid "Only Top Level"
+msgstr ""
+
+#: modules/uabb-woo-categories/includes/loop-settings.php:37
+msgid "Match These Categories"
+msgstr ""
+
+#: modules/uabb-woo-categories/includes/loop-settings.php:38
+msgid "Exclude These Categories"
+msgstr ""
+
+#: modules/uabb-woo-categories/includes/loop-settings.php:65
+#: modules/uabb-woo-products/includes/loop-settings.php:42
+#: modules/uabb-woo-products/includes/loop-settings.php:56
+msgid "Enter a list of %1$s."
+msgstr ""
+
+#: modules/uabb-woo-categories/includes/loop-settings.php:72
+msgid "Display Category Description"
+msgstr ""
+
+#: modules/uabb-woo-categories/includes/loop-settings.php:87
+msgid "Display Empty Categories"
+msgstr ""
+
+#: modules/uabb-woo-categories/includes/loop-settings.php:98
+#: modules/uabb-woo-products/includes/loop-settings.php:110
+msgid "Order By"
+msgstr ""
+
+#: modules/uabb-woo-categories/includes/loop-settings.php:102
+msgid "Slug"
+msgstr ""
+
+#: modules/uabb-woo-categories/includes/loop-settings.php:103
+msgid "Count"
+msgstr ""
+
+#: modules/uabb-woo-categories/uabb-woo-categories.php:20
+msgid "Woo - Categories"
+msgstr ""
+
+#: modules/uabb-woo-categories/uabb-woo-categories.php:21
+msgid "Display WooCommerce Categories."
+msgstr ""
+
+#: modules/uabb-woo-categories/uabb-woo-categories.php:316
+#: modules/uabb-woo-products/uabb-woo-products.php:715
+msgid "Grid Options"
+msgstr ""
+
+#: modules/uabb-woo-categories/uabb-woo-categories.php:320
+#: modules/uabb-woo-categories/uabb-woo-categories.php:345
+msgid "Categories Count"
+msgstr ""
+
+#: modules/uabb-woo-categories/uabb-woo-categories.php:328
+#: modules/uabb-woo-categories/uabb-woo-categories.php:353
+#: modules/uabb-woo-products/uabb-woo-products.php:727
+#: modules/uabb-woo-products/uabb-woo-products.php:752
+msgid "Columns"
+msgstr ""
+
+#: modules/uabb-woo-categories/uabb-woo-categories.php:329
+#: modules/uabb-woo-categories/uabb-woo-categories.php:354
+msgid "Choose number of categories to be displayed at a time."
+msgstr ""
+
+#: modules/uabb-woo-categories/uabb-woo-categories.php:341
+#: modules/uabb-woo-products/uabb-woo-products.php:740
+msgid "Slider Options"
+msgstr ""
+
+#: modules/uabb-woo-categories/uabb-woo-categories.php:365
+msgid "Categories to Scroll"
+msgstr ""
+
+#: modules/uabb-woo-categories/uabb-woo-categories.php:366
+msgid "Choose number of categories you want to scroll at a time."
+msgstr ""
+
+#: modules/uabb-woo-categories/uabb-woo-categories.php:372
+msgid "Autoplay Categories Scroll"
+msgstr ""
+
+#: modules/uabb-woo-categories/uabb-woo-categories.php:405
+#: modules/uabb-woo-products/uabb-woo-products.php:804
+msgid "Enable Dots"
+msgstr ""
+
+#: modules/uabb-woo-categories/uabb-woo-categories.php:406
+#: modules/uabb-woo-products/uabb-woo-products.php:805
+msgid "Enable Dots navigation below to your carousel slider."
+msgstr ""
+
+#: modules/uabb-woo-categories/uabb-woo-categories.php:510
+#: modules/uabb-woo-products/uabb-woo-products.php:919
+msgid "Columns Gap"
+msgstr ""
+
+#: modules/uabb-woo-categories/uabb-woo-categories.php:522
+#: modules/uabb-woo-products/uabb-woo-products.php:937
+msgid "Rows Gap"
+msgstr ""
+
+#: modules/uabb-woo-categories/uabb-woo-categories.php:535
+msgid "Category Content"
+msgstr ""
+
+#: modules/uabb-woo-categories/uabb-woo-categories.php:560
+#: modules/uabb-woo-categories/uabb-woo-categories.php:641
+#: modules/uabb-woo-products/uabb-woo-products.php:1105
+msgid "Spacing Around Content"
+msgstr ""
+
+#: modules/uabb-woo-categories/uabb-woo-categories.php:627
+msgid "Category Description"
+msgstr ""
+
+#: modules/uabb-woo-products/includes/loop-settings.php:72
+msgid "Enter a list of authors usernames."
+msgstr ""
+
+#: modules/uabb-woo-products/includes/loop-settings.php:89
+msgid "Filter By"
+msgstr ""
+
+#: modules/uabb-woo-products/includes/loop-settings.php:92
+msgid "Sale"
+msgstr ""
+
+#: modules/uabb-woo-products/includes/loop-settings.php:93
+msgid "Featured"
+msgstr ""
+
+#: modules/uabb-woo-products/includes/loop-settings.php:145
+msgid "Skip this many products that match the specified criteria."
+msgstr ""
+
+#: modules/uabb-woo-products/includes/loop-settings.php:150
+msgid "Exclude Current Product"
+msgstr ""
+
+#: modules/uabb-woo-products/includes/loop-settings.php:152
+msgid "Exclude the current product from the query."
+msgstr ""
+
+#: modules/uabb-woo-products/templates/content-product-default.php:34
+#: modules/uabb-woo-products/templates/content-product-modern.php:33
+msgid "Out of stock"
+msgstr ""
+
+#: modules/uabb-woo-products/templates/content-product-default.php:87
+#: modules/uabb-woo-products/templates/content-product-modern.php:88
+#: modules/uabb-woo-products/uabb-woo-products.php:1060
+#: modules/uabb-woo-products/uabb-woo-products.php:1064
+msgid "Quick View"
+msgstr ""
+
+#: modules/uabb-woo-products/templates/loop/featured-flash.php:14
+#: modules/uabb-woo-products/uabb-woo-products.php:1243
+msgid "New"
+msgstr ""
+
+#: modules/uabb-woo-products/templates/loop/sale-flash.php:14
+msgid "Sale!"
+msgstr ""
+
+#: modules/uabb-woo-products/uabb-woo-products.php:20
+msgid "Woo - Products"
+msgstr ""
+
+#: modules/uabb-woo-products/uabb-woo-products.php:21
+msgid "Display WooCommerce Products."
+msgstr ""
+
+#: modules/uabb-woo-products/uabb-woo-products.php:57
+msgid "Saved"
+msgstr ""
+
+#: modules/uabb-woo-products/uabb-woo-products.php:705
+msgid "Skin"
+msgstr ""
+
+#: modules/uabb-woo-products/uabb-woo-products.php:709
+msgid "Modern"
+msgstr ""
+
+#: modules/uabb-woo-products/uabb-woo-products.php:719
+msgid "Products Per Page"
+msgstr ""
+
+#: modules/uabb-woo-products/uabb-woo-products.php:728
+#: modules/uabb-woo-products/uabb-woo-products.php:753
+msgid "Choose number of products to be displayed at a time."
+msgstr ""
+
+#: modules/uabb-woo-products/uabb-woo-products.php:744
+msgid "Total Products"
+msgstr ""
+
+#: modules/uabb-woo-products/uabb-woo-products.php:765
+msgid "Choose number of posts you want to scroll at a time."
+msgstr ""
+
+#: modules/uabb-woo-products/uabb-woo-products.php:960
+msgid "Image Hover Style"
+msgstr ""
+
+#: modules/uabb-woo-products/uabb-woo-products.php:975
+#: modules/uabb-woo-products/uabb-woo-products.php:1531
+msgid "Category"
+msgstr ""
+
+#: modules/uabb-woo-products/uabb-woo-products.php:1003
+msgid "Ratings"
+msgstr ""
+
+#: modules/uabb-woo-products/uabb-woo-products.php:1031
+#: modules/uabb-woo-products/uabb-woo-products.php:1844
+msgid "Short Description"
+msgstr ""
+
+#: modules/uabb-woo-products/uabb-woo-products.php:1124
+#: modules/uabb-woo-products/uabb-woo-products.php:2069
+msgid "Sale Flash"
+msgstr ""
+
+#: modules/uabb-woo-products/uabb-woo-products.php:1148
+#: modules/uabb-woo-products/uabb-woo-products.php:1242
+msgid "Flash Content"
+msgstr ""
+
+#: modules/uabb-woo-products/uabb-woo-products.php:1155
+#: modules/uabb-woo-products/uabb-woo-products.php:1248
+msgid "Flash Style"
+msgstr ""
+
+#: modules/uabb-woo-products/uabb-woo-products.php:1164
+#: modules/uabb-woo-products/uabb-woo-products.php:1257
+msgid "Flash Size"
+msgstr ""
+
+#: modules/uabb-woo-products/uabb-woo-products.php:1218
+#: modules/uabb-woo-products/uabb-woo-products.php:2133
+msgid "Featured Flash"
+msgstr ""
+
+#: modules/uabb-woo-products/uabb-woo-products.php:1355
+msgid "Numbers + Pre/Next Arrow"
+msgstr ""
+
+#: modules/uabb-woo-products/uabb-woo-products.php:1395
+msgid "Active / Hover Color"
+msgstr ""
+
+#: modules/uabb-woo-products/uabb-woo-products.php:1419
+msgid "Background Active / Hover Color"
+msgstr ""
+
+#: modules/uabb-woo-products/uabb-woo-products.php:1443
+msgid "Border Active / Hover Color"
+msgstr ""
+
+#: modules/uabb-woo-products/uabb-woo-products.php:1460
+msgid "Category Margin Bottom"
+msgstr ""
+
+#: modules/uabb-woo-products/uabb-woo-products.php:1473
+msgid "Title Margin Bottom"
+msgstr ""
+
+#: modules/uabb-woo-products/uabb-woo-products.php:1486
+msgid "Rating Margin Bottom"
+msgstr ""
+
+#: modules/uabb-woo-products/uabb-woo-products.php:1499
+msgid "Price Margin Bottom"
+msgstr ""
+
+#: modules/uabb-woo-products/uabb-woo-products.php:1512
+msgid "Desc Margin Bottom"
+msgstr ""
+
 #. Plugin URI of the plugin/theme
 msgid "http://www.ultimatebeaver.com/"
 msgstr ""
@@ -14760,4 +15427,17 @@ msgstr ""
 #: modules/uabb-photo/uabb-photo.php:539
 msgctxt "Link type."
 msgid "None"
+msgstr ""
+
+#: modules/uabb-woo-categories/uabb-woo-categories.php:274
+#. translators: 1: number of products
+msgctxt "product categories"
+msgid "<mark class=\"uabb-count\">%1$s Product</mark>"
+msgid_plural "<mark class=\"uabb-count\">%1$s Products</mark>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: modules/uabb-woo-products/includes/loop-settings.php:142
+msgctxt "How many products to skip."
+msgid "Offset"
 msgstr ""
