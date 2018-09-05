@@ -7,7 +7,9 @@
                 "./assets/js/Animations/*.js",
                 "./assets/js/*.js",
                 "./components/**/*.js",
-                "./layouts/**/*.js"
+                "./layouts/**/*.js",
+                "!**/*frontend.js",
+                "!**/*frontend.prebuilt.js"
             ],
             "main": true
         }
