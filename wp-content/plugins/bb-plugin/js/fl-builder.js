@@ -5084,7 +5084,8 @@
 		{
 			var module   = $( this ).closest( '.fl-module' ),
 				nodeId   = module.attr( 'data-node' ),
-				position = module.index() + 1,
+				parent   = module.parent(),
+				position = parent.find( ' > .fl-col-group, > .fl-module' ).index( module ) + 1,
 				clone    = module.clone(),
 				form	 = $( '.fl-builder-module-settings[data-node=' + nodeId + ']' ),
 				settings = null;
@@ -5103,7 +5104,7 @@
 			}, 500 );
 
 			FLBuilder._showNodeLoading( nodeId + '-clone' );
-			FLBuilder._newModuleParent 	 = module.parent();
+			FLBuilder._newModuleParent 	 = parent;
 			FLBuilder._newModulePosition = position;
 
 			FLBuilder.ajax({
