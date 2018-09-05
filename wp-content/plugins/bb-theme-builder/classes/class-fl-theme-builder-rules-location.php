@@ -190,6 +190,7 @@ final class FLThemeBuilderRulesLocation {
 		}
 		if ( is_singular() ) {
 			$meta_query .= " OR pm.meta_value RLIKE '\"{$location}:post:.*\"'";
+			$meta_query .= " OR pm.meta_value RLIKE '\"{$location}:ancestor:.*\"'";
 			$meta_query .= " OR pm.meta_value RLIKE '\"{$location}:taxonomy:.*\"'";
 			$meta_query .= " OR pm.meta_value LIKE '%\"general:single\"%'";
 		}
@@ -259,6 +260,14 @@ final class FLThemeBuilderRulesLocation {
 							if ( 5 === count( $parts ) && wp_get_post_parent_id( $post_id ) == $parts[4] ) {
 								$exclude = true;
 							}
+						} elseif ( stristr( $exclusion, ':ancestor:' ) ) {
+							$parts = explode( ':', $exclusion );
+							if ( 5 === count( $parts ) ) {
+								$ancestors = get_post_ancestors( $post_id );
+								if ( is_array( $ancestors ) && in_array( $parts[4], $ancestors ) ) {
+									$exclude = true;
+								}
+							}
 						}
 					}
 				}
@@ -296,7 +305,45 @@ final class FLThemeBuilderRulesLocation {
 				}
 			}
 
-			// Check for a location layout.
+			// Check for a singular layout by parent or ancestor.
+			if ( ( empty( $posts ) || $is_part ) && is_singular() ) {
+				foreach ( $array as $post ) {
+					foreach ( $post['locations'] as $post_location ) {
+						if ( stristr( $post_location, ':post:' ) ) {
+							$parts = explode( ':', $post_location );
+							if ( 5 === count( $parts ) && wp_get_post_parent_id( $post_id ) == $parts[4] ) {
+								$posts[] = $post;
+							}
+						} elseif ( stristr( $post_location, ':ancestor:' ) ) {
+							$parts = explode( ':', $post_location );
+							if ( 5 === count( $parts ) ) {
+								$ancestors = get_post_ancestors( $post_id );
+								if ( is_array( $ancestors ) && in_array( $parts[4], $ancestors ) ) {
+									$posts[] = $post;
+								}
+							}
+						}
+					}
+				}
+			}
+
+			// Check for a singular layout by taxonomy.
+			if ( ( empty( $posts ) || $is_part ) && is_singular() ) {
+				foreach ( $array as $post ) {
+					foreach ( $post['locations'] as $post_location ) {
+						if ( stristr( $post_location, ':taxonomy:' ) ) {
+							$parts = explode( ':', $post_location );
+							if ( 4 === count( $parts ) && has_term( '', $parts[3] ) ) {
+								$posts[] = $post;
+							} elseif ( 5 === count( $parts ) && has_term( $parts[4], $parts[3] ) ) {
+								$posts[] = $post;
+							}
+						}
+					}
+				}
+			}
+
+			// Check for a location layout such as all pages.
 			if ( empty( $posts ) || $is_part ) {
 				foreach ( $array as $post ) {
 					if ( in_array( $location['location'], $post['locations'] ) ) {
@@ -314,44 +361,11 @@ final class FLThemeBuilderRulesLocation {
 				}
 			}
 
-			if ( is_singular() ) {
-
-				// Check for a single layout by parent.
-				if ( empty( $posts ) || $is_part ) {
-					foreach ( $array as $post ) {
-						foreach ( $post['locations'] as $post_location ) {
-							if ( stristr( $post_location, ':post:' ) ) {
-								$parts = explode( ':', $post_location );
-								if ( 5 === count( $parts ) && wp_get_post_parent_id( $post_id ) == $parts[4] ) {
-									$posts[] = $post;
-								}
-							}
-						}
-					}
-				}
-
-				// Check for a single layout by taxonomy.
-				if ( empty( $posts ) || $is_part ) {
-					foreach ( $array as $post ) {
-						foreach ( $post['locations'] as $post_location ) {
-							if ( stristr( $post_location, ':taxonomy:' ) ) {
-								$parts = explode( ':', $post_location );
-								if ( 4 === count( $parts ) && has_term( '', $parts[3] ) ) {
-									$posts[] = $post;
-								} elseif ( 5 === count( $parts ) && has_term( $parts[4], $parts[3] ) ) {
-									$posts[] = $post;
-								}
-							}
-						}
-					}
-				}
-
-				// Check for an all single layout.
-				if ( empty( $posts ) || $is_part ) {
-					foreach ( $array as $post ) {
-						if ( in_array( 'general:single', $post['locations'] ) ) {
-							$posts[] = $post;
-						}
+			// Check for an all singular layout.
+			if ( ( empty( $posts ) || $is_part ) && is_singular() ) {
+				foreach ( $array as $post ) {
+					if ( in_array( 'general:single', $post['locations'] ) ) {
+						$posts[] = $post;
 					}
 				}
 			}
@@ -690,12 +704,20 @@ final class FLThemeBuilderRulesLocation {
 				),
 			);
 
-			// Add the parent option for hierarchical post types.
+			// Add the parent and ancestor option for hierarchical post types.
 			if ( $post_type_object->hierarchical ) {
 				$by_template_type['post'][ $post_type_slug . ':post:' . $post_type_slug ] =
 				$by_post_type[ $post_type_slug ]['locations'][ $post_type_slug . ':post:' . $post_type_slug ] = array(
 					'id'      => $post_type_slug . ':post:' . $post_type_slug,
 					'label'   => sprintf( esc_html_x( '%s Parent', '%s is a singular post type name', 'fl-theme-builder' ), $post_type->labels->singular_name ),
+					'type'    => 'post',
+					'count'   => $count,
+				);
+
+				$by_template_type['post'][ $post_type_slug . ':ancestor:' . $post_type_slug ] =
+				$by_post_type[ $post_type_slug ]['locations'][ $post_type_slug . ':ancestor:' . $post_type_slug ] = array(
+					'id'      => $post_type_slug . ':ancestor:' . $post_type_slug,
+					'label'   => sprintf( esc_html_x( '%s Ancestor', '%s is a singular post type name', 'fl-theme-builder' ), $post_type->labels->singular_name ),
 					'type'    => 'post',
 					'count'   => $count,
 				);
@@ -805,7 +827,7 @@ final class FLThemeBuilderRulesLocation {
 
 			if ( 'taxonomy' == $location[0] ) {
 				$config['taxonomy'][ $location[1] ] = self::get_taxonomy_terms( $location[1] );
-			} elseif ( 'post' == $location[0] && ! isset( $config['posts'][ $location[1] ] ) ) {
+			} elseif ( ( 'post' == $location[0] || 'ancestor' == $location[0] ) && ! isset( $config['posts'][ $location[1] ] ) ) {
 				$config['post'][ $location[1] ] = self::get_post_type_posts( $location[1] );
 			}
 		}
@@ -838,7 +860,7 @@ final class FLThemeBuilderRulesLocation {
 
 			if ( 'taxonomy' == $location[0] ) {
 				$config['taxonomy'][ $location[1] ] = self::get_taxonomy_terms( $location[1] );
-			} elseif ( 'post' == $location[0] && ! isset( $config['posts'][ $location[1] ] ) ) {
+			} elseif ( ( 'post' == $location[0] || 'ancestor' == $location[0] ) && ! isset( $config['posts'][ $location[1] ] ) ) {
 				$config['post'][ $location[1] ] = self::get_post_type_posts( $location[1] );
 			}
 		}
@@ -1038,6 +1060,9 @@ final class FLThemeBuilderRulesLocation {
 
 		if ( strstr( $post_type, ':post:' ) ) {
 			$parts = explode( ':post:', $post_type );
+			$post_type = $parts[1];
+		} elseif ( strstr( $post_type, ':ancestor:' ) ) {
+			$parts = explode( ':ancestor:', $post_type );
 			$post_type = $parts[1];
 		}
 
