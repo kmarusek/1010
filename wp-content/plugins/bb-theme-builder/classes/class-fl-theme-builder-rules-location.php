@@ -753,10 +753,10 @@ final class FLThemeBuilderRulesLocation {
 					continue;
 				}
 
-				$label = str_replace( array(
+				$label = esc_html( str_replace( array(
 					$post_type->labels->name,
 					$post_type->labels->singular_name,
-				), '', $taxonomy->labels->singular_name );
+				), '', $taxonomy->labels->singular_name ) );
 
 				$by_template_type['taxonomy'][ $taxonomy_slug ] =
 				$by_post_type[ $post_type_slug . '_archive' ]['locations'][ $taxonomy_slug ] = array(
@@ -1029,13 +1029,12 @@ final class FLThemeBuilderRulesLocation {
 		}
 
 		foreach ( $posts as $post ) {
-			$title = ( '' != $post->post_title ) ? strip_tags( filter_var( $post->post_title, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES ) ) : $post_type . '-' . $post->ID;
+			$title = ( '' != $post->post_title ) ? esc_attr( strip_tags( filter_var( $post->post_title, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES ) ) ) : $post_type . '-' . $post->ID;
 			$data['objects'][] = array(
 				'id'    => $post->ID,
 				'name'  => $title,
 			);
 		}
-
 		return $data;
 	}
 
