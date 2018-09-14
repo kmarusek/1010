@@ -21,7 +21,7 @@ if ( $settings->photo_style == 'simple' ) {
 	<div class="uabb-team-member-wrap">
 		<div class="uabb-team-image <?php echo $grayscale_class; ?>">
 		<?php
-			// Render Team Image
+			// Render Team Image.
 			$module->render_image();
 		?>
 		</div> 
@@ -30,7 +30,7 @@ if ( $settings->photo_style == 'simple' ) {
 		?>
 		<div class="uabb-team-content">
 		<?php
-			// Text
+			// Text.
 			$module->render_name();
 			$module->render_separator( 'below_name' );
 			$module->render_desgn();

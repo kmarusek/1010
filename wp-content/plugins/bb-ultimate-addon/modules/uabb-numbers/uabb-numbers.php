@@ -320,7 +320,7 @@ FLBuilder::register_module(
 							),
 						),
 						'number'              => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Counter Number', 'uabb' ),
 							'size'        => '5',
 							'placeholder' => '100',
@@ -329,7 +329,7 @@ FLBuilder::register_module(
 
 						),
 						'max_number'          => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Out Off', 'uabb' ),
 							'size'        => '5',
 							'help'        => __( 'The total number of units for this counter. For example, if the Number is set to 250 and the Total is set to 500, the counter will animate to 50%.', 'uabb' ),
@@ -424,7 +424,7 @@ FLBuilder::register_module(
 					'title'  => __( 'Circle Bar Styles', 'uabb' ),
 					'fields' => array(
 						'circle_width'        => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Circle Size', 'uabb' ),
 							'placeholder' => '300',
 							'maxlength'   => '4',
@@ -432,7 +432,7 @@ FLBuilder::register_module(
 							'description' => 'px',
 						),
 						'circle_dash_width'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Circle Stroke Size', 'uabb' ),
 							'placeholder' => '10',
 							'maxlength'   => '3',
@@ -505,14 +505,14 @@ FLBuilder::register_module(
 					'title'  => __( 'Number Margins', 'uabb' ),
 					'fields' => array(
 						'number_top_margin'    => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Number Top Margin', 'uabb' ),
 							'maxlength'   => '3',
 							'size'        => '4',
 							'description' => 'px',
 						),
 						'number_bottom_margin' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Number Bottom Margin', 'uabb' ),
 							'maxlength'   => '3',
 							'size'        => '4',
@@ -530,14 +530,14 @@ FLBuilder::register_module(
 					'title'  => __( 'Separator Margins', 'uabb' ),
 					'fields' => array(
 						'separator_top_margin'    => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Separator Top Margin', 'uabb' ),
 							'maxlength'   => '3',
 							'size'        => '4',
 							'description' => 'px',
 						),
 						'separator_bottom_margin' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Separator Bottom Margin', 'uabb' ),
 							'maxlength'   => '3',
 							'size'        => '4',
@@ -549,7 +549,7 @@ FLBuilder::register_module(
 					'title'  => __( 'Image / Icon Margins', 'uabb' ),
 					'fields' => array(
 						'img_icon_margin_top'    => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Top', 'uabb' ),
 							'placeholder' => '',
 							'maxlength'   => '3',
@@ -557,7 +557,7 @@ FLBuilder::register_module(
 							'description' => 'px',
 						),
 						'img_icon_margin_bottom' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Bottom', 'uabb' ),
 							'placeholder' => '',
 							'maxlength'   => '3',
@@ -642,7 +642,7 @@ FLBuilder::register_module(
 							),
 						),
 						'separator_height'    => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Thickness', 'uabb' ),
 							'size'        => '5',
 							'placeholder' => '1',
@@ -650,7 +650,7 @@ FLBuilder::register_module(
 							'help'        => __( 'Adjust thickness of border.', 'uabb' ),
 						),
 						'separator_width'     => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Width', 'uabb' ),
 							'size'        => '5',
 							'placeholder' => '100',
@@ -673,7 +673,7 @@ FLBuilder::register_module(
 					'title'  => __( 'Counter Animation', 'uabb' ), // Section Title.
 					'fields' => array( // Section Fields.
 						'animation_speed' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Animation Speed', 'uabb' ),
 							'size'        => '5',
 							'placeholder' => '1',
@@ -681,7 +681,7 @@ FLBuilder::register_module(
 							'help'        => __( 'Number of seconds to complete the animation.', 'uabb' ),
 						),
 						'delay'           => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Animation Delay', 'uabb' ),
 							'size'        => '5',
 							'placeholder' => '1',
@@ -761,7 +761,7 @@ FLBuilder::register_module(
 							'show_remove' => true,
 						),
 						'icon_size' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Size', 'uabb' ),
 							'placeholder' => '30',
 							'maxlength'   => '5',
@@ -809,7 +809,7 @@ FLBuilder::register_module(
 							'placeholder' => 'http://www.example.com/my-photo.jpg',
 						),
 						'img_size'     => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Size', 'uabb' ),
 							'placeholder' => '150',
 							'maxlength'   => '5',
@@ -855,7 +855,7 @@ FLBuilder::register_module(
 
 						/* Icon Background SIze */
 						'icon_bg_size'          => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Background Size', 'uabb' ),
 							'help'        => __( 'Spacing between Icon & Background edge', 'uabb' ),
 							'placeholder' => '30',
@@ -893,7 +893,7 @@ FLBuilder::register_module(
 							),
 						),
 						'icon_border_width'     => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Width', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '3',
@@ -904,7 +904,7 @@ FLBuilder::register_module(
 							),
 						),
 						'icon_bg_border_radius' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Radius', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '3',
@@ -954,7 +954,7 @@ FLBuilder::register_module(
 
 						/* Image Background Size */
 						'img_bg_size'          => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Background Size', 'uabb' ),
 							'help'        => __( 'Spacing between Image edge & Background edge', 'uabb' ),
 							'maxlength'   => '3',
@@ -994,7 +994,7 @@ FLBuilder::register_module(
 							),
 						),
 						'img_border_width'     => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Width', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '3',
@@ -1005,7 +1005,7 @@ FLBuilder::register_module(
 							),
 						),
 						'img_bg_border_radius' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Radius', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '3',
@@ -1245,7 +1245,7 @@ FLBuilder::register_module(
 							),
 						),
 						'letter_spacing'       => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -1338,7 +1338,7 @@ FLBuilder::register_module(
 							),
 						),
 						'ba_letter_spacing'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',

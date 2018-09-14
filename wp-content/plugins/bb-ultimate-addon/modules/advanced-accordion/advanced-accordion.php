@@ -215,7 +215,7 @@ FLBuilder::register_module(
 							),
 						),
 						'title_margin'             => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Spacing Between Titles', 'uabb' ),
 							'placeholder' => '10',
 							'maxlength'   => '2',
@@ -345,7 +345,7 @@ FLBuilder::register_module(
 							),
 						),
 						'title_border_top'    => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Top Width', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '3',
@@ -359,7 +359,7 @@ FLBuilder::register_module(
 							),
 						),
 						'title_border_bottom' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Bottom Width', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '3',
@@ -373,7 +373,7 @@ FLBuilder::register_module(
 							),
 						),
 						'title_border_left'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Left Width', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '3',
@@ -387,7 +387,7 @@ FLBuilder::register_module(
 							),
 						),
 						'title_border_right'  => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Right Width', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '3',
@@ -401,7 +401,7 @@ FLBuilder::register_module(
 							),
 						),
 						'title_border_radius' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Radius', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '3',
@@ -443,7 +443,7 @@ FLBuilder::register_module(
 							'show_remove' => true,
 						),
 						'icon_size'        => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Icon Size', 'uabb' ),
 							'placeholder' => '16',
 							'description' => 'px',
@@ -614,7 +614,7 @@ FLBuilder::register_module(
 							),
 						),
 						'content_border_top'    => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Top Width', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '3',
@@ -628,7 +628,7 @@ FLBuilder::register_module(
 							),
 						),
 						'content_border_bottom' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Bottom Width', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '3',
@@ -642,7 +642,7 @@ FLBuilder::register_module(
 							),
 						),
 						'content_border_left'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Left Width', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '3',
@@ -656,7 +656,7 @@ FLBuilder::register_module(
 							),
 						),
 						'content_border_right'  => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Right Width', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '3',
@@ -670,7 +670,7 @@ FLBuilder::register_module(
 							),
 						),
 						'content_border_radius' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Radius', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '3',
@@ -785,7 +785,7 @@ FLBuilder::register_module(
 							),
 						),
 						'letter_spacing'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -867,7 +867,7 @@ FLBuilder::register_module(
 							),
 						),
 						'content_letter_spacing'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',

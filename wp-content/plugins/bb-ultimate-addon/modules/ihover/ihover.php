@@ -123,7 +123,7 @@ FLBuilder::register_module(
 							),
 						),
 						'spacing'                   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Spacing', 'uabb' ),
 							'default'     => '30',
 							'size'        => '8',
@@ -176,7 +176,7 @@ FLBuilder::register_module(
 							),
 						),
 						'height_width'            => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Height / Width', 'uabb' ),
 							'default'     => '250',
 							'size'        => '8',
@@ -216,7 +216,7 @@ FLBuilder::register_module(
 							),
 						),
 						'height_width_responsive' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Responsive Height / Width', 'uabb' ),
 							'default'     => '100',
 							'size'        => '8',
@@ -313,7 +313,7 @@ FLBuilder::register_module(
 							),
 						),
 						'title_typography_letter_spacing' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -395,7 +395,7 @@ FLBuilder::register_module(
 							),
 						),
 						'desc_typography_letter_spacing'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -413,7 +413,7 @@ FLBuilder::register_module(
 					'title'  => __( 'Space Settings', 'uabb' ), // Section Title.
 					'fields' => array( // Section Fields.
 						'title_margin_top'        => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Title Top Margin', 'uabb' ),
 							'size'        => '8',
 							'placeholder' => '5',
@@ -427,7 +427,7 @@ FLBuilder::register_module(
 							),
 						),
 						'title_margin_bottom'     => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Title Bottom Margin', 'uabb' ),
 							'size'        => '8',
 							'placeholder' => '5',
@@ -441,7 +441,7 @@ FLBuilder::register_module(
 							),
 						),
 						'separator_margin_top'    => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Separator Top Margin', 'uabb' ),
 							'size'        => '8',
 							'placeholder' => '7',
@@ -455,7 +455,7 @@ FLBuilder::register_module(
 							),
 						),
 						'separator_margin_bottom' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Separator Bottom Margin', 'uabb' ),
 							'size'        => '8',
 							'placeholder' => '7',
@@ -469,7 +469,7 @@ FLBuilder::register_module(
 							),
 						),
 						'desc_margin_top'         => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Description Top Margin', 'uabb' ),
 							'size'        => '8',
 							'placeholder' => '5',
@@ -483,7 +483,7 @@ FLBuilder::register_module(
 							),
 						),
 						'desc_margin_bottom'      => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Description Bottom Margin', 'uabb' ),
 							'size'        => '8',
 							'placeholder' => '5',
@@ -578,7 +578,7 @@ FLBuilder::register_settings_form(
 								),
 							),
 							'separator_size'  => array(
-								'type'        => 'text',
+								'type'        => 'unit',
 								'label'       => __( 'Divider thickness', 'uabb' ),
 								'default'     => '1',
 								'size'        => '8',
@@ -588,7 +588,7 @@ FLBuilder::register_settings_form(
 								'help'        => __( 'Enter value in pixels.', 'uabb' ),
 							),
 							'separator_width' => array(
-								'type'        => 'text',
+								'type'        => 'unit',
 								'label'       => __( 'Divider Width', 'uabb' ),
 								'default'     => '50',
 								'size'        => '8',
@@ -835,7 +835,7 @@ FLBuilder::register_settings_form(
 								),
 							),
 							'border_size'      => array(
-								'type'        => 'text',
+								'type'        => 'unit',
 								'label'       => __( 'Border thickness', 'uabb' ),
 								'default'     => '25',
 								'size'        => '8',

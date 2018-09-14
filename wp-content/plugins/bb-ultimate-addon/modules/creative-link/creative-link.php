@@ -247,7 +247,7 @@ FLBuilder::register_module(
 							),
 						),
 						'spacing'          => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Space Between Links', 'uabb' ),
 							'placeholder' => '10',
 							'size'        => '8',
@@ -255,7 +255,7 @@ FLBuilder::register_module(
 							'help'        => __( 'This option controls the left-right spacing of each link.', 'uabb' ),
 						),
 						'bottom_spacing'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Link Bottom Spacing', 'uabb' ),
 							'placeholder' => '15',
 							'size'        => '8',
@@ -280,7 +280,7 @@ FLBuilder::register_module(
 							'help'    => __( 'Display structure on Mobile', 'uabb' ),
 						),
 						'box_width'        => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Box Width', 'uabb' ),
 							'default'     => '200',
 							'size'        => '8',
@@ -349,7 +349,7 @@ FLBuilder::register_module(
 							),
 						),
 						'border_size'        => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Size', 'uabb' ),
 							'placeholder' => '1',
 							'size'        => '8',
@@ -461,7 +461,7 @@ FLBuilder::register_module(
 							),
 						),
 						'link_typography_letter_spacing'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',

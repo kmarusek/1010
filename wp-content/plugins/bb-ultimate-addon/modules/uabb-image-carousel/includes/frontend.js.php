@@ -18,8 +18,7 @@ jQuery(document).ready(function( $ ) {
 
 	UABBImageCarousel_<?php echo $id; ?> = new UABBImageCarousel( args );
 
-	$(window).load(function() {
-		//UABBImageCarousel_<?php echo $id; ?> = new UABBImageCarousel( args );
+	$(window).on("load", function() {
 	 	UABBImageCarousel_<?php echo $id; ?>._adaptiveImageHeight();
 	});
 

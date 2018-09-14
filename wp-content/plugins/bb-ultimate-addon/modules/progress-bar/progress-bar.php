@@ -304,7 +304,7 @@ FLBuilder::register_module(
 							),
 						),
 						'spacing'           => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Spacing', 'uabb' ),
 							'placeholder' => '10',
 							'size'        => '8',
@@ -348,7 +348,7 @@ FLBuilder::register_module(
 							),
 						),
 						'horizontal_thickness'    => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Thickness', 'uabb' ),
 							'size'        => '8',
 							'placeholder' => '20',
@@ -362,7 +362,7 @@ FLBuilder::register_module(
 							),
 						),
 						'horizontal_space_above'  => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Space above title', 'uabb' ),
 							'size'        => '8',
 							'placeholder' => '5',
@@ -375,7 +375,7 @@ FLBuilder::register_module(
 							),
 						),
 						'horizontal_space_below'  => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Space Below Title', 'uabb' ),
 							'size'        => '8',
 							'placeholder' => '5',
@@ -388,7 +388,7 @@ FLBuilder::register_module(
 							),
 						),
 						'horizontal_vert_padding' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Vertical Padding', 'uabb' ),
 							'size'        => '8',
 							'placeholder' => '5',
@@ -410,7 +410,7 @@ FLBuilder::register_module(
 							),
 						),
 						'horizontal_horz_padding' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Horizontal Padding', 'uabb' ),
 							'size'        => '8',
 							'placeholder' => '10',
@@ -463,14 +463,14 @@ FLBuilder::register_module(
 							),
 						),
 						'vertical_thickness'            => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Height', 'uabb' ),
 							'size'        => '8',
 							'placeholder' => '200',
 							'description' => 'px',
 						),
 						'vertical_width'                => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Width', 'uabb' ),
 							'size'        => '8',
 							'placeholder' => '300',
@@ -492,14 +492,14 @@ FLBuilder::register_module(
 							),
 						),
 						'vertical_responsive_thickness' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Vertical Responsive Height', 'uabb' ),
 							'size'        => '8',
 							'placeholder' => '200',
 							'description' => 'px',
 						),
 						'vertical_responsive_width'     => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Vertical Responsive Width', 'uabb' ),
 							'size'        => '8',
 							'placeholder' => '150',
@@ -511,14 +511,14 @@ FLBuilder::register_module(
 					'title'  => __( 'Circular Style', 'uabb' ),
 					'fields' => array(
 						'circular_thickness'        => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Circle Width', 'uabb' ),
 							'size'        => '8',
 							'placeholder' => '300',
 							'description' => 'px',
 						),
 						'stroke_thickness'          => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Stroke Thickness', 'uabb' ),
 							'size'        => '8',
 							'placeholder' => '10',
@@ -541,7 +541,7 @@ FLBuilder::register_module(
 							),
 						),
 						'circular_responsive_width' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Circle Responsive Width', 'uabb' ),
 							'size'        => '8',
 							'placeholder' => '200',
@@ -587,7 +587,7 @@ FLBuilder::register_module(
 							),
 						),
 						'border_size'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Size', 'uabb' ),
 							'placeholder' => '1',
 							'size'        => '8',
@@ -611,7 +611,7 @@ FLBuilder::register_module(
 							),
 						),
 						'border_radius' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Radius', 'uabb' ),
 							'size'        => '8',
 							'description' => 'px',
@@ -628,7 +628,7 @@ FLBuilder::register_module(
 					'title'  => 'Animation', // Section Title.
 					'fields' => array( // Section Fields.
 						'animation_speed' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Animation Speed', 'uabb' ),
 							'size'        => '5',
 							'placeholder' => '1',
@@ -636,7 +636,7 @@ FLBuilder::register_module(
 							'help'        => __( 'Number of seconds to complete the animation.', 'uabb' ),
 						),
 						'delay'           => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Animation Delay', 'uabb' ),
 							'size'        => '5',
 							'placeholder' => '1',
@@ -744,7 +744,7 @@ FLBuilder::register_module(
 							),
 						),
 						'text_letter_spacing'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -837,7 +837,7 @@ FLBuilder::register_module(
 							),
 						),
 						'before_after_letter_spacing'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -914,7 +914,7 @@ FLBuilder::register_module(
 							),
 						),
 						'number_letter_spacing'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -947,7 +947,7 @@ FLBuilder::register_settings_form(
 						'title'  => __( 'Progress Settings', 'uabb' ),
 						'fields' => array(
 							'horizontal_number'        => array(
-								'type'        => 'text',
+								'type'        => 'unit',
 								'label'       => __( 'Progress Value', 'uabb' ),
 								'placeholder' => '80',
 								'size'        => '8',

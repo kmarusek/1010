@@ -13,6 +13,7 @@
 		this.wrapperClass        = this.nodeClass + ' .uabb-creative-menu';
 		this.type				 = settings.type;
 		this.mobileToggle		 = settings.mobile;
+		this.mobileBelowRow		 = settings.mobileBelowRow;
 		this.breakPoints         = settings.breakPoints;
 		this.mobileBreakpoint	 = settings.mobileBreakpoint;
 		this.mediaBreakpoint	 = settings.mediaBreakpoint;
@@ -105,6 +106,7 @@
 		 * @see    this._clickOrHover()
 		 * @see    this._submenuOnRight()
 		 * @see    this._toggleForMobile()
+		 * @see    this._initBelowRowMenu()
 		 * @since  1.6.0
 		 * @return void
 		 */
@@ -128,6 +130,7 @@
 
 			if( this.mobileToggle != 'expanded' ) {
 				this._toggleForMobile();
+				this._initBelowRowMenu();
 
 				if( this.mobileMenuType === 'off-canvas' ) {
 					this._initializeCanvas();
@@ -306,7 +309,9 @@
 					if( window.innerWidth <= this.mediaBreakpoint ) {
 						$menu.css({ display: 'none' });
 					} else {
-						$menu.css({ display: 'block' });
+						if( !this.mobileBelowRow == 'below-row' ) {
+							$menu.css({ display: 'block' });
+						}
 					}
 				}
 
@@ -339,6 +344,53 @@
 				});
 			}
 			else {
+
+				$wrapper = $( this.wrapperClass ),
+				$menu    = $wrapper.children( '.menu' );
+				$wrapper.find( '.uabb-creative-menu-mobile-toggle' ).removeClass( 'uabb-active' );
+				$menu.css({ display: '' });
+			}
+		},
+
+		/**
+		 * Logic for the Below Row menu.
+		 *
+		 * @since  1.11.0
+		 * @return void
+		 */
+		_initBelowRowMenu: function() {
+
+			var $wrapper = null,
+				$menu    = null;
+
+			if( this._isMenuToggle() && (window.innerWidth <= this.mediaBreakpoint || this.mediaBreakpoint == 'always' )) {
+				if ( this._isMobileBelowRowEnabled() ) {
+					this._placeMobileMenuBelowRow();
+					$wrapper = $( this.wrapperClass );
+					$menu    = $( this.nodeClass + '-clone' );
+					$menu.find( 'ul.menu' ).show();
+				} else {
+					$wrapper = $( this.wrapperClass );
+					$menu    = $wrapper.children( '.menu' );
+				}
+
+				if( false != this.mobileBelowRow && !$wrapper.find( '.uabb-creative-menu-mobile-toggle' ).hasClass( 'uabb-active' ) ) {
+					if( window.innerWidth <= this.mediaBreakpoint || this.mediaBreakpoint == 'always' )  {
+						$menu.css({ display: 'none' });
+					} else {
+						$menu.css({ display: 'block' });
+					}
+				}
+
+				$wrapper.off().on( 'click', '.uabb-creative-menu-mobile-toggle', function( e ) {
+					$( this ).toggleClass( 'uabb-active' );
+					$menu.slideToggle();
+				} );
+
+			} else {
+				if ( this._isMobileBelowRowEnabled() ) {
+					this._removeMenuFromBelowRow();
+				}
 
 				$wrapper = $( this.wrapperClass ),
 				$menu    = $wrapper.children( '.menu' );
@@ -419,6 +471,9 @@
 					if ( ! $('.fl-builder-settings[data-node="'+self.settingsId+'"]').length > 0 ) {
 						return;
 					}
+					if ( ! $(self.nodeClass).find('.uabb-creative-menu').hasClass('uabb-menu-overlay') ) {
+						$('.fl-builder-panel').css('z-index', '999999');
+					}
 					if ( ! $(self.nodeClass).find('.uabb-creative-menu').hasClass('menu-open') ) {
 						$('.uabb-creative-menu').removeClass('menu-open');
 						$('.uabb-creative-menu-mobile-toggle').removeClass('uabb-active');
@@ -427,6 +482,60 @@
 					}
 				});
 			}
+		},
+
+		/**
+		 * Check to see if Below Row should be enabled.
+		 *
+		 * @since  	1.11.0
+		 * @return boolean
+		 */
+		_isMobileBelowRowEnabled: function() {
+			return this.mobileBelowRow && $( this.nodeClass ).closest( '.fl-col' ).length;
+		},
+
+		/**
+		 * Logic for putting the mobile menu below the menu's
+		 * column so it spans the full width of the page.
+		 *
+		 * @since  1.11.0
+		 * @return void
+		 */
+		_placeMobileMenuBelowRow: function() {
+
+			if ( $( this.nodeClass + '-clone' ).length ) {
+				return;
+			}
+
+			var module = $( this.nodeClass ),
+				clone  = module.clone(),
+				col    = module.closest( '.fl-row-content' );
+			module.find( 'ul.menu' ).css('display','none');
+			clone.addClass( ( this.nodeClass + '-clone' ).replace( '.', '' ) );
+			clone.find( '.uabb-creative-menu-mobile-toggle' ).remove();
+			col.after( clone );
+
+			this._menuOnClick();
+		},
+
+		/**
+		 * Logic for removing the mobile menu from below the menu's
+		 * column and putting it back in the main wrapper.
+		 *
+		 * @since  1.11.0
+		 * @return void
+		 */
+		_removeMenuFromBelowRow: function(){
+			if ( ! $( this.nodeClass + '-clone' ).length ) {
+				return;
+			}
+			var module = $( this.nodeClass );
+			module.find( 'ul.menu' ).css('display','none'),
+				clone  = $( this.nodeClass + '-clone' );
+				menu   = clone.find( 'ul.menu' );
+			module.find( 'ul.menu' ).after( menu );
+
+			clone.remove();
 		},
 
 		/**

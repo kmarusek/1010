@@ -134,27 +134,30 @@ if ( ! class_exists( 'UABB_Blog_Posts' ) ) {
 				require_once FL_THEME_BUILDER_DIR . 'classes/class-lessc.php';
 			}
 
-			foreach ( $nodes['modules'] as $module ) {
+			if ( class_exists( 'lessc' ) ) {
 
-				if ( ! is_object( $module ) ) {
-					continue;
-				} elseif ( 'blog-posts' != $module->settings->type ) {
-					continue;
-				} elseif ( 'custom' != $module->settings->post_layout ) {
-					continue;
-				}
+				foreach ( $nodes['modules'] as $module ) {
 
-				try {
-					$less    = new lessc;
-					$custom  = '.fl-node-' . $module->node . ' { ';
-					$custom .= $module->settings->uabb_custom_post_layout->css;
-					$custom .= ' }';
-					$css    .= $less->compile( $custom );
-				} catch ( Exception $e ) {
-					$css .= $module->settings->uabb_custom_post_layout->css;
+					if ( ! is_object( $module ) ) {
+						continue;
+					} elseif ( 'blog-posts' != $module->settings->type ) {
+						continue;
+					} elseif ( 'custom' != $module->settings->post_layout ) {
+						continue;
+					}
+
+					try {
+						$less    = new lessc;
+						$custom  = '.fl-node-' . $module->node . ' { ';
+						$custom .= $module->settings->uabb_custom_post_layout->css;
+						$custom .= ' }';
+						$css    .= $less->compile( $custom );
+					} catch ( Exception $e ) {
+						$css .= $module->settings->uabb_custom_post_layout->css;
+					}
 				}
+				return $css;
 			}
-			return $css;
 		}
 	}
 	UABB_Blog_Posts::init();

@@ -205,7 +205,7 @@ FLBuilder::register_module(
 							),
 						),
 						'border_size'                => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Size', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '3',
@@ -290,7 +290,7 @@ FLBuilder::register_module(
 							'show_remove' => true,
 						),
 						'img_width'     => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Photo Width', 'uabb' ),
 							'placeholder' => '20',
 							'default'     => '20',
@@ -428,7 +428,7 @@ FLBuilder::register_module(
 							),
 						),
 						'custom_width'       => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Custom Width', 'uabb' ),
 							'default'     => '200',
 							'maxlength'   => '3',
@@ -442,7 +442,7 @@ FLBuilder::register_module(
 							),
 						),
 						'custom_height'      => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Custom Height', 'uabb' ),
 							'default'     => '45',
 							'maxlength'   => '3',
@@ -456,7 +456,7 @@ FLBuilder::register_module(
 							),
 						),
 						'padding_top_bottom' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Padding Top/Bottom', 'uabb' ),
 							'placeholder' => '0',
 							'maxlength'   => '3',
@@ -479,7 +479,7 @@ FLBuilder::register_module(
 							),
 						),
 						'padding_left_right' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Padding Left/Right', 'uabb' ),
 							'placeholder' => '0',
 							'maxlength'   => '3',
@@ -502,7 +502,7 @@ FLBuilder::register_module(
 							),
 						),
 						'border_radius'      => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Round Corners', 'uabb' ),
 							'maxlength'   => '3',
 							'size'        => '4',
@@ -617,7 +617,7 @@ FLBuilder::register_module(
 							),
 						),
 						'letter_spacing'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',

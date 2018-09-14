@@ -52,7 +52,7 @@ FLBuilder::register_module(
 							'show_reset' => true,
 						),
 						'height'    => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Thickness', 'uabb' ),
 							'placeholder' => '1',
 							'maxlength'   => '2',
@@ -67,7 +67,7 @@ FLBuilder::register_module(
 							'help'        => __( 'Thickness of Border', 'uabb' ),
 						),
 						'width'     => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Width', 'uabb' ),
 							'placeholder' => '100',
 							'maxlength'   => '3',

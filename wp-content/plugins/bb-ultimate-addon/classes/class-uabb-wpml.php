@@ -639,9 +639,19 @@ if ( ! class_exists( 'UABB_WPML_Translatable' ) ) {
 						'editor_type' => 'LINE',
 					),
 					array(
+						'field'       => 'first_heading_link',
+						'type'        => __( 'Dual Color Heading : First Heading Link', 'uabb' ),
+						'editor_type' => 'LINK',
+					),
+					array(
 						'field'       => 'second_heading_text',
 						'type'        => __( 'Dual Color Heading : Second Heading', 'uabb' ),
 						'editor_type' => 'LINE',
+					),
+					array(
+						'field'       => 'second_heading_link',
+						'type'        => __( 'Dual Color Heading : Second Heading Link', 'uabb' ),
+						'editor_type' => 'LINK',
 					),
 				),
 			);
@@ -1035,6 +1045,28 @@ if ( ! class_exists( 'UABB_WPML_Translatable' ) ) {
 						'type'        => __( 'Featured Flash: Flash Content', 'uabb' ),
 						'editor_type' => 'LINE',
 					),
+				),
+			);
+
+			// Video.
+			$form['uabb-video'] = array(
+				'conditions' => array(
+					'type' => 'uabb-video',
+				),
+				array(
+					'field'       => 'youtube_link',
+					'type'        => __( 'Video : YouTube Link', 'uabb' ),
+					'editor_type' => 'LINK',
+				),
+				array(
+					'field'       => 'vimeo_link',
+					'type'        => __( 'Video : Vimeo Link', 'uabb' ),
+					'editor_type' => 'LINK',
+				),
+				array(
+					'field'       => 'yt_subscribe_text',
+					'type'        => __( 'Video : Subscribe to channel text', 'uabb' ),
+					'editor_type' => 'LINE',
 				),
 			);
 

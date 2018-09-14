@@ -2,8 +2,9 @@
 Contributors: getpantheon, Outlandish Josh, 10up, collinsinternet, andrew.taylor
 Tags: search
 Requires at least: 4.6
+Requires PHP: 7.1
 Tested up to: 4.9
-Stable tag: 1.5.0
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -26,7 +27,9 @@ Search is critical for your site, but the default search for WordPress leaves a 
 
 == Installation ==
 
-The Solr Power plugin can be installed just like you'd install any other WordPress plugin. Because Solr Power is intended to be a bridge between WordPress and the Apache Solr search engine, you'll need access to a functioning Solr 3.6 instance for the plugin to work as expected. This plugin does not support other versions of Solr.
+The Solr Power plugin can be installed just like you'd install any other WordPress plugin.
+
+Because Solr Power is intended to be a bridge between WordPress and the Apache Solr search engine, you'll need access to a functioning Solr 3.6 instance for the plugin to work as expected. This plugin does not support other versions of Solr. The plugin also requires PHP 7.1 or higher.
 
 If you're using the Solr Power plugin on Pantheon, setting up Apache Solr is as easy as enabling the Apache Solr add-on in your Pantheon dashboard. Once you've done so:
 
@@ -162,6 +165,15 @@ To support searching by author name (e.g. where "Pantheon" would return posts au
 ```
 
 == Changelog ==
+
+= 2.0.0 =
+* Fix PHP 7 warning caused by bad conditional
+* Ensure `$post->post_author` remains user ID when processing WP_Query
+* Add a test case asserting that `post_title` and `post_content` are not bolded
+* Update Solarium to `4.1.0` and other dependencies updates as needed
+* Run automated tests against PHP `7.1`
+* Increase the minimum supported PHP version to `7.1`
+
 
 = 1.5.0 =
 * Adds support for queries using `post__in` and `post__not_in`.

@@ -43,7 +43,7 @@ FLBuilder::register_module(
 					'title'  => '', // Section Title.
 					'fields' => array( // Section Fields.
 						'desktop_space' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Desktop', 'uabb' ),
 							'size'        => '8',
 							'placeholder' => '10',
@@ -58,7 +58,7 @@ FLBuilder::register_module(
 							),
 						),
 						'medium_device' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Medium Device ( Tabs )', 'uabb' ),
 							'default'     => '',
 							'size'        => '8',
@@ -66,7 +66,7 @@ FLBuilder::register_module(
 							'description' => 'px',
 						),
 						'small_device'  => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Small Device ( Mobile )', 'uabb' ),
 							'default'     => '',
 							'size'        => '8',

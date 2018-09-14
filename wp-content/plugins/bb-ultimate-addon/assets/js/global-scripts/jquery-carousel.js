@@ -777,7 +777,7 @@
         $('[draggable!=true]', _.$slideTrack).off('dragstart', _.preventDefault);
 
         $(window).off('load.slick.slick-' + _.instanceUid, _.setPosition);
-        $(document).off('ready.slick.slick-' + _.instanceUid, _.setPosition);
+        $(document).off('.slick.slick-' + _.instanceUid, _.setPosition);
 
     };
 
@@ -1388,7 +1388,7 @@
         $('[draggable!=true]', _.$slideTrack).on('dragstart', _.preventDefault);
 
         $(window).on('load.slick.slick-' + _.instanceUid, _.setPosition);
-        $(document).on('ready.slick.slick-' + _.instanceUid, _.setPosition);
+        $(document).on('.slick.slick-' + _.instanceUid, _.setPosition);
 
     };
 

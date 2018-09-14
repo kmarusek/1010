@@ -143,7 +143,7 @@ FLBuilder::register_module('UABBBusinessHours', array(
                         ),
                     ),
                     'divider_weight'  => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __( 'Divider Weight', 'uabb' ),
                         'description'   => 'px',
                         'size'          => '5',
@@ -391,7 +391,7 @@ FLBuilder::register_module('UABBBusinessHours', array(
                         ),
                     ),
                     'days_letter_spacing'       => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Letter Spacing', 'uabb'),
                         'placeholder'   => '0',
                         'size'          => '5',
@@ -502,7 +502,7 @@ FLBuilder::register_module('UABBBusinessHours', array(
                         ),
                     ),
                     'hours_letter_spacing'       => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Letter Spacing', 'uabb'),
                         'placeholder'   => '0',
                         'size'          => '5',

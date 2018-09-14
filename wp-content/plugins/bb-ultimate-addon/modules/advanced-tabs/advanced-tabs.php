@@ -230,7 +230,7 @@ FLBuilder::register_module(
 							),
 						),
 						'responsive_breakpoint' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Responsive Breakpoint', 'uabb' ),
 							'placeholder' => $default_breakpoint,
 							'size'        => '8',
@@ -272,7 +272,7 @@ FLBuilder::register_module(
 							),
 						),
 						'icon_size'         => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Icon Size', 'uabb' ),
 							'placeholder' => __( 'Inherit', 'uabb' ),
 							'size'        => '8',
@@ -437,7 +437,7 @@ FLBuilder::register_module(
 							),
 						),
 						'underline_border_size'  => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Thickness', 'uabb' ),
 							'placeholder' => '6',
 							'size'        => '8',
@@ -472,7 +472,7 @@ FLBuilder::register_module(
 							),
 						),
 						'tab_spacing_size' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Margin', 'uabb' ),
 							'placeholder' => '10',
 							'size'        => '8',
@@ -587,7 +587,7 @@ FLBuilder::register_module(
 							),
 						),
 						'content_border_size'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Size', 'uabb' ),
 							'placeholder' => '1',
 							'size'        => '8',
@@ -611,7 +611,7 @@ FLBuilder::register_module(
 							),
 						),
 						'content_border_radius' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Radius', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '8',
@@ -714,7 +714,7 @@ FLBuilder::register_module(
 							),
 						),
 						'title_letter_spacing'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -796,7 +796,7 @@ FLBuilder::register_module(
 							),
 						),
 						'content_letter_spacing'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',

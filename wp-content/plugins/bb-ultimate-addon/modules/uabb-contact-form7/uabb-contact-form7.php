@@ -188,7 +188,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                         ),
 					),
 					'form_radius'	=> array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Round Corners', 'uabb'),
 						'default'       => '',
 						'maxlength'     => '4',
@@ -282,7 +282,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                         )
 					),
 					'input_field_height'	=> array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Height', 'uabb'),
 						'default'       => '',
 						'size'          => '6',
@@ -296,7 +296,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                         )
 					),
 					'textarea_height'	=> array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Textarea Height', 'uabb'),
 						'default'       => '',
 						'size'          => '6',
@@ -339,7 +339,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                         ),
 		            ),
 					'input_border_radius' => array(
-		                'type'          => 'text',
+		                'type'          => 'unit',
 		                'label'         => __('Round Corners', 'uabb'),
 		                'maxlength'     => '3',
 		                'size'          => '4',
@@ -393,7 +393,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                         )
                     ),
                     'radio_check_size'    => array(
-		                'type'          => 'text',
+		                'type'          => 'unit',
 		                'label'         => __('Size', 'uabb'),
 		                'default'		=> '20',
 		                'size'          => '10',
@@ -437,7 +437,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                     	),
 					), 
 					'radio_check_border_width'    => array(
-		                'type'          => 'text',
+		                'type'          => 'unit',
 		                'label'         => __('Border Width', 'uabb'),
 		                'default'		=> '1',
 		                'placeholder'	=> '1',
@@ -461,7 +461,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                     	),
 					),
 					'radio_btn_border_radius'    => array( 
-						'type'       	=> 'text',
+						'type'       	=> 'unit',
 						'label'      	=> __('Radio Button Round Corners', 'uabb'),
 						'default'		=> '50',
 		                'placeholder'	=> '50',
@@ -475,7 +475,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                     	),
 					),
 					'checkbox_border_radius'    => array( 
-						'type'       	=> 'text',
+						'type'       	=> 'unit',
 						'label'      	=> __('Checkbox Round Corners', 'uabb'),
 						'default'		=> '0',
 		                'description'	=> 'px',
@@ -524,7 +524,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
 						)
 					),
 					'btn_border_width'	=> array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Border Width', 'uabb'),
 						'default'   	=> '2',
 						'placeholder'   => '2',
@@ -680,7 +680,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                         )
 					),
                     'btn_letter_spacing'       => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Letter Spacing', 'uabb'),
                         'placeholder'   => '0',
                         'size'          => '5',
@@ -719,7 +719,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
 		                )
 		            ),
 		            'btn_custom_width'  => array(
-		                'type'          => 'text',
+		                'type'          => 'unit',
 		                'label'         => __('Custom Width', 'uabb'),
 		                'default'       => '200',
 		                'maxlength'     => '3',
@@ -733,7 +733,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                         )
 		            ),
 		            'btn_custom_height'  => array(
-		                'type'          => 'text',
+		                'type'          => 'unit',
 		                'label'         => __('Custom Height', 'uabb'),
 		                'default'       => '45',
 		                'maxlength'     => '3',
@@ -747,7 +747,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                         )
 		            ),
 		            'btn_padding_top_bottom'       => array(
-		                'type'          => 'text',
+		                'type'          => 'unit',
 		                'label'         => __('Padding Top/Bottom', 'uabb'),
 		                'placeholder'   => uabb_theme_button_vertical_padding(''),
 		                'maxlength'     => '3',
@@ -770,7 +770,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
 					    )
 		            ),
 		            'btn_border_radius' => array(
-		                'type'          => 'text',
+		                'type'          => 'unit',
 		                'label'         => __('Round Corners', 'uabb'),
 		                'maxlength'     => '3',
 		                'size'          => '4',
@@ -798,7 +798,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
 						)
 		            ),
 		            'btn_margin_top'       => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Margin Top', 'uabb'),
 						'placeholder'	=> '',
 						'size'			=> '5',
@@ -811,7 +811,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
 						)
 					),
 					'btn_margin_bottom'       => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Margin Bottom', 'uabb'),
 						'placeholder'	=> '',
 						'size'			=> '5',
@@ -840,7 +840,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
 						'show_reset' => true,
 					),
 					'input_msg_font_size'	=> array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Message Font Size', 'uabb'),
 						'default'       => '12',
 						'maxlength'     => '4',
@@ -860,7 +860,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                         ),
                     ),
                     'input_msg_letter_spacing'       => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Letter Spacing', 'uabb'),
                         'placeholder'   => '0',
                         'size'          => '5',
@@ -879,7 +879,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
 						'show_reset' => true,
 					),
 					'validation_msg_font_size'	=> array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Message Font Size', 'uabb'),
 						'default'       => '15',
 						'maxlength'     => '4',
@@ -933,7 +933,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
 		                )
 		            ),
 					'validation_border_width'    => array(
-		                'type'          => 'text',
+		                'type'          => 'unit',
 		                'label'         => __('Border Width', 'uabb'),
 		                'default'		=> '1',
 		                'placeholder'	=> '1',
@@ -949,7 +949,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
 						'show_reset' => true,
 					),
                     'validation_border_radius' => array(
-		                'type'          => 'text',
+		                'type'          => 'unit',
 		                'label'         => __('Round Corners', 'uabb'),
 		                'maxlength'     => '3',
 		                'size'          => '4',
@@ -979,7 +979,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                         ),
                     ),
                     'validate_letter_spacing' => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Letter Spacing', 'uabb'),
                         'placeholder'   => '0',
                         'size'          => '5',
@@ -1087,7 +1087,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                         ),
                     ),
                     'form_title_letter_spacing'  => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Letter Spacing', 'uabb'),
                         'placeholder'   => '0',
                         'size'          => '5',
@@ -1100,7 +1100,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                         )
                     ),
                     'form_title_bottom_margin'   => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Bottom Margin', 'uabb'),
 						'default'       => '',
 						'placeholder'	=> '0',
@@ -1195,7 +1195,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                         ),
                     ),
                     'form_desc_letter_spacing'       => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Letter Spacing', 'uabb'),
                         'placeholder'   => '0',
                         'size'          => '5',
@@ -1208,7 +1208,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                         )
                     ),
                     'form_desc_bottom_margin'   => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Bottom Margin', 'uabb'),
 						'default'       => '',
 						'placeholder'	=> '20',
@@ -1303,7 +1303,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                         ),
                     ),
                     'label_letter_spacing'       => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Letter Spacing', 'uabb'),
                         'placeholder'   => '0',
                         'size'          => '5',
@@ -1396,7 +1396,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                         ),
                     ),
                     'letter_spacing'       => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Letter Spacing', 'uabb'),
                         'placeholder'   => '0',
                         'size'          => '5',
@@ -1409,7 +1409,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                         )
                     ),
                     'input_top_margin'   => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Input Top Margin', 'uabb'),
 						'default'       => '',
 						'placeholder'	=> '0',
@@ -1424,7 +1424,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                         ),
 					),
 					'input_bottom_margin'   => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Input Bottom Margin', 'uabb'),
 						'default'       => '',
 						'placeholder'	=> '10',
@@ -1500,7 +1500,7 @@ FLBuilder::register_module('UABBContactForm7Module', array(
                         ),
                     ),
                     'radio_checkbox_letter_spacing'       => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Letter Spacing', 'uabb'),
                         'placeholder'   => '0',
                         'size'          => '5',

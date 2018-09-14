@@ -26,7 +26,7 @@ function uabb_row_dependency_js( $js, $nodes, $global_settings ) {
 	ob_start();
 
 	?>
-		(function($){
+		;(function($){
 			var form = $('.fl-builder-settings'),
 				gradient_type = form.find( 'input[name=uabb_row_gradient_type]' );
 

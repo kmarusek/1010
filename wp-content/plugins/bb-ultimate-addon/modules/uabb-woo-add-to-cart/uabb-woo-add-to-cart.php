@@ -24,11 +24,30 @@ class UABBWooAddToCartModule extends FLBuilderModule {
 			'dir'           	=> BB_ULTIMATE_ADDON_DIR . 'modules/uabb-woo-add-to-cart/',
             'url'           	=> BB_ULTIMATE_ADDON_URL . 'modules/uabb-woo-add-to-cart/',
             'partial_refresh'	=> true,
-			'icon'				=> 'text.svg',
+			'icon'				=> 'uabb-woo-add-to-cart.svg',
 		));
 
 		$this->add_css( 'font-awesome' );
 	}
+
+	/**
+	 * Function that renders icons for the Woo - Add To Cart
+	 *
+	 * @param object $icon get an object for the icon.
+	 */
+	public function get_icon( $icon = '' ) {
+
+        // check if $icon is referencing an included icon.
+        if ( '' != $icon && file_exists( BB_ULTIMATE_ADDON_DIR . 'modules/uabb-woo-add-to-cart/icon/' . $icon ) ) {
+            $path = BB_ULTIMATE_ADDON_DIR . 'modules/uabb-woo-add-to-cart/icon/' . $icon;
+        }
+
+        if ( file_exists( $path ) ) {
+            return file_get_contents( $path );
+        } else {
+            return '';
+        }
+    }
 
 	public function enqueue_scripts() {
 		
@@ -107,6 +126,8 @@ class UABBWooAddToCartModule extends FLBuilderModule {
 				if( isset( $settings->transparent_button_options ) && !empty( $settings->transparent_button_options ) ) {
 					$class[] .= ' uabb-' . $settings->transparent_button_options .'-btn';
 				}
+			} else {
+				$class[] = 'uabb-adc-normal-btn';
 			}
 
 			if ( 'yes' === $settings->auto_redirect ) {
@@ -145,8 +166,10 @@ class UABBWooAddToCartModule extends FLBuilderModule {
 			if( $settings->style == 'transparent' ) {
 				$new_class = ' uabb-creative-button uabb-creative-transparent-btn';
 				if( isset( $settings->transparent_button_options ) && !empty( $settings->transparent_button_options ) ) {
-					$new_class .= ' uabb-' . $settings->transparent_button_options .'-btn';
+					$new_class .= 'uabb-' . $settings->transparent_button_options .'-btn';
 				}
+			} else {
+				$new_class = 'uabb-adc-normal-btn';
 			}
 			$atc_html .= '<a class="button uabb-button ' . $new_class . '">';
 				$atc_html .= '<span class="uabb-atc-select-text">';
@@ -374,7 +397,7 @@ FLBuilder::register_module('UABBWooAddToCartModule', array(
 							'type'  => 'css',
 							'rules' => array(
 								array(
-									'selector' => '.uabb-woo-add-to-cart .button',
+									'selector' => '.uabb-woo-add-to-cart .uabb-adc-normal-btn',
 									'property' => 'background',
 								),
 								array(

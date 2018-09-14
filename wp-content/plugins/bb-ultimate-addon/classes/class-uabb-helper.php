@@ -319,6 +319,7 @@ if ( ! class_exists( 'BB_Ultimate_Addon_Helper' ) ) {
 				'adv-testimonials'         => 'Testimonials',
 				'uabb-content-toggle'      => 'Content Toggle',
 				'uabb-business-hours'		=> 'Business Hours',
+                'uabb-video'                => 'Video',
 			);
 
 			/* Include Contact form styler */

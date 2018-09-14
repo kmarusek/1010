@@ -199,7 +199,7 @@ FLBuilder::register_module(
 							),
 						),
 						'spacing_between_buttons' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Space between', 'uabb' ),
 							'size'        => '6',
 							'placeholder' => '10',
@@ -224,7 +224,7 @@ FLBuilder::register_module(
 							),
 						),
 						'dual_button_width'       => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Custom Width', 'uabb' ),
 							'size'        => '6',
 							'placeholder' => '100',
@@ -232,7 +232,7 @@ FLBuilder::register_module(
 							'description' => 'px',
 						),
 						'dual_button_height'      => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Custom Height', 'uabb' ),
 							'size'        => '6',
 							'placeholder' => '45',
@@ -240,13 +240,13 @@ FLBuilder::register_module(
 							'description' => 'px',
 						),
 						'dual_button_pad_top_bot' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Padding Top/Bottom', 'uabb' ),
 							'size'        => '6',
 							'description' => 'px',
 						),
 						'dual_button_pad_lef_rig' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Padding Left/Right', 'uabb' ),
 							'size'        => '6',
 							'description' => 'px',
@@ -262,7 +262,7 @@ FLBuilder::register_module(
 							),
 						),
 						'dual_button_radius'      => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Radius', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '6',
@@ -379,7 +379,7 @@ FLBuilder::register_module(
 							'show_reset' => true,
 						),
 						'button_border_width'      => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Width', 'uabb' ),
 							'size'        => '6',
 							'placeholder' => '2',
@@ -510,7 +510,7 @@ FLBuilder::register_module(
 							),
 						),
 						'img_icon_width_btn_one' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Photo/Icon Width', 'uabb' ),
 							'placeholder' => '30',
 							'description' => 'px',
@@ -641,7 +641,7 @@ FLBuilder::register_module(
 							),
 						),
 						'img_icon_width_btn_two' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Photo/Icon Width', 'uabb' ),
 							'placeholder' => '30',
 							'description' => 'px',
@@ -745,7 +745,7 @@ FLBuilder::register_module(
 					'title'  => __( 'Divider Border', 'uabb' ), // Section Title.
 					'fields' => array( // Section Fields.
 						'divider_border_radius' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Radius', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '3',
@@ -809,7 +809,7 @@ FLBuilder::register_module(
 							),
 						),
 						'divider_border_width'  => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Width', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '3',
@@ -919,7 +919,7 @@ FLBuilder::register_module(
 							),
 						),
 						'_btn_one_text_letter_spacing' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -1018,7 +1018,7 @@ FLBuilder::register_module(
 							),
 						),
 						'_btn_two_text_letter_spacing' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -1083,7 +1083,7 @@ FLBuilder::register_module(
 							),
 						),
 						'_divider_letter_spacing' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',

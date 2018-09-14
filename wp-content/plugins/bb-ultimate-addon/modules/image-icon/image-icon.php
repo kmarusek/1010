@@ -409,7 +409,7 @@ FLBuilder::register_module(
 							'show_remove' => true,
 						),
 						'icon_size'  => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Size', 'uabb' ),
 							'placeholder' => '30',
 							'maxlength'   => '5',
@@ -473,7 +473,7 @@ FLBuilder::register_module(
 							'connections' => array( 'url' ),
 						),
 						'img_size'     => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Size', 'uabb' ),
 							'placeholder' => 'auto',
 							'maxlength'   => '5',
@@ -542,7 +542,7 @@ FLBuilder::register_module(
 
 						/* Icon Background SIze */
 						'icon_bg_size'          => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Background Size', 'uabb' ),
 							'help'        => __( 'Spacing between Icon & Background edge', 'uabb' ),
 							'maxlength'   => '3',
@@ -580,7 +580,7 @@ FLBuilder::register_module(
 							),
 						),
 						'icon_border_width'     => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Width', 'uabb' ),
 							'default'     => '',
 							'description' => 'px',
@@ -595,7 +595,7 @@ FLBuilder::register_module(
 							),
 						),
 						'icon_bg_border_radius' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Radius', 'uabb' ),
 							'default'     => '',
 							'description' => 'px',
@@ -653,7 +653,7 @@ FLBuilder::register_module(
 
 						/* Image Background Size */
 						'img_bg_size'          => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Background Size', 'uabb' ),
 							'default'     => '',
 							'help'        => __( 'Spacing between Image edge & Background edge', 'uabb' ),
@@ -697,7 +697,7 @@ FLBuilder::register_module(
 							),
 						),
 						'img_border_width'     => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Width', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '3',
@@ -711,7 +711,7 @@ FLBuilder::register_module(
 							),
 						),
 						'img_bg_border_radius' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Radius', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '3',

@@ -45,6 +45,8 @@ class UABB_Init {
 
 			add_action( 'wp_head', array( $this, 'uabb_render_scripts' ) );
 
+			add_action( 'admin_notices', array( $this, 'update_bb_notice' ) );
+
 		} else {
 
 			// disable UABB activation ntices in admin panel.
@@ -293,6 +295,22 @@ class UABB_Init {
 	}
 
 	/**
+	 * Function that render admin notice for updating BB
+	 *
+	 * @since 1.11.0
+	 */
+	function update_bb_notice() {
+
+		$bb_stable_version = '2.0.7';
+
+		if ( version_compare( $bb_stable_version, FL_BUILDER_VERSION, '>' ) ) {
+			echo '<div class="notice notice-error">';
+			echo sprintf( '<p> The <strong>Ultimate Addons for Beaver Builder</strong> plugin requires minimum %s version of the Beaver Builder plugin </p>', $bb_stable_version );
+			echo '</div>';
+		}
+	}
+
+	/**
 	 * Function that renders UABB Beta Updates Check
 	 *
 	 * @since x.x.x
@@ -369,7 +387,7 @@ class UABB_Init {
 			$branding_name = $branding['uabb-plugin-short-name'];
 		}
 
-		if ( is_user_logged_in() ) {
+		if ( FLBuilderModel::is_builder_active() ) {
 			?>
 			<style>
 				form[class*="fl-builder-adv-testimonials"] .fl-lightbox-header h1:before,

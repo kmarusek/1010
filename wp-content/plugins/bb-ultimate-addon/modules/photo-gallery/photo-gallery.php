@@ -209,7 +209,7 @@ FLBuilder::register_module(
 							),
 						),
 						'photo_spacing' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Photo Spacing', 'uabb' ),
 							'mode'        => 'padding',
 							'placeholder' => '20',
@@ -440,7 +440,7 @@ FLBuilder::register_module(
 							'show_remove' => true,
 						),
 						'overlay_icon_size'  => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Overlay Icon Size', 'uabb' ),
 							'placeholder' => '16',
 							'maxlength'   => '5',
@@ -576,7 +576,7 @@ FLBuilder::register_module(
 							),
 						),
 						'letter_spacing'       => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',

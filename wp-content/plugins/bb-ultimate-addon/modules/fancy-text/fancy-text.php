@@ -118,7 +118,7 @@ FLBuilder::register_module(
 
 						),
 						'typing_speed'    => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Typing Speed', 'uabb' ),
 							'default'     => '80',
 							'maxlength'   => '6',
@@ -127,7 +127,7 @@ FLBuilder::register_module(
 							'help'        => __( 'Speed of typing effect. The time to appear single character of word.', 'uabb' ),
 						),
 						'back_speed'      => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Backspeed', 'uabb' ),
 							'default'     => '50',
 							'maxlength'   => '6',
@@ -136,7 +136,7 @@ FLBuilder::register_module(
 							'help'        => __( 'Speed of backspace effect. The time to disappear single character of word.', 'uabb' ),
 						),
 						'start_delay'     => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Start Delay', 'uabb' ),
 							'default'     => '0',
 							'maxlength'   => '6',
@@ -145,7 +145,7 @@ FLBuilder::register_module(
 							'help'        => __( 'Delay for the start of type effect. If set to 5000, the first string will appear after 5 seconds.', 'uabb' ),
 						),
 						'back_delay'      => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Back Delay', 'uabb' ),
 							'default'     => '2000',
 							'maxlength'   => '6',
@@ -202,7 +202,7 @@ FLBuilder::register_module(
 
 
 						'animation_speed' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Animation Speed', 'uabb' ),
 							'default'     => '500',
 							'maxlength'   => '6',
@@ -211,7 +211,7 @@ FLBuilder::register_module(
 							'help'        => __( 'Speed of fancy text transition.', 'uabb' ),
 						),
 						'pause_time'      => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Pause Time', 'uabb' ),
 							'default'     => '2000',
 							'maxlength'   => '6',
@@ -256,7 +256,7 @@ FLBuilder::register_module(
 							'help'    => __( 'Select alignment for complete element.', 'uabb' ),
 						),
 						'space_prefix' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Space After Prefix', 'uabb' ),
 							'default'     => '5',
 							'maxlength'   => '6',
@@ -271,7 +271,7 @@ FLBuilder::register_module(
 							'help'        => __( 'Space between Prefix and Fancy Text.', 'uabb' ),
 						),
 						'space_suffix' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Space Before Suffix', 'uabb' ),
 							'default'     => '5',
 							'maxlength'   => '6',
@@ -286,7 +286,7 @@ FLBuilder::register_module(
 							'help'        => __( 'Space between Fancy Text and Suffix.', 'uabb' ),
 						),
 						'min_height'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Minimum Height', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '4',
@@ -404,7 +404,7 @@ FLBuilder::register_module(
 							),
 						),
 						'letter_spacing'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -497,7 +497,7 @@ FLBuilder::register_module(
 							),
 						),
 						'fancy_letter_spacing'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',

@@ -270,14 +270,14 @@ FLBuilder::register_module(
 							),
 						),
 						'icon_image_size'            => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Icon / Image Size', 'uabb' ),
 							'description' => 'px',
 							'size'        => '8',
 							'placeholder' => '75',
 						),
 						'space_between_elements'     => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Space Between Two Elements', 'uabb' ),
 							'description' => 'px',
 							'size'        => '8',
@@ -321,7 +321,7 @@ FLBuilder::register_module(
 							'size'        => '5',
 						),
 						'list_icon_bg_border_radius' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Radius ( For Background )', 'uabb' ),
 							'maxlength'   => '3',
 							'size'        => '4',
@@ -330,7 +330,7 @@ FLBuilder::register_module(
 						),
 
 						'list_icon_bg_padding'       => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Padding ( For Background )', 'uabb' ),
 							'maxlength'   => '3',
 							'size'        => '4',
@@ -351,7 +351,7 @@ FLBuilder::register_module(
 							),
 						),
 						'list_icon_border_width'     => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Width', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '3',
@@ -527,7 +527,7 @@ FLBuilder::register_module(
 							),
 						),
 						'heading_letter_spacing'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -541,7 +541,7 @@ FLBuilder::register_module(
 						),
 						'heading_margin_top'       => array(
 							'label'       => __( 'Margin Top', 'uabb' ),
-							'type'        => 'text',
+							'type'        => 'unit',
 							'size'        => '8',
 							'description' => 'px',
 							'max_length'  => '3',
@@ -554,7 +554,7 @@ FLBuilder::register_module(
 						),
 						'heading_margin_bottom'    => array(
 							'label'       => __( 'Margin Bottom', 'uabb' ),
-							'type'        => 'text',
+							'type'        => 'unit',
 							'size'        => '8',
 							'description' => 'px',
 							'max_length'  => '3',
@@ -646,7 +646,7 @@ FLBuilder::register_module(
 							),
 						),
 						'description_letter_spacing'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',

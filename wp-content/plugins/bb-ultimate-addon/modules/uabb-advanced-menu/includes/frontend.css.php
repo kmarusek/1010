@@ -99,7 +99,6 @@ if( isset( $settings->creative_menu_close_icon_size ) && $settings->creative_men
 		.fl-node-<?php echo $id; ?> .uabb-creative-menu .menu.uabb-creative-menu-vertical > li > .uabb-has-submenu-container a span.uabb-menu-toggle {
 		    padding-left: 10px;
 		    float: right;
-
 		}
 		.fl-node-<?php echo $id; ?> .uabb-creative-menu .menu.uabb-creative-menu-vertical .uabb-menu-toggle {
 		    padding-left: 10px;
@@ -293,11 +292,6 @@ if( $global_settings->responsive_enabled ) { ?>
 			.fl-node-<?php echo $id; ?> .uabb-creative-menu .menu {
 				margin-top: 20px;
 			}
-			<?php if ( $settings->creative_menu_mobile_toggle != 'expanded' ) : ?>
-	           .fl-node-<?php echo $id; ?> .uabb-creative-menu .menu {
-	                <!-- display: none; -->
-	           }
-	        <?php endif;?>
 			.fl-node-<?php echo $id; ?> .uabb-creative-menu .uabb-off-canvas-menu .uabb-menu-close-btn,
 			.fl-node-<?php echo $id; ?> .uabb-creative-menu .uabb-menu-overlay .uabb-menu-close-btn {
 				display: block;
@@ -355,6 +349,24 @@ if( $global_settings->responsive_enabled ) { ?>
 		}
 		<?php endif; ?>
 	<?php } ?>
+
+	<?php /* Below Row Layout CSS starts here */ ?>
+
+	<?php if ( isset( $settings->creative_mobile_menu_type ) && 'below-row' == $settings->creative_mobile_menu_type ) : ?>
+
+		<?php if ( 'below-row' == $settings->creative_mobile_menu_type ) : ?>
+			.fl-node-<?php echo $id; ?> .uabb-creative-menu .menu {
+				margin: unset;
+			}
+			.fl-node-<?php echo $id; ?> .fl-module.fl-module-uabb-advanced-menu:before,
+			.fl-node-<?php echo $id; ?> .fl-module-content:before {
+				content: none;
+			}
+		<?php endif; ?>
+
+	<?php endif; ?>
+
+	<?php /* Below Row Layout CSS ends here */ ?>
 
 	<?php if ( 'always' != $module->media_breakpoint() ) { ?>
 		@media only screen and ( min-width: <?php echo ( $module->media_breakpoint() ) + 1 ?>px ) {

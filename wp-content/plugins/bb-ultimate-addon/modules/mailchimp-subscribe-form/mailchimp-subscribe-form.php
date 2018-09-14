@@ -398,7 +398,7 @@ FLBuilder::register_module(
 							),
 						),
 						'res_spacing'            => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Responsive Spacing', 'uabb' ),
 							'size'        => '8',
 							'placeholder' => '10',
@@ -411,7 +411,7 @@ FLBuilder::register_module(
 					'title'  => __( 'Form Input Style', 'uabb' ),
 					'fields' => array(
 						'spacing'                    => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Spacing', 'uabb' ),
 							'size'        => '8',
 							'placeholder' => '10',
@@ -469,7 +469,7 @@ FLBuilder::register_module(
 							'size'        => '5',
 						),
 						'border_width'               => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Width', 'uabb' ),
 							'default'     => '',
 							'placeholder' => '1',
@@ -500,7 +500,7 @@ FLBuilder::register_module(
 							'show_reset' => true,
 						),
 						'vertical_padding'           => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Vertical Padding', 'uabb' ),
 							'default'     => '',
 							'placeholder' => '12',
@@ -523,7 +523,7 @@ FLBuilder::register_module(
 							),
 						),
 						'horizontal_padding'         => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Horizontal Padding', 'uabb' ),
 							'default'     => '',
 							'placeholder' => '15',
@@ -551,7 +551,7 @@ FLBuilder::register_module(
 					'title'  => __( 'Terms Checkbox Style', 'uabb' ),
 					'fields' => array(
 						'checkbox_size'           => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Size', 'uabb' ),
 							'default'     => '24',
 							'placeholder' => '24',
@@ -592,7 +592,7 @@ FLBuilder::register_module(
 							),
 						),
 						'checkbox_border_width'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Width', 'uabb' ),
 							'placeholder' => '1',
 							'size'        => '6',
@@ -614,7 +614,7 @@ FLBuilder::register_module(
 							),
 						),
 						'checkbox_border_radius'  => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Checkbox Round Corners', 'uabb' ),
 							'placeholder' => '0',
 							'description' => 'px',
@@ -671,7 +671,7 @@ FLBuilder::register_module(
 							),
 						),
 						'btn_border_size'                => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Size', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '3',
@@ -845,7 +845,7 @@ FLBuilder::register_module(
 							),
 						),
 						'btn_custom_width'       => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Custom Width', 'uabb' ),
 							'default'     => '200',
 							'maxlength'   => '3',
@@ -859,7 +859,7 @@ FLBuilder::register_module(
 							),
 						),
 						'btn_custom_height'      => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Custom Height', 'uabb' ),
 							'default'     => '45',
 							'maxlength'   => '3',
@@ -873,7 +873,7 @@ FLBuilder::register_module(
 							),
 						),
 						'btn_padding_top_bottom' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Padding Top/Bottom', 'uabb' ),
 							'placeholder' => '0',
 							'maxlength'   => '3',
@@ -896,7 +896,7 @@ FLBuilder::register_module(
 							),
 						),
 						'btn_padding_left_right' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Padding Left/Right', 'uabb' ),
 							'placeholder' => '0',
 							'maxlength'   => '3',
@@ -919,7 +919,7 @@ FLBuilder::register_module(
 							),
 						),
 						'btn_border_radius'      => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Round Corners', 'uabb' ),
 							'maxlength'   => '3',
 							'size'        => '4',
@@ -1022,7 +1022,7 @@ FLBuilder::register_module(
 							),
 						),
 						'heading_letter_spacing'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -1046,7 +1046,7 @@ FLBuilder::register_module(
 							),
 						),
 						'heading_margin_bottom'    => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Margin Bottom', 'uabb' ),
 							'size'        => '5',
 							'placeholder' => '0',
@@ -1155,7 +1155,7 @@ FLBuilder::register_module(
 							),
 						),
 						'subheading_letter_spacing'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -1168,7 +1168,7 @@ FLBuilder::register_module(
 							),
 						),
 						'subheading_margin_bottom'    => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Margin Bottom', 'uabb' ),
 							'size'        => '5',
 							'placeholder' => '20',
@@ -1261,7 +1261,7 @@ FLBuilder::register_module(
 							),
 						),
 						'text_letter_spacing'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -1274,7 +1274,7 @@ FLBuilder::register_module(
 							),
 						),
 						'text_margin_top'       => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Margin Top', 'uabb' ),
 							'size'        => '5',
 							'placeholder' => '20',
@@ -1356,7 +1356,7 @@ FLBuilder::register_module(
 							),
 						),
 						'input_letter_spacing'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -1438,7 +1438,7 @@ FLBuilder::register_module(
 							),
 						),
 						'btn_letter_spacing'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -1451,7 +1451,7 @@ FLBuilder::register_module(
 							),
 						),
 						'btn_margin_top'       => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Margin Top', 'uabb' ),
 							'size'        => '5',
 							'description' => 'px',
@@ -1463,7 +1463,7 @@ FLBuilder::register_module(
 							),
 						),
 						'btn_margin_bottom' => array(
-							'type'              => 'text',
+							'type'              => 'unit',
 							'label'             => __('Margin Bottom', 'uabb'),
 							'size'              => '5',
 							'description'       => 'px',
@@ -1556,7 +1556,7 @@ FLBuilder::register_module(
 							),
 						),
 						'checkbox_text_letter_spacing' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -1650,7 +1650,7 @@ FLBuilder::register_module(
 							),
 						),
 						'terms_text_letter_spacing' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',

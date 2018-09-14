@@ -124,7 +124,7 @@ FLBuilder::register_module(
 							),
 						),
 						'custom_width' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Custom Width', 'uabb' ),
 							'placeholder' => '500',
 							'size'        => '6',
@@ -335,7 +335,7 @@ FLBuilder::register_module(
 							),
 						),
 						'text_letter_spacing'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',

@@ -284,7 +284,7 @@ FLBuilder::register_module(
 							),
 						),
 						'min_height'                   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Enter Height', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '4',
@@ -318,7 +318,7 @@ FLBuilder::register_module(
 							'help'    => __( 'It will apply minimum height in mobile devices', 'uabb' ),
 						),
 						'responsive_min_height'        => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Enter Height', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '4',
@@ -399,7 +399,7 @@ FLBuilder::register_module(
 							'help'    => __( 'The breakpoints of Medium and Small device is decided form BB-Global Settings', 'uabb' ),
 						),
 						'res_medium_width'       => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Medium Device Width', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '4',
@@ -407,7 +407,7 @@ FLBuilder::register_module(
 							'placeholder' => 'auto',
 						),
 						'res_small_width'        => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Small Device Width', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '4',
@@ -550,7 +550,7 @@ FLBuilder::register_module(
 							),
 						),
 						'btn_border_size'                => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Size', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '3',
@@ -711,7 +711,7 @@ FLBuilder::register_module(
 							),
 						),
 						'btn_custom_width'       => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Custom Width', 'uabb' ),
 							'default'     => '200',
 							'maxlength'   => '3',
@@ -719,7 +719,7 @@ FLBuilder::register_module(
 							'description' => 'px',
 						),
 						'btn_custom_height'      => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Custom Height', 'uabb' ),
 							'default'     => '45',
 							'maxlength'   => '3',
@@ -727,7 +727,7 @@ FLBuilder::register_module(
 							'description' => 'px',
 						),
 						'btn_padding_top_bottom' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Padding Top/Bottom', 'uabb' ),
 							'placeholder' => '0',
 							'maxlength'   => '3',
@@ -735,7 +735,7 @@ FLBuilder::register_module(
 							'description' => 'px',
 						),
 						'btn_padding_left_right' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Padding Left/Right', 'uabb' ),
 							'placeholder' => '0',
 							'maxlength'   => '3',
@@ -743,7 +743,7 @@ FLBuilder::register_module(
 							'description' => 'px',
 						),
 						'btn_border_radius'      => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Round Corners', 'uabb' ),
 							'maxlength'   => '3',
 							'size'        => '4',
@@ -888,7 +888,7 @@ FLBuilder::register_module(
 							),
 						),
 						'letter_spacing'      => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -901,7 +901,7 @@ FLBuilder::register_module(
 							),
 						),
 						'title_margin_top'    => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Margin Top', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '4',
@@ -915,7 +915,7 @@ FLBuilder::register_module(
 							),
 						),
 						'title_margin_bottom' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Margin Bottom', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '4',
@@ -998,7 +998,7 @@ FLBuilder::register_module(
 							),
 						),
 						'desc_letter_spacing'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -1022,7 +1022,7 @@ FLBuilder::register_module(
 							),
 						),
 						'desc_margin_top'       => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Margin Top', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '4',
@@ -1036,7 +1036,7 @@ FLBuilder::register_module(
 							),
 						),
 						'desc_margin_bottom'    => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Margin Bottom', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '4',
@@ -1119,7 +1119,7 @@ FLBuilder::register_module(
 							),
 						),
 						'tbtn_content_letter_spacing' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -1212,7 +1212,7 @@ FLBuilder::register_module(
 							),
 						),
 						'link_letter_spacing'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',

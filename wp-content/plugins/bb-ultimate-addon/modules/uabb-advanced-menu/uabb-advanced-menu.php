@@ -165,7 +165,7 @@ class UABBCreativeMenu extends FLBuilderModule {
 	 */
 	public function get_responsive_media( $settings, $module ) {
 
-		if ( 'default' != $settings->creative_mobile_menu_type ) {
+		if( 'default' != $settings->creative_mobile_menu_type && $settings->creative_mobile_menu_type != 'below-row' ) {
 
 			if ( 'full-screen' == $settings->creative_mobile_menu_type ) {
 				$classes = '<div class="uabb-menu-overlay uabb-overlay-' . $settings->creative_menu_full_screen_effects . '"> <div class="uabb-menu-close-btn"></div>';
@@ -479,7 +479,7 @@ FLBuilder::register_module(
 							),
 						),
 						'submenu_width' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Width', 'uabb' ),
 							'default'     => '220',
 							'size'        => '5',
@@ -548,28 +548,28 @@ FLBuilder::register_module(
 							),
 						),
 						'creative_submenu_shadow_color_hor' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Horizontal Length', 'uabb' ),
 							'default'     => '2',
 							'size'        => '5',
 							'description' => 'px',
 						),
 						'creative_submenu_shadow_color_ver' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Vertical Length', 'uabb' ),
 							'default'     => '2',
 							'size'        => '5',
 							'description' => 'px',
 						),
 						'creative_submenu_shadow_color_blur' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Blur Radius', 'uabb' ),
 							'default'     => '4',
 							'size'        => '5',
 							'description' => 'px',
 						),
 						'creative_submenu_shadow_color_spr' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Spread Radius', 'uabb' ),
 							'default'     => '1',
 							'size'        => '5',
@@ -693,7 +693,7 @@ FLBuilder::register_module(
 							),
 						),
 						'creative_submenu_separator_size'  => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Separator Size', 'uabb' ),
 							'default'     => '1',
 							'placeholder' => '1',
@@ -800,6 +800,7 @@ FLBuilder::register_module(
 								'default'     => __( 'Accordion', 'uabb' ),
 								'full-screen' => __( 'Overlay', 'uabb' ),
 								'off-canvas'  => __( 'Off Canvas', 'uabb' ),
+								'below-row'   => __( 'Below Row', 'uabb' ),
 							),
 							'toggle'  => array(
 								'off-canvas'  => array(
@@ -833,7 +834,7 @@ FLBuilder::register_module(
 							),
 						),
 						'creative_menu_animation_speed'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Animation Speed', 'uabb' ),
 							'default'     => 500,
 							'description' => __( 'ms', 'uabb' ),
@@ -857,7 +858,7 @@ FLBuilder::register_module(
 							),
 						),
 						'custom_breakpoint'               => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Custom Breakpoint', 'uabb' ),
 							'default'     => '768',
 							'description' => __( 'px', 'uabb' ),
@@ -979,7 +980,7 @@ FLBuilder::register_module(
 					'title'  => __( 'Close Icon', 'uabb' ),
 					'fields' => array(
 						'creative_menu_close_icon_size'  => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Close Icon Size', 'uabb' ),
 							'placeholder' => '30',
 							'size'        => '8',
@@ -1125,7 +1126,7 @@ FLBuilder::register_module(
 							),
 						),
 						'creative_menu_link_letter_spacing' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -1233,7 +1234,7 @@ FLBuilder::register_module(
 							),
 						),
 						'creative_submenu_link_letter_spacing' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',

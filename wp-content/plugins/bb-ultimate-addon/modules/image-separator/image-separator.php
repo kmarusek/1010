@@ -377,7 +377,7 @@ FLBuilder::register_module(
 							'connections' => array( 'photo' ),
 						),
 						'img_size'        => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Desktop Size', 'uabb' ),
 							'maxlength'   => '5',
 							'size'        => '6',
@@ -391,7 +391,7 @@ FLBuilder::register_module(
 							),
 						),
 						'medium_img_size' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Medium Device Size', 'uabb' ),
 							'maxlength'   => '5',
 							'size'        => '6',
@@ -402,7 +402,7 @@ FLBuilder::register_module(
 							),
 						),
 						'small_img_size'  => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Small Device Size', 'uabb' ),
 							'maxlength'   => '5',
 							'size'        => '6',
@@ -449,7 +449,7 @@ FLBuilder::register_module(
 
 						/* Image Background Size */
 						'img_bg_size'          => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Background Size', 'uabb' ),
 							'help'        => __( 'Spacing between Image edge & Background edge', 'uabb' ),
 							'maxlength'   => '3',
@@ -497,7 +497,7 @@ FLBuilder::register_module(
 							),
 						),
 						'img_border_width'     => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Width', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '3',
@@ -511,7 +511,7 @@ FLBuilder::register_module(
 							),
 						),
 						'img_bg_border_radius' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Radius', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '3',
@@ -760,7 +760,7 @@ FLBuilder::register_module(
 							),
 						),
 						'img_animation_delay'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Animation Delay', 'uabb' ),
 							'placeholder' => '0',
 							'help'        => __( 'Delay the animation effect for seconds you entered.', 'uabb' ),
@@ -769,7 +769,7 @@ FLBuilder::register_module(
 							'description' => 'sec',
 						),
 						'img_animation_repeat'  => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Repeat Animation', 'uabb' ),
 							'placeholder' => '1',
 							'help'        => __( 'The animation effect will repeat to the count you enter. Enter 0 if you want to repeat it infinitely.', 'uabb' ),
@@ -778,7 +778,7 @@ FLBuilder::register_module(
 							'description' => 'times',
 						),
 						'img_viewport_position' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Viewport Position', 'uabb' ),
 							'placeholder' => '90',
 							'help'        => __( 'The area of screen from top where animation effect will start working.', 'uabb' ),

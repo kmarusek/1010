@@ -462,7 +462,7 @@ FLBuilder::register_module(
 							'connections' => array( 'photo' ),
 						),
 						'photo_size'       => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Photo Size', 'uabb' ),
 							'description' => 'px',
 							'size'        => '8',
@@ -623,7 +623,7 @@ FLBuilder::register_module(
 						),
 
 						'bg_size'                 => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Background Size', 'uabb' ),
 							'default'     => '',
 							'help'        => __( 'Space between icon and background', 'uabb' ),
@@ -658,7 +658,7 @@ FLBuilder::register_module(
 							'size'        => '5',
 						),
 						'bg_border_radius'        => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Radius ( For Background )', 'uabb' ),
 							'default'     => '',
 							'maxlength'   => '3',
@@ -688,7 +688,7 @@ FLBuilder::register_module(
 							),
 						),
 						'opacity'                 => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Image Opacity', 'uabb' ),
 							'default'     => '100',
 							'description' => '%',
@@ -697,7 +697,7 @@ FLBuilder::register_module(
 							'placeholder' => '100',
 						),
 						'hover_opacity'           => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Image Hover Opacity', 'uabb' ),
 							'default'     => '100',
 							'description' => '%',

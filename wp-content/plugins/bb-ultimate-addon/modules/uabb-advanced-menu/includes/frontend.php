@@ -1,6 +1,6 @@
 <?php
 if ( 'always' == $settings->creative_menu_mobile_breakpoint ) {
-	if ( 'default' == $settings->creative_mobile_menu_type ) { ?>
+	if ( 'default' == $settings->creative_mobile_menu_type || $settings->creative_mobile_menu_type == 'below-row' ) { ?>
 		<div class="uabb-creative-menu
 		<?php
 		if ( $settings->creative_menu_collapse ) {

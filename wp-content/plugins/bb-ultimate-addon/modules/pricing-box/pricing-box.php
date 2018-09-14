@@ -183,7 +183,7 @@ FLBuilder::register_module(
 							),
 						),
 						'spacing'                => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '8',
@@ -278,7 +278,7 @@ FLBuilder::register_module(
 							),
 						),
 						'border_size'           => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Size', 'uabb' ),
 							'placeholder' => '1',
 							'size'        => '8',
@@ -302,7 +302,7 @@ FLBuilder::register_module(
 							),
 						),
 						'border_radius'         => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Radius', 'uabb' ),
 							'placeholder' => '1',
 							'size'        => '8',
@@ -324,7 +324,7 @@ FLBuilder::register_module(
 							),
 						),
 						'resp_size'             => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Size', 'uabb' ),
 							'placeholder' => '767',
 							'size'        => '8',
@@ -336,7 +336,7 @@ FLBuilder::register_module(
 					'title'  => __( 'Button Structure', 'uabb' ),
 					'fields' => array(
 						'btn_margin_top'    => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Margin Top', 'uabb' ),
 							'placeholder' => '20',
 							'size'        => '8',
@@ -349,7 +349,7 @@ FLBuilder::register_module(
 							),
 						),
 						'btn_margin_bottom' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Margin Bottom', 'uabb' ),
 							'placeholder' => '20',
 							'size'        => '8',
@@ -452,7 +452,7 @@ FLBuilder::register_module(
 							),
 						),
 						'title_letter_spacing'            => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -534,7 +534,7 @@ FLBuilder::register_module(
 							),
 						),
 						'price_typography_letter_spacing' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -616,7 +616,7 @@ FLBuilder::register_module(
 							),
 						),
 						'duration_typography_letter_spacing' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -698,7 +698,7 @@ FLBuilder::register_module(
 							),
 						),
 						'feature_content_letter_spacing' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -960,7 +960,7 @@ FLBuilder::register_settings_form(
 								),
 							),
 							'btn_border_size'           => array(
-								'type'        => 'text',
+								'type'        => 'unit',
 								'label'       => __( 'Border Size', 'uabb' ),
 								'description' => 'px',
 								'maxlength'   => '3',
@@ -1116,7 +1116,7 @@ FLBuilder::register_settings_form(
 								),
 							),
 							'btn_custom_width'       => array(
-								'type'        => 'text',
+								'type'        => 'unit',
 								'label'       => __( 'Custom Width', 'uabb' ),
 								'default'     => '200',
 								'maxlength'   => '3',
@@ -1124,7 +1124,7 @@ FLBuilder::register_settings_form(
 								'description' => 'px',
 							),
 							'btn_custom_height'      => array(
-								'type'        => 'text',
+								'type'        => 'unit',
 								'label'       => __( 'Custom Height', 'uabb' ),
 								'default'     => '45',
 								'maxlength'   => '3',
@@ -1132,7 +1132,7 @@ FLBuilder::register_settings_form(
 								'description' => 'px',
 							),
 							'btn_padding_top_bottom' => array(
-								'type'        => 'text',
+								'type'        => 'unit',
 								'label'       => __( 'Padding Top/Bottom', 'uabb' ),
 								'placeholder' => '0',
 								'maxlength'   => '3',
@@ -1140,7 +1140,7 @@ FLBuilder::register_settings_form(
 								'description' => 'px',
 							),
 							'btn_padding_left_right' => array(
-								'type'        => 'text',
+								'type'        => 'unit',
 								'label'       => __( 'Padding Left/Right', 'uabb' ),
 								'placeholder' => '0',
 								'maxlength'   => '3',
@@ -1148,7 +1148,7 @@ FLBuilder::register_settings_form(
 								'description' => 'px',
 							),
 							'btn_border_radius'      => array(
-								'type'        => 'text',
+								'type'        => 'unit',
 								'label'       => __( 'Round Corners', 'uabb' ),
 								'maxlength'   => '3',
 								'size'        => '4',
@@ -1215,7 +1215,7 @@ FLBuilder::register_settings_form(
 								),
 							),
 							'button_letter_spacing' => array(
-								'type'        => 'text',
+								'type'        => 'unit',
 								'label'       => __( 'Letter Spacing', 'uabb' ),
 								'placeholder' => '0',
 								'size'        => '5',
@@ -1311,7 +1311,7 @@ FLBuilder::register_settings_form(
 								),
 							),
 							'featured_letter_spacing'     => array(
-								'type'        => 'text',
+								'type'        => 'unit',
 								'label'       => __( 'Letter Spacing', 'uabb' ),
 								'placeholder' => '0',
 								'size'        => '5',
@@ -1451,7 +1451,7 @@ FLBuilder::register_settings_form(
 								),
 							),
 							'legend_letter_spacing'   => array(
-								'type'        => 'text',
+								'type'        => 'unit',
 								'label'       => __( 'Letter Spacing', 'uabb' ),
 								'placeholder' => '0',
 								'size'        => '5',

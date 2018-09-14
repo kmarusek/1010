@@ -75,7 +75,7 @@ FLBuilder::register_module(
 							'width'   => '70px',
 						),
 						'size'             => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Icon / Image Size', 'uabb' ),
 							'placeholder' => '40',
 							'maxlength'   => '3',
@@ -83,7 +83,7 @@ FLBuilder::register_module(
 							'description' => 'px',
 						),
 						'spacing'          => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Spacing', 'uabb' ),
 							'placeholder' => '10',
 							'maxlength'   => '2',
@@ -137,7 +137,7 @@ FLBuilder::register_module(
 							),
 						),
 						'bg_size'          => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Background Size', 'uabb' ),
 							'help'        => __( 'Spacing between Icon / Photo & Background edge', 'uabb' ),
 							'placeholder' => '0',
@@ -173,7 +173,7 @@ FLBuilder::register_module(
 							),
 						),
 						'border_width'     => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Width', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '3',
@@ -181,7 +181,7 @@ FLBuilder::register_module(
 							'placeholder' => '1',
 						),
 						'bg_border_radius' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Radius', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '3',

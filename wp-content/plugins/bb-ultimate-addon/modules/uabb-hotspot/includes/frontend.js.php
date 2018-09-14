@@ -119,7 +119,7 @@
 		responsiveTooltipShift();
 	});
 
-	jQuery(document).load( function() {
+	jQuery(document).on("load", function() {
 		document_width = $( document ).width();
 		document_height = $( document ).height();
 		responsiveTooltipShift();

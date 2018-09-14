@@ -24,7 +24,7 @@ class UABBWooProductsModule extends FLBuilderModule {
 			'dir'           	=> BB_ULTIMATE_ADDON_DIR . 'modules/uabb-woo-products/',
             'url'           	=> BB_ULTIMATE_ADDON_URL . 'modules/uabb-woo-products/',
             'partial_refresh'	=> true,
-			'icon'				=> 'text.svg',
+			'icon'				=> 'uabb-woo-products.svg',
 		));
 
 		$this->add_css( 'font-awesome' );
@@ -44,6 +44,25 @@ class UABBWooProductsModule extends FLBuilderModule {
 		add_action( 'wp_ajax_uabb_get_products', array( $this, 'uabb_get_products' ) );
 		add_action( 'wp_ajax_nopriv_uabb_get_products', array( $this, 'uabb_get_products' ) );
 	}
+
+	/**
+	 * Function that renders icons for the Woo - Products
+	 *
+	 * @param object $icon get an object for the icon.
+	 */
+	public function get_icon( $icon = '' ) {
+
+        // check if $icon is referencing an included icon.
+        if ( '' != $icon && file_exists( BB_ULTIMATE_ADDON_DIR . 'modules/uabb-woo-products/icon/' . $icon ) ) {
+            $path = BB_ULTIMATE_ADDON_DIR . 'modules/uabb-woo-products/icon/' . $icon;
+        }
+
+        if ( file_exists( $path ) ) {
+            return file_get_contents( $path );
+        } else {
+            return '';
+        }
+    }
 
 	/**
 	 * Get Woo Data via AJAX call.

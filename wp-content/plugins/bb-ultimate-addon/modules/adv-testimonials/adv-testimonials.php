@@ -44,29 +44,31 @@ class UABBAdvancedTestimonialsModule extends FLBuilderModule {
 	 */
 	public function render_ratings( $rating ) {
 
+		$rating_icon = apply_filters( 'uabb_testimonial_rating_icon', 'fa-star-o' );
+
 		if ( 'none' != $rating ) {
 			$output  = '<div class="uabb-rating">
                             <div class="uabb-rating__wrap">
                               <input class="uabb-rating__input';
 			$output .= ( 5 == $rating ) ? ' uabb-checked ' : '';
 			$output .= '" type="radio" value="5">
-                  <label class="uabb-rating__ico fa fa-star-o fa-lg" title="5 out of 5 stars"></label>
+                  <label class="uabb-rating__ico fa fa-lg '.$rating_icon.'" title="5 out of 5 stars"></label>
                   <input class="uabb-rating__input';
 			$output .= ( 4 == $rating ) ? ' uabb-checked ' : '';
 			$output .= '" type="radio" value="4">
-                  <label class="uabb-rating__ico fa fa-star-o fa-lg" title="4 out of 5 stars"></label>
+                  <label class="uabb-rating__ico fa fa-lg '.$rating_icon.'" title="4 out of 5 stars"></label>
                   <input class="uabb-rating__input';
 			$output .= ( 3 == $rating ) ? ' uabb-checked ' : '';
 			$output .= '" type="radio" value="3">
-                  <label class="uabb-rating__ico fa fa-star-o fa-lg" title="3 out of 5 stars"></label>
+                  <label class="uabb-rating__ico fa fa-lg '.$rating_icon.'" title="3 out of 5 stars"></label>
                   <input class="uabb-rating__input';
 			$output .= ( 2 == $rating ) ? ' uabb-checked ' : '';
 			$output .= '" type="radio" value="2">
-                  <label class="uabb-rating__ico fa fa-star-o fa-lg" title="2 out of 5 stars"></label>
+                  <label class="uabb-rating__ico fa fa-lg '.$rating_icon.'" title="2 out of 5 stars"></label>
                   <input class="uabb-rating__input';
 			$output .= ( 1 == $rating ) ? ' uabb-checked ' : '';
 			$output .= '" type="radio" value="1">
-                  <label class="uabb-rating__ico fa fa-star-o fa-lg" title="1 out of 5 stars"></label>
+                  <label class="uabb-rating__ico fa fa-lg '.$rating_icon.'" title="1 out of 5 stars"></label>
                 </div>
               </div>';
 
@@ -159,7 +161,7 @@ FLBuilder::register_module(
 							),
 						),
 						'pause'           => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Delay', 'uabb' ),
 							'placeholder' => '10',
 							'maxlength'   => '4',
@@ -185,7 +187,7 @@ FLBuilder::register_module(
 							),
 						),
 						'speed'           => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Transition Speed', 'uabb' ),
 							'placeholder' => '0.5',
 							'maxlength'   => '4',
@@ -297,7 +299,7 @@ FLBuilder::register_module(
 							),
 						),
 						'arrow_border_size'    => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Size', 'uabb' ),
 							'placeholder' => '1',
 							'description' => 'px',
@@ -473,7 +475,7 @@ FLBuilder::register_module(
 					'title'  => __( 'Image / Icon Style ', 'uabb' ),
 					'fields' => array(
 						'testimonial_icon_image_size_noslider' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Size', 'uabb' ),
 							'placeholder' => '75',
 							'maxlength'   => '3',
@@ -487,7 +489,7 @@ FLBuilder::register_module(
 							),
 						),
 						'responsive_img_size'             => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Responsive Size', 'uabb' ),
 							'maxlength'   => '5',
 							'size'        => '6',
@@ -524,7 +526,7 @@ FLBuilder::register_module(
 							'show_reset' => true,
 						),
 						'testimonial_icon_bg_color_noslider_opc' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Opacity', 'uabb' ),
 							'default'     => '',
 							'description' => '%',
@@ -532,7 +534,7 @@ FLBuilder::register_module(
 							'size'        => '5',
 						),
 						'testimonial_icon_bg_border_radius_noslider' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Radius ( For Background )', 'uabb' ),
 							'maxlength'   => '3',
 							'size'        => '4',
@@ -540,7 +542,7 @@ FLBuilder::register_module(
 							'description' => 'px',
 						),
 						'testimonial_icon_bg_size_noslider' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Background Size', 'uabb' ),
 							'maxlength'   => '3',
 							'size'        => '4',
@@ -636,7 +638,7 @@ FLBuilder::register_module(
 							),
 						),
 						'layout_background_opc'      => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Opacity', 'uabb' ),
 							'default'     => '',
 							'description' => '%',
@@ -663,7 +665,7 @@ FLBuilder::register_module(
 					'fields' => array(
 
 						'testimonial_icon_image_size'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Size', 'uabb' ),
 							'placeholder' => '75',
 							'maxlength'   => '3',
@@ -671,7 +673,7 @@ FLBuilder::register_module(
 							'description' => 'px',
 						),
 						'responsive_img_size_slider'    => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Responsive Size', 'uabb' ),
 							'maxlength'   => '5',
 							'size'        => '6',
@@ -717,7 +719,7 @@ FLBuilder::register_module(
 							'size'        => '5',
 						),
 						'testimonial_icon_bg_border_radius' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Radius ( For Background )', 'uabb' ),
 							'maxlength'   => '3',
 							'size'        => '4',
@@ -725,7 +727,7 @@ FLBuilder::register_module(
 							'description' => 'px',
 						),
 						'testimonial_icon_bg_size'      => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Background Size', 'uabb' ),
 							'maxlength'   => '3',
 							'size'        => '4',
@@ -835,7 +837,7 @@ FLBuilder::register_module(
 							),
 						),
 						'testimonial_letter_spacing'      => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -848,7 +850,7 @@ FLBuilder::register_module(
 							),
 						),
 						'testimonial_heading_margin_top'  => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Margin Top', 'uabb' ),
 							'size'        => '8',
 							'max-length'  => '6',
@@ -861,7 +863,7 @@ FLBuilder::register_module(
 							),
 						),
 						'testimonial_heading_margin_bottom' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Margin Bottom', 'uabb' ),
 							'size'        => '8',
 							'placeholder' => '5',
@@ -989,7 +991,7 @@ FLBuilder::register_module(
 							),
 						),
 						'testimonial_designation_letter_spacing' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -1002,7 +1004,7 @@ FLBuilder::register_module(
 							),
 						),
 						'testimonial_designation_margin_top' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Margin Top', 'uabb' ),
 							'size'        => '8',
 							'placeholder' => '5',
@@ -1016,7 +1018,7 @@ FLBuilder::register_module(
 							),
 						),
 						'testimonial_designation_margin_bottom' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Margin Bottom', 'uabb' ),
 							'size'        => '8',
 							'max-length'  => '6',
@@ -1110,7 +1112,7 @@ FLBuilder::register_module(
 							),
 						),
 						'testimonial_description_letter_spacing' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -1123,7 +1125,7 @@ FLBuilder::register_module(
 							),
 						),
 						'testimonial_description_opt_margin_top' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Padding Top', 'uabb' ),
 							'size'        => '8',
 							'placeholder' => '10',
@@ -1137,7 +1139,7 @@ FLBuilder::register_module(
 							),
 						),
 						'testimonial_description_opt_margin_bottom' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Padding Bottom', 'uabb' ),
 							'size'        => '8',
 							'max-length'  => '6',

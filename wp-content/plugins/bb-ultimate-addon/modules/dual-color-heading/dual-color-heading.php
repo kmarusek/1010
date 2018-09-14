@@ -40,8 +40,8 @@ FLBuilder::register_module(
 		'dual_color'      => array( // Tab.
 			'title'    => __( 'General', 'uabb' ), // Tab title.
 			'sections' => array( // Tab Sections.
-				'dual_color_heading' => array( // Section.
-					'title'  => __( 'Heading Text', 'uabb' ), // Section Title.
+				'dual_color_first_heading' => array( // Section.
+					'title'  => __( 'First Heading', 'uabb' ), // Section Title.
 					'fields' => array( // Section Fields.
 						'first_heading_text'  => array(
 							'type'        => 'text',
@@ -56,6 +56,31 @@ FLBuilder::register_module(
 							'help'        => __( 'Enter first part of heading.', 'uabb' ),
 							'connections' => array( 'string', 'html' ),
 						),
+						'first_heading_link'        => array(
+							'type'        => 'link',
+							'label'       => __( 'First Heading Link', 'uabb' ),
+							'preview'     => array(
+								'type' => 'none',
+							),
+							'connections' => array( 'url' ),
+						),
+						'first_heading_link_target' => array(
+							'type'    => 'select',
+							'label'   => __( 'First Heading Link Target', 'uabb' ),
+							'default' => '_self',
+							'options' => array(
+								'_self'  => __( 'Same Window', 'uabb' ),
+								'_blank' => __( 'New Window', 'uabb' ),
+							),
+							'preview' => array(
+								'type' => 'none',
+							),
+						),
+					),
+				),
+				'dual_color_second_heading' => array( // Section.
+					'title'  => __( 'Second Heading', 'uabb' ), // Section Title.
+					'fields' => array( // Section Fields.
 						'second_heading_text' => array(
 							'type'        => 'text',
 							'label'       => __( 'Second Heading', 'uabb' ),
@@ -68,6 +93,26 @@ FLBuilder::register_module(
 							),
 							'help'        => __( 'Enter second part of heading.', 'uabb' ),
 							'connections' => array( 'string', 'html' ),
+						),
+						'second_heading_link'        => array(
+							'type'        => 'link',
+							'label'       => __( 'Link', 'uabb' ),
+							'preview'     => array(
+								'type' => 'none',
+							),
+							'connections' => array( 'url' ),
+						),
+						'second_heading_link_target' => array(
+							'type'    => 'select',
+							'label'   => __( 'Second Heading Link Target', 'uabb' ),
+							'default' => '_self',
+							'options' => array(
+								'_self'  => __( 'Same Window', 'uabb' ),
+								'_blank' => __( 'New Window', 'uabb' ),
+							),
+							'preview' => array(
+								'type' => 'none',
+							),
 						),
 					),
 				),
@@ -101,7 +146,7 @@ FLBuilder::register_module(
 
 						),
 						'heading_margin'           => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Spacing', 'uabb' ),
 							'placeholder' => '10',
 							'size'        => '8',
@@ -164,7 +209,7 @@ FLBuilder::register_module(
 			'title'    => __( 'Typography', 'uabb' ), // Tab title.
 			'sections' => array( // Tab Sections.
 				'dual_typography' => array(
-					'title'  => '',
+					'title'  => __( 'Headings', 'uabb' ),
 					'fields' => array(
 						'dual_tag_selection'    => array(
 							'type'    => 'select',
@@ -247,7 +292,7 @@ FLBuilder::register_module(
 							),
 						),
 						'dual_letter_spacing'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',

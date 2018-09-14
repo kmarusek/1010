@@ -213,7 +213,7 @@ FLBuilder::register_settings_form(
 								'show_remove' => true,
 							),
 							'icon_size' => array(
-								'type'        => 'text',
+								'type'        => 'unit',
 								'label'       => __( 'Size', 'uabb' ),
 								'default'     => '30',
 								'maxlength'   => '5',
@@ -246,7 +246,7 @@ FLBuilder::register_settings_form(
 								'placeholder' => 'http://www.example.com/my-photo.jpg',
 							),
 							'img_size'     => array(
-								'type'        => 'text',
+								'type'        => 'unit',
 								'label'       => __( 'Size', 'uabb' ),
 								'maxlength'   => '5',
 								'size'        => '6',
@@ -273,7 +273,7 @@ FLBuilder::register_settings_form(
 
 							/* Icon Background SIze */
 							'icon_bg_size'          => array(
-								'type'        => 'text',
+								'type'        => 'unit',
 								'label'       => __( 'Background Size', 'uabb' ),
 								'help'        => __( 'Spacing between Icon & Background edge', 'uabb' ),
 								'placeholder' => '30',
@@ -311,7 +311,7 @@ FLBuilder::register_settings_form(
 								),
 							),
 							'icon_border_width'     => array(
-								'type'        => 'text',
+								'type'        => 'unit',
 								'label'       => __( 'Border Width', 'uabb' ),
 								'description' => 'px',
 								'maxlength'   => '3',
@@ -319,7 +319,7 @@ FLBuilder::register_settings_form(
 								'placeholder' => '1',
 							),
 							'icon_bg_border_radius' => array(
-								'type'        => 'text',
+								'type'        => 'unit',
 								'label'       => __( 'Border Radius', 'uabb' ),
 								'description' => 'px',
 								'maxlength'   => '3',
@@ -348,7 +348,7 @@ FLBuilder::register_settings_form(
 
 							/* Image Background Size */
 							'img_bg_size'          => array(
-								'type'        => 'text',
+								'type'        => 'unit',
 								'label'       => __( 'Background Size', 'uabb' ),
 								'help'        => __( 'Spacing between Image edge & Background edge', 'uabb' ),
 								'maxlength'   => '3',
@@ -385,7 +385,7 @@ FLBuilder::register_settings_form(
 								),
 							),
 							'img_border_width'     => array(
-								'type'        => 'text',
+								'type'        => 'unit',
 								'label'       => __( 'Border Width', 'uabb' ),
 								'description' => 'px',
 								'maxlength'   => '3',
@@ -393,7 +393,7 @@ FLBuilder::register_settings_form(
 								'placeholder' => '1',
 							),
 							'img_bg_border_radius' => array(
-								'type'        => 'text',
+								'type'        => 'unit',
 								'label'       => __( 'Border Radius', 'uabb' ),
 								'description' => 'px',
 								'maxlength'   => '3',
@@ -774,7 +774,7 @@ FLBuilder::register_settings_form(
 								),
 							),
 							'text_typography_letter_spacing' => array(
-								'type'        => 'text',
+								'type'        => 'unit',
 								'label'       => __( 'Letter Spacing', 'uabb' ),
 								'placeholder' => '0',
 								'size'        => '5',
@@ -869,7 +869,7 @@ FLBuilder::register_settings_form(
 								),
 							),
 							'tooltip_letter_spacing'   => array(
-								'type'        => 'text',
+								'type'        => 'unit',
 								'label'       => __( 'Letter Spacing', 'uabb' ),
 								'placeholder' => '0',
 								'size'        => '5',
@@ -924,7 +924,7 @@ FLBuilder::register_module(
 							'connections' => array( 'photo' ),
 						),
 						'photo_size'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Photo Size', 'uabb' ),
 							'description' => 'px',
 							'size'        => '8',

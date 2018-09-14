@@ -218,7 +218,7 @@ FLBuilder::register_module(
 							),
 						),
 						'min_height'             => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Min Height', 'uabb' ),
 							'maxlength'   => '5',
 							'size'        => '6',
@@ -290,7 +290,7 @@ FLBuilder::register_module(
 							'description' => 'px',
 						),
 						'btn_top_margin'         => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Top Margin', 'uabb' ),
 							'default'     => '',
 							'maxlength'   => '4',
@@ -299,7 +299,7 @@ FLBuilder::register_module(
 							'placeholder' => '15',
 						),
 						'btn_bottom_margin'      => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Bottom Margin', 'uabb' ),
 							'default'     => '',
 							'maxlength'   => '4',
@@ -349,7 +349,7 @@ FLBuilder::register_module(
 							'default'     => 'fa fa-child',
 						),
 						'icon_size' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Size', 'uabb' ),
 							'maxlength'   => '5',
 							'size'        => '6',
@@ -395,7 +395,7 @@ FLBuilder::register_module(
 							'placeholder' => 'http://www.example.com/my-photo.jpg',
 						),
 						'img_size'     => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Size', 'uabb' ),
 							'maxlength'   => '5',
 							'size'        => '6',
@@ -458,7 +458,7 @@ FLBuilder::register_module(
 
 						/* Icon Background SIze */
 						'icon_bg_size'          => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Background Size', 'uabb' ),
 							'help'        => __( 'Spacing between Icon & Background edge', 'uabb' ),
 							'placeholder' => '30',
@@ -496,7 +496,7 @@ FLBuilder::register_module(
 							),
 						),
 						'icon_border_width'     => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Width', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '3',
@@ -507,7 +507,7 @@ FLBuilder::register_module(
 							),
 						),
 						'icon_bg_border_radius' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Radius', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '3',
@@ -557,7 +557,7 @@ FLBuilder::register_module(
 
 						/* Image Background Size */
 						'img_bg_size'          => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Background Size', 'uabb' ),
 							'help'        => __( 'Spacing between Image edge & Background edge', 'uabb' ),
 							'maxlength'   => '3',
@@ -597,7 +597,7 @@ FLBuilder::register_module(
 							),
 						),
 						'img_border_width'     => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Width', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '3',
@@ -608,7 +608,7 @@ FLBuilder::register_module(
 							),
 						),
 						'img_bg_border_radius' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Border Radius', 'uabb' ),
 							'description' => 'px',
 							'maxlength'   => '3',
@@ -859,7 +859,7 @@ FLBuilder::register_module(
 							),
 						),
 						'heading_letter_spacing'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -968,7 +968,7 @@ FLBuilder::register_module(
 							),
 						),
 						'sub_letter_spacing'           => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -1061,7 +1061,7 @@ FLBuilder::register_module(
 							),
 						),
 						'description_letter_spacing'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -1126,7 +1126,7 @@ FLBuilder::register_module(
 							),
 						),
 						'btn_letter_spacing'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',

@@ -24,13 +24,32 @@ class UABBWooCategoriesModule extends FLBuilderModule {
 			'dir'           	=> BB_ULTIMATE_ADDON_DIR . 'modules/uabb-woo-categories/',
             'url'           	=> BB_ULTIMATE_ADDON_URL . 'modules/uabb-woo-categories/',
             'partial_refresh'	=> true,
-			'icon'				=> 'text.svg',
+			'icon'				=> 'uabb-woo-categories.svg',
 		));
 
 		$this->add_css( 'font-awesome' );
 		$this->add_js('imagesloaded-uabb', BB_ULTIMATE_ADDON_URL . 'assets/js/global-scripts/imagesloaded.min.js', array('jquery'), '', true);
 		$this->add_js( 'carousel', BB_ULTIMATE_ADDON_URL . 'assets/js/global-scripts/jquery-carousel.js', array('jquery'), '', true );
 	}
+
+	/**
+	 * Function that renders icons for the Woo Categories
+	 *
+	 * @param object $icon get an object for the icon.
+	 */
+	public function get_icon( $icon = '' ) {
+
+        // check if $icon is referencing an included icon.
+        if ( '' != $icon && file_exists( BB_ULTIMATE_ADDON_DIR . 'modules/uabb-woo-categories/icon/' . $icon ) ) {
+            $path = BB_ULTIMATE_ADDON_DIR . 'modules/uabb-woo-categories/icon/' . $icon;
+        }
+
+        if ( file_exists( $path ) ) {
+            return file_get_contents( $path );
+        } else {
+            return '';
+        }
+    }
 
 	public function get_inner_classes() {
 		

@@ -162,14 +162,14 @@ FLBuilder::register_module(
 					'title'  => '', // Section Title.
 					'fields' => array( // Section Fields.
 						'map_width'      => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Width', 'uabb' ),
 							'placeholder' => '100',
 							'size'        => '6',
 							'description' => '%',
 						),
 						'map_height'     => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Height', 'uabb' ),
 							'placeholder' => '300',
 							'size'        => '6',

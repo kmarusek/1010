@@ -335,7 +335,7 @@ FLBuilder::register_module(
 							),
 						),
 						'message_letter_spacing'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -374,14 +374,14 @@ FLBuilder::register_module(
 							),
 						),
 						'space_between_unit' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'size'        => '8',
 							'label'       => __( 'Space Between Timer Unit & Digit', 'uabb' ),
 							'placeholder' => '10',
 							'description' => 'px',
 						),
 						'timer_out_spacing'  => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'size'        => '8',
 							'description' => 'px',
 							'placeholder' => '10',
@@ -440,7 +440,7 @@ FLBuilder::register_module(
 							'size'        => '5',
 						),
 						'digit_area_width'           => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'size'        => '8',
 							'description' => 'px',
 							'placeholder' => '100',
@@ -448,7 +448,7 @@ FLBuilder::register_module(
 							'class'       => '',
 						),
 						'digit_border_radius'        => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'size'        => '8',
 							'description' => 'px',
 							'placeholder' => '5',
@@ -467,7 +467,7 @@ FLBuilder::register_module(
 							),
 						),
 						'digit_border_width'         => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'size'        => '8',
 							'description' => 'px',
 							'placeholder' => '5',
@@ -842,7 +842,7 @@ FLBuilder::register_module(
 							'show_reset' => true,
 						),
 						'digit_letter_spacing'   => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -951,7 +951,7 @@ FLBuilder::register_module(
 							),
 						),
 						'unit_letter_spacing'  => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',

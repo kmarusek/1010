@@ -264,7 +264,7 @@ FLBuilder::register_module(
 							),
 						),
 						'banner_height'            => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Custom Banner Height', 'uabb' ),
 							'size'        => '8',
 							'description' => 'px',
@@ -353,7 +353,7 @@ FLBuilder::register_module(
 							'show_reset' => true,
 						),
 						'icon_size'  => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Size', 'uabb' ),
 							'placeholder' => '30',
 							'maxlength'   => '3',
@@ -532,7 +532,7 @@ FLBuilder::register_module(
 							),
 						),
 						'title_letter_spacing'            => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',
@@ -625,7 +625,7 @@ FLBuilder::register_module(
 							),
 						),
 						'desc_letter_spacing'              => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Letter Spacing', 'uabb' ),
 							'placeholder' => '0',
 							'size'        => '5',

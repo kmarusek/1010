@@ -4,6 +4,9 @@
 	{   
 		this.settings 	= settings;
 		this.nodeClass  = '.fl-node-' + settings.id;
+		this.select_switch_style = settings.select_switch_style;
+		this.content1 = settings.content1_section;
+		this.content2 = settings.content2_section;
 		this._init();	
 	};
 
@@ -12,6 +15,7 @@
 		settings	: {},
 		node 		: '',
 		nodeClass   : '',
+		select_switch_style  : '',
 		
 		_init: function()
 		{	
@@ -29,16 +33,17 @@
 		{   
 			var nodeClass  		= jQuery(this.nodeClass);
 			var node_id 		= nodeClass.data( 'node' );
-			var node            = '.fl-node-'+node_id+' ';
+			var node          	= '.fl-node-'+node_id+' ';
 			var rbs_wrapper     = nodeClass.find( '.uabb-rbs-wrapper' );
-			var rbs_section_1   = nodeClass.find( ".uabb-rbs-section-1" );
-			var rbs_section_2   = nodeClass.find( ".uabb-rbs-section-2" );
-			var main_btn        = nodeClass.find( ".uabb-main-btn" );
-			var switch_type     = jQuery( ".uabb-main-btn" ).attr( 'data-switch-type' );
+			var rbs_section_1   = nodeClass.find( '.uabb-rbs-content-1' );
+			var rbs_section_2   = nodeClass.find( '.uabb-rbs-content-2' );
+			var main_btn        = nodeClass.find( '.uabb-main-btn' );
+			var switch_type 	= this.select_switch_style;
 			var current_class 	= '';
-			var node            = '.fl-node-'+node_id+' ';
-
+			var content1 		= this.content1;
+			var content2 		= this.content2;
 			
+
 			switch ( switch_type ) {
 				case 'round1':
 					current_class = '.uabb-switch-round-1';
@@ -57,12 +62,62 @@
 					break;
 			}
 
-			jQuery(node+current_class).on( 'click', function(){
-                jQuery(node+'.uabb-rbs-content-1').toggle();
-	        	jQuery(node+'.uabb-rbs-content-2').toggle();
-	        	jQuery(node+'.uabb-rbs-section-1').toggle();
-	        	jQuery(node+'.uabb-rbs-section-2').toggle();
-	        	jQuery(window).resize();
+			var rbs_switch      = nodeClass.find( current_class );
+				if( rbs_switch.is( ':checked' ) ) {
+					if( content1 === 'content' ) {
+						rbs_section_1.hide();
+					}
+					if( content2 === 'content_head2' ) {
+						rbs_section_2.show();
+					}
+					if( content1 !== 'content' ) {
+						nodeClass.find( ".uabb-rbs-section-1" ).hide();
+					}
+					if( content2 !== 'content_head2' ) {
+						nodeClass.find( ".uabb-rbs-section-2" ).show();
+					}
+				}
+				else{
+					if( content1 === 'content' ) {
+						rbs_section_1.show();
+					}
+					if( content2 === 'content_head2' ) {
+						rbs_section_2.hide();
+					}
+					if(content1 !== 'content'){
+						nodeClass.find( ".uabb-rbs-section-1" ).show();
+					}
+					if( content2 !== 'content_head2' ) {
+						nodeClass.find( ".uabb-rbs-section-2" ).hide();
+					}
+				}
+
+			$( this.nodeClass + ' .uabb-clickable' ).on( 'click', function(e) {
+				e.preventDefault();
+
+				if( content1 === 'content' ) {
+                	$( node +' .uabb-rbs-content-1' ).toggle();
+				}
+
+				if( content2 === 'content_head2' ) {
+                	$( node +' .uabb-rbs-content-2' ).toggle();
+				}
+
+				if( content1 !== 'content' ) {
+                	$( node +' .uabb-rbs-section-1' ).toggle();
+				}
+
+				if( content2 !== 'content_head2' ) {
+                	$( node +' .uabb-rbs-section-2' ).toggle();
+				}
+
+	        	if( $( this ).parent().find( '.uabb-checkbox-clickable' )[0].hasAttribute('checked') ) {
+	        		$( this ).parent().find( '.uabb-checkbox-clickable' ).removeAttr( 'checked' );
+	        	} else {
+	        		$( this ).parent().find( '.uabb-checkbox-clickable' ).attr( 'checked', 'checked' );
+	        	}
+
+	        	$(window).resize();
 		    });
 		},		
 	};
