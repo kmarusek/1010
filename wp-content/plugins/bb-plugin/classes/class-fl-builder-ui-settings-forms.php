@@ -90,12 +90,12 @@ class FLBuilderUISettingsForms {
 	 * errors we were running into on some hosts.
 	 *
 	 * @since 2.1.0.2
-	 * @param string $buffer
+	 * @param string $buffer $mode
 	 * @return string
 	 */
 
-	static public function compress_settings_config( $buffer ) {
-		@ob_gzhandler( $buffer ); // @codingStandardsIgnoreLine
+	static public function compress_settings_config( $buffer, $mode ) {
+		@ob_gzhandler( $buffer, null ); // @codingStandardsIgnoreLine
 		return $buffer;
 	}
 

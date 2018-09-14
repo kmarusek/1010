@@ -7407,7 +7407,7 @@
 				// Check the selected value without the protocol so we get a match if
 				// a site has switched to HTTPS since selecting this photo (#641).
 				if ( selectedSize ) {
-					selectedSize = selectedSize.replace( /https?/, '' );
+					selectedSize = selectedSize.split(/[\\/]/).pop();
 				}
 
 				for(size in photo.sizes) {
@@ -7426,7 +7426,7 @@
 
 					if ( ! selectedSize ) {
 						selected = size == 'full' ? ' selected="selected"' : '';
-					} else if( selectedSize === photo.sizes[ size ].url.replace( /https?/, '' ) ) {
+					} else if( selectedSize === photo.sizes[ size ].url.split(/[\\/]/).pop() ) {
 						selected = ' selected="selected"';
 					}
 
