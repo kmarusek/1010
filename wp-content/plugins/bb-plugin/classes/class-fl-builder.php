@@ -62,7 +62,7 @@ final class FLBuilder {
 	 * @since 2.1
 	 */
 	static public $fa4_url = 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css';
-	static public $fa5_pro_url = 'https://pro.fontawesome.com/releases/v5.2.0/css/all.css';
+	static public $fa5_pro_url = 'https://pro.fontawesome.com/releases/v5.3.1/css/all.css';
 
 	/**
 	 * Initializes hooks.
@@ -561,20 +561,22 @@ final class FLBuilder {
 		}
 
 		// Render the asset inline instead of enqueuing the file?
-		if ( ! $active && apply_filters( 'fl_builder_render_assets_inline', false ) ) {
+		if ( 'inline' === FLBuilderModel::get_asset_enqueue_method() ) {
 
 			// Bail if we've already rendered this.
 			if ( in_array( $path, self::$rendered_assets ) ) {
 				return;
+			} else {
+				self::$rendered_assets[] = $path;
 			}
 
 			// Enqueue inline.
 			if ( 'css' === $type ) {
 				wp_register_style( $handle, false, $css_deps, $asset_ver, $css_media );
 				wp_enqueue_style( $handle );
-				wp_add_inline_style( $handle, self::render_css( $global, false ) );
+				wp_add_inline_style( $handle, self::render_css( $global ) );
 			} else {
-				self::$inline_js .= self::render_js( $global, false );
+				self::$inline_js .= self::render_js( $global );
 				if ( ! has_action( 'wp_footer', __CLASS__ . '::render_inline_js' ) ) {
 					add_action( 'wp_footer', __CLASS__ . '::render_inline_js', PHP_INT_MAX );
 				}
@@ -886,11 +888,11 @@ final class FLBuilder {
 		// Enable editing if the builder is active.
 		if ( FLBuilderModel::is_builder_active() && ! FLBuilderAJAX::doing_ajax() ) {
 
-			// Tell W3TC not to minify while the builder is active.
-			define( 'DONOTMINIFY', true );
-
-			// Tell Autoptimize not to minify while the builder is active.
-			add_filter( 'autoptimize_filter_noptimize', '__return_true' );
+			/**
+			 * Fire an action as the builder inits.
+			 * @see fl_builder_init_ui
+			 */
+			do_action( 'fl_builder_init_ui' );
 
 			// Remove 3rd party editor buttons.
 			remove_all_actions( 'media_buttons', 999999 );
@@ -2306,15 +2308,15 @@ final class FLBuilder {
 	 *
 	 * @since 1.0
 	 * @param bool $include_global
-	 * @param bool $save
 	 * @return string
 	 */
-	static public function render_css( $include_global = true, $save = true ) {
+	static public function render_css( $include_global = true ) {
 		// Get info on the new file.
 		$nodes 				= FLBuilderModel::get_categorized_nodes();
 		$node_status		= FLBuilderModel::get_node_status();
 		$global_settings    = FLBuilderModel::get_global_settings();
 		$asset_info         = FLBuilderModel::get_asset_info();
+		$enqueuemethod		= FLBuilderModel::get_asset_enqueue_method();
 		$post_id            = FLBuilderModel::get_post_id();
 		$post               = get_post( $post_id );
 		$css 				= '';
@@ -2436,7 +2438,7 @@ final class FLBuilder {
 		}
 
 		// Save the CSS.
-		if ( $save ) {
+		if ( 'file' === $enqueuemethod ) {
 			fl_builder_filesystem()->file_put_contents( $path, $css );
 		}
 
@@ -2812,16 +2814,16 @@ final class FLBuilder {
 	 *
 	 * @since 1.0
 	 * @param bool $include_global
-	 * @param bool $save
 	 * @return string
 	 */
-	static public function render_js( $include_global = true, $save = true ) {
+	static public function render_js( $include_global = true ) {
 		// Get info on the new file.
 		$nodes 		   		= FLBuilderModel::get_categorized_nodes();
 		$global_settings    = FLBuilderModel::get_global_settings();
 		$layout_settings 	= FLBuilderModel::get_layout_settings();
 		$rows          		= FLBuilderModel::get_nodes( 'row' );
 		$asset_info    		= FLBuilderModel::get_asset_info();
+		$enqueuemethod		= FLBuilderModel::get_asset_enqueue_method();
 		$js            		= '';
 		$path               = $include_global ? $asset_info['js'] : $asset_info['js_partial'];
 
@@ -2878,7 +2880,7 @@ final class FLBuilder {
 			}
 
 			// Save the JS.
-			if ( $save ) {
+			if ( 'file' === $enqueuemethod ) {
 				fl_builder_filesystem()->file_put_contents( $path, $js );
 			}
 
