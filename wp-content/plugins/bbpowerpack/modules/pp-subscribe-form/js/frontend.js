@@ -5,6 +5,7 @@
 		this.settings	= settings;
 		this.nodeClass	= '.fl-node-' + settings.id;
 		this.form 		= $( this.nodeClass + ' .pp-subscribe-form' );
+		this.wrap 		= this.form.find( '.pp-subscribe-form-inner' );
 		this.button		= this.form.find( 'a.fl-button' );
 		this._init();
 	};
@@ -83,6 +84,7 @@
 					action  			: 'pp_subscribe_form_submit',
 					name    			: name.val(),
 					email   			: email.val(),
+					acceptance			: acceptance.is(':checked') ? '1' : '0',
 					post_id 			: postId,
 					template_id 		: templateId,
 					template_node_id 	: templateNodeId,
@@ -99,10 +101,10 @@
 			if ( data.error ) {
 
 				if ( data.error ) {
-					this.form.find( '> .pp-form-error-message' ).text( data.error );
+					this.wrap.find( '> .pp-form-error-message' ).text( data.error );
 				}
 
-				this.form.find( '> .pp-form-error-message' ).show();
+				this.wrap.find( '> .pp-form-error-message' ).show();
 				this.button.removeClass( 'pp-form-button-disabled' );
 				this.button.find( '.fl-button-text' ).text( buttonText );
 			}

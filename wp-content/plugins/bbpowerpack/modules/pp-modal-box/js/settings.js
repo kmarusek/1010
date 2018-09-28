@@ -100,6 +100,8 @@
 			
 			var nodeId = $('#fl-field-modal_css_class').parents('.fl-builder-settings').data('node');
 			$('#fl-field-modal_css_class input').val( 'modal-' + nodeId );
+			$('.pp-modal-node-id').text( nodeId );
+			$('.pp-modal-hide-js').val( 'pp_modal_' + nodeId + '.hide()' );
         }
     });
 

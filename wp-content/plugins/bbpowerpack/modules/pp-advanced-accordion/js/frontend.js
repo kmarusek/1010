@@ -27,11 +27,16 @@
 
 		_hashChange: function()
 		{
-			if(location.hash && location.hash.search('pp-accord') !== -1) {
-				$(location.hash).find('.pp-accordion-button').trigger('click');
-			}
-			else if( location.hash && $(location.hash).length > 0 ) {
-				$(location.hash).find('.pp-accordion-button').trigger('click');
+			if( location.hash && $(location.hash).length > 0 ) {
+				var element = $(location.hash + '.pp-accordion-item');
+				location.href = '#';
+				$('html, body').animate({
+					scrollTop: element.offset().top - 120
+				}, 0, function() {
+					if ( ! element.hasClass('pp-accordion-item-active') ) {
+						element.find('.pp-accordion-button').trigger('click');
+					}
+				});
 			}
 		},
 
@@ -57,25 +62,29 @@
 
 			if(content.is(':hidden')) {
 				item.addClass( 'pp-accordion-item-active' );
-				content.slideDown('normal', this._slideDownComplete);
+				content.slideDown('normal', function() {
+					self._slideDownComplete(this);
+				});
 			}
 			else {
 				item.removeClass( 'pp-accordion-item-active' );
-				content.slideUp('normal', this._slideUpComplete);
+				content.slideUp('normal', function() {
+					self._slideUpComplete(this);
+				});
 			}
 		},
 
-		_slideUpComplete: function()
+		_slideUpComplete: function(target)
 		{
-			var content 	= $( this ),
+			var content 	= $( target ),
 				accordion 	= content.closest( '.pp-accordion' );
 
 			accordion.trigger( 'fl-builder.pp-accordion-toggle-complete' );
 		},
 
-		_slideDownComplete: function()
+		_slideDownComplete: function(target)
 		{
-			var content 	= $( this ),
+			var content 	= $( target ),
 				accordion 	= content.closest( '.pp-accordion' ),
 				item 		= content.parent(),
 				win  		= $( window );
@@ -101,10 +110,14 @@
 			}
 
 			if ( item.offset().top < win.scrollTop() + 100 ) {
-				$( 'html, body' ).animate({
-					scrollTop: item.offset().top - 100
-				}, 500, 'swing');
+				if ( ! this.clicked ) {
+					$( 'html, body' ).animate({
+						scrollTop: item.offset().top - 100
+					}, 500, 'swing');
+				}
 			}
+
+			this.clicked = false;
 
 			accordion.trigger( 'fl-builder.pp-accordion-toggle-complete' );
 		},
@@ -119,6 +132,7 @@
 				var item = $.isNumeric(this.settings.defaultItem) ? (this.settings.defaultItem - 1) : null;
 
 				if(item !== null) {
+					this.clicked = true;
 					$( this.nodeClass + ' .pp-accordion-button' ).eq(item).trigger('click');
 				}
 			}

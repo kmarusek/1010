@@ -418,6 +418,62 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 			)
 		)
 	),
+	'success'	=> array(
+		'title'		=> __('Success', 'bb-powerpack'),
+		'sections'	=> array(
+			'success'	=> array(
+				'title'		=> '',
+				'fields'	=> array(
+					'custom_subject'	=> array(
+						'type'				=> 'text',
+						'label'				=> __('Notification Subject', 'bb-powerpack'),
+						'default'			=> '',
+						'placeholder'		=> __('Subscribe Form Signup', 'bb-powerpack'),
+					),
+					'success_action' => array(
+						'type'          => 'pp-switch',
+						'label'         => __( 'Success Action', 'bb-powerpack' ),
+						'default'		=> 'message',
+						'options'       => array(
+							'message'       => __( 'Message', 'bb-powerpack' ),
+							'redirect'      => __( 'Redirect', 'bb-powerpack' )
+						),
+						'toggle'        => array(
+							'message'       => array(
+								'sections'		=> array('form_success_typography'),
+								'fields'        => array( 'success_message', 'success_message_color' )
+							),
+							'redirect'      => array(
+								'fields'        => array( 'success_url' )
+							)
+						),
+						'preview'       => array(
+							'type'             => 'none'
+						)
+					),
+					'success_message' => array(
+						'type'          => 'editor',
+						'label'         => '',
+						'media_buttons' => false,
+						'rows'          => 8,
+						'default'       => __( 'Thanks for subscribing! Please check your email for further instructions.', 'bb-powerpack' ),
+						'connections'   => array( 'string', 'html', 'url' ),
+						'preview'       => array(
+							'type'             => 'none'
+						)
+					),
+					'success_url'  => array(
+						'type'          => 'link',
+						'label'         => __( 'Success URL', 'bb-powerpack' ),
+						'connections'   => array( 'url' ),
+						'preview'       => array(
+							'type'             => 'none'
+						)
+					)
+				)
+			)
+		)
+	),
 	'subscribe_form_style'	=> array(
 		'title'	=> __('Style', 'bb-powerpack'),
 		'sections'	=> array(
@@ -562,6 +618,97 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 	                ),
 				)
 			),
+			'form_corners_padding'      => array( // Section
+                'title'         => __('Form Structure', 'bb-powerpack'), // Section Title
+                'fields'        => array( // Section Fields
+                    'form_border_radius' 	=> array(
+                        'type'          => 'text',
+                        'label'         => __('Round Corners', 'bb-powerpack'),
+                        'description'   => 'px',
+                        'default'       => 2,
+                        'size'         => 5,
+                        'preview'       => array(
+                            'type'      => 'css',
+                            'selector'  => '.pp-subscribe-form',
+                            'property'  => 'border-radius',
+                            'unit'      => 'px'
+                        )
+                    ),
+                    'form_padding' 	=> array(
+                        'type' 			=> 'pp-multitext',
+                        'label' 		=> __('Padding', 'bb-powerpack'),
+                        'description'   => 'px',
+                        'default'       => array(
+                            'top' => 15,
+                            'right' => 15,
+                            'bottom' => 15,
+                            'left' => 15,
+							'responsive_medium'	=> array(
+								'top' 			=> 15,
+	                            'right' 		=> 15,
+	                            'bottom' 		=> 15,
+	                            'left' 			=> 15,
+							),
+							'responsive_small'	=> array(
+								'top' 			=> 15,
+	                            'right' 		=> 15,
+	                            'bottom' 		=> 15,
+	                            'left' 			=> 15,
+							)
+                        ),
+                        'options' 		=> array(
+                            'top' => array(
+                                'maxlength' => 3,
+                                'placeholder'   => __('Top', 'bb-powerpack'),
+                                'tooltip'       => __('Top', 'bb-powerpack'),
+                                'icon'		=> 'fa-long-arrow-up',
+                                'preview'       => array(
+                                    'selector'  => '.pp-subscribe-form',
+                                    'property'  => 'padding-top',
+                                    'unit'      => 'px'
+                                )
+                            ),
+                            'bottom' => array(
+                                'maxlength' => 3,
+                                'placeholder'   => __('Bottom', 'bb-powerpack'),
+                                'tooltip'       => __('Bottom', 'bb-powerpack'),
+                                'icon'		=> 'fa-long-arrow-down',
+                                'preview'       => array(
+                                    'selector'  => '.pp-subscribe-form',
+                                    'property'  => 'padding-bottom',
+                                    'unit'      => 'px'
+                                )
+                            ),
+                            'left' => array(
+                                'maxlength' => 3,
+                                'placeholder'   => __('Left', 'bb-powerpack'),
+                                'tooltip'       => __('Left', 'bb-powerpack'),
+                                'icon'		=> 'fa-long-arrow-left',
+                                'preview'       => array(
+                                    'selector'  => '.pp-subscribe-form',
+                                    'property'  => 'padding-left',
+                                    'unit'      => 'px'
+                                )
+                            ),
+                            'right' => array(
+                                'maxlength' => 3,
+                                'placeholder'   => __('Right', 'bb-powerpack'),
+                                'tooltip'       => __('Right', 'bb-powerpack'),
+                                'icon'		=> 'fa-long-arrow-right',
+                                'preview'       => array(
+                                    'selector'  => '.pp-subscribe-form',
+                                    'property'  => 'padding-right',
+                                    'unit'      => 'px'
+                                )
+                            ),
+                        ),
+						'responsive'	=> array(
+							'medium'		=> array(),
+							'small'			=> array()
+						)
+                    )
+                )
+            ),
 			'form_bg_setting'	=> array(
 				'title'	=> __('Form Background', 'bb-powerpack'),
 				'fields'	=> array(
@@ -757,97 +904,6 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
                     ),
                 )
             ),
-			'form_corners_padding'      => array( // Section
-                'title'         => __('Form Structure', 'bb-powerpack'), // Section Title
-                'fields'        => array( // Section Fields
-                    'form_border_radius' 	=> array(
-                        'type'          => 'text',
-                        'label'         => __('Round Corners', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'default'       => 2,
-                        'size'         => 5,
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-subscribe-form',
-                            'property'  => 'border-radius',
-                            'unit'      => 'px'
-                        )
-                    ),
-                    'form_padding' 	=> array(
-                        'type' 			=> 'pp-multitext',
-                        'label' 		=> __('Padding', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'default'       => array(
-                            'top' => 15,
-                            'right' => 15,
-                            'bottom' => 15,
-                            'left' => 15,
-							'responsive_medium'	=> array(
-								'top' 			=> 15,
-	                            'right' 		=> 15,
-	                            'bottom' 		=> 15,
-	                            'left' 			=> 15,
-							),
-							'responsive_small'	=> array(
-								'top' 			=> 15,
-	                            'right' 		=> 15,
-	                            'bottom' 		=> 15,
-	                            'left' 			=> 15,
-							)
-                        ),
-                        'options' 		=> array(
-                            'top' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Top', 'bb-powerpack'),
-                                'tooltip'       => __('Top', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-up',
-                                'preview'       => array(
-                                    'selector'  => '.pp-subscribe-form',
-                                    'property'  => 'padding-top',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'bottom' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Bottom', 'bb-powerpack'),
-                                'tooltip'       => __('Bottom', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-down',
-                                'preview'       => array(
-                                    'selector'  => '.pp-subscribe-form',
-                                    'property'  => 'padding-bottom',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'left' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Left', 'bb-powerpack'),
-                                'tooltip'       => __('Left', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-left',
-                                'preview'       => array(
-                                    'selector'  => '.pp-subscribe-form',
-                                    'property'  => 'padding-left',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'right' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Right', 'bb-powerpack'),
-                                'tooltip'       => __('Right', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-right',
-                                'preview'       => array(
-                                    'selector'  => '.pp-subscribe-form',
-                                    'property'  => 'padding-right',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                        ),
-						'responsive'	=> array(
-							'medium'		=> array(),
-							'small'			=> array()
-						)
-                    )
-                )
-            ),
 		)
 	),
 	'input_style'   => array(
@@ -889,7 +945,7 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
                             'selector'         => '.pp-subscribe-form textarea, .pp-subscribe-form input[type=text], .pp-subscribe-form input[type=tel], .pp-subscribe-form input[type=email]',
                             'property'         => 'opacity',
                         )
-                    ),
+					),
                 )
             ),
             'input_border_setting'      => array( // Section
@@ -1439,81 +1495,6 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 			)
 		)
 	),
-	'form_messages_setting' => array(
-        'title' => __('Messages', 'bb-powerpack'),
-        'sections'  => array(
-			'form_error_styling'    => array( // Section
-                'title'             => __('Error Message', 'bb-powerpack'), // Section Title
-                'fields'            => array( // Section Fields
-                    'validation_message_color'    => array(
-                        'type'                    => 'color',
-                        'label'                   => __('Color', 'bb-powerpack'),
-                        'default'                 => 'dd4420',
-                        'preview'                 => array(
-                            'type'                => 'css',
-                            'selector'            => '.pp-subscribe-form .pp-form-error-message',
-                            'property'            => 'color'
-                        )
-                    ),
-                )
-            ),
-			'form_success_styling'    => array( // Section
-                'title'             => __('Success Message', 'bb-powerpack'), // Section Title
-                'fields'            => array( // Section Fields
-                    'success_message_color'    => array(
-                        'type'                         => 'color',
-                        'label'                        => __('Color', 'bb-powerpack'),
-                        'default'                      => '29bb41',
-                        'preview'                      => array(
-                            'type'                     => 'css',
-                            'selector'                 => '.pp-subscribe-form .pp-form-success-message',
-                            'property'                 => 'color'
-                        )
-                    ),
-					'success_action' => array(
-						'type'          => 'pp-switch',
-						'label'         => __( 'Success Action', 'bb-powerpack' ),
-						'default'		=> 'message',
-						'options'       => array(
-							'message'       => __( 'Message', 'bb-powerpack' ),
-							'redirect'      => __( 'Redirect', 'bb-powerpack' )
-						),
-						'toggle'        => array(
-							'message'       => array(
-								'sections'		=> array('form_success_typography'),
-								'fields'        => array( 'success_message', 'success_message_color' )
-							),
-							'redirect'      => array(
-								'fields'        => array( 'success_url' )
-							)
-						),
-						'preview'       => array(
-							'type'             => 'none'
-						)
-					),
-					'success_message' => array(
-						'type'          => 'editor',
-						'label'         => '',
-						'media_buttons' => false,
-						'rows'          => 8,
-						'default'       => __( 'Thanks for subscribing! Please check your email for further instructions.', 'bb-powerpack' ),
-						'connections'   => array( 'string', 'html', 'url' ),
-						'preview'       => array(
-							'type'             => 'none'
-						)
-					),
-					'success_url'  => array(
-						'type'          => 'link',
-						'label'         => __( 'Success URL', 'bb-powerpack' ),
-						'connections'   => array( 'url' ),
-						'preview'       => array(
-							'type'             => 'none'
-						)
-					)
-                )
-            ),
-		)
-	),
 	'form_typography'       => array( // Tab
         'title'         => __('Typography', 'bb-powerpack'), // Tab title
         'sections'      => array( // Tab Sections
@@ -1734,7 +1715,70 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
                         )
                     ),
                 )
-            ),
+			),
+			'checkbox_typography'	=> array(
+				'title'					=> __('Checkbox', 'bb-powerpack'),
+				'fields'				=> array(
+					'checkbox_font_size'	=> array(
+						'type'					=> 'pp-switch',
+						'label'					=> __('Font Size', 'bb-powerpack'),
+						'default'				=> 'default',
+						'options'				=> array(
+							'default'				=> __('Default', 'bb-powerpack'),
+							'custom'				=> __('Custom', 'bb-powerpack'),
+						),
+						'toggle'				=> array(
+							'custom'				=> array(
+								'fields'				=> array('checkbox_font_size_custom')
+							)
+						)
+					),
+					'checkbox_font_size_custom'	=> array(
+						'type'          => 'pp-multitext',
+						'label'         => __('Custom Font Size', 'bb-powerpack'),
+                        'default'       => array(
+                            'desktop'   	=> '',
+                            'tablet'   		=> '',
+                            'mobile'   		=> '',
+                        ),
+                        'options'       => array(
+                            'desktop'  		=> array(
+                                'placeholder'   => __('Desktop', 'bb-powerpack'),
+                                'icon'          => 'fa-desktop',
+                                'maxlength'     => 3,
+                                'tooltip'       => __('Desktop', 'bb-powerpack'),
+                                'preview'           => array(
+                                    'selector'      => '.pp-subscribe-form .pp-checkbox-input label',
+                                    'property'      => 'font-size',
+                                    'unit'          => 'px'
+                                ),
+                            ),
+                            'tablet'   => array(
+                                'placeholder'   => __('Tablet', 'bb-powerpack'),
+                                'icon'          => 'fa-tablet',
+                                'maxlength'     => 3,
+                                'tooltip'       => __('Tablet', 'bb-powerpack')
+                            ),
+                            'mobile'   => array(
+                                'placeholder'   => __('Mobile', 'bb-powerpack'),
+                                'icon'          => 'fa-mobile',
+                                'maxlength'     => 3,
+                                'tooltip'       => __('Mobile', 'bb-powerpack')
+                            ),
+                        ),
+					),
+					'checkbox_text_color'	=> array(
+						'type'					=> 'color',
+						'label'					=> __('Checkbox Text Color', 'bb-powerpack'),
+						'show_reset'			=> true,
+						'preview'           	=> array(
+							'type'					=> 'css',
+							'selector'      		=> '.pp-subscribe-form .pp-checkbox-input label',
+							'property'      		=> 'color',
+						),
+					),
+				)
+			),
 			'placeholder_typography'	=> array(
 				'title'	=> __( 'Placeholder', 'bb-powerpack' ),
 				'fields'	=> array(
@@ -1938,6 +1982,16 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
                             'lowercase'                => __('lowercase', 'bb-powerpack'),
                             'uppercase'                 => __('UPPERCASE', 'bb-powerpack'),
                         )
+					),
+					'validation_message_color'    => array(
+                        'type'                    => 'color',
+                        'label'                   => __('Color', 'bb-powerpack'),
+                        'default'                 => 'dd4420',
+                        'preview'                 => array(
+                            'type'                => 'css',
+                            'selector'            => '.pp-subscribe-form .pp-form-error-message',
+                            'property'            => 'color'
+                        )
                     ),
                 )
             ),
@@ -2000,6 +2054,16 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
                             'none'                  => __('Default', 'bb-powerpack'),
                             'lowercase'                => __('lowercase', 'bb-powerpack'),
                             'uppercase'                 => __('UPPERCASE', 'bb-powerpack'),
+                        )
+					),
+					'success_message_color'    => array(
+                        'type'                         => 'color',
+                        'label'                        => __('Color', 'bb-powerpack'),
+                        'default'                      => '29bb41',
+                        'preview'                      => array(
+                            'type'                     => 'css',
+                            'selector'                 => '.pp-subscribe-form .pp-form-success-message',
+                            'property'                 => 'color'
                         )
                     ),
                 )

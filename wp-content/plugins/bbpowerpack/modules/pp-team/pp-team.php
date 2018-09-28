@@ -26,7 +26,7 @@ class PPTeamModule extends FLBuilderModule {
             'icon'				=> 'star-filled.svg',
         ));
 
-        $this->add_css('font-awesome');
+        $this->add_css(BB_POWERPACK()->fa_css);
     }
 
     /**

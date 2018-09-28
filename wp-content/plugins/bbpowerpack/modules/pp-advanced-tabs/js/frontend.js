@@ -19,6 +19,8 @@
 			$(this.nodeClass + ' .pp-tabs-labels .pp-tabs-label').click($.proxy(this._labelClick, this));
 			$(this.nodeClass + ' .pp-tabs-panels .pp-tabs-label').click($.proxy(this._responsiveLabelClick, this));
 
+			this._responsiveCollapsed();
+
 			if($(this.nodeClass + ' .pp-tabs-vertical').length > 0) {
 				this._resize();
 				win.off('resize' + this.nodeClass);
@@ -28,6 +30,7 @@
 			this._hashChange();
 
 			$(window).on('hashchange', $.proxy( this._hashChange, this ));
+			$(window).on('resize', $.proxy( this._responsiveCollapsed, this ));
 		},
 
 		_hashChange: function()
@@ -71,7 +74,7 @@
 
 			// Content Grid module support.
 			if ( 'undefined' !== typeof $.fn.isotope ) {
-				wrap.find('.pp-tabs-panel-content[data-index="' + index + '"] .pp-content-post-grid.pp-masonry-active').isotope('layout');
+				wrap.find('.pp-tabs-panel-content[data-index="' + index + '"] .pp-content-post-grid').isotope('layout');
 				this._gridLayoutMatchHeight();
 			}
 		},
@@ -120,7 +123,7 @@
 
 				// Content Grid module support.
 				if ( 'undefined' !== typeof $.fn.isotope ) {
-					content.find('.pp-content-post-grid.pp-masonry-active').isotope('layout');
+					content.find('.pp-content-post-grid').isotope('layout');
 				}
 
 				if(label.offset().top < $(window).scrollTop() + 100) {
@@ -159,6 +162,16 @@
             $(this.nodeClass).find('.pp-equal-height .pp-content-post').height(highestBox);
             //$(this.postClass).find('.pp-content-post-data').css('min-height', contentHeight + 'px').addClass('pp-content-relative');
 		},
+
+		_responsiveCollapsed: function()
+		{
+			if ( $(window).innerWidth() < 769 ) {
+				if ( this.settings.responsiveClosed ) {
+					$(this.nodeClass + ' .pp-tabs-panels .pp-tabs-label.pp-tab-active').trigger('click');
+				}
+				$(this.nodeClass + ' .pp-tabs-panels').css('visibility', 'visible');
+			}
+		}
 	};
 
 })(jQuery);

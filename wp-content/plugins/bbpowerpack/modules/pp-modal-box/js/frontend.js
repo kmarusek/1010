@@ -118,8 +118,9 @@
 		setup: function()
 		{
 			if ( 'url' == this.type ) {
+				var original_src = this.element.find('.pp-modal-iframe').attr('src');
 				var src = this.element.find('.pp-modal-iframe').data('src');
-				if ( this.element.find('.pp-modal-iframe').attr('src') === undefined ) {
+				if ( original_src === undefined || original_src === '' ) {
 					this.element.find('.pp-modal-iframe').attr( 'src', src );
 				}
 			}

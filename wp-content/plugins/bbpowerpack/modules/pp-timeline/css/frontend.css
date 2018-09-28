@@ -103,7 +103,7 @@
 }
 
 html:not(.fl-builder-edit) .pp-timeline .pp-timeline-content-wrapper .pp-timeline-item .pp-separator-arrow,
-html:not(.fl-builder-edit).pp-timeline .pp-timeline-content-wrapper .pp-timeline-item .pp-timeline-content {
+html:not(.fl-builder-edit) .pp-timeline .pp-timeline-content-wrapper .pp-timeline-item .pp-timeline-content {
 	margin-left: -15px;
 }
 html:not(.fl-builder-edit) .pp-timeline .pp-timeline-content-wrapper .pp-timeline-item:nth-of-type(2n) .pp-separator-arrow,

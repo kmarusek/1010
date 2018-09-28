@@ -34,7 +34,6 @@ div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-bottom-bar {
     overflow-x: hidden;
 }
 .fl-node-<?php echo $id; ?> .pp-3d-slider.pp-user-agent-safari {
-    z-index: 100007;
 }
 .fl-node-<?php echo $id; ?> .pp-3d-slider .pp-slider-img {
     <?php if ( 'yes' == $settings->enable_photo_border ) { ?>

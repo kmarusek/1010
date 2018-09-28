@@ -1339,13 +1339,26 @@ FLBuilder::register_module('PPGravityFormModule', array(
                     ),
                     'label_font_size'   => array(
                         'type'          => 'text',
-                        'label'         => __('Font Size', 'bb-powerpack'),
+                        'label'         => __('Label Font Size', 'bb-powerpack'),
                         'description'   => 'px',
                         'class'         => 'bb-gf-input input-small',
                         'default'       => '',
                         'preview'           => array(
                             'type'          => 'css',
                             'selector'      => '.gform_wrapper .gfield .gfield_label',
+                            'property'      => 'font-size',
+                            'unit'          => 'px'
+                        )
+					),
+					'radio_checkbox_font_size'   => array(
+                        'type'          => 'text',
+                        'label'         => __('Radio & Checkbox Label Font Size', 'bb-powerpack'),
+                        'description'   => 'px',
+                        'class'         => 'bb-gf-input input-small',
+                        'default'       => '',
+                        'preview'           => array(
+                            'type'          => 'css',
+                            'selector'      => '.gform_wrapper ul.gfield_radio li label, .gform_wrapper ul.gfield_checkbox li label',
                             'property'      => 'font-size',
                             'unit'          => 'px'
                         )
@@ -1362,7 +1375,7 @@ FLBuilder::register_module('PPGravityFormModule', array(
                         )
                     ),
                 )
-            ),
+			),
             'input_typography'       => array( // Section
                 'title'         => __('Input', 'bb-powerpack'), // Section Title
                 'fields'        => array( // Section Fields

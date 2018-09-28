@@ -37,6 +37,9 @@ if ( $settings->layout > 1 ) {
 	width: 100%;
 	<?php } ?>
 }
+.fl-node-<?php echo $id; ?> .pp-post-col-25 .pp-post-tile-small {
+	width: calc(25% - <?php echo $settings->post_spacing; ?>px);
+}
 
 .fl-node-<?php echo $id; ?> .pp-post-tile-post .pp-post-tile-title {
 	<?php if ( $settings->title_font['family'] != 'Default' ) { ?>

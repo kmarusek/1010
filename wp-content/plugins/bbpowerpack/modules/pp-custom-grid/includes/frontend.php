@@ -31,7 +31,7 @@ $paged = ( FLBuilderLoop::get_paged() > 0 ) ? ' pp-paged-scroll-to' : '';
 			$preset = $settings->preset;
 			$preset_key = $preset . '_preset';
 
-        	echo do_shortcode( $settings->{$preset_key}->html );
+        	echo do_shortcode( FLThemeBuilderFieldConnections::parse_shortcodes( stripslashes( $settings->{$preset_key}->html ) ) );
 
         	?>
         </div>

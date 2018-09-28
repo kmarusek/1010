@@ -25,12 +25,12 @@ class PP3dSliderModule extends FLBuilderModule {
             'icon'				=> 'slides.svg',
         ));
 
-		$this->add_css( 'font-awesome' );
+		$this->add_css( BB_POWERPACK()->fa_css );
 		$this->add_css( 'jquery-magnificpopup' );
 
 		$this->add_js( 'modernizr-custom' );
 		$this->add_js( 'jquery-magnificpopup' );
-		$this->add_js( 'jquery-imagesloaded' );
+		$this->add_js( 'imagesloaded' );
     }
 
     /**
@@ -127,6 +127,10 @@ class PP3dSliderModule extends FLBuilderModule {
 					$data->link = $photo->sizes->full->url;
 				}
 
+				if ( isset( $this->settings->lightbox_image_size ) && $this->settings->lightbox_image_size == 'full' ) {
+					$data->link = $photo->sizes->full->url;
+				}
+
                 $data->url = get_post_meta( $id, 'gallery_external_link', true );
 
 				$photos[$id] = $data;
@@ -211,7 +215,30 @@ FLBuilder::register_module('PP3dSliderModule', array(
                             'yes'       => __('Yes', 'bb-powerpack'),
                             'no'        => __('No', 'bb-powerpack'),
                         ),
+						'toggle'	=> array(
+							'yes'	=> array(
+								'fields'	=> array( 'lightbox_image_size', 'lightbox_caption' )
+							)
+						)
                     ),
+					'lightbox_image_size'	=> array(
+						'type'		=> 'pp-switch',
+						'label'		=> __('Lightbox Image Size', 'bb-powerpack'),
+						'default'	=> 'large',
+						'options'	=> array(
+							'large'		=> __('Large', 'bb-powerpack'),
+							'full'		=> __('Full', 'bb-powerpack')
+						)
+					),
+					'lightbox_caption'	=> array(
+						'type'		=> 'pp-switch',
+						'label'		=> __('Show Caption in Lightbox', 'bb-powerpack'),
+						'default'	=> 'yes',
+						'options'	=> array(
+							'yes'		=> __('Yes', 'bb-powerpack'),
+							'no'		=> __('No', 'bb-powerpack')
+						)
+					),
                 )
             )
         )

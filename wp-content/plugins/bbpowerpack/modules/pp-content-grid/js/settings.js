@@ -1,6 +1,15 @@
 ;(function($){
 
 	FLBuilder.registerModuleHelper('pp-content-grid', {
+		/**
+		 * Cached settings used to replace the current settings
+		 * if the post layout changes are canceled.
+		 *
+		 * @since 1.0
+		 * @access private
+		 * @property {String} _previousSettings
+		 */
+		_previousSettings: null,
 
 		/**
          * The 'init' method is called by the builder when
@@ -13,6 +22,17 @@
 			var form 			= $('.fl-builder-settings'),
 				button_sections = ['button_colors', 'button_typography'],
 				self 			= this;
+
+			this._tirggerStyleChange();
+			form.find('select[name="post_grid_style_select"]').on('change', this._tirggerStyleChange);
+
+			if ( $( '#fl-field-custom_layout:visible' ).length > 0 ) {
+				$( '#fl-field-custom_layout:visible' ).on('click', function() {
+					setTimeout(function() {
+						self._bindCustomLayoutSettings();
+					}, 1000);
+				});
+			}
 
 			if( $('#fl-builder-settings-section-general select[name="post_type"]').val() == 'product' || $('#fl-builder-settings-section-general select[name="post_type"]').val() == 'download' ) {
                 $('#fl-builder-settings-section-product-settings').show();
@@ -42,7 +62,7 @@
 			// Hide more link text field if more_link_type is not button.
 			self._hideField( 'more_link_text', form.find( 'select[name="more_link_type"]' ).val() !== 'button' );
 
-			if ( form.find( 'input[name="event_enable"]' ).val() === 'yes' || form.find( 'select[name="more_link_type"]' ).val() === 'button' ) {
+			if ( form.find( 'input[name="event_enable"]' ).val() === 'yes' || form.find( 'select[name="more_link_type"]' ).val() === 'button' || form.find( 'select[name="product_button"]' ).val() === 'yes' ) {
 				self._showSection( button_sections );
 			} else {
 				self._hideSection( button_sections );
@@ -59,9 +79,84 @@
 			});
 		},
 
-		_showSection: function(section_ids, condition = true)
+		_tirggerStyleChange: function()
 		{
-			if ( ! condition ) {
+			var form = $('.fl-builder-settings'),
+				style = form.find('select[name="post_grid_style_select"]').val();
+
+			form.addClass( 'pp-cg-module-' + style );
+
+			if ( 'custom' === form.find('select[name="post_grid_style_select"]').val() ) {
+				form.addClass( 'pp-style-custom' );
+			} else {
+				form.removeClass( 'pp-style-custom' );
+			}
+		},
+
+		/**
+		 * Bind events to the custom post layout lightbox.
+		 *
+		 * @since 1.0
+		 * @access _bindCustomPostLayoutSettings
+		 * @method _bind
+		 */
+		_bindCustomLayoutSettings: function()
+		{
+			var form   = $( 'form[data-type="pp_post_custom_layout"]:visible' ),
+				html   = form.find( 'textarea[name="html"]' ),
+				css    = form.find( 'textarea[name="css"]' ),
+				cancel = form.find( '.fl-builder-settings-cancel' );
+
+			html.on( 'change', $.proxy( this._doCustomLayoutPreview, this ) );
+			css.on( 'change', $.proxy( this._doCustomLayoutPreview, this ) );
+			cancel.on( 'click', $.proxy( this._cancelClicked, this ) );
+		},
+
+		/**
+		 * Callback for previewing custom post layouts.
+		 *
+		 * @since 2.6.2
+		 * @access private
+		 * @method _doCustomPostLayoutPreview
+		 */
+		_doCustomLayoutPreview: function()
+		{
+			var moduleForm     = $( '.fl-builder-module-settings' ),
+				moduleSettings = FLBuilder._getSettings( moduleForm ),
+				postForm       = $( '.fl-builder-settings[data-type="pp_post_custom_layout"]' ),
+				postSettings   = FLBuilder._getSettings( postForm ),
+				postField      = moduleForm.find( '[name="custom_layout"]' ),
+				preview        = FLBuilder.preview;
+
+			if ( ! this._previousSettings ) {
+				this._previousSettings = moduleSettings.custom_layout
+			}
+
+			postField.val( JSON.stringify( postSettings ) );
+			preview.delay( 2000, $.proxy( preview.preview, preview ) );
+		},
+
+		/**
+		 * Callback for when the custom post layout settings
+		 * lightbox cancel button is clicked.
+		 *
+		 * @since 1.0
+		 * @access private
+		 * @method _cancelClicked
+		 */
+		_cancelClicked: function()
+		{
+			var postField = $( '.fl-builder-module-settings' ).find( '[name="custom_layout"]' );
+
+			if ( this._previousSettings ) {
+				postField.val( this._previousSettings ).trigger( 'change' );
+				this._previousSettings = null;
+			}
+		},
+
+		_showSection: function(section_ids, condition)
+		{
+			if ( 'boolean' !== typeof condition || ! condition ) {
 				return;
 			}
 

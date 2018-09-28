@@ -5,6 +5,8 @@
  */
 class PPSocialIconsModule extends FLBuilderModule {
 
+	public $_enabled_icons = '';
+
 	/**
 	 * @method __construct
 	 */
@@ -22,7 +24,31 @@ class PPSocialIconsModule extends FLBuilderModule {
 			'icon'				=> 'star-filled.svg',
 		));
 
-		$this->add_css( 'font-awesome' );
+		$this->_enabled_icons = FLBuilderModel::get_enabled_icons();
+		
+		$this->add_css( BB_POWERPACK()->fa_css );
+	}
+
+	static public function get_labels()
+	{
+		$labels = array(
+			'custom'		=> __('Custom Icon', 'bb-powerpack'),
+			'fa-envelope'	=> __('Email', 'bb-powerpack'),
+			'fa-facebook'	=> __('Facebook', 'bb-powerpack'),
+			'fa-twitter'	=> __('Twitter', 'bb-powerpack'),
+			'fa-google-plus'=> __('Google Plus', 'bb-powerpack'),
+			'fa-youtube'	=> __('YouTube', 'bb-powerpack'),
+			'fa-linkedin'	=> __('LinkedIn', 'bb-powerpack'),
+			'fa-pinterest-p'=> __('Pinterest', 'bb-powerpack'),
+			'fa-instagram'	=> __('Instagram', 'bb-powerpack'),
+			'fa-dribbble'	=> __('Dribbble', 'bb-powerpack'),
+			'fa-flickr'		=> __('Flickr', 'bb-powerpack'),
+			'fa-github-alt'	=> __('GitHub', 'bb-powerpack'),
+			'fa-rss'		=> __('RSS', 'bb-powerpack'),
+			'fa-vimeo'		=> __('Vimeo', 'bb-powerpack'),
+		);
+
+		return $labels;
 	}
 }
 
@@ -199,22 +225,7 @@ FLBuilder::register_settings_form('social_icon_form', array(
 							'type'          => 'select',
 							'label'         => __('Icon', 'bb-powerpack'),
 							'default'		=> '',
-							'options'		=> array(
-								'custom'		=> __('Custom Icon', 'bb-powerpack'),
-								'fa-envelope'	=> __('Email', 'bb-powerpack'),
-								'fa-facebook'	=> __('Facebook', 'bb-powerpack'),
-								'fa-twitter'	=> __('Twitter', 'bb-powerpack'),
-								'fa-google-plus'=> __('Google Plus', 'bb-powerpack'),
-								'fa-youtube'	=> __('YouTube', 'bb-powerpack'),
-								'fa-linkedin'	=> __('LinkedIn', 'bb-powerpack'),
-								'fa-pinterest-p'=> __('Pinterest', 'bb-powerpack'),
-								'fa-instagram'	=> __('Instagram', 'bb-powerpack'),
-								'fa-dribbble'	=> __('Dribbble', 'bb-powerpack'),
-								'fa-flickr'		=> __('Flickr', 'bb-powerpack'),
-								'fa-github-alt'	=> __('GitHub', 'bb-powerpack'),
-								'fa-rss'		=> __('RSS', 'bb-powerpack'),
-								'fa-vimeo'		=> __('Vimeo', 'bb-powerpack'),
-							),
+							'options'		=> PPSocialIconsModule::get_labels(),
 							'toggle'		=> array(
 								'custom'		=> array(
 									'fields'		=> array('icon_custom')

@@ -26,14 +26,14 @@
 							<?php if( ! empty( $settings->image_custom_size ) ) { ?>
 								'<div class="pp-feed-item-inner" style="background-image: url({{image}})">' +
 							<?php } ?>
-							<?php if ( 'yes' == $settings->image_popup ) { ?>
-								'<a href="{{image}}">' +
+							<?php if ( 'no' != $settings->image_popup ) { ?>
+								'<a href="<?php echo ( 'yes' == $settings->image_popup ) ? '{{image}}' : '{{link}}'; ?>" target="_blank">' +
 							<?php } ?>
 							'<div class="pp-overlay-container">' + like_span + comments_span + '</div>' +
 							<?php if( empty( $settings->image_custom_size ) ) { ?>
 								'<img src="{{image}}" />' +
 							<?php } ?>
-							<?php if ( 'yes' == $settings->image_popup ) { ?>
+							<?php if ( 'no' != $settings->image_popup ) { ?>
 								'</a>' +
 							<?php } ?>
 							<?php if( ! empty( $settings->image_custom_size ) ) { ?>
@@ -45,14 +45,14 @@
 							<?php if( 'square-grid' == $settings->feed_layout && ! empty( $settings->image_custom_size ) ) { ?>
 								'<div class="pp-feed-item-inner" style="background-image: url({{image}})">' +
 							<?php } ?>
-							<?php if ( 'yes' == $settings->image_popup ) { ?>
-								'<a href="{{image}}">' +
+							<?php if ( 'no' != $settings->image_popup ) { ?>
+								'<a href="<?php echo ( 'yes' == $settings->image_popup ) ? '{{image}}' : '{{link}}'; ?>" target="_blank">' +
 							<?php } ?>
 							'<div class="pp-overlay-container">' + like_span + comments_span + '</div>' +
 							<?php if( 'square-grid' != $settings->feed_layout || empty( $settings->image_custom_size ) ) { ?>
 								'<img src="{{image}}" />' +
 							<?php } ?>
-							<?php if ( 'yes' == $settings->image_popup ) { ?>
+							<?php if ( 'no' != $settings->image_popup ) { ?>
 								'</a>' +
 							<?php } ?>
 							<?php if( 'square-grid' == $settings->feed_layout && ! empty( $settings->image_custom_size ) ) { ?>

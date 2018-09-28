@@ -26,10 +26,10 @@ class PPLogosGridModule extends FLBuilderModule {
             'icon'				=> 'slides.svg',
         ));
 
-		$this->add_css('font-awesome');
+		$this->add_css( BB_POWERPACK()->fa_css );
         $this->add_css('jquery-bxslider');
 		$this->add_js('jquery-bxslider');
-		$this->add_js( 'jquery-imagesloaded' );
+		$this->add_js('imagesloaded');
     }
 }
 
@@ -184,7 +184,13 @@ FLBuilder::register_module('PPLogosGridModule', array(
                         'label'         => __('Number of Items', 'bb-powerpack'),
                         'class'         => 'pp-logo-grid-input input-small',
                         'default'       => '4',
-                    ),
+					),
+					'logo_carousel_move_slide'	=> array(
+						'type'			=> 'text',
+						'label'			=> __('Move Items', 'bb-powerpack'),
+						'default'		=> '',
+						'size'			=> '5'
+					),
 					'logo_slider_auto_play'     => array(
 						'type'          => 'pp-switch',
 						'label'         => __('Auto Play', 'bb-powerpack'),

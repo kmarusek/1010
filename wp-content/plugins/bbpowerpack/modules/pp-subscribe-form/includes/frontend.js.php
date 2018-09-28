@@ -7,10 +7,29 @@
 	});
 
 	var closed = false;
+	var winWidth = window.innerWidth;
+	var mediumWidth = <?php echo $global_settings->medium_breakpoint; ?>;
+	var smallWidth = <?php echo $global_settings->responsive_breakpoint; ?>;
+
+	<?php if ( $settings->responsive_display == 'desktop' ) { ?>
+		if ( winWidth > mediumWidth ) {
+	<?php } elseif ( $settings->responsive_display == 'desktop-medium' ) { ?>
+		if ( winWidth > smallWidth ) {
+	<?php } elseif ( $settings->responsive_display == 'medium' ) { ?>
+		if ( winWidth <= mediumWidth && winWidth > smallWidth ) {
+	<?php } elseif ( $settings->responsive_display == 'medium-mobile' ) { ?>
+		if ( winWidth <= mediumWidth ) {
+	<?php } elseif ( $settings->responsive_display == 'mobile' ) { ?>
+		if ( winWidth <= smallWidth ) {
+	<?php } else { ?>
+		if ( winWidth ) {
+	<?php } ?>
 
 	<?php if ( ! FLBuilderModel::is_builder_active() && ( 'popup_scroll' == $settings->box_type || 'popup_exit' == $settings->box_type || 'popup_auto' == $settings->box_type || 'welcome_gate' == $settings->box_type || 'two_step' == $settings->box_type ) ) { ?>
 		<?php if ( 'yes' == $settings->show_overlay ) { ?>
+		if ( $('.pp-subscribe-<?php echo $id; ?>-overlay').length === 0 ) {
 			$('<div class="pp-subscribe-<?php echo $id; ?>-overlay"></div>').appendTo('body');
+		}
 		<?php } ?>
 	<?php } ?>
 
@@ -170,5 +189,6 @@
 		});
 
 	<?php } ?>
+	}
 
 })(jQuery);

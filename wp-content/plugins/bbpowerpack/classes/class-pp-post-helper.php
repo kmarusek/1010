@@ -203,13 +203,19 @@ class BB_PowerPack_Post_Helper {
 			$base = self::build_base_url( $permalink_structure, $base );
 			$format = self::paged_format( $permalink_structure, $base );
 
-			echo paginate_links(array(
+			$links = paginate_links(array(
 				'base'	   => $base . '%_%',
 				'format'   => $format,
 				'current'  => $current_page,
 				'total'	   => $page,
 				'type'	   => 'list'
 			));
+
+			if ( isset( $settings->pagination_nofollow ) && 'yes' == $settings->pagination_nofollow ) {
+				$links = str_replace( '<a', '<a rel="nofollow" ', $links );
+			}
+
+			echo $links;
 		}
 	}
 
@@ -219,11 +225,28 @@ class BB_PowerPack_Post_Helper {
      * @since 1.1.0
      * @return void
      */
-    static public function ajax_pagination( $query, $current_url = '', $paged = 1, $filter = '', $node_id = '' ) {
+    static public function ajax_pagination( $query, $settings, $current_url = '', $paged = 1, $filter = '', $node_id = '' ) {
 		$total_pages = $query->max_num_pages;
         $permalink_structure = get_option( 'permalink_structure' );
         $current_url = empty( $current_url ) ? get_pagenum_link() : $current_url;
 		$base = untrailingslashit( html_entity_decode( $current_url ) );
+
+		if ( $settings->total_post == 'custom' && $settings->total_posts_count != $query->found_posts ) {
+			$total = 0;
+
+			if ( $settings->total_posts_count > $query->found_posts ) {
+				$total_pages = $query->found_posts / $settings->posts_per_page;
+				$total = $query->found_posts % $settings->posts_per_page;
+			}
+			if ( $settings->total_posts_count < $query->found_posts ) {
+				$total_pages = $settings->total_posts_count / $settings->posts_per_page;
+				$total = $settings->total_posts_count % $settings->posts_per_page;
+			}
+
+			if ( $total > 0 ) {
+				$total_pages = $total_pages + 1;
+			}
+		}
 
 		if ( $total_pages > 1 ) {
 
@@ -238,13 +261,109 @@ class BB_PowerPack_Post_Helper {
 				$format .= '?filter_term=' . $filter . '&node_id=' . $node_id;
 			}
 
-			echo paginate_links(array(
+			$links = paginate_links(array(
 				'base'	   => $base . '%_%',
 				'format'   => $format,
 				'current'  => $current_page,
 				'total'	   => $total_pages,
 				'type'	   => 'list',
 			));
+
+			if ( isset( $settings->pagination_nofollow ) && 'yes' == $settings->pagination_nofollow ) {
+				$links = str_replace( '<a', '<a rel="nofollow" ', $links );
+			}
+
+			echo $links;
 		}
-    }
+	}
+	
+	/**
+	 * Renders the schema structured data for the current
+	 * post in the loop.
+	 *
+	 * @return void
+	 */
+	static public function schema_meta()
+	{
+		do_action( 'pp_post_before_schema_meta' );
+
+		// General Schema Meta
+		ob_start();
+		echo '<meta itemscope itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage" itemid="' . esc_url( get_permalink() ) . '" content="' . the_title_attribute( array(
+			'echo' => false,
+		) ) . '" />';
+		echo '<meta itemprop="datePublished" content="' . get_the_time('Y-m-d') . '" />';
+		echo '<meta itemprop="dateModified" content="' . get_the_modified_date('Y-m-d') . '" />';
+		echo apply_filters( 'pp_post_schema_meta_general', ob_get_clean() );
+
+		// Publisher Schema Meta
+		ob_start();
+		echo '<div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">';
+		echo '<meta itemprop="name" content="' . get_bloginfo( 'name' ) . '">';
+
+		// Fetch logo from theme or filter.
+		$image = '';
+		if ( class_exists( 'FLTheme' ) && 'image' == FLTheme::get_setting( 'fl-logo-type' ) ) {
+			$image = FLTheme::get_setting( 'fl-logo-image' );
+		}
+		$image = apply_filters( 'pp_post_schema_meta_publisher_image_url', $image );
+		if ( $image ) {
+			echo '<div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">';
+			echo '<meta itemprop="url" content="' . $image . '">';
+			echo '</div>';
+		}
+
+		echo '</div>';
+		echo apply_filters( 'pp_post_schema_meta_publisher', ob_get_clean() );
+
+		// Author Schema Meta
+		ob_start();
+		echo '<div itemscope itemprop="author" itemtype="http://schema.org/Person">';
+		echo '<meta itemprop="url" content="' . get_author_posts_url( get_the_author_meta( 'ID' ) ) . '" />';
+		echo '<meta itemprop="name" content="' . get_the_author_meta( 'display_name', get_the_author_meta( 'ID' ) ) . '" />';
+		echo '</div>';
+		echo apply_filters( 'pp_post_schema_meta_author', ob_get_clean() );
+
+		// Image Schema Meta
+		if(has_post_thumbnail()) {
+
+			$image = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()), 'full');
+
+			if ( is_array( $image ) ) {
+				echo '<div itemscope itemprop="image" itemtype="http://schema.org/ImageObject">';
+				echo '<meta itemprop="url" content="' . $image[0] . '" />';
+				echo '<meta itemprop="width" content="' . $image[1] . '" />';
+				echo '<meta itemprop="height" content="' . $image[2] . '" />';
+				echo '</div>';
+			}
+		}
+
+		// Comment Schema Meta
+		ob_start();
+		echo '<div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">';
+		echo '<meta itemprop="interactionType" content="http://schema.org/CommentAction" />';
+		echo '<meta itemprop="userInteractionCount" content="' . wp_count_comments(get_the_ID())->approved . '" />';
+		echo '</div>';
+		echo apply_filters( 'pp_post_schema_meta_comments', ob_get_clean() );
+
+		do_action( 'pp_post_after_schema_meta' );
+	}
+
+	/**
+	 * Renders the schema itemtype for the current
+	 * post in the loop.
+	 *
+	 * @return void
+	 */
+	static public function schema_itemtype()
+	{
+		global $post;
+
+		if ( ! is_object( $post ) || ! isset( $post->post_type ) || 'post' != $post->post_type ) {
+			echo 'http://schema.org/CreativeWork';
+		}
+		else {
+			echo 'http://schema.org/BlogPosting';
+		}
+	}
 }

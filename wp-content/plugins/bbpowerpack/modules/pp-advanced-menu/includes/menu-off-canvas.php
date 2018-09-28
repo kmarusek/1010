@@ -4,7 +4,7 @@
 	<div class="pp-off-canvas-menu pp-menu-<?php echo $settings->offcanvas_direction; ?>">
 		<div class="pp-menu-close-btn">×</div>
 
-		<?php do_action( 'pp_advanced_menu_before', $settings->mobile_menu_type ); ?>
+		<?php do_action( 'pp_advanced_menu_before', $settings->mobile_menu_type, $settings, $id ); ?>
 
 		<?php
 			if( !empty( $settings->wp_menu ) ) {
@@ -34,7 +34,7 @@
 			}
 		?>
 
-		<?php do_action( 'pp_advanced_menu_after', $settings->mobile_menu_type ); ?>
+		<?php do_action( 'pp_advanced_menu_after', $settings->mobile_menu_type, $settings, $id ); ?>
 
 	</div>
 </div>

@@ -35,6 +35,11 @@
 		var minSlides = ($(window).width() <= 768) ? parseInt($('.fl-node-<?php echo $id; ?>').width() / <?php echo $settings->logo_carousel_width + ($settings->logos_carousel_spacing * ($settings->logo_carousel_minimum_grid - 1)); ?>) : <?php echo $settings->logo_carousel_minimum_grid; ?>;
 		minSlides = (minSlides == 0) ? 1 : minSlides;
 		var maxSlides = minSlides;
+		var moveSlides = maxSlides;
+
+		<?php if ( isset( $settings->logo_carousel_move_slide ) && ! empty( $settings->logo_carousel_move_slide ) ) { ?>
+			moveSlides = <?php echo $settings->logo_carousel_move_slide; ?>;
+		<?php } ?>
 
 		var totalSlides = minSlides - 1;
 
@@ -60,9 +65,8 @@
 		$('.fl-node-<?php echo $id; ?> .pp-logos-wrapper').bxSlider({
 			<?php if ( $settings->logo_slider_transition != 'fade' ) { ?>
 	        slideWidth: <?php echo $settings->logo_carousel_width; ?>,
-			<?php } else { ?>
-			moveSlides: maxSlides,
 			<?php } ?>
+			moveSlides: moveSlides,
 			slideMargin: <?php echo $settings->logos_carousel_spacing; ?>,
 	        minSlides: minSlides,
 	        maxSlides: maxSlides,

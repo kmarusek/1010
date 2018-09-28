@@ -10,14 +10,30 @@ class BB_PowerPack_Ajax {
      */
     static public function init()
     {
-        add_action( 'wp_ajax_pp_grid_get_posts', __CLASS__ . '::get_ajax_posts' );
-        add_action( 'wp_ajax_nopriv_pp_grid_get_posts', __CLASS__ . '::get_ajax_posts' );
+        add_action( 'wp', __CLASS__ . '::get_ajax_posts' );
         add_action( 'wp_ajax_pp_get_taxonomies', __CLASS__ . '::get_post_taxonomies' );
-        add_action( 'wp_ajax_nopriv_pp_get_taxonomies', __CLASS__ . '::get_post_taxonomies' );
+		add_action( 'wp_ajax_nopriv_pp_get_taxonomies', __CLASS__ . '::get_post_taxonomies' );
+		add_action( 'wp_ajax_pp_get_saved_templates', __CLASS__ . '::get_saved_templates' );
+        add_action( 'wp_ajax_nopriv_pp_get_saved_templates', __CLASS__ . '::get_saved_templates' );
     }
 
     static public function get_ajax_posts()
     {
+		$is_error = false;
+
+		if ( ! isset( $_POST['pp_action'] ) || 'get_ajax_posts' != $_POST['pp_action'] ) {
+			return;
+		}
+
+		if ( ! isset( $_POST['settings'] ) || empty( $_POST['settings'] ) ) {
+			return;
+		}
+
+		// Tell WordPress this is an AJAX request.
+		if ( ! defined( 'DOING_AJAX' ) ) {
+			define( 'DOING_AJAX', true );
+		}
+
         $settings = (object)$_POST['settings'];
         $module_dir = pp_get_module_dir('pp-content-grid');
         $module_url = pp_get_module_url('pp-content-grid');
@@ -34,7 +50,7 @@ class BB_PowerPack_Ajax {
         $args = array(
             'post_type'             => $post_type,
             'post_status'           => 'publish',
-            'ignore_sticky_posts'   => true,
+			'ignore_sticky_posts'   => true,
             'pp_content_grid'       => true,
         );
 
@@ -174,20 +190,31 @@ class BB_PowerPack_Ajax {
 		if ( isset( $_POST['page'] ) ) {
             $args['paged'] = absint( $_POST['page'] );
         }
-
-        if ( isset( $settings->order_by ) ) {
-            $args['orderby'] = $settings->order_by;
-        }
-
-        if ( isset( $_POST['orderby'] ) ) {
-            $orderby = esc_attr( $_POST['orderby'] );
-            
-            $args = self::get_conditional_args( $orderby, $args );
-		}
 		
-		if ( isset( $settings->order ) ) {
-            $args['order'] = $settings->order;
-        }
+		// Order by author
+		if ( 'author' == $settings->order_by ) {
+			$args['orderby'] = array(
+				'author' => $settings->order,
+				'date' => $settings->order,
+			);
+		} else {
+			$args['orderby'] = $settings->order_by;
+
+			// Order by meta value arg.
+			if ( strstr( $settings->order_by, 'meta_value' ) ) {
+				$args['meta_key'] = $settings->order_by_meta_key;
+			}
+
+			if ( isset( $_POST['orderby'] ) ) {
+				$orderby = esc_attr( $_POST['orderby'] );
+				
+				$args = self::get_conditional_args( $orderby, $args );
+			}
+			
+			if ( isset( $settings->order ) ) {
+				$args['order'] = $settings->order;
+			}
+		}
 
         $query = new WP_Query( $args );
 
@@ -200,9 +227,9 @@ class BB_PowerPack_Ajax {
                
 				echo '<div class="pp-content-grid-pagination pp-ajax-pagination fl-builder-pagination"' . $style . '>';
 				if ( 'scroll' == $settings->pagination && isset( $_POST['term'] ) ) {
-					BB_PowerPack_Post_Helper::ajax_pagination( $query, $_POST['current_page'], $_POST['page'], $_POST['term'], $_POST['node_id'] );
+					BB_PowerPack_Post_Helper::ajax_pagination( $query, $settings, $_POST['current_page'], $_POST['page'], $_POST['term'], $_POST['node_id'] );
 				} else {
-					BB_PowerPack_Post_Helper::ajax_pagination( $query, $_POST['current_page'], $_POST['page'] );
+					BB_PowerPack_Post_Helper::ajax_pagination( $query, $settings, $_POST['current_page'], $_POST['page'] );
 				}
                 echo '</div>';
 
@@ -218,7 +245,11 @@ class BB_PowerPack_Ajax {
                 
                 ob_start();
 
-                include apply_filters( 'pp_cg_module_layout_path', $module_dir . 'includes/post-grid.php', $settings->layout, $settings );
+				if ( 'custom' == $settings->post_grid_style_select ) {
+					include BB_POWERPACK_DIR . 'includes/post-module-layout.php';
+				} else {
+					include apply_filters( 'pp_cg_module_layout_path', $module_dir . 'includes/post-grid.php', $settings->layout, $settings );	
+				}
 
                 $response['data'] .= do_shortcode( ob_get_clean() );
             }
@@ -267,6 +298,10 @@ class BB_PowerPack_Ajax {
      */
     static public function get_post_taxonomies( $post_type = 'post' )
 	{
+		if ( isset( $_POST['post_type'] ) && ! empty( $_POST['post_type'] ) ) {
+			$post_type = sanitize_text_field( $_POST['post_type'] );	
+		}
+		
 		$taxonomies = FLBuilderLoop::taxonomies( $post_type );
 		$html = '';
 
@@ -275,6 +310,58 @@ class BB_PowerPack_Ajax {
 		}
 
         echo $html; die();
+	}
+
+	/**
+	 * Get saved templates.
+	 *
+	 * @since 1.4
+	 */
+	static public function get_saved_templates()
+    {
+		$response = array(
+			'success' => false,
+			'data'	=> array()
+		);
+
+		$args = array(
+			'post_type' 		=> 'fl-builder-template',
+			'orderby' 			=> 'title',
+			'order' 			=> 'ASC',
+			'posts_per_page' 	=> '-1',
+		);
+
+		if ( isset( $_POST['type'] ) && ! empty( $_POST['type'] ) ) {
+			$args['tax_query'] = array(
+				array(
+					'taxonomy'		=> 'fl-builder-template-type',
+					'field'			=> 'slug',
+					'terms'			=> $_POST['type']
+				)
+			);
+		}
+
+        $posts = get_posts( $args );
+
+		$options = '';
+
+        if ( count( $posts ) ) {
+            foreach ( $posts as $post ) {
+				$options .= '<option value="' . $post->ID . '">' . $post->post_title . '</option>';
+			}
+			
+			$response = array(
+				'success' => true,
+				'data' => $options
+			);
+        } else {
+			$response = array(
+				'success' => true,
+				'data' => '<option value="" disabled>' . __('No templates found!') . '</option>'
+			);
+		}
+
+		echo json_encode($response); die;
     }
 }
 

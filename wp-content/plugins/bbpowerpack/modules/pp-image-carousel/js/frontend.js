@@ -5,13 +5,24 @@
         this.nodeClass = '.fl-node-' + settings.id;
         this.wrapperClass = this.nodeClass + ' .pp-image-carousel';
         this.slidesPerView = settings.slidesPerView;
-        this.settings = settings;
+        this.slidesToScroll = settings.slidesToScroll;
+		this.settings = settings;
 
         if (this._isSlideshow()) {
             this.slidesPerView = settings.slideshow_slidesPerView;
-        }
-
-        this._init();
+		}
+		
+		if ( typeof Swiper === 'undefined' ) {
+			$(window).load( $.proxy(function() {
+				if ( typeof Swiper === 'undefined' ) {
+					return;
+				} else {
+					this._init();
+				}
+			}, this) );
+		} else {
+			this._init();
+		}
     };
 
     PPImageCarousel.prototype = {
@@ -20,6 +31,7 @@
         wrapperClass: '',
         elements: '',
         slidesPerView: {},
+        slidesToScroll: {},
         settings: {},
         swipers: {},
 
@@ -40,10 +52,14 @@
             this.swipers.main = new Swiper(this.elements.mainSwiper, swiperOptions.main);
 
             if (this._isSlideshow()) {
-                this.swipers.main.params.control = this.swipers.thumbs = new Swiper(this.elements.thumbSwiper, swiperOptions.thumbs);
-                this.swipers.thumbs.params.control = this.swipers.main;
+                this.swipers.main.controller.control = this.swipers.thumbs = new Swiper(this.elements.thumbSwiper, swiperOptions.thumbs);
+                this.swipers.thumbs.controller.control = this.swipers.main;
             }
-        },
+		},
+		
+		_getEffect: function() {
+			return this.settings.effect;
+		},
 
         _getSlidesCount: function () {
             return this.elements.swiperSlide.length;
@@ -118,37 +134,71 @@
             }
 
             return Math.min(this._getSlidesCount(), +slidesPerView);
-        },
+		},
+		
+		_getSlidesToScroll: function(device) {
+			if ( ! this._isSlideshow() && 'slide' === this._getEffect() ) {
+				var slides = this.slidesToScroll[device];
+
+				return Math.min( this._getSlidesCount(), +slides || 1 );
+			}
+
+			return 1;
+		},
+
+		_getSlidesToScrollDesktop: function() {
+			return this._getSlidesToScroll( 'desktop' );
+		},
+
+		_getSlidesToScrollTablet: function() {
+			return this._getSlidesToScroll( 'tablet' );
+		},
+
+		_getSlidesToScrollMobile: function() {
+			return this._getSlidesToScroll( 'mobile' );
+		},
 
         _getSwiperOptions: function () {
             var medium_breakpoint = this.settings.breakpoint.medium,
                 responsive_breakpoint = this.settings.breakpoint.responsive;
 
             var options = {
-                effect: this.settings.effect,
-                pagination: '.swiper-pagination',
-                nextButton: this.nodeClass + ' .pp-swiper-button-next',
-                prevButton: this.nodeClass + ' .pp-swiper-button-prev',
-                paginationClickable: true,
-                grabCursor: true,
+				navigation: {
+					prevEl: '.pp-swiper-button-prev',
+					nextEl: '.pp-swiper-button-next'
+				},
+				pagination: {
+					el: '.swiper-pagination',
+					type: this.settings.pagination,
+					clickable: true
+				},
+				grabCursor: true,
+                effect: this._getEffect(),
                 initialSlide: this._getInitialSlide(),
                 slidesPerView: this._getSlidesPerView(),
+                slidesPerGroup: this._getSlidesToScrollDesktop(),
                 spaceBetween: this._getSpaceBetween(),
-                paginationType: this.settings.pagination,
-                autoplay: this.settings.isBuilderActive ? 0 : this.settings.autoplay_speed,
-                autoplayDisableOnInteraction: this.settings.pause_on_interaction,
                 loop: true,
                 loopedSlides: this._getSlidesCount(),
                 speed: this.settings.speed,
                 breakpoints: {}
-            };
+			};
+			
+			if ( ! this.settings.isBuilderActive && this.settings.autoplay_speed !== false ) {
+				options.autoplay = {
+					delay: this.settings.autoplay_speed,
+					disableOnInteraction: this.settings.pause_on_interaction
+				};
+			}
 
             options.breakpoints[medium_breakpoint] = {
-                slidesPerView: this._getSlidesPerViewTablet(),
+				slidesPerView: this._getSlidesPerViewTablet(),
+				slidesPerGroup: this._getSlidesToScrollTablet(),
                 spaceBetween: this._getSpaceBetweenTablet()
             };
             options.breakpoints[responsive_breakpoint] = {
-                slidesPerView: this._getSlidesPerViewMobile(),
+				slidesPerView: this._getSlidesPerViewMobile(),
+				slidesPerGroup: this._getSlidesToScrollMobile(),
                 spaceBetween: this._getSpaceBetweenMobile()
             };
 

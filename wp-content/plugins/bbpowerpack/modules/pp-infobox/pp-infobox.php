@@ -26,24 +26,27 @@ class PPInfoBoxModule extends FLBuilderModule {
             'icon'				=> 'layout.svg',
 		));
 		
-		$this->add_css('font-awesome');
+		$this->add_css( BB_POWERPACK()->fa_css );
     }
 
     public function render_link()
     {
-        $settings = $this->settings;
-        $button_class = ( 'button' == $settings->pp_infobox_link_type && '' != $settings->link_css_class ) ? ' ' . $settings->link_css_class : '';
+        $settings 		= $this->settings;
+		$button_class 	= ( 'button' == $settings->pp_infobox_link_type && '' != $settings->link_css_class ) ? ' ' . $settings->link_css_class : '';
+		$nofollow		= ( isset( $settings->link_nofollow ) && 'yes' == $settings->link_nofollow ) ? ' rel="nofollow"' : '';
 
         if ( 'button' == $settings->pp_infobox_link_type ) {
             ?>
-            <div class="pp-button-wrap">
-                <a class="pp-more-link pp-button<?php echo $button_class; ?>" href="<?php echo $settings->link; ?>" target="<?php echo $settings->link_target; ?>"><?php echo $settings->pp_infobox_read_more_text; ?></a>
+            <div class="pp-infobox-button pp-button-wrap">
+                <a class="pp-more-link pp-button<?php echo $button_class; ?>" href="<?php echo $settings->link; ?>" target="<?php echo $settings->link_target; ?>"<?php echo $nofollow; ?>><?php echo $settings->pp_infobox_read_more_text; ?></a>
             </div>
             <?php
         }
         if ( 'read_more' == $settings->pp_infobox_link_type ) {
-            ?>
-            <p><a class="pp-more-link<?php echo $button_class; ?>" href="<?php echo $settings->link; ?>" target="<?php echo $settings->link_target; ?>"><?php echo $settings->pp_infobox_read_more_text; ?></a></p>
+			?>
+			<div class="pp-infobox-button">
+				<p><a class="pp-more-link<?php echo $button_class; ?>" href="<?php echo $settings->link; ?>" target="<?php echo $settings->link_target; ?>"<?php echo $nofollow; ?>><?php echo $settings->pp_infobox_read_more_text; ?></a></p>
+			</div>
             <?php
         }
     }
@@ -104,19 +107,30 @@ FLBuilder::register_module('PPInfoBoxModule', array(
                             '3'             => array(
                                 'tabs'          => array('icon_styles'),
                                 'sections'      => array('type'),
-                                'fields'        => array('space_bt_icon_text')
+                                'fields'        => array('space_bt_icon_text', 'icon_position')
                             ),
                             '4'             => array(
                                 'tabs'          => array('icon_styles'),
                                 'sections'      => array('type'),
-                                'fields'        => array('space_bt_icon_text')
+                                'fields'        => array('space_bt_icon_text', 'icon_position')
                             ),
                             '5'             => array(
                                 'tabs'          => array('icon_styles'),
                                 'sections'      => array('type'),
                             ),
                         )
-                    ),
+					),
+					'icon_position'	=> array(
+						'type'			=> 'select',
+						'label'			=> __('Align Icon Vertically', 'bb-powerpack'),
+						'default'		=> 'default',
+						'options'		=> array(
+							'default'		=> __('Default', 'bb-powerpack'),
+							'top'			=> __('Top', 'bb-powerpack'),
+							'center'		=> __('Center', 'bb-powerpack'),
+							'bottom'		=> __('Bottom', 'bb-powerpack'),
+						)
+					)
                 )
             ),
             'type'      => array(
@@ -240,10 +254,6 @@ FLBuilder::register_module('PPInfoBoxModule', array(
                         'type'      => 'text',
                         'label'     => '',
                         'connections'   => array( 'string', 'html', 'url' ),
-                        'preview'       => array(
-							'type'          => 'text',
-							'selector'      => '.pp-infobox-title-prefix'
-						)
                     ),
                 ),
             ),
@@ -273,7 +283,7 @@ FLBuilder::register_module('PPInfoBoxModule', array(
                         'connections'   => array( 'string', 'html', 'url' ),
                         'preview'       => array(
 							'type'          => 'text',
-							'selector'      => '.pp-infobox-description'
+							'selector'      => '.pp-infobox-description .pp-description-wrap'
 						)
                     ),
                 ),
@@ -343,7 +353,19 @@ FLBuilder::register_module('PPInfoBoxModule', array(
                         'preview'       => array(
                             'type'          => 'none'
                         )
-                    ),
+					),
+					'link_nofollow'	=> array(
+						'type'			=> 'pp-switch',
+						'label'			=> __('Link nofollow', 'bb-powerpack'),
+						'default'		=> 'yes',
+						'options'		=> array(
+							'yes'			=> __('Yes', 'bb-powerpack'),
+							'no'			=> __('No', 'bb-powerpack'),
+						),
+						'preview'		=> array(
+							'type'			=> 'none'
+						)
+					),
                     'link_css_class'    => array(
                         'type'  => 'text',
                         'label' => __('Custom CSS Class', 'bb-powerpack'),
@@ -849,7 +871,7 @@ FLBuilder::register_module('PPInfoBoxModule', array(
 						'show_reset'    => true,
                         'preview'       => array(
                             'type'          => 'css',
-                            'selector'      => '.pp-infobox-description',
+                            'selector'      => '.pp-infobox-description .pp-description-wrap',
                             'property'      => 'color',
                         )
 					),
@@ -875,7 +897,7 @@ FLBuilder::register_module('PPInfoBoxModule', array(
                                 'tooltip'           => __('Top', 'bb-powerpack'),
                                 'icon'              => 'fa-long-arrow-up',
                                 'preview'           => array(
-                                    'selector'          => '.pp-infobox-description',
+                                    'selector'          => '.pp-infobox-description .pp-description-wrap',
                                     'property'          => 'margin-top',
                                     'unit'              => 'px'
                                 ),
@@ -885,7 +907,7 @@ FLBuilder::register_module('PPInfoBoxModule', array(
                                 'tooltip'           => __('Bottom', 'bb-powerpack'),
                                 'icon'              => 'fa-long-arrow-down',
                                 'preview'           => array(
-                                    'selector'          => '.pp-infobox-description',
+                                    'selector'          => '.pp-infobox-description .pp-description-wrap',
                                     'property'          => 'margin-bottom',
                                     'unit'              => 'px'
                                 ),
@@ -1335,7 +1357,7 @@ FLBuilder::register_module('PPInfoBoxModule', array(
                         'label'         => __('Font', 'bb-powerpack'),
                         'preview'         => array(
                             'type'            => 'font',
-                            'selector'        => '.pp-infobox-description'
+                            'selector'        => '.pp-infobox-description .pp-description-wrap'
                         )
                     ),
                     'text_font_size'    => array(
@@ -1354,7 +1376,7 @@ FLBuilder::register_module('PPInfoBoxModule', array(
                         ),
                         'preview'       => array(
                             'type'          => 'css',
-                            'selector'      => '.pp-infobox-description',
+                            'selector'      => '.pp-infobox-description .pp-description-wrap',
                             'property'      => 'font-size',
                             'unit'          => 'px'
                         ),
@@ -1374,7 +1396,7 @@ FLBuilder::register_module('PPInfoBoxModule', array(
                         ),
                         'preview'           => array(
                             'type'          => 'css',
-                            'selector'      => '.pp-infobox-description',
+                            'selector'      => '.pp-infobox-description .pp-description-wrap',
                             'property'      => 'line-height',
                         ),
                         'help'          => __('Leave empty for default line height.', 'bb-powerpack')

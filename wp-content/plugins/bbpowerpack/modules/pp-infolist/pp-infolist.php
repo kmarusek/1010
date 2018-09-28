@@ -26,7 +26,7 @@ class PPInfoListModule extends FLBuilderModule {
             'icon'				=> 'layout.svg',
         ));
 
-		$this->add_css('font-awesome');
+		$this->add_css( BB_POWERPACK()->fa_css );
     }
 }
 
@@ -121,7 +121,7 @@ FLBuilder::register_module('PPInfoListModule', array(
                     'icon_font_size'    => array(
                         'type'          => 'text',
                         'size'          => '5',
-                        'maxlength'     => '2',
+                        'maxlength'     => '3',
                         'default'       => '16',
                         'label'         => __('Icon Size', 'bb-powerpack'),
                         'description'   => 'px',

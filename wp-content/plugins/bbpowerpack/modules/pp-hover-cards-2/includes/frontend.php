@@ -1,3 +1,6 @@
+<?php
+	$title_tag = isset( $settings->hover_card_title_tag ) ? $settings->hover_card_title_tag : 'h2';
+?>
 <div class="pp-hover-card-wrap clearfix">
 	<?php
 	for( $i = 0; $i < count( $settings->card_content ); $i++ ) {
@@ -11,7 +14,7 @@
 			<a class="pp-more-link-container" href="<?php echo $card->box_link == '#' ? 'javascript:void(0)' : $card->box_link; ?>" target="<?php echo $card->link_target; ?>">
 			<?php } ?>
 				<?php if ( $card->hover_card_bg_type == 'image' && isset( $card->hover_card_box_image_src ) ) { ?>
-					<img src="<?php echo $card->hover_card_box_image_src; ?>" class="pp-hover-card-image" alt=""/>
+					<img src="<?php echo $card->hover_card_box_image_src; ?>" class="pp-hover-card-image" alt="<?php echo $card->title; ?>" />
 				<?php } ?>
 				<div class="pp-hover-card-inner">
 					<div class="pp-hover-card-inner-wrap">
@@ -27,7 +30,7 @@
 								</div>
 							<?php } ?>
 							<div class="pp-hover-card-title-wrap">
-								<h2 class="pp-hover-card-title"><?php echo $card->title; ?></h2>
+								<<?php echo $title_tag; ?> class="pp-hover-card-title"><?php echo $card->title; ?></<?php echo $title_tag; ?>>
 							</div>
 							<div class="pp-hover-card-description">
 								<div class="pp-hover-card-description-inner">

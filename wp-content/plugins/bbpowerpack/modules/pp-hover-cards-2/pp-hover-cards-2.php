@@ -256,6 +256,21 @@ FLBuilder::register_module('PPHoverCardsModuleNew', array(
             'hover_card_title_typography'  => array(
                 'title' => __('Title', 'bb-powerpack'),
                 'fields'    => array(
+					'hover_card_title_tag'	=> array(
+						'type'		=> 'select',
+						'label'		=> __('HTML Tag', 'bb-powerpack'),
+						'default'	=> 'h2',
+						'options'	=> array(
+							'h1'		=> 'h1',
+							'h2'		=> 'h2',
+							'h3'		=> 'h3',
+							'h4'		=> 'h4',
+							'h5'		=> 'h5',
+							'h6'		=> 'h6',
+							'div'		=> 'div',
+							'p'			=> 'p'
+						)
+					),
                     'hover_card_title_font'    => array(
                         'type'      => 'font',
                         'default'		=> array(
@@ -272,7 +287,7 @@ FLBuilder::register_module('PPHoverCardsModuleNew', array(
                     	'type' 			=> 'pp-multitext',
                     	'label' 		=> __('Font Size', 'bb-powerpack'),
                         'default'       => array(
-                            'desktop'       => 24,
+                            'desktop'       => '',
                             'tablet'        => '',
                             'mobile'        => ''
                         ),
@@ -307,7 +322,7 @@ FLBuilder::register_module('PPHoverCardsModuleNew', array(
                     	'type' 			=> 'pp-multitext',
                     	'label' 		=> __('Line Height', 'bb-powerpack'),
                         'default'       => array(
-                            'desktop'       => 1.2,
+                            'desktop'       => '',
                             'tablet'        => '',
                             'mobile'        => ''
                         ),
@@ -358,7 +373,7 @@ FLBuilder::register_module('PPHoverCardsModuleNew', array(
                     	'type' 			=> 'pp-multitext',
                     	'label' 		=> __('Font Size', 'bb-powerpack'),
                         'default'       => array(
-                            'desktop' => 14,
+                            'desktop' => '',
                             'tablet' => '',
                             'mobile' => ''
                         ),
@@ -392,7 +407,7 @@ FLBuilder::register_module('PPHoverCardsModuleNew', array(
                     	'type' 			=> 'pp-multitext',
                     	'label' 		=> __('Line Height', 'bb-powerpack'),
                         'default'       => array(
-                            'desktop' => 1.4,
+                            'desktop' => '',
                             'tablet' => '',
                             'mobile' => ''
                         ),

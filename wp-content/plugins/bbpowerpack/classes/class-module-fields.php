@@ -18,7 +18,7 @@ if ( ! class_exists( 'PP_Module_Fields' ) ) {
          *
          * @var object
          */
-        public static $instance;
+		public static $instance;
 
         /**
          * Primary class constructor.
@@ -44,16 +44,16 @@ if ( ! class_exists( 'PP_Module_Fields' ) ) {
         	add_action('fl_builder_control_pp-evergreen-date', array( $this, '_evergreen_date' ), 1, 4);
 
             add_action( 'fl_builder_before_render_module', array( $this, 'fallback_settings' ), 10, 1 );
-            add_action( 'fl_builder_custom_fields', array( $this, 'ui_fields' ), 10, 1 );
-        }
+			add_action( 'fl_builder_custom_fields', array( $this, 'ui_fields' ), 10, 1 );
+		}
 
-    public function field_assets()
-    {
-        if ( class_exists( 'FLBuilderModel' ) && FLBuilderModel::is_builder_active() ) {
-            wp_enqueue_script( 'jquery-ui-core' );
-  		    wp_enqueue_script( 'jquery-ui-datepicker' );
-        }
-    }
+		public function field_assets()
+		{
+			if ( class_exists( 'FLBuilderModel' ) && FLBuilderModel::is_builder_active() ) {
+				wp_enqueue_script( 'jquery-ui-core' );
+				wp_enqueue_script( 'jquery-ui-datepicker' );
+			}
+		}
 
         public function fallback_settings( $module )
         {
@@ -581,7 +581,149 @@ if ( ! class_exists( 'PP_Module_Fields' ) ) {
             $fields['pp-css-class']     = BB_POWERPACK_DIR . 'includes/ui-field-pp-css-class.php';
 
             return $fields;
-        }
+		}
+		
+		public static function get_field( $type, $label = '', $args = array() )
+		{
+			$field 		= array();
+			$default 	= ( isset( $args['default'] ) ) ? $args['default'] : '';
+			$desc 		= ( isset( $args['desc'] ) ) ? $args['desc'] : '';
+			$help 		= ( isset( $args['help'] ) ) ? $args['help'] : '';
+			$responsive = ( isset( $args['responsive'] ) ) ? $args['responsive'] : true;
+			$preview	= ( isset( $args['preview'] ) ) ? $args['preview'] : array(
+				'type'	=> 'refresh'
+			);
+
+			switch ( $type ) {
+				case 'color':
+					$field = array(
+						'type'			=> 'color',
+						'show_alpha'	=> ( isset( $args['alpha'] ) && ! $args['alpha'] ) ? false : true,
+						'show_reset'	=> ( isset( $args['reset'] ) && ! $args['reset'] ) ? false : true,
+					);
+					break;
+				case 'border-style':
+					$field = array(
+						'type'		=> 'pp-switch',
+						'default'	=> 'none',
+						'options'	=> array(
+							'none'		=> __('None', 'bb-powerpack'),
+							'dashed'	=> __('Dashed', 'bb-powerpack'),
+							'dotted'	=> __('Dotted', 'bb-powerpack'),
+							'solid'		=> __('Solid', 'bb-powerpack'),
+						)
+					);
+					break;
+				case 'unit':
+					$field = array(
+						'type'		=> 'unit',
+						'slider'	=> true,
+						'responsive'	=> $responsive
+					);
+					break;
+				case 'dimension':
+					$field = array(
+						'type'		=> 'dimension',
+						'slider'	=> true,
+						'responsive'	=> $responsive
+					);
+					break;
+				case 'align':
+					$field = array(
+						'type'		=> 'pp-switch',
+						'options'	=> array(
+							'left'		=> __('Left', 'bb-powerpack'),
+							'center'	=> __('Center', 'bb-powerpack'),
+							'right'		=> __('Right', 'bb-powerpack'),
+						),
+						'default'	=> 'left'
+					);
+					break;
+				default:
+					break;
+			}
+
+			$field['label'] = $label;
+
+			if ( ! empty( $desc ) ) {
+				$field['description'] = $desc;
+			}
+
+			if ( ! empty( $default ) ) {
+				$field['default'] = $default;
+			}
+
+			if ( ! empty( $help ) ) {
+				$field['help'] = $help;
+			}
+
+			if ( isset( $args['toggle'] ) ) {
+				$field['toggle'] 	= $args['toggle'];
+			}
+
+			$field['preview'] = $preview;
+
+			return $field;
+		}
+
+		public static function get_button_style_fields( $prefix = '', $fields_data = array() )
+		{
+			$fields = array(
+				'bg_color'			=> self::get_field( 'color', __('Background Color', 'bb-powerpack') ),
+				'bg_hover_color'	=> self::get_field( 'color', __('Background Hover Color', 'bb-powerpack'), array( 'preview'	=> array( 'type' => 'none' ) ) ),
+				'text_color'		=> self::get_field( 'color', __('Text Color', 'bb-powerpack') ),
+				'text_hover_color'	=> self::get_field( 'color', __('Text Hover Color', 'bb-powerpack'), array( 'preview'	=> array( 'type' => 'none' ) ) ),
+				'border_style'		=> self::get_field( 'border-style', __('Border Style', 'bb-powerpack') ),
+				'border_width'		=> self::get_field( 'unit', __('Border Width', 'bb-powerpack'), array( 'desc' => 'px', 'responsive' => false ) ),
+				'border_color'		=> self::get_field( 'color', __('Border Color', 'bb-powerpack') ),
+				'border_hover_color' => self::get_field( 'color', __('Border Hover Color', 'bb-powerpack'), array( 'preview'	=> array( 'type' => 'none' ) ) ),
+				'border_radius'		=> self::get_field( 'unit', __('Round Corners', 'bb-powerpack'), array( 'desc' => 'px', 'responsive' => false ) ),
+				'margin_top'		=> self::get_field( 'unit', __('Margin Top', 'bb-powerpack'), array( 'desc' => 'px' ) ),
+				'padding'			=> self::get_field( 'dimension', __('Padding', 'bb-powerpack') ),
+				'alignment'			=> self::get_field( 'align', __('Alignment', 'bb-powerpack') ),
+			);
+
+			$final_fields = $fields;
+
+			if ( ! empty( $fields_data ) ) {
+
+				foreach ( $fields_data as $key => $field ) {
+					if ( isset( $final_fields[ $key ] ) ) {
+						if ( isset( $field['include'] ) && ! $field['include'] ) {
+							unset( $final_fields[ $key ] );
+						}
+						if ( isset( $field['label'] ) ) {
+							$final_fields[ $key ]['label'] = $field['label'];
+						}
+						if ( isset( $field['description'] ) ) {
+							$final_fields[ $key ]['description'] = $field['description'];
+						}
+						if ( isset( $field['default'] ) ) {
+							$final_fields[ $key ]['default'] = $field['default'];
+						}
+						if ( isset( $field['help'] ) ) {
+							$final_fields[ $key ]['help'] = $field['help'];
+						}
+						if ( isset( $field['preview'] ) ) {
+							$final_fields[ $key ]['preview'] = $field['preview'];
+						}
+						if ( isset( $field['toggle'] ) ) {
+							$final_fields[ $key ]['toggle'] = $field['toggle'];
+						}
+					}
+				}
+			}
+
+			$fields_with_prefix = array();
+
+			foreach ( $final_fields as $key => $field ) {
+				$field_name = $prefix . '_' . $key;
+
+				$fields_with_prefix[ $field_name ] = $field;
+			}
+
+			return $fields_with_prefix;
+		}
 
         /**
          * Returns the singleton instance of the class.

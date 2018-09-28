@@ -582,29 +582,55 @@ do_action( 'pp_cg_loop_settings_after_form', $settings ); // e.g Add custom FLBu
 
 <script type="text/javascript">
 	;(function($) {
-		<?php if ( 'fl-theme-layout' == get_post_type() ) { ?>
+		<?php if ( 'fl-theme-layout' == get_post_type() ) {
+			$post_type = '';
+			$taxonomy = '';
+			$location = FLThemeBuilderRulesLocation::get_preview_location( get_the_ID() );
+			$location_frags = explode( ':', $location );
+
+			if ( $location_frags[0] == 'post' ) {
+				$post_type = $location_frags[1];
+			}
+			if ( $location_frags[0] == 'archive' ) {
+				$post_type = $location_frags[1];
+			}
+			if ( $location_frags[0] == 'taxonomy' ) {
+				$taxonomy = $location_frags[1];
+
+				global $wp_taxonomies;
+				$post_type_array = isset( $wp_taxonomies[ $taxonomy ] ) ? $wp_taxonomies[ $taxonomy ]->object_type : array();
+				if ( ! empty( $post_type_array ) ) {
+					$post_type = $post_type_array[0];
+				}
+			}
+		?>
 		function pp_update_taxonomies() {
+			if ( 'main_query' !== $( '.fl-builder-pp-content-grid-settings select[name="data_source"]' ).val() ) {
+				return;
+			}
 			var post_grid_filters = $('.fl-builder-pp-content-grid-settings select[name="post_grid_filters"]');
 			var post_taxonomies = $('.fl-builder-pp-content-grid-settings select[name="post_taxonomies"]');
 			var selected_filter = '<?php echo $settings->post_grid_filters; ?>';
 			var selected_taxonomy = '<?php echo $settings->post_taxonomies; ?>';
-			var post_type = '<?php echo FLThemeBuilderRulesLocation::get_preview_location( get_the_ID() ); ?>'.split(':')[1];
+			var post_type = '<?php echo $post_type; ?>';
 			$('.fl-builder-pp-content-grid-settings select[name="post_type"] option').removeAttr('selected');
 			$('.fl-builder-pp-content-grid-settings select[name="post_type"] option[value="'+post_type+'"]').attr('selected', 'selected');
 			$('.fl-builder-pp-content-grid-settings select[name="post_type"]').trigger('change');
-			$.ajax({
-				type: 'post',
-				data: { action: 'get_post_tax', post_type_slug: post_type },
-				url: ajaxurl,
-				success: function(res) {
-					if ( res !== 'undefined' || res !== '' ) {
-						post_grid_filters.html(res);
-						post_grid_filters.find('option[value="'+selected_filter+'"]').attr('selected', 'selected');
-						post_taxonomies.html(res);
-						post_taxonomies.find('option[value="'+selected_taxonomy+'"]').attr('selected', 'selected');
+			if ( '' !== post_type ) {
+				$.ajax({
+					type: 'post',
+					data: { action: 'get_post_tax', post_type_slug: post_type },
+					url: ajaxurl,
+					success: function(res) {
+						if ( res !== 'undefined' || res !== '' ) {
+							post_grid_filters.html(res);
+							post_grid_filters.find('option[value="'+selected_filter+'"]').attr('selected', 'selected');
+							post_taxonomies.html(res);
+							post_taxonomies.find('option[value="'+selected_taxonomy+'"]').attr('selected', 'selected');
+						}
 					}
-				}
-			});
+				});
+			}
 		}
 		pp_update_taxonomies();
 
@@ -622,7 +648,10 @@ do_action( 'pp_cg_loop_settings_after_form', $settings ); // e.g Add custom FLBu
 			var selected_taxonomy = '<?php echo $settings->post_taxonomies; ?>';
 			$.ajax({
 				type: 'post',
-				data: {action: 'get_post_tax', post_type_slug: post_type_slug},
+				data: {
+					action: 'pp_get_taxonomies',
+					post_type: post_type_slug
+				},
 				url: ajaxurl,
 				success: function(res) {
 					if ( res !== 'undefined' || res !== '' ) {

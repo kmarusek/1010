@@ -533,9 +533,8 @@ FLBuilder::render_module_css('fl-button', $id . ' .pp-pricing-table-column-' . $
       <?php if( $settings->featured_title_line_height == 'custom' && $settings->featured_title_custom_line_height ) { ?>
    	   line-height: <?php echo $settings->featured_title_custom_line_height['tablet']; ?>;
       <?php } ?>
-  }
-  <?php } ?>
-
+  	}
+  	<?php } ?>
 
 	<?php if( $settings->price_font_size == 'custom' && $settings->price_custom_font_size ) { ?>
    .fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-col .pp-pricing-table-column .pp-pricing-table-price {
@@ -543,13 +542,11 @@ FLBuilder::render_module_css('fl-button', $id . ' .pp-pricing-table-column-' . $
   	}
    <?php } ?>
 
-
 	<?php if( $settings->duration_font_size == 'custom' && $settings->duration_custom_font_size ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-column .pp-pricing-table-duration {
 	 	   font-size: <?php echo $settings->duration_custom_font_size['tablet']; ?>px;
 	}
  	<?php } ?>
-
 
 	<?php if( $settings->features_font_size == 'custom' && $settings->features_custom_font_size ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-column .pp-pricing-table-features {
@@ -557,12 +554,18 @@ FLBuilder::render_module_css('fl-button', $id . ' .pp-pricing-table-column-' . $
    	}
 	<?php } ?>
 
-
     <?php if( $settings->button_font_size == 'custom' && $settings->button_custom_font_size ) { ?>
    .fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-column a.fl-button {
    	   font-size: <?php echo $settings->button_custom_font_size['tablet']; ?>px !important;
   	}
    <?php } ?>
+
+	.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-matrix {
+		display: none;
+	}
+   .fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-features li span.pp-pricing-table-item-label {
+	   display: block;
+   }
 }
 
 @media only screen and ( max-width: 600px ) {

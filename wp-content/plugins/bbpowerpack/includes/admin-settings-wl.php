@@ -115,6 +115,14 @@
                 <td>
 					<input id="ppwl_hide_extensions_tab" name="ppwl_hide_extensions_tab" type="checkbox" value="1" <?php echo self::get_option('ppwl_hide_extensions_tab') == 1 ? 'checked="checked"' : '' ?> />
                 </td>
+			</tr>
+			<tr valign="top">
+                <th scope="row" valign="top">
+                    <label for="ppwl_hide_integration_tab"><?php esc_html_e('Hide Integration setting tab', 'bb-powerpack'); ?></label>
+                </th>
+                <td>
+					<input id="ppwl_hide_integration_tab" name="ppwl_hide_integration_tab" type="checkbox" value="1" <?php echo self::get_option('ppwl_hide_integration_tab') == 1 ? 'checked="checked"' : '' ?> />
+                </td>
             </tr>
             <tr valign="top">
                 <th scope="row" valign="top">

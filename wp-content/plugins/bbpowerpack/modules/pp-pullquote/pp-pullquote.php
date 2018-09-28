@@ -25,7 +25,7 @@ class PPQuoteModule extends FLBuilderModule {
             'icon'				=> 'format-quote.svg',
 		));
 		
-		$this->add_css('font-awesome');
+		$this->add_css( BB_POWERPACK()->fa_css );
     }
 }
 

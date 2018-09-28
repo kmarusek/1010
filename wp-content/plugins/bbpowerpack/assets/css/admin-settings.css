@@ -70,7 +70,7 @@
 }
 .pp-page-templates-grid .pp-template.pp-preview-enabled:focus .pp-template-screenshot img,
 .pp-page-templates-grid .pp-template.pp-preview-enabled:hover .pp-template-screenshot img {
-    opacity: .4;
+    opacity: .7;
 }
 .pp-page-templates-grid .pp-template .pp-template-preview {
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";

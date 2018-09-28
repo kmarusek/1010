@@ -16,6 +16,14 @@
 					enabled: true,
 					navigateByImgClick: true,
 				},
+				<?php if ( isset( $settings->lightbox_caption ) && 'yes' == $settings->lightbox_caption ) { ?>
+				'image': {
+					titleSrc: function(item) {
+						var caption = item.el.data('caption') || '';
+						return caption;
+					}
+				},
+				<?php } ?>
 				mainClass: 'mfp-<?php echo $id; ?>'
 			});
 		}

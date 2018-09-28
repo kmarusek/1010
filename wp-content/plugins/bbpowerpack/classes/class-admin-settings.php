@@ -142,7 +142,12 @@ final class BB_PowerPack_Admin_Settings {
                 'title'     => esc_html__('Extensions', 'bb-powerpack'),
                 'show'      => is_network_admin() || ! is_multisite(),
                 'priority'  => 250
-            ),
+			),
+			'integration'	=> array(
+				'title'			=> esc_html__('Integration', 'bb-powerpack'),
+				'show'			=> ! self::get_option( 'ppwl_hide_integration_tab' ),
+				'priority'  	=> 300
+			),
         ) );
 
         $sorted_data = array();
@@ -174,7 +179,7 @@ final class BB_PowerPack_Admin_Settings {
         $current_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'general';
 
         if ( is_multisite() && ! is_network_admin() ) {
-            $current_tab = 'templates';
+            $current_tab = 'integration' != $current_tab ? 'templates' : $current_tab;
         }
 
         return $current_tab;
@@ -372,7 +377,7 @@ final class BB_PowerPack_Admin_Settings {
 				}
 			}
 
-			self::update_option( 'bb_powerpack_fb_app_id', trim( $_POST['bb_powerpack_fb_app_id'] ) );
+			self::update_option( 'bb_powerpack_fb_app_id', trim( $_POST['bb_powerpack_fb_app_id'] ), false );
 		}
 	}
 
@@ -403,6 +408,7 @@ final class BB_PowerPack_Admin_Settings {
         $hide_support_msg       = isset( $_POST['ppwl_hide_support_msg'] ) ? absint( $_POST['ppwl_hide_support_msg'] ) : 0;
         $hide_templates_tab     = isset( $_POST['ppwl_hide_templates_tab'] ) ? absint( $_POST['ppwl_hide_templates_tab'] ) : 0;
         $hide_extensions_tab    = isset( $_POST['ppwl_hide_extensions_tab'] ) ? absint( $_POST['ppwl_hide_extensions_tab'] ) : 0;
+        $hide_integration_tab   = isset( $_POST['ppwl_hide_integration_tab'] ) ? absint( $_POST['ppwl_hide_integration_tab'] ) : 0;
         $hide_wl_form           = isset( $_POST['ppwl_hide_form'] ) ? absint( $_POST['ppwl_hide_form'] ) : 0;
         $hide_plugin            = isset( $_POST['ppwl_hide_plugin'] ) ? absint( $_POST['ppwl_hide_plugin'] ) : 0;
         self::update_option( 'ppwl_admin_label', $admin_label );
@@ -414,6 +420,7 @@ final class BB_PowerPack_Admin_Settings {
         self::update_option( 'ppwl_hide_support_msg', $hide_support_msg );
         self::update_option( 'ppwl_hide_templates_tab', $hide_templates_tab );
         self::update_option( 'ppwl_hide_extensions_tab', $hide_extensions_tab );
+        self::update_option( 'ppwl_hide_integration_tab', $hide_integration_tab );
         self::update_option( 'ppwl_hide_form', $hide_wl_form );
         self::update_option( 'ppwl_hide_plugin', $hide_plugin );
     }

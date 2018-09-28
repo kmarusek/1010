@@ -300,6 +300,9 @@
 	.fl-node-<?php echo $id; ?> .pp-tabs-style-8 .pp-tabs-label.pp-tab-active {
 		background-color: #<?php echo $settings->label_background_active_color; ?> !important;
 	}
+	.fl-node-<?php echo $id; ?> .pp-tabs-panels {
+		visibility: hidden;
+	}
 }
 
 @media only screen and (max-width: 480px) {

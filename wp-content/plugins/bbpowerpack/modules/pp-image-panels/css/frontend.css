@@ -14,11 +14,12 @@
 	float: left;
 	text-decoration: none;
 	overflow: hidden;
-	-webkit-transition: width .3s linear;
-	-moz-transition: width .3s linear;
-	-o-transition: width .3s linear;
-	-ms-transition: width .3s linear;
-	transition: width .3s linear;
+	-webkit-transition: width .3s cubic-bezier(0.39, 0.58, 0.57, 1);
+	-moz-transition: width .3s cubic-bezier(0.39, 0.58, 0.57, 1);
+	-o-transition: width .3s cubic-bezier(0.39, 0.58, 0.57, 1);
+	-ms-transition: width .3s cubic-bezier(0.39, 0.58, 0.57, 1);
+	transition: width .3s cubic-bezier(0.39, 0.58, 0.57, 1);
+	will-change: width;
 }
 .pp-image-panels-wrap .pp-panel-title .pp-panel-link {
 	display: block;
@@ -31,11 +32,12 @@
 	float: left;
 	overflow: hidden;
 	position: relative;
-	-webkit-transition: width .3s linear;
-	-moz-transition: width .3s linear;
-	-o-transition: width .3s linear;
-	-ms-transition: width .3s linear;
-	transition: width .3s linear;
+	-webkit-transition: width .3s cubic-bezier(0.39, 0.58, 0.57, 1);
+	-moz-transition: width .3s cubic-bezier(0.39, 0.58, 0.57, 1);
+	-o-transition: width .3s cubic-bezier(0.39, 0.58, 0.57, 1);
+	-ms-transition: width .3s cubic-bezier(0.39, 0.58, 0.57, 1);
+	transition: width .3s cubic-bezier(0.39, 0.58, 0.57, 1);
+	will-change: width;
 }
 .pp-image-panels-wrap .pp-panel-item .pp-panel-title {
 	bottom: 0;

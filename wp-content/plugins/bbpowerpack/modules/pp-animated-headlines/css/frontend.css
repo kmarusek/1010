@@ -117,14 +117,16 @@
 }
 .pp-headline-dynamic-wrapper {
     display: inline-block;
-    position: relative;
+	position: relative;
+	text-align: left;
 }
 .pp-headline-dynamic-wrapper .pp-headline-dynamic-text {
     display: inline-block;
     position: absolute;
-    white-space: nowrap;
-    left: 0;
-    top: 0;
+	white-space: nowrap;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
 }
 .pp-headline-dynamic-wrapper .pp-headline-dynamic-text.pp-headline-text-active {
     position: relative;
@@ -272,7 +274,7 @@
 .pp-headline-animation-type-typing .pp-headline-dynamic-text:not(.pp-headline-text-active) {
     visibility: hidden;
 }
-.pp-headline-animation-type-typing i:not(.pp-headline-animation-in) {
+.pp-headline-animation-type-typing .pp-headline-dynamic-letter:not(.pp-headline-animation-in) {
     position: absolute;
     visibility: hidden;
 }
@@ -314,8 +316,7 @@
     -webkit-perspective: 300px;
     perspective: 300px;
 }
-.pp-headline-animation-type-swirl i,
-.pp-headline-animation-type-swirl em {
+.pp-headline-animation-type-swirl .pp-headline-dynamic-letter {
     display: inline-block;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
@@ -323,27 +324,23 @@
 .pp-headline-animation-type-swirl .pp-headline-dynamic-text {
     opacity: 0;
 }
-.pp-headline-animation-type-swirl i {
+.pp-headline-animation-type-swirl .pp-headline-dynamic-letter {
     -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
     -webkit-transform: translateZ(-20px) rotateX(90deg);
     transform: translateZ(-20px) rotateX(90deg);
     opacity: 0;
 }
-.pp-headline-text-active .pp-headline-animation-type-swirl i {
+.pp-headline-text-active .pp-headline-animation-type-swirl .pp-headline-dynamic-letter {
     opacity: 1;
 }
-.pp-headline-animation-type-swirl i.pp-headline-animation-in {
+.pp-headline-animation-type-swirl .pp-headline-dynamic-letter.pp-headline-animation-in {
     -webkit-animation: pp-headline-swirl-in .4s forwards;
     animation: pp-headline-swirl-in .4s forwards;
 }
-.pp-headline-animation-type-swirl i:not(.pp-headline-animation-in) {
+.pp-headline-animation-type-swirl .pp-headline-dynamic-letter:not(.pp-headline-animation-in) {
     -webkit-animation: pp-headline-swirl-out .4s forwards;
     animation: pp-headline-swirl-out .4s forwards;
-}
-.pp-headline-animation-type-swirl em {
-    -webkit-transform: translateZ(20px);
-    transform: translateZ(20px);
 }
 @-webkit-keyframes pp-headline-swirl-in {
     0% {
@@ -599,22 +596,22 @@
 .pp-headline-animation-type-blinds .pp-headline-dynamic-text {
     opacity: 0;
 }
-.pp-headline-animation-type-blinds i {
+.pp-headline-animation-type-blinds .pp-headline-dynamic-letter {
     display: inline-block;
     -webkit-transform: rotateY(180deg);
     transform: rotateY(180deg);
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
 }
-.pp-headline-text-active .pp-headline-animation-type-blinds i {
+.pp-headline-text-active .pp-headline-animation-type-blinds .pp-headline-dynamic-letter {
     -webkit-transform: rotateY(0deg);
     transform: rotateY(0deg);
 }
-.pp-headline-animation-type-blinds i.pp-headline-animation-in {
+.pp-headline-animation-type-blinds .pp-headline-dynamic-letter.pp-headline-animation-in {
     -webkit-animation: pp-headline-blinds-in .6s forwards;
     animation: pp-headline-blinds-in .6s forwards;
 }
-.pp-headline-animation-type-blinds i:not(.pp-headline-animation-in) {
+.pp-headline-animation-type-blinds .pp-headline-dynamic-letter:not(.pp-headline-animation-in) {
     -webkit-animation: pp-headline-blinds-out .6s forwards;
     animation: pp-headline-blinds-out .6s forwards;
 }
@@ -661,21 +658,21 @@
 .pp-headline-animation-type-wave .pp-headline-dynamic-text {
     opacity: 0;
 }
-.pp-headline-animation-type-wave i {
+.pp-headline-animation-type-wave .pp-headline-dynamic-letter {
     display: inline-block;
     opacity: 0;
     -webkit-transform: scale(0);
     -ms-transform: scale(0);
     transform: scale(0);
 }
-.pp-headline-text-active .pp-headline-animation-type-wave i {
+.pp-headline-text-active .pp-headline-animation-type-wave .pp-headline-dynamic-letter {
     opacity: 1;
 }
-.pp-headline-animation-type-wave i.pp-headline-animation-in {
+.pp-headline-animation-type-wave .pp-headline-dynamic-letter.pp-headline-animation-in {
     -webkit-animation: pp-headline-wave-up .6s forwards;
     animation: pp-headline-wave-up .6s forwards;
 }
-.pp-headline-animation-type-wave i:not(.pp-headline-animation-in) {
+.pp-headline-animation-type-wave .pp-headline-dynamic-letter:not(.pp-headline-animation-in) {
     -webkit-animation: pp-headline-wave-down .6s forwards;
     animation: pp-headline-wave-down .6s forwards;
 }

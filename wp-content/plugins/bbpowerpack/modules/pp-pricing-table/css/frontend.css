@@ -134,17 +134,15 @@
 	opacity: 0.85;
 }
 .pp-pricing-table .pp-pricing-table-features {
-	/*margin: 20px 15px;*/
 	list-style-type: none;
 	padding: 0;
 }
-.pp-pricing-table .pp-pricing-table-features li {
-	/*border-bottom: 1px solid rgba(0,0,0,0.15);
-	text-align: left;
-	padding: 13px 4px;*/
-}
 .pp-pricing-table .pp-pricing-table-features li:last-child {
 	border-bottom-width: 0 !important;
+}
+.pp-pricing-table .pp-pricing-table-features li span.pp-pricing-table-item-label {
+	display: none;
+	font-weight: bold;
 }
 .pp-pricing-table a.fl-button {
 	margin: 0 15px;
@@ -152,7 +150,7 @@
 .pp-pricing-table a.fl-button .fl-button-text {
 	line-height: 18px;
 }
-/*Curvy Boxes*/
+/* Radius */
 .pp-pricing-table.pp-pricing-table-rounded .pp-pricing-table-column {
 	border-radius: 6px;
 }
@@ -162,24 +160,14 @@
 
 
 /**
-* Pricing Box Borders
-*
-* Large, Medium, Small
-*/
-
-/*Large*/
-.pp-pricing-table.pp-pricing-table-border-large .pp-pricing-table-inner-wrap {
-	/*margin: 12px;*/
-}
-.pp-pricing-table.pp-pricing-table-border-large .pp-pricing-table-column .pp-pricing-table-price {
-	/*margin: 0 -15px;*/
-}
-/*adjust for no spacing*/
+ * Pricing Box Borders
+ */
+/* adjust for no spacing */
 .pp-pricing-table.pp-pricing-table-border-large.pp-pricing-table-spacing-none .pp-pricing-table-column .pp-pricing-table-price {
 	margin: 0 -14px;
 }
 
-/*Medium*/
+/* Medium */
 .pp-pricing-table.pp-pricing-table-border-medium .pp-pricing-table-inner-wrap {
 	margin: 6px;
 }
@@ -187,7 +175,7 @@
 	margin: 0 -10px;
 }
 
-/*Small Border*/
+/* Small */
 .pp-pricing-table.pp-pricing-table-border-small .pp-pricing-table-column {
 	border: 0 !important;
 }

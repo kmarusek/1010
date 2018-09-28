@@ -1,9 +1,10 @@
 <div class="pp-add-to-cart">
     <?php if( $settings->post_type == 'product' ) {
+		global $product;
         // Updated function woocommerce_get_template to wc_get_template
         // @since 1.2.7
-        if( function_exists( 'wc_get_template' ) ) {
-            wc_get_template('loop/add-to-cart.php');
+        if( function_exists( 'wc_get_template' ) && is_object( $product ) ) {
+            wc_get_template( 'loop/add-to-cart.php', array( 'product' => $product ) );
         }
     } ?>
     <?php  if( $settings->post_type == 'download' && class_exists( 'Easy_Digital_Downloads' ) ) {

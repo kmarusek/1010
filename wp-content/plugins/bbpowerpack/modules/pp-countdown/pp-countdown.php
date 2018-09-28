@@ -22,8 +22,7 @@ class PPCountdownModule extends FLBuilderModule {
 	}
 
 	public function enqueue_scripts() {
-		$this->add_js( 'jquery-plugin' );
-		$this->add_js( 'jquery-countdown' );
+		$this->add_js( 'pp-jquery-countdown' );
 		$this->add_js( 'jquery-cookie' );
 	}
 

@@ -442,6 +442,7 @@ div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading-separator.line_wi
 		float: left;
 		<?php } else { ?>
 		margin: 0 auto;
+		float: none;
 		<?php } ?>
 	}
 }

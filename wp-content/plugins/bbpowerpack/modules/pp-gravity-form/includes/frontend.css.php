@@ -147,6 +147,13 @@
     <?php } ?>
 }
 
+.fl-node-<?php echo $id; ?> .gform_wrapper ul.gfield_radio li label,
+.fl-node-<?php echo $id; ?> .gform_wrapper ul.gfield_checkbox li label {
+	<?php if ( isset( $settings->radio_checkbox_font_size ) && ! empty( $settings->radio_checkbox_font_size ) ) { ?>
+    font-size: <?php echo $settings->radio_checkbox_font_size; ?>px;
+    <?php } ?>
+}
+
 .fl-node-<?php echo $id; ?> .gform_wrapper span.ginput_product_price {
     <?php if( $settings->product_price_color ) { ?>
     color: #<?php echo $settings->product_price_color; ?> !important;

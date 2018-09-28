@@ -1,11 +1,13 @@
 <div class="pp-product-price">
-    <?php if( $settings->post_type == 'product' ) { ?>
+    <?php if( $settings->post_type == 'product' ) {
+		global $product;
+		?>
         <p>
             <?php
             // Updated function woocommerce_get_template to wc_get_template
             // @since 1.2.7
-            if( function_exists( 'wc_get_template' ) ) {
-                wc_get_template('loop/price.php');
+            if( function_exists( 'wc_get_template' ) && is_object( $product ) ) {
+                wc_get_template( 'loop/price.php', array( 'product' => $product ) );
             }
             ?>
         </p>

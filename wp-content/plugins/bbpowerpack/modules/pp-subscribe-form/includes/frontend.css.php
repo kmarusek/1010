@@ -281,6 +281,20 @@
 	}
 <?php } ?>
 
+.fl-node-<?php echo $id; ?> .pp-subscribe-form .pp-checkbox-input {
+	width: 100% !important;
+}
+.fl-node-<?php echo $id; ?> .pp-subscribe-form .pp-checkbox-input label {
+	<?php if ( isset( $settings->checkbox_text_color ) && ! empty( $settings->checkbox_text_color ) ) { ?>
+	color: #<?php echo $settings->checkbox_text_color; ?>;
+	<?php } ?>
+	<?php if ( isset( $settings->checkbox_font_size ) && 'custom' == $settings->checkbox_font_size ) { ?>
+		<?php if ( isset( $settings->checkbox_font_size_custom['desktop'] ) && ! empty( $settings->checkbox_font_size_custom['desktop'] ) ) { ?>
+			font-size: <?php echo $settings->checkbox_font_size_custom['desktop']; ?>px;
+		<?php } ?>
+    <?php } ?>
+}
+
 .fl-node-<?php echo $id; ?> .pp-subscribe-form input[type=text],
 .fl-node-<?php echo $id; ?> .pp-subscribe-form input[type=email] {
 	<?php if( $settings->input_field_text_color ) { ?>
@@ -591,6 +605,13 @@ FLBuilder::render_module_css('fl-button', $id, array(
 	    font-size: <?php echo $settings->input_font_size['tablet']; ?>px;
 	    <?php } ?>
 	}
+	.fl-node-<?php echo $id; ?> .pp-subscribe-form .pp-checkbox-input label {
+		<?php if ( isset( $settings->checkbox_font_size ) && 'custom' == $settings->checkbox_font_size ) { ?>
+			<?php if ( isset( $settings->checkbox_font_size_custom['tablet'] ) && ! empty( $settings->checkbox_font_size_custom['tablet'] ) ) { ?>
+				font-size: <?php echo $settings->checkbox_font_size_custom['tablet']; ?>px;
+			<?php } ?>
+    	<?php } ?>
+	}
 	.fl-node-<?php echo $id; ?> .pp-subscribe-form a.fl-button,
 	.fl-node-<?php echo $id; ?> .pp-subscribe-form a.fl-button:visited {
 		<?php if( $settings->button_font_size['tablet'] && $settings->button_size == 'custom' ) { ?>
@@ -648,6 +669,13 @@ FLBuilder::render_module_css('fl-button', $id, array(
 		<?php if( $settings->input_border_width['top'] != 0 ) { ?>
 		border-width: <?php echo $settings->input_border_width['top']; ?>px;
 		<?php } ?>
+	}
+	.fl-node-<?php echo $id; ?> .pp-subscribe-form .pp-checkbox-input label {
+		<?php if ( isset( $settings->checkbox_font_size ) && 'custom' == $settings->checkbox_font_size ) { ?>
+			<?php if ( isset( $settings->checkbox_font_size_custom['mobile'] ) && ! empty( $settings->checkbox_font_size_custom['mobile'] ) ) { ?>
+				font-size: <?php echo $settings->checkbox_font_size_custom['mobile']; ?>px;
+			<?php } ?>
+    	<?php } ?>
 	}
 	.fl-node-<?php echo $id; ?> .pp-subscribe-form a.fl-button,
 	.fl-node-<?php echo $id; ?> .pp-subscribe-form a.fl-button:visited {

@@ -63,10 +63,35 @@ class PPContactFormModule extends FLBuilderModule {
 	}
 
 	/**
+	 * Connects Beaver Themer field connections before sending mail
+	 * as those won't be connected during a wp_ajax call.
+	 *
+	 * @method connect_field_connections_before_send
+	 */
+	public function connect_field_connections_before_send() {
+		if ( class_exists( 'FLPageData' ) && isset( $_REQUEST['layout_id'] ) ) {
+
+			$posts = query_posts( array(
+				'p' => absint( $_REQUEST['layout_id'] ),
+				'post_type' => 'any',
+			) );
+
+			if ( count( $posts ) ) {
+				global $post;
+				$post = $posts[0];
+				setup_postdata( $post );
+				FLPageData::init_properties();
+			}
+		}
+	}
+
+	/**
 	 * @method send_mail
 	 */
 	public function send_mail() {
-	    //global $pp_contact_from_name, $pp_contact_from_email;
+
+	    // Try to connect Themer connections before sending.
+		self::connect_field_connections_before_send();
 
 		// Get the contact form post data
     	$node_id			= isset( $_POST['node_id'] ) ? sanitize_text_field( $_POST['node_id'] ) : false;
@@ -78,7 +103,11 @@ class PPContactFormModule extends FLBuilderModule {
 		$admin_email 		= get_option('admin_email');
 		$site_name 			= get_option( 'blogname' );
 
-		$response 			= array(
+		if ( $site_name ) {
+			$site_name = apply_filters( 'pp_contact_form_from_name', html_entity_decode( $site_name ) );
+		}
+
+		$response = array(
 			'error' 	=> true,
 			'message' 	=> __( 'Message failed. Please try again.', 'bb-powerpack' ),
 		);
@@ -110,7 +139,7 @@ class PPContactFormModule extends FLBuilderModule {
 			if ( isset( $settings->recaptcha_toggle ) && 'show' == $settings->recaptcha_toggle && $recaptcha_response ) {
 				if ( ! empty( $settings->recaptcha_secret_key ) && ! empty( $settings->recaptcha_site_key ) ) {
 					if ( version_compare( phpversion(), '5.3', '>=' ) ) {
-						include $module->dir . 'includes/validate-recaptcha.php';
+						include FLBuilderModel::$modules['pp-contact-form']->dir . 'includes/validate-recaptcha.php';
 					} else {
 						$response['error'] = false;
 					}
@@ -142,7 +171,7 @@ class PPContactFormModule extends FLBuilderModule {
 			if ( isset( $_POST['phone'] ) ) { $template .= "Phone: $_POST[phone] \r\n";
 			}
 
-			$template .= __('Message', 'bb-powerpack') . ": \r\n" . $_POST['message'];
+			$template .= __('Message', 'bb-powerpack') . ": \r\n" . stripslashes( $_POST['message'] );
 
 			// Double check the mailto email is proper and no validation error found, then send.
 			if ( $mailto && false === $response['error'] ) {
@@ -224,6 +253,11 @@ FLBuilder::register_module('PPContactFormModule', array(
                             'selector'      => '.pp-form-description'
                         )
                     ),
+				)
+			),
+			'form_fields'	=> array(
+				'title'			=> __('Fields', 'bb-powerpack'),
+				'fields'		=> array(
 					'name_toggle'   => array(
 						'type'          => 'pp-switch',
 						'label'         => __('Name Field', 'bb-powerpack'),
@@ -304,6 +338,11 @@ FLBuilder::register_module('PPContactFormModule', array(
 							'no'      		=> __('No', 'bb-powerpack'),
 						),
 					),
+				)
+			),
+			'custom_labels'	=> array(
+				'title'			=> __('Custom Labels', 'bb-powerpack'),
+				'fields'		=> array(
 					'display_labels'   => array(
                         'type'         => 'pp-switch',
                         'label'        => __('Labels', 'bb-powerpack'),
@@ -313,11 +352,6 @@ FLBuilder::register_module('PPContactFormModule', array(
                             'none'     => __('Hide', 'bb-powerpack'),
                         ),
                     ),
-				)
-			),
-			'custom_labels'	=> array(
-				'title'			=> __('Custom Labels', 'bb-powerpack'),
-				'fields'		=> array(
 					'name_label'	=> array(
 						'type'			=> 'text',
 						'label'			=> __('Name', 'bb-powerpack'),
@@ -1183,19 +1217,16 @@ FLBuilder::register_module('PPContactFormModule', array(
 							'transparent'   => __( 'Transparent', 'bb-powerpack' )
 						),
 						'toggle'        => array(
+							'flat'			=> array(
+								'fields'		=> array( 'btn_border_width', 'btn_border_color', 'btn_border_hover_color' )
+							),
+							'gradient'		=> array(
+								'fields'		=> array( 'btn_border_width', 'btn_border_color', 'btn_border_hover_color' )
+							),
 							'transparent'   => array(
 								'fields'        => array( 'btn_bg_opacity', 'btn_bg_hover_opacity', 'btn_border_size' )
 							)
 						)
-					),
-					'btn_border_size' => array(
-						'type'          => 'text',
-						'label'         => __( 'Border Width', 'bb-powerpack' ),
-						'default'       => '2',
-						'description'   => 'px',
-						'maxlength'     => '3',
-						'size'          => '5',
-						'placeholder'   => '0'
 					),
 					'btn_bg_opacity' => array(
 						'type'          => 'text',
@@ -1224,6 +1255,51 @@ FLBuilder::register_module('PPContactFormModule', array(
 							'disable'        => __('Disabled', 'bb-powerpack'),
 						)
 					)
+				)
+			),
+			'btn_border'	=> array(
+				'title'			=> __('Border', 'bb-powerpack'),
+				'fields'		=> array(
+					'btn_border_size' => array(
+						'type'          => 'text',
+						'label'         => __( 'Border Width', 'bb-powerpack' ),
+						'default'       => '2',
+						'description'   => 'px',
+						'maxlength'     => '3',
+						'size'          => '5',
+						'placeholder'   => '0'
+					),
+					'btn_border_width' => array(
+						'type'          => 'text',
+						'label'         => __( 'Border Width', 'bb-powerpack' ),
+						'default'       => '',
+						'description'   => 'px',
+						'maxlength'     => '3',
+						'size'          => '5',
+						'placeholder'   => '0'
+					),
+					'btn_border_style' => array(
+						'type'          => 'pp-switch',
+						'label'         => __( 'Border Style', 'bb-powerpack' ),
+						'default'       => 'solid',
+						'options'		=> array(
+							'dashed'		=> __('Dashed', 'bb-powerpack'),
+							'dotted'		=> __('Dotted', 'bb-powerpack'),
+							'solid'			=> __('Solid', 'bb-powerpack'),
+						)
+					),
+					'btn_border_color'	=> array(
+						'type'				=> 'color',
+						'label'				=> __('Border Color', 'bb-powerpack'),
+						'default'			=> '',
+						'show_reset'		=> true
+					),
+					'btn_border_hover_color'	=> array(
+						'type'				=> 'color',
+						'label'				=> __('Border Hover Color', 'bb-powerpack'),
+						'default'			=> '',
+						'show_reset'		=> true
+					),
 				)
 			),
 			'btn_structure' => array(
@@ -1473,17 +1549,18 @@ FLBuilder::register_module('PPContactFormModule', array(
                     'title_text_transform'    => array(
                         'type'                      => 'select',
                         'label'                     => __('Text Transform', 'bb-powerpack'),
-                        'default'                   => 'none',
+                        'default'                   => '',
                         'options'                   => array(
-                            'none'                  => __('Default', 'bb-powerpack'),
-                            'lowercase'                => __('lowercase', 'bb-powerpack'),
+                            ''							=> __('Default', 'bb-powerpack'),
+                            'none'                  	=> __('None', 'bb-powerpack'),
+                            'lowercase'               	=> __('lowercase', 'bb-powerpack'),
                             'uppercase'                 => __('UPPERCASE', 'bb-powerpack'),
                         )
                     ),
                     'title_color'       => array(
                         'type'          => 'color',
                         'label'         => __('Color', 'bb-powerpack'),
-                        'default'       => '333333',
+                        'default'       => '',
                         'show_reset'    => true,
                         'preview'       => array(
                             'type'      => 'css',
@@ -1592,10 +1669,11 @@ FLBuilder::register_module('PPContactFormModule', array(
 					'description_text_transform'    => array(
                         'type'                      => 'select',
                         'label'                     => __('Text Transform', 'bb-powerpack'),
-                        'default'                   => 'none',
+                        'default'                   => '',
                         'options'                   => array(
-                            'none'                  => __('Default', 'bb-powerpack'),
-                            'lowercase'                => __('lowercase', 'bb-powerpack'),
+                            ''							=> __('Default', 'bb-powerpack'),
+                            'none'                  	=> __('None', 'bb-powerpack'),
+                            'lowercase'                	=> __('lowercase', 'bb-powerpack'),
                             'uppercase'                 => __('UPPERCASE', 'bb-powerpack'),
                         ),
                         'preview'         => array(
@@ -1607,7 +1685,7 @@ FLBuilder::register_module('PPContactFormModule', array(
                     'description_color' => array(
                         'type'          => 'color',
                         'label'         => __('Color', 'bb-powerpack'),
-                        'default'       => '333333',
+                        'default'       => '',
                         'show_reset'    => true,
                         'preview'       => array(
                             'type'      => 'css',
@@ -1683,17 +1761,18 @@ FLBuilder::register_module('PPContactFormModule', array(
                     'label_text_transform'    => array(
                         'type'                      => 'select',
                         'label'                     => __('Text Transform', 'bb-powerpack'),
-                        'default'                   => 'none',
+                        'default'                   => '',
                         'options'                   => array(
-                            'none'                  => __('Default', 'bb-powerpack'),
-                            'lowercase'                => __('lowercase', 'bb-powerpack'),
+                            ''							=> __('Default', 'bb-powerpack'),
+                            'none'                  	=> __('None', 'bb-powerpack'),
+                            'lowercase'                	=> __('lowercase', 'bb-powerpack'),
                             'uppercase'                 => __('UPPERCASE', 'bb-powerpack'),
                         )
                     ),
                     'form_label_color'  => array(
                         'type'          => 'color',
                         'label'         => __('Color', 'bb-powerpack'),
-                        'default'       => '333333',
+                        'default'       => '',
                         'show_reset'    => true,
                         'preview'       => array(
                             'type'      => 'css',
@@ -1769,15 +1848,96 @@ FLBuilder::register_module('PPContactFormModule', array(
                     'input_text_transform'    => array(
                         'type'                      => 'select',
                         'label'                     => __('Text Transform', 'bb-powerpack'),
-                        'default'                   => 'none',
+                        'default'                   => '',
                         'options'                   => array(
-                            'none'                  => __('Default', 'bb-powerpack'),
-                            'lowercase'                => __('lowercase', 'bb-powerpack'),
+                            ''							=> __('Default', 'bb-powerpack'),
+                            'none'                  	=> __('None', 'bb-powerpack'),
+                            'lowercase'                	=> __('lowercase', 'bb-powerpack'),
                             'uppercase'                 => __('UPPERCASE', 'bb-powerpack'),
                         )
                     ),
                 )
-            ),
+			),
+			'checkbox_typography'	=> array(
+				'title'					=> __('Checkbox', 'bb-powerpack'),
+				'fields'				=> array(
+					'checkbox_font_size'    	=> array(
+                        'type'              => 'pp-switch',
+                        'label'             => __('Font Size', 'bb-powerpack'),
+                        'default'           => 'default',
+                        'options'           => array(
+                            'default'           => __('Default', 'bb-powerpack'),
+                            'custom'            => __('Custom', 'bb-powerpack'),
+                        ),
+						'toggle'	=> array(
+							'custom'	=> array(
+								'fields'	=> array('checkbox_font_size_custom')
+							)
+						)
+                    ),
+                    'checkbox_font_size_custom'   => array(
+                        'type'          => 'pp-multitext',
+						'label'         => __('Custom Font Size', 'bb-powerpack'),
+                        'default'       => array(
+                            'desktop'   	=> '',
+                            'tablet'   		=> '',
+                            'mobile'   		=> '',
+                        ),
+                        'options'       => array(
+                            'desktop'   => array(
+                                'placeholder'   => __('Desktop', 'bb-powerpack'),
+                                'icon'          => 'fa-desktop',
+                                'maxlength'     => 3,
+                                'tooltip'       => __('Desktop', 'bb-powerpack'),
+                                'preview'           => array(
+                                    'selector'      => '.pp-contact-form .pp-checkbox label',
+                                    'property'      => 'font-size',
+                                    'unit'          => 'px'
+                                ),
+                            ),
+                            'tablet'   => array(
+                                'placeholder'   => __('Tablet', 'bb-powerpack'),
+                                'icon'          => 'fa-tablet',
+                                'maxlength'     => 3,
+                                'tooltip'       => __('Tablet', 'bb-powerpack')
+                            ),
+                            'mobile'   => array(
+                                'placeholder'   => __('Mobile', 'bb-powerpack'),
+                                'icon'          => 'fa-mobile',
+                                'maxlength'     => 3,
+                                'tooltip'       => __('Mobile', 'bb-powerpack')
+                            ),
+                        ),
+                    ),
+                    'checkbox_text_transform'    => array(
+                        'type'                      => 'select',
+                        'label'                     => __('Text Transform', 'bb-powerpack'),
+                        'default'                   => '',
+                        'options'                   => array(
+							''							=> __('Default', 'bb-powerpack'),
+                            'none'                  	=> __('None', 'bb-powerpack'),
+                            'lowercase'                	=> __('lowercase', 'bb-powerpack'),
+                            'uppercase'                 => __('UPPERCASE', 'bb-powerpack'),
+						),
+						'preview'           		=> array(
+							'type'						=> 'css',
+							'selector'      			=> '.pp-contact-form .pp-checkbox label',
+							'property'      			=> 'text-transform',
+						),
+                    ),
+                    'checkbox_color'  	=> array(
+                        'type'          	=> 'color',
+                        'label'         	=> __('Color', 'bb-powerpack'),
+                        'default'       	=> '',
+                        'show_reset'    	=> true,
+                        'preview'       	=> array(
+                            'type'      		=> 'css',
+                            'selector'  		=> '.pp-contact-form .pp-checkbox label',
+                            'property'  		=> 'color'
+                        )
+                    ),
+				)
+			),
 			'button_typography'       => array( // Section
                 'title'         => __('Button', 'bb-powerpack'), // Section Title
                 'fields'        => array( // Section Fields
@@ -1844,10 +2004,11 @@ FLBuilder::register_module('PPContactFormModule', array(
                     'button_text_transform'    => array(
                         'type'                      => 'select',
                         'label'                     => __('Text Transform', 'bb-powerpack'),
-                        'default'                   => 'none',
+                        'default'                   => '',
                         'options'                   => array(
-                            'none'                  => __('Default', 'bb-powerpack'),
-                            'lowercase'                => __('lowercase', 'bb-powerpack'),
+                            ''							=> __('Default', 'bb-powerpack'),
+                            'none'                  	=> __('None', 'bb-powerpack'),
+                            'lowercase'                	=> __('lowercase', 'bb-powerpack'),
                             'uppercase'                 => __('UPPERCASE', 'bb-powerpack'),
                         ),
 						'preview'	=> array(

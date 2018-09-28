@@ -28,9 +28,9 @@
 		position: absolute;
 	    left: 0;
 	    top: 50%;
+		-webkit-transform: translate(0, -50%);
 	    -moz-transform: translate(0, -50%);
 	    -ms-transform: translate(0, -50%);
-	    -webkit-transform: translate(0, -50%);
 	    transform: translate(0, -50%);
 		width: 100%;
 		margin-top: 0;
@@ -82,6 +82,7 @@
 		border-right-width: <?php echo ( $settings->responsive_link_border_width['right'] != '' && $settings->responsive_link_border_color ) ? $settings->responsive_link_border_width['right'] : '0'; ?>px;
 	border-bottom-color: <?php echo ($settings->responsive_link_border_color) ? '#' . $settings->responsive_link_border_color : 'transparent'; ?>;
 	-webkit-transition: all 0.3s ease-in-out;
+	-moz-transition: all 0.3s ease-in-out;
 	transition: all 0.3s ease-in-out;
 	padding-top: <?php if ( $settings->responsive_link_padding['top'] >= 0 ) { echo $settings->responsive_link_padding['top'] . 'px'; } ?>;
 	padding-bottom: <?php if ( $settings->responsive_link_padding['bottom'] >= 0 ) { echo $settings->responsive_link_padding['bottom'] . 'px'; } ?>;
@@ -89,10 +90,19 @@
 	padding-right: <?php if ( $settings->responsive_link_padding['right'] >= 0 ) { echo $settings->responsive_link_padding['right'] . 'px'; } ?>;
 }
 
+.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .sub-menu > li > a,
+.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .sub-menu > li > .pp-has-submenu-container > a {
+	padding-top: <?php if ( $settings->submenu_link_padding['top'] >= 0 ) { echo $settings->submenu_link_padding['top'] . 'px'; } ?>;
+	padding-bottom: <?php if ( $settings->submenu_link_padding['bottom'] >= 0 ) { echo $settings->submenu_link_padding['bottom'] . 'px'; } ?>;
+	padding-left: <?php if ( $settings->submenu_link_padding['left'] >= 0 ) { echo $settings->submenu_link_padding['left'] . 'px'; } ?>;
+	padding-right: <?php if ( $settings->submenu_link_padding['right'] >= 0 ) { echo $settings->submenu_link_padding['right'] . 'px'; } ?>;
+}
+
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .menu li a:hover,
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .menu li a:focus,
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .menu li .pp-has-submenu-container a:hover,
-.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .menu li .pp-has-submenu-container a:focus {
+.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .menu li .pp-has-submenu-container a:focus,
+.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .menu li.pp-active .pp-has-submenu-container > a {
 	<?php if( $settings->responsive_link_bg_hover_color ) { ?>background-color: #<?php echo $settings->responsive_link_bg_hover_color; ?>;<?php } ?>
 	<?php if( $settings->responsive_link_hover_color ) { ?>color: #<?php echo $settings->responsive_link_hover_color; ?>;<?php } ?>
 }
@@ -134,7 +144,10 @@
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .pp-toggle-arrows .sub-menu li:hover .pp-menu-toggle:before,
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .pp-toggle-none .sub-menu li:hover .pp-menu-toggle:before,
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .pp-toggle-arrows .sub-menu li a:hover .pp-menu-toggle:before,
-		.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .pp-toggle-none .sub-menu li a:hover .pp-menu-toggle:before {
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .pp-toggle-none .sub-menu li a:hover .pp-menu-toggle:before,
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .pp-toggle-arrows .pp-has-submenu-container.focus .pp-menu-toggle:before,
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .pp-toggle-arrows li.pp-active > .pp-has-submenu-container .pp-menu-toggle:before,
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .menu li a:focus .pp-menu-toggle:before {
 			border-color: #<?php echo $settings->responsive_link_hover_color; ?>;
 		}
 		<?php } elseif( ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) && $settings->submenu_hover_toggle == 'plus' ) || ( $settings->menu_layout == 'accordion' && $settings->submenu_click_toggle == 'plus' ) ) { ?>
@@ -145,10 +158,23 @@
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .pp-toggle-plus .sub-menu li:hover .pp-menu-toggle:before,
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .pp-toggle-plus .sub-menu li:hover .pp-menu-toggle:after,
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .pp-toggle-plus .sub-menu li a:hover .pp-menu-toggle:before,
-		.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .pp-toggle-plus .sub-menu li a:hover .pp-menu-toggle:after {
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .pp-toggle-plus .sub-menu li a:hover .pp-menu-toggle:after,
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .pp-toggle-plus .pp-has-submenu-container.focus .pp-menu-toggle:before,
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .pp-toggle-plus li.pp-active > .pp-has-submenu-container .pp-menu-toggle:before {
 			border-color: #<?php echo $settings->responsive_link_hover_color; ?>;
 		}
 		<?php } ?>
+<?php } ?>
+
+<?php if( $settings->responsive_alignment == 'right' ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .pp-toggle-arrows .pp-has-submenu-container > a > span,
+	.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .pp-toggle-plus .pp-has-submenu-container > a > span {
+		padding-right: 0;
+	}
+	.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .pp-toggle-arrows .pp-menu-toggle {
+		right: auto;
+		left: 28px;
+	}
 <?php } ?>
 
 <?php if ( 'always' != $module->get_media_breakpoint() ) { ?>
@@ -157,12 +183,6 @@
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu.pp-menu-default {
 			display: none;
 		}
-		<?php if( $settings->responsive_alignment == 'right' ) { ?>
-		.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .pp-toggle-arrows .pp-has-submenu-container > a > span,
-		.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .pp-toggle-plus .pp-has-submenu-container > a > span {
-			padding-right: 28px;
-		}
-		<?php } ?>
 <?php if ( 'always' != $module->get_media_breakpoint() ) { ?>
 	}
 <?php } ?>

@@ -31,7 +31,7 @@ class PPTestimonialsModule extends FLBuilderModule {
          */
         // Already registered
         $this->add_css('jquery-bxslider');
-		$this->add_css('font-awesome');
+		$this->add_css(BB_POWERPACK()->fa_css);
 		$this->add_css('pp-testimonials-form', BB_POWERPACK_URL . 'modules/pp-testimonials/css/fields.css');
 		$this->add_js('jquery-bxslider');
     }
@@ -88,6 +88,16 @@ FLBuilder::register_module('PPTestimonialsModule', array(
 			'slider'       => array( // Section
 				'title'         => __('Settings', 'bb-powerpack'), // Section Title
 				'fields'        => array( // Section Fields
+					'order'         => array(
+						'type'          => 'select',
+						'label'         => __('Order', 'bb-powerpack'),
+						'default'       => 'asc',
+                        'options'       => array(
+							'asc'			=> __('Ascending', 'bb-powerpack'),
+                            'desc'         	=> __('Descending', 'bb-powerpack'),
+                            'random'		=> __('Random', 'bb-powerpack')
+						),
+					),
                     'autoplay'         => array(
 						'type'          => 'pp-switch',
 						'label'         => __('Autoplay', 'bb-powerpack'),

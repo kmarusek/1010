@@ -31,6 +31,9 @@
 .pp-flipbox-description p:last-of-type {
 	margin-bottom: 0;
 }
+.pp-flipbox-description p img {
+	margin: 0;
+}
 .entry-content .pp-flipbox .pp-more-link,
 .pp-flipbox .pp-more-link {
 	box-shadow: none;
@@ -166,6 +169,7 @@
 	-o-animation: stayvisible 0.5s both;
 	-ms-animation: donothing 0.5s;
 	-ms-transition: visibility 0s linear 0.17s;
+	transition: visibility 0s linear 0.17s;
 	visibility: visible;
 }
 
@@ -173,4 +177,3 @@
 @-webkit-keyframes stayvisible { from { visibility: visible; } to { visibility: visible; } }
 @-moz-keyframes stayvisible { from { visibility: visible; } to { visibility: visible; } }
 @-o-keyframes stayvisible { from { visibility: visible; } to { visibility: visible; } }
-@-ms-keyframes donothing { 0% { } 100% { } }

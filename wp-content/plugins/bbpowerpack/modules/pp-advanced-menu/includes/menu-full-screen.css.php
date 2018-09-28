@@ -45,6 +45,7 @@
 	<?php if( $settings->responsive_link_bg_color ) { ?>background-color: #<?php echo $settings->responsive_link_bg_color; ?>;<?php } ?>
 	<?php if( $settings->responsive_link_color ) { ?>color: #<?php echo $settings->responsive_link_color; ?>;<?php } ?>
 	-webkit-transition: all 0.3s ease-in-out;
+	-moz-transition: all 0.3s ease-in-out;
 	transition: all 0.3s ease-in-out;
 	padding: 0;
 }

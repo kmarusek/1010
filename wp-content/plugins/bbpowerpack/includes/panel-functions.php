@@ -67,33 +67,49 @@ add_filter( 'fl_builder_template_selector_data', 'pp_templates_selector_data_exc
  */
 function pp_template_details( $data, $template )
 {
-    if ( is_array($data['category']) && isset( $data['category']['powerpack-templates'] ) ) {
+	if ( isset( $data['category'] ) ) {
+		if ( is_array($data['category']) && isset( $data['category']['powerpack-templates'] ) ) {
 
-        $scheme = BB_PowerPack_Admin_Settings::get_template_scheme();
+			$scheme = BB_PowerPack_Admin_Settings::get_template_scheme();
 
-        if ( strstr( $template->image, '://' ) ) {
-            $image = $template->image;
-        }
-        else {
-            $image_name = preg_replace( '/\s+/', '-', strtolower( $template->name ) );
-            $image_name = $image_name . '.jpg';
-            $image_path = BB_POWERPACK_DIR . 'assets/images/templates/' . $scheme . '/' . $image_name;
+			if ( strstr( $template->image, '://' ) ) {
+				$image = $template->image;
+			}
+			else {
+				$image_name = preg_replace( '/\s+/', '-', strtolower( $template->name ) );
+				$image_name = $image_name . '.jpg';
+				$image_path = BB_POWERPACK_DIR . 'assets/images/templates/' . $scheme . '/' . $image_name;
 
-            if ( file_exists( $image_path ) ) {
-                $image = BB_POWERPACK_URL . 'assets/images/templates/' . $scheme . '/' . $image_name;
-            }
-            elseif ( file_exists( BB_POWERPACK_DIR . 'assets/images/templates/greyscale/' . $image_name ) ) {
-                $image = BB_POWERPACK_URL . 'assets/images/templates/greyscale/' . $image_name;
-            }
-            else {
-                $image = BB_POWERPACK_URL . 'assets/images/templates/blank.jpg';
-            }
-        }
+				if ( file_exists( $image_path ) ) {
+					$image = BB_POWERPACK_URL . 'assets/images/templates/' . $scheme . '/' . $image_name;
+				}
+				elseif ( file_exists( BB_POWERPACK_DIR . 'assets/images/templates/greyscale/' . $image_name ) ) {
+					$image = BB_POWERPACK_URL . 'assets/images/templates/greyscale/' . $image_name;
+				}
+				else {
+					$image = BB_POWERPACK_URL . 'assets/images/templates/blank.jpg';
+				}
+			}
 
-        $data['image'] = $image;
+			$data['image'] = $image;
 
-        // Remove the main category from data.
-        unset($data['category']['powerpack-templates']);
+			// Remove the main category from data.
+			unset($data['category']['powerpack-templates']);
+		}
+		
+		$cat_label = BB_PowerPack_Admin_Settings::get_option( 'ppwl_tmpcat_label' );
+		
+		if ( ! empty( $cat_label ) ) {
+			if ( is_array( $data['category'] ) && isset( $data['category']['powerpack-layouts'] ) ) {
+				$data['category']['powerpack-layouts'] = $cat_label;
+				if ( isset( $data['category']['free-templates'] ) ) {
+					unset( $data['category']['free-templates'] );
+				}
+			}
+			elseif ( 'powerpack-layouts' == $data['category'] ) {
+				$data['category'] = $cat_label;
+			}
+		}
     }
 
     return $data;

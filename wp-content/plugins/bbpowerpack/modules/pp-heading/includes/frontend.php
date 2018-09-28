@@ -1,4 +1,11 @@
-<?php $enable_link = ( isset( $settings->enable_link ) && 'no' == $settings->enable_link ) ? false : true; ?>
+<?php
+$enable_link = ( isset( $settings->enable_link ) && 'no' == $settings->enable_link ) ? false : true;
+$alt = $settings->heading_title;
+
+if ( isset( $settings->dual_heading ) && 'yes' == $settings->dual_heading && ! empty( $settings->heading_title2 ) ) { 
+	$alt .= ' ' . $settings->heading_title2;
+}
+?>
 <div class="pp-heading-content">
 	<?php if ( 'top' == $settings->heading_separator_postion && 'no_spacer' != $settings->heading_separator && 'inline' != $settings->heading_separator ) { ?>
 		<div class="pp-heading-separator <?php echo $settings->heading_separator; ?> pp-<?php echo $settings->heading_alignment; ?>">
@@ -10,7 +17,7 @@
 								<i class="<?php echo $settings->heading_font_icon_select; ?> pp-separator-font-icon"></i>
 							<?php } ?>
 							<?php if ( $settings->heading_custom_icon_select && 'custom_icon_select' == $settings->heading_icon_select ) { ?>
-								<img class="heading-icon-image" src="<?php echo $settings->heading_custom_icon_select_src; ?>" />
+								<img class="heading-icon-image" src="<?php echo $settings->heading_custom_icon_select_src; ?>" alt="<?php echo $alt; ?>" />
 							<?php } ?>
 						</div>
 					</div>
@@ -34,7 +41,7 @@
 
 			<?php if ( 'icon_only' == $settings->heading_separator && 'custom_icon_select' == $settings->heading_icon_select ) { ?>
 				<span class="separator-image">
-					<img class="heading-icon-image" src="<?php echo $settings->heading_custom_icon_select_src; ?>" />
+					<img class="heading-icon-image" src="<?php echo $settings->heading_custom_icon_select_src; ?>" alt="<?php echo $alt; ?>" />
 				</span>
 			<?php } ?>
 
@@ -71,7 +78,7 @@
 								<i class="<?php echo $settings->heading_font_icon_select; ?> pp-separator-font-icon"></i>
 							<?php } ?>
 							<?php if ( $settings->heading_custom_icon_select && 'custom_icon_select' == $settings->heading_icon_select ) { ?>
-								<img class="heading-icon-image" src="<?php echo $settings->heading_custom_icon_select_src; ?>" />
+								<img class="heading-icon-image" src="<?php echo $settings->heading_custom_icon_select_src; ?>" alt="<?php echo $alt; ?>" />
 							<?php } ?>
 						</div>
 					</div>
@@ -95,7 +102,7 @@
 
 			<?php if ( 'icon_only' == $settings->heading_separator && 'custom_icon_select' == $settings->heading_icon_select ) { ?>
 				<span class="separator-image">
-					<img class="heading-icon-image" src="<?php echo $settings->heading_custom_icon_select_src; ?>" />
+					<img class="heading-icon-image" src="<?php echo $settings->heading_custom_icon_select_src; ?>" alt="<?php echo $alt; ?>" />
 				</span>
 			<?php } ?>
 
@@ -116,7 +123,7 @@
 								<i class="<?php echo $settings->heading_font_icon_select; ?> pp-separator-font-icon"></i>
 							<?php } ?>
 							<?php if ( $settings->heading_custom_icon_select && 'custom_icon_select' == $settings->heading_icon_select ) { ?>
-								<img class="heading-icon-image" src="<?php echo $settings->heading_custom_icon_select_src; ?>" />
+								<img class="heading-icon-image" src="<?php echo $settings->heading_custom_icon_select_src; ?>" alt="<?php echo $alt; ?>" />
 							<?php } ?>
 						</div>
 					</div>
@@ -140,7 +147,7 @@
 
 			<?php if ( 'icon_only' == $settings->heading_separator && 'custom_icon_select' == $settings->heading_icon_select ) { ?>
 				<span class="separator-image">
-					<img class="heading-icon-image" src="<?php echo $settings->heading_custom_icon_select_src; ?>" />
+					<img class="heading-icon-image" src="<?php echo $settings->heading_custom_icon_select_src; ?>" alt="<?php echo $alt; ?>" />
 				</span>
 			<?php } ?>
 

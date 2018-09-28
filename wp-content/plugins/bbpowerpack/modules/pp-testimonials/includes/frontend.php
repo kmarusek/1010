@@ -1,4 +1,15 @@
 <?php
+$testimonials = $settings->testimonials;
+
+if ( isset( $settings->order ) ) {
+	if( 'random' == $settings->order ) {
+		shuffle( $testimonials );
+	}
+
+	if( 'desc' == $settings->order ) {
+		krsort( $testimonials );
+	}
+}
 
 $testimonials_class = 'pp-testimonials-wrap';
 
@@ -23,7 +34,7 @@ if($settings->heading == '') {
 		<?php
 		$layout = $settings->testimonial_layout;
 
-		$number_testimonials = count($settings->testimonials);
+		$number_testimonials = count($testimonials);
 
 		$classes = '';
 		if( ($settings->carousel == 1) ) {
@@ -35,214 +46,202 @@ if($settings->heading == '') {
 
 		switch ( $layout ) {
 			case '1':
-			for($i=0; $i < $number_testimonials; $i++) :
+			foreach( $testimonials as $testimonial ) :
 
-				if(!is_object($settings->testimonials[$i])) {
+				if ( ! is_object( $testimonial ) ) {
 					continue;
 				}
 
-				$testimonials = $settings->testimonials[$i];
-
 				?>
 				<div class="pp-testimonial layout-1 <?php echo $classes; ?>">
-					<?php if( $testimonials->photo ) { ?>
+					<?php if( $testimonial->photo ) { ?>
 						<div class="pp-testimonials-image">
-							<img src="<?php echo $testimonials->photo_src; ?>" alt="<?php echo $module->get_alt($testimonials); ?>" />
+							<img src="<?php echo $testimonial->photo_src; ?>" alt="<?php echo $module->get_alt($testimonial); ?>" />
 						</div>
 					<?php } ?>
 					<div class="pp-content-wrapper">
 						<?php if( $settings->show_arrow == 'yes' ) { ?><div class="pp-arrow-top"></div><?php } ?>
-						<?php if( $testimonials->testimonial ) { ?>
-							<div class="pp-testimonials-content"><?php echo $testimonials->testimonial; ?></div>
+						<?php if( $testimonial->testimonial ) { ?>
+							<div class="pp-testimonials-content"><?php echo $testimonial->testimonial; ?></div>
 						<?php } ?>
-						<?php if( $testimonials->title || $testimonials->subtitle ) { ?>
+						<?php if( $testimonial->title || $testimonial->subtitle ) { ?>
 							<div class="pp-title-wrapper">
-								<?php if( $testimonials->title ) { ?>
-									<h3 class="pp-testimonials-title"><?php echo $testimonials->title; ?></h3>
+								<?php if( $testimonial->title ) { ?>
+									<h3 class="pp-testimonials-title"><?php echo $testimonial->title; ?></h3>
 								<?php } ?>
-								<?php if( $testimonials->subtitle ) { ?>
-									<h4 class="pp-testimonials-subtitle"><?php echo $testimonials->subtitle; ?></h4>
+								<?php if( $testimonial->subtitle ) { ?>
+									<h4 class="pp-testimonials-subtitle"><?php echo $testimonial->subtitle; ?></h4>
 								<?php } ?>
 							</div>
 						<?php } ?>
 					</div>
 				</div>
-			<?php endfor;
+			<?php endforeach;
 			break;
 
 			case '2':
-			for($i=0; $i < $number_testimonials; $i++) :
+			foreach( $testimonials as $testimonial ) :
 
-				if(!is_object($settings->testimonials[$i])) {
+				if ( ! is_object( $testimonial ) ) {
 					continue;
 				}
 
-				$testimonials = $settings->testimonials[$i];
-
 				?>
 				<div class="pp-testimonial layout-2 <?php echo $classes; ?>">
-					<?php if( $testimonials->testimonial ) { ?>
+					<?php if( $testimonial->testimonial ) { ?>
 						<div class="pp-content-wrapper">
-							<div class="pp-testimonials-content"><?php echo $testimonials->testimonial; ?></div>
+							<div class="pp-testimonials-content"><?php echo $testimonial->testimonial; ?></div>
 							<?php if( $settings->show_arrow == 'yes' ) { ?><div class="pp-arrow-bottom"></div><?php } ?>
 						</div>
 					<?php } ?>
 					<div class="pp-vertical-align">
-						<?php if( $testimonials->photo ) { ?>
+						<?php if( $testimonial->photo ) { ?>
 							<div class="pp-testimonials-image">
-								<img src="<?php echo $testimonials->photo_src; ?>" alt="<?php echo $module->get_alt($testimonials); ?>" />
+								<img src="<?php echo $testimonial->photo_src; ?>" alt="<?php echo $module->get_alt($testimonial); ?>" />
 							</div>
 						<?php } ?>
-						<?php if( $testimonials->title || $testimonials->subtitle ) { ?>
+						<?php if( $testimonial->title || $testimonial->subtitle ) { ?>
 							<div class="pp-title-wrapper">
-								<?php if( $testimonials->title ) { ?>
-									<h3 class="pp-testimonials-title"><?php echo $testimonials->title; ?></h3>
+								<?php if( $testimonial->title ) { ?>
+									<h3 class="pp-testimonials-title"><?php echo $testimonial->title; ?></h3>
 								<?php } ?>
-								<?php if( $testimonials->subtitle ) { ?>
-									<h4 class="pp-testimonials-subtitle"><?php echo $testimonials->subtitle; ?></h4>
+								<?php if( $testimonial->subtitle ) { ?>
+									<h4 class="pp-testimonials-subtitle"><?php echo $testimonial->subtitle; ?></h4>
 								<?php } ?>
 							</div>
 						<?php } ?>
 					</div>
 				</div>
-			<?php endfor;
+			<?php endforeach;
 			break;
 
 			case '3':
-			for($i=0; $i < $number_testimonials; $i++) :
+			foreach( $testimonials as $testimonial ) :
 
-				if(!is_object($settings->testimonials[$i])) {
+				if ( ! is_object( $testimonial ) ) {
 					continue;
 				}
 
-				$testimonials = $settings->testimonials[$i];
-
 				?>
 				<div class="pp-testimonial layout-3 <?php echo $classes; ?> clearfix">
-					<?php if( $testimonials->photo ) { ?>
+					<?php if( $testimonial->photo ) { ?>
 						<div class="pp-testimonials-image">
-							<img src="<?php echo $testimonials->photo_src; ?>" alt="<?php echo $module->get_alt($testimonials); ?>" />
+							<img src="<?php echo $testimonial->photo_src; ?>" alt="<?php echo $module->get_alt($testimonial); ?>" />
 						</div>
 					<?php } ?>
 					<div class="layout-3-content pp-content-wrapper">
 						<?php if( $settings->show_arrow == 'yes' ) { ?><div class="pp-arrow-left"></div><?php } ?>
-						<?php if( $testimonials->testimonial ) { ?>
-							<div class="pp-testimonials-content"><?php echo $testimonials->testimonial; ?></div>
+						<?php if( $testimonial->testimonial ) { ?>
+							<div class="pp-testimonials-content"><?php echo $testimonial->testimonial; ?></div>
 						<?php } ?>
-						<?php if( $testimonials->title || $testimonials->subtitle ) { ?>
+						<?php if( $testimonial->title || $testimonial->subtitle ) { ?>
 							<div class="pp-title-wrapper">
-								<?php if( $testimonials->title ) { ?>
-									<h3 class="pp-testimonials-title"><?php echo $testimonials->title; ?></h3>
+								<?php if( $testimonial->title ) { ?>
+									<h3 class="pp-testimonials-title"><?php echo $testimonial->title; ?></h3>
 								<?php } ?>
-								<?php if( $testimonials->subtitle ) { ?>
-									<h4 class="pp-testimonials-subtitle"><?php echo $testimonials->subtitle; ?></h4>
+								<?php if( $testimonial->subtitle ) { ?>
+									<h4 class="pp-testimonials-subtitle"><?php echo $testimonial->subtitle; ?></h4>
 								<?php } ?>
 							</div>
 						<?php } ?>
 					</div>
 				</div>
-			<?php endfor;
+			<?php endforeach;
 			break;
 
 			case '4':
-			for($i=0; $i < $number_testimonials; $i++) :
+			foreach( $testimonials as $testimonial ) :
 
-				if(!is_object($settings->testimonials[$i])) {
+				if ( ! is_object( $testimonial ) ) {
 					continue;
 				}
 
-				$testimonials = $settings->testimonials[$i];
-
 				?>
-				<div class="pp-testimonial layout-4 <?php echo $classes; ?> <?php echo (!$testimonials->photo) ? 'no-image-inner' : ''; ?>">
-					<?php if( $testimonials->photo ) { ?>
+				<div class="pp-testimonial layout-4 <?php echo $classes; ?> <?php echo (!$testimonial->photo) ? 'no-image-inner' : ''; ?>">
+					<?php if( $testimonial->photo ) { ?>
 						<div class="pp-testimonials-image">
-							<img src="<?php echo $testimonials->photo_src; ?>" alt="<?php echo $module->get_alt($testimonials); ?>" />
+							<img src="<?php echo $testimonial->photo_src; ?>" alt="<?php echo $module->get_alt($testimonial); ?>" />
 						</div>
 					<?php } ?>
 					<div class="layout-4-content">
-						<?php if( $testimonials->testimonial ) { ?>
-							<div class="pp-testimonials-content"><?php echo $testimonials->testimonial; ?></div>
+						<?php if( $testimonial->testimonial ) { ?>
+							<div class="pp-testimonials-content"><?php echo $testimonial->testimonial; ?></div>
 						<?php } ?>
-						<?php if( $testimonials->title || $testimonials->subtitle ) { ?>
+						<?php if( $testimonial->title || $testimonial->subtitle ) { ?>
 							<div class="pp-title-wrapper">
-								<?php if( $testimonials->title ) { ?>
-									<h3 class="pp-testimonials-title"><?php echo $testimonials->title; ?></h3>
+								<?php if( $testimonial->title ) { ?>
+									<h3 class="pp-testimonials-title"><?php echo $testimonial->title; ?></h3>
 								<?php } ?>
-								<?php if( $testimonials->subtitle ) { ?>
-									<h4 class="pp-testimonials-subtitle"><?php echo $testimonials->subtitle; ?></h4>
+								<?php if( $testimonial->subtitle ) { ?>
+									<h4 class="pp-testimonials-subtitle"><?php echo $testimonial->subtitle; ?></h4>
 								<?php } ?>
 							</div>
 						<?php } ?>
 					</div>
 				</div>
-			<?php endfor;
+			<?php endforeach;
 			break;
 
 			case '5':
-			for($i=0; $i < $number_testimonials; $i++) :
+			foreach( $testimonials as $testimonial ) :
 
-				if(!is_object($settings->testimonials[$i])) {
+				if ( ! is_object( $testimonial ) ) {
 					continue;
 				}
-
-				$testimonials = $settings->testimonials[$i];
 
 				?>
 				<div class="pp-testimonial layout-5 <?php echo $classes; ?>">
 					<div class="pp-vertical-align">
-						<?php if( $testimonials->title || $testimonials->subtitle ) { ?>
+						<?php if( $testimonial->title || $testimonial->subtitle ) { ?>
 							<div class="pp-title-wrapper">
-								<?php if( $testimonials->title ) { ?>
-									<h3 class="pp-testimonials-title"><?php echo $testimonials->title; ?></h3>
+								<?php if( $testimonial->title ) { ?>
+									<h3 class="pp-testimonials-title"><?php echo $testimonial->title; ?></h3>
 								<?php } ?>
-								<?php if( $testimonials->subtitle ) { ?>
-									<h4 class="pp-testimonials-subtitle"><?php echo $testimonials->subtitle; ?></h4>
+								<?php if( $testimonial->subtitle ) { ?>
+									<h4 class="pp-testimonials-subtitle"><?php echo $testimonial->subtitle; ?></h4>
 								<?php } ?>
 							</div>
 						<?php } ?>
 					</div>
-					<?php if( $testimonials->testimonial ) { ?>
+					<?php if( $testimonial->testimonial ) { ?>
 						<div class="pp-content-wrapper">
 							<?php if( $settings->show_arrow == 'yes' ) { ?><div class="pp-arrow-top"></div><?php } ?>
-							<div class="pp-testimonials-content"><?php echo $testimonials->testimonial; ?></div>
+							<div class="pp-testimonials-content"><?php echo $testimonial->testimonial; ?></div>
 						</div>
 					<?php } ?>
 				</div>
-			<?php endfor;
+			<?php endforeach;
 			break;
 
 			default:
-			for($i=0; $i < $number_testimonials; $i++) :
+			foreach( $testimonials as $testimonial ) :
 
-				if(!is_object($settings->testimonials[$i])) {
+				if ( ! is_object( $testimonial ) ) {
 					continue;
 				}
 
-				$testimonials = $settings->testimonials[$i];
-
 				?>
 				<div class="pp-testimonial layout-1 <?php echo $classes; ?>">
-					<?php if( $testimonials->photo ) { ?>
+					<?php if( $testimonial->photo ) { ?>
 						<div class="pp-testimonials-image">
-							<img src="<?php echo $testimonials->photo_src; ?>" alt="<?php echo $module->get_alt($testimonials); ?>" />
+							<img src="<?php echo $testimonial->photo_src; ?>" alt="<?php echo $module->get_alt($testimonial); ?>" />
 						</div>
 					<?php } ?>
-					<?php if( $testimonials->testimonial ) { ?>
-						<div class="pp-testimonials-content"><?php echo $testimonials->testimonial; ?></div>
+					<?php if( $testimonial->testimonial ) { ?>
+						<div class="pp-testimonials-content"><?php echo $testimonial->testimonial; ?></div>
 					<?php } ?>
-					<?php if( $testimonials->title || $testimonials->subtitle ) { ?>
+					<?php if( $testimonial->title || $testimonial->subtitle ) { ?>
 						<div class="pp-title-wrapper">
-							<?php if( $testimonials->title ) { ?>
-								<h3 class="pp-testimonials-title"><?php echo $testimonials->title; ?></h3>
+							<?php if( $testimonial->title ) { ?>
+								<h3 class="pp-testimonials-title"><?php echo $testimonial->title; ?></h3>
 							<?php } ?>
-							<?php if( $testimonials->subtitle ) { ?>
-								<h4 class="pp-testimonials-subtitle"><?php echo $testimonials->subtitle; ?></h4>
+							<?php if( $testimonial->subtitle ) { ?>
+								<h4 class="pp-testimonials-subtitle"><?php echo $testimonial->subtitle; ?></h4>
 							<?php } ?>
 						</div>
 					<?php } ?>
 				</div>
-			<?php endfor;
+			<?php endforeach;
 			break;
 		} ?>
 

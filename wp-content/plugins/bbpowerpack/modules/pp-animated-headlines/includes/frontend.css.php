@@ -27,6 +27,16 @@
 		color: #<?php echo $settings->animated_color; ?>;
 	<?php } ?>
 }
+.fl-node-<?php echo $id; ?> .pp-headline-dynamic-wrapper.pp-headline-typing-selected {
+	<?php if ( ! empty( $settings->animated_selection_bg_color ) ) { ?>
+	background-color: #<?php echo $settings->animated_selection_bg_color; ?>;
+	<?php } ?>
+}
+.fl-node-<?php echo $id; ?> .pp-headline-dynamic-wrapper.pp-headline-typing-selected .pp-headline-dynamic-text {
+	<?php if ( ! empty( $settings->animated_selection_color ) ) { ?>
+	color: #<?php echo $settings->animated_selection_color; ?>;
+	<?php } ?>
+}
 .fl-node-<?php echo $id; ?> .pp-headline-dynamic-wrapper path {
 	<?php if ( $settings->shape_width != '' ) { ?>
 		stroke-width: <?php echo $settings->shape_width; ?>px;

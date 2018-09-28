@@ -162,7 +162,8 @@ span.pp-multitext {
     width: 75px;
     margin-right: 5px;
     float: left;
-    position: relative;
+	position: relative;
+	font-weight: 400;
 }
 .generatepress span.pp-multitext {
     width: 75px;
@@ -200,7 +201,7 @@ span.pp-multitext input[type="text"] {
 }
 span.pp-multitext.fa input[type="text"] {
     width: 100%;
-    padding-left: 30px;
+	padding-left: 30px;
 }
 .generatepress span.pp-multitext.fa input[type="text"] {
     width: 100%;

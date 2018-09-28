@@ -12,14 +12,34 @@
 					navigateByImgClick: true,
 					tCounter: ''
 				},
+				<?php if ( isset( $settings->lightbox_caption ) && 'yes' == $settings->lightbox_caption ) { ?>
 				'image': {
 					titleSrc: function(item) {
-						return item.el.parent().find('.pp-caption').text();
+						var caption = item.el.data('caption') || '';
+						return caption;
 					}
 				}
+				<?php } ?>
 			});
 		}
 	<?php endif; ?>
+
+	<?php
+		$slides_to_scroll = $slides_to_scroll_tablet = $slides_to_scroll_mobile = 1;
+		if ( isset( $settings->slides_to_scroll ) && ! empty( $settings->slides_to_scroll ) ) {
+			$slides_to_scroll = absint( $settings->slides_to_scroll );
+		}
+		if ( isset( $settings->slides_to_scroll_medium ) && ! empty( $settings->slides_to_scroll_medium ) ) {
+			$slides_to_scroll_tablet = absint( $settings->slides_to_scroll_medium );
+		} else {
+			$slides_to_scroll_tablet = $slides_to_scroll;
+		}
+		if ( isset( $settings->slides_to_scroll_responsive ) && ! empty( $settings->slides_to_scroll_responsive ) ) {
+			$slides_to_scroll_mobile = absint( $settings->slides_to_scroll_responsive );
+		} else {
+			$slides_to_scroll_mobile = $slides_to_scroll_tablet;
+		}
+	?>
 
 	var settings = {
 		id: '<?php echo $id; ?>',
@@ -29,6 +49,11 @@
 			desktop: <?php echo absint($settings->columns); ?>,
 			tablet: <?php echo absint($settings->columns_medium); ?>,
 			mobile: <?php echo absint($settings->columns_responsive); ?>,
+		},
+		slidesToScroll: {
+			desktop: <?php echo $slides_to_scroll; ?>,
+			tablet: <?php echo $slides_to_scroll_tablet; ?>,
+			mobile: <?php echo $slides_to_scroll_mobile; ?>,
 		},
 		slideshow_slidesPerView: {
 			desktop: <?php echo absint($settings->thumb_columns); ?>,
@@ -53,5 +78,14 @@
 	};
 
 	new PPImageCarousel(settings);
+
+	// expandable row fix.
+	var state = 0;
+	$(document).on('pp_expandable_row_toggle', function(e, selector) {
+		if ( selector.is('.pp-er-open') && state === 0 ) {
+			new PPImageCarousel(settings);
+			state = 1;
+		}
+	});
 	
 })(jQuery);

@@ -115,7 +115,7 @@ $query = FLBuilderLoop::query( $settings );
 
 	<div class="pp-content-post-<?php echo $settings->layout; ?><?php echo $css_class; ?> clearfix" itemscope="itemscope" itemtype="http://schema.org/Blog">
 		<?php if( $settings->layout == 'carousel' ) { ?>
-			<div class="pp-content-posts-inner owl-carousel">
+			<div class="pp-content-posts-inner owl-carousel owl-theme">
 		<?php } ?>
 
 			<?php
@@ -126,10 +126,13 @@ $query = FLBuilderLoop::query( $settings );
 
 				$query->the_post();
 
-				$terms_list = wp_get_post_terms( get_the_id(), $settings->post_taxonomies );
+				$post_id 	= get_the_ID();
+				$permalink 	= get_permalink();
+
+				$terms_list = wp_get_post_terms( $post_id, $settings->post_taxonomies );
 				
 				if ( $settings->post_type == 'product' && function_exists( 'wc_get_product' ) ) {
-					$product = wc_get_product( get_the_ID() );
+					$product = wc_get_product( $post_id );
 					if ( ! is_object( $product ) ) {
 						$render = false;
 					}
@@ -165,19 +168,33 @@ $query = FLBuilderLoop::query( $settings );
 	do_action( 'pp_cg_after_posts', $settings, $query );
 
 	// Render the pagination.
-	if( $settings->layout != 'carousel' && $settings->pagination != 'none' && $query->have_posts() ) :
+	if( $settings->layout != 'carousel' && $settings->pagination != 'none' && $query->have_posts() && $query->max_num_pages > 1 ) :
 
 	?>
 
-	<div class="pp-content-grid-pagination fl-builder-pagination"<?php if($settings->pagination == 'scroll') echo ' style="display:none;"'; ?>>
+	<div class="pp-content-grid-pagination fl-builder-pagination"<?php if($settings->pagination == 'scroll' || 'load_more' == $settings->pagination) echo ' style="display:none;"'; ?>>
 		<?php
 		if ( 'yes' == $settings->post_grid_filters_display && 'dynamic' == $settings->post_grid_filters_type ) {
-			BB_PowerPack_Post_Helper::ajax_pagination( $query );
+			BB_PowerPack_Post_Helper::ajax_pagination( $query, $settings );
 		} else {
 			BB_PowerPack_Post_Helper::pagination( $query, $settings );
 		}
 		?>
 	</div>
+
+	<?php if ( 'load_more' == $settings->pagination ) { ?>
+		<div class="pp-content-grid-load-more">
+			<a href="#" class="pp-grid-load-more-button">
+			<span class="pp-grid-loader-text"><?php echo $settings->load_more_text; ?></span>
+			<span class="pp-grid-loader-icon"><img src="<?php echo BB_POWERPACK_URL . 'assets/images/spinner.gif'; ?>" /></span></a>
+		</div>
+	<?php } ?>
+	<?php if ( 'scroll' == $settings->pagination ) { ?>
+		<div class="pp-content-grid-loader" style="display: none;">
+			<span class="pp-grid-loader-text"><?php _e('Loading...', 'bb-powerpack'); ?></span>
+			<span class="pp-grid-loader-icon"><img src="<?php echo BB_POWERPACK_URL . 'assets/images/spinner.gif'; ?>" /></span>
+		</div>
+	<?php } ?>
 
 	<?php endif; ?>
 
@@ -189,7 +206,12 @@ $query = FLBuilderLoop::query( $settings );
 	if( ! $query->have_posts() && ( defined('DOING_AJAX') || isset( $_REQUEST['fl_builder'] ) ) ) :
 
 	?>
-	<div class="pp-content-grid-empty"><?php esc_html_e('No post found.', 'bb-powerpack'); ?></div>
+	<div class="pp-content-grid-empty">
+		<p><?php echo $settings->no_results_message; ?></p>
+		<?php if ( $settings->show_search == 'yes' ) : ?>
+		<?php get_search_form(); ?>
+		<?php endif; ?>
+	</div>
 
 	<?php
 

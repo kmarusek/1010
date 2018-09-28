@@ -150,7 +150,7 @@
 			}
 
 			// validate if reCAPTCHA is enabled and checked
-			if (reCaptchaField.length > 0) { console.log('test');
+			if (reCaptchaField.length > 0) {
 				if ('undefined' === typeof reCaptchaValue || reCaptchaValue === false) {
 					isValid = false;
 					if ('normal' == reCaptchaField.data('validate')) {

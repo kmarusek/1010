@@ -24,8 +24,12 @@ class PPAnnouncementBarModule extends FLBuilderModule {
             'enabled'       => true, // Defaults to true and can be omitted.
             'partial_refresh'   => true,
             'icon'				=> 'megaphone.svg',
-        ));
-    }
+		));
+	}
+	
+	public function enqueue_scripts() {
+		$this->add_js( 'jquery-cookie' );
+	}
 
 }
 
@@ -51,7 +55,7 @@ FLBuilder::register_module('PPAnnouncementBarModule', array(
                 ),
             ),
             'general'      => array(
-                'title'         => '',
+                'title'         => __('Content', 'bb-powerpack'),
                 'fields'        => array(
                     'announcement_icon' => array(
                         'type'  => 'icon',
@@ -108,7 +112,20 @@ FLBuilder::register_module('PPAnnouncementBarModule', array(
                         )
                     ),
                 ),
-            ),
+			),
+			'cookie'	=> array(
+				'title'		=> '',
+				'fields'	=> array(
+					'display_after'	=> array(
+						'type'			=> 'text',
+						'label'			=> __('Display After', 'bb-powerpack'),
+						'default'		=> '',
+						'description'	=> __('day(s)', 'bb-powerpack'),
+						'size'			=> 5,
+						'connections'	=> array('string')
+					)
+				)
+			)
 		)
 	),
     'style'     => array(

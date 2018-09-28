@@ -1,9 +1,9 @@
-.pp-photo-gallery-item {
+.pp-gallery-grid-item {
     float: left;
     text-align: center;
 }
 
-.pp-masonry-item {
+.pp-gallery-masonry-item {
     float: left;
 }
 
@@ -27,10 +27,10 @@
 
 .pp-gallery-overlay .pp-caption {
 	margin-bottom: 10px;
+	line-height: normal;
 }
 
-.pp-photo-gallery .pp-photo-gallery-content .pp-gallery-img,
-.pp-masonry-content .pp-photo-gallery-content .pp-gallery-img {
+.pp-photo-gallery .pp-photo-gallery-content .pp-gallery-img {
 	-webkit-transition: all 0.5s ease-out;
 	-moz-transition: all 0.5s ease-out;
 	-o-transition: all 0.5s ease-out;

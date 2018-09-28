@@ -22,17 +22,21 @@
 ?>
 <div <?php post_class('pp-content-post pp-content-carousel-post pp-grid-' . $settings->post_grid_style_select); ?> itemscope="itemscope" itemtype="<?php PPContentGridModule::schema_itemtype(); ?>">
 
-	<?php if( $settings->more_link_type == 'box' && ('product' != $settings->post_type || 'download' != $settings->post_type )) { ?>
-		<a class="pp-post-link" href="<?php the_permalink(); ?>"></a>
-	<?php } ?>
-
 	<?php PPContentGridModule::schema_meta(); ?>
+	
+	<?php if ( 'style-9' == $settings->post_grid_style_select ) {
+		include $module_dir . 'includes/post-tile.php';
+	} else { ?>
+
+	<?php if( $settings->more_link_type == 'box' && ('product' != $settings->post_type || 'download' != $settings->post_type )) { ?>
+		<a class="pp-post-link" href="<?php echo $permalink; ?>"></a>
+	<?php } ?>
 
 	<?php if( 'style-1' == $settings->post_grid_style_select ) { ?>
 
 	<<?php echo $settings->title_tag; ?> class="pp-content-grid-title pp-post-title" itemprop="headline">
 		<?php if( $settings->more_link_type == 'button' || $settings->more_link_type == 'title' || $settings->more_link_type == 'title_thumb' ) { ?>
-			<a href="<?php the_permalink(); ?>">
+			<a href="<?php echo $permalink; ?>">
 		<?php } ?>
 			<?php the_title(); ?>
 		<?php if( $settings->more_link_type == 'button' || $settings->more_link_type == 'title' || $settings->more_link_type == 'title_thumb' ) { ?>
@@ -84,7 +88,7 @@
 			<?php if( 'style-1' != $settings->post_grid_style_select && 'style-4' != $settings->post_grid_style_select ) { ?>
 				<<?php echo $settings->title_tag; ?> class="pp-content-carousel-title pp-post-title" itemprop="headline">
 					<?php if( $settings->more_link_type == 'button' || $settings->more_link_type == 'title' || $settings->more_link_type == 'title_thumb' ) { ?>
-						<a href="<?php the_permalink(); ?>">
+						<a href="<?php echo $permalink; ?>">
 					<?php } ?>
 						<?php the_title(); ?>
 					<?php if( $settings->more_link_type == 'button' || $settings->more_link_type == 'title' || $settings->more_link_type == 'title_thumb' ) { ?>
@@ -154,13 +158,13 @@
 				<?php include $module_dir . 'includes/templates/event-content.php'; ?>
 			<?php } ?>
 
-			<?php do_action( 'pp_cg_before_post_content', get_the_ID() ); ?>
+			<?php do_action( 'pp_cg_before_post_content', $post_id ); ?>
 
 			<?php if($settings->show_content == 'yes') : ?>
 				<?php include $module->dir . 'includes/templates/post-content.php'; ?>
 			<?php endif; ?>
 
-			<?php do_action( 'pp_cg_after_post_content', get_the_ID() ); ?>
+			<?php do_action( 'pp_cg_after_post_content', $post_id ); ?>
 
 			<?php if( $settings->more_link_text != '' && $settings->more_link_type == 'button' && 'product' != $settings->post_type && 'download' != $settings->post_type ) :
 				include $module->dir . 'includes/templates/custom-button.php';
@@ -187,5 +191,5 @@
 			<?php endif; ?>
 		</div>
 	</div>
-
+	<?php } ?>
 </div>

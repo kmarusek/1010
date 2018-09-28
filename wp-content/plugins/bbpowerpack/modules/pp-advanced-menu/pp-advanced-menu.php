@@ -65,11 +65,11 @@ class PPAdvancedMenu extends FLBuilderModule {
 			if( in_array( $toggle, array( 'hamburger', 'hamburger-label' ) ) ) {
 
 				echo '<div class="pp-advanced-menu-mobile-toggle '. $toggle .'">';
-                    echo '<div class="pp-svg-container">';
-                    ob_start();
-				    include BB_POWERPACK_DIR . 'assets/images/hamburger-menu.svg';
-                    echo apply_filters( 'pp_advanced_menu_icon', ob_get_clean(), $this->settings );
-				    echo '</div>';
+                    echo '<div class="pp-hamburger">';
+					echo '<div class="pp-hamburger-box">';
+					echo '<div class="pp-hamburger-inner"></div>';
+					echo '</div>';
+					echo '</div>';
 
 				if( $toggle == 'hamburger-label' ) {
 					if( $menu_text ) {
@@ -260,18 +260,18 @@ FLBuilder::register_module('PPAdvancedMenu', array(
 					    ),
 					    'toggle'		=> array(
 					    	'hamburger'	=> array(
-					    		'fields'		=> array( 'mobile_menu_type', 'mobile_breakpoint' ),
-								'sections'		=> array('mobile_toggle_typography'),
+					    		'fields'		=> array( 'mobile_menu_type', 'mobile_breakpoint', 'mobile_toggle_size', 'mobile_toggle_thickness' ),
+								'sections'		=> array('mobile_toggle_typography', 'mobile_toggle_style'),
 								'tabs'		=> array( 'responsive_style' )
 					    	),
 					    	'hamburger-label'	=> array(
-					    		'fields'		=> array( 'mobile_menu_type', 'mobile_breakpoint', 'custom_menu_text', 'mobile_toggle_font' ),
-								'sections'		=> array('mobile_toggle_typography'),
+					    		'fields'		=> array( 'mobile_menu_type', 'mobile_breakpoint', 'custom_menu_text', 'mobile_toggle_font', 'mobile_toggle_size', 'mobile_toggle_thickness' ),
+								'sections'		=> array('mobile_toggle_typography', 'mobile_toggle_style'),
 								'tabs'			=> array( 'responsive_style' )
 					    	),
 					    	'text'	=> array(
 					    		'fields'		=> array( 'mobile_menu_type', 'mobile_breakpoint', 'custom_menu_text', 'mobile_toggle_font' ),
-								'sections'		=> array('mobile_toggle_typography'),
+								'sections'		=> array('mobile_toggle_typography', 'mobile_toggle_style'),
 								'tabs'		=> array( 'responsive_style' )
 					    	),
 					    )
@@ -1195,17 +1195,6 @@ FLBuilder::register_module('PPAdvancedMenu', array(
                     		),
                     	)
                     ),
-                    'mobile_toggle_color' => array(
-                        'type'       => 'color',
-                        'label'      => __('Mobile Toggle Color', 'bb-powerpack'),
-                        'default'    => '',
-                        'show_reset' => true,
-                        'preview'	 => array(
-                            'type'		=> 'css',
-                            'selector'	=> '.pp-advanced-menu-mobile-toggle',
-                            'property'	=> 'color'
-                        )
-                    ),
 				)
 			),
 			'responsive_border'	=> array(
@@ -1348,6 +1337,65 @@ FLBuilder::register_module('PPAdvancedMenu', array(
                     ),
                 )
             ),
+			'mobile_toggle_style' => array(
+				'title'	=> __( 'Mobile Toggle', 'bb-powerpack' ),
+				'fields'	=> array(
+					'mobile_toggle_size'    => array(
+                        'type'          => 'text',
+                        'label'         => __( 'Size', 'bb-powerpack' ),
+                        'placeholder'   => '30',
+						'default'		=> '30',
+                        'size'          => '8',
+                        'description'   => 'px',
+						'preview'	 => array(
+                            'type'		=> 'css',
+                            'selector'	=> '.pp-advanced-menu-mobile-toggle .pp-hamburger .pp-hamburger-box,
+											.pp-advanced-menu-mobile-toggle .pp-hamburger .pp-hamburger-box .pp-hamburger-inner,
+											.pp-advanced-menu-mobile-toggle .pp-hamburger .pp-hamburger-box .pp-hamburger-inner:before,
+											.pp-advanced-menu-mobile-toggle .pp-hamburger .pp-hamburger-box .pp-hamburger-inner:after',
+                            'property'	=> 'width',
+							'unit'		=> 'px'
+                        )
+                    ),
+					'mobile_toggle_thickness'    => array(
+                        'type'          => 'text',
+                        'label'         => __( 'Thickness', 'bb-powerpack' ),
+                        'placeholder'   => '4',
+						'default'		=> '3',
+                        'size'          => '8',
+                        'description'   => 'px',
+						'preview'	 => array(
+                            'type'		=> 'css',
+                            'selector'	=> '.pp-advanced-menu-mobile-toggle .pp-hamburger .pp-hamburger-box .pp-hamburger-inner,
+											.pp-advanced-menu-mobile-toggle .pp-hamburger .pp-hamburger-box .pp-hamburger-inner:before,
+											.pp-advanced-menu-mobile-toggle .pp-hamburger .pp-hamburger-box .pp-hamburger-inner:after',
+                            'property'	=> 'height',
+							'unit'		=> 'px'
+                        )
+                    ),
+					 'mobile_toggle_color' => array(
+                        'type'       => 'color',
+                        'label'      => __('Color', 'bb-powerpack'),
+                        'default'    => '',
+                        'show_reset' => true,
+                        'preview'	 => array(
+                            'type'		=> 'css',
+                            'rules'		=> array(
+								array(
+									'selector'	=> '.pp-advanced-menu-mobile-toggle',
+                            		'property'	=> 'color'
+								),
+								array(
+									'selector'	=> '.pp-advanced-menu-mobile-toggle .pp-hamburger .pp-hamburger-box .pp-hamburger-inner,
+													.pp-advanced-menu-mobile-toggle .pp-hamburger .pp-hamburger-box .pp-hamburger-inner:before,
+													.pp-advanced-menu-mobile-toggle .pp-hamburger .pp-hamburger-box .pp-hamburger-inner:after',
+                            		'property'	=> 'background-color'
+								),
+							)
+                        )
+                    ),
+				)
+			),
 			'close_icon'	=> array(
 				'title'		=> __('Close Icon', 'bb-powerpack'),
 				'fields'	=> array(

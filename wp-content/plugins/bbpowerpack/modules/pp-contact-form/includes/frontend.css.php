@@ -13,21 +13,27 @@ if ( ! empty( $settings->btn_bg_hover_color ) ) {
 	$bg_hover_grad_start = FLBuilderColor::adjust_brightness( $settings->btn_bg_hover_color, 30, 'lighten' );
 }
 
+// Border Color
+$border_color = '';
+if ( ! empty( $settings->btn_bg_color ) ) {
+	$border_color = FLBuilderColor::adjust_brightness( $settings->btn_bg_color, 12, 'darken' );
+}
+$border_hover_color = '';
+if ( ! empty( $settings->btn_bg_hover_color ) ) {
+	$border_hover_color = FLBuilderColor::adjust_brightness( $settings->btn_bg_hover_color, 12, 'darken' );
+}
+
 // Border Size
 if ( 'transparent' == $settings->btn_style ) {
 	$border_size = $settings->btn_border_size;
 }
 else {
-	$border_size = 1;
+	$border_size = ( isset( $settings->btn_border_width ) && ! empty( $settings->btn_border_width ) ) ? $settings->btn_border_width : 1;
+	$border_color = ( isset( $settings->btn_border_color ) && ! empty( $settings->btn_border_color ) ) ? $settings->btn_border_color : $border_color;
+	$border_hover_color = ( isset( $settings->btn_border_hover_color ) && ! empty( $settings->btn_border_hover_color ) ) ? $settings->btn_border_hover_color : $border_hover_color;
 }
 
-// Border Color
-if ( ! empty( $settings->btn_bg_color ) ) {
-	$border_color = FLBuilderColor::adjust_brightness( $settings->btn_bg_color, 12, 'darken' );
-}
-if ( ! empty( $settings->btn_bg_hover_color ) ) {
-	$border_hover_color = FLBuilderColor::adjust_brightness( $settings->btn_bg_hover_color, 12, 'darken' );
-}
+$border_style = ( isset( $settings->btn_border_style ) ) ? $settings->btn_border_style : 'solid';
 
 ?>
 
@@ -74,9 +80,10 @@ if ( ! empty( $settings->btn_bg_hover_color ) ) {
 	-moz-border-radius: <?php echo $settings->btn_border_radius; ?>px;
 	-webkit-border-radius: <?php echo $settings->btn_border_radius; ?>px;
 
+	border: <?php echo $border_size; ?>px <?php echo $border_style; ?> #<?php echo $border_color; ?>;
+
 	<?php if ( ! empty( $settings->btn_bg_color ) ) : ?>
 		background: #<?php echo $settings->btn_bg_color; ?>;
-		border: <?php echo $border_size; ?>px solid #<?php echo $border_color; ?>;
 
 		<?php if ( 'transparent' == $settings->btn_style ) : // Transparent ?>
 		background-color: <?php echo pp_hex2rgba( '#' . $settings->btn_bg_color, $settings->btn_bg_opacity ); ?>;
@@ -104,7 +111,9 @@ if ( ! empty( $settings->btn_bg_hover_color ) ) {
 	<?php if( $settings->button_font_size['desktop'] && $settings->button_size == 'custom' ) { ?>
 		font-size: <?php echo $settings->button_font_size['desktop']; ?>px;
 	<?php } ?>
+	<?php if ( ! empty( $settings->button_text_transform ) ) { ?>
 		text-transform: <?php echo $settings->button_text_transform; ?>;
+	<?php } ?>
 	<?php if( $settings->button_padding['top'] >= 0 ) { ?>
 		padding-top: <?php echo $settings->button_padding['top']; ?>px;
 	<?php } ?>
@@ -128,16 +137,23 @@ if ( ! empty( $settings->btn_bg_hover_color ) ) {
 }
 <?php endif; ?>
 
+<?php if ( 'transparent' != $settings->btn_style ) : ?>
+.fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:hover,
+.fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:focus {
+	<?php $border_hover_color = empty( $border_hover_color ) ? $border_color : $border_hover_color; ?>
+	border: <?php echo $border_size; ?>px <?php echo $border_style; ?> #<?php echo $border_hover_color; ?>;
+}
+<?php endif; ?>
+
 <?php if ( ! empty( $settings->btn_bg_hover_color ) ) : ?>
 .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:hover,
 .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:focus {
 
 	background: #<?php echo $settings->btn_bg_hover_color; ?>;
-	border: <?php echo $border_size; ?>px solid #<?php echo $border_hover_color; ?>;
 
 	<?php if ( 'transparent' == $settings->btn_style ) : // Transparent ?>
 	background-color: <?php echo pp_hex2rgba( '#' . $settings->btn_bg_hover_color, $settings->btn_bg_hover_opacity ); ?>;
-	border-color: #<?php echo $settings->btn_bg_hover_color; ?>
+	border: <?php echo $border_size; ?>px <?php echo $border_style; ?> #<?php echo $settings->btn_bg_hover_color; ?>;
 	<?php endif; ?>
 
 	<?php if ( 'gradient' == $settings->btn_style ) : // Gradient ?>
@@ -258,7 +274,9 @@ if ( ! empty( $settings->btn_bg_hover_color ) ) {
    <?php if( $settings->title_margin['bottom'] >= 0 ) { ?>
    margin-bottom: <?php echo $settings->title_margin['bottom']; ?>px;
    <?php } ?>
+   <?php if ( ! empty( $settings->title_text_transform ) ) { ?>
    text-transform: <?php echo $settings->title_text_transform; ?>;
+   <?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-contact-form .pp-form-description {
@@ -283,7 +301,9 @@ if ( ! empty( $settings->btn_bg_hover_color ) ) {
 	<?php if( $settings->description_margin['bottom'] >= 0 ) { ?>
 	margin-bottom: <?php echo $settings->description_margin['bottom']; ?>px;
 	<?php } ?>
+	<?php if ( ! empty( $settings->description_text_transform ) ) { ?>
     text-transform: <?php echo $settings->description_text_transform; ?>;
+	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-contact-form .pp-input-group {
@@ -316,6 +336,10 @@ if ( ! empty( $settings->btn_bg_hover_color ) ) {
 		width: 33.33%;
 		padding-left: 10px;
 	}
+	.fl-node-<?php echo $id; ?> .pp-contact-form.pp-form-inline .pp-input-group.pp-checkbox {
+		width: 100%;
+		padding-left: 0;
+	}
 
 	.fl-node-<?php echo $id; ?> .pp-contact-form.pp-form-inline .pp-input-group:first-child {
 		padding-left: 0;
@@ -343,7 +367,23 @@ if ( ! empty( $settings->btn_bg_hover_color ) ) {
     <?php if( $settings->label_font_family['family'] != 'Default' ) { ?>
     <?php FLBuilderFonts::font_css( $settings->label_font_family ); ?>
     <?php } ?>
+	<?php if ( ! empty( $settings->label_text_transform ) ) { ?>
     text-transform: <?php echo $settings->label_text_transform; ?>;
+	<?php } ?>
+}
+
+.fl-node-<?php echo $id; ?> .pp-contact-form .pp-checkbox label {
+	<?php if ( isset( $settings->checkbox_font_size ) && $settings->checkbox_font_size == 'custom' ) { ?>
+		<?php if ( isset( $settings->checkbox_font_size_custom['desktop'] ) && ! empty( $settings->checkbox_font_size_custom['desktop'] ) ) { ?>
+    		font-size: <?php echo $settings->checkbox_font_size_custom['desktop']; ?>px;
+		<?php } ?>
+    <?php } ?>
+	<?php if ( isset( $settings->checkbox_color ) && ! empty( $settings->checkbox_color ) ) { ?>
+		color: #<?php echo $settings->checkbox_color; ?>;
+    <?php } ?>
+	<?php if ( isset( $settings->checkbox_text_transform ) && ! empty( $settings->checkbox_text_transform ) ) { ?>
+		text-transform: <?php echo $settings->checkbox_text_transform; ?>;
+	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-contact-form textarea,
@@ -395,7 +435,9 @@ if ( ! empty( $settings->btn_bg_hover_color ) ) {
     <?php if( $settings->input_font_size['desktop'] && $settings->input_size == 'custom' ) { ?>
     font-size: <?php echo $settings->input_font_size['desktop']; ?>px;
     <?php } ?>
+	<?php if ( ! empty( $settings->input_text_transform ) ) { ?>
     text-transform: <?php echo $settings->input_text_transform; ?>;
+	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-contact-form input[type=text],
@@ -582,7 +624,7 @@ if ( ! empty( $settings->btn_bg_hover_color ) ) {
 }
 
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) {
 	.fl-builder-content .fl-node-<?php echo $id; ?> .pp-contact-form a.fl-button,
 	.fl-builder-content .fl-node-<?php echo $id; ?> .pp-contact-form a.fl-button:visited {
 		<?php if( $settings->button_font_size['tablet'] && $settings->button_size == 'custom' ) { ?>
@@ -612,6 +654,13 @@ if ( ! empty( $settings->btn_bg_hover_color ) ) {
 	    font-size: <?php echo $settings->label_font_size['tablet']; ?>px;
 	    <?php } ?>
 	}
+	.fl-node-<?php echo $id; ?> .pp-contact-form .pp-checkbox label {
+		<?php if ( isset( $settings->checkbox_font_size ) && $settings->checkbox_font_size == 'custom' ) { ?>
+			<?php if ( isset( $settings->checkbox_font_size_custom['tablet'] ) && ! empty( $settings->checkbox_font_size_custom['tablet'] ) ) { ?>
+				font-size: <?php echo $settings->checkbox_font_size_custom['tablet']; ?>px;
+			<?php } ?>
+		<?php } ?>
+	}
 	.fl-node-<?php echo $id; ?> .pp-contact-form textarea,
 	.fl-node-<?php echo $id; ?> .pp-contact-form input[type=text],
 	.fl-node-<?php echo $id; ?> .pp-contact-form input[type=tel],
@@ -636,7 +685,7 @@ if ( ! empty( $settings->btn_bg_hover_color ) ) {
 	}
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
 	.fl-builder-content .fl-node-<?php echo $id; ?> .pp-contact-form a.fl-button,
 	.fl-builder-content .fl-node-<?php echo $id; ?> .pp-contact-form a.fl-button:visited {
 		<?php if( $settings->button_font_size['mobile'] && $settings->button_size == 'custom' ) { ?>
@@ -663,6 +712,13 @@ if ( ! empty( $settings->btn_bg_hover_color ) ) {
 	    <?php if( $settings->label_font_size['mobile'] && $settings->label_size == 'custom' ) { ?>
 	    font-size: <?php echo $settings->label_font_size['mobile']; ?>px;
 	    <?php } ?>
+	}
+	.fl-node-<?php echo $id; ?> .pp-contact-form .pp-checkbox label {
+		<?php if ( isset( $settings->checkbox_font_size ) && $settings->checkbox_font_size == 'custom' ) { ?>
+			<?php if ( isset( $settings->checkbox_font_size_custom['mobile'] ) && ! empty( $settings->checkbox_font_size_custom['mobile'] ) ) { ?>
+				font-size: <?php echo $settings->checkbox_font_size_custom['mobile']; ?>px;
+			<?php } ?>
+		<?php } ?>
 	}
 	.fl-node-<?php echo $id; ?> .pp-contact-form textarea,
 	.fl-node-<?php echo $id; ?> .pp-contact-form input[type=text],

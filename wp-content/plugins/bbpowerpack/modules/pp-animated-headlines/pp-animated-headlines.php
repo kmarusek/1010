@@ -20,7 +20,18 @@ class PPAnimatedHeadlinesModule extends FLBuilderModule {
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
 		));
-    }
+	}
+	
+	public function update( $settings )
+	{
+		$rotating_text 		= $settings->rotating_text;
+		$highlighted_text 	= $settings->highlighted_text;
+
+		$settings->rotating_text 	= str_replace( "'", "\\'", $rotating_text );
+		$settings->highlighted_text = str_replace( "'", "\\'", $highlighted_text );
+
+		return $settings;
+	}
 }
 
 /**
@@ -77,6 +88,11 @@ FLBuilder::register_module('PPAnimatedHeadlinesModule', array(
 							'wave' 				=> __('Wave', 'bb-powerpack'),
 							'slide' 			=> __('Slide', 'bb-powerpack'),
 							'slide-down' 		=> __('Slide Down', 'bb-powerpack'),
+						),
+						'toggle'			=> array(
+							'typing'			=> array(
+								'fields'			=> array('animated_selection_bg_color', 'animated_selection_color')
+							)
 						)
 					),
 					'before_text'  	=> array(
@@ -368,6 +384,30 @@ FLBuilder::register_module('PPAnimatedHeadlinesModule', array(
                             'selector'	=> '.pp-headline-dynamic-wrapper',
                             'property'	=> 'color'
                     	),
+					),
+					'animated_selection_bg_color' => array(
+                        'type'       	=> 'color',
+                        'label'      	=> __('Selection Background Color', 'bb-powerpack'),
+                        'default'    	=> '',
+                        'show_reset' 	=> true,
+                    	'preview'		=> array(
+                            'type'			=> 'css',
+                            'selector'		=> '.pp-headline-animation-type-typing .pp-headline-dynamic-wrapper.pp-headline-typing-selected',
+                            'property'		=> 'background-color'
+						),
+						'help'			=> __('Leave this field empty for default color.', 'bb-powerpack')
+					),
+					'animated_selection_color' => array(
+                        'type'       	=> 'color',
+                        'label'      	=> __('Selection Text Color', 'bb-powerpack'),
+                        'default'    	=> '',
+                        'show_reset' 	=> true,
+                    	'preview'		=> array(
+                            'type'			=> 'css',
+                            'selector'		=> '.pp-headline-animation-type-typing .pp-headline-dynamic-wrapper.pp-headline-typing-selected .pp-headline-dynamic-text',
+                            'property'		=> 'color'
+						),
+						'help'			=> __('Leave this field empty for default color.', 'bb-powerpack')
                     ),
                 )
             ),

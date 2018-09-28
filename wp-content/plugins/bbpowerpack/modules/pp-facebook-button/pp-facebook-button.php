@@ -147,6 +147,21 @@ FLBuilder::register_module( 'PPFBButtonModule', array(
 							'type'				=> 'none'
 						)
 					),
+					'alignment'	=> array(
+						'type'		=> 'pp-switch',
+						'label'		=> __('Alignment', 'bb-powerpack'),
+						'default'	=> 'left',
+						'options'	=> array(
+							'left'		=> __('Left', 'bb-powerpack'),
+							'center'	=> __('Center', 'bb-powerpack'),
+							'right'		=> __('Right', 'bb-powerpack')
+						),
+						'preview'	=> array(
+							'type'		=> 'css',
+							'selector'	=> '.fl-module-content',
+							'property'	=> 'text-align'
+						)
+					)
 				),
 			),
 		),

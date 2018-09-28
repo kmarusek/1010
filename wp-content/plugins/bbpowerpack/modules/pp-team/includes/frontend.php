@@ -49,7 +49,7 @@ $filetype = pathinfo($src, PATHINFO_EXTENSION);
         	<div class="pp-member-description"><?php echo $settings->member_description; ?></div>
 		<?php } ?>
 		<?php if ($settings->email || $settings->facebook_url || $settings->twiiter_url || $settings->googleplus_url || $settings->pinterest_url || $settings->linkedin_url || $settings->youtube_url ||
-	 	$settings->instagram_url || $settings->vimeo_url || $settings->github_url || $settings->dribbble_url || $settings->tumblr_url ) { ?>
+	 	$settings->instagram_url || $settings->vimeo_url || $settings->github_url || $settings->dribbble_url || $settings->tumblr_url || $settings->flickr_url || $settings->wordpress_url ) { ?>
         <div class="pp-member-social-icons">
             <ul>
 				<?php if ($settings->email) { ?>

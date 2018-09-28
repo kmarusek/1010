@@ -4,11 +4,7 @@
  * @class PPFilterableGalleryModule
  */
 class PPFilterableGalleryModule extends FLBuilderModule {
-
-    /**
-     * Constructor function for the module. You must pass the
-     * name, description, dir and url in an array to the parent class.
-     *
+	/**
      * @method __construct
      */
     public function __construct()
@@ -31,11 +27,9 @@ class PPFilterableGalleryModule extends FLBuilderModule {
 		
 		$this->add_js('jquery-masonry');
 		$this->add_js( 'jquery-isotope' );
-		$this->add_js( 'jquery-imagesloaded' );
-
-    }
-
-
+		$this->add_js( 'imagesloaded' );
+	}
+	
 	/**
 	 * @method update
 	 * @param $settings {object}
@@ -120,23 +114,21 @@ class PPFilterableGalleryModule extends FLBuilderModule {
 	{
 		$default_order 	= $this->get_wordpress_photos();
 		$photos_id 		= array();
-		// WordPress
+		$settings 		= $this->settings;
 
-		if ( $this->settings->photo_order == 'random' && is_array( $default_order )) {
+		if ( $settings->photo_order == 'random' && is_array( $default_order ) ) {
 
 			$keys = array_keys( $default_order );
 			shuffle($keys);
 
-			foreach ($keys as $key) {
-				$photos_id[$key] = $default_order[$key];
+			foreach ( $keys as $key ) {
+				$photos_id[ $key ] = $default_order[ $key ];
 			}
-
-		}else{
+		} else {
 			$photos_id = $default_order;
 		}
 
 		return $photos_id;
-
 	}
 
 	/**
@@ -212,6 +204,8 @@ class PPFilterableGalleryModule extends FLBuilderModule {
 				$data->description = $photo->description;
 				$data->title = $photo->title;
 
+				$image_size = $this->settings->photo_size;
+
 				// Collage photo src
 				if($this->settings->gallery_layout == 'masonry') {
 
@@ -220,6 +214,9 @@ class PPFilterableGalleryModule extends FLBuilderModule {
 					}
 					elseif($this->settings->photo_size == 'medium' && isset($photo->sizes->medium)) {
 						$data->src = $photo->sizes->medium->url;
+					}
+					elseif( isset( $photo->sizes->{$image_size} ) ) {
+						$data->src = $photo->sizes->{$image_size}->url;
 					}
 					else {
 						$data->src = $photo->sizes->full->url;
@@ -234,6 +231,9 @@ class PPFilterableGalleryModule extends FLBuilderModule {
 					}
 					elseif($this->settings->photo_size == 'medium' && isset($photo->sizes->medium)) {
 						$data->src = $photo->sizes->medium->url;
+					}
+					elseif( isset( $photo->sizes->{$image_size} ) ) {
+						$data->src = $photo->sizes->{$image_size}->url;
 					}
 					else {
 						$data->src = $photo->sizes->full->url;
@@ -313,10 +313,18 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 						'toggle'	=> array(
 							'below'	=> array(
 								'sections'	=> array('caption_style')
+							),
+							'hover'	=> array(
+								'sections'	=> array('overlay_style')
 							)
 						),
 						'help'          => __('The caption pulls from whatever text you put in the caption area in the media manager for each image.', 'bb-powerpack')
 					),
+                )
+			),
+			'click_action'	=> array(
+				'title'			=> __('Click Action', 'bb-powerpack'),
+				'fields'		=> array(
 					'click_action'  => array(
 						'type'          => 'pp-switch',
 						'label'         => __('Click Action', 'bb-powerpack'),
@@ -328,7 +336,10 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 						),
 						'toggle'		=> array(
 							'lightbox'		=> array(
-								'fields'		=> array('lightbox_image_size')
+								'fields'		=> array('lightbox_image_size', 'lightbox_caption')
+							),
+							'custom-link'	=> array(
+								'fields'		=> array('custom_link_target')
 							)
 						),
 						'preview'       => array(
@@ -344,6 +355,15 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 							'full'		=> __('Full', 'bb-powerpack')
 						)
 					),
+					'lightbox_caption'	=> array(
+						'type'		=> 'pp-switch',
+						'label'		=> __('Show Caption in Lightbox', 'bb-powerpack'),
+						'default'	=> 'yes',
+						'options'	=> array(
+							'yes'		=> __('Yes', 'bb-powerpack'),
+							'no'		=> __('No', 'bb-powerpack')
+						)
+					),
 					'custom_link_target' => array(
 						'type'		=> 'select',
 						'label'		=> __('Link Target', 'bb-powerpack'),
@@ -356,8 +376,8 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 							'type'		=> 'none'
 						)
 					)
-                )
-            ),
+				)
+			),
 			'overlay_settings'	=> array(
 				'title'	=> __( 'Overlay', 'bb-powerpack' ),
 				'fields'	=> array(
@@ -372,23 +392,6 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 							'from-right'	=> __('Overlay From Right', 'bb-powerpack'),
 							'from-top'		=> __('Overlay From Top', 'bb-powerpack'),
 							'from-bottom'	=> __('Overlay From Bottom', 'bb-powerpack'),
-						),
-						'toggle'		=> array(
-							'from-left'	=> array(
-								'sections' => array( 'overlay_style' ),
-							),
-							'from-right'	=> array(
-								'sections' => array( 'overlay_style' ),
-							),
-							'from-top'	=> array(
-								'sections' => array( 'overlay_style' ),
-							),
-							'from-bottom'	=> array(
-								'sections' => array( 'overlay_style' ),
-							),
-							'fade'	=> array(
-								'sections' => array( 'overlay_style' ),
-							),
 						),
 						'preview'	=> 'none',
 					),
@@ -419,9 +422,18 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 			'filters_settings'	=> array(
 				'title'	=> __( 'Filters', 'bb-powerpack' ),
 				'fields'	=> array(
+					'show_all_filter_btn'	=> array(
+						'type'					=> 'pp-switch',
+						'label'					=> __('Show "All" filter button', 'bb-powerpack'),
+						'default'				=> 'yes',
+						'options'				=> array(
+							'yes'					=> __('Yes', 'bb-powerpack'),
+							'no'					=> __('No', 'bb-powerpack'),
+						)
+					),
 					'show_custom_all_text' => array(
 						'type'          => 'pp-switch',
-						'label'         => __('Show Custom All Text?', 'bb-powerpack'),
+						'label'         => __('Rename "All" text?', 'bb-powerpack'),
 						'default'       => 'no',
 						'options'       => array(
 							'yes'			=> __('Yes', 'bb-powerpack'),
@@ -436,7 +448,7 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 					),
 					'custom_all_text' => array(
 						'type'          => 'text',
-						'label'         => __('Custom All Text', 'bb-powerpack'),
+						'label'         => __('Custom Text', 'bb-powerpack'),
 						'default'       => '',
 						'preview'         => array(
                             'type'            => 'text',
@@ -449,6 +461,13 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 						'default'			=> '',
 						'placeholder'		=> __('mygallery', 'bb-powerpack'),
 						'help'				=> __('To filter the gallery using URL parameters, a prefix that will be applied to ID attribute of filter button in HTML. For example, prefix "mygallery" will be applied as "mygallery-1", "mygallery-2" in ID attribute of filter button 1 and filter button 2 respectively. It should only contain dashes, underscores, letters or numbers. No spaces and no other special characters.', 'bb-powerpack')
+					),
+					'active_filter'	=> array(
+						'type'			=> 'text',
+						'label'			=> __('Active Filter Index', 'bb-powerpack'),
+						'default'		=> '',
+						'size'			=> 5,
+						'help'			=> __('Add an index number of a filter to be activated on page load. For example, place 1 for the first filter.', 'bb-powerpack')
 					)
 				)
 			),
@@ -1173,6 +1192,159 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 						)
 					),
 
+				)
+			)
+		)
+	),
+	'responsive_style'	=> array(
+		'title'	=> __( 'Responsive', 'bb-powerpack' ),
+		'sections'	=> array(
+			'filter_toggle'	=> array(
+				'title'	=> __( 'Filters Toggle', 'bb-powerpack' ),
+				'fields'	=> array(
+					'filter_toggle_bg'	=> array(
+						'type'		=>	'color',
+						'label'		=> __( 'Background Color', 'bb-powerpack' ),
+						'default'	=> 'fafafa',
+					),
+					'filter_toggle_color'	=> array(
+						'type'		=>	'color',
+						'label'		=> __( 'Text Color', 'bb-powerpack' ),
+						'default'	=> '333333',
+					),
+					'filter_toggle_icon_color'	=> array(
+						'type'		=>	'color',
+						'label'		=> __( 'Icon Color', 'bb-powerpack' ),
+						'default'	=> '333333',
+					),
+				)
+			),
+			'filters_responsive'	=> array(
+				'title'	=>	__( 'Filters', 'bb-powerpack' ),
+				'fields'	=> array(
+					'filter_res_background'      => array(
+						'type'      => 'pp-color',
+                        'label'     => __('Background Color', 'bb-powerpack'),
+						'show_reset' => true,
+                        'default'   => array(
+							'primary'	=> 'eeeeee',
+							'secondary'	=> 'bbbbbb'
+						),
+						'options'	=> array(
+							'primary'	=> __('Default', 'bb-powerpack'),
+							'secondary' => __('Active', 'bb-powerpack')
+						)
+                    ),
+					'filter_res_color'	=>array(
+						'type'      => 'pp-color',
+						'label'     => __('Text Color', 'bb-powerpack'),
+						'show_reset' => true,
+						'default'   => array(
+							'primary'	=> '000000',
+							'secondary'	=> 'ffffff'
+						),
+						'options'	=> array(
+							'primary'	=> __('Default', 'bb-powerpack'),
+							'secondary' => __('Active', 'bb-powerpack')
+						)
+					),
+					'filter_res_border'    => array(
+                        'type'      => 'pp-switch',
+                        'label'     => __('Border Style', 'bb-powerpack'),
+                        'default'   => 'none',
+                        'options'   => array(
+                            'none'  => __('None', 'bb-powerpack'),
+                            'solid'  => __('Solid', 'bb-powerpack'),
+							'dashed'  => __('Dashed', 'bb-powerpack'),
+							'dotted'  => __('Dotted', 'bb-powerpack'),
+                        ),
+                        'toggle'    => array(
+                            'solid'   => array(
+                                'fields'    => array('filter_res_border_width', 'filter_res_border_color')
+                            ),
+							'dashed'   => array(
+                                'fields'    => array('filter_res_border_width', 'filter_res_border_color')
+                            ),
+							'dotted'   => array(
+                                'fields'    => array('filter_res_border_width', 'filter_res_border_color')
+                            ),
+                        ),
+						'preview'       => array(
+							'type'            => 'css',
+							'selector'        => '.pp-gallery-filters li',
+							'property'        => 'border-style',
+                        ),
+                    ),
+                    'filter_res_border_width'   => array(
+						'type' 			=> 'pp-multitext',
+                    	'label' 		=> __('Border Width', 'bb-powerpack'),
+                        'description'   => __( 'px', 'Value unit for font size. Such as: "14 px"', 'bb-powerpack' ),
+                        'default'       => array(
+                            'top' => 1,
+                            'right' => 1,
+                            'bottom' => 1,
+                            'left' => 1,
+                        ),
+                    	'options' 		=> array(
+                    		'top' => array(
+                                'maxlength' => 3,
+                                'placeholder'   => __('Top', 'bb-powerpack'),
+                                'tooltip'       => __('Top', 'bb-powerpack'),
+                    			'icon'		=> 'fa-long-arrow-up',
+								'preview'       => array(
+									'selector'        => '.pp-gallery-filters li',
+									'property'        => 'border-top-width',
+									'unit'            => 'px'
+		                        ),
+                    		),
+                            'bottom' => array(
+                                'maxlength' => 3,
+                                'placeholder'   => __('Bottom', 'bb-powerpack'),
+                                'tooltip'       => __('Bottom', 'bb-powerpack'),
+                    			'icon'		=> 'fa-long-arrow-down',
+								'preview'       => array(
+									'selector'        => '.pp-gallery-filters li',
+									'property'        => 'border-bottom-width',
+									'unit'            => 'px'
+		                        ),
+                    		),
+                            'left' => array(
+                                'maxlength' => 3,
+                                'placeholder'   => __('Left', 'bb-powerpack'),
+                                'tooltip'       => __('Left', 'bb-powerpack'),
+                    			'icon'		=> 'fa-long-arrow-left',
+								'preview'       => array(
+									'selector'        => '.pp-gallery-filters li',
+									'property'        => 'border-left-width',
+									'unit'            => 'px'
+		                        ),
+                    		),
+                            'right' => array(
+                                'maxlength' => 3,
+                                'placeholder'   => __('Right', 'bb-powerpack'),
+                                'tooltip'       => __('Right', 'bb-powerpack'),
+                    			'icon'		=> 'fa-long-arrow-right',
+								'preview'       => array(
+									'selector'        => '.pp-gallery-filters li',
+									'property'        => 'border-right-width',
+									'unit'            => 'px'
+		                        ),
+                    		),
+                    	)
+                    ),
+                    'filter_res_border_color'   => array(
+						'type'      => 'pp-color',
+                        'label'     => __('Border Color', 'bb-powerpack'),
+						'show_reset' => true,
+                        'default'   => array(
+							'primary'	=> '000000',
+							'secondary'	=> 'eeeeee'
+						),
+						'options'	=> array(
+							'primary'	=> __('Default', 'bb-powerpack'),
+							'secondary' => __('Hover', 'bb-powerpack')
+						)
+                    ),
 				)
 			)
 		)

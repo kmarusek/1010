@@ -20,6 +20,7 @@
 
 		this.classes			= {
 			dynamicText: 			'pp-headline-dynamic-text',
+			dynamicLetter:			'pp-headline-dynamic-letter',
 			textActive: 			'pp-headline-text-active',
 			textInactive: 			'pp-headline-text-inactive',
 			letters: 				'pp-headline-letters',
@@ -63,7 +64,7 @@
 				var rotatingText = this.settings.rotating_text.split('|');
 
 				rotatingText.forEach( function( word, index ) {
-					var dynamicText = $('<span>', { 'class': classes.dynamicText }).html( word.replace( ' ', '&nbsp;' ) );
+					var dynamicText = $('<span>', { 'class': classes.dynamicText }).html( word.replace( / /g, '&nbsp;' ) );
 
 					if ( ! index ) {
 						dynamicText.addClass( classes.textActive );
@@ -94,7 +95,7 @@
 
 		_rotateHeadline: function() {
 
-			//insert <i> element for each letter of a changing word
+			//insert <span> element for each letter of a changing word
 			if ( $(this.headline).hasClass( this.classes.letters ) ) {
 				this._singleLetters();
 			}
@@ -114,13 +115,13 @@
 				$word.empty();
 
 				letters.forEach( function( letter ) {
-					var $i = $( '<i>' ).text( letter );
+					var $letter = jQuery( '<span>', { 'class': classes.dynamicLetter } ).text( letter );
 
 					if ( isActive ) {
-						$i.addClass( classes.animationIn );
+						$letter.addClass( classes.animationIn );
 					}
 
-					$word.append( $i );
+					$word.append( $letter );
 				} );
 
 				$word.css( 'opacity', 1 );
@@ -196,7 +197,7 @@
 				animationType 	= self.settings.animation_type;
 
 			if ( 'typing' === animationType ) {
-				self._showLetter( $word.find( 'i' ).eq( 0 ), $word, false, duration );
+				self._showLetter( $word.find( '.' + self.classes.dynamicLetter ).eq( 0 ), $word, false, duration );
 
 				$word
 					.addClass( self.classes.textActive )
@@ -213,6 +214,7 @@
 		_hideWord: function( $word ) {
 			var self 			= this,
 				classes 		= self.classes,
+				letterSelector 	= '.' + classes.dynamicLetter,
 				animationType 	= self.settings.animation_type,
 				nextWord 		= self._getNextWord( $word );
 
@@ -225,7 +227,7 @@
 					$word
 						.addClass( classes.textInactive )
 						.removeClass( classes.textActive )
-						.children( 'i' )
+						.children( letterSelector )
 						.removeClass( classes.animationIn );
 				}, self.selectionDuration );
 				setTimeout( function() {
@@ -233,11 +235,15 @@
 				}, self.typeAnimationDelay );
 
 			} else if ( $(self.headline).hasClass( classes.letters ) ) {
-				var bool = $word.children( 'i' ).length >= nextWord.children( 'i' ).length;
+				var bool = $word.children( letterSelector ).length >= nextWord.children( letterSelector ).length;
 
-				self._hideLetter( $word.find( 'i' ).eq( 0 ), $word, bool, self.lettersDelay );
+				self._hideLetter( $word.find( letterSelector ).eq( 0 ), $word, bool, self.lettersDelay );
 
-				self._showLetter( nextWord.find( 'i' ).eq( 0 ), nextWord, bool, self.lettersDelay );
+				$word.removeClass( classes.textActive );
+
+				self._showLetter( nextWord.find( letterSelector ).eq( 0 ), nextWord, bool, self.lettersDelay );
+
+				nextWord.addClass( classes.textActive );
 
 			} else if ( 'clip' === animationType ) {
 				$(self.dynamicWrapper).animate( { width: '2px' }, self.revealDuration, function() {

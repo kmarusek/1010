@@ -282,8 +282,9 @@ FLBuilder::register_module('PPModalBoxModule', array(
         )
     ),
     'settings'       => array( // Tab
-        'title'         => __('Settings', 'bb-powerpack'), // Tab title
-        'sections'      => array( // Tab Sections
+		'title'         => __('Settings', 'bb-powerpack'), // Tab title
+		'description'	=> sprintf( __( 'Your unique modal box ID is %s. If you are using any form in the modal box, you can use the following JS to hide the modal box after submission: %s', 'bb-powerpack' ), '<span class="pp-modal-node-id"></span>', '<input type="text" class="pp-modal-hide-js" onclick="this.select()" readonly />' ),
+		'sections'      => array( // Tab Sections
             'modal_load'    => array(
                 'title'         => __('Trigger', 'bb-powerpack'),
                 'fields'        => array(

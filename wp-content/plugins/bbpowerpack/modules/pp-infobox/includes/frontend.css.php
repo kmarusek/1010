@@ -1,4 +1,7 @@
 .fl-node-<?php echo $id; ?> .pp-infobox-title-prefix {
+	<?php if ( empty( $settings->title_prefix ) ) { ?>
+	display: none;
+	<?php } ?>
 	<?php if( $settings->title_prefix_font['family'] != 'Default' ) { ?><?php FLBuilderFonts::font_css( $settings->title_prefix_font ); ?><?php } ?>
 	<?php if( $settings->title_prefix_font_size ) { ?>font-size: <?php echo $settings->title_prefix_font_size; ?>px;<?php } ?>
 	line-height: <?php echo $settings->title_prefix_line_height; ?>;
@@ -167,6 +170,21 @@
 	<?php if( $settings->animation_duration ) { ?>animation-duration: <?php echo $settings->animation_duration; ?>ms;<?php } ?>
 }
 
+.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-3-wrapper,
+.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-4-wrapper {
+	<?php if ( isset( $settings->icon_position ) ) { ?>
+		<?php if ( 'top' == $settings->icon_position ) { ?>
+		align-items: flex-start;
+		<?php } ?>
+		<?php if ( 'center' == $settings->icon_position ) { ?>
+		align-items: center;
+		<?php } ?>
+		<?php if ( 'bottom' == $settings->icon_position ) { ?>
+		align-items: flex-end;
+		<?php } ?>
+	<?php } ?>
+}
+
 .fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-3 .pp-icon-wrapper {
 	margin-right: <?php echo $settings->space_bt_icon_text; ?>px;
 }
@@ -212,18 +230,18 @@
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-1 .pp-infobox-description {
 		clear: both;
 	}
+	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-3 .pp-heading-wrapper {
+		flex: 0 1 auto;
+	}
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-3 .pp-icon-wrapper {
 		flex: 1;
 		text-align: right;
-	}
-	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-3 .pp-heading-wrapper {
-		flex: 0 1 auto;
 	}
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-4 .pp-heading-wrapper {
 		flex: 1;
 	}
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-4 .pp-icon-wrapper {
-		flex: 0;
+		flex: 0 1 auto;
 		text-align: right;
 	}
 <?php } ?>
@@ -257,6 +275,10 @@
 		line-height: <?php echo $settings->text_line_height_responsive; ?>;
 	}
 	<?php if ( isset( $settings->alignment_responsive ) && 'default' != $settings->alignment_responsive ) { ?>
+		.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-3 .layout-3-wrapper,
+		.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-4 .layout-4-wrapper {
+			align-items: normal;
+		}
 		<?php if ( 'left' == $settings->alignment_responsive ) { ?>
 			.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-2 .pp-infobox-description,
 			.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-2 .pp-heading-wrapper {

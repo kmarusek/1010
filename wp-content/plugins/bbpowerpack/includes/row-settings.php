@@ -91,11 +91,17 @@ function pp_row_overlay( $form, $id ) {
         return $form;
     }
 
-    $bg_overlay_color = $form['tabs']['style']['sections']['bg_overlay']['fields']['bg_overlay_color'];
-    $bg_overlay_opacity = $form['tabs']['style']['sections']['bg_overlay']['fields']['bg_overlay_opacity'];
+	$bg_overlay_color = $form['tabs']['style']['sections']['bg_overlay']['fields']['bg_overlay_color'];
+	$bg_overlay_opacity = false;
+	if ( isset( $form['tabs']['style']['sections']['bg_overlay']['fields']['bg_overlay_opacity'] ) ) {
+		$bg_overlay_opacity = $form['tabs']['style']['sections']['bg_overlay']['fields']['bg_overlay_opacity'];
+	}
 
-    unset($form['tabs']['style']['sections']['bg_overlay']['fields']['bg_overlay_color']);
-    unset($form['tabs']['style']['sections']['bg_overlay']['fields']['bg_overlay_opacity']);
+	unset($form['tabs']['style']['sections']['bg_overlay']['fields']['bg_overlay_color']);
+	
+	if ( $bg_overlay_opacity ) {
+		unset($form['tabs']['style']['sections']['bg_overlay']['fields']['bg_overlay_opacity']);
+	}
 
     $form['tabs']['style']['sections']['bg_overlay']['fields']['pp_bg_overlay_type'] = array(
         'type'      => 'select',
@@ -141,7 +147,9 @@ function pp_row_overlay( $form, $id ) {
         ),
     );
 
-    $form['tabs']['style']['sections']['bg_overlay']['fields']['bg_overlay_opacity'] = $bg_overlay_opacity;
+	if ( $bg_overlay_opacity ) {
+		$form['tabs']['style']['sections']['bg_overlay']['fields']['bg_overlay_opacity'] = $bg_overlay_opacity;
+	}
 
     return $form;
 }

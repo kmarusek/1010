@@ -10,10 +10,13 @@
 
 <?php
 
-$license 	  = self::get_option( 'bb_powerpack_license_key' );
-$status 	  = self::get_option( 'bb_powerpack_license_status' );
-$current_tab  = self::get_current_tab();
-
+$license 	  		= self::get_option( 'bb_powerpack_license_key' );
+$status 	  		= self::get_option( 'bb_powerpack_license_status' );
+$current_tab  		= self::get_current_tab();
+$hide_templates 	= self::get_option( 'ppwl_hide_templates_tab' );
+$hide_extensions 	= self::get_option( 'ppwl_hide_extensions_tab' );
+$hide_integration 	= self::get_option( 'ppwl_hide_integration_tab' );
+$hide_support_msg 	= self::get_option( 'ppwl_hide_support_msg' );
 ?>
 
 <div class="wrap">
@@ -51,13 +54,18 @@ $current_tab  = self::get_current_tab();
         }
 
         // Page templates settings.
-        if ( 'templates' == $current_tab && ( ! self::get_option( 'ppwl_hide_templates_tab' ) || self::get_option( 'ppwl_hide_templates_tab' ) == 0 ) ) {
+        if ( 'templates' == $current_tab && ( ! $hide_templates || $hide_templates == 0 ) ) {
             include BB_POWERPACK_DIR . 'includes/admin-settings-templates.php';
         }
 
         // Extensions settings.
-        if ( 'extensions' == $current_tab && ( ! self::get_option( 'ppwl_hide_extensions_tab' ) || self::get_option( 'ppwl_hide_extensions_tab' ) == 0 ) ) {
+        if ( 'extensions' == $current_tab && ( ! $hide_extensions || $hide_extensions == 0 ) ) {
             include BB_POWERPACK_DIR . 'includes/admin-settings-extensions.php';
+		}
+		
+		// Integration settings.
+        if ( 'integration' == $current_tab && ( ! $hide_integration || $hide_integration == 0 ) ) {
+            include BB_POWERPACK_DIR . 'includes/admin-settings-integration.php';
         }
 
         do_action( 'pp_admin_settings_forms', $current_tab );
@@ -66,7 +74,7 @@ $current_tab  = self::get_current_tab();
 
     </form>
 
-    <?php if ( ! self::get_option( 'ppwl_hide_support_msg' ) || self::get_option( 'ppwl_hide_support_msg' ) == 0 ) { ?>
+    <?php if ( ! $hide_support_msg || $hide_support_msg == 0 ) { ?>
     <hr />
 
     <h2><?php esc_html_e('Support', 'bb-powerpack'); ?></h2>

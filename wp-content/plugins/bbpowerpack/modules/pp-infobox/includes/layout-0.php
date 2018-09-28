@@ -14,7 +14,9 @@
 		<?php } ?>
 	</div>
 	<div class="pp-infobox-description">
-		<?php echo $settings->description; ?>
+		<div class="pp-description-wrap">
+			<?php echo $settings->description; ?>
+		</div>
 		<?php $module->render_link(); ?>
 	</div>
 </div>

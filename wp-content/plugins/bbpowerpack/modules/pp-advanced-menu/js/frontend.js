@@ -19,7 +19,7 @@
 		this.mobileMenuType	 	 = settings.mobileMenuType;
 		this.offCanvasDirection	 = settings.offCanvasDirection;
 		this.isBuilderActive	 = settings.isBuilderActive;
-		this.currentBrowserWidth = $( window ).width();
+		this.currentBrowserWidth = window.innerWidth;
 
 		this._bindSettingsFormEvents();
 		// initialize the menu
@@ -28,7 +28,7 @@
 		// check if viewport is resizing
 		$( window ).on( 'resize', $.proxy( function( e ) {
 
-			var width = $( window ).width();
+			var width = window.innerWidth;
 
 			// if screen width is resized, reload the menu
 		    if( width != this.currentBrowserWidth ) {
@@ -48,6 +48,8 @@
 		type 	                : '',
 		breakPoints 			: {},
 		$submenus				: null,
+		fullScreenMenu			: null,
+		offCanvasMenu			: null,
 
 		/**
 		 * Check if the screen size fits a mobile viewport.
@@ -56,7 +58,7 @@
 		 * @return bool
 		 */
 		_isMobile: function() {
-			return $( window ).width() <= this.breakPoints.small ? true : false;
+			return window.innerWidth <= this.breakPoints.small ? true : false;
 		},
 
 		/**
@@ -66,7 +68,7 @@
 		 * @return bool
 		 */
 		_isMedium: function() {
-			return $( window ).width() <= this.breakPoints.medium ? true : false;
+			return window.innerWidth <= this.breakPoints.medium ? true : false;
 		},
 
 		/**
@@ -76,7 +78,7 @@
 		 * @return bool
 		 */
 		_isCustom: function() {
-			return $( window ).width() <= this.breakPoints.custom ? true : false;
+			return window.innerWidth <= this.breakPoints.custom ? true : false;
 		},
 
 		/**
@@ -231,7 +233,11 @@
 					$(self.wrapperClass).find('.sub-menu:visible').parent().addClass('pp-active');
 				}
 				$subMenu.slideToggle(400, function() {
+					// Reset previously opened sub-menu toggle icon.
+					$(e.target).parents('.pp-has-submenu-container').parent().parent().find('> .menu-item.pp-active').removeClass('pp-active');
+					
 					if ($mainItem !== '') {
+						$mainItem.parent().find('.menu-item.pp-active').removeClass('pp-active');
 						$(self.wrapperClass).find('.sub-menu').parent().removeClass('pp-active');
 
 						if ($(self.wrapperClass).find('.sub-menu:visible').length > 0) {
@@ -317,7 +323,7 @@
 						$subMenu        = $link.find( '.sub-menu' ),
 						subMenuWidth    = $subMenu.width(),
 						subMenuPos      = 0,
-						winWidth        = $( window ).width();
+						winWidth        = window.innerWidth;
 
 					if( $link.closest( '.pp-menu-submenu-right' ).length !== 0) {
 
@@ -493,10 +499,12 @@
 				return;
 			}
 			if ( 'always' === this.mediaBreakpoint || this.mediaBreakpoint >= this.currentBrowserWidth ) {
-				if ($('pp-advanced-menu-off-canvas-'+this.settingsId).length > 0) {
-					$('pp-advanced-menu-off-canvas-'+this.settingsId).remove();
+				if ( null === this.offCanvasMenu && $(this.nodeClass).find('.pp-advanced-menu.off-canvas').length > 0 ) {
+					this.offCanvasMenu = $(this.nodeClass).find('.pp-advanced-menu.off-canvas');
 				}
-				$(this.nodeClass).find('.pp-advanced-menu.off-canvas').appendTo('body').wrap('<div id="pp-advanced-menu-off-canvas-'+this.settingsId+'" class="fl-node-'+this.settingsId+'">');
+				if ($('#pp-advanced-menu-off-canvas-'+this.settingsId).length === 0) {
+					this.offCanvasMenu.appendTo('body').wrap('<div id="pp-advanced-menu-off-canvas-'+this.settingsId+'" class="fl-node-'+this.settingsId+'">');
+				}
 			}
 			this._toggleMenu();
 		},
@@ -514,10 +522,12 @@
 				return;
 			}
 			if ( 'always' === this.mediaBreakpoint || this.mediaBreakpoint >= this.currentBrowserWidth ) {
-				if ($('pp-advanced-menu-full-screen-'+this.settingsId).length > 0) {
-					$('pp-advanced-menu-full-screen-'+this.settingsId).remove();
+				if ( null === this.offCanvasMenu && $(this.nodeClass).find('.pp-advanced-menu.full-screen').length > 0 ) {
+					this.fullScreenMenu = $(this.nodeClass).find('.pp-advanced-menu.full-screen');
 				}
-				$(this.nodeClass).find('.pp-advanced-menu.full-screen').appendTo('body').wrap('<div id="pp-advanced-menu-full-screen-'+this.settingsId+'" class="fl-node-'+this.settingsId+'">');
+				if ($('#pp-advanced-menu-full-screen-'+this.settingsId).length === 0) {
+					this.fullScreenMenu.appendTo('body').wrap('<div id="pp-advanced-menu-full-screen-'+this.settingsId+'" class="fl-node-'+this.settingsId+'">');
+				}
 			}
 			this._toggleMenu();
 		},

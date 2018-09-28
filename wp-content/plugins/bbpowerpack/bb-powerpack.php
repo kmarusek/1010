@@ -3,9 +3,9 @@
  * Plugin Name: PowerPack for Beaver Builder
  * Plugin URI: https://wpbeaveraddons.com
  * Description: A set of custom, creative, unique modules for Beaver Builder to speed up your web design and development process.
- * Version: 2.6.1
- * Author: Team IdeaBox - Beaver Addons
- * Author URI: https://wpbeaveraddons.com
+ * Version: 2.6.8
+ * Author: IdeaBox Creations
+ * Author URI: https://ideaboxcreations.com
  * Copyright: (c) 2016 IdeaBox Creations
  * License: GNU General Public License v2.0
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -37,6 +37,8 @@ final class BB_PowerPack {
 	public static $upload_dir;
 
 	public static $errors;
+
+	public $fa_css = '';
 
 	/**
 	 * Primary class constructor.
@@ -76,6 +78,7 @@ final class BB_PowerPack {
 
 		/* Hooks */
 		$this->init_hooks();
+		$this->reset_hide_plugin();
 
 		self::$upload_dir = pp_get_upload_dir();
 	}
@@ -97,7 +100,7 @@ final class BB_PowerPack {
 	 */
 	private function define_constants()
 	{
-		define( 'BB_POWERPACK_VER', '2.6.1' );
+		define( 'BB_POWERPACK_VER', '2.6.8' );
 		define( 'BB_POWERPACK_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'BB_POWERPACK_URL', plugins_url( '/', __FILE__ ) );
 		define( 'BB_POWERPACK_PATH', plugin_basename( __FILE__ ) );
@@ -147,7 +150,26 @@ final class BB_PowerPack {
 			add_action( 'network_admin_notices', array( $this, 'admin_notices' ) );
 			return;
 		} else {
-			require_once 'includes/modules.php';
+			$enabled_icons = FLBuilderModel::get_enabled_icons();
+
+			if ( in_array( 'font-awesome-5-solid', $enabled_icons )
+				|| in_array( 'font-awesome-5-regular', $enabled_icons )
+				|| in_array( 'font-awesome-5-brands', $enabled_icons ) ) {
+					$this->fa_css = 'font-awesome-5';
+			} else {
+				$this->fa_css = 'font-awesome';
+			}
+
+			// Fields
+			require_once 'classes/class-module-fields.php';
+
+			$load_modules_in_admin = apply_filters( 'pp_load_modules_in_admin', true );
+
+			if ( $load_modules_in_admin ) {
+				require_once 'includes/modules.php';
+			} else if ( ! is_admin() ) {
+				require_once 'includes/modules.php';
+			}
 		}
 	}
 
@@ -160,9 +182,6 @@ final class BB_PowerPack {
 	public function loader()
 	{
 		if ( !is_admin() && class_exists( 'FLBuilder' ) ) {
-
-			// Fields
-			require_once 'classes/class-module-fields.php';
 
 			// Panel functions
 			require_once 'includes/panel-functions.php';
@@ -178,33 +197,10 @@ final class BB_PowerPack {
 			if ( isset( $extensions['col'] ) && count( $extensions['col'] ) > 0 ) {
 		        require_once 'includes/column.php';
 		    }
+		}
 
-			$row_templates 	= BB_PowerPack_Admin_Settings::get_enabled_templates( 'row' );
-			$scheme			= BB_PowerPack_Admin_Settings::get_template_scheme();
-
-			if ( is_array( $row_templates ) && method_exists( 'FLBuilder', 'register_templates' ) ) {
-				foreach ( $row_templates as $template ) {
-					if ( file_exists( self::$upload_dir['path'] . $template . '.dat' ) ) {
-						// Template filename should be the same as the category name.
-						FLBuilder::register_templates( self::$upload_dir['path'] . $template . '.dat', array(
-							'group'	=> 'PowerPack Templates'
-						) );
-					}
-				}
-			}
-
-			$page_templates = BB_PowerPack_Admin_Settings::get_enabled_templates( 'page' );
-
-			if ( is_array( $page_templates ) && method_exists( 'FLBuilder', 'register_templates' ) ) {
-				foreach ( $page_templates as $template ) {
-
-					if ( file_exists( self::$upload_dir['path'] . $template . '.dat' ) ) {
-						// Template filename should be the same as the category name.
-						FLBuilder::register_templates( self::$upload_dir['path'] . $template . '.dat' );
-					}
-
-				}
-			}
+		if ( class_exists('FLThemeBuilderLoader') ) {
+			require_once 'classes/class-pp-post-module.php';
 		}
 
 		$this->load_textdomain();
@@ -219,7 +215,7 @@ final class BB_PowerPack {
 	public function register_scripts()
 	{
 		wp_register_style( 'pp-jquery-fancybox', BB_POWERPACK_URL . 'assets/css/jquery.fancybox.min.css', array(), '3.3.5' );
-		wp_register_style( 'jquery-justifiedgallery', BB_POWERPACK_URL . 'assets/css/justifiedGallery.min.css', array(), '3.6.3' );
+		wp_register_style( 'jquery-justifiedgallery', BB_POWERPACK_URL . 'assets/css/justifiedGallery.min.css', array(), '3.7.0' );
 		wp_register_style( 'jquery-swiper', BB_POWERPACK_URL . 'assets/css/swiper.min.css', array(), '3.4.2' );
 		wp_register_style( 'owl-carousel', BB_POWERPACK_URL . 'assets/css/owl.carousel.css', array(), BB_POWERPACK_VER );
 		wp_register_style( 'owl-carousel-theme', BB_POWERPACK_URL . 'assets/css/owl.theme.css', array('owl-carousel'), BB_POWERPACK_VER );
@@ -229,14 +225,14 @@ final class BB_PowerPack {
 
 		wp_register_script( 'pp-facebook-sdk', pp_get_fb_sdk_url(), array(), '2.12', true );
 		wp_register_script( 'pp-twitter-widgets', BB_POWERPACK_URL . 'assets/js/twitter-widgets.js', array(), BB_POWERPACK_VER, true );
-		wp_register_script( 'instafeed', BB_POWERPACK_URL . 'assets/js/instafeed.min.js', array('jquery'), BB_POWERPACK_URL, true );
+		wp_register_script( 'instafeed', BB_POWERPACK_URL . 'assets/js/instafeed.min.js', array('jquery'), BB_POWERPACK_VER, true );
 		wp_register_script( 'jquery-isotope', BB_POWERPACK_URL . 'assets/js/isotope.pkgd.min.js', array('jquery'), '3.0.1', true );
 		wp_register_script( 'jquery-colorbox', BB_POWERPACK_URL . 'assets/js/jquery.colorbox.js', array('jquery'), '1.6.3', true );
 		wp_register_script( 'jquery-cookie', BB_POWERPACK_URL . 'assets/js/jquery.cookie.min.js', array('jquery'), '1.4.1' );
-		wp_register_script( 'jquery-plugin', BB_POWERPACK_URL . 'assets/js/jquery.plugin.js', array('jquery'), BB_POWERPACK_VER, true );
-		wp_register_script( 'jquery-countdown', BB_POWERPACK_URL . 'assets/js/jquery.countdown.js', array('jquery'), '2.0.2', true );
+		wp_register_script( 'pp-jquery-plugin', BB_POWERPACK_URL . 'assets/js/jquery.plugin.js', array('jquery'), BB_POWERPACK_VER, true );
+		wp_register_script( 'pp-jquery-countdown', BB_POWERPACK_URL . 'assets/js/jquery.countdown.js', array('jquery', 'pp-jquery-plugin'), '2.0.2', true );
 		wp_register_script( 'pp-jquery-fancybox', BB_POWERPACK_URL . 'assets/js/jquery.fancybox.min.js', array('jquery'), '3.3.5', true );
-		wp_register_script( 'jquery-justifiedgallery', BB_POWERPACK_URL . 'assets/js/jquery.justifiedGallery.min.js', array('jquery'), '3.6.3', true );
+		wp_register_script( 'jquery-justifiedgallery', BB_POWERPACK_URL . 'assets/js/jquery.justifiedGallery.min.js', array('jquery'), '3.7.0', true );
 		wp_register_script( 'jquery-swiper', BB_POWERPACK_URL . 'assets/js/swiper.jquery.min.js', array('jquery'), '3.4.2', true );
 		wp_register_script( 'jquery-slick', BB_POWERPACK_URL . 'assets/js/slick.min.js', array('jquery'), '1.6.0', true );
 		wp_register_script( 'modernizr-custom', BB_POWERPACK_URL . 'assets/js/modernizr.custom.53451.js', array(), '2.0.6', true );
@@ -337,7 +333,7 @@ final class BB_PowerPack {
 	{
 		if ( class_exists( 'FLBuilder' ) && class_exists( 'FLBuilderModel' ) && FLBuilderModel::is_builder_active() ) {
 			$classes[] = 'bb-powerpack';
-			if ( pp_panel_search() == 1 ) {
+			if ( function_exists( 'pp_panel_search' ) && pp_panel_search() == 1 ) {
 				$classes[] = 'bb-powerpack-search-enabled';
 			}
 			if ( class_exists( 'FLBuilderUIContentPanel' ) ) {
@@ -363,6 +359,18 @@ final class BB_PowerPack {
 		}
 
 		return $ppwl;
+	}
+
+	public function reset_hide_plugin()
+	{
+		if ( ! is_admin() ) {
+			return;
+		}
+
+		if ( isset( $_GET['pp_reset_wl_plugin'] ) ) {
+			delete_option( 'ppwl_hide_plugin' );
+			delete_site_option( 'ppwl_hide_plugin' );
+		}
 	}
 
 	/**

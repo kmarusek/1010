@@ -20,7 +20,7 @@ class PPInstagramFeedModule extends FLBuilderModule {
 			'enabled'       	=> true, // Defaults to true and can be omitted.
 		));
 		
-		$this->add_js( 'jquery-imagesloaded' );
+		$this->add_js( 'imagesloaded' );
 
 		$this->add_js( 'jquery-magnificpopup' );
 		$this->add_css( 'jquery-magnificpopup' );
@@ -69,7 +69,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 				'fields'        => array(
 					'feed_by_tags'  => array(
 						'type'          => 'pp-switch',
-						'label'         => __( 'Feed by Hashtag', 'bb-powerpack' ),
+						'label'         => __( 'Filter the feed by Hashtag', 'bb-powerpack' ),
 						'default'       => 'no',
 						'options'       => array(
 							'yes'			=> __( 'Yes', 'bb-powerpack' ),
@@ -215,11 +215,12 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 					),
 					'image_popup'  => array(
 						'type'          => 'pp-switch',
-						'label'         => __( 'Open Image in Popup', 'bb-powerpack' ),
+						'label'         => __( 'Image Link Type', 'bb-powerpack' ),
 						'default'       => 'no',
 						'options'       => array(
-							'yes'           => __( 'Yes', 'bb-powerpack' ),
-							'no'            => __( 'No', 'bb-powerpack' ),
+							'no'            => __( 'None', 'bb-powerpack' ),
+							'yes'           => __( 'Popup', 'bb-powerpack' ),
+							'link'			=> __( 'Link', 'bb-powerpack' )
 						),
 					),
 					'profile_link'  => array(

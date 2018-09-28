@@ -41,84 +41,87 @@ div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-bottom-bar {
     margin-top: 10px;
 }
 
-.fl-node-<?php echo $id; ?> .pp-photo-gallery,
-.fl-node-<?php echo $id; ?> .pp-masonry-content {
+<?php if($settings->click_action == 'lightbox' && !empty($settings->show_captions)) : ?>
+.mfp-<?php echo $id; ?> .mfp-gallery img.mfp-img {
+	padding: 0;
+}
+
+.mfp-<?php echo $id; ?> .mfp-counter {
+	display: block !important;
+}
+<?php endif; ?>
+
+.fl-node-<?php echo $id; ?> .pp-photo-gallery {
 	margin: -<?php echo $settings->photo_spacing / 2; ?>px;
 }
 
-<?php if($settings->gallery_layout == 'grid') { ?>
-	.fl-node-<?php echo $id; ?> .pp-photo-gallery-item {
-		width: <?php echo $photo_columns_desktop;?>%;
-		margin-bottom: <?php echo $settings->photo_spacing; ?>%;
-		<?php if ( $settings->photo_spacing == 0 ) { ?>
-        margin-right: <?php echo $settings->photo_spacing - ( $settings->photo_border != 'none' ? $settings->photo_border_width : 0 ); ?>px;
-        margin-bottom: <?php echo $settings->photo_spacing - ( $settings->photo_border != 'none' ? $settings->photo_border_width : 0 ); ?>px;
-        <?php } else { ?>
-        margin-bottom: <?php echo $settings->photo_spacing; ?>%;
-        <?php } ?>
-	}
-	<?php if ( $settings->photo_grid_count['desktop'] > 1 ) { ?>
-	.fl-node-<?php echo $id; ?> .pp-photo-gallery-item:nth-child(<?php echo $settings->photo_grid_count['desktop']; ?>n+1){
-	}
-	.fl-node-<?php echo $id; ?> .pp-photo-gallery-item:nth-child(<?php echo $settings->photo_grid_count['desktop']; ?>n+0){
-	}
-	.fl-node-<?php echo $id; ?> .pp-photo-gallery-item:nth-child(<?php echo $settings->photo_grid_count['desktop']; ?>n){
-		margin-right: 0;
-	}
-	<?php } ?>
-
-<?php } elseif ($settings->gallery_layout == 'masonry') { ?>
-
 .fl-node-<?php echo $id; ?> .pp-grid-sizer {
 	width: <?php echo $photo_columns_desktop;?>%;
-}
-
-.fl-node-<?php echo $id; ?> .pp-masonry-item {
-	width: <?php echo $photo_columns_desktop;?>%;
-	padding-top: <?php echo $settings->photo_padding['top']; ?>px;
-	padding-bottom: <?php echo $settings->photo_padding['bottom']; ?>px;
-	padding-left: <?php echo $settings->photo_padding['left']; ?>px;
-	padding-right: <?php echo $settings->photo_padding['right']; ?>px;
-	margin-bottom: <?php echo $settings->photo_spacing; ?>%;
-	<?php if ( $settings->photo_spacing == 0 ) { ?>
-	margin-right: <?php echo $settings->photo_spacing - ( $settings->photo_border != 'none' ? $settings->photo_border_width : 0 ); ?>px;
-	margin-bottom: <?php echo $settings->photo_spacing - ( $settings->photo_border != 'none' ? $settings->photo_border_width : 0 ); ?>px;
-	<?php } else { ?>
-	margin-bottom: <?php echo $settings->photo_spacing; ?>%;
-	<?php } ?>
-	border-style: <?php echo $settings->photo_border; ?>;
-	<?php if( $settings->photo_border_width && $settings->photo_border != 'none' ) { ?>border-width: <?php echo $settings->photo_border_width; ?>px; <?php } ?>
-	<?php if( $settings->photo_border_color ) { ?> border-color: #<?php echo $settings->photo_border_color; ?>; <?php } ?>
-	<?php if( $settings->photo_border_radius >= 0 ) { ?> border-radius: <?php echo $settings->photo_border_radius; ?>px; <?php } ?>
-}
-<?php } ?>
-
-.fl-node-<?php echo $id; ?> .pp-photo-gallery-item {
-	padding-top: <?php echo $settings->photo_padding['top']; ?>px;
-	padding-bottom: <?php echo $settings->photo_padding['bottom']; ?>px;
-	padding-left: <?php echo $settings->photo_padding['left']; ?>px;
-	padding-right: <?php echo $settings->photo_padding['right']; ?>px;
-	border-style: <?php echo $settings->photo_border; ?>;
-	<?php if( $settings->photo_border_width && $settings->photo_border != 'none' ) { ?>border-width: <?php echo $settings->photo_border_width; ?>px; <?php } ?>
-	<?php if( $settings->photo_border_color ) { ?> border-color: #<?php echo $settings->photo_border_color; ?>; <?php } ?>
-	<?php if( $settings->photo_border_radius >= 0 ) { ?> border-radius: <?php echo $settings->photo_border_radius; ?>px; <?php } ?>
-}
-
-.fl-node-<?php echo $id; ?> .pp-photo-gallery-item img,
-.fl-node-<?php echo $id; ?> .pp-masonry-item img,
-.fl-node-<?php echo $id; ?> .pp-gallery-overlay {
-	<?php if( $settings->photo_border_radius >= 0 ) { ?> border-radius: <?php echo $settings->photo_border_radius; ?>px; <?php } ?>
-}
-
-.fl-node-<?php echo $id; ?> .pp-photo-gallery-item .pp-photo-gallery-content > a {
-	display: block;
-	line-height: 0;
 }
 
 .fl-node-<?php echo $id; ?> .pp-photo-space {
 	width: <?php echo $settings->photo_spacing; ?>%;
 }
 
+<?php if($settings->gallery_layout == 'grid') { ?>
+	<?php if ( $settings->photo_grid_count['desktop'] > 1 ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count['desktop']; ?>n+1){
+	}
+	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count['desktop']; ?>n+0){
+	}
+	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count['desktop']; ?>n){
+		margin-right: 0;
+	}
+	<?php } ?>
+<?php } ?>
+
+.fl-node-<?php echo $id; ?> .pp-gallery-item {
+	width: <?php echo $photo_columns_desktop;?>%;
+	<?php if ( ! $settings->photo_spacing || false === $settings->photo_spacing ) { ?>
+	margin-right: <?php echo $settings->photo_spacing - ( $settings->photo_border != 'none' ? $settings->photo_border_width : 0 ); ?>px;
+	margin-bottom: <?php echo $settings->photo_spacing - ( $settings->photo_border != 'none' ? $settings->photo_border_width : 0 ); ?>px;
+	<?php } else { ?>
+	margin-bottom: <?php echo $settings->photo_spacing; ?>%;
+	<?php } ?>
+	padding-top: <?php echo $settings->photo_padding['top']; ?>px;
+	padding-bottom: <?php echo $settings->photo_padding['bottom']; ?>px;
+	padding-left: <?php echo $settings->photo_padding['left']; ?>px;
+	padding-right: <?php echo $settings->photo_padding['right']; ?>px;
+	border-style: <?php echo $settings->photo_border; ?>;
+	<?php if( $settings->photo_border_width && $settings->photo_border != 'none' ) { ?>border-width: <?php echo $settings->photo_border_width; ?>px; <?php } ?>
+	<?php if( $settings->photo_border_color ) { ?> border-color: #<?php echo $settings->photo_border_color; ?>; <?php } ?>
+	<?php if( $settings->photo_border_radius >= 0 ) { ?> border-radius: <?php echo $settings->photo_border_radius; ?>px; <?php } ?>
+	visibility: hidden;
+}
+
+.fl-node-<?php echo $id; ?> .pp-gallery-item img,
+.fl-node-<?php echo $id; ?> .pp-gallery-overlay {
+	<?php if( $settings->photo_border_radius >= 0 ) { ?> border-radius: <?php echo $settings->photo_border_radius; ?>px; <?php } ?>
+}
+
+.fl-node-<?php echo $id; ?> .pp-gallery-item .pp-photo-gallery-content > a {
+	display: block;
+	line-height: 0;
+}
+
+<?php
+/************************************
+ * Overlay and Caption
+ ************************************/
+?>
+
+<?php if( $settings->overlay_effects != 'none' || $settings->show_captions == 'hover' ) : ?>
+.fl-node-<?php echo $id; ?> .pp-gallery-overlay {
+	background: <?php echo ($settings->overlay_color != '' ) ? pp_hex2rgba('#'.$settings->overlay_color, ($settings->overlay_color_opacity/ 100)) : 'rgba(0,0,0,.5)'; ?>;
+}
+<?php endif; ?>
+.fl-node-<?php echo $id; ?> .pp-gallery-overlay .pp-overlay-icon span {
+	color: #<?php echo $settings->overlay_icon_color; ?>;
+	font-size: <?php echo $settings->overlay_icon_size; ?>px;
+	background-color: #<?php echo $settings->overlay_icon_bg_color; ?>;
+	<?php if( $settings->overlay_icon_radius ) { ?>border-radius: <?php echo $settings->overlay_icon_radius; ?>px;<?php } ?>
+	<?php if( $settings->overlay_icon_padding ) { ?>padding: <?php echo $settings->overlay_icon_padding; ?>px;<?php } ?>
+}
 
 <?php if( $settings->show_captions == 'below' ) { ?>
 .fl-node-<?php echo $id; ?> .pp-photo-gallery-caption {
@@ -133,30 +136,6 @@ div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-bottom-bar {
 }
 <?php } ?>
 
-
-<?php if($settings->click_action == 'lightbox' && !empty($settings->show_captions)) : ?>
-.mfp-gallery img.mfp-img {
-	padding: 0;
-}
-
-.mfp-counter {
-	display: block !important;
-}
-<?php endif; ?>
-
-<?php if( $settings->overlay_effects != 'none' ) : ?>
-.fl-node-<?php echo $id; ?> .pp-gallery-overlay {
-	background: <?php echo ($settings->overlay_color != '' ) ? pp_hex2rgba('#'.$settings->overlay_color, ($settings->overlay_color_opacity/ 100)) : 'rgba(0,0,0,.5)'; ?>;
-}
-<?php endif; ?>
-.fl-node-<?php echo $id; ?> .pp-gallery-overlay .pp-overlay-icon span {
-	color: #<?php echo $settings->overlay_icon_color; ?>;
-	font-size: <?php echo $settings->overlay_icon_size; ?>px;
-	background-color: #<?php echo $settings->overlay_icon_bg_color; ?>;
-	<?php if( $settings->overlay_icon_radius ) { ?>border-radius: <?php echo $settings->overlay_icon_radius; ?>px;<?php } ?>
-	<?php if( $settings->overlay_icon_padding ) { ?>padding: <?php echo $settings->overlay_icon_padding; ?>px;<?php } ?>
-}
-
 .fl-node-<?php echo $id; ?> .pp-photo-gallery-caption,
 .fl-node-<?php echo $id; ?> .pp-gallery-overlay .pp-caption  {
 	<?php if( $settings->caption_font['family'] != 'Default' ) { ?>
@@ -168,6 +147,11 @@ div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-bottom-bar {
 	color: #<?php echo $settings->caption_color; ?>;
 }
 
+<?php
+/************************************
+ * Filters
+ ************************************/
+?>
 .fl-node-<?php echo $id; ?> .pp-gallery-filters {
 	text-align: <?php echo $settings->filter_alignment; ?>;
 	margin-bottom: <?php echo $settings->filter_margin_bottom; ?>px;
@@ -206,6 +190,32 @@ div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-bottom-bar {
 	<?php if( $settings->filter_color['secondary'] ) { ?>color: #<?php echo $settings->filter_color['secondary']; ?>;<?php } ?>
 	border-color: <?php echo ( $settings->filter_border_color['secondary'] ) ? '#' . $settings->filter_border_color['secondary'] : 'transparent'; ?>;
 }
+
+<?php if( $settings->overlay_effects == 'none' ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-gallery-overlay {
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 100%;
+		width: 100%;
+		opacity: 0;
+		transition: none;
+	}
+	.fl-node-<?php echo $id; ?> .pp-gallery-overlay .pp-overlay-inner {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		-ms-transform: translate(-50%, -50%);
+	}
+	.fl-node-<?php echo $id; ?> .pp-photo-gallery-content:hover .pp-gallery-overlay {
+		opacity: 1;
+	}
+	.fl-node-<?php echo $id; ?> .pp-gallery-overlay .pp-caption {
+		line-height: 1;
+	}
+<?php } ?>
 
 <?php if( $settings->overlay_effects == 'fade' ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-gallery-overlay {
@@ -364,8 +374,7 @@ div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-bottom-bar {
 <?php } ?>
 
 <?php if( $settings->hover_effects == 'zoom-in' ) { ?>
-	.fl-node-<?php echo $id; ?> .pp-photo-gallery .pp-photo-gallery-content:hover .pp-gallery-img,
-	.fl-node-<?php echo $id; ?> .pp-masonry-content .pp-photo-gallery-content:hover .pp-gallery-img {
+	.fl-node-<?php echo $id; ?> .pp-photo-gallery .pp-photo-gallery-content:hover .pp-gallery-img {
 		-webkit-transform: scale(1.1);
 		-moz-transform: scale(1.1);
 		-ms-transform: scale(1.1);
@@ -375,8 +384,7 @@ div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-bottom-bar {
 <?php } ?>
 
 <?php if( $settings->hover_effects == 'zoom-out' ) { ?>
-	.fl-node-<?php echo $id; ?> .pp-photo-gallery .pp-photo-gallery-content:hover .pp-gallery-img,
-	.fl-node-<?php echo $id; ?> .pp-masonry-content .pp-photo-gallery-content:hover .pp-gallery-img {
+	.fl-node-<?php echo $id; ?> .pp-photo-gallery .pp-photo-gallery-content:hover .pp-gallery-img {
 		-webkit-transform: scale(1,1);
 		-moz-transform: scale(1,1);
 		-ms-transform: scale(1,1);
@@ -386,17 +394,16 @@ div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-bottom-bar {
 <?php } ?>
 
 @media only screen and ( max-width: 768px ) {
-	.fl-node-<?php echo $id; ?> .pp-photo-gallery-item,
-	.fl-node-<?php echo $id; ?> .pp-masonry-item {
+	.fl-node-<?php echo $id; ?> .pp-gallery-item {
 		width: <?php echo $photo_columns_tablet;?>%;
 	}
-	.fl-node-<?php echo $id; ?> .pp-photo-gallery-item:nth-child(<?php echo $settings->photo_grid_count['desktop']; ?>n+1){
+	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count['desktop']; ?>n+1){
 		clear: none;
 	}
-	.fl-node-<?php echo $id; ?> .pp-photo-gallery-item:nth-child(<?php echo $settings->photo_grid_count['desktop']; ?>n+0){
+	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count['desktop']; ?>n+0){
 		clear: none;
 	}
-	.fl-node-<?php echo $id; ?> .pp-photo-gallery-item:nth-child(<?php echo $settings->photo_grid_count['tablet']; ?>n){
+	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count['tablet']; ?>n){
 		margin-right: 0;
 	}
 	.fl-node-<?php echo $id; ?> .pp-photo-gallery-caption,
@@ -419,6 +426,12 @@ div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-bottom-bar {
 		<?php if ( isset( $settings->filter_toggle_radius ) && $settings->filter_toggle_radius ) { ?>
 			border-radius: <?php echo $settings->filter_toggle_radius; ?>px;
 		<?php } ?>
+	}
+	.fl-node-<?php echo $id; ?> .pp-gallery-filters-toggle .toggle-text {
+		<?php if( $settings->filter_toggle_color ) { ?>color: #<?php echo $settings->filter_toggle_color; ?>;<?php } ?>
+	}
+	.fl-node-<?php echo $id; ?> .pp-gallery-filters-toggle:after {
+		<?php if( $settings->filter_toggle_icon_color ) { ?>color: #<?php echo $settings->filter_toggle_icon_color; ?>;<?php } ?>
 	}
 	.fl-node-<?php echo $id; ?> .pp-gallery-filters {
 		display: none;
@@ -444,21 +457,34 @@ div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-bottom-bar {
 		<?php if ( isset( $settings->filter_color_res ) && ! empty( $settings->filter_color_res['secondary'] ) ) { ?>
 			color: #<?php echo $settings->filter_color_res['secondary']; ?>;
 		<?php } ?>
+		border-color: <?php echo ( $settings->filter_res_border_color['primary'] ) ? '#' . $settings->filter_res_border_color['primary'] : 'transparent'; ?>;
+		<?php if( $settings->filter_res_border != 'none') { ?>
+		border-top-width: <?php echo $settings->filter_res_border_width['top']; ?>px;
+		border-bottom-width: <?php echo $settings->filter_res_border_width['bottom']; ?>px;
+		border-left-width: <?php echo $settings->filter_res_border_width['left']; ?>px;
+		border-right-width: <?php echo $settings->filter_res_border_width['right']; ?>px;
+		<?php } ?>
+	}
+
+	.fl-node-<?php echo $id; ?> .pp-gallery-filters li:hover,
+	.fl-node-<?php echo $id; ?> .pp-gallery-filters li.pp-filter-active {
+		background: <?php echo ($settings->filter_res_background['secondary']) ? '#'.$settings->filter_res_background['secondary'] : 'transparent'; ?>;
+		<?php if( $settings->filter_res_color['secondary'] ) { ?>color: #<?php echo $settings->filter_res_color['secondary']; ?>;<?php } ?>
+		border-color: <?php echo ( $settings->filter_res_border_color['secondary'] ) ? '#' . $settings->filter_res_border_color['secondary'] : 'transparent'; ?>;
 	}
 }
 
 @media only screen and ( max-width: 480px ) {
-	.fl-node-<?php echo $id; ?> .pp-photo-gallery-item,
-	.fl-node-<?php echo $id; ?> .pp-masonry-item {
+	.fl-node-<?php echo $id; ?> .pp-gallery-item {
 		width: <?php echo $photo_columns_mobile;?>%;
 	}
-	.fl-node-<?php echo $id; ?> .pp-photo-gallery-item:nth-child(<?php echo $settings->photo_grid_count['tablet']; ?>n+1){
+	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count['tablet']; ?>n+1){
 		clear: none;
 	}
-	.fl-node-<?php echo $id; ?> .pp-photo-gallery-item:nth-child(<?php echo $settings->photo_grid_count['tablet']; ?>n+0){
+	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count['tablet']; ?>n+0){
 		clear: none;
 	}
-	.fl-node-<?php echo $id; ?> .pp-photo-gallery-item:nth-child(<?php echo $settings->photo_grid_count['mobile']; ?>n){
+	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count['mobile']; ?>n){
 		margin-right: 0;
 	}
 	.fl-node-<?php echo $id; ?> .pp-photo-gallery-caption,

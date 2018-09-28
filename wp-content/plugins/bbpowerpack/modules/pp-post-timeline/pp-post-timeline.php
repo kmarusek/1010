@@ -26,8 +26,8 @@ class PPPostTimelineModule extends FLBuilderModule {
 			'icon'				=> 'schedule.svg',
         ));
 
-		$this->add_css( 'font-awesome' );
-		$this->add_js( 'jquery-imagesloaded' );
+		$this->add_css( BB_POWERPACK()->fa_css );
+		$this->add_js( 'imagesloaded' );
 		$this->add_css( 'jquery-slick' );
 		$this->add_css( 'jquery-slick-theme' );
 		$this->add_js( 'jquery-slick' );

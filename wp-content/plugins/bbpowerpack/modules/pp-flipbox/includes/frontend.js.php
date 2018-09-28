@@ -1,26 +1,37 @@
 (function($) {
 
-    $(window).load(function() {
-        $('.fl-node-<?php echo $id; ?> .pp-flipbox-container').mouseenter(function() {
-            $(this).addClass('pp-hover');
-            $(this).click(function() {
-                $(this).toggleClass('pp-hover');
-            });
-        });
-        $('.fl-node-<?php echo $id; ?> .pp-flipbox-container').mouseleave(function() {
-            $(this).removeClass('pp-hover');
-        });
+	function is_touch_device() {
+		return (('ontouchstart' in window)
+			|| (navigator.MaxTouchPoints > 0)
+			|| (navigator.msMaxTouchPoints > 0));
+	}
 
-        <?php if ( $settings->box_height != 'custom' ) : ?>
+	$(window).load(function() {
+		if ( ! is_touch_device() ) {
+			$('.fl-node-<?php echo $id; ?> .pp-flipbox-container').on('mouseenter', function(e) {
+				e.preventDefault();
+				$(this).addClass('pp-hover');
+			});
+			$('.fl-node-<?php echo $id; ?> .pp-flipbox-container').on('mouseleave', function(e) {
+				e.preventDefault();
+				$(this).removeClass('pp-hover');
+			});
+		}
 
-        if( $('.fl-node-<?php echo $id; ?> .pp-flipbox-front').outerHeight() > $('.fl-node-<?php echo $id; ?> .pp-flipbox-back').outerHeight() ) {
-            $('.fl-node-<?php echo $id; ?> .pp-flipbox-back').css( 'height', $('.fl-node-<?php echo $id; ?> .pp-flipbox-front').outerHeight() + 'px' );
-        }
-        else {
-            $('.fl-node-<?php echo $id; ?> .pp-flipbox-front').css( 'height', $('.fl-node-<?php echo $id; ?> .pp-flipbox-back').outerHeight() + 'px' );
-        }
+		$('.fl-node-<?php echo $id; ?> .pp-flipbox-container').on('click', function(e) {
+			$(this).toggleClass('pp-hover');
+		});
 
-        <?php endif; ?>
-    });
+		<?php if ( $settings->box_height != 'custom' ) : ?>
+
+		if( $('.fl-node-<?php echo $id; ?> .pp-flipbox-front').outerHeight() > $('.fl-node-<?php echo $id; ?> .pp-flipbox-back').outerHeight() ) {
+			$('.fl-node-<?php echo $id; ?> .pp-flipbox-back').css( 'height', $('.fl-node-<?php echo $id; ?> .pp-flipbox-front').outerHeight() + 'px' );
+		}
+		else {
+			$('.fl-node-<?php echo $id; ?> .pp-flipbox-front').css( 'height', $('.fl-node-<?php echo $id; ?> .pp-flipbox-back').outerHeight() + 'px' );
+		}
+
+		<?php endif; ?>
+	});
 
 })(jQuery);

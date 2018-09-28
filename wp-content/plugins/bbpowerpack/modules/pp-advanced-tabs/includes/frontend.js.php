@@ -3,7 +3,8 @@
 	$(function() {
 
 		new PPAdvancedTabs({
-			id: '<?php echo $id ?>'
+			id: '<?php echo $id ?>',
+			responsiveClosed: <?php echo ( isset( $settings->responsive_closed ) && 'yes' == $settings->responsive_closed ) ? 'true' : 'false'; ?>,
 		});
 
 		$('.fl-node-<?php echo $id; ?> .pp-tabs-style-2 .pp-tabs-label.pp-tab-active').prev().addClass('pp-no-border');

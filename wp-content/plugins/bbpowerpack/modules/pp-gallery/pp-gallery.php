@@ -3,11 +3,10 @@
  * @class PPGalleryModule
  */
 class PPGalleryModule extends FLBuilderModule {
+	public $photos = array();
+	public $current_photos = array();
 
 	/**
-	 * Constructor function for the module. You must pass the
-	 * name, description, dir and url in an array to the parent class.
-	 *
 	 * @method __construct
 	 */
 	public function __construct()
@@ -22,8 +21,10 @@ class PPGalleryModule extends FLBuilderModule {
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
             'partial_refresh' => true
-        ) );
-    }
+		) );
+		
+		add_action( 'wp', array( $this, 'ajax_get_gallery_photos' ) );
+	}
 
 	/**
 	 * @method enqueue_scripts
@@ -53,6 +54,63 @@ class PPGalleryModule extends FLBuilderModule {
 		return $settings;
 	}
 
+	public function ajax_get_gallery_photos()
+	{
+		if ( ! isset( $_POST['pp_action'] ) || 'pp_gallery_get_photos' != $_POST['pp_action'] ) {
+			return;
+		}
+
+		// Tell WordPress this is an AJAX request.
+		if ( ! defined( 'DOING_AJAX' ) ) {
+			define( 'DOING_AJAX', true );
+		}
+
+		$response = array(
+			'error'	=> false,
+			'data'	=> ''
+		);
+
+		$node_id 			= isset( $_POST['node_id'] ) ? sanitize_text_field( $_POST['node_id'] ) : false;
+		$template_id    	= isset( $_POST['template_id'] ) ? sanitize_text_field( $_POST['template_id'] ) : false;
+        $template_node_id   = isset( $_POST['template_node_id'] ) ? sanitize_text_field( $_POST['template_node_id'] ) : false;
+
+		if ( $node_id ) {
+			$module = FLBuilderModel::get_module( $node_id );
+
+			// Get the module settings.
+			if ( $template_id ) {
+				$post_id  = FLBuilderModel::get_node_template_post_id( $template_id );
+				$data	  = FLBuilderModel::get_layout_data( 'published', $post_id );
+				$settings = $data[ $template_node_id ]->settings;
+			} else {
+				$settings = $module->settings;
+			}
+
+			if ( ! isset( $this->settings ) ) {
+				$this->settings = $settings;
+			}
+			elseif ( empty( $this->settings ) ) {
+				$this->settings = $settings;
+			}
+
+			if ( empty( $this->photos ) ) {
+				$this->get_photos();
+			}
+
+			$item_class = $module->get_item_class();
+
+			ob_start();
+			foreach ( $this->photos as $photo ) {
+				include $module->dir . 'includes/layout.php';
+			}
+			$response['data'] = ob_get_clean();
+		} else {
+			$response['error'] = true;
+		}
+
+		echo json_encode( $response ); die;
+	}
+
 	/**
 	 * @method get_photos
 	 */
@@ -60,9 +118,9 @@ class PPGalleryModule extends FLBuilderModule {
 	{
 		$default_order 	= $this->get_wordpress_photos();
 		$photos_id 		= array();
-		// WordPress
+		$settings 		= $this->settings;
 
-		if ( $this->settings->photo_order == 'random' && is_array( $default_order )) {
+		if ( $settings->photo_order == 'random' && is_array( $default_order ) ) {
 
 			$keys = array_keys( $default_order );
 			shuffle($keys);
@@ -70,13 +128,38 @@ class PPGalleryModule extends FLBuilderModule {
 			foreach ($keys as $key) {
 				$photos_id[$key] = $default_order[$key];
 			}
-
-		}else{
+		} else {
 			$photos_id = $default_order;
 		}
 
-		return $photos_id;
+		$this->photos = $photos_id;
 
+		if ( isset( $settings->pagination ) && 'none' != $settings->pagination ) {
+			if ( empty( $settings->images_per_page ) ) {
+				return $this->photos;
+			}
+
+			$per_page = (int)$settings->images_per_page;
+
+			if ( $per_page >= count( $photos_id ) ) {
+				return $this->photos;
+			}
+
+			$count = 0;
+
+			foreach ( $photos_id as $photo_id => $photo ) {
+				if ( $count == $per_page ) {
+					break;
+				} else {
+					$this->current_photos[ $photo_id ] = $photo;
+					$count++;
+				}
+			}
+
+			return $this->current_photos;
+		}
+
+		return $this->photos;
 	}
 
 	/**
@@ -136,10 +219,10 @@ class PPGalleryModule extends FLBuilderModule {
 
 				// Photo data object
 				$data->id = $id;
-				$data->alt = $photo->alt;
-				$data->caption = $photo->caption;
-				$data->description = $photo->description;
-				$data->title = $photo->title;
+				$data->alt = htmlspecialchars( $photo->alt );
+				$data->caption = htmlspecialchars( $photo->caption );
+				$data->description = htmlspecialchars( $photo->description );
+				$data->title = htmlspecialchars( $photo->title );
 
 				// Collage photo src
 				if($this->settings->gallery_layout == 'masonry') {
@@ -184,15 +267,23 @@ class PPGalleryModule extends FLBuilderModule {
 				/* Add Custom field attachment data to object */
 	 			$cta_link = get_post_meta( $id, 'gallery_external_link', true );
 				if(!empty($cta_link) && $this->settings->click_action == 'custom-link' ) {
-		 			$data->cta_link = $cta_link;
+		 			$data->cta_link = esc_url( $cta_link );
 				}
 
 				$photos[$id] = $data;
 			}
-
 		}
 
 		return $photos;
+	}
+
+	public function get_item_class()
+	{
+		$item_class = 'pp-photo-gallery-item';
+		$item_class .= ( 'masonry' == $this->settings->gallery_layout ) ? ' pp-gallery-masonry-item' : '';
+		$item_class .= ( 'justified' == $this->settings->gallery_layout ) ? ' pp-gallery-justified-item' : '';
+
+		return $item_class;
 	}
 }
 
@@ -271,6 +362,11 @@ FLBuilder::register_module('PPGalleryModule', array(
 						),
 						'help'          => __('The caption pulls from whatever text you put in the caption area in the media manager for each image.', 'bb-powerpack')
 					),
+                )
+			),
+			'click_action'	=> array(
+				'title'			=> __('Click Action', 'bb-powerpack'),
+				'fields'		=> array(
 					'click_action'  => array(
 						'type'          => 'pp-switch',
 						'label'         => __('Click Action', 'bb-powerpack'),
@@ -282,7 +378,7 @@ FLBuilder::register_module('PPGalleryModule', array(
 						),
 						'toggle'	=> array(
 							'lightbox'	=> array(
-								'fields'	=> array('show_lightbox_thumb', 'lightbox_image_size'),
+								'fields'	=> array('show_lightbox_thumb', 'lightbox_image_size', 'lightbox_caption'),
 								'sections'	=> array('lightbox_style'),
 							),
 							'custom-link'	=> array(
@@ -291,11 +387,12 @@ FLBuilder::register_module('PPGalleryModule', array(
 						),
 						'preview'       => array(
 							'type'          => 'none'
-						)
+						),
+						'help'		=> __('Custom URL field is available in media uploader modal where you have added the images.', 'bb-powerpack')
 					),
 					'show_lightbox_thumb' => array(
 						'type'		=> 'pp-switch',
-						'label'		=> __('Show Thumbnail Navigation?', 'bb-powerpack'),
+						'label'		=> __('Show Thumbnail Navigation in Lightbox?', 'bb-powerpack'),
 						'default'	=> 'no',
 						'options'	=> array(
 							'yes'		=> __('Yes', 'bb-powerpack'),
@@ -314,6 +411,15 @@ FLBuilder::register_module('PPGalleryModule', array(
 							'full'		=> __('Full', 'bb-powerpack')
 						)
 					),
+					'lightbox_caption'	=> array(
+						'type'		=> 'pp-switch',
+						'label'		=> __('Show Caption in Lightbox', 'bb-powerpack'),
+						'default'	=> 'yes',
+						'options'	=> array(
+							'yes'		=> __('Yes', 'bb-powerpack'),
+							'no'		=> __('No', 'bb-powerpack')
+						)
+					),
 					'custom_link_target' => array(
 						'type'		=> 'select',
 						'label'		=> __('Link Target', 'bb-powerpack'),
@@ -326,8 +432,8 @@ FLBuilder::register_module('PPGalleryModule', array(
 							'type'		=> 'none'
 						)
 					)
-                )
-            ),
+				)
+			),
 			'overlay_settings'	=> array(
 				'title'	=> __( 'Overlay', 'bb-powerpack' ),
 				'fields'	=> array(
@@ -1083,6 +1189,114 @@ FLBuilder::register_module('PPGalleryModule', array(
 							'property'	=> 'color'
 						)
 			        ),
+				)
+			)
+		)
+	),
+	'pagination'	=> array(
+		'title'			=> __('Pagination', 'bb-powerpack'),
+		'sections'		=> array(
+			'pagination'	=> array(
+				'title'			=> __('General', 'bb-powerpack'),
+				'fields'		=> array(
+					'pagination'	=> array(
+						'type'			=> 'select',
+						'label'			=> __('Pagination', 'bb-powerpack'),
+						'default'		=> 'none',
+						'options'		=> array(
+							'none'			=> __('None', 'bb-powerpack'),
+							'load_more'		=> __('Load More Button', 'bb-powerpack')
+						),
+						'toggle'		=> array(
+							'load_more'		=> array(
+								'fields'		=> array( 'images_per_page', 'load_more_text' )
+							)
+						)
+					),
+					'images_per_page'	=> array(
+						'type'				=> 'text',
+						'label'				=> __('Images Per Page', 'bb-powerpack'),
+						'default'			=> '6',
+						'size'				=> '5'
+					),
+					'load_more_text'	=> array(
+						'type'				=> 'text',
+						'label'				=> __('Load More Button Text', 'bb-powerpack'),
+						'default'			=> __('Load More', 'bb-powerpack'),
+					)
+				)
+			),
+			'pagination_button_style'	=> array(
+				'title'				=> __('Button Style', 'bb-powerpack'),
+				'fields'			=> PP_Module_Fields::get_button_style_fields(
+					// field prefix
+					'load_more',
+					// data
+					array(
+						'bg_color'	=> array(
+							'default'	=> 'eee',
+							'preview'	=> array(
+								'type'		=> 'css',
+								'selector'	=> '.pp-gallery-pagination .pp-gallery-load-more',
+								'property'	=> 'background-color'
+							)
+						),
+						'text_color' => array(
+							'preview'	=> array(
+								'type'		=> 'css',
+								'selector'	=> '.pp-gallery-pagination .pp-gallery-load-more',
+								'property'	=> 'color'
+							)
+						),
+						'border_style' => array(
+							'preview'	=> array(
+								'type'		=> 'css',
+								'selector'	=> '.pp-gallery-pagination .pp-gallery-load-more',
+								'property'	=> 'border-style'
+							)
+						),
+						'border_width' => array(
+							'preview'	=> array(
+								'type'		=> 'css',
+								'selector'	=> '.pp-gallery-pagination .pp-gallery-load-more',
+								'property'	=> 'border-width',
+								'unit'		=> 'px'
+							)
+						),
+						'border_color' => array(
+							'preview'	=> array(
+								'type'		=> 'css',
+								'selector'	=> '.pp-gallery-pagination .pp-gallery-load-more',
+								'property'	=> 'border-color'
+							)
+						),
+						'border_radius' => array(
+							'preview'	=> array(
+								'type'		=> 'css',
+								'selector'	=> '.pp-gallery-pagination .pp-gallery-load-more',
+								'property'	=> 'border-radius',
+								'unit'		=> 'px'
+							)
+						),
+						'margin_top' => array(
+							'preview'	=> array(
+								'type'		=> 'css',
+								'selector'	=> '.pp-gallery-pagination .pp-gallery-load-more',
+								'property'	=> 'margin-top',
+								'unit'		=> 'px'
+							)
+						),
+						'padding'	=> array(
+							'default'	=> '10'
+						),
+						'alignment'	=> array(
+							'preview'	=> array(
+								'type'		=> 'css',
+								'selector'	=> '.pp-gallery-pagination',
+								'property'	=> 'text-align'
+							)
+						)
+					)
 				)
 			)
 		)

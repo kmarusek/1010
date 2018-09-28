@@ -87,7 +87,12 @@
 				<ul class="pp-pricing-table-features">
 					<?php if ( ! empty( $pricingColumn->features ) ) : $item_count = 0; ?>
 						<?php foreach ( $pricingColumn->features as $feature ) : $item_count++; ?>
-						<li class="pp-pricing-table-item-<?php echo $item_count; ?>"><?php echo trim( $feature ); ?></li>
+						<li class="pp-pricing-table-item-<?php echo $item_count; ?>">
+							<?php if ( ! empty( $settings->matrix_items ) && isset( $settings->matrix_items[ $item_count - 1 ] ) ) { ?>
+							<span class="pp-pricing-table-item-label"><?php echo trim( $settings->matrix_items[ $item_count - 1 ] ); ?></span>
+							<?php } ?>
+							<?php echo trim( $feature ); ?>
+						</li>
 						<?php endforeach; ?>
 					<?php endif; ?>
 				</ul>

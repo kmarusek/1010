@@ -27,19 +27,23 @@ if ( $settings->post_type == 'product' ) {
 }
 
 ?>
-<div <?php post_class('pp-content-post pp-content-grid-post '. 'pp-grid-' . $settings->post_grid_style_select); ?> itemscope itemtype="<?php PPContentGridModule::schema_itemtype(); ?>">
-
-	<?php if( $settings->more_link_type == 'box' && ('product' != $settings->post_type || 'download' != $settings->post_type )) { ?>
-		<a class="pp-post-link" href="<?php the_permalink(); ?>"></a>
-	<?php } ?>
+<div <?php post_class('pp-content-post pp-content-grid-post '. 'pp-grid-' . $settings->post_grid_style_select); ?> itemscope itemtype="<?php PPContentGridModule::schema_itemtype(); ?>" data-id="<?php echo $post_id; ?>">
 
 	<?php PPContentGridModule::schema_meta(); ?>
 
-	<?php if( 'style-1' == $settings->post_grid_style_select ) { ?>
+	<?php if ( 'style-9' == $settings->post_grid_style_select ) {
+		include $module_dir . 'includes/post-tile.php';
+	} else { ?>
+
+	<?php if ( $settings->more_link_type == 'box' && ('product' != $settings->post_type || 'download' != $settings->post_type ) ) { ?>
+		<a class="pp-post-link" href="<?php echo $permalink; ?>"></a>
+	<?php } ?>
+
+	<?php if ( 'style-1' == $settings->post_grid_style_select ) { ?>
 
 		<<?php echo $settings->title_tag; ?> class="pp-content-grid-title pp-post-title" itemprop="headline">
 			<?php if( $settings->more_link_type == 'button' || $settings->more_link_type == 'title' || $settings->more_link_type == 'title_thumb' ) { ?>
-				<a href="<?php the_permalink(); ?>">
+				<a href="<?php echo $permalink; ?>">
 			<?php } ?>
 					<?php the_title(); ?>
 			<?php if( $settings->more_link_type == 'button' || $settings->more_link_type == 'title' || $settings->more_link_type == 'title_thumb' ) { ?>
@@ -60,8 +64,8 @@ if ( $settings->post_type == 'product' ) {
 				?>
 				</span>
 			<?php endif; ?>
-			<?php if($settings->show_date == 'yes' && 'style-5' != $settings->post_grid_style_select ) : ?>
-				<?php if($settings->show_author == 'yes' ) : ?>
+			<?php if ( $settings->show_date == 'yes' ) : ?>
+				<?php if ( $settings->show_author == 'yes' ) : ?>
 					<span> <?php echo $settings->meta_separator; ?> </span>
 				<?php endif; ?>
 				<span class="pp-content-grid-date">
@@ -73,11 +77,13 @@ if ( $settings->post_type == 'product' ) {
 
 	<?php } ?>
 
-	<?php if ( $settings->show_image == 'yes' ) : ?>
+	<?php if ( $settings->show_image == 'yes' ) : // Featured Image ?>
 		<?php include $module_dir . 'includes/templates/post-image.php'; ?>
 	<?php endif; ?>
 
 	<div class="pp-content-grid-inner pp-content-body clearfix">
+		<?php do_action( 'pp_cg_post_body_open', $post_id, $settings ); ?>
+
 		<?php if('style-5' == $settings->post_grid_style_select && 'yes' == $settings->show_date) { ?>
 		<div class="pp-content-post-date pp-post-meta">
 			<span class="pp-post-day"><?php echo get_the_date('d'); ?></span>
@@ -89,7 +95,7 @@ if ( $settings->post_type == 'product' ) {
 			<?php if( 'style-1' != $settings->post_grid_style_select && 'style-4' != $settings->post_grid_style_select ) { ?>
 				<<?php echo $settings->title_tag; ?> class="pp-content-grid-title pp-post-title" itemprop="headline">
 					<?php if( $settings->more_link_type == 'button' || $settings->more_link_type == 'title' || $settings->more_link_type == 'title_thumb' ) { ?>
-						<a href="<?php the_permalink(); ?>">
+						<a href="<?php echo $permalink; ?>">
 					<?php } ?>
 							<?php the_title(); ?>
 					<?php if( $settings->more_link_type == 'button' || $settings->more_link_type == 'title' || $settings->more_link_type == 'title_thumb' ) { ?>
@@ -157,13 +163,13 @@ if ( $settings->post_type == 'product' ) {
 				<?php include $module_dir . 'includes/templates/event-content.php'; ?>
 			<?php } ?>
 
-			<?php do_action( 'pp_cg_before_post_content', get_the_ID() ); ?>
+			<?php do_action( 'pp_cg_before_post_content', $post_id ); ?>
 
 			<?php if($settings->show_content == 'yes') : ?>
 				<?php include $module_dir . 'includes/templates/post-content.php'; ?>
 			<?php endif; ?>
 
-			<?php do_action( 'pp_cg_after_post_content', get_the_ID() ); ?>
+			<?php do_action( 'pp_cg_after_post_content', $post_id ); ?>
 
 			<?php if( $settings->more_link_text != '' && $settings->more_link_type == 'button' && 'product' != $settings->post_type && 'download' != $settings->post_type ) :
 				include $module_dir . 'includes/templates/custom-button.php';
@@ -189,5 +195,8 @@ if ( $settings->post_type == 'product' ) {
 		<?php if(($settings->show_categories == 'yes' && taxonomy_exists($settings->post_taxonomies) && !empty($terms_list)) && ('style-3' != $settings->post_grid_style_select && 'style-5' != $settings->post_grid_style_select && 'style-6' != $settings->post_grid_style_select) ) : ?>
 			<?php include $module_dir . 'includes/templates/post-meta.php'; ?>
 		<?php endif; ?>
+
+		<?php do_action( 'pp_cg_post_body_close', $post_id, $settings ); ?>
 	</div>
+	<?php } ?>
 </div>

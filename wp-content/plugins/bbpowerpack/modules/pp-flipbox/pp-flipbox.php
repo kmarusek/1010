@@ -31,7 +31,7 @@ class PPFlipBoxModule extends FLBuilderModule {
          * registered or to register and enqueue your own.
          */
         // Already registered
-		$this->add_css('font-awesome');
+		$this->add_css( BB_POWERPACK()->fa_css );
     }
 
     /**

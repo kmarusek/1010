@@ -30,6 +30,14 @@ final class BB_PowerPack_Templates_Lib {
 	static public $filesystem;
 
 	/**
+     * Holds the upload dir path.
+     *
+     * @since 1.1.8
+     * @var array
+     */
+	public static $upload_dir;
+
+	/**
      * Initialize the class.
      *
      * @since 2.6.0
@@ -83,12 +91,44 @@ final class BB_PowerPack_Templates_Lib {
      */
 	static public function init_templates_data()
 	{
-		if ( ! is_admin() ) {
-			return;
-		}
+		self::$upload_dir = BB_PowerPack::$upload_dir;
 
-		self::download_templates_data();
-		self::refresh_templates_data();
+		if ( is_admin() && isset( $_GET['page'] ) && 'pp-settings' == $_GET['page'] ) {
+			self::download_templates_data();
+			self::refresh_templates_data();
+		} else {
+			$row_templates 	= self::get_enabled_templates( 'row' );
+
+			if ( is_array( $row_templates ) && method_exists( 'FLBuilder', 'register_templates' ) ) {
+				$row_group = BB_PowerPack_Admin_Settings::get_option( 'ppwl_rt_label' );
+
+				foreach ( $row_templates as $template ) {
+					if ( file_exists( self::$upload_dir['path'] . $template . '.dat' ) ) {
+						// Template filename should be the same as the category name.
+						FLBuilder::register_templates( self::$upload_dir['path'] . $template . '.dat', array(
+							'group'	=> $row_group
+						) );
+					}
+				}
+			}
+	
+			$page_templates = self::get_enabled_templates( 'page' );
+	
+			if ( is_array( $page_templates ) && method_exists( 'FLBuilder', 'register_templates' ) ) {
+				$page_group = BB_PowerPack_Admin_Settings::get_option( 'ppwl_tmpcat_label' );
+
+				foreach ( $page_templates as $template ) {
+	
+					if ( file_exists( self::$upload_dir['path'] . $template . '.dat' ) ) {
+						// Template filename should be the same as the category name.
+						FLBuilder::register_templates( self::$upload_dir['path'] . $template . '.dat', array(
+							'group'	=> $page_group
+						) );
+					}
+	
+				}
+			}
+		}
 	}
 
 	/**
@@ -100,20 +140,19 @@ final class BB_PowerPack_Templates_Lib {
      */
 	static public function get_templates_data( $type )
 	{
-		$path = BB_PowerPack::$upload_dir['path'];
+		$path = self::$upload_dir['path'];
 		$file = $path . $type . '-templates.json';
 
 		if ( ! file_exists( $file ) ) {
-			self::download_template_data();
+			self::download_templates_data();
 		}
 
 		$data = @file_get_contents( $file );
 
 		if ( $data ) {
 			$data = json_decode( $data, true );
+			BB_PowerPack_Admin_Settings::$templates_count[$type] = count( $data );
 		}
-
-		BB_PowerPack_Admin_Settings::$templates_count[$type] = count( $data );
 
 		return $data;
 	}
@@ -143,12 +182,12 @@ final class BB_PowerPack_Templates_Lib {
      */
 	static private function download_templates_data( $request = '' )
 	{
-		if ( 'new' != $request && file_exists( BB_PowerPack::$upload_dir['path'] . 'page-templates.json' ) && file_exists( BB_PowerPack::$upload_dir['path'] . 'row-templates.json' ) ) {
+		if ( 'new' != $request && file_exists( self::$upload_dir['path'] . 'page-templates.json' ) && file_exists( self::$upload_dir['path'] . 'row-templates.json' ) ) {
 			return;
 		}
 	
-		$page 	= self::download_templates_json( self::$remote_urls['page'], BB_PowerPack::$upload_dir['path'], 'page-templates.json' );
-		$row 	= self::download_templates_json( self::$remote_urls['row'], BB_PowerPack::$upload_dir['path'], 'row-templates.json' );
+		$page 	= self::download_templates_json( self::$remote_urls['page'], self::$upload_dir['path'], 'page-templates.json' );
+		$row 	= self::download_templates_json( self::$remote_urls['row'], self::$upload_dir['path'], 'row-templates.json' );
 	}
 
 	/**
@@ -180,6 +219,7 @@ final class BB_PowerPack_Templates_Lib {
 
 		if ( is_wp_error( $response ) ) {
 			pp_set_error( 'fetch_error' );
+			@error_log( 'bb-powerpack: ' . $response->get_error_message() );
 			return $downloaded;
 		}
 
@@ -270,7 +310,7 @@ final class BB_PowerPack_Templates_Lib {
         $url = pp_templates_src( $type, $cat );
 
         // Get the upload dir path.
-        $path = BB_PowerPack::$upload_dir['path'];
+        $path = self::$upload_dir['path'];
 
         // Downloads the template.
         $response = self::download_template( $url, $path );

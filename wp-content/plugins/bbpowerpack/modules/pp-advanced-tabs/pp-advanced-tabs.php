@@ -23,73 +23,7 @@ class PPAdvancedTabsModule extends FLBuilderModule {
 			'icon'				=> 'layout.svg',
 		));
 
-		$this->add_css('font-awesome');
-	}
-
-	/**
-	 * Get saved templates.
-	 *
-	 * @since 1.4
-	 */
-	public static function get_saved_templates( $type = 'layout' )
-    {
-        if ( is_admin() && isset( $_GET['page'] ) && 'pp-settings' == $_GET['page'] ) {
-            return;
-        }
-
-        $posts = get_posts( array(
-			'post_type' 		=> 'fl-builder-template',
-			'orderby' 			=> 'title',
-			'order' 			=> 'ASC',
-			'posts_per_page' 	=> '-1',
-			'tax_query'			=> array(
-				array(
-					'taxonomy'		=> 'fl-builder-template-type',
-					'field'			=> 'slug',
-					'terms'			=> $type
-				)
-			)
-		) );
-
-		$templates = array();
-
-        if ( count( $posts ) ) {
-            foreach ( $posts as $post ) {
-                $templates[$post->ID] = $post->post_title;
-            }
-        }
-
-        return $templates;
-    }
-
-	/**
-	 * Get saved modules.
-	 *
-	 * @since 1.4
-	 */
-	public static function get_saved_modules()
-	{
-		return self::get_saved_templates( 'module' );
-	}
-
-	/**
-	 * Get saved rows.
-	 *
-	 * @since 1.4
-	 */
-	public static function get_saved_rows()
-	{
-		return self::get_saved_templates( 'row' );
-	}
-
-	/**
-	 * Get saved layouts.
-	 *
-	 * @since 1.4
-	 */
-	public static function get_saved_layouts()
-	{
-		return self::get_saved_templates( 'layout' );
+		$this->add_css(BB_POWERPACK()->fa_css);
 	}
 
 	/**
@@ -227,6 +161,15 @@ FLBuilder::register_module('PPAdvancedTabsModule', array(
 						'default'		=> 1,
 						'help'			=> __('Enter the index number of the tab that will be appeared as default active tab on page load.', 'bb-powerpack')
 					),
+					'responsive_closed'	=> array(
+						'type'				=> 'pp-switch',
+						'label'				=> __('Responsive Closed?', 'bb-powerpack'),
+						'default'			=> 'no',
+						'options'			=> array(
+							'yes'				=> __('Yes', 'bb-powerpack'),
+							'no'				=> __('No', 'bb-powerpack')
+						)
+					)
 				)
 			),
 			'label_style'       => array(
@@ -961,17 +904,17 @@ FLBuilder::register_settings_form('tab_items_form', array(
 						'content_module'	=> array(
 							'type'				=> 'select',
 							'label'				=> __('Saved Module', 'bb-powerpack'),
-							'options'			=> PPAdvancedTabsModule::get_saved_modules()
+							'options'			=> array()
 						),
 						'content_row'		=> array(
 							'type'				=> 'select',
 							'label'				=> __('Saved Row', 'bb-powerpack'),
-							'options'			=> PPAdvancedTabsModule::get_saved_rows()
+							'options'			=> array()
 						),
 						'content_layout'	=> array(
 							'type'				=> 'select',
 							'label'				=> __('Saved Layout', 'bb-powerpack'),
-							'options'			=> PPAdvancedTabsModule::get_saved_layouts()
+							'options'			=> array()
 						),
 					)
 				)

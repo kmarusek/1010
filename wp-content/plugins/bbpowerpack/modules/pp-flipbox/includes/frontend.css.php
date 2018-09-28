@@ -145,7 +145,6 @@
 	    -ms-transform: rotateY(-180deg);
 	    -o-transform: rotateY(-180deg);
 	    transform: rotateY(-180deg);
-		z-index: -1;
 	}
 	.fl-node-<?php echo $id; ?> .pp-hover .pp-flipbox-front {
 		-webkit-transform: rotateY(180deg);
@@ -177,7 +176,6 @@
 	    -ms-transform: rotateY(180deg);
 	    -o-transform: rotateY(180deg);
 	    transform: rotateY(180deg);
-		z-index: -1;
 	}
 	.fl-node-<?php echo $id; ?> .pp-hover .pp-flipbox-front {
 		-webkit-transform: rotateY(-180deg);
@@ -209,7 +207,6 @@
 	    -ms-transform: rotateX(180deg);
 	    -o-transform: rotateX(180deg);
 	    transform: rotateX(180deg);
-		z-index: -1;
 	}
 	.fl-node-<?php echo $id; ?> .pp-hover .pp-flipbox-front {
 		-webkit-transform: rotateX(-180deg);
@@ -241,7 +238,6 @@
 	    -ms-transform: rotateX(-180deg);
 	    -o-transform: rotateX(-180deg);
 	    transform: rotateX(-180deg);
-		z-index: -1;
 	}
 	.fl-node-<?php echo $id; ?> .pp-hover .pp-flipbox-front {
 		-webkit-transform: rotateX(180deg);

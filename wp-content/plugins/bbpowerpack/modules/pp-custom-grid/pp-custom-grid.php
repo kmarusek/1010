@@ -33,10 +33,10 @@ class PPCustomGridModule extends FLBuilderModule {
 	 */
 	public function enqueue_scripts()
 	{
-		$this->add_js('jquery-imagesloaded');
+		$this->add_js('imagesloaded');
 
 		if(FLBuilderModel::is_builder_active()) {
-			$this->add_css('font-awesome');
+			$this->add_css(BB_POWERPACK()->fa_css);
 		}
 		if(FLBuilderModel::is_builder_active() || ! $this->settings->match_height) {
 			$this->add_js('jquery-masonry');
@@ -135,72 +135,22 @@ class PPCustomGridModule extends FLBuilderModule {
 	 * Renders the schema structured data for the current
 	 * post in the loop.
 	 *
-	 * @since 1.7.4
 	 * @return void
 	 */
 	static public function schema_meta()
 	{
-		// General Schema Meta
-		echo '<meta itemscope itemprop="mainEntityOfPage" itemtype="http://schema.org/WebPage" itemid="' . esc_url( get_permalink() ) . '" content="' . the_title_attribute( array('echo' => false) ) . '" />';
-		echo '<meta itemprop="datePublished" content="' . get_the_time('Y-m-d') . '" />';
-		echo '<meta itemprop="dateModified" content="' . get_the_modified_date('Y-m-d') . '" />';
-
-		// Publisher Schema Meta
-		echo '<div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">';
-		echo '<meta itemprop="name" content="' . get_bloginfo( 'name' ) . '">';
-
-		if ( class_exists( 'FLTheme' ) && 'image' == FLTheme::get_setting( 'fl-logo-type' ) ) {
-			echo '<div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">';
-			echo '<meta itemprop="url" content="' . FLTheme::get_setting( 'fl-logo-image' ) . '">';
-			echo '</div>';
-		}
-
-		echo '</div>';
-
-		// Author Schema Meta
-		echo '<div itemscope itemprop="author" itemtype="http://schema.org/Person">';
-		echo '<meta itemprop="url" content="' . get_author_posts_url( get_the_author_meta( 'ID' ) ) . '" />';
-		echo '<meta itemprop="name" content="' . get_the_author_meta( 'display_name', get_the_author_meta( 'ID' ) ) . '" />';
-		echo '</div>';
-
-		// Image Schema Meta
-		if(has_post_thumbnail()) {
-
-			$image = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()), 'full');
-
-			if ( is_array( $image ) ) {
-				echo '<div itemscope itemprop="image" itemtype="http://schema.org/ImageObject">';
-				echo '<meta itemprop="url" content="' . $image[0] . '" />';
-				echo '<meta itemprop="width" content="' . $image[1] . '" />';
-				echo '<meta itemprop="height" content="' . $image[2] . '" />';
-				echo '</div>';
-			}
-		}
-
-		// Comment Schema Meta
-		echo '<div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">';
-		echo '<meta itemprop="interactionType" content="http://schema.org/CommentAction" />';
-		echo '<meta itemprop="userInteractionCount" content="' . wp_count_comments(get_the_ID())->approved . '" />';
-		echo '</div>';
+		BB_PowerPack_Post_Helper::schema_meta();
 	}
 
 	/**
 	 * Renders the schema itemtype for the current
 	 * post in the loop.
 	 *
-	 * @since 1.7.4
 	 * @return void
 	 */
 	static public function schema_itemtype()
 	{
-		global $post;
-
-		if ( ! is_object( $post ) || ! isset( $post->post_type ) || 'post' != $post->post_type ) {
-			echo 'http://schema.org/CreativeWork';
-		}
-		else {
-			echo 'http://schema.org/BlogPosting';
-		}
+		BB_PowerPack_Post_Helper::schema_itemtype();
 	}
 
 	/**
@@ -472,31 +422,7 @@ class PPCustomGridModule extends FLBuilderModule {
 	 * @return string
 	 */
 	static public function custom_grid_css( $css, $nodes ) {
-		if ( ! class_exists( 'lessc' ) ) {
-			require_once FL_THEME_BUILDER_DIR . 'classes/class-lessc.php';
-		}
-
-		foreach ( $nodes['modules'] as $module ) {
-
-			if ( ! is_object( $module ) ) {
-				continue;
-			} elseif ( 'pp-custom-grid' != $module->settings->type ) {
-				continue;
-			}
-
-			$preset = $module->settings->preset;
-			$key	= $preset . '_preset';
-
-			try {
-				$less    = new lessc;
-				$custom  = '.fl-node-' . $module->node . ' .pp-custom-grid-preset-' . $preset . ' { ';
-				$custom .= $module->settings->{$key}->css;
-				$custom .= ' }';
-				$css    .= $less->compile( $custom );
-			} catch ( Exception $e ) {
-				$css .= $module->settings->{$key}->css;
-			}
-		}
+		$css = PPPostModuleExtend::post_grid_css( $css, $nodes );
 
 		return $css;
 	}

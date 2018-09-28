@@ -9,25 +9,25 @@
 			}
 		},
 
+		_templates: {
+			module: '',
+			row: '',
+			layout: ''
+		},
+
 		init: function()
 		{
 			var form            = $('.fl-builder-settings'),
-				//labelSize       = form.find('select[name=label_size]'),
 				itemSpacing     = form.find('input[name=item_spacing]');
 
-			//labelSize.on('change', this._previewLabelSize);
 			itemSpacing.on('keyup', this._previewItemSpacing);
+
+			$('body').delegate( '.fl-builder-settings select[name="content_type"]', 'change', $.proxy(this._contentTypeChange, this) );
 		},
 
 		_previewLabelSize: function()
 		{
-			//var size  = $('.fl-builder-settings select[name=label_size]').val(),
-				wrap  = FLBuilder.preview.elements.node.find('.pp-accordion');
-
-			//wrap.removeClass('pp-accordion-small');
-			//wrap.removeClass('pp-accordion-medium');
-			//wrap.removeClass('pp-accordion-large');
-			//wrap.addClass('pp-accordion-' + size);
+			wrap  = FLBuilder.preview.elements.node.find('.pp-accordion');
 		},
 
 		_previewItemSpacing: function()
@@ -44,6 +44,77 @@
 			else {
 				items.css('margin-bottom', spacing + 'px');
 			}
+		},
+
+		_contentTypeChange: function(e)
+		{
+			var type = $(e.target).val();
+
+			if ( 'module' === type ) {
+				this._setTemplates('module');
+			}
+			if ( 'row' === type ) {
+				this._setTemplates('row');
+			}
+			if ( 'layout' === type ) {
+				this._setTemplates('layout');
+			}
+		},
+
+		_getTemplates: function(type, callback)
+		{
+			if ( 'undefined' === typeof type ) {
+				return;
+			}
+
+			if ( 'undefined' === typeof callback ) {
+				return;
+			}
+
+			var self = this;
+
+			$.post(
+				ajaxurl,
+				{
+					action: 'pp_get_saved_templates',
+					type: type
+				},
+				function( response ) {
+					callback(response);
+				}
+			);
+		},
+
+		_setTemplates: function(type)
+		{
+			var form = $('.fl-builder-settings'),
+				select = form.find( 'select[name="content_' + type + '"]' ),
+				value = '', self = this;
+
+			if ( 'undefined' !== typeof FLBuilderSettingsForms && 'undefined' !== typeof FLBuilderSettingsForms.config ) {
+				if ( "pp_accordion_items_form" === FLBuilderSettingsForms.config.id ) {
+					value = FLBuilderSettingsForms.config.settings['content_' + type];
+				}
+			}
+
+			if ( this._templates[type] !== '' ) {
+				select.html( this._templates[type] );
+				select.find( 'option[value="' + value + '"]').attr('selected', 'selected');
+
+				return;
+			}
+
+			this._getTemplates(type, function(data) {
+				var response = JSON.parse( data );
+
+				if ( response.success ) {
+					self._templates[type] = response.data;
+					select.html( response.data );
+					if ( '' !== value ) {
+						select.find( 'option[value="' + value + '"]').attr('selected', 'selected');
+					}
+				}
+			});
 		}
 	});
 
