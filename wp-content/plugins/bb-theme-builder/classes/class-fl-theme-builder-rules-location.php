@@ -92,7 +92,7 @@ final class FLThemeBuilderRulesLocation {
 		global $post;
 
 		if ( ! did_action( 'wp' ) ) {
-			_doing_it_wrong( __CLASS__ . '::get_current_page_location', __( 'Must be called on or after the wp action.', 'fl-theme-builder' ), FL_THEME_BUILDER_VERSION );
+			_doing_it_wrong( __CLASS__ . '::get_current_page_location', __( 'Must be called on or after the wp action.', 'fl-theme-builder' ), '1.0' );
 		}
 
 		if ( null != self::$current_page_location ) {
