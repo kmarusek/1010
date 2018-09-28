@@ -3,8 +3,7 @@
 $show_thumbs = FLTheme::get_setting( 'fl-archive-show-thumbs' );
 $show_full   = apply_filters( 'fl_archive_show_full',  FLTheme::get_setting( 'fl-archive-show-full' ) );
 $more_text   = FLTheme::get_setting( 'fl-archive-readmore-text' );
-$thumb_size   = FLTheme::get_setting( 'fl-archive-thumb-size', 'large' );
-
+$thumb_size   = FLTheme::get_setting( 'fl-archive-thumb-size' );
 
 do_action( 'fl_before_post' ); ?>
 <article <?php post_class( 'fl-post' ); ?> id="fl-post-<?php the_ID(); ?>" itemscope="itemscope" itemtype="https://schema.org/BlogPosting">
@@ -13,7 +12,7 @@ do_action( 'fl_before_post' ); ?>
 		<?php if ( 'above-title' == $show_thumbs ) : ?>
 		<div class="fl-post-thumb">
 			<a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>">
-				<?php the_post_thumbnail( $thumb_size, array(
+				<?php the_post_thumbnail( 'large', array(
 					'itemprop' => 'image',
 				) ); ?>
 			</a>
@@ -33,7 +32,7 @@ do_action( 'fl_before_post' ); ?>
 		<?php if ( 'above' == $show_thumbs ) : ?>
 		<div class="fl-post-thumb">
 			<a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>">
-				<?php the_post_thumbnail( $thumb_size ); ?>
+				<?php the_post_thumbnail( 'large' ); ?>
 			</a>
 		</div>
 		<?php endif; ?>

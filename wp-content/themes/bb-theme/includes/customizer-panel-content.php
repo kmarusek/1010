@@ -351,7 +351,7 @@ FLCustomizer::add_panel('fl-content', array(
 				/* Featured Image Size */
 				'fl-archive-thumb-size' => array(
 					'setting'   => array(
-						'default'   => 'large',
+						'default'   => 'beside',
 					),
 					'control'   => array(
 						'class'         => 'WP_Customize_Control',
