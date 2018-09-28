@@ -1,3 +1,11 @@
+<h4>2.1.5.1 - 09/26/2018</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Fixed ImagesLoaded script not being enqueued in Gallery Module.</li>
+	<li>Fixed a PHP warning when using Events shortcodes.</li>
+	<li>Added Swift to list of supported cache plugins.</li>
+</ul>
+
 <h4>2.1.5 - 09/24/2018</h4>
 <p><strong>Enhancements</strong></p>
 <ul>

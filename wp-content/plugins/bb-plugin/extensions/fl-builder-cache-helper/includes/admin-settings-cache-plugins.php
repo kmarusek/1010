@@ -13,6 +13,7 @@ $settings = \FLCacheClear\Plugin::get_settings();
 		<li>AutoOptimize</li>
 		<li>Breeze</li>
 		<li>Cache Enabler</li>
+		<li>Swift</li>
 		<li>WP Fastest Cache</li>
 		<li>WP Super Cache</li>
 		<li>W3 Total Cache</li>

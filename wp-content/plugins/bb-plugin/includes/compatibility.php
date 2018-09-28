@@ -457,7 +457,7 @@ function fl_fix_enjoy_instagram() {
  */
 add_action( 'tribe_events_pro_widget_render', 'fl_tribe_events_pro_widget_render_fix', 10, 3 );
 function fl_tribe_events_pro_widget_render_fix( $class, $args, $instance ) {
-	if ( false !== strpos( $args['widget_id'], 'fl_builder_widget' ) ) {
+	if ( isset( $args['widget_id'] ) && false !== strpos( $args['widget_id'], 'fl_builder_widget' ) ) {
 		if ( class_exists( 'Tribe__Events__Pro__Mini_Calendar' ) ) {
 			Tribe__Events__Pro__Mini_Calendar::instance()->register_assets();
 		}

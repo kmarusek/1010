@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bb-plugin\n"
 "Report-Msgid-Bugs-To: hello@wpbeaverbuilder.com\n"
-"POT-Creation-Date: 2018-09-24 15:26:40+00:00\n"
+"POT-Creation-Date: 2018-09-26 18:40:16+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -61,7 +61,7 @@ msgid "Icons"
 msgstr ""
 
 #: classes/class-fl-builder-admin-settings.php:192
-#: classes/class-fl-builder.php:966
+#: classes/class-fl-builder.php:964
 msgid "Tools"
 msgstr ""
 
@@ -254,7 +254,7 @@ msgid ""
 "Please <a href=\"%s\">deactivate one</a> before continuing."
 msgstr ""
 
-#: classes/class-fl-builder-model.php:2924
+#: classes/class-fl-builder-model.php:2925
 #: classes/class-fl-builder-module.php:351 modules/audio/audio.php:20
 #: modules/button/button.php:15 modules/heading/heading.php:15
 #: modules/html/html.php:15 modules/photo/photo.php:26
@@ -263,7 +263,7 @@ msgstr ""
 msgid "Basic"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:2925
+#: classes/class-fl-builder-model.php:2926
 #: modules/content-slider/content-slider.php:15 modules/gallery/gallery.php:15
 #: modules/icon/icon.php:15 modules/icon-group/icon-group.php:15
 #: modules/map/map.php:15 modules/slideshow/slideshow.php:15
@@ -271,17 +271,17 @@ msgstr ""
 msgid "Media"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:2926 modules/callout/callout.php:15
+#: classes/class-fl-builder-model.php:2927 modules/callout/callout.php:15
 #: modules/contact-form/contact-form.php:15 modules/cta/cta.php:15
 #: modules/menu/menu.php:20 modules/social-buttons/social-buttons.php:15
 #: modules/subscribe-form/subscribe-form.php:19
 msgid "Actions"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:2927
+#: classes/class-fl-builder-model.php:2928
 #: extensions/fl-builder-core-templates-admin/includes/admin-core-templates.php:8
 #: modules/accordion/accordion.php:15 modules/countdown/countdown.php:147
-#: modules/cta/cta.php:113 modules/gallery/gallery.php:227
+#: modules/cta/cta.php:113 modules/gallery/gallery.php:228
 #: modules/menu/menu.php:169 modules/numbers/numbers.php:100
 #: modules/post-carousel/post-carousel.php:132
 #: modules/post-carousel/post-carousel.php:237
@@ -294,12 +294,12 @@ msgstr ""
 msgid "Layout"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:2928 modules/countdown/countdown.php:15
+#: classes/class-fl-builder-model.php:2929 modules/countdown/countdown.php:15
 #: modules/numbers/numbers.php:15
 msgid "Info"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:2929
+#: classes/class-fl-builder-model.php:2930
 #: modules/post-carousel/post-carousel.php:15
 #: modules/post-carousel/post-carousel.php:240
 #: modules/post-grid/post-grid.php:13 modules/post-grid/post-grid.php:15
@@ -308,71 +308,71 @@ msgstr ""
 msgid "Posts"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:2930
+#: classes/class-fl-builder-model.php:2931
 #: classes/class-fl-builder-module.php:353 includes/column-settings.php:318
 #: includes/module-settings.php:6 includes/row-settings.php:585
 #: modules/content-slider/content-slider.php:333
 msgid "Advanced"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:2931
-#: classes/class-fl-builder-model.php:2947
+#: classes/class-fl-builder-model.php:2932
+#: classes/class-fl-builder-model.php:2948
 msgid "Other"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:2948
-#: classes/class-fl-builder-model.php:3083
-#: classes/class-fl-builder-model.php:3503
+#: classes/class-fl-builder-model.php:2949
+#: classes/class-fl-builder-model.php:3084
+#: classes/class-fl-builder-model.php:3504
 #: extensions/fl-builder-user-templates/includes/admin-add-new-form.php:42
 #: includes/admin-settings-modules.php:32 includes/ui-js-config.php:207
 #: modules/widget/widget.php:15 modules/widget/widget.php:16
 msgid "WordPress Widgets"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3541
+#: classes/class-fl-builder-model.php:3542
 msgid "1 Column"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3546
+#: classes/class-fl-builder-model.php:3547
 msgid "2 Columns"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3551
+#: classes/class-fl-builder-model.php:3552
 msgid "3 Columns"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3556
+#: classes/class-fl-builder-model.php:3557
 msgid "4 Columns"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3561
+#: classes/class-fl-builder-model.php:3562
 msgid "5 Columns"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3566
+#: classes/class-fl-builder-model.php:3567
 msgid "6 Columns"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3571
+#: classes/class-fl-builder-model.php:3572
 msgid "Left Sidebar"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3576
+#: classes/class-fl-builder-model.php:3577
 msgid "Right Sidebar"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3581
+#: classes/class-fl-builder-model.php:3582
 msgid "Left & Right Sidebar"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:4663
-#: classes/class-fl-builder-model.php:4701
-#: classes/class-fl-builder-model.php:4770
-#: classes/class-fl-builder-model.php:5967 includes/ui-js-config.php:189
+#: classes/class-fl-builder-model.php:4664
+#: classes/class-fl-builder-model.php:4702
+#: classes/class-fl-builder-model.php:4771
+#: classes/class-fl-builder-model.php:5968 includes/ui-js-config.php:189
 msgid "Uncategorized"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:5922
+#: classes/class-fl-builder-model.php:5923
 #: extensions/fl-builder-core-templates-admin/includes/core-template-settings.php:20
 #: extensions/fl-builder-user-templates/includes/node-template-settings.php:6
 #: extensions/fl-builder-user-templates/includes/user-template-settings.php:7
@@ -382,7 +382,7 @@ msgstr ""
 #: modules/content-slider/content-slider.php:224
 #: modules/content-slider/content-slider.php:405
 #: modules/countdown/countdown.php:80 modules/cta/cta.php:69
-#: modules/gallery/gallery.php:220 modules/heading/heading.php:27
+#: modules/gallery/gallery.php:221 modules/heading/heading.php:27
 #: modules/html/html.php:27 modules/icon/icon.php:28
 #: modules/icon-group/icon-group.php:130 modules/map/map.php:27
 #: modules/menu/menu.php:161 modules/numbers/numbers.php:93
@@ -397,15 +397,15 @@ msgstr ""
 msgid "General"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:5923 includes/ui-js-config.php:217
+#: classes/class-fl-builder-model.php:5924 includes/ui-js-config.php:217
 msgid "Landing Pages"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:5924 includes/ui-js-config.php:220
+#: classes/class-fl-builder-model.php:5925 includes/ui-js-config.php:220
 msgid "Content Pages"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:6157
+#: classes/class-fl-builder-model.php:6158
 #: extensions/fl-builder-user-templates/classes/class-fl-builder-user-templates-post-type.php:36
 #: extensions/fl-builder-white-label/classes/class-fl-builder-white-label.php:137
 msgid "Beaver Builder"
@@ -1507,85 +1507,85 @@ msgstr ""
 msgid "Rebuilt the theme cache"
 msgstr ""
 
-#: classes/class-fl-builder.php:958
+#: classes/class-fl-builder.php:956
 msgid "Unnamed Menu"
 msgstr ""
 
-#: classes/class-fl-builder.php:974
+#: classes/class-fl-builder.php:972
 #: extensions/fl-builder-user-templates/includes/user-template-settings.php:4
 #: includes/ui-js-config.php:146
 msgid "Save Template"
 msgstr ""
 
-#: classes/class-fl-builder.php:982
+#: classes/class-fl-builder.php:980
 msgid "Duplicate Layout"
 msgstr ""
 
-#: classes/class-fl-builder.php:988
+#: classes/class-fl-builder.php:986
 msgid "Preview Layout"
 msgstr ""
 
-#: classes/class-fl-builder.php:999
+#: classes/class-fl-builder.php:997
 msgid "Layout CSS & Javascript"
 msgstr ""
 
-#: classes/class-fl-builder.php:1006 includes/global-settings.php:4
+#: classes/class-fl-builder.php:1004 includes/global-settings.php:4
 #: includes/ui-js-config.php:97
 msgid "Global Settings"
 msgstr ""
 
-#: classes/class-fl-builder.php:1017
+#: classes/class-fl-builder.php:1015
 msgid "Change UI Brightness"
 msgstr ""
 
-#: classes/class-fl-builder.php:1024 classes/class-fl-builder.php:1047
+#: classes/class-fl-builder.php:1022 classes/class-fl-builder.php:1045
 msgid "WordPress Admin"
 msgstr ""
 
-#: classes/class-fl-builder.php:1031 classes/class-fl-builder.php:1101
+#: classes/class-fl-builder.php:1029 classes/class-fl-builder.php:1099
 msgid "Help"
 msgstr ""
 
-#: classes/class-fl-builder.php:1038
+#: classes/class-fl-builder.php:1036
 msgid "Keyboard Shortcuts"
 msgstr ""
 
-#: classes/class-fl-builder.php:1076 includes/ui-js-config.php:111
+#: classes/class-fl-builder.php:1074 includes/ui-js-config.php:111
 msgid "Manage Templates"
 msgstr ""
 
-#: classes/class-fl-builder.php:1090
+#: classes/class-fl-builder.php:1088
 msgid "Customize Theme"
 msgstr ""
 
-#: classes/class-fl-builder.php:1120
+#: classes/class-fl-builder.php:1118
 msgid "Take A Tour"
 msgstr ""
 
-#: classes/class-fl-builder.php:1128
+#: classes/class-fl-builder.php:1126
 msgid "View Knowledge Base"
 msgstr ""
 
-#: classes/class-fl-builder.php:1136
+#: classes/class-fl-builder.php:1134
 #: extensions/fl-builder-white-label/includes/admin-settings-help-button.php:59
 #: includes/ui-js-config.php:186
 msgid "Contact Support"
 msgstr ""
 
-#: classes/class-fl-builder.php:1324
+#: classes/class-fl-builder.php:1322
 msgid "Upgrade Today"
 msgstr ""
 
-#: classes/class-fl-builder.php:1328
+#: classes/class-fl-builder.php:1326
 msgid "Buy Now"
 msgstr ""
 
-#: classes/class-fl-builder.php:1332 includes/ui-js-config.php:92
+#: classes/class-fl-builder.php:1330 includes/ui-js-config.php:92
 #: includes/ui-js-templates.php:289
 msgid "Done"
 msgstr ""
 
-#: classes/class-fl-builder.php:3104
+#: classes/class-fl-builder.php:3102
 msgid "The uploaded file is not a valid %s extension."
 msgstr ""
 
@@ -1597,7 +1597,7 @@ msgstr ""
 msgid "This tool applies to caches created by the following:"
 msgstr ""
 
-#: extensions/fl-builder-cache-helper/includes/admin-settings-cache-plugins.php:26
+#: extensions/fl-builder-cache-helper/includes/admin-settings-cache-plugins.php:27
 msgid ""
 "Enable the following setting to clear the caches created by any of these "
 "caching plugins. If enabled, cache clearing occurs when layouts and "
@@ -1607,22 +1607,22 @@ msgid ""
 "the Beaver Builder editor is active.\n"
 msgstr ""
 
-#: extensions/fl-builder-cache-helper/includes/admin-settings-cache-plugins.php:31
+#: extensions/fl-builder-cache-helper/includes/admin-settings-cache-plugins.php:32
 msgid "Enable the Cache Clearing Tool"
 msgstr ""
 
-#: extensions/fl-builder-cache-helper/includes/admin-settings-cache-plugins.php:39
+#: extensions/fl-builder-cache-helper/includes/admin-settings-cache-plugins.php:40
 msgid ""
 "Some hosts use a proxy cache like Varnish or Litespeed.  The following "
 "setting attempts to invalidate the cache using a remote request. If you are "
 "unsure what this does, leave it disabled."
 msgstr ""
 
-#: extensions/fl-builder-cache-helper/includes/admin-settings-cache-plugins.php:44
+#: extensions/fl-builder-cache-helper/includes/admin-settings-cache-plugins.php:45
 msgid "Enable proxy cache clearing"
 msgstr ""
 
-#: extensions/fl-builder-cache-helper/includes/admin-settings-cache-plugins.php:53
+#: extensions/fl-builder-cache-helper/includes/admin-settings-cache-plugins.php:54
 msgid "Save Cache Clearing Tool Settings"
 msgstr ""
 
@@ -3057,7 +3057,7 @@ msgid "Logged In User"
 msgstr ""
 
 #: includes/column-settings.php:445 includes/module-settings.php:59
-#: includes/row-settings.php:653 modules/gallery/gallery.php:291
+#: includes/row-settings.php:653 modules/gallery/gallery.php:292
 #: modules/photo/photo.php:501
 msgid "Never"
 msgstr ""
@@ -3326,13 +3326,13 @@ msgid "Background Video"
 msgstr ""
 
 #: includes/row-settings.php:250 includes/row-settings.php:344
-#: includes/ui-loop-settings.php:27 modules/gallery/gallery.php:241
+#: includes/ui-loop-settings.php:27 modules/gallery/gallery.php:242
 #: modules/slideshow/slideshow.php:256
 msgid "Source"
 msgstr ""
 
 #: includes/row-settings.php:253 includes/row-settings.php:347
-#: modules/audio/audio.php:83 modules/gallery/gallery.php:244
+#: modules/audio/audio.php:83 modules/gallery/gallery.php:245
 #: modules/photo/photo.php:445 modules/slideshow/slideshow.php:259
 #: modules/video/video.php:112
 msgid "Media Library"
@@ -3402,7 +3402,7 @@ msgstr ""
 msgid "Background Slideshow"
 msgstr ""
 
-#: includes/row-settings.php:350 modules/gallery/gallery.php:247
+#: includes/row-settings.php:350 modules/gallery/gallery.php:248
 #: modules/slideshow/slideshow.php:262
 msgid ""
 "Pull images from the WordPress media library or a gallery on your SmugMug "
@@ -3410,12 +3410,12 @@ msgid ""
 "accessed by using the get a link function in your SmugMug gallery."
 msgstr ""
 
-#: includes/row-settings.php:365 modules/gallery/gallery.php:259
+#: includes/row-settings.php:365 modules/gallery/gallery.php:260
 #: modules/slideshow/slideshow.php:274
 msgid "Photos"
 msgstr ""
 
-#: includes/row-settings.php:373 modules/gallery/gallery.php:264
+#: includes/row-settings.php:373 modules/gallery/gallery.php:265
 #: modules/slideshow/slideshow.php:279
 msgid "Feed URL"
 msgstr ""
@@ -4690,12 +4690,12 @@ msgstr ""
 msgid "Fade In On Hover"
 msgstr ""
 
-#: modules/button/button.php:129 modules/gallery/gallery.php:299
+#: modules/button/button.php:129 modules/gallery/gallery.php:300
 #: modules/slideshow/slideshow.php:331
 msgid "Click Action"
 msgstr ""
 
-#: modules/button/button.php:133 modules/gallery/gallery.php:303
+#: modules/button/button.php:133 modules/gallery/gallery.php:304
 #: modules/photo/photo.php:521
 msgid "Lightbox"
 msgstr ""
@@ -5820,42 +5820,42 @@ msgstr ""
 msgid "Display multiple photos in a gallery view."
 msgstr ""
 
-#: modules/gallery/gallery.php:230
+#: modules/gallery/gallery.php:231
 msgid "Collage"
 msgstr ""
 
-#: modules/gallery/gallery.php:269
+#: modules/gallery/gallery.php:270
 msgid "Photo Size"
 msgstr ""
 
-#: modules/gallery/gallery.php:279
+#: modules/gallery/gallery.php:280
 msgid "Photo Spacing"
 msgstr ""
 
-#: modules/gallery/gallery.php:288
+#: modules/gallery/gallery.php:289
 msgid "Show Captions"
 msgstr ""
 
-#: modules/gallery/gallery.php:292 modules/photo/photo.php:502
+#: modules/gallery/gallery.php:293 modules/photo/photo.php:502
 msgid "On Hover"
 msgstr ""
 
-#: modules/gallery/gallery.php:293 modules/photo/photo.php:503
+#: modules/gallery/gallery.php:294 modules/photo/photo.php:503
 msgid "Below Photo"
 msgstr ""
 
-#: modules/gallery/gallery.php:295
+#: modules/gallery/gallery.php:296
 msgid ""
 "The caption pulls from whatever text you put in the caption area in the "
 "media manager for each image. The caption is also pulled directly from "
 "SmugMug if you have captions set in your gallery."
 msgstr ""
 
-#: modules/gallery/gallery.php:304
+#: modules/gallery/gallery.php:305
 msgid "Photo Link"
 msgstr ""
 
-#: modules/gallery/gallery.php:317
+#: modules/gallery/gallery.php:318
 msgid "Lightbox Photo Size"
 msgstr ""
 
@@ -7289,26 +7289,26 @@ msgctxt "Plugin action link label."
 msgid "Change Log"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:2732
+#: classes/class-fl-builder-model.php:2733
 msgctxt "%s stands for the module filename"
 msgid ""
 "A module with the filename %s.php already exists! Please namespace your "
 "module filenames to ensure compatibility with Beaver Builder."
 msgstr ""
 
-#: classes/class-fl-builder-model.php:2767
+#: classes/class-fl-builder-model.php:2768
 msgctxt "%s stands for the module alias key"
 msgid ""
 "The module alias %s already exists! Please namespace your module aliases to "
 "ensure compatibility with Beaver Builder."
 msgstr ""
 
-#: classes/class-fl-builder-model.php:3986
+#: classes/class-fl-builder-model.php:3987
 msgctxt "%s stands for post/page title."
 msgid "Copy of %s"
 msgstr ""
 
-#: classes/class-fl-builder-model.php:4718
+#: classes/class-fl-builder-model.php:4719
 msgctxt "Default user template category."
 msgid "Uncategorized"
 msgstr ""
@@ -7488,82 +7488,82 @@ msgctxt "current blog name"
 msgid "Rebuilt the theme cache for blog %s"
 msgstr ""
 
-#: classes/class-fl-builder.php:1067
+#: classes/class-fl-builder.php:1065
 msgctxt "label for the WordPress Dashboard link"
 msgid "Dashboard"
 msgstr ""
 
-#: classes/class-fl-builder.php:1157
+#: classes/class-fl-builder.php:1155
 msgctxt "A keyboard shortcut with no label given"
 msgid "Untitled Shortcut"
 msgstr ""
 
-#: classes/class-fl-builder.php:1165
+#: classes/class-fl-builder.php:1163
 msgctxt "Keyboard action to show modules tab"
 msgid "Open Modules Tab"
 msgstr ""
 
-#: classes/class-fl-builder.php:1169
+#: classes/class-fl-builder.php:1167
 msgctxt "Keyboard action to show rows tab"
 msgid "Open Rows Tab"
 msgstr ""
 
-#: classes/class-fl-builder.php:1173
+#: classes/class-fl-builder.php:1171
 msgctxt "Keyboard action to show templates tab"
 msgid "Open Templates Tab"
 msgstr ""
 
-#: classes/class-fl-builder.php:1177
+#: classes/class-fl-builder.php:1175
 msgctxt "Keyboard action to show saved tab"
 msgid "Open Saved Tab"
 msgstr ""
 
-#: classes/class-fl-builder.php:1182
+#: classes/class-fl-builder.php:1180
 msgctxt "Keyboard action to open save template form"
 msgid "Save New Template"
 msgstr ""
 
-#: classes/class-fl-builder.php:1187
+#: classes/class-fl-builder.php:1185
 msgctxt "Keyboard action to toggle preview mode"
 msgid "Toggle Preview Mode"
 msgstr ""
 
-#: classes/class-fl-builder.php:1191
+#: classes/class-fl-builder.php:1189
 msgctxt "Keyboard action to open the global settings panel"
 msgid "Open Global Settings"
 msgstr ""
 
-#: classes/class-fl-builder.php:1195
+#: classes/class-fl-builder.php:1193
 msgctxt "Keyboard action to open the layout settings panel"
 msgid "Open Layout Settings"
 msgstr ""
 
-#: classes/class-fl-builder.php:1199
+#: classes/class-fl-builder.php:1197
 msgctxt "Keyboard action to switch between light and dark UI brightness"
 msgid "Change UI Brightness"
 msgstr ""
 
-#: classes/class-fl-builder.php:1203
+#: classes/class-fl-builder.php:1201
 msgctxt "Keyboard action to open the module search panel"
 msgid "Display Module Search"
 msgstr ""
 
-#: classes/class-fl-builder.php:1208
+#: classes/class-fl-builder.php:1206
 msgctxt "Keyboard action to save changes"
 msgid "Save Layout"
 msgstr ""
 
-#: classes/class-fl-builder.php:1213
+#: classes/class-fl-builder.php:1211
 msgctxt "Keyboard action to publish any pending changes"
 msgid "Publish changes without leaving builder"
 msgstr ""
 
-#: classes/class-fl-builder.php:1218
+#: classes/class-fl-builder.php:1216
 msgctxt "Keyboard action to dismiss the current task or panel"
 msgid "Dismiss Active Panel"
 msgstr ""
 
-#: classes/class-fl-builder.php:1300
+#: classes/class-fl-builder.php:1298
 msgctxt "Currently editing message"
 msgid "Currently Editing %s"
 msgstr ""
@@ -8160,27 +8160,27 @@ msgctxt "Module settings form tab. Display on mobile devices."
 msgid "Mobile"
 msgstr ""
 
-#: modules/gallery/gallery.php:231
+#: modules/gallery/gallery.php:232
 msgctxt "Gallery layout: thumbnails."
 msgid "Thumbs"
 msgstr ""
 
-#: modules/gallery/gallery.php:272
+#: modules/gallery/gallery.php:273
 msgctxt "Photo size."
 msgid "Small"
 msgstr ""
 
-#: modules/gallery/gallery.php:273
+#: modules/gallery/gallery.php:274
 msgctxt "Photo size."
 msgid "Medium"
 msgstr ""
 
-#: modules/gallery/gallery.php:274
+#: modules/gallery/gallery.php:275
 msgctxt "Photo size."
 msgid "Large"
 msgstr ""
 
-#: modules/gallery/gallery.php:302
+#: modules/gallery/gallery.php:303
 msgctxt "Click action."
 msgid "None"
 msgstr ""
