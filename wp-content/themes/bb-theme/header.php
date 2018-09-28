@@ -14,7 +14,6 @@
 	<script src="<?php echo get_template_directory_uri(); ?>/js/html5shiv.js"></script>
 	<script src="<?php echo get_template_directory_uri(); ?>/js/respond.min.js"></script>
 <![endif]-->
-
 <?php
 
 wp_head();
