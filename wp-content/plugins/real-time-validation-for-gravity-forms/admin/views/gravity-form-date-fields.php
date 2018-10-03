@@ -2,7 +2,7 @@
 <li class="gf_live_validation_type_settings_is_date field_setting" style="display: none;">
 
     <label for="gf_live_validation_format_date_0" class="" >
-        <?php _e("Enter pattern for month", "gravityforms"); ?>
+        <?php _e("Enter pattern for month", "real-time-validation-for-gravity-forms"); ?>
         <?php gform_tooltip("gf_live_validation_format_date_0") ?>
     </label>
 
@@ -18,7 +18,7 @@
 <li class="gf_live_validation_type_settings_is_date_error field_setting " style="display: none;">
 
     <label for="gf_live_validation_error_msg_date_0" class="" >
-        <?php _e("Error message", "gravityforms"); ?>
+        <?php _e("Error message", "real-time-validation-for-gravity-forms"); ?>
         <?php gform_tooltip("gf_live_validation_error_msg_date_0"); ?>
     </label>
 
@@ -33,7 +33,7 @@
 <li class="gf_live_validation_type_settings_is_date field_setting" style="display: none;">
 
     <label for="gf_live_validation_format_date_1" class="" >
-        <?php _e("Enter pattern for date", "gravityforms"); ?>
+        <?php _e("Enter pattern for date", "real-time-validation-for-gravity-forms"); ?>
         <?php gform_tooltip("gf_live_validation_format_date_1") ?>
     </label>
 
@@ -48,7 +48,7 @@
 <li class="gf_live_validation_type_settings_is_date_error field_setting " style="display: none;">
 
     <label for="gf_live_validation_error_msg_date_1" class="" >
-        <?php _e("Error message", "gravityforms"); ?>
+        <?php _e("Error message", "real-time-validation-for-gravity-forms"); ?>
         <?php gform_tooltip("gf_live_validation_error_msg_date_1"); ?>
     </label>
 
@@ -67,7 +67,7 @@
 <li class="gf_live_validation_type_settings_is_date field_setting" style="display: none;">
 
     <label for="gf_live_validation_format_date_2" class="" >
-        <?php _e("Enter pattern for year", "gravityforms"); ?>
+        <?php _e("Enter pattern for year", "real-time-validation-for-gravity-forms"); ?>
         <?php gform_tooltip("gf_live_validation_format_date_2") ?>
     </label>
 
@@ -82,7 +82,7 @@
 <li class="gf_live_validation_type_settings_is_date_error field_setting " style="display: none;">
 
     <label for="gf_live_validation_error_msg_date_2" class="" >
-        <?php _e("Error message", "gravityforms"); ?>
+        <?php _e("Error message", "real-time-validation-for-gravity-forms"); ?>
         <?php gform_tooltip("gf_live_validation_error_msg_date_2"); ?>
     </label>
 

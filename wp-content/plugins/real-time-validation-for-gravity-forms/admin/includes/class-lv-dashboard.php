@@ -48,15 +48,6 @@ class LV_dashboard {
     public function lv_validation_dashboard() {
 
 
-        if (isset($_POST['action']) && $_POST['action'] == "lv_send_support_request") {
-            $this->lv_send_support_req();
-        }
-
-        if (isset($_POST['action']) && $_POST['action'] == "lv_pro_subscribe") {
-            $this->lv_send_subscription_req();
-        }
-
-
         ob_start();
 
 
@@ -96,14 +87,14 @@ class LV_dashboard {
 
         return apply_filters("lv_dashboard_tabs", array(
             'pro' => array(
-                'name' => __("pro", "real-time-validation-for-gravity-forms"),
+                'name' => "pro",
                 'label' => __("Our Plugins", "real-time-validation-for-gravity-forms"),
                 'class' => '',
                 'target_div' => 'lv_pro',
                 'url' => admin_url('admin.php') . "?page=gf_settings&subview=" . $this->plugin_slug . "&tab=pro"
             ),
             'how_to' => array(
-                'name' => __("how_to", "real-time-validation-for-gravity-forms"),
+                'name' => "how_to",
                 'label' => __("How to use", "real-time-validation-for-gravity-forms"),
                 'class' => '',
                 'target_div' => 'lv_how_to',
@@ -130,87 +121,7 @@ class LV_dashboard {
         return $plugins;
     }
 
-    private function lv_send_support_req() {
-
-
-
-        extract($_POST);
-
-        /*
-         * Build our support request array
-         */
-
-        $active_plugins = $this->get_active_plugins();
-
-        $website = site_url('/');
-        $comments = stripslashes($comments);
-
-
-
-        $subject = $countType . ': Automated Ticket for "' . get_bloginfo('name') . '"';
-        $to = 'support@wisetr.com';
-        $from = $email;
-        $message = "Support Type: $countType\r\n\r\nWebsite: $website\r\n\r\n----------------\r\n\r\n$comments\r\n\r\n----------------\r\n\r\n\r\nActive Plugins\r\n\r\n$active_plugins";
-
-        $headers[] = 'From: ' . $email;
-
-        if (wp_mail($to, $subject, $message, $headers) === false) {
-            /*
-             * Error
-             */
-            ?>
-            <div class="notice notice-error " >
-                <p><?php _e("We are unable to request support at this moment.", 'lv-validation'); ?></p>
-            </div>
-            <?php
-        } else {
-            ?>
-
-            <div class="updated" >
-                <p><?php _e("Support request received. We will responed in 24 to 48 hours.", 'lv-validation'); ?></p>
-            </div>
-            <?php
-        }
-    }
-
-    private function lv_send_subscription_req() {
-
-
-
-        extract($_POST);
-
-        /*
-         * Build our support request array
-         */
-
-
-
-        $website = site_url('/');
-
-
-
-
-        $subject = "New Pro version subscription request";
-        $to = 'support@wisetr.com';
-        $from = $email;
-        $message = " A new User has subscribed: Here are the details:  $email\r\n\r\n  from Website: $website";
-        $headers[] = 'From: ' . $email;
-
-        if (wp_mail($to, $subject, $message, $headers) === false) {
-            ?>
-            <div class="notice notice-error " >
-                <p><?php _e("We are unable to subscribe you at this moment.", 'lv-validation'); ?></p>
-            </div>
-            <?php
-        } else {
-            ?>
-
-            <div class="updated" >
-                <p><?php _e("It's good to hear from you. Talk Soon!", 'lv-validation'); ?></p>
-            </div>
-            <?php
-        }
-    }
+ 
 
 }
 

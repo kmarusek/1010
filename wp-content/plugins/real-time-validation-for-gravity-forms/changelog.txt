@@ -1,3 +1,7 @@
+= 1.6.0 = 
+* Fixed: Date Field showing JS error after selection in the field.
+* Added: New validation for email confirmation field that checks if same email is entered in confirmation field.
+
 = 1.5.0 = 
 * Fixed: Critical Update as having fixes that makes the plugin compatible with php > 7.2
 * Fixed: Issue in name field validation, forced required validation for the middle name field is getting applied.

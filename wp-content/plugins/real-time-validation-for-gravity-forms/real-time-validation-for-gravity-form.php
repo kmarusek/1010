@@ -4,7 +4,7 @@
  * Plugin Name:       Real Time Validation for Gravity Forms
  * Plugin URI:        https://wisetr.com
  * Description:       This plugin ensures that users gets the feedback on each field as he types even before form is submitted. Specific validation messages shown to user help him quickly rectify the mistakes.
- * Version:           1.6.0
+ * Version:           1.7.0
  * Author:            Wisetr
  * Author URI:        https://wisetr.com
  * Text Domain: real-time-validation-for-gravity-forms

@@ -2,7 +2,7 @@
 <li class="gf_live_validation_type_settings_is_name field_setting" style="display: none;">
 
     <label for="gf_live_validation_format_name_0" class="" >
-        <?php _e("Enter pattern for first name", "gravityforms"); ?>
+        <?php _e("Enter pattern for first name", "real-time-validation-for-gravity-forms"); ?>
         <?php gform_tooltip("gf_live_validation_format_name_0") ?>
     </label>
 
@@ -18,7 +18,7 @@
 <li class="gf_live_validation_type_settings_is_name_error field_setting " style="display: none;">
 
     <label for="gf_live_validation_error_msg_name_0" class="" >
-        <?php _e("Error message", "gravityforms"); ?>
+        <?php _e("Error message", "real-time-validation-for-gravity-forms"); ?>
         <?php gform_tooltip("gf_live_validation_error_msg_name_0"); ?>
     </label>
 
@@ -35,7 +35,7 @@
 <li class="gf_live_validation_type_settings_is_name field_setting" style="display: none;">
 
     <label for="gf_live_validation_format_name_1" class="" >
-        <?php _e("Enter pattern for middle name", "gravityforms"); ?>
+        <?php _e("Enter pattern for middle name", "real-time-validation-for-gravity-forms"); ?>
         <?php gform_tooltip("gf_live_validation_format_name_1") ?>
     </label>
 
@@ -50,7 +50,7 @@
 <li class="gf_live_validation_type_settings_is_name_error field_setting " style="display: none;">
 
     <label for="gf_live_validation_error_msg_name_1" class="" >
-        <?php _e("Error message", "gravityforms"); ?>
+        <?php _e("Error message", "real-time-validation-for-gravity-forms"); ?>
         <?php gform_tooltip("gf_live_validation_error_msg_name_1"); ?>
     </label>
 
@@ -68,7 +68,7 @@
 <li class="gf_live_validation_type_settings_is_name field_setting" style="display: none;">
 
     <label for="gf_live_validation_format_name_2" class="" >
-        <?php _e("Enter pattern for last name", "gravityforms"); ?>
+        <?php _e("Enter pattern for last name", "real-time-validation-for-gravity-forms"); ?>
         <?php gform_tooltip("gf_live_validation_format_name_2") ?>
     </label>
 
@@ -83,7 +83,7 @@
 <li class="gf_live_validation_type_settings_is_name_error field_setting " style="display: none;">
 
     <label for="gf_live_validation_error_msg_name_2" class="" >
-        <?php _e("Error message", "gravityforms"); ?>
+        <?php _e("Error message", "real-time-validation-for-gravity-forms"); ?>
         <?php gform_tooltip("gf_live_validation_error_msg_name_2"); ?>
     </label>
 
@@ -100,7 +100,7 @@
 <li class="gf_live_validation_type_settings_is_name field_setting" style="display: none;">
 
     <label for="gf_live_validation_format_name_3" class="" >
-        <?php _e("Enter pattern for suffix", "gravityforms"); ?>
+        <?php _e("Enter pattern for suffix", "real-time-validation-for-gravity-forms"); ?>
         <?php gform_tooltip("gf_live_validation_format_name_3") ?>
     </label>
 
@@ -115,7 +115,7 @@
 <li class="gf_live_validation_type_settings_is_name_error field_setting " style="display: none;">
 
     <label for="gf_live_validation_error_msg_name_3" class="" >
-        <?php _e("Error message", "gravityforms"); ?>
+        <?php _e("Error message", "real-time-validation-for-gravity-forms"); ?>
         <?php gform_tooltip("gf_live_validation_error_msg_name_3"); ?>
     </label>
 

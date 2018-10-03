@@ -142,17 +142,17 @@ if (!class_exists('Gravity_Forms_Live_Validation_Admin')) {
                 $this->lv_form_meta = GFFormsModel::get_form_meta(rgget('id'));
             }
             ?> <form method="POST"> <?php wp_nonce_field('gforms_update_settings', 'gforms_update_settings') ?>
-                <h3><span><i class="fa fa-cogs"></i> <?php esc_html_e($this->plugin->plugin_title . ' Settings ', 'lv-validation'); ?></span></h3>
+                <h3><span><i class="fa fa-cogs"></i> <?php printf(esc_html__('%s Settings ', 'real-time-validation-for-gravity-forms'),$this->plugin->plugin_title); ?></span></h3>
                 <table class="form-table">
 
                     <tr valign="top">
                         <th scope="row">
-                            <label for=""><?php esc_html_e('Enable ' . $this->plugin->plugin_title, 'lv-validation'); ?></label> 
+                            <label for=""><?php printf(esc_html__('Enable %s', 'real-time-validation-for-gravity-forms'),$this->plugin->plugin_title); ?></label> 
                         </th>
                         <td>
                             <input type="checkbox" name="gform_enable_lv" value="1" <?php echo (isset($this->lv_form_meta['gform_enable_lv']) && $this->lv_form_meta['gform_enable_lv'] == 1) ? "checked='checked'" : '' ?> id="gform_enable_lv" /> &nbsp;&nbsp;
                             <br />
-                            <span class="gf_settings_description"><?php esc_html_e('Enable or Disable real time validation on this form.', 'lv-validation'); ?></span>
+                            <span class="gf_settings_description"><?php esc_html_e('Enable or Disable real time validation on this form.', 'real-time-validation-for-gravity-forms'); ?></span>
 
                         </td>
                     </tr>
@@ -340,7 +340,7 @@ if (!class_exists('Gravity_Forms_Live_Validation_Admin')) {
                 <li class="gf_live_validation_type_settings field_setting gf_live_validation_type_settings_level_1">
                     <input type="checkbox" id="gf_live_validation_value" onclick="SetFieldProperty('gf_live_validation_settings', this.checked);" /> 
                     <label for="gf_live_validation_value" class="inline">
-                        <?php _e("Validate Real Time Input", "lv-validation"); ?>
+                        <?php _e("Validate Real Time Input", "real-time-validation-for-gravity-forms"); ?>
                         <?php gform_tooltip("form_gf_live_validation_value") ?>
                     </label>
                 </li>
@@ -355,7 +355,7 @@ if (!class_exists('Gravity_Forms_Live_Validation_Admin')) {
                         ?>
                     </select>
                     <label for="gf_live_validation_type" class="inline">
-                        <?php _e("Validation Type", "gravityforms"); ?>
+                        <?php _e("Validation Type", "real-time-validation-for-gravity-forms"); ?>
                         <?php gform_tooltip("form_gf_live_validation_type") ?>
                     </label>
                 </li>
@@ -372,13 +372,13 @@ if (!class_exists('Gravity_Forms_Live_Validation_Admin')) {
                 <li class="gf_live_validation_type_settings field_setting gf_live_validation_type_settings_valid gf_validation_default_pattern gf_lv_is_pattern_field" style="display: none;">
 
                     <label for="gf_live_validation_format" class="" >
-                        <?php _e("Enter RegEx pattern", "gravityforms"); ?>
+                        <?php _e("Enter RegEx pattern", "real-time-validation-for-gravity-forms"); ?>
                         <?php gform_tooltip("gf_live_validation_format"); ?>
                     </label>
 
                     <textarea  data-ftype="text"  placeholder="Your Regex Here..." id="gf_live_validation_format" rows="5" cols="40" onkeyup="SetFieldProperty('gf_live_validation_format', createbaseHash(this));" onfocusout="SetFieldProperty('gf_live_validation_format', createbaseHash(this))" ></textarea>
-                    <span class="lv_open_support_box_outer"> <b>Need Help with RegEx Patterns? </b><a href="javascript:void(0);" class="lv_open_support_box"> Click Here</a></span> 
-                    <span class="lv-toggle-off lv_admin_input_error">OOPS! It doesn't seems like a valid RegEx pattern. </span>
+                    <span class="lv_open_support_box_outer"> <b> <?php _e('Need Help with RegEx Patterns?','real-time-validation-for-gravity-forms' ); ?></b><a href="javascript:void(0);" class="lv_open_support_box"> Click Here</a></span> 
+                    <span class="lv-toggle-off lv_admin_input_error"> <?php _e('OOPS! It doesn\'t seems like a valid RegEx pattern.','real-time-validation-for-gravity-forms' ); ?>  </span>
 
 
                 </li>
@@ -424,7 +424,7 @@ if (!class_exists('Gravity_Forms_Live_Validation_Admin')) {
                 <li class="gf_live_validation_type_settings field_setting gf_live_validation_type_settings_valid" style="display: none;">
 
                     <label for="gf_live_validation_error_msg" class="" >
-                        <?php _e("Error message", "gravityforms"); ?>
+                        <?php _e("Error message", "real-time-validation-for-gravity-forms"); ?>
                         <?php gform_tooltip("gf_live_validation_error_msg"); ?>
                     </label>
 
@@ -764,7 +764,7 @@ if (!class_exists('Gravity_Forms_Live_Validation_Admin')) {
                 });
             </script>
             <div class="notice notice-success">
-                <p><?php _e("Plugin <b>" . $this->plugin->plugin_main_title . "</b> activated.", 'lv-validation'); ?></p>
+                <p><?php printf(__("Plugin <b> %s </b> activated.", 'real-time-validation-for-gravity-forms'),$this->plugin->plugin_main_title); ?></p>
             </div>
 
             <?php
@@ -789,7 +789,7 @@ if (!class_exists('Gravity_Forms_Live_Validation_Admin')) {
                 $enablelink = add_query_arg(array('page' => 'gf_edit_forms', 'view' => 'settings', 'subview' => 'lv_form_setting', 'id' => rgar($form, 'id')), admin_url('admin.php'));
                 ?>
                 <div class="notice notice-warning is-dismissible lv_error_dismiss" data-id="<?php echo $form['id']; ?>">
-                    <p><?php _e("It seems like <b>Real time validation </b>is turned off. &nbsp; <a href=" . $enablelink . "><button id='button_link_lv_on' class='button button-primary'>Turn On</button></a>", 'real-time-validation-for-gravity-forms'); ?></p>
+                    <p><?php printf(__('It seems like <b>Real time validation </b>is turned off. &nbsp; <a href="%s"><button id="button_link_lv_on" class="button button-primary">Turn On</button></a>', 'real-time-validation-for-gravity-forms'),$enablelink); ?></p>
                 </div>
                 <?php
             }

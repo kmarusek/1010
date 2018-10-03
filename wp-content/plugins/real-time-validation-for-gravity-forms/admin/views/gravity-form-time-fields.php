@@ -2,7 +2,7 @@
 <li class="gf_live_validation_type_settings_is_time field_setting" style="display: none;">
 
     <label for="gf_live_validation_format_time_0" class="" >
-        <?php _e("Enter pattern for Hours", "gravityforms"); ?>
+        <?php _e("Enter pattern for Hours", "real-time-validation-for-gravity-forms"); ?>
         <?php gform_tooltip("gf_live_validation_format_time_0") ?>
     </label>
 
@@ -18,7 +18,7 @@
 <li class="gf_live_validation_type_settings_is_time_error field_setting " style="display: none;">
 
     <label for="gf_live_validation_error_msg_time_0" class="" >
-        <?php _e("Error message", "gravityforms"); ?>
+        <?php _e("Error message", "real-time-validation-for-gravity-forms"); ?>
         <?php gform_tooltip("gf_live_validation_error_msg_time_0"); ?>
     </label>
 
@@ -33,7 +33,7 @@
 <li class="gf_live_validation_type_settings_is_time field_setting" style="display: none;">
 
     <label for="gf_live_validation_format_time_1" class="" >
-        <?php _e("Enter pattern for Minutes", "gravityforms"); ?>
+        <?php _e("Enter pattern for Minutes", "real-time-validation-for-gravity-forms"); ?>
         <?php gform_tooltip("gf_live_validation_format_time_1") ?>
     </label>
 
@@ -48,7 +48,7 @@
 <li class="gf_live_validation_type_settings_is_time_error field_setting " style="display: none;">
 
     <label for="gf_live_validation_error_msg_time_1" class="" >
-        <?php _e("Error message", "gravityforms"); ?>
+        <?php _e("Error message", "real-time-validation-for-gravity-forms"); ?>
         <?php gform_tooltip("gf_live_validation_error_msg_time_1"); ?>
     </label>
 

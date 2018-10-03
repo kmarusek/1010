@@ -2,7 +2,7 @@
 <li class="gf_live_validation_type_settings_is_address field_setting" style="display: none;">
 
     <label for="gf_live_validation_format_address_0" class="" >
-        <?php _e("Enter pattern for Street address", "gravityforms"); ?>
+        <?php _e("Enter pattern for Street address", "real-time-validation-for-gravity-forms"); ?>
         <?php gform_tooltip("gf_live_validation_format_address_0") ?>
     </label>
 
@@ -18,7 +18,7 @@
 <li class="gf_live_validation_type_settings_is_address_error field_setting " style="display: none;">
 
     <label for="gf_live_validation_error_msg_address_0" class="" >
-        <?php _e("Error message", "gravityforms"); ?>
+        <?php _e("Error message", "real-time-validation-for-gravity-forms"); ?>
         <?php gform_tooltip("gf_live_validation_error_msg_address_0"); ?>
     </label>
 
@@ -33,7 +33,7 @@
 <li class="gf_live_validation_type_settings_is_address field_setting" style="display: none;">
 
     <label for="gf_live_validation_format_address_1" class="" >
-        <?php _e("Enter pattern for address line 2", "gravityforms"); ?>
+        <?php _e("Enter pattern for address line 2", "real-time-validation-for-gravity-forms"); ?>
         <?php gform_tooltip("gf_live_validation_format_address_1") ?>
     </label>
 
@@ -48,7 +48,7 @@
 <li class="gf_live_validation_type_settings_is_address_error field_setting " style="display: none;">
 
     <label for="gf_live_validation_error_msg_address_1" class="" >
-        <?php _e("Error message", "gravityforms"); ?>
+        <?php _e("Error message", "real-time-validation-for-gravity-forms"); ?>
         <?php gform_tooltip("gf_live_validation_error_msg_address_1"); ?>
     </label>
 
@@ -67,7 +67,7 @@
 <li class="gf_live_validation_type_settings_is_address field_setting" style="display: none;">
 
     <label for="gf_live_validation_format_address_2" class="" >
-        <?php _e("Enter pattern for city", "gravityforms"); ?>
+        <?php _e("Enter pattern for city", "real-time-validation-for-gravity-forms"); ?>
         <?php gform_tooltip("gf_live_validation_format_address_2") ?>
     </label>
 
@@ -82,7 +82,7 @@
 <li class="gf_live_validation_type_settings_is_address_error field_setting " style="display: none;">
 
     <label for="gf_live_validation_error_msg_address_2" class="" >
-        <?php _e("Error message", "gravityforms"); ?>
+        <?php _e("Error message", "real-time-validation-for-gravity-forms"); ?>
         <?php gform_tooltip("gf_live_validation_error_msg_address_2"); ?>
     </label>
 
@@ -96,7 +96,7 @@
 <li class="gf_live_validation_type_settings_is_address field_setting gf_live_validation_address_toggle"  style="display: none;">
 
     <label for="gf_live_validation_format_address_3" class="" >
-        <?php _e("Enter pattern for State", "gravityforms"); ?>
+        <?php _e("Enter pattern for State", "real-time-validation-for-gravity-forms"); ?>
         <?php gform_tooltip("gf_live_validation_format_address_3") ?>
     </label>
 
@@ -111,7 +111,7 @@
 <li class="gf_live_validation_type_settings_is_address_error field_setting gf_live_validation_address_toggle"  style="display: none;">
 
     <label for="gf_live_validation_error_msg_address_3" class="" >
-        <?php _e("Error message", "gravityforms"); ?>
+        <?php _e("Error message", "real-time-validation-for-gravity-forms"); ?>
         <?php gform_tooltip("gf_live_validation_error_msg_address_3"); ?>
     </label>
 
@@ -124,7 +124,7 @@
 <li class="gf_live_validation_type_settings_is_address field_setting" style="display: none;">
 
     <label for="gf_live_validation_format_address_4" class="" >
-        <?php _e("Enter pattern for ZIP", "gravityforms"); ?>
+        <?php _e("Enter pattern for ZIP", "real-time-validation-for-gravity-forms"); ?>
         <?php gform_tooltip("gf_live_validation_format_address_4") ?>
     </label>
 
@@ -139,7 +139,7 @@
 <li class="gf_live_validation_type_settings_is_address_error field_setting " style="display: none;">
 
     <label for="gf_live_validation_error_msg_address_4" class="" >
-        <?php _e("Error message", "gravityforms"); ?>
+        <?php _e("Error message", "real-time-validation-for-gravity-forms"); ?>
         <?php gform_tooltip("gf_live_validation_error_msg_address_4"); ?>
     </label>
 
