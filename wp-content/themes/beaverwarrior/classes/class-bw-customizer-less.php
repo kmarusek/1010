@@ -987,6 +987,48 @@ final class BWCustomizerLess {
 		$vars['heading-font']                   = self::_get_font_family_string( $mods['fl-heading-font-family'] );
 		$vars['heading-weight']                 = $mods['fl-heading-font-weight'];
 		$vars['heading-transform']              = $mods['fl-heading-font-format'];
+       
+
+		$vars['title-color']				= FLColor::hex( $mods['fl-title-text-color'] );
+		$vars['title-font']					= self::_get_font_family_string( $mods['fl-title-font-family'] );
+		$vars['title-weight']				= self::_sanitize_weight( $mods['fl-title-font-weight'] );
+		$vars['title-transform']			= $mods['fl-title-font-format'];
+
+		// Custom title styles
+		if ( isset( $mods['fl-heading-style'] ) && 'title' !== $mods['fl-heading-style'] ) {
+			$vars['title-color']			= FLColor::hex( $mods['fl-heading-text-color'] );
+			$vars['title-font']					= self::_get_font_family_string( $mods['fl-heading-font-family'] );
+			$vars['title-weight']				= self::_sanitize_weight( $mods['fl-heading-font-weight'] );
+			$vars['title-transform']			= $mods['fl-heading-font-format'];
+		}
+
+		// Responsive controls style
+		$responsive_mods = array(
+			'h1-size' => array(
+				'key' => 'fl-h1-font-size',
+				'format' => 'px',
+			),
+			'h1-line-height' => array(
+				'key' => 'fl-h1-line-height',
+				'format' => '',
+			),
+			'h1-letter-spacing' => array(
+				'key' => 'fl-h1-letter-spacing',
+				'format' => 'px',
+			),
+		);
+		foreach ( $responsive_mods as $var => $mod_data ) {
+			foreach ( array( 'medium', 'mobile' ) as $device ) {
+				$option_key = $mod_data['key'] . '_' . $device;
+
+				if ( isset( $mods[ $option_key ] ) ) {
+					$vars[ $device . '-' . $var ] = $mods[ $option_key ] . $mod_data['format'];
+				} else {
+					$vars[ $device . '-' . $var ] = $defaults[ $option_key ] . $mod_data['format'];
+				}
+			}
+		}
+       
 		$vars['h1-size']                        = $mods['fl-h1-font-size'] . 'px';
 		$vars['h1-line-height']                 = $mods['fl-h1-line-height'];
 		$vars['h1-letter-spacing']              = $mods['fl-h1-letter-spacing'] . 'px';
@@ -1197,6 +1239,12 @@ final class BWCustomizerLess {
 			$vars['woo-cats-add-button']        = 'hidden' == $mods['fl-woo-cart-button'] ? 'none' : 'inline-block';
 		}
 
+		if ( true == apply_filters( 'fl_enable_fa5_pro', false ) ) {
+			$vars['font-awesome-family'] = "'Font Awesome 5 Pro'";
+		} else {
+			$vars['font-awesome-family'] = "'Font Awesome 5 Free'";
+		}
+
 		// Let developers add their own vars.
 		$vars = apply_filters( 'fl_less_vars', $vars );
 		$vars = apply_filters( 'bw_less_vars', $vars, $mods );
@@ -1208,6 +1256,16 @@ final class BWCustomizerLess {
 
 		// Return the vars string
 		return $vars_string;
+	}
+
+	/**
+	 * Sanitize the weight string.
+	 * @since 1.7
+	 */
+	static private function _sanitize_weight( $weight ) {
+
+		$weight = str_replace( 'italic', '', $weight );
+		return empty( $weight ) ? 400 : $weight;
 	}
 
 	/**
