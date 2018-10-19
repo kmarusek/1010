@@ -35,6 +35,7 @@ class UABBVideo extends FLBuilderModule {
 	}
 	/**
 	 * Function to get the icon for the Info Circle
+	 *
 	 * @since 1.11.0
 	 * @method get_icons
 	 * @param string $icon gets the icon for the module.
@@ -154,11 +155,12 @@ class UABBVideo extends FLBuilderModule {
 		}
 		$id = $this->get_video_id();
 		if ( isset( $id ) && '' != $id ) {
-			$vimeo = unserialize( file_get_contents( "https://vimeo.com/api/v2/video/$id.php" ) );
 			if ( 'yes' == $this->settings->vimeo_portrait ||
 			'yes' == $this->settings->vimeo_title ||
 			'yes' == $this->settings->vimeo_byline
-			) { ?>
+			) {
+				$vimeo = unserialize( file_get_contents( "https://vimeo.com/api/v2/video/$id.php" ) );
+				?>
 			<div class="uabb-vimeo-wrap">
 				<?php if ( 'yes' == $this->settings->vimeo_portrait ) { ?>
 				<div class="uabb-vimeo-portrait">
@@ -206,22 +208,21 @@ class UABBVideo extends FLBuilderModule {
 		} else {
 			$autoplay = ( 'yes' == $this->settings->vimeo_autoplay ) ? '1' : '0';
 		}
-		if ( 'default' == $this->settings->play_source ){
-			if( 'youtube' == $this->settings->video_type ){
+		if ( 'default' == $this->settings->play_source ) {
+			if ( 'youtube' == $this->settings->video_type ) {
 				$html = '<svg height="100%" version="1.1" viewBox="0 0 68 48" width="100%"><path class="uabb-youtube-icon-bg" d="m .66,37.62 c 0,0 .66,4.70 2.70,6.77 2.58,2.71 5.98,2.63 7.49,2.91 5.43,.52 23.10,.68 23.12,.68 .00,-1.3e-5 14.29,-0.02 23.81,-0.71 1.32,-0.15 4.22,-0.17 6.81,-2.89 2.03,-2.07 2.70,-6.77 2.70,-6.77 0,0 .67,-5.52 .67,-11.04 l 0,-5.17 c 0,-5.52 -0.67,-11.04 -0.67,-11.04 0,0 -0.66,-4.70 -2.70,-6.77 C 62.03,.86 59.13,.84 57.80,.69 48.28,0 34.00,0 34.00,0 33.97,0 19.69,0 10.18,.69 8.85,.84 5.95,.86 3.36,3.58 1.32,5.65 .66,10.35 .66,10.35 c 0,0 -0.55,4.50 -0.66,9.45 l 0,8.36 c .10,4.94 .66,9.45 .66,9.45 z" fill="#1f1f1e"></path><path d="m 26.96,13.67 18.37,9.62 -18.37,9.55 -0.00,-19.17 z" fill="#fff"></path><path d="M 45.02,23.46 45.32,23.28 26.96,13.67 43.32,24.34 45.02,23.46 z" fill="#ccc"></path></svg>';
 			}
 			if('vimeo' === $this->settings->video_type ){
-				$html = '<div class="uabb-play-viemo-button"></div>';
+				$html = '<svg version="1.1" height="100%" width="100%"  viewBox="0 14.375 95 66.25"><path class="uabb-vimeo-icon-bg" d="M12.5,14.375c-6.903,0-12.5,5.597-12.5,12.5v41.25c0,6.902,5.597,12.5,12.5,12.5h70c6.903,0,12.5-5.598,12.5-12.5v-41.25c0-6.903-5.597-12.5-12.5-12.5H12.5z"/><polygon fill="#FFFFFF" points="39.992,64.299 39.992,30.701 62.075,47.5 "/></svg>';
 			}
-		}
-		else if ( 'icon' == $this->settings->play_source ) {
+		} elseif ( 'icon' == $this->settings->play_source ) {
 			$html = '';
 		} else {
 			$thumb = $this->settings->play_img_src;
 			$html  = '<img src="' . $thumb . '" />';
 		}
 		?>
-		<div class="uabb-video uabb-aspect-ratio-<?php echo $this->settings->aspect_ratio; ?>">
+		<div class="uabb-video uabb-aspect-ratio-<?php echo $this->settings->aspect_ratio; ?>  uabb-subscribe-responsive-<?php echo $this->settings->subscribe_bar_responsive; ?>">
 			<div class="uabb-video__outer-wrap" data-autoplay="<?php echo $autoplay; ?>" data-device="<?php echo $device; ?>">
 				<?php $this->get_header_wrap( $id ); ?>
 				<div class="uabb-video__play" data-src="<?php echo $src; ?>">
@@ -232,28 +233,29 @@ class UABBVideo extends FLBuilderModule {
 				</div>
 			</div>
 			<?php
-		if ( 'youtube' == $this->settings->video_type && 'yes' == $this->settings->yt_subscribe_enable ) {
-			$channel_name = ( '' != $this->settings->yt_channel_name ) ? $this->settings->yt_channel_name : '';
+			if ( 'youtube' == $this->settings->video_type && 'yes' == $this->settings->yt_subscribe_enable ) {
+				$channel_name = ( '' != $this->settings->yt_channel_name ) ? $this->settings->yt_channel_name : '';
 
-			$channel_id = ( '' != $this->settings->yt_channel_id ) ? $this->settings->yt_channel_id : '';
+				$channel_id = ( '' != $this->settings->yt_channel_id ) ? $this->settings->yt_channel_id : '';
 
-			$youtube_text = ( '' != $this->settings->yt_subscribe_text ) ? $this->settings->yt_subscribe_text : '';
+				$youtube_text = ( '' != $this->settings->yt_subscribe_text ) ? $this->settings->yt_subscribe_text : '';
 
-			$subscriber_count = ( 'yes' == $this->settings->show_count ) ? 'default' : 'hidden';
-			?>
+				$subscriber_count = ( 'yes' == $this->settings->show_count ) ? 'default' : 'hidden';
+				?>
 			<div class="uabb-subscribe-bar">
 				<div class="uabb-subscribe-bar-prefix"><?php echo $youtube_text; ?></div>
 				<div class="uabb-subscribe-content">
 					<script src="https://apis.google.com/js/platform.js"></script> <!-- Need to be enqueued from someplace else -->
-				<?php if( 'channel_name' == $this->settings->select_options ) { ?>
+				<?php if ( 'channel_name' == $this->settings->select_options ) { ?>
 					<div class="g-ytsubscribe" data-channel="<?php echo $channel_name; ?>" data-count="<?php echo $subscriber_count; ?>"></div>
-				<?php } else if( 'channel_id' == $this->settings->select_options ) { ?>
+				<?php } elseif ( 'channel_id' == $this->settings->select_options ) { ?>
 					<div class="g-ytsubscribe" data-channelid="<?php echo $channel_id; ?>" data-count="<?php echo $subscriber_count; ?>"></div>
 				<?php } ?>
 				</div>
 			</div>
-			<?php
-		} ?>
+				<?php
+			}
+			?>
 		</div>
 		<?php
 	}
@@ -352,27 +354,82 @@ class UABBVideo extends FLBuilderModule {
 		}
 		return $params;
 	}
-}
-$style1 = 'line-height: 1em; padding-bottom:5px;';
-$style2 = 'line-height: 1em; padding-bottom:7px;';
-$youtube_link_desc=sprintf(
-	__( '<div style="%2$s"> Make sure you add the actual URL of the video and not the share URL.</div>
-		<div style="%1$s"><b> Valid URL : </b>  https://www.youtube.com/watch?v=HJRzUQMhJMQ</div>
-		<div style="%1$s"> <b> Invalid URL : </b> https://youtu.be/HJRzUQMhJMQ</div>', 'uabb' ),$style1,$style2
-	);
 
-$vimeo_link_desc=sprintf(
-	__( '<div style="%1$s">Make sure you add the actual URL of the video and not the share URL.</div>
-		<div style="%1$s"><b> Valid URL : </b>  https://vimeo.com/274860274</div>
-		<div style="%1$s"> <b> Invalid URL : </b> https://vimeo.com/channels/staffpicks/274860274</div>', 'uabb' ),$style1
-	);
+	/**
+	 * Get help descriptions.
+	 *
+	 * @since 1.13.0
+	 * @access public
+	 */
+	public static function get_description( $field ) {
+
+		$style1 = 'line-height: 1em; padding-bottom:5px;';
+		$style2 = 'line-height: 1em; padding-bottom:7px;';
+
+		if ( 'youtube_link' === $field ) {
+
+			$youtube_link_desc=sprintf(
+			__( '<div style="%2$s"> Make sure you add the actual URL of the video and not the share URL.</div>
+				<div style="%1$s"><b> Valid URL : </b>  https://www.youtube.com/watch?v=HJRzUQMhJMQ</div>
+				<div style="%1$s"> <b> Invalid URL : </b> https://youtu.be/HJRzUQMhJMQ</div>', 'uabb' ), $style1, $style2
+			);
+
+			return $youtube_link_desc;
+			
+		} elseif ( 'vimeo_link' === $field ) {
+			
+			$vimeo_link_desc=sprintf(
+			__( '<div style="%1$s">Make sure you add the actual URL of the video and not the share URL.</div>
+				<div style="%1$s"><b> Valid URL : </b>  https://vimeo.com/274860274</div>
+				<div style="%1$s"> <b> Invalid URL : </b> https://vimeo.com/channels/staffpicks/274860274</div>', 'uabb' ),$style1
+			);
+
+			return $vimeo_link_desc;
+		}
+
+		$branding_name       = BB_Ultimate_Addon_Helper::get_builder_uabb_branding( 'uabb-plugin-name' );
+		$branding_short_name = BB_Ultimate_Addon_Helper::get_builder_uabb_branding( 'uabb-plugin-short-name' );
+
+		if ( empty( $branding_name ) && empty( $branding_short_name ) ) {
+
+			if ( 'yt_channel_id' === $field ) {
+
+				$youtube_channel_id = sprintf( __( 'Click <a href="https://www.ultimatebeaver.com/docs/how-to-find-youtube-channel-name-and-channel-id/?utm_source=uabb-pro-backend&utm_medium=module-editor-screen&utm_campaign=video-module" target="_blank" rel="noopener"> <strong> here</strong> </a> to know how to find your YouTube Channel ID.', 'uabb' ) );
+
+				return $youtube_channel_id;
+			}
+
+		} else {
+
+			$youtube_channel_id = sprintf( __( 'Click <a href="https://support.google.com/youtube/answer/3250431?hl=en" target="_blank" rel="noopener"> <strong> here</strong> </a> to know how to find your YouTube Channel ID.', 'uabb' ) );
+
+			return $youtube_channel_id;
+		}
+
+		if ( empty( $branding_name ) && empty( $branding_short_name ) ) {
+
+			if ( 'yt_channel_name' === $field ) {
+
+				$youtube_channel_name = sprintf( __( 'Click <a href="https://www.ultimatebeaver.com/docs/how-to-find-youtube-channel-name-and-channel-id/?utm_source=uabb-pro-backend&utm_medium=module-editor-screen&utm_campaign=video-module" target="_blank" rel="noopener"> <strong> here</strong> </a> to know how to find your YouTube Channel Name.', 'uabb' ) );
+
+				return $youtube_channel_name;
+			}
+		} else {
+
+			$youtube_channel_name = sprintf( __( 'Click <a href="https://support.google.com/youtube/answer/3250431?hl=en" target="_blank" rel="noopener"> <strong> here</strong> </a> to know how to find your YouTube Channel Name.', 'uabb' ) );
+
+			return $youtube_channel_name;
+		}
+	}
+}
+
 /**
  * Register the module and its form settings.
  */
 FLBuilder::register_module(
 	'UABBVideo',
 	array(
-		'general'   => array(
+		'general'          => array(
 			'title'    => __( 'General', 'uabb' ), // Tab title.
 			'sections' => array( // Tab Sections.
 				'general'      => array( // Section.
@@ -390,7 +447,7 @@ FLBuilder::register_module(
 								'youtube' => array(
 									'fields'   => array( 'youtube_link', 'end', 'start' ),
 									'sections' => array( 'video_option' ),
-									'tabs'		=>array('yt_subscribe_bar'),
+									'tabs'     => array( 'yt_subscribe_bar' ),
 								),
 								'vimeo'   => array(
 									'fields'   => array( 'vimeo_link', 'start' ),
@@ -402,13 +459,15 @@ FLBuilder::register_module(
 							'type'    => 'text',
 							'label'   => __( 'Link', 'uabb' ),
 							'default' => 'https://www.youtube.com/watch?v=HJRzUQMhJMQ',
-							'description'=>$youtube_link_desc,
+							'description'=> UABBVideo::get_description( 'youtube_link' ),
+							'connections' => array( 'url' ),
 						),
 						'vimeo_link'   => array(
 							'type'    => 'text',
 							'label'   => __( 'Link', 'uabb' ),
 							'default' => 'https://vimeo.com/274860274',
-							'description'=>$vimeo_link_desc,
+							'description'=> UABBVideo::get_description( 'vimeo_link' ),
+							'connections' => array( 'url' ),
 						),
 						'start'        => array(
 							'type'        => 'unit',
@@ -451,12 +510,12 @@ FLBuilder::register_module(
 								'yes' => __( 'Yes', 'uabb' ),
 								'no'  => __( 'No', 'uabb' ),
 							),
-							'toggle'  =>array(
-								'no' =>array(
-									'tabs'=>array('thumbnail'),
+							'toggle'  => array(
+								'no' => array(
+									'tabs' => array( 'thumbnail' ),
 								),
 							),
-							'help'	 =>__('If Autoplay mode is enable then thumbnail option will never show.','uabb'),
+							'help'    => __( 'Thumbnail will not display if AutoPlay mode is enabled. ', 'uabb' ),
 						),
 						'yt_suggested'      => array(
 							'type'    => 'select',
@@ -532,12 +591,12 @@ FLBuilder::register_module(
 								'yes' => __( 'Yes', 'uabb' ),
 								'no'  => __( 'No', 'uabb' ),
 							),
-							'toggle'  =>array(
-								'no' =>array(
-									'tabs'=>array('thumbnail'),
+							'toggle'  => array(
+								'no' => array(
+									'tabs' => array( 'thumbnail' ),
 								),
 							),
-							'help'	 =>__('If Autoplay option is enable then thumbnail tab will not be displayed.','uabb'),
+							'help'    => __( 'Thumbnail will not display if AutoPlay mode is enabled.', 'uabb' ),
 						),
 						'vimeo_loop'     => array(
 							'type'    => 'select',
@@ -547,7 +606,7 @@ FLBuilder::register_module(
 								'yes' => __( 'Yes', 'uabb' ),
 								'no'  => __( 'No', 'uabb' ),
 							),
-							'help'	=>__('Play the video again when it reaches the end, infinitely.','uabb'),
+							'help'    => __( 'Choose a video to play continuously in a loop. The video will automatically start again after reaching the end.', 'uabb' ),
 						),
 						'vimeo_title'    => array(
 							'type'    => 'select',
@@ -557,7 +616,7 @@ FLBuilder::register_module(
 								'yes' => __( 'Show', 'uabb' ),
 								'no'  => __( 'Hide', 'uabb' ),
 							),
-							'help'	=>__('Show the video’s title.','uabb'),
+							'help'    => __( 'Displays title of the video.', 'uabb' ),
 						),
 						'vimeo_portrait' => array(
 							'type'    => 'select',
@@ -567,7 +626,7 @@ FLBuilder::register_module(
 								'yes' => __( 'Show', 'uabb' ),
 								'no'  => __( 'Hide', 'uabb' ),
 							),
-							'help'	=>__('Show the author’s profile image (portrait).','uabb'),
+							'help'    => __( 'Displays the author’s profile image.', 'uabb' ),
 						),
 						'vimeo_byline'   => array(
 							'type'    => 'select',
@@ -577,7 +636,7 @@ FLBuilder::register_module(
 								'yes' => __( 'Show', 'uabb' ),
 								'no'  => __( 'Hide', 'uabb' ),
 							),
-							'help'	=>__('Show the author of the video','uabb'),
+							'help'    => __( 'Displays the author’s name of the video.', 'uabb' ),
 						),
 						'vimeo_color'    => array(
 							'type'       => 'color',
@@ -590,7 +649,7 @@ FLBuilder::register_module(
 				),
 			),
 		),
-		'thumbnail' => array(
+		'thumbnail'        => array(
 			'title'    => __( 'Thumbnail', 'uabb' ),
 			'sections' => array(
 				'section_image_overlay' => array(
@@ -628,6 +687,7 @@ FLBuilder::register_module(
 							'type'        => 'photo',
 							'label'       => __( 'Select Custom Thumbnail', 'uabb' ),
 							'show_remove' => true,
+							'connections' => array( 'photo' ),
 						),
 						'image_overlay_color' => array(
 							'type'       => 'color',
@@ -645,44 +705,46 @@ FLBuilder::register_module(
 				'section_play_icon'     => array(
 					'title'  => __( 'Play Button', 'uabb' ),
 					'fields' => array(
-						'play_source'           => array(
+						'play_source'                => array(
 							'type'    => 'select',
 							'label'   => __( 'Image/Icon', 'uabb' ),
 							'default' => 'default',
 							'options' => array(
-								'image' => __( 'Image', 'uabb' ),
-								'icon'  => __( 'Icon', 'uabb' ),
-								'default'=>__('Default','uabb')
+								'image'   => __( 'Image', 'uabb' ),
+								'icon'    => __( 'Icon', 'uabb' ),
+								'default' => __( 'Default', 'uabb' ),
 							),
 							'toggle'  => array(
-								'image' => array(
+								'image'   => array(
 									'fields' => array(
 										'play_img',
 										'play_img_size',
 									),
 								),
-								'icon'  => array(
+								'icon'    => array(
 									'fields' => array( 'play_icon', 'play_icon', 'play_icon_color', 'play_icon_hover_color' ),
 								),
-								'default'=>array(
-									'fields'=>array(
-										'play_default_icon_bg','play_default_icon_bg_hover'
+								'default' => array(
+									'fields' => array(
+										'play_default_icon_bg',
+										'play_default_icon_bg_hover',
 									),
 								),
 							),
 						),
-						'play_img'              => array(
+						'play_img'                   => array(
 							'type'        => 'photo',
 							'label'       => __( 'Select Image', 'uabb' ),
 							'show_remove' => true,
+							'connections' => array( 'photo' ),
 						),
-						'play_icon'             => array(
+						'play_icon'                  => array(
 							'type'        => 'icon',
 							'label'       => __( 'Select Icon', 'uabb' ),
 							'default'     => 'far fa-play-circle',
 							'show_remove' => true,
 						),
-						'play_icon_size'        => array(
+						'play_icon_size'             => array(
 							'type'        => 'unit',
 							'label'       => __( 'Size', 'uabb' ),
 							'default'     => '75',
@@ -690,15 +752,15 @@ FLBuilder::register_module(
 							'size'        => '6',
 							'description' => 'px',
 						),
-						'play_default_icon_bg'=>array(
-							'type'		=>'color',
-							'label'		=>__('Background Color','uabb'),
-							'default'   => '',
-							'show_reset'=>'true',
-							'show_alpha'=>'true',
+						'play_default_icon_bg'       => array(
+							'type'       => 'color',
+							'label'      => __( 'Background Color', 'uabb' ),
+							'default'    => '',
+							'show_reset' => 'true',
+							'show_alpha' => 'true',
 							'preview'    => array(
 								'type'     => 'css',
-								'selector' => '.uabb-youtube-icon-bg,.uabb-play-viemo-button',
+								'selector' => '.uabb-youtube-icon-bg,.uabb-vimeo-icon-bg',
 								'property' => 'fill',
 							),
 						),
@@ -708,8 +770,11 @@ FLBuilder::register_module(
 							'default'	=>'',
 							'show_reset'=>'true',
 							'show_alpha'=>'true',
+							'preview'	=>array(
+								'type'	=>'none',
+							),
 						),
-						'play_icon_color'       => array(
+						'play_icon_color'            => array(
 							'type'       => 'color',
 							'label'      => __( 'Color', 'uabb' ),
 							'default'    => '',
@@ -721,14 +786,17 @@ FLBuilder::register_module(
 								'property' => 'color',
 							),
 						),
-						'play_icon_hover_color' => array(
+						'play_icon_hover_color'      => array(
 							'type'       => 'color',
 							'label'      => __( 'Hover Color', 'uabb' ),
 							'default'    => '',
 							'show_reset' => 'true',
 							'show_alpha' => 'true',
+							'preview'	=>array(
+								'type'	=>'none',
+							),
 						),
-						'hover_animation'       => array(
+						'hover_animation'            => array(
 							'type'    => 'select',
 							'label'   => __( 'Hover Animation', 'uabb' ),
 							'default' => '',
@@ -746,73 +814,74 @@ FLBuilder::register_module(
 		'yt_subscribe_bar' => array(
 			'title'    => __( 'YouTube Subscribe Bar', 'uabb' ),
 			'sections' => array(
-				'enable_subscribe_bar' => array(
+				'enable_subscribe_bar'    => array(
 					'title'  => __( 'YouTube Subscribe Bar', 'uabb' ),
 					'fields' => array(
-						'yt_subscribe_enable'   => array(
+						'yt_subscribe_enable' => array(
 							'type'    => 'select',
 							'label'   => __( 'Enable Subscribe Bar', 'uabb' ),
 							'default' => 'no',
 							'options' => array(
-								'yes' 	 => __( 'Yes', 'uabb' ),
-								'no'     => __( 'No', 'uabb' ),
+								'yes' => __( 'Yes', 'uabb' ),
+								'no'  => __( 'No', 'uabb' ),
 							),
 							'toggle'  => array(
 								'yes' => array(
-									'fields'   => array( 'select_options', 'yt_subscribe_text'),
+									'fields'   => array( 'select_options', 'yt_subscribe_text' ),
 									'sections' => array( 'subscribe_field_options' ),
 								),
 							),
 						),
-						'select_options'  => array(
+						'select_options'      => array(
 							'type'    => 'select',
 							'label'   => __( 'Select Channel ID/Channel Name', 'uabb' ),
 							'default' => 'channel_id',
 							'options' => array(
-								'channel_id' 	=> __( 'Channel ID', 'uabb' ),
-								'channel_name'  => __( 'Channel Name', 'uabb' ),
+								'channel_id'   => __( 'Channel ID', 'uabb' ),
+								'channel_name' => __( 'Channel Name', 'uabb' ),
 							),
 							'toggle'  => array(
 								'channel_name' => array(
 									'fields' => array( 'yt_channel_name' ),
 								),
-								'channel_id'  => array(
+								'channel_id'   => array(
 									'fields' => array( 'yt_channel_id' ),
 								),
 							),
 						),
-						'yt_channel_name'       => array(
-							'type'        => 'text',
-							'label'       => __( 'YouTube Channel Name', 'uabb' ),
-							'default' 	  => 'TheBrainstormForce',
-							'description'=>__('Click <a href="https://www.ultimatebeaver.com/docs/how-to-find-youtube-channel-name-and-channel-id/" target="_blank" rel="noopener"> <strong> here</strong> </a> to find your YouTube Channel Name.', 'uabb'),
+						'yt_channel_name'     => array(
+							'type'    => 'text',
+							'label'   => __( 'YouTube Channel Name', 'uabb' ),
+							'default' => 'TheBrainstormForce',
+							'description'=> UABBVideo::get_description( 'yt_channel_name' ),
 						),
-						'yt_channel_id'  => array(
+						'yt_channel_id'   => array(
 							'type'    => 'text',
 							'label'   => __( 'YouTube Channel ID', 'uabb' ),
 							'default' => 'UCtFCcrvupjyaq2lax_7OQQg',
-							'description'=>__('Click <a href="https://www.ultimatebeaver.com/docs/how-to-find-youtube-channel-name-and-channel-id/" target="_blank" rel="noopener"> <strong> here</strong> </a> to find your YouTube Channel ID.', 'uabb'),
+							'description'=> UABBVideo::get_description( 'yt_channel_id' ),
 						),
 						'yt_subscribe_text' => array(
 							'type'       => 'text',
 							'label'      => __( 'Subscribe to channel text', 'uabb' ),
 							'default' 	 => 'Subscribe to our YouTube Channel',
+							'connections' => array( 'string', 'html' ),
 						),
 					),
 				),
-				'subscribe_field_options'     => array(
+				'subscribe_field_options' => array(
 					'title'  => __( 'Settings', 'uabb' ),
 					'fields' => array(
-						'show_count'           => array(
+						'show_count'                    => array(
 							'type'    => 'select',
 							'label'   => __( 'Show Subscribers Count', 'uabb' ),
 							'default' => 'yes',
 							'options' => array(
-								'no' 	=> __( 'No', 'uabb' ),
-								'yes'  	=> __( 'Yes', 'uabb' ),
+								'no'  => __( 'No', 'uabb' ),
+								'yes' => __( 'Yes', 'uabb' ),
 							),
 						),
-						'subscribe_text_color'  => array(
+						'subscribe_text_color'          => array(
 							'type'       => 'color',
 							'label'      => __( 'Text Color', 'uabb' ),
 							'default'    => 'ffffff',
@@ -825,7 +894,7 @@ FLBuilder::register_module(
 								'property' => 'color',
 							),
 						),
-						'subscribe_text_bg_color'  => array(
+						'subscribe_text_bg_color'       => array(
 							'type'       => 'color',
 							'label'      => __( 'Background Color', 'uabb' ),
 							'default'    => '1b1b1b',
@@ -837,28 +906,28 @@ FLBuilder::register_module(
 								'property' => 'background-color',
 							),
 						),
-						'subscribe_text_font'	=>array(
-							'type'				=>'font',
-							'label'				=>__('Font','uabb'),
-							'default' 			=> array(
-								'family' 		=> 'Default',
-								'weight' 		=> 300,
+						'subscribe_text_font'           => array(
+							'type'    => 'font',
+							'label'   => __( 'Font', 'uabb' ),
+							'default' => array(
+								'family' => 'Default',
+								'weight' => 300,
 							),
 							'preview' => array(
 								'type'     => 'font',
 								'selector' => '.uabb-subscribe-bar-prefix',
 							),
 						),
-						'subscribe_text_font_size'=>array(
-							'type'			=>'unit',
-							'label'			=>__('Font size','uabb'),
-							'default'		=>'',
-							'description'	=>'px',
-							'preview'		=>array(
-								'type'		=>'css',
-								'selector'	=>'.uabb-subscribe-bar-prefix',
-								'property'	=>'font-size',
-								'unit'		=>'px',
+						'subscribe_text_font_size'      => array(
+							'type'        => 'unit',
+							'label'       => __( 'Font size', 'uabb' ),
+							'default'     => '',
+							'description' => 'px',
+							'preview'     => array(
+								'type'     => 'css',
+								'selector' => '.uabb-subscribe-bar-prefix',
+								'property' => 'font-size',
+								'unit'     => 'px',
 							),
 							'responsive'  => array(
 								'placeholder' => array(
@@ -868,16 +937,16 @@ FLBuilder::register_module(
 								),
 							),
 						),
-						'subscribe_text_line_height'=>array(
-							'type'			=>'unit',
-							'label'			=>__('Line height','uabb'),
-							'default'		=>'',
-							'description'	=>'em',
-							'preview'		=>array(
-								'type'		=> 'css',
-								'selector'	=>'.uabb-subscribe-bar-prefix',
-								'property'	=>'line-height',
-								'unit'		=>'em',
+						'subscribe_text_line_height'    => array(
+							'type'        => 'unit',
+							'label'       => __( 'Line height', 'uabb' ),
+							'default'     => '',
+							'description' => 'em',
+							'preview'     => array(
+								'type'     => 'css',
+								'selector' => '.uabb-subscribe-bar-prefix',
+								'property' => 'line-height',
+								'unit'     => 'em',
 							),
 							'responsive'  => array(
 								'placeholder' => array(
@@ -887,16 +956,16 @@ FLBuilder::register_module(
 								),
 							),
 						),
-						'subscribe_text_letter_spacing'=>array(
-							'type'			=>'unit',
-							'label'			=>__('Letter Spacing','uabb'),
-							'default'		=>'',
-							'description'	=>'px',
-							'preview'		=>array(
-								'type'		=>'css',
-								'selector'	=>'.uabb-subscribe-bar-prefix',
-								'property'	=>'letter-spacing',
-								'unit'		=>'px',
+						'subscribe_text_letter_spacing' => array(
+							'type'        => 'unit',
+							'label'       => __( 'Letter Spacing', 'uabb' ),
+							'default'     => '',
+							'description' => 'px',
+							'preview'     => array(
+								'type'     => 'css',
+								'selector' => '.uabb-subscribe-bar-prefix',
+								'property' => 'letter-spacing',
+								'unit'     => 'px',
 							),
 							'responsive'  => array(
 								'placeholder' => array(
@@ -906,39 +975,72 @@ FLBuilder::register_module(
 								),
 							),
 						),
-						'subscribe_text_transform'	=>array(
-							'type'		=>'select',
-							'label'		=>__('Transform','uabb'),
-							'default'	=>'',
+						'subscribe_text_transform'      => array(
+							'type'    => 'select',
+							'label'   => __( 'Transform', 'uabb' ),
+							'default' => '',
+							'options' => array(
+								''           => __( 'Default', 'uabb' ),
+								'uppercase'  => __( 'UPPERCASE', 'uabb' ),
+								'lowercase'  => __( 'lowercase', 'uabb' ),
+								'capitalize' => __( 'Capitalize', 'uabb' ),
+							),
+							'preview' => array(
+								'type'     => 'css',
+								'selector' => '.uabb-subscribe-bar-prefix',
+								'property' => 'text-transform',
+							),
+						),
+						'subscribe_padding'             => array(
+							'type'        => 'dimension',
+							'label'       => __( 'Padding', 'uabb' ),
+							'default'     => '',
+							'description' => 'px',
+							'preview'     => array(
+								'type'     => 'css',
+								'selector' => '.uabb-subscribe-bar',
+								'property' => 'padding',
+								'unit'     => 'px',
+							),
+							'responsive'  => array(
+								'placeholder' => array(
+									'default'    => '',
+									'medium'     => '',
+									'responsive' => '',
+								),
+							),
+						),
+						'subscribe_bar_responsive'	=>array(
+							'type'		=> 'select',
+							'label'		=> __('Stack on','uabb'),
+							'default'	=>'none',
 							'options'	=>array(
-								''           => __('Default','uabb'),
-								'uppercase'  => __('UPPERCASE','uabb'),
-								'lowercase'  => __('lowercase','uabb'),
-								'capitalize' => __('Capitalize','uabb'),
+								'none'    => __( 'None', 'uabb' ),
+								'desktop' => __( 'Desktop', 'uabb' ),
+								'tablet'  => __( 'Tablet', 'uabb' ),
+								'mobile'  => __( 'Mobile', 'uabb' ),
 							),
-							'preview'		=>array(
-								'type'		=>'css',
-								'selector'	=>'.uabb-subscribe-bar-prefix',
-								'property'	=>'text-transform',
+							'toggle'	=>array(
+								'desktop'	=>array(
+									'fields'=>array('subscribe_bar_spacing')
+								),
+								'tablet'	=>array(
+									'fields'=>array('subscribe_bar_spacing')
+								),
+								'mobile'	=>array(
+									'fields'=>array('subscribe_bar_spacing')
+								),
 							),
 						),
-						'subscribe_padding'		=>array(
-							'type'			=>'dimension',
-							'label'			=>__('Padding','uabb'),
-							'default'		=>'',
+						'subscribe_bar_spacing'	=>array(
+							'type'			=> 'unit',
+							'label'			=>__('Spacing','uabb'),
 							'description'	=>'px',
 							'preview'		=>array(
 								'type'		=>'css',
-								'selector'	=>'.uabb-subscribe-bar',
-								'property'	=>'padding',
+								'selector'	=> '.uabb-subscribe-responsive-desktop .uabb-subscribe-bar-prefix',
+								'property'	=>'margin-bottom',
 								'unit'		=>'px',
-							),
-							'responsive'  => array(
-								'placeholder' => array(
-									'default'    => '',
-									'medium'     => '',
-									'responsive' => '',
-								),
 							),
 						),
 					),

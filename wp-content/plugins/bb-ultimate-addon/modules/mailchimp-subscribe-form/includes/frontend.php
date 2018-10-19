@@ -60,7 +60,7 @@ if ( defined( 'FL_BUILDER_VERSION' ) ) {
 				</div><?php endif; ?><!-- Inline Block Space Fix
 
 				--><div class="uabb-form-field">
-					<input type="text" name="uabb-subscribe-form-email" placeholder="<?php echo ( $settings->form_style != 'style2' ) ? ( ( $settings->email_placeholder != '' ) ? $settings->email_placeholder : __( 'Your Email', 'uabb' ) ) : ''; ?>" />
+					<input type="email" name="uabb-subscribe-form-email" placeholder="<?php echo ( $settings->form_style != 'style2' ) ? ( ( $settings->email_placeholder != '' ) ? $settings->email_placeholder : __( 'Your Email', 'uabb' ) ) : ''; ?>" />
 					<?php
 					if ( $settings->form_style == 'style2' ) {
 						?>

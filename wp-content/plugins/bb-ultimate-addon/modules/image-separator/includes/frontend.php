@@ -12,7 +12,7 @@
 	if ( ! empty( $settings->image_style ) ) {
 		echo ' uabb-image-crop-' . $settings->image_style;}
 	?>
-	" itemscope itemtype="http://schema.org/ImageObject">
+	" itemscope itemtype="https://schema.org/ImageObject">
 		<img class="<?php echo $classes; ?> <?php echo ( $settings->img_animation_repeat == '0' ) ? 'infinite' : ''; ?>" src="<?php echo $src; ?>" alt="<?php echo $alt; ?>" itemprop="image"/>
 	</div>
 </div>

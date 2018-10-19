@@ -47,6 +47,10 @@ class UABB_Init {
 
 			add_action( 'admin_notices', array( $this, 'update_bb_notice' ) );
 
+			add_action( 'admin_enqueue_scripts', array( $this, 'load_uabb_admin_notice_js' ) );
+
+			add_action( 'wp_ajax_dismissed_notice_handler', array( $this, 'load_uabb_ajax_notice_handler' ) );
+
 		} else {
 
 			// disable UABB activation ntices in admin panel.
@@ -57,6 +61,27 @@ class UABB_Init {
 			add_action( 'network_admin_notices', array( $this, 'admin_notices' ) );
 		}
 
+	}
+
+	/**
+	 * Function that includes js files for admin area
+	 *
+	 * @since 1.13.0
+	 */
+	function load_uabb_admin_notice_js() {
+		wp_register_script( 'uabb-admin-notice-js', BB_ULTIMATE_ADDON_URL . 'assets/js/uabb-admin-notice.js', false, BB_ULTIMATE_ADDON_VER );
+	}
+
+	/**
+	 * AJAX handler to store the state of dismissible notices.
+	 *
+	 * @since 1.13.0
+	 */
+	function load_uabb_ajax_notice_handler() {
+		// Request the dismissed value.
+		$dismissed = $_REQUEST['dismissed'];
+		// Store it in the options table.
+		update_option( 'dismiss-admin-notice', $dismissed );
 	}
 
 	/**
@@ -274,6 +299,24 @@ class UABB_Init {
 		}
 
 	}
+
+	/**
+	 * Function that renders admin notices
+	 *
+	 * @since 1.12.0
+	 */
+	public static function get_branding_name() {
+
+		$name          = 'Ultimate Addons For Beaver Builder';
+		$branding_name = get_option( '_fl_builder_uabb_branding' );
+
+		if ( is_array( $branding_name ) && array_key_exists( 'uabb-plugin-name', $branding_name ) && '' != $branding_name['uabb-plugin-name'] ) {
+			$name = $branding_name['uabb-plugin-name'];
+		}
+
+		return $name;
+	}
+
 	/**
 	 * Function that renders admin notices
 	 *
@@ -289,8 +332,10 @@ class UABB_Init {
 			$url = network_admin_url() . 'plugin-install.php?s=billyyoung&tab=search&type=author';
 		}
 
+		$name = self::get_branding_name();
+
 		echo '<div class="notice notice-error">';
-		echo '<p>The <strong>Ultimate Addon for Beaver Builder</strong> ' . __( 'plugin requires', 'uabb' ) . " <strong><a href='" . $url . "'>Beaver Builder</strong></a>" . __( ' plugin installed & activated.', 'uabb' ) . '</p>';
+		echo '<p>The <strong>' . $name . '</strong> ' . __( 'plugin requires', 'uabb' ) . " <strong><a href='" . $url . "'>Beaver Builder</strong></a>" . __( ' plugin installed & activated.', 'uabb' ) . '</p>';
 		echo '</div>';
 	}
 
@@ -301,12 +346,31 @@ class UABB_Init {
 	 */
 	function update_bb_notice() {
 
-		$bb_stable_version = '2.0.7';
+		$name                = self::get_branding_name();
+		$bb_stable_version   = '2.0.7';
+		$branding_name       = BB_Ultimate_Addon_Helper::get_builder_uabb_branding( 'uabb-plugin-name' );
+		$branding_short_name = BB_Ultimate_Addon_Helper::get_builder_uabb_branding( 'uabb-plugin-short-name' );
+		$is_dismissed        = get_option( 'dismiss-admin-notice', false );
 
+		// Added in version 1.12.1 to enqueue admin notice scripts in admin area.
 		if ( version_compare( $bb_stable_version, FL_BUILDER_VERSION, '>' ) ) {
-			echo '<div class="notice notice-error">';
-			echo sprintf( '<p> The <strong>Ultimate Addons for Beaver Builder</strong> plugin requires minimum %s version of the Beaver Builder plugin </p>', $bb_stable_version );
-			echo '</div>';
+			wp_enqueue_script( 'uabb-admin-notice-js' );
+		}
+
+		// Added in version 1.12.1 to check the value if the admin notice is dismissed.
+		if ( false === $is_dismissed ) {
+			if ( version_compare( $bb_stable_version, FL_BUILDER_VERSION, '>' ) ) {
+				// Added in version 1.12.1 to verify if Branding name is added.
+				if ( empty( $branding_name ) && empty( $branding_short_name ) ) {
+					echo '<div class="notice notice-error notice-warn uabb-admin-dismiss-notice is-dismissible">';
+					echo sprintf( '<p> The <strong>%1$s</strong> plugin requires minimum %2$s version of the Beaver Builder plugin. Refer following <a href="https://www.ultimatebeaver.com/docs/fix-for-php-fatal-error-after-updating-uabb/" target="_blank"> link</a> on how to resolve this issue.</p>', $name, $bb_stable_version );
+					echo '</div>';
+				} else {
+					echo '<div class="notice notice-error notice-warn uabb-admin-dismiss-notice is-dismissible">';
+					echo sprintf( '<p> The <strong>%1$s</strong> plugin requires minimum %2$s version of the Beaver Builder plugin.</p>', $name, $bb_stable_version );
+					echo '</div>';
+				}
+			}
 		}
 	}
 

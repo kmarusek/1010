@@ -395,15 +395,15 @@
 		},
 
 		_restartCountdown: function() {
+			
+			$.cookie( this.id + "-currdate", new Date() );
 
-			$.cookie( "countdown-" + settings.id + "-currdate", new Date());
+			currdate = new Date( $.cookie( this.id + "-currdate") );
 
-			currdate = new Date( $.cookie( "countdown-" + settings.id + "-currdate") );
-
-			var evergreen_date_days = $.cookie( "countdown-" + settings.id + "-day" );
-			var evergreen_date_hour = $.cookie( "countdown-" + settings.id + "-hour" );
-			var evergreen_date_minutes = $.cookie( "countdown-" + settings.id + "-min" );
-			var evergreen_date_seconds = $.cookie( "countdown-" + settings.id + "-sec" );
+			var evergreen_date_days = $.cookie( this.id + "-day" );
+			var evergreen_date_hour = $.cookie( this.id + "-hour" );
+			var evergreen_date_minutes = $.cookie( this.id + "-min" );
+			var evergreen_date_seconds = $.cookie( this.id + "-sec" );
 
 			var timevar = ( parseFloat(evergreen_date_days*24*60*60) + parseFloat(evergreen_date_hour*60*60) + parseFloat(evergreen_date_minutes*60) + parseFloat( evergreen_date_seconds ) ) * 1000;
 			currdate.setTime(currdate.getTime() + timevar);

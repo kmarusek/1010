@@ -1,12 +1,13 @@
 <?php
 $photo_src = ( $settings->photo_source != 'url' ) ? ( ( isset( $settings->photo_src ) && $settings->photo_src != '' ) ? $settings->photo_src : '' ) : ( ( $settings->photo_url != '' ) ? $settings->photo_url : '' ); 
+$alt      = $module->get_image_details();
 
 if( isset( $photo_src ) ) {
 	if( $photo_src != '' ) {
 ?>
 	<div class="uabb-module-content uabb-hotspot">
 		<div class="uabb-hotspot-container">
-			<img class="uabb-hotspot-image" src="<?php echo $photo_src; ?>" alt="null">
+			<img class="uabb-hotspot-image" src="<?php echo $photo_src; ?>" alt="<?php echo $alt; ?>">
 			<div class="uabb-hotspot-items">
 				<?php
 				if( count( $settings->hotspot_marker ) > 0 ) {

@@ -1,11 +1,3 @@
-<?php
-/**
- * Blog Posts frontend content HTML
- *
- * @package Blog Post HTML
- */
-
-?>
 [wpbb-if post:featured_image]
 <div class="uabb-post-thumbnail uabb-blog-post-section">
 	[wpbb post:featured_image size="large" display="tag" linked="yes"]

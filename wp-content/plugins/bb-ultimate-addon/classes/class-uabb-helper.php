@@ -4,7 +4,6 @@
  *
  * @package UABB Helper
  */
-
 if ( ! class_exists( 'BB_Ultimate_Addon_Helper' ) ) {
 
 	/**
@@ -318,8 +317,10 @@ if ( ! class_exists( 'BB_Ultimate_Addon_Helper' ) ) {
 				'team'                     => 'Team',
 				'adv-testimonials'         => 'Testimonials',
 				'uabb-content-toggle'      => 'Content Toggle',
-				'uabb-business-hours'		=> 'Business Hours',
-                'uabb-video'                => 'Video',
+				'uabb-business-hours'	   => 'Business Hours',
+                'uabb-video'               => 'Video',
+				'uabb-table'			   => 'Table',
+                'uabb-video-gallery'        => 'Video Gallery',
 			);
 
 			/* Include Contact form styler */

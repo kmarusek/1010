@@ -105,7 +105,11 @@ class ModalPopupModule extends FLBuilderModule {
 				return $wp_embed->autoembed( $settings->ct_video );
 			break;
 			case 'iframe':
-				return '<iframe src="' . $settings->iframe_url . '" class="uabb-content-iframe" frameborder="0" width="100%" height="100%" allowfullscreen></iframe>';
+				if ( 'yes' === $this->settings->async_iframe) {
+					return '<div class="uabb-modal-content-type-iframe" data-src="' . $settings->iframe_url . '" frameborder="0" allowfullscreen></div>';
+				}else{
+					return '<iframe src="' . $settings->iframe_url . '" class="uabb-content-iframe" frameborder="0" width="100%" height="100%" allowfullscreen></iframe>';
+				}
 			break;
 			case 'saved_rows':
 				return '[fl_builder_insert_layout id="' . $settings->ct_saved_rows . '" type="fl-builder-template"]';
@@ -136,8 +140,9 @@ class ModalPopupModule extends FLBuilderModule {
 		$vid_id         = '';
 		$html           = '';
 		$related_videos = '';
+		$html           = '<div class="uabb-video-wrap">';
 
-		if ( 'youtube' == $this->settings->content_type ) {
+		if ( 'youtube' === $this->settings->content_type ) {
 			if ( preg_match( '/[\\?\\&]v=([^\\?\\&]+)/', $url, $matches ) ) {
 				$vid_id = $matches[1];
 			}
@@ -159,14 +164,23 @@ class ModalPopupModule extends FLBuilderModule {
 			} else {
 				$player_controls = '';
 			}
+			$thumb = 'https://i.ytimg.com/vi/' . $vid_id . '/hqdefault.jpg';
 
-			$html = '<iframe id="uabb-' . $this->node . '" class="uabb-modal-iframe" src="https://www.youtube.com/embed/' . $vid_id . '?version=3&enablejsapi=1' . $related_videos . $title_controls . $player_controls . '" frameborder="0" allowfullscreen></iframe>';
-			return $html;
-		} elseif ( 'vimeo' == $this->settings->content_type ) {
+			$html .= '<div class="uabb-modal-iframe uabb-video-player" data-src="youtube" data-id="' . $vid_id . '" data-append="?version=3&enablejsapi=1' . $related_videos . $title_controls . $player_controls . '" data-thumb="' . $thumb . '"></div>';
+		} elseif ( 'vimeo' === $this->settings->content_type ) {
 			$vid_id = preg_replace( '/[^\/]+[^0-9]|(\/)/', '', rtrim( $url, '/' ) );
-			$html   = '<iframe id="uabb-' . $this->node . '" class="uabb-modal-iframe" src="https://player.vimeo.com/video/' . $vid_id . '?title=0&byline=0&portrait=0&badge=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
-			return $html;
+
+			if ( '' !== $vid_id && 0 !== $vid_id ) {
+
+				$vimeo = unserialize( file_get_contents( "https://vimeo.com/api/v2/video/$vid_id.php" ) );
+				$thumb = $vimeo[0]['thumbnail_large'];
+
+				$html .= '<div class="uabb-modal-iframe uabb-video-player" data-src="vimeo" data-id="' . $vid_id . '" data-append="?title=0&byline=0&portrait=0&badge=0" data-thumb="' . $thumb . '"></div>';
+			}
+			
 		}
+		$html .='</div>';
+		return $html;
 	}
 
 	/**
@@ -192,6 +206,13 @@ class ModalPopupModule extends FLBuilderModule {
 		return false;
 	}
 }
+$style1 = 'line-height: 1em; padding-bottom:5px;';
+$style2 = 'line-height: 1em; padding-bottom:7px;';
+
+$iframe_desc=sprintf(
+	__( '<div style="%2$s"> The related CSS and JS scripts will load on request.</div>
+		<div style="%1$s">A loader will appear during loading of the iFrame.</div>', 'uabb' ),$style1,$style2
+	);
 
 /**
  * Register the module and its form settings.
@@ -438,7 +459,7 @@ FLBuilder::register_module(
 							'connections' => array( 'url' ),
 						),
 						'iframe_height' => array(
-							'type'        => 'text',
+							'type'        => 'unit',
 							'label'       => __( 'Height of iFrame', 'uabb' ),
 							'default'     => '360',
 							'placeholder' => 'auto',
@@ -446,6 +467,17 @@ FLBuilder::register_module(
 							'size'        => '8',
 							'description' => 'px',
 							'help'        => __( 'Keep this empty for auto', 'uabb' ),
+						),
+						'async_iframe'	=>array(
+							'type'		=>'select',
+							'label'		=>__('Async iFrame Load','uabb'),
+							'default'	=>'no',
+							'options'	=>array(
+								'yes'	=>__('Yes','uabb'),
+								'no'	=>__('No','uabb'),
+							),
+							'help'		=>__('Enabling this option will reduce the page size and page loading time. ','uabb'),
+							'description'=>$iframe_desc,
 						),
 					),
 				),

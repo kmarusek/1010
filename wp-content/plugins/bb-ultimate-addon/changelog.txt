@@ -1,3 +1,27 @@
+Version 1.13.0 - Friday, 19th October 2018
+- New: Introduced Video Gallery
+- Improvement: Advanced Menu - Updated SVG for Hamburger Icon
+- Improvement: Contact Form - Added a new filter uabb_contact_form_error_message to update the error message for Terms and conditions
+- Improvement: Table - Added help link for troubleshooting CSV file upload errors
+- Improvement: Table - Deprecated responsive stack layout option and improved responsive design with scrollbar functionality
+- Improvement: Video - Added responsive settings option for YouTube Subscriber Bar
+- Improvement: Rendering magnific-popup CSS and JS from the Beaver Builder
+- Fixed: Countdown - Fixed Conflict with multiple Countdowns with Reset timer on a single page
+- Fixed: Info Box - Link nofollow option not working for complete box link type
+- Fixed: Table - Fixed conflict with Awesome Support and BBPress WordPress plugins
+- Fixed: Loading Saved Rows, Saved Templates, Saved Modules only when Beaver Builder editor is active
+- Fixed: Replaced duplicate masonry and carousel JS of UABB by setting it as Global
+
+Version 1.12.0 - Wednesday, 3rd October 2018
+- New: Introduced Table 
+- Improvement: Modal Popup - YouTube, Vimeo, iFrame optimization
+- Improvement: Video - Added field connections support for all relevant options
+- Fixed: Advanced Accordion - Resolved icon overlapping issue in preview with icon animation
+- Fixed: Advanced Menu - Resolved alignment issue with Responsive Navigation having none selected
+- Fixed: Heading - Fixed Title line height values showing px on medium device instead of em
+- Fixed: Video - Fixed Vimeo default icon moving upwards issue on increasing icon size
+- Fixed: Video - Resolved warning related to HTTP with Vimeo video type
+
 Version 1.11.0 - Thursday, 6th September 2018
 - New: Introduced Video
 - Improvement: Advanced Menu - Added Below Row option which will open the menu in full width as earlier in single column

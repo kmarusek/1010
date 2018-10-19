@@ -31,8 +31,8 @@ class UABBPhotoGalleryModule extends FLBuilderModule {
 			)
 		);
 
-		$this->add_js( 'jquery-magnificpopup-uabb', BB_ULTIMATE_ADDON_URL . 'assets/js/global-scripts/jquery.magnificpopup.min.js', array( 'jquery' ), '', true );
-		$this->add_css( 'jquery-magnificpopup-uabb', BB_ULTIMATE_ADDON_URL . 'assets/css/global-styles/jquery.magnificpopup.css', array(), '' );
+		$this->add_js( 'jquery-magnificpopup' );
+		$this->add_css( 'jquery-magnificpopup' );
 		$this->add_js( 'jquery-masonry' );
 	}
 

@@ -33,9 +33,9 @@ class UABBImageCarouselModule extends FLBuilderModule {
 		);
 
 		$this->add_js( 'carousel', BB_ULTIMATE_ADDON_URL . 'assets/js/global-scripts/jquery-carousel.js', array( 'jquery' ), '', true );
-		$this->add_js( 'jquery-magnificpopup-uabb', BB_ULTIMATE_ADDON_URL . 'assets/js/global-scripts/jquery.magnificpopup.min.js', array( 'jquery' ), '', true );
+		$this->add_js( 'jquery-magnificpopup' );
 		$this->add_css( 'font-awesome' );
-		$this->add_css( 'jquery-magnificpopup-uabb', BB_ULTIMATE_ADDON_URL . 'assets/css/global-styles/jquery.magnificpopup.css', array(), '' );
+		$this->add_css( 'jquery-magnificpopup' );
 	}
 
 	/**

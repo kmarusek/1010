@@ -198,7 +198,7 @@
 				<?php } ?>	
 
             	<?php if( $converted === 'yes' || isset( $settings->line_height_unit_medium ) && $settings->line_height_unit_medium != '' ) { ?>
-					line-height: <?php echo $settings->line_height_unit_medium; ?>px;
+					line-height: <?php echo $settings->line_height_unit_medium; ?>em;
 				<?php } else if( isset( $settings->line_height_unit_medium ) && $settings->line_height_unit_medium == '' && isset( $settings->line_height['medium'] ) && $settings->line_height['medium'] != '' ) { ?> 
 					line-height: <?php echo $settings->line_height['medium']; ?>px;
 				<?php } ?>

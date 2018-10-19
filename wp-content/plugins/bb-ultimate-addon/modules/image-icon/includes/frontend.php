@@ -20,7 +20,7 @@
 		if ( ! empty( $settings->image_style ) ) {
 			echo ' uabb-image-crop-' . $settings->image_style;}
 		?>
-		" itemscope itemtype="http://schema.org/ImageObject">
+		" itemscope itemtype="https://schema.org/ImageObject">
 			<div class="uabb-image-content">
 				<img class="<?php echo $classes; ?>" src="<?php echo $src; ?>" alt="<?php echo $alt; ?>" itemprop="image"/>
 			</div>

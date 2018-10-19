@@ -22,7 +22,7 @@
 
 .uabb-adv-accordion-button-icon {
 	text-align: center;
-    /*display: block;*/
+    display: block;
 }
 
 .uabb-adv-after-text .uabb-adv-accordion-button-label {
@@ -90,19 +90,19 @@
 }
 
 .uabb-adv-accordion-item-active .uabb-adv-push-out-right .uabb-adv-accordion-open-icon {
-    position: absolute;
+   position: absolute;
     height: 100%;
     width: 100%;
-    -webkit-transform: translate(-100%, 0);
-        -ms-transform: translate(-100%, 0);
-            transform: translate(-100%, 0);
+    -webkit-transform: translate(0, -100%);
+        -ms-transform: translate(0, -100%);
+            transform: translate(0, -100%);
 }
 
 /* Push out from Bottom */
 .uabb-adv-push-out-bottom .uabb-adv-accordion-open-icon {
-    -webkit-transform: translate(0, 100%);
-        -ms-transform: translate(0, 100%);
-            transform: translate(0, 100%);
+    -webkit-transform: translate(0, 0);
+        -ms-transform: translate(0, 0);
+            transform: translate(0, 0);
 }
 
 .uabb-adv-accordion-item-active .uabb-adv-push-out-bottom .uabb-adv-accordion-close-icon {
@@ -112,12 +112,12 @@
 }
 
 .uabb-adv-accordion-item-active .uabb-adv-push-out-bottom .uabb-adv-accordion-open-icon {
-    position: absolute;
+   position: absolute;
     height: 100%;
     width: 100%;
-    -webkit-transform: translate(-100%, 0);
-        -ms-transform: translate(-100%, 0);
-            transform: translate(-100%, 0);
+    -webkit-transform: translate(0, -100%);
+        -ms-transform: translate(0, -100%);
+            transform: translate(0, -100%);
 }
 
 /* Push out from Left */

@@ -23,7 +23,7 @@ if( $settings->hover_effect == 'simple' ) {
 }
 
 ?>
-<div class="uabb-module-content uabb-photo<?php if ( ! empty( $settings->crop ) ) echo ' uabb-photo-crop-' . $settings->crop ; ?> uabb-photo-align-<?php echo $settings->align; ?> uabb-photo-mob-align-<?php echo $settings->responsive_align; ?>" itemscope itemtype="http://schema.org/ImageObject">
+<div class="uabb-module-content uabb-photo<?php if ( ! empty( $settings->crop ) ) echo ' uabb-photo-crop-' . $settings->crop ; ?> uabb-photo-align-<?php echo $settings->align; ?> uabb-photo-mob-align-<?php echo $settings->responsive_align; ?>" itemscope itemtype="https://schema.org/ImageObject">
 	<div class="uabb-photo-content <?php echo $grayscale_class; ?>">
 
 		<?php if(!empty($link)) : ?>

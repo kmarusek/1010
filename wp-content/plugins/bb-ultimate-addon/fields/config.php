@@ -12,6 +12,7 @@ require_once 'uabb-gradient/uabb-gradient.php';
 require_once 'uabb-hotspot-draggable/uabb-hotspot-draggable.php';
 require_once 'uabb-sortable/uabb-sortable.php';
 require_once 'uabb-date/uabb-date.php';
+require_once 'uabb-file/uabb-file.php';
 
 if ( ! class_exists( 'UABB_Custom_Field_Scripts' ) ) {
 	/**
@@ -50,6 +51,8 @@ if ( ! class_exists( 'UABB_Custom_Field_Scripts' ) ) {
 
 				wp_enqueue_style( 'uabb-hotspot-draggable', BB_ULTIMATE_ADDON_URL . 'fields/uabb-hotspot-draggable/css/uabb-hotspot-draggable.css', array(), '' );
 				wp_enqueue_script( 'uabb-hotspot-draggable', BB_ULTIMATE_ADDON_URL . 'fields/uabb-hotspot-draggable/js/uabb-hotspot-draggable.js', array(), '', true );
+				wp_enqueue_script( 'uabb-file', BB_ULTIMATE_ADDON_URL . 'fields/uabb-file/js/uabb-file.js', array(), '', true );
+				wp_enqueue_style( 'uabb-file', BB_ULTIMATE_ADDON_URL . 'fields/uabb-file/css/uabb-file.css', array(), '' );
 
 				/* uabb-simplyfy field */
 				wp_enqueue_style( 'uabb-date', BB_ULTIMATE_ADDON_URL . 'fields/uabb-date/css/uabb-date.css', array(), '' );

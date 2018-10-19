@@ -293,9 +293,9 @@ $settings->ct_content_color = UABB_Helper::uabb_colorpicker( $settings, 'ct_cont
         <?php if ( $settings->content_type == 'youtube' || $settings->content_type == 'vimeo' ) { ?>
         .uamodal-<?php echo $id; ?> .uabb-modal-content-data {
             width: <?php echo $size['width']; ?>px;
-            height: <?php echo $size['height']; ?>px;
+            /* height: <?php echo $size['height']; ?>px; */
             max-width: 100%;
-            /*max-height: 100%;*/
+           /* max-height: 100%; */
         }
         @media ( max-height: <?php echo $size['height'] .'px'; ?> ) { 
             .uamodal-<?php echo $id; ?> .uabb-modal-content-data {
@@ -723,3 +723,10 @@ $settings->ct_content_color = UABB_Helper::uabb_colorpicker( $settings, 'ct_cont
     <?php
     }
 }
+?>
+.uamodal-<?php echo $id; ?> .uabb-loader::before{
+    border: 3px solid rgba( 0,0,0,0.8 );
+    border-left-color: transparent;
+    border-right-color: transparent;
+}
+

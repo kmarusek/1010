@@ -82,7 +82,7 @@ class UABBCreativeMenu extends FLBuilderModule {
 			if ( in_array( $toggle, array( 'hamburger', 'hamburger-label' ) ) ) {
 				echo '<div class="uabb-creative-menu-mobile-toggle-container">';
 				echo '<div class="uabb-creative-menu-mobile-toggle ' . $toggle . '"><div class="uabb-svg-container">';
-				include FL_BUILDER_DIR . 'img/svg/hamburger-menu.svg';
+				include 'img/hamburger-menu.svg';
 				echo '</div>';
 
 				if ( 'hamburger-label' == $toggle ) {
@@ -741,16 +741,20 @@ FLBuilder::register_module(
 							),
 							'toggle'  => array(
 								'hamburger'       => array(
-									'fields'   => array( 'creative_mobile_menu_type', 'creative_menu_mobile_breakpoint', 'creative_menu_responsive_alignment', 'creative_menu_mobile_toggle_color' ),
+									'fields'   => array( 'creative_mobile_menu_type', 'creative_menu_mobile_breakpoint', 'creative_menu_responsive_alignment', 'creative_menu_mobile_toggle_color','creative_menu_navigation_alignment' ),
 									'sections' => array( 'creative_menu_responsive_mobile_style', 'creative_menu_responsive_style' ),
 								),
 								'hamburger-label' => array(
-									'fields'   => array( 'creative_mobile_menu_type', 'creative_menu_mobile_breakpoint', 'creative_menu_responsive_alignment', 'creative_menu_mobile_toggle_color', 'creative_menu_mobile_toggle_text' ),
+									'fields'   => array( 'creative_mobile_menu_type', 'creative_menu_mobile_breakpoint', 'creative_menu_responsive_alignment', 'creative_menu_mobile_toggle_color', 'creative_menu_mobile_toggle_text','creative_menu_navigation_alignment' ),
 									'sections' => array( 'creative_menu_responsive_mobile_style', 'creative_menu_responsive_style' ),
 								),
 								'text'            => array(
-									'fields'   => array( 'creative_mobile_menu_type', 'creative_menu_mobile_breakpoint', 'creative_menu_responsive_alignment', 'creative_menu_mobile_toggle_color', 'creative_menu_mobile_toggle_text' ),
+									'fields'   => array( 'creative_mobile_menu_type', 'creative_menu_mobile_breakpoint', 'creative_menu_responsive_alignment', 'creative_menu_mobile_toggle_color', 'creative_menu_mobile_toggle_text', 'creative_menu_navigation_alignment' ),
 									'sections' => array( 'creative_menu_responsive_mobile_style', 'creative_menu_responsive_style' ),
+								),
+								'expanded'		=> array(
+									'fields'	=> array( 'creative_menu_responsive_alignment' ),
+									'sections'	=> array( 'creative_menu_responsive_style' ),
 								),
 							),
 						),

@@ -7,7 +7,7 @@
  *  @package UABB Model Helper
  */
 
-if ( ! class_exists( 'UABB_Model_Helper' ) ) {
+if ( ! class_exists( 'UABB_Model_Helper' && FLBuilderModel::is_builder_active() ) ) {
 
 	/**
 	 * This class initializes UABB Model Helper class
@@ -78,7 +78,6 @@ if ( ! class_exists( 'UABB_Model_Helper' ) ) {
 		 */
 		static public function get_saved_page_template() {
 			if ( FLBuilderModel::node_templates_enabled() ) {
-
 				$page_templates = UABB_Model_Helper::get_post_template( 'layout' );
 				$options        = array();
 

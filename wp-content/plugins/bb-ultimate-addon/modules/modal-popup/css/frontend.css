@@ -847,3 +847,114 @@
 .internet-explorer .uabb-close-custom-top-right {
 	position: fixed;
 }
+.uabb-video-player img {
+	bottom: 0;
+	display: block;
+	left: 0;
+	margin: auto;
+	max-width: 100%;
+	width: 100%;
+	position: absolute;
+	right: 0;
+	top: 0;
+	border: none;
+	height: auto;
+	cursor: pointer;
+	-webkit-transition: .4s all;
+	transition: .4s all;
+}
+.uabb-video-player .play {
+	height: 72px;
+	width: 72px;
+	left: 50%;
+	top: 50%;
+	position: absolute;
+	cursor: pointer;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	text-align: center;
+}
+.uabb-modal.uabb-modal-youtube .uabb-video-wrap, .uabb-modal.uabb-modal-vimeo .uabb-video-wrap {
+    height: 0;
+    width: 100%;
+    position: relative;
+}
+.uabb-modal-content-data .uabb-modal-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border: 0;
+}
+.uabb-video-player {
+    position: relative;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    background: #000;
+}
+.uabb-aspect-ratio-4_3.uabb-modal-vimeo .uabb-video-wrap,
+.uabb-aspect-ratio-4_3.uabb-modal-youtube .uabb-video-wrap {
+	padding-bottom: 76%;
+}
+.uabb-aspect-ratio-16_9.uabb-modal-vimeo .uabb-video-wrap,
+.uabb-aspect-ratio-16_9.uabb-modal-youtube .uabb-video-wrap {
+	padding-bottom: 56.25%;
+}
+
+.uabb-aspect-ratio-3_2.uabb-modal-vimeo .uabb-video-wrap,
+.uabb-aspect-ratio-3_2.uabb-modal-youtube .uabb-video-wrap {
+	padding-bottom: 66.6666%;
+}
+.play:before{
+    font-size:72px;
+    line-height:72px;
+    color: rgba( 0,0,0,0.8 )
+}
+.uabb-modal-content-data {
+	position: relative;
+}
+.uabb-loader {
+    display: block;
+    margin: 0 auto;
+    min-height: 48px;
+    line-height: 48px;
+    width: 48px;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+}
+.uabb-loader::before {
+    content: "";
+    background: none !important;
+    width: 48px;
+    height: 48px;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    -webkit-animation: uabb-if-spin 575ms infinite linear;
+    animation: uabb-if-spin 575ms infinite linear;
+}
+
+@keyframes uabb-if-spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes uabb-if-spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}

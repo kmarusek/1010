@@ -171,7 +171,7 @@ class UABBPhotoModule extends FLBuilderModule {
 	 * @method get_data
 	 */
 	public function get_data() {
-		if ( ! $this->data ) {
+		if ( empty( $this->data ) ) {
 
 			// Photo source is set to "url".
 			if ( 'url' == $this->settings->photo_source ) {

@@ -75,7 +75,7 @@ function uabb_col_dependency_js( $js, $nodes, $global_settings ) {
 				}
 			});
 
-		})(jQuery);	
+		})(jQuery);  
 	<?php
 	$js .= ob_get_clean();
 

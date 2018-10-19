@@ -104,8 +104,8 @@ class BlogPostsModule extends FLBuilderModule {
 
 		$this->add_js( 'jquery-infinitescroll' );
 		$this->add_js( 'jquery-mosaicflow' );
-		$this->add_js( 'isotope', $this->url . 'js/jquery-masonary.js', array( 'jquery' ), '', true );
-		$this->add_js( 'carousel', $this->url . 'js/jquery-carousel.js', array( 'jquery' ), '', true );
+		$this->add_js( 'isotope', BB_ULTIMATE_ADDON_URL . 'assets/js/global-scripts/jquery-masonary.js', array( 'jquery' ), '', true );
+		$this->add_js( 'carousel', BB_ULTIMATE_ADDON_URL . 'assets/js/global-scripts/jquery-carousel.js', array( 'jquery' ), '', true );
 		$this->add_js( 'jquery-infinitescroll' );
 	}
 

@@ -46,6 +46,7 @@ if ( ! class_exists( 'UABB_WPML_Translatable' ) ) {
 				require_once BB_ULTIMATE_ADDON_DIR . 'classes/wpml/class-wpml-uabb-infolist.php';
 				require_once BB_ULTIMATE_ADDON_DIR . 'classes/wpml/class-wpml-uabb-advanced-icon.php';
 				require_once BB_ULTIMATE_ADDON_DIR . 'classes/wpml/class-wpml-uabb-list-icon.php';
+				require_once BB_ULTIMATE_ADDON_DIR . 'classes/wpml/class-wpml-uabb-video-gallery.php';
 			}
 
 		}
@@ -1068,6 +1069,13 @@ if ( ! class_exists( 'UABB_WPML_Translatable' ) ) {
 					'type'        => __( 'Video : Subscribe to channel text', 'uabb' ),
 					'editor_type' => 'LINE',
 				),
+			);
+
+			// Video Gallery module.
+			$form['uabb-video-gallery'] = array(
+				'conditions'        => array( 'type' => 'uabb-video-gallery' ),
+				'fields'            => array(),
+				'integration-class' => 'WPML_UABB_VideoGallery',
 			);
 
 			return $form;

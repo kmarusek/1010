@@ -46,8 +46,7 @@ if ( ! class_exists( 'UABB_MSG_Field' ) ) {
 			$msg_type      = isset( $field['msg_type'] ) ? $field['msg_type'] : 'info';
 			$custom_class  = isset( $field['class'] ) ? $field['class'] : '';
 			$custom_class .= ' uabb-msg-' . $msg_type;
-
-			$msg_content = '';
+			$msg_content   = '';
 
 			if ( isset( $field['content'] ) ) {
 				if ( '' != $field['content'] ) {

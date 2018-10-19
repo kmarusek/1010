@@ -67,7 +67,7 @@
 			<?php /* Plugin Name*/ ?> 
 			<div class="uabb-branding-fields" style="margin-top: 30px;">
 			<h4 class="field-title"><?php _e( 'Plugin Name', 'uabb' ); ?></h4>
-			<input type="text" name="uabb-plugin-name" placeholder="Ultimate Addon for Beaver Builder" value="<?php echo $uabb_plugin_name; ?>" class="regular-text uabb-plugin-name" />
+			<input type="text" name="uabb-plugin-name" placeholder="Ultimate Addons for Beaver Builder" value="<?php echo $uabb_plugin_name; ?>" class="regular-text uabb-plugin-name" />
 			</div>
 
 			<?php /* Plugin Short Name*/ ?> 

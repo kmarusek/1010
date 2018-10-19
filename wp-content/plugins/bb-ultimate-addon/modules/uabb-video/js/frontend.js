@@ -2,7 +2,6 @@
   UABBVideo = function( settings ) {
     this.nodeClass         = '.fl-node-' + settings.id;
   	this.id                = settings.id;
-
 		var outer_wrap = jQuery(this.nodeClass).find( '.uabb-video__outer-wrap' );
 
 		outer_wrap.off( 'click' ).on( 'click', function( e ) {

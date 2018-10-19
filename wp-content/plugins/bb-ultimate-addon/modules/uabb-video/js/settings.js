@@ -2,13 +2,15 @@
 	FLBuilder.registerModuleHelper('uabb-video', {
 
 
-
 		init: function(){
 			var form 		= $('.fl-builder-settings'),
 			subscribe_bar	= form.find('select[name=yt_subscribe_enable]');
+			video_type		= form.find('select[name=video_type]');
 
 			subscribe_bar.on( 'change', this._subscribeBar);
-			 $(this._subscribeBar,this);
+			video_type.on('change',this._VideoTypeThumbnail);
+			$(this._subscribeBar,this);
+			$(this._VideoTypeThumbnail,this);
 		},
 		_subscribeBar: function(){
 			var form 			= $('.fl-builder-settings');
@@ -27,6 +29,16 @@
 					form.find('#fl-field-yt_channel_name').show();
 				}
 			} 
+		},
+		_VideoTypeThumbnail:function(){
+			var form 	= $('.fl-builder-settings');
+
+			if(form.find('select[name=video_type]').val()== 'vimeo'){
+				form.find('#fl-field-yt_thumbnail_size').hide();
+			}
+			else{
+				form.find('#fl-field-yt_thumbnail_size').show();
+			}
 		}
 	});
 

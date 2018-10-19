@@ -5,6 +5,7 @@
 	$subject_class = '';
 	$phone_class   = '';
 	$msg_class     = '';
+	$message       = __( 'Please accept the Terms and Conditions to proceed.', 'uabb' );
 
 if ( $settings->name_toggle == 'show' && $settings->name_width == '50' ) {
 	$count      = ++$count;
@@ -158,7 +159,7 @@ if ( $settings->msg_toggle == 'show' && $settings->msg_width == '50' ) {
 					</span>
 				</label>
 			</div>
-			<label class="uabb-contact-error"><?php _e( 'Terms and Conditions checkbox is required.', 'uabb' ); ?></label>
+			<label class="uabb-contact-error"><?php echo apply_filters( 'uabb_contact_form_error_message', $message ); ?></label>
 		</div>
 	<?php endif; ?>
 

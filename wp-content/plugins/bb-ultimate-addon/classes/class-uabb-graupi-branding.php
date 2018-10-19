@@ -116,7 +116,7 @@ final class UABBGraupiBranding {
 	}
 
 	/**
-	 * Replace : Ultimate addon for Beaver Builder
+	 * Replace : Ultimate addons for Beaver Builder
 	 */
 	static public function plugin_name() {
 

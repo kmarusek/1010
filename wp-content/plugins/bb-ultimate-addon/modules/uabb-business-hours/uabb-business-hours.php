@@ -40,7 +40,37 @@ FLBuilder::register_module('UABBBusinessHours', array(
                         'label'         => __('Day', 'uabb'),
                         'form'          => 'uabb_business_hours_form',
                         'preview_text'  => 'days',
-                        'multiple'      => true
+                        'multiple'      => true,
+                        'default'      => array (
+                            array(
+                                'days'    => 'Monday',
+                                'hours'   => '8:30 AM - 7:30 PM',
+                            ),
+                            array(
+                                'days'    => 'Tuesday',
+                                'hours'   => '8:30 AM - 7:30 PM',
+                            ),
+                            array(
+                                'days'    => 'Wednesday',
+                                'hours'   => '8:30 AM - 7:30 PM',
+                            ),
+                            array(
+                                'days'    => 'Thursday',
+                                'hours'   => '8:30 AM - 7:30 PM',
+                            ),
+                            array(
+                                'days'    => 'Friday',
+                                'hours'   => '8:30 AM - 7:30 PM',
+                            ),
+                            array(
+                                'days'    => 'Saturday',
+                                'hours'   => 'Closed',
+                            ),
+                            array(
+                                'days'    => 'Sunday',
+                                'hours'   => 'Closed',
+                            ),
+                        ),
                     ),
                 )
             )
@@ -535,15 +565,11 @@ FLBuilder::register_settings_form('uabb_business_hours_form', array(
                         'days' => array(
                             'type'          => 'text',
                             'label'         => __('Enter Day', 'uabb'),
-                            'default'       => 'Monday',
-                            'description'   => '',
-                            'connections'           => array( 'string', 'html' )
+                            'connections'   => array( 'string', 'html' )
                         ),
                         'hours' => array(
                             'type'          => 'text',
                             'label'         => __('Enter Time', 'uabb'),
-                            'default'       => '8:30 AM - 7:30 PM',
-                            'description'   => '',
                             'connections'   => array( 'string', 'html' )
                         ),
                     ),

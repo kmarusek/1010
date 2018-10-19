@@ -13,6 +13,14 @@
 class UABBHotspot extends FLBuilderModule {
 
 	/**
+	 * Data instance
+	 *
+	 * @access public
+	 * @var $data
+	*/
+	public $data = null;
+
+	/**
 	 * Constructor function that constructs default values for the Hotspot module
 	 *
 	 * @method __construct
@@ -141,6 +149,54 @@ class UABBHotspot extends FLBuilderModule {
 
 	}
 
+	/**
+	 * Get image data
+	 *
+	 * @since 1.13.0
+	 * @return array image data.
+	 */
+	public function get_image_data() {
+
+		if ( empty( $this->data ) ) {
+
+			// Photo source is set to "url".
+			if ( 'url' === $this->settings->photo_source ) {
+				$this->data = new stdClass();
+			} elseif ( is_object( $this->settings->photo ) ) {
+				$this->data = $this->settings->photo;
+			} else {
+				$this->data = FLBuilderPhoto::get_attachment_data( $this->settings->photo );
+			}
+
+			// Data object is empty, use the settings cache.
+			if ( ! $this->data && isset( $this->settings->data ) ) {
+				$this->data = $this->settings->data;
+			}
+		}
+
+		return $this->data;
+	}
+
+	/**
+	 * Get image alt
+	 *
+	 * @since 1.13.0
+	 * @return array image data.
+	 */
+	public function get_image_details() {
+		
+		$photo = $this->get_image_data();
+
+		if ( ! empty( $photo->alt ) ) {
+			return htmlspecialchars( $photo->alt );
+		} elseif ( ! empty( $photo->description ) ) {
+			return htmlspecialchars( $photo->description );
+		} elseif ( ! empty( $photo->caption ) ) {
+			return htmlspecialchars( $photo->caption );
+		} elseif ( ! empty( $photo->title ) ) {
+			return htmlspecialchars( $photo->title );
+		}
+	}
 }
 
 
