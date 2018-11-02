@@ -1,3 +1,16 @@
+Version 1.13.2
+- Improvement: Content Toggle - Open a specific toggle content from URL
+- Improvement: Info Box - Added Hover color settings option
+- Improvement: Modal Popup - Deprecated "Disable Video Title" setting option for YouTube video
+- Improvement: Video - Deprecated "Player title and Actions" settings option for YouTube video
+- Improvement: Added nofollow link option to Info Table, Photo, Creative Link and Team modules
+- Fixed: Info Circle - CTA button link color not working
+- Fixed: Subscription Form - Styling and font options not working for email field
+
+Version 1.13.1 - Tuesday, 23rd October 2018
+- Fixed: Table - Fixed Show Entries not rendering with default 'All' label
+- Fixed: Video Gallery - PHP 5.3 compatibility errors
+
 Version 1.13.0 - Friday, 19th October 2018
 - New: Introduced Video Gallery
 - Improvement: Advanced Menu - Updated SVG for Hamburger Icon

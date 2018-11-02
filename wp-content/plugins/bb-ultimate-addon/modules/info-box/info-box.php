@@ -1132,6 +1132,16 @@ FLBuilder::register_module(
 								'angle'     => '0',
 							),
 						),
+						'bg_color_hover'	=>array(
+							'type'			=>'color',
+							'label'			=>__('Background Hover Color','uabb'),
+							'default'    	=> '',
+							'show_alpha'	=>true,
+							'show_reset'	=>true,
+							'preview'		=>array(
+								'type'		=>'none',
+							),
+						),
 						'info_box_padding_dimension' => array(
 							'type'        => 'dimension',
 							'label'       => __( 'Content Padding', 'uabb' ),
@@ -1820,6 +1830,16 @@ FLBuilder::register_module(
 								'property' => 'color',
 							),
 						),
+						'prefix_color_hover'	=>array(
+							'type'			=> 'color',	
+							'label'			=>__('Hover Color','uabb'),
+							'default'   	=> '',
+							'show_reset'	=>true,
+							'show_alpha'	=>true,
+							'preview'		=>array(
+								'type'		=>'none',
+							),
+						),
 						'prefix_transform'        => array(
 							'type'    => 'select',
 							'label'   => __( 'Transform', 'uabb' ),
@@ -1929,6 +1949,16 @@ FLBuilder::register_module(
 								'property' => 'color',
 							),
 						),
+						'title_color_hover'	=>array(
+							'type'			=>'color',
+							'label'			=>__('Color Hover','uabb'),
+							'default'    	=> '',
+							'show_reset'	=>true,
+							'show_alpha'	=>true,
+							'preview'		=>array(
+								'type'		=>'none',
+							),
+						),
 						'title_transform'        => array(
 							'type'    => 'select',
 							'label'   => __( 'Transform', 'uabb' ),
@@ -2020,6 +2050,16 @@ FLBuilder::register_module(
 								'type'     => 'css',
 								'selector' => '.uabb-infobox-text, .uabb-infobox-text * ',
 								'property' => 'color',
+							),
+						),
+						'subhead_color_hover' => array(
+							'type'			=> 'color',
+							'label'			=>__( 'Description Hover Color', 'uabb' ),
+							'default'    	=> '',
+							'show_reset'	=>true,
+							'show_alpha'	=>true,
+							'preview'		=>array(
+								'type'		=>'none',
 							),
 						),
 						'subhead_transform'        => array(
@@ -2219,6 +2259,16 @@ FLBuilder::register_module(
 							'label'      => __( 'Link Color', 'uabb' ),
 							'default'    => '',
 							'show_reset' => true,
+						),
+						'link_color_hover'	=> array(
+							'type'			=>'color',
+							'label'			=>__('Link Hover Color','uabb'),
+							'default'    	=> '',
+							'show_reset'	=> true,
+							'show_alpha'	=> true,
+							'preview'		=>array(
+								'type'		=>'none',
+							),
 						),
 						'link_transform'        => array(
 							'type'    => 'select',

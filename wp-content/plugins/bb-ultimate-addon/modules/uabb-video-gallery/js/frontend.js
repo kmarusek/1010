@@ -4,7 +4,7 @@
 		this.settings       = settings;
 		this.node           = settings.id;
 		this.layout         = settings.layout;
-		this.slides         = settings.slidesToShow;
+		this.slidesToShow   = settings.slidesToShow;
 		this.slidesToScroll = settings.slidesToScroll;
 		this.autoplaySpeed  = settings.autoplaySpeed;
 		this.autoplay       = settings.autoplay;
@@ -16,6 +16,9 @@
 		this.medium_breakpoint = settings.medium_breakpoint;
 		this.medium          = settings.medium;
 		this.small           = settings.small;
+		this.slidesToScroll_medium = settings.slidesToScroll_medium,
+		this.slidesToScroll_small = settings.slidesToScroll_small,
+		this.dots = settings.dots,
 		this.nodeClass      = '.fl-node-' + settings.id;
 
 		this._init();
@@ -127,13 +130,38 @@
 				}
 
 				if( 'carousel' === layout && selector.hasClass( 'uabb-vg__layout-carousel' )) {
-
-					var slider_options 	= selector.data( 'vg_slider' );
-
+						self = this;
 					nodeClass.find('.uabb-video-gallery-wrap').find( '.uabb-video__gallery-iframe' )
 						.imagesLoaded( { background: true } )
 						.done( function( e ) {
-							nodeClass.find('.uabb-video-gallery-wrap').uabbslick( slider_options );
+							nodeClass.find('.uabb-video-gallery-wrap').uabbslick({
+								dots: self.dots,
+			                	infinite: self.infinite,
+			                	arrows: self.arrows,
+			                	lazyLoad: 'ondemand',
+			                	slidesToShow: self.slidesToShow,
+			                	slidesToScroll: self.slidesToScroll,
+			                	autoplay: self.autoplay,
+			                	autoplaySpeed: self.autoplaySpeed,
+			                	pauseOnHover:self.pauseOnHover,
+			                	speed:self.speed,
+			                	responsive: [
+			                    {
+			                        breakpoint:self.medium_breakpoint,
+			                        settings: {
+			                            slidesToShow: self.medium,
+			                             slidesToScroll:self.slidesToScroll_medium
+			                        }
+			                    },
+			                    {
+			                        breakpoint:self.small_breakpoint,
+			                        settings: {
+			                            slidesToShow: self.small,
+			                            slidesToScroll:self.slidesToScroll_small
+			                        }
+			                    }
+			                ]
+							});
 					} );
 				}
 				// If Filters is the layout.

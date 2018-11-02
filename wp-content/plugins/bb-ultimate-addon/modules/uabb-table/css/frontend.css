@@ -116,3 +116,7 @@
 .uabb-table .table-header-th .th-style {
     padding-right: 15px;
 }
+
+.uabb-table-inner-wrap {
+    width:100%;
+}

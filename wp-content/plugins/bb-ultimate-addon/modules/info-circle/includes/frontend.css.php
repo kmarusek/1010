@@ -16,6 +16,7 @@ $settings->info_separator_color = UABB_Helper::uabb_colorpicker( $settings, 'inf
 $settings->color = UABB_Helper::uabb_colorpicker( $settings, 'color' );
 $settings->desc_color = UABB_Helper::uabb_colorpicker( $settings, 'desc_color' );
 
+
 /* Set default color */
 $settings->connector_border_color = uabb_theme_base_color( $settings->connector_border_color );
 $settings->info_separator_color = uabb_theme_base_color( $settings->info_separator_color );
@@ -39,7 +40,8 @@ foreach( $settings->add_circle_item as $item ) {
     if( !is_object( $item ) ) { continue; }
 
     $circle_item_count++;
-
+    $item->btn_color= UABB_Helper::uabb_colorpicker( $item, 'btn_color' );
+    
     $imageicon_array = array(
 
         /* General Section */
@@ -284,6 +286,7 @@ foreach( $settings->add_circle_item as $item ) {
     $item->icon_bg_hover_color = UABB_Helper::uabb_colorpicker( $item, 'icon_bg_hover_color' );
     $item->separator_color = UABB_Helper::uabb_colorpicker( $item, 'separator_color' );
     $item->inner_circle_bg_overlay=UABB_Helper::uabb_colorpicker( $item, 'inner_circle_bg_overlay' );
+    
 
     /* Calculate & Set Info Circle Coordinates */
     $angle = ( $angle_init - 90 ) * M_PI / 180;

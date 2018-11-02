@@ -445,7 +445,7 @@ FLBuilder::register_module(
 							'show_reset' => true,
 							'preview'    => array(
 								'type'     => 'css',
-								'selector' => '.uabb-form-field input, .uabb-subscribe-form input[type=text]::placeholder',
+								'selector' => '.uabb-form-field input, .uabb-form-field label, .uabb-subscribe-form input[type=text]::placeholder, .uabb-subscribe-form input[type=email]::placeholder',
 								'property' => 'color',
 							),
 						),
@@ -1300,7 +1300,7 @@ FLBuilder::register_module(
 							),
 							'preview' => array(
 								'type'     => 'font',
-								'selector' => 'input[type="text"], input[type="text"] ~ label',
+								'selector' => 'input[type="text"], input[type="email"], input[type="text"] ~ label, input[type="email"] ~ label',
 							),
 						),
 						'input_font_size_unit'   => array(
@@ -1316,7 +1316,7 @@ FLBuilder::register_module(
 							),
 							'preview'     => array(
 								'type'     => 'css',
-								'selector' => 'input[type="text"], input[type="text"] ~ label',
+								'selector' => 'input[type="text"], input[type="email"], input[type="text"] ~ label, input[type="email"] ~ label',
 								'property' => 'font-size',
 								'unit'     => 'px',
 							),
@@ -1334,7 +1334,7 @@ FLBuilder::register_module(
 							),
 							'preview'     => array(
 								'type'     => 'css',
-								'selector' => 'input[type="text"], input[type="text"] ~ label',
+								'selector' => 'input[type="text"], input[type="email"], input[type="text"] ~ label, input[type="email"] ~ label',
 								'property' => 'line-height',
 								'unit'     => 'em',
 							),
@@ -1351,7 +1351,7 @@ FLBuilder::register_module(
 							),
 							'preview' => array(
 								'type'     => 'css',
-								'selector' => 'input[type="text"], input[type="text"] ~ label',
+								'selector' => 'input[type="text"], input[type="email"], input[type="text"] ~ label, input[type="email"] ~ label',
 								'property' => 'text-transform',
 							),
 						),
@@ -1363,7 +1363,7 @@ FLBuilder::register_module(
 							'description' => 'px',
 							'preview'     => array(
 								'type'     => 'css',
-								'selector' => 'input[type="text"], input[type="text"] ~ label',
+								'selector' => 'input[type="text"], input[type="email"], input[type="text"] ~ label, input[type="email"] ~ label',
 								'property' => 'letter-spacing',
 								'unit'     => 'px',
 							),

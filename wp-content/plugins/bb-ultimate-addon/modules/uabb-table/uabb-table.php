@@ -274,6 +274,7 @@ class UABBTable extends FLBuilderModule {
 	 *
 	 * @since 1.14.0
 	 * @access public
+	 * @param string $field get the field name.
 	 */
 	public static function get_description( $field ) {
 
@@ -285,7 +286,7 @@ class UABBTable extends FLBuilderModule {
 			if ( 'head_row_span' === $field ) {
 
 				$heading_rowspan_description = sprintf( /* translators: %s: search term */
-				__( '<div class="uabb-table-description"> Specify the number of rows this cell should merge. </div> <div class="uabb-table-description"> <b>Note: </b> Add multiple rows to see the result. Click <a href="https://www.ultimatebeaver.com/docs/how-to-merge-columns-and-rows-in-table/?utm_source=uabb-pro-backend&utm_medium=module-editor-screen&utm_campaign=table-module" target="_blank" rel="noopener"> <strong> here</strong> </a> to read article for more. </div>', 'uabb' )
+					__( '<div class="uabb-table-description"> Specify the number of rows this cell should merge. </div> <div class="uabb-table-description"> <b>Note: </b> Add multiple rows to see the result. Click <a href="https://www.ultimatebeaver.com/docs/how-to-merge-columns-and-rows-in-table/?utm_source=uabb-pro-backend&utm_medium=module-editor-screen&utm_campaign=table-module" target="_blank" rel="noopener"> <strong> here</strong> </a> to read article for more. </div>', 'uabb' )
 				);
 
 				return $heading_rowspan_description;
@@ -355,8 +356,8 @@ class UABBTable extends FLBuilderModule {
 				return $heading_colspan_description;
 			}
 
-			if ( 'custom_header_col_width' === $field ) { 
-				
+			if ( 'custom_header_col_width' === $field ) {
+
 				$custom_column_width = sprintf( /* translators: %s: search term */
 					__( '<div class="uabb-table-description"> This width will be adopted by all the columns below this header cell. </div>', 'uabb' )
 				);
@@ -393,7 +394,7 @@ class UABBTable extends FLBuilderModule {
 		if ( 'show_sort' === $field ) {
 
 			$sorting_description = sprintf( /* translators: %s: search term */
-			__( '<div class="uabb-table-description"> <b>Note: </b>Sorting feature will not work with Rowspan or Colspan structure. It will misalign table layout.</div>', 'uabb' )
+				__( '<div class="uabb-table-description"> <b>Note: </b>Sorting feature will not work with Rowspan or Colspan structure. It will misalign table layout.</div>', 'uabb' )
 			);
 
 			return $sorting_description;
@@ -447,18 +448,18 @@ FLBuilder::register_module(
 							'form'         => 'thead_row_form',
 							'preview_text' => 'heading',
 							'multiple'     => true,
-							'default'	   => array (
+							'default'      => array(
 								array(
-									'head_action'   => 'row',
-									'heading'		=> 'Name'
+									'head_action' => 'row',
+									'heading'     => 'Name',
 								),
 								array(
-									'head_action'   => 'cell',
-									'heading'		=> 'Designation'
+									'head_action' => 'cell',
+									'heading'     => 'Designation',
 								),
 								array(
-									'head_action'   => 'cell',
-									'heading'		=> 'Office'
+									'head_action' => 'cell',
+									'heading'     => 'Office',
 								),
 							),
 						),
@@ -478,42 +479,42 @@ FLBuilder::register_module(
 							'form'         => 'tbody_row_form',
 							'preview_text' => 'features',
 							'multiple'     => true,
-							'default'	   => array (
+							'default'      => array(
 								array(
-									'action'		=> 'row',
-									'features'		=> 'Mr. John Doe'
+									'action'   => 'row',
+									'features' => 'Mr. John Doe',
 								),
 								array(
-									'action'		=> 'cell',
-									'features'		=> 'Software Developer'
+									'action'   => 'cell',
+									'features' => 'Software Developer',
 								),
 								array(
-									'action'		=> 'cell',
-									'features'		=> 'Tokyo'
+									'action'   => 'cell',
+									'features' => 'Tokyo',
 								),
 								array(
-									'action'		=> 'row',
-									'features'		=> 'Ms. Cara Wagner'
+									'action'   => 'row',
+									'features' => 'Ms. Cara Wagner',
 								),
 								array(
-									'action'		=> 'cell',
-									'features'		=> 'Integration Specialist'
+									'action'   => 'cell',
+									'features' => 'Integration Specialist',
 								),
 								array(
-									'action'		=> 'cell',
-									'features'		=> 'London'
+									'action'   => 'cell',
+									'features' => 'London',
 								),
 								array(
-									'action'		=> 'row',
-									'features'		=> 'Mr. Bruno Stevens'
+									'action'   => 'row',
+									'features' => 'Mr. Bruno Stevens',
 								),
 								array(
-									'action'		=> 'cell',
-									'features'		=> 'WordPress Developer'
+									'action'   => 'cell',
+									'features' => 'WordPress Developer',
 								),
 								array(
-									'action'		=> 'cell',
-									'features'		=> 'New York'
+									'action'   => 'cell',
+									'features' => 'New York',
 								),
 							),
 						),
@@ -599,10 +600,11 @@ FLBuilder::register_module(
 							'connections' => array( 'string', 'html' ),
 						),
 						'show_entries_all_label' => array(
-							'type'        => 'text',
-							'label'       => __( 'All Label', 'uabb' ),
-							'placeholder' => __( 'All', 'uabb' ),
-							'connections' => array( 'string', 'html' ),
+							'type'        	=> 'text',
+							'label'       	=> __( 'All Label', 'uabb' ),
+							'default' 		=> __( 'All', 'uabb' ),
+							'placeholder' 	=> __( 'All', 'uabb' ),
+							'connections' 	=> array( 'string', 'html' ),
 						),
 					),
 				),

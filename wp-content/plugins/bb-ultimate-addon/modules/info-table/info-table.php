@@ -88,10 +88,10 @@ FLBuilder::register_module(
 							'toggle'  => array(
 								'cta'           => array(
 									'sections' => array( 'btn-style-section', 'btn_typography' ),
-									'fields'   => array( 'button_text', 'it_link', 'it_link_target' ),
+									'fields'   => array( 'button_text', 'it_link', 'it_link_target', 'it_link_nofollow' ),
 								),
 								'complete_link' => array(
-									'fields' => array( 'it_link', 'it_link_target' ),
+									'fields' => array( 'it_link', 'it_link_target', 'it_link_nofollow' ),
 								),
 							),
 						),
@@ -117,6 +117,17 @@ FLBuilder::register_module(
 							),
 							'preview' => array(
 								'type' => 'none',
+							),
+						),
+						'it_link_nofollow' => array(
+							'type'        => 'select',
+							'label'       => __( 'Link Nofollow', 'uabb' ),
+							'description' => '',
+							'default'     => '0',
+							'help'        => __( 'Enable this to make this link nofollow.', 'uabb' ),
+							'options'     => array(
+								'1' => __( 'Yes', 'uabb' ),
+								'0' => __( 'No', 'uabb' ),
 							),
 						),
 					),

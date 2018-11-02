@@ -27,7 +27,7 @@ if( $settings->hover_effect == 'simple' ) {
 	<div class="uabb-photo-content <?php echo $grayscale_class; ?>">
 
 		<?php if(!empty($link)) : ?>
-		<a href="<?php echo $link; ?>" target="<?php echo $settings->link_target; ?>" <?php BB_Ultimate_Addon_Helper::get_link_rel( $settings->link_target, 0, 1 ); ?> itemprop="url">
+		<a href="<?php echo $link; ?>" target="<?php echo $settings->link_target; ?>" <?php BB_Ultimate_Addon_Helper::get_link_rel( $settings->link_target, $settings->link_nofollow, 1 ); ?> itemprop="url">
 		<?php endif; ?>
 		<img class="<?php echo $classes; ?>" src="<?php echo $src; ?>" alt="<?php echo $alt; ?>" itemprop="image" <?php echo $attrs; ?> />
 

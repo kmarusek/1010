@@ -112,7 +112,7 @@ class UABBTeamModule extends FLBuilderModule {
 		if ( ! empty( $this->settings->name ) ) {
 			$output  = '<div class="uabb-team-name" >';
 			$output .= '<' . $this->settings->tag_selection . ' class="uabb-team-name-text">';
-			$output .= ( isset( $this->settings->enable_custom_link ) && 'no' != $this->settings->enable_custom_link ) ? '<a href="' . $this->settings->custom_link . '" target ="' . $this->settings->custom_link_target . '" ' . BB_Ultimate_Addon_Helper::get_link_rel( $this->settings->custom_link_target, 0, 0 ) . '>' . $this->settings->name . '</a>' : $this->settings->name;
+			$output .= ( isset( $this->settings->enable_custom_link ) && 'no' != $this->settings->enable_custom_link ) ? '<a href="' . $this->settings->custom_link . '" target ="' . $this->settings->custom_link_target . '" ' . BB_Ultimate_Addon_Helper::get_link_rel( $this->settings->custom_link_target, $this->settings->custom_link_nofollow, 0 ) . '>' . $this->settings->name . '</a>' : $this->settings->name;
 			$output .= '</' . $this->settings->tag_selection . '>';
 			$output .= '</div>';
 			echo $output;
@@ -517,7 +517,7 @@ FLBuilder::register_module(
 							'help'    => __( 'Add a custom link to employee page.', 'uabb' ),
 							'toggle'  => array(
 								'yes' => array(
-									'fields' => array( 'custom_link', 'custom_link_target' ),
+									'fields' => array( 'custom_link', 'custom_link_target', 'custom_link_nofollow' ),
 								),
 							),
 						),
@@ -534,6 +534,17 @@ FLBuilder::register_module(
 							'options' => array(
 								'_blank' => __( 'New Page', 'uabb' ),
 								''       => __( 'Same Page', 'uabb' ),
+							),
+						),
+						'custom_link_nofollow' => array(
+							'type'        => 'select',
+							'label'       => __( 'Link Nofollow', 'uabb' ),
+							'description' => '',
+							'default'     => '0',
+							'help'        => __( 'Enable this to make this link nofollow.', 'uabb' ),
+							'options'     => array(
+								'1' => __( 'Yes', 'uabb' ),
+								'0' => __( 'No', 'uabb' ),
 							),
 						),
 					),

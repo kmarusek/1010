@@ -51,7 +51,9 @@
                 var show_entries_label = settings.show_entries_all_label;
 
                 $(document).on('change', nodeClass + ' .entries-wrapper .select-filter', function(event) {
-
+                    if ( show_entries_label == '' ) {
+                        show_entries_label = 'All';
+                    }
                     var num = $(this).val();    
                         
                     if (  show_entries_label != num ) {

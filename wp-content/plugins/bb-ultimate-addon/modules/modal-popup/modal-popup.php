@@ -152,13 +152,6 @@ class ModalPopupModule extends FLBuilderModule {
 			} else {
 				$related_videos = '';
 			}
-
-			if ( 'yes' == $this->settings->youtube_title_controls ) {
-				$title_controls = '&showinfo=0';
-			} else {
-				$title_controls = '';
-			}
-
 			if ( 'yes' == $this->settings->youtube_player_controls ) {
 				$player_controls = '&controls=0';
 			} else {
@@ -166,7 +159,7 @@ class ModalPopupModule extends FLBuilderModule {
 			}
 			$thumb = 'https://i.ytimg.com/vi/' . $vid_id . '/hqdefault.jpg';
 
-			$html .= '<div class="uabb-modal-iframe uabb-video-player" data-src="youtube" data-id="' . $vid_id . '" data-append="?version=3&enablejsapi=1' . $related_videos . $title_controls . $player_controls . '" data-thumb="' . $thumb . '"></div>';
+			$html .= '<div class="uabb-modal-iframe uabb-video-player" data-src="youtube" data-id="' . $vid_id . '" data-append="?version=3&enablejsapi=1' . $related_videos . $player_controls . '" data-thumb="' . $thumb . '"></div>';
 		} elseif ( 'vimeo' === $this->settings->content_type ) {
 			$vid_id = preg_replace( '/[^\/]+[^0-9]|(\/)/', '', rtrim( $url, '/' ) );
 
@@ -347,7 +340,7 @@ FLBuilder::register_module(
 								),
 								'youtube'              => array(
 									'sections' => array( 'video_setting' ),
-									'fields'   => array( 'youtube_related_videos', 'youtube_title_controls', 'youtube_player_controls' ),
+									'fields'   => array( 'youtube_related_videos','youtube_player_controls' ),
 								),
 								'vimeo'                => array(
 									'sections' => array( 'video_setting' ),
@@ -424,15 +417,6 @@ FLBuilder::register_module(
 						'youtube_related_videos'  => array(
 							'type'    => 'select',
 							'label'   => __( 'Disable Related Videos', 'uabb' ),
-							'default' => 'no',
-							'options' => array(
-								'yes' => __( 'Yes', 'uabb' ),
-								'no'  => __( 'No', 'uabb' ),
-							),
-						),
-						'youtube_title_controls'  => array(
-							'type'    => 'select',
-							'label'   => __( 'Disable Video Title', 'uabb' ),
 							'default' => 'no',
 							'options' => array(
 								'yes' => __( 'Yes', 'uabb' ),

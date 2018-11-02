@@ -185,7 +185,9 @@ if( $settings->btn_margin_top != '' ) {
 }
 
 .fl-node-<?php echo $id; ?> .uabb-form-field input[type="text"],
-.fl-node-<?php echo $id; ?> .uabb-form-field input[type="text"] ~ label {
+.fl-node-<?php echo $id; ?> .uabb-form-field input[type="email"],
+.fl-node-<?php echo $id; ?> .uabb-form-field input[type="text"] ~ label,
+.fl-node-<?php echo $id; ?> .uabb-form-field input[type="email"] ~ label {
     <?php if( $settings->input_font_family['family'] != "Default") : ?>
             <?php UABB_Helper::uabb_font_css( $settings->input_font_family ); ?>
     <?php endif; ?>
@@ -587,7 +589,9 @@ if( $global_settings->responsive_enabled ) { // Global Setting If started
         }
 
         .fl-node-<?php echo $id; ?> .uabb-form-field input[type="text"],
-        .fl-node-<?php echo $id; ?> .uabb-form-field input[type="text"] ~ label {
+        .fl-node-<?php echo $id; ?> .uabb-form-field input[type="text"] ~ label,
+        .fl-node-<?php echo $id; ?> .uabb-form-field input[type="email"],
+        .fl-node-<?php echo $id; ?> .uabb-form-field input[type="email"] ~ label {
 
             <?php if( $converted === 'yes' || isset( $settings->input_font_size_unit_medium ) && $settings->input_font_size_unit_medium != '' ){ ?>
                 font-size: <?php echo $settings->input_font_size_unit_medium; ?>px;
@@ -771,7 +775,9 @@ if( $global_settings->responsive_enabled ) { // Global Setting If started
         }
 
         .fl-node-<?php echo $id; ?> .uabb-form-field input[type="text"],
-        .fl-node-<?php echo $id; ?> .uabb-form-field input[type="text"] ~ label {
+        .fl-node-<?php echo $id; ?> .uabb-form-field input[type="text"] ~ label,
+        .fl-node-<?php echo $id; ?> .uabb-form-field input[type="email"],
+        .fl-node-<?php echo $id; ?> .uabb-form-field input[type="email"] ~ label {
 
             <?php if( $converted === 'yes' || isset( $settings->input_font_size_unit_responsive ) && $settings->input_font_size_unit_responsive != '' ) { ?>
                 font-size: <?php echo $settings->input_font_size_unit_responsive; ?>px;    

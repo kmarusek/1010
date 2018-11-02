@@ -511,6 +511,17 @@ FLBuilder::register_settings_form(
 									''       => __( 'Same Page', 'uabb' ),
 								),
 							),
+							'nofollow' => array(
+								'type'        => 'select',
+								'label'       => __( 'Link Nofollow', 'uabb' ),
+								'description' => '',
+								'default'     => '0',
+								'help'        => __( 'Enable this to make this link nofollow.', 'uabb' ),
+								'options'     => array(
+									'1' => __( 'Yes', 'uabb' ),
+									'0' => __( 'No', 'uabb' ),
+								),
+							),
 						),
 					),
 				),

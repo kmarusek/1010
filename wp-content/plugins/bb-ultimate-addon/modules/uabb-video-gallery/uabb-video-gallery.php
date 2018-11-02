@@ -118,16 +118,15 @@ class UABBVideoGallery extends FLBuilderModule {
 	 */
 	public function get_play_button() {
 
-		if( 'default' === $this->settings->play_source ) {
-		?>
+		if ( 'default' === $this->settings->play_source ) {
+			?>
 			<svg height="100%" version="1.1" viewBox="0 0 68 48" width="100%"><path class="uabb-video-gallery-icon-bg" d="m .66,37.62 c 0,0 .66,4.70 2.70,6.77 2.58,2.71 5.98,2.63 7.49,2.91 5.43,.52 23.10,.68 23.12,.68 .00,-1.3e-5 14.29,-0.02 23.81,-0.71 1.32,-0.15 4.22,-0.17 6.81,-2.89 2.03,-2.07 2.70,-6.77 2.70,-6.77 0,0 .67,-5.52 .67,-11.04 l 0,-5.17 c 0,-5.52 -0.67,-11.04 -0.67,-11.04 0,0 -0.66,-4.70 -2.70,-6.77 C 62.03,.86 59.13,.84 57.80,.69 48.28,0 34.00,0 34.00,0 33.97,0 19.69,0 10.18,.69 8.85,.84 5.95,.86 3.36,3.58 1.32,5.65 .66,10.35 .66,10.35 c 0,0 -0.55,4.50 -0.66,9.45 l 0,8.36 c .10,4.94 .66,9.45 .66,9.45 z" fill="#1f1f1e"></path><path d="m 26.96,13.67 18.37,9.62 -18.37,9.55 -0.00,-19.17 z" fill="#fff"></path><path d="M 45.02,23.46 45.32,23.28 26.96,13.67 43.32,24.34 45.02,23.46 z" fill="#ccc"></path></svg>
-		<?php
-		}
-		else if ( 'icon' === $this->settings->play_source ) {
+			<?php
+		} elseif ( 'icon' === $this->settings->play_source ) {
 			?>
 			<i class="<?php echo $this->settings->play_icon . ' uabb-animation-' . $this->settings->hover_animation; ?> uabb-vg__play-icon"></i>
 			<?php
-		} else if ( 'img' === $this->settings->play_source ) {
+		} elseif ( 'img' === $this->settings->play_source ) {
 
 			$url = $this->settings->play_img_src;
 
@@ -236,13 +235,13 @@ class UABBVideoGallery extends FLBuilderModule {
 			}
 
 			?>
-			<div  class="uabb-video__gallery-item <?php echo ( isset( $tags_key ) ) ? $tags_key : '' ; ?> ">
+			<div  class="uabb-video__gallery-item <?php echo ( isset( $tags_key ) ) ? $tags_key : ''; ?> ">
 				<div class="uabb-video__gallery-iframe" style="background-image:url('<?php echo $url['url']; ?>');">
 					<?php echo $html; ?>
 						<div class="uabb-video__content-wrap">
 							<div class="uabb-video__content">
 								<?php $this->get_caption( $item ); ?>
-									<div class="uabb-vg__play <?php echo ( 'default' === $this->settings->play_source ) ? 'uabb-animation-' . $this->settings->hover_animation : '' ; ?>">
+									<div class="uabb-vg__play <?php echo ( 'default' === $this->settings->play_source ) ? 'uabb-animation-' . $this->settings->hover_animation : ''; ?>">
 										<?php $this->get_play_button(); ?>
 									</div>
 									<?php $this->get_tag( $item ); ?>
@@ -349,8 +348,11 @@ class UABBVideoGallery extends FLBuilderModule {
 						<<?php echo $this->settings->filter_title_tag; ?> class="uabb-video-gallery-title-text"><?php echo $this->settings->filters_heading_text; ?></<?php echo $this->settings->filter_title_tag; ?>> 
 					</div>
 			<?php } ?>
-					<ul class="uabb-video__gallery-filters" data-default="<?php echo ( isset( $default ) ) ? $default : '';
-					?>">
+					<ul class="uabb-video__gallery-filters" data-default="
+					<?php
+					echo ( isset( $default ) ) ? $default : '';
+					?>
+					">
 						<li class="uabb-video__gallery-filter uabb-filter__current" data-filter="*">
 							<?php echo $this->settings->filters_all_text; ?>
 						</li>
@@ -383,15 +385,14 @@ class UABBVideoGallery extends FLBuilderModule {
 			$filter_data = json_encode( array_keys( $filters ) );
 				$this->render_gallery_filters();
 			?>
-			<div class="uabb-video-gallery-wrap uabb-video-gallery-filter uabb-vg__layout-<?php echo $this->settings->layout; ?> uabb-vg__action-<?php echo $this->settings->click_action; ?> uabb-aspect-ratio-<?php echo $this->settings->video_ratio; ?>" data-action ="<?php echo $this->settings->click_action; ?>" data-layout="<?php echo $this->settings->layout; ?>" data-all-filters=<?php echo ( isset( $filter_data ) ) ? $filter_data : '';?>>
+			<div class="uabb-video-gallery-wrap uabb-video-gallery-filter uabb-vg__layout-<?php echo $this->settings->layout; ?> uabb-vg__action-<?php echo $this->settings->click_action; ?> uabb-aspect-ratio-<?php echo $this->settings->video_ratio; ?>" data-action ="<?php echo $this->settings->click_action; ?>" data-layout="<?php echo $this->settings->layout; ?>" data-all-filters=<?php echo ( isset( $filter_data ) ) ? $filter_data : ''; ?>>
 				<?php $this->render_gallery_inner_data(); ?>
 			</div>
 			<?php
 		} else {
 			?>
 
-			<div class="uabb-video-gallery-wrap uabb-vg__layout-<?php echo $this->settings->layout; ?> uabb-vg__action-<?php echo $this->settings->click_action; ?> uabb-aspect-ratio-<?php echo $this->settings->video_ratio; ?>" data-action ="<?php echo $this->settings->click_action; ?>" data-layout="<?php echo $this->settings->layout; ?>" data-vg_slider=<?php echo $this->get_slider_attr(); ?>>
-
+			<div class="uabb-video-gallery-wrap uabb-vg__layout-<?php echo $this->settings->layout; ?> uabb-vg__action-<?php echo $this->settings->click_action; ?> uabb-aspect-ratio-<?php echo $this->settings->video_ratio; ?>" data-action ="<?php echo $this->settings->click_action; ?>" data-layout="<?php echo $this->settings->layout; ?>">
 			<?php $this->render_gallery_inner_data(); ?>
 
 			</div>
@@ -399,89 +400,34 @@ class UABBVideoGallery extends FLBuilderModule {
 		}
 	}
 	/**
-	 * Get Wrapper Classes.
-	 *
-	 * @since 1.13.0
-	 * @access public
-	 */
-	public function get_slider_attr() {
-
-		if ( 'carousel' !== $this->settings->layout ) {
-			return;
-		}
-		$is_rtl        = is_rtl();
-		$direction     = $is_rtl ? 'rtl' : 'ltr';
-		$slick_options = array(
-			'slidesToShow'   => ( $this->settings->gallery_columns ) ? absint( $this->settings->gallery_columns ) : 4,
-			'slidesToScroll' => ( $this->settings->slides_to_scroll ) ? absint( $this->settings->slides_to_scroll ) : 1,
-			'autoplaySpeed'  => ( $this->settings->autoplay_speed ) ? absint( $this->settings->autoplay_speed ) : 5000,
-			'autoplay'       => ( 'yes' === $this->settings->autoplay ),
-			'infinite'       => ( 'yes' === $this->settings->infinite ),
-			'pauseOnHover'   => ( 'yes' === $this->settings->pause_on_hover ),
-			'speed'          => ( $this->settings->transition_speed ) ? absint( $this->settings->transition_speed ) : 500,
-			'arrows'         => ( 'yes' === $this->settings->enable_arrow ),
-			'dots'           => ( 'yes' === $this->settings->enable_dots ),
-		);
-
-		if ( $this->settings->gallery_columns_medium || $this->settings->gallery_columns_responsive ) {
-
-			$slick_options['responsive'] = array();
-			if ( $this->settings->gallery_columns_medium ) {
-
-				$medium_show   = absint( $this->settings->gallery_columns_medium );
-				$medium_scroll = $medium_show;
-
-				$slick_options['responsive'][] = [
-					'breakpoint' => 992,
-					'settings'   => [
-						'slidesToShow'   => $medium_show,
-						'slidesToScroll' => $medium_scroll,
-					],
-				];
-			}
-			if ( $this->settings->gallery_columns_responsive ) {
-
-				$responsive_show   = absint( $this->settings->gallery_columns_responsive );
-				$responsive_scroll = $responsive_show;
-
-				$slick_options['responsive'][] = [
-					'breakpoint' => 768,
-					'settings'   => [
-						'slidesToShow'   => $responsive_show,
-						'slidesToScroll' => $responsive_scroll,
-					],
-				];
-			}
-		}
-		return wp_json_encode( $slick_options );
-	}
-
-	/**
 	 * Get help descriptions.
 	 *
 	 * @since 1.13.0
 	 * @access public
+	 * @param string $field which fetches field name.
 	 */
 	public static function get_description( $field ) {
 
-		$style1            = 'line-height: 1em; padding-bottom:5px;';
-		$style2            = 'line-height: 1em; padding-bottom:7px;';
+		$style1 = 'line-height: 1em; padding-bottom:5px;';
+		$style2 = 'line-height: 1em; padding-bottom:7px;';
 
 		if ( 'youtube_link' === $field ) {
-			$youtube_link_desc = sprintf(
-				__( '<div style="%2$s"> Make sure you add the actual URL of the video and not the share URL.</div>
+			$youtube_link_desc = sprintf( /* translators: %s: search term */
+				__(
+					'<div style="%2$s"> Make sure you add the actual URL of the video and not the share URL.</div>
 			        <div style="%1$s"><b> Valid URL : </b>  https://www.youtube.com/watch?v=HJRzUQMhJMQ</div>
 			        <div style="%1$s"> <b> Invalid URL : </b> https://youtu.be/HJRzUQMhJMQ</div>',
 					'uabb'
-				), $style1,	$style2
+				), $style1, $style2
 			);
 
 			return $youtube_link_desc;
-			
+
 		} elseif ( 'vimeo_link' === $field ) {
-			
-			$vimeo_link_desc   = sprintf(
-				__( '<div style="%1$s">Make sure you add the actual URL of the video and not the categorized URL.</div>
+
+			$vimeo_link_desc = sprintf( /* translators: %s: search term */
+				__(
+					'<div style="%1$s">Make sure you add the actual URL of the video and not the categorized URL.</div>
 			        <div style="%1$s"><b> Valid URL : </b>  https://vimeo.com/274860274</div>
 			        <div style="%1$s"> <b> Invalid URL : </b> https://vimeo.com/channels/staffpicks/274860274</div>',
 					'uabb'
@@ -510,44 +456,44 @@ FLBuilder::register_module(
 							'form'         => 'uabb_video_gallery_form',
 							'multiple'     => true,
 							'preview_text' => 'title',
-							'default'	   =>array(
+							'default'      => array(
 								array(
-									'video_type' => 'youtube',
-									'youtube_link' =>'https://www.youtube.com/watch?v=HJRzUQMhJMQ',
-									'title'		   =>'First Video',
-									'tags'		   =>'YouTube'
+									'video_type'   => 'youtube',
+									'youtube_link' => 'https://www.youtube.com/watch?v=HJRzUQMhJMQ',
+									'title'        => 'First Video',
+									'tags'         => 'YouTube',
 								),
 								array(
-									'video_type' => 'vimeo',
-									'youtube_link' =>'https://vimeo.com/274860274',
-									'title'		   =>'Second Video',
-									'tags'		   =>'Vimeo'
+									'video_type'   => 'vimeo',
+									'youtube_link' => 'https://vimeo.com/274860274',
+									'title'        => 'Second Video',
+									'tags'         => 'Vimeo',
 								),
 								array(
-									'video_type' => 'youtube',
-									'youtube_link' =>'https://www.youtube.com/watch?v=HJRzUQMhJMQ',
-									'title'		   =>'Third Video',
-									'tags'		   =>'YouTube'
+									'video_type'   => 'youtube',
+									'youtube_link' => 'https://www.youtube.com/watch?v=HJRzUQMhJMQ',
+									'title'        => 'Third Video',
+									'tags'         => 'YouTube',
 								),
 								array(
-									'video_type' => 'vimeo',
-									'youtube_link' =>'https://vimeo.com/274860274',
-									'title'		   =>'Fourth Video',
-									'tags'		   =>'Vimeo'
+									'video_type'   => 'vimeo',
+									'youtube_link' => 'https://vimeo.com/274860274',
+									'title'        => 'Fourth Video',
+									'tags'         => 'Vimeo',
 
 								),
 								array(
-									'video_type' => 'youtube',
-									'youtube_link' =>'https://www.youtube.com/watch?v=HJRzUQMhJMQ',
-									'title'		   =>'Fifth Video',
-									'tags'		   =>'YouTube'
+									'video_type'   => 'youtube',
+									'youtube_link' => 'https://www.youtube.com/watch?v=HJRzUQMhJMQ',
+									'title'        => 'Fifth Video',
+									'tags'         => 'YouTube',
 
 								),
 								array(
-									'video_type' => 'vimeo',
-									'youtube_link' =>'https://vimeo.com/274860274',
-									'title'		   =>'Sixth Video',
-									'tags'		   =>'Vimeo'
+									'video_type'   => 'vimeo',
+									'youtube_link' => 'https://vimeo.com/274860274',
+									'title'        => 'Sixth Video',
+									'tags'         => 'Vimeo',
 								),
 							),
 						),
@@ -686,12 +632,19 @@ FLBuilder::register_module(
 				'section_slider_options' => array(
 					'title'  => __( 'Carousel', 'uabb' ),
 					'fields' => array(
-						'slides_to_scroll' =>array(
-							'type'			=>'unit',
-							'label'			=>__('Slides To Scroll','uabb'),
-							'default'		=> '1',
-							'maxlength'  	=> '5',
-							'size'       	=> '6',
+						'slides_to_scroll' => array(
+							'type'       => 'unit',
+							'label'      => __( 'Slides To Scroll', 'uabb' ),
+							'default'    => '1',
+							'maxlength'  => '5',
+							'size'       => '6',
+							'responsive' => array(
+								'default' => array(
+									'default'    => '1',
+									'medium'     => '',
+									'responsive' => '',
+								),
+							),
 						),
 						'enable_dots'      => array(
 							'type'    => 'select',
@@ -703,7 +656,7 @@ FLBuilder::register_module(
 							),
 							'toggle'  => array(
 								'yes' => array(
-									'fields' => array( 'dots_size','dots_color' ),
+									'fields' => array( 'dots_size', 'dots_color' ),
 								),
 							),
 						),
@@ -717,7 +670,7 @@ FLBuilder::register_module(
 							),
 							'toggle'  => array(
 								'yes' => array(
-									'fields' => array( 'arrows_size','arrows_color','arrow_border_radius','arrows_border_size' ),
+									'fields' => array( 'arrows_size', 'arrows_color', 'arrow_border_radius', 'arrows_border_size' ),
 								),
 							),
 						),
@@ -736,10 +689,10 @@ FLBuilder::register_module(
 							),
 						),
 						'autoplay_speed'   => array(
-							'type'    => 'unit',
-							'label'   => __( 'Autoplay Speed', 'uabb' ),
-							'default' => '5000',
-							'description'=>__('ms','uabb'),
+							'type'        => 'unit',
+							'label'       => __( 'Autoplay Speed', 'uabb' ),
+							'default'     => '5000',
+							'description' => __( 'ms', 'uabb' ),
 						),
 						'pause_on_hover'   => array(
 							'type'    => 'select',
@@ -760,10 +713,10 @@ FLBuilder::register_module(
 							),
 						),
 						'transition_speed' => array(
-							'type'    => 'unit',
-							'label'   => __( 'Transition Speed', 'uabb' ),
-							'default' => '500',
-							'description'=>__('ms','uabb'),
+							'type'        => 'unit',
+							'label'       => __( 'Transition Speed', 'uabb' ),
+							'default'     => '500',
+							'description' => __( 'ms', 'uabb' ),
 						),
 					),
 				),
@@ -862,7 +815,7 @@ FLBuilder::register_module(
 									'medium'     => '',
 									'responsive' => '',
 								),
-							)
+							),
 						),
 						'cat_filter_bet_spacing'         => array(
 							'type'        => 'unit',
@@ -1041,18 +994,18 @@ FLBuilder::register_module(
 							'label'   => __( 'Image/Icon', 'uabb' ),
 							'default' => 'default',
 							'options' => array(
-								'default'=>__('Default','uabb'),
-								'img'  => __( 'Image', 'uabb' ),
-								'icon' => __( 'Icon', 'uabb' ),
+								'default' => __( 'Default', 'uabb' ),
+								'img'     => __( 'Image', 'uabb' ),
+								'icon'    => __( 'Icon', 'uabb' ),
 							),
 							'toggle'  => array(
-								'img'  => array(
+								'img'     => array(
 									'fields' => array( 'play_img' ),
 								),
-								'icon' => array(
+								'icon'    => array(
 									'fields' => array( 'play_icon', 'play_icon_color', 'play_icon_hover_color' ),
 								),
-								'default'=>array(
+								'default' => array(
 									'fields' => array( 'play_icon_color', 'play_icon_hover_color' ),
 								),
 							),
@@ -1103,7 +1056,7 @@ FLBuilder::register_module(
 							'show_alpha' => 'true',
 							'default'    => '',
 							'preview'    => array(
-								'type'     => 'css',
+								'type'  => 'css',
 								'rules' => array(
 									array(
 										'selector' => '.uabb-video__content i,.uabb-vg__play i.uabb-vg__play-icon',
@@ -1113,7 +1066,7 @@ FLBuilder::register_module(
 										'selector' => '.uabb-video-gallery-icon-bg',
 										'property' => 'fill',
 									),
-								), 
+								),
 							),
 						),
 						'play_icon_hover_color' => array(
@@ -1219,7 +1172,7 @@ FLBuilder::register_module(
 							'show_reset' => 'true',
 							'show_alpha' => 'true',
 							'preview'    => array(
-								'type'     => 'css',
+								'type'  => 'css',
 								'rules' => array(
 									array(
 										'selector' => '.uabb-video-gallery-wrap.slick-slider .slick-arrow i',
@@ -1229,7 +1182,7 @@ FLBuilder::register_module(
 										'selector' => '.uabb-video-gallery-wrap.slick-slider .slick-arrow',
 										'property' => 'border-color',
 									),
-								), 
+								),
 							),
 						),
 						'arrows_border_size'  => array(
@@ -1254,26 +1207,26 @@ FLBuilder::register_module(
 								'unit'     => 'px',
 							),
 						),
-						'dots_size'             =>array(
-							'type'              =>'unit',
-							'label'             =>__('Dots Size', 'uabb'),
-							'description'       =>'px',
-							'preview'   =>array(
-								'type'      =>'css',
-								'selector'  =>'.uabb-video-gallery-wrap .slick-dots li button:before',
-								'property'  =>'font-size',
-								'unit'      =>'px',
+						'dots_size'           => array(
+							'type'        => 'unit',
+							'label'       => __( 'Dots Size', 'uabb' ),
+							'description' => 'px',
+							'preview'     => array(
+								'type'     => 'css',
+								'selector' => '.uabb-video-gallery-wrap .slick-dots li button:before',
+								'property' => 'font-size',
+								'unit'     => 'px',
 							),
 						),
-						'dots_color'            =>array(
-							'type'              =>'color',
-							'label'             =>__('Dots Color', 'uabb'),
-							'show_alpha'        =>'true',
-							'show_reset'        =>'true',
-							'preview'   =>array(
-								'type'      =>'css',
-								'selector'  =>'.uabb-video-gallery-wrap .slick-dots li button:before,.uabb-video-gallery-wrap ul.slick-dots li.slick-active button:before',
-								'property'  =>'color',
+						'dots_color'          => array(
+							'type'       => 'color',
+							'label'      => __( 'Dots Color', 'uabb' ),
+							'show_alpha' => 'true',
+							'show_reset' => 'true',
+							'preview'    => array(
+								'type'     => 'css',
+								'selector' => '.uabb-video-gallery-wrap .slick-dots li button:before,.uabb-video-gallery-wrap ul.slick-dots li.slick-active button:before',
+								'property' => 'color',
 							),
 						),
 					),

@@ -16,6 +16,11 @@ $settings->uabb_border_color       = UABB_Helper::uabb_colorpicker( $settings, '
 $settings->icon_bg_hover_color     = UABB_Helper::uabb_colorpicker( $settings, 'icon_bg_hover_color', true );
 $settings->icon_border_hover_color = UABB_Helper::uabb_colorpicker( $settings, 'icon_border_hover_color' );
 $settings->img_border_hover_color  = UABB_Helper::uabb_colorpicker( $settings, 'img_border_hover_color' );
+$settings->subhead_color_hover  = UABB_Helper::uabb_colorpicker( $settings, 'subhead_color_hover' );
+$settings->title_color_hover = UABB_Helper::uabb_colorpicker( $settings, 'title_color_hover' );
+$settings->prefix_color_hover = UABB_Helper::uabb_colorpicker( $settings, 'prefix_color_hover' );
+$settings->link_color_hover = UABB_Helper::uabb_colorpicker( $settings, 'link_color_hover' );
+$settings->bg_color_hover = UABB_Helper::uabb_colorpicker( $settings, 'bg_color_hover' );
 
 $settings->img_size          = ( trim( $settings->img_size ) !== '' ) ? $settings->img_size : '150';
 $settings->icon_size         = ( trim( $settings->icon_size ) !== '' ) ? $settings->icon_size : '30';
@@ -331,8 +336,11 @@ if ( $settings->image_type != 'none' ) {
 	<?php endif; ?>
 	}
 <?php } ?>
-
-
+<?php if( isset( $settings->bg_color_hover ) && '' !== $settings->bg_color_hover ) { ?>
+	.fl-node-<?php echo $id; ?> .uabb-infobox:hover {
+		background:<?php echo $settings->bg_color_hover; ?>;
+	}
+<?php } ?>
 /* Align */
 .fl-node-<?php echo $id; ?> .infobox-<?php echo $settings->align; ?> {
 	text-align: <?php echo $settings->align; ?>;
@@ -375,6 +383,17 @@ if ( $settings->image_type != 'none' ) {
 }
 <?php endif; ?>
 
+<?php if ( ! empty( $settings->title_color_hover ) ) : ?> 
+.fl-node-<?php echo $id; ?> <?php echo $settings->title_tag_selection; ?>.uabb-infobox-title:hover, 
+.fl-node-<?php echo $id; ?> <?php echo $settings->title_tag_selection; ?>.uabb-infobox-title span a:hover,
+.fl-node-<?php echo $id; ?> <?php echo $settings->title_tag_selection; ?>.uabb-infobox-title *:hover,
+.fl-node-<?php echo $id; ?> .uabb-infobox-module-link:hover ~ .uabb-infobox-content <?php echo $settings->title_tag_selection; ?>.uabb-infobox-title,
+.fl-node-<?php echo $id; ?> .uabb-infobox-module-link:hover ~ .uabb-infobox-content <?php echo $settings->title_tag_selection; ?>.uabb-infobox-title span a,
+.fl-node-<?php echo $id; ?> .uabb-infobox-module-link:hover ~ .uabb-infobox-content <?php echo $settings->title_tag_selection; ?>.uabb-infobox-title * {
+	color: <?php echo $settings->title_color_hover; ?>
+}
+<?php endif; ?>
+
 .fl-builder-content .fl-node-<?php echo $id; ?> .uabb-infobox-text {
 	margin-top: <?php echo ( trim( $settings->content_margin_top ) !== '' ) ? $settings->content_margin_top : '0'; ?>px;
 	margin-bottom: <?php echo ( trim( $settings->content_margin_bottom ) !== '' ) ? $settings->content_margin_bottom : '0'; ?>px;
@@ -385,7 +404,12 @@ if ( $settings->image_type != 'none' ) {
 .fl-node-<?php echo $id; ?> .uabb-infobox-text {
 	color: <?php echo uabb_theme_text_color( $settings->subhead_color ); ?>;
 }
-
+<?php if (isset( $settings->subhead_color_hover ) && '' !== $settings->subhead_color_hover ) { ?>
+	.fl-node-<?php echo $id; ?> .uabb-infobox-text:hover,
+	.fl-node-<?php echo $id; ?> .uabb-infobox-module-link:hover ~ .uabb-infobox-content .uabb-text-editor{
+		color: <?php echo ( '' !== $settings->subhead_color_hover ) ? $settings->subhead_color_hover : '' ?>;
+	}
+<?php } ?>
 /* Icon Margin */
 <?php if ( $settings->image_type == 'icon' ) { ?>
 	<?php
@@ -440,6 +464,13 @@ if ( $settings->image_type != 'none' ) {
 	color: <?php echo uabb_theme_text_color( $settings->link_color ); ?>;
 }
 <?php endif; ?>
+<?php if ( ! empty( $settings->link_color_hover ) ) : ?> 
+.fl-builder-content .fl-node-<?php echo $id; ?> a:hover,
+.fl-builder-content .fl-node-<?php echo $id; ?> a *:hover{
+	color: <?php echo uabb_theme_text_color( $settings->link_color_hover ); ?>;
+}
+<?php endif; ?>
+
 
 /* Typography Options for Title */
 .fl-builder-content .fl-node-<?php echo $id; ?> <?php /*echo $settings->title_tag_selection;*/ ?>.uabb-infobox-title,
@@ -555,7 +586,12 @@ if ( $settings->image_type != 'none' ) {
    	<?php endif; ?>   
 
 }
-
+<?php if( isset( $settings->prefix_color_hover ) && '' !== $settings->prefix_color_hover ) { ?>
+	.fl-node-<?php echo $id; ?> .uabb-infobox-module-link:hover ~ .uabb-infobox-content .uabb-infobox-title-prefix,
+	.fl-builder-content .fl-node-<?php echo $id; ?> .uabb-infobox-title-prefix:hover{
+	color:<?php echo $settings->prefix_color_hover ?>;
+}
+<?php } ?>
 /* Typography Options for Link Text */
 .fl-builder-content .fl-node-<?php echo $id; ?> .uabb-infobox-cta-link {
 	<?php if ( $settings->link_font_family['family'] != 'Default' ) : ?>

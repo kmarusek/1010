@@ -596,21 +596,21 @@
 		width: 16.66%;
 	}
 
-	.uabb-video-gallery-mobile__column-1 .uabb-video__gallery-item:nth-child(n+1),
-	.uabb-video-gallery-mobile__column-2 .uabb-video__gallery-item:nth-child(2n+1),
-	.uabb-video-gallery-mobile__column-3 .uabb-video__gallery-item:nth-child(3n+1),
-	.uabb-video-gallery-mobile__column-4 .uabb-video__gallery-item:nth-child(4n+1),
-	.uabb-video-gallery-mobile__column-5 .uabb-video__gallery-item:nth-child(5n+1),
-	.uabb-video-gallery-mobile__column-6 .uabb-video__gallery-item:nth-child(6n+1) {
+	.uabb-video-gallery-mobile__column-1 .uabb-video__gallery-item:nth-child(n+1):not(.slick-slide),
+	.uabb-video-gallery-mobile__column-2 .uabb-video__gallery-item:nth-child(2n+1):not(.slick-slide),
+	.uabb-video-gallery-mobile__column-3 .uabb-video__gallery-item:nth-child(3n+1):not(.slick-slide),
+	.uabb-video-gallery-mobile__column-4 .uabb-video__gallery-item:nth-child(4n+1):not(.slick-slide),
+	.uabb-video-gallery-mobile__column-5 .uabb-video__gallery-item:nth-child(5n+1):not(.slick-slide),
+	.uabb-video-gallery-mobile__column-6 .uabb-video__gallery-item:nth-child(6n+1):not(.slick-slide), {
 		clear: left;
 	}
 
-	.uabb-video-gallery-mobile__column-1 .uabb-video__gallery-item:nth-child(n),
-	.uabb-video-gallery-mobile__column-2 .uabb-video__gallery-item:nth-child(2n),
-	.uabb-video-gallery-mobile__column-3 .uabb-video__gallery-item:nth-child(3n),
-	.uabb-video-gallery-mobile__column-4 .uabb-video__gallery-item:nth-child(4n),
-	.uabb-video-gallery-mobile__column-5 .uabb-video__gallery-item:nth-child(5n),
-	.uabb-video-gallery-mobile__column-6 .uabb-video__gallery-item:nth-child(6n) {
+	.uabb-video-gallery-mobile__column-1 .uabb-video__gallery-item:nth-child(n):not(.slick-slide),
+	.uabb-video-gallery-mobile__column-2 .uabb-video__gallery-item:nth-child(2n):not(.slick-slide),
+	.uabb-video-gallery-mobile__column-3 .uabb-video__gallery-item:nth-child(3n):not(.slick-slide),
+	.uabb-video-gallery-mobile__column-4 .uabb-video__gallery-item:nth-child(4n):not(.slick-slide),
+	.uabb-video-gallery-mobile__column-5 .uabb-video__gallery-item:nth-child(5n):not(.slick-slide),
+	.uabb-video-gallery-mobile__column-6 .uabb-video__gallery-item:nth-child(6n):not(.slick-slide), {
 		clear: right;
 	}
 }

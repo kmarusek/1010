@@ -14,7 +14,7 @@ $settings->play_icon_hover_color          = UABB_Helper::uabb_colorpicker( $sett
 $settings->overlay_background_color       = UABB_Helper::uabb_colorpicker( $settings, 'overlay_background_color', true );
 $settings->overlay_background_hover_color = UABB_Helper::uabb_colorpicker( $settings, 'overlay_background_hover_color', true );
 $settings->caption_color                  = UABB_Helper::uabb_colorpicker( $settings, 'caption_color', true );
-$settings->dots_color 					  = UABB_Helper::uabb_colorpicker( $settings, 'dots_color', true );
+$settings->dots_color                     = UABB_Helper::uabb_colorpicker( $settings, 'dots_color', true );
 $settings->arrows_color                   = UABB_Helper::uabb_colorpicker( $settings, 'arrows_color', true );
 $settings->tag_color                      = UABB_Helper::uabb_colorpicker( $settings, 'tag_color', true );
 $settings->cat_filter_bg_hover_color      = UABB_Helper::uabb_colorpicker( $settings, 'cat_filter_bg_hover_color', true );
@@ -67,10 +67,10 @@ $settings->cat_filter_border_color_active = UABB_Helper::uabb_colorpicker( $sett
 		color:<?php echo $settings->filter_title_color; ?>;
 	}
 <?php } ?>
-<?php if( 'yes' === $settings->show_filter_title &&  '' !== $settings->filters_heading_text ) { ?>
+<?php if ( 'yes' === $settings->show_filter_title && '' !== $settings->filters_heading_text ) { ?>
 	.fl-node-<?php echo $id; ?> .uabb-video-gallery-title-text {
 		<?php if ( 'default' !== $settings->filter_title_font['family'] && 'default' !== $settings->filter_title_font['weight'] ) : ?>
-		<?php FLBuilderFonts::font_css( $settings->filter_title_font ); ?>
+			<?php FLBuilderFonts::font_css( $settings->filter_title_font ); ?>
 		<?php endif; ?>
 		<?php
 		if ( isset( $settings->filter_title_font_size_unit ) ) {
@@ -87,7 +87,7 @@ $settings->cat_filter_border_color_active = UABB_Helper::uabb_colorpicker( $sett
 		}
 		?>
 	}
-<?php }?>
+<?php } ?>
 /* css for Filterable Tabs*/
 <?php if ( isset( $settings->cat_filter_align ) ) { ?>
 	.fl-node-<?php echo $id; ?> .uabb-video__gallery-filters {
@@ -141,7 +141,8 @@ $settings->cat_filter_border_color_active = UABB_Helper::uabb_colorpicker( $sett
 
 				echo ( '' !== $settings->cat_filter_bg_color ) ? 'background-color:' . $settings->cat_filter_bg_color . ';' : '';
 			}
-		} ?>
+		}
+		?>
 	}
 <?php if ( isset( $settings->cat_filter_hover_color ) || isset( $settings->cat_filter_bg_color_border ) ) { ?>
 	.fl-node-<?php echo $id; ?> .uabb-video__gallery-filter:hover,
@@ -160,7 +161,7 @@ $settings->cat_filter_border_color_active = UABB_Helper::uabb_colorpicker( $sett
 		?>
 	}
 <?php } ?>
-<?php  if (isset( $settings->cat_filter_spacing ) ) { ?>
+<?php if ( isset( $settings->cat_filter_spacing ) ) { ?>
 	.fl-node-<?php echo $id; ?> .uabb-video__gallery-filters{
 		<?php
 		if ( isset( $settings->cat_filter_spacing ) ) {
@@ -170,7 +171,7 @@ $settings->cat_filter_border_color_active = UABB_Helper::uabb_colorpicker( $sett
 	}
 <?php } ?>
 /* CSS for play icon */
-<?php  if( isset( $settings->play_img ) || isset( $settings->play_icon ) ) { ?>
+<?php if ( isset( $settings->play_img ) || isset( $settings->play_icon ) ) { ?>
 	.fl-node-<?php echo $id; ?> .uabb-video__content i,
 	.fl-node-<?php echo $id; ?> .uabb-video__content .uabb-vg__play{
 		<?php
@@ -212,7 +213,7 @@ $settings->cat_filter_border_color_active = UABB_Helper::uabb_colorpicker( $sett
 		if ( isset( $settings->play_icon_size ) ) {
 			echo ( '' !== $settings->play_icon_size ) ? 'width:' . $settings->play_icon_size . 'px;' : '';
 		}
-	?>
+		?>
 }
 	.fl-node-<?php echo $id; ?> .uabb-video__content i,
 	.fl-node-<?php echo $id; ?> .uabb-vg__play i.uabb-vg__play-icon{
@@ -346,26 +347,30 @@ if ( 'carousel' === $settings->layout && 'yes' === $settings->enable_arrow ) {
 ?>
 <?php
 
-if( 'carousel' === $settings->layout &&  'yes' === $settings->enable_dots ) {
+if ( 'carousel' === $settings->layout && 'yes' === $settings->enable_dots ) {
 
-	if( '' !== $settings->dots_size  && isset( $settings->dots_size ) ) { ?>
+	if ( '' !== $settings->dots_size && isset( $settings->dots_size ) ) {
+		?>
 		.fl-node-<?php echo $id; ?> .uabb-video-gallery-wrap .slick-dots li button:before {
-			<?php echo ( '' !== $settings->dots_size  ) ? 'font-size:'.$settings->dots_size .'px;' : ''; ?>
+			<?php echo ( '' !== $settings->dots_size ) ? 'font-size:' . $settings->dots_size . 'px;' : ''; ?>
 		}
-	<?php } 
-	
-	if( '' !== $settings->dots_color && isset( $settings->dots_color ) ) { ?>
+		<?php
+	}
+
+	if ( '' !== $settings->dots_color && isset( $settings->dots_color ) ) {
+		?>
 		.fl-node-<?php echo $id; ?> .uabb-video-gallery-wrap .slick-dots li button:before {
-			<?php echo ( '' !== $settings->dots_color  ) ? 'color:'.$settings->dots_color .';' : ''; ?>
+			<?php echo ( '' !== $settings->dots_color ) ? 'color:' . $settings->dots_color . ';' : ''; ?>
 		}
 		.fl-node-<?php echo $id; ?> .uabb-video-gallery-wrap ul.slick-dots li.slick-active button:before {
-			<?php echo ( '' !== $settings->dots_color  ) ? 'color:'.$settings->dots_color .';' : ''; ?>
+			<?php echo ( '' !== $settings->dots_color ) ? 'color:' . $settings->dots_color . ';' : ''; ?>
 			opacity:1;
-	    }
-	<?php }
+		}
+		<?php
+	}
 
-?>
-<?php  } ?>
+	?>
+<?php } ?>
 
 <?php if ( 'border' === $settings->cat_filter_bg_color_border ) { ?>
 	<?php if ( isset( $settings->cat_filter_border ) && isset( $settings->cat_filter_border_type ) && isset( $settings->cat_filter_border_color ) ) { ?>
@@ -408,8 +413,8 @@ if( 'carousel' === $settings->layout &&  'yes' === $settings->enable_dots ) {
 			.fl-node-<?php echo $id; ?> .uabb-video__gallery-item {
 				<?php
 				if ( isset( $settings->column_gap_medium ) ) {
-					echo ( '' !== $settings->column_gap_medium ) ? 'padding-right:calc(' . $settings->column_gap_medium / 2 . 'px);' : '' ;
-					echo ( '' !== $settings->column_gap_medium ) ? 'padding-left:calc(' . $settings->column_gap_medium / 2 . 'px);' : '' ;
+					echo ( '' !== $settings->column_gap_medium ) ? 'padding-right:calc(' . $settings->column_gap_medium / 2 . 'px);' : '';
+					echo ( '' !== $settings->column_gap_medium ) ? 'padding-left:calc(' . $settings->column_gap_medium / 2 . 'px);' : '';
 				}
 				?>
 			}
@@ -483,12 +488,12 @@ if( 'carousel' === $settings->layout &&  'yes' === $settings->enable_dots ) {
 					echo ( '' !== $settings->cat_filter_padding_left_medium ) ? 'padding-left:' . $settings->cat_filter_padding_left_medium . 'px;' : '';
 				}
 			}
-		if ( isset( $settings->cat_filter_bet_spacing_medium ) ) {
-			echo ( '' !== $settings->cat_filter_bet_spacing_medium ) ? 'margin-left:' . $settings->cat_filter_bet_spacing_medium . 'px;' : '';
-		}
-		if ( isset( $settings->cat_filter_bet_spacing_medium ) ) {
-			echo ( '' !== $settings->cat_filter_bet_spacing_medium ) ? 'margin-right:' . $settings->cat_filter_bet_spacing_medium . 'px;' : '';
-		}
+			if ( isset( $settings->cat_filter_bet_spacing_medium ) ) {
+				echo ( '' !== $settings->cat_filter_bet_spacing_medium ) ? 'margin-left:' . $settings->cat_filter_bet_spacing_medium . 'px;' : '';
+			}
+			if ( isset( $settings->cat_filter_bet_spacing_medium ) ) {
+				echo ( '' !== $settings->cat_filter_bet_spacing_medium ) ? 'margin-right:' . $settings->cat_filter_bet_spacing_medium . 'px;' : '';
+			}
 			?>
 		}
 		<?php if ( 'yes' == $settings->show_caption ) { ?>
@@ -516,30 +521,33 @@ if( 'carousel' === $settings->layout &&  'yes' === $settings->enable_dots ) {
 				?>
 			}
 		<?php } ?>
-		<?php  if (isset( $settings->cat_filter_spacing_medium ) ) { ?>
+		<?php if ( isset( $settings->cat_filter_spacing_medium ) ) { ?>
 			.fl-node-<?php echo $id; ?> .uabb-video__gallery-filters{
 				<?php
 				if ( isset( $settings->cat_filter_spacing_medium ) ) {
 					echo ( '' !== $settings->cat_filter_spacing_medium ) ? 'margin-bottom :' . $settings->cat_filter_spacing_medium . 'px;' : '';
-				} ?>
+				}
+				?>
 			}
 		<?php } ?>
 		.fl-node-<?php echo $id; ?> .uabb-video__content i,
 		.fl-node-<?php echo $id; ?> .uabb-video__content .uabb-vg__play{
 		<?php
-			if ( isset( $settings->play_icon_size_medium ) ) {
-				echo ( '' !== $settings->play_icon_size_medium ) ? 'font-size:' . $settings->play_icon_size_medium . 'px;' : '';
-				echo ( '' !== $settings->play_icon_size_medium ) ? 'line-height:' . round( $settings->play_icon_size_medium / $settings->play_icon_size_medium, 2 ) . 'em;' : '';
-				echo ( '' !== $settings->play_icon_size_medium ) ? 'height:' . $settings->play_icon_size_medium . 'px;' : '';
-				echo ( '' !== $settings->play_icon_size_medium ) ? 'width:' . $settings->play_icon_size_medium . 'px;' : '';
-			} ?>
+		if ( isset( $settings->play_icon_size_medium ) ) {
+			echo ( '' !== $settings->play_icon_size_medium ) ? 'font-size:' . $settings->play_icon_size_medium . 'px;' : '';
+			echo ( '' !== $settings->play_icon_size_medium ) ? 'line-height:' . round( $settings->play_icon_size_medium / $settings->play_icon_size_medium, 2 ) . 'em;' : '';
+			echo ( '' !== $settings->play_icon_size_medium ) ? 'height:' . $settings->play_icon_size_medium . 'px;' : '';
+			echo ( '' !== $settings->play_icon_size_medium ) ? 'width:' . $settings->play_icon_size_medium . 'px;' : '';
+		}
+		?>
 		}
 		.fl-node-<?php echo $id; ?> .uabb-video__content img.uael-vg__play-image,
 		.fl-node-<?php echo $id; ?> .uabb-video__content .uabb-vg__play{
 		<?php
-			if ( isset( $settings->play_icon_size_medium ) ) {
-				echo ( '' !== $settings->play_icon_size_medium ) ? 'width:' . $settings->play_icon_size_medium . 'px;' : '';
-			} ?>
+		if ( isset( $settings->play_icon_size_medium ) ) {
+			echo ( '' !== $settings->play_icon_size_medium ) ? 'width:' . $settings->play_icon_size_medium . 'px;' : '';
+		}
+		?>
 		}
 		.fl-node-<?php echo $id; ?> .uabb-vg__play i.uabb-vg__play-icon{
 			<?php
@@ -562,9 +570,10 @@ if( 'carousel' === $settings->layout &&  'yes' === $settings->enable_dots ) {
 			<?php
 			if ( isset( $settings->play_icon_size_medium ) ) {
 				echo ( '' !== $settings->play_icon_size_medium ) ? 'width:' . $settings->play_icon_size_medium . 'px;' : '';
-			} ?>
+			}
+			?>
 		}
-		<?php if ( 'grid' === $settings->layout) { ?>
+		<?php if ( 'grid' === $settings->layout ) { ?>
 
 		.fl-node-<?php echo $id; ?> .uabb-video-gallery-tablet__column-1 .uabb-video__gallery-item:nth-child(n+1),
 		.fl-node-<?php echo $id; ?> .uabb-video-gallery-tablet__column-2 .uabb-video__gallery-item:nth-child(2n+1),
@@ -593,9 +602,9 @@ if( 'carousel' === $settings->layout &&  'yes' === $settings->enable_dots ) {
 					<?php
 					if ( isset( $settings->column_gap_responsive ) ) {
 
-						echo ( '' !== $settings->column_gap_responsive ) ? 'padding-right:calc(' .$settings->column_gap_responsive / 2 . 'px);' : '';
+						echo ( '' !== $settings->column_gap_responsive ) ? 'padding-right:calc(' . $settings->column_gap_responsive / 2 . 'px);' : '';
 
-						echo ( '' !== $settings->column_gap_responsive ) ? 'padding-left: calc(' .$settings->column_gap_responsive / 2 . 'px);' : '';
+						echo ( '' !== $settings->column_gap_responsive ) ? 'padding-left: calc(' . $settings->column_gap_responsive / 2 . 'px);' : '';
 					}
 					?>
 				}
@@ -699,12 +708,13 @@ if( 'carousel' === $settings->layout &&  'yes' === $settings->enable_dots ) {
 				?>
 			}
 		<?php } ?>
-		<?php  if (isset( $settings->cat_filter_spacing_responsive ) ) { ?>
+		<?php if ( isset( $settings->cat_filter_spacing_responsive ) ) { ?>
 			.fl-node-<?php echo $id; ?> .uabb-video__gallery-filters{
 				<?php
 				if ( isset( $settings->cat_filter_spacing_responsive ) ) {
 					echo ( '' !== $settings->cat_filter_spacing_responsive ) ? 'margin-bottom :' . $settings->cat_filter_spacing_responsive . 'px;' : '';
-				} ?>
+				}
+				?>
 			}
 		<?php } ?>
 		.fl-node-<?php echo $id; ?> .uabb-video__content i,
@@ -715,14 +725,16 @@ if( 'carousel' === $settings->layout &&  'yes' === $settings->enable_dots ) {
 				echo ( '' !== $settings->play_icon_size_responsive ) ? 'line-height:' . round( $settings->play_icon_size_responsive / $settings->play_icon_size, 2 ) . 'em;' : '';
 				echo ( '' !== $settings->play_icon_size_responsive ) ? 'height:' . $settings->play_icon_size_responsive . 'px;' : '';
 				echo ( '' !== $settings->play_icon_size_responsive ) ? 'width:' . $settings->play_icon_size_responsive . 'px;' : '';
-			} ?>
+			}
+			?>
 		} 
 		.fl-node-<?php echo $id; ?> .uabb-video__content img.uael-vg__play-image,
 		.fl-node-<?php echo $id; ?> .uabb-video__content .uabb-vg__play{
 			<?php
 			if ( isset( $settings->play_icon_size_responsive ) ) {
 				echo ( '' !== $settings->play_icon_size_responsive ) ? 'width:' . $settings->play_icon_size_responsive . 'px;' : '';
-			} ?>
+			}
+			?>
 		}
 		.fl-node-<?php echo $id; ?> .uabb-vg__play i.uabb-vg__play-icon{
 			<?php
@@ -731,40 +743,46 @@ if( 'carousel' === $settings->layout &&  'yes' === $settings->enable_dots ) {
 				echo ( '' !== $settings->play_icon_size_responsive ) ? 'line-height:' . round( $settings->play_icon_size_responsive / $settings->play_icon_size_responsive, 2 ) . 'em;' : '';
 				echo ( '' !== $settings->play_icon_size_responsive ) ? 'height:' . $settings->play_icon_size_responsive . 'px;' : '';
 				echo ( '' !== $settings->play_icon_size_responsive ) ? 'width:' . $settings->play_icon_size_responsive . 'px;' : '';
-			} ?>
+			}
+			?>
 		}
 		.fl-node-<?php echo $id; ?> .uabb-vg__play img.uabb-vg__play-image{
 			<?php
 			if ( isset( $settings->play_icon_size_responsive ) ) {
 				echo ( '' !== $settings->play_icon_size_responsive ) ? 'width:' . $settings->play_icon_size_responsive . 'px;' : '';
-			} ?>
+			}
+			?>
 		}
 		.fl-node-<?php echo $id; ?> .uabb-vg__play{
 			<?php
 			if ( isset( $settings->play_icon_size_responsive ) ) {
 				echo ( '' !== $settings->play_icon_size_responsive ) ? 'width:' . $settings->play_icon_size_responsive . 'px;' : '';
-			} ?>
+			}
+			?>
 		}
 	}
 <?php } ?>
-<?php if( 'carousel' === $settings->layout ) { ?>
+<?php if ( 'carousel' === $settings->layout ) { ?>
 	.fl-node-<?php echo $id; ?> .uabb-video-gallery-wrap {
 		position: relative;
 	}
 <?php } ?>
 
-<?php if ( 'default' === $settings->play_source ) { 
-	if( isset( $settings->play_icon_color ) ) { ?>
+<?php
+if ( 'default' === $settings->play_source ) {
+	if ( isset( $settings->play_icon_color ) ) {
+		?>
 			.fl-node-<?php echo $id; ?> .uabb-video-gallery-icon-bg {
-				<?php echo ( '' != $settings->play_icon_color ) ? 'fill:' . $settings->play_icon_color .';': 'fill: rgba(31,31,31,0.81);' ?>
+				<?php echo ( '' != $settings->play_icon_color ) ? 'fill:' . $settings->play_icon_color . ';' : 'fill: rgba(31,31,31,0.81);'; ?>
 			}
-	<?php }
-	if( isset( $settings->play_icon_hover_color ) ) { ?>
+		<?php
+	}
+	if ( isset( $settings->play_icon_hover_color ) ) {
+		?>
 			.fl-node-<?php echo $id; ?> .uabb-video__gallery-item:hover .uabb-video-gallery-icon-bg {
-			<?php	echo ('' != $settings->play_icon_hover_color ) ? 'fill:' . $settings->play_icon_hover_color . ';': 'fill:#cc181e;' ?>
+			<?php	echo ( '' != $settings->play_icon_hover_color ) ? 'fill:' . $settings->play_icon_hover_color . ';' : 'fill:#cc181e;'; ?>
 			}
-	<?php } 
-
-} ?>
-
-
+		<?php
+	}
+}
+?>

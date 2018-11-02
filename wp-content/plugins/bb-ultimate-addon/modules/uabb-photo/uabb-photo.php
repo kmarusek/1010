@@ -545,7 +545,7 @@ FLBuilder::register_module(
 							'toggle'  => array(
 								''     => array(),
 								'url'  => array(
-									'fields' => array( 'link_url', 'link_target' ),
+									'fields' => array( 'link_url', 'link_target', 'link_nofollow' ),
 								),
 								'file' => array(),
 								'page' => array(),
@@ -572,6 +572,17 @@ FLBuilder::register_module(
 							),
 							'preview' => array(
 								'type' => 'none',
+							),
+						),
+						'link_nofollow' => array(
+							'type'        => 'select',
+							'label'       => __( 'Link Nofollow', 'uabb' ),
+							'description' => '',
+							'default'     => '0',
+							'help'        => __( 'Enable this to make this link nofollow.', 'uabb' ),
+							'options'     => array(
+								'1' => __( 'Yes', 'uabb' ),
+								'0' => __( 'No', 'uabb' ),
 							),
 						),
 					),

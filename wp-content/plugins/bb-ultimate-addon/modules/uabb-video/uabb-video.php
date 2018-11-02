@@ -212,7 +212,7 @@ class UABBVideo extends FLBuilderModule {
 			if ( 'youtube' == $this->settings->video_type ) {
 				$html = '<svg height="100%" version="1.1" viewBox="0 0 68 48" width="100%"><path class="uabb-youtube-icon-bg" d="m .66,37.62 c 0,0 .66,4.70 2.70,6.77 2.58,2.71 5.98,2.63 7.49,2.91 5.43,.52 23.10,.68 23.12,.68 .00,-1.3e-5 14.29,-0.02 23.81,-0.71 1.32,-0.15 4.22,-0.17 6.81,-2.89 2.03,-2.07 2.70,-6.77 2.70,-6.77 0,0 .67,-5.52 .67,-11.04 l 0,-5.17 c 0,-5.52 -0.67,-11.04 -0.67,-11.04 0,0 -0.66,-4.70 -2.70,-6.77 C 62.03,.86 59.13,.84 57.80,.69 48.28,0 34.00,0 34.00,0 33.97,0 19.69,0 10.18,.69 8.85,.84 5.95,.86 3.36,3.58 1.32,5.65 .66,10.35 .66,10.35 c 0,0 -0.55,4.50 -0.66,9.45 l 0,8.36 c .10,4.94 .66,9.45 .66,9.45 z" fill="#1f1f1e"></path><path d="m 26.96,13.67 18.37,9.62 -18.37,9.55 -0.00,-19.17 z" fill="#fff"></path><path d="M 45.02,23.46 45.32,23.28 26.96,13.67 43.32,24.34 45.02,23.46 z" fill="#ccc"></path></svg>';
 			}
-			if('vimeo' === $this->settings->video_type ){
+			if ( 'vimeo' === $this->settings->video_type ) {
 				$html = '<svg version="1.1" height="100%" width="100%"  viewBox="0 14.375 95 66.25"><path class="uabb-vimeo-icon-bg" d="M12.5,14.375c-6.903,0-12.5,5.597-12.5,12.5v41.25c0,6.902,5.597,12.5,12.5,12.5h70c6.903,0,12.5-5.598,12.5-12.5v-41.25c0-6.903-5.597-12.5-12.5-12.5H12.5z"/><polygon fill="#FFFFFF" points="39.992,64.299 39.992,30.701 62.075,47.5 "/></svg>';
 			}
 		} elseif ( 'icon' == $this->settings->play_source ) {
@@ -290,7 +290,7 @@ class UABBVideo extends FLBuilderModule {
 	public function get_embed_params() {
 		$params = array();
 		if ( 'youtube' === $this->settings->video_type ) {
-			$youtube_options = array( 'autoplay', 'rel', 'controls', 'showinfo', 'mute', 'modestbranding' );
+			$youtube_options = array( 'autoplay', 'rel', 'controls','mute', 'modestbranding' );
 			foreach ( $youtube_options as $option ) {
 				if ( 'autoplay' == $option ) {
 					if ( 'yes' === $this->settings->yt_autoplay ) {
@@ -304,10 +304,6 @@ class UABBVideo extends FLBuilderModule {
 				}
 				if ( 'controls' == $option ) {
 					$value             = ( 'yes' === $this->settings->yt_controls ) ? '1' : '0';
-					$params[ $option ] = $value;
-				}
-				if ( 'showinfo' == $option ) {
-					$value             = ( 'yes' === $this->settings->yt_showinfo ) ? '1' : '0';
 					$params[ $option ] = $value;
 				}
 				if ( 'mute' == $option ) {
@@ -368,20 +364,24 @@ class UABBVideo extends FLBuilderModule {
 
 		if ( 'youtube_link' === $field ) {
 
-			$youtube_link_desc=sprintf(
-			__( '<div style="%2$s"> Make sure you add the actual URL of the video and not the share URL.</div>
+			$youtube_link_desc = sprintf(
+				__(
+					'<div style="%2$s"> Make sure you add the actual URL of the video and not the share URL.</div>
 				<div style="%1$s"><b> Valid URL : </b>  https://www.youtube.com/watch?v=HJRzUQMhJMQ</div>
-				<div style="%1$s"> <b> Invalid URL : </b> https://youtu.be/HJRzUQMhJMQ</div>', 'uabb' ), $style1, $style2
+				<div style="%1$s"> <b> Invalid URL : </b> https://youtu.be/HJRzUQMhJMQ</div>', 'uabb'
+				), $style1, $style2
 			);
 
 			return $youtube_link_desc;
-			
+
 		} elseif ( 'vimeo_link' === $field ) {
-			
-			$vimeo_link_desc=sprintf(
-			__( '<div style="%1$s">Make sure you add the actual URL of the video and not the share URL.</div>
+
+			$vimeo_link_desc = sprintf(
+				__(
+					'<div style="%1$s">Make sure you add the actual URL of the video and not the share URL.</div>
 				<div style="%1$s"><b> Valid URL : </b>  https://vimeo.com/274860274</div>
-				<div style="%1$s"> <b> Invalid URL : </b> https://vimeo.com/channels/staffpicks/274860274</div>', 'uabb' ),$style1
+				<div style="%1$s"> <b> Invalid URL : </b> https://vimeo.com/channels/staffpicks/274860274</div>', 'uabb'
+				), $style1
 			);
 
 			return $vimeo_link_desc;
@@ -398,7 +398,6 @@ class UABBVideo extends FLBuilderModule {
 
 				return $youtube_channel_id;
 			}
-
 		} else {
 
 			$youtube_channel_id = sprintf( __( 'Click <a href="https://support.google.com/youtube/answer/3250431?hl=en" target="_blank" rel="noopener"> <strong> here</strong> </a> to know how to find your YouTube Channel ID.', 'uabb' ) );
@@ -456,17 +455,17 @@ FLBuilder::register_module(
 							),
 						),
 						'youtube_link' => array(
-							'type'    => 'text',
-							'label'   => __( 'Link', 'uabb' ),
-							'default' => 'https://www.youtube.com/watch?v=HJRzUQMhJMQ',
-							'description'=> UABBVideo::get_description( 'youtube_link' ),
+							'type'        => 'text',
+							'label'       => __( 'Link', 'uabb' ),
+							'default'     => 'https://www.youtube.com/watch?v=HJRzUQMhJMQ',
+							'description' => UABBVideo::get_description( 'youtube_link' ),
 							'connections' => array( 'url' ),
 						),
 						'vimeo_link'   => array(
-							'type'    => 'text',
-							'label'   => __( 'Link', 'uabb' ),
-							'default' => 'https://vimeo.com/274860274',
-							'description'=> UABBVideo::get_description( 'vimeo_link' ),
+							'type'        => 'text',
+							'label'       => __( 'Link', 'uabb' ),
+							'default'     => 'https://vimeo.com/274860274',
+							'description' => UABBVideo::get_description( 'vimeo_link' ),
 							'connections' => array( 'url' ),
 						),
 						'start'        => array(
@@ -538,15 +537,6 @@ FLBuilder::register_module(
 								'yes' => array(
 									'fields' => array( 'yt_modestbranding' ),
 								),
-							),
-						),
-						'yt_showinfo'       => array(
-							'type'    => 'select',
-							'label'   => __( 'Player Title & Actions', 'uabb' ),
-							'default' => 'show',
-							'options' => array(
-								'yes' => __( 'Show', 'uabb' ),
-								'no'  => __( 'Hide', 'uabb' ),
 							),
 						),
 						'yt_mute'           => array(
@@ -764,14 +754,14 @@ FLBuilder::register_module(
 								'property' => 'fill',
 							),
 						),
-						'play_default_icon_bg_hover'=>array(
-							'type'		=>'color',
-							'label'		=>__('Hover Background Color','uabb'),
-							'default'	=>'',
-							'show_reset'=>'true',
-							'show_alpha'=>'true',
-							'preview'	=>array(
-								'type'	=>'none',
+						'play_default_icon_bg_hover' => array(
+							'type'       => 'color',
+							'label'      => __( 'Hover Background Color', 'uabb' ),
+							'default'    => '',
+							'show_reset' => 'true',
+							'show_alpha' => 'true',
+							'preview'    => array(
+								'type' => 'none',
 							),
 						),
 						'play_icon_color'            => array(
@@ -792,8 +782,8 @@ FLBuilder::register_module(
 							'default'    => '',
 							'show_reset' => 'true',
 							'show_alpha' => 'true',
-							'preview'	=>array(
-								'type'	=>'none',
+							'preview'    => array(
+								'type' => 'none',
 							),
 						),
 						'hover_animation'            => array(
@@ -850,21 +840,21 @@ FLBuilder::register_module(
 							),
 						),
 						'yt_channel_name'     => array(
-							'type'    => 'text',
-							'label'   => __( 'YouTube Channel Name', 'uabb' ),
-							'default' => 'TheBrainstormForce',
-							'description'=> UABBVideo::get_description( 'yt_channel_name' ),
+							'type'        => 'text',
+							'label'       => __( 'YouTube Channel Name', 'uabb' ),
+							'default'     => 'TheBrainstormForce',
+							'description' => UABBVideo::get_description( 'yt_channel_name' ),
 						),
-						'yt_channel_id'   => array(
-							'type'    => 'text',
-							'label'   => __( 'YouTube Channel ID', 'uabb' ),
-							'default' => 'UCtFCcrvupjyaq2lax_7OQQg',
-							'description'=> UABBVideo::get_description( 'yt_channel_id' ),
+						'yt_channel_id'       => array(
+							'type'        => 'text',
+							'label'       => __( 'YouTube Channel ID', 'uabb' ),
+							'default'     => 'UCtFCcrvupjyaq2lax_7OQQg',
+							'description' => UABBVideo::get_description( 'yt_channel_id' ),
 						),
-						'yt_subscribe_text' => array(
-							'type'       => 'text',
-							'label'      => __( 'Subscribe to channel text', 'uabb' ),
-							'default' 	 => 'Subscribe to our YouTube Channel',
+						'yt_subscribe_text'   => array(
+							'type'        => 'text',
+							'label'       => __( 'Subscribe to channel text', 'uabb' ),
+							'default'     => 'Subscribe to our YouTube Channel',
 							'connections' => array( 'string', 'html' ),
 						),
 					),
@@ -1010,37 +1000,37 @@ FLBuilder::register_module(
 								),
 							),
 						),
-						'subscribe_bar_responsive'	=>array(
-							'type'		=> 'select',
-							'label'		=> __('Stack on','uabb'),
-							'default'	=>'none',
-							'options'	=>array(
+						'subscribe_bar_responsive'      => array(
+							'type'    => 'select',
+							'label'   => __( 'Stack on', 'uabb' ),
+							'default' => 'none',
+							'options' => array(
 								'none'    => __( 'None', 'uabb' ),
 								'desktop' => __( 'Desktop', 'uabb' ),
 								'tablet'  => __( 'Tablet', 'uabb' ),
 								'mobile'  => __( 'Mobile', 'uabb' ),
 							),
-							'toggle'	=>array(
-								'desktop'	=>array(
-									'fields'=>array('subscribe_bar_spacing')
+							'toggle'  => array(
+								'desktop' => array(
+									'fields' => array( 'subscribe_bar_spacing' ),
 								),
-								'tablet'	=>array(
-									'fields'=>array('subscribe_bar_spacing')
+								'tablet'  => array(
+									'fields' => array( 'subscribe_bar_spacing' ),
 								),
-								'mobile'	=>array(
-									'fields'=>array('subscribe_bar_spacing')
+								'mobile'  => array(
+									'fields' => array( 'subscribe_bar_spacing' ),
 								),
 							),
 						),
-						'subscribe_bar_spacing'	=>array(
-							'type'			=> 'unit',
-							'label'			=>__('Spacing','uabb'),
-							'description'	=>'px',
-							'preview'		=>array(
-								'type'		=>'css',
-								'selector'	=> '.uabb-subscribe-responsive-desktop .uabb-subscribe-bar-prefix',
-								'property'	=>'margin-bottom',
-								'unit'		=>'px',
+						'subscribe_bar_spacing'         => array(
+							'type'        => 'unit',
+							'label'       => __( 'Spacing', 'uabb' ),
+							'description' => 'px',
+							'preview'     => array(
+								'type'     => 'css',
+								'selector' => '.uabb-subscribe-responsive-desktop .uabb-subscribe-bar-prefix',
+								'property' => 'margin-bottom',
+								'unit'     => 'px',
 							),
 						),
 					),
