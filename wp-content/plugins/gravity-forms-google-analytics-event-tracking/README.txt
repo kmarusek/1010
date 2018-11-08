@@ -2,8 +2,8 @@
 Contributors: ronalfy, bigwing, nmarks, kzeni
 Tags: gravity forms, google analytics, google tag manager, matomo, piwik, event tracking
 Requires at least:4.0
-Tested up to: 4.9
-Stable tag: 2.3.0
+Tested up to: 5.0
+Stable tag: 2.3.2
 Requires PHP: 5.6
 Donate link: https://mediaron.com/give/
 License: GPLv2 or later
@@ -125,6 +125,13 @@ Check out the documentation on [github](https://github.com/ronalfy/wordpress-gra
 4. Partial entries add-on section
 
 == Changelog ==
+
+= 2.3.2 =
+* Released 2018-11-07
+* Removed some checks for better event tracking
+* Updating filter for partial entries
+* Tested successfully with WordPress 5.0 Beta 3
+* Tested successfully with Gravity Forms 2.4 Beta 2
 
 = 2.3.0 =
 * Released 2018-10-03
@@ -268,6 +275,9 @@ Check out the documentation on [github](https://github.com/ronalfy/wordpress-gra
 * Enabled custom category/action/label on a per form basis.
 
 == Upgrade Notice ==
+
+= 2.3.2 = 
+Removed some checks for better event tracking. Updating filter for partial entries.
 
 = 2.3.0 =
 Added support for the Partial Entries add-on.
