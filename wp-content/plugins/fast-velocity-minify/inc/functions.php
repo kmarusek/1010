@@ -51,6 +51,44 @@ return array('cachebase'=>$cachebase,'tmpdir'=>$tmpdir, 'cachedir'=>$cachedir, '
 }
 
 
+# run during activation
+function fastvelocity_plugin_activate() {
+	
+	# default options to enable
+	$options_enable_default = array('fastvelocity_min_fvm_fix_editor', 'fastvelocity_min_remove_print_mediatypes', 'fastvelocity_min_force_inline_css', 'fastvelocity_min_force_inline_googlefonts', 'fastvelocity_min_defer_for_pagespeed', 'fastvelocity_min_defer_for_pagespeed_optimize', 'fastvelocity_fvm_clean_header_one');
+	foreach($options_enable_default as $option) {
+		update_option($option, 1, 'yes');
+	}
+	
+	# increment time
+	fvm_cache_increment();
+	
+	# default blacklist
+	$exc = array('/html5shiv.js', '/html5shiv-printshiv.min.js', '/excanvas.js', '/avada-ie9.js', '/respond.js', '/respond.min.js', '/selectivizr.js', '/Avada/assets/css/ie.css', '/html5.js', '/IE9.js', '/fusion-ie9.js', '/vc_lte_ie9.min.css', '/old-ie.css', '/ie.css', '/vc-ie8.min.css', '/mailchimp-for-wp/assets/js/third-party/placeholders.min.js', '/assets/js/plugins/wp-enqueue/min/webfontloader.js', '/a.optnmstr.com/app/js/api.min.js', '/pixelyoursite/js/public.js');
+	update_option('fastvelocity_min_blacklist', implode(PHP_EOL, $exc)); 
+
+	# default ignore list
+	$exc = array('/Avada/assets/js/main.min.js', '/woocommerce-product-search/js/product-search.js', '/includes/builder/scripts/frontend-builder-scripts.js', '/assets/js/jquery.themepunch.tools.min.js', '/js/TweenMax.min.js', '/jupiter/assets/js/min/full-scripts', '/wp-content/themes/Divi/core/admin/js/react-dom.production.min.js');
+	update_option('fastvelocity_min_ignorelist', implode(PHP_EOL, $exc)); 
+	
+}
+
+# run during deactivation
+function fastvelocity_plugin_deactivate() {
+	global $wpdb;
+	
+	# delete all fvm options
+	$plugin_options = $wpdb->get_results( "SELECT option_name FROM $wpdb->options WHERE option_name LIKE 'fastvelocity_%' OR option_name LIKE 'fvm-%'" );
+	if(is_array($plugin_options) && count($plugin_options) > 0) {
+		foreach( $plugin_options as $option ) { delete_option( $option->option_name ); }
+	}
+	
+	# purge cache
+	fvm_purge_all();
+}
+
+
+
 # detect external or internal scripts
 function fvm_is_local_domain($src) {
 $locations = array(home_url(), site_url(), network_home_url(), network_site_url());
@@ -93,8 +131,12 @@ $hurl = trim($src); if(empty($hurl)) { return $hurl; }
 # some fixes
 $hurl = str_ireplace(array('&#038;', '&amp;'), '&', $hurl);
 
-# get current protocol scheme with cloudflare support
-if (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') { $protocol = 'https://'; } else { $protocol = 'http://'; }
+$default_protocol = get_option('fastvelocity_min_default_protocol', 'dynamic');
+if($default_protocol == 'dynamic' || empty($default_protocol)) { 
+if ((isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1)) || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) { $default_protocol = 'https://'; } else { $default_protocol = 'http://'; }
+} else { 
+$default_protocol = $default_protocol.'://'; 
+}
 
 #make sure wp_home doesn't have a forward slash
 $wp_home = rtrim($wp_home, '/');
@@ -118,11 +160,14 @@ if (substr($hurl, 0, 12) === "/wp-includes" || substr($hurl, 0, 9) === "/wp-admi
 $hurl = $wp_home.'/'.ltrim($hurl, "/"); }
 
 # make sure there is a protocol prefix as required
-$hurl = $protocol.str_ireplace(array('http://', 'https://'), '', $hurl); # enforce protocol
+$hurl = $default_protocol.str_ireplace(array('http://', 'https://'), '', $hurl); # enforce protocol
 
 # no query strings
 if (stripos($hurl, '.js?v') !== false) { $hurl = stristr($hurl, '.js?v', true).'.js'; } # no query strings
 if (stripos($hurl, '.css?v') !== false) { $hurl = stristr($hurl, '.css?v', true).'.css'; } # no query strings
+
+# make sure there is a protocol prefix as required
+$hurl = fvm_compat_urls($hurl); # enforce protocol
 
 return $hurl;	
 }
@@ -138,7 +183,7 @@ if (isset($_SERVER['SERVER_ADDR']) && stripos($hurl, preg_replace('/:\d+$/', '',
 
 # allow specific external urls to be merged
 if($noxtra === NULL) {
-$merge_allowed_urls = array_map('trim', explode("\n", get_option('fastvelocity_min_merge_allowed_urls', '')));
+$merge_allowed_urls = array_map('trim', explode(PHP_EOL, get_option('fastvelocity_min_merge_allowed_urls', '')));
 if(is_array($merge_allowed_urls) && strlen(implode($merge_allowed_urls)) > 0) {
 	foreach ($merge_allowed_urls as $e) {
 		if (stripos($hurl, $e) !== false && !empty($e)) { return true; }
@@ -167,11 +212,11 @@ function fastvelocity_min_in_arrayi($hurl, $ignore){
 }
 
 
-# better compatibility urls, fix bootstrap 4 svg images https://www.w3.org/TR/SVG/intro.html#NamespaceAndDTDIdentifiers
+# better compatibility urls + fix bootstrap 4 svg images https://www.w3.org/TR/SVG/intro.html#NamespaceAndDTDIdentifiers
 function fvm_compat_urls($code) {
 	$default_protocol = get_option('fastvelocity_min_default_protocol', 'dynamic');
 	if($default_protocol == 'dynamic' || empty($default_protocol)) { 
-		$default_protocol = '//'; 
+		if ((isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1)) || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) { $default_protocol = 'https://'; } else { $default_protocol = 'http://'; }
 	} else { 
 		$default_protocol = $default_protocol.'://'; 
 	}
@@ -237,28 +282,6 @@ return $js;
 function fastvelocity_min_minify_js_string($js) {
 global $tmpdir, $plugindir;
 
-# check for exec + a supported java version
-$use_yui = get_option('fastvelocity_min_use_yui');
-if($use_yui == true && function_exists('exec') && exec('command -v java >/dev/null && echo "yes" || echo "no"') == 'yes') {
-
-	# create temp files
-	$tmpname = hash('adler32', $js);
-	$tmpin = $tmpdir.'/'.$tmpname.'.js';
-	file_put_contents($tmpin, $js);
-	$tmpout = $tmpdir.'/'.$tmpname.'.min.js';
-	
-	# define jar path and command
-	$cmd = 'java -jar '.$plugindir.'libs/jar/yuicompressor-2.4.8.jar'.' --preserve-semi --nomunge '.$tmpin.' -o '.$tmpout;
-		
-	# run local compiler
-	exec($cmd . ' 2>&1', $output);
-	if(count($output) == 0 && file_exists($tmpout)) {
-		$min = file_get_contents($tmpout);
-		if($min !== false) { return fvm_compat_urls($min); }
-		exit();
-	}		
-}
-
 # PHP Minify [2016.08.01] from https://github.com/matthiasmullie/minify
 $minifier = new Minify\JS($js);
 $min = $minifier->minify();
@@ -283,15 +306,21 @@ function fastvelocity_min_html_compression_start() {
 
 
 # remove all cache files
-function fastvelocity_rrmdir($path) { 
-	clearstatcache();
-	if(is_dir($path)) {
-		$i = new DirectoryIterator($path);
-		foreach($i as $f){
-			if($f->isFile()){ unlink($f->getRealPath());
-			} else if(!$f->isDot() && $f->isDir()){
-				fastvelocity_rrmdir($f->getRealPath());
-				rmdir($f->getRealPath());
+function fastvelocity_rrmdir($path) {
+	
+	# remove cache files, set last update and clean legacy transients
+	if(!get_option('fastvelocity_min_preserve_oldcache')) {
+		
+		# purge
+		clearstatcache();
+		if(is_dir($path)) {
+			$i = new DirectoryIterator($path);
+			foreach($i as $f){
+				if($f->isFile()){ unlink($f->getRealPath());
+				} else if(!$f->isDot() && $f->isDir()){
+					fastvelocity_rrmdir($f->getRealPath());
+					rmdir($f->getRealPath());
+				}
 			}
 		}
 	}
@@ -547,83 +576,27 @@ return false;
 }
 
 
-
-# readme parser
-function fastvelocity_min_readme($url) {
-
-	# read file
-	$file = @file_get_contents( $url );
-	if (empty($file)) { return '<strong>Readme Parser: readme.txt not found!</strong>'; }
-	
-	// line end to \n
-	$file = preg_replace("/(\n\r|\r\n|\r|\n)/", "\n", $file);
-
-	// headlines
-	$s = array('===','==','=' ); 
-	$r = array('h2' ,'h3','h4');
-	for ( $x = 0; $x < sizeof($s); $x++ ) { 
-		$file = preg_replace('/(.*?)'.$s[$x].'(?!\")(.*?)'.$s[$x].'(.*?)/', '$1<'.$r[$x].'>$2</'.$r[$x].'>$3', $file); 
-	}
-
-	// inline
-	$s = array('\*\*','\`'); 
-	$r = array('b'   ,'code');
-	for ( $x = 0; $x < sizeof($s); $x++ ) { 
-		$file = preg_replace('/(.*?)'.$s[$x].'(?!\s)(.*?)(?!\s)'.$s[$x].'(.*?)/', '$1<'.$r[$x].'>$2</'.$r[$x].'>$3', $file); 
-	}
-	
-	// ' _italic_ '
-	$file = preg_replace('/(\s)_(\S.*?\S)_(\s|$)/', ' <em>$2</em> ', $file);
-	
-	// ul lists	
-	$s = array('\*','\+','\-');
-	for ( $x = 0; $x < sizeof($s); $x++ )
-	$file = preg_replace('/^['.$s[$x].'](\s)(.*?)(\n|$)/m', '<li>$2</li>', $file);
-	$file = preg_replace('/\n<li>(.*?)/', '<ul><li>$1', $file);
-	$file = preg_replace('/(<\/li>)(?!<li>)/', '$1</ul>', $file);
-	
-	// ol lists
-	$file = preg_replace('/(\d{1,2}\.)\s(.*?)(\n|$)/', '<li>$2</li>', $file);
-	$file = preg_replace('/\n<li>(.*?)/', '<ol><li>$1', $file);
-	$file = preg_replace('/(<\/li>)(?!(\<li\>|\<\/ul\>))/', '$1</ol>', $file);
-	
-	// ol screenshots style
-	$file = preg_replace('/(?=Screenshots)(.*?)<ol>/', '$1<ol class="readme-parser-screenshots">', $file);
-	
-	// line breaks
-	$file = preg_replace('/(.*?)(\n)/', "<p>$1</p>", $file);
-	$file = preg_replace('/(1|2|3|4)(><br\/>)/', '$1>', $file);
-	$file = str_ireplace('</ul><br/>', '</ul>', $file);
-	
-	# cleanup
-	$file = str_ireplace('<p></p>', '', $file);
-	$file = str_ireplace('<p><h4>', '<h4>', $file);
-	$file = str_ireplace('</h4></p>', '</h4>', $file);
-	
-	// urls
-	$file = str_replace('http://www.', 'www.', $file);
-	$file = str_replace('www.', 'http://www.', $file);
-	$file = preg_replace('#(^|[^\"=]{1})(http://|ftp://|mailto:|https://)([^\s<>]+)([\s\n<>]|$)#', '$1<a target="_blank" href="$2$3">$2$3</a>$4', $file);
-	
-	# extra linebreaks
-	$file = str_replace('<p>...</p>', "", $file);
-	
-	# extract faqs
-	$prefix = "Frequently Asked Questions";
-	$faq = substr($file, strpos($file, $prefix) + strlen($prefix));
-	$faq = substr($faq, 0, strpos($faq, '<p><h3>'));
-
-	return trim($faq);
-}
-
-
 # remove emoji support
 function fastvelocity_min_disable_wp_emojicons() {
-remove_action('wp_head', 'print_emoji_detection_script', 7);
-remove_action('wp_print_styles', 'print_emoji_styles');
-remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
-remove_action( 'admin_print_styles', 'print_emoji_styles' );
+ remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+ remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+ remove_action( 'wp_print_styles', 'print_emoji_styles' );
+ remove_action( 'admin_print_styles', 'print_emoji_styles' ); 
+ remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
+ remove_filter( 'comment_text_rss', 'wp_staticize_emoji' ); 
+ remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
 }
+
+# remove from tinymce
+function fastvelocity_disable_emojis_tinymce( $plugins ) {
+ if ( is_array( $plugins ) ) {
+ return array_diff( $plugins, array( 'wpemoji' ) );
+ } else {
+ return array();
+ }
+}
+
+
 
 # escape double quotes
 function fastvelocity_escape_double($string) {
@@ -674,30 +647,21 @@ function fvm_get_protocol($url) {
 	}
 
 	# enforce protocol if needed
-	$fp = get_option('fastvelocity_min_default_protocol', 'dynamic'); 
-	if($fp == 'http') { $url = 'http://'.$url; } elseif($fp == 'https') { $url = 'https://'.$url; } else { $url = '//'.$url; }
+	$default_protocol = get_option('fastvelocity_min_default_protocol', 'dynamic');
+	if($default_protocol == 'dynamic' || empty($default_protocol)) { 
+		if ((isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1)) || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) { $default_protocol = 'https://'; } else { $default_protocol = 'http://'; }
+	} else { 
+		$default_protocol = $default_protocol.'://'; 
+	}
 	
 	# return
-	return $url;
+	return $default_protocol.$url;
 }
 
 
-# keep track of transients, dump our plugin transients as needed
-function fvm_transients_purge() {
-	
-	# last cache update to now
+# increment file names
+function fvm_cache_increment() {
 	update_option('fvm-last-cache-update', time());
-	
-	# delete legacy transients
-	$tk = get_option( 'fvm_transient_keys' ); 
-	if($tk !== false) {
-		delete_option('fvm_transient_keys');
-		if(is_array($tk)) {
-			foreach( $tk as $t ) { 
-				delete_transient($t); 
-			}
-		}
-	}
 }
 
 # purge all caches
@@ -712,9 +676,8 @@ function fvm_purge_all() {
 		return false; 
 	}
 	
-	# remove cache files, set last update and clean legacy transients
 	fastvelocity_rrmdir($cachebase);
-	fvm_transients_purge(); 
+	fvm_cache_increment(); 	
 	do_action('fvm_after_purge_all');
 	return true;
 }
@@ -726,7 +689,7 @@ function fvm_get_transient($key) {
 	$tmpdir = $cachepath['tmpdir'];
 	$f = $tmpdir.'/'.$key.'.transient';
 	clearstatcache();
-	if(file_exists($tmpdir.'/'.$key)) {
+	if(file_exists($f)) {
 		return file_get_contents($f);
 	} else {
 		return false;
@@ -766,6 +729,24 @@ function fvm_set_transient($key, $code, $ttl) {
 }
 
 
+# generate ascii slug
+function fvm_safename($str, $noname=NULL) {
+	$nstr = preg_replace("/[^a-zA-Z0-9]+/", "-", $str);
+	$nstr = trim(trim($nstr, '-'));
+	if(strlen($nstr) > 1) { 
+		return $nstr; 
+	}
+	
+	# return false if no empty name rewrite requested
+	if($noname !== NULL) {
+		return false;
+	}
+	
+	# fallback
+	return 'noname-'.hash('adler32', $str); 
+}
+
+
 # exclude processing from some pages / posts / contents
 function fastvelocity_exclude_contents() {
 
@@ -796,7 +777,7 @@ function fastvelocity_default_ignore($ignore) {
 if(is_array($ignore)) {
 	
 	# from the database
-	$exc = array_map('trim', explode("\n", get_option('fastvelocity_min_ignorelist', '')));
+	$exc = array_map('trim', explode(PHP_EOL, get_option('fastvelocity_min_ignorelist', '')));
 	
 	# should we exclude jquery when defer is enabled?
 	$exclude_defer_jquery = get_option('fastvelocity_min_exclude_defer_jquery');
@@ -821,7 +802,7 @@ if(is_array($ignore)) {
 function fastvelocity_ie_blacklist($url) {
 
 	# from the database
-	$exc = array_map('trim', explode("\n", get_option('fastvelocity_min_blacklist', '')));
+	$exc = array_map('trim', explode(PHP_EOL, get_option('fastvelocity_min_blacklist', '')));
 	
 	# must have
 	$exc[] = '/fvm/cache/';
@@ -890,81 +871,93 @@ function fastvelocity_purge_others(){
 	
 # wordpress default cache
 if (function_exists('wp_cache_flush')) {
-wp_cache_flush();
+	wp_cache_flush();
 }
 	
 # Purge all W3 Total Cache
 if (function_exists('w3tc_pgcache_flush')) {
-w3tc_pgcache_flush();
-return __('<div class="notice notice-info is-dismissible"><p>All caches from <strong>W3 Total Cache</strong> have also been purged.</p></div>');
+	w3tc_pgcache_flush();
+	return __('<div class="notice notice-info is-dismissible"><p>All caches from <strong>W3 Total Cache</strong> have also been purged.</p></div>');
 }
 
 # Purge WP Super Cache
 if (function_exists('wp_cache_clear_cache')) {
-wp_cache_clear_cache();
-return __('<div class="notice notice-info is-dismissible"><p>All caches from <strong>WP Super Cache</strong> have also been purged.</p></div>');
+	wp_cache_clear_cache();
+	return __('<div class="notice notice-info is-dismissible"><p>All caches from <strong>WP Super Cache</strong> have also been purged.</p></div>');
 }
 
 # Purge WP Rocket
 if (function_exists('rocket_clean_domain')) {
-rocket_clean_domain();
-return __('<div class="notice notice-info is-dismissible"><p>All caches from <strong>WP Rocket</strong> have also been purged.</p></div>');
+	rocket_clean_domain();
+	return __('<div class="notice notice-info is-dismissible"><p>All caches from <strong>WP Rocket</strong> have also been purged.</p></div>');
 }
 
 # Purge Wp Fastest Cache
 if(isset($GLOBALS['wp_fastest_cache']) && method_exists($GLOBALS['wp_fastest_cache'], 'deleteCache')){
-$GLOBALS['wp_fastest_cache']->deleteCache();
-return __('<div class="notice notice-info is-dismissible"><p>All caches from <strong>Wp Fastest Cache</strong> have also been purged.</p></div>');
+	$GLOBALS['wp_fastest_cache']->deleteCache();
+	return __('<div class="notice notice-info is-dismissible"><p>All caches from <strong>Wp Fastest Cache</strong> have also been purged.</p></div>');
 }
 
 # Purge Cachify
 if (function_exists('cachify_flush_cache')) {
-cachify_flush_cache();
-return __('<div class="notice notice-info is-dismissible"><p>All caches from <strong>Cachify</strong> have also been purged.</p></div>');
+	cachify_flush_cache();
+	return __('<div class="notice notice-info is-dismissible"><p>All caches from <strong>Cachify</strong> have also been purged.</p></div>');
 }
 
 # Purge Comet Cache
 if ( class_exists("comet_cache") ) {
-comet_cache::clear();
-return __('<div class="notice notice-info is-dismissible"><p>All caches from <strong>Comet Cache</strong> have also been purged.</p></div>');
+	comet_cache::clear();
+	return __('<div class="notice notice-info is-dismissible"><p>All caches from <strong>Comet Cache</strong> have also been purged.</p></div>');
 }
 
 # Purge Zen Cache
 if ( class_exists("zencache") ) {
-zencache::clear();
-return __('<div class="notice notice-info is-dismissible"><p>All caches from <strong>Comet Cache</strong> have also been purged.</p></div>');
+	zencache::clear();
+	return __('<div class="notice notice-info is-dismissible"><p>All caches from <strong>Comet Cache</strong> have also been purged.</p></div>');
 }
 
 # Purge LiteSpeed Cache 
 if (class_exists('LiteSpeed_Cache_Tags')) {
-LiteSpeed_Cache_Tags::add_purge_tag('*');
-return __('<div class="notice notice-info is-dismissible"><p>All caches from <strong>LiteSpeed Cache</strong> have also been purged.</p></div>');
+	LiteSpeed_Cache_Tags::add_purge_tag('*');
+	return __('<div class="notice notice-info is-dismissible"><p>All caches from <strong>LiteSpeed Cache</strong> have also been purged.</p></div>');
 }
 
 # Purge SG Optimizer
 if (function_exists('sg_cachepress_purge_cache')) {
-sg_cachepress_purge_cache();
-return __('<div class="notice notice-info is-dismissible"><p>All caches from <strong>SG Optimizer</strong> have also been purged.</p></div>');
+	sg_cachepress_purge_cache();
+	return __('<div class="notice notice-info is-dismissible"><p>All caches from <strong>SG Optimizer</strong> have also been purged.</p></div>');
 }
 
 # Purge Hyper Cache
 if (class_exists( 'HyperCache' )) {
-do_action( 'autoptimize_action_cachepurged' );
-return __( '<div class="notice notice-info is-dismissible"><p>All caches from <strong>HyperCache</strong> have also been purged.</p></div>');
+	do_action( 'autoptimize_action_cachepurged' );
+	return __( '<div class="notice notice-info is-dismissible"><p>All caches from <strong>HyperCache</strong> have also been purged.</p></div>');
 }
 
 # Purge Godaddy Managed WordPress Hosting (Varnish + APC)
 if (class_exists('WPaaS\Plugin')) {
-fastvelocity_godaddy_request('BAN');
-return __('<div class="notice notice-info is-dismissible"><p>All caches from <strong>WP Engine</strong> have also been purged.</p></div>');
+	fastvelocity_godaddy_request('BAN');
+	return __('<div class="notice notice-info is-dismissible"><p>A cache purge request has been sent to <strong>Go Daddy Varnish</strong></p></div><div class="notice notice-info is-dismissible"><p>Please note that it may not work 100% of the time, due to cache rate limiting by your host!</p></div>');
 }
+
+# purge cache enabler
+if ( has_action('ce_clear_cache') ) {
+    do_action('ce_clear_cache');
+	return __( '<div class="notice notice-info is-dismissible"><p>All caches from <strong>Cache Enabler</strong> have also been purged.</p></div>');
+}
+
 
 # Purge WP Engine
 if (class_exists("WpeCommon")) {
-if (method_exists('WpeCommon', 'purge_memcached')) { WpeCommon::purge_memcached(); }
-if (method_exists('WpeCommon', 'clear_maxcdn_cache')) { WpeCommon::clear_maxcdn_cache(); }
-if (method_exists('WpeCommon', 'purge_varnish_cache')) { WpeCommon::purge_varnish_cache(); }
+	if (method_exists('WpeCommon', 'purge_memcached')) { WpeCommon::purge_memcached(); }
+	if (method_exists('WpeCommon', 'clear_maxcdn_cache')) { WpeCommon::clear_maxcdn_cache(); }
+	if (method_exists('WpeCommon', 'purge_varnish_cache')) { WpeCommon::purge_varnish_cache(); }
+
+	if (method_exists('WpeCommon', 'purge_memcached') || method_exists('WpeCommon', 'clear_maxcdn_cache') || method_exists('WpeCommon', 'purge_varnish_cache')) {
+		return __('<div class="notice notice-info is-dismissible"><p>A cache purge request has been sent to <strong>WP Engine</strong></p></div><div class="notice notice-info is-dismissible"><p>Please note that it may not work 100% of the time, due to cache rate limiting by your host!</p></div>');
+	}
+}
+
 }
 
 
-}
