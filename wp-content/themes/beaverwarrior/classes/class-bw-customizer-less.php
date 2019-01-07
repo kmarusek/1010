@@ -983,17 +983,19 @@ final class BWCustomizerLess {
 		$vars['text-font']                      = self::_get_font_family_string( $mods['fl-body-font-family'] );
 		$vars['text-size']                      = $mods['fl-body-font-size'] . 'px';
 		$vars['line-height']                    = $mods['fl-body-line-height'];
-		$vars['text-weight']                    = $mods['fl-body-font-weight'];
+		$vars['text-weight']                    = self::_sanitize_weight( $mods['fl-body-font-weight'] );
 		$vars['heading-font']                   = self::_get_font_family_string( $mods['fl-heading-font-family'] );
-		$vars['heading-weight']                 = $mods['fl-heading-font-weight'];
+		$vars['heading-weight']                 = self::_sanitize_weight( $mods['fl-heading-font-weight'] );
 		$vars['heading-transform']              = $mods['fl-heading-font-format'];
        
 
+		$vars['heading-style']      = self::_get_style( $mods['fl-heading-font-weight'] );
 		$vars['title-color']				= FLColor::hex( $mods['fl-title-text-color'] );
 		$vars['title-font']					= self::_get_font_family_string( $mods['fl-title-font-family'] );
 		$vars['title-weight']				= self::_sanitize_weight( $mods['fl-title-font-weight'] );
 		$vars['title-transform']			= $mods['fl-title-font-format'];
 
+		$vars['custom-h1-style'] = isset( $mods['fl-heading-style'] ) && 'title' === $mods['fl-heading-style'] ? self::_get_style( $mods['fl-title-font-weight'] ) : self::_get_style( $mods['fl-heading-font-weight'] );
 		// Custom title styles
 		if ( isset( $mods['fl-heading-style'] ) && 'title' !== $mods['fl-heading-style'] ) {
 			$vars['title-color']			= FLColor::hex( $mods['fl-heading-text-color'] );
@@ -1048,8 +1050,23 @@ final class BWCustomizerLess {
 		$vars['h6-line-height']                 = $mods['fl-h6-line-height'];
 		$vars['h6-letter-spacing']              = $mods['fl-h6-letter-spacing'] . 'px';
 		$vars['logo-font']                      = self::_get_font_family_string( $mods['fl-logo-font-family'] );
-		$vars['logo-weight']                    = $mods['fl-logo-font-weight'];
+		$vars['logo-weight']                    = self::_sanitize_weight( $mods['fl-logo-font-weight'] );
 		$vars['logo-size']                      = $mods['fl-logo-font-size'] . 'px';
+
+		// Button Styles
+		$vars['button-color']					= $mods['fl-button-color'] ? $mods['fl-button-color'] : $defaults['fl-button-color'];
+		$vars['button-hover-color']				= $mods['fl-button-hover-color'] ? $mods['fl-button-hover-color'] : $defaults['fl-button-hover-color'];
+		$vars['button-bg-color']				= $mods['fl-button-background-color'] ? $mods['fl-button-background-color'] : $defaults['fl-button-background-color'];
+		$vars['button-bg-hover-color'] 			= $mods['fl-button-background-hover-color'] ? $mods['fl-button-background-hover-color'] : $defaults['fl-button-background-hover-color'];
+		$vars['button-font-family']    			= self::_get_font_family_string( $mods['fl-button-font-family'] );
+		$vars['button-font-weight']    			= self::_sanitize_weight( $mods['fl-button-font-weight'] );
+		$vars['button-font-size']      			= is_numeric( $mods['fl-button-font-size'] ) ? $mods['fl-button-font-size'] . 'px' : $mods['fl-button-font-size'];
+		$vars['button-line-height']    			= $mods['fl-button-line-height'];
+		$vars['button-text-transform'] 			= $mods['fl-button-text-transform'];
+		$vars['button-border-style']   			= $mods['fl-button-border-style'];
+		$vars['button-border-width']   			= $mods['fl-button-border-width'] . 'px';
+		$vars['button-border-color']   			= $mods['fl-button-border-color'];
+		$vars['button-border-radius']  			= $mods['fl-button-border-radius'] . 'px';
 
 		// Top Bar Background Image
 		$vars['topbar-bg-image']                = empty( $mods['fl-topbar-bg-image'] ) ? 'none' : 'url(' . $mods['fl-topbar-bg-image'] . ')';
@@ -1093,7 +1110,7 @@ final class BWCustomizerLess {
 
 		// Nav Fonts
 		$vars['nav-font-family']                = self::_get_font_family_string( $mods['fl-nav-font-family'] );
-		$vars['nav-font-weight']                = $mods['fl-nav-font-weight'];
+		$vars['nav-font-weight']                = self::_sanitize_weight( $mods['fl-nav-font-weight'] );
 		$vars['nav-font-format']                = $mods['fl-nav-font-format'];
 		$vars['nav-font-size']                  = $mods['fl-nav-font-size'] . 'px';
 
@@ -1127,8 +1144,8 @@ final class BWCustomizerLess {
 			$vars['nav-fg-color']               = $vars['header-fg-color'];
 			$vars['nav-fg-link-color']          = $vars['header-fg-link-color'];
 			$vars['nav-fg-hover-color']         = $vars['header-fg-hover-color'];
-		} // End if().
-		else {
+			$vars['nav-bg-opacity']			= FLColor::clean_opa( $mods['fl-nav-bg-opacity'] );
+		} else {
 			$vars['nav-bg-color']				= FLColor::hex_or_transparent( $mods['fl-nav-bg-color'] );
 			$vars['nav-bg-opacity']			= FLColor::clean_opa( $mods['fl-nav-bg-opacity'] );
 			$vars['nav-bg-grad']                = $mods['fl-nav-bg-gradient'] ? 5 : 0;
@@ -1146,6 +1163,9 @@ final class BWCustomizerLess {
 		$vars['mobile-nav-fg-color']        	= $vars['header-fg-color'];
 		$vars['mobile-nav-fg-link-color']   	= $vars['header-fg-link-color'];
 		$vars['mobile-nav-fg-hover-color']  	= $vars['header-fg-hover-color'];
+
+		// Mobile Nav Breakpoint
+		$vars['mobile-nav-breakpoint']			= $mods['fl-nav-breakpoint'];
 
 		// Content Width
 		$vars['content-width']                  = $mods['fl-content-width'] . 'px';
@@ -1182,6 +1202,7 @@ final class BWCustomizerLess {
           //TODO: Actually make the sidebar classes work
           $vars['custom-sidebar-size']        = $mods['fl-blog-custom-sidebar-size'] . '%';
       }
+		$vars['custom-sidebar-size']        = 'custom' == $mods['fl-blog-sidebar-size'] ? $mods['fl-blog-custom-sidebar-size'] . '%' : 0;
 
 		// Custom WooCommerce Sidebar Size
 		if ( 'custom' == $mods['fl-woo-sidebar-size'] && 'no-sidebar' != $mods['fl-woo-layout'] ) {
@@ -1190,6 +1211,7 @@ final class BWCustomizerLess {
           //TODO: Actually make the sidebar classes work
           $vars['custom-woo-sidebar-size']    = $mods['fl-woo-custom-sidebar-size'] . '%';
       }
+		$vars['custom-woo-sidebar-size']    = 'custom' == $mods['fl-woo-sidebar-size'] ? $mods['fl-woo-custom-sidebar-size'] . '%' : 0;
 
 		// Inputs Colors
 		$vars['input-bg-color']               	= FLColor::hex( array( $vars['content-bg-color-2'], $vars['body-bg-color-2'], '#fcfcfc' ) );
@@ -1258,6 +1280,7 @@ final class BWCustomizerLess {
 		return $vars_string;
 	}
 
+
 	/**
 	 * Sanitize the weight string.
 	 * @since 1.7
@@ -1266,6 +1289,18 @@ final class BWCustomizerLess {
 
 		$weight = str_replace( 'italic', '', $weight );
 		return empty( $weight ) ? 400 : $weight;
+	}
+
+	/**
+	 * Get font style.
+	 * @since 1.7.1
+	 */
+	static private function _get_style( $weight ) {
+
+		if ( false !== strpos( $weight, 'italic' ) ) {
+			return 'italic';
+		}
+		return 'normal';
 	}
 
 	/**
