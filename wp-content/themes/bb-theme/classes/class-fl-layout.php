@@ -25,8 +25,8 @@ final class FLLayout {
 	static public function init() {
 		add_filter( 'fl_theme_compile_less_paths', 		__CLASS__ . '::filter_less_paths' );
 		add_filter( 'body_class', 						__CLASS__ . '::filter_body_class' );
-		add_filter( 'nav_menu_css_class',				__CLASS__ . '::filter_nav_menu_item_classes', 999, 3 );
-		add_filter( 'nav_menu_link_attributes',			__CLASS__ . '::filter_nav_menu_link_classes', 999, 3 );
+		add_filter( 'nav_menu_css_class',				__CLASS__ . '::filter_nav_menu_item_classes', 999, 4 );
+		add_filter( 'nav_menu_link_attributes',			__CLASS__ . '::filter_nav_menu_link_classes', 999, 4 );
 	}
 
 	/**
@@ -97,6 +97,7 @@ final class FLLayout {
 			case 'base':
 			case 'bootstrap':
 			case 'bootstrap-4':
+			case 'base-4':
 				return 'container';
 			break;
 		}
@@ -123,6 +124,7 @@ final class FLLayout {
 			case 'base':
 			case 'bootstrap':
 			case 'bootstrap-4':
+			case 'base-4':
 				return 'row';
 			break;
 		}
@@ -161,6 +163,11 @@ final class FLLayout {
 				'lg' => 'lg',
 			),
 			'bootstrap-4' => array(
+				'sm' => 'md',
+				'md' => 'lg',
+				'lg' => 'xl',
+			),
+			'base-4' => array(
 				'sm' => 'md',
 				'md' => 'lg',
 				'lg' => 'xl',
@@ -260,7 +267,7 @@ final class FLLayout {
 	 * @param object $args
 	 * @return array
 	 */
-	static public function filter_nav_menu_item_classes( $classes, $item, $args ) {
+	static public function filter_nav_menu_item_classes( $classes, $item, $args, $depth = 0 ) {
 		$locations = FLTheme::get_nav_locations();
 		if ( isset( $locations[ $args->theme_location ] ) ) {
 			$classes[] = 'nav-item';
@@ -278,7 +285,7 @@ final class FLLayout {
 	 * @param object $args
 	 * @return array
 	 */
-	static public function filter_nav_menu_link_classes( $attrs, $item, $args ) {
+	static public function filter_nav_menu_link_classes( $attrs, $item, $args, $depth = 0 ) {
 		$locations = FLTheme::get_nav_locations();
 		if ( isset( $locations[ $args->theme_location ] ) ) {
 			$attrs['class'] = isset( $attrs['class'] ) ? $attrs['class'] . ' nav-link' : 'nav-link';

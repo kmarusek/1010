@@ -11,7 +11,7 @@ Appearance > Theme Settings > Code or create a child theme.
 */
 
 // Defines
-define( 'FL_THEME_VERSION', '1.7.0.3' );
+define( 'FL_THEME_VERSION', '1.7.1.2' );
 define( 'FL_THEME_DIR', get_template_directory() );
 define( 'FL_THEME_URL', get_template_directory_uri() );
 
@@ -44,6 +44,11 @@ add_action( 'widgets_init',          	'FLTheme::widgets_init' );
 add_action( 'wp_footer',             	'FLTheme::go_to_top' );
 add_action( 'fl_after_post',            'FLTheme::after_post_widget', 10 );
 add_action( 'fl_after_post_content',    'FLTheme::post_author_box', 10 );
+// Header Actions
+add_action( 'wp_head', 'FLTheme::pingback_url' );
+add_action( 'fl_head_open', 'FLTheme::title' );
+add_action( 'fl_head_open', 'FLTheme::favicon' );
+add_action( 'fl_head_open', 'FLTheme::fonts' );
 
 // Theme Filters
 add_filter( 'body_class',                  'FLTheme::body_class' );

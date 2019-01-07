@@ -1498,4 +1498,13 @@ final class FLTheme {
 		$px = '767px';
 		return $px;
 	}
+
+	/**
+	 * @since 1.7.1
+	 */
+	static public function pingback_url() {
+		if ( is_singular() && pings_open() ) {
+			printf( '<link rel="pingback" href="%s">' . "\n", get_bloginfo( 'pingback_url' ) );
+		}
+	}
 }

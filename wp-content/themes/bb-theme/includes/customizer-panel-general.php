@@ -114,11 +114,12 @@ FLCustomizer::add_panel('fl-general', array(
 						'label'         => __( 'CSS Framework', 'fl-automator' ),
 						'type'          => 'select',
 						'description'   =>
-				__( 'Select a CSS framework for the theme. None is a bare minimal Bootstrap 3. If unsure choose None.', 'fl-automator' ),
+				__( 'Select a CSS framework for the theme. Default is a bare minimal Bootstrap 3.', 'fl-automator' ),
 						'choices'       => array(
-							'base' 			 => __( 'None', 'fl-automator' ),
-							'bootstrap'      => __( 'Bootstrap 3', 'fl-automator' ),
-							'bootstrap-4'    => __( 'Bootstrap 4', 'fl-automator' ),
+							'base' 			     => __( 'Minimal Bootstrap 3', 'fl-automator' ),
+							'base-4' 			   => __( 'Minimal Bootstrap 4', 'fl-automator' ),
+							'bootstrap'      => __( 'Full Bootstrap 3', 'fl-automator' ),
+							'bootstrap-4'    => __( 'Full Bootstrap 4', 'fl-automator' ),
 						),
 					),
 				),

@@ -5,6 +5,7 @@
 				<div class="<?php FLLayout::col_classes( array( 'md' => 12 ) ); ?> fl-page-header-logo-col">
 					<div class="fl-page-header-logo" itemscope="itemscope" itemtype="https://schema.org/Organization">
 						<a href="<?php echo esc_url( home_url( '/' ) ); ?>" itemprop="url"><?php FLTheme::logo(); ?></a>
+						<?php echo FLTheme::get_tagline(); ?>
 					</div>
 				</div>
 			</div>
