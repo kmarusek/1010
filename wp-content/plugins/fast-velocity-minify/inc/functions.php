@@ -7,7 +7,8 @@ if(function_exists('mb_internal_encoding')) { mb_internal_encoding('UTF-8'); }
 @ini_set('pcre.backtrack_limit',5000000); 
 @ini_set('pcre.recursion_limit',5000000);
 
-# Consider fallback to PHP Minify [2018.12.03] from https://github.com/matthiasmullie/minify (must be defined on the outer scope)
+# PHP Minify [1.3.60] (must be defined on the outer scope)
+# https://github.com/matthiasmullie/minify
 $path = $plugindir . 'libs/matthiasmullie';
 require_once $path . '/minify/src/Minify.php';
 require_once $path . '/minify/src/CSS.php';
@@ -22,6 +23,55 @@ use MatthiasMullie\Minify;
 
 # use HTML minification
 require_once ($plugindir . 'libs/mrclay/HTML.php');
+
+# get list of allowed google fonts from the API (847 fonts on 2018-12-13)
+# https://www.googleapis.com/webfonts/v1/webfonts?sort=alpha
+# https://www.xcartmods.co.uk/google-fonts-list.php
+$gfontswhitelist = array('ABeeZee','Abel','Abhaya Libre','Abril Fatface','Aclonica','Acme','Actor','Adamina','Advent Pro','Aguafina Script','Akronim','Aladin','Aldrich','Alef','Alegreya','Alegreya SC','Alegreya Sans','Alegreya Sans SC','Alex Brush','Alfa Slab One','Alice','Alike','Alike Angular','Allan','Allerta','Allerta Stencil','Allura','Almendra','Almendra Display','Almendra SC','Amarante','Amaranth','Amatic SC','Amatica SC','Amethysta','Amiko','Amiri','Amita','Anaheim','Andada','Andika','Angkor','Annie Use Your Telescope','Anonymous Pro','Antic','Antic Didone','Antic Slab','Anton','Arapey','Arbutus','Arbutus Slab','Architects Daughter','Archivo','Archivo Black','Archivo Narrow','Aref Ruqaa','Arima Madurai','Arimo','Arizonia','Armata','Arsenal','Artifika','Arvo','Arya','Asap','Asap Condensed','Asar','Asset','Assistant','Astloch','Asul','Athiti','Atma','Atomic Age','Aubrey','Audiowide','Autour One','Average','Average Sans','Averia Gruesa Libre','Averia Libre','Averia Sans Libre','Averia Serif Libre','Bad Script','Bahiana','Baloo','Baloo Bhai','Baloo Bhaijaan','Baloo Bhaina','Baloo Chettan','Baloo Da','Baloo Paaji','Baloo Tamma','Baloo Tammudu','Baloo Thambi','Balthazar','Bangers','Barrio','Basic','Battambang','Baumans','Bayon','Belgrano','Bellefair','Belleza','BenchNine','Bentham','Berkshire Swash','Bevan','Bigelow Rules','Bigshot One','Bilbo','Bilbo Swash Caps','BioRhyme','BioRhyme Expanded','Biryani','Bitter','Black Ops One','Bokor','Bonbon','Boogaloo','Bowlby One','Bowlby One SC','Brawler','Bree Serif','Bubblegum Sans','Bubbler One','Buda','Buenard','Bungee','Bungee Hairline','Bungee Inline','Bungee Outline','Bungee Shade','Butcherman','Butterfly Kids','Cabin','Cabin Condensed','Cabin Sketch','Caesar Dressing','Cagliostro','Cairo','Calligraffitti','Cambay','Cambo','Candal','Cantarell','Cantata One','Cantora One','Capriola','Cardo','Carme','Carrois Gothic','Carrois Gothic SC','Carter One','Catamaran','Caudex','Caveat','Caveat Brush','Cedarville Cursive','Ceviche One','Changa','Changa One','Chango','Chathura','Chau Philomene One','Chela One','Chelsea Market','Chenla','Cherry Cream Soda','Cherry Swash','Chewy','Chicle','Chivo','Chonburi','Cinzel','Cinzel Decorative','Clicker Script','Coda','Coda Caption','Codystar','Coiny','Combo','Comfortaa','Coming Soon','Concert One','Condiment','Content','Contrail One','Convergence','Cookie','Copse','Corben','Cormorant','Cormorant Garamond','Cormorant Infant','Cormorant SC','Cormorant Unicase','Cormorant Upright','Courgette','Cousine','Coustard','Covered By Your Grace','Crafty Girls','Creepster','Crete Round','Crimson Text','Croissant One','Crushed','Cuprum','Cutive','Cutive Mono','Damion','Dancing Script','Dangrek','David Libre','Dawning of a New Day','Days One','Dekko','Delius','Delius Swash Caps','Delius Unicase','Della Respira','Denk One','Devonshire','Dhurjati','Didact Gothic','Diplomata','Diplomata SC','Domine','Donegal One','Doppio One','Dorsa','Dosis','Dr Sugiyama','Droid Sans','Droid Sans Mono','Droid Serif','Duru Sans','Dynalight','EB Garamond','Eagle Lake','Eater','Economica','Eczar','El Messiri','Electrolize','Elsie','Elsie Swash Caps','Emblema One','Emilys Candy','Encode Sans','Encode Sans Condensed','Encode Sans Expanded','Encode Sans Semi Condensed','Encode Sans Semi Expanded','Engagement','Englebert','Enriqueta','Erica One','Esteban','Euphoria Script','Ewert','Exo','Exo 2','Expletus Sans','Fanwood Text','Farsan','Fascinate','Fascinate Inline','Faster One','Fasthand','Fauna One','Faustina','Federant','Federo','Felipa','Fenix','Finger Paint','Fira Mono','Fira Sans','Fira Sans Condensed','Fira Sans Extra Condensed','Fjalla One','Fjord One','Flamenco','Flavors','Fondamento','Fontdiner Swanky','Forum','Francois One','Frank Ruhl Libre','Freckle Face','Fredericka the Great','Fredoka One','Freehand','Fresca','Frijole','Fruktur','Fugaz One','GFS Didot','GFS Neohellenic','Gabriela','Gafata','Galada','Galdeano','Galindo','Gentium Basic','Gentium Book Basic','Geo','Geostar','Geostar Fill','Germania One','Gidugu','Gilda Display','Give You Glory','Glass Antiqua','Glegoo','Gloria Hallelujah','Goblin One','Gochi Hand','Gorditas','Goudy Bookletter 1911','Graduate','Grand Hotel','Gravitas One','Great Vibes','Griffy','Gruppo','Gudea','Gurajada','Habibi','Halant','Hammersmith One','Hanalei','Hanalei Fill','Handlee','Hanuman','Happy Monkey','Harmattan','Headland One','Heebo','Henny Penny','Herr Von Muellerhoff','Hind','Hind Guntur','Hind Madurai','Hind Siliguri','Hind Vadodara','Holtwood One SC','Homemade Apple','Homenaje','IM Fell DW Pica','IM Fell DW Pica SC','IM Fell Double Pica','IM Fell Double Pica SC','IM Fell English','IM Fell English SC','IM Fell French Canon','IM Fell French Canon SC','IM Fell Great Primer','IM Fell Great Primer SC','Iceberg','Iceland','Imprima','Inconsolata','Inder','Indie Flower','Inika','Inknut Antiqua','Irish Grover','Istok Web','Italiana','Italianno','Itim','Jacques Francois','Jacques Francois Shadow','Jaldi','Jim Nightshade','Jockey One','Jolly Lodger','Jomhuria','Josefin Sans','Josefin Slab','Joti One','Judson','Julee','Julius Sans One','Junge','Jura','Just Another Hand','Just Me Again Down Here','Kadwa','Kalam','Kameron','Kanit','Kantumruy','Karla','Karma','Katibeh','Kaushan Script','Kavivanar','Kavoon','Kdam Thmor','Keania One','Kelly Slab','Kenia','Khand','Khmer','Khula','Kite One','Knewave','Kotta One','Koulen','Kranky','Kreon','Kristi','Krona One','Kumar One','Kumar One Outline','Kurale','La Belle Aurore','Laila','Lakki Reddy','Lalezar','Lancelot','Lateef','Lato','League Script','Leckerli One','Ledger','Lekton','Lemon','Lemonada','Libre Barcode 128','Libre Barcode 128 Text','Libre Barcode 39','Libre Barcode 39 Extended','Libre Barcode 39 Extended Text','Libre Barcode 39 Text','Libre Baskerville','Libre Franklin','Life Savers','Lilita One','Lily Script One','Limelight','Linden Hill','Lobster','Lobster Two','Londrina Outline','Londrina Shadow','Londrina Sketch','Londrina Solid','Lora','Love Ya Like A Sister','Loved by the King','Lovers Quarrel','Luckiest Guy','Lusitana','Lustria','Macondo','Macondo Swash Caps','Mada','Magra','Maiden Orange','Maitree','Mako','Mallanna','Mandali','Manuale','Marcellus','Marcellus SC','Marck Script','Margarine','Marko One','Marmelad','Martel','Martel Sans','Marvel','Mate','Mate SC','Maven Pro','McLaren','Meddon','MedievalSharp','Medula One','Meera Inimai','Megrim','Meie Script','Merienda','Merienda One','Merriweather','Merriweather Sans','Metal','Metal Mania','Metamorphous','Metrophobic','Michroma','Milonga','Miltonian','Miltonian Tattoo','Miniver','Miriam Libre','Mirza','Miss Fajardose','Mitr','Modak','Modern Antiqua','Mogra','Molengo','Molle','Monda','Monofett','Monoton','Monsieur La Doulaise','Montaga','Montez','Montserrat','Montserrat Alternates','Montserrat Subrayada','Moul','Moulpali','Mountains of Christmas','Mouse Memoirs','Mr Bedfort','Mr Dafoe','Mr De Haviland','Mrs Saint Delafield','Mrs Sheppards','Mukta','Mukta Mahee','Mukta Malar','Mukta Vaani','Muli','Mystery Quest','NTR','Neucha','Neuton','New Rocker','News Cycle','Niconne','Nixie One','Nobile','Nokora','Norican','Nosifer','Nothing You Could Do','Noticia Text','Noto Sans','Noto Serif','Nova Cut','Nova Flat','Nova Mono','Nova Oval','Nova Round','Nova Script','Nova Slim','Nova Square','Numans','Nunito','Nunito Sans','Odor Mean Chey','Offside','Old Standard TT','Oldenburg','Oleo Script','Oleo Script Swash Caps','Open Sans','Open Sans Condensed','Oranienbaum','Orbitron','Oregano','Orienta','Original Surfer','Oswald','Over the Rainbow','Overlock','Overlock SC','Overpass','Overpass Mono','Ovo','Oxygen','Oxygen Mono','PT Mono','PT Sans','PT Sans Caption','PT Sans Narrow','PT Serif','PT Serif Caption','Pacifico','Padauk','Palanquin','Palanquin Dark','Pangolin','Paprika','Parisienne','Passero One','Passion One','Pathway Gothic One','Patrick Hand','Patrick Hand SC','Pattaya','Patua One','Pavanam','Paytone One','Peddana','Peralta','Permanent Marker','Petit Formal Script','Petrona','Philosopher','Piedra','Pinyon Script','Pirata One','Plaster','Play','Playball','Playfair Display','Playfair Display SC','Podkova','Poiret One','Poller One','Poly','Pompiere','Pontano Sans','Poppins','Port Lligat Sans','Port Lligat Slab','Pragati Narrow','Prata','Preahvihear','Press Start 2P','Pridi','Princess Sofia','Prociono','Prompt','Prosto One','Proza Libre','Puritan','Purple Purse','Quando','Quantico','Quattrocento','Quattrocento Sans','Questrial','Quicksand','Quintessential','Qwigley','Racing Sans One','Radley','Rajdhani','Rakkas','Raleway','Raleway Dots','Ramabhadra','Ramaraja','Rambla','Rammetto One','Ranchers','Rancho','Ranga','Rasa','Rationale','Ravi Prakash','Redressed','Reem Kufi','Reenie Beanie','Revalia','Rhodium Libre','Ribeye','Ribeye Marrow','Righteous','Risque','Roboto','Roboto Condensed','Roboto Mono','Roboto Slab','Rochester','Rock Salt','Rokkitt','Romanesco','Ropa Sans','Rosario','Rosarivo','Rouge Script','Rozha One','Rubik','Rubik Mono One','Ruda','Rufina','Ruge Boogie','Ruluko','Rum Raisin','Ruslan Display','Russo One','Ruthie','Rye','Sacramento','Sahitya','Sail','Saira','Saira Condensed','Saira Extra Condensed','Saira Semi Condensed','Salsa','Sanchez','Sancreek','Sansita','Sarala','Sarina','Sarpanch','Satisfy','Scada','Scheherazade','Schoolbell','Scope One','Seaweed Script','Secular One','Sedgwick Ave','Sedgwick Ave Display','Sevillana','Seymour One','Shadows Into Light','Shadows Into Light Two','Shanti','Share','Share Tech','Share Tech Mono','Shojumaru','Short Stack','Shrikhand','Siemreap','Sigmar One','Signika','Signika Negative','Simonetta','Sintony','Sirin Stencil','Six Caps','Skranji','Slabo 13px','Slabo 27px','Slackey','Smokum','Smythe','Sniglet','Snippet','Snowburst One','Sofadi One','Sofia','Sonsie One','Sorts Mill Goudy','Source Code Pro','Source Sans Pro','Source Serif Pro','Space Mono','Special Elite','Spectral','Spicy Rice','Spinnaker','Spirax','Squada One','Sree Krushnadevaraya','Sriracha','Stalemate','Stalinist One','Stardos Stencil','Stint Ultra Condensed','Stint Ultra Expanded','Stoke','Strait','Sue Ellen Francisco','Suez One','Sumana','Sunshiney','Supermercado One','Sura','Suranna','Suravaram','Suwannaphum','Swanky and Moo Moo','Syncopate','Tangerine','Taprom','Tauri','Taviraj','Teko','Telex','Tenali Ramakrishna','Tenor Sans','Text Me One','The Girl Next Door','Tienne','Tillana','Timmana','Tinos','Titan One','Titillium Web','Trade Winds','Trirong','Trocchi','Trochut','Trykker','Tulpen One','Ubuntu','Ubuntu Condensed','Ubuntu Mono','Ultra','Uncial Antiqua','Underdog','Unica One','UnifrakturCook','UnifrakturMaguntia','Unkempt','Unlock','Unna','VT323','Vampiro One','Varela','Varela Round','Vast Shadow','Vesper Libre','Vibur','Vidaloka','Viga','Voces','Volkhov','Vollkorn','Voltaire','Waiting for the Sunrise','Wallpoet','Walter Turncoat','Warnes','Wellfleet','Wendy One','Wire One','Work Sans','Yanone Kaffeesatz','Yantramanav','Yatra One','Yellowtail','Yeseva One','Yesteryear','Yrsa','Zeyada','Zilla Slab','Zilla Slab Highlight');
+
+
+# check if php has disabled some functions by default
+function fvm_function_available($func) {
+	if (ini_get('safe_mode')) return false;
+	$disabled = ini_get('disable_functions');
+	if ($disabled) {
+		$disabled = explode(',', $disabled);
+		$disabled = array_map('trim', $disabled);
+		return !in_array($func, $disabled);
+	}
+	return true;
+}
+
+# Fix the permission bits on generated files
+function fastvelocity_fix_permission_bits($file){
+	if(function_exists('stat') && fvm_function_available('stat')) {
+		if ($stat = @stat(dirname($file))) {
+			$perms = $stat['mode'] & 0007777;
+			@chmod($file, $perms);
+			clearstatcache();
+			return true;
+		}
+	}
+	
+	
+	# get permissions from parent directory
+	$perms = 0777; 
+	if(function_exists('stat') && fvm_function_available('stat')) {
+		if ($stat = @stat(dirname($file))) { $perms = $stat['mode'] & 0007777; }
+	}
+	
+	if (file_exists($file)){
+		if ($perms != ($perms & ~umask())){
+			$folder_parts = explode( '/', substr( $file, strlen(dirname($file)) + 1 ) );
+				for ( $i = 1, $c = count( $folder_parts ); $i <= $c; $i++ ) {
+				@chmod(dirname($file) . '/' . implode( '/', array_slice( $folder_parts, 0, $i ) ), $perms );
+			}
+		}
+	}
+
+	return true;
+}
+
 
 # get cache directories and urls
 function fvm_cachepath() {
@@ -38,20 +88,35 @@ if($fvm_change_cache_path !== false && $fvm_change_cache_base !== false && strle
 }
 
 # create
-$cachebase = rtrim($upload['basedir'], '/').'/fvm';
-$cachedir =  rtrim($upload['basedir'], '/').'/fvm/out';
-$tmpdir = rtrim($upload['basedir'], '/').'/fvm/tmp';
-$cachedirurl = rtrim($upload['baseurl'], '/').'/fvm/out';
-$headerdir = rtrim($upload['basedir'], '/').'/fvm/header';
+$uploadsdir  = rtrim($upload['basedir'], '/');
+$uploadsurl  = rtrim($upload['baseurl'], '/');
+$cachebase   = $uploadsdir.'/fvm';
+$cachedir    = $uploadsdir.'/fvm/out';
+$tmpdir      = $uploadsdir.'/fvm/tmp';
+$cachedirurl = $uploadsurl.'/fvm/out';
+$headerdir   = $uploadsdir.'/fvm/header';
 
-# chmod level
-if(get_option('fastvelocity_force_chmodmax') != false) { $chmod = 0777; } else { $chmod = 0755; }
+# get permissions from uploads directory
+$dir_perms = 0777; 
+if(function_exists('stat') && fvm_function_available('stat')) {
+	if ($stat = @stat($uploadsdir)) { $dir_perms = $stat['mode'] & 0007777; }
+}
 
-# create and chmod accordingly
-if(!is_dir($cachebase)) { mkdir($cachebase, $chmod, true); }
-if(!is_dir($cachedir)) { mkdir($cachedir, $chmod, true); }
-if(!is_dir($tmpdir)) { mkdir($tmpdir, $chmod, true); }
-if(!is_dir($headerdir)) { mkdir($headerdir, $chmod, true); }
+# mkdir and check if umask requires chmod
+$dirs = array($cachebase, $cachedir, $tmpdir, $headerdir);
+foreach ($dirs as $target) {
+	if (@mkdir($target, $dir_perms, true)){
+		if ($dir_perms != ($dir_perms & ~umask())){
+			$folder_parts = explode( '/', substr( $target, strlen(dirname($target)) + 1 ) );
+				for ( $i = 1, $c = count( $folder_parts ); $i <= $c; $i++ ) {
+				@chmod(dirname($target) . '/' . implode( '/', array_slice( $folder_parts, 0, $i ) ), $dir_perms );
+			}
+		}
+	} else {
+		# fallback
+		if(!is_dir($target)) { wp_mkdir_p($target); }
+	}
+}
 
 # return
 return array('cachebase'=>$cachebase,'tmpdir'=>$tmpdir, 'cachedir'=>$cachedir, 'cachedirurl'=>$cachedirurl, 'headerdir'=>$headerdir);
@@ -67,8 +132,8 @@ function fastvelocity_plugin_activate() {
 		# increment time
 		fvm_cache_increment();
 		
-		# default options to enable
-		$options_enable_default = array('fastvelocity_min_remove_print_mediatypes',  'fastvelocity_fvm_clean_header_one', 'fastvelocity_gfonts_method', 'fastvelocity_min_force_inline_css_footer');
+		# default options to enable (1)
+		$options_enable_default = array('fastvelocity_min_remove_print_mediatypes',  'fastvelocity_fvm_clean_header_one', 'fastvelocity_min_skip_google_fonts', 'fastvelocity_min_force_inline_css_footer', 'fastvelocity_min_skip_cssorder', 'fastvelocity_gfonts_method', 'fastvelocity_fontawesome_method');
 		foreach($options_enable_default as $option) {
 			update_option($option, 1, 'yes');
 		}
@@ -362,12 +427,18 @@ function fastvelocity_format_filesize($bytes, $decimals = 2) {
 # get cache size and count
 function fastvelocity_get_cachestats() {
 	clearstatcache();
-	$dir = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(fvm_cachepath()['cachebase'], FilesystemIterator::SKIP_DOTS));
-	$size = 0; 
-	foreach ($dir as $file) { 
-		$size += $file->getSize(); 
+	$cachepath = fvm_cachepath();
+	$cachebase = $cachepath['cachebase'];
+	if(is_dir($cachebase)) {
+		$dir = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($cachebase, FilesystemIterator::SKIP_DOTS));
+		$size = 0; 
+		foreach ($dir as $file) { 
+			$size += $file->getSize(); 
+		}
+		return fastvelocity_format_filesize($size);
+	} else { 
+		return 'Error: '.$cachebase. ' is not a directory!';
 	}
-	return fastvelocity_format_filesize($size);
 }
 
 # remove default HTTP headers
@@ -585,6 +656,23 @@ $printurl = str_ireplace(array(site_url(), home_url(), 'http:', 'https:'), '', $
 }
 
 
+# check if the google font exist or not
+function fastvelocity_min_concatenate_google_fonts_allowed($font) {
+	global $gfontswhitelist;
+	
+	#normalize
+	$gfontswhitelist = array_map('strtolower', $gfontswhitelist);
+	$font = str_ireplace('+', ' ', strtolower($font));
+	
+	# check
+	if(in_array($font, $gfontswhitelist)) {
+		return true;
+	}
+	
+	# fallback
+	return false;
+}
+
 
 # Concatenate Google Fonts tags (http://fonts.googleapis.com/css?...)
 function fastvelocity_min_concatenate_google_fonts($array) {
@@ -602,17 +690,22 @@ function fastvelocity_min_concatenate_google_fonts($array) {
 			$font = trim(trim(trim(current($a)), ','));
 
 			# reprocess if fonts are already concatenated in this url
-			if(stristr($font, '|') !== FALSE) { 
+			if(stristr($font, '|') !== false) { 
 				$multiple = explode('|', $font); 
 				if (count($multiple) > 0) { 
-					foreach ($multiple as $f) { 
-						$families[] = trim($f); 
+					foreach ($multiple as $f) {
+						$families[] = trim($f);
 					} 
 				}
 			} else { 
-				$families[] = $font; 
+				$families[] = $font;
 			}
 		}
+	}
+	
+	# return if empty
+	if(count($families) == 0) {
+		return false;
 	}
 	
 	# process names, types, subsets
@@ -672,14 +765,16 @@ function fastvelocity_min_concatenate_google_fonts($array) {
 		
 	}
 
-	# build font names with font weights
+	# build font names with font weights, if allowed
 	$build = array();
 	foreach($fonts as $farr) {
-		$f = $farr['name'];
-		if(count($farr['type']) > 0) {
-			$f.= ':'. implode(',', $farr['type']);
+		if(fastvelocity_min_concatenate_google_fonts_allowed($farr['name']) == true) {
+			$f = $farr['name'];
+			if(count($farr['type']) > 0) {
+				$f.= ':'. implode(',', $farr['type']);
+			}
+			$build[] = $f;
 		}
-		$build[] = $f;
 	}
 
 	# merge, append subsets
@@ -844,6 +939,7 @@ function fvm_set_transient($key, $code) {
 	$tmpdir = $cachepath['tmpdir'];
 	$f = $tmpdir.'/'.$key.'.transient';
 	file_put_contents($f, $code);
+	fastvelocity_fix_permission_bits($f);
 	return true;
 }
 
@@ -1062,6 +1158,15 @@ if (class_exists("WpeCommon")) {
 
 	if (method_exists('WpeCommon', 'purge_memcached') || method_exists('WpeCommon', 'clear_maxcdn_cache') || method_exists('WpeCommon', 'purge_varnish_cache')) {
 		return __('<div class="notice notice-info is-dismissible"><p>A cache purge request has been sent to <strong>WP Engine</strong></p></div><div class="notice notice-info is-dismissible"><p>Please note that it may not work 100% of the time, due to cache rate limiting by your host!</p></div>');
+	}
+}
+
+# add breeze cache purge support
+add_action('fvm_after_purge_all', 'extra_fvm_purge_breeze_support');
+function extra_fvm_purge_breeze_support() {
+	if (class_exists("Breeze_PurgeCache")) {
+		Breeze_PurgeCache::breeze_cache_flush();
+		return __( '<div class="notice notice-info is-dismissible"><p>All caches from <strong>Breeze</strong> have also been purged.</p></div>');
 	}
 }
 

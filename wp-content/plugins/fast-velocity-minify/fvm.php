@@ -5,7 +5,7 @@ Plugin URI: http://fastvelocity.com
 Description: Improve your speed score on GTmetrix, Pingdom Tools and Google PageSpeed Insights by merging and minifying CSS and JavaScript files into groups, compressing HTML and other speed optimizations. 
 Author: Raul Peixoto
 Author URI: http://fastvelocity.com
-Version: 2.4.7
+Version: 2.5.1
 License: GPL2
 
 ------------------------------------------------------------------------
@@ -367,8 +367,7 @@ function fastvelocity_min_register_settings() {
 	register_setting('fvm-group', 'fastvelocity_min_fvm_cdn_force');
 	register_setting('fvm-group', 'fastvelocity_min_change_cache_base_url');
 	register_setting('fvm-group', 'fastvelocity_min_change_cache_path');
-	register_setting('fvm-group', 'fastvelocity_force_chmodmax');
-	
+
 	# pro tab
 	register_setting('fvm-group-pro', 'fastvelocity_min_ignore');
     register_setting('fvm-group-pro', 'fastvelocity_min_ignorelist');
@@ -851,18 +850,6 @@ I know what I'm doing... <span class="note-info">[ Load my JS files from the CDN
 </label>
 </fieldset></td>
 </tr>
-
-<tr>
-<th scope="row">File Permissions</th>
-<td>
-<p class="fvm-bold-green fvm-rowintro">You should never need to tick this box, unless your server is misconfigured and FVM files are not being generated.</p>
-<fieldset>
-<label for="fastvelocity_force_chmodmax">
-<input name="fastvelocity_force_chmodmax" type="checkbox" id="fastvelocity_force_chmodmax" value="1" <?php echo checked(1 == get_option('fastvelocity_force_chmodmax'), true, false); ?>>
-Use chmod 0777 <span class="note-info">[ Some servers, need higher file permissions instead of the default chmod 0755 ]</span></label>
-</fieldset></td>
-</tr>
-
 </tbody></table>
 
 
@@ -936,7 +923,7 @@ Use chmod 0777 <span class="note-info">[ Some servers, need higher file permissi
 <th scope="row">Exclude CSS files from PSI</th>
 <td><fieldset><label for="fastvelocity_min_excludecsslist"><span class="fvm-label-pad">Files will be loaded Async and excluded from PSI:</span></label>
 <p>
-<textarea name="fastvelocity_min_excludecsslist" rows="7" cols="50" id="fastvelocity_min_excludecsslist" class="large-text code" placeholder="ex: /wp-content/themes/my-theme/css/fontawesome.css"><?php echo get_option('fastvelocity_min_excludecsslist'); ?></textarea>
+<textarea name="fastvelocity_min_excludecsslist" rows="7" cols="50" id="fastvelocity_min_excludecsslist" class="large-text code" placeholder="ex: /wp-content/themes/my-theme/css/some-other-font.min.css"><?php echo get_option('fastvelocity_min_excludecsslist'); ?></textarea>
 </p>
 <p class="description">[ Any CSS file that can load completely independent, such as fontawesome or other icons ]</p>
 
@@ -1279,7 +1266,6 @@ $is_footer = 0; if (isset($wp_scripts->registered[$handle]->extra["group"]) || i
 	}
 endforeach;
 
-
 # loop through header scripts and merge
 for($i=0,$l=count($header);$i<$l;$i++) {
 	if(!isset($header[$i]['handle'])) {
@@ -1333,14 +1319,10 @@ for($i=0,$l=count($header);$i<$l;$i++) {
 					# Add extra data from wp_add_inline_script before
 					if (!empty( $wp_scripts->registered[$handle]->extra)) {
 						if (!empty( $wp_scripts->registered[$handle]->extra['before'])){
-							$code.= PHP_EOL.implode(PHP_EOL, $wp_scripts->registered[$handle]->extra['before']);
+							$code.= PHP_EOL . implode(PHP_EOL, $wp_scripts->registered[$handle]->extra['before']);
 						}
 					}
-			
-			
-			
-			
-			
+
 				# consider dependencies on handles with an empty src
 				} else {
 					wp_dequeue_script($handle); wp_enqueue_script($handle);
@@ -1355,9 +1337,15 @@ for($i=0,$l=count($header);$i<$l;$i++) {
 			file_put_contents($file, $code);
 			file_put_contents($file.'.gz', gzencode(file_get_contents($file), 9));
 			
+			# permissions
+			fastvelocity_fix_permission_bits($file.'.txt');
+			fastvelocity_fix_permission_bits($file);
+			fastvelocity_fix_permission_bits($file.'.gz');
+			
 			# brotli static support
 			if(function_exists('brotli_compress')) {
 				file_put_contents($file.'.br', brotli_compress(file_get_contents($file), 9));
+				fastvelocity_fix_permission_bits($file.'.br');
 			}
 		}
 		
@@ -1531,9 +1519,15 @@ for($i=0,$l=count($footer);$i<$l;$i++) {
 			file_put_contents($file, $code);
 			file_put_contents($file.'.gz', gzencode(file_get_contents($file), 9));
 			
+			# permissions
+			fastvelocity_fix_permission_bits($file.'.txt');
+			fastvelocity_fix_permission_bits($file);
+			fastvelocity_fix_permission_bits($file.'.gz');
+			
 			# brotli static support
 			if(function_exists('brotli_compress')) {
 				file_put_contents($file.'.br', brotli_compress(file_get_contents($file), 9));
+				fastvelocity_fix_permission_bits($file.'.br');
 			}
 		}
 		
@@ -1834,7 +1828,7 @@ $mediatype = $process[$handle]['mediatype'];
 	# skip ignore list, conditional css, external css, font-awesome merge
 	if ( (!fastvelocity_min_in_arrayi($hurl, $ignore) && !isset($conditional) && fvm_internal_url($hurl, $wp_home)) 
 		|| empty($hurl) 
-		|| ($fvm_fawesome_method == 1 && stripos($href, 'font-awesome') !== false)) {
+		|| ($fvm_fawesome_method == 1 && stripos($hurl, 'font-awesome') !== false)) {
 	
 	# colect inline css for this handle
 	if(isset($wp_styles->registered[$handle]->extra['after']) && is_array($wp_styles->registered[$handle]->extra['after'])) { 
@@ -1960,9 +1954,15 @@ for($i=0,$l=count($header);$i<$l;$i++) {
 			file_put_contents($file, $code);
 			file_put_contents($file.'.gz', gzencode(file_get_contents($file), 9));
 			
+			# permissions
+			fastvelocity_fix_permission_bits($file.'.txt');
+			fastvelocity_fix_permission_bits($file);
+			fastvelocity_fix_permission_bits($file.'.gz');
+			
 			# brotli static support
 			if(function_exists('brotli_compress')) {
 				file_put_contents($file.'.br', brotli_compress(file_get_contents($file), 9));
+				fastvelocity_fix_permission_bits($file.'.br');
 			}
 		}
 		
@@ -2196,7 +2196,7 @@ foreach( $styles->to_do as $handle ) :
 	# skip ignore list, conditional css, external css, font-awesome merge
 	if ( (!fastvelocity_min_in_arrayi($hurl, $ignore) && !isset($conditional) && fvm_internal_url($hurl, $wp_home)) 
 		|| empty($hurl) 
-		|| ($fvm_fawesome_method == 1 && stripos($href, 'font-awesome') !== false)) {
+		|| ($fvm_fawesome_method == 1 && stripos($hurl, 'font-awesome') !== false)) {
 			
 		# colect inline css for this handle
 		if(isset($wp_styles->registered[$handle]->extra['after']) && is_array($wp_styles->registered[$handle]->extra['after'])) { 
@@ -2323,9 +2323,15 @@ for($i=0,$l=count($footer);$i<$l;$i++) {
 			file_put_contents($file, $code); # preserve style tags
 			file_put_contents($file.'.gz', gzencode(file_get_contents($file), 9));
 			
+			# permissions
+			fastvelocity_fix_permission_bits($file.'.txt');
+			fastvelocity_fix_permission_bits($file);
+			fastvelocity_fix_permission_bits($file.'.gz');
+			
 			# brotli static support
 			if(function_exists('brotli_compress')) {
 				file_put_contents($file.'.br', brotli_compress(file_get_contents($file), 9));
+				fastvelocity_fix_permission_bits($file.'.br');
 			}
 		}
 
@@ -2887,13 +2893,17 @@ function fastvelocity_generate_preload_headers(){
 	
 	# if there are no query strings
 	if($b == $a) {
-		if(!file_exists($a)) { file_put_contents($a, $headers); }
+		if(!file_exists($a)) { 
+			file_put_contents($a, $headers); 
+			fastvelocity_fix_permission_bits($a);
+		}
 		return false;
 	}
 	
 	# b fallback
 	if($b != $a && !file_exists($b)) {
 		file_put_contents($b, $headers);
+		fastvelocity_fix_permission_bits($b);
 	}
 	
 	return false;
