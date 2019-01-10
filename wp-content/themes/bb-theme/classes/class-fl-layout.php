@@ -23,10 +23,10 @@ final class FLLayout {
 	 * @return void
 	 */
 	static public function init() {
-		add_filter( 'fl_theme_compile_less_paths', 		__CLASS__ . '::filter_less_paths' );
-		add_filter( 'body_class', 						__CLASS__ . '::filter_body_class' );
-		add_filter( 'nav_menu_css_class',				__CLASS__ . '::filter_nav_menu_item_classes', 999, 4 );
-		add_filter( 'nav_menu_link_attributes',			__CLASS__ . '::filter_nav_menu_link_classes', 999, 4 );
+		add_filter( 'fl_theme_compile_less_paths', __CLASS__ . '::filter_less_paths' );
+		add_filter( 'body_class', __CLASS__ . '::filter_body_class' );
+		add_filter( 'nav_menu_css_class', __CLASS__ . '::filter_nav_menu_item_classes', 999, 4 );
+		add_filter( 'nav_menu_link_attributes', __CLASS__ . '::filter_nav_menu_link_classes', 999, 4 );
 	}
 
 	/**
@@ -50,8 +50,8 @@ final class FLLayout {
 	 */
 	static public function enqueue_framework() {
 		$framework = self::get_framework();
-		$css_path = '/css/' . $framework . '.min.css';
-		$js_path = '/js/' . $framework . '.min.js';
+		$css_path  = '/css/' . $framework . '.min.css';
+		$js_path   = '/js/' . $framework . '.min.js';
 
 		if ( file_exists( FL_THEME_DIR . $css_path ) ) {
 			wp_enqueue_style( $framework, FL_THEME_URL . $css_path, array(), FL_THEME_VERSION );
@@ -70,7 +70,16 @@ final class FLLayout {
 	 * @return array
 	 */
 	static public function filter_less_paths( $paths ) {
-		$paths[] = FL_THEME_DIR . '/less/theme-' . self::get_framework() . '.less';
+		$framework = self::get_framework();
+		switch ( $framework ) {
+			case 'base-4':
+			case 'bootstrap-4':
+				$paths[] = FL_THEME_DIR . '/less/theme-bootstrap-4.less';
+				break;
+			default:
+				$paths[] = FL_THEME_DIR . '/less/theme-' . self::get_framework() . '.less';
+				break;
+		}
 		return $paths;
 	}
 
@@ -150,13 +159,13 @@ final class FLLayout {
 	 */
 	static public function get_col_class( $size, $cols ) {
 		$frameworks = array(
-			'base' => array(
+			'base'        => array(
 				'xs' => 'xs',
 				'sm' => 'sm',
 				'md' => 'md',
 				'lg' => 'lg',
 			),
-			'bootstrap' => array(
+			'bootstrap'   => array(
 				'xs' => 'xs',
 				'sm' => 'sm',
 				'md' => 'md',
@@ -167,7 +176,7 @@ final class FLLayout {
 				'md' => 'lg',
 				'lg' => 'xl',
 			),
-			'base-4' => array(
+			'base-4'      => array(
 				'sm' => 'md',
 				'md' => 'lg',
 				'lg' => 'xl',

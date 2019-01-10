@@ -821,13 +821,19 @@
 		{
 			var distanceY = $( this ).scrollTop(),
 				shrinkOn  = 250,
-				header    = $( '.fl-page-header' );
+				header    = $( '.fl-page-header' ),
+				logo      = $( '.fl-logo-img' );
 
 			if ( distanceY > shrinkOn ) {
 				header.addClass( 'fl-shrink-header' );
 			}
 			else {
 				header.removeClass( 'fl-shrink-header' );
+
+				if ( logo.length ) {
+					logo.css( 'max-height', logo[0].naturalHeight );
+				}
+
 			}
 
 			if ( 'undefined' !== typeof header.data( 'original-top' ) ) {

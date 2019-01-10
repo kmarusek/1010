@@ -14,7 +14,6 @@ FLTheme::head();
 
 ?>
 </head>
-
 <body <?php body_class(); ?> itemscope="itemscope" itemtype="https://schema.org/WebPage">
 <?php
 
