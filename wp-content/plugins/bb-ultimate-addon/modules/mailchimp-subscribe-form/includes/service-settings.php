@@ -1,3 +1,12 @@
+<?php
+/**
+ *  UABB Subscribe Form Module service settings file
+ *
+ *  @package UABB Subscribe Form Module
+ */
+
+?>
+
 <div class="fl-builder-service-settings">
 	<table class="fl-form-table">
 		<?php
@@ -5,7 +14,7 @@
 		// Get the service type.
 		$service_type = null;
 
-		if ( isset( $section['services'] ) && $section['services'] != 'all' ) {
+		if ( isset( $section['services'] ) && 'all' != $section['services'] ) {
 			$service_type = $section['services'];
 		}
 
@@ -21,7 +30,6 @@
 		}
 
 		// Build the select options.
-		// $options  = array( '' => __( 'Choose...', 'uabb' ) );
 		foreach ( $services as $key => $service ) {
 			$options[ $key ] = $service['name'];
 		}

@@ -315,29 +315,3 @@ if ( $enable_row_separator ) {
 	}
 }
 ?>
-
-/* Column Extended Settings CSS */
-
-<?php
-/* Column Extended Settings CSS */
-$columns = $nodes['columns'];
-
-foreach ( $columns as $id => $col ) {
-
-	$parent = $nodes['groups'][ $col->parent ]->parent;
-
-	?>
-	<?php if ( $global_settings->responsive_enabled ) : // Responsive Sizes. ?>
-		<?php if ( ! empty( $col->settings->border_type ) ) : // Border. ?>
-			<?php if ( 'yes' == $col->settings->hide_border_mobile ) : ?>
-		@media(max-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
-			.fl-builder-content .fl-node-<?php echo $col->node; ?> .fl-col-content {
-				border: none;
-			}
-		}
-		<?php endif; ?>
-		<?php endif; ?>
-	<?php endif; ?>
-
-<?php } ?>
-/* Column End Extended Settings CSS*/

@@ -5,8 +5,6 @@
         init: function()
 		{
 			UABBButton.init();
-		}
-
+		},
     });
-
 })(jQuery);

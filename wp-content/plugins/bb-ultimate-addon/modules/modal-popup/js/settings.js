@@ -17,6 +17,7 @@
 			
 			this._showModalPreview();
 			this._toggleTypography();
+			this._hideDocs();
 			$( '.fl-builder-content' ).on( 'fl-builder.layout-rendered', $.proxy( this._showModalPreview, this ) );
 
 			// Validation events
@@ -101,6 +102,29 @@
 				} else if(content_type=='vimeo'){
 					placeholder.removeAttr("placeholder").attr('placeholder','https://vimeo.com/274860274');
 				}
-		}	
+		},
+		/**
+         * Branding is on hide the Docs Tab.
+         *
+         * @since 1.14.0
+        */
+        _hideDocs: function() {
+            var form            = $('.fl-builder-settings'),
+            branding_selector   = form.find('#fl-field-uabb_helpful_information .uabb-docs-list');
+            settings_tab        = form.find('.fl-builder-settings-tabs');
+            get_anchor          =  settings_tab.find('a');
+
+            $( get_anchor ).each(function() {
+
+                if ( '#fl-builder-settings-tab-uabb_docs' === $(this) .attr('href') ) {
+
+                    if ( 'yes' === branding_selector.data('branding') ) {
+                        $( this ).hide();
+                    } else {
+                        $( this ).show();
+                    }
+                }
+            });
+        }
 	});
 })(jQuery);

@@ -77,8 +77,7 @@
             if( btn_style == 'threed' ) {
             	form.find('#fl-field-bg_color').show();
             	form.find('#fl-field-bg_hover_color').show();
-            	form.find('#fl-field-bg_hover_color_opc').show();
-            	form.find('#fl-field-bg_color_opc').show();
+
             	form.find("#fl-field-button_gradient").hide();
             	form.find('#fl-field-threed_button_options').show();
             	form.find("#fl-field-hover_attribute").hide();
@@ -90,8 +89,6 @@
             } else if( btn_style == 'flat' ) {
             	form.find('#fl-field-bg_color').show();
             	form.find('#fl-field-bg_hover_color').show();
-            	form.find('#fl-field-bg_hover_color_opc').show();
-            	form.find('#fl-field-bg_color_opc').show();
             	form.find('#fl-field-button_gradient').hide();
             	form.find('#fl-field-flat_button_options').show();
             	form.find("#fl-field-hover_attribute").hide();
@@ -103,8 +100,6 @@
             } else if( btn_style == 'transparent' ) {
             	form.find('#fl-field-bg_color').show();
             	form.find('#fl-field-bg_hover_color').show();
-            	form.find('#fl-field-bg_hover_color_opc').show();
-            	form.find('#fl-field-bg_color_opc').show();
             	form.find("#fl-field-button_gradient").hide();
             	form.find("#fl-field-border_size").show();
             	form.find("#fl-field-transparent_button_options").show();
@@ -127,8 +122,6 @@
             	form.find("#fl-field-button_gradient").show();            	
             	form.find('#fl-field-bg_color').hide();
             	form.find('#fl-field-bg_hover_color').hide();
-            	form.find('#fl-field-bg_hover_color_opc').hide();
-            	form.find('#fl-field-bg_color_opc').hide();
             	form.find("#fl-field-hover_attribute").hide();            	
             	form.find("#fl-field-border_size").hide();
             	form.find('#fl-field-flat_button_options').hide();

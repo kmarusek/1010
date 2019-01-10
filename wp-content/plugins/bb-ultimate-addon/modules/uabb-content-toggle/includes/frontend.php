@@ -1,15 +1,25 @@
 <?php
-$rbs_wrapper = $rbs_section_1 = $rbs_section_2 = '';
+/**
+ * UABB Content Toggle Module front-end file
+ *
+ *  @package UABB Content Toggle Module
+ */
+
+?>
+<?php
+$rbs_wrapper   = '';
+$rbs_section_1 = '';
+$rbs_section_2 = '';
 
 if ( 'stack' === $settings->heading_layout ) {
 	$rbs_wrapper = 'uabb-ct-desktop-stack--yes uabb-rbs-wrapper';
 } else {
-	$rbs_wrapper ='uabb-ct-desktop-stack--no uabb-rbs-wrapper';
+	$rbs_wrapper = 'uabb-ct-desktop-stack--no uabb-rbs-wrapper';
 }
 
 if ( 'stack' === $settings->heading_responsive_layout ) {
 	$rbs_wrapper .= ' uabb-ct-responsive-stack--yes uabb-rbs-wrapper';
-} else if ( 'inline' === $settings->heading_responsive_layout ) {
+} elseif ( 'inline' === $settings->heading_responsive_layout ) {
 	$rbs_wrapper .= ' uabb-ct-responsive-stack--no uabb-rbs-wrapper';
 }
 
@@ -31,7 +41,7 @@ if ( 'on' === $settings->default_display ) {
 }
 
 $label_off = ( isset( $settings->label_box_off ) ) ? $settings->label_box_off : 'OFF';
-$label_on = ( isset( $settings->label_box_on ) ) ? $settings->label_box_on : 'ON';
+$label_on  = ( isset( $settings->label_box_on ) ) ? $settings->label_box_on : 'ON';
 
 ?>
 <div class="<?php echo $rbs_wrapper; ?>">
@@ -42,10 +52,10 @@ $label_on = ( isset( $settings->label_box_on ) ) ? $settings->label_box_on : 'ON
 		</div>
 		<div class="uabb-main-btn" data-switch-type="<?php echo $settings->select_switch_style; ?>">
 
-			<?php 
-			
+			<?php
+
 			$switch_html = '';
-			$is_checked  = ( 'on' === $settings->default_display ) ? 'checked' : ''; 
+			$is_checked  = ( 'on' === $settings->default_display ) ? 'checked' : '';
 
 			switch ( $settings->select_switch_style ) {
 				case 'round1':
@@ -77,26 +87,27 @@ $label_on = ( isset( $settings->label_box_on ) ) ? $settings->label_box_on : 'ON
 			<<?php echo $settings->html_tag; ?> class="uabb-rbs-head-2"><?php echo $settings->cont2_heading; ?></<?php echo $settings->html_tag; ?>>
 		</div>
 	</div>
- 	<div class="uabb-rbs-toggle-sections">
+	<div class="uabb-rbs-toggle-sections">
 		<div <?php echo $rbs_section_1; ?> >
-			<?php 
-			if( $settings->cont1_section  == 'content' ){
+			<?php
+			if ( 'content' == $settings->cont1_section ) {
 				global $wp_embed;
 				echo wpautop( $wp_embed->autoembed( $settings->content_editor ) );
-			} else{
-               	echo $module->get_toggle_content1($settings); 
+			} else {
+				echo $module->get_toggle_content1( $settings );
 			}
-			?> 
+			?>
+
 		</div>
 		<div <?php echo $rbs_section_2; ?> >
-			<?php 
-			if( $settings->cont2_section  == 'content_head2' ){
+			<?php
+			if ( 'content_head2' == $settings->cont2_section ) {
 				global $wp_embed;
 				echo wpautop( $wp_embed->autoembed( $settings->content2_editor ) );
-			} else{
-               	echo $module->get_toggle_content2($settings); 
+			} else {
+				echo $module->get_toggle_content2( $settings );
 			}
 			?>
 		</div>
-	</div> 
+	</div>
 </div>

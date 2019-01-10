@@ -57,1410 +57,1155 @@ class UABBPricingTableModule extends FLBuilderModule {
 	 * @param var $column gets the value for the fields.
 	 */
 	public function render_button( $column ) {
+		if ( ! UABB_Compatibility::check_bb_version() ) {
+			$btn_settings = array(
 
-		$btn_settings = array(
+				'text'                        => $this->settings->pricing_columns[ $column ]->btn_text,
+				'link'                        => $this->settings->pricing_columns[ $column ]->btn_link,
+				'link_target'                 => $this->settings->pricing_columns[ $column ]->btn_link_target,
+				'link_nofollow'               => $this->settings->pricing_columns[ $column ]->btn_link_nofollow,
+				'icon'                        => $this->settings->pricing_columns[ $column ]->btn_icon,
+				'icon_position'               => $this->settings->pricing_columns[ $column ]->btn_icon_position,
+				'style'                       => $this->settings->pricing_columns[ $column ]->btn_style,
+				'border_size'                 => $this->settings->pricing_columns[ $column ]->btn_border_size,
+				'transparent_button_options'  => $this->settings->pricing_columns[ $column ]->btn_transparent_button_options,
+				'threed_button_options'       => $this->settings->pricing_columns[ $column ]->btn_threed_button_options,
+				'flat_button_options'         => $this->settings->pricing_columns[ $column ]->btn_flat_button_options,
+				'bg_color'                    => $this->settings->pricing_columns[ $column ]->btn_bg_color,
+				'bg_hover_color'              => $this->settings->pricing_columns[ $column ]->btn_bg_hover_color,
+				'text_color'                  => $this->settings->pricing_columns[ $column ]->btn_text_color,
+				'text_hover_color'            => $this->settings->pricing_columns[ $column ]->btn_text_hover_color,
+				'width'                       => $this->settings->pricing_columns[ $column ]->btn_width,
+				'custom_width'                => $this->settings->pricing_columns[ $column ]->btn_custom_width,
+				'custom_height'               => $this->settings->pricing_columns[ $column ]->btn_custom_height,
+				'padding_top_bottom'          => $this->settings->pricing_columns[ $column ]->btn_padding_top_bottom,
+				'padding_left_right'          => $this->settings->pricing_columns[ $column ]->btn_padding_left_right,
+				'border_radius'               => $this->settings->pricing_columns[ $column ]->btn_border_radius,
+				'custom_class'                => $this->settings->pricing_columns[ $column ]->btn_custom_class,
+				'align'                       => '',
+				'mob_align'                   => '',
+				'font_family'                 => $this->settings->pricing_columns[ $column ]->button_typography_font_family,
 
-			'text'                        => $this->settings->pricing_columns[ $column ]->btn_text,
-			'link'                        => $this->settings->pricing_columns[ $column ]->btn_link,
-			'link_target'                 => $this->settings->pricing_columns[ $column ]->btn_link_target,
-			'link_nofollow'               => $this->settings->pricing_columns[ $column ]->btn_link_nofollow,
-			'icon'                        => $this->settings->pricing_columns[ $column ]->btn_icon,
-			'icon_position'               => $this->settings->pricing_columns[ $column ]->btn_icon_position,
-			'style'                       => $this->settings->pricing_columns[ $column ]->btn_style,
-			'border_size'                 => $this->settings->pricing_columns[ $column ]->btn_border_size,
-			'transparent_button_options'  => $this->settings->pricing_columns[ $column ]->btn_transparent_button_options,
-			'threed_button_options'       => $this->settings->pricing_columns[ $column ]->btn_threed_button_options,
-			'flat_button_options'         => $this->settings->pricing_columns[ $column ]->btn_flat_button_options,
-			'bg_color'                    => $this->settings->pricing_columns[ $column ]->btn_bg_color,
-			'bg_hover_color'              => $this->settings->pricing_columns[ $column ]->btn_bg_hover_color,
-			'text_color'                  => $this->settings->pricing_columns[ $column ]->btn_text_color,
-			'text_hover_color'            => $this->settings->pricing_columns[ $column ]->btn_text_hover_color,
-			'width'                       => $this->settings->pricing_columns[ $column ]->btn_width,
-			'custom_width'                => $this->settings->pricing_columns[ $column ]->btn_custom_width,
-			'custom_height'               => $this->settings->pricing_columns[ $column ]->btn_custom_height,
-			'padding_top_bottom'          => $this->settings->pricing_columns[ $column ]->btn_padding_top_bottom,
-			'padding_left_right'          => $this->settings->pricing_columns[ $column ]->btn_padding_left_right,
-			'border_radius'               => $this->settings->pricing_columns[ $column ]->btn_border_radius,
-			'custom_class'                => $this->settings->pricing_columns[ $column ]->btn_custom_class,
-			'align'                       => '',
-			'mob_align'                   => '',
-			'font_family'                 => $this->settings->pricing_columns[ $column ]->button_typography_font_family,
-			'font_size'                   => ( isset( $this->settings->pricing_columns[ $column ]->button_typography_font_size ) ) ? $this->settings->pricing_columns[ $column ]->button_typography_font_size : '',
-			'line_height'                 => ( isset( $this->settings->pricing_columns[ $column ]->button_typography_line_height ) ) ? $this->settings->pricing_columns[ $column ]->button_typography_line_height : '',
-			'font_size_unit'              => $this->settings->pricing_columns[ $column ]->button_typography_font_size_unit,
-			'line_height_unit'            => $this->settings->pricing_columns[ $column ]->button_typography_line_height_unit,
-			'font_size_unit_medium'       => $this->settings->pricing_columns[ $column ]->button_typography_font_size_unit_medium,
-			'line_height_unit_medium'     => $this->settings->pricing_columns[ $column ]->button_typography_line_height_unit_medium,
-			'font_size_unit_responsive'   => $this->settings->pricing_columns[ $column ]->button_typography_font_size_unit_responsive,
-			'line_height_unit_responsive' => $this->settings->pricing_columns[ $column ]->button_typography_line_height_unit_responsive,
-		);
+				'font_size'                   => ( isset( $this->settings->pricing_columns[ $column ]->button_typography_font_size ) ) ? $this->settings->pricing_columns[ $column ]->button_typography_font_size : '',
 
+				'line_height'                 => ( isset( $this->settings->pricing_columns[ $column ]->button_typography_line_height ) ) ? $this->settings->pricing_columns[ $column ]->button_typography_line_height : '',
+
+				'font_size_unit'              => $this->settings->pricing_columns[ $column ]->button_typography_font_size_unit,
+				'line_height_unit'            => $this->settings->pricing_columns[ $column ]->button_typography_line_height_unit,
+				'font_size_unit_medium'       => $this->settings->pricing_columns[ $column ]->button_typography_font_size_unit_medium,
+				'line_height_unit_medium'     => $this->settings->pricing_columns[ $column ]->button_typography_line_height_unit_medium,
+				'font_size_unit_responsive'   => $this->settings->pricing_columns[ $column ]->button_typography_font_size_unit_responsive,
+				'line_height_unit_responsive' => $this->settings->pricing_columns[ $column ]->button_typography_line_height_unit_responsive,
+			);
+		} else {
+
+			$btn_settings = array(
+
+				'text'                       => $this->settings->pricing_columns[ $column ]->btn_text,
+				'link'                       => $this->settings->pricing_columns[ $column ]->btn_link,
+				'link_target'                => $this->settings->pricing_columns[ $column ]->btn_link_target,
+				'link_nofollow'              => $this->settings->pricing_columns[ $column ]->btn_link_nofollow,
+				'icon'                       => $this->settings->pricing_columns[ $column ]->btn_icon,
+				'icon_position'              => $this->settings->pricing_columns[ $column ]->btn_icon_position,
+				'style'                      => $this->settings->pricing_columns[ $column ]->btn_style,
+				'border_size'                => $this->settings->pricing_columns[ $column ]->btn_border_size,
+				'transparent_button_options' => $this->settings->pricing_columns[ $column ]->btn_transparent_button_options,
+				'threed_button_options'      => $this->settings->pricing_columns[ $column ]->btn_threed_button_options,
+				'flat_button_options'        => $this->settings->pricing_columns[ $column ]->btn_flat_button_options,
+				'bg_color'                   => $this->settings->pricing_columns[ $column ]->btn_bg_color,
+				'bg_hover_color'             => $this->settings->pricing_columns[ $column ]->btn_bg_hover_color,
+				'text_color'                 => $this->settings->pricing_columns[ $column ]->btn_text_color,
+				'text_hover_color'           => $this->settings->pricing_columns[ $column ]->btn_text_hover_color,
+				'width'                      => $this->settings->pricing_columns[ $column ]->btn_width,
+				'custom_width'               => $this->settings->pricing_columns[ $column ]->btn_custom_width,
+				'custom_height'              => $this->settings->pricing_columns[ $column ]->btn_custom_height,
+				'padding_top_bottom'         => $this->settings->pricing_columns[ $column ]->btn_padding_top_bottom,
+				'padding_left_right'         => $this->settings->pricing_columns[ $column ]->btn_padding_left_right,
+				'border_radius'              => $this->settings->pricing_columns[ $column ]->btn_border_radius,
+				'custom_class'               => $this->settings->pricing_columns[ $column ]->btn_custom_class,
+				'align'                      => '',
+				'mob_align'                  => '',
+				'font_size'                  => ( isset( $this->settings->pricing_columns[ $column ]->button_typography_font_size ) ) ? $this->settings->pricing_columns[ $column ]->button_typography_font_size : '',
+				'line_height'                => ( isset( $this->settings->pricing_columns[ $column ]->button_typography_line_height ) ) ? $this->settings->pricing_columns[ $column ]->button_typography_line_height : '',
+				'button_typo'                => ( isset( $this->settings->pricing_columns[ $column ]->button_typo ) ) ? $this->settings->pricing_columns[ $column ]->button_typo : '',
+
+				'button_typo_medium'         => ( isset( $this->settings->pricing_columns[ $column ]->button_typo_medium ) ) ? $this->settings->pricing_columns[ $column ]->button_typo_medium : '',
+
+				'button_typo_responsive'     => ( isset( $this->settings->pricing_columns[ $column ]->button_typo_responsive ) ) ? $this->settings->pricing_columns[ $column ]->button_typo_responsive : '',
+			);
+		}
 		FLBuilder::render_module_html( 'uabb-button', $btn_settings );
+	}
+
+	/**
+	 * Ensure backwards compatibility with old settings.
+	 *
+	 * @since 1.14.0
+	 * @param object $settings A module settings object.
+	 * @param object $helper A settings compatibility helper.
+	 * @return object
+	 */
+	public function filter_settings( $settings, $helper ) {
+
+		$version_bb_check        = UABB_Compatibility::check_bb_version();
+		$page_migrated           = UABB_Compatibility::check_old_page_migration();
+		$stable_version_new_page = UABB_Compatibility::check_stable_version_new_page();
+
+		if ( $version_bb_check && ( 'yes' == $page_migrated || 'yes' == $stable_version_new_page ) ) {
+
+			// For aligning legend column's features alignment.
+			if ( isset( $settings->legend_align ) ) {
+				$settings->legend_align = $settings->legend_align;
+			}
+
+			// For Title typo.
+			if ( ! isset( $settings->title_typo ) || ! is_array( $settings->title_typo ) ) {
+
+				$settings->title_typo            = array();
+				$settings->title_typo_medium     = array();
+				$settings->title_typo_responsive = array();
+			}
+			if ( isset( $settings->title_typography_font_family ) ) {
+				if ( isset( $settings->title_typography_font_family['family'] ) ) {
+					$settings->title_typo['font_family'] = $settings->title_typography_font_family['family'];
+				}
+				if ( isset( $settings->title_typography_font_family['weight'] ) ) {
+					if ( 'regular' == $settings->title_typography_font_family['weight'] ) {
+						$settings->title_typo['font_weight'] = 'normal';
+					} else {
+						$settings->title_typo['font_weight'] = $settings->title_typography_font_family['weight'];
+					}
+				}
+			}
+			if ( isset( $settings->title_typography_font_size_unit ) ) {
+				$settings->title_typo['font_size'] = array(
+					'length' => $settings->title_typography_font_size_unit,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->title_typography_font_size_unit_medium ) ) {
+
+				$settings->title_typo_medium['font_size'] = array(
+					'length' => $settings->title_typography_font_size_unit_medium,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->title_typography_font_size_unit_responsive ) ) {
+
+				$settings->title_typo_responsive['font_size'] = array(
+					'length' => $settings->title_typography_font_size_unit_responsive,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->title_typography_line_height_unit ) ) {
+
+				$settings->title_typo['line_height'] = array(
+					'length' => $settings->title_typography_line_height_unit,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->title_typography_line_height_unit_medium ) ) {
+
+				$settings->title_typo_medium['line_height'] = array(
+					'length' => $settings->title_typography_line_height_unit_medium,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->title_typography_line_height_unit_responsive ) ) {
+
+				$settings->title_typo_responsive['line_height'] = array(
+					'length' => $settings->title_typography_line_height_unit_responsive,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->title_transform ) ) {
+				$settings->title_typo['text_transform'] = $settings->title_transform;
+			}
+			if ( isset( $settings->title_letter_spacing ) ) {
+				$settings->title_typo['letter_spacing'] = array(
+					'length' => $settings->title_letter_spacing,
+					'unit'   => 'px',
+				);
+			}
+
+			// For columns features title typo.
+			if ( ! isset( $settings->feature_typo ) || ! is_array( $settings->feature_typo ) ) {
+
+				$settings->feature_typo            = array();
+				$settings->feature_typo_medium     = array();
+				$settings->feature_typo_responsive = array();
+			}
+			if ( isset( $settings->feature_typography_font_family ) ) {
+				if ( isset( $settings->feature_typography_font_family['family'] ) ) {
+					$settings->feature_typo['font_family'] = $settings->feature_typography_font_family['family'];
+				}
+				if ( isset( $settings->feature_typography_font_family['weight'] ) ) {
+					if ( 'regular' == $settings->feature_typography_font_family['weight'] ) {
+						$settings->feature_typo['font_weight'] = 'normal';
+					} else {
+						$settings->feature_typo['font_weight'] = $settings->feature_typography_font_family['weight'];
+					}
+				}
+			}
+			if ( isset( $settings->feature_typography_font_size_unit ) ) {
+				$settings->feature_typo['font_size'] = array(
+					'length' => $settings->feature_typography_font_size_unit,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->feature_typography_font_size_unit_medium ) ) {
+
+				$settings->feature_typo_medium['font_size'] = array(
+					'length' => $settings->feature_typography_font_size_unit_medium,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->feature_typography_font_size_unit_responsive ) ) {
+
+				$settings->feature_typo_responsive['font_size'] = array(
+					'length' => $settings->feature_typography_font_size_unit_responsive,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->feature_typography_line_height_unit ) ) {
+
+				$settings->feature_typo['line_height'] = array(
+					'length' => $settings->feature_typography_line_height_unit,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->feature_typography_line_height_unit_medium ) ) {
+
+				$settings->feature_typo_medium['line_height'] = array(
+					'length' => $settings->feature_typography_line_height_unit_medium,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->feature_typography_line_height_unit_responsive ) ) {
+
+				$settings->feature_typo_responsive['line_height'] = array(
+					'length' => $settings->feature_typography_line_height_unit_responsive,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->feature_content_transform ) ) {
+				$settings->feature_typo['text_transform'] = $settings->feature_content_transform;
+			}
+			if ( isset( $settings->features_align ) ) {
+				$settings->feature_typo['text_align'] = $settings->features_align;
+				unset( $settings->features_align );
+			}
+			if ( isset( $settings->feature_content_letter_spacing ) ) {
+				$settings->feature_typo['letter_spacing'] = array(
+					'length' => $settings->feature_content_letter_spacing,
+					'unit'   => 'px',
+				);
+			}
+
+			// For Price Typo.
+			if ( ! isset( $settings->price_typo ) || ! is_array( $settings->price_typo ) ) {
+
+				$settings->price_typo            = array();
+				$settings->price_typo_medium     = array();
+				$settings->price_typo_responsive = array();
+			}
+			if ( isset( $settings->price_typography_font_family ) ) {
+				if ( isset( $settings->price_typography_font_family['family'] ) ) {
+					$settings->price_typo['font_family'] = $settings->price_typography_font_family['family'];
+				}
+				if ( isset( $settings->price_typography_font_family['weight'] ) ) {
+					if ( 'regular' == $settings->price_typography_font_family['weight'] ) {
+						$settings->price_typo['font_weight'] = 'normal';
+					} else {
+						$settings->price_typo['font_weight'] = $settings->price_typography_font_family['weight'];
+					}
+				}
+			}
+			if ( isset( $settings->price_typography_font_size_unit ) ) {
+
+				$settings->price_typo['font_size'] = array(
+					'length' => $settings->price_typography_font_size_unit,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->price_typography_font_size_unit_medium ) ) {
+
+				$settings->price_typo_medium['font_size'] = array(
+					'length' => $settings->price_typography_font_size_unit_medium,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->price_typography_font_size_unit_responsive ) ) {
+
+				$settings->price_typo_responsive['font_size'] = array(
+					'length' => $settings->price_typography_font_size_unit_responsive,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->price_typography_line_height_unit ) ) {
+
+				$settings->price_typo['line_height'] = array(
+					'length' => $settings->price_typography_line_height_unit,
+					'unit'   => 'em',
+				);
+
+			}
+			if ( isset( $settings->price_typography_line_height_unit_medium ) ) {
+
+				$settings->price_typo_medium['line_height'] = array(
+					'length' => $settings->price_typography_line_height_unit_medium,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->price_typography_line_height_unit_responsive ) ) {
+
+				$settings->price_typo_responsive['line_height'] = array(
+					'length' => $settings->price_typography_line_height_unit_responsive,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->price_typography_letter_spacing ) ) {
+
+				$settings->price_typo['letter_spacing'] = array(
+					'length' => $settings->price_typography_letter_spacing,
+					'unit'   => 'px',
+				);
+			}
+
+			// For Duration Typo.
+			if ( ! isset( $settings->duration_typo ) || ! is_array( $settings->duration_typo ) ) {
+
+				$settings->duration_typo            = array();
+				$settings->duration_typo_medium     = array();
+				$settings->duration_typo_responsive = array();
+			}
+			if ( isset( $settings->duration_typography_font_family ) ) {
+
+				if ( isset( $settings->duration_typography_font_family['family'] ) ) {
+
+					$settings->duration_typo['font_family'] = $settings->duration_typography_font_family['family'];
+				}
+				if ( isset( $settings->duration_typography_font_family['weight'] ) ) {
+					if ( 'regular' == $settings->duration_typography_font_family['weight'] ) {
+						$settings->duration_typo['font_weight'] = 'normal';
+					} else {
+						$settings->duration_typo['font_weight'] = $settings->duration_typography_font_family['weight'];
+					}
+				}
+			}
+			if ( isset( $settings->duration_typography_font_size_unit ) ) {
+
+				$settings->duration_typo['font_size'] = array(
+					'length' => $settings->duration_typography_font_size_unit,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->duration_typography_font_size_unit_medium ) ) {
+
+				$settings->duration_typo_medium['font_size'] = array(
+					'length' => $settings->duration_typography_font_size_unit_medium,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->duration_typography_font_size_unit_responsive ) ) {
+
+				$settings->duration_typo_responsive['font_size'] = array(
+					'length' => $settings->duration_typography_font_size_unit_responsive,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->duration_typography_line_height_unit ) ) {
+
+				$settings->duration_typo['line_height'] = array(
+					'length' => $settings->duration_typography_line_height_unit,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->duration_typography_line_height_unit_medium ) ) {
+
+				$settings->duration_typo_medium['line_height'] = array(
+					'length' => $settings->duration_typography_line_height_unit_medium,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->duration_typography_line_height_unit_responsive ) ) {
+
+				$settings->duration_typo_responsive['line_height'] = array(
+					'length' => $settings->duration_typography_line_height_unit_responsive,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->duration_typography_transform ) ) {
+				$settings->duration_typo['text_transform'] = $settings->duration_typography_transform;
+			}
+			if ( isset( $settings->duration_typography_letter_spacing ) ) {
+
+				$settings->duration_typo['letter_spacing'] = array(
+					'length' => $settings->duration_typography_letter_spacing,
+					'unit'   => 'px',
+				);
+			}
+			for ( $i = 0; $i < count( $settings->pricing_columns ); $i++ ) {
+
+				if ( ! isset( $settings->pricing_columns[ $i ]->button_typo ) || ! is_object( $settings->pricing_columns[ $i ]->button_typo ) ) {
+
+					$settings->pricing_columns[ $i ]->button_typo            = new stdClass();
+					$settings->pricing_columns[ $i ]->button_typo_medium     = new stdClass();
+					$settings->pricing_columns[ $i ]->button_typo_responsive = new stdClass();
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->button_typography_font_family ) ) {
+					if ( isset( $settings->pricing_columns[ $i ]->button_typography_font_family->family ) ) {
+
+						$settings->pricing_columns[ $i ]->button_typo->font_family = $settings->pricing_columns[ $i ]->button_typography_font_family->family;
+					}
+					if ( isset( $settings->pricing_columns[ $i ]->button_typography_font_family->weight ) ) {
+						if ( 'regular' == $settings->pricing_columns[ $i ]->button_typography_font_family->weight ) {
+							$settings->pricing_columns[ $i ]->button_typo->font_weight = 'normal';
+						} else {
+							$settings->pricing_columns[ $i ]->button_typo->font_weight = $settings->pricing_columns[ $i ]->button_typography_font_family->weight;
+						}
+					}
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->button_typography_font_size_unit ) ) {
+
+					$settings->pricing_columns[ $i ]->button_typo->font_size = (object) array(
+						'length' => $settings->pricing_columns[ $i ]->button_typography_font_size_unit,
+						'unit'   => 'px',
+					);
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->button_typography_font_size_unit_medium ) ) {
+
+					$settings->pricing_columns[ $i ]->button_typo_medium->font_size = (object) array(
+						'length' => $settings->pricing_columns[ $i ]->button_typography_font_size_unit_medium,
+						'unit'   => 'px',
+					);
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->button_typography_font_size_unit_responsive ) ) {
+
+					$settings->pricing_columns[ $i ]->button_typo_responsive->font_size = (object) array(
+						'length' => $settings->pricing_columns[ $i ]->button_typography_font_size_unit_responsive,
+						'unit'   => 'px',
+					);
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->button_typography_line_height_unit ) ) {
+
+					$settings->pricing_columns[ $i ]->button_typo->line_height = (object) array(
+						'length' => $settings->pricing_columns[ $i ]->button_typography_line_height_unit,
+						'unit'   => 'em',
+					);
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->button_typography_line_height_unit_medium ) ) {
+
+					$settings->pricing_columns[ $i ]->button_typo_medium->line_height = (object) array(
+						'length' => $settings->pricing_columns[ $i ]->button_typography_line_height_unit_medium,
+						'unit'   => 'em',
+					);
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->button_typography_line_height_unit_responsive ) ) {
+
+					$settings->pricing_columns[ $i ]->button_typo_responsive->line_height = (object) array(
+						'length' => $settings->pricing_columns[ $i ]->button_typography_line_height_unit_responsive,
+						'unit'   => 'em',
+					);
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->button_transform ) ) {
+					$settings->pricing_columns[ $i ]->button_typo->text_transform = $settings->pricing_columns[ $i ]->button_transform;
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->button_letter_spacing ) ) {
+
+					$settings->pricing_columns[ $i ]->button_typo->letter_spacing = (object) array(
+						'length' => $settings->pricing_columns[ $i ]->button_letter_spacing,
+						'unit'   => 'px',
+					);
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->button_typography_font_family ) ) {
+					unset( $settings->pricing_columns[ $i ]->button_typography_font_family );
+					unset( $settings->pricing_columns[ $i ]->button_typography_font_size_unit );
+					unset( $settings->pricing_columns[ $i ]->button_typography_font_size_unit_medium );
+					unset( $settings->pricing_columns[ $i ]->button_typography_font_size_unit_responsive );
+					unset( $settings->pricing_columns[ $i ]->button_typography_line_height_unit );
+					unset( $settings->pricing_columns[ $i ]->button_typography_line_height_unit_medium );
+					unset( $settings->pricing_columns[ $i ]->button_typography_line_height_unit_responsive );
+					unset( $settings->pricing_columns[ $i ]->button_transform );
+					unset( $settings->pricing_columns[ $i ]->button_letter_spacing );
+				}
+				if ( ! isset( $settings->pricing_columns[ $i ]->featured_typo ) || ! is_object( $settings->pricing_columns[ $i ]->featured_typo ) ) {
+
+					$settings->pricing_columns[ $i ]->featured_typo            = new stdClass();
+					$settings->pricing_columns[ $i ]->featured_typo_medium     = new stdClass();
+					$settings->pricing_columns[ $i ]->featured_typo_responsive = new stdClass();
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->featured_font_family ) ) {
+					if ( isset( $settings->pricing_columns[ $i ]->featured_font_family->family ) ) {
+
+						$settings->pricing_columns[ $i ]->featured_typo->font_family = $settings->pricing_columns[ $i ]->featured_font_family->family;
+					}
+					if ( isset( $settings->pricing_columns[ $i ]->featured_font_family->weight ) ) {
+						if ( 'regular' == $settings->pricing_columns[ $i ]->featured_font_family->weight ) {
+							$settings->pricing_columns[ $i ]->featured_typo->font_weight = 'normal';
+						} else {
+							$settings->pricing_columns[ $i ]->featured_typo->font_weight = $settings->pricing_columns[ $i ]->featured_font_family->weight;
+						}
+					}
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->featured_font_size_unit ) ) {
+
+					$settings->pricing_columns[ $i ]->featured_typo->font_size = (object) array(
+						'length' => $settings->pricing_columns[ $i ]->featured_font_size_unit,
+						'unit'   => 'px',
+					);
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->featured_font_size_unit_medium ) ) {
+					$settings->pricing_columns[ $i ]->featured_typo_medium->font_size = (object) array(
+						'length' => $settings->pricing_columns[ $i ]->featured_font_size_unit_medium,
+						'unit'   => 'px',
+					);
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->featured_font_size_unit_responsive ) ) {
+
+					$settings->pricing_columns[ $i ]->featured_typo_responsive->font_size = (object) array(
+						'length' => $settings->pricing_columns[ $i ]->featured_font_size_unit_responsive,
+						'unit'   => 'px',
+					);
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->featured_line_height_unit ) ) {
+
+					$settings->pricing_columns[ $i ]->featured_typo->line_height = (object) array(
+						'length' => $settings->pricing_columns[ $i ]->featured_line_height_unit,
+						'unit'   => 'em',
+					);
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->featured_line_height_unit_medium ) ) {
+					$settings->pricing_columns[ $i ]->featured_typo_medium->line_height = (object) array(
+						'length' => $settings->pricing_columns[ $i ]->featured_line_height_unit_medium,
+						'unit'   => 'em',
+					);
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->featured_line_height_unit_responsive ) ) {
+					$settings->pricing_columns[ $i ]->featured_typo_responsive->line_height = (object) array(
+						'length' => $settings->pricing_columns[ $i ]->featured_line_height_unit_responsive,
+						'unit'   => 'em',
+					);
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->featured_transform ) ) {
+					$settings->pricing_columns[ $i ]->featured_typo->text_transform = $settings->pricing_columns[ $i ]->featured_transform;
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->featured_letter_spacing ) ) {
+
+					$settings->pricing_columns[ $i ]->featured_typo->letter_spacing = (object) array(
+						'length' => $settings->pricing_columns[ $i ]->featured_letter_spacing,
+						'unit'   => 'px',
+					);
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->featured_font_family ) ) {
+					unset( $settings->pricing_columns[ $i ]->featured_font_family );
+					unset( $settings->pricing_columns[ $i ]->featured_font_size_unit );
+					unset( $settings->pricing_columns[ $i ]->featured_font_size_unit_medium );
+					unset( $settings->pricing_columns[ $i ]->featured_font_size_unit_responsive );
+					unset( $settings->pricing_columns[ $i ]->featured_line_height_unit );
+					unset( $settings->pricing_columns[ $i ]->featured_line_height_unit_medium );
+					unset( $settings->pricing_columns[ $i ]->featured_line_height_unit_responsive );
+					unset( $settings->pricing_columns[ $i ]->featured_transform );
+					unset( $settings->pricing_columns[ $i ]->featured_letter_spacing );
+				}
+				if ( ! isset( $settings->legend_column->legend_typo ) || ! is_object( $settings->legend_column->legend_typo ) ) {
+
+					$settings->legend_column->legend_typo            = new stdClass();
+					$settings->legend_column->legend_typo_medium     = new stdClass();
+					$settings->legend_column->legend_typo_responsive = new stdClass();
+				}
+				if ( isset( $settings->legend_column->legend_font_family ) ) {
+					if ( isset( $settings->legend_column->legend_font_family->family ) ) {
+
+						$settings->legend_column->legend_typo->font_family = $settings->legend_column->legend_font_family->family;
+					}
+					if ( isset( $settings->legend_column->legend_font_family->weight ) ) {
+						if ( 'regular' == $settings->legend_column->legend_font_family->weight ) {
+							$settings->legend_column->legend_typo->font_weight = 'normal';
+						} else {
+							$settings->legend_column->legend_typo->font_weight = $settings->legend_column->legend_font_family->weight;
+						}
+					}
+				}
+				if ( isset( $settings->legend_column->legend_font_size_unit ) ) {
+
+					$settings->legend_column->legend_typo->font_size = (object) array(
+						'length' => $settings->legend_column->legend_font_size_unit,
+						'unit'   => 'px',
+					);
+				}
+				if ( isset( $settings->legend_column->legend_font_size_unit_medium ) ) {
+
+					$settings->legend_column->legend_typo_medium->font_size = (object) array(
+						'length' => $settings->legend_column->legend_font_size_unit_medium,
+						'unit'   => 'px',
+					);
+				}
+				if ( isset( $settings->legend_column->legend_font_size_unit_responsive ) ) {
+
+					$settings->legend_column->legend_typo_responsive->font_size = (object) array(
+						'length' => $settings->legend_column->legend_font_size_unit_responsive,
+						'unit'   => 'px',
+					);
+				}
+				if ( isset( $settings->legend_column->legend_line_height_unit ) ) {
+
+					$settings->legend_column->legend_typo->line_height = (object) array(
+						'length' => $settings->legend_column->legend_line_height_unit,
+						'unit'   => 'em',
+					);
+				}
+				if ( isset( $settings->legend_column->legend_line_height_unit_medium ) ) {
+
+					$settings->legend_column->legend_typo_medium->line_height = (object) array(
+						'length' => $settings->legend_column->legend_line_height_unit_medium,
+						'unit'   => 'em',
+					);
+				}
+				if ( isset( $settings->legend_column->legend_line_height_unit_responsive ) ) {
+
+					$settings->legend_column->legend_typo_responsive->line_height = (object) array(
+						'length' => $settings->legend_column->legend_line_height_unit_responsive,
+						'unit'   => 'em',
+					);
+				}
+				if ( isset( $settings->legend_column->legend_transform ) ) {
+					$settings->legend_column->legend_typo->text_transform = $settings->legend_column->legend_transform;
+				}
+				if ( isset( $settings->legend_column->legend_letter_spacing ) ) {
+					$settings->legend_column->legend_typo->letter_spacing = (object) array(
+						'length' => $settings->legend_column->legend_letter_spacing,
+						'unit'   => 'px',
+					);
+				}
+				if ( isset( $settings->legend_column->legend_font_family ) ) {
+					unset( $settings->legend_column->legend_font_family );
+					unset( $settings->legend_column->legend_font_size_unit );
+					unset( $settings->legend_column->legend_font_size_unit_medium );
+					unset( $settings->legend_column->legend_font_size_unit_responsive );
+					unset( $settings->legend_column->legend_line_height_unit );
+					unset( $settings->legend_column->legend_line_height_unit_medium );
+					unset( $settings->legend_column->legend_line_height_unit_responsive );
+					unset( $settings->legend_column->legend_transform );
+					unset( $settings->legend_column->legend_letter_spacing );
+				}
+			}
+
+			if ( isset( $settings->feature_typography_font_family ) ) {
+				unset( $settings->feature_typography_font_family );
+				unset( $settings->feature_typography_font_size_unit );
+				unset( $settings->feature_typography_font_size_unit_medium );
+				unset( $settings->feature_typography_font_size_unit_responsive );
+				unset( $settings->feature_typography_line_height_unit );
+				unset( $settings->feature_typography_line_height_unit_medium );
+				unset( $settings->feature_typography_line_height_unit_responsive );
+				unset( $settings->feature_content_transform );
+				unset( $settings->feature_content_letter_spacing );
+			}
+			if ( isset( $settings->title_typography_font_family ) ) {
+				unset( $settings->title_typography_font_family );
+				unset( $settings->title_typography_font_size_unit );
+				unset( $settings->title_typography_font_size_unit_medium );
+				unset( $settings->title_typography_font_size_unit_responsive );
+				unset( $settings->title_typography_line_height_unit );
+				unset( $settings->title_typography_line_height_unit_medium );
+				unset( $settings->title_typography_line_height_unit_responsive );
+				unset( $settings->title_transform );
+				unset( $settings->title_letter_spacing );
+			}
+			if ( isset( $settings->price_typography_font_family ) ) {
+				unset( $settings->price_typography_font_family );
+				unset( $settings->price_typography_font_size_unit );
+				unset( $settings->price_typography_font_size_unit_medium );
+				unset( $settings->price_typography_font_size_unit_responsive );
+				unset( $settings->price_typography_line_height );
+				unset( $settings->price_typography_line_height_unit_medium );
+				unset( $settings->price_typography_line_height_unit_responsive );
+				unset( $settings->price_typography_letter_spacing );
+			}
+			if ( isset( $settings->duration_typography_font_family ) ) {
+				unset( $settings->duration_typography_font_family );
+				unset( $settings->duration_typography_font_size_unit );
+				unset( $settings->duration_typography_font_size_unit_medium );
+				unset( $settings->duration_typography_line_height_unit_responsive );
+				unset( $settings->duration_typography_transform );
+				unset( $settings->duration_typography_letter_spacing );
+			}
+		} elseif ( $version_bb_check && 'yes' != $page_migrated ) {
+
+			// For aligning legend column's features alignment.
+			if ( isset( $settings->legend_align ) ) {
+				$settings->legend_align = $settings->legend_align;
+			}
+
+			// For Title typo.
+			if ( ! isset( $settings->title_typo ) || ! is_array( $settings->title_typo ) ) {
+
+				$settings->title_typo            = array();
+				$settings->title_typo_medium     = array();
+				$settings->title_typo_responsive = array();
+			}
+			if ( isset( $settings->title_typography_font_family ) ) {
+
+				if ( isset( $settings->title_typography_font_family['family'] ) ) {
+					$settings->title_typo['font_family'] = $settings->title_typography_font_family['family'];
+				}
+				if ( isset( $settings->title_typography_font_family['weight'] ) ) {
+					if ( 'regular' == $settings->title_typography_font_family['weight'] ) {
+						$settings->title_typo['font_weight'] = 'normal';
+					} else {
+						$settings->title_typo['font_weight'] = $settings->title_typography_font_family['weight'];
+					}
+				}
+			}
+
+			if ( isset( $settings->title_typography_font_size['small'] ) ) {
+				$settings->title_typo_responsive['font_size'] = array(
+					'length' => $settings->title_typography_font_size['small'],
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->title_typography_font_size['medium'] ) ) {
+				$settings->title_typo_medium['font_size'] = array(
+					'length' => $settings->title_typography_font_size['medium'],
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->title_typography_font_size['desktop'] ) ) {
+				$settings->title_typo['font_size'] = array(
+					'length' => $settings->title_typography_font_size['desktop'],
+					'unit'   => 'px',
+				);
+			}
+
+			if ( isset( $settings->title_typography_line_height['small'] ) && isset( $settings->title_typography_font_size['small'] ) && 0 != $settings->title_typography_font_size['small'] ) {
+				$settings->title_typo_responsive['line_height'] = array(
+					'length' => round( $settings->title_typography_line_height['small'] / $settings->title_typography_font_size['small'], 2 ),
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->title_typography_line_height['medium'] ) && isset( $settings->title_typography_font_size['medium'] ) && 0 != $settings->title_typography_font_size['medium'] ) {
+				$settings->title_typo_medium['line_height'] = array(
+					'length' => round( $settings->title_typography_line_height['medium'] / $settings->title_typography_font_size['medium'], 2 ),
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->title_typography_line_height['desktop'] ) && isset( $settings->title_typography_font_size['desktop'] ) && 0 != $settings->title_typography_font_size['desktop'] ) {
+				$settings->title_typo['line_height'] = array(
+					'length' => round( $settings->title_typography_line_height['desktop'] / $settings->title_typography_font_size['desktop'], 2 ),
+					'unit'   => 'em',
+				);
+			}
+
+			// For column features typo.
+			if ( ! isset( $settings->feature_typo ) || ! is_array( $settings->feature_typo ) ) {
+
+				$settings->feature_typo            = array();
+				$settings->feature_typo_medium     = array();
+				$settings->feature_typo_responsive = array();
+			}
+			if ( isset( $settings->feature_typography_font_family ) ) {
+
+				if ( isset( $settings->feature_typography_font_family['family'] ) ) {
+					$settings->feature_typo['font_family'] = $settings->feature_typography_font_family['family'];
+				}
+				if ( isset( $settings->feature_typography_font_family['weight'] ) ) {
+					if ( 'regular' == $settings->feature_typography_font_family['weight'] ) {
+						$settings->feature_typo['font_weight'] = 'normal';
+					} else {
+						$settings->feature_typo['font_weight'] = $settings->feature_typography_font_family['weight'];
+					}
+				}
+			}
+
+			if ( isset( $settings->feature_typography_font_size['small'] ) ) {
+				$settings->feature_typo_responsive['font_size'] = array(
+					'length' => $settings->feature_typography_font_size['small'],
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->feature_typography_font_size['medium'] ) ) {
+				$settings->feature_typo_medium['font_size'] = array(
+					'length' => $settings->feature_typography_font_size['medium'],
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->feature_typography_font_size['desktop'] ) ) {
+				$settings->feature_typo['font_size'] = array(
+					'length' => $settings->feature_typography_font_size['desktop'],
+					'unit'   => 'px',
+				);
+			}
+
+			if ( isset( $settings->feature_typography_line_height['small'] ) && isset( $settings->feature_typography_font_size['small'] ) && 0 != $settings->feature_typography_font_size['small'] ) {
+				$settings->feature_typo_responsive['line_height'] = array(
+					'length' => round( $settings->feature_typography_line_height['small'] / $settings->feature_typography_font_size['small'], 2 ),
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->feature_typography_line_height['medium'] ) && isset( $settings->feature_typography_font_size['medium'] ) && 0 != $settings->feature_typography_font_size['medium'] ) {
+				$settings->feature_typo_medium['line_height'] = array(
+					'length' => round( $settings->feature_typography_line_height['medium'] / $settings->feature_typography_font_size['medium'], 2 ),
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->feature_typography_line_height['desktop'] ) && isset( $settings->feature_typography_font_size['desktop'] ) && 0 != $settings->feature_typography_font_size['desktop'] ) {
+				$settings->feature_typo['line_height'] = array(
+					'length' => round( $settings->title_typography_line_height['desktop'] / $settings->title_typography_font_size['desktop'], 2 ),
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->features_align ) ) {
+				$settings->feature_typo['text_align'] = $settings->features_align;
+				unset( $settings->features_align );
+			}
+
+			// For Price Typo.
+			if ( ! isset( $settings->price_typo ) || ! is_array( $settings->price_typo ) ) {
+
+				$settings->price_typo            = array();
+				$settings->price_typo_medium     = array();
+				$settings->price_typo_responsive = array();
+			}
+			if ( isset( $settings->price_typography_font_family ) ) {
+
+				if ( isset( $settings->price_typography_font_family['family'] ) ) {
+					$settings->price_typo['font_family'] = $settings->price_typography_font_family['family'];
+				}
+				if ( isset( $settings->price_typography_font_family['weight'] ) ) {
+					if ( 'regular' == $settings->price_typography_font_family['weight'] ) {
+						$settings->price_typo['font_weight'] = 'normal';
+					} else {
+						$settings->price_typo['font_weight'] = $settings->price_typography_font_family['weight'];
+					}
+				}
+			}
+			if ( isset( $settings->price_typography_font_size['small'] ) ) {
+				$settings->price_typo_responsive['font_size'] = array(
+					'length' => $settings->price_typography_font_size['small'],
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->price_typography_font_size['medium'] ) ) {
+				$settings->price_typo_medium['font_size'] = array(
+					'length' => $settings->price_typography_font_size['medium'],
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->price_typography_font_size['desktop'] ) ) {
+				$settings->price_typo['font_size'] = array(
+					'length' => $settings->price_typography_font_size['desktop'],
+					'unit'   => 'px',
+				);
+			}
+
+			if ( isset( $settings->price_typography_line_height['small'] ) && isset( $settings->price_typography_font_size['small'] ) && 0 != $settings->price_typography_font_size['small'] ) {
+				$settings->price_typo_responsive['line_height'] = array(
+					'length' => round( $settings->price_typography_line_height['small'] / $settings->price_typography_font_size['small'], 2 ),
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->price_typography_line_height['medium'] ) && isset( $settings->price_typography_font_size['medium'] ) && 0 != $settings->price_typography_font_size['medium'] ) {
+				$settings->price_typo_medium['line_height'] = array(
+					'length' => round( $settings->price_typography_line_height['medium'] / $settings->price_typography_font_size['medium'], 2 ),
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->price_typography_line_height['desktop'] ) && isset( $settings->price_typography_font_size['desktop'] ) && 0 != $settings->price_typography_font_size['desktop'] ) {
+				$settings->price_typo['line_height'] = array(
+					'length' => round( $settings->price_typography_line_height['desktop'] / $settings->price_typography_font_size['desktop'], 2 ),
+					'unit'   => 'em',
+				);
+			}
+
+			// For Duration Typo.
+			if ( ! isset( $settings->duration_typo ) || ! is_array( $settings->duration_typo ) ) {
+
+				$settings->duration_typo            = array();
+				$settings->duration_typo_medium     = array();
+				$settings->duration_typo_responsive = array();
+			}
+			if ( isset( $settings->duration_typography_font_family ) ) {
+				if ( isset( $settings->duration_typography_font_family['family'] ) ) {
+
+					$settings->duration_typo['font_family'] = $settings->duration_typography_font_family['family'];
+				}
+				if ( isset( $settings->duration_typography_font_family['weight'] ) ) {
+					if ( 'regular' == $settings->duration_typography_font_family['weight'] ) {
+						$settings->duration_typo['font_weight'] = 'normal';
+					} else {
+						$settings->duration_typo['font_weight'] = $settings->duration_typography_font_family['weight'];
+					}
+				}
+			}
+			if ( isset( $settings->duration_typography_font_size['small'] ) ) {
+				$settings->duration_typo_responsive['font_size'] = array(
+					'length' => $settings->duration_typography_font_size['small'],
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->duration_typography_font_size['medium'] ) ) {
+				$settings->duration_typo_medium['font_size'] = array(
+					'length' => $settings->duration_typography_font_size['medium'],
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->duration_typography_font_size['desktop'] ) ) {
+				$settings->duration_typo['font_size'] = array(
+					'length' => $settings->duration_typography_font_size['desktop'],
+					'unit'   => 'px',
+				);
+			}
+
+			if ( isset( $settings->duration_typography_line_height['small'] ) && isset( $settings->duration_typography_font_size['small'] ) && 0 != $settings->duration_typography_font_size['small'] ) {
+				if ( is_numeric( $settings->duration_typography_line_height['small'] ) && is_numeric( $settings->duration_typography_font_size['small'] ) ) {
+					$settings->duration_typo_responsive['line_height'] = array(
+						'length' => round( $settings->duration_typography_line_height['small'] / $settings->duration_typography_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
+			}
+			if ( isset( $settings->duration_typography_line_height['medium'] ) && isset( $settings->duration_typography_font_size['medium'] ) && 0 != $settings->duration_typography_font_size['medium'] ) {
+				if ( is_numeric( $settings->duration_typography_line_height['medium'] ) && is_numeric( $settings->duration_typography_font_size['medium'] ) ) {
+					$settings->duration_typo_medium['line_height'] = array(
+						'length' => round( $settings->duration_typography_line_height['medium'] / $settings->duration_typography_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
+			}
+			if ( isset( $settings->duration_typography_line_height['desktop'] ) && isset( $settings->duration_typography_font_size['desktop'] ) && 0 != $settings->duration_typography_font_size['desktop'] ) {
+				if ( is_numeric( $settings->duration_typography_line_height['desktop'] ) && is_numeric( $settings->duration_typography_font_size['desktop'] ) ) {
+					$settings->duration_typo['line_height'] = array(
+						'length' => round( $settings->duration_typography_line_height['desktop'] / $settings->duration_typography_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
+			}
+
+			for ( $i = 0; $i < count( $settings->pricing_columns ); $i++ ) {
+
+				if ( ! isset( $settings->pricing_columns[ $i ]->button_typo ) || ! is_object( $settings->pricing_columns[ $i ]->button_typo ) ) {
+
+					$settings->pricing_columns[ $i ]->button_typo            = new stdclass();
+					$settings->pricing_columns[ $i ]->button_typo_medium     = new stdclass();
+					$settings->pricing_columns[ $i ]->button_typo_responsive = new stdclass();
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->button_typography_font_family ) ) {
+					if ( isset( $settings->pricing_columns[ $i ]->button_typography_font_family->family ) ) {
+
+						$settings->pricing_columns[ $i ]->button_typo->font_family = $settings->pricing_columns[ $i ]->button_typography_font_family->family;
+					}
+					if ( isset( $settings->pricing_columns[ $i ]->button_typography_font_family->weight ) ) {
+						if ( 'regular' == $settings->pricing_columns[ $i ]->button_typography_font_family->weight ) {
+							$settings->pricing_columns[ $i ]->button_typo->font_weight = 'normal';
+						} else {
+							$settings->pricing_columns[ $i ]->button_typo->font_weight = $settings->pricing_columns[ $i ]->button_typography_font_family->weight;
+						}
+					}
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->button_typography_font_size->desktop ) ) {
+
+					$settings->pricing_columns[ $i ]->button_typo->font_size = (object) array(
+						'length' => $settings->pricing_columns[ $i ]->button_typography_font_size->desktop,
+						'unit'   => 'px',
+					);
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->button_typography_font_size->medium ) ) {
+					$settings->pricing_columns[ $i ]->button_typo_medium->font_size = (object) array(
+						'length' => $settings->pricing_columns[ $i ]->button_typography_font_size->medium,
+						'unit'   => 'px',
+					);
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->button_typography_font_size->small ) ) {
+					$settings->pricing_columns[ $i ]->button_typo_responsive->font_size = (object) array(
+						'length' => $settings->pricing_columns[ $i ]->button_typography_font_size->small,
+						'unit'   => 'px',
+					);
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->button_typography_line_height->desktop ) && isset( $settings->pricing_columns[ $i ]->button_typography_font_size->desktop ) && 0 != $settings->pricing_columns[ $i ]->button_typography_font_size->desktop ) {
+
+					$settings->pricing_columns[ $i ]->button_typo->line_height = (object) array(
+						'length' => round( $settings->pricing_columns[ $i ]->button_typography_line_height->desktop / $settings->pricing_columns[ $i ]->button_typography_font_size->desktop, 2 ),
+						'unit'   => 'em',
+					);
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->button_typography_line_height->medium ) && isset( $settings->pricing_columns[ $i ]->button_typography_font_size->medium ) && 0 != $settings->pricing_columns[ $i ]->button_typography_font_size->medium ) {
+
+					$settings->pricing_columns[ $i ]->button_typo_medium->line_height = (object) array(
+						'length' => round( $settings->pricing_columns[ $i ]->button_typography_line_height->medium / $settings->pricing_columns[ $i ]->button_typography_font_size->medium, 2 ),
+						'unit'   => 'em',
+					);
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->button_typography_line_height->small ) && isset( $settings->pricing_columns[ $i ]->button_typography_font_size->small ) && 0 != $settings->pricing_columns[ $i ]->button_typography_font_size->small ) {
+
+					$settings->pricing_columns[ $i ]->button_typo_responsive->line_height = (object) array(
+						'length' => round( $settings->pricing_columns[ $i ]->button_typography_line_height->small / $settings->pricing_columns[ $i ]->button_typography_font_size->small, 2 ),
+						'unit'   => 'em',
+					);
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->button_typography_font_family ) ) {
+					unset( $settings->pricing_columns[ $i ]->button_typography_font_family );
+					unset( $settings->pricing_columns[ $i ]->button_typography_font_size );
+					unset( $settings->pricing_columns[ $i ]->button_typography_line_height );
+				}
+				if ( ! isset( $settings->pricing_columns[ $i ]->featured_typo ) || ! is_object( $settings->pricing_columns[ $i ]->featured_typo ) ) {
+
+					$settings->pricing_columns[ $i ]->featured_typo            = new stdClass();
+					$settings->pricing_columns[ $i ]->featured_typo_medium     = new stdClass();
+					$settings->pricing_columns[ $i ]->featured_typo_responsive = new stdClass();
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->featured_font_family ) ) {
+					if ( isset( $settings->pricing_columns[ $i ]->featured_font_family->family ) ) {
+
+						$settings->pricing_columns[ $i ]->featured_typo->font_family = $settings->pricing_columns[ $i ]->featured_font_family->family;
+					}
+					if ( isset( $settings->pricing_columns[ $i ]->featured_font_family->weight ) ) {
+						if ( 'regular' == $settings->pricing_columns[ $i ]->featured_font_family->weight ) {
+							$settings->pricing_columns[ $i ]->featured_typo->font_weight = 'normal';
+						} else {
+							$settings->pricing_columns[ $i ]->featured_typo->font_weight = $settings->pricing_columns[ $i ]->featured_font_family->weight;
+						}
+					}
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->featured_font_size->desktop ) ) {
+
+					$settings->pricing_columns[ $i ]->featured_typo->font_size = (object) array(
+						'length' => $settings->pricing_columns[ $i ]->featured_font_size->desktop,
+						'unit'   => 'px',
+					);
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->featured_font_size->medium ) ) {
+					$settings->pricing_columns[ $i ]->featured_typo_medium->font_size = (object) array(
+						'length' => $settings->pricing_columns[ $i ]->featured_font_size->medium,
+						'unit'   => 'px',
+					);
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->featured_font_size->small ) ) {
+					$settings->pricing_columns[ $i ]->featured_typo_responsive->font_size = (object) array(
+						'length' => $settings->pricing_columns[ $i ]->featured_font_size->small,
+						'unit'   => 'px',
+					);
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->featured_line_height->desktop ) && isset( $settings->pricing_columns[ $i ]->featured_font_size->desktop ) && 0 != $settings->pricing_columns[ $i ]->featured_font_size->desktop ) {
+					$settings->pricing_columns[ $i ]->featured_typo->line_height = (object) array(
+						'length' => round( $settings->pricing_columns[ $i ]->featured_line_height->desktop / $settings->pricing_columns[ $i ]->featured_font_size->desktop, 2 ),
+						'unit'   => 'em',
+					);
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->featured_line_height->medium ) && isset( $settings->pricing_columns[ $i ]->featured_font_size->medium ) && 0 != $settings->pricing_columns[ $i ]->featured_font_size->medium ) {
+					$settings->pricing_columns[ $i ]->featured_typo_medium->line_height = (object) array(
+						'length' => round( $settings->pricing_columns[ $i ]->featured_line_height->medium / $settings->pricing_columns[ $i ]->featured_font_size->medium, 2 ),
+						'unit'   => 'em',
+					);
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->featured_line_height->small ) && isset( $settings->pricing_columns[ $i ]->featured_font_size->small ) && 0 != $settings->pricing_columns[ $i ]->featured_font_size->small ) {
+					$settings->pricing_columns[ $i ]->featured_typo_responsive->line_height = (object) array(
+						'length' => round( $settings->pricing_columns[ $i ]->featured_line_height->small / $settings->pricing_columns[ $i ]->featured_font_size->small, 2 ),
+						'unit'   => 'em',
+					);
+				}
+				if ( isset( $settings->pricing_columns[ $i ]->featured_font_family ) ) {
+					unset( $settings->pricing_columns[ $i ]->featured_font_family );
+					unset( $settings->pricing_columns[ $i ]->featured_font_size );
+					unset( $settings->pricing_columns[ $i ]->featured_line_height );
+				}
+				if ( ! isset( $settings->legend_column->legend_typo ) || ! is_object( $settings->legend_column->legend_typo ) ) {
+
+					$settings->legend_column->legend_typo            = new stdClass();
+					$settings->legend_column->legend_typo_medium     = new stdClass();
+					$settings->legend_column->legend_typo_responsive = new stdClass();
+				}
+				if ( isset( $settings->legend_column->legend_font_family ) ) {
+					if ( isset( $settings->legend_column->legend_font_family->family ) ) {
+
+						$settings->legend_column->legend_typo->font_family = $settings->legend_column->legend_font_family->family;
+					}
+					if ( isset( $settings->legend_column->legend_font_family->weight ) ) {
+						if ( 'regular' == $settings->legend_column->legend_font_family->weight ) {
+							$settings->legend_column->legend_typo->font_weight = 'normal';
+						} else {
+							$settings->legend_column->legend_typo->font_weight = $settings->legend_column->legend_font_family->weight;
+						}
+					}
+				}
+				if ( isset( $settings->legend_column->legend_font_size->desktop ) ) {
+
+					$settings->legend_column->legend_typo->font_size = (object) array(
+						'length' => $settings->legend_column->legend_font_size->desktop,
+						'unit'   => 'px',
+					);
+				}
+				if ( isset( $settings->legend_column->legend_font_size->medium ) ) {
+					$settings->legend_column->legend_typo_medium->font_size = (object) array(
+						'length' => $settings->legend_column->legend_font_size->medium,
+						'unit'   => 'px',
+					);
+				}
+				if ( isset( $settings->legend_column->legend_font_size->small ) ) {
+					$settings->legend_column->legend_typo_responsive->font_size = (object) array(
+						'length' => $settings->legend_column->legend_font_size->small,
+						'unit'   => 'px',
+					);
+				}
+				if ( isset( $settings->legend_column->legend_line_height->desktop ) && isset( $settings->legend_column->legend_font_size->desktop ) && 0 != $settings->legend_column->legend_font_size->desktop ) {
+						$settings->legend_column->legend_typo->line_height = (object) array(
+							'length' => round( $settings->legend_column->legend_line_height->desktop / $settings->legend_column->legend_font_size->desktop, 2 ),
+							'unit'   => 'em',
+						);
+				}
+				if ( isset( $settings->legend_column->legend_line_height->medium ) && isset( $settings->legend_column->legend_font_size->medium ) && 0 != $settings->legend_column->legend_font_size->medium ) {
+
+						$settings->legend_column->legend_typo_medium->line_height = (object) array(
+							'length' => round( $settings->legend_column->legend_line_height->medium / $settings->legend_column->legend_font_size->medium, 2 ),
+							'unit'   => 'em',
+						);
+				}
+				if ( isset( $settings->legend_column->legend_line_height->small ) && isset( $settings->legend_column->legend_font_size->small ) && 0 != $settings->legend_column->legend_font_size->small ) {
+
+						$settings->legend_column->legend_typo_responsive->line_height = (object) array(
+							'length' => round( $settings->legend_column->legend_line_height->small / $settings->legend_column->legend_font_size->small, 2 ),
+							'unit'   => 'em',
+						);
+				}
+				if ( isset( $settings->legend_column->legend_font_family ) ) {
+					unset( $settings->legend_column->legend_font_family );
+					unset( $settings->legend_column->legend_font_size );
+					unset( $settings->legend_column->legend_line_height );
+				}
+			}
+			if ( isset( $settings->title_typography_font_family ) ) {
+				unset( $settings->title_typography_font_family );
+				unset( $settings->title_typography_font_size_unit );
+				unset( $settings->title_typography_line_height_unit );
+			}
+			if ( isset( $settings->feature_typography_font_family ) ) {
+				unset( $settings->feature_typography_font_family );
+				unset( $settings->feature_typography_font_size );
+				unset( $settings->feature_typography_line_height );
+			}
+			if ( isset( $settings->price_typography_font_family ) ) {
+				unset( $settings->price_typography_font_family );
+				unset( $settings->price_typography_font_size_unit );
+				unset( $settings->price_typography_line_height_unit );
+			}
+			if ( isset( $settings->duration_typography_font_family ) ) {
+				unset( $settings->duration_typography_font_family );
+				unset( $settings->duration_typography_font_size_unit );
+				unset( $settings->duration_typography_line_height_unit );
+			}
+		}
+		return $settings;
 	}
 }
 
-/**
- * Register the module and its form settings.
+/*
+ * Condition to verify Beaver Builder version.
+ * And accordingly render the required form settings file.
+ *
  */
-FLBuilder::register_module(
-	'UABBPricingTableModule', array(
-		'columns'        => array(
-			'title'    => __( 'Price Boxes', 'uabb' ),
-			'sections' => array(
-				'general' => array(
-					'title'  => '',
-					'fields' => array(
-						'add_legend'      => array(
-							'type'    => 'select',
-							'label'   => __( 'Add Legend Box', 'uabb' ),
-							'default' => 'no',
-							'options' => array(
-								'yes' => __( 'Yes', 'uabb' ),
-								'no'  => __( 'No', 'uabb' ),
-							),
-							'toggle'  => array(
-								'yes' => array(
-									'fields' => array( 'legend_column' ),
-								),
-								'no'  => array(
-									'fields' => array(),
-								),
-							),
-							'help'    => __( 'Legend Box can be used to highlight the features that you are comparing in price box columns.', 'uabb' ),
-						),
-						'legend_column'   => array(
-							'type'         => 'form',
-							'label'        => __( 'Legend Box', 'uabb' ),
-							'form'         => 'legend_column_form',
-							'preview_text' => 'legend_align',
-							'multiple'     => false,
-						),
-						'pricing_columns' => array(
-							'type'         => 'form',
-							'label'        => __( 'Price Box', 'uabb' ),
-							'form'         => 'pricing_table_column_form',
-							'preview_text' => 'title',
-							'multiple'     => true,
-						),
-					),
-				),
-			),
-		),
-		'style'          => array(
-			'title'    => __( 'Style', 'uabb' ),
-			'sections' => array(
-				'spacing'          => array(
-					'title'  => '',
-					'fields' => array(
-						'foreground_outside'     => array(
-							'type'       => 'color',
-							'label'      => __( 'Box Background Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-							'help'       => __( 'Use this color only when you want same color for all Price Boxes and for unique color add in individual Price Box Items', 'uabb' ),
-						),
-						'foreground_outside_opc' => array(
-							'type'        => 'text',
-							'label'       => __( 'Opacity', 'uabb' ),
-							'default'     => '',
-							'description' => '%',
-							'maxlength'   => '3',
-							'size'        => '5',
-						),
-						'show_spacing'           => array(
-							'type'    => 'select',
-							'label'   => __( 'Add Spacing', 'uabb' ),
-							'default' => 'no',
-							'help'    => __( 'Add space between price box', 'uabb' ),
-							'options' => array(
-								'yes' => __( 'Yes', 'uabb' ),
-								'no'  => __( 'No', 'uabb' ),
-							),
-							'toggle'  => array(
-								'yes' => array(
-									'fields' => array( 'spacing' ),
-								),
-							),
-						),
-						'spacing'                => array(
-							'type'        => 'unit',
-							'label'       => __( 'Spacing', 'uabb' ),
-							'placeholder' => '0',
-							'size'        => '8',
-							'description' => 'px',
-						),
-						'features_align'         => array(
-							'type'    => 'select',
-							'label'   => __( 'Properties Alignment', 'uabb' ),
-							'default' => 'center',
-							'options' => array(
-								'left'   => __( 'Left', 'uabb' ),
-								'center' => __( 'Center', 'uabb' ),
-								'right'  => __( 'Right', 'uabb' ),
-							),
-							'preview' => array(
-								'type'     => 'css',
-								'selector' => '.uabb-pricing-table li',
-								'property' => 'text-align',
-							),
-						),
-					),
-				),
-				'general'          => array(
-					'title'  => __( 'General', 'uabb' ),
-					'fields' => array(
-						'highlight'             => array(
-							'type'    => 'select',
-							'label'   => __( 'Highlight', 'uabb' ),
-							'default' => 'price',
-							'options' => array(
-								'price' => __( 'Price', 'uabb' ),
-								'title' => __( 'Title', 'uabb' ),
-								'none'  => __( 'None', 'uabb' ),
-							),
-							'toggle'  => array(
-								'price' => array(
-									'fields' => array( 'column_background', 'column_background_opc' ),
-								),
-								'title' => array(
-									'fields' => array( 'column_background', 'column_background_opc' ),
-								),
-							),
-							'help'    => __( 'To attract user attention you can Highlight Price or Title.', 'uabb' ),
-						),
-						'column_background'     => array(
-							'type'       => 'color',
-							'label'      => __( 'Highlight Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-							'help'       => __( 'Use this color only when you want same color for Highlighted area and for unique color use Price Box Items.', 'uabb' ),
-						),
-						'column_background_opc' => array(
-							'type'        => 'text',
-							'label'       => __( 'Opacity', 'uabb' ),
-							'default'     => '',
-							'description' => '%',
-							'maxlength'   => '3',
-							'size'        => '5',
-						),
-						'border_style'          => array(
-							'type'    => 'select',
-							'label'   => __( 'Border Style', 'uabb' ),
-							'default' => 'solid',
-							'options' => array(
-								'none'   => __( 'None', 'uabb' ),
-								'solid'  => __( 'Solid', 'uabb' ),
-								'dashed' => __( 'Dashed', 'uabb' ),
-								'dotted' => __( 'Dotted', 'uabb' ),
-								'double' => __( 'Double', 'uabb' ),
-							),
-							'toggle'  => array(
-								'none'   => array(
-									'fields' => array( 'border_radius' ),
-								),
-								'solid'  => array(
-									'fields' => array( 'border_size', 'border_color' ),
-								),
-								'dashed' => array(
-									'fields' => array( 'border_size', 'border_color' ),
-								),
-								'dotted' => array(
-									'fields' => array( 'border_size', 'border_color' ),
-								),
-								'double' => array(
-									'fields' => array( 'border_size', 'border_color' ),
-								),
-							),
-							'preview' => array(
-								'type'     => 'css',
-								'selector' => '.uabb-pricing-table',
-								'property' => 'border-style',
-							),
-						),
-						'border_size'           => array(
-							'type'        => 'unit',
-							'label'       => __( 'Border Size', 'uabb' ),
-							'placeholder' => '1',
-							'size'        => '8',
-							'description' => 'px',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-pricing-table',
-								'property' => 'border-width',
-								'unit'     => 'px',
-							),
-						),
-						'border_color'          => array(
-							'type'       => 'color',
-							'label'      => __( 'Box Border Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-							'preview'    => array(
-								'type'     => 'css',
-								'selector' => '.uabb-pricing-table',
-								'property' => 'border-color',
-							),
-						),
-						'border_radius'         => array(
-							'type'        => 'unit',
-							'label'       => __( 'Border Radius', 'uabb' ),
-							'placeholder' => '1',
-							'size'        => '8',
-							'description' => 'px',
-						),
-						'responsive_size'       => array(
-							'type'    => 'select',
-							'label'   => __( 'Responsive Breakpoint', 'uabb' ),
-							'default' => 'yes',
-							'help'    => __( 'Enter the resolution at which you want Price Boxes to appear in stack layout.', 'uabb' ),
-							'options' => array(
-								'yes' => __( 'Yes', 'uabb' ),
-								'no'  => __( 'No', 'uabb' ),
-							),
-							'toggle'  => array(
-								'yes' => array(
-									'fields' => array( 'resp_size' ),
-								),
-							),
-						),
-						'resp_size'             => array(
-							'type'        => 'unit',
-							'label'       => __( 'Size', 'uabb' ),
-							'placeholder' => '767',
-							'size'        => '8',
-							'description' => 'px',
-						),
-					),
-				),
-				'button_structure' => array(
-					'title'  => __( 'Button Structure', 'uabb' ),
-					'fields' => array(
-						'btn_margin_top'    => array(
-							'type'        => 'unit',
-							'label'       => __( 'Margin Top', 'uabb' ),
-							'placeholder' => '20',
-							'size'        => '8',
-							'description' => 'px',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-pricing-table .uabb-creative-button-wrap',
-								'property' => 'margin-top',
-								'unit'     => 'px',
-							),
-						),
-						'btn_margin_bottom' => array(
-							'type'        => 'unit',
-							'label'       => __( 'Margin Bottom', 'uabb' ),
-							'placeholder' => '20',
-							'size'        => '8',
-							'description' => 'px',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-pricing-table .uabb-creative-button-wrap',
-								'property' => 'margin-bottom',
-								'unit'     => 'px',
-							),
-						),
-					),
-				),
-			),
-		),
-		'all_typography' => array(
-			'title'    => __( 'Typography', 'uabb' ),
-			'sections' => array(
-				'title_typography'    => array(
-					'title'  => __( 'Title', 'uabb' ),
-					'fields' => array(
-						'title_typography_tag_selection'  => array(
-							'type'    => 'select',
-							'label'   => __( 'Tag', 'uabb' ),
-							'default' => 'h4',
-							'options' => array(
-								'h1'   => __( 'H1', 'uabb' ),
-								'h2'   => __( 'H2', 'uabb' ),
-								'h3'   => __( 'H3', 'uabb' ),
-								'h4'   => __( 'H4', 'uabb' ),
-								'h5'   => __( 'H5', 'uabb' ),
-								'h6'   => __( 'H6', 'uabb' ),
-								'div'  => __( 'Div', 'uabb' ),
-								'p'    => __( 'p', 'uabb' ),
-								'span' => __( 'span', 'uabb' ),
-							),
-						),
-						'title_typography_font_family'    => array(
-							'type'    => 'font',
-							'label'   => __( 'Font Family', 'uabb' ),
-							'default' => array(
-								'family' => 'Default',
-								'weight' => 'Default',
-							),
-							'preview' => array(
-								'type'     => 'font',
-								'selector' => '.uabb-pricing-table-title',
-							),
-						),
-						'title_typography_font_size_unit' => array(
-							'type'        => 'unit',
-							'label'       => __( 'Font Size', 'uabb' ),
-							'description' => 'px',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-pricing-table-title',
-								'property' => 'font-size',
-								'unit'     => 'px',
-							),
-							'responsive'  => array(
-								'placeholder' => array(
-									'default'    => '',
-									'medium'     => '',
-									'responsive' => '',
-								),
-							),
-						),
-						'title_typography_line_height_unit' => array(
-							'type'        => 'unit',
-							'label'       => __( 'Line Height', 'uabb' ),
-							'description' => 'em',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-pricing-table-title',
-								'property' => 'line-height',
-								'unit'     => 'em',
-							),
-							'responsive'  => array(
-								'placeholder' => array(
-									'default'    => '',
-									'medium'     => '',
-									'responsive' => '',
-								),
-							),
-						),
-						'title_transform'                 => array(
-							'type'    => 'select',
-							'label'   => __( 'Transform', 'uabb' ),
-							'default' => '',
-							'options' => array(
-								''           => 'Default',
-								'uppercase'  => 'UPPERCASE',
-								'lowercase'  => 'lowercase',
-								'capitalize' => 'Capitalize',
-							),
-							'preview' => array(
-								'type'     => 'css',
-								'selector' => '.uabb-pricing-table-column .uabb-pricing-table-title',
-								'property' => 'text-transform',
-							),
-						),
-						'title_letter_spacing'            => array(
-							'type'        => 'unit',
-							'label'       => __( 'Letter Spacing', 'uabb' ),
-							'placeholder' => '0',
-							'size'        => '5',
-							'description' => 'px',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-pricing-table-title',
-								'property' => 'letter-spacing',
-								'unit'     => 'px',
-							),
-						),
-					),
-				),
-				'price_typography'    => array(
-					'title'  => __( 'Price', 'uabb' ),
-					'fields' => array(
-						'price_typography_tag_selection'  => array(
-							'type'    => 'select',
-							'label'   => __( 'Tag', 'uabb' ),
-							'default' => 'h2',
-							'options' => array(
-								'h1'   => __( 'H1', 'uabb' ),
-								'h2'   => __( 'H2', 'uabb' ),
-								'h3'   => __( 'H3', 'uabb' ),
-								'h4'   => __( 'H4', 'uabb' ),
-								'h5'   => __( 'H5', 'uabb' ),
-								'h6'   => __( 'H6', 'uabb' ),
-								'div'  => __( 'Div', 'uabb' ),
-								'p'    => __( 'p', 'uabb' ),
-								'span' => __( 'span', 'uabb' ),
-							),
-						),
-						'price_typography_font_family'    => array(
-							'type'    => 'font',
-							'label'   => __( 'Font Family', 'uabb' ),
-							'default' => array(
-								'family' => 'Default',
-								'weight' => 'Default',
-							),
-							'preview' => array(
-								'type'     => 'font',
-								'selector' => '.uabb-pricing-table-price',
-							),
-						),
-						'price_typography_font_size_unit' => array(
-							'type'        => 'unit',
-							'label'       => __( 'Font Size', 'uabb' ),
-							'description' => 'px',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-pricing-table-price',
-								'property' => 'font-size',
-								'unit'     => 'px',
-							),
-							'responsive'  => array(
-								'placeholder' => array(
-									'default'    => '',
-									'medium'     => '',
-									'responsive' => '',
-								),
-							),
-						),
-						'price_typography_line_height_unit' => array(
-							'type'        => 'unit',
-							'label'       => __( 'Line Height', 'uabb' ),
-							'description' => 'em',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-pricing-table-price',
-								'property' => 'line-height',
-								'unit'     => 'em',
-							),
-							'responsive'  => array(
-								'placeholder' => array(
-									'default'    => '',
-									'medium'     => '',
-									'responsive' => '',
-								),
-							),
-						),
-						'price_typography_letter_spacing' => array(
-							'type'        => 'unit',
-							'label'       => __( 'Letter Spacing', 'uabb' ),
-							'placeholder' => '0',
-							'size'        => '5',
-							'description' => 'px',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-pricing-table-price',
-								'property' => 'letter-spacing',
-								'unit'     => 'px',
-							),
-						),
-					),
-				),
-				'duration_typography' => array(
-					'title'  => __( 'Duration', 'uabb' ),
-					'fields' => array(
-						'duration_typography_font_family' => array(
-							'type'    => 'font',
-							'label'   => __( 'Font Family', 'uabb' ),
-							'default' => array(
-								'family' => 'Default',
-								'weight' => 'Default',
-							),
-							'preview' => array(
-								'type'     => 'font',
-								'selector' => '.uabb-pricing-table-duration',
-							),
-						),
-						'duration_typography_font_size_unit' => array(
-							'type'        => 'unit',
-							'label'       => __( 'Font Size', 'uabb' ),
-							'description' => 'px',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-pricing-table-duration',
-								'property' => 'font-size',
-								'unit'     => 'px',
-							),
-							'responsive'  => array(
-								'placeholder' => array(
-									'default'    => '',
-									'medium'     => '',
-									'responsive' => '',
-								),
-							),
-						),
-						'duration_typography_line_height_unit' => array(
-							'type'        => 'unit',
-							'label'       => __( 'Line Height', 'uabb' ),
-							'description' => 'em',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-pricing-table-duration',
-								'property' => 'line-height',
-								'unit'     => 'em',
-							),
-							'responsive'  => array(
-								'placeholder' => array(
-									'default'    => '',
-									'medium'     => '',
-									'responsive' => '',
-								),
-							),
-						),
-						'duration_typography_transform'   => array(
-							'type'    => 'select',
-							'label'   => __( 'Transform', 'uabb' ),
-							'default' => '',
-							'options' => array(
-								''           => 'Default',
-								'uppercase'  => 'UPPERCASE',
-								'lowercase'  => 'lowercase',
-								'capitalize' => 'Capitalize',
-							),
-							'preview' => array(
-								'type'     => 'css',
-								'selector' => '.uabb-pricing-table-duration',
-								'property' => 'text-transform',
-							),
-						),
-						'duration_typography_letter_spacing' => array(
-							'type'        => 'unit',
-							'label'       => __( 'Letter Spacing', 'uabb' ),
-							'placeholder' => '0',
-							'size'        => '5',
-							'description' => 'px',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-pricing-table-duration',
-								'property' => 'letter-spacing',
-								'unit'     => 'px',
-							),
-						),
-					),
-				),
-				'feature_typography'  => array(
-					'title'  => __( 'Properties', 'uabb' ),
-					'fields' => array(
-						'feature_typography_font_family' => array(
-							'type'    => 'font',
-							'label'   => __( 'Font Family', 'uabb' ),
-							'default' => array(
-								'family' => 'Default',
-								'weight' => 'Default',
-							),
-							'preview' => array(
-								'type'     => 'font',
-								'selector' => '.uabb-pricing-table-features li',
-							),
-						),
-						'feature_typography_font_size_unit' => array(
-							'type'        => 'unit',
-							'label'       => __( 'Font Size', 'uabb' ),
-							'description' => 'px',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-pricing-table-features li',
-								'property' => 'font-size',
-								'unit'     => 'px',
-							),
-							'responsive'  => array(
-								'placeholder' => array(
-									'default'    => '',
-									'medium'     => '',
-									'responsive' => '',
-								),
-							),
-						),
-						'feature_typography_line_height_unit' => array(
-							'type'        => 'unit',
-							'label'       => __( 'Line Height', 'uabb' ),
-							'description' => 'em',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-pricing-table-features li',
-								'property' => 'line-height',
-								'unit'     => 'em',
-							),
-							'responsive'  => array(
-								'placeholder' => array(
-									'default'    => '',
-									'medium'     => '',
-									'responsive' => '',
-								),
-							),
-						),
-						'feature_content_transform'      => array(
-							'type'    => 'select',
-							'label'   => __( 'Transform', 'uabb' ),
-							'default' => '',
-							'options' => array(
-								''           => 'Default',
-								'uppercase'  => 'UPPERCASE',
-								'lowercase'  => 'lowercase',
-								'capitalize' => 'Capitalize',
-							),
-							'preview' => array(
-								'type'     => 'css',
-								'selector' => '.uabb-pricing-table-features li',
-								'property' => 'text-transform',
-							),
-						),
-						'feature_content_letter_spacing' => array(
-							'type'        => 'unit',
-							'label'       => __( 'Letter Spacing', 'uabb' ),
-							'placeholder' => '0',
-							'size'        => '5',
-							'description' => 'px',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-pricing-table-features li',
-								'property' => 'letter-spacing',
-								'unit'     => 'px',
-							),
-						),
-					),
-				),
-			),
-		),
-	)
-);
 
-FLBuilder::register_settings_form(
-	'pricing_table_column_form', array(
-		'title' => __( 'Add Price Box', 'uabb' ),
-		'tabs'  => array(
-			'general'    => array(
-				'title'    => __( 'General', 'uabb' ),
-				'sections' => array(
-					'feature'         => array(
-						'title'  => '',
-						'fields' => array(
-							'set_featured'  => array(
-								'type'    => 'select',
-								'label'   => __( 'Set as Featured', 'uabb' ),
-								'default' => 'no',
-								'help'    => __( 'Enable to display this column as featured. Featured column will have additional label making it more visible.', 'uabb' ),
-								'options' => array(
-									'yes' => __( 'Yes', 'uabb' ),
-									'no'  => __( 'No', 'uabb' ),
-								),
-								'toggle'  => array(
-									'yes' => array(
-										'fields' => array( 'featured_text' ),
-										'tabs'   => array( 'typography' ),
-									),
-									'no'  => array(
-										'fields'   => array(),
-										'sections' => array(),
-									),
-								),
-							),
-							'featured_text' => array(
-								'type'        => 'text',
-								'label'       => __( 'Featured Text', 'uabb' ),
-								'default'     => __( 'Best Value', 'uabb' ),
-								'connections' => array( 'string', 'html' ),
-							),
-						),
-					),
-					'title'           => array(
-						'title'  => __( 'Title', 'uabb' ),
-						'fields' => array(
-							'title'    => array(
-								'type'        => 'text',
-								'label'       => __( 'Title Text', 'uabb' ),
-								'default'     => __( 'Consultation Pack', 'uabb' ),
-								'connections' => array( 'string', 'html' ),
-							),
-							'price'    => array(
-								'type'    => 'text',
-								'label'   => __( 'Price Value', 'uabb' ),
-								'default' => __( '$99', 'uabb' ),
-							),
-							'duration' => array(
-								'type'        => 'text',
-								'label'       => __( 'Duration', 'uabb' ),
-								'default'     => __( '/ Hour', 'uabb' ),
-								'placeholder' => __( '/ Hour', 'uabb' ),
-							),
-						),
-					),
-					'price-box'       => array(
-						'title'  => __( 'Price Box', 'uabb' ),
-						'fields' => array(
-							'title_typography_color'    => array(
-								'type'       => 'color',
-								'label'      => __( 'Title Color', 'uabb' ),
-								'default'    => '',
-								'show_reset' => true,
-							),
-							'price_typography_color'    => array(
-								'type'       => 'color',
-								'label'      => __( 'Price Color', 'uabb' ),
-								'default'    => '',
-								'show_reset' => true,
-							),
-							'duration_typography_color' => array(
-								'type'       => 'color',
-								'label'      => __( 'Duration Color', 'uabb' ),
-								'default'    => '',
-								'show_reset' => true,
-							),
-							'highlight_color'           => array(
-								'type'       => 'color',
-								'label'      => __( 'Highlight Color', 'uabb' ),
-								'default'    => '',
-								'show_reset' => true,
-								'help'       => __( 'Use this color only when you want same color for Highlighted area and for unique color use Price Box Items.', 'uabb' ),
-								'preview'    => array(
-									'type'     => 'css',
-									'selector' => '.uabb-pricing-table-price',
-									'property' => 'background',
-								),
-							),
-							'highlight_color_opc'       => array(
-								'type'        => 'text',
-								'label'       => __( 'Opacity', 'uabb' ),
-								'default'     => '',
-								'description' => '%',
-								'maxlength'   => '3',
-								'size'        => '5',
-							),
-							'foreground'                => array(
-								'type'       => 'color',
-								'label'      => __( 'Box Background Color', 'uabb' ),
-								'default'    => '',
-								'show_reset' => true,
-								'help'       => __( 'Select the background for specific Price Box. Keep default for global background color.', 'uabb' ),
-							),
-							'foreground_opc'            => array(
-								'type'        => 'text',
-								'label'       => __( 'Opacity', 'uabb' ),
-								'default'     => '',
-								'description' => '%',
-								'maxlength'   => '3',
-								'size'        => '5',
-							),
-						),
-					),
-					'features'        => array(
-						'title'  => __( 'List of Properties', 'uabb' ),
-						'fields' => array(
-							'features'       => array(
-								'type'        => 'text',
-								'label'       => '',
-								'default'     => __( 'Feature 1', 'uabb' ),
-								'placeholder' => __( 'One feature per line.', 'uabb' ),
-								'multiple'    => true,
-							),
-							'features_color' => array(
-								'type'       => 'color',
-								'label'      => __( 'List Color', 'uabb' ),
-								'default'    => '',
-								'show_reset' => true,
-								'help'       => __( 'Define properties color', 'uabb' ),
-							),
-						),
-					),
-					'even_properties' => array(
-						'title'  => __( 'Even Properties', 'uabb' ),
-						'fields' => array(
-							'even_properties_bg'     => array(
-								'type'       => 'color',
-								'label'      => __( 'Background Color', 'uabb' ),
-								'default'    => 'ffffff',
-								'show_reset' => true,
-								'help'       => __( 'Choose even properties background color', 'uabb' ),
-							),
-							'even_properties_bg_opc' => array(
-								'type'        => 'text',
-								'label'       => __( 'Opacity', 'uabb' ),
-								'default'     => '',
-								'description' => '%',
-								'maxlength'   => '3',
-								'size'        => '5',
-							),
-						),
-					),
-				),
-			),
-			'button'     => array(
-				'title'    => __( 'Button', 'uabb' ),
-				'sections' => array(
-					'general'           => array(
-						'title'  => '',
-						'fields' => array(
-							'show_button' => array(
-								'type'    => 'select',
-								'label'   => __( 'Show Button', 'uabb' ),
-								'default' => 'yes',
-								'options' => array(
-									'yes' => __( 'Yes', 'uabb' ),
-									'no'  => __( 'No', 'uabb' ),
-								),
-								'toggle'  => array(
-									'yes' => array(
-										'sections' => array( 'btn-style', 'btn-colors', 'btn-structure', 'btn-icon', 'btn-link', 'btn-general', 'button_typography' ),
-									),
-								),
-							),
-						),
-					),
-					'btn-general'       => array( // Section.
-						'title'  => __( 'General', 'uabb' ),
-						'fields' => array(
-							'btn_text' => array(
-								'type'    => 'text',
-								'label'   => __( 'Text', 'uabb' ),
-								'default' => __( 'Get Started', 'uabb' ),
-							),
-						),
-					),
-					'btn-link'          => array( // Section.
-						'title'  => __( 'Link', 'uabb' ),
-						'fields' => array(
-							'btn_link'          => array(
-								'type'        => 'link',
-								'label'       => __( 'Link', 'uabb' ),
-								'placeholder' => 'http://www.example.com',
-								'preview'     => array(
-									'type' => 'none',
-								),
-							),
-							'btn_link_target'   => array(
-								'type'    => 'select',
-								'label'   => __( 'Link Target', 'uabb' ),
-								'default' => '_self',
-								'options' => array(
-									'_self'  => __( 'Same Window', 'uabb' ),
-									'_blank' => __( 'New Window', 'uabb' ),
-								),
-								'preview' => array(
-									'type' => 'none',
-								),
-							),
-							'btn_link_nofollow' => array(
-								'type'        => 'select',
-								'label'       => __( 'Link nofollow', 'uabb' ),
-								'description' => '',
-								'default'     => '0',
-								'help'        => __( 'Enable this to make this link nofollow', 'uabb' ),
-								'options'     => array(
-									'1' => __( 'Yes', 'uabb' ),
-									'0' => __( 'No', 'uabb' ),
-								),
-							),
-						),
-					),
-					'btn-style'         => array(
-						'title'  => __( 'Style', 'uabb' ),
-						'fields' => array(
-							'btn_style'                 => array(
-								'type'    => 'select',
-								'label'   => __( 'Style', 'uabb' ),
-								'default' => 'flat',
-								'class'   => 'creative_button_styles',
-								'options' => array(
-									'flat'        => __( 'Flat', 'uabb' ),
-									'gradient'    => __( 'Gradient', 'uabb' ),
-									'transparent' => __( 'Transparent', 'uabb' ),
-									'threed'      => __( '3D', 'uabb' ),
-								),
-							),
-							'btn_border_size'           => array(
-								'type'        => 'unit',
-								'label'       => __( 'Border Size', 'uabb' ),
-								'description' => 'px',
-								'maxlength'   => '3',
-								'size'        => '5',
-								'placeholder' => '2',
-							),
-							'btn_transparent_button_options' => array(
-								'type'    => 'select',
-								'label'   => __( 'Hover Styles', 'uabb' ),
-								'default' => 'transparent-fade',
-								'options' => array(
-									'none'                 => __( 'None', 'uabb' ),
-									'transparent-fade'     => __( 'Fade Background', 'uabb' ),
-									'transparent-fill-top' => __( 'Fill Background From Top', 'uabb' ),
-									'transparent-fill-bottom' => __( 'Fill Background From Bottom', 'uabb' ),
-									'transparent-fill-left' => __( 'Fill Background From Left', 'uabb' ),
-									'transparent-fill-right' => __( 'Fill Background From Right', 'uabb' ),
-									'transparent-fill-center' => __( 'Fill Background Vertical', 'uabb' ),
-									'transparent-fill-diagonal' => __( 'Fill Background Diagonal', 'uabb' ),
-									'transparent-fill-horizontal' => __( 'Fill Background Horizontal', 'uabb' ),
-								),
-							),
-							'btn_threed_button_options' => array(
-								'type'    => 'select',
-								'label'   => __( 'Hover Styles', 'uabb' ),
-								'default' => 'threed_down',
-								'options' => array(
-									'threed_down'    => __( 'Move Down', 'uabb' ),
-									'threed_up'      => __( 'Move Up', 'uabb' ),
-									'threed_left'    => __( 'Move Left', 'uabb' ),
-									'threed_right'   => __( 'Move Right', 'uabb' ),
-									'animate_top'    => __( 'Animate Top', 'uabb' ),
-									'animate_bottom' => __( 'Animate Bottom', 'uabb' ),
-								),
-							),
-							'btn_flat_button_options'   => array(
-								'type'    => 'select',
-								'label'   => __( 'Hover Styles', 'uabb' ),
-								'default' => 'none',
-								'options' => array(
-									'none'                => __( 'None', 'uabb' ),
-									'animate_to_left'     => __( 'Appear Icon From Right', 'uabb' ),
-									'animate_to_right'    => __( 'Appear Icon From Left', 'uabb' ),
-									'animate_from_top'    => __( 'Appear Icon From Top', 'uabb' ),
-									'animate_from_bottom' => __( 'Appear Icon From Bottom', 'uabb' ),
-								),
-							),
-						),
-					),
-					'btn-icon'          => array( // Section.
-						'title'  => __( 'Icons', 'uabb' ),
-						'fields' => array(
-							'btn_icon'          => array(
-								'type'        => 'icon',
-								'label'       => __( 'Icon', 'uabb' ),
-								'show_remove' => true,
-							),
-							'btn_icon_position' => array(
-								'type'    => 'select',
-								'label'   => __( 'Icon Position', 'uabb' ),
-								'default' => 'before',
-								'options' => array(
-									'before' => __( 'Before Text', 'uabb' ),
-									'after'  => __( 'After Text', 'uabb' ),
-								),
-							),
-						),
-					),
-					'btn-colors'        => array( // Section.
-						'title'  => __( 'Colors', 'uabb' ),
-						'fields' => array(
-							'btn_text_color'         => array(
-								'type'       => 'color',
-								'label'      => __( 'Text Color', 'uabb' ),
-								'default'    => '',
-								'show_reset' => true,
-							),
-							'btn_text_hover_color'   => array(
-								'type'       => 'color',
-								'label'      => __( 'Text Hover Color', 'uabb' ),
-								'default'    => '',
-								'show_reset' => true,
-								'preview'    => array(
-									'type' => 'none',
-								),
-							),
-							'btn_bg_color'           => array(
-								'type'       => 'color',
-								'label'      => __( 'Background Color', 'uabb' ),
-								'default'    => '',
-								'show_reset' => true,
-							),
-							'btn_bg_color_opc'       => array(
-								'type'        => 'text',
-								'label'       => __( 'Opacity', 'uabb' ),
-								'default'     => '',
-								'description' => '%',
-								'maxlength'   => '3',
-								'size'        => '5',
-							),
-
-							'btn_bg_hover_color'     => array(
-								'type'       => 'color',
-								'label'      => __( 'Background Hover Color', 'uabb' ),
-								'default'    => '',
-								'show_reset' => true,
-								'preview'    => array(
-									'type' => 'none',
-								),
-							),
-							'btn_bg_hover_color_opc' => array(
-								'type'        => 'text',
-								'label'       => __( 'Opacity', 'uabb' ),
-								'default'     => '',
-								'description' => '%',
-								'maxlength'   => '3',
-								'size'        => '5',
-							),
-							'hover_attribute'        => array(
-								'type'    => 'select',
-								'label'   => __( 'Apply Hover Color To', 'uabb' ),
-								'default' => 'bg',
-								'options' => array(
-									'border' => __( 'Border', 'uabb' ),
-									'bg'     => __( 'Background', 'uabb' ),
-								),
-								'width'   => '75px',
-							),
-						),
-					),
-					'btn-structure'     => array(
-						'title'  => __( 'Structure', 'uabb' ),
-						'fields' => array(
-							'btn_width'              => array(
-								'type'    => 'select',
-								'label'   => __( 'Width', 'uabb' ),
-								'default' => 'auto',
-								'options' => array(
-									'auto'   => _x( 'Auto', 'Width.', 'uabb' ),
-									'full'   => __( 'Full Width', 'uabb' ),
-									'custom' => __( 'Custom', 'uabb' ),
-								),
-								'toggle'  => array(
-									'auto'   => array(
-										'fields' => array( 'btn_align', 'btn_mob_align' ),
-									),
-									'full'   => array(
-										'fields' => array(),
-									),
-									'custom' => array(
-										'fields' => array( 'btn_align', 'btn_mob_align', 'btn_custom_width', 'btn_custom_height', 'btn_padding_top_bottom', 'btn_padding_left_right' ),
-									),
-								),
-							),
-							'btn_custom_width'       => array(
-								'type'        => 'unit',
-								'label'       => __( 'Custom Width', 'uabb' ),
-								'default'     => '200',
-								'maxlength'   => '3',
-								'size'        => '4',
-								'description' => 'px',
-							),
-							'btn_custom_height'      => array(
-								'type'        => 'unit',
-								'label'       => __( 'Custom Height', 'uabb' ),
-								'default'     => '45',
-								'maxlength'   => '3',
-								'size'        => '4',
-								'description' => 'px',
-							),
-							'btn_padding_top_bottom' => array(
-								'type'        => 'unit',
-								'label'       => __( 'Padding Top/Bottom', 'uabb' ),
-								'placeholder' => '0',
-								'maxlength'   => '3',
-								'size'        => '4',
-								'description' => 'px',
-							),
-							'btn_padding_left_right' => array(
-								'type'        => 'unit',
-								'label'       => __( 'Padding Left/Right', 'uabb' ),
-								'placeholder' => '0',
-								'maxlength'   => '3',
-								'size'        => '4',
-								'description' => 'px',
-							),
-							'btn_border_radius'      => array(
-								'type'        => 'unit',
-								'label'       => __( 'Round Corners', 'uabb' ),
-								'maxlength'   => '3',
-								'size'        => '4',
-								'description' => 'px',
-							),
-							'btn_custom_class'       => array(
-								'type'    => 'text',
-								'label'   => __( 'Custom Class', 'uabb' ),
-								'default' => '',
-								'preview' => array(
-									'type' => 'none',
-								),
-							),
-						),
-					),
-					'button_typography' => array(
-						'title'  => __( 'Button Settings', 'uabb' ),
-						'fields' => array(
-							'button_typography_font_family' => array(
-								'type'    => 'font',
-								'label'   => __( 'Font Family', 'uabb' ),
-								'default' => array(
-									'family' => 'Default',
-									'weight' => 'Default',
-								),
-								'preview' => array(
-									'type'     => 'font',
-									'selector' => '.uabb-button',
-								),
-							),
-							'button_typography_font_size_unit' => array(
-								'type'        => 'unit',
-								'label'       => __( 'Font Size', 'uabb' ),
-								'description' => 'px',
-								'responsive'  => array(
-									'placeholder' => array(
-										'default'    => '',
-										'medium'     => '',
-										'responsive' => '',
-									),
-								),
-							),
-							'button_typography_line_height_unit' => array(
-								'type'        => 'unit',
-								'label'       => __( 'Line Height', 'uabb' ),
-								'description' => 'em',
-								'responsive'  => array(
-									'placeholder' => array(
-										'default'    => '',
-										'medium'     => '',
-										'responsive' => '',
-									),
-								),
-							),
-							'button_transform'      => array(
-								'type'    => 'select',
-								'label'   => __( 'Transform', 'uabb' ),
-								'default' => '',
-								'options' => array(
-									''           => 'Default',
-									'uppercase'  => 'UPPERCASE',
-									'lowercase'  => 'lowercase',
-									'capitalize' => 'Capitalize',
-								),
-							),
-							'button_letter_spacing' => array(
-								'type'        => 'unit',
-								'label'       => __( 'Letter Spacing', 'uabb' ),
-								'placeholder' => '0',
-								'size'        => '5',
-								'description' => 'px',
-							),
-						),
-					),
-				),
-			),
-			'typography' => array(
-				'title'    => __( 'Typography', 'uabb' ),
-				'sections' => array(
-					'featured_text_typography' => array(
-						'title'  => __( 'Featured Text', 'uabb' ),
-						'fields' => array(
-							'featured_tag_selection'      => array(
-								'type'    => 'select',
-								'label'   => __( 'Tag', 'uabb' ),
-								'default' => 'h4',
-								'options' => array(
-									'h1'   => __( 'H1', 'uabb' ),
-									'h2'   => __( 'H2', 'uabb' ),
-									'h3'   => __( 'H3', 'uabb' ),
-									'h4'   => __( 'H4', 'uabb' ),
-									'h5'   => __( 'H5', 'uabb' ),
-									'h6'   => __( 'H6', 'uabb' ),
-									'div'  => __( 'Div', 'uabb' ),
-									'p'    => __( 'p', 'uabb' ),
-									'span' => __( 'span', 'uabb' ),
-								),
-							),
-							'featured_font_family'        => array(
-								'type'    => 'font',
-								'label'   => __( 'Font Family', 'uabb' ),
-								'default' => array(
-									'family' => 'Default',
-									'weight' => 'Default',
-								),
-							),
-							'featured_font_size_unit'     => array(
-								'type'        => 'unit',
-								'label'       => __( 'Font Size', 'uabb' ),
-								'description' => 'px',
-								'responsive'  => array(
-									'placeholder' => array(
-										'default'    => '',
-										'medium'     => '',
-										'responsive' => '',
-									),
-								),
-							),
-							'featured_line_height_unit'   => array(
-								'type'        => 'unit',
-								'label'       => __( 'Line Height', 'uabb' ),
-								'description' => 'em',
-								'responsive'  => array(
-									'placeholder' => array(
-										'default'    => '',
-										'medium'     => '',
-										'responsive' => '',
-									),
-								),
-							),
-							'featured_color'              => array(
-								'type'       => 'color',
-								'label'      => __( 'Featured Text Color', 'uabb' ),
-								'default'    => '',
-								'show_reset' => true,
-							),
-							'featured_f_background_color' => array(
-								'type'       => 'color',
-								'label'      => __( 'Featured Text Background Color', 'uabb' ),
-								'default'    => '',
-								'show_reset' => true,
-							),
-							'featured_f_background_color_opc' => array(
-								'type'        => 'text',
-								'label'       => __( 'Opacity', 'uabb' ),
-								'default'     => '',
-								'description' => '%',
-								'maxlength'   => '3',
-								'size'        => '5',
-							),
-							'featured_transform'          => array(
-								'type'    => 'select',
-								'label'   => __( 'Transform', 'uabb' ),
-								'default' => '',
-								'options' => array(
-									''           => 'Default',
-									'uppercase'  => 'UPPERCASE',
-									'lowercase'  => 'lowercase',
-									'capitalize' => 'Capitalize',
-								),
-							),
-							'featured_letter_spacing'     => array(
-								'type'        => 'unit',
-								'label'       => __( 'Letter Spacing', 'uabb' ),
-								'placeholder' => '0',
-								'size'        => '5',
-								'description' => 'px',
-							),
-						),
-					),
-				),
-			),
-		),
-	)
-);
-
-
-FLBuilder::register_settings_form(
-	'legend_column_form', array(
-		'title' => __( 'Add Legend Box', 'uabb' ),
-		'tabs'  => array(
-			'general'    => array(
-				'title'    => __( 'General', 'uabb' ),
-				'sections' => array(
-					'features'        => array(
-						'title'  => _x( 'Legends', 'Price legends displayed in price box.', 'uabb' ),
-						'fields' => array(
-							'legend_align'   => array(
-								'type'    => 'select',
-								'label'   => __( 'Alignment', 'uabb' ),
-								'default' => 'right',
-								'options' => array(
-									'center' => __( 'Center', 'uabb' ),
-									'left'   => __( 'Left', 'uabb' ),
-									'right'  => __( 'Right', 'uabb' ),
-								),
-							),
-							'foreground'     => array(
-								'type'       => 'color',
-								'label'      => __( 'Box Background Color', 'uabb' ),
-								'default'    => '',
-								'show_reset' => true,
-							),
-							'foreground_opc' => array(
-								'type'        => 'text',
-								'label'       => __( 'Opacity', 'uabb' ),
-								'default'     => '',
-								'description' => '%',
-								'maxlength'   => '3',
-								'size'        => '5',
-							),
-						),
-					),
-					'list'            => array(
-						'title'  => __( 'List of Properties', 'uabb' ),
-						'fields' => array(
-							'features' => array(
-								'type'        => 'text',
-								'label'       => '',
-								'placeholder' => __( 'One legend per line.', 'uabb' ),
-								'multiple'    => true,
-							),
-						),
-					),
-					'even_properties' => array(
-						'title'  => __( 'Even Properties', 'uabb' ),
-						'fields' => array(
-							'even_properties_bg'     => array(
-								'type'       => 'color',
-								'label'      => __( 'Background Color', 'uabb' ),
-								'default'    => 'ffffff',
-								'show_reset' => true,
-								'help'       => __( 'Choose even properties background color', 'uabb' ),
-							),
-							'even_properties_bg_opc' => array(
-								'type'        => 'text',
-								'label'       => __( 'Opacity', 'uabb' ),
-								'default'     => '',
-								'description' => '%',
-								'maxlength'   => '3',
-								'size'        => '5',
-							),
-						),
-					),
-				),
-			),
-			'typography' => array(
-				'title'    => __( 'Typography', 'uabb' ),
-				'sections' => array(
-					'legend_typography' => array(
-						'title'  => __( 'Legend', 'uabb' ),
-						'fields' => array(
-							'legend_font_family'      => array(
-								'type'    => 'font',
-								'label'   => __( 'Font Family', 'uabb' ),
-								'default' => array(
-									'family' => 'Default',
-									'weight' => 'Default',
-								),
-							),
-							'legend_font_size_unit'   => array(
-								'type'        => 'unit',
-								'label'       => __( 'Font Size', 'uabb' ),
-								'description' => 'px',
-								'responsive'  => array(
-									'placeholder' => array(
-										'default'    => '',
-										'medium'     => '',
-										'responsive' => '',
-									),
-								),
-							),
-							'legend_line_height_unit' => array(
-								'type'        => 'unit',
-								'label'       => __( 'Line Height', 'uabb' ),
-								'description' => 'em',
-								'responsive'  => array(
-									'placeholder' => array(
-										'default'    => '',
-										'medium'     => '',
-										'responsive' => '',
-									),
-								),
-							),
-							'legend_color'            => array(
-								'type'       => 'color',
-								'label'      => __( 'Color', 'uabb' ),
-								'default'    => '',
-								'show_reset' => true,
-							),
-							'legend_transform'        => array(
-								'type'    => 'select',
-								'label'   => __( 'Transform', 'uabb' ),
-								'default' => '',
-								'options' => array(
-									''           => 'Default',
-									'uppercase'  => 'UPPERCASE',
-									'lowercase'  => 'lowercase',
-									'capitalize' => 'Capitalize',
-								),
-							),
-							'legend_letter_spacing'   => array(
-								'type'        => 'unit',
-								'label'       => __( 'Letter Spacing', 'uabb' ),
-								'placeholder' => '0',
-								'size'        => '5',
-								'description' => 'px',
-							),
-						),
-					),
-				),
-			),
-		),
-	)
-);
+if ( UABB_Compatibility::check_bb_version() ) {
+	require_once BB_ULTIMATE_ADDON_DIR . 'modules/pricing-box/pricing-box-bb-2-2-compatibility.php';
+} else {
+	require_once BB_ULTIMATE_ADDON_DIR . 'modules/pricing-box/pricing-box-bb-less-than-2-2-compatibility.php';
+}

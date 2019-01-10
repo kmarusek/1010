@@ -24,24 +24,12 @@ if ( isset( $settings->map_lattitude ) && isset( $settings->map_longitude ) ) {
 	}
 }
 
-
-
-
 if ( isset( $settings->info_window_text ) ) {
 	if ( isset( $settings->uabb_gmap_addresses[0]->info_window_text ) && $settings->uabb_gmap_addresses[0]->info_window_text == '' ) {
 		$settings->uabb_gmap_addresses[0]->info_window_text = ( $settings->info_window_text != '' ) ? $settings->info_window_text : '';
 	}
 }
 
-/*
-if( isset( $settings->uabb_gmap_addresses[0]->map_lattitude ) || isset( $settings->uabb_gmap_addresses[0]->map_longitude ) ) {
-	if( $settings->uabb_gmap_addresses[0]->map_lattitude == '' || $settings->uabb_gmap_addresses[0]->map_longitude == '' ) {
-
-		$settings->uabb_gmap_addresses[0]->map_lattitude = 40.76142;
-		$settings->uabb_gmap_addresses[0]->map_longitude = -73.97712;
-	}
-}*/
-// echo "<xmp>"; print_r($settings); echo "</xmp>";
 ?>
 
 (function($) {

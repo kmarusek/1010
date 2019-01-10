@@ -1,5 +1,31 @@
-<?php if ( $settings->it_link_type == 'complete_link' ) { ?>
-<a href="<?php echo $settings->it_link; ?>" target="<?php echo $settings->it_link_target; ?>" <?php BB_Ultimate_Addon_Helper::get_link_rel( $settings->it_link_target, $settings->it_link_nofollow, 1 ); ?>>
+<?php
+/**
+ * Render the frontend content.
+ *
+ * @package UABB Info Table Module
+ */
+
+$target           = '';
+$it_link_nofollow = '';
+if ( UABB_Compatibility::check_bb_version() ) {
+
+	if ( isset( $settings->it_link_target ) ) {
+		$target = $settings->it_link_target;
+	}
+	if ( isset( $settings->it_link_nofollow ) ) {
+		$it_link_nofollow = ( 'yes' == $settings->it_link_nofollow ) ? '1' : '';
+	}
+} else {
+	if ( isset( $settings->it_link_target ) ) {
+		$target = $settings->it_link_target;
+	}
+	if ( isset( $settings->it_link_nofollow ) ) {
+		$it_link_nofollow = $settings->it_link_nofollow;
+	}
+}
+?>
+<?php if ( 'complete_link' == $settings->it_link_type ) { ?>
+<a href="<?php echo $settings->it_link; ?>" target="<?php echo $target; ?>" <?php BB_Ultimate_Addon_Helper::get_link_rel( $target, $it_link_nofollow, 1 ); ?>>
 <?php } ?>
 <div class="uabb-module-content info-table-wrap info-table-<?php echo $settings->box_design; ?> info-table-cs-<?php echo $settings->color_scheme; ?>">
 	<div class="info-table">
@@ -11,11 +37,11 @@
 			<?php echo '<' . $settings->sub_heading_tag_selection . " class='info-table-sub-heading'>"; ?>
 			<?php echo $settings->sub_heading; ?>
 			<?php echo '</' . $settings->sub_heading_tag_selection . '>'; ?>
-			<?php if ( $settings->it_link_type == 'cta' && $settings->box_design == 'design02' ) { ?>
+			<?php if ( 'cta' == $settings->it_link_type && 'design02' == $settings->box_design ) { ?>
 			<div class="info-table-button">
-				<a href="<?php echo $settings->it_link; ?>" target="<?php echo $settings->it_link_target; ?>" <?php BB_Ultimate_Addon_Helper::get_link_rel( $settings->it_link_target, $settings->it_link_nofollow, 1 ); ?>><?php echo $settings->button_text; ?></a>
+				<a href="<?php echo $settings->it_link; ?>" target="<?php echo $target; ?>" <?php BB_Ultimate_Addon_Helper::get_link_rel( $target, $it_link_nofollow, 1 ); ?>><?php echo $settings->button_text; ?></a>
 			</div>
-			<?php } ?>	
+			<?php } ?>
 		</div>
 		<div class="info-table-icon">
 			<?php
@@ -27,14 +53,14 @@
 				/* Icon Basics */
 				'icon'                  => $settings->icon,
 				'icon_size'             => $settings->icon_size,
-				'icon_align'            => 'center', // $settings->icon_align,
+				'icon_align'            => 'center',
 
 				/* Image Basics */
 				'photo_source'          => $settings->photo_source,
 				'photo'                 => $settings->photo,
 				'photo_url'             => $settings->photo_url,
 				'img_size'              => $settings->img_size,
-				'img_align'             => 'center', // $settings->img_align,
+				'img_align'             => 'center',
 				'photo_src'             => ( isset( $settings->photo_src ) ) ? $settings->photo_src : '',
 
 				/* Icon Style */
@@ -58,13 +84,13 @@
 		<div class="info-table-description uabb-text-editor">
 			<?php echo $settings->it_long_desc; ?>
 		</div>
-		<?php if ( $settings->it_link_type == 'cta' && $settings->box_design != 'design02' ) { ?>
+		<?php if ( 'cta' == $settings->it_link_type && 'design02' != $settings->box_design ) { ?>
 		<div class="info-table-button">
-			<a href="<?php echo $settings->it_link; ?>" target="<?php echo $settings->it_link_target; ?>" <?php BB_Ultimate_Addon_Helper::get_link_rel( $settings->it_link_target, 0, 1 ); ?>><?php echo $settings->button_text; ?></a>
+			<a href="<?php echo $settings->it_link; ?>" target="<?php echo $target; ?>" <?php BB_Ultimate_Addon_Helper::get_link_rel( $target, $it_link_nofollow, 1 ); ?>><?php echo $settings->button_text; ?></a>
 		</div>
 		<?php } ?>
 	</div>
 </div>
-<?php if ( $settings->it_link_type == 'complete_link' ) { ?>
+<?php if ( 'complete_link' == $settings->it_link_type ) { ?>
 </a>
 <?php } ?>

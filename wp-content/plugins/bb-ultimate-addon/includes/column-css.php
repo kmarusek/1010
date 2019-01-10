@@ -126,11 +126,67 @@ function uabb_column_gradient_css( $css, $nodes, $global_settings ) {
  * @param object $global_settings an object to get various settings.
  */
 function uabb_column_shadow_css( $css, $nodes, $global_settings ) {
+	$version_bb_check = UABB_Compatibility::check_bb_version();
+	if ( $version_bb_check ) {
+		foreach ( $nodes['columns'] as $column ) {
+			ob_start();
+			?>
+				<?php if ( isset( $column->settings->border['shadow']['color'] ) && empty( $column->settings->border['shadow']['color'] ) ) { ?>
 
-	foreach ( $nodes['columns'] as $column ) {
+					<?php if ( 'yes' == $column->settings->col_drop_shadow ) { ?>
+						.fl-node-<?php echo $column->node; ?> > .fl-col-content.fl-node-content {
+							-webkit-box-shadow: <?php echo $column->settings->col_shadow_color_hor; ?>px <?php echo $column->settings->col_shadow_color_ver; ?>px <?php echo $column->settings->col_shadow_color_blur; ?>px <?php echo $column->settings->col_shadow_color_spr; ?>px <?php echo ( false === strpos( $column->settings->col_shadow_color, 'rgb' ) ) ? '#' . $column->settings->col_shadow_color : $column->settings->col_shadow_color; ?>;
+							-moz-box-shadow: <?php echo $column->settings->col_shadow_color_hor; ?>px <?php echo $column->settings->col_shadow_color_ver; ?>px <?php echo $column->settings->col_shadow_color_blur; ?>px <?php echo $column->settings->col_shadow_color_spr; ?>px <?php echo ( false === strpos( $column->settings->col_shadow_color, 'rgb' ) ) ? '#' . $column->settings->col_shadow_color : $column->settings->col_shadow_color; ?>;
+							-o-box-shadow: <?php echo $column->settings->col_shadow_color_hor; ?>px <?php echo $column->settings->col_shadow_color_ver; ?>px <?php echo $column->settings->col_shadow_color_blur; ?>px <?php echo $column->settings->col_shadow_color_spr; ?>px <?php echo ( false === strpos( $column->settings->col_shadow_color, 'rgb' ) ) ? '#' . $column->settings->col_shadow_color : $column->settings->col_shadow_color; ?>;
+							box-shadow: <?php echo $column->settings->col_shadow_color_hor; ?>px <?php echo $column->settings->col_shadow_color_ver; ?>px <?php echo $column->settings->col_shadow_color_blur; ?>px <?php echo $column->settings->col_shadow_color_spr; ?>px <?php echo ( false === strpos( $column->settings->col_shadow_color, 'rgb' ) ) ? '#' . $column->settings->col_shadow_color : $column->settings->col_shadow_color; ?>;
+							<?php if ( isset( $column->settings->col_shadow_hover_transition ) && 'yes' == $column->settings->col_hover_shadow ) { ?>
+								-webkit-transition: -webkit-box-shadow <?php echo $column->settings->col_shadow_hover_transition; ?>ms ease-in-out, -webkit-transform <?php echo $column->settings->col_shadow_hover_transition; ?>ms ease-in-out;
+								-moz-transition: -moz-box-shadow <?php echo $column->settings->col_shadow_hover_transition; ?>ms ease-in-out, -moz-transform <?php echo $column->settings->col_shadow_hover_transition; ?>ms ease-in-out;
+								transition: box-shadow <?php echo $column->settings->col_shadow_hover_transition; ?>ms ease-in-out, transform <?php echo $column->settings->col_shadow_hover_transition; ?>ms ease-in-out;
+								will-change: box-shadow;
+							<?php } ?>
+						}
+					<?php } ?>
 
-		ob_start();
-		?>
+					<?php if ( 'yes' == $column->settings->col_hover_shadow ) { ?>
+						.fl-node-<?php echo $column->node; ?> > .fl-col-content.fl-node-content:hover {
+							-webkit-box-shadow: <?php echo $column->settings->col_shadow_color_hor_hover; ?>px <?php echo $column->settings->col_shadow_color_ver_hover; ?>px <?php echo $column->settings->col_shadow_color_blur_hover; ?>px <?php echo $column->settings->col_shadow_color_spr_hover; ?>px <?php echo ( false === strpos( $column->settings->col_shadow_color_hover, 'rgb' ) ) ? '#' . $column->settings->col_shadow_color_hover : $column->settings->col_shadow_color_hover; ?>;
+							-moz-box-shadow: <?php echo $column->settings->col_shadow_color_hor_hover; ?>px <?php echo $column->settings->col_shadow_color_ver_hover; ?>px <?php echo $column->settings->col_shadow_color_blur_hover; ?>px <?php echo $column->settings->col_shadow_color_spr_hover; ?>px <?php echo ( false === strpos( $column->settings->col_shadow_color_hover, 'rgb' ) ) ? '#' . $column->settings->col_shadow_color_hover : $column->settings->col_shadow_color_hover; ?>;
+							-o-box-shadow: <?php echo $column->settings->col_shadow_color_hor_hover; ?>px <?php echo $column->settings->col_shadow_color_ver_hover; ?>px <?php echo $column->settings->col_shadow_color_blur_hover; ?>px <?php echo $column->settings->col_shadow_color_spr_hover; ?>px <?php echo ( false === strpos( $column->settings->col_shadow_color_hover, 'rgb' ) ) ? '#' . $column->settings->col_shadow_color_hover : $column->settings->col_shadow_color_hover; ?>;
+							box-shadow: <?php echo $column->settings->col_shadow_color_hor_hover; ?>px <?php echo $column->settings->col_shadow_color_ver_hover; ?>px <?php echo $column->settings->col_shadow_color_blur_hover; ?>px <?php echo $column->settings->col_shadow_color_spr_hover; ?>px <?php echo ( false === strpos( $column->settings->col_shadow_color_hover, 'rgb' ) ) ? '#' . $column->settings->col_shadow_color_hover : $column->settings->col_shadow_color_hover; ?>;
+							<?php if ( isset( $column->settings->col_shadow_hover_transition ) && 'yes' == $column->settings->col_hover_shadow ) { ?>
+								-webkit-transition: -webkit-box-shadow <?php echo $column->settings->col_shadow_hover_transition; ?>ms ease-in-out, -webkit-transform <?php echo $column->settings->col_shadow_hover_transition; ?>ms ease-in-out;
+								-moz-transition: -moz-box-shadow <?php echo $column->settings->col_shadow_hover_transition; ?>ms ease-in-out, -moz-transform <?php echo $column->settings->col_shadow_hover_transition; ?>ms ease-in-out;
+								transition: box-shadow <?php echo $column->settings->col_shadow_hover_transition; ?>ms ease-in-out, transform <?php echo $column->settings->col_shadow_hover_transition; ?>ms ease-in-out;
+								will-change: box-shadow;
+							<?php } ?>
+						}
+					<?php } ?>
+
+					<?php if ( 'yes' == $column->settings->col_responsive_shadow && 'yes' == $column->settings->col_drop_shadow ) { ?>
+						@media only screen and (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) {
+							.fl-node-<?php echo $column->node; ?> .fl-col-content.fl-node-content {
+								box-shadow: none;
+							}
+						}
+					<?php } ?>
+
+					<?php if ( 'no' == $column->settings->col_responsive_shadow && 'yes' == $column->settings->col_small_shadow && 'yes' == $column->settings->col_drop_shadow ) { ?>
+						@media only screen and (max-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
+							.fl-node-<?php echo $column->node; ?> .fl-col-content.fl-node-content {
+								box-shadow: none;
+							}
+						}
+					<?php } ?>
+				<?php } ?>
+			<?php
+			$css .= ob_get_clean();
+		}
+	} else {
+		foreach ( $nodes['columns'] as $column ) {
+
+			ob_start();
+			?>
 			<?php if ( 'yes' == $column->settings->col_drop_shadow ) { ?>
 				.fl-node-<?php echo $column->node; ?> > .fl-col-content.fl-node-content {
 					-webkit-box-shadow: <?php echo $column->settings->col_shadow_color_hor; ?>px <?php echo $column->settings->col_shadow_color_ver; ?>px <?php echo $column->settings->col_shadow_color_blur; ?>px <?php echo $column->settings->col_shadow_color_spr; ?>px <?php echo ( false === strpos( $column->settings->col_shadow_color, 'rgb' ) ) ? '#' . $column->settings->col_shadow_color : $column->settings->col_shadow_color; ?>;
@@ -177,9 +233,9 @@ function uabb_column_shadow_css( $css, $nodes, $global_settings ) {
 				}
 			<?php } ?>
 
-		<?php
-		$css .= ob_get_clean();
+			<?php
+			$css .= ob_get_clean();
+		}
 	}
-
 	return $css;
 }

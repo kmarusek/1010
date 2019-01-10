@@ -39,7 +39,620 @@ class InfoBannerModule extends FLBuilderModule {
 			)
 		);
 	}
+	/**
+	 * Ensure backwards compatibility with old settings.
+	 *
+	 * @since 1.14.0
+	 * @param object $settings A module settings object.
+	 * @param object $helper A settings compatibility helper.
+	 * @return object
+	 */
+	public function filter_settings( $settings, $helper ) {
+		$version_bb_check        = UABB_Compatibility::check_bb_version();
+		$page_migrated           = UABB_Compatibility::check_old_page_migration();
+		$stable_version_new_page = UABB_Compatibility::check_stable_version_new_page();
 
+		if ( $version_bb_check && ( 'yes' == $page_migrated || 'yes' == $stable_version_new_page ) ) {
+
+			// Handle link conditions.
+			if ( isset( $settings->link ) && isset( $settings->link_target ) ) {
+
+				$settings->link_target = $settings->link_target;
+			}
+			if ( isset( $settings->link ) && isset( $settings->link_nofollow ) ) {
+
+				$settings->link_nofollow = ( '1' == $settings->link_nofollow ) ? 'yes' : '';
+			}
+
+			if ( ! isset( $settings->title_font_typo ) || ! is_array( $settings->title_font_typo ) ) {
+
+				$settings->title_font_typo            = array();
+				$settings->title_font_typo_medium     = array();
+				$settings->title_font_typo_responsive = array();
+			}
+			if ( isset( $settings->font_family ) ) {
+
+				if ( isset( $settings->font_family['weight'] ) ) {
+					if ( 'regular' == $settings->font_family['weight'] ) {
+						$settings->title_font_typo['font_weight'] = 'normal';
+					} else {
+						$settings->title_font_typo['font_weight'] = $settings->font_family['weight'];
+
+					}
+				}
+				if ( isset( $settings->font_family['family'] ) ) {
+					$settings->title_font_typo['font_family'] = $settings->font_family['family'];
+				}
+			}
+			if ( isset( $settings->font_size_unit ) ) {
+
+				$settings->title_font_typo['font_size'] = array(
+					'length' => $settings->font_size_unit,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->font_size_unit_medium ) ) {
+				$settings->title_font_typo_medium['font_size'] = array(
+					'length' => $settings->font_size_unit_medium,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->font_size_unit_responsive ) ) {
+
+				$settings->title_font_typo_responsive['font_size'] = array(
+					'length' => $settings->font_size_unit_responsive,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->line_height_unit ) ) {
+
+				$settings->title_font_typo['line_height'] = array(
+					'length' => $settings->line_height_unit,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->line_height_unit_medium ) ) {
+				$settings->title_font_typo_medium['line_height'] = array(
+					'length' => $settings->line_height_unit_medium,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->line_height_unit_responsive ) ) {
+				$settings->title_font_typo_responsive['line_height'] = array(
+					'length' => $settings->line_height_unit_responsive,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->transform ) ) {
+
+				$settings->title_font_typo['text_transform'] = $settings->transform;
+
+			}
+			if ( isset( $settings->letter_spacing ) ) {
+
+				$settings->title_font_typo['letter_spacing'] = array(
+					'length' => $settings->letter_spacing,
+					'unit'   => 'px',
+				);
+			}
+			if ( ! isset( $settings->desc_font_typo ) || ! is_array( $settings->desc_font_typo ) ) {
+
+				$settings->desc_font_typo            = array();
+				$settings->desc_font_typo_medium     = array();
+				$settings->desc_font_typo_responsive = array();
+			}
+			if ( isset( $settings->desc_font_family ) ) {
+				if ( isset( $settings->desc_font_family['weight'] ) ) {
+					if ( 'regular' == $settings->desc_font_family['weight'] ) {
+						$settings->desc_font_family['weight'] = 'normal';
+					} else {
+						$settings->desc_font_typo['font_weight'] = $settings->desc_font_family['weight'];
+					}
+					if ( isset( $settings->desc_font_family['family'] ) ) {
+						$settings->desc_font_typo['font_family'] = $settings->desc_font_family['family'];
+					}
+				}
+			}
+			if ( isset( $settings->desc_font_size_unit ) ) {
+
+				$settings->desc_font_typo['font_size'] = array(
+					'length' => $settings->desc_font_size_unit,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->desc_font_size_unit_medium ) ) {
+				$settings->desc_font_typo_medium['font_size'] = array(
+					'length' => $settings->desc_font_size_unit_medium,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->desc_font_size_unit_responsive ) ) {
+
+				$settings->desc_font_typo_responsive['font_size'] = array(
+					'length' => $settings->desc_font_size_unit_responsive,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->desc_line_height_unit ) ) {
+
+				$settings->desc_font_typo['line_height'] = array(
+					'length' => $settings->desc_line_height_unit,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->desc_line_height_unit_medium ) ) {
+				$settings->desc_font_typo_medium['line_height'] = array(
+					'length' => $settings->desc_line_height_unit_medium,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->desc_line_height_unit_responsive ) ) {
+				$settings->desc_font_typo_responsive['line_height'] = array(
+					'length' => $settings->desc_line_height_unit_responsive,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->desc_transform ) ) {
+
+				$settings->desc_font_typo['text_transform'] = $settings->desc_transform;
+
+			}
+			if ( isset( $settings->desc_letter_spacing ) ) {
+
+				$settings->desc_font_typo['letter_spacing'] = array(
+					'length' => $settings->desc_letter_spacing,
+					'unit'   => 'px',
+				);
+			}
+			if ( ! isset( $settings->btn_font_typo ) || ! is_array( $settings->btn_font_typo ) ) {
+
+				$settings->btn_font_typo            = array();
+				$settings->btn_font_typo_medium     = array();
+				$settings->btn_font_typo_responsive = array();
+			}
+			if ( isset( $settings->tbtn_font_family ) ) {
+
+				if ( isset( $settings->tbtn_font_family['weight'] ) ) {
+					if ( 'regular' == $settings->tbtn_font_family['weight'] ) {
+						$settings->btn_font_typo['font_weight'] = 'normal';
+					} else {
+						$settings->btn_font_typo['font_weight'] = $settings->tbtn_font_family['weight'];
+
+					}
+				}
+				if ( isset( $settings->tbtn_font_family['family'] ) ) {
+					$settings->btn_font_typo['font_family'] = $settings->tbtn_font_family['family'];
+				}
+			}
+			if ( isset( $settings->tbtn_font_size_unit ) ) {
+
+				$settings->btn_font_typo['font_size'] = array(
+					'length' => $settings->tbtn_font_size_unit,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->tbtn_font_size_unit_medium ) ) {
+				$settings->btn_font_typo_medium['font_size'] = array(
+					'length' => $settings->tbtn_font_size_unit_medium,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->tbtn_font_size_unit_responsive ) ) {
+
+				$settings->btn_font_typo_responsive['font_size'] = array(
+					'length' => $settings->tbtn_font_size_unit_responsive,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->tbtn_line_height_unit ) ) {
+
+				$settings->btn_font_typo['line_height'] = array(
+					'length' => $settings->tbtn_line_height_unit,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->tbtn_line_height_unit_medium ) ) {
+
+				$settings->btn_font_typo_medium['line_height'] = array(
+					'length' => $settings->tbtn_line_height_unit_medium,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->tbtn_line_height_unit_responsive ) ) {
+
+				$settings->btn_font_typo_responsive['line_height'] = array(
+					'length' => $settings->tbtn_line_height_unit_responsive,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->tbtn_content_transform ) ) {
+
+				$settings->btn_font_typo['text_transform'] = $settings->tbtn_content_transform;
+
+			}
+			if ( isset( $settings->tbtn_content_letter_spacing ) ) {
+
+				$settings->btn_font_typo['letter_spacing'] = array(
+					'length' => $settings->tbtn_content_letter_spacing,
+					'unit'   => 'px',
+				);
+			}
+			if ( ! isset( $settings->link_font_typo ) || ! is_array( $settings->link_font_typo ) ) {
+
+				$settings->link_font_typo            = array();
+				$settings->link_font_typo_medium     = array();
+				$settings->link_font_typo_responsive = array();
+			}
+			if ( isset( $settings->link_font_family ) ) {
+				if ( isset( $settings->link_font_family['weight'] ) ) {
+					if ( 'regular' == $settings->link_font_family['weight'] ) {
+						$settings->link_font_typo['font_weight'] = 'normal';
+					} else {
+						$settings->link_font_typo['font_weight'] = $settings->link_font_family['weight'];
+					}
+				}
+				if ( isset( $settings->link_font_family['family'] ) ) {
+					$settings->link_font_typo['font_family'] = $settings->link_font_family['family'];
+				}
+			}
+			if ( isset( $settings->link_font_size_unit ) ) {
+
+				$settings->link_font_typo['font_size'] = array(
+					'length' => $settings->link_font_size_unit,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->link_font_size_unit_medium ) ) {
+				$settings->link_font_typo_medium['font_size'] = array(
+					'length' => $settings->link_font_size_unit_medium,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->link_font_size_unit_responsive ) ) {
+				$settings->link_font_typo_responsive['font_size'] = array(
+					'length' => $settings->link_font_size_unit_responsive,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->link_line_height_unit ) ) {
+
+				$settings->link_font_typo['line_height'] = array(
+					'length' => $settings->link_line_height_unit,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->link_line_height_unit_medium ) ) {
+				$settings->link_font_typo_medium['line_height'] = array(
+					'length' => $settings->link_line_height_unit_medium,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->link_line_height_unit_responsive ) ) {
+				$settings->link_font_typo_responsive['line_height'] = array(
+					'length' => $settings->link_line_height_unit_responsive,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->link_transform ) ) {
+
+				$settings->link_font_typo['text_transform'] = $settings->link_transform;
+
+			}
+			if ( isset( $settings->link_letter_spacing ) ) {
+
+				$settings->link_font_typo['letter_spacing'] = array(
+					'length' => $settings->link_letter_spacing,
+					'unit'   => 'px',
+				);
+			}
+
+			// handle opacity fields.
+			$helper->handle_opacity_inputs( $settings, 'background_color_opc', 'background_color' );
+			$helper->handle_opacity_inputs( $settings, 'overlay_color_opc', 'overlay_color' );
+			$helper->handle_opacity_inputs( $settings, 'btn_bg_color_opc', 'btn_bg_color' );
+			$helper->handle_opacity_inputs( $settings, 'btn_bg_hover_color_opc', 'btn_bg_hover_color' );
+
+			// Unset predefined values.
+			if ( isset( $settings->font_family ) ) {
+				unset( $settings->font_family );
+				unset( $settings->font_size_unit );
+				unset( $settings->line_height_unit );
+				unset( $settings->transform );
+				unset( $settings->letter_spacing );
+			}
+			if ( isset( $settings->btn_link ) ) {
+				$settings->btn_link_target   = $settings->btn_link_target;
+				$settings->btn_link_nofollow = ( '1' == $settings->btn_link_nofollow ) ? 'yes' : '';
+			}
+			if ( isset( $settings->desc_font_family ) ) {
+				unset( $settings->desc_font_family );
+				unset( $settings->desc_font_size_unit );
+				unset( $settings->desc_line_height_unit );
+				unset( $settings->desc_transform );
+				unset( $settings->desc_letter_spacing );
+			}
+			if ( isset( $settings->tbtn_font_family ) ) {
+				unset( $settings->tbtn_font_family );
+				unset( $settings->tbtn_font_size_unit );
+				unset( $settings->tbtn_line_height_unit );
+				unset( $settings->tbtn_content_transform );
+				unset( $settings->tbtn_content_letter_spacing );
+			}
+			if ( isset( $settings->link_font_family ) ) {
+				unset( $settings->link_font_family );
+				unset( $settings->link_font_size_unit );
+				unset( $settings->link_line_height_unit );
+				unset( $settings->link_transform );
+				unset( $settings->link_letter_spacing );
+			}
+		} elseif ( $version_bb_check && 'yes' != $page_migrated ) {
+
+			// Handle link conditions.
+			if ( isset( $settings->link ) && isset( $settings->link_target ) ) {
+
+				$settings->link_target = $settings->link_target;
+			}
+			if ( isset( $settings->link ) && isset( $settings->link_nofollow ) ) {
+
+				$settings->link_nofollow = ( '1' == $settings->link_nofollow ) ? 'yes' : '';
+			}
+
+			// handle opacity fields.
+			$helper->handle_opacity_inputs( $settings, 'background_color_opc', 'background_color' );
+			$helper->handle_opacity_inputs( $settings, 'overlay_color_opc', 'overlay_color' );
+			$helper->handle_opacity_inputs( $settings, 'btn_bg_color_opc', 'btn_bg_color' );
+			$helper->handle_opacity_inputs( $settings, 'btn_bg_hover_color_opc', 'btn_bg_hover_color' );
+
+			if ( ! isset( $settings->title_font_typo ) || ! is_array( $settings->title_font_typo ) ) {
+
+				$settings->title_font_typo            = array();
+				$settings->title_font_typo_medium     = array();
+				$settings->title_font_typo_responsive = array();
+			}
+			if ( isset( $settings->font_family ) ) {
+
+				if ( isset( $settings->font_family['weight'] ) ) {
+					if ( 'regular' == $settings->font_family['weight'] ) {
+						$settings->title_font_typo['font_weight'] = 'normal';
+					} else {
+						$settings->title_font_typo['font_weight'] = $settings->font_family['weight'];
+
+					}
+				}
+				if ( isset( $settings->font_family['family'] ) ) {
+					$settings->title_font_typo['font_family'] = $settings->font_family['family'];
+				}
+			}
+			if ( isset( $settings->font_size['desktop'] ) ) {
+				$settings->title_font_typo['font_size'] = array(
+					'length' => $settings->font_size['desktop'],
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->font_size['medium'] ) ) {
+				$settings->title_font_typo_medium['font_size'] = array(
+					'length' => $settings->font_size['medium'],
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->font_size['small'] ) ) {
+				$settings->title_font_typo_responsive['font_size'] = array(
+					'length' => $settings->font_size['small'],
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->line_height['desktop'] ) && isset( $settings->font_size['desktop'] ) && 0 != $settings->font_size['desktop'] ) {
+				$settings->title_font_typo['line_height'] = array(
+					'length' => round( $settings->line_height['desktop'] / $settings->font_size['desktop'], 2 ),
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->line_height['medium'] ) && isset( $settings->font_size['medium'] ) && 0 != $settings->font_size['medium'] ) {
+				$settings->title_font_typo_medium['line_height'] = array(
+					'length' => round( $settings->line_height['medium'] / $settings->font_size['medium'], 2 ),
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->line_height['small'] ) && isset( $settings->font_size['small'] ) && 0 != $settings->font_size['small'] ) {
+				$settings->title_font_typo_responsive['line_height'] = array(
+					'length' => round( $settings->line_height['small'] / $settings->font_size['small'], 2 ),
+					'unit'   => 'em',
+				);
+			}
+			if ( ! isset( $settings->desc_font_typo ) || ! is_array( $settings->desc_font_typo ) ) {
+
+				$settings->desc_font_typo            = array();
+				$settings->desc_font_typo_medium     = array();
+				$settings->desc_font_typo_responsive = array();
+			}
+			if ( isset( $settings->desc_font_family ) ) {
+
+				if ( isset( $settings->desc_font_family['weight'] ) ) {
+					if ( 'regular' == $settings->desc_font_family['weight'] ) {
+						$settings->desc_font_family['weight'] = 'normal';
+					} else {
+						$settings->desc_font_typo['font_weight'] = $settings->desc_font_family['weight'];
+					}
+					if ( isset( $settings->desc_font_family['family'] ) ) {
+						$settings->desc_font_typo['font_family'] = $settings->desc_font_family['family'];
+					}
+				}
+			}
+			if ( isset( $settings->desc_font_size['desktop'] ) ) {
+				$settings->desc_font_typo['font_size'] = array(
+					'length' => $settings->desc_font_size['desktop'],
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->desc_font_size['medium'] ) ) {
+				$settings->desc_font_typo_medium['font_size'] = array(
+					'length' => $settings->desc_font_size['medium'],
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->desc_font_size['small'] ) ) {
+				$settings->desc_font_typo_responsive['font_size'] = array(
+					'length' => $settings->desc_font_size['small'],
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->desc_line_height['desktop'] ) && isset( $settings->desc_font_size['desktop'] ) && 0 != $settings->desc_font_size['desktop'] ) {
+
+				$settings->desc_font_typo['line_height'] = array(
+					'length' => round( $settings->desc_line_height['desktop'] / $settings->desc_font_size['desktop'], 2 ),
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->desc_line_height['medium'] ) && isset( $settings->desc_font_size['medium'] ) && 0 != $settings->desc_font_size['medium'] ) {
+				$settings->desc_font_typo_medium['line_height'] = array(
+					'length' => round( $settings->desc_line_height['medium'] / $settings->desc_font_size['medium'], 2 ),
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->desc_line_height['small'] ) && isset( $settings->desc_font_size['small'] ) && 0 != $settings->desc_font_size['small'] ) {
+				$settings->desc_font_typo_responsive['line_height'] = array(
+					'length' => round( $settings->desc_line_height['small'] / $settings->desc_font_size['small'], 2 ),
+					'unit'   => 'em',
+				);
+			}
+			if ( ! isset( $settings->btn_font_typo ) || ! is_array( $settings->btn_font_typo ) ) {
+
+				$settings->btn_font_typo            = array();
+				$settings->btn_font_typo_medium     = array();
+				$settings->btn_font_typo_responsive = array();
+			}
+			if ( isset( $settings->tbtn_font_family ) ) {
+
+				if ( isset( $settings->tbtn_font_family['weight'] ) ) {
+					if ( 'regular' == $settings->tbtn_font_family['weight'] ) {
+						$settings->btn_font_typo['font_weight'] = 'normal';
+					} else {
+						$settings->btn_font_typo['font_weight'] = $settings->tbtn_font_family['weight'];
+
+					}
+				}
+				if ( isset( $settings->tbtn_font_family['family'] ) ) {
+					$settings->btn_font_typo['font_family'] = $settings->tbtn_font_family['family'];
+				}
+			}
+			if ( isset( $settings->tbtn_font_size['desktop'] ) ) {
+				$settings->btn_font_typo['font_size'] = array(
+					'length' => $settings->tbtn_font_size['desktop'],
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->tbtn_font_size['medium'] ) ) {
+				$settings->btn_font_typo_medium['font_size'] = array(
+					'length' => $settings->tbtn_font_size['medium'],
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->tbtn_font_size['small'] ) ) {
+				$settings->btn_font_typo_responsive['font_size'] = array(
+					'length' => $settings->tbtn_font_size['small'],
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->tbtn_line_height['desktop'] ) && isset( $settings->tbtn_font_size['desktop'] ) && 0 != $settings->tbtn_font_size['desktop'] ) {
+				$settings->btn_font_typo['line_height'] = array(
+					'length' => round( $settings->tbtn_line_height['desktop'] / $settings->tbtn_font_size['desktop'], 2 ),
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->tbtn_line_height['medium'] ) && isset( $settings->tbtn_font_size['medium'] ) && 0 != $settings->tbtn_font_size['medium'] ) {
+				$settings->btn_font_typo_medium['line_height'] = array(
+					'length' => round( $settings->tbtn_line_height['medium'] / $settings->tbtn_font_size['medium'], 2 ),
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->tbtn_line_height['small'] ) && isset( $settings->tbtn_font_size['small'] ) && 0 != $settings->tbtn_font_size['small'] ) {
+				$settings->btn_font_typo_responsive['line_height'] = array(
+					'length' => round( $settings->tbtn_line_height['small'] / $settings->tbtn_font_size['small'], 2 ),
+					'unit'   => 'em',
+				);
+			}
+			if ( ! isset( $settings->link_font_typo ) || ! is_array( $settings->link_font_typo ) ) {
+
+				$settings->link_font_typo            = array();
+				$settings->link_font_typo_medium     = array();
+				$settings->link_font_typo_responsive = array();
+			}
+			if ( isset( $settings->link_font_family ) ) {
+
+				if ( isset( $settings->link_font_family['weight'] ) ) {
+					if ( 'regular' == $settings->link_font_family['weight'] ) {
+						$settings->link_font_typo['font_weight'] = 'normal';
+					} else {
+						$settings->link_font_typo['font_weight'] = $settings->link_font_family['weight'];
+					}
+				}
+				if ( isset( $settings->link_font_family['family'] ) ) {
+					$settings->link_font_typo['font_family'] = $settings->link_font_family['family'];
+				}
+			}
+			if ( isset( $settings->link_font_size['desktop'] ) ) {
+				$settings->link_font_typo['font_size'] = array(
+					'length' => $settings->link_font_size['desktop'],
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->link_font_size['medium'] ) ) {
+				$settings->link_font_typo_medium['font_size'] = array(
+					'length' => $settings->link_font_size['medium'],
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->link_font_size['small'] ) ) {
+				$settings->link_font_typo_responsive['font_size'] = array(
+					'length' => $settings->link_font_size['small'],
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->link_line_height['desktop'] ) && isset( $settings->link_font_size['desktop'] ) && 0 != $settings->link_font_size['desktop'] ) {
+				$settings->link_font_typo['line_height'] = array(
+					'length' => round( $settings->link_line_height['desktop'] / $settings->link_font_size['desktop'], 2 ),
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->link_line_height['medium'] ) && isset( $settings->link_font_size['medium'] ) && 0 != $settings->link_font_size['medium'] ) {
+				$settings->link_font_typo_medium['line_height'] = array(
+					'length' => round( $settings->link_line_height['medium'] / $settings->link_font_size['medium'], 2 ),
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->link_line_height['desktop'] ) && isset( $settings->link_font_size['desktop'] ) && 0 != $settings->link_font_size['desktop'] ) {
+				$settings->link_font_typo_responsive['line_height'] = array(
+					'length' => round( $settings->link_line_height['desktop'] / $settings->link_font_size['desktop'], 2 ),
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->btn_link ) ) {
+				$settings->btn_link_target   = $settings->btn_link_target;
+				$settings->btn_link_nofollow = ( '1' == $settings->btn_link_nofollow ) ? 'yes' : '';
+			}
+			if ( isset( $settings->font_family ) ) {
+				unset( $settings->font_family );
+				unset( $settings->font_size );
+				unset( $settings->line_height );
+			}
+			if ( isset( $settings->desc_font_family ) ) {
+				unset( $settings->desc_font_family );
+				unset( $settings->desc_font_size );
+				unset( $settings->desc_line_height );
+			}
+			if ( isset( $settings->tbtn_font_family ) ) {
+				unset( $settings->tbtn_font_family );
+				unset( $settings->tbtn_font_size );
+				unset( $settings->tbtn_line_height );
+			}
+			if ( isset( $settings->link_font_family ) ) {
+				unset( $settings->link_font_family );
+				unset( $settings->link_font_size );
+				unset( $settings->link_line_height );
+			}
+		}
+		return $settings;
+	}
 	/**
 	 * Function to get the icon for the Info Banner
 	 *
@@ -128,7 +741,11 @@ class InfoBannerModule extends FLBuilderModule {
 	 */
 	public function render_link() {
 		if ( 'link' == $this->settings->cta_type ) {
-			$nofollow = ( isset( $this->settings->link_nofollow ) ) ? $this->settings->link_nofollow : '0';
+			if ( ! UABB_Compatibility::check_bb_version() ) {
+				$nofollow = ( isset( $this->settings->link_nofollow ) ) ? $this->settings->link_nofollow : '0';
+			} else {
+				$nofollow = ( '1' == $this->settings->link_nofollow ) ? 'yes' : '';
+			}
 			echo '<a href="' . $this->settings->link . '" target="' . $this->settings->link_target . '" ' . BB_Ultimate_Addon_Helper::get_link_rel( $this->settings->link_target, $nofollow, 0 ) . ' class="uabb-infobanner-cta-link">' . $this->settings->cta_text . '</a>';
 		}
 	}
@@ -140,1093 +757,114 @@ class InfoBannerModule extends FLBuilderModule {
 	 */
 	public function render_button() {
 		if ( 'button' == $this->settings->cta_type ) {
-			$btn_settings = array(
+			if ( ! UABB_Compatibility::check_bb_version() ) {
+				$btn_settings = array(
 
-				/* General Section */
-				'text'                        => $this->settings->btn_text,
+					/* General Section */
+					'text'                        => $this->settings->btn_text,
 
-				/* Link Section */
-				'link'                        => $this->settings->btn_link,
-				'link_target'                 => $this->settings->btn_link_target,
-				'link_nofollow'               => $this->settings->btn_link_nofollow,
+					/* Link Section */
+					'link'                        => $this->settings->btn_link,
+					'link_target'                 => $this->settings->btn_link_target,
+					'link_nofollow'               => $this->settings->btn_link_nofollow,
 
-				/* Style Section */
-				'style'                       => $this->settings->btn_style,
-				'border_size'                 => $this->settings->btn_border_size,
-				'transparent_button_options'  => $this->settings->btn_transparent_button_options,
-				'threed_button_options'       => $this->settings->btn_threed_button_options,
-				'flat_button_options'         => $this->settings->btn_flat_button_options,
+					/* Style Section */
+					'style'                       => $this->settings->btn_style,
+					'border_size'                 => $this->settings->btn_border_size,
+					'transparent_button_options'  => $this->settings->btn_transparent_button_options,
+					'threed_button_options'       => $this->settings->btn_threed_button_options,
+					'flat_button_options'         => $this->settings->btn_flat_button_options,
 
-				/* Colors */
-				'bg_color'                    => $this->settings->btn_bg_color,
-				'bg_hover_color'              => $this->settings->btn_bg_hover_color,
-				'text_color'                  => $this->settings->btn_text_color,
-				'text_hover_color'            => $this->settings->btn_text_hover_color,
-				'hover_attribute'             => $this->settings->hover_attribute,
+					/* Colors */
+					'bg_color'                    => $this->settings->btn_bg_color,
+					'bg_hover_color'              => $this->settings->btn_bg_hover_color,
+					'text_color'                  => $this->settings->btn_text_color,
+					'text_hover_color'            => $this->settings->btn_text_hover_color,
+					'hover_attribute'             => $this->settings->hover_attribute,
 
-				/* Icon */
-				'icon'                        => $this->settings->btn_icon,
-				'icon_position'               => $this->settings->btn_icon_position,
+					/* Icon */
+					'icon'                        => $this->settings->btn_icon,
+					'icon_position'               => $this->settings->btn_icon_position,
 
-				/* Structure */
-				'width'                       => $this->settings->btn_width,
-				'custom_width'                => $this->settings->btn_custom_width,
-				'custom_height'               => $this->settings->btn_custom_height,
-				'padding_top_bottom'          => $this->settings->btn_padding_top_bottom,
-				'padding_left_right'          => $this->settings->btn_padding_left_right,
-				'border_radius'               => $this->settings->btn_border_radius,
-				'align'                       => $this->settings->banner_alignemnt,
-				'mob_align'                   => '',
+					/* Structure */
+					'width'                       => $this->settings->btn_width,
+					'custom_width'                => $this->settings->btn_custom_width,
+					'custom_height'               => $this->settings->btn_custom_height,
+					'padding_top_bottom'          => $this->settings->btn_padding_top_bottom,
+					'padding_left_right'          => $this->settings->btn_padding_left_right,
+					'border_radius'               => $this->settings->btn_border_radius,
+					'align'                       => $this->settings->banner_alignemnt,
+					'mob_align'                   => '',
 
-				'font_family'                 => $this->settings->tbtn_font_family,
-				'font_size'                   => ( isset( $this->settings->tbtn_font_size ) ) ? $this->settings->tbtn_font_size : '',
-				'line_height'                 => ( isset( $this->settings->tbtn_line_height ) ) ? $this->settings->tbtn_line_height : '',
-				'font_size_unit'              => $this->settings->tbtn_font_size_unit,
-				'line_height_unit'            => $this->settings->tbtn_line_height_unit,
-				'font_size_unit_medium'       => $this->settings->tbtn_font_size_unit_medium,
-				'line_height_unit_medium'     => $this->settings->tbtn_line_height_unit_medium,
-				'font_size_unit_responsive'   => $this->settings->tbtn_font_size_unit_responsive,
-				'line_height_unit_responsive' => $this->settings->tbtn_line_height_unit_responsive,
-				'transform'                   => $this->settings->tbtn_content_transform,
-				'letter_spacing'              => $this->settings->tbtn_content_letter_spacing,
-			);
+					'font_family'                 => $this->settings->tbtn_font_family,
+					'font_size'                   => ( isset( $this->settings->tbtn_font_size ) ) ? $this->settings->tbtn_font_size : '',
+					'line_height'                 => ( isset( $this->settings->tbtn_line_height ) ) ? $this->settings->tbtn_line_height : '',
+					'font_size_unit'              => $this->settings->tbtn_font_size_unit,
+					'line_height_unit'            => $this->settings->tbtn_line_height_unit,
+					'font_size_unit_medium'       => $this->settings->tbtn_font_size_unit_medium,
+					'line_height_unit_medium'     => $this->settings->tbtn_line_height_unit_medium,
+					'font_size_unit_responsive'   => $this->settings->tbtn_font_size_unit_responsive,
+					'line_height_unit_responsive' => $this->settings->tbtn_line_height_unit_responsive,
+					'transform'                   => $this->settings->tbtn_content_transform,
+					'letter_spacing'              => $this->settings->tbtn_content_letter_spacing,
+				);
+			} else {
+				$btn_settings = array(
 
+					/* General Section */
+					'text'                       => $this->settings->btn_text,
+
+					/* Link Section */
+					'link'                       => $this->settings->btn_link,
+					'link_target'                => $this->settings->btn_link_target,
+					'link_nofollow'              => $this->settings->btn_link_nofollow,
+
+					/* Style Section */
+					'style'                      => $this->settings->btn_style,
+					'border_size'                => $this->settings->btn_border_size,
+					'transparent_button_options' => $this->settings->btn_transparent_button_options,
+					'threed_button_options'      => $this->settings->btn_threed_button_options,
+					'flat_button_options'        => $this->settings->btn_flat_button_options,
+
+					/* Colors */
+					'bg_color'                   => $this->settings->btn_bg_color,
+					'bg_hover_color'             => $this->settings->btn_bg_hover_color,
+					'text_color'                 => $this->settings->btn_text_color,
+					'text_hover_color'           => $this->settings->btn_text_hover_color,
+					'hover_attribute'            => $this->settings->hover_attribute,
+
+					/* Icon */
+					'icon'                       => $this->settings->btn_icon,
+					'icon_position'              => $this->settings->btn_icon_position,
+
+					/* Structure */
+					'width'                      => $this->settings->btn_width,
+					'custom_width'               => $this->settings->btn_custom_width,
+					'custom_height'              => $this->settings->btn_custom_height,
+					'padding_top_bottom'         => $this->settings->btn_padding_top_bottom,
+					'padding_left_right'         => $this->settings->btn_padding_left_right,
+					'border_radius'              => $this->settings->btn_border_radius,
+					'align'                      => $this->settings->banner_alignemnt,
+					'mob_align'                  => '',
+					'font_size'                  => ( isset( $this->settings->tbtn_font_size ) ) ? $this->settings->tbtn_font_size : '',
+					'line_height'                => ( isset( $this->settings->tbtn_line_height ) ) ? $this->settings->tbtn_line_height : '',
+
+					'button_typo'                => ( isset( $this->settings->btn_font_typo ) ) ? $this->settings->btn_font_typo : '',
+					'button_typo_medium'         => ( isset( $this->settings->btn_font_typo_medium ) ) ? $this->settings->btn_font_typo_medium : '',
+					'button_typo_responsive'     => ( isset( $this->settings->btn_font_typo_responsive ) ) ? $this->settings->btn_font_typo_responsive : '',
+				);
+			}
 			FLBuilder::render_module_html( 'uabb-button', $btn_settings );
 		}
 	}
 }
 
 /**
- * Register the module and its form settings.
+ * Condition to verify Beaver Builder version.
+ * And accordingly render the required form settings file.
  */
-FLBuilder::register_module(
-	'InfoBannerModule', array(
-		'banner'     => array( // Tab.
-			'title'    => __( 'General', 'uabb' ), // Tab title.
-			'sections' => array( // Tab Sections.
-				'general'     => array( // Section.
-					'title'  => __( 'Info Banner', 'uabb' ), // Section Title.
-					'fields' => array( // Section Fields.
-						'banner_title' => array(
-							'type'        => 'text',
-							'label'       => __( 'Title', 'uabb' ),
-							'default'     => __( 'Info Banner', 'uabb' ),
-							'help'        => __( 'Perhaps, this is the most highlighted text.', 'uabb' ),
-							'preview'     => array(
-								'type'     => 'text',
-								'selector' => '.uabb-ultb3-title',
-							),
-							'connections' => array( 'string', 'html' ),
-						),
-					),
-				),
-				'description' => array( // Section.
-					'title'  => '', // Section Title.
-					'fields' => array( // Section Fields.
-						'banner_desc' => array(
-							'type'          => 'editor',
-							'media_buttons' => false,
-							'rows'          => 10,
-							'label'         => __( 'Description', 'uabb' ),
-							'default'       => '<p>' . __( 'Enter description text here.', 'uabb' ) . '</p>',
-							'preview'       => array(
-								'type'     => 'text',
-								'selector' => '.uabb-ultb3-desc',
-							),
-							'connections'   => array( 'string', 'html' ),
-						),
-					),
-				),
-				'styles'      => array( // Section.
-					'title'  => __( 'Style', 'uabb' ), // Section Title.
-					'fields' => array( // Section Fields.
-						'background_color'             => array(
-							'type'       => 'color',
-							'label'      => __( 'Background Color', 'uabb' ),
-							'default'    => 'f2f2f2',
-							'show_reset' => true,
-							'preview'    => array(
-								'type'     => 'css',
-								'selector' => '.uabb-ultb3-box',
-								'property' => 'background',
-							),
-						),
-						'background_color_opc'         => array(
-							'type'        => 'text',
-							'label'       => __( 'Opacity', 'uabb' ),
-							'default'     => '',
-							'description' => '%',
-							'maxlength'   => '3',
-							'size'        => '5',
-						),
-						'banner_alignemnt'             => array(
-							'type'    => 'select',
-							'label'   => __( 'Information Alignment', 'uabb' ),
-							'default' => 'left',
-							'options' => array(
-								'uabb-ultb3-align-left'   => __( 'Left', 'uabb' ),
-								'uabb-ultb3-align-center' => __( 'Center', 'uabb' ),
-								'uabb-ultb3-align-right'  => __( 'Right', 'uabb' ),
-							),
-						),
-						'min_height_switch'            => array(
-							'type'    => 'select',
-							'label'   => __( 'Minimum Height', 'uabb' ),
-							'default' => 'auto',
-							'options' => array(
-								'auto'   => __( 'Default', 'uabb' ),
-								'custom' => __( 'Custom', 'uabb' ),
-							),
-							'toggle'  => array(
-								'custom' => array(
-									'fields' => array( 'min_height', 'vertical_align' ),
-								),
-							),
-						),
-						'min_height'                   => array(
-							'type'        => 'unit',
-							'label'       => __( 'Enter Height', 'uabb' ),
-							'description' => 'px',
-							'maxlength'   => '4',
-							'size'        => '5',
-							'placeholder' => 'auto',
-							'help'        => __( 'Apply minimum height to complete Info Banner. It will useful when multiple Info Banner are in same row.', 'uabb' ),
-						),
-						'vertical_align'               => array(
-							'type'    => 'select',
-							'label'   => __( 'Overall Vertical Alignment', 'uabb' ),
-							'default' => 'middle',
-							'options' => array(
-								'top'    => __( 'Top', 'uabb' ),
-								'middle' => __( 'Middle', 'uabb' ),
-								'bottom' => __( 'Bottom', 'uabb' ),
-							),
-						),
-						'responsive_min_height_switch' => array(
-							'type'    => 'select',
-							'label'   => __( 'Responsive Minimum Height', 'uabb' ),
-							'default' => 'auto',
-							'options' => array(
-								'auto'   => __( 'Default', 'uabb' ),
-								'custom' => __( 'Custom', 'uabb' ),
-							),
-							'toggle'  => array(
-								'custom' => array(
-									'fields' => array( 'responsive_min_height', 'responsive_vertical_align' ),
-								),
-							),
-							'help'    => __( 'It will apply minimum height in mobile devices', 'uabb' ),
-						),
-						'responsive_min_height'        => array(
-							'type'        => 'unit',
-							'label'       => __( 'Enter Height', 'uabb' ),
-							'description' => 'px',
-							'maxlength'   => '4',
-							'size'        => '5',
-							'placeholder' => 'auto',
-							'help'        => __( 'Apply minimum height to complete Info Banner. It will useful in mobile when multiple Info Banner are in same row.', 'uabb' ),
-						),
-						'responsive_vertical_align'    => array(
-							'type'    => 'select',
-							'label'   => __( 'Overall Vertical Alignment', 'uabb' ),
-							'default' => 'middle',
-							'options' => array(
-								'top'    => __( 'Top', 'uabb' ),
-								'middle' => __( 'Middle', 'uabb' ),
-								'bottom' => __( 'Bottom', 'uabb' ),
-							),
-						),
-					),
-				),
-			),
-		),
-		'image'      => array( // Tab.
-			'title'    => __( 'Image', 'uabb' ), // Tab title.
-			'sections' => array( // Tab Sections.
-				'general'   => array( // Section.
-					'title'  => __( 'Image', 'uabb' ), // Section Title.
-					'fields' => array( // Section Fields.
-						'banner_image'           => array(
-							'type'        => 'photo',
-							'label'       => __( 'Banner Image', 'uabb' ),
-							'show_remove' => true,
-							'help'        => __( 'The image that would be appear as Background. Make sure overlay color you\'ve chosen must be transparent, to work this setting.', 'uabb' ),
-							'connections' => array( 'photo' ),
-						),
-						'banner_image_alignemnt' => array(
-							'type'    => 'select',
-							'label'   => __( 'Image Alignment', 'uabb' ),
-							'default' => 'uabb-ultb3-img-center',
-							'options' => array(
-								'uabb-ultb3-img-top-left'  => __( 'Top Left', 'uabb' ),
-								'uabb-ultb3-img-top-center' => __( 'Top Center', 'uabb' ),
-								'uabb-ultb3-img-top-right' => __( 'Top Right', 'uabb' ),
-								'uabb-ultb3-img-center-left' => __( 'Center Left', 'uabb' ),
-								'uabb-ultb3-img-center'    => __( 'Center', 'uabb' ),
-								'uabb-ultb3-img-center-right' => __( 'Center Right', 'uabb' ),
-								'uabb-ultb3-img-bottom-left' => __( 'Bottom Left', 'uabb' ),
-								'uabb-ultb3-img-bottom-center' => __( 'Bottom Center', 'uabb' ),
-								'uabb-ultb3-img-bottom-right' => __( 'Bottom Right', 'uabb' ),
-							),
-						),
-						'overlay_color'          => array(
-							'type'       => 'color',
-							'label'      => __( 'Overlay Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-						),
-						'overlay_color_opc'      => array(
-							'type'        => 'text',
-							'label'       => __( 'Opacity', 'uabb' ),
-							'default'     => '',
-							'description' => '%',
-							'maxlength'   => '3',
-							'size'        => '5',
-						),
-						'responsive_nature'      => array(
-							'type'    => 'select',
-							'label'   => __( 'Responsive Nature', 'uabb' ),
-							'default' => 'auto',
-							'options' => array(
-								'auto'   => __( 'Default', 'uabb' ),
-								'custom' => __( 'Custom', 'uabb' ),
-							),
-							'toggle'  => array(
-								'custom' => array(
-									'fields' => array( 'res_medium_width', 'res_small_width' ),
-								),
-							),
-							'help'    => __( 'The breakpoints of Medium and Small device is decided form BB-Global Settings', 'uabb' ),
-						),
-						'res_medium_width'       => array(
-							'type'        => 'unit',
-							'label'       => __( 'Medium Device Width', 'uabb' ),
-							'description' => 'px',
-							'maxlength'   => '4',
-							'size'        => '5',
-							'placeholder' => 'auto',
-						),
-						'res_small_width'        => array(
-							'type'        => 'unit',
-							'label'       => __( 'Small Device Width', 'uabb' ),
-							'description' => 'px',
-							'maxlength'   => '4',
-							'size'        => '5',
-							'placeholder' => 'auto',
-						),
-					),
-
-				),
-				'animation' => array( // Section.
-					'title'  => __( 'Animation', 'uabb' ), // Section Title.
-					'fields' => array( // Section Fields.
-						'banner_image_effect' => array(
-							'type'    => 'select',
-							'label'   => __( 'Effect', 'uabb' ),
-							'default' => '',
-							'options' => array(
-								''                    => __( 'No Effect', 'uabb' ),
-								'uabb-ib-slide-up'    => __( 'Slide Up', 'uabb' ),
-								'uabb-ib-slide-down'  => __( 'Slide Down', 'uabb' ),
-								'uabb-ib-slide-left'  => __( 'Slide Left', 'uabb' ),
-								'uabb-ib-slide-right' => __( 'Slide Right', 'uabb' ),
-								'uabb-ib-zoom-in'     => __( 'Zoom In', 'uabb' ),
-								'uabb-ib-zoom-out'    => __( 'Zoom Out', 'uabb' ),
-								'uabb-ib-pan'         => __( 'Pan', 'uabb' ),
-							),
-						),
-					),
-				),
-			),
-		),
-		'cta'        => array(
-			'title'    => __( 'Link', 'uabb' ),
-			'sections' => array(
-				'cta'           => array(
-					'title'  => __( 'Call to Action', 'uabb' ),
-					'fields' => array(
-						'cta_type' => array(
-							'type'    => 'select',
-							'label'   => __( 'Type', 'uabb' ),
-							'default' => 'none',
-							'options' => array(
-								'none'   => _x( 'None', 'Call to action.', 'uabb' ),
-								'link'   => __( 'Text', 'uabb' ),
-								'button' => __( 'Button', 'uabb' ),
-								'module' => __( 'Link To Module', 'uabb' ),
-							),
-							'toggle'  => array(
-								'none'   => array(),
-								'link'   => array(
-									'fields'   => array( 'cta_text' ),
-									'sections' => array( 'link', 'link_typography' ),
-								),
-								'button' => array(
-									'sections' => array( 'btn-general', 'btn-icon', 'btn-link', 'btn-colors', 'btn-style', 'btn-structure', 'btn_typography' ),
-								),
-								'module' => array(
-									'sections' => array( 'link' ),
-								),
-
-							),
-						),
-						'cta_text' => array(
-							'type'        => 'text',
-							'label'       => __( 'Text', 'uabb' ),
-							'default'     => __( 'Read More', 'uabb' ),
-							'connections' => array( 'string', 'html' ),
-							'preview'     => array(
-								'type'     => 'text',
-								'selector' => '.uabb-infobanner-cta-link',
-							),
-						),
-					),
-				),
-				'btn-general'   => array( // Section.
-					'title'  => __( 'General', 'uabb' ),
-					'fields' => array(
-						'btn_text' => array(
-							'type'        => 'text',
-							'label'       => __( 'Text', 'uabb' ),
-							'default'     => __( 'Click Here', 'uabb' ),
-							'connections' => array( 'string', 'html' ),
-							'preview'     => array(
-								'type'     => 'text',
-								'selector' => '.uabb-creative-button-text',
-							),
-						),
-					),
-				),
-				'btn-link'      => array( // Section.
-					'title'  => __( 'Link', 'uabb' ),
-					'fields' => array(
-						'btn_link'          => array(
-							'type'        => 'link',
-							'label'       => __( 'Link', 'uabb' ),
-							'placeholder' => 'http://www.example.com',
-							'preview'     => array(
-								'type' => 'none',
-							),
-							'connections' => array( 'url' ),
-						),
-						'btn_link_target'   => array(
-							'type'    => 'select',
-							'label'   => __( 'Link Target', 'uabb' ),
-							'default' => '_self',
-							'options' => array(
-								'_self'  => __( 'Same Window', 'uabb' ),
-								'_blank' => __( 'New Window', 'uabb' ),
-							),
-							'preview' => array(
-								'type' => 'none',
-							),
-						),
-						'btn_link_nofollow' => array(
-							'type'        => 'select',
-							'label'       => __( 'Link nofollow', 'uabb' ),
-							'description' => '',
-							'default'     => '0',
-							'help'        => __( 'Enable this to make this link nofollow', 'uabb' ),
-							'options'     => array(
-								'1' => __( 'Yes', 'uabb' ),
-								'0' => __( 'No', 'uabb' ),
-							),
-						),
-					),
-				),
-				'btn-style'     => array(
-					'title'  => __( 'Style', 'uabb' ),
-					'fields' => array(
-						'btn_style'                      => array(
-							'type'    => 'select',
-							'label'   => __( 'Style', 'uabb' ),
-							'default' => 'flat',
-							'class'   => 'creative_button_styles',
-							'options' => array(
-								'flat'        => __( 'Flat', 'uabb' ),
-								'gradient'    => __( 'Gradient', 'uabb' ),
-								'transparent' => __( 'Transparent', 'uabb' ),
-								'threed'      => __( '3D', 'uabb' ),
-							),
-						),
-						'btn_border_size'                => array(
-							'type'        => 'unit',
-							'label'       => __( 'Border Size', 'uabb' ),
-							'description' => 'px',
-							'maxlength'   => '3',
-							'size'        => '5',
-							'placeholder' => '2',
-						),
-						'btn_transparent_button_options' => array(
-							'type'    => 'select',
-							'label'   => __( 'Hover Styles', 'uabb' ),
-							'default' => 'transparent-fade',
-							'options' => array(
-								'none'                    => __( 'None', 'uabb' ),
-								'transparent-fade'        => __( 'Fade Background', 'uabb' ),
-								'transparent-fill-top'    => __( 'Fill Background From Top', 'uabb' ),
-								'transparent-fill-bottom' => __( 'Fill Background From Bottom', 'uabb' ),
-								'transparent-fill-left'   => __( 'Fill Background From Left', 'uabb' ),
-								'transparent-fill-right'  => __( 'Fill Background From Right', 'uabb' ),
-								'transparent-fill-center' => __( 'Fill Background Vertical', 'uabb' ),
-								'transparent-fill-diagonal' => __( 'Fill Background Diagonal', 'uabb' ),
-								'transparent-fill-horizontal' => __( 'Fill Background Horizontal', 'uabb' ),
-							),
-						),
-						'btn_threed_button_options'      => array(
-							'type'    => 'select',
-							'label'   => __( 'Hover Styles', 'uabb' ),
-							'default' => 'threed_down',
-							'options' => array(
-								'threed_down'    => __( 'Move Down', 'uabb' ),
-								'threed_up'      => __( 'Move Up', 'uabb' ),
-								'threed_left'    => __( 'Move Left', 'uabb' ),
-								'threed_right'   => __( 'Move Right', 'uabb' ),
-								'animate_top'    => __( 'Animate Top', 'uabb' ),
-								'animate_bottom' => __( 'Animate Bottom', 'uabb' ),
-							),
-						),
-						'btn_flat_button_options'        => array(
-							'type'    => 'select',
-							'label'   => __( 'Hover Styles', 'uabb' ),
-							'default' => 'none',
-							'options' => array(
-								'none'                => __( 'None', 'uabb' ),
-								'animate_to_left'     => __( 'Appear Icon From Right', 'uabb' ),
-								'animate_to_right'    => __( 'Appear Icon From Left', 'uabb' ),
-								'animate_from_top'    => __( 'Appear Icon From Top', 'uabb' ),
-								'animate_from_bottom' => __( 'Appear Icon From Bottom', 'uabb' ),
-							),
-						),
-					),
-				),
-				'btn-icon'      => array( // Section.
-					'title'  => __( 'Icons', 'uabb' ),
-					'fields' => array(
-						'btn_icon'          => array(
-							'type'        => 'icon',
-							'label'       => __( 'Icon', 'uabb' ),
-							'show_remove' => true,
-						),
-						'btn_icon_position' => array(
-							'type'    => 'select',
-							'label'   => __( 'Icon Position', 'uabb' ),
-							'default' => 'before',
-							'options' => array(
-								'before' => __( 'Before Text', 'uabb' ),
-								'after'  => __( 'After Text', 'uabb' ),
-							),
-						),
-					),
-				),
-				'btn-colors'    => array( // Section.
-					'title'  => __( 'Colors', 'uabb' ),
-					'fields' => array(
-						'btn_text_color'         => array(
-							'type'       => 'color',
-							'label'      => __( 'Text Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-							'preview'    => array(
-								'type'     => 'css',
-								'selector' => '.uabb-creative-button-wrap a, .uabb-creative-button-wrap span',
-								'property' => 'color',
-							),
-						),
-						'btn_text_hover_color'   => array(
-							'type'       => 'color',
-							'label'      => __( 'Text Hover Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-							'preview'    => array(
-								'type' => 'none',
-							),
-						),
-						'btn_bg_color'           => array(
-							'type'       => 'color',
-							'label'      => __( 'Background Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-						),
-						'btn_bg_color_opc'       => array(
-							'type'        => 'text',
-							'label'       => __( 'Opacity', 'uabb' ),
-							'default'     => '',
-							'description' => '%',
-							'maxlength'   => '3',
-							'size'        => '5',
-						),
-
-						'btn_bg_hover_color'     => array(
-							'type'       => 'color',
-							'label'      => __( 'Background Hover Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-							'preview'    => array(
-								'type' => 'none',
-							),
-						),
-						'btn_bg_hover_color_opc' => array(
-							'type'        => 'text',
-							'label'       => __( 'Opacity', 'uabb' ),
-							'default'     => '',
-							'description' => '%',
-							'maxlength'   => '3',
-							'size'        => '5',
-						),
-						'hover_attribute'        => array(
-							'type'    => 'select',
-							'label'   => __( 'Apply Hover Color To', 'uabb' ),
-							'default' => 'bg',
-							'options' => array(
-								'border' => __( 'Border', 'uabb' ),
-								'bg'     => __( 'Background', 'uabb' ),
-							),
-							'width'   => '75px',
-						),
-					),
-				),
-				'btn-structure' => array(
-					'title'  => __( 'Structure', 'uabb' ),
-					'fields' => array(
-						'btn_width'              => array(
-							'type'    => 'select',
-							'label'   => __( 'Width', 'uabb' ),
-							'default' => 'auto',
-							'options' => array(
-								'auto'   => _x( 'Auto', 'Width.', 'uabb' ),
-								'full'   => __( 'Full Width', 'uabb' ),
-								'custom' => __( 'Custom', 'uabb' ),
-							),
-							'toggle'  => array(
-								'auto'   => array(
-									'fields' => array( 'btn_align', 'btn_mob_align' ),
-								),
-								'full'   => array(
-									'fields' => array(),
-								),
-								'custom' => array(
-									'fields' => array( 'btn_align', 'btn_mob_align', 'btn_custom_width', 'btn_custom_height', 'btn_padding_top_bottom', 'btn_padding_left_right' ),
-								),
-							),
-						),
-						'btn_custom_width'       => array(
-							'type'        => 'unit',
-							'label'       => __( 'Custom Width', 'uabb' ),
-							'default'     => '200',
-							'maxlength'   => '3',
-							'size'        => '4',
-							'description' => 'px',
-						),
-						'btn_custom_height'      => array(
-							'type'        => 'unit',
-							'label'       => __( 'Custom Height', 'uabb' ),
-							'default'     => '45',
-							'maxlength'   => '3',
-							'size'        => '4',
-							'description' => 'px',
-						),
-						'btn_padding_top_bottom' => array(
-							'type'        => 'unit',
-							'label'       => __( 'Padding Top/Bottom', 'uabb' ),
-							'placeholder' => '0',
-							'maxlength'   => '3',
-							'size'        => '4',
-							'description' => 'px',
-						),
-						'btn_padding_left_right' => array(
-							'type'        => 'unit',
-							'label'       => __( 'Padding Left/Right', 'uabb' ),
-							'placeholder' => '0',
-							'maxlength'   => '3',
-							'size'        => '4',
-							'description' => 'px',
-						),
-						'btn_border_radius'      => array(
-							'type'        => 'unit',
-							'label'       => __( 'Round Corners', 'uabb' ),
-							'maxlength'   => '3',
-							'size'        => '4',
-							'description' => 'px',
-						),
-					),
-				),
-				'link'          => array(
-					'title'  => __( 'Link', 'uabb' ),
-					'fields' => array(
-						'link'          => array(
-							'type'        => 'link',
-							'label'       => __( 'Link', 'uabb' ),
-							'help'        => __( 'The link applies to the entire module. If choosing a call to action type below, this link will also be used for the text or button.', 'uabb' ),
-							'preview'     => array(
-								'type' => 'none',
-							),
-							'connections' => array( 'url' ),
-						),
-						'link_target'   => array(
-							'type'    => 'select',
-							'label'   => __( 'Link Target', 'uabb' ),
-							'default' => '_self',
-							'options' => array(
-								'_self'  => __( 'Same Window', 'uabb' ),
-								'_blank' => __( 'New Window', 'uabb' ),
-							),
-							'preview' => array(
-								'type' => 'none',
-							),
-						),
-						'link_nofollow' => array(
-							'type'        => 'select',
-							'label'       => __( 'Link nofollow', 'uabb' ),
-							'description' => '',
-							'default'     => '0',
-							'help'        => __( 'Enable this to make this link nofollow', 'uabb' ),
-							'options'     => array(
-								'1' => __( 'Yes', 'uabb' ),
-								'0' => __( 'No', 'uabb' ),
-							),
-						),
-					),
-				),
-			),
-		),
-		'typography' => array( // Tab.
-			'title'    => __( 'Typography', 'uabb' ), // Tab title.
-			'sections' => array( // Tab Sections.
-				'title_typography' => array(
-					'title'  => __( 'Title', 'uabb' ),
-					'fields' => array(
-						'tag_selection'       => array(
-							'type'    => 'select',
-							'label'   => __( 'Tag', 'uabb' ),
-							'default' => 'h3',
-							'options' => array(
-								'h1'   => __( 'H1', 'uabb' ),
-								'h2'   => __( 'H2', 'uabb' ),
-								'h3'   => __( 'H3', 'uabb' ),
-								'h4'   => __( 'H4', 'uabb' ),
-								'h5'   => __( 'H5', 'uabb' ),
-								'h6'   => __( 'H6', 'uabb' ),
-								'div'  => __( 'Div', 'uabb' ),
-								'p'    => __( 'p', 'uabb' ),
-								'span' => __( 'span', 'uabb' ),
-							),
-						),
-						'font_family'         => array(
-							'type'    => 'font',
-							'label'   => __( 'Font Family', 'uabb' ),
-							'default' => array(
-								'family' => 'Default',
-								'weight' => 'Default',
-							),
-							'preview' => array(
-								'type'     => 'font',
-								'selector' => '.uabb-ultb3-title',
-							),
-						),
-						'font_size_unit'      => array(
-							'type'        => 'unit',
-							'label'       => __( 'Font Size', 'uabb' ),
-							'description' => 'px',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-ultb3-title',
-								'property' => 'font-size',
-								'unit'     => 'px',
-							),
-							'responsive'  => array(
-								'placeholder' => array(
-									'default'    => '',
-									'medium'     => '',
-									'responsive' => '',
-								),
-							),
-						),
-						'line_height_unit'    => array(
-							'type'        => 'unit',
-							'label'       => __( 'Line Height', 'uabb' ),
-							'description' => 'em',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-ultb3-title',
-								'property' => 'line-height',
-								'unit'     => 'em',
-							),
-							'responsive'  => array(
-								'placeholder' => array(
-									'default'    => '',
-									'medium'     => '',
-									'responsive' => '',
-								),
-							),
-						),
-						'color'               => array(
-							'type'       => 'color',
-							'label'      => __( 'Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-							'preview'    => array(
-								'type'     => 'css',
-								'selector' => '.uabb-ultb3-title',
-								'property' => 'color',
-							),
-						),
-						'transform'           => array(
-							'type'    => 'select',
-							'label'   => __( 'Transform', 'uabb' ),
-							'default' => '',
-							'options' => array(
-								''           => 'Default',
-								'uppercase'  => 'UPPERCASE',
-								'lowercase'  => 'lowercase',
-								'capitalize' => 'Capitalize',
-							),
-							'preview' => array(
-								'type'     => 'css',
-								'selector' => '.uabb-ultb3-title',
-								'property' => 'text-transform',
-							),
-						),
-						'letter_spacing'      => array(
-							'type'        => 'unit',
-							'label'       => __( 'Letter Spacing', 'uabb' ),
-							'placeholder' => '0',
-							'size'        => '5',
-							'description' => 'px',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-ultb3-title',
-								'property' => 'letter-spacing',
-								'unit'     => 'px',
-							),
-						),
-						'title_margin_top'    => array(
-							'type'        => 'unit',
-							'label'       => __( 'Margin Top', 'uabb' ),
-							'description' => 'px',
-							'maxlength'   => '4',
-							'size'        => '8',
-							'default'     => '0',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-ultb3-title',
-								'property' => 'margin-top',
-								'unit'     => 'px',
-							),
-						),
-						'title_margin_bottom' => array(
-							'type'        => 'unit',
-							'label'       => __( 'Margin Bottom', 'uabb' ),
-							'description' => 'px',
-							'maxlength'   => '4',
-							'size'        => '8',
-							'default'     => '0',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-ultb3-title',
-								'property' => 'margin-bottom',
-								'unit'     => 'px',
-							),
-						),
-					),
-				),
-				'desc_typography'  => array(
-					'title'  => __( 'Description', 'uabb' ),
-					'fields' => array(
-						'desc_font_family'      => array(
-							'type'    => 'font',
-							'label'   => __( 'Font Family', 'uabb' ),
-							'default' => array(
-								'family' => 'Default',
-								'weight' => 'Default',
-							),
-							'preview' => array(
-								'type'     => 'font',
-								'selector' => '.uabb-ultb3-desc',
-							),
-						),
-						'desc_font_size_unit'   => array(
-							'type'        => 'unit',
-							'label'       => __( 'Font Size', 'uabb' ),
-							'description' => 'px',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-ultb3-desc',
-								'property' => 'font-size',
-								'unit'     => 'px',
-							),
-							'responsive'  => array(
-								'placeholder' => array(
-									'default'    => '',
-									'medium'     => '',
-									'responsive' => '',
-								),
-							),
-						),
-						'desc_line_height_unit' => array(
-							'type'        => 'unit',
-							'label'       => __( 'Line Height', 'uabb' ),
-							'description' => 'em',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-ultb3-desc',
-								'property' => 'line-height',
-								'unit'     => 'em',
-							),
-							'responsive'  => array(
-								'placeholder' => array(
-									'default'    => '',
-									'medium'     => '',
-									'responsive' => '',
-								),
-							),
-						),
-						'desc_transform'        => array(
-							'type'    => 'select',
-							'label'   => __( 'Transform', 'uabb' ),
-							'default' => '',
-							'options' => array(
-								''           => 'Default',
-								'uppercase'  => 'UPPERCASE',
-								'lowercase'  => 'lowercase',
-								'capitalize' => 'Capitalize',
-							),
-							'preview' => array(
-								'type'     => 'css',
-								'selector' => '.uabb-ultb3-desc',
-								'property' => 'text-transform',
-							),
-						),
-						'desc_letter_spacing'   => array(
-							'type'        => 'unit',
-							'label'       => __( 'Letter Spacing', 'uabb' ),
-							'placeholder' => '0',
-							'size'        => '5',
-							'description' => 'px',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-ultb3-desc',
-								'property' => 'letter-spacing',
-								'unit'     => 'px',
-							),
-						),
-						'desc_color'            => array(
-							'type'       => 'color',
-							'label'      => __( 'Description Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-							'preview'    => array(
-								'type'     => 'css',
-								'selector' => '.uabb-ultb3-desc',
-								'property' => 'color',
-							),
-						),
-						'desc_margin_top'       => array(
-							'type'        => 'unit',
-							'label'       => __( 'Margin Top', 'uabb' ),
-							'description' => 'px',
-							'maxlength'   => '4',
-							'size'        => '8',
-							'default'     => '0',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-ultb3-desc',
-								'property' => 'margin-top',
-								'unit'     => 'px',
-							),
-						),
-						'desc_margin_bottom'    => array(
-							'type'        => 'unit',
-							'label'       => __( 'Margin Bottom', 'uabb' ),
-							'description' => 'px',
-							'maxlength'   => '4',
-							'size'        => '8',
-							'default'     => '0',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-ultb3-desc',
-								'property' => 'margin-bottom',
-								'unit'     => 'px',
-							),
-						),
-					),
-				),
-				'btn_typography'   => array(
-					'title'  => __( 'Button', 'uabb' ),
-					'fields' => array(
-						'tbtn_font_family'            => array(
-							'type'    => 'font',
-							'label'   => __( 'Font Family', 'uabb' ),
-							'default' => array(
-								'family' => 'Default',
-								'weight' => 'Default',
-							),
-							'preview' => array(
-								'type'     => 'font',
-								'selector' => 'a.uabb-button',
-							),
-						),
-						'tbtn_font_size_unit'         => array(
-							'type'        => 'unit',
-							'label'       => __( 'Font Size', 'uabb' ),
-							'description' => 'px',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => 'a.uabb-button',
-								'property' => 'font-size',
-								'unit'     => 'px',
-							),
-							'responsive'  => array(
-								'placeholder' => array(
-									'default'    => '',
-									'medium'     => '',
-									'responsive' => '',
-								),
-							),
-						),
-						'tbtn_line_height_unit'       => array(
-							'type'        => 'unit',
-							'label'       => __( 'Line Height', 'uabb' ),
-							'description' => 'em',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => 'a.uabb-button',
-								'property' => 'line-height',
-								'unit'     => 'em',
-							),
-							'responsive'  => array(
-								'placeholder' => array(
-									'default'    => '',
-									'medium'     => '',
-									'responsive' => '',
-								),
-							),
-						),
-						'tbtn_content_transform'      => array(
-							'type'    => 'select',
-							'label'   => __( 'Transform', 'uabb' ),
-							'default' => '',
-							'options' => array(
-								''           => 'Default',
-								'uppercase'  => 'UPPERCASE',
-								'lowercase'  => 'lowercase',
-								'capitalize' => 'Capitalize',
-							),
-							'preview' => array(
-								'type'     => 'css',
-								'selector' => 'a.uabb-button',
-								'property' => 'text-transform',
-							),
-						),
-						'tbtn_content_letter_spacing' => array(
-							'type'        => 'unit',
-							'label'       => __( 'Letter Spacing', 'uabb' ),
-							'placeholder' => '0',
-							'size'        => '5',
-							'description' => 'px',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => 'a.uabb-button',
-								'property' => 'letter-spacing',
-								'unit'     => 'px',
-							),
-						),
-					),
-				),
-				'link_typography'  => array(
-					'title'  => __( 'Link Text', 'uabb' ),
-					'fields' => array(
-						'link_font_family'      => array(
-							'type'    => 'font',
-							'label'   => __( 'Font Family', 'uabb' ),
-							'default' => array(
-								'family' => 'Default',
-								'weight' => 'Default',
-							),
-							'preview' => array(
-								'type'     => 'font',
-								'selector' => '.uabb-infobanner-cta-link',
-							),
-						),
-						'link_font_size_unit'   => array(
-							'type'        => 'unit',
-							'label'       => __( 'Font Size', 'uabb' ),
-							'description' => 'px',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-infobanner-cta-link',
-								'property' => 'font-size',
-								'unit'     => 'px',
-							),
-							'responsive'  => array(
-								'placeholder' => array(
-									'default'    => '',
-									'medium'     => '',
-									'responsive' => '',
-								),
-							),
-						),
-						'link_line_height_unit' => array(
-							'type'        => 'unit',
-							'label'       => __( 'Line Height', 'uabb' ),
-							'description' => 'em',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-infobanner-cta-link',
-								'property' => 'line-height',
-								'unit'     => 'em',
-							),
-							'responsive'  => array(
-								'placeholder' => array(
-									'default'    => '',
-									'medium'     => '',
-									'responsive' => '',
-								),
-							),
-						),
-						'link_color'            => array(
-							'type'       => 'color',
-							'label'      => __( 'Link Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-							'preview'    => array(
-								'type'     => 'css',
-								'selector' => '.uabb-infobanner-cta-link',
-								'property' => 'color',
-							),
-						),
-						'link_transform'        => array(
-							'type'    => 'select',
-							'label'   => __( 'Transform', 'uabb' ),
-							'default' => '',
-							'options' => array(
-								''           => 'Default',
-								'uppercase'  => 'UPPERCASE',
-								'lowercase'  => 'lowercase',
-								'capitalize' => 'Capitalize',
-							),
-							'preview' => array(
-								'type'     => 'css',
-								'selector' => '.uabb-infobanner-cta-link',
-								'property' => 'text-transform',
-							),
-						),
-						'link_letter_spacing'   => array(
-							'type'        => 'unit',
-							'label'       => __( 'Letter Spacing', 'uabb' ),
-							'placeholder' => '0',
-							'size'        => '5',
-							'description' => 'px',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-infobanner-cta-link',
-								'property' => 'letter-spacing',
-								'unit'     => 'px',
-							),
-						),
-					),
-				),
-			),
-		),
-	)
-);
+if ( UABB_Compatibility::check_bb_version() ) {
+	require_once BB_ULTIMATE_ADDON_DIR . 'modules/info-banner/info-banner-bb-2-2-compatibility.php';
+} else {
+	require_once BB_ULTIMATE_ADDON_DIR . 'modules/info-banner/info-banner-bb-less-than-2-2-compatibility.php';
+}

@@ -156,3 +156,20 @@ html.uabb-active-live-preview .fl-builder-shortcode-mask {
     left: -9999px;
     top: -9999px;
 }
+/* Doc's CSS */
+.uabb-docs-list {
+	list-style-type: none;
+}
+.uabb-docs-list .uabb-docs-list-item {
+	font-size: 14px;
+	margin-bottom: 15px;
+}
+
+.uabb-docs-list .uabb-docs-list-item a {
+	font-style: italic;
+	font-size: 14px;
+}
+
+.uabb-docs-list .uabb-docs-list-item a:hover {
+	border-bottom: 1px dotted #000;
+}

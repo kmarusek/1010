@@ -1,3 +1,11 @@
+<?php
+/**
+ *  UABB Spacer Gap Module front-end JS php file
+ *
+ *  @package UABB Spacer Gap Module
+ */
+
+?>
 jQuery(document).ready(function(){
 	new UABBSpacerGap({
 		id: '<?php echo $id; ?>',

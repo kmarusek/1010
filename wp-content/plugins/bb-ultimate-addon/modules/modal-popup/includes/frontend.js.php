@@ -1,3 +1,12 @@
+<?php
+/**
+ *  UABB Modal Popup Module front-end JS php file
+ *
+ *  @package UABB Modal Popup Module
+ */
+
+?>
+
 jQuery(document).ready(function($){
 	if( 'function' == typeof UABBModalPopup ) {
 		var UABBModalPopup_<?php echo $id; ?> =  new UABBModalPopup({
@@ -15,25 +24,25 @@ jQuery(document).ready(function($){
 			small_device: '<?php echo $global_settings->responsive_breakpoint; ?>',
 		});
 
-		<?php if ( $settings->modal_width != '' && /*$settings->modal_size == 'custom'*/ ( $settings->content_type == 'youtube' || $settings->content_type == 'vimeo' ) ) { ?>
-			setTimeout(function(){  
+		<?php if ( '' != $settings->modal_width && ( 'youtube' == $settings->content_type || 'vimeo' == $settings->content_type ) ) { ?>
+			setTimeout(function(){
 				$(".uamodal-<?php echo $id; ?> .uabb-modal-content-data").fitVids();
 			}, 300);
 		<?php } ?>
 
-		/*<?php if ( $settings->modal_on == 'custom' && $settings->modal_custom != '' ) { ?>
+		/*<?php if ( 'custom' == $settings->modal_on && '' != $settings->modal_custom ) { ?>
 			var custom_wrap = $("<?php echo $settings->modal_custom; ?>");
 
 			custom_wrap.addClass("uabb-modal-action uabb-trigger");
 			custom_wrap.attr( 'data-modal', "modal-<?php echo $id; ?>" );
 		<?php } ?>*/
-		<?php if ( $settings->modal_on == 'automatic' && ! FLBuilderModel::is_builder_active() ) { ?>
+		<?php if ( 'automatic' == $settings->modal_on && ! FLBuilderModel::is_builder_active() ) { ?>
 			<?php if ( $settings->after_second ) { ?>
-				setTimeout(function() {     
+				setTimeout(function() {
 					UABBModalPopup_<?php echo $id; ?>._showAutomaticModalPopup();
 				},<?php echo $settings->after_second_value . '000'; ?>);
 			<?php } ?>
-			
+
 			<?php if ( $settings->exit_intent ) { ?>
 				$(this).on('mouseleave', function(e){
 					if( e.clientY < 0 ) {

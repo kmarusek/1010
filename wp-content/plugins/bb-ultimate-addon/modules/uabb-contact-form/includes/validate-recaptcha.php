@@ -1,6 +1,15 @@
 <?php
+/**
+ * Do recaptcha validation here so we can only load for php 5.3 and above.
+ * For Valudating Recaptcha.
+ *
+ *  @package UABB Contact Form Module
+ */
 
-// Do recaptcha validation here so we can only load for php 5.3 and above.
+?>
+
+<?php
+
 require_once FL_BUILDER_DIR . 'includes/vendor/recaptcha/autoload.php';
 
 $recaptcha = new \ReCaptcha\ReCaptcha( $settings->uabb_recaptcha_secret_key, new \ReCaptcha\RequestMethod\CurlPost() );

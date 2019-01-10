@@ -34,48 +34,13 @@ class UABBSpacerGap extends FLBuilderModule {
 	}
 }
 
-FLBuilder::register_module(
-	'UABBSpacerGap', array(
-		'spacer_gap_general' => array( // Tab.
-			'title'    => __( 'General', 'uabb' ), // Tab title.
-			'sections' => array( // Tab Sections.
-				'spacer_gap_general' => array( // Section.
-					'title'  => '', // Section Title.
-					'fields' => array( // Section Fields.
-						'desktop_space' => array(
-							'type'        => 'unit',
-							'label'       => __( 'Desktop', 'uabb' ),
-							'size'        => '8',
-							'placeholder' => '10',
-							'class'       => 'uabb-spacer-gap-desktop',
-							'description' => 'px',
-							'help'        => __( 'This value will work for all devices.', 'uabb' ),
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-spacer-gap-preview.uabb-spacer-gap',
-								'property' => 'height',
-								'unit'     => 'px',
-							),
-						),
-						'medium_device' => array(
-							'type'        => 'unit',
-							'label'       => __( 'Medium Device ( Tabs )', 'uabb' ),
-							'default'     => '',
-							'size'        => '8',
-							'class'       => 'uabb-spacer-gap-tab-landscape',
-							'description' => 'px',
-						),
-						'small_device'  => array(
-							'type'        => 'unit',
-							'label'       => __( 'Small Device ( Mobile )', 'uabb' ),
-							'default'     => '',
-							'size'        => '8',
-							'class'       => 'uabb-spacer-gap-mobile',
-							'description' => 'px',
-						),
-					),
-				),
-			),
-		),
-	)
-);
+/*
+ * Condition to verify Beaver Builder version.
+ * And accordingly render the required form settings file.
+ */
+
+if ( UABB_Compatibility::check_bb_version() ) {
+	require_once BB_ULTIMATE_ADDON_DIR . 'modules/spacer-gap/spacer-gap-bb-2-2-compatibility.php';
+} else {
+	require_once BB_ULTIMATE_ADDON_DIR . 'modules/spacer-gap/spacer-gap-bb-less-than-2-2-compatibility.php';
+}

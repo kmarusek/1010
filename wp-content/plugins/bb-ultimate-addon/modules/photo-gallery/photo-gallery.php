@@ -35,7 +35,180 @@ class UABBPhotoGalleryModule extends FLBuilderModule {
 		$this->add_css( 'jquery-magnificpopup' );
 		$this->add_js( 'jquery-masonry' );
 	}
+	/**
+	 * Ensure backwards compatibility with old settings.
+	 *
+	 * @since 1.14.0
+	 * @param object $settings A module settings object.
+	 * @param object $helper A settings compatibility helper.
+	 * @return object
+	 */
+	public function filter_settings( $settings, $helper ) {
 
+		$version_bb_check        = UABB_Compatibility::check_bb_version();
+		$page_migrated           = UABB_Compatibility::check_old_page_migration();
+		$stable_version_new_page = UABB_Compatibility::check_stable_version_new_page();
+
+		if ( $version_bb_check && ( 'yes' == $page_migrated || 'yes' == $stable_version_new_page ) ) {
+
+			// Handle opacity fields.
+			$helper->handle_opacity_inputs( $settings, 'overlay_color_opc', 'overlay_color' );
+			$helper->handle_opacity_inputs( $settings, 'caption_bg_color_opc', 'caption_bg_color' );
+
+			if ( ! isset( $settings->caption_font_typo ) || ! is_array( $settings->caption_font_typo ) ) {
+
+				$settings->caption_font_typo            = array();
+				$settings->caption_font_typo_medium     = array();
+				$settings->caption_font_typo_responsive = array();
+			}
+			if ( isset( $settings->font_family ) ) {
+				if ( isset( $settings->font_family['family'] ) ) {
+					$settings->caption_font_typo['font_family'] = $settings->font_family['family'];
+				}
+				if ( isset( $settings->font_family['weight'] ) ) {
+					if ( 'regular' == $settings->font_family['weight'] ) {
+						$settings->caption_font_typo['font_weight'] = 'normal';
+					} else {
+						$settings->caption_font_typo['font_weight'] = $settings->font_family['weight'];
+					}
+				}
+			}
+			if ( isset( $settings->font_size_unit ) ) {
+
+				$settings->caption_font_typo['font_size'] = array(
+					'length' => $settings->font_size_unit,
+					'unit'   => 'px',
+				);
+
+			}
+			if ( isset( $settings->font_size_unit_medium ) ) {
+
+				$settings->caption_font_typo_medium['font_size'] = array(
+					'length' => $settings->font_size_unit_medium,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->font_size_unit_responsive ) ) {
+
+				$settings->caption_font_typo_responsive['font_size'] = array(
+					'length' => $settings->font_size_unit_responsive,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->line_height_unit ) ) {
+
+				$settings->caption_font_typo['line_height'] = array(
+					'length' => $settings->line_height_unit,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->line_height_unit_medium ) ) {
+
+				$settings->caption_font_typo_medium['line_height'] = array(
+					'length' => $settings->line_height_unit_medium,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->line_height_unit_responsive ) ) {
+
+				$settings->caption_font_typo_responsive['line_height'] = array(
+					'length' => $settings->line_height_unit_responsive,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->transform ) ) {
+
+				$settings->caption_font_typo['text_transform'] = $settings->transform;
+
+			}
+			if ( isset( $settings->letter_spacing ) ) {
+
+				$settings->caption_font_typo['letter_spacing'] = array(
+					'length' => $settings->letter_spacing,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->font_family ) ) {
+				unset( $settings->font_family );
+				unset( $settings->font_size_unit );
+				unset( $settings->font_size_unit_medium );
+				unset( $settings->font_size_unit_responsive );
+				unset( $settings->line_height_unit );
+				unset( $settings->line_height_unit_medium );
+				unset( $settings->line_height_unit_responsive );
+				unset( $settings->transform );
+				unset( $settings->letter_spacing );
+			}
+		} elseif ( $version_bb_check && 'yes' != $page_migrated ) {
+
+			// Handle opacity fields.
+			$helper->handle_opacity_inputs( $settings, 'overlay_color_opc', 'overlay_color' );
+			$helper->handle_opacity_inputs( $settings, 'caption_bg_color_opc', 'caption_bg_color' );
+
+			if ( ! isset( $settings->caption_font_typo ) || ! is_array( $settings->caption_font_typo ) ) {
+
+				$settings->caption_font_typo            = array();
+				$settings->caption_font_typo_medium     = array();
+				$settings->caption_font_typo_responsive = array();
+			}
+			if ( isset( $settings->font_family ) ) {
+
+				if ( isset( $settings->font_family['family'] ) ) {
+					$settings->caption_font_typo['font_family'] = $settings->font_family['family'];
+				}
+				if ( isset( $settings->font_family['weight'] ) ) {
+					if ( 'regular' == $settings->font_family['weight'] ) {
+						$settings->caption_font_typo['font_weight'] = 'normal';
+					} else {
+						$settings->caption_font_typo['font_weight'] = $settings->font_family['weight'];
+					}
+				}
+			}
+			if ( isset( $settings->font_size['desktop'] ) ) {
+				$settings->caption_font_typo['font_size'] = array(
+					'length' => $settings->font_size['desktop'],
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->font_size['medium'] ) ) {
+				$settings->caption_font_typo_medium['font_size'] = array(
+					'length' => $settings->font_size['medium'],
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->font_size['small'] ) ) {
+				$settings->caption_font_typo_responsive['font_size'] = array(
+					'length' => $settings->font_size['small'],
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->line_height['desktop'] ) && isset( $settings->font_size['desktop'] ) && 0 != $settings->font_size['desktop'] ) {
+
+				$settings->caption_font_typo['line_height'] = array(
+					'length' => round( $settings->line_height['desktop'] / $settings->font_size['desktop'], 2 ),
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->line_height['medium'] ) && isset( $settings->font_size['medium'] ) && 0 != $settings->font_size['medium'] ) {
+				$settings->caption_font_typo_medium['line_height'] = array(
+					'length' => round( $settings->line_height['medium'] / $settings->font_size['medium'], 2 ),
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->line_height['small'] ) && isset( $settings->font_size['small'] ) && 0 != $settings->font_size['small'] ) {
+				$settings->caption_font_typo_responsive['line_height'] = array(
+					'length' => round( $settings->line_height['small'] / $settings->font_size['small'], 2 ),
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->font_family ) ) {
+				unset( $settings->font_family );
+				unset( $settings->font_size );
+				unset( $settings->line_height );
+			}
+		}
+		return $settings;
+	}
 	/**
 	 * Function that updates the WordPress Photos
 	 *
@@ -136,10 +309,10 @@ class UABBPhotoGalleryModule extends FLBuilderModule {
 
 				$photo->sizes = (array) ( $photo->sizes );
 
-				if( $id != -1 && $id != ""){
-					if(isset($photo_size)){
-						$temp=wp_get_attachment_image_src( $id, $photo_size );
-						$data->src=$temp[0];
+				if ( -1 != $id && '' != $id ) {
+					if ( isset( $photo_size ) ) {
+						$temp      = wp_get_attachment_image_src( $id, $photo_size );
+						$data->src = $temp[0];
 					}
 				}
 
@@ -163,434 +336,14 @@ class UABBPhotoGalleryModule extends FLBuilderModule {
 	}
 }
 
-/**
- * Register the module and its form settings.
+/*
+ * Condition to verify Beaver Builder version.
+ * And accordingly render the required form settings file.
+ *
  */
-FLBuilder::register_module(
-	'UABBPhotoGalleryModule', array(
-		'general'    => array(
-			'title'    => __( 'General', 'uabb' ),
-			'sections' => array(
-				'general'         => array(
-					'title'  => '',
-					'fields' => array(
-						'layout'        => array(
-							'type'    => 'select',
-							'label'   => __( 'Layout', 'uabb' ),
-							'default' => 'collage',
-							'options' => array(
-								'grid'     => __( 'Grid', 'uabb' ),
-								'masonary' => __( 'Masonry', 'uabb' ),
-							),
-							'toggle'  => array(
-								'grid'     => array(
-									'fields' => array(),
-								),
-								'masonary' => array(
-									'fields' => array(),
-								),
-							),
-						),
-						'photos'        => array(
-							'type'        => 'multiple-photos',
-							'label'       => __( 'Photos', 'uabb' ),
-							'connections' => array( 'multiple-photos' ),
-						),
-						'photo_size'    => array(
-							'type'    => 'select',
-							'label'   => __( 'Photo Size', 'uabb' ),
-							'default' => 'medium',
-							'options' => apply_filters(
-								'uabb_photo_gallery_image_sizes', array(
-									'thumbnail' => __( 'Thumbnail', 'uabb' ),
-									'medium'    => __( 'Medium', 'uabb' ),
-									'full'      => __( 'Full', 'uabb' ),
-								)
-							),
-						),
-						'photo_spacing' => array(
-							'type'        => 'unit',
-							'label'       => __( 'Photo Spacing', 'uabb' ),
-							'mode'        => 'padding',
-							'placeholder' => '20',
-							'size'        => '5',
-							'description' => 'px',
-						),
-						'photo_order'   => array(
-							'type'    => 'select',
-							'label'   => __( 'Display Order', 'uabb' ),
-							'default' => 'normal',
-							'options' => array(
-								'normal' => __( 'Normal', 'uabb' ),
-								'random' => __( 'Random', 'uabb' ),
-							),
-							'toggle'  => array(
-								'grid'     => array(
-									'fields' => array(),
-								),
-								'masonary' => array(
-									'fields' => array(),
-								),
-							),
-						),
-					),
-				),
-				'column_settings' => array(
-					'title'  => __( 'Number of Photos to Show', 'uabb' ),
-					'fields' => array(
-						'grid_column'            => array(
-							'type'    => 'select',
-							'label'   => __( 'Desktop Grid', 'uabb' ),
-							'default' => '4',
-							'help'    => __( 'This is how many images you want to show at one time on desktop.', 'uabb' ),
-							'options' => array(
-								'1'  => __( '1 Column', 'uabb' ),
-								'2'  => __( '2 Columns', 'uabb' ),
-								'3'  => __( '3 Columns', 'uabb' ),
-								'4'  => __( '4 Columns', 'uabb' ),
-								'5'  => __( '5 Columns', 'uabb' ),
-								'6'  => __( '6 Columns', 'uabb' ),
-								'7'  => __( '7 Columns', 'uabb' ),
-								'8'  => __( '8 Columns', 'uabb' ),
-								'9'  => __( '9 Columns', 'uabb' ),
-								'10' => __( '10 Columns', 'uabb' ),
-							),
-						),
-						'medium_grid_column'     => array(
-							'type'    => 'select',
-							'label'   => __( 'Medium Device Grid', 'uabb' ),
-							'default' => '4',
-							'options' => array(
-								'1'  => __( '1 Column', 'uabb' ),
-								'2'  => __( '2 Columns', 'uabb' ),
-								'3'  => __( '3 Columns', 'uabb' ),
-								'4'  => __( '4 Columns', 'uabb' ),
-								'5'  => __( '5 Columns', 'uabb' ),
-								'6'  => __( '6 Columns', 'uabb' ),
-								'7'  => __( '7 Columns', 'uabb' ),
-								'8'  => __( '8 Columns', 'uabb' ),
-								'9'  => __( '9 Columns', 'uabb' ),
-								'10' => __( '10 Columns', 'uabb' ),
-							),
-							'help'    => __( 'This is how many images you want to show at one time on tablet devices.', 'uabb' ),
-						),
-						'responsive_grid_column' => array(
-							'type'    => 'select',
-							'label'   => __( 'Small Device Grid', 'uabb' ),
-							'default' => '4',
-							'options' => array(
-								'1'  => __( '1 Column', 'uabb' ),
-								'2'  => __( '2 Columns', 'uabb' ),
-								'3'  => __( '3 Columns', 'uabb' ),
-								'4'  => __( '4 Columns', 'uabb' ),
-								'5'  => __( '5 Columns', 'uabb' ),
-								'6'  => __( '6 Columns', 'uabb' ),
-								'7'  => __( '7 Columns', 'uabb' ),
-								'8'  => __( '8 Columns', 'uabb' ),
-								'9'  => __( '9 Columns', 'uabb' ),
-								'10' => __( '10 Columns', 'uabb' ),
-							),
-							'help'    => __( 'This is how many images you want to show at one time on mobile devices.', 'uabb' ),
-						),
 
-					),
-				),
-				'photo_settings'  => array(
-					'title'  => __( 'Photo Settings', 'uabb' ),
-					'fields' => array(
-						'show_captions'       => array(
-							'type'    => 'select',
-							'label'   => __( 'Show Captions', 'uabb' ),
-							'default' => 'hover',
-							'options' => array(
-								'0'     => __( 'Never', 'uabb' ),
-								'hover' => __( 'On Hover', 'uabb' ),
-								'below' => __( 'Below Photo', 'uabb' ),
-							),
-							'help'    => __( 'The caption pulls from whatever text you put in the caption area in the media manager for each image.', 'uabb' ),
-							'toggle'  => array(
-								'hover' => array(
-									'tabs' => array( 'typography' ),
-								),
-								'below' => array(
-									'tabs'   => array( 'typography' ),
-									'fields' => array( 'caption_bg_color', 'caption_bg_color_opc' ),
-								),
-							),
-						),
-						'click_action'        => array(
-							'type'    => 'select',
-							'label'   => __( 'Click Action', 'uabb' ),
-							'default' => 'lightbox',
-							'options' => array(
-								'none'     => _x( 'None', 'Click action.', 'uabb' ),
-								'lightbox' => __( 'Lightbox', 'uabb' ),
-								'link'     => __( 'Photo Link', 'uabb' ),
-								'cta-link' => __( 'Custom Link', 'uabb' ),
-							),
-							'toggle'  => array(
-								'link'     => array(
-									'fields' => array( 'click_action_target' ),
-								),
-								'cta-link' => array(
-									'fields' => array( 'click_action_target' ),
-								),
-							),
-							'preview' => array(
-								'type' => 'none',
-							),
-						),
-						'click_action_target' => array(
-							'type'    => 'select',
-							'label'   => __( 'Link Target', 'uabb' ),
-							'help'    => __( 'Controls where CTA link will open after click.', 'uabb' ),
-							'default' => '_blank',
-							'options' => array(
-								'_self'  => __( 'Same Window', 'uabb' ),
-								'_blank' => __( 'New Window', 'uabb' ),
-							),
-							'preview' => array(
-								'type' => 'none',
-							),
-						),
-					),
-				),
-			),
-		),
-		'style'      => array(
-			'title'    => __( 'Style', 'uabb' ),
-			'sections' => array(
-				'general' => array(
-					'title'  => '',
-					'fields' => array(
-						'hover_effects' => array(
-							'type'    => 'select',
-							'label'   => __( 'Image Hover Effect', 'uabb' ),
-							'default' => 'zoom-in',
-							'options' => array(
-								'none'        => __( 'None', 'uabb' ),
-								'from-left'   => __( 'Overlay From Left', 'uabb' ),
-								'from-right'  => __( 'Overlay From Right', 'uabb' ),
-								'from-top'    => __( 'Overlay From Top', 'uabb' ),
-								'from-bottom' => __( 'Overlay From Bottom', 'uabb' ),
-								'zoom-in'     => __( 'Zoom In', 'uabb' ),
-								'zoom-out'    => __( 'Zoom Out', 'uabb' ),
-							),
-							'toggle'  => array(
-								'from-left'   => array(
-									'sections' => array( 'overlay' ),
-								),
-								'from-right'  => array(
-									'sections' => array( 'overlay' ),
-								),
-								'from-top'    => array(
-									'sections' => array( 'overlay' ),
-								),
-								'from-bottom' => array(
-									'sections' => array( 'overlay' ),
-								),
-								'zoom-in'     => array(
-									'sections' => array( 'overlay' ),
-								),
-								'zoom-out'    => array(
-									'sections' => array( 'overlay' ),
-								),
-							),
-							'preview' => 'none',
-						),
-					),
-				),
-				'overlay' => array(
-					'title'  => __( 'Overlay', 'uabb' ),
-					'fields' => array(
-						'overlay_color'      => array(
-							'type'       => 'color',
-							'label'      => __( 'Overlay Color', 'uabb' ),
-							'default'    => '000000',
-							'show_reset' => true,
-							'preview'    => 'none',
-						),
-						'overlay_color_opc'  => array(
-							'type'        => 'text',
-							'label'       => __( 'Opacity', 'uabb' ),
-							'default'     => '70',
-							'description' => '%',
-							'maxlength'   => '3',
-							'size'        => '5',
-						),
-						'icon'               => array(
-							'type'    => 'select',
-							'label'   => __( 'Overlay Icon', 'uabb' ),
-							'default' => '0',
-							'options' => array(
-								'1' => __( 'Enable', 'uabb' ),
-								'0' => __( 'Disable', 'uabb' ),
-							),
-							'toggle'  => array(
-								'1' => array(
-									'fields' => array( 'overlay_icon', 'overlay_icon_size', 'overlay_icon_color' ),
-								),
-							),
-							'preview' => 'none',
-						),
-						'overlay_icon'       => array(
-							'type'        => 'icon',
-							'label'       => __( 'Overlay Icon', 'uabb' ),
-							'preview'     => 'none',
-							'show_remove' => true,
-						),
-						'overlay_icon_size'  => array(
-							'type'        => 'unit',
-							'label'       => __( 'Overlay Icon Size', 'uabb' ),
-							'placeholder' => '16',
-							'maxlength'   => '5',
-							'size'        => '6',
-							'description' => 'px',
-							'preview'     => 'none',
-						),
-						'overlay_icon_color' => array(
-							'type'       => 'color',
-							'label'      => __( 'Overlay Icon Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-							'preview'    => 'none',
-						),
-					),
-				),
-			),
-		),
-		'typography' => array(
-			'title'    => __( 'Typography', 'uabb' ),
-			'sections' => array(
-				'typography' => array(
-					'title'  => __( 'Caption', 'uabb' ),
-					'fields' => array(
-						'tag_selection'        => array(
-							'type'    => 'select',
-							'label'   => __( 'Tag', 'uabb' ),
-							'default' => 'h3',
-							'options' => array(
-								'h1'   => __( 'H1', 'uabb' ),
-								'h2'   => __( 'H2', 'uabb' ),
-								'h3'   => __( 'H3', 'uabb' ),
-								'h4'   => __( 'H4', 'uabb' ),
-								'h5'   => __( 'H5', 'uabb' ),
-								'h6'   => __( 'H6', 'uabb' ),
-								'div'  => __( 'Div', 'uabb' ),
-								'p'    => __( 'p', 'uabb' ),
-								'span' => __( 'span', 'uabb' ),
-							),
-						),
-						'font_family'          => array(
-							'type'    => 'font',
-							'label'   => __( 'Font Family', 'uabb' ),
-							'default' => array(
-								'family' => 'Default',
-								'weight' => 'Default',
-							),
-							'preview' => array(
-								'type'     => 'font',
-								'selector' => '.uabb-photo-gallery-caption',
-							),
-						),
-						'font_size_unit'       => array(
-							'type'        => 'unit',
-							'label'       => __( 'Font Size', 'uabb' ),
-							'description' => 'px',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-photo-gallery-caption',
-								'property' => 'font-size',
-								'unit'     => 'px',
-							),
-							'responsive'  => array(
-								'placeholder' => array(
-									'default'    => '',
-									'medium'     => '',
-									'responsive' => '',
-								),
-							),
-						),
-						'line_height_unit'     => array(
-							'type'        => 'unit',
-							'label'       => __( 'Line Height', 'uabb' ),
-							'description' => 'em',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-photo-gallery-caption',
-								'property' => 'line-height',
-								'unit'     => 'em',
-							),
-							'responsive'  => array(
-								'placeholder' => array(
-									'default'    => '',
-									'medium'     => '',
-									'responsive' => '',
-								),
-							),
-						),
-						'color'                => array(
-							'type'       => 'color',
-							'label'      => __( 'Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-							'preview'    => array(
-								'type'     => 'css',
-								'selector' => '.uabb-photo-gallery-caption',
-								'property' => 'color',
-							),
-						),
-						'caption_bg_color'     => array(
-							'type'       => 'color',
-							'label'      => __( 'Background Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-							'preview'    => array(
-								'type'     => 'css',
-								'selector' => '.uabb-photo-gallery-caption',
-								'property' => 'background',
-							),
-						),
-						'caption_bg_color_opc' => array(
-							'type'        => 'text',
-							'label'       => __( 'Opacity', 'uabb' ),
-							'default'     => '',
-							'description' => '%',
-							'maxlength'   => '3',
-							'size'        => '5',
-						),
-						'transform'            => array(
-							'type'    => 'select',
-							'label'   => __( 'Transform', 'uabb' ),
-							'default' => '',
-							'options' => array(
-								''           => 'Default',
-								'uppercase'  => 'UPPERCASE',
-								'lowercase'  => 'lowercase',
-								'capitalize' => 'Capitalize',
-							),
-							'preview' => array(
-								'type'     => 'css',
-								'selector' => '.uabb-photo-gallery-caption',
-								'property' => 'text-transform',
-							),
-						),
-						'letter_spacing'       => array(
-							'type'        => 'unit',
-							'label'       => __( 'Letter Spacing', 'uabb' ),
-							'placeholder' => '0',
-							'size'        => '5',
-							'description' => 'px',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-photo-gallery-caption',
-								'property' => 'letter-spacing',
-								'unit'     => 'px',
-							),
-						),
-					),
-				),
-			),
-		),
-	)
-);
+if ( UABB_Compatibility::check_bb_version() ) {
+	require_once BB_ULTIMATE_ADDON_DIR . 'modules/photo-gallery/photo-gallery-bb-2-2-compatibility.php';
+} else {
+	require_once BB_ULTIMATE_ADDON_DIR . 'modules/photo-gallery/photo-gallery-bb-less-than-2-2-compatibility.php';
+}

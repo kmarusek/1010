@@ -1,29 +1,34 @@
-<?php
+<?php 
+/**
+ *  UABB Countdown Module front-end JS php file
+ *
+ *  @package UABB Countdown Module
+ */
 
-	//Set Labels If User Entered Some
-	$fixed_plural_year = ( isset( $settings->year_plural_label ) && $settings->year_plural_label != "" && $settings->year_custom_label == "yes" ) ? $settings->year_plural_label : "Years";
+//Set Labels If User Entered Some
+$fixed_plural_year = ( isset( $settings->year_plural_label ) && $settings->year_plural_label != "" && $settings->year_custom_label == "yes" ) ? $settings->year_plural_label : "Years";
 
-	$fixed_singular_year = ( isset( $settings->year_singular_label ) && $settings->year_singular_label != "" && $settings->year_custom_label == "yes" ) ? $settings->year_singular_label : "Year";
+$fixed_singular_year = ( isset( $settings->year_singular_label ) && $settings->year_singular_label != "" && $settings->year_custom_label == "yes" ) ? $settings->year_singular_label : "Year";
 
-	$fixed_plural_month = ( isset( $settings->month_plural_label ) && $settings->month_plural_label != "" && $settings->month_custom_label == "yes" ) ? $settings->month_plural_label : "Months";
+$fixed_plural_month = ( isset( $settings->month_plural_label ) && $settings->month_plural_label != "" && $settings->month_custom_label == "yes" ) ? $settings->month_plural_label : "Months";
 
-	$fixed_singular_month = ( isset( $settings->month_singular_label ) && $settings->month_singular_label != "" && $settings->month_custom_label == "yes" ) ? $settings->month_singular_label : "Month";
+$fixed_singular_month = ( isset( $settings->month_singular_label ) && $settings->month_singular_label != "" && $settings->month_custom_label == "yes" ) ? $settings->month_singular_label : "Month";
 
-	$fixed_plural_day = ( isset( $settings->day_plural_label ) && $settings->day_plural_label != "" && $settings->day_custom_label == "yes" ) ? $settings->day_plural_label : "Days";
+$fixed_plural_day = ( isset( $settings->day_plural_label ) && $settings->day_plural_label != "" && $settings->day_custom_label == "yes" ) ? $settings->day_plural_label : "Days";
 
-	$fixed_singular_day = ( isset( $settings->day_singular_label ) && $settings->day_singular_label != "" && $settings->day_custom_label == "yes" ) ? $settings->day_singular_label : "Day";
+$fixed_singular_day = ( isset( $settings->day_singular_label ) && $settings->day_singular_label != "" && $settings->day_custom_label == "yes" ) ? $settings->day_singular_label : "Day";
 
-	$fixed_plural_hour = ( isset( $settings->hour_plural_label ) && $settings->hour_plural_label != "" && $settings->hour_custom_label == "yes" ) ? $settings->hour_plural_label : "Hours";
+$fixed_plural_hour = ( isset( $settings->hour_plural_label ) && $settings->hour_plural_label != "" && $settings->hour_custom_label == "yes" ) ? $settings->hour_plural_label : "Hours";
 
-	$fixed_singular_hour = ( isset( $settings->hour_singular_label ) && $settings->hour_singular_label != "" && $settings->hour_custom_label == "yes" ) ? $settings->hour_singular_label : "Hour";
+$fixed_singular_hour = ( isset( $settings->hour_singular_label ) && $settings->hour_singular_label != "" && $settings->hour_custom_label == "yes" ) ? $settings->hour_singular_label : "Hour";
 
-	$fixed_plural_minute = ( isset( $settings->minute_plural_label ) && $settings->minute_plural_label != "" && $settings->minute_custom_label == "yes" ) ? $settings->minute_plural_label : "Minutes";
+$fixed_plural_minute = ( isset( $settings->minute_plural_label ) && $settings->minute_plural_label != "" && $settings->minute_custom_label == "yes" ) ? $settings->minute_plural_label : "Minutes";
 
-	$fixed_singular_minute = ( isset( $settings->minute_singular_label ) && $settings->minute_singular_label != "" && $settings->minute_custom_label == "yes" ) ? $settings->minute_singular_label : "Minute";
+$fixed_singular_minute = ( isset( $settings->minute_singular_label ) && $settings->minute_singular_label != "" && $settings->minute_custom_label == "yes" ) ? $settings->minute_singular_label : "Minute";
 
-	$fixed_plural_second = ( isset( $settings->second_plural_label ) && $settings->second_plural_label != "" && $settings->second_custom_label == "yes" ) ? $settings->second_plural_label : "Seconds";
+$fixed_plural_second = ( isset( $settings->second_plural_label ) && $settings->second_plural_label != "" && $settings->second_custom_label == "yes" ) ? $settings->second_plural_label : "Seconds";
 
-	$fixed_singular_second = ( isset( $settings->second_singular_label ) && $settings->second_singular_label != "" && $settings->second_custom_label == "yes" ) ? $settings->second_singular_label : "Second";
+$fixed_singular_second = ( isset( $settings->second_singular_label ) && $settings->second_singular_label != "" && $settings->second_custom_label == "yes" ) ? $settings->second_singular_label : "Second";
 ?>
 
 <?php if ( $settings->timer_style == "normal" && $settings->normal_options == "normal_below" ) { ?>

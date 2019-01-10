@@ -34,7 +34,910 @@ class UABBCreativeMenu extends FLBuilderModule {
 
 		$this->add_css( 'font-awesome' );
 	}
+	/**
+	 * Ensure backwards compatibility with old settings.
+	 *
+	 * @since 1.14.0
+	 * @param object $settings A module settings object.
+	 * @param object $helper A settings compatibility helper.
+	 * @return object
+	 */
+	public function filter_settings( $settings, $helper ) {
 
+		$version_bb_check        = UABB_Compatibility::check_bb_version();
+		$page_migrated           = UABB_Compatibility::check_old_page_migration();
+		$stable_version_new_page = UABB_Compatibility::check_stable_version_new_page();
+
+		if ( $version_bb_check && ( 'yes' == $page_migrated || 'yes' == $stable_version_new_page ) ) {
+			// Handle old submenu border settings.
+			if ( ! isset( $settings->submenu_border ) || empty( $settings->submenu_border ) ) {
+
+				$settings->submenu_border            = array();
+				$settings->submenu_border_medium     = array();
+				$settings->submenu_border_responsive = array();
+
+				// Border style, color, and width.
+				if ( isset( $settings->creative_submenu_border_style ) && isset( $settings->creative_submenu_border_color ) ) {
+					$settings->submenu_border['style'] = $settings->creative_submenu_border_style;
+					$settings->submenu_border['color'] = $settings->creative_submenu_border_color;
+
+					if ( isset( $settings->creative_submenu_border_width_dimension_top ) && isset( $settings->creative_submenu_border_width_dimension_right ) && isset( $settings->creative_submenu_border_width_dimension_bottom ) && isset( $settings->creative_submenu_border_width_dimension_left ) ) {
+							$settings->submenu_border['width'] = array(
+								'top'    => $settings->creative_submenu_border_width_dimension_top,
+								'right'  => $settings->creative_submenu_border_width_dimension_right,
+								'bottom' => $settings->creative_submenu_border_width_dimension_bottom,
+								'left'   => $settings->creative_submenu_border_width_dimension_left,
+							);
+						unset( $settings->creative_submenu_border_width_dimension_top );
+						unset( $settings->creative_submenu_border_width_dimension_right );
+						unset( $settings->creative_submenu_border_width_dimension_bottom );
+						unset( $settings->creative_submenu_border_width_dimension_left );
+					}
+
+					if ( isset( $settings->creative_submenu_border_width_dimension_top_medium ) && isset( $settings->creative_submenu_border_width_dimension_right_medium ) && isset( $settings->creative_submenu_border_width_dimension_bottom_medium ) && isset( $settings->creative_submenu_border_width_dimension_left_medium ) ) {
+							$settings->submenu_border_medium['width'] = array(
+								'top'    => $settings->creative_submenu_border_width_dimension_top_medium,
+								'right'  => $settings->creative_submenu_border_width_dimension_right_medium,
+								'bottom' => $settings->creative_submenu_border_width_dimension_bottom_medium,
+								'left'   => $settings->creative_submenu_border_width_dimension_left_medium,
+							);
+						unset( $settings->creative_submenu_border_width_dimension_top_medium );
+						unset( $settings->creative_submenu_border_width_dimension_right_medium );
+						unset( $settings->creative_submenu_border_width_dimension_bottom_medium );
+						unset( $settings->creative_submenu_border_width_dimension_left_medium );
+					}
+
+					if ( isset( $settings->creative_submenu_border_width_dimension_top_responsive ) && isset( $settings->creative_submenu_border_width_dimension_right_responsive ) && isset( $settings->creative_submenu_border_width_dimension_bottom_responsive ) && isset( $settings->creative_submenu_border_width_dimension_left_responsive ) ) {
+							$settings->submenu_border_responsive['width'] = array(
+								'top'    => $settings->creative_submenu_border_width_dimension_top_responsive,
+								'right'  => $settings->creative_submenu_border_width_dimension_right_responsive,
+								'bottom' => $settings->creative_submenu_border_width_dimension_bottom_responsive,
+								'left'   => $settings->creative_submenu_border_width_dimension_left_responsive,
+							);
+						unset( $settings->creative_submenu_border_width_dimension_top_responsive );
+						unset( $settings->creative_submenu_border_width_dimension_right_responsive );
+						unset( $settings->creative_submenu_border_width_dimension_bottom_responsive );
+						unset( $settings->creative_submenu_border_width_dimension_left_responsive );
+					}
+				}
+			}
+
+			// Handle old menu border settings.
+			if ( ! isset( $settings->menu_border ) || empty( $settings->menu_border ) ) {
+
+				$settings->menu_border            = array();
+				$settings->menu_border_medium     = array();
+				$settings->menu_border_responsive = array();
+
+				// Border style, color, and width.
+				if ( isset( $settings->creative_menu_border_style ) && isset( $settings->creative_menu_border_color ) ) {
+					$settings->menu_border['style'] = $settings->creative_menu_border_style;
+					$settings->menu_border['color'] = $settings->creative_menu_border_color;
+
+					if ( isset( $settings->creative_menu_border_width_dimension_top ) && isset( $settings->creative_menu_border_width_dimension_right ) && isset( $settings->creative_menu_border_width_dimension_bottom ) && isset( $settings->creative_menu_border_width_dimension_left ) ) {
+							$settings->menu_border['width'] = array(
+								'top'    => $settings->creative_menu_border_width_dimension_top,
+								'right'  => $settings->creative_menu_border_width_dimension_right,
+								'bottom' => $settings->creative_menu_border_width_dimension_bottom,
+								'left'   => $settings->creative_menu_border_width_dimension_left,
+							);
+						unset( $settings->creative_menu_border_width_dimension_top );
+						unset( $settings->creative_menu_border_width_dimension_right );
+						unset( $settings->creative_menu_border_width_dimension_bottom );
+						unset( $settings->creative_menu_border_width_dimension_left );
+					}
+
+					if ( isset( $settings->creative_menu_border_width_dimension_top_medium ) && isset( $settings->creative_menu_border_width_dimension_right_medium ) && isset( $settings->creative_menu_border_width_dimension_bottom_medium ) && isset( $settings->creative_menu_border_width_dimension_left_medium ) ) {
+							$settings->menu_border_medium['width'] = array(
+								'top'    => $settings->creative_menu_border_width_dimension_top_medium,
+								'right'  => $settings->creative_menu_border_width_dimension_right_medium,
+								'bottom' => $settings->creative_menu_border_width_dimension_bottom_medium,
+								'left'   => $settings->creative_menu_border_width_dimension_left_medium,
+							);
+						unset( $settings->creative_menu_border_width_dimension_top_medium );
+						unset( $settings->creative_menu_border_width_dimension_right_medium );
+						unset( $settings->creative_menu_border_width_dimension_bottom_medium );
+						unset( $settings->creative_menu_border_width_dimension_left_medium );
+					}
+
+					if ( isset( $settings->creative_menu_border_width_dimension_top_responsive ) && isset( $settings->creative_menu_border_width_dimension_right_responsive ) && isset( $settings->creative_menu_border_width_dimension_bottom_responsive ) && isset( $settings->creative_menu_border_width_dimension_left_responsive ) ) {
+							$settings->menu_border_responsive['width'] = array(
+								'top'    => $settings->creative_menu_border_width_dimension_top_responsive,
+								'right'  => $settings->creative_menu_border_width_dimension_right_responsive,
+								'bottom' => $settings->creative_menu_border_width_dimension_bottom_responsive,
+								'left'   => $settings->creative_menu_border_width_dimension_left_responsive,
+							);
+						unset( $settings->creative_menu_border_width_dimension_top_responsive );
+						unset( $settings->creative_menu_border_width_dimension_right_responsive );
+						unset( $settings->creative_menu_border_width_dimension_bottom_responsive );
+						unset( $settings->creative_menu_border_width_dimension_left_responsive );
+					}
+				}
+			}
+
+			// For overall alignment and responsive alignment settings.
+			if ( isset( $settings->creative_menu_alignment ) ) {
+				$settings->creative_menu_alignment = $settings->creative_menu_alignment;
+			}
+			if ( isset( $settings->creative_menu_navigation_alignment ) ) {
+				$settings->creative_menu_navigation_alignment = $settings->creative_menu_navigation_alignment;
+			}
+			if ( isset( $settings->creative_menu_responsive_alignment ) ) {
+				$settings->creative_menu_responsive_alignment = $settings->creative_menu_responsive_alignment;
+			}
+
+			// For menu typography.
+			if ( ! isset( $settings->creative_menu_link_font_typo ) || ! is_array( $settings->creative_menu_link_font_typo ) ) {
+
+				$settings->creative_menu_link_font_typo            = array();
+				$settings->creative_menu_link_font_typo_medium     = array();
+				$settings->creative_menu_link_font_typo_responsive = array();
+			}
+			if ( isset( $settings->creative_menu_link_font_size ) || isset( $settings->creative_menu_link_text_transform ) || isset( $settings->creative_menu_link_letter_spacing ) || isset( $settings->creative_menu_link_font_family['family'] ) ) {
+
+				if ( ( isset( $settings->creative_menu_link_font_size ) && 'custom' == $settings->creative_menu_link_font_size ) || ( isset( $settings->creative_menu_link_line_height ) && 'custom' == $settings->creative_menu_link_line_height ) || isset( $settings->creative_menu_link_text_transform ) || ( isset( $settings->creative_menu_link_letter_spacing ) && '' !== $settings->creative_menu_link_letter_spacing ) || ( isset( $settings->creative_menu_link_font_family['family'] ) && 'Default' !== $settings->creative_menu_link_font_family['family'] ) ) {
+
+					$settings->creative_menu_link_typo = 'custom';
+				}
+			}
+			if ( isset( $settings->creative_menu_link_font_family ) ) {
+
+				if ( isset( $settings->creative_menu_link_font_family['family'] ) ) {
+
+					$settings->creative_menu_link_font_typo['font_family'] = $settings->creative_menu_link_font_family['family'];
+				}
+				if ( isset( $settings->creative_menu_link_font_family['weight'] ) ) {
+
+					if ( 'regular' == $settings->creative_menu_link_font_family['weight'] ) {
+						$settings->creative_menu_link_font_typo['font_weight'] = 'normal';
+					} else {
+						$settings->creative_menu_link_font_typo['font_weight'] = $settings->creative_menu_link_font_family['weight'];
+					}
+				}
+			}
+			if ( isset( $settings->creative_menu_link_font_size_custom ) ) {
+
+				$settings->creative_menu_link_font_typo['font_size'] = array(
+					'length' => $settings->creative_menu_link_font_size_custom,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->creative_menu_link_font_size_custom_medium ) ) {
+				$settings->creative_menu_link_font_typo_medium['font_size'] = array(
+					'length' => $settings->creative_menu_link_font_size_custom_medium,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->creative_menu_link_font_size_custom_responsive ) ) {
+				$settings->creative_menu_link_font_typo_responsive['font_size'] = array(
+					'length' => $settings->creative_menu_link_font_size_custom_responsive,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->creative_menu_link_line_height_custom ) ) {
+
+				$settings->creative_menu_link_font_typo['line_height'] = array(
+					'length' => $settings->creative_menu_link_line_height_custom,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->creative_menu_link_line_height_custom_medium ) ) {
+				$settings->creative_menu_link_font_typo_medium['line_height'] = array(
+					'length' => $settings->creative_menu_link_line_height_custom_medium,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->creative_menu_link_line_height_custom_responsive ) ) {
+				$settings->creative_menu_link_font_typo_responsive['line_height'] = array(
+					'length' => $settings->creative_menu_link_line_height_custom_responsive,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->creative_menu_link_text_transform ) ) {
+
+				$settings->creative_menu_link_font_typo['text_transform'] = $settings->creative_menu_link_text_transform;
+			}
+
+			// For submenu typography settings.
+			if ( ! isset( $settings->creative_submenu_link_font_typo ) || ! is_array( $settings->creative_submenu_link_font_typo ) ) {
+
+				$settings->creative_submenu_link_font_typo            = array();
+				$settings->creative_submenu_link_font_typo_medium     = array();
+				$settings->creative_submenu_link_font_typo_responsive = array();
+			}
+			if ( isset( $settings->creative_submenu_link_font_size ) || isset( $settings->creative_submenu_link_line_height ) || isset( $settings->creative_submenu_link_text_transform ) || isset( $settings->creative_submenu_link_letter_spacing ) || isset( $settings->creative_submenu_link_font_family['family'] ) ) {
+
+				if ( ( isset( $settings->creative_submenu_link_font_size ) && 'custom' == $settings->creative_submenu_link_font_size ) || ( isset( $settings->creative_submenu_link_line_height ) && 'custom' == $settings->creative_submenu_link_line_height ) || ( isset( $settings->creative_submenu_link_text_transform ) && '' !== $settings->creative_submenu_link_text_transform ) || ( isset( $settings->creative_submenu_link_letter_spacing ) && '' !== $settings->creative_submenu_link_letter_spacing ) || ( isset( $settings->creative_submenu_link_font_family['family'] ) && 'Default' !== $settings->creative_submenu_link_font_family['family'] ) ) {
+
+					$settings->creative_submenu_link_typogarphy = 'custom';
+				}
+			}
+			if ( isset( $settings->creative_submenu_link_font_family ) ) {
+
+				if ( isset( $settings->creative_submenu_link_font_family['family'] ) ) {
+
+					$settings->creative_submenu_link_font_typo['font_family'] = $settings->creative_submenu_link_font_family['family'];
+				}
+				if ( isset( $settings->creative_submenu_link_font_family['weight'] ) ) {
+
+					if ( 'regular' == $settings->creative_submenu_link_font_family['weight'] ) {
+						$settings->creative_submenu_link_font_typo['font_weight'] = 'normal';
+					} else {
+						$settings->creative_submenu_link_font_typo['font_weight'] = $settings->creative_submenu_link_font_family['weight'];
+					}
+				}
+			}
+			if ( isset( $settings->creative_submenu_link_font_size_custom ) ) {
+
+				$settings->creative_submenu_link_font_typo['font_size'] = array(
+					'length' => $settings->creative_submenu_link_font_size_custom,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->creative_submenu_link_font_size_custom_medium ) ) {
+				$settings->creative_submenu_link_font_typo_medium['font_size'] = array(
+					'length' => $settings->creative_submenu_link_font_size_custom_medium,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->creative_submenu_link_font_size_custom_responsive ) ) {
+				$settings->creative_submenu_link_font_typo_responsive['font_size'] = array(
+					'length' => $settings->creative_submenu_link_font_size_custom_responsive,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->creative_submenu_link_line_height_custom ) ) {
+
+				$settings->creative_submenu_link_font_typo['line_height'] = array(
+					'length' => $settings->creative_submenu_link_line_height_custom,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->creative_submenu_link_line_height_custom_medium ) ) {
+				$settings->creative_submenu_link_font_typo_medium['line_height'] = array(
+					'length' => $settings->creative_submenu_link_line_height_custom_medium,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->creative_submenu_link_line_height_custom_responsive ) ) {
+				$settings->creative_submenu_link_font_typo_responsive['line_height'] = array(
+					'length' => $settings->creative_submenu_link_line_height_custom_responsive,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->creative_submenu_link_text_transform ) ) {
+
+				$settings->creative_submenu_link_font_typo['text_transform'] = $settings->creative_submenu_link_text_transform;
+
+			}
+			if ( isset( $settings->creative_submenu_link_letter_spacing ) ) {
+
+				$settings->creative_submenu_link_font_typo['letter_spacing'] = array(
+					'length' => $settings->creative_submenu_link_letter_spacing,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->creative_menu_link_font_family ) ) {
+				unset( $settings->creative_menu_link_font_family );
+				unset( $settings->creative_menu_link_font_size_custom );
+				unset( $settings->creative_menu_link_font_size_custom_medium );
+				unset( $settings->creative_menu_link_font_size_custom_responsive );
+				unset( $settings->creative_menu_link_line_height_custom );
+				unset( $settings->creative_menu_link_line_height_custom_medium );
+				unset( $settings->creative_menu_link_line_height_custom_responsive );
+				unset( $settings->creative_menu_link_text_transform );
+				unset( $settings->creative_menu_link_letter_spacing );
+			}
+			if ( isset( $settings->creative_submenu_link_font_family ) ) {
+				unset( $settings->creative_submenu_link_font_family );
+				unset( $settings->creative_submenu_link_font_size_custom );
+				unset( $settings->creative_submenu_link_font_size_custom_medium );
+				unset( $settings->creative_submenu_link_font_size_custom_responsive );
+				unset( $settings->creative_submenu_link_line_height_custom );
+				unset( $settings->creative_submenu_link_line_height_custom_medium );
+				unset( $settings->creative_submenu_link_line_height_custom_responsive );
+				unset( $settings->creative_submenu_link_text_transform );
+				unset( $settings->creative_submenu_link_letter_spacing );
+			}
+		} elseif ( $version_bb_check && 'yes' != $page_migrated ) {
+
+			// Menu margin setting.
+			if ( isset( $settings->creative_menu_link_margin ) ) {
+
+				$value = '';
+				$value = str_replace( 'px', '', $settings->creative_menu_link_margin );
+
+				$output       = array();
+				$uabb_default = array_filter( preg_split( '/\s*;\s*/', $value ) );
+
+				$settings->creative_menu_link_margin_dimension_top    = '';
+				$settings->creative_menu_link_margin_dimension_bottom = '';
+				$settings->creative_menu_link_margin_dimension_left   = '';
+				$settings->creative_menu_link_margin_dimension_right  = '';
+
+				foreach ( $uabb_default as $val ) {
+					$new      = explode( ':', $val );
+					$output[] = $new;
+				}
+				for ( $i = 0; $i < count( $output ); $i++ ) {
+					switch ( $output[ $i ][0] ) {
+						case 'margin-top':
+							$settings->creative_menu_link_margin_dimension_top = (int) $output[ $i ][1];
+							break;
+						case 'margin-bottom':
+							$settings->creative_menu_link_margin_dimension_bottom = (int) $output[ $i ][1];
+							break;
+						case 'margin-right':
+							$settings->creative_menu_link_margin_dimension_right = (int) $output[ $i ][1];
+							break;
+						case 'margin-left':
+							$settings->creative_menu_link_margin_dimension_left = (int) $output[ $i ][1];
+							break;
+						case 'margin':
+							$settings->creative_menu_link_margin_dimension_top    = (int) $output[ $i ][1];
+							$settings->creative_menu_link_margin_dimension_bottom = (int) $output[ $i ][1];
+							$settings->creative_menu_link_margin_dimension_left   = (int) $output[ $i ][1];
+							$settings->creative_menu_link_margin_dimension_right  = (int) $output[ $i ][1];
+							break;
+					}
+				}
+			}
+
+			// Menu link spacing.
+			if ( isset( $settings->creative_menu_link_spacing ) ) {
+
+				$value = '';
+				$value = str_replace( 'px', '', $settings->creative_menu_link_spacing );
+
+				$output       = array();
+				$uabb_default = array_filter( preg_split( '/\s*;\s*/', $value ) );
+				$settings->creative_menu_link_spacing_dimension_top    = '';
+				$settings->creative_menu_link_spacing_dimension_bottom = '';
+				$settings->creative_menu_link_spacing_dimension_right  = '';
+				$settings->creative_menu_link_spacing_dimension_left   = '';
+				foreach ( $uabb_default as $val ) {
+					$new      = explode( ':', $val );
+					$output[] = $new;
+				}
+				for ( $i = 0; $i < count( $output ); $i++ ) {
+					switch ( $output[ $i ][0] ) {
+
+						case 'padding-top':
+							$settings->creative_menu_link_spacing_dimension_top = (int) $output[ $i ][1];
+							break;
+						case 'padding-bottom':
+							$settings->creative_menu_link_spacing_dimension_bottom = (int) $output[ $i ][1];
+							break;
+						case 'padding-right':
+							$settings->creative_menu_link_spacing_dimension_right = (int) $output[ $i ][1];
+							break;
+						case 'padding-left':
+							$settings->creative_menu_link_spacing_dimension_left = (int) $output[ $i ][1];
+							break;
+						case 'padding':
+							$settings->creative_menu_link_spacing_dimension_top    = (int) $output[ $i ][1];
+							$settings->creative_menu_link_spacing_dimension_bottom = (int) $output[ $i ][1];
+							$settings->creative_menu_link_spacing_dimension_left   = (int) $output[ $i ][1];
+							$settings->creative_menu_link_spacing_dimension_right  = (int) $output[ $i ][1];
+							break;
+					}
+				}
+			}
+
+			// Sub menu padding setting.
+			if ( isset( $settings->creative_submenu_link_padding ) ) {
+
+				$value = '';
+				$value = str_replace( 'px', '', $settings->creative_submenu_link_padding );
+
+				$output       = array();
+				$uabb_default = array_filter( preg_split( '/\s*;\s*/', $value ) );
+				$settings->creative_submenu_link_padding_dimension_top    = '';
+				$settings->creative_submenu_link_padding_dimension_bottom = '';
+				$settings->creative_submenu_link_padding_dimension_right  = '';
+				$settings->creative_submenu_link_padding_dimension_left   = '';
+				foreach ( $uabb_default as $val ) {
+					$new      = explode( ':', $val );
+					$output[] = $new;
+				}
+				for ( $i = 0; $i < count( $output ); $i++ ) {
+					switch ( $output[ $i ][0] ) {
+
+						case 'padding-top':
+							$settings->creative_submenu_link_padding_dimension_top = (int) $output[ $i ][1];
+							break;
+						case 'padding-bottom':
+							$settings->creative_submenu_link_padding_dimension_bottom = (int) $output[ $i ][1];
+							break;
+						case 'padding-right':
+							$settings->creative_submenu_link_padding_dimension_right = (int) $output[ $i ][1];
+							break;
+						case 'padding-left':
+							$settings->creative_submenu_link_padding_dimension_left = (int) $output[ $i ][1];
+							break;
+						case 'padding':
+							$settings->creative_submenu_link_padding_dimension_top    = (int) $output[ $i ][1];
+							$settings->creative_submenu_link_padding_dimension_bottom = (int) $output[ $i ][1];
+							$settings->creative_submenu_link_padding_dimension_left   = (int) $output[ $i ][1];
+							$settings->creative_submenu_link_padding_dimension_right  = (int) $output[ $i ][1];
+							break;
+					}
+				}
+			}
+
+			// Menu responsive overlay padding setting.
+			if ( isset( $settings->creative_menu_responsive_overlay_padding ) ) {
+
+				$value = '';
+				$value = str_replace( 'px', '', $settings->creative_menu_responsive_overlay_padding );
+
+				$output       = array();
+				$uabb_default = array_filter( preg_split( '/\s*;\s*/', $value ) );
+				$settings->creative_menu_responsive_overlay_padding_dimension_top    = '';
+				$settings->creative_menu_responsive_overlay_padding_dimension_bottom = '';
+				$settings->creative_menu_responsive_overlay_padding_dimension_right  = '';
+				$settings->creative_menu_responsive_overlay_padding_dimension_left   = '';
+				foreach ( $uabb_default as $val ) {
+					$new      = explode( ':', $val );
+					$output[] = $new;
+				}
+				for ( $i = 0; $i < count( $output ); $i++ ) {
+					switch ( $output[ $i ][0] ) {
+
+						case 'padding-top':
+							$settings->creative_menu_responsive_overlay_padding_dimension_top = (int) $output[ $i ][1];
+							break;
+						case 'padding-bottom':
+							$settings->creative_menu_responsive_overlay_padding_dimension_bottom = (int) $output[ $i ][1];
+							break;
+						case 'padding-right':
+							$settings->creative_menu_responsive_overlay_padding_dimension_right = (int) $output[ $i ][1];
+							break;
+						case 'padding-left':
+							$settings->creative_menu_responsive_overlay_padding_dimension_left = (int) $output[ $i ][1];
+							break;
+						case 'padding':
+							$settings->creative_menu_responsive_overlay_padding_dimension_top    = (int) $output[ $i ][1];
+							$settings->creative_menu_responsive_overlay_padding_dimension_bottom = (int) $output[ $i ][1];
+							$settings->creative_menu_responsive_overlay_padding_dimension_left   = (int) $output[ $i ][1];
+							$settings->creative_menu_responsive_overlay_padding_dimension_right  = (int) $output[ $i ][1];
+							break;
+					}
+				}
+			}
+
+			// Handle old submenu border settings.
+			if ( ! isset( $settings->submenu_border ) || empty( $settings->submenu_border ) ) {
+
+				$settings->submenu_border = array();
+
+				// Border style, color, and width.
+				if ( isset( $settings->creative_submenu_border_style ) ) {
+					$settings->submenu_border['style'] = $settings->creative_submenu_border_style;
+					$settings->submenu_border['color'] = $settings->creative_submenu_border_color;
+
+					if ( isset( $settings->creative_submenu_border_width ) && ! isset( $settings->creative_submenu_border_width_dimension_top ) && ! isset( $settings->creative_submenu_border_width_dimension_bottom ) && ! isset( $settings->creative_submenu_border_width_dimension_left ) && ! isset( $settings->creative_submenu_border_width_dimension_right ) ) {
+
+						$value = '';
+						$value = str_replace( 'px', '', $settings->creative_submenu_border_width );
+
+						$output       = array();
+						$uabb_default = array_filter( preg_split( '/\s*;\s*/', $value ) );
+						$settings->creative_submenu_border_width_dimension_top    = '';
+						$settings->creative_submenu_border_width_dimension_bottom = '';
+						$settings->creative_submenu_border_width_dimension_right  = '';
+						$settings->creative_submenu_border_width_dimension_left   = '';
+						foreach ( $uabb_default as $val ) {
+							$new      = explode( ':', $val );
+							$output[] = $new;
+						}
+						for ( $i = 0; $i < count( $output ); $i++ ) {
+							switch ( $output[ $i ][0] ) {
+
+								case 'padding-top':
+									$submenu_border_top = (int) $output[ $i ][1];
+									break;
+								case 'padding-bottom':
+									$submenu_border_bottom = (int) $output[ $i ][1];
+									break;
+								case 'padding-right':
+									$submenu_border_right = (int) $output[ $i ][1];
+									break;
+								case 'padding-left':
+									$submenu_border_left = (int) $output[ $i ][1];
+									break;
+								case 'padding':
+									$settings->creative_submenu_border_width_dimension_top    = (int) $output[ $i ][1];
+									$settings->creative_submenu_border_width_dimension_bottom = (int) $output[ $i ][1];
+									$settings->creative_submenu_border_width_dimension_left   = (int) $output[ $i ][1];
+									$settings->creative_submenu_border_width_dimension_right  = (int) $output[ $i ][1];
+									break;
+							}
+						}
+					}
+					if ( isset( $submenu_border_top ) && isset( $submenu_border_right ) && isset( $submenu_border_bottom ) && isset( $submenu_border_left ) ) {
+						$settings->submenu_border['width'] = array(
+							'top'    => $submenu_border_top,
+							'right'  => $submenu_border_right,
+							'bottom' => $submenu_border_bottom,
+							'left'   => $submenu_border_left,
+						);
+					}
+					unset( $settings->creative_submenu_border_width );
+				}
+			}
+
+			// Handle old menu border settings.
+			if ( ! isset( $settings->menu_border ) || empty( $settings->menu_border ) ) {
+
+				$settings->menu_border = array();
+
+				// Border style, color, and width.
+				if ( isset( $settings->creative_menu_border_style ) ) {
+					$settings->menu_border['style'] = $settings->creative_menu_border_style;
+					$settings->menu_border['color'] = $settings->creative_menu_border_color;
+
+					if ( isset( $settings->creative_menu_border_width ) && ! isset( $settings->creative_menu_border_width_dimension_top ) && ! isset( $settings->creative_menu_border_width_dimension_bottom ) && ! isset( $settings->creative_menu_border_width_dimension_left ) && ! isset( $settings->creative_menu_border_width_dimension_right ) ) {
+
+						$value = '';
+						$value = str_replace( 'px', '', $settings->creative_menu_border_width );
+
+						$output       = array();
+						$uabb_default = array_filter( preg_split( '/\s*;\s*/', $value ) );
+						$settings->creative_menu_border_width_dimension_top    = '';
+						$settings->creative_menu_border_width_dimension_bottom = '';
+						$settings->creative_menu_border_width_dimension_right  = '';
+						$settings->creative_menu_border_width_dimension_left   = '';
+						foreach ( $uabb_default as $val ) {
+							$new      = explode( ':', $val );
+							$output[] = $new;
+						}
+						for ( $i = 0; $i < count( $output ); $i++ ) {
+							switch ( $output[ $i ][0] ) {
+
+								case 'padding-top':
+									$menu_border_top = (int) $output[ $i ][1];
+									break;
+								case 'padding-bottom':
+									$menu_border_bottom = (int) $output[ $i ][1];
+									break;
+								case 'padding-right':
+									$menu_border_right = (int) $output[ $i ][1];
+									break;
+								case 'padding-left':
+									$menu_border_left = (int) $output[ $i ][1];
+									break;
+								case 'padding':
+									$settings->creative_menu_border_width_dimension_top    = (int) $output[ $i ][1];
+									$settings->creative_menu_border_width_dimension_bottom = (int) $output[ $i ][1];
+									$settings->creative_menu_border_width_dimension_left   = (int) $output[ $i ][1];
+									$settings->creative_menu_border_width_dimension_right  = (int) $output[ $i ][1];
+									break;
+							}
+						}
+					}
+					if ( isset( $menu_border_top ) && isset( $menu_border_right ) && isset( $menu_border_bottom ) && isset( $menu_border_left ) ) {
+						$settings->menu_border['width'] = array(
+							'top'    => $menu_border_top,
+							'right'  => $menu_border_right,
+							'bottom' => $menu_border_bottom,
+							'left'   => $menu_border_left,
+						);
+					}
+					unset( $settings->creative_menu_border_width );
+				}
+			}
+
+			// For overall alignment and responsive alignment settings.
+			if ( isset( $settings->creative_menu_alignment ) ) {
+				$settings->creative_menu_alignment = $settings->creative_menu_alignment;
+			}
+			if ( isset( $settings->creative_menu_navigation_alignment ) ) {
+				$settings->creative_menu_navigation_alignment = $settings->creative_menu_navigation_alignment;
+			}
+			if ( isset( $settings->creative_menu_responsive_alignment ) ) {
+				$settings->creative_menu_responsive_alignment = $settings->creative_menu_responsive_alignment;
+			}
+
+			// For menu typography settings.
+			if ( ! isset( $settings->creative_menu_link_font_typo ) || ! is_array( $settings->creative_menu_link_font_typo ) ) {
+
+				$settings->creative_menu_link_font_typo            = array();
+				$settings->creative_menu_link_font_typo_medium     = array();
+				$settings->creative_menu_link_font_typo_responsive = array();
+			}
+			if ( isset( $settings->creative_menu_link_font_size ) || isset( $settings->creative_menu_link_font_family['family'] ) ) {
+
+				if ( ( isset( $settings->creative_menu_link_font_size ) && 'custom' == $settings->creative_menu_link_font_size ) || ( isset( $settings->creative_menu_link_line_height ) && 'custom' == $settings->creative_menu_link_line_height ) || ( isset( $settings->creative_menu_link_font_family['family'] ) && 'Default' != $settings->creative_menu_link_font_family['family'] ) ) {
+					$settings->creative_menu_link_typo = 'custom';
+				}
+			}
+			if ( isset( $settings->creative_menu_link_font_family ) ) {
+
+				if ( isset( $settings->creative_menu_link_font_family['family'] ) ) {
+
+					$settings->creative_menu_link_font_typo['font_family'] = $settings->creative_menu_link_font_family['family'];
+				}
+				if ( isset( $settings->creative_menu_link_font_family['weight'] ) ) {
+
+					if ( 'regular' == $settings->creative_menu_link_font_family['weight'] ) {
+						$settings->creative_menu_link_font_typo['font_weight'] = 'normal';
+					} else {
+						$settings->creative_menu_link_font_typo['font_weight'] = $settings->creative_menu_link_font_family['weight'];
+					}
+				}
+			}
+			if ( isset( $settings->creative_menu_link_font_size_custom ) ) {
+
+				$settings->creative_menu_link_font_typo['font_size'] = array(
+					'length' => $settings->creative_menu_link_font_size_custom,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->creative_menu_link_font_size_custom_medium ) ) {
+				$settings->creative_menu_link_font_typo_medium['font_size'] = array(
+					'length' => $settings->creative_menu_link_font_size_custom_medium,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->creative_menu_link_font_size_custom_responsive ) ) {
+				$settings->creative_menu_link_font_typo_responsive['font_size'] = array(
+					'length' => $settings->creative_menu_link_font_size_custom_responsive,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->creative_menu_link_line_height_custom ) ) {
+
+				$settings->creative_menu_link_font_typo['line_height'] = array(
+					'length' => $settings->creative_menu_link_line_height_custom,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->creative_menu_link_line_height_custom_medium ) ) {
+				$settings->creative_menu_link_font_typo_medium['line_height'] = array(
+					'length' => $settings->creative_menu_link_line_height_custom_medium,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->creative_menu_link_line_height_custom_responsive ) ) {
+				$settings->creative_menu_link_font_typo_responsive['line_height'] = array(
+					'length' => $settings->creative_menu_link_line_height_custom_responsive,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->creative_menu_link_text_transform ) ) {
+
+				$settings->creative_menu_link_font_typo['text_transform'] = $settings->creative_menu_link_text_transform;
+
+			}
+			if ( isset( $settings->creative_menu_link_letter_spacing ) ) {
+
+				$settings->creative_menu_link_font_typo['letter_spacing'] = array(
+					'length' => $settings->creative_menu_link_letter_spacing,
+					'unit'   => 'px',
+				);
+			}
+
+			// For submenu typography settings.
+			if ( ! isset( $settings->creative_submenu_link_font_typo ) || ! is_array( $settings->creative_submenu_link_font_typo ) ) {
+
+				$settings->creative_submenu_link_font_typo            = array();
+				$settings->creative_submenu_link_font_typo_medium     = array();
+				$settings->creative_submenu_link_font_typo_responsive = array();
+			}
+			if ( isset( $settings->creative_submenu_link_font_size ) || isset( $settings->creative_submenu_link_line_height ) || isset( $settings->creative_submenu_link_font_family['family'] ) ) {
+
+				if ( ( isset( $settings->creative_submenu_link_font_size ) && 'custom' == $settings->creative_submenu_link_font_size ) || ( isset( $settings->creative_submenu_link_line_height ) && 'custom' == $settings->creative_submenu_link_line_height ) || ( isset( $settings->creative_submenu_link_font_family['family'] ) && 'Default' != $settings->creative_submenu_link_font_family['family'] ) ) {
+					$settings->creative_submenu_link_typogarphy = 'custom';
+				}
+			}
+			if ( isset( $settings->creative_submenu_link_font_family ) ) {
+
+				if ( isset( $settings->creative_submenu_link_font_family['family'] ) ) {
+
+					$settings->creative_submenu_link_font_typo['font_family'] = $settings->creative_submenu_link_font_family['family'];
+				}
+				if ( isset( $settings->creative_submenu_link_font_family['weight'] ) ) {
+
+					if ( 'regular' == $settings->creative_submenu_link_font_family['weight'] ) {
+						$settings->creative_submenu_link_font_typo['font_weight'] = 'normal';
+					} else {
+						$settings->creative_submenu_link_font_typo['font_weight'] = $settings->creative_submenu_link_font_family['weight'];
+					}
+				}
+			}
+			if ( isset( $settings->creative_submenu_link_font_size_custom ) ) {
+
+				$settings->creative_submenu_link_font_typo['font_size'] = array(
+					'length' => $settings->creative_submenu_link_font_size_custom,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->creative_submenu_link_font_size_custom_medium ) ) {
+				$settings->creative_submenu_link_font_typo_medium['font_size'] = array(
+					'length' => $settings->creative_submenu_link_font_size_custom_medium,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->creative_submenu_link_font_size_custom_responsive ) ) {
+				$settings->creative_submenu_link_font_typo_responsive['font_size'] = array(
+					'length' => $settings->creative_submenu_link_font_size_custom_responsive,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->creative_submenu_link_line_height_custom ) ) {
+
+				$settings->creative_submenu_link_font_typo['line_height'] = array(
+					'length' => $settings->creative_submenu_link_line_height_custom,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->creative_submenu_link_line_height_custom_medium ) ) {
+				$settings->creative_submenu_link_font_typo_medium['line_height'] = array(
+					'length' => $settings->creative_submenu_link_line_height_custom_medium,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->creative_submenu_link_line_height_custom_responsive ) ) {
+				$settings->creative_submenu_link_font_typo_responsive['line_height'] = array(
+					'length' => $settings->creative_submenu_link_line_height_custom_responsive,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->creative_submenu_link_text_transform ) ) {
+
+				$settings->creative_submenu_link_font_typo['text_transform'] = $settings->creative_submenu_link_text_transform;
+
+			}
+			if ( isset( $settings->creative_submenu_link_letter_spacing ) ) {
+
+				$settings->creative_submenu_link_font_typo['letter_spacing'] = array(
+					'length' => $settings->creative_submenu_link_letter_spacing,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->creative_submenu_link_padding ) && isset( $settings->creative_submenu_link_padding_dimension_top ) && isset( $settings->creative_submenu_link_padding_dimension_bottom ) && isset( $settings->creative_submenu_link_padding_dimension_right ) && isset( $settings->creative_submenu_link_padding_dimension_left ) ) {
+
+				$value = '';
+				$value = str_replace( 'px', '', $settings->creative_submenu_link_padding );
+
+				$output       = array();
+				$uabb_default = array_filter( preg_split( '/\s*;\s*/', $value ) );
+				$settings->creative_submenu_link_padding_dimension_top    = '';
+				$settings->creative_submenu_link_padding_dimension_bottom = '';
+				$settings->creative_submenu_link_padding_dimension_right  = '';
+				$settings->creative_submenu_link_padding_dimension_left   = '';
+				foreach ( $uabb_default as $val ) {
+					$new      = explode( ':', $val );
+					$output[] = $new;
+				}
+				for ( $i = 0; $i < count( $output ); $i++ ) {
+					switch ( $output[ $i ][0] ) {
+
+						case 'padding-top':
+							$settings->creative_submenu_link_padding_dimension_top = (int) $output[ $i ][1];
+							break;
+						case 'padding-bottom':
+							$settings->creative_submenu_link_padding_dimension_bottom = (int) $output[ $i ][1];
+							break;
+						case 'padding-right':
+							$settings->creative_submenu_link_padding_dimension_right = (int) $output[ $i ][1];
+							break;
+						case 'padding-left':
+							$settings->creative_submenu_link_padding_dimension_left = (int) $output[ $i ][1];
+							break;
+						case 'padding':
+							$settings->creative_submenu_link_padding_dimension_top    = (int) $output[ $i ][1];
+							$settings->creative_submenu_link_padding_dimension_bottom = (int) $output[ $i ][1];
+							$settings->creative_submenu_link_padding_dimension_left   = (int) $output[ $i ][1];
+							$settings->creative_submenu_link_padding_dimension_right  = (int) $output[ $i ][1];
+							break;
+					}
+				}
+			}
+			if ( isset( $settings->creative_submenu_border_width ) && isset( $settings->creative_submenu_border_width_dimension_top ) && isset( $settings->creative_submenu_border_width_dimension_bottom ) && isset( $settings->creative_submenu_border_width_dimension_right ) && isset( $settings->creative_submenu_border_width_dimension_left ) ) {
+
+				$value = '';
+				$value = str_replace( 'px', '', $settings->creative_submenu_border_width );
+
+				$output       = array();
+				$uabb_default = array_filter( preg_split( '/\s*;\s*/', $value ) );
+				$settings->creative_submenu_border_width_dimension_top    = '';
+				$settings->creative_submenu_border_width_dimension_bottom = '';
+				$settings->creative_submenu_border_width_dimension_right  = '';
+				$settings->creative_submenu_border_width_dimension_left   = '';
+				foreach ( $uabb_default as $val ) {
+					$new      = explode( ':', $val );
+					$output[] = $new;
+				}
+				for ( $i = 0; $i < count( $output ); $i++ ) {
+					switch ( $output[ $i ][0] ) {
+
+						case 'padding-top':
+							$settings->creative_submenu_border_width_dimension_top = (int) $output[ $i ][1];
+							break;
+						case 'padding-bottom':
+							$settings->creative_submenu_border_width_dimension_bottom = (int) $output[ $i ][1];
+							break;
+						case 'padding-right':
+							$settings->creative_submenu_border_width_dimension_right = (int) $output[ $i ][1];
+							break;
+						case 'padding-left':
+							$settings->creative_submenu_border_width_dimension_left = (int) $output[ $i ][1];
+							break;
+						case 'padding':
+							$settings->creative_submenu_border_width_dimension_top    = (int) $output[ $i ][1];
+							$settings->creative_submenu_border_width_dimension_bottom = (int) $output[ $i ][1];
+							$settings->creative_submenu_border_width_dimension_left   = (int) $output[ $i ][1];
+							$settings->creative_submenu_border_width_dimension_right  = (int) $output[ $i ][1];
+							break;
+					}
+				}
+			}
+			if ( isset( $settings->creative_menu_responsive_overlay_padding ) && isset( $settings->creative_menu_responsive_overlay_padding_dimension_top ) && isset( $settings->creative_menu_responsive_overlay_padding_dimension_bottom ) && isset( $settings->creative_menu_responsive_overlay_padding_dimension_right ) && isset( $settings->creative_menu_responsive_overlay_padding_dimension_left ) ) {
+
+				$value = '';
+				$value = str_replace( 'px', '', $settings->creative_menu_responsive_overlay_padding );
+
+				$output       = array();
+				$uabb_default = array_filter( preg_split( '/\s*;\s*/', $value ) );
+				$settings->creative_menu_responsive_overlay_padding_dimension_top    = '';
+				$settings->creative_menu_responsive_overlay_padding_dimension_bottom = '';
+				$settings->creative_menu_responsive_overlay_padding_dimension_right  = '';
+				$settings->creative_menu_responsive_overlay_padding_dimension_left   = '';
+				foreach ( $uabb_default as $val ) {
+					$new      = explode( ':', $val );
+					$output[] = $new;
+				}
+				for ( $i = 0; $i < count( $output ); $i++ ) {
+					switch ( $output[ $i ][0] ) {
+
+						case 'padding-top':
+							$settings->creative_menu_responsive_overlay_padding_dimension_top = (int) $output[ $i ][1];
+							break;
+						case 'padding-bottom':
+							$settings->creative_menu_responsive_overlay_padding_dimension_bottom = (int) $output[ $i ][1];
+							break;
+						case 'padding-right':
+							$settings->creative_menu_responsive_overlay_padding_dimension_right = (int) $output[ $i ][1];
+							break;
+						case 'padding-left':
+							$settings->creative_menu_responsive_overlay_padding_dimension_left = (int) $output[ $i ][1];
+							break;
+						case 'padding':
+							$settings->creative_menu_responsive_overlay_padding_dimension_top    = (int) $output[ $i ][1];
+							$settings->creative_menu_responsive_overlay_padding_dimension_bottom = (int) $output[ $i ][1];
+							$settings->creative_menu_responsive_overlay_padding_dimension_left   = (int) $output[ $i ][1];
+							$settings->creative_menu_responsive_overlay_padding_dimension_right  = (int) $output[ $i ][1];
+							break;
+					}
+				}
+			}
+			if ( isset( $settings->creative_menu_link_font_family ) ) {
+				unset( $settings->creative_menu_link_font_family );
+				unset( $settings->creative_menu_link_font_size_custom );
+				unset( $settings->creative_menu_link_font_size_custom_medium );
+				unset( $settings->creative_menu_link_font_size_custom_responsive );
+				unset( $settings->creative_menu_link_line_height_custom );
+				unset( $settings->creative_menu_link_line_height_custom_medium );
+				unset( $settings->creative_menu_link_line_height_custom_responsive );
+				unset( $settings->creative_menu_link_text_transform );
+				unset( $settings->creative_menu_link_letter_spacing );
+			}
+			if ( isset( $settings->creative_submenu_link_font_family ) ) {
+				unset( $settings->creative_submenu_link_font_family );
+				unset( $settings->creative_submenu_link_font_size_custom );
+				unset( $settings->creative_submenu_link_font_size_custom_medium );
+				unset( $settings->creative_submenu_link_font_size_custom_responsive );
+				unset( $settings->creative_submenu_link_line_height_custom );
+				unset( $settings->creative_submenu_link_line_height_custom_medium );
+				unset( $settings->creative_submenu_link_line_height_custom_responsive );
+				unset( $settings->creative_submenu_link_text_transform );
+				unset( $settings->creative_submenu_link_letter_spacing );
+			}
+		}
+		return $settings;
+	}
 	/**
 	 * Function that renders the menus
 	 *
@@ -165,7 +1068,7 @@ class UABBCreativeMenu extends FLBuilderModule {
 	 */
 	public function get_responsive_media( $settings, $module ) {
 
-		if( 'default' != $settings->creative_mobile_menu_type && $settings->creative_mobile_menu_type != 'below-row' ) {
+		if ( 'default' != $settings->creative_mobile_menu_type && 'below-row' != $settings->creative_mobile_menu_type ) {
 
 			if ( 'full-screen' == $settings->creative_mobile_menu_type ) {
 				$classes = '<div class="uabb-menu-overlay uabb-overlay-' . $settings->creative_menu_full_screen_effects . '"> <div class="uabb-menu-close-btn"></div>';
@@ -215,1044 +1118,13 @@ class UABBCreativeMenu extends FLBuilderModule {
 	}
 }
 
-/**
- * Register the module and its form settings.
+/*
+ * Condition to verify Beaver Builder version.
+ * And accordingly render the required form settings file.
  */
-FLBuilder::register_module(
-	'UABBCreativeMenu', array(
-		'general'    => array( // Tab.
-			'title'    => __( 'General', 'uabb' ), // Tab title.
-			'sections' => array( // Tab Sections.
-				'general' => array( // Section.
-					'title'  => '', // Section Title.
-					'fields' => array( // Section Fields.
-						'wp_menu'                       => UABBCreativeMenu::render_menus(),
-						'creative_menu_layout'          => array(
-							'type'    => 'select',
-							'label'   => __( 'Layout', 'uabb' ),
-							'default' => 'horizontal',
-							'options' => array(
-								'horizontal' => __( 'Horizontal', 'uabb' ),
-								'vertical'   => __( 'Vertical', 'uabb' ),
-								'accordion'  => __( 'Accordion', 'uabb' ),
-								'expanded'   => __( 'Expanded', 'uabb' ),
-							),
-							'toggle'  => array(
-								'horizontal' => array(
-									'fields' => array( 'creative_submenu_hover_toggle', 'menu_align' ),
-								),
-								'vertical'   => array(
-									'fields' => array( 'creative_submenu_hover_toggle' ),
-								),
-								'accordion'  => array(
-									'fields' => array( 'creative_submenu_click_toggle', 'creative_menu_collapse' ),
-								),
-							),
-						),
-						'creative_submenu_hover_toggle' => array(
-							'type'    => 'select',
-							'label'   => __( 'Submenu Icon', 'uabb' ),
-							'default' => 'none',
-							'options' => array(
-								'arrows' => __( 'Arrows', 'uabb' ),
-								'plus'   => __( 'Plus Sign', 'uabb' ),
-								'none'   => __( 'None', 'uabb' ),
-							),
-						),
-						'creative_submenu_click_toggle' => array(
-							'type'    => 'select',
-							'label'   => __( 'Submenu Icon click', 'uabb' ),
-							'default' => 'arrows',
-							'options' => array(
-								'arrows' => __( 'Arrows', 'uabb' ),
-								'plus'   => __( 'Plus Sign', 'uabb' ),
-							),
-						),
-						'creative_menu_collapse'        => array(
-							'type'    => 'select',
-							'label'   => __( 'Collapse Inactive', 'uabb' ),
-							'default' => '1',
-							'options' => array(
-								'1' => __( 'Yes', 'uabb' ),
-								'0' => __( 'No', 'uabb' ),
-							),
-							'help'    => __( 'Choosing yes will keep only one item open at a time. Choosing no will allow multiple items to be open at the same time.', 'uabb' ),
-							'preview' => array(
-								'type' => 'none',
-							),
-						),
-					),
-				),
-			),
-		),
-		'menu'       => array( // Tab.
-			'title'    => __( 'Menu', 'uabb' ), // Tab title.
-			'sections' => array( // Tab Sections.
-				'general'                       => array( // Section.
-					'title'  => __( 'Style', 'uabb' ), // Section Title.
-					'fields' => array( // Section Fields.
-						'creative_menu_alignment' => array(
-							'type'    => 'select',
-							'label'   => __( 'Menu Alignment', 'uabb' ),
-							'default' => 'center',
-							'options' => array(
-								'left'   => __( 'Left', 'uabb' ),
-								'center' => __( 'Center', 'uabb' ),
-								'right'  => __( 'Right', 'uabb' ),
-							),
-						),
-						'creative_menu_link_margin_dimension' => array(
-							'type'        => 'dimension',
-							'label'       => __( 'Link Margin', 'uabb' ),
-							'description' => 'px',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-creative-menu .menu > li',
-								'property' => 'margin',
-								'unit'     => 'px',
-							),
-							'responsive'  => array(
-								'placeholder' => array(
-									'default'    => '5',
-									'medium'     => '',
-									'responsive' => '',
-								),
-							),
-						),
-						'creative_menu_link_spacing_dimension' => array(
-							'type'        => 'dimension',
-							'label'       => __( 'Link Padding', 'uabb' ),
-							'description' => 'px',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-creative-menu .menu > li',
-								'property' => 'margin',
-								'unit'     => 'px',
-							),
-							'responsive'  => array(
-								'placeholder' => array(
-									'default'    => '10',
-									'medium'     => '',
-									'responsive' => '',
-								),
-							),
-						),
-					),
-				),
-				'creative_menu_color_settings'  => array( // Section.
-					'title'  => __( 'Color Settings', 'uabb' ), // Section Title.
-					'fields' => array( // Section Fields.
-						'creative_menu_link_color'       => array(
-							'type'       => 'color',
-							'label'      => __( 'Link Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-							'preview'    => array(
-								'type'     => 'css',
-								'selector' => '.menu > li > a, .menu > li > .uabb-has-submenu-container > a, .uabb-creative-menu .menu > li > a, .uabb-creative-menu .menu > .uabb-has-submenu-container > a, .uabb-creative-menu .menu > li > .uabb-has-submenu-container > a span.uabb-menu-toggle:before, .uabb-creative-menu.uabb-menu-default .menu > li > a, .uabb-creative-menu.uabb-menu-default .menu > li > .uabb-has-submenu-container a, .uabb-creative-menu.uabb-menu-default .menu > li > a span.menu-item-text, .uabb-creative-menu.uabb-menu-default .menu > li > .uabb-has-submenu-container a span.menu-item-text, .uabb-creative-menu.uabb-menu-default .menu > li > a span.menu-item-text:before, .uabb-creative-menu.uabb-menu-default .menu > li > .uabb-has-submenu-container a span.menu-item-text:before',
-								'property' => 'color',
-							),
-						),
-						'creative_menu_link_hover_color' => array(
-							'type'       => 'color',
-							'label'      => __( 'Link Hover Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-						),
-						'creative_menu_background_color' => array(
-							'type'       => 'color',
-							'label'      => __( 'Background Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-							'show_alpha' => true,
-						),
-						'creative_menu_background_hover_color' => array(
-							'type'       => 'color',
-							'label'      => __( 'Background Hover Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-							'show_alpha' => true,
-						),
-					),
-				),
-				'creative_menu_border_settings' => array( // Section.
-					'title'  => __( 'Border Settings', 'uabb' ), // Section Title.
-					'fields' => array( // Section Fields.
-						'creative_menu_border_style'       => array(
-							'type'    => 'select',
-							'label'   => __( 'Border Style', 'uabb' ),
-							'default' => 'none',
-							'options' => array(
-								'none'   => __( 'None', 'uabb' ),
-								'solid'  => __( 'Solid', 'uabb' ),
-								'dashed' => __( 'Dashed', 'uabb' ),
-								'double' => __( 'Double', 'uabb' ),
-								'dotted' => __( 'Dotted', 'uabb' ),
-							),
-							'preview' => array(
-								'type'     => 'css',
-								'selector' => '.uabb-creative-menu .menu > li > a, .uabb-creative-menu .menu > li > .uabb-has-submenu-container > a',
-								'property' => 'border-style',
-							),
-							'toggle'  => array(
-								'solid'  => array(
-									'fields' => array( 'creative_menu_border_width_dimension', 'creative_menu_border_color', 'creative_menu_border_hover_color' ),
-								),
-								'dashed' => array(
-									'fields' => array( 'creative_menu_border_width_dimension', 'creative_menu_border_color', 'creative_menu_border_hover_color' ),
-								),
-								'double' => array(
-									'fields' => array( 'creative_menu_border_width_dimension', 'creative_menu_border_color', 'creative_menu_border_hover_color' ),
-								),
-								'dotted' => array(
-									'fields' => array( 'creative_menu_border_width_dimension', 'creative_menu_border_color', 'creative_menu_border_hover_color' ),
-								),
-							),
-						),
-						'creative_menu_border_width_dimension' => array(
-							'type'        => 'dimension',
-							'label'       => __( 'Border Width', 'uabb' ),
-							'description' => 'px',
-							'responsive'  => array(
-								'placeholder' => array(
-									'default'    => '',
-									'medium'     => '',
-									'responsive' => '',
-								),
-								'default'     => array(
-									'default'    => '',
-									'medium'     => '',
-									'responsive' => '',
-								),
-							),
-						),
-						'creative_menu_border_color'       => array(
-							'type'       => 'color',
-							'label'      => __( 'Border Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-							'show_alpha' => true,
-							'preview'    => array(
-								'type'     => 'css',
-								'selector' => '.uabb-creative-menu .menu > li > a, .uabb-creative-menu .menu > li > .uabb-has-submenu-container > a',
-								'property' => 'border-color',
-							),
-						),
-						'creative_menu_border_hover_color' => array(
-							'type'       => 'color',
-							'label'      => __( 'Border Hover Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-							'show_alpha' => true,
-							'preview'    => array(
-								'type'     => 'css',
-								'selector' => '.uabb-creative-menu .menu > li > a:hover, .uabb-creative-menu .menu > li > .uabb-has-submenu-container > a:hover, .uabb-creative-menu .menu > li > a:focus, .uabb-creative-menu .menu > li > .uabb-has-submenu-container > a:focus',
-								'property' => 'border-color',
-							),
-						),
-					),
-				),
-			),
-		),
-		'submenu'    => array( // Tab.
-			'title'    => __( 'Submenu', 'uabb' ), // Tab title.
-			'sections' => array( // Tab Sections.
-				'creative_menu_submenu_style'         => array(
-					'title'  => __( 'Style', 'uabb' ),
-					'fields' => array(
-						'creative_submenu_link_padding_dimension' => array(
-							'type'        => 'dimension',
-							'label'       => __( 'Padding', 'uabb' ),
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-creative-menu .sub-menu > li > a, .uabb-creative-menu .sub-menu > li > .uabb-has-submenu-container > a',
-								'property' => 'padding',
-								'unit'     => 'px',
-							),
-							'description' => 'px',
-							'responsive'  => array(
-								'placeholder' => array(
-									'default'    => '15',
-									'medium'     => '',
-									'responsive' => '',
-								),
-							),
-						),
-						'submenu_width' => array(
-							'type'        => 'unit',
-							'label'       => __( 'Width', 'uabb' ),
-							'default'     => '220',
-							'size'        => '5',
-							'description' => 'px',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-creative-menu:not(.off-canvas) :not(.full-screen) .sub-menu',
-								'property' => 'min-width',
-								'unit'     => 'px',
-							),
-						),
-					),
-				),
 
-				'creative_menu_submenu_color'         => array(
-					'title'  => __( 'Color Settings', 'uabb' ),
-					'fields' => array(
-						'creative_submenu_link_color' => array(
-							'type'       => 'color',
-							'label'      => __( 'Link Color', 'uabb' ),
-							'default'    => '333333',
-							'show_reset' => true,
-							'preview'    => array(
-								'type'     => 'css',
-								'selector' => '.sub-menu > li > a *, .sub-menu > li > .uabb-has-submenu-container > a *,.uabb-creative-menu .sub-menu > li.uabb-creative-menu > a > span',
-								'property' => 'color',
-							),
-						),
-						'creative_submenu_link_hover_color' => array(
-							'type'       => 'color',
-							'label'      => __( 'Link Hover Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-						),
-						'creative_submenu_background_color' => array(
-							'type'       => 'color',
-							'label'      => __( 'Background Color', 'uabb' ),
-							'default'    => 'edecec',
-							'show_reset' => true,
-							'show_alpha' => true,
-						),
-						'creative_submenu_background_hover_color' => array(
-							'type'       => 'color',
-							'label'      => __( 'Background Hover Color', 'uabb' ),
-							'default'    => 'f5f5f5',
-							'show_reset' => true,
-							'show_alpha' => true,
-						),
-					),
-				),
-				'creative_menu_shadow_style'          => array(
-					'title'  => __( 'Shadow Settings', 'uabb' ),
-					'fields' => array(
-						'creative_submenu_drop_shadow'  => array(
-							'type'    => 'select',
-							'label'   => __( 'Drop Shadow', 'uabb' ),
-							'default' => 'yes',
-							'options' => array(
-								'yes' => __( 'Yes', 'uabb' ),
-								'no'  => __( 'No', 'uabb' ),
-							),
-							'toggle'  => array(
-								'yes' => array(
-									'fields' => array( 'creative_submenu_shadow_color_hor', 'creative_submenu_shadow_color_ver', 'creative_submenu_shadow_color_blur', 'creative_submenu_shadow_color_spr', 'creative_submenu_shadow_color', 'creative_submenu_shadow_color_opc' ),
-								),
-							),
-						),
-						'creative_submenu_shadow_color_hor' => array(
-							'type'        => 'unit',
-							'label'       => __( 'Horizontal Length', 'uabb' ),
-							'default'     => '2',
-							'size'        => '5',
-							'description' => 'px',
-						),
-						'creative_submenu_shadow_color_ver' => array(
-							'type'        => 'unit',
-							'label'       => __( 'Vertical Length', 'uabb' ),
-							'default'     => '2',
-							'size'        => '5',
-							'description' => 'px',
-						),
-						'creative_submenu_shadow_color_blur' => array(
-							'type'        => 'unit',
-							'label'       => __( 'Blur Radius', 'uabb' ),
-							'default'     => '4',
-							'size'        => '5',
-							'description' => 'px',
-						),
-						'creative_submenu_shadow_color_spr' => array(
-							'type'        => 'unit',
-							'label'       => __( 'Spread Radius', 'uabb' ),
-							'default'     => '1',
-							'size'        => '5',
-							'description' => 'px',
-						),
-						'creative_submenu_shadow_color' => array(
-							'type'       => 'color',
-							'label'      => __( 'Shadow Color', 'uabb' ),
-							'default'    => '000000',
-							'show_reset' => true,
-						),
-						'creative_submenu_shadow_color_opc' => array(
-							'type'        => 'text',
-							'label'       => __( 'Shadow Color Opacity', 'uabb' ),
-							'default'     => '30',
-							'placeholder' => '100',
-							'size'        => '5',
-							'description' => '%',
-						),
-
-					),
-				),
-				'creative_submenu_border_settings'    => array( // Section.
-					'title'  => __( 'Border Settings', 'uabb' ), // Section Title.
-					'fields' => array( // Section Fields.
-						'creative_submenu_border_settings_option' => array(
-							'type'    => 'select',
-							'label'   => __( 'Show Border', 'uabb' ),
-							'default' => 'yes',
-							'options' => array(
-								'yes' => __( 'Yes', 'uabb' ),
-								'no'  => __( 'No', 'uabb' ),
-							),
-							'toggle'  => array(
-								'yes' => array(
-									'fields' => array( 'creative_submenu_border_style', 'creative_submenu_border_width_dimension', 'creative_submenu_border_color' ),
-								),
-							),
-						),
-						'creative_submenu_border_style' => array(
-							'type'    => 'select',
-							'label'   => __( 'Border Style', 'uabb' ),
-							'default' => 'solid',
-							'options' => array(
-								'solid'  => __( 'Solid', 'uabb' ),
-								'dashed' => __( 'Dashed', 'uabb' ),
-								'double' => __( 'Double', 'uabb' ),
-								'dotted' => __( 'Dotted', 'uabb' ),
-							),
-							'preview' => array(
-								'type'     => 'css',
-								'selector' => '.uabb-creative-menu .sub-menu',
-								'property' => 'border-style',
-							),
-						),
-						'creative_submenu_border_width_dimension' => array(
-							'type'        => 'dimension',
-							'label'       => __( 'Border Width', 'uabb' ),
-							'default'     => '1',
-							'size'        => '6',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-creative-menu .sub-menu',
-								'property' => 'border-width',
-								'unit'     => 'px',
-							),
-							'description' => 'px',
-							'responsive'  => array(
-								'placeholder' => array(
-									'default'    => '1',
-									'medium'     => '',
-									'responsive' => '',
-								),
-							),
-						),
-						'creative_submenu_border_color' => array(
-							'type'       => 'color',
-							'label'      => __( 'Border Color', 'uabb' ),
-							'default'    => '000000',
-							'show_reset' => true,
-							'show_alpha' => true,
-							'preview'    => array(
-								'type'     => 'css',
-								'selector' => '.uabb-creative-menu .sub-menu',
-								'property' => 'border-color',
-							),
-						),
-					),
-				),
-				'creative_submenu_separator_settings' => array(
-					'title'  => __( 'Separator Settings', 'uabb' ),
-					'fields' => array(
-						'creative_submenu_separator_settings_option' => array(
-							'type'    => 'select',
-							'label'   => __( 'Show Separator', 'uabb' ),
-							'default' => 'yes',
-							'options' => array(
-								'yes' => __( 'Yes', 'uabb' ),
-								'no'  => __( 'No', 'uabb' ),
-							),
-							'toggle'  => array(
-								'yes' => array(
-									'fields' => array( 'creative_submenu_separator_style', 'creative_submenu_separator_size', 'creative_submenu_separator_color' ),
-								),
-							),
-						),
-						'creative_submenu_separator_style' => array(
-							'type'    => 'select',
-							'label'   => __( 'Separator Style', 'uabb' ),
-							'default' => 'solid',
-							'options' => array(
-								'solid'  => __( 'Solid', 'uabb' ),
-								'dashed' => __( 'Dashed', 'uabb' ),
-								'double' => __( 'Double', 'uabb' ),
-								'dotted' => __( 'Dotted', 'uabb' ),
-							),
-							'preview' => array(
-								'type'     => 'css',
-								'selector' => '.uabb-creative-menu .sub-menu > li',
-								'property' => 'border-bottom-style',
-							),
-						),
-						'creative_submenu_separator_size'  => array(
-							'type'        => 'unit',
-							'label'       => __( 'Separator Size', 'uabb' ),
-							'default'     => '1',
-							'placeholder' => '1',
-							'size'        => '8',
-							'description' => 'px',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-creative-menu .sub-menu > li, .uabb-creative-menu .sub-menu > li > .uabb-has-submenu-container > a',
-								'property' => 'border-bottom-width',
-								'unit'     => 'px',
-							),
-						),
-						'creative_submenu_separator_color' => array(
-							'type'       => 'color',
-							'label'      => __( 'Separator Color', 'uabb' ),
-							'default'    => 'e3e2e3',
-							'show_reset' => true,
-							'show_alpha' => true,
-							'preview'    => array(
-								'type'     => 'css',
-								'selector' => '.uabb-creative-menu .sub-menu > li, .uabb-creative-menu .sub-menu > li > .uabb-has-submenu-container > a',
-								'property' => 'border-bottom-color',
-							),
-						),
-					),
-				),
-
-			),
-		),
-		'responsive' => array( // Tab.
-			'title'    => __( 'Responsive', 'uabb' ), // Tab title.
-			'sections' => array( // Tab Sections.
-				'creative_menu_responsive_navigation_style' => array(
-					'title'  => __( 'Responsive Navigation', 'uabb' ),
-					'fields' => array(
-						'creative_menu_mobile_toggle'      => array(
-							'type'    => 'select',
-							'label'   => __( 'Responsive Navigation', 'uabb' ),
-							'default' => 'hamburger',
-							'options' => array(
-								'hamburger'       => __( 'Hamburger Icon', 'uabb' ),
-								'hamburger-label' => __( 'Hamburger Icon + Label', 'uabb' ),
-								'text'            => __( 'Menu Button', 'uabb' ),
-								'expanded'        => __( 'None', 'uabb' ),
-							),
-							'toggle'  => array(
-								'hamburger'       => array(
-									'fields'   => array( 'creative_mobile_menu_type', 'creative_menu_mobile_breakpoint', 'creative_menu_responsive_alignment', 'creative_menu_mobile_toggle_color','creative_menu_navigation_alignment' ),
-									'sections' => array( 'creative_menu_responsive_mobile_style', 'creative_menu_responsive_style' ),
-								),
-								'hamburger-label' => array(
-									'fields'   => array( 'creative_mobile_menu_type', 'creative_menu_mobile_breakpoint', 'creative_menu_responsive_alignment', 'creative_menu_mobile_toggle_color', 'creative_menu_mobile_toggle_text','creative_menu_navigation_alignment' ),
-									'sections' => array( 'creative_menu_responsive_mobile_style', 'creative_menu_responsive_style' ),
-								),
-								'text'            => array(
-									'fields'   => array( 'creative_mobile_menu_type', 'creative_menu_mobile_breakpoint', 'creative_menu_responsive_alignment', 'creative_menu_mobile_toggle_color', 'creative_menu_mobile_toggle_text', 'creative_menu_navigation_alignment' ),
-									'sections' => array( 'creative_menu_responsive_mobile_style', 'creative_menu_responsive_style' ),
-								),
-								'expanded'		=> array(
-									'fields'	=> array( 'creative_menu_responsive_alignment' ),
-									'sections'	=> array( 'creative_menu_responsive_style' ),
-								),
-							),
-						),
-						'creative_menu_mobile_toggle_text' => array(
-							'type'        => 'text',
-							'label'       => __( 'Navigation Label', 'uabb' ),
-							'default'     => '',
-							'placeholder' => __( 'Menu', 'uabb' ),
-							'connections' => array( 'string' ),
-						),
-						'creative_menu_mobile_toggle_color' => array(
-							'type'       => 'color',
-							'label'      => __( 'Navigation Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-							'preview'    => array(
-								'type'     => 'css',
-								'selector' => '.uabb-creative-menu-mobile-toggle',
-								'property' => 'color',
-							),
-						),
-						'creative_menu_navigation_alignment' => array(
-							'type'    => 'select',
-							'label'   => __( 'Navigation Alignment', 'uabb' ),
-							'default' => 'center',
-							'options' => array(
-								'left'   => __( 'Left', 'uabb' ),
-								'center' => __( 'Center', 'uabb' ),
-								'right'  => __( 'Right', 'uabb' ),
-							),
-							'preview' => array(
-								'type'     => 'css',
-								'selector' => '.uabb-creative-menu-mobile-toggle-container, .uabb-creative-menu-mobile-toggle-container > .uabb-creative-menu-mobile-toggle.text',
-								'property' => 'text-align',
-							),
-						),
-					),
-				),
-				'creative_menu_responsive_mobile_style' => array(
-					'title'  => __( 'Responsive Layout', 'uabb' ),
-					'fields' => array(
-						'creative_mobile_menu_type'       => array(
-							'type'    => 'select',
-							'label'   => __( 'Responsive Layout', 'uabb' ),
-							'default' => 'default',
-							'options' => array(
-								'default'     => __( 'Accordion', 'uabb' ),
-								'full-screen' => __( 'Overlay', 'uabb' ),
-								'off-canvas'  => __( 'Off Canvas', 'uabb' ),
-								'below-row'   => __( 'Below Row', 'uabb' ),
-							),
-							'toggle'  => array(
-								'off-canvas'  => array(
-									'fields'   => array( 'creative_menu_responsive_link_color', 'creative_menu_responsive_link_hover_color', 'creative_menu_responsive_link_border_color', 'creative_menu_offcanvas_direction', 'creative_menu_animation_speed', 'creative_menu_responsive_overlay_bg_color', 'creative_menu_responsive_overlay_padding_dimension', 'creative_menu_close_icon_size', 'creative_menu_close_icon_color', 'creative_menu_responsive_overlay_color', 'creative_menu_off_canvas_shadow', 'creative_menu_responsive_toggle' ),
-									'sections' => array( 'creative_menu_responsive_close_style' ),
-								),
-								'full-screen' => array(
-									'fields'   => array( 'creative_menu_responsive_link_color', 'creative_menu_responsive_link_hover_color', 'creative_menu_responsive_link_border_color', 'creative_menu_full_screen_effects', 'creative_menu_animation_speed', 'creative_menu_responsive_overlay_bg_color', 'creative_menu_close_icon_size', 'creative_menu_close_icon_color', 'creative_menu_responsive_toggle' ),
-									'sections' => array( 'creative_menu_responsive_close_style' ),
-								),
-							),
-						),
-						'creative_menu_full_screen_effects' => array(
-							'type'    => 'select',
-							'label'   => __( 'Effects', 'uabb' ),
-							'default' => 'fade',
-							'options' => array(
-								'fade'       => __( 'Fade', 'uabb' ),
-								'slide-down' => __( 'Slide Down', 'uabb' ),
-								'scale'      => __( 'Scale', 'uabb' ),
-								'door'       => __( 'Door', 'uabb' ),
-							),
-						),
-						'creative_menu_offcanvas_direction' => array(
-							'type'    => 'select',
-							'label'   => __( 'Direction', 'uabb' ),
-							'default' => 'left',
-							'options' => array(
-								'left'  => __( 'From Left', 'uabb' ),
-								'right' => __( 'From Right', 'uabb' ),
-							),
-						),
-						'creative_menu_animation_speed'   => array(
-							'type'        => 'unit',
-							'label'       => __( 'Animation Speed', 'uabb' ),
-							'default'     => 500,
-							'description' => __( 'ms', 'uabb' ),
-							'size'        => 5,
-						),
-						'creative_menu_mobile_breakpoint' => array(
-							'type'    => 'select',
-							'label'   => __( 'Responsive Breakpoint', 'uabb' ),
-							'default' => 'mobile',
-							'options' => array(
-								'always'        => __( 'Display on All Devices', 'uabb' ),
-								'medium-mobile' => __( 'Display on Medium & Small Devices Only', 'uabb' ),
-								'mobile'        => __( 'Display on Small Devices Only', 'uabb' ),
-								'custom'        => __( 'Enter Custom Breakpoint', 'uabb' ),
-							),
-							'toggle'  => array(
-								'custom' => array(
-									'fields'   => array( 'custom_breakpoint' ),
-									'sections' => array(),
-								),
-							),
-						),
-						'custom_breakpoint'               => array(
-							'type'        => 'unit',
-							'label'       => __( 'Custom Breakpoint', 'uabb' ),
-							'default'     => '768',
-							'description' => __( 'px', 'uabb' ),
-							'size'        => 5,
-						),
-					),
-				),
-				'creative_menu_responsive_style'        => array(
-					'title'  => __( 'Styling', 'uabb' ),
-					'fields' => array(
-						'creative_menu_responsive_overlay_bg_color' => array(
-							'type'       => 'color',
-							'label'      => __( 'Background Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-							'show_alpha' => true,
-						),
-						'creative_menu_responsive_link_color' => array(
-							'type'       => 'color',
-							'label'      => __( 'Link Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-							'preview'    => array(
-								'type'  => 'css',
-								'rules' => array(
-									array(
-										'selector' => '.uabb-creative-menu.full-screen .menu li a span.menu-item-text, .uabb-creative-menu.full-screen .menu li .uabb-has-submenu-container a span.menu-item-text, .uabb-creative-menu.off-canvas .menu li a span.menu-item-text, .uabb-creative-menu.off-canvas .menu li .uabb-has-submenu-container a span.menu-item-text',
-										'property' => 'color',
-									),
-									array(
-										'selector' => '.uabb-creative-menu.off-canvas .uabb-toggle-arrows .uabb-menu-toggle:before, .uabb-creative-menu.off-canvas .uabb-toggle-arrows .sub-menu .uabb-menu-toggle:before, .uabb-creative-menu.off-canvas .uabb-toggle-plus .uabb-menu-toggle:before,
-									.uabb-creative-menu.off-canvas .uabb-toggle-plus .sub-menu .uabb-menu-toggle:before, .uabb-creative-menu.full-screen .uabb-toggle-arrows .uabb-menu-toggle:before, .uabb-creative-menu.full-screen .uabb-toggle-arrows .sub-menu .uabb-menu-toggle:before,
-									 .uabb-creative-menu.full-screen .uabb-toggle-plus .uabb-menu-toggle:before, .uabb-creative-menu.full-screen .uabb-toggle-plus .sub-menu .uabb-menu-toggle:before',
-										'property' => 'color',
-									),
-								),
-							),
-						),
-						'creative_menu_responsive_link_hover_color' => array(
-							'type'       => 'color',
-							'label'      => __( 'Link Hover Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-						),
-						'creative_menu_responsive_link_border_color' => array(
-							'type'       => 'color',
-							'label'      => __( 'Submenu Separator Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-							'preview'    => array(
-								'type'     => 'css',
-								'selector' => '.uabb-creative-menu.full-screen .sub-menu li, .uabb-creative-menu.off-canvas .sub-menu li',
-								'property' => 'border-bottom-color',
-							),
-						),
-						'creative_menu_responsive_overlay_color' => array(
-							'type'       => 'color',
-							'label'      => __( 'Off Canvas Overlay Color', 'uabb' ),
-							'default'    => 'rgba(0,0,0,0)',
-							'show_reset' => true,
-							'show_alpha' => true,
-						),
-						'creative_menu_responsive_overlay_padding_dimension' => array(
-							'type'        => 'dimension',
-							'label'       => __( 'Off Canvas Padding', 'uabb' ),
-							'description' => 'px',
-							'responsive'  => array(
-								'placeholder' => array(
-									'default'    => '10',
-									'medium'     => '',
-									'responsive' => '',
-								),
-							),
-						),
-						'creative_menu_off_canvas_shadow' => array(
-							'type'    => 'select',
-							'label'   => __( 'Off Canvas Shadow', 'uabb' ),
-							'default' => 'no',
-							'options' => array(
-								'yes' => __( 'Yes', 'uabb' ),
-								'no'  => __( 'No', 'uabb' ),
-							),
-							'toggle'  => array(
-								'yes' => array(
-									'fields' => array( 'creative_menu_off_canvas_shadow_color' ),
-								),
-							),
-						),
-						'creative_menu_off_canvas_shadow_color' => array(
-							'type'       => 'color',
-							'label'      => __( 'Off Canvas Shadow Color', 'uabb' ),
-							'default'    => 'rgba(0,0,0,.5)',
-							'show_reset' => true,
-							'show_alpha' => true,
-						),
-						'creative_menu_responsive_alignment' => array(
-							'type'    => 'select',
-							'label'   => __( 'Overall Alignment', 'uabb' ),
-							'default' => 'center',
-							'options' => array(
-								'left'   => __( 'Left', 'uabb' ),
-								'center' => __( 'Center', 'uabb' ),
-								'right'  => __( 'Right', 'uabb' ),
-							),
-						),
-						'creative_menu_responsive_toggle' => array(
-							'type'    => 'select',
-							'label'   => __( 'Submenu Icon', 'uabb' ),
-							'default' => 'default',
-							'options' => array(
-								'default' => __( 'Default', 'uabb' ),
-								'arrows'  => __( 'Arrows', 'uabb' ),
-								'plus'    => __( 'Plus Sign', 'uabb' ),
-							),
-						),
-					),
-				),
-				'creative_menu_responsive_close_style'  => array(
-					'title'  => __( 'Close Icon', 'uabb' ),
-					'fields' => array(
-						'creative_menu_close_icon_size'  => array(
-							'type'        => 'unit',
-							'label'       => __( 'Close Icon Size', 'uabb' ),
-							'placeholder' => '30',
-							'size'        => '8',
-							'description' => 'px',
-							'preview'     => array(
-								'type'  => 'css',
-								'rules' => array(
-									array(
-										'selector' => '.uabb-creative-menu.off-canvas .uabb-off-canvas-menu .uabb-menu-close-btn',
-										'property' => 'font-size',
-										'unit'     => 'px',
-									),
-									array(
-										'selector' => '.uabb-creative-menu .uabb-menu-overlay .uabb-menu-close-btn',
-										'property' => 'width',
-										'unit'     => 'px',
-									),
-									array(
-										'selector' => '.uabb-creative-menu .uabb-menu-overlay .uabb-menu-close-btn, .uabb-creative-menu .uabb-menu-overlay .uabb-menu-close-btn:before, .uabb-creative-menu .uabb-menu-overlay .uabb-menu-close-btn:after',
-										'property' => 'height',
-										'unit'     => 'px',
-									),
-								),
-							),
-						),
-						'creative_menu_close_icon_color' => array(
-							'type'       => 'color',
-							'label'      => __( 'Close Icon Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-							'preview'    => array(
-								'type'  => 'css',
-								'rules' => array(
-									array(
-										'selector' => '.uabb-creative-menu .uabb-menu-overlay .uabb-menu-close-btn:before, .uabb-creative-menu .uabb-menu-overlay .uabb-menu-close-btn:after',
-										'property' => 'background-color',
-									),
-									array(
-										'selector' => '.uabb-creative-menu .uabb-off-canvas-menu .uabb-menu-close-btn',
-										'property' => 'color',
-									),
-								),
-							),
-						),
-					),
-				),
-			),
-		),
-		'typography' => array( // Tab.
-			'title'    => __( 'Typography', 'uabb' ), // Tab title.
-			'sections' => array( // Tab Sections.
-				'link_typography'         => array(
-					'title'  => __( 'Menu Typography', 'uabb' ),
-					'fields' => array(
-						'creative_menu_link_font_family' => array(
-							'type'    => 'font',
-							'label'   => __( 'Font Family', 'uabb' ),
-							'default' => array(
-								'family' => 'Default',
-								'weight' => 'Default',
-							),
-							'preview' => array(
-								'type'     => 'font',
-								'selector' => '.menu > li > a, .menu > li > .uabb-has-submenu-container > a, .uabb-creative-menu-mobile-toggle-label',
-							),
-						),
-						'creative_menu_link_font_size'   => array(
-							'type'    => 'select',
-							'label'   => __( 'Font Size', 'uabb' ),
-							'default' => 'default',
-							'options' => array(
-								'default' => __( 'Default', 'uabb' ),
-								'custom'  => __( 'Custom', 'uabb' ),
-							),
-							'toggle'  => array(
-								'custom' => array(
-									'fields' => array( 'creative_menu_link_font_size_custom' ),
-								),
-							),
-						),
-						'creative_menu_link_font_size_custom' => array(
-							'type'        => 'unit',
-							'label'       => __( 'Custom Font Size', 'uabb' ),
-							'description' => 'px',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.menu > li > a, .menu > li > .uabb-has-submenu-container > a, .uabb-creative-menu-mobile-toggle-label',
-								'property' => 'font-size',
-								'unit'     => 'px',
-							),
-							'responsive'  => array(
-								'placeholder' => array(
-									'default'    => '18',
-									'medium'     => '',
-									'responsive' => '',
-								),
-							),
-						),
-						'creative_menu_link_line_height' => array(
-							'type'    => 'select',
-							'label'   => __( 'Line Height', 'uabb' ),
-							'default' => 'default',
-							'options' => array(
-								'default' => __( 'Default', 'uabb' ),
-								'custom'  => __( 'Custom', 'uabb' ),
-							),
-							'toggle'  => array(
-								'custom' => array(
-									'fields' => array( 'creative_menu_link_line_height_custom' ),
-								),
-							),
-						),
-						'creative_menu_link_line_height_custom' => array(
-							'type'       => 'unit',
-							'label'      => __( 'Custom Line Height', 'uabb' ),
-							'preview'    => array(
-								'type'     => 'css',
-								'selector' => '.menu > li > a, .menu > li > .uabb-has-submenu-container > a, .uabb-creative-menu-mobile-toggle-label',
-								'property' => 'line-height',
-							),
-							'responsive' => array(
-								'placeholder' => array(
-									'default'    => '1.4',
-									'medium'     => '',
-									'responsive' => '',
-								),
-							),
-						),
-						'creative_menu_link_text_transform' => array(
-							'type'    => 'select',
-							'label'   => __( 'Text Transform', 'uabb' ),
-							'default' => '',
-							'options' => array(
-								''           => 'Default',
-								'uppercase'  => 'UPPERCASE',
-								'lowercase'  => 'lowercase',
-								'capitalize' => 'Capitalize',
-							),
-							'preview' => array(
-								'type'     => 'css',
-								'selector' => '.uabb-creative-menu .menu > li > a, .uabb-creative-menu .menu > li > .uabb-has-submenu-container > a, .uabb-creative-menu-mobile-toggle-label',
-								'property' => 'text-transform',
-							),
-						),
-						'creative_menu_link_letter_spacing' => array(
-							'type'        => 'unit',
-							'label'       => __( 'Letter Spacing', 'uabb' ),
-							'placeholder' => '0',
-							'size'        => '5',
-							'description' => 'px',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-creative-menu .menu > li > a, .uabb-creative-menu .menu > li > .uabb-has-submenu-container > a, .uabb-creative-menu-mobile-toggle-label',
-								'property' => 'letter-spacing',
-								'unit'     => 'px',
-							),
-						),
-					),
-				),
-				'submenu_link_typography' => array(
-					'title'  => __( 'Submenu Typography', 'uabb' ),
-					'fields' => array(
-						'creative_submenu_link_font_family' => array(
-							'type'    => 'font',
-							'label'   => __( 'Font Family', 'uabb' ),
-							'default' => array(
-								'family' => 'Default',
-								'weight' => 'Default',
-							),
-							'preview' => array(
-								'type'     => 'font',
-								'selector' => '.uabb-creative-menu .sub-menu a',
-							),
-						),
-						'creative_submenu_link_font_size' => array(
-							'type'    => 'select',
-							'label'   => __( 'Font Size', 'uabb' ),
-							'default' => 'default',
-							'options' => array(
-								'default' => __( 'Default', 'uabb' ),
-								'custom'  => __( 'Custom', 'uabb' ),
-							),
-							'toggle'  => array(
-								'custom' => array(
-									'fields' => array( 'creative_submenu_link_font_size_custom' ),
-								),
-							),
-						),
-						'creative_submenu_link_font_size_custom' => array(
-							'type'        => 'unit',
-							'label'       => __( 'Custom Font Size', 'uabb' ),
-							'description' => 'px',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-creative-menu .sub-menu a, .uabb-creative-menu .sub-menu > li > .uabb-has-submenu-container > a',
-								'property' => 'font-size',
-								'unit'     => 'px',
-							),
-							'responsive'  => array(
-								'placeholder' => array(
-									'default'    => '18',
-									'medium'     => '',
-									'responsive' => '',
-								),
-							),
-						),
-						'creative_submenu_link_line_height' => array(
-							'type'    => 'select',
-							'label'   => __( 'Line Height', 'uabb' ),
-							'default' => 'default',
-							'options' => array(
-								'default' => __( 'Default', 'uabb' ),
-								'custom'  => __( 'Custom', 'uabb' ),
-							),
-							'toggle'  => array(
-								'custom' => array(
-									'fields' => array( 'creative_submenu_link_line_height_custom' ),
-								),
-							),
-						),
-						'creative_submenu_link_line_height_custom' => array(
-							'type'       => 'unit',
-							'label'      => __( 'Custom Line Height', 'uabb' ),
-							'preview'    => array(
-								'type'     => 'css',
-								'selector' => '.uabb-creative-menu .sub-menu a, .uabb-creative-menu .sub-menu > li > .uabb-has-submenu-container > a',
-								'property' => 'line-height',
-							),
-							'responsive' => array(
-								'placeholder' => array(
-									'default'    => '1.4',
-									'medium'     => '',
-									'responsive' => '',
-								),
-							),
-						),
-						'creative_submenu_link_text_transform' => array(
-							'type'    => 'select',
-							'label'   => __( 'Text Transform', 'uabb' ),
-							'default' => '',
-							'options' => array(
-								''           => 'Default',
-								'uppercase'  => 'UPPERCASE',
-								'lowercase'  => 'lowercase',
-								'capitalize' => 'Capitalize',
-							),
-							'preview' => array(
-								'type'     => 'css',
-								'selector' => '.uabb-creative-menu .sub-menu a',
-								'property' => 'text-transform',
-							),
-						),
-						'creative_submenu_link_letter_spacing' => array(
-							'type'        => 'unit',
-							'label'       => __( 'Letter Spacing', 'uabb' ),
-							'placeholder' => '0',
-							'size'        => '5',
-							'description' => 'px',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-creative-menu .sub-menu a',
-								'property' => 'letter-spacing',
-								'unit'     => 'px',
-							),
-						),
-					),
-				),
-			),
-		),
-	)
-);
+if ( UABB_Compatibility::check_bb_version() ) {
+	require_once BB_ULTIMATE_ADDON_DIR . 'modules/uabb-advanced-menu/uabb-advanced-menu-bb-2-2-compatibility.php';
+} else {
+	require_once BB_ULTIMATE_ADDON_DIR . 'modules/uabb-advanced-menu/uabb-advanced-menu-bb-less-than-2-2-compatibility.php';
+}

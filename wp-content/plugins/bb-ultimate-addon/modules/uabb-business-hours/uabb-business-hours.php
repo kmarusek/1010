@@ -1,621 +1,291 @@
 <?php
+/**
+ *  UABB Business Hour Module file
+ *
+ *  @package UABB Business Hour Module
+ */
 
 /**
+ * Function that initializes UABB Business Hour Module
+ *
  * @class UABBBusinessHours
  */
 class UABBBusinessHours extends FLBuilderModule {
 
-    /**
-     * @method __construct
-     */
-    public function __construct()
-    {
-        parent::__construct(array(
-            'name'            => __( 'Business Hours', 'uabb' ),
-            'description'     => __( 'A totally awesome module!', 'uabb' ),
-            'category'        => BB_Ultimate_Addon_Helper::module_cat( BB_Ultimate_Addon_Helper::$content_modules ),
-            'group'           => UABB_CAT,
-            'dir'             => BB_ULTIMATE_ADDON_DIR . 'modules/uabb-business-hours/',
-            'url'             => BB_ULTIMATE_ADDON_URL . 'modules/uabb-business-hours/',
-            'editor_export'   => true, 
-            'enabled'         => true, 
-            'partial_refresh' => true,
-            'icon'            => 'clock.svg',
-        ));
-    }   
+	/**
+	 * Constructor function that constructs default values for the UABB Business Hour module
+	 *
+	 * @method __construct
+	 */
+	public function __construct() {
+		parent::__construct(
+			array(
+				'name'            => __( 'Business Hours', 'uabb' ),
+				'description'     => __( 'A totally awesome module!', 'uabb' ),
+				'category'        => BB_Ultimate_Addon_Helper::module_cat( BB_Ultimate_Addon_Helper::$content_modules ),
+				'group'           => UABB_CAT,
+				'dir'             => BB_ULTIMATE_ADDON_DIR . 'modules/uabb-business-hours/',
+				'url'             => BB_ULTIMATE_ADDON_URL . 'modules/uabb-business-hours/',
+				'editor_export'   => true,
+				'enabled'         => true,
+				'partial_refresh' => true,
+				'icon'            => 'clock.svg',
+			)
+		);
+	}
+
+	/**
+	 * Ensure backwards compatibility with old settings.
+	 *
+	 * @since 1.14.0
+	 * @param object $settings A module settings object.
+	 * @param object $helper A settings compatibility helper.
+	 * @return object
+	 */
+	public function filter_settings( $settings, $helper ) {
+
+		$version_bb_check        = UABB_Compatibility::check_bb_version();
+		$page_migrated           = UABB_Compatibility::check_old_page_migration();
+		$stable_version_new_page = UABB_Compatibility::check_stable_version_new_page();
+
+		if ( $version_bb_check && ( 'yes' == $page_migrated || 'yes' == $stable_version_new_page ) ) {
+
+			// Handle old border settings.
+			if ( ! isset( $settings->border ) || empty( $settings->border ) ) {
+
+				$settings->border = array();
+
+				// Border style, color, and width.
+				if ( isset( $settings->border_color ) && ! empty( $settings->border_color ) ) {
+					if ( isset( $settings->border_style_all ) ) {
+						$settings->border['style'] = $settings->border_style_all;
+					}
+					$settings->border['color'] = $settings->border_color;
+					if ( isset( $settings->border_width_top ) && isset( $settings->border_width_right ) && isset( $settings->border_width_bottom ) && isset( $settings->border_width_left ) ) {
+						$settings->border['width'] = array(
+							'top'    => $settings->border_width_top,
+							'right'  => $settings->border_width_right,
+							'bottom' => $settings->border_width_bottom,
+							'left'   => $settings->border_width_left,
+						);
+
+						unset( $settings->border_width_top );
+						unset( $settings->border_width_right );
+						unset( $settings->border_width_bottom );
+						unset( $settings->border_width_left );
+					}
+					unset( $settings->border_style_all );
+					unset( $settings->border_color );
+					unset( $settings->border_width );
+				}
+
+				// Border radius.
+				if ( isset( $settings->border_radius ) ) {
+					$settings->border['radius'] = array(
+						'top_left'     => $settings->border_radius,
+						'top_right'    => $settings->border_radius,
+						'bottom_left'  => $settings->border_radius,
+						'bottom_right' => $settings->border_radius,
+					);
+					unset( $settings->border_radius );
+				}
+			}
+
+			// For overall day typography.
+			if ( ! isset( $settings->day_font_typo ) || ! is_array( $settings->day_font_typo ) ) {
+
+				$settings->day_font_typo            = array();
+				$settings->day_font_typo_medium     = array();
+				$settings->day_font_typo_responsive = array();
+			}
+			if ( isset( $settings->days_font ) ) {
+
+				if ( isset( $settings->days_font['family'] ) ) {
+
+					$settings->day_font_typo['font_family'] = $settings->days_font['family'];
+				}
+				if ( isset( $settings->days_font['weight'] ) ) {
+
+					if ( 'regular' == $settings->days_font['weight'] ) {
+						$settings->day_font_typo['font_weight'] = 'normal';
+					} else {
+						$settings->day_font_typo['font_weight'] = $settings->days_font['weight'];
+					}
+				}
+			}
+			if ( isset( $settings->days_new_font_size ) ) {
+				$settings->day_font_typo['font_size'] = array(
+					'length' => $settings->days_new_font_size,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->days_new_font_size_medium ) ) {
+				$settings->day_font_typo_medium['font_size'] = array(
+					'length' => $settings->days_new_font_size_medium,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->days_new_font_size_responsive ) ) {
+				$settings->day_font_typo_responsive['font_size'] = array(
+					'length' => $settings->days_new_font_size_responsive,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->days_new_line_height ) ) {
+
+				$settings->day_font_typo['line_height'] = array(
+					'length' => $settings->days_new_line_height,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->days_new_line_height_medium ) ) {
+
+				$settings->day_font_typo_medium['line_height'] = array(
+					'length' => $settings->days_new_line_height_medium,
+					'unit'   => 'em',
+				);
+			}
+
+			if ( isset( $settings->days_new_line_height_responsive ) ) {
+
+				$settings->day_font_typo_responsive['line_height'] = array(
+					'length' => $settings->days_new_line_height_responsive,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->days_transform ) ) {
+				$settings->day_font_typo['text_transform'] = $settings->days_transform;
+			}
+			if ( isset( $settings->days_decoration ) ) {
+				$settings->day_font_typo['text_decoration'] = $settings->days_decoration;
+			}
+			if ( isset( $settings->days_letter_spacing ) ) {
+				$settings->day_font_typo['letter_spacing'] = array(
+					'length' => $settings->days_letter_spacing,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->days_alignment ) ) {
+				$settings->day_font_typo['text_align'] = $settings->days_alignment;
+				unset( $settings->days_alignment );
+			}
+
+			// For overall hours typography.
+			if ( ! isset( $settings->hour_font_typo ) || ! is_array( $settings->hour_font_typo ) ) {
+
+				$settings->hour_font_typo            = array();
+				$settings->hour_font_typo_medium     = array();
+				$settings->hour_font_typo_responsive = array();
+			}
+			if ( isset( $settings->hours_font ) ) {
+
+				if ( isset( $settings->hours_font['family'] ) ) {
+
+					$settings->hour_font_typo['font_family'] = $settings->hours_font['family'];
+				}
+				if ( isset( $settings->hours_font['weight'] ) ) {
+
+					if ( 'regular' == $settings->hours_font['weight'] ) {
+						$settings->hour_font_typo['font_weight'] = 'normal';
+					} else {
+						$settings->hour_font_typo['font_weight'] = $settings->hours_font['weight'];
+					}
+				}
+			}
+			if ( isset( $settings->hours_new_font_size ) ) {
+
+				$settings->hour_font_typo['font_size'] = array(
+					'length' => $settings->hours_new_font_size,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->hours_new_font_size_medium ) ) {
+
+				$settings->hour_font_typo_medium['font_size'] = array(
+					'length' => $settings->hours_new_font_size_medium,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->hours_new_font_size_responsive ) ) {
+
+				$settings->hour_font_typo_responsive['font_size'] = array(
+					'length' => $settings->hours_new_font_size_responsive,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->hours_new_line_height ) ) {
+
+				$settings->hour_font_typo['line_height'] = array(
+					'length' => $settings->hours_new_line_height,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->hours_new_line_height_medium ) ) {
+				$settings->hour_font_typo_medium['line_height'] = array(
+					'length' => $settings->hours_new_line_height_medium,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->hours_new_line_height_responsive ) ) {
+				$settings->hour_font_typo_responsive['line_height'] = array(
+					'length' => $settings->hours_new_line_height_responsive,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->hours_transform ) ) {
+				$settings->hour_font_typo['text_transform'] = $settings->hours_transform;
+			}
+			if ( isset( $settings->hours_decoration ) ) {
+				$settings->hour_font_typo['text_decoration'] = $settings->hours_decoration;
+			}
+			if ( isset( $settings->hours_letter_spacing ) ) {
+
+				$settings->hour_font_typo['letter_spacing'] = array(
+					'length' => $settings->hours_letter_spacing,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->hours_alignment ) ) {
+				$settings->hour_font_typo['text_align'] = $settings->hours_alignment;
+				unset( $settings->hours_alignment );
+			}
+			if ( isset( $settings->days_font ) ) {
+				unset( $settings->days_font );
+				unset( $settings->days_new_font_size );
+				unset( $settings->days_new_font_size_medium );
+				unset( $settings->days_new_font_size_responsive );
+				unset( $settings->days_new_line_height );
+				unset( $settings->days_new_line_height_medium );
+				unset( $settings->days_new_line_height_responsive );
+				unset( $settings->days_transform );
+				unset( $settings->days_decoration );
+				unset( $settings->days_letter_spacing );
+			}
+			if ( isset( $settings->hours_font ) ) {
+				unset( $settings->hours_font );
+				unset( $settings->hours_new_font_size );
+				unset( $settings->hours_new_font_size_medium );
+				unset( $settings->hours_new_font_size_responsive );
+				unset( $settings->hours_new_line_height );
+				unset( $settings->hours_new_line_height_medium );
+				unset( $settings->hours_new_line_height_responsive );
+				unset( $settings->hours_transform );
+				unset( $settings->hours_decoration );
+				unset( $settings->hours_letter_spacing );
+			}
+		}
+
+		return $settings;
+	}
 }
 
-/**
- * Register the module and its form settings.
+/*
+ * Condition to verify Beaver Builder version.
+ * And accordingly render the required form settings file.
  */
-FLBuilder::register_module('UABBBusinessHours', array(
-    'business-hours-info'       => array(
-        'title'         => __('Content', 'uabb'),
-        'sections'      => array(
-            'info_list_general'       => array(
-                'title'         => '',
-                'fields'        => array(
-                    'businessHours'     => array(
-                        'type'          => 'form',
-                        'label'         => __('Day', 'uabb'),
-                        'form'          => 'uabb_business_hours_form',
-                        'preview_text'  => 'days',
-                        'multiple'      => true,
-                        'default'      => array (
-                            array(
-                                'days'    => 'Monday',
-                                'hours'   => '8:30 AM - 7:30 PM',
-                            ),
-                            array(
-                                'days'    => 'Tuesday',
-                                'hours'   => '8:30 AM - 7:30 PM',
-                            ),
-                            array(
-                                'days'    => 'Wednesday',
-                                'hours'   => '8:30 AM - 7:30 PM',
-                            ),
-                            array(
-                                'days'    => 'Thursday',
-                                'hours'   => '8:30 AM - 7:30 PM',
-                            ),
-                            array(
-                                'days'    => 'Friday',
-                                'hours'   => '8:30 AM - 7:30 PM',
-                            ),
-                            array(
-                                'days'    => 'Saturday',
-                                'hours'   => 'Closed',
-                            ),
-                            array(
-                                'days'    => 'Sunday',
-                                'hours'   => 'Closed',
-                            ),
-                        ),
-                    ),
-                )
-            )
-        ) 
-    ),
-    'business-style'       => array(
-        'title'         => __('Style', 'uabb'),
-        'sections'      => array(
-            'business_style_spacing'       => array(
-                'General'         => '',
-                'title'         => __('Row', 'uabb'),
-                'fields'        => array(
-                    'days_alignment'    => array(
-                        'type'        => 'select',
-                        'label'       => __('Day Alignment', 'uabb'),
-                        'default'     => 'left',
-                        'options'     => array(
-                            'left'          => __('Left', 'uabb'),
-                            'center'        => __( 'Center', 'uabb' ),
-                            'right'         => __('Right', 'uabb'),
-                        ),
-                        'preview'         => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-business-day',
-                            'property'      => 'text-align'
-                        )
-                    ), 
-                    'hours_alignment'    => array(
-                        'type'        => 'select',
-                        'label'       => __('Hours Alignment', 'uabb'),
-                        'default'     => 'right',
-                        'options'     => array(
-                            'left'          => __('Left', 'uabb'),
-                            'center'        => __( 'Center', 'uabb' ),
-                            'right'         => __('Right', 'uabb'),
-                        ),
-                        'preview'         => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-business-hours',
-                            'property'      => 'text-align'
-                        )
-                    ),    
-                	'row_spacing'         => array(
-                        'type'          => 'dimension',
-                        'label'       => 'Spacing',
-	                    'description' => 'px',
-					    'responsive'  => array(
-							'placeholder' => array(
-								'default'  =>  '10',
-								'medium'    =>  '24',
-								'responsive'  => '16',
-							),
-						),
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-business-hours-wrap',
-                            'property'      => 'padding',
-                            'unit'          => 'px'
-                        ),
-                    ),
-                    'row_divider'    => array(
-                        'type'        => 'select',
-                        'label'       => __('Divider', 'uabb'),
-                        'default'     => 'no',
-                        'options'     => array(
-                             'yes'    => __('Yes','uabb'),
-                             'no'     => __('No','uabb'),
-                         ),
-                        'toggle'      => array(
-                            'yes'     => array(
-                                'fields'     => array( 'divider_style', 'divider_color','divider_weight' ),
-                            ),
-                        )
-                    ),
-                    'divider_style' => array(
-                        'type'          => 'select',
-                        'label'         => __( 'Divider Style', 'uabb' ),
-                        'default'       => 'solid',
-                        'options'       => array(
-                            'solid'       => __('Solid', 'uabb'),
-                            'dotted'      => __('Dotted', 'uabb'),
-                            'dashed'      => __('Dashed', 'uabb')
-                        ),
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-business-hours-container .uabb-business-hours-wrap:not(:first-child)',
-                            'property'      => 'border-top-style'
-                        ),
-                    ),
-                    'divider_color' => array(
-                        'type'          => 'color',
-                        'label'         => __( 'Divider Color', 'uabb' ),
-                        'default'       => 'dddddd',
-                        'show_reset'    => true,
-                        'show_alpha'    => true,
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-business-hours-container .uabb-business-hours-wrap:not(:first-child)',
-                            'property'      => 'border-color'
-                        ),
-                    ),
-                    'divider_weight'  => array(
-                        'type'          => 'unit',
-                        'label'         => __( 'Divider Weight', 'uabb' ),
-                        'description'   => 'px',
-                        'size'          => '5',
-                        'default'       => '1',
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-business-hours-container .uabb-business-hours-wrap:not(:first-child)',
-                            'property'      => 'border-top-width',
-                            'unit'          => 'px'
 
-                        ),
-                    ),
-                    'striped_effect'    => array(
-                        'type'        => 'select',
-                        'label'       => __('Striped Effect', 'uabb'),
-                        'default'     => 'no',
-                        'options'     => array(
-                             'yes'    => __('Yes','uabb'),
-                             'no'     => __('No','uabb'),
-                         ),
-                        'toggle'      => array(
-                            'yes'     => array(
-                                'fields'     => array( 'striped_odd_rows_color', 'striped_even_rows_color'),
-                            ),
-                        )
-                    ),
-                    'striped_odd_rows_color'    => array(
-                        'type'          => 'color',
-                        'label'         => __( 'Striped Odd Rows Color', 'uabb' ),
-                        'default'       => 'eaeaea',
-                        'show_reset'    => true,
-                        'show_alpha'    => true,
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-business-hours-wrap:nth-child(odd)',
-                            'property'      => 'background-color'
-                        ),
-                    ), 
-                    'striped_even_rows_color'    => array(
-                        'type'          => 'color',
-                        'label'         => __( 'Striped Even Rows Color', 'uabb' ),
-                        'default'       => 'FFFFFF',
-                        'show_reset'    => true,
-                        'show_alpha'    => true,
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-business-hours-wrap:nth-child(even)',
-                            'property'      => 'background-color'
-                        ),
-                    ), 
-                )
-            ), 
-            'business_row_divider'       => array(
-                'General'         => '',
-                'title'         => __('Box', 'uabb'),
-                'fields'        => array(
-                    'box_padding'   =>array(
-                        'type'          =>'dimension',
-                        'label'         =>__('Padding','uabb'),
-                        'default'       =>'10',
-                        'description'   => 'px',
-                        'responsive'    => array(
-                            'placeholder'   => array(
-                                'default'       => '',
-                                'medium'        => '',
-                                'responsive'    => '',
-                            ),
-                        )    
-                    ),
-                    'background_color_all'    => array(
-                        'type'          => 'color',
-                        'label'         => __( 'Background Color', 'uabb' ),
-                        'default'       => 'FAFAFA',
-                        'show_reset'    => true,
-                        'show_alpha'    => true,
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-business-hours-container',
-                            'property'      => 'background-color'
-                        ),
-                    ),
-                    'border_style_all'    => array(
-                        'type'          => 'select',
-                        'label'         => __( 'Border Type', 'uabb' ),
-                        'default'       => 'None',
-                        'options'       => array(
-                            'none'        => __('None', 'uabb'),
-                            'solid'       => __('Solid', 'uabb'),
-                            'dotted'      => __('Dotted', 'uabb'),
-                            'dashed'      => __('Dashed', 'uabb')
-                        ),
-                        'toggle'      => array(
-                            'solid'     => array(
-                                'fields'     => array( 'border_width', 'border_color' ),
-                            ),
-                            'dotted'     => array(
-                                'fields'     => array( 'border_width', 'border_color' ),
-                            ),
-                            'dashed'     => array(
-                                'fields'     => array( 'border_width', 'border_color' ),
-                            ),
-                        ),
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-business-hours-container',
-                            'property'      => 'border-style'
-                        ),
-                    ), 
-                    'border_width'    => array(
-                        'type'          => 'dimension',
-                        'label'         => __( 'Width', 'uabb' ),
-                        'size'          => '5',
-                        'default'       => '1',
-                        'description'   => 'px',
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-business-hours-container',
-                            'property'      => 'border-width',
-                            'unit'          => 'px'
-                        ),
-                    ), 
-                    'border_color'    => array(
-                        'type'          => 'color',
-                        'label'         => __( 'Color', 'uabb' ),
-                        'default'       => 'dddddd',
-                        'show_reset'    => true,
-                        'show_alpha'    => true,
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-business-hours-container',
-                            'property'      => 'border-color'
-                        ),
-                    ),
-                    'border_radius'    => array(
-                        'type'          => 'unit',
-                        'label'         => __( 'Border Radius', 'uabb' ),
-                        'description'   => 'px',
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-business-hours-container',
-                            'property'      => 'border-radius',
-                            'unit'          => 'px'
-                        ),
-                    ), 
-                )
-            ),
-        ) 
-    ),
-    'business-hours-typography'       => array(
-        'title'         => __('Typography', 'uabb'),
-        'sections'      => array(
-            'day_typo'     => array(
-                'title'         => __('Day', 'uabb'),
-                'fields'        => array( 
-                    'days_font'          => array(
-                        'type'          => 'font',
-                        'default'       => array(
-                            'family'        => 'Default',
-                            'weight'        => 'Default'
-                        ),
-                        'label'         => __('Font', 'uabb'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.uabb-business-day'
-                        )
-                    ),
-                    'days_new_font_size'     => array(
-                        'type'          => 'unit',
-                        'label'         => __( 'Font Size', 'uabb' ),
-                        'description'   => 'px',
-                        'responsive'  => array(
-                            'placeholder' => array(
-                                'default'  =>  '',
-                                'medium'    =>  '',
-                                'responsive'  => '',
-                            ),
-                        ),
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-business-day',
-                            'property'      => 'font-size',
-                            'unit'          => 'px'
-                        ),
-                    ),
-                    'days_new_line_height'     => array(
-                        'type'          => 'unit',
-                        'label'         => __( 'Line Height', 'uabb' ),
-                        'description'   => 'em',
-                        'responsive'  => array(
-                            'placeholder' => array(
-                                'default'  =>  '',
-                                'medium'    =>  '',
-                                'responsive'  => '',
-                            ),
-                        ),
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-business-day',
-                            'property'      => 'line-height',
-                            'unit'          => 'em'
-                        ),
-                    ),
-                    'days_color'    => array( 
-                        'type'       => 'color',
-                        'label'      => __('Color', 'uabb'),
-                        'default'    => '',
-                        'show_reset' => true,
-                        'show_alpha' => true,
-                        'preview'       => array(
-                            'type'     => 'css',
-                            'property' => 'color',
-                            'selector' => '.uabb-business-day:not(.uabb-business-day-highlight)'
-                        )
-                    ),
-                    'days_transform'     => array(
-                        'type'          => 'select',
-                        'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => '',
-                        'options'       => array(
-                            ''                  =>  __('Default', 'uabb'),
-                            'uppercase'         =>  __('UPPERCASE', 'uabb'),
-                            'lowercase'         =>  __('lowercase', 'uabb'),
-                            'capitalize'        =>  __('Capitalize', 'uabb'),           
-                        ),
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-business-day',
-                            'property'      => 'text-transform'
-                        ),
-                    ),
-                    'days_decoration'     => array(
-                        'type'          => 'select',
-                        'label'         => __( 'Decoration', 'uabb' ),
-                        'default'       => '',
-                        'options'       => array(
-                            'none'             =>  __('None', 'uabb'),
-                            'underline'        =>  __('Underline', 'uabb'),
-                            'overline'         =>  __('Overline', 'uabb'),
-                            'line-through'     =>  __('Line Through', 'uabb'),
-                        ),
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-business-day',
-                            'property'      => 'text-decoration'
-                        ),
-                    ),
-                    'days_letter_spacing'       => array(
-                        'type'          => 'unit',
-                        'label'         => __('Letter Spacing', 'uabb'),
-                        'placeholder'   => '0',
-                        'size'          => '5',
-                        'description'   => 'px',
-                        'preview'         => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-business-day',
-                            'property'      => 'letter-spacing',
-                            'unit'          => 'px'
-                        )
-                    ),                        
-                )
-            ),
-            'hours_typo'     => array(
-                'title'         => __('Hours', 'uabb'),
-                'fields'        => array(
-                    'hours_font'          => array(
-                        'type'          => 'font',
-                        'default'       => array(
-                            'family'        => 'Default',
-                            'weight'        => 'Default'
-                        ),
-                        'label'         => __('Font', 'uabb'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.uabb-business-hours'
-                        )
-                    ),
-                    'hours_new_font_size'     => array(
-                        'type'          => 'unit',
-                        'label'         => __( 'Font Size', 'uabb' ),
-                        'description'   => 'px',
-                        'responsive'  => array(
-                            'placeholder' => array(
-                                'default'     =>  '',
-                                'medium'      =>  '',
-                                'responsive'  => '',
-                            ),
-                        ),
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-business-hours',
-                            'property'      => 'font-size',
-                            'unit'          => 'px'
-                        ),
-                    ),
-                    'hours_new_line_height'     => array(
-                        'type'          => 'unit',
-                        'label'         => __( 'Line Height', 'uabb' ),
-                        'description'   => 'em',
-                        'responsive'  => array(
-                            'placeholder' => array(
-                                'default'  =>  '',
-                                'medium'    =>  '',
-                                'responsive'  => '',
-                            ),
-                        ),
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-business-hours',
-                            'property'      => 'line-height',
-                            'unit'          => 'em'
-                        ),
-                    ),
-                    'hours_color'    => array( 
-                        'type'       => 'color',
-                        'label'      => __('Color', 'uabb'),
-                        'default'    => '',
-                        'show_reset' => true,
-                        'show_alpha' => true,
-                        'preview'       => array(
-                            'type'       => 'css',
-                            'property'   => 'color',
-                            'selector'   => '.uabb-business-hours:not(.uabb-business-hours-highlight)'
-                        )
-                    ),
-                    'hours_transform'     => array(
-                        'type'          => 'select',
-                        'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => '',
-                        'options'       => array(
-                            ''                  =>  __('Default', 'uabb'),
-                            'uppercase'         =>  __('UPPERCASE', 'uabb'),
-                            'lowercase'         =>  __('lowercase', 'uabb'),
-                            'capitalize'        =>  __('Capitalize', 'uabb'),                
-                        ),
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-business-hours',
-                            'property'      => 'text-transform'
-                        ),
-
-                    ),
-                    'hours_decoration'     => array(
-                        'type'          => 'select',
-                        'label'         => __( 'Decoration', 'uabb' ),
-                        'default'       => '',
-                        'options'       => array(
-                            'none'             =>  __('None', 'uabb'),
-                            'underline'        =>  __('Underline', 'uabb'),
-                            'overline'         =>  __('Overline', 'uabb'),
-                            'line-through'     =>  __('Line Through', 'uabb'),
-                        ),
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-business-hours',
-                            'property'      => 'text-decoration'
-                        ),
-                    ),
-                    'hours_letter_spacing'       => array(
-                        'type'          => 'unit',
-                        'label'         => __('Letter Spacing', 'uabb'),
-                        'placeholder'   => '0',
-                        'size'          => '5',
-                        'description'   => 'px',
-                        'preview'         => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-business-hours',
-                            'property'      => 'letter-spacing',
-                            'unit'          => 'px'
-                        )
-                    ),  
-                )
-            ),
-        ) 
-    ),
-));
-
-/**
- * Register a settings form to use in the "form" field type above.
- */
-FLBuilder::register_settings_form('uabb_business_hours_form', array(
-    'title' => __('Add Hours Data', 'uabb'),
-    'tabs'  => array(
-        'general'      => array(
-            'title'         => __('General', 'uabb'),
-            'sections'      => array(
-                'business_hours_title_section'       => array(
-                    'title'         => __('Title', 'uabb'),
-                    'fields'        => array(
-                        'days' => array(
-                            'type'          => 'text',
-                            'label'         => __('Enter Day', 'uabb'),
-                            'connections'   => array( 'string', 'html' )
-                        ),
-                        'hours' => array(
-                            'type'          => 'text',
-                            'label'         => __('Enter Time', 'uabb'),
-                            'connections'   => array( 'string', 'html' )
-                        ),
-                    ),
-                ), 
-                'business_hours_styling_section'       => array(
-                    'title'         => __('Styling', 'uabb'),
-                    'fields'        => array(
-                        'highlight_styling' => array(
-                            'type'          => 'select',
-                            'label'         => __( 'Style This Day', 'uabb' ),
-                            'default'       => 'no',
-                            'options'       => array(
-                                'yes'       => __('Yes','uabb'),
-                                'no'        => __('No','uabb'),
-                            ),
-                            'toggle'        => array(
-                                'yes'    => array(
-                                    'fields'        => array( 'day_color', 'hour_color','background_color' ),
-                                ),
-                            )
-                        ),
-                       'day_color'       => array(
-                            'type'          => 'color',
-                            'label'         => __( 'Day Color', 'uabb' ),
-                            'default'       => 'db6159',
-                            'show_reset'    => true,
-                            'show_alpha'    => true,
-                        ),
-                       'hour_color'       => array(
-                            'type'          => 'color',
-                            'label'         => __( 'Time Color', 'uabb' ),
-                            'default'       => 'db6159',
-                            'show_reset'    => true,
-                            'show_alpha'    => true,
-                        ),
-                       'background_color'       => array(
-                            'type'          => 'color',
-                            'label'         => __( 'Background Color', 'uabb' ),
-                            'default'       => '',
-                            'show_reset'    => true,
-                            'show_alpha'    => true
-                        ),
-                    ),
-                ),
-            )
-        ),
-    )
-));
-
+if ( UABB_Compatibility::check_bb_version() ) {
+	require_once BB_ULTIMATE_ADDON_DIR . 'modules/uabb-business-hours/uabb-business-hours-bb-2-2-compatibility.php';
+} else {
+	require_once BB_ULTIMATE_ADDON_DIR . 'modules/uabb-business-hours/uabb-business-hours-bb-less-than-2-2-compatibility.php';
+}

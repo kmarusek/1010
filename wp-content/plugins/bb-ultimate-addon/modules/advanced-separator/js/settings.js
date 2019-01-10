@@ -3,7 +3,7 @@
 	FLBuilder.registerModuleHelper('advanced-separator', {
 
 		init: function()
-		{	
+		{
 			var form    	= $('.fl-builder-advanced-separator-settings'),
 				image_type 	= form.find('select[name=separator]'),
 				icon_style	= form.find('select[name=icon_style]'),
@@ -11,20 +11,17 @@
 				photoSource     = form.find('select[name=photo_source]'),
 				librarySource   = form.find('select[name=photo_src]'),
 				urlSource       = form.find('input[name=photo_url]'),
-				width      = form.find('input[name=width]');
+				width      		= form.find('input[name=width]');
 
-			// Init validation events.
-			//this._photoSourceChanged();
 			this._toggleImageIcon();
 			this._toggleAlignOptions();
 
-				// Validation events
+			// Validation events
 			photoSource.on('change', $.proxy( this._photoSourceChanged, this ) );
 			image_type.on('change', $.proxy( this._toggleImageIcon, this ) );
 			icon_style.on('change', $.proxy( this._toggleBorderOptions, this ) ) ;
 			image_style.on('change', $.proxy( this._toggleBorderOptions, this ) ) ;
 			width.on('keyup', $.proxy( this._toggleAlignOptions, this ) ) ;
-			//image_type.trigger('change');
 		},
 		
 		_toggleBorderOptions: function() {

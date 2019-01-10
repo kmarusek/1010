@@ -15,7 +15,7 @@
 
 			this._changeLayoutGrid();
 			this._changeCategory();
-
+			this._hideDocs();
 			layout.on( 'change', this._changeLayoutGrid );
 			show_filter.on( 'change', this._changeLayoutGrid );
 			show_filter_title.on( 'change', this._changeLayoutGrid );
@@ -108,6 +108,29 @@
 				form.find('#fl-field-default_filter').hide();
 				form.find('#fl-field-filters_heading_text').hide();
 			}
-		}
+		},
+		/**
+         * Branding is on hide the Docs Tab.
+         *
+         * @since 1.14.0
+        */
+        _hideDocs: function() {
+            var form            = $('.fl-builder-settings'),
+            branding_selector   = form.find('#fl-field-uabb_helpful_information .uabb-docs-list');
+            settings_tab        = form.find('.fl-builder-settings-tabs');
+            get_anchor          =  settings_tab.find('a');
+
+            $( get_anchor ).each(function() {
+
+                if ( '#fl-builder-settings-tab-uabb_docs' === $(this) .attr('href') ) {
+
+                    if ( 'yes' === branding_selector.data('branding') ) {
+                        $( this ).hide();
+                    } else {
+                        $( this ).show();
+                    }
+                }
+            });
+        }
 	});	
 })(jQuery);

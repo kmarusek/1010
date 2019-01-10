@@ -14,7 +14,7 @@
 				hover_attribute = form.find('select[name=hover_attribute]'),
 				enable_label = form.find( 'select[name=enable_label]' ),
 				btn_style   = form.find('select[name=btn_style]');
-				
+
 			this._actionChanged();
 			this._labelTypography();
 			this._updateMailTags();
@@ -43,7 +43,6 @@
 			if ( window.onLoadUABBReCaptcha ) {
 				$( FLBuilder._contentClass ).on( 'fl-builder.layout-rendered', onLoadUABBReCaptcha );
 			}
-
 		},
 
 		/**

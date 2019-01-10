@@ -5,6 +5,10 @@
  * @package Render UABB Modules page in the UABB Modules Menu
  */
 
+$branding_short_name = BB_Ultimate_Addon_Helper::get_uabb_branding();
+
+$bb_branding_short_name = FLBuilderWhiteLabel::get_branding();
+
 ?>
 <div id="fl-uabb-modules-form" class="fl-settings-form uabb-modules-fl-settings-form">
 
@@ -15,6 +19,9 @@
 		<div class="fl-settings-form-content">
 
 			<p><?php _e( 'Check or uncheck modules and extensions below to enable or disable them.', 'uabb' ); ?></p>
+
+			<p><?php echo sprintf( /* translators: %1$s: search term, %2$s: search term, %3$s: search term */ __( '<strong> Note: </strong> If you are unable to find the %1$s Modules under the %1$s Group on frontend, please make sure that you have enabled the modules from below and from the <a href="%3$s"> %2$s modules list</a>.', 'uabb' ), $branding_short_name, $bb_branding_short_name, admin_url( 'options-general.php?page=fl-builder-settings#modules' ) ); ?></p>
+
 			<?php
 
 			$modules_array     = BB_Ultimate_Addon_Helper::get_all_modules();

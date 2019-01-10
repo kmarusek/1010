@@ -10,6 +10,7 @@
         init: function()
         {
             var a = $('.fl-builder-interactive-banner-1-settings').find('.fl-builder-settings-tabs a');
+
             a.on('click', this._toggleHoverAndTypographyTabs);
             $( '.fl-builder-content' ).on( 'fl-builder.layout-rendered', this._toggleAfterRender );
         },

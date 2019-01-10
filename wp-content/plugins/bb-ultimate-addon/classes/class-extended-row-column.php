@@ -491,35 +491,23 @@ class UABB_Extend_RowColumn {
 							'border'  => array(
 								'title'  => __( 'Border', 'uabb' ),
 								'fields' => array(
-									'border_type'        => array(
+									'border_type' => array(
 										'toggle'  => array(
 											''       => array(
 												'fields' => array(),
 											),
 											'solid'  => array(
-												'fields' => array( 'border_color', 'border_opacity', 'border', 'hide_border_mobile' ),
+												'fields' => array( 'border_color', 'border_opacity', 'border' ),
 											),
 											'dashed' => array(
-												'fields' => array( 'border_color', 'border_opacity', 'border', 'hide_border_mobile' ),
+												'fields' => array( 'border_color', 'border_opacity', 'border' ),
 											),
 											'dotted' => array(
-												'fields' => array( 'border_color', 'border_opacity', 'border', 'hide_border_mobile' ),
+												'fields' => array( 'border_color', 'border_opacity', 'border' ),
 											),
 											'double' => array(
-												'fields' => array( 'border_color', 'border_opacity', 'border', 'hide_border_mobile' ),
+												'fields' => array( 'border_color', 'border_opacity', 'border' ),
 											),
-										),
-										'preview' => array(
-											'type' => 'none',
-										),
-									),
-									'hide_border_mobile' => array(
-										'type'    => 'select',
-										'label'   => __( 'Hide Border on Mobile', 'uabb' ),
-										'default' => 'no',
-										'options' => array(
-											'no'  => __( 'No', 'uabb' ),
-											'yes' => __( 'Yes', 'uabb' ),
 										),
 										'preview' => array(
 											'type' => 'none',

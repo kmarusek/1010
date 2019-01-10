@@ -1,4 +1,9 @@
 <?php
+/**
+ * Render the Loop Settings for Advanced Posts module.
+ *
+ * @package UABB Advanced Posts Module
+ */
 
 FLBuilderModel::default_settings(
 	$settings, array(
@@ -11,15 +16,16 @@ FLBuilderModel::default_settings(
 	)
 );
 
-$settings = apply_filters( 'fl_builder_loop_settings', $settings );  // Allow extension of default Values
-
-do_action( 'uabb_loop_settings_before_form', $settings ); // e.g Add custom FLBuilder::render_settings_field()
+$settings = apply_filters( 'fl_builder_loop_settings', $settings );
+// Allow extension of default Values.
+do_action( 'uabb_loop_settings_before_form', $settings );
+// e.g Add custom FLBuilder::render_settings_field().
 ?>
 <div id="fl-builder-settings-section-source" class="fl-loop-data-source-select fl-builder-settings-section">
 	<table class="fl-form-table">
 	<?php
 
-	// Data Source
+	// Data Source.
 	FLBuilder::render_settings_field(
 		'data_source', array(
 			'type'    => 'select',
@@ -44,7 +50,7 @@ do_action( 'uabb_loop_settings_before_form', $settings ); // e.g Add custom FLBu
 	<table class="fl-form-table">
 	<?php
 
-	// ACF Compatibility
+	// ACF Compatibility.
 	FLBuilder::render_settings_field(
 		'data_source_acf_relational_type', array(
 			'type'    => 'select',
@@ -73,7 +79,7 @@ do_action( 'uabb_loop_settings_before_form', $settings ); // e.g Add custom FLBu
 	<table class="fl-form-table">
 	<?php
 
-	// Post type
+	// Post type.
 	FLBuilder::render_settings_field(
 		'post_type', array(
 			'type'  => 'post-type',
@@ -116,7 +122,7 @@ do_action( 'uabb_loop_settings_before_form', $settings ); // e.g Add custom FLBu
 	);
 
 
-	// Offset
+	// Offset.
 	FLBuilder::render_settings_field(
 		'offset', array(
 			'type'        => 'text',
@@ -128,7 +134,7 @@ do_action( 'uabb_loop_settings_before_form', $settings ); // e.g Add custom FLBu
 	);
 
 
-	// Order by
+	// Order by.
 	FLBuilder::render_settings_field(
 		'order_by', array(
 			'type'    => 'select',
@@ -145,6 +151,7 @@ do_action( 'uabb_loop_settings_before_form', $settings ); // e.g Add custom FLBu
 				'meta_value'     => __( 'Meta Value (Alphabetical)', 'uabb' ),
 				'meta_value_num' => __( 'Meta Value (Numeric)', 'uabb' ),
 				'rand'           => __( 'Random', 'uabb' ),
+				'post__in'       => __( 'Selection Order', 'uabb' ),
 			),
 			'toggle'  => array(
 				'meta_value'     => array(
@@ -157,7 +164,7 @@ do_action( 'uabb_loop_settings_before_form', $settings ); // e.g Add custom FLBu
 		), $settings
 	);
 
-	// Meta Key
+	// Meta Key.
 	FLBuilder::render_settings_field(
 		'order_by_meta_key', array(
 			'type'  => 'text',
@@ -165,7 +172,7 @@ do_action( 'uabb_loop_settings_before_form', $settings ); // e.g Add custom FLBu
 		), $settings
 	);
 
-	// Order
+	// Order.
 	FLBuilder::render_settings_field(
 		'order', array(
 			'type'    => 'select',
@@ -199,15 +206,16 @@ do_action( 'uabb_loop_settings_before_form', $settings ); // e.g Add custom FLBu
 <div id="fl-builder-settings-section-masonary_filter" class="uabb-settings-section">
 	<h3 class="fl-builder-settings-title"><?php _e( 'Taxonomy Filter', 'uabb' ); ?></h3>
 	<?php foreach ( FLBuilderLoop::post_types() as $slug => $type ) : ?>
-		<table class="fl-form-table fl-loop-builder-masonary_filter fl-loop-builder-<?php echo $slug; ?>-masonary_filter" 
-																							   <?php
-																								if ( $slug == $settings->post_type ) {
-																									echo 'style="display:table;"';}
-																								?>
+		<table class="fl-form-table fl-loop-builder-masonary_filter fl-loop-builder-<?php echo $slug; ?>-masonary_filter"
+			<?php
+			if ( $slug == $settings->post_type ) {
+				echo 'style="display:table;"';
+			}
+			?>
 		>
 		<?php
 
-		// Taxonomies
+		// Taxonomies.
 		$taxonomies       = FLBuilderLoop::taxonomies( $slug );
 		$taxonomies_array = array();
 		$toggleArray      = array();
@@ -221,7 +229,7 @@ do_action( 'uabb_loop_settings_before_form', $settings ); // e.g Add custom FLBu
 		}
 
 		if ( count( $taxonomies_array ) > 0 ) {
-			// Taxonomy Filter
+			// Taxonomy Filter.
 			FLBuilder::render_settings_field(
 				'masonary_filter_' . $slug, array(
 					'type'    => 'select',
@@ -260,11 +268,12 @@ do_action( 'uabb_loop_settings_before_form', $settings ); // e.g Add custom FLBu
 <h3 class="fl-builder-settings-title"><span class="fl-builder-settings-title-text-wrap"><?php _e( 'Filter', 'uabb' ); ?></span></h3>
 
 	<?php foreach ( FLBuilderLoop::post_types() as $slug => $type ) : ?>
-		<table class="fl-form-table fl-loop-builder-filter fl-loop-builder-<?php echo $slug; ?>-filter" 
-																					  <?php
-																						if ( $slug == $settings->post_type ) {
-																							echo 'style="display:table;"';}
-																						?>
+		<table class="fl-form-table fl-loop-builder-filter fl-loop-builder-<?php echo $slug; ?>-filter"
+			<?php
+			if ( $slug == $settings->post_type ) {
+				echo 'style="display:table;"';
+			}
+			?>
 		>
 		<?php
 
@@ -273,14 +282,14 @@ do_action( 'uabb_loop_settings_before_form', $settings ); // e.g Add custom FLBu
 				'type'    => 'select',
 				'label'   => $type->label,
 				'options' => array(
-					'1' => sprintf( __( 'Match these %s', '%s is an object like posts or taxonomies.', 'uabb' ), $type->label, $type->label ),
-					'0' => sprintf( __( 'Do not match these %s', '%s is an object like posts or taxonomies.', 'uabb' ), $type->label, $type->label ),
+					'1' => sprintf( /* translators: %s: search term */ __( 'Match these %s', '%s is an object like posts or taxonomies.', 'uabb' ), $type->label, $type->label ),
+					'0' => sprintf( /* translators: %s: search term */ __( 'Do not match these %s', '%s is an object like posts or taxonomies.', 'uabb' ), $type->label, $type->label ),
 
 				),
-				'help'    => sprintf( __( 'Enter a comma separated list of %1$s. Only these %2$s will be shown.', 'uabb' ), $type->label, $type->label ),
+				'help'    => sprintf( /* translators: %1$s: search term, translators: %2$s: search term */ __( 'Enter a comma separated list of %1$s. Only these %2$s will be shown.', 'uabb' ), $type->label, $type->label ),
 			), $settings
 		);
-		// Posts
+		// Posts.
 		FLBuilder::render_settings_field(
 			'posts_' . $slug, array(
 				'type'   => 'suggest',
@@ -291,7 +300,7 @@ do_action( 'uabb_loop_settings_before_form', $settings ); // e.g Add custom FLBu
 		);
 
 
-		// Taxonomies
+		// Taxonomies.
 		$taxonomies       = FLBuilderLoop::taxonomies( $slug );
 		$taxonomies_array = array();
 
@@ -301,13 +310,13 @@ do_action( 'uabb_loop_settings_before_form', $settings ); // e.g Add custom FLBu
 				'tax_' . $slug . '_' . $tax_slug . '_matching', array(
 					'type'    => 'select',
 					'label'   => $tax->label,
-					'help'    => sprintf( __( 'Enter a comma separated list of %1$s. Only posts with these %2$s will be shown.', 'uabb' ), $tax->label, $tax->label ),
+					'help'    => sprintf( /* translators: %1$s: search term, translators: %2$s: search term */ __( 'Enter a comma separated list of %1$s. Only posts with these %2$s will be shown.', 'uabb' ), $tax->label, $tax->label ),
 					'options' => array(
-						'1' => sprintf( __( 'Match these %s', '%s is an object like posts or taxonomies.', 'uabb' ), $tax->label, $tax->label ),
-						'0' => sprintf( __( 'Do not match these %s', '%s is an object like posts or taxonomies.', 'uabb' ), $tax->label, $tax->label ),
+						'1' => sprintf( /* translators: %s: search term */ __( 'Match these %s', '%s is an object like posts or taxonomies.', 'uabb' ), $tax->label, $tax->label ),
+						'0' => sprintf( /* translators: %s: search term */ __( 'Do not match these %s', '%s is an object like posts or taxonomies.', 'uabb' ), $tax->label, $tax->label ),
 
 					),
-					'help'    => sprintf( __( 'Enter a comma separated list of %1$s. Only posts with these %2$s will be shown.', 'uabb' ), $tax->label, $tax->label ),
+					'help'    => sprintf( /* translators: %1$s: search term, translators: %2$s: search term */ __( 'Enter a comma separated list of %1$s. Only posts with these %2$s will be shown.', 'uabb' ), $tax->label, $tax->label ),
 				), $settings
 			);
 			FLBuilder::render_settings_field(
@@ -327,7 +336,7 @@ do_action( 'uabb_loop_settings_before_form', $settings ); // e.g Add custom FLBu
 	<table class="fl-form-table">
 	<?php
 
-	// Author
+	// Author.
 	FLBuilder::render_settings_field(
 		'users_matching', array(
 			'type'    => 'select',
@@ -355,4 +364,5 @@ do_action( 'uabb_loop_settings_before_form', $settings ); // e.g Add custom FLBu
 
 </div>
 <?php
-do_action( 'uabb_loop_settings_after_form', $settings ); // e.g Add custom FLBuilder::render_settings_field()
+do_action( 'uabb_loop_settings_after_form', $settings );
+// e.g Add custom FLBuilder::render_settings_field().

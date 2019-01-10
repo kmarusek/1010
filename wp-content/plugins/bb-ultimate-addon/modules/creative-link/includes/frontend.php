@@ -1,4 +1,10 @@
 <?php
+/**
+ *  UABB Creative Link Module front-end file
+ *
+ *  @package UABB Creative Link Module
+ */
+
 global $wp;
 
 $current_url = home_url( add_query_arg( array(), $wp->request ) );
@@ -15,10 +21,34 @@ $current_url = home_url( add_query_arg( array(), $wp->request ) );
 			} else {
 				$current_class = '';
 			}
+
+			$target   = '';
+			$nofollow = '';
+			if ( UABB_Compatibility::check_bb_version() ) {
+
+				if ( isset( $screen->link ) ) {
+					if ( isset( $screen->link_target ) ) {
+						$target = $screen->link_target;
+					}
+					if ( isset( $screen->link_nofollow ) ) {
+						$nofollow = $screen->link_nofollow;
+					}
+				}
+			} else {
+				if ( isset( $screen->link ) ) {
+					if ( isset( $screen->target ) ) {
+						$target = $screen->target;
+					}
+					if ( isset( $screen->nofollow ) ) {
+						$nofollow = $screen->nofollow;
+					}
+				}
+			}
+
 			?>
 		<li class="uabb-creative-link uabb-cl-<?php echo $settings->link_style; ?> <?php echo $current_class; ?>">
 			<<?php echo $settings->link_typography_tag_selection; ?> class="uabb-cl-heading">
-				<a href="<?php echo $screen_link; ?>" target="<?php echo $screen->target; ?>" <?php BB_Ultimate_Addon_Helper::get_link_rel( $screen->target, $screen->nofollow, 1 ); ?> data-hover="<?php echo $screen->title; ?>"><?php $module->render_text( $screen->title ); ?></a>
+				<a href="<?php echo $screen_link; ?>" target="<?php echo $target; ?>" <?php BB_Ultimate_Addon_Helper::get_link_rel( $target, $nofollow, 1 ); ?> data-hover="<?php echo $screen->title; ?>"><?php $module->render_text( $screen->title ); ?></a>
 			</<?php echo $settings->link_typography_tag_selection; ?>>
 		</li>
 			<?php

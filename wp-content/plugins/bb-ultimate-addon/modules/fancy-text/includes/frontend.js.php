@@ -1,4 +1,11 @@
-<?php if ( $settings->effect_type == 'type' ) { 
+<?php 
+/**
+ *  UABB Fancy Text Module front-end JS php file
+ *
+ *  @package UABB Fancy Text Module
+ */
+
+if ( $settings->effect_type == 'type' ) { 
       $strings = $typeSpeed = $startDelay = $backSpeed = $backDelay = $loop = $loopCount = $showCursor = $cursorChar = '';
       // Order of replacement.
       $order   = array("\r\n", "\n", "\r", "<br/>", "<br>");

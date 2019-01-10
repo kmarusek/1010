@@ -5,6 +5,8 @@
  *  @package Video Module's Frontend.css.php file
  */
 
+$version_bb_check = UABB_Compatibility::check_bb_version();
+
 $settings->play_icon_color            = UABB_Helper::uabb_colorpicker( $settings, 'play_icon_color', true );
 $settings->play_icon_hover_color      = UABB_Helper::uabb_colorpicker( $settings, 'play_icon_hover_color', true );
 $settings->image_overlay_color        = UABB_Helper::uabb_colorpicker( $settings, 'image_overlay_color', true );
@@ -53,26 +55,41 @@ $settings->play_default_icon_bg_hover = UABB_Helper::uabb_colorpicker( $settings
 	}
 <?php } ?>
 
-.fl-node-<?php echo $id; ?> .uabb-subscribe-bar-prefix{
-	<?php if ( $settings->subscribe_text_font['family'] != 'default' && $settings->subscribe_text_font['weight'] != 'default' ) : ?>
-		<?php FLBuilderFonts::font_css( $settings->subscribe_text_font ); ?>
-	<?php endif; ?>
-	<?php
-	if ( isset( $settings->subscribe_text_font_size ) ) {
-		echo ( '' != $settings->subscribe_text_font_size ) ? 'font-size:' . $settings->subscribe_text_font_size . 'px;' : '';
-	}
-	if ( isset( $settings->subscribe_text_line_height ) ) {
-			echo ( '' != $settings->subscribe_text_line_height ) ? 'line-height:' . $settings->subscribe_text_line_height . 'em;' : '';
-	}
-	if ( isset( $settings->subscribe_text_letter_spacing ) ) {
-		echo ( '' != $settings->subscribe_text_letter_spacing ) ? 'letter-spacing:' . $settings->subscribe_text_letter_spacing . 'px;' : '';
-	}
-	if ( isset( $settings->subscribe_text_transform ) ) {
-		echo ( '' != $settings->subscribe_text_transform ) ? 'text-transform:' . $settings->subscribe_text_transform . ';' : '';
-	}
-	?>
+<?php if ( ! $version_bb_check ) { ?>
 
+	.fl-node-<?php echo $id; ?> .uabb-subscribe-bar-prefix {
+		<?php if ( 'default' != $settings->subscribe_text_font['family'] && 'default' != $settings->subscribe_text_font['weight'] ) : ?>
+			<?php FLBuilderFonts::font_css( $settings->subscribe_text_font ); ?>
+		<?php endif; ?>
+		<?php
+		if ( isset( $settings->subscribe_text_font_size ) ) {
+			echo ( '' != $settings->subscribe_text_font_size ) ? 'font-size:' . $settings->subscribe_text_font_size . 'px;' : '';
+		}
+		if ( isset( $settings->subscribe_text_line_height ) ) {
+				echo ( '' != $settings->subscribe_text_line_height ) ? 'line-height:' . $settings->subscribe_text_line_height . 'em;' : '';
+		}
+		if ( isset( $settings->subscribe_text_letter_spacing ) ) {
+			echo ( '' != $settings->subscribe_text_letter_spacing ) ? 'letter-spacing:' . $settings->subscribe_text_letter_spacing . 'px;' : '';
+		}
+		if ( isset( $settings->subscribe_text_transform ) ) {
+			echo ( '' != $settings->subscribe_text_transform ) ? 'text-transform:' . $settings->subscribe_text_transform . ';' : '';
+		}
+		?>
+	}
+	<?php
+} else {
+	if ( class_exists( 'FLBuilderCSS' ) ) {
+		FLBuilderCSS::typography_field_rule(
+			array(
+				'settings'     => $settings,
+				'setting_name' => 'subscribe_font_typo',
+				'selector'     => ".fl-node-$id .uabb-subscribe-bar-prefix",
+			)
+		);
+	}
 }
+?>
+
 <?php if ( isset( $settings->subscribe_padding_top ) && isset( $settings->subscribe_padding_right ) && isset( $settings->subscribe_padding_bottom ) && isset( $settings->subscribe_padding_left ) ) { ?>
 		.fl-node-<?php echo $id; ?> .uabb-subscribe-bar{
 			<?php
@@ -98,21 +115,24 @@ $settings->play_default_icon_bg_hover = UABB_Helper::uabb_colorpicker( $settings
 	<?php /* CSS For Tab */ ?>
 	@media ( max-width: <?php echo $global_settings->medium_breakpoint; ?>px ) {
 
-		 .fl-node-<?php echo $id; ?> .uabb-subscribe-bar-prefix {
-			<?php
-			if ( isset( $settings->subscribe_text_font_size_medium ) ) {
-				echo ( '' != $settings->subscribe_text_font_size_medium ) ? 'font-size:' . $settings->subscribe_text_font_size_medium . 'px;' : '';
+		<?php if ( ! $version_bb_check ) { ?>
+			.fl-node-<?php echo $id; ?> .uabb-subscribe-bar-prefix {
+				<?php
+				if ( isset( $settings->subscribe_text_font_size_medium ) ) {
+					echo ( '' != $settings->subscribe_text_font_size_medium ) ? 'font-size:' . $settings->subscribe_text_font_size_medium . 'px;' : '';
+				}
+				if ( isset( $settings->subscribe_text_line_height_medium ) ) {
+					echo ( '' != $settings->subscribe_text_line_height_medium ) ? 'line-height:' . $settings->subscribe_text_line_height_medium . 'em;' : '';
+				}
+				if ( isset( $settings->subscribe_text_letter_spacing_medium ) ) {
+					echo ( '' != $settings->subscribe_text_letter_spacing_medium ) ? 'letter-spacing:' . $settings->subscribe_text_letter_spacing_medium . 'px;' : '';
+				}
+				?>
 			}
-			if ( isset( $settings->subscribe_text_line_height_medium ) ) {
-				echo ( '' != $settings->subscribe_text_line_height_medium ) ? 'line-height:' . $settings->subscribe_text_line_height_medium . 'em;' : '';
-			}
-			if ( isset( $settings->subscribe_text_letter_spacing_medium ) ) {
-				echo ( '' != $settings->subscribe_text_letter_spacing_medium ) ? 'letter-spacing:' . $settings->subscribe_text_letter_spacing_medium . 'px;' : '';
-			}
-			?>
-		 }
+		<?php } ?>
+
 		<?php if ( isset( $settings->subscribe_padding_top_medium ) && isset( $settings->subscribe_padding_right_medium ) && isset( $settings->subscribe_padding_bottom_medium ) && isset( $settings->subscribe_padding_left_medium ) ) { ?>
-				 .fl-node-<?php echo $id; ?> .uabb-subscribe-bar{
+				.fl-node-<?php echo $id; ?> .uabb-subscribe-bar{
 					<?php
 					if ( isset( $settings->subscribe_padding_top_medium ) ) {
 						echo ( '' != $settings->subscribe_padding_top_medium ) ? 'padding-top:' . $settings->subscribe_padding_top_medium . 'px;' : '';
@@ -127,7 +147,7 @@ $settings->play_default_icon_bg_hover = UABB_Helper::uabb_colorpicker( $settings
 						echo ( '' != $settings->subscribe_padding_left_medium ) ? 'padding-left:' . $settings->subscribe_padding_left_medium . 'px;' : '';
 					}
 					?>
-				 }
+				}
 
 		<?php } ?>
 		<?php if ( isset( $settings->subscribe_bar_spacing ) && '' !== $settings->subscribe_bar_spacing ) { ?>
@@ -136,23 +156,26 @@ $settings->play_default_icon_bg_hover = UABB_Helper::uabb_colorpicker( $settings
 				margin-right: 0;
 			}
 		<?php } ?>		
-	 }
+	}
 	<?php /* CSS For Mobile */ ?>
-	 @media ( max-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {
-		 .fl-node-<?php echo $id; ?> .uabb-subscribe-bar-prefix {
-			<?php
-			if ( isset( $settings->subscribe_text_font_size_respnsive ) ) {
-					echo ( '' != $settings->subscribe_text_font_size_respnsive ) ? 'font-size:' . $settings->subscribe_text_font_size_respnsive . 'px;' : '';
-			}
-			if ( isset( $settings->subscribe_text_line_height_responsive ) ) {
-					echo ( '' != $settings->subscribe_text_line_height_responsive ) ? 'line-height:' . $settings->subscribe_text_line_height_responsive . 'em;' : '';
-			}
-			if ( isset( $settings->subscribe_text_letter_spacing_responsive ) ) {
-				echo ( '' != $settings->subscribe_text_letter_spacing_responsive ) ? 'letter-spacing:' . $settings->subscribe_text_letter_spacing_responsive . 'px;' : '';
-			}
+	@media ( max-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {
 
-			?>
-		 }
+		<?php if ( ! $version_bb_check ) { ?>
+			.fl-node-<?php echo $id; ?> .uabb-subscribe-bar-prefix {
+				<?php
+				if ( isset( $settings->subscribe_text_font_size_respnsive ) ) {
+						echo ( '' != $settings->subscribe_text_font_size_respnsive ) ? 'font-size:' . $settings->subscribe_text_font_size_respnsive . 'px;' : '';
+				}
+				if ( isset( $settings->subscribe_text_line_height_responsive ) ) {
+						echo ( '' != $settings->subscribe_text_line_height_responsive ) ? 'line-height:' . $settings->subscribe_text_line_height_responsive . 'em;' : '';
+				}
+				if ( isset( $settings->subscribe_text_letter_spacing_responsive ) ) {
+					echo ( '' != $settings->subscribe_text_letter_spacing_responsive ) ? 'letter-spacing:' . $settings->subscribe_text_letter_spacing_responsive . 'px;' : '';
+				}
+				?>
+			}
+		<?php } ?>
+
 		<?php if ( isset( $settings->subscribe_padding_top_responsive ) && isset( $settings->subscribe_padding_right_responsive ) && isset( $settings->subscribe_padding_bottom_responsive ) && isset( $settings->subscribe_padding_left_responsive ) ) { ?>
 			.fl-node-<?php echo $id; ?> .uabb-subscribe-bar {
 				<?php
@@ -169,7 +192,7 @@ $settings->play_default_icon_bg_hover = UABB_Helper::uabb_colorpicker( $settings
 					echo ( '' != $settings->subscribe_padding_left_responsive ) ? 'padding-left:' . $settings->subscribe_padding_left_responsive . 'px;' : '';
 				}
 				?>
-			 }
+			}
 		<?php } ?>
 		<?php if ( isset( $settings->subscribe_bar_spacing ) && '' !== $settings->subscribe_bar_spacing ) { ?>
 			.fl-node-<?php echo $id; ?> .uabb-subscribe-responsive-mobile .uabb-subscribe-bar-prefix {
@@ -177,7 +200,7 @@ $settings->play_default_icon_bg_hover = UABB_Helper::uabb_colorpicker( $settings
 				margin-right: 0;
 			}
 		<?php } ?>
-	 }
+	}
 <?php } ?>
 <?php
 if ( 'default' == $settings->play_source ) {
@@ -211,7 +234,7 @@ if ( 'default' == $settings->play_source ) {
 			?>
 			.fl-node-<?php echo $id; ?> .uabb-video__outer-wrap:hover .uabb-video__play-icon .uabb-vimeo-icon-bg {
 			<?php
-			 echo ( '' != $settings->play_default_icon_bg_hover ) ? 'fill:' . $settings->play_default_icon_bg_hover . ';' : 'fill: rgba(0, 173, 239, 0.9);'
+			echo ( '' != $settings->play_default_icon_bg_hover ) ? 'fill:' . $settings->play_default_icon_bg_hover . ';' : 'fill: rgba(0, 173, 239, 0.9);'
 			?>
 			}
 		<?php } ?>

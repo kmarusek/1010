@@ -1,3 +1,12 @@
+<?php
+/**
+ *  UABB Subscribe Form Module front-end JS php file
+ *
+ *  @package UABB Subscribe Form Module
+ */
+
+?>
+
 (function($) {
 
 	$(function() {
@@ -11,5 +20,4 @@
 		});
 
 	});
-	
 })(jQuery);

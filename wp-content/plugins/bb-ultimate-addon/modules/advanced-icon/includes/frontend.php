@@ -1,3 +1,12 @@
+<?php
+/**
+ *  UABB Advanced Icon Module front-end file
+ *
+ *  @package UABB Advanced Icon Module
+ */
+
+?>
+
 <div class="uabb-module-content adv-icon-wrap adv-icon-<?php echo $settings->icon_struc_align; ?> adv-icon-<?php echo $settings->align; ?>">
 <?php
 $icon_count = 1;
@@ -10,8 +19,7 @@ foreach ( $settings->icons as $icon ) {
 	if ( ! empty( $icon->connections->link ) && empty( $icon->link ) && ! FLBuilderModel::is_builder_active() ) {
 		echo '';
 	} else {
-		$nofollow = ( isset( $icon->link_nofollow ) ) ? $icon->link_nofollow : '0';
-		echo '<a class="adv-icon-link adv-icon-' . $icon_count . '" href="' . $icon->link . '" target="' . $icon->link_target . '" ' . BB_Ultimate_Addon_Helper::get_link_rel( $icon->link_target, $nofollow, 0 ) . '>';
+		echo '<a class="adv-icon-link adv-icon-' . $icon_count . '" href="' . $icon->link . '" target="' . $icon->link_target . '" ' . BB_Ultimate_Addon_Helper::get_link_rel( $icon->link_target, $icon->link_nofollow, 0 ) . '>';
 		$imageicon_array = array(
 
 			/* General Section */

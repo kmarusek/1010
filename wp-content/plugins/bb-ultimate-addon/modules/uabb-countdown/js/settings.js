@@ -11,7 +11,7 @@
 
 			var self = this;
 			var form   = $('.fl-builder-settings'),
-			
+
 				timer_type    = form.find('select[name=timer_type]').val(),
 				day    = parseInt( form.find('select[name=fixed_date_days]').val() ),
 				month  = parseInt( form.find('select[name=fixed_date_month]').val() ),
@@ -86,6 +86,7 @@
 			this.hide_fields();
 			this.hide_margin_fields();
 		},
+
 		hide_fields: function()
 		{
 			var form		= $('.fl-builder-settings'),

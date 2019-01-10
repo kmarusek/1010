@@ -28,9 +28,6 @@ function uabb_row_gradient( $form, $id ) {
 		return $form;
 	}
 
-	$border_section = $form['tabs']['style']['sections']['border'];
-	unset( $form['tabs']['style']['sections']['border'] );
-
 	$form['tabs']['style']['sections']['background']['fields']['bg_type']['options']['uabb_gradient'] = __( 'Ultimate Gradient', 'uabb' );
 	$form['tabs']['style']['sections']['background']['fields']['bg_type']['toggle']['uabb_gradient']  = array(
 		'sections' => array( 'uabb_row_gradient' ),
@@ -190,8 +187,6 @@ function uabb_row_gradient( $form, $id ) {
 			),
 		),
 	);
-
-	$form['tabs']['style']['sections']['border'] = $border_section;
 
 	return $form;
 }

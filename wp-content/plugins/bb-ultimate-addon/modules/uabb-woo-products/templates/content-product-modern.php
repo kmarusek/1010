@@ -51,14 +51,14 @@ $out_of_stock_string = apply_filters( 'uabb_woo_out_of_stock_string', __( 'Out o
 			}
 
 			echo '<div class="uabb-flash-container ' . $double_flash . '">';
-				
-				if ( 'none' !== $sale_flash ) {
-					include BB_ULTIMATE_ADDON_DIR . 'modules/uabb-woo-products/templates/loop/sale-flash.php';
-				}
 
-				if ( 'none' !== $featured_flash ) {
-					include BB_ULTIMATE_ADDON_DIR . 'modules/uabb-woo-products/templates/loop/featured-flash.php';
-				}
+			if ( 'none' !== $sale_flash ) {
+				include BB_ULTIMATE_ADDON_DIR . 'modules/uabb-woo-products/templates/loop/sale-flash.php';
+			}
+
+			if ( 'none' !== $featured_flash ) {
+				include BB_ULTIMATE_ADDON_DIR . 'modules/uabb-woo-products/templates/loop/featured-flash.php';
+			}
 			echo '</div>';
 		}
 

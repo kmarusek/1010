@@ -1,16 +1,25 @@
+<?php
+/**
+ * Render JavaScript to check function the various settings of module
+ *
+ * @package UABB Advanced Testimonials Module
+ */
+
+?>
+
 (function($) {
 
 var arrObj = new Array();
 
 <?php
-if ( $settings->tetimonial_layout == 'slider' ) {
-	$settings->pause = ( trim( $settings->pause ) !== '' ) ? $settings->pause : '10';
-	$settings->speed = ( trim( $settings->speed ) !== '' ) ? $settings->speed : '0.5';
+if ( 'slider' == $settings->tetimonial_layout ) {
+	$settings->pause = ( '' !== trim( $settings->pause ) ) ? $settings->pause : '10';
+	$settings->speed = ( '' !== trim( $settings->speed ) ) ? $settings->speed : '0.5';
 	?>
 	// Clear the controls in case they were already created.
 	jQuery('.fl-node-<?php echo $id; ?> .uabb-slider-next').empty();
 	jQuery('.fl-node-<?php echo $id; ?> .uabb-slider-prev').empty();
-	
+
 	// Create the slider.
 	var testimonial_<?php echo $id; ?> = jQuery('.fl-node-<?php echo $id; ?> .uabb-testimonials').bxSlider({
 		autoStart : <?php echo $settings->auto_play; ?>,
@@ -22,14 +31,14 @@ if ( $settings->tetimonial_layout == 'slider' ) {
 		pause : <?php echo $settings->pause * 1000; ?>,
 		mode : '<?php echo $settings->transition; ?>',
 		speed : <?php echo $settings->speed * 1000; ?>,
-		pager : <?php echo ( $settings->navigation == 'wide' || $settings->navigation == 'compact-wide' ) ? 1 : 0; ?>,
+		pager : <?php echo ( 'wide' == $settings->navigation || 'compact-wide' == $settings->navigation ) ? 1 : 0; ?>,
 		nextSelector : '.fl-node-<?php echo $id; ?> .uabb-slider-next',
 		prevSelector : '.fl-node-<?php echo $id; ?> .uabb-slider-prev',
 		nextText: '<i class="fa fa-chevron-right"></i>',
 		prevText: '<i class="fa fa-chevron-left"></i>',
-		controls : <?php echo ( $settings->navigation == 'compact' || $settings->navigation == 'compact-wide' ) ? 1 : 0; ?>,
-		onSliderLoad: function() { 
-			jQuery('.fl-node-<?php echo $id; ?> .uabb-testimonials').addClass('uabb-testimonials-loaded'); 
+		controls : <?php echo ( 'compact' == $settings->navigation || 'compact-wide' == $settings->navigation ) ? 1 : 0; ?>,
+		onSliderLoad: function() {
+			jQuery('.fl-node-<?php echo $id; ?> .uabb-testimonials').addClass('uabb-testimonials-loaded');
 		}
 	});
 
@@ -76,9 +85,9 @@ if ( $settings->tetimonial_layout == 'slider' ) {
 }
 ?>
 	<?php
-	if ( $settings->tetimonial_layout == 'box' && $settings->icon_position_half_box == 'yes' && $settings->testimonial_image_position == 'top' ) {
+	if ( 'box' == $settings->tetimonial_layout && 'yes' == $settings->icon_position_half_box && 'top' == $settings->testimonial_image_position ) {
 		?>
-		
+
 		function testimonial_<?php echo $id; ?>() {
 			var testimonial_node_class = jQuery( '.fl-node-<?php echo $id; ?>' ),
 				image_height = testimonial_node_class.find('.uabb-testimonial-photo.uabb_half_top').innerHeight(),
@@ -92,7 +101,7 @@ if ( $settings->tetimonial_layout == 'slider' ) {
 		jQuery(document).ready( function() {
 			testimonial_<?php echo $id; ?>();
 		});
-		
+
 		jQuery(window).load( function() {
 			testimonial_<?php echo $id; ?>();
 		});

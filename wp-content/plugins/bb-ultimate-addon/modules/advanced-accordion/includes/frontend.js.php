@@ -1,3 +1,12 @@
+<?php
+/**
+ *  UABB Advanced Accordion front-end JS php file
+ *
+ *  @package UABB Advanced Accordion
+ */
+
+?>
+
 (function($) {
 
 	$(function() {

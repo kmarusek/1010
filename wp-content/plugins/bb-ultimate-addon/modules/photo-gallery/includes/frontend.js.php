@@ -1,7 +1,16 @@
+<?php
+/**
+ *  Photo Gallery Module front-end JS php file
+ *
+ *  @package Photo Gallery Module
+ */
+
+?>
+
 jQuery(document).ready(function( $ ) {
-	<?php if ( $settings->click_action == 'lightbox' ) : ?>
+	<?php if ( 'lightbox' == $settings->click_action ) : ?>
 		<?php
-		if ( $settings->layout == 'masonary' ) {
+		if ( 'masonary' == $settings->layout ) {
 			$selector = '.uabb-masonary-content';
 			?>
 			<?php
@@ -21,9 +30,9 @@ jQuery(document).ready(function( $ ) {
 				},
 				'image': {
 					titleSrc: function(item) {
-						<?php if ( $settings->show_captions == 'below' ) : ?>
+						<?php if ( 'below' == $settings->show_captions ) : ?>
 							return item.el.data('caption');
-						<?php elseif ( $settings->show_captions == 'hover' ) : ?>
+						<?php elseif ( 'hover' == $settings->show_captions ) : ?>
 							return item.el.data('caption');
 						<?php endif; ?>
 					}
@@ -31,21 +40,20 @@ jQuery(document).ready(function( $ ) {
 			});
 		}
 	<?php endif; ?>
-	
-	<?php if ( $settings->layout == 'masonary' ) : ?>
+
+	<?php if ( 'masonary' == $settings->layout ) : ?>
 	var $grid = $('.fl-node-<?php echo $id; ?> .uabb-masonary-content').imagesLoaded( function() {
 		$grid.masonry({
-		  columnWidth: '.uabb-grid-sizer',
-		  itemSelector: '.uabb-masonary-item'
+			columnWidth: '.uabb-grid-sizer',
+			itemSelector: '.uabb-masonary-item'
 		});
 	});
-	
+
 	/* Tab Click Trigger */
 	UABBTrigger.addHook( 'uabb-tab-click', function( argument, selector ) {
 		if( $(selector).find('.uabb-masonary-content') ){
 			setTimeout(function() {
 				var el_masonary = $(selector).find('.uabb-masonary-content');
-				
 				el_masonary.masonry( 'reload' );
 
 			}, 100);

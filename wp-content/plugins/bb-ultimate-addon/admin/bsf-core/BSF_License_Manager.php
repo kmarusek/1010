@@ -616,13 +616,12 @@ if ( ! class_exists( 'BSF_License_Manager' ) ) {
 						</button>
 
 						<?php
-						if ( 'edd' === $product['license_from_type'] ) {
-							echo bsf_license_activation_form( $product );
-						}
-
-						if ( 'envato' === $product['license_from_type'] ) {
-							echo bsf_envato_register( $product );
-						}
+							$licence_form_method = isset( $_GET[ 'license-form-method' ] ) ? sanitize_text_field( $_GET[ 'license-form-method' ] ) : '';
+							if ( 'edd' === $product['license_from_type'] || 'license-key' === $licence_form_method ) {
+								echo bsf_license_activation_form( $product );
+							} elseif ( 'envato' === $product['license_from_type'] || 'oauth' === $licence_form_method ) {
+								echo bsf_envato_register( $product );
+							}
 
 							do_action( "bsf_inlne_license_form_footer_{$product[ 'license_from_type' ]}", $product_id );
 

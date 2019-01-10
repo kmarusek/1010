@@ -389,10 +389,14 @@ if ( ! function_exists( 'init_bsf_core' ) ) {
 
 		$plugins = get_plugins();
 		$themes  = wp_get_themes();
-
 		$bsf_products = array();
+
+		$bsf_authors = apply_filters( 'bsf_authors_list', array(
+			'Brainstorm Force'
+		) ); 
+
 		foreach ( $plugins as $plugin => $plugin_data ) {
-			if ( trim( $plugin_data['Author'] ) === 'Brainstorm Force' ) {
+			if ( in_array( trim( $plugin_data['Author'] ), $bsf_authors ) ) {
 				$plugin_data['type']     = 'plugin';
 				$plugin_data['template'] = $plugin;
 				$plugin_data['path']     = dirname( realpath( WP_PLUGIN_DIR . '/' . $plugin ) );
@@ -629,7 +633,7 @@ if ( ! function_exists( 'brainstrom_product_name' ) ) {
 
 	function brainstrom_product_name( $product_id = '' ) {
 		$product_name        = '';
-		$brainstrom_products = get_option( 'brainstrom_products', '' );
+		$brainstrom_products = get_option( 'brainstrom_products', array() );
 
 		foreach ( $brainstrom_products as $key => $value ) {
 			foreach ( $value as $key => $product ) {
@@ -652,7 +656,7 @@ if ( ! function_exists( 'brainstrom_product_id_by_name' ) ) {
 
 	function brainstrom_product_id_by_name( $product_name ) {
 		$product_id          = '';
-		$brainstrom_products = get_option( 'brainstrom_products', '' );
+		$brainstrom_products = get_option( 'brainstrom_products', array() );
 
 		foreach ( $brainstrom_products as $key => $value ) {
 			foreach ( $value as $key => $product ) {

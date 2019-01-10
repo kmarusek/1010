@@ -56,300 +56,193 @@ class RibbonModule extends FLBuilderModule {
 			return '';
 		}
 	}
+
+	/**
+	 * Ensure backwards compatibility with old settings.
+	 *
+	 * @since 1.14.0
+	 * @param object $settings A module settings object.
+	 * @param object $helper A settings compatibility helper.
+	 * @return object
+	 */
+	public function filter_settings( $settings, $helper ) {
+
+		$version_bb_check        = UABB_Compatibility::check_bb_version();
+		$page_migrated           = UABB_Compatibility::check_old_page_migration();
+		$stable_version_new_page = UABB_Compatibility::check_stable_version_new_page();
+
+		if ( $version_bb_check && ( 'yes' == $page_migrated || 'yes' == $stable_version_new_page ) ) {
+
+			if ( ! isset( $settings->font_typo ) || ! is_array( $settings->font_typo ) ) {
+
+				$settings->font_typo            = array();
+				$settings->font_typo_medium     = array();
+				$settings->font_typo_responsive = array();
+			}
+			if ( isset( $settings->text_font_family ) ) {
+
+				if ( isset( $settings->text_font_family['family'] ) ) {
+
+					$settings->font_typo['font_family'] = $settings->text_font_family['family'];
+				}
+				if ( isset( $settings->text_font_family['weight'] ) ) {
+
+					if ( 'regular' == $settings->text_font_family['weight'] ) {
+						$settings->font_typo['font_weight'] = 'normal';
+					} else {
+						$settings->font_typo['font_weight'] = $settings->text_font_family['weight'];
+					}
+				}
+			}
+			if ( isset( $settings->ribbon_align ) ) {
+				$settings->ribbon_align = $settings->ribbon_align;
+			}
+			if ( isset( $settings->text_font_size_unit ) ) {
+				$settings->font_typo['font_size'] = array(
+					'length' => $settings->text_font_size_unit,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->text_font_size_unit_medium ) ) {
+
+				$settings->font_typo_medium['font_size'] = array(
+					'length' => $settings->text_font_size_unit_medium,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->text_font_size_unit_responsive ) ) {
+
+				$settings->font_typo_responsive['font_size'] = array(
+					'length' => $settings->text_font_size_unit_responsive,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->text_line_height_unit ) ) {
+
+				$settings->font_typo['line_height'] = array(
+					'length' => $settings->text_line_height_unit,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->text_line_height_unit_medium ) ) {
+
+				$settings->font_typo_medium['line_height'] = array(
+					'length' => $settings->text_line_height_unit_medium,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->text_line_height_unit_responsive ) ) {
+
+				$settings->font_typo_responsive['line_height'] = array(
+					'length' => $settings->text_line_height_unit_responsive,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->text_transform ) ) {
+				$settings->font_typo['text_transform'] = $settings->text_transform;
+			}
+			if ( isset( $settings->text_letter_spacing ) ) {
+				$settings->font_typo['letter_spacing'] = array(
+					'length' => $settings->text_letter_spacing,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->font ) ) {
+				unset( $settings->font );
+				unset( $settings->text_font_size_unit );
+				unset( $settings->text_font_size_unit_medium );
+				unset( $settings->text_font_size_unit_responsive );
+				unset( $settings->text_line_height_unit );
+				unset( $settings->text_line_height_unit_medium );
+				unset( $settings->text_line_height_unit_responsive );
+				unset( $settings->text_transform );
+				unset( $settings->text_letter_spacing );
+			}
+		} elseif ( $version_bb_check && 'yes' != $page_migrated ) {
+
+			if ( ! isset( $settings->font_typo ) || ! is_array( $settings->font_typo ) ) {
+
+				$settings->font_typo            = array();
+				$settings->font_typo_medium     = array();
+				$settings->font_typo_responsive = array();
+			}
+			if ( isset( $settings->text_font_family ) && '' !== $settings->text_font_family ) {
+
+				if ( isset( $settings->text_font_family['family'] ) ) {
+
+					$settings->font_typo['font_family'] = $settings->text_font_family['family'];
+				}
+				if ( isset( $settings->text_font_family['weight'] ) ) {
+
+					if ( 'regular' == $settings->text_font_family['weight'] ) {
+						$settings->font_typo['font_weight'] = 'normal';
+					} else {
+						$settings->font_typo['font_weight'] = $settings->text_font_family['weight'];
+					}
+				}
+			}
+			if ( isset( $settings->ribbon_align ) ) {
+				$settings->ribbon_align = $settings->ribbon_align;
+			}
+			if ( isset( $settings->text_font_size['small'] ) && ! isset( $settings->font_typo_responsive['font_size'] ) ) {
+
+				$settings->font_typo_responsive['font_size'] = array(
+					'length' => $settings->text_font_size['small'],
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->text_font_size['medium'] ) && ! isset( $settings->font_typo_medium['font_size'] ) ) {
+
+				$settings->font_typo_medium['font_size'] = array(
+					'length' => $settings->text_font_size['medium'],
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->text_font_size['desktop'] ) && ! isset( $settings->font_typo['font_size'] ) ) {
+
+				$settings->font_typo['font_size'] = array(
+					'length' => $settings->text_font_size['desktop'],
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->text_line_height['desktop'] ) && isset( $settings->text_font_size['desktop'] ) && 0 != $settings->text_font_size['desktop'] && ! isset( $settings->font_typo['line_height'] ) ) {
+
+				$settings->font_typo['line_height'] = array(
+					'length' => round( $settings->text_line_height['desktop'] / $settings->text_font_size['desktop'], 2 ),
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->text_line_height['medium'] ) && isset( $settings->text_font_size['medium'] ) && 0 != $settings->text_font_size['medium'] && ! isset( $settings->font_typo_medium['line_height'] ) ) {
+
+				$settings->font_typo_medium['line_height'] = array(
+					'length' => round( $settings->text_line_height['medium'] / $settings->text_font_size['medium'], 2 ),
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->text_line_height['small'] ) && isset( $settings->text_font_size['small'] ) && 0 != $settings->text_font_size['small'] && ! isset( $settings->font_typo_responsive['line_height'] ) ) {
+
+				$settings->font_typo_responsive['line_height'] = array(
+					'length' => round( $settings->text_line_height['small'] / $settings->text_font_size['small'], 2 ),
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->font ) ) {
+				unset( $settings->font );
+				unset( $settings->text_font_size );
+				unset( $settings->text_line_height );
+			}
+		}
+		return $settings;
+	}
 }
 
-/**
- * Register the module and its form settings.
+/*
+ * Condition to verify Beaver Builder version.
+ * And accordingly render the required form settings file.
  */
-FLBuilder::register_module(
-	'RibbonModule', array(
-		'general'    => array( // Tab.
-			'title'    => __( 'Layout', 'uabb' ), // Tab title.
-			'sections' => array( // Tab Sections.
-				'general' => array(
-					'title'  => '',
-					'fields' => array(
-						'title'       => array(
-							'type'        => 'text',
-							'label'       => __( 'Ribbon Message', 'uabb' ),
-							'default'     => __( 'SPECIAL OFFER', 'uabb' ),
-							'preview'     => array(
-								'type'     => 'text',
-								'selector' => '.uabb-ribbon-text-title',
-							),
-							'connections' => array( 'string', 'html' ),
-						),
-						'left_icon'   => array(
-							'type'        => 'icon',
-							'label'       => __( 'Left Icon', 'uabb' ),
-							'show_remove' => true,
-						),
-						'right_icon'  => array(
-							'type'        => 'icon',
-							'label'       => __( 'Right Icon', 'uabb' ),
-							'show_remove' => true,
-						),
-						'ribbon_resp' => array(
-							'type'    => 'select',
-							'label'   => __( 'Hide Ribbon Wings', 'uabb' ),
-							'default' => 'small',
-							'help'    => __( 'To hide Ribbon Wings on Small or Medium device use this option.', 'uabb' ),
-							'options' => array(
-								'none'   => __( 'None', 'uabb' ),
-								'small'  => __( 'Small Devices', 'uabb' ),
-								'medium' => __( 'Medium & Small Devices', 'uabb' ),
-							),
-						),
-					),
-				),
-				'style'   => array(
-					'title'  => __( 'Style', 'uabb' ),
-					'fields' => array(
-						'ribbon_width' => array(
-							'type'    => 'select',
-							'label'   => __( 'Ribbon Width', 'uabb' ),
-							'default' => 'auto',
-							'options' => array(
-								'auto'   => __( 'Auto', 'uabb' ),
-								'full'   => __( 'Full', 'uabb' ),
-								'custom' => __( 'Custom', 'uabb' ),
-							),
-							'toggle'  => array(
-								'custom' => array(
-									'fields' => array( 'custom_width', 'ribbon_align' ),
-								),
-								'auto'   => array(
-									'fields' => array( 'ribbon_align' ),
-								),
-							),
-						),
-						'custom_width' => array(
-							'type'        => 'unit',
-							'label'       => __( 'Custom Width', 'uabb' ),
-							'placeholder' => '500',
-							'size'        => '6',
-							'description' => 'px',
-						),
-						'ribbon_align' => array(
-							'type'    => 'select',
-							'label'   => __( 'Alignment', 'uabb' ),
-							'default' => 'center',
-							'help'    => __( 'To align Ribbon use this setting.', 'uabb' ),
-							'options' => array(
-								'center' => __( 'Center', 'uabb' ),
-								'left'   => __( 'Left', 'uabb' ),
-								'right'  => __( 'Right', 'uabb' ),
-							),
-							'preview' => array(
-								'type'     => 'css',
-								'selector' => '.uabb-ribbon-wrap',
-								'property' => 'text-align',
-							),
-						),
-						'stitching'    => array(
-							'type'    => 'select',
-							'label'   => __( 'Stitching', 'uabb' ),
-							'default' => 'yes',
-							'options' => array(
-								'yes' => __( 'Yes', 'uabb' ),
-								'no'  => __( 'No', 'uabb' ),
-							),
-							'help'    => __( 'To give Stitch effect on Ribbon', 'uabb' ),
-						),
-						'shadow'       => array(
-							'type'    => 'select',
-							'label'   => __( 'Ribbon Shadow', 'uabb' ),
-							'default' => 'yes',
-							'options' => array(
-								'yes' => __( 'Yes', 'uabb' ),
-								'no'  => __( 'No', 'uabb' ),
-							),
-						),
-					),
-				),
-				'colors'  => array(
-					'title'  => __( 'Ribbon Colors', 'uabb' ),
-					'fields' => array(
-						'ribbon_bg_type' => array(
-							'type'    => 'select',
-							'label'   => __( 'Ribbon Color Type', 'uabb' ),
-							'default' => 'color',
-							'help'    => __( 'You can select one of the two background types: Color: simple one color background or Gradient: two color background.', 'uabb' ),
-							'options' => array(
-								'color'    => __( 'Color', 'uabb' ),
-								'gradient' => __( 'Gradient', 'uabb' ),
-							),
-							'toggle'  => array(
-								'color'    => array(
-									'fields' => array( 'ribbon_color' ),
-								),
-								'gradient' => array(
-									'fields' => array( 'gradient_color' ),
-								),
-							),
-						),
-						'ribbon_color'   => array(
-							'type'       => 'color',
-							'label'      => __( 'Ribbon Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-							'preview'    => array(
-								'type'     => 'css',
-								'selector' => '.uabb-ribbon-text',
-								'property' => 'background',
-							),
-						),
-						'gradient_color' => array(
-							'type'    => 'uabb-gradient',
-							'label'   => __( 'Gradient', 'uabb' ),
-							'default' => array(
-								'color_one' => '',
-								'color_two' => '',
-								'direction' => 'top_bottom',
-								'angle'     => '0',
-							),
-						),
-						'icon_color'     => array(
-							'type'       => 'color',
-							'label'      => __( 'Icon Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-						),
-						'fold_color'     => array(
-							'type'       => 'color',
-							'label'      => __( 'Ribbon Fold Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-						),
-						'end_color'      => array(
-							'type'       => 'color',
-							'label'      => __( 'Ribbon Wings Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-						),
-					),
-				),
-			),
-		),
-		'typography' => array( // Tab.
-			'title'    => __( 'Typography', 'uabb' ), // Tab title.
-			'sections' => array( // Tab Sections.
-				'text_typography' => array(
-					'title'  => __( 'Ribbon Text', 'uabb' ),
-					'fields' => array(
-						'text_tag_selection'    => array(
-							'type'    => 'select',
-							'label'   => __( 'Tag', 'uabb' ),
-							'default' => 'h3',
-							'options' => array(
-								'h1'   => __( 'H1', 'uabb' ),
-								'h2'   => __( 'H2', 'uabb' ),
-								'h3'   => __( 'H3', 'uabb' ),
-								'h4'   => __( 'H4', 'uabb' ),
-								'h5'   => __( 'H5', 'uabb' ),
-								'h6'   => __( 'H6', 'uabb' ),
-								'div'  => __( 'Div', 'uabb' ),
-								'p'    => __( 'p', 'uabb' ),
-								'span' => __( 'span', 'uabb' ),
-							),
-						),
-						'text_font_family'      => array(
-							'type'    => 'font',
-							'label'   => __( 'Font Family', 'uabb' ),
-							'default' => array(
-								'family' => 'Default',
-								'weight' => 'Default',
-							),
-							'preview' => array(
-								'type'     => 'font',
-								'selector' => '.uabb-ribbon-text',
-							),
-						),
-						'text_font_size_unit'   => array(
-							'type'        => 'unit',
-							'label'       => __( 'Font Size', 'uabb' ),
-							'description' => 'px',
-							'responsive'  => array(
-								'placeholder' => array(
-									'default'    => '',
-									'medium'     => '',
-									'responsive' => '',
-								),
-							),
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-ribbon-text',
-								'property' => 'font-size',
-								'unit'     => 'px',
-							),
-						),
-						'text_line_height_unit' => array(
-							'type'        => 'unit',
-							'label'       => __( 'Line Height', 'uabb' ),
-							'description' => 'em',
-							'responsive'  => array(
-								'placeholder' => array(
-									'default'    => '',
-									'medium'     => '',
-									'responsive' => '',
-								),
-							),
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-ribbon-text',
-								'property' => 'line-height',
-								'unit'     => 'em',
-							),
-						),
-						'text_color'            => array(
-							'type'       => 'color',
-							'label'      => __( 'Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-							'preview'    => array(
-								'type'     => 'css',
-								'selector' => '.uabb-ribbon-text',
-								'property' => 'color',
-							),
-						),
-						'text_shadow_color'     => array(
-							'type'       => 'color',
-							'label'      => __( 'Text Shadow Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-						),
-						'text_transform'        => array(
-							'type'    => 'select',
-							'label'   => __( 'Transform', 'uabb' ),
-							'default' => '',
-							'options' => array(
-								''           => 'Default',
-								'uppercase'  => 'UPPERCASE',
-								'lowercase'  => 'lowercase',
-								'capitalize' => 'Capitalize',
-							),
-							'preview' => array(
-								'type'     => 'css',
-								'selector' => '.uabb-ribbon-text',
-								'property' => 'text-transform',
-							),
-						),
-						'text_letter_spacing'   => array(
-							'type'        => 'unit',
-							'label'       => __( 'Letter Spacing', 'uabb' ),
-							'placeholder' => '0',
-							'size'        => '5',
-							'description' => 'px',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-ribbon-text',
-								'property' => 'letter-spacing',
-								'unit'     => 'px',
-							),
-						),
-					),
-				),
-			),
-		),
-	)
-);
+
+if ( UABB_Compatibility::check_bb_version() ) {
+	require_once BB_ULTIMATE_ADDON_DIR . 'modules/ribbon/ribbon-bb-2-2-compatibility.php';
+} else {
+	require_once BB_ULTIMATE_ADDON_DIR . 'modules/ribbon/ribbon-bb-less-than-2-2-compatibility.php';
+}

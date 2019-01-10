@@ -1,4 +1,12 @@
-<?php // echo '<xmp>'; print_r($settings); echo '</xmp>'; ?>
+<?php
+/**
+ *  UABB Icon List Module front-end file
+ *
+ *  @package UABB Icon List Module
+ */
+
+?>
+
 <div class="uabb-module-content uabb-list-icon">
 <?php
 foreach ( $settings->list_items as $item ) {

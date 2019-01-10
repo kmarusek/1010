@@ -14,7 +14,7 @@
 		{
 			var form      = $( '.fl-builder-settings' ),
 				layout    = form.find( 'select[name=layout]' );
-				
+
 			this._layoutChanged();
 			
 			layout.on( 'change', this._layoutChanged );
@@ -25,6 +25,7 @@
 			UABBButton.init();
 			
 		},
+
 		_layoutChanged: function(){  }
 	});
 

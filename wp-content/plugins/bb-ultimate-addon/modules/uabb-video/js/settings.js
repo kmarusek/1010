@@ -11,7 +11,9 @@
 			video_type.on('change',this._VideoTypeThumbnail);
 			$(this._subscribeBar,this);
 			$(this._VideoTypeThumbnail,this);
+			this._hideDocs();
 		},
+
 		_subscribeBar: function(){
 			var form 			= $('.fl-builder-settings');
 			subscribe_bar_val	= form.find('select[name=yt_subscribe_enable]').val();
@@ -39,6 +41,29 @@
 			else{
 				form.find('#fl-field-yt_thumbnail_size').show();
 			}
+		},
+		/**
+	 	 * Branding is on hide the Docs Tab.
+	 	 *
+	 	 * @since 1.14.0
+	 	*/
+		_hideDocs: function() {
+			var form            = $('.fl-builder-settings'),
+            branding_selector   = form.find('#fl-field-uabb_helpful_information .uabb-docs-list');
+            settings_tab        = form.find('.fl-builder-settings-tabs');
+            get_anchor          =  settings_tab.find('a');
+
+            $( get_anchor ).each(function() {
+
+                if ( '#fl-builder-settings-tab-uabb_docs' === $(this) .attr('href') ) {
+
+                    if ( 'yes' === branding_selector.data('branding') ) {
+                        $( this ).hide();
+                    } else {
+                        $( this ).show();
+                    }
+                }
+            });
 		}
 	});
 

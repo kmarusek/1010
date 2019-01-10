@@ -367,6 +367,10 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
 		 */
 		public function update_data() {
 			// Enable editing if the builder is active.
+			if ( UABB_Compatibility::check_bb_version() ) {
+				return;
+			}
+
 			if ( ! FLBuilderModel::is_builder_active() && FLBuilderAJAX::doing_ajax() ) {
 				return;
 			}
@@ -421,6 +425,7 @@ if ( ! class_exists( 'UABB_Plugin_Backward' ) ) {
 			}
 
 			if ( isset( $settings->line_height['small'] ) && isset( $settings->new_font_size['small'] ) && 0 != $settings->new_font_size['small'] && ! isset( $settings->line_height_unit_responsive ) ) {
+
 				if ( is_numeric( $settings->line_height['small'] ) && is_numeric( $settings->new_font_size['small'] ) ) {
 					$settings->line_height_unit_responsive = round( $settings->line_height['small'] / $settings->new_font_size['small'], 2 );
 				}

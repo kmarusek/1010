@@ -29,7 +29,9 @@
                 show_comments = form.find('select[name=show_comments]'),
                 blog_image_position = form.find('select[name=blog_image_position]'),
                 mobile_structure = form.find( 'select[name=mobile_structure]' );
+                order_by = form.find('select[name=order_by]');
 
+            order_by.on('change',$.proxy( this._selectionOrder, this ))
             show_title.on('change', $.proxy( this._hideTypography, this ) );
             show_excerpt.on('change', $.proxy( this._hideTypography, this ) );
             show_meta.on('change', $.proxy( this._hideTypography, this ) );
@@ -79,6 +81,11 @@
             $( this._toggleContent, this );
             $( this._togglePagination, this );
             $( this._hideTypography, this );
+
+            this._hideDocs();
+
+            $( this._selectionOrder, this );
+
             $("#fl-field-layout_sort_order").find( ".uabb-sortable" ).sortable({
                 out: function( event, ui ) {
                     setTimeout( function() {
@@ -675,7 +682,39 @@
             }
 
         },
+        /**
+         * Branding is on hide the Docs Tab.
+         *
+         * @since 1.14.0
+        */
+        _hideDocs: function() {
+            var form            = $('.fl-builder-settings'),
+            branding_selector   = form.find('#fl-field-uabb_helpful_information .uabb-docs-list');
+            settings_tab        = form.find('.fl-builder-settings-tabs');
+            get_anchor          =  settings_tab.find('a');
 
+            $( get_anchor ).each(function() {
+
+                if ( '#fl-builder-settings-tab-uabb_docs' === $(this) .attr('href') ) {
+
+                    if ( 'yes' === branding_selector.data('branding') ) {
+                        $( this ).hide();
+                    } else {
+                        $( this ).show();
+                    }
+                }
+            });
+        },
+        _selectionOrder: function() { 
+            var form        = $('.fl-builder-settings');
+            order_by = form.find('select[name=order_by]').val();
+            
+            if ( 'post__in' === order_by ) {
+                form.find('#fl-field-order').hide();
+            } else {
+                form.find('#fl-field-order').show();
+            }
+        },
     });
 
 })(jQuery);

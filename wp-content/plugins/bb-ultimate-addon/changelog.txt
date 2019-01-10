@@ -1,3 +1,20 @@
+Version 1.14.0 - Thursday, 10th January 2019
+- New: Added Typography field compatibility with Beaver Builder 2.2
+- New: Added Border field compatibility with Beaver Builder 2.2
+- New: Added Link field compatibility with Beaver Builder 2.2
+- Improvement: Added color connections to all color fields
+- Improvement: Added slider support to all unit fields
+- Improvement: Advanced Posts - Added Selection Order option under Sort By filter
+- Improvement: Added Docs Tab for knowledge base
+- Improvement: Deprecated Hide Border on Mobile settings from Column settings
+- Improvement: If Beaver Builder's Column Shadow is enabled it will override UABB's Column Shadow
+- Improvement: Interactive Banner 1 - Added nofollow settings option
+- Improvement: Subscription Form - Updated Terms and Conditions option design for Inline Layout
+- Fixed: Advanced Posts - Fixed extra space in around of the comma separator for the tag categories
+- Fixed: Contact Form - Resolved Uncaught ReferenceError when Slideshow module of Beaver Builder is used below Contact Form
+- Fixed: Photo - Resolved SVG disappearing on enabling Beaver Themer's shrink option in Header
+- Fixed: Table - Custom Column Width option not working
+
 Version 1.13.2
 - Improvement: Content Toggle - Open a specific toggle content from URL
 - Improvement: Info Box - Added Hover color settings option
@@ -26,7 +43,7 @@ Version 1.13.0 - Friday, 19th October 2018
 - Fixed: Replaced duplicate masonry and carousel JS of UABB by setting it as Global
 
 Version 1.12.0 - Wednesday, 3rd October 2018
-- New: Introduced Table 
+- New: Introduced Table
 - Improvement: Modal Popup - YouTube, Vimeo, iFrame optimization
 - Improvement: Video - Added field connections support for all relevant options
 - Fixed: Advanced Accordion - Resolved icon overlapping issue in preview with icon animation
@@ -293,7 +310,7 @@ Version 1.6.0 - Tuesday, 1st August, 2017
 - Fixed: Advanced Posts - Multiple isotope taxonomy filter on same page not working.
 - Fixed: Info Circle - Custom icons looks smaller on frontend.
 - Fixed: Advanced Accordion - Open accordion by URL console error fixed.
-- Fixed: Advanced Tabs - Page breaks when used with saved template, modules and rows. 
+- Fixed: Advanced Tabs - Page breaks when used with saved template, modules and rows.
 - Fixed: Photo - Source breaks when used with Beaver Themer connections.
 
 Version 1.5.0 - Tuesday, 18th July, 2017

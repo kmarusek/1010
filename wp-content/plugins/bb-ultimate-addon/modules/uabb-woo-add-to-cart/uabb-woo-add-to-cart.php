@@ -1,6 +1,13 @@
 <?php
+/**
+ *  UABB Woo Add To Cart Module file
+ *
+ *  @package UABB Woo Add To Cart Module
+ */
 
 /**
+ * Function that initializes UABB Woo Add To Cart Module
+ *
  * @class UABBWooAddToCartModule
  */
 class UABBWooAddToCartModule extends FLBuilderModule {
@@ -13,19 +20,23 @@ class UABBWooAddToCartModule extends FLBuilderModule {
 	private $query = null;
 
 	/**
+	 * Constructor function that constructs default values for the UABBWooAddToCartModule module
+	 *
 	 * @method __construct
 	 */
 	public function __construct() {
-		parent::__construct(array(
-			'name'          	=> __('Woo - Add To Cart', 'uabb'),
-			'description'   	=> __('Display WooCommerce Add to Cart button.', 'uabb'),
-			'category'          => BB_Ultimate_Addon_Helper::module_cat( BB_Ultimate_Addon_Helper::$woo_modules ),
-            'group'             => UABB_CAT,
-			'dir'           	=> BB_ULTIMATE_ADDON_DIR . 'modules/uabb-woo-add-to-cart/',
-            'url'           	=> BB_ULTIMATE_ADDON_URL . 'modules/uabb-woo-add-to-cart/',
-            'partial_refresh'	=> true,
-			'icon'				=> 'uabb-woo-add-to-cart.svg',
-		));
+		parent::__construct(
+			array(
+				'name'            => __( 'Woo - Add To Cart', 'uabb' ),
+				'description'     => __( 'Display WooCommerce Add to Cart button.', 'uabb' ),
+				'category'        => BB_Ultimate_Addon_Helper::module_cat( BB_Ultimate_Addon_Helper::$woo_modules ),
+				'group'           => UABB_CAT,
+				'dir'             => BB_ULTIMATE_ADDON_DIR . 'modules/uabb-woo-add-to-cart/',
+				'url'             => BB_ULTIMATE_ADDON_URL . 'modules/uabb-woo-add-to-cart/',
+				'partial_refresh' => true,
+				'icon'            => 'uabb-woo-add-to-cart.svg',
+			)
+		);
 
 		$this->add_css( 'font-awesome' );
 	}
@@ -37,33 +48,149 @@ class UABBWooAddToCartModule extends FLBuilderModule {
 	 */
 	public function get_icon( $icon = '' ) {
 
-        // check if $icon is referencing an included icon.
-        if ( '' != $icon && file_exists( BB_ULTIMATE_ADDON_DIR . 'modules/uabb-woo-add-to-cart/icon/' . $icon ) ) {
-            $path = BB_ULTIMATE_ADDON_DIR . 'modules/uabb-woo-add-to-cart/icon/' . $icon;
-        }
+		// check if $icon is referencing an included icon.
+		if ( '' != $icon && file_exists( BB_ULTIMATE_ADDON_DIR . 'modules/uabb-woo-add-to-cart/icon/' . $icon ) ) {
+			$path = BB_ULTIMATE_ADDON_DIR . 'modules/uabb-woo-add-to-cart/icon/' . $icon;
+		}
 
-        if ( file_exists( $path ) ) {
-            return file_get_contents( $path );
-        } else {
-            return '';
-        }
-    }
+		if ( file_exists( $path ) ) {
+			return file_get_contents( $path );
+		} else {
+			return '';
+		}
+	}
 
+	/**
+	 * Ensure backwards compatibility with old settings.
+	 *
+	 * @since 1.14.0
+	 * @param object $settings A module settings object.
+	 * @param object $helper A settings compatibility helper.
+	 * @return object
+	 */
+	public function filter_settings( $settings, $helper ) {
+
+		$version_bb_check        = UABB_Compatibility::check_bb_version();
+		$page_migrated           = UABB_Compatibility::check_old_page_migration();
+		$stable_version_new_page = UABB_Compatibility::check_stable_version_new_page();
+
+		if ( $version_bb_check && ( 'yes' == $page_migrated || 'yes' == $stable_version_new_page ) ) {
+
+			// compatibility for Button.
+			if ( ! isset( $settings->button_font_typo ) || ! is_array( $settings->button_font_typo ) ) {
+
+				$settings->button_font_typo            = array();
+				$settings->button_font_typo_medium     = array();
+				$settings->button_font_typo_responsive = array();
+			}
+			if ( isset( $settings->font_family ) ) {
+
+				if ( isset( $settings->font_family['family'] ) ) {
+
+					$settings->button_font_typo['font_family'] = $settings->font_family['family'];
+				}
+				if ( isset( $settings->font_family['weight'] ) ) {
+
+					if ( 'regular' == $settings->font_family['weight'] ) {
+						$settings->button_font_typo['font_weight'] = 'normal';
+					} else {
+						$settings->button_font_typo['font_weight'] = $settings->font_family['weight'];
+					}
+				}
+			}
+			if ( isset( $settings->font_size ) ) {
+
+				$settings->button_font_typo['font_size'] = array(
+					'length' => $settings->font_size,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->font_size_medium ) ) {
+				$settings->button_font_typo_medium['font_size'] = array(
+					'length' => $settings->font_size_medium,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->font_size_responsive ) ) {
+				$settings->button_font_typo_responsive['font_size'] = array(
+					'length' => $settings->font_size_responsive,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->line_height ) ) {
+
+				$settings->button_font_typo['line_height'] = array(
+					'length' => $settings->line_height,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->line_height_medium ) ) {
+				$settings->button_font_typo_medium['line_height'] = array(
+					'length' => $settings->line_height_medium,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->line_height_responsive ) ) {
+				$settings->button_font_typo_responsive['line_height'] = array(
+					'length' => $settings->line_height_responsive,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->transform ) ) {
+
+				$settings->button_font_typo['text_transform'] = $settings->transform;
+
+			}
+			if ( isset( $settings->letter_spacing ) ) {
+
+				$settings->button_font_typo['letter_spacing'] = array(
+					'length' => $settings->letter_spacing,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->font_family ) ) {
+				unset( $settings->font_family );
+				unset( $settings->font_size );
+				unset( $settings->font_size_medium );
+				unset( $settings->font_size_responsive );
+				unset( $settings->line_height );
+				unset( $settings->line_height_medium );
+				unset( $settings->line_height_responsive );
+				unset( $settings->transform );
+				unset( $settings->letter_spacing );
+			}
+		}
+
+		return $settings;
+	}
+
+	/**
+	 * Render Cart Button.
+	 *
+	 * @since 1.10.0
+	 * @method enqueue_scripts
+	 */
 	public function enqueue_scripts() {
-		
+
 		$localize = array(
-			'is_cart'	=> is_cart(),
-			'view_cart'	=> esc_attr__( 'View cart', 'uabb' ),
-			'cart_url'	=> apply_filters( 'uabb_woocommerce_add_to_cart_redirect', wc_get_cart_url() )
+			'is_cart'   => is_cart(),
+			'view_cart' => esc_attr__( 'View cart', 'uabb' ),
+			'cart_url'  => apply_filters( 'uabb_woocommerce_add_to_cart_redirect', wc_get_cart_url() ),
 		);
 
 		wp_localize_script( 'jquery', 'uabb_cart', $localize );
 	}
 
+	/**
+	 * Render Cart Button.
+	 *
+	 * @since 1.10.0
+	 * @method get_inner_classes
+	 */
 	public function get_inner_classes() {
-		
-		$settings 	= $this->settings;
-		$classes 	= array();
+
+		$settings = $this->settings;
+		$classes  = array();
 
 		$classes = array(
 			'uabb-woo--align-' . $settings->content_alignment,
@@ -71,36 +198,35 @@ class UABBWooAddToCartModule extends FLBuilderModule {
 
 		if ( 'grid' === $settings->layout ) {
 
-			$classes[]  = 'uabb-woo-cat__column-' . $settings->grid_columns_desktop;
-			$classes[]  = 'uabb-woo-cat__column-tablet-' . $settings->grid_columns_medium;
-			$classes[]  = 'uabb-woo-cat__column-mobile-' . $settings->grid_columns_small;
+			$classes[] = 'uabb-woo-cat__column-' . $settings->grid_columns_desktop;
+			$classes[] = 'uabb-woo-cat__column-tablet-' . $settings->grid_columns_medium;
+			$classes[] = 'uabb-woo-cat__column-mobile-' . $settings->grid_columns_small;
 		} elseif ( 'carousel' === $settings->layout ) {
 			$classes[] = 'uabb-woo-cat__column-' . $settings->slider_columns_desktop;
 			$classes[] = 'uabb-woo-slider-arrow-' . $settings->arrow_position;
 			$classes[] = 'uabb-woo-slider-arrow-' . $settings->arrow_style;
-			
+
 			if ( 'yes' === $settings->enable_dots ) {
 				$classes[] = 'uabb-slick-dotted';
 			}
 		}
 
-		
 		return implode( ' ', $classes );
 	}
 
 	/**
 	 * Render Cart Button.
 	 *
-	 * @return string
+	 * @since 1.10.0
+	 * @method render_cart_button
 	 */
 	public function render_cart_button() {
 
-		$settings	= $this->settings;
-		$node_id	= $this->node;
-		$atc_html 	= '';
-		$product  	= false;
-		$new_class  = '';
-
+		$settings  = $this->settings;
+		$node_id   = $this->node;
+		$atc_html  = '';
+		$product   = false;
+		$new_class = '';
 
 		if ( ! empty( $settings->product_id ) ) {
 			$product_data = get_post( $settings->product_id );
@@ -121,10 +247,10 @@ class UABBWooAddToCartModule extends FLBuilderModule {
 				$product->supports( 'ajax_add_to_cart' ) ? 'ajax_add_to_cart' : '',
 			);
 
-			if( $settings->style == 'transparent' ) {
+			if ( 'transparent' == $settings->style ) {
 				$class[] = 'uabb-creative-button uabb-creative-transparent-btn';
-				if( isset( $settings->transparent_button_options ) && !empty( $settings->transparent_button_options ) ) {
-					$class[] .= ' uabb-' . $settings->transparent_button_options .'-btn';
+				if ( isset( $settings->transparent_button_options ) && ! empty( $settings->transparent_button_options ) ) {
+					$class[] .= ' uabb-' . $settings->transparent_button_options . '-btn';
 				}
 			} else {
 				$class[] = 'uabb-adc-normal-btn';
@@ -143,394 +269,53 @@ class UABBWooAddToCartModule extends FLBuilderModule {
 
 			$attr_string = '';
 
-			foreach ( $attr as $key => $value) {
-				$attr_string .= ' '. $key . '="' . $value . '"';
+			foreach ( $attr as $key => $value ) {
+				$attr_string .= ' ' . $key . '="' . $value . '"';
 			}
 
-			$atc_html .= '<a class="' . implode( ' ', $class )  . '"' . $attr_string . '>';
+			$atc_html     .= '<a class="' . implode( ' ', $class ) . '"' . $attr_string . '>';
 				$atc_html .= '<span class="uabb-atc-content-wrapper">';
 
-				if ( ! empty( $settings->btn_icon ) ) :
-					$atc_html     .= '<span class="uabb-atc-icon-align uabb-atc-align-icon-' . $settings->btn_icon_position . '">';
-						$atc_html .= '<i class="' . $settings->btn_icon . '" aria-hidden="true"></i>';
-					$atc_html     .= '</span>';
+			if ( ! empty( $settings->btn_icon ) ) :
+				$atc_html     .= '<span class="uabb-atc-icon-align uabb-atc-align-icon-' . $settings->btn_icon_position . '">';
+					$atc_html .= '<i class="' . $settings->btn_icon . '" aria-hidden="true"></i>';
+				$atc_html     .= '</span>';
 				endif;
 
 					$atc_html .= '<span class="uabb-atc-btn-text">' . $settings->btn_text . '</span>';
-				$atc_html .= '</span>';
-			$atc_html .= '</a>';
+				$atc_html     .= '</span>';
+			$atc_html         .= '</a>';
 
 			echo $atc_html;
 		} elseif ( current_user_can( 'manage_options' ) ) {
 
-			if( $settings->style == 'transparent' ) {
+			if ( 'transparent' == $settings->style ) {
 				$new_class = ' uabb-creative-button uabb-creative-transparent-btn';
-				if( isset( $settings->transparent_button_options ) && !empty( $settings->transparent_button_options ) ) {
-					$new_class .= 'uabb-' . $settings->transparent_button_options .'-btn';
+				if ( isset( $settings->transparent_button_options ) && ! empty( $settings->transparent_button_options ) ) {
+					$new_class .= 'uabb-' . $settings->transparent_button_options . '-btn';
 				}
 			} else {
 				$new_class = 'uabb-adc-normal-btn';
 			}
-			$atc_html .= '<a class="button uabb-button ' . $new_class . '">';
-				$atc_html .= '<span class="uabb-atc-select-text">';
+			$atc_html         .= '<a class="button uabb-button ' . $new_class . '">';
+				$atc_html     .= '<span class="uabb-atc-select-text">';
 					$atc_html .= __( 'Please select the product', 'uabb' );
-				$atc_html .= '</span>';
-			$atc_html .= '</a>';
+				$atc_html     .= '</span>';
+			$atc_html         .= '</a>';
 
 			echo $atc_html;
 		}
 	}
 }
 
-/**
- * Register the module and its form settings.
+/*
+ * Condition to verify Beaver Builder version.
+ * And accordingly render the required form settings file.
+ *
  */
-FLBuilder::register_module('UABBWooAddToCartModule', array(
-	'general'       => array(
-		'title'         => __('General', 'uabb'),
-		'sections'      => array(
-			'general'       => array(
-				'title'         => '',
-				'fields'        => array(
-					// Posts
-					'product_id' => array(
-						'type'          => 'suggest',
-						'action'        => 'fl_as_posts',
-						'data'          => 'product',
-						'label'         => __( 'Product', 'uabb' ),
-						'help'          => __( 'Enter the Product.', 'uabb' ),
-						'limit'			=> 1,
-					),
-					'quantity'     => array(
-		                'type'          => 'unit',
-		                'label'         => __('Quantity', 'uabb'),
-		                'placeholder'   => '1',
-		                'maxlength'     => '5',
-		                'size'          => '6',
-						'default'       => '1',
-		            ),
-					'auto_redirect'   => array(
-						'type'          => 'select',
-						'label'         => __('Auto Redirect to Cart Page', 'uabb'),
-						'default'       => 'no',
-						'options'       => array(
-							'yes'	=> __('Yes', 'uabb'),
-							'no'	=> __('No', 'uabb')
-						),
-						'help'          => __( 'Select Yes to redirect to cart page after the product gets added to cart.', 'uabb' ),
-						
-					),
-				)
-			),
-			'button'       => array(
-				'title'         => __('Button', 'uabb'),
-				'fields'        => array(
-					'btn_text'          => array(
-						'type'          => 'text',
-						'label'         => __('Text', 'uabb'),
-						'default'       => __('Add to Cart', 'uabb'),
-						'preview'         => array(
-							'type'            => 'text',
-							'selector'        => '.uabb-atc-btn-text'
-						),
-						'connections' => array( 'string', 'html' ),
-					),
-					'btn_align'         => array(
-						'type'          => 'select',
-						'label'         => __('Alignment', 'uabb'),
-						'default'       => 'center',
-						'options'       => array(
-							'center'        => __('Center', 'uabb'),
-							'left'          => __('Left', 'uabb'),
-							'right'         => __('Right', 'uabb'),
-							'justify'         => __('Justify', 'uabb'),
-						),
-					),
-					'mobile_align'         => array(
-						'type'          => 'select',
-						'label'         => __('Mobile Alignment', 'uabb'),
-						'default'       => 'center',
-						'options'       => array(
-							'center'        => __('Center', 'uabb'),
-							'left'          => __('Left', 'uabb'),
-							'right'         => __('Right', 'uabb'),
-							'justify'       => __('Justify', 'uabb'),
-						),
-						'help'          => __('This alignment will apply on Mobile', 'uabb'),
-					),
-					'btn_padding' => array(
-                        'type'      => 'dimension',
-                        'label'     => __( 'Padding', 'uabb' ),
-                        'description'  => 'px',
-                        'preview'         => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-woo-add-to-cart .button',
-                            'property'      => 'padding',
-                            'unit'          => 'px',
-                        ),
-                        'responsive' => array(
-                            'placeholder' => array(
-                                'default' 	 => '',
-                                'medium' 	 => '',
-                                'responsive' => '',
-                            ),
-                        ),
-                    ),
-					'border_radius' => array(
-						'type'          => 'unit',
-						'label'         => __('Round Corners', 'uabb'),
-						'size'          => '4',
-						'description'   => 'px',
-						'preview'         => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-woo-add-to-cart a',
-                            'property'      => 'border-radius',
-                            'unit'			=> 'px'
-                        ),
-					),
-                    'btn_icon'          => array(
-						'type'          => 'icon',
-						'label'         => __('Icon', 'uabb'),
-						'show_remove'   => true
-					),
-					'btn_icon_position' => array(
-						'type'          => 'select',
-						'label'         => __('Icon Position', 'uabb'),
-						'default'       => 'before',
-						'options'       => array(
-							'before'        => __('Before Text', 'uabb'),
-							'after'         => __('After Text', 'uabb')
-						)
-					),
-					'btn_icon_spacing' => array(
-                        'type'          => 'unit',
-                        'label'         => __('Icon Spacing', 'uabb'),
-                        'placeholder'   => '8',
-                        'default'		=> '',
-                        'description'   => 'px',
-                        'size'          => '8',
-                    ),
-				)
-			),
-		)
-	),
-	'style'         => array(
-		'title'         => __('Style', 'uabb'),
-		'sections'      => array(
-			'style'         => array(
-				'title'         => __('Style', 'uabb'),
-				'fields'        => array(
-					'style'         => array(
-						'type'          => 'select',
-						'label'         => __('Style', 'uabb'),
-						'default'       => 'flat',
-						'class'			=> 'creative_button_styles',
-						'options'       => array(
-							''          => __('Flat', 'uabb'),
-							'transparent'   => __('Transparent', 'uabb'),
-						),
-						'toggle'        => array(
-							'transparent'   => array(
-								'fields'        => array( 'border_size', 'transparent_button_options' )
-							),
-						)
-					),		
-					'border_size'   => array(
-						'type'          => 'unit',
-						'label'         => __('Border Size', 'uabb'),
-						'description'   => 'px',
-						'maxlength'     => '3',
-						'size'          => '5',
-						'default' 		=> '2',
-						'placeholder'   => '2'
-					),
-					'transparent_button_options' => array(
-						'type'          => 'select',
-						'label'         => __('Hover Styles', 'uabb'),
-						'default'       => 'transparent-fade',
-						'options'       => array(
-							'none'          => __('None', 'uabb'),
-							'transparent-fade'          => __('Fade Background', 'uabb'),
-							'transparent-fill-top'      => __('Fill Background From Top', 'uabb'),
-							'transparent-fill-bottom'      => __('Fill Background From Bottom', 'uabb'),
-							'transparent-fill-left'     => __('Fill Background From Left', 'uabb'),
-							'transparent-fill-right'     => __('Fill Background From Right', 'uabb'),
-							'transparent-fill-center'   	=> __('Fill Background Vertical', 'uabb'),
-							'transparent-fill-diagonal'   	=> __('Fill Background Diagonal', 'uabb'),
-							'transparent-fill-horizontal'  => __('Fill Background Horizontal', 'uabb'),
-						),
-					),
-				)
-			),
-			'btn_colors'        => array(
-				'title'         => __('Button Colors', 'uabb'),
-				'fields'        => array(
-					'text_color'        => array( 
-						'type'       => 'color',
-                        'label'         => __('Text Color', 'uabb'),
-						'default'    => '',
-						'show_reset' => true,
-						'show_alpha' => true,
-						'preview'         => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-woo-add-to-cart .button',
-                            'property'      => 'color',
-                        )
-					),
-					'text_hover_color'   => array( 
-						'type'       => 'color',
-                        'label'         => __('Text Hover Color', 'uabb'),
-						'default'    => '',
-						'show_reset' => true,
-						'show_alpha' => true,
-                        'preview'       => array(
-							'type'          => 'none'
-						)
-					),
-					'bg_color'        => array( 
-						'type'       => 'color',
-                        'label'         => __('Background Color', 'uabb'),
-						'default'    => '',
-						'show_reset' => true,
-						'show_alpha' => true,
-						'preview'    => array(
-							'type'  => 'css',
-							'rules' => array(
-								array(
-									'selector' => '.uabb-woo-add-to-cart .uabb-adc-normal-btn',
-									'property' => 'background',
-								),
-								array(
-									'selector' => '.uabb-woo-add-to-cart .uabb-creative-transparent-btn',
-									'property' => 'border-color',
-								),
-							),
-						),
-					),
-					'bg_hover_color'        => array(
-						'type'       => 'color',
-                        'label'      => __('Background Hover Color', 'uabb'),
-						'default'    => '',
-						'show_reset' => true,
-						'show_alpha' => true,
-                        'preview'       => array(
-							'type'          => 'none'
-						)
-					),
-					'view_cart_color'        => array( 
-						'type'       => 'color',
-                        'label'         => __('View Cart Text', 'uabb'),
-						'default'    => '',
-						'show_reset' => true,
-						'show_alpha' => true,
-						'preview'         => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-woo-add-to-cart .added_to_cart',
-                            'property'      => 'color',
-                        )
-					),
 
-					'view_cart_hover_color'        => array( 
-						'type'       => 'color',
-                        'label'         => __('View Cart Hover Text', 'uabb'),
-						'default'    => '',
-						'show_reset' => true,
-						'show_alpha' => true,
-						'preview'         => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-woo-add-to-cart .added_to_cart:hover',
-                            'property'      => 'color',
-                        )
-					),
-				)
-			),
-		)
-	),
-	'typography'    => array(
-		'title'         => __('Typography', 'uabb'),
-		'sections'      => array(
-			'btn_typography'    =>  array(
-                'title'     => __('Button', 'uabb' ) ,
-		        'fields'    => array(
-		            'font_family'       => array(
-		                'type'          => 'font',
-		                'label'         => __('Font Family', 'uabb'),
-		                'default'       => array(
-		                    'family'        => 'Default',
-		                    'weight'        => 'Default'
-		                ),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.uabb-woo-add-to-cart .button'
-                        )
-		            ),
-		            'font_size'     => array(
-		                'type'          => 'unit',
-		                'label'         => __( 'Font Size', 'uabb' ),
-		                'description'   => 'px',
-						'responsive' => array(
-							'placeholder' => array(
-								'default' => '',
-								'medium' => '',
-								'responsive' => '',
-							),
-						),
-		                'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.uabb-woo-add-to-cart .button',
-                            'property'		=>	'font-size',
-                            'unit'			=> 'px'
-                        )
-		            ),
-		            'line_height'    => array(
-		                'type'          => 'unit',
-		                'label'         => __( 'Line Height', 'uabb' ),
-		                'description'   => 'em',
-						'responsive' => array(
-							'placeholder' => array(
-								'default' => '',
-								'medium' => '',
-								'responsive' => '',
-							),
-						),
-		                'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.uabb-woo-add-to-cart .button',
-                            'property'		=>	'line-height',
-                            'unit'			=> 'em'
-                        )
-		            ),
-                    'transform'     => array(
-                        'type'          => 'select',
-                        'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => '',
-                        'options'       => array(
-                            ''           		=>  'Default',
-                            'uppercase'         =>  'UPPERCASE',
-                            'lowercase'         =>  'lowercase',
-                            'capitalize'        =>  'Capitalize'                 
-                        ),
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-woo-add-to-cart .button',
-                            'property'      => 'text-transform'
-                        ),
-                    ),
-                    'letter_spacing'       => array(
-                        'type'          => 'unit',
-                        'label'         => __('Letter Spacing', 'uabb'),
-                        'placeholder'   => '0',
-                        'size'          => '5',
-                        'description'   => 'px',
-                        'preview'         => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-woo-add-to-cart .button',
-                            'property'      => 'letter-spacing',
-                            'unit'          => 'px'
-                        )
-                    ),
-		        )
-		    ),
-		)
-	)
-));
+if ( UABB_Compatibility::check_bb_version() ) {
+	require_once BB_ULTIMATE_ADDON_DIR . 'modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart-bb-2-2-compatibility.php';
+} else {
+	require_once BB_ULTIMATE_ADDON_DIR . 'modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart-bb-less-than-2-2-compatibility.php';
+}

@@ -219,7 +219,12 @@ function uabb_column_shadow( $form, $id ) {
 		return $form;
 	}
 
-	$advanced = $form['tabs']['advanced'];
+	$branding_name = UABB_PREFIX;
+	$notice        = /* Translators: %1$s: search term */ sprintf(
+		__( 'Note: If Column Shadow Settings for Beaver Builder are enabled then %1$s Shadow tab settings will not apply', 'uabb' ),
+		$branding_name
+	);
+	$advanced      = $form['tabs']['advanced'];
 	unset( $form['tabs']['advanced'] );
 
 	$form['tabs']['col_shadow'] = array(
@@ -236,6 +241,7 @@ function uabb_column_shadow( $form, $id ) {
 							'yes' => __( 'Yes', 'uabb' ),
 							'no'  => __( 'No', 'uabb' ),
 						),
+						'help'    => $notice,
 						'toggle'  => array(
 							'yes' => array(
 								'fields'   => array( 'col_shadow_color_hor', 'col_shadow_color_ver', 'col_shadow_color_blur', 'col_shadow_color_spr', 'col_shadow_color', 'col_shadow_color_opc' ),

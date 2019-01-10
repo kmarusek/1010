@@ -1,7 +1,16 @@
+<?php
+/**
+ *  UABB Contact Form Module front-end JS php file
+ *
+ * @package UABB Contact Form Module
+ */
+
+?>
+
 (function($) {
 
 	$(function() {
-	
+
 		new UABBContactForm({
 			id: "<?php echo $id; ?>",
 			uabb_ajaxurl: "<?php echo admin_url( 'admin-ajax.php' ); ?>",
@@ -13,5 +22,5 @@
 			button_text: "<?php echo $settings->btn_text; ?>"
 		});
 	});
-	
+
 })(jQuery);

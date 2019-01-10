@@ -1,6 +1,13 @@
 <?php
+/**
+ *  UABB Woo-Categories Module file
+ *
+ *  @package UABB Woo-Categories Module
+ */
 
 /**
+ * Function that initializes UABB Woo-Categories Module
+ *
  * @class UABBWooCategoriesModule
  */
 class UABBWooCategoriesModule extends FLBuilderModule {
@@ -13,23 +20,27 @@ class UABBWooCategoriesModule extends FLBuilderModule {
 	private $query = null;
 
 	/**
+	 * Constructor function that constructs default values for the UABBWooCategoriesModule module
+	 *
 	 * @method __construct
 	 */
 	public function __construct() {
-		parent::__construct(array(
-			'name'          	=> __('Woo - Categories', 'uabb'),
-			'description'   	=> __('Display WooCommerce Categories.', 'uabb'),
-			'category'          => BB_Ultimate_Addon_Helper::module_cat( BB_Ultimate_Addon_Helper::$woo_modules ),
-            'group'             => UABB_CAT,
-			'dir'           	=> BB_ULTIMATE_ADDON_DIR . 'modules/uabb-woo-categories/',
-            'url'           	=> BB_ULTIMATE_ADDON_URL . 'modules/uabb-woo-categories/',
-            'partial_refresh'	=> true,
-			'icon'				=> 'uabb-woo-categories.svg',
-		));
+		parent::__construct(
+			array(
+				'name'            => __( 'Woo - Categories', 'uabb' ),
+				'description'     => __( 'Display WooCommerce Categories.', 'uabb' ),
+				'category'        => BB_Ultimate_Addon_Helper::module_cat( BB_Ultimate_Addon_Helper::$woo_modules ),
+				'group'           => UABB_CAT,
+				'dir'             => BB_ULTIMATE_ADDON_DIR . 'modules/uabb-woo-categories/',
+				'url'             => BB_ULTIMATE_ADDON_URL . 'modules/uabb-woo-categories/',
+				'partial_refresh' => true,
+				'icon'            => 'uabb-woo-categories.svg',
+			)
+		);
 
 		$this->add_css( 'font-awesome' );
-		$this->add_js('imagesloaded-uabb', BB_ULTIMATE_ADDON_URL . 'assets/js/global-scripts/imagesloaded.min.js', array('jquery'), '', true);
-		$this->add_js( 'carousel', BB_ULTIMATE_ADDON_URL . 'assets/js/global-scripts/jquery-carousel.js', array('jquery'), '', true );
+		$this->add_js( 'imagesloaded-uabb', BB_ULTIMATE_ADDON_URL . 'assets/js/global-scripts/imagesloaded.min.js', array( 'jquery' ), '', true );
+		$this->add_js( 'carousel', BB_ULTIMATE_ADDON_URL . 'assets/js/global-scripts/jquery-carousel.js', array( 'jquery' ), '', true );
 	}
 
 	/**
@@ -39,50 +50,257 @@ class UABBWooCategoriesModule extends FLBuilderModule {
 	 */
 	public function get_icon( $icon = '' ) {
 
-        // check if $icon is referencing an included icon.
-        if ( '' != $icon && file_exists( BB_ULTIMATE_ADDON_DIR . 'modules/uabb-woo-categories/icon/' . $icon ) ) {
-            $path = BB_ULTIMATE_ADDON_DIR . 'modules/uabb-woo-categories/icon/' . $icon;
-        }
+		// check if $icon is referencing an included icon.
+		if ( '' != $icon && file_exists( BB_ULTIMATE_ADDON_DIR . 'modules/uabb-woo-categories/icon/' . $icon ) ) {
+			$path = BB_ULTIMATE_ADDON_DIR . 'modules/uabb-woo-categories/icon/' . $icon;
+		}
 
-        if ( file_exists( $path ) ) {
-            return file_get_contents( $path );
-        } else {
-            return '';
-        }
-    }
+		if ( file_exists( $path ) ) {
+			return file_get_contents( $path );
+		} else {
+			return '';
+		}
+	}
 
+	/**
+	 * Ensure backwards compatibility with old settings.
+	 *
+	 * @since 1.14.0
+	 * @param object $settings A module settings object.
+	 * @param object $helper A settings compatibility helper.
+	 * @return object
+	 */
+	public function filter_settings( $settings, $helper ) {
+
+		$version_bb_check        = UABB_Compatibility::check_bb_version();
+		$page_migrated           = UABB_Compatibility::check_old_page_migration();
+		$stable_version_new_page = UABB_Compatibility::check_stable_version_new_page();
+
+		if ( $version_bb_check && ( 'yes' == $page_migrated || 'yes' == $stable_version_new_page ) ) {
+
+			// For overall alignment and responsive alignment settings.
+			if ( isset( $settings->content_alignment ) ) {
+				$settings->content_alignment = $settings->content_alignment;
+			}
+			if ( isset( $settings->mobile_align ) ) {
+				$settings->mobile_align = $settings->mobile_align;
+			}
+			// For description alignment.
+			if ( isset( $settings->desc_alignment ) ) {
+				$settings->desc_alignment = $settings->desc_alignment;
+			}
+
+			// Categories typography settings.
+			if ( ! isset( $settings->category_typo ) || ! is_array( $settings->category_typo ) ) {
+
+				$settings->category_typo            = array();
+				$settings->category_typo_medium     = array();
+				$settings->category_typo_responsive = array();
+			}
+			if ( isset( $settings->content_font ) ) {
+
+				if ( isset( $settings->content_font['family'] ) ) {
+
+					$settings->category_typo['font_family'] = $settings->content_font['family'];
+				}
+				if ( isset( $settings->content_font['weight'] ) ) {
+
+					if ( 'regular' == $settings->content_font['weight'] ) {
+						$settings->category_typo['font_weight'] = 'normal';
+					} else {
+						$settings->category_typo['font_weight'] = $settings->content_font['weight'];
+					}
+				}
+			}
+			if ( isset( $settings->content_font_size ) ) {
+
+				$settings->category_typo['font_size'] = array(
+					'length' => $settings->content_font_size,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->content_font_size_medium ) ) {
+				$settings->category_typo_medium['font_size'] = array(
+					'length' => $settings->content_font_size_medium,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->content_font_size_responsive ) ) {
+
+				$settings->category_typo_responsive['font_size'] = array(
+					'length' => $settings->content_font_size_responsive,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->content_line_height ) ) {
+
+				$settings->category_typo['line_height'] = array(
+					'length' => $settings->content_line_height,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->content_line_height_medium ) ) {
+				$settings->category_typo_medium['line_height'] = array(
+					'length' => $settings->content_line_height_medium,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->content_line_height_responsive ) ) {
+				$settings->category_typo_responsive['line_height'] = array(
+					'length' => $settings->content_line_height_responsive,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->content_transform ) ) {
+
+				$settings->category_typo['text_transform'] = $settings->content_transform;
+
+			}
+			if ( isset( $settings->content_letter_spacing ) ) {
+
+				$settings->category_typo['letter_spacing'] = array(
+					'length' => $settings->content_letter_spacing,
+					'unit'   => 'px',
+				);
+			}
+
+			// Description typography settings.
+			if ( ! isset( $settings->description_typo ) || ! is_array( $settings->description_typo ) ) {
+
+				$settings->description_typo            = array();
+				$settings->description_typo_medium     = array();
+				$settings->description_typo_responsive = array();
+			}
+			if ( isset( $settings->desc_font ) ) {
+
+				if ( isset( $settings->desc_font['family'] ) ) {
+
+					$settings->description_typo['font_family'] = $settings->desc_font['family'];
+				}
+				if ( isset( $settings->desc_font['weight'] ) ) {
+
+					if ( 'regular' == $settings->desc_font['weight'] ) {
+						$settings->description_typo['font_weight'] = 'normal';
+					} else {
+						$settings->description_typo['font_weight'] = $settings->desc_font['weight'];
+					}
+				}
+			}
+			if ( isset( $settings->desc_font_size ) ) {
+
+				$settings->description_typo['font_size'] = array(
+					'length' => $settings->desc_font_size,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->desc_font_size_medium ) ) {
+				$settings->description_typo_medium['font_size'] = array(
+					'length' => $settings->desc_font_size_medium,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->desc_font_size_responsive ) ) {
+				$settings->description_typo_responsive['font_size'] = array(
+					'length' => $settings->desc_font_size_responsive,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->desc_line_height ) ) {
+
+				$settings->description_typo['line_height'] = array(
+					'length' => $settings->desc_line_height,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->desc_line_height_medium ) ) {
+				$settings->description_typo_medium['line_height'] = array(
+					'length' => $settings->desc_line_height_medium,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->desc_line_height_responsive ) ) {
+				$settings->description_typo_responsive['line_height'] = array(
+					'length' => $settings->desc_line_height_responsive,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->desc_transform ) ) {
+				$settings->description_typo['text_transform'] = $settings->desc_transform;
+			}
+			if ( isset( $settings->desc_letter_spacing ) ) {
+
+				$settings->description_typo['letter_spacing'] = array(
+					'length' => $settings->desc_letter_spacing,
+					'unit'   => 'px',
+				);
+			}
+
+			// Unset old values.
+			if ( isset( $settings->content_font ) ) {
+				unset( $settings->content_font );
+				unset( $settings->content_font_size );
+				unset( $settings->content_font_size_medium );
+				unset( $settings->content_font_size_responsive );
+				unset( $settings->content_line_height );
+				unset( $settings->content_line_height_medium );
+				unset( $settings->content_line_height_responsive );
+				unset( $settings->content_transform );
+				unset( $settings->content_letter_spacing );
+			}
+			if ( isset( $settings->desc_font ) ) {
+				unset( $settings->desc_font );
+				unset( $settings->desc_font_size );
+				unset( $settings->desc_font_size_medium );
+				unset( $settings->desc_font_size_responsive );
+				unset( $settings->desc_line_height );
+				unset( $settings->desc_line_height_medium );
+				unset( $settings->desc_line_height_responsive );
+				unset( $settings->desc_transform );
+				unset( $settings->desc_letter_spacing );
+			}
+		}
+
+		return $settings;
+	}
+
+	/**
+	 * Function to get inner classes for woo-categories
+	 *
+	 * @since 1.10.0
+	 * @method get_inner_classes
+	 */
 	public function get_inner_classes() {
-		
-		$settings 	= $this->settings;
-		$classes 	= array();
+
+		$settings = $this->settings;
+		$classes  = array();
 
 		$classes = array(
 			'uabb-woo--align-' . $settings->content_alignment,
 		);
-		
+
 		if ( 'grid' === $settings->layout ) {
 
-			$classes[]  = 'uabb-woo-cat__column-' . $settings->grid_columns_new;
-			$classes[]  = 'uabb-woo-cat__column-tablet-' . $settings->grid_columns_new_medium;
-			$classes[]  = 'uabb-woo-cat__column-mobile-' . $settings->grid_columns_new_responsive;
+			$classes[] = 'uabb-woo-cat__column-' . $settings->grid_columns_new;
+			$classes[] = 'uabb-woo-cat__column-tablet-' . $settings->grid_columns_new_medium;
+			$classes[] = 'uabb-woo-cat__column-mobile-' . $settings->grid_columns_new_responsive;
 		} elseif ( 'carousel' === $settings->layout ) {
 			$classes[] = 'uabb-woo-cat__column-' . $settings->slider_columns_new;
 			$classes[] = 'uabb-woo-slider-arrow-' . $settings->arrow_position;
 			$classes[] = 'uabb-woo-slider-arrow-' . $settings->arrow_style;
-			
+
 			if ( 'yes' === $settings->enable_dots ) {
 				$classes[] = 'uabb-slick-dotted';
 			}
 		}
 
-		
 		return implode( ' ', $classes );
 	}
 
 	/**
 	 * List all product categories.
 	 *
-	 * @return string
+	 * @since 1.10.0
+	 * @method query_product_categories
 	 */
 	public function query_product_categories() {
 
@@ -106,11 +324,9 @@ class UABBWooCategoriesModule extends FLBuilderModule {
 			$this->settings->order = 'DESC';
 		}
 
-
 		$settings    = $this->settings;
 		$include_ids = array();
 		$exclude_ids = array();
-
 
 		$atts = array(
 			'limit'   => '8',
@@ -118,22 +334,22 @@ class UABBWooCategoriesModule extends FLBuilderModule {
 			'parent'  => '',
 		);
 
-		if ( 'grid' === $settings->layout  ) {
-			
-			$atts['limit'] = ( $settings->grid_categories ) ? $settings->grid_categories : '-1';
+		if ( 'grid' === $settings->layout ) {
+
+			$atts['limit']   = ( $settings->grid_categories ) ? $settings->grid_categories : '-1';
 			$atts['columns'] = ( $settings->grid_columns_new ) ? $settings->grid_columns_new : '4';
-		}elseif ( 'carousel' === $settings->layout ) {
-			$atts['limit'] = ( $settings->slider_categories ) ? $settings->slider_categories : '-1';
+		} elseif ( 'carousel' === $settings->layout ) {
+			$atts['limit']   = ( $settings->slider_categories ) ? $settings->slider_categories : '-1';
 			$atts['columns'] = ( $settings->slider_columns_new ) ? $settings->slider_columns_new : '4';
 		}
 
 		if ( 'top' === $settings->filter_rule ) {
 			$atts['parent'] = 0;
 		} elseif ( 'include' === $settings->filter_rule && '' !== $settings->tax_product_product_cat ) {
-			$cat_ids = explode( ',', $settings->tax_product_product_cat );
+			$cat_ids     = explode( ',', $settings->tax_product_product_cat );
 			$include_ids = array_filter( array_map( 'trim', $cat_ids ) );
 		} elseif ( 'exclude' === $settings->filter_rule && '' !== $settings->tax_product_product_cat ) {
-			$cat_ids = explode( ',', $settings->tax_product_product_cat );
+			$cat_ids     = explode( ',', $settings->tax_product_product_cat );
 			$exclude_ids = array_filter( array_map( 'trim', $cat_ids ) );
 		}
 
@@ -208,7 +424,6 @@ class UABBWooCategoriesModule extends FLBuilderModule {
 		}
 
 		woocommerce_reset_loop();
-
 
 		$inner_content = ob_get_clean();
 
@@ -300,600 +515,14 @@ class UABBWooCategoriesModule extends FLBuilderModule {
 	}
 }
 
-/**
- * Register the module and its form settings.
+/*
+ * Condition to verify Beaver Builder version.
+ * And accordingly render the required form settings file.
+ *
  */
-FLBuilder::register_module('UABBWooCategoriesModule', array(
-	'general'       => array(
-		'title'         => __('General', 'uabb'),
-		'sections'      => array(
-			'general'       => array(
-				'title'         => '',
-				'fields'        => array(
-					'layout'   => array(
-						'type'          => 'select',
-						'label'         => __('Layout', 'uabb'),
-						'default'       => 'grid',
-						'options'       => array(
-							'grid'			=> __('Grid', 'uabb'),
-							'carousel'		=> __('Carousel', 'uabb')
-						),
-						'toggle'	=> array(
-							'grid'	=> array(
-								'sections'	=> array( 'grid_options' ),
-								'fields'	=> array( 'rows_gap' )
-							),
-							'carousel'	=> array(
-								'sections'	=> array( 'slider_options' ),
-								/*'fields'	=> array( 'slider_columns' )*/
-							),
-						)
-					),
-				)
-			),
-            'grid_options'	=> array( 
-				'title'  		=> __( 'Grid Options', 'uabb' ),
-				'fields' 		=> array(
-					'grid_categories'     => array(
-		                'type'          => 'unit',
-		                'label'         => __('Categories Count', 'uabb'),
-		                'placeholder'   => '-1',
-		                'maxlength'     => '5',
-		                'size'          => '6',
-						'default'       => '8',
-		            ),
-		            'grid_columns_new'  => array(
-						'type'          => 'unit',
-						'label'         => __( 'Columns', 'uabb' ),
-						'help' => __( 'Choose number of categories to be displayed at a time.', 'uabb' ),
-						'responsive'  => array(
-							'default' => array(
-								'default'    => '4',
-								'medium'     => '2',
-								'responsive' => '1',
-							),
-						),
-					),
-				),
-			),
-			'slider_options'	=> array( 
-				'title'  		=> __( 'Slider Options', 'uabb' ),
-				'fields' 		=> array(
-					'slider_categories'     => array(
-		                'type'          => 'unit',
-		                'label'         => __('Categories Count', 'uabb'),
-		                'placeholder'   => '-1',
-		                'maxlength'     => '5',
-		                'size'          => '6',
-						'default'       => '8',
-		            ),
-		            'slider_columns_new'  => array(
-						'type'          => 'unit',
-						'label'         => __( 'Columns', 'uabb' ),
-						'help' => __( 'Choose number of categories to be displayed at a time.', 'uabb' ),
-						'responsive'  => array(
-							'default' => array(
-								'default'    => '4',
-								'medium'     => '2',
-								'responsive' => '1',
-							),
-						),
-					),
-					'slides_to_scroll'  => array(
-                        'type'          => 'unit',
-                        'label'         => __('Categories to Scroll', 'uabb'),
-                        'help'          => __( 'Choose number of categories you want to scroll at a time.', 'uabb' ),
-                        'placeholder'   => '1',
-                        'size'          => '8',
-                    ),
-                    'autoplay'     => array(
-                        'type'          => 'select',
-                        'label'         => __( 'Autoplay Categories Scroll', 'uabb' ),
-                        'help'          => __( 'Enables auto play of posts.', 'uabb' ),
-                        'default'       => 'no',
-                        'options'       => array(
-                            'yes'       => __( 'Yes', 'uabb' ),
-                            'no'        => __( 'No', 'uabb' ),
-                        ),
-                        'toggle' => array(
-                            'yes' => array(
-                                'fields' => array( 'animation_speed' )
-                            )
-                        )
-                    ),
-                    'animation_speed' => array(
-                        'type'          => 'unit',
-                        'label'         => __('Autoplay Speed', 'uabb'),
-                        'help'          => __( 'Enter the time interval to scroll post automatically.', 'uabb' ),
-                        'placeholder'   => '1000',
-                        'size'          => '8',
-                        'description'   => __( 'ms', 'uabb' )
-                    ),
-                    'infinite_loop'     => array(
-                        'type'          => 'select',
-                        'label'         => __( 'Infinite Loop', 'uabb' ),
-                        'help'          => __( 'Enable this to scroll posts in infinite loop.', 'uabb' ),
-                        'default'       => 'yes',
-                        'options'       => array(
-                            'yes'       => __( 'Yes', 'uabb' ),
-                            'no'        => __( 'No', 'uabb' ),
-                        ),
-                    ),
-                    'enable_dots' => array(
-                        'type'          => 'select',
-                        'label'         => __( 'Enable Dots', 'uabb' ),
-                        'help'          => __( 'Enable Dots navigation below to your carousel slider.', 'uabb' ),
-                        'default'       => 'yes',
-                        'options'       => array(
-                            'yes'       => __( 'Yes', 'uabb' ),
-                            'no'        => __( 'No', 'uabb' ),
-                        ),
-                    ),
-                    'enable_arrow' => array(
-                        'type'          => 'select',
-                        'label'         => __( 'Enable Arrows', 'uabb' ),
-                        'help'          => __( 'Enable Next/Prev arrows to your carousel slider.', 'uabb' ),
-                        'default'       => 'yes',
-                        'options'       => array(
-                            'yes'       => __( 'Yes', 'uabb' ),
-                            'no'        => __( 'No', 'uabb' ),
-                        ),
-                        'toggle'	=> array(
-							'yes'	=> array(
-								'fields'	=> array( 'arrow_position', 'arrow_style', 'arrow_color', 'arrow_background_color','arrow_color_border', 'arrow_border_size' )
-							),
-							'no'	=> array(
-								'fields'	=> array( '' )
-							),
-						)
-                    ),
-                    'arrow_position' => array(
-                        'type'          => 'select',
-                        'label'         => __( 'Arrow Position', 'uabb' ),
-                        'default'       => 'outside',
-                        'options'       => array(
-                            'outside'   => __( 'Outside', 'uabb' ),
-                            'inside'    => __( 'Inside', 'uabb' ),
-                        ),
-                    ),
-                    'arrow_style'       => array(
-                        'type'          => 'select',
-                        'label'         => __('Arrow Style', 'uabb'),
-                        'default'       => 'circle',
-                        'options'       => array(
-                            'square'             => __('Square Background', 'uabb'),
-                            'circle'             => __('Circle Background', 'uabb'),
-                            'square-border'      => __('Square Border', 'uabb'),
-                            'circle-border'      => __('Circle Border', 'uabb')
-                        ),
-                        'toggle'        => array(
-                            'square-border' => array(
-                                'fields'        => array( 'arrow_color', 'arrow_color_border', 'arrow_border_size' )
-                            ),
-                            'circle-border' => array(
-                                'fields'        => array( 'arrow_color', 'arrow_color_border', 'arrow_border_size' )
-                            ),
-                            'square' => array(
-                                'fields'        => array( 'arrow_color', 'arrow_background_color' )
-                            ),
-                            'circle' => array(
-                                'fields'        => array( 'arrow_color', 'arrow_background_color' )
-                            ),
-                        )
-                    ),
-                    'arrow_color' => array( 
-                        'type'       => 'color',
-                        'label'         => __('Arrow Color', 'uabb'),
-                        'default'    => '',
-                        'show_reset' => true,
-						'show_alpha' => true,
-                    ),
-                    'arrow_background_color' => array( 
-                        'type'       => 'color',
-                        'label'         => __('Arrow Background Color', 'uabb'),
-                        'default'    => '',
-                        'show_reset' => true,
-						'show_alpha' => true,
-                    ),
-                    'arrow_color_border' => array( 
-                        'type'       => 'color',
-                        'label'         => __('Arrow Border Color', 'uabb'),
-                        'default'    => '',
-                        'show_reset' => true,
-						'show_alpha' => true,
-                    ),
-                    'arrow_border_size'       => array(
-                        'type'          => 'unit',
-                        'label'         => __('Border Size', 'uabb'),
-                        'default'       => '1',
-                        'description'   => 'px',
-                        'size'          => '8',
-                        'max_length'    => '3'
-                    ),
-                )
-            ),
-		)
-	),
-	'product_query' => array(
-		'title'         => __('Query', 'uabb'),
-		'file'          => BB_ULTIMATE_ADDON_DIR . 'modules/uabb-woo-categories/includes/loop-settings.php',
-	),
-	'style'         => array(
-		'title'         => __('Style', 'uabb'),
-		'sections'      => array(
-			'layout_style_sec' 	=> 	array( // Section
-		        'title'         => __('Layout','uabb'), // Section Title
-		        'fields'        => array( // Section Fields
-		        	'columns_gap' => array(
-						'type' => 'unit',
-						'label' => __('Columns Gap', 'uabb'),
-						'description' => 'px',
-						'responsive' => array(
-							'placeholder' => array(
-								'default' => '',
-								'medium' => '',
-								'responsive' => '',
-							),
-						),
-					),
-					'rows_gap' => array(
-						'type' => 'unit',
-						'label' => __('Rows Gap', 'uabb'),
-						'description' => 'px',
-						'responsive' => array(
-							'placeholder' => array(
-								'default' => '',
-								'medium' => '',
-								'responsive' => '',
-							),
-						),
-					),
-		        )
-		    ),
-		    'content_style_sec' 	=> 	array( // Section
-		        'title'         => __('Category Content','uabb'), // Section Title
-		        'fields'        => array( // Section Fields
-		        	'content_alignment' => array(
-                        'type'          => 'select',
-                        'label' 		=> __('Alignment', 'uabb'),
-                        'default'       => 'center',
-                        'options'       => array(
-                            'center' => __( 'Center', 'uabb' ),
-                            'left' 	 => __( 'Left', 'uabb' ),
-                            'right'  => __( 'Right', 'uabb' ),
-                        ),
-                    ),
-                    'mobile_align'         => array(
-						'type'          => 'select',
-						'label'         => __('Mobile Alignment', 'uabb'),
-						'default'       => 'center',
-						'options'       => array(
-							'center'        => __('Center', 'uabb'),
-							'left'          => __('Left', 'uabb'),
-							'right'         => __('Right', 'uabb'),
-						),
-						'help'          => __('This alignment will apply on Mobile', 'uabb'),
-					),
-                    'content_around_spacing' => array(
-                        'type'      => 'dimension',
-                        'label'     => __( 'Spacing Around Content', 'uabb' ),
-                        'description'  => 'px',
-                        'preview'         => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-woo-categories li.product .uabb-category__title-wrap',
-                            'property'      => 'padding',
-                            'unit'          => 'px',
-                        ),
-                        'responsive' => array(
-                            'placeholder' => array(
-                                'default' 	 => '',
-                                'medium' 	 => '',
-                                'responsive' => '',
-                            ),
-                        ),
-                    ),
-                    'content_color'    => array( 
-						'type'       => 'color',
-						'label'         => __('Color', 'uabb'),
-						'default'    => '',
-						'show_reset' => true,
-						'show_alpha' => true,
-						'preview'		=> array(
-							'type' => 'css',
-							'property' => 'color',
-							'selector' => '.uabb-woo-categories li.product .woocommerce-loop-category__title, .uabb-woo-categories li.product .uabb-category__title-wrap .uabb-count'
-						)
-					),
-					'content_bg_color'    => array( 
-						'type'       => 'color',
-						'label'         => __('Background Color', 'uabb'),
-						'default'    => '',
-						'show_reset' => true,
-						'show_alpha' => true,
-						'preview'		=> array(
-							'type' => 'css',
-							'property' => 'background',
-							'selector' => '.uabb-woo-categories li.product .uabb-category__title-wrap'
-						)
-					),
-					'content_hover_color'    => array( 
-						'type'       => 'color',
-						'label'         => __('Hover Color', 'uabb'),
-						'default'    => '',
-						'show_reset' => true,
-						'show_alpha' => true,
-						'preview'		=> array(
-							'type' => 'css',
-							'property' => 'color',
-							'selector' => '.uabb-woo-categories li.product-category > a:hover .woocommerce-loop-category__title, .uabb-woo-categories li.product-category > a:hover .uabb-category__title-wrap .uabb-count'
-						)
-					),
-					'content_hover_bg_color'    => array( 
-						'type'       => 'color',
-						'label'         => __('Background Hover Color', 'uabb'),
-						'default'    => '',
-						'show_reset' => true,
-						'show_alpha' => true,
-						'preview'		=> array(
-							'type' => 'css',
-							'property' => 'background',
-							'selector' => '.uabb-woo-categories li.product-category > a:hover .uabb-category__title-wrap'
-						)
-					),
-		        )
-		    ),
-		    'desc_style_sec' 	=> 	array( // Section
-		        'title'         => __('Category Description','uabb'), // Section Title
-		        'fields'        => array( // Section Fields
-		        	'desc_alignment' => array(
-                        'type'          => 'select',
-                        'label' 		=> __('Alignment', 'uabb'),
-                        'default'       => 'left',
-                        'options'       => array(
-                            'center' => __( 'Center', 'uabb' ),
-                            'left' 	 => __( 'Left', 'uabb' ),
-                            'right'  => __( 'Right', 'uabb' ),
-                        ),
-                    ),
-                    'desc_around_spacing' => array(
-                        'type'      => 'dimension',
-                        'label'     => __( 'Spacing Around Content', 'uabb' ),
-                        'description'  => 'px',
-                        'preview'         => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-woo-categories .uabb-product-cat-desc',
-                            'property'      => 'padding',
-                            'unit'          => 'px',
-                        ),
-                        'responsive' => array(
-                            'placeholder' => array(
-                                'default' 	 => '',
-                                'medium' 	 => '',
-                                'responsive' => '',
-                            ),
-                        ),
-                    ),
-                    'desc_color'    => array( 
-						'type'       => 'color',
-						'label'         => __('Color', 'uabb'),
-						'default'    => '',
-						'show_reset' => true,
-						'show_alpha' => true,
-						'preview'		=> array(
-							'type' => 'css',
-							'property' => 'color',
-							'selector' => '.uabb-woo-categories .uabb-term-description'
-						)
-					),
-					'desc_bg_color'    => array( 
-						'type'       => 'color',
-						'label'         => __('Background Color', 'uabb'),
-						'default'    => '',
-						'show_reset' => true,
-						'show_alpha' => true,
-						'preview'		=> array(
-							'type' => 'css',
-							'property' => 'background',
-							'selector' => '.uabb-woo-categories .uabb-product-cat-desc'
-						)
-					),
-					'desc_hover_color'    => array( 
-						'type'       => 'color',
-						'label'         => __('Hover Color', 'uabb'),
-						'default'    => '',
-						'show_reset' => true,
-						'show_alpha' => true,
-						'preview'		=> array(
-							'type' => 'css',
-							'property' => 'color',
-							'selector' => '.uabb-woo-categories li.product-category > a:hover .uabb-term-description'
-						)
-					),
-					'desc_hover_bg_color'    => array( 
-						'type'       => 'color',
-						'label'         => __('Background Hover Color', 'uabb'),
-						'default'    => '',
-						'show_reset' => true,
-						'show_alpha' => true,
-						'preview'		=> array(
-							'type' => 'css',
-							'property' => 'background',
-							'selector' => '.uabb-woo-categories li.product-category > a:hover .uabb-product-cat-desc'
-						)
-					),
-		        )
-		    ),
-		)
-	),
-	'typography'    => array(
-		'title'         => __('Typography', 'uabb'),
-		'sections'      => array(
-			'content_typo'     => array(
-				'title'         => __('Content', 'uabb'),
-				'fields'        => array(
-					'content_font'          => array(
-						'type'          => 'font',
-						'default'		=> array(
-							'family'		=> 'Default',
-							'weight'		=> 300
-						),
-						'label'         => __('Font', 'uabb'),
-						'preview'         => array(
-							'type'            => 'font',
-							'selector'        => '.uabb-woo-categories li.product .woocommerce-loop-category__title, .uabb-woo-categories li.product .uabb-category__title-wrap .uabb-count'
-							
-						)
-					),
-					'content_font_size' => array(
-						'type' => 'unit',
-						'label' => __('Font Size', 'uabb'),
-						'description' => 'px',
-						'preview' => array(
-							'type' 		=> 'css',
-							'selector'	=> '.uabb-woo-categories li.product .woocommerce-loop-category__title, .uabb-woo-categories li.product .uabb-category__title-wrap .uabb-count',
-							'property'	=> 'font-size',
-							'unit' 		=> 'px'
-						),
-						'responsive' => array(
-							'placeholder' => array(
-								'default' => '',
-								'medium' => '',
-								'responsive' => '',
-							),
-						),
-					),
-					'content_line_height' => array(
-						'type' => 'unit',
-						'label' => __('Line height', 'uabb'),
-						'description' => 'em',
-						'preview' => array(
-							'type' 		=> 'css',
-							'selector'	=> '.uabb-woo-categories li.product .woocommerce-loop-category__title, .uabb-woo-categories li.product .uabb-category__title-wrap .uabb-count',
-							'property'	=> 'line-height',
-							'unit' 		=> 'em'
-						),
-						'responsive' => array(
-							'placeholder' => array(
-								'default' => '',
-								'medium' => '',
-								'responsive' => '',
-							),
-						),
-					),
-                    'content_transform'     => array(
-                        'type'          => 'select',
-                        'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
-                        'options'       => array(
-                            'none'           =>  'Default',
-                            'uppercase'         =>  'UPPERCASE',
-                            'lowercase'         =>  'lowercase',
-                            'capitalize'        =>  'Capitalize'                 
-                        ),
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-woo-categories li.product .woocommerce-loop-category__title, .uabb-woo-categories li.product .uabb-category__title-wrap .uabb-count',
-                            'property'      => 'text-transform'
-                        ),
-                    ),
-                    'content_letter_spacing'       => array(
-                        'type'          => 'unit',
-                        'label'         => __('Letter Spacing', 'uabb'),
-                        'placeholder'   => '0',
-                        'size'          => '5',
-                        'description'   => 'px',
-                        'preview'         => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-woo-categories li.product .woocommerce-loop-category__title, .uabb-woo-categories li.product .uabb-category__title-wrap .uabb-count',
-                            'property'      => 'letter-spacing',
-                            'unit'          => 'px'
-                        )
-                    ),
-				)
-			),
-			'desc_typo'     => array(
-				'title'         => __('Description', 'uabb'),
-				'fields'        => array(
-					'desc_font'          => array(
-						'type'          => 'font',
-						'default'		=> array(
-							'family'		=> 'Default',
-							'weight'		=> 300
-						),
-						'label'         => __('Font', 'uabb'),
-						'preview'         => array(
-							'type'            => 'font',
-							'selector'        => '.uabb-woo-categories .uabb-term-description'
-							
-						)
-					),
-					'desc_font_size' => array(
-						'type' => 'unit',
-						'label' => __('Font Size', 'uabb'),
-						'description' => 'px',
-						'preview' => array(
-							'type' 		=> 'css',
-							'selector'	=> '.uabb-woo-categories .uabb-term-description',
-							'property'	=> 'font-size',
-							'unit' 		=> 'px'
-						),
-						'responsive' => array(
-							'placeholder' => array(
-								'default' => '',
-								'medium' => '',
-								'responsive' => '',
-							),
-						),
-					),
-					'desc_line_height' => array(
-						'type' => 'unit',
-						'label' => __('Line height', 'uabb'),
-						'description' => 'em',
-						'preview' => array(
-							'type' 		=> 'css',
-							'selector'	=> '.uabb-woo-categories .uabb-term-description',
-							'property'	=> 'line-height',
-							'unit' 		=> 'em'
-						),
-						'responsive' => array(
-							'placeholder' => array(
-								'default' => '',
-								'medium' => '',
-								'responsive' => '',
-							),
-						),
-					),
-                    'desc_transform'     => array(
-                        'type'          => 'select',
-                        'label'         => __( 'Transform', 'uabb' ),
-                        'default'       => 'none',
-                        'options'       => array(
-                            'none'           =>  'Default',
-                            'uppercase'         =>  'UPPERCASE',
-                            'lowercase'         =>  'lowercase',
-                            'capitalize'        =>  'Capitalize'                 
-                        ),
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-woo-categories .uabb-term-description',
-                            'property'      => 'text-transform'
-                        ),
-                    ),
-                    'desc_letter_spacing'       => array(
-                        'type'          => 'text',
-                        'label'         => __('Letter Spacing', 'uabb'),
-                        'placeholder'   => '0',
-                        'size'          => '5',
-                        'description'   => 'px',
-                        'preview'         => array(
-                            'type'          => 'css',
-                            'selector'      => '.uabb-woo-categories .uabb-term-description',
-                            'property'      => 'letter-spacing',
-                            'unit'          => 'px'
-                        )
-                    ),
-				)
-			),
-		)
-	)
-));
+
+if ( UABB_Compatibility::check_bb_version() ) {
+	require_once BB_ULTIMATE_ADDON_DIR . 'modules/uabb-woo-categories/uabb-woo-categories-bb-2-2-compatibility.php';
+} else {
+	require_once BB_ULTIMATE_ADDON_DIR . 'modules/uabb-woo-categories/uabb-woo-categories-bb-less-than-2-2-compatibility.php';
+}

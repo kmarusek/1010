@@ -1,7 +1,6 @@
 (function($){
 
     FLBuilder.registerModuleHelper('uabb-advanced-menu', {
-
         init: function()
         {
             var form = $('.fl-builder-settings'),
@@ -16,6 +15,7 @@
                 menu_mobile_breakpoint.on('change', $.proxy( this._hideWidth, this ) );
 
                 $( this._hideWidth, this );
+                this._hideDocs();
 		},
 
 		callbackRenderFunction: function() {
@@ -53,6 +53,30 @@
                 jQuery( '.fl-node-' + id + ' .uabb-creative-menu .menu:not(.uabb-creative-menu-expanded) .sub-menu' ).first().css({ 'display': 'none', 'visibility': 'hidden', 'opacity': '0' });
             }
         },
+        /**
+         * Branding is on hide the Docs Tab.
+         *
+         * @since 1.14.0
+        */
+        _hideDocs: function() {
+            var form            = $('.fl-builder-settings'),
+            branding_selector   = form.find('#fl-field-uabb_helpful_information .uabb-docs-list');
+            settings_tab        = form.find('.fl-builder-settings-tabs');
+            get_anchor          =  settings_tab.find('a');
+
+            $( get_anchor ).each(function() {
+
+                if ( '#fl-builder-settings-tab-uabb_docs' === $(this) .attr('href') ) {
+
+                    if ( 'yes' === branding_selector.data('branding') ) {
+                        $( this ).hide();
+                    } else {
+                        $( this ).show();
+                    }
+                }
+            });
+        }
+
     });
 
 })(jQuery);

@@ -1,3 +1,12 @@
+<?php
+/**
+ *  UABB Before After Slider Module front-end JS php file
+ *
+ *  @package UABB Before After Slider Module
+ */
+
+?>
+
 (function($) {
 
 	var document_width, document_height;
@@ -26,7 +35,6 @@
 
 				jQuery(window).trigger('resize');
 			}
-			
 		});
 
 		/* Accordion Click Trigger */
@@ -34,19 +42,18 @@
 
 			var child_id = jQuery( selector + ' .fl-module-uabb-beforeafterslider' ).data('node');
 
-			if( child_id != '' ) {
+			if( '' != child_id ) {
 
 				jQuery(window).trigger('resize');
 			}
-			
 		});
 
 		/* Tab Click Trigger */
 		UABBTrigger.addHook( 'uabb-tab-click', function( argument, selector ) {
-			
+
 			var child_id = jQuery( selector + ' .fl-module-uabb-beforeafterslider' ).data('node');
 
-			if( child_id != '' ) {
+			if( '' != child_id ) {
 
 				jQuery(window).trigger('resize');
 			}
@@ -55,7 +62,7 @@
 	});
 
 	jQuery(window).load(function() {
-		
+
 		setTimeout(function(){
 
 			new UABBBeforeAfterSlider( args );
@@ -71,7 +78,7 @@
 
 			document_width = jQuery( document ).width();
 			document_height = jQuery( document ).height();
-			
+
 			jQuery( ".baslider-<?php echo $id; ?>" ).css( 'width', '' );
 			jQuery( ".baslider-<?php echo $id; ?>" ).css( 'height', '' );
 

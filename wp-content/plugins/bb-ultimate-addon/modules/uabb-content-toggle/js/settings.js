@@ -5,7 +5,7 @@
     FLBuilder.registerModuleHelper('uabb-content-toggle', {
         
         init: function()
-        {   
+        {
             var form        = $('.fl-builder-settings'),
                 advanced    = form.find('select[name=advanced]'),
                 border_type = form.find('select[name=border_type]'),
@@ -168,7 +168,7 @@
             if( advanced_sec == 'off' ) {
                 form.find('#fl-field-border_width_sec').hide();
                 form.find('#fl-field-border_color_sec').hide();
-            } else if(advanced_sec == 'on' && border_type_sec != 'none'){
+            } else if(advanced_sec == 'on' && border_type_sec != 'none') {
                 form.find('#fl-field-border_width_sec').show();
                 form.find('#fl-field-border_color_sec').show();
             }

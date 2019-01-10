@@ -1,4 +1,10 @@
 <?php
+/**
+ * Render the Frontend layout for Advanced Posts module.
+ *
+ * @package UABB Advanced Posts Module
+ */
+
 $uabb_args = $module->get_uabb_args();
 $args      = $module->render_args();
 
@@ -11,14 +17,14 @@ $show_pagination = ( isset( $settings->show_pagination ) ) ? $settings->show_pag
 $pagination = ( isset( $settings->pagination ) ) ? $settings->pagination : 'numbers';
 
 if ( isset( $settings->offset ) ) {
-	$settings->offset = ( ! is_int( (int) $settings->offset ) ) ? 0 : ( ( $settings->offset != '' ) ? $settings->offset : 0 );
+	$settings->offset = ( ! is_int( (int) $settings->offset ) ) ? 0 : ( ( '' != $settings->offset ) ? $settings->offset : 0 );
 } else {
 	$settings->offset = 0;
 }
 $settings->order_by       = $args['orderby'];
 $settings->posts_per_page = $args['posts_per_page'];
 
-if ( isset( $settings->data_source ) && $settings->data_source == 'main_query' && true == FL_BUILDER_LITE ) {
+if ( isset( $settings->data_source ) && 'main_query' == $settings->data_source && true == FL_BUILDER_LITE ) {
 	global $wp_query;
 	$the_query = clone $wp_query;
 	$the_query->rewind_posts();
@@ -32,21 +38,21 @@ if ( isset( $settings->data_source ) && $settings->data_source == 'main_query' &
 	 * Refine blog post WP Query
 	 */
 
-	if ( $settings->is_carousel != 'carousel' && $show_pagination == 'yes' && $pagination == 'numbers' ) {
+	if ( 'carousel' != $settings->is_carousel && 'yes' == $show_pagination && 'numbers' == $pagination ) {
 
 		$settings->total_posts_switch = ( isset( $settings->total_posts_switch ) ? $settings->total_posts_switch : 'all' );
 
-		$settings->total_posts = ( isset( $settings->total_posts ) ? ( ( $settings->total_posts != '' ) ? $settings->total_posts : '10' ) : '10' );
+		$settings->total_posts = ( isset( $settings->total_posts ) ? ( ( '' != $settings->total_posts ) ? $settings->total_posts : '10' ) : '10' );
 
-		$total_posts = ( $settings->total_posts_switch == 'all' ) ? '-1' : $settings->total_posts;
+		$total_posts = ( 'all' == $settings->total_posts_switch ) ? '-1' : $settings->total_posts;
 
 		if ( $total_posts > 0 ) {
 			$the_query->posts = array_slice( $the_query->posts, 0, $total_posts );
-		} elseif ( $total_posts == 0 ) {
+		} elseif ( 0 == $total_posts ) {
 			$the_query->posts = array();
 		}
 
-		if ( $args['posts_per_page'] == 0 ) {
+		if ( 0 == $args['posts_per_page'] ) {
 			$the_query->posts = array();
 		}
 	}
@@ -57,21 +63,21 @@ if ( isset( $settings->data_source ) && $settings->data_source == 'main_query' &
  * Define columns as per Grids
  */
 
-$col = ( $settings->is_carousel != 'carousel' ) ? ( ( $settings->is_carousel == 'feed' ) ? 1 : $settings->post_per_grid ) : $settings->post_per_grid_desktop;
+$col = ( 'carousel' != $settings->is_carousel ) ? ( ( 'feed' == $settings->is_carousel ) ? 1 : $settings->post_per_grid ) : $settings->post_per_grid_desktop;
 
-$col = ( $settings->is_carousel == 'carousel' ) ? $settings->post_per_grid_desktop : ( ( $settings->is_carousel == 'feed' ) ? 1 : $settings->post_per_grid );
+$col = ( 'carousel' == $settings->is_carousel ) ? $settings->post_per_grid_desktop : ( ( 'feed' == $settings->is_carousel ) ? 1 : $settings->post_per_grid );
 
 
 /*
  * Render Mansonry Filter Buttons
  */
 
-if ( $settings->is_carousel == 'masonary' ) {
+if ( 'masonary' == $settings->is_carousel ) {
 	$module->render_masonary_filters();
 }
 
 ?>
-<div class="uabb-module-content uabb-blog-posts <?php echo ( $settings->is_carousel == 'carousel' ) ? 'uabb-blog-posts-carousel' : ( ( $settings->is_carousel == 'grid' ) ? 'uabb-blog-posts-grid' : '' ); ?> uabb-post-grid-<?php echo $col; ?> <?php echo ( $settings->is_carousel == 'masonary' ) ? ' uabb-blog-posts-masonary ' : ''; ?>">
+<div class="uabb-module-content uabb-blog-posts <?php echo ( 'carousel' == $settings->is_carousel ) ? 'uabb-blog-posts-carousel' : ( ( 'grid' == $settings->is_carousel ) ? 'uabb-blog-posts-grid' : '' ); ?> uabb-post-grid-<?php echo $col; ?> <?php echo ( 'masonary' == $settings->is_carousel ) ? ' uabb-blog-posts-masonary ' : ''; ?>">
 	<?php
 	$class = '';
 
@@ -81,13 +87,13 @@ if ( $settings->is_carousel == 'masonary' ) {
 		setup_postdata( $the_query->posts[ $i ] );
 		$the_query->the_post();
 
-		if ( $settings->is_carousel == 'masonary' ) {
+		if ( 'masonary' == $settings->is_carousel ) {
 			$post_type         = ( isset( $settings->post_type ) ) ? $settings->post_type : 'post';
 			$object_taxonomies = get_object_taxonomies( $post_type );
 			if ( ! empty( $object_taxonomies ) ) {
 				$cat = 'masonary_filter_' . $post_type;
 				if ( isset( $settings->$cat ) ) {
-					if ( $settings->$cat != -1 ) {
+					if ( -1 != $settings->$cat ) {
 						$category_detail = wp_get_post_terms( $the_query->posts[ $i ]->ID, $settings->$cat );
 						$class           = '';
 						if ( count( $category_detail ) > 0 ) {
@@ -107,16 +113,16 @@ if ( $settings->is_carousel == 'masonary' ) {
 		$background_featured_image_content = $module->render_featured_image( 'background', $the_query->posts[ $i ], $i );
 		$right_featured_image_content      = $module->render_featured_image( 'right', $the_query->posts[ $i ], $i );
 
-		$left_hide_class = ( $left_featured_image_content == '' && $right_featured_image_content == '' ) ? 'uabb-empty-img' : '';
+		$left_hide_class = ( '' == $left_featured_image_content && '' == $right_featured_image_content ) ? 'uabb-empty-img' : '';
 
 		do_action( 'uabb_blog_posts_before_post', $the_query->posts[ $i ]->ID, $settings );
 		?>
-	<div class="uabb-blog-posts-col-<?php echo $col; ?> uabb-post-wrapper <?php echo ( $settings->is_carousel == 'masonary' ) ? ' uabb-blog-posts-masonary-item-' . $module->node . ' ' : ''; ?> <?php echo ( $settings->is_carousel == 'masonary' ) ? $class : ''; ?>">
+	<div class="uabb-blog-posts-col-<?php echo $col; ?> uabb-post-wrapper <?php echo ( 'masonary' == $settings->is_carousel ) ? ' uabb-blog-posts-masonary-item-' . $module->node . ' ' : ''; ?> <?php echo ( 'masonary' == $settings->is_carousel ) ? $class : ''; ?>">
 		<div class="uabb-blog-posts-shadow clearfix">
 
-			<div class="uabb-blog-post-inner-wrap <?php echo 'uabb-thumbnail-position-' . $settings->blog_image_position; ?> <?php echo ( $settings->layout_sort_order != 'img,title,meta,content,cta' ) ? 'uabb-blog-reordered' : ''; ?> <?php echo $left_hide_class; ?>">
+			<div class="uabb-blog-post-inner-wrap <?php echo 'uabb-thumbnail-position-' . $settings->blog_image_position; ?> <?php echo ( 'img,title,meta,content,cta' != $settings->layout_sort_order ) ? 'uabb-blog-reordered' : ''; ?> <?php echo $left_hide_class; ?>">
 			<?php
-			if ( isset( $settings->post_layout ) && $settings->post_layout == 'custom' && defined( 'FL_THEME_BUILDER_DIR' ) ) {
+			if ( isset( $settings->post_layout ) && 'custom' == $settings->post_layout && defined( 'FL_THEME_BUILDER_DIR' ) ) {
 				include BB_ULTIMATE_ADDON_DIR . 'includes/' . $module->slug . '-frontend.php';
 			} else {
 				echo ( substr( $settings->layout_sort_order, 0, 3 ) == 'img' ) ? $top_featured_image_content : '';
@@ -142,15 +148,15 @@ if ( $settings->is_carousel == 'masonary' ) {
  * Render Pagination
  */
 
-if ( $settings->is_carousel != 'carousel' && $show_pagination == 'yes' ) {
+if ( 'carousel' != $settings->is_carousel && 'yes' == $show_pagination ) {
 	$post_type     = ( isset( $settings->post_type ) ) ? $settings->post_type : 'post';
 	$cat           = 'masonary_filter_' . $post_type;
-	$do_pagination = ( isset( $settings->$cat ) ) ? ( ( $settings->$cat == -1 ) ? true : false ) : true;
+	$do_pagination = ( isset( $settings->$cat ) ) ? ( ( -1 == $settings->$cat ) ? true : false ) : true;
 
-	if ( $settings->is_carousel == 'masonary' ) {
-		if ( $do_pagination == true ) {
+	if ( 'masonary' == $settings->is_carousel ) {
+		if ( true == $do_pagination ) {
 			?>
-		<div class="uabb-blogs-pagination" 
+		<div class="uabb-blogs-pagination"
 			<?php
 			if ( 'scroll' == $pagination ) {
 				echo ' style="display:none;"';}
@@ -162,7 +168,7 @@ if ( $settings->is_carousel != 'carousel' && $show_pagination == 'yes' ) {
 		}
 	} else {
 		?>
-		<div class="uabb-blogs-pagination" 
+		<div class="uabb-blogs-pagination"
 		<?php
 		if ( 'scroll' == $pagination ) {
 			echo ' style="display:none;"';}

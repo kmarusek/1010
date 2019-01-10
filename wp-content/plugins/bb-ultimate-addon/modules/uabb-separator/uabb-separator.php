@@ -32,84 +32,45 @@ class UABBSeparatorModule extends FLBuilderModule {
 			)
 		);
 	}
+
+	/**
+	 * Ensure backwards compatibility with old settings.
+	 *
+	 * @since 1.14.0
+	 * @param object $settings A module settings object.
+	 * @param object $helper A settings compatibility helper.
+	 * @return object
+	 */
+	public function filter_settings( $settings, $helper ) {
+
+		$version_bb_check        = UABB_Compatibility::check_bb_version();
+		$page_migrated           = UABB_Compatibility::check_old_page_migration();
+		$stable_version_new_page = UABB_Compatibility::check_stable_version_new_page();
+
+		if ( $version_bb_check && ( 'yes' == $page_migrated || 'yes' == $stable_version_new_page ) ) {
+
+			// For overall alignment and responsive alignment settings.
+			if ( isset( $settings->alignment ) ) {
+				$settings->alignment = $settings->alignment;
+			}
+		} elseif ( $version_bb_check && 'yes' != $page_migrated ) {
+
+			// For overall alignment and responsive alignment settings.
+			if ( isset( $settings->alignment ) ) {
+				$settings->alignment = $settings->alignment;
+			}
+		}
+
+		return $settings;
+	}
 }
 
-/**
- * Register the module and its form settings.
+/*
+ * Condition to verify Beaver Builder version.
+ * And accordingly render the required form settings file.
  */
-FLBuilder::register_module(
-	'UABBSeparatorModule', array(
-		'general' => array( // Tab.
-			'title'    => __( 'General', 'uabb' ), // Tab title.
-			'sections' => array( // Tab Sections.
-				'general' => array( // Section.
-					'title'  => '', // Section Title.
-					'fields' => array( // Section Fields.
-						'color'     => array(
-							'type'       => 'color',
-							'label'      => __( 'Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-						),
-						'height'    => array(
-							'type'        => 'unit',
-							'label'       => __( 'Thickness', 'uabb' ),
-							'placeholder' => '1',
-							'maxlength'   => '2',
-							'size'        => '3',
-							'description' => 'px',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-separator',
-								'property' => 'border-top-width',
-								'unit'     => 'px',
-							),
-							'help'        => __( 'Thickness of Border', 'uabb' ),
-						),
-						'width'     => array(
-							'type'        => 'unit',
-							'label'       => __( 'Width', 'uabb' ),
-							'placeholder' => '100',
-							'maxlength'   => '3',
-							'size'        => '5',
-							'description' => '%',
-						),
-						'alignment' => array(
-							'type'    => 'select',
-							'label'   => __( 'Alignment', 'uabb' ),
-							'default' => 'center',
-							'options' => array(
-								'center' => __( 'Center', 'uabb' ),
-								'left'   => __( 'Left', 'uabb' ),
-								'right'  => __( 'Right', 'uabb' ),
-							),
-							'preview' => array(
-								'type'     => 'css',
-								'selector' => '.uabb-separator-parent',
-								'property' => 'text-align',
-							),
-							'help'    => __( 'Align the border.', 'uabb' ),
-						),
-						'style'     => array(
-							'type'    => 'select',
-							'label'   => __( 'Style', 'uabb' ),
-							'default' => 'solid',
-							'options' => array(
-								'solid'  => __( 'Solid', 'uabb' ),
-								'dashed' => __( 'Dashed', 'uabb' ),
-								'dotted' => __( 'Dotted', 'uabb' ),
-								'double' => __( 'Double', 'uabb' ),
-							),
-							'preview' => array(
-								'type'     => 'css',
-								'selector' => '.uabb-separator',
-								'property' => 'border-top-style',
-							),
-							'help'    => __( 'The type of border to use. Double borders must have a height of at least 3px to render properly.', 'uabb' ),
-						),
-					),
-				),
-			),
-		),
-	)
-);
+if ( UABB_Compatibility::check_bb_version() ) {
+	require_once BB_ULTIMATE_ADDON_DIR . 'modules/uabb-separator/uabb-separator-bb-2-2-compatibility.php';
+} else {
+	require_once BB_ULTIMATE_ADDON_DIR . 'modules/uabb-separator/uabb-separator-bb-less-than-2-2-compatibility.php';
+}

@@ -1,18 +1,25 @@
-<?php $settings->image_size_compatibility = ( isset( $settings->image_size_compatibility ) ) ? $settings->image_size_compatibility : 'none'; ?>
+<?php
+/**
+ *  UABB Interactive Banner 1 Module front-end JS php file
+ *
+ *  @package UABB Interactive Banner 1 Module
+ */
+
+$settings->image_size_compatibility = ( isset( $settings->image_size_compatibility ) ) ? $settings->image_size_compatibility : 'none'; ?>
 
 (function ( $, window, undefined ) {
 	$(window).on( 'load', function(a){
 		jQuery('.fl-node-<?php echo $id; ?> .uabb-ib1-block').each(function(index, value){
 			<?php
-			if ( $settings->banner_height_options == 'custom' && $settings->image_size_compatibility != 'none' ) {
-				if ( $settings->image_size_compatibility == 'small' ) {
+			if ( 'custom' == $settings->banner_height_options && 'none' != $settings->image_size_compatibility ) {
+				if ( 'small' == $settings->image_size_compatibility ) {
 					?>
 			if( jQuery( document ).width() <= parseInt( '<?php echo $global_settings->responsive_breakpoint; ?>' ) ) {
 				jQuery( this ).removeClass( "uabb-banner-block-custom-height" );
 			}
 					<?php
 				}
-				if ( $settings->image_size_compatibility == 'medium' ) {
+				if ( 'medium' == $settings->image_size_compatibility ) {
 					?>
 			if( jQuery( document ).width() <= parseInt( '<?php echo $global_settings->medium_breakpoint; ?>' ) ) {
 				jQuery( this ).removeClass( "uabb-banner-block-custom-height" );
@@ -21,7 +28,7 @@
 				}
 			}
 			?>
-			
+
 			if( jQuery( this ).hasClass( "uabb-banner-block-custom-height" ) ) {
 				var heading_ht = jQuery(this).find('.uabb-ib1-title').outerHeight();
 				var custom_ht = jQuery(this).outerHeight();
@@ -64,8 +71,8 @@
 	$(window).on( 'resize', function(a){
 		jQuery('.fl-node-<?php echo $id; ?> .uabb-ib1-block').each(function(index, value){
 			<?php
-			if ( $settings->banner_height_options == 'custom' && $settings->image_size_compatibility != 'none' ) {
-				if ( $settings->image_size_compatibility == 'small' ) {
+			if ( 'custom' == $settings->banner_height_options && 'none' != $settings->image_size_compatibility ) {
+				if ( 'small' == $settings->image_size_compatibility ) {
 					?>
 			if( jQuery( document ).width() <= parseInt( '<?php echo $global_settings->responsive_breakpoint; ?>' ) ) {
 				jQuery( this ).removeClass( "uabb-banner-block-custom-height" );
@@ -78,7 +85,7 @@
 			}
 					<?php
 				}
-				if ( $settings->image_size_compatibility == 'medium' ) {
+				if ( 'medium' == $settings->image_size_compatibility ) {
 					?>
 			if( jQuery( document ).width() <= parseInt( '<?php echo $global_settings->medium_breakpoint; ?>' ) ) {
 				jQuery( this ).removeClass( "uabb-banner-block-custom-height" );
@@ -93,7 +100,7 @@
 				}
 			}
 			?>
-			
+
 			if( jQuery( this ).hasClass( "uabb-banner-block-custom-height" ) ) {
 				var heading_ht = jQuery(this).find('.uabb-ib1-title').outerHeight();
 				var custom_ht = jQuery(this).outerHeight();

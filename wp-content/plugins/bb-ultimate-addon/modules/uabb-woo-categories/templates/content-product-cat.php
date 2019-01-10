@@ -2,7 +2,7 @@
 /**
  * UABB WooCommerce Category - Template.
  *
- * @package UABB
+ * @package UABBWooCategoriesModule
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

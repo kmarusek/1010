@@ -5,6 +5,8 @@
  *  @package UABB Table Module
  */
 
+$version_bb_check = UABB_Compatibility::check_bb_version();
+
 $settings->table_foreground_outside = UABB_Helper::uabb_colorpicker( $settings, 'table_foreground_outside' );
 
 $settings->body_rows_bg_hover = UABB_Helper::uabb_colorpicker( $settings, 'body_rows_bg_hover' );
@@ -67,13 +69,10 @@ foreach ( $settings->thead_row as $head_row ) {
 			<?php } ?>
 		}
 
-		@media ( min-width: <?php echo $settings->resp_break_size; ?>px ) {
-
-			.fl-node-<?php echo $id; ?> .uabb-table-header .table-heading-<?php echo $table_header; ?> {
-				<?php if ( '' != $head_row->custom_header_col_width ) { ?>
-					width: <?php echo $head_row->custom_header_col_width; ?>px;
-				<?php } ?>
-			}
+		.fl-node-<?php echo $id; ?> .uabb-table-header .table-heading-<?php echo $table_header; ?> {
+			<?php if ( '' != $head_row->custom_header_col_width ) { ?>
+				width: <?php echo $head_row->custom_header_col_width; ?>px;
+			<?php } ?>
 		}
 
 		.fl-node-<?php echo $id; ?> .uabb-table-header .table-heading-<?php echo $table_header; ?> .head-content-img {
@@ -138,7 +137,7 @@ endif;
 
 	<?php if ( '' !== $settings->table_foreground_outside && 'no' === $settings->strip_effect ) : ?>
 		background: <?php echo $settings->table_foreground_outside; ?>;
-	<?php endif ?>	
+	<?php endif ?>
 }
 
 .fl-node-<?php echo $id; ?> .uabb-table-features .tbody-row:nth-child(even) {
@@ -280,95 +279,142 @@ if ( '' === $settings->entries_border_size ) {
 	<?php endif ?>
 }
 
-/* Table headings typography */
 .fl-node-<?php echo $id; ?> .uabb-table-header .table-header-th,
 .fl-node-<?php echo $id; ?> .uabb-table-header .table-header-th .th-style {
-
-	<?php echo ( 'Default' != $settings->heading_typography_font_family['family'] ) ? 'font-family: ' . $settings->heading_typography_font_family['family'] . ';' : ''; ?>
-
-	<?php echo ( 'default' != $settings->heading_typography_font_family['weight'] ) ? 'font-weight: ' . $settings->heading_typography_font_family['weight'] . ';' : ''; ?>
-
-	<?php if ( isset( $settings->heading_typography_font_size_unit ) && '' != $settings->heading_typography_font_size_unit ) : ?>
-			font-size: <?php echo $settings->heading_typography_font_size_unit; ?>px;
-	<?php endif; ?>
-
-	<?php if ( isset( $settings->heading_typography_line_height_unit ) && '' != $settings->heading_typography_line_height_unit ) : ?>
-			line-height: <?php echo $settings->heading_typography_line_height_unit; ?>em;
-	<?php endif; ?>
-
 	<?php if ( isset( $settings->row_heading_color ) && '' != $settings->row_heading_color ) : ?>
-		color: <?php echo $settings->row_heading_color; ?>;	
+		color: <?php echo $settings->row_heading_color; ?>;
 	<?php endif; ?>
 
 	<?php if ( isset( $settings->row_heading_background_color ) && '' != $settings->row_heading_background_color ) : ?>
 		background: <?php echo $settings->row_heading_background_color; ?>;
 	<?php endif; ?>
-
-	<?php if ( isset( $settings->table_headings_typography_transform ) && '' != $settings->table_headings_typography_transform ) : ?>
-		text-transform: <?php echo $settings->table_headings_typography_transform; ?>;
-	<?php endif; ?>	
-
-	<?php if ( isset( $settings->table_headings_letter_spacing ) && '' != $settings->table_headings_letter_spacing ) : ?>
-		letter-spacing: <?php echo $settings->table_headings_letter_spacing; ?>px;
-	<?php endif; ?>
-
-	text-align: <?php echo $settings->headings_align; ?>;
 }
 
+/* Table headings typography */
+
+<?php if ( ! $version_bb_check ) { ?>
+	.fl-node-<?php echo $id; ?> .uabb-table-header .table-header-th,
+	.fl-node-<?php echo $id; ?> .uabb-table-header .table-header-th .th-style {
+
+		text-align: <?php echo $settings->headings_align; ?>;
+
+		<?php echo ( 'Default' != $settings->heading_typography_font_family['family'] ) ? 'font-family: ' . $settings->heading_typography_font_family['family'] . ';' : ''; ?>
+
+		<?php echo ( 'default' != $settings->heading_typography_font_family['weight'] ) ? 'font-weight: ' . $settings->heading_typography_font_family['weight'] . ';' : ''; ?>
+
+		<?php if ( isset( $settings->heading_typography_font_size_unit ) && '' != $settings->heading_typography_font_size_unit ) : ?>
+				font-size: <?php echo $settings->heading_typography_font_size_unit; ?>px;
+		<?php endif; ?>
+
+		<?php if ( isset( $settings->heading_typography_line_height_unit ) && '' != $settings->heading_typography_line_height_unit ) : ?>
+				line-height: <?php echo $settings->heading_typography_line_height_unit; ?>em;
+		<?php endif; ?>
+
+		<?php if ( isset( $settings->table_headings_typography_transform ) && '' != $settings->table_headings_typography_transform ) : ?>
+			text-transform: <?php echo $settings->table_headings_typography_transform; ?>;
+		<?php endif; ?>
+
+		<?php if ( isset( $settings->table_headings_letter_spacing ) && '' != $settings->table_headings_letter_spacing ) : ?>
+			letter-spacing: <?php echo $settings->table_headings_letter_spacing; ?>px;
+		<?php endif; ?>
+	}
+	<?php
+} else {
+	if ( class_exists( 'FLBuilderCSS' ) ) {
+		FLBuilderCSS::typography_field_rule(
+			array(
+				'settings'     => $settings,
+				'setting_name' => 'heading_typo',
+				'selector'     => ".fl-node-$id .uabb-table-wrapper .table-header-th",
+			)
+		);
+	}
+}
+?>
 
 /* Body rows typography */
-.fl-node-<?php echo $id; ?> .uabb-table-features .table-body-td,
-.fl-node-<?php echo $id; ?> .uabb-table-features .table-body-td .td-style {	
-	<?php echo ( 'Default' !== $settings->content_typography_font_family['family'] ) ? 'font-family: ' . $settings->content_typography_font_family['family'] . ';' : ''; ?>
 
-	<?php echo ( 'default' !== $settings->content_typography_font_family['weight'] ) ? 'font-weight: ' . $settings->content_typography_font_family['weight'] . ';' : ''; ?>
+<?php if ( ! $version_bb_check ) { ?>
+	.fl-node-<?php echo $id; ?> .uabb-table-features .table-body-td,
+	.fl-node-<?php echo $id; ?> .uabb-table-features .table-body-td .td-style {
 
-	<?php if ( isset( $settings->content_typography_font_size_unit ) && '' !== $settings->content_typography_font_size_unit ) : ?>
-			font-size: <?php echo $settings->content_typography_font_size_unit; ?>px;
-	<?php endif; ?>
+		text-align: <?php echo $settings->features_align; ?>;
 
-	<?php if ( isset( $settings->content_typography_line_height_unit ) && '' !== $settings->content_typography_line_height_unit ) : ?>
-			line-height: <?php echo $settings->content_typography_line_height_unit; ?>em;
-	<?php endif; ?>	
+		<?php echo ( 'Default' !== $settings->content_typography_font_family['family'] ) ? 'font-family: ' . $settings->content_typography_font_family['family'] . ';' : ''; ?>
 
-	<?php if ( '' !== $settings->table_rows_typography_transform ) : ?>
-		text-transform: <?php echo $settings->table_rows_typography_transform; ?>;
-	<?php endif; ?>
+		<?php echo ( 'default' !== $settings->content_typography_font_family['weight'] ) ? 'font-weight: ' . $settings->content_typography_font_family['weight'] . ';' : ''; ?>
 
-	<?php if ( '' !== $settings->table_rows_letter_spacing ) : ?>
-		letter-spacing: <?php echo $settings->table_rows_letter_spacing; ?>px;
-	<?php endif; ?>
+		<?php if ( isset( $settings->content_typography_font_size_unit ) && '' !== $settings->content_typography_font_size_unit ) : ?>
+				font-size: <?php echo $settings->content_typography_font_size_unit; ?>px;
+		<?php endif; ?>
 
-	text-align: <?php echo $settings->features_align; ?>;
+		<?php if ( isset( $settings->content_typography_line_height_unit ) && '' !== $settings->content_typography_line_height_unit ) : ?>
+				line-height: <?php echo $settings->content_typography_line_height_unit; ?>em;
+		<?php endif; ?>
+
+		<?php if ( '' !== $settings->table_rows_typography_transform ) : ?>
+			text-transform: <?php echo $settings->table_rows_typography_transform; ?>;
+		<?php endif; ?>
+
+		<?php if ( '' !== $settings->table_rows_letter_spacing ) : ?>
+			letter-spacing: <?php echo $settings->table_rows_letter_spacing; ?>px;
+		<?php endif; ?>
+	}
+	<?php
+} else {
+	if ( class_exists( 'FLBuilderCSS' ) ) {
+		FLBuilderCSS::typography_field_rule(
+			array(
+				'settings'     => $settings,
+				'setting_name' => 'content_typo',
+				'selector'     => ".fl-node-$id .uabb-table-wrapper .table-body-td",
+			)
+		);
+	}
 }
+?>
 
 /* Filter count typography */
-.fl-node-<?php echo $id; ?> .entries-wrapper .lbl-entries,
-.fl-node-<?php echo $id; ?> .entries-wrapper .select-filter,
-.fl-node-<?php echo $id; ?> .search-wrapper,
-.fl-node-<?php echo $id; ?> .search-wrapper .search-input {
 
-	<?php echo ( 'Default' !== $settings->filter_typography_font_family['family'] ) ? 'font-family: ' . $settings->filter_typography_font_family['family'] . ';' : ''; ?>
+<?php if ( ! $version_bb_check ) { ?>
+	.fl-node-<?php echo $id; ?> .entries-wrapper .lbl-entries,
+	.fl-node-<?php echo $id; ?> .entries-wrapper .select-filter,
+	.fl-node-<?php echo $id; ?> .search-wrapper,
+	.fl-node-<?php echo $id; ?> .search-wrapper .search-input {
 
-	<?php echo ( 'default' !== $settings->filter_typography_font_family['weight'] ) ? 'font-weight: ' . $settings->filter_typography_font_family['weight'] . ';' : ''; ?>
+		<?php echo ( 'Default' !== $settings->filter_typography_font_family['family'] ) ? 'font-family: ' . $settings->filter_typography_font_family['family'] . ';' : ''; ?>
 
-	<?php if ( isset( $settings->filter_typography_font_size_unit ) && '' !== $settings->filter_typography_font_size_unit ) : ?>
-			font-size: <?php echo $settings->filter_typography_font_size_unit; ?>px;
-	<?php endif; ?>
+		<?php echo ( 'default' !== $settings->filter_typography_font_family['weight'] ) ? 'font-weight: ' . $settings->filter_typography_font_family['weight'] . ';' : ''; ?>
 
-	<?php if ( isset( $settings->filter_typography_line_height_unit ) && '' !== $settings->filter_typography_line_height_unit ) : ?>
-			line-height: <?php echo $settings->filter_typography_line_height_unit; ?>em;
-	<?php endif; ?>
+		<?php if ( isset( $settings->filter_typography_font_size_unit ) && '' !== $settings->filter_typography_font_size_unit ) : ?>
+				font-size: <?php echo $settings->filter_typography_font_size_unit; ?>px;
+		<?php endif; ?>
 
-	<?php if ( isset( $settings->table_filters_typography_transform ) && '' !== $settings->table_filters_typography_transform ) : ?>
-		text-transform: <?php echo $settings->table_filters_typography_transform; ?>;
-	<?php endif; ?>
+		<?php if ( isset( $settings->filter_typography_line_height_unit ) && '' !== $settings->filter_typography_line_height_unit ) : ?>
+				line-height: <?php echo $settings->filter_typography_line_height_unit; ?>em;
+		<?php endif; ?>
 
-	<?php if ( isset( $settings->table_filters_letter_spacing ) && '' !== $settings->table_filters_letter_spacing ) : ?>
-		letter-spacing: <?php echo $settings->table_filters_letter_spacing; ?>px;
-	<?php endif; ?>
+		<?php if ( isset( $settings->table_filters_typography_transform ) && '' !== $settings->table_filters_typography_transform ) : ?>
+			text-transform: <?php echo $settings->table_filters_typography_transform; ?>;
+		<?php endif; ?>
+
+		<?php if ( isset( $settings->table_filters_letter_spacing ) && '' !== $settings->table_filters_letter_spacing ) : ?>
+			letter-spacing: <?php echo $settings->table_filters_letter_spacing; ?>px;
+		<?php endif; ?>
+	}
+	<?php
+} else {
+	if ( class_exists( 'FLBuilderCSS' ) ) {
+		FLBuilderCSS::typography_field_rule(
+			array(
+				'settings'     => $settings,
+				'setting_name' => 'filter_typo',
+				'selector'     => ".fl-node-$id .entries-wrapper .lbl-entries, .fl-node-$id .entries-wrapper .select-filter, .fl-node-$id .search-input",
+			)
+		);
+	}
 }
-
+?>
 
 <?php if ( $global_settings->responsive_enabled ) { // Responsive Typography. ?>
 
@@ -378,12 +424,12 @@ if ( '' === $settings->entries_border_size ) {
 
 			<?php if ( isset( $settings->heading_typography_font_size_unit_medium ) && '' !== $settings->heading_typography_font_size_unit_medium ) : ?>
 				font-size: <?php echo $settings->heading_typography_font_size_unit_medium; ?>px;
-			<?php endif; ?> 
+			<?php endif; ?>
 
 			<?php if ( isset( $settings->heading_typography_line_height_unit_medium ) && '' !== $settings->heading_typography_line_height_unit_medium ) : ?>
 				line-height: <?php echo $settings->heading_typography_line_height_unit_medium; ?>em;
-			<?php endif; ?>	  				
-		}		
+			<?php endif; ?>
+		}
 
 		.fl-node-<?php echo $id; ?> .uabb-table-features .table-body-td {
 
@@ -393,7 +439,7 @@ if ( '' === $settings->entries_border_size ) {
 
 			<?php if ( isset( $settings->content_typography_line_height_unit_medium ) && '' !== $settings->content_typography_line_height_unit_medium ) : ?>
 				line-height: <?php echo $settings->content_typography_line_height_unit_medium; ?>em;
-			<?php endif; ?>		    			
+			<?php endif; ?>
 		}
 
 		.fl-node-<?php echo $id; ?> .entries-wrapper .lbl-entries,
@@ -422,7 +468,7 @@ if ( '' === $settings->entries_border_size ) {
 			display: flex;
 		}
 
-		.fl-node-<?php echo $id; ?> .entries-wrapper, 
+		.fl-node-<?php echo $id; ?> .entries-wrapper,
 		.fl-node-<?php echo $id; ?> .entries-wrapper .lbl-entries,
 		.fl-node-<?php echo $id; ?> .entries-wrapper .select-filter,
 		.fl-node-<?php echo $id; ?> .search-wrapper,
@@ -445,7 +491,7 @@ if ( '' === $settings->entries_border_size ) {
 
 			<?php if ( isset( $settings->heading_typography_line_height_unit_responsive ) && '' !== $settings->heading_typography_line_height_unit_responsive ) : ?>
 					line-height: <?php echo $settings->heading_typography_line_height_unit_responsive; ?>em;
-			<?php endif; ?>		
+			<?php endif; ?>
 		}
 
 		.fl-node-<?php echo $id; ?> .uabb-table-features .table-body-td {
@@ -456,7 +502,7 @@ if ( '' === $settings->entries_border_size ) {
 
 			<?php if ( isset( $settings->content_typography_line_height_unit_responsive ) && '' !== $settings->content_typography_line_height_unit_responsive ) : ?>
 					line-height: <?php echo $settings->content_typography_line_height_unit_responsive; ?>em;
-			<?php endif; ?>			
+			<?php endif; ?>
 		}
 
 		.fl-node-<?php echo $id; ?> .entries-wrapper .lbl-entries,
@@ -472,7 +518,7 @@ if ( '' === $settings->entries_border_size ) {
 					line-height: <?php echo $settings->filter_typography_line_height_unit_responsive; ?>em;
 			<?php endif; ?>
 		}
-	} 
+	}
 	<?php
 }
 ?>

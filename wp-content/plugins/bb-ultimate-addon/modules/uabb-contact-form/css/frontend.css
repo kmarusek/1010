@@ -63,9 +63,9 @@
 .uabb-form-style2 input[type=text],
 .uabb-form-style2 input[type=tel],
 .uabb-form-style2 input[type=email] {
-	border-top: none;
-	border-left: none;
-	border-right: none;
+	border-top: none !important;
+	border-left: none !important;
+	border-right: none !important;
 	background: transparent;
 }
 

@@ -57,7 +57,6 @@ if ( ! class_exists( 'UABB_Plugin_Update' ) ) {
 			if ( '0' === $saved_version ) {
 				update_option( '_uabb_1_7_2_ver', 'yes' );
 			}
-
 			// If matches the current version then skip the next steps.
 			if ( version_compare( $saved_version, BB_ULTIMATE_ADDON_VER, '=' ) ) {
 				return;

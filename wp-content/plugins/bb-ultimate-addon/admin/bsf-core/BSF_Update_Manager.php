@@ -12,11 +12,12 @@ if ( ! class_exists( 'BSF_Update_Manager' ) ) {
 
 	class BSF_Update_Manager {
 
-		public function __construct() {
 
+		public function __construct() {
 			// update data to WordPress's transient
 			add_filter(
-				'pre_set_site_transient_update_plugins', array(
+				'pre_set_site_transient_update_plugins',
+				array(
 					$this,
 					'brainstorm_update_plugins_transient',
 				)
@@ -203,9 +204,9 @@ if ( ! class_exists( 'BSF_Update_Manager' ) ) {
 					$info->name     = apply_filters( "bsf_product_name_{$id}", $product_name );
 					$info->slug     = $product_slug;
 					$info->version  = isset( $product['remote'] ) ? $product['remote'] : '';
-					$info->author   = 'Brainstorm Force';
-					$info->url      = isset( $product['changelog_url'] ) ? $product['changelog_url'] : '';
-					$info->homepage = isset( $product['purchase_url'] ) ? $product['purchase_url'] : '';
+					$info->author   = apply_filters( "bsf_product_author_{$id}", 'Brainstorm Force' );
+					$info->url      = isset( $product['changelog_url'] ) ? apply_filters( "bsf_product_url_{$id}", $product['changelog_url'] ) : apply_filters( "bsf_product_url_{$id}", '' );
+					$info->homepage = isset( $product['purchase_url'] ) ? apply_filters( "bsf_product_homepage_{$id}", $product['purchase_url'] ) : apply_filters( "bsf_product_homepage_{$id}", '' );
 
 					if ( BSF_License_Manager::bsf_is_active_license( $id ) == true ) {
 						$package_url         = $this->bsf_get_package_uri( $id );
@@ -214,8 +215,10 @@ if ( ! class_exists( 'BSF_Update_Manager' ) ) {
 					}
 
 					$info->sections                = array();
-					$info->sections['description'] = isset( $product['description'] ) ? $product['description'] : '';
-					$info->sections['changelog']   = 'Thank you for using ' . $info->name . '. </br></br>To make your experience using ' . $info->name . ' better we release updates regularly, you can view the full changelog <a href="' . $info->url . '">here</a>';
+					$product_decription            = isset( $product['description'] ) ? $product['description'] : '';
+					$info->sections['description'] = apply_filters( "bsf_product_description_{$id}", $product_decription );
+					$product_changelog             = 'Thank you for using ' . $info->name . '. </br></br>To make your experience using ' . $info->name . ' better we release updates regularly, you can view the full changelog <a href="' . $info->url . '">here</a>';
+					$info->sections['changelog']   = apply_filters( "bsf_product_changelog_{$id}", $product_changelog );
 
 					$_data = $info;
 				}
@@ -322,7 +325,8 @@ if ( ! class_exists( 'BSF_Update_Manager' ) ) {
 			);
 
 			$request = wp_remote_post(
-				$path, array(
+				$path,
+				array(
 					'body'    => $data,
 					'timeout' => '30',
 				)
@@ -332,7 +336,8 @@ if ( ! class_exists( 'BSF_Update_Manager' ) ) {
 			if ( is_wp_error( $request ) && wp_remote_retrieve_response_code( $request ) !== 200 ) {
 				$path    = get_api_url( true ) . '?referer=package-' . $product_id;
 				$request = wp_remote_post(
-					$path, array(
+					$path,
+					array(
 						'body'    => $data,
 						'timeout' => '30',
 					)
@@ -405,7 +410,6 @@ if ( ! class_exists( 'BSF_Update_Manager' ) ) {
 		}
 
 		public function _maybe_force_check_bsf_product_updates() {
-
 			if ( $this->time_since_last_versioncheck( 2 ) ) {
 				global $ultimate_referer;
 				$ultimate_referer = 'on-transient-delete-2-hours';
@@ -453,8 +457,7 @@ if ( ! class_exists( 'BSF_Update_Manager' ) ) {
 			}
 
 			if ( version_compare( $stable, $beta, '<' ) &&
-				 self::bsf_allow_beta_updates( $product_id )
-			) {
+				self::bsf_allow_beta_updates( $product_id ) ) {
 
 				return true;
 			}
@@ -485,7 +488,6 @@ if ( ! class_exists( 'BSF_Update_Manager' ) ) {
 		}
 
 		public function bsf_update_display_license_link() {
-
 			$brainstorm_all_products = $this->brainstorm_all_products();
 
 			foreach ( $brainstorm_all_products as $key => $product ) {
@@ -503,18 +505,24 @@ if ( ! class_exists( 'BSF_Update_Manager' ) ) {
 
 						if ( is_plugin_active( $template ) ) {
 							add_action(
-								"in_plugin_update_message-$template", array(
+								"in_plugin_update_message-$template",
+								array(
 									$this,
 									'bsf_add_registration_message',
-								), 9, 2
+								),
+								9,
+								2
 							);
 						}
 					} else {
 						add_action(
-							"in_plugin_update_message-$template", array(
+							"in_plugin_update_message-$template",
+							array(
 								$this,
 								'add_beta_update_message',
-							), 9, 2
+							),
+							9,
+							2
 						);
 					}
 				}
@@ -523,7 +531,6 @@ if ( ! class_exists( 'BSF_Update_Manager' ) ) {
 		}
 
 		public function brainstorm_all_products() {
-
 			$brainstrom_products         = get_option( 'brainstrom_products', array() );
 			$brainstrom_products_plugins = isset( $brainstrom_products['plugins'] ) ? $brainstrom_products['plugins'] : array();
 			$brainstrom_products_themes  = isset( $brainstrom_products['themes'] ) ? $brainstrom_products['themes'] : array();
@@ -567,7 +574,7 @@ if ( ! class_exists( 'BSF_Update_Manager' ) ) {
 			} else {
 				$message = sprintf( __( ' <i>Click <a href="%1$s">here</a> to activate your license.</i>' ), $registration_page );
 			}
-			
+
 			if ( true == self::bsf_allow_beta_updates( $product_id ) && $this->is_beta_version( $plugin_data['new_version'] ) ) {
 				$message = $message . ' <i>It is recommended to use the beta version on a staging enviornment only.</i>';
 			}
@@ -591,8 +598,7 @@ if ( ! class_exists( 'BSF_Update_Manager' ) ) {
 		}
 
 		private function is_beta_version( $version ) {
-			return
-				strpos( $version, 'beta' ) ||
+			return strpos( $version, 'beta' ) ||
 				strpos( $version, 'alpha' );
 		}
 

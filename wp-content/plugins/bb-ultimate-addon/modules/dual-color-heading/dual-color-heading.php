@@ -33,280 +33,189 @@ class UABBDualColorModule extends FLBuilderModule {
 		);
 
 	}
+	/**
+	 * Ensure backwards compatibility with old settings.
+	 *
+	 * @since 1.14.0
+	 * @param object $settings A module settings object.
+	 * @param object $helper A settings compatibility helper.
+	 * @return object
+	 */
+	public function filter_settings( $settings, $helper ) {
+
+		$version_bb_check        = UABB_Compatibility::check_bb_version();
+		$page_migrated           = UABB_Compatibility::check_old_page_migration();
+		$stable_version_new_page = UABB_Compatibility::check_stable_version_new_page();
+
+		if ( $version_bb_check && ( 'yes' == $page_migrated || 'yes' == $stable_version_new_page ) ) {
+
+			if ( ! isset( $settings->dual_typo ) || ! is_array( $settings->dual_typo ) ) {
+
+				$settings->dual_typo            = array();
+				$settings->dual_typo_medium     = array();
+				$settings->dual_typo_responsive = array();
+			}
+			if ( isset( $settings->dual_font_family ) ) {
+				if ( 'regular' == $settings->dual_font_family['weight'] ) {
+					$settings->dual_typo['font_weight'] = 'normal';
+				} else {
+					$settings->dual_typo['font_weight'] = $settings->dual_font_family['weight'];
+				}
+				$settings->dual_typo['font_family'] = $settings->dual_font_family['family'];
+
+			}
+			if ( isset( $settings->dual_font_size_unit ) ) {
+
+				$settings->dual_typo['font_size'] = array(
+					'length' => $settings->dual_font_size_unit,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->dual_font_size_unit_medium ) ) {
+				$settings->dual_typo_medium['font_size'] = array(
+					'length' => $settings->dual_font_size_unit_medium,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->dual_font_size_unit_responsive ) ) {
+				$settings->dual_typo_responsive['font_size'] = array(
+					'length' => $settings->dual_font_size_unit_responsive,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->dual_line_height_unit ) ) {
+
+				$settings->dual_typo['line_height'] = array(
+					'length' => $settings->dual_line_height_unit,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->dual_line_height_unit_medium ) ) {
+				$settings->dual_typo_medium['line_height'] = array(
+					'length' => $settings->dual_line_height_unit_medium,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->dual_line_height_unit_responsive ) ) {
+				$settings->dual_typo_responsive['line_height'] = array(
+					'length' => $settings->dual_line_height_unit_responsive,
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->dual_transform ) ) {
+				$settings->dual_typo['text_transform'] = $settings->dual_transform;
+			}
+			if ( isset( $settings->dual_letter_spacing ) ) {
+				$settings->dual_typo['letter_spacing'] = array(
+					'length' => $settings->dual_letter_spacing,
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->dual_color_alignment ) ) {
+				$settings->dual_typo['text_align'] = $settings->dual_color_alignment;
+			}
+			if ( $settings->first_heading_link ) {
+				$settings->first_heading_link_target = $settings->first_heading_link_target;
+			}
+			if ( $settings->second_heading_link ) {
+				$settings->second_heading_link_target = $settings->second_heading_link_target;
+			}
+			if ( isset( $settings->dual_font_family ) ) {
+				unset( $settings->dual_font_family );
+				unset( $settings->dual_font_size_unit );
+				unset( $settings->dual_font_size_unit_medium );
+				unset( $settings->dual_font_size_unit_responsive );
+				unset( $settings->dual_line_height_unit );
+				unset( $settings->dual_line_height_unit_medium );
+				unset( $settings->dual_line_height_unit_responsive );
+				unset( $settings->dual_transform );
+				unset( $settings->dual_letter_spacing );
+				unset( $settings->dual_color_alignment );
+			}
+		} elseif ( $version_bb_check && 'yes' != $page_migrated ) {
+			if ( ! isset( $settings->dual_typo ) || ! is_array( $settings->dual_typo ) ) {
+
+				$settings->dual_typo            = array();
+				$settings->dual_typo_medium     = array();
+				$settings->dual_typo_responsive = array();
+			}
+			if ( isset( $settings->dual_font_family ) ) {
+
+				if ( 'regular' == $settings->dual_font_family['weight'] ) {
+					$settings->dual_typo['font_weight'] = 'normal';
+				} else {
+					$settings->dual_typo['font_weight'] = $settings->dual_font_family['weight'];
+				}
+				$settings->dual_typo['font_family'] = $settings->dual_font_family['family'];
+			}
+			if ( isset( $settings->dual_font_size['desktop'] ) ) {
+				$settings->dual_typo['font_size'] = array(
+					'length' => $settings->dual_font_size['desktop'],
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->dual_font_size['medium'] ) ) {
+				$settings->dual_typo_medium['font_size'] = array(
+					'length' => $settings->dual_font_size['medium'],
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->dual_font_size['small'] ) ) {
+				$settings->dual_typo_responsive['font_size'] = array(
+					'length' => $settings->dual_font_size['small'],
+					'unit'   => 'px',
+				);
+			}
+			if ( isset( $settings->dual_line_height['desktop'] ) && isset( $settings->dual_font_size['desktop'] ) && 0 != $settings->dual_font_size['desktop'] ) {
+
+				$settings->dual_typo['line_height'] = array(
+					'length' => round( $settings->dual_line_height['desktop'] / $settings->dual_font_size['desktop'], 2 ),
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->dual_line_height['medium'] ) && isset( $settings->dual_font_size['medium'] ) && 0 != $settings->dual_font_size['medium'] ) {
+				$settings->dual_typo_medium['line_height'] = array(
+					'length' => round( $settings->dual_line_height['medium'] / $settings->dual_font_size['medium'], 2 ),
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->dual_line_height['small'] ) && isset( $settings->dual_font_size['small'] ) && 0 != $settings->dual_font_size['small'] ) {
+				$settings->dual_typo_responsive['line_height'] = array(
+					'length' => round( $settings->dual_line_height['small'] / $settings->dual_font_size['small'], 2 ),
+					'unit'   => 'em',
+				);
+			}
+			if ( isset( $settings->dual_color_alignment ) ) {
+				$settings->dual_typo['text_align'] = $settings->dual_color_alignment;
+			}
+			if ( $settings->first_heading_link ) {
+				$settings->first_heading_link_target = $settings->first_heading_link_target;
+			}
+			if ( $settings->second_heading_link ) {
+				$settings->second_heading_link_target = $settings->second_heading_link_target;
+			}
+			if ( isset( $settings->dual_font_family ) ) {
+				unset( $settings->dual_font_family );
+				unset( $settings->dual_font_size['desktop'] );
+				unset( $settings->dual_font_size['medium'] );
+				unset( $settings->dual_font_size['small'] );
+				unset( $settings->dual_line_height['desktop'] );
+				unset( $settings->dual_line_height['medium'] );
+				unset( $settings->dual_line_height['small'] );
+				unset( $settings->dual_color_alignment );
+			}
+		}
+		return $settings;
+	}
 }
 
-FLBuilder::register_module(
-	'UABBDualColorModule', array(
-		'dual_color'      => array( // Tab.
-			'title'    => __( 'General', 'uabb' ), // Tab title.
-			'sections' => array( // Tab Sections.
-				'dual_color_first_heading' => array( // Section.
-					'title'  => __( 'First Heading', 'uabb' ), // Section Title.
-					'fields' => array( // Section Fields.
-						'first_heading_text'  => array(
-							'type'        => 'text',
-							'label'       => __( 'First Heading', 'uabb' ),
-							'default'     => 'I love ',
-							'class'       => 'uabb-first-heading',
-							'description' => '',
-							'preview'     => array(
-								'type'     => 'text',
-								'selector' => '.uabb-first-heading-text',
-							),
-							'help'        => __( 'Enter first part of heading.', 'uabb' ),
-							'connections' => array( 'string', 'html' ),
-						),
-						'first_heading_link'        => array(
-							'type'        => 'link',
-							'label'       => __( 'First Heading Link', 'uabb' ),
-							'preview'     => array(
-								'type' => 'none',
-							),
-							'connections' => array( 'url' ),
-						),
-						'first_heading_link_target' => array(
-							'type'    => 'select',
-							'label'   => __( 'First Heading Link Target', 'uabb' ),
-							'default' => '_self',
-							'options' => array(
-								'_self'  => __( 'Same Window', 'uabb' ),
-								'_blank' => __( 'New Window', 'uabb' ),
-							),
-							'preview' => array(
-								'type' => 'none',
-							),
-						),
-					),
-				),
-				'dual_color_second_heading' => array( // Section.
-					'title'  => __( 'Second Heading', 'uabb' ), // Section Title.
-					'fields' => array( // Section Fields.
-						'second_heading_text' => array(
-							'type'        => 'text',
-							'label'       => __( 'Second Heading', 'uabb' ),
-							'default'     => 'this website!',
-							'class'       => 'uabb-second-heading',
-							'description' => '',
-							'preview'     => array(
-								'type'     => 'text',
-								'selector' => '.uabb-second-heading-text',
-							),
-							'help'        => __( 'Enter second part of heading.', 'uabb' ),
-							'connections' => array( 'string', 'html' ),
-						),
-						'second_heading_link'        => array(
-							'type'        => 'link',
-							'label'       => __( 'Link', 'uabb' ),
-							'preview'     => array(
-								'type' => 'none',
-							),
-							'connections' => array( 'url' ),
-						),
-						'second_heading_link_target' => array(
-							'type'    => 'select',
-							'label'   => __( 'Second Heading Link Target', 'uabb' ),
-							'default' => '_self',
-							'options' => array(
-								'_self'  => __( 'Same Window', 'uabb' ),
-								'_blank' => __( 'New Window', 'uabb' ),
-							),
-							'preview' => array(
-								'type' => 'none',
-							),
-						),
-					),
-				),
-				'dual_color'         => array( // Section.
-					'title'  => __( 'Style', 'uabb' ), // Section Title.
-					'fields' => array( // Section Fields.
-						'add_spacing_option'       => array(
-							'type'    => 'select',
-							'label'   => __( 'Spacing Between Headings', 'uabb' ),
-							'default' => 'no',
-							'class'   => 'dual-color-spacing-option',
-							'options' => array(
-								'yes' => __( 'Yes', 'uabb' ),
-								'no'  => __( 'No', 'uabb' ),
-							),
-							'toggle'  => array(
-								'yes' => array(
-									'fields' => array( 'heading_margin' ),
-								),
-								'no'  => array(
-									'fields' => array(),
-								),
-							),
-							'help'    => __( 'Adjust spacing between first & second part of heading.', 'uabb' ),
-							'preview' => array(
-								'type'     => 'css',
-								'selector' => '.uabb-first-heading-text',
-								'property' => 'margin-right',
-								'unit'     => 'px',
-							),
+/**
+ * Condition to verify Beaver Builder version.
+ * And accordingly render the required form settings file.
+ */
 
-						),
-						'heading_margin'           => array(
-							'type'        => 'unit',
-							'label'       => __( 'Spacing', 'uabb' ),
-							'placeholder' => '10',
-							'size'        => '8',
-							'class'       => 'uabb-add-spacing',
-							'description' => 'px',
-							'help'        => __( 'Enter value for the spacing between first & second heading.', 'uabb' ),
-						),
-						'first_heading_color'      => array(
-							'type'       => 'color',
-							'label'      => __( 'First Heading Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-							'preview'    => array(
-								'type'     => 'css',
-								'selector' => '.fl-module-content .uabb-module-content.uabb-dual-color-heading .uabb-first-heading-text',
-								'property' => 'color',
-							),
-							'help'       => __( 'Select color for first part of heading.', 'uabb' ),
-						),
-						'second_heading_color'     => array(
-							'type'       => 'color',
-							'label'      => __( 'Second Heading Color', 'uabb' ),
-							'default'    => '',
-							'show_reset' => true,
-							'preview'    => array(
-								'type'     => 'css',
-								'selector' => '.fl-module-content .uabb-module-content.uabb-dual-color-heading .uabb-second-heading-text',
-								'property' => 'color',
-							),
-							'help'       => __( 'Select color for second part of heading.', 'uabb' ),
-						),
-						'dual_color_alignment'     => array(
-							'type'    => 'select',
-							'label'   => __( 'Alignment', 'uabb' ),
-							'default' => 'center',
-							'options' => array(
-								'left'   => __( 'Left', 'uabb' ),
-								'right'  => __( 'Right', 'uabb' ),
-								'center' => __( 'Center', 'uabb' ),
-							),
-							'help'    => __( 'Select alignment for complete element.', 'uabb' ),
-						),
-						'responsive_compatibility' => array(
-							'type'    => 'select',
-							'label'   => __( 'Responsive Compatibility', 'uabb' ),
-							'help'    => __( 'There might be responsive issues for long texts. If you are facing such issues then select appropriate devices width to make your module responsive.', 'uabb' ),
-							'default' => '',
-							'options' => array(
-								''                         => __( 'None', 'uabb' ),
-								'uabb-responsive-mobile'   => __( 'Small Devices', 'uabb' ),
-								'uabb-responsive-medsmall' => __( 'Medium & Small Devices', 'uabb' ),
-							),
-						),
-					),
-				),
-			),
-		),
-
-		'dual_typography' => array( // Tab.
-			'title'    => __( 'Typography', 'uabb' ), // Tab title.
-			'sections' => array( // Tab Sections.
-				'dual_typography' => array(
-					'title'  => __( 'Headings', 'uabb' ),
-					'fields' => array(
-						'dual_tag_selection'    => array(
-							'type'    => 'select',
-							'label'   => __( 'Select Tag', 'uabb' ),
-							'default' => 'h3',
-							'options' => array(
-								'h1'   => __( 'H1', 'uabb' ),
-								'h2'   => __( 'H2', 'uabb' ),
-								'h3'   => __( 'H3', 'uabb' ),
-								'h4'   => __( 'H4', 'uabb' ),
-								'h5'   => __( 'H5', 'uabb' ),
-								'h6'   => __( 'H6', 'uabb' ),
-								'div'  => __( 'Div', 'uabb' ),
-								'p'    => __( 'p', 'uabb' ),
-								'span' => __( 'span', 'uabb' ),
-							),
-						),
-						'dual_font_family'      => array(
-							'type'    => 'font',
-							'label'   => __( 'Font Family', 'uabb' ),
-							'default' => array(
-								'family' => 'Default',
-								'weight' => 'Default',
-							),
-							'preview' => array(
-								'type'     => 'font',
-								'selector' => '.uabb-dual-color-heading *',
-							),
-						),
-						'dual_font_size_unit'   => array(
-							'type'        => 'unit',
-							'label'       => __( 'Font Size', 'uabb' ),
-							'description' => 'px',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-dual-color-heading *',
-								'property' => 'font-size',
-								'unit'     => 'px',
-							),
-							'responsive'  => array(
-								'placeholder' => array(
-									'default'    => '',
-									'medium'     => '',
-									'responsive' => '',
-								),
-							),
-						),
-						'dual_line_height_unit' => array(
-							'type'        => 'unit',
-							'label'       => __( 'Line Height', 'uabb' ),
-							'description' => 'em',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-dual-color-heading *',
-								'property' => 'line-height',
-								'unit'     => 'em',
-							),
-							'responsive'  => array(
-								'placeholder' => array(
-									'default'    => '',
-									'medium'     => '',
-									'responsive' => '',
-								),
-							),
-						),
-						'dual_transform'        => array(
-							'type'    => 'select',
-							'label'   => __( 'Transform', 'uabb' ),
-							'default' => '',
-							'options' => array(
-								''           => 'Default',
-								'uppercase'  => 'UPPERCASE',
-								'lowercase'  => 'lowercase',
-								'capitalize' => 'Capitalize',
-							),
-							'preview' => array(
-								'type'     => 'css',
-								'selector' => '.uabb-dual-color-heading *',
-								'property' => 'text-transform',
-							),
-						),
-						'dual_letter_spacing'   => array(
-							'type'        => 'unit',
-							'label'       => __( 'Letter Spacing', 'uabb' ),
-							'placeholder' => '0',
-							'size'        => '5',
-							'description' => 'px',
-							'preview'     => array(
-								'type'     => 'css',
-								'selector' => '.uabb-dual-color-heading *',
-								'property' => 'letter-spacing',
-								'unit'     => 'px',
-							),
-						),
-					),
-				),
-			),
-		),
-	)
-);
+if ( UABB_Compatibility::check_bb_version() ) {
+	require_once BB_ULTIMATE_ADDON_DIR . 'modules/dual-color-heading/dual-color-heading-bb-2-2-compatibility.php';
+} else {
+	require_once BB_ULTIMATE_ADDON_DIR . 'modules/dual-color-heading/dual-color-heading-bb-less-than-2-2-compatibility.php';
+}

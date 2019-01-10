@@ -3,7 +3,8 @@
 }
 
 .uabb-form-field input,
-.uabb-form-field input[type=text] {
+.uabb-form-field input[type=text],
+.uabb-subscribe-form input[type=email] {
 	box-shadow: none;
 	height: auto;
 	width: 100%;
@@ -32,7 +33,7 @@
 }
 .uabb-module-content .uabb-text-editor *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
     font-size: inherit;
-    line-height: inherit;   
+    line-height: inherit;
 }
 .uabb-module-content .uabb-text-editor *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(strong):not(b) {
     font-weight: inherit;
@@ -56,8 +57,8 @@
 	font-weight: normal;
 }
 
-.uabb-subscribe-form input[type=text], 
-.uabb-subscribe-form input[type=tel], 
+.uabb-subscribe-form input[type=text],
+.uabb-subscribe-form input[type=tel],
 .uabb-subscribe-form input[type=email] {
 	border: 1px solid rgba(0, 0, 0, 0.1);
 	border-radius: 0;
@@ -71,8 +72,8 @@
 }
 
 /* Style 2 */
-.uabb-sf-style-style2 input[type=text], 
-.uabb-sf-style-style2 input[type=tel], 
+.uabb-sf-style-style2 input[type=text],
+.uabb-sf-style-style2 input[type=tel],
 .uabb-sf-style-style2 input[type=email]{
     border-top: none;
     border-left: none;
@@ -81,8 +82,8 @@
     background: transparent;
 }
 
-.uabb-sf-style-style2 input[type=text]:focus, 
-.uabb-sf-style-style2 input[type=tel]:focus, 
+.uabb-sf-style-style2 input[type=text]:focus,
+.uabb-sf-style-style2 input[type=tel]:focus,
 .uabb-sf-style-style2 input[type=email]:focus {
     background: transparent;
 }
@@ -118,7 +119,7 @@
 
 .uabb-subscribe-form-inline.uabb-sf-style-style2 .uabb-form-field > label {
     bottom: 20px;
-} 
+}
 
 .uabb-subscribe-form-inline.uabb-sf-style-style2 .uabb-form-field,
 .uabb-subscribe-form-inline.uabb-sf-style-style2 .uabb-form-button,
@@ -287,3 +288,7 @@
 }
 
 /* Terms Checkbox and Text CSS end */
+.uabb-subscribe-form-inline .uabb-form-field.uabb-input-group.uabb-terms-checkbox {
+    width: auto;
+}
+

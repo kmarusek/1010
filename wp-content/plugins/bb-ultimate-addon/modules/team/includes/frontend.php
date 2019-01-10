@@ -1,14 +1,22 @@
 <?php
+/**
+ *  UABB Team Module front-end file
+ *
+ *  @package UABB Team Module
+ */
+
+?>
+<?php
 
 $grayscale_class = '';
-if ( $settings->photo_style == 'simple' ) {
-	if ( $settings->img_grayscale_simple != 'yes' ) {
+if ( 'simple' == $settings->photo_style ) {
+	if ( 'yes' != $settings->img_grayscale_simple ) {
 		$grayscale_class = 'uabb-img-color-gray';
 	} else {
 		$grayscale_class = '';
 	}
-} elseif ( $settings->photo_style == 'grayscale' ) {
-	if ( $settings->img_grayscale_grayscale != 'yes' ) {
+} elseif ( 'grayscale' == $settings->photo_style ) {
+	if ( 'yes' != $settings->img_grayscale_grayscale ) {
 		$grayscale_class = 'uabb-img-grayscale uabb-img-gray-color';
 	} else {
 		$grayscale_class = 'uabb-img-grayscale';
@@ -38,7 +46,7 @@ if ( $settings->photo_style == 'simple' ) {
 			$module->render_desc();
 			$module->render_separator( 'below_desc' );
 		?>
-			<?php if ( $settings->enable_social_icons == 'yes' ) { ?>
+			<?php if ( 'yes' == $settings->enable_social_icons ) { ?>
 				<div class="uabb-team-social">
 				<?php
 					$module->render_social_icons();
