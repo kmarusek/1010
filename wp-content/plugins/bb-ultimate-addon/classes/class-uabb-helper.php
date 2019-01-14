@@ -407,19 +407,14 @@ if ( ! class_exists( 'BB_Ultimate_Addon_Helper' ) ) {
 		 * @since 1.14.0
 		 */
 		static public function get_uabb_branding() {
+			
+			$uabb_brand_short_name = BB_Ultimate_Addon_Helper::get_builder_uabb_branding( 'uabb-plugin-short-name' );
 
-			if ( 'null' === self::$uabb_brand_short_name ) {
-				
-				self::$uabb_brand_short_name = BB_Ultimate_Addon_Helper::get_builder_uabb_branding( 'uabb-plugin-short-name' );
-
-				if ( '' === self::$uabb_brand_short_name ) {
-
-					self::$uabb_brand_short_name = __( 'UABB', 'uabb' );
-
-				}
+			if ( '' === $uabb_brand_short_name ) {
+				$uabb_brand_short_name = __( 'UABB', 'uabb' );
 			}
 
-			return self::$uabb_brand_short_name = sprintf( __( '%s', 'uabb' ), self::$uabb_brand_short_name );
+			return $uabb_brand_short_name;
 		}
 	}	
 

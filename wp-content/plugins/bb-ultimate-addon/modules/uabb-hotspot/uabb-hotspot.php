@@ -273,24 +273,28 @@ class UABBHotspot extends FLBuilderModule {
 					);
 				}
 				if ( isset( $settings->hotspot_marker[ $i ]->text_typography_line_height->desktop ) && isset( $settings->hotspot_marker[ $i ]->text_typography_font_size->desktop ) && 0 != $settings->hotspot_marker[ $i ]->text_typography_font_size->desktop ) {
-
-					$settings->hotspot_marker[ $i ]->text_font_typo->line_height = (object) array(
-						'length' => round( $settings->hotspot_marker[ $i ]->text_typography_line_height->desktop / $settings->hotspot_marker[ $i ]->text_typography_font_size->desktop ),
-						'unit'   => 'em',
-					);
+					if ( is_numeric( $settings->hotspot_marker[ $i ]->text_typography_line_height->desktop ) && is_numeric( $settings->hotspot_marker[ $i ]->text_typography_font_size->desktop ) ) {
+						$settings->hotspot_marker[ $i ]->text_font_typo->line_height = (object) array(
+							'length' => round( $settings->hotspot_marker[ $i ]->text_typography_line_height->desktop / $settings->hotspot_marker[ $i ]->text_typography_font_size->desktop ),
+							'unit'   => 'em',
+						);
+					}
 				}
 				if ( isset( $settings->hotspot_marker[ $i ]->text_typography_line_height->medium ) && isset( $settings->hotspot_marker[ $i ]->text_typography_font_size->medium ) && 0 != $settings->hotspot_marker[ $i ]->text_typography_font_size->medium ) {
-					$settings->hotspot_marker[ $i ]->text_font_typo_medium->line_height = (object) array(
-						'length' => round( $settings->hotspot_marker[ $i ]->text_typography_line_height->medium / $settings->hotspot_marker[ $i ]->text_typography_font_size->medium ),
-						'unit'   => 'em',
-					);
+					if ( is_numeric( $settings->hotspot_marker[ $i ]->text_typography_line_height->medium ) && is_numeric( $settings->hotspot_marker[ $i ]->text_typography_font_size->medium ) ) {
+						$settings->hotspot_marker[ $i ]->text_font_typo_medium->line_height = (object) array(
+							'length' => round( $settings->hotspot_marker[ $i ]->text_typography_line_height->medium / $settings->hotspot_marker[ $i ]->text_typography_font_size->medium ),
+							'unit'   => 'em',
+						);
+					}
 				}
 				if ( isset( $settings->hotspot_marker[ $i ]->text_typography_line_height->small ) && isset( $settings->hotspot_marker[ $i ]->text_typography_font_size->small ) && 0 != $settings->hotspot_marker[ $i ]->text_typography_font_size->small ) {
-
-					$settings->hotspot_marker[ $i ]->text_font_typo_responsive->line_height = (object) array(
-						'length' => round( $settings->hotspot_marker[ $i ]->text_typography_line_height->small / $settings->hotspot_marker[ $i ]->text_typography_font_size->small ),
-						'unit'   => 'em',
-					);
+					if ( is_numeric( $settings->hotspot_marker[ $i ]->text_typography_line_height->small ) && is_numeric( $settings->hotspot_marker[ $i ]->text_typography_font_size->small ) ) {
+						$settings->hotspot_marker[ $i ]->text_font_typo_responsive->line_height = (object) array(
+							'length' => round( $settings->hotspot_marker[ $i ]->text_typography_line_height->small / $settings->hotspot_marker[ $i ]->text_typography_font_size->small ),
+							'unit'   => 'em',
+						);
+					}
 				}
 				if ( ! isset( $settings->hotspot_marker[ $i ]->tooltip_font_typo ) || ! is_object( $settings->hotspot_marker[ $i ]->tooltip_font_typo ) ) {
 
@@ -332,23 +336,28 @@ class UABBHotspot extends FLBuilderModule {
 					);
 				}
 				if ( isset( $settings->hotspot_marker[ $i ]->tooltip_line_height->desktop ) && isset( $settings->hotspot_marker[ $i ]->tooltip_font_size->desktop ) && 0 != $settings->hotspot_marker[ $i ]->tooltip_font_size->desktop ) {
-
-					$settings->hotspot_marker[ $i ]->tooltip_font_typo->line_height = (object) array(
-						'length' => round( $settings->hotspot_marker[ $i ]->tooltip_line_height->desktop / $settings->hotspot_marker[ $i ]->tooltip_font_size->desktop ),
-						'unit'   => 'em',
-					);
+					if ( is_numeric( $settings->hotspot_marker[ $i ]->tooltip_line_height->desktop ) && is_numeric( $settings->hotspot_marker[ $i ]->tooltip_font_size->desktop ) ) {
+						$settings->hotspot_marker[ $i ]->tooltip_font_typo->line_height = (object) array(
+							'length' => round( $settings->hotspot_marker[ $i ]->tooltip_line_height->desktop / $settings->hotspot_marker[ $i ]->tooltip_font_size->desktop ),
+							'unit'   => 'em',
+						);
+					}
 				}
 				if ( isset( $settings->hotspot_marker[ $i ]->tooltip_line_height->medium ) && isset( $settings->hotspot_marker[ $i ]->tooltip_font_size->medium ) && 0 != $settings->hotspot_marker[ $i ]->tooltip_font_size->medium ) {
-					$settings->hotspot_marker[ $i ]->tooltip_font_typo_medium->line_height = (object) array(
-						'length' => round( $settings->hotspot_marker[ $i ]->tooltip_line_height->medium / $settings->hotspot_marker[ $i ]->tooltip_font_size->medium ),
-						'unit'   => 'em',
-					);
+					if ( is_numeric( $settings->hotspot_marker[ $i ]->tooltip_line_height->medium ) && is_numeric( $settings->hotspot_marker[ $i ]->tooltip_font_size->medium ) ) {
+						$settings->hotspot_marker[ $i ]->tooltip_font_typo_medium->line_height = (object) array(
+							'length' => round( $settings->hotspot_marker[ $i ]->tooltip_line_height->medium / $settings->hotspot_marker[ $i ]->tooltip_font_size->medium ),
+							'unit'   => 'em',
+						);
+					}
 				}
 				if ( isset( $settings->hotspot_marker[ $i ]->tooltip_line_height->small ) && isset( $settings->hotspot_marker[ $i ]->tooltip_font_size->small ) && 0 != $settings->hotspot_marker[ $i ]->tooltip_font_size->small ) {
-					$settings->hotspot_marker[ $i ]->tooltip_font_typo_responsive->line_height = (object) array(
-						'length' => round( $settings->hotspot_marker[ $i ]->tooltip_line_height->small / $settings->hotspot_marker[ $i ]->tooltip_font_size->small ),
-						'unit'   => 'em',
-					);
+					if ( is_numeric( $settings->hotspot_marker[ $i ]->tooltip_line_height->small ) && is_numeric( $settings->hotspot_marker[ $i ]->tooltip_font_size->small ) ) {
+						$settings->hotspot_marker[ $i ]->tooltip_font_typo_responsive->line_height = (object) array(
+							'length' => round( $settings->hotspot_marker[ $i ]->tooltip_line_height->small / $settings->hotspot_marker[ $i ]->tooltip_font_size->small ),
+							'unit'   => 'em',
+						);
+					}
 				}
 				if ( isset( $settings->hotspot_marker[ $i ]->tooltip_padding ) ) {
 

@@ -171,22 +171,28 @@ class UABBImageCarouselModule extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->line_height['desktop'] ) && isset( $settings->font_size['desktop'] ) && 0 != $settings->font_size['desktop'] ) {
-				$settings->img_typo['line_height'] = array(
-					'length' => round( $settings->line_height['desktop'] / $settings->font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->line_height['desktop'] ) && is_numeric( $settings->font_size['desktop'] ) ) {
+					$settings->img_typo['line_height'] = array(
+						'length' => round( $settings->line_height['desktop'] / $settings->font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->line_height['medium'] ) && isset( $settings->font_size['medium'] ) && 0 != $settings->font_size['medium'] ) {
-				$settings->img_typo_medium['line_height'] = array(
-					'length' => round( $settings->line_height['medium'] / $settings->font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->line_height['medium'] ) && is_numeric( $settings->font_size['medium'] ) ) {
+					$settings->img_typo_medium['line_height'] = array(
+						'length' => round( $settings->line_height['medium'] / $settings->font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->line_height['small'] ) && isset( $settings->font_size['small'] ) && 0 != $settings->font_size['small'] ) {
-				$settings->img_typo_responsive['line_height'] = array(
-					'length' => round( $settings->line_height['small'] / $settings->font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->line_height['small'] ) && is_numeric( $settings->font_size['small'] ) ) {
+					$settings->img_typo_responsive['line_height'] = array(
+						'length' => round( $settings->line_height['small'] / $settings->font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->font_family ) ) {
 				unset( $settings->font_family );
@@ -198,14 +204,14 @@ class UABBImageCarouselModule extends FLBuilderModule {
 				unset( $settings->line_height['small'] );
 			}
 		}
-		return $settings;
+			return $settings;
 	}
-	/**
-	 * Function that updates the settings
-	 *
-	 * @method update
-	 * @param object $settings {object}.
-	 */
+		/**
+		 * Function that updates the settings
+		 *
+		 * @method update
+		 * @param object $settings {object}.
+		 */
 	public function update( $settings ) {
 		// Cache the photo data if using the WordPress media library.
 		$settings->photo_data = $this->get_wordpress_photos();
@@ -213,21 +219,21 @@ class UABBImageCarouselModule extends FLBuilderModule {
 		return $settings;
 	}
 
-	/**
-	 * Function to get photos
-	 *
-	 * @method get_photos
-	 */
+		/**
+		 * Function to get photos
+		 *
+		 * @method get_photos
+		 */
 	public function get_photos() {
 		// WordPress.
 		return $this->get_wordpress_photos();
 	}
 
-	/**
-	 * Function to get WordPress photos
-	 *
-	 * @method get_wordpress_photos
-	 */
+		/**
+		 * Function to get WordPress photos
+		 *
+		 * @method get_wordpress_photos
+		 */
 	public function get_wordpress_photos() {
 		$photos   = array();
 		$ids      = $this->settings->photos;

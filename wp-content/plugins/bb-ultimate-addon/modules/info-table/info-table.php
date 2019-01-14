@@ -440,25 +440,28 @@ class UABBInfoTableModule extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->heading_line_height['desktop'] ) && isset( $settings->heading_font_size['desktop'] ) && 0 != $settings->heading_font_size['desktop'] ) {
-
-				$settings->heading_font_typo['line_height'] = array(
-					'length' => round( $settings->heading_line_height['desktop'] / $settings->heading_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->heading_line_height['desktop'] ) && is_numeric( $settings->heading_font_size['desktop'] ) ) {
+					$settings->heading_font_typo['line_height'] = array(
+						'length' => round( $settings->heading_line_height['desktop'] / $settings->heading_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->heading_line_height['medium'] ) && isset( $settings->heading_font_size['medium'] ) && 0 != $settings->heading_font_size['medium'] ) {
-
-				$settings->heading_font_typo_medium['line_height'] = array(
-					'length' => round( $settings->heading_line_height['medium'] / $settings->heading_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->heading_line_height['medium'] ) && is_numeric( $settings->heading_font_size['medium'] ) ) {
+					$settings->heading_font_typo_medium['line_height'] = array(
+						'length' => round( $settings->heading_line_height['medium'] / $settings->heading_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->heading_line_height['small'] ) && isset( $settings->heading_font_size['small'] ) && 0 != $settings->heading_font_size['small'] ) {
-
-				$settings->heading_font_typo_responsive['line_height'] = array(
-					'length' => round( $settings->heading_line_height['small'] / $settings->heading_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->heading_line_height['small'] ) && is_numeric( $settings->heading_font_size['small'] ) ) {
+					$settings->heading_font_typo_responsive['line_height'] = array(
+						'length' => round( $settings->heading_line_height['small'] / $settings->heading_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( ! isset( $settings->description_font_typo ) || ! is_array( $settings->description_font_typo ) ) {
 
@@ -499,22 +502,28 @@ class UABBInfoTableModule extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->description_line_height['desktop'] ) && isset( $settings->description_font_size['desktop'] ) && 0 != $settings->description_font_size['desktop'] ) {
-				$settings->description_font_typo['line_height'] = array(
-					'length' => round( $settings->description_line_height['desktop'] / $settings->description_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->description_line_height['desktop'] ) && is_numeric( $settings->description_font_size['desktop'] ) ) {
+					$settings->description_font_typo['line_height'] = array(
+						'length' => round( $settings->description_line_height['desktop'] / $settings->description_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->description_line_height['medium'] ) && isset( $settings->description_font_size['medium'] ) && 0 != $settings->description_font_size['medium'] ) {
-				$settings->description_font_typo_medium['line_height'] = array(
-					'length' => round( $settings->description_line_height['medium'] / $settings->description_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->description_line_height['medium'] ) && is_numeric( $settings->description_font_size['medium'] ) ) {
+					$settings->description_font_typo_medium['line_height'] = array(
+						'length' => round( $settings->description_line_height['medium'] / $settings->description_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->description_line_height['small'] ) && isset( $settings->description_font_size['small'] ) && 0 != $settings->description_font_size['small'] && ! isset( $settings->description_line_height_unit_responsive ) ) {
-				$settings->description_font_typo_responsive['line_height'] = array(
-					'length' => round( $settings->description_line_height['small'] / $settings->description_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->description_line_height['small'] ) && is_numeric( $settings->description_font_size['small'] ) ) {
+					$settings->description_font_typo_responsive['line_height'] = array(
+						'length' => round( $settings->description_line_height['small'] / $settings->description_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( ! isset( $settings->sub_heading_font_typo ) || ! is_array( $settings->sub_heading_font_typo ) ) {
 
@@ -555,23 +564,29 @@ class UABBInfoTableModule extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->sub_heading_line_height['desktop'] ) && isset( $settings->sub_heading_font_size['desktop'] ) && 0 != $settings->sub_heading_font_size['desktop'] ) {
-				$settings->sub_heading_font_typo['line_height'] = array(
-					'length' => round( $settings->sub_heading_line_height['desktop'] / $settings->sub_heading_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->sub_heading_line_height['desktop'] ) && is_numeric( $settings->sub_heading_font_size['desktop'] ) ) {
+					$settings->sub_heading_font_typo['line_height'] = array(
+						'length' => round( $settings->sub_heading_line_height['desktop'] / $settings->sub_heading_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->sub_heading_line_height['medium'] ) && isset( $settings->sub_heading_font_size['medium'] ) && 0 != $settings->sub_heading_font_size['medium'] ) {
-				$settings->sub_heading_font_typo_medium['line_height'] = array(
-					'length' => round( $settings->sub_heading_line_height['medium'] / $settings->sub_heading_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->sub_heading_line_height['medium'] ) && is_numeric( $settings->sub_heading_font_size['medium'] ) ) {
+					$settings->sub_heading_font_typo_medium['line_height'] = array(
+						'length' => round( $settings->sub_heading_line_height['medium'] / $settings->sub_heading_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->sub_heading_line_height['small'] ) && isset( $settings->sub_heading_font_size['small'] ) && 0 != $settings->sub_heading_font_size['small'] ) {
-				$settings->sub_heading_font_typo_responsive['line_height'] = array(
+				if ( is_numeric( $settings->sub_heading_line_height['small'] ) && is_numeric( $settings->sub_heading_font_size['small'] ) ) {
+					$settings->sub_heading_font_typo_responsive['line_height'] = array(
 
-					'length' => round( $settings->sub_heading_line_height['small'] / $settings->sub_heading_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+						'length' => round( $settings->sub_heading_line_height['small'] / $settings->sub_heading_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( ! isset( $settings->btn_font_typo ) || ! is_array( $settings->btn_font_typo ) ) {
 
@@ -611,22 +626,28 @@ class UABBInfoTableModule extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->btn_line_height['desktop'] ) && isset( $settings->btn_font_size['desktop'] ) && 0 != $settings->btn_font_size['desktop'] ) {
-				$settings->btn_font_typo['line_height'] = array(
-					'length' => round( $settings->btn_line_height['desktop'] / $settings->btn_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->btn_line_height['desktop'] ) && is_numeric( $settings->btn_font_size['desktop'] ) ) {
+					$settings->btn_font_typo['line_height'] = array(
+						'length' => round( $settings->btn_line_height['desktop'] / $settings->btn_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->btn_line_height['medium'] ) && isset( $settings->btn_font_size['medium'] ) && 0 != $settings->btn_font_size['medium'] && ! isset( $settings->btn_line_height_unit_medium ) ) {
-				$settings->btn_font_typo_medium['line_height'] = array(
-					'length' => round( $settings->btn_line_height['medium'] / $settings->btn_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->btn_line_height['medium'] ) && is_numeric( $settings->btn_font_size['medium'] ) ) {
+					$settings->btn_font_typo_medium['line_height'] = array(
+						'length' => round( $settings->btn_line_height['medium'] / $settings->btn_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->btn_line_height['small'] ) && isset( $settings->btn_font_size['small'] ) && 0 != $settings->btn_font_size['small'] ) {
-				$settings->btn_font_typo_responsive['line_height'] = array(
-					'length' => round( $settings->btn_line_height['small'] / $settings->btn_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->btn_line_height['small'] ) && is_numeric( $settings->btn_font_size['small'] ) ) {
+					$settings->btn_font_typo_responsive['line_height'] = array(
+						'length' => round( $settings->btn_line_height['small'] / $settings->btn_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->it_link ) ) {
 

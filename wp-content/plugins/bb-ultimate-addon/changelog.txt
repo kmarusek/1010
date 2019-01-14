@@ -1,3 +1,11 @@
+Version 1.14.2 - Friday, 11th January 2019 
+- Fixed: Info Box - Fixed Icon and Image alignment issue
+- Fixed: Advanced Separator - Fixed Text Content width issue 
+- Fixed: Non Numeric value notice for line height in rare cases
+
+Version 1.14.1 - Thursday, 10th January 2019
+- Fixed: UABB settings Modules list not displaying in some cases
+
 Version 1.14.0 - Thursday, 10th January 2019
 - New: Added Typography field compatibility with Beaver Builder 2.2
 - New: Added Border field compatibility with Beaver Builder 2.2
@@ -10,12 +18,13 @@ Version 1.14.0 - Thursday, 10th January 2019
 - Improvement: If Beaver Builder's Column Shadow is enabled it will override UABB's Column Shadow
 - Improvement: Interactive Banner 1 - Added nofollow settings option
 - Improvement: Subscription Form - Updated Terms and Conditions option design for Inline Layout
-- Fixed: Advanced Posts - Fixed extra space in around of the comma separator for the tag categories
+- Fixed: Advanced Posts - Fixed extra space around the comma separator for the tag categories
 - Fixed: Contact Form - Resolved Uncaught ReferenceError when Slideshow module of Beaver Builder is used below Contact Form
 - Fixed: Photo - Resolved SVG disappearing on enabling Beaver Themer's shrink option in Header
 - Fixed: Table - Custom Column Width option not working
+- Fixed: Added a notice on the UABB settings Module List page alerting users to enable modules when not found on frontend
 
-Version 1.13.2
+Version 1.13.2 - Wednesday, 31st October 2018
 - Improvement: Content Toggle - Open a specific toggle content from URL
 - Improvement: Info Box - Added Hover color settings option
 - Improvement: Modal Popup - Deprecated "Disable Video Title" setting option for YouTube video

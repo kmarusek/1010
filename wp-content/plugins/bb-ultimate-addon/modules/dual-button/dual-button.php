@@ -309,22 +309,28 @@ class UABBDualButtonModule extends FLBuilderModule {
 			}
 
 			if ( isset( $settings->_btn_one_line_height['small'] ) && isset( $settings->_btn_one_font_size['small'] ) && 0 != $settings->_btn_one_font_size['small'] ) {
-				$settings->_btn_one_typo_responsive['line_height'] = array(
-					'length' => round( $settings->_btn_one_line_height['small'] / $settings->_btn_one_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->_btn_one_line_height['small'] ) && is_numeric( $settings->_btn_one_font_size['small'] ) ) {
+					$settings->_btn_one_typo_responsive['line_height'] = array(
+						'length' => round( $settings->_btn_one_line_height['small'] / $settings->_btn_one_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->_btn_one_line_height['medium'] ) && isset( $settings->_btn_one_font_size['medium'] ) && 0 != $settings->_btn_one_font_size['medium'] ) {
-				$settings->_btn_one_typo_medium['line_height'] = array(
-					'length' => round( $settings->_btn_one_line_height['medium'] / $settings->_btn_one_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->_btn_one_line_height['medium'] ) && is_numeric( $settings->_btn_one_font_size['medium'] ) ) {
+					$settings->_btn_one_typo_medium['line_height'] = array(
+						'length' => round( $settings->_btn_one_line_height['medium'] / $settings->_btn_one_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->_btn_one_line_height['desktop'] ) && isset( $settings->_btn_one_font_size['desktop'] ) && 0 != $settings->_btn_one_font_size['desktop'] ) {
-				$settings->_btn_one_typo['line_height'] = array(
-					'length' => round( $settings->_btn_one_line_height['desktop'] / $settings->_btn_one_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->_btn_one_line_height['desktop'] ) && is_numeric( $settings->_btn_one_font_size['desktop'] ) ) {
+					$settings->_btn_one_typo['line_height'] = array(
+						'length' => round( $settings->_btn_one_line_height['desktop'] / $settings->_btn_one_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 
 			// For Dual Button Two Typo.
@@ -364,22 +370,28 @@ class UABBDualButtonModule extends FLBuilderModule {
 			}
 
 			if ( isset( $settings->_btn_two_line_height['small'] ) && isset( $settings->_btn_two_font_size['small'] ) && 0 != $settings->_btn_two_font_size['small'] ) {
-				$settings->_btn_two_typo['line_height'] = array(
-					'length' => round( $settings->_btn_two_line_height['small'] / $settings->_btn_two_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->_btn_two_line_height['small'] ) && is_numeric( $settings->_btn_two_font_size['small'] ) ) {
+					$settings->_btn_two_typo['line_height'] = array(
+						'length' => round( $settings->_btn_two_line_height['small'] / $settings->_btn_two_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->_btn_two_line_height['medium'] ) && isset( $settings->_btn_two_font_size['medium'] ) && 0 != $settings->_btn_two_font_size['medium'] ) {
-				$settings->_btn_two_typo_medium['line_height'] = array(
-					'length' => round( $settings->_btn_two_line_height['medium'] / $settings->_btn_two_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->_btn_two_line_height['medium'] ) && is_numeric( $settings->_btn_two_font_size['medium'] ) ) {
+					$settings->_btn_two_typo_medium['line_height'] = array(
+						'length' => round( $settings->_btn_two_line_height['medium'] / $settings->_btn_two_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->_btn_two_line_height['desktop'] ) && isset( $settings->_btn_two_font_size['desktop'] ) && 0 != $settings->_btn_two_font_size['desktop'] ) {
-				$settings->_btn_two_typo['line_height'] = array(
-					'length' => round( $settings->_btn_two_line_height['desktop'] / $settings->_btn_two_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->_btn_two_line_height['desktop'] ) && is_numeric( $settings->_btn_two_font_size['desktop'] ) ) {
+					$settings->_btn_two_typo['line_height'] = array(
+						'length' => round( $settings->_btn_two_line_height['desktop'] / $settings->_btn_two_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 
 			// For Dual Button Separator.

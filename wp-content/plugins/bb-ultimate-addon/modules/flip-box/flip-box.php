@@ -638,23 +638,28 @@ class FlipBoxModule extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->front_title_typography_line_height['desktop'] ) && isset( $settings->front_title_typography_font_size['desktop'] ) && 0 != $settings->front_title_typography_font_size['desktop'] && ! isset( $settings->front_title_typography_line_height_unit ) ) {
-
-				$settings->front_title_font_typo['line_height'] = array(
-					'length' => round( $settings->front_title_typography_line_height['desktop'] / $settings->front_title_typography_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->front_title_typography_line_height['desktop'] ) && is_numeric( $settings->front_title_typography_font_size['desktop'] ) ) {
+					$settings->front_title_font_typo['line_height'] = array(
+						'length' => round( $settings->front_title_typography_line_height['desktop'] / $settings->front_title_typography_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->front_title_typography_line_height['medium'] ) && isset( $settings->front_title_typography_font_size['medium'] ) && 0 != $settings->front_title_typography_font_size['medium'] && ! isset( $settings->front_title_typography_line_height_unit_medium ) ) {
-				$settings->front_title_font_typo_medium['line_height'] = array(
-					'length' => round( $settings->front_title_typography_line_height['medium'] / $settings->front_title_typography_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->front_title_typography_line_height['medium'] ) && is_numeric( $settings->front_title_typography_font_size['medium'] ) ) {
+					$settings->front_title_font_typo_medium['line_height'] = array(
+						'length' => round( $settings->front_title_typography_line_height['medium'] / $settings->front_title_typography_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->front_title_typography_line_height['small'] ) && isset( $settings->front_title_typography_font_size['small'] ) && 0 != $settings->front_title_typography_font_size['small'] && ! isset( $settings->front_title_typography_line_height_unit_responsive ) ) {
-				$settings->front_title_font_typo_responsive['line_height'] = array(
-					'length' => round( $settings->front_title_typography_line_height['small'] / $settings->front_title_typography_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->front_title_typography_line_height['small'] ) && is_numeric( $settings->front_title_typography_font_size['small'] ) ) {
+					$settings->front_title_font_typo_responsive['line_height'] = array(
+						'length' => round( $settings->front_title_typography_line_height['small'] / $settings->front_title_typography_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 
 			// Unset the previous values.
@@ -703,23 +708,29 @@ class FlipBoxModule extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->front_desc_typography_line_height['desktop'] ) && isset( $settings->front_desc_typography_font_size['desktop'] ) && 0 != $settings->front_desc_typography_font_size['desktop'] && ! isset( $settings->front_desc_typography_line_height_unit ) ) {
+				if ( is_numeric( $settings->front_desc_typography_line_height['desktop'] ) && is_numeric( $settings->front_desc_typography_font_size['desktop'] ) ) {
 
-				$settings->front_desk_font_typo['line_height'] = array(
-					'length' => round( $settings->front_desc_typography_line_height['desktop'] / $settings->front_desc_typography_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+					$settings->front_desk_font_typo['line_height'] = array(
+						'length' => round( $settings->front_desc_typography_line_height['desktop'] / $settings->front_desc_typography_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->front_desc_typography_line_height['medium'] ) && isset( $settings->front_desc_typography_font_size['medium'] ) && 0 != $settings->front_desc_typography_font_size['medium'] && ! isset( $settings->front_desc_typography_line_height_unit_medium ) ) {
-				$settings->front_desk_font_typo_medium['line_height'] = array(
-					'length' => round( $settings->front_desc_typography_line_height['medium'] / $settings->front_desc_typography_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->front_desc_typography_line_height['medium'] ) && is_numeric( $settings->front_desc_typography_font_size['medium'] ) ) {
+					$settings->front_desk_font_typo_medium['line_height'] = array(
+						'length' => round( $settings->front_desc_typography_line_height['medium'] / $settings->front_desc_typography_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->front_desc_typography_line_height['small'] ) && isset( $settings->front_desc_typography_font_size['small'] ) && 0 != $settings->front_desc_typography_font_size['small'] && ! isset( $settings->front_desc_typography_line_height_unit_responsive ) ) {
-				$settings->front_desk_font_typo_responsive['line_height'] = array(
-					'length' => round( $settings->front_desc_typography_line_height['small'] / $settings->front_desc_typography_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->front_desc_typography_line_height['small'] ) && is_numeric( $settings->front_desc_typography_font_size['small'] ) ) {
+					$settings->front_desk_font_typo_responsive['line_height'] = array(
+						'length' => round( $settings->front_desc_typography_line_height['small'] / $settings->front_desc_typography_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 
 			// Unset the previous values.
@@ -770,23 +781,28 @@ class FlipBoxModule extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->back_title_typography_line_height['desktop'] ) && isset( $settings->back_title_typography_font_size['desktop'] ) && 0 != $settings->back_title_typography_font_size['desktop'] && ! isset( $settings->back_title_typography_line_height_unit ) ) {
-
-				$settings->back_title_font_typo['line_height'] = array(
-					'length' => round( $settings->back_title_typography_line_height['desktop'] / $settings->back_title_typography_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->back_title_typography_line_height['desktop'] ) && is_numeric( $settings->back_title_typography_font_size['desktop'] ) ) {
+					$settings->back_title_font_typo['line_height'] = array(
+						'length' => round( $settings->back_title_typography_line_height['desktop'] / $settings->back_title_typography_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->back_title_typography_line_height['medium'] ) && isset( $settings->back_title_typography_font_size['medium'] ) && 0 != $settings->back_title_typography_font_size['medium'] && ! isset( $settings->back_title_typography_line_height_unit_medium ) ) {
-				$settings->back_title_font_typo_medium['line_height'] = array(
-					'length' => round( $settings->back_title_typography_line_height['medium'] / $settings->back_title_typography_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->back_title_typography_line_height['medium'] ) && is_numeric( $settings->back_title_typography_font_size['medium'] ) ) {
+					$settings->back_title_font_typo_medium['line_height'] = array(
+						'length' => round( $settings->back_title_typography_line_height['medium'] / $settings->back_title_typography_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->back_title_typography_line_height['small'] ) && isset( $settings->back_title_typography_font_size['small'] ) && 0 != $settings->back_title_typography_font_size['small'] && ! isset( $settings->back_title_typography_line_height_unit_responsive ) ) {
-				$settings->back_title_font_typo_responsive['line_height'] = array(
-					'length' => round( $settings->back_title_typography_line_height['small'] / $settings->back_title_typography_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->back_title_typography_line_height['small'] ) && is_numeric( $settings->back_title_typography_font_size['small'] ) ) {
+					$settings->back_title_font_typo_responsive['line_height'] = array(
+						'length' => round( $settings->back_title_typography_line_height['small'] / $settings->back_title_typography_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 
 			// Unset the previous values.
@@ -837,23 +853,29 @@ class FlipBoxModule extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->back_desc_typography_line_height['desktop'] ) && isset( $settings->back_desc_typography_font_size['desktop'] ) && 0 != $settings->back_desc_typography_font_size['desktop'] && ! isset( $settings->back_desc_typography_line_height_unit ) ) {
-
-				$settings->back_desc_font_typo['line_height'] = array(
-					'length' => round( $settings->back_desc_typography_line_height['desktop'] / $settings->back_desc_typography_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->back_desc_typography_line_height['desktop'] ) && is_numeric( $settings->back_desc_typography_font_size['desktop'] ) ) {
+					$settings->back_desc_font_typo['line_height'] = array(
+						'length' => round( $settings->back_desc_typography_line_height['desktop'] / $settings->back_desc_typography_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->back_desc_typography_line_height['medium'] ) && isset( $settings->back_desc_typography_font_size['medium'] ) && 0 != $settings->back_desc_typography_font_size['medium'] && ! isset( $settings->back_desc_typography_line_height_unit_medium ) ) {
-				$settings->back_desc_font_typo_medium['line_height'] = array(
-					'length' => round( $settings->back_desc_typography_line_height['medium'] / $settings->back_desc_typography_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->back_desc_typography_line_height['medium'] ) && is_numeric( $settings->back_desc_typography_font_size['medium'] ) ) {
+					$settings->back_desc_font_typo_medium['line_height'] = array(
+						'length' => round( $settings->back_desc_typography_line_height['medium'] / $settings->back_desc_typography_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->back_desc_typography_line_height['small'] ) && isset( $settings->back_desc_typography_font_size['small'] ) && 0 != $settings->back_desc_typography_font_size['small'] && ! isset( $settings->back_desc_typography_line_height_unit_responsive ) ) {
-				$settings->back_desc_font_typo_responsive['line_height'] = array(
-					'length' => round( $settings->back_desc_typography_line_height['small'] / $settings->back_desc_typography_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->back_desc_typography_line_height['small'] ) && is_numeric( $settings->back_desc_typography_font_size['small'] ) ) {
+
+					$settings->back_desc_font_typo_responsive['line_height'] = array(
+						'length' => round( $settings->back_desc_typography_line_height['small'] / $settings->back_desc_typography_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( ! isset( $settings->button->button_typo ) || ! is_object( $settings->button->button_typo ) ) {
 				$settings->button->button_typo            = new stdClass();
@@ -892,22 +914,28 @@ class FlipBoxModule extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->button->line_height->desktop ) && isset( $settings->button->font_size->desktop ) && 0 != $settings->button->font_size->desktop ) {
-				$settings->button->button_typo->line_height = (object) array(
-					'length' => round( $settings->button->line_height->desktop / $settings->button->font_size->desktop, 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->button->line_height->desktop ) && is_numeric( $settings->button->font_size->desktop ) ) {
+					$settings->button->button_typo->line_height = (object) array(
+						'length' => round( $settings->button->line_height->desktop / $settings->button->font_size->desktop, 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->button->line_height->medium ) && isset( $settings->button->font_size->medium ) && 0 != $settings->button->font_size->medium ) {
-				$settings->button->button_typo_medium->line_height = (object) array(
-					'length' => round( $settings->button->line_height->medium / $settings->button->font_size->medium, 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->button->line_height->medium ) && is_numeric( $settings->button->font_size->medium ) ) {
+					$settings->button->button_typo_medium->line_height = (object) array(
+						'length' => round( $settings->button->line_height->medium / $settings->button->font_size->medium, 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->button->line_height->small ) && isset( $settings->button->font_size->small ) && 0 != $settings->button->font_size->small ) {
-				$settings->button->button_typo_responsive->line_height = (object) array(
-					'length' => round( $settings->button->line_height->small / $settings->button->font_size->small, 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->button->line_height->small ) && is_numeric( $settings->button->font_size->small ) ) {
+					$settings->button->button_typo_responsive->line_height = (object) array(
+						'length' => round( $settings->button->line_height->small / $settings->button->font_size->small, 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->button->font_family ) ) {
 				unset( $settings->button->font_family );

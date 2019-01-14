@@ -497,25 +497,28 @@ class UABBCountdownModule extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->message_line_height['desktop'] ) && isset( $settings->message_font_size['desktop'] ) && 0 != $settings->message_font_size['desktop'] && ! isset( $settings->message_typo['line_height'] ) ) {
-
-				$settings->message_typo['line_height'] = array(
-					'length' => round( $settings->message_line_height['desktop'] / $settings->message_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->message_line_height['desktop'] ) && is_numeric( $settings->message_font_size['desktop'] ) ) {
+					$settings->message_typo['line_height'] = array(
+						'length' => round( $settings->message_line_height['desktop'] / $settings->message_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->message_line_height['medium'] ) && isset( $settings->message_font_size['medium'] ) && 0 != $settings->message_font_size['medium'] && ! isset( $settings->message_typo_medium['line_height'] ) ) {
-
-				$settings->message_typo_medium['line_height'] = array(
-					'length' => round( $settings->message_line_height['medium'] / $settings->message_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->message_line_height['medium'] ) && is_numeric( $settings->message_font_size['medium'] ) ) {
+					$settings->message_typo_medium['line_height'] = array(
+						'length' => round( $settings->message_line_height['medium'] / $settings->message_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->message_line_height['small'] ) && isset( $settings->message_font_size['small'] ) && 0 != $settings->message_font_size['small'] && ! isset( $settings->message_typo_responsive['line_height'] ) ) {
-
-				$settings->message_typo_responsive['line_height'] = array(
-					'length' => round( $settings->message_line_height['small'] / $settings->message_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->message_line_height['small'] ) && is_numeric( $settings->message_font_size['small'] ) ) {
+					$settings->message_typo_responsive['line_height'] = array(
+						'length' => round( $settings->message_line_height['small'] / $settings->message_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 
 			// For digit settings.
@@ -627,25 +630,28 @@ class UABBCountdownModule extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->unit_line_height['desktop'] ) && isset( $settings->unit_font_size['desktop'] ) && 0 != $settings->unit_font_size['desktop'] && ! isset( $settings->unit_typo['line_height'] ) ) {
-
-				$settings->unit_typo['line_height'] = array(
-					'length' => round( $settings->unit_line_height['desktop'] / $settings->unit_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->unit_line_height['desktop'] ) && is_numeric( $settings->unit_font_size['desktop'] ) ) {
+					$settings->unit_typo['line_height'] = array(
+						'length' => round( $settings->unit_line_height['desktop'] / $settings->unit_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->unit_line_height['medium'] ) && isset( $settings->unit_font_size['medium'] ) && 0 != $settings->unit_font_size['medium'] && ! isset( $settings->unit_typo_medium['line_height'] ) ) {
-
-				$settings->unit_typo_medium['line_height'] = array(
-					'length' => round( $settings->unit_line_height['medium'] / $settings->unit_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->unit_line_height['medium'] ) && is_numeric( $settings->unit_font_size['medium'] ) ) {
+					$settings->unit_typo_medium['line_height'] = array(
+						'length' => round( $settings->unit_line_height['medium'] / $settings->unit_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->unit_line_height['small'] ) && isset( $settings->unit_font_size['small'] ) && 0 != $settings->unit_font_size['small'] && ! isset( $settings->unit_typo_responsive['line_height'] ) ) {
-
-				$settings->unit_typo_responsive['line_height'] = array(
-					'length' => round( $settings->unit_line_height['small'] / $settings->unit_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->unit_line_height['small'] ) && is_numeric( $settings->unit_font_size['small'] ) ) {
+					$settings->unit_typo_responsive['line_height'] = array(
+						'length' => round( $settings->unit_line_height['small'] / $settings->unit_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 
 			// Unset the old values.

@@ -183,23 +183,28 @@ class UABBPhotoGalleryModule extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->line_height['desktop'] ) && isset( $settings->font_size['desktop'] ) && 0 != $settings->font_size['desktop'] ) {
-
-				$settings->caption_font_typo['line_height'] = array(
-					'length' => round( $settings->line_height['desktop'] / $settings->font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->line_height['desktop'] ) && is_numeric( $settings->font_size['desktop'] ) ) {
+					$settings->caption_font_typo['line_height'] = array(
+						'length' => round( $settings->line_height['desktop'] / $settings->font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->line_height['medium'] ) && isset( $settings->font_size['medium'] ) && 0 != $settings->font_size['medium'] ) {
-				$settings->caption_font_typo_medium['line_height'] = array(
-					'length' => round( $settings->line_height['medium'] / $settings->font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->line_height['medium'] ) && is_numeric( $settings->font_size['medium'] ) ) {
+					$settings->caption_font_typo_medium['line_height'] = array(
+						'length' => round( $settings->line_height['medium'] / $settings->font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->line_height['small'] ) && isset( $settings->font_size['small'] ) && 0 != $settings->font_size['small'] ) {
-				$settings->caption_font_typo_responsive['line_height'] = array(
-					'length' => round( $settings->line_height['small'] / $settings->font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->line_height['small'] ) && is_numeric( $settings->font_size['small'] ) ) {
+					$settings->caption_font_typo_responsive['line_height'] = array(
+						'length' => round( $settings->line_height['small'] / $settings->font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->font_family ) ) {
 				unset( $settings->font_family );

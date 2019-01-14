@@ -448,22 +448,28 @@ class ProgressBarModule extends FLBuilderModule {
 			}
 
 			if ( isset( $settings->text_line_height['small'] ) && isset( $settings->text_font_size['small'] ) && 0 != $settings->text_font_size['small'] ) {
-				$settings->text_typo_responsive['line_height'] = array(
-					'length' => round( $settings->text_line_height['small'] / $settings->text_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->text_line_height['small'] ) && is_numeric( $settings->text_font_size['small'] ) ) {
+					$settings->text_typo_responsive['line_height'] = array(
+						'length' => round( $settings->text_line_height['small'] / $settings->text_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->text_line_height['medium'] ) && isset( $settings->text_font_size['medium'] ) && 0 != $settings->text_font_size['medium'] ) {
-				$settings->text_typo_medium['line_height'] = array(
-					'length' => round( $settings->text_line_height['medium'] / $settings->text_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->text_line_height['medium'] ) && is_numeric( $settings->text_font_size['medium'] ) ) {
+					$settings->text_typo_medium['line_height'] = array(
+						'length' => round( $settings->text_line_height['medium'] / $settings->text_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->text_line_height['desktop'] ) && isset( $settings->text_font_size['desktop'] ) && 0 != $settings->text_font_size['desktop'] ) {
-				$settings->text_typo['line_height'] = array(
-					'length' => round( $settings->text_line_height['desktop'] / $settings->text_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->text_line_height['desktop'] ) && is_numeric( $settings->text_font_size['desktop'] ) ) {
+					$settings->text_typo['line_height'] = array(
+						'length' => round( $settings->text_line_height['desktop'] / $settings->text_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 
 			// For Before/After Text Typo.
@@ -507,22 +513,28 @@ class ProgressBarModule extends FLBuilderModule {
 			}
 
 			if ( isset( $settings->before_after_line_height['small'] ) && isset( $settings->before_after_font_size['small'] ) && 0 != $settings->before_after_font_size['small'] ) {
-				$settings->before_after_typo_responsive['line_height'] = array(
-					'length' => round( $settings->before_after_line_height['small'] / $settings->before_after_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->before_after_line_height['small'] ) && is_numeric( $settings->before_after_font_size['small'] ) ) {
+					$settings->before_after_typo_responsive['line_height'] = array(
+						'length' => round( $settings->before_after_line_height['small'] / $settings->before_after_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->before_after_line_height['medium'] ) && isset( $settings->before_after_font_size['medium'] ) && 0 != $settings->before_after_font_size['medium'] ) {
-				$settings->before_after_typo_medium['line_height'] = array(
-					'length' => round( $settings->before_after_line_height['medium'] / $settings->before_after_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->before_after_line_height['medium'] ) && is_numeric( $settings->before_after_font_size['medium'] ) ) {
+					$settings->before_after_typo_medium['line_height'] = array(
+						'length' => round( $settings->before_after_line_height['medium'] / $settings->before_after_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->before_after_line_height['desktop'] ) && isset( $settings->before_after_font_size['desktop'] ) && 0 != $settings->before_after_font_size['desktop'] ) {
-				$settings->before_after_typo['line_height'] = array(
-					'length' => round( $settings->before_after_line_height['desktop'] / $settings->before_after_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->before_after_line_height['desktop'] ) && is_numeric( $settings->before_after_font_size['desktop'] ) ) {
+					$settings->before_after_typo['line_height'] = array(
+						'length' => round( $settings->before_after_line_height['desktop'] / $settings->before_after_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 
 			// For Progress Value Typo.
@@ -565,22 +577,28 @@ class ProgressBarModule extends FLBuilderModule {
 			}
 
 			if ( isset( $settings->number_line_height['small'] ) && isset( $settings->number_font_size['small'] ) && 0 != $settings->number_font_size['small'] ) {
-				$settings->number_typo_responsive['line_height'] = array(
-					'length' => round( $settings->number_line_height['small'] / $settings->number_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->number_line_height['small'] ) && is_numeric( $settings->number_font_size['small'] ) ) {
+					$settings->number_typo_responsive['line_height'] = array(
+						'length' => round( $settings->number_line_height['small'] / $settings->number_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->number_line_height['medium'] ) && isset( $settings->number_font_size['medium'] ) && 0 != $settings->number_font_size['medium'] ) {
-				$settings->number_typo_medium['line_height'] = array(
-					'length' => round( $settings->number_line_height['medium'] / $settings->number_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->number_line_height['medium'] ) && is_numeric( $settings->number_font_size['medium'] ) ) {
+					$settings->number_typo_medium['line_height'] = array(
+						'length' => round( $settings->number_line_height['medium'] / $settings->number_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->number_line_height['desktop'] ) && isset( $settings->number_font_size['desktop'] ) && 0 != $settings->number_font_size['desktop'] ) {
-				$settings->number_typo['line_height'] = array(
-					'length' => round( $settings->number_line_height['desktop'] / $settings->number_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->number_line_height['desktop'] ) && is_numeric( $settings->number_font_size['desktop'] ) ) {
+					$settings->number_typo['line_height'] = array(
+						'length' => round( $settings->number_line_height['desktop'] / $settings->number_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 
 			if ( isset( $settings->text_font_family ) ) {

@@ -776,24 +776,28 @@ class UABBSubscribeFormModule extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->heading_line_height['desktop'] ) && isset( $settings->heading_font_size['desktop'] ) && 0 != $settings->heading_font_size['desktop'] && ! isset( $settings->heading_line_height_unit ) ) {
-
-				$settings->heading_font_typo['line_height'] = array(
-					'length' => round( $settings->heading_line_height['desktop'] / $settings->heading_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->heading_line_height['desktop'] ) && is_numeric( $settings->heading_font_size['desktop'] ) ) {
+					$settings->heading_font_typo['line_height'] = array(
+						'length' => round( $settings->heading_line_height['desktop'] / $settings->heading_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->heading_line_height['medium'] ) && isset( $settings->heading_font_size['medium'] ) && 0 != $settings->heading_font_size['medium'] && ! isset( $settings->heading_line_height_unit_medium ) ) {
-
-				$settings->heading_font_typo_medium['line_height'] = array(
-					'length' => round( $settings->heading_line_height['medium'] / $settings->heading_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->heading_line_height['medium'] ) && is_numeric( $settings->heading_font_size['medium'] ) ) {
+					$settings->heading_font_typo_medium['line_height'] = array(
+						'length' => round( $settings->heading_line_height['medium'] / $settings->heading_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->heading_line_height['small'] ) && isset( $settings->heading_font_size['small'] ) && 0 != $settings->heading_font_size['small'] && ! isset( $settings->heading_line_height_unit_responsive ) ) {
-				$settings->heading_font_typo_responsive['line_height'] = array(
-					'length' => round( $settings->heading_line_height['small'] / $settings->heading_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->heading_line_height['small'] ) && is_numeric( $settings->heading_font_size['small'] ) ) {
+					$settings->heading_font_typo_responsive['line_height'] = array(
+						'length' => round( $settings->heading_line_height['small'] / $settings->heading_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 
 			// Subheading typography settings.
@@ -836,24 +840,28 @@ class UABBSubscribeFormModule extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->subheading_line_height['desktop'] ) && isset( $settings->subheading_font_size['desktop'] ) && 0 != $settings->subheading_font_size['desktop'] && ! isset( $settings->subheading_line_height_unit ) ) {
-
-				$settings->subheading_font_typo['line_height'] = array(
-					'length' => round( $settings->subheading_line_height['desktop'] / $settings->subheading_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->subheading_line_height['desktop'] ) && is_numeric( $settings->subheading_font_size['desktop'] ) ) {
+					$settings->subheading_font_typo['line_height'] = array(
+						'length' => round( $settings->subheading_line_height['desktop'] / $settings->subheading_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->subheading_line_height['medium'] ) && isset( $settings->subheading_font_size['medium'] ) && 0 != $settings->subheading_font_size['medium'] && ! isset( $settings->subheading_line_height_unit_medium ) ) {
-
-				$settings->subheading_font_typo_medium['line_height'] = array(
-					'length' => round( $settings->subheading_line_height['medium'] / $settings->subheading_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->subheading_line_height['medium'] ) && is_numeric( $settings->subheading_font_size['medium'] ) ) {
+					$settings->subheading_font_typo_medium['line_height'] = array(
+						'length' => round( $settings->subheading_line_height['medium'] / $settings->subheading_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->subheading_line_height['small'] ) && isset( $settings->subheading_font_size['small'] ) && 0 != $settings->subheading_font_size['small'] && ! isset( $settings->subheading_line_height_unit_responsive ) ) {
-				$settings->subheading_font_typo_responsive['line_height'] = array(
-					'length' => round( $settings->subheading_line_height['small'] / $settings->subheading_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->subheading_line_height['small'] ) && is_numeric( $settings->subheading_font_size['small'] ) ) {
+					$settings->subheading_font_typo_responsive['line_height'] = array(
+						'length' => round( $settings->subheading_line_height['small'] / $settings->subheading_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 
 			// Text typography settings.
@@ -896,24 +904,28 @@ class UABBSubscribeFormModule extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->text_line_height['desktop'] ) && isset( $settings->text_font_size['desktop'] ) && 0 != $settings->text_font_size['desktop'] && ! isset( $settings->text_line_height_unit ) ) {
-
-				$settings->text_font_typo['line_height'] = array(
-					'length' => round( $settings->text_line_height['desktop'] / $settings->text_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->text_line_height['desktop'] ) && is_numeric( $settings->text_font_size['desktop'] ) ) {
+					$settings->text_font_typo['line_height'] = array(
+						'length' => round( $settings->text_line_height['desktop'] / $settings->text_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->text_line_height['medium'] ) && isset( $settings->text_font_size['medium'] ) && 0 != $settings->text_font_size['medium'] && ! isset( $settings->text_line_height_unit_medium ) ) {
-
-				$settings->text_font_typo_medium['line_height'] = array(
-					'length' => round( $settings->text_line_height['medium'] / $settings->text_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->text_line_height['medium'] ) && is_numeric( $settings->text_font_size['medium'] ) ) {
+					$settings->text_font_typo_medium['line_height'] = array(
+						'length' => round( $settings->text_line_height['medium'] / $settings->text_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->text_line_height['small'] ) && isset( $settings->text_font_size['small'] ) && 0 != $settings->text_font_size['small'] && ! isset( $settings->text_line_height_unit_responsive ) ) {
-				$settings->text_font_typo_responsive['line_height'] = array(
-					'length' => round( $settings->text_line_height['small'] / $settings->text_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->text_line_height['small'] ) && is_numeric( $settings->text_font_size['small'] ) ) {
+					$settings->text_font_typo_responsive['line_height'] = array(
+						'length' => round( $settings->text_line_height['small'] / $settings->text_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 
 			// Inputs typography settings.
@@ -956,24 +968,28 @@ class UABBSubscribeFormModule extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->input_line_height['desktop'] ) && isset( $settings->input_font_size['desktop'] ) && 0 != $settings->input_font_size['desktop'] && ! isset( $settings->input_line_height_unit ) ) {
-
-				$settings->input_font_typo['line_height'] = array(
-					'length' => round( $settings->input_line_height['desktop'] / $settings->input_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->input_line_height['desktop'] ) && is_numeric( $settings->input_font_size['desktop'] ) ) {
+					$settings->input_font_typo['line_height'] = array(
+						'length' => round( $settings->input_line_height['desktop'] / $settings->input_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->input_line_height['medium'] ) && isset( $settings->input_font_size['medium'] ) && 0 != $settings->input_font_size['medium'] && ! isset( $settings->input_line_height_unit_medium ) ) {
-
-				$settings->input_font_typo_medium['line_height'] = array(
-					'length' => round( $settings->input_line_height['medium'] / $settings->input_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->input_line_height['medium'] ) && is_numeric( $settings->input_font_size['medium'] ) ) {
+					$settings->input_font_typo_medium['line_height'] = array(
+						'length' => round( $settings->input_line_height['medium'] / $settings->input_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->input_line_height['small'] ) && isset( $settings->input_font_size['small'] ) && 0 != $settings->input_font_size['small'] && ! isset( $settings->input_line_height_unit_responsive ) ) {
-				$settings->input_font_typo_responsive['line_height'] = array(
-					'length' => round( $settings->input_line_height['small'] / $settings->input_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->input_line_height['small'] ) && is_numeric( $settings->input_font_size['small'] ) ) {
+					$settings->input_font_typo_responsive['line_height'] = array(
+						'length' => round( $settings->input_line_height['small'] / $settings->input_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 
 			// Button typography settings.
@@ -1016,24 +1032,28 @@ class UABBSubscribeFormModule extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->btn_line_height['desktop'] ) && isset( $settings->btn_font_size['desktop'] ) && 0 != $settings->btn_font_size['desktop'] && ! isset( $settings->btn_line_height_unit ) ) {
-
-				$settings->button_font_typo['line_height'] = array(
-					'length' => round( $settings->btn_line_height['desktop'] / $settings->btn_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->btn_line_height['desktop'] ) && is_numeric( $settings->btn_font_size['desktop'] ) ) {
+					$settings->button_font_typo['line_height'] = array(
+						'length' => round( $settings->btn_line_height['desktop'] / $settings->btn_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->btn_line_height['medium'] ) && isset( $settings->btn_font_size['medium'] ) && 0 != $settings->btn_font_size['medium'] && ! isset( $settings->btn_line_height_unit_medium ) ) {
-
-				$settings->button_font_typo_medium['line_height'] = array(
-					'length' => round( $settings->btn_line_height['medium'] / $settings->btn_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->btn_line_height['medium'] ) && is_numeric( $settings->btn_font_size['medium'] ) ) {
+					$settings->button_font_typo_medium['line_height'] = array(
+						'length' => round( $settings->btn_line_height['medium'] / $settings->btn_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->btn_line_height['small'] ) && isset( $settings->btn_font_size['small'] ) && 0 != $settings->btn_font_size['small'] && ! isset( $settings->btn_line_height_unit_responsive ) ) {
-				$settings->button_font_typo_responsive['line_height'] = array(
-					'length' => round( $settings->btn_line_height['small'] / $settings->btn_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->btn_line_height['small'] ) && is_numeric( $settings->btn_font_size['small'] ) ) {
+					$settings->button_font_typo_responsive['line_height'] = array(
+						'length' => round( $settings->btn_line_height['small'] / $settings->btn_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->padding ) ) {
 

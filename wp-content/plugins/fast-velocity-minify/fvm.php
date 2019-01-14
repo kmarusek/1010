@@ -5,7 +5,7 @@ Plugin URI: http://fastvelocity.com
 Description: Improve your speed score on GTmetrix, Pingdom Tools and Google PageSpeed Insights by merging and minifying CSS and JavaScript files into groups, compressing HTML and other speed optimizations. 
 Author: Raul Peixoto
 Author URI: http://fastvelocity.com
-Version: 2.5.1
+Version: 2.5.5
 License: GPL2
 
 ------------------------------------------------------------------------
@@ -88,17 +88,12 @@ $wp_home = site_url();   # get the current wordpress installation url
 $wp_domain = trim(str_ireplace(array('http://', 'https://'), '', trim($wp_home, '/')));
 $wp_home_path = ABSPATH;
 
-# cleanup, delete any minification files older than 45 days (most probably unused files)
-if ($handle = opendir($cachedir.'/')) {
-while (false !== ($file = readdir($handle))) { $file = $cachedir.'/'.$file; if (is_file($file) && time() - filemtime($file) >= 86400 * 45) { unlink($file); } }
-closedir($handle);
-}
-
 # default globals
 $fastvelocity_min_global_js_done = array();
 $fvm_collect_google_fonts = array();
 $collect_preload_css = array();
 $collect_preload_js = array();
+$csscollect = array();
 $fvm_debug = get_option('fastvelocity_fvm_debug');
 
 ###########################################
@@ -106,11 +101,12 @@ $fvm_debug = get_option('fastvelocity_fvm_debug');
 ###########################################
 
 # options from the database, false if not set
-$ignore = array_map('trim', explode(PHP_EOL, get_option('fastvelocity_min_ignore', '')));
-$blacklist = array_map('trim', explode(PHP_EOL, get_option('fastvelocity_min_blacklist', '')));
-$ignorelist = array_map('trim', explode(PHP_EOL, get_option('fastvelocity_min_ignorelist', '')));
-$fvm_min_excludecsslist = array_map('trim', explode(PHP_EOL, get_option('fastvelocity_min_excludecsslist', '')));
-$fvm_min_excludejslist = array_map('trim', explode(PHP_EOL, get_option('fastvelocity_min_excludejslist', '')));
+$ignore = array_filter(array_map('trim', explode(PHP_EOL, get_option('fastvelocity_min_ignore', ''))));
+$blacklist = array_filter(array_map('trim', explode(PHP_EOL, get_option('fastvelocity_min_blacklist', ''))));
+$ignorelist = array_filter(array_map('trim', explode(PHP_EOL, get_option('fastvelocity_min_ignorelist', ''))));
+$fvm_min_excludecsslist = array_filter(array_map('trim', explode(PHP_EOL, get_option('fastvelocity_min_excludecsslist', ''))));
+$fvm_min_excludejslist = array_filter(array_map('trim', explode(PHP_EOL, get_option('fastvelocity_min_excludejslist', ''))));
+
 $fvm_enable_purgemenu = get_option('fastvelocity_min_enable_purgemenu');
 $default_protocol = get_option('fastvelocity_min_default_protocol', 'dynamic');
 $disable_js_merge = get_option('fastvelocity_min_disable_js_merge');
@@ -120,7 +116,6 @@ $disable_css_minification = get_option('fastvelocity_min_disable_css_minificatio
 $remove_print_mediatypes = get_option('fastvelocity_min_remove_print_mediatypes'); 
 $skip_html_minification = get_option('fastvelocity_min_skip_html_minification');
 $strip_htmlcomments = get_option('fastvelocity_min_strip_htmlcomments');
-$skip_cssorder = get_option('fastvelocity_min_skip_cssorder');
 $skip_google_fonts = get_option('fastvelocity_min_skip_google_fonts');
 $skip_emoji_removal = get_option('fastvelocity_min_skip_emoji_removal');
 $fvm_clean_header_one = get_option('fastvelocity_fvm_clean_header_one');
@@ -128,10 +123,12 @@ $enable_defer_js = get_option('fastvelocity_min_enable_defer_js');
 $exclude_defer_jquery = get_option('fastvelocity_min_exclude_defer_jquery');
 $force_inline_css = get_option('fastvelocity_min_force_inline_css');
 $force_inline_css_footer = get_option('fastvelocity_min_force_inline_css_footer');
+$disable_css_inline_merge = get_option('fastvelocity_min_disable_css_inline_merge');
 $remove_googlefonts = get_option('fastvelocity_min_remove_googlefonts');
 $defer_for_pagespeed = get_option('fastvelocity_min_defer_for_pagespeed');
 $defer_for_pagespeed_optimize = get_option('fastvelocity_min_defer_for_pagespeed_optimize');
 $exclude_defer_login = get_option('fastvelocity_min_exclude_defer_login');
+$skip_defer_lists = get_option('fastvelocity_min_skip_defer_lists');
 $fvm_fix_editor = get_option('fastvelocity_min_fvm_fix_editor');
 $fvmloadcss = get_option('fastvelocity_min_loadcss');
 $fvm_remove_css = get_option('fastvelocity_min_fvm_removecss');
@@ -201,8 +198,9 @@ if(is_admin()) {
 			
 			# merge, if inline is not selected
 			if($force_inline_css != true) {
-				add_action('wp_print_styles', 'fastvelocity_min_merge_header_css', PHP_INT_MAX ); 
-				add_action('wp_print_footer_scripts', 'fastvelocity_min_merge_footer_css', 9.999999 );
+				add_filter('style_loader_tag', 'fastvelocity_min_merge_css', PHP_INT_MAX, 4 );
+				add_action('wp_print_styles','fastvelocity_add_google_fonts_merged', PHP_INT_MAX);
+				add_action('wp_print_footer_scripts','fastvelocity_add_google_fonts_merged', PHP_INT_MAX );
 			} else {
 				add_filter('style_loader_tag', 'fastvelocity_optimizecss', PHP_INT_MAX, 4 );
 				add_action('wp_print_styles','fastvelocity_add_google_fonts_merged', PHP_INT_MAX);
@@ -233,14 +231,17 @@ if(is_admin()) {
 			add_action('template_redirect', 'fastvelocity_min_html_compression_start', PHP_INT_MAX);
 		}
 		
-		# add the CSS async polyfil + LoadAsync JavaScript functions
-		add_action('wp_footer', 'fvm_add_loadcss', PHP_INT_MAX); 
+		# add the LoadCSS polyfil
+		if($fvmloadcss || $fvm_fawesome_method == 2 || $fvm_gfonts_method == 2) {
+			add_action('wp_footer', 'fvm_add_loadcss', PHP_INT_MAX);
+		}
+		
+		# add the LoadAsync JavaScript function
 		add_action('wp_head', 'fvm_add_loadasync', 0); 
 		
 		# remove query from static assets and process defering (if enabled)
 		add_filter('style_loader_src', 'fastvelocity_remove_cssjs_ver', 10, 2);
 		add_filter('script_loader_tag', 'fastvelocity_min_defer_js', 10, 3); 
-		add_filter('script_loader_tag', 'fastvelocity_min_defer_js_optimize', PHP_INT_MAX, 3);
 
 	}
 }
@@ -253,13 +254,13 @@ global $fvm_fix_editor, $disable_js_merge, $disable_css_merge, $skip_emoji_remov
 	if($fvm_fix_editor == true && is_user_logged_in()) {
 		remove_action('wp_print_scripts', 'fastvelocity_min_merge_header_scripts', PHP_INT_MAX );
 		remove_action('wp_print_footer_scripts', 'fastvelocity_min_merge_footer_scripts', 9.999999 ); 
-		remove_action('wp_print_styles', 'fastvelocity_min_merge_header_css', PHP_INT_MAX ); 
-		remove_action('wp_print_footer_scripts', 'fastvelocity_min_merge_footer_css', 9.999999 );
+		remove_filter('style_loader_tag', 'fastvelocity_min_merge_css', PHP_INT_MAX, 4 );
+		remove_action('wp_print_styles', 'fastvelocity_add_google_fonts_merged', PHP_INT_MAX);
+		remove_action('wp_print_footer_scripts', 'fastvelocity_add_google_fonts_merged', PHP_INT_MAX );
 		remove_action('init', 'fastvelocity_min_disable_wp_emojicons');
 		remove_action('template_redirect', 'fastvelocity_min_html_compression_start', PHP_INT_MAX);
 		remove_filter('style_loader_src', 'fastvelocity_remove_cssjs_ver', 10, 2);
 		remove_filter('script_loader_tag', 'fastvelocity_min_defer_js', 10, 3); 
-		remove_filter('script_loader_tag', 'fastvelocity_min_defer_js_optimize', 10, 3);
 	} 
 }
 
@@ -347,13 +348,13 @@ function fastvelocity_min_register_settings() {
     register_setting('fvm-group', 'fastvelocity_min_remove_print_mediatypes');
     register_setting('fvm-group', 'fastvelocity_min_skip_html_minification');
 	register_setting('fvm-group', 'fastvelocity_min_strip_htmlcomments');
-    register_setting('fvm-group', 'fastvelocity_min_skip_cssorder');
 	register_setting('fvm-group', 'fastvelocity_min_skip_google_fonts');
 	register_setting('fvm-group', 'fastvelocity_min_skip_fontawesome_fonts');
 	register_setting('fvm-group', 'fastvelocity_min_skip_emoji_removal');
 	register_setting('fvm-group', 'fastvelocity_fvm_clean_header_one');
 	register_setting('fvm-group', 'fastvelocity_min_enable_defer_js');
 	register_setting('fvm-group', 'fastvelocity_min_exclude_defer_jquery');
+	register_setting('fvm-group', 'fastvelocity_min_disable_css_inline_merge');
 	register_setting('fvm-group', 'fastvelocity_min_force_inline_css');
 	register_setting('fvm-group', 'fastvelocity_min_force_inline_css_footer');
 	register_setting('fvm-group', 'fastvelocity_min_remove_googlefonts');
@@ -362,6 +363,7 @@ function fastvelocity_min_register_settings() {
 	register_setting('fvm-group', 'fastvelocity_min_defer_for_pagespeed');
 	register_setting('fvm-group', 'fastvelocity_min_defer_for_pagespeed_optimize');
 	register_setting('fvm-group', 'fastvelocity_min_exclude_defer_login');
+	register_setting('fvm-group', 'fastvelocity_min_skip_defer_lists');
 	register_setting('fvm-group', 'fastvelocity_min_fvm_fix_editor');
 	register_setting('fvm-group', 'fastvelocity_min_fvm_cdn_url');
 	register_setting('fvm-group', 'fastvelocity_min_fvm_cdn_force');
@@ -718,21 +720,21 @@ Disable CSS processing<span class="note-info">[ If selected, this plugin will ig
 <input name="fastvelocity_min_disable_css_minification" type="checkbox" id="fastvelocity_min_disable_css_minification" value="1" <?php echo checked(1 == get_option('fastvelocity_min_disable_css_minification'), true, false); ?>>
 Disable minification on CSS files <span class="note-info">[ If selected, CSS files will be merged but not minified ]</span></label>
 <br />
-<label for="fastvelocity_min_skip_cssorder">
-<input name="fastvelocity_min_skip_cssorder" type="checkbox" id="fastvelocity_min_skip_cssorder" value="1" <?php echo checked(1 == get_option('fastvelocity_min_skip_cssorder'), true, false); ?> >
-Preserve the order of CSS files <span class="note-info">[ If selected, you will have better CSS compatibility when merging but possibly more CSS files ]</span></label>
-<br />
 <label for="fastvelocity_min_remove_print_mediatypes">
 <input name="fastvelocity_min_remove_print_mediatypes" type="checkbox" id="fastvelocity_min_remove_print_mediatypes" value="1" <?php echo checked(1 == get_option('fastvelocity_min_remove_print_mediatypes'), true, false); ?> >
-Remove the "Print" related stylesheets <span class="note-info">[ If selected, CSS files of mediatype "print" will be removed from the site ]</span></label>
+Disable the "Print" related stylesheets <span class="note-info">[ If selected, CSS files of mediatype "print" will be removed from the site ]</span></label>
+<br />
+<label for="fastvelocity_min_disable_css_inline_merge">
+<input name="fastvelocity_min_disable_css_inline_merge" type="checkbox" id="fastvelocity_min_disable_css_inline_merge" value="1" <?php echo checked(1 == get_option('fastvelocity_min_disable_css_inline_merge'), true, false); ?>>
+Disable merging of inlined CSS code <span class="note-info">[ If selected, existing inline CSS will be inlined after the FVM generated CSS file instead of merged together]</span></label>
 <br />
 <label for="fastvelocity_min_force_inline_css_footer">
 <input name="fastvelocity_min_force_inline_css_footer" type="checkbox" id="fastvelocity_min_force_inline_css_footer" value="1" <?php echo checked(1 == get_option('fastvelocity_min_force_inline_css_footer'), true, false); ?>>
-Inline only the CSS in the footer <span class="note-info">[ If selected, any FVM generated CSS files in the footer, will be inlined ]</span></label>
+Inline CSS in the footer <span class="note-info">[ If selected, any FVM generated CSS files in the footer, will be inlined ]</span></label>
 <br />
 <label for="fastvelocity_min_force_inline_css">
 <input name="fastvelocity_min_force_inline_css" type="checkbox" id="fastvelocity_min_force_inline_css" value="1" <?php echo checked(1 == get_option('fastvelocity_min_force_inline_css'), true, false); ?>>
-Inline all FVM generated CSS files <span class="note-info">[ If selected, any FVM generated CSS files (header + footer) will be inlined ]</span></label>
+Inline CSS both in the header and footer <span class="note-info">[ If selected, any FVM generated CSS files (header + footer) will be inlined ]</span></label>
 <br />
 </fieldset></td>
 </tr>
@@ -763,7 +765,7 @@ Disable minification on JS files <span class="note-info">[ If selected, JS files
 <p class="fvm-bold-green fvm-rowintro">Some themes and plugins "need" render blocking scripts to work, so please take a look at the dev console for errors.</p>
 <label for="fastvelocity_min_enable_defer_js">
 <input name="fastvelocity_min_enable_defer_js" type="checkbox" id="fastvelocity_min_enable_defer_js" value="1" <?php echo checked(1 == get_option('fastvelocity_min_enable_defer_js'), true, false); ?>>
-Enable defer parsing of JS files globally <span class="note-info">[ Not all browsers, themes or plugins support this. Beware of broken functionality and design ]</span></label>
+Enable defer parsing of FVM JS files globally <span class="note-info">[ Not all browsers, themes or plugins support this. Beware of broken functionality and design ]</span></label>
 <br />
 
 <label for="fastvelocity_min_exclude_defer_jquery">
@@ -772,9 +774,12 @@ Skip deferring the jQuery library <span class="note-info">[ Will probably fix "u
 <br />
 <label for="fastvelocity_min_exclude_defer_login">
 <input name="fastvelocity_min_exclude_defer_login" type="checkbox" id="fastvelocity_min_exclude_defer_login" value="1" <?php echo checked(1 == get_option('fastvelocity_min_exclude_defer_login'), true, false); ?> >
-Skip deferring completely on the login page <span class="note-info">[ If selected, will disable JS deferring on your login page ]</span></label>
+Skip deferring JS on the login page <span class="note-info">[ If selected, will disable JS deferring on your login page ]</span></label>
 <br />
-
+<label for="fastvelocity_min_skip_defer_lists">
+<input name="fastvelocity_min_skip_defer_lists" type="checkbox" id="fastvelocity_min_skip_defer_lists" value="1" <?php echo checked(1 == get_option('fastvelocity_min_skip_defer_lists'), true, false); ?> >
+Skip deferring the ignore list <span class="note-info">[ If selected, files on the blacklist, ignore list, etc, won't be deferred ]</span></label>
+<br />
 
 </fieldset></td>
 </tr>
@@ -786,18 +791,15 @@ Skip deferring completely on the login page <span class="note-info">[ If selecte
 <fieldset>
 <label for="fastvelocity_min_defer_for_pagespeed">
 <input name="fastvelocity_min_defer_for_pagespeed" type="checkbox" id="fastvelocity_min_defer_for_pagespeed" value="1" <?php echo checked(1 == get_option('fastvelocity_min_defer_for_pagespeed'), true, false); ?>>
-Enable defer of JS for PSI <span class="note-info">[ Will use JavaScript to defer the files conditionally ]</span></label>
+Enable defer of all JS files for PSI only <span class="note-info">[ Will use JavaScript to defer all JS files for PSI ]</span></label>
 
 <br />
 <label for="fastvelocity_min_defer_for_pagespeed_optimize">
 <input name="fastvelocity_min_defer_for_pagespeed_optimize" type="checkbox" id="fastvelocity_min_defer_for_pagespeed_optimize" value="1" <?php echo checked(1 == get_option('fastvelocity_min_defer_for_pagespeed_optimize'), true, false); ?>>
-Exclude JS files in the "ignore list" from PSI <span class="note-info">[ This only works with "Enable defer of JS for PSI" enabled ]</span></label>
+Exclude JS files in the "ignore list" from PSI <span class="note-info">[ This will hide the "ignored files" from PSI instead of simply deferring ]</span></label>
 
 </fieldset></td>
 </tr>
-
-
-
 
 </tbody></table>
 
@@ -1333,19 +1335,21 @@ for($i=0,$l=count($header);$i<$l;$i++) {
 			$log = "PROCESSED on ".date('r').PHP_EOL.$log."PROCESSED from ".home_url(add_query_arg( NULL, NULL )).PHP_EOL;
 			
 			# generate cache, write log
-			file_put_contents($file.'.txt', $log);
-			file_put_contents($file, $code);
-			file_put_contents($file.'.gz', gzencode(file_get_contents($file), 9));
-			
-			# permissions
-			fastvelocity_fix_permission_bits($file.'.txt');
-			fastvelocity_fix_permission_bits($file);
-			fastvelocity_fix_permission_bits($file.'.gz');
-			
-			# brotli static support
-			if(function_exists('brotli_compress')) {
-				file_put_contents($file.'.br', brotli_compress(file_get_contents($file), 9));
-				fastvelocity_fix_permission_bits($file.'.br');
+			if(!empty($code)) {
+				file_put_contents($file.'.txt', $log);
+				file_put_contents($file, $code);
+				file_put_contents($file.'.gz', gzencode(file_get_contents($file), 9));
+				
+				# permissions
+				fastvelocity_fix_permission_bits($file.'.txt');
+				fastvelocity_fix_permission_bits($file);
+				fastvelocity_fix_permission_bits($file.'.gz');
+				
+				# brotli static support
+				if(function_exists('brotli_compress')) {
+					file_put_contents($file.'.br', brotli_compress(file_get_contents($file), 9));
+					fastvelocity_fix_permission_bits($file.'.br');
+				}
 			}
 		}
 		
@@ -1515,19 +1519,21 @@ for($i=0,$l=count($footer);$i<$l;$i++) {
 			$log = "PROCESSED on ".date('r').PHP_EOL.$log."PROCESSED from ".home_url(add_query_arg( NULL, NULL )).PHP_EOL;
 		
 			# generate cache, write log
-			file_put_contents($file.'.txt', $log);
-			file_put_contents($file, $code);
-			file_put_contents($file.'.gz', gzencode(file_get_contents($file), 9));
-			
-			# permissions
-			fastvelocity_fix_permission_bits($file.'.txt');
-			fastvelocity_fix_permission_bits($file);
-			fastvelocity_fix_permission_bits($file.'.gz');
-			
-			# brotli static support
-			if(function_exists('brotli_compress')) {
-				file_put_contents($file.'.br', brotli_compress(file_get_contents($file), 9));
-				fastvelocity_fix_permission_bits($file.'.br');
+			if(!empty($code)) {
+				file_put_contents($file.'.txt', $log);
+				file_put_contents($file, $code);
+				file_put_contents($file.'.gz', gzencode(file_get_contents($file), 9));
+				
+				# permissions
+				fastvelocity_fix_permission_bits($file.'.txt');
+				fastvelocity_fix_permission_bits($file);
+				fastvelocity_fix_permission_bits($file.'.gz');
+				
+				# brotli static support
+				if(function_exists('brotli_compress')) {
+					file_put_contents($file.'.br', brotli_compress(file_get_contents($file), 9));
+					fastvelocity_fix_permission_bits($file.'.br');
+				}
 			}
 		}
 		
@@ -1568,7 +1574,7 @@ $wp_scripts->done = $done;
 # enable defer for JavaScript (WP 4.1 and above) and remove query strings for ignored files
 ###########################################
 function fastvelocity_min_defer_js($tag, $handle, $src) {
-global $ignore, $blacklist, $ignorelist, $enable_defer_js, $defer_for_pagespeed, $wp_domain, $exclude_defer_login, $fvm_fix_editor, $fvmualist, $fvm_debug;
+global $ignore, $blacklist, $ignorelist, $enable_defer_js, $defer_for_pagespeed, $wp_domain, $exclude_defer_login, $fvm_fix_editor, $fvmualist, $defer_for_pagespeed_optimize, $exclude_defer_jquery, $skip_defer_lists;
 
 # no query strings
 $tag = trim($tag); # must cleanup
@@ -1578,690 +1584,398 @@ if (stripos($src, '?ver') !== false) {
 	$src = $srcf; 
 }
 
-# should we exclude defer on the login page?
-if($exclude_defer_login == true && stripos($_SERVER["SCRIPT_NAME"], strrchr(wp_login_url(), '/')) !== false){ return $tag; }
-
-# reprocess the ignore list to remove the /fvm/cache/ from the list (else won't defer)
-$nignore = array(); if(is_array($ignore)) { foreach ($ignore as $i) { if($i != '/fvm/cache/') { $nignore[] = $i; } } }
-
-# return if in any ignore list
-if (count($nignore) > 0 && fastvelocity_min_in_arrayi($src, $nignore)) { return $tag; }
-if (count($blacklist) > 0 && fastvelocity_min_in_arrayi($src, $blacklist)) { return $tag; }
-if (count($ignorelist) > 0 && fastvelocity_min_in_arrayi($src, $ignorelist)) { return $tag; }
-
 # fix page editors
 if($fvm_fix_editor == true && is_user_logged_in()) { return $tag; }
 
-# get available nodes and add create with defer tag (if not async)
-$dom = new DOMDocument();
-libxml_use_internal_errors(true);
-@$dom->loadHTML($tag);
-$nodes = $dom->getElementsByTagName('script'); 
-$tagdefer = '';
-if ($nodes->length != 0) { 
-	$node = $dom->getElementsByTagName('script')->item(0);
-	if (!$node->hasAttribute('async')) { $node->setAttribute('defer','defer'); };
-	$tagdefer = $dom->saveHTML($node);
+# return if defer option is not selected
+if ($defer_for_pagespeed != true && $enable_defer_js != true) { return $tag; }
+
+# Skip deferring the jQuery library option
+if($exclude_defer_jquery != false && (stripos($tag, '/jquery.js') !== false || stripos($tag, '/jquery.min.js') !== false || (stripos($tag, '/jquery-') !== false && stripos($tag, '.js') !== false))) {
+	return $tag;
 }
-
-# when to defer, order matters
-if($enable_defer_js == true) { return $tagdefer; }
-
-# return if no defer, and there's no defer for pagespeed... else pagespeed processing
-if ($defer_for_pagespeed != true) { return $tag; } else { 
-
-# return if there are linebreaks (will break document.write)
-if (stripos($tag, PHP_EOL) !== false) { return $tag; }
 
 # return if external script url https://www.chromestatus.com/feature/5718547946799104
 if (fvm_is_local_domain($src) !== true) { return $tag; }
 
+# bypass if there are linebreaks (will break document.write) or already being optimized
+if (stripos($tag, PHP_EOL) !== false || stripos($tag, 'navigator.userAgent.match') !== false) { 
+	return $tag;
+}
 
+# should we exclude defer on the login page?
+if($exclude_defer_login == true && stripos($_SERVER["SCRIPT_NAME"], strrchr(wp_login_url(), '/')) !== false){ 
+	return $tag; 
+}
 
-# print code if there are no linebreaks, or return
-if(!empty($tagdefer)) { 
-	$deferinsights = '<script type="text/javascript">if(navigator.userAgent.match(/'.implode('|', $fvmualist).'/i)){document.write('.json_encode($tagdefer).');}else{document.write('.json_encode($tag).');}</script>';	
-	return preg_replace('#<script(.*?)>(.*?)</script>#is', $deferinsights, $tag);
+# add defer attribute, but only if not having async or defer already
+if (stripos($tag, 'defer') === false && stripos($tag, 'async') === false) {
+	
+	# defer tag globally
+	$jsdefer = str_ireplace('<script ', '<script defer ', $tag);
+	
+	# defer tag for PSI only
+	$jsdeferpsionly = '<script type="text/javascript">if(navigator.userAgent.match(/'.implode('|', $fvmualist).'/i)){document.write('.json_encode($jsdefer).');}else{document.write('.json_encode($tag).');}</script>';
+	
+	# hide tag from PSI
+	$jsdeferhidepsi = '<script type="text/javascript">if(!navigator.userAgent.match(/'.implode('|', $fvmualist).'/i)){document.write('.json_encode($tag).');}</script>';
+	
+	# must return by this order...
+	
+	# remove FVM from the ignore list
+	array_filter($ignore, function ($var) { return (stripos($var, '/fvm/') === false); });
+	
+	# Exclude JS files in the "ignore list" from PSI
+	if($defer_for_pagespeed_optimize != false) {
+		if((count($ignore) > 0 && fastvelocity_min_in_arrayi($src, $nignore)) || (count($blacklist) > 0 && fastvelocity_min_in_arrayi($src, $blacklist)) || (count($ignorelist) > 0 && fastvelocity_min_in_arrayi($src, $ignorelist))) {
+			return $jsdeferhidepsi;
+		}
+	}
+	
+	# Enable defer of JS files for PSI
+	if($defer_for_pagespeed != false) {
+		return $jsdeferpsionly;
+	}
+	
+	# Enable defer parsing of FVM JS files globally
+	if($enable_defer_js == true) {
+		
+		# consider "Skip deferring the ignore list"
+		if($skip_defer_lists != false && ((count($nignore) > 0 && fastvelocity_min_in_arrayi($src, $nignore)) || (count($blacklist) > 0 && fastvelocity_min_in_arrayi($src, $blacklist)) || (count($ignorelist) > 0 && fastvelocity_min_in_arrayi($src, $ignorelist)))) {
+			return $tag;
+		} else {
+			return $jsdefer;
+		}
+	}
+
 }
 
 # fallback
-return $tag; 
-}
-
+return $tag;
 }
 ###########################################
 
 
 
 ###########################################
-# process header css ######################
+# process css #############################
 ###########################################
-function fastvelocity_min_merge_header_css() {
-global $wp_styles, $wp_domain, $wp_home, $wp_home_path, $cachedir, $cachedirurl, $ignore, $disable_css_merge, $disable_css_minification, $skip_google_fonts, $skip_cssorder, $remove_print_mediatypes, $force_inline_googlefonts, $css_hide_googlefonts, $min_async_googlefonts, $remove_googlefonts, $fvmloadcss, $fvm_remove_css, $fvmualist, $fvm_min_excludecsslist, $fvm_debug, $fvm_min_excludecsslist, $fvm_fawesome_method;
-if(!is_object($wp_styles)) { return false; }
-$ctime = get_option('fvm-last-cache-update', '0'); 
-$styles = wp_clone($wp_styles);
-$styles->all_deps($styles->queue);
-$done = $styles->done;
-$header = array();
-$google_fonts = array();
-$process = array();
-$inline_css = array();
-
-# dequeue all styles
-if($fvm_remove_css != false) {
-	foreach( $styles->to_do as $handle ) :
-		$done = array_merge($done, array($handle));
-	endforeach;
-	
-	# remove from queue
-	$wp_styles->done = $done;
-	return false;
-}
-
-# add defaults to ignore list
-$ignore = fastvelocity_default_ignore($ignore);
-
-# get list of handles to process, dequeue duplicate css urls and keep empty source handles (for dependencies)
-$uniq = array(); $gfonts = array();
-foreach( $styles->to_do as $handle):
-
-	# conditionals
-	$conditional = NULL; if(isset($wp_styles->registered[$handle]->extra["conditional"])) { 
-		$conditional = $wp_styles->registered[$handle]->extra["conditional"]; # such as ie7, ie8, ie9, etc
-	}
-	
-	# mediatype
-	$mt = isset($wp_styles->registered[$handle]->args) ? $wp_styles->registered[$handle]->args : 'all';
-	if ($mt == 'screen' || $mt == 'screen, print' || empty($mt) || is_null($mt) || $mt == false) { $mt = 'all'; } 
-	$mediatype = $mt;
-	
-	# full url or empty
-	$hurl = fastvelocity_min_get_hurl($wp_styles->registered[$handle]->src, $wp_domain, $wp_home);
-	
-	# mark duplicates as done and remove from the queue
-	if(!empty($hurl)) {
-		$key = hash('adler32', $hurl); 
-		if (isset($uniq[$key])) { $done = array_merge($done, array($handle)); continue; } else { $uniq[$key] = $handle; }
-	}
-	
-	# Exclude specific CSS files from PSI?
-	if($fvm_min_excludecsslist != false && is_array($fvm_min_excludecsslist) && fastvelocity_min_in_arrayi($hurl, $fvm_min_excludecsslist)) {
-		$cssguid = 'fvm'.hash('adler32', $hurl);
-		echo '<script type="text/javascript">if(!navigator.userAgent.match(/'.implode('|', $fvmualist).'/i)){';
-		echo 'var '.$cssguid.'=document.createElement("link");'.$cssguid.'.rel="stylesheet",'.$cssguid.'.type="text/css",'.$cssguid.'.media="async",'.$cssguid.'.href="'.$hurl.'",'.$cssguid.'.onload=function(){'.$cssguid.'.media="'.$mediatype.'"},document.getElementsByTagName("head")[0].appendChild('.$cssguid.');';
-		echo '}</script>';
-		$done = array_merge($done, array($handle)); continue;
-	}
-	
-	# font awesome processing, async css
-	if($fvm_fawesome_method == 2 && stripos($hurl, 'font-awesome') !== false) {
-		echo '<link rel="preload" href="'.$hurl.'" as="style" media="'.$mediatype.'" onload="this.onload=null;this.rel=\'stylesheet\'" />';
-		echo '<noscript><link rel="stylesheet" href="'.$hurl.'" media="'.$mediatype.'" /></noscript>';
-		echo '<!--[if IE]><link rel="stylesheet" href="'.$hurl.'" media="'.$mediatype.'" /><![endif]-->';
-		$done = array_merge($done, array($handle)); continue;
-	}	
-	
-	# font awesome processing, async and exclude from PSI
-	if($fvm_fawesome_method == 3 && stripos($hurl, 'font-awesome') !== false) {
-		$cssguid = 'fvm'.hash('adler32', $hurl);
-		echo '<script type="text/javascript">if(!navigator.userAgent.match(/'.implode('|', $fvmualist).'/i)){';
-		echo 'var '.$cssguid.'=document.createElement("link");'.$cssguid.'.rel="stylesheet",'.$cssguid.'.type="text/css",'.$cssguid.'.media="async",'.$cssguid.'.href="'.$hurl.'",'.$cssguid.'.onload=function(){'.$cssguid.'.media="'.$mediatype.'"},document.getElementsByTagName("head")[0].appendChild('.$cssguid.');';
-		echo '}</script>';
-		$done = array_merge($done, array($handle)); continue;
-	}
-	
-	# array of info to save
-	$arr = array('handle'=>$handle, 'url'=>$hurl, 'conditional'=>$conditional, 'mediatype'=>$mediatype);
-	
-	# google fonts to the top (collect and skip process array)
-	if (stripos($hurl, 'fonts.googleapis.com') !== false) { 
-	if($remove_googlefonts != false) { $done = array_merge($done, array($handle)); continue; } # mark as done if to be removed
-	if($skip_google_fonts != true || $force_inline_googlefonts != false) { 
-		$google_fonts[$handle] = $hurl; 
-
-	} else {
-		wp_enqueue_style($handle); # skip google fonts optimization?
-	}
-	continue; 
-	} 
-	
-	# all else
-	$process[$handle] = $arr;
-
-endforeach;
-
-
-# concat google fonts, if enabled
-if(!$skip_google_fonts && count($google_fonts) > 0 || ($force_inline_googlefonts != false && count($google_fonts) > 0)) {
-	foreach ($google_fonts as $h=>$a) { $done = array_merge($done, array($h)); } # mark as done
-	
-	# merge google fonts if force inlining is enabled?
-	$nfonts = array();
-	if($skip_google_fonts != true) {
-		$nfonts[] = fvm_get_protocol(fastvelocity_min_concatenate_google_fonts($google_fonts));
-	} else {
-		foreach ($google_fonts as $a) { if(!empty($a)) { $nfonts[] = $a; } }
-	}
-	
-	# foreach google font (will be one if merged is not disabled)
-	if(count($nfonts) > 0) {
-		foreach($nfonts as $gfurl) {
-	
-			# hide from PSI, async, inline, or default
+# collect all css files as well as inline css code, to be printed later
+function fastvelocity_min_merge_css($html, $handle, $href, $media){
+	global $fvm_debug, $wp_domain, $wp_home, $fvmualist, $fvm_collect_google_fonts, $force_inline_googlefonts, $min_async_googlefonts, $remove_googlefonts, $skip_google_fonts, $css_hide_googlefonts, $remove_print_mediatypes, $ignore, $blacklist, $ignorelist,  $fvm_remove_css, $fvm_min_excludecsslist, $disable_css_minification, $fvm_fix_editor, $fvm_fawesome_method, $csscollect, $disable_css_inline_merge;
+		
+		# current timestamp
+		$ctime = get_option('fvm-last-cache-update', '0'); 
+		
+		# make sure href is complete
+		$href = fastvelocity_min_get_hurl($href, $wp_domain, $wp_home);
+		
+		if($fvm_debug == true) { echo "<!-- FVM DEBUG: Merging CSS processing start $handle / $href -->" . PHP_EOL; }
+		
+		# prevent optimization for these locations
+		if (is_admin() || is_preview() || is_customize_preview() || ($fvm_fix_editor == true && is_user_logged_in())) {
+			return $html;
+		}
+		
+		# remove all css?
+		if($fvm_remove_css != false) {
+			return false; 
+		}
+		
+		# leave conditionals alone
+		$conditional = wp_styles()->get_data($handle, 'conditional');
+		if($conditional != false) {
+			return $html;
+		}
+		
+		# mediatype fix for some plugins + remove print mediatypes
+		if ($media == 'screen' || $media == 'screen, print' || empty($media) || is_null($media) || $media == false) { $media = 'all'; }
+		if($remove_print_mediatypes != false && $media == 'print') {
+			return false; 
+		}
+		
+		# Exclude specific CSS files from PSI?
+		if($fvm_min_excludecsslist != false && is_array($fvm_min_excludecsslist) && fastvelocity_min_in_arrayi($href, $fvm_min_excludecsslist)) {
+			$cssguid = 'fvm'.hash('adler32', $href);
+			echo '<script type="text/javascript">if(!navigator.userAgent.match(/'.implode('|', $fvmualist).'/i)){';
+			echo 'var '.$cssguid.'=document.createElement("link");'.$cssguid.'.rel="stylesheet",'.$cssguid.'.type="text/css",'.$cssguid.'.media="async",'.$cssguid.'.href="'.$href.'",'.$cssguid.'.onload=function(){'.$cssguid.'.media="'.$media.'"},document.getElementsByTagName("head")[0].appendChild('.$cssguid.');';
+			echo '}</script>';
+			return false;
+		}
+		
+		# return if in any ignore or black list
+		$nignore = array(); if(is_array($ignore)) { foreach ($ignore as $i) { if($i != '/fvm/cache/') { $nignore[] = $i; } } }
+		if (count($nignore) > 0 && fastvelocity_min_in_arrayi($href, $nignore) || count($blacklist) > 0 && fastvelocity_min_in_arrayi($href, $blacklist) || count($ignorelist) > 0 && fastvelocity_min_in_arrayi($href, $ignorelist)) { 
+				return $html;
+		}
+		
+		# remove google fonts completely?
+		if($remove_googlefonts != false && stripos($href, 'fonts.googleapis.com') !== false) {
+			return false; 
+		}
+		
+		# handle google fonts here, when merging is disabled
+		if(stripos($href, 'fonts.googleapis.com') !== false && $skip_google_fonts != false) {
+			
+			# hide google fonts from PSI
 			if($css_hide_googlefonts == true) {
-				
-				# make a stylesheet, hide from PSI
-				$cssguid = 'fvm'.hash('adler32', $gfurl);
+				$cssguid = 'fvm'.hash('adler32', $href);
 				echo '<script type="text/javascript">if(!navigator.userAgent.match(/'.implode('|', $fvmualist).'/i)){';
-				echo 'var '.$cssguid.'=document.createElement("link");'.$cssguid.'.rel="stylesheet",'.$cssguid.'.type="text/css",'.$cssguid.'.media="async",'.$cssguid.'.href="'.$gfurl.'",'.$cssguid.'.onload=function(){'.$cssguid.'.media="all"},document.getElementsByTagName("head")[0].appendChild('.$cssguid.');';
-				echo '}</script>';	
-				
-			# async CSS
-			} elseif ($min_async_googlefonts == true) {
-				echo '<link rel="preload" href="'.$gfurl.'" as="style" media="all" onload="this.onload=null;this.rel=\'stylesheet\'" />';
-				echo '<noscript><link rel="stylesheet" href="'.$gfurl.'" media="all" /></noscript>';
-				echo '<!--[if IE]><link rel="stylesheet" href="'.$gfurl.'" media="all" /><![endif]-->';
-			
-			# inline css
-			} elseif($force_inline_googlefonts == true) {
-				
-				# download, minify, cache
-				$tkey = 'css-'.$ctime.'-'.hash('adler32', $gfurl).'.css';
-				$json = false; $json = fvm_get_transient($tkey);
-				if ( $json === false) {
-					$json = fvm_download_and_minify($gfurl, null, $disable_css_minification, 'css', null);
-					if($fvm_debug == true) { echo "<!-- FVM DEBUG: Uncached file processing now for $gfurl -->" . PHP_EOL; }
-					fvm_set_transient($tkey, $json);
-				}
-				
-				# decode 
-				$res = json_decode($json, true);
-				
-				# response has failed
-				if($res['status'] != true) {
-					$log.= $res['log'];
-					continue;
-				}
-				
-				# inline css or fail
-				if($res['code'] !== false) { 
-				
-					# add font-display
-					# https://developers.google.com/web/updates/2016/02/font-display
-					$res['code'] = str_ireplace('font-style:normal;', 'font-display:block;font-style:normal;', $res['code']);
-					
-					# inline
-					echo '<style type="text/css" media="all">'.$res['code'].'</style>'.PHP_EOL;				
-				} else {
-					echo "<!-- GOOGLE FONTS REQUEST FAILED for $gfurl -->\n";
-				}
-				
-			# fallback, enqueue google fonts
-			} else {
-				wp_enqueue_style('header-fvm-fonts', $gfurl, array(), null, 'all');
+				echo 'var '.$cssguid.'=document.createElement("link");'.$cssguid.'.rel="stylesheet",'.$cssguid.'.type="text/css",'.$cssguid.'.media="async",'.$cssguid.'.href="'.$href.'",'.$cssguid.'.onload=function(){'.$cssguid.'.media="all"},document.getElementsByTagName("head")[0].appendChild('.$cssguid.');';
+				echo '}</script>';
+				return false; 
 			}
 			
-		}
-	}
-}
-
-
-# get groups of handles
-foreach( $styles->to_do as $handle ) :
-
-# skip already processed google fonts and empty dependencies
-if(isset($google_fonts[$handle])) { continue; }                     # skip google fonts
-if(empty($wp_styles->registered[$handle]->src)) { continue; } 		# skip empty src
-if (fastvelocity_min_in_arrayi($handle, $done)) { continue; }       # skip if marked as done before
-if (!isset($process[$handle])) { continue; } 						# skip if not on our unique process list
-
-# get full url
-$hurl = $process[$handle]['url'];
-$conditional = $process[$handle]['conditional'];
-$mediatype = $process[$handle]['mediatype'];
-
-	# IE only files don't increment things
-	$ieonly = fastvelocity_ie_blacklist($hurl);
-	if($ieonly == true) { continue; }
-	
-	# skip ignore list, conditional css, external css, font-awesome merge
-	if ( (!fastvelocity_min_in_arrayi($hurl, $ignore) && !isset($conditional) && fvm_internal_url($hurl, $wp_home)) 
-		|| empty($hurl) 
-		|| ($fvm_fawesome_method == 1 && stripos($hurl, 'font-awesome') !== false)) {
-	
-	# colect inline css for this handle
-	if(isset($wp_styles->registered[$handle]->extra['after']) && is_array($wp_styles->registered[$handle]->extra['after'])) { 
-		$inline_css[$handle] = fastvelocity_min_minify_css_string(implode('', $wp_styles->registered[$handle]->extra['after'])); # save
-		$wp_styles->registered[$handle]->extra['after'] = null; # dequeue
-	}	
-	
-	# process
-	if(isset($header[count($header)-1]['handle']) || count($header) == 0 || $header[count($header)-1]['media'] != $mediatype) {
-		array_push($header, array('handles'=>array(), 'media'=>$mediatype)); 
-	}
-	
-	# push it to the array
-	array_push($header[count($header)-1]['handles'], $handle);
-
-	# external and ignored css
-	} else {
-		
-		# normal enqueuing
-		array_push($header, array('handle'=>$handle));
-	}
-endforeach;
-
-# reorder CSS by mediatypes
-if(!$skip_cssorder) {
-	if(count($header) > 0) {
-
-		# get unique mediatypes
-		$allmedia = array(); 
-		foreach($header as $array) { 
-			if(isset($array['media'])) { $allmedia[$array['media']] = ''; } 
-		}
-		
-		# extract handles by mediatype
-		$grouphandles = array(); 
-		foreach ($allmedia as $md=>$var) { 
-			foreach($header as $array) { 
-				if (isset($array['media']) && $array['media'] === $md) { 
-					foreach($array['handles'] as $h) { $grouphandles[$md][] = $h; } 
-				} 
-			} 
-		}
-
-		# reset and reorder header by mediatypes
-		$newheader = array();
-		foreach ($allmedia as $md=>$var) { $newheader[] = array('handles' => $grouphandles[$md], 'media'=>$md); }
-		if(count($newheader) > 0) { $header = $newheader; }
-	}
-}
-
-# loop through header css and merge
-for($i=0,$l=count($header);$i<$l;$i++) {
-	if(!isset($header[$i]['handle'])) {
-		
-		# get has for the inline css in this group
-		$inline_css_group = array();
-		foreach($header[$i]['handles'] as $h) { if(isset($inline_css[$h]) && !empty($inline_css[$h])) { $inline_css_group[] = $inline_css[$h]; } }
-		$inline_css_hash = md5(implode('',$inline_css_group));
-		
-		# static cache file info + done
-		$done = array_merge($done, $header[$i]['handles']);		
-		$hash = 'header-'.hash('adler32',implode('',$header[$i]['handles']).$inline_css_hash);
-
-		# create cache files and urls
-		$file = $cachedir.'/'.$hash.'-'.$ctime.'.min.css';
-		$file_url = fvm_get_protocol($cachedirurl.'/'.$hash.'-'.$ctime.'.min.css'); 
-		
-		# generate a new cache file
-		clearstatcache();
-		if (!file_exists($file)) {
-			
-			# code and log initialization
-			$log = '';
-			$code = '';	
-		
-			# minify and write to file
-			foreach($header[$i]['handles'] as $handle) :
-				if(!empty($wp_styles->registered[$handle]->src)) {
-					
-					# get hurl per handle
-					$hurl = fastvelocity_min_get_hurl($wp_styles->registered[$handle]->src, $wp_domain, $wp_home);
-					$printurl = str_ireplace(array(site_url(), home_url(), 'http:', 'https:'), '', $hurl);
-					
-					# download, minify, cache
-					$tkey = 'css-'.$ctime.'-'.hash('adler32', $handle.$hurl).'.css';
-					$json = false; $json = fvm_get_transient($tkey);
-					if ( $json === false) {
-						$json = fvm_download_and_minify($hurl, null, $disable_css_minification, 'css', $handle);
-						if($fvm_debug == true) { echo "<!-- FVM DEBUG: Uncached file processing now for $handle / $hurl -->" . PHP_EOL; }
-						fvm_set_transient($tkey, $json);
-					}
-					
-					# decode 
-					$res = json_decode($json, true);
-					
-					# response has failed
-					if($res['status'] != true) {
-						$log.= $res['log'];
-						continue;
-					}
-					
-					# append code to merged file
-					$code.= $res['code'];
-					$log.= $res['log'];
-					
-					# append inlined styles
-					if(isset($inline_css[$handle]) && !empty($inline_css[$handle])) { 
-						$code.= $inline_css[$handle]; 
-					}
-				
-				# consider dependencies on handles with an empty src
-				} else {
-					wp_dequeue_script($handle); 
-					wp_enqueue_script($handle);
-				}
-			endforeach;	
-			
-			# prepare log
-			$log = "PROCESSED on ".date('r').PHP_EOL.$log."PROCESSED from ".home_url(add_query_arg( NULL, NULL )).PHP_EOL;
-			
-			# generate cache, write log
-			file_put_contents($file.'.txt', $log);
-			file_put_contents($file, $code);
-			file_put_contents($file.'.gz', gzencode(file_get_contents($file), 9));
-			
-			# permissions
-			fastvelocity_fix_permission_bits($file.'.txt');
-			fastvelocity_fix_permission_bits($file);
-			fastvelocity_fix_permission_bits($file.'.gz');
-			
-			# brotli static support
-			if(function_exists('brotli_compress')) {
-				file_put_contents($file.'.br', brotli_compress(file_get_contents($file), 9));
-				fastvelocity_fix_permission_bits($file.'.br');
+			# load google fonts async
+			if($min_async_googlefonts != false) {
+				echo '<link rel="preload" href="'.$href.'" as="style" media="all" onload="this.onload=null;this.rel=\'stylesheet\'" />';
+				echo '<noscript><link rel="stylesheet" href="'.$href.'" media="all" /></noscript>';
+				echo '<!--[if IE]><link rel="stylesheet" href="'.$href.'" media="all" /><![endif]-->';
+				return false; 
 			}
 		}
 		
-		# register and enqueue minified file, consider excluding of mediatype "print" and inline css
-		if ($remove_print_mediatypes != true || ($remove_print_mediatypes == true && $header[$i]['media'] != 'print')) {
-
-			# the developers tab, takes precedence
-			
-			# Async CSS with loadCSS ?
-			if($fvmloadcss != false && $fvm_remove_css != true) {
-				$mt = $header[$i]['media'];
-				echo '<link rel="preload" href="'.$file_url.'" as="style" media="'.$mt.'" onload="this.onload=null;this.rel=\'stylesheet\'" />';
-				echo '<noscript><link rel="stylesheet" href="'.$file_url.'" media="'.$mt.'" /></noscript>';
-				echo '<!--[if IE]><link rel="stylesheet" href="'.$file_url.'" media="'.$mt.'" /><![endif]-->';
-			
-			# enqueue file, if not empty
-			} else {
-				if(file_exists($file) && filesize($file) > 0) {
-					
-					# inline CSS if mediatype is not of type "all" (such as mobile only), if the file is smaller than 20KB
-					if(filesize($file) < 20000 && $header[$i]['media'] != 'all') {
-						echo '<style id="fvm-header-'.$i.'" media="'.$header[$i]['media'].'">'.file_get_contents($file).'</style>';
-					} else {
-						# enqueue it
-						wp_enqueue_style("fvm-header-$i", $file_url, array(), null, $header[$i]['media']);  
-					}
-				} else {
-					# file could not be generated, output something meaningful
-					echo "<!-- ERROR: FVM was not allowed to save it's cache on - $file -->";
-					echo "<!-- Please check if the path above is correct and ensure your server has writting permission there! -->";
-					echo "<!-- If you found a bug, please report this on https://wordpress.org/support/plugin/fast-velocity-minify/ -->";
-				}
-			}
-		}
-
-	# other css need to be requeued for the order of files to be kept
-	} else {
-		wp_dequeue_style($header[$i]['handle']); 
-		wp_enqueue_style($header[$i]['handle']);
-	}
-}
-
-# remove from queue
-$wp_styles->done = $done;
-
-}
-###########################################
-
-
-###########################################
-# process css in the footer ###############
-###########################################
-function fastvelocity_min_merge_footer_css() {
-global $wp_styles, $wp_domain, $wp_home, $wp_home_path, $cachedir, $cachedirurl, $ignore, $disable_css_merge, $disable_css_minification, $skip_google_fonts, $skip_cssorder, $remove_print_mediatypes, $force_inline_googlefonts, $css_hide_googlefonts, $min_async_googlefonts, $remove_googlefonts, $fvmloadcss, $fvm_remove_css, $fvmualist, $fvm_debug, $fvm_fawesome_method, $fvm_min_excludecsslist, $force_inline_css_footer;
-
-if(!is_object($wp_styles)) { return false; }
-$ctime = get_option('fvm-last-cache-update', '0'); 
-$styles = wp_clone($wp_styles);
-$styles->all_deps($styles->queue);
-$done = $styles->done;
-$footer = array();
-$google_fonts = array();
-$inline_css = array();
-
-# dequeue all styles
-if($fvm_remove_css != false) {
-	foreach( $styles->to_do as $handle ) :
-		$done = array_merge($done, array($handle));
-	endforeach;
-	
-	# remove from queue
-	$wp_styles->done = $done;
-	return false;
-}
-
-
-# add defaults to ignore list
-$ignore = fastvelocity_default_ignore($ignore);
-
-# google fonts to the top
-foreach( $styles->to_do as $handle ) :
-
-	# dequeue and get a list of google fonts, or requeue external
-	$hurl = fastvelocity_min_get_hurl($wp_styles->registered[$handle]->src, $wp_domain, $wp_home);
-	
-	if (stripos($hurl, 'fonts.googleapis.com') !== false) { 
-		wp_dequeue_style($handle); 
-		if($remove_googlefonts != false) { $done = array_merge($done, array($handle)); continue; } # mark as done if to be removed
-		if($skip_google_fonts != true || $force_inline_googlefonts != false) { 
-			$google_fonts[$handle] = $hurl; 
-		} else {
-			wp_enqueue_style($handle); # skip google fonts optimization?
-		}
-	} else { 
-		wp_dequeue_style($handle); wp_enqueue_style($handle); # failsafe
-	}
-	
-endforeach;
-
-
-# concat google fonts, if enabled
-if(!$skip_google_fonts && count($google_fonts) > 0 || ($force_inline_googlefonts != false && count($google_fonts) > 0)) {
-	foreach ($google_fonts as $h=>$a) { $done = array_merge($done, array($h)); } # mark as done
-	
-	# merge google fonts if force inlining is enabled?
-	$nfonts = array();
-	if($skip_google_fonts != true) {
-		$nfonts[] = fvm_get_protocol(fastvelocity_min_concatenate_google_fonts($google_fonts));
-	} else {
-		foreach ($google_fonts as $a) { if(!empty($a)) { $nfonts[] = $a; } }
-	}
-	
-	# foreach google font (will be one if merged is not disabled)
-	if(count($nfonts) > 0) {
-		foreach($nfonts as $gfurl) {
-	
-			# hide from PSI, async, inline, or default
-			if($css_hide_googlefonts == true) {
-				
-				# make a stylesheet, hide from PSI
-				$cssguid = 'fvm'.hash('adler32', $gfurl);
-				echo '<script type="text/javascript">if(!navigator.userAgent.match(/'.implode('|', $fvmualist).'/i)){';
-				echo 'var '.$cssguid.'=document.createElement("link");'.$cssguid.'.rel="stylesheet",'.$cssguid.'.type="text/css",'.$cssguid.'.media="async",'.$cssguid.'.href="'.$gfurl.'",'.$cssguid.'.onload=function(){'.$cssguid.'.media="all"},document.getElementsByTagName("head")[0].appendChild('.$cssguid.');';
-				echo '}</script>';	
-				
-			# async CSS
-			} elseif ($min_async_googlefonts == true) {
-				echo '<link rel="preload" href="'.$gfurl.'" as="style" media="all" onload="this.onload=null;this.rel=\'stylesheet\'" />';
-				echo '<noscript><link rel="stylesheet" href="'.$gfurl.'" media="all" /></noscript>';
-				echo '<!--[if IE]><link rel="stylesheet" href="'.$gfurl.'" media="all" /><![endif]-->';
-			
-			# inline css
-			} elseif($force_inline_googlefonts == true) {
-				
-				# download, minify, cache
-				$tkey = 'css-'.$ctime.'-'.hash('adler32', $gfurl).'.css';
-				$json = false; $json = fvm_get_transient($tkey);
-				if ( $json === false) {
-					$json = fvm_download_and_minify($gfurl, null, $disable_css_minification, 'css', null);
-					if($fvm_debug == true) { echo "<!-- FVM DEBUG: Uncached file processing now for $gfurl -->" . PHP_EOL; }
-					fvm_set_transient($tkey, $json);
-				}
-				
-				# decode 
-				$res = json_decode($json, true);
-				
-				# response has failed
-				if($res['status'] != true) {
-					$log.= $res['log'];
-					continue;
-				}
-				
-				# append code to merged file
-				$code.= $res['code'];
-				$log.= $res['log'];
-				
-				# inline css or fail
-				if($res['code'] !== false) { 
-					echo '<style type="text/css" media="all">'.$res['code'].'</style>'.PHP_EOL;				
-				} else {
-					echo "<!-- GOOGLE FONTS REQUEST FAILED for $gfurl -->\n";
-				}
-				
-			# fallback, enqueue google fonts
-			} else {
-				wp_enqueue_style('footer-fvm-fonts', $gfurl, array(), null, 'all');
-			}
-			
-		}
-	}
-}
-
-
-# get groups of handles
-$uniq = array(); 
-foreach( $styles->to_do as $handle ) :
-
-	# skip already processed google fonts
-	if(isset($google_fonts[$handle])) { continue; }
-	
-	# conditionals
-	$conditional = NULL; if(isset($wp_styles->registered[$handle]->extra["conditional"])) { 
-		$conditional = $wp_styles->registered[$handle]->extra["conditional"]; # such as ie7, ie8, ie9, etc
-	}
-	
-	# mediatype
-	$mt = isset($wp_styles->registered[$handle]->args) ? $wp_styles->registered[$handle]->args : 'all';
-	if ($mt == 'screen' || $mt == 'screen, print' || empty($mt) || is_null($mt) || $mt == false) { $mt = 'all'; } 
-	$mediatype = $mt;
-	
-	# get full url
-	$hurl = fastvelocity_min_get_hurl($wp_styles->registered[$handle]->src, $wp_domain, $wp_home);
-
-	# mark duplicates as done and remove from the queue
-	if(!empty($hurl)) {
-		$key = hash('adler32', $hurl); 
-		if (isset($uniq[$key])) { $done = array_merge($done, array($handle)); continue; } else { $uniq[$key] = $handle; }
-	}
-	
-	# IE only files don't increment things
-	$ieonly = fastvelocity_ie_blacklist($hurl);
-	if($ieonly == true) { continue; }
-	
-	
-	# Exclude specific CSS files from PSI?
-	if($fvm_min_excludecsslist != false && is_array($fvm_min_excludecsslist) && fastvelocity_min_in_arrayi($hurl, $fvm_min_excludecsslist)) {
-		$cssguid = 'fvm'.hash('adler32', $hurl);
-		echo '<script type="text/javascript">if(!navigator.userAgent.match(/'.implode('|', $fvmualist).'/i)){';
-		echo 'var '.$cssguid.'=document.createElement("link");'.$cssguid.'.rel="stylesheet",'.$cssguid.'.type="text/css",'.$cssguid.'.media="async",'.$cssguid.'.href="'.$hurl.'",'.$cssguid.'.onload=function(){'.$cssguid.'.media="'.$mediatype.'"},document.getElementsByTagName("head")[0].appendChild('.$cssguid.');';
-		echo '}</script>';
-		$done = array_merge($done, array($handle)); continue;
-	}
-	
-	# font awesome processing, async css
-	if($fvm_fawesome_method == 2 && stripos($hurl, 'font-awesome') !== false) {
-		echo '<link rel="preload" href="'.$hurl.'" as="style" media="'.$mediatype.'" onload="this.onload=null;this.rel=\'stylesheet\'" />';
-		echo '<noscript><link rel="stylesheet" href="'.$hurl.'" media="'.$mediatype.'" /></noscript>';
-		echo '<!--[if IE]><link rel="stylesheet" href="'.$hurl.'" media="'.$mediatype.'" /><![endif]-->';
-		$done = array_merge($done, array($handle)); continue;
-	}	
-	
-	# font awesome processing, async and exclude from PSI
-	if($fvm_fawesome_method == 3 && stripos($hurl, 'font-awesome') !== false) {
-		$cssguid = 'fvm'.hash('adler32', $hurl);
-		echo '<script type="text/javascript">if(!navigator.userAgent.match(/'.implode('|', $fvmualist).'/i)){';
-		echo 'var '.$cssguid.'=document.createElement("link");'.$cssguid.'.rel="stylesheet",'.$cssguid.'.type="text/css",'.$cssguid.'.media="async",'.$cssguid.'.href="'.$hurl.'",'.$cssguid.'.onload=function(){'.$cssguid.'.media="'.$mediatype.'"},document.getElementsByTagName("head")[0].appendChild('.$cssguid.');';
-		echo '}</script>';
-		$done = array_merge($done, array($handle)); continue;
-	}
-	
-	# skip ignore list, conditional css, external css, font-awesome merge
-	if ( (!fastvelocity_min_in_arrayi($hurl, $ignore) && !isset($conditional) && fvm_internal_url($hurl, $wp_home)) 
-		|| empty($hurl) 
-		|| ($fvm_fawesome_method == 1 && stripos($hurl, 'font-awesome') !== false)) {
-			
-		# colect inline css for this handle
-		if(isset($wp_styles->registered[$handle]->extra['after']) && is_array($wp_styles->registered[$handle]->extra['after'])) { 
-			$inline_css[$handle] = fastvelocity_min_minify_css_string(implode('', $wp_styles->registered[$handle]->extra['after'])); # save
-			$wp_styles->registered[$handle]->extra['after'] = null; # dequeue
+		# font awesome processing, async css
+		if($fvm_fawesome_method == 2 && stripos($href, 'font-awesome') !== false) {
+			echo '<link rel="preload" href="'.$href.'" as="style" media="'.$media.'" onload="this.onload=null;this.rel=\'stylesheet\'" />';
+			echo '<noscript><link rel="stylesheet" href="'.$href.'" media="'.$media.'" /></noscript>';
+			echo '<!--[if IE]><link rel="stylesheet" href="'.$href.'" media="'.$media.'" /><![endif]-->';
+			return false;
 		}	
+		
+		# font awesome processing, async and exclude from PSI
+		if($fvm_fawesome_method == 3 && stripos($href, 'font-awesome') !== false) {
+			$cssguid = 'fvm'.hash('adler32', $href);
+			echo '<script type="text/javascript">if(!navigator.userAgent.match(/'.implode('|', $fvmualist).'/i)){';
+			echo 'var '.$cssguid.'=document.createElement("link");'.$cssguid.'.rel="stylesheet",'.$cssguid.'.type="text/css",'.$cssguid.'.media="async",'.$cssguid.'.href="'.$href.'",'.$cssguid.'.onload=function(){'.$cssguid.'.media="'.$media.'"},document.getElementsByTagName("head")[0].appendChild('.$cssguid.');';
+			echo '}</script>';
+			return false;
+		}
+		
+		# font awesome processing, inline
+		if($fvm_fawesome_method == 1 && stripos($href, 'font-awesome') !== false) {
 			
-		# process
-		if(isset($footer[count($footer)-1]['handle']) || count($footer) == 0 || $footer[count($footer)-1]['media'] != $wp_styles->registered[$handle]->args) {
-			array_push($footer, array('handles'=>array(),'media'=>$mediatype));
+			# download, minify, cache
+			$tkey = 'css-'.$ctime.'-'.hash('adler32', $handle.$href).'.css';
+			$json = false; $json = fvm_get_transient($tkey);
+			if ( $json === false) {
+				$json = fvm_download_and_minify($href, null, $disable_css_minification, 'css', $handle);
+				if($fvm_debug == true) { echo "<!-- FVM DEBUG: Uncached file processing now for $handle / $href -->" . PHP_EOL; }
+				fvm_set_transient($tkey, $json);
+			}
+			
+			# decode 
+			$res = json_decode($json, true);
+			
+			# add font-display
+			# https://developers.google.com/web/updates/2016/02/font-display
+			$res['code'] = str_ireplace('font-style:normal;', 'font-display:block;font-style:normal;', $res['code']);
+			
+			# inline css or fail
+			if($res['status'] != false) { 
+				echo '<style type="text/css" media="all">'.$res['code'].'</style>'.PHP_EOL;
+				return false;
+			} else {
+				if($fvm_debug == true) { echo "<!-- FVM DEBUG: Font Awesome request failed for $href -->" . PHP_EOL; }
+				return $html;
+			}
 		}
-	
-		# push it to the array get latest modified time
-		array_push($footer[count($footer)-1]['handles'], $handle);
 		
-	# external and ignored css
-	} else {
+		# inline google fonts, do not collect
+		if(stripos($href, 'fonts.googleapis.com') !== false && $force_inline_googlefonts != false && $css_hide_googlefonts != true && $min_async_googlefonts != true) {
+			
+			# download, minify, cache
+			$tkey = 'css-'.$ctime.'-'.hash('adler32', $handle.$href).'.css';
+			$json = false; $json = fvm_get_transient($tkey);
+			if ( $json === false) {
+				$json = fvm_download_and_minify($href, null, $disable_css_minification, 'css', $handle);
+				if($fvm_debug == true) { echo "<!-- FVM DEBUG: Uncached file processing now for $handle / $href -->" . PHP_EOL; }
+				fvm_set_transient($tkey, $json);
+			}
+			
+			# decode 
+			$res = json_decode($json, true);
+			
+			# add font-display
+			# https://developers.google.com/web/updates/2016/02/font-display
+			$res['code'] = str_ireplace('font-style:normal;', 'font-display:block;font-style:normal;', $res['code']);
+			
+			# inline css or fail
+			if($res['status'] != false) { 
+				echo '<style type="text/css" media="all">'.$res['code'].'</style>'.PHP_EOL;
+				return false;
+			} else {
+				if($fvm_debug == true) { echo "<!-- FVM DEBUG: Google fonts request failed for $href -->" . PHP_EOL; }
+				return $html;
+			}
+		}
 		
-		# normal enqueueing
-		array_push($footer, array('handle'=>$handle));
-	}
-endforeach;
-
-
-# reorder CSS by mediatypes
-if(!$skip_cssorder) {
-	if(count($footer) > 0) {
-
-		# get unique mediatypes
-		$allmedia = array(); 
-		foreach($footer as $key=>$array) { 
-			if(isset($array['media'])) { $allmedia[$array['media']] = ''; } 
+		# collect and remove google fonts for merging
+		if(stripos($href, 'fonts.googleapis.com') !== false){
+			$fvm_collect_google_fonts[$handle] = $href;
+			return false; 
 		}
-
-		# extract handles by mediatype
-		$grouphandles = array(); 
-		foreach ($allmedia as $md=>$var) { 
-			foreach($footer as $array) { 
-				if (isset($array['media']) && $array['media'] === $md) { 
-					foreach($array['handles'] as $h) { $grouphandles[$md][] = $h; } 
-				} 
-			} 
+		
+		# skip external scripts that are not specifically allowed
+		if (fvm_internal_url($href, $wp_home) === false || empty($href)) {
+			if($fvm_debug == true) { echo "<!-- FVM DEBUG: Skipped the next external enqueued CSS -->" . PHP_EOL; }
+			return $html;
 		}
+		
+		# download, minify, cache
+		$tkey = 'css-'.$ctime.'-'.hash('adler32', $handle.$href).'.css';
+		$json = false; $json = fvm_get_transient($tkey);
+		if ( $json === false) {
+			$json = fvm_download_and_minify($href, null, $disable_css_minification, 'css', $handle);
+			if($fvm_debug == true) { echo "<!-- FVM DEBUG: Uncached file processing now for $handle / $href -->" . PHP_EOL; }
+			fvm_set_transient($tkey, $json);
+		}
+		
+		# decode 
+		$res = json_decode($json, true);
+		
+		# colect it, together with other inline children styles
+		if($res['status'] != false) {
+			
+			# collect main css code from file
+			$csscollect[$media][] = array('handle' => $handle, 'log' => $res['log'], 'type'=> 'link', 'code' => $res['code']);
+			
+			# merge inline css code, unless disabled
+			if($disable_css_inline_merge != true) {
+			
+				# get inline_styles for this handle
+				$inline_styles = array();
+				global $wp_styles;
+				if(is_object($wp_styles)) {
+					if(isset($wp_styles->registered[$handle]->extra['after'])) {
+						$inline_styles = $wp_styles->registered[$handle]->extra['after'];
+						unset($wp_styles->registered[$handle]->extra['after']);
+					}
+				}
+				
+				if($inline_styles != false) {
 
-		# reset and reorder footer by mediatypes
-		$newfooter = array();
-		foreach ($allmedia as $md=>$var) { $newfooter[] = array('handles' => $grouphandles[$md], 'media'=>$md); }
-		if(count($newfooter) > 0) { $footer = $newfooter; }
-	}
+					# string type
+					if(is_string($inline_styles) && !empty($inline_styles)) {
+						$code = fastvelocity_min_get_css($href, $inline_styles, $disable_css_minification);
+						if(!empty($code) && $code != false) {
+							$hash = md5($code);
+							$codesize = fastvelocity_format_filesize(strlen($code));
+							$nlog = "--- Merged $codesize of inlined CSS code for [$handle] with md5 hash: $hash ---" . PHP_EOL;
+							$csscollect[$media][] = array('handle' => $handle, 'log' => $nlog, 'type'=> 'inline', 'code' => $code, 'hash'=>$hash);
+						}
+					}
+					
+					# array type
+					if(is_array($inline_styles)) {
+						$inline_styles = array_filter($inline_styles);
+						foreach ($inline_styles as $st) {
+							$code = fastvelocity_min_get_css($href, $st, $disable_css_minification);
+							if(!empty($code) && $code != false) {
+								$hash = md5($code);
+								$codesize = fastvelocity_format_filesize(strlen($code));
+								$nlog = "--- Merged $codesize of inlined CSS code for [$handle] with md5 hash: $hash ---" . PHP_EOL;
+								$csscollect[$media][] = array('handle' => $handle, 'log' => $nlog, 'type'=> 'inline', 'code' => $code, 'hash'=>$hash);
+							}
+						}
+					}
+				}
+			}
+			
+			# prevent default
+			return false;
+			
+		} else {
+			if($fvm_debug == true) { echo "<!-- FVM DEBUG:  $handle / $href returned empty from minification -->" . PHP_EOL; }
+			return $html;
+		}
+		
+	# fallback, for whatever reason
+	echo "<!-- ERROR: FVM couldn't catch the CSS file below. Please report this on https://wordpress.org/support/plugin/fast-velocity-minify/ -->";
+	return $html;
 }
 
-# loop through footer css and merge
-for($i=0,$l=count($footer);$i<$l;$i++) {
-	if(!isset($footer[$i]['handle'])) {
-		
-		# get has for the inline css in this group
-		$inline_css_group = array();
-		foreach($footer[$i]['handles'] as $h) { if(isset($inline_css[$h]) && !empty($inline_css[$h])) { $inline_css_group[] = $inline_css[$h]; } }
-		$inline_css_hash = md5(implode('',$inline_css_group));
-		
-		# static cache file info + done
-		$done = array_merge($done, $footer[$i]['handles']);		
-		$hash = 'footer-'.hash('adler32',implode('',$footer[$i]['handles']).$inline_css_hash);
 
+# generate merged css files and enqueue them
+add_action('wp_head', 'fastvelocity_add_merged_css', 8);
+add_action('wp_print_footer_scripts','fastvelocity_add_merged_css', PHP_INT_MAX );
+function fastvelocity_add_merged_css(){
+	global $csscollect, $cachedir, $cachedirurl, $fvmloadcss, $fvm_remove_css, $fvm_enabled_css_preload, $collect_preload_css;
+	
+	# return if disabled
+	if (!is_array($csscollect)) { 
+		return false;
+	}
+	
+	# are we on the header or footer?
+	$current_action = current_action();
+	
+	# current timestamp
+	$ctime = get_option('fvm-last-cache-update', '0'); 
+	
+	# foreach meadiatype, generate css file name, merge, save and print it
+	$i = 0; foreach ($csscollect as $mediatype=>$arr) {
+		
+		# no empty array
+		if(count($arr) == 0) {
+			return false;
+		}
+		
+		# initialization
+		$uid = '';
+		$log = '';
+		$code = '';	
+		
+		# filename for this mediatype
+		foreach ($arr as $k=>$narr) {
+			
+			# no empty array
+			if(count($narr) == 0) {
+				return false;
+			}
+			
+			# no empty arrays
+			$narr = array_filter($narr);
+			
+			# unset as we go
+			if(isset($csscollect[$mediatype][$k])) {
+				unset($csscollect[$mediatype][$k]);
+			}
+			
+			# uid needs handle name
+			if(isset($narr['handle'])) { 
+				$uid.= '_'.$narr['handle']; 
+			}
+			
+			# uid needs type
+			if(isset($narr['type'])) { 
+				$uid.= '_'.$narr['type']; 
+			}
+			
+			# uid needs hash if its an inline type
+			if(isset($narr['type']) && $narr['type'] == 'inline' && isset($narr['hash'])) { 
+				$uid.= '_'.$narr['hash'];
+			}
+			
+			# merge code for this mediatype
+			if(isset($narr['code']) && isset($narr['log'])) {
+				$code.=$narr['code'];
+				$log.=$narr['log'];
+			}
+			
+		}
+		
+		# define file and id prefix
+		if ($current_action == 'wp_head') {
+			$cssid = 'header-css-'.$i;
+			$fprefix = 'header-';
+		} else {
+			$cssid = 'footer-css-'.$i;
+			$fprefix = 'footer-';
+		}
+		
 		# create cache files and urls
+		$hash = $fprefix.hash('adler32', $mediatype.'_'.$uid);
 		$file = $cachedir.'/'.$hash.'-'.$ctime.'.min.css';
 		$file_url = fvm_get_protocol($cachedirurl.'/'.$hash.'-'.$ctime.'.min.css');
 		
@@ -2269,115 +1983,82 @@ for($i=0,$l=count($footer);$i<$l;$i++) {
 		clearstatcache();
 		if (!file_exists($file)) {
 			
-			# code and log initialization
-			$log = '';
-			$code = '';	
-		
-			# minify and write to file
-			foreach($footer[$i]['handles'] as $handle) :
-				if(!empty($wp_styles->registered[$handle]->src)) {
-					
-					# get hurl per handle
-					$hurl = fastvelocity_min_get_hurl($wp_styles->registered[$handle]->src, $wp_domain, $wp_home);
-					$printurl = str_ireplace(array(site_url(), home_url(), 'http:', 'https:'), '', $hurl);
-					
-					# download, minify, cache
-					$tkey = 'css-'.$ctime.'-'.hash('adler32', $handle.$hurl).'.css';
-					$json = false; $json = fvm_get_transient($tkey);
-					if ( $json === false) {
-						$json = fvm_download_and_minify($hurl, null, $disable_css_minification, 'css', $handle);
-						if($fvm_debug == true) { echo "<!-- FVM DEBUG: Uncached file processing now for $handle / $hurl -->" . PHP_EOL; }
-						fvm_set_transient($tkey, $json);
-					}
-					
-					# decode 
-					$res = json_decode($json, true);
-					
-					# response has failed
-					if($res['status'] != true) {
-						$log.= $res['log'];
-						continue;
-					}
-					
-					# append code to merged file
-					$code.= $res['code'];
-					$log.= $res['log'];
-					
-					# append inlined styles
-					if(isset($inline_css[$handle]) && !empty($inline_css[$handle])) { 
-						$code.= $inline_css[$handle]; 
-					}
-				
-				# consider dependencies on handles with an empty src
-				} else {
-					wp_dequeue_script($handle); 
-					wp_enqueue_script($handle);
-				}
-			endforeach;	
-			
 			# prepare log
-			$log = "PROCESSED on ".date('r').PHP_EOL.$log."PROCESSED from ".home_url(add_query_arg( NULL, NULL )).PHP_EOL;
+			$log = "PROCESSED - " . home_url(add_query_arg(NULL, NULL)) . PHP_EOL . "GENERATED - " . date('r') . PHP_EOL . 'MEDIATYPE - '.$mediatype . PHP_EOL . '---' . PHP_EOL . $log;
 			
-			# generate cache, add inline css, write log
-			file_put_contents($file.'.txt', $log);
-			file_put_contents($file, $code); # preserve style tags
-			file_put_contents($file.'.gz', gzencode(file_get_contents($file), 9));
-			
-			# permissions
-			fastvelocity_fix_permission_bits($file.'.txt');
-			fastvelocity_fix_permission_bits($file);
-			fastvelocity_fix_permission_bits($file.'.gz');
-			
-			# brotli static support
-			if(function_exists('brotli_compress')) {
-				file_put_contents($file.'.br', brotli_compress(file_get_contents($file), 9));
-				fastvelocity_fix_permission_bits($file.'.br');
-			}
-		}
-
-		# register and enqueue minified file, consider excluding of mediatype "print" and inline css
-		if ($remove_print_mediatypes != true || ($remove_print_mediatypes == true && $footer[$i]['media'] != 'print')) {
-
-			# the developers tab, takes precedence
-			
-			# Async CSS with loadCSS ?
-			if($fvmloadcss != false && $fvm_remove_css != true) {
-				$mt = $footer[$i]['media'];
-				echo '<link rel="preload" href="'.$file_url.'" as="style" media="'.$mt.'" onload="this.onload=null;this.rel=\'stylesheet\'" />';
-				echo '<noscript><link rel="stylesheet" href="'.$file_url.'" media="'.$mt.'" /></noscript>';
-				echo '<!--[if IE]><link rel="stylesheet" href="'.$file_url.'" media="'.$mt.'" /><![endif]-->';
-			
-			# enqueue file, if not empty
-			} else {
-				if(file_exists($file) && filesize($file) > 0) {
-
-					# inline if the file is smaller than 20KB or option has been enabled
-					if(filesize($file) < 20000 || $force_inline_css_footer != false) {
-						echo '<style id="fvm-footer-'.$i.'" media="'.$footer[$i]['media'].'">'.file_get_contents($file).'</style>';
-					} else {
-						# enqueue it
-						wp_enqueue_style("fvm-footer-$i", $file_url, array(), null, $footer[$i]['media']); 
-					}
-				} else {
-					# file could not be generated, output something meaningful
-					echo "<!-- ERROR: FVM was not allowed to save it's cache on - $file -->";
-					echo "<!-- Please check if the path above is correct and ensure your server has writting permission there! -->";
-					echo "<!-- If you found a bug, please report this on https://wordpress.org/support/plugin/fast-velocity-minify/ -->";
+			# generate cache, write log
+			if(!empty($code)) {
+				file_put_contents($file.'.txt', $log);
+				file_put_contents($file, $code);
+				file_put_contents($file.'.gz', gzencode(file_get_contents($file), 9));
+				
+				# permissions
+				fastvelocity_fix_permission_bits($file.'.txt');
+				fastvelocity_fix_permission_bits($file);
+				fastvelocity_fix_permission_bits($file.'.gz');
+				
+				# brotli static support
+				if(function_exists('brotli_compress')) {
+					file_put_contents($file.'.br', brotli_compress(file_get_contents($file), 9));
+					fastvelocity_fix_permission_bits($file.'.br');
 				}
 			}
 		}
-
-	# other css need to be requeued for the order of files to be kept
-	} else {
-		wp_dequeue_style($footer[$i]['handle']); 
-		wp_enqueue_style($footer[$i]['handle']);
+		
+		# note: the developers tab, takes precedence
+		# Async CSS with loadCSS ?
+		if($fvmloadcss != false && $fvm_remove_css != true) {
+			echo '<link id="'.$cssid.'" rel="preload" href="'.$file_url.'" as="style" media="'.$mediatype.'" onload="this.onload=null;this.rel=\'stylesheet\'" />';
+			echo '<noscript><link rel="stylesheet" href="'.$file_url.'" media="'.$mediatype.'" /></noscript>';
+			echo '<!--[if IE]><link rel="stylesheet" href="'.$file_url.'" media="'.$mediatype.'" /><![endif]-->';
+		
+		# else enqueue file, if not empty
+		} else {
+			if(file_exists($file) && filesize($file) > 0) {
+				
+				# inline CSS if mediatype is not of type "all" or if the file is smaller than 20KB
+				if(filesize($file) < 20000 && $mediatype != 'all') {
+					echo '<style id="'.$cssid.'" media="'.$mediatype.'">'.file_get_contents($file).'</style>';
+				} else {
+					
+					# add css to the html
+					echo '<link id="'.$cssid.'" rel="stylesheet" href="'.$file_url.'" media="'.$mediatype.'" />';
+					
+					# collect it for preload (if enabled + header only)
+					if ($fvm_enabled_css_preload == true && $current_action == 'wp_head') { 
+						$collect_preload_css[] = $file_url;
+					}
+				}
+			} else {
+				# file could not be generated, output something meaningful
+				echo "<!-- ERROR: FVM was not allowed to save it's cache on - $file -->";
+				echo "<!-- Please check if the path above is correct and ensure your server has writting permission there! -->";
+				echo "<!-- If you found a bug, please report this on https://wordpress.org/support/plugin/fast-velocity-minify/ -->";
+			}
+		}
+		
+		# increment by mediatype
+		$i++;
 	}
+	
+	
+	
+	# fallback
+	return false;
 }
 
-# remove from queue
-$wp_styles->done = $done;
-}
+
+
 ###########################################
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2389,8 +2070,8 @@ function fvm_add_loadcss() {
 
 echo <<<EOF
 <script>
-/*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
-!function(n){"use strict";n.loadCSS||(n.loadCSS=function(){});var o=loadCSS.relpreload={};if(o.support=function(){var e;try{e=n.document.createElement("link").relList.supports("preload")}catch(t){e=!1}return function(){return e}}(),o.bindMediaToggle=function(t){var e=t.media||"all";function a(){t.media=e}t.addEventListener?t.addEventListener("load",a):t.attachEvent&&t.attachEvent("onload",a),setTimeout(function(){t.rel="stylesheet",t.media="only x"}),setTimeout(a,3e3)},o.poly=function(){if(!o.support())for(var t=n.document.getElementsByTagName("link"),e=0;e<t.length;e++){var a=t[e];"preload"!==a.rel||"style"!==a.getAttribute("as")||a.getAttribute("data-loadcss")||(a.setAttribute("data-loadcss",!0),o.bindMediaToggle(a))}},!o.support()){o.poly();var t=n.setInterval(o.poly,500);n.addEventListener?n.addEventListener("load",function(){o.poly(),n.clearInterval(t)}):n.attachEvent&&n.attachEvent("onload",function(){o.poly(),n.clearInterval(t)})}"undefined"!=typeof exports?exports.loadCSS=loadCSS:n.loadCSS=loadCSS}("undefined"!=typeof global?global:this);
+/* loadCSS. [c]2017 Filament Group, Inc. MIT License */
+(function(w){if(!w.loadCSS)w.loadCSS=function(){};var rp=loadCSS.relpreload={};rp.support=function(){var ret;try{ret=w.document.createElement("link").relList.supports("preload")}catch(e){ret=false}return function(){return ret}}();rp.bindMediaToggle=function(link){var finalMedia=link.media||"all";function enableStylesheet(){if(link.addEventListener)link.removeEventListener("load",enableStylesheet);else if(link.attachEvent)link.detachEvent("onload",enableStylesheet);link.setAttribute("onload",null);link.media=finalMedia}if(link.addEventListener)link.addEventListener("load",enableStylesheet);else if(link.attachEvent)link.attachEvent("onload",enableStylesheet);setTimeout(function(){link.rel="stylesheet";link.media="only x"});setTimeout(enableStylesheet,3E3)};rp.poly=function(){if(rp.support())return;var links=w.document.getElementsByTagName("link");for(var i=0;i<links.length;i++){var link=links[i];if(link.rel==="preload"&&link.getAttribute("as")==="style"&&!link.getAttribute("data-loadcss")){link.setAttribute("data-loadcss", true);rp.bindMediaToggle(link)}}};if(!rp.support()){rp.poly();var run=w.setInterval(rp.poly,500);if(w.addEventListener)w.addEventListener("load",function(){rp.poly();w.clearInterval(run)});else if(w.attachEvent)w.attachEvent("onload",function(){rp.poly();w.clearInterval(run)})}if(typeof exports!=="undefined")exports.loadCSS=loadCSS;else w.loadCSS=loadCSS})(typeof global!=="undefined"?global:this);
 </script>
 EOF;
 
@@ -2398,11 +2079,14 @@ EOF;
 
 # fvm load async scripts with callback
 function fvm_add_loadasync() { 
+global $fvm_min_excludejslist;
+if($fvm_min_excludejslist != false && is_array($fvm_min_excludejslist) && count($fvm_min_excludejslist) > 0) {
 
 echo <<<EOF
 <script>function loadAsync(e,a){var t=document.createElement("script");t.src=e,null!==a&&(t.readyState?t.onreadystatechange=function(){"loaded"!=t.readyState&&"complete"!=t.readyState||(t.onreadystatechange=null,a())}:t.onload=function(){a()}),document.getElementsByTagName("head")[0].appendChild(t)}</script>
 EOF;
 
+}
 }
 
 
@@ -2470,54 +2154,6 @@ if($fvm_headers != false) {
 
 }
 
-
-
-###########################################
-# optimize the ignore list for pagespeed insights + Exclude JS files from PSI (Async)
-###########################################
-function fastvelocity_min_defer_js_optimize($tag, $handle, $src) {
-global $defer_for_pagespeed, $defer_for_pagespeed_optimize, $fvm_fix_editor, $fvmualist;
-	
-# return if there are linebreaks (will break document.write)
-if (stripos($tag, PHP_EOL) !== false) { return $tag; }
-
-# fix page editors
-if($fvm_fix_editor == true && is_user_logged_in()) { return $tag; }
-
-# return if external script url https://www.chromestatus.com/feature/5718547946799104
-if (fvm_is_local_domain($src) !== true) { return $tag; }
-
-# filter src for extra atributes
-if (stripos($src, '?ver') !== false) { 
-	$src = stristr($src, '?ver', true); 
-}
-
-# exclude ignored scripts
-if(substr($handle, 0, 4) != "fvm-" && $defer_for_pagespeed == true && $defer_for_pagespeed_optimize == true) {
-
-	# get available nodes and add create with defer tag (if not async)
-	$dom = new DOMDocument();
-	libxml_use_internal_errors(true);
-	@$dom->loadHTML($tag);
-	$nodes = $dom->getElementsByTagName('script'); 
-	$tagdefer = '';
-	if ($nodes->length != 0) { 
-		$node = $dom->getElementsByTagName('script')->item(0);
-		if (!$node->hasAttribute('async')) { $node->setAttribute('defer','defer'); };
-		$tagdefer = $dom->saveHTML($node);
-	}
-
-	# print code if there are no linebreaks, or return
-	if(!empty($tagdefer)) { 
-		$deferinsights = '<script type="text/javascript">if(!navigator.userAgent.match(/'.implode('|', $fvmualist).'/i)){document.write('.json_encode($tag).');}</script>';	
-		return preg_replace('#<script(.*?)>(.*?)</script>#is', $deferinsights, $tag);
-	}
-
-}
-
-# fallback
-return $tag; 
-}
 
 
 # inline css in place, instead of inlining the large file
@@ -2790,23 +2426,7 @@ function fastvelocity_add_google_fonts_merged() {
 
 
 
-# collect all fvm CSS files and save them to an headers file
-add_filter('style_loader_tag', 'fastvelocity_collect_css_preload_headers', PHP_INT_MAX, 4 );
-function fastvelocity_collect_css_preload_headers($html, $handle, $href, $media){
-	global $collect_preload_css, $fvm_enabled_css_preload, $fvm_enabled_js_preload;
-	
-	# return if disabled
-	if ($fvm_enabled_css_preload != true) { 
-		return $html;
-	}
-	
-	# collect
-	if (stripos($href, '/fvm/out/') !== false) { 
-		$collect_preload_css[] = $href;
-	}
-	return $html;
-}
-
+# collect all fvm JS files and save them to an headers file
 add_filter('script_loader_tag', 'fastvelocity_collect_js_preload_headers', PHP_INT_MAX, 3 );
 function fastvelocity_collect_js_preload_headers($html, $handle, $src){
 	global $collect_preload_js, $fvm_enabled_css_preload, $fvm_enabled_js_preload;
@@ -2823,10 +2443,10 @@ function fastvelocity_collect_js_preload_headers($html, $handle, $src){
 	return $html;
 }
 
-# generate css headers file
+# generate preload headers file
 add_action('wp_footer', 'fastvelocity_generate_preload_headers', PHP_INT_MAX); 
 function fastvelocity_generate_preload_headers(){
-	global $collect_preload_css, $collect_preload_js, $fvm_enabled_css_preload, $fvm_enabled_js_preload, $force_inline_css_footer;
+	global $collect_preload_css, $collect_preload_js, $fvm_enabled_css_preload, $fvm_enabled_js_preload;
 	
 	# return if disabled
 	if ($fvm_enabled_css_preload != true && $fvm_enabled_js_preload != true) { 

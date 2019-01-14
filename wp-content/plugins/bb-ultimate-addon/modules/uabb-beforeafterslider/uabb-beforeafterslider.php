@@ -188,22 +188,28 @@ class UABBBeforeaftersliderModule extends FLBuilderModule {
 			}
 			if ( isset( $settings->slider_line_height_unit ) ) {
 				if ( isset( $settings->slider_line_height['small'] ) && isset( $settings->slider_font_size['small'] ) && 0 != $settings->slider_font_size['small'] ) {
-					$settings->slider_typo['line_height'] = array(
-						'length' => round( $settings->slider_line_height['small'] / $settings->slider_font_size['small'], 2 ),
-						'unit'   => 'em',
-					);
+					if ( is_numeric( $settings->slider_line_height['small'] ) && is_numeric( $settings->slider_font_size['small'] ) ) {
+						$settings->slider_typo['line_height'] = array(
+							'length' => round( $settings->slider_line_height['small'] / $settings->slider_font_size['small'], 2 ),
+							'unit'   => 'em',
+						);
+					}
 				}
 				if ( isset( $settings->slider_line_height['medium'] ) && isset( $settings->slider_font_size['medium'] ) && 0 != $settings->slider_font_size['medium'] ) {
-					$settings->slider_typo_medium['line_height'] = array(
-						'length' => round( $settings->slider_line_height['medium'] / $settings->slider_font_size['medium'], 2 ),
-						'unit'   => 'em',
-					);
+					if ( is_numeric( $settings->slider_line_height['medium'] ) && is_numeric( $settings->slider_font_size['medium'] ) ) {
+						$settings->slider_typo_medium['line_height'] = array(
+							'length' => round( $settings->slider_line_height['medium'] / $settings->slider_font_size['medium'], 2 ),
+							'unit'   => 'em',
+						);
+					}
 				}
 				if ( isset( $settings->slider_line_height['desktop'] ) && isset( $settings->slider_font_size['desktop'] ) && 0 != $settings->slider_font_size['desktop'] ) {
-					$settings->slider_typo['line_height'] = array(
-						'length' => round( $settings->slider_line_height['desktop'] / $settings->slider_font_size['desktop'], 2 ),
-						'unit'   => 'em',
-					);
+					if ( is_numeric( $settings->slider_line_height['desktop'] ) && is_numeric( $settings->slider_font_size['desktop'] ) ) {
+						$settings->slider_typo['line_height'] = array(
+							'length' => round( $settings->slider_line_height['desktop'] / $settings->slider_font_size['desktop'], 2 ),
+							'unit'   => 'em',
+						);
+					}
 				}
 			}
 

@@ -2,8 +2,8 @@
 Contributors: Alignak
 Tags: PHP Minify, Lighthouse, GTmetrix, Pingdom, Pagespeed, CSS Merging, JS Merging, CSS Minification, JS Minification, Speed Optimization, HTML Minification, Performance, Optimization, Speed, Fast
 Requires at least: 4.5
-Stable tag: 2.5.1
-Tested up to: 5.0.2
+Stable tag: 2.5.5
+Tested up to: 5.0.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -116,7 +116,7 @@ Yes! Currently FVM recommends the "Cache Enabler" plugin, for it's simplicity, c
 
 = Is it resource intensive, or will it use too much CPU on my shared hosting plan? =
 
-Unless you are not excluding dynamic CSS files that change the url in every pageload, no it is not heavy at all. On the first run, each single file is minified into an intermediate cache. When a new group of CSS/JS files is found on a new page, it reuses those files and merges them into a new static cache file. All pages that request the same group of CSS or JS files will also make use of that file, thus regeneration only happens once ina while.
+Unless you are not excluding dynamic CSS files that change the url in every pageload, no it is not heavy at all. On the first run, each single file is minified into an intermediate cache. When a new group of CSS/JS files is found on a new page, it reuses those files and merges them into a new static cache file. All pages that request the same group of CSS or JS files will also make use of that file, thus regeneration only happens once.
 
 
 = Is it compatible with multisites? =
@@ -124,14 +124,14 @@ Unless you are not excluding dynamic CSS files that change the url in every page
 Yes, it generates a new cache file for every different set of JS and CSS requirements it finds, but you must enable and configure FVM settings for each site in your network separatly (no global settings for all sites).
 
 
-= How do I use the pre-compressed files with gzip_static on Nginx? =
+= How do I use the pre-compressed files with gzip_static or brotli_static on Nginx? =
 
-When we merge and minify the css and js files, we also create a `.gz` file to be used with `gzip_static` on Nginx. You need to enable this feature on your Nginx configuration file if you want to make use of it.
+When we merge and minify the css and js files, we also create a `.gz` file to be used with `gzip_static` on Nginx. You need to enable this feature on your Nginx configuration file if you want to make use of it. Likewise, if you have Nginx compiled with brotli and have enabled the php-ext-brotli extension for PHP, you can enable the brotli_static option and FVM will also generate .br files for you :)
 
 
 = Is it compatible with AdSense and other ad networks? =
 
-If you are just insertigng ads on your pages, yes. If you are using a custom script to inject those ads, please double check if it works. 
+If you are just inserting ads on your pages, yes. If you are using a custom script to inject those ads, please double check if it works. 
 
 
 = After installing, why are some images and sliders not working? =
@@ -200,6 +200,27 @@ If you would like to donate any amount to the plugin author (thank you in advanc
 
 
 == Changelog ==
+
+= 2.5.5 [2019.01.12] =
+* fixed the dynamic urls being forced as http://
+* fixed the inlined styles being stripped when the inline All CSS option is enabled
+* added option to disable merging of inlined css code (for when you have dynamic inline css code)
+* other minor bug fixes
+
+= 2.5.4 [2019.01.11] =
+* css merging bug fixes
+
+= 2.5.3 [2019.01.11] =
+* fixed inlined css code being minified, even when minification is off
+* compatibility and performance improvements for the CSS merging and inlining functionality
+
+= 2.5.2 [2019.01.11] =
+* removed CURL as a fallback method (CURL is already a fallback on the WP HTTP API) as per WP recommendation
+* fixed a query monitor notice about mkdir
+* removed some legacy code + some minor performance improvements on the code
+* improvement for the defer for pagespeed option and ignore list
+* improvement for the loadCSS functionality
+* improvements for merging the google fonts option
 
 = 2.5.1 [2018.12.17] =
 * minor bug fix related to the font awesome option

@@ -329,23 +329,28 @@ class UABBAdvancedTestimonialsModule extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->testimonial_heading_line_height['desktop'] ) && isset( $settings->testimonial_heading_font_size['desktop'] ) && 0 != $settings->testimonial_heading_font_size['desktop'] ) {
-				$settings->testimonial_heading_font_typo['line_height'] = array(
-					'length' => round( $settings->testimonial_heading_line_height['desktop'] / $settings->testimonial_heading_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->testimonial_heading_line_height['desktop'] ) && is_numeric( $settings->testimonial_heading_font_size['desktop'] ) ) {
+					$settings->testimonial_heading_font_typo['line_height'] = array(
+						'length' => round( $settings->testimonial_heading_line_height['desktop'] / $settings->testimonial_heading_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->testimonial_heading_line_height['medium'] ) && isset( $settings->testimonial_heading_font_size['medium'] ) && 0 != $settings->testimonial_heading_font_size['medium'] ) {
-
-				$settings->testimonial_heading_font_typo_medium['line_height'] = array(
-					'length' => round( $settings->testimonial_heading_line_height['medium'] / $settings->testimonial_heading_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->testimonial_heading_line_height['medium'] ) && is_numeric( $settings->testimonial_heading_font_size['medium'] ) ) {
+					$settings->testimonial_heading_font_typo_medium['line_height'] = array(
+						'length' => round( $settings->testimonial_heading_line_height['medium'] / $settings->testimonial_heading_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->testimonial_heading_line_height['small'] ) && isset( $settings->testimonial_heading_font_size['small'] ) && 0 != $settings->testimonial_heading_font_size['small'] ) {
-				$settings->testimonial_heading_font_typo_responsive['line_height'] = array(
-					'length' => round( $settings->testimonial_heading_line_height['small'] / $settings->testimonial_heading_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->testimonial_heading_line_height['small'] ) && is_numeric( $settings->testimonial_heading_font_size['small'] ) ) {
+					$settings->testimonial_heading_font_typo_responsive['line_height'] = array(
+						'length' => round( $settings->testimonial_heading_line_height['small'] / $settings->testimonial_heading_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( ! isset( $settings->testimonial_designation_font_typo ) || ! is_array( $settings->testimonial_designation_font_typo ) ) {
 
@@ -385,22 +390,28 @@ class UABBAdvancedTestimonialsModule extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->testimonial_designation_line_height['desktop'] ) && isset( $settings->testimonial_designation_font_size['desktop'] ) && 0 != $settings->testimonial_designation_font_size['desktop'] ) {
-				$settings->testimonial_designation_font_typo['line_height'] = array(
-					'length' => round( $settings->testimonial_designation_line_height['desktop'] / $settings->testimonial_designation_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->testimonial_designation_line_height['desktop'] ) && is_numeric( $settings->testimonial_designation_font_size['desktop'] ) ) {
+					$settings->testimonial_designation_font_typo['line_height'] = array(
+						'length' => round( $settings->testimonial_designation_line_height['desktop'] / $settings->testimonial_designation_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->testimonial_designation_line_height['medium'] ) && isset( $settings->testimonial_designation_font_size['medium'] ) && 0 != $settings->testimonial_designation_font_size['medium'] ) {
-				$settings->testimonial_designation_font_typo_medium['line_height'] = array(
-					'length' => round( $settings->testimonial_designation_line_height['medium'] / $settings->testimonial_designation_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->testimonial_designation_line_height['medium'] ) && is_numeric( $settings->testimonial_designation_font_size['medium'] ) ) {
+					$settings->testimonial_designation_font_typo_medium['line_height'] = array(
+						'length' => round( $settings->testimonial_designation_line_height['medium'] / $settings->testimonial_designation_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->testimonial_designation_line_height['small'] ) && isset( $settings->testimonial_designation_font_size['small'] ) && 0 != $settings->testimonial_designation_font_size['small'] ) {
-				$settings->testimonial_designation_font_typo_responsive['line_height'] = array(
-					'length' => round( $settings->testimonial_designation_line_height['small'] / $settings->testimonial_designation_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->testimonial_designation_line_height['small'] ) && is_numeric( $settings->testimonial_designation_font_size['small'] ) ) {
+					$settings->testimonial_designation_font_typo_responsive['line_height'] = array(
+						'length' => round( $settings->testimonial_designation_line_height['small'] / $settings->testimonial_designation_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( ! isset( $settings->testimonial_description_font_typo ) || ! is_array( $settings->testimonial_description_font_typo ) ) {
 
@@ -442,22 +453,29 @@ class UABBAdvancedTestimonialsModule extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->testimonial_description_opt_line_height['desktop'] ) && isset( $settings->testimonial_description_opt_font_size['desktop'] ) && 0 != $settings->testimonial_description_opt_font_size['desktop'] ) {
-				$settings->testimonial_description_font_typo['line_height'] = array(
-					'length' => round( $settings->testimonial_description_opt_line_height['desktop'] / $settings->testimonial_description_opt_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->testimonial_description_opt_line_height['desktop'] ) && is_numeric( $settings->testimonial_description_opt_font_size['desktop'] ) ) {
+					$settings->testimonial_description_font_typo['line_height'] = array(
+						'length' => round( $settings->testimonial_description_opt_line_height['desktop'] / $settings->testimonial_description_opt_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->testimonial_description_opt_line_height['medium'] ) && isset( $settings->testimonial_description_opt_font_size['medium'] ) && 0 != $settings->testimonial_description_opt_font_size['medium'] ) {
-				$settings->testimonial_description_font_typo_medium['line_height'] = array(
-					'length' => round( $settings->testimonial_description_opt_line_height['medium'] / $settings->testimonial_description_opt_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+
+				if ( is_numeric( $settings->testimonial_description_opt_line_height['medium'] ) && is_numeric( $settings->testimonial_description_opt_font_size['medium'] ) ) {
+					$settings->testimonial_description_font_typo_medium['line_height'] = array(
+						'length' => round( $settings->testimonial_description_opt_line_height['medium'] / $settings->testimonial_description_opt_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->testimonial_description_opt_line_height['small'] ) && isset( $settings->testimonial_description_opt_font_size['small'] ) && 0 != $settings->testimonial_description_opt_font_size['small'] ) {
-				$settings->testimonial_description_font_typo_responsive['line_height'] = array(
-					'length' => round( $settings->testimonial_description_opt_line_height['small'] / $settings->testimonial_description_opt_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->testimonial_description_opt_line_height['small'] ) && is_numeric( $settings->testimonial_description_opt_font_size['small'] ) ) {
+					$settings->testimonial_description_font_typo_responsive['line_height'] = array(
+						'length' => round( $settings->testimonial_description_opt_line_height['small'] / $settings->testimonial_description_opt_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->rating_font_size['small'] ) ) {
 				$settings->rating_font_size_unit_responsive = $settings->rating_font_size['small'];

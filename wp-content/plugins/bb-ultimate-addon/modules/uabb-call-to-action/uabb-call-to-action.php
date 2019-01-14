@@ -374,22 +374,28 @@ class UABBCtaModule extends FLBuilderModule {
 			}
 
 			if ( isset( $settings->title_line_height['small'] ) && isset( $settings->title_font_size['small'] ) && 0 != $settings->title_font_size['small'] ) {
-				$settings->title_typo_responsive['line_height'] = array(
-					'length' => round( $settings->title_line_height['small'] / $settings->title_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->title_line_height['small'] ) && is_numeric( $settings->title_font_size['small'] ) ) {
+					$settings->title_typo_responsive['line_height'] = array(
+						'length' => round( $settings->title_line_height['small'] / $settings->title_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->title_line_height['medium'] ) && isset( $settings->title_font_size['medium'] ) && 0 != $settings->title_font_size['medium'] ) {
-				$settings->title_typo_medium['line_height'] = array(
-					'length' => round( $settings->title_line_height['medium'] / $settings->title_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->title_line_height['medium'] ) && is_numeric( $settings->title_font_size['medium'] ) ) {
+					$settings->title_typo_medium['line_height'] = array(
+						'length' => round( $settings->title_line_height['medium'] / $settings->title_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->title_line_height['desktop'] ) && isset( $settings->title_font_size['desktop'] ) && 0 != $settings->title_font_size['desktop'] ) {
-				$settings->title_typo['line_height'] = array(
-					'length' => round( $settings->title_line_height['desktop'] / $settings->title_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->title_line_height['desktop'] ) && is_numeric( $settings->title_font_size['desktop'] ) ) {
+					$settings->title_typo['line_height'] = array(
+						'length' => round( $settings->title_line_height['desktop'] / $settings->title_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 
 			// For Subheading Font Typography.
@@ -434,22 +440,28 @@ class UABBCtaModule extends FLBuilderModule {
 			}
 
 			if ( isset( $settings->subhead_line_height['small'] ) && isset( $settings->subhead_font_size['small'] ) && 0 != $settings->subhead_font_size['small'] ) {
-				$settings->subhead_typo['line_height'] = array(
-					'length' => round( $settings->subhead_line_height['small'] / $settings->subhead_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->subhead_line_height['small'] ) && is_numeric( $settings->subhead_font_size['small'] ) ) {
+					$settings->subhead_typo['line_height'] = array(
+						'length' => round( $settings->subhead_line_height['small'] / $settings->subhead_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->subhead_line_height['medium'] ) && isset( $settings->subhead_font_size['medium'] ) && 0 != $settings->subhead_font_size['medium'] ) {
-				$settings->subhead_typo_medium['line_height'] = array(
-					'length' => round( $settings->subhead_line_height['medium'] / $settings->subhead_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->subhead_line_height['medium'] ) && is_numeric( $settings->subhead_font_size['medium'] ) ) {
+					$settings->subhead_typo_medium['line_height'] = array(
+						'length' => round( $settings->subhead_line_height['medium'] / $settings->subhead_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->subhead_line_height['desktop'] ) && isset( $settings->subhead_font_size['desktop'] ) && 0 != $settings->subhead_font_size['desktop'] ) {
-				$settings->subhead_typo['line_height'] = array(
-					'length' => round( $settings->subhead_line_height['desktop'] / $settings->subhead_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->subhead_line_height['desktop'] ) && is_numeric( $settings->subhead_font_size['desktop'] ) ) {
+					$settings->subhead_typo['line_height'] = array(
+						'length' => round( $settings->subhead_line_height['desktop'] / $settings->subhead_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 
 			// For Button Font Typography.
@@ -493,22 +505,28 @@ class UABBCtaModule extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->btn_line_height['small'] ) && isset( $settings->btn_font_size['small'] ) && 0 != $settings->btn_font_size['small'] ) {
-				$settings->btn_typo_responsive['line_height'] = array(
-					'length' => round( $settings->btn_line_height['small'] / $settings->btn_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->btn_line_height['small'] ) && is_numeric( $settings->btn_font_size['small'] ) ) {
+					$settings->btn_typo_responsive['line_height'] = array(
+						'length' => round( $settings->btn_line_height['small'] / $settings->btn_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->btn_line_height['medium'] ) && isset( $settings->btn_font_size['medium'] ) && 0 != $settings->btn_font_size['medium'] ) {
-				$settings->btn_typo_medium['line_height'] = array(
-					'length' => round( $settings->btn_line_height['medium'] / $settings->btn_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->btn_line_height['medium'] ) && is_numeric( $settings->btn_font_size['medium'] ) ) {
+					$settings->btn_typo_medium['line_height'] = array(
+						'length' => round( $settings->btn_line_height['medium'] / $settings->btn_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->btn_line_height['desktop'] ) && isset( $settings->btn_font_size['desktop'] ) && 0 != $settings->btn_font_size['desktop'] ) {
-				$settings->btn_typo['line_height'] = array(
-					'length' => round( $settings->btn_line_height['desktop'] / $settings->btn_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->btn_line_height['desktop'] ) && is_numeric( $settings->btn_font_size['desktop'] ) ) {
+					$settings->btn_typo['line_height'] = array(
+						'length' => round( $settings->btn_line_height['desktop'] / $settings->btn_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->btn_link ) ) {
 				$settings->btn_link_target = $settings->btn_link_target;

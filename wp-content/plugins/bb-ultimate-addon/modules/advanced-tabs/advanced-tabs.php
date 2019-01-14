@@ -281,23 +281,28 @@ class AdvancedTabsModule extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->title_line_height['desktop'] ) && isset( $settings->title_font_size['desktop'] ) && 0 != $settings->title_font_size['desktop'] ) {
-
-				$settings->title_font_typo['line_height'] = array(
-					'length' => round( $settings->title_line_height['desktop'] / $settings->title_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->title_line_height['desktop'] ) && is_numeric( $settings->title_font_size['desktop'] ) ) {
+					$settings->title_font_typo['line_height'] = array(
+						'length' => round( $settings->title_line_height['desktop'] / $settings->title_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->title_line_height['medium'] ) && isset( $settings->title_font_size['medium'] ) && 0 != $settings->title_font_size['medium'] ) {
-				$settings->title_font_typo_medium['line_height'] = array(
-					'length' => round( $settings->title_line_height['medium'] / $settings->title_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->title_line_height['medium'] ) && is_numeric( $settings->title_font_size['medium'] ) ) {
+					$settings->title_font_typo_medium['line_height'] = array(
+						'length' => round( $settings->title_line_height['medium'] / $settings->title_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->title_line_height['small'] ) && isset( $settings->title_font_size['small'] ) && 0 != $settings->title_font_size['small'] ) {
-				$settings->title_font_typo_responsive['line_height'] = array(
-					'length' => round( $settings->title_line_height['small'] / $settings->title_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->title_line_height['small'] ) && is_numeric( $settings->title_font_size['small'] ) ) {
+					$settings->title_font_typo_responsive['line_height'] = array(
+						'length' => round( $settings->title_line_height['small'] / $settings->title_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( ! isset( $settings->content_font_typo ) || ! is_array( $settings->content_font_typo ) ) {
 
@@ -340,23 +345,28 @@ class AdvancedTabsModule extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->content_line_height['desktop'] ) && isset( $settings->content_font_size['desktop'] ) && 0 != $settings->content_font_size['desktop'] ) {
-
-				$settings->content_font_typo['line_height'] = array(
-					'length' => round( $settings->content_line_height['desktop'] / $settings->content_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->content_line_height['desktop'] ) && is_numeric( $settings->content_font_size['desktop'] ) ) {
+					$settings->content_font_typo['line_height'] = array(
+						'length' => round( $settings->content_line_height['desktop'] / $settings->content_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->content_line_height['medium'] ) && isset( $settings->content_font_size['medium'] ) && 0 != $settings->content_font_size['medium'] ) {
-				$settings->content_font_typo_medium['line_height'] = array(
-					'length' => round( $settings->content_line_height['medium'] / $settings->content_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->content_line_height['medium'] ) && is_numeric( $settings->content_font_size['medium'] ) ) {
+					$settings->content_font_typo_medium['line_height'] = array(
+						'length' => round( $settings->content_line_height['medium'] / $settings->content_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->content_line_height['small'] ) && isset( $settings->content_font_size['small'] ) && 0 != $settings->content_font_size['small'] ) {
-				$settings->content_font_typo_responsive['line_height'] = array(
-					'length' => round( $settings->content_line_height['small'] / $settings->content_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->content_line_height['small'] ) && is_numeric( $settings->content_font_size['small'] ) ) {
+					$settings->content_font_typo_responsive['line_height'] = array(
+						'length' => round( $settings->content_line_height['small'] / $settings->content_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->content_border_color ) ) {
 				$settings->content_border_param           = array();

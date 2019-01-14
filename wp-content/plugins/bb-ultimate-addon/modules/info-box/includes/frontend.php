@@ -39,29 +39,28 @@ if ( 'none' != $settings->image_type ) {
 ?>
 <div class="uabb-module-content <?php echo $module->get_classname(); ?> <?php echo $stacked_class; ?>">
 	<div class="uabb-infobox-left-right-wrap">
-	<?php
-	if ( 'module' == $settings->cta_type && ! empty( $settings->link ) ) {
-		echo '<a href="' . $settings->link . '" target="' . $target . '" ' . BB_Ultimate_Addon_Helper::get_link_rel( $target, $nofollow, 0 ) . ' class="uabb-infobox-module-link"></a>';
+	<?php 
+	if( $settings->cta_type == 'module' && !empty($settings->link) ) {
+		echo '<a href="' . $settings->link . '" target="' . $target . '" '. BB_Ultimate_Addon_Helper::get_link_rel( $target, $nofollow, 0 ) .' class="uabb-infobox-module-link"></a>';
 	}
 	// Image left.
-	$module->render_image( 'left' );
-
-	?>
-	<div class="uabb-infobox-content">
-			<?php
+	$module->render_image('left'); 
+	
+	?><div class="uabb-infobox-content">
+			<?php 
 			// Image above title.
-			$module->render_image( 'above-title' );
+			$module->render_image('above-title');
 			// Title.
 			$module->render_title();
 			// Image below title.
-			$module->render_image( 'below-title' );
+			$module->render_image('below-title');
 			// Separator.
 			$module->render_separator();
-
-			if ( '' != $settings->text || 'link' == $settings->cta_type || 'button' == $settings->cta_type ) {
-				?>
+			
+			if( $settings->text != "" || $settings->cta_type == 'link' || $settings->cta_type == 'button' ) {
+			?>
 			<div class="uabb-infobox-text-wrap">
-				<?php
+				<?php 
 				// Text.
 				$module->render_text();
 				// Link CTA.
@@ -69,14 +68,13 @@ if ( 'none' != $settings->image_type ) {
 				// Button CTA.
 				$module->render_button();
 				?>
-			</div>
-				<?php
+			</div> 
+			<?php
 			}
 			?>
-		</div>
-		<?php
+		</div><?php
 		// Image right.
-		$module->render_image( 'right' );
+		$module->render_image('right'); 
 		?>
 	</div>
 </div>

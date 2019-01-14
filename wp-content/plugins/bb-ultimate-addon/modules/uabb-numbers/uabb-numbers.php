@@ -257,24 +257,28 @@ class UABBNumbersModule extends FLBuilderModule {
 			}
 			if ( isset( $settings->num_line_height['desktop'] ) && isset( $settings->num_font_size['desktop'] ) && 0 != $settings->num_font_size['desktop'] && ! isset( $settings->num_typo['line_height'] ) ) {
 
-				$settings->num_typo['line_height'] = array(
-					'length' => round( $settings->num_line_height['desktop'] / $settings->num_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->num_line_height['desktop'] ) && is_numeric( $settings->num_font_size['desktop'] ) ) {
+					$settings->num_typo['line_height'] = array(
+						'length' => round( $settings->num_line_height['desktop'] / $settings->num_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->num_line_height['medium'] ) && isset( $settings->num_font_size['medium'] ) && 0 != $settings->num_font_size['medium'] && ! isset( $settings->num_typo_medium['line_height'] ) ) {
-
-				$settings->num_typo_medium['line_height'] = array(
-					'length' => round( $settings->num_line_height['medium'] / $settings->num_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->num_line_height['medium'] ) && is_numeric( $settings->num_font_size['medium'] ) ) {
+					$settings->num_typo_medium['line_height'] = array(
+						'length' => round( $settings->num_line_height['medium'] / $settings->num_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->num_line_height['small'] ) && isset( $settings->num_font_size['small'] ) && 0 != $settings->num_font_size['small'] && ! isset( $settings->num_typo_responsive['line_height'] ) ) {
-
-				$settings->num_typo_responsive['line_height'] = array(
-					'length' => round( $settings->num_line_height['small'] / $settings->num_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->num_line_height['small'] ) && is_numeric( $settings->num_font_size['small'] ) ) {
+					$settings->num_typo_responsive['line_height'] = array(
+						'length' => round( $settings->num_line_height['small'] / $settings->num_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 
 			if ( ! isset( $settings->ba_typo ) || ! is_array( $settings->ba_typo ) ) {
@@ -319,23 +323,28 @@ class UABBNumbersModule extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->ba_line_height['desktop'] ) && isset( $settings->ba_font_size['desktop'] ) && 0 != $settings->ba_font_size['desktop'] && ! isset( $settings->ba_line_height_unit ) ) {
-
-				$settings->ba_typo['line_height'] = array(
-					'length' => round( $settings->ba_line_height['desktop'] / $settings->ba_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->ba_line_height['desktop'] ) && is_numeric( $settings->ba_font_size['desktop'] ) ) {
+					$settings->ba_typo['line_height'] = array(
+						'length' => round( $settings->ba_line_height['desktop'] / $settings->ba_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->ba_line_height['medium'] ) && isset( $settings->ba_font_size['medium'] ) && 0 != $settings->ba_font_size['medium'] && ! isset( $settings->ba_line_height_unit_medium ) ) {
-				$settings->ba_typo_medium['line_height'] = array(
-					'length' => round( $settings->ba_line_height['medium'] / $settings->ba_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->ba_line_height['medium'] ) && is_numeric( $settings->ba_font_size['medium'] ) ) {
+					$settings->ba_typo_medium['line_height'] = array(
+						'length' => round( $settings->ba_line_height['medium'] / $settings->ba_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->ba_line_height['small'] ) && isset( $settings->ba_font_size['small'] ) && 0 != $settings->ba_font_size['small'] && ! isset( $settings->ba_line_height_unit_responsive ) ) {
-				$settings->ba_typo_responsive['line_height'] = array(
-					'length' => round( $settings->ba_line_height['small'] / $settings->ba_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->ba_line_height['small'] ) && is_numeric( $settings->ba_font_size['small'] ) ) {
+					$settings->ba_typo_responsive['line_height'] = array(
+						'length' => round( $settings->ba_line_height['small'] / $settings->ba_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->num_font_family ) ) {
 				unset( $settings->num_font_family );

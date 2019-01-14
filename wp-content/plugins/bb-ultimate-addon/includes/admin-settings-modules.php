@@ -7,7 +7,11 @@
 
 $branding_short_name = BB_Ultimate_Addon_Helper::get_uabb_branding();
 
-$bb_branding_short_name = FLBuilderWhiteLabel::get_branding();
+if ( is_callable( 'FLBuilderWhiteLabel::get_branding' ) ) {
+	$bb_branding_short_name = FLBuilderWhiteLabel::get_branding();
+} else {
+	$bb_branding_short_name = __( 'Beaver Builder', 'uabb' );
+}
 
 ?>
 <div id="fl-uabb-modules-form" class="fl-settings-form uabb-modules-fl-settings-form">
@@ -20,7 +24,7 @@ $bb_branding_short_name = FLBuilderWhiteLabel::get_branding();
 
 			<p><?php _e( 'Check or uncheck modules and extensions below to enable or disable them.', 'uabb' ); ?></p>
 
-			<p><?php echo sprintf( /* translators: %1$s: search term, %2$s: search term, %3$s: search term */ __( '<strong> Note: </strong> If you are unable to find the %1$s Modules under the %1$s Group on frontend, please make sure that you have enabled the modules from below and from the <a href="%3$s"> %2$s modules list</a>.', 'uabb' ), $branding_short_name, $bb_branding_short_name, admin_url( 'options-general.php?page=fl-builder-settings#modules' ) ); ?></p>
+			<p><?php echo sprintf( /* translators: %1$s: search term, %2$s: search term, %3$s: search term */ __( '<strong> Note: </strong> If you are unable to find the %1$s Modules under the %1$s Group on frontend, please make sure that you have enabled the modules from the below list and also from the <a href="%3$s"> %2$s modules list</a>.', 'uabb' ), $branding_short_name, $bb_branding_short_name, admin_url( 'options-general.php?page=fl-builder-settings#modules' ) ); ?></p>
 
 			<?php
 

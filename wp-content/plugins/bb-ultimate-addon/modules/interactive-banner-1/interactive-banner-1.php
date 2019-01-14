@@ -367,22 +367,28 @@ class InteractiveBanner1Module extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->title_typography_line_height['desktop'] ) && isset( $settings->title_typography_font_size['desktop'] ) && 0 != $settings->title_typography_font_size['desktop'] ) {
-				$settings->title_font_typo['line_height'] = array(
-					'length' => round( $settings->title_typography_line_height['desktop'] / $settings->title_typography_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->title_typography_line_height['desktop'] ) && is_numeric( $settings->title_typography_font_size['desktop'] ) ) {
+					$settings->title_font_typo['line_height'] = array(
+						'length' => round( $settings->title_typography_line_height['desktop'] / $settings->title_typography_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->title_typography_line_height['medium'] ) && isset( $settings->title_typography_font_size['medium'] ) && 0 != $settings->title_typography_font_size['medium'] ) {
-				$settings->title_font_typo_medium['line_height'] = array(
-					'length' => round( $settings->title_typography_line_height['medium'] / $settings->title_typography_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->title_typography_line_height['medium'] ) && is_numeric( $settings->title_typography_font_size['medium'] ) ) {
+					$settings->title_font_typo_medium['line_height'] = array(
+						'length' => round( $settings->title_typography_line_height['medium'] / $settings->title_typography_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->title_typography_line_height['small'] ) && isset( $settings->title_typography_font_size['small'] ) && 0 != $settings->title_typography_font_size['small'] ) {
-				$settings->title_font_typo_responsive['line_height'] = array(
-					'length' => round( $settings->title_typography_line_height['small'] / $settings->title_typography_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->title_typography_line_height['small'] ) && is_numeric( $settings->title_typography_font_size['small'] ) ) {
+					$settings->title_font_typo_responsive['line_height'] = array(
+						'length' => round( $settings->title_typography_line_height['small'] / $settings->title_typography_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->banner_title_location ) ) {
 
@@ -427,22 +433,28 @@ class InteractiveBanner1Module extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->desc_typography_line_height['desktop'] ) && isset( $settings->desc_typography_font_size['desktop'] ) && 0 != $settings->desc_typography_font_size['desktop'] ) {
-				$settings->desc_font_typo['line_height'] = array(
-					'length' => round( $settings->desc_typography_line_height['desktop'] / $settings->desc_typography_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->desc_typography_line_height['desktop'] ) && is_numeric( $settings->desc_typography_font_size['desktop'] ) ) {
+					$settings->desc_font_typo['line_height'] = array(
+						'length' => round( $settings->desc_typography_line_height['desktop'] / $settings->desc_typography_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->desc_typography_line_height['medium'] ) && isset( $settings->desc_typography_font_size['medium'] ) && 0 != $settings->desc_typography_font_size['medium'] ) {
-				$settings->desc_font_typo_medium['line_height'] = array(
-					'length' => round( $settings->desc_typography_line_height['medium'] / $settings->desc_typography_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->desc_typography_line_height['medium'] ) && is_numeric( $settings->desc_typography_font_size['medium'] ) ) {
+					$settings->desc_font_typo_medium['line_height'] = array(
+						'length' => round( $settings->desc_typography_line_height['medium'] / $settings->desc_typography_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->desc_typography_line_height['small'] ) && isset( $settings->desc_typography_font_size['small'] ) && 0 != $settings->desc_typography_font_size['small'] ) {
-				$settings->desc_font_typo_responsive['line_height'] = array(
-					'length' => round( $settings->desc_typography_line_height['small'] / $settings->desc_typography_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->desc_typography_line_height['small'] ) && is_numeric( $settings->desc_typography_font_size['small'] ) ) {
+					$settings->desc_font_typo_responsive['line_height'] = array(
+						'length' => round( $settings->desc_typography_line_height['small'] / $settings->desc_typography_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( ! isset( $settings->button->button_typo ) || ! is_object( $settings->button->button_typo ) ) {
 				$settings->button->button_typo            = new stdClass();
@@ -481,22 +493,28 @@ class InteractiveBanner1Module extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->button->line_height->desktop ) && isset( $settings->button->font_size->desktop ) && 0 != $settings->button->font_size->desktop ) {
-				$settings->button->button_typo->line_height = (object) array(
-					'length' => round( $settings->button->line_height->desktop / $settings->button->font_size->desktop, 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->button->line_height->desktop ) && is_numeric( $settings->button->font_size->desktop ) ) {
+					$settings->button->button_typo->line_height = (object) array(
+						'length' => round( $settings->button->line_height->desktop / $settings->button->font_size->desktop, 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->button->line_height->medium ) && isset( $settings->button->font_size->medium ) && 0 != $settings->button->font_size->medium ) {
-				$settings->button->button_typo_medium->line_height = (object) array(
-					'length' => round( $settings->button->line_height->medium / $settings->button->font_size->medium, 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->button->line_height->medium ) && is_numeric( $settings->button->font_size->medium ) ) {
+					$settings->button->button_typo_medium->line_height = (object) array(
+						'length' => round( $settings->button->line_height->medium / $settings->button->font_size->medium, 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->button->line_height->small ) && isset( $settings->button->font_size->small ) && 0 != $settings->button->font_size->small ) {
-				$settings->button->button_typo_responsive->line_height = (object) array(
-					'length' => round( $settings->button->line_height->small / $settings->button->font_size->small, 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->button->line_height->small ) && is_numeric( $settings->button->font_size->small ) ) {
+					$settings->button->button_typo_responsive->line_height = (object) array(
+						'length' => round( $settings->button->line_height->small / $settings->button->font_size->small, 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->cta_link_target ) ) {
 				$settings->cta_link_target = $settings->cta_link_target;

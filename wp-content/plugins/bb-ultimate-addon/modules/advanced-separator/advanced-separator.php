@@ -221,22 +221,28 @@ class AdvancedSeparatorModule extends FLBuilderModule {
 			}
 
 			if ( isset( $settings->text_line_height['small'] ) && isset( $settings->text_font_size['small'] ) && 0 != $settings->text_font_size['small'] ) {
-				$settings->text_font_typo['line_height'] = array(
-					'length' => round( $settings->text_line_height['small'] / $settings->text_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->text_line_height['small'] ) && is_numeric( $settings->text_font_size['small'] ) ) {
+					$settings->text_font_typo['line_height'] = array(
+						'length' => round( $settings->text_line_height['small'] / $settings->text_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->text_line_height['medium'] ) && isset( $settings->text_font_size['medium'] ) && 0 != $settings->text_font_size['medium'] ) {
-				$settings->text_font_typo_medium['line_height'] = array(
-					'length' => round( $settings->text_line_height['medium'] / $settings->text_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->text_line_height['medium'] ) && is_numeric( $settings->text_font_size['medium'] ) ) {
+					$settings->text_font_typo_medium['line_height'] = array(
+						'length' => round( $settings->text_line_height['medium'] / $settings->text_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->text_line_height['desktop'] ) && isset( $settings->text_font_size['desktop'] ) && 0 != $settings->text_font_size['desktop'] ) {
-				$settings->text_font_typo_responsive['line_height'] = array(
-					'length' => round( $settings->text_line_height['desktop'] / $settings->text_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->text_line_height['desktop'] ) && is_numeric( $settings->text_font_size['desktop'] ) ) {
+					$settings->text_font_typo_responsive['line_height'] = array(
+						'length' => round( $settings->text_line_height['desktop'] / $settings->text_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 
 			if ( isset( $settings->text_font_family ) ) {

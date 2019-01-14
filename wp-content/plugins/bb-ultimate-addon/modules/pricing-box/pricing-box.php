@@ -779,22 +779,28 @@ class UABBPricingTableModule extends FLBuilderModule {
 			}
 
 			if ( isset( $settings->title_typography_line_height['small'] ) && isset( $settings->title_typography_font_size['small'] ) && 0 != $settings->title_typography_font_size['small'] ) {
-				$settings->title_typo_responsive['line_height'] = array(
-					'length' => round( $settings->title_typography_line_height['small'] / $settings->title_typography_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->title_typography_line_height['small'] ) && is_numeric( $settings->title_typography_font_size['small'] ) ) {
+					$settings->title_typo_responsive['line_height'] = array(
+						'length' => round( $settings->title_typography_line_height['small'] / $settings->title_typography_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->title_typography_line_height['medium'] ) && isset( $settings->title_typography_font_size['medium'] ) && 0 != $settings->title_typography_font_size['medium'] ) {
-				$settings->title_typo_medium['line_height'] = array(
-					'length' => round( $settings->title_typography_line_height['medium'] / $settings->title_typography_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->title_typography_line_height['medium'] ) && is_numeric( $settings->title_typography_font_size['medium'] ) ) {
+					$settings->title_typo_medium['line_height'] = array(
+						'length' => round( $settings->title_typography_line_height['medium'] / $settings->title_typography_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->title_typography_line_height['desktop'] ) && isset( $settings->title_typography_font_size['desktop'] ) && 0 != $settings->title_typography_font_size['desktop'] ) {
-				$settings->title_typo['line_height'] = array(
-					'length' => round( $settings->title_typography_line_height['desktop'] / $settings->title_typography_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->title_typography_line_height['desktop'] ) && is_numeric( $settings->title_typography_font_size['desktop'] ) ) {
+					$settings->title_typo['line_height'] = array(
+						'length' => round( $settings->title_typography_line_height['desktop'] / $settings->title_typography_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 
 			// For column features typo.
@@ -838,22 +844,28 @@ class UABBPricingTableModule extends FLBuilderModule {
 			}
 
 			if ( isset( $settings->feature_typography_line_height['small'] ) && isset( $settings->feature_typography_font_size['small'] ) && 0 != $settings->feature_typography_font_size['small'] ) {
-				$settings->feature_typo_responsive['line_height'] = array(
-					'length' => round( $settings->feature_typography_line_height['small'] / $settings->feature_typography_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->feature_typography_line_height['small'] ) && is_numeric( $settings->feature_typography_font_size['small'] ) ) {
+					$settings->feature_typo_responsive['line_height'] = array(
+						'length' => round( $settings->feature_typography_line_height['small'] / $settings->feature_typography_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->feature_typography_line_height['medium'] ) && isset( $settings->feature_typography_font_size['medium'] ) && 0 != $settings->feature_typography_font_size['medium'] ) {
-				$settings->feature_typo_medium['line_height'] = array(
-					'length' => round( $settings->feature_typography_line_height['medium'] / $settings->feature_typography_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->feature_typography_line_height['medium'] ) && is_numeric( $settings->feature_typography_font_size['medium'] ) ) {
+					$settings->feature_typo_medium['line_height'] = array(
+						'length' => round( $settings->feature_typography_line_height['medium'] / $settings->feature_typography_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->feature_typography_line_height['desktop'] ) && isset( $settings->feature_typography_font_size['desktop'] ) && 0 != $settings->feature_typography_font_size['desktop'] ) {
-				$settings->feature_typo['line_height'] = array(
-					'length' => round( $settings->title_typography_line_height['desktop'] / $settings->title_typography_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->feature_typography_line_height['desktop'] ) && is_numeric( $settings->feature_typography_font_size['desktop'] ) ) {
+					$settings->feature_typo['line_height'] = array(
+						'length' => round( $settings->feature_typography_line_height['desktop'] / $settings->feature_typography_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->features_align ) ) {
 				$settings->feature_typo['text_align'] = $settings->features_align;
@@ -900,22 +912,28 @@ class UABBPricingTableModule extends FLBuilderModule {
 			}
 
 			if ( isset( $settings->price_typography_line_height['small'] ) && isset( $settings->price_typography_font_size['small'] ) && 0 != $settings->price_typography_font_size['small'] ) {
-				$settings->price_typo_responsive['line_height'] = array(
-					'length' => round( $settings->price_typography_line_height['small'] / $settings->price_typography_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->price_typography_line_height['small'] ) && is_numeric( $settings->price_typography_font_size['small'] ) ) {
+					$settings->price_typo_responsive['line_height'] = array(
+						'length' => round( $settings->price_typography_line_height['small'] / $settings->price_typography_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->price_typography_line_height['medium'] ) && isset( $settings->price_typography_font_size['medium'] ) && 0 != $settings->price_typography_font_size['medium'] ) {
-				$settings->price_typo_medium['line_height'] = array(
-					'length' => round( $settings->price_typography_line_height['medium'] / $settings->price_typography_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->price_typography_line_height['medium'] ) && is_numeric( $settings->price_typography_font_size['medium'] ) ) {
+					$settings->price_typo_medium['line_height'] = array(
+						'length' => round( $settings->price_typography_line_height['medium'] / $settings->price_typography_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->price_typography_line_height['desktop'] ) && isset( $settings->price_typography_font_size['desktop'] ) && 0 != $settings->price_typography_font_size['desktop'] ) {
-				$settings->price_typo['line_height'] = array(
-					'length' => round( $settings->price_typography_line_height['desktop'] / $settings->price_typography_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->price_typography_line_height['desktop'] ) && is_numeric( $settings->price_typography_font_size['desktop'] ) ) {
+					$settings->price_typo['line_height'] = array(
+						'length' => round( $settings->price_typography_line_height['desktop'] / $settings->price_typography_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 
 			// For Duration Typo.
@@ -1023,25 +1041,29 @@ class UABBPricingTableModule extends FLBuilderModule {
 					);
 				}
 				if ( isset( $settings->pricing_columns[ $i ]->button_typography_line_height->desktop ) && isset( $settings->pricing_columns[ $i ]->button_typography_font_size->desktop ) && 0 != $settings->pricing_columns[ $i ]->button_typography_font_size->desktop ) {
+					if ( is_numeric( $settings->pricing_columns[ $i ]->button_typography_line_height->desktop ) && is_numeric( $settings->pricing_columns[ $i ]->button_typography_font_size->desktop ) ) {
 
-					$settings->pricing_columns[ $i ]->button_typo->line_height = (object) array(
-						'length' => round( $settings->pricing_columns[ $i ]->button_typography_line_height->desktop / $settings->pricing_columns[ $i ]->button_typography_font_size->desktop, 2 ),
-						'unit'   => 'em',
-					);
+						$settings->pricing_columns[ $i ]->button_typo->line_height = (object) array(
+							'length' => round( $settings->pricing_columns[ $i ]->button_typography_line_height->desktop / $settings->pricing_columns[ $i ]->button_typography_font_size->desktop, 2 ),
+							'unit'   => 'em',
+						);
+					}
 				}
 				if ( isset( $settings->pricing_columns[ $i ]->button_typography_line_height->medium ) && isset( $settings->pricing_columns[ $i ]->button_typography_font_size->medium ) && 0 != $settings->pricing_columns[ $i ]->button_typography_font_size->medium ) {
-
-					$settings->pricing_columns[ $i ]->button_typo_medium->line_height = (object) array(
-						'length' => round( $settings->pricing_columns[ $i ]->button_typography_line_height->medium / $settings->pricing_columns[ $i ]->button_typography_font_size->medium, 2 ),
-						'unit'   => 'em',
-					);
+					if ( is_numeric( $settings->pricing_columns[ $i ]->button_typography_line_height->medium ) && is_numeric( $settings->pricing_columns[ $i ]->button_typography_font_size->medium ) ) {
+						$settings->pricing_columns[ $i ]->button_typo_medium->line_height = (object) array(
+							'length' => round( $settings->pricing_columns[ $i ]->button_typography_line_height->medium / $settings->pricing_columns[ $i ]->button_typography_font_size->medium, 2 ),
+							'unit'   => 'em',
+						);
+					}
 				}
 				if ( isset( $settings->pricing_columns[ $i ]->button_typography_line_height->small ) && isset( $settings->pricing_columns[ $i ]->button_typography_font_size->small ) && 0 != $settings->pricing_columns[ $i ]->button_typography_font_size->small ) {
-
-					$settings->pricing_columns[ $i ]->button_typo_responsive->line_height = (object) array(
-						'length' => round( $settings->pricing_columns[ $i ]->button_typography_line_height->small / $settings->pricing_columns[ $i ]->button_typography_font_size->small, 2 ),
-						'unit'   => 'em',
-					);
+					if ( is_numeric( $settings->pricing_columns[ $i ]->button_typography_line_height->small ) && is_numeric( $settings->pricing_columns[ $i ]->button_typography_font_size->small ) ) {
+						$settings->pricing_columns[ $i ]->button_typo_responsive->line_height = (object) array(
+							'length' => round( $settings->pricing_columns[ $i ]->button_typography_line_height->small / $settings->pricing_columns[ $i ]->button_typography_font_size->small, 2 ),
+							'unit'   => 'em',
+						);
+					}
 				}
 				if ( isset( $settings->pricing_columns[ $i ]->button_typography_font_family ) ) {
 					unset( $settings->pricing_columns[ $i ]->button_typography_font_family );
@@ -1087,22 +1109,31 @@ class UABBPricingTableModule extends FLBuilderModule {
 					);
 				}
 				if ( isset( $settings->pricing_columns[ $i ]->featured_line_height->desktop ) && isset( $settings->pricing_columns[ $i ]->featured_font_size->desktop ) && 0 != $settings->pricing_columns[ $i ]->featured_font_size->desktop ) {
-					$settings->pricing_columns[ $i ]->featured_typo->line_height = (object) array(
-						'length' => round( $settings->pricing_columns[ $i ]->featured_line_height->desktop / $settings->pricing_columns[ $i ]->featured_font_size->desktop, 2 ),
-						'unit'   => 'em',
-					);
+
+					if ( is_numeric( $settings->pricing_columns[ $i ]->featured_line_height->desktop ) && is_numeric( $settings->pricing_columns[ $i ]->featured_font_size->desktop ) ) {
+
+						$settings->pricing_columns[ $i ]->featured_typo->line_height = (object) array(
+							'length' => round( $settings->pricing_columns[ $i ]->featured_line_height->desktop / $settings->pricing_columns[ $i ]->featured_font_size->desktop, 2 ),
+							'unit'   => 'em',
+						);
+					}
 				}
 				if ( isset( $settings->pricing_columns[ $i ]->featured_line_height->medium ) && isset( $settings->pricing_columns[ $i ]->featured_font_size->medium ) && 0 != $settings->pricing_columns[ $i ]->featured_font_size->medium ) {
-					$settings->pricing_columns[ $i ]->featured_typo_medium->line_height = (object) array(
-						'length' => round( $settings->pricing_columns[ $i ]->featured_line_height->medium / $settings->pricing_columns[ $i ]->featured_font_size->medium, 2 ),
-						'unit'   => 'em',
-					);
+
+					if ( is_numeric( $settings->pricing_columns[ $i ]->featured_line_height->medium ) && is_numeric( $settings->pricing_columns[ $i ]->featured_font_size->medium ) ) {
+						$settings->pricing_columns[ $i ]->featured_typo_medium->line_height = (object) array(
+							'length' => round( $settings->pricing_columns[ $i ]->featured_line_height->medium / $settings->pricing_columns[ $i ]->featured_font_size->medium, 2 ),
+							'unit'   => 'em',
+						);
+					}
 				}
 				if ( isset( $settings->pricing_columns[ $i ]->featured_line_height->small ) && isset( $settings->pricing_columns[ $i ]->featured_font_size->small ) && 0 != $settings->pricing_columns[ $i ]->featured_font_size->small ) {
-					$settings->pricing_columns[ $i ]->featured_typo_responsive->line_height = (object) array(
-						'length' => round( $settings->pricing_columns[ $i ]->featured_line_height->small / $settings->pricing_columns[ $i ]->featured_font_size->small, 2 ),
-						'unit'   => 'em',
-					);
+					if ( is_numeric( $settings->pricing_columns[ $i ]->featured_line_height->small ) && is_numeric( $settings->pricing_columns[ $i ]->featured_font_size->small ) ) {
+						$settings->pricing_columns[ $i ]->featured_typo_responsive->line_height = (object) array(
+							'length' => round( $settings->pricing_columns[ $i ]->featured_line_height->small / $settings->pricing_columns[ $i ]->featured_font_size->small, 2 ),
+							'unit'   => 'em',
+						);
+					}
 				}
 				if ( isset( $settings->pricing_columns[ $i ]->featured_font_family ) ) {
 					unset( $settings->pricing_columns[ $i ]->featured_font_family );
@@ -1148,24 +1179,30 @@ class UABBPricingTableModule extends FLBuilderModule {
 					);
 				}
 				if ( isset( $settings->legend_column->legend_line_height->desktop ) && isset( $settings->legend_column->legend_font_size->desktop ) && 0 != $settings->legend_column->legend_font_size->desktop ) {
+
+					if ( is_numeric( $settings->legend_column->legend_line_height->desktop ) && is_numeric( $settings->legend_column->legend_font_size->desktop ) ) {
+
 						$settings->legend_column->legend_typo->line_height = (object) array(
 							'length' => round( $settings->legend_column->legend_line_height->desktop / $settings->legend_column->legend_font_size->desktop, 2 ),
 							'unit'   => 'em',
 						);
+					}
 				}
 				if ( isset( $settings->legend_column->legend_line_height->medium ) && isset( $settings->legend_column->legend_font_size->medium ) && 0 != $settings->legend_column->legend_font_size->medium ) {
-
+					if ( is_numeric( $settings->legend_column->legend_line_height->medium ) && is_numeric( $settings->legend_column->legend_font_size->medium ) ) {
 						$settings->legend_column->legend_typo_medium->line_height = (object) array(
 							'length' => round( $settings->legend_column->legend_line_height->medium / $settings->legend_column->legend_font_size->medium, 2 ),
 							'unit'   => 'em',
 						);
+					}
 				}
 				if ( isset( $settings->legend_column->legend_line_height->small ) && isset( $settings->legend_column->legend_font_size->small ) && 0 != $settings->legend_column->legend_font_size->small ) {
-
+					if ( is_numeric( $settings->legend_column->legend_line_height->small ) && is_numeric( $settings->legend_column->legend_font_size->small ) ) {
 						$settings->legend_column->legend_typo_responsive->line_height = (object) array(
 							'length' => round( $settings->legend_column->legend_line_height->small / $settings->legend_column->legend_font_size->small, 2 ),
 							'unit'   => 'em',
 						);
+					}
 				}
 				if ( isset( $settings->legend_column->legend_font_family ) ) {
 					unset( $settings->legend_column->legend_font_family );

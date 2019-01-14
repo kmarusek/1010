@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the Ultimate Addons for Beaver Builder package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ultimate Addons for Beaver Builder 1.14.0\n"
+"Project-Id-Version: Ultimate Addons for Beaver Builder 1.14.2\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/bb-ultimate-addon\n"
-"POT-Creation-Date: 2019-01-10 10:16:53+00:00\n"
+"POT-Creation-Date: 2019-01-11 13:38:45+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2314,8 +2314,8 @@ msgid "Refresh"
 msgstr ""
 
 #: classes/class-uabb-cloud-templates.php:581
-#: modules/blog-posts/blog-posts.php:1738
-#: modules/blog-posts/blog-posts.php:1752
+#: modules/blog-posts/blog-posts.php:1766
+#: modules/blog-posts/blog-posts.php:1780
 #: modules/blog-posts/includes/loop-settings.php:99
 #: modules/blog-posts/includes/loop-settings.php:257
 #: modules/blog-posts/includes/loop-settings.php:258
@@ -2365,12 +2365,12 @@ msgstr ""
 msgid "UABB Modules"
 msgstr ""
 
-#: classes/class-uabb-helper.php:88 classes/class-uabb-helper.php:422
+#: classes/class-uabb-helper.php:88
 #. translators: %s: search term
 msgid "%s"
 msgstr ""
 
-#: classes/class-uabb-helper.php:417
+#: classes/class-uabb-helper.php:414
 msgid "UABB"
 msgstr ""
 
@@ -5008,33 +5008,38 @@ msgstr ""
 msgid "This applies to all sites on the network."
 msgstr ""
 
-#: includes/admin-settings-modules.php:15
+#: includes/admin-settings-modules.php:13
+msgid "Beaver Builder"
+msgstr ""
+
+#: includes/admin-settings-modules.php:19
 msgid "Enabled Modules"
 msgstr ""
 
-#: includes/admin-settings-modules.php:21
+#: includes/admin-settings-modules.php:25
 msgid "Check or uncheck modules and extensions below to enable or disable them."
 msgstr ""
 
-#: includes/admin-settings-modules.php:23
+#: includes/admin-settings-modules.php:27
 #. translators: %1$s: search term, %2$s: search term, %3$s: search term
 msgid ""
 "<strong> Note: </strong> If you are unable to find the %1$s Modules under "
 "the %1$s Group on frontend, please make sure that you have enabled the "
-"modules from below and from the <a href=\"%3$s\"> %2$s modules list</a>."
+"modules from the below list and also from the <a href=\"%3$s\"> %2$s "
+"modules list</a>."
 msgstr ""
 
-#: includes/admin-settings-modules.php:42
+#: includes/admin-settings-modules.php:46
 #. translators: %s: search term
 msgid "%s Modules"
 msgstr ""
 
-#: includes/admin-settings-modules.php:57
+#: includes/admin-settings-modules.php:61
 #. translators: %s: search term
 msgid "%s Extensions"
 msgstr ""
 
-#: includes/admin-settings-modules.php:77
+#: includes/admin-settings-modules.php:81
 msgid "Save Module Settings"
 msgstr ""
 
@@ -13233,7 +13238,7 @@ msgstr ""
 
 #: modules/blog-posts/blog-posts-bb-2-2-compatibility.php:875
 #: modules/blog-posts/blog-posts-bb-less-than-2-2-compatibility.php:811
-#: modules/blog-posts/blog-posts.php:2087
+#: modules/blog-posts/blog-posts.php:2115
 msgid "Comment"
 msgstr ""
 
@@ -13753,11 +13758,11 @@ msgstr ""
 msgid "Advanced Posts"
 msgstr ""
 
-#: modules/blog-posts/blog-posts.php:1978
+#: modules/blog-posts/blog-posts.php:2006
 msgid "By"
 msgstr ""
 
-#: modules/blog-posts/blog-posts.php:2087
+#: modules/blog-posts/blog-posts.php:2115
 msgid "Comments"
 msgstr ""
 
@@ -18476,7 +18481,7 @@ msgstr ""
 msgid "There was an error subscribing. Please try again."
 msgstr ""
 
-#: modules/mailchimp-subscribe-form/mailchimp-subscribe-form.php:1116
+#: modules/mailchimp-subscribe-form/mailchimp-subscribe-form.php:1136
 msgid ""
 "Subscription Form requires Beaver Builder versions above 1.8.4. Make sure "
 "you use latest Beaver Builder to view best results."
@@ -18916,11 +18921,11 @@ msgstr ""
 msgid "Video Popup"
 msgstr ""
 
-#: modules/modal-popup/modal-popup.php:921
+#: modules/modal-popup/modal-popup.php:944
 #. translators: %1$s: search term, %2$s: search term
 msgid ""
 "<div style=\"%2$s\"> The related CSS and JS scripts will load on "
-"request.</div>\n"
+"request.</div>\r\n"
 "\t\t<div style=\"%1$s\">A loader will appear during loading of the "
 "iFrame.</div>"
 msgstr ""
@@ -21248,18 +21253,18 @@ msgstr ""
 msgid "Contact Form Submission"
 msgstr ""
 
-#: modules/uabb-contact-form/uabb-contact-form.php:1059
+#: modules/uabb-contact-form/uabb-contact-form.php:1071
 #. translators: %1$s: search term, translators: %2$s: search term
 msgid ""
-"<strong>From:</strong> [NAME]\n"
-"<strong>Email:</strong> [EMAIL]\n"
-"<strong>Subject:</strong> [SUBJECT]\n"
-"\n"
-"<strong>Message Body:</strong>\n"
-"[MESSAGE]\n"
-"\n"
-"----\n"
-"You have received a new submission from %1$s\n"
+"<strong>From:</strong> [NAME]\r\n"
+"<strong>Email:</strong> [EMAIL]\r\n"
+"<strong>Subject:</strong> [SUBJECT]\r\n"
+"\r\n"
+"<strong>Message Body:</strong>\r\n"
+"[MESSAGE]\r\n"
+"\r\n"
+"----\r\n"
+"You have received a new submission from %1$s\r\n"
 "(%2$s)"
 msgstr ""
 
@@ -23590,9 +23595,9 @@ msgstr ""
 #. translators: %s: search term
 msgid ""
 "<div style=\"%2$s\"> Make sure you add the actual URL of the video and not "
-"the share URL.</div>\n"
+"the share URL.</div>\r\n"
 "\t\t\t\t<div style=\"%1$s\"><b> Valid URL : </b>  "
-"https://www.youtube.com/watch?v=HJRzUQMhJMQ</div>\n"
+"https://www.youtube.com/watch?v=HJRzUQMhJMQ</div>\r\n"
 "\t\t\t\t<div style=\"%1$s\"> <b> Invalid URL : </b> "
 "https://youtu.be/HJRzUQMhJMQ</div>"
 msgstr ""
@@ -23601,9 +23606,9 @@ msgstr ""
 #. translators: %s: search term
 msgid ""
 "<div style=\"%1$s\">Make sure you add the actual URL of the video and not "
-"the share URL.</div>\n"
+"the share URL.</div>\r\n"
 "\t\t\t\t<div style=\"%1$s\"><b> Valid URL : </b>  "
-"https://vimeo.com/274860274</div>\n"
+"https://vimeo.com/274860274</div>\r\n"
 "\t\t\t\t<div style=\"%1$s\"> <b> Invalid URL : </b> "
 "https://vimeo.com/channels/staffpicks/274860274</div>"
 msgstr ""
@@ -23947,9 +23952,9 @@ msgstr ""
 #. translators: %s: search term
 msgid ""
 "<div style=\"%2$s\"> Make sure you add the actual URL of the video and not "
-"the share URL.</div>\n"
+"the share URL.</div>\r\n"
 "\t\t\t        <div style=\"%1$s\"><b> Valid URL : </b>  "
-"https://www.youtube.com/watch?v=HJRzUQMhJMQ</div>\n"
+"https://www.youtube.com/watch?v=HJRzUQMhJMQ</div>\r\n"
 "\t\t\t        <div style=\"%1$s\"> <b> Invalid URL : </b> "
 "https://youtu.be/HJRzUQMhJMQ</div>"
 msgstr ""
@@ -23958,9 +23963,9 @@ msgstr ""
 #. translators: %s: search term
 msgid ""
 "<div style=\"%1$s\">Make sure you add the actual URL of the video and not "
-"the categorized URL.</div>\n"
+"the categorized URL.</div>\r\n"
 "\t\t\t        <div style=\"%1$s\"><b> Valid URL : </b>  "
-"https://vimeo.com/274860274</div>\n"
+"https://vimeo.com/274860274</div>\r\n"
 "\t\t\t        <div style=\"%1$s\"> <b> Invalid URL : </b> "
 "https://vimeo.com/channels/staffpicks/274860274</div>"
 msgstr ""
@@ -24396,7 +24401,7 @@ msgctxt "%s stands for custom branded \"UABB\" name."
 msgid "%s Settings"
 msgstr ""
 
-#: includes/admin-settings-modules.php:40
+#: includes/admin-settings-modules.php:44
 msgctxt "Plugin setup page: Modules."
 msgid "All"
 msgstr ""

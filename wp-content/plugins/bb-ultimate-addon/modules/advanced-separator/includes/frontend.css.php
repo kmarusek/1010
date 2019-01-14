@@ -119,6 +119,10 @@ $settings->width               = ( '' !== trim( $settings->width ) ) ? $settings
 	.fl-node-<?php echo $id; ?> <?php echo $settings->text_tag_selection; ?>.uabb-divider-text{
 		<?php echo ( ! empty( $settings->text_color ) ) ? 'color: ' . $settings->text_color . ';' : ''; ?>
 	}
+	.fl-node-<?php echo $id; ?> <?php echo $settings->text_tag_selection; ?>.uabb-divider-text {
+		white-space: nowrap;
+		margin: 0;
+	}
 		<?php if ( ! $version_bb_check ) { ?>
 		.fl-node-<?php echo $id; ?> <?php echo $settings->text_tag_selection; ?>.uabb-divider-text{
 			white-space: nowrap;

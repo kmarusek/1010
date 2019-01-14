@@ -684,23 +684,28 @@ class BlogPostsModule extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->title_line_height['desktop'] ) && isset( $settings->title_font_size['desktop'] ) && 0 != $settings->title_font_size['desktop'] ) {
-				$settings->title_font_typo['line_height'] = array(
-					'length' => round( $settings->title_line_height['desktop'] / $settings->title_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->title_line_height['desktop'] ) && is_numeric( $settings->title_font_size['desktop'] ) ) {
+					$settings->title_font_typo['line_height'] = array(
+						'length' => round( $settings->title_line_height['desktop'] / $settings->title_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->title_line_height['medium'] ) && isset( $settings->title_font_size['medium'] ) && 0 != $settings->title_font_size['medium'] ) {
-
-				$settings->title_font_typo_medium['line_height'] = array(
-					'length' => round( $settings->title_line_height['medium'] / $settings->title_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->title_line_height['medium'] ) && is_numeric( $settings->title_font_size['medium'] ) ) {
+					$settings->title_font_typo_medium['line_height'] = array(
+						'length' => round( $settings->title_line_height['medium'] / $settings->title_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->title_line_height['small'] ) && isset( $settings->title_font_size['small'] ) && 0 != $settings->title_font_size['small'] && ! isset( $settings->title_line_height_unit_responsive ) ) {
-				$settings->title_font_typo_responsive['line_height'] = array(
-					'length' => round( $settings->title_line_height['small'] / $settings->title_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->title_line_height['small'] ) && is_numeric( $settings->title_font_size['small'] ) ) {
+					$settings->title_font_typo_responsive['line_height'] = array(
+						'length' => round( $settings->title_line_height['small'] / $settings->title_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( ! isset( $settings->desc_font_typo ) || ! is_array( $settings->desc_font_typo ) ) {
 
@@ -739,23 +744,28 @@ class BlogPostsModule extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->desc_line_height['desktop'] ) && isset( $settings->desc_font_size['desktop'] ) && 0 != $settings->desc_font_size['desktop'] ) {
-				$settings->desc_font_typo['line_height'] = array(
-					'length' => round( $settings->desc_line_height['desktop'] / $settings->desc_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->desc_line_height['desktop'] ) && is_numeric( $settings->desc_font_size['desktop'] ) ) {
+					$settings->desc_font_typo['line_height'] = array(
+						'length' => round( $settings->desc_line_height['desktop'] / $settings->desc_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->desc_line_height['medium'] ) && isset( $settings->desc_font_size['medium'] ) && 0 != $settings->desc_font_size['medium'] ) {
-
-				$settings->desc_font_typo_medium['line_height'] = array(
-					'length' => round( $settings->desc_line_height['medium'] / $settings->desc_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->desc_line_height['medium'] ) && is_numeric( $settings->desc_font_size['medium'] ) ) {
+					$settings->desc_font_typo_medium['line_height'] = array(
+						'length' => round( $settings->desc_line_height['medium'] / $settings->desc_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->desc_line_height['small'] ) && isset( $settings->desc_font_size['small'] ) && 0 != $settings->desc_font_size['small'] ) {
-				$settings->desc_font_typo_responsive['line_height'] = array(
-					'length' => round( $settings->desc_line_height['small'] / $settings->desc_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->desc_line_height['small'] ) && is_numeric( $settings->desc_font_size['small'] ) ) {
+					$settings->desc_font_typo_responsive['line_height'] = array(
+						'length' => round( $settings->desc_line_height['small'] / $settings->desc_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( ! isset( $settings->meta_font_typo ) || ! is_array( $settings->meta_font_typo ) ) {
 
@@ -794,22 +804,28 @@ class BlogPostsModule extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->meta_line_height['desktop'] ) && isset( $settings->meta_font_size['desktop'] ) && 0 != $settings->meta_font_size['desktop'] ) {
-				$settings->meta_font_typo['line_height'] = array(
-					'length' => round( $settings->meta_line_height['desktop'] / $settings->meta_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->meta_line_height['desktop'] ) && is_numeric( $settings->meta_font_size['desktop'] ) ) {
+					$settings->meta_font_typo['line_height'] = array(
+						'length' => round( $settings->meta_line_height['desktop'] / $settings->meta_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->meta_line_height['medium'] ) && isset( $settings->meta_font_size['medium'] ) && 0 != $settings->meta_font_size['medium'] ) {
-				$settings->meta_font_typo_medium['line_height'] = array(
-					'length' => round( $settings->meta_line_height['medium'] / $settings->meta_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->meta_line_height['medium'] ) && is_numeric( $settings->meta_font_size['medium'] ) ) {
+					$settings->meta_font_typo_medium['line_height'] = array(
+						'length' => round( $settings->meta_line_height['medium'] / $settings->meta_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->meta_line_height['small'] ) && isset( $settings->meta_font_size['small'] ) && 0 != $settings->meta_font_size['small'] ) {
-				$settings->meta_font_typo_responsive['line_height'] = array(
-					'length' => round( $settings->meta_line_height['small'] / $settings->meta_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->meta_line_height['small'] ) && is_numeric( $settings->meta_font_size['small'] ) ) {
+					$settings->meta_font_typo_responsive['line_height'] = array(
+						'length' => round( $settings->meta_line_height['small'] / $settings->meta_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( ! isset( $settings->date_font_typo ) || ! is_array( $settings->date_font_typo ) ) {
 
@@ -884,22 +900,28 @@ class BlogPostsModule extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->link_line_height['desktop'] ) && isset( $settings->link_font_size['desktop'] ) && 0 != $settings->link_font_size['desktop'] ) {
-				$settings->link_font_typo['line_height'] = array(
-					'length' => round( $settings->link_line_height['desktop'] / $settings->link_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->link_line_height['desktop'] ) && is_numeric( $settings->link_font_size['desktop'] ) ) {
+					$settings->link_font_typo['line_height'] = array(
+						'length' => round( $settings->link_line_height['desktop'] / $settings->link_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->link_line_height['medium'] ) && isset( $settings->link_font_size['medium'] ) && 0 != $settings->link_font_size['medium'] ) {
-				$settings->link_font_typo_medium['line_height'] = array(
-					'length' => round( $settings->link_line_height['medium'] / $settings->link_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->link_line_height['medium'] ) && is_numeric( $settings->link_font_size['medium'] ) ) {
+					$settings->link_font_typo_medium['line_height'] = array(
+						'length' => round( $settings->link_line_height['medium'] / $settings->link_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->link_line_height['small'] ) && isset( $settings->link_font_size['small'] ) && 0 != $settings->link_font_size['small'] ) {
-				$settings->link_font_typo_responsive['line_height'] = array(
-					'length' => round( $settings->link_line_height['small'] / $settings->link_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->link_line_height['small'] ) && is_numeric( $settings->link_font_size['small'] ) ) {
+					$settings->link_font_typo_responsive['line_height'] = array(
+						'length' => round( $settings->link_line_height['small'] / $settings->link_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( ! isset( $settings->btn_font_typo ) || ! is_array( $settings->btn_font_typo ) ) {
 
@@ -939,22 +961,28 @@ class BlogPostsModule extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->btn_line_height['desktop'] ) && isset( $settings->btn_font_size['desktop'] ) && 0 != $settings->btn_font_size['desktop'] ) {
-				$settings->btn_font_typo['line_height'] = array(
-					'length' => round( $settings->btn_line_height['desktop'] / $settings->btn_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->btn_line_height['desktop'] ) && is_numeric( $settings->btn_font_size['desktop'] ) ) {
+					$settings->btn_font_typo['line_height'] = array(
+						'length' => round( $settings->btn_line_height['desktop'] / $settings->btn_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->btn_line_height['medium'] ) && isset( $settings->btn_font_size['medium'] ) && 0 != $settings->btn_font_size['medium'] ) {
-				$settings->btn_font_typo_medium['line_height'] = array(
-					'length' => round( $settings->btn_line_height['medium'] / $settings->btn_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->btn_line_height['medium'] ) && is_numeric( $settings->btn_font_size['medium'] ) ) {
+					$settings->btn_font_typo_medium['line_height'] = array(
+						'length' => round( $settings->btn_line_height['medium'] / $settings->btn_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->btn_line_height['small'] ) && isset( $settings->btn_font_size['small'] ) && 0 != $settings->btn_font_size['small'] ) {
-				$settings->btn_font_typo_responsive['line_height'] = array(
-					'length' => round( $settings->btn_line_height['small'] / $settings->btn_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->btn_line_height['small'] ) && is_numeric( $settings->btn_font_size['small'] ) ) {
+					$settings->btn_font_typo_responsive['line_height'] = array(
+						'length' => round( $settings->btn_line_height['small'] / $settings->btn_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( ! isset( $settings->taxonomy_filter_font_typo ) || ! is_array( $settings->taxonomy_filter_font_typo ) ) {
 

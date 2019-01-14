@@ -616,22 +616,28 @@ class ModalPopupModule extends FLBuilderModule {
 			}
 
 			if ( isset( $settings->title_line_height['small'] ) && isset( $settings->title_font_size['small'] ) && 0 != $settings->title_font_size['small'] ) {
-				$settings->title_font_typo_responsive['line_height'] = array(
-					'length' => round( $settings->title_line_height['small'] / $settings->title_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->title_line_height['small'] ) && is_numeric( $settings->title_font_size['small'] ) ) {
+					$settings->title_font_typo_responsive['line_height'] = array(
+						'length' => round( $settings->title_line_height['small'] / $settings->title_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->title_line_height['medium'] ) && isset( $settings->title_font_size['medium'] ) && 0 != $settings->title_font_size['medium'] ) {
-				$settings->title_font_typo_medium['line_height'] = array(
-					'length' => round( $settings->title_line_height['medium'] / $settings->title_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->title_line_height['medium'] ) && is_numeric( $settings->title_font_size['medium'] ) ) {
+					$settings->title_font_typo_medium['line_height'] = array(
+						'length' => round( $settings->title_line_height['medium'] / $settings->title_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->title_line_height['desktop'] ) && isset( $settings->title_font_size['desktop'] ) && 0 != $settings->title_font_size['desktop'] ) {
-				$settings->title_font_typo['line_height'] = array(
-					'length' => round( $settings->title_line_height['desktop'] / $settings->title_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->title_line_height['desktop'] ) && is_numeric( $settings->title_font_size['desktop'] ) ) {
+					$settings->title_font_typo['line_height'] = array(
+						'length' => round( $settings->title_line_height['desktop'] / $settings->title_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 
 			// For Content Font Typo.
@@ -676,22 +682,28 @@ class ModalPopupModule extends FLBuilderModule {
 			}
 
 			if ( isset( $settings->ct_content_line_height['small'] ) && isset( $settings->ct_content_font_size['small'] ) && 0 != $settings->ct_content_font_size['small'] ) {
-				$settings->ct_content_font_typo_responsive['line_height'] = array(
-					'length' => round( $settings->ct_content_line_height['small'] / $settings->ct_content_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->ct_content_line_height['small'] ) && is_numeric( $settings->ct_content_font_size['small'] ) ) {
+					$settings->ct_content_font_typo_responsive['line_height'] = array(
+						'length' => round( $settings->ct_content_line_height['small'] / $settings->ct_content_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->ct_content_line_height['medium'] ) && isset( $settings->ct_content_font_size['medium'] ) && 0 != $settings->ct_content_font_size['medium'] ) {
-				$settings->ct_content_font_typo_medium['line_height'] = array(
-					'length' => round( $settings->ct_content_line_height['medium'] / $settings->ct_content_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->ct_content_line_height['medium'] ) && is_numeric( $settings->ct_content_font_size['medium'] ) ) {
+					$settings->ct_content_font_typo_medium['line_height'] = array(
+						'length' => round( $settings->ct_content_line_height['medium'] / $settings->ct_content_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->ct_content_line_height['desktop'] ) && isset( $settings->ct_content_font_size['desktop'] ) && 0 != $settings->ct_content_font_size['desktop'] ) {
-				$settings->ct_content_font_typo['line_height'] = array(
-					'length' => round( $settings->ct_content_line_height['desktop'] / $settings->ct_content_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->ct_content_line_height['desktop'] ) && is_numeric( $settings->ct_content_font_size['desktop'] ) ) {
+					$settings->ct_content_font_typo['line_height'] = array(
+						'length' => round( $settings->ct_content_line_height['desktop'] / $settings->ct_content_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 
 			// For Text Font Typo.
@@ -735,22 +747,28 @@ class ModalPopupModule extends FLBuilderModule {
 			}
 
 			if ( isset( $settings->line_height['small'] ) && isset( $settings->font_size['small'] ) && 0 != $settings->font_size['small'] ) {
-				$settings->text_typo_responsive['line_height'] = array(
-					'length' => round( $settings->line_height['small'] / $settings->font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->line_height['small'] ) && is_numeric( $settings->font_size['small'] ) ) {
+					$settings->text_typo_responsive['line_height'] = array(
+						'length' => round( $settings->line_height['small'] / $settings->font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->line_height['medium'] ) && isset( $settings->font_size['medium'] ) && 0 != $settings->font_size['medium'] ) {
-				$settings->text_typo_medium['line_height'] = array(
-					'length' => round( $settings->line_height['medium'] / $settings->font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->line_height['medium'] ) && is_numeric( $settings->font_size['medium'] ) ) {
+					$settings->text_typo_medium['line_height'] = array(
+						'length' => round( $settings->line_height['medium'] / $settings->font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->line_height['desktop'] ) && isset( $settings->font_size['desktop'] ) && 0 != $settings->font_size['desktop'] ) {
-				$settings->text_typo['line_height'] = array(
-					'length' => round( $settings->line_height['desktop'] / $settings->font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->line_height['desktop'] ) && is_numeric( $settings->font_size['desktop'] ) ) {
+					$settings->text_typo['line_height'] = array(
+						'length' => round( $settings->line_height['desktop'] / $settings->font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			// For Button Font Typo.
 			if ( ! isset( $settings->btn_typo ) || ! is_array( $settings->btn_typo ) ) {
@@ -788,26 +806,31 @@ class ModalPopupModule extends FLBuilderModule {
 					'length' => $settings->btn_font_size['desktop'],
 					'unit'   => 'px',
 				);
-				$settings->btn_font_size_unit    = $settings->btn_font_size['desktop'];
 			}
 
 			if ( isset( $settings->btn_line_height['small'] ) && isset( $settings->btn_font_size['small'] ) && 0 != $settings->btn_font_size['small'] ) {
-				$settings->btn_typo_responsive['line_height'] = array(
-					'length' => round( $settings->btn_line_height['small'] / $settings->btn_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->btn_line_height['small'] ) && is_numeric( $settings->btn_font_size['small'] ) ) {
+					$settings->btn_typo_responsive['line_height'] = array(
+						'length' => round( $settings->btn_line_height['small'] / $settings->btn_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->btn_line_height['medium'] ) && isset( $settings->btn_font_size['medium'] ) && 0 != $settings->btn_font_size['medium'] ) {
-				$settings->btn_typo_medium['line_height'] = array(
-					'length' => round( $settings->btn_line_height['medium'] / $settings->btn_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->btn_line_height['medium'] ) && is_numeric( $settings->btn_font_size['medium'] ) ) {
+					$settings->btn_typo_medium['line_height'] = array(
+						'length' => round( $settings->btn_line_height['medium'] / $settings->btn_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->btn_line_height['desktop'] ) && isset( $settings->btn_font_size['desktop'] ) && 0 != $settings->btn_font_size['desktop'] ) {
-				$settings->btn_typo['line_height'] = array(
-					'length' => round( $settings->btn_line_height['desktop'] / $settings->btn_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->btn_line_height['desktop'] ) && is_numeric( $settings->btn_font_size['desktop'] ) ) {
+					$settings->btn_typo['line_height'] = array(
+						'length' => round( $settings->btn_line_height['desktop'] / $settings->btn_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->title_spacing ) ) {
 

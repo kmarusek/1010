@@ -167,23 +167,28 @@ class UABBDualColorModule extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->dual_line_height['desktop'] ) && isset( $settings->dual_font_size['desktop'] ) && 0 != $settings->dual_font_size['desktop'] ) {
-
-				$settings->dual_typo['line_height'] = array(
-					'length' => round( $settings->dual_line_height['desktop'] / $settings->dual_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->dual_line_height['desktop'] ) && is_numeric( $settings->dual_font_size['desktop'] ) ) {
+					$settings->dual_typo['line_height'] = array(
+						'length' => round( $settings->dual_line_height['desktop'] / $settings->dual_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->dual_line_height['medium'] ) && isset( $settings->dual_font_size['medium'] ) && 0 != $settings->dual_font_size['medium'] ) {
-				$settings->dual_typo_medium['line_height'] = array(
-					'length' => round( $settings->dual_line_height['medium'] / $settings->dual_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->dual_line_height['medium'] ) && is_numeric( $settings->dual_font_size['medium'] ) ) {
+					$settings->dual_typo_medium['line_height'] = array(
+						'length' => round( $settings->dual_line_height['medium'] / $settings->dual_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->dual_line_height['small'] ) && isset( $settings->dual_font_size['small'] ) && 0 != $settings->dual_font_size['small'] ) {
-				$settings->dual_typo_responsive['line_height'] = array(
-					'length' => round( $settings->dual_line_height['small'] / $settings->dual_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->dual_line_height['small'] ) && is_numeric( $settings->dual_font_size['small'] ) ) {
+					$settings->dual_typo_responsive['line_height'] = array(
+						'length' => round( $settings->dual_line_height['small'] / $settings->dual_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->dual_color_alignment ) ) {
 				$settings->dual_typo['text_align'] = $settings->dual_color_alignment;

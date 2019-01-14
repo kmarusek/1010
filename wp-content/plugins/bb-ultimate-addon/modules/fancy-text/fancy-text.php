@@ -233,23 +233,28 @@ class UABBFancyTextModule extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->line_height['desktop'] ) && isset( $settings->font_size['desktop'] ) && 0 != $settings->font_size['desktop'] ) {
-				$settings->static_text_typo['line_height'] = array(
-					'length' => round( $settings->line_height['desktop'] / $settings->font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->line_height['desktop'] ) && is_numeric( $settings->font_size['desktop'] ) ) {
+					$settings->static_text_typo['line_height'] = array(
+						'length' => round( $settings->line_height['desktop'] / $settings->font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->line_height['medium'] ) && isset( $settings->font_size['medium'] ) && 0 != $settings->font_size['medium'] ) {
-
-				$settings->static_text_typo_medium['line_height'] = array(
-					'length' => round( $settings->line_height['medium'] / $settings->font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->line_height['medium'] ) && is_numeric( $settings->font_size['medium'] ) ) {
+					$settings->static_text_typo_medium['line_height'] = array(
+						'length' => round( $settings->line_height['medium'] / $settings->font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->line_height['small'] ) && isset( $settings->font_size['small'] ) && 0 != $settings->font_size['small'] ) {
-				$settings->static_text_typo_responsive['line_height'] = array(
-					'length' => round( $settings->line_height['small'] / $settings->font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->line_height['small'] ) && is_numeric( $settings->font_size['small'] ) ) {
+					$settings->static_text_typo_responsive['line_height'] = array(
+						'length' => round( $settings->line_height['small'] / $settings->font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			/* Fancy Text */
 			if ( ! isset( $settings->fancy_text_typo ) || ! is_array( $settings->fancy_text_typo ) ) {
@@ -284,22 +289,28 @@ class UABBFancyTextModule extends FLBuilderModule {
 				);
 			}
 			if ( isset( $settings->fancy_line_height['desktop'] ) && isset( $settings->fancy_font_size['small'] ) && 0 != $settings->fancy_font_size['desktop'] ) {
-				$settings->fancy_text_typo['line_height'] = array(
-					'length' => round( $settings->fancy_line_height['desktop'] / $settings->fancy_font_size['desktop'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->fancy_line_height['desktop'] ) && is_numeric( $settings->fancy_font_size['desktop'] ) ) {
+					$settings->fancy_text_typo['line_height'] = array(
+						'length' => round( $settings->fancy_line_height['desktop'] / $settings->fancy_font_size['desktop'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
-			if ( isset( $settings->fancy_line_height['medium'] ) && isset( $settings->fancy_font_size['small'] ) && 0 != $settings->fancy_font_size['medium'] ) {
-				$settings->fancy_text_typo_medium['line_height'] = array(
-					'length' => round( $settings->fancy_line_height['medium'] / $settings->fancy_font_size['medium'], 2 ),
-					'unit'   => 'em',
-				);
+			if ( isset( $settings->fancy_line_height['medium'] ) && isset( $settings->fancy_font_size['medium'] ) && 0 != $settings->fancy_font_size['medium'] ) {
+				if ( is_numeric( $settings->fancy_line_height['medium'] ) && is_numeric( $settings->fancy_font_size['medium'] ) ) {
+					$settings->fancy_text_typo_medium['line_height'] = array(
+						'length' => round( $settings->fancy_line_height['medium'] / $settings->fancy_font_size['medium'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->fancy_line_height['small'] ) && isset( $settings->fancy_font_size['small'] ) && 0 != $settings->fancy_font_size['small'] ) {
-				$settings->fancy_text_typo_responsive['line_height'] = array(
-					'length' => round( $settings->fancy_line_height['small'] / $settings->fancy_font_size['small'], 2 ),
-					'unit'   => 'em',
-				);
+				if ( is_numeric( $settings->fancy_line_height['small'] ) && is_numeric( $settings->fancy_font_size['small'] ) ) {
+					$settings->fancy_text_typo_responsive['line_height'] = array(
+						'length' => round( $settings->fancy_line_height['small'] / $settings->fancy_font_size['small'], 2 ),
+						'unit'   => 'em',
+					);
+				}
 			}
 			if ( isset( $settings->alignment ) ) {
 				$settings->alignment = $settings->alignment;
