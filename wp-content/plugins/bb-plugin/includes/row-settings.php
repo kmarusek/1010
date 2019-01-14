@@ -47,6 +47,7 @@ $row_settings = array(
 							'type'			=> 'unit',
 							'label'			=> __( 'Fixed Width', 'fl-builder' ),
 							'placeholder'	=> $global_settings->row_width,
+							'default_unit'  => $global_settings->row_width_unit,
 							'units'			=> array(
 								'px',
 								'vw',

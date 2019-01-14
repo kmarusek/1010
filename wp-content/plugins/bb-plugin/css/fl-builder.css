@@ -5688,21 +5688,10 @@ Rules to ensure compatibility with v2.0.
 .pp-preview-button,
 .fl-builder-pp-add-template-button,
 .fl-builder-add-ultimate-rows-button,
-.fl-builder-add-ultimate-presets-button,
-#fl-field-pp_bg_overlay_type {
+.fl-builder-add-ultimate-presets-button {
 	display: none !important;
 }
 /* @endgroup 2.0 Compat */
-
-/* @group 2.2 Compat
-Rules to ensure compatibility with v2.2.
------------------------------------------------------- */
-
-#fl-field-pp_bg_overlay_type,
-#fl-field-bg_overlay_opacity {
-	display: none !important;
-}
-/* @endgroup 2.2 Compat */
 
 /* @group jQuery UI */
 

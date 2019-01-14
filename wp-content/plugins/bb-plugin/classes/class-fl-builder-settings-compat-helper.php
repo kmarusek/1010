@@ -81,8 +81,8 @@ class FLBuilderSettingsCompatHelper {
 		}
 
 		$keys = array(
-			'slide-left' => 'fade-left',
-			'slide-right' => 'fade-right',
+			'slide-left' => 'fade-right',
+			'slide-right' => 'fade-left',
 			'slide-up' => 'fade-up',
 			'slide-down' => 'fade-down',
 		);

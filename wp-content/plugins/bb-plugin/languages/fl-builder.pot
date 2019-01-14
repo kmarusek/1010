@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bb-plugin\n"
 "Report-Msgid-Bugs-To: hello@wpbeaverbuilder.com\n"
-"POT-Creation-Date: 2019-01-08 20:16:05+00:00\n"
+"POT-Creation-Date: 2019-01-10 17:00:37+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -176,7 +176,7 @@ msgid "Untitled Shape"
 msgstr ""
 
 #: classes/class-fl-builder-art.php:183 includes/column-settings.php:279
-#: includes/row-settings.php:534 includes/ui-field-border.php:35
+#: includes/row-settings.php:535 includes/ui-field-border.php:35
 #: includes/ui-field-typography.php:110
 #: modules/contact-form/contact-form.php:417 modules/menu/menu.php:295
 #: modules/menu/menu.php:333 modules/pricing-table/pricing-table.php:144
@@ -193,13 +193,13 @@ msgid "Bottom Shape Layer"
 msgstr ""
 
 #: classes/class-fl-builder-art.php:327 includes/column-settings.php:70
-#: includes/row-settings.php:115 includes/ui-field-dimension.php:24
+#: includes/row-settings.php:116 includes/ui-field-dimension.php:24
 #: modules/slideshow/slideshow.php:475
 msgid "Top"
 msgstr ""
 
 #: classes/class-fl-builder-art.php:328 includes/column-settings.php:72
-#: includes/row-settings.php:117 includes/ui-field-dimension.php:26
+#: includes/row-settings.php:118 includes/ui-field-dimension.php:26
 #: modules/post-slider/post-slider.php:689 modules/slideshow/slideshow.php:474
 msgid "Bottom"
 msgstr ""
@@ -228,7 +228,7 @@ msgstr ""
 msgid "Width"
 msgstr ""
 
-#: classes/class-fl-builder-art.php:425 includes/row-settings.php:68
+#: classes/class-fl-builder-art.php:425 includes/row-settings.php:69
 #: modules/content-slider/content-slider.php:398 modules/map/map.php:43
 #: modules/post-slider/post-slider.php:388 modules/separator/separator.php:84
 #: modules/slideshow/slideshow.php:289
@@ -262,8 +262,8 @@ msgid "Center Left"
 msgstr ""
 
 #: classes/class-fl-builder-art.php:444 includes/column-settings.php:71
-#: includes/column-settings.php:229 includes/row-settings.php:116
-#: includes/row-settings.php:266 modules/content-slider/content-slider.php:633
+#: includes/column-settings.php:229 includes/row-settings.php:117
+#: includes/row-settings.php:267 modules/content-slider/content-slider.php:633
 #: modules/social-buttons/social-buttons.php:97
 msgid "Center"
 msgstr ""
@@ -298,7 +298,7 @@ msgstr ""
 
 #: classes/class-fl-builder-art.php:494 includes/column-settings.php:86
 #: includes/column-settings.php:161 includes/column-settings.php:280
-#: includes/row-settings.php:535 includes/row-settings.php:576
+#: includes/row-settings.php:536 includes/row-settings.php:577
 #: includes/ui-field-border.php:126 modules/callout/callout.php:576
 #: modules/content-slider/content-slider.php:489
 #: modules/heading/heading.php:198 modules/icon/icon.php:141
@@ -308,8 +308,8 @@ msgid "Color"
 msgstr ""
 
 #: classes/class-fl-builder-art.php:507 includes/column-settings.php:175
-#: includes/column-settings.php:281 includes/row-settings.php:536
-#: includes/row-settings.php:591 modules/button/button.php:451
+#: includes/column-settings.php:281 includes/row-settings.php:537
+#: includes/row-settings.php:592 modules/button/button.php:451
 #: modules/callout/callout.php:615 modules/callout/callout.php:885
 #: modules/contact-form/contact-form.php:619
 #: modules/content-slider/content-slider.php:868 modules/cta/cta.php:466
@@ -342,7 +342,7 @@ msgstr ""
 
 #: classes/class-fl-builder-fonts.php:65 classes/class-fl-builder-fonts.php:89
 #: classes/class-fl-builder-fonts.php:126 includes/column-settings.php:416
-#: includes/row-settings.php:71 includes/ui-field-border.php:34
+#: includes/row-settings.php:72 includes/ui-field-border.php:34
 #: includes/ui-field-typography.php:109 includes/ui-field-typography.php:123
 #: includes/ui-field-typography.php:136
 #: modules/content-slider/content-slider.php:605
@@ -526,7 +526,7 @@ msgstr ""
 
 #: classes/class-fl-builder-model.php:2945
 #: classes/class-fl-builder-module.php:366 includes/column-settings.php:332
-#: includes/module-settings.php:6 includes/row-settings.php:617
+#: includes/module-settings.php:6 includes/row-settings.php:618
 msgid "Advanced"
 msgstr ""
 
@@ -1897,7 +1897,7 @@ msgstr ""
 
 #: extensions/fl-builder-core-templates-admin/includes/admin-core-templates-edit.php:16
 #: extensions/fl-builder-core-templates-admin/includes/core-template-settings.php:23
-#: includes/column-settings.php:218 includes/row-settings.php:255
+#: includes/column-settings.php:218 includes/row-settings.php:256
 #: modules/callout/callout.php:475 modules/callout/callout.php:557
 #: modules/content-slider/content-slider.php:628
 #: modules/post-slider/post-slider.php:683
@@ -1911,7 +1911,7 @@ msgstr ""
 #: extensions/fl-builder-user-templates/includes/node-template-settings.php:21
 #: includes/column-settings.php:53 includes/global-settings.php:18
 #: includes/global-settings.php:183 includes/global-settings.php:197
-#: includes/row-settings.php:385 includes/row-settings.php:490
+#: includes/row-settings.php:386 includes/row-settings.php:491
 #: includes/ui-loop-settings.php:116 modules/accordion/accordion.php:76
 #: modules/accordion/accordion.php:88 modules/audio/audio.php:121
 #: modules/audio/audio.php:133 modules/audio/audio.php:158
@@ -1965,7 +1965,7 @@ msgstr ""
 #: extensions/fl-builder-user-templates/includes/node-template-settings.php:22
 #: includes/column-settings.php:54 includes/global-settings.php:19
 #: includes/global-settings.php:184 includes/global-settings.php:198
-#: includes/row-settings.php:386 includes/row-settings.php:491
+#: includes/row-settings.php:387 includes/row-settings.php:492
 #: includes/ui-loop-settings.php:115 modules/accordion/accordion.php:75
 #: modules/accordion/accordion.php:89 modules/audio/audio.php:122
 #: modules/audio/audio.php:134 modules/audio/audio.php:159
@@ -2028,7 +2028,7 @@ msgstr ""
 
 #: extensions/fl-builder-core-templates-admin/includes/admin-core-templates.php:6
 #: extensions/fl-builder-user-templates/includes/admin-add-new-form.php:22
-#: includes/column-settings.php:130 includes/row-settings.php:175
+#: includes/column-settings.php:130 includes/row-settings.php:176
 #: modules/callout/callout.php:666
 #: modules/content-slider/content-slider.php:483
 #: modules/content-slider/content-slider.php:533
@@ -2935,8 +2935,8 @@ msgstr ""
 msgid "Style"
 msgstr ""
 
-#: includes/column-settings.php:27 includes/row-settings.php:73
-#: includes/row-settings.php:90
+#: includes/column-settings.php:27 includes/row-settings.php:74
+#: includes/row-settings.php:91
 msgid "Minimum Height"
 msgstr ""
 
@@ -2950,7 +2950,7 @@ msgid ""
 "height regardless of how much content is in each of them."
 msgstr ""
 
-#: includes/column-settings.php:67 includes/row-settings.php:112
+#: includes/column-settings.php:67 includes/row-settings.php:113
 msgid "Vertical Alignment"
 msgstr ""
 
@@ -2965,31 +2965,31 @@ msgstr ""
 msgid "Text"
 msgstr ""
 
-#: includes/column-settings.php:96 includes/row-settings.php:141
+#: includes/column-settings.php:96 includes/row-settings.php:142
 #: modules/callout/callout.php:703 modules/menu/menu.php:442
 #: modules/post-carousel/post-carousel.php:475
 #: modules/post-grid/post-grid.php:929 modules/post-slider/post-slider.php:757
 msgid "Link Color"
 msgstr ""
 
-#: includes/column-settings.php:106 includes/row-settings.php:151
+#: includes/column-settings.php:106 includes/row-settings.php:152
 #: modules/callout/callout.php:717 modules/menu/menu.php:462
 #: modules/post-carousel/post-carousel.php:487
 #: modules/post-grid/post-grid.php:941 modules/post-slider/post-slider.php:775
 msgid "Link Hover Color"
 msgstr ""
 
-#: includes/column-settings.php:116 includes/row-settings.php:161
+#: includes/column-settings.php:116 includes/row-settings.php:162
 #: modules/callout/callout.php:389 modules/cta/cta.php:265
 msgid "Heading Color"
 msgstr ""
 
-#: includes/column-settings.php:126 includes/row-settings.php:171
+#: includes/column-settings.php:126 includes/row-settings.php:172
 #: modules/button/button.php:421 modules/post-slider/post-slider.php:513
 msgid "Background"
 msgstr ""
 
-#: includes/column-settings.php:156 includes/row-settings.php:572
+#: includes/column-settings.php:156 includes/row-settings.php:573
 #: modules/accordion/accordion.php:169 modules/accordion/accordion.php:248
 #: modules/button/button.php:426 modules/callout/callout.php:336
 #: modules/callout/callout.php:599
@@ -2999,17 +2999,17 @@ msgstr ""
 msgid "Background Color"
 msgstr ""
 
-#: includes/column-settings.php:171 includes/row-settings.php:587
+#: includes/column-settings.php:171 includes/row-settings.php:588
 msgid "Background Gradient"
 msgstr ""
 
-#: includes/column-settings.php:185 includes/row-settings.php:222
+#: includes/column-settings.php:185 includes/row-settings.php:223
 #: modules/content-slider/content-slider.php:512
 msgid "Background Photo"
 msgstr ""
 
-#: includes/column-settings.php:190 includes/row-settings.php:227
-#: includes/row-settings.php:505 modules/callout/callout.php:449
+#: includes/column-settings.php:190 includes/row-settings.php:228
+#: includes/row-settings.php:506 modules/callout/callout.php:449
 #: modules/callout/callout.php:465 modules/callout/callout.php:470
 #: modules/content-slider/content-slider.php:487
 #: modules/content-slider/content-slider.php:560
@@ -3018,95 +3018,95 @@ msgstr ""
 msgid "Photo"
 msgstr ""
 
-#: includes/column-settings.php:201 includes/row-settings.php:238
+#: includes/column-settings.php:201 includes/row-settings.php:239
 msgid "Repeat"
 msgstr ""
 
-#: includes/column-settings.php:222 includes/row-settings.php:259
+#: includes/column-settings.php:222 includes/row-settings.php:260
 #: includes/ui-field-gradient.php:40
 msgid "Left Top"
 msgstr ""
 
-#: includes/column-settings.php:223 includes/row-settings.php:260
+#: includes/column-settings.php:223 includes/row-settings.php:261
 #: includes/ui-field-gradient.php:41
 msgid "Left Center"
 msgstr ""
 
-#: includes/column-settings.php:224 includes/row-settings.php:261
+#: includes/column-settings.php:224 includes/row-settings.php:262
 #: includes/ui-field-gradient.php:42
 msgid "Left Bottom"
 msgstr ""
 
-#: includes/column-settings.php:225 includes/row-settings.php:262
+#: includes/column-settings.php:225 includes/row-settings.php:263
 #: includes/ui-field-gradient.php:43
 msgid "Right Top"
 msgstr ""
 
-#: includes/column-settings.php:226 includes/row-settings.php:263
+#: includes/column-settings.php:226 includes/row-settings.php:264
 #: includes/ui-field-gradient.php:44
 msgid "Right Center"
 msgstr ""
 
-#: includes/column-settings.php:227 includes/row-settings.php:264
+#: includes/column-settings.php:227 includes/row-settings.php:265
 #: includes/ui-field-gradient.php:45
 msgid "Right Bottom"
 msgstr ""
 
-#: includes/column-settings.php:228 includes/row-settings.php:265
+#: includes/column-settings.php:228 includes/row-settings.php:266
 #: includes/ui-field-gradient.php:46
 msgid "Center Top"
 msgstr ""
 
-#: includes/column-settings.php:230 includes/row-settings.php:267
+#: includes/column-settings.php:230 includes/row-settings.php:268
 #: includes/ui-field-gradient.php:48
 msgid "Center Bottom"
 msgstr ""
 
-#: includes/column-settings.php:240 includes/row-settings.php:277
+#: includes/column-settings.php:240 includes/row-settings.php:278
 msgid "Attachment"
 msgstr ""
 
-#: includes/column-settings.php:244 includes/row-settings.php:281
+#: includes/column-settings.php:244 includes/row-settings.php:282
 #: modules/post-grid/post-grid.php:1070
 msgid "Scroll"
 msgstr ""
 
 #: includes/column-settings.php:245 includes/global-settings.php:93
 #: includes/global-settings.php:107 includes/row-settings.php:20
-#: includes/row-settings.php:38 includes/row-settings.php:282
+#: includes/row-settings.php:38 includes/row-settings.php:283
 msgid "Fixed"
 msgstr ""
 
-#: includes/column-settings.php:255 includes/row-settings.php:292
+#: includes/column-settings.php:255 includes/row-settings.php:293
 msgid "Scale"
 msgstr ""
 
-#: includes/column-settings.php:260 includes/row-settings.php:297
+#: includes/column-settings.php:260 includes/row-settings.php:298
 msgid "Fit"
 msgstr ""
 
-#: includes/column-settings.php:261 includes/row-settings.php:298
+#: includes/column-settings.php:261 includes/row-settings.php:299
 msgid "Fill"
 msgstr ""
 
-#: includes/column-settings.php:272 includes/row-settings.php:527
+#: includes/column-settings.php:272 includes/row-settings.php:528
 msgid "Background Overlay"
 msgstr ""
 
-#: includes/column-settings.php:276 includes/row-settings.php:531
+#: includes/column-settings.php:276 includes/row-settings.php:532
 msgid "Overlay Type"
 msgstr ""
 
-#: includes/column-settings.php:297 includes/row-settings.php:553
+#: includes/column-settings.php:297 includes/row-settings.php:554
 msgid "Overlay Color"
 msgstr ""
 
-#: includes/column-settings.php:306 includes/row-settings.php:562
+#: includes/column-settings.php:306 includes/row-settings.php:563
 msgid "Overlay Gradient"
 msgstr ""
 
 #: includes/column-settings.php:316 includes/column-settings.php:320
-#: includes/row-settings.php:601 includes/row-settings.php:605
+#: includes/row-settings.php:602 includes/row-settings.php:606
 #: modules/button/button.php:469 modules/button/button.php:473
 #: modules/callout/callout.php:348 modules/callout/callout.php:539
 #: modules/cta/cta.php:222 modules/map/map.php:63 modules/photo/photo.php:638
@@ -3115,7 +3115,7 @@ msgid "Border"
 msgstr ""
 
 #: includes/column-settings.php:335 includes/module-settings.php:9
-#: includes/row-settings.php:620 includes/ui-field-typography.php:194
+#: includes/row-settings.php:621 includes/ui-field-typography.php:194
 #: modules/icon-group/icon-group.php:64
 #: modules/pricing-table/pricing-table.php:168
 msgid "Spacing"
@@ -3123,13 +3123,13 @@ msgstr ""
 
 #: includes/column-settings.php:339 includes/global-settings.php:41
 #: includes/global-settings.php:118 includes/global-settings.php:158
-#: includes/module-settings.php:13 includes/row-settings.php:624
+#: includes/module-settings.php:13 includes/row-settings.php:625
 #: modules/content-slider/content-slider.php:651
 msgid "Margins"
 msgstr ""
 
 #: includes/column-settings.php:365 includes/global-settings.php:58
-#: includes/global-settings.php:135 includes/row-settings.php:652
+#: includes/global-settings.php:135 includes/row-settings.php:653
 #: modules/accordion/accordion.php:180 modules/accordion/accordion.php:259
 #: modules/button/button.php:366 modules/callout/callout.php:366
 #: modules/content-slider/content-slider.php:656 modules/cta/cta.php:242
@@ -3138,41 +3138,41 @@ msgid "Padding"
 msgstr ""
 
 #: includes/column-settings.php:393 includes/module-settings.php:40
-#: includes/row-settings.php:682
+#: includes/row-settings.php:683
 msgid "Visibility"
 msgstr ""
 
 #: includes/column-settings.php:397 includes/module-settings.php:44
-#: includes/row-settings.php:686
+#: includes/row-settings.php:687
 msgid "Breakpoint"
 msgstr ""
 
-#: includes/column-settings.php:399 includes/row-settings.php:688
+#: includes/column-settings.php:399 includes/row-settings.php:689
 msgid "All"
 msgstr ""
 
 #: includes/column-settings.php:400 includes/module-settings.php:47
-#: includes/row-settings.php:689
+#: includes/row-settings.php:690
 msgid "Large Devices Only"
 msgstr ""
 
 #: includes/column-settings.php:401 includes/module-settings.php:48
-#: includes/row-settings.php:690
+#: includes/row-settings.php:691
 msgid "Large &amp; Medium Devices Only"
 msgstr ""
 
 #: includes/column-settings.php:402 includes/module-settings.php:49
-#: includes/row-settings.php:691
+#: includes/row-settings.php:692
 msgid "Medium Devices Only"
 msgstr ""
 
 #: includes/column-settings.php:403 includes/module-settings.php:50
-#: includes/row-settings.php:692 modules/menu/menu.php:395
+#: includes/row-settings.php:693 modules/menu/menu.php:395
 msgid "Medium &amp; Small Devices Only"
 msgstr ""
 
 #: includes/column-settings.php:404 includes/module-settings.php:51
-#: includes/row-settings.php:693 modules/menu/menu.php:396
+#: includes/row-settings.php:694 modules/menu/menu.php:396
 msgid "Small Devices Only"
 msgstr ""
 
@@ -3191,35 +3191,35 @@ msgid "Reversed"
 msgstr ""
 
 #: includes/column-settings.php:425 includes/module-settings.php:59
-#: includes/row-settings.php:701 modules/accordion/accordion.php:68
+#: includes/row-settings.php:702 modules/accordion/accordion.php:68
 #: modules/slideshow/slideshow.php:285
 msgid "Display"
 msgstr ""
 
 #: includes/column-settings.php:427 includes/module-settings.php:46
-#: includes/module-settings.php:61 includes/row-settings.php:703
+#: includes/module-settings.php:61 includes/row-settings.php:704
 #: modules/menu/menu.php:394
 msgid "Always"
 msgstr ""
 
 #: includes/column-settings.php:428 includes/module-settings.php:62
-#: includes/row-settings.php:704
+#: includes/row-settings.php:705
 msgid "Logged Out User"
 msgstr ""
 
 #: includes/column-settings.php:429 includes/module-settings.php:63
-#: includes/row-settings.php:705
+#: includes/row-settings.php:706
 msgid "Logged In User"
 msgstr ""
 
 #: includes/column-settings.php:430 includes/module-settings.php:64
-#: includes/row-settings.php:706 modules/gallery/gallery.php:283
+#: includes/row-settings.php:707 modules/gallery/gallery.php:283
 #: modules/photo/photo.php:514
 msgid "Never"
 msgstr ""
 
 #: includes/column-settings.php:443 includes/module-settings.php:77
-#: includes/row-settings.php:719
+#: includes/row-settings.php:720
 msgid "User Capability"
 msgstr ""
 
@@ -3231,17 +3231,17 @@ msgstr ""
 
 #: includes/column-settings.php:452 includes/column-settings.php:456
 #: includes/module-settings.php:86 includes/module-settings.php:90
-#: includes/row-settings.php:728 includes/row-settings.php:732
+#: includes/row-settings.php:729 includes/row-settings.php:733
 msgid "Animation"
 msgstr ""
 
 #: includes/column-settings.php:465 includes/module-settings.php:99
-#: includes/row-settings.php:741
+#: includes/row-settings.php:742
 msgid "HTML Element"
 msgstr ""
 
 #: includes/column-settings.php:469 includes/module-settings.php:103
-#: includes/row-settings.php:745
+#: includes/row-settings.php:746
 msgid "Container Element"
 msgstr ""
 
@@ -3252,7 +3252,7 @@ msgid ""
 msgstr ""
 
 #: includes/column-settings.php:486 includes/module-settings.php:120
-#: includes/row-settings.php:762 includes/ui-loop-settings.php:76
+#: includes/row-settings.php:763 includes/ui-loop-settings.php:76
 msgid "ID"
 msgstr ""
 
@@ -3410,7 +3410,7 @@ msgid ""
 "letter and only contain dashes, underscores, letters or numbers. No spaces."
 msgstr ""
 
-#: includes/module-settings.php:128 includes/row-settings.php:770
+#: includes/module-settings.php:128 includes/row-settings.php:771
 msgid "Class"
 msgstr ""
 
@@ -3446,23 +3446,23 @@ msgstr ""
 msgid "Fixed Width"
 msgstr ""
 
-#: includes/row-settings.php:72
+#: includes/row-settings.php:73
 msgid "Full Height"
 msgstr ""
 
-#: includes/row-settings.php:75
+#: includes/row-settings.php:76
 msgid ""
 "Full height rows fill the height of the browser window. Minimum height rows "
 "are no taller than the value entered."
 msgstr ""
 
-#: includes/row-settings.php:126 modules/icon-group/icon-group.php:174
+#: includes/row-settings.php:127 modules/icon-group/icon-group.php:174
 #: modules/post-carousel/post-carousel.php:458
 #: modules/post-slider/post-slider.php:735
 msgid "Colors"
 msgstr ""
 
-#: includes/row-settings.php:131 modules/accordion/accordion.php:157
+#: includes/row-settings.php:132 modules/accordion/accordion.php:157
 #: modules/accordion/accordion.php:236 modules/button/button.php:384
 #: modules/callout/callout.php:415
 #: modules/content-slider/content-slider.php:667
@@ -3475,88 +3475,88 @@ msgstr ""
 msgid "Text Color"
 msgstr ""
 
-#: includes/row-settings.php:309
+#: includes/row-settings.php:310
 msgid "Background Video"
 msgstr ""
 
-#: includes/row-settings.php:313 includes/row-settings.php:409
+#: includes/row-settings.php:314 includes/row-settings.php:410
 #: includes/ui-loop-settings.php:27 modules/gallery/gallery.php:242
 #: modules/slideshow/slideshow.php:256
 msgid "Source"
 msgstr ""
 
-#: includes/row-settings.php:316 includes/row-settings.php:412
+#: includes/row-settings.php:317 includes/row-settings.php:413
 #: modules/audio/audio.php:83 modules/gallery/gallery.php:245
 #: modules/photo/photo.php:472 modules/slideshow/slideshow.php:259
 #: modules/video/video.php:147
 msgid "Media Library"
 msgstr ""
 
-#: includes/row-settings.php:318
+#: includes/row-settings.php:319
 msgid "YouTube or Vimeo"
 msgstr ""
 
-#: includes/row-settings.php:338 modules/video/video.php:161
+#: includes/row-settings.php:339 modules/video/video.php:161
 msgid "Video (MP4)"
 msgstr ""
 
-#: includes/row-settings.php:339
+#: includes/row-settings.php:340
 msgid ""
 "A video in the MP4 format to use as the background of this row. Most modern "
 "browsers support this format."
 msgstr ""
 
-#: includes/row-settings.php:347 modules/video/video.php:168
+#: includes/row-settings.php:348 modules/video/video.php:168
 msgid "Video (WebM)"
 msgstr ""
 
-#: includes/row-settings.php:348 includes/row-settings.php:365
+#: includes/row-settings.php:349 includes/row-settings.php:366
 msgid ""
 "A video in the WebM format to use as the background of this row. This "
 "format is required to support browsers such as FireFox and Opera."
 msgstr ""
 
-#: includes/row-settings.php:355
+#: includes/row-settings.php:356
 msgid "Video URL (MP4)"
 msgstr ""
 
-#: includes/row-settings.php:356
+#: includes/row-settings.php:357
 msgid ""
 "A video in the MP4 to use as the background of this row. Most modern "
 "browsers support this format."
 msgstr ""
 
-#: includes/row-settings.php:364
+#: includes/row-settings.php:365
 msgid "Video URL (WebM)"
 msgstr ""
 
-#: includes/row-settings.php:373
+#: includes/row-settings.php:374
 msgid "Youtube Or Vimeo URL"
 msgstr ""
 
-#: includes/row-settings.php:374
+#: includes/row-settings.php:375
 msgid ""
 "A video from Youtube or Vimeo to use as the background of this row. Most "
 "modern browsers support this format."
 msgstr ""
 
-#: includes/row-settings.php:382
+#: includes/row-settings.php:383
 msgid "Enable Audio"
 msgstr ""
 
-#: includes/row-settings.php:395
+#: includes/row-settings.php:396
 msgid "Fallback Photo"
 msgstr ""
 
-#: includes/row-settings.php:396
+#: includes/row-settings.php:397
 msgid "A photo that will be displayed if the video fails to load."
 msgstr ""
 
-#: includes/row-settings.php:405
+#: includes/row-settings.php:406
 msgid "Background Slideshow"
 msgstr ""
 
-#: includes/row-settings.php:415 modules/gallery/gallery.php:248
+#: includes/row-settings.php:416 modules/gallery/gallery.php:248
 #: modules/slideshow/slideshow.php:262
 msgid ""
 "Pull images from the WordPress media library or a gallery on your SmugMug "
@@ -3564,110 +3564,110 @@ msgid ""
 "accessed by using the get a link function in your SmugMug gallery."
 msgstr ""
 
-#: includes/row-settings.php:430 modules/gallery/gallery.php:260
+#: includes/row-settings.php:431 modules/gallery/gallery.php:260
 #: modules/slideshow/slideshow.php:274
 msgid "Photos"
 msgstr ""
 
-#: includes/row-settings.php:438 modules/gallery/gallery.php:265
+#: includes/row-settings.php:439 modules/gallery/gallery.php:265
 #: modules/slideshow/slideshow.php:279
 msgid "Feed URL"
 msgstr ""
 
-#: includes/row-settings.php:446 includes/row-settings.php:513
+#: includes/row-settings.php:447 includes/row-settings.php:514
 #: modules/slideshow/slideshow.php:380
 msgid "Speed"
 msgstr ""
 
-#: includes/row-settings.php:456 modules/content-slider/content-slider.php:336
+#: includes/row-settings.php:457 modules/content-slider/content-slider.php:336
 #: modules/post-slider/post-slider.php:427 modules/slideshow/slideshow.php:388
 #: modules/testimonials/testimonials.php:84
 msgid "Transition"
 msgstr ""
 
-#: includes/row-settings.php:460 modules/content-slider/content-slider.php:340
+#: includes/row-settings.php:461 modules/content-slider/content-slider.php:340
 #: modules/post-carousel/post-carousel.php:294
 #: modules/post-grid/post-grid.php:960 modules/post-slider/post-slider.php:430
 #: modules/slideshow/slideshow.php:392 modules/testimonials/testimonials.php:88
 msgid "Fade"
 msgstr ""
 
-#: includes/row-settings.php:461 modules/slideshow/slideshow.php:393
+#: includes/row-settings.php:462 modules/slideshow/slideshow.php:393
 msgid "Ken Burns"
 msgstr ""
 
-#: includes/row-settings.php:462 modules/slideshow/slideshow.php:394
+#: includes/row-settings.php:463 modules/slideshow/slideshow.php:394
 msgid "Slide Horizontal"
 msgstr ""
 
-#: includes/row-settings.php:463 modules/slideshow/slideshow.php:395
+#: includes/row-settings.php:464 modules/slideshow/slideshow.php:395
 msgid "Slide Vertical"
 msgstr ""
 
-#: includes/row-settings.php:464 modules/slideshow/slideshow.php:396
+#: includes/row-settings.php:465 modules/slideshow/slideshow.php:396
 msgid "Blinds"
 msgstr ""
 
-#: includes/row-settings.php:465 modules/slideshow/slideshow.php:397
+#: includes/row-settings.php:466 modules/slideshow/slideshow.php:397
 msgid "Bars"
 msgstr ""
 
-#: includes/row-settings.php:466 modules/slideshow/slideshow.php:398
+#: includes/row-settings.php:467 modules/slideshow/slideshow.php:398
 msgid "Random Bars"
 msgstr ""
 
-#: includes/row-settings.php:467 modules/slideshow/slideshow.php:399
+#: includes/row-settings.php:468 modules/slideshow/slideshow.php:399
 msgid "Boxes"
 msgstr ""
 
-#: includes/row-settings.php:468 modules/slideshow/slideshow.php:400
+#: includes/row-settings.php:469 modules/slideshow/slideshow.php:400
 msgid "Random Boxes"
 msgstr ""
 
-#: includes/row-settings.php:469 modules/slideshow/slideshow.php:401
+#: includes/row-settings.php:470 modules/slideshow/slideshow.php:401
 msgid "Boxes Grow"
 msgstr ""
 
-#: includes/row-settings.php:477 modules/content-slider/content-slider.php:345
+#: includes/row-settings.php:478 modules/content-slider/content-slider.php:345
 #: modules/post-carousel/post-carousel.php:204
 #: modules/post-slider/post-slider.php:436 modules/slideshow/slideshow.php:406
 #: modules/testimonials/testimonials.php:93
 msgid "Transition Speed"
 msgstr ""
 
-#: includes/row-settings.php:487 modules/slideshow/slideshow.php:414
+#: includes/row-settings.php:488 modules/slideshow/slideshow.php:414
 msgid "Randomize Photos"
 msgstr ""
 
-#: includes/row-settings.php:500
+#: includes/row-settings.php:501
 msgid "Background Parallax"
 msgstr ""
 
-#: includes/row-settings.php:516
+#: includes/row-settings.php:517
 msgid "Fast"
 msgstr ""
 
-#: includes/row-settings.php:518
+#: includes/row-settings.php:519
 msgid "Slow"
 msgstr ""
 
-#: includes/row-settings.php:720
+#: includes/row-settings.php:721
 msgid "Optional. Set the <a%s>capability</a> required for users to view this row."
 msgstr ""
 
-#: includes/row-settings.php:755
+#: includes/row-settings.php:756
 msgid ""
 "Optional. Choose an appropriate HTML5 content sectioning element to use for "
 "this row to improve accessibility and machine-readability."
 msgstr ""
 
-#: includes/row-settings.php:763
+#: includes/row-settings.php:764
 msgid ""
 "A unique ID that will be applied to this row's HTML. Must start with a "
 "letter and only contain dashes, underscores, letters or numbers. No spaces."
 msgstr ""
 
-#: includes/row-settings.php:771
+#: includes/row-settings.php:772
 msgid ""
 "A class that will be applied to this row's HTML. Must start with a letter "
 "and only contain dashes, underscores, letters or numbers. Separate multiple "
@@ -8092,63 +8092,63 @@ msgctxt "Plugin setup page: Modules."
 msgid "All"
 msgstr ""
 
-#: includes/column-settings.php:133 includes/row-settings.php:178
+#: includes/column-settings.php:133 includes/row-settings.php:179
 #: modules/content-slider/content-slider.php:490
 msgctxt "Background type."
 msgid "None"
 msgstr ""
 
-#: includes/column-settings.php:134 includes/row-settings.php:179
+#: includes/column-settings.php:134 includes/row-settings.php:180
 msgctxt "Background type."
 msgid "Color"
 msgstr ""
 
-#: includes/column-settings.php:135 includes/row-settings.php:180
+#: includes/column-settings.php:135 includes/row-settings.php:181
 msgctxt "Background type."
 msgid "Gradient"
 msgstr ""
 
-#: includes/column-settings.php:136 includes/row-settings.php:181
+#: includes/column-settings.php:136 includes/row-settings.php:182
 msgctxt "Background type."
 msgid "Photo"
 msgstr ""
 
-#: includes/row-settings.php:182
+#: includes/row-settings.php:183
 msgctxt "Background type."
 msgid "Video"
 msgstr ""
 
-#: includes/row-settings.php:184
+#: includes/row-settings.php:185
 msgctxt "Background type."
 msgid "Slideshow"
 msgstr ""
 
-#: includes/row-settings.php:188
+#: includes/row-settings.php:189
 msgctxt "Background type."
 msgid "Parallax"
 msgstr ""
 
-#: includes/column-settings.php:205 includes/row-settings.php:242
+#: includes/column-settings.php:205 includes/row-settings.php:243
 msgctxt "Background repeat."
 msgid "None"
 msgstr ""
 
-#: includes/column-settings.php:206 includes/row-settings.php:243
+#: includes/column-settings.php:206 includes/row-settings.php:244
 msgctxt "Background repeat."
 msgid "Tile"
 msgstr ""
 
-#: includes/column-settings.php:207 includes/row-settings.php:244
+#: includes/column-settings.php:207 includes/row-settings.php:245
 msgctxt "Background repeat."
 msgid "Horizontal"
 msgstr ""
 
-#: includes/column-settings.php:208 includes/row-settings.php:245
+#: includes/column-settings.php:208 includes/row-settings.php:246
 msgctxt "Background repeat."
 msgid "Vertical"
 msgstr ""
 
-#: includes/column-settings.php:259 includes/row-settings.php:296
+#: includes/column-settings.php:259 includes/row-settings.php:297
 msgctxt "Background scale."
 msgid "None"
 msgstr ""
@@ -8192,18 +8192,18 @@ msgctxt "%s is an object like posts or taxonomies."
 msgid "Match all related %s except..."
 msgstr ""
 
-#: includes/row-settings.php:449 includes/row-settings.php:480
+#: includes/row-settings.php:450 includes/row-settings.php:481
 #: modules/slideshow/slideshow.php:581
 msgctxt "Value unit for form field of time in seconds. Such as: \"5 seconds\""
 msgid "seconds"
 msgstr ""
 
-#: includes/row-settings.php:459
+#: includes/row-settings.php:460
 msgctxt "Slideshow transition type."
 msgid "None"
 msgstr ""
 
-#: includes/row-settings.php:517
+#: includes/row-settings.php:518
 msgctxt "Speed."
 msgid "Medium"
 msgstr ""
