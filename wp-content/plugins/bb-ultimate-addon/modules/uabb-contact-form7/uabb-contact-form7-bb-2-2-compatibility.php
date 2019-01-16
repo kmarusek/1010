@@ -292,6 +292,16 @@ FLBuilder::register_module(
 							'type'       => 'border',
 							'label'      => __( 'Border', 'uabb' ),
 							'responsive' => true,
+							'default'	 => array(
+								'style'		=> 'solid',
+								'color'		=> 'cccccc',
+								'width'		=> array(
+									'top' 	 => '1',
+									'right'	 => '1',
+									'bottom' => '1',
+									'left'	 => '1',
+								),
+							),
 							'preview'    => array(
 								'type'      => 'css',
 								'selector'  => '.uabb-cf7-style input[type=email], .uabb-cf7-style input[type=text], .uabb-cf7-style input[type=url], .uabb-cf7-style input[type=number], .uabb-cf7-style input[type=date], .uabb-cf7-style select, .uabb-cf7-style textarea',

@@ -910,9 +910,6 @@ class UABBInfoBoxModule extends FLBuilderModule {
 					}
 				}
 			}
-			if ( isset( $settings->btn_link ) ) {
-				unset( $settings->btn_link );
-			}
 			if ( isset( $settings->prefix_font_family ) ) {
 				unset( $settings->prefix_font_family );
 				unset( $settings->prefix_font_size );

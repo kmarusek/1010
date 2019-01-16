@@ -563,7 +563,7 @@ if ( ! $version_bb_check ) {
 			array(
 				'settings'     => $settings,
 				'setting_name' => 'description_font_typo',
-				'selector'     => ".fl-node-$id  .uabb-info-list-content .uabb-info-list-description",
+				'selector'     => ".fl-node-$id .uabb-info-list-content .uabb-info-list-description",
 			)
 		);
 	}

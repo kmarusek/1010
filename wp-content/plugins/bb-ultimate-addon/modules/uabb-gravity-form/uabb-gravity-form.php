@@ -77,12 +77,12 @@ class UABBGravityFormModule extends FLBuilderModule {
 
 					if ( isset( $settings->input_border_width_dimension_top ) && isset( $settings->input_border_width_dimension_right ) && isset( $settings->input_border_width_dimension_bottom ) && isset( $settings->input_border_width_dimension_left ) ) {
 
-						$settings->input_border['width'] = array(
-							'top'    => $settings->input_border_width_dimension_top,
-							'right'  => $settings->input_border_width_dimension_right,
-							'bottom' => $settings->input_border_width_dimension_bottom,
-							'left'   => $settings->input_border_width_dimension_left,
-						);
+							$settings->input_border['width'] = array(
+								'top'    => $settings->input_border_width_dimension_top,
+								'right'  => $settings->input_border_width_dimension_right,
+								'bottom' => $settings->input_border_width_dimension_bottom,
+								'left'   => $settings->input_border_width_dimension_left,
+							);
 					}
 					if ( isset( $settings->input_border_width_dimension_top_responsive ) && isset( $settings->input_border_width_dimension_right_responsive ) && isset( $settings->input_border_width_dimension_bottom_responsive ) && isset( $settings->input_border_width_dimension_left_responsive ) ) {
 
@@ -130,12 +130,12 @@ class UABBGravityFormModule extends FLBuilderModule {
 					$settings->validation_border['color'] = $settings->validation_border_color;
 
 					if ( isset( $settings->validation_border_width ) ) {
-						$settings->validation_border['width'] = array(
-							'top'    => $settings->validation_border_width,
-							'right'  => $settings->validation_border_width,
-							'bottom' => $settings->validation_border_width,
-							'left'   => $settings->validation_border_width,
-						);
+							$settings->validation_border['width'] = array(
+								'top'    => $settings->validation_border_width,
+								'right'  => $settings->validation_border_width,
+								'bottom' => $settings->validation_border_width,
+								'left'   => $settings->validation_border_width,
+							);
 					}
 					unset( $settings->validation_border_width );
 				}

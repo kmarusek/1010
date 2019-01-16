@@ -95,7 +95,7 @@ class UABBContactFormModule extends FLBuilderModule {
 		$node_id          = isset( $_POST['node_id'] ) ? sanitize_text_field( $_POST['node_id'] ) : false;
 		$template_id      = isset( $_POST['template_id'] ) ? sanitize_text_field( $_POST['template_id'] ) : false;
 		$template_node_id = isset( $_POST['template_node_id'] ) ? sanitize_text_field( $_POST['template_node_id'] ) : false;
-		$terms_checke     = isset( $_POST['terms_checked'] ) && 1 == $_POST['terms_checked'] ? true : false;
+		$terms_checked    = isset( $_POST['terms_checked'] ) && 1 == $_POST['terms_checked'] ? true : false;
 		$admin_email      = get_option( 'admin_email' );
 		$site_name        = get_option( 'blogname' );
 

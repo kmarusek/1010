@@ -850,7 +850,7 @@ if ( '' != $settings->creative_menu_border_hover_color ) {
 				array(
 					'settings'     => $settings,
 					'setting_name' => 'creative_submenu_link_font_typo',
-					'selector'     => ".fl-node-$id  .uabb-creative-menu .sub-menu > li > a,.fl-node-$id .uabb-creative-menu .sub-menu > li > .uabb-has-submenu-container > a",
+					'selector'     => ".fl-node-$id .uabb-creative-menu .sub-menu > li > a,.fl-node-$id .uabb-creative-menu .sub-menu > li > .uabb-has-submenu-container > a",
 				)
 			);
 		}

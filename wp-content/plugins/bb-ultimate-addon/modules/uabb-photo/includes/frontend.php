@@ -29,8 +29,8 @@ if ( 'simple' == $settings->hover_effect ) {
 $link_url_nofollow = '';
 $link_url_target   = '';
 if ( UABB_Compatibility::check_bb_version() ) {
-	if ( isset( $settings->link_target ) ) {
-		$link_url_target = $settings->link_target;
+	if ( isset( $settings->link_url_target ) ) {
+		$link_url_target = $settings->link_url_target;
 	}
 	if ( isset( $settings->link_url_nofollow ) ) {
 		$link_url_nofollow = ( 'yes' == $settings->link_url_nofollow ) ? '1' : '';

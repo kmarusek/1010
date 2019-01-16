@@ -363,6 +363,16 @@ FLBuilder::register_module(
 							'type'       => 'border',
 							'label'      => __( 'Border', 'uabb' ),
 							'responsive' => true,
+							'default'	 => array(
+								'style'		=> 'solid',
+								'color'		=> '000000',
+								'width'		=> array(
+									'top'	 => '1',
+									'right'	 => '1',
+									'bottom' => '1',
+									'left'	 => '1',
+								),
+							),
 							'preview'    => array(
 								'type'      => 'css',
 								'selector'  => '.uabb-creative-menu .sub-menu',

@@ -369,6 +369,16 @@ FLBuilder::register_module(
 						'input_border'              => array(
 							'type'       => 'border',
 							'label'      => __( 'Input Border', 'uabb' ),
+							'default'    => array(
+                            	'style'	 => 'solid',
+                              	'color'	 => 'cccccc',
+                              	'width'	 => array(
+                                	'top'	 => '1',
+                                	'right'	 => '1',
+                                	'bottom' => '1',
+                                	'left' 	 => '1',
+								),
+							),
 							'responsive' => true,
 							'preview'    => array(
 								'type'      => 'css',
@@ -898,6 +908,16 @@ FLBuilder::register_module(
 							'type'       => 'border',
 							'label'      => __( 'Border', 'uabb' ),
 							'responsive' => true,
+							'default'    => array(
+								'style'	 => 'solid',
+								'color'	 => '790000',
+								'width'	 => array(
+									'top'	=> '1',
+									'right'	=> '1',
+									'bottom'=> '1',
+									'left'	=> '1',
+								),
+							),
 							'preview'    => array(
 								'type' => 'none',
 							),

@@ -506,7 +506,8 @@ if ( 'masonary' == $settings->is_carousel ) {
 		$date_background_color = ( '' != $color ) ? $color : '#EFEFEF';
 		echo 'color: ' . $settings->date_color . ';';
 	?>
-
+	background: <?php echo $date_background_color; ?>;
+	left: 0;
 }
 <?php if ( ! $version_bb_check ) { ?>
 	.fl-node-<?php echo $id; ?> .uabb-posted-on {
