@@ -712,6 +712,10 @@ class Ai1wm_Main_Controller {
 			'secret_key' => get_option( AI1WM_SECRET_KEY ),
 		) );
 
+		wp_localize_script( 'ai1wm_import', 'ai1wm_compatibility', array(
+			'messages' => Ai1wm_Compatibility::get( array() ),
+		) );
+
 		wp_localize_script( 'ai1wm_import', 'ai1wm_locale', array(
 			'stop_importing_your_website'         => __( 'You are about to stop importing your website, are you sure?', AI1WM_PLUGIN_NAME ),
 			'preparing_to_import'                 => __( 'Preparing to import...', AI1WM_PLUGIN_NAME ),

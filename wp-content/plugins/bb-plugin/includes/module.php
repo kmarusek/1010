@@ -1,5 +1,5 @@
-<?php $element = ( ! empty( $module->settings->container_element ) ? $module->settings->container_element : 'div' ); ?>
-<<?php echo $element; ?><?php FLBuilder::render_module_attributes( $module ); ?>>
+<?php $container_element = ( ! empty( $module->settings->container_element ) ? $module->settings->container_element : 'div' ); ?>
+<<?php echo $container_element; ?><?php FLBuilder::render_module_attributes( $module ); ?>>
 	<div class="fl-module-content fl-node-content">
 		<?php
 		ob_start();
@@ -13,6 +13,7 @@
 		$out = ob_get_clean();
 
 		echo apply_filters( 'fl_builder_render_module_content', $out, $module );
+
 		?>
 	</div>
-</<?php echo $element; ?>>
+</<?php echo $container_element; ?>>

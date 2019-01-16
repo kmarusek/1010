@@ -422,7 +422,6 @@ if ( 'always' != $module->get_media_breakpoint() ) : ?>
 	<?php // if menu is horizontal ?>
 	<?php if ( 'horizontal' == $settings->menu_layout ) : ?>
 		.fl-node-<?php echo $id; ?> .fl-menu .menu > li{ display: inline-block; }
-		.fl-node-<?php echo $id; ?> .fl-menu ul.menu { font-size: 0px; }
 
 		.fl-node-<?php echo $id; ?> .menu li{
 			border-left: 1px solid transparent;

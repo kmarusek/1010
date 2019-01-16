@@ -224,7 +224,7 @@ final class FLBuilderFonts {
 					if ( in_array( $selected_weight . 'i', $google[ $fname ] ) && 'italic' == $italic ) {
 						$weight = $selected_weight . 'i';
 					}
-					if ( '400' == $selected_weight && in_array( 'italic', $google[ $fname ] ) ) {
+					if ( ( '400' == $selected_weight || 'regular' == $selected_weight ) && 'italic' == $italic && in_array( 'italic', $google[ $fname ] ) ) {
 						$weight = '400i';
 					}
 				}

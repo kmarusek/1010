@@ -60,7 +60,7 @@ class Ai1wm_Export_Enumerate {
 
 			// Exclude inactive themes
 			if ( isset( $params['options']['no_inactive_themes'] ) ) {
-				foreach ( wp_get_themes() as $theme => $info ) {
+				foreach ( search_theme_directories() as $theme => $info ) {
 					// Exclude current parent and child themes
 					if ( ! in_array( $theme, array( get_template(), get_stylesheet() ) ) ) {
 						$inactive_themes[] = 'themes' . DIRECTORY_SEPARATOR . $theme;

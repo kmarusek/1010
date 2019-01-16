@@ -1,5 +1,5 @@
-<?php $element = ( ! empty( $row->settings->container_element ) ? $row->settings->container_element : 'div' ); ?>
-<<?php echo $element; ?><?php FLBuilder::render_row_attributes( $row ); ?>>
+<?php $container_element = ( ! empty( $row->settings->container_element ) ? $row->settings->container_element : 'div' ); ?>
+<<?php echo $container_element; ?><?php FLBuilder::render_row_attributes( $row ); ?>>
 	<div class="fl-row-content-wrap">
 		<?php FLBuilder::render_row_bg( $row ); ?>
 		<?php do_action( 'fl_builder_render_node_layers', $row ) ?>
@@ -12,4 +12,4 @@
 		?>
 		</div>
 	</div>
-</<?php echo $element; ?>>
+</<?php echo $container_element; ?>>
