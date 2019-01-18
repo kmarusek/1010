@@ -153,7 +153,7 @@ add_filter( 'upload_mimes', 'skeletonwarrior_mime_types' );
  */
 function skeletonwarrior_fix_svg() {
   echo '<style type="text/css">
-        .attachment-266x266, .thumbnail img, img[src$=".svg"] {
+        .attachment-266x266, .thumbnail img {
              width: 100% !important;
              height: auto !important;
         }
