@@ -2,7 +2,7 @@
 $item_class = $module->get_item_class();
 ?>
 
-<div class="pp-photo-gallery">
+<div class="pp-photo-gallery" itemscope="itemscope" itemtype="https://schema.org/ImageGallery">
 	<?php foreach ( $module->get_photos() as $photo ) {
 		include $module->dir . 'includes/layout.php';
 	} ?>

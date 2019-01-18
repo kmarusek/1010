@@ -14,7 +14,7 @@
 		$img_src = '';
 
 		if ( isset( $settings->fallback_image ) && 'default' == $settings->fallback_image ) {
-			$first_img = BB_PowerPack_Post_Helper::post_catch_image( get_the_content() );
+			$first_img = BB_PowerPack_Post_Helper::post_catch_image( get_the_content(), $settings->image_thumb_size );
         	$img_src = ( '' != $first_img ) ? $first_img : apply_filters( 'pp_cg_placeholder_img', $module_url .'/images/placeholder.jpg' );
 		}
 		if ( isset( $settings->fallback_image ) && 'custom' == $settings->fallback_image ) {

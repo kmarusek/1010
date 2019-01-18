@@ -76,7 +76,7 @@ if ( isset( $settings->three_d ) && $settings->three_d ) {
 .fl-node-<?php echo $id; ?> .pp-button-wrap a.pp-button:focus {
 	text-decoration: none;
 	<?php if ( $settings->style == 'flat' ) { ?>
-	background: <?php echo '' != $settings->bg_color['secondary'] ? '#' . $settings->bg_color['secondary'] : 'none'; ?>;
+	background: <?php echo ( isset( $settings->bg_color['secondary'] ) && '' != $settings->bg_color['secondary'] ) ? '#' . $settings->bg_color['secondary'] : 'none'; ?>;
 	<?php } ?>
 	<?php if ( $settings->style == 'transparent' ) { ?>
 	background: <?php echo !empty( $settings->bg_color_transparent ) ? '#' . $settings->bg_color_transparent : 'none'; ?>;

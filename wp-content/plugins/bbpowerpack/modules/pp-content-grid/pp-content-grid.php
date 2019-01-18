@@ -103,6 +103,10 @@ class PPContentGridModule extends FLBuilderModule {
 		if ( ! isset( $settings->pp_post_id ) ) {
 			return $args;
 		}
+
+		if ( isset( $args['post__in'] ) && is_array( $args['post__in'] ) ) {
+			$args['post__in'] = array_diff( $args['post__in'], array( $settings->pp_post_id ) );
+		}
 		
 		if ( ! isset( $args['post__not_in'] ) || ! is_array( $args['post__not_in'] ) ) {
 			$args['post__not_in'] = array();
@@ -675,6 +679,7 @@ FLBuilder::register_module('PPContentGridModule', array(
 						'type'      => 'pp-color',
                         'label'     => __('Background Color', 'bb-powerpack'),
 						'show_reset' => true,
+						'show_alpha' => true,
                         'default'   => array(
 							'primary'	=> 'f5f5f5',
 							'secondary'	=> 'eeeeee'

@@ -60,7 +60,8 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                         'type'          => 'select',
                         'label'         => __('Select Form', 'bb-powerpack'),
                         'default'       => '',
-                        'options'       => PPFormidableFormModule::formidable_titles(),
+						'options'       => PPFormidableFormModule::formidable_titles(),
+						'connections'	=> array('string')
                     ),
                 )
             ),

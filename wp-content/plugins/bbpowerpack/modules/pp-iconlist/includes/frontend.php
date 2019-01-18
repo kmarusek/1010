@@ -1,8 +1,9 @@
 <?php
+$browser = ' pp-user-agent-' . pp_get_user_agent();
 $items = $settings->list_items;
 ?>
 
-<div class="pp-icon-list">
+<div class="pp-icon-list<?php echo $browser; ?>">
 	<ul class="pp-icon-list-items pp-list-type-<?php echo $settings->list_type; ?>">
 	<?php if ( is_array( $items ) && count( $items ) ) { ?>
 

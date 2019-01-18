@@ -2,7 +2,7 @@
 Contributors: Alignak
 Tags: PHP Minify, Lighthouse, GTmetrix, Pingdom, Pagespeed, CSS Merging, JS Merging, CSS Minification, JS Minification, Speed Optimization, HTML Minification, Performance, Optimization, Speed, Fast
 Requires at least: 4.5
-Stable tag: 2.5.5
+Stable tag: 2.5.6
 Tested up to: 5.0.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -198,12 +198,25 @@ Alternatively, you can reach me via info (at) fastvelocity.com for security or o
 If you would like to donate any amount to the plugin author (thank you in advance), you can do it via PayPal at https://goo.gl/vpLrSV
 
 
+== Upgrade Notice ==
+
+= 2.5.6 =
+This is expected to be the last update on the 2.x branch, before the 3.0 major release
+
+= 3.0 =
+Please backup your site before updating. Version 3.0 will have a major code rewrite to improve JS and CSS merging. 
+
 
 == Changelog ==
 
+= 2.5.6 [2019.01.18] =
+* fixed some php notices
+* disabled FVM on amp pages
+* expected to be the last update on the 2.x branch, before 3.0 major release
+
 = 2.5.5 [2019.01.12] =
 * fixed the dynamic urls being forced as http://
-* fixed the inlined styles being stripped when the inline All CSS option is enabled
+* fixed the inlined styles being stripped when the inline all CSS option is enabled
 * added option to disable merging of inlined css code (for when you have dynamic inline css code)
 * other minor bug fixes
 

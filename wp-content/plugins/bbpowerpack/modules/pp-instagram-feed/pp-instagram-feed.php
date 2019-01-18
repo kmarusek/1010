@@ -22,6 +22,8 @@ class PPInstagramFeedModule extends FLBuilderModule {
 		
 		$this->add_js( 'imagesloaded' );
 
+		$this->add_css( 'font-awesome' );
+
 		$this->add_js( 'jquery-magnificpopup' );
 		$this->add_css( 'jquery-magnificpopup' );
 

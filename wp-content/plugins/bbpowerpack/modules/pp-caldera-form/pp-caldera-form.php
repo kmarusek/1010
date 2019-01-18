@@ -60,7 +60,8 @@ FLBuilder::register_module('PPCalderaFormModule', array(
                         'type'          => 'select',
                         'label'         => __('Select Form', 'bb-powerpack'),
                         'default'       => '',
-                        'options'       => PPCalderaFormModule::caldera_form_titles()
+						'options'       => PPCalderaFormModule::caldera_form_titles(),
+						'connections'	=> array('string')
                     ),
                 )
             ),

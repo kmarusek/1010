@@ -125,8 +125,15 @@
     position: absolute;
 	white-space: nowrap;
 	top: 0;
+	left: 0;
+}
+.pp-headline-center.pp-headline-animation-type-wave .pp-headline-dynamic-wrapper .pp-headline-dynamic-text {
 	left: 50%;
 	transform: translateX(-50%);
+}
+.pp-headline-center .pp-headline-plain-text + .pp-headline-dynamic-wrapper .pp-headline-dynamic-text {
+	left: 0;
+	transform: translateX(0);
 }
 .pp-headline-dynamic-wrapper .pp-headline-dynamic-text.pp-headline-text-active {
     position: relative;

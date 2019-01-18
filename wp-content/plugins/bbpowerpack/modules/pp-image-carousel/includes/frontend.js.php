@@ -77,7 +77,13 @@
 		}
 	};
 
-	new PPImageCarousel(settings);
+	var carousel_<?php echo $id; ?> = new PPImageCarousel(settings);
+	
+	$(document).on('fl-builder.pp-accordion-toggle-complete', function(e) {
+		if ( $(e.target).find('.pp-image-carousel').length > 0 ) {
+			carousel_<?php echo $id; ?> = new PPImageCarousel(settings);
+		}
+	});
 
 	// expandable row fix.
 	var state = 0;

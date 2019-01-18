@@ -298,7 +298,7 @@ function fastvelocity_min_in_arrayi($hurl, $ignore){
 }
 
 
-# better compatibility urls + fix bootstrap 4 svg images https://www.w3.org/TR/SVG/intro.html#NamespaceAndDTDIdentifiers
+# better compatibility urls + fix w3.org NamespaceAndDTDIdentifiers
 function fvm_compat_urls($code) {
 	$default_protocol = get_option('fastvelocity_min_default_protocol', 'dynamic');
 	if($default_protocol == 'dynamic' || empty($default_protocol)) { 
@@ -307,7 +307,7 @@ function fvm_compat_urls($code) {
 		$default_protocol = $default_protocol.'://'; 
 	}
 	$code = str_ireplace(array('http://', 'https://'), $default_protocol, $code);
-	$code = str_ireplace($default_protocol.'www.w3.org/2000/svg', 'http://www.w3.org/2000/svg', $code);
+	$code = str_ireplace($default_protocol.'www.w3.org', 'http://www.w3.org', $code);
 	return $code;
 }
 

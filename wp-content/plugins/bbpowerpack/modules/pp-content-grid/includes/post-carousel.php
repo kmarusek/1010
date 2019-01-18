@@ -20,7 +20,7 @@
 ));
 
 ?>
-<div <?php post_class('pp-content-post pp-content-carousel-post pp-grid-' . $settings->post_grid_style_select); ?> itemscope="itemscope" itemtype="<?php PPContentGridModule::schema_itemtype(); ?>">
+<div class="pp-content-post pp-content-carousel-post pp-grid-<?php echo $settings->post_grid_style_select; ?> <?php echo join( ' ', get_post_class() ); ?>" itemscope="itemscope" itemtype="<?php PPContentGridModule::schema_itemtype(); ?>">
 
 	<?php PPContentGridModule::schema_meta(); ?>
 	

@@ -372,6 +372,16 @@ function pp_get_user_agent()
 	{
 	   return 'firefox';
 	}
+	elseif (stripos( $user_agent, 'MSIE') !== false)
+	{
+	   return 'ie';
+	}
+	elseif (stripos( $user_agent, 'Trident/7.0; rv:11.0' ) !== false)
+	{
+	   return 'ie';
+	}
+
+	return;
 }
 
 function pp_get_modules_categories( $cat = '' )
@@ -558,4 +568,13 @@ function pp_get_fb_module_desc()
 		// translators: %1$s: app_id, %2$s: Setting Page link.
 		return sprintf( __( 'You are connected to Facebook App %1$s, <a href="%2$s" target="_blank">Change App</a>', 'bb-powerpack' ), $app_id, BB_PowerPack_Admin_Settings::get_form_action() );
 	}
+}
+
+function pp_clear_enabled_templates()
+{
+	BB_PowerPack_Admin_Settings::update_option( 'bb_powerpack_page_templates', array('disabled') );
+	BB_PowerPack_Admin_Settings::update_option( 'bb_powerpack_templates', array('disabled') );
+	BB_PowerPack_Admin_Settings::delete_option( 'bb_powerpack_row_templates_type' );
+	BB_PowerPack_Admin_Settings::delete_option( 'bb_powerpack_row_templates_all' );
+	BB_PowerPack_Admin_Settings::delete_option( 'bb_powerpack_override_ms' );
 }

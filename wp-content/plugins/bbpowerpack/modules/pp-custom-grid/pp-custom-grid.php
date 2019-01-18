@@ -24,8 +24,7 @@ class PPCustomGridModule extends FLBuilderModule {
 
 		add_filter( 'fl_builder_register_settings_form',   				__CLASS__ . '::presets_form_fields', 10, 2 );
 		add_filter( 'fl_builder_after_control_pp-hidden-textarea',   	__CLASS__ . '::after_control', 10, 4 );
-		add_filter( 'fl_builder_render_css',               				__CLASS__ . '::custom_grid_css', 10, 2 );
-		//add_action( 'fl_page_data_add_properties', 						__CLASS__ . '::load_page_data' );
+		//add_filter( 'fl_builder_render_css',               				__CLASS__ . '::custom_grid_css', 10, 2 );
 	}
 
 	/**

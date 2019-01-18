@@ -14,7 +14,7 @@
 	<?php } ?>
 }
 .fl-node-<?php echo $id; ?> .pp-headline-dynamic-wrapper {
-	<?php if ( $settings->font_family['family'] != 'Default' ) {
+	<?php if ( $settings->animated_font_family['family'] != 'Default' ) {
         FLBuilderFonts::font_css( $settings->animated_font_family );
     } ?>
 	<?php if ( $settings->animated_font_size == 'custom' ) { ?>

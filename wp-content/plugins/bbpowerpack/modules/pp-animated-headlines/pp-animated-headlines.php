@@ -27,8 +27,8 @@ class PPAnimatedHeadlinesModule extends FLBuilderModule {
 		$rotating_text 		= $settings->rotating_text;
 		$highlighted_text 	= $settings->highlighted_text;
 
-		$settings->rotating_text 	= str_replace( "'", "\\'", $rotating_text );
-		$settings->highlighted_text = str_replace( "'", "\\'", $highlighted_text );
+		$settings->rotating_text 	= htmlspecialchars( $rotating_text );
+		$settings->highlighted_text = htmlspecialchars( $highlighted_text );
 
 		return $settings;
 	}

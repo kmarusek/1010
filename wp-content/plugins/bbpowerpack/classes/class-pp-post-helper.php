@@ -3,7 +3,7 @@
 class BB_PowerPack_Post_Helper {
     static public $post_slides = array();
 
-    static public function post_catch_image( $content )
+    static public function post_catch_image( $content, $size = 'large' )
 	{
 		$first_img = '';
 		ob_start();
@@ -12,6 +12,17 @@ class BB_PowerPack_Post_Helper {
 		if ( isset( $matches[1][0] ) ) {
 			$first_img = $matches[1][0];
 		}
+		// get the image of the given size.
+		if ( ! empty( $first_img ) ) {
+			$id = attachment_url_to_postid( $first_img );
+			if ( $id ) {
+				$src = wp_get_attachment_image_src( $id, $size );
+				if ( is_array( $src ) ) {
+					$first_img = $src[0];
+				}
+			}
+		}
+		
 		return $first_img;
     }
     
@@ -122,7 +133,12 @@ class BB_PowerPack_Post_Helper {
 				$base = strtok( $base, '?' );
 			}
 
-			$base = untrailingslashit( $base );
+			// Add trailing slash when necessary.
+			if ( '/' == substr( $permalink_structure, -1 ) ) {
+				$base = trailingslashit( $base );
+			} else {
+				$base = untrailingslashit( $base );
+			}
 
 		} else {
 			$url_params = wp_parse_url( $base, PHP_URL_QUERY );
@@ -151,7 +167,8 @@ class BB_PowerPack_Post_Helper {
 		}
 
 		if ( ! empty( $permalink_structure ) ) {
-			$format = ! empty( $page_prefix ) ? '/' . $page_prefix . '/' : '/';
+			$format = substr( $base, -1 ) != '/' ? '/' : '';
+			$format .= $page_prefix . '/';
 			$format .= '%#%';
 			$format .= substr( $permalink_structure, -1 ) == '/' ? '/' : '';
 		} elseif ( empty( $permalink_structure ) || is_search() ) {
@@ -171,7 +188,7 @@ class BB_PowerPack_Post_Helper {
 		$total_posts_count = $settings->total_posts_count;
 		$posts_aval = $query->found_posts;
 		$permalink_structure = get_option('permalink_structure');
-		$base = untrailingslashit( html_entity_decode( get_pagenum_link() ) );
+		$base = html_entity_decode( get_pagenum_link() );
 
 		if( $settings->total_post == 'custom' && $total_posts_count != $posts_aval ) {
 
@@ -318,7 +335,7 @@ class BB_PowerPack_Post_Helper {
 
 		// Author Schema Meta
 		ob_start();
-		echo '<div itemscope itemprop="author" itemtype="http://schema.org/Person">';
+		echo '<div itemscope itemprop="author" itemtype="https://schema.org/Person">';
 		echo '<meta itemprop="url" content="' . get_author_posts_url( get_the_author_meta( 'ID' ) ) . '" />';
 		echo '<meta itemprop="name" content="' . get_the_author_meta( 'display_name', get_the_author_meta( 'ID' ) ) . '" />';
 		echo '</div>';
@@ -330,7 +347,7 @@ class BB_PowerPack_Post_Helper {
 			$image = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()), 'full');
 
 			if ( is_array( $image ) ) {
-				echo '<div itemscope itemprop="image" itemtype="http://schema.org/ImageObject">';
+				echo '<div itemscope itemprop="image" itemtype="https://schema.org/ImageObject">';
 				echo '<meta itemprop="url" content="' . $image[0] . '" />';
 				echo '<meta itemprop="width" content="' . $image[1] . '" />';
 				echo '<meta itemprop="height" content="' . $image[2] . '" />';
@@ -340,8 +357,8 @@ class BB_PowerPack_Post_Helper {
 
 		// Comment Schema Meta
 		ob_start();
-		echo '<div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">';
-		echo '<meta itemprop="interactionType" content="http://schema.org/CommentAction" />';
+		echo '<div itemprop="interactionStatistic" itemscope itemtype="https://schema.org/InteractionCounter">';
+		echo '<meta itemprop="interactionType" content="https://schema.org/CommentAction" />';
 		echo '<meta itemprop="userInteractionCount" content="' . wp_count_comments(get_the_ID())->approved . '" />';
 		echo '</div>';
 		echo apply_filters( 'pp_post_schema_meta_comments', ob_get_clean() );
@@ -360,10 +377,10 @@ class BB_PowerPack_Post_Helper {
 		global $post;
 
 		if ( ! is_object( $post ) || ! isset( $post->post_type ) || 'post' != $post->post_type ) {
-			echo 'http://schema.org/CreativeWork';
+			echo 'https://schema.org/CreativeWork';
 		}
 		else {
-			echo 'http://schema.org/BlogPosting';
+			echo 'https://schema.org/BlogPosting';
 		}
 	}
 }

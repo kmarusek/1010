@@ -177,6 +177,21 @@ $responsive_filter = $settings->responsive_filter;
 	<?php } ?>
 }
 
+<?php if ( 'tribe_events' == $settings->post_type && 'style-9' == $settings->post_grid_style_select ) { ?>
+	<?php if ( ( isset( $settings->event_date ) && 'yes' == $settings->event_date )
+		|| ( isset( $settings->event_venue ) && 'yes' == $settings->event_venue ) 
+		|| ( isset( $settings->event_cost ) && 'yes' == $settings->event_cost ) ) { ?>
+		.fl-node-<?php echo $id; ?> .pp-content-post .pp-post-title {
+			margin-bottom: auto;
+		}
+	<?php } ?>
+	.fl-node-<?php echo $id; ?> .pp-content-post .pp-post-event-calendar-meta {
+		<?php if( $settings->title_margin['bottom'] >= 0 ) { ?>
+			margin-bottom: <?php echo $settings->title_margin['bottom']; ?>px;
+		<?php } ?>
+	}
+<?php } ?>
+
 .fl-node-<?php echo $id; ?> .pp-content-post .pp-post-title a {
 	<?php if( $settings->title_font_color ) { ?>
 		color: #<?php echo $settings->title_font_color; ?>;
@@ -522,7 +537,9 @@ if($settings->layout == 'grid' || $settings->layout == 'carousel') { // GRID ?>
 	margin-left: <?php echo ($settings->post_spacing / 2); ?>%;
 	margin-right: <?php echo ($settings->post_spacing / 2); ?>%;
 	<?php } ?>
-	background-color: <?php echo ($settings->post_background['primary']) ? '#' . $settings->post_background['primary'] : 'transparent'; ?>;
+	<?php if ( isset( $settings->post_background['primary'] ) ) { ?>
+	background-color: <?php echo pp_get_color_value($settings->post_background['primary']); ?>;
+	<?php } ?>
 	border-style: <?php echo $settings->post_border; ?>;
 	<?php if( $settings->post_border_width && $settings->post_border != 'none' ) { ?>
 		<?php if( '' == $settings->post_border_position ) { ?>

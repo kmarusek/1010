@@ -77,9 +77,13 @@
 	width: 80%;
     margin: 0 0 0 20px;
 }
+.pp-post-tile-group {
+	float: left;
+	width: 100%;
+}
 .pp-post-tile-group:before,
 .pp-post-tile-group:after {
-	content: "";
+	content: " ";
 	display: table;
 }
 .pp-post-tile-group:after {

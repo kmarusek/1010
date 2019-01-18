@@ -43,7 +43,8 @@ FLBuilder::register_module('PPGravityFormModule', array(
                         'type'          => 'select',
                         'label'         => __('Select Form', 'bb-powerpack'),
                         'default'       => '',
-                        'options'       => gf_module_form_titles()
+						'options'       => gf_module_form_titles(),
+						'connections'	=> array('string')
                     ),
                 )
             ),

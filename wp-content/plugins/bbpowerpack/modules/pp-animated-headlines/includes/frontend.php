@@ -9,6 +9,8 @@ if ( 'rotate' == $settings->headline_style ) {
 	}
 }
 
+$class .= ' pp-headline-' . $settings->alignment;
+
 ?>
 <div class="pp-animated-headlines pp-headline--style-<?php echo $settings->headline_style; ?><?php echo $loop; ?>">
 	<<?php echo $settings->headline_tag; ?> class="<?php echo $class; ?>">

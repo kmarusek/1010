@@ -10,12 +10,33 @@ class BB_PowerPack_Ajax {
      */
     static public function init()
     {
-        add_action( 'wp', __CLASS__ . '::get_ajax_posts' );
-        add_action( 'wp_ajax_pp_get_taxonomies', __CLASS__ . '::get_post_taxonomies' );
-		add_action( 'wp_ajax_nopriv_pp_get_taxonomies', __CLASS__ . '::get_post_taxonomies' );
-		add_action( 'wp_ajax_pp_get_saved_templates', __CLASS__ . '::get_saved_templates' );
-        add_action( 'wp_ajax_nopriv_pp_get_saved_templates', __CLASS__ . '::get_saved_templates' );
-    }
+		add_action( 'wp', 										__CLASS__ . '::get_ajax_posts' );
+		add_action( 'pp_post_grid_ajax_before_query', 			__CLASS__ . '::loop_fake_actions' );
+        add_action( 'wp_ajax_pp_get_taxonomies', 				__CLASS__ . '::get_post_taxonomies' );
+		add_action( 'wp_ajax_nopriv_pp_get_taxonomies', 		__CLASS__ . '::get_post_taxonomies' );
+		add_action( 'wp_ajax_pp_get_saved_templates', 			__CLASS__ . '::get_saved_templates' );
+        add_action( 'wp_ajax_nopriv_pp_get_saved_templates', 	__CLASS__ . '::get_saved_templates' );
+	}
+	
+	static public function loop_fake_actions() {
+		add_action( 'loop_start', __CLASS__ . '::fake_loop_true');
+		add_action( 'loop_end', __CLASS__ . '::fake_loop_false' );
+	}
+
+	static public function fake_loop_true() {
+		global $wp_query;
+		// Fake being in the loop.
+		$wp_query->in_the_loop = true;
+	}
+
+	static public function fake_loop_false() {
+		global $wp_query;
+		// Stop faking being in the loop.
+		$wp_query->in_the_loop = false;
+
+		remove_action( 'loop_start', __CLASS__ . '::fake_loop_true' );
+		remove_action( 'loop_end', __CLASS__ . '::fake_loop_false' );
+	}
 
     static public function get_ajax_posts()
     {
@@ -45,7 +66,7 @@ class BB_PowerPack_Ajax {
 
         $post_type = $settings->post_type;
 
-        global $wp_query;
+		global $wp_query;
 
         $args = array(
             'post_type'             => $post_type,
@@ -89,13 +110,17 @@ class BB_PowerPack_Ajax {
                 
                 $args[$arg] = $users;
             }
-        }
+		}
+		
+		if ( isset( $_POST['author_id'] ) && ! empty( $_POST['author_id'] ) ) {
+			$args['author__in'] = array( absint( $_POST['author_id'] ) );
+		}
 
         if ( isset( $settings->posts_per_page ) ) {
             $args['posts_per_page'] = $settings->posts_per_page;
         }
 
-        if ( isset( $settings->post_grid_filters ) && isset( $_POST['term'] ) ) {
+        if ( isset( $settings->post_grid_filters ) && 'none' != $settings->post_grid_filters && isset( $_POST['term'] ) ) {
             $args['tax_query'] = array(
                 array(
                     'taxonomy' => $settings->post_grid_filters,
@@ -103,8 +128,14 @@ class BB_PowerPack_Ajax {
                     'terms'    => $_POST['term']
                 )
             );
-        } else if ( isset( $settings->offset ) ) {
-            //$args['offset'] = $settings->offset;
+        } else if ( isset( $_POST['taxonomy'] ) && isset( $_POST['term'] ) ) {
+            $args['tax_query'] = array(
+                array(
+                    'taxonomy' => $_POST['taxonomy'],
+                    'field'    => 'slug',
+                    'terms'    => $_POST['term']
+                )
+            );
 		}
 		
 		$taxonomies = FLBuilderLoop::taxonomies( $post_type );
@@ -216,7 +247,13 @@ class BB_PowerPack_Ajax {
 			}
 		}
 
-        $query = new WP_Query( $args );
+		$args = apply_filters( 'pp_post_grid_ajax_query_args', $args );
+
+		do_action( 'pp_post_grid_ajax_before_query', $settings );
+		
+		$query = new WP_Query( $args );
+
+		do_action( 'pp_post_grid_ajax_after_query', $settings );
 
         if ( $query->have_posts() ) :
 
@@ -239,9 +276,11 @@ class BB_PowerPack_Ajax {
             // posts query.
             while( $query->have_posts() ) {
 
-                $query->the_post();
+				$query->the_post();
 
-                $terms_list = wp_get_post_terms( get_the_id(), $settings->post_taxonomies );
+				$terms_list = wp_get_post_terms( get_the_ID(), $settings->post_taxonomies );
+				$post_id = get_the_ID();
+				$permalink = get_permalink();
                 
                 ob_start();
 

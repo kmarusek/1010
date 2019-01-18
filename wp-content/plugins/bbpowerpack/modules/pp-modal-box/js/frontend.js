@@ -52,11 +52,11 @@
 
 		setResponsive: function()
 		{
-			if ( $(window).width() <= this.settings.breakpoint ) {
+			if ( window.innerWidth <= this.settings.breakpoint ) {
                 this.element.removeClass('layout-standard').addClass('layout-fullscreen');
             }
-            if ( $(window).width() <= this.element.width() ) {
-				this.element.css('width', $(window).width() - 20 + 'px');
+            if ( window.innerWidth <= this.element.width() ) {
+				this.element.css('width', window.innerWidth - 20 + 'px');
             }
 		},
 

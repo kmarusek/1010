@@ -223,18 +223,32 @@ class PPGalleryModule extends FLBuilderModule {
 				$data->caption = htmlspecialchars( $photo->caption );
 				$data->description = htmlspecialchars( $photo->description );
 				$data->title = htmlspecialchars( $photo->title );
+				$data->sizes = array();
+
+				$image_size = $this->settings->photo_size;
 
 				// Collage photo src
 				if($this->settings->gallery_layout == 'masonry') {
 
 					if($this->settings->photo_size == 'thumbnail' && isset($photo->sizes->thumbnail)) {
 						$data->src = $photo->sizes->thumbnail->url;
+						$data->sizes['height'] = $photo->sizes->thumbnail->height;
+						$data->sizes['width'] = $photo->sizes->thumbnail->width;
 					}
 					elseif($this->settings->photo_size == 'medium' && isset($photo->sizes->medium)) {
 						$data->src = $photo->sizes->medium->url;
+						$data->sizes['height'] = $photo->sizes->medium->height;
+						$data->sizes['width'] = $photo->sizes->medium->width;
+					}
+					elseif( isset( $photo->sizes->{$image_size} ) ) {
+						$data->src = $photo->sizes->{$image_size}->url;
+						$data->sizes['height'] = $photo->sizes->{$image_size}->height;
+						$data->sizes['width'] = $photo->sizes->{$image_size}->width;
 					}
 					else {
 						$data->src = $photo->sizes->full->url;
+						$data->sizes['height'] = $photo->sizes->full->height;
+						$data->sizes['width'] = $photo->sizes->full->width;
 					}
 				}
 
@@ -243,12 +257,23 @@ class PPGalleryModule extends FLBuilderModule {
 
 					if($this->settings->photo_size == 'thumbnail' && isset($photo->sizes->thumbnail)) {
 						$data->src = $photo->sizes->thumbnail->url;
+						$data->sizes['height'] = $photo->sizes->thumbnail->height;
+						$data->sizes['width'] = $photo->sizes->thumbnail->width;
 					}
 					elseif($this->settings->photo_size == 'medium' && isset($photo->sizes->medium)) {
 						$data->src = $photo->sizes->medium->url;
+						$data->sizes['height'] = $photo->sizes->medium->height;
+						$data->sizes['width'] = $photo->sizes->medium->width;
+					}
+					elseif( isset( $photo->sizes->{$image_size} ) ) {
+						$data->src = $photo->sizes->{$image_size}->url;
+						$data->sizes['height'] = $photo->sizes->{$image_size}->height;
+						$data->sizes['width'] = $photo->sizes->{$image_size}->width;
 					}
 					else {
 						$data->src = $photo->sizes->full->url;
+						$data->sizes['height'] = $photo->sizes->full->height;
+						$data->sizes['width'] = $photo->sizes->full->width;
 					}
 				}
 

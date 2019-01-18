@@ -59,7 +59,8 @@ FLBuilder::register_module('PPWPFormsModule', array(
                         'type'          => 'select',
                         'label'         => __('Select Form', 'bb-powerpack'),
                         'default'       => '',
-                        'options'       => PPWPFormsModule::wpforms_titles()
+						'options'       => PPWPFormsModule::wpforms_titles(),
+						'connections'	=> array('string')
                     ),
                 )
             ),

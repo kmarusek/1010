@@ -162,6 +162,135 @@
 	vertical-align: middle;
 }
 
+
+
+.pp-flip-box .pp-flip-type-left .pp-flipbox-front {
+    -webkit-transform: rotateY(0deg);
+    -moz-transform: rotateY(0deg);
+    -ms-transform: rotateY(0deg);
+    -o-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+}
+.pp-flip-box .pp-flip-type-left .pp-flipbox-back {
+    -webkit-transform: rotateY(-180deg);
+    -moz-transform: rotateY(-180deg);
+    -ms-transform: rotateY(-180deg);
+    -o-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+}
+.pp-flip-box .pp-flip-type-left .pp-hover .pp-flipbox-back {
+    -webkit-transform: rotateY(0deg);
+    -moz-transform: rotateY(0deg);
+    -ms-transform: rotateY(0deg);
+    -o-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+}
+.pp-flip-box .pp-flip-type-left .pp-hover .pp-flipbox-front {
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    -ms-transform: rotateY(180deg);
+    -o-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+}
+.pp-flip-box .pp-flip-type-right .pp-flipbox-front {
+    -webkit-transform: rotateY(0deg);
+    -moz-transform: rotateY(0deg);
+    -ms-transform: rotateY(0deg);
+    -o-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+}
+.pp-flip-box .pp-flip-type-right .pp-flipbox-back {
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    -ms-transform: rotateY(180deg);
+    -o-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+}
+.pp-flip-box .pp-flip-type-right .pp-hover .pp-flipbox-back {
+    -webkit-transform: rotateY(0deg);
+    -moz-transform: rotateY(0deg);
+    -ms-transform: rotateY(0deg);
+    -o-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+}
+.pp-flip-box .pp-flip-type-right .pp-hover .pp-flipbox-front {
+    -webkit-transform: rotateY(-180deg);
+    -moz-transform: rotateY(-180deg);
+    -ms-transform: rotateY(-180deg);
+    -o-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+}
+.pp-flip-box .pp-flip-type-bottom .pp-hover .pp-flipbox-back,
+.pp-flip-box .pp-flip-type-top .pp-hover .pp-flipbox-back {
+    -moz-transform: rotateX(0deg);
+    -ms-transform: rotateX(0deg);
+    -o-transform: rotateX(0deg);
+    -webkit-transform: rotateX(0deg);
+    transform: rotateX(0deg);
+}
+.pp-flip-box .pp-flip-type-top .pp-flipbox-back {
+    -webkit-transform: rotateX(180deg);
+    -moz-transform: rotateX(180deg);
+    -ms-transform: rotateX(180deg);
+    -o-transform: rotateX(180deg);
+    transform: rotateX(180deg);
+}
+.pp-flip-box .pp-flip-type-top .pp-flipbox-front {
+    -webkit-transform: rotateX(0deg);
+    -moz-transform: rotateX(0deg);
+    -ms-transform: rotateX(0deg);
+    -o-transform: rotateX(0deg);
+    transform: rotateX(0deg);
+}
+.pp-flip-box .pp-flip-type-bottom .pp-flipbox-back,
+.pp-flip-box .pp-flip-type-top .pp-hover .pp-flipbox-front {
+    -webkit-transform: rotateX(-180deg);
+    -moz-transform: rotateX(-180deg);
+    -ms-transform: rotateX(-180deg);
+    -o-transform: rotateX(-180deg);
+    transform: rotateX(-180deg);
+}
+.pp-flip-box .pp-flip-type-bottom .pp-flipbox-front {
+    -webkit-transform: rotateX(0deg);
+    -moz-transform: rotateX(0deg);
+    -ms-transform: rotateX(0deg);
+    -o-transform: rotateX(0deg);
+    transform: rotateX(0deg);
+}
+.pp-flip-box .pp-flip-type-bottom .pp-hover .pp-flipbox-front {
+    -webkit-transform: rotateX(180deg);
+    -moz-transform: rotateX(180deg);
+    -ms-transform: rotateX(180deg);
+    -o-transform: rotateX(180deg);
+    transform: rotateX(180deg);
+}
+
+.pp-flip-box.pp-browser-ie .pp-flipbox-wrap {
+	-webkit-perspective: 1000px;
+    -moz-perspective: 1000px;
+    -ms-perspective: 1000px;
+    perspective: 1000px;
+    -ms-transform: perspective(1000px);
+    transform: perspective(1000px);
+    -ms-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+.pp-flip-box.pp-browser-ie .pp-flipbox-container {
+	-webkit-transition: 750ms;
+    -webkit-transform-style: preserve-3d;
+    -ms-transition: 750ms;
+    -moz-transition: 750ms;
+    -moz-transform: perspective(1000px);
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    transition: 750ms;
+    transform-style: preserve-3d;
+}
+.pp-flip-box.pp-browser-ie .pp-flipbox-container .pp-flipbox-front {
+	z-index: 0;
+}
+
+
 .pp-flip-box.pp-ie .pp-flipbox {
 	animation: stayvisible 0.5s both;
 	-webkit-animation: stayvisible 0.5s both;

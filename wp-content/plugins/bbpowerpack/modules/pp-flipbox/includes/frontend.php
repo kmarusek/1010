@@ -1,13 +1,11 @@
 <?php
 
-$flipbox_class = 'pp-flipbox-wrap';
-$ie = '';
-if (preg_match('~MSIE|Internet Explorer~i', $_SERVER['HTTP_USER_AGENT'])) {
-	$ie = ' pp-ie';
-}
+$flipbox_class = 'pp-flipbox-wrap ';
+$flipbox_class .= 'pp-flip-type-' . $settings->flip_type;
+$browser = ' pp-browser-' . pp_get_user_agent();
 
 ?>
-<div class="pp-flip-box<?php echo $ie; ?>">
+<div class="pp-flip-box<?php echo $browser; ?>">
 	<div class="<?php echo $flipbox_class; ?>">
 		<div class="pp-flipbox-container">
 			<div class="pp-flipbox pp-flipbox-front">

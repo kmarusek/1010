@@ -1508,7 +1508,7 @@ FLBuilder::register_settings_form('pp_gallery_filter_form', array(
 						'gallery_photos' => array(
 						    'type'          => 'multiple-photos',
 						    'label'         => __( 'Photos', 'bb-powerpack' ),
-                            'connections'   => array('photo')
+                            'connections'   => array('multiple-photos')
 						),
 					)
 				)

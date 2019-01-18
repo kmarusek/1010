@@ -19,4 +19,20 @@
 	});
 	<?php endif; ?>
 
+	<?php if($settings->match_height) : // Equal Heights fix when used in Advanced Tabs module as a template. ?>
+	$(document).on('pp-tabs-switched', function(e, $selector) {
+        var customPosts = $selector.find('.pp-custom-grid-post');
+        var highestBox = 0;
+
+        customPosts.css('height', '').each(function(){
+
+            if($(this).height() > highestBox) {
+                highestBox = $(this).height();
+            }
+        });
+
+        customPosts.height(highestBox);
+    });
+	<?php endif; ?>
+
 })(jQuery);

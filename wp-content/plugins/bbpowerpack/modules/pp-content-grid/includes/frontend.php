@@ -203,7 +203,7 @@ $query = FLBuilderLoop::query( $settings );
 	do_action( 'pp_cg_after_pagination', $settings, $query );
 
 	// Render the empty message.
-	if( ! $query->have_posts() && ( defined('DOING_AJAX') || isset( $_REQUEST['fl_builder'] ) ) ) :
+	if( ! $query->have_posts() ) :
 
 	?>
 	<div class="pp-content-grid-empty">

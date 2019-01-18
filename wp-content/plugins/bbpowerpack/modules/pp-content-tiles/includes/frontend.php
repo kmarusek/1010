@@ -1,6 +1,7 @@
 <?php
 
 $layout = $settings->layout;
+$layout_posts_count = $module->get_layout_posts_count( $layout );
 $show_other_posts = ( isset( $settings->show_other_posts ) && 'yes' == $settings->show_other_posts ) ? true : false;
 $default_posts_count = 4;
 
@@ -36,6 +37,7 @@ if ( $show_other_posts ) {
 		$settings->posts_per_page = '-1';
 	}
 }
+$other_posts_displayed = false;
 
 $query = FLBuilderLoop::query($settings);
 
@@ -66,7 +68,7 @@ if($query->have_posts()) :
 			$image_size = isset( $settings->image_size_small_tile ) ? $settings->image_size_small_tile : $image_size;
 		}
 
-		if ( in_array( $settings->layout, array(1,2,3,4) ) ) :
+		if ( in_array( $layout, array(1,2,3,4) ) ) :
 
 			if ( $count == 1 ) {
 				echo '<div class="pp-post-tile-left">';
@@ -75,17 +77,25 @@ if($query->have_posts()) :
 				echo '<div class="pp-post-tile-right">';
 			}
 
-			if ( $show_other_posts && ( ( $count == 5 && $layout != 2 ) || ( $count == 6 && $layout == 2 ) ) ) {
-				echo '<div class="pp-post-tile-group pp-post-col-'. $settings->column_width .'">';
+			if ( $count <= $layout_posts_count ) {
+				include apply_filters( 'pp_tiles_layout_path', $module->dir . 'includes/post-grid.php', $settings->layout, $settings );
 			}
-
-			include apply_filters( 'pp_tiles_layout_path', $module->dir . 'includes/post-grid.php', $settings->layout, $settings );
 
 			if ( $count == 1 ) {
 				echo '</div>';
 			}
 			if ( ($count == 3 && $settings->layout == 3) || ($count == 3 && $settings->layout == 4) || ($count == 4 && $settings->layout == 1) || ($count == 5 && $settings->layout == 2) ) {
 				echo '</div>';
+			}
+
+			// Other posts.
+			if ( $show_other_posts && $count > $layout_posts_count && ! $other_posts_displayed ) {
+				$other_posts_displayed = true;
+				echo '<div class="pp-post-tile-group pp-post-col-'. $settings->column_width .'">';
+			}
+
+			if ( $show_other_posts && $count > $layout_posts_count && $count <= $query->post_count ) {
+				include apply_filters( 'pp_tiles_layout_path', $module->dir . 'includes/post-grid.php', $layout, $settings );
 			}
 
 			if ( $show_other_posts && $count >= $query->post_count ) {

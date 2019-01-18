@@ -5,7 +5,7 @@ Plugin URI: http://fastvelocity.com
 Description: Improve your speed score on GTmetrix, Pingdom Tools and Google PageSpeed Insights by merging and minifying CSS and JavaScript files into groups, compressing HTML and other speed optimizations. 
 Author: Raul Peixoto
 Author URI: http://fastvelocity.com
-Version: 2.5.5
+Version: 2.5.6
 License: GPL2
 
 ------------------------------------------------------------------------
@@ -1056,7 +1056,7 @@ Enable FVM JS files Preload<span class="note-info">[ Automatically create http h
 
 <div style="height: 20px;"></div>
 <h2 class="title">Async CSS</h2>
-<p class="fvm-bold-green">If you have multiple css files per media type, they may load out of order and break your design.<br />These options won't work, if you select "Disable CSS Processing" on the settings page.</p>
+<p class="fvm-bold-green">If you have multiple css files per media type, they may load out of order and break your design.<br />These options won't work, if you select "Disable CSS Processing" on the settings page. </p>
 
 <table class="form-table fvm-settings">
 <tbody>
@@ -1065,7 +1065,7 @@ Enable FVM JS files Preload<span class="note-info">[ Automatically create http h
 <td><fieldset>
 <label for="fastvelocity_min_loadcss">
 <input name="fastvelocity_min_loadcss" type="checkbox" id="fastvelocity_min_loadcss" value="1" <?php echo checked(1 == get_option('fastvelocity_min_loadcss'), true, false); ?>>
-Async CSS with LoadCSS<span class="note-info">[ Only works if "Inline all header / footer CSS files" is disabled ]</span></label>
+Async CSS with LoadCSS <span class="note-info">[ Note that inline CSS won't work if this is active ]</span></label>
 
 <br />
 <label for="fastvelocity_min_fvm_removecss">
@@ -1584,8 +1584,9 @@ if (stripos($src, '?ver') !== false) {
 	$src = $srcf; 
 }
 
-# fix page editors
-if($fvm_fix_editor == true && is_user_logged_in()) { return $tag; }
+
+# fix page editors, admin, amp, etc
+if (is_admin() || is_preview() || is_customize_preview() || ($fvm_fix_editor == true && is_user_logged_in()) || (function_exists( 'is_amp_endpoint' ) && is_amp_endpoint())) { return $tag; }
 
 # return if defer option is not selected
 if ($defer_for_pagespeed != true && $enable_defer_js != true) { return $tag; }
@@ -1627,7 +1628,7 @@ if (stripos($tag, 'defer') === false && stripos($tag, 'async') === false) {
 	
 	# Exclude JS files in the "ignore list" from PSI
 	if($defer_for_pagespeed_optimize != false) {
-		if((count($ignore) > 0 && fastvelocity_min_in_arrayi($src, $nignore)) || (count($blacklist) > 0 && fastvelocity_min_in_arrayi($src, $blacklist)) || (count($ignorelist) > 0 && fastvelocity_min_in_arrayi($src, $ignorelist))) {
+		if((count($ignore) > 0 && fastvelocity_min_in_arrayi($src, $ignore)) || (count($blacklist) > 0 && fastvelocity_min_in_arrayi($src, $blacklist)) || (count($ignorelist) > 0 && fastvelocity_min_in_arrayi($src, $ignorelist))) {
 			return $jsdeferhidepsi;
 		}
 	}
@@ -1641,7 +1642,7 @@ if (stripos($tag, 'defer') === false && stripos($tag, 'async') === false) {
 	if($enable_defer_js == true) {
 		
 		# consider "Skip deferring the ignore list"
-		if($skip_defer_lists != false && ((count($nignore) > 0 && fastvelocity_min_in_arrayi($src, $nignore)) || (count($blacklist) > 0 && fastvelocity_min_in_arrayi($src, $blacklist)) || (count($ignorelist) > 0 && fastvelocity_min_in_arrayi($src, $ignorelist)))) {
+		if($skip_defer_lists != false && ((count($ignore) > 0 && fastvelocity_min_in_arrayi($src, $ignore)) || (count($blacklist) > 0 && fastvelocity_min_in_arrayi($src, $blacklist)) || (count($ignorelist) > 0 && fastvelocity_min_in_arrayi($src, $ignorelist)))) {
 			return $tag;
 		} else {
 			return $jsdefer;
@@ -1673,7 +1674,7 @@ function fastvelocity_min_merge_css($html, $handle, $href, $media){
 		if($fvm_debug == true) { echo "<!-- FVM DEBUG: Merging CSS processing start $handle / $href -->" . PHP_EOL; }
 		
 		# prevent optimization for these locations
-		if (is_admin() || is_preview() || is_customize_preview() || ($fvm_fix_editor == true && is_user_logged_in())) {
+		if (is_admin() || is_preview() || is_customize_preview() || ($fvm_fix_editor == true && is_user_logged_in()) || (function_exists( 'is_amp_endpoint' ) && is_amp_endpoint())) {
 			return $html;
 		}
 		
@@ -1703,9 +1704,11 @@ function fastvelocity_min_merge_css($html, $handle, $href, $media){
 			return false;
 		}
 		
+		# remove FVM from the ignore list
+		array_filter($ignore, function ($var) { return (stripos($var, '/fvm/') === false); });
+		
 		# return if in any ignore or black list
-		$nignore = array(); if(is_array($ignore)) { foreach ($ignore as $i) { if($i != '/fvm/cache/') { $nignore[] = $i; } } }
-		if (count($nignore) > 0 && fastvelocity_min_in_arrayi($href, $nignore) || count($blacklist) > 0 && fastvelocity_min_in_arrayi($href, $blacklist) || count($ignorelist) > 0 && fastvelocity_min_in_arrayi($href, $ignorelist)) { 
+		if (count($ignore) > 0 && fastvelocity_min_in_arrayi($href, $ignore) || count($blacklist) > 0 && fastvelocity_min_in_arrayi($href, $blacklist) || count($ignorelist) > 0 && fastvelocity_min_in_arrayi($href, $ignorelist)) { 
 				return $html;
 		}
 		
@@ -2169,7 +2172,7 @@ function fastvelocity_optimizecss($html, $handle, $href, $media){
 		if($fvm_debug == true) { echo "<!-- FVM DEBUG: Inline CSS processing start $handle / $href -->" . PHP_EOL; }
 		
 		# prevent optimization for these locations
-		if (is_admin() || is_preview() || is_customize_preview() || ($fvm_fix_editor == true && is_user_logged_in())) {
+		if (is_admin() || is_preview() || is_customize_preview() || ($fvm_fix_editor == true && is_user_logged_in()) || (function_exists( 'is_amp_endpoint' ) && is_amp_endpoint())) {
 			return $html;
 		}
 		
@@ -2204,9 +2207,11 @@ function fastvelocity_optimizecss($html, $handle, $href, $media){
 			return false;
 		}
 		
+		# remove FVM from the ignore list
+		array_filter($ignore, function ($var) { return (stripos($var, '/fvm/') === false); });
+		
 		# return if in any ignore or black list
-		$nignore = array(); if(is_array($ignore)) { foreach ($ignore as $i) { if($i != '/fvm/cache/') { $nignore[] = $i; } } }
-		if (count($nignore) > 0 && fastvelocity_min_in_arrayi($href, $nignore) || count($blacklist) > 0 && fastvelocity_min_in_arrayi($href, $blacklist) || count($ignorelist) > 0 && fastvelocity_min_in_arrayi($href, $ignorelist)) { 
+		if (count($ignore) > 0 && fastvelocity_min_in_arrayi($href, $ignore) || count($blacklist) > 0 && fastvelocity_min_in_arrayi($href, $blacklist) || count($ignorelist) > 0 && fastvelocity_min_in_arrayi($href, $ignorelist)) { 
 				return $html;
 		}
 		

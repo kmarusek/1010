@@ -1,4 +1,4 @@
-<div class="<?php echo $item_class; ?>" data-item-id="<?php echo $photo->id; ?>">
+<div class="<?php echo $item_class; ?>" data-item-id="<?php echo $photo->id; ?>" itemprop="associatedMedia" itemscope="itemscope" itemtype="http://schema.org/ImageObject">
 	<div class="pp-photo-gallery-content">
 
 		<?php
@@ -15,16 +15,27 @@
 				$click_action_link = $photo->link;
 			}
 		?>
-		<a href="<?php echo $click_action_link; ?>" <?php if ( 'custom-link' == $settings->click_action ) { ?>target="<?php echo $click_action_target; ?>"<?php } ?> <?php if ( 'lightbox' == $settings->click_action ) { ?>rel="nofollow" data-fancybox="images"<?php } ?> title="<?php echo $photo->caption; ?>" data-description="<?php echo $photo->description; ?>">
+		<a
+			href="<?php echo $click_action_link; ?>"
+			<?php if ( 'custom-link' == $settings->click_action ) { ?> 
+			target="<?php echo $click_action_target; ?>" 
+			<?php } ?> 
+			<?php if ( 'lightbox' == $settings->click_action ) { ?>
+			rel="nofollow" data-fancybox="images" 
+			<?php } ?> 
+			title="<?php echo $photo->title; ?>" 
+			data-description="<?php echo $photo->description; ?>" 
+			itemprop="contentUrl"
+		>
 		<?php endif; ?>
 
-		<img class="pp-gallery-img" src="<?php echo $photo->src; ?>" alt="<?php echo $photo->alt; ?>" data-no-lazy="1" />
+		<img class="pp-gallery-img" src="<?php echo $photo->src; ?>" alt="<?php echo $photo->alt; ?>" data-no-lazy="1" itemprop="thumbnail" />
 			<!-- Overlay Wrapper -->
 			<div class="pp-gallery-overlay">
 				<div class="pp-overlay-inner">
 
 					<?php if ( 'hover' == $settings->show_captions ) : ?>
-						<div class="pp-caption">
+						<div class="pp-caption" itemprop="caption description">
 							<?php echo htmlspecialchars_decode( $photo->caption ); ?>
 						</div>
 					<?php endif; ?>
@@ -41,8 +52,12 @@
 		<?php if ( 'none' != $settings->click_action ) : ?>
 		</a>
 		<?php endif; ?>
+		<?php if ( isset( $photo->sizes ) ) : ?>
+			<meta itemprop="width" content="<?php echo $photo->sizes['width']; ?>" />
+			<meta itemprop="height" content="<?php echo $photo->sizes['height']; ?>" />
+		<?php endif; ?>
 	</div>
 	<?php if ( $photo && ! empty( $photo->caption ) && 'below' == $settings->show_captions ) : ?>
-	<div class="pp-photo-gallery-caption pp-photo-gallery-caption-below" itemprop="caption"><?php echo htmlspecialchars_decode( $photo->caption ); ?></div>
+	<div class="pp-photo-gallery-caption pp-photo-gallery-caption-below" itemprop="caption description"><?php echo htmlspecialchars_decode( $photo->caption ); ?></div>
 	<?php endif; ?>
 </div>

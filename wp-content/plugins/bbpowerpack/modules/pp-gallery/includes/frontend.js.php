@@ -40,4 +40,22 @@ var pp_gallery_<?php echo $id; ?>;
 			state = 1;
 		}
 	});
+
+	// accordion fix
+	var accordion_state = false;
+	$(document).on('pp-accordion-toggle-complete', function(e, selector) {
+		if ( ! accordion_state ) {
+			new PPGallery(options);
+			accordion_state = true;
+		}
+	});
+
+	// tabs fix
+	var tabs_state = false;
+	$(document).on('pp-tabs-switched', function(e, selector) {
+		if ( selector.find('.pp-photo-gallery-content').length > 0 && ! tabs_state ) {
+			new PPGallery(options);
+			tabs_state = true;
+		}
+	});
 })(jQuery);

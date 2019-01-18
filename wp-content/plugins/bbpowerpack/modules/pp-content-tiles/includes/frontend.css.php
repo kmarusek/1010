@@ -40,6 +40,10 @@ if ( $settings->layout > 1 ) {
 .fl-node-<?php echo $id; ?> .pp-post-col-25 .pp-post-tile-small {
 	width: calc(25% - <?php echo $settings->post_spacing; ?>px);
 }
+.fl-node-<?php echo $id; ?> .pp-post-col-50 .pp-post-tile-medium {
+	width: calc(50% - <?php echo $settings->post_spacing; ?>px);
+	float: left;
+}
 
 .fl-node-<?php echo $id; ?> .pp-post-tile-post .pp-post-tile-title {
 	<?php if ( $settings->title_font['family'] != 'Default' ) { ?>

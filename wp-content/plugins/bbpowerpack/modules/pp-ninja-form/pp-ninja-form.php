@@ -68,7 +68,8 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                         'type'          => 'select',
                         'label'         => __('Select Form', 'bb-powerpack'),
                         'default'       => '',
-                        'options'       => PPNinjaFormModule::ninja_form_titles()
+						'options'       => PPNinjaFormModule::ninja_form_titles(),
+						'connections'	=> array('string')
                     ),
                 )
             ),

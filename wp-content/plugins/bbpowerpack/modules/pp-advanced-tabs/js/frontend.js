@@ -77,6 +77,8 @@
 				wrap.find('.pp-tabs-panel-content[data-index="' + index + '"] .pp-content-post-grid').isotope('layout');
 				this._gridLayoutMatchHeight();
 			}
+
+			$(document).trigger('pp-tabs-switched', [ wrap.find( '.pp-tabs-panel-content[data-index="' + index + '"]' ) ]);
 		},
 
 		_responsiveLabelClick: function(e)
@@ -129,6 +131,8 @@
 				if(label.offset().top < $(window).scrollTop() + 100) {
 					$('html, body').animate({ scrollTop: label.offset().top - 100 }, 500, 'swing');
 				}
+
+				$(document).trigger('pp-tabs-switched', [ content ]);
 			});
 		},
 

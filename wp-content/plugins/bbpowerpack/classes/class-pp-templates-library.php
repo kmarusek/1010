@@ -430,11 +430,7 @@ final class BB_PowerPack_Templates_Lib {
 	static public function clear_enabled_templates()
 	{
 		if ( isset( $_GET['page'] ) && 'pp-settings' == $_GET['page'] && isset( $_GET['clear_enabled_templates'] ) ) {
-            BB_PowerPack_Admin_Settings::update_option( 'bb_powerpack_page_templates', array('disabled') );
-            BB_PowerPack_Admin_Settings::update_option( 'bb_powerpack_templates', array('disabled') );
-            BB_PowerPack_Admin_Settings::delete_option( 'bb_powerpack_row_templates_type' );
-            BB_PowerPack_Admin_Settings::delete_option( 'bb_powerpack_row_templates_all' );
-            BB_PowerPack_Admin_Settings::delete_option( 'bb_powerpack_override_ms' );
+            pp_clear_enabled_templates();
         }
 	}
 }

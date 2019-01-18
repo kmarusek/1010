@@ -7,6 +7,7 @@
 		this.wrapperClass   = this.nodeClass + ' .pp-content-post-' + this.settings.layout;
 		this.postClass      = this.wrapperClass + ' .pp-content-' + this.settings.layout + '-post';
 		this.matchHeight	= settings.matchHeight == 'yes' ? true : false;
+		this.style			= settings.style;
 		this.masonry		= settings.masonry == 'yes' ? true : false;
 		this.perPage 		= settings.perPage;
 		this.filters 		= settings.filters === 'yes' ? true : false;
@@ -189,9 +190,13 @@
 					onRefreshed: $.proxy(this._gridLayoutMatchHeightSimple, this),
 					onLoadedLazy: $.proxy(this._gridLayoutMatchHeightSimple, this),
 				};
+				if ( $(this.postClass).length < this.settings.carousel.items ) {
+					this.settings.carousel.slideBy = 'page';
+					this.settings.carousel.center = true;
+					this.settings.carousel.loop = false;
+				}
 				wrap.owlCarousel( $.extend({}, this.settings.carousel, owlOptions) );
 			}, this));
-
 		},
 
 		_getPosts: function (term, isotopeData, paged) {
@@ -244,9 +249,26 @@
 				settings: this.settings.fields
 			};
 
+			// Archive.
+			if ( 'undefined' !== typeof this.settings.is_archive ) {
+				data['is_archive'] = true;
+			}
+
+			// Term.
 			if ('' !== term || 'undefined' === typeof term) {
 				data['term'] = term;
+			} else if ( this.settings.is_tax && this.settings.current_term ) {
+				data['is_tax'] = true;
+				data['taxonomy'] = this.settings.current_tax;
+				data['term'] = this.settings.current_term;
 			}
+
+			// Author.
+			if ( this.settings.is_author && this.settings.current_author ) {
+				data['is_author'] = true;
+				data['author_id'] = this.settings.current_author;
+			}
+
 			if ('undefined' !== self.settings.orderby || '' !== self.settings.orderby) {
 				data['orderby'] = self.settings.orderby;
 			}
@@ -390,7 +412,9 @@
 				return;
 			}
 
-			postElements.css('height', 'auto');
+			if ( 'style-9' === this.style ) {
+				return;
+			}
 
 			if ( this.settings.layout === 'grid' ) {
 				if ( this.masonry ) {
@@ -407,6 +431,8 @@
 				if ( 1 === columns ) {
 					return;
 				}
+
+				postElements.css('height', 'auto');
 
 				var rows = Math.round(postElements.length / columns);
 
@@ -455,7 +481,11 @@
 		},
 
 		_gridLayoutMatchHeightSimple: function () {
-			if (! this.matchHeight) {
+			if ( ! this.matchHeight ) {
+				return;
+			}
+
+			if ( 'style-9' === this.style ) {
 				return;
 			}
 

@@ -65,23 +65,56 @@ class PPContentTilesModule extends FLBuilderModule {
 		BB_PowerPack_Post_Helper::schema_itemtype();
 	}
 
-	static public function get_post_class( $count, $layout )
+	public function get_post_class( $count, $layout )
 	{
+		$class = '';
+
 		if ( $count == 2 && $layout == 1 ) {
-			return ' pp-post-tile-medium';
+			$class = ' pp-post-tile-medium';
 		}
 		if ( $count > 1 && $layout == 3 ) {
-			return ' pp-post-tile-medium';
+			$class = ' pp-post-tile-medium';
 		}
 		if ( $count > 2 && $layout != 3 ) {
-			return ' pp-post-tile-small';
+			$class = ' pp-post-tile-small';
 		}
 		if ( $count > 1 && $layout == 2 ) {
-			return ' pp-post-tile-small';
+			$class = ' pp-post-tile-small';
 		}
 		if ( $count > 1 && $layout == 4 ) {
-			return ' pp-post-tile-small';
+			$class = ' pp-post-tile-small';
 		}
+
+		$layout_posts_count = $this->get_layout_posts_count( $layout );
+
+		if ( $count > $layout_posts_count ) {
+			$col_width = $this->settings->column_width;
+
+			if ( $col_width == 25 ) {
+				$class = ' pp-post-tile-small';
+			} else {
+				$class = ' pp-post-tile-medium';
+			}
+		}
+
+		return $class;
+	}
+
+	public function get_layout_posts_count( $layout )
+	{
+		$count = 0;
+
+		if ( 1 == $layout ) {
+			$count = 4;
+		}
+		if ( 2 == $layout ) {
+			$count = 5;
+		}
+		if ( 3 == $layout || 4 == $layout ) {
+			$count = 3;
+		}
+		
+		return $count;
 	}
 }
 

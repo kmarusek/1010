@@ -1,3 +1,4 @@
+<div class="pp-table-wrap">
 <?php
     $table = $settings->header;
     $tableheaders = $settings->header;
@@ -42,3 +43,5 @@ if (!empty($table[0])) {
 do_action( 'pp_after_table_module', $settings );
 
 }
+?>
+</div>

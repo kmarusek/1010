@@ -39,7 +39,7 @@ if ( ! is_array( $image ) ) {
 	$featured_image = $image[0];
 }
 ?>
-<div class="<?php echo $class_prefix; ?>-post <?php echo $class_prefix; ?>-post-<?php echo $count; ?><?php echo PPContentTilesModule::get_post_class($count, $settings->layout); ?>" itemscope itemtype="<?php PPContentTilesModule::schema_itemtype(); ?>">
+<div class="<?php echo $class_prefix; ?>-post <?php echo $class_prefix; ?>-post-<?php echo $count; ?><?php echo $module->get_post_class($count, $settings->layout); ?>" itemscope itemtype="<?php PPContentTilesModule::schema_itemtype(); ?>">
 
 	<?php PPContentTilesModule::schema_meta(); ?>
 

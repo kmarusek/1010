@@ -69,12 +69,23 @@
 						slidesPerView			: <?php echo absint( $settings->visible_items ); ?>,
 						spaceBetween			: <?php echo $settings->images_gap; ?>,
 						autoplay				: <?php echo 'yes' == $settings->autoplay ? $settings->autoplay_speed : 'false'; ?>,
+						<?php if ( 'yes' == $settings->autoplay ) { ?>
+						autoplay				: {
+							delay: <?php echo $settings->autoplay_speed; ?>,
+						},
+						<?php } else { ?>
+						autoplay				: false,
+						<?php } ?>
 						grabCursor				: <?php echo 'yes' == $settings->grab_cursor ? 'true' : 'false'; ?>,
 						loop					: <?php echo 'yes' == $settings->infinite_loop ? 'true' : 'false'; ?>,
-						pagination				: '.swiper-pagination',
-						paginationClickable		: true,
-						nextButton				: '.swiper-button-next',
-						prevButton				: '.swiper-button-prev',
+						pagination				: {
+							el: '.swiper-pagination',
+							clickable: true
+						},
+						navigation				: {
+							prevEl: '.swiper-button-prev',
+							nextEl: '.swiper-button-next'
+						},
 						breakpoints: {
 							<?php echo $global_settings->medium_breakpoint; ?>: {
 								slidesPerView:  <?php echo ( $settings->visible_items_medium ) ? absint( $settings->visible_items_medium ) : 2; ?>,
@@ -96,7 +107,11 @@
 			}
 		}
 	});
-	feed.run();
+	
+	if ( ! $('#pp-instagram-<?php echo $id; ?>').hasClass('pp-instagram-initialized') ) {
+		feed.run();
+		$('#pp-instagram-<?php echo $id; ?>').addClass('pp-instagram-initialized');
+	}
 
 	<?php if ( 'yes' == $settings->image_popup ) { ?>
 		$('.fl-node-<?php echo $id; ?> .pp-instagram-feed').magnificPopup({

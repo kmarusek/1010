@@ -18,12 +18,15 @@ var right_arrow_svg = '<svg aria-hidden="true" data-prefix="fal" data-icon="angl
 	var PPContentGridOptions = {
 		id: '<?php echo $id ?>',
 		layout: '<?php echo $settings->layout; ?>',
+		style: '<?php echo $settings->post_grid_style_select; ?>',
 		ajaxUrl: '<?php echo admin_url('admin-ajax.php'); ?>',
 		perPage: '<?php echo $settings->posts_per_page; ?>',
 		fields: <?php echo json_encode($settings); ?>,
 		pagination: '<?php echo $settings->pagination; ?>',
 		current_page: '<?php echo home_url($_SERVER['REQUEST_URI']); ?>',
 		page: '<?php echo $paged; ?>',
+		is_tax: false,
+		is_author: false,
 		postSpacing: '<?php echo $settings->post_spacing; ?>',
 		postColumns: {
 			desktop: <?php echo $settings->post_grid_count['desktop']; ?>,
@@ -77,6 +80,21 @@ var right_arrow_svg = '<svg aria-hidden="true" data-prefix="fal" data-icon="angl
 		<?php } ?>
 	};
 
+	<?php if ( is_archive() || is_post_type_archive() ) { ?>
+		PPContentGridOptions.is_archive = true;
+	<?php } ?>
+
+	<?php if ( is_tax() ) { ?>
+	PPContentGridOptions.is_tax = true;
+	PPContentGridOptions.current_tax = '<?php echo get_queried_object()->taxonomy; ?>';
+	PPContentGridOptions.current_term = '<?php echo get_queried_object()->slug; ?>';
+	<?php } ?>
+
+	<?php if ( is_author() ) { ?>
+	PPContentGridOptions.is_author = true;
+	PPContentGridOptions.current_author = '<?php echo get_queried_object()->ID; ?>';
+	<?php } ?>
+
 	<?php if ( isset( $_GET['orderby'] ) && ! empty( $_GET['orderby'] ) ) { ?>
     PPContentGridOptions.orderby = '<?php echo (string)$_GET['orderby']; ?>';
     <?php } ?>
@@ -89,6 +107,19 @@ var right_arrow_svg = '<svg aria-hidden="true" data-prefix="fal" data-icon="angl
 		if ( selector.is('.pp-er-open') && state === 0 ) {
 			ppcg_<?php echo $id; ?> = new PPContentGrid( PPContentGridOptions );
 			state = 1;
+		}
+	});
+
+	// Tabs and Content Grid fix
+	var tabs_state = false;
+	$(document).on('pp-tabs-switched', function(e, selector) {
+		if ( selector.find('.pp-content-post-grid').length > 0 && ! tabs_state ) {
+			if ( 'undefined' !== typeof $.fn.isotope ) {
+				setTimeout(function() {
+					selector.find('.pp-content-post-grid').isotope('layout');
+					tabs_state = true;
+				}, 500);
+			}
 		}
 	});
 

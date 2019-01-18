@@ -1,3 +1,59 @@
+== 2.6.8.5 ==
+Release date: January 9, 2018
+* Enhancement: Updated PowerPack's row gradient and overlay effects to make them compatible with BB 2.2
+* Enhancement: Moved additional PowerPack options in row settings in single tab
+* Fix: Content Grid - Pagination double slashes issue on some server
+* Fix: Content Grid - No message was showing when matching posts are not available in search results
+* Fix: Image Carousel - Thumbnails were not working with slideshow fade and cube effect
+* Fix: Custom Grid - Equal Heights issue when used as template in Advanced Tabs module
+* Fix: Modal Box - Width computation issue on responsive devices
+
+== 2.6.8.4 ==
+Release date: December 27, 2018
+* Enhancement: Added WP-CLI command for license activation and deactivation
+* Enhancement: Added WP-CLI command to reset white label setting
+* Enhancement: Added WP-CLI command to reset enabled templates
+* Enhancement: Added field connection to form dropdown in various form styler modules
+* Enhancement: Content Grid - Fallback image grabbed from post conent will now be resized as per the image size set in module settings
+* Fix: Photo Gallery - Schema markup
+* Fix: Photo Gallery - Custom image size issue
+* Fix: Photo Gallery - Caption text was getting added to the title attribute
+* Fix: Filterable Gallery - Field connection was not working for multiple photos
+* Fix: Image Carousel - "Cube" effect was not working properly in responsive devices
+* Fix: Image Carousel - Not working when used in Advanced Accordion
+* Fix: Content Grid - Duplicate posts issue in carousel mode when there is only 1 post to display
+* Fix: Content Grid - Posts were not showing on responsive devices when using style-9
+* Fix: Content Grid - Load More and Scroll paginations were not working properly on category and author archive pages
+* Fix: Content Grid - Events Calendar date and time was not displaying when using style-9
+* Fix: Content Grid - Pods fields content was getting disappeared when using AJAX filters
+* Fix: Content Grid - Exclude current post was not working if the post is added in "Match these..." filter
+* Fix: Content Grid - SSL issue with schema markup URLs
+* Fix: Advanced Accordion - JS error with on-page links
+* Fix: Advanced Tabs - Posts wrap layout issue when using Content Grid as saved module
+* Fix: Modal Box - "p" tags gets removed in translated version by WPML
+* Fix: Modal Box - Extra spacing issue in responsive devices due to relative position added to body tag by Astra theme
+* Fix: Content Tiles - Layout breaks when displaying other posts
+* Fix: Instagram Feed - Duplicate feeds issue when using the module in footer layout created with Beaver Themer
+* Fix: Icon List - Icon font was not rendering in Internet Explorer
+* Fix: Animated Headline - Font family was not working for animated text
+* Fix: Team - FontAwesome 5 icons were not rendering
+* Fix: Core - License deactivation issue while there is a plugin update
+
+== 2.6.8.3 ==
+Release date: October 8, 2018
+* Fix: Animated Headline - alignment issue
+* Fix: Icon / Number List - Font issue in IE browser
+* Fix: Instagram Feed - Font Awesome icons were not working
+
+== 2.6.8.2 ==
+Release date: October 2, 2018
+* Fix: Content Grid - Post link was not working when using AJAX filters
+* Fix: Instagram Feed - Carousel layout was not working after 2.6.8 update
+
+== 2.6.8.1 ==
+Release date: September 28, 2018
+* Fix: Advanced Accordion - JS error
+
 == 2.6.8 ==
 Release date: September 27, 2018
 * Enhancement: WPML - Added support for Custom Title and Custom Description fields in all form styler modules

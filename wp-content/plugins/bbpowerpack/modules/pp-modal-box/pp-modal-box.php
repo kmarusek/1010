@@ -72,7 +72,7 @@ class PPModalBoxModule extends FLBuilderModule {
                 return '<iframe data-src="' . $settings->modal_type_url . '" class="pp-modal-iframe" frameborder="0" width="100%" height="100%"></iframe>';
             break;
             case 'content':
-                return $settings->modal_type_content;
+                return wpautop( $settings->modal_type_content );
             break;
             case 'html':
                 return $settings->modal_type_html;

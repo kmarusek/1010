@@ -26,7 +26,7 @@ function pp_row_gradient_css( $css, $nodes, $global_settings ) {
         if ( isset( $row->settings->bg_type ) && 'pp_gradient' == $row->settings->bg_type ) {
         ?>
 
-            <?php if ( $row->settings->gradient_type == 'linear' ) { ?>
+            <?php if ( $row->settings->gradient_type == 'linear' && isset( $row->settings->gradient_color ) ) { ?>
                 <?php if ( $row->settings->linear_direction == 'bottom' ) { ?>
                     .fl-node-<?php echo $row->node; ?> > .fl-row-content-wrap {
                         background-color: #<?php echo $row->settings->gradient_color['primary']; ?>;
@@ -88,7 +88,7 @@ function pp_row_gradient_css( $css, $nodes, $global_settings ) {
                     }
                 <?php } ?>
             <?php } ?>
-            <?php if ( $row->settings->gradient_type == 'radial' ) { ?>
+            <?php if ( $row->settings->gradient_type == 'radial' && isset( $row->settings->gradient_color ) ) { ?>
                 .fl-node-<?php echo $row->node; ?> > .fl-row-content-wrap {
                     background-color: #<?php echo $row->settings->gradient_color['primary']; ?>;
                     background-image: -webkit-radial-gradient(circle, <?php echo '#'.$row->settings->gradient_color['primary']; ?> 0%, <?php echo '#'.$row->settings->gradient_color['secondary']; ?> 100%);
@@ -116,19 +116,19 @@ function pp_row_overlay_css( $css, $nodes, $global_settings ) {
         <?php if ( $row->settings->pp_bg_overlay_type == 'vertical_left' ) { ?>
             .fl-node-<?php echo $row->node; ?> > .fl-row-content-wrap:after {
                 background-color: transparent !important;
-                background: -webkit-linear-gradient( -170deg, rgba(225, 255, 255, 0) 0%, rgba(225, 255, 255, 0) 54.96%, <?php echo pp_hex2rgba('#'.$row->settings->bg_overlay_color, $row->settings->bg_overlay_opacity / 100); ?> 55%, <?php echo pp_hex2rgba('#'.$row->settings->bg_overlay_color, $row->settings->bg_overlay_opacity / 100); ?> 55%);
-                background: -moz-linear-gradient( -170deg, rgba(225, 255, 255, 0) 0%, rgba(225, 255, 255, 0) 54.96%, <?php echo pp_hex2rgba('#'.$row->settings->bg_overlay_color, $row->settings->bg_overlay_opacity / 100); ?> 55%, <?php echo pp_hex2rgba('#'.$row->settings->bg_overlay_color, $row->settings->bg_overlay_opacity / 100); ?> 55%);
-                background: -ms-linear-gradient( -170deg, rgba(225, 255, 255, 0) 0%, rgba(225, 255, 255, 0) 54.96%, <?php echo pp_hex2rgba('#'.$row->settings->bg_overlay_color, $row->settings->bg_overlay_opacity / 100); ?> 55%, <?php echo pp_hex2rgba('#'.$row->settings->bg_overlay_color, $row->settings->bg_overlay_opacity / 100); ?> 55%);
-                background: linear-gradient( -100deg, rgba(225, 255, 255, 0) 0%, rgba(225, 255, 255, 0) 54.96%, <?php echo pp_hex2rgba('#'.$row->settings->bg_overlay_color, $row->settings->bg_overlay_opacity / 100); ?> 55%, <?php echo pp_hex2rgba('#'.$row->settings->bg_overlay_color, $row->settings->bg_overlay_opacity / 100); ?> 55%);
+                background: -webkit-linear-gradient( -170deg, rgba(225, 255, 255, 0) 0%, rgba(225, 255, 255, 0) 54.96%, <?php echo pp_get_color_value( $row->settings->bg_overlay_color ); ?> 55%, <?php echo pp_get_color_value( $row->settings->bg_overlay_color ); ?> 55%);
+                background: -moz-linear-gradient( -170deg, rgba(225, 255, 255, 0) 0%, rgba(225, 255, 255, 0) 54.96%, <?php echo pp_get_color_value( $row->settings->bg_overlay_color ); ?> 55%, <?php echo pp_get_color_value( $row->settings->bg_overlay_color ); ?> 55%);
+                background: -ms-linear-gradient( -170deg, rgba(225, 255, 255, 0) 0%, rgba(225, 255, 255, 0) 54.96%, <?php echo pp_get_color_value( $row->settings->bg_overlay_color ); ?> 55%, <?php echo pp_get_color_value( $row->settings->bg_overlay_color ); ?> 55%);
+                background: linear-gradient( -100deg, rgba(225, 255, 255, 0) 0%, rgba(225, 255, 255, 0) 54.96%, <?php echo pp_get_color_value( $row->settings->bg_overlay_color ); ?> 55%, <?php echo pp_get_color_value( $row->settings->bg_overlay_color ); ?> 55%);
             }
         <?php } ?>
         <?php if ( $row->settings->pp_bg_overlay_type == 'vertical_right' ) { ?>
             .fl-node-<?php echo $row->node; ?> > .fl-row-content-wrap:after {
                 background-color: transparent !important;
-                background: -webkit-linear-gradient( -10deg, rgba(225, 255, 255, 0) 0%, rgba(225, 255, 255, 0) 54.96%, <?php echo pp_hex2rgba('#'.$row->settings->bg_overlay_color, $row->settings->bg_overlay_opacity / 100); ?> 55%, <?php echo pp_hex2rgba('#'.$row->settings->bg_overlay_color, $row->settings->bg_overlay_opacity / 100); ?> 55%);
-                background: -moz-linear-gradient( -10deg, rgba(225, 255, 255, 0) 0%, rgba(225, 255, 255, 0) 54.96%, <?php echo pp_hex2rgba('#'.$row->settings->bg_overlay_color, $row->settings->bg_overlay_opacity / 100); ?> 55%, <?php echo pp_hex2rgba('#'.$row->settings->bg_overlay_color, $row->settings->bg_overlay_opacity / 100); ?> 55%);
-                background: -ms-linear-gradient( -10deg, rgba(225, 255, 255, 0) 0%, rgba(225, 255, 255, 0) 54.96%, <?php echo pp_hex2rgba('#'.$row->settings->bg_overlay_color, $row->settings->bg_overlay_opacity / 100); ?> 55%, <?php echo pp_hex2rgba('#'.$row->settings->bg_overlay_color, $row->settings->bg_overlay_opacity / 100); ?> 55%);
-                background: linear-gradient( 100deg, rgba(225, 255, 255, 0) 0%, rgba(225, 255, 255, 0) 54.96%, <?php echo pp_hex2rgba('#'.$row->settings->bg_overlay_color, $row->settings->bg_overlay_opacity / 100); ?> 55%, <?php echo pp_hex2rgba('#'.$row->settings->bg_overlay_color, $row->settings->bg_overlay_opacity / 100); ?> 55%);
+                background: -webkit-linear-gradient( -10deg, rgba(225, 255, 255, 0) 0%, rgba(225, 255, 255, 0) 54.96%, <?php echo pp_get_color_value( $row->settings->bg_overlay_color ); ?> 55%, <?php echo pp_get_color_value( $row->settings->bg_overlay_color ); ?> 55%);
+                background: -moz-linear-gradient( -10deg, rgba(225, 255, 255, 0) 0%, rgba(225, 255, 255, 0) 54.96%, <?php echo pp_get_color_value( $row->settings->bg_overlay_color ); ?> 55%, <?php echo pp_get_color_value( $row->settings->bg_overlay_color ); ?> 55%);
+                background: -ms-linear-gradient( -10deg, rgba(225, 255, 255, 0) 0%, rgba(225, 255, 255, 0) 54.96%, <?php echo pp_get_color_value( $row->settings->bg_overlay_color ); ?> 55%, <?php echo pp_get_color_value( $row->settings->bg_overlay_color ); ?> 55%);
+                background: linear-gradient( 100deg, rgba(225, 255, 255, 0) 0%, rgba(225, 255, 255, 0) 54.96%, <?php echo pp_get_color_value( $row->settings->bg_overlay_color ); ?> 55%, <?php echo pp_get_color_value( $row->settings->bg_overlay_color ); ?> 55%);
             }
         <?php } ?>
         <?php if ( $row->settings->pp_bg_overlay_type == 'half_width' ) { ?>
@@ -198,7 +198,9 @@ function pp_row_overlay_css( $css, $nodes, $global_settings ) {
                     background-image: -ms-linear-gradient(210deg, <?php echo '#'.$primary; ?> 0%, <?php echo '#'.$secondary; ?> 100%);
                     background-image: linear-gradient(210deg, <?php echo '#'.$primary; ?> 0%, <?php echo '#'.$secondary; ?> 100%);
                 <?php } ?>
+				<?php if ( isset( $row->settings->bg_overlay_opacity ) ) { ?>
                 opacity: <?php echo $row->settings->bg_overlay_opacity / 100; ?>;
+				<?php } ?>
             }
         <?php } ?>
 

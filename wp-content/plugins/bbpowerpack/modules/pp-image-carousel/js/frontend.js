@@ -103,37 +103,83 @@
         },
 
         _getSlidesPerView: function () {
-            var slidesPerView = this.slidesPerView.desktop;
+			if ( this._isSlideshow() ) {
+				return 1;
+			}
+
+			var slidesPerView = this.slidesPerView.desktop;
 
             return Math.min(this._getSlidesCount(), +slidesPerView);
         },
 
         _getSlidesPerViewTablet: function () {
-            var slidesPerView = this.slidesPerView.tablet;
+			if ( this._isSlideshow() ) {
+				return 1;
+			}
 
-            if (slidesPerView === '' || slidesPerView === 0) {
-                slidesPerView = this.slidesPerView.desktop
-            }
+			var slidesPerView = this.slidesPerView.tablet;
 
-            if (!slidesPerView && 'coverflow' === this.settings.type) {
-                return Math.min(this._getSlidesCount(), 3);
-            }
+			if (slidesPerView === '' || slidesPerView === 0) {
+				slidesPerView = this.slidesPerView.desktop
+			}
+
+			if (!slidesPerView && 'coverflow' === this.settings.type) {
+				return Math.min(this._getSlidesCount(), 3);
+			}
+
+			return Math.min(this._getSlidesCount(), +slidesPerView);
+        },
+
+        _getSlidesPerViewMobile: function () {
+			if ( this._isSlideshow() ) {
+				return 1;
+			}
+
+			var slidesPerView = this.slidesPerView.mobile;
+
+			if (slidesPerView === '' || slidesPerView === 0) {
+				slidesPerView = this._getSlidesPerViewTablet();
+			}
+
+			if (!slidesPerView && 'coverflow' === this.settings.type) {
+				return Math.min(this._getSlidesCount(), 3);
+			}
+
+			return Math.min(this._getSlidesCount(), +slidesPerView);
+		},
+
+		_getThumbsSlidesPerView: function () {
+			var slidesPerView = this.slidesPerView.desktop;
 
             return Math.min(this._getSlidesCount(), +slidesPerView);
         },
 
-        _getSlidesPerViewMobile: function () {
-            var slidesPerView = this.slidesPerView.mobile;
+        _getThumbsSlidesPerViewTablet: function () {
+			var slidesPerView = this.slidesPerView.tablet;
 
-            if (slidesPerView === '' || slidesPerView === 0) {
-                slidesPerView = this._getSlidesPerViewTablet();
-            }
+			if (slidesPerView === '' || slidesPerView === 0) {
+				slidesPerView = this.slidesPerView.desktop
+			}
 
-            if (!slidesPerView && 'coverflow' === this.settings.type) {
-                return Math.min(this._getSlidesCount(), 3);
-            }
+			if (!slidesPerView && 'coverflow' === this.settings.type) {
+				return Math.min(this._getSlidesCount(), 3);
+			}
 
-            return Math.min(this._getSlidesCount(), +slidesPerView);
+			return Math.min(this._getSlidesCount(), +slidesPerView);
+        },
+
+        _getThumbsSlidesPerViewMobile: function () {
+			var slidesPerView = this.slidesPerView.mobile;
+
+			if (slidesPerView === '' || slidesPerView === 0) {
+				slidesPerView = this._getSlidesPerViewTablet();
+			}
+
+			if (!slidesPerView && 'coverflow' === this.settings.type) {
+				return Math.min(this._getSlidesCount(), 3);
+			}
+
+			return Math.min(this._getSlidesCount(), +slidesPerView);
 		},
 		
 		_getSlidesToScroll: function(device) {
@@ -190,20 +236,22 @@
 					disableOnInteraction: this.settings.pause_on_interaction
 				};
 			}
-
-            options.breakpoints[medium_breakpoint] = {
-				slidesPerView: this._getSlidesPerViewTablet(),
-				slidesPerGroup: this._getSlidesToScrollTablet(),
-                spaceBetween: this._getSpaceBetweenTablet()
-            };
-            options.breakpoints[responsive_breakpoint] = {
-				slidesPerView: this._getSlidesPerViewMobile(),
-				slidesPerGroup: this._getSlidesToScrollMobile(),
-                spaceBetween: this._getSpaceBetweenMobile()
-            };
+			
+			if ('cube' !== this._getEffect()) {
+				options.breakpoints[medium_breakpoint] = {
+					slidesPerView: this._getSlidesPerViewTablet(),
+					slidesPerGroup: this._getSlidesToScrollTablet(),
+					spaceBetween: this._getSpaceBetweenTablet()
+				};
+				options.breakpoints[responsive_breakpoint] = {
+					slidesPerView: this._getSlidesPerViewMobile(),
+					slidesPerGroup: this._getSlidesToScrollMobile(),
+					spaceBetween: this._getSpaceBetweenMobile()
+				};
+			}
 
             var thumbsSliderOptions = {
-                slidesPerView: this._getSlidesPerView(),
+                slidesPerView: this._getThumbsSlidesPerView(),
                 initialSlide: this._getInitialSlide(),
                 centeredSlides: true,
                 slideToClickedSlide: true,
@@ -218,11 +266,11 @@
             };
 
             thumbsSliderOptions.breakpoints[medium_breakpoint] = {
-                slidesPerView: this._getSlidesPerViewTablet(),
+                slidesPerView: this._getThumbsSlidesPerViewTablet(),
                 spaceBetween: this._getSpaceBetweenTablet()
             };
             thumbsSliderOptions.breakpoints[responsive_breakpoint] = {
-                slidesPerView: this._getSlidesPerViewMobile(),
+                slidesPerView: this._getThumbsSlidesPerViewMobile(),
                 spaceBetween: this._getSpaceBetweenMobile()
             };
 

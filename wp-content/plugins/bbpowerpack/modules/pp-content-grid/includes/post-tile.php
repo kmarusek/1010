@@ -26,6 +26,10 @@
 		<<?php echo $settings->title_tag; ?> class="pp-content-grid-title pp-post-title" itemprop="headline">
 			<a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a>
 		</<?php echo $settings->title_tag; ?>>
+
+		<?php if ( 'tribe_events' == $settings->post_type && ( class_exists( 'Tribe__Events__Main' ) && class_exists( 'FLThemeBuilderLoader' ) ) ) { ?>
+			<?php include $module_dir . 'includes/templates/event-content.php'; ?>
+		<?php } ?>
 	</div>
 
 	<?php if ( $settings->show_author == 'yes' || $settings->show_date == 'yes' ) : ?>
