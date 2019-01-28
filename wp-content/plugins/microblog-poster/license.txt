@@ -16,7 +16,7 @@ along with Microblog Poster; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 You can contact Efficient Scripts via our Contact Form at
-http://efficientscripts.com/contact
+https://efficientscripts.com/contact
 
 --------------------------------------------------------------------------------
 

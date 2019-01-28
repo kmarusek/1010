@@ -2,8 +2,8 @@
 Contributors: cybperic
 Tags: microblogging, bookmarking, bookmarks, auto posts, auto publish, social signals, cross-post, cross post, auto submit, auto update, social networks, social media, twitter, facebook, linkedin, tumblr, delicious, diigo, plurk, blogger, automatic, automation, links, backlinks, auto updates status, social media auto publish, social network auto publish, publish to twitter, publish to facebook
 Requires at least: 3.0
-Tested up to: 4.9
-Stable tag: 1.9.3
+Tested up to: 5.0
+Stable tag: 1.9.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,16 +29,16 @@ Easily follow the automated sharing process from **MicroblogPoster**'s logs sect
 **Wordpress Multisite fully compatible**. Rather than doing the 'Network activation', 
 activate MicroblogPoster for each sub blog.  
 
-Please visit **MicroblogPoster**'s [website](http://efficientscripts.com/microblogposter "MicroblogPoster's website") , or
+Please visit **MicroblogPoster**'s [website](https://efficientscripts.com/web/products/free "MicroblogPoster's website") , or
 
-[Contact us](http://efficientscripts.com/contact "Contact us") , we're providing support in the following languages:
+[Contact us](https://efficientscripts.com/web/contact "Contact us") , we're providing support in the following languages:
 
 * We speak english ; 
 * Причамо српски ; 
 * Nous parlons français ;
 
 **MicroblogPoster**'s Add-ons bring Additional Features: 
-[Compare Versions](http://efficientscripts.com/microblogposteraddons "MicroblogPoster's Add-ons Page")
+[Compare Versions](https://efficientscripts.com/web/products/addons "MicroblogPoster's Add-ons Page")
 
 **Currently supported social media sites**
 
@@ -102,6 +102,15 @@ see "posted by MicroblogPoster" in your updates, you'll see "posted by your own 
 11. MicroblogPoster Options page, Logs Section. (Part 2)
 
 == Changelog ==
+
+= 1.9.5.1 (27-01-2019) =
+- Fixing help urls.
+
+= 1.9.5 (27-01-2019) =
+- Changing help urls to https.
+
+= 1.9.4 (23-01-2019) =
+- Added facebook via buffer.
 
 = 1.9.3 (04-03-2018) =
 - Fixing vk.com api calls.
@@ -363,7 +372,7 @@ see "posted by MicroblogPoster" in your updates, you'll see "posted by your own 
 * The plugin is ready, it will automatically cross posts to social networks whenever you publish a new blog post.
 
 
-**twitter.com accounts** [Help with screenshots](http://efficientscripts.com/microblogposter/twitter-auto-publish "Twitter auto publish help with screenshots.")
+**twitter.com accounts** [Help with screenshots](https://efficientscripts.com/web/microblogposter/twitter-auto-publish "Twitter auto publish help with screenshots.")
 
 Your Twitter username and password won't suffice in order to post automatic updates, Twitter API requires some more steps described below.
 No worries, it's rather a simple procedure.
@@ -387,7 +396,7 @@ No worries, it's rather a simple procedure.
     please refresh the API Keys tab page.
 
 
-**plurk.com accounts** [Help with screenshots](http://efficientscripts.com/microblogposter/plurk-auto-publish "Plurk auto publish help with screenshots.")
+**plurk.com accounts** [Help with screenshots](https://efficientscripts.com/web/microblogposter/plurk-auto-publish "Plurk auto publish help with screenshots.")
 
 It's most likely the same as for twitter, you'll need some more effort in order to post updates through Plurk Api.
 
@@ -418,7 +427,7 @@ It's most likely the same as for twitter, you'll need some more effort in order 
 
 
 
-**facebook.com accounts** [Help with screenshots](http://efficientscripts.com/microblogposter/facebook-auto-publish "Facebook auto publish help with screenshots.")
+**facebook.com accounts** [Help with screenshots](https://efficientscripts.com/web/microblogposter/facebook-auto-publish "Facebook auto publish help with screenshots.")
 
 Please note that only real personal Facebook accounts have permissions to create an App.
 Business accounts can't manage Facebook Apps.
@@ -451,7 +460,7 @@ Business accounts can't manage Facebook Apps.
     posting on your behalf.
 
 
-**diigo.com accounts** [Help with screenshots](http://efficientscripts.com/microblogposter/diigo-auto-publish "Diigo auto publish help with screenshots.")
+**diigo.com accounts** [Help with screenshots](https://efficientscripts.com/web/microblogposter/diigo-auto-publish "Diigo auto publish help with screenshots.")
 
 
 In addition to your username and password you will need to create your own Diigo App and generate an API Key.
@@ -460,7 +469,7 @@ In addition to your username and password you will need to create your own Diigo
     and generate your Diigo API Key. (You need to be logged in)
 
 
-**linkedin.com accounts** [Help with screenshots](http://efficientscripts.com/microblogposter/linkedin-auto-publish "Linkedin auto publish help with screenshots.")
+**linkedin.com accounts** [Help with screenshots](https://efficientscripts.com/web/microblogposter/linkedin-auto-publish "Linkedin auto publish help with screenshots.")
 
 
     1. Please browse to this Url https://www.linkedin.com/secure/developer
@@ -478,7 +487,7 @@ In addition to your username and password you will need to create your own Diigo
     5. Follow the link provided by MicroblogPoster to authorize your App 
     posting on your behalf.
 
-**tumblr.com accounts** [Help with screenshots](http://efficientscripts.com/microblogposter/tumblr-auto-publish "Tumblr auto publish help with screenshots.")
+**tumblr.com accounts** [Help with screenshots](https://efficientscripts.com/web/microblogposter/tumblr-auto-publish "Tumblr auto publish help with screenshots.")
 
 Basically your tumblr username and password won't suffice in order to post automatic updates, tumblr Api requires some more steps described below.
 No worries, it's rather a simple procedure.
@@ -493,7 +502,7 @@ No worries, it's rather a simple procedure.
 
     4. This is it, you can now configure your Account in the Social Accounts section.
 
-**blogger.com accounts** [Help with screenshots](http://efficientscripts.com/microblogposter/blogger-auto-publish "Blogger auto publish help with screenshots.")
+**blogger.com accounts** [Help with screenshots](https://efficientscripts.com/web/microblogposter/blogger-auto-publish "Blogger auto publish help with screenshots.")
 
 Basically first you'll need to request the activation from Google of the Blogger API. It takes about 5 working days.
 Once it's activated you'll need to create your 'Client ID' (aka App) which will auto post on your behalf.
@@ -523,7 +532,7 @@ Once it's activated you'll need to create your 'Client ID' (aka App) which will 
 
     8. MicroblogPoster will provide you a link in order to authorize the App posting on your behalf.
 
-**vk.com accounts** [Help with screenshots](http://efficientscripts.com/microblogposter/vkontakte-auto-publish "VKontakte auto publish help with screenshots.")
+**vk.com accounts** [Help with screenshots](https://efficientscripts.com/web/microblogposter/vkontakte-auto-publish "VKontakte auto publish help with screenshots.")
 
 Basically first you'll need to create a VKontakte APP in order to auto publish.
 
@@ -544,7 +553,7 @@ Basically first you'll need to create a VKontakte APP in order to auto publish.
 
     6. Last step is to save the 'Access Token' that you'll get when authorizing the account.
 
-**xing.com accounts** [Help with screenshots](http://efficientscripts.com/microblogposter/xing-auto-publish "Xing auto publish help with screenshots.")
+**xing.com accounts** [Help with screenshots](https://efficientscripts.com/web/microblogposter/xing-auto-publish "Xing auto publish help with screenshots.")
 
 Basically first you'll need to create a Xing APP in order to auto publish.
 
@@ -556,7 +565,7 @@ Basically first you'll need to create a Xing APP in order to auto publish.
 
     3. Configure your account in MicroblogPoster.
 
-**pinterest.com accounts** [Help with screenshots](http://efficientscripts.com/microblogposter/pinterest-auto-publish "Pinterest auto publish help with screenshots.")
+**pinterest.com accounts** [Help with screenshots](https://efficientscripts.com/web/microblogposter/pinterest-auto-publish "Pinterest auto publish help with screenshots.")
 
 Basically first you'll need to create a Pinterest APP in order to auto publish.
 
@@ -568,7 +577,7 @@ Basically first you'll need to create a Pinterest APP in order to auto publish.
 
     3. Configure your account in MicroblogPoster.
 
-**flickr.com accounts** [Help with screenshots](http://efficientscripts.com/microblogposter/flickr-auto-publish "Flickr auto publish help with screenshots.")
+**flickr.com accounts** [Help with screenshots](https://efficientscripts.com/web/microblogposter/flickr-auto-publish "Flickr auto publish help with screenshots.")
 
 Basically first you'll need to create a Flickr APP in order to auto publish.
 
@@ -599,9 +608,13 @@ Yes, otherwise the plugin simply won't function at all.
 
 = More General FAQs .. =
 
-[MicroblogPoster's FAQs](http://efficientscripts.com/support/microblogposter/faq "MicroblogPoster's General FAQ")
+[MicroblogPoster's FAQs](https://efficientscripts.com/web/support/faqgeneral "MicroblogPoster's General FAQ")
 
 = Auto Publish Old Posts FAQs .. =
 
-[Auto Publish Old Posts FAQs](http://efficientscripts.com/support/microblogposter/faqoldposts "Auto Publish Old Posts FAQs")
+[Auto Publish Old Posts FAQs](https://efficientscripts.com/web/support/faqoldposts "Auto Publish Old Posts FAQs")
+
+= Auto Publish in Category-Driven Mode .. =
+
+[Auto Publish in Category-Driven Mode](https://efficientscripts.com/web/support/categorydrivenmode "Auto Publish in Category-Driven Mode")
 

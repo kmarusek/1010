@@ -2,11 +2,11 @@
 /**
  *
  * Plugin Name: Microblog Poster
- * Plugin URI: http://efficientscripts.com/microblogposter
+ * Plugin URI: https://efficientscripts.com/web/products/free
  * Description: Automatically publishes your new and old blog content to Social Networks. Auto posts to Twitter, Facebook, Linkedin, Tumblr, Blogger, Xing..
- * Version: 1.9.3
+ * Version: 1.9.5.1
  * Author: Efficient Scripts
- * Author URI: http://efficientscripts.com/
+ * Author URI: https://efficientscripts.com/
  * Text Domain: microblog-poster
  *
  */
@@ -410,6 +410,7 @@ class MicroblogPoster_Poster
         MicroblogPoster_Poster::update_flickr($cdriven, $old, $mp, $dash, $post_title, $update, $tags, $post_content, $post_ID, $featured_image_path_full, $post_content_actual_lkn);
         MicroblogPoster_Poster::update_wordpress($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $featured_image_src_full, $tags);
         MicroblogPoster_Poster::update_googleplus($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $tags);
+        MicroblogPoster_Poster::update_facebookb($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $tags);
         
         MicroblogPoster_Poster::maintain_logs();
     }
@@ -756,6 +757,7 @@ class MicroblogPoster_Poster
         MicroblogPoster_Poster::update_flickr($cdriven, $old, $mp, $dash, $post_title, $update, $tags, $post_content, $post_ID, $featured_image_path_full, $post_content_actual_lkn);
         MicroblogPoster_Poster::update_wordpress($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $featured_image_src_full, $tags);
         MicroblogPoster_Poster::update_googleplus($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $tags);
+        MicroblogPoster_Poster::update_facebookb($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $tags);
         
         MicroblogPoster_Poster::maintain_logs();
     }
@@ -4385,6 +4387,217 @@ class MicroblogPoster_Poster
             }
         }
     }
+    public static function update_facebookb($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink, $post_content_actual_lkn, $tags)
+    {
+	if($mp['val'] == 1 && $mp['type'] == 'text')
+        {
+            return;
+        }
+        $curl = new MicroblogPoster_Curl();
+        $facebookb_accounts = MicroblogPoster_Poster::get_accounts_by_mode('facebookb', $post_ID);
+        
+        if(!empty($facebookb_accounts))
+        {
+            foreach($facebookb_accounts as $facebookb_account)
+            {
+                if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Pro','filter_single_account') && 
+                   $dash == 1 && $mp['val'] == 0 && $old == 0)
+                {
+                    if($cdriven && 
+                        MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise','filter_single_account_cdriven'))
+                    {
+                        $active = MicroblogPoster_Poster_Enterprise::filter_single_account_cdriven($facebookb_account['account_id'], $post_ID, $facebookb_account['extra']);
+                        if($active === false)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            if(isset($active['message_format']) && $active['message_format'])
+                            {
+                                $facebookb_account['message_format'] = $active['message_format'];
+                            }
+                        }
+                    }
+                    else
+                    {
+                        $active = MicroblogPoster_Poster_Pro::filter_single_account($facebookb_account['account_id']);
+                        if($active === false)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            if(isset($active['message_format']) && $active['message_format'])
+                            {
+                                $facebookb_account['message_format'] = $active['message_format'];
+                            }
+                        }
+                    }
+                    
+                }
+                elseif(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise','filter_single_account_mp') && 
+                   $dash == 1 && $mp['val'] == 1 && $old == 0)
+                {
+                    $active = MicroblogPoster_Poster_Enterprise::filter_single_account_mp($facebookb_account['account_id']);
+                    if($active === false)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        if(isset($active['message_format']) && $active['message_format'])
+                        {
+                            $facebookb_account['message_format'] = $active['message_format'];
+                        }
+                    }
+                }
+                elseif(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster','filter_single_account_old') && 
+                   $dash == 1 && $mp['val'] == 0 && $old == 1)
+                {
+                    if($cdriven && 
+                        MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise','filter_single_account_cdriven_old'))
+                    {
+                        $active = MicroblogPoster_Poster_Enterprise::filter_single_account_cdriven_old($facebookb_account['account_id'], $post_ID, $facebookb_account['extra']);
+                        if($active === false)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            if(isset($active['message_format']) && $active['message_format'])
+                            {
+                                $facebookb_account['message_format'] = $active['message_format'];
+                            }
+                        }
+                    }
+                    else
+                    {
+                        $active = MicroblogPoster_Poster::filter_single_account_old($facebookb_account['account_id']);
+                        if($active === false)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            if(isset($active['message_format']) && $active['message_format'])
+                            {
+                                $facebookb_account['message_format'] = $active['message_format'];
+                            }
+                        }
+                    }
+                    
+                }
+                elseif($cdriven && MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise','filter_single_account_cdriven_wodash'))
+                {
+                    $active = MicroblogPoster_Poster_Enterprise::filter_single_account_cdriven_wodash($facebookb_account['account_id'], $post_ID, $facebookb_account['extra']);
+                    if($active === false)
+                    {
+                        continue;
+                    }
+                }
+                elseif(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Pro','filter_single_account_scheduled') && 
+                       $dash == 0 && $mp['val'] == 0 && $old == 0)
+                {
+                    if(MicroblogPoster_Poster_Pro::isScheduled($post_ID))
+                    {
+                        $active = MicroblogPoster_Poster_Pro::filter_single_account_scheduled($facebookb_account['account_id'],$post_ID);
+                        if($active === false)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            if(isset($active['message_format']) && $active['message_format'])
+                            {
+                                $facebookb_account['message_format'] = $active['message_format'];
+                            }
+                        }
+                    }
+                }
+                
+                $post_content[8] = MicroblogPoster_Poster::strip_shortcodes_and_tags($post_content[8]);
+                if($facebookb_account['message_format'] && $mp['val'] == 0)
+                {
+                    $facebookb_account['message_format'] = str_ireplace('{site_url}', '', $facebookb_account['message_format']);
+                    $facebookb_account['message_format'] = str_ireplace('{url}', '', $facebookb_account['message_format']);
+                    $facebookb_account['message_format'] = str_ireplace('{short_url}', '', $facebookb_account['message_format']);
+                    $update = str_ireplace(MicroblogPoster_Poster::get_shortcodes(), $post_content, $facebookb_account['message_format']);
+                }
+                elseif($facebookb_account['message_format'] && $mp['val'] == 1 && $mp['type'] == 'link')
+                {
+                    $facebookb_account['message_format'] = str_ireplace('{url}', '', $facebookb_account['message_format']);
+                    $facebookb_account['message_format'] = str_ireplace('{short_url}', '', $facebookb_account['message_format']);
+                    $update = str_ireplace(MicroblogPoster_Poster::get_shortcodes_mp(), $post_content, $facebookb_account['message_format']);
+                }
+                
+                $extra = json_decode($facebookb_account['extra'], true);
+                $update = MicroblogPoster_Poster::clean_up_content_update($update);
+                if(!$extra)
+                {
+                    continue;
+                }
+                
+                $include_tags = (isset($extra['include_tags']) && $extra['include_tags'] == 1)?true:false;
+                if($include_tags && $tags)
+                {
+                    $tags = MicroblogPoster_Poster::create_tags_string($tags);
+                    $update = $update . $tags;
+                }
+                
+                
+                if(isset($extra['facebook_id']))
+                { 
+                    $access_token = MicroblogPoster_Poster::get_connected_buffer_api_key($extra['connected_buffer']);
+                    $url = 'https://api.bufferapp.com/1/updates/create.json?access_token='.$access_token;
+                    $headers = array(
+                        'Content-Type' => 'application/x-www-form-urlencoded'
+                    );
+                    $curl->set_headers($headers);
+                    $post_data = array(
+                        'profile_ids' => $extra['facebook_id'],
+                        'now' => true,
+                        'text' => $update
+                    );
+                    $result = $curl->send_post_data($url, $post_data);
+                    $result_dec = json_decode($result, true);
+                }
+                else
+                {
+                    $result = 'Facebook ID is required';
+                }
+                
+                $action_result = 2;
+                if($result_dec && isset($result_dec['message']))
+                {
+                    $result = $result_dec['message'];
+                }
+                if($result_dec && isset($result_dec['success']) && $result_dec['success'] == 1)
+                {
+                    $action_result = 1;
+                    $result = "Success";
+                }
+
+                $log_data = array();
+                $log_data['account_id'] = $facebookb_account['account_id'];
+                $log_data['account_type'] = "facebookb";
+                $log_data['username'] = $facebookb_account['username'];
+                $log_data['post_id'] = $post_ID;
+                $log_data['action_result'] = $action_result;
+                $log_data['update_message'] = $update;
+                $log_data['log_message'] = $result;
+                if($mp['val'] == 1)
+                {
+                    $log_data['log_type'] = 'manual';
+                }
+                elseif($old == 1)
+                {
+                    $log_data['log_type'] = 'old';
+                }
+                MicroblogPoster_Poster::insert_log($log_data);
+            }
+        }
+    }
     
     /**
     * Sends OAuth signed request
@@ -5045,6 +5258,19 @@ class MicroblogPoster_Poster
             return null;
         }
     }
+    public static function get_facebook_accounts($buffer_id)
+    {
+        $account = MicroblogPoster_Poster::get_account_object($buffer_id);
+        if($account)
+        {
+            $extra = json_decode($account->extra, true);
+            return $extra['facebook']['ids'];
+        }
+        else
+        {
+            return null;
+        }
+    }
     
     /**
     * Get account from db
@@ -5059,6 +5285,19 @@ class MicroblogPoster_Poster
         {
             $extra = json_decode($account->extra, true);
             return $extra['google']['ids'][$googleplus_id];
+        }
+        else
+        {
+            return null;
+        }
+    }
+    public static function get_facebook_account($connected_buffer_id, $facebook_id)
+    {
+        $account = MicroblogPoster_Poster::get_account_object($connected_buffer_id);
+        if($account)
+        {
+            $extra = json_decode($account->extra, true);
+            return $extra['facebook']['ids'][$facebook_id];
         }
         else
         {
@@ -5435,7 +5674,7 @@ function microblogposter_meta()
     <input type="checkbox" id="mbp_microblogposter_category_to_account" name="mbp_microblogposter_category_to_account" <?php if($default_behavior_cat_driven_value) echo 'checked="checked"';?> /> 
     <label for="mbp_microblogposter_category_to_account"><?php _e('Enable Category-Driven Mode?', 'microblog-poster');?></label>
     &nbsp;&nbsp;
-    <?php _e('Available with the Enterprise Add-on.', 'microblog-poster');?> <a href="http://efficientscripts.com/support/microblogposter/auto-publish-in-category-driven-mode" target="_blank"><?php _e('More Infos', 'microblog-poster');?></a>
+    <?php _e('Available with the Enterprise Add-on.', 'microblog-poster');?> <a href="https://efficientscripts.com/support/microblogposter/auto-publish-in-category-driven-mode" target="_blank"><?php _e('More Infos', 'microblog-poster');?></a>
     <?php endif;?>
     
     <?php
@@ -5470,7 +5709,7 @@ function microblogposter_meta()
             }
         </script>
         &nbsp;<a href="#" id="mbp_upgrade_notice_lnk_microblogposter" onclick="mbp_show_upgrade_notice_microblogposter();return false;" ><?php _e('Show complete Control Dashboard', 'microblog-poster');?></a>
-        <div id="mbp_upgrade_notice_div_microblogposter" style="display:none;"><?php _e('Available with the Pro / Enterprise Add-on.', 'microblog-poster');?> <a href="http://efficientscripts.com/web/products/addons" target="_blank"><?php _e('Upgrade Now', 'microblog-poster');?></a></div>
+        <div id="mbp_upgrade_notice_div_microblogposter" style="display:none;"><?php _e('Available with the Pro / Enterprise Add-on.', 'microblog-poster');?> <a href="https://efficientscripts.com/web/products/addons" target="_blank"><?php _e('Upgrade Now', 'microblog-poster');?></a></div>
         <?php
     }
     
@@ -5516,7 +5755,7 @@ function microblogposter_pmeta()
     <input type="checkbox" id="mbp_microblogposter_category_to_account" name="mbp_microblogposter_category_to_account" <?php if($default_behavior_cat_driven_value) echo 'checked="checked"';?> /> 
     <label for="mbp_microblogposter_category_to_account"><?php _e('Enable Category-Driven Mode?', 'microblog-poster');?></label>
     &nbsp;&nbsp;
-    <?php _e('Available with the Enterprise Add-on.', 'microblog-poster');?> <a href="http://efficientscripts.com/support/microblogposter/auto-publish-in-category-driven-mode" target="_blank"><?php _e('More Infos', 'microblog-poster');?></a>
+    <?php _e('Available with the Enterprise Add-on.', 'microblog-poster');?> <a href="https://efficientscripts.com/support/microblogposter/auto-publish-in-category-driven-mode" target="_blank"><?php _e('More Infos', 'microblog-poster');?></a>
     <?php endif;?>
     
     <?php
@@ -5551,7 +5790,7 @@ function microblogposter_pmeta()
             }
         </script>
         &nbsp;<a href="#" id="mbp_upgrade_notice_lnk_microblogposter" onclick="mbp_show_upgrade_notice_microblogposter();return false;" ><?php _e('Show complete Control Dashboard', 'microblog-poster');?></a>
-        <div id="mbp_upgrade_notice_div_microblogposter" style="display:none;"><?php _e('Available with the Pro / Enterprise Add-on.', 'microblog-poster');?> <a href="http://efficientscripts.com/web/products/addons" target="_blank"><?php _e('Upgrade Now', 'microblog-poster');?></a></div>
+        <div id="mbp_upgrade_notice_div_microblogposter" style="display:none;"><?php _e('Available with the Pro / Enterprise Add-on.', 'microblog-poster');?> <a href="https://efficientscripts.com/web/products/addons" target="_blank"><?php _e('Upgrade Now', 'microblog-poster');?></a></div>
         <?php
     }
 }
@@ -5603,7 +5842,7 @@ function microblogposter_custom_meta($post, $metabox)
     <input type="checkbox" id="mbp_microblogposter_category_to_account" name="mbp_microblogposter_category_to_account" <?php if($default_behavior_cat_driven_value) echo 'checked="checked"';?> /> 
     <label for="mbp_microblogposter_category_to_account"><?php _e('Enable Category-Driven Mode?', 'microblog-poster');?></label>
     &nbsp;&nbsp;
-    <?php _e('Available with the Enterprise Add-on.', 'microblog-poster');?> <a href="http://efficientscripts.com/support/microblogposter/auto-publish-in-category-driven-mode" target="_blank"><?php _e('More Infos', 'microblog-poster');?></a>
+    <?php _e('Available with the Enterprise Add-on.', 'microblog-poster');?> <a href="https://efficientscripts.com/support/microblogposter/auto-publish-in-category-driven-mode" target="_blank"><?php _e('More Infos', 'microblog-poster');?></a>
     <?php endif;?>
     
     <?php
@@ -5638,7 +5877,7 @@ function microblogposter_custom_meta($post, $metabox)
             }
         </script>
         &nbsp;<a href="#" id="mbp_upgrade_notice_lnk_microblogposter" onclick="mbp_show_upgrade_notice_microblogposter();return false;" ><?php _e('Show complete Control Dashboard', 'microblog-poster');?></a>
-        <div id="mbp_upgrade_notice_div_microblogposter" style="display:none;"><?php _e('Available with the Pro / Enterprise Add-on.', 'microblog-poster');?> <a href="http://efficientscripts.com/web/products/addons" target="_blank"><?php _e('Upgrade Now', 'microblog-poster');?></a></div>
+        <div id="mbp_upgrade_notice_div_microblogposter" style="display:none;"><?php _e('Available with the Pro / Enterprise Add-on.', 'microblog-poster');?> <a href="https://efficientscripts.com/web/products/addons" target="_blank"><?php _e('Upgrade Now', 'microblog-poster');?></a></div>
         <?php
     }
 }
