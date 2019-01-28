@@ -187,7 +187,12 @@ final class FLBuilderWhiteLabel {
 			'screenshot_url' 	=> '',
 		);
 
-		return ! $value ? $defaults : $value;
+		$value = wp_parse_args( $value, $defaults );
+
+		foreach ( $value as $k => $v ) {
+			$value[ $k ] = wp_specialchars_decode( stripslashes( wp_strip_all_tags( $v ) ) );
+		}
+		return $value;
 	}
 
 	/**
