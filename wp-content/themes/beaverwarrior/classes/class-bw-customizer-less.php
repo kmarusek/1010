@@ -256,11 +256,13 @@ final class BWCustomizerLess {
 			self::_compile_css();
 			return self::css_url();
 		}
-       
-       if (self::_css_mtime(self::$_presets[ $preset ]['skin']) > filemtime($css_path)) {
-           self::_compile_css();
-           return self::css_url();
-       }
+
+		$preset = isset( $preset ) ? $preset : null;
+		$presset = isset( self::$_presets[ $preset ]['skin'] ) ? self::$_presets[ $preset ]['skin'] : null;
+		if (self::_css_mtime( $presset ) > filemtime($css_path)) {
+			self::_compile_css();
+			return self::css_url();
+		}
 
 		// Return the url.
 		return $css_url;
@@ -789,8 +791,9 @@ final class BWCustomizerLess {
         
         $paths[] = FL_THEME_DIR . '/less/theme.less';
 
+        $mods = isset( $mods ) ? $mods : array();
         // BB WooCommerce
-        if ( 'disabled' != $mods['fl-woo-css'] ) {
+        if ( !isset( $mods['fl-woo-css'] ) || 'disabled' != $mods['fl-woo-css'] ) {
            $paths[] = FL_THEME_DIR . '/less/woocommerce.less';
         }
 
@@ -858,7 +861,8 @@ final class BWCustomizerLess {
 		$css_slug     = self::_css_slug();
 		$css          = '';
 		$filename     = $cache_dir['path'] . $css_slug . '-' . $new_css_key . '.css';
-		$paths = self::_css_paths(self::$_presets[ $preset ]['skin']);
+		$preset = isset( self::$_presets[ $preset ]['skin'] ) ? self::$_presets[ $preset ]['skin'] : null;
+		$paths = self::_css_paths( $preset );
 
 		// Loop over paths and get contents
 		$css = '';
@@ -1026,7 +1030,7 @@ final class BWCustomizerLess {
 				if ( isset( $mods[ $option_key ] ) ) {
 					$vars[ $device . '-' . $var ] = $mods[ $option_key ] . $mod_data['format'];
 				} else {
-					$vars[ $device . '-' . $var ] = $defaults[ $option_key ] . $mod_data['format'];
+					$vars[ $device . '-' . $var ] = isset( $defaults[ $option_key ] ) ? $defaults[ $option_key ] . $mod_data['format'] : null;
 				}
 			}
 		}
