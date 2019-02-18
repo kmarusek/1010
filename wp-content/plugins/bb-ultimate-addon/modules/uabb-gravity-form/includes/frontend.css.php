@@ -325,8 +325,8 @@ if ( ! $version_bb_check ) {
 	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield .ginput_container span label {
 
 		<?php if ( isset( $settings->form_label_font_typo['font_family'] ) && isset( $settings->form_label_font_typo['font_weight'] ) ) { ?>
-			font-family: <?php echo $settings->form_label_font_typo['font_family']; ?>
-			font-weight: <?php echo $settings->form_label_font_typo['font_weight']; ?>
+			font-family: <?php echo $settings->form_label_font_typo['font_family']; ?>;
+			font-weight: <?php echo $settings->form_label_font_typo['font_weight']; ?>;
 		<?php } ?>
 	}
 <?php } ?>

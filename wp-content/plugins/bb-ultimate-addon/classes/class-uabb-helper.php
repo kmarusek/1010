@@ -244,6 +244,7 @@ if ( ! class_exists( 'BB_Ultimate_Addon_Helper' ) ) {
                 'uabb-video'               => 'Video',
 				'uabb-table'			   => 'Table',
                 'uabb-video-gallery'        => 'Video Gallery',
+                'uabb-price-list'	       => 'Price List',
 			);
 
 			/* Include Contact form styler */

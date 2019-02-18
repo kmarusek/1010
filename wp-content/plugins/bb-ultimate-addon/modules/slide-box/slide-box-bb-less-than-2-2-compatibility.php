@@ -386,6 +386,16 @@ FLBuilder::register_module(
 								'type' => 'none',
 							),
 						),
+						'link_follow' => array(
+							'type'        => 'select',
+							'label'       => __( 'Link nofollow', 'uabb' ),
+							'description' => '',
+							'default'     => '0',
+							'options'     => array(
+								'1' => __( 'Yes', 'uabb' ),
+								'0' => __( 'No', 'uabb' ),
+							),
+						),
 						'cta_text'    => array(
 							'type'    => 'text',
 							'label'   => __( 'Text', 'uabb' ),

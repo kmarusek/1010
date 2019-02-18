@@ -147,7 +147,7 @@ $settings->caption_bg_color = ( '' != $settings->caption_bg_color ) ? $settings-
 			}
 		<?php } ?>
 
-		<?php if ( 'grid' == $settings->layout && $settings->grid_column != $settings->medium_grid_column ) { ?>
+		<?php if ( 'grid' == $settings->layout ) { ?>
 			.fl-node-<?php echo $id; ?> .uabb-photo-gallery-item {
 				width: <?php echo 100 / $settings->medium_grid_column; ?>%;
 			}
@@ -163,7 +163,7 @@ $settings->caption_bg_color = ( '' != $settings->caption_bg_color ) ? $settings-
 			.fl-node-<?php echo $id; ?> .uabb-photo-gallery-item:nth-child(<?php echo $settings->medium_grid_column; ?>n+0){
 				clear: right;
 			}
-		<?php } elseif ( 'masonary' == $settings->layout && $settings->grid_column != $settings->medium_grid_column ) { ?>	
+		<?php } elseif ( 'masonary' == $settings->layout ) { ?>
 			.fl-node-<?php echo $id; ?> .uabb-grid-sizer {
 				width: <?php echo 100 / $settings->medium_grid_column; ?>%;
 			}
@@ -195,7 +195,7 @@ $settings->caption_bg_color = ( '' != $settings->caption_bg_color ) ? $settings-
 				<?php } ?>
 			}
 		<?php } ?>
-		<?php if ( 'grid' == $settings->layout && $settings->grid_column != $settings->responsive_grid_column ) { ?>
+		<?php if ( 'grid' == $settings->layout ) { ?>
 			.fl-node-<?php echo $id; ?> .uabb-photo-gallery-item {
 				width: <?php echo 100 / $settings->responsive_grid_column; ?>%;
 			}
@@ -215,7 +215,7 @@ $settings->caption_bg_color = ( '' != $settings->caption_bg_color ) ? $settings-
 			.fl-node-<?php echo $id; ?> .uabb-photo-gallery-item:nth-child(<?php echo $settings->responsive_grid_column; ?>n+0){
 				clear: right;
 			}
-		<?php } elseif ( 'masonary' == $settings->layout && $settings->grid_column != $settings->responsive_grid_column ) { ?>	
+		<?php } elseif ( 'masonary' == $settings->layout ) { ?>
 			.fl-node-<?php echo $id; ?> .uabb-grid-sizer {
 				width: <?php echo 100 / $settings->responsive_grid_column; ?>%;
 			}

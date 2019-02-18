@@ -274,6 +274,16 @@ FLBuilder::register_module(
 								'type' => 'none',
 							),
 						),
+						'button_one_link_nofollow'      => array(
+							'type'        => 'select',
+							'label'       => __( 'Link nofollow', 'uabb' ),
+							'description' => '',
+							'default'     => '0',
+							'options'     => array(
+								'1' => __( 'Yes', 'uabb' ),
+								'0' => __( 'No', 'uabb' ),
+							),
+						),
 						'_btn_one_back_color'           => array(
 							'type'       => 'color',
 							'label'      => __( 'Background Color', 'uabb' ),
@@ -403,6 +413,16 @@ FLBuilder::register_module(
 							),
 							'preview' => array(
 								'type' => 'none',
+							),
+						),
+						'button_two_link_nofollow'      => array(
+							'type'        => 'select',
+							'label'       => __( 'Link nofollow', 'uabb' ),
+							'description' => '',
+							'default'     => '0',
+							'options'     => array(
+								'1' => __( 'Yes', 'uabb' ),
+								'0' => __( 'No', 'uabb' ),
 							),
 						),
 						'_btn_two_back_color'           => array(

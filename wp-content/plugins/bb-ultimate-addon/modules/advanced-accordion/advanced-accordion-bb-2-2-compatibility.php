@@ -117,6 +117,7 @@ FLBuilder::register_module(
 							'label'       => __( 'Color', 'uabb' ),
 							'default'     => '',
 							'show_reset'  => true,
+							'show_alpha'  => true,
 							'connections' => array( 'color' ),
 							'preview'     => array(
 								'type'     => 'css',
@@ -129,6 +130,7 @@ FLBuilder::register_module(
 							'label'       => __( 'Hover Color', 'uabb' ),
 							'default'     => '',
 							'show_reset'  => true,
+							'show_alpha'  => true,
 							'connections' => array( 'color' ),
 							'preview'     => array(
 								'type'     => 'css',
@@ -141,6 +143,7 @@ FLBuilder::register_module(
 							'label'       => __( 'Background Color', 'uabb' ),
 							'default'     => 'f6f6f6',
 							'show_reset'  => true,
+							'show_alpha'  => true,
 							'connections' => array( 'color' ),
 							'preview'     => array(
 								'type'     => 'css',
@@ -168,6 +171,7 @@ FLBuilder::register_module(
 							'label'       => __( 'Background Hover/Focus Color', 'uabb' ),
 							'default'     => '',
 							'show_reset'  => true,
+							'show_alpha'  => true,
 							'connections' => array( 'color' ),
 							'preview'     => array(
 								'type'     => 'css',
@@ -271,6 +275,7 @@ FLBuilder::register_module(
 							'label'       => __( 'Icon Color', 'uabb' ),
 							'default'     => '',
 							'show_reset'  => true,
+							'show_alpha'  => true,
 							'connections' => array( 'color' ),
 							'preview'     => array(
 								'type'     => 'css',
@@ -284,6 +289,7 @@ FLBuilder::register_module(
 							'default'     => '',
 							'connections' => array( 'color' ),
 							'show_reset'  => true,
+							'show_alpha'  => true,
 							'preview'     => array(
 								'type'     => 'css',
 								'selector' => '.uabb-adv-accordion-item-active .uabb-adv-accordion-button-icon',
@@ -330,6 +336,7 @@ FLBuilder::register_module(
 							'label'       => __( 'Color', 'uabb' ),
 							'default'     => '',
 							'show_reset'  => true,
+							'show_alpha'  => true,
 							'connections' => array( 'color' ),
 							'preview'     => array(
 								'type'     => 'css',
@@ -342,6 +349,7 @@ FLBuilder::register_module(
 							'label'       => __( 'Background Color', 'uabb' ),
 							'default'     => '',
 							'show_reset'  => true,
+							'show_alpha'  => true,
 							'connections' => array( 'color' ),
 							'preview'     => array(
 								'type'     => 'css',

@@ -64,6 +64,7 @@ class UABBPhotoGalleryModule extends FLBuilderModule {
 			if ( isset( $settings->font_family ) ) {
 				if ( isset( $settings->font_family['family'] ) ) {
 					$settings->caption_font_typo['font_family'] = $settings->font_family['family'];
+					unset( $settings->font_family['family'] );
 				}
 				if ( isset( $settings->font_family['weight'] ) ) {
 					if ( 'regular' == $settings->font_family['weight'] ) {
@@ -71,6 +72,7 @@ class UABBPhotoGalleryModule extends FLBuilderModule {
 					} else {
 						$settings->caption_font_typo['font_weight'] = $settings->font_family['weight'];
 					}
+					unset( $settings->font_family['weight'] );
 				}
 			}
 			if ( isset( $settings->font_size_unit ) ) {
@@ -79,7 +81,7 @@ class UABBPhotoGalleryModule extends FLBuilderModule {
 					'length' => $settings->font_size_unit,
 					'unit'   => 'px',
 				);
-
+				unset( $settings->font_size_unit );
 			}
 			if ( isset( $settings->font_size_unit_medium ) ) {
 
@@ -87,6 +89,7 @@ class UABBPhotoGalleryModule extends FLBuilderModule {
 					'length' => $settings->font_size_unit_medium,
 					'unit'   => 'px',
 				);
+				unset( $settings->font_size_unit_medium );
 			}
 			if ( isset( $settings->font_size_unit_responsive ) ) {
 
@@ -94,6 +97,7 @@ class UABBPhotoGalleryModule extends FLBuilderModule {
 					'length' => $settings->font_size_unit_responsive,
 					'unit'   => 'px',
 				);
+				unset( $settings->font_size_unit_responsive );
 			}
 			if ( isset( $settings->line_height_unit ) ) {
 
@@ -101,6 +105,7 @@ class UABBPhotoGalleryModule extends FLBuilderModule {
 					'length' => $settings->line_height_unit,
 					'unit'   => 'em',
 				);
+				unset( $settings->line_height_unit );
 			}
 			if ( isset( $settings->line_height_unit_medium ) ) {
 
@@ -108,6 +113,7 @@ class UABBPhotoGalleryModule extends FLBuilderModule {
 					'length' => $settings->line_height_unit_medium,
 					'unit'   => 'em',
 				);
+				unset( $settings->line_height_unit_medium );
 			}
 			if ( isset( $settings->line_height_unit_responsive ) ) {
 
@@ -115,10 +121,12 @@ class UABBPhotoGalleryModule extends FLBuilderModule {
 					'length' => $settings->line_height_unit_responsive,
 					'unit'   => 'em',
 				);
+				unset( $settings->line_height_unit_responsive );
 			}
 			if ( isset( $settings->transform ) ) {
 
 				$settings->caption_font_typo['text_transform'] = $settings->transform;
+				unset( $settings->transform );
 
 			}
 			if ( isset( $settings->letter_spacing ) ) {
@@ -127,16 +135,6 @@ class UABBPhotoGalleryModule extends FLBuilderModule {
 					'length' => $settings->letter_spacing,
 					'unit'   => 'px',
 				);
-			}
-			if ( isset( $settings->font_family ) ) {
-				unset( $settings->font_family );
-				unset( $settings->font_size_unit );
-				unset( $settings->font_size_unit_medium );
-				unset( $settings->font_size_unit_responsive );
-				unset( $settings->line_height_unit );
-				unset( $settings->line_height_unit_medium );
-				unset( $settings->line_height_unit_responsive );
-				unset( $settings->transform );
 				unset( $settings->letter_spacing );
 			}
 		} elseif ( $version_bb_check && 'yes' != $page_migrated ) {
@@ -155,6 +153,7 @@ class UABBPhotoGalleryModule extends FLBuilderModule {
 
 				if ( isset( $settings->font_family['family'] ) ) {
 					$settings->caption_font_typo['font_family'] = $settings->font_family['family'];
+					unset( $settings->font_family['family'] );
 				}
 				if ( isset( $settings->font_family['weight'] ) ) {
 					if ( 'regular' == $settings->font_family['weight'] ) {
@@ -162,6 +161,7 @@ class UABBPhotoGalleryModule extends FLBuilderModule {
 					} else {
 						$settings->caption_font_typo['font_weight'] = $settings->font_family['weight'];
 					}
+					unset( $settings->font_family['weight'] );
 				}
 			}
 			if ( isset( $settings->font_size['desktop'] ) ) {
@@ -206,10 +206,24 @@ class UABBPhotoGalleryModule extends FLBuilderModule {
 					);
 				}
 			}
-			if ( isset( $settings->font_family ) ) {
-				unset( $settings->font_family );
-				unset( $settings->font_size );
-				unset( $settings->line_height );
+			// Unset the old values.
+			if ( isset( $settings->font_size['desktop'] ) ) {
+				unset( $settings->font_size['desktop'] );
+			}
+			if ( isset( $settings->font_size['medium'] ) ) {
+				unset( $settings->font_size['medium'] );
+			}
+			if ( isset( $settings->font_size['small'] ) ) {
+				unset( $settings->font_size['small'] );
+			}
+			if ( isset( $settings->line_height['desktop'] ) ) {
+				unset( $settings->line_height['desktop'] );
+			}
+			if ( isset( $settings->line_height['medium'] ) ) {
+				unset( $settings->line_height['medium'] );
+			}
+			if ( isset( $settings->line_height['small'] ) ) {
+				unset( $settings->line_height['small'] );
 			}
 		}
 		return $settings;

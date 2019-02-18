@@ -552,7 +552,7 @@ FLBuilder::register_module(
 						),
 						'cat_filter_border_active_param' => array(
 							'type'       => 'border',
-							'label'      => __( 'Bottom Border', 'uabb' ),
+							'label'      => __( 'Bottom Border Active', 'uabb' ),
 							'responsive' => true,
 							'default'    => array(
 								'style' => 'none',

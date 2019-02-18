@@ -85,6 +85,7 @@ class UABBVideo extends FLBuilderModule {
 				if ( isset( $settings->subscribe_text_font['family'] ) ) {
 
 					$settings->subscribe_font_typo['font_family'] = $settings->subscribe_text_font['family'];
+					unset( $settings->subscribe_text_font['family'] );
 				}
 				if ( isset( $settings->subscribe_text_font['weight'] ) ) {
 
@@ -93,6 +94,7 @@ class UABBVideo extends FLBuilderModule {
 					} else {
 						$settings->subscribe_font_typo['font_weight'] = $settings->subscribe_text_font['weight'];
 					}
+					unset( $settings->subscribe_text_font['weight'] );
 				}
 			}
 			if ( isset( $settings->subscribe_text_font_size ) ) {
@@ -101,18 +103,21 @@ class UABBVideo extends FLBuilderModule {
 					'length' => $settings->subscribe_text_font_size,
 					'unit'   => 'px',
 				);
+				unset( $settings->subscribe_text_font_size );
 			}
 			if ( isset( $settings->subscribe_text_font_size_medium ) ) {
 				$settings->subscribe_font_typo_medium['font_size'] = array(
 					'length' => $settings->subscribe_text_font_size_medium,
 					'unit'   => 'px',
 				);
+				unset( $settings->subscribe_text_font_size_medium );
 			}
 			if ( isset( $settings->subscribe_text_font_size_responsive ) ) {
 				$settings->subscribe_font_typo_responsive['font_size'] = array(
 					'length' => $settings->subscribe_text_font_size_responsive,
 					'unit'   => 'px',
 				);
+				unset( $settings->subscribe_text_font_size_responsive );
 			}
 			if ( isset( $settings->subscribe_text_line_height ) ) {
 
@@ -120,23 +125,26 @@ class UABBVideo extends FLBuilderModule {
 					'length' => $settings->subscribe_text_line_height,
 					'unit'   => 'em',
 				);
+				unset( $settings->subscribe_text_line_height );
 			}
 			if ( isset( $settings->subscribe_text_line_height_medium ) ) {
 				$settings->subscribe_font_typo_medium['line_height'] = array(
 					'length' => $settings->subscribe_text_line_height_medium,
 					'unit'   => 'em',
 				);
+				unset( $settings->subscribe_text_line_height_medium );
 			}
 			if ( isset( $settings->subscribe_text_line_height_responsive ) ) {
 				$settings->subscribe_font_typo_responsive['line_height'] = array(
 					'length' => $settings->subscribe_text_line_height_responsive,
 					'unit'   => 'em',
 				);
+				unset( $settings->subscribe_text_line_height_responsive );
 			}
 			if ( isset( $settings->subscribe_text_transform ) ) {
 
 				$settings->subscribe_font_typo['text_transform'] = $settings->subscribe_text_transform;
-
+				unset( $settings->subscribe_text_transform );
 			}
 			if ( isset( $settings->subscribe_text_letter_spacing ) ) {
 
@@ -144,16 +152,6 @@ class UABBVideo extends FLBuilderModule {
 					'length' => $settings->subscribe_text_letter_spacing,
 					'unit'   => 'px',
 				);
-			}
-			if ( isset( $settings->subscribe_text_font ) ) {
-				unset( $settings->subscribe_text_font );
-				unset( $settings->subscribe_text_font_size );
-				unset( $settings->subscribe_text_font_size_medium );
-				unset( $settings->subscribe_text_font_size_responsive );
-				unset( $settings->subscribe_text_line_height );
-				unset( $settings->subscribe_text_line_height_medium );
-				unset( $settings->subscribe_text_line_height_responsive );
-				unset( $settings->subscribe_text_transform );
 				unset( $settings->subscribe_text_letter_spacing );
 			}
 		}

@@ -438,12 +438,14 @@ FLBuilder::register_module(
 							'label'      => __( 'Icon Color', 'uabb' ),
 							'default'    => '',
 							'show_reset' => true,
+							'show_alpha' => true,
 						),
 						'icon_hover_color' => array(
 							'type'       => 'color',
 							'label'      => __( 'Icon Hover Color', 'uabb' ),
 							'default'    => '',
 							'show_reset' => true,
+							'show_alpha' => true,
 							'preview'    => array(
 								'type' => 'none',
 							),
@@ -494,6 +496,7 @@ FLBuilder::register_module(
 							'label'      => __( 'Text Color', 'uabb' ),
 							'default'    => '',
 							'show_reset' => true,
+							'show_alpha' => true,
 							'preview'    => array(
 								'type'     => 'css',
 								'selector' => '.uabb-modal-action',
@@ -505,6 +508,7 @@ FLBuilder::register_module(
 							'label'      => __( 'Text Hover Color', 'uabb' ),
 							'default'    => '',
 							'show_reset' => true,
+							'show_alpha' => true,
 						),
 					),
 				),
@@ -625,6 +629,7 @@ FLBuilder::register_module(
 							'label'      => __( 'Text Color', 'uabb' ),
 							'default'    => '',
 							'show_reset' => true,
+							'show_alpha' => true,
 							'preview'    => array(
 								'type'     => 'css',
 								'selector' => '.uabb-creative-button-wrap a *',
@@ -636,6 +641,7 @@ FLBuilder::register_module(
 							'label'      => __( 'Text Hover Color', 'uabb' ),
 							'default'    => '',
 							'show_reset' => true,
+							'show_alpha' => true,
 							'preview'    => array(
 								'type' => 'none',
 							),
@@ -989,6 +995,7 @@ FLBuilder::register_module(
 							'label'      => __( 'Color', 'uabb' ),
 							'default'    => '',
 							'show_reset' => true,
+							'show_alpha' => true,
 							'preview'    => array(
 								'type'     => 'css',
 								'selector' => '.uabb-close-icon',
@@ -1071,6 +1078,7 @@ FLBuilder::register_module(
 							'label'      => __( 'Color', 'uabb' ),
 							'default'    => '',
 							'show_reset' => true,
+							'show_alpha' => true,
 							'preview'    => array(
 								'type'     => 'css',
 								'selector' => '.uabb-modal-title',
@@ -1108,6 +1116,7 @@ FLBuilder::register_module(
 							'label'      => __( 'Color', 'uabb' ),
 							'default'    => '',
 							'show_reset' => true,
+							'show_alpha' => true,
 							'preview'    => array(
 								'type'     => 'css',
 								'selector' => '.uabb-modal-text',

@@ -647,6 +647,7 @@ FLBuilder::register_module(
 							'label'       => __( 'Background Color', 'uabb' ),
 							'default'     => '',
 							'show_reset'  => true,
+							'show_alpha'  => true,
 							'preview'     => array(
 								'type'      => 'css',
 								'selector'  => '.uabb-contact-form',
@@ -685,6 +686,7 @@ FLBuilder::register_module(
 							'label'       => __( 'Input Message Color', 'uabb' ),
 							'default'     => '',
 							'show_reset'  => true,
+							'show_alpha'  => true,
 							'help'        => __( 'This color would be applied to validation message and error icon in input field', 'uabb' ),
 							'preview'     => 'none',
 						),
@@ -694,6 +696,7 @@ FLBuilder::register_module(
 							'label'       => __( 'Input border color', 'uabb' ),
 							'default'     => '',
 							'show_reset'  => true,
+							'show_alpha'  => true,
 							'help'        => __( 'If the validation is not right then this color would be applied to input border', 'uabb' ),
 							'preview'     => 'none',
 						),
@@ -703,6 +706,7 @@ FLBuilder::register_module(
 							'label'       => __( 'Success Message Color', 'uabb' ),
 							'default'     => '',
 							'show_reset'  => true,
+							'show_alpha'  => true,
 							'preview'     => 'none',
 						),
 						'error_msg_color'      => array(
@@ -711,6 +715,7 @@ FLBuilder::register_module(
 							'label'       => __( 'Error Message color', 'uabb' ),
 							'default'     => '',
 							'show_reset'  => true,
+							'show_alpha'  => true,
 							'preview'     => 'none',
 						),
 						'error_msg_alignment'  => array(
@@ -789,6 +794,7 @@ FLBuilder::register_module(
 							'connections' => array( 'color' ),
 							'label'       => __( 'Border Color', 'uabb' ),
 							'show_reset'  => true,
+							'show_alpha'  => true,
 							'preview'     => array(
 								'type'      => 'css',
 								'selector'  => '.uabb-contact-form .uabb-input-group-wrap input[type="checkbox"] + span:before',
@@ -890,6 +896,7 @@ FLBuilder::register_module(
 							'label'       => __( 'Text Color', 'uabb' ),
 							'default'     => '',
 							'show_reset'  => true,
+							'show_alpha'  => true,
 							'preview'     => array(
 								'type'      => 'css',
 								'selector'  => '.uabb-contact-form .uabb-contact-form-submit',
@@ -903,6 +910,7 @@ FLBuilder::register_module(
 							'label'       => __( 'Text Hover Color', 'uabb' ),
 							'default'     => '',
 							'show_reset'  => true,
+							'show_alpha'  => true,
 							'preview'     => array(
 								'type' => 'none',
 							),
@@ -913,6 +921,7 @@ FLBuilder::register_module(
 							'label'       => __( 'Background Color', 'uabb' ),
 							'default'     => '',
 							'show_reset'  => true,
+							'show_alpha'  => true,
 							'preview'     => array(
 								'type'      => 'css',
 								'selector'  => '.uabb-contact-form .uabb-contact-form-submit',
@@ -926,6 +935,7 @@ FLBuilder::register_module(
 							'label'       => __( 'Background Hover Color', 'uabb' ),
 							'default'     => '',
 							'show_reset'  => true,
+							'show_alpha'  => true,
 							'preview'     => array(
 								'type' => 'none',
 							),
@@ -1216,6 +1226,7 @@ FLBuilder::register_module(
 							'label'       => __( 'Color', 'uabb' ),
 							'default'     => '',
 							'show_reset'  => true,
+							'show_alpha'  => true,
 							'preview'     => array(
 								'type'      => 'css',
 								'selector'  => '.uabb-contact-form label',

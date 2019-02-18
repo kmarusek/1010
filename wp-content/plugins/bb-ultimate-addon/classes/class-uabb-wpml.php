@@ -47,6 +47,7 @@ if ( ! class_exists( 'UABB_WPML_Translatable' ) ) {
 				require_once BB_ULTIMATE_ADDON_DIR . 'classes/wpml/class-wpml-uabb-advanced-icon.php';
 				require_once BB_ULTIMATE_ADDON_DIR . 'classes/wpml/class-wpml-uabb-list-icon.php';
 				require_once BB_ULTIMATE_ADDON_DIR . 'classes/wpml/class-wpml-uabb-video-gallery.php';
+				require_once BB_ULTIMATE_ADDON_DIR . 'classes/wpml/class-wpml-uabb-price-list.php';
 			}
 
 		}
@@ -1078,6 +1079,12 @@ if ( ! class_exists( 'UABB_WPML_Translatable' ) ) {
 				'integration-class' => 'WPML_UABB_VideoGallery',
 			);
 
+			// Price List module.
+			$form['uabb-price-list'] = array(
+				'conditions'        => array( 'type' => 'uabb-price-list' ),
+				'fields'            => array(),
+				'integration-class' => 'WPML_UABB_Pricelist',
+			);
 			return $form;
 		}
 	}
