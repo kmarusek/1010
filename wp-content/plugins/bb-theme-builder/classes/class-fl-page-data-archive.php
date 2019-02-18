@@ -17,23 +17,18 @@ final class FLPageDataArchive {
 			$title = single_cat_title( '', false );
 		} elseif ( is_tag() ) {
 			$title = single_tag_title( '', false );
-		} // Taxonomy
-		elseif ( is_tax() ) {
+		} elseif ( is_tax() ) { // Taxonomy
 			$title = single_term_title( '', false );
-		} // Author
-		elseif ( is_author() ) {
+		} elseif ( is_author() ) { // Author
 			$title = get_the_author();
-		} // Search
-		elseif ( is_search() ) {
+		} elseif ( is_search() ) { // Search
+			/* translators: %s: Search results title */
 			$title = sprintf( _x( 'Search Results: %s', 'Search results title.', 'fl-theme-builder' ), get_search_query() );
-		} // Post Type
-		elseif ( is_post_type_archive() ) {
+		} elseif ( is_post_type_archive() ) { // Post Type
 			$title = post_type_archive_title( '', false );
-		} // Posts Archive
-		elseif ( is_home() ) {
+		} elseif ( is_home() ) { // Posts Archive
 			$title = __( 'Posts', 'fl-theme-builder' );
-		} // Everything else...
-		else {
+		} else { // Everything else...
 			$title = get_the_archive_title();
 		}
 		/**
@@ -62,5 +57,46 @@ final class FLPageDataArchive {
 		}
 
 		return get_term_meta( $term_id, $settings->key, true );
+	}
+
+	/**
+	 * Show posts count
+	 * @since 1.2
+	 */
+	static public function get_count() {
+		global $wp_query;
+
+		$query = $wp_query;
+
+		// If we made it here it means we have a WP_Query with posts
+		$paged      = ! empty( $query->query_vars['paged'] ) ? $query->query_vars['paged'] : 1;
+		$prev_posts = ( $paged - 1 ) * $query->query_vars['posts_per_page'];
+		$from       = 1 + $prev_posts;
+		$to         = count( $query->posts ) + $prev_posts;
+		$of         = $query->found_posts;
+
+		// Return the information
+		$showing = _x( 'Showing', 'Showing 1-5 of 25', 'fl-theme-builder' );
+		$oftxt   = _x( 'of', 'Showing 1-5 of 25', 'fl-theme-builder' );
+		return sprintf( '%s %s-%s %s %s.', $showing, $from, $to, $oftxt, $of );
+	}
+
+	/**
+	 * Show pages count
+	 * @since 1.2
+	 */
+	static public function get_page_count() {
+		global $wp_query;
+
+		$query = $wp_query;
+
+		// If we made it here it means we have a WP_Query with posts
+		$paged = ! empty( $query->query_vars['paged'] ) ? $query->query_vars['paged'] : 1;
+
+		$total_pages = ceil( $query->found_posts / $query->query_vars['posts_per_page'] );
+		// Return the information
+		$page = _x( 'Page', 'Page 1 of 5', 'fl-theme-builder' );
+		$of   = _x( 'of', 'Page 1 of 5', 'fl-theme-builder' );
+		return sprintf( '%s %s %s %s.', $page, $paged, $of, $total_pages );
 	}
 }

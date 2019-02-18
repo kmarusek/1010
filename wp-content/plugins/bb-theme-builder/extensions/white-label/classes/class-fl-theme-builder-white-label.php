@@ -11,8 +11,8 @@ final class FLThemeBuilderWhiteLabel {
 	 * @return void
 	 */
 	static public function init() {
-		add_filter( 'all_plugins',         __CLASS__ . '::plugins_page' );
-		add_filter( 'gettext',             __CLASS__ . '::plugin_gettext' );
+		add_filter( 'all_plugins', __CLASS__ . '::plugins_page' );
+		add_filter( 'gettext', __CLASS__ . '::plugin_gettext' );
 		add_filter( 'fl_plugin_info_data', __CLASS__ . '::fl_plugin_info', 10, 2 );
 	}
 
@@ -76,12 +76,12 @@ final class FLThemeBuilderWhiteLabel {
 	 */
 	static public function plugins_page( $plugins ) {
 		$branding = FLBuilderModel::get_branding();
-		$key	  = plugin_basename( FL_THEME_BUILDER_DIR . 'bb-theme-builder.php' );
+		$key      = plugin_basename( FL_THEME_BUILDER_DIR . 'bb-theme-builder.php' );
 
 		if ( isset( $plugins[ $key ] ) && self::is_white_labeled() ) {
-			$plugins[ $key ]['Name']	   = $branding . ' - Themer Add-On';
-			$plugins[ $key ]['Title']	   = $branding . ' - Themer Add-On';
-			$plugins[ $key ]['Author']	   = '';
+			$plugins[ $key ]['Name']       = $branding . ' - Themer Add-On';
+			$plugins[ $key ]['Title']      = $branding . ' - Themer Add-On';
+			$plugins[ $key ]['Author']     = '';
 			$plugins[ $key ]['AuthorName'] = '';
 			$plugins[ $key ]['PluginURI']  = '';
 		}

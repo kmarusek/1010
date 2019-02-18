@@ -16,7 +16,7 @@ final class FLThemeBuilderWooCommerce {
 		add_theme_support( 'woocommerce' );
 
 		// Actions
-		add_action( 'wp',  __CLASS__ . '::load_modules', 1 );
+		add_action( 'wp', __CLASS__ . '::load_modules', 1 );
 
 		// Filters
 		add_filter( 'fl_get_wp_widgets_exclude', __CLASS__ . '::filter_wp_widgets_exclude' );

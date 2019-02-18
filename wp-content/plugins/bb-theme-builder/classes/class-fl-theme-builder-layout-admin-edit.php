@@ -18,13 +18,13 @@ final class FLThemeBuilderLayoutAdminEdit {
 		self::redirect();
 
 		// Actions
-		add_action( 'save_post',                      __CLASS__ . '::save' );
-		add_action( 'admin_enqueue_scripts',          __CLASS__ . '::admin_enqueue_scripts' );
-		add_action( 'admin_head',                     __CLASS__ . '::setup_location_notice' );
-		add_action( 'add_meta_boxes',                 __CLASS__ . '::add_meta_boxes', 1 );
+		add_action( 'save_post', __CLASS__ . '::save' );
+		add_action( 'admin_enqueue_scripts', __CLASS__ . '::admin_enqueue_scripts' );
+		add_action( 'admin_head', __CLASS__ . '::setup_location_notice' );
+		add_action( 'add_meta_boxes', __CLASS__ . '::add_meta_boxes', 1 );
 
 		// Filters
-		add_filter( 'fl_builder_render_admin_edit_ui',   __CLASS__ . '::remove_builder_edit_ui' );
+		add_filter( 'fl_builder_render_admin_edit_ui', __CLASS__ . '::remove_builder_edit_ui' );
 	}
 
 	/**
@@ -38,12 +38,12 @@ final class FLThemeBuilderLayoutAdminEdit {
 		global $pagenow;
 
 		$post_type = isset( $_GET['post_type'] ) ? $_GET['post_type'] : null;
-		$args = $_GET;
+		$args      = $_GET;
 
 		if ( 'post-new.php' == $pagenow && 'fl-theme-layout' == $post_type ) {
 
-			$args['post_type'] = 'fl-builder-template';
-			$args['page'] = 'fl-builder-add-new';
+			$args['post_type']                = 'fl-builder-template';
+			$args['page']                     = 'fl-builder-add-new';
 			$args['fl-builder-template-type'] = 'theme-layout';
 
 			wp_redirect( admin_url( '/edit.php?' . http_build_query( $args ) ) );
@@ -82,20 +82,23 @@ final class FLThemeBuilderLayoutAdminEdit {
 
 			// JS Config
 			wp_localize_script( 'fl-theme-builder-layout-admin-edit', 'FLThemeBuilderConfig', array(
-				'locations' => FLThemeBuilderRulesLocation::get_admin_edit_config(),
+				'locations'  => FLThemeBuilderRulesLocation::get_admin_edit_config(),
 				'exclusions' => FLThemeBuilderRulesLocation::get_exclusions_admin_edit_config(),
-				'nonce' => wp_create_nonce( 'fl-theme-builder' ),
-				'postType' => $screen->post_type,
+				'nonce'      => wp_create_nonce( 'fl-theme-builder' ),
+				'postType'   => $screen->post_type,
 				'layoutType' => get_post_meta( $post->ID, '_fl_theme_layout_type', true ),
-				'userRules' => FLThemeBuilderRulesUser::get_saved( $post->ID ),
-				'strings' => array(
-					'allObjects' => _x( 'All %s', '%s is the post or taxonomy name.', 'fl-theme-builder' ),
-					'alreadySaved' => _x( 'This location has already been added to the "%1$s" %2$s. Would you like to remove it and add it to this %1$s?', '%1$s is the post title. %2$s is the post type label.', 'fl-theme-builder' ),
-					'assignedTo' => _x( 'Assigned to %s', '%s stands for post title.', 'fl-theme-builder' ),
-					'choose' => __( 'Choose...', 'fl-theme-builder' ),
-					'postTypePlural' => $object->label,
+				'userRules'  => FLThemeBuilderRulesUser::get_saved( $post->ID ),
+				'strings'    => array(
+					/* translators: %s: post or taxonomy name */
+					'allObjects'       => _x( 'All %s', '%s is the post or taxonomy name.', 'fl-theme-builder' ),
+					/* translators: 1: post title, 2: post label */
+					'alreadySaved'     => _x( 'This location has already been added to the "%1$s" %2$s. Would you like to remove it and add it to this %1$s?', '%1$s is the post title. %2$s is the post type label.', 'fl-theme-builder' ),
+					/* translators: %s: post title */
+					'assignedTo'       => _x( 'Assigned to %s', '%s stands for post title.', 'fl-theme-builder' ),
+					'choose'           => __( 'Choose...', 'fl-theme-builder' ),
+					'postTypePlural'   => $object->label,
 					'postTypeSingular' => $object->labels->singular_name,
-					'search' => __( 'Search...', 'fl-theme-builder' ),
+					'search'           => __( 'Search...', 'fl-theme-builder' ),
 				),
 			) );
 		}
@@ -173,8 +176,10 @@ final class FLThemeBuilderLayoutAdminEdit {
 				$posts = '<strong>' . $posts . '</strong>';
 
 				if ( 0 === count( $common ) ) {
+					/* translators: %s: post title */
 					$message = sprintf( _x( 'The layout %s is assigned to the same location and may not show.', '% is a post title.', 'fl-theme-builder' ), $posts );
 				} else {
+					/* translators: %s: post titles */
 					$message = sprintf( _x( 'The layouts %s are assigned to the same location and may not show.', '% is post titles.', 'fl-theme-builder' ), $posts );
 				}
 
@@ -264,10 +269,10 @@ final class FLThemeBuilderLayoutAdminEdit {
 			return;
 		}
 
-		$post_id = absint( $_POST['post_ID'] );
-		$type    = sanitize_text_field( $_POST['fl-theme-layout-type'] );
-		$hook    = sanitize_text_field( $_POST['fl-theme-layout-hook'] );
-		$order   = absint( $_POST['fl-theme-layout-order'] );
+		$post_id  = absint( $_POST['post_ID'] );
+		$type     = sanitize_text_field( $_POST['fl-theme-layout-type'] );
+		$hook     = sanitize_text_field( $_POST['fl-theme-layout-hook'] );
+		$order    = absint( $_POST['fl-theme-layout-order'] );
 		$settings = array_map( 'sanitize_text_field', $_POST['fl-theme-layout-settings'] );
 
 		update_post_meta( $post_id, '_fl_theme_layout_type', $type );

@@ -13,7 +13,7 @@ final class FLThemeBuilderTheEventsCalendar {
 	 */
 	static public function init() {
 		// Actions
-		add_action( 'wp',  __CLASS__ . '::load_modules', 1 );
+		add_action( 'wp', __CLASS__ . '::load_modules', 1 );
 	}
 
 	/**

@@ -1,6 +1,6 @@
 <?php if ( ! empty( $settings->fg_color ) ) : // Foreground Color
 	$placeholder_color = 'rgba(' . implode( ',', FLBuilderColor::hex_to_rgb( $settings->fg_color ) ) . ', .5);';
-?>
+	?>
 .fl-node-<?php echo $id; ?> #tribe-events-bar,
 .fl-node-<?php echo $id; ?> #tribe-events-bar input,
 .fl-node-<?php echo $id; ?> #tribe-bar-views .tribe-bar-views-list .tribe-bar-views-option a,

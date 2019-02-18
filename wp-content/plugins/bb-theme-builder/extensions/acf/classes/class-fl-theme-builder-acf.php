@@ -14,11 +14,11 @@ final class FLThemeBuilderACF {
 	static public function init() {
 
 		// Actions
-		add_action( 'fl_builder_loop_settings_after_form',         __CLASS__ . '::loop_settings_acf_fields', 10 );
+		add_action( 'fl_builder_loop_settings_after_form', __CLASS__ . '::loop_settings_acf_fields', 10 );
 
 		// Filters
-		add_filter( 'fl_builder_render_settings_field',            __CLASS__ . '::render_settings_field', 10, 3 );
-		add_filter( 'fl_builder_loop_query_args',                  __CLASS__ . '::loop_query_args' );
+		add_filter( 'fl_builder_render_settings_field', __CLASS__ . '::render_settings_field', 10, 3 );
+		add_filter( 'fl_builder_loop_query_args', __CLASS__ . '::loop_query_args' );
 	}
 
 	/**
@@ -36,7 +36,7 @@ final class FLThemeBuilderACF {
 		}
 
 		$field['options']['acf_relationship'] = __( 'ACF Relationship', 'fl-builder' );
-		$field['toggle']['acf_relationship'] = array(
+		$field['toggle']['acf_relationship']  = array(
 			'fields' => array( 'data_source_acf_relational_type', 'data_source_acf_relational_key', 'posts_per_page' ),
 		);
 
@@ -51,7 +51,7 @@ final class FLThemeBuilderACF {
 	 * @return array
 	 */
 	static public function loop_query_args( $args ) {
-		$settings = isset( $args['settings'] ) ? $args['settings'] : new stdClass();
+		$settings   = isset( $args['settings'] ) ? $args['settings'] : new stdClass();
 		$object_ids = array();
 
 		if ( ! isset( $settings->data_source ) || 'acf_relationship' != $settings->data_source ) {
@@ -62,7 +62,7 @@ final class FLThemeBuilderACF {
 			return $args;
 		}
 
-		$key = false;
+		$key      = false;
 		$location = FLThemeBuilderRulesLocation::get_current_page_location();
 
 		if ( $location['object'] ) {
@@ -72,11 +72,17 @@ final class FLThemeBuilderACF {
 			}
 		}
 
-		$object  = get_field( trim( $settings->data_source_acf_relational_key ), $key );
+		$object = get_field( trim( $settings->data_source_acf_relational_key ), $key );
 
 		if ( $object ) {
 			foreach ( $object as $obj ) {
-				$object_ids[] = is_array( $obj ) ? $obj['ID'] : $obj->ID;
+				if ( is_object( $obj ) ) {
+					$object_ids[] = $obj->ID;
+				} elseif ( is_array( $obj ) ) {
+					$object_ids[] = $obj['ID'];
+				} elseif ( is_int( $obj ) ) {
+					$object_ids[] = $obj;
+				}
 			}
 
 			// Remove the unnecessary query args.
@@ -88,7 +94,7 @@ final class FLThemeBuilderACF {
 
 			if ( 'relationship' == $settings->data_source_acf_relational_type ) {
 				$args['post__in'] = $object_ids;
-				$args['orderby'] = 'post__in';
+				$args['orderby']  = 'post__in';
 
 			} elseif ( 'user' == $settings->data_source_acf_relational_type ) {
 				$args['author__in'] = $object_ids;
@@ -113,18 +119,18 @@ final class FLThemeBuilderACF {
 		echo '<table class="fl-form-table">';
 
 			FLBuilder::render_settings_field('data_source_acf_relational_type', array(
-				'type'		=> 'select',
-				'label'		=> __( 'Type', 'fl-builder' ),
-				'default'       => 'relationship',
-				'options'       => array(
-					'relationship'  => __( 'Relationship', 'fl-builder' ),
-					'user'          => __( 'User', 'fl-builder' ),
+				'type'    => 'select',
+				'label'   => __( 'Type', 'fl-builder' ),
+				'default' => 'relationship',
+				'options' => array(
+					'relationship' => __( 'Relationship', 'fl-builder' ),
+					'user'         => __( 'User', 'fl-builder' ),
 				),
 			), $settings);
 
 			FLBuilder::render_settings_field('data_source_acf_relational_key', array(
-				'type'          => 'text',
-				'label'         => __( 'Key', 'fl-builder' ),
+				'type'  => 'text',
+				'label' => __( 'Key', 'fl-builder' ),
 			), $settings);
 
 		echo '</table>';

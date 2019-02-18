@@ -16,9 +16,9 @@ FLBuilder::register_module_alias( 'fl-archive-title', array(
 		'tag'         => 'h1',
 		'connections' => array(
 			'heading' => (object) array(
-				'object' => 'archive',
+				'object'   => 'archive',
 				'property' => 'title',
-				'field' => 'text',
+				'field'    => 'text',
 			),
 		),
 	),

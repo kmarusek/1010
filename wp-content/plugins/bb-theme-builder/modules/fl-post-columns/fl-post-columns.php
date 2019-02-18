@@ -13,8 +13,8 @@ FLBuilder::register_module_alias( 'fl-post-columns', array(
 	'category'    => __( 'Archives', 'fl-theme-builder' ),
 	'enabled'     => FLThemeBuilderLayoutData::current_post_is( 'archive' ),
 	'settings'    => array(
-		'layout'         => 'columns',
-		'match_height'   => '1',
-		'data_source'    => 'main_query',
+		'layout'       => 'columns',
+		'match_height' => '1',
+		'data_source'  => 'main_query',
 	),
 ) );

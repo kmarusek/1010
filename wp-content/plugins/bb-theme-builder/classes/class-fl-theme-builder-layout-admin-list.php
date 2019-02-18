@@ -15,11 +15,11 @@ final class FLThemeBuilderLayoutAdminList {
 	 */
 	static public function init() {
 		// Actions
-		add_action( 'pre_get_posts',                                __CLASS__ . '::order_by_type' );
-		add_action( 'manage_fl-theme-layout_posts_custom_column',   __CLASS__ . '::manage_column_content', 10, 2 );
+		add_action( 'pre_get_posts', __CLASS__ . '::order_by_type' );
+		add_action( 'manage_fl-theme-layout_posts_custom_column', __CLASS__ . '::manage_column_content', 10, 2 );
 
 		// Filters
-		add_filter( 'manage_fl-theme-layout_posts_columns',         __CLASS__ . '::manage_column_headings' );
+		add_filter( 'manage_fl-theme-layout_posts_columns', __CLASS__ . '::manage_column_headings' );
 		add_filter( 'manage_edit-fl-theme-layout_sortable_columns', __CLASS__ . '::manage_sortable_columns' );
 	}
 

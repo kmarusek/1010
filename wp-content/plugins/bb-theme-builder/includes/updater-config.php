@@ -2,9 +2,9 @@
 
 if ( class_exists( 'FLUpdater' ) ) {
 	FLUpdater::add_product( array(
-		'name'      => 'Beaver Themer',
-		'version'   => '1.2.1.1',
-		'slug'      => 'bb-theme-builder',
-		'type'      => 'plugin',
+		'name'    => 'Beaver Themer',
+		'version' => '1.2.2.1',
+		'slug'    => 'bb-theme-builder',
+		'type'    => 'plugin',
 	) );
 }

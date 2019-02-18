@@ -18,11 +18,11 @@ final class FLThemeBuilderSupportGenesis {
 		add_theme_support( 'fl-theme-builder-footers' );
 		add_theme_support( 'fl-theme-builder-parts' );
 
-		add_filter( 'fl_theme_builder_part_hooks', 		__CLASS__ . '::register_part_hooks' );
-		add_filter( 'theme_fl-theme-layout_templates',  __CLASS__ . '::register_php_templates' );
-		add_filter( 'body_class',                 		__CLASS__ . '::body_class' );
+		add_filter( 'fl_theme_builder_part_hooks', __CLASS__ . '::register_part_hooks' );
+		add_filter( 'theme_fl-theme-layout_templates', __CLASS__ . '::register_php_templates' );
+		add_filter( 'body_class', __CLASS__ . '::body_class' );
 
-		add_action( 'wp', 								__CLASS__ . '::setup_headers_and_footers' );
+		add_action( 'wp', __CLASS__ . '::setup_headers_and_footers' );
 	}
 
 	/**
@@ -43,23 +43,23 @@ final class FLThemeBuilderSupportGenesis {
 			array(
 				'label' => __( 'Header', 'fl-theme-builder' ),
 				'hooks' => array(
-					'genesis_before_header'    => __( 'Before Header', 'fl-theme-builder' ),
-					'genesis_header_right'     => __( 'Header Right', 'fl-theme-builder' ),
-					'genesis_after_header'     => __( 'After Header', 'fl-theme-builder' ),
+					'genesis_before_header' => __( 'Before Header', 'fl-theme-builder' ),
+					'genesis_header_right'  => __( 'Header Right', 'fl-theme-builder' ),
+					'genesis_after_header'  => __( 'After Header', 'fl-theme-builder' ),
 				),
 			),
 			array(
 				'label' => __( 'Content', 'fl-theme-builder' ),
 				'hooks' => array(
-					'genesis_before_content'  => __( 'Before Content', 'fl-theme-builder' ),
-					'genesis_after_content'   => __( 'After Content', 'fl-theme-builder' ),
+					'genesis_before_content' => __( 'Before Content', 'fl-theme-builder' ),
+					'genesis_after_content'  => __( 'After Content', 'fl-theme-builder' ),
 				),
 			),
 			array(
 				'label' => __( 'Footer', 'fl-theme-builder' ),
 				'hooks' => array(
-					'genesis_before_footer'    => __( 'Before Footer', 'fl-theme-builder' ),
-					'genesis_after_footer'     => __( 'After Footer', 'fl-theme-builder' ),
+					'genesis_before_footer' => __( 'Before Footer', 'fl-theme-builder' ),
+					'genesis_after_footer'  => __( 'After Footer', 'fl-theme-builder' ),
 				),
 			),
 			array(
@@ -72,13 +72,13 @@ final class FLThemeBuilderSupportGenesis {
 			array(
 				'label' => __( 'Posts', 'fl-theme-builder' ),
 				'hooks' => array(
-					'genesis_before_loop'      => __( 'Before Loop', 'fl-theme-builder' ),
-					'genesis_before_entry'     => __( 'Before Post', 'fl-theme-builder' ),
-					'genesis_entry_header'     => __( 'Post Header', 'fl-theme-builder' ),
-					'genesis_entry_content'    => __( 'Post Content', 'fl-theme-builder' ),
-					'genesis_entry_footer'     => __( 'Post Footer', 'fl-theme-builder' ),
-					'genesis_after_entry'      => __( 'After Post', 'fl-theme-builder' ),
-					'genesis_after_loop'       => __( 'After Loop', 'fl-theme-builder' ),
+					'genesis_before_loop'   => __( 'Before Loop', 'fl-theme-builder' ),
+					'genesis_before_entry'  => __( 'Before Post', 'fl-theme-builder' ),
+					'genesis_entry_header'  => __( 'Post Header', 'fl-theme-builder' ),
+					'genesis_entry_content' => __( 'Post Content', 'fl-theme-builder' ),
+					'genesis_entry_footer'  => __( 'Post Footer', 'fl-theme-builder' ),
+					'genesis_after_entry'   => __( 'After Post', 'fl-theme-builder' ),
+					'genesis_after_loop'    => __( 'After Loop', 'fl-theme-builder' ),
 				),
 			),
 		);

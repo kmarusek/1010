@@ -18,11 +18,11 @@ final class FLThemeBuilderLayoutTemplates {
 
 		// Actions
 		add_action( 'fl_builder_template_selector_data_type', __CLASS__ . '::template_selector_data_type' );
-		add_action( 'fl_builder_after_save_user_template',    __CLASS__ . '::after_save_user_template' );
+		add_action( 'fl_builder_after_save_user_template', __CLASS__ . '::after_save_user_template' );
 
 		// Filters
-		add_filter( 'fl_builder_template_selector_data',      __CLASS__ . '::template_selector_data', 10, 2 );
-		add_filter( 'fl_builder_override_apply_template',     __CLASS__ . '::override_apply_template', 1, 2 );
+		add_filter( 'fl_builder_template_selector_data', __CLASS__ . '::template_selector_data', 10, 2 );
+		add_filter( 'fl_builder_override_apply_template', __CLASS__ . '::override_apply_template', 1, 2 );
 	}
 
 	/**

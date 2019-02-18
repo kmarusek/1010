@@ -13,7 +13,7 @@ FLBuilder::register_module_alias( 'fl-post-gallery', array(
 	'category'    => __( 'Archives', 'fl-theme-builder' ),
 	'enabled'     => FLThemeBuilderLayoutData::current_post_is( 'archive' ),
 	'settings'    => array(
-		'layout'         => 'gallery',
-		'data_source'    => 'main_query',
+		'layout'      => 'gallery',
+		'data_source' => 'main_query',
 	),
 ) );

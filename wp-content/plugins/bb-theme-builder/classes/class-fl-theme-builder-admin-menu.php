@@ -14,9 +14,9 @@ final class FLThemeBuilderAdminMenu {
 	 * @return void
 	 */
 	static public function init() {
-		add_filter( 'fl_builder_user_templates_admin_menu',          __CLASS__ . '::register' );
-		add_filter( 'parent_file',                                   __CLASS__ . '::parent_file', 999 );
-		add_filter( 'submenu_file',                                  __CLASS__ . '::submenu_file', 999, 2 );
+		add_filter( 'fl_builder_user_templates_admin_menu', __CLASS__ . '::register' );
+		add_filter( 'parent_file', __CLASS__ . '::parent_file', 999 );
+		add_filter( 'submenu_file', __CLASS__ . '::submenu_file', 999, 2 );
 	}
 
 	/**

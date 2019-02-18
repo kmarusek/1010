@@ -14,11 +14,21 @@ final class FLPageDataPost {
 	 */
 	static public function get_excerpt( $settings ) {
 
+		$filter = false;
+		if ( has_filter( 'the_content', 'FLBuilder::render_content' ) ) {
+			remove_filter( 'the_content', 'FLBuilder::render_content' );
+			$filter = true;
+		}
+
 		$args = apply_filters( 'fl_theme_builder_get_excerpt', array(
 			'content' => apply_filters( 'the_excerpt', get_the_excerpt() ),
 			'length'  => is_numeric( $settings->length ) ? $settings->length : 55,
 			'more'    => ! empty( $settings->more ) ? $settings->more : '...',
 		), $settings );
+
+		if ( $filter ) {
+			add_filter( 'the_content', 'FLBuilder::render_content' );
+		}
 
 		return sprintf( '<p>%s</p>', wp_trim_words( $args['content'], $args['length'], $args['more'] ) );
 	}
@@ -125,7 +135,7 @@ final class FLPageDataPost {
 			$class = 'default' == $settings->align ? '' : 'align' . $settings->align;
 			$image = get_the_post_thumbnail( $post, $settings->size, array(
 				'itemprop' => 'image',
-				'class' => $class,
+				'class'    => $class,
 			) );
 
 			if ( $image && 'yes' == $settings->linked ) {
@@ -219,7 +229,7 @@ final class FLPageDataPost {
 	 */
 	static public function get_taxonomy_options() {
 		$taxonomies = get_taxonomies( array(
-			'public' => true,
+			'public'  => true,
 			'show_ui' => true,
 		), 'objects' );
 		$result     = array();
@@ -243,7 +253,7 @@ final class FLPageDataPost {
 	 */
 	static public function get_comments_number( $settings ) {
 		$zero = isset( $settings->none_text ) ? $settings->none_text : null;
-		$one = isset( $settings->one_text ) ? $settings->one_text : null;
+		$one  = isset( $settings->one_text ) ? $settings->one_text : null;
 		$more = isset( $settings->more_text ) ? $settings->more_text : null;
 
 		ob_start();
@@ -285,40 +295,40 @@ final class FLPageDataPost {
 
 			case 'display':
 				$name = $user->display_name;
-			break;
+				break;
 
 			case 'first':
 				$name = get_user_meta( $user->ID, 'first_name', true );
-			break;
+				break;
 
 			case 'last':
 				$name = get_user_meta( $user->ID, 'last_name', true );
-			break;
+				break;
 
 			case 'firstlast':
 				$first = get_user_meta( $user->ID, 'first_name', true );
 				$last  = get_user_meta( $user->ID, 'last_name', true );
 				$name  = $first . ' ' . $last;
-			break;
+				break;
 
 			case 'lastfirst':
 				$first = get_user_meta( $user->ID, 'first_name', true );
 				$last  = get_user_meta( $user->ID, 'last_name', true );
 				$name  = $last . ', ' . $first;
-			break;
+				break;
 
 			case 'nickname':
 				$name = $user->user_nicename;
-			break;
+				break;
 
 			case 'username':
 				$name = $user->user_login;
-			break;
+				break;
 		}
 
 		if ( $name && 'yes' == $settings->link ) {
 			$settings->type = $settings->link_type;
-			$name = '<a href="' . self::get_author_url( $settings ) . '">' . $name . '</a>';
+			$name           = '<a href="' . self::get_author_url( $settings ) . '">' . $name . '</a>';
 		}
 
 		return $name;
@@ -362,7 +372,7 @@ final class FLPageDataPost {
 		$avatar = get_avatar( get_the_author_meta( 'ID' ), $size );
 		if ( '1' == $settings->link || 'yes' == $settings->link ) {
 			$settings->type = $settings->link_type;
-			$avatar = '<a href="' . self::get_author_url( $settings ) . '">' . $avatar . '</a>';
+			$avatar         = '<a href="' . self::get_author_url( $settings ) . '">' . $avatar . '</a>';
 		}
 
 		return $avatar;
@@ -383,7 +393,7 @@ final class FLPageDataPost {
 			$author = $post->post_author;
 		}
 		// We get the url like this because not all custom avatar plugins filter get_avatar_url.
-		$size = ! is_numeric( $settings->size ) ? 512 : $settings->size;
+		$size   = ! is_numeric( $settings->size ) ? 512 : $settings->size;
 		$avatar = get_avatar( $author, $size );
 
 		preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $avatar, $matches, PREG_SET_ORDER );
@@ -451,7 +461,7 @@ final class FLPageDataPost {
 					break;
 
 				default:
-				break;
+					break;
 			}
 		}
 

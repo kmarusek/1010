@@ -13,15 +13,15 @@ final class FLThemeBuildeEDDArchive {
 	 */
 	static public function init() {
 		// Actions
-		add_action( 'fl_builder_post_grid_before_content',  __CLASS__ . '::post_grid_before_content' );
-		add_action( 'fl_builder_post_grid_after_content',   __CLASS__ . '::post_grid_after_content' );
-		add_action( 'fl_builder_post_feed_after_meta',      __CLASS__ . '::post_feed_after_meta' );
-		add_action( 'fl_builder_post_feed_after_content',   __CLASS__ . '::post_feed_after_content' );
-		add_action( 'fl_builder_post_gallery_after_meta',   __CLASS__ . '::post_gallery_after_meta' );
+		add_action( 'fl_builder_post_grid_before_content', __CLASS__ . '::post_grid_before_content' );
+		add_action( 'fl_builder_post_grid_after_content', __CLASS__ . '::post_grid_after_content' );
+		add_action( 'fl_builder_post_feed_after_meta', __CLASS__ . '::post_feed_after_meta' );
+		add_action( 'fl_builder_post_feed_after_content', __CLASS__ . '::post_feed_after_content' );
+		add_action( 'fl_builder_post_gallery_after_meta', __CLASS__ . '::post_gallery_after_meta' );
 
 		// Filters
-		add_filter( 'fl_builder_register_settings_form',    __CLASS__ . '::post_grid_settings', 10, 2 );
-		add_filter( 'fl_builder_render_css',                __CLASS__ . '::post_grid_css', 10, 2 );
+		add_filter( 'fl_builder_register_settings_form', __CLASS__ . '::post_grid_settings', 10, 2 );
+		add_filter( 'fl_builder_render_css', __CLASS__ . '::post_grid_css', 10, 2 );
 
 		// Archive templates
 		FLBuilder::register_templates( FL_THEME_BUILDER_EDD_DIR . 'data/templates-archive.dat' );
@@ -143,22 +143,22 @@ final class FLThemeBuildeEDDArchive {
 		$form['layout']['sections']['edd'] = array(
 			'title'  => __( 'Easy Digital Downloads', 'fl-theme-builder' ),
 			'fields' => array(
-				'edd_price'     => array(
-					'type'          => 'select',
-					'label'         => __( 'Download Price', 'fl-theme-builder' ),
-					'default'       => 'hide',
-					'options'       => array(
-						'show'          => __( 'Show', 'fl-theme-builder' ),
-						'hide'          => __( 'Hide', 'fl-theme-builder' ),
+				'edd_price'  => array(
+					'type'    => 'select',
+					'label'   => __( 'Download Price', 'fl-theme-builder' ),
+					'default' => 'hide',
+					'options' => array(
+						'show' => __( 'Show', 'fl-theme-builder' ),
+						'hide' => __( 'Hide', 'fl-theme-builder' ),
 					),
 				),
-				'edd_button'    => array(
-					'type'          => 'select',
-					'label'         => __( 'Cart Button', 'fl-theme-builder' ),
-					'default'       => 'hide',
-					'options'       => array(
-						'show'          => __( 'Show', 'fl-theme-builder' ),
-						'hide'          => __( 'Hide', 'fl-theme-builder' ),
+				'edd_button' => array(
+					'type'    => 'select',
+					'label'   => __( 'Cart Button', 'fl-theme-builder' ),
+					'default' => 'hide',
+					'options' => array(
+						'show' => __( 'Show', 'fl-theme-builder' ),
+						'hide' => __( 'Hide', 'fl-theme-builder' ),
 					),
 				),
 			),
@@ -167,18 +167,18 @@ final class FLThemeBuildeEDDArchive {
 		$form['style']['sections']['edd'] = array(
 			'title'  => __( 'Easy Digital Downloads', 'fl-theme-builder' ),
 			'fields' => array(
-				'edd_price_color' => array(
-					'type'          => 'color',
-					'label'         => __( 'Download Price Text Color', 'fl-builder' ),
-					'show_reset'    => true,
+				'edd_price_color'     => array(
+					'type'       => 'color',
+					'label'      => __( 'Download Price Text Color', 'fl-builder' ),
+					'show_reset' => true,
 				),
 				'edd_price_font_size' => array(
-					'type'          => 'text',
-					'label'         => __( 'Download Price Font Size', 'fl-builder' ),
-					'default'       => '',
-					'maxlength'     => '3',
-					'size'          => '4',
-					'description'   => 'px',
+					'type'        => 'text',
+					'label'       => __( 'Download Price Font Size', 'fl-builder' ),
+					'default'     => '',
+					'maxlength'   => '3',
+					'size'        => '4',
+					'description' => 'px',
 				),
 			),
 		);
@@ -186,17 +186,17 @@ final class FLThemeBuildeEDDArchive {
 		$form['style']['sections']['edd_button'] = array(
 			'title'  => __( 'Easy Digital Downloads Cart Button', 'fl-theme-builder' ),
 			'fields' => array(
-				'edd_button_bg_color' => array(
-					'type'          => 'color',
-					'label'         => __( 'Background Color', 'fl-builder' ),
-					'default'       => '',
-					'show_reset'    => true,
+				'edd_button_bg_color'   => array(
+					'type'       => 'color',
+					'label'      => __( 'Background Color', 'fl-builder' ),
+					'default'    => '',
+					'show_reset' => true,
 				),
 				'edd_button_text_color' => array(
-					'type'          => 'color',
-					'label'         => __( 'Text Color', 'fl-builder' ),
-					'default'       => '',
-					'show_reset'    => true,
+					'type'       => 'color',
+					'label'      => __( 'Text Color', 'fl-builder' ),
+					'default'    => '',
+					'show_reset' => true,
 				),
 			),
 		);
@@ -223,11 +223,11 @@ final class FLThemeBuildeEDDArchive {
 				continue;
 			} elseif ( ! $global_included ) {
 				$global_included = true;
-				$css .= file_get_contents( FL_THEME_BUILDER_EDD_DIR . 'css/fl-theme-builder-post-grid-edd.css' );
+				$css            .= file_get_contents( FL_THEME_BUILDER_EDD_DIR . 'css/fl-theme-builder-post-grid-edd.css' );
 			}
 
 			ob_start();
-			$id = $module->node;
+			$id       = $module->node;
 			$settings = $module->settings;
 			include FL_THEME_BUILDER_EDD_DIR . 'includes/post-grid-edd.css.php';
 			$css .= ob_get_clean();

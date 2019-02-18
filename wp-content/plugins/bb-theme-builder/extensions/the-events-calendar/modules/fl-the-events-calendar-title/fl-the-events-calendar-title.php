@@ -13,12 +13,12 @@ FLBuilder::register_module_alias( 'fl-the-events-calendar-title', array(
 	'category'    => __( 'The Events Calendar', 'fl-theme-builder' ),
 	'enabled'     => FLThemeBuilderLayoutData::current_post_is( 'singular' ),
 	'settings'    => array(
-		'tag'		  => 'h1',
+		'tag'         => 'h1',
 		'connections' => array(
-			'heading'     => (object) array(
-				'object'      => 'post',
-				'property'    => 'title',
-				'field'       => 'text',
+			'heading' => (object) array(
+				'object'   => 'post',
+				'property' => 'title',
+				'field'    => 'text',
 			),
 		),
 	),

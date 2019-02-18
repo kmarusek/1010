@@ -15,7 +15,7 @@ final class FLThemeBuilder {
 	 */
 	static public function init() {
 		add_action( 'after_setup_theme', __CLASS__ . '::register_user_access_settings' );
-		add_action( 'plugins_loaded', 	 __CLASS__ . '::load_plugin_textdomain', 15 );
+		add_action( 'plugins_loaded', __CLASS__ . '::load_plugin_textdomain', 15 );
 	}
 
 	/**
@@ -30,7 +30,7 @@ final class FLThemeBuilder {
 			'group'       => __( 'Admin', 'fl-theme-builder' ),
 			'label'       => __( 'Themer Layout Editing', 'fl-theme-builder' ),
 			'description' => __( 'The selected roles will be able to edit Themer layouts.', 'fl-theme-builder' ),
-			'order'		  => '110',
+			'order'       => '110',
 		) );
 	}
 

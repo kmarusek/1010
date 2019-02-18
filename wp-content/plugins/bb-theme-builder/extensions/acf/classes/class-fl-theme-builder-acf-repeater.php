@@ -91,18 +91,18 @@ final class FLThemeBuilderACFRepeater {
 			return '';
 		}
 
-		$name = trim( $attrs['name'] );
-		$type = isset( $attrs['type'] ) ? $attrs['type'] : 'post';
-		$id = FLPageDataACF::get_object_id_by_type( $type );
+		$name   = trim( $attrs['name'] );
+		$type   = isset( $attrs['type'] ) ? $attrs['type'] : 'post';
+		$id     = FLPageDataACF::get_object_id_by_type( $type );
 		$parsed = '';
 
 		if ( have_rows( $name, $id ) ) {
 			while ( have_rows( $name, $id ) ) {
 				the_row();
 				$content = self::escape_nested_shortcodes( $content );
-				$row = FLThemeBuilderFieldConnections::parse_shortcodes( $content, self::$all_shortcodes );
-				$row = self::unescape_nested_shortcodes( $row );
-				$row = FLThemeBuilderFieldConnections::parse_shortcodes( $row, self::$repeater_shortcodes );
+				$row     = FLThemeBuilderFieldConnections::parse_shortcodes( $content, self::$all_shortcodes );
+				$row     = self::unescape_nested_shortcodes( $row );
+				$row     = FLThemeBuilderFieldConnections::parse_shortcodes( $row, self::$repeater_shortcodes );
 				$parsed .= $row;
 			}
 		}
@@ -138,7 +138,7 @@ final class FLThemeBuilderACFRepeater {
 	 * @return string
 	 */
 	static public function escape_nested_shortcodes( $content ) {
-		$pattern  = '/\[wpbb-acf-nested-repeater.*?\][\d\D]*?\[\/wpbb-acf-nested-repeater\]/i';
+		$pattern = '/\[wpbb-acf-nested-repeater.*?\][\d\D]*?\[\/wpbb-acf-nested-repeater\]/i';
 
 		preg_match_all( $pattern, $content, $matches );
 

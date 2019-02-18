@@ -115,6 +115,21 @@ final class FLPageDataWooCommerce {
 	}
 
 	/**
+	 * @since 1.2.1
+	 * @return string
+	 */
+	static public function get_product_sku( $settings ) {
+
+		global $product;
+		if ( wc_product_sku_enabled() && ( $product->get_sku() || $product->is_type( 'variable' ) ) ) :
+			if ( '1' == $settings->sku_prefix ) {
+				return '<div class="product-meta"><span class="product-sku">' . $settings->prefix_text . $product->get_sku() . '</span></div>';
+			} else {
+				return $product->get_sku();
+			}
+		endif;
+	}
+	/**
 	 * @since 1.0
 	 * @return string
 	 */

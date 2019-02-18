@@ -13,8 +13,8 @@ FLBuilder::register_module_alias( 'fl-post-masonry', array(
 	'category'    => __( 'Archives', 'fl-theme-builder' ),
 	'enabled'     => FLThemeBuilderLayoutData::current_post_is( 'archive' ),
 	'settings'    => array(
-		'layout'         => 'grid',
-		'match_height'   => '1',
-		'data_source'    => 'main_query',
+		'layout'       => 'grid',
+		'match_height' => '1',
+		'data_source'  => 'main_query',
 	),
 ) );

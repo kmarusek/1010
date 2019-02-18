@@ -16,14 +16,14 @@ final class FLThemeBuilderLayoutAdminAdd {
 	 */
 	static public function init() {
 		// Actions
-		add_action( 'admin_enqueue_scripts',                          __CLASS__ . '::admin_enqueue_scripts' );
-		add_action( 'fl_builder_user_templates_admin_add_form',       __CLASS__ . '::render_fields' );
-		add_action( 'fl_builder_user_templates_add_new_submit',       __CLASS__ . '::submit', 10, 3 );
+		add_action( 'admin_enqueue_scripts', __CLASS__ . '::admin_enqueue_scripts' );
+		add_action( 'fl_builder_user_templates_admin_add_form', __CLASS__ . '::render_fields' );
+		add_action( 'fl_builder_user_templates_add_new_submit', __CLASS__ . '::submit', 10, 3 );
 
 		// Filters
-		add_filter( 'fl_builder_user_templates_add_new_config',       __CLASS__ . '::filter_config' );
-		add_filter( 'fl_builder_user_templates_add_new_types',        __CLASS__ . '::filter_type_select' );
-		add_filter( 'fl_builder_user_templates_add_new_post_type',    __CLASS__ . '::filter_post_type', 10, 2 );
+		add_filter( 'fl_builder_user_templates_add_new_config', __CLASS__ . '::filter_config' );
+		add_filter( 'fl_builder_user_templates_add_new_types', __CLASS__ . '::filter_type_select' );
+		add_filter( 'fl_builder_user_templates_add_new_post_type', __CLASS__ . '::filter_post_type', 10, 2 );
 	}
 
 	/**
@@ -103,6 +103,7 @@ final class FLThemeBuilderLayoutAdminAdd {
 	 */
 	static public function filter_config( $config ) {
 		$action = __( 'Add', 'fl-theme-builder' );
+		/* translators: %s: action like Add, Edit or View */
 		$string = sprintf( _x( '%s Themer Layout', '%s is an action like Add, Edit or View.', 'fl-theme-builder' ), $action );
 
 		$config['strings']['addButton']['theme-layout'] = $string;

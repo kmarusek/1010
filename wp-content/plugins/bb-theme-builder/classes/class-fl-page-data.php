@@ -76,25 +76,25 @@ final class FLPageData {
 	 */
 	static public function init_defaults() {
 		self::$groups = array(
-			'general' => array(
+			'general'  => array(
 				'label' => __( 'General', 'fl-theme-builder' ),
 			),
 			'archives' => array(
 				'label' => __( 'Archives', 'fl-theme-builder' ),
 			),
-			'posts' => array(
+			'posts'    => array(
 				'label' => __( 'Posts', 'fl-theme-builder' ),
 			),
 			'comments' => array(
 				'label' => __( 'Comments', 'fl-theme-builder' ),
 			),
-			'author' => array(
+			'author'   => array(
 				'label' => __( 'Author', 'fl-theme-builder' ),
 			),
-			'site' => array(
+			'site'     => array(
 				'label' => __( 'Site', 'fl-theme-builder' ),
 			),
-			'user' => array(
+			'user'     => array(
 				'label' => __( 'User', 'fl-theme-builder' ),
 			),
 			'advanced' => array(
@@ -150,7 +150,7 @@ final class FLPageData {
 		}
 
 		self::$groups[ $key ] = array_merge( array(
-			'label'  => $key,
+			'label' => $key,
 		), $data );
 	}
 
@@ -219,13 +219,13 @@ final class FLPageData {
 		}
 
 		self::$properties[ $object ][ $key ] = array_merge( array(
-			'object'  => $object,
-			'key'     => $key,
-			'group'   => 'general',
-			'label'   => $key,
-			'type'    => 'string',
-			'form'    => false,
-			'getter'  => function() {
+			'object' => $object,
+			'key'    => $key,
+			'group'  => 'general',
+			'label'  => $key,
+			'type'   => 'string',
+			'form'   => false,
+			'getter' => function() {
 				return ''; },
 		), $data );
 	}
@@ -271,11 +271,11 @@ final class FLPageData {
 
 		// Get the value.
 		if ( $property['form'] ) {
-			$defaults = FLBuilderModel::get_settings_form_defaults( $property['form']['id'] );
-			$settings = ! $settings ? new stdClass : $settings;
-			$settings = (object) array_merge( (array) $defaults, (array) $settings );
+			$defaults       = FLBuilderModel::get_settings_form_defaults( $property['form']['id'] );
+			$settings       = ! $settings ? new stdClass : $settings;
+			$settings       = (object) array_merge( (array) $defaults, (array) $settings );
 			self::$settings = $settings;
-			$value = call_user_func( $property['getter'], $settings, $property );
+			$value          = call_user_func( $property['getter'], $settings, $property );
 			self::$settings = null;
 		} else {
 			$value = call_user_func( $property['getter'] );
@@ -439,15 +439,15 @@ final class FLPageData {
 	 */
 	static public function add_property_settings_fields( $object, $key, $data = array() ) {
 		self::add_property_settings_form( $object, $key, array(
-			'css' => isset( $data['fields'] ) && isset( $data['css'] ) ? $data['css'] : null,
-			'js'  => isset( $data['fields'] ) && isset( $data['js'] ) ? $data['js'] : null,
-			'tabs'  => array(
-				'general'      => array(
-					'title'         => '',
-					'sections'      => array(
-						'general'       => array(
-							'title'         => '',
-							'fields'        => isset( $data['fields'] ) ? $data['fields'] : $data,
+			'css'  => isset( $data['fields'] ) && isset( $data['css'] ) ? $data['css'] : null,
+			'js'   => isset( $data['fields'] ) && isset( $data['js'] ) ? $data['js'] : null,
+			'tabs' => array(
+				'general' => array(
+					'title'    => '',
+					'sections' => array(
+						'general' => array(
+							'title'  => '',
+							'fields' => isset( $data['fields'] ) ? $data['fields'] : $data,
 						),
 					),
 				),

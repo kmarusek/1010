@@ -57,25 +57,25 @@ final class FLThemeBuilderSupportBBTheme {
 			array(
 				'label' => __( 'Footer', 'fl-theme-builder' ),
 				'hooks' => array(
+					'fl_before_footer'         => __( 'Before Footer', 'fl-theme-builder' ),
 					'fl_before_footer_widgets' => __( 'Before Footer Widgets', 'fl-theme-builder' ),
 					'fl_after_footer_widgets'  => __( 'After Footer Widgets', 'fl-theme-builder' ),
-					'fl_before_footer'         => __( 'Before Footer', 'fl-theme-builder' ),
 					'fl_after_footer'          => __( 'After Footer', 'fl-theme-builder' ),
 				),
 			),
 			array(
 				'label' => __( 'Posts', 'fl-theme-builder' ),
 				'hooks' => array(
-					'fl_before_post'         => __( 'Before Post', 'fl-theme-builder' ),
-					'fl_before_post_content' => __( 'Before Post Content', 'fl-theme-builder' ),
-					'fl_post_top_meta_open' => __( 'Post Top Meta Open', 'fl-theme-builder' ),
-					'fl_post_top_meta_close' => __( 'Post Top Meta Close', 'fl-theme-builder' ),
-					'fl_after_post_content'  => __( 'After Post Content', 'fl-theme-builder' ),
-					'fl_post_bottom_meta_open' => __( 'Post Bottom Meta Open', 'fl-theme-builder' ),
+					'fl_before_post'            => __( 'Before Post', 'fl-theme-builder' ),
+					'fl_before_post_content'    => __( 'Before Post Content', 'fl-theme-builder' ),
+					'fl_post_top_meta_open'     => __( 'Post Top Meta Open', 'fl-theme-builder' ),
+					'fl_post_top_meta_close'    => __( 'Post Top Meta Close', 'fl-theme-builder' ),
+					'fl_after_post_content'     => __( 'After Post Content', 'fl-theme-builder' ),
+					'fl_post_bottom_meta_open'  => __( 'Post Bottom Meta Open', 'fl-theme-builder' ),
 					'fl_post_bottom_meta_close' => __( 'Post Bottom Meta Close', 'fl-theme-builder' ),
-					'fl_after_post'          => __( 'After Post', 'fl-theme-builder' ),
+					'fl_after_post'             => __( 'After Post', 'fl-theme-builder' ),
 					'fl_comments_open'          => __( 'Comments Open', 'fl-theme-builder' ),
-					'fl_comments_close'          => __( 'Comments Close', 'fl-theme-builder' ),
+					'fl_comments_close'         => __( 'Comments Close', 'fl-theme-builder' ),
 				),
 			),
 		);
@@ -104,7 +104,7 @@ final class FLThemeBuilderSupportBBTheme {
 		}
 		if ( ! empty( $footer_ids ) ) {
 			add_filter( 'fl_footer_enabled', '__return_false' );
-			add_action( 'fl_after_content', __CLASS__ . '::render_footer' );
+			add_action( 'fl_after_content', __CLASS__ . '::render_footer', 11 );
 		}
 	}
 

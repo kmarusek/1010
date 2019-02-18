@@ -25,7 +25,7 @@ final class FLPageDataACF {
 	 */
 	static public function string_field( $settings, $property ) {
 		$content = '';
-		$name = trim( $settings->name );
+		$name    = trim( $settings->name );
 
 		if ( function_exists( 'acf_get_loop' ) && acf_get_loop( 'active' ) ) {
 			$object = get_sub_field_object( $name );
@@ -85,8 +85,8 @@ final class FLPageDataACF {
 				break;
 			case 'date_picker':
 				if ( isset( $object['date_format'] ) && ! isset( $object['return_format'] ) ) {
-					$format  = self::js_date_format_to_php( $object['display_format'] );
-					$date    = DateTime::createFromFormat( 'Ymd',  $object['value'] );
+					$format = self::js_date_format_to_php( $object['display_format'] );
+					$date   = DateTime::createFromFormat( 'Ymd', $object['value'] );
 
 					// Only pass to format() if vaid date, DateTime returns false if not valid.
 					if ( $date ) {
@@ -96,7 +96,7 @@ final class FLPageDataACF {
 					}
 				} else {
 					if ( isset( $settings->format ) && '' !== $settings->format && isset( $object['value'] ) ) {
-						$date = str_replace( '/', '-', $object['value'] );
+						$date    = str_replace( '/', '-', $object['value'] );
 						$content = date( $settings->format, strtotime( $date ) );
 					} else {
 						$content = isset( $object['value'] ) ? $object['value'] : '';
@@ -104,7 +104,7 @@ final class FLPageDataACF {
 				}
 				break;
 			case 'google_map':
-				$value = isset( $object['value'] ) ? $object['value'] : '';
+				$value  = isset( $object['value'] ) ? $object['value'] : '';
 				$height = ! empty( $object['height'] ) ? $object['height'] : '400';
 				if ( ! empty( $value ) && is_array( $value ) && isset( $value['address'] ) ) {
 					$address = urlencode( $value['address'] );
@@ -138,7 +138,7 @@ final class FLPageDataACF {
 
 		$expression = $settings->exp;
 
-		$compare    = untrailingslashit( $settings->value );
+		$compare = untrailingslashit( $settings->value );
 
 		switch ( $expression ) {
 			case 'less':
@@ -166,7 +166,7 @@ final class FLPageDataACF {
 				break;
 
 			default:
-			break;
+				break;
 		}
 		return $meta;
 	}
@@ -292,41 +292,41 @@ final class FLPageDataACF {
 
 			if ( 'user' == $object['type'] ) {
 				$users = array();
-				$name = '';
+				$name  = '';
 
 				foreach ( $values as $user_data ) {
 					switch ( $settings->display_type ) {
 						case 'display':
 							$name = $user_data['display_name'];
-						break;
+							break;
 
 						case 'first':
 							$name = $user_data['user_firstname'];
-						break;
+							break;
 
 						case 'last':
 							$name = $user_data['user_lastname'];
-						break;
+							break;
 
 						case 'firstlast':
 							$first = $user_data['user_firstname'];
 							$last  = $user_data['user_lastname'];
 							$name  = $first . ' ' . $last;
-						break;
+							break;
 
 						case 'lastfirst':
 							$first = $user_data['user_firstname'];
 							$last  = $user_data['user_lastname'];
 							$name  = $last . ', ' . $first;
-						break;
+							break;
 
 						case 'nickname':
 							$name = $user_data['nickname'];
-						break;
+							break;
 
 						case 'username':
 							$name = $user_data['user_nicename'];
-						break;
+							break;
 					}
 
 					if ( $name && 'yes' == $settings->link ) {
@@ -335,7 +335,7 @@ final class FLPageDataACF {
 						if ( 'archive' == $settings->link_type ) {
 							$url = get_author_posts_url( $user_data['ID'] );
 						} elseif ( 'website' == $settings->link_type ) {
-							$url  = $user_data['user_url'];
+							$url = $user_data['user_url'];
 						}
 
 						if ( ! empty( $url ) ) {
@@ -351,7 +351,7 @@ final class FLPageDataACF {
 						$content = implode( ' and ', $users );
 					} else {
 						$last_user = array_pop( $users );
-						$content = implode( ', ', $users ) . ' and ' . $last_user;
+						$content   = implode( ', ', $users ) . ' and ' . $last_user;
 					}
 				}
 			} elseif ( 'post_object' == $object['type'] ) {
@@ -365,7 +365,7 @@ final class FLPageDataACF {
 						'post' => $post_id,
 					) );
 
-					$text  = get_the_title( $post_id );
+					$text = get_the_title( $post_id );
 
 					$content .= "<li class='post-{$post_id}'><a href='{$href}' title='{$title}'>{$text}</a></li>";
 				}
@@ -390,7 +390,7 @@ final class FLPageDataACF {
 			$location = FLThemeBuilderRulesLocation::get_current_page_location();
 			if ( ! empty( $location['object'] ) ) {
 				$location = explode( ':', $location['object'] );
-				$id = $location[1] . '_' . $location[2];
+				$id       = $location[1] . '_' . $location[2];
 			}
 		} elseif ( is_object( $post ) && strstr( $property['key'], 'acf_author' ) ) {
 			$id = 'user_' . $post->post_author;
@@ -421,37 +421,37 @@ final class FLPageDataACF {
 			case 'archive':
 				$id = self::get_object_id( array(
 					'object' => 'archive',
-					'key' => 'acf',
+					'key'    => 'acf',
 				) );
-			break;
+				break;
 
 			case 'post':
 				$id = self::get_object_id( array(
 					'object' => 'post',
-					'key' => 'acf',
+					'key'    => 'acf',
 				) );
-			break;
+				break;
 
 			case 'author':
 				$id = self::get_object_id( array(
 					'object' => 'post',
-					'key' => 'acf_author',
+					'key'    => 'acf_author',
 				) );
-			break;
+				break;
 
 			case 'user':
 				$id = self::get_object_id( array(
 					'object' => 'site',
-					'key' => 'acf_user',
+					'key'    => 'acf_user',
 				) );
-			break;
+				break;
 
 			case 'option':
 				$id = self::get_object_id( array(
 					'object' => 'site',
-					'key' => 'acf_option',
+					'key'    => 'acf_option',
 				) );
-			break;
+				break;
 		}
 
 		return $id;

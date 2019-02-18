@@ -36,10 +36,10 @@ final class FLThemeBuilderWPML {
 			return;
 		}
 
-		$trid = $sitepress->get_element_trid( $post_id, 'post_fl-theme-layout' );
-		$meta = get_post_custom( $post_id );
+		$trid             = $sitepress->get_element_trid( $post_id, 'post_fl-theme-layout' );
+		$meta             = get_post_custom( $post_id );
 		$original_post_id = $sitepress->get_original_element_id_by_trid( $trid );
-		$original_meta = get_post_custom( $original_post_id );
+		$original_meta    = get_post_custom( $original_post_id );
 
 		foreach ( $original_meta as $meta_key => $meta_value ) {
 			if ( strstr( $meta_key, '_fl_' ) && ! isset( $meta[ $meta_key ] ) ) {
@@ -59,9 +59,9 @@ final class FLThemeBuilderWPML {
 	static public function location_notice_posts( $posts ) {
 		global $post, $sitepress;
 
-		$wpml_post 		= new WPML_Post_Element( $post->ID, $sitepress );
-		$trid 			= $sitepress->get_element_trid( $post->ID, 'post_fl-theme-layout' );
-		$translations	= $sitepress->get_element_translations( $trid, 'post_fl-theme-layout' );
+		$wpml_post    = new WPML_Post_Element( $post->ID, $sitepress );
+		$trid         = $sitepress->get_element_trid( $post->ID, 'post_fl-theme-layout' );
+		$translations = $sitepress->get_element_translations( $trid, 'post_fl-theme-layout' );
 
 		foreach ( $translations as $lang => $data ) {
 			if ( isset( $posts[ $data->element_id ] ) ) {
@@ -90,7 +90,7 @@ final class FLThemeBuilderWPML {
 		// Loop through the layouts and try to find translations.
 		foreach ( $layouts as $type => $posts ) {
 			foreach ( $posts as $key => $post ) {
-				$wpml_post = new WPML_Post_Element( $post['id'], $sitepress );
+				$wpml_post      = new WPML_Post_Element( $post['id'], $sitepress );
 				$wpml_post_lang = $wpml_post->get_language_code();
 
 				// Store the post for the default language as a fallback.

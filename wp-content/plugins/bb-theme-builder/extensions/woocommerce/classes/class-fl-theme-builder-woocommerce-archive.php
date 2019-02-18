@@ -13,20 +13,31 @@ final class FLThemeBuilderWooCommerceArchive {
 	 */
 	static public function init() {
 		// Actions
-		add_action( 'fl_builder_posts_module_before_posts', 	__CLASS__ . '::print_notices', 10, 2 );
-		add_action( 'fl_builder_posts_module_before_posts', 	__CLASS__ . '::posts_module_before_posts' );
+		add_action( 'fl_builder_posts_module_before_posts', __CLASS__ . '::print_notices', 10, 2 );
+		add_action( 'fl_builder_posts_module_before_posts', __CLASS__ . '::posts_module_before_posts' );
 		add_action( 'fl_builder_posts_module_after_pagination', __CLASS__ . '::posts_module_after_pagination', 10, 2 );
-		add_action( 'fl_builder_post_grid_before_image',    	__CLASS__ . '::post_grid_before_image' );
-		add_action( 'fl_builder_post_grid_before_content',  	__CLASS__ . '::post_grid_before_content' );
-		add_action( 'fl_builder_post_grid_after_content',   	__CLASS__ . '::post_grid_after_content' );
-		add_action( 'fl_builder_post_feed_before_image',    	__CLASS__ . '::post_grid_before_image' );
-		add_action( 'fl_builder_post_feed_after_meta',      	__CLASS__ . '::post_feed_after_meta' );
-		add_action( 'fl_builder_post_feed_after_content',   	__CLASS__ . '::post_feed_after_content' );
-		add_action( 'fl_builder_post_gallery_after_meta',   	__CLASS__ . '::post_gallery_after_meta' );
+		add_action( 'fl_builder_post_grid_before_image', __CLASS__ . '::post_grid_before_image' );
+		add_action( 'fl_builder_post_grid_before_content', __CLASS__ . '::post_grid_before_content' );
+		add_action( 'fl_builder_post_grid_after_content', __CLASS__ . '::post_grid_after_content' );
+		add_action( 'fl_builder_post_feed_before_image', __CLASS__ . '::post_grid_before_image' );
+		add_action( 'fl_builder_post_feed_after_meta', __CLASS__ . '::post_feed_after_meta' );
+		add_action( 'fl_builder_post_feed_after_content', __CLASS__ . '::post_feed_after_content' );
+		add_action( 'fl_builder_post_gallery_after_meta', __CLASS__ . '::post_gallery_after_meta' );
 
 		// Filters
-		add_filter( 'fl_builder_register_settings_form',    	__CLASS__ . '::post_grid_settings', 10, 2 );
-		add_filter( 'fl_builder_render_css',                	__CLASS__ . '::post_grid_css', 10, 2 );
+		add_filter( 'fl_builder_register_settings_form', __CLASS__ . '::post_grid_settings', 10, 2 );
+		add_filter( 'fl_builder_render_css', __CLASS__ . '::post_grid_css', 10, 2 );
+		add_filter( 'fl_builder_module_attributes', __CLASS__ . '::post_grid_woo', 10, 2 );
+	}
+
+	static public function post_grid_woo( $attrs, $module ) {
+
+		if ( $module instanceof FLPostGridModule ) {
+			if ( isset( $module->settings->woo_styles_enable ) && 'yes' == $module->settings->woo_styles_enable ) {
+				$attrs['class'][] = 'woocommerce woocommerce-page';
+			}
+		}
+		return $attrs;
 	}
 
 	/**
@@ -269,97 +280,109 @@ final class FLThemeBuilderWooCommerceArchive {
 		$form['layout']['sections']['woo'] = array(
 			'title'  => __( 'WooCommerce', 'fl-theme-builder' ),
 			'fields' => array(
-				'woo_ordering'  => array(
-					'type'          => 'select',
-					'label'         => __( 'Product Ordering', 'fl-theme-builder' ),
-					'default'       => 'hide',
-					'options'       => array(
-						'show'          => __( 'Show', 'fl-theme-builder' ),
-						'hide'          => __( 'Hide', 'fl-theme-builder' ),
+				'woo_ordering'   => array(
+					'type'    => 'select',
+					'label'   => __( 'Product Ordering', 'fl-theme-builder' ),
+					'default' => 'hide',
+					'options' => array(
+						'show' => __( 'Show', 'fl-theme-builder' ),
+						'hide' => __( 'Hide', 'fl-theme-builder' ),
 					),
 				),
 				'woo_sale_flash' => array(
-					'type'          => 'select',
-					'label'         => __( 'Product Sale', 'fl-theme-builder' ),
-					'default'       => 'hide',
-					'options'       => array(
-						'show'          => __( 'Show', 'fl-theme-builder' ),
-						'hide'          => __( 'Hide', 'fl-theme-builder' ),
+					'type'    => 'select',
+					'label'   => __( 'Product Sale', 'fl-theme-builder' ),
+					'default' => 'hide',
+					'options' => array(
+						'show' => __( 'Show', 'fl-theme-builder' ),
+						'hide' => __( 'Hide', 'fl-theme-builder' ),
 					),
 				),
-				'woo_rating'    => array(
-					'type'          => 'select',
-					'label'         => __( 'Product Rating', 'fl-theme-builder' ),
-					'default'       => 'hide',
-					'options'       => array(
-						'show'          => __( 'Show', 'fl-theme-builder' ),
-						'hide'          => __( 'Hide', 'fl-theme-builder' ),
+				'woo_rating'     => array(
+					'type'    => 'select',
+					'label'   => __( 'Product Rating', 'fl-theme-builder' ),
+					'default' => 'hide',
+					'options' => array(
+						'show' => __( 'Show', 'fl-theme-builder' ),
+						'hide' => __( 'Hide', 'fl-theme-builder' ),
 					),
 				),
-				'woo_price'     => array(
-					'type'          => 'select',
-					'label'         => __( 'Product Price', 'fl-theme-builder' ),
-					'default'       => 'hide',
-					'options'       => array(
-						'show'          => __( 'Show', 'fl-theme-builder' ),
-						'hide'          => __( 'Hide', 'fl-theme-builder' ),
+				'woo_price'      => array(
+					'type'    => 'select',
+					'label'   => __( 'Product Price', 'fl-theme-builder' ),
+					'default' => 'hide',
+					'options' => array(
+						'show' => __( 'Show', 'fl-theme-builder' ),
+						'hide' => __( 'Hide', 'fl-theme-builder' ),
 					),
 				),
-				'woo_button'    => array(
-					'type'          => 'select',
-					'label'         => __( 'Cart Button', 'fl-theme-builder' ),
-					'default'       => 'hide',
-					'options'       => array(
-						'show'          => __( 'Show', 'fl-theme-builder' ),
-						'hide'          => __( 'Hide', 'fl-theme-builder' ),
+				'woo_button'     => array(
+					'type'    => 'select',
+					'label'   => __( 'Cart Button', 'fl-theme-builder' ),
+					'default' => 'hide',
+					'options' => array(
+						'show' => __( 'Show', 'fl-theme-builder' ),
+						'hide' => __( 'Hide', 'fl-theme-builder' ),
 					),
 				),
+
+			),
+		);
+
+		$form['layout']['sections']['general']['fields']['woo_styles_enable'] = array(
+			'type'    => 'select',
+			'label'   => __( 'WooCommerce Classes', 'fl-theme-builder' ),
+			'help'    => __( 'Add woocommerce and woocommerce-page classes to module wrapper.', 'fl-theme-builder' ),
+			'default' => 'no',
+			'options' => array(
+				'no'  => __( 'No', 'fl-theme-builder' ),
+				'yes' => __( 'Yes', 'fl-theme-builder' ),
 			),
 		);
 
 		$form['style']['sections']['woo'] = array(
 			'title'  => __( 'WooCommerce', 'fl-theme-builder' ),
 			'fields' => array(
-				'woo_sale_flash_bg' => array(
-					'type'          => 'color',
-					'label'         => __( 'Product Sale Background', 'fl-theme-builder' ),
-					'show_reset'    => true,
+				'woo_sale_flash_bg'    => array(
+					'type'       => 'color',
+					'label'      => __( 'Product Sale Background', 'fl-theme-builder' ),
+					'show_reset' => true,
 				),
 				'woo_sale_flash_color' => array(
-					'type'          => 'color',
-					'label'         => __( 'Product Sale Text Color', 'fl-theme-builder' ),
-					'show_reset'    => true,
+					'type'       => 'color',
+					'label'      => __( 'Product Sale Text Color', 'fl-theme-builder' ),
+					'show_reset' => true,
 				),
-				'woo_rating_fg' => array(
-					'type'          => 'color',
-					'label'         => __( 'Product Rating Foreground', 'fl-theme-builder' ),
-					'show_reset'    => true,
+				'woo_rating_fg'        => array(
+					'type'       => 'color',
+					'label'      => __( 'Product Rating Foreground', 'fl-theme-builder' ),
+					'show_reset' => true,
 				),
-				'woo_rating_bg' => array(
-					'type'          => 'color',
-					'label'         => __( 'Product Rating Background', 'fl-theme-builder' ),
-					'show_reset'    => true,
+				'woo_rating_bg'        => array(
+					'type'       => 'color',
+					'label'      => __( 'Product Rating Background', 'fl-theme-builder' ),
+					'show_reset' => true,
 				),
 				'woo_rating_font_size' => array(
-					'type'          => 'text',
-					'label'         => __( 'Product Rating Font Size', 'fl-theme-builder' ),
-					'default'       => '',
-					'maxlength'     => '3',
-					'size'          => '4',
-					'description'   => 'px',
+					'type'        => 'text',
+					'label'       => __( 'Product Rating Font Size', 'fl-theme-builder' ),
+					'default'     => '',
+					'maxlength'   => '3',
+					'size'        => '4',
+					'description' => 'px',
 				),
-				'woo_price_color' => array(
-					'type'          => 'color',
-					'label'         => __( 'Product Price Text Color', 'fl-theme-builder' ),
-					'show_reset'    => true,
+				'woo_price_color'      => array(
+					'type'       => 'color',
+					'label'      => __( 'Product Price Text Color', 'fl-theme-builder' ),
+					'show_reset' => true,
 				),
-				'woo_price_font_size' => array(
-					'type'          => 'text',
-					'label'         => __( 'Product Price Font Size', 'fl-theme-builder' ),
-					'default'       => '',
-					'maxlength'     => '3',
-					'size'          => '4',
-					'description'   => 'px',
+				'woo_price_font_size'  => array(
+					'type'        => 'text',
+					'label'       => __( 'Product Price Font Size', 'fl-theme-builder' ),
+					'default'     => '',
+					'maxlength'   => '3',
+					'size'        => '4',
+					'description' => 'px',
 				),
 			),
 		);
@@ -367,17 +390,17 @@ final class FLThemeBuilderWooCommerceArchive {
 		$form['style']['sections']['woo_button'] = array(
 			'title'  => __( 'WooCommerce Cart Button', 'fl-theme-builder' ),
 			'fields' => array(
-				'woo_button_bg_color' => array(
-					'type'          => 'color',
-					'label'         => __( 'Background Color', 'fl-theme-builder' ),
-					'default'       => '',
-					'show_reset'    => true,
+				'woo_button_bg_color'   => array(
+					'type'       => 'color',
+					'label'      => __( 'Background Color', 'fl-theme-builder' ),
+					'default'    => '',
+					'show_reset' => true,
 				),
 				'woo_button_text_color' => array(
-					'type'          => 'color',
-					'label'         => __( 'Text Color', 'fl-theme-builder' ),
-					'default'       => '',
-					'show_reset'    => true,
+					'type'       => 'color',
+					'label'      => __( 'Text Color', 'fl-theme-builder' ),
+					'default'    => '',
+					'show_reset' => true,
 				),
 			),
 		);
@@ -404,11 +427,11 @@ final class FLThemeBuilderWooCommerceArchive {
 				continue;
 			} elseif ( ! $global_included ) {
 				$global_included = true;
-				$css .= file_get_contents( FL_THEME_BUILDER_WOOCOMMERCE_DIR . 'css/fl-theme-builder-post-grid-woocommerce.css' );
+				$css            .= file_get_contents( FL_THEME_BUILDER_WOOCOMMERCE_DIR . 'css/fl-theme-builder-post-grid-woocommerce.css' );
 			}
 
 			ob_start();
-			$id = $module->node;
+			$id       = $module->node;
 			$settings = $module->settings;
 			include FL_THEME_BUILDER_WOOCOMMERCE_DIR . 'includes/post-grid-woocommerce.css.php';
 			$css .= ob_get_clean();

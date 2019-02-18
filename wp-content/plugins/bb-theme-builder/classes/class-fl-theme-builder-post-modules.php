@@ -13,11 +13,11 @@ final class FLThemeBuilderPostModules {
 	 */
 	static public function init() {
 		// Actions
-		add_action( 'wp_enqueue_scripts',                  __CLASS__ . '::enqueue_scripts' );
+		add_action( 'wp_enqueue_scripts', __CLASS__ . '::enqueue_scripts' );
 
 		// Filters
-		add_filter( 'fl_builder_register_settings_form',   __CLASS__ . '::post_grid_settings', 10, 2 );
-		add_filter( 'fl_builder_render_css',               __CLASS__ . '::post_grid_css', 10, 2 );
+		add_filter( 'fl_builder_register_settings_form', __CLASS__ . '::post_grid_settings', 10, 2 );
+		add_filter( 'fl_builder_render_css', __CLASS__ . '::post_grid_css', 10, 2 );
 		add_filter( 'fl_builder_posts_module_layout_path', __CLASS__ . '::post_grid_layout_path', 10, 3 );
 	}
 
@@ -51,66 +51,66 @@ final class FLThemeBuilderPostModules {
 		}
 
 		$form['layout']['sections']['general']['fields']['post_layout'] = array(
-			'type'          => 'select',
-			'label'         => __( 'Post Layout', 'fl-theme-builder' ),
-			'default'       => 'default',
-			'options'       => array(
-				'default'       => __( 'Default', 'fl-theme-builder' ),
-				'custom'        => __( 'Custom', 'fl-theme-builder' ),
+			'type'    => 'select',
+			'label'   => __( 'Post Layout', 'fl-theme-builder' ),
+			'default' => 'default',
+			'options' => array(
+				'default' => __( 'Default', 'fl-theme-builder' ),
+				'custom'  => __( 'Custom', 'fl-theme-builder' ),
 			),
-			'toggle'		=> array(
-				'custom'		=> array(
-					'fields' 		=> array( 'custom_post_layout' ),
+			'toggle'  => array(
+				'custom' => array(
+					'fields' => array( 'custom_post_layout', 'woo_styles_enable' ),
 				),
 			),
 		);
 
 		$form['layout']['sections']['general']['fields']['custom_post_layout'] = array(
-			'type'          => 'form',
-			'label'         => __( 'Custom Post Layout', 'fl-theme-builder' ),
-			'form'          => 'custom_post_layout',
-			'preview_text'  => null,
-			'multiple'		=> false,
+			'type'         => 'form',
+			'label'        => __( 'Custom Post Layout', 'fl-theme-builder' ),
+			'form'         => 'custom_post_layout',
+			'preview_text' => null,
+			'multiple'     => false,
 		);
 
 		FLBuilder::register_settings_form( 'custom_post_layout', array(
 			'title' => __( 'Custom Post Layout', 'fl-theme-builder' ),
 			'tabs'  => array(
-				'html'          => array(
-					'title'         => __( 'HTML', 'fl-theme-builder' ),
-					'sections'      => array(
-						'html'          => array(
-							'title'         => '',
-							'fields'        => array(
-								'html'          => array(
-									'type'          => 'code',
-									'editor'        => 'html',
-									'label'         => '',
-									'rows'          => '18',
-									'default'       => file_get_contents( FL_THEME_BUILDER_DIR . 'includes/post-grid-default-html.php' ),
-									'preview'           => array(
-										'type'              => 'none',
+				'html' => array(
+					'title'    => __( 'HTML', 'fl-theme-builder' ),
+					'sections' => array(
+						'html' => array(
+							'title'  => '',
+							'fields' => array(
+								'html' => array(
+									'type'        => 'code',
+									'editor'      => 'html',
+									'label'       => '',
+									'rows'        => '18',
+									'default'     => file_get_contents( FL_THEME_BUILDER_DIR . 'includes/post-grid-default-html.php' ),
+									'preview'     => array(
+										'type' => 'none',
 									),
-									'connections'       => array( 'html', 'string', 'url' ),
+									'connections' => array( 'html', 'string', 'url' ),
 								),
 							),
 						),
 					),
 				),
-				'css'           => array(
-					'title'         => __( 'CSS', 'fl-theme-builder' ),
-					'sections'      => array(
-						'css'           => array(
-							'title'         => '',
-							'fields'        => array(
-								'css'           => array(
-									'type'          => 'code',
-									'editor'        => 'css',
-									'label'         => '',
-									'rows'          => '18',
-									'default'       => file_get_contents( FL_THEME_BUILDER_DIR . 'includes/post-grid-default-css.php' ),
-									'preview'           => array(
-										'type'              => 'none',
+				'css'  => array(
+					'title'    => __( 'CSS', 'fl-theme-builder' ),
+					'sections' => array(
+						'css' => array(
+							'title'  => '',
+							'fields' => array(
+								'css' => array(
+									'type'    => 'code',
+									'editor'  => 'css',
+									'label'   => '',
+									'rows'    => '18',
+									'default' => file_get_contents( FL_THEME_BUILDER_DIR . 'includes/post-grid-default-css.php' ),
+									'preview' => array(
+										'type' => 'none',
 									),
 								),
 							),
@@ -152,7 +152,7 @@ final class FLThemeBuilderPostModules {
 				$custom .= $module->settings->custom_post_layout->css;
 				$custom .= ' }';
 				$css    .= @$less->compile( $custom ); // @codingStandardsIgnoreLine
-				} catch ( Exception $e ) {
+			} catch ( Exception $e ) {
 				$css .= $module->settings->custom_post_layout->css;
 			}
 		}

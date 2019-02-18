@@ -15,19 +15,19 @@ final class FLThemeBuilderLayoutRenderer {
 	 */
 	static public function init() {
 		// Actions
-		add_action( 'after_switch_theme',              __CLASS__ . '::delete_all_bundled_scripts' );
-		add_action( 'fl_builder_after_save_layout',    __CLASS__ . '::delete_all_bundled_scripts' );
-		add_action( 'template_redirect',               __CLASS__ . '::disable_content_rendering' );
-		add_action( 'template_redirect',               __CLASS__ . '::setup_part_hooks' );
-		add_action( 'wp_enqueue_scripts',              __CLASS__ . '::enqueue_scripts' );
-		add_action( 'template_include',                __CLASS__ . '::override_template_include', 999 );
+		add_action( 'after_switch_theme', __CLASS__ . '::delete_all_bundled_scripts' );
+		add_action( 'fl_builder_after_save_layout', __CLASS__ . '::delete_all_bundled_scripts' );
+		add_action( 'template_redirect', __CLASS__ . '::disable_content_rendering' );
+		add_action( 'template_redirect', __CLASS__ . '::setup_part_hooks' );
+		add_action( 'wp_enqueue_scripts', __CLASS__ . '::enqueue_scripts' );
+		add_action( 'template_include', __CLASS__ . '::override_template_include', 999 );
 
 		// Filters
-		add_filter( 'body_class',            		   __CLASS__ . '::body_class' );
-		add_filter( 'fl_builder_render_js',            __CLASS__ . '::render_js' );
-		add_filter( 'fl_builder_render_css',           __CLASS__ . '::render_css' );
-		add_filter( 'fl_theme_builder_render_header',  __CLASS__ . '::render_header' );
-		add_filter( 'fl_theme_builder_render_footer',  __CLASS__ . '::render_footer' );
+		add_filter( 'body_class', __CLASS__ . '::body_class' );
+		add_filter( 'fl_builder_render_js', __CLASS__ . '::render_js' );
+		add_filter( 'fl_builder_render_css', __CLASS__ . '::render_css' );
+		add_filter( 'fl_theme_builder_render_header', __CLASS__ . '::render_header' );
+		add_filter( 'fl_theme_builder_render_footer', __CLASS__ . '::render_footer' );
 	}
 
 	/**
@@ -150,7 +150,7 @@ final class FLThemeBuilderLayoutRenderer {
 		}
 
 		// Enqueue layout styles and scripts.
-		$post = FLThemeBuilderRulesLocation::get_preview_original_post();
+		$post   = FLThemeBuilderRulesLocation::get_preview_original_post();
 		$inline = apply_filters( 'fl_builder_render_assets_inline', false );
 
 		if ( $inline || $post && 'fl-theme-layout' == $post->post_type ) {
@@ -223,7 +223,7 @@ final class FLThemeBuilderLayoutRenderer {
 		// Build the CSS bundle if not empty.
 		if ( ! empty( $css ) ) {
 
-			$key = md5( $css );
+			$key  = md5( $css );
 			$path = $cache_dir['path'] . $key . '-layout-bundle.css';
 			$url  = $cache_dir['url'] . $key . '-layout-bundle.css';
 
@@ -237,7 +237,7 @@ final class FLThemeBuilderLayoutRenderer {
 		// Build the JS bundle if not empty.
 		if ( ! empty( $js ) ) {
 
-			$key = md5( $js );
+			$key  = md5( $js );
 			$path = $cache_dir['path'] . $key . '-layout-bundle.js';
 			$url  = $cache_dir['url'] . $key . '-layout-bundle.js';
 
@@ -278,7 +278,7 @@ final class FLThemeBuilderLayoutRenderer {
 	static public function delete_all_bundled_scripts() {
 		$cache_dir = FLBuilderModel::get_cache_dir();
 		$css       = glob( $cache_dir['path'] . '*-layout-bundle.css' );
-		$js	       = glob( $cache_dir['path'] . '*-layout-bundle.js' );
+		$js        = glob( $cache_dir['path'] . '*-layout-bundle.js' );
 
 		if ( is_array( $css ) ) {
 			array_map( 'unlink', $css );
@@ -365,13 +365,13 @@ final class FLThemeBuilderLayoutRenderer {
 		$settings = FLThemeBuilderLayoutData::get_settings( $ids[0] );
 
 		FLBuilder::render_content_by_id( $ids[0], $tag, array(
-			'itemscope'    		=> 'itemscope',
-			'itemtype'     		=> 'http://schema.org/WPHeader',
-			'data-type'			=> 'header',
-			'data-sticky'  		=> $settings['sticky'],
-			'data-shrink'  		=> $settings['shrink'],
-			'data-overlay' 		=> $settings['overlay'],
-			'data-overlay-bg' 	=> $settings['overlay_bg'],
+			'itemscope'       => 'itemscope',
+			'itemtype'        => 'http://schema.org/WPHeader',
+			'data-type'       => 'header',
+			'data-sticky'     => $settings['sticky'],
+			'data-shrink'     => $settings['shrink'],
+			'data-overlay'    => $settings['overlay'],
+			'data-overlay-bg' => $settings['overlay_bg'],
 		) );
 
 		do_action( 'fl_theme_builder_after_render_header', $ids[0] );
@@ -455,7 +455,7 @@ final class FLThemeBuilderLayoutRenderer {
 		FLBuilder::render_content_by_id( $ids[0], $tag, array(
 			'itemscope' => 'itemscope',
 			'itemtype'  => 'http://schema.org/WPFooter',
-			'data-type'	=> 'footer',
+			'data-type' => 'footer',
 		) );
 
 		do_action( 'fl_theme_builder_after_render_footer', $ids[0] );

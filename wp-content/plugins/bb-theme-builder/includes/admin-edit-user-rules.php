@@ -2,6 +2,7 @@
 	<tr class="fl-mb-row">
 		<td  class="fl-mb-row-heading">
 			<label><?php _e( 'Users', 'fl-theme-builder' ); ?></label>
+			<?php /* translators: %s: singular_name */ ?>
 			<i class="fl-mb-row-heading-help dashicons dashicons-editor-help" title="<?php echo esc_attr( sprintf( __( 'Choose which users should be able to view this %1$s. If none are selected, all users will see this %1$s.', 'fl-theme-builder' ), $post_type->labels->singular_name ) ); ?>"></i>
 		</td>
 		<td class="fl-mb-row-content">
@@ -21,7 +22,7 @@
 				<?php foreach ( $rules as $group_key => $group_data ) : ?>
 				<optgroup label="<?php echo $group_data['label']; ?>">
 					<?php foreach ( $group_data['rules'] as $rule_key => $rule_data ) : ?>
-					<option value='<?php echo json_encode( $rule_data ); ?>' data-rule="<?php echo $rule_data['type'] . ':' . $rule_data['id'] ?>"><?php echo $rule_data['label']; ?></option>
+					<option value='<?php echo json_encode( $rule_data ); ?>' data-rule="<?php echo $rule_data['type'] . ':' . $rule_data['id']; ?>"><?php echo $rule_data['label']; ?></option>
 					<?php endforeach; ?>
 				</optgroup>
 				<?php endforeach; ?>

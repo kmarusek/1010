@@ -43,19 +43,19 @@ final class FLThemeBuilderFieldConnections {
 	 */
 	static public function init() {
 		// Actions
-		add_action( 'wp',                                        __CLASS__ . '::connect_all_layout_settings' );
-		add_action( 'wp_enqueue_scripts',                        __CLASS__ . '::enqueue_scripts' );
-		add_action( 'wp_footer',                                 __CLASS__ . '::js_templates' );
-		add_action( 'fl_builder_before_control',                 __CLASS__ . '::render_connection',10 ,4 );
-		add_action( 'fl_builder_before_render_ajax_layout',      __CLASS__ . '::connect_all_layout_settings' );
+		add_action( 'wp', __CLASS__ . '::connect_all_layout_settings' );
+		add_action( 'wp_enqueue_scripts', __CLASS__ . '::enqueue_scripts' );
+		add_action( 'wp_footer', __CLASS__ . '::js_templates' );
+		add_action( 'fl_builder_before_control', __CLASS__ . '::render_connection', 10, 4 );
+		add_action( 'fl_builder_before_render_ajax_layout', __CLASS__ . '::connect_all_layout_settings' );
 
 		// Filters
-		add_filter( 'fl_builder_node_settings',                  __CLASS__ . '::connect_node_settings', 10, 2 );
-		add_filter( 'fl_builder_before_render_shortcodes',       __CLASS__ . '::parse_shortcodes' );
+		add_filter( 'fl_builder_node_settings', __CLASS__ . '::connect_node_settings', 10, 2 );
+		add_filter( 'fl_builder_before_render_shortcodes', __CLASS__ . '::parse_shortcodes' );
 
 		// Shortcodes
-		add_shortcode( 'wpbb',                                   __CLASS__ . '::parse_shortcode' );
-		add_shortcode( 'wpbb-if',                                __CLASS__ . '::parse_conditional_shortcode' );
+		add_shortcode( 'wpbb', __CLASS__ . '::parse_shortcode' );
+		add_shortcode( 'wpbb-if', __CLASS__ . '::parse_conditional_shortcode' );
 
 		// Frontend AJAX
 		FLBuilderAJAX::add_action( 'render_connection_settings', __CLASS__ . '::ajax_render_settings_form', array( 'object', 'property', 'type', 'settings' ) );
@@ -104,7 +104,7 @@ final class FLThemeBuilderFieldConnections {
 	 * @return void
 	 */
 	static public function ajax_render_settings_form( $object, $property, $type, $settings ) {
-		remove_action( 'fl_builder_before_control', __CLASS__ . '::render_connection',10 ,4 );
+		remove_action( 'fl_builder_before_control', __CLASS__ . '::render_connection', 10, 4 );
 
 		$property = FLPageData::get_property( $object, $property );
 		$form     = FLBuilder::render_settings_form( $type, $settings );
@@ -116,7 +116,7 @@ final class FLThemeBuilderFieldConnections {
 			$form['html'] .= '<script src="' . $property['form']['js'] . '"></script>';
 		}
 
-		add_action( 'fl_builder_before_control', __CLASS__ . '::render_connection',10 ,4 );
+		add_action( 'fl_builder_before_control', __CLASS__ . '::render_connection', 10, 4 );
 
 		return $form;
 	}
@@ -218,9 +218,9 @@ final class FLThemeBuilderFieldConnections {
 			$menu[ $group_key ] = array(
 				'label'      => $group['label'],
 				'properties' => array(
-					'archive'   => array(),
-					'post'      => array(),
-					'site'      => array(),
+					'archive' => array(),
+					'post'    => array(),
+					'site'    => array(),
 				),
 			);
 		}
@@ -460,10 +460,10 @@ final class FLThemeBuilderFieldConnections {
 
 					if ( is_array( $settings->{ $key } ) ) {
 						$settings->{ $key . '_src' } = $settings->{ $key }['url'];
-						$settings->{ $key } = $settings->{ $key }['id'];
+						$settings->{ $key }          = $settings->{ $key }['id'];
 					} else {
 						$settings->{ $key . '_src' } = $settings->{ $key };
-						$settings->{ $key } = -1;
+						$settings->{ $key }          = -1;
 					}
 				}
 			}
@@ -482,7 +482,7 @@ final class FLThemeBuilderFieldConnections {
 	 * @return string
 	 */
 	static public function parse_shortcodes( $content, $tags = null ) {
-		$tags = $tags ? $tags : array( 'wpbb' );
+		$tags    = $tags ? $tags : array( 'wpbb' );
 		$pattern = get_shortcode_regex( $tags );
 		$content = preg_replace_callback( "/$pattern/", 'do_shortcode_tag', $content );
 		return $content;
@@ -549,8 +549,8 @@ final class FLThemeBuilderFieldConnections {
 		$attrs[0] = str_replace( '!', '', $attrs[0] );
 		$value    = self::parse_shortcode( $attrs );
 		if ( false !== strpos( $content, '[wpbb-else]' ) ) {
-			$else     = substr( $content, strpos( $content, '[wpbb-else]' ) );
-			$content  = str_replace( $else, '',  $content );
+			$else    = substr( $content, strpos( $content, '[wpbb-else]' ) );
+			$content = str_replace( $else, '', $content );
 		}
 
 		if ( $not && empty( $value ) ) {

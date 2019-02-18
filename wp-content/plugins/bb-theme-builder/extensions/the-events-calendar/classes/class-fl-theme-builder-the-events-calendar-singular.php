@@ -34,15 +34,15 @@ final class FLThemeBuilderTheEventsCalendarSingular {
 			return;
 		}
 
-		$location        	 	= FLThemeBuilderRulesLocation::get_preview_location( get_the_ID() );
-		$post_type				= $wp_the_query->post->post_type;
-		$is_theme_layout 	 	= 'fl-theme-layout' === get_post_type();
-		$is_event_preview	 	= stristr( $location, 'post:tribe_events' );
-		$is_single_event 	 	= 'tribe_events' === $post_type || ( $is_event_preview && $is_theme_layout );
-		$is_organizer_preview	= stristr( $location, 'post:tribe_organizer' );
-		$is_single_organizer 	= 'tribe_organizer' === $post_type || ( $is_organizer_preview && $is_theme_layout );
-		$is_venue_preview		= stristr( $location, 'post:tribe_venue' );
-		$is_single_venue    	= 'tribe_venue' === $post_type || ( $is_venue_preview && $is_theme_layout );
+		$location             = FLThemeBuilderRulesLocation::get_preview_location( get_the_ID() );
+		$post_type            = $wp_the_query->post->post_type;
+		$is_theme_layout      = 'fl-theme-layout' === get_post_type();
+		$is_event_preview     = stristr( $location, 'post:tribe_events' );
+		$is_single_event      = 'tribe_events' === $post_type || ( $is_event_preview && $is_theme_layout );
+		$is_organizer_preview = stristr( $location, 'post:tribe_organizer' );
+		$is_single_organizer  = 'tribe_organizer' === $post_type || ( $is_organizer_preview && $is_theme_layout );
+		$is_venue_preview     = stristr( $location, 'post:tribe_venue' );
+		$is_single_venue      = 'tribe_venue' === $post_type || ( $is_venue_preview && $is_theme_layout );
 
 		if ( $is_single_event || $is_single_organizer || $is_single_venue ) {
 
@@ -56,14 +56,14 @@ final class FLThemeBuilderTheEventsCalendarSingular {
 			}
 
 			/* Actions */
-			add_action( 'fl_theme_builder_before_render_content', 	__CLASS__ . '::before_render_content' );
-			add_action( 'fl_theme_builder_after_render_content', 	__CLASS__ . '::after_render_content' );
+			add_action( 'fl_theme_builder_before_render_content', __CLASS__ . '::before_render_content' );
+			add_action( 'fl_theme_builder_after_render_content', __CLASS__ . '::after_render_content' );
 
 			/* Filters */
-			add_filter( 'fl_builder_render_css', 					__CLASS__ . '::render_css', 10, 4 );
-			add_filter( 'body_class',                               __CLASS__ . '::body_class' );
-			add_filter( 'fl_theme_builder_content_attrs', 		  	__CLASS__ . '::content_attrs' );
-			add_filter( 'fl_builder_content_classes', 	  			__CLASS__ . '::content_classes' );
+			add_filter( 'fl_builder_render_css', __CLASS__ . '::render_css', 10, 4 );
+			add_filter( 'body_class', __CLASS__ . '::body_class' );
+			add_filter( 'fl_theme_builder_content_attrs', __CLASS__ . '::content_attrs' );
+			add_filter( 'fl_builder_content_classes', __CLASS__ . '::content_classes' );
 		}
 
 		if ( $is_single_organizer || $is_single_venue ) {

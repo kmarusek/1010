@@ -13,16 +13,17 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 	 */
 	static public function init() {
 		/* Actions */
-		add_action( 'wp', 										__CLASS__ . '::init_query_hooks' );
-		add_action( 'fl_builder_posts_module_before_posts',  	__CLASS__ . '::posts_module_before_posts', 10, 2 );
-		add_action( 'fl_builder_posts_module_after_posts',  	__CLASS__ . '::posts_module_after_posts', 10, 2 );
-		add_action( 'fl_builder_post_grid_before_content',  	__CLASS__ . '::post_grid_before_content' );
-		add_action( 'fl_builder_post_gallery_after_meta',   	__CLASS__ . '::post_grid_before_content' );
-		add_action( 'fl_builder_post_feed_after_meta',      	__CLASS__ . '::post_grid_before_content' );
+		add_action( 'wp', __CLASS__ . '::init_query_hooks' );
+		add_action( 'fl_builder_posts_module_before_posts', __CLASS__ . '::posts_module_before_posts', 10, 2 );
+		add_action( 'fl_builder_posts_module_after_posts', __CLASS__ . '::posts_module_after_posts', 10, 2 );
+		add_action( 'fl_builder_post_grid_before_content', __CLASS__ . '::post_grid_before_content' );
+		add_action( 'fl_builder_post_gallery_after_meta', __CLASS__ . '::post_grid_before_content' );
+		add_action( 'fl_builder_post_feed_after_meta', __CLASS__ . '::post_grid_before_content' );
 
 		/* Filters */
-		add_filter( 'fl_builder_register_settings_form', 		__CLASS__ . '::post_grid_settings', 10, 2 );
-		add_filter( 'fl_builder_render_css',                	__CLASS__ . '::post_grid_css', 10, 2 );
+		add_filter( 'fl_builder_register_settings_form', __CLASS__ . '::post_grid_settings', 10, 2 );
+		add_filter( 'fl_builder_render_css', __CLASS__ . '::post_grid_css', 10, 2 );
+		add_action( 'fl_builder_loop_query_args', __CLASS__ . '::builder_loop_query_args' );
 	}
 
 	/**
@@ -74,14 +75,52 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 	static public function builder_loop_query( $query, $settings ) {
 
 		if ( isset( $settings->data_source ) && 'main_query' == $settings->data_source ) {
+			$orderby = 'EventStartDate';
+			$order   = 'ASC';
+
+			if ( isset( $settings->event_orderby ) && ! empty( $settings->event_orderby ) ) {
+				$orderby = $settings->event_orderby;
+				$order   = $settings->event_order;
+			}
+
 			$query = new WP_Query( array_merge( $query->query, array(
-				'orderby'	=> 'EventStartDate',
-				'order'		=> 'ASC',
-				'paged'		=> FLBuilderLoop::get_paged(),
+				'orderby' => $orderby,
+				'order'   => $order,
+				'paged'   => FLBuilderLoop::get_paged(),
 			) ) );
 		}
 
 		return $query;
+	}
+
+	/**
+	 * Adds sorting to events list in the posts module for source custom query.
+	 *
+	 * @since TBD
+	 * @param object $args
+	 * @return array
+	 */
+	static public function builder_loop_query_args( $args ) {
+		$settings = $args['settings'];
+
+		if ( ! isset( $settings->data_source ) || 'custom_query' != $settings->data_source ) {
+			return $args;
+		}
+
+		if ( 'tribe_events' != $args['post_type'] ) {
+			return $args;
+		}
+
+		if ( ! isset( $settings->event_orderby ) || empty( $settings->event_orderby ) ) {
+			return $args;
+		}
+
+		$args['orderby']   = 'meta_value_num';
+		$args['meta_key']  = '_' . $settings->event_orderby;
+		$args['meta_type'] = 'DATE';
+		$args['order']     = $settings->event_order;
+
+		return $args;
 	}
 
 	/**
@@ -112,31 +151,50 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 		$form['layout']['sections']['events'] = array(
 			'title'  => __( 'The Events Calendar', 'fl-theme-builder' ),
 			'fields' => array(
-				'event_date'  => array(
-					'type'          => 'select',
-					'label'         => __( 'Event Date', 'fl-theme-builder' ),
-					'default'       => 'hide',
-					'options'       => array(
-						'show'          => __( 'Show', 'fl-theme-builder' ),
-						'hide'          => __( 'Hide', 'fl-theme-builder' ),
+				'event_date'    => array(
+					'type'    => 'select',
+					'label'   => __( 'Event Date', 'fl-theme-builder' ),
+					'default' => 'hide',
+					'options' => array(
+						'show' => __( 'Show', 'fl-theme-builder' ),
+						'hide' => __( 'Hide', 'fl-theme-builder' ),
 					),
 				),
 				'event_address' => array(
-					'type'          => 'select',
-					'label'         => __( 'Event Address', 'fl-theme-builder' ),
-					'default'       => 'hide',
-					'options'       => array(
-						'show'          => __( 'Show', 'fl-theme-builder' ),
-						'hide'          => __( 'Hide', 'fl-theme-builder' ),
+					'type'    => 'select',
+					'label'   => __( 'Event Address', 'fl-theme-builder' ),
+					'default' => 'hide',
+					'options' => array(
+						'show' => __( 'Show', 'fl-theme-builder' ),
+						'hide' => __( 'Hide', 'fl-theme-builder' ),
 					),
 				),
-				'event_cost' => array(
-					'type'          => 'select',
-					'label'         => __( 'Event Cost', 'fl-theme-builder' ),
-					'default'       => 'hide',
-					'options'       => array(
-						'show'          => __( 'Show', 'fl-theme-builder' ),
-						'hide'          => __( 'Hide', 'fl-theme-builder' ),
+				'event_cost'    => array(
+					'type'    => 'select',
+					'label'   => __( 'Event Cost', 'fl-theme-builder' ),
+					'default' => 'hide',
+					'options' => array(
+						'show' => __( 'Show', 'fl-theme-builder' ),
+						'hide' => __( 'Hide', 'fl-theme-builder' ),
+					),
+				),
+				'event_orderby' => array(
+					'type'    => 'select',
+					'label'   => __( 'Events Order By', 'fl-theme-builder' ),
+					'default' => '',
+					'options' => array(
+						''               => __( 'Default', 'fl-theme-builder' ),
+						'EventStartDate' => __( 'Start Date', 'fl-theme-builder' ),
+						'EventEndDate'   => __( 'End Date', 'fl-theme-builder' ),
+					),
+				),
+				'event_order'   => array(
+					'type'    => 'select',
+					'label'   => __( 'Events Order', 'fl-theme-builder' ),
+					'default' => 'Ascending',
+					'options' => array(
+						'ASC'  => __( 'Ascending', 'fl-theme-builder' ),
+						'DESC' => __( 'Descending', 'fl-theme-builder' ),
 					),
 				),
 			),
@@ -145,17 +203,17 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 		$form['style']['sections']['events_button'] = array(
 			'title'  => __( 'The Events Calendar Cart Button', 'fl-theme-builder' ),
 			'fields' => array(
-				'events_button_bg_color' => array(
-					'type'          => 'color',
-					'label'         => __( 'Background Color', 'fl-theme-builder' ),
-					'default'       => '',
-					'show_reset'    => true,
+				'events_button_bg_color'   => array(
+					'type'       => 'color',
+					'label'      => __( 'Background Color', 'fl-theme-builder' ),
+					'default'    => '',
+					'show_reset' => true,
 				),
 				'events_button_text_color' => array(
-					'type'          => 'color',
-					'label'         => __( 'Text Color', 'fl-theme-builder' ),
-					'default'       => '',
-					'show_reset'    => true,
+					'type'       => 'color',
+					'label'      => __( 'Text Color', 'fl-theme-builder' ),
+					'default'    => '',
+					'show_reset' => true,
 				),
 			),
 		);
@@ -264,11 +322,11 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 				continue;
 			} elseif ( ! $global_included ) {
 				$global_included = true;
-				$css .= file_get_contents( FL_THEME_BUILDER_THE_EVENTS_CALENDAR_DIR . 'css/post-grid.css' );
+				$css            .= file_get_contents( FL_THEME_BUILDER_THE_EVENTS_CALENDAR_DIR . 'css/post-grid.css' );
 			}
 
 			ob_start();
-			$id = $module->node;
+			$id       = $module->node;
 			$settings = $module->settings;
 			include FL_THEME_BUILDER_THE_EVENTS_CALENDAR_DIR . 'includes/post-grid-the-events-calendar.css.php';
 			$css .= ob_get_clean();

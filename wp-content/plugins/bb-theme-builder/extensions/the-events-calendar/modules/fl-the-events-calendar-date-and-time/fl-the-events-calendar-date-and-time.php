@@ -13,6 +13,6 @@ FLBuilder::register_module_alias( 'fl-the-events-calendar-date-and-time', array(
 	'category'    => __( 'The Events Calendar', 'fl-theme-builder' ),
 	'enabled'     => FLThemeBuilderLayoutData::current_post_is( 'singular' ),
 	'settings'    => array(
-		'text'		  => '[wpbb post:the_events_calendar_date_and_time]',
+		'text' => '[wpbb post:the_events_calendar_date_and_time]',
 	),
 ) );

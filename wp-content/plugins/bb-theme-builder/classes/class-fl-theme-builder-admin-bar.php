@@ -36,7 +36,7 @@ final class FLThemeBuilderAdminBar {
 		}
 
 		add_action( 'wp_enqueue_scripts', __CLASS__ . '::enqueue_scripts' );
-		add_action( 'admin_bar_menu',     __CLASS__ . '::add_builder_dropdown', 1000 );
+		add_action( 'admin_bar_menu', __CLASS__ . '::add_builder_dropdown', 1000 );
 	}
 
 	/**
@@ -100,8 +100,28 @@ final class FLThemeBuilderAdminBar {
 
 			foreach ( $data as $layout ) {
 
-				$title  = '<span class="fl-builder-ab-title">' . get_the_title( $layout['id'] ) . '</span>';
-				$tag    = '<span class="fl-builder-ab-tag">' . ucwords( $type ) . '</span>';
+				$type_text = $type;
+				switch ( $type ) {
+
+					case 'header':
+						$type_text = __( 'HEADER', 'fl-theme-builder' );
+						break;
+					case 'footer':
+						$type_text = __( 'FOOTER', 'fl-theme-builder' );
+						break;
+					case 'part':
+						$type_text = __( 'PART', 'fl-theme-builder' );
+						break;
+					case 'archive':
+						$type_text = __( 'ARCHIVE', 'fl-theme-builder' );
+						break;
+					case 'singular':
+						$type_text = __( 'SINGULAR', 'fl-theme-builder' );
+						break;
+				}
+
+				$title = '<span class="fl-builder-ab-title">' . get_the_title( $layout['id'] ) . '</span>';
+				$tag   = sprintf( '<span class="fl-builder-ab-tag">%s</span>', $type_text );
 
 				$bar->add_node( array(
 					'parent' => 'fl-builder-frontend-edit-link',

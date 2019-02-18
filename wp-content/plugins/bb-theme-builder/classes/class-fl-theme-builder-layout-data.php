@@ -216,17 +216,17 @@ final class FLThemeBuilderLayoutData {
 					// php 5.6 and below we can just add the array to $posts
 					if ( version_compare( PHP_VERSION, '7.0.0', '<' ) ) {
 						$posts[ $post_id ] = array(
-						'id'        => $post_id,
-						'locations' => array( 'general:single' ),
+							'id'        => $post_id,
+							'locations' => array( 'general:single' ),
 						);
 					} else {
 						// php7 and above we need to merge in the array
-						$temp = array();
+						$temp             = array();
 						$temp[ $post_id ] = array(
 							'id'        => $post_id,
 							'locations' => array( 'general:single' ),
 						);
-						$posts = array_merge( $temp, $posts );
+						$posts            = array_merge( $temp, $posts );
 						unset( $temp );
 					}
 				}

@@ -70,15 +70,15 @@ final class FLThemeBuilderRulesLocation {
 	 * @return void
 	 */
 	static public function init() {
-		add_action( 'save_post',                                    __CLASS__ . '::admin_edit_save' );
-		add_action( 'wp_ajax_fl_theme_builder_get_location_terms',  __CLASS__ . '::ajax_get_terms' );
-		add_action( 'wp_ajax_fl_theme_builder_get_location_posts',  __CLASS__ . '::ajax_get_posts' );
-		add_action( 'wp',                                           __CLASS__ . '::init_preview_query', 1 );
-		add_action( 'fl_builder_after_ui_bar_title',                __CLASS__ . '::render_ui_preview_selector' );
+		add_action( 'save_post', __CLASS__ . '::admin_edit_save' );
+		add_action( 'wp_ajax_fl_theme_builder_get_location_terms', __CLASS__ . '::ajax_get_terms' );
+		add_action( 'wp_ajax_fl_theme_builder_get_location_posts', __CLASS__ . '::ajax_get_posts' );
+		add_action( 'wp', __CLASS__ . '::init_preview_query', 1 );
+		add_action( 'fl_builder_after_ui_bar_title', __CLASS__ . '::render_ui_preview_selector' );
 
-		FLBuilderAJAX::add_action( 'update_preview_location',       __CLASS__ . '::ajax_update_preview_location' );
-		FLBuilderAJAX::add_action( 'get_preview_posts',             __CLASS__ . '::ajax_get_preview_posts' );
-		FLBuilderAJAX::add_action( 'get_preview_terms',             __CLASS__ . '::ajax_get_preview_terms' );
+		FLBuilderAJAX::add_action( 'update_preview_location', __CLASS__ . '::ajax_update_preview_location' );
+		FLBuilderAJAX::add_action( 'get_preview_posts', __CLASS__ . '::ajax_get_preview_posts' );
+		FLBuilderAJAX::add_action( 'get_preview_terms', __CLASS__ . '::ajax_get_preview_terms' );
 	}
 
 	/**
@@ -134,7 +134,7 @@ final class FLThemeBuilderRulesLocation {
 
 			if ( is_object( $queried_object ) ) {
 				$location = 'taxonomy:' . $queried_object->taxonomy;
-				$object = $location . ':' . $queried_object->term_id;
+				$object   = $location . ':' . $queried_object->term_id;
 			}
 		} elseif ( is_post_type_archive() ) {
 			$location = 'archive:' . $wp_query->get( 'post_type' );
@@ -402,7 +402,7 @@ final class FLThemeBuilderRulesLocation {
 			"SELECT * FROM {$wpdb->postmeta} as pm
 			INNER JOIN {$wpdb->posts} as p ON pm.post_id = p.ID
 			WHERE pm.meta_key = '_fl_theme_builder_locations'
-			AND p.post_type = '%s'",
+			AND p.post_type = %s",
 		$post_type ) );
 
 		foreach ( $results as $row ) {
@@ -625,7 +625,7 @@ final class FLThemeBuilderRulesLocation {
 			}
 
 			if ( 'taxonomy' == $location[0] ) {
-				$id = is_numeric( $location[2] ) ? intval( $location[2] ) : $location[2];
+				$id          = is_numeric( $location[2] ) ? intval( $location[2] ) : $location[2];
 				$term_exists = term_exists( $id, $location[1] );
 				if ( 0 === $term_exists || null === $term_exists ) {
 					continue;
@@ -670,40 +670,40 @@ final class FLThemeBuilderRulesLocation {
 			'general' => array(
 				'label'     => __( 'General', 'fl-theme-builder' ),
 				'locations' => array(
-					'site' => array(
-						'id'      => 'site',
-						'label'   => esc_html__( 'Entire Site', 'fl-theme-builder' ),
-						'type'    => 'general',
+					'site'    => array(
+						'id'    => 'site',
+						'label' => esc_html__( 'Entire Site', 'fl-theme-builder' ),
+						'type'  => 'general',
 					),
-					'single' => array(
-						'id'      => 'single',
-						'label'   => esc_html__( 'All Singular', 'fl-theme-builder' ),
-						'type'    => 'general',
+					'single'  => array(
+						'id'    => 'single',
+						'label' => esc_html__( 'All Singular', 'fl-theme-builder' ),
+						'type'  => 'general',
 					),
 					'archive' => array(
-						'id'      => 'archive',
-						'label'   => esc_html__( 'All Archives', 'fl-theme-builder' ),
-						'type'    => 'general',
+						'id'    => 'archive',
+						'label' => esc_html__( 'All Archives', 'fl-theme-builder' ),
+						'type'  => 'general',
 					),
-					'author' => array(
-						'id'      => 'author',
-						'label'   => esc_html__( 'Author Archives', 'fl-theme-builder' ),
-						'type'    => 'general',
+					'author'  => array(
+						'id'    => 'author',
+						'label' => esc_html__( 'Author Archives', 'fl-theme-builder' ),
+						'type'  => 'general',
 					),
-					'date' => array(
-						'id'      => 'date',
-						'label'   => esc_html__( 'Date Archives', 'fl-theme-builder' ),
-						'type'    => 'general',
+					'date'    => array(
+						'id'    => 'date',
+						'label' => esc_html__( 'Date Archives', 'fl-theme-builder' ),
+						'type'  => 'general',
 					),
-					'search' => array(
-						'id'      => 'search',
-						'label'   => esc_html__( 'Search Results', 'fl-theme-builder' ),
-						'type'    => 'general',
+					'search'  => array(
+						'id'    => 'search',
+						'label' => esc_html__( 'Search Results', 'fl-theme-builder' ),
+						'type'  => 'general',
 					),
-					'404' => array(
-						'id'      => '404',
-						'label'   => esc_html__( '404 Page', 'fl-theme-builder' ),
-						'type'    => 'general',
+					'404'     => array(
+						'id'    => '404',
+						'label' => esc_html__( '404 Page', 'fl-theme-builder' ),
+						'type'  => 'general',
 					),
 				),
 			),
@@ -729,15 +729,15 @@ final class FLThemeBuilderRulesLocation {
 			}
 
 			$post_type_object = get_post_type_object( $post_type_slug );
-			$counts = wp_count_posts( $post_type_slug );
-			$count = $counts->publish + $counts->future + $counts->draft + $counts->pending + $counts->private;
+			$counts           = wp_count_posts( $post_type_slug );
+			$count            = $counts->publish + $counts->future + $counts->draft + $counts->pending + $counts->private;
 
 			// Add the post type.
 			$by_template_type['post'][ $post_type_slug ] = array(
-				'id'      => $post_type_slug,
-				'label'   => esc_html( $post_type->labels->singular_name ),
-				'type'    => 'post',
-				'count'   => $count,
+				'id'    => $post_type_slug,
+				'label' => esc_html( $post_type->labels->singular_name ),
+				'type'  => 'post',
+				'count' => $count,
 			);
 
 			$by_post_type[ $post_type_slug ] = array(
@@ -749,35 +749,39 @@ final class FLThemeBuilderRulesLocation {
 
 			// Add the parent and ancestor option for hierarchical post types.
 			if ( $post_type_object->hierarchical ) {
-				$by_template_type['post'][ $post_type_slug . ':post:' . $post_type_slug ] =
-				$by_post_type[ $post_type_slug ]['locations'][ $post_type_slug . ':post:' . $post_type_slug ] = array(
-					'id'      => $post_type_slug . ':post:' . $post_type_slug,
-					'label'   => sprintf( esc_html_x( '%s Parent', '%s is a singular post type name', 'fl-theme-builder' ), $post_type->labels->singular_name ),
-					'type'    => 'post',
-					'count'   => $count,
+				$by_template_type['post'][ $post_type_slug . ':post:' . $post_type_slug ]                     =
+				$by_post_type[ $post_type_slug ]['locations'][ $post_type_slug . ':post:' . $post_type_slug ] = array( // @codingStandardsIgnoreLine
+					'id'    => $post_type_slug . ':post:' . $post_type_slug,
+					/* translators: %s: singlular post type name */
+					'label' => sprintf( esc_html_x( '%s Parent', '%s is a singular post type name', 'fl-theme-builder' ), $post_type->labels->singular_name ),
+					'type'  => 'post',
+					'count' => $count,
 				);
 
-				$by_template_type['post'][ $post_type_slug . ':ancestor:' . $post_type_slug ] =
-				$by_post_type[ $post_type_slug ]['locations'][ $post_type_slug . ':ancestor:' . $post_type_slug ] = array(
-					'id'      => $post_type_slug . ':ancestor:' . $post_type_slug,
-					'label'   => sprintf( esc_html_x( '%s Ancestor', '%s is a singular post type name', 'fl-theme-builder' ), $post_type->labels->singular_name ),
-					'type'    => 'post',
-					'count'   => $count,
+				$by_template_type['post'][ $post_type_slug . ':ancestor:' . $post_type_slug ]                     =
+				$by_post_type[ $post_type_slug ]['locations'][ $post_type_slug . ':ancestor:' . $post_type_slug ] = array( // @codingStandardsIgnoreLine
+					'id'    => $post_type_slug . ':ancestor:' . $post_type_slug,
+					/* translators: %s: singlular post type name */
+					'label' => sprintf( esc_html_x( '%s Ancestor', '%s is a singular post type name', 'fl-theme-builder' ), $post_type->labels->singular_name ),
+					'type'  => 'post',
+					'count' => $count,
 				);
 			}
 
 			// Add the post type archive.
 			$by_post_type[ $post_type_slug . '_archive' ] = array(
-				'label' => sprintf( esc_html_x( '%s Archives', '%s is a singular post type name', 'fl-theme-builder' ), $post_type->labels->singular_name ),
+				/* translators: %s: singlular post type name */
+				'label'     => sprintf( esc_html_x( '%s Archives', '%s is a singular post type name', 'fl-theme-builder' ), $post_type->labels->singular_name ),
 				'locations' => array(),
 			);
 
 			if ( 'post' == $post_type_slug || ! empty( $post_type_object->has_archive ) ) {
 
 				$by_template_type['archive'][ $post_type_slug ] = array(
-					'id'      => $post_type_slug,
-					'label'   => sprintf( esc_html_x( '%s Archive', '%s is a singular post type name', 'fl-theme-builder' ), $post_type->labels->singular_name ),
-					'type'    => 'archive',
+					'id'    => $post_type_slug,
+					/* translators: %s: singlular post type name */
+					'label' => sprintf( esc_html_x( '%s Archive', '%s is a singular post type name', 'fl-theme-builder' ), $post_type->labels->singular_name ),
+					'type'  => 'archive',
 				);
 
 				$by_post_type[ $post_type_slug . '_archive' ]['locations'][ $post_type_slug . '_archive' ] = $by_template_type['archive'][ $post_type_slug ];
@@ -801,20 +805,21 @@ final class FLThemeBuilderRulesLocation {
 					$post_type->labels->singular_name,
 				), '', $taxonomy->labels->singular_name ) );
 
-				$by_template_type['taxonomy'][ $taxonomy_slug ] =
-				$by_post_type[ $post_type_slug . '_archive' ]['locations'][ $taxonomy_slug ] = array(
-					'id'      => $taxonomy_slug,
-					'label'   => sprintf( esc_html_x( '%1$s %2$s Archive', '%1$s is post type label. %2$s is taxonomy label.', 'fl-theme-builder' ), $post_type->labels->singular_name, $label ),
-					'type'    => 'taxonomy',
-					'count'   => wp_count_terms( $taxonomy_slug ),
+				$by_template_type['taxonomy'][ $taxonomy_slug ]                              =
+				$by_post_type[ $post_type_slug . '_archive' ]['locations'][ $taxonomy_slug ] = array( // @codingStandardsIgnoreLine
+					'id'    => $taxonomy_slug,
+					/* translators: 1: post type label, 2: taxonomy label */
+					'label' => sprintf( esc_html_x( '%1$s %2$s Archive', '%1$s is post type label. %2$s is taxonomy label.', 'fl-theme-builder' ), $post_type->labels->singular_name, $label ),
+					'type'  => 'taxonomy',
+					'count' => wp_count_terms( $taxonomy_slug ),
 				);
 
-				$by_template_type['post'][ $post_type_slug . ':taxonomy:' . $taxonomy_slug ] =
-				$by_post_type[ $post_type_slug ]['locations'][ $post_type_slug . ':taxonomy:' . $taxonomy_slug ] = array(
-					'id'      => $post_type_slug . ':taxonomy:' . $taxonomy_slug,
-					'label'   => esc_html( $post_type->labels->singular_name . ' ' . $label ),
-					'type'    => 'post',
-					'count'   => wp_count_terms( $taxonomy_slug ),
+				$by_template_type['post'][ $post_type_slug . ':taxonomy:' . $taxonomy_slug ]                     =
+				$by_post_type[ $post_type_slug ]['locations'][ $post_type_slug . ':taxonomy:' . $taxonomy_slug ] = array( // @codingStandardsIgnoreLine
+					'id'    => $post_type_slug . ':taxonomy:' . $taxonomy_slug,
+					'label' => esc_html( $post_type->labels->singular_name . ' ' . $label ),
+					'type'  => 'post',
+					'count' => wp_count_terms( $taxonomy_slug ),
 				);
 			}
 		}
@@ -853,10 +858,10 @@ final class FLThemeBuilderRulesLocation {
 		global $post;
 
 		$config = array(
-			'saved'      => self::get_saved( $post->ID, true ),
-			'allSaved'   => self::get_all_saved(),
-			'post'       => array(),
-			'taxonomy'   => array(),
+			'saved'    => self::get_saved( $post->ID, true ),
+			'allSaved' => self::get_all_saved(),
+			'post'     => array(),
+			'taxonomy' => array(),
 		);
 
 		foreach ( $config['saved'] as $location ) {
@@ -1007,8 +1012,8 @@ final class FLThemeBuilderRulesLocation {
 
 		foreach ( $terms as $term ) {
 			$data['objects'][] = array(
-				'id'    => $term->term_id,
-				'name'  => esc_attr( $term->name ),
+				'id'   => $term->term_id,
+				'name' => esc_attr( $term->name ),
 			);
 		}
 
@@ -1066,16 +1071,16 @@ final class FLThemeBuilderRulesLocation {
 
 		} else {
 			$format = implode( ', ', array_fill( 0, count( $post_status ), '%s' ) );
-			$query = sprintf( "SELECT ID, post_title from $wpdb->posts where post_type = '%s' AND post_status IN(%s) ORDER BY post_title", $post_type, $format );
+			$query  = sprintf( "SELECT ID, post_title from $wpdb->posts where post_type = '%s' AND post_status IN(%s) ORDER BY post_title", $post_type, $format );
 			// @codingStandardsIgnoreLine
 			$posts = $wpdb->get_results( $wpdb->prepare( $query, $post_status ) );
 		}
 
 		foreach ( $posts as $post ) {
-			$title = ( '' != $post->post_title ) ? esc_attr( strip_tags( filter_var( $post->post_title, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES ) ) ) : $post_type . '-' . $post->ID;
+			$title             = ( '' != $post->post_title ) ? esc_attr( strip_tags( filter_var( $post->post_title, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES ) ) ) : $post_type . '-' . $post->ID;
 			$data['objects'][] = array(
-				'id'    => $post->ID,
-				'name'  => $title,
+				'id'   => $post->ID,
+				'name' => $title,
 			);
 		}
 		return $data;
@@ -1101,10 +1106,10 @@ final class FLThemeBuilderRulesLocation {
 		$post_type = sanitize_text_field( $_POST['id'] );
 
 		if ( strstr( $post_type, ':post:' ) ) {
-			$parts = explode( ':post:', $post_type );
+			$parts     = explode( ':post:', $post_type );
 			$post_type = $parts[1];
 		} elseif ( strstr( $post_type, ':ancestor:' ) ) {
-			$parts = explode( ':ancestor:', $post_type );
+			$parts     = explode( ':ancestor:', $post_type );
 			$post_type = $parts[1];
 		}
 
@@ -1127,10 +1132,10 @@ final class FLThemeBuilderRulesLocation {
 		$saved       = self::get_saved( $post_id );
 		$preview     = array(
 			'general'  => array(
-				'none'    => array(
-					'id'      => 'none',
-					'label'   => __( 'None', 'fl-theme-builder' ),
-					'type'    => 'general',
+				'none' => array(
+					'id'    => 'none',
+					'label' => __( 'None', 'fl-theme-builder' ),
+					'type'  => 'general',
 				),
 			),
 			'post'     => array(),
@@ -1164,33 +1169,33 @@ final class FLThemeBuilderRulesLocation {
 						if ( strstr( $post_type, ':' ) ) {
 							continue; // only include actual post types.
 						}
-						$preview['post'][ $post_type ] = $post_location;
+						$preview['post'][ $post_type ]          = $post_location;
 						$preview['post'][ $post_type ]['posts'] = array();
-						$preview['post'][ $post_type ]['all'] = true;
+						$preview['post'][ $post_type ]['all']   = true;
 					}
 				} elseif ( in_array( $parts[1], array( 'archive', 'author', 'date', 'search' ) ) ) {
 
 					if ( 'archive' == $parts[1] ) {
 						foreach ( $all['by_template_type']['taxonomy'] as $taxonomy => $taxonomy_location ) {
-							$preview['taxonomy'][ $taxonomy ] = $taxonomy_location;
+							$preview['taxonomy'][ $taxonomy ]          = $taxonomy_location;
 							$preview['taxonomy'][ $taxonomy ]['terms'] = array();
-							$preview['taxonomy'][ $taxonomy ]['all'] = true;
+							$preview['taxonomy'][ $taxonomy ]['all']   = true;
 						}
 					}
 
 					if ( 'archive' == $parts[1] || 'search' == $parts[1] ) {
 						$preview['general']['search'] = array(
-							'id'      => 'search',
-							'label'   => __( 'Search Results', 'fl-theme-builder' ),
-							'type'    => 'general',
+							'id'    => 'search',
+							'label' => __( 'Search Results', 'fl-theme-builder' ),
+							'type'  => 'general',
 						);
 					}
 
 					if ( 'author' == $parts[1] ) {
 						$preview['general']['author'] = array(
-							'id'      => 'author',
-							'label'   => __( 'Author Archives', 'fl-theme-builder' ),
-							'type'    => 'general',
+							'id'    => 'author',
+							'label' => __( 'Author Archives', 'fl-theme-builder' ),
+							'type'  => 'general',
 						);
 					}
 
@@ -1201,9 +1206,9 @@ final class FLThemeBuilderRulesLocation {
 			} elseif ( 'post' == $parts[0] ) {
 
 				if ( ! isset( $preview['post'][ $parts[1] ] ) && isset( $all['by_template_type']['post'][ $parts[1] ] ) ) {
-					$preview['post'][ $parts[1] ] = $all['by_template_type']['post'][ $parts[1] ];
+					$preview['post'][ $parts[1] ]          = $all['by_template_type']['post'][ $parts[1] ];
 					$preview['post'][ $parts[1] ]['posts'] = array();
-					$preview['post'][ $parts[1] ]['all'] = false;
+					$preview['post'][ $parts[1] ]['all']   = false;
 				}
 
 				if ( isset( $parts[2] ) && is_numeric( $parts[2] ) && get_post( $parts[2] ) ) {
@@ -1219,9 +1224,9 @@ final class FLThemeBuilderRulesLocation {
 			} elseif ( 'taxonomy' == $parts[0] ) {
 
 				if ( ! isset( $preview['taxonomy'][ $parts[1] ] ) && isset( $all['by_template_type']['taxonomy'][ $parts[1] ] ) ) {
-					$preview['taxonomy'][ $parts[1] ] = $all['by_template_type']['taxonomy'][ $parts[1] ];
+					$preview['taxonomy'][ $parts[1] ]          = $all['by_template_type']['taxonomy'][ $parts[1] ];
 					$preview['taxonomy'][ $parts[1] ]['terms'] = array();
-					$preview['taxonomy'][ $parts[1] ]['all'] = false;
+					$preview['taxonomy'][ $parts[1] ]['all']   = false;
 				}
 
 				if ( isset( $parts[2] ) ) {
@@ -1280,7 +1285,7 @@ final class FLThemeBuilderRulesLocation {
 					'hide_empty' => false,
 				) );
 
-				if ( ! empty( $terms ) ) {
+				if ( ! is_wp_error( $terms ) && ! empty( $terms ) ) {
 					$location = 'taxonomy:' . $taxonomy . ':' . $terms[0]->term_id;
 					break;
 				}
@@ -1363,7 +1368,7 @@ final class FLThemeBuilderRulesLocation {
 		if ( 'post' == $preview[0] && post_type_exists( $preview[1] ) && get_post( $preview[2] ) ) {
 			self::$preview_args = array(
 				'post_type' => $preview[1],
-				'p' => $preview[2],
+				'p'         => $preview[2],
 			);
 		} elseif ( 'archive' == $preview[0] ) {
 			self::$preview_args = array(
@@ -1402,12 +1407,12 @@ final class FLThemeBuilderRulesLocation {
 
 		// Setup the preview hooks.
 		if ( self::$preview_args ) {
-			add_action( 'wp_enqueue_scripts',                           __CLASS__ . '::set_preview_query', 1 );
-			add_action( 'wp_enqueue_scripts',                           __CLASS__ . '::reset_preview_query', PHP_INT_MAX );
-			add_action( 'fl_builder_render_content_start',              __CLASS__ . '::set_preview_query' );
-			add_action( 'fl_builder_render_content_complete',           __CLASS__ . '::reset_preview_query' );
-			add_action( 'fl_builder_before_render_ajax_layout_html',    __CLASS__ . '::set_preview_query' );
-			add_action( 'fl_builder_after_render_ajax_layout_html',     __CLASS__ . '::reset_preview_query' );
+			add_action( 'wp_enqueue_scripts', __CLASS__ . '::set_preview_query', 1 );
+			add_action( 'wp_enqueue_scripts', __CLASS__ . '::reset_preview_query', PHP_INT_MAX );
+			add_action( 'fl_builder_render_content_start', __CLASS__ . '::set_preview_query' );
+			add_action( 'fl_builder_render_content_complete', __CLASS__ . '::reset_preview_query' );
+			add_action( 'fl_builder_before_render_ajax_layout_html', __CLASS__ . '::set_preview_query' );
+			add_action( 'fl_builder_after_render_ajax_layout_html', __CLASS__ . '::reset_preview_query' );
 		}
 	}
 
@@ -1434,7 +1439,12 @@ final class FLThemeBuilderRulesLocation {
 		// Force the builder to use the current post ID
 		// during AJAX as we are about to override it.
 		if ( defined( 'DOING_AJAX' ) ) {
-			FLBuilderModel::set_post_id( $post->ID );
+			$original_post = self::get_preview_original_post();
+			$layout_type   = get_post_meta( $original_post->ID, '_fl_theme_layout_type', true );
+
+			if ( ! in_array( $layout_type, array( 'footer', 'header' ) ) ) {
+				FLBuilderModel::set_post_id( $post->ID );
+			}
 		}
 
 		// Create the preview query.
@@ -1447,7 +1457,7 @@ final class FLThemeBuilderRulesLocation {
 
 		// Override $wp_query and $post with the preview query.
 		$wp_query = self::$preview_query;
-		$post = self::$preview_query->post;
+		$post     = self::$preview_query->post;
 		setup_postdata( $post );
 	}
 

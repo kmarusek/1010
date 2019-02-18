@@ -13,7 +13,7 @@ if ( is_post_type_archive( 'tribe_events' ) ) {
 			$_POST['eventDate'] = date( 'Y-m' );
 		}
 
-		$view = Tribe__Events__Main::instance()->default_view();
+		$view  = Tribe__Events__Main::instance()->default_view();
 		$class = false;
 
 		if ( 'list' === $view ) {
@@ -24,19 +24,19 @@ if ( is_post_type_archive( 'tribe_events' ) ) {
 			$class = 'Tribe__Events__Template__Day';
 		} elseif ( defined( 'EVENTS_CALENDAR_PRO_FILE' ) ) {
 			if ( 'week' === $view ) {
-				$view = 'pro/week/content';
+				$view  = 'pro/week/content';
 				$class = 'Tribe__Events__Pro__Templates__Week';
 			} elseif ( 'photo' === $view ) {
-				$view = 'pro/photo/content';
+				$view  = 'pro/photo/content';
 				$class = 'Tribe__Events__Pro__Templates__Week';
 			} elseif ( 'map' === $view ) {
-				$view = 'pro/map/content';
+				$view  = 'pro/map/content';
 				$class = 'Tribe__Events__Pro__Templates__Map';
 			}
 		}
 
 		if ( ! $class ) {
-			$view = 'month';
+			$view  = 'month';
 			$class = 'Tribe__Events__Template__Month';
 		}
 

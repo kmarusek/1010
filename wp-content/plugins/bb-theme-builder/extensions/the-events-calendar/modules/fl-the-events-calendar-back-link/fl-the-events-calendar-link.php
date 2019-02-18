@@ -13,6 +13,6 @@ FLBuilder::register_module_alias( 'fl-the-events-calendar-back-link', array(
 	'category'    => __( 'The Events Calendar', 'fl-theme-builder' ),
 	'enabled'     => FLThemeBuilderLayoutData::current_post_is( 'singular' ),
 	'settings'    => array(
-		'text'		  => '[wpbb post:the_events_calendar_back_link]',
+		'text' => '[wpbb post:the_events_calendar_back_link]',
 	),
 ) );

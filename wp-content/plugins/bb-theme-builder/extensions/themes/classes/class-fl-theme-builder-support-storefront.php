@@ -18,14 +18,14 @@ final class FLThemeBuilderSupportStorefront {
 		add_theme_support( 'fl-theme-builder-footers' );
 		add_theme_support( 'fl-theme-builder-parts' );
 
-		add_filter( 'fl_theme_builder_part_hooks',          __CLASS__ . '::register_part_hooks' );
-		add_filter( 'theme_fl-theme-layout_templates',      __CLASS__ . '::register_php_templates' );
-		add_filter( 'body_class',                           __CLASS__ . '::body_class' );
+		add_filter( 'fl_theme_builder_part_hooks', __CLASS__ . '::register_part_hooks' );
+		add_filter( 'theme_fl-theme-layout_templates', __CLASS__ . '::register_php_templates' );
+		add_filter( 'body_class', __CLASS__ . '::body_class' );
 
-		add_action( 'wp',                                   __CLASS__ . '::setup_headers_and_footers' );
-		add_action( 'wp_enqueue_scripts',                   __CLASS__ . '::enqueue_scripts' );
+		add_action( 'wp', __CLASS__ . '::setup_headers_and_footers' );
+		add_action( 'wp_enqueue_scripts', __CLASS__ . '::enqueue_scripts' );
 		add_action( 'fl_builder_posts_module_before_posts', __CLASS__ . '::posts_module_before_posts', 8, 2 );
-		add_action( 'fl_builder_posts_module_after_posts',  __CLASS__ . '::posts_module_after_posts', 8, 2 );
+		add_action( 'fl_builder_posts_module_after_posts', __CLASS__ . '::posts_module_after_posts', 8, 2 );
 	}
 
 	/**
@@ -52,25 +52,25 @@ final class FLThemeBuilderSupportStorefront {
 			array(
 				'label' => __( 'Homepage', 'fl-theme-builder' ),
 				'hooks' => array(
-					'storefront_homepage'                                  => __( 'Homepage', 'fl-theme-builder' ),
-					'storefront_homepage_before_product_categories'        => __( 'Before Product Categories', 'fl-theme-builder' ),
-					'storefront_homepage_after_product_categories_title'   => __( 'After Product Categories Title', 'fl-theme-builder' ),
-					'storefront_homepage_after_product_categories'         => __( 'After Product Categories', 'fl-theme-builder' ),
-					'storefront_homepage_before_recent_products'           => __( 'Before Recent Products', 'fl-theme-builder' ),
-					'storefront_homepage_after_recent_products_title'      => __( 'After Recent Products Title', 'fl-theme-builder' ),
-					'storefront_homepage_after_recent_products'            => __( 'After Recent Products', 'fl-theme-builder' ),
-					'storefront_homepage_before_featured_products'         => __( 'Before Featured Products', 'fl-theme-builder' ),
-					'storefront_homepage_after_featured_products_title'    => __( 'After Featured Products Title', 'fl-theme-builder' ),
-					'storefront_homepage_after_featured_products'          => __( 'After Featured Products', 'fl-theme-builder' ),
-					'storefront_homepage_before_popular_products'          => __( 'Before Popular Products', 'fl-theme-builder' ),
-					'storefront_homepage_after_popular_products_title'     => __( 'After Popular Products Title', 'fl-theme-builder' ),
-					'storefront_homepage_after_popular_products'           => __( 'After Popular Products', 'fl-theme-builder' ),
-					'storefront_homepage_before_on_sale_products'          => __( 'Before On Sale Products', 'fl-theme-builder' ),
-					'storefront_homepage_after_on_sale_products_title'     => __( 'After On Sale Products Title', 'fl-theme-builder' ),
-					'storefront_homepage_after_on_sale_products'           => __( 'After On Sale Products', 'fl-theme-builder' ),
-					'storefront_homepage_before_best_selling_products'     => __( 'Before Best Selling Products', 'fl-theme-builder' ),
+					'storefront_homepage' => __( 'Homepage', 'fl-theme-builder' ),
+					'storefront_homepage_before_product_categories' => __( 'Before Product Categories', 'fl-theme-builder' ),
+					'storefront_homepage_after_product_categories_title' => __( 'After Product Categories Title', 'fl-theme-builder' ),
+					'storefront_homepage_after_product_categories' => __( 'After Product Categories', 'fl-theme-builder' ),
+					'storefront_homepage_before_recent_products' => __( 'Before Recent Products', 'fl-theme-builder' ),
+					'storefront_homepage_after_recent_products_title' => __( 'After Recent Products Title', 'fl-theme-builder' ),
+					'storefront_homepage_after_recent_products' => __( 'After Recent Products', 'fl-theme-builder' ),
+					'storefront_homepage_before_featured_products' => __( 'Before Featured Products', 'fl-theme-builder' ),
+					'storefront_homepage_after_featured_products_title' => __( 'After Featured Products Title', 'fl-theme-builder' ),
+					'storefront_homepage_after_featured_products' => __( 'After Featured Products', 'fl-theme-builder' ),
+					'storefront_homepage_before_popular_products' => __( 'Before Popular Products', 'fl-theme-builder' ),
+					'storefront_homepage_after_popular_products_title' => __( 'After Popular Products Title', 'fl-theme-builder' ),
+					'storefront_homepage_after_popular_products' => __( 'After Popular Products', 'fl-theme-builder' ),
+					'storefront_homepage_before_on_sale_products' => __( 'Before On Sale Products', 'fl-theme-builder' ),
+					'storefront_homepage_after_on_sale_products_title' => __( 'After On Sale Products Title', 'fl-theme-builder' ),
+					'storefront_homepage_after_on_sale_products' => __( 'After On Sale Products', 'fl-theme-builder' ),
+					'storefront_homepage_before_best_selling_products' => __( 'Before Best Selling Products', 'fl-theme-builder' ),
 					'storefront_homepage_after_best_selling_products_title' => __( 'After Best Selling Products Title', 'fl-theme-builder' ),
-					'storefront_homepage_after_best_selling_products'       => __( 'After Best Selling Products', 'fl-theme-builder' ),
+					'storefront_homepage_after_best_selling_products' => __( 'After Best Selling Products', 'fl-theme-builder' ),
 				),
 			),
 			array(
@@ -87,7 +87,8 @@ final class FLThemeBuilderSupportStorefront {
 					'storefront_footer'        => __( 'Footer', 'fl-theme-builder' ),
 					'storefront_after_footer'  => __( 'After Footer', 'fl-theme-builder' ),
 				),
-			),array(
+			),
+			array(
 				'label' => __( 'Sidebar', 'fl-theme-builder' ),
 				'hooks' => array(
 					'storefront_sidebar' => __( 'Sidebar', 'fl-theme-builder' ),
@@ -114,10 +115,10 @@ final class FLThemeBuilderSupportStorefront {
 			array(
 				'label' => __( 'Archives', 'fl-theme-builder' ),
 				'hooks' => array(
-					'storefront_loop_before' => __( 'Before Loop', 'fl-theme-builder' ),
-					'storefront_loop_after'  => __( 'After Loop', 'fl-theme-builder' ),
+					'storefront_loop_before'         => __( 'Before Loop', 'fl-theme-builder' ),
+					'storefront_loop_after'          => __( 'After Loop', 'fl-theme-builder' ),
 					'storefront_post_content_before' => __( 'Post Content Before', 'fl-theme-builder' ),
-					'storefront_post_content_after' => __( 'Post Content After', 'fl-theme-builder' ),
+					'storefront_post_content_after'  => __( 'Post Content After', 'fl-theme-builder' ),
 				),
 			),
 		);

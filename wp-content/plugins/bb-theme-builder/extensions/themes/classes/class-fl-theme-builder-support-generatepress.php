@@ -18,11 +18,11 @@ final class FLThemeBuilderSupportGeneratePress {
 		add_theme_support( 'fl-theme-builder-footers' );
 		add_theme_support( 'fl-theme-builder-parts' );
 
-		add_filter( 'fl_theme_builder_part_hooks',      __CLASS__ . '::register_part_hooks' );
-		add_filter( 'theme_fl-theme-layout_templates',  __CLASS__ . '::register_php_templates' );
-		add_filter( 'body_class',                 		__CLASS__ . '::body_class' );
+		add_filter( 'fl_theme_builder_part_hooks', __CLASS__ . '::register_part_hooks' );
+		add_filter( 'theme_fl-theme-layout_templates', __CLASS__ . '::register_php_templates' );
+		add_filter( 'body_class', __CLASS__ . '::body_class' );
 
-		add_action( 'wp', 								__CLASS__ . '::setup_headers_and_footers' );
+		add_action( 'wp', __CLASS__ . '::setup_headers_and_footers' );
 	}
 
 	/**
@@ -36,10 +36,10 @@ final class FLThemeBuilderSupportGeneratePress {
 			array(
 				'label' => __( 'Header', 'fl-theme-builder' ),
 				'hooks' => array(
-					'generate_before_header'   		 => __( 'Before Header', 'fl-theme-builder' ),
+					'generate_before_header'         => __( 'Before Header', 'fl-theme-builder' ),
 					'generate_before_header_content' => __( 'Before Header Content', 'fl-theme-builder' ),
 					'generate_after_header_content'  => __( 'After Header Content', 'fl-theme-builder' ),
-					'generate_after_header'    		 => __( 'After Header', 'fl-theme-builder' ),
+					'generate_after_header'          => __( 'After Header', 'fl-theme-builder' ),
 				),
 			),
 			array(
@@ -65,9 +65,9 @@ final class FLThemeBuilderSupportGeneratePress {
 				'label' => __( 'Sidebar', 'fl-theme-builder' ),
 				'hooks' => array(
 					'generate_before_right_sidebar_content' => __( 'Before Right Sidebar Content', 'fl-theme-builder' ),
-					'generate_after_right_sidebar_content'  => __( 'After Right Sidebar Content', 'fl-theme-builder' ),
-					'generate_before_left_sidebar_content'  => __( 'Before Left Sidebar Content', 'fl-theme-builder' ),
-					'generate_after_left_sidebar_content'   => __( 'After Left Sidebar Content', 'fl-theme-builder' ),
+					'generate_after_right_sidebar_content' => __( 'After Right Sidebar Content', 'fl-theme-builder' ),
+					'generate_before_left_sidebar_content' => __( 'Before Left Sidebar Content', 'fl-theme-builder' ),
+					'generate_after_left_sidebar_content'  => __( 'After Left Sidebar Content', 'fl-theme-builder' ),
 				),
 			),
 			array(

@@ -38,7 +38,13 @@ final class FLPageDataTheEventsCalendar {
 	 */
 	static public function start_time() {
 		$time_format = get_option( 'time_format', Tribe__Date_Utils::TIMEFORMAT );
-		return tribe_get_start_date( null, false, $time_format );
+		$event_time  = tribe_get_start_date( null, false, $time_format );
+
+		if ( tribe_get_option( 'tribe_events_timezones_show_zone' ) ) {
+			$event_id   = Tribe__Events__Main::postIdHelper();
+			$event_time = Tribe__Events__Timezones::append_timezone( $event_time, $event_id );
+		}
+		return $event_time;
 	}
 
 	/**
@@ -61,7 +67,14 @@ final class FLPageDataTheEventsCalendar {
 	 */
 	static public function end_time() {
 		$time_format = get_option( 'time_format', Tribe__Date_Utils::TIMEFORMAT );
-		return tribe_get_end_date( null, false, $time_format );
+		$event_time  = tribe_get_end_date( null, false, $time_format );
+
+		if ( tribe_get_option( 'tribe_events_timezones_show_zone' ) ) {
+			$event_id   = Tribe__Events__Main::postIdHelper();
+			$event_time = Tribe__Events__Timezones::append_timezone( $event_time, $event_id );
+		}
+
+		return $event_time;
 	}
 
 	/**
@@ -93,7 +106,7 @@ final class FLPageDataTheEventsCalendar {
 				foreach ( $fields as $field ) {
 					if ( $settings->name === $field['label'] ) {
 						$post_id = Tribe__Events__Main::postIdHelper();
-						$value = str_replace( '|', ', ', get_post_meta( $post_id, $field['name'], true ) );
+						$value   = str_replace( '|', ', ', get_post_meta( $post_id, $field['name'], true ) );
 					}
 				}
 			}

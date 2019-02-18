@@ -48,24 +48,24 @@ final class FLPageDataSite {
 	static public function add_user_settings_fields( $key, $fields = array() ) {
 
 		$fields['user'] = array(
-			'type'          => 'select',
-			'label'         => __( 'User', 'fl-theme-builder' ),
-			'default'       => 'current',
-			'options'		=> array(
-				'current'		=> __( 'Current User', 'fl-theme-builder' ),
-				'specific'		=> __( 'Specific User', 'fl-theme-builder' ),
+			'type'    => 'select',
+			'label'   => __( 'User', 'fl-theme-builder' ),
+			'default' => 'current',
+			'options' => array(
+				'current'  => __( 'Current User', 'fl-theme-builder' ),
+				'specific' => __( 'Specific User', 'fl-theme-builder' ),
 			),
-			'toggle'		=> array(
-				'specific'		=> array(
-					'fields'		=> array( 'user_id' ),
+			'toggle'  => array(
+				'specific' => array(
+					'fields' => array( 'user_id' ),
 				),
 			),
 		);
 
 		$fields['user_id'] = array(
-			'type'  	=> 'text',
-			'label' 	=> __( 'User ID', 'fl-theme-builder' ),
-			'size'		=> 10,
+			'type'  => 'text',
+			'label' => __( 'User ID', 'fl-theme-builder' ),
+			'size'  => 10,
 		);
 
 		FLPageData::add_site_property_settings_fields( $key, $fields );
@@ -91,40 +91,40 @@ final class FLPageDataSite {
 
 			case 'display':
 				$name = $user->display_name;
-			break;
+				break;
 
 			case 'first':
 				$name = get_user_meta( $user->ID, 'first_name', true );
-			break;
+				break;
 
 			case 'last':
 				$name = get_user_meta( $user->ID, 'last_name', true );
-			break;
+				break;
 
 			case 'firstlast':
 				$first = get_user_meta( $user->ID, 'first_name', true );
 				$last  = get_user_meta( $user->ID, 'last_name', true );
 				$name  = $first . ' ' . $last;
-			break;
+				break;
 
 			case 'lastfirst':
 				$first = get_user_meta( $user->ID, 'first_name', true );
 				$last  = get_user_meta( $user->ID, 'last_name', true );
 				$name  = $last . ', ' . $first;
-			break;
+				break;
 
 			case 'nickname':
 				$name = $user->user_nicename;
-			break;
+				break;
 
 			case 'username':
 				$name = $user->user_login;
-			break;
+				break;
 		}
 
 		if ( $name && 'yes' == $settings->link ) {
 			$settings->type = $settings->link_type;
-			$name = '<a href="' . self::get_user_url( $settings ) . '">' . $name . '</a>';
+			$name           = '<a href="' . self::get_user_url( $settings ) . '">' . $name . '</a>';
 		}
 
 		return $name;
@@ -188,7 +188,7 @@ final class FLPageDataSite {
 
 			if ( 'yes' == $settings->link ) {
 				$settings->type = $settings->link_type;
-				$avatar = '<a href="' . self::get_user_url( $settings ) . '">' . $avatar . '</a>';
+				$avatar         = '<a href="' . self::get_user_url( $settings ) . '">' . $avatar . '</a>';
 			}
 		}
 
@@ -207,7 +207,7 @@ final class FLPageDataSite {
 
 		if ( $user ) {
 			// We get the url like this because not all custom avatar plugins filter get_avatar_url.
-			$size = ! is_numeric( $settings->size ) ? 512 : $settings->size;
+			$size   = ! is_numeric( $settings->size ) ? 512 : $settings->size;
 			$avatar = get_avatar( $user->ID, $size );
 			preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $avatar, $matches, PREG_SET_ORDER );
 			$url = ! empty( $matches ) && isset( $matches[0][1] ) ? $matches[0][1] : '';

@@ -14,10 +14,10 @@ FLBuilder::register_module_alias( 'fl-attached-images', array(
 	'enabled'     => FLThemeBuilderLayoutData::current_post_is( 'singular' ),
 	'settings'    => array(
 		'connections' => array(
-			'photos'      => (object) array(
-				'object'      => 'post',
-				'property'    => 'attached_images',
-				'field'       => 'multiple-photos',
+			'photos' => (object) array(
+				'object'   => 'post',
+				'property' => 'attached_images',
+				'field'    => 'multiple-photos',
 			),
 		),
 	),

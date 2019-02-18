@@ -36,8 +36,8 @@ final class FLPageDataEDD {
 		if ( edd_is_free_download( $post_id ) ) {
 			$price = __( 'Free', 'fl-theme-builder' );
 		} elseif ( edd_has_variable_prices( $post_id ) ) {
-			$low  = edd_currency_filter( edd_format_amount( edd_get_lowest_price_option( $post_id ) ) );
-			$high = edd_currency_filter( edd_format_amount( edd_get_highest_price_option( $post_id ) ) );
+			$low   = edd_currency_filter( edd_format_amount( edd_get_lowest_price_option( $post_id ) ) );
+			$high  = edd_currency_filter( edd_format_amount( edd_get_highest_price_option( $post_id ) ) );
 			$price = $low . ' &ndash; ' . $high;
 		} else {
 			$price = edd_currency_filter( edd_format_amount( edd_get_download_price( $post_id ) ) );

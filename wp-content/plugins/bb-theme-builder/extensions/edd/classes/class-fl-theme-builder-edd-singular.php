@@ -13,13 +13,13 @@ final class FLThemeBuilderEDDSingular {
 	 */
 	static public function init() {
 		// Actions
-		add_action( 'wp', 					 				 __CLASS__ . '::unhook_actions', 1 );
+		add_action( 'wp', __CLASS__ . '::unhook_actions', 1 );
 
 		// Filters
-		add_filter( 'fl_builder_render_css',                  __CLASS__ . '::render_css', 10, 4 );
-		add_filter( 'body_class',                             __CLASS__ . '::body_class' );
-		add_filter( 'fl_builder_content_classes',             __CLASS__ . '::content_class' );
-		add_filter( 'fl_theme_builder_content_attrs',         __CLASS__ . '::content_attrs' );
+		add_filter( 'fl_builder_render_css', __CLASS__ . '::render_css', 10, 4 );
+		add_filter( 'body_class', __CLASS__ . '::body_class' );
+		add_filter( 'fl_builder_content_classes', __CLASS__ . '::content_class' );
+		add_filter( 'fl_theme_builder_content_attrs', __CLASS__ . '::content_attrs' );
 	}
 
 	/**

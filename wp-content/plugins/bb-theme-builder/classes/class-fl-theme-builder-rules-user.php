@@ -166,24 +166,24 @@ final class FLThemeBuilderRulesUser {
 			'general' => array(
 				'label' => __( 'General', 'fl-theme-builder' ),
 				'rules' => array(
-					'all' => array(
-						'id'     => 'all',
+					'all'        => array(
+						'id'    => 'all',
 						'label' => __( 'All Users', 'fl-theme-builder' ),
 						'type'  => 'general',
 					),
-					'logged-in' => array(
-						'id'     => 'logged-in',
+					'logged-in'  => array(
+						'id'    => 'logged-in',
 						'label' => __( 'Logged In', 'fl-theme-builder' ),
 						'type'  => 'general',
 					),
 					'logged-out' => array(
-						'id'     => 'logged-out',
+						'id'    => 'logged-out',
 						'label' => __( 'Logged Out', 'fl-theme-builder' ),
 						'type'  => 'general',
 					),
 				),
 			),
-			'role' => array(
+			'role'    => array(
 				'label' => __( 'Roles', 'fl-theme-builder' ),
 				'rules' => array(),
 			),
@@ -193,7 +193,7 @@ final class FLThemeBuilderRulesUser {
 
 		foreach ( $roles as $slug => $data ) {
 			$rules['role']['rules'][ $slug ] = array(
-				'id'     => $slug,
+				'id'    => $slug,
 				'label' => $data['name'],
 				'type'  => 'role',
 			);

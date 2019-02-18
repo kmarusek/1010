@@ -1,3 +1,39 @@
+<h4>1.2.2.1 - 02/08/2019</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Fixed connections being reset on module save.</li>
+</ul>
+
+<h4>1.2.2 - 02/06/2019</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Updated to WPCS 2.0</li>
+	<li>Added SKU field connection for WooCommerce.</li>
+	<li>Added individual field connections for address parts for Events Calendar Events.</li>
+	<li>Added timezone support for Events Calender time field connections.</li>
+	<li>Added WooCommerce classes option to Posts Module.</li>
+	<li>Added FitVids support to videos in Post Content Module.</li>
+	<li>Added option to Post module to order events by start/end date.</li>
+	<li>Added more translation support for admin menu HEADER/FOOTER/PART etc.</li>
+	<li>New Connection for archives example: Showing 1-5 of 25 / Page 1 of 5.</li>
+</ul>
+
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fixed layout shortcodes not rendering correctly in header/footer areas.</li>
+	<li>Fixed EDD receipt display issues.</li>
+	<li>Renamed some field connections that had duplicate names.</li>
+	<li>Fixed 404 draft CSS issue when module is connected to post excerpt.</li>
+	<li>Make sure fl_after_content action is actually after the content.</li>
+	<li>Fixed ACF Relationship field not working in Posts Module.</li>
+</ul>
+
+<h4>1.2.1.2 - 12/06/2018</h4>
+<p><strong>Bug Fix</strong></p>
+<ul>
+	<li>Fix fatal error when updating to WP5 due to function rename.</li>
+</ul>
+
 <h4>1.2.1.1- 11/08/2018</h4>
 <p><strong>Bug Fix</strong></p>
 <ul>

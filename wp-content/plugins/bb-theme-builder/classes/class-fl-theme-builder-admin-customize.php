@@ -14,9 +14,9 @@ final class FLThemeBuilderAdminCustomize {
 	 * @return void
 	 */
 	static public function init() {
-		add_action( 'customize_controls_enqueue_scripts',       __CLASS__ . '::enqueue_scripts' );
-		add_action( 'customize_controls_print_footer_scripts',  __CLASS__ . '::footer_scripts' );
-		add_action( 'wp_footer',                                __CLASS__ . '::preview_js_config' );
+		add_action( 'customize_controls_enqueue_scripts', __CLASS__ . '::enqueue_scripts' );
+		add_action( 'customize_controls_print_footer_scripts', __CLASS__ . '::footer_scripts' );
+		add_action( 'wp_footer', __CLASS__ . '::preview_js_config' );
 	}
 
 	/**
