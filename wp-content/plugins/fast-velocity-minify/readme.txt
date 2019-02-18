@@ -2,7 +2,7 @@
 Contributors: Alignak
 Tags: PHP Minify, Lighthouse, GTmetrix, Pingdom, Pagespeed, CSS Merging, JS Merging, CSS Minification, JS Minification, Speed Optimization, HTML Minification, Performance, Optimization, Speed, Fast
 Requires at least: 4.5
-Stable tag: 2.5.6
+Stable tag: 2.5.8
 Tested up to: 5.0.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -208,6 +208,12 @@ Please backup your site before updating. Version 3.0 will have a major code rewr
 
 
 == Changelog ==
+
+= 2.5.8 [2019.02.06] =
+* minor bug fix with the defer for pagespeed option
+
+= 2.5.7 [2019.02.04] =
+* reverted back the css merging method to version 2.5.2 due to some compatibility issues
 
 = 2.5.6 [2019.01.18] =
 * fixed some php notices

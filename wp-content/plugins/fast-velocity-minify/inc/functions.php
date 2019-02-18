@@ -947,6 +947,13 @@ function fvm_safename($str, $noname=NULL) {
 }
 
 
+# escape html tags for document.write
+function fastvelocity_escape_url_js($str) {
+return str_ireplace('\\"', '\"', json_encode(str_ireplace('"', '\"', $str)));
+}
+
+
+
 # exclude processing from some pages / posts / contents
 function fastvelocity_exclude_contents() {
 	
