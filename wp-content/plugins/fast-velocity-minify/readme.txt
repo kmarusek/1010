@@ -2,8 +2,8 @@
 Contributors: Alignak
 Tags: PHP Minify, Lighthouse, GTmetrix, Pingdom, Pagespeed, CSS Merging, JS Merging, CSS Minification, JS Minification, Speed Optimization, HTML Minification, Performance, Optimization, Speed, Fast
 Requires at least: 4.5
-Stable tag: 2.5.8
-Tested up to: 5.0.3
+Stable tag: 2.5.9
+Tested up to: 5.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -200,14 +200,17 @@ If you would like to donate any amount to the plugin author (thank you in advanc
 
 == Upgrade Notice ==
 
-= 2.5.6 =
-This is expected to be the last update on the 2.x branch, before the 3.0 major release
+= 2.5.9 =
+Minor bug fixes
 
 = 3.0 =
 Please backup your site before updating. Version 3.0 will have a major code rewrite to improve JS and CSS merging. 
 
 
 == Changelog ==
+
+= 2.5.9 [2019.02.19] =
+* fixed some PHP notices, when wordpress fails to download a missing js/css file
 
 = 2.5.8 [2019.02.06] =
 * minor bug fix with the defer for pagespeed option

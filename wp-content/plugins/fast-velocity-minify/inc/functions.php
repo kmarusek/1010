@@ -949,7 +949,7 @@ function fvm_safename($str, $noname=NULL) {
 
 # escape html tags for document.write
 function fastvelocity_escape_url_js($str) {
-return str_ireplace('\\"', '\"', json_encode(str_ireplace('"', '\"', $str)));
+return str_ireplace(array('\\\\\"', '\\\\"', '\\\"', '\\"'), '\"', json_encode($str));
 }
 
 
@@ -1030,6 +1030,11 @@ function fastvelocity_download($url) {
 		if(strlen($data) > 1) {
 			return $data;
 		}
+	}
+	
+	# verify
+	if(!isset($res_code) || empty($res_code) || $res_code == false || is_null($res_code)) {
+		return false;
 	}
 	
 	# stop here, error 4xx or 5xx
