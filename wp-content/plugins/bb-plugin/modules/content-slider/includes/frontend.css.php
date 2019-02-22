@@ -299,14 +299,30 @@ for ( $i = 0; $i < count( $settings->slides ); $i++ ) {
 		FLBuilderCSS::typography_field_rule( array(
 			'settings'     => $slide,
 			'setting_name' => 'btn_typography',
-			'selector'     => ".fl-slide-$i .fl-slide-cta-button .fl-button-wrap a",
+			'selector'     => ".fl-slide-$i .fl-slide-cta-button .fl-button-wrap a.fl-button",
 		) );
 
 		FLBuilderCSS::border_field_rule( array(
 			'settings'     => $slide,
 			'setting_name' => 'btn_border',
-			'selector'     => ".fl-slide-$i .fl-slide-cta-button .fl-button-wrap a",
+			'selector'     => ".fl-slide-$i .fl-slide-cta-button .fl-button-wrap a.fl-button, .fl-slide-$i .fl-slide-cta-button .fl-button-wrap a.fl-button:hover",
 		) );
 
+
+		FLBuilderCSS::rule( array(
+			'enabled'  => ! empty( $slide->btn_border_hover_color ),
+			'selector' => ".fl-slide-$i .fl-slide-cta-button .fl-button-wrap a.fl-button:hover",
+			'props'    => array(
+				'border-color' => $slide->btn_border_hover_color,
+			),
+		) );
+
+		FLBuilderCSS::rule( array(
+			'selector' => ".fl-slide-$i .fl-slide-cta-button .fl-button-wrap a.fl-button i.fl-button-icon",
+			'enabled'  => ! empty( $slide->btn_text_color ),
+			'props'    => array(
+				'color' => $slide->btn_text_color,
+			),
+		) );
 	}
 }

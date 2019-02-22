@@ -123,7 +123,7 @@ final class FLBuilderAJAXLayout {
 	 * @return array
 	 */
 	static public function render_new_row_template( $position, $template_id, $template_type = 'user' ) {
-		if ( class_exists( 'FLBuilderTemplatesOverride' ) && FLBuilderTemplatesOverride::show_rows() ) {
+		if ( class_exists( 'FLBuilderTemplatesOverride' ) && FLBuilderTemplatesOverride::show_rows() && FLBuilderTemplatesOverride::get_source_site_id() ) {
 			$row = FLBuilderModel::apply_node_template( $template_id, null, $position );
 		} elseif ( 'core' == $template_type ) {
 			$template = FLBuilderModel::get_template( $template_id, 'row' );

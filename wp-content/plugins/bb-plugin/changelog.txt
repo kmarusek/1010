@@ -1,3 +1,11 @@
+<h4>2.2.1.2 - 02/20/2019</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Fixed Prebuilt Rows on multisite.</li>
+	<li>Fixed Text Editor links and relative urls on images.</li>
+	<li>Fixed Content Slider button colors.</li>
+</ul>
+
 <h4>2.2.1.1 - 02/14/2019</h4>
 <p><strong>Hot Fix</strong></p>
 <ul>

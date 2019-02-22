@@ -8533,7 +8533,13 @@
 			if ( undefined !== typeof tinymce && undefined !== config.mceInit[ editorId ] ) {
 
 				init = config.mceInit[ editorId ];
-				init.convert_urls = true;
+
+				init.setup = function (editor) {
+					editor.on('SaveContent', function (e) {
+						e.content = e.content.replace(/src="(\.\.\/){1,2}/g, 'src="' + FLBuilderConfig.homeUrl + '/' );
+					});
+				}
+
 				wrap = tinymce.$( '#wp-' + editorId + '-wrap' );
 				wrap.find( 'textarea' ).attr( 'rows', rows );
 
