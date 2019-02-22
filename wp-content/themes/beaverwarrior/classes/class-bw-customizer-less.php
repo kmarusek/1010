@@ -259,7 +259,7 @@ final class BWCustomizerLess {
 
 		$preset = isset( $preset ) ? $preset : null;
 		$presset = isset( self::$_presets[ $preset ]['skin'] ) ? self::$_presets[ $preset ]['skin'] : null;
-		if (self::_css_mtime( $presset ) > filemtime($css_path)) {
+		if ( $presset && self::_css_mtime( $presset ) > filemtime($css_path)) {
 			self::_compile_css();
 			return self::css_url();
 		}
