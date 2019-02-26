@@ -13,6 +13,19 @@ $hover_card_column_w 	= (array) $hover_card_column_w;
 $max_height_desktop		= (isset( $settings->hover_card_max_height ) && $settings->hover_card_max_height['desktop'] > 0) ? $settings->hover_card_max_height['desktop'] : $settings->hover_card_height['desktop'];
 $max_height_tablet		= (isset( $settings->hover_card_max_height ) && $settings->hover_card_max_height['tablet'] > 0) ? $settings->hover_card_max_height['tablet'] : $settings->hover_card_height['tablet'];
 $max_height_mobile		= (isset( $settings->hover_card_max_height ) && $settings->hover_card_max_height['mobile'] > 0) ? $settings->hover_card_max_height['mobile'] : $settings->hover_card_height['mobile'];
+
+// Hover Card Title Typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'hover_card_title_typography',
+	'selector' 		=> ".fl-node-$id .pp-hover-card .pp-hover-card-title-wrap .pp-hover-card-title",
+) );
+// Hover Card Description Typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'hover_card_description_typography',
+	'selector' 		=> ".fl-node-$id .pp-hover-card .pp-hover-card-description .pp-hover-card-description-inner",
+) );
 ?>
 
 .fl-node-<?php echo $id; ?> .pp-hover-card {
@@ -105,93 +118,99 @@ $max_height_mobile		= (isset( $settings->hover_card_max_height ) && $settings->h
 <?php
 for( $i = 0; $i < count( $settings->card_content ); $i++ ) {
 	$card = $settings->card_content[$i];
-	$padding = (array)$card->hover_card_box_padding;
+	if ( is_object( $card->hover_card_box_border_group ) ) {
+		$card->hover_card_box_border_group = (array) $card->hover_card_box_border_group;
+		foreach ( $card->hover_card_box_border_group as $key => $card_border_field ) {
+			if ( is_object( $card_border_field ) ) {
+				$card->hover_card_box_border_group[$key] = (array) $card_border_field;
+			}
+		}
+	}
+	// Button - Padding
+	FLBuilderCSS::dimension_field_rule( array(
+		'settings'		=> $card,
+		'setting_name' 	=> 'hover_card_box_padding',
+		'selector' 		=> ".fl-node-$id .pp-hover-card-$i .pp-hover-card-inner",
+		'unit'			=> 'px',
+		'props'			=> array(
+			'padding-top' 		=> 'hover_card_box_padding_top',
+			'padding-right' 	=> 'hover_card_box_padding_right',
+			'padding-bottom' 	=> 'hover_card_box_padding_bottom',
+			'padding-left' 		=> 'hover_card_box_padding_left',
+		),
+	) );
+
+	// Form Border - Settings
+	FLBuilderCSS::border_field_rule( array(
+		'settings' 		=> $card,
+		'setting_name' 	=> 'hover_card_box_border_group',
+		'selector' 		=> ".fl-node-$id .pp-hover-card-$i .pp-hover-card-inner",
+	) );
 ?>
-.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?> {
-	border-radius: <?php echo $card->hover_card_box_border_radius; ?>px;
-}
-.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?> .pp-hover-card-inner {
+	<?php if ( isset($card->hover_card_box_border_group['radius']) ) { ?>
+		.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?> {
+			border-top-left-radius: <?php echo $card->hover_card_box_border_group['radius']['top_left']; ?>px;
+			border-top-right-radius: <?php echo $card->hover_card_box_border_group['radius']['top_right']; ?>px;
+			border-bottom-left-radius: <?php echo $card->hover_card_box_border_group['radius']['bottom_left']; ?>px;
+			border-bottom-right-radius: <?php echo $card->hover_card_box_border_group['radius']['bottom_right']; ?>px;
+		}
+	<?php } ?>
+	.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?> .pp-hover-card-inner {
+		<?php if ( $card->hover_card_bg_type == 'color' ) { ?>
+			background: <?php echo $card->hover_card_bg_color == '' ? 'none' : pp_get_color_value($card->hover_card_bg_color); ?>;
+		<?php } ?>
+		transition: all 0.3s ease-in;
+	}
+
+	.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?>:hover .pp-hover-card-inner {
+		<?php if ( $card->hover_card_bg_type == 'color' && ! empty( $card->hover_card_bg_hover ) ) { ?>
+		background: <?php echo pp_get_color_value($card->hover_card_bg_hover); ?>;
+		<?php } ?>
+		transition: all 0.3s ease-in;
+	}
+
+	.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?>:hover .pp-hover-card-overlay {
+		<?php if ( $card->hover_card_bg_type != 'color' ) { ?>
+		background: #<?php echo $card->hover_card_overlay; ?>;
+		opacity: <?php echo $card->hover_card_overlay_opacity; ?>
+		<?php } ?>
+	}
+
 	<?php if ( $card->hover_card_bg_type == 'color' ) { ?>
-	background: <?php echo $card->hover_card_bg_color == '' ? 'none' : '#' . $card->hover_card_bg_color; ?>;
+	.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?>:before {
+		background: <?php echo $card->hover_card_overlay != '' ? pp_hex2rgba('#'.$card->hover_card_overlay, $card->hover_card_overlay_opacity) : 'none'; ?>;
+	}
+	<?php } else { ?>
+	.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?> {
+		background: <?php echo $card->hover_card_overlay != '' ? '#'.$card->hover_card_overlay : 'none'; ?>;
+	}
 	<?php } ?>
-	border-radius: <?php echo $card->hover_card_box_border_radius; ?>px;
-	padding-top: <?php echo $padding['top']; ?>px;
-	padding-bottom: <?php echo $padding['bottom']; ?>px;
-	padding-left: <?php echo $padding['left']; ?>px;
-	padding-right: <?php echo $padding['right']; ?>px;
-	<?php if( $card->hover_card_box_border != 'none' ) { ?>
-		border-style: <?php echo $card->hover_card_box_border; ?>;
-		border-width: <?php echo $card->hover_card_box_border_width; ?>px;
-		border-color: <?php echo $card->hover_card_box_border_color ? pp_hex2rgba('#' . $card->hover_card_box_border_color, $card->hover_card_box_border_opacity) : 'transparent'; ?>;
-	<?php  } ?>
-	transition: all 0.3s ease-in;
-}
 
-.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?>:hover .pp-hover-card-inner {
-	<?php if ( $card->hover_card_bg_type == 'color' && ! empty( $card->hover_card_bg_hover ) ) { ?>
-	background: #<?php echo $card->hover_card_bg_hover; ?>;
+	<?php if ( $settings->style_type == 'powerpack-style' ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?> .pp-hover-card-icon {
+		font-size: <?php echo $card->hover_card_icon_size; ?>px;
+		color: #<?php echo $card->hover_card_icon_color; ?>;
+	}
 	<?php } ?>
-	transition: all 0.3s ease-in;
-}
 
-.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?>:hover .pp-hover-card-overlay {
-	<?php if ( $card->hover_card_bg_type != 'color' ) { ?>
-	background: #<?php echo $card->hover_card_overlay; ?>;
-	opacity: <?php echo $card->hover_card_overlay_opacity; ?>
-	<?php } ?>
-}
-
-.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?> img {
-	border-radius: <?php echo $card->hover_card_box_border_radius; ?>px;
-}
-.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?>:hover img {
-	
-}
-
-<?php if ( $card->hover_card_bg_type == 'color' ) { ?>
-.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?>:before {
-    background: <?php echo $card->hover_card_overlay != '' ? pp_hex2rgba('#'.$card->hover_card_overlay, $card->hover_card_overlay_opacity) : 'none'; ?>;
-}
-<?php } else { ?>
-.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?> {
-    background: <?php echo $card->hover_card_overlay != '' ? '#'.$card->hover_card_overlay : 'none'; ?>;
-}
-<?php } ?>
-
-<?php if ( $settings->style_type == 'powerpack-style' ) { ?>
-.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?> .pp-hover-card-icon {
-	font-size: <?php echo $card->hover_card_icon_size; ?>px;
-	color: #<?php echo $card->hover_card_icon_color; ?>;
-}
-<?php } ?>
-
-.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?> .pp-hover-card-content .pp-hover-card-title {
-	color: #<?php echo $card->hover_card_title_color; ?>;
-}
-.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?> .pp-hover-card-content .pp-hover-card-description {
-	color: #<?php echo $card->hover_card_description_color; ?>;
-}
-.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?>:hover .pp-hover-card-content .pp-hover-card-title {
-	color: #<?php echo $card->hover_card_title_color_h; ?>;
-}
-.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?>:hover .pp-hover-card-content .pp-hover-card-description {
-	color: #<?php echo $card->hover_card_description_color_h; ?>;
-}
+	.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?> .pp-hover-card-content .pp-hover-card-title {
+		color: #<?php echo $card->hover_card_title_color; ?>;
+	}
+	.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?> .pp-hover-card-content .pp-hover-card-description {
+		color: #<?php echo $card->hover_card_description_color; ?>;
+	}
+	.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?>:hover .pp-hover-card-content .pp-hover-card-title {
+		color: #<?php echo $card->hover_card_title_color_h; ?>;
+	}
+	.fl-node-<?php echo $id; ?> .pp-hover-card-<?php echo $i; ?>:hover .pp-hover-card-content .pp-hover-card-description {
+		color: #<?php echo $card->hover_card_description_color_h; ?>;
+	}
 <?php } ?>
 
 .fl-node-<?php echo $id; ?> .pp-hover-card .pp-hover-card-title-wrap .pp-hover-card-title {
-	<?php if( $settings->hover_card_title_font['family'] != 'Default' ) { ?><?php FLBuilderFonts::font_css( $settings->hover_card_title_font ); ?><?php } ?>
-	<?php if( $settings->hover_card_title_font_size['desktop'] ) { ?>font-size: <?php echo $settings->hover_card_title_font_size['desktop']; ?>px;<?php } ?>
-	<?php if( $settings->hover_card_title_line_height['desktop'] ) { ?>line-height: <?php echo $settings->hover_card_title_line_height['desktop']; ?>;<?php } ?>
 	margin-top: 0;
 	margin-bottom: 10px;
 	transition: all 0.3s ease;
-}
-
-.fl-node-<?php echo $id; ?> .pp-hover-card .pp-hover-card-description .pp-hover-card-description-inner {
-	<?php if( $settings->hover_card_description_font['family']	!= 'Default' ) { ?><?php FLBuilderFonts::font_css( $settings->hover_card_description_font ); ?><?php } ?>
-	<?php if( $settings->hover_card_description_font_size['desktop'] ) { ?>font-size: <?php echo $settings->hover_card_description_font_size['desktop']; ?>px;<?php } ?>
-	<?php if( $settings->hover_card_description_line_height['desktop'] ) { ?>line-height: <?php echo $settings->hover_card_description_line_height['desktop']; ?>;<?php } ?>
 }
 
 @media only screen and (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) {
@@ -224,14 +243,6 @@ for( $i = 0; $i < count( $settings->card_content ); $i++ ) {
 		width: 100%;
 		height: auto;
 	}
-	.fl-node-<?php echo $id; ?> .pp-hover-card .pp-hover-card-title-wrap .pp-hover-card-title {
-		<?php if( $settings->hover_card_title_font_size['tablet'] ) { ?>font-size: <?php echo $settings->hover_card_title_font_size['tablet']; ?>px;<?php } ?>
-		<?php if( $settings->hover_card_title_line_height['tablet'] ) { ?>line-height: <?php echo $settings->hover_card_title_line_height['tablet']; ?>;<?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-hover-card .pp-hover-card-description .pp-hover-card-description-inner {
-		<?php if( $settings->hover_card_description_font_size['tablet'] ) { ?>font-size: <?php echo $settings->hover_card_description_font_size['tablet']; ?>px;<?php } ?>
-		<?php if( $settings->hover_card_description_line_height['tablet'] ) { ?>line-height: <?php echo $settings->hover_card_description_line_height['tablet']; ?>;<?php } ?>
-	}
     .fl-node-<?php echo $id; ?> .pp-hover-card:nth-of-type(<?php echo $settings->hover_card_column_width['desktop']; ?>n+1) {
         clear: none;
     }
@@ -263,14 +274,6 @@ for( $i = 0; $i < count( $settings->card_content ); $i++ ) {
     }
 	.fl-node-<?php echo $id; ?> .pp-hover-card .pp-hover-card-inner {
 		min-height: <?php echo $settings->hover_card_height['mobile']; ?>px;
-	}
-	.fl-node-<?php echo $id; ?> .pp-hover-card .pp-hover-card-title-wrap .pp-hover-card-title {
-		<?php if( $settings->hover_card_title_font_size['mobile'] ) { ?>font-size: <?php echo $settings->hover_card_title_font_size['mobile']; ?>px;<?php } ?>
-		<?php if( $settings->hover_card_title_line_height['mobile'] ) { ?>line-height: <?php echo $settings->hover_card_title_line_height['mobile']; ?>;<?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-hover-card .pp-hover-card-description .pp-hover-card-description-inner {
-		<?php if( $settings->hover_card_description_font_size['mobile'] ) { ?>font-size: <?php echo $settings->hover_card_description_font_size['mobile']; ?>px;<?php } ?>
-		<?php if( $settings->hover_card_description_line_height['mobile'] ) { ?>line-height: <?php echo $settings->hover_card_description_line_height['mobile']; ?>;<?php } ?>
 	}
     .fl-node-<?php echo $id; ?> .pp-hover-card:nth-of-type(<?php echo $settings->hover_card_column_width['tablet']; ?>n+1) {
             clear: none;

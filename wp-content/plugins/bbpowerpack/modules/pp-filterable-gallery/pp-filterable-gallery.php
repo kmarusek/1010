@@ -19,7 +19,6 @@ class PPFilterableGalleryModule extends FLBuilderModule {
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
             'partial_refresh' => true,
-            'icon'				=> 'format-gallery.svg',
         ));
 
 		$this->add_css('jquery-magnificpopup');
@@ -28,6 +27,116 @@ class PPFilterableGalleryModule extends FLBuilderModule {
 		$this->add_js('jquery-masonry');
 		$this->add_js( 'jquery-isotope' );
 		$this->add_js( 'imagesloaded' );
+	}
+
+	public function filter_settings( $settings, $helper )
+	{
+		// Handle grid old columns field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'photo_grid_count', 'responsive', 'photo_grid_count' );
+
+		// Handle old image border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'photo_border'	=> array(
+				'type'				=> 'style'
+			),
+			'photo_border_width'	=> array(
+				'type'				=> 'width'
+			),
+			'photo_border_color'	=> array(
+				'type'				=> 'color'
+			),
+			'photo_border_radius'	=> array(
+				'type'				=> 'radius'
+			),
+		), 'photo_border_group' );
+
+		// Handle photo old padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'photo_padding', 'padding', 'photo_padding' );
+
+		// Handle image overlay opacity + color field.
+		if ( isset( $settings->overlay_color_opacity ) ) {
+			$opacity = $settings->overlay_color_opacity >= 0 ? $settings->overlay_color_opacity : 1;
+			$color = $settings->overlay_color;
+
+			if ( ! empty( $color ) ) {
+				$color = pp_hex2rgba( pp_get_color_value( $color ), $opacity );
+				$settings->overlay_color = $color;
+			}
+
+			unset( $settings->overlay_color_opacity );
+		}
+
+		// Handle caption old padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'caption_padding', 'padding', 'caption_padding' );
+
+		// Handle old filters border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'filter_border'	=> array(
+				'type'				=> 'style'
+			),
+			'filter_border_width'	=> array(
+				'type'				=> 'width'
+			),
+			'filter_border_radius'	=> array(
+				'type'				=> 'radius'
+			),
+		), 'filter_border_group' );
+
+		if ( isset( $settings->filter_border_color ) ) {
+			$settings->filter_border_group['color'] = $settings->filter_border_color['primary'];
+			$settings->filter_border_color_hover = $settings->filter_border_color['secondary'];
+			unset( $settings->filter_border_color );
+		}
+
+		$settings = PP_Module_Fields::handle_dual_color_field( $settings, 'filter_background', array(
+			'primary'	=> 'filter_bg_color',
+			'secondary'	=> 'filter_bg_hover'
+		) );
+
+		$settings = PP_Module_Fields::handle_dual_color_field( $settings, 'filter_color', array(
+			'primary'	=> 'filter_text_color',
+			'secondary'	=> 'filter_text_hover'
+		) );
+
+		$settings = PP_Module_Fields::handle_dual_color_field( $settings, 'filter_res_background', array(
+			'primary'	=> 'filter_res_bg_color',
+			'secondary'	=> 'filter_res_bg_hover'
+		) );
+
+		$settings = PP_Module_Fields::handle_dual_color_field( $settings, 'filter_res_color', array(
+			'primary'	=> 'filter_res_text_color',
+			'secondary'	=> 'filter_res_text_hover'
+		) );
+
+
+		// Handle filter old padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'filter_padding', 'padding', 'filter_padding' );
+
+		// Handle caption's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'caption_font'	=> array(
+				'type'			=> 'font'
+			),
+			'caption_custom_font_size'	=> array(
+				'type'			=> 'font_size',
+				'condition'		=> ( isset( $settings->caption_font_size_toggle ) && 'custom' == $settings->caption_font_size_toggle )
+			),
+		), 'caption_typography' );
+
+		// Handle filter's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'filter_font'	=> array(
+				'type'			=> 'font'
+			),
+			'filter_font_size'	=> array(
+				'type'			=> 'font_size',
+			),
+			'filter_text_transform'	=> array(
+				'type'		=> 'text_transform'
+			)
+		), 'filter_typography' );
+
+		return $settings;
 	}
 	
 	/**
@@ -180,11 +289,11 @@ class PPFilterableGalleryModule extends FLBuilderModule {
 				}
 				else if ( is_array( $this->settings->photo_data ) ) {
 					$photos[ $id ] = $this->settings->photo_data[ $id ];
-					preg_match("\{(.*)\}", $photos[ $id ], $photos);
+					//preg_match("\{(.*)\}", $photos[ $id ], $photos);
 				}
 				else if ( is_object( $this->settings->photo_data ) ) {
 					$photos[ $id ] = $this->settings->photo_data->{$id};
-					preg_match("\{(.*)\}", $photos[ $id ], $photos);
+					//preg_match("\{(.*)\}", $photos[ $id ], $photos);
 				}
 				else {
 					continue;
@@ -324,6 +433,7 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 			),
 			'click_action'	=> array(
 				'title'			=> __('Click Action', 'bb-powerpack'),
+				'collapsed'		=> true,
 				'fields'		=> array(
 					'click_action'  => array(
 						'type'          => 'pp-switch',
@@ -380,6 +490,7 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 			),
 			'overlay_settings'	=> array(
 				'title'	=> __( 'Overlay', 'bb-powerpack' ),
+				'collapsed'		=> true,
 				'fields'	=> array(
 					'overlay_effects' => array(
 						'type'          => 'select',
@@ -421,6 +532,7 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 			),
 			'filters_settings'	=> array(
 				'title'	=> __( 'Filters', 'bb-powerpack' ),
+				'collapsed'		=> true,
 				'fields'	=> array(
 					'show_all_filter_btn'	=> array(
 						'type'					=> 'pp-switch',
@@ -473,36 +585,26 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 			),
 			'gallery_columns'	=> array(
 				'title'	=> __( 'Columns Settings', 'bb-powerpack' ),
+				'collapsed'		=> true,
 				'fields'	=> array(
 					'photo_grid_count'    => array(
-						'type' 			=> 'pp-multitext',
+						'type' 			=> 'unit',
 						'label' 		=> __('Number of Columns', 'bb-powerpack'),
-						'default'		=> array(
-							'desktop'	=> 4,
-							'tablet'	=> 2,
-							'mobile'	=> 1,
-						),
-						'options' 		=> array(
-							'desktop' => array(
-								'icon'		=> 'fa-desktop',
-								'tooltip'	=> __('Desktop', 'bb-powerpack'),
-							),
-							'tablet' => array(
-								'icon'		=> 'fa-tablet',
-								'tooltip'	=> __('Tablet', 'bb-powerpack'),
-							),
-							'mobile' => array(
-								'icon'		=> 'fa-mobile',
-								'tooltip'	=> __('Mobile', 'bb-powerpack'),
+                        'slider'          => true,
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '4',
+								'medium' => '',
+								'responsive' => '',
 							),
 						),
-					),
+                    ),
 					'photo_spacing' => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Spacing', 'bb-powerpack'),
 						'default'       => 2,
-						'size'          => 5,
-						'description'   => _x( '%', 'bb-powerpack' )
+						'units'   		=> array( '%' ),
+						'slider'		=> true
 					),
 				)
 			)
@@ -541,164 +643,42 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 						),
 						'preview'	=> 'none',
 					),
-					'photo_border'     => array(
-                        'type'      => 'pp-switch',
-                        'label'     => __('Border Style', 'bb-powerpack'),
-                        'default'     => 'none',
-                        'options'       => array(
-                             'none'          => __('None', 'bb-powerpack'),
-                             'solid'          => __('Solid', 'bb-powerpack'),
-                             'dashed'          => __('Dashed', 'bb-powerpack'),
-                             'dotted'          => __('Dotted', 'bb-powerpack'),
-                         ),
-                         'toggle'   => array(
-                             'solid'    => array(
-                                 'fields'   => array('photo_border_width', 'photo_border_color')
-                             ),
-                             'dashed'    => array(
-                                 'fields'   => array('photo_border_width', 'photo_border_color')
-                             ),
-                             'dotted'    => array(
-                                 'fields'   => array('photo_border_width', 'photo_border_color')
-                             ),
-                             'double'    => array(
-                                 'fields'   => array('photo_border_width', 'photo_border_color')
-                             )
-                         )
-                    ),
-                    'photo_border_width'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Border Width', 'bb-powerpack'),
-                        'description'   => 'px',
-						'size'      => 5,
-                        'maxlength' => 3,
-                        'default'       => '1',
-                        'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-photo-gallery-item, .pp-masonry-item',
-                            'property'        => 'border-width',
-                            'unit'            => 'px'
-                        )
-                    ),
-                    'photo_border_color'    => array(
-						'type'      => 'color',
-                        'label'     => __('Border Color', 'bb-powerpack'),
-						'show_reset' => true,
-                        'default'   => '',
-						'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-photo-gallery-item, .pp-masonry-item',
-                            'property'        => 'border-color',
-                        )
-                    ),
-					'photo_border_radius'   => array(
-						'type'          => 'text',
-						'label'         => __('Round Corners', 'bb-powerpack'),
-						'description'   => 'px',
-						'size'      	=> 5,
-						'maxlength' 	=> 3,
-						'default'       => 0,
-						'preview'         => array(
-							'type'            => 'css',
-							'selector'        => '.pp-photo-gallery-item, .pp-masonry-item, .pp-photo-gallery-item img, .pp-masonry-item img, .pp-gallery-overlay',
-							'property'        => 'border-radius',
-							'unit'            => 'px'
-						)
-					),
-					'photo_padding' 	=> array(
-                    	'type' 			=> 'pp-multitext',
-                    	'label' 		=> __('Padding', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'default'       => array(
-                            'top' => 0,
-                            'right' => 0,
-                            'bottom' => 0,
-                            'left' => 0,
+					'photo_border_group'	=> array(
+						'type'          => 'border',
+						'label'         => __( 'Border', 'bb-powerpack' ),
+						'responsive'	=> true,
+						'preview'   	=> array(
+                            'type'  		=> 'css',
+                            'selector'  	=> '.pp-gallery-item, .pp-masonry-item',
+                            'property'  	=> 'border',
                         ),
-                    	'options' 		=> array(
-                    		'top' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Top', 'bb-powerpack'),
-                                'tooltip'       => __('Top', 'bb-powerpack'),
-                    			'icon'		=> 'fa-long-arrow-up',
-								'preview'         => array(
-		                            'type'            => 'css',
-		                            'selector'        => '.pp-photo-gallery-item, .pp-masonry-item',
-		                            'property'        => 'padding-top',
-		                            'unit'            => 'px'
-		                        )
-                    		),
-                            'bottom' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Bottom', 'bb-powerpack'),
-                                'tooltip'       => __('Bottom', 'bb-powerpack'),
-                    			'icon'		=> 'fa-long-arrow-down',
-								'preview'         => array(
-		                            'type'            => 'css',
-		                            'selector'        => '.pp-photo-gallery-item, .pp-masonry-item',
-		                            'property'        => 'padding-bottom',
-		                            'unit'            => 'px'
-		                        )
-                    		),
-                            'left' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Left', 'bb-powerpack'),
-                                'tooltip'       => __('Left', 'bb-powerpack'),
-                    			'icon'		=> 'fa-long-arrow-left',
-								'preview'         => array(
-		                            'type'            => 'css',
-		                            'selector'        => '.pp-photo-gallery-item, .pp-masonry-item',
-		                            'property'        => 'padding-left',
-		                            'unit'            => 'px'
-		                        )
-                    		),
-                            'right' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Right', 'bb-powerpack'),
-                                'tooltip'       => __('Right', 'bb-powerpack'),
-                    			'icon'		=> 'fa-long-arrow-right',
-								'preview'         => array(
-		                            'type'            => 'css',
-		                            'selector'        => '.pp-photo-gallery-item, .pp-masonry-item',
-		                            'property'        => 'padding-right',
-		                            'unit'            => 'px'
-		                        )
-                    		),
-                    	)
-                    ),
-					'photo_border_radius'   => array(
-						'type'          => 'text',
-						'label'         => __('Round Corners', 'bb-powerpack'),
-						'description'   => 'px',
-						'size'      	=> 5,
-						'maxlength' 	=> 3,
-						'default'       => '0',
-						'preview'         => array(
-							'type'            => 'css',
-							'selector'        => '.pp-photo-gallery-item, .pp-masonry-item',
-							'property'        => 'border-radius',
-							'unit'            => 'px'
-						)
 					),
+					'photo_padding'    => array(
+						'type'				=> 'dimension',
+						'label'				=> __('Padding', 'bb-powerpack'),
+						'default'			=> '0',
+						'units'				=> array('px'),
+						'slider'			=> true,
+						'responsive'		=> true,
+						'preview'			=> array(
+							'type'				=> 'css',
+							'selector'			=> '.pp-gallery-item',
+							'property'			=> 'padding',
+							'unit'				=> 'px'
+						)
+                    ),
 				)
 			),
 			'overlay_style'       => array(
 				'title'         => __( 'Overlay', 'bb-powerpack' ),
 				'fields'        => array(
 					'overlay_color' => array(
-						'type'       => 'color',
-						'label'     => __('Color', 'bb-powerpack'),
-						'default'	=> '000000',
-						'show_reset' => true,
-						'preview'	=> 'none',
-					),
-					'overlay_color_opacity'    => array(
-						'type'        => 'text',
-						'label'       => __('Opacity', 'bb-powerpack'),
-						'default'     => '70',
-						'description' => '%',
-						'maxlength'   => '3',
-						'size'        => '5',
+						'type'       	=> 'color',
+						'label'     	=> __('Color', 'bb-powerpack'),
+						'default'		=> '000000',
+						'show_reset' 	=> true,
+						'show_alpha'	=> true,
+						'preview'		=> 'none',
 					),
 				)
 			),
@@ -706,24 +686,25 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 				'title'			=> __('Icon Style', 'bb-powerpack'),
 				'fields'		=> array(
 					'overlay_icon_size'     => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Icon Size', 'bb-powerpack'),
 						'default'   	=> '30',
-						'maxlength'     => 5,
-						'size'          => 6,
-						'description'   => 'px',
+						'units'   		=> array( 'px' ),
+						'slider'		=> true,
+						'responsive'	=> true,
 						'preview'	=> array(
 							'type'		=> 'css',
-							'selector'	=> '.pp-gallery-overlay .pp-overlay-icon span',
+							'selector'	=> '.pp-gallery-overlay .pp-overlay-icon span, .pp-gallery-overlay .pp-overlay-icon span:before',
 							'property'	=> 'font-size',
 							'unit'		=> 'px'
 						),
 					),
 					'overlay_icon_bg_color' => array(
-						'type'       => 'color',
-						'label'     => __('Background Color', 'bb-powerpack'),
-						'default'    => '',
+						'type'       	=> 'color',
+						'label'     	=> __('Background Color', 'bb-powerpack'),
+						'default'    	=> '',
 						'show_reset'	=> true,
+						'show_alpha'	=> true,
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-gallery-overlay .pp-overlay-icon span',
@@ -742,12 +723,12 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 						),
 					),
 					'overlay_icon_radius'     => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Border Radius', 'bb-powerpack'),
 						'default'   	=> '',
-						'maxlength'     => 5,
-						'size'          => 6,
-						'description'   => 'px',
+						'units'  	 	=> array( 'px' ),
+						'slider'		=> true,
+						'responsive'	=> true,
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-gallery-overlay .pp-overlay-icon span',
@@ -756,12 +737,12 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 						),
 					),
 					'overlay_icon_padding' 	=> array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Padding', 'bb-powerpack'),
 						'default'   	=> '',
-						'maxlength'     => 5,
-						'size'          => 6,
-						'description'   => 'px',
+						'units'   		=> array( 'px' ),
+						'slider'		=> true,
+						'responsive'	=> true,
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-gallery-overlay .pp-overlay-icon span',
@@ -779,6 +760,7 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 						'label'     	=> __('Background Color', 'bb-powerpack'),
 						'default'    	=> '',
 						'show_reset'	=> true,
+						'show_alpha'	=> true,
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-photo-gallery-caption',
@@ -786,80 +768,28 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 						),
 					),
 					'caption_alignment' => array(
-						'type'		=> 'pp-switch',
+						'type'		=> 'align',
 						'label'		=> __('Text Alignment', 'bb-powerpack'),
 						'default'	=> 'center',
-						'options'       => array(
-							'left'          => __('Left', 'bb-powerpack'),
-							'center'         => __('Center', 'bb-powerpack'),
-							'right'         => __('Right', 'bb-powerpack'),
-						),
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-photo-gallery-caption',
 							'property'	=> 'text-align'
 						),
 					),
-					'caption_padding' 	=> array(
-                    	'type' 			=> 'pp-multitext',
-                    	'label' 		=> __('Padding', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'default'       => array(
-                            'top' => 0,
-                            'right' => 0,
-                            'bottom' => 0,
-                            'left' => 0,
-                        ),
-                    	'options' 		=> array(
-                    		'top' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Top', 'bb-powerpack'),
-                                'tooltip'       => __('Top', 'bb-powerpack'),
-                    			'icon'		=> 'fa-long-arrow-up',
-								'preview'         => array(
-		                            'type'            => 'css',
-		                            'selector'        => '.pp-photo-gallery-caption',
-		                            'property'        => 'padding-top',
-		                            'unit'            => 'px'
-		                        )
-                    		),
-                            'bottom' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Bottom', 'bb-powerpack'),
-                                'tooltip'       => __('Bottom', 'bb-powerpack'),
-                    			'icon'		=> 'fa-long-arrow-down',
-								'preview'         => array(
-		                            'type'            => 'css',
-		                            'selector'        => '.pp-photo-gallery-caption',
-		                            'property'        => 'padding-bottom',
-		                            'unit'            => 'px'
-		                        )
-                    		),
-                            'left' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Left', 'bb-powerpack'),
-                                'tooltip'       => __('Left', 'bb-powerpack'),
-                    			'icon'		=> 'fa-long-arrow-left',
-								'preview'         => array(
-		                            'type'            => 'css',
-		                            'selector'        => '.pp-photo-gallery-caption',
-		                            'property'        => 'padding-left',
-		                            'unit'            => 'px'
-		                        )
-                    		),
-                            'right' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Right', 'bb-powerpack'),
-                                'tooltip'       => __('Right', 'bb-powerpack'),
-                    			'icon'		=> 'fa-long-arrow-right',
-								'preview'         => array(
-		                            'type'            => 'css',
-		                            'selector'        => '.pp-photo-gallery-caption',
-		                            'property'        => 'padding-right',
-		                            'unit'            => 'px'
-		                        )
-                    		),
-                    	)
+					'caption_padding'    => array(
+						'type'				=> 'dimension',
+						'label'				=> __('Padding', 'bb-powerpack'),
+						'default'			=> '0',
+						'units'				=> array('px'),
+						'slider'			=> true,
+						'responsive'		=> true,
+						'preview'			=> array(
+							'type'				=> 'css',
+							'selector'			=> '.pp-photo-gallery-caption',
+							'property'			=> 'padding',
+							'unit'				=> 'px'
+						)
                     ),
 				)
 			),
@@ -871,207 +801,87 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 			'filters_style'	=> array(
 				'title'		=> '',
 				'fields'	=> array(
-					'filter_background'      => array(
-						'type'      => 'pp-color',
-                        'label'     => __('Background Color', 'bb-powerpack'),
-						'show_reset' => true,
-                        'default'   => array(
-							'primary'	=> 'eeeeee',
-							'secondary'	=> 'bbbbbb'
+					'filter_bg_color'	=> array(
+						'type'       	=> 'color',
+						'label'     	=> __('Background Color', 'bb-powerpack'),
+						'default'    	=> 'eeeeee',
+						'show_reset'	=> true,
+						'show_alpha'	=> true,
+						'preview'	=> array(
+							'type'		=> 'css',
+							'selector'	=> '.pp-gallery-filters li',
+							'property'	=> 'background-color'
 						),
-						'options'	=> array(
-							'primary'	=> __('Default', 'bb-powerpack'),
-							'secondary' => __('Active', 'bb-powerpack')
-						)
-                    ),
-					'filter_color'	=>array(
-						'type'      => 'pp-color',
-						'label'     => __('Text Color', 'bb-powerpack'),
-						'show_reset' => true,
-						'default'   => array(
-							'primary'	=> '000000',
-							'secondary'	=> 'ffffff'
-						),
-						'options'	=> array(
-							'primary'	=> __('Default', 'bb-powerpack'),
-							'secondary' => __('Active', 'bb-powerpack')
-						)
 					),
-					'filter_border'    => array(
-                        'type'      => 'pp-switch',
-                        'label'     => __('Border Style', 'bb-powerpack'),
-                        'default'   => 'none',
-                        'options'   => array(
-                            'none'  => __('None', 'bb-powerpack'),
-                            'solid'  => __('Solid', 'bb-powerpack'),
-							'dashed'  => __('Dashed', 'bb-powerpack'),
-							'dotted'  => __('Dotted', 'bb-powerpack'),
-                        ),
-                        'toggle'    => array(
-                            'solid'   => array(
-                                'fields'    => array('filter_border_width', 'filter_border_color')
-                            ),
-							'dashed'   => array(
-                                'fields'    => array('filter_border_width', 'filter_border_color')
-                            ),
-							'dotted'   => array(
-                                'fields'    => array('filter_border_width', 'filter_border_color')
-                            ),
-                        ),
-						'preview'       => array(
-							'type'            => 'css',
-							'selector'        => '.pp-gallery-filters li',
-							'property'        => 'border-style',
-                        ),
-                    ),
-                    'filter_border_width'   => array(
-						'type' 			=> 'pp-multitext',
-                    	'label' 		=> __('Border Width', 'bb-powerpack'),
-                        'description'   => __( 'px', 'Value unit for font size. Such as: "14 px"', 'bb-powerpack' ),
-                        'default'       => array(
-                            'top' => 1,
-                            'right' => 1,
-                            'bottom' => 1,
-                            'left' => 1,
-                        ),
-                    	'options' 		=> array(
-                    		'top' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Top', 'bb-powerpack'),
-                                'tooltip'       => __('Top', 'bb-powerpack'),
-                    			'icon'		=> 'fa-long-arrow-up',
-								'preview'       => array(
-									'selector'        => '.pp-gallery-filters li',
-									'property'        => 'border-top-width',
-									'unit'            => 'px'
-		                        ),
-                    		),
-                            'bottom' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Bottom', 'bb-powerpack'),
-                                'tooltip'       => __('Bottom', 'bb-powerpack'),
-                    			'icon'		=> 'fa-long-arrow-down',
-								'preview'       => array(
-									'selector'        => '.pp-gallery-filters li',
-									'property'        => 'border-bottom-width',
-									'unit'            => 'px'
-		                        ),
-                    		),
-                            'left' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Left', 'bb-powerpack'),
-                                'tooltip'       => __('Left', 'bb-powerpack'),
-                    			'icon'		=> 'fa-long-arrow-left',
-								'preview'       => array(
-									'selector'        => '.pp-gallery-filters li',
-									'property'        => 'border-left-width',
-									'unit'            => 'px'
-		                        ),
-                    		),
-                            'right' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Right', 'bb-powerpack'),
-                                'tooltip'       => __('Right', 'bb-powerpack'),
-                    			'icon'		=> 'fa-long-arrow-right',
-								'preview'       => array(
-									'selector'        => '.pp-gallery-filters li',
-									'property'        => 'border-right-width',
-									'unit'            => 'px'
-		                        ),
-                    		),
-                    	)
-                    ),
-                    'filter_border_color'   => array(
-						'type'      => 'pp-color',
-                        'label'     => __('Border Color', 'bb-powerpack'),
-						'show_reset' => true,
-                        'default'   => array(
-							'primary'	=> '000000',
-							'secondary'	=> 'eeeeee'
+					'filter_bg_hover'	=> array(
+						'type'       	=> 'color',
+						'label'     	=> __('Background Hover Color', 'bb-powerpack'),
+						'default'    	=> 'bbbbbb',
+						'show_reset'	=> true,
+						'show_alpha'	=> true,
+					),
+					'filter_text_color'	=> array(
+						'type'       	=> 'color',
+						'label'     	=> __('Text Color', 'bb-powerpack'),
+						'default'    	=> '000000',
+						'show_reset'	=> true,
+						'preview'	=> array(
+							'type'		=> 'css',
+							'selector'	=> '.pp-gallery-filters li',
+							'property'	=> 'color'
 						),
-						'options'	=> array(
-							'primary'	=> __('Default', 'bb-powerpack'),
-							'secondary' => __('Hover', 'bb-powerpack')
+					),
+					'filter_text_hover'	=> array(
+						'type'       	=> 'color',
+						'label'     	=> __('Text Hover Color', 'bb-powerpack'),
+						'default'    	=> 'ffffff',
+						'show_reset'	=> true,
+						'preview'	=> array(
+							'type'		=> 'css',
+							'selector'	=> '.pp-gallery-filters li:hover',
+							'property'	=> 'color'
+						),
+					),
+					'filter_border_group'	=> array(
+						'type'          => 'border',
+						'label'         => __( 'Border', 'bb-powerpack' ),
+						'responsive'	=> true,
+						'preview'   	=> array(
+                            'type'  		=> 'css',
+                            'selector'  	=> '.pp-gallery-filters li',
+                            'property'  	=> 'border',
+                        ),
+					),
+					'filter_border_color_hover'	=> array(
+						'type'			=> 'color',
+						'label'			=> __( 'Border Hover Color', 'bb-powerpack' ),
+						'default'		=> 'eeeeee',
+						'preview'   	=> array(
+                            'type'  		=> 'css',
+                            'selector'  	=> '.pp-gallery-filters li:hover',
+                            'property'  	=> 'border-color',
+                        ),
+					),
+					'filter_padding'    => array(
+						'type'				=> 'dimension',
+						'label'				=> __('Padding', 'bb-powerpack'),
+						'default'			=> '0',
+						'units'				=> array('px'),
+						'slider'			=> true,
+						'responsive'		=> true,
+						'preview'			=> array(
+							'type'				=> 'css',
+							'selector'			=> '.pp-photo-gallery-caption',
+							'property'			=> 'padding',
+							'unit'				=> 'px'
 						)
-                    ),
-					'filter_border_radius'   => array(
-                        'type'      => 'text',
-                        'label'     => __('Round Corners', 'bb-powerpack'),
-                        'size'      => 5,
-                        'maxlength' => 3,
-                        'default'   => 0,
-                        'description'   => 'px',
-                        'preview'       => array(
-							'type'            => 'css',
-							'selector'        => '.pp-gallery-filters li',
-							'property'        => 'border-radius',
-							'unit'            => 'px'
-                        ),
-                    ),
-					'filter_padding' 	=> array(
-                    	'type' 			=> 'pp-multitext',
-                    	'label' 		=> __('Padding', 'bb-powerpack'),
-                        'description'   => __( 'px', 'Value unit for font size. Such as: "14 px"', 'bb-powerpack' ),
-                        'default'       => array(
-                            'top' => 8,
-                            'right' => 10,
-                            'bottom' => 8,
-                            'left' => 10,
-                        ),
-                    	'options' 		=> array(
-                    		'top' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Top', 'bb-powerpack'),
-                                'tooltip'       => __('Top', 'bb-powerpack'),
-                    			'icon'		=> 'fa-long-arrow-up',
-								'preview'       => array(
-									'selector'        => '.pp-gallery-filters li',
-									'property'        => 'padding-top',
-									'unit'            => 'px'
-		                        ),
-                    		),
-                            'bottom' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Bottom', 'bb-powerpack'),
-                                'tooltip'       => __('Bottom', 'bb-powerpack'),
-                    			'icon'		=> 'fa-long-arrow-down',
-								'preview'       => array(
-									'selector'        => '.pp-gallery-filters li',
-									'property'        => 'padding-bottom',
-									'unit'            => 'px'
-		                        ),
-                    		),
-                            'left' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Left', 'bb-powerpack'),
-                                'tooltip'       => __('Left', 'bb-powerpack'),
-                    			'icon'		=> 'fa-long-arrow-left',
-								'preview'       => array(
-									'selector'        => '.pp-gallery-filters li',
-									'property'        => 'padding-left',
-									'unit'            => 'px'
-		                        ),
-                    		),
-                            'right' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Right', 'bb-powerpack'),
-                                'tooltip'       => __('Right', 'bb-powerpack'),
-                    			'icon'		=> 'fa-long-arrow-right',
-								'preview'       => array(
-									'selector'        => '.pp-gallery-filters li',
-									'property'        => 'padding-right',
-									'unit'            => 'px'
-		                        ),
-                    		),
-                    	)
                     ),
 					'filter_margin' 	=> array(
-						'type'      => 'text',
+						'type'      => 'unit',
                         'label'     => __('Horizontal Spacing', 'bb-powerpack'),
-                        'size'      => 5,
-                        'maxlength' => 3,
                         'default'   => 10,
-                        'description'   => 'px',
+                        'units'   	=> array( 'px' ),
+						'slider'	=> true,
                         'preview'       => array(
 							'type'            => 'css',
 							'selector'        => '.pp-gallery-filters li',
@@ -1080,12 +890,11 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
                         ),
                     ),
 					'filter_margin_bottom' 	=> array(
-						'type'      => 'text',
+						'type'      => 'unit',
                         'label'     => __('Vertical Spacing', 'bb-powerpack'),
-                        'size'      => 5,
-                        'maxlength' => 3,
                         'default'   => 30,
-                        'description'   => 'px',
+                        'units'   	=> array( 'px' ),
+						'slider'	=> true,
                         'preview'       => array(
 							'type'            => 'css',
 							'selector'        => '.pp-gallery-filters',
@@ -1094,14 +903,9 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
                         ),
                     ),
 					'filter_alignment'    => array(
-                        'type'      => 'pp-switch',
+                        'type'      => 'align',
                         'label'     => __('Alignment', 'bb-powerpack'),
                         'default'   => 'left',
-                        'options'   => array(
-                            'left'  => __('Left', 'bb-powerpack'),
-                            'center'  => __('Center', 'bb-powerpack'),
-                            'Right'  => __('Right', 'bb-powerpack'),
-                        ),
 						'preview'       => array(
 							'type'            => 'css',
 							'selector'        => '.pp-gallery-filters',
@@ -1118,25 +922,27 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 						'label'				=> __('Toggle Background Color', 'bb-powerpack'),
 						'default'			=> 'fafafa',
 						'show_reset' 		=> true,
+						'show_alpha'		=> true,
 						'preview'			=> array(
 							'type'				=> 'none'
 						)
 					),
-					'filter_toggle_text'	=> array(
-						'type'				=> 'color',
-						'label'				=> __('Toggle Text Color', 'bb-powerpack'),
-						'default'			=> '000000',
-						'show_reset' 		=> true,
-						'preview'			=> array(
-							'type'				=> 'none'
-						)
+					'filter_toggle_color'	=> array(
+						'type'		=>	'color',
+						'label'		=> __( 'Toggle Text Color', 'bb-powerpack' ),
+						'default'	=> '333333',
+					),
+					'filter_toggle_icon_color'	=> array(
+						'type'		=>	'color',
+						'label'		=> __( 'Toggle Icon Color', 'bb-powerpack' ),
+						'default'	=> '333333',
 					),
 					'filter_toggle_border'	=> array(
-						'type'					=> 'text',
+						'type'					=> 'unit',
 						'label'					=> __('Toggle Border Width', 'bb-powerpack'),
-						'description'			=> 'px',
 						'default'				=> '0',
-						'size'					=> '5',
+						'units'					=> array( 'px' ),
+						'slider'				=> true,
 						'preview'				=> array(
 							'type'					=> 'none'
 						)
@@ -1150,201 +956,41 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 						)
 					),
 					'filter_toggle_radius'	=> array(
-						'type'					=> 'text',
+						'type'					=> 'unit',
 						'label'					=> __('Toggle Round Corners', 'bb-powerpack'),
-						'description'			=> 'px',
 						'default'				=> '0',
-						'size'					=> '5',
+						'units'					=> array( 'px' ),
+						'slider'				=> true,
 						'preview'				=> array(
 							'type'					=> 'none'
 						)
 					),
-					'filter_background_res'	=> array(
-						'type'      			=> 'pp-color',
-                        'label'     			=> __('Filter Background Color', 'bb-powerpack'),
-						'show_reset' 			=> true,
-                        'default'   			=> array(
-							'primary'				=> '',
-							'secondary'				=> ''
-						),
-						'options'				=> array(
-							'primary'				=> __('Default', 'bb-powerpack'),
-							'secondary' 			=> __('Active', 'bb-powerpack')
-						),
-						'preview'				=> array(
-							'type'					=> 'none'
-						)
-                    ),
-					'filter_color_res'	=> array(
-						'type'      		=> 'pp-color',
-						'label'     		=> __('Filter Text Color', 'bb-powerpack'),
-						'show_reset' 		=> true,
-						'default'   		=> array(
-							'primary'			=> '',
-							'secondary'			=> ''
-						),
-						'options'			=> array(
-							'primary'			=> __('Default', 'bb-powerpack'),
-							'secondary' 		=> __('Active', 'bb-powerpack')
-						),
-						'preview'				=> array(
-							'type'					=> 'none'
-						)
+					'filter_res_bg_color'	=> array(
+						'type'       	=> 'color',
+						'label'     	=> __('Filter Background Color', 'bb-powerpack'),
+						'default'    	=> '',
+						'show_reset'	=> true,
+						'show_alpha'	=> true,
 					),
-
-				)
-			)
-		)
-	),
-	'responsive_style'	=> array(
-		'title'	=> __( 'Responsive', 'bb-powerpack' ),
-		'sections'	=> array(
-			'filter_toggle'	=> array(
-				'title'	=> __( 'Filters Toggle', 'bb-powerpack' ),
-				'fields'	=> array(
-					'filter_toggle_bg'	=> array(
-						'type'		=>	'color',
-						'label'		=> __( 'Background Color', 'bb-powerpack' ),
-						'default'	=> 'fafafa',
+					'filter_res_bg_hover'	=> array(
+						'type'       	=> 'color',
+						'label'     	=> __('Filter Background Hover Color', 'bb-powerpack'),
+						'default'    	=> '',
+						'show_reset'	=> true,
 					),
-					'filter_toggle_color'	=> array(
-						'type'		=>	'color',
-						'label'		=> __( 'Text Color', 'bb-powerpack' ),
-						'default'	=> '333333',
+					'filter_res_text_color'	=> array(
+						'type'       	=> 'color',
+						'label'     	=> __('Filter Text Color', 'bb-powerpack'),
+						'default'    	=> '',
+						'show_reset'	=> true,
+						'show_alpha'	=> true,
 					),
-					'filter_toggle_icon_color'	=> array(
-						'type'		=>	'color',
-						'label'		=> __( 'Icon Color', 'bb-powerpack' ),
-						'default'	=> '333333',
+					'filter_res_text_hover'	=> array(
+						'type'       	=> 'color',
+						'label'     	=> __('Filter Text Hover Color', 'bb-powerpack'),
+						'default'    	=> '',
+						'show_reset'	=> true,
 					),
-				)
-			),
-			'filters_responsive'	=> array(
-				'title'	=>	__( 'Filters', 'bb-powerpack' ),
-				'fields'	=> array(
-					'filter_res_background'      => array(
-						'type'      => 'pp-color',
-                        'label'     => __('Background Color', 'bb-powerpack'),
-						'show_reset' => true,
-                        'default'   => array(
-							'primary'	=> 'eeeeee',
-							'secondary'	=> 'bbbbbb'
-						),
-						'options'	=> array(
-							'primary'	=> __('Default', 'bb-powerpack'),
-							'secondary' => __('Active', 'bb-powerpack')
-						)
-                    ),
-					'filter_res_color'	=>array(
-						'type'      => 'pp-color',
-						'label'     => __('Text Color', 'bb-powerpack'),
-						'show_reset' => true,
-						'default'   => array(
-							'primary'	=> '000000',
-							'secondary'	=> 'ffffff'
-						),
-						'options'	=> array(
-							'primary'	=> __('Default', 'bb-powerpack'),
-							'secondary' => __('Active', 'bb-powerpack')
-						)
-					),
-					'filter_res_border'    => array(
-                        'type'      => 'pp-switch',
-                        'label'     => __('Border Style', 'bb-powerpack'),
-                        'default'   => 'none',
-                        'options'   => array(
-                            'none'  => __('None', 'bb-powerpack'),
-                            'solid'  => __('Solid', 'bb-powerpack'),
-							'dashed'  => __('Dashed', 'bb-powerpack'),
-							'dotted'  => __('Dotted', 'bb-powerpack'),
-                        ),
-                        'toggle'    => array(
-                            'solid'   => array(
-                                'fields'    => array('filter_res_border_width', 'filter_res_border_color')
-                            ),
-							'dashed'   => array(
-                                'fields'    => array('filter_res_border_width', 'filter_res_border_color')
-                            ),
-							'dotted'   => array(
-                                'fields'    => array('filter_res_border_width', 'filter_res_border_color')
-                            ),
-                        ),
-						'preview'       => array(
-							'type'            => 'css',
-							'selector'        => '.pp-gallery-filters li',
-							'property'        => 'border-style',
-                        ),
-                    ),
-                    'filter_res_border_width'   => array(
-						'type' 			=> 'pp-multitext',
-                    	'label' 		=> __('Border Width', 'bb-powerpack'),
-                        'description'   => __( 'px', 'Value unit for font size. Such as: "14 px"', 'bb-powerpack' ),
-                        'default'       => array(
-                            'top' => 1,
-                            'right' => 1,
-                            'bottom' => 1,
-                            'left' => 1,
-                        ),
-                    	'options' 		=> array(
-                    		'top' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Top', 'bb-powerpack'),
-                                'tooltip'       => __('Top', 'bb-powerpack'),
-                    			'icon'		=> 'fa-long-arrow-up',
-								'preview'       => array(
-									'selector'        => '.pp-gallery-filters li',
-									'property'        => 'border-top-width',
-									'unit'            => 'px'
-		                        ),
-                    		),
-                            'bottom' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Bottom', 'bb-powerpack'),
-                                'tooltip'       => __('Bottom', 'bb-powerpack'),
-                    			'icon'		=> 'fa-long-arrow-down',
-								'preview'       => array(
-									'selector'        => '.pp-gallery-filters li',
-									'property'        => 'border-bottom-width',
-									'unit'            => 'px'
-		                        ),
-                    		),
-                            'left' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Left', 'bb-powerpack'),
-                                'tooltip'       => __('Left', 'bb-powerpack'),
-                    			'icon'		=> 'fa-long-arrow-left',
-								'preview'       => array(
-									'selector'        => '.pp-gallery-filters li',
-									'property'        => 'border-left-width',
-									'unit'            => 'px'
-		                        ),
-                    		),
-                            'right' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Right', 'bb-powerpack'),
-                                'tooltip'       => __('Right', 'bb-powerpack'),
-                    			'icon'		=> 'fa-long-arrow-right',
-								'preview'       => array(
-									'selector'        => '.pp-gallery-filters li',
-									'property'        => 'border-right-width',
-									'unit'            => 'px'
-		                        ),
-                    		),
-                    	)
-                    ),
-                    'filter_res_border_color'   => array(
-						'type'      => 'pp-color',
-                        'label'     => __('Border Color', 'bb-powerpack'),
-						'show_reset' => true,
-                        'default'   => array(
-							'primary'	=> '000000',
-							'secondary'	=> 'eeeeee'
-						),
-						'options'	=> array(
-							'primary'	=> __('Default', 'bb-powerpack'),
-							'secondary' => __('Hover', 'bb-powerpack')
-						)
-                    ),
 				)
 			)
 		)
@@ -1355,62 +1001,13 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 			'general_typography'	=> array(
 				'title'	=> __( 'Caption', 'bb-powerpack' ),
 				'fields'	=> array(
-					'caption_font'	=> array(
-						'type'		=> 'font',
-						'label'		=> __('Font', 'bb-powerpack'),
-						'default'	=> array(
-							'family'	=> 'Default',
-							'weight'	=> '400',
-						),
-						'preview'       => array(
-							'type'		=> 'font',
-							'selector'        => '.pp-photo-gallery-caption, .pp-gallery-overlay .pp-caption',
-						),
-					),
-					'caption_font_size_toggle' => array(
-						'type'		=> 'pp-switch',
-						'label'		=> __('Font Size', 'bb-powerpack'),
-						'default'	=> 'default',
-						'options'       => array(
-							'default'          => __('Default', 'bb-powerpack'),
-							'custom'         => __('Custom', 'bb-powerpack'),
-						),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array('caption_custom_font_size')
-							)
-						),
-					),
-					'caption_custom_font_size'	=> array(
-						'type' 		=> 'pp-multitext',
-						'label'		=> __('Custom Font Size', 'bb-powerpack'),
-						'default'		=> array(
-							'desktop'	=> 16,
-							'tablet'	=> '',
-							'mobile'	=> '',
-						),
-						'options' 		=> array(
-							'desktop' => array(
-								'icon'		=> 'fa-desktop',
-								'placeholder'	=> __('Desktop', 'bb-powerpack'),
-								'tooltip'	=> __('Desktop', 'bb-powerpack'),
-								'preview'       => array(
-									'selector'        => '.pp-photo-gallery-caption, .pp-gallery-overlay .pp-caption',
-									'property'        => 'font-size',
-									'unit'            => 'px'
-		                        ),
-							),
-							'tablet' => array(
-								'icon'		=> 'fa-tablet',
-								'placeholder'	=> __('Tablet', 'bb-powerpack'),
-								'tooltip'	=> __('Tablet', 'bb-powerpack'),
-							),
-							'mobile' => array(
-								'icon'		=> 'fa-mobile',
-								'placeholder'	=> __('Mobile', 'bb-powerpack'),
-								'tooltip'	=> __('Mobile', 'bb-powerpack'),
-							),
-
+					'caption_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-photo-gallery-caption, .pp-gallery-overlay .pp-caption',
 						),
 					),
 			        'caption_color'        => array(
@@ -1428,60 +1025,13 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 			'filter_typography'  => array(
                 'title' => __('Filter', 'bb-powerpack'),
                 'fields'    => array(
-                    'filter_font'    => array(
-                        'type'      => 'font',
-						'label'         => __('Font', 'bb-powerpack'),
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-						'preview'       => array(
-							'type'		=> 'font',
-							'selector'        => '.pp-gallery-filters li',
-						),
-                    ),
-                    'filter_font_size' 	=> array(
-                    	'type' 			=> 'pp-multitext',
-                    	'label' 		=> __('Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop' => 14,
-                            'tablet' => '',
-                            'mobile' => ''
-                        ),
-                    	'options' 		=> array(
-                    		'desktop' => array(
-                                'maxlength' => 3,
-                    			'icon'		=> 'fa-desktop',
-								'placeholder'	=> __('Desktop', 'bb-powerpack'),
-								'tooltip'	=> __('Desktop', 'bb-powerpack'),
-								'preview'       => array(
-									'selector'        => '.pp-gallery-filters li',
-									'property'        => 'font-size',
-									'unit'			=> 'px'
-								),
-                    		),
-                            'tablet' => array(
-                                'maxlength' => 3,
-                    			'icon'		=> 'fa-tablet',
-								'placeholder'	=> __('Tablet', 'bb-powerpack'),
-								'tooltip'	=> __('Tablet', 'bb-powerpack'),
-                    		),
-                            'mobile' => array(
-                                'maxlength' => 3,
-                    			'icon'		=> 'fa-mobile',
-								'placeholder'	=> __('Mobile', 'bb-powerpack'),
-								'tooltip'	=> __('Mobile', 'bb-powerpack'),
-                    		),
-                    	)
-                    ),
-					'filter_text_transform' => array(
-						'type'		=> 'select',
-						'label'		=> __('Text Transform', 'bb-powerpack'),
-						'default'	=> 'default',
-						'options'       => array(
-							'default'          => __('Default', 'bb-powerpack'),
-							'lowercase'         => __('lowercase', 'bb-powerpack'),
-							'uppercase'         => __('UPPERCASE', 'bb-powerpack'),
+                    'filter_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-gallery-filters li',
 						),
 					),
                 ),

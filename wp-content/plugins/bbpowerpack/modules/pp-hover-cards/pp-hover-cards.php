@@ -23,11 +23,177 @@ class PPHoverCardsModule extends FLBuilderModule {
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
             'partial_refresh'   => true,
-            'icon'				=> 'star-filled.svg',
         ));
 
         $this->add_css( 'hover-cards-settings-style', $this->url . 'css/settings.css' );
     }
+
+	public function filter_settings( $settings, $helper )
+	{	
+		// Handle Success Message old Font field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'hover_card_height_f', 'responsive', 'hover_card_height', array(
+			'desktop'	=>  'hover_card_height',
+			'tablet'	=> 	'hover_card_height_tablet',
+			'mobile'	=> 	'hover_card_height_mobile'
+		) );
+
+		// Handle Success Message old Font field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'hover_card_column_width', 'responsive', 'hover_card_columns', array(
+			'desktop'	=>  'hover_card_columns_desktop',
+			'tablet'	=> 	'hover_card_columns_tablet',
+			'mobile'	=> 	'hover_card_columns_mobile'
+		) );
+
+		// Handle title's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'hover_card_title_font'	=> array(
+				'type'			=> 'font'
+			),
+			'hover_card_title_font_size_f'	=> array(
+				'type'			=> 'font_size',
+				'keys'			=> array(
+					'desktop'		=> 'hover_card_title_font_size',
+					'tablet'		=> 'hover_card_title_font_size_tablet',
+					'mobile'		=> 'hover_card_title_font_size_mobile'
+				)
+			),
+			'hover_card_title_line_height_f'	=> array(
+				'type'			=> 'line_height',
+				'keys'			=> array(
+					'desktop'		=> 'hover_card_title_line_height',
+					'tablet'		=> 'hover_card_title_line_height_tablet',
+					'mobile'		=> 'hover_card_title_line_height_mobile'
+				)
+			),
+		), 'card_title_typography' );
+
+		// Handle description's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'hover_card_description_font'	=> array(
+				'type'			=> 'font'
+			),
+			'hover_card_description_font_size_f'	=> array(
+				'type'			=> 'font_size',
+				'keys'			=> array(
+					'desktop'		=> 'hover_card_description_font_size',
+					'tablet'		=> 'hover_card_description_font_size_tablet',
+					'mobile'		=> 'hover_card_description_font_size_mobile'
+				)
+			),
+			'hover_card_description_line_height_f'	=> array(
+				'type'			=> 'line_height',
+				'keys'			=> array(
+					'desktop'		=> 'hover_card_description_line_height',
+					'tablet'		=> 'hover_card_description_line_height_tablet',
+					'mobile'		=> 'hover_card_description_line_height_mobile'
+				)
+			),
+		), 'card_description_typography' );
+
+		// Handle button's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'button_font'	=> array(
+				'type'			=> 'font'
+			),
+			'button_font_size_f'	=> array(
+				'type'			=> 'font_size',
+				'keys'			=> array(
+					'desktop'		=> 'button_font_size',
+					'tablet'		=> 'hover_card_button_font_size_tablet',
+					'mobile'		=> 'hover_card_button_font_size_mobile'
+				)
+			),
+		), 'button_typography' );
+
+		for( $i = 0; $i < count( $settings->card_content ); $i++ ) {
+			
+			if ( ! is_object( $settings->card_content[ $i ] ) ) {
+				continue;
+			}
+
+			// Handle old link, link_target fields.
+			$settings->card_content[ $i ] = PP_Module_Fields::handle_link_field( $settings->card_content[ $i ], array(
+				'button_link'			=> array(
+					'type'			=> 'link'
+				),
+				'link_target'	=> array(
+					'type'			=> 'target'
+				),
+			), 'button_link' );
+
+			// Handle old box border and radius fields.
+			$settings->card_content[ $i ] = PP_Module_Fields::handle_border_field( $settings->card_content[ $i ], array(
+				'hover_card_box_border'	=> array(
+					'type'				=> 'style'
+				),
+				'hover_card_box_border_width'	=> array(
+					'type'				=> 'width'
+				),
+				'hover_card_box_border_color'	=> array(
+					'type'				=> 'color',
+				),
+				'hover_card_box_border_radius'	=> array(
+					'type'				=> 'radius'
+				),
+			), 'card_box_border' );
+
+			// Handle box border opacity + color field.
+			if ( isset( $settings->card_content[ $i ]->hover_card_box_border_opacity ) ) {
+				$opacity = $settings->card_content[ $i ]->hover_card_box_border_opacity >= 0 ? $settings->card_content[ $i ]->hover_card_box_border_opacity : 1;
+				$color = $settings->card_content[ $i ]->card_box_border['color'];
+
+				if ( ! empty( $color ) ) {
+					$color = pp_hex2rgba( pp_get_color_value( $color ), $opacity );
+					$settings->card_content[ $i ]->card_box_border['color'] = $color;
+				}
+
+				unset( $settings->card_content[ $i ]->hover_card_box_border_opacity );
+			}
+
+			// Handle box old padding field.
+			$settings->card_content[ $i ] = PP_Module_Fields::handle_multitext_field( $settings->card_content[ $i ], 'hover_card_box_padding', 'padding', 'hover_card_box_padding' );
+			
+			// Handle button old padding field.
+			$settings->card_content[ $i ] = PP_Module_Fields::handle_multitext_field( $settings->card_content[ $i ], 'button_padding', 'padding', 'button_padding' );
+
+			// Handle old button border dual color - hover
+			if ( isset( $settings->card_content[ $i ]->button_border_color ) ) {
+				$settings->card_content[ $i ]->button_border_hover_color = $settings->card_content[ $i ]->button_border_color->secondary;
+			}
+
+			// Handle old button border and radius fields.
+			$settings->card_content[ $i ] = PP_Module_Fields::handle_border_field( $settings->card_content[ $i ], array(
+				'button_border'	=> array(
+					'type'				=> 'style'
+				),
+				'button_border_width'	=> array(
+					'type'				=> 'width'
+				),
+				'button_border_radius'	=> array(
+					'type'				=> 'radius'
+				),
+				'button_border_color'	=> array(
+					'type'					=> 'color',
+					'value'					=> ( isset( $settings->card_content[ $i ]->button_border_color ) ) ? $settings->card_content[ $i ]->button_border_color->primary : ''
+				)
+			), 'button_border_group' );
+
+			// Handle old button text & hover dual color field.
+			$settings->card_content[ $i ] = PP_Module_Fields::handle_dual_color_field( $settings->card_content[ $i ], 'button_color', array(
+				'primary'	=> 'button_text_color',
+				'secondary'	=> 'button_text_hover'
+			) );
+
+			// Handle old button background & hover dual color field.
+			$settings->card_content[ $i ] = PP_Module_Fields::handle_dual_color_field( $settings->card_content[ $i ], 'button_background', array(
+				'primary'	=> 'button_bg_color',
+				'secondary'	=> 'button_bg_hover'
+			) );
+
+		}
+	
+		return $settings;
+	}
 
 }
 
@@ -66,11 +232,10 @@ FLBuilder::register_module('PPHoverCardsModule', array(
                         )
                     ),
                     'hover_card_spacing'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Gutter/Spacing', 'bb-powerpack'),
-                        'description'   => '%',
-                        'size'      => 5,
-                        'maxlength' => 3,
+                        'units'   		=> array( '%' ),
+                        'slider'      	=> true,
                         'default'       => '1',
                         'preview'       => array(
                             'type'      => 'css',
@@ -79,74 +244,30 @@ FLBuilder::register_module('PPHoverCardsModule', array(
                             'unit'      => '%'
                         )
                     ),
-                    'hover_card_height_f' 	=> array(
-                    	'type' 			=> 'pp-multitext',
-                    	'label' 		=> __('Height', 'bb-powerpack'),
-                        'default'       => array(
-                            'hover_card_height' => 300,
-                            'hover_card_height_tablet' => '',
-                            'hover_card_height_mobile' => ''
-                        ),
-                    	'options' 		=> array(
-                    		'hover_card_height' => array(
-                                'maxlength' => 3,
-                    			'icon'		=> 'fa-desktop',
-                                'placeholder'   =>  __('Desktop', 'bb-powerpack'),
-                                'tooltip'       => 'Desktop',
-                                'preview'   => array(
-                                    'selector'  => '.pp-hover-card-container',
-                                    'property'  => 'height',
-                                    'unit'      => 'px'
-                                )
-                    		),
-                            'hover_card_height_tablet' => array(
-                                'maxlength' => 3,
-                    			'icon'		=> 'fa-tablet',
-                                'placeholder'   =>  __('Tablet', 'bb-powerpack'),
-                                'tooltip'       => 'Tablet',
-                    		),
-                            'hover_card_height_mobile' => array(
-                                'maxlength' => 3,
-                    			'icon'		=> 'fa-mobile',
-                                'placeholder'   =>  __('Mobile', 'bb-powerpack'),
-                                'tooltip'       => 'Mobile',
-                    		),
-                    	)
-                    ),
+					'hover_card_height'	=> array(
+						'type'						=> 'unit',
+						'label'						=> __('Height', 'bb-powerpack'),
+						'default'					=> 300,
+						'slider'					=> true,
+						'responsive'				=> true,
+						'preview'       			=> array(
+							'type'						=> 'css',
+							'selector'        			=> '.pp-hover-card-container',
+							'property'        			=> 'height',
+						),
+					),
                 ),
             ),
             'hover_card_count'       => array( // Section
                 'title'        => __('Number of Cards in a row', 'bb-powerpack'), // Section Title
                 'fields'       => array( // Section Fields
-                    'hover_card_column_width' 	=> array(
-                    	'type' 			=> 'pp-multitext',
-                    	'label' 		=> __('Cards'),
-                        'default'       => array(
-                            'hover_card_columns_desktop' => 4,
-                            'hover_card_columns_tablet' => 2,
-                            'hover_card_columns_mobile' => 1
-                        ),
-                    	'options' 		=> array(
-                    		'hover_card_columns_desktop' => array(
-                                'maxlength' => 3,
-                    			'icon'		=> 'fa-desktop',
-                                'placeholder'   =>  __('Desktop', 'bb-powerpack'),
-                                'tooltip'       => 'Desktop',
-                    		),
-                            'hover_card_columns_tablet' => array(
-                                'maxlength' => 3,
-                    			'icon'		=> 'fa-tablet',
-                                'placeholder'   =>  __('Tablet', 'bb-powerpack'),
-                                'tooltip'       => 'Tablet',
-                    		),
-                    		'hover_card_columns_mobile' => array(
-                                'maxlength' => 3,
-                    			'icon'		=> 'fa-mobile',
-                                'placeholder'   =>  __('Mobile', 'bb-powerpack'),
-                                'tooltip'       => 'Mobile',
-                    		),
-                    	)
-                    )
+					'hover_card_columns'	=> array(
+						'type'						=> 'unit',
+						'label'						=> __('Cards', 'bb-powerpack'),
+						'default'					=> '4',
+						'slider'					=> true,
+						'responsive'				=> true,
+					),
                 )
             )
         ),
@@ -268,223 +389,43 @@ FLBuilder::register_module('PPHoverCardsModule', array(
                             'h6'        => 'H6',
                         )
                     ),
-                    'hover_card_title_font'    => array(
-                        'type'                      => 'font',
-                        'default'		            => array(
-                            'family'		              => 'Default',
-                            'weight'		              => 300
-                        ),
-                        'label'                 => __('Font', 'bb-powerpack'),
-                        'preview'               => array(
-                            'type'                  => 'font',
-                            'selector'              => '.pp-hover-card-container .pp-hover-card-title h3'
-                        )
-                    ),
-                    'hover_card_title_font_size_f' 	=> array(
-                    	'type' 			=> 'pp-multitext',
-                    	'label' 		=> __('Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'hover_card_title_font_size' => 24,
-                            'hover_card_title_font_size_tablet' => '',
-                            'hover_card_title_font_size_mobile' => ''
-                        ),
-                    	'options' 		=> array(
-                    		'hover_card_title_font_size' => array(
-                                'maxlength' => 3,
-                    			'icon'		=> 'fa-desktop',
-                                'placeholder'   =>  __('Desktop', 'bb-powerpack'),
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'   => array(
-                                    'selector'  => '.pp-hover-card-container .pp-hover-card-title h3',
-                                    'property'  => 'font-size',
-                                    'unit'      => 'px'
-                                )
-                    		),
-                            'hover_card_title_font_size_tablet' => array(
-                                'maxlength' => 3,
-                    			'icon'		=> 'fa-tablet',
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'tooltip'       => __('Tablet', 'bb-powerpack'),
-
-                    		),
-                            'hover_card_title_font_size_mobile' => array(
-                                'maxlength' => 3,
-                    			'icon'		=> 'fa-mobile',
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'tooltip'       => __('Mobile', 'bb-powerpack'),
-                    		),
-                    	)
-                    ),
-                    'hover_card_title_line_height_f' 	=> array(
-                    	'type' 			=> 'pp-multitext',
-                    	'label' 		=> __('Line Height', 'bb-powerpack'),
-                        'default'       => array(
-                            'hover_card_title_line_height' => 1.2,
-                            'hover_card_title_line_height_tablet' => '',
-                            'hover_card_title_line_height_mobile' => ''
-                        ),
-                    	'options' 		=> array(
-                    		'hover_card_title_line_height' => array(
-                                'maxlength' => 3,
-                    			'icon'		=> 'fa-desktop',
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'   => array(
-                                    'selector'  => '.pp-hover-card-container .pp-hover-card-title h3',
-                                    'property'  => 'line-height',
-                                    'unit'      => 'px'
-                                )
-                    		),
-                            'hover_card_title_line_height_tablet' => array(
-                                'maxlength' => 3,
-                    			'icon'		=> 'fa-tablet',
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'tooltip'       => __('Tablet', 'bb-powerpack'),
-                    		),
-                            'hover_card_title_line_height_mobile' => array(
-                                'maxlength' => 3,
-                    			'icon'		=> 'fa-mobile',
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'tooltip'       => __('Mobile', 'bb-powerpack'),
-                    		),
-                    	)
-                    ),
+					'card_title_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-hover-card-container .pp-hover-card-title h3',
+						),
+					),
                 ),
             ),
             'hover_card_description_typography'  => array(
                 'title' => __('Description', 'bb-powerpack'),
                 'fields'    => array(
-                    'hover_card_description_font'    => array(
-                        'type'      => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.pp-hover-card-container .pp-hover-card-description'
-                        )
-                    ),
-                    'hover_card_description_font_size_f' 	=> array(
-                    	'type' 			=> 'pp-multitext',
-                    	'label' 		=> __('Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'hover_card_description_font_size' => 14,
-                            'hover_card_description_font_size_tablet' => '',
-                            'hover_card_description_font_size_mobile' => ''
-                        ),
-                    	'options' 		=> array(
-                    		'hover_card_description_font_size' => array(
-                                'maxlength' => 3,
-                    			'icon'		=> 'fa-desktop',
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'   => array(
-                                    'selector'  => '.pp-hover-card-container .pp-hover-card-description',
-                                    'property'  => 'font-size',
-                                    'unit'      => 'px'
-                                )
-                    		),
-                            'hover_card_description_font_size_tablet' => array(
-                                'maxlength' => 3,
-                    			'icon'		=> 'fa-tablet',
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'tooltip'       => __('Tablet', 'bb-powerpack'),
-                    		),
-                            'hover_card_description_font_size_mobile' => array(
-                                'maxlength' => 3,
-                    			'icon'		=> 'fa-mobile',
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'tooltip'       => __('Mobile', 'bb-powerpack'),
-                    		),
-                    	)
-                    ),
-                    'hover_card_description_line_height_f' 	=> array(
-                    	'type' 			=> 'pp-multitext',
-                    	'label' 		=> __('Line Height', 'bb-powerpack'),
-                        'default'       => array(
-                            'hover_card_description_line_height' => 1.4,
-                            'hover_card_description_line_height_tablet' => '',
-                            'hover_card_description_line_height_mobile' => ''
-                        ),
-                    	'options' 		=> array(
-                    		'hover_card_description_line_height' => array(
-                                'maxlength' => 3,
-                    			'icon'		=> 'fa-desktop',
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'   => array(
-                                    'selector'  => '.pp-hover-card-container .pp-hover-card-description',
-                                    'property'  => 'line-height',
-                                    'unit'      => 'px'
-                                )
-                    		),
-                            'hover_card_description_line_height_tablet' => array(
-                                'maxlength' => 3,
-                    			'icon'		=> 'fa-tablet',
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'tooltip'       => __('Tablet', 'bb-powerpack'),
-                    		),
-                            'hover_card_description_line_height_mobile' => array(
-                                'maxlength' => 3,
-                    			'icon'		=> 'fa-mobile',
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'tooltip'       => __('Mobile', 'bb-powerpack'),
-                    		),
-                    	)
-                    ),
+					'card_description_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-hover-card-container .pp-hover-card-description',
+						),
+					),
                 ),
             ),
             'button_typography'  => array(
                 'title' => __('Button', 'bb-powerpack'),
                 'fields'    => array(
-                    'button_font'    => array(
-                        'type'      => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.pp-hover-card .pp-hover-card-inner .pp-more-link'
-                        )
-                    ),
-                    'button_font_size_f' 	=> array(
-                    	'type' 			=> 'pp-multitext',
-                    	'label' 		=> __('Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'button_font_size' => 14,
-                            'hover_card_button_font_size_tablet' => '',
-                            'hover_card_button_font_size_mobile' => ''
-                        ),
-                    	'options' 		=> array(
-                    		'button_font_size' => array(
-                                'maxlength' => 3,
-                    			'icon'		=> 'fa-desktop',
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'   => array(
-                                    'selector'  => '.pp-hover-card .pp-hover-card-inner .pp-more-link',
-                                    'property'  => 'font-size',
-                                    'unit'      => 'px'
-                                )
-                    		),
-                            'hover_card_button_font_size_tablet' => array(
-                                'maxlength' => 3,
-                    			'icon'		=> 'fa-tablet',
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'tooltip'       => __('Tablet', 'bb-powerpack'),
-                    		),
-                            'hover_card_button_font_size_mobile' => array(
-                                'maxlength' => 3,
-                    			'icon'		=> 'fa-mobile',
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'tooltip'       => __('Mobile', 'bb-powerpack'),
-                    		),
-                    	)
-                    ),
+					'button_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-hover-card .pp-hover-card-inner .pp-more-link',
+						),
+					),
                 ),
             ),
         ),
@@ -606,10 +547,10 @@ FLBuilder::register_settings_form('pp_hover_card_form', array(
                             ),
                             'toggle'    => array(
                                 'box'   => array(
-                                    'fields'    => array('button_link', 'link_target'),
+                                    'fields'    => array('button_link'),
                                 ),
                                 'button'   => array(
-                                    'fields'    => array('button_text', 'button_link', 'link_target'),
+                                    'fields'    => array('button_text', 'button_link'),
                                     'tabs'      => array('button_style')
                                 ),
                             ),
@@ -622,21 +563,16 @@ FLBuilder::register_settings_form('pp_hover_card_form', array(
                                 'selector'  => '.pp-hover-card .pp-more-link'
                             ),
                         ),
-                        'button_link'   => array(
-                            'type'      => 'link',
-                            'label'     => __('Link', 'bb-powerpack'),
-                            'placeholder'   => 'http://www.example.com',
-                            'connections'   => array( 'url' ),
-                        ),
-                        'link_target'   => array(
-                            'type'      => 'pp-switch',
-                            'label'     => __('Link Target', 'bb-powerpack'),
-                            'default'   => '_self',
-                            'options'   => array(
-                                '_blank'     => __('New Window', 'bb-powerpack'),
-                                '_self'     => __('Same Window', 'bb-powerpack'),
-                            ),
-                        ),
+                        'button_link'  => array(
+							'type'          => 'link',
+							'label'         => __('Link', 'bb-powerpack'),
+							'placeholder'   => 'http://www.example.com',
+							'show_target'	=> true,
+							'connections'   => array( 'url' ),
+							'preview'       => array(
+								'type'          => 'none'
+							)
+						),
                     ),
                 ),
 			)
@@ -647,94 +583,19 @@ FLBuilder::register_settings_form('pp_hover_card_form', array(
                 'static_content_Styling'     => array(
                     'title'     => 'Box',
                     'fields'    => array(
-                        'hover_card_box_border'    => array(
-                            'type'      => 'pp-switch',
-                            'label'     => __('Border', 'bb-powerpack'),
-                            'default'   => 'none',
-                            'options'   => array(
-                                'none'  => __('None', 'bb-powerpack'),
-                                'solid'  => __('Solid', 'bb-powerpack'),
-                                'dashed'  => __('Dashed', 'bb-powerpack'),
-                                'dotted'  => __('Dotted', 'bb-powerpack'),
-                            ),
-                            'toggle'    => array(
-                                'dashed'   => array(
-                                    'fields'    => array('hover_card_box_border_width', 'hover_card_box_border_color', 'hover_card_box_border_opacity')
-                                ),
-                                'dotted'   => array(
-                                    'fields'    => array('hover_card_box_border_width', 'hover_card_box_border_color', 'hover_card_box_border_opacity')
-                                ),
-                                'solid'   => array(
-                                    'fields'    => array('hover_card_box_border_width', 'hover_card_box_border_color', 'hover_card_box_border_opacity')
-                                ),
-                            ),
-                        ),
-                        'hover_card_box_border_width'  => array(
-                            'type'      => 'text',
-                            'label'     => __('Border Width', 'bb-powerpack'),
-                            'size'      => 5,
-                            'maxlength' => 3,
-                            'default'   => '1',
-                            'description'   => 'px',
-                        ),
-                        'hover_card_box_border_color'  => array(
-                            'type'      => 'color',
-                            'label'     => __('Border Color', 'bb-powerpack'),
-                            'show_reset' => true,
-                        ),
-                        'hover_card_box_border_opacity'    => array(
-                            'type'      => 'text',
-                            'label'     => __('Border Opacity', 'bb-powerpack'),
-                            'size'      => 5,
-                            'maxlength' => 3,
-                            'default'   => 1,
-                            'description'   => __('between 0 to 1', 'bb-powerpack'),
-                        ),
-                        'hover_card_box_border_radius'     => array(
-                            'type'      => 'text',
-                            'label'     => __('Round Corners', 'bb-powerpack'),
-                            'size'      => 5,
-                            'maxlength' => 3,
-                            'default'   => 0,
-                            'description' => 'px',
-                        ),
-                        'hover_card_box_padding' 	=> array(
-                        	'type' 			=> 'pp-multitext',
-                        	'label' 		=> __('Padding', 'bb-powerpack'),
-                            'description'   => 'px',
-                            'default'       => array(
-                                'top' => 20,
-                                'right' => 20,
-                                'bottom' => 20,
-                                'left' => 20,
-                            ),
-                        	'options' 		=> array(
-                        		'top' => array(
-                                    'maxlength' => 3,
-                                    'placeholder'   => __('Top', 'bb-powerpack'),
-                                    'tooltip'       => __('Top', 'bb-powerpack'),
-                        			'icon'		=> 'fa-long-arrow-up',
-                        		),
-                                'bottom' => array(
-                                    'maxlength' => 3,
-                                    'placeholder'   => __('Bottom', 'bb-powerpack'),
-                                    'tooltip'       => __('Bottom', 'bb-powerpack'),
-                        			'icon'		=> 'fa-long-arrow-down',
-                        		),
-                                'left' => array(
-                                    'maxlength' => 3,
-                                    'placeholder'   => __('Left', 'bb-powerpack'),
-                                    'tooltip'       => __('Left', 'bb-powerpack'),
-                        			'icon'		=> 'fa-long-arrow-left',
-                        		),
-                                'right' => array(
-                                    'maxlength' => 3,
-                                    'placeholder'   => __('Right', 'bb-powerpack'),
-                                    'tooltip'       => __('Right', 'bb-powerpack'),
-                        			'icon'		=> 'fa-long-arrow-right',
-                        		),
-                        	)
-                        ),
+						'card_box_border'	=> array(
+							'type'          => 'border',
+							'label'         => __( 'Border', 'bb-powerpack' ),
+							'responsive'	=> true,
+						),
+						'hover_card_box_padding'	=> array(
+							'type'				=> 'dimension',
+							'label'				=> __('Padding', 'bb-powerpack'),
+							'default'			=> '20',
+							'units'				=> array('px'),
+							'slider'			=> true,
+							'responsive'		=> true,
+						),
                     ),
                 ),
                 'hover_card_overlay_s'    => array(
@@ -758,12 +619,12 @@ FLBuilder::register_settings_form('pp_hover_card_form', array(
                     'title'     => __('Icon', 'bb-powerpack'),
                     'fields'    => array(
                         'hover_card_icon_size'    => array(
-                            'type'          => 'text',
-                            'size'          => '5',
-                            'maxlength'     => '3',
+                            'type'          => 'unit',
                             'default'       => '70',
                             'label'         => __('Size', 'bb-powerpack'),
-                            'description'   => 'px',
+                            'units'   		=> array( 'px' ),
+							'slider'		=> true,
+							'responsive'	=> true
                         ),
                         'hover_card_icon_color'   => array(
                             'type'      => 'color',
@@ -822,127 +683,68 @@ FLBuilder::register_settings_form('pp_hover_card_form', array(
                     'title'     => '',
                     'fields'    => array(
                         'button_width'   => array(
-                            'type'      => 'text',
-                            'label'     => __('Width', 'bb-powerpack'),
-                            'size'      => 5,
-                            'maxlength' => 3,
-                            'default'   => 100,
-                            'description'   => 'px',
+                            'type'      	=> 'unit',
+                            'label'     	=> __('Width', 'bb-powerpack'),
+                            'default'   	=> 100,
+                            'units'   		=> array( 'px' ),
+							'slider'		=> true,
+							'responsive'	=> true
                         ),
-                        'button_color'      => array(
-                            'type'      => 'pp-color',
-                            'label'     => __('Color', 'bb-powerpack'),
-                            'show_reset' => true,
-                            'default'   => array(
-                                'primary'	=> '000000',
-                                'secondary'	=> '000000'
-                            ),
-                            'options'	=> array(
-                                'primary'	=> __('Default', 'bb-powerpack'),
-                                'secondary' => __('Hover', 'bb-powerpack')
-                            )
-                        ),
-                        'button_background' => array(
-                            'type'      => 'pp-color',
-                            'label'     => __('Background Color', 'bb-powerpack'),
-                            'show_reset' => true,
-                            'default'   => array(
-                                'primary'	=> 'ffffff',
-                                'secondary'	=> 'ffffff'
-                            ),
-                            'options'	=> array(
-                                'primary'	=> __('Default', 'bb-powerpack'),
-                                'secondary' => __('Hover', 'bb-powerpack')
-                            )
-                        ),
-                        'button_border' => array(
-                            'type'      => 'pp-switch',
-                            'label'     => __('Border', 'bb-powerpack'),
-                            'default'   => 'none',
-                            'options'   => array(
-                                'none'  => __('None', 'bb-powerpack'),
-                                'solid'  => __('Solid', 'bb-powerpack'),
-                                'dashed'  => __('Dashed', 'bb-powerpack'),
-                                'dotted'  => __('Dotted', 'bb-powerpack'),
-                            ),
-                            'toggle'    => array(
-                                'dashed'   => array(
-                                    'fields'    => array('button_border_width', 'button_border_color')
-                                ),
-                                'dotted'   => array(
-                                    'fields'    => array('button_border_width', 'button_border_color')
-                                ),
-                                'solid'   => array(
-                                    'fields'    => array('button_border_width', 'button_border_color')
-                                ),
-                            ),
-                        ),
-                        'button_border_width'   => array(
-                            'type'      => 'text',
-                            'label'     => __('Border Width', 'bb-powerpack'),
-                            'size'      => 5,
-                            'maxlength' => 3,
-                            'default'   => 0,
-                            'description'   => 'px',
-                        ),
-                        'button_border_color'   => array(
-                            'type'      => 'pp-color',
-                            'label'     => __('Border Color', 'bb-powerpack'),
-                            'show_reset' => true,
-                            'default'   => array(
-                                'primary'	=> '',
-                                'secondary'	=> ''
-                            ),
-                            'options'	=> array(
-                                'primary'	=> __('Default', 'bb-powerpack'),
-                                'secondary' => __('Hover', 'bb-powerpack')
-                            )
-                        ),
-                        'button_border_radius'   => array(
-                            'type'      => 'text',
-                            'label'     => __('Round Corners', 'bb-powerpack'),
-                            'size'      => 5,
-                            'maxlength' => 3,
-                            'default'   => 0,
-                            'description'   => 'px',
-                        ),
-                        'button_padding' 	=> array(
-                        	'type' 			=> 'pp-multitext',
-                        	'label' 		=> __('Padding', 'bb-powerpack'),
-                            'description'   => 'px',
-                            'default'       => array(
-                                'top' => 5,
-                                'right' => 10,
-                                'bottom' => 5,
-                                'left' => 10,
-                            ),
-                        	'options' 		=> array(
-                        		'top' => array(
-                                    'maxlength' => 3,
-                                    'placeholder'   => __('Top', 'bb-powerpack'),
-                                    'tooltip'       => __('Top', 'bb-powerpack'),
-                        			'icon'		=> 'fa-long-arrow-up',
-                        		),
-                                'bottom' => array(
-                                    'maxlength' => 3,
-                                    'placeholder'   => __('Bottom', 'bb-powerpack'),
-                                    'tooltip'       => __('Bottom', 'bb-powerpack'),
-                        			'icon'		=> 'fa-long-arrow-down',
-                        		),
-                                'left' => array(
-                                    'maxlength' => 3,
-                                    'placeholder'   => __('Left', 'bb-powerpack'),
-                                    'tooltip'       => __('Left', 'bb-powerpack'),
-                        			'icon'		=> 'fa-long-arrow-left',
-                        		),
-                                'right' => array(
-                                    'maxlength' => 3,
-                                    'placeholder'   => __('Right', 'bb-powerpack'),
-                                    'tooltip'       => __('Right', 'bb-powerpack'),
-                        			'icon'		=> 'fa-long-arrow-right',
-                        		),
-                        	)
-                        ),
+						'button_text_color'	=> array(
+							'type'			=> 'color',
+							'label'			=> __( 'Text Color', 'bb-powerpack' ),
+							'default'		=> '000000'
+						),
+						'button_text_hover'	=> array(
+							'type'			=> 'color',
+							'label'			=> __( 'Text Hover Color', 'bb-powerpack' ),
+							'default'		=> '000000'
+						),
+						'button_bg_color'	=> array(
+							'type'			=> 'color',
+							'label'			=> __( 'Background Color', 'bb-powerpack' ),
+							'default'		=> 'ffffff',
+							'show_reset'	=> true,
+							'show_alpha'	=> true
+						),
+						'button_bg_hover'	=> array(
+							'type'			=> 'color',
+							'label'			=> __( 'Background Hover Color', 'bb-powerpack' ),
+							'default'		=> 'ffffff',
+							'show_reset'	=> true,
+							'show_alpha'	=> true
+						),
+                        'button_border_group'	=> array(
+							'type'          => 'border',
+							'label'         => __( 'Border', 'bb-powerpack' ),
+							'responsive'	=> true,
+						),
+						// 'button_border_color'   => array(
+                        //     'type'      => 'pp-color',
+                        //     'label'     => __('Border Color', 'bb-powerpack'),
+                        //     'show_reset' => true,
+                        //     'default'   => array(
+                        //         'primary'	=> '',
+                        //         'secondary'	=> ''
+                        //     ),
+                        //     'options'	=> array(
+                        //         'primary'	=> __('Default', 'bb-powerpack'),
+                        //         'secondary' => __('Hover', 'bb-powerpack')
+                        //     )
+                        // ),
+						'button_border_hover_color'	=> array(
+							'type'			=> 'color',
+							'label'			=> __( 'Border Hover Color', 'bb-powerpack' ),
+							'default'		=> ''
+						),
+                        'button_padding'	=> array(
+							'type'				=> 'dimension',
+							'label'				=> __('Padding', 'bb-powerpack'),
+							'default'			=> '10',
+							'units'				=> array('px'),
+							'slider'			=> true,
+							'responsive'		=> true,
+						),
                     ),
                 ),
             )

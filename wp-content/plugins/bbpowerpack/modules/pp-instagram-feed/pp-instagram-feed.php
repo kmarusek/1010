@@ -34,6 +34,47 @@ class PPInstagramFeedModule extends FLBuilderModule {
 
 		$this->add_js('jquery-masonry');
 	}
+
+	public function filter_settings( $settings, $helper )
+	{
+		// Handle title's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'feed_title_font'	=> array(
+				'type'			=> 'font'
+			),
+			'feed_title_custom_font_size'	=> array(
+				'type'			=> 'font_size',
+				'condition'		=> ( isset( $settings->feed_title_font_size ) && 'custom' == $settings->feed_title_font_size )
+			),
+			'feed_title_line_height'	=> array(
+				'type'			=> 'line_height',
+			),
+			'feed_title_transform'	=> array(
+				'type'			=> 'text_transform',
+			),
+			'feed_title_letter_spacing'	=> array(
+				'type'			=> 'letter_spacing',
+			),
+		), 'title_typography' );
+
+		// Handle old title border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'feed_title_border'	=> array(
+				'type'				=> 'style'
+			),
+			'feed_title_border_width'	=> array(
+				'type'				=> 'width'
+			),
+			'feed_title_border_color'	=> array(
+				'type'				=> 'color'
+			),
+			'feed_title_border_radius'	=> array(
+				'type'				=> 'radius'
+			),
+		), 'feed_title_border_group' );
+
+		return $settings;
+	}
 }
 
 /**
@@ -68,6 +109,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 			),
 			'feed_settings'	=> array(
 				'title'			=> __( 'Feed Settings', 'bb-powerpack' ),
+				'collapsed'		=> true,
 				'fields'        => array(
 					'feed_by_tags'  => array(
 						'type'          => 'pp-switch',
@@ -90,10 +132,10 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 						'connections'	=> array('string')
 					),
 					'images_count'		=> array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __( 'Images Count', 'bb-powerpack' ),
 						'default'       => '12',
-						'size'          => '5',
+						'slider'        => true,
 					),
 					'image_resolution'  => array(
 						'type'          => 'select',
@@ -124,6 +166,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 			),
 			'general'	=> array(
 				'title'		=> __( 'General', 'bb-powerpack' ),
+				'collapsed'		=> true,
 				'fields'    => array(
 					'feed_layout'  => array(
 						'type'          => 'select',
@@ -164,7 +207,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 					'grid_columns'	=> array(
 						'type'			=> 'unit',
 						'label' 		=> __( 'Grid Columns', 'bb-powerpack' ),
-						'size'          => '5',
+						'slider'        => true,
 						'default'       => '3',
 						'responsive' 	=> array(
 							'placeholder'	=> array(
@@ -177,9 +220,9 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 					'spacing' => array(
 						'type' 			=> 'unit',
 						'label' 		=> __('Spacing', 'bb-powerpack'),
-						'description'	=> 'px',
-						'size'          => '5',
 						'default'		=> '',
+						'units'			=> array( 'px' ),
+						'slider'        => true,
 						'responsive' => array(
 							'placeholder' => array(
 								'default' => '',
@@ -349,6 +392,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 			),
 			'controls'		=> array(
 				'title'         => __( 'Controls', 'bb-powerpack' ),
+				'collapsed'		=> true,
 				'fields'        => array(
 					'navigation'     => array(
 						'type'          => 'pp-switch',
@@ -382,6 +426,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 			),
 			'arrow_style'   => array( // Section
 				'title' => __( 'Arrow Settings', 'bb-powerpack' ), // Section Title
+				'collapsed'		=> true,
 				'fields' => array( // Section Fields
 					'arrow_font_size'   => array(
 						'type'          => 'text',
@@ -572,6 +617,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 			),
 			'dot_style'	=> array( // Section
 				'title' 	=> __( 'Dot Settings', 'bb-powerpack' ), // Section Title
+				'collapsed'		=> true,
 				'fields' 	=> array( // Section Fields
 					'dot_position'	=> array(
 						'type'          => 'pp-switch',
@@ -754,6 +800,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 			),
 			'image_hover'	=> array(
 				'title'     	=> __( 'Image Hover', 'bb-powerpack' ),
+				'collapsed'		=> true,
 				'fields'    	=> array(
 					'image_hover_grayscale'	=> array(
 						'type'			=> 'pp-switch',
@@ -853,6 +900,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 			),
 			'feed_title'	=> array(
 				'title'			=> __( 'Feed Title', 'bb-powerpack' ),
+				'collapsed'		=> true,
 				'fields'		=> array(
 					'feed_title_position'	=> array(
 						'type'          => 'select',
@@ -912,55 +960,15 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 							'property'      => 'color',
 						),
 					),
-					'feed_title_border'	=> array(
-						'type'		=> 'pp-switch',
-						'label'     => __( 'Border', 'bb-powerpack' ),
-						'default'   => 'none',
-						'options'   => array(
-							'none'		=> __( 'None', 'bb-powerpack' ),
-							'solid'     => __( 'Solid', 'bb-powerpack' ),
-							'dashed'    => __( 'Dashed', 'bb-powerpack' ),
-							'dotted'    => __( 'Dotted', 'bb-powerpack' ),
-							),
-						'toggle'	=> array(
-							'solid'		=> array(
-								'fields'	=> array( 'feed_title_border_width', 'feed_title_border_color', 'feed_title_border_hover' ),
-							),
-							'dashed'    => array(
-								'fields'   => array( 'feed_title_border_width', 'feed_title_border_color', 'feed_title_border_hover' ),
-							),
-							'dotted'    => array(
-								'fields'   => array( 'feed_title_border_width', 'feed_title_border_color', 'feed_title_border_hover' ),
-							),
-							'double'	=> array(
-								'fields'   => array( 'feed_title_border_width', 'feed_title_border_color', 'feed_title_border_hover' ),
-							),
-						),
-					),
-					'feed_title_border_width'	=> array(
-						'type'			=> 'text',
-						'label'         => __( 'Border Width', 'bb-powerpack' ),
-						'description'   => 'px',
-						'size'      	=> 5,
-						'maxlength' 	=> 3,
-						'default'       => '1',
-						'preview'       => array(
-							'type'			=> 'css',
-							'selector'      => '.pp-instagram-feed .pp-instagram-feed-title-wrap',
-							'property'      => 'border-width',
-							'unit'          => 'px',
-						),
-					),
-					'feed_title_border_color'	=> array(
-						'type'				=> 'color',
-						'label'     		=> __( 'Border Color', 'bb-powerpack' ),
-						'show_reset' 		=> true,
-						'default'   		=> '',
-						'preview'         	=> array(
-							'type'				=> 'css',
-							'selector'        	=> '.pp-instagram-feed .pp-instagram-feed-title-wrap',
-							'property'        	=> 'border-color',
-						),
+					'feed_title_border_group'	=> array(
+						'type'          => 'border',
+						'label'         => __( 'Border', 'bb-powerpack' ),
+						'responsive'	=> true,
+						'preview'   	=> array(
+                            'type'  		=> 'css',
+                            'selector'  	=> '.pp-instagram-feed .pp-instagram-feed-title-wrap',
+                            'property'  	=> 'border',
+                        ),
 					),
 					'feed_title_border_hover'	=> array(
 						'type'			=> 'color',
@@ -973,25 +981,11 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 							'property'      => 'border-color',
 						),
 					),
-					'feed_title_border_radius'	=> array(
-						'type'          => 'text',
-						'label'         => __( 'Round Corners', 'bb-powerpack' ),
-						'description'   => 'px',
-						'size'      	=> 5,
-						'maxlength' 	=> 3,
-						'default'       => 0,
-						'preview'       => array(
-							'type'			=> 'css',
-							'selector'      => '.pp-instagram-feed .pp-instagram-feed-title-wrap',
-							'property'      => 'border-radius',
-							'unit'          => 'px',
-						),
-					),
 					'feed_title_horizontal_padding'	=> array(
 						'type'			=> 'unit',
 						'label' 		=> __( 'Horizontal Padding', 'bb-powerpack' ),
-						'description'	=> 'px',
-						'size'          => '5',
+						'units'			=> array( 'px' ),
+						'slider'        => true,
 						'responsive' 	=> array(
 							'placeholder'	=> array(
 								'default'		=> '',
@@ -1018,8 +1012,8 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 					'feed_title_vertical_padding'	=> array(
 						'type' 			=> 'unit',
 						'label' 		=> __( 'Vertical Padding', 'bb-powerpack' ),
-						'description'	=> 'px',
-						'size'          => '5',
+						'units'			=> array( 'px' ),
+						'slider'        => true,
 						'responsive'	=> array(
 							'placeholder'	=> array(
 								'default'		=> '',
@@ -1053,96 +1047,13 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 			'feed_title_typography'	=> array(
 				'title'		=> __( 'Feed Title', 'bb-powerpack' ),
 				'fields'	=> array(
-					'feed_title_font'	=> array(
-						'type'			=> 'font',
-						'label'			=> __( 'Font', 'bb-powerpack' ),
-						'default'		=> array(
-							'family'		=> 'Default',
-							'weight'		=> '400',
-						),
-						'preview'		=> array(
-							'type'			=> 'font',
-							'selector'  	=> '.pp-instagram-feed .pp-instagram-feed-title-wrap',
-						),
-					),
-					'feed_title_font_size'	=> array(
-						'type'			=> 'pp-switch',
-						'label'			=> __( 'Font Size', 'bb-powerpack' ),
-						'default'		=> 'default',
-						'options'       => array(
-							'default'		=> __( 'Default', 'bb-powerpack' ),
-							'custom'        => __( 'Custom', 'bb-powerpack' ),
-						),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array( 'feed_title_custom_font_size' ),
-							),
-						),
-					),
-					'feed_title_custom_font_size'	=> array(
-						'type' 			=> 'unit',
-						'label' 		=> __( 'Custom Font Size', 'bb-powerpack' ),
-						'description'	=> 'px',
-						'size'          => '5',
-						'responsive' 	=> array(
-							'placeholder'	=> array(
-								'default'		=> '',
-								'medium'		=> '',
-								'responsive'	=> '',
-							),
-						),
-						'preview'	=> array(
-							'type'		=> 'css',
-							'selector'	=> '.pp-instagram-feed .pp-instagram-feed-title-wrap',
-							'property'	=> 'font-size',
-							'unit' 		=> 'px',
-						),
-					),
-					'feed_title_transform'	=> array(
-						'type'			=> 'select',
-						'label'         => __( 'Text Transform', 'bb-powerpack' ),
-						'default'       => 'none',
-						'options'       => array(
-							'none'			=> __( 'None', 'bb-powerpack' ),
-							'lowercase'     => __( 'lowercase', 'bb-powerpack' ),
-							'uppercase'    	=> __( 'UPPERCASE', 'bb-powerpack' ),
-						),
-						'preview'	=> array(
-							'type'		=> 'css',
-							'selector'	=> '.pp-instagram-feed .pp-instagram-feed-title-wrap',
-							'property'	=> 'text-transform',
-						),
-					),
-					'feed_title_line_height'	=> array(
-						'type'			=> 'unit',
-						'label' 		=> __( 'Line Height', 'bb-powerpack' ),
-						'description'	=> 'px',
-						'size'          => '5',
-						'responsive'	=> array(
-							'placeholder'		=> array(
-								'default'		=> '',
-								'medium' 		=> '',
-								'responsive' 	=> '',
-							),
-						),
-						'preview'	=> array(
-							'type'		=> 'css',
-							'selector'	=> '.pp-instagram-feed .pp-instagram-feed-title-wrap',
-							'property'	=> 'line-height',
-						),
-					),
-					'feed_title_letter_spacing'	=> array(
-						'type'			=> 'text',
-						'label'         => __( 'Letter Spacing', 'bb-powerpack' ),
-						'description'   => 'px',
-						'size'      	=> 5,
-						'maxlength' 	=> 3,
-						'default'       => 0,
+					'title_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
 						'preview'		=> array(
 							'type'			=> 'css',
-							'selector'      => '.pp-instagram-feed .pp-instagram-feed-title-wrap',
-							'property'      => 'letter-spacing',
-							'unit'          => 'px',
+							'selector'		=> '.pp-instagram-feed .pp-instagram-feed-title-wrap',
 						),
 					),
 				),

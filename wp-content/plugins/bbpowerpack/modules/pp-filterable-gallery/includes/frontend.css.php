@@ -1,12 +1,16 @@
 <?php
-$space_desktop = ( $settings->photo_grid_count['desktop'] - 1 ) * $settings->photo_spacing;
-$photo_columns_desktop = ( 100 - $space_desktop ) / $settings->photo_grid_count['desktop'];
+$photo_border_width = ( isset( $settings->photo_border_group ) && ! empty( $settings->photo_border_group['width'] ) ) ? $settings->photo_border_group['width'] : 0;
+$photo_border_radius = ( isset( $settings->photo_border_group ) && ! empty( $settings->photo_border_group['radius'] ) ) ? $settings->photo_border_group['radius'] : 0;
+$photo_border = ( isset( $settings->photo_border_group ) && ! empty( $settings->photo_border_group['style'] ) ) ? $settings->photo_border_group['style'] : 'none';
 
-$space_tablet = ( $settings->photo_grid_count['tablet'] - 1 ) * $settings->photo_spacing;
-$photo_columns_tablet = ( 100 - $space_tablet ) / $settings->photo_grid_count['tablet'];
+$space_desktop = ( $settings->photo_grid_count - 1 ) * $settings->photo_spacing;
+$photo_columns_desktop = ( 100 - $space_desktop ) / $settings->photo_grid_count;
 
-$space_mobile = ( $settings->photo_grid_count['mobile'] - 1 ) * $settings->photo_spacing;
-$photo_columns_mobile = ( 100 - $space_mobile ) / $settings->photo_grid_count['mobile'];
+$space_tablet = ( $settings->photo_grid_count_medium - 1 ) * $settings->photo_spacing;
+$photo_columns_tablet = ( 100 - $space_tablet ) / $settings->photo_grid_count_medium;
+
+$space_mobile = ( $settings->photo_grid_count_responsive - 1 ) * $settings->photo_spacing;
+$photo_columns_mobile = ( 100 - $space_mobile ) / $settings->photo_grid_count_responsive;
 ?>
 
 div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-close {
@@ -64,12 +68,12 @@ div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-bottom-bar {
 }
 
 <?php if($settings->gallery_layout == 'grid') { ?>
-	<?php if ( $settings->photo_grid_count['desktop'] > 1 ) { ?>
-	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count['desktop']; ?>n+1){
+	<?php if ( $settings->photo_grid_count > 1 ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count; ?>n+1){
 	}
-	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count['desktop']; ?>n+0){
+	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count; ?>n+0){
 	}
-	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count['desktop']; ?>n){
+	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count; ?>n){
 		margin-right: 0;
 	}
 	<?php } ?>
@@ -78,25 +82,42 @@ div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-bottom-bar {
 .fl-node-<?php echo $id; ?> .pp-gallery-item {
 	width: <?php echo $photo_columns_desktop;?>%;
 	<?php if ( ! $settings->photo_spacing || false === $settings->photo_spacing ) { ?>
-	margin-right: <?php echo $settings->photo_spacing - ( $settings->photo_border != 'none' ? $settings->photo_border_width : 0 ); ?>px;
-	margin-bottom: <?php echo $settings->photo_spacing - ( $settings->photo_border != 'none' ? $settings->photo_border_width : 0 ); ?>px;
+		margin-right: <?php echo $settings->photo_spacing - ( 'none' != $photo_border ? $photo_border_width['left'] : 0 ); ?>px;
+		margin-bottom: <?php echo $settings->photo_spacing - ( 'none' != $photo_border ? $photo_border_width['top'] : 0 ); ?>px;
 	<?php } else { ?>
-	margin-bottom: <?php echo $settings->photo_spacing; ?>%;
+		margin-bottom: <?php echo $settings->photo_spacing; ?>%;
 	<?php } ?>
-	padding-top: <?php echo $settings->photo_padding['top']; ?>px;
-	padding-bottom: <?php echo $settings->photo_padding['bottom']; ?>px;
-	padding-left: <?php echo $settings->photo_padding['left']; ?>px;
-	padding-right: <?php echo $settings->photo_padding['right']; ?>px;
-	border-style: <?php echo $settings->photo_border; ?>;
-	<?php if( $settings->photo_border_width && $settings->photo_border != 'none' ) { ?>border-width: <?php echo $settings->photo_border_width; ?>px; <?php } ?>
-	<?php if( $settings->photo_border_color ) { ?> border-color: #<?php echo $settings->photo_border_color; ?>; <?php } ?>
-	<?php if( $settings->photo_border_radius >= 0 ) { ?> border-radius: <?php echo $settings->photo_border_radius; ?>px; <?php } ?>
 	visibility: hidden;
 }
+<?php
+	// Photo - Border
+	FLBuilderCSS::border_field_rule( array(
+		'settings' 		=> $settings,
+		'setting_name' 	=> 'photo_border_group',
+		'selector' 		=> ".fl-node-$id .pp-gallery-item",
+	) );
+
+	// gallery Items - Padding
+	FLBuilderCSS::dimension_field_rule( array(
+		'settings'		=> $settings,
+		'setting_name' 	=> 'photo_padding',
+		'selector' 		=> ".fl-node-$id .pp-gallery-item",
+		'unit'			=> 'px',
+		'props'			=> array(
+			'padding-top' 		=> 'photo_padding_top',
+			'padding-right' 	=> 'photo_padding_right',
+			'padding-bottom' 	=> 'photo_padding_bottom',
+			'padding-left' 		=> 'photo_padding_left',
+		),
+	) );
+?>
 
 .fl-node-<?php echo $id; ?> .pp-gallery-item img,
 .fl-node-<?php echo $id; ?> .pp-gallery-overlay {
-	<?php if( $settings->photo_border_radius >= 0 ) { ?> border-radius: <?php echo $settings->photo_border_radius; ?>px; <?php } ?>
+	<?php if ( $photo_border_radius['top_left'] >= 0 ) { ?> border-top-left-radius: <?php echo $photo_border_radius['top_left']; ?>px; <?php } ?>
+	<?php if ( $photo_border_radius['bottom_left'] >= 0 ) { ?> border-bottom-left-radius: <?php echo $photo_border_radius['bottom_left']; ?>px; <?php } ?>
+	<?php if ( $photo_border_radius['top_right'] >= 0 ) { ?> border-top-right-radius: <?php echo $photo_border_radius['top_right']; ?>px; <?php } ?>
+	<?php if ( $photo_border_radius['bottom_right'] >= 0 ) { ?> border-bottom-right-radius: <?php echo $photo_border_radius['bottom_right']; ?>px; <?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-gallery-item .pp-photo-gallery-content > a {
@@ -112,40 +133,85 @@ div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-bottom-bar {
 
 <?php if( $settings->overlay_effects != 'none' || $settings->show_captions == 'hover' ) : ?>
 .fl-node-<?php echo $id; ?> .pp-gallery-overlay {
-	background: <?php echo ($settings->overlay_color != '' ) ? pp_hex2rgba('#'.$settings->overlay_color, ($settings->overlay_color_opacity/ 100)) : 'rgba(0,0,0,.5)'; ?>;
+	<?php if ( isset( $settings->overlay_color ) && ! empty( $settings->overlay_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->overlay_color ); ?>;
+	<?php } ?>
 }
 <?php endif; ?>
 .fl-node-<?php echo $id; ?> .pp-gallery-overlay .pp-overlay-icon span {
 	color: #<?php echo $settings->overlay_icon_color; ?>;
-	font-size: <?php echo $settings->overlay_icon_size; ?>px;
-	background-color: #<?php echo $settings->overlay_icon_bg_color; ?>;
-	<?php if( $settings->overlay_icon_radius ) { ?>border-radius: <?php echo $settings->overlay_icon_radius; ?>px;<?php } ?>
-	<?php if( $settings->overlay_icon_padding ) { ?>padding: <?php echo $settings->overlay_icon_padding; ?>px;<?php } ?>
+	<?php if ( isset( $settings->overlay_icon_bg_color ) && ! empty( $settings->overlay_icon_bg_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->overlay_icon_bg_color ); ?>;
+	<?php } ?>
 }
+
+<?php
+	// Overlay Icon - Font Size
+	FLBuilderCSS::responsive_rule( array(
+		'settings'		=> $settings,
+		'setting_name'	=> 'overlay_icon_size',
+		'selector'		=> ".fl-node-$id .pp-gallery-overlay .pp-overlay-icon span, .fl-node-$id .pp-gallery-overlay .pp-overlay-icon span:before",
+		'prop'			=> 'font-size',
+		'unit'			=> 'px',
+	) );
+
+	// Overlay Icon - Border Radius
+	FLBuilderCSS::responsive_rule( array(
+		'settings'		=> $settings,
+		'setting_name'	=> 'overlay_icon_radius',
+		'selector'		=> ".fl-node-$id .pp-gallery-overlay .pp-overlay-icon span",
+		'prop'			=> 'border-radius',
+		'unit'			=> 'px',
+	) );
+
+	// Overlay Icon - Padding
+	FLBuilderCSS::responsive_rule( array(
+		'settings'		=> $settings,
+		'setting_name'	=> 'overlay_icon_padding',
+		'selector'		=> ".fl-node-$id .pp-gallery-overlay .pp-overlay-icon span",
+		'prop'			=> 'padding',
+		'unit'			=> 'px',
+	) );
+?>
 
 <?php if( $settings->show_captions == 'below' ) { ?>
 .fl-node-<?php echo $id; ?> .pp-photo-gallery-caption {
-	<?php if( $settings->caption_bg_color ) { ?>
-	background-color: #<?php echo $settings->caption_bg_color; ?>;
+	<?php if ( isset( $settings->caption_bg_color ) && ! empty( $settings->caption_bg_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->caption_bg_color ); ?>;
 	<?php } ?>
-	padding-top: <?php echo $settings->caption_padding['top']; ?>px;
-	padding-bottom: <?php echo $settings->caption_padding['bottom']; ?>px;
-	padding-left: <?php echo $settings->caption_padding['left']; ?>px;
-	padding-right: <?php echo $settings->caption_padding['right']; ?>px;
 	text-align: <?php echo $settings->caption_alignment; ?>;
 }
 <?php } ?>
 
+<?php
+	// Caption - Padding
+	FLBuilderCSS::dimension_field_rule( array(
+		'settings'		=> $settings,
+		'setting_name' 	=> 'caption_padding',
+		'selector' 		=> ".fl-node-$id .pp-photo-gallery-caption",
+		'unit'			=> 'px',
+		'props'			=> array(
+			'padding-top' 		=> 'caption_padding_top',
+			'padding-right' 	=> 'caption_padding_right',
+			'padding-bottom' 	=> 'caption_padding_bottom',
+			'padding-left' 		=> 'caption_padding_left',
+		),
+	) );
+?>
+
 .fl-node-<?php echo $id; ?> .pp-photo-gallery-caption,
 .fl-node-<?php echo $id; ?> .pp-gallery-overlay .pp-caption  {
-	<?php if( $settings->caption_font['family'] != 'Default' ) { ?>
-	   <?php FLBuilderFonts::font_css( $settings->caption_font ); ?>
-   <?php } ?>
-   <?php if( $settings->caption_font_size_toggle != 'default' && $settings->caption_custom_font_size['desktop'] ) { ?>
-	  font-size: <?php echo $settings->caption_custom_font_size['desktop']; ?>px;
-   <?php } ?>
 	color: #<?php echo $settings->caption_color; ?>;
 }
+
+<?php
+// Caption Typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'caption_typography',
+	'selector' 		=> ".fl-node-$id .pp-photo-gallery-caption, .fl-node-$id .pp-gallery-overlay .pp-caption",
+) );
+?>
 
 <?php
 /************************************
@@ -157,38 +223,55 @@ div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-bottom-bar {
 	margin-bottom: <?php echo $settings->filter_margin_bottom; ?>px;
 }
 
+<?php
+// Filter Typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'filter_typography',
+	'selector' 		=> ".fl-node-$id .pp-gallery-filters li",
+) );
+
+// Filter - Padding
+FLBuilderCSS::dimension_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'filter_padding',
+	'selector' 		=> ".fl-node-$id .pp-gallery-filters li",
+	'unit'			=> 'px',
+	'props'			=> array(
+		'padding-top' 		=> 'filter_padding_top',
+		'padding-right' 	=> 'filter_padding_right',
+		'padding-bottom' 	=> 'filter_padding_bottom',
+		'padding-left' 		=> 'filter_padding_left',
+	),
+) );
+// Filter - Border
+FLBuilderCSS::border_field_rule( array(
+	'settings' 		=> $settings,
+	'setting_name' 	=> 'filter_border_group',
+	'selector' 		=> ".fl-node-$id .pp-gallery-filters li",
+) );
+?>
+
 .fl-node-<?php echo $id; ?> .pp-gallery-filters li {
-	background: <?php echo ($settings->filter_background['primary']) ? '#'.$settings->filter_background['primary'] : 'transparent'; ?>;
-	border-color: <?php echo ( $settings->filter_border_color['primary'] ) ? '#' . $settings->filter_border_color['primary'] : 'transparent'; ?>;
-	<?php if( $settings->filter_border_radius >= 0 ) { ?>border-radius: <?php echo $settings->filter_border_radius; ?>px;<?php } ?>
-	<?php if( $settings->filter_border != 'none') { ?>
-	border-top-width: <?php echo $settings->filter_border_width['top']; ?>px;
-	border-bottom-width: <?php echo $settings->filter_border_width['bottom']; ?>px;
-	border-left-width: <?php echo $settings->filter_border_width['left']; ?>px;
-	border-right-width: <?php echo $settings->filter_border_width['right']; ?>px;
+	<?php if ( isset( $settings->filter_bg_color ) && ! empty( $settings->filter_bg_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->filter_bg_color ); ?>;
 	<?php } ?>
-	<?php if( $settings->filter_border ) { ?>border-style: <?php echo $settings->filter_border; ?>;<?php } ?>
-	padding-top: <?php echo $settings->filter_padding['top']; ?>px;
-	padding-right: <?php echo $settings->filter_padding['right']; ?>px;
-	padding-bottom: <?php echo $settings->filter_padding['bottom']; ?>px;
-	padding-left: <?php echo $settings->filter_padding['left']; ?>px;
-	<?php if( $settings->filter_color['primary'] ) { ?>color: #<?php echo $settings->filter_color['primary']; ?>;<?php } ?>
+	<?php if ( isset( $settings->filter_text_color ) && ! empty( $settings->filter_text_color ) ) { ?>
+		color: <?php echo pp_get_color_value( $settings->filter_text_color ); ?>;
+	<?php } ?>
 	margin-right: <?php echo $settings->filter_margin; ?>px;
 	margin-bottom: <?php echo ($settings->filter_margin / 2); ?>px;
-	<?php if( $settings->filter_font['family'] != 'Default' ) { ?>
-	   <?php FLBuilderFonts::font_css( $settings->filter_font ); ?>
-   <?php } ?>
-   font-size: <?php echo $settings->filter_font_size['desktop']; ?>px;
-   <?php if( 'default' != $settings->filter_text_transform ) { ?>
-   text-transform: <?php echo $settings->filter_text_transform; ?>
-   <?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-gallery-filters li:hover,
 .fl-node-<?php echo $id; ?> .pp-gallery-filters li.pp-filter-active {
-	background: <?php echo ($settings->filter_background['secondary']) ? '#'.$settings->filter_background['secondary'] : 'transparent'; ?>;
-	<?php if( $settings->filter_color['secondary'] ) { ?>color: #<?php echo $settings->filter_color['secondary']; ?>;<?php } ?>
-	border-color: <?php echo ( $settings->filter_border_color['secondary'] ) ? '#' . $settings->filter_border_color['secondary'] : 'transparent'; ?>;
+	<?php if ( isset( $settings->filter_bg_hover ) && ! empty( $settings->filter_bg_hover ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->filter_bg_hover ); ?>;
+	<?php } ?>
+	<?php if ( isset( $settings->filter_text_hover ) && ! empty( $settings->filter_text_hover ) ) { ?>
+		color: <?php echo pp_get_color_value( $settings->filter_text_hover ); ?>;
+	<?php } ?>
+	border-color: <?php echo ( $settings->filter_border_color_hover ) ? '#' . $settings->filter_border_color_hover : 'transparent'; ?>;
 }
 
 <?php if( $settings->overlay_effects == 'none' ) { ?>
@@ -397,28 +480,19 @@ div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-bottom-bar {
 	.fl-node-<?php echo $id; ?> .pp-gallery-item {
 		width: <?php echo $photo_columns_tablet;?>%;
 	}
-	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count['desktop']; ?>n+1){
+	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count; ?>n+1){
 		clear: none;
 	}
-	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count['desktop']; ?>n+0){
+	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count; ?>n+0){
 		clear: none;
 	}
-	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count['tablet']; ?>n){
+	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count_medium; ?>n){
 		margin-right: 0;
-	}
-	.fl-node-<?php echo $id; ?> .pp-photo-gallery-caption,
-	.fl-node-<?php echo $id; ?> .pp-gallery-overlay .pp-caption  {
-		<?php if( $settings->caption_font_size_toggle != 'default' && $settings->caption_custom_font_size['tablet'] ) { ?>
-	 	  font-size: <?php echo $settings->caption_custom_font_size['tablet']; ?>px;
-	    <?php } ?>
 	}
 	.fl-node-<?php echo $id; ?> .pp-gallery-filters-toggle {
 		display: block;
 		<?php if ( isset( $settings->filter_toggle_bg ) && ! empty( $settings->filter_toggle_bg ) ) { ?>
-			background: #<?php echo $settings->filter_toggle_bg; ?>;
-		<?php } ?>
-		<?php if ( isset( $settings->filter_toggle_text ) && ! empty( $settings->filter_toggle_text ) ) { ?>
-			color: #<?php echo $settings->filter_toggle_text; ?>;
+			background-color: <?php echo pp_get_color_value( $settings->filter_toggle_bg ); ?>;
 		<?php } ?>
 		<?php if ( isset( $settings->filter_toggle_border ) && $settings->filter_toggle_border ) { ?>
 			border: <?php echo $settings->filter_toggle_border; ?>px solid #<?php echo $settings->filter_toggle_border_color; ?>;
@@ -441,36 +515,22 @@ div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-bottom-bar {
 		float: none;
 		margin: 0 !important;
 		text-align: left;
-		font-size: <?php echo $settings->filter_font_size['tablet']; ?>px;
-		<?php if ( isset( $settings->filter_background_res ) && ! empty( $settings->filter_background_res['primary'] ) ) { ?>
-			background: #<?php echo $settings->filter_background_res['primary']; ?>;
-		<?php } ?>
-		<?php if ( isset( $settings->filter_color_res ) && ! empty( $settings->filter_color_res['primary'] ) ) { ?>
-			color: #<?php echo $settings->filter_color_res['primary']; ?>;
-		<?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-gallery-filters li:hover,
-	.fl-node-<?php echo $id; ?> .pp-gallery-filters li.pp-filter-active {
-		<?php if ( isset( $settings->filter_background_res ) && ! empty( $settings->filter_background_res['secondary'] ) ) { ?>
-			background: #<?php echo $settings->filter_background_res['secondary']; ?>;
-		<?php } ?>
-		<?php if ( isset( $settings->filter_color_res ) && ! empty( $settings->filter_color_res['secondary'] ) ) { ?>
-			color: #<?php echo $settings->filter_color_res['secondary']; ?>;
-		<?php } ?>
-		border-color: <?php echo ( $settings->filter_res_border_color['primary'] ) ? '#' . $settings->filter_res_border_color['primary'] : 'transparent'; ?>;
-		<?php if( $settings->filter_res_border != 'none') { ?>
-		border-top-width: <?php echo $settings->filter_res_border_width['top']; ?>px;
-		border-bottom-width: <?php echo $settings->filter_res_border_width['bottom']; ?>px;
-		border-left-width: <?php echo $settings->filter_res_border_width['left']; ?>px;
-		border-right-width: <?php echo $settings->filter_res_border_width['right']; ?>px;
-		<?php } ?>
-	}
 
+		<?php if ( isset( $settings->filter_res_bg_color ) && ! empty( $settings->filter_res_bg_color ) ) { ?>
+			background-color: <?php echo pp_get_color_value( $settings->filter_res_bg_color ); ?>;
+		<?php } ?>
+		<?php if ( isset( $settings->filter_res_text_color ) && ! empty( $settings->filter_res_text_color ) ) { ?>
+			color: <?php echo pp_get_color_value( $settings->filter_res_text_color ); ?>;
+		<?php } ?>
+	}
 	.fl-node-<?php echo $id; ?> .pp-gallery-filters li:hover,
 	.fl-node-<?php echo $id; ?> .pp-gallery-filters li.pp-filter-active {
-		background: <?php echo ($settings->filter_res_background['secondary']) ? '#'.$settings->filter_res_background['secondary'] : 'transparent'; ?>;
-		<?php if( $settings->filter_res_color['secondary'] ) { ?>color: #<?php echo $settings->filter_res_color['secondary']; ?>;<?php } ?>
-		border-color: <?php echo ( $settings->filter_res_border_color['secondary'] ) ? '#' . $settings->filter_res_border_color['secondary'] : 'transparent'; ?>;
+		<?php if ( isset( $settings->filter_res_bg_hover ) && ! empty( $settings->filter_res_bg_hover ) ) { ?>
+			background-color: <?php echo pp_get_color_value( $settings->filter_res_bg_hover ); ?>;
+		<?php } ?>
+		<?php if ( isset( $settings->filter_res_text_hover ) && ! empty( $settings->filter_res_text_hover ) ) { ?>
+			color: <?php echo pp_get_color_value( $settings->filter_res_text_hover ); ?>;
+		<?php } ?>
 	}
 }
 
@@ -478,22 +538,13 @@ div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-bottom-bar {
 	.fl-node-<?php echo $id; ?> .pp-gallery-item {
 		width: <?php echo $photo_columns_mobile;?>%;
 	}
-	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count['tablet']; ?>n+1){
+	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count_medium; ?>n+1){
 		clear: none;
 	}
-	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count['tablet']; ?>n+0){
+	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count_medium; ?>n+0){
 		clear: none;
 	}
-	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count['mobile']; ?>n){
+	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count_responsive; ?>n){
 		margin-right: 0;
-	}
-	.fl-node-<?php echo $id; ?> .pp-photo-gallery-caption,
-	.fl-node-<?php echo $id; ?> .pp-gallery-overlay .pp-caption  {
-		<?php if( $settings->caption_font_size_toggle != 'default' && $settings->caption_custom_font_size['mobile'] ) { ?>
-	 	  font-size: <?php echo $settings->caption_custom_font_size['mobile']; ?>px;
-	    <?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-gallery-filters li {
-	   font-size: <?php echo $settings->filter_font_size['mobile']; ?>px;
 	}
 }

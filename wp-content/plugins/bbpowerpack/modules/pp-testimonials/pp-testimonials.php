@@ -22,7 +22,6 @@ class PPTestimonialsModule extends FLBuilderModule {
             'url'           => BB_POWERPACK_URL . 'modules/pp-testimonials/',
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.,
-            'icon'				=> 'format-quote.svg',
         ));
 
         /**
@@ -35,6 +34,95 @@ class PPTestimonialsModule extends FLBuilderModule {
 		$this->add_css('pp-testimonials-form', BB_POWERPACK_URL . 'modules/pp-testimonials/css/fields.css');
 		$this->add_js('jquery-bxslider');
     }
+
+	public function filter_settings( $settings, $helper ) {
+		
+		// Handle heading's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'heading_font'	=> array(
+				'type'			=> 'font'
+			),
+			'heading_font_size'	=> array(
+				'type'			=> 'font_size',
+			),
+			'heading_alignment'	=> array(
+				'type'			=> 'text_align'
+			)
+		), 'heading_typography' );
+		
+		// Handle title's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'title_font'	=> array(
+				'type'			=> 'font'
+			),
+			'title_font_size'	=> array(
+				'type'			=> 'font_size',
+			),
+		), 'title_typography' );
+
+		// Handle subtitle's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'subtitle_font'	=> array(
+				'type'			=> 'font'
+			),
+			'subtitle_font_size'	=> array(
+				'type'			=> 'font_size',
+			),
+		), 'subtitle_typography' );
+
+		// Handle text's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'text_font'	=> array(
+				'type'			=> 'font'
+			),
+			'text_font_size'	=> array(
+				'type'			=> 'font_size',
+			),
+		), 'text_typography' );
+
+		// Handle old image border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'image_border_style'	=> array(
+				'type'				=> 'style'
+			),
+			'border_width'	=> array(
+				'type'				=> 'width',
+			),
+			'border_color'	=> array(
+				'type'				=> 'color',
+			),
+			'border_radius'	=> array(
+				'type'				=> 'radius'
+			),
+		), 'image_border' );
+
+		// Handle old content border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'box_border_style'	=> array(
+				'type'				=> 'style'
+			),
+			'box_border_width'	=> array(
+				'type'				=> 'width'
+			),
+			'box_border_color'	=> array(
+				'type'				=> 'color'
+			),
+			'box_border_radius'	=> array(
+				'type'				=> 'radius'
+			),
+			'box_shadow'		=> array(
+				'type'				=> 'shadow',
+				'condition'			=> ( isset( $settings->box_shadow_setting ) && 'yes' == $settings->box_shadow_setting )
+			),
+			'box_shadow_color'	=> array(
+				'type'				=> 'shadow_color',
+				'condition'			=> ( isset( $settings->box_shadow_setting ) && 'yes' == $settings->box_shadow_setting ),
+				'opacity'			=> isset( $settings->box_shadow_opacity ) ? $settings->box_shadow_opacity : 1
+			),
+		), 'box_border' );
+
+		return $settings;
+	}
 
     public function get_alt( $settings )
     {
@@ -203,19 +291,19 @@ FLBuilder::register_module('PPTestimonialsModule', array(
                         'help'          => __('The number of slides to move on transition.', 'bb-powerpack'),
 					),
                     'slide_width'         => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Slides Width', 'bb-powerpack'),
 						'default'       => '0',
-                        'size'          => '5',
-                        'description'   => 'px',
+						'units'			=> array( 'px' ),
+						'slider'		=> true,
                         'help'          => __('The width of each slide. This setting is required for all horizontal carousels!', 'bb-powerpack'),
 					),
                     'slide_margin'         => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Slides Margin', 'bb-powerpack'),
 						'default'       => '0',
-                        'size'          => '5',
-                        'description'   => 'px',
+                        'units'			=> array( 'px' ),
+						'slider'		=> true,
                         'help'          => __('Margin between each slide.', 'bb-powerpack'),
 					),
 				)
@@ -249,14 +337,9 @@ FLBuilder::register_module('PPTestimonialsModule', array(
 						)
 					),
 					'arrow_alignment'       => array(
-						'type'          => 'pp-switch',
+						'type'          => 'align',
 						'label'         => __('Arrow Alignment', 'bb-powerpack'),
 						'default'       => 'center',
-                        'options'       => array(
-							'left'             => __('Left', 'bb-powerpack'),
-							'right'             => __('Right', 'bb-powerpack'),
-							'center'             => __('Center', 'bb-powerpack')
-						),
 						'preview'       => array(
                             'type'          => 'css',
 							'selector'      => '.pp-arrow-wrapper',
@@ -353,183 +436,7 @@ FLBuilder::register_module('PPTestimonialsModule', array(
             'box_borders'        => array(
                 'title'     => __('Content Box', 'bb-powerpack'),
                 'fields'        => array( // Section Fields
-                    'box_border_width'    => array(
-						'type'          => 'text',
-                        'default'       => '0',
-                        'maxlength'     => '2',
-                        'size'          => '5',
-						'label'         => __('Border Width', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'rules'     => array(
-                                array(
-                                    'selector'      => '.pp-testimonial.layout-1 .pp-content-wrapper',
-                                    'property'      => 'border-width',
-                                    'unit'          => 'px'
-                                ),
-                                array(
-                                    'selector'      => '.pp-testimonial.layout-2 .pp-content-wrapper',
-                                    'property'      => 'border-width',
-                                    'unit'          => 'px'
-                                ),
-                                array(
-                                    'selector'      => '.pp-testimonial.layout-3 .pp-content-wrapper',
-                                    'property'      => 'border-width',
-                                    'unit'          => 'px'
-                                ),
-                                array(
-                                    'selector'      => '.pp-testimonial.layout-4 .layout-4-content',
-                                    'property'      => 'border-width',
-                                    'unit'          => 'px'
-                                ),
-                                array(
-                                    'selector'      => '.pp-testimonial.layout-5 .pp-content-wrapper',
-                                    'property'      => 'border-width',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                        )
-					),
-                    'box_border_style'      => array(
-                        'type'      => 'select',
-                        'label'     => __('Border Style', 'bb-powerpack'),
-                        'default'   => 'none',
-                        'options'   => array(
-                            'none'  => __('None', 'bb-powerpack'),
-                            'solid'  => __('Solid', 'bb-powerpack'),
-                            'dotted'  => __('Dotted', 'bb-powerpack'),
-                            'dashed'  => __('Dashed', 'bb-powerpack'),
-                            'double'  => __('Double', 'bb-powerpack'),
-                        ),
-                    ),
-                    'box_border_color'    => array(
-						'type'          => 'color',
-						'label'         => __('Border Color', 'bb-powerpack'),
-						'show_reset'    => true,
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'rules'     => array(
-                                array(
-                                    'selector'      => '.pp-testimonial.layout-1 .pp-content-wrapper',
-                                    'property'      => 'border-color',
-                                ),
-                                array(
-                                    'selector'      => '.pp-testimonial.layout-2 .pp-content-wrapper',
-                                    'property'      => 'border-color',
-                                ),
-                                array(
-                                    'selector'      => '.pp-testimonial.layout-3 .pp-content-wrapper',
-                                    'property'      => 'border-color',
-                                ),
-                                array(
-                                    'selector'      => '.pp-testimonial.layout-4 .layout-4-content',
-                                    'property'      => 'border-color',
-                                ),
-                                array(
-                                    'selector'      => '.pp-testimonial.layout-5 .pp-content-wrapper',
-                                    'property'      => 'border-color',
-                                ),
-                            ),
-                        )
-					),
-                    'box_border_radius'    => array(
-						'type'          => 'text',
-                        'default'       => '0',
-                        'maxlength'     => '3',
-                        'size'          => '5',
-						'label'         => __('Round Corners', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'rules'     => array(
-                                array(
-                                    'selector'      => '.pp-testimonial.layout-1 .pp-content-wrapper',
-                                    'property'      => 'border-radius',
-                                    'unit'          => 'px'
-                                ),
-                                array(
-                                    'selector'      => '.pp-testimonial.layout-2 .pp-content-wrapper',
-                                    'property'      => 'border-radius',
-                                    'unit'          => 'px'
-                                ),
-                                array(
-                                    'selector'      => '.pp-testimonial.layout-3 .pp-content-wrapper',
-                                    'property'      => 'border-radius',
-                                    'unit'          => 'px'
-                                ),
-                                array(
-                                    'selector'      => '.pp-testimonial.layout-4 .layout-4-content',
-                                    'property'      => 'border-radius',
-                                    'unit'          => 'px'
-                                ),
-                                array(
-                                    'selector'      => '.pp-testimonial.layout-5 .pp-content-wrapper',
-                                    'property'      => 'border-radius',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                        )
-					),
-					'box_shadow_setting'   => array(
-                        'type'                 => 'pp-switch',
-                        'label'                => __('Enable Shadow', 'bb-powerpack'),
-                        'default'              => 'no',
-                        'options'              => array(
-                            'yes'          => __('Yes', 'bb-powerpack'),
-                            'no'             => __('No', 'bb-powerpack'),
-                        ),
-                        'toggle'    =>  array(
-                            'yes'   => array(
-                                'fields'    => array('box_shadow', 'box_shadow_color', 'box_shadow_opacity')
-                            )
-                        )
-                    ),
-                    'box_shadow' 		=> array(
-                        'type'              => 'pp-multitext',
-                        'label'             => __('Box Shadow', 'bb-powerpack'),
-                        'default'           => array(
-                            'vertical'			=> 2,
-                            'horizontal'		=> 2,
-                            'blur'				=> 2,
-                            'spread'			=> 1
-                        ),
-                        'options'			=> array(
-                            'horizontal'		=> array(
-                                'placeholder'		=> __('Horizontal', 'bb-powerpack'),
-                                'tooltip'			=> __('Horizontal', 'bb-powerpack'),
-                                'icon'				=> 'fa-arrows-h'
-                            ),
-                            'vertical'			=> array(
-                                'placeholder'		=> __('Vertical', 'bb-powerpack'),
-                                'tooltip'			=> __('Vertical', 'bb-powerpack'),
-                                'icon'				=> 'fa-arrows-v'
-                            ),
-                            'blur'				=> array(
-                                'placeholder'		=> __('Blur', 'bb-powerpack'),
-                                'tooltip'			=> __('Blur', 'bb-powerpack'),
-                                'icon'				=> 'fa-circle-o'
-                            ),
-                            'spread'			=> array(
-                                'placeholder'		=> __('Spread', 'bb-powerpack'),
-                                'tooltip'			=> __('Spread', 'bb-powerpack'),
-                                'icon'				=> 'fa-paint-brush'
-                            ),
-                        )
-                    ),
-                    'box_shadow_color' => array(
-                        'type'              => 'color',
-                        'label'             => __('Shadow Color', 'bb-powerpack'),
-                        'default'           => '000000',
-                    ),
-                    'box_shadow_opacity' => array(
-                        'type'              => 'text',
-                        'label'             => __('Shadow Opacity', 'bb-powerpack'),
-                        'description'       => '%',
-                        'size'             => 5,
-                        'default'           => 30,
-                    ),
-                    'layout_4_content_bg'    => array(
+					'layout_4_content_bg'    => array(
                         'type'      => 'color',
                         'label'     => __('Background Color', 'bb-powerpack'),
                         'show_reset'    => true,
@@ -571,6 +478,16 @@ FLBuilder::register_module('PPTestimonialsModule', array(
                             ),
                         )
                     ),
+                    'box_border'	=> array(
+						'type'          => 'border',
+						'label'         => __( 'Border', 'bb-powerpack' ),
+						'responsive'	=> true,
+						'preview'   	=> array(
+                            'type'  		=> 'css',
+                            'selector'  	=> '.pp-testimonial.layout-1 .pp-content-wrapper, .pp-testimonial.layout-2 .pp-content-wrapper, .pp-testimonial.layout-3 .pp-content-wrapper, .pp-testimonial.layout-4 .layout-4-content, .pp-testimonial.layout-5 .pp-content-wrapper',
+                            'property'  	=> 'border',
+                        ),
+					),
                     'show_arrow'    => array(
                         'type'      => 'pp-switch',
                         'default'   => 'no',
@@ -586,61 +503,21 @@ FLBuilder::register_module('PPTestimonialsModule', array(
                 'title'     => __('Image Box', 'bb-powerpack'),
                 'fields'        => array( // Section Fields
                     'image_size'    => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Image Size', 'bb-powerpack'),
-                        'size'          => 5,
                         'default'       => 100,
-                        'description'   => 'px'
+                        'units'   		=> array ('px' ),
+						'slider'		=> true
                     ),
-                    'border_width'    => array(
-						'type'          => 'text',
-                        'default'       => '0',
-                        'maxlength'     => '2',
-                        'size'          => '5',
-						'label'         => __('Border Width', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'selector'      => '.pp-testimonials-image img',
-                            'property'      => 'border-width',
-                            'unit'          => 'px'
-                        )
-					),
-                    'image_border_style'      => array(
-                        'type'      => 'select',
-                        'label'     => __('Border Style', 'bb-powerpack'),
-                        'default'   => 'none',
-                        'options'   => array(
-                            'none'  => __('None', 'bb-powerpack'),
-                            'solid'  => __('Solid', 'bb-powerpack'),
-                            'dotted'  => __('Dotted', 'bb-powerpack'),
-                            'dashed'  => __('Dashed', 'bb-powerpack'),
-                            'double'  => __('Double', 'bb-powerpack'),
+                    'image_border'	=> array(
+						'type'          => 'border',
+						'label'         => __( 'Border', 'bb-powerpack' ),
+						'responsive'	=> true,
+						'preview'   	=> array(
+                            'type'  		=> 'css',
+                            'selector'  	=> '.pp-testimonials-image img',
+                            'property'  	=> 'border',
                         ),
-                    ),
-                    'border_color'    => array(
-						'type'          => 'color',
-						'label'         => __('Border Color', 'bb-powerpack'),
-						'show_reset'    => true,
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'selector'      => '.pp-testimonials-image img',
-                            'property'      => 'border-color',
-                        )
-					),
-                    'border_radius'    => array(
-						'type'          => 'text',
-                        'default'       => '0',
-                        'maxlength'     => '3',
-                        'size'          => '5',
-						'label'         => __('Round Corners', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'selector'      => '.pp-testimonials-image img',
-                            'property'      => 'border-radius',
-                            'unit'          => 'px'
-                        )
 					),
 				)
             ),
@@ -652,45 +529,14 @@ FLBuilder::register_module('PPTestimonialsModule', array(
             'heading_fonts'             => array(
                 'title'                     => __('Heading', 'bb-powerpack'),
                 'fields'                    => array( // Section Fields
-                    'heading_alignment'         => array(
-						'type'                      => 'pp-switch',
-						'default'                   => 'left',
-						'label'                     => __('Alignment', 'bb-powerpack'),
-                        'options'                   => array(
-                            'left'                      => __('Left', 'bb-powerpack'),
-                            'right'                     => __('Right', 'bb-powerpack'),
-                            'center'                    => __('Center', 'bb-powerpack'),
-                        ),
-						'preview'       => array(
-							'type'          => 'css',
-							'selector'      => '.pp-testimonials-heading',
-                            'property'      => 'text-align'
-						)
-					),
-                    'heading_font'          => array(
-                        'type'          => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.pp-testimonials-heading'
-                        )
-                    ),
-                    'heading_font_size'    => array(
-						'type'          => 'text',
-                        'size'          => '5',
-                        'maxlength'     => '2',
-						'label'         => __('Font Size', 'bb-powerpack'),
-						'description'   => 'px',
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'selector'      => '.pp-testimonials-heading',
-                            'property'      => 'font-size',
-                            'unit'          => 'px'
-                        )
+                    'heading_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-testimonials-heading',
+						),
 					),
                     'heading_color'    => array(
 						'type'          => 'color',
@@ -707,30 +553,14 @@ FLBuilder::register_module('PPTestimonialsModule', array(
             'title_fonts'       => array(
                 'title'             => __('Client Name', 'bb-powerpack'),
                 'fields'            => array(
-                    'title_font'          => array(
-                        'type'          => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.pp-testimonials-title'
-                        )
-                    ),
-                    'title_font_size'    => array(
-						'type'          => 'text',
-                        'size'          => '5',
-                        'maxlength'     => '2',
-						'label'         => __('Font Size', 'bb-powerpack'),
-						'description'   => 'px',
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'selector'      => '.pp-testimonials-title',
-                            'property'      => 'font-size',
-                            'unit'          => 'px'
-                        )
+                    'title_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-testimonials-title',
+						),
 					),
                     'title_color'    => array(
 						'type'          => 'color',
@@ -778,30 +608,14 @@ FLBuilder::register_module('PPTestimonialsModule', array(
             'subtitle_fonts'        => array(
                 'title'                 => __('Client Profile', 'bb-powerpack'),
                 'fields'                => array(
-                    'subtitle_font'         => array(
-                        'type'                  => 'font',
-                        'label'                 => __('Font', 'bb-powerpack'),
-                        'default'		        => array(
-                            'family'		          => 'Default',
-                            'weight'		          => 300
-                        ),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.pp-testimonials-subtitle'
-                        )
-                    ),
-                    'subtitle_font_size'    => array(
-						'type'          => 'text',
-                        'size'          => '5',
-                        'maxlength'     => '2',
-						'label'         => __('Font Size', 'bb-powerpack'),
-						'description'   => 'px',
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'selector'      => '.pp-testimonials-subtitle',
-                            'property'      => 'font-size',
-                            'unit'          => 'px'
-                        )
+                    'subtitle_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-testimonials-subtitle',
+						),
 					),
                     'subtitle_color'    => array(
 						'type'          => 'color',
@@ -849,30 +663,14 @@ FLBuilder::register_module('PPTestimonialsModule', array(
             'content_fonts'     => array(
                 'title'             => __('Content', 'bb-powerpack'),
                 'fields'            => array(
-                    'text_font'          => array(
-						'type'          => 'font',
-						'default'		=> array(
-							'family'		=> 'Default',
-							'weight'		=> 300
+                    'text_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-testimonials-content',
 						),
-						'label'         => __('Font', 'bb-powerpack'),
-						'preview'         => array(
-							'type'            => 'font',
-							'selector'        => '.pp-testimonials p'
-						)
-					),
-                    'text_font_size'    => array(
-						'type'          => 'text',
-                        'size'          => '5',
-                        'maxlength'     => '2',
-						'label'         => __('Font Size', 'bb-powerpack'),
-						'description'   => 'px',
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'selector'      => '.pp-testimonials-content',
-                            'property'      => 'font-size',
-                            'unit'          => 'px'
-                        )
 					),
                     'text_color'    => array(
 						'type'          => 'color',

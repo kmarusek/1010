@@ -20,7 +20,6 @@ class PPPricingTableModule extends FLBuilderModule {
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
             'partial_refresh'   => true,
-			'icon'				=> 'editor-table.svg',
 		));
 
 	}
@@ -90,6 +89,201 @@ class PPPricingTableModule extends FLBuilderModule {
 
 		return $text;
 	}
+
+	public function filter_settings( $settings, $helper ) {
+		// Handle old Dual Pricing Button border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'dp_button_border'	=> array(
+				'type'				=> 'style',
+			),
+			'dp_button_border_width'	=> array(
+				'type'				=> 'width',
+			),
+			'dp_button_border_color'	=> array(
+				'type'				=> 'color',
+			),
+			'dp_button_radius'	=> array(
+				'type'				=> 'radius',
+			),
+		), 'dp_button_border_group' );
+
+		// Handle old box border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'box_border'	=> array(
+				'type'				=> 'style'
+			),
+			'box_border_width'	=> array(
+				'type'				=> 'width'
+			),
+			'box_border_color'	=> array(
+				'type'				=> 'color'
+			),
+			'box_border_radius'	=> array(
+				'type'				=> 'radius'
+			),
+			'box_shadow'		=> array(
+				'type'				=> 'shadow',
+				'condition'			=> ( isset( $settings->box_shadow_display ) && 'yes' == $settings->box_shadow_display ),
+			),
+			'box_shadow_color'	=> array(
+				'type'				=> 'shadow_color',
+				'condition'			=> ( isset( $settings->box_shadow_display ) && 'yes' == $settings->box_shadow_display ),
+				'opacity'			=> isset( $settings->box_shadow_opacity ) ? $settings->box_shadow_opacity : 1
+			),
+		), 'box_border_group' );
+
+		// Handle box old padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'box_padding', 'padding', 'box_padding' );
+
+		// Handle featured title old padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'featured_title_padding', 'padding', 'featured_title_padding' );
+
+		// Handle title old padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'title_padding', 'padding', 'title_padding' );
+
+		// Handle price old padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'price_padding', 'padding', 'price_padding' );
+
+		// Handle features old padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'features_padding', 'padding', 'features_padding' );
+
+		// Handle old highlight box border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'hl_box_border'	=> array(
+				'type'				=> 'style'
+			),
+			'hl_box_border_width'	=> array(
+				'type'				=> 'width'
+			),
+			'hl_box_border_color'	=> array(
+				'type'				=> 'color'
+			),
+			'hl_box_shadow'		=> array(
+				'type'				=> 'shadow',
+				'condition'			=> ( isset( $settings->hl_box_shadow_display ) && 'yes' == $settings->hl_box_shadow_display ),
+			),
+			'hl_box_shadow_color'	=> array(
+				'type'				=> 'shadow_color',
+				'condition'			=> ( isset( $settings->hl_box_shadow_display ) && 'yes' == $settings->hl_box_shadow_display ),
+				'opacity'			=> isset( $settings->hl_box_shadow_opacity ) ? $settings->hl_box_shadow_opacity : 1
+			),
+		), 'hl_box_border_group' );
+
+		// Handle highlight box old padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'hl_box_padding', 'padding', 'hl_box_padding' );
+
+		// Handle featured title's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'featured_title_font'	=> array(
+				'type'			=> 'font'
+			),
+			'featured_title_custom_font_size'	=> array(
+				'type'			=> 'font_size',
+				'condition'		=> ( isset( $settings->featured_title_font_size ) && 'custom' == $settings->featured_title_font_size )
+			),
+			'featured_title_custom_line_height'	=> array(
+				'type'			=> 'line_height',
+				'condition'		=> ( isset( $settings->featured_title_line_height ) && 'custom' == $settings->featured_title_line_height )
+			),
+			'featured_title_text_transform'		=> array(
+				'type'			=> 'text_transform'
+			),
+			'featured_title_letter_spacing'		=> array(
+				'type'			=> 'letter_spacing'
+			),
+			'featured_title_alignment'		=> array(
+				'type'			=> 'text_align'
+			)
+		), 'featured_title_typography' );
+
+		// Handle title's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'title_font'	=> array(
+				'type'			=> 'font'
+			),
+			'title_custom_font_size'	=> array(
+				'type'			=> 'font_size',
+				'condition'		=> ( isset( $settings->title_font_size ) && 'custom' == $settings->title_font_size )
+			),
+			'title_custom_line_height'	=> array(
+				'type'			=> 'line_height',
+				'condition'		=> ( isset( $settings->title_line_height ) && 'custom' == $settings->title_line_height )
+			),
+			'title_text_transform'		=> array(
+				'type'			=> 'text_transform'
+			),
+			'title_letter_spacing'		=> array(
+				'type'			=> 'letter_spacing'
+			),
+			'title_alignment'		=> array(
+				'type'			=> 'text_align'
+			)
+		), 'title_typography' );
+
+		// Handle price's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'price_font'	=> array(
+				'type'			=> 'font'
+			),
+			'price_custom_font_size'	=> array(
+				'type'			=> 'font_size',
+				'condition'		=> ( isset( $settings->price_font_size ) && 'custom' == $settings->price_font_size )
+			),
+			'price_text_transform'		=> array(
+				'type'			=> 'text_transform'
+			),
+		), 'price_typography' );
+
+		// Handle duration old Font Size field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'duration_custom_font_size', 'responsive', 'duration_custom_font_size' );
+
+		// Handle features's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'features_font'	=> array(
+				'type'			=> 'font'
+			),
+			'features_custom_font_size'	=> array(
+				'type'			=> 'font_size',
+				'condition'		=> ( isset( $settings->features_font_size ) && 'custom' == $settings->features_font_size )
+			),
+			'features_text_transform'		=> array(
+				'type'			=> 'text_transform'
+			),
+			'features_alignment'		=> array(
+				'type'			=> 'text_align'
+			)
+		), 'features_typography' );
+
+		// Handle button's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'button_font'	=> array(
+				'type'			=> 'font'
+			),
+			'button_custom_font_size'	=> array(
+				'type'			=> 'font_size',
+				'condition'		=> ( isset( $settings->button_font_size ) && 'custom' == $settings->button_font_size )
+			),
+			'button_text_transform'		=> array(
+				'type'			=> 'text_transform'
+			),
+		), 'button_typography' );
+
+		for( $i = 0; $i < count( $settings->pricing_columns ); $i++ ) {
+			
+			if ( ! is_object( $settings->pricing_columns[ $i ] ) ) {
+				continue;
+			}
+
+			// Handle button old padding field.
+			$settings->pricing_columns[ $i ] = PP_Module_Fields::handle_multitext_field( $settings->pricing_columns[ $i ], 'button_padding', 'padding', 'button_padding' );
+
+			// Handle button old margin field.
+			$settings->pricing_columns[ $i ] = PP_Module_Fields::handle_multitext_field( $settings->pricing_columns[ $i ], 'button_margin', 'margin', 'button_margin' );
+
+		}
+
+		return $settings;
+	}
 }
 
 /**
@@ -144,7 +338,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 							'selector'	=> '.pp-pricing-table .pp-pricing-button-1',
 						)
 					),
-					'dp_button_2_text'	=> array(
+					'dp_button_2_text'				=> array(
 						'type'			=> 'text',
 						'label'			=> __('Button 2 Text', 'bb-powerpack'),
 						'connections'	=> array('string', 'html'),
@@ -153,30 +347,26 @@ FLBuilder::register_module('PPPricingTableModule', array(
 							'selector'	=> '.pp-pricing-table .pp-pricing-button-2',
 						)
 					),
-					'dp_button_alignment'	=> array(
-						'type'		=> 'pp-switch',
+					'dp_button_alignment'			=> array(
+						'type'		=> 'align',
 						'label'		=> __('Alignment', 'bb-powerpack'),
 						'default'	=> 'center',
-						'options'	=> array(
-							'left'		=> __('Left', 'bb-powerpack'),
-							'center'	=> __('Center', 'bb-powerpack'),
-							'right'		=> __('Right', 'bb-powerpack'),
-						),
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-pricing-table .pp-pricing-table-buttons',
 							'property'	=> 'text-align'
 						)
 					),
-					'dp_button_active_bg_color'	=> array(
-						'type'		=> 'color',
-						'label'		=> __('Active Background Color', 'bb-powerpack'),
-						'default'	=> 'f1f1f1',
+					'dp_button_active_bg_color'		=> array(
+						'type'			=> 'color',
+						'label'			=> __('Active Background Color', 'bb-powerpack'),
+						'default'		=> 'f1f1f1',
 						'show_reset'	=> true,
-						'preview'	=> array(
-							'type'		=> 'css',
-							'selector'	=> '.pp-pricing-table .pp-pricing-table-buttons .pp-pricing-table-button.pp-pricing-button-active',
-							'property'	=> 'background-color'
+						'show_alpha'	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-pricing-table .pp-pricing-table-buttons .pp-pricing-table-button.pp-pricing-button-active',
+							'property'		=> 'background-color'
 						)
 					),
 					'dp_button_active_text_color'	=> array(
@@ -201,71 +391,12 @@ FLBuilder::register_module('PPPricingTableModule', array(
 							'property'	=> 'color'
 						)
 					),
-					'dp_button_border'	=> array(
-						'type'		=> 'select',
-						'label'		=> __('Border', 'bb-powerpack'),
-						'default'	=> 'default',
-						'options'	=> array(
-							'default'	=> __('Default', 'bb-powerpack'),
-							'none'		=> __('None', 'bb-powerpack'),
-							'solid'		=> __('Solid', 'bb-powerpack'),
-							'dashed'	=> __('Dashed', 'bb-powerpack'),
-							'dotted'	=> __('Dotted', 'bb-powerpack'),
-						),
-						'toggle'	=> array(
-							'solid'		=> array(
-								'fields'	=> array('dp_button_border_width')
-							),
-							'dashed'	=> array(
-								'fields'	=> array('dp_button_border_width')
-							),
-							'dotted'	=> array(
-								'fields'	=> array('dp_button_border_width')
-							),
-						)
+					'dp_button_border_group'				=> array(
+						'type'					=> 'border',
+						'label'					=> __('Border Style', 'bb-powerpack'),
+						'responsive'			=> true,
 					),
-					'dp_button_border_width'	=> array(
-						'type'			=> 'pp-multitext',
-						'label'			=> __('Border Width', 'bb-powerpack'),
-						'default'       => array(
-							'top' 			=> 1,
-							'bottom' 		=> 1,
-							'left' 			=> 1,
-							'right' 		=> 1,
-						),
-						'options'		=> array(
-							'top'       	=> array(
-								'placeholder'       => __('Top', 'bb-powerpack'),
-								'icon'              => 'fa-long-arrow-up',
-								'tooltip'           => __('Top', 'bb-powerpack'),
-							),
-							'bottom'       	=> array(
-								'placeholder'       => __('Bottom', 'bb-powerpack'),
-								'icon'              => 'fa-long-arrow-down',
-								'tooltip'           => __('Bottom', 'bb-powerpack'),
-							),
-							'left'       	=> array(
-								'placeholder'       => __('Left', 'bb-powerpack'),
-								'icon'              => 'fa-long-arrow-left',
-								'tooltip'           => __('Left', 'bb-powerpack'),
-							),
-							'right'       	=> array(
-								'placeholder'       => __('Right', 'bb-powerpack'),
-								'icon'              => 'fa-long-arrow-right',
-								'tooltip'           => __('Right', 'bb-powerpack'),
-							),
-						),
-						'preview'		=> array(
-							'type'			=> 'refresh'
-						)
-					),
-					'dp_button_border_color'	=> array(
-						'type'		=> 'color',
-						'label'		=> __('Border Color', 'bb-powerpack'),
-						'default'	=> '000000',
-						'show_reset'	=> true,
-					),
-					'dp_button_apply_border'	=> array(
+					'dp_button_apply_border'		=> array(
 						'type'		=> 'pp-switch',
 						'label'		=> __('Apply Border to', 'bb-powerpack'),
 						'default'	=> 'active',
@@ -274,11 +405,11 @@ FLBuilder::register_module('PPPricingTableModule', array(
 							'all'		=> __('All Buttons', 'bb-powerpack'),
 						)
 					),
-					'dp_button_font_size'	=> array(
+					'dp_button_font_size'			=> array(
 						'type'					=> 'unit',
 						'label'					=> __('Font Size', 'bb-powerpack'),
-						'description'			=> 'px',
-						'size'					=> '5',
+						'units'					=> array('px'),
+						'slider'				=> true,
 						'responsive' 			=> array(
 							'placeholder' 			=> array(
 								'default' 				=> '',
@@ -294,12 +425,12 @@ FLBuilder::register_module('PPPricingTableModule', array(
 							'unit'		=> 'px'
 						)
 					),
-					'dp_button_padding_v'	=> array(
+					'dp_button_padding_v'			=> array(
 						'type'					=> 'unit',
 						'label'					=> __('Padding Top/Bottom', 'bb-powerpack'),
-						'description'			=> 'px',
 						'default'				=> '10',
-						'size'					=> '5',
+						'units'					=> array('px'),
+						'slider'				=> true,
 						'responsive' 			=> array(
 							'placeholder' 			=> array(
 								'default' 				=> '10',
@@ -323,12 +454,12 @@ FLBuilder::register_module('PPPricingTableModule', array(
 							)
 						)
 					),
-					'dp_button_padding_h'	=> array(
+					'dp_button_padding_h'			=> array(
 						'type'					=> 'unit',
 						'label'					=> __('Padding Left/Right', 'bb-powerpack'),
-						'description'			=> 'px',
 						'default'				=> '10',
-						'size'					=> '5',
+						'units'					=> array('px'),
+						'slider'				=> true,
 						'responsive' 			=> array(
 							'placeholder' 			=> array(
 								'default' 				=> '15',
@@ -352,23 +483,11 @@ FLBuilder::register_module('PPPricingTableModule', array(
 							)
 						)
 					),
-					'dp_button_radius'	=> array(
-						'type'				=> 'text',
-						'label'				=> __('Round Corners', 'bb-powerpack'),
-						'default'			=> '0',
-						'size'				=> '5',
-						'preview'	=> array(
-							'type'		=> 'css',
-							'selector'	=> '.pp-pricing-table .pp-pricing-table-buttons .pp-pricing-table-button',
-							'property'	=> 'border-radius',
-							'unit'		=> 'px'
-						)
-					),
-					'dp_button_spacing'	=> array(
-						'type'				=> 'unit',
-						'label'				=> __('Spacing', 'bb-powerpack'),
-						'default'			=> '5',
-						'size'				=> '5',
+					'dp_button_spacing'				=> array(
+						'type'					=> 'unit',
+						'label'					=> __('Spacing', 'bb-powerpack'),
+						'default'				=> '10',
+						'slider'				=> true,
 						'responsive' 			=> array(
 							'placeholder' 			=> array(
 								'default' 				=> '5',
@@ -421,40 +540,42 @@ FLBuilder::register_module('PPPricingTableModule', array(
 			'general'	=> array(
 				'title'	=> __( 'Style', 'bb-powerpack' ),
 				'fields'	=> array(
-					'matrix_bg'  => array(
-						'type'          => 'color',
-						'default'       => 'f5f5f5',
-						'label'         => __( 'Box Background Color', 'bb-powerpack' ),
+					'matrix_bg'						=> array(
+						'type'          	=> 'color',
+						'default'       	=> 'f5f5f5',
+						'label'         	=> __( 'Box Background Color', 'bb-powerpack' ),
 						'show_reset'		=> true,
-						'preview'	=> array(
-							'type'		=> 'css',
-							'selector'	=> '.pp-pricing-table .pp-pricing-table-col.pp-pricing-table-matrix .pp-pricing-table-column',
-							'property'	=> 'background-color'
+						'show_alpha'		=> true,
+						'preview'			=> array(
+							'type'				=> 'css',
+							'selector'			=> '.pp-pricing-table .pp-pricing-table-col.pp-pricing-table-matrix .pp-pricing-table-column',
+							'property'			=> 'background-color'
 						)
 					),
-					'matrix_even_features_bg_color'  => array(
+					'matrix_even_features_bg_color'	=> array(
 						'type'          => 'color',
 						'default'       => '',
 						'label'         => __('Alternate Background Color', 'bb-powerpack'),
 						'show_reset'	=> true,
-						'preview'	=> array(
-							'type'		=> 'css',
-							'selector'	=> '.pp-pricing-table .pp-pricing-table-col.pp-pricing-table-matrix .pp-pricing-table-column .pp-pricing-table-features li:nth-child(even)',
-							'property'	=> 'background-color'
+						'show_alpha'	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-pricing-table .pp-pricing-table-col.pp-pricing-table-matrix .pp-pricing-table-column .pp-pricing-table-features li:nth-child(even)',
+							'property'		=> 'background-color'
 						)
 					),
-					'matrix_text_color'  => array(
+					'matrix_text_color'				=> array(
 						'type'          => 'color',
 						'default'       => '',
 						'label'         => __('Items Text Color', 'bb-powerpack'),
 						'show_reset'	=> true,
-						'preview'	=> array(
-							'type'		=> 'css',
-							'selector'	=> '.pp-pricing-table .pp-pricing-table-col.pp-pricing-table-matrix .pp-pricing-table-column .pp-pricing-table-features',
-							'property'	=> 'color'
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-pricing-table .pp-pricing-table-col.pp-pricing-table-matrix .pp-pricing-table-column .pp-pricing-table-features',
+							'property'		=> 'color'
 						)
 					),
-					'matrix_features_border'    => array(
+					'matrix_features_border'		=> array(
 						'type'      => 'pp-switch',
 						'label'     => __('Items Border Style', 'bb-powerpack'),
 						'default'   => 'none',
@@ -481,11 +602,11 @@ FLBuilder::register_module('PPPricingTableModule', array(
 							'property'	=> 'border-bottom-style',
 						)
 					),
-					'matrix_features_border_width'   => array(
-						'type'              => 'text',
+					'matrix_features_border_width'	=> array(
+						'type'              => 'unit',
 						'label'             => __('Items Border Width', 'bb-powerpack'),
-						'description'       => 'px',
-						'size'             	=> 5,
+						'units'				=> array('px'),
+						'slider'			=> true,
 						'default'           => 1,
 						'preview'           => array(
 							'type'		=> 'css',
@@ -494,7 +615,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 							'unit'		=> 'px'
 						)
 					),
-					'matrix_features_border_color'   => array(
+					'matrix_features_border_color'	=> array(
 						'type'      => 'color',
 						'label'     => __('Items Border Color', 'bb-powerpack'),
 						'show_reset'   => true,
@@ -505,15 +626,10 @@ FLBuilder::register_module('PPPricingTableModule', array(
 							'property'	=> 'border-color',
 						)
 					),
-					'matrix_alignment' => array(
-						'type'		=> 'pp-switch',
+					'matrix_alignment'				=> array(
+						'type'		=> 'align',
 						'label'		=> __('Items Alignment', 'bb-powerpack'),
 						'default'	=> 'left',
-						'options'       => array(
-							'left'          => __('Left', 'bb-powerpack'),
-							'center'         => __('Center', 'bb-powerpack'),
-							'right'         => __('Right', 'bb-powerpack'),
-						),
 					),
 				)
 			),
@@ -526,11 +642,11 @@ FLBuilder::register_module('PPPricingTableModule', array(
 				'title'         => __( 'Package Column', 'bb-powerpack' ),
 				'fields'        => array(
 					'box_spacing'   => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Spacing', 'bb-powerpack'),
 						'default'       => '12',
-						'size'          => '5',
-						'description'   => 'px',
+						'units'			=> array('px'),
+						'slider'	   	=> true,
 						'help'          => __('Use this to add space between pricing table columns.', 'bb-powerpack'),
 						'preview'		=> array(
 							'type'		=> 'css',
@@ -553,186 +669,37 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'label'     => __('Background Color', 'bb-powerpack'),
 						'default'	=> 'f5f5f5',
 						'show_reset'   => true,
+						'show_alpha'	=> true,
 						'preview'              => array(
 							'type'				=> 'css',
 							'selector'			=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix):not(.pp-pricing-table-highlight) .pp-pricing-table-column',
 							'property'			=> 'background-color',
 						)
 					),
-					'box_border'    => array(
-						'type'      => 'pp-switch',
-						'label'     => __('Border Style', 'bb-powerpack'),
-						'default'   => 'none',
-						'options'   => array(
-							'none'  => __('None', 'bb-powerpack'),
-							'solid'  => __('Solid', 'bb-powerpack'),
-							'dashed'  => __('Dashed', 'bb-powerpack'),
-							'dotted'  => __('Dotted', 'bb-powerpack'),
-						),
-						'toggle'    => array(
-							'dashed'   => array(
-								'fields'    => array('box_border_width', 'box_border_color')
-							),
-							'dotted'   => array(
-								'fields'    => array('box_border_width', 'box_border_color')
-							),
-							'solid'   => array(
-								'fields'    => array('box_border_width', 'box_border_color')
-							),
-						),
+					'box_border_group'	=> array(
+						'type'          => 'border',
+						'label'         => __( 'Border', 'bb-powerpack' ),
+						'responsive'	=> true,
+						'preview'   	=> array(
+                            'type'  		=> 'css',
+                            'selector'  	=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-highlight) .pp-pricing-table-column, .pp-pricing-table .pp-pricing-table-col.pp-pricing-table-matrix .pp-pricing-table-column ul',
+                            'property'  	=> 'border',
+                        ),
 					),
-					'box_border_width'   => array(
-						'type'      => 'text',
-						'label'     => __('Border Width', 'bb-powerpack'),
-						'size'      => 5,
-						'maxlength' => 3,
-						'default'   => 1,
-						'description'   => 'px',
-						'preview'              => array(
-							'type'		=> 'css',
-							'selector'	=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-highlight) .pp-pricing-table-column, .pp-pricing-table .pp-pricing-table-col.pp-pricing-table-matrix .pp-pricing-table-column ul',
-							'property'	=> 'border-width',
-							'unit'		=> 'px'
-						)
-					),
-					'box_border_color'   => array(
-						'type'      => 'color',
-						'label'     => __('Border Color', 'bb-powerpack'),
-						'show_reset'   => true,
-						'preview'              => array(
-							'type'		=> 'css',
-							'selector'	=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-highlight) .pp-pricing-table-column, .pp-pricing-table .pp-pricing-table-col.pp-pricing-table-matrix .pp-pricing-table-column ul',
-							'property'	=> 'border-color',
-						)
-					),
-					'box_shadow_display'   => array(
-						'type'                 => 'pp-switch',
-						'label'                => __('Enable Shadow', 'bb-powerpack'),
-						'default'              => 'no',
-						'options'              => array(
-							'yes'          => __('Yes', 'bb-powerpack'),
-							'no'             => __('No', 'bb-powerpack'),
-						),
-						'toggle'    =>  array(
-							'yes'   => array(
-								'fields'    => array('box_shadow', 'box_shadow_color', 'box_shadow_opacity')
-							)
-						)
-					),
-					'box_shadow' 		=> array(
-						'type'              => 'pp-multitext',
-						'label'             => __('Box Shadow', 'bb-powerpack'),
-						'default'           => array(
-							'vertical'			=> 2,
-							'horizontal'		=> 2,
-							'blur'				=> 2,
-							'spread'			=> 1
-						),
-						'options'			=> array(
-							'vertical'			=> array(
-								'placeholder'		=> __('Vertical', 'bb-powerpack'),
-								'tooltip'			=> __('Vertical', 'bb-powerpack'),
-								'icon'				=> 'fa-arrows-v'
-							),
-							'horizontal'		=> array(
-								'placeholder'		=> __('Horizontal', 'bb-powerpack'),
-								'tooltip'			=> __('Horizontal', 'bb-powerpack'),
-								'icon'				=> 'fa-arrows-h'
-							),
-							'blur'				=> array(
-								'placeholder'		=> __('Blur', 'bb-powerpack'),
-								'tooltip'			=> __('Blur', 'bb-powerpack'),
-								'icon'				=> 'fa-circle-o'
-							),
-							'spread'			=> array(
-								'placeholder'		=> __('Spread', 'bb-powerpack'),
-								'tooltip'			=> __('Spread', 'bb-powerpack'),
-								'icon'				=> 'fa-paint-brush'
-							),
-						)
-					),
-					'box_shadow_color' => array(
-						'type'              => 'color',
-						'label'             => __('Shadow Color', 'bb-powerpack'),
-						'default'           => '000000',
-					),
-					'box_shadow_opacity' => array(
-						'type'              => 'text',
-						'label'             => __('Shadow Opacity', 'bb-powerpack'),
-						'description'       => '%',
-						'size'             => 5,
-						'default'           => 50,
-					),
-					'box_border_radius' => array(
-						'type'              => 'text',
-						'label'             => __('Round Corners', 'bb-powerpack'),
-						'description'       => 'px',
-						'size'             	=> 5,
-						'default'           => 0,
+					'box_padding'	=> array(
+						'type'				=> 'dimension',
+						'label'				=> __('Padding', 'bb-powerpack'),
+						'default'			=> '10',
+						'units'				=> array('px'),
+						'slider'			=> true,
+						'responsive'		=> true,
 						'preview'			=> array(
 							'type'				=> 'css',
-							'selector'			=> '.pp-pricing-table .pp-pricing-table-col .pp-pricing-table-column, .pp-pricing-table .pp-pricing-table-col.pp-pricing-table-matrix .pp-pricing-table-column ul',
-							'property'			=> 'border-radius',
+							'selector'			=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-highlight) .pp-pricing-table-column, .pp-pricing-table .pp-pricing-table-col.pp-pricing-table-matrix .pp-pricing-table-column ul',
+							'property'			=> 'padding',
 							'unit'				=> 'px'
 						)
 					),
-					'box_padding'   => array(
-                        'type'      => 'pp-multitext',
-                        'label'     => __( 'Padding', 'bb-powerpack' ),
-                        'description'   => 'px',
-						'default'       => array(
-                            'top' => 10,
-                            'right' => 10,
-                            'bottom' => 10,
-                            'left' => 10,
-                        ),
-                    	'options' 		=> array(
-                    		'top' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __( 'Top', 'bb-powerpack' ),
-                                'tooltip'       => __( 'Top', 'bb-powerpack' ),
-                    			'icon'		=> 'fa-long-arrow-up',
-								'preview'              => array(
-									'selector'	=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-highlight) .pp-pricing-table-column, .pp-pricing-table .pp-pricing-table-col.pp-pricing-table-matrix .pp-pricing-table-column ul',
-									'property'	=> 'padding-top',
-									'unit'		=> 'px'
-		                        )
-                    		),
-                            'bottom' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Bottom', 'bb-powerpack'),
-                                'tooltip'       => __( 'Bottom', 'bb-powerpack' ),
-                    			'icon'		=> 'fa-long-arrow-down',
-								'preview'              => array(
-									'selector'	=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-highlight) .pp-pricing-table-column, .pp-pricing-table .pp-pricing-table-col.pp-pricing-table-matrix .pp-pricing-table-column ul',
-									'property'	=> 'padding-bottom',
-									'unit'		=> 'px'
-		                        )
-                    		),
-                            'left' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Left', 'bb-powerpack'),
-                                'tooltip'       => __( 'Left', 'bb-powerpack' ),
-                    			'icon'		=> 'fa-long-arrow-left',
-								'preview'              => array(
-									'selector'	=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-highlight) .pp-pricing-table-column, .pp-pricing-table .pp-pricing-table-col.pp-pricing-table-matrix .pp-pricing-table-column ul',
-									'property'	=> 'padding-left',
-									'unit'		=> 'px'
-		                        )
-                    		),
-                            'right' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Right', 'bb-powerpack'),
-                                'tooltip'       => __( 'Right', 'bb-powerpack' ),
-                    			'icon'		=> 'fa-long-arrow-right',
-								'preview'              => array(
-									'selector'	=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-highlight) .pp-pricing-table-column, .pp-pricing-table .pp-pricing-table-col.pp-pricing-table-matrix .pp-pricing-table-column ul',
-									'property'	=> 'padding-right',
-									'unit'		=> 'px'
-		                        )
-                    		),
-                    	)
-                    ),
 				)
 			),
 			'featured_title_style'	=> array(
@@ -743,7 +710,8 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'label'             => __('Background Color', 'bb-powerpack'),
 						'default'           => 'cccccc',
 						'show_reset'		=> true,
-						'preview'       => array(
+						'show_alpha'		=> true,
+						'preview'       	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-highlight) .pp-pricing-table-column .pp-pricing-featured-title',
 							'property'	=> 'background-color',
@@ -760,78 +728,20 @@ FLBuilder::register_module('PPPricingTableModule', array(
 							'property'	=> 'color',
 						)
 					),
-					'featured_title_alignment' => array(
-						'type'		=> 'pp-switch',
-						'label'		=> __('Alignment', 'bb-powerpack'),
-						'default'	=> 'center',
-						'options'       => array(
-							'left'          => __('Left', 'bb-powerpack'),
-							'center'         => __('Center', 'bb-powerpack'),
-							'right'         => __('Right', 'bb-powerpack'),
-						),
-						'preview'		=> array(
-							'type'			=> 'css',
-							'selector'		=> '.pp-pricing-table .pp-pricing-table-column .pp-pricing-featured-title',
-							'property'		=> 'text-align'
+					'featured_title_padding'	=> array(
+						'type'				=> 'dimension',
+						'label'				=> __('Padding', 'bb-powerpack'),
+						'default'			=> '10',
+						'units'				=> array('px'),
+						'slider'			=> true,
+						'responsive'		=> true,
+						'preview'			=> array(
+							'type'				=> 'css',
+							'selector'			=> '.pp-pricing-table .pp-pricing-table-column .pp-pricing-featured-title',
+							'property'			=> 'padding',
+							'unit'				=> 'px'
 						)
 					),
-					'featured_title_padding'   => array(
-                        'type'      => 'pp-multitext',
-                        'label'     => __('Padding', 'bb-powerpack'),
-                        'description'   => 'px',
-						'default'       => array(
-                            'top' => 10,
-                            'right' => 10,
-                            'bottom' => 10,
-                            'left' => 10,
-                        ),
-                    	'options' 		=> array(
-                    		'top' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Top', 'bb-powerpack'),
-                                'tooltip'       => __( 'Top', 'bb-powerpack' ),
-                    			'icon'		=> 'fa-long-arrow-up',
-								'preview'              => array(
-									'selector'	=> '.pp-pricing-table .pp-pricing-table-column .pp-pricing-featured-title',
-									'property'	=> 'padding-top',
-									'unit'		=> 'px'
-		                        )
-                    		),
-                            'bottom' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Bottom', 'bb-powerpack'),
-                                'tooltip'       => __( 'Bottom', 'bb-powerpack' ),
-                    			'icon'		=> 'fa-long-arrow-down',
-								'preview'              => array(
-									'selector'	=> '.pp-pricing-table .pp-pricing-table-column .pp-pricing-featured-title',
-									'property'	=> 'padding-bottom',
-									'unit'		=> 'px'
-		                        )
-                    		),
-                            'left' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Left', 'bb-powerpack'),
-                                'tooltip'       => __( 'Left', 'bb-powerpack' ),
-                    			'icon'		=> 'fa-long-arrow-left',
-								'preview'              => array(
-									'selector'	=> '.pp-pricing-table .pp-pricing-table-column .pp-pricing-table-title',
-									'property'	=> 'padding-left',
-									'unit'		=> 'px'
-		                        )
-                    		),
-                            'right' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Right', 'bb-powerpack'),
-                                'tooltip'       => __( 'Right', 'bb-powerpack' ),
-                    			'icon'		=> 'fa-long-arrow-right',
-								'preview'              => array(
-									'selector'	=> '.pp-pricing-table .pp-pricing-table-column .pp-pricing-featured-title',
-									'property'	=> 'padding-right',
-									'unit'		=> 'px'
-		                        )
-                    		),
-                    	)
-                    ),
 				)
 			),
 			'title_style'	=> array(
@@ -851,6 +761,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'label'             => __('Background Color', 'bb-powerpack'),
 						'default'           => '',
 						'show_reset'		=> true,
+						'show_alpha'		=> true,
 						'preview'       => array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix):not(.pp-pricing-table-highlight):not(.pp-pricing-table-highlight-title) .pp-pricing-table-column .pp-pricing-table-title',
@@ -868,78 +779,20 @@ FLBuilder::register_module('PPPricingTableModule', array(
 							'property'	=> 'color',
 						)
 					),
-					'title_alignment' => array(
-						'type'		=> 'pp-switch',
-						'label'		=> __('Alignment', 'bb-powerpack'),
-						'default'	=> 'center',
-						'options'       => array(
-							'left'          => __('Left', 'bb-powerpack'),
-							'center'         => __('Center', 'bb-powerpack'),
-							'right'         => __('Right', 'bb-powerpack'),
-						),
-						'preview'		=> array(
-							'type'			=> 'css',
-							'selector'		=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix) .pp-pricing-table-column .pp-pricing-table-title',
-							'property'		=> 'text-align'
+					'title_padding'	=> array(
+						'type'				=> 'dimension',
+						'label'				=> __('Padding', 'bb-powerpack'),
+						'default'			=> '10',
+						'units'				=> array('px'),
+						'slider'			=> true,
+						'responsive'		=> true,
+						'preview'			=> array(
+							'type'				=> 'css',
+							'selector'			=> '.pp-pricing-table .pp-pricing-table-col .pp-pricing-table-column .pp-pricing-table-title',
+							'property'			=> 'padding',
+							'unit'				=> 'px'
 						)
 					),
-					'title_padding'   => array(
-                        'type'      => 'pp-multitext',
-                        'label'     => __('Padding', 'bb-powerpack'),
-                        'description'   => 'px',
-						'default'       => array(
-                            'top' => 10,
-                            'right' => 10,
-                            'bottom' => 10,
-                            'left' => 10,
-                        ),
-                    	'options' 		=> array(
-                    		'top' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Top', 'bb-powerpack'),
-                                'tooltip'       => __( 'Top', 'bb-powerpack' ),
-                    			'icon'		=> 'fa-long-arrow-up',
-								'preview'              => array(
-									'selector'	=> '.pp-pricing-table .pp-pricing-table-col .pp-pricing-table-column .pp-pricing-table-title',
-									'property'	=> 'padding-top',
-									'unit'		=> 'px'
-		                        )
-                    		),
-                            'bottom' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Bottom', 'bb-powerpack'),
-                                'tooltip'       => __( 'Bottom', 'bb-powerpack' ),
-                    			'icon'		=> 'fa-long-arrow-down',
-								'preview'              => array(
-									'selector'	=> '.pp-pricing-table .pp-pricing-table-col .pp-pricing-table-column .pp-pricing-table-title',
-									'property'	=> 'padding-bottom',
-									'unit'		=> 'px'
-		                        )
-                    		),
-                            'left' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Left', 'bb-powerpack'),
-                                'tooltip'       => __( 'Left', 'bb-powerpack' ),
-                    			'icon'		=> 'fa-long-arrow-left',
-								'preview'              => array(
-									'selector'	=> '.pp-pricing-table .pp-pricing-table-col .pp-pricing-table-column .pp-pricing-table-title',
-									'property'	=> 'padding-left',
-									'unit'		=> 'px'
-		                        )
-                    		),
-                            'right' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Right', 'bb-powerpack'),
-                                'tooltip'       => __( 'Right', 'bb-powerpack' ),
-                    			'icon'		=> 'fa-long-arrow-right',
-								'preview'              => array(
-									'selector'	=> '.pp-pricing-table .pp-pricing-table-col .pp-pricing-table-column .pp-pricing-table-title',
-									'property'	=> 'padding-right',
-									'unit'		=> 'px'
-		                        )
-                    		),
-                    	)
-                    ),
 				)
 			),
 			'price_style'	=> array(
@@ -950,6 +803,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'label'         => __('Background Color', 'bb-powerpack'),
 						'default'       => '',
 						'show_reset'    => true,
+						'show_alpha'		=> true,
 						'preview'       => array(
 							'type'			=> 'css',
 							'selector'		=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix):not(.pp-pricing-table-highlight):not(.pp-pricing-table-highlight-price) .pp-pricing-table-column .pp-pricing-table-price',
@@ -978,89 +832,31 @@ FLBuilder::register_module('PPPricingTableModule', array(
 							'property'        => 'color',
 						),
 					),
-					'price_alignment' => array(
-						'type'		=> 'pp-switch',
-						'label'		=> __('Alignment', 'bb-powerpack'),
-						'default'	=> 'center',
-						'options'       => array(
-							'left'          => __('Left', 'bb-powerpack'),
-							'center'         => __('Center', 'bb-powerpack'),
-							'right'         => __('Right', 'bb-powerpack'),
-						),
-						'preview'       => array(
-							'type'		=> 'css',
-							'selector'	=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix) .pp-pricing-table-column .pp-pricing-table-price',
-							'property'	=> 'text-align',
+					'price_padding'	=> array(
+						'type'				=> 'dimension',
+						'label'				=> __('Padding', 'bb-powerpack'),
+						'default'			=> '10',
+						'units'				=> array('px'),
+						'slider'			=> true,
+						'responsive'		=> true,
+						'preview'			=> array(
+							'type'				=> 'css',
+							'selector'			=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix) .pp-pricing-table-column .pp-pricing-table-price',
+							'property'			=> 'padding',
+							'unit'				=> 'px'
 						)
 					),
-					'price_padding'   => array(
-                        'type'      => 'pp-multitext',
-                        'label'     => __('Padding', 'bb-powerpack'),
-                        'description'   => 'px',
-						'default'       => array(
-                            'top' => 10,
-                            'right' => 10,
-                            'bottom' => 10,
-                            'left' => 10,
-                        ),
-                    	'options' 		=> array(
-                    		'top' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Top', 'bb-powerpack'),
-                                'tooltip'       => __( 'Top', 'bb-powerpack' ),
-                    			'icon'		=> 'fa-long-arrow-up',
-								'preview'              => array(
-									'selector'	=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix) .pp-pricing-table-column .pp-pricing-table-price',
-									'property'	=> 'padding-top',
-									'unit'		=> 'px'
-		                        )
-                    		),
-                            'bottom' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Bottom', 'bb-powerpack'),
-                                'tooltip'       => __( 'Bottom', 'bb-powerpack' ),
-                    			'icon'		=> 'fa-long-arrow-down',
-								'preview'              => array(
-									'selector'	=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix) .pp-pricing-table-column .pp-pricing-table-price',
-									'property'	=> 'padding-bottom',
-									'unit'		=> 'px'
-		                        )
-                    		),
-                            'left' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Left', 'bb-powerpack'),
-                                'tooltip'       => __( 'Left', 'bb-powerpack' ),
-                    			'icon'		=> 'fa-long-arrow-left',
-								'preview'              => array(
-									'selector'	=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix) .pp-pricing-table-column .pp-pricing-table-price',
-									'property'	=> 'padding-left',
-									'unit'		=> 'px'
-		                        )
-                    		),
-                            'right' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Right', 'bb-powerpack'),
-                                'tooltip'       => __( 'Right', 'bb-powerpack' ),
-                    			'icon'		=> 'fa-long-arrow-right',
-								'preview'              => array(
-									'selector'	=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix) .pp-pricing-table-column .pp-pricing-table-price',
-									'property'	=> 'padding-right',
-									'unit'		=> 'px'
-		                        )
-                    		),
-                    	)
-                    ),
 				)
 			),
 			'features_style'	=> array(
 				'title'	=> __( 'Items', 'bb-powerpack' ),
 				'fields'	=> array(
 					'features_min_height'   => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Items Min Height', 'bb-powerpack'),
 						'default'       => '0',
-						'size'          => '5',
-						'description'   => 'px',
+						'units'			=> array('px'),
+						'slider'		=> true,
 						'help'          => __('Use this to normalize the height of your boxes when they have different numbers of items.', 'bb-powerpack'),
 						'preview'		=> array(
 							'type'			=> 'css',
@@ -1074,6 +870,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'default'       => '',
 						'label'         => __('Alternate Background Color', 'bb-powerpack'),
 						'show_reset'	=> true,
+						'show_alpha'		=> true,
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix):not(.pp-pricing-table-highlight) .pp-pricing-table-column .pp-pricing-table-features li:nth-child(even)',
@@ -1119,10 +916,10 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						)
 					),
 					'features_border_width'   => array(
-						'type'              => 'text',
+						'type'              => 'unit',
 						'label'             => __('Border Width', 'bb-powerpack'),
-						'description'       => 'px',
-						'size'             	=> 5,
+						'units'				=> array('px'),
+						'slider'			=> true,
 						'default'           => 1,
 						'preview'           => array(
 							'type'		=> 'css',
@@ -1142,76 +939,18 @@ FLBuilder::register_module('PPPricingTableModule', array(
 							'property'	=> 'border-color',
 						)
 					),
-					'features_alignment' => array(
-						'type'		=> 'pp-switch',
-						'label'		=> __('Alignment', 'bb-powerpack'),
-						'default'	=> 'left',
-						'options'       => array(
-							'left'          => __('Left', 'bb-powerpack'),
-							'center'         => __('Center', 'bb-powerpack'),
-							'right'         => __('Right', 'bb-powerpack'),
-						),
-						'preview'	=> array(
-							'type'		=> 'css',
-							'selector'	=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix):not(.pp-pricing-table-highlight) .pp-pricing-table-column .pp-pricing-table-features',
-							'property'	=> 'text-align'
-						)
-					),
-					'features_padding'   => array(
-						'type'      => 'pp-multitext',
-						'label'     => __('Padding', 'bb-powerpack'),
-						'description'   => 'px',
-						'default'       => array(
-							'top' => 15,
-							'right' => 15,
-							'bottom' => 15,
-							'left' => 15,
-						),
-						'options' 		=> array(
-							'top' => array(
-								'maxlength' => 3,
-								'placeholder'   =>  __('Top', 'bb-powerpack'),
-								'tooltip'       => __( 'Top', 'bb-powerpack' ),
-								'icon'		=> 'fa-long-arrow-up',
-								'preview'              => array(
-									'selector'	=> '.pp-pricing-table .pp-pricing-table-col .pp-pricing-table-features li',
-									'property'	=> 'padding-top',
-									'unit'		=> 'px'
-								)
-							),
-							'bottom' => array(
-								'maxlength' => 3,
-								'placeholder'   =>  __('Bottom', 'bb-powerpack'),
-								'tooltip'       => __( 'Bottom', 'bb-powerpack' ),
-								'icon'		=> 'fa-long-arrow-down',
-								'preview'              => array(
-									'selector'	=> '.pp-pricing-table .pp-pricing-table-col .pp-pricing-table-features li',
-									'property'	=> 'padding-bottom',
-									'unit'		=> 'px'
-								)
-							),
-							'left' => array(
-								'maxlength' => 3,
-								'placeholder'   =>  __('Left', 'bb-powerpack'),
-								'tooltip'       => __( 'Left', 'bb-powerpack' ),
-								'icon'		=> 'fa-long-arrow-left',
-								'preview'              => array(
-									'selector'	=> '.pp-pricing-table .pp-pricing-table-col .pp-pricing-table-features li',
-									'property'	=> 'padding-left',
-									'unit'		=> 'px'
-								)
-							),
-							'right' => array(
-								'maxlength' => 3,
-								'placeholder'   =>  __('Right', 'bb-powerpack'),
-								'tooltip'       => __( 'Right', 'bb-powerpack' ),
-								'icon'		=> 'fa-long-arrow-right',
-								'preview'              => array(
-									'selector'	=> '.pp-pricing-table .pp-pricing-table-col .pp-pricing-table-features li',
-									'property'	=> 'padding-right',
-									'unit'		=> 'px'
-								)
-							),
+					'features_padding'	=> array(
+						'type'				=> 'dimension',
+						'label'				=> __('Padding', 'bb-powerpack'),
+						'default'			=> '15',
+						'units'				=> array('px'),
+						'slider'			=> true,
+						'responsive'		=> true,
+						'preview'			=> array(
+							'type'				=> 'css',
+							'selector'			=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix):not(.pp-pricing-table-highlight) .pp-pricing-table-column .pp-pricing-table-features',
+							'property'			=> 'padding',
+							'unit'				=> 'px'
 						)
 					),
 				)
@@ -1271,6 +1010,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'type'      => 'color',
 						'label'     => __('Background Color', 'bb-powerpack'),
 						'show_reset'   => true,
+						'show_alpha'	=> true,
 						'default'		=> 'f3f3f3',
 						'preview'       => array(
 							'type'			=> 'css',
@@ -1278,121 +1018,22 @@ FLBuilder::register_module('PPPricingTableModule', array(
 							'property'		=> 'background-color',
 						)
 					),
-					'hl_box_border'    => array(
-						'type'      => 'pp-switch',
-						'label'     => __('Border Style', 'bb-powerpack'),
-						'default'   => 'none',
-						'options'   => array(
-							'none'  => __('None', 'bb-powerpack'),
-							'solid'  => __('Solid', 'bb-powerpack'),
-							'dashed'  => __('Dashed', 'bb-powerpack'),
-							'dotted'  => __('Dotted', 'bb-powerpack'),
-						),
-						'toggle'    => array(
-							'dashed'   => array(
-								'fields'    => array('hl_box_border_width', 'hl_box_border_color')
-							),
-							'dotted'   => array(
-								'fields'    => array('hl_box_border_width', 'hl_box_border_color')
-							),
-							'solid'   => array(
-								'fields'    => array('hl_box_border_width', 'hl_box_border_color')
-							),
-						),
-						'preview'              => array(
-							'type'				=> 'css',
-							'selector'			=> '.pp-pricing-table .pp-pricing-table-col.pp-pricing-table-highlight .pp-pricing-table-column',
-							'property'			=> 'border-style',
-						)
-					),
-					'hl_box_border_width'   => array(
-						'type'      => 'text',
-						'label'     => __('Border Width', 'bb-powerpack'),
-						'size'      => 5,
-						'maxlength' => 3,
-						'default'   => 1,
-						'description'   => 'px',
-						'preview'              => array(
-							'type'				=> 'css',
-							'selector'			=> '.pp-pricing-table .pp-pricing-table-col.pp-pricing-table-highlight .pp-pricing-table-column',
-							'property'			=> 'border-width',
-							'unit'				=> 'px'
-						)
-					),
-					'hl_box_border_color'   => array(
-						'type'      => 'color',
-						'label'     => __('Border Color', 'bb-powerpack'),
-						'show_reset'   => true,
-						'preview'              => array(
-							'type'				=> 'css',
-							'selector'	=> '.pp-pricing-table .pp-pricing-table-col.pp-pricing-table-highlight .pp-pricing-table-column',
-							'property'	=> 'border-color',
-						)
-					),
-					'hl_box_shadow_display'   => array(
-						'type'                 => 'pp-switch',
-						'label'                => __('Enable Shadow', 'bb-powerpack'),
-						'default'              => 'no',
-						'options'              => array(
-							'yes'          => __('Yes', 'bb-powerpack'),
-							'no'             => __('No', 'bb-powerpack'),
-						),
-						'toggle'    =>  array(
-							'yes'   => array(
-								'fields'    => array('hl_box_shadow', 'hl_box_shadow_color', 'hl_box_shadow_opacity')
-							)
-						)
-					),
-					'hl_box_shadow' 		=> array(
-						'type'              => 'pp-multitext',
-						'label'             => __('Box Shadow', 'bb-powerpack'),
-						'default'           => array(
-							'vertical'			=> 2,
-							'horizontal'		=> 2,
-							'blur'				=> 2,
-							'spread'			=> 1
-						),
-						'options'			=> array(
-							'vertical'			=> array(
-								'placeholder'		=> __('Vertical', 'bb-powerpack'),
-								'tooltip'			=> __('Vertical', 'bb-powerpack'),
-								'icon'				=> 'fa-arrows-v'
-							),
-							'horizontal'		=> array(
-								'placeholder'		=> __('Horizontal', 'bb-powerpack'),
-								'tooltip'			=> __('Horizontal', 'bb-powerpack'),
-								'icon'				=> 'fa-arrows-h'
-							),
-							'blur'				=> array(
-								'placeholder'		=> __('Blur', 'bb-powerpack'),
-								'tooltip'			=> __('Blur', 'bb-powerpack'),
-								'icon'				=> 'fa-circle-o'
-							),
-							'spread'			=> array(
-								'placeholder'		=> __('Spread', 'bb-powerpack'),
-								'tooltip'			=> __('Spread', 'bb-powerpack'),
-								'icon'				=> 'fa-paint-brush'
-							),
-						)
-					),
-					'hl_box_shadow_color' => array(
-						'type'              => 'color',
-						'label'             => __('Shadow Color', 'bb-powerpack'),
-						'default'           => '000000',
-					),
-					'hl_box_shadow_opacity' => array(
-						'type'              => 'text',
-						'label'             => __('Shadow Opacity', 'bb-powerpack'),
-						'description'       => '%',
-						'size'             => 5,
-						'default'           => 50,
+					'hl_box_border_group'	=> array(
+						'type'          => 'border',
+						'label'         => __( 'Border', 'bb-powerpack' ),
+						'responsive'	=> true,
+						'preview'   	=> array(
+                            'type'  		=> 'css',
+                            'selector'  	=> '.pp-pricing-table .pp-pricing-table-col.pp-pricing-table-highlight .pp-pricing-table-column',
+                            'property'  	=> 'border',
+                        ),
 					),
 					'hl_box_margin_top'	=> array(
-						'type'		=> 'text',
+						'type'		=> 'unit',
 						'label'		=> __('Margin Top', 'bb-powerpack'),
-						'description'	=> 'px',
+						'units'		=> array( 'px' ),
+						'slider'	=> true,
 						'default'	=> 0,
-						'size'		=> 5,
 						'preview'   => array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-pricing-table .pp-pricing-table-col.pp-pricing-table-highlight .pp-pricing-table-column',
@@ -1400,61 +1041,18 @@ FLBuilder::register_module('PPPricingTableModule', array(
 							'unit'		=> 'px'
 						)
 					),
-					'hl_box_padding'   => array(
-						'type'      => 'pp-multitext',
-						'label'     => __('Padding', 'bb-powerpack'),
-						'description'   => 'px',
-						'default'       => array(
-							'top' => 10,
-							'right' => 10,
-							'bottom' => 10,
-							'left' => 10,
-						),
-						'options' 		=> array(
-							'top' => array(
-								'maxlength' => 3,
-								'placeholder'   =>  __('Top', 'bb-powerpack'),
-								'tooltip'       => __( 'Top', 'bb-powerpack' ),
-								'icon'		=> 'fa-long-arrow-up',
-								'preview'              => array(
-									'selector'	=> '.pp-pricing-table .pp-pricing-table-col.pp-pricing-table-highlight .pp-pricing-table-column',
-									'property'	=> 'padding-top',
-									'unit'		=> 'px'
-								)
-							),
-							'bottom' => array(
-								'maxlength' => 3,
-								'placeholder'   =>  __('Bottom', 'bb-powerpack'),
-								'tooltip'       => __( 'Bottom', 'bb-powerpack' ),
-								'icon'		=> 'fa-long-arrow-down',
-								'preview'              => array(
-									'selector'	=> '.pp-pricing-table .pp-pricing-table-col.pp-pricing-table-highlight .pp-pricing-table-column',
-									'property'	=> 'padding-bottom',
-									'unit'		=> 'px'
-								)
-							),
-							'left' => array(
-								'maxlength' => 3,
-								'placeholder'   =>  __('Left', 'bb-powerpack'),
-								'tooltip'       => __( 'Left', 'bb-powerpack' ),
-								'icon'		=> 'fa-long-arrow-left',
-								'preview'              => array(
-									'selector'	=> '.pp-pricing-table .pp-pricing-table-col.pp-pricing-table-highlight .pp-pricing-table-column',
-									'property'	=> 'padding-left',
-									'unit'		=> 'px'
-								)
-							),
-							'right' => array(
-								'maxlength' => 3,
-								'placeholder'   =>  __('Right', 'bb-powerpack'),
-								'tooltip'       => __( 'Right', 'bb-powerpack' ),
-								'icon'		=> 'fa-long-arrow-right',
-								'preview'              => array(
-									'selector'	=> '.pp-pricing-table .pp-pricing-table-col.pp-pricing-table-highlight .pp-pricing-table-column',
-									'property'	=> 'padding-right',
-									'unit'		=> 'px'
-								)
-							),
+					'hl_box_padding'	=> array(
+						'type'				=> 'dimension',
+						'label'				=> __('Padding', 'bb-powerpack'),
+						'default'			=> '10',
+						'units'				=> array('px'),
+						'slider'			=> true,
+						'responsive'		=> true,
+						'preview'			=> array(
+							'type'				=> 'css',
+							'selector'			=> '.pp-pricing-table .pp-pricing-table-col.pp-pricing-table-highlight .pp-pricing-table-column',
+							'property'			=> 'padding',
+							'unit'				=> 'px'
 						)
 					),
 				)
@@ -1467,6 +1065,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'label'             => __('Background Color', 'bb-powerpack'),
 						'default'           => 'cccccc',
 						'show_reset'		=> true,
+						'show_alpha'		=> true,
 						'preview'       => array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-pricing-table .pp-pricing-table-col.pp-pricing-table-highlight .pp-pricing-table-column .pp-pricing-featured-title',
@@ -1494,6 +1093,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'label'             => __('Background Color', 'bb-powerpack'),
 						'default'           => 'cccccc',
 						'show_reset'		=> true,
+						'show_alpha'		=> true,
 						'preview'       => array(
 							'type'			=> 'css',
 							'rules'			=> array(
@@ -1537,6 +1137,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'label'             => __('Background Color', 'bb-powerpack'),
 						'default'           => 'cccccc',
 						'show_reset'		=> true,
+						'show_alpha'		=> true,
 						'preview'       => array(
 							'type'			=> 'css',
 							'rules'			=> array(
@@ -1599,6 +1200,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'default'       => '',
 						'label'         => __('Alternate Background Color', 'bb-powerpack'),
 						'show_reset'	=> true,
+						'show_alpha'	=> true,
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-pricing-table .pp-pricing-table-col.pp-pricing-table-highlight .pp-pricing-table-column .pp-pricing-table-features li:nth-child(even)',
@@ -1644,10 +1246,10 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						)
 					),
 					'hl_features_border_width'   => array(
-						'type'              => 'text',
+						'type'              => 'unit',
 						'label'             => __('Border Width', 'bb-powerpack'),
-						'description'       => 'px',
-						'size'             	=> 5,
+						'units'      		=> array( 'px' ),
+						'slider'            => true,
 						'default'           => 1,
 						'preview'           => array(
 							'type'		=> 'css',
@@ -1677,137 +1279,14 @@ FLBuilder::register_module('PPPricingTableModule', array(
 			'featured_title_typography'	=> array(
 				'title'	=> __( 'Featured Title', 'bb-powerpack' ),
 				'fields'	=> array(
-					'featured_title_font'	=> array(
-						'type'		=> 'font',
-						'label'		=> __('Font', 'bb-powerpack'),
-						'default'	=> array(
-							'family'	=> 'Default',
-							'weight'	=> '400',
+					'featured_title_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix) .pp-pricing-table-column .pp-pricing-featured-title',
 						),
-						'preview'       => array(
-							'type'		=> 'font',
-							'selector'        => '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix) .pp-pricing-table-column .pp-pricing-featured-title',
-						),
-					),
-					'featured_title_font_size' => array(
-						'type'		=> 'pp-switch',
-						'label'		=> __('Font Size', 'bb-powerpack'),
-						'default'	=> 'default',
-						'options'       => array(
-							'default'          => __('Default', 'bb-powerpack'),
-							'custom'         => __('Custom', 'bb-powerpack'),
-						),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array('featured_title_custom_font_size')
-							)
-						),
-					),
-					'featured_title_custom_font_size'	=> array(
-						'type' 		=> 'pp-multitext',
-						'label'		=> __('Custom Font Size', 'bb-powerpack'),
-						'default'		=> array(
-							'desktop'	=> 24,
-							'tablet'	=> '',
-							'mobile'	=> '',
-						),
-						'options' 		=> array(
-							'desktop' => array(
-								'icon'		=> 'fa-desktop',
-								'placeholder'	=> __('Desktop', 'bb-powerpack'),
-								'tooltip'	=> __('Desktop', 'bb-powerpack'),
-								'preview'       => array(
-									'selector'        => '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix) .pp-pricing-table-column .pp-pricing-featured-title',
-									'property'        => 'font-size',
-									'unit'            => 'px'
-								),
-							),
-							'tablet' => array(
-								'icon'		=> 'fa-tablet',
-								'placeholder'	=> __('Tablet', 'bb-powerpack'),
-								'tooltip'	=> __('Tablet', 'bb-powerpack'),
-							),
-							'mobile' => array(
-								'icon'		=> 'fa-mobile',
-								'placeholder'	=> __('Mobile', 'bb-powerpack'),
-								'tooltip'	=> __('Mobile', 'bb-powerpack'),
-							),
-
-						),
-					),
-					'featured_title_line_height' => array(
-						'type'		=> 'pp-switch',
-						'label'		=> __('Line Height', 'bb-powerpack'),
-						'default'	=> 'default',
-						'options'       => array(
-							'default'          => __('Default', 'bb-powerpack'),
-							'custom'         => __('Custom', 'bb-powerpack'),
-						),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array('featured_title_custom_line_height')
-							)
-						),
-					),
-					'featured_title_custom_line_height'	=> array(
-						'type' 		=> 'pp-multitext',
-						'label'		=> __('Custom Line Height', 'bb-powerpack'),
-						'help' 		=> __('Recommended values between 1-2', 'bb-powerpack'),
-						'default'	=> array(
-							'desktop'	=> 1.6,
-							'tablet'	=> '',
-							'mobile'	=> '',
-						),
-						'options' 		=> array(
-							'desktop' => array(
-								'icon'		=> 'fa-desktop',
-								'placeholder'	=> __('Desktop', 'bb-powerpack'),
-								'tooltip'	=> __('Desktop', 'bb-powerpack'),
-								'preview'       => array(
-									'selector'        => '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix) .pp-pricing-table-column .pp-pricing-featured-title',
-									'property'        => 'line-height',
-								),
-							),
-							'tablet' => array(
-								'icon'		=> 'fa-tablet',
-								'placeholder'	=> __('Tablet', 'bb-powerpack'),
-								'tooltip'	=> __('Tablet', 'bb-powerpack'),
-							),
-							'mobile' => array(
-								'icon'		=> 'fa-mobile',
-								'placeholder'	=> __('Mobile', 'bb-powerpack'),
-								'tooltip'	=> __('Mobile', 'bb-powerpack'),
-							),
-
-						),
-					),
-					'featured_title_text_transform' => array(
-						'type'		=> 'select',
-						'label'		=> __('Text Transform', 'bb-powerpack'),
-						'default'	=> 'none',
-						'options'       => array(
-							'none'          => __('None', 'bb-powerpack'),
-							'lowercase'     => __('lowercase', 'bb-powerpack'),
-							'uppercase'     => __('UPPERCASE', 'bb-powerpack'),
-						),
-						'preview'	=> array(
-							'type'		=> 'css',
-							'selector'	=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix) .pp-pricing-table-column .pp-pricing-featured-title',
-							'property'	=> 'text-transform'
-						)
-					),
-					'featured_title_letter_spacing'   => array(
-						'type'              => 'text',
-						'label'             => __('Letter Spacing', 'bb-powerpack'),
-						'description'       => 'px',
-						'size'             	=> 5,
-						'default'           => 0,
-						'preview'           => array(
-							'type'		=> 'css',
-							'selector'	=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix) .pp-pricing-table-column .pp-pricing-featured-title',
-							'property'	=> 'letter-spacing',
-							'unit'		=> 'px'
-						)
 					),
 				)
 			),
@@ -1828,199 +1307,27 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'default'	=> 'h4',
 						'help' 		=> __('Set the HTML tag for title output', 'bb-powerpack'),
 					),
-					'title_font'	=> array(
-						'type'		=> 'font',
-						'label'		=> __('Font', 'bb-powerpack'),
-						'default'	=> array(
-							'family'	=> 'Default',
-							'weight'	=> '400',
+					'title_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix) .pp-pricing-table-column .pp-pricing-table-title',
 						),
-						'preview'       => array(
-							'type'		=> 'font',
-							'selector'        => '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix) .pp-pricing-table-column .pp-pricing-table-title',
-						),
-					),
-					'title_font_size' => array(
-						'type'		=> 'pp-switch',
-						'label'		=> __('Font Size', 'bb-powerpack'),
-						'default'	=> 'default',
-						'options'       => array(
-							'default'          => __('Default', 'bb-powerpack'),
-							'custom'         => __('Custom', 'bb-powerpack'),
-						),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array('title_custom_font_size')
-							)
-						),
-					),
-					'title_custom_font_size'	=> array(
-						'type' 		=> 'pp-multitext',
-						'label'		=> __('Custom Font Size', 'bb-powerpack'),
-						'default'		=> array(
-							'desktop'	=> 24,
-							'tablet'	=> '',
-							'mobile'	=> '',
-						),
-						'options' 		=> array(
-							'desktop' => array(
-								'icon'		=> 'fa-desktop',
-								'placeholder'	=> __('Desktop', 'bb-powerpack'),
-								'tooltip'	=> __('Desktop', 'bb-powerpack'),
-								'preview'       => array(
-									'selector'        => '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix) .pp-pricing-table-column .pp-pricing-table-title',
-									'property'        => 'font-size',
-									'unit'            => 'px'
-								),
-							),
-							'tablet' => array(
-								'icon'		=> 'fa-tablet',
-								'placeholder'	=> __('Tablet', 'bb-powerpack'),
-								'tooltip'	=> __('Tablet', 'bb-powerpack'),
-							),
-							'mobile' => array(
-								'icon'		=> 'fa-mobile',
-								'placeholder'	=> __('Mobile', 'bb-powerpack'),
-								'tooltip'	=> __('Mobile', 'bb-powerpack'),
-							),
-
-						),
-					),
-					'title_line_height' => array(
-						'type'		=> 'pp-switch',
-						'label'		=> __('Line Height', 'bb-powerpack'),
-						'default'	=> 'default',
-						'options'       => array(
-							'default'          => __('Default', 'bb-powerpack'),
-							'custom'         => __('Custom', 'bb-powerpack'),
-						),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array('title_custom_line_height')
-							)
-						),
-					),
-					'title_custom_line_height'	=> array(
-						'type' 		=> 'pp-multitext',
-						'label'		=> __('Custom Line Height', 'bb-powerpack'),
-						'help' 		=> __('Recommended values between 1-2', 'bb-powerpack'),
-						'default'	=> array(
-							'desktop'	=> 1.6,
-							'tablet'	=> '',
-							'mobile'	=> '',
-						),
-						'options' 		=> array(
-							'desktop' => array(
-								'icon'		=> 'fa-desktop',
-								'placeholder'	=> __('Desktop', 'bb-powerpack'),
-								'tooltip'	=> __('Desktop', 'bb-powerpack'),
-								'preview'       => array(
-									'selector'        => '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix) .pp-pricing-table-column .pp-pricing-table-title',
-									'property'        => 'line-height',
-								),
-							),
-							'tablet' => array(
-								'icon'		=> 'fa-tablet',
-								'placeholder'	=> __('Tablet', 'bb-powerpack'),
-								'tooltip'	=> __('Tablet', 'bb-powerpack'),
-							),
-							'mobile' => array(
-								'icon'		=> 'fa-mobile',
-								'placeholder'	=> __('Mobile', 'bb-powerpack'),
-								'tooltip'	=> __('Mobile', 'bb-powerpack'),
-							),
-
-						),
-					),
-					'title_text_transform' => array(
-						'type'		=> 'select',
-						'label'		=> __('Text Transform', 'bb-powerpack'),
-						'default'	=> 'none',
-						'options'       => array(
-							'none'          => __('None', 'bb-powerpack'),
-							'lowercase'     => __('lowercase', 'bb-powerpack'),
-							'uppercase'     => __('UPPERCASE', 'bb-powerpack'),
-						),
-						'preview'	=> array(
-							'type'		=> 'css',
-							'selector'	=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix) .pp-pricing-table-column .pp-pricing-table-title',
-							'property'	=> 'text-transform'
-						)
-					),
-					'title_letter_spacing'   => array(
-						'type'              => 'text',
-						'label'             => __('Letter Spacing', 'bb-powerpack'),
-						'description'       => 'px',
-						'size'             	=> 5,
-						'default'           => 0,
-						'preview'           => array(
-							'type'		=> 'css',
-							'selector'	=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix) .pp-pricing-table-column .pp-pricing-table-title',
-							'property'	=> 'letter-spacing',
-							'unit'		=> 'px'
-						)
 					),
 				)
 			),
 			'price_typography'	=> array(
 				'title'	=> __( 'Price', 'bb-powerpack' ),
 				'fields'	=> array(
-					'price_font'	=> array(
-						'type'		=> 'font',
-						'label'		=> __('Font', 'bb-powerpack'),
-						'default'	=> array(
-							'family'	=> 'Default',
-							'weight'	=> '400',
-						),
-						'preview'       => array(
-							'type'		=> 'font',
-							'selector'        => '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix) .pp-pricing-table-column .pp-pricing-table-price',
-						),
-					),
-					'price_font_size' => array(
-						'type'		=> 'pp-switch',
-						'label'		=> __('Price Font Size', 'bb-powerpack'),
-						'default'	=> 'default',
-						'options'       => array(
-							'default'          => __('Default', 'bb-powerpack'),
-							'custom'         => __('Custom', 'bb-powerpack'),
-						),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array('price_custom_font_size')
-							)
-						),
-					),
-					'price_custom_font_size'	=> array(
-						'type' 		=> 'pp-multitext',
-						'label'		=> __('Price Custom Font Size', 'bb-powerpack'),
-						'default'		=> array(
-							'desktop'	=> 50,
-							'tablet'	=> '',
-							'mobile'	=> '',
-						),
-						'options' 		=> array(
-							'desktop' => array(
-								'icon'		=> 'fa-desktop',
-								'placeholder'	=> __('Desktop', 'bb-powerpack'),
-								'tooltip'	=> __('Desktop', 'bb-powerpack'),
-								'preview'       => array(
-									'selector'        => '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix) .pp-pricing-table-column .pp-pricing-table-price',
-									'property'        => 'font-size',
-									'unit'            => 'px'
-								),
-							),
-							'tablet' => array(
-								'icon'		=> 'fa-tablet',
-								'placeholder'	=> __('Tablet', 'bb-powerpack'),
-								'tooltip'	=> __('Tablet', 'bb-powerpack'),
-							),
-							'mobile' => array(
-								'icon'		=> 'fa-mobile',
-								'placeholder'	=> __('Mobile', 'bb-powerpack'),
-								'tooltip'	=> __('Mobile', 'bb-powerpack'),
-							),
-
+					'price_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix) .pp-pricing-table-column .pp-pricing-table-price',
 						),
 					),
 					'duration_font_size' => array(
@@ -2037,207 +1344,45 @@ FLBuilder::register_module('PPPricingTableModule', array(
 							)
 						),
 					),
-					'duration_custom_font_size'	=> array(
-						'type' 		=> 'pp-multitext',
-						'label'		=> __('Duration Custom Font Size', 'bb-powerpack'),
-						'default'		=> array(
-							'desktop'	=> 16,
-							'tablet'	=> '',
-							'mobile'	=> '',
+					'duration_custom_font_size'		=> array(
+						'type'			=> 'unit',
+						'label'         => __('Duration Custom Font Size', 'bb-powerpack'),
+						'slider'		=> true,
+						'units'			=> array('px'),
+						'preview'		=> array(
+							'selector'      => '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix) .pp-pricing-table-column .pp-pricing-table-duration',
+							'property'      => 'font-size',
+							'unit'          => 'px'
 						),
-						'options' 		=> array(
-							'desktop' => array(
-								'icon'		=> 'fa-desktop',
-								'placeholder'	=> __('Desktop', 'bb-powerpack'),
-								'tooltip'	=> __('Desktop', 'bb-powerpack'),
-								'preview'       => array(
-									'selector'        => '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix) .pp-pricing-table-column .pp-pricing-table-duration',
-									'property'        => 'font-size',
-									'unit'            => 'px'
-								),
-							),
-							'tablet' => array(
-								'icon'		=> 'fa-tablet',
-								'placeholder'	=> __('Tablet', 'bb-powerpack'),
-								'tooltip'	=> __('Tablet', 'bb-powerpack'),
-							),
-							'mobile' => array(
-								'icon'		=> 'fa-mobile',
-								'placeholder'	=> __('Mobile', 'bb-powerpack'),
-								'tooltip'	=> __('Mobile', 'bb-powerpack'),
-							),
-
-						),
-					),
-					'price_text_transform' => array(
-						'type'		=> 'select',
-						'label'		=> __('Text Transform', 'bb-powerpack'),
-						'default'	=> 'none',
-						'options'       => array(
-							'none'          => __('None', 'bb-powerpack'),
-							'lowercase'         => __('lowercase', 'bb-powerpack'),
-							'uppercase'         => __('UPPERCASE', 'bb-powerpack'),
-						),
-						'preview'	=> array(
-							'type'		=> 'css',
-							'selector'	=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix) .pp-pricing-table-column .pp-pricing-table-price',
-							'property'	=> 'text-transform'
-						)
+						'responsive'	=> true,
 					),
 				)
 			),
 			'features_typography'	=> array(
 				'title'	=> __( 'Items', 'bb-powerpack' ),
 				'fields'	=> array(
-					'features_font'	=> array(
-						'type'		=> 'font',
-						'label'		=> __('Font', 'bb-powerpack'),
-						'default'	=> array(
-							'family'	=> 'Default',
-							'weight'	=> '400',
+					'features_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-pricing-table .pp-pricing-table-column .pp-pricing-table-features',
 						),
-						'preview'       => array(
-							'type'		=> 'font',
-							'selector'        => '.pp-pricing-table .pp-pricing-table-column .pp-pricing-table-features',
-						),
-					),
-					'features_font_size' => array(
-						'type'		=> 'pp-switch',
-						'label'		=> __('Font Size', 'bb-powerpack'),
-						'default'	=> 'default',
-						'options'       => array(
-							'default'          => __('Default', 'bb-powerpack'),
-							'custom'         => __('Custom', 'bb-powerpack'),
-						),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array('features_custom_font_size')
-							)
-						),
-					),
-					'features_custom_font_size'	=> array(
-						'type' 		=> 'pp-multitext',
-						'label'		=> __('Custom Font Size', 'bb-powerpack'),
-						'default'		=> array(
-							'desktop'	=> 18,
-							'tablet'	=> '',
-							'mobile'	=> '',
-						),
-						'options' 		=> array(
-							'desktop' => array(
-								'icon'		=> 'fa-desktop',
-								'placeholder'	=> __('Desktop', 'bb-powerpack'),
-								'tooltip'	=> __('Desktop', 'bb-powerpack'),
-								'preview'       => array(
-									'selector'        => '.pp-pricing-table .pp-pricing-table-column .pp-pricing-table-features',
-									'property'        => 'font-size',
-									'unit'            => 'px'
-								),
-							),
-							'tablet' => array(
-								'icon'		=> 'fa-tablet',
-								'placeholder'	=> __('Tablet', 'bb-powerpack'),
-								'tooltip'	=> __('Tablet', 'bb-powerpack'),
-							),
-							'mobile' => array(
-								'icon'		=> 'fa-mobile',
-								'placeholder'	=> __('Mobile', 'bb-powerpack'),
-								'tooltip'	=> __('Mobile', 'bb-powerpack'),
-							),
-
-						),
-					),
-					'features_text_transform' => array(
-						'type'		=> 'select',
-						'label'		=> __('Text Transform', 'bb-powerpack'),
-						'default'	=> 'none',
-						'options'       => array(
-							'none'          => __('None', 'bb-powerpack'),
-							'lowercase'         => __('lowercase', 'bb-powerpack'),
-							'uppercase'         => __('UPPERCASE', 'bb-powerpack'),
-						),
-						'preview'	=> array(
-							'type'		=> 'css',
-							'selector'	=> '.pp-pricing-table .pp-pricing-table-column .pp-pricing-table-features',
-							'property'	=> 'text-transform'
-						)
 					),
 				)
 			),
 			'button_typography'	=> array(
 				'title'	=> __( 'Button', 'bb-powerpack' ),
 				'fields'	=> array(
-					'button_font'	=> array(
-						'type'		=> 'font',
-						'label'		=> __('Font', 'bb-powerpack'),
-						'default'	=> array(
-							'family'	=> 'Default',
-							'weight'	=> '400',
+					'button_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-pricing-table .pp-pricing-table-column a.fl-button',
 						),
-						'preview'       => array(
-							'type'		=> 'font',
-							'selector'        => '.pp-pricing-table .pp-pricing-table-column a.fl-button',
-						),
-					),
-					'button_font_size' => array(
-						'type'		=> 'pp-switch',
-						'label'		=> __('Font Size', 'bb-powerpack'),
-						'default'	=> 'default',
-						'options'       => array(
-							'default'          => __('Default', 'bb-powerpack'),
-							'custom'         => __('Custom', 'bb-powerpack'),
-						),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array('button_custom_font_size')
-							)
-						),
-					),
-					'button_custom_font_size'	=> array(
-						'type' 		=> 'pp-multitext',
-						'label'		=> __('Custom Font Size', 'bb-powerpack'),
-						'default'		=> array(
-							'desktop'	=> 16,
-							'tablet'	=> '',
-							'mobile'	=> '',
-						),
-						'options' 		=> array(
-							'desktop' => array(
-								'icon'		=> 'fa-desktop',
-								'placeholder'	=> __('Desktop', 'bb-powerpack'),
-								'tooltip'	=> __('Desktop', 'bb-powerpack'),
-								'preview'       => array(
-									'selector'        => '.pp-pricing-table .pp-pricing-table-column a.fl-button',
-									'property'        => 'font-size',
-									'unit'            => 'px'
-								),
-							),
-							'tablet' => array(
-								'icon'		=> 'fa-tablet',
-								'placeholder'	=> __('Tablet', 'bb-powerpack'),
-								'tooltip'	=> __('Tablet', 'bb-powerpack'),
-							),
-							'mobile' => array(
-								'icon'		=> 'fa-mobile',
-								'placeholder'	=> __('Mobile', 'bb-powerpack'),
-								'tooltip'	=> __('Mobile', 'bb-powerpack'),
-							),
-						),
-					),
-					'button_text_transform' => array(
-						'type'		=> 'select',
-						'label'		=> __('Text Transform', 'bb-powerpack'),
-						'default'	=> 'none',
-						'options'       => array(
-							'none'          => __('None', 'bb-powerpack'),
-							'lowercase'         => __('lowercase', 'bb-powerpack'),
-							'uppercase'         => __('UPPERCASE', 'bb-powerpack'),
-						),
-						'preview'	=> array(
-							'type'		=> 'css',
-							'selector'	=> '.pp-pricing-table .pp-pricing-table-column a.fl-button',
-							'property'	=> 'text-transform'
-						)
 					),
 				)
 			)
@@ -2396,13 +1541,15 @@ FLBuilder::register_settings_form('pp_pricing_column_form', array(
 							'type'          => 'color',
 							'label'         => __('Background Color', 'bb-powerpack'),
 							'default'       => '',
-							'show_reset'    => true
+							'show_reset'    => true,
+							'show_alpha'	=> true
 						),
 						'btn_bg_hover_color' => array(
 							'type'          => 'color',
 							'label'         => __('Background Hover Color', 'bb-powerpack'),
 							'default'       => '',
 							'show_reset'    => true,
+							'show_alpha'	=> true
 						),
 						'btn_text_color' => array(
 							'type'          => 'color',
@@ -2437,12 +1584,11 @@ FLBuilder::register_settings_form('pp_pricing_column_form', array(
 							)
 						),
 						'btn_border_size' => array(
-							'type'          => 'text',
+							'type'          => 'unit',
 							'label'         => __('Border Size', 'bb-powerpack'),
 							'default'       => '2',
-							'description'   => 'px',
-							'maxlength'     => '3',
-							'size'          => '5',
+							'units'   		=> array( 'px' ),
+							'slider'        => true,
 							'placeholder'   => '0'
 						),
 						'btn_bg_opacity' => array(
@@ -2455,13 +1601,13 @@ FLBuilder::register_settings_form('pp_pricing_column_form', array(
 							'placeholder'   => '0'
 						),
 						'btn_bg_hover_opacity' => array(
-						'type'          => 'text',
-						'label'         => __('Background Hover Opacity', 'bb-powerpack'),
-						'default'       => '0',
-						'description'   => '%',
-						'maxlength'     => '3',
-						'size'          => '5',
-						'placeholder'   => '0'
+							'type'          => 'text',
+							'label'         => __('Background Hover Opacity', 'bb-powerpack'),
+							'default'       => '0',
+							'description'   => '%',
+							'maxlength'     => '3',
+							'size'          => '5',
+							'placeholder'   => '0'
 						),
 						'btn_button_transition' => array(
 							'type'          => 'pp-switch',
@@ -2487,139 +1633,47 @@ FLBuilder::register_settings_form('pp_pricing_column_form', array(
 							)
 						),
 						'btn_align'    	=> array(
-							'type'          => 'pp-switch',
+							'type'          => 'align',
 							'label'         => __('Alignment', 'bb-powerpack'),
 							'default'       => 'center',
-							'options'       => array(
-								'left'          => __('Left', 'bb-powerpack'),
-								'center'		=> __('Center', 'bb-powerpack'),
-								'right'         => __('Right', 'bb-powerpack'),
-							),
 							'preview'       => array(
 								'type'          => 'none'
 							)
 						),
-						'button_padding'   => array(
-	                        'type'      => 'pp-multitext',
-	                        'label'     => __( 'Padding', 'bb-powerpack' ),
-	                        'description'   => __( 'px', 'bb-powerpack' ),
-							'default'       => array(
-	                            'top' => 10,
-	                            'right' => 10,
-	                            'bottom' => 10,
-	                            'left' => 10,
-	                        ),
-	                    	'options' 		=> array(
-	                    		'top' => array(
-	                                'maxlength' => 3,
-	                                'placeholder'   =>  __( 'Top', 'bb-powerpack' ),
-	                                'tooltip'       => __( 'Top', 'bb-powerpack' ),
-	                    			'icon'		=> 'fa-long-arrow-up',
-									'preview'              => array(
-										'selector'	=> '.pp-pricing-table .pp-pricing-table-column a.fl-button',
-										'property'	=> 'padding-top',
-										'unit'		=> 'px'
-			                        )
-	                    		),
-	                            'bottom' => array(
-	                                'maxlength' => 3,
-	                                'placeholder'   =>  __('Bottom', 'bb-powerpack'),
-	                                'tooltip'       => __( 'Bottom', 'bb-powerpack' ),
-	                    			'icon'		=> 'fa-long-arrow-down',
-									'preview'              => array(
-										'selector'	=> '.pp-pricing-table .pp-pricing-table-column a.fl-button',
-										'property'	=> 'padding-bottom',
-										'unit'		=> 'px'
-			                        )
-	                    		),
-	                            'left' => array(
-	                                'maxlength' => 3,
-	                                'placeholder'   =>  __('Left', 'bb-powerpack'),
-	                                'tooltip'       => __( 'Left', 'bb-powerpack' ),
-	                    			'icon'		=> 'fa-long-arrow-left',
-									'preview'              => array(
-										'selector'	=> '.pp-pricing-table .pp-pricing-table-column a.fl-button',
-										'property'	=> 'padding-left',
-										'unit'		=> 'px'
-			                        )
-	                    		),
-	                            'right' => array(
-	                                'maxlength' => 3,
-	                                'placeholder'   =>  __('Right', 'bb-powerpack'),
-	                                'tooltip'       => __( 'Right', 'bb-powerpack' ),
-	                    			'icon'		=> 'fa-long-arrow-right',
-									'preview'              => array(
-										'selector'	=> '.pp-pricing-table .pp-pricing-table-column a.fl-button',
-										'property'	=> 'padding-right',
-										'unit'		=> 'px'
-			                        )
-	                    		),
-	                    	)
-	                    ),
-						'button_margin'   => array(
-	                        'type'      => 'pp-multitext',
-	                        'label'     => __( 'Margin', 'bb-powerpack' ),
-	                        'description'   => __( 'px', 'bb-powerpack' ),
-							'default'       => array(
-	                            'top' => 0,
-	                            'right' => 0,
-	                            'bottom' => 0,
-	                            'left' => 0,
-	                        ),
-	                    	'options' 		=> array(
-	                    		'top' => array(
-	                                'maxlength' => 3,
-	                                'placeholder'   =>  __( 'Top', 'bb-powerpack' ),
-	                                'tooltip'       => __( 'Top', 'bb-powerpack' ),
-	                    			'icon'		=> 'fa-long-arrow-up',
-									'preview'              => array(
-										'selector'	=> '.pp-pricing-table .pp-pricing-table-column a.fl-button',
-										'property'	=> 'padding-top',
-										'unit'		=> 'px'
-			                        )
-	                    		),
-	                            'bottom' => array(
-	                                'maxlength' => 3,
-	                                'placeholder'   =>  __('Bottom', 'bb-powerpack'),
-	                                'tooltip'       => __( 'Bottom', 'bb-powerpack' ),
-	                    			'icon'		=> 'fa-long-arrow-down',
-									'preview'              => array(
-										'selector'	=> '.pp-pricing-table .pp-pricing-table-column a.fl-button',
-										'property'	=> 'padding-bottom',
-										'unit'		=> 'px'
-			                        )
-	                    		),
-	                            'left' => array(
-	                                'maxlength' => 3,
-	                                'placeholder'   =>  __('Left', 'bb-powerpack'),
-	                                'tooltip'       => __( 'Left', 'bb-powerpack' ),
-	                    			'icon'		=> 'fa-long-arrow-left',
-									'preview'              => array(
-										'selector'	=> '.pp-pricing-table .pp-pricing-table-column a.fl-button',
-										'property'	=> 'padding-left',
-										'unit'		=> 'px'
-			                        )
-	                    		),
-	                            'right' => array(
-	                                'maxlength' => 3,
-	                                'placeholder'   =>  __('Right', 'bb-powerpack'),
-	                                'tooltip'       => __( 'Right', 'bb-powerpack' ),
-	                    			'icon'		=> 'fa-long-arrow-right',
-									'preview'              => array(
-										'selector'	=> '.pp-pricing-table .pp-pricing-table-column a.fl-button',
-										'property'	=> 'padding-right',
-										'unit'		=> 'px'
-			                        )
-	                    		),
-	                    	)
-	                    ),
+						'button_padding'	=> array(
+							'type'				=> 'dimension',
+							'label'				=> __('Padding', 'bb-powerpack'),
+							'default'			=> '10',
+							'units'				=> array('px'),
+							'slider'			=> true,
+							'responsive'		=> true,
+							'preview'			=> array(
+								'type'				=> 'css',
+								'selector'			=> '.pp-pricing-table .pp-pricing-table-column a.fl-button',
+								'property'			=> 'padding',
+								'unit'				=> 'px'
+							)
+						),
+						'button_margin'	=> array(
+							'type'				=> 'dimension',
+							'label'				=> __('Margin', 'bb-powerpack'),
+							'default'			=> '0',
+							'units'				=> array('px'),
+							'slider'			=> true,
+							'responsive'		=> true,
+							'preview'			=> array(
+								'type'				=> 'css',
+								'selector'			=> '.pp-pricing-table .pp-pricing-table-column a.fl-button',
+								'property'			=> 'margin',
+								'unit'				=> 'px'
+							)
+						),
 						'btn_border_radius' => array(
-							'type'          => 'text',
+							'type'          => 'unit',
 							'label'         => __('Round Corners', 'bb-powerpack'),
 							'default'       => '4',
-							'maxlength'     => '3',
-							'size'          => '4',
-							'description'   => 'px'
+							'units'			=> array('px'),
+							'slider'		=> true,
 						)
 					)
 				)
@@ -2632,18 +1686,18 @@ FLBuilder::register_settings_form('pp_pricing_column_form', array(
 					'title'         => __('Package', 'bb-powerpack'),
 					'fields'        => array(
 						'margin'        => array(
-							'type'          => 'text',
+							'type'          => 'unit',
 							'label'         => __('Package Top Margin', 'bb-powerpack'),
 							'default'       => '0',
-							'maxlength'     => '3',
-							'size'          => '3',
-							'description'   => 'px'
+							'units'			=> array('px'),
+							'slider'		=> true,
 						),
 						'package_bg_color'  => array(
 							'type'          => 'color',
 							'label'         => __('Package Background Color', 'bb-powerpack'),
 							'default'       => '',
-							'show_reset'    => true
+							'show_reset'    => true,
+							'show_alpha'	=> true
 						),
 					)
 				),

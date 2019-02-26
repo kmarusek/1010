@@ -22,16 +22,19 @@ function pp_row_expandable_js( $js, $nodes, $global_settings ) {
 
             ;(function($) {
                 var html = '<div class="pp-er pp-er-<?php echo $row->node; ?>"> <div class="pp-er-wrap"> <div class="pp-er-inner"> <div class="pp-er-title-wrap"> <?php if ( "" != $row->settings->er_title ) { ?> <span class="pp-er-title"><?php echo htmlspecialchars( $row->settings->er_title, ENT_QUOTES | ENT_HTML5 ); ?></span> <?php } ?> <span class="pp-er-arrow fa <?php echo $row->settings->er_arrow_weight == 'bold' ? 'fa-chevron-down' : 'fa-angle-down'; ?>"></span> </div> </div> </div> </div>';
-                $('.fl-row.fl-node-<?php echo $row->node; ?>').prepend(html);
+				if ( $('.fl-row.fl-node-<?php echo $row->node; ?>').find('.pp-er').length === 0 ) {
+                	$('.fl-row.fl-node-<?php echo $row->node; ?>').prepend(html);
+				}
 				<?php if ( 'collapsed' != $row->settings->er_default_state ) { ?>
 					$('.pp-er-<?php echo $row->node; ?> .pp-er-wrap').parent().addClass('pp-er-open');
 				<?php } ?>
-                $('.pp-er-<?php echo $row->node; ?> .pp-er-wrap').on('click', function() {
+                $('.pp-er-<?php echo $row->node; ?> .pp-er-wrap').off('click').on('click', function(e) {
+					e.stopPropagation();
                     var $this = $(this);
                     $this.parent().addClass('pp-er-open');
                     $this.find('.pp-er-title').html('<?php echo htmlspecialchars( $row->settings->er_title_e, ENT_QUOTES | ENT_HTML5 ); ?>');
                     $(this).parents('.fl-row').find('.fl-row-content-wrap').slideToggle(<?php echo absint($row->settings->er_transition_speed); ?>, function() {
-                        if(!$(this).is(':visible')) {
+                        if ( !$(this).is(':visible') ) {
                             $this.parent().removeClass('pp-er-open');
                             $this.find('.pp-er-title').html('<?php echo htmlspecialchars( $row->settings->er_title, ENT_QUOTES | ENT_HTML5 ); ?>');
                         }

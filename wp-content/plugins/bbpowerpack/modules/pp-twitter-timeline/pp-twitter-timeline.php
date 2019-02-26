@@ -75,24 +75,32 @@ FLBuilder::register_module('PPTwitterTimelineModule', array(
 						'description'	=> __('Press <strong>ctrl + click</strong> OR <strong>cmd + click</strong> OR <strong>shift + click</strong> to select multiple.', 'bb-powerpack')
 					),
 					'width'     	=> array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __( 'Width', 'bb-powerpack' ),
 						'default'       => '',
-						'description'   => __( 'px', 'bb-powerpack' ),
-						'size'			=> 5,
+						'units'   		=> array( 'px' ),
+						'slider'		=> array(
+							'min'			=> '1',
+							'max'			=> '2000',
+							'step'			=> '50'
+						),
 					),
 					'height'     	=> array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __( 'Height', 'bb-powerpack' ),
 						'default'       => '',
-						'description'   => __( 'px', 'bb-powerpack' ),
-						'size'			=> 5,
+						'units'   		=> array( 'px' ),
+						'slider'		=> array(
+							'min'			=> '1',
+							'max'			=> '2000',
+							'step'			=> '50'
+						),
 					),
 					'tweet_limit'     	=> array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __( 'Tweet Limit', 'bb-powerpack' ),
 						'default'       => '',
-						'size'			=> 5,
+						'slider'		=> true,
 					),
 					'link_color'     	=> array(
 						'type'          => 'color',

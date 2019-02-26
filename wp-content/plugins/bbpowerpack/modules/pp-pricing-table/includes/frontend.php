@@ -71,10 +71,10 @@
 			<?php } ?>
 			<div class="pp-pricing-table-inner-wrap">
 				<?php if( $settings->title_position == 'above' ) { ?>
-					<<?php echo $settings->title_tag; ?> class="pp-pricing-table-title"><?php echo $pricingColumn->title; ?></<?php echo $settings->title_tag; ?>>
+					<<?php echo $settings->title_tag; ?> class="pp-pricing-table-title"><?php echo isset( $pricingColumn->title ) ? $pricingColumn->title : ''; ?></<?php echo $settings->title_tag; ?>>
 				<?php } ?>
 				<div class="pp-pricing-table-price pp-price-primary">
-					<?php echo $pricingColumn->price; ?> <span class="pp-pricing-table-duration"><?php echo $pricingColumn->duration; ?></span>
+					<?php echo isset( $pricingColumn->price ) ? $pricingColumn->price : ''; ?> <span class="pp-pricing-table-duration"><?php echo isset( $pricingColumn->duration ) ? $pricingColumn->duration : ''; ?></span>
 				</div>
 				<?php if ( 'yes' == $settings->dual_pricing ) { ?>
 					<div class="pp-pricing-table-price pp-price-secondary">

@@ -378,40 +378,32 @@ if( $global_settings->responsive_enabled ) { ?>
 <?php } ?>
 
 .fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-menu-toggle {
-	right: <?php echo ( $settings->menu_link_padding['right'] == 0 ) ? '10' : $settings->menu_link_padding['right']; ?>px;
+	<?php if ( isset( $settings->menu_link_padding_right ) ) { ?>
+	right: <?php echo ( $settings->menu_link_padding_right == 0 ) ? '10' : $settings->menu_link_padding_right; ?>px;
+	<?php } ?>
 }
 
 /**
  * Links
  */
-.fl-node-<?php echo $id; ?> .pp-advanced-menu .menu a {
-	<?php if( $settings->link_font_family['family'] != 'Default' ) { ?>
-	   <?php FLBuilderFonts::font_css( $settings->link_font_family ); ?>
-   <?php } ?>
-	<?php if( $settings->link_font_size == 'custom' && $settings->link_font_size_custom ) { ?>font-size: <?php echo $settings->link_font_size_custom; ?>px;<?php } ?>
-  	<?php if( $settings->link_line_height == 'custom' && $settings->link_line_height_custom ) { ?>line-height: <?php echo $settings->link_line_height_custom; ?>;<?php } ?>
-	text-transform: <?php echo $settings->link_text_transform; ?>;
-}
+<?php
+// Link typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'link_typography',
+	'selector'		=> ".fl-node-$id .pp-advanced-menu .menu a"
+) );
 
-.fl-node-<?php echo $id; ?> .pp-advanced-menu .menu .sub-menu a {
-    <?php if( $settings->submenu_font_family['family'] != 'Default' ) { ?>
-	   <?php FLBuilderFonts::font_css( $settings->submenu_font_family ); ?>
-   <?php } ?>
-    <?php if( $settings->submenu_font_size == 'custom' && $settings->submenu_font_size_custom ) { ?>
-        font-size: <?php echo $settings->submenu_font_size_custom; ?>px;
-    <?php } ?>
-  	<?php if( $settings->submenu_line_height == 'custom' && $settings->submenu_line_height_custom ) { ?>
-        line-height: <?php echo $settings->submenu_line_height_custom; ?>;
-    <?php } ?>
-	text-transform: <?php echo $settings->submenu_text_transform; ?>;
-}
+// Sbumenu typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'submenu_typography',
+	'selector'		=> ".fl-node-$id .pp-advanced-menu .menu .sub-menu a"
+) );
+?>
 
 .fl-node-<?php echo $id; ?> .pp-advanced-menu .menu > li > a,
 .fl-node-<?php echo $id; ?> .pp-advanced-menu .menu > li > .pp-has-submenu-container > a {
-	padding-top: <?php if ( $settings->menu_link_padding['top'] >= 0 ) { echo $settings->menu_link_padding['top'] . 'px'; } ?>;
-	padding-bottom: <?php if ( $settings->menu_link_padding['bottom'] >= 0 ) { echo $settings->menu_link_padding['bottom'] . 'px'; } ?>;
-	padding-left: <?php if ( $settings->menu_link_padding['left'] >= 0 ) { echo $settings->menu_link_padding['left'] . 'px'; } ?>;
-	padding-right: <?php if ( $settings->menu_link_padding['right'] >= 0 ) { echo $settings->menu_link_padding['right'] . 'px'; } ?>;
 	border-style: <?php echo $settings->border_style; ?>;
 	border-top-width: <?php echo ( $settings->border_size['top'] != '' && $settings->border_color ) ? $settings->border_size['top'] : '0'; ?>px;
 	border-bottom-width: <?php echo ( $settings->border_size['bottom'] != '' && $settings->border_color ) ? $settings->border_size['bottom'] : '0'; ?>px;
@@ -421,6 +413,21 @@ if( $global_settings->responsive_enabled ) { ?>
 	background-color: <?php echo ( false === strpos( $settings->background_color, 'rgb' ) ) ? '#' . $settings->background_color : $settings->background_color; ?>;
 	color: <?php echo '#' . $settings->link_color; ?>;
 }
+<?php
+// Link Padding
+FLBuilderCSS::dimension_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'menu_link_padding',
+	'selector' 		=> ".fl-node-$id .pp-advanced-menu .menu > li > a, .fl-node-$id .pp-advanced-menu .menu > li > .pp-has-submenu-container > a",
+	'unit'			=> 'px',
+	'props'			=> array(
+		'padding-top' 		=> 'menu_link_padding_top',
+		'padding-right' 	=> 'menu_link_padding_right',
+		'padding-bottom' 	=> 'menu_link_padding_bottom',
+		'padding-left' 		=> 'menu_link_padding_left',
+	),
+) );
+?>
 
 <?php if( !empty( $settings->link_color ) ) { ?>
 
@@ -475,10 +482,12 @@ if( !empty( $settings->background_hover_color ) || $settings->link_hover_color )
 	.fl-node-<?php echo $id; ?> .menu > li.current-menu-item > a,
 	.fl-node-<?php echo $id; ?> .menu > li.current-menu-item > .pp-has-submenu-container > a {
 		<?php if( !empty( $settings->background_hover_color ) ) { ?>
-			background-color: <?php echo ( false === strpos( $settings->background_hover_color, 'rgb' ) ) ? '#' . $settings->background_hover_color : $settings->background_hover_color; ?>;
+			background-color: <?php echo pp_get_color_value( $settings->background_hover_color ); ?>;
 		<?php }
 			if( !empty( $settings->link_hover_color ) ) {
-				echo 'color: #'. $settings->link_hover_color .';';
+				?>
+				color: <?php echo pp_get_color_value( $settings->link_hover_color ); ?>;
+				<?php
 			}
 		?>
 	}
@@ -515,20 +524,8 @@ if( !empty( $settings->background_hover_color ) || $settings->link_hover_color )
  * Sub Menu
  **/
 .fl-node-<?php echo $id; ?> .sub-menu {
-	<?php if ( 'yes' == $settings->submenu_box_shadow_display ) { ?>
-	-webkit-box-shadow: <?php echo $settings->submenu_box_shadow['horizontal']; ?>px <?php echo $settings->submenu_box_shadow['vertical']; ?>px <?php echo $settings->submenu_box_shadow['blur']; ?>px <?php echo $settings->submenu_box_shadow['spread']; ?>px <?php echo pp_hex2rgba( '#'.$settings->submenu_box_shadow_color, $settings->submenu_box_shadow_opacity / 100 ); ?>;
-	-moz-box-shadow: <?php echo $settings->submenu_box_shadow['horizontal']; ?>px <?php echo $settings->submenu_box_shadow['vertical']; ?>px <?php echo $settings->submenu_box_shadow['blur']; ?>px <?php echo $settings->submenu_box_shadow['spread']; ?>px <?php echo pp_hex2rgba( '#'.$settings->submenu_box_shadow_color, $settings->submenu_box_shadow_opacity / 100 ); ?>;
-	-o-box-shadow: <?php echo $settings->submenu_box_shadow['horizontal']; ?>px <?php echo $settings->submenu_box_shadow['vertical']; ?>px <?php echo $settings->submenu_box_shadow['blur']; ?>px <?php echo $settings->submenu_box_shadow['spread']; ?>px <?php echo pp_hex2rgba( '#'.$settings->submenu_box_shadow_color, $settings->submenu_box_shadow_opacity / 100 ); ?>;
-	box-shadow: <?php echo $settings->submenu_box_shadow['horizontal']; ?>px <?php echo $settings->submenu_box_shadow['vertical']; ?>px <?php echo $settings->submenu_box_shadow['blur']; ?>px <?php echo $settings->submenu_box_shadow['spread']; ?>px <?php echo pp_hex2rgba( '#'.$settings->submenu_box_shadow_color, $settings->submenu_box_shadow_opacity / 100 ); ?>;
-	<?php } ?>
-	border-style: solid;
-	border-top-width: <?php echo $settings->submenu_border_width['top']; ?>px;
-	border-bottom-width: <?php echo $settings->submenu_border_width['bottom']; ?>px;
-	border-left-width: <?php echo $settings->submenu_border_width['left']; ?>px;
-	border-right-width: <?php echo $settings->submenu_border_width['right']; ?>px;
-	<?php if( $settings->submenu_box_border_color ) { ?>border-color: #<?php echo $settings->submenu_box_border_color; ?>;<?php } ?>
 	<?php if ( ! empty( $settings->submenu_container_bg_color ) ) { ?>
-	background-color: #<?php echo $settings->submenu_container_bg_color; ?>;
+	background-color: <?php echo pp_get_color_value( $settings->submenu_container_bg_color ); ?>;
 	<?php } ?>
 	<?php if ( $settings->submenu_width ) { ?>
 		width: <?php echo $settings->submenu_width; ?>px;
@@ -536,26 +533,45 @@ if( !empty( $settings->background_hover_color ) || $settings->link_hover_color )
 		margin-right: auto;
 	<?php } ?>
 }
+<?php
+// Submenu Border
+FLBuilderCSS::border_field_rule( array(
+	'settings' 		=> $settings,
+	'setting_name' 	=> 'submenu_container_border',
+	'selector' 		=> ".fl-node-$id .sub-menu",
+) );
+?>
 
 .fl-node-<?php echo $id; ?> ul.pp-advanced-menu-horizontal li.mega-menu > ul.sub-menu {
 	<?php if ( ! empty( $settings->submenu_container_bg_color ) ) { ?>
-	background: #<?php echo $settings->submenu_container_bg_color; ?>;
+	background: <?php echo pp_get_color_value( $settings->submenu_container_bg_color ); ?>;
 	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .sub-menu > li > a,
 .fl-node-<?php echo $id; ?> .sub-menu > li > .pp-has-submenu-container > a {
-	padding-top: <?php if ( $settings->submenu_link_padding['top'] >= 0 ) { echo $settings->submenu_link_padding['top'] . 'px'; } ?>;
-	padding-bottom: <?php if ( $settings->submenu_link_padding['bottom'] >= 0 ) { echo $settings->submenu_link_padding['bottom'] . 'px'; } ?>;
-	padding-left: <?php if ( $settings->submenu_link_padding['left'] >= 0 ) { echo $settings->submenu_link_padding['left'] . 'px'; } ?>;
-	padding-right: <?php if ( $settings->submenu_link_padding['right'] >= 0 ) { echo $settings->submenu_link_padding['right'] . 'px'; } ?>;
 	border-width: 0;
 	border-style: <?php echo $settings->submenu_border_style; ?>;
 	border-bottom-width: <?php echo ( $settings->submenu_border_size != '' && $settings->submenu_border_color ) ? $settings->submenu_border_size : ''; ?>px;
 	border-color: <?php echo '#' . $settings->submenu_border_color; ?>;
-	background-color: <?php echo ( false === strpos( $settings->submenu_background_color, 'rgb' ) ) ? '#' . $settings->submenu_background_color : $settings->submenu_background_color; ?>;
+	background-color: <?php echo pp_get_color_value( $settings->submenu_background_color ); ?>;
 	color: #<?php echo empty($settings->submenu_link_color) ? $settings->link_color : $settings->submenu_link_color; ?>;
 }
+<?php
+// Submenu link Padding
+FLBuilderCSS::dimension_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'submenu_link_padding',
+	'selector' 		=> ".fl-node-$id .sub-menu > li > a, .fl-node-$id .sub-menu > li > .pp-has-submenu-container > a",
+	'unit'			=> 'px',
+	'props'			=> array(
+		'padding-top' 		=> 'submenu_link_padding_top',
+		'padding-right' 	=> 'submenu_link_padding_right',
+		'padding-bottom' 	=> 'submenu_link_padding_bottom',
+		'padding-left' 		=> 'submenu_link_padding_left',
+	),
+) );
+?>
 
 .fl-node-<?php echo $id; ?> .sub-menu > li:last-child > a,
 .fl-node-<?php echo $id; ?> .sub-menu > li:last-child > .pp-has-submenu-container > a {
@@ -568,7 +584,7 @@ if( !empty( $settings->background_hover_color ) || $settings->link_hover_color )
 .fl-node-<?php echo $id; ?> .sub-menu > li > .pp-has-submenu-container > a:focus,
 .fl-node-<?php echo $id; ?> .sub-menu > li.current-menu-item > a,
 .fl-node-<?php echo $id; ?> .sub-menu > li.current-menu-item > .pp-has-submenu-container > a {
-	background-color: <?php echo ( false === strpos( $settings->submenu_background_hover_color, 'rgb' ) ) ? '#' . $settings->submenu_background_hover_color : $settings->submenu_background_hover_color; ?>;
+	background-color: <?php echo pp_get_color_value( $settings->submenu_background_hover_color ); ?>;
 	color: #<?php echo empty($settings->submenu_link_hover_color) ? $settings->link_hover_color : $settings->submenu_link_hover_color; ?>;
 }
 
@@ -768,18 +784,6 @@ if( isset( $settings->mobile_toggle ) && $settings->mobile_toggle != 'expanded' 
 
 
 @media only screen and (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) {
-	.fl-node-<?php echo $id; ?> .pp-advanced-menu .menu a {
-		<?php if( $settings->link_font_size == 'custom' && $settings->link_font_size_custom_medium ) { ?>font-size: <?php echo $settings->link_font_size_custom_medium; ?>px;<?php } ?>
-		<?php if( $settings->link_line_height == 'custom' && $settings->link_line_height_custom_medium ) { ?>line-height: <?php echo $settings->link_line_height_custom_medium; ?>;<?php } ?>
-	}
-    .fl-node-<?php echo $id; ?> .pp-advanced-menu .menu .sub-menu a {
-        <?php if( $settings->submenu_font_size == 'custom' && $settings->submenu_font_size_custom_medium ) { ?>
-            font-size: <?php echo $settings->submenu_font_size_custom_medium; ?>px;
-        <?php } ?>
-      	<?php if( $settings->submenu_line_height == 'custom' && $settings->submenu_line_height_custom_medium ) { ?>
-            line-height: <?php echo $settings->submenu_line_height_custom_medium; ?>;
-        <?php } ?>
-    }
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu .menu > li {
 		<?php if ( isset( $settings->spacing_medium ) && ! empty( $settings->spacing_medium ) ) { ?>
 			<?php if( $settings->alignment == 'left' ) { ?>
@@ -804,18 +808,6 @@ if( isset( $settings->mobile_toggle ) && $settings->mobile_toggle != 'expanded' 
 }
 
 @media only screen and (max-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
-	.fl-node-<?php echo $id; ?> .pp-advanced-menu .menu a {
-		<?php if( $settings->link_font_size == 'custom' && $settings->link_font_size_custom_responsive ) { ?>font-size: <?php echo $settings->link_font_size_custom_responsive; ?>px;<?php } ?>
-		<?php if( $settings->link_line_height == 'custom' && $settings->link_line_height_custom_responsive ) { ?>line-height: <?php echo $settings->link_line_height_custom_responsive; ?>;<?php } ?>
-	}
-    .fl-node-<?php echo $id; ?> .pp-advanced-menu .menu .sub-menu a {
-        <?php if( $settings->submenu_font_size == 'custom' && $settings->submenu_font_size_custom_responsive ) { ?>
-            font-size: <?php echo $settings->submenu_font_size_custom_responsive; ?>px;
-        <?php } ?>
-      	<?php if( $settings->submenu_line_height == 'custom' && $settings->submenu_line_height_custom_responsive ) { ?>
-            line-height: <?php echo $settings->submenu_line_height_custom_responsive; ?>;
-        <?php } ?>
-    }
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu .menu > li {
 		<?php if ( isset( $settings->spacing_responsive ) && ! empty( $settings->spacing_responsive ) ) { ?>
 			<?php if( $settings->alignment == 'left' ) { ?>

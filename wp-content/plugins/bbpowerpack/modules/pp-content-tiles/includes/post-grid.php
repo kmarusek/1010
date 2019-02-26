@@ -26,7 +26,7 @@ $class_prefix = 'pp-post-tile';
 if ( ! is_array( $image ) ) {
 	if ( isset( $settings->fallback_image ) ) {
 		if ( 'placeholder' == $settings->fallback_image ) {
-			$featured_image = BB_POWERPACK_URL . 'assets/images/placeholder-600.jpg';
+			$featured_image = BB_POWERPACK_URL . 'images/placeholder-600.jpg';
 		}
 		if ( 'custom' == $settings->fallback_image ) {
 			$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $settings->fallback_image_custom ), $image_size );

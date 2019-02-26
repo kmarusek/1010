@@ -11,10 +11,12 @@ $hover_card_class = 'pp-hover-card-wrap';
 			continue;
 		}
 		$cards = $settings->card_content[$i];
+
+		//print_r($cards->card_box_border);
 	?>
 		<div class="pp-hover-card-container clearfix hover-card-<?php echo $i; ?> <?php echo $settings->style_type; ?>" onclick="">
 			<?php if( $cards->hover_card_link_type == 'box' ) { ?>
-				<a class="pp-more-link-container" href="<?php echo $cards->button_link == '#' ? 'javascript:void(0)' : $cards->button_link; ?>" target="<?php echo $cards->link_target; ?>">
+				<a class="pp-more-link-container" href="<?php echo $cards->button_link == '#' ? 'javascript:void(0)' : $cards->button_link; ?>" target="<?php echo $cards->button_link_target; ?>">
 			<?php } ?>
 				<div class="pp-hover-card">
 					<div class="pp-hover-card-border"></div>
@@ -49,7 +51,7 @@ $hover_card_class = 'pp-hover-card-wrap';
 							<?php } ?>
 							<?php if( $cards->hover_card_link_type == 'button' ) { ?>
 								<div class="pp-more-link-button">
-									<a class="pp-more-link" href="<?php echo $cards->button_link == '#' ? 'javascript:void(0)' : $cards->button_link; ?>" target="<?php echo $cards->link_target; ?>">
+									<a class="pp-more-link" href="<?php echo $cards->button_link == '#' ? 'javascript:void(0)' : $cards->button_link; ?>" target="<?php echo $cards->button_link_target; ?>">
 										<?php echo $cards->button_text; ?>
 									</a>
 								</div>

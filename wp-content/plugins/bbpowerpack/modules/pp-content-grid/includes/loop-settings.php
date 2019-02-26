@@ -26,10 +26,12 @@ FLBuilderModel::default_settings($settings, array(
 	'product_price'		=> 'yes',
 	'product_button'	=> 'yes',
 	'product_button_text'	=> __('Add to Cart', 'bb-powerpack'),
-	'fallback_image'	=> 'default'
-));
+	'fallback_image'	=> 'default',
+	'image_thumb_size'	=> 'large'
+) );
 
 $settings = apply_filters( 'pp_cg_loop_settings', $settings );
+
 do_action( 'pp_cg_loop_settings_before_form', $settings ); // e.g Add custom FLBuilder::render_settings_field()
 
 ?>

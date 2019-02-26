@@ -22,7 +22,6 @@ class PPModalBoxModule extends FLBuilderModule {
             'url'           => BB_POWERPACK_URL . 'modules/pp-modal-box/',
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
-            'icon'				=> 'star-filled.svg',
         ));
 
         if ( class_exists( 'FLBuilderModel' ) && FLBuilderModel::is_builder_active() ) {
@@ -31,6 +30,120 @@ class PPModalBoxModule extends FLBuilderModule {
         }
         $this->add_js( 'jquery-cookie' );
     }
+
+	public function filter_settings( $settings, $helper )
+	{
+		// Handle button's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'button_font_family'	=> array(
+				'type'			=> 'font'
+			),
+			'button_font_size'	=> array(
+				'type'			=> 'font_size',
+			),
+		), 'button_typography' );
+
+		// Handle button opacity + color field.
+		if ( isset( $settings->button_opacity ) ) {
+			$opacity = $settings->button_opacity >= 0 ? $settings->button_opacity : 1;
+			$color = $settings->button_color;
+
+			if ( ! empty( $color ) ) {
+				$color = pp_hex2rgba( pp_get_color_value( $color ), $opacity );
+				$settings->button_color = $color;
+			}
+
+			unset( $settings->button_opacity );
+		}
+
+		// Handle button hover opacity + color field.
+		if ( isset( $settings->button_opacity_hover ) ) {
+			$opacity = $settings->button_opacity_hover >= 0 ? $settings->button_opacity_hover : 1;
+			$color = $settings->button_color_hover;
+
+			if ( ! empty( $color ) ) {
+				$color = pp_hex2rgba( pp_get_color_value( $color ), $opacity );
+				$settings->button_color_hover = $color;
+			}
+
+			unset( $settings->button_opacity_hover );
+		}
+
+		// Handle old button border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'button_border_width'	=> array(
+				'type'				=> 'width',
+				'condition'			=> ( isset( $settings->button_border ) && 'yes' == $settings->button_border ),
+			),
+			'button_border_color'	=> array(
+				'type'				=> 'color',
+				'condition'			=> ( isset( $settings->button_border ) && 'yes' == $settings->button_border ),
+			),
+			'button_border_radius'	=> array(
+				'type'				=> 'radius'
+			),
+		), 'button_border_group' );
+
+		// Handle button old padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'button_padding', 'padding', 'button_padding' );
+
+		// Handle title's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'title_font_family'	=> array(
+				'type'			=> 'font'
+			),
+			'title_font_size'	=> array(
+				'type'			=> 'font_size',
+			),
+			'title_alignment'	=> array(
+				'type'			=> 'text_align'
+			)
+		), 'title_typography' );
+
+		// Handle modal opacity + color field.
+		if ( isset( $settings->modal_bg_opacity ) ) {
+			$opacity = $settings->modal_bg_opacity >= 0 ? $settings->modal_bg_opacity : 1;
+			$color = $settings->modal_bg_color;
+
+			if ( ! empty( $color ) ) {
+				$color = pp_hex2rgba( pp_get_color_value( $color ), $opacity );
+				$settings->modal_bg_color = $color;
+			}
+
+			unset( $settings->modal_bg_opacity );
+		}
+
+		// Handle old content border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'content_border'		=> array(
+				'type'				=> 'style',
+			),
+			'content_border_width'	=> array(
+				'type'				=> 'width',
+			),
+			'content_border_color'	=> array(
+				'type'				=> 'color',
+			),
+			'content_border_radius'	=> array(
+				'type'				=> 'radius'
+			),
+		), 'content_border_group' );
+
+		// Handle overlay opacity + color field.
+		if ( isset( $settings->overlay_opacity ) ) {
+			$opacity = $settings->overlay_opacity >= 0 ? $settings->overlay_opacity : 1;
+			$color = $settings->overlay_bg_color;
+
+			if ( ! empty( $color ) ) {
+				$color = pp_hex2rgba( pp_get_color_value( $color ), $opacity );
+				$settings->overlay_bg_color = $color;
+			}
+
+			unset( $settings->overlay_opacity );
+		}
+
+		return $settings;
+	}
 
     public static function get_saved_templates()
     {
@@ -121,10 +234,10 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         'help'              => __('Stying options are available in Modal Style tab.', 'bb-powerpack')
                     ),
                     'modal_width'       => array(
-                        'type'              => 'text',
+                        'type'              => 'unit',
                         'label'             => __('Width', 'bb-powerpack'),
-                        'description'       => 'px',
-                        'class'             => 'input-small',
+                        'units'       		=> array( 'px' ),
+                        'slider'             => true,
                         'default'           => 550,
                     ),
                     'modal_height_auto' => array(
@@ -142,11 +255,11 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         )
                     ),
                     'modal_height'      => array(
-                        'type'              => 'text',
+                        'type'              => 'unit',
                         'label'             => __('Height', 'bb-powerpack'),
-                        'description'       => 'px',
-                        'class'             => 'input-small',
                         'default'           => 450,
+						'units'       		=> array( 'px' ),
+                        'slider'             => true,
                         'preview'           => array(
                             'type'              => 'css',
                             'selector'          => '.pp-modal',
@@ -275,7 +388,7 @@ FLBuilder::register_module('PPModalBoxModule', array(
                     'modal_type_templates'      => array(
                         'type'                  => 'select',
                         'label'                 => __('Select Template', 'bb-powerpack'),
-                        'options'               => PPModalBoxModule::get_saved_templates()
+                        'options'               => array()
                     )
                 )
             )
@@ -342,7 +455,7 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         'type'              => 'text',
                         'label'             => __('Delay', 'bb-powerpack'),
                         'description'       => __('seconds', 'bb-powerpack'),
-                        'class'             => 'input-small',
+                        'size'             	=> 5,
                         'default'           => 1,
                     ),
                     'display_after_auto'    => array(
@@ -351,7 +464,8 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         'default'               => 1,
                         'description'           => __('day(s)', 'bb-powerpack'),
                         'help'                  => __('If a user closes the modal box, it will be displayed only after the defined day(s).', 'bb-powerpack'),
-                        'class'                 => 'input-small modal-display-after'
+                        'class'                 => 'modal-display-after',
+						'size'					=> 5
                     )
                 )
             ),
@@ -369,11 +483,11 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         ),
                         'toggle'            => array(
                             'button'            => array(
-                                'fields'            => array('button_text', 'button_icon_src', 'button_icon_pos', 'button_font_family', 'button_font_size', 'button_text_color', 'button_text_hover', 'button_color', 'button_color_hover', 'button_opacity', 'button_opacity_hover', 'button_padding_left_right', 'button_padding_top_bottom', 'button_width'),
+                                'fields'            => array('button_text', 'button_icon_src', 'button_icon_pos', 'button_typography', 'button_text_color', 'button_text_hover', 'button_color', 'button_color_hover', 'button_padding_left_right', 'button_padding_top_bottom', 'button_width'),
                                 'sections'          => array('modal_button_bg')
                             ),
                             'icon'              => array(
-                                'fields'            => array('icon_source', 'icon_size', 'button_text_color', 'button_text_hover', 'button_color', 'button_color_hover', 'button_opacity', 'button_opacity_hover', 'button_padding_left_right', 'button_padding_top_bottom', 'button_width'),
+                                'fields'            => array('icon_source', 'icon_size', 'button_text_color', 'button_text_hover', 'button_color', 'button_color_hover', 'button_padding_left_right', 'button_padding_top_bottom', 'button_width'),
                                 'sections'          => array('modal_button_bg')
                             ),
                             'image'             => array(
@@ -437,8 +551,9 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         'default'           => 1,
                         'description'       => __('day(s)', 'bb-powerpack'),
                         'help'              => __('If a user closes the modal box, it will be displayed only after the defined day(s).', 'bb-powerpack'),
-                        'class'             => 'input-small modal-display-after'
-                    )
+                        'class'             => 'modal-display-after',
+						'size'				=> 5
+	                    )
                 )
             ),
             'modal_esc_exit'    => array(
@@ -474,31 +589,15 @@ FLBuilder::register_module('PPModalBoxModule', array(
             'modal_button_style' => array(
                 'title'             => __('Button', 'bb-powerpack'),
                 'fields'            => array(
-                    'button_font_family' => array(
-                        'type'              => 'font',
-                        'default'		    => array(
-                            'family'		    => 'Default',
-                            'weight'		    => 400
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.pp-modal-trigger .pp-modal-trigger-text'
-                        )
-                    ),
-                    'button_font_size'  => array(
-                        'type'              => 'text',
-                        'label'             => __('Font Size', 'bb-powerpack'),
-                        'default'           => 16,
-                        'description'       => 'px',
-                        'class'             => 'input-small',
-                        'preview'           => array(
-                            'type'              => 'css',
-                            'selector'          => '.pp-modal-trigger span',
-                            'property'          => 'font-size',
-                            'unit'              => 'px'
-                        )
-                    ),
+					'button_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-modal-trigger .pp-modal-trigger-text',
+						),
+					),
                     'button_text_color' => array(
                         'type'              => 'color',
                         'label'             => __('Color', 'bb-powerpack'),
@@ -523,6 +622,8 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         'type'              => 'color',
                         'label'             => __('Background Color', 'bb-powerpack'),
                         'default'           => '428bca',
+						'show_alpha'		=> true,
+						'show_reset'		=> true,
                         'preview'           => array(
                             'type'              => 'css',
                             'selector'          => '.pp-modal-trigger',
@@ -533,89 +634,29 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         'type'              => 'color',
                         'label'             => __('Background Color Hover', 'bb-powerpack'),
                         'default'           => '444444',
-                    ),
-                    'button_opacity'     => array(
-                        'type'              => 'text',
-                        'label'             => __('Background Opacity', 'bb-powerpack'),
-                        'description'       => __('between 0 to 1', 'bb-powerpack'),
-                        'class'             => 'input-small',
-                        'default'           => 1
-                    ),
-                    'button_opacity_hover'  => array(
-                        'type'                  => 'text',
-                        'label'                 => __('Background Opacity Hover', 'bb-powerpack'),
-                        'description'           => __('between 0 to 1', 'bb-powerpack'),
-                        'class'                 => 'input-small',
-                        'default'               => 1
+						'show_alpha'		=> true,
+						'show_reset'		=> true,
                     ),
                 )
             ),
             'modal_button_borders'  => array(
                 'title'                 => __('Border', 'bb-powerpack'),
                 'fields'                => array(
-                    'button_border'         => array(
-                        'type'                  => 'pp-switch',
-                        'label'                 => __('Enable Border', 'bb-powerpack'),
-                        'default'               => 'yes',
-                        'options'               => array(
-                            'yes'                   => __('Yes', 'bb-powerpack'),
-                            'no'                    => __('No', 'bb-powerpack')
+                    'button_border_group'	=> array(
+						'type'          => 'border',
+						'label'         => __( 'Border', 'bb-powerpack' ),
+						'responsive'	=> true,
+						'preview'   	=> array(
+                            'type'  		=> 'css',
+                            'selector'  	=> '.pp-modal-trigger',
+                            'property'  	=> 'border',
                         ),
-                        'toggle'                => array(
-                            'yes'                   => array(
-                                'fields'                => array('button_border_width', 'button_border_color', 'button_border_color_hover')
-                            )
-                        )
-                    ),
-                    'button_border_width'   => array(
-                        'type'                  => 'text',
-                        'label'                 => __('Border Width', 'bb-powerpack'),
-                        'description'           => 'px',
-                        'class'                 => 'input-small',
-                        'default'               => 1,
-                        'preview'               => array(
-                            'type'                  => 'css',
-                            'selector'              => '.pp-modal-trigger',
-                            'property'              => 'border-width',
-                            'unit'                  => 'px'
-                        )
-                    ),
-                    'button_border_color' => array(
-                        'type'              => 'color',
-                        'label'             => __('Border Color', 'bb-powerpack'),
-                        'default'           => '2d6ca2',
-                        'preview'           => array(
-                            'type'              => 'css',
-                            'selector'          => '.pp-modal-trigger',
-                            'property'          => 'border-color'
-                        )
-                    ),
+					),
                     'button_border_color_hover' => array(
                         'type'                      => 'color',
                         'label'                     => __('Border Color Hover', 'bb-powerpack'),
-                        'default'                   => '222222',
-                    ),
-                    'button_border_radius' => array(
-                        'type'              => 'text',
-                        'label'             => __('Round Corners', 'bb-powerpack'),
-                        'description'       => 'px',
-                        'class'             => 'input-small',
-                        'default'           => 2,
-                        'preview'           => array(
-                            'type'              => 'css',
-                            'rules'             => array(
-                                array(
-                                    'selector'          => '.pp-modal-trigger',
-                                    'property'          => 'border-radius',
-                                    'unit'              => 'px'
-                                ),
-                                array(
-                                    'selector'          => '.pp-modal-trigger img',
-                                    'property'          => 'border-radius',
-                                    'unit'              => 'px'
-                                )
-                            )
-                        )
+						'default'                   => '222222',
+						'show_reset'				=> true
                     ),
                 )
             ),
@@ -675,59 +716,20 @@ FLBuilder::register_module('PPModalBoxModule', array(
                             'unit'              => 'px'
                         )
                     ),
-                    'button_padding'    => array(
-                        'type'              => 'pp-multitext',
-                        'label'             => __('Padding', 'bb-powerpack'),
-                        'description'       => 'px',
-                        'default'           => array(
-                            'top'               => 15,
-                            'bottom'            => 15,
-                            'left'              => 15,
-                            'right'             => 15
-                        ),
-                        'options'           => array(
-                            'top'               => array(
-                                'placeholder'       => __('Top', 'bb-powerpack'),
-                                'icon'              => 'fa-long-arrow-up',
-                                'tooltip'           => __('Top', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'          => '.pp-modal-trigger',
-                                    'property'          => 'padding-top',
-                                    'unit'              => 'px'
-                                )
-                            ),
-                            'bottom'            => array(
-                                'placeholder'       => __('Bottom', 'bb-powerpack'),
-                                'icon'              => 'fa-long-arrow-down',
-                                'tooltip'           => __('Bottom', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'          => '.pp-modal-trigger',
-                                    'property'          => 'padding-bottom',
-                                    'unit'              => 'px'
-                                )
-                            ),
-                            'left'              => array(
-                                'placeholder'       => __('Left', 'bb-powerpack'),
-                                'icon'              => 'fa-long-arrow-left',
-                                'tooltip'           => __('Left', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'          => '.pp-modal-trigger',
-                                    'property'          => 'padding-left',
-                                    'unit'              => 'px'
-                                )
-                            ),
-                            'right'             => array(
-                                'placeholder'       => __('Right', 'bb-powerpack'),
-                                'icon'              => 'fa-long-arrow-right',
-                                'tooltip'           => __('Right', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'          => '.pp-modal-trigger',
-                                    'property'          => 'padding-right',
-                                    'unit'              => 'px'
-                                )
-                            ),
-                        )
-                    ),
+					'button_padding'	=> array(
+						'type'				=> 'dimension',
+						'label'				=> __('Padding', 'bb-powerpack'),
+						'default'			=> '0',
+						'units'				=> array('px'),
+						'slider'			=> true,
+						'responsive'		=> true,
+						'preview'			=> array(
+							'type'				=> 'css',
+							'selector'			=> '.pp-modal-trigger',
+							'property'			=> 'padding',
+							'unit'				=> 'px'
+						)
+					),
                     'button_width'      => array(
                         'type'              => 'pp-switch',
                         'label'             => __('Width', 'bb-powerpack'),
@@ -738,14 +740,9 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         )
                     ),
                     'button_alignment'  => array(
-                        'type'              => 'pp-switch',
+                        'type'              => 'align',
                         'label'             => __('Alignment', 'bb-powerpack'),
                         'default'           => 'left',
-                        'options'           => array(
-                            'left'              => __('Left', 'bb-powerpack'),
-                            'center'            => __('Center', 'bb-powerpack'),
-                            'right'             => __('Right', 'bb-powerpack'),
-                        )
                     )
                 )
             )
@@ -757,31 +754,15 @@ FLBuilder::register_module('PPModalBoxModule', array(
             'modal_title'   => array( // Section
                 'title'         => __('Title', 'bb-powerpack'), // Section Title
                 'fields'        => array( // Section Fields
-                    'title_font_family' => array(
-                        'type'          => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.pp-modal-title'
-                        )
-                    ),
-                    'title_font_size'   => array(
-                        'type'              => 'text',
-                        'label'             => __('Font Size', 'bb-powerpack'),
-                        'description'       => 'px',
-                        'class'             => 'input-small',
-                        'default'           => '18',
-                        'preview'           => array(
-                            'type'              => 'css',
-                            'selector'          => '.pp-modal-title',
-                            'property'          => 'font-size',
-                            'unit'              => 'px'
-                        )
-                    ),
+                    'title_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-modal-title',
+						),
+					),
                     'title_color'       => array(
                         'type'              => 'color',
                         'label'             => __('Color', 'bb-powerpack'),
@@ -797,6 +778,7 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         'label'             => __('Background Color', 'bb-powerpack'),
                         'default'           => 'ffffff',
                         'show_reset'        => true,
+						'show_alpha'		=> true,
                         'preview'           => array(
                             'type'              => 'css',
                             'selector'          => '.pp-modal-header',
@@ -804,11 +786,11 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         )
                     ),
                     'title_border'      => array(
-                        'type'              => 'text',
+                        'type'              => 'unit',
                         'label'             => __('Border Bottom', 'bb-powerpack'),
                         'default'           => 1,
-                        'description'       => 'px',
-                        'class'             => 'input-small',
+                        'units'       		=> array( 'px' ),
+						'slider'			=> true,
                         'preview'           => array(
                             'type'              => 'css',
                             'selector'          => '.pp-modal-header',
@@ -842,11 +824,11 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         )
                     ),
                     'title_padding'     => array(
-                        'type'              => 'text',
+                        'type'              => 'unit',
                         'label'             => __('Side Padding', 'bb-powerpack'),
                         'default'           => 15,
-                        'description'       => 'px',
-                        'class'             => 'input-small',
+                        'units'       		=> array( 'px' ),
+                        'slider'            => true,
                         'preview'           => array(
                             'type'              => 'css',
                             'rules'             => array(
@@ -863,21 +845,6 @@ FLBuilder::register_module('PPModalBoxModule', array(
                             )
                         )
                     ),
-                    'title_alignment'   => array(
-                        'type'              => 'pp-switch',
-                        'label'             => __('Alignment', 'bb-powerpack'),
-                        'default'           => 'left',
-                        'options'           => array(
-                            'left'              => __('Left', 'bb-powerpack'),
-                            'center'            => __('Center', 'bb-powerpack'),
-                            'right'             => __('Right', 'bb-powerpack'),
-                        ),
-                        'preview'           => array(
-                            'type'              => 'css',
-                            'selector'          => '.pp-modal-title',
-                            'property'          => 'text-align'
-                        )
-                    )
                 )
             ),
             'modal_bg'          => array( // Section
@@ -893,7 +860,7 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         ),
                         'toggle'            => array(
                             'color'             => array(
-                                'fields'            => array('modal_bg_color', 'modal_bg_opacity')
+                                'fields'            => array('modal_bg_color')
                             ),
                             'photo'             => array(
                                 'fields'            => array('modal_bg_photo', 'modal_bg_size', 'modal_bg_repeat')
@@ -905,18 +872,12 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         'label'             => __('Background Color', 'bb-powerpack'),
                         'default'           => 'ffffff',
                         'show_reset'        => true,
+						'show_alpha'		=> true,
                         'preview'           => array(
                             'type'              => 'css',
                             'selector'          => '.pp-modal',
                             'property'          => 'background-color'
                         )
-                    ),
-                    'modal_bg_opacity'  => array(
-                        'type'              => 'text',
-                        'label'             => __('Opacity', 'bb-powerpack'),
-                        'default'           => 1,
-                        'class'             => 'input-small',
-                        'description'       => __('between 0 to 1', 'bb-powerpack'),
                     ),
                     'modal_bg_photo'    => array(
                         'type'              => 'photo',
@@ -995,11 +956,11 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         )
                     ),
                     'modal_border_width' => array(
-                        'type'              => 'text',
+                        'type'              => 'unit',
                         'label'             => __('Border Width', 'bb-powerpack'),
-                        'description'       => 'px',
-                        'class'             => 'input-small',
                         'default'           => 1,
+						'units'				=> array( 'px' ),
+						'slider'			=> true,
                         'preview'           => array(
                             'type'              => 'css',
                             'selector'          => '.pp-modal',
@@ -1030,11 +991,11 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         )
                     ),
                     'modal_border_radius' 	=> array(
-                        'type'                  => 'text',
+                        'type'                  => 'unit',
                         'label'                 => __('Round Corners', 'bb-powerpack'),
-                        'description'           => 'px',
                         'default'               => 2,
-                        'class'                 => 'input-small',
+                        'units'					=> array( 'px' ),
+						'slider'				=> true,
                         'preview'               => array(
                             'type'                  => 'css',
                             'rules'                 => array(
@@ -1057,11 +1018,11 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         )
                     ),
                     'modal_padding'     => array(
-                        'type'              => 'text',
+                        'type'              => 'unit',
                         'label'             => __('Padding', 'bb-powerpack'),
-                        'description'       => 'px',
-                        'class'             => 'input-small',
                         'default'           => 10,
+						'units'				=> array( 'px' ),
+						'slider'			=> true,
                         'preview'           => array(
                             'type'              => 'css',
                             'selector'          => '.pp-modal-content',
@@ -1070,11 +1031,11 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         )
                     ),
                     'modal_margin_top'  => array(
-                        'type'              => 'text',
+                        'type'              => 'unit',
                         'label'             => __('Margin Top', 'bb-powerpack'),
-                        'description'       => 'px',
-                        'class'             => 'input-small',
                         'default'           => 0,
+						'units'				=> array( 'px' ),
+						'slider'			=> true,
                         'preview'           => array(
                             'type'              => 'css',
                             'selector'          => '.pp-modal',
@@ -1083,11 +1044,11 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         )
                     ),
                     'modal_margin_bottom' => array(
-                        'type'              => 'text',
+                        'type'              => 'unit',
                         'label'             => __('Margin Bottom', 'bb-powerpack'),
-                        'description'       => 'px',
-                        'class'             => 'input-small',
                         'default'           => 0,
+						'units'				=> array( 'px' ),
+						'slider'			=> true,
                         'preview'           => array(
                             'type'              => 'css',
                             'selector'          => '.pp-modal',
@@ -1096,11 +1057,11 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         )
                     ),
                     'modal_margin_left' => array(
-                        'type'              => 'text',
+                        'type'              => 'unit',
                         'label'             => __('Margin Left', 'bb-powerpack'),
-                        'description'       => 'px',
-                        'class'             => 'input-small',
                         'default'           => 0,
+						'units'				=> array( 'px' ),
+						'slider'			=> true,
                         'preview'           => array(
                             'type'              => 'css',
                             'selector'          => '.pp-modal',
@@ -1109,11 +1070,11 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         )
                     ),
                     'modal_margin_right' => array(
-                        'type'              => 'text',
+                        'type'              => 'unit',
                         'label'             => __('Margin Right', 'bb-powerpack'),
-                        'description'       => 'px',
-                        'class'             => 'input-small',
                         'default'           => 0,
+						'units'				=> array( 'px' ),
+						'slider'			=> true,
                         'preview'           => array(
                             'type'              => 'css',
                             'selector'          => '.pp-modal',
@@ -1141,31 +1102,31 @@ FLBuilder::register_module('PPModalBoxModule', array(
                 'title'             => __('Box Shadow', 'bb-powerpack'), // Section Title
                 'fields'            => array( // Section Fields
                     'box_shadow_h'      => array(
-                        'type'              => 'text',
+                        'type'              => 'unit',
                         'label'             => __('Horizontal', 'bb-powerpack'),
-                        'description'       => 'px',
-                        'class'             => 'input-small',
+                        'units'				=> array( 'px' ),
+						'slider'			=> true,
                         'default'           => 0,
                     ),
                     'box_shadow_v'      => array(
-                        'type'              => 'text',
+                        'type'              => 'unit',
                         'label'             => __('Vertical', 'bb-powerpack'),
-                        'description'       => 'px',
-                        'class'             => 'input-small',
+                       	'units'				=> array( 'px' ),
+						'slider'			=> true,
                         'default'           => 0,
                     ),
                     'box_shadow_blur'   => array(
-                        'type'              => 'text',
+                        'type'              => 'unit',
                         'label'             => __('Blur', 'bb-powerpack'),
-                        'description'       => 'px',
-                        'class'             => 'input-small',
+                       	'units'				=> array( 'px' ),
+						'slider'			=> true,
                         'default'           => 18,
                     ),
                     'box_shadow_spread' => array(
-                        'type'              => 'text',
+                        'type'              => 'unit',
                         'label'             => __('Spread', 'bb-powerpack'),
-                        'description'       => 'px',
-                        'class'             => 'input-small',
+                       	'units'				=> array( 'px' ),
+						'slider'			=> true,
                         'default'           => 2,
                     ),
                     'box_shadow_color' => array(
@@ -1177,7 +1138,7 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         'type'              => 'text',
                         'label'             => __('Opacity', 'bb-powerpack'),
                         'description'       => 'px',
-                        'class'             => 'input-small',
+						'size'				=> 5,
                         'default'           => 0.5,
                     ),
                 )
@@ -1185,86 +1146,27 @@ FLBuilder::register_module('PPModalBoxModule', array(
             'modal_content'      => array( // Section
                 'title'             => __('Content', 'bb-powerpack'), // Section Title
                 'fields'            => array( // Section Fields
-                    'content_border'     => array(
-                        'type'              => 'pp-switch',
-                        'label'             => __('Border', 'bb-powerpack'),
-                        'default'           => 'none',
-                        'options'           => array(
-                            'none'              => __('None', 'bb-powerpack'),
-                            'dashed'            => __('Dashed', 'bb-powerpack'),
-                            'dotted'            => __('Dotted', 'bb-powerpack'),
-                            'solid'             => __('Solid', 'bb-powerpack'),
+                    'content_border_group'	=> array(
+						'type'          => 'border',
+						'label'         => __( 'Border', 'bb-powerpack' ),
+						'responsive'	=> true,
+						'preview'   	=> array(
+                            'type'  		=> 'css',
+                            'selector'  	=> '.pp-modal-content-inner',
+                            'property'  	=> 'border',
                         ),
-                        'toggle'        => array(
-                            'dashed'        => array(
-                                'fields'        => array('content_border_width', 'content_border_color', 'content_border_radius')
-                            ),
-                            'dotted'        => array(
-                                'fields'        => array('content_border_width', 'content_border_color', 'content_border_radius')
-                            ),
-                            'solid'         => array(
-                                'fields'        => array('content_border_width', 'content_border_color', 'content_border_radius')
-                            )
-                        ),
-                        'trigger'       => array(
-                            'dashed'        => array(
-                                'fields'        => array('content_border_width', 'content_border_color')
-                            ),
-                            'dotted'        => array(
-                                'fields'        => array('content_border_width', 'content_border_color')
-                            ),
-                            'solid'         => array(
-                                'fields'        => array('content_border_width', 'content_border_color')
-                            )
-                        )
-                    ),
-                    'content_border_width' => array(
-                        'type'              => 'text',
-                        'label'             => __('Border Width', 'bb-powerpack'),
-                        'description'       => 'px',
-                        'class'             => 'input-small',
-                        'default'           => 1,
-                        'preview'           => array(
-                            'type'              => 'css',
-                            'selector'          => '.pp-modal-content-inner',
-                            'property'          => 'border-width',
-                            'unit'              => 'px'
-                        )
-                    ),
-                    'content_border_color' => array(
-                        'type'              => 'color',
-                        'label'             => __('Border Color', 'bb-powerpack'),
-                        'default'           => '555555',
-                        'preview'           => array(
-                            'type'              => 'css',
-                            'selector'          => '.pp-modal-content-inner',
-                            'property'          => 'border-color'
-                        )
-                    ),
-                    'content_border_radius'  => array(
-                        'type'                  => 'text',
-                        'label'                 => __('Border Radius', 'bb-powerpack'),
-                        'description'           => 'px',
-                        'default'               => 0,
-                        'class'                 => 'input-small',
-                        'preview'               => array(
-                            'type'                  => 'css',
-                            'selector'              => '.pp-modal-content-inner',
-                            'property'              => 'border-radius',
-                            'unit'                  => 'px'
-                        )
-                    ),
+					),
                     'content_text_color'     => array(
                         'type'                  => 'color',
                         'label'                 => __('Text Color', 'bb-powerpack'),
                         'show_reset'            => true
                     ),
                     'content_padding'        => array(
-                        'type'                  => 'text',
+                        'type'                  => 'unit',
                         'label'                 => __('Padding', 'bb-powerpack'),
-                        'description'           => 'px',
                         'default'               => 10,
-                        'class'                 => 'input-small',
+                        'units'					=> array( 'px' ),
+						'slider'				=> true,
                         'preview'               => array(
                             'type'                  => 'css',
                             'selector'              => '.pp-modal-content-inner',
@@ -1295,23 +1197,13 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         'type'              => 'color',
                         'label'             => __('Background Color', 'bb-powerpack'),
                         'default'           => '000000',
+						'show_alpha'		=> true,
                         'preview'           => array(
                             'type'              => 'css',
                             'selector'          => '.pp-modal-overlay',
                             'property'          => 'background-color'
                         )
                     ),
-                    'overlay_opacity'   => array(
-                        'type'              => 'text',
-                        'label'             => __('Opacity', 'bb-powerpack'),
-                        'class'             => 'input-small',
-                        'default'           => '0.8',
-                        'preview'           => array(
-                            'type'              => 'css',
-                            'selector'          => '.pp-modal-overlay',
-                            'property'          => 'opacity'
-                        )
-                    )
                 )
             ),
             'modal_close'      => array( // Section
@@ -1341,19 +1233,21 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         'label'             => __('Background Color', 'bb-powerpack'),
                         'default'           => '3a3a3a',
                         'show_reset'        => true,
+						'show_alpha'		=> true
                     ),
                     'close_btn_bg_hover' => array(
                         'type'              => 'color',
                         'label'             => __('Background Color Hover', 'bb-powerpack'),
                         'default'           => 'b53030',
                         'show_reset'        => true,
+						'show_alpha'		=> true
                     ),
                     'close_btn_border'  => array(
-                        'type'              => 'text',
+                        'type'              => 'unit',
                         'label'             => __('Border Width', 'bb-powerpack'),
                         'default'           => 1,
-                        'description'       => 'px',
-                        'class'             => 'input-small',
+                        'units'				=> array( 'px' ),
+						'slider'			=> true,
                     ),
                     'close_btn_border_color'    => array(
                         'type'                      => 'color',
@@ -1361,25 +1255,25 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         'default'                   => 'ffffff',
                     ),
                     'close_btn_border_radius'   => array(
-                        'type'                      => 'text',
+                        'type'                      => 'unit',
                         'label'                     => __('Round Corners', 'bb-powerpack'),
                         'default'                   => 100,
-                        'description'               => 'px',
-                        'class'                     => 'input-small',
+                        'units'						=> array( 'px' ),
+						'slider'					=> true,
                     ),
                     'close_btn_size'          => array(
-                        'type'                      => 'text',
+                        'type'                      => 'unit',
                         'label'                     => __('Size', 'bb-powerpack'),
                         'default'                   => 25,
-                        'description'               => 'px',
-                        'class'                     => 'input-small',
+                        'units'						=> array( 'px' ),
+						'slider'					=> true,
                     ),
                     'close_btn_weight'          => array(
-                        'type'                      => 'text',
+                        'type'                      => 'unit',
                         'label'                     => __('Weight', 'bb-powerpack'),
                         'default'                   => 2,
-                        'description'               => 'px',
-                        'class'                     => 'input-small',
+                        'units'						=> array( 'px' ),
+						'slider'					=> true,
                     ),
                     'close_btn_position'    => array(
                         'type'                  => 'select',
@@ -1407,25 +1301,25 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         )
                     ),
                     'close_btn_top'        => array(
-                        'type'                      => 'text',
+                        'type'                      => 'unit',
                         'label'                     => __('Top Margin', 'bb-powerpack'),
                         'default'                   => '-10',
-                        'description'               => 'px',
-                        'class'                     => 'input-small',
+                        'units'						=> array( 'px' ),
+						'slider'					=> true,
                     ),
                     'close_btn_left'        => array(
-                        'type'                      => 'text',
+                        'type'                      => 'unit',
                         'label'                     => __('Left Margin', 'bb-powerpack'),
                         'default'                   => '-10',
-                        'description'               => 'px',
-                        'class'                     => 'input-small',
+                        'units'						=> array( 'px' ),
+						'slider'					=> true,
                     ),
                     'close_btn_right'        => array(
-                        'type'                      => 'text',
+                        'type'                      => 'unit',
                         'label'                     => __('Right Margin', 'bb-powerpack'),
                         'default'                   => '-10',
-                        'description'               => 'px',
-                        'class'                     => 'input-small',
+                        'units'						=> array( 'px' ),
+						'slider'					=> true,
                     )
                 )
             ),
@@ -1436,7 +1330,7 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         'type'              => 'text',
                         'label'             => __('Media Breakpoint', 'bb-powerpack'),
                         'default'           => 0,
-                        'class'             => 'input-small modal-device-width',
+                        'class'             => 'modal-device-width',
                         'description'       => 'px',
                         'help'              => __('You can set a custom break point and devices with the same or below screen width will always display a full screen modal box.', 'bb-powerpack'),
                     )
@@ -1460,7 +1354,7 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         'type'                  => 'text',
                         'label'                 => __('Speed', 'bb-powerpack'),
                         'description'           => __('seconds', 'bb-powerpack'),
-                        'class'                 => 'input-small',
+                        'size'                 	=> 5,
                         'default'               => '0.5',
                     )
                 )
@@ -1478,7 +1372,7 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         'type'                  => 'text',
                         'label'                 => __('Speed', 'bb-powerpack'),
                         'description'           => __('seconds', 'bb-powerpack'),
-                        'class'                 => 'input-small',
+                        'size'                 	=> 5,
                         'default'               => '0.5',
                     )
                 )

@@ -9,19 +9,32 @@
 	margin-bottom: <?php echo $settings->spacing; ?>px;
 }
 
-.fl-node-<?php echo $id; ?> .pp-image-carousel-item {
-	<?php if( $settings->image_padding ) { ?>
-		padding: <?php echo $settings->image_padding; ?>px;
-	<?php } ?>
-	border-style: <?php echo $settings->image_border; ?>;
-	<?php if( $settings->image_border_width && $settings->image_border != 'none' ) { ?>border-width: <?php echo $settings->image_border_width; ?>px; <?php } ?>
-	<?php if( $settings->image_border_color ) { ?> border-color: #<?php echo $settings->image_border_color; ?>; <?php } ?>
-	<?php if( $settings->image_border_radius >= 0 ) { ?> border-radius: <?php echo $settings->image_border_radius; ?>px; <?php } ?>
-}
+<?php
+	// Icon - Width
+	FLBuilderCSS::responsive_rule( array(
+		'settings'		=> $settings,
+		'setting_name'	=> 'image_padding',
+		'selector'		=> ".fl-node-$id .pp-image-carousel-item",
+		'prop'			=> 'padding',
+		'unit'			=> 'px',
+	) );
+		
+	// Box - Border
+	FLBuilderCSS::border_field_rule( array(
+		'settings' 		=> $settings,
+		'setting_name' 	=> 'image_border_group',
+		'selector' 		=> ".fl-node-$id .pp-image-carousel-item",
+	) );
+?>
 
 .fl-node-<?php echo $id; ?> .pp-image-overlay,
 .fl-node-<?php echo $id; ?> .pp-carousel-image-container {
-	<?php if( $settings->image_border_radius >= 0 ) { ?> border-radius: <?php echo $settings->image_border_radius; ?>px; <?php } ?>
+	<?php if ( isset( $settings->image_border_group ) && isset( $settings->image_border_group['radius'] ) ) { ?>
+		border-top-left-radius: <?php echo $settings->image_border_group['radius']['top_left']; ?>px;
+		border-top-right-radius: <?php echo $settings->image_border_group['radius']['top_right']; ?>px;
+		border-bottom-left-radius: <?php echo $settings->image_border_group['radius']['bottom_left']; ?>px;
+		border-bottom-right-radius: <?php echo $settings->image_border_group['radius']['bottom_right']; ?>px;
+	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-image-carousel .pp-carousel-image-container {
@@ -30,9 +43,9 @@
 
 .fl-node-<?php echo $id; ?> .pp-image-carousel .swiper-pagination-bullet {
 	opacity: 1;
-    <?php if( $settings->pagination_bg_color ) { ?>
-    background: #<?php echo $settings->pagination_bg_color; ?>;
-    <?php } ?>
+	<?php if ( isset( $settings->pagination_bg_color ) && ! empty( $settings->pagination_bg_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->pagination_bg_color ); ?>;
+	<?php } ?>
     <?php if( $settings->bullets_width >= 0 ) { ?>
     width: <?php echo $settings->bullets_width; ?>px;
     <?php } ?>
@@ -46,17 +59,17 @@
 }
 
 .fl-node-<?php echo $id; ?> .pp-image-carousel.swiper-container-horizontal>.swiper-pagination-progress {
-	<?php if( $settings->pagination_bg_color ) { ?>
-    background: #<?php echo $settings->pagination_bg_color; ?>;
-    <?php } ?>
+	<?php if ( isset( $settings->pagination_bg_color ) && ! empty( $settings->pagination_bg_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->pagination_bg_color ); ?>;
+	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-image-carousel .swiper-pagination-bullet:hover,
 .fl-node-<?php echo $id; ?> .pp-image-carousel .swiper-pagination-bullet-active,
 .fl-node-<?php echo $id; ?> .pp-image-carousel .swiper-pagination-progress .swiper-pagination-progressbar {
-    <?php if( $settings->pagination_bg_hover ) { ?>
-	background: #<?php echo $settings->pagination_bg_hover; ?>;
-    <?php } ?>
+	<?php if ( isset( $settings->pagination_bg_hover ) && ! empty( $settings->pagination_bg_hover ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->pagination_bg_hover ); ?>;
+	<?php } ?>
 	opacity: 1;
     box-shadow: none;
 }
@@ -66,10 +79,9 @@
 	<?php if( $settings->arrow_color ) { ?>
 	color: #<?php echo $settings->arrow_color; ?>;
     <?php } ?>
-    background: <?php echo ( false === strpos( $settings->arrow_bg_color, 'rgb' ) ) ? '#' . $settings->arrow_bg_color : $settings->arrow_bg_color; ?>;
-    <?php if( $settings->arrow_border_radius >= 0 ) { ?>
-    border-radius: <?php echo $settings->arrow_border_radius; ?>px;
-    <?php } ?>
+	<?php if ( isset( $settings->arrow_bg_color ) && ! empty( $settings->arrow_bg_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->arrow_bg_color ); ?>;
+	<?php } ?>
     <?php if( $settings->arrow_vertical_padding >= 0 ) { ?>
     padding-top: <?php echo $settings->arrow_vertical_padding; ?>px;
     <?php } ?>
@@ -82,24 +94,24 @@
     <?php if( $settings->arrow_horizontal_padding >= 0 ) { ?>
     padding-right: <?php echo $settings->arrow_horizontal_padding; ?>px;
     <?php } ?>
-    <?php if( $settings->arrow_border_style ) { ?>
-    border-style: <?php echo $settings->arrow_border_style; ?>;
-    <?php } ?>
-    <?php if( $settings->arrow_border_width >= 0 ) { ?>
-    border-width: <?php echo $settings->arrow_border_width; ?>px;
-    <?php } ?>
-	<?php if( $settings->arrow_border_color ) { ?>
-    border-color: #<?php echo $settings->arrow_border_color; ?>;
-    <?php } ?>
 }
+
+<?php
+	// Arrow - Border
+	FLBuilderCSS::border_field_rule( array(
+		'settings' 		=> $settings,
+		'setting_name' 	=> 'arrow_border',
+		'selector' 		=> ".fl-node-$id .pp-image-carousel .pp-swiper-button",
+	) );
+?>
 
 .fl-node-<?php echo $id; ?> .pp-image-carousel .pp-swiper-button:hover {
     <?php if( $settings->arrow_color_hover ) { ?>
     color: #<?php echo $settings->arrow_color_hover; ?>;
     <?php } ?>
-    <?php if( $settings->arrow_bg_hover ) { ?>
-    background: <?php echo ( false === strpos( $settings->arrow_bg_hover, 'rgb' ) ) ? '#' . $settings->arrow_bg_hover : $settings->arrow_bg_hover; ?>;
-    <?php } ?>
+	<?php if ( isset( $settings->arrow_bg_hover ) && ! empty( $settings->arrow_bg_hover ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->arrow_bg_hover ); ?>;
+	<?php } ?>
     <?php if( $settings->arrow_border_hover ) { ?>
     border-color: #<?php echo $settings->arrow_border_hover; ?>;
     <?php } ?>
@@ -155,21 +167,26 @@
 .fl-node-<?php echo $id; ?> .pp-image-overlay .pp-overlay-icon span {
 	color: #<?php echo $settings->overlay_icon_color; ?>;
 	font-size: <?php echo $settings->overlay_icon_size; ?>px;
-	background-color: #<?php echo $settings->overlay_icon_bg_color; ?>;
+	<?php if ( isset( $settings->overlay_icon_bg_color ) && ! empty( $settings->overlay_icon_bg_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->overlay_icon_bg_color ); ?>;
+	<?php } ?>
 	<?php if( $settings->overlay_icon_radius ) { ?>border-radius: <?php echo $settings->overlay_icon_radius; ?>px;<?php } ?>
 	<?php if( $settings->overlay_icon_padding ) { ?>padding: <?php echo $settings->overlay_icon_padding; ?>px;<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-image-overlay .pp-caption  {
-	<?php if( $settings->caption_font['family'] != 'Default' ) { ?>
-	   <?php FLBuilderFonts::font_css( $settings->caption_font ); ?>
-   <?php } ?>
-   <?php if( $settings->caption_font_size_toggle != 'default' && $settings->caption_custom_font_size ) { ?>
-	  font-size: <?php echo $settings->caption_custom_font_size; ?>px;
-   <?php } ?>
 	color: #<?php echo $settings->caption_color; ?>;
 
 }
+
+<?php
+	// Caption Typography
+	FLBuilderCSS::typography_field_rule( array(
+		'settings'		=> $settings,
+		'setting_name' 	=> 'caption_typography',
+		'selector' 		=> ".fl-node-$id .pp-image-overlay .pp-caption",
+	) );
+?>
 
 <?php if( $settings->overlay_effects == 'framed' ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-image-overlay:before,
@@ -218,18 +235,6 @@
 <?php } ?>
 
 @media only screen and ( max-width: <?php echo $global_settings->medium_breakpoint; ?>px ) {
-	.fl-node-<?php echo $id; ?> .pp-image-carousel-item {
-		<?php if( $settings->image_padding_medium ) { ?>
-			padding: <?php echo $settings->image_padding_medium; ?>px;
-		<?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-image-carousel-caption,
-	.fl-node-<?php echo $id; ?> .pp-image-overlay .pp-caption  {
-		<?php if( $settings->caption_font_size_toggle != 'default' && $settings->caption_custom_font_size_medium ) { ?>
-	 	  font-size: <?php echo $settings->caption_custom_font_size_medium; ?>px;
-	    <?php } ?>
-	}
-
 	<?php if( $settings->carousel_height_medium != '' ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-image-carousel.pp-image-carousel-slideshow,
 	.fl-node-<?php echo $id; ?> .pp-image-carousel {
@@ -239,17 +244,6 @@
 }
 
 @media only screen and ( max-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {
-	.fl-node-<?php echo $id; ?> .pp-image-carousel-item {
-		<?php if( $settings->image_padding_responsive ) { ?>
-			padding: <?php echo $settings->image_padding_responsive; ?>px;
-		<?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-image-carousel-caption,
-	.fl-node-<?php echo $id; ?> .pp-image-overlay .pp-caption  {
-		<?php if( $settings->caption_font_size_toggle != 'default' && $settings->caption_custom_font_size_responsive ) { ?>
-	 	  font-size: <?php echo $settings->caption_custom_font_size_responsive; ?>px;
-	    <?php } ?>
-	}
 	<?php if( $settings->carousel_height_responsive != '' ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-image-carousel.pp-image-carousel-slideshow,
 	.fl-node-<?php echo $id; ?> .pp-image-carousel {

@@ -1,14 +1,22 @@
+<?php 
+// Announcement Text Typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'announcement_text_typography',
+	'selector' 		=> ".fl-node-$id .pp-announcement-bar-wrap .pp-announcement-bar-content p",
+) );
+?>
 .fl-node-<?php echo $id; ?> .pp-announcement-bar-wrap {
-    background: <?php echo ($settings->announcement_bar_background) ? '#'.$settings->announcement_bar_background : '#ffffff'; ?>;
+    background: <?php echo ($settings->announcement_bar_background) ? pp_get_color_value($settings->announcement_bar_background) : '#ffffff'; ?>;
     <?php if( $settings->announcement_bar_position == 'top' ) { ?>
         top: 0;
-        border-bottom-color: <?php echo ($settings->announcement_bar_border_color) ? '#'.$settings->announcement_bar_border_color : '#000'; ?>;
+        border-bottom-color: <?php echo ($settings->announcement_bar_border_color) ? pp_get_color_value($settings->announcement_bar_border_color) : '#000'; ?>;
         border-bottom-style: <?php echo $settings->announcement_bar_border_type; ?>;
         border-bottom-width: <?php echo ($settings->announcement_bar_border_width >= 0) ? $settings->announcement_bar_border_width.'px' : '0'; ?>;
     <?php } ?>
     <?php if( $settings->announcement_bar_position == 'bottom' ) { ?>
         bottom: 0;
-        border-top-color: <?php echo ($settings->announcement_bar_border_color) ? '#'.$settings->announcement_bar_border_color : '#000'; ?>;
+        border-top-color: <?php echo ($settings->announcement_bar_border_color) ? pp_get_color_value($settings->announcement_bar_border_color) : '#000'; ?>;
         border-top-style: <?php echo $settings->announcement_bar_border_type; ?>;
         border-top-width: <?php echo ($settings->announcement_bar_border_width >= 0) ? $settings->announcement_bar_border_width.'px' : '0'; ?>;
     <?php } ?>
@@ -65,41 +73,65 @@
     vertical-align: middle;
 }
 .fl-node-<?php echo $id; ?> .pp-announcement-bar-wrap .pp-announcement-bar-icon .pp-icon {
-    color: <?php echo ($settings->announcement_icon_color) ? '#'.$settings->announcement_icon_color : '#000'; ?>;
-    font-size: <?php echo ($settings->announcement_icon_size) ? $settings->announcement_icon_size.'px' : '20px'; ?>;
+    color: <?php echo ($settings->announcement_icon_color) ? pp_get_color_value($settings->announcement_icon_color) : '#000'; ?>;
+    font-size: <?php echo ($settings->announcement_icon_size) ? $settings->announcement_icon_size : '20'; ?>px;
 }
 .fl-node-<?php echo $id; ?> .pp-announcement-bar-wrap .pp-announcement-bar-content p {
-    color: <?php echo ($settings->announcement_text_color) ? '#'.$settings->announcement_text_color : '#000'; ?>;
-    <?php if( $settings->announcement_text_font['family'] != 'Default' ) { ?><?php FLBuilderFonts::font_css( $settings->announcement_text_font ); ?><?php } ?>
-    font-size: <?php echo ($settings->announcement_text_font_size['announcement_text_font_size_desktop'] >= 0) ? $settings->announcement_text_font_size['announcement_text_font_size_desktop'].'px' : '16px'; ?>;
-    line-height: <?php echo ($settings->announcement_text_line_height['announcement_text_line_height_desktop'] >= 0) ? $settings->announcement_text_line_height['announcement_text_line_height_desktop'] : '1.7'; ?>;
+    color: <?php echo ($settings->announcement_text_color) ? pp_get_color_value($settings->announcement_text_color) : '#000'; ?>;
 }
+<?php
+// Announcement Link Typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'announcement_link_typography',
+	'selector' 		=> ".fl-node-$id .pp-announcement-bar-wrap .pp-announcement-bar-link a",
+) );
+
+if ( $settings->announcement_link_type == 'button' ) {
+	// Announcement Button Border - Settings
+	FLBuilderCSS::border_field_rule( array(
+		'settings' 		=> $settings,
+		'setting_name' 	=> 'announcement_button_border_group',
+		'selector' 		=> ".fl-node-$id .pp-announcement-bar-wrap .pp-announcement-bar-link a",
+	) );
+	// Announcement Button Padding
+	FLBuilderCSS::dimension_field_rule( array(
+		'settings'		=> $settings,
+		'setting_name' 	=> 'announcement_button_padding',
+		'selector' 		=> ".fl-node-$id .pp-announcement-bar-wrap .pp-announcement-bar-link a",
+		'unit'			=> 'px',
+		'props'			=> array(
+			'padding-top' 		=> 'announcement_button_padding_top',
+			'padding-right' 	=> 'announcement_button_padding_right',
+			'padding-bottom' 	=> 'announcement_button_padding_bottom',
+			'padding-left' 		=> 'announcement_button_padding_left',
+		),
+	) );
+}
+?>
 .fl-node-<?php echo $id; ?> .pp-announcement-bar-wrap .pp-announcement-bar-link a {
     <?php if( $settings->announcement_link_type == 'button' ) { ?>
-        background: <?php echo ($settings->announcement_button_backgrounds['primary']) ? '#'.$settings->announcement_button_backgrounds['primary'] : 'transparent'; ?>;
-        border-color: <?php echo ($settings->announcement_button_border_color) ? '#'.$settings->announcement_button_border_color : '#000'; ?>;
-        border-style: <?php echo $settings->announcement_button_border_type; ?>;
-        border-radius: <?php echo ($settings->announcement_button_border_radius >= 0) ? $settings->announcement_button_border_radius.'px' : '0'; ?>;
-        border-width: <?php echo ($settings->announcement_button_border_width >= 0) ? $settings->announcement_button_border_width.'px' : '0'; ?>;
-        padding-top: <?php echo ($settings->announcement_button_padding['announcement_button_top_padding'] >= 0) ? $settings->announcement_button_padding['announcement_button_top_padding'].'px' : '0'; ?>;
-        padding-right: <?php echo ($settings->announcement_button_padding['announcement_button_right_padding'] >= 0) ? $settings->announcement_button_padding['announcement_button_right_padding'].'px' : '0'; ?>;
-        padding-bottom: <?php echo ($settings->announcement_button_padding['announcement_button_bottom_padding'] >= 0) ? $settings->announcement_button_padding['announcement_button_bottom_padding'].'px' : '0'; ?>;
-        padding-left: <?php echo ($settings->announcement_button_padding['announcement_button_left_padding'] >= 0) ? $settings->announcement_button_padding['announcement_button_left_padding'].'px' : '0'; ?>;
+		<?php if( isset( $settings->announcement_button_bg_default ) && ! empty( $settings->announcement_button_bg_default ) ) { ?>
+			background: <?php echo pp_get_color_value( $settings->announcement_button_bg_default ); ?>;
+		<?php } ?>
     <?php } ?>
-    color: <?php echo ($settings->announcement_link_color['primary']) ? '#'.$settings->announcement_link_color['primary'] : '#000'; ?>;
-    <?php if( $settings->announcement_link_font['family'] != 'Default' ) { ?><?php FLBuilderFonts::font_css( $settings->announcement_link_font ); ?><?php } ?>
-    font-size: <?php echo ($settings->announcement_link_font_size >= 0) ? $settings->announcement_link_font_size.'px' : '16px'; ?>;
-    text-decoration: none !important;
+	<?php if( isset( $settings->announcement_link_color_default ) && ! empty( $settings->announcement_link_color_default ) ) { ?>
+		color: <?php echo pp_get_color_value( $settings->announcement_link_color_default ); ?>;
+	<?php } ?>
 }
 .fl-node-<?php echo $id; ?> .pp-announcement-bar-wrap .pp-announcement-bar-link a:hover {
     <?php if( $settings->announcement_link_type == 'button' ) { ?>
-        background: <?php echo ($settings->announcement_button_backgrounds['secondary']) ? '#'.$settings->announcement_button_backgrounds['secondary'] : 'transparent'; ?>;
+		<?php if( isset( $settings->announcement_button_bg_hover ) && ! empty( $settings->announcement_button_bg_hover ) ) { ?>
+			background: <?php echo pp_get_color_value( $settings->announcement_button_bg_hover ); ?>;
+		<?php } ?>
     <?php } ?>
-    color: <?php echo ($settings->announcement_link_color['secondary']) ? '#'.$settings->announcement_link_color['secondary'] : '#000'; ?>;
+	<?php if( isset( $settings->announcement_link_color_hover ) && ! empty( $settings->announcement_link_color_hover ) ) { ?>
+		color: <?php echo pp_get_color_value( $settings->announcement_link_color_hover ); ?>;
+	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-announcement-bar-wrap .pp-announcement-bar-close-button .pp-close-button {
-    color: <?php echo ($settings->announcement_close_color) ? '#'.$settings->announcement_close_color : '#000'; ?>;
+    color: <?php echo ($settings->announcement_close_color) ? pp_get_color_value($settings->announcement_close_color) : '#000'; ?>;
     font-size: <?php echo ($settings->close_size >= 0) ? $settings->close_size.'px' : '16px'; ?>;
 }
 
@@ -113,18 +145,5 @@
     .pp-announcement-bar-link, .pp-announcement-bar-icon, .pp-announcement-bar-content p {
         display: inline-block;
         padding: 5px;
-    }
-}
-@media only screen and ( max-width: 768px ) {
-    .fl-node-<?php echo $id; ?> .pp-announcement-bar-wrap .pp-announcement-bar-content p {
-        font-size: <?php echo ($settings->announcement_text_font_size['announcement_text_font_size_tablet'] >= 0) ? $settings->announcement_text_font_size['announcement_text_font_size_tablet'].'px' : '16px'; ?>;
-        line-height: <?php echo ($settings->announcement_text_line_height['announcement_text_line_height_tablet'] >= 0) ? $settings->announcement_text_line_height['announcement_text_line_height_tablet'] : '1.7'; ?>;
-    }
-}
-
-@media only screen and ( max-width: 480px ) {
-    .fl-node-<?php echo $id; ?> .pp-announcement-bar-wrap .pp-announcement-bar-content p {
-        font-size: <?php echo ($settings->announcement_text_font_size['announcement_text_font_size_mobile'] >= 0) ? $settings->announcement_text_font_size['announcement_text_font_size_mobile'].'px' : '16px'; ?>;
-        line-height: <?php echo ($settings->announcement_text_line_height['announcement_text_line_height_mobile'] >= 0) ? $settings->announcement_text_line_height['announcement_text_line_height_mobile'] : '1.7'; ?>;
     }
 }

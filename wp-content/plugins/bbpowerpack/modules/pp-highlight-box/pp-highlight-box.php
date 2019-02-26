@@ -22,21 +22,57 @@ class PPHighlightBoxModule extends FLBuilderModule {
             'url'           => BB_POWERPACK_URL . 'modules/pp-highlight-box/',
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
-            'icon'				=> 'star-filled.svg',
         ));
-    }
+	}
 
-    /**
-     * Use this method to work with settings data before
-     * it is saved. You must return the settings object.
-     *
-     * @method update
-     * @param $settings {object}
-     */
-    public function update($settings)
-    {
+	public function filter_settings( $settings, $helper ) {
+		// Handle old Box Link fields.
+		$settings = PP_Module_Fields::handle_link_field( $settings, array(
+			'box_link'	=> array(
+				'type'			=> 'link'
+			),
+			'link_target'	=> array(
+				'type'			=> 'target'
+			)
+		), 'box_link' );
+
+		if ( isset( $settings->box_top_padding ) ) {
+			$settings->box_padding_top = $settings->box_top_padding;
+			unset($settings->box_top_padding);
+		}
+		if ( isset( $settings->box_bottom_padding ) ) {
+			$settings->box_padding_bottom = $settings->box_bottom_padding;
+			unset($settings->box_bottom_padding);
+		}
+		if ( isset( $settings->box_left_padding ) ) {
+			$settings->box_padding_left = $settings->box_left_padding;
+			unset($settings->box_left_padding);
+		}
+		if ( isset( $settings->box_right_padding ) ) {
+			$settings->box_padding_right = $settings->box_right_padding;
+			unset($settings->box_right_padding);
+		}
         return $settings;
-    }
+	}
+
+	/**
+	 * Returns Box link rel based on settings
+	 * @since 2.6.9
+	 */
+	public function get_rel() {
+		$rel = array();
+		if ( '_blank' == $this->settings->box_link_target ) {
+			$rel[] = 'noopener';
+		}
+		if ( isset( $this->settings->box_link_nofollow ) && 'yes' == $this->settings->box_link_nofollow ) {
+			$rel[] = 'nofollow';
+		}
+		$rel = implode( ' ', $rel );
+		if ( $rel ) {
+			$rel = ' rel="' . $rel . '" ';
+		}
+		return $rel;
+	}
 }
 
 /**
@@ -52,7 +88,7 @@ FLBuilder::register_module('PPHighlightBoxModule', array(
                     'box_content'       => array(
 						'type'          => 'editor',
 						'label'         => '',
-						'rows'          => 13,
+						'rows'          => 5,
                         'connections'   => array( 'string', 'html', 'url' ),
 						'preview'       => array(
 							'type'      => 'text',
@@ -63,33 +99,22 @@ FLBuilder::register_module('PPHighlightBoxModule', array(
             ),
             'box_link_field'          => array(
 				'title'         => __('Link', 'bb-powerpack'),
+				'collapsed'		=> true,
 				'fields'        => array(
 					'box_link'          => array(
 						'type'          => 'link',
 						'label'         => __('Link', 'bb-powerpack'),
-                        'connections'   => array( 'url' ),
-						'preview'         => array(
-							'type'            => 'none'
-						)
+						'connections'   => array( 'url' ),
+						'show_target'	=> true,
+						'show_nofollow'	=> true,
 					),
-					'link_target'   => array(
-						'type'          => 'select',
-						'label'         => __('Link Target', 'bb-powerpack'),
-						'default'       => '_self',
-						'options'       => array(
-							'_self'         => __('Same Window', 'bb-powerpack'),
-							'_blank'        => __('New Window', 'bb-powerpack')
-						),
-						'preview'         => array(
-							'type'            => 'none'
-						)
-					)
 				)
 			),
             'icon_layout'       => array( // Section
-                'title'        => __('Icon', 'bb-powerpack'), // Section Title
+				'title'        => __('Icon', 'bb-powerpack'),
+				'collapsed'		=> true,
                 'fields'       => array( // Section Fields
-                    'box_icon_select'       => array(
+                    'box_icon_select'	=> array(
                         'type'          => 'select',
 						'label'         => __('Icon to Display', 'bb-powerpack'),
 						'options'       => array(
@@ -107,11 +132,11 @@ FLBuilder::register_module('PPHighlightBoxModule', array(
                             ),
                         )
 					),
-                    'box_font_icon'          => array(
+                    'box_font_icon'		=> array(
 						'type'          => 'icon',
 						'label'         => __('Font Icon', 'bb-powerpack')
 					),
-                    'box_custom_icon'     => array(
+                    'box_custom_icon'	=> array(
                         'type'              => 'photo',
                         'label'         => __('Custom Icon', 'bb-powerpack'),
                         'default'       => '',
@@ -138,6 +163,7 @@ FLBuilder::register_module('PPHighlightBoxModule', array(
                         'label'         => __('Background Color', 'bb-powerpack'),
                         'default'       => 'ff0000',
                         'show_reset'    => true,
+                        'show_alpha'    => true,
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-highlight-box-content',
@@ -160,6 +186,7 @@ FLBuilder::register_module('PPHighlightBoxModule', array(
                         'label'         => __('Hover Background Color', 'bb-powerpack'),
                         'default'       => 'c72929',
                         'show_reset'    => true,
+                        'show_alpha'    => true,
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-highlight-box-content:hover',
@@ -176,66 +203,26 @@ FLBuilder::register_module('PPHighlightBoxModule', array(
                             'selector'        => '.pp-highlight-box-content:hover',
                             'property'        => 'color'
                         )
-                    ),
-                    'box_top_padding'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Top Padding', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-box-input input-small',
-                        'default'       => '20',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-highlight-box-content',
-                            'property'  => 'padding-top',
-                            'unit'      => 'px'
-                        )
-                    ),
-                    'box_bottom_padding'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Bottom Padding', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-box-input input-small',
-                        'default'       => '20',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-highlight-box-content',
-                            'property'  => 'padding-bottom',
-                            'unit'      => 'px'
-                        )
-                    ),
-                    'box_left_padding'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Left Padding', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-box-input input-small',
-                        'default'       => '20',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-highlight-box-content',
-                            'property'  => 'padding-left',
-                            'unit'      => 'px'
-                        )
-                    ),
-                    'box_right_padding'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Right Padding', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-box-input input-small',
-                        'default'       => '20',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-highlight-box-content',
-                            'property'  => 'padding-right',
-                            'unit'      => 'px'
-                        )
-                    ),
+					),
+					'box_padding'	=> array(
+                        'type'				=> 'dimension',
+                        'label'				=> __('Padding', 'bb-powerpack'),
+						'slider'			=> true,
+						'units'				=> array( 'px' ),
+                        'preview'			=> array(
+                            'type'				=> 'css',
+                            'selector'			=> '.pp-highlight-box-content',
+                            'property'			=> 'padding',
+                            'unit'				=> 'px'
+                        ),
+                        'responsive'		=> true,
+					),
 					'box_border_radius'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Border Radius', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-box-input input-small',
+                        'units'			=> array('px'),
+                        'slider'		=> true,
                         'default'       => 0,
-                        'show_reset'    => true,
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-highlight-box-content',
@@ -243,7 +230,7 @@ FLBuilder::register_module('PPHighlightBoxModule', array(
                             'unit'      => 'px'
                         )
                     ),
-                    'box_font' => array(
+                    'box_font' 			=> array(
                         'type'          => 'font',
                         'default'		=> array(
                             'family'		=> 'Default',
@@ -256,12 +243,11 @@ FLBuilder::register_module('PPHighlightBoxModule', array(
                         )
                     ),
                     'box_font_size'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Font Size', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-box-input input-small',
+                        'units'			=> array('px'),
+                        'slider'		=> true,
                         'default'       => '20',
-                        'show_reset'    => true,
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-highlight-box-content',
@@ -275,12 +261,11 @@ FLBuilder::register_module('PPHighlightBoxModule', array(
                 'title'         => __('Icon Style', 'bb-powerpack'), // Section Title
                 'fields'        => array( // Section Fields
                     'box_font_icon_size'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Font Size', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-box-input input-small',
+                        'units'			=> array('px'),
+                        'slider'		=> true,
                         'default'       => '50',
-                        'show_reset'    => true,
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-highlight-box-content .font_icon',
@@ -300,12 +285,11 @@ FLBuilder::register_module('PPHighlightBoxModule', array(
                         )
                     ),
                     'box_custom_icon_width'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Width', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-box-input input-small',
+                        'units'			=> array('px'),
+                        'slider'		=> true,
                         'default'       => '50',
-                        'show_reset'    => true,
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-highlight-box-content .custom_icon .custom_icon_inner',
@@ -325,12 +309,11 @@ FLBuilder::register_module('PPHighlightBoxModule', array(
 						)
 					),
                     'box_icon_transition_duration'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Transition Duration', 'bb-powerpack'),
-                        'description'   => 'ms',
-                        'class'         => 'bb-box-input input-small',
+                        'units'			=> array('ms'),
+                        'slider'		=> true,
                         'default'       => '1000',
-                        'show_reset'    => true,
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-highlight-box-content',

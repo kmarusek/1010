@@ -41,6 +41,12 @@
 	will-change: transform;
 }
 
+.pp-gallery-overlay .pp-overlay-icon span,
+.pp-gallery-overlay .pp-overlay-icon span:before {
+	width: auto;
+	height: auto;
+}
+
 /* Gallery Filters */
 .pp-gallery-filters-toggle {
 	display: none;
@@ -63,9 +69,8 @@
 .pp-gallery-filters .pp-gallery-filter-label {
 	display: inline-block;
 	padding: 5px 10px;
-	background-color: #eee;
 	margin-right: 10px;
-	color: #000;
+	border-color: transparent;
 	cursor: pointer;
 	-webkit-transition: all 0.2s ease-out;
 	-moz-transition: all 0.2s ease-out;
@@ -82,7 +87,6 @@
 	transition: all 0.2s ease-out;
 }
 
-.pp-gallery-filters .pp-gallery-filter-label.pp-filter-active {
-	background-color: #bbb;
-	color: #fff;
+.pp-gallery-filters .pp-gallery-filter-label p {
+	margin: 0;
 }

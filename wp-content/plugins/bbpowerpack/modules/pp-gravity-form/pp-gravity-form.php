@@ -22,9 +22,131 @@ class PPGravityFormModule extends FLBuilderModule {
             'url'           => BB_POWERPACK_URL . 'modules/pp-gravity-form/',
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
-            'icon'				=> 'editor-table.svg',
         ));
-    }
+	}
+
+	public function filter_settings( $settings, $helper )
+	{
+		// Handle old Form border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'form_border_style'	=> array(
+				'type'				=> 'style'
+			),
+			'form_border_width'	=> array(
+				'type'				=> 'width'
+			),
+			'form_border_color'	=> array(
+				'type'				=> 'color'
+			),
+			'form_border_radius'	=> array(
+				'type'				=> 'radius'
+			),
+		), 'form_border_group' );
+
+		// Handle old Button border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'button_border_width'	=> array(
+				'type'				=> 'width'
+			),
+			'button_border_color'	=> array(
+				'type'				=> 'color'
+			),
+			'button_border_radius'	=> array(
+				'type'				=> 'radius'
+			),
+		), 'button_border_group' );
+
+		// Handle Form old padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'form_padding', 'padding', 'form_padding' );
+
+		// Handle title's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'title_font_family'	=> array(
+				'type'			=> 'font'
+			),
+			'title_font_size'	=> array(
+				'type'			=> 'font_size',
+			),
+			'title_alignment'	=> array(
+				'type'			=> 'text_align',
+			),
+		), 'title_typography' );
+
+		// Handle Description old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'description_font_family'	=> array(
+				'type'			=> 'font'
+			),
+			'description_font_size'	=> array(
+				'type'			=> 'font_size',
+			),
+			'description_alignment'	=> array(
+				'type'			=> 'text_align',
+			),
+		), 'description_typography' );
+
+		// Handle Section old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'section_font'	=> array(
+				'type'			=> 'font'
+			),
+			'section_font_size'	=> array(
+				'type'			=> 'font_size',
+			),
+		), 'section_typography' );
+
+		// Handle Button old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'button_font_family'	=> array(
+				'type'			=> 'font'
+			),
+			'button_font_size'	=> array(
+				'type'			=> 'font_size',
+			),
+		), 'button_typography' );
+
+		// Handle Form Background opacity + color field.
+        if ( isset( $settings->form_background_opacity ) ) {
+            $opacity = $settings->form_background_opacity >= 0 ? $settings->form_background_opacity : 1;
+            $colorForm = $settings->form_bg_color;
+
+            if ( ! empty( $colorForm ) ) {
+                $colorForm = pp_hex2rgba( pp_get_color_value( $colorForm ), $opacity );
+                $settings->form_bg_color = $colorForm;
+            }
+
+            unset( $settings->form_background_opacity );
+		}
+
+		// Handle Input Background opacity + color field.
+        if ( isset( $settings->input_field_background_opacity ) ) {
+            $opacity = $settings->input_field_background_opacity >= 0 ? $settings->input_field_background_opacity : 1;
+            $colorInput = $settings->input_field_bg_color;
+
+            if ( ! empty( $colorInput ) ) {
+                $colorInput = pp_hex2rgba( pp_get_color_value( $colorInput ), $opacity );
+                $settings->input_field_bg_color = $colorInput;
+            }
+
+            unset( $settings->input_field_background_opacity );
+		}
+
+		// Handle Button Background opacity + color field.
+        if ( isset( $settings->button_background_opacity ) ) {
+            $opacity 		= $settings->button_background_opacity >= 0 ? $settings->button_background_opacity : 1;
+            $colorButton 	= $settings->button_bg_color;
+
+            if ( ! empty( $colorButton ) ) {
+                $colorButton = pp_hex2rgba( pp_get_color_value( $colorButton ), $opacity );
+                $settings->button_bg_color = $colorButton;
+            }
+
+            unset( $settings->button_background_opacity );
+		}
+
+		return $settings;
+	}
+	
 }
 
 require_once BB_POWERPACK_DIR . 'modules/pp-gravity-form/includes/functions.php';
@@ -33,7 +155,7 @@ require_once BB_POWERPACK_DIR . 'modules/pp-gravity-form/includes/functions.php'
  * Register the module and its form settings.
  */
 FLBuilder::register_module('PPGravityFormModule', array(
-    'form'       => array( // Tab
+    'form'				=> array( // Tab
         'title'         => __('General', 'bb-powerpack'), // Tab title
         'sections'      => array( // Tab Sections
             'select_form'       => array( // Section
@@ -137,7 +259,7 @@ FLBuilder::register_module('PPGravityFormModule', array(
             ),
         )
     ),
-    'style'       => array( // Tab
+    'style'				=> array( // Tab
         'title'         => __('Style', 'bb-powerpack'), // Tab title
         'sections'      => array( // Tab Sections
             'form_setting'      => array( // Section
@@ -153,7 +275,7 @@ FLBuilder::register_module('PPGravityFormModule', array(
                         ),
                         'toggle'    => array(
                             'color' => array(
-                                'fields'    => array('form_bg_color', 'form_background_opacity')
+                                'fields'    => array('form_bg_color')
                             ),
                             'image' => array(
                                 'fields'    => array('form_bg_image','form_bg_size','form_bg_repeat', 'form_bg_overlay', 'form_bg_overlay_opacity')
@@ -164,19 +286,13 @@ FLBuilder::register_module('PPGravityFormModule', array(
                         'type'          => 'color',
                         'label'         => __('Background Color', 'bb-powerpack'),
                         'default'       => 'ffffff',
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'show_alpha'	=> true,
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-gf-content',
                             'property'  => 'background-color'
                         )
-                    ),
-					'form_background_opacity'    => array(
-                        'type'                 => 'text',
-                        'label'                => __('Background Opacity', 'bb-powerpack'),
-                        'class'                => 'bb-gf-input input-small',
-                        'default'              => '1',
-                        'description'          => __('between 0 to 1', 'bb-powerpack'),
                     ),
                     'form_bg_image'     => array(
                         'type'              => 'photo',
@@ -224,167 +340,43 @@ FLBuilder::register_module('PPGravityFormModule', array(
                 )
             ),
             'form_border'       => array(
-                'title'             => __('Form Border', 'bb-powerpack'),
+				'title'             => __('Form Border', 'bb-powerpack'),
+				'collapsed'			=> true,
                 'fields'            => array(
-                    'form_border_width'      => array(
-                        'type'          => 'text',
-                        'label'         => __('Border Width', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-gf-input input-small',
-                        'default'       => 0,
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-gf-content',
-                            'property'  => 'border-width',
-                            'unit'      => 'px'
-                        )
-                    ),
-                    'form_border_color'     => array(
-                        'type'          => 'color',
-                        'label'         => __('Border Color', 'bb-powerpack'),
-                        'default'       => 'dddddd',
-                        'show_reset'    => true,
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-gf-content',
-                            'property'  => 'border-color'
-                        )
-                    ),
-                    'form_border_style' 	=> array(
-                        'type'          => 'pp-switch',
-                        'label'         => __('Border Style', 'bb-powerpack'),
-                        'default'       => 'solid',
-                        'options'		=> array(
-                            'solid'		=> __('Solid', 'bb-powerpack'),
-                       		'dashed'	=> __('Dashed', 'bb-powerpack'),
-                       		'dotted'	=> __('Dotted', 'bb-powerpack'),
-                        ),
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-gf-content',
-                            'property'  => 'border-style'
-                        )
-                    ),
+					'form_border_group'	=> array(
+						'type'					=> 'border',
+						'label'					=> __('Border Style', 'bb-powerpack'),
+						'responsive'			=> true,
+						'preview'				=> array(
+							'type'					=> 'css',
+							'selector'				=> '.pp-gf-content',
+						),
+					),
                 )
             ),
             'form_container'        => array(
-                'title'                 => __('Corners & Padding', 'bb-powerpack'),
+				'title'                 => __('Padding', 'bb-powerpack'),
+				'collapsed'				=> true,
                 'fields'                => array(
-                    'form_border_radius' 	=> array(
-                        'type'          => 'text',
-                        'label'         => __('Round Corners', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'default'       => 2,
-                        'class'         => 'bb-gf-input input-small',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-gf-content',
-                            'property'  => 'border-radius',
-                            'unit'      => 'px'
-                        )
-                    ),
-                    'form_padding' 	=> array(
-                        'type' 			=> 'pp-multitext',
-                        'label' 		=> __('Padding', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'default'       => array(
-                            'top' => 15,
-                            'right' => 15,
-                            'bottom' => 15,
-                            'left' => 15,
+					'form_padding'	=> array(
+                        'type'				=> 'dimension',
+                        'label'				=> __('Padding', 'bb-powerpack'),
+						'slider'			=> true,
+						'units'				=> array( 'px' ),
+                        'preview'			=> array(
+                            'type'				=> 'css',
+                            'selector'			=> '.pp-gf-content',
+                            'property'			=> 'padding',
+                            'unit'				=> 'px'
                         ),
-                        'options' 		=> array(
-                            'top' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Top', 'bb-powerpack'),
-                                'tooltip'       => __('Top', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-up',
-                                'preview'       => array(
-                                    'type'      => 'css',
-                                    'selector'  => '.pp-gf-content',
-                                    'property'  => 'padding-top',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'bottom' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Bottom', 'bb-powerpack'),
-                                'tooltip'       => __('Bottom', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-down',
-                                'preview'       => array(
-                                    'type'      => 'css',
-                                    'selector'  => '.pp-gf-content',
-                                    'property'  => 'padding-bottom',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'left' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Left', 'bb-powerpack'),
-                                'tooltip'       => __('Left', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-left',
-                                'preview'       => array(
-                                    'type'      => 'css',
-                                    'selector'  => '.pp-gf-content',
-                                    'property'  => 'padding-left',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'right' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Right', 'bb-powerpack'),
-                                'tooltip'       => __('Right', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-right',
-                                'preview'       => array(
-                                    'type'      => 'css',
-                                    'selector'  => '.pp-gf-content',
-                                    'property'  => 'padding-right',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                        ),
-                        'fallback'			=> array(
-                            'top'				=> 'form_padding',
-                            'bottom'			=> 'form_padding',
-                            'left'				=> 'form_padding',
-                            'right'				=> 'form_padding',
-                        )
-                    )
+                        'responsive'		=> true,
+					),
                 )
             ),
             'general_style'    => array( // Section
-                'title'         => __('General', 'bb-powerpack'), // Section Title
-                'fields'        => array( // Section Fields
-                    'title_alignment'    => array(
-                        'type'                      => 'pp-switch',
-                        'label'                     => __('Title Alignment', 'bb-powerpack'),
-                        'default'                   => 'left',
-                        'options'                   => array(
-                            'left'                  => __('Left', 'bb-powerpack'),
-                            'center'                => __('Center', 'bb-powerpack'),
-                            'right'                 => __('Right', 'bb-powerpack'),
-                        ),
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.gform_title, .form-title',
-                            'property'  => 'text-align'
-                        )
-                    ),
-                    'description_alignment'    => array(
-                        'type'                      => 'pp-switch',
-                        'label'                     => __('Description Alignment', 'bb-powerpack'),
-                        'default'                   => 'left',
-                        'options'                   => array(
-                            'left'                  => __('Left', 'bb-powerpack'),
-                            'center'                => __('Center', 'bb-powerpack'),
-                            'right'                 => __('Right', 'bb-powerpack'),
-                        ),
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.gform_description, .form-description',
-                            'property'  => 'text-align'
-                        )
-                    ),
+				'title'         => __('General', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
+				'fields'        => array( // Section Fields
                     'product_price_color'    => array(
                         'type'          => 'color',
                         'label'         => __('Product Price Color', 'bb-powerpack'),
@@ -399,22 +391,27 @@ FLBuilder::register_module('PPGravityFormModule', array(
                 )
             ),
 			'section_style'    => array( // Section
-                'title'         => __('Sections', 'bb-powerpack'), // Section Title
-                'fields'        => array( // Section Fields
+				'title'         => __('Sections', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
+				'fields'        => array( // Section Fields
 					'section_border_width'      => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Border Width', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-gf-input input-small',
-                        'default'       => 1,
+						'default'       => 1,
+						'slider'		=> array(
+							'px'			=> array(
+								'min'		=> 0,
+								'max'		=> 10,
+								'step'		=> 1
+							),
+						),
+                        'units'			=> array('px'),
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-gf-content .gform_wrapper .gsection',
                             'property'  => 'border-bottom-width',
-                            'unit'      => 'px'
                         )
                     ),
-
 					'section_border_color'    => array(
                         'type'          => 'color',
                         'label'         => __('Border Color', 'bb-powerpack'),
@@ -427,29 +424,34 @@ FLBuilder::register_module('PPGravityFormModule', array(
                         )
                     ),
                     'section_field_margin'    => array(
-                        'type'              => 'text',
+                        'type'              => 'unit',
                         'label'             => __('Margin Bottom', 'bb-powerpack'),
-                        'description'       => 'px',
-                        'class'             => 'bb-gf-input input-small',
-                        'default'           => '20',
+						'slider'			=> array(
+							'px'				=> array(
+								'min'			=> 0,
+								'max'			=> 50,
+								'step'			=> 1
+							),
+						),
+						'units'				=> array('px'),
+						'default'           => '20',
                         'preview'           => array(
-                            'type'          => 'css',
-                            'selector'      => '.pp-gf-content .gform_wrapper .gsection',
-                            'property'      => 'margin-bottom',
-                            'unit'          => 'px'
+                            'type'          	=> 'css',
+                            'selector'      	=> '.pp-gf-content .gform_wrapper .gsection',
+                            'property'     		=> 'margin-bottom',
                         )
                     ),
 				)
 			),
         )
     ),
-    'input_style'           => array(
+    'input_style'		=> array(
         'title'                 => __('Inputs', 'bb-powerpack'),
         'sections'              => array(
             'input_background'      => array(
                 'title'                 => __('Colors', 'bb-powerpack'),
                 'fields'                => array(
-                    'input_field_text_color'    => array(
+                    'input_field_text_color'    		=> array(
                         'type'                  => 'color',
                         'label'                 => __('Text Color', 'bb-powerpack'),
                         'default'               => '333333',
@@ -459,30 +461,19 @@ FLBuilder::register_module('PPGravityFormModule', array(
                             'property'              => 'color'
                         )
                     ),
-                    'input_field_bg_color'      => array(
+                    'input_field_bg_color'      		=> array(
                         'type'                  => 'color',
                         'label'                 => __('Background Color', 'bb-powerpack'),
                         'default'               => 'ffffff',
-                        'show_reset'            => true,
+						'show_reset'            => true,
+						'show_alpha'			=> true,
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.gform_wrapper .gfield input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .gform_wrapper .gfield select, .gform_wrapper .gfield textarea',
                             'property'          => 'background-color'
                         )
                     ),
-                    'input_field_background_opacity'    => array(
-                        'type'                 => 'text',
-                        'label'                => __('Background Opacity', 'bb-powerpack'),
-                        'class'                => 'bb-gf-input input-small',
-                        'default'              => '1',
-                        'description'          => __('between 0 to 1', 'bb-powerpack'),
-                        'preview'              => array(
-                            'type'             => 'css',
-                            'selector'         => '.gform_wrapper .gfield input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .gform_wrapper .gfield select, .gform_wrapper .gfield textarea',
-                            'property'         => 'opacity',
-                        )
-                    ),
-                    'input_desc_color'  => array(
+                    'input_desc_color'  				=> array(
                         'type'                  => 'color',
                         'label'                 => __('Description Color', 'bb-powerpack'),
                         'default'               => '000000',
@@ -495,55 +486,21 @@ FLBuilder::register_module('PPGravityFormModule', array(
                 )
             ),
             'input_border'      => array(
-                'title'             => __('Border', 'bb-powerpack'),
+				'title'             => __('Border', 'bb-powerpack'),
+				'collapsed'			=> true,
                 'fields'            => array(
                     'input_field_border_color'  => array(
                         'type'                  => 'color',
                         'label'                 => __('Border Color', 'bb-powerpack'),
                         'default'               => 'eeeeee',
                         'show_reset'            => true,
-                        'preview'               => array(
-                            'type'              => 'css',
-                            'selector'          => '.gform_wrapper .gfield input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .gform_wrapper .gfield select, .gform_wrapper .gfield textarea',
-                            'property'          => 'border-color'
-                        )
                     ),
                     'input_field_border_width'    => array(
-                        'type'                    => 'text',
+                        'type'                    => 'unit',
                         'label'                   => __('Border Width', 'bb-powerpack'),
-                        'description'             => 'px',
                         'default'                 => '1',
-                        'class'                   => 'bb-gf-input input-small',
-                        'preview'                 => array(
-                            'type'                => 'css',
-                            'rules'                 => array(
-                                array(
-                                    'selector'            => '.gform_wrapper .gfield input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .gform_wrapper .gfield select, .gform_wrapper .gfield textarea',
-                                    'property'            => 'border-width',
-                                    'unit'                => 'px',
-                                ),
-                                array(
-                                    'selector'            => '.gform_wrapper .gfield input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .gform_wrapper .gfield select, .gform_wrapper .gfield textarea',
-                                    'property'            => 'border-top-width',
-                                    'unit'                => 'px',
-                                ),
-                                array(
-                                    'selector'            => '.gform_wrapper .gfield input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .gform_wrapper .gfield select, .gform_wrapper .gfield textarea',
-                                    'property'            => 'border-bottom-width',
-                                    'unit'                => 'px',
-                                ),
-                                array(
-                                    'selector'            => '.gform_wrapper .gfield input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .gform_wrapper .gfield select, .gform_wrapper .gfield textarea',
-                                    'property'            => 'border-left-width',
-                                    'unit'                => 'px',
-                                ),
-                                array(
-                                    'selector'            => '.gform_wrapper .gfield input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .gform_wrapper .gfield select, .gform_wrapper .gfield textarea',
-                                    'property'            => 'border-right-width',
-                                    'unit'                => 'px',
-                                )
-                            )
-                        )
+						'slider'                   => true,
+						'units'					   => array('px'),
                     ),
                     'input_field_border_position'    => array(
                         'type'                    => 'select',
@@ -556,12 +513,6 @@ FLBuilder::register_module('PPGravityFormModule', array(
                         	'border-left'		  => __('Left', 'bb-powerpack'),
                         	'border-right'		  => __('Right', 'bb-powerpack'),
                         ),
-                        'preview'                 => array(
-                            'type'                => 'css',
-                            'selector'            => '.gform_wrapper .gfield input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .gform_wrapper .gfield select, .gform_wrapper .gfield textarea',
-                            'property'            => 'border',
-                            'unit'                => 'px'
-                        )
                     ),
                     'input_field_focus_color'      => array(
                         'type'                  => 'color',
@@ -577,7 +528,8 @@ FLBuilder::register_module('PPGravityFormModule', array(
                 )
             ),
             'input_general'      => array( // Section
-                'title'         => __('General', 'bb-powerpack'), // Section Title
+				'title'         => __('General', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
                 'fields'        => array( // Section Fields
                     'input_field_width'     => array(
                         'type'              => 'pp-switch',
@@ -603,11 +555,11 @@ FLBuilder::register_module('PPGravityFormModule', array(
                         )
                     ),
                     'input_field_height_custom' => array(
-                        'type'                      => 'text',
+                        'type'                      => 'unit',
                         'label'                     => __('Custom Height', 'bb-powerpack'),
-                        'description'               => 'px',
                         'default'                   => '45',
-                        'class'                     => 'bb-gf-input input-small',
+						'slider'                    => true,
+						'units'					   => array('px'),
                         'preview'                   => array(
                             'type'                      => 'css',
                             'selector'                  => '.gform_wrapper .gfield input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .gform_wrapper .gfield select',
@@ -616,21 +568,16 @@ FLBuilder::register_module('PPGravityFormModule', array(
                         )
                     ),
                     'input_field_text_alignment'    => array(
-                        'type'                      => 'pp-switch',
+                        'type'                      => 'align',
                         'label'                     => __('Text Alignment', 'bb-powerpack'),
                         'default'                   => 'left',
-                        'options'                   => array(
-                            'left'                  => __('Left', 'bb-powerpack'),
-                            'center'                => __('Center', 'bb-powerpack'),
-                            'right'                 => __('Right', 'bb-powerpack'),
-                        )
                     ),
                     'input_field_border_radius'    => array(
-                        'type'                     => 'text',
+                        'type'                     => 'unit',
                         'label'                    => __('Round Corners', 'bb-powerpack'),
-                        'description'              => 'px',
                         'default'                  => '2',
-                        'class'                    => 'bb-gf-input input-small',
+						'slider'                   => true,
+						'units'					   => array('px'),
                         'preview'                  => array(
                             'type'                 => 'css',
                             'selector'             => '.gform_wrapper .gfield input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .gform_wrapper .gfield select, .gform_wrapper .gfield textarea',
@@ -646,25 +593,26 @@ FLBuilder::register_module('PPGravityFormModule', array(
                             'inherit'          => __('Show', 'bb-powerpack'),
                             'none'             => __('Hide', 'bb-powerpack'),
                         )
-                    ),
+					),
                     'input_field_padding'    => array(
-                        'type'               => 'text',
-                        'label'              => __('Padding', 'bb-powerpack'),
-                        'description'        => 'px',
-                        'class'              => 'bb-gf-input input-small',
-                        'default'            => '12',
+                        'type'				=> 'unit',
+                        'label'				=> __('Padding', 'bb-powerpack'),
+						'slider'			=> true,
+						'units'				=> array( 'px' ),
+						'default'           => '12',
                         'preview'            => array(
                             'type'           => 'css',
                             'selector'       => '.gform_wrapper .gfield input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .gform_wrapper .gfield select, .gform_wrapper .gfield textarea',
                             'property'       => 'padding',
                             'unit'           => 'px'
-                        )
-                    ),
+						),
+                        'responsive'		=> true,
+					),
                     'input_field_margin'    => array(
-                        'type'              => 'text',
+                        'type'              => 'unit',
                         'label'             => __('Margin Bottom', 'bb-powerpack'),
-                        'description'       => 'px',
-                        'class'             => 'bb-gf-input input-small',
+						'slider'			=> true,
+						'units'				=> array( 'px' ),
                         'default'           => '10',
                         'preview'           => array(
                             'type'          => 'css',
@@ -676,7 +624,8 @@ FLBuilder::register_module('PPGravityFormModule', array(
                 )
             ),
             'placeholder_style'      => array( // Section
-                'title'         => __('Placeholder', 'bb-powerpack'), // Section Title
+				'title'         => __('Placeholder', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
                 'fields'        => array( // Section Fields
                     'gf_input_placeholder_display' 	=> array(
                         'type'          => 'pp-switch',
@@ -706,7 +655,8 @@ FLBuilder::register_module('PPGravityFormModule', array(
                 )
             ),
             'radio_cb_style'    => array(
-                'title'             => __('Radio & Checkbox', 'bb-powerpack'),
+				'title'             => __('Radio & Checkbox', 'bb-powerpack'),
+				'collapsed'			=> true,
                 'fields'            => array(
                     'radio_cb_style'    => array(
                         'type'              => 'pp-switch',
@@ -723,11 +673,12 @@ FLBuilder::register_module('PPGravityFormModule', array(
                         )
                     ),
                     'radio_cb_size' => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Size', 'bb-powerpack'),
                         'default'       => '15',
-                        'description'   => 'px',
-                        'class'         => 'bb-gf-input input-small',
+						'slider'		=> true,
+						'units'			=> array( 'px' ),
+						'class'         => 'bb-gf-input input-small',
                     ),
                     'radio_cb_color'    => array(
                         'type'              => 'color',
@@ -742,11 +693,11 @@ FLBuilder::register_module('PPGravityFormModule', array(
                         'show_reset'                => true
                     ),
                     'radio_cb_border_width' => array(
-                        'type'                  => 'text',
+                        'type'                  => 'unit',
                         'label'                 => __('Border Width', 'bb-powerpack'),
                         'default'               => '1',
-                        'description'           => 'px',
-                        'class'                 => 'bb-gf-input input-small',
+						'slider'				=> true,
+						'units'					=> array( 'px' ),
                     ),
                     'radio_cb_border_color' => array(
                         'type'                  => 'color',
@@ -755,29 +706,31 @@ FLBuilder::register_module('PPGravityFormModule', array(
                         'show_reset'            => true
                     ),
                     'radio_cb_radius'   => array(
-                        'type'              => 'text',
+                        'type'              => 'unit',
                         'label'             => __('Radio Round Corners', 'bb-powerpack'),
                         'default'           => '50',
-                        'description'       => 'px',
-                        'class'             => 'bb-gf-input input-small',
+						'slider'			=> true,
+						'units'				=> array( 'px' ),
                     ),
                     'radio_cb_checkbox_radius'   => array(
-                        'type'              => 'text',
+                        'type'              => 'unit',
                         'label'             => __('Checkbox Round Corners', 'bb-powerpack'),
                         'default'           => '0',
-                        'description'       => 'px',
-                        'class'             => 'bb-gf-input input-small',
+						'slider'			=> true,
+						'units'				=> array( 'px' ),						
                     )
                 )
             ),
             'file_upload_style' => array(
-                'title' => __('File Upload', 'bb-powerpack'),
-                'fields'    => array(
+				'title' 		=> __('File Upload', 'bb-powerpack'),
+				'collapsed' 	=> true,
+                'fields'    	=> array(
                     'file_bg_color'  => array(
                         'type'                  => 'color',
                         'label'                 => __('Background Color', 'bb-powerpack'),
                         'default'               => '',
-                        'show_reset'            => true,
+						'show_reset'            => true,
+						'show_alpha'			=> true,
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.gform_wrapper .gfield input[type=file]',
@@ -823,10 +776,10 @@ FLBuilder::register_module('PPGravityFormModule', array(
                         )
                     ),
                     'file_border_width'      => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Border Width', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-cf-input input-small',
+						'slider'		=> true,
+						'units'			=> array( 'px' ),
                         'default'       => '',
                         'preview'       => array(
                             'type'      => 'css',
@@ -845,12 +798,12 @@ FLBuilder::register_module('PPGravityFormModule', array(
                             'selector'  => '.gform_wrapper .gfield input[type=file]',
                             'property'  => 'border-color'
                         )
-                    ),
+					),
                     'file_horizontal_padding'      => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Horizontal Padding', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-cf-input input-small',
+						'slider'		=> true,
+						'units'			=> array( 'px' ),
                         'default'       => '',
                         'preview'       => array(
                             'type'      => 'css',
@@ -869,10 +822,10 @@ FLBuilder::register_module('PPGravityFormModule', array(
                         )
                     ),
                     'file_vertical_padding'      => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Vertical Padding', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-cf-input input-small',
+						'slider'		=> true,
+						'units'			=> array( 'px' ),
                         'default'       => '',
                         'preview'       => array(
                             'type'      => 'css',
@@ -894,7 +847,7 @@ FLBuilder::register_module('PPGravityFormModule', array(
             )
         )
     ),
-    'button_style'      => array(
+    'button_style'		=> array(
         'title'             => __('Button', 'bb-powerpack'),
         'sections'          => array(
             'button_bg'         => array(
@@ -926,29 +879,20 @@ FLBuilder::register_module('PPGravityFormModule', array(
                         'type'          => 'color',
                         'label'         => __('Background Color', 'bb-powerpack'),
                         'default'       => '333333',
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'show_alpha'	=> true,
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.gform_wrapper .gform_footer .gform_button, .gform_wrapper .gform_page_footer .button',
                             'property'  => 'background-color'
                         )
                     ),
-                    'button_background_opacity'    => array(
-                        'type'                 => 'text',
-                        'label'                => __('Background Opacity', 'bb-powerpack'),
-                        'class'                => 'bb-gf-input input-small',
-                        'default'              => '1',
-                        'preview'              => array(
-                            'type'             => 'css',
-                            'selector'         => '.gform_wrapper .gform_footer .gform_button, .gform_wrapper .gform_page_footer .button',
-                            'property'         => 'opacity',
-                        )
-                    ),
                     'button_hover_bg_color'    => array(
                         'type'                 => 'color',
                         'label'                => __('Background Color Hover', 'bb-powerpack'),
                         'default'              => '000000',
-                        'show_reset'           => true,
+						'show_reset'           => true,
+						'show_alpha'		   => true,
                         'preview'              => array(
                             'type'             => 'css',
                             'selector'         => '.gform_wrapper .gform_footer .gform_button:hover, .gform_wrapper .gform_page_footer .button:hover',
@@ -958,36 +902,23 @@ FLBuilder::register_module('PPGravityFormModule', array(
                 )
             ),
             'button_border'     => array(
-                'title'             => __('Border', 'bb-powerpack'),
+				'title'             => __('Border', 'bb-powerpack'),
+				'collapsed'			=> true,
                 'fields'            => array(
-                    'button_border_width'    => array(
-                        'type'               => 'text',
-                        'label'              => __('Border Width', 'bb-powerpack'),
-                        'description'        => 'px',
-                        'class'              => 'bb-gf-input input-small',
-                        'default'            => '1',
-                        'preview'            => array(
-                            'type'           => 'css',
-                            'selector'       => '.gform_wrapper .gform_footer .gform_button, .gform_wrapper .gform_page_footer .button',
-                            'property'       => 'border-width',
-                            'unit'           => 'px'
-                        )
-                    ),
-                    'button_border_color'    => array(
-                        'type'               => 'color',
-                        'label'              => __('Border Color', 'bb-powerpack'),
-                        'default'            => '333333',
-                        'show_reset'         => true,
-                        'preview'            => array(
-                            'type'           => 'css',
-                            'selector'       => '.gform_wrapper .gform_footer .gform_button, .gform_wrapper .gform_page_footer .button',
-                            'property'       => 'border-color'
-                        )
-                    ),
+					'button_border_group'	=> array(
+						'type'					=> 'border',
+						'label'					=> __('Border Style', 'bb-powerpack'),
+						'responsive'			=> true,
+						'preview'				=> array(
+							'type'					=> 'css',
+							'selector'				=> '.gform_wrapper .gform_footer .gform_button, .gform_wrapper .gform_page_footer .button',
+						),
+					),
                 )
             ),
             'button_settings'       => array( // Section
-                'title'             => __('Size & Alignment', 'bb-powerpack'), // Section Title
+				'title'             => __('Size & Alignment', 'bb-powerpack'), // Section Title
+				'collapsed'			=> true,
                 'fields'            => array( // Section Fields
                     'button_width'  => array(
                         'type'      => 'pp-switch',
@@ -1004,38 +935,21 @@ FLBuilder::register_module('PPGravityFormModule', array(
                         )
                     ),
                     'button_alignment'  => array(
-                        'type'          => 'pp-switch',
+                        'type'          => 'align',
                         'label'         => __('Button Alignment', 'bb-powerpack'),
                         'default'       => 'left',
-                        'options'       => array(
-                            'left'      => __('Left', 'bb-powerpack'),
-                            'center'    => __('Center', 'bb-powerpack'),
-                            'right'     => __('Right', 'bb-powerpack'),
-                        )
                     ),
                 )
             ),
             'button_corners'        => array(
-                'title'                 => __('Corners & Padding', 'bb-powerpack'),
+				'title'                 => __('Corners & Padding', 'bb-powerpack'),
+				'collapsed'				=> true,
                 'fields'                => array(
-                    'button_border_radius'    => array(
-                        'type'                => 'text',
-                        'label'               => __('Round Corners', 'bb-powerpack'),
-                        'description'         => 'px',
-                        'class'               => 'bb-gf-input input-small',
-                        'default'             => '2',
-                        'preview'             => array(
-                            'type'            => 'css',
-                            'selector'        => '.gform_wrapper .gform_footer .gform_button, .gform_wrapper .gform_page_footer .button',
-                            'property'        => 'border-radius',
-                            'unit'            => 'px'
-                        )
-                    ),
                     'button_padding_top_bottom'    => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Top/Bottom Padding', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-gf-input input-small',
+						'slider'		=> true,
+						'units'			=> array( 'px' ),
                         'default'       => '10',
                         'preview'             => array(
                             'type'            => 'css',
@@ -1054,10 +968,10 @@ FLBuilder::register_module('PPGravityFormModule', array(
                         )
                     ),
                     'button_padding_left_right'    => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Left/Right Padding', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-gf-input input-small',
+						'slider'		=> true,
+						'units'			=> array( 'px' ),
                         'default'       => '10',
                         'preview'             => array(
                             'type'            => 'css',
@@ -1079,7 +993,7 @@ FLBuilder::register_module('PPGravityFormModule', array(
             ),
         )
     ),
-    'error_style'   => array(
+    'error_style'   	=> array(
         'title'         => __('Errors', 'bb-powerpack'),
         'sections'      => array(
             'form_error_styling'    => array( // Section
@@ -1126,7 +1040,8 @@ FLBuilder::register_module('PPGravityFormModule', array(
                         'type'                             => 'color',
                         'label'                            => __('Error Field Background Color', 'bb-powerpack'),
                         'default'                          => 'ffdfe0',
-                        'show_reset'                       => true,
+						'show_reset'                       => true,
+						'show_alpha'					   => true,
                         'preview'                          => array(
                             'type'                         => 'css',
                             'selector'                     => '.gform_wrapper .gfield.gfield_error',
@@ -1156,10 +1071,10 @@ FLBuilder::register_module('PPGravityFormModule', array(
                         )
                     ),
 					'form_error_input_border_width'    => array(
-                        'type'                         => 'text',
+                        'type'                         => 'unit',
                         'label'                        => __('Error Field Input Border Width', 'bb-powerpack'),
-                        'description'                  => 'px',
-                        'class'                        => 'bb-gf-input input-small',
+                        'slider'	                   => true,
+                        'units'                        => array('px'),
                         'default'                      => '1',
                         'preview'                      => array(
                             'type'                     => 'css',
@@ -1197,37 +1112,21 @@ FLBuilder::register_module('PPGravityFormModule', array(
             ),
         )
     ),
-    'form_typography'       => array( // Tab
+    'form_typography'	=> array( // Tab
         'title'         => __('Typography', 'bb-powerpack'), // Tab title
         'sections'      => array( // Tab Sections
             'title_typography'       => array( // Section
                 'title'         => __('Title', 'bb-powerpack'), // Section Title
-                'fields'        => array( // Section Fields
-                    'title_font_family' => array(
-                        'type'          => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.gform_title, .form-title'
-                        )
-                    ),
-                    'title_font_size'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Font Size', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-gf-input input-small',
-                        'default'       => '',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.gform_title, .form-title',
-                            'property'  => 'font-size',
-                            'unit'      => 'px'
-                        )
-                    ),
+				'fields'        => array( // Section Fields
+					'title_typography'	=> array(
+						'type'        	    		=> 'typography',
+						'label'       	    		=> __( 'Typography', 'bb-powerpack' ),
+						'responsive'  	    		=> true,
+						'preview'           		=> array(
+							'type'              		=> 'css',
+							'selector' 		    		=> '.gform_title, .form-title',
+						),
+					),
                     'title_color'       => array(
                         'type'          => 'color',
                         'label'         => __('Color', 'bb-powerpack'),
@@ -1242,33 +1141,18 @@ FLBuilder::register_module('PPGravityFormModule', array(
                 )
             ),
             'description_typography'    => array(
-                'title' => __('Description', 'bb-powerpack'),
+				'title' 	=> __('Description', 'bb-powerpack'),
+				'collapsed'	=> true,
                 'fields'    => array(
-                    'description_font_family' => array(
-                        'type'          => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.gform_description, .form-description'
-                        )
-                    ),
-                    'description_font_size'    => array(
-                        'type'                 => 'text',
-                        'label'                => __('Font Size', 'bb-powerpack'),
-                        'description'          => 'px',
-                        'class'                => 'bb-gf-input input-small',
-                        'default'              => '',
-                        'preview'              => array(
-                            'type'             => 'css',
-                            'selector'         => '.gform_description, .form-description',
-                            'property'         => 'font-size',
-                            'unit'             => 'px'
-                        )
-                    ),
+					'description_typography'	=> array(
+						'type'        	    		=> 'typography',
+						'label'       	    		=> __( 'Typography', 'bb-powerpack' ),
+						'responsive'  	    		=> true,
+						'preview'           		=> array(
+							'type'              		=> 'css',
+							'selector' 		    		=> '.gform_description, .form-description',
+						),
+					),
                     'description_color' => array(
                         'type'          => 'color',
                         'label'         => __('Color', 'bb-powerpack'),
@@ -1283,33 +1167,18 @@ FLBuilder::register_module('PPGravityFormModule', array(
                 )
             ),
 			'section_typography'	=> array(
-				'title'	=> __( 'Sections', 'bb-powerpack' ),
+				'title'		=> __( 'Sections', 'bb-powerpack' ),
+				'collapsed'	=> true,
 				'fields'	=> array(
-                    'section_font' => array(
-                        'type'          => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.gform_wrapper h2.gsection_title'
-                        )
-                    ),
-					'section_font_size'      => array(
-                        'type'          => 'text',
-                        'label'         => __('Font Size', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-gf-input input-small',
-                        'default'       => '',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.gform_wrapper h2.gsection_title',
-                            'property'  => 'font-size',
-                            'unit'      => 'px'
-                        )
-                    ),
+					'section_typography'	=> array(
+						'type'        	    		=> 'typography',
+						'label'       	    		=> __( 'Typography', 'bb-powerpack' ),
+						'responsive'  	    		=> true,
+						'preview'           		=> array(
+							'type'              		=> 'css',
+							'selector' 		    		=> '.gform_wrapper h2.gsection_title',
+						),
+					),
 					'section_text_color'    => array(
                         'type'          => 'color',
                         'label'         => __('Color', 'bb-powerpack'),
@@ -1324,7 +1193,8 @@ FLBuilder::register_module('PPGravityFormModule', array(
 				)
 			),
             'label_typography'       => array( // Section
-                'title'         => __('Label', 'bb-powerpack'), // Section Title
+				'title'         => __('Label', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
                 'fields'        => array( // Section Fields
                     'label_font_family' => array(
                         'type'          => 'font',
@@ -1339,10 +1209,10 @@ FLBuilder::register_module('PPGravityFormModule', array(
                         )
                     ),
                     'label_font_size'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Label Font Size', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-gf-input input-small',
+                        'units'   		=> array('px'),
+                        'slider'        => true,
                         'default'       => '',
                         'preview'           => array(
                             'type'          => 'css',
@@ -1352,10 +1222,10 @@ FLBuilder::register_module('PPGravityFormModule', array(
                         )
 					),
 					'radio_checkbox_font_size'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Radio & Checkbox Label Font Size', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-gf-input input-small',
+                        'units'		    => array('px'),
+                        'slider'        => true,
                         'default'       => '',
                         'preview'           => array(
                             'type'          => 'css',
@@ -1378,8 +1248,9 @@ FLBuilder::register_module('PPGravityFormModule', array(
                 )
 			),
             'input_typography'       => array( // Section
-                'title'         => __('Input', 'bb-powerpack'), // Section Title
-                'fields'        => array( // Section Fields
+				'title'         => __('Input', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
+				'fields'        => array( // Section Fields
                     'input_font_family' => array(
                         'type'          => 'font',
                         'default'		=> array(
@@ -1393,10 +1264,10 @@ FLBuilder::register_module('PPGravityFormModule', array(
                         )
                     ),
                     'input_font_size'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Font Size', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-gf-input input-small',
+                        'units' 	  	=> array('px'),
+                        'slider'         => true,
                         'default'       => '',
                         'preview'       => array(
                             'type'      => 'css',
@@ -1406,10 +1277,10 @@ FLBuilder::register_module('PPGravityFormModule', array(
                         )
                     ),
                     'input_desc_font_size'    => array(
-                        'type'              => 'text',
+                        'type'              => 'unit',
                         'label'             => __('Description Font Size', 'bb-powerpack'),
-                        'description'       => 'px',
-                        'class'             => 'bb-gf-input input-small',
+                        'units'       		=> array('px'),
+                        'slider'             => true,
                         'default'           => '',
                         'preview'           => array(
                             'type'          => 'css',
@@ -1419,9 +1290,21 @@ FLBuilder::register_module('PPGravityFormModule', array(
                         )
                     ),
                     'input_desc_line_height'    => array(
-                        'type'              => 'text',
+                        'type'              => 'unit',
                         'label'             => __('Description Line Height', 'bb-powerpack'),
-                        'class'             => 'bb-gf-input input-small',
+						'slider' 	        => array(
+							'em'			=> array(
+								'min'			=> 0,
+								'max'			=> 5,
+								'step'			=> 0.1,
+							),
+							'px'			=> array(
+								'min'			=> 0,
+								'max'			=> 50,
+								'step'			=> 1,
+							),
+						),
+						'units'				=> array('em', 'px'),
                         'default'           => '',
                         'preview'           => array(
                             'type'          => 'css',
@@ -1432,43 +1315,29 @@ FLBuilder::register_module('PPGravityFormModule', array(
                 )
             ),
             'button_typography'       => array( // Section
-                'title'         => __('Button', 'bb-powerpack'), // Section Title
-                'fields'        => array( // Section Fields
-                    'button_font_family' => array(
-                        'type'          => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.gform_wrapper .gform_footer .gform_button, .gform_wrapper .gform_page_footer .button'
-                        )
-                    ),
-                    'button_font_size'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Font Size', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-gf-input input-small',
-                        'default'       => '',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.gform_wrapper .gform_footer .gform_button, .gform_wrapper .gform_page_footer .button',
-                            'property'  => 'font-size',
-                            'unit'      => 'px'
-                        )
-                    ),
+				'title'         => __('Button', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
+				'fields'        => array( // Section Fields
+					'button_typography'	=> array(
+						'type'        	    		=> 'typography',
+						'label'       	    		=> __( 'Typography', 'bb-powerpack' ),
+						'responsive'  	    		=> true,
+						'preview'           		=> array(
+							'type'              		=> 'css',
+							'selector' 		    		=> '.gform_wrapper .gform_footer .gform_button, .gform_wrapper .gform_page_footer .button',
+						),
+					),
                 )
             ),
             'errors_typography'       => array( // Section
-                'title'         => __('Error', 'bb-powerpack'), // Section Title
+				'title'         => __('Error', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
                 'fields'        => array( // Section Fields
                     'validation_error_font_size'    => array(
-                        'type'                  => 'text',
+                        'type'                  => 'unit',
                         'label'                 => __('Error Description Font Size', 'bb-powerpack'),
-                        'description'           => 'px',
-                        'class'                 => 'bb-gf-input input-small',
+                        'units' 	            => array('px'),
+                        'slider'                => true,
                         'default'               => '',
                         'preview'               => array(
                             'type'              => 'css',

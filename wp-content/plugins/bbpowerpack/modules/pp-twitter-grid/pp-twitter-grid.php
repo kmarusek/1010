@@ -56,17 +56,21 @@ FLBuilder::register_module('PPTwitterGridModule', array(
 						),
 					),
 					'width'     	=> array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __( 'Width', 'bb-powerpack' ),
 						'default'       => '',
-						'description'   => __( 'px', 'bb-powerpack' ),
-						'size'			=> 5,
+						'units'   		=> array( 'px' ),
+						'slider'		=> array(
+							'min'			=> '1',
+							'max'			=> '2000',
+							'step'			=> '50'
+						),
 					),
 					'tweet_limit'	=> array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __( 'Tweet Limit', 'bb-powerpack' ),
 						'default'       => '',
-						'size'			=> 5,
+						'slider'		=> true,
 					),
 				),
 			),

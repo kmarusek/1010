@@ -176,18 +176,9 @@
 <?php } ?>
 
 .fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-instagram-feed-title-wrap {
-	<?php if ( 'Default' != $settings->feed_title_font['family'] ) { ?>
-		<?php FLBuilderFonts::font_css( $settings->feed_title_font ); ?>
+	<?php if ( isset( $settings->feed_title_bg_color ) && ! empty( $settings->feed_title_bg_color ) ) { ?>
+	background-color: <?php echo pp_get_color_value( $settings->feed_title_bg_color ); ?>;
 	<?php } ?>
-	<?php if ( 'default' != $settings->feed_title_font_size && $settings->feed_title_custom_font_size ) { ?>
-		font-size: <?php echo $settings->feed_title_custom_font_size; ?>px;
-	<?php } ?>
-	text-transform: <?php echo $settings->feed_title_transform; ?>;
-	<?php if ( $settings->feed_title_line_height ) { ?>
-		line-height: <?php echo $settings->feed_title_line_height; ?>;
-	<?php } ?>
-	letter-spacing: <?php echo $settings->feed_title_letter_spacing; ?>px;
-	background-color: <?php echo ( false === strpos( $settings->feed_title_bg_color, 'rgb' ) ) ? '#' . $settings->feed_title_bg_color : $settings->feed_title_bg_color; ?>;
 	<?php if ( 0 <= $settings->feed_title_horizontal_padding ) { ?>
 		padding-left: <?php echo $settings->feed_title_horizontal_padding; ?>px;
 		padding-right: <?php echo $settings->feed_title_horizontal_padding; ?>px;
@@ -196,19 +187,32 @@
 		padding-top: <?php echo $settings->feed_title_vertical_padding; ?>px;
 		padding-bottom: <?php echo $settings->feed_title_vertical_padding; ?>px;
 	<?php } ?>
-	border-style: <?php echo $settings->feed_title_border; ?>;
-	<?php if ( $settings->feed_title_border_width && 'none' != $settings->feed_title_border ) { ?>border-width: <?php echo $settings->feed_title_border_width; ?>px; <?php } ?>
-	<?php if ( $settings->feed_title_border_color ) { ?> border-color: #<?php echo $settings->feed_title_border_color; ?>; <?php } ?>
-	<?php if ( 0 <= $settings->feed_title_border_radius ) { ?> border-radius: <?php echo $settings->feed_title_border_radius; ?>px; <?php } ?>
 	transition: all 0.3s ease-in;
 }
+<?php
+	// Title Typography
+	FLBuilderCSS::typography_field_rule( array(
+		'settings'		=> $settings,
+		'setting_name' 	=> 'title_typography',
+		'selector' 		=> ".fl-node-$id .pp-instagram-feed .pp-instagram-feed-title-wrap",
+	) );
+
+	// Title - Border
+	FLBuilderCSS::border_field_rule( array(
+		'settings' 		=> $settings,
+		'setting_name' 	=> 'feed_title_border_group',
+		'selector' 		=> ".fl-node-$id .pp-instagram-feed .pp-instagram-feed-title-wrap",
+	) );
+?>
 
 .fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-instagram-feed-title-wrap .pp-instagram-feed-title {
 	color: <?php echo '#' . $settings->feed_title_text_color; ?>;
 }
 
 .fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-instagram-feed-title-wrap:hover {
-	background-color: <?php echo ( false === strpos( $settings->feed_title_bg_hover, 'rgb' ) ) ? '#' . $settings->feed_title_bg_hover : $settings->feed_title_bg_hover; ?>;
+	<?php if ( isset( $settings->feed_title_bg_hover ) && ! empty( $settings->feed_title_bg_hover ) ) { ?>
+	background-color: <?php echo pp_get_color_value( $settings->feed_title_bg_hover ); ?>;
+	<?php } ?>
 	<?php if ( $settings->feed_title_border_hover ) { ?> border-color: #<?php echo $settings->feed_title_border_hover; ?>; <?php } ?>
 	transition: all 0.3s ease-in;
 }
@@ -314,12 +318,6 @@
 			padding-top: <?php echo $settings->feed_title_vertical_padding_medium; ?>px;
 			padding-bottom: <?php echo $settings->feed_title_vertical_padding_medium; ?>px;
 		<?php } ?>
-		<?php if ( 'default' != $settings->feed_title_font_size && $settings->feed_title_custom_font_size_medium ) { ?>
-			font-size: <?php echo $settings->feed_title_custom_font_size_medium; ?>px;
-		<?php } ?>
-		<?php if ( $settings->feed_title_line_height_medium ) { ?>
-			line-height: <?php echo $settings->feed_title_line_height_medium; ?>;
-		<?php } ?>
 	}
 	<?php if( ( 'square-grid' == $settings->feed_layout || 'carousel' == $settings->feed_layout ) && '' != $settings->image_custom_size_medium ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-feed-item-inner {
@@ -346,12 +344,6 @@
 		<?php if ( 0 <= $settings->feed_title_vertical_padding_responsive ) { ?>
 			padding-top: <?php echo $settings->feed_title_vertical_padding_responsive; ?>px;
 			padding-bottom: <?php echo $settings->feed_title_vertical_padding_responsive; ?>px;
-		<?php } ?>
-		<?php if ( 'default' != $settings->feed_title_font_size  && $settings->feed_title_custom_font_size_responsive ) { ?>
-			font-size: <?php echo $settings->feed_title_custom_font_size_responsive; ?>px;
-		<?php } ?>
-		<?php if ( $settings->feed_title_line_height_responsive ) { ?>
-			line-height: <?php echo $settings->feed_title_line_height_responsive; ?>;
 		<?php } ?>
 	}
 	<?php if( ( 'square-grid' == $settings->feed_layout || 'carousel' == $settings->feed_layout ) && '' != $settings->image_custom_size_responsive ) { ?>

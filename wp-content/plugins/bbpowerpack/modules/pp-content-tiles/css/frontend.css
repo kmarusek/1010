@@ -66,6 +66,11 @@
     -webkit-transform: scale3d(1.1,1.1,1);
     -moz-transform: scale3d(1.1,1.1,1) rotate(.02deg);
 }
+.pp-post-tile-small .pp-post-tile-title,
+.pp-post-tile-small .pp-post-tile-title a {
+	font-size: 18px;
+	line-height: 24px;
+}
 .pp-post-tile-post .pp-post-tile-text {
 	position: absolute;
 	bottom: 0;

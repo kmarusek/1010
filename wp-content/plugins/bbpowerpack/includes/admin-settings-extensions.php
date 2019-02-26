@@ -50,8 +50,13 @@
                     <?php esc_html_e('Row Extensions', 'bb-powerpack'); ?>
                 </th>
                 <td>
-                    <?php foreach ( $extensions['row'] as $extension => $name ) :
-                        $checked = ( array_key_exists($extension, $enabled_extensions['row']) || in_array( $extension, $enabled_extensions['row'] ) ) ? 'checked="checked"' : '';  ?>
+					<?php foreach ( $extensions['row'] as $extension => $name ) :
+						$is_enabled = ( array_key_exists($extension, $enabled_extensions['row']) || in_array( $extension, $enabled_extensions['row'] ) ) ? true : false;
+						if ( ! $is_enabled && 'gradient' == $extension ) {
+							continue;
+						}
+						$checked = $is_enabled ? 'checked="checked"' : '';
+						?>
                     <p>
                         <label>
                             <input type="checkbox" name="bb_powerpack_extensions[row][]" value="<?php echo $extension; ?>" <?php echo $checked; ?> />
@@ -67,7 +72,12 @@
                 </th>
                 <td>
                     <?php foreach ( $extensions['col'] as $extension => $name ) :
-                        $checked = ( array_key_exists($extension, $enabled_extensions['col']) || in_array( $extension, $enabled_extensions['col'] ) ) ? 'checked="checked"' : ''; ?>
+						$is_enabled = ( array_key_exists($extension, $enabled_extensions['col']) || in_array( $extension, $enabled_extensions['col'] ) ) ? true : false;
+						if ( ! $is_enabled && 'separators' != $extension ) {
+							//continue;
+						}
+						$checked = ( array_key_exists($extension, $enabled_extensions['col']) || in_array( $extension, $enabled_extensions['col'] ) ) ? 'checked="checked"' : '';
+						?>
                     <p>
                         <label>
                             <input type="checkbox" name="bb_powerpack_extensions[col][]" value="<?php echo $extension; ?>" <?php echo $checked; ?> />

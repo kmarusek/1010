@@ -1,6 +1,6 @@
 (function($){
 
-	FLBuilder.registerModuleHelper('pp-hover-cards', {
+	FLBuilder.registerModuleHelper('pp-hover-cards-2', {
 
 		rules: {
 			'card_content[]': {

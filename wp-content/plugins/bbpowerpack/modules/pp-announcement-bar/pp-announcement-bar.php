@@ -23,12 +23,107 @@ class PPAnnouncementBarModule extends FLBuilderModule {
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
             'partial_refresh'   => true,
-            'icon'				=> 'megaphone.svg',
 		));
 	}
 	
 	public function enqueue_scripts() {
 		$this->add_js( 'jquery-cookie' );
+	}
+	public function filter_settings( $settings, $helper ) {
+
+		// Handle old Anouncement button background dual color field.
+		$settings = PP_Module_Fields::handle_dual_color_field( $settings, 'announcement_button_backgrounds', array(
+			'primary'	=> 'announcement_button_bg_default',
+			'secondary'	=> 'announcement_button_bg_hover',
+		) );
+		// Handle old Anouncement Link color background dual color field.
+		$settings = PP_Module_Fields::handle_dual_color_field( $settings, 'announcement_link_color', array(
+			'primary'	=> 'announcement_link_color_default',
+			'secondary'	=> 'announcement_link_color_hover',
+		) );
+
+		// Handle old Announcement Button border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'announcement_button_border_type'	=> array(
+				'type'				=> 'style',
+			),
+			'announcement_button_border_width'	=> array(
+				'type'				=> 'width',
+			),
+			'announcement_button_border_color'	=> array(
+				'type'				=> 'color',
+			),
+			'announcement_button_border_radius'	=> array(
+				'type'				=> 'radius',
+			),
+		), 'announcement_button_border_group' );
+		// Handle Announcement Button old padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'announcement_button_padding', 'padding', 'announcement_button_padding', array(
+			'top'		=> 'announcement_button_top_padding',
+			'bottom'	=> 'announcement_button_bottom_padding',
+			'left'		=> 'announcement_button_left_padding',
+			'right'		=> 'announcement_button_right_padding',
+		) );
+		// Handle Announcement Text font's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'announcement_text_font'	=> array(
+				'type'			=> 'font'
+			),
+			'announcement_text_font_size'	=> array(
+				'type'          => 'font_size',
+				'keys'			=> array(
+					'desktop'		=> 'announcement_text_font_size_desktop',
+					'tablet'		=> 'announcement_text_font_size_tablet',
+					'mobile'		=> 'announcement_text_font_size_mobile',
+				)
+			),
+			'announcement_text_line_height'	=> array(
+				'type'			=> 'line_height',
+				'keys'			=> array(
+					'desktop'		=> 'announcement_text_line_height_desktop',
+					'tablet'		=> 'announcement_text_line_height_tablet',
+					'mobile'		=> 'announcement_text_line_height_mobile',
+				)
+			),
+		), 'announcement_text_typography' );
+
+		// Handle Announcement Link font's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'announcement_link_font'	=> array(
+				'type'			=> 'font'
+			),
+			'announcement_link_font_size'	=> array(
+				'type'          => 'font_size',
+			),
+		), 'announcement_link_typography' );
+
+		// Handle Link field.
+		$settings = PP_Module_Fields::handle_link_field( $settings, array(
+			'announcement_link_url'	=> array(
+				'type'	=> 'link'
+			),
+		), 'announcement_link' );
+
+		return $settings;
+	}
+
+	/**
+	 * Returns button link rel based on settings
+	 * @since 2.6.9
+	 */
+	public function get_rel() {
+		$rel = array();
+		if ( '_blank' == $this->settings->announcement_link_target ) {
+			$rel[] = 'noopener';
+		}
+		if ( isset( $this->settings->announcement_link_nofollow ) && 'yes' == $this->settings->announcement_link_nofollow ) {
+			$rel[] = 'nofollow';
+		}
+		$rel = implode( ' ', $rel );
+		if ( $rel ) {
+			$rel = ' rel="' . $rel . '" ';
+		}
+		return $rel;
 	}
 
 }
@@ -97,19 +192,12 @@ FLBuilder::register_module('PPAnnouncementBarModule', array(
                             'selector'  => '.pp-announcement-bar-link a'
                         )
                     ),
-                    'announcement_link_url'     => array(
-                        'type'      => 'link',
-                        'label'     => __('Link', 'bb-powerpack'),
-                        'connections'   => array( 'url' ),
-                    ),
-                    'announcement_link_target'  => array(
-                        'type'      => 'pp-switch',
-                        'label'     => __('Link Target', 'bb-powerpack'),
-                        'default'   => '_self',
-                        'options'   => array(
-                            '_self' => __('Same Window', 'bb-powerpack'),
-                            '_blank' => __('New Window', 'bb-powerpack'),
-                        )
+                    'announcement_link'     => array(
+                        'type'      	=> 'link',
+                        'label'     	=> __('Link', 'bb-powerpack'),
+						'connections'   => array( 'url' ),
+						'show_target'	=> true,
+						'show_nofollow'	=> true,
                     ),
                 ),
 			),
@@ -129,12 +217,12 @@ FLBuilder::register_module('PPAnnouncementBarModule', array(
 		)
 	),
     'style'     => array(
-        'title' => __('Style', 'bb-powerpack'),
+        'title' => __('Style', 'bb-powerpack'),	
         'sections'  => array(
-            'announcement_settings'  => array(
+            'announcement_settings'		=> array(
                 'title' => __('General', 'bb-powerpack'),
                 'fields'    => array(
-                    'announcement_text_align'   => array(
+                    'announcement_text_align'		=> array(
                         'type'      => 'pp-switch',
                         'label'     => __('Content Alignment', 'bb-powerpack'),
                         'default'   => 'center',
@@ -143,13 +231,12 @@ FLBuilder::register_module('PPAnnouncementBarModule', array(
                             'center'    => __('Center', 'bb-powerpack'),
                         ),
                     ),
-                    'announcement_bar_height'    => array(
-                        'type'      => 'text',
+                    'announcement_bar_height'		=> array(
+                        'type'      => 'unit',
                         'label'     => __('Bar Height', 'bb-powerpack'),
-                        'size'      => 5,
-                        'maxlength' => 3,
+                        'slider'	=> true,
+                        'units'		=> array('px'),
                         'default'   => 80,
-                        'description'   => 'px',
                         'preview'   => array(
                             'type'  => 'css',
                             'selector'  => '.pp-announcement-bar-wrap',
@@ -157,17 +244,18 @@ FLBuilder::register_module('PPAnnouncementBarModule', array(
                             'unit'      => 'px'
                         )
                     ),
-                    'announcement_bar_background'    => array(
+                    'announcement_bar_background'	=> array(
                         'type'      => 'color',
                         'label'     => __('Background Color', 'bb-powerpack'),
                         'show_reset'    => true,
+                        'show_alpha'    => true,
                         'preview'   => array(
                             'type'  => 'css',
                             'selector'  => '.pp-announcement-bar-wrap',
                             'property'  => 'background',
                         )
                     ),
-                    'announcement_bar_border_type'  => array(
+                    'announcement_bar_border_type'	=> array(
                         'type'      => 'pp-switch',
                         'label'     => __('Border Style', 'bb-powerpack'),
                         'default'   => 'none',
@@ -189,13 +277,12 @@ FLBuilder::register_module('PPAnnouncementBarModule', array(
                             ),
                         ),
                     ),
-                    'announcement_bar_border_width'     => array(
-                        'type'      => 'text',
+                    'announcement_bar_border_width'	=> array(
+                        'type'      => 'unit',
                         'label'     => __('Border Width', 'bb-powerpack'),
-                        'size'      => 5,
-                        'maxlength' => 3,
+                        'slider'	=> true,
+                        'units'		=> array('px'),
                         'default'   => 1,
-                        'description'   => 'px',
                         'preview'   => array(
                             'type'  => 'css',
                             'selector'  => '.pp-announcement-bar-wrap',
@@ -203,7 +290,7 @@ FLBuilder::register_module('PPAnnouncementBarModule', array(
                             'unit'      => 'px'
                         ),
                     ),
-                    'announcement_bar_border_color'     => array(
+                    'announcement_bar_border_color'	=> array(
                         'type'      => 'color',
                         'label'     => __('Border Color', 'bb-powerpack'),
                         'show_reset'    => true,
@@ -215,16 +302,16 @@ FLBuilder::register_module('PPAnnouncementBarModule', array(
                     ),
                 ),
             ),
-            'announcement_icon_styling'     => array(
-                'title'     => __('Icon', 'bb-powerpack'),
+            'announcement_icon_styling'	=> array(
+				'title'     => __('Icon', 'bb-powerpack'),
+				'collapsed'	=> true,
                 'fields'    => array(
                     'announcement_icon_size'    => array(
-                        'type'      => 'text',
+                        'type'      => 'unit',
                         'label'     => __('Size', 'bb-powerpack'),
-                        'size'      => 5,
-                        'maxlength' => 3,
+                        'slider'	=> true,
+                        'units'		=> array('px'),
                         'default'   => 16,
-                        'description'   => 'px',
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-announcement-bar-icon .pp-icon',
@@ -245,9 +332,10 @@ FLBuilder::register_module('PPAnnouncementBarModule', array(
                 ),
             ),
             'announcement_box_shadow'   => array(
-                'title'     => __('Box Shadow', 'bb-powerpack'),
+				'title'     => __('Box Shadow', 'bb-powerpack'),
+				'collapsed'	=> true,
                 'fields'    => array(
-                    'announcement_box_shadow'   => array(
+                    'announcement_box_shadow'			=> array(
                         'type'      => 'pp-switch',
                         'label'     => __('Display Box Shadow?', 'bb-powerpack'),
                         'default'   => 'no',
@@ -261,7 +349,7 @@ FLBuilder::register_module('PPAnnouncementBarModule', array(
                             ),
                         ),
                     ),
-                    'announcement_box_shadow_options'   => array(
+                    'announcement_box_shadow_options'	=> array(
                         'type'      => 'pp-multitext',
                         'label'     => __('Box Shadow', 'bb-powerpack'),
                         'default'   => array(
@@ -297,12 +385,12 @@ FLBuilder::register_module('PPAnnouncementBarModule', array(
                             ),
                         ),
                     ),
-                    'announcement_box_shadow_color' => array(
+                    'announcement_box_shadow_color'		=> array(
                         'type'              => 'color',
                         'label'             => __('Color', 'bb-powerpack'),
                         'default'           => '000000',
                     ),
-                    'announcement_box_shadow_opacity' => array(
+                    'announcement_box_shadow_opacity'	=> array(
                         'type'              => 'text',
                         'label'             => __('Opacity', 'bb-powerpack'),
                         'class'             => 'input-small',
@@ -311,7 +399,8 @@ FLBuilder::register_module('PPAnnouncementBarModule', array(
                 ),
             ),
             'announcement_close_button_styling' => array(
-                'title'     => __('Close Button', 'bb-powerpack'),
+				'title'     => __('Close Button', 'bb-powerpack'),
+				'collapsed'	=> true,
                 'fields'    => array(
                     'announcement_close_color'  => array(
                         'type'      => 'color',
@@ -324,12 +413,11 @@ FLBuilder::register_module('PPAnnouncementBarModule', array(
                         ),
                     ),
                     'close_size'    => array(
-                        'type'      => 'text',
+                        'type'      => 'unit',
                         'label'     => __('Size', 'bb-powerpack'),
-                        'size'      => 5,
-                        'maxlength' => 3,
+                        'slider'	=> true,
+                        'units'		=> array('px'),
                         'default'   => 16,
-                        'description'   => 'px',
                         'preview'   => array(
                             'type'  => 'css',
                             'selector'  => '.pp-announcement-bar-wrap .pp-announcement-bar-close-button .pp-close-button',
@@ -341,146 +429,50 @@ FLBuilder::register_module('PPAnnouncementBarModule', array(
                 ),
             ),
             'announcement_button_styling'   => array(
-                'title'     => __('Button', 'bb-powerpack'),
+				'title'     => __('Button', 'bb-powerpack'),
+				'collapsed'	=> true,
                 'fields'    => array(
-                    'announcement_button_backgrounds'     => array(
-                        'type'  => 'pp-color',
-                        'label' => __('Background Color', 'bb-powerpack'),
-                        'show_reset'    => true,
-                        'default'       => array(
-                            'primary'   => 'dddddd',
-                            'secondary'   => '333333',
-                        ),
-                        'options'       => array(
-                            'primary'   => __('Default', 'bb-powerpack'),
-                            'secondary'   => __('Hover', 'bb-powerpack'),
-                        ),
+					'announcement_button_bg_default'	=> array(
+						'type'		=> 'color',
+						'label'			=> __('Background Color', 'bb-powerpack'),
+						'default'		=> 'dddddd',
+						'show_reset'	=> true,
+						'show_alpha'	=> true,
                         'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-announcement-bar-link a',
-                            'property'  => 'background'
+                            'type'      	=> 'css',
+                            'selector'  	=> '.pp-announcement-bar-link a',
+                            'property'  	=> 'background'
                         ),
-                    ),
-                    'announcement_button_border_type'   => array(
-                        'type'      => 'pp-switch',
-                        'label'     => __('Border Style', 'bb-powerpack'),
-                        'default'   => 'none',
-                        'options'   => array(
-                            'none'  => __('None', 'bb-powerpack'),
-                            'solid'  => __('Solid', 'bb-powerpack'),
-                            'dashed'  => __('Dashed', 'bb-powerpack'),
-                            'dotted'  => __('Dotted', 'bb-powerpack'),
+					),
+					'announcement_button_bg_hover'		=> array(
+						'type'			=> 'color',
+						'label'			=> __('Background Hover Color', 'bb-powerpack'),
+						'default'		=> '333333',
+						'show_reset'	=> true,
+						'show_alpha'	=> true,
+					),
+					'announcement_button_border_group'	=> array(
+						'type'					=> 'border',
+						'label'					=> __('Border Style', 'bb-powerpack'),
+						'responsive'			=> true,
+						'preview'				=> array(
+							'type'					=> 'css',
+							'selector'				=> '.pp-announcement-bar-link a',
+						),
+					),
+					'announcement_button_padding'		=> array(
+                        'type'				=> 'dimension',
+                        'label'				=> __('Padding', 'bb-powerpack'),
+						'slider'			=> true,
+						'units'				=> array( 'px' ),
+                        'preview'			=> array(
+                            'type'				=> 'css',
+                            'selector'			=> '.pp-announcement-bar-wrap .pp-announcement-bar-link a',
+                            'property'			=> 'padding',
+                            'unit'				=> 'px'
                         ),
-                        'toggle'    => array(
-                            'solid' => array(
-                                'fields'    => array('announcement_button_border_width', 'announcement_button_border_color'),
-                            ),
-                            'dashed' => array(
-                                'fields'    => array('announcement_button_border_width', 'announcement_button_border_color'),
-                            ),
-                            'dotted' => array(
-                                'fields'    => array('announcement_button_border_width', 'announcement_button_border_color'),
-                            ),
-                        )
-                    ),
-                    'announcement_button_border_width'  => array(
-                        'type'      => 'text',
-                        'label'     => __('Border Width', 'bb-powerpack'),
-                        'size'      => 5,
-                        'maxlength' => 3,
-                        'default'   => 1,
-                        'description'   => 'px',
-                        'preview'   => array(
-                            'type'  => 'css',
-                            'selector'  => '.pp-announcement-bar-link a',
-                            'property'  => 'border-width',
-                            'unit'      => 'px'
-                        ),
-                    ),
-                    'announcement_button_border_color'  => array(
-                        'type'      => 'color',
-                        'label'     => __('Border Color', 'bb-powerpack'),
-                        'show_reset'    => true,
-                        'preview'   => array(
-                            'type'  => 'css',
-                            'selector'  => '.pp-announcement-bar-link a',
-                            'property'  => 'border-color'
-                        )
-                    ),
-                    'announcement_button_border_radius'     => array(
-                        'type'      => 'text',
-                        'label'     => __('Round Corners', 'bb-powerpack'),
-                        'size'      => 5,
-                        'maxlength' => 3,
-                        'default'   => 0,
-                        'description'   => 'px',
-                        'preview'   => array(
-                            'type'  => 'css',
-                            'selector'  => '.pp-announcement-bar-link a',
-                            'property'  => 'border-radius',
-                            'unit'      => 'px'
-                        ),
-                    ),
-                    'announcement_button_padding'   => array(
-                        'type'  => 'pp-multitext',
-                        'label' => __('Padding', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'default'   => array(
-                            'announcement_button_top_padding'   => 5,
-                            'announcement_button_bottom_padding'   => 5,
-                            'announcement_button_left_padding'   => 5,
-                            'announcement_button_right_padding'   => 5,
-                        ),
-                        'options'   => array(
-                            'announcement_button_top_padding'   => array(
-                                'placeholder'       => __('Top', 'bb-powerpack'),
-                                'maxlength'         => 3,
-                                'icon'              => 'fa-long-arrow-up',
-                                'tooltip'           => __('Top', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-announcement-bar-wrap .pp-announcement-bar-link a',
-                                    'property'      => 'padding-top',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'announcement_button_bottom_padding'   => array(
-                                'placeholder'       => __('Bottom', 'bb-powerpack'),
-                                'maxlength'         => 3,
-                                'default'           => 5,
-                                'icon'              => 'fa-long-arrow-down',
-                                'tooltip'           => __('Bottom', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-announcement-bar-wrap .pp-announcement-bar-link a',
-                                    'property'      => 'padding-bottom',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'announcement_button_left_padding'   => array(
-                                'placeholder'       => __('Left', 'bb-powerpack'),
-                                'maxlength'         => 3,
-                                'default'           => 5,
-                                'icon'              => 'fa-long-arrow-left',
-                                'tooltip'           => __('Left', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-announcement-bar-wrap .pp-announcement-bar-link a',
-                                    'property'      => 'padding-left',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'announcement_button_right_padding'   => array(
-                                'placeholder'       => __('Right', 'bb-powerpack'),
-                                'maxlength'         => 3,
-                                'default'           => 5,
-                                'icon'              => 'fa-long-arrow-right',
-                                'tooltip'           => __('Right', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-announcement-bar-wrap .pp-announcement-bar-link a',
-                                    'property'      => 'padding-right',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                        ),
-                    ),
+                        'responsive'		=> true,
+					),
                 )
             ),
         )
@@ -491,85 +483,15 @@ FLBuilder::register_module('PPAnnouncementBarModule', array(
             'announcement_text_typography'  => array(
                 'title' => __('Content', 'bb-powerpack'),
                 'fields'    => array(
-                    'announcement_text_font'   => array(
-                        'type'  => 'font',
-                        'default'		=> array(
-    						'family'		=> 'Default',
-    						'weight'		=> 300
-    					),
-    					'label'         => __('Font', 'bb-powerpack'),
-    					'preview'         => array(
-    						'type'            => 'font',
-    						'selector'        => '.pp-announcement-bar-content p'
-    					)
-                    ),
-                    'announcement_text_font_size'   => array(
-                        'type'      => 'pp-multitext',
-                        'label'     => __('Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'announcement_text_font_size_desktop'   => 18,
-                            'announcement_text_font_size_tablet'   => '',
-                            'announcement_text_font_size_mobile'   => '',
-                        ),
-                        'options'   => array(
-                            'announcement_text_font_size_desktop'   => array(
-                                'placeholder'       => __('Desktop', 'bb-powerpack'),
-                                'maxlength'         => 3,
-                                'icon'              => 'fa-desktop',
-                                'tooltip'           => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-announcement-bar-wrap .pp-announcement-bar-content p',
-                                    'property'      => 'font-size',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'announcement_text_font_size_tablet'   => array(
-                                'placeholder'       => __('Tablet', 'bb-powerpack'),
-                                'maxlength'         => 2,
-                                'icon'              => 'fa-tablet',
-                                'tooltip'           => __('Tablet', 'bb-powerpack')
-                            ),
-                            'announcement_text_font_size_mobile'   => array(
-                                'placeholder'       => __('Mobile', 'bb-powerpack'),
-                                'maxlength'         => 2,
-                                'icon'              => 'fa-mobile',
-                                'tooltip'           => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
-                    'announcement_text_line_height'   => array(
-                        'type'      => 'pp-multitext',
-                        'label'     => __('Line Height', 'bb-powerpack'),
-                        'default'       => array(
-                            'announcement_text_line_height_desktop' => 1.6,
-                            'announcement_text_line_height_tablet' => '',
-                            'announcement_text_line_height_mobile' => '',
-                        ),
-                        'options'   => array(
-                            'announcement_text_line_height_desktop'   => array(
-                                'placeholder'       => __('Desktop', 'bb-powerpack'),
-                                'maxlength'         => 3,
-                                'icon'              => 'fa-desktop',
-                                'tooltip'           => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-announcement-bar-wrap .pp-announcement-bar-content p',
-                                    'property'      => 'line-height',
-                                ),
-                            ),
-                            'announcement_text_line_height_tablet'   => array(
-                                'placeholder'       => __('Tablet', 'bb-powerpack'),
-                                'maxlength'         => 3,
-                                'icon'              => 'fa-tablet',
-                                'tooltip'           => __('Tablet', 'bb-powerpack')
-                            ),
-                            'announcement_text_line_height_mobile'   => array(
-                                'placeholder'       => __('Mobile', 'bb-powerpack'),
-                                'maxlength'         => 3,
-                                'icon'              => 'fa-mobile',
-                                'tooltip'           => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
+					'announcement_text_typography'	=> array(
+						'type'        	   => 'typography',
+						'label'       	   => __( 'Typography', 'bb-powerpack' ),
+						'responsive'  	   => true,
+						'preview'          => array(
+							'type'         		=> 'css',
+							'selector' 		    => '.pp-announcement-bar-wrap .pp-announcement-bar-content p',
+						),
+					),
                     'announcement_text_color'    => array(
                         'type'      => 'color',
                         'label'     => __('Color', 'bb-powerpack'),
@@ -585,45 +507,27 @@ FLBuilder::register_module('PPAnnouncementBarModule', array(
             'announcement_link_typography'  => array(
                 'title'     => __('Link/Button', 'bb-powerpack'),
                 'fields'    => array(
-                    'announcement_link_font'     => array(
-                        'type'      => 'font',
-                        'default'		=> array(
-    						'family'		=> 'Default',
-    						'weight'		=> 300
-    					),
-    					'label'         => __('Font', 'bb-powerpack'),
-    					'preview'         => array(
-    						'type'            => 'font',
-    						'selector'        => '.pp-announcement-bar-link a'
-    					)
-                    ),
-                    'announcement_link_font_size'   => array(
-                        'type'      => 'text',
-                        'label'     => __('Font Size', 'bb-powerpack'),
-                        'size'      => 5,
-                        'maxlength' => 3,
-                        'default'   => 16,
-                        'description'   => 'px',
-                        'preview'   => array(
-                            'type'  => 'css',
-                            'selector'  => '.pp-announcement-bar-link a',
-                            'property'  => 'font-size',
-                            'unit'      => 'px'
-                        ),
-                    ),
-                    'announcement_link_color'    => array(
-                        'type'      => 'pp-color',
-                        'label'     => __('Colors', 'bb-powerpack'),
-                        'show_reset'    => true,
-                        'default'       => array(
-                            'primary'      => '333333',
-                            'secondary'     => 'dddddd',
-                        ),
-                        'options'       => array(
-                            'primary'      => __('Default', 'bb-powerpack'),
-                            'secondary'      => __('Hover', 'bb-powerpack'),
-                        ),
-                    ),
+					'announcement_link_typography'	=> array(
+						'type'        	   => 'typography',
+						'label'       	   => __( 'Typography', 'bb-powerpack' ),
+						'responsive'  	   => true,
+						'preview'          => array(
+							'type'         		=> 'css',
+							'selector' 		    => '.pp-announcement-bar-link a'
+						),
+					),
+					'announcement_link_color_default'	=> array(
+						'type'		=> 'color',
+						'label'			=> __('Text Color', 'bb-powerpack'),
+						'default'		=> '333333',
+						'show_reset'	=> true,
+					),
+					'announcement_link_color_hover'		=> array(
+						'type'			=> 'color',
+						'label'			=> __('Text Hover Color', 'bb-powerpack'),
+						'default'		=> 'dddddd',
+						'show_reset'	=> true,
+					),
                 ),
             ),
         ),

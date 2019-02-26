@@ -34,7 +34,7 @@
 			<div class="pp-gallery-overlay">
 				<div class="pp-overlay-inner">
 
-					<?php if ( 'hover' == $settings->show_captions ) : ?>
+					<?php if ( 'hover' == $settings->show_captions || ( 'justified' == $settings->gallery_layout && 'no' != $settings->show_captions ) ) : ?>
 						<div class="pp-caption" itemprop="caption description">
 							<?php echo htmlspecialchars_decode( $photo->caption ); ?>
 						</div>
@@ -57,7 +57,7 @@
 			<meta itemprop="height" content="<?php echo $photo->sizes['height']; ?>" />
 		<?php endif; ?>
 	</div>
-	<?php if ( $photo && ! empty( $photo->caption ) && 'below' == $settings->show_captions ) : ?>
+	<?php if ( $photo && ! empty( $photo->caption ) && 'below' == $settings->show_captions && 'justified' != $settings->gallery_layout ) : ?>
 	<div class="pp-photo-gallery-caption pp-photo-gallery-caption-below" itemprop="caption description"><?php echo htmlspecialchars_decode( $photo->caption ); ?></div>
 	<?php endif; ?>
 </div>

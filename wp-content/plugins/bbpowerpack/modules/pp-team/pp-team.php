@@ -23,11 +23,160 @@ class PPTeamModule extends FLBuilderModule {
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
             'partial_refresh' => true,
-            'icon'				=> 'star-filled.svg',
         ));
 
         $this->add_css(BB_POWERPACK()->fa_css);
     }
+
+	public function filter_settings( $settings, $helper )
+	{
+		// Handle old box border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'box_border'	=> array(
+				'type'				=> 'style'
+			),
+			'box_border_width'	=> array(
+				'type'				=> 'width'
+			),
+			'box_border_color'	=> array(
+				'type'				=> 'color'
+			),
+			'box_border_radius'	=> array(
+				'type'				=> 'radius'
+			),
+			'box_shadow'		=> array(
+				'type'				=> 'shadow',
+				'condition'			=> ( isset( $settings->box_shadow_display ) && 'yes' == $settings->box_shadow_display )
+			),
+			'box_shadow_color'	=> array(
+				'type'				=> 'shadow_color',
+				'condition'			=> ( isset( $settings->box_shadow_display ) && 'yes' == $settings->box_shadow_display ),
+				'opacity'			=> isset( $settings->box_shadow_opacity ) ? $settings->box_shadow_opacity : 1
+			),
+		), 'box_border_group' );
+
+		// Handle box old padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'box_padding', 'padding', 'box_padding_group' );
+
+		// Handle old image border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'image_border'	=> array(
+				'type'				=> 'style'
+			),
+			'image_border_width'	=> array(
+				'type'				=> 'width'
+			),
+			'image_border_color'	=> array(
+				'type'				=> 'color'
+			),
+			'image_border_radius'	=> array(
+				'type'				=> 'radius'
+			),
+			'image_shadow'		=> array(
+				'type'				=> 'shadow',
+				'condition'			=> ( isset( $settings->image_shadow_display ) && 'yes' == $settings->image_shadow_display )
+			),
+			'image_shadow_color'	=> array(
+				'type'				=> 'shadow_color',
+				'condition'			=> ( isset( $settings->image_shadow_display ) && 'yes' == $settings->image_shadow_display ),
+				'opacity'			=> isset( $settings->image_shadow_opacity ) ? $settings->image_shadow_opacity : 1
+			),
+		), 'image_border_group' );
+
+		// Handle content old padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'box_content_padding', 'padding', 'content_padding' );
+
+		// Handle old social icons border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'social_links_border'	=> array(
+				'type'				=> 'style'
+			),
+			'social_links_border_width'	=> array(
+				'type'				=> 'width'
+			),
+			'social_links_border_radius'	=> array(
+				'type'				=> 'radius'
+			),
+		), 'social_links_border_group' );
+
+		if ( isset( $settings->social_links_border_color ) ) {
+			$settings->social_links_border_group['color'] = $settings->social_links_border_color['primary'];
+			$settings->social_links_border_hover_color = $settings->social_links_border_color['secondary'];
+			unset( $settings->social_links_border_color );
+		}
+
+		// Handle social links old padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'social_links_padding', 'padding', 'social_links_padding' );
+
+		// Handle title's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'title_font'	=> array(
+				'type'			=> 'font'
+			),
+			'title_custom_font_size'	=> array(
+				'type'			=> 'font_size',
+				'condition'		=> ( isset( $settings->title_font_size_toggle ) && 'custom' == $settings->title_font_size_toggle )
+			),
+			'title_custom_line_height'	=> array(
+				'type'			=> 'line_height',
+				'condition'		=> ( isset( $settings->title_line_height_toggle ) && 'custom' == $settings->title_line_height_toggle )
+			),
+		), 'title_typography' );
+
+		// Handle designation's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'designation_font'	=> array(
+				'type'			=> 'font'
+			),
+			'designation_custom_font_size'	=> array(
+				'type'			=> 'font_size',
+				'condition'		=> ( isset( $settings->designation_font_size_toggle ) && 'custom' == $settings->designation_font_size_toggle )
+			),
+			'designation_custom_line_height'	=> array(
+				'type'			=> 'line_height',
+				'condition'		=> ( isset( $settings->designation_line_height_toggle ) && 'custom'	== $settings->designation_line_height_toggle )
+			),
+		), 'designation_typography' );
+
+		// Handle description's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'description_font'	=> array(
+				'type'			=> 'font'
+			),
+			'description_custom_font_size'	=> array(
+				'type'			=> 'font_size',
+				'condition'		=> ( isset( $settings->description_font_size_toggle ) && 'custom' == $settings->description_font_size_toggle )
+			),
+			'description_custom_line_height'	=> array(
+				'type'			=> 'line_height',
+				'condition'		=> ( isset( $settings->description_line_height_toggle ) && 'custom'	== $settings->description_line_height_toggle )
+			),
+		), 'description_typography' );
+
+		// Handle old box background dual color field.
+		$settings = PP_Module_Fields::handle_dual_color_field( $settings, 'box_background', array(
+			'primary'	=> 'box_bg_color',
+			'secondary'	=> 'box_bg_hover_color'
+		) );
+
+		// Handle old social icons background dual color field.
+		$settings = PP_Module_Fields::handle_dual_color_field( $settings, 'social_links_background', array(
+			'primary'	=> 'social_links_bg_color',
+			'secondary'	=> 'social_links_bg_hover_color'
+		) );
+
+		// Handle old link, link_target fields.
+		$settings = PP_Module_Fields::handle_link_field( $settings, array(
+			'link_url'			=> array(
+				'type'			=> 'link'
+			),
+			'link_target'	=> array(
+				'type'			=> 'target'
+			),
+		), 'link' );
+
+		return $settings;
+	}
 
     /**
 	 * @property $data
@@ -233,7 +382,7 @@ class PPTeamModule extends FLBuilderModule {
 	{
 		$photo = $this->get_data();
 
-		$link = $this->settings->link_url;
+		$link = $this->settings->link;
 
 		return $link;
 	}
@@ -281,7 +430,7 @@ class PPTeamModule extends FLBuilderModule {
 	 */
 	protected function _has_source()
 	{
-		if(!empty($this->settings->link_url)) {
+		if(!empty($this->settings->link)) {
 			return true;
 		}
 
@@ -394,6 +543,7 @@ FLBuilder::register_module('PPTeamModule', array(
             ),
             'member_setting'       => array( // Section
                 'title'         => __('Details', 'bb-powerpack'), // Section Title
+				'collapsed'			=> true,
                 'fields'        => array( // Section Fields
                     'member_name'     => array(
                         'type'          => 'text',
@@ -425,30 +575,21 @@ FLBuilder::register_module('PPTeamModule', array(
                             'selector'         => '.pp-member-wrapper .pp-member-description'
                         )
                     ),
-                    'link_url'          => array(
+                    'link'  => array(
 						'type'          => 'link',
-						'label'         => __('Link URL', 'bb-powerpack'),
-                        'connections'   => array( 'url' ),
-						'preview'         => array(
-							'type'            => 'none'
+						'label'         => __('Link', 'bb-powerpack'),
+						'placeholder'   => 'http://www.example.com',
+						'show_target'	=> true,
+						'connections'   => array( 'url' ),
+						'preview'       => array(
+							'type'          => 'none'
 						)
 					),
-					'link_target'   => array(
-						'type'          => 'select',
-						'label'         => __('Link Target', 'bb-powerpack'),
-						'default'       => '_self',
-						'options'       => array(
-							'_self'         => __('Same Window', 'bb-powerpack'),
-							'_blank'        => __('New Window', 'bb-powerpack')
-						),
-						'preview'         => array(
-							'type'            => 'none'
-						)
-					)
                 )
             ),
             'separator_setting' => array(
                 'title' =>  __('Separator', 'bb-powerpack'),
+				'collapsed'			=> true,
                 'fields'    => array(
                     'separator_display'   => array(
 						'type'          => 'pp-switch',
@@ -497,6 +638,7 @@ FLBuilder::register_module('PPTeamModule', array(
 			),
             'social_icons'  => array(
                 'title' => __( 'Links', 'bb-powerpack' ),
+				'collapsed'			=> true,
                 'fields'    => array(
                     'email'	=> array(
                         'type'          => 'text',
@@ -578,198 +720,49 @@ FLBuilder::register_module('PPTeamModule', array(
             'general_style' => array(
                 'title' => __('Box', 'bb-powerpack'),
                 'fields'    => array(
-                    'box_background'      => array(
-                        'type'      => 'pp-color',
-                        'label'     => __('Background Color', 'bb-powerpack'),
-                        'show_reset' => true,
-                        'default'   => array(
-                            'primary'	=> '',
-                            'secondary'	=> ''
+					'box_bg_color'	=> array(
+						'type'			=> 'color',
+						'label'			=> __('Background Color', 'bb-powerpack'),
+						'show_reset'	=> true,
+						'show_alpha'	=> true,
+						'default'		=> ''
+					),
+					'box_bg_hover_color'	=> array(
+						'type'			=> 'color',
+						'label'			=> __('Background Hover Color', 'bb-powerpack'),
+						'show_reset'	=> true,
+						'show_alpha'	=> true,
+						'default'		=> ''
+					),
+                    'box_border_group'	=> array(
+						'type'          => 'border',
+						'label'         => __( 'Border', 'bb-powerpack' ),
+						'responsive'	=> true,
+						'preview'   	=> array(
+                            'type'  		=> 'css',
+                            'selector'  	=> '.pp-member-wrapper',
+                            'property'  	=> 'border',
                         ),
-                        'options'	=> array(
-                            'primary'	=> __('Default', 'bb-powerpack'),
-                            'secondary' => __('Hover', 'bb-powerpack')
-                        )
-                    ),
-                    'box_border'    => array(
-                        'type'      => 'pp-switch',
-                        'label'     => __('Border Style', 'bb-powerpack'),
-                        'default'   => 'none',
-                        'options'   => array(
-                            'none'  => __('None', 'bb-powerpack'),
-                            'solid'  => __('Solid', 'bb-powerpack'),
-                            'dashed'  => __('Dashed', 'bb-powerpack'),
-                            'dotted'  => __('Dotted', 'bb-powerpack'),
-                        ),
-                        'toggle'    => array(
-                            'dashed'   => array(
-                                'fields'    => array('box_border_width', 'box_border_color')
-                            ),
-                            'dotted'   => array(
-                                'fields'    => array('box_border_width', 'box_border_color')
-                            ),
-                            'solid'   => array(
-                                'fields'    => array('box_border_width', 'box_border_color')
-                            ),
-                        ),
-                    ),
-                    'box_border_width'   => array(
-                        'type'      => 'text',
-                        'label'     => __('Border Width', 'bb-powerpack'),
-                        'size'      => 5,
-                        'maxlength' => 3,
-                        'default'   => 1,
-                        'description'   => 'px',
-                        'preview'              => array(
-                            'type'				=> 'css',
-                            'selector'	=> '.pp-member-wrapper',
-                            'property'	=> 'border-width',
-                            'unit'		=> 'px'
-                        )
-                    ),
-                    'box_border_color'   => array(
-                        'type'      => 'color',
-                        'label'     => __('Border Color', 'bb-powerpack'),
-                        'show_reset'   => true,
-                        'preview'              => array(
-                            'type'		=> 'css',
-                            'selector'	=> '.pp-member-wrapper',
-                            'property'	=> 'border-color',
-                        )
-                    ),
-                    'box_border_radius'   => array(
-                        'type'      => 'text',
-                        'label'     => __('Round Corners', 'bb-powerpack'),
-                        'size'      => 5,
-                        'maxlength' => 3,
-                        'default'   => 0,
-                        'description'   => 'px',
-                        'preview'       => array(
-                            'type'		=> 'css',
-                            'selector'	=> '.pp-member-wrapper',
-                            'property'	=> 'border-radius',
-                            'unit'		=> 'px'
-                        ),
-                    ),
-					'box_shadow_display'   => array(
-                        'type'                 => 'pp-switch',
-                        'label'                => __('Enable Shadow', 'bb-powerpack'),
-                        'default'              => 'no',
-                        'options'              => array(
-                            'yes'          => __('Yes', 'bb-powerpack'),
-                            'no'             => __('No', 'bb-powerpack'),
-                        ),
-                        'toggle'    =>  array(
-                            'yes'   => array(
-                                'fields'    => array('box_shadow', 'box_shadow_color', 'box_shadow_opacity')
-                            )
-                        )
-                    ),
-                    'box_shadow' 		=> array(
-                        'type'              => 'pp-multitext',
-                        'label'             => __('Box Shadow', 'bb-powerpack'),
-                        'default'           => array(
-                            'vertical'			=> 2,
-                            'horizontal'		=> 2,
-                            'blur'				=> 2,
-                            'spread'			=> 1
-                        ),
-                        'options'			=> array(
-							'horizontal'		=> array(
-								'placeholder'		=> __('Horizontal', 'bb-powerpack'),
-								'tooltip'			=> __('Horizontal', 'bb-powerpack'),
-								'icon'				=> 'fa-arrows-h'
-							),
-                            'vertical'			=> array(
-                                'placeholder'		=> __('Vertical', 'bb-powerpack'),
-                                'tooltip'			=> __('Vertical', 'bb-powerpack'),
-                                'icon'				=> 'fa-arrows-v'
-                            ),
-                            'blur'				=> array(
-                                'placeholder'		=> __('Blur', 'bb-powerpack'),
-                                'tooltip'			=> __('Blur', 'bb-powerpack'),
-                                'icon'				=> 'fa-circle-o'
-                            ),
-                            'spread'			=> array(
-                                'placeholder'		=> __('Spread', 'bb-powerpack'),
-                                'tooltip'			=> __('Spread', 'bb-powerpack'),
-                                'icon'				=> 'fa-paint-brush'
-                            ),
-                        )
-                    ),
-                    'box_shadow_color' => array(
-                        'type'              => 'color',
-                        'label'             => __('Shadow Color', 'bb-powerpack'),
-                        'default'           => '000000',
-                    ),
-                    'box_shadow_opacity' => array(
-                        'type'              => 'text',
-                        'label'             => __('Shadow Opacity', 'bb-powerpack'),
-                        'description'       => '%',
-                        'size'             => 5,
-                        'default'           => 30,
-                    ),
-                    'box_padding'   => array(
-                        'type'      => 'pp-multitext',
-                        'label'     => __('Box Padding', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'default'       => array(
-                            'top' => 0,
-                            'right' => 0,
-                            'bottom' => 0,
-                            'left' => 0,
-                        ),
-                        'options' 		=> array(
-                            'top' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Top', 'bb-powerpack'),
-                                'tooltip'       => __('Top', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-up',
-                                'preview'              => array(
-                                    'selector'	=> '.pp-member-wrapper',
-                                    'property'	=> 'padding-top',
-                                    'unit'		=> 'px'
-                                )
-                            ),
-                            'bottom' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Bottom', 'bb-powerpack'),
-                                'tooltip'       => __('Bottom', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-down',
-                                'preview'              => array(
-                                    'selector'	=> '.pp-member-wrapper',
-                                    'property'	=> 'padding-bottom',
-                                    'unit'		=> 'px'
-                                )
-                            ),
-                            'left' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Left', 'bb-powerpack'),
-                                'tooltip'       => __('Left', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-left',
-                                'preview'              => array(
-                                    'selector'	=> '.pp-member-wrapper',
-                                    'property'	=> 'padding-left',
-                                    'unit'		=> 'px'
-                                )
-                            ),
-                            'right' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Right', 'bb-powerpack'),
-                                'tooltip'       => __('Right', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-right',
-                                'preview'              => array(
-                                    'selector'	=> '.pp-member-wrapper',
-                                    'property'	=> 'padding-right',
-                                    'unit'		=> 'px'
-                                )
-                            ),
-                        )
-                    ),
+					),
+					'box_padding_group'	=> array(
+						'type'				=> 'dimension',
+						'label'				=> __('Padding', 'bb-powerpack'),
+						'default'			=> '0',
+						'units'				=> array('px'),
+						'slider'			=> true,
+						'responsive'		=> true,
+						'preview'			=> array(
+							'type'				=> 'css',
+							'selector'			=> '.pp-member-wrapper',
+							'property'			=> 'padding',
+							'unit'				=> 'px'
+						)
+					),
                 )
             ),
             'image_style' => array(
                 'title' => __('Image', 'bb-powerpack'),
+				'collapsed'			=> true,
                 'fields'    => array(
                     'image_greyscale'       => array(
 						'type'          => 'pp-switch',
@@ -780,128 +773,21 @@ FLBuilder::register_module('PPTeamModule', array(
 							'greyscale'             => __('Greyscale', 'bb-powerpack')
 						),
 					),
-                    'image_border'    => array(
-                        'type'      => 'pp-switch',
-                        'label'     => __('Border Style', 'bb-powerpack'),
-                        'default'   => 'none',
-                        'options'   => array(
-                            'none'  => __('None', 'bb-powerpack'),
-                            'solid'  => __('Solid', 'bb-powerpack'),
-                            'dashed'  => __('Dashed', 'bb-powerpack'),
-                            'dotted'  => __('Dotted', 'bb-powerpack'),
+					'image_border_group'	=> array(
+						'type'          => 'border',
+						'label'         => __( 'Border', 'bb-powerpack' ),
+						'responsive'	=> true,
+						'preview'   	=> array(
+                            'type'  		=> 'css',
+                            'selector'  	=> '.pp-member-wrapper .pp-member-image img',
+                            'property'  	=> 'border',
                         ),
-                        'toggle'    => array(
-                            'dashed'   => array(
-                                'fields'    => array('image_border_width', 'image_border_color')
-                            ),
-                            'dotted'   => array(
-                                'fields'    => array('image_border_width', 'image_border_color')
-                            ),
-                            'solid'   => array(
-                                'fields'    => array('image_border_width', 'image_border_color')
-                            ),
-                        ),
-                    ),
-                    'image_border_width'   => array(
-                        'type'      => 'text',
-                        'label'     => __('Border Width', 'bb-powerpack'),
-                        'size'      => 5,
-                        'maxlength' => 3,
-                        'default'   => 1,
-                        'description'   => 'px',
-                        'preview'              => array(
-                            'type'				=> 'css',
-                            'selector'	=> '.pp-member-wrapper .pp-member-image img',
-                            'property'	=> 'border-width',
-                            'unit'		=> 'px'
-                        )
-                    ),
-                    'image_border_color'   => array(
-                        'type'      => 'color',
-                        'label'     => __('Border Color', 'bb-powerpack'),
-                        'show_reset'   => true,
-                        'preview'              => array(
-                            'type'		=> 'css',
-                            'selector'	=> '.pp-member-wrapper .pp-member-image img',
-                            'property'	=> 'border-color',
-                        )
-                    ),
-                    'image_border_radius'   => array(
-                        'type'      => 'text',
-                        'label'     => __('Round Corners', 'bb-powerpack'),
-                        'size'      => 5,
-                        'maxlength' => 3,
-                        'default'   => 0,
-                        'description'   => 'px',
-                        'preview'       => array(
-                            'type'		=> 'css',
-                            'selector'	=> '.pp-member-wrapper .pp-member-image img',
-                            'property'	=> 'border-radius',
-                            'unit'		=> 'px'
-                        ),
-                    ),
-                    'image_shadow_display'   => array(
-                        'type'                 => 'pp-switch',
-                        'label'                => __('Enable Shadow', 'bb-powerpack'),
-                        'default'              => 'no',
-                        'options'              => array(
-                            'yes'          => __('Yes', 'bb-powerpack'),
-                            'no'             => __('No', 'bb-powerpack'),
-                        ),
-                        'toggle'    =>  array(
-                            'yes'   => array(
-                                'fields'    => array('image_shadow', 'image_shadow_color', 'image_shadow_opacity')
-                            )
-                        )
-                    ),
-                    'image_shadow' 		=> array(
-                        'type'              => 'pp-multitext',
-                        'label'             => __('Image Shadow', 'bb-powerpack'),
-                        'default'           => array(
-                            'vertical'			=> 2,
-                            'horizontal'		=> 2,
-                            'blur'				=> 2,
-                            'spread'			=> 1
-                        ),
-                        'options'			=> array(
-                            'vertical'			=> array(
-                                'placeholder'		=> __('Vertical', 'bb-powerpack'),
-                                'tooltip'			=> __('Vertical', 'bb-powerpack'),
-                                'icon'				=> 'fa-arrows-v'
-                            ),
-                            'horizontal'		=> array(
-                                'placeholder'		=> __('Horizontal', 'bb-powerpack'),
-                                'tooltip'			=> __('Horizontal', 'bb-powerpack'),
-                                'icon'				=> 'fa-arrows-h'
-                            ),
-                            'blur'				=> array(
-                                'placeholder'		=> __('Blur', 'bb-powerpack'),
-                                'tooltip'			=> __('Blur', 'bb-powerpack'),
-                                'icon'				=> 'fa-circle-o'
-                            ),
-                            'spread'			=> array(
-                                'placeholder'		=> __('Spread', 'bb-powerpack'),
-                                'tooltip'			=> __('Spread', 'bb-powerpack'),
-                                'icon'				=> 'fa-paint-brush'
-                            ),
-                        )
-                    ),
-                    'image_shadow_color' => array(
-                        'type'              => 'color',
-                        'label'             => __('Shadow Color', 'bb-powerpack'),
-                        'default'           => '000000',
-                    ),
-                    'image_shadow_opacity' => array(
-                        'type'              => 'text',
-                        'label'             => __('Shadow Opacity', 'bb-powerpack'),
-                        'description'       => '%',
-                        'size'             => 5,
-                        'default'           => 50,
-                    ),
+					),
                 )
             ),
             'separator_style' => array(
                 'title' => __('Separator', 'bb-powerpack'),
+				'collapsed'			=> true,
                 'fields'    => array(
                     'separator_color' => array(
                         'type'              => 'color',
@@ -945,16 +831,12 @@ FLBuilder::register_module('PPTeamModule', array(
             ),
 			'content_style'	=> array(
 				'title'	=> __( 'Content', 'bb-powerpack' ),
+				'collapsed'			=> true,
 				'fields'	=> array(
                     'box_content_alignment'    => array(
-                        'type'      => 'pp-switch',
+                        'type'      => 'align',
                         'label'     => __('Content Alignment', 'bb-powerpack'),
                         'default'   => 'center',
-                        'options'   => array(
-                            'left'  => __('Left', 'bb-powerpack'),
-                            'center'  => __('Center', 'bb-powerpack'),
-                            'Right'  => __('Right', 'bb-powerpack'),
-                        ),
                     ),
 					'content_position'   => array(
                         'type'                 => 'select',
@@ -978,178 +860,87 @@ FLBuilder::register_module('PPTeamModule', array(
 							'property'			=> 'background-color'
 						)
                     ),
-					'box_content_padding'   => array(
-                        'type'      => 'pp-multitext',
-                        'label'     => __('Content Padding', 'bb-powerpack'),
-                        'description'   =>'px',
-                        'default'       => array(
-                            'top' => 0,
-                            'right' => 0,
-                            'bottom' => 0,
-                            'left' => 0,
-                        ),
-                        'options' 		=> array(
-                            'top' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Top', 'bb-powerpack'),
-                                'tooltip'       => __('Top', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-up',
-                                'preview'              => array(
-                                    'selector'	=> '.pp-member-wrapper .pp-member-content',
-                                    'property'	=> 'padding-top',
-                                    'unit'		=> 'px'
-                                )
-                            ),
-                            'bottom' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Bottom', 'bb-powerpack'),
-                                'tooltip'       => __('Bottom', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-down',
-                                'preview'              => array(
-                                    'selector'	=> '.pp-member-wrapper .pp-member-content',
-                                    'property'	=> 'padding-bottom',
-                                    'unit'		=> 'px'
-                                )
-                            ),
-                            'left' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Left', 'bb-powerpack'),
-                                'tooltip'       => __('Left', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-left',
-                                'preview'              => array(
-                                    'selector'	=> '.pp-member-wrapper .pp-member-content',
-                                    'property'	=> 'padding-left',
-                                    'unit'		=> 'px'
-                                )
-                            ),
-                            'right' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Right', 'bb-powerpack'),
-                                'tooltip'       => __('Right', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-right',
-                                'preview'       => array(
-                                    'selector'	=> '.pp-member-wrapper .pp-member-content',
-                                    'property'	=> 'padding-right',
-                                    'unit'		=> 'px'
-                                )
-                            ),
-                        )
-                    ),
+					'content_padding'	=> array(
+						'type'				=> 'dimension',
+						'label'				=> __('Content Padding', 'bb-powerpack'),
+						'default'			=> '0',
+						'units'				=> array('px'),
+						'slider'			=> true,
+						'responsive'		=> true,
+						'preview'			=> array(
+							'type'				=> 'css',
+							'selector'			=> '.pp-member-wrapper .pp-member-content',
+							'property'			=> 'padding',
+							'unit'				=> 'px'
+						)
+					),
 				)
 			),
             'social_icons_style'    => array(
                 'title' => __('Social Icons', 'bb-powerpack'),
+				'collapsed'			=> true,
                 'fields'    => array(
-                    'social_links_background'      => array(
-                        'type'      => 'pp-color',
-                        'label'     => __('Background Color', 'bb-powerpack'),
-                        'show_reset' => true,
-                        'default'   => array(
-                            'primary'	=> '',
-                            'secondary'	=> ''
-                        ),
-                        'options'	=> array(
-                            'primary'	=> __('Default', 'bb-powerpack'),
-                            'secondary' => __('Hover', 'bb-powerpack')
-                        )
-                    ),
-                    'social_links_color'      => array(
-                        'type'      => 'pp-color',
-                        'label'     => __('Icon Color', 'bb-powerpack'),
-                        'show_reset' => true,
-                        'default'   => array(
-                            'primary'	=> '666666',
-                            'secondary'	=> '333333'
-                        ),
-                        'options'	=> array(
-                            'primary'	=> __('Default', 'bb-powerpack'),
-                            'secondary' => __('Hover', 'bb-powerpack')
-                        )
-                    ),
+					'social_links_bg_color'	=> array(
+						'type'			=> 'color',
+						'label'			=> __('Background Color', 'bb-powerpack'),
+						'show_reset'	=> true,
+						'show_alpha'	=> true,
+						'default'		=> ''
+					),
+					'social_links_bg_hover_color'	=> array(
+						'type'			=> 'color',
+						'label'			=> __('Background Hover Color', 'bb-powerpack'),
+						'show_reset'	=> true,
+						'show_alpha'	=> true,
+						'default'		=> ''
+					),
+					'social_links_text_color'	=> array(
+						'type'			=> 'color',
+						'label'			=> __('Icon Color', 'bb-powerpack'),
+						'show_reset'	=> true,
+						'default'		=> '666666'
+					),
+					'social_links_text_hover_color'	=> array(
+						'type'			=> 'color',
+						'label'			=> __('Icon Hover Color', 'bb-powerpack'),
+						'show_reset'	=> true,
+						'default'		=> '333333'
+					),
                     'social_links_font_size'   => array(
-                        'type'      => 'text',
-                        'label'     => __('Icon Size', 'bb-powerpack'),
-                        'size'      => 5,
-                        'maxlength' => 3,
-                        'default'   => 16,
-                        'description'   => 'px',
-                        'preview'              => array(
-                            'type'				=> 'css',
-                            'selector'	=> '.pp-member-social-icons li a',
-                            'property'	=> 'font-size',
-                            'unit'		=> 'px'
-                        )
-                    ),
-                    'social_links_border'    => array(
-                        'type'      => 'pp-switch',
-                        'label'     => __('Border Style', 'bb-powerpack'),
-                        'default'   => 'none',
-                        'options'   => array(
-                            'none'  => __('None', 'bb-powerpack'),
-                            'solid'  => __('Solid', 'bb-powerpack'),
-                            'dashed'  => __('Dashed', 'bb-powerpack'),
-                            'dotted'  => __('Dotted', 'bb-powerpack'),
-                        ),
-                        'toggle'    => array(
-                            'dashed'   => array(
-                                'fields'    => array('social_links_border_width', 'social_links_border_color')
-                            ),
-                            'dotted'   => array(
-                                'fields'    => array('social_links_border_width', 'social_links_border_color')
-                            ),
-                            'solid'   => array(
-                                'fields'    => array('social_links_border_width', 'social_links_border_color')
-                            ),
-                        ),
-                    ),
-                    'social_links_border_width'   => array(
-                        'type'      => 'text',
-                        'label'     => __('Border Width', 'bb-powerpack'),
-                        'size'      => 5,
-                        'maxlength' => 3,
-                        'default'   => 1,
-                        'description'   => 'px',
-                        'preview'              => array(
-                            'type'				=> 'css',
-                            'selector'	=> '.pp-member-social-icons li a',
-                            'property'	=> 'border-width',
-                            'unit'		=> 'px'
-                        )
-                    ),
-                    'social_links_border_color'   => array(
-                        'type'      => 'pp-color',
-                        'label'     => __('Border Color', 'bb-powerpack'),
-                        'show_reset' => true,
-                        'default'   => array(
-                            'primary'	=> '666666',
-                            'secondary'	=> '333333'
-                        ),
-                        'options'	=> array(
-                            'primary'	=> __('Default', 'bb-powerpack'),
-                            'secondary' => __('Hover', 'bb-powerpack')
-                        )
-                    ),
-                    'social_links_border_radius'   => array(
-                        'type'      => 'text',
-                        'label'     => __('Round Corners', 'bb-powerpack'),
-                        'size'      => 5,
-                        'maxlength' => 3,
-                        'default'   => 0,
-                        'description'   => 'px',
+                        'type'          => 'unit',
+						'label'         => __('Icon Size', 'bb-powerpack'),
+                        'default'       => '10',
+						'units'   		=> array('px'),
+						'slider'		=> true,
                         'preview'       => array(
-                            'type'		=> 'css',
-                            'selector'	=> '.pp-member-social-icons li a',
-                            'property'	=> 'border-radius',
-                            'unit'		=> 'px'
-                        ),
+                            'type'			=> 'css',
+                            'selector'		=> '.pp-member-social-icons li a',
+                            'property'		=> 'font-size',
+                            'unit'			=> 'px'
+                        )
                     ),
+                    'social_links_border_group'	=> array(
+						'type'          => 'border',
+						'label'         => __( 'Border', 'bb-powerpack' ),
+						'responsive'	=> true,
+						'preview'   	=> array(
+                            'type'  		=> 'css',
+                            'selector'  	=> '.pp-member-social-icons li a',
+                            'property'  	=> 'border',
+                        ),
+					),
+					'social_links_border_hover_color'	=> array(
+						'type'			=> 'color',
+						'label'			=> __( 'Border Hover Color', 'bb-powerpack' ),
+						'default'		=> '333333'
+					),
                     'social_links_space'   => array(
-                        'type'      => 'text',
-                        'label'     => __('Space Between Icons', 'bb-powerpack'),
-                        'size'      => 5,
-                        'maxlength' => 3,
-                        'default'   => 10,
-                        'description'   => 'px',
+                        'type'          => 'unit',
+						'label'         => __('Space Between Icons', 'bb-powerpack'),
+                        'default'       => '10',
+						'units'   		=> array('px'),
+						'slider'		=> true,
+						'responsive'	=> true,
                         'preview'       => array(
                             'type'		=> 'css',
                             'selector'	=> '.pp-member-social-icons li',
@@ -1157,63 +948,20 @@ FLBuilder::register_module('PPTeamModule', array(
                             'unit'		=> 'px'
                         ),
                     ),
-                    'social_links_padding'   => array(
-                        'type'      => 'pp-multitext',
-                        'label'     => __('Padding', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'default'       => array(
-                            'top' => 6,
-                            'right' => 5,
-                            'bottom' => 6,
-                            'left' => 5,
-                        ),
-                        'options' 		=> array(
-                            'top' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Top', 'bb-powerpack'),
-                                'tooltip'       => __('Top', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-up',
-                                'preview'       => array(
-                                    'selector'	=> '.pp-member-social-icons li a',
-                                    'property'	=> 'padding-top',
-                                    'unit'		=> 'px'
-                                )
-                            ),
-                            'bottom' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Bottom', 'bb-powerpack'),
-                                'tooltip'       => __('Bottom', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-down',
-                                'preview'       => array(
-                                    'selector'	=> '.pp-member-social-icons li a',
-                                    'property'	=> 'padding-bottom',
-                                    'unit'		=> 'px'
-                                )
-                            ),
-                            'left' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Left', 'bb-powerpack'),
-                                'tooltip'       => __('Left', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-left',
-                                'preview'              => array(
-                                    'selector'	=> '.pp-member-social-icons li a',
-                                    'property'	=> 'padding-left',
-                                    'unit'		=> 'px'
-                                )
-                            ),
-                            'right' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Right', 'bb-powerpack'),
-                                'tooltip'       => __('Right', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-right',
-                                'preview'              => array(
-                                    'selector'	=> '.pp-member-social-icons li a',
-                                    'property'	=> 'padding-right',
-                                    'unit'		=> 'px'
-                                )
-                            ),
-                        )
-                    ),
+					'social_links_padding'	=> array(
+						'type'				=> 'dimension',
+						'label'				=> __('Padding', 'bb-powerpack'),
+						'default'			=> '5',
+						'units'				=> array('px'),
+						'slider'			=> true,
+						'responsive'		=> true,
+						'preview'			=> array(
+							'type'				=> 'css',
+							'selector'			=> '.pp-member-social-icons li a',
+							'property'			=> 'padding',
+							'unit'				=> 'px'
+						)
+					),
                 )
             )
         )
@@ -1238,108 +986,13 @@ FLBuilder::register_module('PPTeamModule', array(
 						'default'	=> 'h4',
 						'help' 		=> __('Set the HTML tag for title output', 'bb-powerpack'),
 					),
-					'title_font'	=> array(
-						'type'		=> 'font',
-						'label'		=> __('Font', 'bb-powerpack'),
-						'default'	=> array(
-							'family'	=> 'Default',
-							'weight'	=> '400',
-						),
-						'preview'       => array(
-							'type'		=> 'font',
-							'selector'        => '.pp-member-wrapper .pp-member-name',
-						),
-					),
-					'title_font_size_toggle' => array(
-						'type'		=> 'pp-switch',
-						'label'		=> __('Font Size', 'bb-powerpack'),
-						'default'	=> 'default',
-						'options'       => array(
-							'default'          => __('Default', 'bb-powerpack'),
-							'custom'         => __('Custom', 'bb-powerpack'),
-						),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array('title_custom_font_size')
-							)
-						),
-					),
-					'title_custom_font_size'	=> array(
-						'type' 		=> 'pp-multitext',
-						'label'		=> __('Custom Font Size', 'bb-powerpack'),
-						'default'		=> array(
-							'desktop'	=> 18,
-							'tablet'	=> '',
-							'mobile'	=> '',
-						),
-						'options' 		=> array(
-							'desktop' => array(
-								'icon'		=> 'fa-desktop',
-								'placeholder'	=> __('Desktop', 'bb-powerpack'),
-								'tooltip'	=> __('Desktop', 'bb-powerpack'),
-								'preview'       => array(
-									'selector'        => '.pp-member-wrapper .pp-member-name',
-									'property'        => 'font-size',
-									'unit'            => 'px'
-		                        ),
-							),
-							'tablet' => array(
-								'icon'		=> 'fa-tablet',
-								'placeholder'	=> __('Tablet', 'bb-powerpack'),
-								'tooltip'	=> __('Tablet', 'bb-powerpack'),
-							),
-							'mobile' => array(
-								'icon'		=> 'fa-mobile',
-								'placeholder'	=> __('Mobile', 'bb-powerpack'),
-								'tooltip'	=> __('Mobile', 'bb-powerpack'),
-							),
-
-						),
-					),
-					'title_line_height_toggle' => array(
-						'type'		=> 'pp-switch',
-						'label'		=> __('Line Height', 'bb-powerpack'),
-						'default'	=> 'default',
-						'options'       => array(
-							'default'          => __('Default', 'bb-powerpack'),
-							'custom'         => __('Custom', 'bb-powerpack'),
-						),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array('title_custom_line_height')
-							)
-						),
-					),
-					'title_custom_line_height'	=> array(
-						'type' 		=> 'pp-multitext',
-						'label'		=> __('Custom Line Height', 'bb-powerpack'),
-						'help' 		=> __('Recommended values between 1-2', 'bb-powerpack'),
-						'default'	=> array(
-							'desktop'	=> 1.6,
-							'tablet'	=> '',
-							'mobile'	=> '',
-						),
-						'options' 		=> array(
-							'desktop' => array(
-								'icon'		=> 'fa-desktop',
-								'placeholder'	=> __('Desktop', 'bb-powerpack'),
-								'tooltip'	=> __('Desktop', 'bb-powerpack'),
-								'preview'       => array(
-									'selector'        => '.pp-member-wrapper .pp-member-name',
-									'property'        => 'line-height',
-		                        ),
-							),
-							'tablet' => array(
-								'icon'		=> 'fa-tablet',
-								'placeholder'	=> __('Tablet', 'bb-powerpack'),
-								'tooltip'	=> __('Tablet', 'bb-powerpack'),
-							),
-							'mobile' => array(
-								'icon'		=> 'fa-mobile',
-								'placeholder'	=> __('Mobile', 'bb-powerpack'),
-								'tooltip'	=> __('Mobile', 'bb-powerpack'),
-							),
-
+					'title_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-member-wrapper .pp-member-name',
 						),
 					),
 					'title_font_color' 		=> array(
@@ -1389,109 +1042,15 @@ FLBuilder::register_module('PPTeamModule', array(
 			),
 			'designation_typography' => array(
 				'title'		=> __('Designation', 'bb-powerpack'),
+				'collapsed'			=> true,
 				'fields' 	=> array(
-					'designation_font'	=> array(
-						'type'		=> 'font',
-						'label'		=> __('Font', 'bb-powerpack'),
-						'default'	=> array(
-							'family'	=> 'Default',
-							'weight'	=> '400',
-						),
-						'preview'       => array(
-							'type'		=> 'font',
-							'selector'        => '.pp-member-wrapper .pp-member-designation',
-						),
-					),
-					'designation_font_size_toggle' => array(
-						'type'		=> 'pp-switch',
-						'label'		=> __('Font Size', 'bb-powerpack'),
-						'default'	=> 'default',
-						'options'       => array(
-							'default'          => __('Default', 'bb-powerpack'),
-							'custom'         => __('Custom', 'bb-powerpack'),
-						),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array('designation_custom_font_size')
-							)
-						),
-					),
-					'designation_custom_font_size'	=> array(
-						'type' 		=> 'pp-multitext',
-						'label'		=> __('Custom Font Size', 'bb-powerpack'),
-						'default'	=> array(
-							'desktop'	=> 15,
-							'tablet'	=> '',
-							'mobile'	=> '',
-						),
-						'options' 		=> array(
-							'desktop' => array(
-								'icon'		=> 'fa-desktop',
-								'placeholder'	=> __('Desktop', 'bb-powerpack'),
-								'tooltip'	=> __('Desktop', 'bb-powerpack'),
-								'preview'       => array(
-									'selector'        => '.pp-member-wrapper .pp-member-designation',
-									'property'        => 'font-size',
-									'unit'			=> 'px'
-								),
-							),
-							'tablet' => array(
-								'icon'		=> 'fa-tablet',
-								'placeholder'	=> __('Tablet', 'bb-powerpack'),
-								'tooltip'	=> __('Tablet', 'bb-powerpack'),
-							),
-							'mobile' => array(
-								'icon'		=> 'fa-mobile',
-								'placeholder'	=> __('Mobile', 'bb-powerpack'),
-								'tooltip'	=> __('Mobile', 'bb-powerpack'),
-							),
-
-						),
-					),
-					'designation_line_height_toggle' => array(
-						'type'		=> 'pp-switch',
-						'label'		=> __('Line Height', 'bb-powerpack'),
-						'default'	=> 'default',
-						'options'       => array(
-							'default'          => __('Default', 'bb-powerpack'),
-							'custom'         => __('Custom', 'bb-powerpack'),
-						),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array('designation_custom_line_height')
-							)
-						),
-					),
-					'designation_custom_line_height'	=> array(
-						'type' 		=> 'pp-multitext',
-						'label'		=> __('Custom Line Height', 'bb-powerpack'),
-						'help' => __('Recommended values between 1-2', 'bb-powerpack'),
-						'default'	=> array(
-							'desktop'	=> 1.6,
-							'tablet'	=> '',
-							'mobile'	=> '',
-						),
-						'options' 		=> array(
-							'desktop' => array(
-								'icon'		=> 'fa-desktop',
-								'placeholder'	=> __('Desktop', 'bb-powerpack'),
-								'tooltip'	=> __('Desktop', 'bb-powerpack'),
-								'preview'       => array(
-									'selector'        => '.pp-member-wrapper .pp-member-designation',
-									'property'        => 'line-height',
-								),
-							),
-							'tablet' => array(
-								'icon'		=> 'fa-tablet',
-								'placeholder'	=> __('Tablet', 'bb-powerpack'),
-								'tooltip'	=> __('Tablet', 'bb-powerpack'),
-							),
-							'mobile' => array(
-								'icon'		=> 'fa-mobile',
-								'placeholder'	=> __('Mobile', 'bb-powerpack'),
-								'tooltip'	=> __('Mobile', 'bb-powerpack'),
-							),
-
+					'designation_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-member-wrapper .pp-member-designation',
 						),
 					),
 					'designation_font_color' 		=> array(
@@ -1541,109 +1100,15 @@ FLBuilder::register_module('PPTeamModule', array(
 			),
             'description_typography' => array(
 				'title'		=> __('Description', 'bb-powerpack'),
+				'collapsed'			=> true,
 				'fields' 	=> array(
-					'description_font'	=> array(
-						'type'		=> 'font',
-						'label'		=> __('Font', 'bb-powerpack'),
-						'default'	=> array(
-							'family'	=> 'Default',
-							'weight'	=> '400',
-						),
-						'preview'       => array(
-							'type'		=> 'font',
-							'selector'        => '.pp-member-wrapper .pp-member-description',
-						),
-					),
-					'description_font_size_toggle' => array(
-						'type'		=> 'pp-switch',
-						'label'		=> __('Font Size', 'bb-powerpack'),
-						'default'	=> 'default',
-						'options'       => array(
-							'default'          => __('Default', 'bb-powerpack'),
-							'custom'         => __('Custom', 'bb-powerpack'),
-						),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array('description_custom_font_size')
-							)
-						),
-					),
-					'description_custom_font_size'	=> array(
-						'type' 		=> 'pp-multitext',
-						'label'		=> __('Custom Font Size', 'bb-powerpack'),
-						'default'	=> array(
-							'desktop'	=> 14,
-							'tablet'	=> '',
-							'mobile'	=> '',
-						),
-						'options' 		=> array(
-							'desktop' => array(
-								'icon'		=> 'fa-desktop',
-								'placeholder'	=> __('Desktop', 'bb-powerpack'),
-								'tooltip'	=> __('Desktop', 'bb-powerpack'),
-								'preview'       => array(
-									'selector'        => '.pp-member-wrapper .pp-member-description',
-									'property'        => 'font-size',
-									'unit'			=> 'px'
-								),
-							),
-							'tablet' => array(
-								'icon'		=> 'fa-tablet',
-								'placeholder'	=> __('Tablet', 'bb-powerpack'),
-								'tooltip'	=> __('Tablet', 'bb-powerpack'),
-							),
-							'mobile' => array(
-								'icon'		=> 'fa-mobile',
-								'placeholder'	=> __('Mobile', 'bb-powerpack'),
-								'tooltip'	=> __('Mobile', 'bb-powerpack'),
-							),
-
-						),
-					),
-					'description_line_height_toggle' => array(
-						'type'		=> 'pp-switch',
-						'label'		=> __('Line Height', 'bb-powerpack'),
-						'default'	=> 'default',
-						'options'       => array(
-							'default'          => __('Default', 'bb-powerpack'),
-							'custom'         => __('Custom', 'bb-powerpack'),
-						),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array('description_custom_line_height')
-							)
-						),
-					),
-					'description_custom_line_height'	=> array(
-						'type' 		=> 'pp-multitext',
-						'label'		=> __('Custom Line Height', 'bb-powerpack'),
-						'help' => __('Recommended values between 1-2', 'bb-powerpack'),
-						'default'	=> array(
-							'desktop'	=> 1.8,
-							'tablet'	=> '',
-							'mobile'	=> '',
-						),
-						'options' 		=> array(
-							'desktop' => array(
-								'icon'		=> 'fa-desktop',
-								'placeholder'	=> __('Desktop', 'bb-powerpack'),
-								'tooltip'	=> __('Desktop', 'bb-powerpack'),
-								'preview'       => array(
-									'selector'        => '.pp-member-wrapper .pp-member-description',
-									'property'        => 'line-height',
-								),
-							),
-							'tablet' => array(
-								'icon'		=> 'fa-tablet',
-								'placeholder'	=> __('Tablet', 'bb-powerpack'),
-								'tooltip'	=> __('Tablet', 'bb-powerpack'),
-							),
-							'mobile' => array(
-								'icon'		=> 'fa-mobile',
-								'placeholder'	=> __('Mobile', 'bb-powerpack'),
-								'tooltip'	=> __('Mobile', 'bb-powerpack'),
-							),
-
+					'description_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-member-wrapper .pp-member-description',
 						),
 					),
 					'description_font_color' 		=> array(

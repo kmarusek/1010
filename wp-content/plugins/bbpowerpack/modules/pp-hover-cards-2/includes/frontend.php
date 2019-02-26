@@ -11,7 +11,7 @@
 	?>
 		<div class="pp-hover-card pp-hover-card-<?php echo $i; ?> <?php echo $settings->style_type; ?> clearfix" onclick="">
 			<?php if( $card->hover_card_link_type == 'box' ) { ?>
-			<a class="pp-more-link-container" href="<?php echo $card->box_link == '#' ? 'javascript:void(0)' : $card->box_link; ?>" target="<?php echo $card->link_target; ?>">
+			<a class="pp-more-link-container" href="<?php echo $card->box_link == '#' ? 'javascript:void(0)' : $card->box_link; ?>" target="<?php echo $card->box_link_target; ?>">
 			<?php } ?>
 				<?php if ( $card->hover_card_bg_type == 'image' && isset( $card->hover_card_box_image_src ) ) { ?>
 					<img src="<?php echo $card->hover_card_box_image_src; ?>" class="pp-hover-card-image" alt="<?php echo $card->title; ?>" />

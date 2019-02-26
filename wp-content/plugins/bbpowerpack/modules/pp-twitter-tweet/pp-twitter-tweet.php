@@ -60,21 +60,20 @@ FLBuilder::register_module('PPTwitterTweetModule', array(
 						),
 					),
 					'alignment'	=> array(
-						'type'		=> 'pp-switch',
+						'type'		=> 'align',
 						'label'     => __( 'Alignment', 'bb-powerpack' ),
 						'default'   => 'center',
-						'options'   => array(
-							'left'		=> __( 'Left', 'bb-powerpack' ),
-							'center'	=> __( 'Center', 'bb-powerpack' ),
-							'right'		=> __( 'Right', 'bb-powerpack' ),
-						),
 					),
 					'width'     	=> array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __( 'Width', 'bb-powerpack' ),
 						'default'       => '',
-						'description'   => 'px',
-						'size'			=> 5,
+						'units'   		=> array( 'px' ),
+						'slider'		=> array(
+							'min'			=> '1',
+							'max'			=> '2000',
+							'step'			=> '50'
+						),
 					),
 					'link_color'     	=> array(
 						'type'          => 'color',

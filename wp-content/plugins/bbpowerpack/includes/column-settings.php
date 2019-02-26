@@ -2,19 +2,137 @@
 
 function pp_column_register_settings( $extensions ) {
 
-    if ( array_key_exists( 'gradient', $extensions['col'] ) || in_array( 'gradient', $extensions['col'] ) ) {
-        add_filter( 'fl_builder_register_settings_form', 'pp_column_gradient', 10, 2 );
-    }
-    if ( array_key_exists( 'corners', $extensions['col'] ) || in_array( 'corners', $extensions['col'] ) ) {
-        add_filter( 'fl_builder_register_settings_form', 'pp_column_round_corners', 10, 2 );
-    }
+    // if ( array_key_exists( 'gradient', $extensions['col'] ) || in_array( 'gradient', $extensions['col'] ) ) {
+    //     add_filter( 'fl_builder_register_settings_form', 'pp_column_gradient', 10, 2 );
+    // }
+    // if ( array_key_exists( 'corners', $extensions['col'] ) || in_array( 'corners', $extensions['col'] ) ) {
+    //     add_filter( 'fl_builder_register_settings_form', 'pp_column_round_corners', 10, 2 );
+    // }
     if ( array_key_exists( 'separators', $extensions['col'] ) || in_array( 'separators', $extensions['col'] ) ) {
         add_filter( 'fl_builder_register_settings_form', 'pp_column_separators', 10, 2 );
     }
-    if ( array_key_exists( 'shadow', $extensions['col'] ) || in_array( 'shadow', $extensions['col'] ) ) {
-        add_filter( 'fl_builder_register_settings_form', 'pp_column_shadow', 10, 2 );
-    }
+    // if ( array_key_exists( 'shadow', $extensions['col'] ) || in_array( 'shadow', $extensions['col'] ) ) {
+    //     add_filter( 'fl_builder_register_settings_form', 'pp_column_shadow', 10, 2 );
+    // }
 }
+
+function pp_column_fallback_settings( $nodes ) {
+	// Loop through the nodes.
+	foreach ( $nodes as $node_id => $node ) {
+		// Update row settings.
+		if ( 'column' === $node->type ) {
+			if ( isset( $node->settings->border ) && is_array( $node->settings->border ) ) {
+				$border = $node->settings->border;
+				// Box Shadow
+				if ( isset( $node->settings->pp_box_shadow ) ) {
+					if ( empty( $border['shadow']['horizontal'] )
+						&& empty( $border['shadow']['vertical'] )
+						&& empty( $border['shadow']['blur'] )
+						&& empty( $border['shadow']['spread'] ) )
+					{
+						// Note: We were using vertical shadow as horizontal.
+						$border['shadow']['horizontal'] = $node->settings->pp_box_shadow['vertical'];
+						$border['shadow']['vertical'] = $node->settings->pp_box_shadow['horizontal'];
+						$border['shadow']['blur'] = $node->settings->pp_box_shadow['blur'];
+						$border['shadow']['spread'] = $node->settings->pp_box_shadow['spread'];
+						
+						if ( isset( $node->settings->pp_box_shadow_color ) && ! empty( $node->settings->pp_box_shadow_color ) ) {
+							$color = $node->settings->pp_box_shadow_color;
+							$opacity = 1;
+							if ( isset( $node->settings->pp_box_shadow_opacity ) ) {
+								$opacity = $node->settings->pp_box_shadow_opacity >= 0 ? $node->settings->pp_box_shadow_opacity : 1;
+								unset( $node->settings->pp_box_shadow_opacity );
+							}
+							$border['shadow']['color'] = pp_hex2rgba( $node->settings->pp_box_shadow_color, $opacity );
+							unset( $node->settings->pp_box_shadow_color );
+						}
+					}
+
+					unset( $node->settings->pp_box_shadow );
+				}
+
+				// Round Corners
+				if ( isset( $node->settings->pp_round_corners ) ) {
+					if ( empty( $border['radius']['top_left'] ) ) {
+						$border['radius']['top_left'] = $node->settings->pp_round_corners['top_left'];
+					}
+					if ( empty( $border['radius']['top_right'] ) ) {
+						$border['radius']['top_right'] = $node->settings->pp_round_corners['top_right'];
+					}
+					if ( empty( $border['radius']['bottom_left'] ) ) {
+						$border['radius']['bottom_left'] = $node->settings->pp_round_corners['bottom_left'];
+					}
+					if ( empty( $border['radius']['bottom_right'] ) ) {
+						$border['radius']['bottom_right'] = $node->settings->pp_round_corners['bottom_right'];
+					}
+
+					unset( $node->settings->pp_round_corners );
+				}
+
+				$node->settings->border = $border;
+			}
+
+			// Gradient
+			if ( isset( $node->settings->bg_type ) && 'pp_gradient' == $node->settings->bg_type ) {
+				if ( isset( $node->settings->bg_gradient ) ) {
+					$gradient = array(
+						'type'		=> 'linear',
+						'stops'		=> array(0, 100),
+						'position'	=> 'center top'
+					);
+					// Check gradient type.
+					if ( isset( $node->settings->gradient_type ) ) {
+						$gradient['type'] = $node->settings->gradient_type;
+					}
+					// Check gradient color.
+					if ( isset( $node->settings->gradient_color ) && is_array( $node->settings->gradient_color ) ) {
+						$gradient['colors'][0] = ( isset( $node->settings->gradient_color['primary'] ) ) ? $node->settings->gradient_color['primary'] : '';
+						$gradient['colors'][1] = ( isset( $node->settings->gradient_color['secondary'] ) ) ? $node->settings->gradient_color['secondary'] : '';
+					}
+					// Check gradient direction.
+					if ( 'linear' == $gradient['type'] && isset( $node->settings->linear_direction ) ) {
+						$direction = $node->settings->linear_direction;
+						$angle = 90;
+						// Top to Bottom.
+						if ( 'bottom' == $direction ) {
+							$angle = 180;
+						}
+						// Left to Right.
+						if ( 'right' == $direction ) {
+							$angle = 90;
+						}
+						// Bottom Left to Top Right.
+						if ( 'top_right_diagonal' == $direction ) {
+							$angle = 45;
+						}
+						// Bottom Right to Top Left.
+						if ( 'top_left_diagonal' == $direction ) {
+							$angle = 315;
+						}
+						// Top Left to Bottom Right.
+						if ( 'bottom_right_diagonal' == $direction ) {
+							$angle = 135;
+						}
+						// Top Right to Bottom Left.
+						if ( 'bottom_left_diagonal' == $direction ) {
+							$angle = 225;
+						}
+						$gradient['angle'] = $angle;
+					}
+
+					$node->settings->bg_type = 'gradient';
+					$node->settings->bg_gradient = $gradient;
+				}
+			}
+
+			// Save the update settings.
+			$nodes[ $node_id ]->settings = $node->settings;
+		}
+	}
+
+	return $nodes;
+}
+add_filter( 'fl_builder_get_layout_metadata', 'pp_column_fallback_settings' );
 
 function pp_column_gradient( $form, $id ) {
 

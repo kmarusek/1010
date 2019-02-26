@@ -22,7 +22,6 @@ class PPFormidableFormModule extends FLBuilderModule {
             'url'           => BB_POWERPACK_URL . 'modules/pp-formidable-form/',
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
-            'icon'				=> 'editor-table.svg',
         ));
     }
 
@@ -39,14 +38,217 @@ class PPFormidableFormModule extends FLBuilderModule {
         }
 
         return $options;
-    }
+	}
+
+	public function filter_settings( $settings, $helper ) {
+		// Handle Form Background opacity + color field.
+        if ( isset( $settings->form_background_opacity ) ) {
+            $opacity = $settings->form_background_opacity >= 0 ? $settings->form_background_opacity : 1;
+            $colorForm = $settings->form_bg_color;
+
+            if ( ! empty( $colorForm ) ) {
+                $colorForm = pp_hex2rgba( pp_get_color_value( $colorForm ), $opacity );
+                $settings->form_bg_color = $colorForm;
+            }
+
+            unset( $settings->form_background_opacity );
+		}
+		// Handle Form Background opacity + color field.
+        if ( isset( $settings->form_bg_overlay_opacity ) ) {
+            $opacity = $settings->form_bg_overlay_opacity >= 0 ? $settings->form_bg_overlay_opacity : 1;
+            $colorForm = $settings->form_bg_overlay;
+
+            if ( ! empty( $colorForm ) ) {
+                $colorForm = pp_hex2rgba( pp_get_color_value( $colorForm ), $opacity );
+                $settings->form_bg_overlay = $colorForm;
+            }
+
+            unset( $settings->form_bg_overlay_opacity );
+		}
+		// Handle Input Background opacity + color field.
+        if ( isset( $settings->input_field_background_opacity ) ) {
+            $opacity = $settings->input_field_background_opacity >= 0 ? $settings->input_field_background_opacity : 1;
+            $colorInput = $settings->input_field_bg_color;
+
+            if ( ! empty( $colorInput ) ) {
+                $colorInput = pp_hex2rgba( pp_get_color_value( $colorInput ), $opacity );
+                $settings->input_field_bg_color = $colorInput;
+            }
+
+            unset( $settings->input_field_background_opacity );
+		}
+		// Handle old Form border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'form_border_style'	=> array(
+				'type'				=> 'style',
+			),
+			'form_border_width'	=> array(
+				'type'				=> 'width',
+			),
+			'form_border_color'	=> array(
+				'type'				=> 'color',
+			),
+			'form_border_radius'	=> array(
+				'type'				=> 'radius',
+			),
+			'form_shadow'	=> array(
+				'type'				=> 'shadow',
+				'condition'     	=> ( isset( $settings->form_shadow_display ) && 'yes' == $settings->form_shadow_display ),
+			),
+			'form_shadow_color'	=> array(
+				'type'				=> 'shadow_color',
+				'opacity'			=> isset( $settings->form_shadow_opacity ) ? ( $settings->form_shadow_opacity / 100 ) : 1,
+			),
+		), 'form_border_group' );
+		// Handle Form old padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'form_padding', 'padding', 'form_padding' );
+		// Handle section_field_padding old padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'section_field_padding', 'padding', 'section_field_padding' );
+		// Handle input_field_padding old padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'input_field_padding', 'padding', 'input_field_padding' );
+		// Handle button_padding old padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'button_padding', 'padding', 'button_padding' );
+
+		// Handle old button text dual color field.
+		$settings = PP_Module_Fields::handle_dual_color_field( $settings, 'button_text_color', array(
+			'primary'	=> 'button_text_color_default',
+			'secondary'	=> 'button_text_color_hover'
+		) );
+		// Handle old button background dual color field.
+		$settings = PP_Module_Fields::handle_dual_color_field( $settings, 'button_bg_color', array(
+			'primary'	=> 'button_bg_color_default',
+			'secondary'	=> 'button_bg_color_hover',
+			'opacity'	=> 'button_background_opacity'
+		) );
+		// Handle old Button border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'button_border_width'	=> array(
+				'type'				=> 'width',
+			),
+			'button_border_color'	=> array(
+				'type'				=> 'color',
+			),
+			'button_border_radius'	=> array(
+				'type'				=> 'radius',
+			),
+		), 'button_border_group' );
+
+		// Handle title's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'title_font_family'	=> array(
+				'type'			=> 'font'
+			),
+			'title_font_size'	=> array(
+				'type'          => 'font_size',
+				'condition'     => ( isset( $settings->title_size ) && 'custom' == $settings->title_size )
+			),
+			'title_alignment'	=> array(
+				'type'			=> 'text_align',
+			),
+			'title_line_height'	=> array(
+				'type'			=> 'line_height',
+			),
+			'title_text_transform'	=> array(
+				'type'			=> 'text_transform',
+			),
+		), 'title_typography' );
+
+		// Handle description's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'description_font_family'	=> array(
+				'type'			=> 'font'
+			),
+			'description_font_size'	=> array(
+				'type'          => 'font_size',
+				'condition'     => ( isset( $settings->description_size ) && 'custom' == $settings->description_size )
+			),
+			'description_alignment'	=> array(
+				'type'			=> 'text_align',
+			),
+			'description_line_height'	=> array(
+				'type'			=> 'line_height',
+			),
+			'description_text_transform'	=> array(
+				'type'			=> 'text_transform',
+			),
+		), 'description_typography' );
+
+		// Handle label's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'label_font_family'	=> array(
+				'type'			=> 'font'
+			),
+			'label_font_size'	=> array(
+				'type'          => 'font_size',
+				'condition'     => ( isset( $settings->label_size ) && 'custom' == $settings->label_size )
+			),
+			'label_text_transform'	=> array(
+				'type'			=> 'text_transform',
+			),
+		), 'label_typography' );
+		// Handle Input's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'input_font_family'	=> array(
+				'type'			=> 'font'
+			),
+			'input_font_size'	=> array(
+				'type'          => 'font_size',
+				'condition'     => ( isset( $settings->input_size ) && 'custom' == $settings->input_size )
+			),
+			'input_field_text_alignment'	=> array(
+				'type'			=> 'text_align',
+			),
+			'input_text_transform'	=> array(
+				'type'			=> 'text_transform',
+			),
+		), 'input_typography' );
+		// Handle Label old Font field.
+		if ( 'custom' == $settings->input_desc_size ){
+			$settings = PP_Module_Fields::handle_multitext_field( $settings, 'input_desc_font_size', 'responsive', 'input_desc_font_size' );
+		}
+
+		// Handle Label old Font field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'input_desc_line_height', 'responsive', 'input_desc_line_height' );
+
+		// Handle Button's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'button_font_family'	=> array(
+				'type'			=> 'font'
+			),
+			'button_font_size'	=> array(
+				'type'          => 'font_size',
+				'condition'     => ( isset( $settings->button_size ) && 'custom' == $settings->button_size )
+			),
+			'button_text_transform'	=> array(
+				'type'			=> 'text_transform',
+			),
+		), 'button_typography' );
+		// Handle Section Field's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'section_field_font_family'	=> array(
+				'type'			=> 'font'
+			),
+			'section_field_font_size'	=> array(
+				'type'          => 'font_size',
+				'condition'     => ( isset( $settings->section_field_size ) && 'custom' == $settings->section_field_size )
+			),
+		), 'section_field_typography' );
+		// Handle Validation Error old Font field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'validation_error_font_size', 'responsive', 'validation_error_font_size' );
+
+		// Handle Success Message old Font field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'success_message_font_size', 'responsive', 'success_message_font_size' );
+
+		return $settings;
+	}
+
 }
 
 /**
  * Register the module and its form settings.
  */
 FLBuilder::register_module('PPFormidableFormModule', array(
-    'form'       => array( // Tab
+    'form'					=> array( // Tab
         'title'         => __('General', 'bb-powerpack'), // Tab title
         'sections'      => array( // Tab Sections
             'select_form'       => array( // Section
@@ -138,10 +340,10 @@ FLBuilder::register_module('PPFormidableFormModule', array(
             )
         )
     ),
-    'style'       => array( // Tab
+    'style'					=> array( // Tab
         'title'         => __('Style', 'bb-powerpack'), // Tab title
         'sections'      => array( // Tab Sections
-            'form_bg_setting'      => array( // Section
+            'form_bg_setting'		=> array( // Section
                 'title'         => __('Form Background', 'bb-powerpack'), // Section Title
                 'fields'        => array( // Section Fields
                     'form_bg_type'      => array(
@@ -166,26 +368,15 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                         'label'         => __('Background Color', 'bb-powerpack'),
                         'default'       => 'ffffff',
                         'show_reset'    => true,
+                        'show_alpha'    => true,
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-ff-content',
                             'property'  => 'background-color'
                         )
                     ),
-                    'form_background_opacity'    => array(
-                        'type'                 => 'text',
-                        'label'                => __('Background Opacity', 'bb-powerpack'),
-                        'class'                => 'bb-ff-input input-small',
-                        'description'          => '%',
-                        'default'              => '100',
-                        'preview'              => array(
-                            'type'             => 'css',
-                            'selector'         => '.pp-ff-content',
-                            'property'         => 'opacity',
-                        )
-                    ),
                     'form_bg_image'     => array(
-                    'type'              => 'photo',
+                 	   'type'           => 'photo',
                         'label'         => __('Background Image', 'bb-powerpack'),
                         'default'       => '',
 						'show_remove'	=> true,
@@ -219,231 +410,67 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                         'label'         => __('Background Overlay Color', 'bb-powerpack'),
                         'default'       => '000000',
                         'show_reset'    => true,
-                    ),
-                    'form_bg_overlay_opacity'    => array(
-                        'type'                 => 'text',
-                        'label'                => __('Background Overlay Opacity', 'bb-powerpack'),
-                        'class'                => 'bb-ff-input input-small',
-                        'default'              => '50',
-                        'description'          => __('%', 'bb-powerpack'),
+                        'show_alpha'    => true,
                     ),
                 )
             ),
-            'form_border_setting'      => array( // Section
-                'title'         => __('Form Border', 'bb-powerpack'), // Section Title
-                'fields'        => array( // Section Fields
-                    'form_border_style' 	=> array(
-                        'type'          => 'pp-switch',
-                        'label'         => __('Border Style', 'bb-powerpack'),
-                        'default'       => 'none',
-                        'options'		=> array(
-                            'none'		=> __('None', 'bb-powerpack'),
-                            'solid'		=> __('Solid', 'bb-powerpack'),
-                       		'dashed'	=> __('Dashed', 'bb-powerpack'),
-                       		'dotted'	=> __('Dotted', 'bb-powerpack'),
-                        ),
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-ff-content',
-                            'property'  => 'border-style'
-                        ),
-                        'toggle'    => array(
-                            'solid' => array(
-                                'fields'    => array('form_border_width', 'form_border_color')
-                            ),
-                            'dashed' => array(
-                                'fields'    => array('form_border_width', 'form_border_color')
-                            ),
-                            'dotted' => array(
-                                'fields'    => array('form_border_width', 'form_border_color')
-                            )
-                        )
-                    ),
-                    'form_border_width'      => array(
-                        'type'          => 'text',
-                        'label'         => __('Border Width', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-ff-input input-small',
-                        'default'       => 2,
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-ff-content',
-                            'property'  => 'border-width',
-                            'unit'      => 'px'
-                        )
-                    ),
-                    'form_border_color'     => array(
-                        'type'          => 'color',
-                        'label'         => __('Border Color', 'bb-powerpack'),
-                        'default'       => 'ffffff',
-                        'show_reset'    => true,
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-ff-content',
-                            'property'  => 'border-color'
-                        )
-                    ),
-                )
-            ),
-            'form_box_shadow'      => array( // Section
-                'title'         => __('Box Shadow', 'bb-powerpack'), // Section Title
-                'fields'        => array( // Section Fields
-                    'form_shadow_display'   => array(
-                        'type'                 => 'pp-switch',
-                        'label'                => __('Enable Shadow', 'bb-powerpack'),
-                        'default'              => 'no',
-                        'options'              => array(
-                            'yes'          => __('Show', 'bb-powerpack'),
-                            'no'             => __('Hide', 'bb-powerpack'),
-                        ),
-                        'toggle'    =>  array(
-                            'yes'   => array(
-                                'fields'    => array('form_shadow', 'form_shadow_color', 'form_shadow_opacity')
-                            )
-                        )
-                    ),
-                    'form_shadow' 		=> array(
-						'type'              => 'pp-multitext',
-						'label'             => __('Box Shadow', 'bb-powerpack'),
-						'default'           => array(
-							'vertical'			=> 2,
-							'horizontal'		=> 2,
-							'blur'				=> 2,
-							'spread'			=> 1
+            'form_border_setting'	=> array( // Section
+				'title'         => __('Form Border', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
+				'fields'        => array( // Section Fields
+					'form_border_group'	=> array(
+						'type'					=> 'border',
+						'label'					=> __('Border Style', 'bb-powerpack'),
+						'responsive'			=> true,
+						'preview'				=> array(
+							'type'					=> 'css',
+							'selector'				=> '.pp-ff-content',
 						),
-						'options'			=> array(
-							'vertical'			=> array(
-								'placeholder'		=> __('Vertical', 'bb-powerpack'),
-								'tooltip'			=> __('Vertical', 'bb-powerpack'),
-								'icon'				=> 'fa-arrows-v'
-							),
-							'horizontal'		=> array(
-								'placeholder'		=> __('Horizontal', 'bb-powerpack'),
-								'tooltip'			=> __('Horizontal', 'bb-powerpack'),
-								'icon'				=> 'fa-arrows-h'
-							),
-							'blur'				=> array(
-								'placeholder'		=> __('Blur', 'bb-powerpack'),
-								'tooltip'			=> __('Blur', 'bb-powerpack'),
-								'icon'				=> 'fa-circle-o'
-							),
-							'spread'			=> array(
-								'placeholder'		=> __('Spread', 'bb-powerpack'),
-								'tooltip'			=> __('Spread', 'bb-powerpack'),
-								'icon'				=> 'fa-paint-brush'
-							),
-						)
 					),
-                    'form_shadow_color' => array(
-                        'type'              => 'color',
-                        'label'             => __('Shadow Color', 'bb-powerpack'),
-                        'default'           => '000000',
-                    ),
-                    'form_shadow_opacity' => array(
-                        'type'              => 'text',
-                        'label'             => __('Opacity', 'bb-powerpack'),
-                        'description'       => '%',
-                        'class'             => 'bb-ff-input input-small',
-                        'default'           => 50,
-                    ),
                 )
             ),
-            'form_corners_padding'      => array( // Section
-                'title'         => __('Size, Corners & Padding', 'bb-powerpack'), // Section Title
+            'form_corners_padding'	=> array( // Section
+				'title'         => __('Size & Padding', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
                 'fields'        => array( // Section Fields
                     'form_max_width' 	=> array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Max Width', 'bb-powerpack'),
-                        'description'   => '%',
+                        'units'		    => array('%'),
+                        'slider'        => true,
                         'default'       => 100,
-                        'class'         => 'bb-ff-input input-small',
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-ff-content',
                             'property'  => 'max-width',
                             'unit'      => '%'
                         )
-                    ),
-                    'form_border_radius' 	=> array(
-                        'type'          => 'text',
-                        'label'         => __('Round Corners', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'default'       => 2,
-                        'class'         => 'bb-ff-input input-small',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-ff-content',
-                            'property'  => 'border-radius',
-                            'unit'      => 'px'
-                        )
-                    ),
-                    'form_padding' 	=> array(
-                        'type' 			=> 'pp-multitext',
-                        'label' 		=> __('Padding', 'bb-powerpack'),
-                        'description'   => __( 'px', 'Value unit for font size. Such as: "14 px"', 'bb-powerpack' ),
-                        'default'       => array(
-                            'top' => 15,
-                            'right' => 15,
-                            'bottom' => 15,
-                            'left' => 15,
+					),
+					'form_padding'	=> array(
+                        'type'				=> 'dimension',
+                        'label'				=> __('Padding', 'bb-powerpack'),
+						'slider'			=> true,
+						'units'				=> array( 'px' ),
+                        'preview'			=> array(
+                            'type'				=> 'css',
+                            'selector'			=> '.pp-ff-content',
+                            'property'			=> 'padding',
+                            'unit'				=> 'px'
                         ),
-                        'options' 		=> array(
-                            'top' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Top', 'bb-powerpack'),
-                                'tooltip'       => 'Top',
-                                'icon'		=> 'fa-long-arrow-up',
-                                'preview'       => array(
-                                    'selector'  => '.pp-ff-content',
-                                    'property'  => 'padding-top',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'bottom' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Bottom', 'bb-powerpack'),
-                                'tooltip'       => 'Bottom',
-                                'icon'		=> 'fa-long-arrow-down',
-                                'preview'       => array(
-                                    'selector'  => '.pp-ff-content',
-                                    'property'  => 'padding-bottom',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'left' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Left', 'bb-powerpack'),
-                                'tooltip'       => 'Left',
-                                'icon'		=> 'fa-long-arrow-left',
-                                'preview'       => array(
-                                    'selector'  => '.pp-ff-content',
-                                    'property'  => 'padding-left',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'right' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Right', 'bb-powerpack'),
-                                'tooltip'       => 'Right',
-                                'icon'		=> 'fa-long-arrow-right',
-                                'preview'       => array(
-                                    'selector'  => '.pp-ff-content',
-                                    'property'  => 'padding-right',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                        ),
-                    )
+                        'responsive'		=> true,
+					),
                 )
             ),
-            'section_field_setting' => array( // Section
-                'title' => __('Section Field', 'bb-powerpack'),
+            'section_field_setting'	=> array( // Section
+				'title' 	=> __('Section Field', 'bb-powerpack'),
+				'collapsed'	=> true,
                 'fields'    => array(
                     'section_field_bg_color'     => array(
                         'type'          => 'color',
                         'label'         => __('Background Color', 'bb-powerpack'),
                         'default'       => '',
                         'show_reset'    => true,
+                        'show_alpha'    => true,
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-ff-content .frm_forms .frm-show-form  .frm_section_heading h3',
@@ -460,7 +487,7 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                             'property'          => 'color'
                         )
                     ),
-                    'section_field_border_style' 	=> array(
+                    'section_field_border_style'	=> array(
                         'type'          => 'pp-switch',
                         'label'         => __('Border Style', 'bb-powerpack'),
                         'default'       => 'none',
@@ -487,11 +514,11 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                             )
                         )
                     ),
-                    'section_field_border_width'      => array(
-                        'type'          => 'text',
+                    'section_field_border_width'	=> array(
+                        'type'          => 'unit',
                         'label'         => __('Border Width', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-ff-input input-small',
+                        'units'		    => array( 'px' ),
+                        'slider'        => true,
                         'default'       => 2,
                         'preview'       => array(
                             'type'      => 'css',
@@ -500,7 +527,7 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                             'unit'      => 'px'
                         )
                     ),
-                    'section_field_border_color'     => array(
+                    'section_field_border_color'	=> array(
                         'type'          => 'color',
                         'label'         => __('Border Color', 'bb-powerpack'),
                         'default'       => 'ffffff',
@@ -511,7 +538,7 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                             'property'  => 'border-color'
                         )
                     ),
-                    'section_field_border_position'    => array(
+                    'section_field_border_position'	=> array(
                         'type'                    => 'select',
                         'label'                   => __('Border Position', 'bb-powerpack'),
                         'default'                 => 'border',
@@ -523,7 +550,7 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                         	'border-right'		  => __('Right', 'bb-powerpack'),
                         ),
                     ),
-                    'section_field_margin' 	=> array(
+                    'section_field_margin'			=> array(
                         'type' 			=> 'pp-multitext',
                         'label' 		=> __('Margin', 'bb-powerpack'),
                         'description'   => __( 'px', 'Value unit for font size. Such as: "14 px"', 'bb-powerpack' ),
@@ -555,84 +582,26 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                                 )
                             ),
                         ),
-                    ),
-                    'section_field_padding' 	=> array(
-                        'type' 			=> 'pp-multitext',
-                        'label' 		=> __('Padding', 'bb-powerpack'),
-                        'description'   => __( 'px', 'Value unit for font size. Such as: "14 px"', 'bb-powerpack' ),
-                        'default'       => array(
-                            'top' => 15,
-                            'right' => 0,
-                            'bottom' => 15,
-                            'left' => 0,
+					),
+					'section_field_padding'			=> array(
+                        'type'				=> 'dimension',
+                        'label'				=> __('Padding', 'bb-powerpack'),
+						'slider'			=> true,
+						'units'				=> array( 'px' ),
+                        'preview'			=> array(
+                            'type'				=> 'css',
+                            'selector'			=> '.pp-ff-content .frm_forms .frm-show-form  .frm_section_heading h3',
+                            'property'			=> 'padding',
+                            'unit'				=> 'px'
                         ),
-                        'options' 		=> array(
-                            'top' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Top', 'bb-powerpack'),
-                                'tooltip'       => 'Top',
-                                'icon'		=> 'fa-long-arrow-up',
-                                'preview'       => array(
-                                    'selector'  => '.pp-ff-content .frm_forms .frm-show-form  .frm_section_heading h3',
-                                    'property'  => 'padding-top',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'bottom' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Bottom', 'bb-powerpack'),
-                                'tooltip'       => 'Bottom',
-                                'icon'		=> 'fa-long-arrow-down',
-                                'preview'       => array(
-                                    'selector'  => '.pp-ff-content .frm_forms .frm-show-form  .frm_section_heading h3',
-                                    'property'  => 'padding-bottom',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'left' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Left', 'bb-powerpack'),
-                                'tooltip'       => 'Left',
-                                'icon'		=> 'fa-long-arrow-left',
-                                'preview'       => array(
-                                    'selector'  => '.pp-ff-content .frm_forms .frm-show-form  .frm_section_heading h3',
-                                    'property'  => 'padding-left',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'right' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Right', 'bb-powerpack'),
-                                'tooltip'       => 'Right',
-                                'icon'		=> 'fa-long-arrow-right',
-                                'preview'       => array(
-                                    'selector'  => '.pp-ff-content .frm_forms .frm-show-form  .frm_section_heading h3',
-                                    'property'  => 'padding-right',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                        ),
-                    )
+                        'responsive'		=> true,
+					),
                 )
             ),
-            'title_style' => array( // Section
-                'title' => __('Title', 'bb-powerpack'),
+            'title_style'			=> array( // Section
+				'title' 	=> __('Title', 'bb-powerpack'),
+				'collapsed'	=> true,
                 'fields'    => array(
-                    'title_alignment'    => array(
-                        'type'                      => 'pp-switch',
-                        'label'                     => __('Alignment', 'bb-powerpack'),
-                        'default'                   => 'left',
-                        'options'                   => array(
-                            'left'                  => __('Left', 'bb-powerpack'),
-                            'center'                => __('Center', 'bb-powerpack'),
-                            'right'                 => __('Right', 'bb-powerpack'),
-                        ),
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-ff-content .frm_forms h3.frm_form_title, .pp-ff-content .pp-form-title',
-                            'property'  => 'text-align'
-                        )
-                    ),
                     'title_margin' 	=> array(
                         'type' 			=> 'pp-multitext',
                         'label' 		=> __('Margin', 'bb-powerpack'),
@@ -668,24 +637,10 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                     )
                 )
             ),
-            'description_style' => array( // Section
-                'title' => __('Description', 'bb-powerpack'),
+            'description_style'		=> array( // Section
+				'title' 	=> __('Description', 'bb-powerpack'),
+				'collapsed'	=> true,
                 'fields'    => array(
-                    'description_alignment'    => array(
-                        'type'                      => 'pp-switch',
-                        'label'                     => __('Alignment', 'bb-powerpack'),
-                        'default'                   => 'left',
-                        'options'                   => array(
-                            'left'                  => __('Left', 'bb-powerpack'),
-                            'center'                => __('Center', 'bb-powerpack'),
-                            'right'                 => __('Right', 'bb-powerpack'),
-                        ),
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-ff-content .frm_forms .frm_form_title + div.frm_description p, .pp-ff-content .pp-form-description',
-                            'property'  => 'text-align'
-                        )
-                    ),
                     'description_margin' 	=> array(
                         'type' 			=> 'pp-multitext',
                         'label' 		=> __('Margin', 'bb-powerpack'),
@@ -723,7 +678,7 @@ FLBuilder::register_module('PPFormidableFormModule', array(
             ),
         )
     ),
-    'input_style_t'   => array(
+    'input_style_t'			=> array(
         'title' => __('Inputs', 'bb-powerpack'),
         'sections'  => array(
             'input_colors_setting'      => array( // Section
@@ -744,28 +699,18 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                         'label'                 => __('Background Color', 'bb-powerpack'),
                         'default'               => 'ffffff',
                         'show_reset'            => true,
+                        'show_alpha'            => true,
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.pp-ff-content .frm_forms .form-field input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-ff-content .frm_forms .form-field select, .pp-ff-content .frm_forms .form-field textarea, .pp-ff-content .frm_forms .frm_dropzone',
                             'property'          => 'background-color'
                         )
                     ),
-                    'input_field_background_opacity'    => array(
-                        'type'                 => 'text',
-                        'label'                => __('Background Opacity', 'bb-powerpack'),
-                        'class'                => 'bb-ff-input input-small',
-                        'description'          => '%',
-                        'default'              => '100',
-                        'preview'              => array(
-                            'type'             => 'css',
-                            'selector'         => '.pp-ff-content .frm_forms .form-field input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-ff-content .frm_forms .form-field select, .pp-ff-content .frm_forms .form-field textarea',
-                            'property'         => 'opacity',
-                        )
-                    ),
                 )
             ),
             'input_border_setting'      => array( // Section
-                'title'         => __('Border', 'bb-powerpack'), // Section Title
+				'title'         => __('Border', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
                 'fields'        => array( // Section Fields
                     'input_field_border_color'  => array(
                         'type'                  => 'color',
@@ -779,41 +724,11 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                         )
                     ),
                     'input_field_border_width'    => array(
-                        'type'                    => 'text',
+                        'type'                    => 'unit',
                         'label'                   => __('Border Width', 'bb-powerpack'),
-                        'description'             => 'px',
+                        'units'		              => array('px'),
+                        'slider'                  => true,
                         'default'                 => '1',
-                        'class'                   => 'bb-ff-input input-small',
-                        'preview'                 => array(
-                            'type'                => 'css',
-                            'rules'                 => array(
-                                array(
-                                    'selector'            => '.pp-ff-content .frm_forms .form-field input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-ff-content .frm_forms .form-field select, .pp-ff-content .frm_forms .form-field textarea',
-                                    'property'            => 'border-width',
-                                    'unit'                => 'px',
-                                ),
-                                array(
-                                    'selector'            => '.pp-ff-content .frm_forms .form-field input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-ff-content .frm_forms .form-field select, .pp-ff-content .frm_forms .form-field textarea',
-                                    'property'            => 'border-top-width',
-                                    'unit'                => 'px',
-                                ),
-                                array(
-                                    'selector'            => '.pp-ff-content .frm_forms .form-field input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-ff-content .frm_forms .form-field select, .pp-ff-content .frm_forms .form-field textarea',
-                                    'property'            => 'border-bottom-width',
-                                    'unit'                => 'px',
-                                ),
-                                array(
-                                    'selector'            => '.pp-ff-content .frm_forms .form-field input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-ff-content .frm_forms .form-field select, .pp-ff-content .frm_forms .form-field textarea',
-                                    'property'            => 'border-left-width',
-                                    'unit'                => 'px',
-                                ),
-                                array(
-                                    'selector'            => '.pp-ff-content .frm_forms .form-field input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-ff-content .frm_forms .form-field select, .pp-ff-content .frm_forms .form-field textarea',
-                                    'property'            => 'border-right-width',
-                                    'unit'                => 'px',
-                                )
-                            )
-                        )
                     ),
                     'input_field_border_position'    => array(
                         'type'                    => 'select',
@@ -847,7 +762,8 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                 )
             ),
             'input_style'      => array( // Section
-                'title'         => __('Size & Alignment', 'bb-powerpack'), // Section Title
+				'title'         => __('Size & Alignment', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
                 'fields'        => array( // Section Fields
                     'input_field_width'     => array(
                         'type'              => 'pp-switch',
@@ -859,11 +775,11 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                         )
                     ),
                     'input_field_height'    => array(
-                        'type'                    => 'text',
+                        'type'                    => 'unit',
                         'label'                   => __('Input Height', 'bb-powerpack'),
-                        'description'             => 'px',
+                        'units'		              => array('px'),
+                        'slider'                  => true,
                         'default'                 => '32',
-                        'class'                   => 'bb-ff-input input-small',
                         'preview'                 => array(
                             'type'                => 'css',
                             'selector'            => '.pp-ff-content .frm_forms .form-field input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-ff-content .frm_forms .form-field select',
@@ -872,11 +788,11 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                         )
                     ),
                     'input_textarea_height'    => array(
-                        'type'                    => 'text',
+                        'type'                    => 'unit',
                         'label'                   => __('Textarea Height', 'bb-powerpack'),
-                        'description'             => 'px',
+                        'units'		              => array('px'),
+                        'slider'                  => true,
                         'default'                 => '140',
-                        'class'                   => 'bb-ff-input input-small',
                         'preview'                 => array(
                             'type'                => 'css',
                             'selector'            => '.pp-ff-content .frm_forms .form-field textarea',
@@ -884,27 +800,18 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                             'unit'                => 'px',
                         )
                     ),
-                    'input_field_text_alignment'    => array(
-                        'type'                      => 'pp-switch',
-                        'label'                     => __('Text Alignment', 'bb-powerpack'),
-                        'default'                   => 'left',
-                        'options'                   => array(
-                            'left'                  => __('Left', 'bb-powerpack'),
-                            'center'                => __('Center', 'bb-powerpack'),
-                            'right'                 => __('Right', 'bb-powerpack'),
-                        )
-                    ),
                 )
             ),
             'input_general_style'      => array( // Section
-                'title'         => __('General', 'bb-powerpack'), // Section Title
+				'title'         => __('General', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
                 'fields'        => array( // Section Fields
-                    'input_field_border_radius'    => array(
-                        'type'                     => 'text',
+                    'input_field_border_radius'	=> array(
+                        'type'                     => 'unit',
                         'label'                    => __('Round Corners', 'bb-powerpack'),
-                        'description'              => 'px',
+                        'units'                    => array('px'),
+                        'slider'                   => true,
                         'default'                  => '2',
-                        'class'                    => 'bb-ff-input input-small',
                         'preview'                  => array(
                             'type'                 => 'css',
                             'selector'             => '.pp-ff-content .frm_forms .form-field input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-ff-content .frm_forms .form-field select, .pp-ff-content .frm_forms .form-field textarea',
@@ -912,7 +819,7 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                             'unit'                 => 'px'
                         )
                     ),
-                    'input_field_box_shadow'   => array(
+                    'input_field_box_shadow'	=> array(
                         'type'                 => 'pp-switch',
                         'label'                => __('Box Shadow', 'bb-powerpack'),
                         'default'              => 'yes',
@@ -926,7 +833,7 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                             )
                         )
                     ),
-                    'input_shadow_color'      => array(
+                    'input_shadow_color'		=> array(
                         'type'          => 'color',
                         'label'         => __('Shadow Color', 'bb-powerpack'),
                         'show_reset'    => true,
@@ -936,7 +843,7 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                             'property'  => 'box-shadow'
                         ),
                     ),
-                    'input_shadow_direction'  => array(
+                    'input_shadow_direction'	=> array(
                         'type'      => 'select',
                         'label'     => __('Shadow Direction', 'bb-powerpack'),
                         'default'   => 'out',
@@ -944,69 +851,25 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                             'out'   => __('Outside', 'bb-powerpack'),
                             'inset'   => __('Inside', 'bb-powerpack'),
                         ),
-                    ),
-                    'input_field_padding' 	=> array(
-                        'type' 			=> 'pp-multitext',
-                        'label' 		=> __('Padding', 'bb-powerpack'),
-                        'description'   => __( 'px', 'Value unit for font size. Such as: "14 px"', 'bb-powerpack' ),
-                        'default'       => array(
-                            'top' => 10,
-                            'right' => 10,
-                            'bottom' => 10,
-                            'left' => 10,
+					),
+					'input_field_padding'		=> array(
+                        'type'				=> 'dimension',
+                        'label'				=> __('Padding', 'bb-powerpack'),
+						'slider'			=> true,
+						'units'				=> array( 'px' ),
+                        'preview'			=> array(
+                            'type'				=> 'css',
+                            'selector'			=> '.pp-ff-content .frm_forms .form-field input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-ff-content .frm_forms .form-field select, .pp-ff-content .frm_forms .form-field textarea',
+                            'property'			=> 'padding',
+                            'unit'				=> 'px'
                         ),
-                        'options' 		=> array(
-                            'top' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Top', 'bb-powerpack'),
-                                'tooltip'       => 'Top',
-                                'icon'		=> 'fa-long-arrow-up',
-                                'preview'       => array(
-                                    'selector'  => '.pp-ff-content .frm_forms .form-field input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-ff-content .frm_forms .form-field select, .pp-ff-content .frm_forms .form-field textarea',
-                                    'property'  => 'padding-top',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'bottom' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Bottom', 'bb-powerpack'),
-                                'tooltip'       => 'Bottom',
-                                'icon'		=> 'fa-long-arrow-down',
-                                'preview'       => array(
-                                    'selector'  => '.pp-ff-content .frm_forms .form-field input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-ff-content .frm_forms .form-field select, .pp-ff-content .frm_forms .form-field textarea',
-                                    'property'  => 'padding-bottom',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'left' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Left', 'bb-powerpack'),
-                                'tooltip'       => 'Left',
-                                'icon'		=> 'fa-long-arrow-left',
-                                'preview'       => array(
-                                    'selector'  => '.pp-ff-content .frm_forms .form-field input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-ff-content .frm_forms .form-field select, .pp-ff-content .frm_forms .form-field textarea',
-                                    'property'  => 'padding-left',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'right' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Right', 'bb-powerpack'),
-                                'tooltip'       => 'Right',
-                                'icon'		=> 'fa-long-arrow-right',
-                                'preview'       => array(
-                                    'selector'  => '.pp-ff-content .frm_forms .form-field input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-ff-content .frm_forms .form-field select, .pp-ff-content .frm_forms .form-field textarea',
-                                    'property'  => 'padding-right',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                        ),
-                    ),
-                    'input_field_margin'    => array(
-                        'type'              => 'text',
+                        'responsive'		=> true,
+					),
+                    'input_field_margin'		=> array(
+                        'type'              => 'unit',
                         'label'             => __('Margin Bottom', 'bb-powerpack'),
-                        'description'       => 'px',
-                        'class'             => 'bb-ff-input input-small',
+                        'units'			    => array('px'),
+                        'slider'            => true,
                         'default'           => '10',
                         'preview'           => array(
                             'type'          => 'css',
@@ -1018,7 +881,8 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                 )
             ),
             'placeholder_style'      => array( // Section
-                'title'         => __('Placeholder', 'bb-powerpack'), // Section Title
+				'title'         => __('Placeholder', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
                 'fields'        => array( // Section Fields
                     'input_placeholder_display' 	=> array(
                         'type'          => 'pp-switch',
@@ -1049,84 +913,59 @@ FLBuilder::register_module('PPFormidableFormModule', array(
             ),
         )
     ),
-    'button_style'    => array(
+    'button_style'    		=> array(
         'title' => __('Button', 'bb-powerpack'),
         'sections'  => array(
-            'button_colors_setting'       => array( // Section
+            'button_colors_setting'		=> array( // Section
                 'title'             => __('Colors', 'bb-powerpack'), // Section Title
                 'fields'            => array( // Section Fields
-                    'button_text_color'    => array(
-                        'type'  => 'pp-color',
-                        'label' => __('Text Color', 'bb-powerpack'),
-                        'show_reset'    => true,
-                        'default'       => array(
-                            'primary'   => 'ffffff',
-                            'secondary' => 'eeeeee'
-                        ),
-                        'options'   => array(
-                            'primary'   => __('Default', 'bb-powerpack'),
-                            'secondary'   => __('Hover', 'bb-powerpack'),
-                        ),
-                    ),
-                    'button_bg_color'    => array(
-                        'type'  => 'pp-color',
-                        'label' => __('Background Color', 'bb-powerpack'),
-                        'show_reset'    => true,
-                        'default'       => array(
-                            'primary'   => '333333',
-                            'secondary' => '000000'
-                        ),
-                        'options'   => array(
-                            'primary'   => __('Default', 'bb-powerpack'),
-                            'secondary'   => __('Hover', 'bb-powerpack'),
-                        ),
-                    ),
-                    'button_background_opacity'    => array(
-                        'type'                 => 'text',
-                        'label'                => __('Background Opacity', 'bb-powerpack'),
-                        'class'                => 'bb-ff-input input-small',
-                        'description'          => '%',
-                        'default'              => '100',
-                        'preview'              => array(
-                            'type'             => 'css',
-                            'selector'         => '.pp-ff-content .frm_forms input[type=submit], .pp-ff-content .frm_forms input[type=button], .pp-ff-content .frm_forms input[type=reset], .pp-ff-content .frm_forms .frm_submit button',
-                            'property'         => 'opacity',
-                        )
-                    ),
+					'button_text_color_default'	=> array(
+						'type'		=> 'color',
+						'label'		=> __('Text Color', 'bb-powerpack'),
+						'default'	=> 'fffffff',
+						'show_reset'	=> true,
+					),
+					'button_text_color_hover'	=> array(
+						'type'		=> 'color',
+						'label'		=> __('Text Hover Color', 'bb-powerpack'),
+						'default'	=> 'eeeeee',
+						'show_reset'	=> true,
+					),
+					'button_bg_color_default'	=> array(
+						'type'		=> 'color',
+						'label'		=> __('Background Color', 'bb-powerpack'),
+						'default'	=> '333333',
+						'show_reset'	=> true,
+						'show_alpha'	=> true,
+					),
+					'button_bg_color_hover'		=> array(
+						'type'		=> 'color',
+						'label'		=> __('Background Hover Color', 'bb-powerpack'),
+						'default'	=> '000000',
+						'show_reset'	=> true,
+						'show_alpha'	=> true,
+					),
                 )
             ),
-            'button_border_setting'       => array( // Section
-                'title'             => __('Border', 'bb-powerpack'), // Section Title
-                'fields'            => array( // Section Fields
-                    'button_border_width'    => array(
-                        'type'               => 'text',
-                        'label'              => __('Border Width', 'bb-powerpack'),
-                        'description'        => 'px',
-                        'class'              => 'bb-ff-input input-small',
-                        'default'            => '1',
-                        'preview'            => array(
-                            'type'           => 'css',
-                            'selector'       => '.pp-ff-content .frm_forms input[type=submit], .pp-ff-content .frm_forms input[type=button], .pp-ff-content .frm_forms input[type=reset], .pp-ff-content .frm_forms .frm_submit button',
-                            'property'       => 'border-width',
-                            'unit'           => 'px'
-                        )
-                    ),
-                    'button_border_color'    => array(
-                        'type'               => 'color',
-                        'label'              => __('Border Color', 'bb-powerpack'),
-                        'default'            => '333333',
-                        'show_reset'         => true,
-                        'preview'            => array(
-                            'type'           => 'css',
-                            'selector'       => '.pp-ff-content .frm_forms input[type=submit], .pp-ff-content .frm_forms input[type=button], .pp-ff-content .frm_forms input[type=reset], .pp-ff-content .frm_forms .frm_submit button',
-                            'property'       => 'border-color'
-                        )
-                    ),
+            'button_border_setting'		=> array( // Section
+				'title'			=> __('Border', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
+				'fields'        => array( // Section Fields
+					'button_border_group'	=> array(
+						'type'					=> 'border',
+						'label'					=> __('Border Style', 'bb-powerpack'),
+						'responsive'			=> true,
+						'preview'				=> array(
+							'type'					=> 'css',
+							'selector'				=> '.pp-ff-content .frm_forms input[type=submit], .pp-ff-content .frm_forms input[type=button], .pp-ff-content .frm_forms input[type=reset], .pp-ff-content .frm_forms .frm_submit button',
+						),
+					),
                 )
             ),
-            'button_alignment_setting'       => array( // Section
-                'title'             => __('Size & Alignment', 'bb-powerpack'), // Section Title
-                'fields'            => array( // Section Fields
+            'button_alignment_setting'	=> array( // Section
+				'title'			=> __('Size & Alignment', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
+                'fields'        => array( // Section Fields
                     'button_width'  => array(
                         'type'      => 'pp-switch',
                         'label'     => __('Full Width', 'bb-powerpack'),
@@ -1142,90 +981,29 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                         )
                     ),
                     'button_alignment'  => array(
-                        'type'          => 'pp-switch',
+                        'type'          => 'align',
                         'label'         => __('Button Alignment', 'bb-powerpack'),
                         'default'       => 'left',
-                        'options'       => array(
-                            'left'      => __('Left', 'bb-powerpack'),
-                            'center'    => __('Center', 'bb-powerpack'),
-                            'right'     => __('Right', 'bb-powerpack'),
-                        )
                     ),
                 )
             ),
-            'button_settings'       => array( // Section
-                'title'             => __('Corners & Padding', 'bb-powerpack'), // Section Title
-                'fields'            => array( // Section Fields
-                    'button_border_radius'    => array(
-                        'type'                => 'text',
-                        'label'               => __('Round Corners', 'bb-powerpack'),
-                        'description'         => 'px',
-                        'class'               => 'bb-ff-input input-small',
-                        'default'             => '2',
-                        'preview'             => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-ff-content .frm_forms input[type=submit], .pp-ff-content .frm_forms input[type=button], .pp-ff-content .frm_forms input[type=reset], .pp-ff-content .frm_forms .frm_submit button',
-                            'property'        => 'border-radius',
-                            'unit'            => 'px'
-                        )
-                    ),
-                    'button_padding' 	=> array(
-                        'type' 			=> 'pp-multitext',
-                        'label' 		=> __('Padding', 'bb-powerpack'),
-                        'description'   => __( 'px', 'Value unit for font size. Such as: "14 px"', 'bb-powerpack' ),
-                        'default'       => array(
-                            'top' => 10,
-                            'right' => 10,
-                            'bottom' => 10,
-                            'left' => 10,
+            'button_settings'			=> array( // Section
+				'title'             => __('Padding', 'bb-powerpack'), // Section Title
+				'collapsed'			=> true,
+				'fields'            => array( // Section Fields
+					'button_padding'		=> array(
+                        'type'				=> 'dimension',
+                        'label'				=> __('Padding', 'bb-powerpack'),
+						'slider'			=> true,
+						'units'				=> array( 'px' ),
+                        'preview'			=> array(
+                            'type'				=> 'css',
+                            'selector'			=> '.pp-ff-content .frm_forms input[type=submit], .pp-ff-content .frm_forms input[type=button], .pp-ff-content .frm_forms input[type=reset], .pp-ff-content .frm_forms .frm_submit button',
+                            'property'			=> 'padding',
+                            'unit'				=> 'px'
                         ),
-                        'options' 		=> array(
-                            'top' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Top', 'bb-powerpack'),
-                                'tooltip'       => 'Top',
-                                'icon'		=> 'fa-long-arrow-up',
-                                'preview'       => array(
-                                    'selector'  => '.pp-ff-content .frm_forms input[type=submit], .pp-ff-content .frm_forms input[type=button], .pp-ff-content .frm_forms input[type=reset], .pp-ff-content .frm_forms .frm_submit button',
-                                    'property'  => 'padding-top',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'bottom' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Bottom', 'bb-powerpack'),
-                                'tooltip'       => 'Bottom',
-                                'icon'		=> 'fa-long-arrow-down',
-                                'preview'       => array(
-                                    'selector'  => '.pp-ff-content .frm_forms input[type=submit], .pp-ff-content .frm_forms input[type=button], .pp-ff-content .frm_forms input[type=reset], .pp-ff-content .frm_forms .frm_submit button',
-                                    'property'  => 'padding-bottom',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'left' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Left', 'bb-powerpack'),
-                                'tooltip'       => 'Left',
-                                'icon'		=> 'fa-long-arrow-left',
-                                'preview'       => array(
-                                    'selector'  => '.pp-ff-content .frm_forms input[type=submit], .pp-ff-content .frm_forms input[type=button], .pp-ff-content .frm_forms input[type=reset], .pp-ff-content .frm_forms .frm_submit button',
-                                    'property'  => 'padding-left',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'right' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Right', 'bb-powerpack'),
-                                'tooltip'       => 'Right',
-                                'icon'		=> 'fa-long-arrow-right',
-                                'preview'       => array(
-                                    'selector'  => '.pp-ff-content .frm_forms input[type=submit], .pp-ff-content .frm_forms input[type=button], .pp-ff-content .frm_forms input[type=reset], .pp-ff-content .frm_forms .frm_submit button',
-                                    'property'  => 'padding-right',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                        ),
-                    ),
+                        'responsive'		=> true,
+					),
                 )
             ),
         )
@@ -1251,18 +1029,19 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                             )
                         )
                     ),
-                    'validation_error_bg_color'    => array(
+                    'validation_error_bg_color'		=> array(
                         'type'                         => 'color',
                         'label'                        => __('Error Background Color', 'bb-powerpack'),
                         'default'                      => 'f2dede',
                         'show_reset'                   => true,
+                        'show_alpha'                   => true,
                         'preview'                      => array(
                             'type'                     => 'css',
                             'selector'                 => '.frm_forms .frm_error_style',
                             'property'                 => 'background-color'
                         )
                     ),
-                    'validation_error_color'    => array(
+                    'validation_error_color'		=> array(
                         'type'                  => 'color',
                         'label'                 => __('Error Description Color', 'bb-powerpack'),
                         'default'               => 'b94a4b',
@@ -1272,7 +1051,7 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                             'property'          => 'color'
                         )
                     ),
-					'validation_error_border_color'    => array(
+					'validation_error_border_color'	=> array(
                         'type'                         => 'color',
                         'label'                        => __('Error Border Color', 'bb-powerpack'),
                         'default'                      => 'ebccd1',
@@ -1283,7 +1062,7 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                             'property'                 => 'border-color'
                         )
                     ),
-					'validation_message'   => array(
+					'validation_message'			=> array(
                         'type'             => 'pp-switch',
                         'label'            => __('Error Field Message', 'bb-powerpack'),
                         'default'          => 'block',
@@ -1298,7 +1077,7 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                             )
                         )
                     ),
-                    'validation_message_color'    => array(
+                    'validation_message_color'		=> array(
                         'type'                    => 'color',
                         'label'                   => __('Error Field Message Color', 'bb-powerpack'),
                         'default'                 => '790000',
@@ -1311,13 +1090,15 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                 )
             ),
             'form_success_styling'    => array( // Section
-                'title'             => __('Success Message', 'bb-powerpack'), // Section Title
+				'title'             => __('Success Message', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
                 'fields'            => array( // Section Fields
                     'success_message_bg_color'    => array(
                         'type'                         => 'color',
                         'label'                        => __('Background Color', 'bb-powerpack'),
                         'default'                      => 'dff0d8',
                         'show_reset'                   => true,
+                        'show_alpha'                   => true,
                         'preview'                      => array(
                             'type'                     => 'css',
                             'selector'                 => '.frm_forms .frm_message',
@@ -1349,115 +1130,21 @@ FLBuilder::register_module('PPFormidableFormModule', array(
             ),
         )
     ),
-    'form_typography'       => array( // Tab
+    'form_typography'       => array(
         'title'         => __('Typography', 'bb-powerpack'), // Tab title
         'sections'      => array( // Tab Sections
-            'title_typography'       => array( // Section
+            'title_typography'			=> array( // Section
                 'title'         => __('Title', 'bb-powerpack'), // Section Title
-                'fields'        => array( // Section Fields
-                    'title_font_family' => array(
-                        'type'          => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.pp-ff-content .frm_forms h3.frm_form_title, .pp-ff-content .pp-form-title'
-                        )
-                    ),
-                    'title_text_transform'    => array(
-                        'type'                      => 'select',
-                        'label'                     => __('Text Transform', 'bb-powerpack'),
-                        'default'                   => 'none',
-                        'options'                   => array(
-                            'none'                  => __('Default', 'bb-powerpack'),
-                            'lowercase'                => __('lowercase', 'bb-powerpack'),
-                            'uppercase'                 => __('UPPERCASE', 'bb-powerpack'),
-                        )
-                    ),
-                    'title_size'    => array(
-                        'type'                      => 'pp-switch',
-                        'label'                     => __('Font Size', 'bb-powerpack'),
-                        'default'                   => 'default',
-                        'options'                   => array(
-                            'default'                  => __('Default', 'bb-powerpack'),
-                            'custom'                => __('Custom', 'bb-powerpack'),
-                        ),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array('title_font_size')
-							)
-						)
-                    ),
-                    'title_font_size'   => array(
-                        'type'          => 'pp-multitext',
-						'label'         => __('Custom Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 24,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-ff-content .frm_forms h3.frm_form_title, .pp-ff-content .pp-form-title',
-                                    'property'      => 'font-size',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
-                    'title_line_height'   => array(
-                        'type'          => 'pp-multitext',
-						'label'         => __('Line Height', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 1.4,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-ff-content .frm_forms h3.frm_form_title, .pp-ff-content .pp-form-title',
-                                    'property'      => 'line-height',
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
+				'fields'        => array( // Section Fields
+					'title_typography'	=> array(
+						'type'        	   => 'typography',
+						'label'       	   => __( 'Typography', 'bb-powerpack' ),
+						'responsive'  	   => true,
+						'preview'          => array(
+							'type'         		=> 'css',
+							'selector' 		    => '.pp-ff-content .frm_forms h3.frm_form_title, .pp-ff-content .pp-form-title'
+						),
+					),
                     'title_color'       => array(
                         'type'          => 'color',
                         'label'         => __('Color', 'bb-powerpack'),
@@ -1471,117 +1158,19 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                     ),
                 )
             ),
-            'description_typography'    => array(
-                'title' => __('Description', 'bb-powerpack'),
+            'description_typography'	=> array(
+				'title' 	=> __('Description', 'bb-powerpack'),
+				'collapsed'	=> true,
                 'fields'    => array(
-                    'description_font_family' => array(
-                        'type'          => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.pp-ff-content .frm_forms .frm_form_title + div.frm_description p, .pp-ff-content .pp-form-description'
-                        )
-                    ),
-                    'description_text_transform'    => array(
-                        'type'                      => 'select',
-                        'label'                     => __('Text Transform', 'bb-powerpack'),
-                        'default'                   => 'none',
-                        'options'                   => array(
-                            'none'                  => __('Default', 'bb-powerpack'),
-                            'lowercase'                => __('lowercase', 'bb-powerpack'),
-                            'uppercase'                 => __('UPPERCASE', 'bb-powerpack'),
-                        ),
-                        'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-ff-content .frm_forms .frm_form_title + div.frm_description p, .pp-ff-content .pp-form-description',
-                            'property'          => 'text-transform'
-                        )
-                    ),
-                    'description_size'    => array(
-                        'type'                      => 'pp-switch',
-                        'label'                     => __('Font Size', 'bb-powerpack'),
-                        'default'                   => 'default',
-                        'options'                   => array(
-                            'default'                  => __('Default', 'bb-powerpack'),
-                            'custom'                => __('Custom', 'bb-powerpack'),
-                        ),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array('description_font_size')
-							)
-						)
-                    ),
-                    'description_font_size'    => array(
-                        'type'          => 'pp-multitext',
-						'label'         => __('Custom Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 16,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-ff-content .frm_forms .frm_form_title + div.frm_description p, .pp-ff-content .pp-form-description',
-                                    'property'      => 'font-size',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
-                    'description_line_height'   => array(
-                        'type'          => 'pp-multitext',
-						'label'         => __('Line Height', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 1.4,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-ff-content .frm_forms .frm_form_title + div.frm_description p, .pp-ff-content .pp-form-description',
-                                    'property'      => 'line-height',
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
+					'description_typography'	=> array(
+						'type'        	   => 'typography',
+						'label'       	   => __( 'Typography', 'bb-powerpack' ),
+						'responsive'  	   => true,
+						'preview'          => array(
+							'type'         		=> 'css',
+							'selector' 		    => '.pp-ff-content .frm_forms .frm_form_title + div.frm_description p, .pp-ff-content .pp-form-description',
+						),
+					),
                     'description_color' => array(
                         'type'          => 'color',
                         'label'         => __('Color', 'bb-powerpack'),
@@ -1595,79 +1184,22 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                     ),
                 )
             ),
-            'label_typography'       => array( // Section
-                'title'         => __('Label', 'bb-powerpack'), // Section Title
-                'fields'        => array( // Section Fields
-                    'label_font_family' => array(
-                        'type'          => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.pp-ff-content .frm_forms label.frm_primary_label, .pp-ff-content .frm_forms .form-field.frm_third div.frm_description, .pp-ff-content .frm_forms label, .pp-ff-content .frm_forms .frm_form_field.frm_html_container'
-                        )
-                    ),
-                    'label_text_transform'    => array(
-                        'type'                      => 'select',
-                        'label'                     => __('Text Transform', 'bb-powerpack'),
-                        'default'                   => 'none',
-                        'options'                   => array(
-                            'none'                  => __('Default', 'bb-powerpack'),
-                            'lowercase'                => __('lowercase', 'bb-powerpack'),
-                            'uppercase'                 => __('UPPERCASE', 'bb-powerpack'),
-                        )
-                    ),
-                    'label_size'    => array(
-                        'type'                      => 'pp-switch',
-                        'label'                     => __('Font Size', 'bb-powerpack'),
-                        'default'                   => 'default',
-                        'options'                   => array(
-                            'default'                  => __('Default', 'bb-powerpack'),
-                            'custom'                => __('Custom', 'bb-powerpack'),
-                        ),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array('label_font_size')
-							)
-						)
-                    ),
-                    'label_font_size'   => array(
-                        'type'          => 'pp-multitext',
-						'label'         => __('Custom Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 18,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-ff-content .frm_forms label.frm_primary_label',
-                                    'property'      => 'font-size',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
+            'label_typography'			=> array( // Section
+				'title'         => __('Label', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
+				'fields'        => array( // Section Fields
+					'label_typography'	=> array(
+						'type'        	   => 'typography',
+						'label'       	   => __( 'Typography', 'bb-powerpack' ),
+						'responsive'  	   => true,
+						'preview'          => array(
+							'type'         		=> 'css',
+							'selector' 		    => '.pp-ff-content .frm_forms label.frm_primary_label, 
+													.pp-ff-content .frm_forms .form-field.frm_third div.frm_description,
+													.pp-ff-content .frm_forms label,
+													.pp-ff-content .frm_forms .frm_form_field.frm_html_container'
+						),
+					),
                     'form_label_color'  => array(
                         'type'          => 'color',
                         'label'         => __('Color', 'bb-powerpack'),
@@ -1681,80 +1213,22 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                     ),
                 )
             ),
-            'input_typography'       => array( // Section
-                'title'         => __('Input', 'bb-powerpack'), // Section Title
-                'fields'        => array( // Section Fields
-                    'input_font_family' => array(
-                        'type'          => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.pp-ff-content .frm_forms .form-field input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-ff-content .frm_forms .form-field select, .pp-ff-content .frm_forms .form-field textarea',
-                        )
-                    ),
-                    'input_text_transform'    => array(
-                        'type'                      => 'select',
-                        'label'                     => __('Text Transform', 'bb-powerpack'),
-                        'default'                   => 'none',
-                        'options'                   => array(
-                            'none'                  => __('Default', 'bb-powerpack'),
-                            'lowercase'                => __('lowercase', 'bb-powerpack'),
-                            'uppercase'                 => __('UPPERCASE', 'bb-powerpack'),
-                        )
-                    ),
-                    'input_size'    => array(
-                        'type'                      => 'pp-switch',
-                        'label'                     => __('Font Size', 'bb-powerpack'),
-                        'default'                   => 'default',
-                        'options'                   => array(
-                            'default'                  => __('Default', 'bb-powerpack'),
-                            'custom'                => __('Custom', 'bb-powerpack'),
-                        ),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array('input_font_size')
-							)
-						)
-                    ),
-                    'input_font_size'   => array(
-                        'type'          => 'pp-multitext',
-						'label'         => __('Custom Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 16,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-ff-content .frm_forms .form-field input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-ff-content .frm_forms .form-field select, .pp-ff-content .frm_forms .form-field textarea',
-                                    'property'      => 'font-size',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
-                    'input_desc_size'    => array(
+            'input_typography'			=> array( // Section
+				'title'         => __('Input', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
+                'fields'        => array(
+					'input_typography'			=> array(
+						'type'        	   => 'typography',
+						'label'       	   => __( 'Typography', 'bb-powerpack' ),
+						'responsive'  	   => true,
+						'preview'          => array(
+							'type'         		=> 'css',
+							'selector' 		    => '.pp-ff-content .frm_forms .form-field input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]),
+													.pp-ff-content .frm_forms .form-field select,
+													.pp-ff-content .frm_forms .form-field textarea',
+						),
+					),
+                    'input_desc_size'    		=> array(
                         'type'                      => 'pp-switch',
                         'label'                     => __('Description Font Size', 'bb-powerpack'),
                         'default'                   => 'default',
@@ -1767,75 +1241,26 @@ FLBuilder::register_module('PPFormidableFormModule', array(
 								'fields'	=> array('input_desc_font_size')
 							)
 						)
-                    ),
-                    'input_desc_font_size'    => array(
-                        'type'          => 'pp-multitext',
+					),
+					'input_desc_font_size'		=> array(
+						'type'			=> 'unit',
 						'label'         => __('Custom Description Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 14,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-ff-content .frm_forms .form-field input + .frm_description',
-                                    'property'      => 'font-size',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
-                    'input_desc_line_height'    => array(
-                        'type'          => 'pp-multitext',
+						'slider'		=> true,
+						'units'			=> array('px'),
+						'responsive'	=> true,
+					),
+					'input_desc_line_height'	=> array(
+						'type'			=> 'unit',
 						'label'         => __('Description Line Height', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 1.4,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-ff-content .frm_forms .form-field input + .frm_description',
-                                    'property'      => 'line-height',
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
-                    'input_desc_color'  => array(
+						'slider'		=> true,
+						'units'			=> array('px'),
+						'preview'		=> array(
+							'selector'      => '.pp-ff-content .frm_forms .form-field input + .frm_description',
+							'property'      => 'line-height'
+						),
+						'responsive'	=> true,
+					),
+                    'input_desc_color'  		=> array(
                         'type'                  => 'color',
                         'label'                 => __('Description Color', 'bb-powerpack'),
                         'default'               => '000000',
@@ -1847,148 +1272,39 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                     ),
                 )
             ),
-            'button_typography'       => array( // Section
-                'title'         => __('Button', 'bb-powerpack'), // Section Title
-                'fields'        => array( // Section Fields
-                    'button_font_family' => array(
-                        'type'          => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.pp-ff-content .frm_forms input[type=submit], .pp-ff-content .frm_forms input[type=button], .pp-ff-content .frm_forms input[type=reset], .pp-ff-content .frm_forms .frm_submit button'
-                        )
-                    ),
-                    'button_text_transform'    => array(
-                        'type'                      => 'select',
-                        'label'                     => __('Text Transform', 'bb-powerpack'),
-                        'default'                   => 'none',
-                        'options'                   => array(
-                            'none'                  => __('Default', 'bb-powerpack'),
-                            'lowercase'                => __('lowercase', 'bb-powerpack'),
-                            'uppercase'                 => __('UPPERCASE', 'bb-powerpack'),
-                        )
-                    ),
-                    'button_size'    => array(
-                        'type'                      => 'pp-switch',
-                        'label'                     => __('Font Size', 'bb-powerpack'),
-                        'default'                   => 'default',
-                        'options'                   => array(
-                            'default'                  => __('Default', 'bb-powerpack'),
-                            'custom'                => __('Custom', 'bb-powerpack'),
-                        ),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array('button_font_size')
-							)
-						)
-                    ),
-                    'button_font_size'   => array(
-                        'type'          => 'pp-multitext',
-						'label'         => __('Custom Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 18,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-ff-content .frm_forms input[type=submit], .pp-ff-content .frm_forms input[type=button], .pp-ff-content .frm_forms input[type=reset], .pp-ff-content .frm_forms .frm_submit button',
-                                    'property'      => 'font-size',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
+            'button_typography'			=> array( // Section
+				'title'         => __('Button', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
+                'fields'        => array(
+					'button_typography'	=> array(
+						'type'        	   => 'typography',
+						'label'       	   => __( 'Typography', 'bb-powerpack' ),
+						'responsive'  	   => true,
+						'preview'          => array(
+							'type'         		=> 'css',
+							'selector' 		    => '.pp-ff-content .frm_forms input[type=submit], .pp-ff-content .frm_forms input[type=button], .pp-ff-content .frm_forms input[type=reset], .pp-ff-content .frm_forms .frm_submit button'
+						),
+					),
                 )
             ),
-            'section_field_typography'       => array( // Section
-                'title'         => __('Section Field', 'bb-powerpack'), // Section Title
-                'fields'        => array( // Section Fields
-                    'section_field_font_family' => array(
-                        'type'          => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.pp-ff-content .frm_forms .frm-show-form  .frm_section_heading h3'
-                        )
-                    ),
-                    'section_field_size'    => array(
-                        'type'                      => 'pp-switch',
-                        'label'                     => __('Font Size', 'bb-powerpack'),
-                        'default'                   => 'default',
-                        'options'                   => array(
-                            'default'                  => __('Default', 'bb-powerpack'),
-                            'custom'                => __('Custom', 'bb-powerpack'),
-                        ),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array('section_field_font_size')
-							)
-						)
-                    ),
-                    'section_field_font_size'   => array(
-                        'type'          => 'pp-multitext',
-						'label'         => __('Custom Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 18,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-ff-content .frm_forms .frm-show-form  .frm_section_heading h3',
-                                    'property'      => 'font-size',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
+            'section_field_typography'	=> array( // Section
+				'title'         => __('Section Field', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
+                'fields'        => array(
+					'section_field_typography'	=> array(
+						'type'        	   => 'typography',
+						'label'       	   => __( 'Typography', 'bb-powerpack' ),
+						'responsive'  	   => true,
+						'preview'          => array(
+							'type'         		=> 'css',
+							'selector' 		    => '.pp-ff-content .frm_forms .frm-show-form  .frm_section_heading h3'
+						),
+					),
                 )
             ),
-            'errors_typography'       => array( // Section
-                'title'         => __('Error', 'bb-powerpack'), // Section Title
+            'errors_typography'			=> array( // Section
+				'title'         => __('Error', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
                 'fields'        => array( // Section Fields
                     'validation_error_size'    => array(
                         'type'                      => 'pp-switch',
@@ -2003,45 +1319,24 @@ FLBuilder::register_module('PPFormidableFormModule', array(
 								'fields'	=> array('validation_error_font_size')
 							)
 						)
-                    ),
-                    'validation_error_font_size'    => array(
-                        'type'          => 'pp-multitext',
+					),
+					'validation_error_font_size'		=> array(
+						'type'			=> 'unit',
 						'label'         => __('Custom Description Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 14,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.frm_forms .frm_error_style',
-                                    'property'      => 'font-size',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
+						'slider'		=> true,
+						'units'			=> array('px'),
+						'preview'		=> array(
+							'selector'      => '.frm_forms .frm_error_style',
+							'property'      => 'font-size',
+							'unit'          => 'px'
+						),
+						'responsive'	=> true,
+					),
                 )
             ),
-            'form_success_styling'    => array( // Section
-                'title'             => __('Success Message', 'bb-powerpack'), // Section Title
+            'form_success_styling'		=> array( // Section
+				'title'             => __('Success Message', 'bb-powerpack'), // Section Title
+				'collapsed'			=> true,
                 'fields'            => array( // Section Fields
                     'success_message_size'    => array(
                         'type'                      => 'pp-switch',
@@ -2056,41 +1351,19 @@ FLBuilder::register_module('PPFormidableFormModule', array(
 								'fields'	=> array('success_message_font_size')
 							)
 						)
-                    ),
-                    'success_message_font_size'    => array(
-                        'type'          => 'pp-multitext',
+					),
+					'success_message_font_size'		=> array(
+						'type'			=> 'unit',
 						'label'         => __('Custom Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 14,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.frm_forms .frm_message',
-                                    'property'      => 'font-size',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
+						'slider'		=> true,
+						'units'			=> array('px'),
+						'preview'		=> array(
+							'selector'      => '.frm_forms .frm_message',
+							'property'      => 'font-size',
+							'unit'          => 'px'
+						),
+						'responsive'	=> true,
+					),
                 )
             ),
         )

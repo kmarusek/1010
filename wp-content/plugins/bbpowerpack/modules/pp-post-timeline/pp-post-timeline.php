@@ -23,7 +23,6 @@ class PPPostTimelineModule extends FLBuilderModule {
             'editor_export' 	=> true, // Defaults to true and can be omitted.
             'enabled'       	=> true, // Defaults to true and can be omitted.
 			'partial_refresh'   => true,
-			'icon'				=> 'schedule.svg',
         ));
 
 		$this->add_css( BB_POWERPACK()->fa_css );
@@ -34,6 +33,142 @@ class PPPostTimelineModule extends FLBuilderModule {
 
 		add_action( 'wp_ajax_get_post_tax', array( $this, 'pp_get_post_taxonomies' ) );
 		add_action( 'wp_ajax_nopriv_get_post_tax', array( $this, 'pp_get_post_taxonomies' ) );
+	}
+
+	public function filter_settings( $settings, $helper )
+	{
+		// Handle title's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'title_font'	=> array(
+				'type'			=> 'font'
+			),
+			'title_font_size'	=> array(
+				'type'			=> 'font_size',
+				'keys'			=> array(
+					'desktop'		=> 'title_font_size',
+					'tablet'		=> 'title_font_size_medium',
+					'mobile'		=> 'title_font_size_responsive'
+				)
+			),
+			'title_line_height'	=> array(
+				'type'			=> 'line_height',
+				'keys'			=> array(
+					'desktop'		=> 'title_line_height',
+					'tablet'		=> 'title_line_height_medium',
+					'mobile'		=> 'title_line_height_responsive'
+				)
+			),
+			'title_text_transform'		=> array(
+				'type'			=> 'text_transform'
+			)
+		), 'title_typography' ); 
+
+		// Handle meta's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'meta_font'	=> array(
+				'type'			=> 'font'
+			),
+			'meta_font_size'	=> array(
+				'type'			=> 'font_size',
+			),
+			'meta_line_height'	=> array(
+				'type'			=> 'line_height',
+			),
+			'meta_text_transform'		=> array(
+				'type'			=> 'text_transform'
+			)
+		), 'meta_typography' );
+
+		// Handle text's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'text_font'	=> array(
+				'type'			=> 'font'
+			),
+			'text_font_size'	=> array(
+				'type'			=> 'font_size',
+			),
+			'text_line_height'	=> array(
+				'type'			=> 'line_height',
+			),
+		), 'text_typography' ); 
+
+		// Handle button's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'button_font'	=> array(
+				'type'			=> 'font'
+			),
+			'button_font_size'	=> array(
+				'type'			=> 'font_size',
+			),
+			'button_text_transform'		=> array(
+				'type'			=> 'text_transform'
+			)
+		), 'button_typography' );
+
+		// Handle old box border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'post_timeline_border_type'	=> array(
+				'type'				=> 'style'
+			),
+			'post_timeline_border_width'	=> array(
+				'type'				=> 'width'
+			),
+			'post_timeline_border_color'	=> array(
+				'type'				=> 'color'
+			),
+			'post_timeline_border_radius'	=> array(
+				'type'				=> 'radius'
+			),
+			'box_shadow_options'		=> array(
+				'type'				=> 'shadow',
+				'condition'			=> ( isset( $settings->post_timeline_box_shadow ) && 'yes' == $settings->post_timeline_box_shadow ),
+				'keys'				=> array(
+					'horizontal'		=> 'box_shadow_h',
+					'vertical'			=> 'box_shadow_v',
+					'blur'				=> 'box_shadow_blur',
+					'spread'			=> 'box_shadow_spread'
+				)
+			),
+			'post_timeline_box_shadow_color'	=> array(
+				'type'				=> 'shadow_color',
+				'condition'			=> ( isset( $settings->post_timeline_box_shadow ) && 'yes' == $settings->post_timeline_box_shadow ),
+				'opacity'			=> isset( $settings->post_timeline_box_shadow_opacity ) ? $settings->post_timeline_box_shadow_opacity : 1
+			),
+		), 'post_timeline_border' );
+
+		// Handle old button border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'post_timeline_button_border_type'	=> array(
+				'type'				=> 'style'
+			),
+			'post_timeline_button_border_width'	=> array(
+				'type'				=> 'width'
+			),
+			'post_timeline_button_border_color'	=> array(
+				'type'				=> 'color'
+			),
+			'post_timeline_button_border_radius'	=> array(
+				'type'				=> 'radius'
+			),
+		), 'post_timeline_button_border' );
+
+		// Handle old arrow border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'arrow_border_style'	=> array(
+				'type'				=> 'style'
+			),
+			'arrow_border_width'	=> array(
+				'type'				=> 'width'
+			),
+			'arrow_border_color'	=> array(
+				'type'				=> 'color'
+			),
+			'arrow_border_radius'	=> array(
+				'type'				=> 'radius'
+			),
+		), 'arrow_border' );
+
+		return $settings;
 	}
 	
 	/**
@@ -95,7 +230,7 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 					'slide_columns'    => array(
 						'type' 			=> 'unit',
 						'label' 		=> __('Number of Columns', 'bb-powerpack'),
-                        'size'          => '5',
+                        'slider'        => true,
 						'responsive' => array(
 							'placeholder' => array(
 								'default' 		=> '3',
@@ -169,6 +304,7 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 			),
 			'controls'       => array(
 				'title'         => __('Controls', 'bb-powerpack'),
+				'collpased'	=> true,
 				'fields'        => array(
 					'slider_pagination'     => array(
 						'type'          => 'pp-switch',
@@ -202,14 +338,14 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 			),
 			'arrow_style'   => array( // Section
                 'title' => __('Navigation Arrow', 'bb-powerpack'), // Section Title
+				'collpased'	=> true,
                 'fields' => array( // Section Fields
 					'arrow_font_size'   => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Arrow Size', 'bb-powerpack'),
-						'description'   => 'px',
-						'size'      => 5,
-						'maxlength' => 3,
 						'default'       => '15',
+						'units'			=> array( 'px' ),
+                        'slider'        => true,
 						'preview'         => array(
 							'type'            => 'css',
 							'rules'			=> array(
@@ -257,6 +393,7 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 						'type'      	=> 'color',
                         'label'     	=> __('Background Color', 'bb-powerpack'),
 						'show_reset' 	=> true,
+						'show_alpha'	=> true,
                         'default'		=> '',
 						'preview'         => array(
                             'type'            => 'css',
@@ -268,6 +405,7 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 						'type'      	=> 'color',
                         'label'     	=> __('Background Hover Color', 'bb-powerpack'),
 						'show_reset' 	=> true,
+						'show_alpha'	=> true,
                         'default'		=> '',
 						'preview'         => array(
                             'type'            => 'css',
@@ -275,79 +413,21 @@ FLBuilder::register_module('PPPostTimelineModule', array(
                             'property'        => 'background-color',
                         )
 					),
-                    'arrow_border_style'     => array(
-                        'type'      => 'pp-switch',
-                        'label'     => __('Border Style', 'bb-powerpack'),
-                        'default'     => 'none',
-                        'options'       => array(
-							'none'          => __('None', 'bb-powerpack'),
-							'solid'          => __('Solid', 'bb-powerpack'),
-							'dashed'          => __('Dashed', 'bb-powerpack'),
-							'dotted'          => __('Dotted', 'bb-powerpack'),
-						),
-						'toggle'   => array(
-							'solid'    => array(
-								'fields'   => array('arrow_border_width', 'arrow_border_color')
-							),
-							'dashed'    => array(
-							 	'fields'   => array('arrow_border_width', 'arrow_border_color')
-							),
-							'dotted'    => array(
-								'fields'   => array('arrow_border_width', 'arrow_border_color')
-							),
-							'double'    => array(
-								'fields'   => array('arrow_border_width', 'arrow_border_color')
-							)
-						),
-						'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-post-timeline-slide-navigation span.slick-arrow',
-                            'property'        => 'border-style',
-                        )
-                    ),
-                    'arrow_border_width'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Border Width', 'bb-powerpack'),
-                        'description'   => 'px',
-						'size'      	=> 5,
-                        'maxlength' 	=> 3,
-                        'default'       => '1',
-                        'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-post-timeline-slide-navigation span.slick-arrow',
-                            'property'        => 'border-width',
-                            'unit'            => 'px'
-                        )
-                    ),
-                    'arrow_border_color'    => array(
-						'type'      => 'color',
-                        'label'     => __('Border Color', 'bb-powerpack'),
-						'show_reset' => true,
-						'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-post-timeline-slide-navigation span.slick-arrow',
-                            'property'        => 'border-color',
-                        )
-                    ),
-					'arrow_border_radius'   => array(
-						'type'          => 'text',
-						'label'         => __('Round Corners', 'bb-powerpack'),
-						'description'   => 'px',
-						'size'      	=> 5,
-						'maxlength' 	=> 3,
-						'default'       => '100',
-						'preview'         => array(
-							'type'            => 'css',
-							'selector'        => '.pp-post-timeline-slide-navigation span.slick-arrow',
-							'property'        => 'border-radius',
-							'unit'            => 'px'
-						)
+                    'arrow_border'	=> array(
+						'type'          => 'border',
+						'label'         => __( 'Border', 'bb-powerpack' ),
+						'responsive'	=> true,
+						'preview'   	=> array(
+                            'type'  		=> 'css',
+                            'selector'  	=> '.pp-post-timeline-slide-navigation span.slick-arrow',
+                            'property'  	=> 'border',
+                        ),
 					),
 					'arrow_horizontal_padding'    => array(
 						'type' 			=> 'unit',
 						'label' 		=> __('Horizontal Padding', 'bb-powerpack'),
-						'description'	=> 'px',
-                        'size'          => '5',
+						'units'			=> array( 'px' ),
+                        'slider'        => true,
 						'responsive' => array(
 							'placeholder' => array(
 								'default' => '10',
@@ -374,8 +454,8 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 					'arrow_vertical_padding'    => array(
 						'type' 			=> 'unit',
 						'label' 		=> __('Vertical Padding', 'bb-powerpack'),
-						'size'          => '5',
-						'description'	=> 'px',
+						'units'			=> array( 'px' ),
+                        'slider'        => true,
 						'responsive' => array(
 							'placeholder' => array(
 								'default' => '5',
@@ -403,6 +483,7 @@ FLBuilder::register_module('PPPostTimelineModule', array(
             ),
             'dot_style'   => array( // Section
                 'title' => __('Dots', 'bb-powerpack'), // Section Title
+				'collpased'	=> true,
                 'fields' => array( // Section Fields
                     'dot_bg_color'  => array(
 						'type'          => 'color',
@@ -427,12 +508,11 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 						)
 					),
                     'dot_width'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Size', 'bb-powerpack'),
-                        'description'   => 'px',
-						'size'      => 5,
-                        'maxlength' => 3,
                         'default'       => '10',
+						'units'			=> array( 'px' ),
+                        'slider'        => true,
                         'preview'         => array(
                             'type'            => 'css',
                             'rules'           => array(
@@ -492,12 +572,11 @@ FLBuilder::register_module('PPPostTimelineModule', array(
                         ),
                     ),
                     'post_timeline_line_width'   => array(
-                        'type'      => 'text',
+                        'type'      => 'unit',
                         'label'     => __('Width', 'bb-powerpack'),
-                        'size'      => 5,
-                        'maxlength' => 2,
                         'default'   => 1,
-                        'description'   => 'px',
+                        'units'			=> array( 'px' ),
+                        'slider'        => true,
                         'preview'   => array(
                             'type'  => 'css',
 							'rules' 	=> array(
@@ -551,153 +630,34 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 						'type'  => 'color',
 						'label' => __('Background Color', 'bb-powerpack'),
 						'show_reset'    => true,
+						'show_alpha'	=> true,
 						'preview'         => array(
 							'type'          => 	'css',
 							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content',
 							'property'		=>	'background-color',
 						)
 					),
-					'post_timeline_border_type'   => array(
-						'type'  => 'pp-switch',
-						'label' => __('Border Style', 'bb-powerpack'),
-						'default'    => 'none',
-						'options'   => array(
-							'none'  => __('None', 'bb-powerpack'),
-							'solid'  => __('Solid', 'bb-powerpack'),
-							'dashed'  => __('Dashed', 'bb-powerpack'),
-							'dotted'  => __('Dotted', 'bb-powerpack'),
-						),
-						'toggle'    => array(
-							'dashed' => array(
-								'fields'    => array('post_timeline_border_color', 'post_timeline_border_width'),
-							),
-							'dotted' => array(
-								'fields'    => array('post_timeline_border_color', 'post_timeline_border_width'),
-							),
-							'solid' => array(
-								'fields'    => array('post_timeline_border_color', 'post_timeline_border_width'),
-							),
-						),
-						'preview'         => array(
-							'type'          => 	'css',
-							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content',
-							'property'		=>	'border-style',
-						)
-					),
-					'post_timeline_border_width' => array(
-						'type'  => 'text',
-						'label' => __('Border Width', 'bb-powerpack'),
-						'size'  => 5,
-						'maxlength' => 3,
-						'default'   => 0,
-						'description'   => 'px',
-						'preview'         => array(
-							'type'          => 	'css',
-							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content',
-							'property'		=>	'border-width',
-							'unit'			=> 	'px'
-						)
-					),
-					'post_timeline_border_color' => array(
-						'type'  => 'color',
-						'label' => __('Border Color', 'bb-powerpack'),
-						'show_reset'    => true,
-						'preview'         => array(
-							'type'          => 	'css',
-							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content',
-							'property'		=>	'border-color',
-						)
-					),
-					'post_timeline_border_radius' => array(
-						'type'  => 'text',
-						'label' => __('Round Corners', 'bb-powerpack'),
-						'size'  => 5,
-						'maxlength' => 3,
-						'default'   => 0,
-						'description'   => 'px',
-						'preview'         => array(
-							'type'          => 	'css',
-							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content',
-							'property'		=>	'border-radius',
-							'unit'			=> 	'px'
-						)
-					),
-				),
-			),
-			'post_timeline_box_shadow'  => array(
-				'title'     => __('Box Shadow', 'bb-powerpack'),
-				'fields'    => array(
-					'post_timeline_box_shadow'   => array(
-						'type'      => 'pp-switch',
-						'label'     => __('Display Box Shadow?', 'bb-powerpack'),
-						'default'   => 'no',
-						'options'   => array(
-							'yes'    => __('Yes', 'bb-powerpack'),
-							'no'    => __('No', 'bb-powerpack'),
-						),
-						'toggle'    => array(
-							'yes'   => array(
-								'fields'    => array('box_shadow_options', 'post_timeline_box_shadow_color', 'post_timeline_box_shadow_opacity'),
-							),
-						),
-					),
-					'box_shadow_options'   => array(
-						'type'          => 'pp-multitext',
-						'label'         => __('Box Shadow', 'bb-powerpack'),
-						'default'       => array(
-							'box_shadow_h' => 0,
-							'box_shadow_v' => 0,
-							'box_shadow_blur' => 0,
-							'box_shadow_spread' => 10,
-						),
-						'options'       => array(
-							'box_shadow_h'     => array(
-								'placeholder'           => __('Horizontal', 'bb-powerpack'),
-								'maxlength'             => 3,
-								'icon'                  => 'fa-arrows-h',
-								'tooltip'               => __('Horizontal', 'bb-powerpack')
-							),
-							'box_shadow_v'     => array(
-								'placeholder'           => __('Vertical', 'bb-powerpack'),
-								'maxlength'             => 3,
-								'icon'                  => 'fa-arrows-v',
-								'tooltip'               => __('Vertical', 'bb-powerpack')
-							),
-							'box_shadow_blur'     => array(
-								'placeholder'           => __('Blur', 'bb-powerpack'),
-								'maxlength'             => 3,
-								'icon'                  => 'fa-circle-o',
-								'tooltip'               => __('Blur', 'bb-powerpack')
-							),
-							'box_shadow_spread'     => array(
-								'placeholder'           => __('Spread', 'bb-powerpack'),
-								'maxlength'             => 3,
-								'icon'                  => 'fa-paint-brush',
-								'tooltip'               => __('Spread', 'bb-powerpack')
-							),
-						),
-					),
-					'post_timeline_box_shadow_color' => array(
-						'type'              => 'color',
-						'label'             => __('Color', 'bb-powerpack'),
-						'default'           => '000000',
-					),
-					'post_timeline_box_shadow_opacity' => array(
-						'type'              => 'text',
-						'label'             => __('Opacity', 'bb-powerpack'),
-						'size'             	=> 5,
-						'default'           => 0.5,
+					'post_timeline_border'	=> array(
+						'type'          => 'border',
+						'label'         => __( 'Border', 'bb-powerpack' ),
+						'responsive'	=> true,
+						'preview'   	=> array(
+                            'type'  		=> 'css',
+                            'selector'  	=> '.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content',
+                            'property'  	=> 'border',
+                        ),
 					),
 				),
 			),
             'header_style' => array(
                 'title' => __('Header', 'bb-powerpack'),
+				'collpased'	=> true,
                 'fields'    => array(
 					'title_horizontal_padding'    => array(
 						'type' 			=> 'unit',
 						'label' 		=> __('Horizontal Padding', 'bb-powerpack'),
-						'description'	=> 'px',
-                        'size'          => '5',
+						'units'			=> array( 'px' ),
+                        'slider'        => true,
 						'responsive' => array(
 							'placeholder' => array(
 								'default' => '20',
@@ -724,8 +684,8 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 					'title_vertical_padding'    => array(
 						'type' 			=> 'unit',
 						'label' 		=> __('Vertical Padding', 'bb-powerpack'),
-						'description'	=> 'px',
-                        'size'          => '5',
+						'units'			=> array( 'px' ),
+                        'slider'        => true,
 						'responsive' => array(
 							'placeholder' => array(
 								'default' => '20',
@@ -753,6 +713,7 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 						'type'  => 'color',
 						'label' => __('Background Color', 'bb-powerpack'),
 						'show_reset'    => true,
+						'show_alpha'	=> true,
 						'default'       => '',
 						'preview'         => array(
 							'type'          => 	'css',
@@ -772,11 +733,11 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 						)
 					),
 					'title_border'	=> array(
-						'type'			=> 'text',
+						'type'			=> 'unit',
 						'label'			=> __('Border Width', 'bb-powerpack'),
 						'default'		=> 0,
-						'size'			=> 5,
-						'description'	=> 'px',
+						'units'			=> array( 'px' ),
+                        'slider'        => true,
 						'preview'         => array(
 							'type'          => 	'css',
 							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-title-wrapper',
@@ -831,6 +792,7 @@ FLBuilder::register_module('PPPostTimelineModule', array(
             ),
             'content' => array(
                 'title' => __('Content', 'bb-powerpack'),
+				'collpased'	=> true,
                 'fields'    => array(
 					'content_color'    => array(
 						'type'      => 'color',
@@ -845,8 +807,8 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 					'content_horizontal_padding'    => array(
 						'type' 			=> 'unit',
 						'label' 		=> __('Horizontal Padding', 'bb-powerpack'),
-						'description'	=> 'px',
-                        'size'          => '5',
+						'units'			=> array( 'px' ),
+                        'slider'        => true,
 						'responsive' => array(
 							'placeholder' => array(
 								'default' => '20',
@@ -873,8 +835,8 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 					'content_vertical_padding'    => array(
 						'type' 			=> 'unit',
 						'label' 		=> __('Vertical Padding', 'bb-powerpack'),
-						'description'	=> 'px',
-                        'size'          => '5',
+						'units'			=> array( 'px' ),
+                        'slider'        => true,
 						'responsive' => array(
 							'placeholder' => array(
 								'default' => '20',
@@ -902,14 +864,14 @@ FLBuilder::register_module('PPPostTimelineModule', array(
             ),
             'icon'  => array(
                 'title' => __('Icon', 'bb-powerpack'),
+				'collpased'	=> true,
                 'fields'    => array(
                     'icon_size' => array(
-                        'type'  => 'text',
-                        'label' => __('Size', 'bb-powerpack'),
-                        'size'  => 5,
-                        'maxlength' => 3,
-                        'default'   => 20,
-                        'description'   => 'px',
+                        'type'  		=> 'unit',
+                        'label' 		=> __('Size', 'bb-powerpack'),
+                        'default'   	=> 20,
+                        'units'			=> array( 'px' ),
+                        'slider'        => true,
 						'preview'         => array(
 							'type'          => 	'css',
 							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-icon .pp-timeline-icon, .pp-post-timeline.horizontal .pp-post-timeline-slide-navigation .pp-timeline-icon',
@@ -918,12 +880,11 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 						)
                     ),
                     'icon_padding'  => array(
-                        'type'      => 'text',
-                        'label'     => __('Padding', 'bb-powerpack'),
-                        'size'      => 5,
-                        'maxlength' => 3,
-                        'default'   => 15,
-                        'description'   => 'px',
+                        'type'      	=> 'unit',
+                        'label'     	=> __('Padding', 'bb-powerpack'),
+                        'default'   	=> 15,
+                        'units'			=> array( 'px' ),
+                        'slider'        => true,
 						'preview'         => array(
 							'type'          => 	'css',
 							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-icon, .pp-post-timeline.horizontal .pp-post-timeline-slide-navigation .pp-post-timeline-icon',
@@ -935,6 +896,7 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 						'type'  => 'color',
 						'label' => __('Background Color', 'bb-powerpack'),
 						'show_reset'    => true,
+						'show_alpha'	=> true,
 						'default'       => '',
 						'preview'         => array(
 							'type'          => 	'css',
@@ -981,12 +943,11 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 						)
 					),
 					'icon_border_width' => array(
-						'type'  => 'text',
+						'type'  => 'unit',
 						'label' => __('Border Width', 'bb-powerpack'),
-						'size'  => 5,
-						'maxlength' => 3,
 						'default'   => 0,
-						'description'   => 'px',
+						'units'   	=> array( 'px' ),
+						'slider'	=> true,
 						'preview'         => array(
 							'type'          => 	'css',
 							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-icon, .pp-post-timeline.horizontal .pp-post-timeline-slide-navigation .pp-post-timeline-icon',
@@ -1005,12 +966,11 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 						)
 					),
 					'icon_border_radius'    => array(
-						'type'      => 'text',
+						'type'      => 'unit',
 						'label'     => __('Round Corners', 'bb-powerpack'),
-						'size'      => 5,
-						'maxlength' => 3,
 						'default'   => 0,
-						'description'   => 'px',
+						'units'   	=> array( 'px' ),
+						'slider'	=> true,
 						'preview'         => array(
 							'type'          => 	'css',
 							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-icon, .pp-post-timeline.horizontal .pp-post-timeline-slide-navigation .pp-post-timeline-icon',
@@ -1022,11 +982,13 @@ FLBuilder::register_module('PPPostTimelineModule', array(
             ),
 			'button_style'	=> array(
 				'title'		=> __('Button', 'bb-powerpack'),
+				'collpased'	=> true,
 				'fields'	=> array(
 					'post_timeline_button_bg_color'  => array(
 						'type'      => 'color',
 						'label'     => __('Background Color', 'bb-powerpack'),
 						'show_reset'    => true,
+						'show_alpha'	=> true,
 						'preview'         => array(
 							'type'          => 	'css',
 							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-button',
@@ -1037,6 +999,7 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 						'type'      => 'color',
 						'label'     => __('Background Hover Color', 'bb-powerpack'),
 						'show_reset'    => true,
+						'show_alpha'	=> true,
 						'preview'         => array(
 							'type'          => 	'css',
 							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-button:hover',
@@ -1063,76 +1026,21 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 							'property'		=>	'color'
 						)
 					),
-					'post_timeline_button_border_type'   => array(
-						'type'  => 'pp-switch',
-						'label' => __('Border Style', 'bb-powerpack'),
-						'default'    => 'none',
-						'options'   => array(
-							'none'  => __('None', 'bb-powerpack'),
-							'solid'  => __('Solid', 'bb-powerpack'),
-							'dashed'  => __('Dashed', 'bb-powerpack'),
-							'dotted'  => __('Dotted', 'bb-powerpack'),
-						),
-						'toggle'    => array(
-							'solid' => array(
-								'fields'    => array('post_timeline_button_border_color', 'post_timeline_button_border_width'),
-							),
-							'dashed' => array(
-								'fields'    => array('post_timeline_button_border_color', 'post_timeline_button_border_width'),
-							),
-							'dotted' => array(
-								'fields'    => array('post_timeline_button_border_color', 'post_timeline_button_border_width'),
-							),
-						),
-						'preview'         => array(
-							'type'          => 	'css',
-							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-button',
-							'property'		=>	'border-style'
-						)
-					),
-					'post_timeline_button_border_width' => array(
-						'type'  => 'text',
-						'label' => __('Border Width', 'bb-powerpack'),
-						'size'  => 5,
-						'maxlength' => 3,
-						'default'   => 0,
-						'description'   => 'px',
-						'preview'         => array(
-							'type'          => 	'css',
-							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-button',
-							'property'		=>	'border-width',
-							'unit'			=> 'px'
-						)
-					),
-					'post_timeline_button_border_color' => array(
-						'type'  => 'color',
-						'label' => __('Border Color', 'bb-powerpack'),
-						'show_reset'    => true,
-						'preview'         => array(
-							'type'          => 	'css',
-							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-button',
-							'property'		=>	'border-color'
-						)
-					),
-					'post_timeline_button_border_radius' => array(
-						'type'      => 'text',
-						'label'     => __('Round Corners', 'bb-powerpack'),
-						'size'      => 5,
-						'maxlength' => 3,
-						'default'   => 0,
-						'description'   => 'px',
-						'preview'         => array(
-							'type'          => 	'css',
-							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-button',
-							'property'		=>	'border-radius',
-							'unit'			=> 	'px'
-						)
+					'post_timeline_button_border'	=> array(
+						'type'          => 'border',
+						'label'         => __( 'Border', 'bb-powerpack' ),
+						'responsive'	=> true,
+						'preview'   	=> array(
+                            'type'  		=> 'css',
+                            'selector'  	=> '.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-button',
+                            'property'  	=> 'border',
+                        ),
 					),
 					'button_horizontal_padding'    => array(
 						'type' 			=> 'unit',
 						'label' 		=> __('Horizontal Padding', 'bb-powerpack'),
-						'description'	=> 'px',
-                        'size'          => '5',
+						'units'			=> array( 'px' ),
+                        'slider'        => true,
 						'responsive' => array(
 							'placeholder' => array(
 								'default' => '10',
@@ -1159,8 +1067,8 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 					'button_vertical_padding'    => array(
 						'type' 			=> 'unit',
 						'label' 		=> __('Vertical Padding', 'bb-powerpack'),
-						'description'	=> 'px',
-                        'size'          => '5',
+						'units'			=> array( 'px' ),
+                        'slider'        => true,
 						'responsive' => array(
 							'placeholder' => array(
 								'default' => '10',
@@ -1187,8 +1095,8 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 					'button_top_margin'    => array(
 						'type' 			=> 'unit',
 						'label' 		=> __('Margin Top', 'bb-powerpack'),
-						'description'	=> 'px',
-                        'size'          => '5',
+						'units'			=> array( 'px' ),
+                        'slider'        => true,
 						'responsive' => array(
 							'placeholder' => array(
 								'default' => '0',
@@ -1206,8 +1114,8 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 					'button_bottom_margin'    => array(
 						'type' 			=> 'unit',
 						'label' 		=> __('Margin Bottom', 'bb-powerpack'),
-						'description'	=> 'px',
-                        'size'          => '5',
+						'units'			=> array( 'px' ),
+                        'slider'        => true,
 						'responsive' => array(
 							'placeholder' => array(
 								'default' => '0',
@@ -1232,240 +1140,59 @@ FLBuilder::register_module('PPPostTimelineModule', array(
             'title_typography'    => array(
                 'title'     => __('Title', 'bb-powerpack'),
                 'fields'  => array(
-                    'title_font' => array(
-                        'type'  => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-						'preview'         => array(
-							'type'          => 	'font',
-							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-title',
-						)
-                    ),
-					'title_font_size'    => array(
-						'type' 			=> 'unit',
-						'label' 		=> __('Font Size', 'bb-powerpack'),
-						'description'	=> 'px',
-                        'size'          => '5',
-						'responsive' => array(
-							'placeholder' => array(
-								'default' 		=> '24',
-								'medium' 		=> '',
-								'responsive'	=> '',
-							),
+					'title_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-title',
 						),
-						'preview'         => array(
-							'type'          => 	'css',
-							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-title',
-							'property'		=>	'font-size',
-							'unit'			=> 	'px'
-						)
-                    ),
-					'title_line_height'    => array(
-						'type' 			=> 'unit',
-						'label' 		=> __('Line Height', 'bb-powerpack'),
-                        'size'          => '5',
-						'responsive' => array(
-							'placeholder' => array(
-								'default' 		=> '1.6',
-								'medium' 		=> '',
-								'responsive'	=> '',
-							),
-						),
-						'preview'         => array(
-							'type'          => 	'css',
-							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-title',
-							'property'		=>	'line-height'
-						)
-                    ),
-					'title_text_transform'   => array(
-						'type'  => 'select',
-						'label' => __('Text Transform', 'bb-powerpack'),
-						'default'    => 'none',
-						'options'       => array(
-							'none'          => __('None', 'bb-powerpack'),
-							'lowercase'     => __('lowercase', 'bb-powerpack'),
-							'uppercase'     => __('UPPERCASE', 'bb-powerpack'),
-						),
-						'preview'         => array(
-							'type'          => 	'css',
-							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-title',
-							'property'		=>	'text-transform'
-						)
 					),
                 ),
             ),
 			'meta_typography'    => array(
                 'title'     => __('Meta', 'bb-powerpack'),
+				'collpased'	=> true,
                 'fields'  => array(
-                    'meta_font' => array(
-                        'type'  => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-							'type'            => 'font',
-							'selector'        => '.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-meta'
-						)
-                    ),
-					'meta_font_size'    => array(
-						'type' 			=> 'unit',
-						'label' 		=> __('Font Size', 'bb-powerpack'),
-						'description'	=> 'px',
-                        'size'          => '5',
-						'responsive' => array(
-							'placeholder' => array(
-								'default' 		=> '14',
-								'medium' 		=> '',
-								'responsive'	=> '',
-							),
+					'meta_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-meta',
 						),
-						'preview'         => array(
-							'type'          => 	'css',
-							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-meta',
-							'property'		=>	'font-size',
-							'unit'			=> 	'px'
-						)
-                    ),
-					'meta_line_height'    => array(
-						'type' 			=> 'unit',
-						'label' 		=> __('Line Height', 'bb-powerpack'),
-                        'size'          => '5',
-						'responsive' => array(
-							'placeholder' => array(
-								'default' 		=> '1.6',
-								'medium' 		=> '',
-								'responsive'	=> '',
-							),
-						),
-						'preview'         => array(
-							'type'          => 	'css',
-							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-meta',
-							'property'		=>	'line-height'
-						)
-                    ),
-					'meta_text_transform'   => array(
-						'type'  => 'select',
-						'label' => __('Text Transform', 'bb-powerpack'),
-						'default'    => 'none',
-						'options'       => array(
-							'none'          => __('None', 'bb-powerpack'),
-							'lowercase'     => __('lowercase', 'bb-powerpack'),
-							'uppercase'     => __('UPPERCASE', 'bb-powerpack'),
-						),
-						'preview'         => array(
-							'type'          => 	'css',
-							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-meta',
-							'property'		=>	'text-transform'
-						)
 					),
                 ),
             ),
             'text_typography'   => array(
                 'title'     => __('Text', 'bb-powerpack'),
+				'collpased'	=> true,
                 'fields'    => array(
-                    'text_font' => array(
-                        'type'  => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-						'preview'         => array(
-							'type'          => 'font',
-							'selector'      => '.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-text-wrapper',
-						)
-                    ),
-					'text_font_size'    => array(
-						'type' 			=> 'unit',
-						'label' 		=> __('Font Size', 'bb-powerpack'),
-						'description'	=> 'px',
-                        'size'          => '5',
-						'responsive' => array(
-							'placeholder' => array(
-								'default' 		=> '16',
-								'medium' 		=> '',
-								'responsive'	=> '',
-							),
+					'text_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-text-wrapper',
 						),
-						'preview'         => array(
-							'type'          => 'css',
-							'selector'      => '.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-text-wrapper',
-							'property'		=> 'font-size',
-							'unit'			=> 	'px'
-						)
-                    ),
-					'text_line_height'    => array(
-						'type' 			=> 'unit',
-						'label' 		=> __('Line Height', 'bb-powerpack'),
-                        'size'          => '5',
-						'responsive' => array(
-							'placeholder' => array(
-								'default' 		=> '1.6',
-								'medium' 		=> '',
-								'responsive'	=> '',
-							),
-						),
-						'preview'         => array(
-							'type'          => 'css',
-							'selector'      => '.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-text-wrapper',
-							'property'		=> 'line-height'
-						)
-                    ),
+					),
                 ),
             ),
             'button_typography' => array(
                 'title'     => __('Button', 'bb-powerpack'),
+				'collpased'	=> true,
                 'fields'    => array(
-                    'button_font' => array(
-                        'type'  => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-						'preview'         => array(
-							'type'          => 	'font',
-							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-button',
-						)
-                    ),
-					'button_font_size'    => array(
-						'type' 			=> 'unit',
-						'label' 		=> __('Font Size', 'bb-powerpack'),
-						'description'	=> 'px',
-                        'size'          => '5',
-						'responsive' => array(
-							'placeholder' => array(
-								'default' 		=> '16',
-								'medium' 		=> '',
-								'responsive'	=> '',
-							),
+					'button_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.p.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-button',
 						),
-						'preview'         => array(
-							'type'          => 	'css',
-							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-button',
-							'property'		=>	'font-size',
-							'unit'			=> 	'px'
-						)
-                    ),
-					'button_text_transform'   => array(
-						'type'  => 'select',
-						'label' => __('Text Transform', 'bb-powerpack'),
-						'default'    => 'none',
-						'options'       => array(
-							'none'          => __('None', 'bb-powerpack'),
-							'lowercase'     => __('lowercase', 'bb-powerpack'),
-							'uppercase'     => __('UPPERCASE', 'bb-powerpack'),
-						),
-						'preview'         => array(
-							'type'          => 	'css',
-							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-button',
-							'property'		=>	'text-transform'
-						)
 					),
                 ),
             ),

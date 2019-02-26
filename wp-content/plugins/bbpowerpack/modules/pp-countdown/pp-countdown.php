@@ -21,6 +21,71 @@ class PPCountdownModule extends FLBuilderModule {
 		));
 	}
 
+	public function filter_settings( $settings, $helper )
+	{
+		// Handle old link, link_target fields.
+		$settings = PP_Module_Fields::handle_link_field( $settings, array(
+			'redirect_link'			=> array(
+				'type'			=> 'link'
+			),
+			'redirect_link_target'	=> array(
+				'type'			=> 'target'
+			),
+		), 'redirect_link' );
+
+		// Handle digit's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'digit_font_family'	=> array(
+				'type'			=> 'font'
+			),
+			'digit_custom_font_size'	=> array(
+				'type'			=> 'font_size',
+				'condition'		=> ( isset( $settings->digit_font_size ) && 'custom' == $settings->digit_font_size )
+			),
+			'digit_line_height'	=> array(
+				'type'			=> 'line_height',
+			),
+		), 'digit_typography' );
+
+		// Handle label's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'label_font_family'	=> array(
+				'type'			=> 'font'
+			),
+			'label_custom_font_size'	=> array(
+				'type'			=> 'font_size',
+				'condition'		=> ( isset( $settings->label_font_size ) && 'custom' == $settings->label_font_size )
+			),
+			'label_line_height'	=> array(
+				'type'			=> 'line_height',
+			),
+			'label_letter_spacing'	=> array(
+				'type'			=> 'letter_spacing',
+			),
+			'label_text_transform'	=> array(
+				'type'			=> 'text_transform',
+			),
+		), 'label_typography' );
+
+		// Handle message's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'message_font_family'	=> array(
+				'type'			=> 'font'
+			),
+			'message_custom_font_size'	=> array(
+				'type'			=> 'font_size',
+				'condition'		=> ( isset( $settings->message_font_size ) && 'custom' == $settings->message_font_size )
+			),
+			'message_line_height'	=> array(
+				'type'			=> 'line_height',
+			),
+		), 'message_typography' );
+
+		$settings = PP_Module_Fields::handle_alignment_field( $settings, 'counter_alignment', 'responsive_counter_alignment' );
+
+		return $settings;
+	}
+
 	public function enqueue_scripts() {
 		$this->add_js( 'pp-jquery-countdown' );
 		$this->add_js( 'jquery-cookie' );
@@ -183,24 +248,15 @@ FLBuilder::register_module('PPCountdownModule', array(
 						'placeholder'   => '',
 						'rows'          => 5,
 					),
-					'redirect_link'          => array(
+					'redirect_link'  => array(
 						'type'          => 'link',
-						'label'         => __( 'Link', 'bb-powerpack' ),
+						'label'         => __('Link', 'bb-powerpack'),
+						'placeholder'   => 'http://www.example.com',
+						'show_target'	=> true,
+						'connections'   => array( 'url' ),
 						'preview'       => array(
-							'type'            => 'none',
-						),
-					),
-					'redirect_link_target'   => array(
-						'type'          => 'pp-switch',
-						'label'         => __( 'Link Target', 'bb-powerpack' ),
-						'default'       => '_self',
-						'options'       => array(
-							'_self'         => __( 'Same Window', 'bb-powerpack' ),
-							'_blank'        => __( 'New Window', 'bb-powerpack' ),
-						),
-						'preview'         => array(
-							'type'            => 'none',
-						),
+							'type'          => 'none'
+						)
 					),
 				)
 			),
@@ -423,40 +479,25 @@ FLBuilder::register_module('PPCountdownModule', array(
 				'title'	=> '',
 				'fields'	=> array(
 					'counter_alignment'   => array(
-						'type'          => 'pp-switch',
+						'type'          => 'align',
 						'label'         => __( 'Alignment', 'bb-powerpack' ),
 						'default'       => 'center',
-						'options'       => array(
-							'left'         => __( 'Left', 'bb-powerpack' ),
-							'center'       => __( 'Center', 'bb-powerpack' ),
-							'right'        => __( 'Right', 'bb-powerpack' ),
-						),
-					),
-					'responsive_counter_alignment'   => array(
-						'type'          => 'pp-switch',
-						'label'         => __( 'Responsive Alignment', 'bb-powerpack' ),
-						'default'       => 'default',
-						'options'       => array(
-							'default'      => __( 'Default', 'bb-powerpack' ),
-							'left'         => __( 'Left', 'bb-powerpack' ),
-							'center'       => __( 'Center', 'bb-powerpack' ),
-							'right'        => __( 'Right', 'bb-powerpack' ),
-						),
+						'responsive'	=> true
 					),
 					'digit_label_spacing'   => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __( 'Space between label & digit', 'bb-powerpack' ),
-						'description'   => 'px',
+						'units'   		=> array( 'px' ),
 						'placeholder'	=> __( '10', 'bb-powerpack' ),
-						'size'			=> 5,
+						'slider'		=> true,
 					),
 					'block_spacing'   => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __( 'Space between blocks', 'bb-powerpack' ),
-						'description'   => 'px',
+						'units'   		=> array( 'px' ),
 						'placeholder'	=> __( '10', 'bb-powerpack' ),
 						'help'			=> __( 'This option controls the left-right spacing of each countdown block.', 'bb-powerpack' ),
-						'size'			=> 5,
+						'slider'		=> true,
 					),
 				),
 			),
@@ -498,12 +539,11 @@ FLBuilder::register_module('PPCountdownModule', array(
 						'show_alpha'    => true,
 					),
 					'separator_size' => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __( 'Separator Size', 'bb-powerpack' ),
 						'default'       => '15',
-						'maxlength'     => '3',
-						'size'          => '4',
-						'description'   => 'px',
+						'units'   		=> array( 'px' ),
+						'slider'		=> true
 					),
 					'hide_separator' => array(
 						'type'          => 'pp-switch',
@@ -541,11 +581,11 @@ FLBuilder::register_module('PPCountdownModule', array(
 						),
 					),
 					'block_width'   => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __( 'Width', 'bb-powerpack' ),
-						'description'   => 'px',
 						'placeholder'	=> __( '100', 'bb-powerpack' ),
-						'size'			=> 5,
+						'units'			=> array( 'px' ),
+						'slider'		=> true,
 					),
 					'block_bg_type'   => array(
 						'type'          => 'pp-switch',
@@ -583,18 +623,11 @@ FLBuilder::register_module('PPCountdownModule', array(
 						'show_reset'    => true,
 					),
 					'block_bg_color_opc'   => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __( 'Background Opacity', 'bb-powerpack' ),
-						'description'   => '%',
 						'default'		=> '',
-						'size'			=> 5,
-					),
-					'block_border_radius'   => array(
-						'type'          => 'text',
-						'label'         => __( 'Round Corners', 'bb-powerpack' ),
-						'description'   => 'px',
-						'placeholder'	=> __( '5', 'bb-powerpack' ),
-						'size'			=> 5,
+						'units'			=> array( '%' ),
+						'slider'		=> true,
 					),
 					'block_border_style'   => array(
 						'type'          => 'pp-switch',
@@ -607,17 +640,24 @@ FLBuilder::register_module('PPCountdownModule', array(
 						),
 					),
 					'block_border_width'   => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __( 'Border Width', 'bb-powerpack' ),
-						'description'   => 'px',
 						'placeholder'	=> __( '5', 'bb-powerpack' ),
-						'size'			=> 5,
+						'units'			=> array( 'px' ),
+						'slider'		=> true,
 					),
 					'block_border_color'    => array(
 						'type'          => 'color',
 						'label'         => __( 'Border Color', 'bb-powerpack' ),
 						'default'       => '',
 						'show_reset'    => true,
+					),
+					'block_border_radius'   => array(
+						'type'          => 'unit',
+						'label'         => __( 'Round Corners', 'bb-powerpack' ),
+						'placeholder'	=> __( '5', 'bb-powerpack' ),
+						'units'			=> array( 'px' ),
+						'slider'		=> true,
 					),
 					'show_block_shadow'   => array(
 						'type'                 => 'pp-switch',
@@ -730,18 +770,18 @@ FLBuilder::register_module('PPCountdownModule', array(
 						'show_alpha'	=> true
 					),
 					'label_horizontal_padding'	=> array(
-						'type'			=> 'text',
+						'type'			=> 'unit',
 						'label'			=> __( 'Horizontal Padding', 'bb-powerpack' ),
-						'description'	=> __( 'px', 'bb-powerpack' ),
+						'units'			=> array( 'px' ),
 						'default'		=> '',
-						'size'			=> 5,
+						'slider'		=> true,
 					),
 					'label_vertical_padding'	=> array(
-						'type'			=> 'text',
+						'type'			=> 'unit',
 						'label'			=> __( 'Vertical Padding', 'bb-powerpack' ),
-						'description'	=> __( 'px', 'bb-powerpack' ),
+						'units'			=> array( 'px' ),
 						'default'		=> 5,
-						'size'			=> 5,
+						'slider'		=> true,
 					),
 				),
 			),
@@ -768,67 +808,13 @@ FLBuilder::register_module('PPCountdownModule', array(
 							'p'       => 'p',
 						),
 					),
-					'digit_font_family'       => array(
-						'type'          => 'font',
-						'label'         => __( 'Font Family', 'bb-powerpack' ),
-						'default'       => array(
-							'family'        => 'Default',
-							'weight'        => 'Default',
-						),
-						'preview'         => array(
-							'type'            => 'font',
-							'selector'        => '.pp-countdown-fixed-timer .pp-countdown-digit, .pp-countdown-evergreen-timer .pp-countdown-digit',
-						),
-					),
-					'digit_font_size'    => array(
-						'type'                      => 'pp-switch',
-						'label'                     => __( 'Font Size', 'bb-powerpack' ),
-						'default'                   => 'default',
-						'options'                   => array(
-							'default'                  => __( 'Default', 'bb-powerpack' ),
-							'custom'                => __( 'Custom', 'bb-powerpack' ),
-						),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array( 'digit_custom_font_size' ),
-							),
-						),
-					),
-					'digit_custom_font_size'		=> array(
-						'type'			=> 'unit',
-						'label' 		=> __( 'Custom Font Size', 'bb-powerpack' ),
-						'size'          => 5,
-						'default'       => '',
-						'responsive' 	=> array(
-							'placeholder'	=> array(
-								'default'		=> '',
-								'medium'		=> '',
-								'responsive' 	=> '',
-							),
-						),
-						'preview'           => array(
+					'digit_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
 							'type'			=> 'css',
-							'selector'      => '.pp-countdown-fixed-timer .pp-countdown-digit, .pp-countdown-evergreen-timer .pp-countdown-digit',
-							'property'      => 'font-size',
-							'unit'          => 'px',
-						),
-					),
-					'digit_line_height'		=> array(
-						'type'			=> 'unit',
-						'label' 		=> __( 'Line Height', 'bb-powerpack' ),
-						'size'          => 5,
-						'default'       => '',
-						'responsive' 	=> array(
-							'placeholder'	=> array(
-								'default'		=> '',
-								'medium'		=> '',
-								'responsive' 	=> '',
-							),
-						),
-						'preview'           => array(
-							'type'			=> 'css',
-							'selector'      => '.pp-countdown-fixed-timer .pp-countdown-digit, .pp-countdown-evergreen-timer .pp-countdown-digit',
-							'property'      => 'line-height',
+							'selector'		=> '.pp-countdown-fixed-timer .pp-countdown-digit, .pp-countdown-evergreen-timer .pp-countdown-digit',
 						),
 					),
 					'digit_color'        => array(
@@ -846,6 +832,7 @@ FLBuilder::register_module('PPCountdownModule', array(
 			),
 			'label_typography'    =>	array(
 				'title'     => __( 'Labels', 'bb-powerpack' ),
+				'collpased'	=> true,
 				'fields'    => array(
 					'label_tag'   => array(
 						'type'          => 'select',
@@ -862,80 +849,13 @@ FLBuilder::register_module('PPCountdownModule', array(
 							'p'       => 'p',
 						),
 					),
-					'label_font_family'       => array(
-						'type'          => 'font',
-						'label'         => __( 'Font Family', 'bb-powerpack' ),
-						'default'       => array(
-							'family'        => 'Default',
-							'weight'        => 'Default',
-						),
-						'preview'         => array(
-							'type'            => 'font',
-							'selector'        => '.pp-countdown-fixed-timer .pp-countdown-label, .pp-countdown-evergreen-timer .pp-countdown-label',
-						),
-					),
-					'label_font_size'    => array(
-						'type'                      => 'pp-switch',
-						'label'                     => __( 'Font Size', 'bb-powerpack' ),
-						'default'                   => 'default',
-						'options'                   => array(
-							'default'                  => __( 'Default', 'bb-powerpack' ),
-							'custom'                => __( 'Custom', 'bb-powerpack' ),
-						),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array( 'label_custom_font_size' ),
-							),
-						),
-					),
-					'label_custom_font_size'		=> array(
-						'type'			=> 'unit',
-						'label' 		=> __( 'Custom Font Size', 'bb-powerpack' ),
-						'size'          => 5,
-						'default'       => '',
-						'responsive' 	=> array(
-							'placeholder'	=> array(
-								'default'		=> '',
-								'medium'		=> '',
-								'responsive' 	=> '',
-							),
-						),
-						'preview'           => array(
+					'label_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
 							'type'			=> 'css',
-							'selector'      => '.pp-countdown-fixed-timer .pp-countdown-label, .pp-countdown-evergreen-timer .pp-countdown-label',
-							'property'      => 'font-size',
-							'unit'          => 'px',
-						),
-					),
-					'label_line_height'		=> array(
-						'type'			=> 'unit',
-						'label' 		=> __( 'Line Height', 'bb-powerpack' ),
-						'size'          => 5,
-						'default'       => '',
-						'responsive' 	=> array(
-							'placeholder'	=> array(
-								'default'		=> '',
-								'medium'		=> '',
-								'responsive' 	=> '',
-							),
-						),
-						'preview'           => array(
-							'type'			=> 'css',
-							'selector'      => '.pp-countdown-fixed-timer .pp-countdown-label, .pp-countdown-evergreen-timer .pp-countdown-label',
-							'property'      => 'line-height',
-						),
-					),
-					'label_letter_spacing'   => array(
-						'type'          => 'text',
-						'label'         => __( 'Letter Spacing', 'bb-powerpack' ),
-						'description'   => __( 'px', 'bb-powerpack' ),
-						'size'			=> 5,
-						'default'		=> '',
-						'preview'           => array(
-							'type'			=> 'css',
-							'selector'      => '.pp-countdown-fixed-timer .pp-countdown-label, .pp-countdown-evergreen-timer .pp-countdown-label',
-							'property'      => 'letter-spacing',
-							'unit'          => 'px',
+							'selector'		=> '.pp-countdown-fixed-timer .pp-countdown-label, .pp-countdown-evergreen-timer .pp-countdown-label',
 						),
 					),
 					'label_color'	=> array(
@@ -949,89 +869,19 @@ FLBuilder::register_module('PPCountdownModule', array(
 							'property'      => 'color',
 						),
 					),
-					'label_text_transform' => array(
-						'type'		=> 'select',
-						'label'		=> __( 'Text Transform', 'bb-powerpack' ),
-						'default'	=> 'default',
-						'options'       => array(
-							'default'       => __( 'Default', 'bb-powerpack' ),
-							'none'          => __( 'None', 'bb-powerpack' ),
-							'lowercase'     => __( 'lowercase', 'bb-powerpack' ),
-							'uppercase'     => __( 'UPPERCASE', 'bb-powerpack' ),
-						),
-						'preview'	=> array(
-							'type'		=> 'css',
-							'selector'	=> '.pp-countdown-fixed-timer .pp-countdown-label, .pp-countdown-evergreen-timer .pp-countdown-label',
-							'property'	=> 'text-transform'
-						)
-					),
 				),
 			),
 			'message'	=> array(
 				'title'     => __( 'Expire Message', 'bb-powerpack' ),
+				'collpased'	=> true,
 				'fields'    => array(
-					'message_font_family'       => array(
-						'type'          => 'font',
-						'label'         => __( 'Font Family', 'bb-powerpack' ),
-						'default'       => array(
-							'family'        => 'Default',
-							'weight'        => 'Default',
-						),
-						'preview'         => array(
-							'type'            => 'font',
-							'selector'        => '.pp-countdown-expire-message',
-						),
-					),
-					'message_font_size'    => array(
-						'type'                      => 'pp-switch',
-						'label'                     => __( 'Font Size', 'bb-powerpack' ),
-						'default'                   => 'default',
-						'options'                   => array(
-							'default'                  => __( 'Default', 'bb-powerpack' ),
-							'custom'                => __( 'Custom', 'bb-powerpack' ),
-						),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array( 'message_custom_font_size' ),
-							),
-						),
-					),
-					'message_custom_font_size'		=> array(
-						'type'			=> 'unit',
-						'label' 		=> __( 'Custom Font Size', 'bb-powerpack' ),
-						'size'          => 5,
-						'default'       => '',
-						'responsive' 	=> array(
-							'placeholder'	=> array(
-								'default'		=> '',
-								'medium'		=> '',
-								'responsive' 	=> '',
-							),
-						),
-						'preview'           => array(
+					'message_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
 							'type'			=> 'css',
-							'selector'      => '.pp-countdown-expire-message',
-							'property'      => 'font-size',
-							'unit'          => 'px',
-						),
-					),
-					'message_line_height'		=> array(
-						'type'			=> 'unit',
-						'label' 		=> __( 'Line Height', 'bb-powerpack' ),
-						'size'          => 5,
-						'default'       => '',
-						'responsive' 	=> array(
-							'placeholder'	=> array(
-								'default'		=> '',
-								'medium'		=> '',
-								'responsive' 	=> '',
-							),
-						),
-						'preview'           => array(
-							'type'			=> 'css',
-							'selector'      => '.pp-countdown-expire-message',
-							'property'      => 'line-height',
-							'unit'          => 'px',
+							'selector'		=> '.pp-countdown-expire-message',
 						),
 					),
 					'message_color'	=> array(

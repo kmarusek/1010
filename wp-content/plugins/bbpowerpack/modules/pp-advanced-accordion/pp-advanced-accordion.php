@@ -20,7 +20,6 @@ class PPAccordionModule extends FLBuilderModule {
             'editor_export' 	=> true, // Defaults to true and can be omitted.
             'enabled'       	=> true, // Defaults to true and can be omitted.
 			'partial_refresh'	=> true,
-			'icon'				=> 'layout.svg',
 		));
 
 		$this->add_css(BB_POWERPACK()->fa_css);
@@ -65,6 +64,109 @@ class PPAccordionModule extends FLBuilderModule {
 
 		return $html;
 	}
+
+	public function filter_settings( $settings, $helper )
+	{
+		// Handle old label background dual color field.
+		$settings = PP_Module_Fields::handle_dual_color_field( $settings, 'label_background_color', array(
+			'primary'					=> 'label_bg_color_default',
+			'secondary'					=> 'label_bg_color_active',
+			'opacity'					=> 'label_background_opacity'
+		) );
+
+		// Handle old label text dual color field.
+		$settings = PP_Module_Fields::handle_dual_color_field( $settings, 'label_text_color', array(
+			'primary'					=> 'label_text_color_default',
+			'secondary'					=> 'label_text_color_active',
+		) );
+
+		// Handle old label padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'label_padding', 'padding', 'label_padding' );
+
+		// Handle old label border field.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'label_border_style'	=> array(
+				'type'					=> 'style'
+			),
+			'label_border_width'	=> array(
+				'type'					=> 'width'
+			),
+			'label_border_color'	=> array(
+				'type'					=> 'color'
+			),
+			'label_border_radius'	=> array(
+				'type'					=> 'radius'
+			)
+		), 'label_border' );
+
+		// Merge content bg opacity to content bg color.
+		if ( isset( $settings->content_bg_opacity ) ) {
+			$opacity = 1;
+			if ( $settings->content_bg_opacity === '0' ) {
+				$opacity = 0;
+			} else {
+				$opacity = ( $settings->content_bg_opacity / 100 );
+			}
+			$content_bg_color = $settings->content_bg_color;
+			if ( ! empty( $content_bg_color ) ) {
+				$settings->content_bg_color = pp_hex2rgba( $content_bg_color, $opacity );
+			}
+
+			unset( $settings->content_bg_opacity );
+		}
+
+		// Handle old content padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'content_padding', 'padding', 'content_padding' );
+
+		// Handle old content border field.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'content_border_style'	=> array(
+				'type'					=> 'style'
+			),
+			'content_border_width'	=> array(
+				'type'					=> 'width'
+			),
+			'content_border_color'	=> array(
+				'type'					=> 'color'
+			),
+			'content_border_radius'	=> array(
+				'type'					=> 'radius'
+			)
+		), 'content_border' );
+
+		// Handle old label typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'label_font'	=> array(
+				'type'			=> 'font'
+			),
+			'label_custom_font_size'	=> array(
+				'type'				=> 'font_size',
+				'condition'			=> ( isset( $settings->label_font_size ) && 'custom' == $settings->label_font_size )
+			),
+			'label_line_height'	=> array(
+				'type'				=> 'line_height'
+			)
+		), 'label_typography' );
+
+		// Handle old content typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'content_font'	=> array(
+				'type'			=> 'font'
+			),
+			'content_custom_font_size'	=> array(
+				'type'				=> 'font_size',
+				'condition'			=> ( isset( $settings->content_font_size ) && 'custom' == $settings->content_font_size )
+			),
+			'content_line_height'	=> array(
+				'type'				=> 'line_height'
+			),
+			'content_alignment'		=> array(
+				'type'					=> 'text_align'
+			)
+		), 'content_typography' );
+		
+		return $settings;
+	}
 }
 
 /**
@@ -95,11 +197,10 @@ FLBuilder::register_module('PPAccordionModule', array(
 				'title'	=> '',
 				'fields'	=> array(
 					'accordion_icon_size'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Size', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'size'			=> 5,
-						'maxlength'		=> 3,
+						'units'			=> array('px'),
+						'slider'		=> true,
                         'default'       => '15',
                         'preview'       => array(
                             'type'      => 'css',
@@ -124,11 +225,10 @@ FLBuilder::register_module('PPAccordionModule', array(
 						'show_remove'   => true
 					),
 					'accordion_toggle_icon_size'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Size', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'size'			=> 5,
-						'maxlength'		=> 3,
+						'units'			=> array('px'),
+						'slider'		=> true,
                         'default'       => '14',
                         'preview'       => array(
                             'type'      => 'css',
@@ -158,12 +258,11 @@ FLBuilder::register_module('PPAccordionModule', array(
 				'title'         => '',
 				'fields'        => array(
 					'item_spacing'     => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Item Spacing', 'bb-powerpack'),
 						'default'       => '10',
-						'maxlength'     => '2',
-						'size'          => '5',
-						'description'   => 'px',
+						'units'			=> array('px'),
+						'slider'		=> true,
 						'preview'       => array(
 							'type'          => 'css',
 							'selector'      => '.pp-accordion-item',
@@ -172,7 +271,7 @@ FLBuilder::register_module('PPAccordionModule', array(
 						)
 					),
 					'collapse'   => array(
-						'type'          => 'select',
+						'type'          => 'pp-switch',
 						'label'         => __('Collapse Inactive', 'bb-powerpack'),
 						'default'       => '1',
 						'options'       => array(
@@ -185,7 +284,7 @@ FLBuilder::register_module('PPAccordionModule', array(
 						)
 					),
 					'open_first'       => array(
-						'type'          => 'select',
+						'type'          => 'pp-switch',
 						'label'         => __('Expand First Item', 'bb-powerpack'),
 						'default'       => '0',
 						'options'       => array(
@@ -228,243 +327,66 @@ FLBuilder::register_module('PPAccordionModule', array(
 			'label_style'       => array(
 				'title'         => __('Label', 'bb-powerpack'),
 				'fields'        => array(
-					'label_background_color'      => array(
-						'type'      => 'pp-color',
-                        'label'     => __('Background Color', 'bb-powerpack'),
-						'show_reset' => true,
-                        'default'   => array(
-							'primary'	=> 'dddddd',
-							'secondary'	=> ''
-						),
-						'options'	=> array(
-							'primary'	=> __('Default', 'bb-powerpack'),
-							'secondary' => __('Active', 'bb-powerpack')
-						)
-                    ),
-					'label_background_opacity'    => array(
-                        'type'                 => 'text',
-                        'label'                => __('Background Opacity', 'bb-powerpack'),
-						'size'				   => 5,
-                        'description'          => '%',
-                        'default'              => '100',
-                    ),
-					'label_text_color'      => array(
-						'type'      => 'pp-color',
-                        'label'     => __('Text Color', 'bb-powerpack'),
-						'show_reset' => true,
-                        'default'   => array(
-							'primary'	=> '666666',
-							'secondary'	=> '777777'
-						),
-						'options'	=> array(
-							'primary'	=> __('Default', 'bb-powerpack'),
-							'secondary' => __('Active', 'bb-powerpack')
-						)
-                    ),
-					'label_border_style'   => array(
-						'type'          => 'select',
-						'label'         => __('Border Style', 'bb-powerpack'),
-						'default'       => 'none',
-						'options'       => array(
-							'none'         => __( 'None', 'bb-powerpack' ),
-							'solid'        => __( 'Solid', 'bb-powerpack' ),
-							'dashed'         => __( 'Dashed', 'bb-powerpack' ),
-							'dotted'         => __( 'Dotted', 'bb-powerpack' ),
-							'double'         => __( 'Double', 'bb-powerpack' )
-						),
-						'toggle'	=> array(
-							'solid'	=> array(
-								'fields'	=> array('label_border_width', 'label_border_color')
-							),
-							'dashed'	=> array(
-								'fields'	=> array('label_border_width', 'label_border_color')
-							),
-							'dotted'	=> array(
-								'fields'	=> array('label_border_width', 'label_border_color')
-							),
-							'double'	=> array(
-								'fields'	=> array('label_border_width', 'label_border_color')
-							)
-						),
-						'preview'       => array(
-							'type'          => 'css',
+					'label_bg_color_default'	=> array(
+						'type'			=> 'color',
+						'label'			=> __('Background Color - Default', 'bb-powerpack'),
+						'default'		=> 'dddddd',
+						'show_reset'	=> true,
+						'show_alpha'	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
 							'selector'		=> '.pp-accordion-item .pp-accordion-button',
-							'property'		=> 'border-style'
+							'property'		=> 'background-color'
 						)
 					),
-					'label_border_width'     => array(
-						'type' 			=> 'pp-multitext',
-                        'label' 		=> __('Border Width', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'default'       => array(
-                            'top' => 1,
-                            'right' => 1,
-                            'bottom' => 1,
-                            'left' => 1,
-                        ),
-                        'options' 		=> array(
-                            'top' 			=> array(
-                                'maxlength' 	=> 3,
-                                'placeholder'   =>  __('Top', 'bb-powerpack'),
-                                'tooltip'       => __('Top', 'bb-powerpack'),
-                                'icon'			=> 'fa-long-arrow-up',
-                                'preview'       => array(
-                                    'selector'  	=> '.pp-accordion-item .pp-accordion-button',
-                                    'property'  	=> 'border-top-width',
-                                    'unit'      	=> 'px'
-                                )
-                            ),
-                            'bottom' 		=> array(
-                                'maxlength' 	=> 3,
-                                'placeholder'   =>  __('Bottom', 'bb-powerpack'),
-                                'tooltip'       => __('Bottom', 'bb-powerpack'),
-                                'icon'			=> 'fa-long-arrow-down',
-                                'preview'       => array(
-                                    'selector'  	=> '.pp-accordion-item .pp-accordion-button',
-                                    'property'  	=> 'border-bottom-width',
-                                    'unit'     		=> 'px'
-                                )
-                            ),
-                            'left' 			=> array(
-                                'maxlength' 	=> 3,
-                                'placeholder'   =>  __('Left', 'bb-powerpack'),
-                                'tooltip'       => __('Left', 'bb-powerpack'),
-                                'icon'			=> 'fa-long-arrow-left',
-                                'preview'       => array(
-                                    'selector' 	 => '.pp-accordion-item .pp-accordion-button',
-                                    'property'  	=> 'border-left-width',
-                                    'unit'      	=> 'px'
-                                )
-                            ),
-                            'right' 		=> array(
-                                'maxlength' 	=> 3,
-                                'placeholder'   =>  __('Right', 'bb-powerpack'),
-                                'tooltip'       => __('Right', 'bb-powerpack'),
-                                'icon'			=> 'fa-long-arrow-right',
-                                'preview'       => array(
-                                    'selector'  	=> '.pp-accordion-item .pp-accordion-button',
-                                    'property'  	=> 'border-right-width',
-                                    'unit'      	=> 'px'
-                                )
-                            ),
-                        ),
+					'label_bg_color_active'	=> array(
+						'type'			=> 'color',
+						'label'			=> __('Background Color - Active', 'bb-powerpack'),
+						'default'		=> '',
+						'show_reset'	=> true,
+						'show_alpha'	=> true,
 					),
-					'label_border_color'  => array(
-						'type'          => 'color',
-						'label'         => __('Border Color', 'bb-powerpack'),
-						'default'       => 'cccccc',
-						'preview'       => array(
-							'type'          => 'css',
-							'selector'      => '.pp-accordion-item .pp-accordion-button',
-							'property'      => 'border-color'
+					'label_text_color_default'	=> array(
+						'type'			=> 'color',
+						'label'			=> __('Text Color - Default', 'bb-powerpack'),
+						'default'		=> '666666',
+						'show_reset'	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-accordion-item .pp-accordion-button',
+							'property'		=> 'color'
 						)
 					),
-					'label_border_radius'     => array(
-						'type' 			=> 'pp-multitext',
-                        'label' 		=> __('Round Corners', 'bb-powerpack'),
-                        'description'   => __( 'px', 'Value unit for font size. Such as: "14 px"', 'bb-powerpack' ),
-                        'default'       => array(
-                            'top_left' => 0,
-                            'top_right' => 0,
-                            'bottom_left' => 0,
-                            'bottom_right' => 0,
-                        ),
-                        'options' 		=> array(
-                            'top_left' => array(
-                                'maxlength' => 3,
-                                'tooltip'       => __('Top Left', 'bb-powerpack'),
-                                'preview'       => array(
-                                    'selector'  => '.pp-accordion-item .pp-accordion-button',
-                                    'property'  => 'border-top-left-radius',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'top_right' => array(
-                                'maxlength' => 3,
-                                'tooltip'       => __('Top Right', 'bb-powerpack'),
-                                'preview'       => array(
-                                    'selector'  => '.pp-accordion-item .pp-accordion-button',
-                                    'property'  => 'border-top-right-radius',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'bottom_left' => array(
-                                'maxlength' => 3,
-                                'tooltip'       => __('Bottom Left', 'bb-powerpack'),
-                                'preview'       => array(
-                                    'selector'  => '.pp-accordion-item .pp-accordion-button',
-                                    'property'  => 'border-bottom-left-radius',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'bottom_right' => array(
-                                'maxlength' => 3,
-                                'tooltip'       => __('Bottom Left', 'bb-powerpack'),
-                                'preview'       => array(
-                                    'selector'  => '.pp-accordion-item .pp-accordion-button',
-                                    'property'  => 'border-bottom-right-radius',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                        ),
+					'label_text_color_active'	=> array(
+						'type'			=> 'color',
+						'label'			=> __('Text Color - Active', 'bb-powerpack'),
+						'default'		=> '777777',
+						'show_reset'	=> true
 					),
-					'label_padding' 	=> array(
-                        'type' 			=> 'pp-multitext',
-                        'label' 		=> __('Padding', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'default'       => array(
-                            'top' => 10,
-                            'right' => 10,
-                            'bottom' => 10,
-                            'left' => 10,
-                        ),
-                        'options' 		=> array(
-                            'top' => array(
-                                'maxlength' 	=> 3,
-                                'placeholder'   =>  __('Top', 'bb-powerpack'),
-                                'tooltip'       => __('Top', 'bb-powerpack'),
-                                'icon'			=> 'fa-long-arrow-up',
-                                'preview'       => array(
-                                    'selector'  => '.pp-accordion-item .pp-accordion-button',
-                                    'property'  => 'padding-top',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'bottom' => array(
-                                'maxlength' 	=> 3,
-                                'placeholder'   =>  __('Bottom', 'bb-powerpack'),
-                                'tooltip'       => __('Bottom', 'bb-powerpack'),
-                                'icon'			=> 'fa-long-arrow-down',
-                                'preview'       => array(
-                                    'selector'  => '.pp-accordion-item .pp-accordion-button',
-                                    'property'  => 'padding-bottom',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'left' => array(
-                                'maxlength' 	=> 3,
-                                'placeholder'   =>  __('Left', 'bb-powerpack'),
-                                'tooltip'       => __('Left', 'bb-powerpack'),
-                                'icon'			=> 'fa-long-arrow-left',
-                                'preview'       => array(
-                                    'selector'  => '.pp-accordion-item .pp-accordion-button',
-                                    'property'  => 'padding-left',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'right' => array(
-                                'maxlength' 	=> 3,
-                                'placeholder'   =>  __('Right', 'bb-powerpack'),
-                                'tooltip'       =>  __('Right', 'bb-powerpack'),
-                                'icon'			=> 'fa-long-arrow-right',
-                                'preview'       => array(
-                                    'selector'  => '.pp-accordion-item .pp-accordion-button',
-                                    'property'  => 'padding-right',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                        ),
-                    )
+					'label_border'		=> array(
+						'type'				=> 'border',
+						'label'         	=> __( 'Border', 'bb-powerpack' ),
+						'responsive'		=> true,
+						'preview'       	=> array(
+							'type'          	=> 'css',
+							'selector'			=> '.pp-accordion-item .pp-accordion-button',
+							'important'			=> false,
+						),
+					),
+					'label_padding'	=> array(
+						'type'			=> 'dimension',
+						'label'			=> __('Padding', 'bb-powerpack'),
+						'units'			=> array('px'),
+						'default'		=> '10',
+						'slider'		=> true,
+						'responsive'	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-accordion-item .pp-accordion-button',
+							'property'		=> 'padding',
+							'unit'			=> 'px'
+						)
+					),
 				)
 			),
 			'content_style'       => array(
@@ -475,19 +397,13 @@ FLBuilder::register_module('PPAccordionModule', array(
 						'label'         => __('Background Color', 'bb-powerpack'),
 						'default'       => 'eeeeee',
 						'show_reset'	=> true,
+						'show_alpha'	=> true,
 						'preview'	=> array(
 							'type'	=> 'css',
 							'selector'	=> '.pp-accordion-item .pp-accordion-content',
 							'property'	=> 'background-color'
 						)
 					),
-					'content_bg_opacity'    => array(
-                        'type'                 => 'text',
-                        'label'                => __('Background Opacity', 'bb-powerpack'),
-						'size'				   => 5,
-                        'description'          => '%',
-                        'default'              => '100',
-                    ),
 					'content_text_color'  => array(
 						'type'          => 'color',
 						'label'         => __('Text Color', 'bb-powerpack'),
@@ -498,198 +414,24 @@ FLBuilder::register_module('PPAccordionModule', array(
 							'property'	=> 'color'
 						)
 					),
-					'content_border_style'   => array(
-						'type'          => 'select',
-						'label'         => __('Border Style', 'bb-powerpack'),
-						'default'       => 'none',
-						'options'       => array(
-							'none'         	=> __( 'None', 'bb-powerpack' ),
-							'solid'        	=> __( 'Solid', 'bb-powerpack' ),
-							'dashed'        => __( 'Dashed', 'bb-powerpack' ),
-							'dotted'        => __( 'Dotted', 'bb-powerpack' ),
-							'double'        => __( 'Double', 'bb-powerpack' )
+					'content_border'	=> array(
+						'type'				=> 'border',
+						'label'				=> __('Border', 'bb-powerpack'),
+						'responsive'		=> true,
+						'preview'       	=> array(
+							'type'          	=> 'css',
+							'selector'			=> '.pp-accordion-item .pp-accordion-content',
+							'important'			=> false,
 						),
-						'toggle'	=> array(
-							'solid'	=> array(
-								'fields'	=> array('content_border_width', 'content_border_color')
-							),
-							'dashed'	=> array(
-								'fields'	=> array('content_border_width', 'content_border_color')
-							),
-							'dotted'	=> array(
-								'fields'	=> array('content_border_width', 'content_border_color')
-							),
-							'double'	=> array(
-								'fields'	=> array('content_border_width', 'content_border_color')
-							)
-						),
-						'preview'       => array(
-							'type'          => 'css',
-							'selector'		=> '.pp-accordion-item .pp-accordion-content',
-							'property'		=> 'border-style'
-						)
 					),
-					'content_border_width'     => array(
-						'type' 			=> 'pp-multitext',
-                        'label' 		=> __('Border Width', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'default'       => array(
-                            'top' => 0,
-                            'right' => 1,
-                            'bottom' => 1,
-                            'left' => 1,
-                        ),
-                        'options' 		=> array(
-                            'top' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Top', 'bb-powerpack'),
-                                'tooltip'       => __('Top', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-up',
-                                'preview'       => array(
-                                    'selector'  => '.pp-accordion-item .pp-accordion-content',
-                                    'property'  => 'border-top-width',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'bottom' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Bottom', 'bb-powerpack'),
-                                'tooltip'       => __('Bottom', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-down',
-                                'preview'       => array(
-                                    'selector'  => '.pp-accordion-item .pp-accordion-content',
-                                    'property'  => 'border-bottom-width',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'left' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Left', 'bb-powerpack'),
-                                'tooltip'       => __('Left', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-left',
-                                'preview'       => array(
-                                    'selector'  => '.pp-accordion-item .pp-accordion-content',
-                                    'property'  => 'border-left-width',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'right' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Right', 'bb-powerpack'),
-                                'tooltip'       => __('Right', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-right',
-                                'preview'       => array(
-                                    'selector'  => '.pp-accordion-item .pp-accordion-content',
-                                    'property'  => 'border-right-width',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                        ),
-					),
-					'content_border_color'  => array(
-						'type'          => 'color',
-						'label'         => __('Border Color', 'bb-powerpack'),
-						'default'       => 'cccccc',
-						'preview'       => array(
-							'type'          => 'css',
-							'selector'      => '.pp-accordion-item .pp-accordion-content',
-							'property'      => 'border-color'
-						)
-					),
-					'content_border_radius' => array(
-                        'type'              => 'text',
-                        'label'             => __('Round Corners', 'bb-powerpack'),
-                        'description'       => 'px',
-						'maxlength'     => '3',
-						'size'          => '5',
-                        'default'           => 0,
-						'preview'			=> array(
-							'type'		=> 'css',
-							'rules'		=> array(
-								array(
-									'selector'      => '.pp-accordion-item .pp-accordion-content',
-									'property'      => 'border-bottom-left-radius',
-									'unit'			=> 'px'
-								),
-								array(
-									'selector'      => '.pp-accordion-item .pp-accordion-content',
-									'property'      => 'border-bottom-right-radius',
-									'unit'			=> 'px'
-								)
-							)
-						)
-					),
-					'content_padding' 	=> array(
-                        'type' 			=> 'pp-multitext',
-                        'label' 		=> __('Padding', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'default'       => array(
-                            'top' => 15,
-                            'right' => 15,
-                            'bottom' => 15,
-                            'left' => 15,
-                        ),
-                        'options' 		=> array(
-                            'top' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Top', 'bb-powerpack'),
-                                'tooltip'       => __('Top', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-up',
-                                'preview'       => array(
-                                    'selector'  => '.pp-accordion-item .pp-accordion-content',
-                                    'property'  => 'padding-top',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'bottom' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Bottom', 'bb-powerpack'),
-                                'tooltip'       => __('Bottom', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-down',
-                                'preview'       => array(
-                                    'selector'  => '.pp-accordion-item .pp-accordion-content',
-                                    'property'  => 'padding-bottom',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'left' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Left', 'bb-powerpack'),
-                                'tooltip'       => __('Left', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-left',
-                                'preview'       => array(
-                                    'selector'  => '.pp-accordion-item .pp-accordion-content',
-                                    'property'  => 'padding-left',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'right' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Right', 'bb-powerpack'),
-                                'tooltip'       => __('Right', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-right',
-                                'preview'       => array(
-                                    'selector'  => '.pp-accordion-item .pp-accordion-content',
-                                    'property'  => 'padding-right',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                        ),
-                    ),
-					'content_alignment'        => array(
-						'type'          => 'pp-switch',
-						'label'         => __('Alignment', 'bb-powerpack'),
-						'default'       => 'left',
-						'options'       => array(
-							'left'    => __('Left', 'bb-powerpack'),
-							'center'    => __('Center', 'bb-powerpack'),
-							'right'    => __('Right', 'bb-powerpack'),
-						),
-						'preview'	=> array(
-							'type'	=>	'css',
-							'selector'	=> '.pp-accordion-item .pp-accordion-content',
-							'property'	=> 'text-align'
-						)
+					'content_padding'	=> array(
+						'type'				=> 'dimension',
+						'label'				=> __('Padding', 'bb-powerpack'),
+						'default'			=> '15',
+						'units'				=> array('px'),
+						'slider'			=> true,
+						'responsive'		=> true,
+
 					),
 				)
 			)
@@ -699,199 +441,31 @@ FLBuilder::register_module('PPAccordionModule', array(
 		'title'         => __('Typography', 'bb-powerpack'),
 		'sections'      => array(
 			'label_typography'	=> array(
-				'title'	=> __('Label', 'bb-powerpack'),
-				'fields'	=> array(
-					'label_font' => array(
-                        'type'          => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.pp-accordion-item .pp-accordion-button .pp-accordion-button-label'
-                        )
-                    ),
-					'label_font_size'        => array(
-						'type'          => 'pp-switch',
-						'label'         => __('Font Size', 'bb-powerpack'),
-						'default'       => 'default',
-						'options'       => array(
-							'default'    => __('Default', 'bb-powerpack'),
-							'custom'    => __('Custom', 'bb-powerpack'),
-						),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array('label_custom_font_size')
-							)
+				'title'				=> __('Label', 'bb-powerpack'),
+				'fields'			=> array(
+					'label_typography'	=> array(
+						'type'				=> 'typography',
+						'label'				=> __('Label Typography', 'bb-powerpack'),
+						'responsive'  		=> true,
+						'preview'			=> array(
+							'type'				=> 'css',
+							'selector'			=> '.pp-accordion-item .pp-accordion-button .pp-accordion-button-label'
 						)
 					),
-					'label_custom_font_size'   => array(
-                        'type'          => 'pp-multitext',
-						'label'         => __('Custom Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 14,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-accordion-item .pp-accordion-button .pp-accordion-button-label',
-                                    'property'      => 'font-size',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
-					'label_line_height'   => array(
-                        'type'          => 'pp-multitext',
-						'label'         => __('Line Height', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 1.4,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-accordion-item .pp-accordion-button .pp-accordion-button-label',
-                                    'property'      => 'line-height',
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
 				)
 			),
 			'content_typography'	=> array(
 				'title'	=> __('Content', 'bb-powerpack'),
 				'fields'	=> array(
-					'content_font' => array(
-                        'type'          => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.pp-accordion-item .pp-accordion-content'
-                        )
-                    ),
-					'content_font_size'        => array(
-						'type'          => 'pp-switch',
-						'label'         => __('Font Size', 'bb-powerpack'),
-						'default'       => 'default',
-						'options'       => array(
-							'default'    => __('Default', 'bb-powerpack'),
-							'custom'    => __('Custom', 'bb-powerpack'),
-						),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array('content_custom_font_size')
-							)
+					'content_typography'	=> array(
+						'type'					=> 'typography',
+						'label'					=> __('Content Typography', 'bb-powerpack'),
+						'responsive'  			=> true,
+						'preview'				=> array(
+							'type'					=> 'css',
+							'selector'				=> '.pp-accordion-item .pp-accordion-content'
 						)
 					),
-					'content_custom_font_size'   => array(
-                        'type'          => 'pp-multitext',
-						'label'         => __('Custom Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 15,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-accordion-item .pp-accordion-content',
-                                    'property'      => 'font-size',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
-					'content_line_height'   => array(
-                        'type'          => 'pp-multitext',
-						'label'         => __('Line Height', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 1.6,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-accordion-item .pp-accordion-content',
-                                    'property'      => 'line-height',
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
 				)
 			),
 		)

@@ -6,53 +6,108 @@
 .fl-node-<?php echo $id; ?> .pp-timeline-content-wrapper:after {
 	border-color: <?php echo ($settings->timeline_line_color) ? '#'.$settings->timeline_line_color : '#000' ?>;
 }
-.fl-node-<?php echo $id; ?> .pp-timeline-content-wrapper .pp-timeline-item .pp-timeline-content .pp-timeline-title {
-	<?php if( $settings->title_font['family'] != 'Default' ) { ?><?php FLBuilderFonts::font_css( $settings->title_font ); ?><?php } ?>
-	<?php if( $settings->title_font_size['title_font_size_desktop'] >= 0 && $settings->title_font_size != '' ) { ?>font-size: <?php echo $settings->title_font_size['title_font_size_desktop']; ?>px;<?php } ?>
-	<?php if( $settings->title_line_height['title_line_height_desktop'] >= 0 && $settings->title_line_height != '' ) { ?>line-height: <?php echo $settings->title_line_height['title_line_height_desktop']; ?>;<?php } ?>
-	<?php if( $settings->title_padding['top'] >= 0 ) { ?>padding-top: <?php echo $settings->title_padding['top']; ?>px;<?php } ?>
-	<?php if( $settings->title_padding['bottom'] >= 0 ) { ?>padding-bottom: <?php echo $settings->title_padding['bottom']; ?>px;<?php } ?>
-	<?php if( $settings->title_padding['left'] >= 0 ) { ?>padding-left: <?php echo $settings->title_padding['left']; ?>px;<?php } ?>
-	<?php if( $settings->title_padding['right'] >= 0 ) { ?>padding-right: <?php echo $settings->title_padding['right']; ?>px;<?php } ?>
-}
-.fl-node-<?php echo $id; ?> .pp-timeline-content-wrapper .pp-timeline-item .pp-timeline-content .pp-timeline-text-wrapper {
-	<?php if( $settings->content_padding['top'] >= 0 ) { ?>padding-top: <?php echo $settings->content_padding['top']; ?>px;<?php } ?>
-	<?php if( $settings->content_padding['bottom'] >= 0 ) { ?>padding-bottom: <?php echo $settings->content_padding['bottom']; ?>px;<?php } ?>
-	<?php if( $settings->content_padding['left'] >= 0 ) { ?>padding-left: <?php echo $settings->content_padding['left']; ?>px;<?php } ?>
-	<?php if( $settings->content_padding['right'] >= 0 ) { ?>padding-right: <?php echo $settings->content_padding['right']; ?>px;<?php } ?>
-}
-.fl-node-<?php echo $id; ?> .pp-timeline-content-wrapper .pp-timeline-item .pp-timeline-content .pp-timeline-text-wrapper p {
-	<?php if( $settings->text_font['family'] != 'Default' ) { ?><?php FLBuilderFonts::font_css( $settings->text_font ); ?><?php } ?>
-	<?php if( $settings->text_font_size['text_font_size_desktop'] >= 0 && $settings->text_font_size != '' ) { ?>font-size: <?php echo $settings->text_font_size['text_font_size_desktop']; ?>px;<?php } ?>
-	<?php if( $settings->text_line_height['text_line_height_desktop'] >= 0 && $settings->text_line_height != '' ) { ?>line-height: <?php echo $settings->text_line_height['text_line_height_desktop']; ?>;<?php } ?>
-}
-.fl-node-<?php echo $id; ?> .pp-timeline-content-wrapper .pp-timeline-item .pp-timeline-content a {
-	<?php if( $settings->button_font['family'] != 'Default' ) { ?><?php FLBuilderFonts::font_css( $settings->button_font ); ?><?php } ?>
-	<?php if( $settings->button_font_size ) { ?>font-size: <?php echo $settings->button_font_size; ?>px;<?php } ?>
-}
-.fl-node-<?php echo $id; ?> .pp-timeline-content-wrapper .pp-timeline-icon {
-	<?php if( $settings->icon_padding >= 0 ) { ?>padding: <?php echo $settings->icon_padding; ?>px;<?php } ?>
-}
-.fl-node-<?php echo $id; ?> .pp-timeline-content-wrapper .pp-timeline-icon .pp-icon {
-	<?php if( $settings->icon_size >= 0 ) { ?>font-size: <?php echo $settings->icon_size; ?>px;<?php } ?>
-}
+
+<?php
+	// Title Typography
+	FLBuilderCSS::typography_field_rule( array(
+		'settings'		=> $settings,
+		'setting_name' 	=> 'title_typography',
+		'selector' 		=> ".fl-node-$id .pp-timeline-content-wrapper .pp-timeline-item .pp-timeline-content .pp-timeline-title",
+	) );
+
+	// Title - Padding
+	FLBuilderCSS::dimension_field_rule( array(
+		'settings'		=> $settings,
+		'setting_name' 	=> 'title_padding',
+		'selector' 		=> ".fl-node-$id .pp-timeline-content-wrapper .pp-timeline-item .pp-timeline-content .pp-timeline-title",
+		'unit'			=> 'px',
+		'props'			=> array(
+			'padding-top' 		=> 'title_padding_top',
+			'padding-right' 	=> 'title_padding_right',
+			'padding-bottom' 	=> 'title_padding_bottom',
+			'padding-left' 		=> 'title_padding_left',
+		),
+	) );
+
+	// Text Typography
+	FLBuilderCSS::typography_field_rule( array(
+		'settings'		=> $settings,
+		'setting_name' 	=> 'text_typography',
+		'selector' 		=> ".fl-node-$id .pp-timeline-content-wrapper .pp-timeline-item .pp-timeline-content .pp-timeline-text-wrapper p",
+	) );
+	// Text - Padding
+	FLBuilderCSS::dimension_field_rule( array(
+		'settings'		=> $settings,
+		'setting_name' 	=> 'content_padding',
+		'selector' 		=> ".fl-node-$id .pp-timeline-content-wrapper .pp-timeline-item .pp-timeline-content .pp-timeline-text-wrapper",
+		'unit'			=> 'px',
+		'props'			=> array(
+			'padding-top' 		=> 'content_padding_top',
+			'padding-right' 	=> 'content_padding_right',
+			'padding-bottom' 	=> 'content_padding_bottom',
+			'padding-left' 		=> 'content_padding_left',
+		),
+	) );
+
+	// Button Typography
+	FLBuilderCSS::typography_field_rule( array(
+		'settings'		=> $settings,
+		'setting_name' 	=> 'button_typography',
+		'selector' 		=> ".fl-node-$id .pp-timeline-content-wrapper .pp-timeline-item .pp-timeline-content a",
+	) );
+	
+	// Icon - Size
+	FLBuilderCSS::responsive_rule( array(
+		'settings'		=> $settings,
+		'setting_name'	=> 'icon_size',
+		'selector'		=> ".fl-node-$id .pp-timeline-content-wrapper .pp-timeline-icon .pp-icon",
+		'prop'			=> 'font-size',
+		'unit'			=> 'px',
+	) );
+
+	// Icon - Padding
+	FLBuilderCSS::responsive_rule( array(
+		'settings'		=> $settings,
+		'setting_name'	=> 'icon_padding',
+		'selector'		=> ".fl-node-$id .pp-timeline-content-wrapper .pp-timeline-icon",
+		'prop'			=> 'padding',
+		'unit'			=> 'px',
+	) );
+?>
 
 <?php $number_items = count($settings->timeline);
 for( $i = 0; $i < $number_items; $i++ ) {
 	$timeline = $settings->timeline[$i];
 	?>
 	.fl-node-<?php echo $id; ?> .pp-timeline-content-wrapper .pp-timeline-item-<?php echo $i; ?> .pp-timeline-icon {
-		background: <?php echo ($timeline->icon_color->secondary) ? '#'.$timeline->icon_color->secondary : 'transparent' ?>;
-		border-color: <?php echo ($timeline->icon_border_color) ? '#'.$timeline->icon_border_color : 'transparent' ?>;
-		border-style: <?php echo $timeline->icon_border_style ?>;
-		border-radius: <?php echo ($timeline->icon_border_radius >= 0) ? $timeline->icon_border_radius : '0' ?>px;
-		border-width: <?php echo ($timeline->icon_border_width >= 0) ? $timeline->icon_border_width : '0' ?>px;
-		color: <?php echo ($timeline->icon_color->primary) ? '#'.$timeline->icon_color->primary : '#000' ?>;
+		<?php if ( isset( $timeline->icon_background_color ) && ! empty( $timeline->icon_background_color ) ) { ?>
+			background-color: <?php echo pp_get_color_value( $timeline->icon_background_color ); ?>;
+		<?php } ?>
+		<?php if ( isset( $timeline->icon_text_color ) && ! empty( $timeline->icon_text_color ) ) { ?>color: <?php echo $timeline->icon_text_color; ?>; <?php } ?>
 	}
 
+	<?php
+	if ( is_object( $timeline->icon_border ) ) {
+		$timeline->icon_border = (array) $timeline->icon_border;
+		foreach ( $timeline->icon_border as $key => $icon_border_field ) {
+			if ( is_object( $icon_border_field ) ) {
+				$timeline->icon_border[$key] = (array) $icon_border_field;
+			}
+		}
+	}
+	// Icon - Border
+	FLBuilderCSS::border_field_rule( array(
+		'settings' 		=> $timeline,
+		'setting_name' 	=> 'icon_border',
+		'selector' 		=> ".fl-node-$id .pp-timeline-content-wrapper .pp-timeline-item-$i .pp-timeline-icon",
+	) );
+	?>
+
 	.fl-node-<?php echo $id; ?> .pp-timeline-content-wrapper .pp-timeline-item-<?php echo $i; ?> .pp-timeline-content .pp-timeline-title-wrapper {
-		background: <?php echo ($timeline->title_color->secondary) ? '#'.$timeline->title_color->secondary : 'transparent' ?>;
-		color: <?php echo ($timeline->title_color->primary) ? '#'.$timeline->title_color->primary : '#000' ?>;
+		<?php if ( isset( $timeline->title_background_color ) && ! empty( $timeline->title_background_color ) ) { ?>
+			background-color: <?php echo pp_get_color_value( $timeline->title_background_color ); ?>;
+		<?php } ?>
+		<?php if ( isset( $timeline->title_text_color ) && ! empty( $timeline->title_text_color ) ) { ?>color: <?php echo pp_get_color_value( $timeline->title_text_color ); ?>; <?php } ?>
 		<?php if( $timeline->title_border != '' ) { ?>
 			border-bottom-width: <?php echo $timeline->title_border; ?>px;
 			border-bottom-color: #<?php echo $timeline->title_border_color; ?>;
@@ -64,52 +119,87 @@ for( $i = 0; $i < $number_items; $i++ ) {
 	}
 
 	.fl-node-<?php echo $id; ?> .pp-timeline-content-wrapper .pp-timeline-item-<?php echo $i; ?> .pp-timeline-content {
-		background: <?php echo ($timeline->timeline_box_background) ? '#'.$timeline->timeline_box_background : 'transparent' ?>;
-		border-color: <?php echo ($timeline->timeline_box_border_color) ? '#'.$timeline->timeline_box_border_color : 'transparent' ?>;
-		border-style: <?php echo $timeline->timeline_box_border_type ?>;
-		border-radius: <?php echo ($timeline->timeline_box_border_radius >= 0) ? $timeline->timeline_box_border_radius : '0' ?>px;
-		border-width: <?php echo ($timeline->timeline_box_border_width >= 0) ? $timeline->timeline_box_border_width : '0' ?>px;
-		<?php if($timeline->timeline_box_shadow == 'yes') {	?>
-			-webkit-box-shadow: <?php echo $timeline->box_shadow_options->box_shadow_h; ?>px <?php echo $timeline->box_shadow_options->box_shadow_v; ?>px <?php echo $timeline->box_shadow_options->box_shadow_blur; ?>px <?php echo $timeline->box_shadow_options->box_shadow_spread; ?>px <?php echo pp_hex2rgba( '#'.$timeline->timeline_box_shadow_color, $timeline->timeline_box_shadow_opacity ); ?>;
-			-moz-box-shadow: <?php echo $timeline->box_shadow_options->box_shadow_h; ?>px <?php echo $timeline->box_shadow_options->box_shadow_v; ?>px <?php echo $timeline->box_shadow_options->box_shadow_blur; ?>px <?php echo $timeline->box_shadow_options->box_shadow_spread; ?>px <?php echo pp_hex2rgba( '#'.$timeline->timeline_box_shadow_color, $timeline->timeline_box_shadow_opacity ); ?>;
-		    -o-box-shadow: <?php echo $timeline->box_shadow_options->box_shadow_h; ?>px <?php echo $timeline->box_shadow_options->box_shadow_v; ?>px <?php echo $timeline->box_shadow_options->box_shadow_blur; ?>px <?php echo $timeline->box_shadow_options->box_shadow_spread; ?>px <?php echo pp_hex2rgba( '#'.$timeline->timeline_box_shadow_color, $timeline->timeline_box_shadow_opacity ); ?>;
-		    box-shadow: <?php echo $timeline->box_shadow_options->box_shadow_h; ?>px <?php echo $timeline->box_shadow_options->box_shadow_v; ?>px <?php echo $timeline->box_shadow_options->box_shadow_blur; ?>px <?php echo $timeline->box_shadow_options->box_shadow_spread; ?>px <?php echo pp_hex2rgba( '#'.$timeline->timeline_box_shadow_color, $timeline->timeline_box_shadow_opacity ); ?>;
+		<?php if ( isset( $timeline->timeline_box_background ) && ! empty( $timeline->timeline_box_background ) ) { ?>
+			background-color: <?php echo pp_get_color_value( $timeline->timeline_box_background ); ?>;
 		<?php } ?>
 	}
 
+	<?php
+	if ( is_object( $timeline->timeline_box_border ) ) {
+		$timeline->timeline_box_border = (array) $timeline->timeline_box_border;
+		foreach ( $timeline->timeline_box_border as $key => $box_border_field ) {
+			if ( is_object( $box_border_field ) ) {
+				$timeline->timeline_box_border[$key] = (array) $box_border_field;
+			}
+		}
+	}
+	// Box - Border
+	FLBuilderCSS::border_field_rule( array(
+		'settings' 		=> $timeline,
+		'setting_name' 	=> 'timeline_box_border',
+		'selector' 		=> ".fl-node-$id .pp-timeline-content-wrapper .pp-timeline-item-$i .pp-timeline-content",
+	) );
+	?>
+
 	.fl-node-<?php echo $id; ?> .pp-timeline-content-wrapper .pp-timeline-item-<?php echo $i; ?> .pp-timeline-icon-wrapper .pp-separator-arrow {
 		<?php if( $timeline->title != '' ) { ?>
-			border-left-color: <?php echo ($timeline->title_color->secondary) ? '#'.$timeline->title_color->secondary : 'transparent' ?>;
+			border-left-color: <?php echo (isset( $timeline->title_background_color ) && ! empty( $timeline->title_background_color )) ? pp_get_color_value( $timeline->title_background_color ) : 'transparent' ?>;
 		<?php } else { ?>
-			border-left-color: <?php echo ($timeline->timeline_box_background) ? '#'.$timeline->timeline_box_background : 'transparent' ?>;
+			border-left-color: <?php echo (isset( $timeline->timeline_box_background ) && ! empty( $timeline->timeline_box_background )) ? pp_get_color_value( $timeline->timeline_box_background ) : 'transparent' ?>;
 		<?php } ?>
 	}
 	<?php if( $i % 2 == 1 ) { ?>
 		.fl-node-<?php echo $id; ?> .pp-timeline-content-wrapper .pp-timeline-item-<?php echo $i; ?> .pp-timeline-icon-wrapper .pp-separator-arrow {
 			border-left-color: transparent;
 			<?php if( $timeline->title != '' ) { ?>
-				border-right: 10px solid <?php echo ($timeline->title_color->secondary) ? '#'.$timeline->title_color->secondary : 'transparent' ?>;
+				border-right: 10px solid <?php echo (isset( $timeline->title_background_color ) && ! empty( $timeline->title_background_color )) ? pp_get_color_value( $timeline->title_background_color ) : 'transparent' ?>;
 			<?php } else { ?>
-				border-right: 10px solid <?php echo ($timeline->timeline_box_background) ? '#'.$timeline->timeline_box_background : 'transparent' ?>;
+				border-right: 10px solid <?php echo (isset( $timeline->timeline_box_background ) && ! empty( $timeline->timeline_box_background )) ? pp_get_color_value( $timeline->timeline_box_background ) : 'transparent' ?>;
 			<?php } ?>
 		}
 	<?php } ?>
 
 	.fl-node-<?php echo $id; ?> .pp-timeline-content-wrapper .pp-timeline-item-<?php echo $i; ?> .pp-timeline-content .pp-timeline-button {
-		background: <?php echo ($timeline->timeline_button_background->primary) ? '#'.$timeline->timeline_button_background->primary : 'transparent' ?>;
-		border-color: <?php echo ($timeline->timeline_button_border_color) ? '#'.$timeline->timeline_button_border_color : 'transparent' ?>;
-		border-style: <?php echo $timeline->timeline_button_border_type; ?>;
-		border-radius: <?php echo ($timeline->timeline_button_border_radius) ? $timeline->timeline_button_border_radius.'px' : '0' ?>;
-		border-width: <?php echo ($timeline->timeline_button_border_width) ? $timeline->timeline_button_border_width.'px' : '0' ?>;
-		color: <?php echo ($timeline->timeline_button_color->primary) ? '#'.$timeline->timeline_button_color->primary : '#000' ?>;
-		padding-top: <?php echo ( $timeline->button_padding->button_top_padding >= 0) ? $timeline->button_padding->button_top_padding.'px' : '10px';?>;
-		padding-right: <?php echo ( $timeline->button_padding->button_right_padding >= 0) ? $timeline->button_padding->button_right_padding.'px' : '10px';?>;
-		padding-bottom: <?php echo ( $timeline->button_padding->button_bottom_padding >= 0) ? $timeline->button_padding->button_bottom_padding.'px' : '10px';?>;
-		padding-left: <?php echo ( $timeline->button_padding->button_left_padding >= 0) ? $timeline->button_padding->button_left_padding.'px' : '10px';?>;
+		<?php if ( isset( $timeline->timeline_button_background_color ) && ! empty( $timeline->timeline_button_background_color ) ) { ?>
+			background-color: <?php echo pp_get_color_value( $timeline->timeline_button_background_color ); ?>;
+		<?php } ?>
+		<?php if ( isset( $timeline->timeline_button_text_color ) && ! empty( $timeline->timeline_button_text_color ) ) { ?>color: <?php echo $timeline->timeline_button_text_color; ?>; <?php } ?>
 	}
+	<?php
+		if ( is_object( $timeline->timeline_button_border ) ) {
+			$timeline->timeline_button_border = (array) $timeline->timeline_button_border;
+			foreach ( $timeline->timeline_button_border as $key => $button_border_field ) {
+				if ( is_object( $button_border_field ) ) {
+					$timeline->timeline_button_border[$key] = (array) $button_border_field;
+				}
+			}
+		}
+		// Button - Border
+		FLBuilderCSS::border_field_rule( array(
+			'settings' 		=> $timeline,
+			'setting_name' 	=> 'timeline_button_border',
+			'selector' 		=> ".fl-node-$id .pp-timeline-content-wrapper .pp-timeline-item-$i .pp-timeline-content .pp-timeline-button",
+		) );
+
+		// Button - Padding
+		FLBuilderCSS::dimension_field_rule( array(
+			'settings'		=> $timeline,
+			'setting_name' 	=> 'button_padding',
+			'selector' 		=> ".fl-node-$id .pp-timeline-content-wrapper .pp-timeline-item-$i .pp-timeline-content .pp-timeline-button",
+			'unit'			=> 'px',
+			'props'			=> array(
+				'padding-top' 		=> 'button_padding_top',
+				'padding-right' 	=> 'button_padding_right',
+				'padding-bottom' 	=> 'button_padding_bottom',
+				'padding-left' 		=> 'button_padding_left',
+			),
+		) );
+	?>
 	.fl-node-<?php echo $id; ?> .pp-timeline-content-wrapper .pp-timeline-item-<?php echo $i; ?> .pp-timeline-content .pp-timeline-button:hover {
-		background: <?php echo ($timeline->timeline_button_background->secondary) ? '#'.$timeline->timeline_button_background->secondary : 'transparent' ?>;
-		color: <?php echo ($timeline->timeline_button_color->secondary) ? '#'.$timeline->timeline_button_color->secondary : '#000' ?>;
+		<?php if ( isset( $timeline->timeline_button_background_hover ) && ! empty( $timeline->timeline_button_background_hover ) ) { ?>
+			background-color: <?php echo pp_get_color_value( $timeline->timeline_button_background_hover ); ?>;
+		<?php } ?>
+		<?php if ( isset( $timeline->timeline_button_text_hover ) && ! empty( $timeline->timeline_button_text_hover ) ) { ?>color: <?php echo $timeline->timeline_button_text_hover; ?>; <?php } ?>
 	}
 <?php } ?>
 
@@ -152,9 +242,9 @@ for( $i = 0; $i < $number_items; $i++ ) {
 		?>
 		.fl-node-<?php echo $id; ?> .pp-timeline-content-wrapper .pp-timeline-item-<?php echo $i; ?> .pp-timeline-icon-wrapper .pp-separator-arrow {
 			<?php if( $timeline->title != '' ) { ?>
-				border-right: 10px solid <?php echo ($timeline->title_color->secondary) ? '#'.$timeline->title_color->secondary : 'transparent' ?>;
+				border-right: 10px solid <?php echo (isset( $timeline->title_background_color ) && ! empty( $timeline->title_background_color )) ? pp_get_color_value( $timeline->title_background_color ) : 'transparent' ?>;
 			<?php } else { ?>
-				border-right: 10px solid <?php echo ($timeline->timeline_box_background) ? '#'.$timeline->timeline_box_background : 'transparent' ?>;
+				border-right: 10px solid <?php echo (isset( $timeline->timeline_box_background ) && ! empty( $timeline->timeline_box_background )) ? pp_get_color_value( $timeline->timeline_box_background ) : 'transparent' ?>;
 			<?php } ?>
 			border-left: none;
 		}
@@ -162,21 +252,13 @@ for( $i = 0; $i < $number_items; $i++ ) {
 			.fl-node-<?php echo $id; ?> .pp-timeline-content-wrapper .pp-timeline-item-<?php echo $i; ?> .pp-timeline-icon-wrapper .pp-separator-arrow {
 				border-left-color: transparent;
 				<?php if( $timeline->title != '' ) { ?>
-					border-right: 10px solid <?php echo ($timeline->title_color->secondary) ? '#'.$timeline->title_color->secondary : 'transparent' ?>;
+					border-right: 10px solid <?php echo (isset( $timeline->title_background_color ) && ! empty( $timeline->title_background_color )) ? pp_get_color_value( $timeline->title_background_color ) : 'transparent' ?>;
 				<?php } else { ?>
-					border-right: 10px solid <?php echo ($timeline->timeline_box_background) ? '#'.$timeline->timeline_box_background : 'transparent' ?>;
+					border-right: 10px solid <?php echo (isset( $timeline->timeline_box_background ) && ! empty( $timeline->timeline_box_background )) ? pp_get_color_value( $timeline->timeline_box_background ) : 'transparent' ?>;
 				<?php } ?>
 			}
 		<?php } ?>
 	<?php } ?>
-	.fl-node-<?php echo $id; ?> .pp-timeline-content-wrapper .pp-timeline-item .pp-timeline-content .pp-timeline-title {
-		<?php if( $settings->title_font_size['title_font_size_tablet'] >= 0 ) { ?>font-size: <?php echo $settings->title_font_size['title_font_size_tablet']; ?>px;<?php } ?>
-		<?php if( $settings->title_line_height['title_line_height_tablet'] >= 0 ) { ?>line-height: <?php echo $settings->title_line_height['title_line_height_tablet']; ?>;<?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-timeline-content-wrapper .pp-timeline-item .pp-timeline-content .pp-timeline-text-wrapper p {
-		<?php if( $settings->text_font_size['text_font_size_tablet'] >= 0 ) { ?>font-size: <?php echo $settings->text_font_size['text_font_size_tablet']; ?>px;<?php } ?>
-		<?php if( $settings->text_line_height['text_line_height_tablet'] >= 0 ) { ?>line-height: <?php echo $settings->text_line_height['text_line_height_tablet']; ?>;<?php } ?>
-	}
 }
 @media only screen and ( max-width: 480px ) {
 	.pp-timeline .pp-timeline-content-wrapper .pp-timeline-item .pp-timeline-content {
@@ -184,13 +266,5 @@ for( $i = 0; $i < $number_items; $i++ ) {
 	}
 	.pp-timeline .pp-timeline-content-wrapper .pp-timeline-item .pp-timeline-icon-wrapper {
 		width: 24%;
-	}
-	.fl-node-<?php echo $id; ?> .pp-timeline-content-wrapper .pp-timeline-item .pp-timeline-content .pp-timeline-title {
-		<?php if( $settings->title_font_size['title_font_size_mobile'] >= 0 ) { ?>font-size: <?php echo $settings->title_font_size['title_font_size_mobile']; ?>px;<?php } ?>
-		<?php if( $settings->title_line_height['title_line_height_mobile'] >= 0 ) { ?>line-height: <?php echo $settings->title_line_height['title_line_height_mobile']; ?>;<?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-timeline-content-wrapper .pp-timeline-item .pp-timeline-content .pp-timeline-text-wrapper p {
-		<?php if( $settings->text_font_size['text_font_size_mobile'] >= 0 ) { ?>font-size: <?php echo $settings->text_font_size['text_font_size_mobile']; ?>px;<?php } ?>
-		<?php if( $settings->text_line_height['text_line_height_mobile'] >= 0 ) { ?>line-height: <?php echo $settings->text_line_height['text_line_height_mobile']; ?>;<?php } ?>
 	}
 }

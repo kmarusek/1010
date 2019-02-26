@@ -17,6 +17,17 @@
 		if(this._hasPosts()) {
 			this._initLayout();
 			this._initInfiniteScroll();
+
+			var self = this;
+
+			// Set FacetWP Trigger
+			$(document).on('facetwp-loaded', function() {
+				if ( 'undefined' !== typeof FWP ) {
+					if (FWP.loaded || FWP.is_bfcache) {
+						self._initInfiniteScroll();
+					}
+				}
+			});
 		}
 	};
 

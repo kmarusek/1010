@@ -1070,6 +1070,11 @@ if ( ! class_exists( 'UABB_WPML_Translatable' ) ) {
 					'type'        => __( 'Video : Subscribe to channel text', 'uabb' ),
 					'editor_type' => 'LINE',
 				),
+				array(
+					'field'       => 'sticky_info_bar_text',
+					'type'        => __( 'Video : This is info bar', 'uabb' ),
+					'editor_type' => 'LINE',
+				),
 			);
 
 			// Video Gallery module.

@@ -45,22 +45,15 @@ if ( $settings->layout > 1 ) {
 	float: left;
 }
 
+<?php
+// Post Title typography.
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'title_typography',
+	'selector'		=> ".fl-node-$id .pp-post-tile-post .pp-post-tile-title"
+) );
+?>
 .fl-node-<?php echo $id; ?> .pp-post-tile-post .pp-post-tile-title {
-	<?php if ( $settings->title_font['family'] != 'Default' ) { ?>
-	   <?php FLBuilderFonts::font_css( $settings->title_font ); ?>
-   	<?php } ?>
-   	<?php if ( $settings->title_font_size != 'default' && isset($settings->title_custom_font_size['desktop']) ) { ?>
-	   font-size: <?php echo $settings->title_custom_font_size['desktop']; ?>px;
-	<?php } ?>
-	<?php if ( $settings->title_line_height != 'default' && isset($settings->title_custom_line_height['desktop']) ) { ?>
-	   line-height: <?php echo $settings->title_custom_line_height['desktop']; ?>;
-	<?php } ?>
-	<?php if ( $settings->title_letter_spacing != 'default' && isset($settings->title_custom_letter_spacing['desktop']) ) { ?>
-	   letter-spacing: <?php echo $settings->title_custom_letter_spacing['desktop']; ?>px;
-	<?php } ?>
-	<?php if ( $settings->title_text_transform != 'none' ) { ?>
-		text-transform: <?php echo $settings->title_text_transform; ?>;
-	<?php } ?>
 	<?php if ( isset($settings->title_margin['top']) ) { ?>
 		margin-top: <?php echo $settings->title_margin['top']; ?>px;
 	<?php } ?>
@@ -68,38 +61,39 @@ if ( $settings->layout > 1 ) {
 		margin-bottom: <?php echo $settings->title_margin['bottom']; ?>px;
 	<?php } ?>
 }
-.fl-node-<?php echo $id; ?> .pp-post-tile-small .pp-post-tile-title,
-.fl-node-<?php echo $id; ?> .pp-post-tile-small .pp-post-tile-title a {
-	<?php if ( $settings->title_font_size_s != 'default' && isset($settings->title_custom_font_size_s['desktop']) ) { ?>
-	   font-size: <?php echo $settings->title_custom_font_size_s['desktop']; ?>px;
-	<?php } else { ?>
-		font-size: 18px;
-	<?php } ?>
-	<?php if ( $settings->title_line_height_s != 'default' && isset($settings->title_custom_line_height_s['desktop']) ) { ?>
-	   line-height: <?php echo $settings->title_custom_line_height_s['desktop']; ?>;
-	<?php } else { ?>
-		line-height: 24px;
-	<?php } ?>
-}
-.fl-node-<?php echo $id; ?> .pp-post-tile-post .pp-post-tile-category,
-.fl-node-<?php echo $id; ?> .pp-post-tile-post .pp-post-tile-meta {
-	<?php if ( $settings->meta_font['family'] != 'Default' ) { ?>
-	   <?php FLBuilderFonts::font_css( $settings->meta_font ); ?>
-   	<?php } ?>
-   	<?php if ( $settings->meta_font_size != 'default' && isset($settings->meta_custom_font_size['desktop']) ) { ?>
-	   font-size: <?php echo $settings->meta_custom_font_size['desktop']; ?>px;
-	<?php } ?>
-	<?php if ( $settings->meta_letter_spacing != 'default' && isset($settings->meta_custom_letter_spacing['desktop']) ) { ?>
-	   letter-spacing: <?php echo $settings->meta_custom_letter_spacing['desktop']; ?>px;
-	<?php } ?>
-	<?php if ( $settings->meta_text_transform != 'none' ) { ?>
-		text-transform: <?php echo $settings->meta_text_transform; ?>;
-	<?php } ?>
-}
+
+<?php
+// Small tile title font size.
+FLBuilderCSS::responsive_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'title_custom_font_size_s',
+	'selector'		=> ".fl-node-$id .pp-post-tile-small .pp-post-tile-title, .fl-node-$id .pp-post-tile-small .pp-post-tile-title a",
+	'prop'			=> 'font-size',
+	'unit'			=> 'px',
+	'enabled'		=> ( 'custom' == $settings->title_font_size_s )
+) );
+
+// Small tile title line height.
+FLBuilderCSS::responsive_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'title_custom_line_height_s',
+	'selector'		=> ".fl-node-$id .pp-post-tile-small .pp-post-tile-title, .fl-node-$id .pp-post-tile-small .pp-post-tile-title a",
+	'prop'			=> 'line-height',
+	'enabled'		=> ( 'custom' == $settings->title_line_height_s )
+) );
+?>
+<?php
+// Post meta typography.
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'meta_typography',
+	'selector'		=> ".fl-node-$id .pp-post-tile-post .pp-post-tile-category, .fl-node-$id .pp-post-tile-post .pp-post-tile-meta"
+) );
+?>
 .fl-node-<?php echo $id; ?> .pp-post-tile-post .pp-post-tile-category span {
 	display: inline-block;
 	<?php if ( isset( $settings->tax_bg_color ) && !empty( $settings->tax_bg_color ) ) { ?>
-		background-color: #<?php echo $settings->tax_bg_color; ?>;
+		background-color: <?php echo pp_get_color_value( $settings->tax_bg_color ); ?>;
 		margin-bottom: 10px;
 		padding: 2px 8px;
 		-webkit-transition: background-color 0.2s ease-in-out;
@@ -109,7 +103,7 @@ if ( $settings->layout > 1 ) {
 }
 .fl-node-<?php echo $id; ?> .pp-post-tile-post:hover .pp-post-tile-category span {
 	<?php if ( isset( $settings->tax_bg_color_h ) && !empty( $settings->tax_bg_color_h ) ) { ?>
-		background-color: #<?php echo $settings->tax_bg_color_h; ?>;
+		background-color: <?php echo pp_get_color_value( $settings->tax_bg_color_h ); ?>;
 		-webkit-transition: background-color 0.2s ease-in-out;
 		-moz-transition: background-color 0.2s ease-in-out;
 		transition: background-color 0.2s ease-in-out;
@@ -152,66 +146,10 @@ if ( $settings->layout > 1 ) {
 	.fl-node-<?php echo $id; ?> .pp-post-tile-left .pp-post-tile-post {
 		margin-right: 0;
 	}
-	.fl-node-<?php echo $id; ?> .pp-post-tile-post .pp-post-tile-title {
-	   	<?php if ( $settings->title_font_size != 'default' && isset($settings->title_custom_font_size['tablet']) && !empty($settings->title_custom_font_size['tablet']) ) { ?>
-		   font-size: <?php echo $settings->title_custom_font_size['tablet']; ?>px;
-		<?php } ?>
-		<?php if ( $settings->title_line_height != 'default' && isset($settings->title_custom_line_height['tablet']) && !empty($settings->title_custom_font_size['tablet']) ) { ?>
-		   line-height: <?php echo $settings->title_custom_line_height['tablet']; ?>;
-		<?php } ?>
-		<?php if ( $settings->title_letter_spacing != 'default' && isset($settings->title_custom_letter_spacing['tablet']) && !empty($settings->title_custom_font_size['tablet']) ) { ?>
-		   letter-spacing: <?php echo $settings->title_custom_letter_spacing['tablet']; ?>px;
-		<?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-post-tile-small .pp-post-tile-title {
-		<?php if ( $settings->title_font_size_s != 'default' && isset($settings->title_custom_font_size_s['tablet']) ) { ?>
-		font-size: <?php echo $settings->title_custom_font_size_s['tablet']; ?>px;
-		<?php } ?>
-		<?php if ( $settings->title_line_height_s != 'default' && isset($settings->title_custom_line_height_s['tablet']) ) { ?>
-		line-height: <?php echo $settings->title_custom_line_height_s['tablet']; ?>;
-		<?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-post-tile-post .pp-post-tile-category,
-	.fl-node-<?php echo $id; ?> .pp-post-tile-post .pp-post-tile-meta {
-		<?php if ( $settings->meta_font_size != 'default' && isset($settings->meta_custom_font_size['tablet']) ) { ?>
-		font-size: <?php echo $settings->meta_custom_font_size['tablet']; ?>px;
-		<?php } ?>
-		<?php if ( $settings->meta_letter_spacing != 'default' && isset($settings->meta_custom_letter_spacing['tablet']) ) { ?>
-		letter-spacing: <?php echo $settings->meta_custom_letter_spacing['tablet']; ?>px;
-		<?php } ?>
-	}
 }
 
 @media only screen and (max-width: 480px) {
 	.fl-node-<?php echo $id; ?> .pp-post-tile-small {
 		width: 100%;
-	}
-	.fl-node-<?php echo $id; ?> .pp-post-tile-post .pp-post-tile-title {
-	   	<?php if ( $settings->title_font_size != 'default' && isset($settings->title_custom_font_size['mobile']) && !empty($settings->title_custom_font_size['mobile']) ) { ?>
-		   font-size: <?php echo $settings->title_custom_font_size['mobile']; ?>px;
-		<?php } ?>
-		<?php if ( $settings->title_line_height != 'default' && isset($settings->title_custom_line_height['mobile']) && !empty($settings->title_custom_font_size['mobile']) ) { ?>
-		   line-height: <?php echo $settings->title_custom_line_height['mobile']; ?>;
-		<?php } ?>
-		<?php if ( $settings->title_letter_spacing != 'default' && isset($settings->title_custom_letter_spacing['mobile']) && !empty($settings->title_custom_font_size['mobile']) ) { ?>
-		   letter-spacing: <?php echo $settings->title_custom_letter_spacing['mobile']; ?>px;
-		<?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-post-tile-small .pp-post-tile-title {
-		<?php if ( $settings->title_font_size_s != 'default' && isset($settings->title_custom_font_size_s['mobile']) ) { ?>
-		font-size: <?php echo $settings->title_custom_font_size_s['mobile']; ?>px;
-		<?php } ?>
-		<?php if ( $settings->title_line_height_s != 'default' && isset($settings->title_custom_line_height_s['mobile']) ) { ?>
-		line-height: <?php echo $settings->title_custom_line_height_s['mobile']; ?>;
-		<?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-post-tile-post .pp-post-tile-category,
-	.fl-node-<?php echo $id; ?> .pp-post-tile-post .pp-post-tile-meta {
-		<?php if ( $settings->meta_font_size != 'default' && isset($settings->meta_custom_font_size['mobile']) ) { ?>
-		font-size: <?php echo $settings->meta_custom_font_size['mobile']; ?>px;
-		<?php } ?>
-		<?php if ( $settings->meta_letter_spacing != 'default' && isset($settings->meta_custom_letter_spacing['mobile']) ) { ?>
-		letter-spacing: <?php echo $settings->meta_custom_letter_spacing['mobile']; ?>px;
-		<?php } ?>
 	}
 }

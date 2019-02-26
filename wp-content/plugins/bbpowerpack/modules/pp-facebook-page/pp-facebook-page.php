@@ -91,18 +91,26 @@ FLBuilder::register_module( 'PPFBPageModule', array(
 						),
 					),
 					'width'	=> array(
-						'type'			=> 'text',
+						'type'			=> 'unit',
 						'label'     	=> __( 'Width', 'bb-powerpack' ),
-						'description'	=> __( 'px', 'bb-powerpack' ),
 						'default'		=> '340',
-						'size'			=> 5,
+						'units'			=> array( 'px' ),
+						'slider'		=> array(
+							'min'			=> '1',
+							'max'			=> '2000',
+							'step'			=> '50'
+						),
 					),
 					'height'	=> array(
-						'type'			=> 'text',
+						'type'			=> 'unit',
 						'label'     	=> __( 'Height', 'bb-powerpack' ),
-						'description'	=> __( 'px', 'bb-powerpack' ),
 						'default'		=> '500',
-						'size'			=> 5,
+						'units'			=> array( 'px' ),
+						'slider'		=> array(
+							'min'			=> '1',
+							'max'			=> '2000',
+							'step'			=> '50'
+						),
 					),
 				),
 			),

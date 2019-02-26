@@ -1,5 +1,54 @@
+== 2.6.9.2 ==
+Release date: February 22, 2019
+* Enhancement: Contact Form - Added hooks pp_contact_form_before_send, pp_contact_form_after_send
+* Enhancement: Contact Form - Added shortcode support for Subject and Email field
+* Fix: Subscribe Form - Button border hover color was not working after updating PowerPack to 2.6.9
+* Fix: Advanced Accordion - Incorrect content background color value after updating PowerPack to 2.6.9
+* Fix: Info Box - Icon border hover color was not working after updating PowerPack to 2.6.9
+* Fix: Advanced Tabs - Vertical layout offset issue when using URL parameter to switch tabs
+* Fix: Advanced Tabs - Content auto closing issue on swipe in mobile devices
+* Fix: Contact Form - Form submission fails when message field is set to be hidden
+* Fix: WPForms - Button text color was not working
+* Fix: Core - PowerPack's UI panel icons were not displaying correct color in dark mode
+* Fix: Core - Expandable Row duplicate instance issue
+
+== 2.6.9.1 ==
+Release date: February 18, 2019
+* Fix: Advanced Menu - Submenu link padding issue after updating PowerPack to 2.6.9
+* Fix: Hover Cards 2 - PHP notice after updating PowerPack to 2.6.9
+* Fix: Smart Heading - Text gradient was not working after updating PowerPack to 2.6.9
+* Fix: Image - Photo crop circle was not working after updating PowerPack to 2.6.9
+* Fix: Pricing Table - Button font-size was not working properly after updating PowerPack to 2.6.9
+* Fix: Info Box - Added missing alpha channel in various background color options
+
+== 2.6.9 ==
+Release date: February 15, 2019
+* Enhancement: Updated fields in all modules according to BB 2.2
+* Enhancement: Social Icons - Added option to set custom title in HTML attribute of Custom Icon
+* Enhancement: Content Grid - Added post link to the featured image when link type is set to button
+* Enhancement: InfoList - Added HTML tag option for title
+* Fix: Core - Removed column's gradient, round corners, and box shadow options as these are added in BB 2.2
+* Fix: Core - Updated post schema markup to get logo image from default Customizer option if BB Theme is not active
+* Fix: Core - Updated Row Overlay Style to work with BB 2.2.1
+* Fix: Modal Box - Responsive position issue
+* Fix: Modal Box - Slow query issue
+* Fix: Modal Box - YouTube video was not playing on next load when close button is set out of the modal content
+* Fix: Instagram Feed - Extra spacing issue
+* Fix: Filterable Gallery - Layout was not rendering in Advanced Tabs and Accordion
+* Fix: Advanced Menu - Full screen overlay responsive height issue in mobile browsers
+* Fix: Content Grid - Offset was not working in Load More and Scroll pagination
+* Fix: Content Grid - PHP notice
+* Fix: Post Timeline - Connector was not showing sometimes due to CSS overrides
+* Fix: Table - Odd and Even rows background color issue after sorting
+* Fix: Smart Button - Removed additional "fa" CSS class from button icon
+* Fix: Custom Grid - Scroll pagination was not working with FacetWP
+* Fix: Filterable Gallery - PHP notice
+* Fix: Flip Box - Added missing alt tag to image icon
+* Fix: Line Separator - Added missing alt tag to image icon
+* Fix: Restaurant Menu - Added missing alt tag to menu image
+
 == 2.6.8.5 ==
-Release date: January 9, 2018
+Release date: January 9, 2019
 * Enhancement: Updated PowerPack's row gradient and overlay effects to make them compatible with BB 2.2
 * Enhancement: Moved additional PowerPack options in row settings in single tab
 * Fix: Content Grid - Pagination double slashes issue on some server

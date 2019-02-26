@@ -247,16 +247,15 @@ function pp_extensions()
     $extensions = array(
         'row'       => array(
             'separators'    => __('Separators', 'bb-powerpack'),
-            'gradient'      => __('Gradient', 'bb-powerpack'),
-            'overlay'       => __('Overlay Type', 'bb-powerpack'),
+            'overlay'       => __('Overlay Style', 'bb-powerpack'),
             'expandable'    => __('Expandable', 'bb-powerpack'),
             'downarrow'     => __('Down Arrow', 'bb-powerpack'),
         ),
         'col'       => array(
             'separators'    => __('Separators', 'bb-powerpack'),
-            'gradient'      => __('Gradient', 'bb-powerpack'),
-            'corners'       => __('Round Corners', 'bb-powerpack'),
-            'shadow'        => __('Box Shadow', 'bb-powerpack'),
+            // 'gradient'      => __('Gradient', 'bb-powerpack'),
+            // 'corners'       => __('Round Corners', 'bb-powerpack'),
+            // 'shadow'        => __('Box Shadow', 'bb-powerpack'),
         )
     );
 
@@ -266,8 +265,12 @@ function pp_extensions()
 /**
  * Hex to Rgba
  */
-function pp_hex2rgba( $hex, $opacity )
+function pp_hex2rgba( $hex, $opacity = 1 )
 {
+	if ( false !== strpos( $hex, 'rgb' ) ) {
+		return $hex;
+	}
+	
 	$hex = str_replace( '#', '', $hex );
 
 	if ( strlen($hex) == 3 ) {
@@ -279,6 +282,7 @@ function pp_hex2rgba( $hex, $opacity )
 		$g = hexdec(substr($hex,2,2));
 		$b = hexdec(substr($hex,4,2));
 	}
+	$opacity = ( $opacity > 1 ) ? ( $opacity / 100 ) : $opacity;
 	$rgba = array($r, $g, $b, $opacity);
 
 	return 'rgba(' . implode(', ', $rgba) . ')';
@@ -577,4 +581,60 @@ function pp_clear_enabled_templates()
 	BB_PowerPack_Admin_Settings::delete_option( 'bb_powerpack_row_templates_type' );
 	BB_PowerPack_Admin_Settings::delete_option( 'bb_powerpack_row_templates_all' );
 	BB_PowerPack_Admin_Settings::delete_option( 'bb_powerpack_override_ms' );
+}
+
+function pp_get_image_alt( $img_id = false, $default = '' ) {
+	if ( ! $img_id || ! absint( $img_id ) ) {
+		return;
+	}
+	if ( ! class_exists( 'FLBuilderPhoto' ) ) {
+		return;
+	}
+	
+	$img_id = absint( $img_id );
+	$attachment_data = FLBuilderPhoto::get_attachment_data( $img_id );
+	$image_alt = ( ! empty( $default ) ) ? $default : '';
+	
+	if ( is_object( $attachment_data ) ) {
+		$image_alt = $attachment_data->alt;
+		if ( empty( $image_alt ) ) {
+			$image_alt = $attachment_data->caption;
+			if ( empty( $image_alt ) ) {
+				$image_alt = $attachment_data->title;
+			}
+		}
+	}
+
+	return $image_alt;
+}
+
+function pp_gradient_angle_to_direction( $angle = 45 ) {
+	$direction = 'top_right_diagonal';
+	
+	// Top to Bottom.
+	if ( 180 == $angle ) {
+		$direction = 'bottom';
+	}
+	// Left to Right.
+	if ( 90 == $angle ) {
+		$direction = 'right';
+	}
+	// Bottom Left to Top Right.
+	if ( 45 == $angle ) {
+		$direction = 'top_right_diagonal';
+	}
+	// Bottom Right to Top Left.
+	if ( 315 == $angle ) {
+		$direction = 'top_left_diagonal';
+	}
+	// Top Left to Bottom Right.
+	if ( 135 == $angle ) {
+		$direction = 'bottom_right_diagonal';
+	}
+	// Top Right to Bottom Left.
+	if ( 225 == $angle ) {
+		$direction = 'bottom_left_diagonal';
+	}
+
+	return $direction;
 }

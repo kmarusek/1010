@@ -60,10 +60,8 @@
             }
 		},
 
-		show: function()
+		setPosition: function()
 		{
-			var self = this;
-
 			if ( 'fullscreen' !== this.layout ) {
                 if ( typeof this.settings.height === 'undefined' ) {
 
@@ -81,9 +79,20 @@
                     }
                     this.element.css( 'top', topPos + 'px' );
                 } else {
-                    this.element.css( 'top', ( $(window).height() - this.settings.height ) / 2 + 'px' );
+                    var topPos = ( $(window).height() - this.settings.height ) / 2;
+					if ( topPos < 0 ) {
+                        topPos = 0;
+                    }
+                    this.element.css( 'top', topPos + 'px' );
                 }
 			}
+		},
+
+		show: function()
+		{
+			var self = this;
+
+			this.setPosition();
 			
 			setTimeout( function() {
 				self.element.trigger('beforeload');
@@ -154,8 +163,10 @@
 		reset: function()
 		{
             if ( 'url' === this.type || 'video' == this.type) {
-                var src = this.element.find('iframe, source').attr('src');
-                this.element.find('iframe, source').attr('data-src', src).attr('src', '');
+				var src = this.element.find('iframe, source').attr('src');
+				if ( '' !== src ) {
+					this.element.find('iframe, source').attr('data-src', src).attr('src', '');
+				}
 				
 				if ( this.element.find('video').length ) {
                     this.element.find('video')[0].pause();
@@ -223,9 +234,14 @@
 			});
 			
 			// close modal box by clicking on the close button.
-            $(self.wrap).find('.pp-modal-close').on('click', function() {
+            $(self.wrap).find('.pp-modal-close').on('click', function(e) {
+				e.preventDefault();
+				e.stopPropagation();
                 self.hide();
 			});
+
+			$(window).resize( $.proxy( this.setResponsive, this ) );
+			$(window).resize( $.proxy( this.setPosition, this ) );
 		},
 
 		hide: function()

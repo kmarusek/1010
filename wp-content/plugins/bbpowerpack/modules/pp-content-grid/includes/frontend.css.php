@@ -18,63 +18,81 @@ $responsive_filter = $settings->responsive_filter;
 	text-align: <?php echo $settings->filter_alignment; ?>;
 }
 .fl-node-<?php echo $id; ?> ul.pp-post-filters li {
-	background: <?php echo ($settings->filter_background['primary']) ? '#'.$settings->filter_background['primary'] : 'transparent'; ?>;
-	<?php if( $settings->filter_border_color['primary'] ) { ?>border-color: #<?php echo $settings->filter_border_color['primary']; ?>;<?php } ?>
-	<?php if( $settings->filter_border_radius >= 0 ) { ?>border-radius: <?php echo $settings->filter_border_radius; ?>px;<?php } ?>
-	<?php if( $settings->filter_border != 'none') { ?>
-	border-top-width: <?php echo $settings->filter_border_width['top']; ?>px;
-	border-bottom-width: <?php echo $settings->filter_border_width['bottom']; ?>px;
-	border-left-width: <?php echo $settings->filter_border_width['left']; ?>px;
-	border-right-width: <?php echo $settings->filter_border_width['right']; ?>px;
+	<?php if ( isset( $settings->filter_bg_color ) && ! empty( $settings->filter_bg_color ) ) { ?>
+		background: <?php echo pp_get_color_value( $settings->filter_bg_color ); ?>;
 	<?php } ?>
-	<?php if( $settings->filter_border ) { ?>border-style: <?php echo $settings->filter_border; ?>;<?php } ?>
-	<?php if( $settings->filter_border_color['primary'] ) { ?>
-		border-color: #<?php echo $settings->filter_border_color['primary']; ?>;
-	<?php } else { ?>
-		border-color: transparent;
+	<?php if ( isset( $settings->filter_text_color ) && ! empty( $settings->filter_text_color ) ) { ?>
+		color: <?php echo pp_get_color_value( $settings->filter_text_color ); ?>;
 	<?php } ?>
-	padding-top: <?php echo $settings->filter_padding['top']; ?>px;
-	padding-right: <?php echo $settings->filter_padding['right']; ?>px;
-	padding-bottom: <?php echo $settings->filter_padding['bottom']; ?>px;
-	padding-left: <?php echo $settings->filter_padding['left']; ?>px;
-	<?php if( $settings->filter_color['primary'] ) { ?>color: #<?php echo $settings->filter_color['primary']; ?>;<?php } ?>
+	border-color: transparent;
+
 	margin-right: <?php echo $settings->filter_margin; ?>px;
 	margin-bottom: <?php echo ($settings->filter_margin / 2); ?>px;
-	<?php if( $settings->filter_font['family'] != 'Default' ) { ?>
-	   <?php FLBuilderFonts::font_css( $settings->filter_font ); ?>
-   <?php } ?>
-   font-size: <?php echo $settings->filter_font_size['desktop']; ?>px;
-
-   <?php if( 'default' != $settings->filter_text_transform ) { ?>
-   text-transform: <?php echo $settings->filter_text_transform; ?>
-   <?php } ?>
 }
+<?php
+// Filter Border
+FLBuilderCSS::border_field_rule( array(
+	'settings' 		=> $settings,
+	'setting_name' 	=> 'filter_border_group',
+	'selector' 		=> ".fl-node-$id ul.pp-post-filters li",
+) );
+
+// Filter Padding
+FLBuilderCSS::dimension_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'filter_padding',
+	'selector' 		=> ".fl-node-$id ul.pp-post-filters li",
+	'unit'			=> 'px',
+	'props'			=> array(
+		'padding-top' 		=> 'filter_padding_top',
+		'padding-right' 	=> 'filter_padding_right',
+		'padding-bottom' 	=> 'filter_padding_bottom',
+		'padding-left' 		=> 'filter_padding_left',
+	),
+) );
+
+// Filter typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'filter_typography',
+	'selector'		=> ".fl-node-$id ul.pp-post-filters li",
+) );
+?>
 
 .fl-node-<?php echo $id; ?> ul.pp-post-filters li:hover,
 .fl-node-<?php echo $id; ?> ul.pp-post-filters li.pp-filter-active {
-	background: <?php echo ($settings->filter_background['secondary']) ? '#'.$settings->filter_background['secondary'] : 'transparent'; ?>;
-	<?php if( $settings->filter_color['secondary'] ) { ?>color: #<?php echo $settings->filter_color['secondary']; ?>;<?php } ?>
-	<?php if( $settings->filter_border_color['secondary'] ) { ?>border-color: #<?php echo $settings->filter_border_color['secondary']; ?>;<?php } ?>
+	<?php if ( isset( $settings->filter_bg_color_active ) && ! empty( $settings->filter_bg_color_active ) ) { ?>
+		background: <?php echo pp_get_color_value( $settings->filter_bg_color_active ); ?>;
+	<?php } ?>
+	<?php if ( isset( $settings->filter_text_color_active ) && ! empty( $settings->filter_text_color_active ) ) { ?>
+		color: <?php echo pp_get_color_value( $settings->filter_text_color_active ); ?>;
+	<?php } ?>
+	<?php if ( isset( $settings->filter_border_hover_color ) && ! empty( $settings->filter_border_hover_color ) ) { ?>
+		border-color: <?php echo pp_get_color_value( $settings->filter_border_hover_color ); ?>;
+	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-content-post-grid.pp-is-filtering:after {
-	background-image: url(<?php echo BB_POWERPACK_URL; ?>assets/images/spinner.gif);
+	background-image: url(<?php echo BB_POWERPACK_URL; ?>images/spinner.gif);
 }
 
 .fl-node-<?php echo $id; ?> .pp-post-filters-toggle {
 	background: <?php echo ( isset( $settings->filter_toggle_bg ) && ! empty( $settings->filter_toggle_bg ) ) ? pp_get_color_value( $settings->filter_toggle_bg ) : 'none'; ?>;
 	<?php if ( isset( $settings->filter_toggle_color ) && ! empty( $settings->filter_toggle_color ) ) { ?>
-	color: <?php echo pp_get_color_value( $settings->filter_toggle_color ); ?>;
-	<?php } ?>
-	border-width: <?php echo ( isset( $settings->filter_toggle_border ) && ! empty( $settings->filter_toggle_border ) ) ? $settings->filter_toggle_border : 1; ?>px;
-	border-style: solid;
-	border-color: <?php echo ( isset( $settings->filter_toggle_border_color ) && ! empty( $settings->filter_toggle_border_color ) ) ? pp_get_color_value( $settings->filter_toggle_border_color ) : 'transparent'; ?>;
-	<?php if ( isset( $settings->filter_toggle_radius ) && ! empty( $settings->filter_toggle_radius ) ) { ?>
-	border-radius: <?php echo $settings->filter_toggle_radius; ?>px;
+		color: <?php echo pp_get_color_value( $settings->filter_toggle_color ); ?>;
 	<?php } ?>
 }
+<?php
+// Filter Toggle Border
+FLBuilderCSS::border_field_rule( array(
+	'settings' 		=> $settings,
+	'setting_name' 	=> 'filter_toggle_border_group',
+	'selector' 		=> ".fl-node-$id .pp-post-filters-toggle",
+) );
+?>
 
 <?php } ?>
+
 .fl-node-<?php echo $id; ?> .pp-content-grid-pagination {
 	<?php if ( isset( $settings->pagination_align ) ) { ?>
 		text-align: <?php echo $settings->pagination_align; ?>;
@@ -84,27 +102,56 @@ $responsive_filter = $settings->responsive_filter;
     padding-top: <?php echo $settings->pagination_spacing_v; ?>px;
     padding-bottom: <?php echo $settings->pagination_spacing_v; ?>px;
 }
+<?php
+// Pagination Border
+FLBuilderCSS::border_field_rule( array(
+	'settings' 		=> $settings,
+	'setting_name' 	=> 'pagination_border_group',
+	'selector' 		=> ".fl-node-$id .pp-content-grid-pagination li a.page-numbers, .fl-node-$id .pp-content-grid-pagination li span.page-numbers, .fl-node-$id .pp-content-grid-load-more a",
+) );
 
+// Pagination Padding
+FLBuilderCSS::dimension_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'pagination_padding',
+	'selector' 		=> ".fl-node-$id .pp-content-grid-pagination li a.page-numbers, .fl-node-$id .pp-content-grid-pagination li span.page-numbers, .fl-node-$id .pp-content-grid-load-more a",
+	'unit'			=> 'px',
+	'props'			=> array(
+		'padding-top' 		=> 'pagination_padding_top',
+		'padding-right' 	=> 'pagination_padding_right',
+		'padding-bottom' 	=> 'pagination_padding_bottom',
+		'padding-left' 		=> 'pagination_padding_left',
+	),
+) );
+
+// Pagination font-size
+FLBuilderCSS::responsive_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'pagination_font_size',
+	'selector'		=> ".fl-node-$id .pp-content-grid-pagination li a.page-numbers, .fl-node-$id .pp-content-grid-pagination li span.page-numbers, .fl-node-$id .pp-content-grid-load-more a",
+	'prop'			=> 'font-size',
+	'unit'			=> 'px'
+) );
+?>
 .fl-node-<?php echo $id; ?> .pp-content-grid-pagination li a.page-numbers,
 .fl-node-<?php echo $id; ?> .pp-content-grid-pagination li span.page-numbers {
-	background-color: <?php echo ($settings->pagination_background_color['primary']) ? '#' . $settings->pagination_background_color['primary'] : 'transparent'; ?>;
-	border-style: <?php echo $settings->pagination_border; ?>;
-	<?php if( $settings->pagination_border_width && $settings->pagination_border != 'none' ) { ?>border-width: <?php echo $settings->pagination_border_width; ?>px; <?php } ?>
-	<?php if( $settings->pagination_border_color ) { ?> border-color: #<?php echo $settings->pagination_border_color; ?>; <?php } ?>
-	<?php if( $settings->pagination_border_radius >= 0 ) { ?> border-radius: <?php echo $settings->pagination_border_radius; ?>px; <?php } ?>
-	<?php if( $settings->pagination_text_color['primary'] ) { ?> color: #<?php echo $settings->pagination_text_color['primary']; ?>; <?php } ?>
-	padding-top: <?php echo $settings->pagination_padding['top']; ?>px;
-	padding-right: <?php echo $settings->pagination_padding['right']; ?>px;
-	padding-bottom: <?php echo $settings->pagination_padding['bottom']; ?>px;
-	padding-left: <?php echo $settings->pagination_padding['left']; ?>px;
+	<?php if ( isset( $settings->pagination_bg_color ) && ! empty( $settings->pagination_bg_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->pagination_bg_color ); ?>;
+	<?php } ?>
+	<?php if ( isset( $settings->pagination_color ) && ! empty( $settings->pagination_color ) ) { ?>
+		color: <?php echo pp_get_color_value( $settings->pagination_color ); ?>;
+	<?php } ?>
 	margin-right: <?php echo $settings->pagination_spacing; ?>px;
-	font-size: <?php echo $settings->pagination_font_size['desktop']; ?>px;
 }
 
 .fl-node-<?php echo $id; ?> .pp-content-grid-pagination li a.page-numbers:hover,
 .fl-node-<?php echo $id; ?> .pp-content-grid-pagination li span.current {
-	background-color: <?php echo ($settings->pagination_background_color['secondary']) ? '#' . $settings->pagination_background_color['secondary'] : 'transparent'; ?>;
-	<?php if( $settings->pagination_text_color['secondary'] ) { ?> color: #<?php echo $settings->pagination_text_color['secondary']; ?>; <?php } ?>
+	<?php if ( isset( $settings->pagination_bg_color_hover ) && ! empty( $settings->pagination_bg_color_hover ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->pagination_bg_color_hover ); ?>;
+	<?php } ?>
+	<?php if ( isset( $settings->pagination_color_hover ) && ! empty( $settings->pagination_color_hover ) ) { ?>
+		color: <?php echo pp_get_color_value( $settings->pagination_color_hover ); ?>;
+	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-content-grid-load-more {
@@ -114,57 +161,30 @@ $responsive_filter = $settings->responsive_filter;
 	<?php } ?>
 }
 .fl-node-<?php echo $id; ?> .pp-content-grid-load-more a {
-	<?php if ( ! empty( $settings->pagination_background_color['primary'] ) ) { ?>
-		background: #<?php echo $settings->pagination_background_color['primary']; ?>;
+	<?php if ( isset( $settings->pagination_bg_color ) && ! empty( $settings->pagination_bg_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->pagination_bg_color ); ?>;
 	<?php } ?>
-	<?php if( $settings->pagination_text_color['primary'] ) { ?>
-		color: #<?php echo $settings->pagination_text_color['primary']; ?>;
+	<?php if ( isset( $settings->pagination_color ) && ! empty( $settings->pagination_color ) ) { ?>
+		color: <?php echo pp_get_color_value( $settings->pagination_color ); ?>;
 	<?php } ?>
-	border-style: <?php echo $settings->pagination_border; ?>;
-	<?php if( $settings->pagination_border_width && $settings->pagination_border != 'none' ) { ?>
-		border-width: <?php echo $settings->pagination_border_width; ?>px;
-	<?php } ?>
-	<?php if( $settings->pagination_border_color ) { ?>
-		border-color: #<?php echo $settings->pagination_border_color; ?>;
-	<?php } ?>
-	<?php if( $settings->pagination_border_radius >= 0 ) { ?>
-		border-radius: <?php echo $settings->pagination_border_radius; ?>px;
-	<?php } ?>
-	padding-top: <?php echo $settings->pagination_padding['top']; ?>px;
-	padding-right: <?php echo $settings->pagination_padding['right']; ?>px;
-	padding-bottom: <?php echo $settings->pagination_padding['bottom']; ?>px;
-	padding-left: <?php echo $settings->pagination_padding['left']; ?>px;
-	font-size: <?php echo $settings->pagination_font_size['desktop']; ?>px;
 	text-align: center;
 	text-decoration: none;
 	transition: all 0.2s ease-in-out;
 }
+
 .fl-node-<?php echo $id; ?> .pp-content-grid-load-more a:hover {
-	<?php if ( ! empty( $settings->pagination_background_color['secondary'] ) ) { ?>
-		background: #<?php echo $settings->pagination_background_color['secondary']; ?>;
+	<?php if ( isset( $settings->pagination_bg_color_hover ) && ! empty( $settings->pagination_bg_color_hover ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->pagination_bg_color_hover ); ?>;
 	<?php } ?>
-	<?php if ( ! empty( $settings->pagination_text_color['secondary'] ) ) { ?>
-		color: #<?php echo $settings->pagination_text_color['secondary']; ?>;
+	<?php if ( isset( $settings->pagination_color_hover ) && ! empty( $settings->pagination_color_hover ) ) { ?>
+		color: <?php echo pp_get_color_value( $settings->pagination_color_hover ); ?>;
 	<?php } ?>
 }
 
+<?php /* Post Title */ ?>
 .fl-node-<?php echo $id; ?> .pp-content-post .pp-post-title {
 	<?php if ( isset( $settings->show_title ) && 'no' == $settings->show_title ) { ?>
 		display: none;
-	<?php } ?>
-	<?php if( $settings->title_font['family'] != 'Default' ) { ?>
-	   <?php FLBuilderFonts::font_css( $settings->title_font ); ?>
-   <?php } ?>
-
-	<?php if( $settings->title_font_size_toggle == 'custom' && $settings->title_custom_font_size['desktop'] ) { ?>
-		font-size: <?php echo $settings->title_custom_font_size['desktop']; ?>px;
-	<?php } ?>
-
-	<?php if( $settings->title_line_height_toggle == 'custom' && $settings->title_custom_line_height['desktop'] ) { ?>
-		line-height: <?php echo $settings->title_custom_line_height['desktop']; ?>;
-	<?php } ?>
-	<?php if( $settings->title_font_color ) { ?>
-		color: #<?php echo $settings->title_font_color; ?>;
 	<?php } ?>
 	<?php if( $settings->title_margin['top'] >= 0 ) { ?>
 		margin-top: <?php echo $settings->title_margin['top']; ?>px;
@@ -172,10 +192,22 @@ $responsive_filter = $settings->responsive_filter;
 	<?php if( $settings->title_margin['bottom'] >= 0 ) { ?>
 		margin-bottom: <?php echo $settings->title_margin['bottom']; ?>px;
 	<?php } ?>
-	<?php if( $settings->title_text_transform != 'default' ) { ?>
-		text-transform: <?php echo $settings->title_text_transform; ?>;
+}
+
+.fl-node-<?php echo $id; ?> .pp-content-post .pp-post-title,
+.fl-node-<?php echo $id; ?> .pp-content-post .pp-post-title a {
+	<?php if( $settings->title_font_color ) { ?>
+		color: #<?php echo $settings->title_font_color; ?>;
 	<?php } ?>
 }
+<?php
+// Post Title typography.
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'title_typography',
+	'selector'		=> ".fl-node-$id .pp-content-post .pp-post-title, .fl-node-$id .pp-content-post .pp-post-title a"
+) );
+?>
 
 <?php if ( 'tribe_events' == $settings->post_type && 'style-9' == $settings->post_grid_style_select ) { ?>
 	<?php if ( ( isset( $settings->event_date ) && 'yes' == $settings->event_date )
@@ -192,28 +224,7 @@ $responsive_filter = $settings->responsive_filter;
 	}
 <?php } ?>
 
-.fl-node-<?php echo $id; ?> .pp-content-post .pp-post-title a {
-	<?php if( $settings->title_font_color ) { ?>
-		color: #<?php echo $settings->title_font_color; ?>;
-	<?php } ?>
-	<?php if( $settings->title_font['family'] != 'Default' ) { ?>
-	   <?php FLBuilderFonts::font_css( $settings->title_font ); ?>
-   <?php } ?>
-	<?php if( $settings->title_font_size_toggle == 'custom' && $settings->title_custom_font_size['desktop'] ) { ?>
-		font-size: <?php echo $settings->title_custom_font_size['desktop']; ?>px;
-	<?php } ?>
-}
-
 .fl-node-<?php echo $id; ?> .pp-content-post .pp-post-content {
-	<?php if( $settings->content_font['family'] != 'Default' ) { ?>
-	   <?php FLBuilderFonts::font_css( $settings->content_font ); ?>
-   <?php } ?>
-	<?php if( $settings->content_font_size_toggle == 'custom' && $settings->content_custom_font_size['desktop'] ) { ?>
-		font-size: <?php echo $settings->content_custom_font_size['desktop']; ?>px;
-	<?php } ?>
-	<?php if( $settings->content_line_height_toggle == 'custom' && $settings->content_custom_line_height['desktop'] ) { ?>
-		line-height: <?php echo $settings->content_custom_line_height['desktop']; ?>;
-	<?php } ?>
 	<?php if( $settings->content_font_color ) { ?>
 		color: #<?php echo $settings->content_font_color; ?>;
 	<?php } ?>
@@ -224,6 +235,14 @@ $responsive_filter = $settings->responsive_filter;
 		margin-bottom: <?php echo $settings->description_margin['bottom']; ?>px;
 	<?php } ?>
 }
+<?php
+// Content typography.
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'content_typography',
+	'selector'		=> ".fl-node-$id .pp-content-post .pp-post-content"
+) );
+?>
 
 <?php /* The Events Calendar */ ?>
 .fl-node-<?php echo $id; ?> .pp-post-event-calendar-date,
@@ -255,41 +274,51 @@ $responsive_filter = $settings->responsive_filter;
 .fl-node-<?php echo $id; ?> .pp-content-post .pp-add-to-cart a,
 .fl-node-<?php echo $id; ?> .pp-post-event-calendar-cost form .tribe-button {
 	<?php if((isset( $settings->more_link_type ) && $settings->more_link_type == 'button') || (isset($settings->product_button) && $settings->product_button == 'yes') ) { ?>
-		background: <?php echo ($settings->button_background['primary']) ? '#'.$settings->button_background['primary'] : 'transparent'; ?>;
-		<?php if( $settings->button_border_color['primary'] ) { ?>border-color: #<?php echo $settings->button_border_color['primary']; ?>;<?php } ?>
-		<?php if( $settings->button_border_radius >= 0 ) { ?>border-radius: <?php echo $settings->button_border_radius; ?>px;<?php } ?>
-		<?php if( $settings->button_border != 'none') { ?>
-		border-top-width: <?php echo $settings->button_border_width['top']; ?>px;
-		border-bottom-width: <?php echo $settings->button_border_width['bottom']; ?>px;
-		border-left-width: <?php echo $settings->button_border_width['left']; ?>px;
-		border-right-width: <?php echo $settings->button_border_width['right']; ?>px;
+		
+		<?php if ( isset( $settings->button_bg_color ) && ! empty( $settings->button_bg_color ) ) { ?>
+			background: <?php echo pp_get_color_value( $settings->button_bg_color ); ?>;
 		<?php } ?>
-		<?php if( $settings->button_border ) { ?>border-style: <?php echo $settings->button_border; ?>;<?php } ?>
-
-		padding-top: <?php echo $settings->button_padding['top']; ?>px;
-		padding-right: <?php echo $settings->button_padding['right']; ?>px;
-		padding-bottom: <?php echo $settings->button_padding['bottom']; ?>px;
-		padding-left: <?php echo $settings->button_padding['left']; ?>px;
 
 		<?php if( $settings->button_width == 'full' ) { ?>
 	 	   width: 100%;
 	    <?php } ?>
 	<?php } ?>
 
-	<?php if( $settings->button_color['primary'] ) { ?>color: #<?php echo $settings->button_color['primary']; ?>;<?php } ?>
+	<?php if ( isset( $settings->button_text_color ) && ! empty( $settings->button_text_color ) ) { ?>
+		color: <?php echo pp_get_color_value( $settings->button_text_color ); ?>;
+	<?php } ?>
 
-	<?php if( $settings->button_font['family'] != 'Default' ) { ?>
-	   <?php FLBuilderFonts::font_css( $settings->button_font ); ?>
-   <?php } ?>
-   <?php if($settings->button_font_size['desktop'] ) { ?>
-	   font-size: <?php echo $settings->button_font_size['desktop']; ?>px;
-   <?php } ?>
-
-   <?php if( 'default' != $settings->button_text_transform ) { ?>
-   text-transform: <?php echo $settings->button_text_transform; ?>;
-   <?php } ?>
    cursor: pointer;
 }
+<?php
+// Button border
+FLBuilderCSS::border_field_rule( array(
+	'settings' 		=> $settings,
+	'setting_name' 	=> 'button_border_group',
+	'selector' 		=> ".fl-node-$id .pp-content-post .pp-more-link-button, .fl-node-$id .pp-content-post .pp-add-to-cart a, .fl-node-$id .pp-post-event-calendar-cost form .tribe-button",
+) );
+
+// Button padding
+FLBuilderCSS::dimension_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'button_padding',
+	'selector' 		=> ".fl-node-$id .pp-content-post .pp-more-link-button, .fl-node-$id .pp-content-post .pp-add-to-cart a, .fl-node-$id .pp-post-event-calendar-cost form .tribe-button",
+	'unit'			=> 'px',
+	'props'			=> array(
+		'padding-top' 		=> 'button_padding_top',
+		'padding-right' 	=> 'button_padding_right',
+		'padding-bottom' 	=> 'button_padding_bottom',
+		'padding-left' 		=> 'button_padding_left',
+	),
+) );
+
+// Button typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'button_typography',
+	'selector'		=> ".fl-node-$id .pp-content-post .pp-more-link-button, .fl-node-$id .pp-content-post .pp-add-to-cart a, .fl-node-$id .pp-post-event-calendar-cost form .tribe-button",
+) );
+?>
 
 <?php if ( $settings->match_height == 'yes' ) { ?>
 .fl-node-<?php echo $id; ?> .pp-content-post-data.pp-content-relative {
@@ -321,14 +350,19 @@ $responsive_filter = $settings->responsive_filter;
 <?php } ?>
 
 
-
 .fl-node-<?php echo $id; ?> .pp-content-grid-post .pp-content-grid-more:hover,
 .fl-node-<?php echo $id; ?> .pp-content-carousel-post .pp-content-carousel-more:hover,
 .fl-node-<?php echo $id; ?> .pp-content-grid-post .pp-add-to-cart a:hover,
 .fl-node-<?php echo $id; ?> .pp-post-event-calendar-cost form .tribe-button:hover {
-	<?php if( $settings->button_background['secondary'] ) { ?>background: #<?php echo $settings->button_background['secondary']; ?>;<?php } ?>
-	<?php if( $settings->button_color['secondary'] ) { ?>color: #<?php echo $settings->button_color['secondary']; ?>;<?php } ?>
-	<?php if( $settings->button_border_color['secondary'] ) { ?>border-color: #<?php echo $settings->button_border_color['secondary']; ?>;<?php } ?>
+	<?php if ( isset( $settings->button_bg_hover_color ) && ! empty( $settings->button_bg_hover_color ) ) { ?>
+		background: <?php echo pp_get_color_value( $settings->button_bg_hover_color ); ?>;
+	<?php } ?>
+	<?php if ( isset( $settings->button_text_color ) && ! empty( $settings->button_text_hover_color ) ) { ?>
+		color: <?php echo pp_get_color_value( $settings->button_text_hover_color ); ?>;
+	<?php } ?>
+	<?php if ( isset( $settings->button_border_hover_color ) && ! empty( $settings->button_border_hover_color ) ) { ?>
+		border-color: <?php echo pp_get_color_value( $settings->button_border_hover_color ); ?>;
+	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-content-post .pp-post-title-divider {
@@ -343,8 +377,8 @@ $responsive_filter = $settings->responsive_filter;
 <?php } ?>
 
 .fl-node-<?php echo $id; ?> .pp-content-post .pp-post-image .pp-content-category-list {
-	background-color: #<?php echo $settings->post_category_bg_color; ?>;
-	color: #<?php echo $settings->post_category_text_color; ?>;
+	background-color: <?php echo pp_get_color_value( $settings->post_category_bg_color ); ?>;
+	color: <?php echo pp_get_color_value( $settings->post_category_text_color ); ?>;
 	<?php if($settings->post_category_position == 'right') { ?>
 	right: 0;
 	left: auto;
@@ -358,21 +392,21 @@ $responsive_filter = $settings->responsive_filter;
 }
 
 .fl-node-<?php echo $id; ?> .pp-content-post.pp-grid-style-5 .pp-content-post-date span.pp-post-day {
-	background-color: #<?php echo $settings->post_date_day_bg_color; ?>;
-	color: #<?php echo $settings->post_date_day_text_color; ?>;
+	background-color: <?php echo pp_get_color_value( $settings->post_date_day_bg_color ); ?>;
+	color: <?php echo pp_get_color_value( $settings->post_date_day_text_color ); ?>;
 	border-top-left-radius: <?php echo $settings->post_date_border_radius; ?>px;
 	border-top-right-radius: <?php echo $settings->post_date_border_radius; ?>px;
 }
 .fl-node-<?php echo $id; ?> .pp-content-post.pp-grid-style-5 .pp-content-post-date span.pp-post-month {
-	background-color: #<?php echo $settings->post_date_month_bg_color; ?>;
-	color: #<?php echo $settings->post_date_month_text_color; ?>;
+	background-color: <?php echo pp_get_color_value( $settings->post_date_month_bg_color ); ?>;
+	color: <?php echo pp_get_color_value( $settings->post_date_month_text_color ); ?>;
 	border-bottom-left-radius: <?php echo $settings->post_date_border_radius; ?>px;
 	border-bottom-right-radius: <?php echo $settings->post_date_border_radius; ?>px;
 }
 
 .fl-node-<?php echo $id; ?> .pp-content-post.pp-grid-style-6 .pp-post-image .pp-content-post-date {
-	background-color: #<?php echo $settings->post_date_bg_color; ?>;
-	color: #<?php echo $settings->post_date_text_color; ?>;
+	background-color: <?php echo pp_get_color_value( $settings->post_date_bg_color ); ?>;
+	color: <?php echo pp_get_color_value( $settings->post_date_text_color ); ?>;
 }
 
 .fl-node-<?php echo $id; ?> .pp-content-post .pp-post-image .pp-post-title {
@@ -382,37 +416,41 @@ $responsive_filter = $settings->responsive_filter;
 
 
 .fl-node-<?php echo $id; ?> .pp-content-post .pp-post-meta {
-	<?php if( $settings->post_meta_font['family'] != 'Default' ) { ?>
-		<?php FLBuilderFonts::font_css( $settings->post_meta_font ); ?>
-	<?php } ?>
-	<?php if( $settings->post_meta_font_size >= 0 ) { ?>
-	font-size: <?php echo $settings->post_meta_font_size['desktop']; ?>px;
-	<?php } ?>
 	color: #<?php echo $settings->post_meta_font_color; ?>;
-	<?php if( $settings->post_meta_text_transform != 'default' ) { ?>
-	text-transform: <?php echo $settings->post_meta_text_transform; ?>;
-	<?php } ?>
 }
+<?php
+// Content typography.
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'meta_typography',
+	'selector'		=> ".fl-node-$id .pp-content-post .pp-post-meta"
+) );
+?>
 .fl-node-<?php echo $id; ?> .pp-content-post .pp-post-meta span {
 	<?php if ( 'style-9' == $settings->post_grid_style_select && isset( $settings->post_meta_bg_color ) && ! empty( $settings->post_meta_bg_color ) ) { ?>
 		background-color: <?php echo pp_get_color_value( $settings->post_meta_bg_color ); ?>;
 	<?php } ?>
 }
+.fl-node-<?php echo $id; ?> .pp-content-post .pp-post-meta a {
+	color: #<?php echo $settings->post_meta_font_color; ?>;
+}
 
 .fl-node-<?php echo $id; ?> .pp-content-grid-post .pp-content-category-list,
 .fl-node-<?php echo $id; ?> .pp-content-carousel-post .pp-content-category-list {
-	border-top-color: #<?php echo FLBuilderColor::adjust_brightness( $settings->post_background['primary'], 12, 'darken' ); ?>
+	<?php if ( isset( $settings->post_bg_color ) && ! empty( $settings->post_bg_color ) ) { ?>
+	border-top-color: <?php echo pp_get_color_value( FLBuilderColor::adjust_brightness( $settings->post_bg_color, 12, 'darken' ) ); ?>;
+	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-content-post.pp-grid-style-7 .pp-content-post-meta {
-	border-bottom-color: #<?php echo FLBuilderColor::adjust_brightness( $settings->post_background['primary'], 12, 'darken' ); ?>
+	<?php if ( isset( $settings->post_bg_color ) && ! empty( $settings->post_bg_color ) ) { ?>
+	border-bottom-color: <?php echo pp_get_color_value( FLBuilderColor::adjust_brightness( $settings->post_bg_color, 12, 'darken' ) ); ?>;
+	<?php } ?>
 }
 .fl-node-<?php echo $id; ?> .pp-content-post.pp-grid-style-7:hover .pp-content-post-meta {
-	border-bottom-color: #<?php echo FLBuilderColor::adjust_brightness( $settings->post_background['secondary'], 12, 'darken' ); ?>
-}
-
-.fl-node-<?php echo $id; ?> .pp-content-post .pp-post-meta a {
-	color: #<?php echo $settings->post_meta_font_color; ?>;
+	<?php if ( isset( $settings->post_bg_color_hover ) && ! empty( $settings->post_bg_color_hover ) ) { ?>
+	border-bottom-color: <?php echo pp_get_color_value( FLBuilderColor::adjust_brightness( $settings->post_bg_color_hover, 12, 'darken' ) ); ?>;
+	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-content-post-carousel .owl-theme .owl-dots .owl-dot span {
@@ -444,78 +482,88 @@ $responsive_filter = $settings->responsive_filter;
 .fl-node-<?php echo $id; ?> .pp-content-post-carousel .owl-theme .owl-nav button svg {
 	width: <?php echo ( $settings->post_slider_arrow_font_size * 1.7 ); ?>px;
 	height: <?php echo ( $settings->post_slider_arrow_font_size * 1.7 ); ?>px;
-	<?php if( $settings->post_slider_arrow_color['primary'] ) { ?>
-	color: #<?php echo $settings->post_slider_arrow_color['primary']; ?>;
-    <?php } ?>
-    background: <?php echo ($settings->post_slider_arrow_bg_color['primary']) ? pp_hex2rgba('#'.$settings->post_slider_arrow_bg_color['primary'], 0.5) : 'transparent'; ?>;
-    <?php if( $settings->post_slider_arrow_border_radius >= 0 ) { ?>
-    border-radius: <?php echo $settings->post_slider_arrow_border_radius; ?>px;
-    <?php } ?>
-    <?php if( $settings->post_slider_arrow_padding['top'] >= 0 ) { ?>
-    padding-top: <?php echo $settings->post_slider_arrow_padding['top']; ?>px;
-    <?php } ?>
-    <?php if( $settings->post_slider_arrow_padding['bottom'] >= 0 ) { ?>
-    padding-bottom: <?php echo $settings->post_slider_arrow_padding['bottom']; ?>px;
-    <?php } ?>
-    <?php if( $settings->post_slider_arrow_padding['left'] >= 0 ) { ?>
-    padding-left: <?php echo $settings->post_slider_arrow_padding['left']; ?>px;
-    <?php } ?>
-    <?php if( $settings->post_slider_arrow_padding['right'] >= 0 ) { ?>
-    padding-right: <?php echo $settings->post_slider_arrow_padding['right']; ?>px;
-    <?php } ?>
-    <?php if( $settings->post_slider_arrow_border_style ) { ?>
-    border-style: <?php echo $settings->post_slider_arrow_border_style; ?>;
-    <?php } ?>
-    <?php if( $settings->post_slider_arrow_border_width >= 0 ) { ?>
-    border-width: <?php echo $settings->post_slider_arrow_border_width; ?>px;
-    <?php } ?>
-	<?php if( $settings->post_slider_arrow_border_color['primary'] ) { ?>
-    border-color: #<?php echo $settings->post_slider_arrow_border_color['primary']; ?>;
-    <?php } ?>
+	<?php if ( isset( $settings->arrow_color ) && ! empty( $settings->arrow_color ) ) { ?>
+		color: <?php echo pp_get_color_value( $settings->arrow_color ); ?>;
+	<?php } ?>
+	<?php if ( isset( $settings->arrow_bg_color ) && ! empty( $settings->arrow_bg_color ) ) { ?>
+		background: <?php echo pp_get_color_value( $settings->arrow_bg_color ); ?>;
+	<?php } ?>
 }
+<?php
+// Arrow border
+FLBuilderCSS::border_field_rule( array(
+	'settings' 		=> $settings,
+	'setting_name' 	=> 'arrow_border',
+	'selector' 		=> ".fl-node-$id .pp-content-post-carousel .owl-theme .owl-nav button svg",
+) );
+
+// Arrow padding
+FLBuilderCSS::dimension_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'arrow_padding',
+	'selector' 		=> ".fl-node-$id .pp-content-post-carousel .owl-theme .owl-nav button svg",
+	'unit'			=> 'px',
+	'props'			=> array(
+		'padding-top' 		=> 'arrow_padding_top',
+		'padding-right' 	=> 'arrow_padding_right',
+		'padding-bottom' 	=> 'arrow_padding_bottom',
+		'padding-left' 		=> 'arrow_padding_left',
+	),
+) );
+?>
 
 .fl-node-<?php echo $id; ?> .pp-content-post-carousel .owl-theme .owl-nav button:hover svg {
-    <?php if( $settings->post_slider_arrow_color['secondary'] ) { ?>
-    color: #<?php echo $settings->post_slider_arrow_color['secondary']; ?>;
-    <?php } ?>
-    <?php if( isset( $settings->post_slider_arrow_bg_color['secondary'] ) ) { ?>
-    background: <?php echo ($settings->post_slider_arrow_bg_color['secondary']) ? pp_hex2rgba('#' . $settings->post_slider_arrow_bg_color['secondary'], 1) : 'transparent'; ?>;
-    <?php } ?>
-    <?php if( $settings->post_slider_arrow_border_color['secondary'] ) { ?>
-    border-color: #<?php echo $settings->post_slider_arrow_border_color['secondary']; ?>;
-    <?php } ?>
+    <?php if ( isset( $settings->arrow_hover_color ) && ! empty( $settings->arrow_hover_color ) ) { ?>
+		color: <?php echo pp_get_color_value( $settings->arrow_hover_color ); ?>;
+	<?php } ?>
+	<?php if ( isset( $settings->arrow_bg_hover_color ) && ! empty( $settings->arrow_bg_hover_color ) ) { ?>
+		background: <?php echo pp_get_color_value( $settings->arrow_bg_hover_color ); ?>;
+	<?php } ?>
+	<?php if ( isset( $settings->arrow_border_hover_color ) && ! empty( $settings->arrow_border_hover_color ) ) { ?>
+		border-color: <?php echo pp_get_color_value( $settings->arrow_border_hover_color ); ?>;
+	<?php } ?>
 }
 
 <?php
 /* Grid & Carousel Setting Layout */
 if($settings->layout == 'grid' || $settings->layout == 'carousel') { // GRID ?>
 
+<?php
+// Padding.
+FLBuilderCSS::dimension_field_rule( array(
+	'settings'	=> $settings,
+	'setting_name'	=> 'post_grid_padding',
+	'selector' 		=> ".fl-node-$id .pp-content-post",
+	'unit'			=> 'px',
+	'props'			=> array(
+		'padding-top' 		=> 'post_grid_padding_top',
+		'padding-right' 	=> 'post_grid_padding_right',
+		'padding-bottom' 	=> 'post_grid_padding_bottom',
+		'padding-left' 		=> 'post_grid_padding_left',
+	),
+) );
+?>
+
 .fl-node-<?php echo $id; ?> .pp-content-post {
-	<?php if( $settings->post_grid_padding['top'] >= 0 ) { ?>
-	padding-top: <?php echo $settings->post_grid_padding['top']; ?>px;
-	<?php } ?>
-	<?php if( $settings->post_grid_padding['right'] >= 0 ) { ?>
-	padding-right: <?php echo $settings->post_grid_padding['right']; ?>px;
-	<?php } ?>
-	<?php if( $settings->post_grid_padding['bottom'] >= 0 ) { ?>
-	padding-bottom: <?php echo $settings->post_grid_padding['bottom']; ?>px;
-	<?php } ?>
-	<?php if( $settings->post_grid_padding['left'] >= 0 ) { ?>
-	padding-left: <?php echo $settings->post_grid_padding['left']; ?>px;
-	<?php } ?>
     opacity: 1;
 	text-align: <?php echo 'style-6' != $settings->post_grid_style_select ? $settings->post_content_alignment : 'center'; ?>;
 }
 
 .fl-node-<?php echo $id; ?> .pp-content-post:hover {
-	background-color: <?php echo ($settings->post_background['secondary']) ? '#' . $settings->post_background['secondary'] : 'transparent'; ?>;
+	<?php if ( isset( $settings->post_bg_color_hover ) && ! empty( $settings->post_bg_color_hover ) ) { ?>
+	background-color: <?php echo pp_get_color_value( $settings->post_bg_color_hover ); ?>;
+	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-content-post.pp-grid-style-7 .pp-content-body {
-	background-color: <?php echo ($settings->post_background['primary']) ? '#' . $settings->post_background['primary'] : 'transparent'; ?>;
+	<?php if ( isset( $settings->post_bg_color ) && ! empty( $settings->post_bg_color ) ) { ?>
+	background-color: <?php echo pp_get_color_value( $settings->post_bg_color ); ?>;
+	<?php } ?>
 }
 .fl-node-<?php echo $id; ?> .pp-content-post.pp-grid-style-7:hover .pp-content-body {
-	background-color: <?php echo ($settings->post_background['secondary']) ? '#' . $settings->post_background['secondary'] : 'transparent'; ?>;
+	<?php if ( isset( $settings->post_bg_color_hover ) && ! empty( $settings->post_bg_color_hover ) ) { ?>
+	background-color: <?php echo pp_get_color_value( $settings->post_bg_color_hover ); ?>;
+	<?php } ?>
 }
 
 .woocommerce .fl-node-<?php echo $id; ?> .pp-content-post {
@@ -537,27 +585,19 @@ if($settings->layout == 'grid' || $settings->layout == 'carousel') { // GRID ?>
 	margin-left: <?php echo ($settings->post_spacing / 2); ?>%;
 	margin-right: <?php echo ($settings->post_spacing / 2); ?>%;
 	<?php } ?>
-	<?php if ( isset( $settings->post_background['primary'] ) ) { ?>
-	background-color: <?php echo pp_get_color_value($settings->post_background['primary']); ?>;
+	<?php if ( isset( $settings->post_bg_color ) && ! empty( $settings->post_bg_color ) ) { ?>
+	background-color: <?php echo pp_get_color_value( $settings->post_bg_color ); ?>;
 	<?php } ?>
-	border-style: <?php echo $settings->post_border; ?>;
-	<?php if( $settings->post_border_width && $settings->post_border != 'none' ) { ?>
-		<?php if( '' == $settings->post_border_position ) { ?>
-			border-width: <?php echo $settings->post_border_width; ?>px;
-		<?php } else { ?>
-			border-width: 0;
-			border-<?php echo $settings->post_border_position; ?>-width: <?php echo $settings->post_border_width; ?>px;
-		<?php } ?>
-	<?php } ?>
-	<?php if( $settings->post_border_color ) { ?> border-color: #<?php echo $settings->post_border_color; ?>; <?php } ?>
-	<?php if( $settings->post_border_radius >= 0 ) { ?> border-radius: <?php echo $settings->post_border_radius; ?>px; <?php } ?>
-	<?php if ( 'yes' == $settings->post_shadow_display ) { ?>
-    -webkit-box-shadow: <?php echo $settings->post_shadow['horizontal']; ?>px <?php echo $settings->post_shadow['vertical']; ?>px <?php echo $settings->post_shadow['blur']; ?>px <?php echo $settings->post_shadow['spread']; ?>px <?php echo pp_hex2rgba( '#'.$settings->post_shadow_color, $settings->post_shadow_opacity / 100 ); ?>;
-    -moz-box-shadow: <?php echo $settings->post_shadow['horizontal']; ?>px <?php echo $settings->post_shadow['vertical']; ?>px <?php echo $settings->post_shadow['blur']; ?>px <?php echo $settings->post_shadow['spread']; ?>px <?php echo pp_hex2rgba( '#'.$settings->post_shadow_color, $settings->post_shadow_opacity / 100 ); ?>;
-    -o-box-shadow: <?php echo $settings->post_shadow['horizontal']; ?>px <?php echo $settings->post_shadow['vertical']; ?>px <?php echo $settings->post_shadow['blur']; ?>px <?php echo $settings->post_shadow['spread']; ?>px <?php echo pp_hex2rgba( '#'.$settings->post_shadow_color, $settings->post_shadow_opacity / 100 ); ?>;
-    box-shadow: <?php echo $settings->post_shadow['horizontal']; ?>px <?php echo $settings->post_shadow['vertical']; ?>px <?php echo $settings->post_shadow['blur']; ?>px <?php echo $settings->post_shadow['spread']; ?>px <?php echo pp_hex2rgba( '#'.$settings->post_shadow_color, $settings->post_shadow_opacity / 100 ); ?>;
-    <?php } ?>
 }
+
+<?php
+// Border.
+FLBuilderCSS::border_field_rule( array(
+	'settings' 		=> $settings,
+	'setting_name' 	=> 'post_border_group',
+	'selector' 		=> ".fl-node-$id .pp-content-post",
+) );
+?>
 
 .fl-node-<?php echo $id; ?> .pp-grid-space {
 	width: <?php echo $settings->post_spacing; ?>%;
@@ -585,17 +625,26 @@ if($settings->layout == 'grid' || $settings->layout == 'carousel') { // GRID ?>
 	<?php } ?>
 <?php } ?>
 
-
 .fl-node-<?php echo $id; ?> .pp-content-post .pp-content-body {
     <?php if ( $settings->post_grid_style_select == 'style-8' ) { ?>
         float: left;
         width: <?php echo $settings->show_image == 'yes' ? '60%' : '100%'; ?>;
     <?php } ?>
-	padding-top: <?php echo $settings->post_content_padding['top']; ?>px;
-	padding-right: <?php echo $settings->post_content_padding['right']; ?>px;
-	padding-bottom: <?php echo $settings->post_content_padding['bottom']; ?>px;
-	padding-left: <?php echo $settings->post_content_padding['left']; ?>px;
 }
+<?php
+FLBuilderCSS::dimension_field_rule( array(
+	'settings'	=> $settings,
+	'setting_name'	=> 'post_content_padding',
+	'selector' 		=> ".fl-node-$id .pp-content-post .pp-content-body",
+	'unit'			=> 'px',
+	'props'			=> array(
+		'padding-top' 		=> 'post_content_padding_top',
+		'padding-right' 	=> 'post_content_padding_right',
+		'padding-bottom' 	=> 'post_content_padding_bottom',
+		'padding-left' 		=> 'post_content_padding_left',
+	),
+) );
+?>
 
 /* Woocommerce Style */
 
@@ -620,9 +669,9 @@ if($settings->layout == 'grid' || $settings->layout == 'carousel') { // GRID ?>
 
 .fl-node-<?php echo $id; ?> .pp-content-post .pp-product-price {
     color: #<?php echo isset( $settings->product_price_color ) ? $settings->product_price_color : ''; ?>;
-    <?php if( $settings->post_meta_font_size >= 0 ) { ?>
-    font-size: <?php echo $settings->post_meta_font_size['desktop']; ?>px;
-    <?php } ?>
+    <?php if ( isset( $settings->meta_typography ) && isset( $settings->meta_typography['font_size'] ) ) { ?>
+	font-size: <?php echo $settings->meta_typography['font_size']['length']; ?><?php echo $settings->meta_typography['font_size']['unit']; ?>;
+	<?php } ?>
 }
 
 <?php } ?>
@@ -692,52 +741,12 @@ if($settings->layout == 'grid' || $settings->layout == 'carousel') { // GRID ?>
 	    margin-right: 0;
 	}
 
-	.fl-node-<?php echo $id; ?> .pp-content-post .pp-more-link-button,
-	.fl-node-<?php echo $id; ?> .pp-content-post .pp-add-to-cart a {
-		<?php if($settings->button_font_size['tablet'] ) { ?>
-		   font-size: <?php echo $settings->button_font_size['tablet']; ?>px;
-		<?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-content-post .pp-post-title {
-		<?php if( $settings->title_font_size_toggle == 'custom' && $settings->title_custom_font_size['tablet'] ) { ?>
-			font-size: <?php echo $settings->title_custom_font_size['tablet']; ?>px;
-		<?php } ?>
-
-		<?php if( $settings->title_line_height_toggle == 'custom' && $settings->title_custom_line_height['tablet'] ) { ?>
-			line-height: <?php echo $settings->title_custom_line_height['tablet']; ?>;
-		<?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-content-post .pp-post-title a {
-		<?php if( $settings->title_font_size_toggle == 'custom' && $settings->title_custom_font_size['tablet'] ) { ?>
-			font-size: <?php echo $settings->title_custom_font_size['tablet']; ?>px;
-		<?php } ?>
-	}
-
-	.fl-node-<?php echo $id; ?> .pp-content-post .pp-post-content {
-		<?php if( $settings->content_font_size_toggle == 'custom' && $settings->content_custom_font_size['tablet'] ) { ?>
-			font-size: <?php echo $settings->content_custom_font_size['tablet']; ?>px;
-		<?php } ?>
-		<?php if( $settings->content_line_height_toggle == 'custom' && $settings->content_custom_line_height['tablet'] ) { ?>
-			line-height: <?php echo $settings->content_custom_line_height['tablet']; ?>;
-		<?php } ?>
-	}
-
-	.fl-node-<?php echo $id; ?> .pp-content-post .pp-post-meta,
-    .fl-node-<?php echo $id; ?> .pp-content-post .pp-product-price {
-	   <?php if( $settings->post_meta_font_size >= 0 ) { ?>
-	   font-size: <?php echo $settings->post_meta_font_size['tablet']; ?>px;
-	   <?php } ?>
-	}
-
 	.fl-node-<?php echo $id; ?> .pp-content-grid-pagination li a.page-numbers,
-	.fl-node-<?php echo $id; ?> .pp-content-grid-pagination li span.page-numbers {
-		font-size: <?php echo $settings->pagination_font_size['tablet']; ?>px;
-	}
+	.fl-node-<?php echo $id; ?> .pp-content-grid-pagination li span.page-numbers,
 	.fl-node-<?php echo $id; ?> .pp-content-grid-load-more a {
-		font-size: <?php echo $settings->pagination_font_size['tablet']; ?>px;
-	}
-	.fl-node-<?php echo $id; ?> ul.pp-post-filters li {
-	   font-size: <?php echo $settings->filter_font_size['tablet']; ?>px;
+		<?php if ( isset( $settings->pagination_font_size_medium ) && $settings->pagination_font_size_medium >= 0 ) { ?>
+			font-size: <?php echo $settings->pagination_font_size_medium; ?>px;
+		<?php } ?>
 	}
 }
 
@@ -769,58 +778,17 @@ if($settings->layout == 'grid' || $settings->layout == 'carousel') { // GRID ?>
 	    margin-right: 0;
 	}
 
-	.fl-node-<?php echo $id; ?> .pp-content-post .pp-more-link-button,
-	.fl-node-<?php echo $id; ?> .pp-content-post .pp-add-to-cart a {
-		<?php if($settings->button_font_size['mobile'] ) { ?>
-		   font-size: <?php echo $settings->button_font_size['mobile']; ?>px;
-		<?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-content-post .pp-post-title {
-		<?php if( $settings->title_font_size_toggle == 'custom' && $settings->title_custom_font_size['mobile'] ) { ?>
-			font-size: <?php echo $settings->title_custom_font_size['mobile']; ?>px;
-		<?php } ?>
-
-		<?php if( $settings->title_line_height_toggle == 'custom' && $settings->title_custom_line_height['mobile'] ) { ?>
-			line-height: <?php echo $settings->title_custom_line_height['mobile']; ?>;
-		<?php } ?>
-	}
-
-	.fl-node-<?php echo $id; ?> .pp-content-post .pp-post-title a {
-		<?php if( $settings->title_font_size_toggle == 'custom' && $settings->title_custom_font_size['mobile'] ) { ?>
-			font-size: <?php echo $settings->title_custom_font_size['mobile']; ?>px;
-		<?php } ?>
-	}
-
-	.fl-node-<?php echo $id; ?> .pp-content-post .pp-post-content {
-		<?php if( $settings->content_font_size_toggle == 'custom' && $settings->content_custom_font_size['mobile'] ) { ?>
-			font-size: <?php echo $settings->content_custom_font_size['mobile']; ?>px;
-		<?php } ?>
-		<?php if( $settings->content_line_height_toggle == 'custom' && $settings->content_custom_line_height['mobile'] ) { ?>
-			line-height: <?php echo $settings->content_custom_line_height['mobile']; ?>;
-		<?php } ?>
-	}
-
 	.fl-node-<?php echo $id; ?> .pp-content-post.pp-grid-style-8 .pp-post-image,
 	.fl-node-<?php echo $id; ?> .pp-content-post.pp-grid-style-8 .pp-content-body {
 		float: none;
 		width: 100%;
 	}
 
-	.fl-node-<?php echo $id; ?> .pp-content-post .pp-post-meta,
-    .fl-node-<?php echo $id; ?> .pp-content-post .pp-product-price {
-	   <?php if( $settings->post_meta_font_size >= 0 ) { ?>
-	   font-size: <?php echo $settings->post_meta_font_size['mobile']; ?>px;
-	   <?php } ?>
-	}
-
 	.fl-node-<?php echo $id; ?> .pp-content-grid-pagination li a.page-numbers,
-	.fl-node-<?php echo $id; ?> .pp-content-grid-pagination li span.page-numbers {
-		font-size: <?php echo $settings->pagination_font_size['mobile']; ?>px;
-	}
+	.fl-node-<?php echo $id; ?> .pp-content-grid-pagination li span.page-numbers,
 	.fl-node-<?php echo $id; ?> .pp-content-grid-load-more a {
-		font-size: <?php echo $settings->pagination_font_size['mobile']; ?>px;
-	}
-	.fl-node-<?php echo $id; ?> ul.pp-post-filters li {
-	   	font-size: <?php echo $settings->filter_font_size['mobile']; ?>px;
+		<?php if ( isset( $settings->pagination_font_size_responsive ) && $settings->pagination_font_size_responsive >= 0 ) { ?>
+			font-size: <?php echo $settings->pagination_font_size_responsive; ?>px;
+		<?php } ?>
 	}
 }

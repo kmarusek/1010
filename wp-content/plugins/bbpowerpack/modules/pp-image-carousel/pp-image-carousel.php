@@ -37,6 +37,54 @@ class PPImageCarouselModule extends FLBuilderModule {
 		$this->add_css( BB_POWERPACK()->fa_css );
     }
 
+	public function filter_settings( $settings, $helper )
+	{
+		// Handle old image border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'image_border'	=> array(
+				'type'				=> 'style'
+			),
+			'image_border_width'	=> array(
+				'type'				=> 'width'
+			),
+			'image_border_color'	=> array(
+				'type'				=> 'color'
+			),
+			'image_border_radius'	=> array(
+				'type'				=> 'radius'
+			),
+		), 'image_border_group' );
+
+		// Handle old arrow border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'arrow_border_style'	=> array(
+				'type'				=> 'style'
+			),
+			'arrow_border_width'	=> array(
+				'type'				=> 'width'
+			),
+			'arrow_border_color'	=> array(
+				'type'				=> 'color'
+			),
+			'arrow_border_radius'	=> array(
+				'type'				=> 'radius'
+			),
+		), 'arrow_border' );
+
+		// Handle caption's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'caption_font'	=> array(
+				'type'			=> 'font'
+			),
+			'caption_custom_font_size'	=> array(
+				'type'			=> 'font_size',
+				'condition'		=> ( isset( $settings->caption_font_size_toggle ) && 'custom' == $settings->caption_font_size_toggle )
+			),
+		), 'caption_typography' );
+
+		return $settings;
+	}
+
 	/**
 	 * @method update
 	 * @param $settings {object}
@@ -238,8 +286,8 @@ FLBuilder::register_module('PPImageCarouselModule', array(
 					'columns'    => array(
 						'type' 			=> 'unit',
 						'label' 		=> __('Slides Per View', 'bb-powerpack'),
-						'size'          => '5',
 						'default'		=> 3,
+						'slide'			=> true,
 						'responsive' => array(
 							'placeholder' => array(
 								'default' => '3',
@@ -251,8 +299,8 @@ FLBuilder::register_module('PPImageCarouselModule', array(
 					'slides_to_scroll'    => array(
 						'type' 			=> 'unit',
 						'label' 		=> __('Slides to Scroll', 'bb-powerpack'),
-						'size'          => '5',
 						'default'		=> 1,
+						'slide'			=> true,
 						'responsive' 	=> array(
 							'placeholder' 	=> array(
 								'default' 		=> '1',
@@ -265,9 +313,9 @@ FLBuilder::register_module('PPImageCarouselModule', array(
 					'spacing' => array(
 						'type' 			=> 'unit',
 						'label' 		=> __('Spacing', 'bb-powerpack'),
-						'description'	=> 'px',
-						'size'          => '5',
 						'default'		=> 20,
+						'units'			=> array( 'px' ),
+						'slide'			=> true,
 						'responsive' => array(
 							'placeholder' => array(
 								'default' => '20',
@@ -279,8 +327,8 @@ FLBuilder::register_module('PPImageCarouselModule', array(
 					'carousel_height' => array(
 						'type' 			=> 'unit',
 						'label' 		=> __('Height', 'bb-powerpack'),
-						'description'	=> 'px',
-						'size'          => '5',
+						'units'			=> array( 'px' ),
+						'slide'			=> true,
 						'responsive' => array(
 							'placeholder' => array(
 								'default' => '',
@@ -363,8 +411,8 @@ FLBuilder::register_module('PPImageCarouselModule', array(
 					'thumb_columns'    => array(
 						'type' 			=> 'unit',
 						'label' 		=> __('Slider Per View', 'bb-powerpack'),
-						'size'          => '5',
 						'default'		=> 5,
+						'slide'			=> true,
 						'responsive' => array(
 							'placeholder' => array(
 								'default' => '5',
@@ -574,82 +622,22 @@ FLBuilder::register_module('PPImageCarouselModule', array(
 			'general_style'	=> array(
 				'title'	=> __('Image', 'bb-powerpack'),
 				'fields'	=> array(
-					'image_border'     => array(
-                        'type'      => 'pp-switch',
-                        'label'     => __( 'Border Style', 'bb-powerpack' ),
-                        'default'     => 'none',
-                        'options'       => array(
-                            'none'          => __( 'None', 'bb-powerpack' ),
-                            'solid'         => __( 'Solid', 'bb-powerpack' ),
-                            'dashed'        => __( 'Dashed', 'bb-powerpack' ),
-                            'dotted'        => __( 'Dotted', 'bb-powerpack' ),
-                         ),
-                         'toggle'   => array(
-                            'solid'    => array(
-                                'fields'   => array( 'image_border_width', 'image_border_color' )
-                            ),
-                            'dashed'    => array(
-                                'fields'   => array( 'image_border_width', 'image_border_color' )
-                            ),
-                            'dotted'    => array(
-                                'fields'   => array( 'image_border_width', 'image_border_color' )
-                            ),
-                            'double'    => array(
-                                'fields'   => array( 'image_border_width', 'image_border_color' )
-                            )
-                        )
-                    ),
-                    'image_border_width'   => array(
-                        'type'          => 'text',
-                        'label'         => __( 'Border Width', 'bb-powerpack' ),
-                        'description'   => 'px',
-						'size'      	=> 5,
-                        'maxlength' 	=> 3,
-                        'default'       => '1',
-                        'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-image-carousel-item',
-                            'property'        => 'border-width',
-                            'unit'            => 'px'
-                        )
-                    ),
-                    'image_border_color'    => array(
-						'type'      	=> 'color',
-                        'label'     	=> __( 'Border Color', 'bb-powerpack' ),
-						'show_reset' 	=> true,
-                        'default'   	=> '',
-						'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-image-carousel-item',
-                            'property'        => 'border-color',
-                        )
-                    ),
-					'image_border_radius'   => array(
-						'type'          => 'text',
-						'label'         => __( 'Round Corners', 'bb-powerpack' ),
-						'description'   => 'px',
-						'size'      	=> 5,
-						'maxlength' 	=> 3,
-						'default'       => 0,
-						'preview'         => array(
-							'type'            => 'css',
-							'selector'        => '.pp-image-carousel-item, .pp-image-overlay, .pp-carousel-image-container',
-							'property'        => 'border-radius',
-							'unit'            => 'px'
-						)
+					'image_border_group'	=> array(
+						'type'          => 'border',
+						'label'         => __( 'Border', 'bb-powerpack' ),
+						'responsive'	=> true,
+						'preview'   	=> array(
+                            'type'  		=> 'css',
+                            'selector'  	=> '.pp-image-carousel-item',
+                            'property'  	=> 'border',
+                        ),
 					),
 					'image_padding'    => array(
 						'type' 			=> 'unit',
 						'label' 		=> __('Padding', 'bb-powerpack'),
-						'description'	=> 'px',
-                        'size'          => '5',
-						'responsive' => array(
-							'placeholder' => array(
-								'default' => '',
-								'medium' => '',
-								'responsive' => '',
-							),
-						),
+						'units'			=> array( 'px' ),
+                        'slider'        => true,
+						'responsive' 	=> true,
 						'preview' => array(
 							'type' 		=> 'css',
 							'selector'	=> '.pp-image-carousel-item',
@@ -709,12 +697,11 @@ FLBuilder::register_module('PPImageCarouselModule', array(
 						'size'        => '5',
 					),
 					'overlay_border_width'    => array(
-						'type'        => 'text',
+						'type'        => 'unit',
 						'label'       => __('Border Width', 'bb-powerpack'),
 						'default'     => '',
-						'description' => 'px',
-						'maxlength'   => '3',
-						'size'        => '5',
+						'units'		  => array( 'px' ),
+						'slider'	  => true
 					),
 					'overlay_border_color' => array(
 						'type'       => 'color',
@@ -724,12 +711,11 @@ FLBuilder::register_module('PPImageCarouselModule', array(
 						'preview'	=> 'none',
 					),
 					'overlay_spacing'    => array(
-						'type'        => 'text',
+						'type'        => 'unit',
 						'label'       => __('Spacing', 'bb-powerpack'),
 						'default'     => '',
-						'description' => 'px',
-						'maxlength'   => '3',
-						'size'        => '5',
+						'units'		  => array( 'px' ),
+						'slider'	  => true
 					),
 				)
 			),
@@ -737,12 +723,11 @@ FLBuilder::register_module('PPImageCarouselModule', array(
 				'title'			=> __('Icon Style', 'bb-powerpack'),
 				'fields'		=> array(
 					'overlay_icon_size'     => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Icon Size', 'bb-powerpack'),
 						'default'   	=> '30',
-						'maxlength'     => 5,
-						'size'          => 6,
-						'description'   => 'px',
+						'units'			=> array( 'px' ),
+						'slider'		=> true,
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-image-overlay .pp-overlay-icon span',
@@ -751,10 +736,11 @@ FLBuilder::register_module('PPImageCarouselModule', array(
 						),
 					),
 					'overlay_icon_bg_color' => array(
-						'type'       => 'color',
-						'label'     => __('Background Color', 'bb-powerpack'),
-						'default'    => '',
+						'type'       	=> 'color',
+						'label'     	=> __('Background Color', 'bb-powerpack'),
+						'default'    	=> '',
 						'show_reset'	=> true,
+						'show_alpha'	=> true,
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-image-overlay .pp-overlay-icon span',
@@ -773,12 +759,11 @@ FLBuilder::register_module('PPImageCarouselModule', array(
 						),
 					),
 					'overlay_icon_radius'     => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Border Radius', 'bb-powerpack'),
 						'default'   	=> '',
-						'maxlength'     => 5,
-						'size'          => 6,
-						'description'   => 'px',
+						'units'			=> array( 'px' ),
+						'slider'		=> true,
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-image-overlay .pp-overlay-icon span',
@@ -787,12 +772,11 @@ FLBuilder::register_module('PPImageCarouselModule', array(
 						),
 					),
 					'overlay_icon_padding' 	=> array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Padding', 'bb-powerpack'),
 						'default'   	=> '',
-						'maxlength'     => 5,
-						'size'          => 6,
-						'description'   => 'px',
+						'units'			=> array( 'px' ),
+						'slider'		=> true,
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-image-overlay .pp-overlay-icon span',
@@ -806,11 +790,10 @@ FLBuilder::register_module('PPImageCarouselModule', array(
                 'title' => __( 'Arrow', 'bb-powerpack' ), // Section Title
 				'fields' => array( // Section Fields
 					'arrow_font_size'   => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __( 'Arrow Size', 'bb-powerpack' ),
-						'description'   => 'px',
-						'size'      => 5,
-						'maxlength' => 3,
+						'units'			=> array( 'px' ),
+						'slider'		=> true,
 						'default'       => '24',
 						'preview'         => array(
 							'type'            => 'css',
@@ -845,50 +828,15 @@ FLBuilder::register_module('PPImageCarouselModule', array(
 						'show_reset' => true,
 						'default'   => 'eeeeee'
 					),
-                    'arrow_border_style'     => array(
-                        'type'      => 'pp-switch',
-                        'label'     => __( 'Border Style', 'bb-powerpack' ),
-                        'default'     => 'none',
-                        'options'       => array(
-                             'none'          => __( 'None', 'bb-powerpack' ),
-                             'solid'         => __( 'Solid', 'bb-powerpack' ),
-                             'dashed'        => __( 'Dashed', 'bb-powerpack' ),
-                             'dotted'        => __( 'Dotted', 'bb-powerpack' ),
-                         ),
-                         'toggle'   => array(
-                             'solid'    => array(
-                                 'fields'   => array( 'arrow_border_width', 'arrow_border_color', 'arrow_border_hover' )
-                             ),
-                             'dashed'    => array(
-                                 'fields'   => array( 'arrow_border_width', 'arrow_border_color', 'arrow_border_hover' )
-                             ),
-                             'dotted'    => array(
-                                 'fields'   => array( 'arrow_border_width', 'arrow_border_color', 'arrow_border_hover' )
-                             ),
-                             'double'    => array(
-                                 'fields'   => array( 'arrow_border_width', 'arrow_border_color', 'arrow_border_hover' )
-                             )
-                         )
-                    ),
-                    'arrow_border_width'   => array(
-                        'type'          => 'text',
-                        'label'         => __( 'Border Width', 'bb-powerpack' ),
-                        'description'   => 'px',
-						'size'      => 5,
-                        'maxlength' => 3,
-                        'default'       => '1',
-                        'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-image-carousel .pp-swiper-button',
-                            'property'        => 'border-width',
-                            'unit'            => 'px'
-                        )
-                    ),
-                    'arrow_border_color'    => array(
-						'type'      => 'color',
-                        'label'     => __( 'Border Color', 'bb-powerpack' ),
-						'show_reset' => true,
-                        'default'   => '',
+                    'arrow_border'	=> array(
+						'type'          => 'border',
+						'label'         => __( 'Border', 'bb-powerpack' ),
+						'responsive'	=> true,
+						'preview'   	=> array(
+                            'type'  		=> 'css',
+                            'selector'  	=> '.pp-image-carousel .pp-swiper-button',
+                            'property'  	=> 'border',
+                        ),
 					),
                     'arrow_border_hover'    => array(
 						'type'      => 'color',
@@ -896,27 +844,12 @@ FLBuilder::register_module('PPImageCarouselModule', array(
 						'show_reset' => true,
                         'default'   => '',
 					),
-					'arrow_border_radius'   => array(
-						'type'          => 'text',
-						'label'         => __( 'Round Corners', 'bb-powerpack' ),
-						'description'   => 'px',
-						'size'      	=> 5,
-						'maxlength' 	=> 3,
-						'default'       => '100',
-						'preview'         => array(
-							'type'            => 'css',
-							'selector'        => '.pp-image-carousel .pp-swiper-button',
-							'property'        => 'border-radius',
-							'unit'            => 'px'
-						)
-					),
 					'arrow_horizontal_padding' 	=> array(
-                    	'type'          => 'text',
+                    	'type'          => 'unit',
 						'label'         => __('Horizontal Padding', 'bb-powerpack'),
 						'default'   	=> '13',
-						'maxlength'     => 5,
-						'size'          => 6,
-						'description'   => 'px',
+						'units'			=> array( 'px' ),
+						'slider'		=> true,
 						'preview'	=> array(
 							'type'		=> 'css',
 							'rules'		=> array(
@@ -934,12 +867,11 @@ FLBuilder::register_module('PPImageCarouselModule', array(
 						),
                     ),
 					'arrow_vertical_padding' 	=> array(
-                    	'type'          => 'text',
+                    	'type'          => 'unit',
 						'label'         => __('Vertical Padding', 'bb-powerpack'),
 						'default'   	=> '5',
-						'maxlength'     => 5,
-						'size'          => 6,
-						'description'   => 'px',
+						'units'			=> array( 'px' ),
+						'slider'		=> true,
 						'preview'	=> array(
 							'type'		=> 'css',
 							'rules'		=> array(
@@ -975,10 +907,11 @@ FLBuilder::register_module('PPImageCarouselModule', array(
 						'label'         => __( 'Background Color', 'bb-powerpack' ),
 						'default'       => '999999',
 						'show_reset'    => true,
+						'show_alpha'	=> true,
 						'preview'       => array(
 							'type'          => 'css',
                             'selector'        => '.pp-image-carousel .swiper-pagination-bullet, .pp-image-carousel.swiper-container-horizontal>.swiper-pagination-progress',
-                            'property'        => 'background',
+                            'property'        => 'background-color',
 						)
 					),
                     'pagination_bg_hover'      => array(
@@ -986,6 +919,7 @@ FLBuilder::register_module('PPImageCarouselModule', array(
 						'label'         => __( 'Active Background Color', 'bb-powerpack' ),
 						'default'       => '000000',
 						'show_reset'    => true,
+						'show_alpha'	=> true,
 						'preview'       => array(
                             'type'          => 'css',
                             'selector'        => '.pp-image-carousel .swiper-pagination-bullet:hover, .pp-image-carousel .swiper-pagination-bullet-active, .pp-image-carousel .swiper-pagination-progress .swiper-pagination-progressbar',
@@ -993,12 +927,11 @@ FLBuilder::register_module('PPImageCarouselModule', array(
 						)
 					),
                     'bullets_width'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __( 'Bullets Size', 'bb-powerpack' ),
-                        'description'   => 'px',
-						'size'      => 5,
-                        'maxlength' => 3,
                         'default'       => '10',
+						'units'			=> array( 'px' ),
+						'slider'		=> true,			
                         'preview'         => array(
                             'type'            => 'css',
                             'rules'           => array(
@@ -1016,12 +949,11 @@ FLBuilder::register_module('PPImageCarouselModule', array(
                         )
                     ),
                     'bullets_border_radius'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __( 'Bullets Round Corners', 'bb-powerpack' ),
-                        'description'   => 'px',
-						'size'      => 5,
-                        'maxlength' => 3,
                         'default'       => '100',
+						'units'			=> array( 'px' ),
+						'slider'		=> true,
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-image-carousel .swiper-pagination-bullet',
@@ -1039,49 +971,13 @@ FLBuilder::register_module('PPImageCarouselModule', array(
 			'general_typography'	=> array(
 				'title'		=> __( 'Caption', 'bb-powerpack' ),
 				'fields'	=> array(
-					'caption_font'	=> array(
-						'type'		=> 'font',
-						'label'		=> __( 'Font', 'bb-powerpack' ),
-						'default'	=> array(
-							'family'	=> 'Default',
-							'weight'	=> '400',
-						),
-						'preview'   => array(
-							'type'		=> 'font',
-							'selector'  => '.pp-image-carousel-caption, .pp-image-overlay .pp-caption',
-						),
-					),
-					'caption_font_size_toggle' => array(
-						'type'		=> 'pp-switch',
-						'label'		=> __( 'Font Size', 'bb-powerpack' ),
-						'default'	=> 'default',
-						'options'       => array(
-							'default'        => __( 'Default', 'bb-powerpack' ),
-							'custom'         => __( 'Custom', 'bb-powerpack' ),
-						),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array( 'caption_custom_font_size' )
-							)
-						),
-					),
-					'caption_custom_font_size'	=> array(
-						'type' 			=> 'unit',
-						'label' 		=> __('Custom Font Size', 'bb-powerpack'),
-						'description'	=> 'px',
-                        'size'          => '5',
-						'responsive' => array(
-							'placeholder' => array(
-								'default' => '',
-								'medium' => '',
-								'responsive' => '',
-							),
-						),
-						'preview' => array(
-							'type' 		=> 'css',
-							'selector'	=> '.pp-image-carousel-caption, .pp-image-overlay .pp-caption',
-							'property'	=> 'font-size',
-							'unit' 		=> 'px'
+					'caption_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-image-carousel-caption, .pp-image-overlay .pp-caption',
 						),
 					),
 			        'caption_color'        => array(

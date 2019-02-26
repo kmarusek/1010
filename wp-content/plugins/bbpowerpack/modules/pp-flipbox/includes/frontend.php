@@ -21,7 +21,7 @@ $browser = ' pp-browser-' . pp_get_user_agent();
 					<?php } else if( $settings->icon_type == 'image' && $settings->image_select != '' ) { ?>
 						<div class="pp-icon-wrapper animated">
 							<div class="pp-flipbox-image">
-								<img src="<?php echo $settings->image_select_src; ?>">
+								<img src="<?php echo $settings->image_select_src; ?>" alt="<?php echo pp_get_image_alt($settings->image_select); ?>" />
 							</div>
 						</div>
 					<?php } ?>

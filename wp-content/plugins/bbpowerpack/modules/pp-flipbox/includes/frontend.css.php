@@ -16,18 +16,33 @@
 }
 .fl-node-<?php echo $id; ?> .pp-flipbox-front .pp-flipbox-title .pp-flipbox-front-title {
 	<?php if( $settings->front_title_color ) { ?>color: #<?php echo $settings->front_title_color; ?>;<?php } ?>
-	<?php if( $settings->front_title_font['family']	!= 'Default' ) { ?><?php FLBuilderFonts::font_css( $settings->front_title_font ); ?><?php } ?>
-	<?php if( $settings->front_title_font_size ) { ?>font-size: <?php echo $settings->front_title_font_size; ?>px;<?php } ?>
 	margin-top: <?php echo $settings->front_title_margin['top']; ?>px;
 	margin-bottom: <?php echo $settings->front_title_margin['bottom']; ?>px;
 }
+
+<?php
+	// Front Title Typography
+	FLBuilderCSS::typography_field_rule( array(
+		'settings'		=> $settings,
+		'setting_name' 	=> 'front_title_typography',
+		'selector' 		=> ".fl-node-$id .pp-flipbox-front .pp-flipbox-title .pp-flipbox-front-title",
+	) );
+?>
+
 .fl-node-<?php echo $id; ?> .pp-flipbox-front .pp-flipbox-description {
 	<?php if( $settings->front_text_color ) { ?>color: #<?php echo $settings->front_text_color; ?>;<?php } ?>
-	<?php if( $settings->front_text_font['family']	!= 'Default' ) { ?><?php FLBuilderFonts::font_css( $settings->front_text_font ); ?><?php } ?>
-	<?php if( $settings->front_text_font_size ) { ?>font-size: <?php echo $settings->front_text_font_size; ?>px;<?php } ?>
 	margin-top: <?php echo $settings->front_text_margin['top']; ?>px;
 	margin-bottom: <?php echo $settings->front_text_margin['bottom']; ?>px;
 }
+
+<?php
+	// Front Text Typography
+	FLBuilderCSS::typography_field_rule( array(
+		'settings'		=> $settings,
+		'setting_name' 	=> 'front_text_typography',
+		'selector' 		=> ".fl-node-$id .pp-flipbox-front .pp-flipbox-description",
+	) );
+?>
 
 /* Back */
 .fl-node-<?php echo $id; ?> .pp-flipbox-back {
@@ -36,19 +51,33 @@
 }
 .fl-node-<?php echo $id; ?> .pp-flipbox-back .pp-flipbox-title .pp-flipbox-back-title {
 	<?php if( $settings->back_title_color ) { ?>color: #<?php echo $settings->back_title_color; ?>;<?php } ?>
-	<?php if( $settings->back_title_font['family']	!= 'Default' ) { ?><?php FLBuilderFonts::font_css( $settings->back_title_font ); ?><?php } ?>
-	<?php if( $settings->back_title_font_size ) { ?>font-size: <?php echo $settings->back_title_font_size; ?>px;<?php } ?>
 	margin-top: <?php echo $settings->back_title_margin['top']; ?>px;
 	margin-bottom: <?php echo $settings->back_title_margin['bottom']; ?>px;
 }
+
+<?php
+	// Back Title Typography
+	FLBuilderCSS::typography_field_rule( array(
+		'settings'		=> $settings,
+		'setting_name' 	=> 'back_title_typography',
+		'selector' 		=> ".fl-node-$id .pp-flipbox-back .pp-flipbox-title .pp-flipbox-back-title",
+	) );
+?>
+
 .fl-node-<?php echo $id; ?> .pp-flipbox-back .pp-flipbox-description {
 	<?php if( $settings->back_text_color ) { ?>color: #<?php echo $settings->back_text_color; ?>;<?php } ?>
-	<?php if( $settings->back_text_font['family']	!= 'Default' ) { ?><?php FLBuilderFonts::font_css( $settings->back_text_font ); ?><?php } ?>
-	<?php if( $settings->back_text_font_size ) { ?>font-size: <?php echo $settings->back_text_font_size; ?>px;<?php } ?>
 	margin-top: <?php echo $settings->back_text_margin['top']; ?>px;
 	margin-bottom: <?php echo $settings->back_text_margin['bottom']; ?>px;
 }
 
+<?php
+	// Back Text Typography
+	FLBuilderCSS::typography_field_rule( array(
+		'settings'		=> $settings,
+		'setting_name' 	=> 'back_text_typography',
+		'selector' 		=> ".fl-node-$id .pp-flipbox-back .pp-flipbox-description",
+	) );
+?>
 
 <?php if( $settings->icon_type == 'icon' ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-flipbox-icon {
@@ -65,14 +94,34 @@
 			<?php if( $settings->icon_border_radius ) { ?>border-radius: <?php echo $settings->icon_border_radius; ?>px;<?php } ?>
 		<?php } ?>
 		<?php if( $settings->icon_color ) { ?>color: #<?php echo $settings->icon_color; ?>;<?php } ?>
-		<?php if( $settings->icon_font_size ) { ?>font-size: <?php echo $settings->icon_font_size; ?>px;<?php } ?>
-		<?php if( $settings->icon_width ) { ?>height: <?php echo $settings->icon_width; ?>px;<?php } ?>
-		<?php if( $settings->icon_width ) { ?>width: <?php echo $settings->icon_width; ?>px;<?php } ?>
 	}
-	.fl-node-<?php echo $id; ?> .pp-flipbox-icon-inner span.pp-icon,
-	.fl-node-<?php echo $id; ?> .pp-flipbox-icon-inner span.pp-icon:before {
-		<?php if( $settings->icon_font_size ) { ?>font-size: <?php echo $settings->icon_font_size; ?>px;<?php } ?>
-	}
+	<?php
+		// Icon - Font Size
+		FLBuilderCSS::responsive_rule( array(
+			'settings'		=> $settings,
+			'setting_name'	=> 'icon_font_size',
+			'selector'		=> ".fl-node-$id .pp-flipbox-icon-inner, .fl-node-$id .pp-flipbox-icon-inner span.pp-icon, .fl-node-$id .pp-flipbox-icon-inner span.pp-icon:before",
+			'prop'			=> 'font-size',
+			'unit'			=> 'px',
+		) );
+
+		// Icon - Width
+		FLBuilderCSS::responsive_rule( array(
+			'settings'		=> $settings,
+			'setting_name'	=> 'icon_width',
+			'selector'		=> ".fl-node-$id .pp-flipbox-icon-inner",
+			'prop'			=> 'width',
+			'unit'			=> 'px',
+		) );
+
+		FLBuilderCSS::responsive_rule( array(
+			'settings'		=> $settings,
+			'setting_name'	=> 'icon_width',
+			'selector'		=> ".fl-node-$id .pp-flipbox-icon-inner",
+			'prop'			=> 'height',
+			'unit'			=> 'px',
+		) );
+	?>
 	.fl-node-<?php echo $id; ?> .pp-flipbox-icon:hover {
 		<?php if( $settings->show_border == 'yes' ) { ?>
 		<?php if( $settings->icon_border_color_hover ) { ?>	border-color: #<?php echo $settings->icon_border_color_hover; ?>;<?php } ?>
@@ -90,10 +139,26 @@
 			<?php if( $settings->icon_border_width ) { ?>border-width: <?php echo $settings->icon_border_width; ?>px;<?php } ?>
 		<?php } ?>
 		<?php if( $settings->icon_border_radius ) { ?>border-radius: <?php echo $settings->icon_border_radius; ?>px;<?php } ?>
-		<?php if( $settings->image_width ) { ?>height: <?php echo $settings->image_width; ?>px;<?php } ?>
 		<?php if( $settings->icon_box_size ) { ?>padding: <?php echo $settings->icon_box_size; ?>px;<?php } ?>
-		<?php if( $settings->image_width ) { ?>width: <?php echo $settings->image_width; ?>px;<?php } ?>
 	}
+	<?php
+		// Icon - Width
+		FLBuilderCSS::responsive_rule( array(
+			'settings'		=> $settings,
+			'setting_name'	=> 'image_width',
+			'selector'		=> ".fl-node-$id .pp-flipbox-image img",
+			'prop'			=> 'width',
+			'unit'			=> 'px',
+		) );
+
+		FLBuilderCSS::responsive_rule( array(
+			'settings'		=> $settings,
+			'setting_name'	=> 'image_width',
+			'selector'		=> ".fl-node-$id .pp-flipbox-image img",
+			'prop'			=> 'height',
+			'unit'			=> 'px',
+		) );
+	?>
 	.fl-node-<?php echo $id; ?> .pp-flipbox-image img:hover {
 		<?php if( $settings->show_border == 'yes' ) { ?>
 			<?php if( $settings->icon_border_color_hover ) { ?>border-color: #<?php echo $settings->icon_border_color_hover; ?>;<?php } ?>
@@ -103,25 +168,34 @@
 
 <?php if( $settings->link_type == 'custom' ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-flipbox .pp-more-link {
-		<?php if( $settings->link_background ) { ?>background: #<?php echo $settings->link_background; ?>;<?php } ?>
+		<?php if( $settings->link_background ) { ?>background: <?php echo pp_get_color_value($settings->link_background); ?>;<?php } ?>
 		<?php if( $settings->link_color ) { ?>color: #<?php echo $settings->link_color; ?>;<?php } ?>
-		<?php if( $settings->link_font['family']	!= 'Default' ) { ?><?php FLBuilderFonts::font_css( $settings->link_font ); ?><?php } ?>
-		<?php if( $settings->link_font_size ) { ?>font-size: <?php echo $settings->link_font_size; ?>px;<?php } ?>
-		<?php if( $settings->link_padding['top'] >= 0 ) { ?>
-		padding-top: <?php echo $settings->link_padding['top']; ?>px;
-		<?php } ?>
-		<?php if( $settings->link_padding['right'] >= 0 ) { ?>
-		padding-right: <?php echo $settings->link_padding['right']; ?>px;
-		<?php } ?>
-		<?php if( $settings->link_padding['bottom'] >= 0 ) { ?>
-		padding-bottom: <?php echo $settings->link_padding['bottom']; ?>px;
-		<?php } ?>
-		<?php if( $settings->link_padding['left'] >= 0 ) { ?>
-		padding-left: <?php echo $settings->link_padding['left']; ?>px;
-		<?php } ?>
 	}
+	<?php
+		// More Link - Padding
+		FLBuilderCSS::dimension_field_rule( array(
+			'settings'		=> $settings,
+			'setting_name' 	=> 'link_padding',
+			'selector' 		=> ".fl-node-$id .pp-flipbox .pp-more-link",
+			'unit'			=> 'px',
+			'props'			=> array(
+				'padding-top' 		=> 'link_padding_top',
+				'padding-right' 	=> 'link_padding_right',
+				'padding-bottom' 	=> 'link_padding_bottom',
+				'padding-left' 		=> 'link_padding_left',
+			),
+		) );
+		
+		// More Link Typography
+		FLBuilderCSS::typography_field_rule( array(
+			'settings'		=> $settings,
+			'setting_name' 	=> 'link_typography',
+			'selector' 		=> ".fl-node-$id .pp-flipbox-back .pp-more-link",
+		) );
+	?>
+	
 	.fl-node-<?php echo $id; ?> .pp-flipbox .pp-more-link:hover {
-		<?php if( $settings->link_background_hover ) { ?>background: #<?php echo $settings->link_background_hover; ?>;<?php } ?>
+		<?php if( $settings->link_background_hover ) { ?>background: <?php echo pp_get_color_value($settings->link_background_hover); ?>;<?php } ?>
 		<?php if( $settings->link_color_hover ) { ?>color: #<?php echo $settings->link_color_hover; ?>;<?php } ?>
 	}
 <?php } ?>

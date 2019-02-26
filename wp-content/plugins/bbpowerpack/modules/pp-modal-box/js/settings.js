@@ -2,6 +2,8 @@
 
     FLBuilder._registerModuleHelper('pp-modal-box', {
 
+		_templates: '',
+
         /**
          * The 'rules' property is where you setup
          * validation rules that are passed to the jQuery
@@ -93,16 +95,83 @@
             'media_breakpoint': {
                 number: true
             },
-        },
+		},
+		
         init: function() {
+			$('body').delegate( '.fl-builder-settings select[name="modal_type"]', 'change', $.proxy(this._modalTypeChange, this) );
+
             $('select[name="button_type"]').trigger('change');
 			$('select[name="modal_load"]').trigger('change');
+
+			this._setTemplates();
 			
 			var nodeId = $('#fl-field-modal_css_class').parents('.fl-builder-settings').data('node');
 			$('#fl-field-modal_css_class input').val( 'modal-' + nodeId );
 			$('.pp-modal-node-id').text( nodeId );
 			$('.pp-modal-hide-js').val( 'pp_modal_' + nodeId + '.hide()' );
-        }
+		},
+
+		_modalTypeChange: function(e)
+		{
+			var type = $(e.target).val();
+
+			if ( 'templates' === type ) {
+				this._setTemplates();
+			}
+		},
+
+		_getTemplates: function(callback)
+		{
+			if ( 'undefined' === typeof callback ) {
+				return;
+			}
+
+			$.post(
+				ajaxurl,
+				{
+					action: 'pp_get_saved_templates',
+				},
+				function( response ) {
+					callback(response);
+				}
+			);
+		},
+
+		_setTemplates: function()
+		{
+			var form = $('.fl-builder-settings'),
+				select = form.find( 'select[name="modal_type_templates"]' ),
+				value = '', self = this;
+
+			if ( 'templates' !== form.find( 'select[name="modal_type"]' ).val()) {
+				return;
+			}
+	
+			if ( 'undefined' !== typeof FLBuilderSettingsForms && 'undefined' !== typeof FLBuilderSettingsForms.config ) {
+				if ( "pp-modal-box" === FLBuilderSettingsForms.config.id ) {
+					value = FLBuilderSettingsForms.config.settings['modal_type_templates'];
+				}
+			}
+
+			if ( this._templates !== '' ) {
+				select.html( this._templates );
+				select.find( 'option[value="' + value + '"]').attr('selected', 'selected');
+
+				return;
+			}
+
+			this._getTemplates(function(data) {
+				var response = JSON.parse( data );
+
+				if ( response.success ) {
+					self._templates = response.data;
+					select.html( response.data );
+					if ( '' !== value ) {
+						select.find( 'option[value="' + value + '"]').attr('selected', 'selected');
+					}
+				}
+			});
+		}
     });
 
 })(jQuery);

@@ -1,16 +1,3 @@
-<?php
-
-/**
- * This file should be used to render each module instance.
- * You have access to two variables in this file:
- *
- * $module An instance of your module class.
- * $settings The module's settings.
- *
- * PPHighlightBoxModule:
- */
-
-?>
 <div class="pp-highlight-box-content <?php echo $settings->box_icon_effect; ?>">
     <?php if( $settings->box_font_icon && $settings->box_icon_select == 'font_icon' ) { ?>
         <div class="font_icon">
@@ -37,6 +24,6 @@
         ?>
     </div>
     <?php if ( $settings->box_link ) { ?>
-        <a class="box-link" href="<?php echo $settings->box_link; ?>" target="<?php echo $settings->link_target; ?>"></a>
+        <a class="box-link" href="<?php echo $settings->box_link; ?>" target="<?php echo $settings->box_link_target; ?>"<?php echo $module->get_rel(); ?>></a>
     <?php } ?>
 </div>

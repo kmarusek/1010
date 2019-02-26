@@ -14,7 +14,6 @@
 }
 
 .fl-node-<?php echo $id; ?> .pp-tabs-label .pp-tab-icon {
-	<!-- width: <?php //echo $settings->tab_icon_size; ?>px; -->
 	font-size: <?php echo $settings->tab_icon_size; ?>px;
 	<?php if( $settings->tab_icon_position == 'left' ) { ?>
 		margin-right: 15px;
@@ -34,25 +33,37 @@
 	font-size: <?php echo $settings->tab_icon_size; ?>px;
 }
 
-.fl-node-<?php echo $id; ?> .pp-tabs .pp-tab-title {
-	<?php if( $settings->tab_label_font['family'] != 'Default' ) { ?>
-		<?php FLBuilderFonts::font_css( $settings->tab_label_font ); ?>
-	<?php } ?>
-	<?php if( $settings->tab_label_font_size['desktop'] && $settings->tab_title_size == 'custom' ) { ?>
-	font-size: <?php echo $settings->tab_label_font_size['desktop']; ?>px;
-	<?php } ?>
-	line-height: <?php echo $settings->tab_label_line_height['desktop']; ?>;
-	text-transform: <?php echo $settings->label_text_transform; ?>;
-}
+<?php
+// Label typography.
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'label_typography',
+	'selector'		=> ".fl-node-$id .pp-tabs-labels .pp-tabs-label .pp-tab-title, .fl-node-$id .pp-tabs-panels .pp-tabs-label .pp-tab-title"
+) );
+?>
 
+<?php
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'content_typography',
+	'selector'		=> ".fl-node-$id .pp-tabs-panels .pp-tabs-panel-content"
+) );
+
+// Content Padding.
+FLBuilderCSS::dimension_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'label_padding',
+	'selector'		=> ".fl-node-$id .pp-tabs-panels .pp-tabs-panel-content",
+	'unit'			=> 'px',
+	'props'			=> array(
+		'padding-top'		=> 'content_padding_top',
+		'padding-right'		=> 'content_padding_right',
+		'padding-bottom'	=> 'content_padding_bottom',
+		'padding-left'		=> 'content_padding_left',
+	)
+) );
+?>
 .fl-node-<?php echo $id; ?> .pp-tabs-panels .pp-tabs-panel-content {
-	<?php if( $settings->tab_content_font['family'] != 'Default' ) { ?>
-		<?php FLBuilderFonts::font_css( $settings->tab_content_font ); ?>
-	<?php } ?>
-	<?php if( $settings->tab_content_font_size['desktop'] && $settings->tab_content_size == 'custom' ) { ?>
-	font-size: <?php echo $settings->tab_content_font_size['desktop']; ?>px;
-	<?php } ?>
-	line-height: <?php echo $settings->tab_content_line_height['desktop']; ?>;
 	<?php if( $settings->content_bg_color ) { ?>background-color: #<?php echo $settings->content_bg_color; ?>;<?php } ?>
 	<?php if( $settings->content_bg_type == 'image' && $settings->content_bg_image ) { ?>
 		background-image: url( <?php echo $settings->content_bg_image_src; ?> );
@@ -60,7 +71,6 @@
 		background-repeat: <?php echo $settings->content_bg_repeat; ?>;
 	<?php } ?>
 	color: #<?php echo $settings->content_text_color; ?>;
-	text-align: <?php echo $settings->content_alignment; ?>;
 	<?php if( $settings->tab_style != 'default' ) { ?>
 		border-style: solid;
 		border-color: #<?php echo $settings->content_border_color; ?>;
@@ -76,19 +86,6 @@
 		<?php if( $settings->content_border_width['left'] >= 0 ) { ?>
 		border-left-width: <?php echo $settings->content_border_width['left']; ?>px;
 		<?php } ?>
-	<?php } ?>
-
-	<?php if( $settings->content_padding['top'] >= 0 ) { ?>
-	padding-top: <?php echo $settings->content_padding['top']; ?>px;
-	<?php } ?>
-	<?php if( $settings->content_padding['right'] >= 0 ) { ?>
-	padding-right: <?php echo $settings->content_padding['right']; ?>px;
-	<?php } ?>
-	<?php if( $settings->content_padding['bottom'] >= 0 ) { ?>
-	padding-bottom: <?php echo $settings->content_padding['bottom']; ?>px;
-	<?php } ?>
-	<?php if( $settings->content_padding['left'] >= 0 ) { ?>
-	padding-left: <?php echo $settings->content_padding['left']; ?>px;
 	<?php } ?>
 }
 
@@ -275,21 +272,7 @@
 	}
 }
 
-
 @media only screen and (max-width: 768px) {
-	.fl-node-<?php echo $id; ?> .pp-tabs-labels .pp-tabs-label .pp-tab-title,
-	.fl-node-<?php echo $id; ?> .pp-tabs-panels .pp-tabs-label .pp-tab-title {
-		<?php if( $settings->tab_label_font_size['tablet'] && $settings->tab_title_size == 'custom' ) { ?>
-		font-size: <?php echo $settings->tab_label_font_size['tablet']; ?>px;
-		<?php } ?>
-		line-height: <?php echo $settings->tab_label_line_height['tablet']; ?>;
-	}
-	.fl-node-<?php echo $id; ?> .pp-tabs-panels .pp-tabs-panel-content {
-		<?php if( $settings->tab_content_font_size['tablet'] && $settings->tab_content_size == 'custom' ) { ?>
-		font-size: <?php echo $settings->tab_content_font_size['tablet']; ?>px;
-		<?php } ?>
-		line-height: <?php echo $settings->tab_content_line_height['tablet']; ?>;
-	}
 	.fl-node-<?php echo $id; ?> .pp-tabs-style-1 .pp-tabs-label {
 		border: 4px solid #<?php echo $settings->border_color; ?>;
 		margin: 2px 0;
@@ -302,21 +285,5 @@
 	}
 	.fl-node-<?php echo $id; ?> .pp-tabs-panels {
 		visibility: hidden;
-	}
-}
-
-@media only screen and (max-width: 480px) {
-	.fl-node-<?php echo $id; ?> .pp-tabs-labels .pp-tabs-label .pp-tab-title,
-	.fl-node-<?php echo $id; ?> .pp-tabs-panels .pp-tabs-label .pp-tab-title {
-		<?php if( $settings->tab_label_font_size['mobile'] && $settings->tab_title_size == 'custom' ) { ?>
-		font-size: <?php echo $settings->tab_label_font_size['mobile']; ?>px;
-		<?php } ?>
-		line-height: <?php echo $settings->tab_label_line_height['mobile']; ?>;
-	}
-	.fl-node-<?php echo $id; ?> .pp-tabs-panels .pp-tabs-panel-content {
-		<?php if( $settings->tab_content_font_size['mobile'] && $settings->tab_content_size == 'custom' ) { ?>
-		font-size: <?php echo $settings->tab_content_font_size['mobile']; ?>px;
-		<?php } ?>
-		line-height: <?php echo $settings->tab_content_line_height['mobile']; ?>;
 	}
 }

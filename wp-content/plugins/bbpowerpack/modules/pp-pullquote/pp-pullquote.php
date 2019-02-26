@@ -22,7 +22,6 @@ class PPQuoteModule extends FLBuilderModule {
             'url'           => BB_POWERPACK_URL . 'modules/pp-pullquote/',
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
-            'icon'				=> 'format-quote.svg',
 		));
 		
 		$this->add_css( BB_POWERPACK()->fa_css );

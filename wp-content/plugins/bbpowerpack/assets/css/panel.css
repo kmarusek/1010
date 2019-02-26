@@ -164,3 +164,10 @@ html.pp-previewing .fl-block-overlay-active .fl-row-content-wrap,
 html.pp-previewing .fl-block-overlay-active .fl-row-content {
     z-index: 111 !important;
 }
+
+
+/* Backgroud overlay type */
+tr#fl-field-pp_bg_overlay_type,
+tr#fl-field-bg_overlay_opacity {
+    display: table-row !important;
+}

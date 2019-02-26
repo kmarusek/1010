@@ -23,19 +23,58 @@ class PPTableModule extends FLBuilderModule {
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
             'partial_refresh' => true,
-            'icon'				=> 'editor-table.svg',
         ));
 
         $this->add_css( 'tablesaw' );
 		$this->add_js( 'tablesaw' );
-    }
+	}
+	public function filter_settings( $settings, $helper ) {
+		// Header old padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'header_padding', 'padding', 'header_padding' );
+		// Rows old padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'rows_padding', 'padding', 'rows_padding' );
+
+		// Handle Header's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'header_font'	=> array(
+				'type'			=> 'font'
+			),
+			'header_custom_font_size'	=> array(
+				'type'          => 'font_size',
+				'condition'     => ( isset( $settings->header_font_size ) && 'custom' == $settings->header_font_size )
+			),
+			'header_text_alignment'	=> array(
+				'type'			=> 'text_align',
+			),
+			'header_text_transform'	=> array(
+				'type'			=> 'text_transform',
+			),
+		), 'header_typography' );
+		// Handle Row's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'row_font'	=> array(
+				'type'			=> 'font'
+			),
+			'row_custom_font_size'	=> array(
+				'type'          => 'font_size',
+				'condition'     => ( isset( $settings->row_font_size ) && 'custom' == $settings->row_font_size )
+			),
+			'rows_text_alignment'	=> array(
+				'type'			=> 'text_align',
+			),
+			'rows_text_transform'	=> array(
+				'type'			=> 'text_transform',
+			),
+		), 'row_typography' );
+		return $settings;
+	}
 }
 
 /**
  * Register the module and its form settings.
  */
 FLBuilder::register_module('PPTableModule', array(
-	'header'       => array(
+	'header'		=> array(
         'title'         => __('Table Headers', 'bb-powerpack'),
         'sections'      => array(
             'headers'       => array(
@@ -81,17 +120,17 @@ FLBuilder::register_module('PPTableModule', array(
                         'help'         => __('This will disable stacking and enable swipe/scroll when below the breakpoint', 'bb-powerpack'),
                     ),
                     'custom_breakpoint' => array(
-                        'type'              => 'text',
+                        'type'              => 'unit',
                         'label'             => __('Define Custom Breakpoint', 'bb-powerpack'),
                         'default'           => '',
-                        'size'              => 5,
+                        'slider'            => true,
                         'help'              => __('Devices equal or below the defined screen width will have this feature.', 'bb-powerpack')
                     )
                 )
             ),
         )
     ),
-	'row'       => array(
+	'row'			=> array(
         'title'         => __('Table Rows', 'bb-powerpack'),
         'sections'      => array(
             'Cells'       => array(
@@ -109,52 +148,38 @@ FLBuilder::register_module('PPTableModule', array(
 
         )
     ),
-	'style'	=> array(
+	'style'			=> array(
 		'title'	=> __( 'Style', 'bb-powerpack' ),
 		'sections'	=> array(
 			'header_style'	=> array(
 				'title'	=> __('Header', 'bb-powerpack'),
 				'fields'	=> array(
-					'header_background'     => array(
+					'header_background'			=> array(
                         'type'          => 'color',
                         'default'          => '404040',
                         'label'         => __('Background Color', 'bb-powerpack'),
                         'help'          => __('Change the table header background color', 'bb-powerpack'),
 						'show_reset'	=> true,
+						'show_alpha'	=> true,
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-table-content thead',
 							'property'	=> 'background'
 						)
                     ),
-                    'header_border'     => array(
+                    'header_border'				=> array(
                         'type'          => 'color',
                         'default'       => 'ffffff',
                         'label'         => __('Border Color', 'bb-powerpack'),
                         'help'          => __('Change the table header border color', 'bb-powerpack'),
 						'show_reset'	=> true,
-						'preview'	=> array(
-							'type'		=> 'css',
-							'selector'	=> '.pp-table-content thead tr:first-child th',
-							'property'	=> 'border-right-color'
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-table-content thead tr:first-child th',
+							'property'		=> 'border-right-color'
 						)
                     ),
-					'header_text_alignment' => array(
-						'type'		=> 'pp-switch',
-						'label'		=> __('Horizontal Alignment', 'bb-powerpack'),
-						'default'	=> 'left',
-						'options'       => array(
-							'left'          => __('Left', 'bb-powerpack'),
-							'center'         => __('Center', 'bb-powerpack'),
-							'right'         => __('Right', 'bb-powerpack'),
-						),
-						'preview'	=> array(
-							'type'		=> 'css',
-							'selector'	=> '.pp-table-content thead tr th, .tablesaw-sortable .tablesaw-sortable-head button',
-							'property'	=> 'text-align'
-						)
-					),
-					'header_vertical_alignment' => array(
+					'header_vertical_alignment'	=> array(
 						'type'		=> 'pp-switch',
 						'label'		=> __('Vertical Alignment', 'bb-powerpack'),
 						'default'	=> 'middle',
@@ -169,67 +194,26 @@ FLBuilder::register_module('PPTableModule', array(
 							'property'	=> 'vertical-align'
 						)
 					),
-					'header_padding'   => array(
-                        'type'      => 'pp-multitext',
-                        'label'     => __( 'Padding', 'bb-powerpack' ),
-                        'description'   => 'px',
-						'default'       => array(
-                            'top' => 8,
-                            'right' => 8,
-                            'bottom' => 8,
-                            'left' => 8,
+					'header_padding'	=> array(
+                        'type'				=> 'dimension',
+                        'label'				=> __('Padding', 'bb-powerpack'),
+						'slider'			=> true,
+						'units'				=> array( 'px' ),
+                        'preview'			=> array(
+                            'type'				=> 'css',
+                            'selector'			=> '.pp-table-content thead tr th,
+													.pp-table-content.tablesaw-sortable th.tablesaw-sortable-head,
+													.pp-table-content.tablesaw-sortable tr:first-child th.tablesaw-sortable-head',
+                            'property'			=> 'padding',
+                            'unit'				=> 'px'
                         ),
-                    	'options' 		=> array(
-                    		'top' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __( 'Top', 'bb-powerpack' ),
-                                'tooltip'       => __( 'Top', 'bb-powerpack' ),
-                    			'icon'		=> 'fa-long-arrow-up',
-								'preview'              => array(
-									'selector'	=> '.pp-table-content thead tr th',
-									'property'	=> 'padding-top',
-									'unit'		=> 'px'
-		                        )
-                    		),
-                            'bottom' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Bottom', 'bb-powerpack'),
-                                'tooltip'       => __( 'Bottom', 'bb-powerpack' ),
-                    			'icon'		=> 'fa-long-arrow-down',
-								'preview'              => array(
-									'selector'	=> '.pp-table-content thead tr th',
-									'property'	=> 'padding-bottom',
-									'unit'		=> 'px'
-		                        )
-                    		),
-                            'left' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Left', 'bb-powerpack'),
-                                'tooltip'       => __( 'Left', 'bb-powerpack' ),
-                    			'icon'		=> 'fa-long-arrow-left',
-								'preview'              => array(
-									'selector'	=> '.pp-table-content thead tr th',
-									'property'	=> 'padding-left',
-									'unit'		=> 'px'
-		                        )
-                    		),
-                            'right' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Right', 'bb-powerpack'),
-                                'tooltip'       => __( 'Right', 'bb-powerpack' ),
-                    			'icon'		=> 'fa-long-arrow-right',
-								'preview'              => array(
-									'selector'	=> '.pp-table-content thead tr th',
-									'property'	=> 'padding-right',
-									'unit'		=> 'px'
-		                        )
-                    		),
-                    	)
-                    ),
+                        'responsive'		=> true,
+					),
 				)
 			),
 			'row_style'	=> array(
-				'title'	=> __( 'Rows', 'bb-powerpack' ),
+				'title'		=> __( 'Rows', 'bb-powerpack' ),
+				'collapsed'	=> true,
 				'fields'	=> array(
 					'rows_background'     => array(
                         'type'          => 'color',
@@ -237,6 +221,7 @@ FLBuilder::register_module('PPTableModule', array(
                         'label'         => __('Background Color', 'bb-powerpack'),
                         'help'          => __('Change the table row background color', 'bb-powerpack'),
 						'show_reset'	=> true,
+						'show_alpha'	=> true,
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-table-content tbody tr',
@@ -249,6 +234,7 @@ FLBuilder::register_module('PPTableModule', array(
                         'label'         => __('Even Rows Background Color', 'bb-powerpack'),
                         'help'          => __('Change the tables even rows background color', 'bb-powerpack'),
 						'show_reset'	=> true,
+						'show_alpha'	=> true,
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-table-content .even',
@@ -261,27 +247,13 @@ FLBuilder::register_module('PPTableModule', array(
                         'label'         => __('Odd Rows Background Color', 'bb-powerpack'),
                         'help'          => __('Change the tables odd rows background color', 'bb-powerpack'),
 						'show_reset'	=> true,
+						'show_alpha'	=> true,
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-table-content .odd',
 							'property'	=> 'background'
 						)
                     ),
-					'rows_text_alignment' => array(
-						'type'		=> 'pp-switch',
-						'label'		=> __('Horizontal Alignment', 'bb-powerpack'),
-						'default'	=> 'left',
-						'options'       => array(
-							'left'          => __('Left', 'bb-powerpack'),
-							'center'         => __('Center', 'bb-powerpack'),
-							'right'         => __('Right', 'bb-powerpack'),
-						),
-						'preview'	=> array(
-							'type'		=> 'css',
-							'selector'	=> '.pp-table-content tbody tr td',
-							'property'	=> 'text-align'
-						)
-					),
 					'rows_vertical_alignment' => array(
 						'type'		=> 'pp-switch',
 						'label'		=> __('Vertical Alignment', 'bb-powerpack'),
@@ -297,67 +269,24 @@ FLBuilder::register_module('PPTableModule', array(
 							'property'	=> 'vertical-align'
 						)
 					),
-					'rows_padding'   => array(
-                        'type'      => 'pp-multitext',
-                        'label'     => __( 'Padding', 'bb-powerpack' ),
-                        'description'   => 'px',
-						'default'       => array(
-                            'top' => 10,
-                            'right' => 10,
-                            'bottom' => 10,
-                            'left' => 10,
+					'rows_padding'	=> array(
+                        'type'				=> 'dimension',
+                        'label'				=> __('Padding', 'bb-powerpack'),
+						'slider'			=> true,
+						'units'				=> array( 'px' ),
+                        'preview'			=> array(
+                            'type'				=> 'css',
+                            'selector'			=> '.pp-table-content tbody tr td',
+                            'property'			=> 'padding',
+                            'unit'				=> 'px'
                         ),
-                    	'options' 		=> array(
-                    		'top' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __( 'Top', 'bb-powerpack' ),
-                                'tooltip'       => __( 'Top', 'bb-powerpack' ),
-                    			'icon'		=> 'fa-long-arrow-up',
-								'preview'              => array(
-									'selector'	=> '.pp-table-content tbody tr td',
-									'property'	=> 'padding-top',
-									'unit'		=> 'px'
-		                        )
-                    		),
-                            'bottom' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Bottom', 'bb-powerpack'),
-                                'tooltip'       => __( 'Bottom', 'bb-powerpack' ),
-                    			'icon'		=> 'fa-long-arrow-down',
-								'preview'              => array(
-									'selector'	=> '.pp-table-content tbody tr td',
-									'property'	=> 'padding-bottom',
-									'unit'		=> 'px'
-		                        )
-                    		),
-                            'left' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Left', 'bb-powerpack'),
-                                'tooltip'       => __( 'Left', 'bb-powerpack' ),
-                    			'icon'		=> 'fa-long-arrow-left',
-								'preview'              => array(
-									'selector'	=> '.pp-table-content tbody tr td',
-									'property'	=> 'padding-left',
-									'unit'		=> 'px'
-		                        )
-                    		),
-                            'right' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Right', 'bb-powerpack'),
-                                'tooltip'       => __( 'Right', 'bb-powerpack' ),
-                    			'icon'		=> 'fa-long-arrow-right',
-								'preview'              => array(
-									'selector'	=> '.pp-table-content tbody tr td',
-									'property'	=> 'padding-right',
-									'unit'		=> 'px'
-		                        )
-                    		),
-                    	)
-                    ),
+                        'responsive'		=> true,
+					),
 				)
 			),
 			'cells_style'	=> array(
-				'title'	=> __('Cell', 'bb-powerpack'),
+				'title'		=> __('Cell', 'bb-powerpack'),
+				'collapsed'	=> true,
 				'fields'	=> array(
 					'cells_border' => array(
 						'type'		=> 'pp-switch',
@@ -407,61 +336,15 @@ FLBuilder::register_module('PPTableModule', array(
 			'header_typography'	=> array(
 				'title'	=>	__('Header', 'bb-powerpack'),
 				'fields'	=> array(
-					'header_font'          => array(
-						'type'          => 'font',
-						'default'		=> array(
-							'family'		=> 'Default',
-							'weight'		=> 300
-						),
-						'label'         => __('Font', 'bb-powerpack'),
-						'preview'         => array(
-							'type'            => 'font',
-							'selector'        => '.pp-table-content thead tr th'
-						)
-					),
-					'header_font_size'     => array(
-						'type'          => 'pp-switch',
-						'label'         => __('Font Size', 'bb-powerpack'),
-						'default'       => 'default',
-						'options'       => array(
-							'default'       =>  __('Default', 'bb-powerpack'),
-							'custom'        =>  __('Custom', 'bb-powerpack')
-						),
-						'toggle'        => array(
-							'custom'        => array(
-								'fields'        => array('header_custom_font_size')
-							)
-						)
-					),
-					'header_custom_font_size'	=> array(
-						'type' 		=> 'pp-multitext',
-						'label'		=> __('Custom Font Size', 'bb-powerpack'),
-						'default'		=> array(
-							'desktop'	=> 16,
-							'tablet'	=> '',
-							'mobile'	=> '',
-						),
-						'options' 		=> array(
-							'desktop' => array(
-								'icon'		=> 'fa-desktop',
-								'placeholder'	=> __('Desktop', 'bb-powerpack'),
-								'tooltip'	=> __('Desktop', 'bb-powerpack'),
-								'preview'       => array(
-									'selector'        => '.pp-table-content thead tr th',
-									'property'        => 'font-size',
-									'unit'            => 'px'
-								),
-							),
-							'tablet' => array(
-								'icon'		=> 'fa-tablet',
-								'placeholder'	=> __('Tablet', 'bb-powerpack'),
-								'tooltip'	=> __('Tablet', 'bb-powerpack'),
-							),
-							'mobile' => array(
-								'icon'		=> 'fa-mobile',
-								'placeholder'	=> __('Mobile', 'bb-powerpack'),
-								'tooltip'	=> __('Mobile', 'bb-powerpack'),
-							),
+					'header_typography'	=> array(
+						'type'        	   => 'typography',
+						'label'       	   => __( 'Typography', 'bb-powerpack' ),
+						'responsive'  	   => true,
+						'preview'          => array(
+							'type'         		=> 'css',
+							'selector' 		    => '.pp-table-content thead tr th,
+													.pp-table-content.tablesaw-sortable th.tablesaw-sortable-head,
+													.pp-table-content.tablesaw-sortable tr:first-child th.tablesaw-sortable-head',
 						),
 					),
                     'header_font_color'     => array(
@@ -471,86 +354,25 @@ FLBuilder::register_module('PPTableModule', array(
                         'help'          => __('Change the table header font color', 'bb-powerpack'),
 						'preview'	=> array(
 							'type'		=> 'css',
-							'selector'	=> '.pp-table-content thead tr th',
-							'property'	=> 'color'
+							'selector'	=> '.pp-table-content thead tr th,
+											.pp-table-content.tablesaw-sortable th.tablesaw-sortable-head,
+											.pp-table-content.tablesaw-sortable tr:first-child th.tablesaw-sortable-head',
+							'property'	=> 'color',
 						)
                     ),
-					'header_text_transform' => array(
-						'type'		=> 'pp-switch',
-						'label'		=> __('Text Transform', 'bb-powerpack'),
-						'default'	=> 'none',
-						'options'       => array(
-							'none'          => __('None', 'bb-powerpack'),
-							'lowercase'     => __('lowercase', 'bb-powerpack'),
-							'uppercase'     => __('UPPERCASE', 'bb-powerpack'),
-						),
-						'preview'	=> array(
-							'type'		=> 'css',
-							'selector'	=> '.pp-table-content thead tr th',
-							'property'	=> 'text-transform'
-						)
-					),
 				)
 			),
 			'rows_typography'	=> array(
-				'title'	=> __('Rows', 'bb-powerpack'),
+				'title'		=> __('Rows', 'bb-powerpack'),
+				'collapsed'	=> true,
 				'fields'	=> array(
-					'row_font'          => array(
-						'type'          => 'font',
-						'default'		=> array(
-							'family'		=> 'Default',
-							'weight'		=> 300
-						),
-						'label'         => __('Font', 'bb-powerpack'),
-						'preview'         => array(
-							'type'            => 'font',
-							'selector'        => '.pp-table-content tbody tr td'
-						)
-					),
-					'row_font_size'     => array(
-						'type'          => 'pp-switch',
-						'label'         => __('Font Size', 'bb-powerpack'),
-						'default'       => 'default',
-						'options'       => array(
-							'default'       =>  __('Default', 'bb-powerpack'),
-							'custom'        =>  __('Custom', 'bb-powerpack')
-						),
-						'toggle'        => array(
-							'custom'        => array(
-								'fields'        => array('row_custom_font_size')
-							)
-						)
-					),
-					'row_custom_font_size'	=> array(
-						'type' 		=> 'pp-multitext',
-						'label'		=> __('Custom Font Size', 'bb-powerpack'),
-						'default'		=> array(
-							'desktop'	=> 16,
-							'tablet'	=> '',
-							'mobile'	=> '',
-						),
-						'options' 		=> array(
-							'desktop' => array(
-								'icon'		=> 'fa-desktop',
-								'placeholder'	=> __('Desktop', 'bb-powerpack'),
-								'tooltip'	=> __('Desktop', 'bb-powerpack'),
-								'preview'       => array(
-									'selector'        => '.pp-table-content tbody tr td',
-									'property'        => 'font-size',
-									'unit'            => 'px'
-								),
-							),
-							'tablet' => array(
-								'icon'		=> 'fa-tablet',
-								'placeholder'	=> __('Tablet', 'bb-powerpack'),
-								'tooltip'	=> __('Tablet', 'bb-powerpack'),
-							),
-							'mobile' => array(
-								'icon'		=> 'fa-mobile',
-								'placeholder'	=> __('Mobile', 'bb-powerpack'),
-								'tooltip'	=> __('Mobile', 'bb-powerpack'),
-							),
-
+					'row_typography'	=> array(
+						'type'        	   => 'typography',
+						'label'       	   => __( 'Typography', 'bb-powerpack' ),
+						'responsive'  	   => true,
+						'preview'          => array(
+							'type'         		=> 'css',
+							'selector' 		    => '.pp-table-content tbody tr td'
 						),
 					),
                     'rows_font_color'     => array(
@@ -576,7 +398,7 @@ FLBuilder::register_module('PPTableModule', array(
 							'selector'	=> '.pp-table-content .even td',
 							'property'	=> 'color'
 						)
-                    ),
+					),
                     'rows_font_odd'     => array(
                         'type'          => 'color',
                         'default'       => '',
@@ -589,21 +411,6 @@ FLBuilder::register_module('PPTableModule', array(
 							'property'	=> 'color'
 						)
                     ),
-					'rows_text_transform' => array(
-						'type'		=> 'pp-switch',
-						'label'		=> __('Text Transform', 'bb-powerpack'),
-						'default'	=> 'none',
-						'options'       => array(
-							'none'          => __('None', 'bb-powerpack'),
-							'lowercase'     => __('lowercase', 'bb-powerpack'),
-							'uppercase'     => __('UPPERCASE', 'bb-powerpack'),
-						),
-						'preview'	=> array(
-							'type'		=> 'css',
-							'selector'	=> '.pp-table-content tbody tr td',
-							'property'	=> 'text-transform'
-						)
-					),
 				)
 			)
 
@@ -614,8 +421,7 @@ FLBuilder::register_module('PPTableModule', array(
 FLBuilder::register_settings_form('pp_content_table_row', array(
 	'title' => __('Row Settings', 'bb-powerpack'),
 	'tabs'  => array(
-
-        'general'        => array( // Tab
+        'general'	=> array( // Tab
 			'title'         => __('Content', 'bb-powerpack'), // Tab title
 			'sections'      => array( // Tab Sections
 				'general'       => array(
@@ -637,6 +443,5 @@ FLBuilder::register_settings_form('pp_content_table_row', array(
 
 			)
 		),
-
 	)
 ));

@@ -32,6 +32,41 @@ class PPAnimatedHeadlinesModule extends FLBuilderModule {
 
 		return $settings;
 	}
+
+	public function filter_settings( $settings, $helper )
+	{
+		// Handle old headline typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'font_family'	=> array(
+				'type'			=> 'font'
+			),
+			'font_size_custom'	=> array(
+				'type'				=> 'font_size',
+				'condition'			=> ( isset( $settings->font_size ) && 'custom' == $settings->font_size )
+			),
+			'line_height_custom'	=> array(
+				'type'					=> 'line_height',
+				'condition'				=> ( isset( $settings->line_height ) && 'custom' == $settings->line_height )
+			),
+		), 'headline_typography' );
+
+		// Handle old animated text typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'animated_font_family'		=> array(
+				'type'						=> 'font'
+			),
+			'animated_font_size_custom'	=> array(
+				'type'						=> 'font_size',
+				'condition'					=> ( isset( $settings->animated_font_size ) && 'custom' == $settings->animated_font_size )
+			),
+			'animated_line_height_custom'	=> array(
+				'type'							=> 'line_height',
+				'condition'						=> ( isset( $settings->animated_line_height ) && 'custom' == $settings->animated_line_height )
+			),
+		), 'animated_typography' );
+		
+		return $settings;
+	}
 }
 
 /**
@@ -124,14 +159,9 @@ FLBuilder::register_module('PPAnimatedHeadlinesModule', array(
 						'connections'   => array( 'string', 'html', 'url' ),
 					),
 					'alignment'     => array(
-						'type'          => 'pp-switch',
+						'type'          => 'align',
 						'label'         => __('Alignment', 'bb-powerpack'),
 						'default'       => 'left',
-						'options'       => array(
-							'left'      =>  __('Left', 'bb-powerpack'),
-							'center'    =>  __('Center', 'bb-powerpack'),
-							'right'     =>  __('Right', 'bb-powerpack')
-						),
 						'preview'         => array(
 							'type'            => 'css',
 							'selector'        => '.pp-headline',
@@ -169,11 +199,11 @@ FLBuilder::register_module('PPAnimatedHeadlinesModule', array(
 						),
 					),
 					'shape_width'	=> array(
-						'type'			=> 'text',
+						'type'			=> 'unit',
 						'label'			=> __('Width', 'bb-powerpack'),
 						'default'		=> '',
-						'size'			=> 5,
-						'description'	=> 'px',
+						'units'			=> array('px'),
+						'slider'		=> true,
 						'preview'       => array(
 							'type'            => 'css',
 							'selector'        => '.pp-headline-dynamic-wrapper path',
@@ -208,80 +238,15 @@ FLBuilder::register_module('PPAnimatedHeadlinesModule', array(
 			'headline_typography' => array(
 				'title' 			=> __('Headline Text', 'bb-powerpack' ),
                 'fields'   			=> array(
-                    'font_family'       => array(
-                        'type'          => 'font',
-                        'label'         => __('Font Family', 'bb-powerpack'),
-                        'default'       => array(
-                            'family'        => 'Default',
-                            'weight'        => 'Default'
-                        ),
-                        'preview'	=> array(
-                            'type'		=> 'font',
-                            'selector'	=> '.pp-headline'
-                    	),
-                    ),
-					'font_size'     => array(
-                        'type'          => 'pp-switch',
-						'label'         => __('Font Size', 'bb-powerpack'),
-						'default'       => 'default',
-						'options'       => array(
-							'default'       =>  __('Default', 'bb-powerpack'),
-							'custom'        =>  __('Custom', 'bb-powerpack')
-						),
-						'toggle'        => array(
-							'custom'        => array(
-								'fields'        => array('font_size_custom')
-							)
+					'headline_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+                            'selector'		=> '.pp-headline'
 						)
-                    ),
-                    'font_size_custom'  => array(
-                        'type'              => 'unit',
-						'label'             => __('Custom Font Size', 'bb-powerpack'),
-						'description' 		=> 'px',
-						'responsive' 		=> array(
-							'placeholder' 		=> array(
-								'default' 			=> '',
-								'medium' 			=> '',
-								'responsive' 		=> '',
-							),
-						),
-						'preview'			=> array(
-							'type' 				=> 'css',
-							'selector'			=> '.pp-headline',
-							'property'      	=> 'font-size',
-							'unit'				=> 'px',
-						),
-                    ),
-					'line_height'   => array(
-                        'type'          => 'pp-switch',
-						'label'         => __('Line Height', 'bb-powerpack'),
-						'default'       => 'default',
-						'options'       => array(
-							'default'       =>  __('Default', 'bb-powerpack'),
-							'custom'        =>  __('Custom', 'bb-powerpack')
-						),
-						'toggle'        => array(
-							'custom'        => array(
-								'fields'        => array('line_height_custom')
-							)
-						)
-                    ),
-                    'line_height_custom' => array(
-						'type'              => 'unit',
-						'label'             => __('Line Height Custom', 'bb-powerpack'),
-						'responsive' 		=> array(
-							'placeholder' 		=> array(
-								'default' 			=> '',
-								'medium' 			=> '',
-								'responsive' 		=> '',
-							),
-						),
-						'preview'			=> array(
-							'type' 				=> 'css',
-							'selector'			=> '.pp-headline',
-							'property'      	=> 'line-height',
-						),
-                    ),
+					),
                     'color'        	=> array(
                         'type'       	=> 'color',
                         'label'      	=> __('Color', 'bb-powerpack'),
@@ -298,82 +263,15 @@ FLBuilder::register_module('PPAnimatedHeadlinesModule', array(
 			'animated_text_typography' => array(
 				'title' => __('Animating Text', 'bb-powerpack' ),
                 'fields'    => array(
-                    'animated_font_family'       => array(
-                        'type'          => 'font',
-                        'label'         => __('Font Family', 'bb-powerpack'),
-                        'default'       => array(
-                            'family'        => 'Default',
-                            'weight'        => 'Default'
-                        ),
-                        'preview'	=> array(
-                            'type'		=> 'font',
-                            'selector'	=> '.pp-headline-dynamic-wrapper'
-                    	),
-                    ),
-					'animated_font_size'     => array(
-                        'type'          => 'pp-switch',
-						'label'         => __('Font Size', 'bb-powerpack'),
-						'default'       => 'default',
-						'options'       => array(
-							'default'       =>  __('Default', 'bb-powerpack'),
-							'custom'        =>  __('Custom', 'bb-powerpack')
-						),
-						'toggle'        => array(
-							'custom'        => array(
-								'fields'        => array('animated_font_size_custom')
-							)
+					'animated_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+                            'selector'		=> '.pp-headline-dynamic-wrapper'
 						)
-                    ),
-					'animated_font_size_custom'  => array(
-                        'type'              => 'unit',
-						'label'             => __('Custom Font Size', 'bb-powerpack'),
-						'description' 		=> 'px',
-						'responsive' 		=> array(
-							'placeholder' 		=> array(
-								'default' 			=> '',
-								'medium' 			=> '',
-								'responsive' 		=> '',
-							),
-						),
-						'preview'			=> array(
-							'type' 				=> 'css',
-							'selector'			=> '.pp-headline-dynamic-wrapper',
-							'property'      	=> 'font-size',
-							'unit'				=> 'px',
-						),
-                    ),
-					'animated_line_height'   => array(
-                        'type'          => 'pp-switch',
-						'label'         => __('Line Height', 'bb-powerpack'),
-						'default'       => 'default',
-						'options'       => array(
-							'default'       =>  __('Default', 'bb-powerpack'),
-							'custom'        =>  __('Custom', 'bb-powerpack')
-						),
-						'toggle'        => array(
-							'custom'        => array(
-								'fields'        => array('animated_line_height_custom')
-							)
-						)
-                    ),
-					'animated_line_height_custom'  => array(
-                        'type'              => 'unit',
-						'label'             => __('Line Height Custom', 'bb-powerpack'),
-						'description' 		=> 'px',
-						'responsive' 		=> array(
-							'placeholder' 		=> array(
-								'default' 			=> '',
-								'medium' 			=> '',
-								'responsive' 		=> '',
-							),
-						),
-						'preview'			=> array(
-							'type' 				=> 'css',
-							'selector'			=> '.pp-headline-dynamic-wrapper',
-							'property'      	=> 'font-size',
-							'unit'				=> 'px',
-						),
-                    ),
+					),
                     'animated_color'        => array(
                         'type'       => 'color',
                         'label'      => __('Color', 'bb-powerpack'),
@@ -389,7 +287,8 @@ FLBuilder::register_module('PPAnimatedHeadlinesModule', array(
                         'type'       	=> 'color',
                         'label'      	=> __('Selection Background Color', 'bb-powerpack'),
                         'default'    	=> '',
-                        'show_reset' 	=> true,
+						'show_reset' 	=> true,
+						'show_alpha'	=> true,
                     	'preview'		=> array(
                             'type'			=> 'css',
                             'selector'		=> '.pp-headline-animation-type-typing .pp-headline-dynamic-wrapper.pp-headline-typing-selected',

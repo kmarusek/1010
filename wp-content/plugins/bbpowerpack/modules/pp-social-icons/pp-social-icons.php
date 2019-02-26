@@ -21,12 +21,26 @@ class PPSocialIconsModule extends FLBuilderModule {
             'url'           	=> BB_POWERPACK_URL . 'modules/pp-social-icons/',
 			'editor_export' 	=> true,
 			'partial_refresh'	=> true,
-			'icon'				=> 'star-filled.svg',
 		));
 
 		$this->_enabled_icons = FLBuilderModel::get_enabled_icons();
 		
 		$this->add_css( BB_POWERPACK()->fa_css );
+	}
+
+	public function filter_settings( $settings, $helper )
+	{
+		// Handle old link, link_target, link_nofollow fields.
+		$settings = PP_Module_Fields::handle_link_field( $settings, array(
+			'link'			=> array(
+				'type'			=> 'link'
+			),
+			'link_target'	=> array(
+				'type'			=> 'target'
+			),
+		), 'link' );
+
+		return $settings;
 	}
 
 	static public function get_labels()
@@ -95,12 +109,14 @@ FLBuilder::register_module('PPSocialIconsModule', array(
 					'bg_color'      => array(
 						'type'          => 'color',
 						'label'         => __('Background Color', 'bb-powerpack'),
-						'show_reset'    => true
+						'show_reset'    => true,
+						'show_alpha'	=> true
 					),
 					'bg_hover_color' => array(
 						'type'          => 'color',
 						'label'         => __('Background Hover Color', 'bb-powerpack'),
 						'show_reset'    => true,
+						'show_alpha'	=> true,
 						'preview'       => array(
 							'type'          => 'none'
 						)
@@ -109,37 +125,38 @@ FLBuilder::register_module('PPSocialIconsModule', array(
 			),
 			'structure'     => array( // Section
 				'title'         => __('Structure', 'bb-powerpack'), // Section Title
+				'collapsed'			=> true,
 				'fields'        => array( // Section Fields
 					'size'          => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Size', 'bb-powerpack'),
-						'default'       => '30',
-						'maxlength'     => '3',
-						'size'          => '4',
-						'description'   => 'px'
+                        'default'       => '30',
+						'units'   		=> array('px'),
+						'slider'		=> true,
+						'responsive'	=> true
 					),
 					'box_size'		=> array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Box Size', 'bb-powerpack'),
-						'default'       => '60',
-						'maxlength'     => '3',
-						'size'          => '4',
-						'description'   => 'px'
+                        'default'       => '60',
+						'units'   		=> array('px'),
+						'slider'		=> true,
+						'responsive'	=> true
 					),
 					'spacing'       => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Spacing', 'bb-powerpack'),
-						'default'       => '10',
-						'maxlength'     => '2',
-						'size'          => '4',
-						'description'   => 'px'
+                        'default'       => '10',
+						'units'   		=> array('px'),
+						'slider'		=> true,
+						'responsive'	=> true
 					),
 					'border_width'	=> array(
-						'type'			=> 'text',
-						'label'			=> __('Border', 'bb-powerpack'),
-						'default'		=> '0',
-						'size'			=> '4',
-						'description'	=> 'px'
+						'type'          => 'unit',
+						'label'         => __('Border', 'bb-powerpack'),
+                        'default'       => '0',
+						'units'   		=> array('px'),
+						'slider'		=> true,
 					),
 					'border_color'  => array(
 						'type'          => 'color',
@@ -152,12 +169,11 @@ FLBuilder::register_module('PPSocialIconsModule', array(
 						'show_reset'    => true,
 					),
 					'radius'		=> array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Round Corners', 'bb-powerpack'),
-						'default'       => '100',
-						'maxlength'     => '3',
-						'size'          => '4',
-						'description'   => 'px'
+                        'default'       => '100',
+						'units'   		=> array('px'),
+						'slider'		=> true,
 					),
 					'direction'		=> array(
 						'type'          => 'pp-switch',
@@ -169,39 +185,30 @@ FLBuilder::register_module('PPSocialIconsModule', array(
 						)
 					),
 					'align'         => array(
-						'type'          => 'pp-switch',
+						'type'          => 'align',
 						'label'         => __('Desktop Alignment', 'bb-powerpack'),
 						'default'       => 'left',
-						'options'       => array(
-							'left'          => __('Left', 'bb-powerpack'),
-							'center'        => __('Center', 'bb-powerpack'),
-							'right'         => __('Right', 'bb-powerpack')
-						)
 					),
 				)
 			),
 			'responsive'	=> array(
 				'title'			=> __('Responsive', 'bb-powerpack'),
+				'collapsed'			=> true,
 				'fields'		=> array(
 					'breakpoint'	=> array(
-						'type'			=> 'text',
+						'type'			=> 'unit',
 						'label'			=> __('Breakpoint', 'bb-powerpack'),
-						'description'	=> 'px',
 						'default'		=> 768,
-						'size'			=> 4,
+						'units'   		=> array('px'),
+						'slider'		=> true,
 						'preview'		=> array(
 							'type'			=> 'none'
 						)
 					),
 					'responsive_align' => array(
-						'type'          => 'pp-switch',
+						'type'          => 'align',
 						'label'         => __('Alignment', 'bb-powerpack'),
 						'default'       => 'center',
-						'options'       => array(
-							'left'          => __('Left', 'bb-powerpack'),
-							'center'        => __('Center', 'bb-powerpack'),
-							'right'         => __('Right', 'bb-powerpack')
-						)
 					)
 				)
 			)
@@ -228,7 +235,7 @@ FLBuilder::register_settings_form('social_icon_form', array(
 							'options'		=> PPSocialIconsModule::get_labels(),
 							'toggle'		=> array(
 								'custom'		=> array(
-									'fields'		=> array('icon_custom')
+									'fields'		=> array('icon_custom', 'icon_custom_title')
 								)
 							)
 						),
@@ -236,20 +243,16 @@ FLBuilder::register_settings_form('social_icon_form', array(
 							'type'			=> 'icon',
 							'label'         => __('Custom Icon', 'bb-powerpack'),
 						),
-						'link'          => array(
+						'link'  => array(
 							'type'          => 'link',
 							'label'         => __('Link', 'bb-powerpack'),
-							'connections'	=> array('url')
-						),
-						'link_target'	=> array(
-							'type'          => 'select',
-							'label'         => __('Link Target', 'bb-powerpack'),
-							'default'       => '_blank',
-							'options'       => array(
-								'_self' 		=> __('Same Window', 'bb-powerpack'),
-								'_blank'    	=> __('New Window', 'bb-powerpack')
+							'placeholder'   => 'http://www.example.com',
+							'show_target'	=> true,
+							'connections'   => array( 'url' ),
+							'preview'       => array(
+								'type'          => 'none'
 							)
-						)
+						),
 					)
 				)
 			)
@@ -276,12 +279,14 @@ FLBuilder::register_settings_form('social_icon_form', array(
 						'bg_color'      => array(
 							'type'          => 'color',
 							'label'         => __('Background Color', 'bb-powerpack'),
-							'show_reset'    => true
+							'show_reset'    => true,
+							'show_alpha'	=> true
 						),
 						'bg_hover_color' => array(
 							'type'          => 'color',
 							'label'         => __('Background Hover Color', 'bb-powerpack'),
 							'show_reset'    => true,
+							'show_alpha'	=> true,
 							'preview'       => array(
 								'type'          => 'none'
 							)
@@ -290,13 +295,14 @@ FLBuilder::register_settings_form('social_icon_form', array(
 				),
 				'border'	=> array(
 					'title'		=> __('Border', 'bb-powerpack'),
+					'collapsed'			=> true,
 					'fields'	=> array(
 						'border_width'	=> array(
-							'type'			=> 'text',
-							'label'			=> __('Border', 'bb-powerpack'),
-							'default'		=> '0',
-							'size'			=> '4',
-							'description'	=> 'px'
+							'type'          => 'unit',
+							'label'         => __('Border', 'bb-powerpack'),
+							'default'       => '0',
+							'units'   		=> array('px'),
+							'slider'		=> true,
 						),
 						'border_color'  => array(
 							'type'          => 'color',

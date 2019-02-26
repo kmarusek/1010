@@ -20,8 +20,210 @@ class PPSmartButtonModule extends FLBuilderModule {
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
             'partial_refresh'   => true,
-			'icon'				=> 'button.svg',
 		));
+	}
+
+	/**
+	 * Ensure backwards compatibility with old settings.
+	 *
+	 * @since 2.6.8
+	 * @param object $settings A module settings object.
+	 * @param object $helper A settings compatibility helper.
+	 * @return object
+	 */
+	public function filter_settings( $settings, $helper ) {
+		// Handle old link nofollow settings.
+		if ( isset( $settings->link_no_follow ) ) {
+			$settings->link_nofollow = $settings->link_no_follow;
+			unset( $settings->link_no_follow );
+		} else {
+			$settings->link_nofollow = 'no';
+		}
+
+		// Handle old background color settings
+		if ( isset( $settings->bg_color ) && is_array( $settings->bg_color ) ) {
+			$bg_color_primary = $settings->bg_color['primary'];
+			$bg_color_secondary = $settings->bg_color['secondary'];
+
+			$settings->bg_color = $bg_color_primary;
+			$settings->bg_hover_color = $bg_color_secondary;
+		}
+
+		// - Transparent style.
+		if ( $settings->style == 'transparent' ) {
+			$settings->bg_color = 'rgba(255, 255, 255, 0)';
+			$settings->style = 'flat';
+			$settings->button_effect = 'none';
+			if ( isset( $settings->bg_color_transparent ) ) {
+				$settings->bg_hover_color = $settings->bg_color_transparent;
+				unset( $settings->bg_color_transparent );
+			}
+		}
+
+		// - Gradient style.
+		if ( isset( $settings->bg_color_gradient ) && is_array( $settings->bg_color_gradient ) ) {
+			$settings->bg_color_primary = $settings->bg_color_gradient['primary'];
+			$settings->bg_color_secondary = $settings->bg_color_gradient['secondary'];
+
+			unset( $settings->bg_color_gradient );
+		}
+
+		// Handle old text color settings.
+		if ( isset( $settings->text_color ) && is_array( $settings->text_color ) ) {
+			$text_color_primary = $settings->text_color['primary'];
+			$text_color_secondary = $settings->text_color['secondary'];
+
+			$settings->text_color = $text_color_primary;
+			$settings->text_hover_color = $text_color_secondary;
+		}
+
+		// Handle old padding settings.
+		if ( isset( $settings->padding ) && is_array( $settings->padding ) ) {
+			$padding = $settings->padding;
+			$settings->padding_top = isset( $padding['top'] ) ? $padding['top'] : '';
+			$settings->padding_right = isset( $padding['right'] ) ? $padding['right'] : '';
+			$settings->padding_bottom = isset( $padding['bottom'] ) ? $padding['bottom'] : '';
+			$settings->padding_left = isset( $padding['left'] ) ? $padding['left'] : '';
+		}
+
+		// Handle old responsive align settings.
+		if ( isset( $settings->responsive_align ) ) {
+			$settings->align_medium = $settings->align;
+			$settings->align_responsive = $settings->responsive_align;
+			unset( $settings->responsive_align );
+		}
+
+		// Handle old border and box-shadow settings.
+		if ( ! isset( $settings->border ) || empty( $settings->border ) ) {
+			$border = array();
+
+			$border['style'] = $settings->border_type;
+			$border['width'] = array(
+				'top' 		=> $settings->border_size,
+				'right' 	=> $settings->border_size,
+				'bottom' 	=> $settings->border_size,
+				'left' 		=> $settings->border_size,
+			);
+			$border['color'] = ( is_array( $settings->border_color ) && isset( $settings->border_color['primary'] ) ) ? $settings->border_color['primary'] : '';
+			
+			$settings->border_hover_color = ( is_array( $settings->border_color ) && isset( $settings->border_color['secondary'] ) ) ? $settings->border_color['secondary'] : '';
+
+			unset( $settings->border_type );
+			unset( $settings->border_size );
+			unset( $settings->border_color );
+
+			// border-radius.
+			if ( isset( $settings->border_radius ) ) {
+				$border['radius'] = array(
+					'top_left'		=> $settings->border_radius,
+					'top_right'		=> $settings->border_radius,
+					'bottom_left'	=> $settings->border_radius,
+					'bottom_right'	=> $settings->border_radius,
+				);
+
+				unset( $settings->border_radius );
+			}
+
+			// box-shadow.
+			if ( isset( $settings->button_shadow ) && 'yes' == $settings->button_shadow ) {
+				$border['shadow'] = array(
+					'color'			=> '',
+					'horizontal'	=> '',
+					'vertical'		=> '',
+					'blur'			=> '',
+					'spread'		=> '',
+				);
+				
+				if ( isset( $settings->box_shadow_color ) ) {
+					if ( ! empty( $settings->box_shadow_color ) ) {
+						$opacity = 1;
+
+						if ( isset( $settings->box_shadow_opacity ) ) {
+							if ( ! empty( $settings->box_shadow_opacity ) ) {
+								$opacity = $settings->box_shadow_opacity;
+							}
+							unset( $settings->box_shadow_opacity );
+						}
+
+						$border['shadow']['color'] = pp_hex2rgba( $settings->box_shadow_color, $opacity );
+					}
+					unset( $settings->box_shadow_color );
+				}
+
+				if ( isset( $settings->box_shadow ) && is_array( $settings->box_shadow ) ) {
+					$border['shadow']['horizontal'] = $settings->box_shadow['horizontal'];
+					$border['shadow']['vertical'] 	= $settings->box_shadow['vertical'];
+					$border['shadow']['blur'] 		= $settings->box_shadow['blur'];
+					$border['shadow']['spread'] 	= $settings->box_shadow['spread'];
+
+					unset( $settings->box_shadow );
+				}
+			}
+
+			$settings->border = $border;
+		}
+
+		// Handle old typography settings.
+		if ( isset( $settings->font ) ) {
+			$typography = array();
+			$typography_medium = array();
+			$typography_responsive = array();
+
+			// - font family.
+			$typography['font_family'] = $settings->font['family'];
+			$typography['font_weight'] = $settings->font['weight'];
+
+			// - font size.
+			if ( isset( $settings->font_size ) && is_array( $settings->font_size ) ) {
+				$typography['font_size'] = array(
+					'length'	=> $settings->font_size['desktop'],
+					'unit'		=> 'px'
+				);
+				$typography_medium['font_size'] = array(
+					'length'	=> $settings->font_size['tablet'],
+					'unit'		=> 'px'
+				);
+				$typography_responsive['font_size'] = array(
+					'length'	=> $settings->font_size['mobile'],
+					'unit'		=> 'px'
+				);
+			}
+
+			// - line height.
+			if ( isset( $settings->line_height ) && is_array( $settings->line_height ) ) {
+				$typography['line_height'] = array(
+					'length'	=> $settings->line_height['desktop'],
+					'unit'		=> ''
+				);
+				$typography_medium['line_height'] = array(
+					'length'	=> $settings->line_height['tablet'],
+					'unit'		=> ''
+				);
+				$typography_responsive['line_height'] = array(
+					'length'	=> $settings->line_height['mobile'],
+					'unit'		=> ''
+				);
+			}
+
+			// - letter spacing.
+			if ( isset( $settings->letter_spacing ) ) {
+				$typography['letter_spacing'] = array(
+					'length'	=> $settings->letter_spacing,
+					'unit'		=> 'px'
+				);
+			}
+
+			$settings->typography = $typography;
+			$settings->typography_medium = $typography_medium;
+			$settings->typography_responsive = $typography_responsive;
+
+			unset( $settings->font );
+			unset( $settings->font_size );
+			unset( $settings->line_height );
+		}
+
+		// Return the filtered settings.
+		return $settings;
 	}
 
 	/**
@@ -47,14 +249,30 @@ class PPSmartButtonModule extends FLBuilderModule {
 		if(!empty($this->settings->width)) {
 			$classname .= ' pp-button-width-' . $this->settings->width;
 		}
-		if(!empty($this->settings->align)) {
-			$classname .= ' pp-button-' . $this->settings->align;
-		}
 		if(!empty($this->settings->icon)) {
 			$classname .= ' pp-button-has-icon';
 		}
 
 		return $classname;
+	}
+
+	/**
+	 * Returns button link rel based on settings
+	 * @since 2.6.8
+	 */
+	public function get_rel() {
+		$rel = array();
+		if ( '_blank' == $this->settings->link_target ) {
+			$rel[] = 'noopener';
+		}
+		if ( isset( $this->settings->link_nofollow ) && 'yes' == $this->settings->link_nofollow ) {
+			$rel[] = 'nofollow';
+		}
+		$rel = implode( ' ', $rel );
+		if ( $rel ) {
+			$rel = ' rel="' . $rel . '" ';
+		}
+		return $rel;
 	}
 }
 
@@ -75,18 +293,14 @@ FLBuilder::register_module('PPSmartButtonModule', array(
 						'options'       => array(
 							'flat'          => __('Flat', 'bb-powerpack'),
 							'gradient'      => __('Gradient', 'bb-powerpack'),
-							'transparent'   => __('Transparent', 'bb-powerpack')
 						),
 						'toggle'		=> array(
 							'flat'		=> array(
-								'fields'	=> array('bg_color'),
+								'fields'	=> array('bg_color', 'bg_hover_color'),
 								'sections'	=> array('effets'),
 							),
 							'gradient'		=> array(
-								'fields'	=> array('bg_color_gradient', 'gradient_hover'),
-							),
-							'transparent'		=> array(
-								'fields'	=> array('bg_color_transparent'),
+								'fields'	=> array('bg_color_primary', 'bg_color_secondary', 'gradient_hover'),
 							),
 						),
 					),
@@ -114,9 +328,12 @@ FLBuilder::register_module('PPSmartButtonModule', array(
 							'no'	=> __('No', 'bb-powerpack'),
 						),
 						'toggle'	=> array(
-							'yes'	=> array(
+							'yes'		=> array(
 								'fields'	=> array('icon', 'icon_size', 'icon_position')
 							),
+						),
+						'preview'	=> array(
+							'type'		=> 'none'
 						)
 					),
 					'icon'          => array(
@@ -124,13 +341,13 @@ FLBuilder::register_module('PPSmartButtonModule', array(
 						'label'         => __('Icon', 'bb-powerpack'),
 						'show_remove'   => true
 					),
-					'icon_size'          => array(
-						'type'          => 'text',
+					'icon_size'		=> array(
+						'type'          => 'unit',
 						'label'         => __('Icon Size', 'bb-powerpack'),
-						'size'			=> 5,
-						'maxlength'		=> 3,
 						'default'		=> 16,
-						'description'	=> 'px',
+						'units'			=> array('px'),
+						'slider'		=> true,
+						'responsive'	=> true,
 						'preview'		=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-button .pp-button-icon',
@@ -156,32 +373,13 @@ FLBuilder::register_module('PPSmartButtonModule', array(
 						'type'          => 'link',
 						'label'         => __('Link', 'bb-powerpack'),
 						'placeholder'   => __( 'http://www.example.com', 'bb-powerpack' ),
+						'show_target'	=> true,
+						'show_nofollow'	=> true,
 						'connections'   => array( 'url' ),
 						'preview'       => array(
 							'type'          => 'none'
 						)
 					),
-					'link_target'   => array(
-						'type'          => 'pp-switch',
-						'label'         => __('Link Target', 'bb-powerpack'),
-						'default'       => '_self',
-						'options'       => array(
-							'_self'         => __('Same Window', 'bb-powerpack'),
-							'_blank'        => __('New Window', 'bb-powerpack')
-						),
-						'preview'       => array(
-							'type'          => 'none'
-						)
-					),
-					'link_no_follow'	=> array(
-						'type'				=> 'pp-switch',
-						'label'				=> __('Link No Follow', 'bb-powerpack'),
-						'default'			=> 'no',
-						'options'			=> array(
-							'yes'				=> __('Yes', 'bb-powerpack'),
-							'no'				=> __('No', 'bb-powerpack')
-						)
-					)
 				)
 			),
 			'effets'		=> array(
@@ -233,30 +431,36 @@ FLBuilder::register_module('PPSmartButtonModule', array(
 				'title'         => __('Colors', 'bb-powerpack'),
 				'fields'        => array(
 					'bg_color'      => array(
-						'type'          => 'pp-color',
-						'label'         => __('Background', 'bb-powerpack'),
+						'type'          => 'color',
+						'label'         => __('Background Color', 'bb-powerpack'),
+						'default'		=> 'd6d6d6',
 						'show_reset'    => true,
-						'default'       => array(
-							'primary'	=> 'd6d6d6',
-							'secondary'	=> '333333',
+						'show_alpha'	=> true,
+						'preview'		=> array(
+							'type'		=> 'css',
+							'selector'	=> '.pp-button-wrap a.pp-button',
+							'property'	=> 'background',
 						),
-						'options'		=> array(
-							'primary'	=> __('Default', 'bb-powerpack'),
-							'secondary'	=> __('Hover', 'bb-powerpack'),
-						)
 					),
-					'bg_color_gradient'      => array(
-						'type'          => 'pp-color',
-						'label'         => __('Background', 'bb-powerpack'),
+					'bg_hover_color'	=> array(
+						'type'          => 'color',
+						'label'         => __('Background Hover Color', 'bb-powerpack'),
+						'default'		=> '333333',
 						'show_reset'    => true,
-						'default'       => array(
-							'primary'	=> 'dddddd',
-							'secondary'	=> 'b5b5b5',
+						'show_alpha'	=> true,
+						'preview'		=> array(
+							'type'		=> 'none',
 						),
-						'options'		=> array(
-							'primary'	=> __('Primary', 'bb-powerpack'),
-							'secondary'	=> __('Secondary', 'bb-powerpack'),
-						)
+					),
+					'bg_color_primary'	=> array(
+						'type'          => 'color',
+						'label'         => __('Gradient Color Primary', 'bb-powerpack'),
+						'show_reset'    => true,
+					),
+					'bg_color_secondary'	=> array(
+						'type'          => 'color',
+						'label'         => __('Gradient Color Secondary', 'bb-powerpack'),
+						'show_reset'    => true,
 					),
 					'gradient_hover'	=> array(
 						'type'			=> 'select',
@@ -268,24 +472,25 @@ FLBuilder::register_module('PPSmartButtonModule', array(
 							'secondary'	=> __('Fill Secondary', 'bb-powerpack'),
 						)
 					),
-					'bg_color_transparent'      => array(
-						'type'          => 'color',
-						'label'         => __('Background Hover', 'bb-powerpack'),
-						'show_reset'    => true,
-						'default'       => 'dddddd',
-					),
 					'text_color'    => array(
-						'type'          => 'pp-color',
-						'label'         => __('Text', 'bb-powerpack'),
+						'type'          => 'color',
+						'label'         => __('Text Color', 'bb-powerpack'),
+						'default'		=> '000000',
 						'show_reset'    => true,
-						'default'       => array(
-							'primary'	=> '000000',
-							'secondary'	=> 'dddddd'
+						'preview'		=> array(
+							'type'		=> 'css',
+							'selector'	=> '.pp-button-wrap a.pp-button span',
+							'property'	=> 'background',
 						),
-						'options'		=> array(
-							'primary'	=> __('Default', 'bb-powerpack'),
-							'secondary'	=> __('Hover', 'bb-powerpack'),
-						)
+					),
+					'text_hover_color'    => array(
+						'type'          => 'color',
+						'label'         => __('Text Hover Color', 'bb-powerpack'),
+						'default'		=> 'dddddd',
+						'show_reset'    => true,
+						'preview'		=> array(
+							'type'			=> 'none',
+						),
 					),
 				)
 			),
@@ -305,19 +510,24 @@ FLBuilder::register_module('PPSmartButtonModule', array(
 							'auto'          => array(
 								'fields'        => array('align')
 							),
-							'full'          => array(),
 							'custom'        => array(
 								'fields'        => array('align', 'custom_width')
 							)
 						)
 					),
 					'custom_width'  => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Custom Width', 'bb-powerpack'),
 						'default'       => '200',
-						'maxlength'     => '3',
-						'size'          => '5',
-						'description'   => 'px',
+						'responsive'	=> true,
+						'slider'		=> array(
+							'px'			=> array(
+								'min'			=> 0,
+								'max'			=> 1000,
+								'step'			=> 10,
+							),
+						),
+						'units'   		=> array('px', 'vw', '%'),
 						'preview'		=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-button-wrap a.pp-button',
@@ -326,235 +536,51 @@ FLBuilder::register_module('PPSmartButtonModule', array(
 						),
 					),
 					'align'         => array(
-						'type'          => 'pp-switch',
-						'label'         => __('Button Alignment', 'bb-powerpack'),
+						'type'          => 'align',
+						'label'         => __('Alignment', 'bb-powerpack'),
 						'default'       => 'left',
-						'options'       => array(
-							'left'          => __('Left', 'bb-powerpack'),
-							'center'        => __('Center', 'bb-powerpack'),
-							'right'         => __('Right', 'bb-powerpack')
-						)
-					),
-					'border_type'	=> array(
-						'type'		=> 'pp-switch',
-						'label'		=> __('Border Style', 'bb-powerpack'),
-						'default'	=> 'none',
-						'options'	=> array(
-							'none'	=> __('None', 'bb-powerpack'),
-							'solid'	=> __('Solid', 'bb-powerpack'),
-							'dashed'	=> __('Dashed', 'bb-powerpack'),
-							'dotted'	=> __('Dotted', 'bb-powerpack'),
-						),
-						'toggle'	=> array(
-							'dashed'	=> array(
-								'fields'	=> array('border_size', 'border_color'),
-							),
-							'dotted'	=> array(
-								'fields'	=> array('border_size', 'border_color'),
-							),
-							'solid'	=> array(
-								'fields'	=> array('border_size', 'border_color'),
-							),
-						),
-					),
-					'border_size'   => array(
-						'type'          => 'text',
-						'label'         => __('Border Width', 'bb-powerpack'),
-						'default'       => '2',
-						'description'   => 'px',
-						'maxlength'     => '3',
-						'size'          => '5',
-						'placeholder'   => '0',
-						'preview'		=> array(
-							'type'		=> 'css',
-							'selector'	=> '.pp-button-wrap a.pp-button',
-							'property'	=> 'border-width',
-							'unit'		=> 'px'
-						),
-					),
-					'border_color'   => array(
-						'type'          => 'pp-color',
-						'label'         => __('Border Colors', 'bb-powerpack'),
-						'show_reset'	=> true,
-						'default'       => array(
-							'primary'	=> '333333',
-							'secondary'	=> 'dddddd',
-						),
-						'options'		=> array(
-							'primary'	=> __('Default', 'bb-powerpack'),
-							'secondary'	=> __('Hover', 'bb-powerpack'),
-						),
+						'responsive'	=> true
 					),
 					'padding'       => array(
-						'type'          => 'pp-multitext',
+						'type'          => 'dimension',
 						'label'         => __('Padding', 'bb-powerpack'),
-						'maxlength'     => '3',
-						'size'          => '4',
-						'description'   => 'px',
-						'default'       => array(
-							'top'		=> 5,
-							'bottom'	=> 5,
-							'left'		=> 10,
-							'right'		=> 10,
-						),
-						'options'		=> array(
-							'top'		=> array(
-								'placeholder'	=> __('Top', 'bb-powerpack'),
-								'icon'			=> 'fa-long-arrow-up',
-								'maxlength'		=> '3',
-								'tooltip'		=> __('Top', 'bb-powerpack'),
-								'preview'		=> array(
-									'type'		=> 'css',
-									'selector'	=> '.pp-button-wrap a.pp-button',
-									'property'	=> 'padding-top',
-									'unit'		=> 'px'
-								),
-							),
-							'bottom'		=> array(
-								'placeholder'	=> __('Bottom', 'bb-powerpack'),
-								'icon'			=> 'fa-long-arrow-down',
-								'maxlength'		=> '3',
-								'tooltip'		=> __('Bottom', 'bb-powerpack'),
-								'preview'		=> array(
-									'type'		=> 'css',
-									'selector'	=> '.pp-button-wrap a.pp-button',
-									'property'	=> 'padding-bottom',
-									'unit'		=> 'px'
-								),
-							),
-							'left'		=> array(
-								'placeholder'	=> __('Left', 'bb-powerpack'),
-								'icon'			=> 'fa-long-arrow-left',
-								'maxlength'		=> '3',
-								'tooltip'		=> __('Left', 'bb-powerpack'),
-								'preview'		=> array(
-									'type'		=> 'css',
-									'selector'	=> '.pp-button-wrap a.pp-button',
-									'property'	=> 'padding-left',
-									'unit'		=> 'px'
-								),
-							),
-							'right'		=> array(
-								'placeholder'	=> __('Right', 'bb-powerpack'),
-								'icon'			=> 'fa-long-arrow-right',
-								'maxlength'		=> '3',
-								'tooltip'		=> __('Right', 'bb-powerpack'),
-								'preview'		=> array(
-									'type'		=> 'css',
-									'selector'	=> '.pp-button-wrap a.pp-button',
-									'property'	=> 'padding-right',
-									'unit'		=> 'px'
-								),
-							),
+						'responsive'	=> true,
+						'slider'		=> true,
+						'units'   		=> array('px'),
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-button-wrap a.pp-button',
+							'property'		=> 'padding',
+							'unit'			=> 'px'
 						)
 					),
-					'border_radius' => array(
-						'type'          => 'text',
-						'label'         => __('Round Corners', 'bb-powerpack'),
-						'default'       => '0',
-						'maxlength'     => '3',
-						'size'          => '4',
-						'description'   => 'px',
-						'preview'		=> array(
-							'type'		=> 'css',
-							'selector'	=> '.pp-button-wrap a.pp-button',
-							'property'	=> 'border-radius',
-							'unit'		=> 'px'
+				)
+			),
+			'border'       => array(
+				'title'         => __( 'Border', 'bb-powerpack' ),
+				'fields'        => array(
+					'border' 		=> array(
+						'type'          => 'border',
+						'label'         => __( 'Border', 'bb-powerpack' ),
+						'responsive'	=> true,
+						'preview'       => array(
+							'type'          => 'css',
+							'selector'		=> '.pp-button-wrap a.pp-button',
+							'important'		=> true,
 						),
 					),
-					'button_shadow'     => array(
-                        'type'              => 'pp-switch',
-                        'label'             => __('Enable Shadow', 'bb-powerpack'),
-                        'default'           => 'no',
-                        'options'           => array(
-                            'yes'               => __('Yes', 'bb-powerpack'),
-                            'no'               => __('No', 'bb-powerpack')
-                        ),
-                        'toggle'            => array(
-                            'yes'               => array(
-                                'sections'         	=> array('button_shadow')
-                            )
-                        )
-                    ),
-				)
+					'border_hover_color' => array(
+						'type'          => 'color',
+						'label'         => __( 'Border Hover Color', 'bb-powerpack' ),
+						'default'       => '',
+						'show_reset'    => true,
+						'show_alpha'    => true,
+						'preview'       => array(
+							'type'          => 'none',
+						),
+					),
+				),
 			),
-			'button_shadow'		=> array(
-				'title'				=> __('Box Shadow'),
-				'fields'			=> array(
-					'box_shadow' 		=> array(
-						'type'              => 'pp-multitext',
-						'label'             => __('Box Shadow', 'bb-powerpack'),
-						'default'           => array(
-							'vertical'			=> 2,
-							'horizontal'		=> 2,
-							'blur'				=> 2,
-							'spread'			=> 1
-						),
-						'options'			=> array(
-							'vertical'			=> array(
-								'placeholder'		=> __('Horizontal', 'bb-powerpack'),
-								'tooltip'			=> __('Horizontal', 'bb-powerpack'),
-								'icon'				=> 'fa-arrows-h'
-							),
-							'horizontal'		=> array(
-								'placeholder'		=> __('Vertical', 'bb-powerpack'),
-								'tooltip'			=> __('Vertical', 'bb-powerpack'),
-								'icon'				=> 'fa-arrows-v'
-							),
-							'blur'				=> array(
-								'placeholder'		=> __('Blur', 'bb-powerpack'),
-								'tooltip'			=> __('Blur', 'bb-powerpack'),
-								'icon'				=> 'fa-circle-o'
-							),
-							'spread'			=> array(
-								'placeholder'		=> __('Spread', 'bb-powerpack'),
-								'tooltip'			=> __('Spread', 'bb-powerpack'),
-								'icon'				=> 'fa-paint-brush'
-							),
-						)
-					),
-					'box_shadow_color'		=> array(
-						'type'					=> 'color',
-						'label'					=> __('Color', 'bb-powerpack'),
-						'default'				=> '000000'
-					),
-					'box_shadow_opacity'	=> array(
-						'type'					=> 'text',
-						'label'					=> __('Opacity', 'bb-powerpack'),
-						'default'				=> 0.3,
-						'size'					=> 4,
-						'description'			=> __('between 0 to 1', 'bb-powerpack')
-					)
-				)
-			),
-			'responsive'	=> array(
-				'title'			=> __('Responsive', 'bb-powerpack'),
-				'fields'		=> array(
-					'responsive_bp' => array(
-					    'type'          => 'text',
-					    'label'         => __('Breakpoint', 'bb-powerpack'),
-						'description'	=> 'px',
-					    'default'       => 768,
-						'size'			=> 4,
-						'preview'		=> array(
-							'type'			=> 'none'
-						)
-					),
-					'responsive_align' => array(
-					    'type'          => 'pp-switch',
-					    'label'         => __('Button Alignment', 'bb-powerpack'),
-					    'default'       => 'center',
-					    'options'       => array(
-					        'left'          => __('Left', 'bb-powerpack'),
-					        'center'        => __('Center', 'bb-powerpack'),
-					        'right'         => __('Right', 'bb-powerpack')
-					    ),
-						'preview'		=> array(
-							'type'			=> 'none'
-						)
-					),
-				)
-			)
 		)
 	),
 	'typography'	=> array(
@@ -563,99 +589,15 @@ FLBuilder::register_module('PPSmartButtonModule', array(
 			'text_fonts'	=> array(
 				'title'		=> '',
 				'fields'	=> array(
-					'font' => array(
-                        'type'  => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
+					'typography'    => array(
+						'type'        	=> 'typography',
+						'label'       	=> __( 'Typography', 'bb-powerpack' ),
+						'responsive'  	=> true,
 						'preview'		=> array(
-							'type'		=> 'font',
-							'selector'	=> '.pp-button-wrap a.pp-button',
-						),
-                    ),
-					'font_size'     => array(
-						'type'          => 'pp-multitext',
-						'label'         => __('Font Size', 'bb-powerpack'),
-						'default'       => array(
-							'desktop'	=> 18,
-							'tablet'	=> '',
-							'mobile'	=> '',
-						),
-						'options'		=> array(
-							'desktop'	=> array(
-								'placeholder'	=> __('Desktop', 'bb-powerpack'),
-								'maxlength'		=> 3,
-								'icon'			=> 'fa-desktop',
-								'tooltip'		=> __('Desktop', 'bb-powerpack'),
-								'preview'		=> array(
-									'selector'	=> '.pp-button-wrap a.pp-button span',
-									'property'	=> 'font-size',
-									'unit'		=> 'px'
-								),
-							),
-							'tablet'	=> array(
-								'placeholder'	=> __('Tablet', 'bb-powerpack'),
-								'maxlength'		=> 3,
-								'icon'			=> 'fa-tablet',
-								'tooltip'		=> __('Tablet', 'bb-powerpack'),
-							),
-							'mobile'	=> array(
-								'placeholder'	=> __('Mobile', 'bb-powerpack'),
-								'maxlength'		=> 3,
-								'icon'			=> 'fa-mobile',
-								'tooltip'		=> __('Mobile', 'bb-powerpack'),
-							),
+							'type'			=> 'css',
+							'selector'		=> '.pp-button-wrap a.pp-button',
 						),
 					),
-					'line_height'     => array(
-						'type'          => 'pp-multitext',
-						'label'         => __('Line Height', 'bb-powerpack'),
-						'default'       => array(
-							'desktop'	=> 1.6,
-							'tablet'	=> '',
-							'mobile'	=> '',
-						),
-						'options'		=> array(
-							'desktop'	=> array(
-								'placeholder'	=> __('Desktop', 'bb-powerpack'),
-								'maxlength'		=> 3,
-								'icon'			=> 'fa-desktop',
-								'tooltip'		=> __('Desktop', 'bb-powerpack'),
-								'preview'		=> array(
-									'selector'	=> '.pp-button-wrap a.pp-button',
-									'property'	=> 'line-height',
-								),
-							),
-							'tablet'	=> array(
-								'placeholder'	=> __('Tablet', 'bb-powerpack'),
-								'maxlength'		=> 3,
-								'icon'			=> 'fa-tablet',
-								'tooltip'		=> __('Tablet', 'bb-powerpack'),
-							),
-							'mobile'	=> array(
-								'placeholder'	=> __('Mobile', 'bb-powerpack'),
-								'maxlength'		=> 3,
-								'icon'			=> 'fa-mobile',
-								'tooltip'		=> __('Mobile', 'bb-powerpack'),
-							),
-						),
-					),
-					'letter_spacing'     => array(
-                        'type'                      => 'text',
-                        'label'                     => __('Letter Spacing', 'bb-powerpack'),
-                        'class'                     => 'bb-box-input input-small',
-                        'default'                   => 0,
-                        'description'               => 'px',
-						'size'						=> 5,
-                        'preview'                   => array(
-                            'type'                      => 'css',
-							'selector'                  => '.pp-button-wrap a.pp-button .pp-button-text',
-							'property'                  => 'letter-spacing',
-							'unit'                      => 'px'
-                        )
-                    )
 				),
 			),
 		),

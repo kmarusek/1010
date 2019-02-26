@@ -23,17 +23,127 @@ class PPInfoBannerModule extends FLBuilderModule {
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
             'partial_refresh'   => true,
-            'icon'				=> 'star-filled.svg',
         ));
     }
+	public function filter_settings( $settings, $helper ) {
+		// Handle Form Background opacity + color field.
+        if ( isset( $settings->form_background_opacity ) ) {
+            $opacity = $settings->form_background_opacity >= 0 ? $settings->form_background_opacity : 1;
+            $colorForm = $settings->form_bg_color;
 
+            if ( ! empty( $colorForm ) ) {
+                $colorForm = pp_hex2rgba( pp_get_color_value( $colorForm ), $opacity );
+                $settings->form_bg_color = $colorForm;
+            }
+
+            unset( $settings->form_background_opacity );
+		}
+		// Handle old Button Link fields.
+		$settings = PP_Module_Fields::handle_link_field( $settings, array(
+			'button_link'	=> array(
+				'type'			=> 'link'
+			),
+			'button_target'	=> array(
+				'type'			=> 'target'
+			)
+		), 'button_link' );
+
+		// Handle old Banner border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'banner_border_type'	=> array(
+				'type'				=> 'style',
+			),
+			'banner_border_width'	=> array(
+				'type'				=> 'width',
+			),
+			'banner_border_color'	=> array(
+				'type'				=> 'color',
+			),
+			'banner_border_radius'	=> array(
+				'type'				=> 'radius',
+			),
+		), 'banner_border_group' );
+
+		// Handle old Banner Button border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'banner_button_border_type'	=> array(
+				'type'				=> 'style',
+			),
+			'banner_button_border_width'	=> array(
+				'type'				=> 'width',
+			),
+			'banner_button_border_color'	=> array(
+				'type'				=> 'color',
+			),
+			'banner_button_border_radius'	=> array(
+				'type'				=> 'radius',
+			),
+		), 'banner_button_border_group' );
+
+		if ( isset( $settings->banner_info_padding ) ) {
+			$settings->banner_info_padding_group_top = $settings->banner_info_padding;
+			unset($settings->banner_info_padding);
+		}
+		if ( isset( $settings->banner_info_padding_b ) ) {
+			$settings->banner_info_padding_group_bottom = $settings->banner_info_padding_b;
+			unset($settings->banner_info_padding_b);
+		}
+		if ( isset( $settings->banner_info_padding_l ) ) {
+			$settings->banner_info_padding_group_left = $settings->banner_info_padding_l;
+			unset($settings->banner_info_padding_l);
+		}
+		if ( isset( $settings->banner_info_padding_r ) ) {
+			$settings->banner_info_padding_group_right = $settings->banner_info_padding_r;
+			unset($settings->banner_info_padding_r);
+		}
+
+		// Handle title's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'banner_title_font'	=> array(
+				'type'			=> 'font'
+			),
+			'banner_title_font_size'	=> array(
+				'type'          => 'font_size',
+			),
+			'banner_title_alignment'	=> array(
+				'type'			=> 'text_align',
+			),
+			'banner_title_line_height'	=> array(
+				'type'			=> 'line_height',
+			),
+			'banner_title_spacing'	=> array(
+				'type'			=> 'letter_spacing',
+			),
+		), 'banner_title_typography' );
+
+		return $settings;
+	}
+
+	/**
+	 * Returns button link rel based on settings
+	 * @since 2.6.9
+	 */
+	public function get_rel() {
+		$rel = array();
+		if ( '_blank' == $this->settings->button_link_target ) {
+			$rel[] = 'noopener';
+		}
+		if ( isset( $this->settings->button_link_nofollow ) && 'yes' == $this->settings->button_link_nofollow ) {
+			$rel[] = 'nofollow';
+		}
+		$rel = implode( ' ', $rel );
+		if ( $rel ) {
+			$rel = ' rel="' . $rel . '" ';
+		}
+		return $rel;
+	}
 }
 
 /**
  * Register the module and its form settings.
  */
 FLBuilder::register_module('PPInfoBannerModule', array(
-    'info_banner_image' => array(
+    'info_banner_image'			=> array(
         'title'             => __('Image', 'bb-powerpack'),
         'sections'          => array(
             'image_section'     => array( // Section
@@ -125,10 +235,10 @@ FLBuilder::register_module('PPInfoBannerModule', array(
                         )
                     ),
 					'banner_image_height'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Height', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
+                        'units'			=> array('px'),
+                        'slider'		=> true,
                         'default'       => '400',
                         'preview'       => array(
                             'type'      => 'css',
@@ -173,10 +283,10 @@ FLBuilder::register_module('PPInfoBannerModule', array(
                         )
                     ),
                     'banner_image_transition_duration'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Animation Duration', 'bb-powerpack'),
-                        'description'   => 'ms',
-                        'class'         => 'bb-info-banner-input input-small',
+                        'units'			=> array('ms'),
+                        'slider'		=> true,
                         'default'       => '1000',
                         'show_reset'    => true,
                         'preview'       => array(
@@ -189,7 +299,8 @@ FLBuilder::register_module('PPInfoBannerModule', array(
                 )
             ),
             'banner_overlay'    => array(
-                'title'             => __('Overlay', 'bb-powerpack'),
+				'title'             => __('Overlay', 'bb-powerpack'),
+				'collapsed'			=> true,
                 'fields'            => array(
                     'banner_bg_overlay'    => array(
                         'type'          => 'color',
@@ -203,10 +314,10 @@ FLBuilder::register_module('PPInfoBannerModule', array(
                         )
                     ),
                     'banner_bg_opacity'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Overlay Opacity', 'bb-powerpack'),
                         'description'   => __('between 0 to 1', 'bb-powerpack'),
-                        'class'         => 'bb-info-banner-input input-small',
+                        'slider'        => true,
                         'default'       => '0.5',
                         'preview'       => array(
                             'type'      => 'css',
@@ -218,10 +329,10 @@ FLBuilder::register_module('PPInfoBannerModule', array(
             )
         )
     ),
-    'info_banner_tab'       => array( // Tab
+    'info_banner_tab'			=> array( // Tab
         'title'         => __('Content', 'bb-powerpack'), // Tab title
         'sections'      => array( // Tab Sections
-            'banner_section'       => array( // Section
+            'banner_section'	=> array( // Section
                 'title'        => __('Banner Content', 'bb-powerpack'), // Section Title
                 'fields'       => array( // Section Fields
                     'banner_title'   => array(
@@ -281,25 +392,26 @@ FLBuilder::register_module('PPInfoBannerModule', array(
                             'rollIn'          => __('Roll In', 'bb-powerpack'),
                             'zoomIn'          => __('Zoom In', 'bb-powerpack'),
                         )
-                   ),
-                   'banner_info_transition_duration' => array(
-                       'type'          => 'text',
-                       'label'         => __('Animation Duration', 'bb-powerpack'),
-                       'description'   => 'ms',
-                       'class'         => 'bb-info-banner-input input-small',
-                       'default'       => '1000',
-                       'preview'       => array(
-                           'type'      => 'css',
-                           'selector'  => '.pp-info-banner-content .info-banner-wrap',
-                           'property'  => 'width',
-                           'unit'      => 'ms'
-                       )
-                   ),
-                )
+					),
+					'banner_info_transition_duration' => array(
+						'type'          => 'unit',
+						'label'         => __('Animation Duration', 'bb-powerpack'),
+						'units'			=> array('ms'),
+						'slider'		=> true,
+						'default'       => '1000',
+						'preview'       => array(
+							'type'      => 'css',
+							'selector'  => '.pp-info-banner-content .info-banner-wrap',
+							'property'  => 'width',
+							'unit'      => 'ms'
+						)
+					),
+				)
             ),
-			'button_section'       => array( // Section
-                'title'        => __('Link', 'bb-powerpack'), // Section Title
-                'fields'       => array( // Section Fields
+			'button_section'	=> array( // Section
+				'title'			=> __('Link', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
+                'fields'		=> array( // Section Fields
                     'link_type'     => array(
                         'type'          => 'pp-switch',
                         'label'         => __('Link Type', 'bb-powerpack'),
@@ -325,49 +437,40 @@ FLBuilder::register_module('PPInfoBannerModule', array(
                             'selector'  => '.pp-info-banner-content .banner-button',
                         )
                     ),
-					'button_link'          => array(
+					'button_link'	=> array(
 						'type'          => 'link',
 						'label'         => __('Link', 'bb-powerpack'),
-                        'connections'   => array( 'url' ),
-					),
-					'button_target'   => array(
-						'type'          => 'select',
-						'label'         => __('Link Target', 'bb-powerpack'),
-						'default'       => '_self',
-						'options'       => array(
-							'_self'         => __('Same Window', 'bb-powerpack'),
-							'_blank'        => __('New Window', 'bb-powerpack')
-						),
-						'preview'         => array(
-							'type'            => 'none'
-						)
+						'connections'   => array( 'url' ),
+						'show_target'	=> true,
+						'show_nofollow'	=> true,
 					),
                 )
             ),
         )
     ),
-    'style'       => array( // Tab
-        'title'         => __('Style', 'bb-powerpack'), // Tab title
-        'sections'      => array( // Tab Sections
-            'banner_style'      => array( // Section
-                'title'         => __('Banner', 'bb-powerpack'), // Section Title
-                'fields'        => array( // Section Fields
-                    'banner_bg_color'    => array(
+    'style'						=> array(
+        'title'         => __('Style', 'bb-powerpack'),
+        'sections'      => array(
+            'banner_style'      => array(
+                'title'         => __('Banner', 'bb-powerpack'),
+                'fields'        => array(
+                    'banner_bg_color'		=> array(
                         'type'          => 'color',
                         'label'         => __('Background Color', 'bb-powerpack'),
                         'default'       => 'f3f3f3',
                         'show_reset'    => true,
-                        'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-info-banner-content',
-                            'property'        => 'background-color'
+                        'show_alpha'    => true,
+                        'preview'		=> array(
+                            'type'			=> 'css',
+                            'selector'		=> '.pp-info-banner-content',
+                            'property'		=> 'background-color'
                         )
                     ),
-                    'banner_min_height'   => array(
-                        'type'          => 'text',
+                    'banner_min_height'		=> array(
+                        'type'          => 'unit',
                         'label'         => __('Height', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
+                        'units'			=> array('px'),
+                        'slider'		=> true,
                         'default'       => '300',
                         'preview'       => array(
                             'type'      => 'css',
@@ -376,7 +479,7 @@ FLBuilder::register_module('PPInfoBannerModule', array(
                             'unit'      => 'px'
                         )
                     ),
-					'banner_info_alignment'    => array(
+					'banner_info_alignment'	=> array(
                         'type'          => 'pp-switch',
                         'label'         => __('Content Alignment', 'bb-powerpack'),
                         'default'       => 'info-left',
@@ -385,126 +488,34 @@ FLBuilder::register_module('PPInfoBannerModule', array(
                             'info-center'     => __('Center', 'bb-powerpack'),
                             'info-right'      => __('Right', 'bb-powerpack'),
                         )
-                    ),
-                    'banner_border_type'    => array(
-                        'type'          => 'select',
-                        'label'         => __('Border', 'bb-powerpack'),
-                        'default'       => 'no-border',
-                        'options'       => array(
-                            'no-border'      => __('None', 'bb-powerpack'),
-                            'solid'     => __('Solid', 'bb-powerpack'),
-                            'dashed'    => __('Dashed', 'bb-powerpack'),
-							'dotted'      => __('Dotted', 'bb-powerpack'),
-                            'double'     => __('Double', 'bb-powerpack'),
+					),
+					'banner_border_group'	=> array(
+						'type'					=> 'border',
+						'label'					=> __('Border Style', 'bb-powerpack'),
+						'responsive'			=> true,
+						'preview'				=> array(
+							'type'					=> 'css',
+							'selector'				=> '.pp-info-banner-content',
+						),
+					),
+					'banner_info_padding_group'	=> array(
+                        'type'				=> 'dimension',
+                        'label'				=> __('Padding', 'bb-powerpack'),
+						'slider'			=> true,
+						'units'				=> array( 'px', '%' ),
+                        'preview'			=> array(
+                            'type'				=> 'css',
+                            'selector'			=> '.pp-info-banner-content .info-banner-wrap',
+                            'property'			=> 'padding',
+                            'unit'				=> 'px'
                         ),
-                        'toggle'   => array(
-                             'solid'    => array(
-                                 'fields'   => array('banner_border_color', 'banner_border_width')
-                             ),
-                             'dashed'    => array(
-                                 'fields'   => array('banner_border_color', 'banner_border_width')
-                             ),
-                             'dotted'    => array(
-                                 'fields'   => array('banner_border_color', 'banner_border_width')
-                             ),
-                             'double'    => array(
-                                 'fields'   => array('banner_border_color', 'banner_border_width')
-                             )
-                         )
-                    ),
-                    'banner_border_color'    => array(
-                        'type'          => 'color',
-                        'label'         => __('Border Color', 'bb-powerpack'),
-                        'default'       => 'f3f3f3',
-                        'show_reset'    => true,
-                        'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-info-banner-content',
-                            'property'        => 'border-color'
-                        )
-                    ),
-                    'banner_border_width'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Border Width', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
-                        'default'       => '1',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-info-banner-content',
-                            'property'  => 'border-width',
-                            'unit'      => 'px'
-                        )
-                    ),
-					'banner_border_radius'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Round Corners', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
-                        'default'       => '',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-info-banner-content',
-                            'property'  => 'border-radius',
-                            'unit'      => 'px'
-                        )
-                    ),
-					'banner_info_padding'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Padding Top', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
-                        'default'       => '20',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-info-banner-content .info-banner-wrap',
-                            'property'  => 'padding-top',
-                            'unit'      => 'px'
-                        )
-                    ),
-                    'banner_info_padding_b'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Padding Bottom', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
-                        'default'       => '20',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-info-banner-content .info-banner-wrap',
-                            'property'  => 'padding-bottom',
-                            'unit'      => 'px'
-                        )
-                    ),
-                    'banner_info_padding_l'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Padding Left', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
-                        'default'       => '20',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-info-banner-content .info-banner-wrap',
-                            'property'  => 'padding-left',
-                            'unit'      => 'px'
-                        )
-                    ),
-                    'banner_info_padding_r'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Padding Right', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
-                        'default'       => '20',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-info-banner-content .info-banner-wrap',
-                            'property'  => 'padding-right',
-                            'unit'      => 'px'
-                        )
-                    ),
+                        'responsive'		=> true,
+					),
                 )
             ),
-            'banner_title_style'      => array( // Section
-                'title'         => __('Title', 'bb-powerpack'), // Section Title
+            'banner_title_style'		=> array(
+				'title'         => __('Title', 'bb-powerpack'),
+				'collapsed'		=> true,
                 'fields'        => array(
 					'banner_title_color'    => array(
                         'type'          => 'color',
@@ -555,10 +566,10 @@ FLBuilder::register_module('PPInfoBannerModule', array(
                         )
                     ),
                     'banner_title_border_width'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Border Width', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
+                        'units'			=> array('px'),
+                        'slider'		=> true,
                         'default'       => '1',
                         'preview'       => array(
                             'type'      => 'css',
@@ -586,10 +597,10 @@ FLBuilder::register_module('PPInfoBannerModule', array(
                         )
                     ),
                     'banner_title_margin'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Margin Bottom', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
+                        'units'			=> array('px'),
+                        'slider'		=> true,
                         'default'       => '5',
                         'preview'       => array(
                             'type'      => 'css',
@@ -597,63 +608,25 @@ FLBuilder::register_module('PPInfoBannerModule', array(
                             'property'  => 'margin-bottom',
                             'unit'      => 'px'
                         )
-                    ),
-                    'banner_title_padding_top'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Padding Top', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
-                        'default'       => '0',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-info-banner-content .banner-title',
-                            'property'  => 'padding-top',
-                            'unit'      => 'px'
-                        )
-                    ),
-                    'banner_title_padding_bottom'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Padding Bottom', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
-                        'default'       => '0',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-info-banner-content .banner-title',
-                            'property'  => 'padding-bottom',
-                            'unit'      => 'px'
-                        )
-                    ),
-                    'banner_title_padding_left'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Padding Left', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
-                        'default'       => '0',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-info-banner-content .banner-title',
-                            'property'  => 'padding-left',
-                            'unit'      => 'px'
-                        )
-                    ),
-                    'banner_title_padding_right'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Padding Right', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
-                        'default'       => '0',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-info-banner-content .banner-title',
-                            'property'  => 'padding-right',
-                            'unit'      => 'px'
-                        )
-                    ),
+					),
+					'banner_title_padding'	=> array(
+                        'type'				=> 'dimension',
+                        'label'				=> __('Padding', 'bb-powerpack'),
+						'slider'			=> true,
+						'units'				=> array( 'px' ),
+                        'preview'			=> array(
+                            'type'				=> 'css',
+                            'selector'			=> '.pp-info-banner-content .banner-title',
+                            'property'			=> 'padding',
+                            'unit'				=> 'px'
+                        ),
+                        'responsive'		=> true,
+					),
                 )
             ),
-            'banner_description_style'      => array( // Section
-                'title'         => __('Description', 'bb-powerpack'), // Section Title
+            'banner_description_style'	=> array(
+				'title'         => __('Description', 'bb-powerpack'),
+				'collapsed'		=> true,
                 'fields'        => array(
 					'banner_desc_color'    => array(
                         'type'          => 'color',
@@ -667,10 +640,10 @@ FLBuilder::register_module('PPInfoBannerModule', array(
                         )
                     ),
 					'banner_desc_margin'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Margin Bottom', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
+                        'units'			=> array('px'),
+                        'slider'		=> true,
                         'default'       => '10',
                         'preview'       => array(
                             'type'      => 'css',
@@ -678,87 +651,51 @@ FLBuilder::register_module('PPInfoBannerModule', array(
                             'property'  => 'margin-bottom',
                             'unit'      => 'px'
                         )
-                    ),
-                    'banner_desc_padding_top'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Padding Top', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
-                        'default'       => '0',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-info-banner-content .banner-description',
-                            'property'  => 'padding-top',
-                            'unit'      => 'px'
-                        )
-                    ),
-                    'banner_desc_padding_bottom'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Padding Bottom', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
-                        'default'       => '0',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-info-banner-content .banner-description',
-                            'property'  => 'padding-bottom',
-                            'unit'      => 'px'
-                        )
-                    ),
-                    'banner_desc_padding_left'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Padding Left', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
-                        'default'       => '0',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-info-banner-content .banner-description',
-                            'property'  => 'padding-left',
-                            'unit'      => 'px'
-                        )
-                    ),
-                    'banner_desc_padding_right'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Padding Right', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
-                        'default'       => '0',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-info-banner-content .banner-description',
-                            'property'  => 'padding-right',
-                            'unit'      => 'px'
-                        )
-                    ),
+					),
+					'banner_desc_padding'	=> array(
+                        'type'				=> 'dimension',
+                        'label'				=> __('Padding', 'bb-powerpack'),
+						'slider'			=> true,
+						'units'				=> array( 'px' ),
+                        'preview'			=> array(
+                            'type'				=> 'css',
+                            'selector'			=> '.pp-info-banner-content .banner-description',
+                            'property'			=> 'padding',
+                            'unit'				=> 'px'
+                        ),
+                        'responsive'		=> true,
+					),
                 )
             ),
-			'banner_button_style'       => array( // Section
-                'title'         => __('Button', 'bb-powerpack'), // Section Title
-                'fields'        => array( // Section Fields
-                    'banner_button_bg_color'    => array(
+			'banner_button_style'       => array(
+				'title'         => __('Button', 'bb-powerpack'),
+				'collapsed'		=> true,
+                'fields'        => array(
+                    'banner_button_bg_color'		=> array(
                         'type'          => 'color',
                         'label'         => __('Background Color', 'bb-powerpack'),
                         'default'       => 'ffffff',
                         'show_reset'    => true,
+                        'show_alpha'    => true,
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-info-banner-content .banner-button',
                             'property'        => 'background-color'
                         )
                     ),
-                    'banner_button_bg_hover_color'    => array(
+                    'banner_button_bg_hover_color'	=> array(
                         'type'          => 'color',
                         'label'         => __('Background Hover Color', 'bb-powerpack'),
                         'default'       => 'ffffff',
                         'show_reset'    => true,
+                        'show_alpha'    => true,
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-info-banner-content .banner-button:hover',
                             'property'        => 'background-color'
                         )
                     ),
-					'banner_button_text_color'    => array(
+					'banner_button_text_color'		=> array(
                         'type'          => 'color',
                         'label'         => __('Text Color', 'bb-powerpack'),
                         'default'       => '333333',
@@ -769,7 +706,7 @@ FLBuilder::register_module('PPInfoBannerModule', array(
                             'property'        => 'color'
                         )
                     ),
-					'banner_button_text_hover'    => array(
+					'banner_button_text_hover'		=> array(
                         'type'          => 'color',
                         'label'         => __('Text Hover Color', 'bb-powerpack'),
                         'default'       => 'cccccc',
@@ -779,45 +716,17 @@ FLBuilder::register_module('PPInfoBannerModule', array(
                             'selector'        => '.pp-info-banner-content .banner-button:hover',
                             'property'        => 'color'
                         )
-                    ),
-                    'banner_button_border_type'    => array(
-                        'type'          => 'select',
-                        'label'         => __('Border', 'bb-powerpack'),
-                        'default'       => 'no-border',
-                        'options'       => array(
-                            'no-border'      => __('None', 'bb-powerpack'),
-                            'solid'     => __('Solid', 'bb-powerpack'),
-                            'dashed'    => __('Dashed', 'bb-powerpack'),
-							'dotted'      => __('Dotted', 'bb-powerpack'),
-                            'double'     => __('Double', 'bb-powerpack'),
-                        ),
-                        'toggle'   => array(
-                             'solid'    => array(
-                                 'fields'   => array('banner_button_border_color', 'banner_button_border_hover', 'banner_button_border_width')
-                             ),
-                             'dashed'    => array(
-                                 'fields'   => array('banner_button_border_color', 'banner_button_border_hover', 'banner_button_border_width')
-                             ),
-                             'dotted'    => array(
-                                 'fields'   => array('banner_button_border_color', 'banner_button_border_hover', 'banner_button_border_width')
-                             ),
-                             'double'    => array(
-                                 'fields'   => array('banner_button_border_color', 'banner_button_border_hover', 'banner_button_border_width')
-                             )
-                         )
-                    ),
-                    'banner_button_border_color'    => array(
-                        'type'          => 'color',
-                        'label'         => __('Border Color', 'bb-powerpack'),
-                        'default'       => '333333',
-                        'show_reset'    => true,
-                        'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-info-banner-content .banner-button',
-                            'property'        => 'border-color'
-                        )
-                    ),
-                    'banner_button_border_hover'    => array(
+					),
+					'banner_button_border_group'	=> array(
+						'type'					=> 'border',
+						'label'					=> __('Border Style', 'bb-powerpack'),
+						'responsive'			=> true,
+						'preview'				=> array(
+							'type'					=> 'css',
+							'selector'				=> '.pp-info-banner-content .banner-button',
+						),
+					),
+                    'banner_button_border_hover'	=> array(
                         'type'          => 'color',
                         'label'         => __('Border Hover Color', 'bb-powerpack'),
                         'default'       => '222222',
@@ -827,150 +736,46 @@ FLBuilder::register_module('PPInfoBannerModule', array(
                             'selector'        => '.pp-info-banner-content .banner-button:hover',
                             'property'        => 'border-color'
                         )
-                    ),
-					'banner_button_border_width'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Border Width', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
-                        'default'       => '1',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-info-banner-content .banner-button',
-                            'property'  => 'border-width',
-                            'unit'      => 'px'
-                        )
-                    ),
-					'banner_button_border_radius'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Round Corners', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
-                        'default'       => '0',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-info-banner-content .banner-button',
-                            'property'  => 'border-radius',
-                            'unit'      => 'px'
-                        )
-                    ),
-                    'banner_button_padding_top'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Padding Top', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
-                        'default'       => '10',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-info-banner-content .banner-button',
-                            'property'  => 'padding-top',
-                            'unit'      => 'px'
-                        )
-                    ),
-                    'banner_button_padding_bottom'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Padding Bottom', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
-                        'default'       => '10',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-info-banner-content .banner-button',
-                            'property'  => 'padding-bottom',
-                            'unit'      => 'px'
-                        )
-                    ),
-					'banner_button_padding_left'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Padding Left', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
-                        'default'       => '10',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-info-banner-content .banner-button',
-                            'property'  => 'padding-left',
-                            'unit'      => 'px'
-                        )
-                    ),
-                    'banner_button_padding_right'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Padding Right', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
-                        'default'       => '10',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-info-banner-content .banner-button',
-                            'property'  => 'padding-right',
-                            'unit'      => 'px'
-                        )
-                    ),
+					),
+					'banner_button_padding'			=> array(
+                        'type'				=> 'dimension',
+                        'label'				=> __('Padding', 'bb-powerpack'),
+						'slider'			=> true,
+						'units'				=> array( 'px' ),
+                        'preview'			=> array(
+                            'type'				=> 'css',
+                            'selector'			=> '.pp-info-banner-content .banner-button',
+                            'property'			=> 'padding',
+                            'unit'				=> 'px'
+                        ),
+                        'responsive'		=> true,
+					),
                 )
             )
         )
     ),
-    'banner_typography' => array(
+    'banner_typography'			=> array(
         'title'             => __('Typography', 'bb-powerpack'),
         'sections'          => array(
             'title_typography'  => array(
                 'title'             => __('Title', 'bb-powerpack'),
                 'fields'            => array(
-                    'banner_title_font' => array(
-                        'type'          => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.pp-info-banner-content .banner-title'
-                        )
-                    ),
-                    'banner_title_font_size'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Font Size', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
-                        'default'       => '40',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-info-banner-content .banner-title',
-                            'property'  => 'font-size',
-                            'unit'      => 'px'
-                        )
-                    ),
-					'banner_title_line_height'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Line Height', 'bb-powerpack'),
-                        'class'         => 'bb-info-banner-input input-small',
-                        'default'       => '1',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-info-banner-content .banner-title',
-                            'property'  => 'line-height',
-                        )
-                    ),
-                    'banner_title_spacing'  => array(
-                        'type'                  => 'text',
-                        'label'                 => __('Letter Spacing', 'bb-powerpack'),
-                        'description'           => 'px',
-                        'class'                 => 'bb-info-banner-input input-small',
-                        'default'               => '',
-                        'preview'               => array(
-                            'type'                  => 'css',
-                            'selector'              => '.pp-info-banner-content .banner-title',
-                            'property'              => 'letter-spacing',
-                            'unit'                  => 'px'
-                        )
-                    )
+					'banner_title_typography'	=> array(
+						'type'        	   => 'typography',
+						'label'       	   => __( 'Typography', 'bb-powerpack' ),
+						'responsive'  	   => true,
+						'preview'          => array(
+							'type'         		=> 'css',
+							'selector' 		    => '.pp-info-banner-content .banner-title',
+						),
+					),
                 )
             ),
             'desc_typography'   => array(
-                'title'             => __('Description', 'bb-powerpack'),
+				'title'             => __('Description', 'bb-powerpack'),
+				'collapsed'			=> true,
                 'fields'            => array(
-                    'banner_desc_font' => array(
+                    'banner_desc_font'		=> array(
                         'type'          => 'font',
                         'default'		=> array(
                             'family'		=> 'Default',
@@ -982,11 +787,11 @@ FLBuilder::register_module('PPInfoBannerModule', array(
                             'selector'        => '.pp-info-banner-content .banner-description'
                         )
                     ),
-					'banner_desc_font_size'   => array(
-                        'type'          => 'text',
+					'banner_desc_font_size'	=> array(
+                        'type'          => 'unit',
                         'label'         => __('Font Size', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
+                        'units'			=> array('px'),
+                        'slider'		=> true,
                         'default'       => '20',
                         'preview'       => array(
                             'type'      => 'css',
@@ -998,7 +803,8 @@ FLBuilder::register_module('PPInfoBannerModule', array(
                 )
             ),
             'button_typography' => array(
-                'title'             => __('Button', 'bb-powerpack'),
+				'title'             => __('Button', 'bb-powerpack'),
+				'collapsed'			=> true,
                 'fields'            => array(
                     'banner_button_font' => array(
                         'type'          => 'font',
@@ -1015,8 +821,8 @@ FLBuilder::register_module('PPInfoBannerModule', array(
 					'banner_button_font_size'   => array(
                         'type'          => 'text',
                         'label'         => __('Font Size', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
+                        'units'			=> array('px'),
+                        'slider'		=> true,
                         'default'       => '16',
                         'preview'       => array(
                             'type'      => 'css',
@@ -1029,24 +835,24 @@ FLBuilder::register_module('PPInfoBannerModule', array(
             )
         )
     ),
-    'banner_responsive_style'       => array( // Tab
+    'banner_responsive_style'	=> array( // Tab
         'title'         => __('Responsive', 'bb-powerpack'), // Tab title
         'sections'      => array( // Tab Sections
             'banner_breakpoint1_style'      => array( // Section
                 'title'         => __('Break Point 1 Style', 'bb-powerpack'), // Section Title
                 'fields'        => array( // Section Fields
                     'banner_bp1'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Break Point', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
+                        'units'			=> array('px'),
+                        'slider'		=> true,
                         'default'       => '960',
                     ),
                     'banner_bp1_min_height'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Banner Height', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
+                        'units'			=> array('px'),
+                        'slider'		=> true,
                         'default'       => '300',
                         'preview'       => array(
                             'type'      => 'css',
@@ -1056,10 +862,10 @@ FLBuilder::register_module('PPInfoBannerModule', array(
                         )
                     ),
                     'banner_bp1_title_font_size'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Title Font Size', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
+                        'units'			=> array('px'),
+                        'slider'		=> true,
                         'default'       => '34',
                         'preview'       => array(
                             'type'      => 'css',
@@ -1069,10 +875,10 @@ FLBuilder::register_module('PPInfoBannerModule', array(
                         )
                     ),
                     'banner_bp1_desc_font_size'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Description Font Size', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
+                        'units'			=> array('px'),
+                        'slider'		=> true,
                         'default'       => '18',
                         'preview'       => array(
                             'type'      => 'css',
@@ -1082,10 +888,10 @@ FLBuilder::register_module('PPInfoBannerModule', array(
                         )
                     ),
                     'banner_bp1_button_font_size'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Button Font Size', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
+                        'units'			=> array('px'),
+                        'slider'		=> true,
                         'default'       => '18',
                         'preview'       => array(
                             'type'      => 'css',
@@ -1097,81 +903,83 @@ FLBuilder::register_module('PPInfoBannerModule', array(
                 )
             ),
             'banner_breakpoint2_style'      => array( // Section
-                'title'         => __('Break Point 2 Style', 'bb-powerpack'), // Section Title
+				'title'         => __('Break Point 2 Style', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
                 'fields'        => array( // Section Fields
                     'banner_bp2'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Break Point', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
+                        'units'			=> array('px'),
+						'slider'		=> true,
                         'default'       => '768',
                     ),
                     'banner_bp2_min_height'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Banner Height', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
+                        'units'			=> array('px'),
+                        'slider'		=> true,
                         'default'       => '250',
                     ),
                     'banner_bp2_title_font_size'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Title Font Size', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
+                        'units'			=> array('px'),
+                        'slider'		=> true,
                         'default'       => '30',
                     ),
                     'banner_bp2_desc_font_size'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Description Font Size', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
+                        'units'			=> array('px'),
+                        'slider'		=> true,
                         'default'       => '16',
                     ),
                     'banner_bp2_button_font_size'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __(' Button Font Size', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
+                        'units'			=> array('px'),
+                        'slider'		=> true,
                         'default'       => '16',
                     ),
                 )
             ),
             'banner_breakpoint3_style'      => array( // Section
-                'title'         => __('Break Point 3 Style', 'bb-powerpack'), // Section Title
+				'title'         => __('Break Point 3 Style', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
                 'fields'        => array( // Section Fields
                     'banner_bp3'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Break Point', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
+                        'units'			=> array('px'),
+						'slider'		=> true,
                         'default'       => '480',
                     ),
                     'banner_bp3_min_height'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Banner Height', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
+                        'units'			=> array('px'),
+                        'slider'		=> true,
                         'default'       => '200',
                     ),
                     'banner_bp3_title_font_size'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Title Font Size', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
+                        'units'			=> array('px'),
+                        'slider'		=> true,
                         'default'       => '26',
                     ),
                     'banner_bp3_desc_font_size'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Description Font Size', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
+                        'units'			=> array('px'),
+                        'slider'		=> true,
                         'default'       => '14',
                     ),
                     'banner_bp3_button_font_size'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Button Font Size', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-info-banner-input input-small',
+                        'units'			=> array('px'),
+                        'slider'		=> true,
                         'default'       => '14',
                     ),
                 )

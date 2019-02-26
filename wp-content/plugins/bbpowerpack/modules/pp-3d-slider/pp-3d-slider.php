@@ -22,7 +22,6 @@ class PP3dSliderModule extends FLBuilderModule {
             'url'           => BB_POWERPACK_URL . 'modules/pp-3d-slider/',
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
-            'icon'				=> 'slides.svg',
         ));
 
 		$this->add_css( BB_POWERPACK()->fa_css );
@@ -140,6 +139,19 @@ class PP3dSliderModule extends FLBuilderModule {
 
 		return $photos;
 	}
+	public function filter_settings( $settings, $helper ) {
+				// Handle old Form border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'photo_border'	=> array(
+				'type'				=> 'width',
+			),
+			'photo_border_color'	=> array(
+				'type'				=> 'color',
+			),
+		), 'photo_border_group' );
+
+		return $settings;
+	}
 }
 
 /**
@@ -158,7 +170,7 @@ FLBuilder::register_module('PP3dSliderModule', array(
                         'connections'   => array( 'multiple-photos' ),
                         'help'          => __('Upload minimum of 3 photos.', 'bb-powerpack')
                     ),
-					'show_captions' => array(
+					'show_captions'			=> array(
 						'type'          => 'pp-switch',
 						'label'         => __('Show Captions', 'bb-powerpack'),
 						'default'       => 'no',
@@ -173,7 +185,7 @@ FLBuilder::register_module('PP3dSliderModule', array(
                         ),
 						'help'          => __('The caption pulls from whatever text you put in the caption area in the media manager for each image.', 'bb-powerpack')
 					),
-                    'autoplay'  => array(
+                    'autoplay'				=> array(
                         'type'      => 'pp-switch',
                         'label'     => __('Autoplay', 'bb-powerpack'),
                         'default'   => 'no',
@@ -190,14 +202,14 @@ FLBuilder::register_module('PP3dSliderModule', array(
                             )
                         ),
                     ),
-                    'autoplay_interval' => array(
-                        'type'              => 'text',
+                    'autoplay_interval'		=> array(
+                        'type'              => 'unit',
                         'label'             => __('Interval', 'bb-powerpack'),
                         'default'           => 2,
-                        'size'              => 5,
-                        'description'       => __('seconds', 'bb-powerpack')
+                        'slider'			=> true,
+                        'units'				=> array('seconds'),
                     ),
-                    'link_target'   => array(
+                    'link_target'			=> array(
                         'type'          => 'select',
                         'label'         => __('Custom Link Target', 'bb-powerpack'),
                         'default'       => '_self',
@@ -207,7 +219,7 @@ FLBuilder::register_module('PP3dSliderModule', array(
                         ),
                         'help'          => __('You can set custom link to photos in media modal where you uploaded them and set the link target here.', 'bb-powerpack')
 					),
-					'lightbox'  => array(
+					'lightbox'				=> array(
                         'type'      => 'pp-switch',
                         'label'     => __('Lightbox', 'bb-powerpack'),
                         'default'   => 'no',
@@ -230,7 +242,7 @@ FLBuilder::register_module('PP3dSliderModule', array(
 							'full'		=> __('Full', 'bb-powerpack')
 						)
 					),
-					'lightbox_caption'	=> array(
+					'lightbox_caption'		=> array(
 						'type'		=> 'pp-switch',
 						'label'		=> __('Show Caption in Lightbox', 'bb-powerpack'),
 						'default'	=> 'yes',
@@ -259,76 +271,24 @@ FLBuilder::register_module('PP3dSliderModule', array(
                         ),
                         'toggle'                => array(
                             'yes'                   => array(
-                                'fields'                => array('photo_border', 'photo_border_color')
+                                'fields'                => array('photo_border_group')
                             )
                         )
-                    ),
-                    'photo_border'  => array(
-                        'type'          => 'pp-multitext',
-                        'label'         => __('Border', 'bb-powerpack'),
-						'default'       => array(
-							'top'			=> 0,
-							'bottom'	    => 0,
-							'left'			=> 0,
-							'right'		    => 0
+					),
+					'photo_border_group'	=> array(
+						'type'					=> 'border',
+						'label'					=> __('Border Style', 'bb-powerpack'),
+						'responsive'			=> true,
+						'preview'				=> array(
+							'type'					=> 'css',
+							'selector'				=> '.pp-3d-slider .pp-slider-img',
 						),
-                        'options'           => array(
-                            'top'               => array(
-                                'placeholder'       => __('Top', 'bb-powerpack'),
-                                'icon'              => 'fa-long-arrow-up',
-                                'preview'           => array(
-                                    'selector'          => '.pp-3d-slider .pp-slider-img',
-                                    'property'          => 'border-top-width',
-                                    'unit'              => 'px'
-                                ),
-                                'tooltip'           => __('Top', 'bb-powerpack')
-                            ),
-                            'bottom'            => array(
-                                'placeholder'       => __('Bottom', 'bb-powerpack'),
-                                'icon'              => 'fa-long-arrow-down',
-                                'preview'           => array(
-                                    'selector'          => '.pp-3d-slider .pp-slider-img',
-                                    'property'          => 'border-bottom-width',
-                                    'unit'              => 'px'
-                                ),
-                                'tooltip'           => __('Bottom', 'bb-powerpack')
-                            ),
-                            'left'            => array(
-                                'placeholder'       => __('Left', 'bb-powerpack'),
-                                'icon'              => 'fa-long-arrow-left',
-                                'preview'           => array(
-                                    'selector'          => '.pp-3d-slider .pp-slider-img',
-                                    'property'          => 'border-left-width',
-                                    'unit'              => 'px'
-                                ),
-                                'tooltip'           => __('Left', 'bb-powerpack')
-                            ),
-                            'right'            => array(
-                                'placeholder'       => __('Right', 'bb-powerpack'),
-                                'icon'              => 'fa-long-arrow-right',
-                                'preview'           => array(
-                                    'selector'          => '.pp-3d-slider .pp-slider-img',
-                                    'property'          => 'border-right-width',
-                                    'unit'              => 'px'
-                                ),
-                                'tooltip'           => __('Right', 'bb-powerpack')
-                            ),
-                        )
-                    ),
-                    'photo_border_color'    => array(
-                        'type'                  => 'color',
-                        'label'                 => __('Border Color', 'bb-powerpack'),
-                        'default'               => '',
-                        'preview'               => array(
-                            'type'                  => 'css',
-                            'selector'              => '.pp-3d-slider .pp-slider-img',
-                            'property'              => 'border-color',
-                        )
-                    )
+					),
                 )
             ),
             'captions_style'    => array(
-                'title'             => __('Caption', 'bb-powerpack'),
+				'title'             => __('Caption', 'bb-powerpack'),
+				'collapsed'			=> true,
                 'fields'            => array(
                     'caption_color'      => array(
                         'type'              => 'color',
@@ -344,7 +304,8 @@ FLBuilder::register_module('PP3dSliderModule', array(
                 )
             ),
             'nav_style'     => array(
-                'title'             => __('Navigation Arrows', 'bb-powerpack'),
+				'title'             => __('Navigation Arrows', 'bb-powerpack'),
+				'collapsed'			=> true,
                 'fields'            => array(
                     'arrow_color'       => array(
                         'type'              => 'color',
@@ -371,6 +332,7 @@ FLBuilder::register_module('PP3dSliderModule', array(
                         'label'             => __('Background Color', 'bb-powerpack'),
                         'default'           => '',
                         'show_reset'        => true,
+                        'show_alpha'        => true,
                         'preview'           => array(
                             'type'              => 'css',
                             'selector'          => '.pp-3d-slider .pp-slider-nav .fa',
@@ -382,16 +344,17 @@ FLBuilder::register_module('PP3dSliderModule', array(
                         'label'                 => __('Background Hover Color', 'bb-powerpack'),
                         'default'               => '',
                         'show_reset'            => true,
+                        'show_alpha'            => true,
                         'preview'               => array(
                             'type'                  => 'none'
                         )
                     ),
                     'arrow_radius'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Round Corners', 'bb-powerpack'),
                         'default'       => 0,
-                        'description'   => '%',
-                        'size'          => 5,
+                        'units'			=> array('%'),
+                        'slider'		=> true,
                         'preview'       => array(
                             'type'          => 'css',
                             'selector'      => '.pp-3d-slider .pp-slider-nav .fa',

@@ -58,7 +58,6 @@
 						'bg_hover_color'    => $settings->btn_bg_hover_color,
 						'bg_opacity'        => $settings->btn_bg_opacity,
 						'bg_hover_opacity'  => $settings->btn_bg_hover_opacity,
-						'border_radius'     => $settings->btn_border_radius,
 						'icon'              => $settings->btn_icon,
 						'icon_position'     => $settings->btn_icon_position,
 						'icon_animation'    => $settings->btn_icon_animation,

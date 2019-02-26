@@ -27,7 +27,7 @@
 						<div class="pp-timeline-text">
 							<?php echo $timeline->content; ?>
 							<?php if( $timeline->button_text ) { ?>
-								<a class="pp-timeline-button" href="<?php echo $timeline->button_link; ?>" target="<?php echo $timeline->button_target; ?>">
+								<a class="pp-timeline-button" href="<?php echo $timeline->button_link; ?>"<?php if( isset( $timeline->button_link_target ) ) {?> target="<?php echo $timeline->button_link_target; ?>"<?php } ?>>
 									<?php echo $timeline->button_text; ?>
 								</a>
 							<?php } ?>

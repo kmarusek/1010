@@ -1,35 +1,31 @@
+<?php
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'headline_typography',
+	'selector'		=> ".fl-node-$id .pp-headline"
+) );
+?>
 .fl-node-<?php echo $id; ?> .pp-headline {
 	text-align: <?php echo $settings->alignment; ?>;
-	<?php if ( $settings->font_family['family'] != 'Default' ) {
-        FLBuilderFonts::font_css( $settings->font_family );
-    } ?>
-	<?php if ( $settings->font_size == 'custom' ) { ?>
-		font-size: <?php echo $settings->font_size_custom; ?>px;
-	<?php } ?>
-	<?php if ( $settings->line_height == 'custom' ) { ?>
-		line-height: <?php echo $settings->line_height_custom; ?>;
-	<?php } ?>
-	<?php if ( $settings->color != '' ) { ?>
+	<?php if ( ! empty( $settings->color ) ) { ?>
 		color: #<?php echo $settings->color; ?>;
 	<?php } ?>
 }
+<?php
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'animated_typography',
+	'selector'		=> ".fl-node-$id .pp-headline-dynamic-wrapper"
+) );
+?>
 .fl-node-<?php echo $id; ?> .pp-headline-dynamic-wrapper {
-	<?php if ( $settings->animated_font_family['family'] != 'Default' ) {
-        FLBuilderFonts::font_css( $settings->animated_font_family );
-    } ?>
-	<?php if ( $settings->animated_font_size == 'custom' ) { ?>
-		font-size: <?php echo $settings->animated_font_size_custom; ?>px;
-	<?php } ?>
-	<?php if ( $settings->animated_line_height == 'custom' ) { ?>
-		line-height: <?php echo $settings->animated_line_height_custom; ?>;
-	<?php } ?>
 	<?php if ( $settings->animated_color != '' ) { ?>
 		color: #<?php echo $settings->animated_color; ?>;
 	<?php } ?>
 }
 .fl-node-<?php echo $id; ?> .pp-headline-dynamic-wrapper.pp-headline-typing-selected {
 	<?php if ( ! empty( $settings->animated_selection_bg_color ) ) { ?>
-	background-color: #<?php echo $settings->animated_selection_bg_color; ?>;
+	background-color: <?php echo pp_get_color_value( $settings->animated_selection_bg_color ); ?>;
 	<?php } ?>
 }
 .fl-node-<?php echo $id; ?> .pp-headline-dynamic-wrapper.pp-headline-typing-selected .pp-headline-dynamic-text {
@@ -44,42 +40,4 @@
 	<?php if ( $settings->shape_color ) { ?>
 		stroke: #<?php echo $settings->shape_color; ?>;
 	<?php } ?>
-}
-
-@media only screen and (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) {
-	.fl-node-<?php echo $id; ?> .pp-headline {
-		<?php if ( $settings->font_size == 'custom' ) { ?>
-			font-size: <?php echo $settings->font_size_custom_medium; ?>px;
-		<?php } ?>
-		<?php if ( $settings->line_height == 'custom' ) { ?>
-			line-height: <?php echo $settings->line_height_custom_medium; ?>;
-		<?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-headline-dynamic-wrapper {
-		<?php if ( $settings->animated_font_size == 'custom' ) { ?>
-			font-size: <?php echo $settings->animated_font_size_custom_medium; ?>px;
-		<?php } ?>
-		<?php if ( $settings->animated_line_height == 'custom' ) { ?>
-			line-height: <?php echo $settings->animated_line_height_custom_medium; ?>;
-		<?php } ?>
-	}
-}
-
-@media only screen and (max-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
-	.fl-node-<?php echo $id; ?> .pp-headline {
-		<?php if ( $settings->font_size == 'custom' ) { ?>
-			font-size: <?php echo $settings->font_size_custom_responsive; ?>px;
-		<?php } ?>
-		<?php if ( $settings->line_height == 'custom' ) { ?>
-			line-height: <?php echo $settings->line_height_custom_responsive; ?>;
-		<?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-headline-dynamic-wrapper {
-		<?php if ( $settings->animated_font_size == 'custom' ) { ?>
-			font-size: <?php echo $settings->animated_font_size_custom_responsive; ?>px;
-		<?php } ?>
-		<?php if ( $settings->animated_line_height == 'custom' ) { ?>
-			line-height: <?php echo $settings->animated_line_height_custom_responsive; ?>;
-		<?php } ?>
-	}
 }

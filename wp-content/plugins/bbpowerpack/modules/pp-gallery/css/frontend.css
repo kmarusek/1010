@@ -63,6 +63,14 @@ div.fancybox-container {
 	visibility: visible !important;
 }
 
+.pp-photo-gallery.justified-gallery .pp-photo-gallery-content {
+	height: 100%;
+}
+
+.pp-photo-gallery.justified-gallery .pp-photo-gallery-content .pp-caption {
+	color: #fff;
+}
+
 .pp-gallery-pagination .pp-gallery-load-more {
 	display: inline-block;
 	text-align: center;

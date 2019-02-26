@@ -37,7 +37,9 @@
     float: right;
 }
 .fl-node-<?php echo $id; ?> .pp-dotnav .pp-dot a .pp-dot-circle {
-    background-color: <?php echo $settings->dot_color ? '#' . $settings->dot_color : 'transparent'; ?>;
+	<?php if ( isset( $settings->dot_color ) && ! empty( $settings->dot_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->dot_color ); ?>;
+	<?php } ?>
     border: 0;
     border-width: <?php echo $settings->dot_border_width; ?>px;
     border-color: <?php echo $settings->dot_border_color ? '#' . $settings->dot_border_color : 'transparent'; ?>;
@@ -56,7 +58,9 @@
     transition: all 0.3s ease;
 }
 .fl-node-<?php echo $id; ?> .pp-dotnav .pp-dot a:hover .pp-dot-circle {
-    background-color: <?php echo $settings->dot_color_hover ? '#' . $settings->dot_color_hover : 'transparent'; ?>;
+	<?php if ( isset( $settings->dot_color_hover ) && ! empty( $settings->dot_color_hover ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->dot_color_hover ); ?>;
+	<?php } ?>
     border-color: <?php echo $settings->dot_border_color_hover ? '#' . $settings->dot_border_color_hover : 'transparent'; ?>;
     -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
@@ -64,12 +68,16 @@
     transition: all 0.3s ease;
 }
 .fl-node-<?php echo $id; ?> .pp-dotnav .pp-dot.active .pp-dot-circle {
-    background-color: <?php echo $settings->dot_color_active ? '#' . $settings->dot_color_active : 'transparent'; ?>;
+	<?php if ( isset( $settings->dot_color_active ) && ! empty( $settings->dot_color_active ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->dot_color_active ); ?>;
+	<?php } ?>
     border-color: <?php echo $settings->dot_border_color_active ? '#' . $settings->dot_border_color_active : 'transparent'; ?>;
 }
 .fl-node-<?php echo $id; ?> .pp-dotnav .pp-dot .pp-label {
     opacity: 0;
-    background-color: <?php echo $settings->dot_label_color ? '#' . $settings->dot_label_color : 'transparent'; ?>;
+	<?php if ( isset( $settings->dot_label_color ) && ! empty( $settings->dot_label_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->dot_label_color ); ?>;
+	<?php } ?>
     color: #<?php echo $settings->dot_label_text ? $settings->dot_label_text : 'ffffff'; ?>;
     border-radius: 2px;
     font-size: 13px;

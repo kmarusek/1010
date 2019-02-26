@@ -1,4 +1,111 @@
 <?php
+// Form Border - Settings
+FLBuilderCSS::border_field_rule( array(
+	'settings' 		=> $settings,
+	'setting_name' 	=> 'form_border_group',
+	'selector' 		=> ".fl-node-$id .pp-contact-form",
+) );
+// Form Padding
+FLBuilderCSS::dimension_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'form_padding',
+	'selector' 		=> ".fl-node-$id .pp-contact-form",
+	'unit'			=> 'px',
+	'props'			=> array(
+		'padding-top' 		=> 'form_padding_top',
+		'padding-right' 	=> 'form_padding_right',
+		'padding-bottom' 	=> 'form_padding_bottom',
+		'padding-left' 		=> 'form_padding_left',
+	),
+) );
+// Input Padding
+FLBuilderCSS::dimension_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'input_field_padding',
+	'selector' 		=> ".fl-node-$id .pp-contact-form textarea,
+						.fl-node-$id .pp-contact-form input[type=text],
+						.fl-node-$id .pp-contact-form input[type=tel],
+						.fl-node-$id .pp-contact-form input[type=email]",
+	'unit'			=> 'px',
+	'props'			=> array(
+		'padding-top' 		=> 'input_field_padding_top',
+		'padding-right' 	=> 'input_field_padding_right',
+		'padding-bottom' 	=> 'input_field_padding_bottom',
+		'padding-left' 		=> 'input_field_padding_left',
+	),
+) );
+// Button Padding
+FLBuilderCSS::dimension_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'button_padding',
+	'selector' 		=> ".fl-node-$id .pp-contact-form a.fl-button,
+						.fl-node-$id .pp-contact-form a.fl-button:visited",
+	'unit'			=> 'px',
+	'props'			=> array(
+		'padding-top' 		=> 'button_padding_top',
+		'padding-right' 	=> 'button_padding_right',
+		'padding-bottom' 	=> 'button_padding_bottom',
+		'padding-left' 		=> 'button_padding_left',
+	),
+) );
+// Form Title Typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'title_typography',
+	'selector' 		=> ".fl-node-$id .pp-contact-form .pp-form-title",
+) );
+// Form description Typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'description_typography',
+	'selector' 		=> ".fl-node-$id .pp-contact-form .pp-form-description",
+) );
+// Form Input Typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'input_typography',
+	'selector' 		=> ".fl-node-$id .pp-contact-form textarea,
+						.fl-node-$id .pp-contact-form input[type=text],
+						.fl-node-$id .pp-contact-form input[type=tel],
+						.fl-node-$id .pp-contact-form input[type=email]",
+) );
+// Form Checkbox Typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'checkbox_typography',
+	'selector' 		=> ".fl-node-$id .pp-contact-form .pp-checkbox label",
+) );
+// Form Button Typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'button_typography',
+	'selector' 		=> ".fl-node-$id .pp-contact-form a.fl-button,
+						.fl-node-$id .pp-contact-form a.fl-button:visited",
+) );
+// Label Font
+FLBuilderCSS::responsive_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'label_font_size',
+	'selector'		=> ".fl-node-$id .pp-contact-form label",
+	'prop'			=> 'font-size',
+	'unit'			=> 'px',
+) );
+// Validation Error Font
+FLBuilderCSS::responsive_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'validation_error_font_size',
+	'selector'		=> ".fl-node-$id .pp-contact-form .pp-contact-error",
+	'prop'			=> 'font-size',
+	'unit'			=> 'px',
+) );
+// Success Message Error Font
+FLBuilderCSS::responsive_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'success_message_font_size',
+	'selector'		=> ".fl-builder-content .fl-node-$id .pp-success-msg",
+	'prop'			=> 'font-size',
+	'unit'			=> 'px',
+) );
 
 // Background Color
 if ( ! empty( $settings->btn_bg_color ) && empty( $settings->btn_bg_hover_color ) ) {
@@ -26,10 +133,9 @@ if ( ! empty( $settings->btn_bg_hover_color ) ) {
 // Border Size
 if ( 'transparent' == $settings->btn_style ) {
 	$border_size = $settings->btn_border_size;
-}
-else {
-	$border_size = ( isset( $settings->btn_border_width ) && ! empty( $settings->btn_border_width ) ) ? $settings->btn_border_width : 1;
-	$border_color = ( isset( $settings->btn_border_color ) && ! empty( $settings->btn_border_color ) ) ? $settings->btn_border_color : $border_color;
+}else {
+	$border_size 		= ( isset( $settings->btn_border_width ) && ! empty( $settings->btn_border_width ) ) ? $settings->btn_border_width : 1;
+	$border_color 		= ( isset( $settings->btn_border_color ) && ! empty( $settings->btn_border_color ) ) ? $settings->btn_border_color : $border_color;
 	$border_hover_color = ( isset( $settings->btn_border_hover_color ) && ! empty( $settings->btn_border_hover_color ) ) ? $settings->btn_border_hover_color : $border_hover_color;
 }
 
@@ -76,9 +182,9 @@ $border_style = ( isset( $settings->btn_border_style ) ) ? $settings->btn_border
 .fl-node-<?php echo $id; ?> .pp-contact-form a.fl-button,
 .fl-node-<?php echo $id; ?> .pp-contact-form a.fl-button:visited {
 
-	border-radius: <?php echo $settings->btn_border_radius; ?>px;
-	-moz-border-radius: <?php echo $settings->btn_border_radius; ?>px;
 	-webkit-border-radius: <?php echo $settings->btn_border_radius; ?>px;
+	-moz-border-radius: <?php echo $settings->btn_border_radius; ?>px;
+	border-radius: <?php echo $settings->btn_border_radius; ?>px;
 
 	border: <?php echo $border_size; ?>px <?php echo $border_style; ?> #<?php echo $border_color; ?>;
 
@@ -102,30 +208,8 @@ $border_style = ( isset( $settings->btn_border_style ) ) ? $settings->btn_border
 	<?php endif; ?>
 
 	<?php if ( 'full' == $settings->btn_width ) : ?>
-	width: 100%;
+		width: 100%;
 	<?php endif; ?>
-
-	<?php if( $settings->button_font_family['family'] != 'Default' ) { ?>
-    	<?php FLBuilderFonts::font_css( $settings->button_font_family ); ?>
-    <?php } ?>
-	<?php if( $settings->button_font_size['desktop'] && $settings->button_size == 'custom' ) { ?>
-		font-size: <?php echo $settings->button_font_size['desktop']; ?>px;
-	<?php } ?>
-	<?php if ( ! empty( $settings->button_text_transform ) ) { ?>
-		text-transform: <?php echo $settings->button_text_transform; ?>;
-	<?php } ?>
-	<?php if( $settings->button_padding['top'] >= 0 ) { ?>
-		padding-top: <?php echo $settings->button_padding['top']; ?>px;
-	<?php } ?>
-	<?php if( $settings->button_padding['right'] >= 0 ) { ?>
-		padding-right: <?php echo $settings->button_padding['right']; ?>px;
-	<?php } ?>
-	<?php if( $settings->button_padding['bottom'] >= 0 ) { ?>
-		padding-bottom: <?php echo $settings->button_padding['bottom']; ?>px;
-	<?php } ?>
-	<?php if( $settings->button_padding['left'] >= 0 ) { ?>
-		padding-left: <?php echo $settings->button_padding['left']; ?>px;
-	<?php } ?>
 }
 
 <?php if ( ! empty( $settings->btn_text_color ) ) : ?>
@@ -136,6 +220,12 @@ $border_style = ( isset( $settings->btn_border_style ) ) ? $settings->btn_border
 	color: #<?php echo $settings->btn_text_color; ?>;
 }
 <?php endif; ?>
+
+.fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:hover {
+	-webkit-border-radius: <?php echo $settings->btn_border_radius; ?>px;
+	-moz-border-radius: <?php echo $settings->btn_border_radius; ?>px;
+	border-radius: <?php echo $settings->btn_border_radius; ?>px;
+}
 
 <?php if ( 'transparent' != $settings->btn_style ) : ?>
 .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:hover,
@@ -203,7 +293,7 @@ $border_style = ( isset( $settings->btn_border_style ) ) ? $settings->btn_border
 
 
 .fl-node-<?php echo $id; ?> .pp-contact-form {
-	background-color: <?php echo $settings->form_bg_color && $settings->form_bg_type == 'color' ? pp_hex2rgba('#' . $settings->form_bg_color, $settings->form_background_opacity / 100) : 'transparent'; ?>;
+	background-color: <?php echo $settings->form_bg_color && $settings->form_bg_type == 'color' ? pp_get_color_value( $settings->form_bg_color ) : 'transparent'; ?>;
     <?php if( $settings->form_bg_image && $settings->form_bg_type == 'image' ) { ?>
 	background-image: url('<?php echo $settings->form_bg_image_src; ?>');
     <?php } ?>
@@ -213,36 +303,6 @@ $border_style = ( isset( $settings->btn_border_style ) ) ? $settings->btn_border
     <?php if( $settings->form_bg_repeat ) { ?>
     background-repeat: <?php echo $settings->form_bg_repeat; ?>;
     <?php } ?>
-    <?php if( $settings->form_border_width >= 0 ) { ?>
-    border-width: <?php echo $settings->form_border_width; ?>px;
-    <?php } ?>
-    <?php if( $settings->form_border_color ) { ?>
-    border-color: #<?php echo $settings->form_border_color; ?>;
-    <?php } ?>
-    <?php if( $settings->form_border_style ) { ?>
-    border-style: <?php echo $settings->form_border_style; ?>;
-    <?php } ?>
-    <?php if( $settings->form_border_radius >= 0 ) { ?>
-    border-radius: <?php echo $settings->form_border_radius; ?>px;
-    <?php } ?>
-    <?php if ( 'yes' == $settings->form_shadow_display ) { ?>
-        -webkit-box-shadow: <?php echo $settings->form_shadow['horizontal']; ?>px <?php echo $settings->form_shadow['vertical']; ?>px <?php echo $settings->form_shadow['blur']; ?>px <?php echo $settings->form_shadow['spread']; ?>px <?php echo pp_hex2rgba( '#'.$settings->form_shadow_color, $settings->form_shadow_opacity / 100 ); ?>;
-        -moz-box-shadow: <?php echo $settings->form_shadow['horizontal']; ?>px <?php echo $settings->form_shadow['vertical']; ?>px <?php echo $settings->form_shadow['blur']; ?>px <?php echo $settings->form_shadow['spread']; ?>px <?php echo pp_hex2rgba( '#'.$settings->form_shadow_color, $settings->form_shadow_opacity / 100 ); ?>;
-        -o-box-shadow: <?php echo $settings->form_shadow['horizontal']; ?>px <?php echo $settings->form_shadow['vertical']; ?>px <?php echo $settings->form_shadow['blur']; ?>px <?php echo $settings->form_shadow['spread']; ?>px <?php echo pp_hex2rgba( '#'.$settings->form_shadow_color, $settings->form_shadow_opacity / 100 ); ?>;
-        box-shadow: <?php echo $settings->form_shadow['horizontal']; ?>px <?php echo $settings->form_shadow['vertical']; ?>px <?php echo $settings->form_shadow['blur']; ?>px <?php echo $settings->form_shadow['spread']; ?>px <?php echo pp_hex2rgba( '#'.$settings->form_shadow_color, $settings->form_shadow_opacity / 100 ); ?>;
-    <?php } ?>
-    <?php if( $settings->form_padding['top'] >= 0 ) { ?>
-	padding-top: <?php echo $settings->form_padding['top']; ?>px;
-	<?php } ?>
-	<?php if( $settings->form_padding['right'] >= 0 ) { ?>
-	padding-right: <?php echo $settings->form_padding['right']; ?>px;
-	<?php } ?>
-	<?php if( $settings->form_padding['bottom'] >= 0 ) { ?>
-	padding-bottom: <?php echo $settings->form_padding['bottom']; ?>px;
-	<?php } ?>
-	<?php if( $settings->form_padding['left'] >= 0 ) { ?>
-	padding-left: <?php echo $settings->form_padding['left']; ?>px;
-	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-contact-form .pp-form-title,
@@ -256,53 +316,23 @@ $border_style = ( isset( $settings->btn_border_style ) ) ? $settings->btn_border
 	<?php if( $settings->title_color ) { ?>
    color: #<?php echo $settings->title_color; ?>;
    <?php } ?>
-   <?php if( $settings->title_font_size['desktop'] && $settings->title_size == 'custom' ) { ?>
-   font-size: <?php echo $settings->title_font_size['desktop']; ?>px;
-   <?php } ?>
-   <?php if( $settings->title_line_height['desktop'] ) { ?>
-   line-height: <?php echo $settings->title_line_height['desktop']; ?>;
-   <?php } ?>
-   <?php if( $settings->title_font_family['family'] != 'Default' ) { ?>
-   <?php FLBuilderFonts::font_css( $settings->title_font_family ); ?>
-   <?php } ?>
-   <?php if( $settings->title_alignment ) { ?>
-   text-align: <?php echo $settings->title_alignment; ?>;
-   <?php } ?>
    <?php if( $settings->title_margin['top'] >= 0 ) { ?>
    margin-top: <?php echo $settings->title_margin['top']; ?>px;
    <?php } ?>
    <?php if( $settings->title_margin['bottom'] >= 0 ) { ?>
    margin-bottom: <?php echo $settings->title_margin['bottom']; ?>px;
    <?php } ?>
-   <?php if ( ! empty( $settings->title_text_transform ) ) { ?>
-   text-transform: <?php echo $settings->title_text_transform; ?>;
-   <?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-contact-form .pp-form-description {
-	<?php if( $settings->description_font_family['family'] != 'Default' ) { ?>
-    <?php FLBuilderFonts::font_css( $settings->description_font_family ); ?>
-    <?php } ?>
     <?php if( $settings->description_color ) { ?>
     color: #<?php echo $settings->description_color; ?>;
-    <?php } ?>
-    <?php if( $settings->description_font_size['desktop'] && $settings->description_size == 'custom' ) { ?>
-    font-size: <?php echo $settings->description_font_size['desktop']; ?>px;
-    <?php } ?>
-    <?php if( $settings->description_line_height['desktop'] ) { ?>
-    line-height: <?php echo $settings->description_line_height['desktop']; ?>;
-    <?php } ?>
-    <?php if( $settings->description_alignment ) { ?>
-    text-align: <?php echo $settings->description_alignment; ?>;
     <?php } ?>
     <?php if( $settings->description_margin['top'] >= 0 ) { ?>
 	margin-top: <?php echo $settings->description_margin['top']; ?>px;
 	<?php } ?>
 	<?php if( $settings->description_margin['bottom'] >= 0 ) { ?>
 	margin-bottom: <?php echo $settings->description_margin['bottom']; ?>px;
-	<?php } ?>
-	<?php if ( ! empty( $settings->description_text_transform ) ) { ?>
-    text-transform: <?php echo $settings->description_text_transform; ?>;
 	<?php } ?>
 }
 
@@ -361,9 +391,6 @@ $border_style = ( isset( $settings->btn_border_style ) ) ? $settings->btn_border
     <?php if( $settings->display_labels ) { ?>
     display: <?php echo $settings->display_labels; ?>;
     <?php } ?>
-    <?php if( $settings->label_font_size['desktop'] && $settings->label_size == 'custom' ) { ?>
-    font-size: <?php echo $settings->label_font_size['desktop']; ?>px;
-    <?php } ?>
     <?php if( $settings->label_font_family['family'] != 'Default' ) { ?>
     <?php FLBuilderFonts::font_css( $settings->label_font_family ); ?>
     <?php } ?>
@@ -373,17 +400,9 @@ $border_style = ( isset( $settings->btn_border_style ) ) ? $settings->btn_border
 }
 
 .fl-node-<?php echo $id; ?> .pp-contact-form .pp-checkbox label {
-	<?php if ( isset( $settings->checkbox_font_size ) && $settings->checkbox_font_size == 'custom' ) { ?>
-		<?php if ( isset( $settings->checkbox_font_size_custom['desktop'] ) && ! empty( $settings->checkbox_font_size_custom['desktop'] ) ) { ?>
-    		font-size: <?php echo $settings->checkbox_font_size_custom['desktop']; ?>px;
-		<?php } ?>
-    <?php } ?>
 	<?php if ( isset( $settings->checkbox_color ) && ! empty( $settings->checkbox_color ) ) { ?>
 		color: #<?php echo $settings->checkbox_color; ?>;
     <?php } ?>
-	<?php if ( isset( $settings->checkbox_text_transform ) && ! empty( $settings->checkbox_text_transform ) ) { ?>
-		text-transform: <?php echo $settings->checkbox_text_transform; ?>;
-	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-contact-form textarea,
@@ -393,7 +412,7 @@ $border_style = ( isset( $settings->btn_border_style ) ) ? $settings->btn_border
 	<?php if( $settings->input_field_text_color ) { ?>
     color: #<?php echo $settings->input_field_text_color; ?>;
     <?php } ?>
-	background-color: <?php echo $settings->input_field_bg_color ? pp_hex2rgba('#' . $settings->input_field_bg_color, $settings->input_field_background_opacity / 100 ) : 'transparent'; ?>;
+	background-color: <?php echo $settings->input_field_bg_color ? pp_get_color_value( $settings->input_field_bg_color ) : 'transparent'; ?>;
 	border-width: 0;
 	border-color: <?php echo $settings->input_field_border_color ? '#' . $settings->input_field_border_color : 'transparent'; ?>;
     <?php if( $settings->input_field_border_width >= 0 ) { ?>
@@ -414,30 +433,6 @@ $border_style = ( isset( $settings->btn_border_style ) ) ? $settings->btn_border
         -ms-box-shadow: <?php echo ($settings->input_shadow_direction == 'inset') ? $settings->input_shadow_direction : ''; ?> 0 0 10px #<?php echo $settings->input_shadow_color; ?>;
         -o-box-shadow: <?php echo ($settings->input_shadow_direction == 'inset') ? $settings->input_shadow_direction : ''; ?> 0 0 10px #<?php echo $settings->input_shadow_color; ?>;
     <?php } ?>
-    <?php if( $settings->input_field_padding['top'] >= 0 ) { ?>
-    padding-top: <?php echo $settings->input_field_padding['top']; ?>px;
-    <?php } ?>
-    <?php if( $settings->input_field_padding['bottom'] >= 0 ) { ?>
-    padding-bottom: <?php echo $settings->input_field_padding['bottom']; ?>px;
-    <?php } ?>
-    <?php if( $settings->input_field_padding['left'] >= 0 ) { ?>
-    padding-left: <?php echo $settings->input_field_padding['left']; ?>px;
-    <?php } ?>
-    <?php if( $settings->input_field_padding['right'] >= 0 ) { ?>
-    padding-right: <?php echo $settings->input_field_padding['right']; ?>px;
-    <?php } ?>
-    <?php if( $settings->input_field_text_alignment ) { ?>
-    text-align: <?php echo $settings->input_field_text_alignment; ?>;
-    <?php } ?>
-    <?php if( $settings->input_font_family['family'] != 'Default' ) { ?>
-    <?php FLBuilderFonts::font_css( $settings->input_font_family ); ?>
-    <?php } ?>
-    <?php if( $settings->input_font_size['desktop'] && $settings->input_size == 'custom' ) { ?>
-    font-size: <?php echo $settings->input_font_size['desktop']; ?>px;
-    <?php } ?>
-	<?php if ( ! empty( $settings->input_text_transform ) ) { ?>
-    text-transform: <?php echo $settings->input_text_transform; ?>;
-	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-contact-form input[type=text],
@@ -595,13 +590,10 @@ $border_style = ( isset( $settings->btn_border_style ) ) ? $settings->btn_border
 
 .fl-node-<?php echo $id; ?> .pp-contact-form .pp-contact-error {
     <?php if( $settings->validation_message_color ) { ?>
-	color: #<?php echo $settings->validation_message_color; ?>;
+		color: #<?php echo $settings->validation_message_color; ?>;
     <?php } ?>
 	<?php if( $settings->label_font_family['family'] != 'Default' ) { ?>
-    <?php FLBuilderFonts::font_css( $settings->label_font_family ); ?>
-    <?php } ?>
-	<?php if( $settings->validation_error_font_size['desktop'] && $settings->validation_error_size == 'custom' ) { ?>
-    font-size: <?php echo $settings->validation_error_font_size['desktop']; ?>px;
+		<?php FLBuilderFonts::font_css( $settings->label_font_family ); ?>
     <?php } ?>
 }
 
@@ -610,16 +602,13 @@ $border_style = ( isset( $settings->btn_border_style ) ) ? $settings->btn_border
 .fl-node-<?php echo $id; ?> .pp-contact-form .pp-error input[type=tel],
 .fl-node-<?php echo $id; ?> .pp-contact-form .pp-error input[type=email] {
 	<?php if( $settings->validation_field_border_color ) { ?>
-	border-color: #<?php echo $settings->validation_field_border_color; ?>;
+		border-color: #<?php echo $settings->validation_field_border_color; ?>;
     <?php } ?>
 }
 
 .fl-builder-content .fl-node-<?php echo $id; ?> .pp-success-msg {
-	<?php if( $settings->success_message_font_size['desktop'] && $settings->success_message_size == 'custom' ) { ?>
-    font-size: <?php echo $settings->success_message_font_size['desktop']; ?>px;
-    <?php } ?>
 	<?php if( $settings->success_message_color ) { ?>
-	color: #<?php echo $settings->success_message_color; ?>;
+		color: #<?php echo $settings->success_message_color; ?>;
     <?php } ?>
 }
 
@@ -627,57 +616,8 @@ $border_style = ( isset( $settings->btn_border_style ) ) ? $settings->btn_border
 @media only screen and (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) {
 	.fl-builder-content .fl-node-<?php echo $id; ?> .pp-contact-form a.fl-button,
 	.fl-builder-content .fl-node-<?php echo $id; ?> .pp-contact-form a.fl-button:visited {
-		<?php if( $settings->button_font_size['tablet'] && $settings->button_size == 'custom' ) { ?>
-		font-size: <?php echo $settings->button_font_size['tablet']; ?>px;
-		<?php } ?>
 		display: block;
 		text-align: center;
-	}
-	.fl-node-<?php echo $id; ?> .pp-contact-form .pp-form-title {
-	   <?php if( $settings->title_font_size['tablet'] && $settings->title_size == 'custom' ) { ?>
-	   font-size: <?php echo $settings->title_font_size['tablet']; ?>px;
-	   <?php } ?>
-	   <?php if( $settings->title_line_height['tablet'] ) { ?>
-	   line-height: <?php echo $settings->title_line_height['tablet']; ?>;
-	   <?php } ?>
-   	}
-	.fl-node-<?php echo $id; ?> .pp-contact-form .pp-form-description {
-	    <?php if( $settings->description_font_size['tablet'] && $settings->description_size == 'custom' ) { ?>
-	    font-size: <?php echo $settings->description_font_size['tablet']; ?>px;
-	    <?php } ?>
-	    <?php if( $settings->description_line_height['tablet'] ) { ?>
-	    line-height: <?php echo $settings->description_line_height['tablet']; ?>;
-	    <?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-contact-form label {
-	    <?php if( $settings->label_font_size['tablet'] && $settings->label_size == 'custom' ) { ?>
-	    font-size: <?php echo $settings->label_font_size['tablet']; ?>px;
-	    <?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-contact-form .pp-checkbox label {
-		<?php if ( isset( $settings->checkbox_font_size ) && $settings->checkbox_font_size == 'custom' ) { ?>
-			<?php if ( isset( $settings->checkbox_font_size_custom['tablet'] ) && ! empty( $settings->checkbox_font_size_custom['tablet'] ) ) { ?>
-				font-size: <?php echo $settings->checkbox_font_size_custom['tablet']; ?>px;
-			<?php } ?>
-		<?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-contact-form textarea,
-	.fl-node-<?php echo $id; ?> .pp-contact-form input[type=text],
-	.fl-node-<?php echo $id; ?> .pp-contact-form input[type=tel],
-	.fl-node-<?php echo $id; ?> .pp-contact-form input[type=email] {
-		<?php if( $settings->input_font_size['tablet'] && $settings->input_size == 'custom' ) { ?>
-	    font-size: <?php echo $settings->input_font_size['tablet']; ?>px;
-	    <?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-contact-form .pp-contact-error {
-		<?php if( $settings->validation_error_font_size['tablet'] && $settings->validation_error_size == 'custom' ) { ?>
-	    font-size: <?php echo $settings->validation_error_font_size['tablet']; ?>px;
-	    <?php } ?>
-	}
-	.fl-builder-content .fl-node-<?php echo $id; ?> .pp-success-msg {
-		<?php if( $settings->success_message_font_size['tablet'] && $settings->success_message_size == 'custom' ) { ?>
-	    font-size: <?php echo $settings->success_message_font_size['tablet']; ?>px;
-	    <?php } ?>
 	}
 	.fl-node-<?php echo $id; ?> .pp-contact-form.pp-form-inline .pp-input-group {
 		width: 100% !important;
@@ -685,57 +625,3 @@ $border_style = ( isset( $settings->btn_border_style ) ) ? $settings->btn_border
 	}
 }
 
-@media only screen and (max-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
-	.fl-builder-content .fl-node-<?php echo $id; ?> .pp-contact-form a.fl-button,
-	.fl-builder-content .fl-node-<?php echo $id; ?> .pp-contact-form a.fl-button:visited {
-		<?php if( $settings->button_font_size['mobile'] && $settings->button_size == 'custom' ) { ?>
-		font-size: <?php echo $settings->button_font_size['mobile']; ?>px;
-		<?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-contact-form .pp-form-title {
-	   <?php if( $settings->title_font_size['mobile'] && $settings->title_size == 'custom' ) { ?>
-	   font-size: <?php echo $settings->title_font_size['mobile']; ?>px;
-	   <?php } ?>
-	   <?php if( $settings->title_line_height['mobile'] ) { ?>
-	   line-height: <?php echo $settings->title_line_height['mobile']; ?>;
-	   <?php } ?>
-   	}
-	.fl-node-<?php echo $id; ?> .pp-contact-form .pp-form-description {
-	    <?php if( $settings->description_font_size['mobile'] && $settings->description_size == 'custom' ) { ?>
-	    font-size: <?php echo $settings->description_font_size['mobile']; ?>px;
-	    <?php } ?>
-	    <?php if( $settings->description_line_height['mobile'] ) { ?>
-	    line-height: <?php echo $settings->description_line_height['mobile']; ?>;
-	    <?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-contact-form label {
-	    <?php if( $settings->label_font_size['mobile'] && $settings->label_size == 'custom' ) { ?>
-	    font-size: <?php echo $settings->label_font_size['mobile']; ?>px;
-	    <?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-contact-form .pp-checkbox label {
-		<?php if ( isset( $settings->checkbox_font_size ) && $settings->checkbox_font_size == 'custom' ) { ?>
-			<?php if ( isset( $settings->checkbox_font_size_custom['mobile'] ) && ! empty( $settings->checkbox_font_size_custom['mobile'] ) ) { ?>
-				font-size: <?php echo $settings->checkbox_font_size_custom['mobile']; ?>px;
-			<?php } ?>
-		<?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-contact-form textarea,
-	.fl-node-<?php echo $id; ?> .pp-contact-form input[type=text],
-	.fl-node-<?php echo $id; ?> .pp-contact-form input[type=tel],
-	.fl-node-<?php echo $id; ?> .pp-contact-form input[type=email] {
-		<?php if( $settings->input_font_size['mobile'] && $settings->input_size == 'custom' ) { ?>
-	    font-size: <?php echo $settings->input_font_size['mobile']; ?>px;
-	    <?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-contact-form .pp-contact-error {
-		<?php if( $settings->validation_error_font_size['mobile'] && $settings->validation_error_size == 'custom' ) { ?>
-	    font-size: <?php echo $settings->validation_error_font_size['mobile']; ?>px;
-	    <?php } ?>
-	}
-	.fl-builder-content .fl-node-<?php echo $id; ?> .pp-success-msg {
-		<?php if( $settings->success_message_font_size['mobile'] && $settings->success_message_size == 'custom' ) { ?>
-	    font-size: <?php echo $settings->success_message_font_size['mobile']; ?>px;
-	    <?php } ?>
-	}
-}

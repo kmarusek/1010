@@ -1,20 +1,40 @@
-.fl-node-<?php echo $id; ?> .pp-image-panels-wrap .pp-panel-item {
-	height: <?php echo $settings->panel_height ?>px;
-}
+<?php
+// Panel - Height
+FLBuilderCSS::responsive_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'panel_height',
+	'selector'		=> ".fl-node-$id .pp-image-panels-wrap .pp-panel-item",
+	'prop'			=> 'height',
+	'unit'			=> 'px',
+) );
+?>
 .fl-node-<?php echo $id; ?> .pp-image-panels-wrap .pp-panel-item .pp-panel-title h3 {
 	<?php if ( 'no' == $settings->show_title ) { ?>
 	display: none;
 	<?php } ?>
-	font-size: <?php echo $settings->title_font_size['title_font_size_desktop']; ?>px;
-	<?php if( $settings->title_font['family']	!= 'Default' ) { ?><?php FLBuilderFonts::font_css( $settings->title_font ); ?><?php } ?>
-	line-height: <?php echo $settings->title_line_height['title_line_height_desktop']; ?>;
-	padding-top: <?php echo $settings->title_padding['title_top_padding']; ?>px;
-	padding-right: <?php echo $settings->title_padding['title_right_padding']; ?>px;
-	padding-bottom: <?php echo $settings->title_padding['title_bottom_padding']; ?>px;
-	padding-left: <?php echo $settings->title_padding['title_left_padding']; ?>px;
-	text-align: <?php echo $settings->title_alignment; ?>;
 }
 <?php
+// Title Typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'title_typography',
+	'selector' 		=> ".fl-node-$id .pp-image-panels-wrap .pp-panel-item .pp-panel-title h3",
+) );
+
+// Title - Padding
+FLBuilderCSS::dimension_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'title_padding',
+	'selector' 		=> ".fl-node-$id .pp-image-panels-wrap .pp-panel-item .pp-panel-title h3",
+	'unit'			=> 'px',
+	'props'			=> array(
+		'padding-top' 		=> 'title_padding_top',
+		'padding-right' 	=> 'title_padding_right',
+		'padding-bottom' 	=> 'title_padding_bottom',
+		'padding-left' 		=> 'title_padding_left',
+	),
+) );
+
 $number_panels = count($settings->image_panels);
 for( $i = 0; $i < $number_panels; $i++ ) {
 	$panel = $settings->image_panels[$i];
@@ -41,16 +61,16 @@ for( $i = 0; $i < $number_panels; $i++ ) {
 		<?php } ?>
 	}
 	.fl-node-<?php echo $id; ?> .pp-image-panels-wrap .pp-panel-item-<?php echo $i; ?> .pp-panel-title h3 {
-		background: <?php echo pp_hex2rgba( '#'.$panel->title_colors->secondary, $panel->title_opacity ) ?>;
-		color: #<?php echo $panel->title_colors->primary; ?>;
+		<?php if ( isset( $panel->title_bg_color ) && ! empty( $panel->title_bg_color ) ) { ?>
+			background-color: <?php echo pp_get_color_value( $panel->title_bg_color ); ?>;
+		<?php } ?>
+		<?php if ( isset( $panel->title_text_color ) && ! empty( $panel->title_text_color ) ) { ?>
+			color: <?php echo pp_get_color_value( $panel->title_text_color ); ?>;
+		<?php } ?>
 	}
 <?php } ?>
 
 @media only screen and ( max-width: 768px ) {
-	.fl-node-<?php echo $id; ?> .pp-image-panels-wrap .pp-panel-item .pp-panel-title h3 {
-		font-size: <?php echo $settings->title_font_size['title_font_size_tablet']; ?>px;
-		line-height: <?php echo $settings->title_line_height['title_line_height_tablet']; ?>;
-	}
 	<?php for( $i = 0; $i < $number_panels; $i++ ) {
 		$panel = $settings->image_panels[$i];
 	?>
@@ -59,10 +79,4 @@ for( $i = 0; $i < $number_panels; $i++ ) {
 			width: 100% !important;
 		}
 	<?php } ?>
-}
-@media only screen and ( max-width: 480px ) {
-	.fl-node-<?php echo $id; ?> .pp-image-panels-wrap .pp-panel-item .pp-panel-title h3 {
-		font-size: <?php echo $settings->title_font_size['title_font_size_mobile']; ?>px;
-		line-height: <?php echo $settings->title_line_height['title_line_height_mobile']; ?>;
-	}
 }

@@ -4,25 +4,26 @@
 	<div class="pp-restaurant-menu-item-wrap-in">
 		<?php
 		foreach ( $settings->menu_items as $key => $menu_item ) {
-
-			 if ( $settings->restaurant_menu_layout == 'stacked' ) {
+			$item_title = '' != trim( $menu_item->menu_items_title ) ? trim( $menu_item->menu_items_title ) : '';
+			 
+			if ( $settings->restaurant_menu_layout == 'stacked' ) {
 			 	?>
 			 	<div class="pp-restaurant-menu-item pp-restaurant-menu-item-<?php echo $key; ?> pp-menu-item pp-menu-item-<?php echo $key; ?>">
 				 	<?php if ( '' != trim( $menu_item->menu_item_images ) && 'yes' == $menu_item->restaurant_select_images ) { ?>
-					 	<a <?php if ( '' != $menu_item->menu_items_link ) { ?>href="<?php echo $menu_item->menu_items_link;?>"<?php } ?> target="<?php echo $menu_item->menu_items_link_target;?>" class="pp-restaurant-menu-item-images">
+					 	<a <?php if ( '' != $menu_item->menu_items_link ) { ?>href="<?php echo $menu_item->menu_items_link;?>"<?php } ?> target="<?php echo $menu_item->menu_items_link_target;?>"<?php if('yes' == $menu_item->menu_items_link_nofollow){ echo " rel='nofollow'"; }else{ echo ''; } ?> class="pp-restaurant-menu-item-images">
 							<?php
 							$image = $menu_item->menu_item_images_src;
 							?>
-			   	 			<img src="<?php echo $image;?>" />
+			   	 			<img src="<?php echo $image;?>" alt="<?php echo pp_get_image_alt($menu_item->menu_item_images, $item_title); ?>" />
 						</a>
 					<?php } ?>
 					<div class="pp-restaurant-menu-item-left">
-						<?php if ( '' != trim( $menu_item->menu_items_title ) ) { ?>
+						<?php if ( '' != $item_title ) { ?>
 							<h2 class="pp-restaurant-menu-item-header">
-								<?php if ( '' != trim($menu_item->menu_items_link) ) { ?>
-									<a href="<?php echo $menu_item->menu_items_link;?>" target="<?php echo $menu_item->menu_items_link_target;?>" class="pp-restaurant-menu-item-title"><?php echo $menu_item->menu_items_title; ?></a>
+								<?php if ( '' != trim( $menu_item->menu_items_link ) ) { ?>
+									<a href="<?php echo $menu_item->menu_items_link;?>" target="<?php echo $menu_item->menu_items_link_target;?>"<?php if('yes' == $menu_item->menu_items_link_nofollow){ echo " rel='nofollow'"; }else{ echo ''; } ?> class="pp-restaurant-menu-item-title"><?php echo $item_title; ?></a>
 								<?php } else { ?>
-									<span class="pp-restaurant-menu-item-title"><?php echo $menu_item->menu_items_title; ?></span>
+									<span class="pp-restaurant-menu-item-title"><?php echo $item_title; ?></span>
 								<?php } ?>
 							</h2>
 						<?php } ?>
@@ -48,20 +49,20 @@
 			 	?>
 			 		<div class="pp-restaurant-menu-item-inline pp-restaurant-menu-item-inline-<?php echo $key; ?> pp-menu-item pp-menu-item-<?php echo $key; ?>">
 				 		<?php if ( '' != trim( $menu_item->menu_item_images ) && 'yes' == $menu_item->restaurant_select_images ) { ?>
-				 			<a <?php if ( '' != $menu_item->menu_items_link ) { ?>href="<?php echo $menu_item->menu_items_link;?>"<?php } ?> target="<?php echo $menu_item->menu_items_link_target;?>" class="pp-restaurant-menu-item-images">
+				 			<a <?php if ( '' != $menu_item->menu_items_link ) { ?>href="<?php echo $menu_item->menu_items_link;?>"<?php } ?> target="<?php echo $menu_item->menu_items_link_target;?>"<?php if('yes' == $menu_item->menu_items_link_nofollow){ echo " rel='nofollow'"; }else{ echo ''; } ?> class="pp-restaurant-menu-item-images">
 							<?php
 							$image = $menu_item->menu_item_images_src;
 							?>
-			   	 			<img src="<?php echo $image;?>" />
+			   	 			<img src="<?php echo $image;?>" alt="<?php echo pp_get_image_alt($menu_item->menu_item_images, $item_title); ?>" />
 			   	 			</a>
 			   	 		<?php } ?>
 			   	 		<div class="pp-restaurant-menu-item-inline-right-content pp-menu-item-content">
-			   	 			<?php if ( '' != trim( $menu_item->menu_items_title ) ) { ?>
+			   	 			<?php if ( '' != $item_title ) { ?>
 					   	 		<h2 class="pp-restaurant-menu-item-header">
 									<?php if ( '' != trim($menu_item->menu_items_link) ) { ?>
-										<a target="<?php echo $menu_item->menu_items_link_target;?>" href="<?php echo $menu_item->menu_items_link;?>" class="pp-restaurant-menu-item-title"><?php echo $menu_item->menu_items_title; ?></a>
+										<a target="<?php echo $menu_item->menu_items_link_target;?>" href="<?php echo $menu_item->menu_items_link;?>"<?php if('yes' == $menu_item->menu_items_link_nofollow){ echo " rel='nofollow'"; }else{ echo ''; } ?> class="pp-restaurant-menu-item-title"><?php echo $item_title; ?></a>
 									<?php } else { ?>
-										<span class="pp-restaurant-menu-item-title"><?php echo $menu_item->menu_items_title; ?></span>
+										<span class="pp-restaurant-menu-item-title"><?php echo $item_title; ?></span>
 									<?php } ?>
 								</h2>
 							<?php } ?>

@@ -3,7 +3,7 @@
     <?php if ( $featured_image_url && '' != $featured_image_url ) { ?>
 		<?php if ( 'style-9' == $settings->post_grid_style_select ) { ?>
 			<div class="pp-post-featured-img" style="background-image: url(<?php echo $featured_image_url; ?>);">
-				<a href="<?php echo get_the_permalink(); ?>" title="<?php the_title_attribute(); ?>"></a>
+				<a href="<?php echo $permalink; ?>" title="<?php the_title_attribute(); ?>"></a>
 			</div>
 		<?php } else { ?>
 			<div class="pp-post-featured-img">
@@ -24,11 +24,17 @@
 		<?php if ( ! empty( $img_src ) ) { ?>
 			<?php if ( 'style-9' == $settings->post_grid_style_select ) { ?>
 				<div class="pp-post-featured-img" style="background-image: url(<?php echo $img_src ?>);">
-					<a href="<?php echo get_the_permalink(); ?>" title="<?php the_title_attribute(); ?>"></a>
+					<a href="<?php echo $permalink; ?>" title="<?php the_title_attribute(); ?>"></a>
 				</div>
 			<?php } else { ?>
 				<div class="pp-post-featured-img">
+					<?php if( $settings->more_link_type == 'button' || $settings->more_link_type == 'thumb' || $settings->more_link_type == 'title_thumb' ) { ?>
+					<a href="<?php echo $permalink; ?>" title="<?php the_title_attribute(); ?>" itemprop="url">
+					<?php } ?>
 					<img src="<?php echo $img_src; ?>" alt="<?php echo get_the_title(); ?>" />
+					<?php if( $settings->more_link_type == 'button' || $settings->more_link_type == 'thumb' || $settings->more_link_type == 'title_thumb' ) { ?>
+					</a>
+					<?php } ?>
 				</div>
 			<?php } ?>
 		<?php } ?>
@@ -42,7 +48,7 @@
 		<?php if( 'style-4' == $settings->post_grid_style_select ) { ?>
 			<<?php echo $settings->title_tag; ?> class="pp-content-grid-title pp-post-title" itemprop="headline">
 				<?php if( $settings->more_link_type == 'button' || $settings->more_link_type == 'title' || $settings->more_link_type == 'title_thumb' ) { ?>
-					<a href="<?php the_permalink(); ?>">
+					<a href="<?php echo $permalink; ?>">
 				<?php } ?>
 						<?php the_title(); ?>
 				<?php if( $settings->more_link_type == 'button' || $settings->more_link_type == 'title' || $settings->more_link_type == 'title_thumb' ) { ?>

@@ -13,6 +13,10 @@
 		this.imgAnimClass = $(this.nodeClass).find('.pp-info-banner-img').data('animation-class'),
 		this.winHeight	= $(window).height();
 
+		if ( $(this.nodeClass).length === 0 ) {
+			return;
+		}
+
 		this._init();
 	};
 

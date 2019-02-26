@@ -9,31 +9,91 @@
      	$width = '32';
     } elseif( $number_show == 2 ) {
      	$width = '48';
-    }
+	}
+// Heading Border - Settings
+FLBuilderCSS::border_field_rule( array(
+	'settings' 		=> $settings,
+	'setting_name' 	=> 'heading_border_group',
+	'selector' 		=> ".fl-node-$id .pp-restaurant-menu-heading",
+) );
+// Heading Border - Settings
+FLBuilderCSS::border_field_rule( array(
+	'settings' 		=> $settings,
+	'setting_name' 	=> 'card_border_group',
+	'selector' 		=> ".fl-node-$id .pp-menu-item",
+) );
+// Card Items Padding
+FLBuilderCSS::dimension_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'card_padding_group',
+	'selector' 		=> ".fl-node-$id .pp-restaurant-menu-item,
+            			.fl-node-$id .pp-restaurant-menu-item-inline",
+	'unit'			=> 'px',
+	'props'			=> array(
+		'padding-top' 		=> 'card_padding_group_top',
+		'padding-right' 	=> 'card_padding_group_right',
+		'padding-bottom' 	=> 'card_padding_group_bottom',
+		'padding-left' 		=> 'card_padding_group_left',
+	),
+) );
+// Card Items margin
+FLBuilderCSS::dimension_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'card_margin_group',
+	'selector' 		=> ".fl-node-$id .pp-restaurant-menu-item,
+            			.fl-node-$id .pp-restaurant-menu-item-inline",
+	'unit'			=> 'px',
+	'props'			=> array(
+		'margin-top' 		=> 'card_margin_group_top',
+		'margin-right' 		=> 'card_margin_group_right',
+		'margin-bottom' 	=> 'card_margin_group_bottom',
+		'margin-left' 		=> 'card_margin_group_left',
+	),
+) );
+// Form Menu Heading Typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'menu_heading_typography',
+	'selector' 		=> ".fl-node-$id .pp-restaurant-menu-heading",
+) );
+// Form Items Title Typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'items_title_typography',
+	'selector' 		=> ".fl-node-$id .pp-restaurant-menu-item-title,
+						.fl-node-$id .pp-restaurant-menu-item-wrap-in h2",
+) );
+// Form Items description Typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'items_description_typography',
+	'selector' 		=> ".fl-node-$id .pp-restaurant-menu-item-description",
+) );
+// Form Items Price Typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'items_price_typography',
+	'selector' 		=> ".fl-node-$id .pp-restaurant-menu-item-price",
+) );
 ?>
 
 .fl-node-<?php echo $id; ?> .pp-menu-item {
-	border-color: #<?php echo $settings->card_border_color; ?>;
-	border-style: <?php echo $settings->card_border; ?>;
-	border-top-width: <?php echo is_numeric($settings->card_border_width['top']) ? $settings->card_border_width['top'] : '0'; ?>px;
-	border-bottom-width: <?php echo is_numeric($settings->card_border_width['bottom']) ? $settings->card_border_width['bottom'] : '0'; ?>px;
-	border-left-width: <?php echo is_numeric($settings->card_border_width['left']) ? $settings->card_border_width['left'] : '0'; ?>px;
-	border-right-width: <?php echo is_numeric($settings->card_border_width['right']) ? $settings->card_border_width['right'] : '0'; ?>px;
     margin-left: 2%;
     width: <?php echo $width; ?>%;
 	float: left;
     <?php if ( $settings->card_bg_type == 'color' ) { ?>
-        background-color: #<?php echo $settings->card_bg; ?>;
+        background-color: <?php echo pp_get_color_value($settings->card_bg); ?>;
     <?php } ?>
-    <?php if ( $settings->card_bg_type == 'color' || $settings->card_border != 'none' ) { ?>
+    <?php if ( 'color' == $settings->card_bg_type || 'none' != $settings->card_border_group['style'] ) { ?>
         padding-left: 10px;
         padding-right: 10px;
     <?php } ?>
+	overflow: hidden;
 }
 
 .fl-node-<?php echo $id; ?> .pp-menu-item .pp-restaurant-menu-item-left,
 .fl-node-<?php echo $id; ?> .pp-menu-item .pp-restaurant-menu-item-right {
-    <?php if ( $settings->restaurant_menu_layout == 'stacked' && ( $settings->card_bg_type == 'color' || $settings->card_border != 'none' ) ) { ?>
+    <?php if ( $settings->restaurant_menu_layout == 'stacked' && ( 'color' == $settings->card_bg_type || 'none' != $settings->card_border_group['style'] ) ) { ?>
         padding-left: 0;
         padding-right: 0;
     <?php } ?>
@@ -45,14 +105,8 @@
 }
 
 .fl-node-<?php echo $id; ?> .pp-restaurant-menu-heading {
-    border-color: #<?php echo $settings->heading_border_color; ?>;
-	border-style: <?php echo $settings->heading_border; ?>;
-	border-top-width: <?php echo is_numeric($settings->heading_border_width['top']) ? $settings->heading_border_width['top'] : '0'; ?>px;
-	border-bottom-width: <?php echo is_numeric($settings->heading_border_width['bottom']) ? $settings->heading_border_width['bottom'] : '0'; ?>px;
-	border-left-width: <?php echo is_numeric($settings->heading_border_width['left']) ? $settings->heading_border_width['left'] : '0'; ?>px;
-	border-right-width: <?php echo is_numeric($settings->heading_border_width['right']) ? $settings->heading_border_width['right'] : '0'; ?>px;
     <?php if ( $settings->heading_bg_type == 'color' ) { ?>
-        background-color: #<?php echo $settings->heading_bg; ?>;
+        background-color: <?php echo pp_get_color_value($settings->heading_bg); ?>;
     <?php } ?>
     margin-top: <?php echo is_numeric($settings->heading_margin['top']) ? $settings->heading_margin['top'] : '0'; ?>px;
     margin-right: 0;
@@ -65,7 +119,7 @@
 }
 
  <?php
-	 if ( $settings->card_border == 'none' ) {
+	 if ( 'none' == $settings->card_border_group['style'] ) {
 	 	?>
 		 	.fl-node-<?php echo $id; ?> .pp-restaurant-menu-item-wrap-in .pp-restaurant-menu-item-inline h2{
 				padding-top: 0px !important;
@@ -98,7 +152,7 @@
 ?>
 
 <?php
-    if ( $settings->card_border_width['right'] > 0 ) {
+    if ( $settings->card_border_group['width']['right'] > 0 ) {
 	 	?>
 			.fl-node-<?php echo $id; ?> .pp-restaurant-menu-item-inline {
 				padding-bottom: 0px;
@@ -108,124 +162,31 @@
 	}
  ?>
 
-<?php
-    if ( $settings->card_padding == 'custom' ) {
-        ?>
-            .fl-node-<?php echo $id; ?> .pp-restaurant-menu-item,
-            .fl-node-<?php echo $id; ?> .pp-restaurant-menu-item-inline {
-                <?php if ( !empty( $settings->card_padding_custom['top'] ) ) { ?>
-                    padding-top: <?php echo $settings->card_padding_custom['top']; ?>px !important;
-                <?php } ?>
-                <?php if ( !empty( $settings->card_padding_custom['bottom'] ) ) { ?>
-                    padding-bottom: <?php echo $settings->card_padding_custom['bottom']; ?>px !important;
-                <?php } ?>
-                <?php if ( !empty( $settings->card_padding_custom['left'] ) ) { ?>
-                    padding-left: <?php echo $settings->card_padding_custom['left']; ?>px !important;
-                <?php } ?>
-                <?php if ( !empty( $settings->card_padding_custom['right'] ) ) { ?>
-                    padding-right: <?php echo $settings->card_padding_custom['right']; ?>px !important;
-                <?php } ?>
-            }
-        <?php
-    }
-?>
-
-<?php
-    if ( $settings->card_margin == 'custom' ) {
-        ?>
-            .fl-node-<?php echo $id; ?> .pp-restaurant-menu-item,
-            .fl-node-<?php echo $id; ?> .pp-restaurant-menu-item-inline {
-                <?php if ( !empty( $settings->card_margin_custom['top'] ) ) { ?>
-                    margin-top: <?php echo $settings->card_margin_custom['top']; ?>px !important;
-                <?php } ?>
-                <?php if ( !empty( $settings->card_margin_custom['bottom'] ) ) { ?>
-                    margin-bottom: <?php echo $settings->card_margin_custom['bottom']; ?>px !important;
-                <?php } ?>
-                <?php if ( !empty( $settings->card_margin_custom['left'] ) ) { ?>
-                    margin-left: <?php echo $settings->card_margin_custom['left']; ?>px !important;
-                <?php } ?>
-                <?php if ( !empty( $settings->card_margin_custom['right'] ) ) { ?>
-                    margin-right: <?php echo $settings->card_margin_custom['right']; ?>px !important;
-                <?php } ?>
-            }
-        <?php
-    }
-?>
-
-<?php
-    if ( !empty( $settings->card_radius ) ) {
-        ?>
-            .fl-node-<?php echo $id; ?> .pp-restaurant-menu-item,
-            .fl-node-<?php echo $id; ?> .pp-restaurant-menu-item-inline {
-                border-radius: <?php echo $settings->card_radius; ?>px;
-            }
-        <?php
-    }
-?>
-
-<?php
-    if ( $settings->card_shadow_enable == 'yes' ) {
-        $card_shadow_h = empty($settings->card_shadow['horizontal']) ? '0' : $settings->card_shadow['horizontal'];
-        $card_shadow_v = empty($settings->card_shadow['vertical']) ? '0' : $settings->card_shadow['vertical'];
-        $card_shadow_b = empty($settings->card_shadow['blur']) ? '0' : $settings->card_shadow['blur'];
-        $card_shadow_s = empty($settings->card_shadow['spread']) ? '0' : $settings->card_shadow['spread'];
-        ?>
-            .fl-node-<?php echo $id; ?> .pp-restaurant-menu-item,
-            .fl-node-<?php echo $id; ?> .pp-restaurant-menu-item-inline {
-                -webkit-box-shadow: <?php echo $card_shadow_h; ?>px <?php echo $card_shadow_v; ?>px <?php echo $card_shadow_b; ?>px <?php echo $card_shadow_s; ?>px <?php echo pp_hex2rgba( '#'.$settings->card_shadow_color, $settings->card_shadow_opacity / 100 ); ?>;
-                -moz-box-shadow: <?php echo $card_shadow_h; ?>px <?php echo $card_shadow_v; ?>px <?php echo $card_shadow_b; ?>px <?php echo $card_shadow_s; ?>px <?php echo pp_hex2rgba( '#'.$settings->card_shadow_color, $settings->card_shadow_opacity / 100 ); ?>;
-                box-shadow: <?php echo $card_shadow_h; ?>px <?php echo $card_shadow_v; ?>px <?php echo $card_shadow_b; ?>px <?php echo $card_shadow_s; ?>px <?php echo pp_hex2rgba( '#'.$settings->card_shadow_color, $settings->card_shadow_opacity / 100 ); ?>;
-            }
-        <?php
-    }
-?>
-
 .fl-node-<?php echo $id; ?> .pp-restaurant-menu-heading {
-	color: #<?php echo $settings->menu_heading_color; ?>;
-    <?php if( !empty($settings->menu_heading_font) && $settings->menu_heading_font['family'] != 'Default' ) : ?>
-        <?php FLBuilderFonts::font_css( $settings->menu_heading_font ); ?>
-    <?php endif; ?>
-	font-size: <?php echo $settings->menu_heading_size; ?>px;
-    text-align: <?php echo $settings->menu_heading_align; ?>;
+	color: <?php echo pp_get_color_value( $settings->menu_heading_color ); ?>;
 }
 .fl-node-<?php echo $id; ?> .pp-restaurant-menu-item-title {
-	color: #<?php echo $settings->menu_title_color; ?>;
-    <?php if( !empty($settings->items_title_font) && $settings->items_title_font['family'] != 'Default' ) : ?>
-        <?php FLBuilderFonts::font_css( $settings->items_title_font ); ?>
-    <?php endif; ?>
-	font-size: <?php echo $settings->item_title_size; ?>px;
-    font-style: <?php echo $settings->items_title_font_style; ?>;
+	color: <?php echo pp_get_color_value( $settings->menu_title_color ); ?>;
     <?php if ( $settings->restaurant_menu_layout == 'stacked' ) { ?>
-    padding-top: 10px;
-    display: inline-block;
+		padding-top: 10px;
+		display: inline-block;
     <?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-restaurant-menu-item-wrap-in h2 {
-	font-size: <?php echo $settings->item_title_size; ?>px;
     <?php if ( $settings->show_description == 'no' ) { ?>
         margin-bottom: 0 !important;
     <?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-restaurant-menu-item-description {
-    color: #<?php echo $settings->menu_description_color; ?>;
-    <?php if( !empty($settings->items_description_font) && $settings->items_description_font['family'] != 'Default' ) : ?>
-    	<?php FLBuilderFonts::font_css( $settings->items_description_font ); ?>
-    <?php endif; ?>
- 	font-size: <?php echo $settings->item_description_size; ?>px;
-	font-style: <?php echo $settings->items_description_font_style; ?>;
+    color: <?php echo pp_get_color_value( $settings->menu_description_color ); ?>;
 }
 
 .fl-node-<?php echo $id; ?> .pp-restaurant-menu-item-price {
-	color: #<?php echo $settings->menu_price_color; ?>;
-    <?php if( !empty($settings->items_price_font) && $settings->items_price_font['family'] != 'Default' ) : ?>
-    	<?php FLBuilderFonts::font_css( $settings->items_price_font ); ?>
-    <?php endif; ?>
-	font-size: <?php echo $settings->item_color_size; ?>px;
-    font-style : <?php echo $settings->items_price_font_style; ?>;
+	color: <?php echo pp_get_color_value( $settings->menu_price_color); ?>;
     <?php if ( $settings->show_price == 'no' ) { ?>
-    display: none !important;
+	    display: none !important;
     <?php } ?>
     <?php if ( $settings->restaurant_menu_layout == 'stacked' ) { ?>
         padding-top: 10px;
@@ -233,14 +194,18 @@
 }
 
 .fl-node-<?php echo $id; ?> .pp-restaurant-menu-item-inline .pp-restaurant-menu-item-images {
+	<?php if ( $settings->inline_image_width >= 0 ) { ?>
 	width: <?php echo $settings->inline_image_width; ?>%;
+	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-restaurant-menu-item-inline .pp-restaurant-menu-item-inline-right-content {
-	<?php if ( $settings->show_price == 'no' || empty( $menu_item->menu_items_price ) ) { ?>
-		width: <?php echo 100 - ($settings->inline_image_width); ?>%;
-	<?php } else { ?>
-		width: <?php echo 80 - ($settings->inline_image_width); ?>%;
+	<?php if ( $settings->inline_image_width >= 0 ) { ?>
+		<?php if ( $settings->show_price == 'no' || empty( $menu_item->menu_items_price ) ) { ?>
+			width: <?php echo 100 - floatval($settings->inline_image_width); ?>%;
+		<?php } else { ?>
+			width: <?php echo 80 - floatval($settings->inline_image_width); ?>%;
+		<?php } ?>
 	<?php } ?>
 }
 
@@ -255,7 +220,7 @@
  ?>
 
  <?php
-	 if ( ($settings->card_border_width['bottom'] > '0') && ($settings->card_border_width['top'] == 0) && ($settings->card_border_width['right'] == 0) && ($settings->card_border_width['left'] == 0) ) {
+	 if ( ( $settings->card_border_group['width']['bottom'] > '0') && ( $settings->card_border_group['width']['top'] == 0) && ( $settings->card_border_group['width']['right'] == 0) && ( $settings->card_border_group['width']['left'] == 0) ) {
 	 	?>
 			.fl-node-<?php echo $id; ?> .pp-restaurant-menu-item .pp-restaurant-menu-item-left {
 				padding-left: 0px !important;

@@ -130,12 +130,14 @@
 			}
 
 			// validate the message..just make sure it's there
-			if (message.val() === '') {
-				isValid = false;
-				message.parent().addClass('pp-error');
-			}
-			else if (message.parent().hasClass('pp-error')) {
-				message.parent().removeClass('pp-error');
+			if (message.length > 0) {
+				if (message.val() === '') {
+					isValid = false;
+					message.parent().addClass('pp-error');
+				}
+				else if (message.parent().hasClass('pp-error')) {
+					message.parent().removeClass('pp-error');
+				}
 			}
 
 			// validate the checkbox

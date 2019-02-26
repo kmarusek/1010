@@ -115,6 +115,9 @@ if ( isset( $settings->block_style ) && 'circle' == $settings->block_style ) { ?
 	.fl-node-<?php echo $id;?> .pp-countdown-digit-wrapper.circle {
 		width: <?php if ( isset( $settings->block_width ) && '' != $settings->block_width ) { echo  $settings->block_width; } else { echo 100; } ?>px;
 		height: <?php if ( isset( $settings->block_width ) && '' != $settings->block_width ) { echo  $settings->block_width; } else { echo 100; } ?>px;
+		<?php if ( 'out_above' == $settings->label_outside_position || 'out_below' == $settings->label_outside_position ) { ?>
+		margin: 0 auto;
+		<?php } ?>
 		border: <?php if ( isset( $settings->block_border_width ) && '' != $settings->block_border_width ) { echo  $settings->block_border_width; } else { echo 5; } ?>px <?php if ( isset( $settings->block_border_style ) ) { echo $settings->block_border_style; } ?> <?php if ( isset( $settings->block_border_color ) ) { echo '#' . $settings->block_border_color; } ?>;
 		border-radius: 50%;
 		<?php if ( 'solid' == $settings->block_bg_type && '' != $settings->block_bg_color ) { ?>
@@ -151,6 +154,9 @@ if ( isset( $settings->block_style ) && 'square' == $settings->block_style ) { ?
 	.fl-node-<?php echo $id;?> .pp-countdown-digit-wrapper.square {
 		width: <?php if ( isset( $settings->block_width ) && '' != $settings->block_width ) { echo  $settings->block_width; } else { echo 100; }?>px;
 		height: <?php if ( isset( $settings->block_width ) && '' != $settings->block_width ) { echo  $settings->block_width; } else { echo 100; }?>px;
+		<?php if ( 'out_above' == $settings->label_outside_position || 'out_below' == $settings->label_outside_position ) { ?>
+		margin: 0 auto;
+		<?php } ?>
 		border: <?php if ( isset( $settings->block_border_width ) && '' != $settings->block_border_width ) { echo $settings->block_border_width; } else { echo 5 ; } ?>px <?php if ( isset( $settings->block_border_style ) ) { echo $settings->block_border_style; } ?> <?php if ( isset( $settings->block_border_color ) ) { echo '#' . $settings->block_border_color; } ?>;
 		border-radius: <?php if ( isset( $settings->block_border_radius ) && '' != $settings->block_border_radius ) { echo $settings->block_border_radius; } else { echo 5 ; } ?>px;
 		<?php if ( 'solid' == $settings->block_bg_type && '' != $settings->block_bg_color ) { ?>
@@ -188,10 +194,10 @@ if ( isset( $settings->block_style ) && 'default' != $settings->block_style && i
 if ( isset( $settings->block_style ) && 'default' != $settings->block_style && isset( $settings->label_position ) && 'outside' == $settings->label_position && isset( $settings->label_outside_position ) && ( 'out_above' == $settings->label_outside_position || 'out_below' == $settings->label_outside_position || 'out_right' == $settings->label_outside_position || 'out_left' == $settings->label_outside_position ) ) { ?>
 	.fl-node-<?php echo $id;?> .pp-countdown-digit-wrapper {
 		<?php if ( isset( $settings->label_outside_position ) && 'out_below' == $settings->label_outside_position ) { ?>
-		margin-bottom: <?php if ( isset( $settings->digit_label_spacing ) && '' != $settings->digit_label_spacing ) { echo $settings->digit_label_spacing; } else { echo 10; } ?>px;
+		margin-bottom: <?php if ( isset( $settings->digit_label_spacing ) && '' != $settings->digit_label_spacing ) { echo $settings->digit_label_spacing; } else { echo 10; } ?>px !important;
 		<?php } ?>
 		<?php if ( isset( $settings->label_outside_position ) && 'out_above' == $settings->label_outside_position ) { ?>
-		margin-top: <?php if ( isset( $settings->digit_label_spacing ) && '' != $settings->digit_label_spacing ) { echo $settings->digit_label_spacing; } else { echo 10; } ?>px;
+		margin-top: <?php if ( isset( $settings->digit_label_spacing ) && '' != $settings->digit_label_spacing ) { echo $settings->digit_label_spacing; } else { echo 10; } ?>px !important;
 		<?php } ?>
 		<?php if ( isset( $settings->label_outside_position ) && 'out_right' == $settings->label_outside_position ) { ?>
 		margin-right: <?php if ( isset( $settings->digit_label_spacing ) && '' != $settings->digit_label_spacing ) { echo $settings->digit_label_spacing; } else { echo 10; } ?>px;
@@ -219,175 +225,87 @@ if( 'no' == $settings->show_labels ) { ?>
 	.fl-node-<?php echo $id;?> .pp-countdown-digit-wrapper {
 		margin: 0;
 	}
-<?php }
-
-
-/* Typography style Assign CSS for message after expires*/
-if ( ( isset( $settings->fixed_timer_action ) && 'msg' == $settings->fixed_timer_action ) || ( isset( $settings->evergreen_timer_action ) && 'msg' == $settings->evergreen_timer_action ) ) {
+<?php 
+}
 ?>
 .fl-node-<?php echo $id;?> .pp-countdown-expire-message {
-	<?php if ( isset( $settings->message_font_family['family'] ) && 'Default' != $settings->message_font_family['family'] ) : ?>
-		<?php FLBuilderFonts::font_css( $settings->message_font_family ); ?>
-	<?php endif; ?>
-	<?php if ( 'custom' == $settings->message_font_size && '' != $settings->message_custom_font_size ) : ?>
-		font-size: <?php echo $settings->message_custom_font_size; ?>px;
-	<?php endif; ?>
-	<?php if ( isset( $settings->message_line_height ) && '' != $settings->message_line_height ) : ?>
-		line-height: <?php if ( isset( $settings->message_line_height ) ) { echo $settings->message_line_height; } ?>;
-	<?php endif; ?>
 	<?php if ( isset( $settings->message_color ) && '' != $settings->message_color ) : ?>
 		color: <?php echo '#' . $settings->message_color; ?>;
 	<?php endif; ?>
 }
 <?php
-}
+
+// Digit Typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'message_typography',
+	'selector' 		=> ".fl-node-$id .pp-countdown-expire-message",
+) );
+?>
 
 /* Typography style starts here  */
-if ( ( isset( $settings->digit_font_family['family'] ) && 'Default' != $settings->digit_font_family['family'] ) || ( '' != $settings->digit_custom_font_size ) || ( '' != $settings->digit_line_height ) || ( isset( $settings->digit_color ) && '' != $settings->digit_color ) ) { ?>
 
-	.fl-node-<?php echo $id;?> .pp-countdown-fixed-timer .pp-countdown-digit,
-	.fl-node-<?php echo $id;?> .pp-countdown-evergreen-timer .pp-countdown-digit {
+.fl-node-<?php echo $id;?> .pp-countdown-fixed-timer .pp-countdown-digit,
+.fl-node-<?php echo $id;?> .pp-countdown-evergreen-timer .pp-countdown-digit {
+	<?php if ( isset( $settings->digit_color ) && '' != $settings->digit_color ) : ?>
+		color: <?php echo '#' . $settings->digit_color; ?>;
+	<?php endif; ?>
+}
+<?php
+// Digit Typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'digit_typography',
+	'selector' 		=> ".fl-node-$id .pp-countdown-fixed-timer .pp-countdown-digit, .fl-node-$id .pp-countdown-evergreen-timer .pp-countdown-digit",
+) );
+?>
 
-		<?php if ( isset( $settings->digit_font_family['family'] ) && 'Default' != $settings->digit_font_family['family'] ) : ?>
-			<?php FLBuilderFonts::font_css( $settings->digit_font_family ); ?>
-		<?php endif; ?>
-		<?php if ( 'custom' == $settings->digit_font_size  && '' != $settings->digit_custom_font_size ) : ?>
-			font-size: <?php echo $settings->digit_custom_font_size; ?>px;
-		<?php endif; ?>
-		<?php if ( '' != $settings->digit_line_height ) : ?>
-			line-height: <?php echo $settings->digit_line_height; ?>;
-		<?php endif; ?>
-		<?php if ( isset( $settings->digit_color ) && '' != $settings->digit_color ) : ?>
-			color: <?php echo '#' . $settings->digit_color; ?>;
-		<?php endif; ?>
-	}
-<?php } ?>
+.fl-node-<?php echo $id;?> .pp-countdown-fixed-timer .pp-countdown-label,
+.fl-node-<?php echo $id;?> .pp-countdown-evergreen-timer .pp-countdown-label {
+	<?php if ( isset( $settings->label_color ) && '' != $settings->label_color ) : ?>
+		color: <?php echo '#' . $settings->label_color; ?>;
+	<?php endif; ?>
+	<?php if ( isset( $settings->label_bg_color ) && ! empty( $settings->label_bg_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->label_bg_color ); ?>;
+	<?php } ?>
+	<?php if ( isset( $settings->label_vertical_padding ) && '' != $settings->label_vertical_padding ) : ?>
+		padding-top: <?php echo $settings->label_vertical_padding; ?>px;
+		padding-bottom: <?php echo $settings->label_vertical_padding; ?>px;
+	<?php endif; ?>
+	<?php if ( isset( $settings->label_horizontal_padding ) && '' != $settings->label_horizontal_padding ) : ?>
+		padding-left: <?php echo $settings->label_horizontal_padding; ?>px;
+		padding-right: <?php echo $settings->label_horizontal_padding; ?>px;
+	<?php endif; ?>
+}
 
-<?php if ( ( isset( $settings->label_font_family['family'] ) && 'Default' != $settings->label_font_family['family'] ) || ( isset( $settings->label_font_size ) && '' != $settings->label_font_size ) || ( isset( $settings->label_line_height ) && '' != $settings->label_line_height ) || ( isset( $settings->label_color ) && '' != $settings->label_color ) ) { ?>
-
-	.fl-node-<?php echo $id;?> .pp-countdown-fixed-timer .pp-countdown-label,
-	.fl-node-<?php echo $id;?> .pp-countdown-evergreen-timer .pp-countdown-label {
-		<?php if ( isset( $settings->label_font_family['family'] ) && 'Default' != $settings->label_font_family['family'] ) : ?>
-			<?php FLBuilderFonts::font_css( $settings->label_font_family ); ?>
-		<?php endif; ?>
-		<?php if ( 'custom' == $settings->label_font_size && '' != $settings->label_custom_font_size ) : ?>
-			font-size: <?php echo $settings->label_custom_font_size; ?>px;
-		<?php endif; ?>
-		<?php if ( '' != $settings->label_line_height ) : ?>
-			line-height: <?php echo $settings->label_line_height; ?>;
-		<?php endif; ?>
-		<?php if ( isset( $settings->label_color ) && '' != $settings->label_color ) : ?>
-			color: <?php echo '#' . $settings->label_color; ?>;
-		<?php endif; ?>
-		<?php if ( isset( $settings->label_letter_spacing ) && '' != $settings->label_letter_spacing ) : ?>
-			letter-spacing: <?php echo $settings->label_letter_spacing; ?>px;
-		<?php endif; ?>
-		<?php if ( 'default' != $settings->label_text_transform ) : ?>
-			text-transform: <?php echo $settings->label_text_transform; ?>;
-		<?php endif; ?>
-		<?php if ( isset( $settings->label_bg_color ) && '' != $settings->label_bg_color ) : ?>
-			background-color: <?php echo ( false === strpos( $settings->label_bg_color, 'rgb' ) ) ? '#' . $settings->label_bg_color : $settings->label_bg_color; ?>;
-		<?php endif; ?>
-		<?php if ( isset( $settings->label_vertical_padding ) && '' != $settings->label_vertical_padding ) : ?>
-			padding-top: <?php echo $settings->label_vertical_padding; ?>px;
-			padding-bottom: <?php echo $settings->label_vertical_padding; ?>px;
-		<?php endif; ?>
-		<?php if ( isset( $settings->label_horizontal_padding ) && '' != $settings->label_horizontal_padding ) : ?>
-			padding-left: <?php echo $settings->label_horizontal_padding; ?>px;
-			padding-right: <?php echo $settings->label_horizontal_padding; ?>px;
-		<?php endif; ?>
-	}
-<?php } ?>
-
+<?php
+// Label Typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'label_typography',
+	'selector' 		=> ".fl-node-$id .pp-countdown-fixed-timer .pp-countdown-label, .fl-node-$id .pp-countdown-evergreen-timer .pp-countdown-label",
+) );
+?>
 
 /* Media Queries */
-
 @media only screen and ( max-width: <?php echo $global_settings->medium_breakpoint; ?>px ) {
 
-	<?php if ( 'custom' == $settings->digit_font_size || '' != $settings->digit_line_height_medium ) { ?>
-		.fl-node-<?php echo $id;?> .pp-countdown-fixed-timer .pp-countdown-digit,
-		.fl-node-<?php echo $id;?> .pp-countdown-evergreen-timer .pp-countdown-digit {
-			<?php if ( 'custom' == $settings->digit_font_size && '' != $settings->digit_custom_font_size_medium ) : ?>
-				font-size: <?php echo $settings->digit_custom_font_size_medium; ?>px;
-			<?php endif; ?>
-			<?php if ( '' != $settings->digit_line_height_medium ) : ?>
-				line-height: <?php echo $settings->digit_line_height_medium; ?>;
-			<?php endif; ?>
+	<?php if( isset( $settings->counter_alignment_medium ) && 'default' != $settings->counter_alignment_medium ) { ?>
+		.fl-node-<?php echo $id;?> .pp-countdown-fixed-timer,
+		.fl-node-<?php echo $id;?> .pp-countdown-evergreen-timer {
+			text-align: <?php echo $settings->counter_alignment_medium; ?>;
 		}
 	<?php } ?>
-
-	<?php if ( ( 'custom' == $settings->label_font_size && '' != $settings->label_custom_font_size_medium ) || '' != $settings->label_line_height_medium ) { ?>
-		.fl-node-<?php echo $id;?> .pp-countdown-fixed-timer .pp-countdown-label,
-		.fl-node-<?php echo $id;?> .pp-countdown-evergreen-timer .pp-countdown-label {
-			<?php if ( 'custom' == $settings->label_font_size && '' != $settings->label_custom_font_size_medium ) : ?>
-				font-size: <?php echo $settings->label_custom_font_size_medium; ?>px;
-			<?php endif; ?>
-			<?php if ( '' != $settings->label_line_height_medium ) : ?>
-				line-height: <?php echo $settings->label_line_height_medium; ?>;
-			<?php endif; ?>
-		}
-	<?php } ?>
-
-	<?php if ( ( 'custom' == $settings->message_font_size && '' != $settings->message_custom_font_size_medium ) || ( isset( $settings->message_line_height_medium ) && '' != $settings->message_line_height_medium ) ) {
-		if ( ( isset( $settings->evergreen_timer_action ) && 'msg' == $settings->evergreen_timer_action ) || ( isset( $settings->fixed_timer_action ) && 'msg' == $settings->fixed_timer_action ) ) { ?>
-			.fl-node-<?php echo $id;?> .pp-countdown-expire-message {
-				<?php if ( isset( $settings->message_custom_font_size_medium ) && '' != $settings->message_custom_font_size_medium ) : ?>
-					font-size: <?php echo $settings->message_custom_font_size_medium; ?>px;
-				<?php endif; ?>
-				<?php if ( isset( $settings->message_line_height_medium ) && '' != $settings->message_line_height_medium ) : ?>
-					line-height: <?php echo $settings->message_line_height_medium; ?>;
-				<?php endif; ?>
-			}
-			<?php
-		}
-	} ?>
 }
 
 @media only screen and ( max-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {
 
-	<?php if( 'default' != $settings->responsive_counter_alignment ) { ?>
+	<?php if( isset( $settings->counter_alignment_responsive ) && 'default' != $settings->counter_alignment_responsive ) { ?>
 		.fl-node-<?php echo $id;?> .pp-countdown-fixed-timer,
 		.fl-node-<?php echo $id;?> .pp-countdown-evergreen-timer {
-			text-align: <?php echo $settings->responsive_counter_alignment; ?>;
+			text-align: <?php echo $settings->counter_alignment_responsive; ?>;
 		}
 	<?php } ?>
-
-	<?php if ( ( 'custom' == $settings->digit_font_size && '' != $settings->digit_custom_font_size_responsive ) || ( '' != $settings->digit_line_height_responsive ) ) { ?>
-		.fl-node-<?php echo $id;?> .pp-countdown-fixed-timer .pp-countdown-digit,
-		.fl-node-<?php echo $id;?> .pp-countdown-evergreen-timer .pp-countdown-digit {
-			<?php if ( 'custom' == $settings->digit_font_size && '' != $settings->digit_custom_font_size_responsive ) : ?>
-				font-size: <?php echo $settings->digit_custom_font_size_responsive; ?>px;
-			<?php endif; ?>
-			<?php if ( '' != $settings->digit_line_height_responsive ) : ?>
-				line-height: <?php echo $settings->digit_line_height_responsive; ?>;
-			<?php endif; ?>
-		}
-	<?php } ?>
-
-	<?php if ( ( 'custom' == $settings->label_font_size && '' != $settings->label_custom_font_size_responsive ) || ( '' != $settings->label_line_height_responsive ) ) { ?>
-		.fl-node-<?php echo $id;?> .pp-countdown-fixed-timer .pp-countdown-label,
-		.fl-node-<?php echo $id;?> .pp-countdown-evergreen-timer .pp-countdown-label {
-			<?php if ( 'custom' == $settings->label_font_size && '' != $settings->label_custom_font_size_responsive ) : ?>
-				font-size: <?php echo $settings->label_custom_font_size_responsive; ?>px;
-			<?php endif; ?>
-			<?php if ( '' != $settings->label_line_height_responsive ) : ?>
-				line-height: <?php echo $settings->label_line_height_responsive; ?>;
-			<?php endif; ?>
-		}
-	<?php } ?>
-
-	<?php if ( '' != $settings->message_custom_font_size_responsive || '' != $settings->message_line_height_responsive ) {
-		if ( ( isset( $settings->evergreen_timer_action ) && 'msg' == $settings->evergreen_timer_action ) || ( isset( $settings->fixed_timer_action ) && 'msg' == $settings->fixed_timer_action ) ) { ?>
-			.fl-node-<?php echo $id;?> .pp-countdown-expire-message {
-				<?php if ( 'custom' == $settings->message_font_size && '' != $settings->message_custom_font_size_responsive ) : ?>
-					font-size: <?php echo $settings->message_custom_font_size_responsive; ?>px;
-				<?php endif; ?>
-				<?php if ( isset( $settings->message_line_height_responsive ) && '' != $settings->message_line_height_responsive ) : ?>
-					line-height: <?php echo $settings->message_line_height_responsive; ?>;
-				<?php endif; ?>
-			}
-		<?php }
-	} ?>
 
 	<?php if( 'yes' == $settings->hide_separator ) { ?>
 		.fl-node-<?php echo $id; ?> .pp-countdown.pp-countdown-separator-colon .pp-countdown-item:after,

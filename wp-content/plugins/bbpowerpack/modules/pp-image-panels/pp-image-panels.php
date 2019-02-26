@@ -23,9 +23,77 @@ class PPImagePanelsModule extends FLBuilderModule {
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
             'partial_refresh'   => true,
-            'icon'				=> 'format-image.svg',
         ));
     }
+
+	public function filter_settings( $settings, $helper )
+	{
+		for( $i = 0; $i < count( $settings->image_panels ); $i++ ) {
+			
+			if ( ! is_object( $settings->image_panels[ $i ] ) ) {
+				continue;
+			}
+
+			// Handle old link, link_target fields.
+			$settings->image_panels[ $i ] = PP_Module_Fields::handle_link_field( $settings->image_panels[ $i ], array(
+				'link'			=> array(
+					'type'			=> 'link'
+				),
+				'link_target'	=> array(
+					'type'			=> 'target'
+				),
+			), 'link' );
+
+			// Handle old title background & text dual color field.
+			$settings->image_panels[ $i ] = PP_Module_Fields::handle_dual_color_field( $settings->image_panels[ $i ], 'title_colors', array(
+				'primary'	=> 'title_text_color',
+				'secondary'	=> 'title_bg_color',
+				'secondary_opacity'	=> isset( $settings->image_panels[ $i ]->title_opacity ) ? $settings->image_panels[ $i ]->title_opacity : 1
+			) );
+
+			// Handle title opacity + background color field.
+			if ( isset( $settings->image_panels[ $i ]->title_opacity ) ) {
+				unset( $settings->image_panels[ $i ]->title_opacity );
+			}
+
+		}
+
+		// Handle title's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'title_font'	=> array(
+				'type'			=> 'font'
+			),
+			'title_font_size'	=> array(
+				'type'			=> 'font_size',
+				'keys'			=> array(
+					'desktop'		=> 'title_font_size_desktop',
+					'tablet'		=> 'title_font_size_tablet',
+					'mobile'		=> 'title_font_size_mobile'
+				)
+			),
+			'title_line_height'	=> array(
+				'type'			=> 'line_height',
+				'keys'			=> array(
+					'desktop'		=> 'title_line_height_desktop',
+					'tablet'		=> 'title_line_height_tablet',
+					'mobile'		=> 'title_line_height_mobile'
+				)
+			),
+			'title_alignment'	=> array(
+				'type'			=> 'text_align'
+			)
+		), 'title_typography' );
+
+		// Handle title old padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'title_padding', 'padding', 'title_padding', array(
+			'top'		=> 'title_top_padding',
+			'bottom'	=> 'title_bottom_padding',
+			'left'		=> 'title_left_padding',
+			'right'		=> 'title_right_padding'
+		) );
+
+		return $settings;
+	}
 
     /**
      * Use this method to work with settings data before
@@ -68,17 +136,17 @@ FLBuilder::register_module('PPImagePanelsModule', array(
                 'title'     => __('Panel', 'bb-powerpack'),
                 'fields'    => array(
                     'panel_height'  => array(
-                        'type'      => 'text',
-                        'label'     => __('Height', 'bb-powerpack'),
-                        'size'      => 5,
-                        'maxlength' => 3,
-                        'default' => 400,
-                        'description'   => 'px',
-                        'preview'   => array(
-                            'type'  => 'css',
-                            'selector'  => '.pp-image-panels-wrap .pp-panel-item',
-                            'property'  => 'height',
-                            'unit'      => 'px'
+                        'type'      	=> 'unit',
+                        'label'     	=> __('Height', 'bb-powerpack'),
+                        'default' 		=> 400,
+                        'units'   		=> array( 'px' ),
+						'slider'		=> true,
+						'responsive'	=> true,
+                        'preview'   	=> array(
+                            'type'  		=> 'css',
+                            'selector'  	=> '.pp-image-panels-wrap .pp-panel-item',
+                            'property'  	=> 'height',
+                            'unit'      	=> 'px'
                         )
                     ),
                     'show_title'        => array(
@@ -100,163 +168,23 @@ FLBuilder::register_module('PPImagePanelsModule', array(
             'typography'    => array(
                 'title'         => __('Title', 'bb-powerpack'),
                 'fields'        => array(
-                    'title_font'    => array(
-                        'type'  => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-							'type'            => 'font',
-							'selector'        => '.pp-image-panels-wrap .pp-panel-item .pp-panel-title h3'
-						)
-                    ),
-                    'title_font_size'    => array(
-						'type'          => 'pp-multitext',
-                        'label'         => __('Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'title_font_size_desktop'   => 24,
-                            'title_font_size_tablet'   => '',
-                            'title_font_size_mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'title_font_size_desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'       => array(
-                                    'type'      => 'css',
-                                    'selector'  => '.pp-image-panels-wrap .pp-panel-item .pp-panel-title h3',
-                                    'property'  => 'font-size',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'title_font_size_tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack'),
-
-                            ),
-                            'title_font_size_mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack'),
-
-                            ),
-                        ),
-					),
-                    'title_line_height'    => array(
-						'type'          => 'pp-multitext',
-                        'label'         => __('Line Height', 'bb-powerpack'),
-                        'default'       => array(
-                            'title_line_height_desktop'   => 1.6,
-                            'title_line_height_tablet'   => '',
-                            'title_line_height_mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'title_line_height_desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'       => array(
-                                    'type'      => 'css',
-                                    'selector'  => '.pp-image-panels-wrap .pp-panel-item .pp-panel-title h3',
-                                    'property'  => 'line-height',
-                                )
-                            ),
-                            'title_line_height_tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack'),
-
-                            ),
-                            'title_line_height_mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack'),
-
-                            ),
-                        ),
-					),
-                    'title_padding' => array(
-                        'type'      => 'pp-multitext',
-                        'label'     => __('Padding', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'default'   => array(
-                            'title_top_padding' => 10,
-                            'title_bottom_padding' => 10,
-                            'title_left_padding' => 10,
-                            'title_right_padding' => 10,
-                        ),
-                        'options'   => array(
-                            'title_top_padding'     => array(
-                                'placeholder'       => __('Top', 'bb-powerpack'),
-                                'icon'              => 'fa-long-arrow-up',
-                                'maxlength'         => 3,
-                                'tooltip'           => __('Top', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-image-panels-wrap .pp-panel-item .pp-panel-title h3',
-                                    'property'      => 'padding-top',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'title_bottom_padding'     => array(
-                                'placeholder'       => __('Bottom', 'bb-powerpack'),
-                                'icon'              => 'fa-long-arrow-down',
-                                'maxlength'         => 3,
-                                'tooltip'           => __('Bottom', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-image-panels-wrap .pp-panel-item .pp-panel-title h3',
-                                    'property'      => 'padding-bottom',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'title_left_padding'     => array(
-                                'placeholder'       => __('Left', 'bb-powerpack'),
-                                'icon'              => 'fa-long-arrow-left',
-                                'maxlength'         => 3,
-                                'tooltip'           => __('Left', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-image-panels-wrap .pp-panel-item .pp-panel-title h3',
-                                    'property'      => 'padding-left',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'title_right_padding'     => array(
-                                'placeholder'       => __('Right', 'bb-powerpack'),
-                                'icon'              => 'fa-long-arrow-right',
-                                'maxlength'         => 3,
-                                'tooltip'           => __('Right', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-image-panels-wrap .pp-panel-item .pp-panel-title h3',
-                                    'property'      => 'padding-right',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                        ),
-                    ),
-					'title_alignment'    => array(
-                        'type'      => 'pp-switch',
-                        'label'     => __('Alignment', 'bb-powerpack'),
-                        'default'   => 'left',
-                        'options'   => array(
-                            'left'  => __('Left', 'bb-powerpack'),
-                            'center'  => __('Center', 'bb-powerpack'),
-                            'Right'  => __('Right', 'bb-powerpack'),
-                        ),
-						'preview'           => array(
+                    'title_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
 							'type'			=> 'css',
-							'selector'      => '.pp-image-panels-wrap .pp-panel-item .pp-panel-title h3',
-							'property'      => 'text-align',
+							'selector'		=> '.pp-image-panels-wrap .pp-panel-item .pp-panel-title h3',
 						),
-                    ),
+					),
+					'title_padding'	=> array(
+						'type'				=> 'dimension',
+						'label'				=> __('Padding', 'bb-powerpack'),
+						'default'			=> '10',
+						'units'				=> array('px'),
+						'slider'			=> true,
+						'responsive'		=> true,
+					),
                 )
             ),
         ),
@@ -300,14 +228,11 @@ FLBuilder::register_settings_form('pp_image_panels_form', array(
                             )
                         ),
                         'custom_position'   => array(
-                            'type'              => 'text',
+                            'type'              => 'unit',
                             'label'             => __('Set Position', 'bb-powerpack'),
                             'default'           => 50,
-                            'description'       => '%',
-                            'maxlength'         => 3,
-                            'placeholder'       => '',
-                            'class'             => '',
-                            'size'              => 5,
+                            'units'       		=> array( '%' ),
+                            'slider'            => true,
                             'preview'           => array(
                                 'type'              => 'css',
                                 'selector'          => '.pp-image-panels-wrap .pp-panel-item',
@@ -326,53 +251,41 @@ FLBuilder::register_settings_form('pp_image_panels_form', array(
                             ),
                             'toggle'    => array(
                                 'title' => array(
-                                    'fields'    => array('link', 'link_target'),
+                                    'fields'    => array('link'),
                                 ),
                                 'panel' => array(
-                                    'fields'    => array('link', 'link_target'),
+                                    'fields'    => array('link'),
                                 ),
                             ),
                         ),
                         'link'  => array(
-                            'type'      => 'link',
-                            'label'     => __('Link', 'bb-powerpack'),
-                            'connections'   => array( 'url' ),
-                        ),
-                        'link_target'   => array(
-                            'type'      => 'pp-switch',
-                            'label'     => __('Link Target', 'bb-powerpack'),
-                            'default'   => '_self',
-                            'options'   => array(
-                                '_self' => __('Same Window', 'bb-powerpack'),
-                                '_blank' => __('New Window', 'bb-powerpack'),
-                            ),
-                        ),
+							'type'          => 'link',
+							'label'         => __('Link', 'bb-powerpack'),
+							'placeholder'   => 'http://www.example.com',
+							'show_target'	=> true,
+							'connections'   => array( 'url' ),
+							'preview'       => array(
+								'type'          => 'none'
+							)
+						),
                     ),
                 ),
                 'style'     => array(
                     'title' => __('Style', 'bb-powerpack'),
                     'fields'    => array(
-                        'title_colors'   => array(
-                            'type'      => 'pp-color',
-                            'label'     => __('Colors', 'bb-powerpack'),
-                            'show_reset'    => true,
-                            'default'   => array(
-                                'primary'   => '000000',
-                                'secondary' => 'dddddd'
-                            ),
-                            'options'   => array(
-                                'primary'   => __('Color', 'bb-powerpack'),
-                                'secondary'   => __('Background', 'bb-powerpack'),
-                            ),
-                        ),
-                        'title_opacity' => array(
-                            'type'      => 'text',
-                            'label'     => __('Opacity', 'bb-powerpack'),
-                            'description'   => __('Between 0 & 1', 'bb-powerpack'),
-                            'default'   => '0.5',
-                            'size'      => 5,
-                            'maxlength' => 3
-                        ),
+						'title_text_color'	=> array(
+							'type'			=> 'color',
+							'label'			=> __( 'Text Color', 'bb-powerpack' ),
+							'default'		=> '000000',
+							'show_reset'	=> true
+						),
+						'title_bg_color'	=> array(
+							'type'			=> 'color',
+							'label'			=> __( 'Background Color', 'bb-powerpack' ),
+							'default'		=> 'dddddd',
+							'show_alpha'	=> true,
+							'show_reset'	=> true
+						),
                     ),
                 ),
 			)

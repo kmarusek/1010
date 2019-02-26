@@ -238,7 +238,7 @@ html:not(.fl-builder-edit) .pp-post-timeline .pp-post-timeline-content-wrapper .
 
 .pp-post-timeline.horizontal .slick-prev,
 .pp-post-timeline.horizontal .slick-next {
-	top: 22px;
+	top: 25px;
 	position: absolute;
 }
 

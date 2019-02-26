@@ -23,7 +23,6 @@ class PPLogosGridModule extends FLBuilderModule {
             'editor_export'     => true, // Defaults to true and can be omitted.
             'enabled'           => true, // Defaults to true and can be omitted.
             'partial_refresh'   => true,
-            'icon'				=> 'slides.svg',
         ));
 
 		$this->add_css( BB_POWERPACK()->fa_css );
@@ -31,6 +30,97 @@ class PPLogosGridModule extends FLBuilderModule {
 		$this->add_js('jquery-bxslider');
 		$this->add_js('imagesloaded');
     }
+
+	public function filter_settings( $settings, $helper )
+	{
+		// Handle title's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'logo_grid_title_font'	=> array(
+				'type'			=> 'font'
+			),
+			'logo_grid_title_font_size'	=> array(
+				'type'			=> 'font_size',
+			),
+		), 'title_typography' );
+
+		// Handle old logo grid border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'logo_grid_border_style'	=> array(
+				'type'				=> 'style'
+			),
+			'logo_grid_border_width'	=> array(
+				'type'				=> 'width'
+			),
+			'logo_grid_border_color'	=> array(
+				'type'				=> 'color'
+			),
+			'logo_grid_border_radius'	=> array(
+				'type'				=> 'radius'
+			),
+		), 'logo_grid_border' );
+
+		// Handle old logo grid padding fields
+		if( isset( $settings->logo_grid_padding_top ) ) {
+			$settings->logo_grid_padding['top'] = $settings->logo_grid_padding_top;
+		}
+
+		if( isset( $settings->logo_grid_padding_bottom ) ) {
+			$settings->logo_grid_padding['bottom'] = $settings->logo_grid_padding_bottom;
+		}
+
+		if( isset( $settings->logo_grid_padding_left ) ) {
+			$settings->logo_grid_padding['left'] = $settings->logo_grid_padding_left;
+		}
+
+		if( isset( $settings->logo_grid_padding_right ) ) {
+			$settings->logo_grid_padding['right'] = $settings->logo_grid_padding_right;
+		}
+
+		// Handle old arrow border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'logo_grid_arrow_border_style'	=> array(
+				'type'				=> 'style'
+			),
+			'logo_grid_arrow_border_width'	=> array(
+				'type'				=> 'width'
+			),
+			'logo_grid_arrow_border_color'	=> array(
+				'type'				=> 'color'
+			),
+			'logo_grid_arrow_border_radius'	=> array(
+				'type'				=> 'radius'
+			),
+		), 'logo_grid_arrow' );
+
+		// Handle old logo carousel arrow padding fields
+		if( isset( $settings->logo_grid_arrow_padding_top ) ) {
+			$settings->logo_grid_arrow_padding['top'] = $settings->logo_grid_arrow_padding_top;
+		}
+
+		if( isset( $settings->logo_grid_arrow_padding_bottom ) ) {
+			$settings->logo_grid_arrow_padding['bottom'] = $settings->logo_grid_arrow_padding_bottom;
+		}
+
+		if( isset( $settings->logo_grid_arrow_padding_left ) ) {
+			$settings->logo_grid_arrow_padding['left'] = $settings->logo_grid_arrow_padding_left;
+		}
+
+		if( isset( $settings->logo_grid_arrow_padding_right ) ) {
+			$settings->logo_grid_arrow_padding['right'] = $settings->logo_grid_arrow_padding_right;
+		}
+
+		if ( isset( $settings->logos_grid_columns_desktop ) ) {
+			$settings->logos_grid_columns = $settings->logos_grid_columns_desktop;
+		}
+		if ( isset( $settings->logos_grid_columns_tablet ) ) {
+			$settings->logos_grid_columns_medium = $settings->logos_grid_columns_tablet;
+		}
+		if ( isset( $settings->logos_grid_columns_mobile ) ) {
+			$settings->logos_grid_columns_responsive = $settings->logos_grid_columns_mobile;
+		}
+
+		return $settings;
+	}
 }
 
 /**
@@ -64,11 +154,11 @@ FLBuilder::register_module('PPLogosGridModule', array(
                         )
                     ),
                     'logos_grid_spacing'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Gutter', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'pp-logo-grid-input input-small',
                         'default'       => 5,
+						'units'			=> array( 'px' ),
+						'slider'		=> true,
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-logos-content .pp-logo',
@@ -77,11 +167,11 @@ FLBuilder::register_module('PPLogosGridModule', array(
                         )
                     ),
                     'logos_carousel_spacing'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Gutter', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'pp-logo-grid-input input-small',
                         'default'       => '20',
+						'units'			=> array( 'px' ),
+						'slider'		=> true,
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-logos-content .pp-logo',
@@ -127,23 +217,18 @@ FLBuilder::register_module('PPLogosGridModule', array(
             'logos_grid_count'       => array( // Section
                 'title'        => __('Number of logos in a row', 'bb-powerpack'), // Section Title
                 'fields'       => array( // Section Fields
-                    'logos_grid_columns_desktop'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Desktop', 'bb-powerpack'),
-                        'class'         => 'pp-logo-grid-input input-small',
-                        'default'       => '6',
-                    ),
-                    'logos_grid_columns_tablet'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Tablet', 'bb-powerpack'),
-                        'class'         => 'pp-logo-grid-input input-small',
-                        'default'       => '4',
-                    ),
-                    'logos_grid_columns_mobile'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Mobile', 'bb-powerpack'),
-                        'class'         => 'pp-logo-grid-input input-small',
-                        'default'       => '2',
+                    'logos_grid_columns'   => array(
+                        'type'          => 'unit',
+                        'label' 		=> __('Number of Columns', 'bb-powerpack'),
+                        'slider'        => true,
+						'default'		=> '6',		
+						'responsive' => array(
+							'placeholder' => array(
+								'default' => '6',
+								'medium' => '4',
+								'responsive' => '2',
+							),
+						),
                     ),
                 )
             )
@@ -173,10 +258,10 @@ FLBuilder::register_module('PPLogosGridModule', array(
 				'title'         => __('Carousel Settings', 'bb-powerpack'), // Section Title
 				'fields'        => array( // Section Fields
                     'logo_carousel_width'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Slide Width', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'pp-logo-grid-input input-small',
+                        'units'	   		=> array( 'px' ),
+						'slider'		=> true,
                         'default'       => '250',
                     ),
                     'logo_carousel_minimum_grid'   => array(
@@ -214,7 +299,7 @@ FLBuilder::register_module('PPLogosGridModule', array(
 						'label'         => __('Delay', 'bb-powerpack'),
 						'default'       => '4',
 						'maxlength'     => '4',
-						'class'         => 'pp-logo-grid-input input-small',
+						'size'			=> 5,
 						'description'   => _x( 'seconds', 'Value unit for form field of time in seconds. Such as: "5 seconds"', 'bb-powerpack' )
 					),
 					'logo_slider_transition'    => array(
@@ -235,8 +320,7 @@ FLBuilder::register_module('PPLogosGridModule', array(
 						'type'          => 'text',
 						'label'         => __('Transition Speed', 'bb-powerpack'),
 						'default'       => '0.5',
-						'maxlength'     => '4',
-						'class'         => 'pp-logo-grid-input input-small',
+						'size'			=> 5,
 						'description'   => _x( 'seconds', 'Value unit for form field of time in seconds. Such as: "5 seconds"', 'bb-powerpack' )
 					),
                     'logo_slider_arrows'       => array(
@@ -303,7 +387,7 @@ FLBuilder::register_module('PPLogosGridModule', array(
                         'type'              => 'pp-separator',
                         'color'             => 'eeeeee'
                     ),
-                    'logo_grid_opacity' => array(
+					'logo_grid_opacity' => array(
                         'type'              => 'text',
                         'label'             => __('Opacity', 'bb-powerpack'),
                         'description'       => '%',
@@ -323,125 +407,34 @@ FLBuilder::register_module('PPLogosGridModule', array(
                         'type'              => 'pp-separator',
                         'color'             => 'eeeeee'
                     ),
-                    'logo_grid_border_style'     => array(
-                        'type'      => 'select',
-                        'label'     => __('Border Style', 'bb-powerpack'),
-                        'default'     => 'none',
-                        'options'       => array(
-                             'none'          => __('None', 'bb-powerpack'),
-                             'solid'          => __('Solid', 'bb-powerpack'),
-                             'dashed'          => __('Dashed', 'bb-powerpack'),
-                             'dotted'          => __('Dotted', 'bb-powerpack'),
-                             'double'          => __('Double', 'bb-powerpack'),
-                         ),
-                         'toggle'   => array(
-                             'solid'    => array(
-                                 'fields'   => array('logo_grid_border_width', 'logo_grid_border_color')
-                             ),
-                             'dashed'    => array(
-                                 'fields'   => array('logo_grid_border_width', 'logo_grid_border_color')
-                             ),
-                             'dotted'    => array(
-                                 'fields'   => array('logo_grid_border_width', 'logo_grid_border_color')
-                             ),
-                             'double'    => array(
-                                 'fields'   => array('logo_grid_border_width', 'logo_grid_border_color')
-                             )
-                         )
-                    ),
-                    'logo_grid_border_width'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Border Width', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'pp-logo-grid-input input-small',
-                        'default'       => '1',
-                        'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-logos-content .pp-logo',
-                            'property'        => 'border-width',
-                            'unit'            => 'px'
-                        )
-                    ),
-                    'logo_grid_border_color'    => array(
-                        'type'          => 'color',
-                        'label'         => __('Border Color', 'bb-powerpack'),
-                        'default'       => '',
-                        'show_reset'    => true,
-                        'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-logos-content .pp-logo',
-                            'property'        => 'border-color',
-                        )
-                    ),
-                    'logo_grid_border_radius'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Round Corners', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'pp-logo-grid-input input-small',
-                        'default'       => '0',
-                        'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-logos-content .pp-logo',
-                            'property'        => 'border-radius',
-                            'unit'            => 'px'
-                        )
-                    ),
+                    'logo_grid_border'	=> array(
+						'type'          => 'border',
+						'label'         => __( 'Border', 'bb-powerpack' ),
+						'responsive'	=> true,
+						'preview'   	=> array(
+                            'type'  		=> 'css',
+                            'selector'  	=> '.pp-logos-content .pp-logo',
+                            'property'  	=> 'border',
+                        ),
+					),
                     'field_separator_3' => array(
                         'type'              => 'pp-separator',
                         'color'             => 'eeeeee'
                     ),
-                    'logo_grid_padding_top'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Padding Top', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'pp-logo-grid-input input-small',
-                        'default'       => '10',
-                        'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-logos-content .pp-logo',
-                            'property'        => 'padding-top',
-                            'unit'            => 'px'
-                        )
-                    ),
-                    'logo_grid_padding_bottom'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Padding Bottom', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'pp-logo-grid-input input-small',
-                        'default'       => '10',
-                        'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-logos-content .pp-logo',
-                            'property'        => 'padding-bottom',
-                            'unit'            => 'px'
-                        )
-                    ),
-                    'logo_grid_padding_left'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Padding Left', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'pp-logo-grid-input input-small',
-                        'default'       => '10',
-                        'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-logos-content .pp-logo',
-                            'property'        => 'padding-left',
-                            'unit'            => 'px'
-                        )
-                    ),
-                    'logo_grid_padding_right'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Padding Right', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'pp-logo-grid-input input-small',
-                        'default'       => '10',
-                        'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-logos-content .pp-logo',
-                            'property'        => 'padding-right',
-                            'unit'            => 'px'
-                        )
-                    ),
+                    'logo_grid_padding'	=> array(
+						'type'				=> 'dimension',
+						'label'				=> __('Padding', 'bb-powerpack'),
+						'default'			=> '0',
+						'units'				=> array('px'),
+						'slider'			=> true,
+						'responsive'		=> true,
+						'preview'			=> array(
+							'type'				=> 'css',
+							'selector'			=> '.pp-logos-content .pp-logo',
+							'property'			=> 'padding',
+							'unit'				=> 'px'
+						)
+					),
                 )
             ),
             'logo_grid_logo_style'   => array( // Section
@@ -470,33 +463,33 @@ FLBuilder::register_module('PPLogosGridModule', array(
                         'label'     => __('Border Style', 'bb-powerpack'),
                         'default'     => 'none',
                         'options'       => array(
-                             'none'          => __('None', 'bb-powerpack'),
-                             'solid'          => __('Solid', 'bb-powerpack'),
-                             'dashed'          => __('Dashed', 'bb-powerpack'),
-                             'dotted'          => __('Dotted', 'bb-powerpack'),
-                             'double'          => __('Double', 'bb-powerpack'),
-                         ),
-                         'toggle'   => array(
-                             'solid'    => array(
-                                 'fields'   => array('logo_grid_logo_border_width', 'logo_grid_logo_border_color', 'logo_grid_logo_border_hover')
-                             ),
-                             'dashed'    => array(
-                                 'fields'   => array('logo_grid_logo_border_width', 'logo_grid_logo_border_color', 'logo_grid_logo_border_hover')
-                             ),
-                             'dotted'    => array(
-                                 'fields'   => array('logo_grid_logo_border_width', 'logo_grid_logo_border_color', 'logo_grid_logo_border_hover')
-                             ),
-                             'double'    => array(
-                                 'fields'   => array('logo_grid_logo_border_width', 'logo_grid_logo_border_color', 'logo_grid_logo_border_hover')
-                             )
-                         )
+							'none'          => __('None', 'bb-powerpack'),
+							'solid'          => __('Solid', 'bb-powerpack'),
+							'dashed'          => __('Dashed', 'bb-powerpack'),
+							'dotted'          => __('Dotted', 'bb-powerpack'),
+							'double'          => __('Double', 'bb-powerpack'),
+						),
+						'toggle'   => array(
+							'solid'    => array(
+								'fields'   => array('logo_grid_logo_border_width', 'logo_grid_logo_border_color', 'logo_grid_logo_border_hover')
+							),
+							'dashed'    => array(
+								'fields'   => array('logo_grid_logo_border_width', 'logo_grid_logo_border_color', 'logo_grid_logo_border_hover')
+							),
+							'dotted'    => array(
+								'fields'   => array('logo_grid_logo_border_width', 'logo_grid_logo_border_color', 'logo_grid_logo_border_hover')
+							),
+							'double'    => array(
+								'fields'   => array('logo_grid_logo_border_width', 'logo_grid_logo_border_color', 'logo_grid_logo_border_hover')
+							)
+						)
                     ),
                     'logo_grid_logo_border_width'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Border Width', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'pp-logo-grid-input input-small',
                         'default'       => '1',
+						'units'			=> array( 'px' ),
+						'slider'		=> true,
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-logos-content .pp-logo img',
@@ -527,11 +520,11 @@ FLBuilder::register_module('PPLogosGridModule', array(
                         )
                     ),
                     'logo_grid_logo_border_radius'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Round Corners', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'pp-logo-grid-input input-small',
                         'default'       => '0',
+						'units'			=> array( 'px' ),
+						'slider'		=> true,
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-logos-content .pp-logo img',
@@ -540,11 +533,11 @@ FLBuilder::register_module('PPLogosGridModule', array(
                         )
                     ),
                     'logo_grid_size'    => array(
-                        'type'              => 'text',
+                        'type'              => 'unit',
                         'label'             => __('Custom Size', 'bb-powerpack'),
-                        'description'       => 'px',
-                        'class'             => 'pp-logo-grid-input input-small',
                         'default'           => '',
+						'units'				=> array( 'px' ),
+						'slider'			=> true,
                         'preview'           => array(
                             'type'              => 'css',
                             'selector'          => '.pp-logos-content .pp-logo img',
@@ -563,6 +556,7 @@ FLBuilder::register_module('PPLogosGridModule', array(
 						'label'         => __('Background Color', 'bb-powerpack'),
 						'default'       => '000000',
 						'show_reset'    => true,
+						'show_alpha'	=> true,
 						'preview'       => array(
 							'type'          => 'css',
 							'selector'      => '.pp-logos-content .fa',
@@ -596,6 +590,7 @@ FLBuilder::register_module('PPLogosGridModule', array(
 						'label'         => __('Background Color Hover', 'bb-powerpack'),
 						'default'       => '',
 						'show_reset'    => true,
+						'show_alpha'	=> true,
 						'preview'       => array(
 							'type'          => 'css',
 							'selector'      => '.pp-logos-content .fa:hover',
@@ -603,11 +598,12 @@ FLBuilder::register_module('PPLogosGridModule', array(
 						)
 					),
                     'logo_grid_arrow_font_size'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Arrow Size', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'pp-logo-grid-input input-small',
                         'default'       => '16',
+						'units'			=> array( 'px' ),
+						'slider'		=> true,
+						'responsive'	=> true,
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-logos-content .fa',
@@ -615,56 +611,16 @@ FLBuilder::register_module('PPLogosGridModule', array(
                             'unit'            => 'px'
                         )
                     ),
-                    'logo_grid_arrow_border_style'     => array(
-                        'type'      => 'select',
-                        'label'     => __('Border Style', 'bb-powerpack'),
-                        'default'     => 'none',
-                        'options'       => array(
-                             'none'          => __('None', 'bb-powerpack'),
-                             'solid'          => __('Solid', 'bb-powerpack'),
-                             'dashed'          => __('Dashed', 'bb-powerpack'),
-                             'dotted'          => __('Dotted', 'bb-powerpack'),
-                             'double'          => __('Double', 'bb-powerpack'),
-                         ),
-                         'toggle'   => array(
-                             'solid'    => array(
-                                 'fields'   => array('logo_grid_arrow_border_width', 'logo_grid_arrow_border_color', 'logo_grid_arrow_border_hover')
-                             ),
-                             'dashed'    => array(
-                                 'fields'   => array('logo_grid_arrow_border_width', 'logo_grid_arrow_border_color', 'logo_grid_arrow_border_hover')
-                             ),
-                             'dotted'    => array(
-                                 'fields'   => array('logo_grid_arrow_border_width', 'logo_grid_arrow_border_color', 'logo_grid_arrow_border_hover')
-                             ),
-                             'double'    => array(
-                                 'fields'   => array('logo_grid_arrow_border_width', 'logo_grid_arrow_border_color', 'logo_grid_arrow_border_hover')
-                             )
-                         )
-                    ),
-                    'logo_grid_arrow_border_width'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Border Width', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'pp-logo-grid-input input-small',
-                        'default'       => '1',
-                        'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-logos-content .fa',
-                            'property'        => 'border-width',
-                            'unit'            => 'px'
-                        )
-                    ),
-                    'logo_grid_arrow_border_color'    => array(
-                        'type'          => 'color',
-                        'label'         => __('Border Color', 'bb-powerpack'),
-                        'default'       => '',
-                        'show_reset'    => true,
-                        'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-logos-content .fa',
-                            'property'        => 'border-color',
-                        )
-                    ),
+					'logo_grid_arrow'	=> array(
+						'type'          => 'border',
+						'label'         => __( 'Border', 'bb-powerpack' ),
+						'responsive'	=> true,
+						'preview'   	=> array(
+                            'type'  		=> 'css',
+                            'selector'  	=> '.pp-logos-content .fa',
+                            'property'  	=> 'border',
+                        ),
+					),
                     'logo_grid_arrow_border_hover'    => array(
                         'type'          => 'color',
                         'label'         => __('Border Color Hover', 'bb-powerpack'),
@@ -676,81 +632,31 @@ FLBuilder::register_module('PPLogosGridModule', array(
                             'property'        => 'border-color',
                         )
                     ),
-                    'logo_grid_arrow_border_radius'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Round Corners', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'pp-logo-grid-input input-small',
-                        'default'       => '0',
-                        'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-logos-content .fa',
-                            'property'        => 'border-radius',
-                            'unit'            => 'px'
-                        )
-                    ),
-                    'logo_grid_arrow_padding_top'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Padding Top', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'pp-logo-grid-input input-small',
-                        'default'       => '10',
-                        'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-logos-content .fa',
-                            'property'        => 'padding-top',
-                            'unit'            => 'px'
-                        )
-                    ),
-                    'logo_grid_arrow_padding_bottom'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Padding Bottom', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'pp-logo-grid-input input-small',
-                        'default'       => '10',
-                        'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-logos-content .fa',
-                            'property'        => 'padding-bottom',
-                            'unit'            => 'px'
-                        )
-                    ),
-                    'logo_grid_arrow_padding_left'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Padding Left', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'pp-logo-grid-input input-small',
-                        'default'       => '10',
-                        'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-logos-content .fa',
-                            'property'        => 'padding-left',
-                            'unit'            => 'px'
-                        )
-                    ),
-                    'logo_grid_arrow_padding_right'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Padding Right', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'pp-logo-grid-input input-small',
-                        'default'       => '10',
-                        'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-logos-content .fa',
-                            'property'        => 'padding-right',
-                            'unit'            => 'px'
-                        )
-                    ),
+                   'logo_grid_arrow_padding'	=> array(
+						'type'				=> 'dimension',
+						'label'				=> __('Padding', 'bb-powerpack'),
+						'default'			=> '0',
+						'units'				=> array('px'),
+						'slider'			=> true,
+						'responsive'		=> true,
+						'preview'			=> array(
+							'type'				=> 'css',
+							'selector'			=> '.pp-logos-content .fa, .pp-logos-content .fa:hover',
+							'property'			=> 'padding',
+							'unit'				=> 'px'
+						)
+					),
                 )
             ),
             'logo_carousel_dot_style'   => array( // Section
-                'title' => 'Carousel Navigation Dots', // Section Title
+                'title' => __( 'Carousel Navigation Dots', 'bb-powerpack' ), // Section Title
                 'fields' => array( // Section Fields
                     'logo_grid_dot_bg_color'  => array(
 						'type'          => 'color',
 						'label'         => __('Background Color', 'bb-powerpack'),
 						'default'       => 'f5f5f5',
 						'show_reset'    => true,
+						'show_alpha'	=> true,
 						'preview'       => array(
 							'type'          => 'css',
                             'selector'        => '.pp-logos-content .bx-wrapper .bx-pager.bx-default-pager a',
@@ -762,6 +668,7 @@ FLBuilder::register_module('PPLogosGridModule', array(
 						'label'         => __('Active Dot Color', 'bb-powerpack'),
 						'default'       => '999999',
 						'show_reset'    => true,
+						'show_alpha'	=> true,
 						'preview'       => array(
                             'type'          => 'css',
                             'selector'        => '.pp-logos-content .bx-wrapper .bx-pager.bx-default-pager a:active',
@@ -769,11 +676,11 @@ FLBuilder::register_module('PPLogosGridModule', array(
 						)
 					),
                     'logo_grid_dot_width'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Dot Size', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'pp-logo-grid-input input-small',
                         'default'       => '14',
+						'units'			=> array( 'px' ),
+						'slider'		=> true,
                         'preview'         => array(
                             'type'            => 'css',
                             'rules'           => array(
@@ -791,11 +698,11 @@ FLBuilder::register_module('PPLogosGridModule', array(
                         )
                     ),
                     'logo_grid_dot_border_radius'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Round Corners', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'pp-logo-grid-input input-small',
                         'default'       => '100',
+						'units'			=> array( 'px' ),
+						'slider'		=> true,
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-logos-content .bx-pager.bx-default-pager a',
@@ -813,31 +720,15 @@ FLBuilder::register_module('PPLogosGridModule', array(
             'logo_grid_title_style'   => array( // Section
                 'title' => __('Title', 'bb-powerpack'), // Section Title
                 'fields' => array( // Section Fields
-                    'logo_grid_title_font' => array(
-                        'type'          => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.pp-logos-content .pp-logo div.title-wrapper p.logo-title'
-                        )
-                    ),
-                    'logo_grid_title_font_size' => array(
-                        'type'          => 'text',
-                        'label'         => __('Font Size', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'pp-logo-grid-input input-small',
-                        'default'       => '16',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-logos-content .pp-logo div.title-wrapper p.logo-title',
-                            'property'  => 'font-size',
-                            'unit'      => 'px'
-                        )
-                    ),
+                    'title_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-logos-content .pp-logo div.title-wrapper p.logo-title',
+						),
+					),
                     'logo_grid_title_color'    => array(
                         'type'          => 'color',
                         'label'         => __('Color', 'bb-powerpack'),
@@ -861,11 +752,11 @@ FLBuilder::register_module('PPLogosGridModule', array(
                         )
                     ),
                     'logo_grid_title_top_margin'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Top Margin', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'pp-logo-grid-input input-small',
                         'default'       => '10',
+						'units'			=> array( 'px' ),
+						'slider'		=> true,
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-logos-content .pp-logo div.title-wrapper p.logo-title',
@@ -874,11 +765,11 @@ FLBuilder::register_module('PPLogosGridModule', array(
                         )
                     ),
                     'logo_grid_title_bottom_margin'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Bottom Margin', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'pp-logo-grid-input input-small',
                         'default'       => '10',
+						'units'			=> array( 'px' ),
+						'slider'		=> true,
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-logos-content .pp-logo div.title-wrapper p.logo-title',

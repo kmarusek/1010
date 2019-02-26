@@ -5,9 +5,10 @@
 .fl-node-<?php echo $id; ?> .pp-modal-button .pp-modal-trigger {
     <?php if ( 'button' == $settings->button_type || 'icon' == $settings->button_type ) { ?>
     color: #<?php echo $settings->button_text_color; ?>;
-    background-color: <?php echo pp_hex2rgba('#'.$settings->button_color, $settings->button_opacity); ?>;
-    padding: <?php echo $settings->button_padding['top']; ?>px <?php echo $settings->button_padding['right']; ?>px <?php echo $settings->button_padding['bottom']; ?>px <?php echo $settings->button_padding['left']; ?>px;
-        <?php if ( 'full' == $settings->button_width ) { ?>
+	<?php if ( isset( $settings->button_color ) && ! empty( $settings->button_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->button_color ); ?>;
+	<?php } ?>
+	<?php if ( 'full' == $settings->button_width ) { ?>
         display: inline-block;
         width: 100%;
         <?php } ?>
@@ -15,33 +16,64 @@
     <?php if ( 'image' == $settings->button_type || 'icon' == $settings->button_type ) { ?>
     display: inline-block;
     <?php } ?>
-    <?php if ( 'yes' == $settings->button_border ) { ?>
-    border: <?php echo $settings->button_border_width; ?>px solid #<?php echo $settings->button_border_color; ?>;
-    <?php } ?>
-    border-radius: <?php echo $settings->button_border_radius; ?>px;
     text-align: center;
     text-decoration: none;
 }
+<?php
+	// Button - Border
+	FLBuilderCSS::border_field_rule( array(
+		'settings' 		=> $settings,
+		'setting_name' 	=> 'button_border_group',
+		'selector' 		=> ".fl-node-$id .pp-modal-trigger, .fl-node-$id .pp-modal-button .pp-modal-trigger",
+	) );
+
+	// Button - Padding
+	FLBuilderCSS::dimension_field_rule( array(
+		'settings'		=> $settings,
+		'setting_name' 	=> 'button_padding',
+		'selector' 		=> ".fl-node-$id .pp-modal-trigger, .fl-node-$id .pp-modal-button .pp-modal-trigger",
+		'unit'			=> 'px',
+		'props'			=> array(
+			'padding-top' 		=> 'button_padding_top',
+			'padding-right' 	=> 'button_padding_right',
+			'padding-bottom' 	=> 'button_padding_bottom',
+			'padding-left' 		=> 'button_padding_left',
+		),
+	) );
+?>
+
 .fl-node-<?php echo $id; ?> .pp-modal-trigger .pp-button-icon {
-    font-size: <?php echo $settings->button_font_size; ?>px;
+	<?php if( isset( $settings->button_typography ) && is_array( $settings->button_typography ) ) { ?>
+    font-size: <?php echo $settings->button_typography['font_size']['length']; ?><?php echo $settings->button_typography['font_size']['unit']; ?>;
+	<?php } ?>
 }
-.fl-node-<?php echo $id; ?> .pp-modal-trigger .pp-modal-trigger-text {
-    <?php if( $settings->button_font_family['family'] != 'Default' ) {
-        FLBuilderFonts::font_css( $settings->button_font_family );
-    } ?>
-    font-size: <?php echo $settings->button_font_size; ?>px;
-}
+
+<?php
+	// Button Typography
+	FLBuilderCSS::typography_field_rule( array(
+		'settings'		=> $settings,
+		'setting_name' 	=> 'button_typography',
+		'selector' 		=> ".fl-node-$id .pp-modal-trigger .pp-modal-trigger-text",
+	) );
+?>
 .fl-builder-content .fl-node-<?php echo $id; ?> .pp-modal-trigger:hover,
 .fl-node-<?php echo $id; ?> .pp-modal-trigger:hover {
     <?php if ( 'button' == $settings->button_type || 'icon' == $settings->button_type ) { ?>
     color: #<?php echo $settings->button_text_hover; ?>;
-    background-color: <?php echo pp_hex2rgba('#'.$settings->button_color_hover, $settings->button_opacity_hover); ?>;
+	<?php if ( isset( $settings->button_color_hover ) && ! empty( $settings->button_color_hover ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->button_color_hover ); ?>;
+	<?php } ?>
     <?php } ?>
     border-color: #<?php echo $settings->button_border_color_hover; ?>;
 }
 <?php if ( 'image' == $settings->button_type ) { ?>
 .fl-node-<?php echo $id; ?> .pp-modal-trigger img {
-    border-radius: <?php echo $settings->button_border_radius; ?>px;
+	<?php if ( isset( $settings->button_border_group ) && isset( $settings->button_border_group['radius'] ) ) { ?>
+		border-top-left-radius: <?php echo $settings->button_border_group['radius']['top_left']; ?>px;
+		border-top-right-radius: <?php echo $settings->button_border_group['radius']['top_right']; ?>px;
+		border-bottom-left-radius: <?php echo $settings->button_border_group['radius']['bottom_left']; ?>px;
+		border-bottom-right-radius: <?php echo $settings->button_border_group['radius']['bottom_right']; ?>px;
+	<?php } ?>
     <?php if ( 'auto' != $settings->image_size ) { ?>
     width: <?php echo $settings->image_width; ?>px;
     height: <?php echo $settings->image_height; ?>px;
@@ -71,9 +103,9 @@
 
 .fl-node-<?php echo $id; ?> .pp-modal,
 #modal-<?php echo $id; ?> .pp-modal {
-    <?php if ( 'color' == $settings->modal_background ) { ?>
-    background-color: <?php echo '' == $settings->modal_bg_color ? 'transparent' : pp_hex2rgba('#'.$settings->modal_bg_color, $settings->modal_bg_opacity ? $settings->modal_bg_opacity : 0); ?>;
-    <?php } else { ?>
+	<?php if ( 'color' == $settings->modal_background && isset( $settings->modal_bg_color ) && ! empty( $settings->modal_bg_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->modal_bg_color ); ?>;
+	<?php } else { ?>
     background-image: url(<?php echo wp_get_attachment_url( $settings->modal_bg_photo ); ?>);
     background-size: <?php echo $settings->modal_bg_size; ?>;
     background-repeat: <?php echo $settings->modal_bg_repeat; ?>;
@@ -124,7 +156,9 @@
 }
 .fl-node-<?php echo $id; ?> .pp-modal .pp-modal-header,
 #modal-<?php echo $id; ?> .pp-modal .pp-modal-header {
-    background-color: <?php echo $settings->title_bg ? '#' . $settings->title_bg : 'transparent'; ?>;
+	<?php if ( isset( $settings->title_bg ) && ! empty( $settings->title_bg ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->title_bg ); ?>;
+	<?php } ?>
     border-bottom: <?php echo $settings->title_border; ?>px <?php echo $settings->title_border_style; ?> #<?php echo $settings->title_border_color; ?>;
     <?php if ( 'fullscreen' != $settings->modal_layout ) { ?>
     border-top-left-radius: <?php echo $settings->modal_border_radius; ?>px;
@@ -135,12 +169,15 @@
 #modal-<?php echo $id; ?> .pp-modal .pp-modal-title {
     padding: 10px <?php echo $settings->title_padding; ?>px;
     color: #<?php echo $settings->title_color; ?>;
-    <?php if( $settings->title_font_family['family'] != 'Default' ) {
-        FLBuilderFonts::font_css( $settings->title_font_family );
-    } ?>
-    font-size: <?php echo $settings->title_font_size; ?>px;
-    text-align: <?php echo $settings->title_alignment; ?>;
 }
+<?php
+	// Title Typography
+	FLBuilderCSS::typography_field_rule( array(
+		'settings'		=> $settings,
+		'setting_name' 	=> 'title_typography',
+		'selector' 		=> ".fl-node-$id .pp-modal .pp-modal-title, #modal-$id .pp-modal .pp-modal-title",
+	) );
+?>
 .fl-node-<?php echo $id; ?> .pp-modal .pp-modal-content,
 #modal-<?php echo $id; ?> .pp-modal .pp-modal-content {
     <?php echo ('' != $settings->content_text_color) ? 'color: #'.$settings->content_text_color.';' : ''; ?>
@@ -166,10 +203,6 @@
 #modal-<?php echo $id; ?> .pp-modal .pp-modal-content-inner {
     position: relative;
     height: 100%;
-    <?php if ( 'none' != $settings->content_border ) { ?>
-    border: <?php echo $settings->content_border_width; ?>px <?php echo $settings->content_border; ?> #<?php echo $settings->content_border_color; ?>;
-    border-radius: <?php echo $settings->content_border_radius; ?>px;
-    <?php } ?>
     <?php if ( 'fullscreen' == $settings->modal_layout ) { ?>
     overflow-y: auto;
     <?php } else { ?>
@@ -177,12 +210,23 @@
     <?php } ?>
     padding: <?php echo $settings->content_padding; ?>px;
 }
+<?php
+	// Content - Border
+	FLBuilderCSS::border_field_rule( array(
+		'settings' 		=> $settings,
+		'setting_name' 	=> 'content_border_group',
+		'selector' 		=> ".fl-node-$id .pp-modal .pp-modal-content-inner, #modal-$id .pp-modal .pp-modal-content-inner",
+	) );
+?>
+
 .fl-node-<?php echo $id; ?> .pp-modal-close,
 #modal-<?php echo $id; ?> .pp-modal-close {
     <?php if ( 'none' == $settings->close_btn_toggle ) { ?>
     display: none;
     <?php } ?>
-    background: <?php echo $settings->close_btn_bg ? '#' . $settings->close_btn_bg : 'transparent'; ?>;
+	<?php if ( isset( $settings->close_btn_bg ) && ! empty( $settings->close_btn_bg ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->close_btn_bg ); ?>;
+	<?php } ?>
     border: <?php echo '' == $settings->close_btn_border ? 0 : $settings->close_btn_border; ?>px solid #<?php echo $settings->close_btn_border_color; ?>;
     border-radius: <?php echo $settings->close_btn_border_radius; ?>px;
     width: <?php echo $settings->close_btn_size; ?>px;
@@ -195,7 +239,9 @@
 }
 .fl-node-<?php echo $id; ?> .pp-modal-close:hover,
 #modal-<?php echo $id; ?> .pp-modal-close:hover {
-    background: <?php echo $settings->close_btn_bg_hover ? '#' . $settings->close_btn_bg_hover : 'transparent'; ?>;
+	<?php if ( isset( $settings->close_btn_bg_hover ) && ! empty( $settings->close_btn_bg_hover ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->close_btn_bg_hover ); ?>;
+	<?php } ?>
     -webkit-transition: background 0.2s ease-in-out;
     -moz-transition: background 0.2s ease-in-out;
     transition: background 0.2s ease-in-out;
@@ -257,14 +303,18 @@
 <?php if( 'none' != $settings->overlay_toggle ) { ?>
 .fl-node-<?php echo $id; ?> .pp-modal-container,
 #modal-<?php echo $id; ?> .pp-modal-container {
-    background-color: <?php echo $settings->overlay_bg_color ? pp_hex2rgba( '#' . $settings->overlay_bg_color, $settings->overlay_opacity ) : 'transparent'; ?>;
+	<?php if ( isset( $settings->overlay_bg_color ) && ! empty( $settings->overlay_bg_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->overlay_bg_color ); ?>;
+	<?php } ?>
 }
 <?php } ?>
 
 .fl-node-<?php echo $id; ?> .pp-modal-overlay,
 #modal-<?php echo $id; ?> .pp-modal-overlay {
 	display: none;
-    background-color: <?php echo $settings->overlay_bg_color ? pp_hex2rgba( '#' . $settings->overlay_bg_color, $settings->overlay_opacity ) : 'transparent'; ?>;
+    <?php if ( isset( $settings->overlay_bg_color ) && ! empty( $settings->overlay_bg_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->overlay_bg_color ); ?>;
+	<?php } ?>
 }
 
 <?php if ( 'photo' == $settings->modal_type ) { ?>
@@ -280,7 +330,7 @@
     .fl-node-<?php echo $id; ?> .pp-modal.layout-fullscreen,
     #modal-<?php echo $id; ?> .pp-modal.layout-fullscreen {
         top: 0 !important;
-        margin 10px !important;
+        margin: 10px !important;
     }
     .fl-node-<?php echo $id; ?> .pp-modal.layout-standard,
     #modal-<?php echo $id; ?> .pp-modal.layout-standard {

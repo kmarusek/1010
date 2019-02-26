@@ -286,7 +286,7 @@ span.pp-multitext.fa-long-arrow-right:before {
     background: #101215 !important;
 }
 .fl-builder-settings .pp-field-separator {
-	margin-left: -8px;
+	margin: 10px 0;
 }
 
 .pp-color-picker {

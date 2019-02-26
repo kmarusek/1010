@@ -73,7 +73,11 @@ class BB_PowerPack_Ajax {
             'post_status'           => 'publish',
 			'ignore_sticky_posts'   => true,
             'pp_content_grid'       => true,
-        );
+		);
+		
+		if ( isset( $settings->posts_per_page ) ) {
+            $args['posts_per_page'] = $settings->posts_per_page;
+        }
 
         // posts filter.
         if ( isset( $settings->{'posts_' . $post_type} ) ) {
@@ -115,10 +119,6 @@ class BB_PowerPack_Ajax {
 		if ( isset( $_POST['author_id'] ) && ! empty( $_POST['author_id'] ) ) {
 			$args['author__in'] = array( absint( $_POST['author_id'] ) );
 		}
-
-        if ( isset( $settings->posts_per_page ) ) {
-            $args['posts_per_page'] = $settings->posts_per_page;
-        }
 
         if ( isset( $settings->post_grid_filters ) && 'none' != $settings->post_grid_filters && isset( $_POST['term'] ) ) {
             $args['tax_query'] = array(
@@ -220,7 +220,18 @@ class BB_PowerPack_Ajax {
 		
 		if ( isset( $_POST['page'] ) ) {
             $args['paged'] = absint( $_POST['page'] );
-        }
+		}
+		
+		// Offset
+		if ( isset( $settings->offset ) ) {
+			$page = isset( $args['paged'] ) ? $args['paged'] : 1;
+			$per_page = ( isset( $args['posts_per_page'] ) && $args['posts_per_page'] > 0 ) ? $args['posts_per_page'] : 10;
+			if ( $page < 2 ) {
+				$args['offset'] = absint( $settings->offset );
+			} else {
+				$args['offset'] = absint( $settings->offset ) + ( ( $page - 1 ) * $per_page );
+			}
+		}
 		
 		// Order by author
 		if ( 'author' == $settings->order_by ) {

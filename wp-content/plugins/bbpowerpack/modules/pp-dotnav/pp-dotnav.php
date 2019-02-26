@@ -22,7 +22,6 @@ class PPDotNavModule extends FLBuilderModule {
             'url'           => BB_POWERPACK_URL . 'modules/pp-dotnav/',
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
-            'icon'				=> 'star-filled.svg',
         ));
     }
 
@@ -79,11 +78,10 @@ FLBuilder::register_module('PPDotNavModule', array(
                         'help'          => __('Enter the combination of id and title of each row in new line. Please use the following format - row_id : your title. Row IDs must be unique.', 'bb-powerpack')
                     ),
                     'top_offset'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Row Top Offset', 'bb-powerpack'),
                         'default'       => 0,
-                        'description'   => 'px',
-                        'class'         => 'input-small',
+                        'units'   		=> array( 'px' ),
                         'help'          => __('If your theme uses a sticky header, then please enter the header height in px (numbers only) to avoid overlapping of row content.', 'bb-powerpack')
                     ),
                     'scroll_speed'   => array(
@@ -174,6 +172,7 @@ FLBuilder::register_module('PPDotNavModule', array(
                         'label'         => __('Color', 'bb-powerpack'),
                         'default'       => '',
                         'show_reset'    => true,
+						'show_alpha'	=> true,
                         'preview'       => array(
                             'type'          => 'css',
                             'selector'      => '.pp-dotnav .pp-dot .pp-dot-circle',
@@ -184,11 +183,13 @@ FLBuilder::register_module('PPDotNavModule', array(
                         'type'          => 'color',
                         'label'         => __('Color Hover', 'bb-powerpack'),
                         'default'       => 'ffffff',
+						'show_alpha'	=> true
                     ),
                     'dot_color_active' => array(
                         'type'          => 'color',
                         'label'         => __('Color Active', 'bb-powerpack'),
                         'default'       => 'ffffff',
+						'show_alpha'	=> true,
                         'preview'       => array(
                             'type'          => 'css',
                             'selector'      => '.pp-dotnav .pp-dot.active .pp-dot-circle',
@@ -196,11 +197,11 @@ FLBuilder::register_module('PPDotNavModule', array(
                         )
                     ),
                     'dot_border_width'  => array(
-                        'type'              => 'text',
+                        'type'              => 'unit',
                         'label'             => __('Border Width', 'bb-powerpack'),
                         'default'           => 1,
-                        'description'       => 'px',
-                        'class'             => 'input-small',
+                        'units'       		=> array( 'px' ),
+                        'slider'             => true,
                         'preview'           => array(
                             'type'              => 'css',
                             'selector'          => '.pp-dotnav .pp-dot .pp-dot-circle',
@@ -237,11 +238,11 @@ FLBuilder::register_module('PPDotNavModule', array(
                         )
                     ),
                     'dot_size'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Size', 'bb-powerpack'),
                         'default'       => 14,
-                        'description'   => 'px',
-                        'class'         => 'input-small',
+                        'units'       	=> array( 'px' ),
+                        'slider'        => true,
                         'preview'       => array(
                             'type'          => 'css',
                             'rules'         => array(
@@ -259,11 +260,11 @@ FLBuilder::register_module('PPDotNavModule', array(
                         )
                     ),
                     'dot_margin'    => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Margin', 'bb-powerpack'),
                         'default'       => 12,
-                        'description'   => 'px',
-                        'class'         => 'input-small',
+                        'units'       	=> array( 'px' ),
+                        'slider'        => true,
                         'preview'       => array(
                             'type'          => 'css',
                             'rules'         => array(
@@ -281,11 +282,11 @@ FLBuilder::register_module('PPDotNavModule', array(
                         )
                     ),
                     'dot_hide_on'    => array(
-                        'type'          => 'text',
-                        'label'         => __('Hide on device width', 'bb-powerpack'),
+                        'type'          => 'unit',
+                        'label'         => __('Hide on breakpoint', 'bb-powerpack'),
                         'default'       => 768,
-                        'description'   => __('px - minimum', 'bb-powerpack'),
-                        'class'         => 'input-small',
+                        'units'       		=> array( 'px' ),
+                        'slider'             => true,
                     )
                 )
             ),
@@ -296,12 +297,13 @@ FLBuilder::register_module('PPDotNavModule', array(
                         'type'              => 'color',
                         'label'             => __('Background Color', 'bb-powerpack'),
                         'default'           => 'ffffff',
-                        'show_reset'        => true
+                        'show_reset'        => true,
+						'show_alpha'		=> true
                     ),
                     'dot_label_text'    => array(
                         'type'              => 'color',
                         'label'             => __('Text Color', 'bb-powerpack'),
-                        'default'           => '444444'
+                        'default'           => '444444',
                     )
                 )
             )

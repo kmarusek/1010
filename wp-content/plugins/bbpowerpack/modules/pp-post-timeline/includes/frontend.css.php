@@ -1,32 +1,36 @@
 .fl-node-<?php echo $id; ?> .pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content {
-	background: <?php echo ($settings->post_timeline_background) ? '#'.$settings->post_timeline_background : 'transparent'; ?>;
-	border-color: <?php echo ($settings->post_timeline_border_color) ? '#'.$settings->post_timeline_border_color : 'transparent'; ?>;
-	border-style: <?php echo $settings->post_timeline_border_type ?>;
-	border-radius: <?php echo ($settings->post_timeline_border_radius >= 0) ? $settings->post_timeline_border_radius : '0'; ?>px;
-	border-width: <?php echo ($settings->post_timeline_border_width >= 0) ? $settings->post_timeline_border_width : '0'; ?>px;
-	<?php if($settings->post_timeline_box_shadow == 'yes') {	?>
-		-webkit-box-shadow: <?php echo $settings->box_shadow_options['box_shadow_h']; ?>px <?php echo $settings->box_shadow_options['box_shadow_v']; ?>px <?php echo $settings->box_shadow_options['box_shadow_blur']; ?>px <?php echo $settings->box_shadow_options['box_shadow_spread']; ?>px <?php echo pp_hex2rgba( '#'.$settings->post_timeline_box_shadow_color, $settings->post_timeline_box_shadow_opacity ); ?>;
-		-moz-box-shadow: <?php echo $settings->box_shadow_options['box_shadow_h']; ?>px <?php echo $settings->box_shadow_options['box_shadow_v']; ?>px <?php echo $settings->box_shadow_options['box_shadow_blur']; ?>px <?php echo $settings->box_shadow_options['box_shadow_spread']; ?>px <?php echo pp_hex2rgba( '#'.$settings->post_timeline_box_shadow_color, $settings->post_timeline_box_shadow_opacity ); ?>;
-		-o-box-shadow: <?php echo $settings->box_shadow_options['box_shadow_h']; ?>px <?php echo $settings->box_shadow_options['box_shadow_v']; ?>px <?php echo $settings->box_shadow_options['box_shadow_blur']; ?>px <?php echo $settings->box_shadow_options['box_shadow_spread']; ?>px <?php echo pp_hex2rgba( '#'.$settings->post_timeline_box_shadow_color, $settings->post_timeline_box_shadow_opacity ); ?>;
-		box-shadow: <?php echo $settings->box_shadow_options['box_shadow_h']; ?>px <?php echo $settings->box_shadow_options['box_shadow_v']; ?>px <?php echo $settings->box_shadow_options['box_shadow_blur']; ?>px <?php echo $settings->box_shadow_options['box_shadow_spread']; ?>px <?php echo pp_hex2rgba( '#'.$settings->post_timeline_box_shadow_color, $settings->post_timeline_box_shadow_opacity ); ?>;
+	<?php if ( ! empty( $settings->post_timeline_background ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->post_timeline_background ); ?>;
 	<?php } ?>
 }
+
+<?php
+	// Box - Border
+	FLBuilderCSS::border_field_rule( array(
+		'settings' 		=> $settings,
+		'setting_name' 	=> 'post_timeline_border',
+		'selector' 		=> ".fl-node-$id .pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content",
+	) );
+?>
 
 .fl-node-<?php echo $id; ?> .pp-post-timeline-content-wrapper:before {
 	border-right-color: <?php echo ($settings->post_timeline_line_color) ? '#'.$settings->post_timeline_line_color : '#000'; ?>;
 	border-right-style: <?php echo $settings->post_timeline_line_style ?>;
 	border-right-width: <?php echo ($settings->post_timeline_line_width >= 0) ? $settings->post_timeline_line_width : '1'; ?>px;
 }
-.fl-node-<?php echo $id; ?> .pp-post-timeline-content-wrapper:after {
+.fl-node-<?php echo $id; ?> .pp-post-timeline .pp-post-timeline-content-wrapper:after {
 	border-color: <?php echo ($settings->post_timeline_line_color) ? '#'.$settings->post_timeline_line_color : '#000'; ?>;
 }
 .fl-node-<?php echo $id; ?> .pp-post-timeline.horizontal .pp-post-timeline-content-wrapper:before {
+	border-right: 0;
 	border-top-style: <?php echo $settings->post_timeline_line_style ?>;
 	border-top-width: <?php echo ($settings->post_timeline_line_width >= 0) ? $settings->post_timeline_line_width : '1'; ?>px;
 	border-top-color: <?php echo ($settings->post_timeline_line_color) ? '#'.$settings->post_timeline_line_color : '#000'; ?>;
 }
 .fl-node-<?php echo $id; ?> .pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-title-wrapper {
-	background: <?php echo ($settings->title_bg_color) ? '#'.$settings->title_bg_color : 'transparent'; ?>;
+	<?php if ( isset( $settings->title_bg_color ) && ! empty( $settings->title_bg_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->title_bg_color ); ?>;
+	<?php } ?>
 	<?php if( $settings->title_border != '' ) { ?>
 		border-bottom-width: <?php echo $settings->title_border; ?>px;
 		border-bottom-color: #<?php echo $settings->title_border_color; ?>;
@@ -38,24 +42,33 @@
 	padding-right: <?php echo ( $settings->title_horizontal_padding != '') ? $settings->title_horizontal_padding.'px' : '20px'; ?>;
 }
 .fl-node-<?php echo $id; ?> .pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-title {
-	<?php if( $settings->title_font['family'] != 'Default' ) { ?><?php FLBuilderFonts::font_css( $settings->title_font ); ?><?php } ?>
-	font-size: <?php echo ( $settings->title_font_size >= 0 && $settings->title_font_size != '' ) ? $settings->title_font_size . 'px' : '24px'; ?>;
-	line-height: <?php echo ( $settings->title_line_height >= 0 && $settings->title_line_height != '' ) ? $settings->title_line_height : '1.6'; ?>;
 	<?php if($settings->title_text_color) { ?>color: #<?php echo $settings->title_text_color; ?>;<?php } ?>
-	text-transform: <?php echo $settings->title_text_transform; ?>;
 }
+
+<?php
+	// Title Typography
+	FLBuilderCSS::typography_field_rule( array(
+		'settings'		=> $settings,
+		'setting_name' 	=> 'title_typography',
+		'selector' 		=> ".fl-node-$id .pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-title",
+	) );
+?>
 
 .fl-node-<?php echo $id; ?> .pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-title a {
 	<?php if($settings->title_text_color) { ?>color: #<?php echo $settings->title_text_color; ?>;<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-meta {
-	<?php if( $settings->meta_font['family'] != 'Default' ) { ?><?php FLBuilderFonts::font_css( $settings->meta_font ); ?><?php } ?>
-	font-size: <?php echo ( $settings->meta_font_size >= 0 && $settings->meta_font_size != '' ) ? $settings->meta_font_size . 'px' : '14px'; ?>;
-	line-height: <?php echo ( $settings->meta_line_height >= 0 && $settings->meta_line_height != '' ) ? $settings->meta_line_height : '1.6'; ?>;
 	<?php if($settings->meta_text_color) { ?>color: #<?php echo $settings->meta_text_color; ?>;<?php } ?>
-	text-transform: <?php echo $settings->meta_text_transform; ?>;
 }
+<?php
+	// Meta Typography
+	FLBuilderCSS::typography_field_rule( array(
+		'settings'		=> $settings,
+		'setting_name' 	=> 'meta_typography',
+		'selector' 		=> ".fl-node-$id .pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-meta",
+	) );
+?>
 
 .fl-node-<?php echo $id; ?> .pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-meta a {
 	<?php if($settings->meta_link_color) { ?>color: #<?php echo $settings->meta_link_color; ?>;<?php } ?>
@@ -65,20 +78,22 @@
 	<?php if($settings->meta_link_hover) { ?>color: #<?php echo $settings->meta_link_hover; ?>;<?php } ?>
 }
 
-.fl-node-<?php echo $id; ?> .pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-image.above-header {
-	<!-- margin-bottom: 20px; -->
-}
-
 .fl-node-<?php echo $id; ?> .pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-text-wrapper {
-	<?php if( $settings->text_font['family'] != 'Default' ) { ?><?php FLBuilderFonts::font_css( $settings->text_font ); ?><?php } ?>
-	font-size: <?php echo ( $settings->text_font_size >= 0 && $settings->text_font_size != '' ) ? $settings->text_font_size . 'px' : '16px'; ?>;
-	line-height: <?php echo ( $settings->text_line_height >= 0 && $settings->text_line_height != '' ) ? $settings->text_line_height : '1.6'; ?>;
 	<?php if( $settings->content_color ) { ?>color: #<?php echo $settings->content_color; ?>;<?php } ?>
 	padding-top: <?php echo ( $settings->content_vertical_padding != '') ? $settings->content_vertical_padding.'px' : '20px'; ?>;
 	padding-bottom: <?php echo ( $settings->content_vertical_padding != '') ? $settings->content_vertical_padding.'px' : '20px'; ?>;
 	padding-left: <?php echo ( $settings->content_horizontal_padding != '') ? $settings->content_horizontal_padding.'px' : '20px'; ?>;
 	padding-right: <?php echo ( $settings->content_horizontal_padding != '') ? $settings->content_horizontal_padding.'px' : '20px'; ?>;
 }
+
+<?php
+	// Text Typography
+	FLBuilderCSS::typography_field_rule( array(
+		'settings'		=> $settings,
+		'setting_name' 	=> 'text_typography',
+		'selector' 		=> ".fl-node-$id .pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-text-wrapper",
+	) );
+?>
 
 .fl-node-<?php echo $id; ?> .pp-post-timeline-content-wrapper .pp-post-timeline-icon .pp-timeline-icon,
 .fl-node-<?php echo $id; ?> .pp-post-timeline.horizontal .pp-post-timeline-slide-navigation .pp-timeline-icon {
@@ -87,7 +102,9 @@
 
 .fl-node-<?php echo $id; ?> .pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-icon,
 .fl-node-<?php echo $id; ?> .pp-post-timeline.horizontal .pp-post-timeline-slide-navigation .pp-post-timeline-icon {
-	background: <?php echo ($settings->icon_bg_color) ? '#'. $settings->icon_bg_color : '#fff'; ?>;
+	<?php if ( isset( $settings->icon_bg_color ) && ! empty( $settings->icon_bg_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->icon_bg_color ); ?>;
+	<?php } ?>
 	border-color: <?php echo ($settings->icon_border_color) ? '#'.$settings->icon_border_color : 'transparent'; ?>;
 	border-style: <?php echo $settings->icon_border_style ?>;
 	border-radius: <?php echo ($settings->icon_border_radius >= 0) ? $settings->icon_border_radius : '0'; ?>px;
@@ -99,74 +116,75 @@
 .fl-node-<?php echo $id; ?> .pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-icon-wrapper .pp-separator-arrow,
 .fl-node-<?php echo $id; ?> .pp-post-timeline.left .pp-post-timeline-content-wrapper .pp-post-timeline-item:nth-of-type(2n) .pp-separator-arrow {
 	border: 0;	
-	border-top: <?php echo ($settings->post_timeline_border_width) ? $settings->post_timeline_border_width : 1; ?>px solid transparent;
-	border-left: <?php echo ($settings->post_timeline_border_width) ? $settings->post_timeline_border_width : 1; ?>px solid transparent;
-
-	<?php if( $settings->post_timeline_background != '' ) { ?>
-		background-color: #<?php echo $settings->post_timeline_background; ?>;
-		border-top-color: #<?php echo $settings->post_timeline_background; ?>;
-		border-left-color: #<?php echo $settings->post_timeline_background; ?>;
-	<?php } elseif( $settings->title_bg_color != '' ) { ?>
-		background-color: #<?php echo $settings->title_bg_color; ?>;
-		border-top-color: #<?php echo $settings->title_bg_color; ?>;
-		border-left-color: #<?php echo $settings->title_bg_color; ?>;
+	border-top: <?php echo ($settings->post_timeline_border['width']['top']) ? $settings->post_timeline_border['width']['top'] : 1; ?>px solid transparent;
+	border-left: <?php echo ($settings->post_timeline_border['width']['top']) ? $settings->post_timeline_border['width']['top'] : 1; ?>px solid transparent;
+	
+	<?php if( isset( $settings->post_timeline_background ) && ! empty( $settings->post_timeline_background ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->post_timeline_background ); ?>;
+		border-top-color: <?php echo pp_get_color_value( $settings->post_timeline_background ); ?>;
+		border-left-color: <?php echo pp_get_color_value( $settings->post_timeline_background ); ?>;
+	<?php } elseif( isset( $settings->title_bg_color ) && ! empty( $settings->title_bg_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->title_bg_color ); ?>;
+		border-top-color: <?php echo pp_get_color_value( $settings->title_bg_color ); ?>;
+		border-left-color: <?php echo pp_get_color_value( $settings->title_bg_color ); ?>;
 	<?php } ?>
 	
-	<?php if( $settings->post_timeline_border_type != 'none' && $settings->post_timeline_border_color != '' ) { ?>
-		border-top-color: #<?php echo $settings->post_timeline_border_color; ?>;
-		border-left-color: #<?php echo $settings->post_timeline_border_color; ?>;
-	<?php } elseif ( $settings->post_timeline_box_shadow == 'yes' && $settings->post_timeline_box_shadow_color != '' ) { ?>
-		border-top-color: <?php echo pp_hex2rgba( '#'.$settings->post_timeline_box_shadow_color, $settings->post_timeline_box_shadow_opacity ); ?>;
-		border-left-color: <?php echo pp_hex2rgba( '#'.$settings->post_timeline_box_shadow_color, $settings->post_timeline_box_shadow_opacity ); ?>;
+	<?php if( $settings->post_timeline_border['style'] != 'none' && $settings->post_timeline_border['color'] != '' ) { ?>
+		border-top-color: #<?php echo $settings->post_timeline_border['color']; ?>;
+		border-left-color: #<?php echo $settings->post_timeline_border['color']; ?>;
+	<?php } elseif ( isset( $settings->post_timeline_border['shadow'] ) && $settings->post_timeline_border['shadow']['color'] != '' ) { ?>
+		border-top-color: <?php echo pp_get_color_value( $settings->post_timeline_border['shadow']['color'] ); ?>;
+		border-left-color: <?php echo pp_get_color_value( $settings->post_timeline_border['shadow']['color'] ); ?>;
 	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-post-timeline.right .pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-separator-arrow,
 .fl-node-<?php echo $id; ?> .pp-post-timeline.alternate .pp-post-timeline-content-wrapper .pp-post-timeline-item:nth-of-type(2n) .pp-separator-arrow {
 	border: 0;	
-	border-bottom: <?php echo ($settings->post_timeline_border_width) ? $settings->post_timeline_border_width : 1; ?>px solid transparent;
-	border-right: <?php echo ($settings->post_timeline_border_width) ? $settings->post_timeline_border_width : 1; ?>px solid transparent;
+	border-bottom: <?php echo ($settings->post_timeline_border['width']) ? $settings->post_timeline_border['width']['top'] : 1; ?>px solid transparent;
+	border-right: <?php echo ($settings->post_timeline_border['width']) ? $settings->post_timeline_border['width']['top'] : 1; ?>px solid transparent;
 
-	<?php if( $settings->post_timeline_background != '' ) { ?>
-		background-color: #<?php echo $settings->post_timeline_background; ?>;
-		border-bottom-color: #<?php echo $settings->post_timeline_background; ?>;
-		border-right-color: #<?php echo $settings->post_timeline_background; ?>;
-	<?php } elseif( $settings->title_bg_color != '' ) { ?>
-		background-color: #<?php echo $settings->title_bg_color; ?>;
-		border-bottom-color: #<?php echo $settings->title_bg_color; ?>;
-		border-right-color: #<?php echo $settings->title_bg_color; ?>;
+	<?php if( isset( $settings->post_timeline_background ) && ! empty( $settings->post_timeline_background ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->post_timeline_background ); ?>;
+		border-bottom-color: <?php echo pp_get_color_value( $settings->post_timeline_background ); ?>;
+		border-right-color: <?php echo pp_get_color_value( $settings->post_timeline_background ); ?>;
+	<?php } elseif( isset( $settings->title_bg_color ) && ! empty( $settings->title_bg_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->title_bg_color ); ?>;
+		border-bottom-color: <?php echo pp_get_color_value( $settings->title_bg_color ); ?>;
+		border-right-color: <?php echo pp_get_color_value( $settings->title_bg_color ); ?>;
 	<?php } ?>
 	
-	<?php if( $settings->post_timeline_border_type != 'none' && $settings->post_timeline_border_color != '' ) { ?>
-		border-bottom-color: #<?php echo $settings->post_timeline_border_color; ?>;
-		border-right-color: #<?php echo $settings->post_timeline_border_color; ?>;
-	<?php } elseif ( $settings->post_timeline_box_shadow == 'yes' && $settings->post_timeline_box_shadow_color != '' ) { ?>
-		border-bottom-color: <?php echo pp_hex2rgba( '#'.$settings->post_timeline_box_shadow_color, $settings->post_timeline_box_shadow_opacity ); ?>;
-		border-right-color: <?php echo pp_hex2rgba( '#'.$settings->post_timeline_box_shadow_color, $settings->post_timeline_box_shadow_opacity ); ?>;
+	<?php if( $settings->post_timeline_border['style'] != 'none' && $settings->post_timeline_border['color'] != '' ) { ?>
+		border-bottom-color: #<?php echo $settings->post_timeline_border['color']; ?>;
+		border-right-color: #<?php echo $settings->post_timeline_border['color']; ?>;
+	<?php } elseif ( isset( $settings->post_timeline_border['shadow'] ) && $settings->post_timeline_border['shadow']['color'] != '' ) { ?>
+		border-bottom-color: <?php echo pp_get_color_value( $settings->post_timeline_border['shadow']['color'] ); ?>;
+		border-right-color: <?php echo pp_get_color_value( $settings->post_timeline_border['shadow']['color'] ); ?>;
 	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-post-timeline.horizontal .pp-post-timeline-content-wrapper .pp-post-timeline-item.slick-current .pp-separator-arrow {
 	border: 0;	
-	border-bottom: <?php echo ($settings->post_timeline_border_width) ? $settings->post_timeline_border_width : 1; ?>px solid transparent;
-	border-left: <?php echo ($settings->post_timeline_border_width) ? $settings->post_timeline_border_width : 1; ?>px solid transparent;
+	border-bottom: <?php echo ($settings->post_timeline_border['width']) ? $settings->post_timeline_border['width']['top'] : 1; ?>px solid transparent;
+	border-left: <?php echo ($settings->post_timeline_border['width']) ? $settings->post_timeline_border['width']['top'] : 1; ?>px solid transparent;
 
-	<?php if( $settings->post_timeline_background != '' ) { ?>
-		background-color: #<?php echo $settings->post_timeline_background; ?>;
-		border-bottom-color: #<?php echo $settings->post_timeline_background; ?>;
-		border-left-color: #<?php echo $settings->post_timeline_background; ?>;
-	<?php } elseif( $settings->title_bg_color != '' ) { ?>
-		background-color: #<?php echo $settings->title_bg_color; ?>;
-		border-bottom-color: #<?php echo $settings->title_bg_color; ?>;
-		border-left-color: #<?php echo $settings->title_bg_color; ?>;
+	<?php if( isset( $settings->post_timeline_background ) && ! empty( $settings->post_timeline_background ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->post_timeline_background ); ?>;
+		border-bottom-color: <?php echo pp_get_color_value( $settings->post_timeline_background ); ?>;
+		border-left-color: <?php echo pp_get_color_value( $settings->post_timeline_background ); ?>;
+	<?php } ?>
+	<?php if( isset( $settings->title_bg_color ) && ! empty( $settings->title_bg_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->title_bg_color ); ?>;
+		border-bottom-color: <?php echo pp_get_color_value( $settings->title_bg_color ); ?>;
+		border-left-color: <?php echo pp_get_color_value( $settings->title_bg_color ); ?>;
 	<?php } ?>
 
-	<?php if( $settings->post_timeline_border_type != 'none' && $settings->post_timeline_border_color != '' ) { ?>
-		border-bottom-color: #<?php echo $settings->post_timeline_border_color; ?>;
-		border-left-color: #<?php echo $settings->post_timeline_border_color; ?>;
-	<?php } elseif ( $settings->post_timeline_box_shadow == 'yes' && $settings->post_timeline_box_shadow_color != '' ) { ?>
-		border-bottom-color: <?php echo pp_hex2rgba( '#'.$settings->post_timeline_box_shadow_color, $settings->post_timeline_box_shadow_opacity ); ?>;
-		border-left-color: <?php echo pp_hex2rgba( '#'.$settings->post_timeline_box_shadow_color, $settings->post_timeline_box_shadow_opacity ); ?>;
+	<?php if( $settings->post_timeline_border['style'] != 'none' && $settings->post_timeline_border['color'] != '' ) { ?>
+		border-bottom-color: #<?php echo $settings->post_timeline_border['color']; ?>;
+		border-left-color: #<?php echo $settings->post_timeline_border['color']; ?>;
+	<?php } elseif ( isset( $settings->post_timeline_border['shadow'] ) && $settings->post_timeline_border['shadow']['color'] != '' ) { ?>
+		border-bottom-color: <?php echo pp_get_color_value( $settings->post_timeline_border['shadow']['color'] ); ?>;
+		border-left-color: <?php echo pp_get_color_value( $settings->post_timeline_border['shadow']['color'] ); ?>;
 	<?php } ?>
 }
 
@@ -176,41 +194,59 @@
 }
 
 .fl-node-<?php echo $id; ?> .pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-button {
-	<?php if( $settings->button_font['family'] != 'Default' ) { ?><?php FLBuilderFonts::font_css( $settings->button_font ); ?><?php } ?>
-	font-size: <?php echo ( $settings->button_font_size >= 0 && $settings->button_font_size != '' ) ? $settings->button_font_size . 'px' : '16px'; ?>;
-	text-transform: <?php echo $settings->button_text_transform; ?>;
-	background: <?php echo ($settings->post_timeline_button_bg_color) ? '#'.$settings->post_timeline_button_bg_color : 'transparent' ?>;
+	<?php if( isset( $settings->post_timeline_button_bg_color ) && ! empty( $settings->post_timeline_button_bg_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->post_timeline_button_bg_color ); ?>;
+	<?php } ?>
 	<?php if($settings->post_timeline_button_text_color) { ?>color: #<?php echo $settings->post_timeline_button_text_color; ?><?php } ?>;
-	border-color: <?php echo ($settings->post_timeline_button_border_color) ? '#'.$settings->post_timeline_button_border_color : 'transparent' ?>;
-	border-style: <?php echo $settings->post_timeline_button_border_type; ?>;
-	border-radius: <?php echo ($settings->post_timeline_button_border_radius) ? $settings->post_timeline_button_border_radius.'px' : '0'; ?>;
-	border-width: <?php echo ($settings->post_timeline_button_border_width) ? $settings->post_timeline_button_border_width.'px' : '0'; ?>;
 	padding-top: <?php echo ( $settings->button_vertical_padding != '') ? $settings->button_vertical_padding.'px' : '10px'; ?>;
 	padding-bottom: <?php echo ( $settings->button_vertical_padding != '') ? $settings->button_vertical_padding.'px' : '10px'; ?>;
 	padding-left: <?php echo ( $settings->button_horizontal_padding != '') ? $settings->button_horizontal_padding.'px' : '10px'; ?>;
 	padding-right: <?php echo ( $settings->button_horizontal_padding != '') ? $settings->button_horizontal_padding.'px' : '10px'; ?>;
 }
 
+<?php
+	// Button Typography
+	FLBuilderCSS::typography_field_rule( array(
+		'settings'		=> $settings,
+		'setting_name' 	=> 'button_typography',
+		'selector' 		=> ".fl-node-$id .pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-button",
+	) );
+
+	// Button - Border
+	FLBuilderCSS::border_field_rule( array(
+		'settings' 		=> $settings,
+		'setting_name' 	=> 'post_timeline_button_border',
+		'selector' 		=> ".fl-node-$id .pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-button",
+	) );
+?>
+
 .fl-node-<?php echo $id; ?> .pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-button:hover {
-	background: <?php echo ($settings->post_timeline_button_bg_hover) ? '#'.$settings->post_timeline_button_bg_hover : 'transparent'; ?>;
+	<?php if( isset( $settings->post_timeline_button_bg_hover ) && ! empty( $settings->post_timeline_button_bg_hover ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->post_timeline_button_bg_hover ); ?>;
+	<?php } ?>
 	<?php if($settings->post_timeline_button_text_hover) { ?>color: #<?php echo $settings->post_timeline_button_text_hover; ?><?php } ?>;
 }
 
 .fl-node-<?php echo $id; ?> .pp-post-timeline-slide-navigation span.slick-arrow {
-	background-color: <?php echo ( $settings->arrow_bg_color ) ? '#' . $settings->arrow_bg_color : 'transparent'; ?>;
+	<?php if( isset( $settings->arrow_bg_color ) && ! empty( $settings->arrow_bg_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->arrow_bg_color ); ?>;
+	<?php } ?>
 	padding-top: <?php echo ( $settings->arrow_vertical_padding != '') ? $settings->arrow_vertical_padding.'px' : '5px'; ?>;
 	padding-bottom: <?php echo ( $settings->arrow_vertical_padding != '') ? $settings->arrow_vertical_padding.'px' : '5px'; ?>;
 	padding-left: <?php echo ( $settings->arrow_horizontal_padding != '') ? $settings->arrow_horizontal_padding.'px' : '10px'; ?>;
 	padding-right: <?php echo ( $settings->arrow_horizontal_padding != '') ? $settings->arrow_horizontal_padding.'px' : '10px'; ?>;
-	<?php if( $settings->arrow_border_style != 'none' ) { ?>
-	border-color: <?php echo ($settings->arrow_border_color) ? '#'.$settings->arrow_border_color : 'transparent'; ?>;
-	border-style: <?php echo $settings->arrow_border_style ?>;
-	border-width: <?php echo ($settings->arrow_border_width >= 0) ? $settings->arrow_border_width : '0'; ?>px;
-	<?php } ?>
-	border-radius: <?php echo ($settings->arrow_border_radius >= 0) ? $settings->arrow_border_radius : '0'; ?>px;
 	width: <?php echo ($settings->arrow_font_size >= 0) ? ( $settings->arrow_font_size * 1.5 ) : '15'; ?>px;
 	height: <?php echo ($settings->arrow_font_size >= 0) ? ( $settings->arrow_font_size * 1.5 ) : '15'; ?>px;
 }
+
+<?php
+	// Arrow - Border
+	FLBuilderCSS::border_field_rule( array(
+		'settings' 		=> $settings,
+		'setting_name' 	=> 'arrow_border',
+		'selector' 		=> ".fl-node-$id .pp-post-timeline-slide-navigation span.slick-arrow",
+	) );
+?>
 
 .fl-node-<?php echo $id; ?> .pp-post-timeline-slide-navigation span.slick-arrow,
 .fl-node-<?php echo $id; ?> .pp-post-timeline-slide-navigation span.slick-arrow:before {
@@ -221,7 +257,9 @@
 
 .fl-node-<?php echo $id; ?> .pp-post-timeline-slide-navigation span.slick-arrow:hover {
 	<?php if( $settings->arrow_hover ) { ?>color: #<?php echo $settings->arrow_hover; ?>;<?php } ?>
-	background-color: <?php echo ( $settings->arrow_bg_hover ) ? '#' . $settings->arrow_bg_hover : 'transparent'; ?>;
+	<?php if( isset( $settings->arrow_bg_hover ) && ! empty( $settings->arrow_bg_hover ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->arrow_bg_hover ); ?>;
+	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-post-timeline-slide-navigation span.slick-arrow:hover:before {
@@ -290,17 +328,7 @@
 		<?php if( $settings->title_horizontal_padding_medium != '') { ?>padding-left: <?php echo $settings->title_horizontal_padding_medium; ?>px; <?php } ?>
 		<?php if( $settings->title_horizontal_padding_medium != '') { ?>padding-right: <?php echo $settings->title_horizontal_padding_medium; ?>px; <?php } ?>
 	}
-	.fl-node-<?php echo $id; ?> .pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-title {
-		<?php if( $settings->title_font_size_medium >= 0 ) { ?>font-size: <?php echo $settings->title_font_size_medium; ?>px;<?php } ?>
-		<?php if( $settings->title_line_height_medium >= 0 ) { ?>line-height: <?php echo $settings->title_line_height_medium; ?>;<?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-meta {
-		<?php if( $settings->meta_font_size_medium >= 0 ) { ?>font-size: <?php echo $settings->meta_font_size_medium; ?>px;<?php } ?>
-		<?php if( $settings->meta_line_height_medium >= 0 ) { ?>line-height: <?php echo $settings->meta_line_height_medium; ?>;<?php } ?>
-	}
 	.fl-node-<?php echo $id; ?> .pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-text-wrapper {
-		<?php if( $settings->text_font_size_medium >= 0 ) { ?>font-size: <?php echo $settings->text_font_size_medium; ?>px;<?php } ?>
-		<?php if( $settings->text_line_height_medium >= 0 ) { ?>line-height: <?php echo $settings->text_line_height_medium; ?>;<?php } ?>
 		<?php if( $settings->content_vertical_padding_medium != '') { ?>padding-top: <?php echo $settings->content_vertical_padding_medium; ?>px; <?php } ?>
 		<?php if( $settings->content_vertical_padding_medium != '') { ?>padding-bottom: <?php echo $settings->content_vertical_padding_medium; ?>px; <?php } ?>
 		<?php if( $settings->content_horizontal_padding_medium != '') { ?>padding-left: <?php echo $settings->content_horizontal_padding_medium; ?>px; <?php } ?>
@@ -311,7 +339,6 @@
 		<?php if( $settings->button_bottom_margin_medium ) { ?>margin-bottom: <?php echo $settings->button_bottom_margin_medium; ?>px;<?php } ?>
 	}
 	.fl-node-<?php echo $id; ?> .pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-button {
-		<?php if( $settings->button_font_size_medium >= 0 ) { ?>font-size: <?php echo $settings->button_font_size_medium; ?>px;<?php } ?>
 		<?php if( $settings->button_vertical_padding_medium != '') { ?>padding-top: <?php echo $settings->button_vertical_padding_medium; ?>px; <?php } ?>
 		<?php if( $settings->button_vertical_padding_medium != '') { ?>padding-bottom: <?php echo $settings->button_vertical_padding_medium; ?>px; <?php } ?>
 		<?php if( $settings->button_horizontal_padding_medium != '') { ?>padding-left: <?php echo $settings->button_horizontal_padding_medium; ?>px; <?php } ?>
@@ -321,25 +348,25 @@
 	.fl-node-<?php echo $id; ?> .pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-icon-wrapper .pp-separator-arrow,
 	.fl-node-<?php echo $id; ?> .pp-post-timeline.left .pp-post-timeline-content-wrapper .pp-post-timeline-item:nth-of-type(2n) .pp-separator-arrow {
 		border: 0;	
-		border-bottom: <?php echo ($settings->post_timeline_border_width) ? $settings->post_timeline_border_width : 1; ?>px solid transparent;
-		border-right: <?php echo ($settings->post_timeline_border_width) ? $settings->post_timeline_border_width : 1; ?>px solid transparent;
+		border-bottom: <?php echo ($settings->post_timeline_border['width']) ? $settings->post_timeline_border['width']['top'] : 1; ?>px solid transparent;
+		border-right: <?php echo ($settings->post_timeline_border['width']) ? $settings->post_timeline_border['width']['top'] : 1; ?>px solid transparent;
 
-		<?php if( $settings->post_timeline_background != '' ) { ?>
-			background-color: #<?php echo $settings->post_timeline_background; ?>;
-			border-bottom-color: #<?php echo $settings->post_timeline_background; ?>;
-			border-right-color: #<?php echo $settings->post_timeline_background; ?>;
-		<?php } elseif( $settings->title_bg_color != '' ) { ?>
-			background-color: #<?php echo $settings->title_bg_color; ?>;
-			border-bottom-color: #<?php echo $settings->title_bg_color; ?>;
-			border-right-color: #<?php echo $settings->title_bg_color; ?>;
+		<?php if( isset( $settings->post_timeline_background ) && ! empty( $settings->post_timeline_background ) ) { ?>
+			background-color: <?php echo pp_get_color_value( $settings->post_timeline_background ); ?>;
+			border-bottom-color: <?php echo pp_get_color_value( $settings->post_timeline_background ); ?>;
+			border-right-color: <?php echo pp_get_color_value( $settings->post_timeline_background ); ?>;
+		<?php } elseif( isset( $settings->title_bg_color ) && ! empty( $settings->title_bg_color ) ) { ?>
+			background-color: <?php echo pp_get_color_value( $settings->title_bg_color ); ?>;
+			border-bottom-color: <?php echo pp_get_color_value( $settings->title_bg_color ); ?>;
+			border-right-color: <?php echo pp_get_color_value( $settings->title_bg_color ); ?>;
 		<?php } ?>
 		
-		<?php if( $settings->post_timeline_border_type != 'none' && $settings->post_timeline_border_color != '' ) { ?>
-			border-bottom-color: #<?php echo $settings->post_timeline_border_color; ?>;
-			border-right-color: #<?php echo $settings->post_timeline_border_color; ?>;
-		<?php } elseif ( $settings->post_timeline_box_shadow == 'yes' && $settings->post_timeline_box_shadow_color != '' ) { ?>
-			border-bottom-color: <?php echo pp_hex2rgba( '#'.$settings->post_timeline_box_shadow_color, $settings->post_timeline_box_shadow_opacity ); ?>;
-			border-right-color: <?php echo pp_hex2rgba( '#'.$settings->post_timeline_box_shadow_color, $settings->post_timeline_box_shadow_opacity ); ?>;
+		<?php if( $settings->post_timeline_border['style'] != 'none' && $settings->post_timeline_border['color'] != '' ) { ?>
+			border-bottom-color: #<?php echo $settings->post_timeline_border['color']; ?>;
+			border-right-color: #<?php echo $settings->post_timeline_border['color']; ?>;
+		<?php } elseif ( isset( $settings->post_timeline_border['shadow'] ) && $settings->post_timeline_border['shadow']['color'] != '' ) { ?>
+			border-bottom-color: <?php echo pp_get_color_value( $settings->post_timeline_border['shadow']['color'] ); ?>;
+			border-right-color: <?php echo pp_get_color_value( $settings->post_timeline_border['shadow']['color'] ); ?>;
 		<?php } ?>
 	}
 	.fl-node-<?php echo $id; ?> .pp-post-timeline-slide-navigation span.slick-arrow {
@@ -363,17 +390,7 @@
 		<?php if( $settings->title_horizontal_padding_responsive != '') { ?>padding-left: <?php echo $settings->title_horizontal_padding_responsive; ?>px; <?php } ?>
 		<?php if( $settings->title_horizontal_padding_responsive != '') { ?>padding-right: <?php echo $settings->title_horizontal_padding_responsive; ?>px; <?php } ?>
 	}
-	.fl-node-<?php echo $id; ?> .pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-title {
-		<?php if( $settings->title_font_size_responsive >= 0 ) { ?>font-size: <?php echo $settings->title_font_size_responsive; ?>px;<?php } ?>
-		<?php if( $settings->title_line_height_responsive >= 0 ) { ?>line-height: <?php echo $settings->title_line_height_responsive; ?>;<?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-meta {
-		<?php if( $settings->meta_font_size_responsive >= 0 ) { ?>font-size: <?php echo $settings->meta_font_size_responsive; ?>px;<?php } ?>
-		<?php if( $settings->meta_line_height_responsive >= 0 ) { ?>line-height: <?php echo $settings->meta_line_height_responsive; ?>;<?php } ?>
-	}
 	.fl-node-<?php echo $id; ?> .pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-text-wrapper {
-		<?php if( $settings->text_font_size_responsive >= 0 ) { ?>font-size: <?php echo $settings->text_font_size_responsive; ?>px;<?php } ?>
-		<?php if( $settings->text_line_height_responsive >= 0 ) { ?>line-height: <?php echo $settings->text_line_height_responsive; ?>;<?php } ?>
 		<?php if( $settings->content_vertical_padding_responsive != '') { ?>padding-top: <?php echo $settings->content_vertical_padding_responsive; ?>px; <?php } ?>
 		<?php if( $settings->content_vertical_padding_responsive != '') { ?>padding-bottom: <?php echo $settings->content_vertical_padding_responsive; ?>px; <?php } ?>
 		<?php if( $settings->content_horizontal_padding_responsive != '') { ?>padding-left: <?php echo $settings->content_horizontal_padding_responsive; ?>px; <?php } ?>
@@ -384,7 +401,6 @@
 		<?php if( $settings->button_bottom_margin_responsive ) { ?>margin-bottom: <?php echo $settings->button_bottom_margin_responsive; ?>px;<?php } ?>
 	}
 	.fl-node-<?php echo $id; ?> .pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-button {
-		<?php if( $settings->button_font_size_responsive >= 0 ) { ?>font-size: <?php echo $settings->button_font_size_responsive; ?>px;<?php } ?>
 		<?php if( $settings->button_vertical_padding_responsive != '') { ?>padding-top: <?php echo $settings->button_vertical_padding_responsive; ?>px; <?php } ?>
 		<?php if( $settings->button_vertical_padding_responsive != '') { ?>padding-bottom: <?php echo $settings->button_vertical_padding_responsive; ?>px; <?php } ?>
 		<?php if( $settings->button_horizontal_padding_responsive != '') { ?>padding-left: <?php echo $settings->button_horizontal_padding_responsive; ?>px; <?php } ?>

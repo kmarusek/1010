@@ -38,6 +38,7 @@
     display: block;
 	position: relative;
 	overflow: hidden;
+	line-height: 0;
 }
 
 .pp-instagram-feed .pp-overlay-container {

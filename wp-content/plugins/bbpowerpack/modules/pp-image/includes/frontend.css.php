@@ -1,36 +1,50 @@
 .fl-node-<?php echo $id; ?> .pp-photo-container .pp-photo-content {
-    background: <?php echo ($settings->box_background) ? '#'.$settings->box_background : 'transparent'; ?>;
-    border-color: <?php echo ($settings->border_color) ? '#'.$settings->border_color : 'transparent'; ?>;
-    border-style: <?php echo $settings->box_border; ?>;
-    -webkit-border-radius: <?php echo ($settings->border_radius >= 0) ? $settings->border_radius.'px' : '0'; ?>;
-    -moz-border-radius: <?php echo ($settings->border_radius >= 0) ? $settings->border_radius.'px' : '0'; ?>;
-    -o-border-radius: <?php echo ($settings->border_radius >= 0) ? $settings->border_radius.'px' : '0'; ?>;
-    -ms-border-radius: <?php echo ($settings->border_radius >= 0) ? $settings->border_radius.'px' : '0'; ?>;
-    border-radius: <?php echo ($settings->border_radius >= 0) ? $settings->border_radius.'px' : '0'; ?>;
-    border-width: <?php echo ($settings->border_width >= 0) ? $settings->border_width.'px' : '0'; ?>;
-    <?php if( $settings->box_shadow == 'enable' ) { ?>
-        -webkit-box-shadow: <?php echo $settings->box_shadow_settings['h']; ?>px <?php echo $settings->box_shadow_settings['v']; ?>px <?php echo $settings->box_shadow_settings['blur']; ?>px <?php echo $settings->box_shadow_settings['spread']; ?>px <?php echo pp_hex2rgba( '#'.$settings->box_shadow_color, $settings->box_shadow_opacity ); ?>;
-        -moz-box-shadow: <?php echo $settings->box_shadow_settings['h']; ?>px <?php echo $settings->box_shadow_settings['v']; ?>px <?php echo $settings->box_shadow_settings['blur']; ?>px <?php echo $settings->box_shadow_settings['spread']; ?>px <?php echo pp_hex2rgba( '#'.$settings->box_shadow_color, $settings->box_shadow_opacity ); ?>;
-        -o-box-shadow: <?php echo $settings->box_shadow_settings['h']; ?>px <?php echo $settings->box_shadow_settings['v']; ?>px <?php echo $settings->box_shadow_settings['blur']; ?>px <?php echo $settings->box_shadow_settings['spread']; ?>px <?php echo pp_hex2rgba( '#'.$settings->box_shadow_color, $settings->box_shadow_opacity ); ?>;
-        box-shadow: <?php echo $settings->box_shadow_settings['h']; ?>px <?php echo $settings->box_shadow_settings['v']; ?>px <?php echo $settings->box_shadow_settings['blur']; ?>px <?php echo $settings->box_shadow_settings['spread']; ?>px <?php echo pp_hex2rgba( '#'.$settings->box_shadow_color, $settings->box_shadow_opacity ); ?>;
-    <?php } ?>
-    padding-top: <?php echo ($settings->box_padding['top'] >= 0) ? $settings->box_padding['top'].'px' : '0'; ?>;
-    padding-bottom: <?php echo ($settings->box_padding['bottom'] >= 0) ? $settings->box_padding['bottom'].'px' : '0'; ?>;
-    padding-left: <?php echo ($settings->box_padding['left'] >= 0) ? $settings->box_padding['left'].'px' : '0'; ?>;
-    padding-right: <?php echo ($settings->box_padding['right'] >= 0) ? $settings->box_padding['right'].'px' : '0'; ?>;
+	<?php if ( isset( $settings->box_background ) && ! empty( $settings->box_background ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->box_background ); ?>;
+	<?php } ?>
 }
+
+<?php
+	// Box - Border
+	FLBuilderCSS::border_field_rule( array(
+		'settings' 		=> $settings,
+		'setting_name' 	=> 'box_border_group',
+		'selector' 		=> ".fl-node-$id .pp-photo-container .pp-photo-content",
+	) );
+
+	// Box - Padding
+	FLBuilderCSS::dimension_field_rule( array(
+		'settings'		=> $settings,
+		'setting_name' 	=> 'box_padding',
+		'selector' 		=> ".fl-node-$id .pp-photo-container .pp-photo-content",
+		'unit'			=> 'px',
+		'props'			=> array(
+			'padding-top' 		=> 'box_padding_top',
+			'padding-right' 	=> 'box_padding_right',
+			'padding-bottom' 	=> 'box_padding_bottom',
+			'padding-left' 		=> 'box_padding_left',
+		),
+	) );
+?>
+
 .fl-node-<?php echo $id; ?> .pp-photo-container .pp-photo-content .pp-photo-content-inner {
-    -webkit-border-radius: <?php echo ($settings->border_radius >= 0) ? $settings->border_radius.'px' : '0'; ?>;
-    -moz-border-radius: <?php echo ($settings->border_radius >= 0) ? $settings->border_radius.'px' : '0'; ?>;
-    -o-border-radius: <?php echo ($settings->border_radius >= 0) ? $settings->border_radius.'px' : '0'; ?>;
-    -ms-border-radius: <?php echo ($settings->border_radius >= 0) ? $settings->border_radius.'px' : '0'; ?>;
-    border-radius: <?php echo ($settings->border_radius >= 0) ? $settings->border_radius.'px' : '0'; ?>;
+    <?php if ( isset( $settings->box_border_group ) && isset( $settings->box_border_group['radius'] ) ) { ?>
+		border-top-left-radius: <?php echo $settings->box_border_group['radius']['top_left']; ?>px;
+		border-top-right-radius: <?php echo $settings->box_border_group['radius']['top_right']; ?>px;
+		border-bottom-left-radius: <?php echo $settings->box_border_group['radius']['bottom_left']; ?>px;
+		border-bottom-right-radius: <?php echo $settings->box_border_group['radius']['bottom_right']; ?>px;
+	<?php } ?>
 }
-.fl-node-<?php echo $id; ?> .pp-photo-container .pp-photo-content .pp-photo-content-inner img {
-    <?php if ( isset( $settings->photo_size ) && ! empty( $settings->photo_size ) ) { ?>
-    width: <?php echo $settings->photo_size; ?>px;
-    <?php } ?>
-}
+<?php
+// Image - Size
+FLBuilderCSS::responsive_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'photo_size',
+	'selector'		=> ".fl-node-$id .pp-photo-container .pp-photo-content .pp-photo-content-inner img",
+	'prop'			=> 'width',
+	'unit'			=> 'px',
+) );
+?>
 .fl-node-<?php echo $id; ?> .pp-photo-container .pp-photo-content .pp-photo-content-inner a {
     display: block;
     text-decoration: none !important;
@@ -49,6 +63,12 @@
             border-style: <?php echo $settings->image_border_style; ?>;
             <?php if($settings->image_border_width) { ?>border-width: <?php echo $settings->image_border_width; ?>px;<?php } ?>
             <?php if($settings->image_spacing) { ?>margin: <?php echo $settings->image_spacing; ?>px;<?php } ?>
+			<?php if ( isset( $settings->box_border_group ) && isset( $settings->box_border_group['radius'] ) ) { ?>
+				border-top-left-radius: <?php echo $settings->box_border_group['radius']['top_left']; ?>px;
+				border-top-right-radius: <?php echo $settings->box_border_group['radius']['top_right']; ?>px;
+				border-bottom-left-radius: <?php echo $settings->box_border_group['radius']['bottom_left']; ?>px;
+				border-bottom-right-radius: <?php echo $settings->box_border_group['radius']['bottom_right']; ?>px;
+			<?php } ?>
         }
     <?php } else if( '' ==  $settings->link_type ) { ?>
         .fl-node-<?php echo $id; ?> .pp-photo-container .pp-photo-content .pp-photo-content-inner:before {
@@ -63,6 +83,12 @@
             border-style: <?php echo $settings->image_border_style; ?>;
             <?php if($settings->image_border_width) { ?>border-width: <?php echo $settings->image_border_width; ?>px;<?php } ?>
             <?php if($settings->image_spacing) { ?>margin: <?php echo $settings->image_spacing; ?>px;<?php } ?>
+			<?php if ( isset( $settings->box_border_group ) && isset( $settings->box_border_group['radius'] ) ) { ?>
+				border-top-left-radius: <?php echo $settings->box_border_group['radius']['top_left']; ?>px;
+				border-top-right-radius: <?php echo $settings->box_border_group['radius']['top_right']; ?>px;
+				border-bottom-left-radius: <?php echo $settings->box_border_group['radius']['bottom_left']; ?>px;
+				border-bottom-right-radius: <?php echo $settings->box_border_group['radius']['bottom_right']; ?>px;
+			<?php } ?>
         }
     <?php } ?>
 <?php } ?>
@@ -71,40 +97,60 @@
         <?php if($settings->image_border_color) { ?>border-color: #<?php echo $settings->image_border_color; ?>;<?php } ?>
         border-style: <?php echo $settings->image_border_style; ?>;
         <?php if($settings->image_border_width) { ?>border-width: <?php echo $settings->image_border_width; ?>px;<?php } ?>
+		<?php if ( isset( $settings->box_border_group ) && isset( $settings->box_border_group['radius'] ) ) { ?>
+			border-top-left-radius: <?php echo $settings->box_border_group['radius']['top_left']; ?>px;
+			border-top-right-radius: <?php echo $settings->box_border_group['radius']['top_right']; ?>px;
+			border-bottom-left-radius: <?php echo $settings->box_border_group['radius']['bottom_left']; ?>px;
+			border-bottom-right-radius: <?php echo $settings->box_border_group['radius']['bottom_right']; ?>px;
+		<?php } ?>
     }
 <?php } ?>
 
 .fl-node-<?php echo $id; ?> .pp-photo-caption {
-    <?php if( $settings->show_caption != 'hover' ) { ?>
-        background: <?php echo pp_hex2rgba('#'.$settings->caption_color['secondary'], $settings->caption_opacity); ?>;
-    <?php } ?>
-    color: <?php echo ($settings->caption_color['primary']) ? '#'.$settings->caption_color['primary'] : '#000000'; ?>;
-    <?php if( $settings->caption_font['family']	!= 'Default' ) { ?><?php FLBuilderFonts::font_css( $settings->caption_font ); ?><?php } ?>
-    font-size: <?php echo ($settings->caption_font_size['desktop'] >= 0) ? $settings->caption_font_size['desktop'].'px' : '18px'; ?>;
-    line-height: <?php echo ($settings->caption_line_height['desktop'] >= 0) ? $settings->caption_line_height['desktop'] : '1.6'; ?>;
-    padding-top: <?php echo ($settings->caption_padding['top'] >= 0) ? $settings->caption_padding['top'].'px' : '0'; ?>;
-    padding-bottom: <?php echo ($settings->caption_padding['bottom'] >= 0) ? $settings->caption_padding['bottom'].'px' : '0'; ?>;
-    padding-left: <?php echo ($settings->caption_padding['left'] >= 0) ? $settings->caption_padding['left'].'px' : '0'; ?>;
-    padding-right: <?php echo ($settings->caption_padding['right'] >= 0) ? $settings->caption_padding['right'].'px' : '0'; ?>;
-    text-align: <?php echo $settings->caption_alignment; ?>;
+	<?php if ( $settings->show_caption != 'hover' && isset( $settings->caption_bg_color ) && ! empty( $settings->caption_bg_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->caption_bg_color ); ?>;
+	<?php } ?>
+	<?php if ( isset( $settings->caption_text_color ) && ! empty( $settings->caption_text_color ) ) { ?>
+    	color: <?php echo pp_get_color_value( $settings->caption_text_color ); ?>;
+	<?php } ?>
 }
+
+<?php
+	// Caption Typography
+	FLBuilderCSS::typography_field_rule( array(
+		'settings'		=> $settings,
+		'setting_name' 	=> 'caption_typography',
+		'selector' 		=> ".fl-node-$id .pp-photo-caption",
+	) );
+
+	// Caption - Padding
+	FLBuilderCSS::dimension_field_rule( array(
+		'settings'		=> $settings,
+		'setting_name' 	=> 'caption_padding',
+		'selector' 		=> ".fl-node-$id .pp-photo-caption",
+		'unit'			=> 'px',
+		'props'			=> array(
+			'padding-top' 		=> 'caption_padding_top',
+			'padding-right' 	=> 'caption_padding_right',
+			'padding-bottom' 	=> 'caption_padding_bottom',
+			'padding-left' 		=> 'caption_padding_left',
+		),
+	) );
+?>
+
 .fl-node-<?php echo $id; ?> .pp-overlay-wrap .pp-overlay-bg {
     <?php if ( isset( $settings->hover_margin ) && !empty( $settings->hover_margin ) ) { ?>
         margin: <?php echo $settings->hover_margin; ?>px;
     <?php } ?>
-    background: <?php echo pp_hex2rgba('#'.$settings->caption_color['secondary'], $settings->caption_opacity); ?>;
-    -webkit-border-radius: <?php echo ($settings->border_radius >= 0) ? $settings->border_radius.'px' : '0'; ?>;
-    -moz-border-radius: <?php echo ($settings->border_radius >= 0) ? $settings->border_radius.'px' : '0'; ?>;
-    -o-border-radius: <?php echo ($settings->border_radius >= 0) ? $settings->border_radius.'px' : '0'; ?>;
-    -ms-border-radius: <?php echo ($settings->border_radius >= 0) ? $settings->border_radius.'px' : '0'; ?>;
-    border-radius: <?php echo ($settings->border_radius >= 0) ? $settings->border_radius.'px' : '0'; ?>;
-}
-
-@media only screen and ( max-width: 768px ) {
-    .fl-node-<?php echo $id; ?> .pp-photo-caption {
-        font-size: <?php echo ($settings->caption_font_size['tablet'] >= 0) ? $settings->caption_font_size['tablet'].'px' : '18px'; ?>;
-        line-height: <?php echo ($settings->caption_line_height['tablet'] >= 0) ? $settings->caption_line_height['tablet'] : '1.6'; ?>;
-    }
+	<?php if ( isset( $settings->caption_bg_color ) && ! empty( $settings->caption_bg_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->caption_bg_color ); ?>;
+	<?php } ?>
+    <?php if ( isset( $settings->box_border_group ) && isset( $settings->box_border_group['radius'] ) ) { ?>
+		border-top-left-radius: <?php echo $settings->box_border_group['radius']['top_left']; ?>px;
+		border-top-right-radius: <?php echo $settings->box_border_group['radius']['top_right']; ?>px;
+		border-bottom-left-radius: <?php echo $settings->box_border_group['radius']['bottom_left']; ?>px;
+		border-bottom-right-radius: <?php echo $settings->box_border_group['radius']['bottom_right']; ?>px;
+	<?php } ?>
 }
 
 @media only screen and (max-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
@@ -117,11 +163,4 @@
 	.pp-photo-container .pp-photo-align-responsive-right {
 		text-align: right !important;
 	}
-}
-
-@media only screen and ( max-width: 480px ) {
-    .fl-node-<?php echo $id; ?> .pp-photo-caption {
-        font-size: <?php echo ($settings->caption_font_size['mobile'] >= 0) ? $settings->caption_font_size['mobile'].'px' : '18px'; ?>;
-        line-height: <?php echo ($settings->caption_line_height['mobile'] >= 0) ? $settings->caption_line_height['mobile'] : '1.6'; ?>;
-    }
 }

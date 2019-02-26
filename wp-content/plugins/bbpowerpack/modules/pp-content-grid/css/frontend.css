@@ -50,7 +50,6 @@
     padding: 10px 15px;
     cursor: pointer;
     margin-bottom: 10px;
-    background: #fafafa;
 }
 .pp-post-filters-toggle:after {
     content: "+";
@@ -97,7 +96,6 @@
 	margin-right: 10px;
 	cursor: pointer;
 	padding: 8px 10px;
-	background: #eee;
 	color: #000;
 	-webkit-transition: all 0.2s ease-in;
 	-moz-transition: all 0.2s ease-in;

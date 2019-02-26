@@ -20,7 +20,6 @@ class PPAdvancedTabsModule extends FLBuilderModule {
             'editor_export' 	=> true, // Defaults to true and can be omitted.
             'enabled'       	=> true, // Defaults to true and can be omitted.
 			'partial_refresh'	=> true,
-			'icon'				=> 'layout.svg',
 		));
 
 		$this->add_css(BB_POWERPACK()->fa_css);
@@ -37,8 +36,9 @@ class PPAdvancedTabsModule extends FLBuilderModule {
 
 		switch ( $settings->content_type ) {
 			case 'content':
+				global $wp_embed;
 				$html = '<div itemprop="text">';
-				$html .= $settings->content;
+				$html .= wpautop( $wp_embed->autoembed( $settings->content ) );
 				$html .= '</div>';
 				break;
 			case 'photo':
@@ -48,7 +48,7 @@ class PPAdvancedTabsModule extends FLBuilderModule {
 				break;
 			case 'video':
                 global $wp_embed;
-                $html = $wp_embed->autoembed($settings->content_video);
+                $html = $wp_embed->autoembed( $settings->content_video );
             	break;
 			case 'module':
 				$html = '[fl_builder_insert_layout id="'.$settings->content_module.'"]';
@@ -64,6 +64,48 @@ class PPAdvancedTabsModule extends FLBuilderModule {
 		}
 
 		return $html;
+	}
+
+	public function filter_settings( $settings, $helper )
+	{
+		// Handle old content padding multitext field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'content_padding', 'padding', 'content_padding' );
+
+		// Handle old title typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'tab_label_font'	=> array(
+				'type'				=> 'font'
+			),
+			'tab_label_font_size'	=> array(
+				'type'					=> 'font_size',
+				'condition'				=> ( isset( $settings->tab_title_size ) && 'custom' == $settings->tab_title_size )
+			),
+			'tab_label_line_height'	=> array(
+				'type'					=> 'line_height'
+			),
+			'label_text_transform'	=> array(
+				'type'					=> 'text_transform'
+			),
+		), 'label_typography' );
+
+		// Handle old content typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'tab_content_font'	=> array(
+				'type'				=> 'font'
+			),
+			'tab_content_font_size'	=> array(
+				'type'					=> 'font_size',
+				'condition'				=> ( isset( $settings->tab_content_size ) && 'custom' == $settings->tab_content_size )
+			),
+			'tab_content_line_height'	=> array(
+				'type'						=> 'line_height'
+			),
+			'content_alignment'			=> array(
+				'type'						=> 'text_align'
+			),
+		), 'content_typography' );
+
+		return $settings;
 	}
 }
 
@@ -457,78 +499,18 @@ FLBuilder::register_module('PPAdvancedTabsModule', array(
 							'property'		=> 'border-color'
 						)
 					),
-					'content_alignment'        => array(
-						'type'          => 'pp-switch',
-						'label'         => __('Alignment', 'bb-powerpack'),
-						'default'       => 'left',
-						'options'       => array(
-							'left'    		=> __('Left', 'bb-powerpack'),
-							'center'    	=> __('Center', 'bb-powerpack'),
-							'right'    		=> __('Right', 'bb-powerpack'),
-						),
-						'preview'	=> array(
-							'type'	=>	'css',
-							'selector'	=> '.pp-tabs-panels .pp-tabs-panel-content',
-							'property'	=> 'text-align'
+					'content_padding'	=> array(
+						'type'				=> 'dimension',
+						'label'				=> __('Padding', 'bb-powerpack'),
+						'default'			=> 30,
+						'units'				=> array('px'),
+						'slider'			=> true,
+						'preview'           => array(
+							'selector'			=> '.pp-tabs-panels .pp-tabs-panel-content',
+							'property'			=> 'padding',
+							'unit'				=> 'px'
 						)
 					),
-					'content_padding'   => array(
-                        'type'      => 'pp-multitext',
-                        'label'     => __('Padding', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'default'       => array(
-                            'top' => 30,
-                            'right' => 30,
-                            'bottom' => 30,
-                            'left' => 30,
-                        ),
-                        'options' 		=> array(
-                            'top' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Top', 'bb-powerpack'),
-                                'tooltip'       => __('Top', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-up',
-                                'preview'              => array(
-                                    'selector'	=> '.pp-tabs-panels .pp-tabs-panel-content',
-                                    'property'	=> 'padding-top',
-                                    'unit'		=> 'px'
-                                )
-                            ),
-                            'bottom' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Bottom', 'bb-powerpack'),
-                                'tooltip'       => __('Bottom', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-down',
-                                'preview'              => array(
-                                    'selector'	=> '.pp-tabs-panels .pp-tabs-panel-content',
-                                    'property'	=> 'padding-bottom',
-                                    'unit'		=> 'px'
-                                )
-                            ),
-                            'left' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Left', 'bb-powerpack'),
-                                'tooltip'       => __('Left', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-left',
-                                'preview'              => array(
-                                    'selector'	=> '.pp-tabs-panels .pp-tabs-panel-content',
-                                    'property'	=> 'padding-left',
-                                    'unit'		=> 'px'
-                                )
-                            ),
-                            'right' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Right', 'bb-powerpack'),
-                                'tooltip'       => __('Right', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-right',
-                                'preview'              => array(
-                                    'selector'	=> '.pp-tabs-panels .pp-tabs-panel-content',
-                                    'property'	=> 'padding-right',
-                                    'unit'		=> 'px'
-                                )
-                            ),
-                        )
-                    ),
 				)
 			)
 		)
@@ -551,11 +533,10 @@ FLBuilder::register_module('PPAdvancedTabsModule', array(
 						),
 					),
 					'tab_icon_size'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Size', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'size'			=> 5,
-						'maxlength'		=> 3,
+						'units'			=> array('px'),
+						'slider'		=> true,
                         'default'       => '20',
                         'preview'       => array(
                             'type'      => 'css',
@@ -580,11 +561,10 @@ FLBuilder::register_module('PPAdvancedTabsModule', array(
 						'show_remove'   => true
 					),
 					'tab_toggle_icon_size'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Size', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'size'			=> 5,
-						'maxlength'		=> 3,
+                        'units'			=> array('px'),
+						'slider'		=> true,
                         'default'       => '16',
                         'preview'       => array(
                             'type'      => 'css',
@@ -613,212 +593,29 @@ FLBuilder::register_module('PPAdvancedTabsModule', array(
 			'label_typography'	=> array(
 				'title'	=> __('Title', 'bb-powerpack'),
 				'fields'	=> array(
-					'tab_label_font' => array(
-                        'type'          => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.pp-tabs-labels .pp-tabs-label .pp-tab-title'
-                        )
-                    ),
-					'tab_title_size'        => array(
-						'type'          => 'pp-switch',
-						'label'         => __('Font Size', 'bb-powerpack'),
-						'default'       => 'default',
-						'options'       => array(
-							'default'    => __('Default', 'bb-powerpack'),
-							'custom'    => __('Custom', 'bb-powerpack'),
-						),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array('tab_label_font_size')
-							)
+					'label_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-tabs-labels .pp-tabs-label .pp-tab-title'
 						)
 					),
-					'tab_label_font_size'   => array(
-                        'type'          => 'pp-multitext',
-						'label'         => __('Custom Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 16,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-tabs-labels .pp-tabs-label .pp-tab-title',
-                                    'property'      => 'font-size',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
-					'tab_label_line_height'   => array(
-                        'type'          => 'pp-multitext',
-						'label'         => __('Line Height', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 1.4,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-tabs-labels .pp-tabs-label .pp-tab-title',
-                                    'property'      => 'line-height',
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
-					'label_text_transform'    => array(
-                        'type'                      => 'select',
-                        'label'                     => __('Text Transform', 'bb-powerpack'),
-                        'default'                   => 'none',
-                        'options'                   => array(
-                            'none'                  => __('Default', 'bb-powerpack'),
-                            'lowercase'                => __('lowercase', 'bb-powerpack'),
-                            'uppercase'                 => __('UPPERCASE', 'bb-powerpack'),
-                        ),
-						'preview'           => array(
-							'type'			=> 'css',
-							'selector'      => '.pp-tabs-labels .pp-tabs-label .pp-tab-title',
-							'property'      => 'text-transform',
-						),
-                    ),
 				)
 			),
 			'content_typography'	=> array(
 				'title'	=> __('Content', 'bb-powerpack'),
 				'fields'	=> array(
-					'tab_content_font' => array(
-                        'type'          => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.pp-tabs-panels .pp-tabs-panel-content'
-                        )
-                    ),
-					'tab_content_size'        => array(
-						'type'          => 'pp-switch',
-						'label'         => __('Font Size', 'bb-powerpack'),
-						'default'       => 'default',
-						'options'       => array(
-							'default'    => __('Default', 'bb-powerpack'),
-							'custom'    => __('Custom', 'bb-powerpack'),
-						),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array('tab_content_font_size')
-							)
+					'content_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-tabs-panels .pp-tabs-panel-content'
 						)
 					),
-					'tab_content_font_size'   => array(
-                        'type'          => 'pp-multitext',
-						'label'         => __('Custom Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 15,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-tabs-panels .pp-tabs-panel-content',
-                                    'property'      => 'font-size',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
-					'tab_content_line_height'   => array(
-                        'type'          => 'pp-multitext',
-						'label'         => __('Line Height', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 1.4,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-tabs-panels .pp-tabs-panel-content',
-                                    'property'      => 'line-height',
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
 				)
 			),
 		)

@@ -594,7 +594,13 @@ final class BB_PowerPack_Admin_Settings {
 
         if ( ! $enabled_extensions || ! is_array( $enabled_extensions ) ) {
 
-            $enabled_extensions = pp_extensions();
+			$enabled_extensions = pp_extensions();
+			
+			// lets unset some options as they are added in BB 2.2
+			unset( $enabled_extensions['row']['gradient'] );
+			unset( $enabled_extensions['col']['gradient'] );
+			unset( $enabled_extensions['col']['corners'] );
+			unset( $enabled_extensions['col']['shadow'] );
 
         }
 

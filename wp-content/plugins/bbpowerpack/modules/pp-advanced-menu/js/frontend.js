@@ -545,6 +545,7 @@
 				var winHeight = $(window).height();
 				$(self.nodeClass).find('.pp-menu-overlay').css('height', winHeight + 'px');
 				$(window).resize(function() {
+					winHeight = $(window).height();
 					$(self.nodeClass).find('.pp-menu-overlay').css('height', winHeight + 'px');
 				});
 			}

@@ -78,16 +78,16 @@ function pp_template_details( $data, $template )
 			else {
 				$image_name = preg_replace( '/\s+/', '-', strtolower( $template->name ) );
 				$image_name = $image_name . '.jpg';
-				$image_path = BB_POWERPACK_DIR . 'assets/images/templates/' . $scheme . '/' . $image_name;
+				$image_path = BB_POWERPACK_DIR . 'template-assets/' . $scheme . '/' . $image_name;
 
 				if ( file_exists( $image_path ) ) {
-					$image = BB_POWERPACK_URL . 'assets/images/templates/' . $scheme . '/' . $image_name;
+					$image = BB_POWERPACK_URL . 'template-assets/' . $scheme . '/' . $image_name;
 				}
-				elseif ( file_exists( BB_POWERPACK_DIR . 'assets/images/templates/greyscale/' . $image_name ) ) {
-					$image = BB_POWERPACK_URL . 'assets/images/templates/greyscale/' . $image_name;
+				elseif ( file_exists( BB_POWERPACK_DIR . 'template-assets/greyscale/' . $image_name ) ) {
+					$image = BB_POWERPACK_URL . 'template-assets/greyscale/' . $image_name;
 				}
 				else {
-					$image = BB_POWERPACK_URL . 'assets/images/templates/blank.jpg';
+					$image = BB_POWERPACK_URL . 'template-assets/blank-template.jpg';
 				}
 			}
 
@@ -200,16 +200,16 @@ function pp_get_template_selector_data( $type = 'row' )
 		else {
             $image_name = preg_replace( '/\s+/', '-', strtolower( $template->name ) );
             $image_name = $image_name . '.jpg';
-            $image_path = BB_POWERPACK_DIR . 'assets/images/templates/' . $scheme . '/' . $image_name;
+            $image_path = BB_POWERPACK_DIR . 'template-assets/' . $scheme . '/' . $image_name;
 
             if ( file_exists( $image_path ) ) {
-                $image = BB_POWERPACK_URL . 'assets/images/templates/' . $scheme . '/' . $image_name;
+                $image = BB_POWERPACK_URL . 'template-assets/' . $scheme . '/' . $image_name;
             }
-            elseif ( file_exists( BB_POWERPACK_DIR . 'assets/images/templates/greyscale/' . $image_name ) ) {
-                $image = BB_POWERPACK_URL . 'assets/images/templates/greyscale/' . $image_name;
+            elseif ( file_exists( BB_POWERPACK_DIR . 'template-assets/greyscale/' . $image_name ) ) {
+                $image = BB_POWERPACK_URL . 'template-assets/greyscale/' . $image_name;
             }
             else {
-			    $image = BB_POWERPACK_URL . 'assets/images/templates/blank.jpg';
+			    $image = BB_POWERPACK_URL . 'template-assets/blank-template.jpg';
             }
 		}
 

@@ -26,11 +26,11 @@ if ( in_array( 'font-awesome-5-solid', $enabled_icons ) ) {
 <div class="pp-member-wrapper">
     <?php if ( '' != $src ) { ?>
         <div class="pp-member-image pp-image-crop-<?php echo $settings->member_image_crop; ?>">
-            <?php if ( $settings->link_url && $settings->link_target ) { ?>
-            <a href="<?php echo $settings->link_url; ?>" target="<?php echo $settings->link_target; ?>">
+            <?php if ( $settings->link && $settings->link_target ) { ?>
+            <a href="<?php echo $settings->link; ?>" target="<?php echo $settings->link_target; ?>">
             <?php } ?>
             <img class="<?php echo $classes; ?>" src="<?php echo $src; ?>" alt="<?php echo $alt; ?>" itemprop="image" <?php echo $attrs; ?> />
-            <?php if ( $settings->link_url && $settings->link_target ) { ?>
+            <?php if ( $settings->link && $settings->link_target ) { ?>
             </a>
             <?php } ?>
         </div>
@@ -40,11 +40,11 @@ if ( in_array( 'font-awesome-5-solid', $enabled_icons ) ) {
 			<div class="pp-member-content-inner-wrapper">
 				<div class="pp-member-content-inner">
 		<?php } ?>
-        <?php if ( $settings->link_url && $settings->link_target ) { ?>
-        <a href="<?php echo $settings->link_url; ?>" target="<?php echo $settings->link_target; ?>">
+        <?php if ( $settings->link && $settings->link_target ) { ?>
+        <a href="<?php echo $settings->link; ?>" target="<?php echo $settings->link_target; ?>">
         <?php } ?>
             <<?php echo $settings->title_tag; ?> class="pp-member-name"><?php echo $settings->member_name; ?></<?php echo $settings->title_tag; ?>>
-        <?php if ( $settings->link_url && $settings->link_target ) { ?>
+        <?php if ( $settings->link && $settings->link_target ) { ?>
         </a>
         <?php } ?>
         <?php if ( $settings->separator_position == 'below_title' && $settings->separator_display == 'yes' ) { ?>

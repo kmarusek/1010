@@ -2,18 +2,18 @@
 
 function pp_column_render_css( $extensions ) {
 
-    if ( array_key_exists( 'gradient', $extensions['col'] ) || in_array( 'gradient', $extensions['col'] ) ) {
-        add_filter( 'fl_builder_render_css', 'pp_column_gradient_css', 10, 3 );
-    }
-    if ( array_key_exists( 'corners', $extensions['col'] ) || in_array( 'corners', $extensions['col'] ) ) {
-        add_filter( 'fl_builder_render_css', 'pp_column_round_corners_css', 10, 3 );
-    }
+    // if ( array_key_exists( 'gradient', $extensions['col'] ) || in_array( 'gradient', $extensions['col'] ) ) {
+    //     add_filter( 'fl_builder_render_css', 'pp_column_gradient_css', 10, 3 );
+    // }
+    // if ( array_key_exists( 'corners', $extensions['col'] ) || in_array( 'corners', $extensions['col'] ) ) {
+    //     add_filter( 'fl_builder_render_css', 'pp_column_round_corners_css', 10, 3 );
+    // }
     if ( array_key_exists( 'separators', $extensions['col'] ) || in_array( 'separators', $extensions['col'] ) ) {
         add_filter( 'fl_builder_render_css', 'pp_column_separators_css', 10, 3 );
     }
-    if ( array_key_exists( 'shadow', $extensions['col'] ) || in_array( 'shadow', $extensions['col'] ) ) {
-        add_filter( 'fl_builder_render_css', 'pp_column_shadow_css', 10, 3 );
-    }
+    // if ( array_key_exists( 'shadow', $extensions['col'] ) || in_array( 'shadow', $extensions['col'] ) ) {
+    //     add_filter( 'fl_builder_render_css', 'pp_column_shadow_css', 10, 3 );
+    // }
 }
 
 function pp_column_gradient_css( $css, $nodes, $global_settings ) {

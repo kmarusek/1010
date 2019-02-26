@@ -23,11 +23,62 @@ class PPNotificationsModule extends FLBuilderModule {
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
             'partial_refresh'   => true,
-            'icon'				=> 'megaphone.svg',
         ));
 
 		$this->add_css( BB_POWERPACK()->fa_css );
     }
+
+	public function filter_settings( $settings, $helper )
+	{
+		// Handle old box border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'box_border_type'	=> array(
+				'type'				=> 'style'
+			),
+			'box_border_width'	=> array(
+				'type'				=> 'width'
+			),
+			'box_border_color'	=> array(
+				'type'				=> 'color'
+			),
+			'box_border_radius'	=> array(
+				'type'				=> 'radius'
+			),
+		), 'box_border' );
+
+		// Handle box old padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'box_padding', 'padding', 'box_padding', array(
+			'top'		=> 'box_top_padding',
+			'bottom'	=> 'box_top_padding',
+			'left'		=> 'box_left_padding',
+			'right'		=> 'box_right_padding'	
+		) );
+
+		// Handle text's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'text_font'	=> array(
+				'type'			=> 'font'
+			),
+			'text_size'	=> array(
+				'type'			=> 'font_size',
+				'keys'			=> array(
+					'desktop'		=> 'text_size_desktop',
+					'tablet'		=> 'text_size_tablet',
+					'mobile'		=> 'text_size_mobile'
+				)
+			),
+			'text_line_height'	=> array(
+				'type'			=> 'line_height',
+				'keys'			=> array(
+					'desktop'		=> 'text_line_height_desktop',
+					'tablet'		=> 'text_line_height_tablet',
+					'mobile'		=> 'text_line_height_mobile'
+				)
+			),
+		), 'text_typography' ); 
+
+		return $settings;
+	}
 }
 
 /**
@@ -68,144 +119,48 @@ FLBuilder::register_module('PPNotificationsModule', array(
                         'label'     => __('Background Color', 'bb-powerpack'),
                         'default'   => 'dddddd',
                         'show_reset'    => true,
+						'show_alpha'	=> true,
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => 'div.pp-notification-wrapper',
-                            'property'  => 'background'
+                            'property'  => 'background-color'
                         ),
                     ),
-                    'box_border_type'   => array(
-                        'type'      => 'pp-switch',
-                        'label'     => __('Border Style', 'bb-powerpack'),
-                        'default'   => 'none',
-                        'options'   => array(
-                            'none'  => __('None', 'bb-powerpack'),
-                            'solid'  => __('Solid', 'bb-powerpack'),
-                            'dashed'  => __('Dashed', 'bb-powerpack'),
-                            'dotted'  => __('Dotted', 'bb-powerpack'),
+					'box_border'	=> array(
+						'type'          => 'border',
+						'label'         => __( 'Border', 'bb-powerpack' ),
+						'responsive'	=> true,
+						'preview'   	=> array(
+                            'type'  		=> 'css',
+                            'selector'  	=> '.pp-notification-wrapper',
+                            'property'  	=> 'border',
                         ),
-                        'toggle'    => array(
-                            'solid' => array(
-                                'fields'    => array('box_border_color', 'box_border_width'),
-                            ),
-                            'dashed' => array(
-                                'fields'    => array('box_border_color', 'box_border_width'),
-                            ),
-                            'dotted' => array(
-                                'fields'    => array('box_border_color', 'box_border_width'),
-                            ),
-                        ),
-                    ),
-                    'box_border_width'  => array(
-                        'type'      => 'text',
-                        'label'     => __('Border Width', 'bb-powerpack'),
-                        'size'      => 5,
-                        'maxlength' => 3,
-                        'default'   => 1,
-                        'description'   => 'px',
-                        'preview'   => array(
-                            'type'  => 'css',
-                            'selector'  => '.pp-notification-wrapper',
-                            'property'  => 'border-width',
-                            'unit'  => 'px'
-                        ),
-                    ),
-                    'box_border_color'  => array(
-                        'type'  => 'color',
-                        'label' => __('Border Color', 'bb-powerpack'),
-                        'show_reset'    => true,
-                        'default'   => '333333',
-                        'preview'   => array(
-                            'type'  => 'css',
-                            'selector'  => '.pp-notification-wrapper',
-                            'property'  => 'border-color'
-                        ),
-                    ),
-                    'box_padding'   => array(
-                        'type'      => 'pp-multitext',
-                        'label'     => __('Padding', 'bb-powerpack'),
-                        'size'      => 5,
-                        'maxlength' => 3,
-                        'default'   => array(
-                            'box_top_padding'   => 10,
-                            'box_bottom_padding'   => 10,
-                            'box_left_padding'   => 10,
-                            'box_right_padding'   => 10,
-                        ),
-                        'description'   => 'px',
-                        'options'   => array(
-                            'box_top_padding'       => array(
-                                'placeholder'       => __('Top', 'bb-powerpack'),
-                                'maxlength'         => 3,
-                                'icon'              => 'fa-long-arrow-up',
-                                'tooltip'           => __('Top', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-notification-wrapper',
-                                    'property'      => 'padding-top',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'box_bottom_padding'       => array(
-                                'placeholder'       => __('Bottom', 'bb-powerpack'),
-                                'maxlength'         => 3,
-                                'icon'              => 'fa-long-arrow-down',
-                                'tooltip'           => __('Bottom', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-notification-wrapper',
-                                    'property'      => 'padding-bottom',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'box_left_padding'       => array(
-                                'placeholder'       => __('Left', 'bb-powerpack'),
-                                'maxlength'         => 3,
-                                'icon'              => 'fa-long-arrow-left',
-                                'tooltip'           => __('Left', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-notification-wrapper',
-                                    'property'      => 'padding-left',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'box_right_padding'       => array(
-                                'placeholder'       => __('Right', 'bb-powerpack'),
-                                'maxlength'         => 3,
-                                'icon'              => 'fa-long-arrow-right',
-                                'tooltip'           => __('Right', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-notification-wrapper',
-                                    'property'      => 'padding-right',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                        ),
-                    ),
-                    'box_border_radius' => array(
-                        'type'      => 'text',
-                        'label'     => __('Round Corners', 'bb-powerpack'),
-                        'size'      => 5,
-                        'maxlength' => 3,
-                        'default'   => 0,
-                        'description'   => 'px',
-                        'preview'   => array(
-                            'type'  => 'css',
-                            'selector'  => '.pp-notification-wrapper',
-                            'property'  => 'border-radius',
-                            'unit'      => 'px'
-                        ),
-                    ),
+					),
+					'box_padding'	=> array(
+						'type'				=> 'dimension',
+						'label'				=> __('Padding', 'bb-powerpack'),
+						'default'			=> '10',
+						'units'				=> array('px'),
+						'slider'			=> true,
+						'responsive'		=> true,
+						'preview'			=> array(
+							'type'				=> 'css',
+							'selector'			=> '.pp-notification-wrapper',
+							'property'			=> 'padding',
+							'unit'				=> 'px'
+						)
+					),
                 ),
             ),
             'icon_styling'  => array(
                 'title' => __('Icon Styling', 'bb-powerpack'),
                 'fields'    => array(
                     'icon_size'     => array(
-                        'type'      => 'text',
+                        'type'      => 'unit',
                         'label'     => __('Size', 'bb-powerpack'),
-                        'size'      => 5,
-                        'maxlength' => 3,
                         'default'   => 16,
-                        'description'   => 'px',
+                        'units'   	=> array( 'px' ),
+						'slider'	=> true,
                         'preview'   => array(
                             'type'  => 'css',
                             'selector'  => '.pp-notification-wrapper .pp-notification-inner .pp-notification-icon span.pp-icon',
@@ -234,85 +189,15 @@ FLBuilder::register_module('PPNotificationsModule', array(
             'typography'    => array(
                 'title'     => '',
                 'fields'    => array(
-                    'text_font'          => array(
-						'type'          => 'font',
-						'default'		=> array(
-							'family'		=> 'Default',
-							'weight'		=> 300
+					'text_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-notification-wrapper .pp-notification-inner .pp-notification-content p',
 						),
-						'label'         => __('Font', 'bb-powerpack'),
-						'preview'         => array(
-							'type'            => 'font',
-							'selector'        => '.pp-notification-wrapper .pp-notification-inner .pp-notification-content p'
-						)
 					),
-                    'text_size'     => array(
-                        'type'      => 'pp-multitext',
-                        'label'     => __('Font size', 'bb-powerpack'),
-                        'default'       => array(
-                            'text_size_desktop' => 18,
-                            'text_size_tablet' => '',
-                            'text_size_mobile' => '',
-                        ),
-                        'options'       => array(
-                            'text_size_desktop'     => array(
-                                'placeholder'       => __('Desktop', 'bb-powerpack'),
-                                'icon'              => 'fa-desktop',
-                                'maxlength'         => 3,
-                                'tooltip'           => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-notification-wrapper .pp-notification-inner .pp-notification-content p',
-                                    'property'      => 'font-size',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'text_size_tablet'     => array(
-                                'placeholder'       => __('Tablet', 'bb-powerpack'),
-                                'icon'              => 'fa-tablet',
-                                'maxlength'         => 3,
-                                'tooltip'           => __('Tablet', 'bb-powerpack')
-                            ),
-                            'text_size_mobile'     => array(
-                                'placeholder'       => __('Mobile', 'bb-powerpack'),
-                                'icon'              => 'fa-mobile',
-                                'maxlength'         => 3,
-                                'tooltip'           => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
-                    'text_line_height'     => array(
-                        'type'      => 'pp-multitext',
-                        'label'     => __('Line Height', 'bb-powerpack'),
-                        'default'       => array(
-                            'text_line_height_desktop' => 1.6,
-                            'text_line_height_tablet' => '',
-                            'text_line_height_mobile' => '',
-                        ),
-                        'options'       => array(
-                            'text_line_height_desktop'     => array(
-                                'placeholder'       => __('Desktop', 'bb-powerpack'),
-                                'icon'              => 'fa-desktop',
-                                'maxlength'         => 3,
-                                'tooltip'           => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-notification-wrapper .pp-notification-inner .pp-notification-content p',
-                                    'property'      => 'line-height',
-                                ),
-                            ),
-                            'text_line_height_tablet'     => array(
-                                'placeholder'       => __('Tablet', 'bb-powerpack'),
-                                'icon'              => 'fa-tablet',
-                                'maxlength'         => 3,
-                                'tooltip'           => __('Tablet', 'bb-powerpack')
-                            ),
-                            'text_line_height_mobile'     => array(
-                                'placeholder'       => __('Mobile', 'bb-powerpack'),
-                                'icon'              => 'fa-mobile',
-                                'maxlength'         => 3,
-                                'tooltip'           => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
                     'text_color'    => array(
                         'type'      => 'color',
                         'label'     => __('Color', 'bb-powerpack'),

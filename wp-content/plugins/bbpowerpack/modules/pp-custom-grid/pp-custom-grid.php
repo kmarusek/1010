@@ -19,12 +19,53 @@ class PPCustomGridModule extends FLBuilderModule {
             'url'               => BB_POWERPACK_URL . 'modules/pp-custom-grid/',
 			'editor_export' 	=> true,
 			'partial_refresh'	=> true,
-			'icon'				=> 'schedule.svg',
 		));
 
 		add_filter( 'fl_builder_register_settings_form',   				__CLASS__ . '::presets_form_fields', 10, 2 );
 		add_filter( 'fl_builder_after_control_pp-hidden-textarea',   	__CLASS__ . '::after_control', 10, 4 );
 		//add_filter( 'fl_builder_render_css',               				__CLASS__ . '::custom_grid_css', 10, 2 );
+	}
+	
+	public function filter_settings( $settings, $helper )
+	{
+		// Handle old box border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'border_type'	=> array(
+				'type'				=> 'style'
+			),
+			'border_size'	=> array(
+				'type'				=> 'width'
+			),
+			'border_color'	=> array(
+				'type'				=> 'color'
+			),
+			'post_shadow_options'		=> array(
+				'type'				=> 'shadow',
+				'condition'			=> ( isset( $settings->post_shadow ) && '1' == $settings->post_shadow )
+			),
+			'post_shadow_color'	=> array(
+				'type'				=> 'shadow_color',
+				'condition'			=> ( isset( $settings->post_shadow ) && '1' == $settings->post_shadow ),
+			),
+		), 'post_border' );
+
+		// Handle old box border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'pagination_border_type'	=> array(
+				'type'				=> 'style'
+			),
+			'pagination_border_size'	=> array(
+				'type'				=> 'width'
+			),
+			'pagination_border_color'	=> array(
+				'type'				=> 'color'
+			),
+			'pagination_border_radius'	=> array(
+				'type'				=> 'radius'
+			),
+		), 'pagination_border' );
+
+		return $settings;
 	}
 
 	/**
@@ -466,16 +507,20 @@ FLBuilder::register_module('PPCustomGridModule', array(
 						)
 					),
 					'post_width'    => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Post Width', 'bb-powerpack'),
 						'default'       => '300',
-						'maxlength'     => '3',
-						'size'          => '4',
-						'description'   => 'px'
+						'slider'		=> true,
+						'units'		   	=> array( 'px' )
 					),
 					'post_columns'  => array(
 						'type'          => 'unit',
 						'label'         => __( 'Columns', 'bb-powerpack' ),
+						'slider'		=> array(
+							'min'			=> 1,
+							'max'			=> 10,
+							'step'			=> 1
+						),
 						'responsive'  => array(
 							'default' 	  => array(
 								'default'    => '3',
@@ -485,12 +530,11 @@ FLBuilder::register_module('PPCustomGridModule', array(
 						)
 					),
 					'post_spacing' => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Post Spacing', 'bb-powerpack'),
 						'default'       => '30',
-						'maxlength'     => '3',
-						'size'          => '4',
-						'description'   => 'px'
+						'slider'		=> true,
+						'units'		   	=> array( 'px' )
 					),
 					'post_align'    => array(
 						'type'          => 'select',
@@ -569,98 +613,16 @@ FLBuilder::register_module('PPCustomGridModule', array(
 							'property'		=> 'background-color'
 						)
 					),
-					'border_type'   => array(
-						'type'          => 'select',
-						'label'         => __('Border Type', 'bb-powerpack'),
-						'default'       => 'default',
-						'options'       => array(
-							'default'       => _x( 'Default', 'Border type.', 'bb-powerpack' ),
-							'none'          => _x( 'None', 'Border type.', 'bb-powerpack' ),
-							'solid'         => _x( 'Solid', 'Border type.', 'bb-powerpack' ),
-							'dashed'        => _x( 'Dashed', 'Border type.', 'bb-powerpack' ),
-							'dotted'        => _x( 'Dotted', 'Border type.', 'bb-powerpack' ),
-							'double'        => _x( 'Double', 'Border type.', 'bb-powerpack' )
-						),
-						'toggle'        => array(
-							'solid'         => array(
-								'fields'        => array('border_color', 'border_size')
-							),
-							'dashed'        => array(
-								'fields'        => array('border_color', 'border_size')
-							),
-							'dotted'        => array(
-								'fields'        => array('border_color', 'border_size')
-							),
-							'double'        => array(
-								'fields'        => array('border_color', 'border_size')
-							)
-						)
-					),
-					'border_color'  => array(
-						'type'          => 'color',
-						'label'         => __('Border Color', 'bb-powerpack'),
-						'show_reset'    => true
-					),
-					'border_size'  => array(
-						'type'          => 'text',
-						'label'         => __('Border Size', 'bb-powerpack'),
-						'default'       => '1',
-						'maxlength'     => '3',
-						'size'          => '4',
-						'description'   => 'px'
-					),
-					'post_shadow'	=> array(
-                        'type'         	=> 'pp-switch',
-                        'label'         => __('Enable Box Shadow', 'bb-powerpack'),
-                        'default'       => 'no',
-                        'options'       => array(
-                            '1'          	=> __('Yes', 'bb-powerpack'),
-                            '0'            	=> __('No', 'bb-powerpack'),
+					'post_border'	=> array(
+						'type'          => 'border',
+						'label'         => __( 'Border', 'bb-powerpack' ),
+						'responsive'	=> true,
+						'preview'   	=> array(
+                            'type'  		=> 'css',
+                            'selector'  	=> '.pp-custom-grid-post',
+                            'property'  	=> 'border',
                         ),
-                        'toggle'	=>  array(
-                            '1'   		=> array(
-                                'fields'    => array('post_shadow_options', 'post_shadow_color')
-                            )
-                        )
-                    ),
-                    'post_shadow_options' => array(
-						'type'              => 'pp-multitext',
-						'label'             => __('Box Shadow', 'bb-powerpack'),
-						'default'           => array(
-							'horizontal'		=> 0,
-							'vertical'			=> 0,
-							'blur'				=> 10,
-							'spread'			=> 0
-						),
-						'options'			=> array(
-							'horizontal'		=> array(
-								'placeholder'		=> __('Horizontal', 'bb-powerpack'),
-								'tooltip'			=> __('Horizontal', 'bb-powerpack'),
-								'icon'				=> 'fa-arrows-h'
-							),
-							'vertical'			=> array(
-								'placeholder'		=> __('Vertical', 'bb-powerpack'),
-								'tooltip'			=> __('Vertical', 'bb-powerpack'),
-								'icon'				=> 'fa-arrows-v'
-							),
-							'blur'				=> array(
-								'placeholder'		=> __('Blur', 'bb-powerpack'),
-								'tooltip'			=> __('Blur', 'bb-powerpack'),
-								'icon'				=> 'fa-circle-o'
-							),
-							'spread'			=> array(
-								'placeholder'		=> __('Spread', 'bb-powerpack'),
-								'tooltip'			=> __('Spread', 'bb-powerpack'),
-								'icon'				=> 'fa-paint-brush'
-							),
-						)
 					),
-                    'post_shadow_color' => array(
-                        'type'              => 'color',
-                        'label'             => __('Box Shadow Color', 'bb-powerpack'),
-                        'default'           => 'dedede',
-						'show_alpha'		=> true
-                    ),
 				)
 			),
 			'pagination_style'	=> array(
@@ -708,75 +670,15 @@ FLBuilder::register_module('PPCustomGridModule', array(
 							'type'						=> 'none',
 						)
 					),
-					'pagination_border_type'   => array(
-						'type'          => 'select',
-						'label'         => __('Border Type', 'bb-powerpack'),
-						'default'       => 'default',
-						'options'       => array(
-							'default'       => _x( 'Default', 'Border type.', 'bb-powerpack' ),
-							'none'          => _x( 'None', 'Border type.', 'bb-powerpack' ),
-							'solid'         => _x( 'Solid', 'Border type.', 'bb-powerpack' ),
-							'dashed'        => _x( 'Dashed', 'Border type.', 'bb-powerpack' ),
-							'dotted'        => _x( 'Dotted', 'Border type.', 'bb-powerpack' ),
-							'double'        => _x( 'Double', 'Border type.', 'bb-powerpack' )
-						),
-						'toggle'        => array(
-							'solid'         => array(
-								'fields'        => array('pagination_border_color', 'pagination_border_size')
-							),
-							'dashed'        => array(
-								'fields'        => array('pagination_border_color', 'pagination_border_size')
-							),
-							'dotted'        => array(
-								'fields'        => array('pagination_border_color', 'pagination_border_size')
-							),
-							'double'        => array(
-								'fields'        => array('pagination_border_color', 'pagination_border_size')
-							)
-						),
-						'preview'				=> array(
-							'type'					=> 'css',
-							'selector'				=> '.pp-custom-grid-pagination li a.page-numbers, .pp-custom-grid-pagination li span.page-numbers',
-							'property'				=> 'border-style',
-						)
-					),
-					'pagination_border_color'  => array(
-						'type'          => 'color',
-						'label'         => __('Border Color', 'bb-powerpack'),
-						'show_reset'    => true,
-						'preview'				=> array(
-							'type'					=> 'css',
-							'selector'				=> '.pp-custom-grid-pagination li a.page-numbers, .pp-custom-grid-pagination li span.page-numbers',
-							'property'				=> 'border-color'
-						)
-					),
-					'pagination_border_size'  => array(
-						'type'          => 'text',
-						'label'         => __('Border Size', 'bb-powerpack'),
-						'default'       => '1',
-						'maxlength'     => '3',
-						'size'          => '4',
-						'description'   => 'px',
-						'preview'				=> array(
-							'type'					=> 'css',
-							'selector'				=> '.pp-custom-grid-pagination li a.page-numbers, .pp-custom-grid-pagination li span.page-numbers',
-							'property'				=> 'border-width',
-							'unit'					=> 'px'
-						)
-					),
-					'pagination_border_radius'  => array(
-						'type'          => 'text',
-						'label'         => __('Round Corners', 'bb-powerpack'),
-						'default'       => '',
-						'maxlength'     => '3',
-						'size'          => '4',
-						'description'   => 'px',
-						'preview'				=> array(
-							'type'					=> 'css',
-							'selector'				=> '.pp-custom-grid-pagination li a.page-numbers, .pp-custom-grid-pagination li span.page-numbers',
-							'property'				=> 'border-radius',
-							'unit'					=> 'px'
-						)
+					'pagination_border'	=> array(
+						'type'          => 'border',
+						'label'         => __( 'Border', 'bb-powerpack' ),
+						'responsive'	=> true,
+						'preview'   	=> array(
+                            'type'  		=> 'css',
+                            'selector'  	=> '.pp-custom-grid-pagination li a.page-numbers, .pp-custom-grid-pagination li span.page-numbers',
+                            'property'  	=> 'border',
+                        ),
 					),
 				)
 			)

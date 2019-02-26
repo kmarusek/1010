@@ -32,6 +32,8 @@ class UABBVideo extends FLBuilderModule {
 				'icon'            => 'video-player.svg',
 			)
 		);
+		$this->add_js( 'jquery-waypoints' );
+		$this->add_js( 'jquery-ui-draggable' );
 	}
 	/**
 	 * Function to get the icon for the Info Circle
@@ -66,7 +68,6 @@ class UABBVideo extends FLBuilderModule {
 	 * @return object
 	 */
 	public function filter_settings( $settings, $helper ) {
-
 		$version_bb_check        = UABB_Compatibility::check_bb_version();
 		$page_migrated           = UABB_Compatibility::check_old_page_migration();
 		$stable_version_new_page = UABB_Compatibility::check_stable_version_new_page();
@@ -154,8 +155,89 @@ class UABBVideo extends FLBuilderModule {
 				);
 				unset( $settings->subscribe_text_letter_spacing );
 			}
-		}
 
+			// compatibility for Sticky content bar.
+			if ( ! isset( $settings->subscribe_font_typo ) || ! is_array( $settings->subscribe_font_typo ) ) {
+
+				$settings->subscribe_font_typo            = array();
+				$settings->subscribe_font_typo_medium     = array();
+				$settings->subscribe_font_typo_responsive = array();
+			}
+			if ( isset( $settings->sticky_text_font ) ) {
+
+				if ( isset( $settings->sticky_text_font['family'] ) ) {
+
+					$settings->sticky_font_typo['font_family'] = $settings->sticky_text_font['family'];
+					unset( $settings->sticky_text_font['family'] );
+				}
+				if ( isset( $settings->sticky_text_font['weight'] ) ) {
+
+					if ( 'regular' == $settings->sticky_text_font['weight'] ) {
+						$settings->sticky_font_typo['font_weight'] = 'normal';
+					} else {
+						$settings->sticky_font_typo['font_weight'] = $settings->sticky_text_font['weight'];
+					}
+					unset( $settings->sticky_text_font['weight'] );
+				}
+			}
+			if ( isset( $settings->sticky_text_font_size ) ) {
+
+				$settings->sticky_font_typo['font_size'] = array(
+					'length' => $settings->sticky_text_font_size,
+					'unit'   => 'px',
+				);
+				unset( $settings->sticky_text_font_size );
+			}
+			if ( isset( $settings->sticky_text_font_size_medium ) ) {
+				$settings->sticky_font_typo_medium['font_size'] = array(
+					'length' => $settings->sticky_text_font_size_medium,
+					'unit'   => 'px',
+				);
+				unset( $settings->sticky_text_font_size_medium );
+			}
+			if ( isset( $settings->sticky_text_font_size_responsive ) ) {
+				$settings->sticky_font_typo_responsive['font_size'] = array(
+					'length' => $settings->sticky_text_font_size_responsive,
+					'unit'   => 'px',
+				);
+				unset( $settings->sticky_text_font_size_responsive );
+			}
+			if ( isset( $settings->sticky_text_line_height ) ) {
+
+				$settings->sticky_font_typo['line_height'] = array(
+					'length' => $settings->sticky_text_line_height,
+					'unit'   => 'em',
+				);
+				unset( $settings->sticky_text_line_height );
+			}
+			if ( isset( $settings->sticky_text_line_height_medium ) ) {
+				$settings->sticky_font_typo_medium['line_height'] = array(
+					'length' => $settings->sticky_text_line_height_medium,
+					'unit'   => 'em',
+				);
+				unset( $settings->sticky_text_line_height_medium );
+			}
+			if ( isset( $settings->sticky_text_line_height_responsive ) ) {
+				$settings->sticky_font_typo_responsive['line_height'] = array(
+					'length' => $settings->sticky_text_line_height_responsive,
+					'unit'   => 'em',
+				);
+				unset( $settings->sticky_text_line_height_responsive );
+			}
+			if ( isset( $settings->sticky_text_transform ) ) {
+
+				$settings->sticky_font_typo['text_transform'] = $settings->sticky_text_transform;
+				unset( $settings->sticky_text_transform );
+			}
+			if ( isset( $settings->sticky_text_letter_spacing ) ) {
+
+				$settings->sticky_font_typo['letter_spacing'] = array(
+					'length' => $settings->sticky_text_letter_spacing,
+					'unit'   => 'px',
+				);
+				unset( $settings->sticky_text_letter_spacing );
+			}
+		}
 		return $settings;
 	}
 
@@ -271,9 +353,7 @@ class UABBVideo extends FLBuilderModule {
 				</div>
 			<?php } ?>
 				<?php
-				if ( 'yes' == $this->settings->vimeo_title ||
-				'yes' == $this->settings->vimeo_byline
-				) {
+				if ( 'yes' == $this->settings->vimeo_title || 'yes' == $this->settings->vimeo_byline ) {
 					?>
 				<div class="uabb-vimeo-headers">
 					<?php if ( 'yes' == $this->settings->vimeo_title ) { ?>
@@ -324,15 +404,34 @@ class UABBVideo extends FLBuilderModule {
 			$thumb = $this->settings->play_img_src;
 			$html  = '<img src="' . $thumb . '" />';
 		}
+
 		?>
-		<div class="uabb-video uabb-aspect-ratio-<?php echo $this->settings->aspect_ratio; ?>  uabb-subscribe-responsive-<?php echo $this->settings->subscribe_bar_responsive; ?>">
-			<div class="uabb-video__outer-wrap" data-autoplay="<?php echo $autoplay; ?>" data-device="<?php echo $device; ?>">
+		<div class="uabb-video uabb-aspect-ratio-<?php echo $this->settings->aspect_ratio; ?>  uabb-subscribe-responsive-<?php echo $this->settings->subscribe_bar_responsive; ?> uabb-video-sticky-<?php echo $this->settings->sticky_alignment; ?>">
+			<div class="uabb-video__outer-wrap <?php echo ( 'yes' == $this->settings->sticky_info_bar_enable ) ? 'uabb-sticky-infobar-wrap' : ''; ?>" data-autoplay="<?php echo $autoplay; ?>" data-device="<?php echo $device; ?> ">
 				<?php $this->get_header_wrap( $id ); ?>
-				<div class="uabb-video__play" data-src="<?php echo $src; ?>">
-					<img class="uabb-video__thumb" src="<?php echo $this->get_video_thumb( $id ); ?>"/>
-					<div class="uabb-video__play-icon <?php echo ( 'icon' == $this->settings->play_source ) ? $this->settings->play_icon : ''; ?> uabb-animation-<?php echo $this->settings->hover_animation; ?>">
-						<?php echo $html; ?>
+				<div class="uabb-video-inner-wrap">
+					<div class="uabb-video__play" data-src="<?php echo $src; ?>">
+						<img class="uabb-video__thumb" src="<?php echo $this->get_video_thumb( $id ); ?>"/>
+						<div class="uabb-video__play-icon <?php echo ( 'icon' == $this->settings->play_source ) ? $this->settings->play_icon : ''; ?> uabb-animation-<?php echo $this->settings->hover_animation; ?>">
+							<?php echo $html; ?>
+						</div>
 					</div>
+					<?php
+					if ( 'yes' === $this->settings->enable_sticky && 'none' !== $this->settings->enable_sticky_close_button ) {
+						?>
+					<div class="uabb-video-sticky-close">
+						<?php
+						if ( 'icon' == $this->settings->enable_sticky_close_button ) {
+							$_icon = $this->settings->sticky_close_icon;
+							echo '<i class="' . $_icon . '"></i>';
+						}
+						?>
+					</div>
+					<?php } ?>
+					<?php if ( 'yes' == $this->settings->sticky_info_bar_enable && '' != $this->settings->sticky_info_bar_text ) { ?>
+						<div class="uabb-video-sticky-infobar"><?php echo $this->settings->sticky_info_bar_text; ?></div>
+					<?php } ?>
+
 				</div>
 			</div>
 			<?php
@@ -379,6 +478,7 @@ class UABBVideo extends FLBuilderModule {
 		}
 		$this->get_video_embed();
 	}
+
 
 	/**
 	 * Get embed params.
@@ -472,8 +572,11 @@ class UABBVideo extends FLBuilderModule {
 				__(
 					'<div style="%2$s"> Make sure you add the actual URL of the video and not the share URL.</div>
 				<div style="%1$s"><b> Valid URL : </b>  https://www.youtube.com/watch?v=HJRzUQMhJMQ</div>
-				<div style="%1$s"> <b> Invalid URL : </b> https://youtu.be/HJRzUQMhJMQ</div>', 'uabb'
-				), $style1, $style2
+				<div style="%1$s"> <b> Invalid URL : </b> https://youtu.be/HJRzUQMhJMQ</div>',
+					'uabb'
+				),
+				$style1,
+				$style2
 			);
 
 			return $youtube_link_desc;
@@ -484,8 +587,10 @@ class UABBVideo extends FLBuilderModule {
 				__(
 					'<div style="%1$s">Make sure you add the actual URL of the video and not the share URL.</div>
 				<div style="%1$s"><b> Valid URL : </b>  https://vimeo.com/274860274</div>
-				<div style="%1$s"> <b> Invalid URL : </b> https://vimeo.com/channels/staffpicks/274860274</div>', 'uabb'
-				), $style1
+				<div style="%1$s"> <b> Invalid URL : </b> https://vimeo.com/channels/staffpicks/274860274</div>',
+					'uabb'
+				),
+				$style1
 			);
 
 			return $vimeo_link_desc;

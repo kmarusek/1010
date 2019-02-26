@@ -1,30 +1,48 @@
 <?php
-$space_desktop = ( $settings->hover_card_column_width['hover_card_columns_desktop'] - 1 ) * $settings->hover_card_spacing;
-$space_tablet = ( $settings->hover_card_column_width['hover_card_columns_tablet'] - 1 ) * $settings->hover_card_spacing;
-$space_mobile = ( $settings->hover_card_column_width['hover_card_columns_mobile'] - 1 ) * $settings->hover_card_spacing;
-$hover_card_columns_desktop = ( 100 - $space_desktop ) / $settings->hover_card_column_width['hover_card_columns_desktop'];
-$hover_card_columns_tablet = ( 100 - $space_tablet ) / $settings->hover_card_column_width['hover_card_columns_tablet'];
-$hover_card_columns_mobile = ( 100 - $space_mobile ) / $settings->hover_card_column_width['hover_card_columns_mobile']; ?>
+$space_desktop = ( $settings->hover_card_columns - 1 ) * $settings->hover_card_spacing;
+$space_tablet = ( $settings->hover_card_columns_medium - 1 ) * $settings->hover_card_spacing;
+$space_mobile = ( $settings->hover_card_columns_responsive - 1 ) * $settings->hover_card_spacing;
+$hover_card_columns_desktop = ( 100 - $space_desktop ) / $settings->hover_card_columns;
+$hover_card_columns_tablet = ( 100 - $space_tablet ) / $settings->hover_card_columns_medium;
+$hover_card_columns_mobile = ( 100 - $space_mobile ) / $settings->hover_card_columns_responsive; ?>
 
 .fl-node-<?php echo $id; ?> .pp-hover-card-container {
 	width: <?php echo $hover_card_columns_desktop; ?>%;
-	height: <?php echo $settings->hover_card_height_f['hover_card_height']; ?>px;
     margin-right: <?php echo $settings->hover_card_spacing; ?>%;
     margin-bottom: <?php echo $settings->hover_card_spacing; ?>%;
 	float: left;
 }
 
-.fl-node-<?php echo $id; ?> .pp-hover-card-container:nth-of-type(<?php echo $settings->hover_card_column_width['hover_card_columns_desktop']; ?>n+1) {
+<?php
+// Card - Height
+FLBuilderCSS::responsive_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'hover_card_height',
+	'selector'		=> ".fl-node-$id .pp-hover-card-container",
+	'prop'			=> 'height',
+	'unit'			=> 'px',
+) );
+?>
+
+.fl-node-<?php echo $id; ?> .pp-hover-card-container:nth-of-type(<?php echo $settings->hover_card_columns; ?>n+1) {
     clear: left;
 }
 
-.fl-node-<?php echo $id; ?> .pp-hover-card-container:nth-of-type(<?php echo $settings->hover_card_column_width['hover_card_columns_desktop']; ?>n) {
+.fl-node-<?php echo $id; ?> .pp-hover-card-container:nth-of-type(<?php echo $settings->hover_card_columns; ?>n) {
     margin-right: 0;
 }
 
 <?php $number_cards = count($settings->card_content);
 for($i = 0; $i < $number_cards; $i++) {
 	$cards = $settings->card_content[$i];
+	if ( is_object( $cards->card_box_border ) ) {
+		$cards->card_box_border = (array) $cards->card_box_border;
+		foreach ( $cards->card_box_border as $key => $card_border_field ) {
+			if ( is_object( $card_border_field ) ) {
+				$cards->card_box_border[$key] = (array) $card_border_field;
+			}
+		}
+	}
 	?>
 	<?php if( $cards->hover_card_bg_type == 'image' ) { ?>
 		.fl-node-<?php echo $id; ?> .hover-card-<?php echo $i; ?> .pp-hover-card:hover {
@@ -35,10 +53,20 @@ for($i = 0; $i < $number_cards; $i++) {
 		}
 	<?php } ?>
 	.fl-node-<?php echo $id; ?> .hover-card-<?php echo $i; ?> .pp-hover-card-overlay {
-		<?php if( $cards->hover_card_box_border_radius >= 0 ) { ?>border-radius: <?php echo $cards->hover_card_box_border_radius; ?>px;<?php } ?>
+		<?php if ( isset( $cards->card_box_border ) && isset( $cards->card_box_border['radius'] ) ) { ?>
+			border-top-left-radius: <?php echo $cards->card_box_border['radius']['top_left']; ?>px;
+			border-top-right-radius: <?php echo $cards->card_box_border['radius']['top_right']; ?>px;
+			border-bottom-left-radius: <?php echo $cards->card_box_border['radius']['bottom_left']; ?>px;
+			border-bottom-right-radius: <?php echo $cards->card_box_border['radius']['bottom_right']; ?>px;
+		<?php } ?>
 	}
 	.fl-node-<?php echo $id; ?> .pp-hover-card-container.hover-card-<?php echo $i; ?> {
-		<?php if( $cards->hover_card_box_border_radius >= 0 ) { ?>border-radius: <?php echo $cards->hover_card_box_border_radius; ?>px;<?php } ?>
+		<?php if ( isset( $cards->card_box_border ) && isset( $cards->card_box_border['radius'] ) ) { ?>
+			border-top-left-radius: <?php echo $cards->card_box_border['radius']['top_left']; ?>px;
+			border-top-right-radius: <?php echo $cards->card_box_border['radius']['top_right']; ?>px;
+			border-bottom-left-radius: <?php echo $cards->card_box_border['radius']['bottom_left']; ?>px;
+			border-bottom-right-radius: <?php echo $cards->card_box_border['radius']['bottom_right']; ?>px;
+		<?php } ?>
 		background-color: <?php echo ($cards->hover_card_bg_color) ? '#'.$cards->hover_card_bg_color : 'transparent'; ?>;
 		<?php if( $cards->hover_card_box_image && $cards->hover_card_bg_type == 'image' ) { ?>
 		background-image: url('<?php echo $cards->hover_card_box_image_src; ?>');
@@ -47,29 +75,29 @@ for($i = 0; $i < $number_cards; $i++) {
 		<?php } ?>
 	}
 
+	<?php
 
-	.fl-node-<?php echo $id; ?> .pp-hover-card-container.hover-card-<?php echo $i; ?> .pp-hover-card-inner {
-		<?php if( $cards->hover_card_box_padding->top ) { ?>
-		padding-top: <?php echo $cards->hover_card_box_padding->top; ?>px;
-		<?php } ?>
-		<?php if( $cards->hover_card_box_padding->right ) { ?>
-		padding-right: <?php echo $cards->hover_card_box_padding->right; ?>px;
-		<?php } ?>
-		<?php if( $cards->hover_card_box_padding->bottom ) { ?>
-		padding-bottom: <?php echo $cards->hover_card_box_padding->bottom; ?>px;
-		<?php } ?>
-		<?php if( $cards->hover_card_box_padding->left ) { ?>
-		padding-left: <?php echo $cards->hover_card_box_padding->left; ?>px;
-		<?php } ?>
-	}
+	// Box - Padding
+	FLBuilderCSS::dimension_field_rule( array(
+		'settings'		=> $cards,
+		'setting_name' 	=> 'hover_card_box_padding',
+		'selector' 		=> ".fl-node-$id .pp-hover-card-container.hover-card-$i .pp-hover-card-inner",
+		'unit'			=> 'px',
+		'props'			=> array(
+			'padding-top' 		=> 'hover_card_box_padding_top',
+			'padding-right' 	=> 'hover_card_box_padding_right',
+			'padding-bottom' 	=> 'hover_card_box_padding_bottom',
+			'padding-left' 		=> 'hover_card_box_padding_left',
+		),
+	) );
 
-	.fl-node-<?php echo $id; ?> .pp-hover-card-container.hover-card-<?php echo $i; ?> .pp-hover-card .pp-hover-card-border {
-		border-color: <?php echo ($cards->hover_card_box_border_color) ? '#'.$cards->hover_card_box_border_color : 'transparent'; ?>;
-		<?php if( $cards->hover_card_box_border_radius >= 0 ) { ?>border-radius: <?php echo $cards->hover_card_box_border_radius; ?>px;<?php } ?>
-		<?php if( $cards->hover_card_box_border_width >= 0 && $cards->hover_card_box_border != 'none' ) { ?>border-width: <?php echo $cards->hover_card_box_border_width; ?>px;<?php } ?>
-		<?php if( $cards->hover_card_box_border ) { ?>border-style: <?php echo $cards->hover_card_box_border; ?>;<?php } ?>
-		<?php if( $cards->hover_card_box_border_opacity >= 0 ) { ?>opacity: <?php echo $cards->hover_card_box_border_opacity; ?>;<?php } ?>
-	}
+	// Box - Border
+	FLBuilderCSS::border_field_rule( array(
+		'settings' 		=> $cards,
+		'setting_name' 	=> 'card_box_border',
+		'selector' 		=> ".fl-node-$id .pp-hover-card-container.hover-card-$i .pp-hover-card .pp-hover-card-border",
+	) );
+	?>	
 
 	.fl-node-<?php echo $id; ?> .hover-card-<?php echo $i; ?>.powerpack-style:hover .pp-hover-card-description {
 		opacity: 1;
@@ -94,11 +122,25 @@ for($i = 0; $i < $number_cards; $i++) {
 	}
 	.fl-node-<?php echo $id; ?> .pp-hover-card-container.hover-card-<?php echo $i; ?> .pp-hover-card .icon {
 		<?php if( $cards->hover_card_icon_color ) { ?>color: #<?php echo $cards->hover_card_icon_color; ?>;<?php } ?>
-		<?php if($cards->hover_card_icon_size >= 0 ) { ?>
-		font-size: <?php echo $cards->hover_card_icon_size; ?>px;
-		width: <?php echo $cards->hover_card_icon_size; ?>px;
-		<?php } ?>
 	}
+	<?php
+	// Icon - Size
+	FLBuilderCSS::responsive_rule( array(
+		'settings'		=> $cards,
+		'setting_name'	=> 'hover_card_icon_size',
+		'selector'		=> ".fl-node-$id .pp-hover-card-container.hover-card-$i .pp-hover-card .icon",
+		'prop'			=> 'font-size',
+		'unit'			=> 'px',
+	) );
+
+	FLBuilderCSS::responsive_rule( array(
+		'settings'		=> $cards,
+		'setting_name'	=> 'hover_card_icon_size',
+		'selector'		=> ".fl-node-$id .pp-hover-card-container.hover-card-$i .pp-hover-card .icon",
+		'prop'			=> 'width',
+		'unit'			=> 'px',
+	) );
+	?>
 	.fl-node-<?php echo $id; ?> .pp-hover-card-container.hover-card-<?php echo $i; ?>:hover .pp-hover-card .icon {
 		<?php if( $cards->hover_card_icon_color_h ) { ?>color: #<?php echo $cards->hover_card_icon_color_h; ?>;<?php } ?>
 	}
@@ -106,122 +148,125 @@ for($i = 0; $i < $number_cards; $i++) {
 
 /* Button */
 	.fl-node-<?php echo $id; ?> .pp-hover-card-container.hover-card-<?php echo $i; ?> .pp-hover-card .pp-hover-card-inner .pp-more-link {
-		background: <?php echo ($cards->button_background->primary) ? '#'.$cards->button_background->primary : 'transparent'; ?>;
-		<?php if( $cards->button_border_color->primary ) { ?>border-color: #<?php echo $cards->button_border_color->primary; ?>;<?php } ?>
-		<?php if( $cards->button_border_radius >= 0 ) { ?>border-radius: <?php echo $cards->button_border_radius; ?>px;<?php } ?>
-		<?php if( $cards->button_border_width && $cards->button_border != 'none' ) { ?>border-width: <?php echo $cards->button_border_width; ?>px;<?php } ?>
-		<?php if( $cards->button_border ) { ?>border-style: <?php echo $cards->button_border; ?>;<?php } ?>
-		<?php if( $cards->button_color->primary ) { ?>color: #<?php echo $cards->button_color->primary; ?>;<?php } ?>
-		<?php if( $cards->button_padding->top ) { ?>
-		padding-top: <?php echo $cards->button_padding->top; ?>px;
+		<?php if ( isset( $cards->button_bg_color ) && ! empty( $cards->button_bg_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $cards->button_bg_color ); ?>;
 		<?php } ?>
-		<?php if( $cards->button_padding->right ) { ?>
-		padding-right: <?php echo $cards->button_padding->right; ?>px;
-		<?php } ?>
-		<?php if( $cards->button_padding->bottom ) { ?>
-		padding-bottom: <?php echo $cards->button_padding->bottom; ?>px;
-		<?php } ?>
-		<?php if( $cards->button_padding->left ) { ?>
-		padding-left: <?php echo $cards->button_padding->left; ?>px;
-		<?php } ?>
-		<?php if( $cards->button_width ) { ?>
-		width: <?php echo $cards->button_width; ?>px;
+		<?php if ( isset( $cards->button_text_color ) && ! empty( $cards->button_text_color ) ) { ?>
+		color: <?php echo pp_get_color_value( $cards->button_text_color ); ?>;
 		<?php } ?>
 	}
+	<?php
+	// Button - Width
+	FLBuilderCSS::responsive_rule( array(
+		'settings'		=> $cards,
+		'setting_name'	=> 'button_width',
+		'selector'		=> ".fl-node-$id .pp-hover-card-container.hover-card-$i .pp-hover-card .pp-hover-card-inner .pp-more-link",
+		'prop'			=> 'width',
+		'unit'			=> 'px',
+	) );
+
+	// Button - Padding
+	FLBuilderCSS::dimension_field_rule( array(
+		'settings'		=> $cards,
+		'setting_name' 	=> 'button_padding',
+		'selector' 		=> ".fl-node-$id .pp-hover-card-container.hover-card-$i .pp-hover-card .pp-hover-card-inner .pp-more-link",
+		'unit'			=> 'px',
+		'props'			=> array(
+			'padding-top' 		=> 'button_padding_top',
+			'padding-right' 	=> 'button_padding_right',
+			'padding-bottom' 	=> 'button_padding_bottom',
+			'padding-left' 		=> 'button_padding_left',
+		),
+	) );
+
+	// Button - Border
+	FLBuilderCSS::border_field_rule( array(
+		'settings' 		=> $cards,
+		'setting_name' 	=> 'button_border_group',
+		'selector' 		=> ".fl-node-$id .pp-hover-card-container.hover-card-$i .pp-hover-card .pp-hover-card-inner .pp-more-link",
+	) );
+	?>
 	.fl-node-<?php echo $id; ?> .pp-hover-card-container.hover-card-<?php echo $i; ?> .pp-hover-card .pp-hover-card-inner .pp-more-link:hover {
-		<?php if( $cards->button_background->secondary ) { ?>background: #<?php echo $cards->button_background->secondary; ?>;<?php } ?>
-		<?php if( $cards->button_color->secondary ) { ?>color: #<?php echo $cards->button_color->secondary; ?>;<?php } ?>
-		<?php if( $cards->button_border_color->secondary ) { ?>border-color: #<?php echo $cards->button_border_color->secondary; ?>;<?php } ?>
+		<?php if ( isset( $cards->button_bg_hover ) && ! empty( $cards->button_bg_hover ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $cards->button_bg_hover ); ?>;
+		<?php } ?>
+		<?php if ( isset( $cards->button_text_hover ) && ! empty( $cards->button_text_hover ) ) { ?>
+		color: <?php echo pp_get_color_value( $cards->button_text_hover ); ?>;
+		<?php } ?>
+		<?php if( $cards->button_border_hover_color ) { ?>border-color: #<?php echo $cards->button_border_hover_color; ?>;<?php } ?>
 	}
 
 <?php } ?>
 
 .fl-node-<?php echo $id; ?> .pp-hover-card-container .pp-hover-card-title h3 {
-	<?php if( $settings->hover_card_title_font['family'] != 'Default' ) { ?><?php FLBuilderFonts::font_css( $settings->hover_card_title_font ); ?><?php } ?>
-	<?php if( $settings->hover_card_title_font_size_f['hover_card_title_font_size'] ) { ?>font-size: <?php echo $settings->hover_card_title_font_size_f['hover_card_title_font_size']; ?>px;<?php } ?>
-	<?php if( $settings->hover_card_title_line_height_f['hover_card_title_line_height'] ) { ?>line-height: <?php echo $settings->hover_card_title_line_height_f['hover_card_title_line_height']; ?>;<?php } ?>
 	<?php if( $settings->hover_card_title_margin['hover_card_title_margin_top'] ) { ?>margin-top: <?php echo $settings->hover_card_title_margin['hover_card_title_margin_top']; ?>px;<?php } ?>
 	<?php if( $settings->hover_card_title_margin['hover_card_title_margin_bottom'] ) { ?>margin-bottom: <?php echo $settings->hover_card_title_margin['hover_card_title_margin_bottom']; ?>px;<?php } ?>
 }
+<?php
+// Title Typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'card_title_typography',
+	'selector' 		=> ".fl-node-$id .pp-hover-card-container .pp-hover-card-title h3",
+) );
+?>
 
 .fl-node-<?php echo $id; ?> .pp-hover-card-container .pp-hover-card-description {
-	<?php if( $settings->hover_card_description_font['family']	!= 'Default' ) { ?><?php FLBuilderFonts::font_css( $settings->hover_card_description_font ); ?><?php } ?>
-	<?php if( $settings->hover_card_description_font_size_f['hover_card_description_font_size'] ) { ?>font-size: <?php echo $settings->hover_card_description_font_size_f['hover_card_description_font_size']; ?>px;<?php } ?>
-	<?php if( $settings->hover_card_description_line_height_f['hover_card_description_line_height'] ) { ?>line-height: <?php echo $settings->hover_card_description_line_height_f['hover_card_description_line_height']; ?>;<?php } ?>
 	<?php if( $settings->hover_card_description_margin['hover_card_description_margin_top'] ) { ?>margin-top: <?php echo $settings->hover_card_description_margin['hover_card_description_margin_top']; ?>px;<?php } ?>
 	<?php if( $settings->hover_card_description_margin['hover_card_description_margin_bottom'] ) { ?>margin-bottom: <?php echo $settings->hover_card_description_margin['hover_card_description_margin_bottom']; ?>px;<?php } ?>
 }
+<?php
+// Description Typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'card_description_typography',
+	'selector' 		=> ".fl-node-$id .pp-hover-card-container .pp-hover-card-description",
+) );
 
-/* Button */
-.fl-node-<?php echo $id; ?> .pp-hover-card .pp-hover-card-inner .pp-more-link {
-	<?php if( $settings->button_font['family'] != 'Default' ) { ?><?php FLBuilderFonts::font_css( $settings->button_font ); ?><?php } ?>
-	<?php if( $settings->button_font_size_f['button_font_size'] ) { ?>font-size: <?php echo $settings->button_font_size_f['button_font_size']; ?>px;<?php } ?>
-}
+// Button Typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'button_typography',
+	'selector' 		=> ".fl-node-$id .pp-hover-card .pp-hover-card-inner .pp-more-link",
+) );
+?>
 
 @media only screen and (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) {
     .fl-node-<?php echo $id; ?> .pp-hover-card-container {
-        <?php if( $settings->hover_card_column_width['hover_card_columns_tablet'] >= 0 ) { ?>
+        <?php if( $settings->hover_card_columns_medium >= 0 ) { ?>
         width: <?php echo $hover_card_columns_tablet; ?>%;
         <?php } ?>
-		<?php if( $settings->hover_card_height_f['hover_card_height_tablet'] >= 0 ) { ?>
-		height: <?php echo $settings->hover_card_height_f['hover_card_height_tablet']; ?>px;
-		<?php } ?>
     }
-	.fl-node-<?php echo $id; ?> .pp-hover-card-container .pp-hover-card-title h3 {
-		<?php if( $settings->hover_card_title_font_size_f['hover_card_title_font_size_tablet'] ) { ?>font-size: <?php echo $settings->hover_card_title_font_size_f['hover_card_title_font_size_tablet']; ?>px;<?php } ?>
-		<?php if( $settings->hover_card_title_line_height_f['hover_card_title_line_height_tablet'] ) { ?>line-height: <?php echo $settings->hover_card_title_line_height_f['hover_card_title_line_height_tablet']; ?>;<?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-hover-card-container .pp-hover-card-description {
-		<?php if( $settings->hover_card_description_font_size_f['hover_card_description_font_size_tablet'] ) { ?>font-size: <?php echo $settings->hover_card_description_font_size_f['hover_card_description_font_size_tablet']; ?>px;<?php } ?>
-		<?php if( $settings->hover_card_description_line_height_f['hover_card_description_line_height_tablet'] ) { ?>line-height: <?php echo $settings->hover_card_description_line_height_f['hover_card_description_line_height_tablet']; ?>;<?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-hover-card .pp-hover-card-inner .pp-more-link {
-		<?php if( $settings->button_font_size_f['hover_card_button_font_size_tablet'] ) { ?>font-size: <?php echo $settings->button_font_size_f['hover_card_button_font_size_tablet']; ?>px;<?php } ?>
-	}
-    .fl-node-<?php echo $id; ?> .pp-hover-card-container:nth-of-type(<?php echo $settings->hover_card_column_width['hover_card_columns_desktop']; ?>n+1) {
+    .fl-node-<?php echo $id; ?> .pp-hover-card-container:nth-of-type(<?php echo $settings->hover_card_columns; ?>n+1) {
         clear: none;
     }
-    .fl-node-<?php echo $id; ?> .pp-hover-card-container:nth-of-type(<?php echo $settings->hover_card_column_width['hover_card_columns_tablet']; ?>n+1) {
+    .fl-node-<?php echo $id; ?> .pp-hover-card-container:nth-of-type(<?php echo $settings->hover_card_columns_medium; ?>n+1) {
         clear: left;
     }
-    .fl-node-<?php echo $id; ?> .pp-hover-card-container:nth-of-type(<?php echo $settings->hover_card_column_width['hover_card_columns_desktop']; ?>n) {
+    .fl-node-<?php echo $id; ?> .pp-hover-card-container:nth-of-type(<?php echo $settings->hover_card_columns; ?>n) {
         margin-right: <?php echo $settings->hover_card_spacing; ?>%;
     }
-    .fl-node-<?php echo $id; ?> .pp-hover-card-container:nth-of-type(<?php echo $settings->hover_card_column_width['hover_card_columns_tablet']; ?>n) {
+    .fl-node-<?php echo $id; ?> .pp-hover-card-container:nth-of-type(<?php echo $settings->hover_card_columns_medium; ?>n) {
         margin-right: 0;
     }
 }
 
 @media only screen and (max-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
     .fl-node-<?php echo $id; ?> .pp-hover-card-container {
-        <?php if( $settings->hover_card_column_width['hover_card_columns_mobile'] >= 0 ) { ?>
+        <?php if( $settings->hover_card_columns_responsive >= 0 ) { ?>
         width: <?php echo $hover_card_columns_mobile; ?>%;
         <?php } ?>
-		<?php if( $settings->hover_card_height_f['hover_card_height_mobile'] >= 0 ) { ?>
-		height: <?php echo $settings->hover_card_height_f['hover_card_height_mobile']; ?>px;
-		<?php } ?>
     }
-	.fl-node-<?php echo $id; ?> .pp-hover-card-container .pp-hover-card-title h3 {
-		<?php if( $settings->hover_card_title_font_size_f['hover_card_title_font_size_mobile'] ) { ?>font-size: <?php echo $settings->hover_card_title_font_size_f['hover_card_title_font_size_mobile']; ?>px;<?php } ?>
-		<?php if( $settings->hover_card_title_line_height_f['hover_card_title_line_height_mobile'] ) { ?>line-height: <?php echo $settings->hover_card_title_line_height_f['hover_card_title_line_height_mobile']; ?>;<?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-hover-card-container .pp-hover-card-description {
-		<?php if( $settings->hover_card_description_font_size_f['hover_card_description_font_size_mobile'] ) { ?>font-size: <?php echo $settings->hover_card_description_font_size_f['hover_card_description_font_size_mobile']; ?>px;<?php } ?>
-		<?php if( $settings->hover_card_description_line_height_f['hover_card_description_line_height_mobile'] ) { ?>line-height: <?php echo $settings->hover_card_description_line_height_f['hover_card_description_line_height_mobile']; ?>;<?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-hover-card .pp-hover-card-inner .pp-more-link {
-		<?php if( $settings->button_font_size_f['hover_card_button_font_size_mobile'] ) { ?>font-size: <?php echo $settings->button_font_size_f['hover_card_button_font_size_mobile']; ?>px;<?php } ?>
-	}
-    .fl-node-<?php echo $id; ?> .pp-hover-card-container:nth-of-type(<?php echo $settings->hover_card_column_width['hover_card_columns_tablet']; ?>n+1) {
+    .fl-node-<?php echo $id; ?> .pp-hover-card-container:nth-of-type(<?php echo $settings->hover_card_columns_medium; ?>n+1) {
             clear: none;
     }
-    .fl-node-<?php echo $id; ?> .pp-hover-card-container:nth-of-type(<?php echo $settings->hover_card_column_width['hover_card_columns_mobile']; ?>n+1) {
+    .fl-node-<?php echo $id; ?> .pp-hover-card-container:nth-of-type(<?php echo $settings->hover_card_columns_responsive; ?>n+1) {
             clear: left;
     }
-    .fl-node-<?php echo $id; ?> .pp-hover-card-container:nth-of-type(<?php echo $settings->hover_card_column_width['hover_card_columns_tablet']; ?>n) {
+    .fl-node-<?php echo $id; ?> .pp-hover-card-container:nth-of-type(<?php echo $settings->hover_card_columns_medium; ?>n) {
             margin-right: <?php echo $settings->hover_card_spacing; ?>%;
     }
-    .fl-node-<?php echo $id; ?> .pp-hover-card-container:nth-of-type(<?php echo $settings->hover_card_column_width['hover_card_columns_mobile']; ?>n) {
+    .fl-node-<?php echo $id; ?> .pp-hover-card-container:nth-of-type(<?php echo $settings->hover_card_columns_responsive; ?>n) {
             margin-right: 0;
     }
 }

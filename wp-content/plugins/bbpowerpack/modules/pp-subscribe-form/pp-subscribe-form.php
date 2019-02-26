@@ -23,7 +23,6 @@ class PPSubscribeFormModule extends FLBuilderModule {
             'url'           	=> BB_POWERPACK_URL . 'modules/pp-subscribe-form/',
 			'editor_export' 	=> false,
 			'partial_refresh'	=> true,
-			'icon'				=> 'editor-table.svg',
 		));
 
 		add_action( 'wp_ajax_pp_subscribe_form_submit', array( $this, 'submit' ) );
@@ -105,6 +104,159 @@ class PPSubscribeFormModule extends FLBuilderModule {
 
 		die();
 	}
+
+	public function filter_settings( $settings, $helper ) {
+
+		// Handle Box old padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'box_padding', 'padding', 'box_padding' );
+
+		// Handle Form old padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'form_padding', 'padding', 'form_padding' );
+
+		// Handle Input old padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'input_field_padding', 'padding', 'input_field_padding' );
+
+		// Handle Button old padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'button_padding', 'padding', 'button_padding' );
+
+		// Handle old Form border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'form_border_style'	=> array(
+				'type'				=> 'style',
+			),
+			'form_border_width'	=> array(
+				'type'				=> 'width',
+			),
+			'form_border_color'	=> array(
+				'type'				=> 'color',
+			),
+			'form_border_radius'	=> array(
+				'type'				=> 'radius',
+			),
+			'form_shadow'	=> array(
+				'type'				=> 'shadow',
+				'condition'			=> ( isset( $settings->form_shadow_display ) && 'yes' == $settings->form_shadow_display )
+			),
+			'form_shadow_color'	=> array(
+				'type'				=> 'shadow_color',
+				'opacity'			=> isset( $settings->form_shadow_opacity ) ? ( $settings->form_shadow_opacity / 100 ) : 1,
+				'condition'			=> ( isset( $settings->form_shadow_display ) && 'yes' == $settings->form_shadow_display )
+			),
+		), 'form_border_group' );
+
+		// Handle old Button border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'button_border_size'	=> array(
+				'type'				=> 'width',
+			),
+			'btn_border_color'	=> array(
+				'type'				=> 'color',
+			),
+			'btn_border_radius'	=> array(
+				'type'				=> 'radius',
+			),
+		), 'button_border_group' );
+
+		// Handle Content's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'content_font_family'	=> array(
+				'type'			=> 'font'
+			),
+			'content_font_size_custom'	=> array(
+				'type'          => 'font_size',
+				'condition'     => ( isset( $settings->content_font_size ) && 'custom' == $settings->content_font_size )
+			),
+			'content_line_height_custom'	=> array(
+				'type'          => 'line_height',
+				'condition'     => ( isset( $settings->content_line_height ) && 'custom' == $settings->content_line_height )
+			),
+		), 'content_typography' );
+
+		// Handle Input's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'input_font_family'	=> array(
+				'type'			=> 'font'
+			),
+			'input_font_size'	=> array(
+				'type'          => 'font_size',
+				'condition'     => ( isset( $settings->input_size ) && 'custom' == $settings->input_size )
+			),
+			'input_text_transform'	=> array(
+				'type'          => 'text_transform',
+			),
+			'input_field_text_alignment'	=> array(
+				'type'          => 'text_align',
+			),
+		), 'input_typography' );
+
+		// Handle Button's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'button_font_family'	=> array(
+				'type'			=> 'font'
+			),
+			'button_font_size'	=> array(
+				'type'          => 'font_size',
+				'condition'     => ( isset( $settings->button_size ) && 'custom' == $settings->button_size )
+			),
+			'button_text_transform'	=> array(
+				'type'          => 'text_transform',
+			),
+		), 'button_typography' );
+
+		// Handle Checkbox old Font field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'checkbox_font_size_custom', 'responsive', 'checkbox_font_size_custom' );
+
+		// Handle Checkbox old Font field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'placeholder_font_size', 'responsive', 'placeholder_font_size' );
+
+		// Handle Validation Error old Font field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'validation_error_font_size', 'responsive', 'validation_error_font_size' );
+
+		// Handle Success Message old Font field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'success_message_font_size', 'responsive', 'success_message_font_size' );
+
+		// Handle Box Background opacity + color field.
+        if ( isset( $settings->box_bg_opacity ) ) {
+            $opacity = $settings->box_bg_opacity >= 0 ? $settings->box_bg_opacity : 1;
+            $colorBox = $settings->box_bg;
+
+            if ( ! empty( $colorBox ) ) {
+                $colorBox = pp_hex2rgba( pp_get_color_value( $colorBox ), $opacity );
+                $settings->box_bg = $colorBox;
+            }
+
+            unset( $settings->box_bg_opacity );
+		}
+
+		// Handle Form Background opacity + color field.
+        if ( isset( $settings->form_background_opacity ) ) {
+            $opacity = $settings->form_background_opacity >= 0 ? $settings->form_background_opacity : 1;
+            $colorForm = $settings->form_bg_color;
+
+            if ( ! empty( $colorForm ) ) {
+                $colorForm = pp_hex2rgba( pp_get_color_value( $colorForm ), $opacity );
+                $settings->form_bg_color = $colorForm;
+            }
+
+            unset( $settings->form_background_opacity );
+		}
+
+		// Handle Input Background opacity + color field.
+        if ( isset( $settings->input_field_background_opacity ) ) {
+            $opacity = $settings->input_field_background_opacity >= 0 ? $settings->input_field_background_opacity : 1;
+            $colorInput = $settings->input_field_bg_color;
+
+            if ( ! empty( $colorInput ) ) {
+                $colorInput = pp_hex2rgba( pp_get_color_value( $colorInput ), $opacity );
+                $settings->input_field_bg_color = $colorInput;
+            }
+
+            unset( $settings->input_field_background_opacity );
+		}
+
+		return $settings;
+	}
+
 }
 
 /**
@@ -185,12 +337,11 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 						)
 					),
 					'box_scroll'	=> array(
-						'type'			=> 'text',
+						'type'			=> 'unit',
 						'label'			=> __( 'Scroll Percentage', 'bb-powerpack' ),
 						'default'		=> 50,
-						'description'	=> '%',
-						'size'			=> 5,
-						'maxlength'		=> 3,
+						'slider'		=> true,
+						'units'			=> array('%'),
 						'preview'       => array(
 							'type'             => 'none'
 						),
@@ -209,23 +360,21 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 						)
 					),
 					'popup_delay'	=> array(
-						'type'			=> 'text',
+						'type'			=> 'unit',
 						'label'			=> __( 'Delay', 'bb-powerpack' ),
 						'default'		=> 1,
-						'description'	=> __( 'second(s)', 'bb-powerpack' ),
-						'size'			=> 5,
-						'maxlength'		=> 4,
+						'slider'		=> true,
+						'units'			=> array('second(s)'),
 						'preview'		=> array(
 							'type'			=> 'none'
 						)
 					),
 					'box_width'		=> array(
-						'type'			=> 'text',
+						'type'			=> 'unit',
 						'label'			=> __( 'Width', 'bb-powerpack' ),
 						'default'		=> 550,
-						'description'	=> 'px',
-						'size'			=> 5,
-						'maxlength'		=> 3,
+						'slider'		=> true,
+						'units'			=> array('px'),
 						'preview'       => array(
 							'type'          => 'css',
 							'selector'		=> '.pp-subscribe-box',
@@ -234,12 +383,11 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 						)
 					),
 					'box_height'	=> array(
-						'type'			=> 'text',
+						'type'			=> 'unit',
 						'label'			=> __( 'Height', 'bb-powerpack' ),
 						'default'		=> 450,
-						'description'	=> 'px',
-						'size'			=> 5,
-						'maxlength'		=> 3,
+						'slider'		=> true,
+						'units'			=> array('px'),
 						'preview'       => array(
 							'type'          => 'css',
 							'selector'		=> '.pp-subscribe-box',
@@ -254,18 +402,18 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 						'help'		=> __('Copy this CSS class and paste it to the element you want to trigger the popup clicking on it.', 'bb-powerpack')
 					),
 					'display_after'    	=> array(
-                        'type'              => 'text',
+                        'type'              => 'unit',
                         'label'             => __('Cookie Duration', 'bb-powerpack'),
                         'default'           => 1,
-                        'description'       => __('day(s)', 'bb-powerpack'),
-						'size'				=> 5,
-						'maxlength'			=> 3,
+						'slider'			=> true,
+						'units'				=> array('day(s)'),
                         'help'              => __('If users close the box it will display them again only after the length of the time.', 'bb-powerpack'),
                     )
 				)
 			),
 			'box_content'	=> array(
 				'title'         	=> __( 'Content', 'bb-powerpack' ),
+				'collapsed'			=> true,
 				'fields'        	=> array(
 					'box_content' => array(
 						'type'          => 'editor',
@@ -280,8 +428,9 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 					),
 				)
 			),
-			'structure'        => array(
+			'structure'     => array(
 				'title'         => __( 'Form Structure', 'bb-powerpack' ),
+				'collapsed'		=> true,
 				'fields'        => array(
 					'layout'        => array(
 						'type'          => 'pp-switch',
@@ -324,33 +473,33 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 						)
 					),
 					'input_name_width' 	=> array(
-                        'type'          	=> 'text',
+                        'type'          	=> 'unit',
                         'label'         	=> __('Name Field Width', 'bb-powerpack'),
-                        'description'   	=> '%',
-                        'size'         		=> 5,
+						'slider'			=> true,
+						'units'				=> array('%'),
                         'default'       	=> '',
                     ),
-					'input_email_width'      => array(
-                        'type'          => 'text',
-                        'label'         => __('Email Field Width', 'bb-powerpack'),
-                        'description'   => '%',
-                        'size'         => 5,
-                        'default'       => '',
+					'input_email_width'	=> array(
+                        'type'          	=> 'unit',
+                        'label'         	=> __('Email Field Width', 'bb-powerpack'),
+						'slider'			=> true,
+						'units'				=> array('%'),
+                        'default'       	=> '',
                     ),
-					'input_button_width'      => array(
-                        'type'          => 'text',
-                        'label'         => __('Button Width', 'bb-powerpack'),
-                        'description'   => '%',
-                        'size'         => 5,
-                        'default'       => '',
+					'input_button_width'=> array(
+                        'type'          	=> 'unit',
+                        'label'         	=> __('Button Width', 'bb-powerpack'),
+						'slider'			=> true,
+						'units'				=> array('%'),
+                        'default'       	=> '',
 
                     ),
 					'inputs_space'      => array(
-                        'type'          => 'text',
-                        'label'         => __('Spacing Between Inputs', 'bb-powerpack'),
-                        'description'   => '%',
-                        'size'         => 5,
-                        'default'       => 1,
+                        'type'          	=> 'unit',
+                        'label'         	=> __('Spacing Between Inputs', 'bb-powerpack'),
+						'slider'			=> true,
+						'units'				=> array('%'),
+                        'default'       	=> 1,
                     ),
 					'show_name'     => array(
 						'type'          => 'pp-switch',
@@ -400,8 +549,9 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 				),
 			),
 			'form_footer'	=> array(
-				'title'	=> __( 'Footer', 'bb-powerpack' ),
-				'fields'	=> array(
+				'title'			=> __( 'Footer', 'bb-powerpack' ),
+				'collapsed'		=> true,
+				'fields'		=> array(
 					'footer_text' => array(
 						'type'          => 'editor',
 						'label'         => '',
@@ -465,6 +615,8 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 					'success_url'  => array(
 						'type'          => 'link',
 						'label'         => __( 'Success URL', 'bb-powerpack' ),
+						'show_target'	=> true,
+						'show_nofollow'	=> true,
 						'connections'   => array( 'url' ),
 						'preview'       => array(
 							'type'             => 'none'
@@ -484,100 +636,45 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 						'type'          	=> 'color',
 	                    'label'         	=> __('Background Color', 'bb-powerpack'),
 	                    'default'       	=> 'ffffff',
-	                    'show_reset'    	=> true,
+						'show_reset'    	=> true,
+						'show_alpha'		=> true,
 	                    'preview'       	=> array(
 	                        'type'      		=> 'css',
 	                        'selector'  		=> '.pp-subscribe-box',
 	                        'property'  		=> 'background-color'
 	                    )
 					),
-					'box_bg_opacity'	=> array(
-	                    'type'          	=> 'text',
-	                    'label'             => __('Background Opacity', 'bb-powerpack'),
-	                    'size'          	=> '5',
-						'maxlength'			=> 3,
-	                    'description'       => '%',
-	                    'default'           => '100',
-	                    'preview'           => array(
-	                        'type'             	=> 'css',
-	                        'selector'        	=> '.pp-subscribe-box',
-	                        'property'         	=> 'opacity',
-	                    )
-	                ),
 					'box_border_radius' 	=> array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Round Corners', 'bb-powerpack'),
-                        'description'   => 'px',
                         'default'       => 2,
-                        'size'         => 5,
+						'slider'		=> true,
+						'units'	 	    => array('px'),
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-subscribe-box',
                             'property'  => 'border-radius',
                             'unit'      => 'px'
                         )
-                    ),
-                    'box_padding' 	=> array(
-                        'type' 			=> 'pp-multitext',
-                        'label' 		=> __('Content Padding', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'default'       => array(
-                            'top' 			=> 15,
-                            'right' 		=> 15,
-                            'bottom' 		=> 15,
-                            'left' 			=> 15,
+					),
+					'box_padding'	=> array(
+                        'type'				=> 'dimension',
+                        'label'				=> __('Content Padding', 'bb-powerpack'),
+						'slider'			=> true,
+						'units'				=> array( 'px' ),
+                        'preview'			=> array(
+                            'type'				=> 'css',
+                            'selector'			=> '.pp-subscribe-content',
+                            'property'			=> 'padding',
+                            'unit'				=> 'px'
                         ),
-                        'options' 		=> array(
-                            'top' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Top', 'bb-powerpack'),
-                                'tooltip'       => __('Top', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-up',
-                                'preview'       => array(
-                                    'selector'  => '.pp-subscribe-content',
-                                    'property'  => 'padding-top',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'bottom' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Bottom', 'bb-powerpack'),
-                                'tooltip'       => __('Bottom', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-down',
-                                'preview'       => array(
-                                    'selector'  => '.pp-subscribe-content',
-                                    'property'  => 'padding-bottom',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'left' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Left', 'bb-powerpack'),
-                                'tooltip'       => __('Left', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-left',
-                                'preview'       => array(
-                                    'selector'  => '.pp-subscribe-content',
-                                    'property'  => 'padding-left',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'right' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Right', 'bb-powerpack'),
-                                'tooltip'       => __('Right', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-right',
-                                'preview'       => array(
-                                    'selector'  => '.pp-subscribe-content',
-                                    'property'  => 'padding-right',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                        ),
-                    )
+                        'responsive'		=> true,
+					),
 				)
 			),
 			'box_overlay'	=> array(
 				'title'				=> __('Overlay', 'bb-powerpack'),
+				'collapsed'			=> true,
 				'fields'			=> array(
 					'show_overlay'		=> array(
 						'type'				=> 'pp-switch',
@@ -606,11 +703,10 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 	                    )
 					),
 					'overlay_opacity'	=> array(
-	                    'type'          	=> 'text',
+	                    'type'          	=> 'unit',
 	                    'label'             => __('Opacity', 'bb-powerpack'),
-	                    'size'          	=> '5',
-						'maxlength'			=> '3',
-	                    'description'       => '%',
+	                    'slider'          	=> true,
+	                    'units'				=> array('%'),
 	                    'default'           => '50',
 						'preview'       	=> array(
 	                        'type'      		=> 'none',
@@ -619,98 +715,28 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 				)
 			),
 			'form_corners_padding'      => array( // Section
-                'title'         => __('Form Structure', 'bb-powerpack'), // Section Title
+				'title'         => __('Form Structure', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
                 'fields'        => array( // Section Fields
-                    'form_border_radius' 	=> array(
-                        'type'          => 'text',
-                        'label'         => __('Round Corners', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'default'       => 2,
-                        'size'         => 5,
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-subscribe-form',
-                            'property'  => 'border-radius',
-                            'unit'      => 'px'
-                        )
-                    ),
-                    'form_padding' 	=> array(
-                        'type' 			=> 'pp-multitext',
-                        'label' 		=> __('Padding', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'default'       => array(
-                            'top' => 15,
-                            'right' => 15,
-                            'bottom' => 15,
-                            'left' => 15,
-							'responsive_medium'	=> array(
-								'top' 			=> 15,
-	                            'right' 		=> 15,
-	                            'bottom' 		=> 15,
-	                            'left' 			=> 15,
-							),
-							'responsive_small'	=> array(
-								'top' 			=> 15,
-	                            'right' 		=> 15,
-	                            'bottom' 		=> 15,
-	                            'left' 			=> 15,
-							)
+					'form_padding'	=> array(
+                        'type'				=> 'dimension',
+                        'label'				=> __('Padding', 'bb-powerpack'),
+						'slider'			=> true,
+						'units'				=> array( 'px' ),
+						'default'			=> 15,
+                        'preview'			=> array(
+                            'type'				=> 'css',
+                            'selector'			=> '.pp-subscribe-form',
+                            'property'			=> 'padding',
+                            'unit'				=> 'px'
                         ),
-                        'options' 		=> array(
-                            'top' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Top', 'bb-powerpack'),
-                                'tooltip'       => __('Top', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-up',
-                                'preview'       => array(
-                                    'selector'  => '.pp-subscribe-form',
-                                    'property'  => 'padding-top',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'bottom' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Bottom', 'bb-powerpack'),
-                                'tooltip'       => __('Bottom', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-down',
-                                'preview'       => array(
-                                    'selector'  => '.pp-subscribe-form',
-                                    'property'  => 'padding-bottom',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'left' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Left', 'bb-powerpack'),
-                                'tooltip'       => __('Left', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-left',
-                                'preview'       => array(
-                                    'selector'  => '.pp-subscribe-form',
-                                    'property'  => 'padding-left',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'right' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Right', 'bb-powerpack'),
-                                'tooltip'       => __('Right', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-right',
-                                'preview'       => array(
-                                    'selector'  => '.pp-subscribe-form',
-                                    'property'  => 'padding-right',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                        ),
-						'responsive'	=> array(
-							'medium'		=> array(),
-							'small'			=> array()
-						)
-                    )
+                        'responsive'		=> true,
+					),
                 )
             ),
 			'form_bg_setting'	=> array(
-				'title'	=> __('Form Background', 'bb-powerpack'),
+				'title'		=> __('Form Background', 'bb-powerpack'),
+				'collapsed'	=> true,
 				'fields'	=> array(
 					'form_bg_type'      => array(
 	                    'type'          => 'pp-switch',
@@ -722,7 +748,7 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 	                    ),
 	                    'toggle'    => array(
 	                        'color' => array(
-	                            'fields'    => array('form_bg_color','form_background_opacity')
+	                            'fields'    => array('form_bg_color')
 	                        ),
 	                        'image' => array(
 	                            'fields'    => array('form_bg_image','form_bg_size','form_bg_repeat')
@@ -733,24 +759,12 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 	                    'type'          => 'color',
 	                    'label'         => __('Background Color', 'bb-powerpack'),
 	                    'default'       => 'ffffff',
-	                    'show_reset'    => true,
+						'show_reset'    => true,
+						'show_alpha'	=> true,
 	                    'preview'       => array(
 	                        'type'      => 'css',
 	                        'selector'  => '.pp-subscribe-form',
 	                        'property'  => 'background-color'
-	                    )
-	                ),
-	                'form_background_opacity'    => array(
-	                    'type'                 => 'text',
-	                    'label'                => __('Background Opacity', 'bb-powerpack'),
-	                    'size'          		=> '5',
-						'maxlength'				=> 3,
-	                    'description'          => '%',
-	                    'default'              => '100',
-	                    'preview'              => array(
-	                        'type'             => 'css',
-	                        'selector'         => '.pp-subscribe-form',
-	                        'property'         => 'opacity',
 	                    )
 	                ),
 	                'form_bg_image'     => array(
@@ -785,123 +799,14 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 				)
 			),
 			'form_border_setting'	=> array( // Section
-                'title'         		=> __('Border', 'bb-powerpack'), // Section Title
-                'fields'        		=> array( // Section Fields
-                    'form_border_style'	=> array(
-                        'type'          	=> 'pp-switch',
-                        'label'         	=> __('Border Style', 'bb-powerpack'),
-                        'default'       	=> 'none',
-                        'options'			=> array(
-                            'none'				=> __('None', 'bb-powerpack'),
-                            'solid'				=> __('Solid', 'bb-powerpack'),
-                       		'dashed'			=> __('Dashed', 'bb-powerpack'),
-                       		'dotted'			=> __('Dotted', 'bb-powerpack'),
-                        ),
-                        'preview'	=> array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-subscribe-form',
-                            'property'  => 'border-style'
-                        ),
-                        'toggle'    => array(
-                            'solid' 	=> array(
-                                'fields'    => array('form_border_width', 'form_border_color')
-                            ),
-                            'dashed'	=> array(
-                                'fields'	=> array('form_border_width', 'form_border_color')
-                            ),
-                            'dotted'	=> array(
-                                'fields'    => array('form_border_width', 'form_border_color')
-                            )
-                        )
-                    ),
-                    'form_border_width'	=> array(
-                        'type'          	=> 'text',
-                        'label'         	=> __('Border Width', 'bb-powerpack'),
-                        'description'   	=> 'px',
-                        'size'         		=> 5,
-                        'default'       	=> 2,
-                        'preview'       	=> array(
-                            'type'      		=> 'css',
-                            'selector'  		=> '.pp-subscribe-form',
-                            'property'  		=> 'border-width',
-                            'unit'      		=> 'px'
-                        )
-                    ),
-                    'form_border_color'	=> array(
-                        'type'          	=> 'color',
-                        'label'         	=> __('Border Color', 'bb-powerpack'),
-                        'default'       	=> 'ffffff',
-                        'show_reset'    	=> true,
-                        'preview'       	=> array(
-                            'type'      		=> 'css',
-                            'selector'  		=> '.pp-subscribe-form',
-                            'property'  		=> 'border-color'
-                        )
-                    ),
-                )
-            ),
-			'form_box_shadow'	=> array( // Section
-                'title'         	=> __('Shadow', 'bb-powerpack'), // Section Title
-                'fields'        	=> array( // Section Fields
-                    'form_shadow_display'	=> array(
-                        'type'                 	=> 'pp-switch',
-                        'label'                	=> __('Enable Shadow', 'bb-powerpack'),
-                        'default'              	=> 'no',
-                        'options'              	=> array(
-                            'yes'          			=> __('Yes', 'bb-powerpack'),
-                            'no'             		=> __('No', 'bb-powerpack'),
-                        ),
-                        'toggle'	=>  array(
-                            'yes'   	=> array(
-                                'fields'	=> array('form_shadow', 'form_shadow_color', 'form_shadow_opacity')
-                            )
-                        )
-                    ),
-                    'form_shadow'	=> array(
-						'type'          => 'pp-multitext',
-						'label'         => __('Box Shadow', 'bb-powerpack'),
-						'default'       => array(
-							'vertical'		=> 0,
-							'horizontal'	=> 0,
-							'blur'			=> 10,
-							'spread'		=> 5
-						),
-						'options'	=> array(
-							'vertical'			=> array(
-								'placeholder'		=> __('Vertical', 'bb-powerpack'),
-								'tooltip'			=> __('Vertical', 'bb-powerpack'),
-								'icon'				=> 'fa-arrows-v'
-							),
-							'horizontal'		=> array(
-								'placeholder'		=> __('Horizontal', 'bb-powerpack'),
-								'tooltip'			=> __('Horizontal', 'bb-powerpack'),
-								'icon'				=> 'fa-arrows-h'
-							),
-							'blur'				=> array(
-								'placeholder'		=> __('Blur', 'bb-powerpack'),
-								'tooltip'			=> __('Blur', 'bb-powerpack'),
-								'icon'				=> 'fa-circle-o'
-							),
-							'spread'			=> array(
-								'placeholder'		=> __('Spread', 'bb-powerpack'),
-								'tooltip'			=> __('Spread', 'bb-powerpack'),
-								'icon'				=> 'fa-paint-brush'
-							),
-						)
+				'title'         		=> __('Border', 'bb-powerpack'), // Section Title
+				'collapsed'				=> true,
+				'fields'        		=> array( // Section Fields
+					'form_border_group'	=> array(
+						'type'					=> 'border',
+						'label'					=> __('Border Style', 'bb-powerpack'),
+						'responsive'			=> true,
 					),
-                    'form_shadow_color' => array(
-                        'type'              => 'color',
-                        'label'             => __('Shadow Color', 'bb-powerpack'),
-                        'default'           => '000000',
-                    ),
-                    'form_shadow_opacity' => array(
-                        'type'              => 'text',
-                        'label'             => __('Opacity', 'bb-powerpack'),
-                        'description'       => '%',
-						'size'          	=> '5',
-						'maxlength'			=> 3,
-                        'default'           => 15,
-                    ),
                 )
             ),
 		)
@@ -926,30 +831,19 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
                         'type'                  => 'color',
                         'label'                 => __('Background Color', 'bb-powerpack'),
                         'default'               => 'ffffff',
-                        'show_reset'            => true,
+						'show_reset'            => true,
+						'show_alpha'			=> true,
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.pp-subscribe-form textarea, .pp-subscribe-form input[type=text], .pp-subscribe-form input[type=tel], .pp-subscribe-form input[type=email]',
                             'property'          => 'background-color'
                         )
                     ),
-                    'input_field_background_opacity'    => array(
-                        'type'                 => 'text',
-                        'label'                => __('Background Opacity', 'bb-powerpack'),
-						'size'          		=> '5',
-						'maxlength'				=> 3,
-                        'description'          => '%',
-                        'default'              => '100',
-                        'preview'              => array(
-                            'type'             => 'css',
-                            'selector'         => '.pp-subscribe-form textarea, .pp-subscribe-form input[type=text], .pp-subscribe-form input[type=tel], .pp-subscribe-form input[type=email]',
-                            'property'         => 'opacity',
-                        )
-					),
                 )
             ),
             'input_border_setting'      => array( // Section
-                'title'         => __('Border', 'bb-powerpack'), // Section Title
+				'title'         => __('Border', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
                 'fields'        => array( // Section Fields
                     'input_field_border_color'  => array(
                         'type'                  => 'color',
@@ -1033,30 +927,20 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
                 )
             ),
             'input_general_style'      => array( // Section
-                'title'         => __('Structure', 'bb-powerpack'), // Section Title
+				'title'         => __('Structure', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
                 'fields'        => array( // Section Fields
-					'input_field_text_alignment'    => array(
-                        'type'                      => 'pp-switch',
-                        'label'                     => __('Text Alignment', 'bb-powerpack'),
-                        'default'                   => 'left',
-                        'options'                   => array(
-                            'left'                  => __('Left', 'bb-powerpack'),
-                            'center'                => __('Center', 'bb-powerpack'),
-                            'right'                 => __('Right', 'bb-powerpack'),
-                        )
-                    ),
-                    'input_field_border_radius'    => array(
-                        'type'                     => 'text',
-                        'label'                    => __('Round Corners', 'bb-powerpack'),
-                        'description'              => 'px',
-                        'default'                  => '2',
-						'size'          		=> '5',
-						'maxlength'				=> 3,
-                        'preview'                  => array(
-                            'type'                 => 'css',
-                            'selector'             => '.pp-subscribe-form textarea, .pp-subscribe-form input[type=text], .pp-subscribe-form input[type=tel], .pp-subscribe-form input[type=email]',
-                            'property'             => 'border-radius',
-                            'unit'                 => 'px'
+                    'input_field_border_radius'	=> array(
+                        'type'						=> 'unit',
+                        'label'						=> __('Round Corners', 'bb-powerpack'),
+						'slider'					=> true,
+                        'units'						=> array('px'),
+                        'default'					=> '2',
+                        'preview'					=> array(
+                            'type'						=> 'css',
+                            'selector'					=> '.pp-subscribe-form textarea, .pp-subscribe-form input[type=text], .pp-subscribe-form input[type=tel], .pp-subscribe-form input[type=email]',
+                            'property'					=> 'border-radius',
+                            'unit'						=> 'px'
                         )
                     ),
                     'input_field_box_shadow'   => array(
@@ -1076,7 +960,7 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
                     'input_shadow_color'      => array(
                         'type'          => 'color',
                         'label'         => __('Shadow Color', 'bb-powerpack'),
-                        'show_reset'    => true,
+						'show_reset'    => true,
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-subscribe-form textarea, .pp-subscribe-form input[type=text], .pp-subscribe-form input[type=tel], .pp-subscribe-form input[type=email]',
@@ -1091,76 +975,33 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
                             'out'   => __('Outside', 'bb-powerpack'),
                             'inset'   => __('Inside', 'bb-powerpack'),
                         ),
-                    ),
-                    'input_field_padding' 	=> array(
-                        'type' 			=> 'pp-multitext',
-                        'label' 		=> __('Padding', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'default'       => array(
-                            'top' => 10,
-                            'right' => 10,
-                            'bottom' => 10,
-                            'left' => 10,
+					),
+					'input_field_padding'	=> array(
+                        'type'				=> 'dimension',
+                        'label'				=> __('Padding', 'bb-powerpack'),
+						'slider'			=> true,
+						'units'				=> array( 'px' ),
+						'default'			=> 10,
+                        'preview'			=> array(
+                            'type'				=> 'css',
+							'selector'  		=> '.pp-subscribe-form textarea, .pp-subscribe-form input[type=text], .pp-subscribe-form input[type=tel], .pp-subscribe-form input[type=email]',
+							'property'  		=> 'padding',
+							'unit'      		=> 'px'
                         ),
-                        'options' 		=> array(
-                            'top' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Top', 'bb-powerpack'),
-                                'tooltip'       => __('Top', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-up',
-                                'preview'       => array(
-                                    'selector'  => '.pp-subscribe-form textarea, .pp-subscribe-form input[type=text], .pp-subscribe-form input[type=tel], .pp-subscribe-form input[type=email]',
-                                    'property'  => 'padding-top',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'bottom' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Bottom', 'bb-powerpack'),
-                                'tooltip'       => __('Bottom', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-down',
-                                'preview'       => array(
-                                    'selector'  => '.pp-subscribe-form textarea, .pp-subscribe-form input[type=text], .pp-subscribe-form input[type=tel], .pp-subscribe-form input[type=email]',
-                                    'property'  => 'padding-bottom',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'left' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Left', 'bb-powerpack'),
-                                'tooltip'       => __('Left', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-left',
-                                'preview'       => array(
-                                    'selector'  => '.pp-subscribe-form textarea, .pp-subscribe-form input[type=text], .pp-subscribe-form input[type=tel], .pp-subscribe-form input[type=email]',
-                                    'property'  => 'padding-left',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'right' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Right', 'bb-powerpack'),
-                                'tooltip'       => __('Right', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-right',
-                                'preview'       => array(
-                                    'selector'  => '.pp-subscribe-form textarea, .pp-subscribe-form input[type=text], .pp-subscribe-form input[type=tel], .pp-subscribe-form input[type=email]',
-                                    'property'  => 'padding-right',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                        ),
-                    ),
+                        'responsive'		=> true,
+					),
 					'input_height' => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __( 'Height', 'bb-powerpack' ),
 						'default'       => '38',
-						'description'   => 'px',
-						'maxlength'     => '3',
-						'size'          => '5',
+						'units'		    => array('px'),
+						'slider'     	=> true,
 					),
                 )
             ),
             'placeholder_style'      => array( // Section
-                'title'         => __('Placeholder', 'bb-powerpack'), // Section Title
+				'title'         => __('Placeholder', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
                 'fields'        => array( // Section Fields
                     'input_placeholder_display' 	=> array(
                         'type'          => 'pp-switch',
@@ -1197,64 +1038,66 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 			'btn_general'   => array(
 				'title'         => '',
 				'fields'        => array(
-					'btn_text'      => array(
-						'type'          => 'text',
-						'label'         => __( 'Button Text', 'bb-powerpack' ),
-						'default'       => __( 'Subscribe!', 'bb-powerpack' )
+					'btn_text'      		=> array(
+						'type'          		=> 'text',
+						'label'         		=> __( 'Button Text', 'bb-powerpack' ),
+						'default'       		=> __( 'Subscribe!', 'bb-powerpack' )
 					),
-					'btn_icon'      => array(
-						'type'          => 'icon',
-						'label'         => __( 'Button Icon', 'bb-powerpack' ),
-						'show_remove'   => true
+					'btn_icon'      		=> array(
+						'type'          		=> 'icon',
+						'label'         		=> __( 'Button Icon', 'bb-powerpack' ),
+						'show_remove'   		=> true
 					),
-					'btn_icon_size'    => array(
-                        'type'                     => 'text',
-                        'label'                    => __('Icon Size', 'bb-powerpack'),
-                        'description'              => 'px',
-                        'default'                  => '14',
-						'size'          		=> '5',
-						'maxlength'				=> 3,
-                        'preview'                  => array(
+					'btn_icon_size'    		=> array(
+                        'type'					=> 'unit',
+                        'label'					=> __('Icon Size', 'bb-powerpack'),
+                        'default'				=> '14',
+						'slider'          		=> true,
+                        'units'					=> array('px'),
+                        'preview'				=> array(
                             'type'                 => 'css',
                             'selector'             => '.pp-subscribe-form a.fl-button .fl-button-icon, .pp-subscribe-form a.fl-button .fl-button-icon:before',
                             'property'             => 'font-size',
                             'unit'                 => 'px'
                         )
                     ),
-					'btn_icon_position' => array(
-						'type'          => 'pp-switch',
-						'label'         => __('Icon Position', 'bb-powerpack'),
-						'default'       => 'before',
-						'options'       => array(
-							'before'        => __('Before Text', 'bb-powerpack'),
-							'after'         => __('After Text', 'bb-powerpack')
+					'btn_icon_position'		=> array(
+						'type'					=> 'pp-switch',
+						'label'					=> __('Icon Position', 'bb-powerpack'),
+						'default'				=> 'before',
+						'options'				=> array(
+							'before'				=> __('Before Text', 'bb-powerpack'),
+							'after'					=> __('After Text', 'bb-powerpack')
 						)
 					),
-					'btn_icon_animation' => array(
-						'type'          => 'select',
-						'label'         => __('Icon Visibility', 'bb-powerpack'),
-						'default'       => 'disable',
-						'options'       => array(
-							'disable'        => __('Always Visible', 'bb-powerpack'),
-							'enable'         => __('Fade In On Hover', 'bb-powerpack')
+					'btn_icon_animation'	=> array(
+						'type'          		=> 'select',
+						'label'         		=> __('Icon Visibility', 'bb-powerpack'),
+						'default'       		=> 'disable',
+						'options'       		=> array(
+							'disable'        		=> __('Always Visible', 'bb-powerpack'),
+							'enable'         		=> __('Fade In On Hover', 'bb-powerpack')
 						)
 					)
 				)
 			),
 			'btn_colors'     => array(
 				'title'         => __( 'Colors', 'bb-powerpack' ),
+				'collapsed'		=> true,
 				'fields'        => array(
 					'btn_bg_color'  => array(
 						'type'          => 'color',
 						'label'         => __( 'Background Color', 'bb-powerpack' ),
 						'default'       => '3074b0',
-						'show_reset'    => true
+						'show_reset'    => true,
+						'show_alpha'	=> true,
 					),
 					'btn_bg_hover_color' => array(
 						'type'          => 'color',
 						'label'         => __( 'Background Hover Color', 'bb-powerpack' ),
 						'default'       => '428bca',
 						'show_reset'    => true,
+						'show_alpha'	=> true,
 						'preview'       => array(
 							'type'          => 'none'
 						)
@@ -1278,6 +1121,7 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 			),
 			'btn_style'     => array(
 				'title'         => __( 'Style', 'bb-powerpack' ),
+				'collapsed'		=> true,
 				'fields'        => array(
 					'btn_style'     => array(
 						'type'          => 'pp-switch',
@@ -1289,22 +1133,18 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 						),
 					),
 					'btn_bg_opacity' => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __( 'Background Opacity', 'bb-powerpack' ),
 						'default'       => '100',
-						'description'   => '%',
-						'maxlength'     => '3',
-						'size'          => '5',
-						'placeholder'   => '0'
+						'units'		    => array('%'),
+						'slider'     	=> true,
 					),
 					'btn_bg_hover_opacity' => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Background Hover Opacity', 'bb-powerpack'),
 						'default'       => '100',
-						'description'   => '%',
-						'maxlength'     => '3',
-						'size'          => '5',
-						'placeholder'   => '0'
+						'units'		    => array('%'),
+						'slider'     	=> true,
 					),
 					'btn_button_transition' => array(
 						'type'          => 'pp-switch',
@@ -1318,70 +1158,17 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 				)
 			),
 			'btn_border_setting'	=> array(
-				'title'	=>	__('Border', 'bb-powerpack'),
+				'title'		=>	__('Border', 'bb-powerpack'),
+				'collapsed'	=> true,
 				'fields'	=> array(
-					'button_border_size'   => array(
-                        'type'          => 'pp-multitext',
-						'description'	=> 'px',
-						'label'         => __('Border Width', 'bb-powerpack'),
-                        'default'       => array(
-                            'top'   => 1,
-                            'bottom'   => 1,
-                            'left'   => 1,
-							'right'	=> 1
-                        ),
-						'options' 		=> array(
-                            'top' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Top', 'bb-powerpack'),
-                                'tooltip'       => __('Top', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-up',
-                                'preview'       => array(
-                                    'selector'  => '.pp-subscribe-form a.fl-button',
-                                    'property'  => 'border-top-width',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'bottom' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Bottom', 'bb-powerpack'),
-                                'tooltip'       => __('Bottom', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-down',
-                                'preview'       => array(
-                                    'selector'  => '.pp-subscribe-form a.fl-button',
-                                    'property'  => 'border-bottom-width',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'left' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Left', 'bb-powerpack'),
-                                'tooltip'       => __('Left', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-left',
-                                'preview'       => array(
-                                    'selector'  => '.pp-subscribe-form a.fl-button',
-                                    'property'  => 'border-left-width',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'right' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Right', 'bb-powerpack'),
-                                'tooltip'       => __('Right', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-right',
-                                'preview'       => array(
-                                    'selector'  => '.pp-subscribe-form a.fl-button',
-                                    'property'  => 'border-right-width',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                        ),
-                    ),
-					'btn_border_color' => array(
-						'type'          => 'color',
-						'label'         => __( 'Border Color', 'bb-powerpack' ),
-						'default'       => '',
-						'show_reset'    => true
+					'button_border_group'	=> array(
+						'type'					=> 'border',
+						'label'					=> __('Border Style', 'bb-powerpack'),
+						'responsive'			=> true,
+						'preview'				=> array(
+							'type'					=> 'css',
+							'selector'				=> '.pp-subscribe-form a.fl-button',
+						)
 					),
 					'btn_border_hover_color' => array(
 						'type'          => 'color',
@@ -1393,103 +1180,40 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 			),
 			'btn_structure' => array(
 				'title'         => __( 'Structure', 'bb-powerpack' ),
+				'collapsed'		=> true,
 				'fields'        => array(
 					'btn_align'    	=> array(
-						'type'          => 'pp-switch',
+						'type'          => 'align',
 						'label'         => __('Alignment', 'bb-powerpack'),
 						'default'       => 'left',
-						'options'       => array(
-							'left'          => __('Left', 'bb-powerpack'),
-							'center'		=> __('Center', 'bb-powerpack'),
-							'right'         => __('Right', 'bb-powerpack'),
-						)
 					),
-					'btn_border_radius' => array(
-						'type'          => 'text',
-						'label'         => __( 'Round Corners', 'bb-powerpack' ),
-						'default'       => '4',
-						'maxlength'     => '3',
-						'size'          => '4',
-						'description'   => 'px',
-						'preview'		=> array(
-							'type'	=> 'css',
-							'selector'	=> '.pp-subscribe-form a.fl-button',
-							'property'	=> 'border-radius',
-							'unit'		=> 'px'
-						)
-					),
-					'button_padding'   => array(
-						'type' 			=> 'pp-multitext',
-                        'label' 		=> __('Padding', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'default'       => array(
-                            'top' => 10,
-                            'right' => 20,
-                            'bottom' => 10,
-                            'left' =>20,
+					'button_padding'	=> array(
+                        'type'				=> 'dimension',
+                        'label'				=> __('Padding', 'bb-powerpack'),
+						'slider'			=> true,
+						'units'				=> array( 'px' ),
+						'default'			=> 10,
+                        'preview'			=> array(
+                            'type'				=> 'css',
+							'selector'  		=> '.pp-subscribe-form a.fl-button',
+							'property'  		=> 'padding',
+							'unit'      		=> 'px'
                         ),
-                        'options' 		=> array(
-                            'top' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Top', 'bb-powerpack'),
-                                'tooltip'       => __('Top', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-up',
-                                'preview'       => array(
-                                    'selector'  => '.pp-subscribe-form a.fl-button',
-                                    'property'  => 'padding-top',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'bottom' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Bottom', 'bb-powerpack'),
-                                'tooltip'       => __('Bottom', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-down',
-                                'preview'       => array(
-                                    'selector'  => '.pp-subscribe-form a.fl-button',
-                                    'property'  => 'padding-bottom',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'left' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Left', 'bb-powerpack'),
-                                'tooltip'       => __('Left', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-left',
-                                'preview'       => array(
-                                    'selector'  => '.pp-subscribe-form a.fl-button',
-                                    'property'  => 'padding-left',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'right' => array(
-                                'maxlength' => 3,
-                                'placeholder'   => __('Right', 'bb-powerpack'),
-                                'tooltip'       => __('Right', 'bb-powerpack'),
-                                'icon'		=> 'fa-long-arrow-right',
-                                'preview'       => array(
-                                    'selector'  => '.pp-subscribe-form a.fl-button',
-                                    'property'  => 'padding-right',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                        ),
+                        'responsive'		=> true,
 					),
 					'btn_margin' => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __( 'Margin Top', 'bb-powerpack' ),
 						'default'       => '0',
-						'description'   => '%',
-						'maxlength'     => '3',
-						'size'          => '5',
+						'units'		    => array('%'),
+						'slider'	    => true,
 					),
 					'btn_height' => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __( 'Height', 'bb-powerpack' ),
 						'default'       => '38',
-						'description'   => 'px',
-						'maxlength'     => '3',
-						'size'          => '5',
+						'units'		    => array('px'),
+						'slider'	    => true,
 					),
 				)
 			)
@@ -1500,114 +1224,16 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
         'sections'      => array( // Tab Sections
 			'box_content_typography'       => array( // Section
                 'title'         => __('Content', 'bb-powerpack'), // Section Title
-                'fields'        => array( // Section Fields
-                    'content_font_family' => array(
-                        'type'          => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.pp-subscribe-content',
-                        )
-                    ),
-					'content_font_size'    => array(
-                        'type'                      => 'pp-switch',
-                        'label'                     => __('Font Size', 'bb-powerpack'),
-                        'default'                   => 'default',
-                        'options'                   => array(
-                            'default'                  	=> __('Default', 'bb-powerpack'),
-                            'custom'                	=> __('Custom', 'bb-powerpack'),
-                        ),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array('content_font_size_custom')
-							)
-						)
-                    ),
-                    'content_font_size_custom'   => array(
-                        'type'          => 'pp-multitext',
-						'label'         => __('Custom Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   	=> 16,
-                            'tablet'   		=> '',
-                            'mobile'   		=> '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-subscribe-content',
-                                    'property'      => 'font-size',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
-					'content_line_height'    => array(
-                        'type'                      => 'pp-switch',
-                        'label'                     => __('Line Height', 'bb-powerpack'),
-                        'default'                   => 'default',
-                        'options'                   => array(
-                            'default'                  	=> __('Default', 'bb-powerpack'),
-                            'custom'                	=> __('Custom', 'bb-powerpack'),
-                        ),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array('content_line_height_custom')
-							)
-						)
-                    ),
-					'content_line_height_custom'   => array(
-                        'type'          => 'pp-multitext',
-						'label'         => __('Custom Line Height', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   	=> 1.4,
-                            'tablet'   		=> '',
-                            'mobile'   		=> '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-subscribe-content',
-                                    'property'      => 'line-height',
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
+				'fields'        => array( // Section Fields
+					'content_typography'	=> array(
+						'type'        	   => 'typography',
+						'label'       	   => __( 'Typography', 'bb-powerpack' ),
+						'responsive'  	   => true,
+						'preview'          => array(
+							'type'         		=> 'css',
+							'selector' 		    => '.pp-subscribe-content',
+						),
+					),
 					'content_margin'       => array(
                         'type'              => 'pp-multitext',
                         'label'             => __('Margin', 'bb-powerpack'),
@@ -1642,82 +1268,23 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
                 )
             ),
 			'input_typography'       => array( // Section
-                'title'         => __('Input', 'bb-powerpack'), // Section Title
-                'fields'        => array( // Section Fields
-                    'input_font_family' => array(
-                        'type'          => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.pp-subscribe-form textarea, .pp-subscribe-form input[type=text], .pp-subscribe-form input[type=tel], .pp-subscribe-form input[type=email]',
-                        )
-                    ),
-					'input_size'    => array(
-                        'type'                      => 'pp-switch',
-                        'label'                     => __('Font Size', 'bb-powerpack'),
-                        'default'                   => 'default',
-                        'options'                   => array(
-                            'default'                  => __('Default', 'bb-powerpack'),
-                            'custom'                => __('Custom', 'bb-powerpack'),
-                        ),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array('input_font_size')
-							)
-						)
-                    ),
-                    'input_font_size'   => array(
-                        'type'          => 'pp-multitext',
-						'label'         => __('Custom Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 16,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-subscribe-form textarea, .pp-subscribe-form input[type=text], .pp-subscribe-form input[type=tel], .pp-subscribe-form input[type=email]',
-                                    'property'      => 'font-size',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
-                    'input_text_transform'    => array(
-                        'type'                      => 'select',
-                        'label'                     => __('Text Transform', 'bb-powerpack'),
-                        'default'                   => 'none',
-                        'options'                   => array(
-                            'none'                  => __('Default', 'bb-powerpack'),
-                            'lowercase'                => __('lowercase', 'bb-powerpack'),
-                            'uppercase'                 => __('UPPERCASE', 'bb-powerpack'),
-                        )
-                    ),
+				'title'         => __('Input', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
+				'fields'        => array( // Section Fields
+					'input_typography'	=> array(
+						'type'        	   => 'typography',
+						'label'       	   => __( 'Typography', 'bb-powerpack' ),
+						'responsive'  	   => true,
+						'preview'          => array(
+							'type'         		=> 'css',
+							'selector' 		    => '.pp-subscribe-form textarea, .pp-subscribe-form input[type=text], .pp-subscribe-form input[type=tel], .pp-subscribe-form input[type=email]',
+						),
+					),
                 )
 			),
 			'checkbox_typography'	=> array(
 				'title'					=> __('Checkbox', 'bb-powerpack'),
+				'collapsed'				=> true,
 				'fields'				=> array(
 					'checkbox_font_size'	=> array(
 						'type'					=> 'pp-switch',
@@ -1733,39 +1300,17 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 							)
 						)
 					),
-					'checkbox_font_size_custom'	=> array(
-						'type'          => 'pp-multitext',
+					'checkbox_font_size_custom'		=> array(
+						'type'			=> 'unit',
 						'label'         => __('Custom Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   	=> '',
-                            'tablet'   		=> '',
-                            'mobile'   		=> '',
-                        ),
-                        'options'       => array(
-                            'desktop'  		=> array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-subscribe-form .pp-checkbox-input label',
-                                    'property'      => 'font-size',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
+						'slider'		=> true,
+						'units'			=> array('px'),
+						'preview'		=> array(
+						'selector'      => '.pp-subscribe-form .pp-checkbox-input label',
+						'property'      => 'font-size',
+						'unit'          => 'px'
+						),
+						'responsive'	=> true,
 					),
 					'checkbox_text_color'	=> array(
 						'type'					=> 'color',
@@ -1781,6 +1326,7 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 			),
 			'placeholder_typography'	=> array(
 				'title'	=> __( 'Placeholder', 'bb-powerpack' ),
+				'collapsed'	=> true,
 				'fields'	=> array(
 					'placeholder_size'    => array(
                         'type'                      => 'pp-switch',
@@ -1795,41 +1341,19 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 								'fields'	=> array('placeholder_font_size')
 							)
 						)
-                    ),
-                    'placeholder_font_size'   => array(
-                        'type'          => 'pp-multitext',
+					),
+					'placeholder_font_size'		=> array(
+						'type'			=> 'unit',
 						'label'         => __('Custom Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 16,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-subscribe-form input[type=text]::-webkit-input-placeholder, .pp-subscribe-form input[type=email]::-webkit-input-placeholder',
-                                    'property'      => 'font-size',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
+						'slider'		=> true,
+						'units'			=> array('px'),
+						'preview'		=> array(
+							'selector'      => '.pp-subscribe-form input[type=text]::-webkit-input-placeholder, .pp-subscribe-form input[type=email]::-webkit-input-placeholder',
+							'property'      => 'font-size',
+							'unit'          => 'px'
+						),
+						'responsive'	=> true,
+					),
 					'placeholder_text_transform'    => array(
                         'type'                      => 'select',
                         'label'                     => __('Text Transform', 'bb-powerpack'),
@@ -1843,87 +1367,23 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 				)
 			),
 			'button_typography'       => array( // Section
-                'title'         => __('Button', 'bb-powerpack'), // Section Title
-                'fields'        => array( // Section Fields
-                    'button_font_family' => array(
-                        'type'          => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.pp-subscribe-form a.fl-button'
-                        )
-                    ),
-					'button_size'    => array(
-                        'type'                      => 'pp-switch',
-                        'label'                     => __('Font Size', 'bb-powerpack'),
-                        'default'                   => 'default',
-                        'options'                   => array(
-                            'default'                  => __('Default', 'bb-powerpack'),
-                            'custom'                => __('Custom', 'bb-powerpack'),
-                        ),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array('button_font_size')
-							)
-						)
-                    ),
-                    'button_font_size'   => array(
-                        'type'          => 'pp-multitext',
-						'label'         => __('Custom Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 14,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-subscribe-form a.fl-button',
-                                    'property'      => 'font-size',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
-                    'button_text_transform'    => array(
-                        'type'                      => 'select',
-                        'label'                     => __('Text Transform', 'bb-powerpack'),
-                        'default'                   => 'none',
-                        'options'                   => array(
-                            'none'                  => __('Default', 'bb-powerpack'),
-                            'lowercase'                => __('lowercase', 'bb-powerpack'),
-                            'uppercase'                 => __('UPPERCASE', 'bb-powerpack'),
-                        ),
-						'preview'	=> array(
-							'type'	=> 'css',
-							'selector'	=> '.pp-subscribe-form a.fl-button',
-							'property'	=> 'text-transform'
-						)
-                    ),
+				'title'         => __('Button', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
+				'fields'        => array( // Section Fields
+					'button_typography'	=> array(
+						'type'        	   => 'typography',
+						'label'       	   => __( 'Typography', 'bb-powerpack' ),
+						'responsive'  	   => true,
+						'preview'          => array(
+							'type'         		=> 'css',
+							'selector' 		    => '.pp-subscribe-form a.fl-button'
+						),
+					),
                 )
             ),
 			'errors_typography'       => array( // Section
-                'title'         => __('Error Message', 'bb-powerpack'), // Section Title
+				'title'         => __('Error Message', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
                 'fields'        => array( // Section Fields
 					'validation_error_size'    => array(
                         'type'                      => 'pp-switch',
@@ -1938,41 +1398,19 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 								'fields'	=> array('validation_error_font_size')
 							)
 						)
-                    ),
-                    'validation_error_font_size'    => array(
-                        'type'          => 'pp-multitext',
+					),
+					'validation_error_font_size'		=> array(
+						'type'			=> 'unit',
 						'label'         => __('Custom Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 14,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-subscribe-form .pp-form-error-message',
-                                    'property'      => 'font-size',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
+						'slider'		=> true,
+						'units'			=> array('px'),
+						'preview'		=> array(
+							'selector'      => '.pp-subscribe-form .pp-form-error-message',
+							'property'      => 'font-size',
+							'unit'          => 'px'
+						),
+						'responsive'	=> true,
+					),
 					'error_text_transform'    => array(
                         'type'                      => 'select',
                         'label'                     => __('Text Transform', 'bb-powerpack'),
@@ -1996,7 +1434,8 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
                 )
             ),
 			'form_success_typography'    => array( // Section
-                'title'             => __('Success Message', 'bb-powerpack'), // Section Title
+				'title'             => __('Success Message', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
                 'fields'            => array( // Section Fields
 					'success_message_size'    => array(
                         'type'                      => 'pp-switch',
@@ -2011,41 +1450,19 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 								'fields'	=> array('success_message_font_size')
 							)
 						)
-                    ),
-                    'success_message_font_size'    => array(
-                        'type'          => 'pp-multitext',
+					),
+					'success_message_font_size'		=> array(
+						'type'			=> 'unit',
 						'label'         => __('Custom Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 14,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-subscribe-form .pp-form-success-message',
-                                    'property'      => 'font-size',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
+						'slider'		=> true,
+						'units'			=> array('px'),
+						'preview'		=> array(
+							'selector'      => '.pp-subscribe-form .pp-form-success-message',
+							'property'      => 'font-size',
+							'unit'          => 'px'
+						),
+						'responsive'	=> true,
+					),
 					'success_message_text_transform'    => array(
                         'type'                      => 'select',
                         'label'                     => __('Text Transform', 'bb-powerpack'),

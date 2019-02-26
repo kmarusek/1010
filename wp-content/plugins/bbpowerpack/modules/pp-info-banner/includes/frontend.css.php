@@ -1,21 +1,83 @@
+<?php
+// Form Border - Settings
+FLBuilderCSS::border_field_rule( array(
+	'settings' 		=> $settings,
+	'setting_name' 	=> 'banner_border_group',
+	'selector' 		=> ".fl-node-$id .pp-info-banner-content",
+) );
+// Button Border - Settings
+FLBuilderCSS::border_field_rule( array(
+	'settings' 		=> $settings,
+	'setting_name' 	=> 'banner_button_border_group',
+	'selector' 		=> ".fl-node-$id .pp-info-banner-content .banner-button",
+) );
+// Banner Info Padding
+FLBuilderCSS::dimension_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'banner_info_padding_group',
+	'selector' 		=> ".fl-node-$id .pp-info-banner-content .info-banner-wrap",
+	'unit'			=> isset( $settings->banner_info_padding_group_unit ) ? $settings->banner_info_padding_group_unit : 'px',
+	'props'			=> array(
+		'padding-top' 		=> 'banner_info_padding_group_top',
+		'padding-right' 	=> 'banner_info_padding_group_right',
+		'padding-bottom' 	=> 'banner_info_padding_group_bottom',
+		'padding-left' 		=> 'banner_info_padding_group_left',
+	),
+) );
+// Banner Title Padding
+FLBuilderCSS::dimension_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'banner_title_padding',
+	'selector' 		=> ".fl-node-$id .pp-info-banner-content .banner-title",
+	'unit'			=> 'px',
+	'props'			=> array(
+		'padding-top' 		=> 'banner_title_padding_top',
+		'padding-right' 	=> 'banner_title_padding_right',
+		'padding-bottom' 	=> 'banner_title_padding_bottom',
+		'padding-left' 		=> 'banner_title_padding_left',
+	),
+) );
+// Banner Desc Padding
+FLBuilderCSS::dimension_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'banner_desc_padding',
+	'selector' 		=> ".fl-node-$id .pp-info-banner-content .banner-description",
+	'unit'			=> 'px',
+	'props'			=> array(
+		'padding-top' 		=> 'banner_desc_padding_top',
+		'padding-right' 	=> 'banner_desc_padding_right',
+		'padding-bottom' 	=> 'banner_desc_padding_bottom',
+		'padding-left' 		=> 'banner_desc_padding_left',
+	),
+) );
+// Banner Button Padding
+FLBuilderCSS::dimension_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'banner_button_padding',
+	'selector' 		=> ".fl-node-$id .pp-info-banner-content .banner-button",
+	'unit'			=> 'px',
+	'props'			=> array(
+		'padding-top' 		=> 'banner_button_padding_top',
+		'padding-right' 	=> 'banner_button_padding_right',
+		'padding-bottom' 	=> 'banner_button_padding_bottom',
+		'padding-left' 		=> 'banner_button_padding_left',
+	),
+) );
+// Banner Title Typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'banner_title_typography',
+	'selector' 		=> ".fl-node-$id .pp-info-banner-content .banner-title",
+) );
+?>
 .fl-node-<?php echo $id; ?> .pp-info-banner-content {
     width: 100%;
     position: relative;
     overflow: hidden;
-    background: <?php echo $settings->banner_bg_color ? '#' . $settings->banner_bg_color : 'transparent' ?>;
+    background: <?php echo $settings->banner_bg_color ? pp_get_color_value( $settings->banner_bg_color ) : 'transparent' ?>;
     <?php if( $settings->banner_min_height ) { ?>
 	height: <?php echo $settings->banner_min_height; ?>px;
     <?php } ?>
-    <?php if( $settings->banner_border_type != 'no-border' ) { ?>
-	border-style: <?php echo $settings->banner_border_type; ?>;
-    <?php } ?>
-    border-color: <?php echo $settings->banner_border_color ? '#' . $settings->banner_border_color : 'transparent' ?>;
-    <?php if( $settings->banner_border_width >= 0 ) { ?>
-    border-width: <?php echo $settings->banner_border_width; ?>px;
-    <?php } ?>
-	<?php if( $settings->banner_border_radius ) { ?>
-		border-radius: <?php echo $settings->banner_border_radius; ?>px;
-	<?php } ?>
 }
 <?php if( $settings->banner_image_arrangement == 'background' ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-info-banner-content .pp-info-banner-bg {
@@ -61,7 +123,7 @@
     width: 100%;
     height: 100%;
     z-index: 2;
-    background-color: <?php echo $settings->banner_bg_overlay ? '#' . $settings->banner_bg_overlay : 'transparent'; ?>;
+    background-color: <?php echo $settings->banner_bg_overlay ? pp_get_color_value( $settings->banner_bg_overlay ) : 'transparent'; ?>;
     opacity: <?php echo $settings->banner_bg_opacity; ?>;
 }
 
@@ -76,18 +138,6 @@
     vertical-align: middle;
 	position: relative;
 	z-index: 5;
-    <?php if( $settings->banner_info_padding >= 0 ) { ?>
-	padding-top: <?php echo $settings->banner_info_padding; ?>px;
-    <?php } ?>
-    <?php if( $settings->banner_info_padding_b >= 0 ) { ?>
-	padding-bottom: <?php echo $settings->banner_info_padding_b; ?>px;
-    <?php } ?>
-    <?php if( $settings->banner_info_padding_l >= 0 ) { ?>
-	padding-left: <?php echo $settings->banner_info_padding_l; ?>px;
-    <?php } ?>
-    <?php if( $settings->banner_info_padding_r >= 0 ) { ?>
-	padding-right: <?php echo $settings->banner_info_padding_r; ?>px;
-    <?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-info-banner-content .info-banner-wrap.animated {
@@ -107,18 +157,8 @@
 }
 
 .fl-node-<?php echo $id; ?> .pp-info-banner-content .banner-title {
-    <?php if( $settings->banner_title_line_height ) { ?>line-height: <?php echo $settings->banner_title_line_height; ?><?php } ?>;
-    <?php if( $settings->banner_title_font['family'] != 'Default' ) { ?>
-	<?php FLBuilderFonts::font_css( $settings->banner_title_font ); ?>
-    <?php } ?>
-    <?php if( $settings->banner_title_font_size ) { ?>
-	font-size: <?php echo $settings->banner_title_font_size; ?>px;
-    <?php } ?>
-    <?php if ( $settings->banner_title_spacing != '' ) { ?>
-    letter-spacing: <?php echo $settings->banner_title_spacing; ?>px;
-    <?php } ?>
     <?php if( $settings->banner_title_color ) { ?>
-	color: #<?php echo $settings->banner_title_color; ?>;
+	color: <?php echo pp_get_color_value( $settings->banner_title_color ); ?>;
     <?php } ?>
     <?php if( $settings->banner_title_margin >= 0 ) { ?>
 	margin-bottom: <?php echo $settings->banner_title_margin; ?>px;
@@ -126,21 +166,9 @@
     <?php if( $settings->banner_title_border_type) { ?>
     border-style: <?php echo $settings->banner_title_border_type; ?>;
     <?php } ?>
-    border-color: <?php echo $settings->banner_title_border_color ? '#' . $settings->banner_title_border_color : 'transparent'; ?>;
+    border-color: <?php echo $settings->banner_title_border_color ? pp_get_color_value( $settings->banner_title_border_color ) : 'transparent'; ?>;
     border-width: 0;
     <?php echo $settings->banner_title_border_position; ?>-width: <?php echo $settings->banner_title_border_width; ?>px;
-    <?php if( $settings->banner_title_padding_top >= 0 ) { ?>
-    padding-top: <?php echo $settings->banner_title_padding_top; ?>px;
-    <?php } ?>
-    <?php if( $settings->banner_title_padding_bottom >= 0 ) { ?>
-    padding-bottom: <?php echo $settings->banner_title_padding_bottom; ?>px;
-    <?php } ?>
-    <?php if( $settings->banner_title_padding_left >= 0 ) { ?>
-    padding-left: <?php echo $settings->banner_title_padding_left; ?>px;
-    <?php } ?>
-    <?php if( $settings->banner_title_padding_right >= 0 ) { ?>
-    padding-right: <?php echo $settings->banner_title_padding_right; ?>px;
-    <?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-info-banner-content .banner-description {
@@ -151,22 +179,10 @@
 	font-size: <?php echo $settings->banner_desc_font_size; ?>px;
     <?php } ?>
     <?php if( $settings->banner_desc_color ) { ?>
-	color: #<?php echo $settings->banner_desc_color; ?>;
+	color: <?php echo pp_get_color_value( $settings->banner_desc_color ); ?>;
     <?php } ?>
     <?php if( $settings->banner_desc_margin >= 0 ) { ?>
 	margin-bottom: <?php echo $settings->banner_desc_margin; ?>px;
-    <?php } ?>
-    <?php if( $settings->banner_desc_padding_top >= 0 ) { ?>
-    padding-top: <?php echo $settings->banner_desc_padding_top; ?>px;
-    <?php } ?>
-    <?php if( $settings->banner_desc_padding_bottom >= 0 ) { ?>
-    padding-bottom: <?php echo $settings->banner_desc_padding_bottom; ?>px;
-    <?php } ?>
-    <?php if( $settings->banner_desc_padding_left >= 0 ) { ?>
-    padding-left: <?php echo $settings->banner_desc_padding_left; ?>px;
-    <?php } ?>
-    <?php if( $settings->banner_desc_padding_right >= 0 ) { ?>
-    padding-right: <?php echo $settings->banner_desc_padding_right; ?>px;
     <?php } ?>
 }
 
@@ -263,37 +279,13 @@
 
 
 .fl-node-<?php echo $id; ?> .pp-info-banner-content .banner-button {
-	<?php if( $settings->banner_button_border_type != 'no-border' ) { ?>
-	border-style: <?php echo $settings->banner_button_border_type; ?>;
-	<?php } ?>
-    <?php if( $settings->banner_button_border_color ) { ?>
-	border-color: #<?php echo $settings->banner_button_border_color; ?>;
-    <?php } ?>
-    <?php if( $settings->banner_button_border_width >= 0 ) { ?>
-	border-width: <?php echo $settings->banner_button_border_width; ?>px;
-    <?php } ?>
-    <?php if( $settings->banner_button_border_radius >= 0 ) { ?>
-	border-radius: <?php echo $settings->banner_button_border_radius; ?>px;
-    <?php } ?>
-    background-color: <?php echo $settings->banner_button_bg_color ? '#' . $settings->banner_button_bg_color : 'transparent'; ?>;
-	color: #<?php echo $settings->banner_button_text_color; ?>;
+    background-color: <?php echo $settings->banner_button_bg_color ? pp_get_color_value( $settings->banner_button_bg_color ) : 'transparent'; ?>;
+	color: <?php echo pp_get_color_value( $settings->banner_button_text_color ); ?>;
     <?php if( $settings->banner_button_font['family'] != 'Default' ) { ?>
 	<?php FLBuilderFonts::font_css( $settings->banner_button_font ); ?>
     <?php } ?>
     <?php if( $settings->banner_button_font_size ) { ?>
 	font-size: <?php echo $settings->banner_button_font_size; ?>px;
-    <?php } ?>
-    <?php if( $settings->banner_button_padding_left >= 0 ) { ?>
-	padding-left: <?php echo $settings->banner_button_padding_left; ?>px;
-    <?php } ?>
-    <?php if( $settings->banner_button_padding_right >= 0 ) { ?>
-    padding-right: <?php echo $settings->banner_button_padding_right; ?>px;
-    <?php } ?>
-    <?php if( $settings->banner_button_padding_top >= 0 ) { ?>
-    padding-top: <?php echo $settings->banner_button_padding_top; ?>px;
-    <?php } ?>
-    <?php if( $settings->banner_button_padding_bottom >= 0 ) { ?>
-    padding-bottom: <?php echo $settings->banner_button_padding_bottom; ?>px;
     <?php } ?>
 	display: inline-block;
     box-shadow: none;
@@ -310,11 +302,11 @@
 }
 
 .fl-node-<?php echo $id; ?> .pp-info-banner-content .banner-button:hover {
-    background-color: <?php echo $settings->banner_button_bg_hover_color ? '#' . $settings->banner_button_bg_hover_color : 'transparent'; ?>;
+    background-color: <?php echo $settings->banner_button_bg_hover_color ? pp_get_color_value( $settings->banner_button_bg_hover_color ) : 'transparent'; ?>;
     <?php if( $settings->banner_button_text_hover ) { ?>
-	color: #<?php echo $settings->banner_button_text_hover; ?>;
+		color: <?php echo pp_get_color_value( $settings->banner_button_text_hover ); ?>;
     <?php } ?>
-    border-color: <?php echo $settings->banner_button_border_hover ? '#' . $settings->banner_button_border_hover : 'transparent'; ?>;
+    border-color: <?php echo $settings->banner_button_border_hover ? pp_get_color_value( $settings->banner_button_border_hover ) : 'transparent'; ?>;
     text-decoration: none;
 }
 

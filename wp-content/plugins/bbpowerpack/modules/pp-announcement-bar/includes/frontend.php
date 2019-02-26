@@ -20,7 +20,7 @@ else if( $settings->announcement_bar_position == 'top' ) {
 			<p><?php echo $settings->announcement_content; ?></p>
 			<?php if ( trim($settings->announcement_link_text) != '' ) { ?>
 			<div class="pp-announcement-bar-link">
-				<a href="<?php echo $settings->announcement_link_url; ?>" target="<?php echo $settings->announcement_link_target; ?>">
+				<a href="<?php echo $settings->announcement_link; ?>" target="<?php echo $settings->announcement_link_target; ?>"<?php echo $module->get_rel(); ?>>
 					<?php echo $settings->announcement_link_text; ?>
 				</a>
 			</div>

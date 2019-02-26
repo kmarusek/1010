@@ -3,30 +3,35 @@
  * $id The module's ID.
  * $settings The module's settings.
 */
-
-
-.fl-node-<?php echo $id; ?> {
-
-}
-
+<?php
+// Banner Info Padding
+FLBuilderCSS::dimension_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'box_padding',
+	'selector' 		=> ".fl-node-$id .pp-highlight-box-content",
+	'unit'			=> 'px',
+	'props'			=> array(
+		'padding-top' 		=> 'box_padding_top',
+		'padding-right' 	=> 'box_padding_right',
+		'padding-bottom' 	=> 'box_padding_bottom',
+		'padding-left' 		=> 'box_padding_left',
+	),
+) );
+?>
 .fl-node-<?php echo $id; ?> .pp-highlight-box-content {
     position: relative;
     <?php if( $settings->box_bg_color ) { ?>
-    background-color: #<?php echo $settings->box_bg_color; ?>;
+	    background-color: <?php echo pp_get_color_value($settings->box_bg_color); ?>;
     <?php } ?>
     <?php if( $settings->box_text_color ) { ?>
-    color: #<?php echo $settings->box_text_color; ?>;
+    	color: <?php echo pp_get_color_value($settings->box_text_color); ?>;
     <?php } ?>
-    padding-top: <?php echo ($settings->box_top_padding) ? $settings->box_top_padding : '0'; ?>px;
-    padding-bottom: <?php echo ($settings->box_bottom_padding) ? $settings->box_bottom_padding : '0'; ?>px;
-    padding-left: <?php echo ($settings->box_left_padding) ? $settings->box_left_padding : '0'; ?>px;
-    padding-right: <?php echo ($settings->box_right_padding) ? $settings->box_right_padding : '0'; ?>px;
 	border-radius: <?php echo $settings->box_border_radius; ?>px;
     <?php if( $settings->box_font['family'] != 'Default' ) { ?>
-    <?php FLBuilderFonts::font_css( $settings->box_font ); ?>
+    	<?php FLBuilderFonts::font_css( $settings->box_font ); ?>
     <?php } ?>
     <?php if( $settings->box_font_size ) { ?>
-    font-size: <?php echo $settings->box_font_size; ?>px;
+    	font-size: <?php echo $settings->box_font_size; ?>px;
     <?php } ?>
     overflow: hidden;
     -webkit-transition: <?php echo $settings->box_icon_transition_duration; ?>ms background-color ease;
@@ -37,10 +42,10 @@
 
 .fl-node-<?php echo $id; ?> .pp-highlight-box-content:hover {
     <?php if( $settings->box_bg_hover_color ) { ?>
-    background-color: #<?php echo $settings->box_bg_hover_color; ?>;
+   		background-color: <?php echo pp_get_color_value($settings->box_bg_hover_color); ?>;
     <?php } ?>
     <?php if( $settings->box_text_hover_color ) { ?>
-    color: #<?php echo $settings->box_text_hover_color; ?>;
+    color: <?php echo pp_get_color_value($settings->box_text_hover_color); ?>;
     <?php } ?>
     -webkit-transition: <?php echo $settings->box_icon_transition_duration; ?>ms background-color ease;
     -moz-transition: <?php echo $settings->box_icon_transition_duration; ?>ms background-color ease;
@@ -50,7 +55,7 @@
 
 .fl-node-<?php echo $id; ?> .pp-highlight-box-content .box-link {
     <?php if( $settings->box_text_color ) { ?>
-    color: #<?php echo $settings->box_text_color; ?>;
+    color: <?php echo pp_get_color_value($settings->box_text_color); ?>;
     <?php } ?>
     display: block;
     text-decoration: none;
@@ -70,7 +75,7 @@
     font-size: <?php echo $settings->box_font_icon_size; ?>px;
     <?php } ?>
     <?php if( $settings->box_font_icon_color ) { ?>
-    color: #<?php echo $settings->box_font_icon_color; ?>;
+    	color: <?php echo pp_get_color_value($settings->box_font_icon_color); ?>;
     <?php } ?>
 }
 
@@ -117,7 +122,7 @@ fl-node-<?php echo $id; ?> .pp-highlight-box-content .custom_icon img {
 
 .fl-node-<?php echo $id; ?> .pp-highlight-box-content.box-hover .font_icon,
 .fl-node-<?php echo $id; ?> .pp-highlight-box-content.box-hover .custom_icon {
-    background-color: #<?php echo $settings->box_bg_hover_color; ?>;
+    background-color: <?php echo pp_get_color_value($settings->box_bg_hover_color); ?>;
     opacity: 0.5;
     -webkit-transition: visibility <?php echo $settings->box_icon_transition_duration; ?>ms all, opacity <?php echo $settings->box_icon_transition_duration; ?>ms ease-in;
      -moz-transition: visibility <?php echo $settings->box_icon_transition_duration; ?>ms all, opacity <?php echo $settings->box_icon_transition_duration; ?>ms ease-in;

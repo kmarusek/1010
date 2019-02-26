@@ -30,7 +30,7 @@
 			this._hashChange();
 
 			$(window).on('hashchange', $.proxy( this._hashChange, this ));
-			$(window).on('resize', $.proxy( this._responsiveCollapsed, this ));
+			//$(window).on('resize', $.proxy( this._responsiveCollapsed, this ));
 		},
 
 		_hashChange: function()
@@ -43,7 +43,7 @@
 					$(location.hash).trigger('click');
 				}
 				$('html, body').animate({
-					scrollTop: $(location.hash).offset().top - 120
+					scrollTop: $(location.hash).parents('.pp-tabs').offset().top - 120
 				}, 500);
 				
 				location.href = '#';

@@ -11,6 +11,8 @@
 		 */
 		_previousSettings: null,
 
+		_currentStyle: 'default',
+
 		/**
          * The 'init' method is called by the builder when
          * the settings form is opened.
@@ -23,8 +25,10 @@
 				button_sections = ['button_colors', 'button_typography'],
 				self 			= this;
 
+			this._currentStyle = form.find('select[name="post_grid_style_select"]').val();
+
 			this._tirggerStyleChange();
-			form.find('select[name="post_grid_style_select"]').on('change', this._tirggerStyleChange);
+			form.find('select[name="post_grid_style_select"]').on('change', $.proxy( this._tirggerStyleChange, this ));
 
 			if ( $( '#fl-field-custom_layout:visible' ).length > 0 ) {
 				$( '#fl-field-custom_layout:visible' ).on('click', function() {
@@ -84,7 +88,10 @@
 			var form = $('.fl-builder-settings'),
 				style = form.find('select[name="post_grid_style_select"]').val();
 
+			form.removeClass( 'pp-cg-module-' + this._currentStyle );
 			form.addClass( 'pp-cg-module-' + style );
+
+			this._currentStyle = style;
 
 			if ( 'custom' === form.find('select[name="post_grid_style_select"]').val() ) {
 				form.addClass( 'pp-style-custom' );

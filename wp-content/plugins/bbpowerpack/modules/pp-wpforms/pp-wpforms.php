@@ -22,9 +22,221 @@ class PPWPFormsModule extends FLBuilderModule {
             'url'           => BB_POWERPACK_URL . 'modules/pp-wpforms/',
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
-            'icon'				=> 'editor-table.svg',
         ));
     }
+
+	public function filter_settings( $settings, $helper )
+	{	
+		// Handle title's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'title_font_family'	=> array(
+				'type'			=> 'font'
+			),
+			'title_font_size'	=> array(
+				'type'			=> 'font_size',
+				'condition'		=> ( isset( $settings->title_size ) && 'custom' == $settings->title_size )
+			),
+			'title_line_height'	=> array(
+				'type'			=> 'line_height',
+			),
+			'title_text_transform'	=> array(
+				'type'			=> 'text_transform'
+			),
+			'title_alignment'	=> array(
+				'type'			=> 'text_align'
+			)
+		), 'title_typography' );
+
+		// Handle description's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'description_font_family'	=> array(
+				'type'			=> 'font'
+			),
+			'description_font_size'	=> array(
+				'type'			=> 'font_size',
+				'condition'		=> ( isset( $settings->description_size ) && 'custom' == $settings->description_size )
+			),
+			'description_line_height'	=> array(
+				'type'			=> 'line_height',
+			),
+			'description_text_transform'	=> array(
+				'type'			=> 'text_transform'
+			),
+			'description_alignment'	=> array(
+				'type'			=> 'text_align'
+			)
+		), 'description_typography' );
+
+		// Handle label's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'label_font_family'	=> array(
+				'type'			=> 'font'
+			),
+			'label_font_size'	=> array(
+				'type'			=> 'font_size',
+				'condition'		=> ( isset( $settings->label_size ) && 'custom' == $settings->label_size )
+			),
+			'label_text_transform'	=> array(
+				'type'			=> 'text_transform'
+			),
+		), 'label_typography' );
+
+		// Handle input's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'input_font_family'	=> array(
+				'type'			=> 'font'
+			),
+			'input_font_size'	=> array(
+				'type'			=> 'font_size',
+				'condition'		=> ( isset( $settings->input_size ) && 'custom' == $settings->input_size )
+			),
+			'input_text_transform'	=> array(
+				'type'			=> 'text_transform'
+			),
+			'input_field_text_alignment'	=> array(
+				'type'			=> 'text_align'
+			)
+		), 'input_typography' );
+
+		// Handle button's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'button_font_family'	=> array(
+				'type'			=> 'font'
+			),
+			'button_font_size'	=> array(
+				'type'			=> 'font_size',
+				'condition'		=> ( isset( $settings->button_size ) && 'custom' == $settings->button_size )
+			),
+			'button_text_transform'	=> array(
+				'type'			=> 'text_transform'
+			),
+		), 'button_typography' );
+
+		// Handle input description old font size field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'input_desc_font_size', 'responsive', 'input_desc_font_size' );
+
+		// Handle input description old line height field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'input_desc_line_height', 'responsive', 'input_desc_line_height' );
+
+		// Handle validation message old line height field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'validation_message_font_size', 'responsive', 'validation_message_font_size' );
+
+		// Handle success message old line height field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'success_message_font_size', 'responsive', 'success_message_font_size' );
+
+		// Handle old button border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'button_border_width'	=> array(
+				'type'				=> 'width'
+			),
+			'button_border_color'	=> array(
+				'type'				=> 'color'
+			),
+			'button_border_radius'	=> array(
+				'type'				=> 'radius'
+			),
+		), 'button_border' );
+
+		// Handle button old padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'button_padding', 'padding', 'button_padding' );
+
+		// Handle button old text color fields
+		$settings = PP_Module_Fields::handle_dual_color_field( $settings, 'button_text_color', array(
+			'primary'	=> 'button_text_color_default',
+			'secondary'	=> 'button_text_color_hover'
+		) );
+
+		// Handle button old background color fields
+		$settings = PP_Module_Fields::handle_dual_color_field( $settings, 'button_bg_color', array(
+			'primary'	=> 'button_bg_color_default',
+			'secondary'	=> 'button_background_color_hover'
+		) );
+
+		// Handle button background opacity + color field.
+		if ( isset( $settings->button_background_opacity ) ) {
+			$opacity = $settings->button_background_opacity >= 0 ? ( $settings->button_background_opacity / 100 ) : 1;
+			$color = $settings->button_bg_color_default;
+
+			if ( ! empty( $color ) ) {
+				$color = pp_hex2rgba( pp_get_color_value( $color ), $opacity );
+				$settings->button_bg_color_default = $color;
+			}
+
+			unset( $settings->button_background_opacity );
+		}
+
+		// Handle input field background opacity + color field.
+		if ( isset( $settings->input_field_background_opacity ) ) {
+			$opacity = $settings->input_field_background_opacity >= 0 ? $settings->input_field_background_opacity : 1;
+			$color = $settings->input_field_bg_color;
+
+			if ( ! empty( $color ) ) {
+				$color = pp_hex2rgba( pp_get_color_value( $color ), $opacity );
+				$settings->input_field_bg_color = $color;
+			}
+
+			unset( $settings->input_field_background_opacity );
+		}
+
+		// Handle input field old padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'input_field_padding', 'padding', 'input_field_padding' );
+
+		// Handle old form border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'form_border_style'	=> array(
+				'type'				=> 'style'
+			),
+			'form_border_width'	=> array(
+				'type'				=> 'width'
+			),
+			'form_border_color'	=> array(
+				'type'				=> 'color'
+			),
+			'form_border_radius'	=> array(
+				'type'				=> 'radius'
+			),
+			'form_shadow'		=> array(
+				'type'				=> 'shadow',
+				'condition'			=> ( isset( $settings->form_shadow_display ) && 'yes' == $settings->form_shadow_display )
+			),
+			'form_shadow_color'	=> array(
+				'type'				=> 'shadow_color',
+				'condition'			=> ( isset( $settings->form_shadow_display ) && 'yes' == $settings->form_shadow_display ),
+				'opacity'			=> isset( $settings->form_shadow_opacity ) ? $settings->form_shadow_opacity : 1
+			),
+		), 'form_border' );
+
+		// Handle form old padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'form_padding', 'padding', 'form_padding' );
+
+		// Handle form background opacity + color field.
+		if ( isset( $settings->form_background_opacity ) ) {
+			$opacity = $settings->form_background_opacity >= 0 ? $settings->form_background_opacity : 1;
+			$color = $settings->form_bg_color;
+
+			if ( ! empty( $color ) ) {
+				$color = pp_hex2rgba( pp_get_color_value( $color ), $opacity );
+				$settings->form_bg_color = $color;
+			}
+
+			unset( $settings->form_background_opacity );
+		}
+
+		// Handle form background overlay opacity + color field.
+		if ( isset( $settings->form_bg_overlay_opacity ) ) {
+			$opacity = $settings->form_bg_overlay_opacity >= 0 ? $settings->form_bg_overlay_opacity : 1;
+			$color = $settings->form_bg_overlay;
+
+			if ( ! empty( $color ) ) {
+				$color = pp_hex2rgba( pp_get_color_value( $color ), $opacity );
+				$settings->form_bg_overlay = $color;
+			}
+
+			unset( $settings->form_bg_overlay_opacity );
+		}
+
+		return $settings;
+	}
 
     /**
      * Get WPForms titles
@@ -154,10 +366,10 @@ FLBuilder::register_module('PPWPFormsModule', array(
                         ),
                         'toggle'    => array(
                             'color' => array(
-                                'fields'    => array('form_bg_color','form_background_opacity')
+                                'fields'    => array('form_bg_color')
                             ),
                             'image' => array(
-                                'fields'    => array('form_bg_image','form_bg_size','form_bg_repeat', 'form_bg_overlay', 'form_bg_overlay_opacity')
+                                'fields'    => array('form_bg_image','form_bg_size','form_bg_repeat', 'form_bg_overlay')
                             )
                         )
                     ),
@@ -166,26 +378,15 @@ FLBuilder::register_module('PPWPFormsModule', array(
                         'label'         => __('Background Color', 'bb-powerpack'),
                         'default'       => 'ffffff',
                         'show_reset'    => true,
+						'show_alpha'	=> true,
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-wpforms-content',
                             'property'  => 'background-color'
                         )
                     ),
-                    'form_background_opacity'    => array(
-                        'type'                 => 'text',
-                        'label'                => __('Background Opacity', 'bb-powerpack'),
-                        'class'                => 'bb-wf-input input-small',
-                        'description'          => '%',
-                        'default'              => '100',
-                        'preview'              => array(
-                            'type'             => 'css',
-                            'selector'         => '.pp-wpforms-content',
-                            'property'         => 'opacity',
-                        )
-                    ),
                     'form_bg_image'     => array(
-                    'type'              => 'photo',
+                    	'type'              => 'photo',
                         'label'         => __('Background Image', 'bb-powerpack'),
                         'default'       => '',
 						'show_remove'	=> true,
@@ -219,228 +420,47 @@ FLBuilder::register_module('PPWPFormsModule', array(
                         'label'         => __('Background Overlay Color', 'bb-powerpack'),
                         'default'       => '000000',
                         'show_reset'    => true,
-                    ),
-                    'form_bg_overlay_opacity'    => array(
-                        'type'                 => 'text',
-                        'label'                => __('Background Overlay Opacity', 'bb-powerpack'),
-                        'class'                => 'bb-wf-input input-small',
-                        'default'              => '50',
-                        'description'          => __('%', 'bb-powerpack'),
+						'show_alpha'	=> true
                     ),
                 )
             ),
             'form_border_settings'      => array( // Section
                 'title'         => __('Form Border', 'bb-powerpack'), // Section Title
                 'fields'        => array( // Section Fields
-                    'form_border_style' 	=> array(
-                        'type'          => 'pp-switch',
-                        'label'         => __('Border Style', 'bb-powerpack'),
-                        'default'       => 'none',
-                        'options'		=> array(
-                            'none'		=> __('None', 'bb-powerpack'),
-                            'solid'		=> __('Solid', 'bb-powerpack'),
-                       		'dashed'	=> __('Dashed', 'bb-powerpack'),
-                       		'dotted'	=> __('Dotted', 'bb-powerpack'),
+					'form_border'	=> array(
+						'type'          => 'border',
+						'label'         => __( 'Border', 'bb-powerpack' ),
+						'responsive'	=> true,
+						'preview'   	=> array(
+                            'type'  		=> 'css',
+                            'selector'  	=> '.pp-wpforms-content',
+                            'property'  	=> 'border',
                         ),
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-wpforms-content',
-                            'property'  => 'border-style'
-                        ),
-                        'toggle'    => array(
-                            'solid' => array(
-                                'fields'    => array('form_border_width', 'form_border_color')
-                            ),
-                            'dashed' => array(
-                                'fields'    => array('form_border_width', 'form_border_color')
-                            ),
-                            'dotted' => array(
-                                'fields'    => array('form_border_width', 'form_border_color')
-                            )
-                        )
-                    ),
-                    'form_border_width'      => array(
-                        'type'          => 'text',
-                        'label'         => __('Border Width', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'class'         => 'bb-wf-input input-small',
-                        'default'       => 2,
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-wpforms-content',
-                            'property'  => 'border-width',
-                            'unit'      => 'px'
-                        )
-                    ),
-                    'form_border_color'     => array(
-                        'type'          => 'color',
-                        'label'         => __('Border Color', 'bb-powerpack'),
-                        'default'       => 'ffffff',
-                        'show_reset'    => true,
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-wpforms-content',
-                            'property'  => 'border-color'
-                        )
-                    ),
-                )
-            ),
-            'form_box_shadow'      => array( // Section
-                'title'         => __('Box Shadow', 'bb-powerpack'), // Section Title
-                'fields'        => array( // Section Fields
-                    'form_shadow_display'   => array(
-                        'type'                 => 'pp-switch',
-                        'label'                => __('Enable Shadow', 'bb-powerpack'),
-                        'default'              => 'no',
-                        'options'              => array(
-                            'yes'          => __('Yes', 'bb-powerpack'),
-                            'no'             => __('No', 'bb-powerpack'),
-                        ),
-                        'toggle'    =>  array(
-                            'yes'   => array(
-                                'fields'    => array('form_shadow', 'form_shadow_color', 'form_shadow_opacity')
-                            )
-                        )
-                    ),
-                    'form_shadow' 		=> array(
-						'type'              => 'pp-multitext',
-						'label'             => __('Box Shadow', 'bb-powerpack'),
-						'default'           => array(
-							'vertical'			=> 2,
-							'horizontal'		=> 2,
-							'blur'				=> 2,
-							'spread'			=> 1
-						),
-						'options'			=> array(
-							'vertical'			=> array(
-								'placeholder'		=> __('Vertical', 'bb-powerpack'),
-								'tooltip'			=> __('Vertical', 'bb-powerpack'),
-								'icon'				=> 'fa-arrows-v'
-							),
-							'horizontal'		=> array(
-								'placeholder'		=> __('Horizontal', 'bb-powerpack'),
-								'tooltip'			=> __('Horizontal', 'bb-powerpack'),
-								'icon'				=> 'fa-arrows-h'
-							),
-							'blur'				=> array(
-								'placeholder'		=> __('Blur', 'bb-powerpack'),
-								'tooltip'			=> __('Blur', 'bb-powerpack'),
-								'icon'				=> 'fa-circle-o'
-							),
-							'spread'			=> array(
-								'placeholder'		=> __('Spread', 'bb-powerpack'),
-								'tooltip'			=> __('Spread', 'bb-powerpack'),
-								'icon'				=> 'fa-paint-brush'
-							),
-						)
 					),
-                    'form_shadow_color' => array(
-                        'type'              => 'color',
-                        'label'             => __('Shadow Color', 'bb-powerpack'),
-                        'default'           => '000000',
-                    ),
-                    'form_shadow_opacity' => array(
-                        'type'              => 'text',
-                        'label'             => __('Opacity', 'bb-powerpack'),
-                        'description'       => '%',
-                        'class'             => 'bb-wf-input input-small',
-                        'default'           => 50,
-                    ),
                 )
             ),
             'form_corners_padding'      => array( // Section
-                'title'         => __('Corners & Padding', 'bb-powerpack'), // Section Title
+                'title'         => __('Padding', 'bb-powerpack'), // Section Title
                 'fields'        => array( // Section Fields
-                    'form_border_radius' 	=> array(
-                        'type'          => 'text',
-                        'label'         => __('Round Corners', 'bb-powerpack'),
-                        'description'   => 'px',
-                        'default'       => 2,
-                        'class'         => 'bb-wf-input input-small',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-wpforms-content',
-                            'property'  => 'border-radius',
-                            'unit'      => 'px'
-                        )
+                    'form_padding'    => array(
+						'type'				=> 'dimension',
+						'label'				=> __('Padding', 'bb-powerpack'),
+						'default'			=> '15',
+						'units'				=> array('px'),
+						'slider'			=> true,
+						'responsive'		=> true,
+						'preview'			=> array(
+							'type'				=> 'css',
+							'selector'			=> '.pp-wpforms-content',
+							'property'			=> 'padding',
+							'unit'				=> 'px'
+						)
                     ),
-                    'form_padding' 	=> array(
-                        'type' 			=> 'pp-multitext',
-                        'label' 		=> __('Padding', 'bb-powerpack'),
-                        'description'   => __( 'px', 'Value unit for font size. Such as: "14 px"', 'bb-powerpack' ),
-                        'default'       => array(
-                            'top' => 15,
-                            'right' => 15,
-                            'bottom' => 15,
-                            'left' => 15,
-                        ),
-                        'options' 		=> array(
-                            'top' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Top', 'bb-powerpack'),
-                                'tooltip'       => 'Top',
-                                'icon'		=> 'fa-long-arrow-up',
-                                'preview'       => array(
-                                    'selector'  => '.pp-wpforms-content',
-                                    'property'  => 'padding-top',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'bottom' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Bottom', 'bb-powerpack'),
-                                'tooltip'       => 'Bottom',
-                                'icon'		=> 'fa-long-arrow-down',
-                                'preview'       => array(
-                                    'selector'  => '.pp-wpforms-content',
-                                    'property'  => 'padding-bottom',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'left' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Left', 'bb-powerpack'),
-                                'tooltip'       => 'Left',
-                                'icon'		=> 'fa-long-arrow-left',
-                                'preview'       => array(
-                                    'selector'  => '.pp-wpforms-content',
-                                    'property'  => 'padding-left',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'right' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Right', 'bb-powerpack'),
-                                'tooltip'       => 'Right',
-                                'icon'		=> 'fa-long-arrow-right',
-                                'preview'       => array(
-                                    'selector'  => '.pp-wpforms-content',
-                                    'property'  => 'padding-right',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                        ),
-                    )
                 )
             ),
             'title_style' => array( // Section
                 'title' => __('Title', 'bb-powerpack'),
                 'fields'    => array(
-                    'title_alignment'    => array(
-                        'type'                      => 'pp-switch',
-                        'label'                     => __('Alignment', 'bb-powerpack'),
-                        'default'                   => 'left',
-                        'options'                   => array(
-                            'left'                  => __('Left', 'bb-powerpack'),
-                            'center'                => __('Center', 'bb-powerpack'),
-                            'right'                 => __('Right', 'bb-powerpack'),
-                        ),
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-title, .pp-wpforms-content .pp-form-title',
-                            'property'  => 'text-align'
-                        )
-                    ),
                     'title_margin' 	=> array(
                         'type' 			=> 'pp-multitext',
                         'label' 		=> __('Margin', 'bb-powerpack'),
@@ -479,21 +499,6 @@ FLBuilder::register_module('PPWPFormsModule', array(
             'description_style' => array( // Section
                 'title' => __('Description', 'bb-powerpack'),
                 'fields'    => array(
-                    'description_alignment'    => array(
-                        'type'                      => 'pp-switch',
-                        'label'                     => __('Alignment', 'bb-powerpack'),
-                        'default'                   => 'left',
-                        'options'                   => array(
-                            'left'                  => __('Left', 'bb-powerpack'),
-                            'center'                => __('Center', 'bb-powerpack'),
-                            'right'                 => __('Right', 'bb-powerpack'),
-                        ),
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-description .pp-wpforms-content .pp-form-description',
-                            'property'  => 'text-align'
-                        )
-                    ),
                     'description_margin' 	=> array(
                         'type' 			=> 'pp-multitext',
                         'label' 		=> __('Margin', 'bb-powerpack'),
@@ -552,22 +557,11 @@ FLBuilder::register_module('PPWPFormsModule', array(
                         'label'                 => __('Background Color', 'bb-powerpack'),
                         'default'               => 'ffffff',
                         'show_reset'            => true,
+						'show_alpha'			=> true,
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.pp-wpforms-content div.wpforms-container-full .wpforms-form input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-wpforms-content div.wpforms-container-full .wpforms-form select, .pp-wpforms-content div.wpforms-container-full .wpforms-form textarea',
                             'property'          => 'background-color'
-                        )
-                    ),
-                    'input_field_background_opacity'    => array(
-                        'type'                 => 'text',
-                        'label'                => __('Background Opacity', 'bb-powerpack'),
-                        'class'                => 'bb-wf-input input-small',
-                        'description'          => '%',
-                        'default'              => '100',
-                        'preview'              => array(
-                            'type'             => 'css',
-                            'selector'         => '.pp-wpforms-content div.wpforms-container-full .wpforms-form input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-wpforms-content div.wpforms-container-full .wpforms-form select, .pp-wpforms-content div.wpforms-container-full .wpforms-form textarea',
-                            'property'         => 'opacity',
                         )
                     ),
                 )
@@ -598,11 +592,11 @@ FLBuilder::register_module('PPWPFormsModule', array(
                         )
                     ),
                     'input_field_border_width'    => array(
-                        'type'                    => 'text',
+                        'type'                    => 'unit',
                         'label'                   => __('Border Width', 'bb-powerpack'),
-                        'description'             => 'px',
                         'default'                 => '1',
-                        'class'                   => 'bb-wf-input input-small',
+						'units'					  => array( 'px' ),
+						'slider'				  => true,
                         'preview'                 => array(
                             'type'                => 'css',
                             'rules'                 => array(
@@ -667,11 +661,11 @@ FLBuilder::register_module('PPWPFormsModule', array(
                         )
                     ),
                     'input_field_height'    => array(
-                        'type'                    => 'text',
+                        'type'                    => 'unit',
                         'label'                   => __('Input Height', 'bb-powerpack'),
-                        'description'             => 'px',
                         'default'                 => '32',
-                        'class'                   => 'bb-wf-input input-small',
+						'units'					  => array( 'px' ),
+						'slider'				  => true,
                         'preview'                 => array(
                             'type'                => 'css',
                             'selector'            => '.pp-wpforms-content div.wpforms-container-full .wpforms-form input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-wpforms-content div.wpforms-container-full .wpforms-form select',
@@ -680,26 +674,16 @@ FLBuilder::register_module('PPWPFormsModule', array(
                         )
                     ),
                     'input_textarea_height'    => array(
-                        'type'                    => 'text',
+                        'type'                    => 'unit',
                         'label'                   => __('Textarea Height', 'bb-powerpack'),
-                        'description'             => 'px',
                         'default'                 => '140',
-                        'class'                   => 'bb-wf-input input-small',
+						'units'					  => array( 'px' ),
+						'slider'				  => true,
                         'preview'                 => array(
                             'type'                => 'css',
                             'selector'            => '.pp-wpforms-content div.wpforms-container-full .wpforms-form textarea',
                             'property'            => 'height',
                             'unit'                => 'px',
-                        )
-                    ),
-                    'input_field_text_alignment'    => array(
-                        'type'                      => 'pp-switch',
-                        'label'                     => __('Text Alignment', 'bb-powerpack'),
-                        'default'                   => 'left',
-                        'options'                   => array(
-                            'left'                  => __('Left', 'bb-powerpack'),
-                            'center'                => __('Center', 'bb-powerpack'),
-                            'right'                 => __('Right', 'bb-powerpack'),
                         )
                     ),
                 )
@@ -708,11 +692,11 @@ FLBuilder::register_module('PPWPFormsModule', array(
                 'title'         => __('General', 'bb-powerpack'), // Section Title
                 'fields'        => array( // Section Fields
                     'input_field_border_radius'    => array(
-                        'type'                     => 'text',
+                        'type'                     => 'unit',
                         'label'                    => __('Round Corners', 'bb-powerpack'),
-                        'description'              => 'px',
                         'default'                  => '2',
-                        'class'                    => 'bb-wf-input input-small',
+						'units'					  => array( 'px' ),
+						'slider'				  => true,
                         'preview'                  => array(
                             'type'                 => 'css',
                             'selector'             => '.pp-wpforms-content div.wpforms-container-full .wpforms-form input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-wpforms-content div.wpforms-container-full .wpforms-form select, .pp-wpforms-content div.wpforms-container-full .wpforms-form textarea',
@@ -753,69 +737,26 @@ FLBuilder::register_module('PPWPFormsModule', array(
                             'inset'   => __('Inside', 'bb-powerpack'),
                         ),
                     ),
-                    'input_field_padding' 	=> array(
-                        'type' 			=> 'pp-multitext',
-                        'label' 		=> __('Padding', 'bb-powerpack'),
-                        'description'   => __( 'px', 'Value unit for font size. Such as: "14 px"', 'bb-powerpack' ),
-                        'default'       => array(
-                            'top' => 10,
-                            'right' => 10,
-                            'bottom' => 10,
-                            'left' => 10,
-                        ),
-                        'options' 		=> array(
-                            'top' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Top', 'bb-powerpack'),
-                                'tooltip'       => 'Top',
-                                'icon'		=> 'fa-long-arrow-up',
-                                'preview'       => array(
-                                    'selector'  => '.pp-wpforms-content div.wpforms-container-full .wpforms-form input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-wpforms-content div.wpforms-container-full .wpforms-form select, .pp-wpforms-content div.wpforms-container-full .wpforms-form textarea',
-                                    'property'  => 'padding-top',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'bottom' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Bottom', 'bb-powerpack'),
-                                'tooltip'       => 'Bottom',
-                                'icon'		=> 'fa-long-arrow-down',
-                                'preview'       => array(
-                                    'selector'  => '.pp-wpforms-content div.wpforms-container-full .wpforms-form input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-wpforms-content div.wpforms-container-full .wpforms-form select, .pp-wpforms-content div.wpforms-container-full .wpforms-form textarea',
-                                    'property'  => 'padding-bottom',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'left' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Left', 'bb-powerpack'),
-                                'tooltip'       => 'Left',
-                                'icon'		=> 'fa-long-arrow-left',
-                                'preview'       => array(
-                                    'selector'  => '.pp-wpforms-content div.wpforms-container-full .wpforms-form input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-wpforms-content div.wpforms-container-full .wpforms-form select, .pp-wpforms-content div.wpforms-container-full .wpforms-form textarea',
-                                    'property'  => 'padding-left',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'right' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Right', 'bb-powerpack'),
-                                'tooltip'       => 'Right',
-                                'icon'		=> 'fa-long-arrow-right',
-                                'preview'       => array(
-                                    'selector'  => '.pp-wpforms-content div.wpforms-container-full .wpforms-form input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-wpforms-content div.wpforms-container-full .wpforms-form select, .pp-wpforms-content div.wpforms-container-full .wpforms-form textarea',
-                                    'property'  => 'padding-right',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                        ),
+                    'input_field_padding'    => array(
+						'type'				=> 'dimension',
+						'label'				=> __('Padding', 'bb-powerpack'),
+						'default'			=> '10',
+						'units'				=> array('px'),
+						'slider'			=> true,
+						'responsive'		=> true,
+						'preview'			=> array(
+							'type'				=> 'css',
+							'selector'			=> '.pp-wpforms-content div.wpforms-container-full .wpforms-form input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-wpforms-content div.wpforms-container-full .wpforms-form select, .pp-wpforms-content div.wpforms-container-full .wpforms-form textarea',
+							'property'			=> 'padding',
+							'unit'				=> 'px'
+						)
                     ),
                     'input_field_margin'    => array(
-                        'type'              => 'text',
+                        'type'              => 'unit',
                         'label'             => __('Margin Bottom', 'bb-powerpack'),
-                        'description'       => 'px',
-                        'class'             => 'bb-wf-input input-small',
                         'default'           => '10',
+						'units'				=> array('px'),
+						'slider'			=> true,
                         'preview'           => array(
                             'type'          => 'css',
                             'selector'      => '.pp-wpforms-content div.wpforms-container-full .wpforms-form  .wpforms-field',
@@ -863,73 +804,67 @@ FLBuilder::register_module('PPWPFormsModule', array(
             'button_colors' => array(
                 'title'             => __('Colors', 'bb-powerpack'), // Section Title
                 'fields'            => array( // Section Fields
-                    'button_text_color'    => array(
-                        'type'  => 'pp-color',
-                        'label' => __('Text Color', 'bb-powerpack'),
-                        'show_reset'    => true,
-                        'default'       => array(
-                            'primary'   => 'ffffff',
-                            'secondary' => 'eeeeee'
-                        ),
-                        'options'   => array(
-                            'primary'   => __('Default', 'bb-powerpack'),
-                            'secondary'   => __('Hover', 'bb-powerpack'),
-                        ),
-                    ),
-                    'button_bg_color'    => array(
-                        'type'  => 'pp-color',
-                        'label' => __('Background Color', 'bb-powerpack'),
-                        'show_reset'    => true,
-                        'default'       => array(
-                            'primary'   => '333333',
-                            'secondary' => '000000'
-                        ),
-                        'options'   => array(
-                            'primary'   => __('Default', 'bb-powerpack'),
-                            'secondary'   => __('Hover', 'bb-powerpack'),
-                        ),
-                    ),
-                    'button_background_opacity'    => array(
-                        'type'                 => 'text',
-                        'label'                => __('Background Opacity', 'bb-powerpack'),
-                        'class'                => 'bb-wf-input input-small',
-                        'description'          => '%',
-                        'default'              => '100',
-                        'preview'              => array(
-                            'type'             => 'css',
-                            'selector'         => '.pp-wpforms-content div.wpforms-container-full .wpforms-form button',
-                            'property'         => 'opacity',
-                        )
-                    ),
+					'button_text_color_default'	=> array(
+						'type'       	=> 'color',
+						'label'     	=> __('Text Color', 'bb-powerpack'),
+						'default'    	=> 'ffffff',
+						'show_reset'	=> true,
+						'preview'	=> array(
+							'type'		=> 'css',
+							'selector'	=> '.pp-wpforms-content div.wpforms-container-full .wpforms-form button',
+							'property'	=> 'color'
+						),
+					),
+					'button_text_color_hover'	=> array(
+						'type'       	=> 'color',
+						'label'     	=> __('Text Hover Color', 'bb-powerpack'),
+						'default'    	=> 'eeeeee',
+						'show_reset'	=> true,
+						'preview'	=> array(
+							'type'		=> 'css',
+							'selector'	=> '.pp-wpforms-content div.wpforms-container-full .wpforms-form button:hover',
+							'property'	=> 'color'
+						),
+					),
+					'button_bg_color_default'	=> array(
+						'type'       	=> 'color',
+						'label'     	=> __('Background Color', 'bb-powerpack'),
+						'default'    	=> '333333',
+						'show_reset'	=> true,
+						'show_alpha'	=> true,
+						'preview'	=> array(
+							'type'		=> 'css',
+							'selector'	=> '.pp-wpforms-content div.wpforms-container-full .wpforms-form button',
+							'property'	=> 'background-color'
+						),
+					),
+					'button_background_color_hover'	=> array(
+						'type'       	=> 'color',
+						'label'     	=> __('Background Hover Color', 'bb-powerpack'),
+						'default'    	=> '000000',
+						'show_reset'	=> true,
+						'show_alpha'	=> true,
+						'preview'	=> array(
+							'type'		=> 'css',
+							'selector'	=> '.pp-wpforms-content div.wpforms-container-full .wpforms-form button:hover',
+							'property'	=> 'background-color'
+						),
+					),
                 )
             ),
             'button_border_settings'   => array(
                 'title'             => __('Border', 'bb-powerpack'), // Section Title
                 'fields'            => array( // Section Fields
-                    'button_border_width'    => array(
-                        'type'               => 'text',
-                        'label'              => __('Border Width', 'bb-powerpack'),
-                        'description'        => 'px',
-                        'class'              => 'bb-wf-input input-small',
-                        'default'            => '1',
-                        'preview'            => array(
-                            'type'           => 'css',
-                            'selector'       => '.pp-wpforms-content div.wpforms-container-full .wpforms-form button',
-                            'property'       => 'border-width',
-                            'unit'           => 'px'
-                        )
-                    ),
-                    'button_border_color'    => array(
-                        'type'               => 'color',
-                        'label'              => __('Border Color', 'bb-powerpack'),
-                        'default'            => '333333',
-                        'show_reset'         => true,
-                        'preview'            => array(
-                            'type'           => 'css',
-                            'selector'       => '.pp-wpforms-content div.wpforms-container-full .wpforms-form button',
-                            'property'       => 'border-color'
-                        )
-                    ),
+					'button_border'	=> array(
+						'type'          => 'border',
+						'label'         => __( 'Border', 'bb-powerpack' ),
+						'responsive'	=> true,
+						'preview'   	=> array(
+                            'type'  		=> 'css',
+                            'selector'  	=> '.pp-wpforms-content div.wpforms-container-full .wpforms-form button',
+                            'property'  	=> 'border',
+                        ),
+					),
                 )
             ),
             'button_size_settings'   => array(
@@ -950,14 +885,9 @@ FLBuilder::register_module('PPWPFormsModule', array(
                         )
                     ),
                     'button_alignment'  => array(
-                        'type'          => 'pp-switch',
+                        'type'          => 'align',
                         'label'         => __('Alignment', 'bb-powerpack'),
                         'default'       => 'left',
-                        'options'       => array(
-                            'left'      => __('Left', 'bb-powerpack'),
-                            'center'    => __('Center', 'bb-powerpack'),
-                            'right'     => __('Right', 'bb-powerpack'),
-                        ),
                         'preview'            => array(
                             'type'           => 'css',
                             'selector'       => '.pp-wpforms-content div.wpforms-container-full .wpforms-form button',
@@ -968,77 +898,21 @@ FLBuilder::register_module('PPWPFormsModule', array(
             ),
 
             'button_corners_padding'       => array( // Section
-                'title'             => __('Corners & Padding', 'bb-powerpack'), // Section Title
+                'title'             => __('Padding', 'bb-powerpack'), // Section Title
                 'fields'            => array( // Section Fields
-                    'button_border_radius'    => array(
-                        'type'                => 'text',
-                        'label'               => __('Round Corners', 'bb-powerpack'),
-                        'description'         => 'px',
-                        'class'               => 'bb-wf-input input-small',
-                        'default'             => '2',
-                        'preview'             => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-wpforms-content div.wpforms-container-full .wpforms-form button',
-                            'property'        => 'border-radius',
-                            'unit'            => 'px'
-                        )
-                    ),
-                    'button_padding' 	=> array(
-                        'type' 			=> 'pp-multitext',
-                        'label' 		=> __('Padding', 'bb-powerpack'),
-                        'description'   => __( 'px', 'Value unit for font size. Such as: "14 px"', 'bb-powerpack' ),
-                        'default'       => array(
-                            'top' => 10,
-                            'right' => 10,
-                            'bottom' => 10,
-                            'left' => 10,
-                        ),
-                        'options' 		=> array(
-                            'top' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Top', 'bb-powerpack'),
-                                'tooltip'       => 'Top',
-                                'icon'		=> 'fa-long-arrow-up',
-                                'preview'       => array(
-                                    'selector'  => '.pp-wpforms-content div.wpforms-container-full .wpforms-form button',
-                                    'property'  => 'padding-top',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'bottom' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Bottom', 'bb-powerpack'),
-                                'tooltip'       => 'Bottom',
-                                'icon'		=> 'fa-long-arrow-down',
-                                'preview'       => array(
-                                    'selector'  => '.pp-wpforms-content div.wpforms-container-full .wpforms-form button',
-                                    'property'  => 'padding-bottom',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'left' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Left', 'bb-powerpack'),
-                                'tooltip'       => 'Left',
-                                'icon'		=> 'fa-long-arrow-left',
-                                'preview'       => array(
-                                    'selector'  => '.pp-wpforms-content div.wpforms-container-full .wpforms-form button',
-                                    'property'  => 'padding-left',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                            'right' => array(
-                                'maxlength' => 3,
-                                'placeholder'   =>  __('Right', 'bb-powerpack'),
-                                'tooltip'       => 'Right',
-                                'icon'		=> 'fa-long-arrow-right',
-                                'preview'       => array(
-                                    'selector'  => '.pp-wpforms-content div.wpforms-container-full .wpforms-form button',
-                                    'property'  => 'padding-right',
-                                    'unit'      => 'px'
-                                )
-                            ),
-                        ),
+                    'button_padding'    => array(
+						'type'				=> 'dimension',
+						'label'				=> __('Padding', 'bb-powerpack'),
+						'default'			=> '10',
+						'units'				=> array('px'),
+						'slider'			=> true,
+						'responsive'		=> true,
+						'preview'			=> array(
+							'type'				=> 'css',
+							'selector'			=> '.pp-wpforms-content div.wpforms-container-full .wpforms-form button',
+							'property'			=> 'padding',
+							'unit'				=> 'px'
+						)
                     ),
                 )
             ),
@@ -1071,7 +945,7 @@ FLBuilder::register_module('PPWPFormsModule', array(
                         'default'                 => '990000',
                         'preview'                 => array(
                             'type'                => 'css',
-                            'selector'            => '.pp-wpforms-content div.wpforms-container-full .wpforms-form label.wpforms-error ',
+                            'selector'            => '.pp-wpforms-content div.wpforms-container-full .wpforms-form label.wpforms-error',
                             'property'            => 'color'
                         )
                     ),
@@ -1085,6 +959,7 @@ FLBuilder::register_module('PPWPFormsModule', array(
                         'label'                        => __('Background Color', 'bb-powerpack'),
                         'default'                      => 'e0ffc7',
                         'show_reset'                   => true,
+						'show_alpha'				   => true,
                         'preview'                      => array(
                             'type'                     => 'css',
                             'selector'                 => '.pp-wpforms-content .wpforms-confirmation-container-full',
@@ -1122,114 +997,15 @@ FLBuilder::register_module('PPWPFormsModule', array(
             'title_typography'       => array( // Section
                 'title'         => __('Title', 'bb-powerpack'), // Section Title
                 'fields'        => array( // Section Fields
-                    'title_font_family' => array(
-                        'type'          => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-title, .pp-wpforms-content .pp-form-title'
-                        )
-                    ),
-                    'title_text_transform'    => array(
-                        'type'                      => 'select',
-                        'label'                     => __('Text Transform', 'bb-powerpack'),
-                        'default'                   => 'none',
-                        'options'                   => array(
-                            'none'                  => __('Default', 'bb-powerpack'),
-                            'lowercase'                => __('lowercase', 'bb-powerpack'),
-                            'uppercase'                 => __('UPPERCASE', 'bb-powerpack'),
-                        ),
-                        'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-title, .pp-wpforms-content .pp-form-title',
-                            'property'        => 'text-transform'
-                        )
-                    ),
-                    'title_size'    => array(
-                        'type'                      => 'pp-switch',
-                        'label'                     => __('Font Size', 'bb-powerpack'),
-                        'default'                   => 'default',
-                        'options'                   => array(
-                            'default'                  => __('Default', 'bb-powerpack'),
-                            'custom'                => __('Custom', 'bb-powerpack'),
-                        ),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array('title_font_size')
-							)
-						)
-                    ),
-                    'title_font_size'   => array(
-                        'type'          => 'pp-multitext',
-						'label'         => __('Custom Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 24,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-title, .pp-wpforms-content .pp-form-title',
-                                    'property'      => 'font-size',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
-                    'title_line_height'   => array(
-                        'type'          => 'pp-multitext',
-						'label'         => __('Line Height', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 1.4,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-title, .pp-wpforms-content .pp-form-title',
-                                    'property'      => 'line-height',
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
+                    'title_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-title, .pp-wpforms-content .pp-form-title',
+						),
+					),
                     'title_color'       => array(
                         'type'          => 'color',
                         'label'         => __('Color', 'bb-powerpack'),
@@ -1245,115 +1021,17 @@ FLBuilder::register_module('PPWPFormsModule', array(
             ),
             'description_typography'    => array(
                 'title' => __('Description', 'bb-powerpack'),
+				'collapsed'	=> true,
                 'fields'    => array(
-                    'description_font_family' => array(
-                        'type'          => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-description, .pp-wpforms-content .pp-form-description'
-                        )
-                    ),
-                    'description_text_transform'    => array(
-                        'type'                      => 'select',
-                        'label'                     => __('Text Transform', 'bb-powerpack'),
-                        'default'                   => 'none',
-                        'options'                   => array(
-                            'none'                  => __('Default', 'bb-powerpack'),
-                            'lowercase'                => __('lowercase', 'bb-powerpack'),
-                            'uppercase'                 => __('UPPERCASE', 'bb-powerpack'),
-                        ),
-                        'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-description, .pp-wpforms-content .pp-form-description',
-                            'property'        => 'text-transform'
-                        )
-                    ),
-                    'description_size'    => array(
-                        'type'                      => 'pp-switch',
-                        'label'                     => __('Font Size', 'bb-powerpack'),
-                        'default'                   => 'default',
-                        'options'                   => array(
-                            'default'                  => __('Default', 'bb-powerpack'),
-                            'custom'                => __('Custom', 'bb-powerpack'),
-                        ),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array('description_font_size')
-							)
-						)
-                    ),
-                    'description_font_size'    => array(
-                        'type'          => 'pp-multitext',
-						'label'         => __('Custom Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 16,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-description, .pp-wpforms-content .pp-form-description',
-                                    'property'      => 'font-size',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
-                    'description_line_height'   => array(
-                        'type'          => 'pp-multitext',
-						'label'         => __('Line Height', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 1.4,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-description, .pp-wpforms-content .pp-form-description',
-                                    'property'      => 'line-height',
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
+                    'description_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-description, .pp-wpforms-content .pp-form-description',
+						),
+					),
                     'description_color' => array(
                         'type'          => 'color',
                         'label'         => __('Color', 'bb-powerpack'),
@@ -1369,82 +1047,17 @@ FLBuilder::register_module('PPWPFormsModule', array(
             ),
             'label_typography'       => array( // Section
                 'title'         => __('Label', 'bb-powerpack'), // Section Title
+				'collapsed'		=> true,
                 'fields'        => array( // Section Fields
-                    'label_font_family' => array(
-                        'type'          => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-field-label, .pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-field-sublabel',
-                        )
-                    ),
-                    'label_text_transform'    => array(
-                        'type'                      => 'select',
-                        'label'                     => __('Text Transform', 'bb-powerpack'),
-                        'default'                   => 'none',
-                        'options'                   => array(
-                            'none'                  => __('Default', 'bb-powerpack'),
-                            'lowercase'                => __('lowercase', 'bb-powerpack'),
-                            'uppercase'                 => __('UPPERCASE', 'bb-powerpack'),
-                        ),
-                        'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-field-label',
-                            'property'        => 'text-transform'
-                        )
-                    ),
-                    'label_size'    => array(
-                        'type'                      => 'pp-switch',
-                        'label'                     => __('Font Size', 'bb-powerpack'),
-                        'default'                   => 'default',
-                        'options'                   => array(
-                            'default'                  => __('Default', 'bb-powerpack'),
-                            'custom'                => __('Custom', 'bb-powerpack'),
-                        ),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array('label_font_size')
-							)
-						)
-                    ),
-                    'label_font_size'   => array(
-                        'type'          => 'pp-multitext',
-						'label'         => __('Custom Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 18,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-field-label',
-                                    'property'      => 'font-size',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
+                    'label_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-field-label, .pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-field-sublabel',
+						),
+					),
                     'form_label_color'  => array(
                         'type'          => 'color',
                         'label'         => __('Color', 'bb-powerpack'),
@@ -1461,81 +1074,15 @@ FLBuilder::register_module('PPWPFormsModule', array(
             'input_typography'       => array( // Section
                 'title'         => __('Input', 'bb-powerpack'), // Section Title
                 'fields'        => array( // Section Fields
-                    'input_font_family' => array(
-                        'type'          => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.pp-wpforms-content div.wpforms-container-full .wpforms-form input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]), .pp-wpforms-content div.wpforms-container-full .wpforms-form select, .pp-wpforms-content div.wpforms-container-full .wpforms-form textarea',
-                        )
-                    ),
-                    'input_text_transform'    => array(
-                        'type'                      => 'select',
-                        'label'                     => __('Text Transform', 'bb-powerpack'),
-                        'default'                   => 'none',
-                        'options'                   => array(
-                            'none'                  => __('Default', 'bb-powerpack'),
-                            'lowercase'                => __('lowercase', 'bb-powerpack'),
-                            'uppercase'                 => __('UPPERCASE', 'bb-powerpack'),
-                        ),
-                        'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-wpforms-content div.wpforms-container-full .wpforms-form input:not([type=submit]):not([type=button]):not([type=image]):not([type=file]), .pp-wpforms-content div.wpforms-container-full .wpforms-form select, .pp-wpforms-content div.wpforms-container-full .wpforms-form textarea',
-                            'property'        => 'text-transform'
-                        )
-                    ),
-                    'input_size'    => array(
-                        'type'                      => 'pp-switch',
-                        'label'                     => __('Font Size', 'bb-powerpack'),
-                        'default'                   => 'default',
-                        'options'                   => array(
-                            'default'                  => __('Default', 'bb-powerpack'),
-                            'custom'                => __('Custom', 'bb-powerpack'),
-                        ),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array('input_font_size')
-							)
-						)
-                    ),
-                    'input_font_size'   => array(
-                        'type'          => 'pp-multitext',
-						'label'         => __('Custom Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 16,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-wpforms-content div.wpforms-container-full .wpforms-form input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-wpforms-content div.wpforms-container-full .wpforms-form select, .pp-wpforms-content div.wpforms-container-full .wpforms-form textarea',
-                                    'property'      => 'font-size',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
+					'input_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-wpforms-content div.wpforms-container-full .wpforms-form input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-wpforms-content div.wpforms-container-full .wpforms-form select, .pp-wpforms-content div.wpforms-container-full .wpforms-form textarea',
+						),
+					),
                     'input_desc_size'    => array(
                         'type'                      => 'pp-switch',
                         'label'                     => __('Description Font Size', 'bb-powerpack'),
@@ -1550,72 +1097,31 @@ FLBuilder::register_module('PPWPFormsModule', array(
 							)
 						)
                     ),
-                    'input_desc_font_size'    => array(
-                        'type'          => 'pp-multitext',
-						'label'         => __('Custom Description Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 14,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-field-description',
-                                    'property'      => 'font-size',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
+					'input_desc_font_size'    => array(
+						'type'				=> 'unit',
+						'label'				=> __('Custom Description Font Size', 'bb-powerpack'),
+						'default'			=> '14',
+						'units'				=> array('px'),
+						'slider'			=> true,
+						'responsive'		=> true,
+						'preview'			=> array(
+							'type'				=> 'css',
+							'selector'			=> '.pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-field-description',
+							'property'			=> 'font-size',
+							'unit'				=> 'px'
+						)
                     ),
-                    'input_desc_line_height'    => array(
-                        'type'          => 'pp-multitext',
-						'label'         => __('Description Line Height', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 1.4,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-field-description',
-                                    'property'      => 'line-height',
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
+					'input_desc_line_height'    => array(
+						'type'				=> 'unit',
+						'label'				=> __('Description Line Height', 'bb-powerpack'),
+						'default'			=> '1.4',
+						'slider'			=> true,
+						'responsive'		=> true,
+						'preview'			=> array(
+							'type'				=> 'css',
+							'selector'			=> '.pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-field-description',
+							'property'			=> 'line-height',
+						)
                     ),
                     'input_desc_color'  => array(
                         'type'                  => 'color',
@@ -1633,81 +1139,15 @@ FLBuilder::register_module('PPWPFormsModule', array(
             'button_typography'       => array( // Section
                 'title'         => __('Button', 'bb-powerpack'), // Section Title
                 'fields'        => array( // Section Fields
-                    'button_font_family' => array(
-                        'type'          => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.pp-wpforms-content div.wpforms-container-full .wpforms-form button'
-                        )
-                    ),
-                    'button_text_transform'    => array(
-                        'type'                      => 'select',
-                        'label'                     => __('Text Transform', 'bb-powerpack'),
-                        'default'                   => 'none',
-                        'options'                   => array(
-                            'none'                  => __('Default', 'bb-powerpack'),
-                            'lowercase'                => __('lowercase', 'bb-powerpack'),
-                            'uppercase'                 => __('UPPERCASE', 'bb-powerpack'),
-                        ),
-                        'preview'         => array(
-                            'type'            => 'css',
-                            'selector'        => '.pp-wpforms-content div.wpforms-container-full .wpforms-form button',
-                            'property'        => 'text-transform'
-                        )
-                    ),
-                    'button_size'    => array(
-                        'type'                      => 'pp-switch',
-                        'label'                     => __('Font Size', 'bb-powerpack'),
-                        'default'                   => 'default',
-                        'options'                   => array(
-                            'default'                  => __('Default', 'bb-powerpack'),
-                            'custom'                => __('Custom', 'bb-powerpack'),
-                        ),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array('button_font_size')
-							)
-						)
-                    ),
-                    'button_font_size'   => array(
-                        'type'          => 'pp-multitext',
-						'label'         => __('Custom Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 18,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-wpforms-content div.wpforms-container-full .wpforms-form button',
-                                    'property'      => 'font-size',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
-                    ),
+					'button_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-wpforms-content div.wpforms-container-full .wpforms-form button',
+						),
+					),
                 )
             ),
             'errors_typography'       => array( // Section
@@ -1727,39 +1167,19 @@ FLBuilder::register_module('PPWPFormsModule', array(
 							)
 						)
                     ),
-                    'validation_message_font_size'    => array(
-                        'type'          => 'pp-multitext',
-						'label'         => __('Custom Field Message Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 14,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-wpforms-content div.wpforms-container-full .wpforms-form label.wpforms-error',
-                                    'property'      => 'font-size',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
+					'validation_message_font_size'    => array(
+						'type'				=> 'unit',
+						'label'				=> __('Custom Field Message Font Size', 'bb-powerpack'),
+						'default'			=> '14',
+						'units'				=> array('px'),
+						'slider'			=> true,
+						'responsive'		=> true,
+						'preview'			=> array(
+							'type'				=> 'css',
+							'selector'			=> '.pp-wpforms-content div.wpforms-container-full .wpforms-form label.wpforms-error',
+							'property'			=> 'font-size',
+							'unit'				=> 'px'
+						)
                     ),
                 )
             ),
@@ -1780,39 +1200,19 @@ FLBuilder::register_module('PPWPFormsModule', array(
 							)
 						)
                     ),
-                    'success_message_font_size'    => array(
-                        'type'          => 'pp-multitext',
-						'label'         => __('Custom Font Size', 'bb-powerpack'),
-                        'default'       => array(
-                            'desktop'   => 14,
-                            'tablet'   => '',
-                            'mobile'   => '',
-                        ),
-                        'options'       => array(
-                            'desktop'   => array(
-                                'placeholder'   => __('Desktop', 'bb-powerpack'),
-                                'icon'          => 'fa-desktop',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Desktop', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'      => '.pp-wpforms-content .wpforms-confirmation-container-full',
-                                    'property'      => 'font-size',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                            'tablet'   => array(
-                                'placeholder'   => __('Tablet', 'bb-powerpack'),
-                                'icon'          => 'fa-tablet',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Tablet', 'bb-powerpack')
-                            ),
-                            'mobile'   => array(
-                                'placeholder'   => __('Mobile', 'bb-powerpack'),
-                                'icon'          => 'fa-mobile',
-                                'maxlength'     => 3,
-                                'tooltip'       => __('Mobile', 'bb-powerpack')
-                            ),
-                        ),
+					'success_message_font_size'    => array(
+						'type'				=> 'unit',
+						'label'				=> __('Custom Font Size', 'bb-powerpack'),
+						'default'			=> '14',
+						'units'				=> array('px'),
+						'slider'			=> true,
+						'responsive'		=> true,
+						'preview'			=> array(
+							'type'				=> 'css',
+							'selector'			=> '.pp-wpforms-content .wpforms-confirmation-container-full',
+							'property'			=> 'font-size',
+							'unit'				=> 'px'
+						)
                     ),
                 )
             ),

@@ -1,5 +1,9 @@
 <?php
 
+$photo_border_width = ( isset( $settings->photo_border_group ) && ! empty( $settings->photo_border_group['width'] ) ) ? $settings->photo_border_group['width'] : 0;
+$photo_border_radius = ( isset( $settings->photo_border_group ) && ! empty( $settings->photo_border_group['radius'] ) ) ? $settings->photo_border_group['radius'] : 0;
+$photo_border = ( isset( $settings->photo_border_group ) && ! empty( $settings->photo_border_group['style'] ) ) ? $settings->photo_border_group['style'] : 'none';
+
 if ( 'justified' != $settings->gallery_layout ) {
 
 	$desktop_col = ( $settings->photo_grid_count ) ? $settings->photo_grid_count : 4;
@@ -23,31 +27,36 @@ if ( 'justified' != $settings->gallery_layout ) {
 	<?php } ?>
 	margin-bottom: <?php echo $settings->photo_spacing; ?>%;
 	<?php if ( 0 == $settings->photo_spacing && 'grid' == $settings->gallery_layout ) { ?>
-		margin-right: <?php echo $settings->photo_spacing - ( 'none' != $settings->photo_border ? $settings->photo_border_width : 0 ); ?>px;
-		margin-bottom: <?php echo $settings->photo_spacing - ( 'none' != $settings->photo_border ? $settings->photo_border_width : 0 ); ?>px;
+		margin-right: <?php echo $settings->photo_spacing - ( 'none' != $photo_border ? $photo_border_width['left'] : 0 ); ?>px;
+		margin-bottom: <?php echo $settings->photo_spacing - ( 'none' != $photo_border ? $photo_border_width['top'] : 0 ); ?>px;
 	<?php } ?>
 	
-	<?php if ( $settings->photo_padding ) { ?>
-		padding: <?php echo $settings->photo_padding; ?>px;
-	<?php } ?>
-	border-style: <?php echo $settings->photo_border; ?>;
-	<?php if ( $settings->photo_border_width && 'none' != $settings->photo_border ) { ?>border-width: <?php echo $settings->photo_border_width; ?>px; <?php } ?>
-	<?php if ( $settings->photo_border_color ) { ?> border-color: #<?php echo $settings->photo_border_color; ?>; <?php } ?>
-	<?php if ( $settings->photo_border_radius >= 0 ) { ?> border-radius: <?php echo $settings->photo_border_radius; ?>px; <?php } ?>
-	<?php if ( 'yes' == $settings->show_image_shadow ) { ?>
-		-webkit-box-shadow: <?php echo $settings->image_shadow['horizontal']; ?>px <?php echo $settings->image_shadow['vertical']; ?>px <?php echo $settings->image_shadow['blur']; ?>px <?php echo $settings->image_shadow['spread']; ?>px <?php echo pp_hex2rgba( '#' . $settings->image_shadow_color, $settings->image_shadow_opacity / 100 ); ?>;
-			-moz-box-shadow: <?php echo $settings->image_shadow['horizontal']; ?>px <?php echo $settings->image_shadow['vertical']; ?>px <?php echo $settings->image_shadow['blur']; ?>px <?php echo $settings->image_shadow['spread']; ?>px <?php echo pp_hex2rgba( '#' . $settings->image_shadow_color, $settings->image_shadow_opacity / 100 ); ?>;
-				-o-box-shadow: <?php echo $settings->image_shadow['horizontal']; ?>px <?php echo $settings->image_shadow['vertical']; ?>px <?php echo $settings->image_shadow['blur']; ?>px <?php echo $settings->image_shadow['spread']; ?>px <?php echo pp_hex2rgba( '#' . $settings->image_shadow_color, $settings->image_shadow_opacity / 100 ); ?>;
-					box-shadow: <?php echo $settings->image_shadow['horizontal']; ?>px <?php echo $settings->image_shadow['vertical']; ?>px <?php echo $settings->image_shadow['blur']; ?>px <?php echo $settings->image_shadow['spread']; ?>px <?php echo pp_hex2rgba( '#' . $settings->image_shadow_color, $settings->image_shadow_opacity / 100 ); ?>;
-	<?php } ?>
 	<?php if ( 'yes' == $settings->show_image_shadow_hover ) { ?>
 		-webkit-transition: all <?php echo ($settings->image_shadow_hover_speed / 1000); ?>s ease-in;
-			-moz-transition: all <?php echo ($settings->image_shadow_hover_speed / 1000); ?>s ease-in; ease-in;
-				-ms-transition: all <?php echo ($settings->image_shadow_hover_speed / 1000); ?>s ease-in; ease-in;
-					-o-transition: all <?php echo ($settings->image_shadow_hover_speed / 1000); ?>s ease-in; ease-in;
-						transition: all <?php echo ($settings->image_shadow_hover_speed / 1000); ?>s ease-in; ease-in;
+			-moz-transition: all <?php echo ($settings->image_shadow_hover_speed / 1000); ?>s ease-in;
+				-ms-transition: all <?php echo ($settings->image_shadow_hover_speed / 1000); ?>s ease-in;
+					-o-transition: all <?php echo ($settings->image_shadow_hover_speed / 1000); ?>s ease-in;
+						transition: all <?php echo ($settings->image_shadow_hover_speed / 1000); ?>s ease-in;
 	<?php } ?>
 }
+
+<?php
+	// Photo - Border
+	FLBuilderCSS::border_field_rule( array(
+		'settings' 		=> $settings,
+		'setting_name' 	=> 'photo_border_group',
+		'selector' 		=> ".fl-node-$id .pp-photo-gallery-item",
+	) );
+
+	// gallery Items - Padding
+	FLBuilderCSS::responsive_rule( array(
+		'settings'		=> $settings,
+		'setting_name'	=> 'photo_padding',
+		'selector'		=> ".fl-node-$id .pp-photo-gallery-item",
+		'prop'			=> 'padding',
+		'unit'			=> 'px',
+	) );
+?>
 
 .fl-node-<?php echo $id; ?> .pp-gallery-masonry-item {
 	width: calc( <?php echo $photo_columns_desktop;?>% - 1px );
@@ -55,15 +64,15 @@ if ( 'justified' != $settings->gallery_layout ) {
 
 .fl-node-<?php echo $id; ?> .pp-photo-gallery-item:hover {
 	<?php if ( 'yes' == $settings->show_image_shadow_hover ) { ?>
-		-webkit-box-shadow: <?php echo $settings->image_shadow_hover['horizontal']; ?>px <?php echo $settings->image_shadow_hover['vertical']; ?>px <?php echo $settings->image_shadow_hover['blur']; ?>px <?php echo $settings->image_shadow_hover['spread']; ?>px <?php echo pp_hex2rgba( '#' . $settings->image_shadow_color_hover, $settings->image_shadow_opacity_hover / 100 ); ?>;
-			-moz-box-shadow: <?php echo $settings->image_shadow_hover['horizontal']; ?>px <?php echo $settings->image_shadow_hover['vertical']; ?>px <?php echo $settings->image_shadow_hover['blur']; ?>px <?php echo $settings->image_shadow_hover['spread']; ?>px <?php echo pp_hex2rgba( '#' . $settings->image_shadow_color_hover, $settings->image_shadow_opacity_hover / 100 ); ?>;
-				-o-box-shadow: <?php echo $settings->image_shadow_hover['horizontal']; ?>px <?php echo $settings->image_shadow_hover['vertical']; ?>px <?php echo $settings->image_shadow_hover['blur']; ?>px <?php echo $settings->image_shadow_hover['spread']; ?>px <?php echo pp_hex2rgba( '#' . $settings->image_shadow_color_hover, $settings->image_shadow_opacity_hover / 100 ); ?>;
-					box-shadow: <?php echo $settings->image_shadow_hover['horizontal']; ?>px <?php echo $settings->image_shadow_hover['vertical']; ?>px <?php echo $settings->image_shadow_hover['blur']; ?>px <?php echo $settings->image_shadow_hover['spread']; ?>px <?php echo pp_hex2rgba( '#' . $settings->image_shadow_color_hover, $settings->image_shadow_opacity_hover / 100 ); ?>;
-		-webkit-transition: all <?php echo ($settings->image_shadow_hover_speed / 1000); ?>s ease-in; ease-in;
-			-moz-transition: all <?php echo ($settings->image_shadow_hover_speed / 1000); ?>s ease-in; ease-in;
-				-ms-transition: all <?php echo ($settings->image_shadow_hover_speed / 1000); ?>s ease-in; ease-in;
-					-o-transition: all <?php echo ($settings->image_shadow_hover_speed / 1000); ?>s ease-in; ease-in;
-						transition: all <?php echo ($settings->image_shadow_hover_speed / 1000); ?>s ease-in; ease-in;
+		-webkit-box-shadow: <?php echo $settings->image_shadow_hover['horizontal']; ?>px <?php echo $settings->image_shadow_hover['vertical']; ?>px <?php echo $settings->image_shadow_hover['blur']; ?>px <?php echo $settings->image_shadow_hover['spread']; ?>px <?php echo pp_get_color_value( $settings->image_shadow_color_hover ); ?>;
+			-moz-box-shadow: <?php echo $settings->image_shadow_hover['horizontal']; ?>px <?php echo $settings->image_shadow_hover['vertical']; ?>px <?php echo $settings->image_shadow_hover['blur']; ?>px <?php echo $settings->image_shadow_hover['spread']; ?>px <?php echo pp_get_color_value( $settings->image_shadow_color_hover ); ?>;
+				-o-box-shadow: <?php echo $settings->image_shadow_hover['horizontal']; ?>px <?php echo $settings->image_shadow_hover['vertical']; ?>px <?php echo $settings->image_shadow_hover['blur']; ?>px <?php echo $settings->image_shadow_hover['spread']; ?>px <?php echo pp_get_color_value( $settings->image_shadow_color_hover ); ?>;
+					box-shadow: <?php echo $settings->image_shadow_hover['horizontal']; ?>px <?php echo $settings->image_shadow_hover['vertical']; ?>px <?php echo $settings->image_shadow_hover['blur']; ?>px <?php echo $settings->image_shadow_hover['spread']; ?>px <?php echo pp_get_color_value( $settings->image_shadow_color_hover ); ?>;
+		-webkit-transition: all <?php echo ($settings->image_shadow_hover_speed / 1000); ?>s ease-in;
+			-moz-transition: all <?php echo ($settings->image_shadow_hover_speed / 1000); ?>s ease-in;
+				-ms-transition: all <?php echo ($settings->image_shadow_hover_speed / 1000); ?>s ease-in;
+					-o-transition: all <?php echo ($settings->image_shadow_hover_speed / 1000); ?>s ease-in;
+						transition: all <?php echo ($settings->image_shadow_hover_speed / 1000); ?>s ease-in;
 	<?php } ?>
 }
 <?php if ( $desktop_col > 1 ) { ?>
@@ -81,7 +90,10 @@ if ( 'justified' != $settings->gallery_layout ) {
 .fl-node-<?php echo $id; ?> .pp-photo-gallery-item img,
 .fl-node-<?php echo $id; ?> .pp-gallery-overlay,
 .fl-node-<?php echo $id; ?> .pp-photo-gallery-content {
-	<?php if ( $settings->photo_border_radius >= 0 ) { ?> border-radius: <?php echo $settings->photo_border_radius; ?>px; <?php } ?>
+	<?php if ( $photo_border_radius['top_left'] >= 0 ) { ?> border-top-left-radius: <?php echo $photo_border_radius['top_left']; ?>px; <?php } ?>
+	<?php if ( $photo_border_radius['bottom_left'] >= 0 ) { ?> border-bottom-left-radius: <?php echo $photo_border_radius['bottom_left']; ?>px; <?php } ?>
+	<?php if ( $photo_border_radius['top_right'] >= 0 ) { ?> border-top-right-radius: <?php echo $photo_border_radius['top_right']; ?>px; <?php } ?>
+	<?php if ( $photo_border_radius['bottom_right'] >= 0 ) { ?> border-bottom-right-radius: <?php echo $photo_border_radius['bottom_right']; ?>px; <?php } ?>
 }
 
 <?php if ( 'below' == $settings->show_captions && $settings->caption_bg_color ) { ?>
@@ -93,8 +105,8 @@ if ( 'justified' != $settings->gallery_layout ) {
 	}
 
 	.fl-node-<?php echo $id; ?> .pp-photo-gallery-item.has-caption .pp-photo-gallery-caption {
-		<?php if ( $settings->photo_border_radius >= 0 ) { ?> border-bottom-left-radius: <?php echo $settings->photo_border_radius; ?>px; <?php } ?>
-		<?php if ( $settings->photo_border_radius >= 0 ) { ?> border-bottom-right-radius: <?php echo $settings->photo_border_radius; ?>px; <?php } ?>
+		<?php if ( $photo_border_radius['bottom_left'] >= 0 ) { ?> border-bottom-left-radius: <?php echo $photo_border_radius['bottom_left']; ?>px; <?php } ?>
+		<?php if ( $photo_border_radius['bottom_right'] >= 0 ) { ?> border-bottom-right-radius: <?php echo $photo_border_radius['bottom_right']; ?>px; <?php } ?>
 	}
 <?php } ?>
 
@@ -106,16 +118,28 @@ if ( 'justified' != $settings->gallery_layout ) {
 
 <?php if ( 'below' == $settings->show_captions ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-photo-gallery-caption {
-		<?php if ( $settings->caption_bg_color ) { ?>
-			background-color: #<?php echo $settings->caption_bg_color; ?>;
+		<?php if ( isset( $settings->caption_bg_color ) && ! empty( $settings->caption_bg_color ) ) { ?>
+			background-color: <?php echo pp_get_color_value( $settings->caption_bg_color ); ?>;
 		<?php } ?>
-		padding-top: <?php echo $settings->caption_padding['top']; ?>px;
-		padding-bottom: <?php echo $settings->caption_padding['bottom']; ?>px;
-		padding-left: <?php echo $settings->caption_padding['left']; ?>px;
-		padding-right: <?php echo $settings->caption_padding['right']; ?>px;
 		text-align: <?php echo $settings->caption_alignment; ?>;
 	}
 <?php } ?>
+
+<?php
+	// Caption - Padding
+	FLBuilderCSS::dimension_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'caption_padding',
+	'selector' 		=> ".fl-node-$id .pp-photo-gallery-caption",
+	'unit'			=> 'px',
+	'props'			=> array(
+		'padding-top' 		=> 'caption_padding_top',
+		'padding-right' 	=> 'caption_padding_right',
+		'padding-bottom' 	=> 'caption_padding_bottom',
+		'padding-left' 		=> 'caption_padding_left',
+	),
+) );
+?>
 
 
 <?php if ( 'lightbox' == $settings->click_action && ! empty( $settings->show_captions ) ) : ?>
@@ -172,17 +196,20 @@ if ( 'justified' != $settings->gallery_layout ) {
 }
 
 .fl-node-<?php echo $id; ?> .pp-photo-gallery-caption,
-.fl-node-<?php echo $id; ?> .pp-gallery-overlay .pp-caption  {
-	<?php if ( 'Default' != $settings->caption_font['family'] ) { ?>
-		<?php FLBuilderFonts::font_css( $settings->caption_font ); ?>
-	<?php } ?>
-	<?php if ( 'default' != $settings->caption_font_size_toggle && $settings->caption_custom_font_size ) { ?>
-		font-size: <?php echo $settings->caption_custom_font_size; ?>px;
-	<?php } ?>
+.fl-node-<?php echo $id; ?> .pp-gallery-overlay .pp-caption {
 	<?php if ( $settings->caption_color ) { ?>
 	color: #<?php echo $settings->caption_color; ?>;
 	<?php } ?>
 }
+
+<?php
+	// Caption Typography
+	FLBuilderCSS::typography_field_rule( array(
+		'settings'		=> $settings,
+		'setting_name' 	=> 'caption_typography',
+		'selector' 		=> ".fl-node-$id .pp-photo-gallery-caption, .fl-node-$id .pp-gallery-overlay .pp-caption",
+	) );
+?>
 
 <?php if ( 'none' == $settings->overlay_effects && 'none' == $settings->hover_effects && 'hover' == $settings->show_captions ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-gallery-overlay {
@@ -406,6 +433,10 @@ if ( 'justified' != $settings->gallery_layout ) {
 			width: 100%;
 			height: 100%;
 		<?php } ?>
+		<?php if ( 'from-bottom' == $settings->overlay_effects ) { ?>
+			top: auto;
+		<?php } ?>
+		
 	}
 	.fl-node-<?php echo $id; ?> .pp-gallery-overlay .pp-overlay-inner {
 		-webkit-box-orient: vertical;
@@ -524,34 +555,38 @@ if ( 'justified' != $settings->gallery_layout ) {
 	<?php if ( isset( $settings->load_more_text_color ) && ! empty( $settings->load_more_text_color ) ) { ?>
 		color: <?php echo pp_get_color_value( $settings->load_more_text_color ); ?>;
 	<?php } ?>
-	<?php if ( isset( $settings->load_more_border_width ) && ! empty( $settings->load_more_border_width ) ) { ?>
-		border-width: <?php echo $settings->load_more_border_width; ?>px;
-		<?php if ( isset( $settings->load_more_border_style ) ) { ?>
-			border-style: <?php echo $settings->load_more_border_style; ?>;
-		<?php } ?>
-		<?php if ( isset( $settings->load_more_border_color ) && ! empty( $settings->load_more_border_color ) ) { ?>
-			border-color: <?php echo pp_get_color_value( $settings->load_more_border_color ); ?>;
-		<?php } ?>
-	<?php } ?>
-	<?php if ( isset( $settings->load_more_border_radius ) && ! empty( $settings->load_more_border_radius ) ) { ?>
-		border-radius: <?php echo $settings->load_more_border_radius; ?>px;
-	<?php } ?>
-	<?php if ( isset( $settings->load_more_margin_top ) && ! empty( $settings->load_more_margin_top ) ) { ?>
-		margin-top: <?php echo $settings->load_more_margin_top; ?>px;
-	<?php } ?>
-	<?php if ( isset( $settings->load_more_padding_top ) && ! empty( $settings->load_more_padding_top ) ) { ?>
-		padding-top: <?php echo $settings->load_more_padding_top; ?>px;
-	<?php } ?>
-	<?php if ( isset( $settings->load_more_padding_left ) && ! empty( $settings->load_more_padding_left ) ) { ?>
-		padding-left: <?php echo $settings->load_more_padding_left; ?>px;
-	<?php } ?>
-	<?php if ( isset( $settings->load_more_padding_bottom ) && ! empty( $settings->load_more_padding_bottom ) ) { ?>
-		padding-bottom: <?php echo $settings->load_more_padding_bottom; ?>px;
-	<?php } ?>
-	<?php if ( isset( $settings->load_more_padding_right ) && ! empty( $settings->load_more_padding_right ) ) { ?>
-		padding-right: <?php echo $settings->load_more_padding_right; ?>px;
-	<?php } ?>
 }
+<?php
+	// Load More - Border
+	FLBuilderCSS::border_field_rule( array(
+		'settings' 		=> $settings,
+		'setting_name' 	=> 'load_more_border',
+		'selector' 		=> ".fl-node-$id .pp-gallery-pagination .pp-gallery-load-more",
+	) );
+
+	// Load More - Margin Top
+	FLBuilderCSS::responsive_rule( array(
+		'settings'		=> $settings,
+		'setting_name'	=> 'load_more_margin_top',
+		'selector'		=> ".fl-node-$id .pp-gallery-pagination .pp-gallery-load-more",
+		'prop'			=> 'margin-top',
+		'unit'			=> 'px',
+	) );
+
+	// Load More - Padding
+	FLBuilderCSS::dimension_field_rule( array(
+		'settings'		=> $settings,
+		'setting_name' 	=> 'load_more_padding',
+		'selector' 		=> ".fl-node-$id .pp-gallery-pagination .pp-gallery-load-more",
+		'unit'			=> 'px',
+		'props'			=> array(
+			'padding-top' 		=> 'load_more_padding_top',
+			'padding-right' 	=> 'load_more_padding_right',
+			'padding-bottom' 	=> 'load_more_padding_bottom',
+			'padding-left' 		=> 'load_more_padding_left',
+		),
+	) );
+?>
 .fl-node-<?php echo $id; ?> .pp-gallery-pagination .pp-gallery-load-more:hover {
 	<?php if ( isset( $settings->load_more_bg_hover_color ) && ! empty( $settings->load_more_bg_hover_color ) ) { ?>
 		background-color: <?php echo pp_get_color_value( $settings->load_more_bg_hover_color ); ?>;
@@ -566,8 +601,8 @@ if ( 'justified' != $settings->gallery_layout ) {
 
 .fancybox-<?php echo $id; ?>-overlay {
 	background-image: none;
-	<?php if ( ! empty( $settings->lightbox_overlay_color ) ) : ?>
-		background-color: <?php echo ( false === strpos( $settings->lightbox_overlay_color, 'rgb' ) ) ? '#' . $settings->lightbox_overlay_color : $settings->lightbox_overlay_color; ?>;
+	<?php if ( isset( $settings->lightbox_overlay_color ) && ! empty( $settings->lightbox_overlay_color ) ) : ?>
+		background-color: <?php echo pp_get_color_value( $settings->lightbox_overlay_color ); ?>;
 	<?php endif; ?>
 }
 
@@ -576,9 +611,6 @@ if ( 'justified' != $settings->gallery_layout ) {
 	<?php if ( 'justified' != $settings->gallery_layout ) { ?>
 		.fl-node-<?php echo $id; ?> .pp-photo-gallery-item {
 			width: <?php echo $photo_columns_tablet;?>%;
-			<?php if ( $settings->photo_padding_medium ) { ?>
-				padding: <?php echo $settings->photo_padding_medium; ?>px;
-			<?php } ?>
 		}
 
 		<?php if ( 'grid' == $settings->gallery_layout ) { ?>
@@ -604,38 +636,12 @@ if ( 'justified' != $settings->gallery_layout ) {
 			}
 		<?php } ?>
 	<?php } ?>
-	.fl-node-<?php echo $id; ?> .pp-photo-gallery-caption,
-	.fl-node-<?php echo $id; ?> .pp-gallery-overlay .pp-caption  {
-		<?php if ( 'default' != $settings->caption_font_size_toggle && $settings->caption_custom_font_size_medium ) { ?>
-			font-size: <?php echo $settings->caption_custom_font_size_medium; ?>px;
-		<?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-gallery-pagination .pp-gallery-load-more {
-		<?php if ( isset( $settings->load_more_padding_top_medium ) && ! empty( $settings->load_more_padding_top_medium ) ) { ?>
-			padding-top: <?php echo $settings->load_more_padding_top_medium; ?>px;
-		<?php } ?>
-		<?php if ( isset( $settings->load_more_padding_left_medium ) && ! empty( $settings->load_more_padding_left_medium ) ) { ?>
-			padding-left: <?php echo $settings->load_more_padding_left_medium; ?>px;
-		<?php } ?>
-		<?php if ( isset( $settings->load_more_padding_bottom_medium ) && ! empty( $settings->load_more_padding_bottom_medium ) ) { ?>
-			padding-bottom: <?php echo $settings->load_more_padding_bottom_medium; ?>px;
-		<?php } ?>
-		<?php if ( isset( $settings->load_more_padding_right_medium ) && ! empty( $settings->load_more_padding_right_medium ) ) { ?>
-			padding-right: <?php echo $settings->load_more_padding_right_medium; ?>px;
-		<?php } ?>
-		<?php if ( isset( $settings->load_more_margin_top_medium ) && ! empty( $settings->load_more_margin_top_medium ) ) { ?>
-			margin-top: <?php echo $settings->load_more_margin_top_medium; ?>px;
-		<?php } ?>
-	}
 }
 
 @media only screen and ( max-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {
 	<?php if ( 'justified' != $settings->gallery_layout ) { ?>
 		.fl-node-<?php echo $id; ?> .pp-photo-gallery-item {
 			width: <?php echo $photo_columns_mobile;?>%;
-			<?php if ( $settings->photo_padding_responsive ) { ?>
-				padding: <?php echo $settings->photo_padding_responsive; ?>px;
-			<?php } ?>
 		}
 		<?php if ( 'grid' == $settings->gallery_layout ) { ?>
 			.fl-node-<?php echo $id; ?> .pp-photo-gallery-item:nth-child(<?php echo $medium_col; ?>n+1){
@@ -660,28 +666,4 @@ if ( 'justified' != $settings->gallery_layout ) {
 			}
 		<?php } ?>
 	<?php } ?>
-
-	.fl-node-<?php echo $id; ?> .pp-photo-gallery-caption,
-	.fl-node-<?php echo $id; ?> .pp-gallery-overlay .pp-caption {
-		<?php if ( 'default' != $settings->caption_font_size_toggle && $settings->caption_custom_font_size_responsive ) { ?>
-			font-size: <?php echo $settings->caption_custom_font_size_responsive; ?>px;
-		<?php } ?>
-	}
-	.fl-node-<?php echo $id; ?> .pp-gallery-pagination .pp-gallery-load-more {
-		<?php if ( isset( $settings->load_more_padding_top_responsive ) && ! empty( $settings->load_more_padding_top_responsive ) ) { ?>
-			padding-top: <?php echo $settings->load_more_padding_top_responsive; ?>px;
-		<?php } ?>
-		<?php if ( isset( $settings->load_more_padding_left_responsive ) && ! empty( $settings->load_more_padding_left_responsive ) ) { ?>
-			padding-left: <?php echo $settings->load_more_padding_left_responsive; ?>px;
-		<?php } ?>
-		<?php if ( isset( $settings->load_more_padding_bottom_responsive ) && ! empty( $settings->load_more_padding_bottom_responsive ) ) { ?>
-			padding-bottom: <?php echo $settings->load_more_padding_bottom_responsive; ?>px;
-		<?php } ?>
-		<?php if ( isset( $settings->load_more_padding_right_responsive ) && ! empty( $settings->load_more_padding_right_responsive ) ) { ?>
-			padding-right: <?php echo $settings->load_more_padding_right_responsive; ?>px;
-		<?php } ?>
-		<?php if ( isset( $settings->load_more_margin_top_responsive ) && ! empty( $settings->load_more_margin_top_responsive ) ) { ?>
-			margin-top: <?php echo $settings->load_more_margin_top_responsive; ?>px;
-		<?php } ?>
-	}
 }

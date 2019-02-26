@@ -119,10 +119,14 @@ FLBuilder::register_module( 'PPFBEmbedModule', array(
 						),
 					),
 					'width'	=> array(
-						'type'          	=> 'text',
+						'type'          	=> 'unit',
 						'label'         	=> __( 'Width', 'bb-powerpack' ),
-						'description'		=> __( 'px', 'bb-powerpack' ),
-						'size'				=> 5,
+						'units'				=> array( 'px' ),
+						'slider'		=> array(
+							'min'			=> '1',
+							'max'			=> '2000',
+							'step'			=> '50'
+						),
 					),
 				),
 			),

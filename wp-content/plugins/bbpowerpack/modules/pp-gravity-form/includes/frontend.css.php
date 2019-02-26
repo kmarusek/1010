@@ -1,16 +1,65 @@
-/**
- * $module An instance of your module class.
- * $id The module's ID.
- * $settings The module's settings.
-*/
-
+<?php
+// Form Border - Settings
+FLBuilderCSS::border_field_rule( array(
+	'settings' 		=> $settings,
+	'setting_name' 	=> 'form_border_group',
+	'selector' 		=> ".fl-node-$id .pp-gf-content",
+) );
+// Button Border - Settings
+FLBuilderCSS::border_field_rule( array(
+	'settings' 		=> $settings,
+	'setting_name' 	=> 'button_border_group',
+	'selector' 		=> ".fl-node-$id .gform_wrapper .gform_footer .gform_button,
+						.fl-node-$id .gform_wrapper .gform_page_footer .button",
+) );
+// Form Padding
+FLBuilderCSS::dimension_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'form_padding',
+	'selector' 		=> ".fl-node-$id .pp-gf-content",
+	'unit'			=> 'px',
+	'props'			=> array(
+		'padding-top' 		=> 'form_padding_top',
+		'padding-right' 	=> 'form_padding_right',
+		'padding-bottom' 	=> 'form_padding_bottom',
+		'padding-left' 		=> 'form_padding_left',
+	),
+) );
+// Form Title Typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'title_typography',
+	'selector' 		=> ".fl-node-$id .gform_wrapper .gform_title,
+						.fl-node-$id .form-title",
+) );
+// Form Description Typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'description_typography',
+	'selector' 		=> ".fl-node-$id .gform_wrapper span.gform_description,
+						.fl-node-$id .form-description",
+) );
+// Form Section Typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'section_typography',
+	'selector' 		=> ".fl-node-$id .gform_wrapper h2.gsection_title",
+) );
+// Form Button Typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'button_typography',
+	'selector' 		=> ".fl-node-$id .gform_wrapper .gform_footer .gform_button, 
+						.fl-node-$id .gform_wrapper .gform_page_footer .button",
+) );
+?>
 
 .fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper {
 	max-width: 100%;
 }
 
 .fl-node-<?php echo $id; ?> .pp-gf-content {
-	background-color: <?php echo $settings->form_bg_color ? pp_hex2rgba('#' . $settings->form_bg_color, $settings->form_background_opacity) : 'transparent'; ?>;
+	background-color: <?php echo $settings->form_bg_color ? pp_get_color_value( $settings->form_bg_color ) : 'transparent'; ?>;
     <?php if( $settings->form_bg_image && $settings->form_bg_type == 'image' ) { ?>
 	background-image: url('<?php echo $settings->form_bg_image_src; ?>');
     <?php } ?>
@@ -20,30 +69,6 @@
     <?php if( $settings->form_bg_repeat ) { ?>
     background-repeat: <?php echo $settings->form_bg_repeat; ?>;
     <?php } ?>
-    <?php if( $settings->form_border_width >= 0 ) { ?>
-    border-width: <?php echo $settings->form_border_width; ?>px;
-    <?php } ?>
-    <?php if( $settings->form_border_color ) { ?>
-    border-color: #<?php echo $settings->form_border_color; ?>;
-    <?php } ?>
-    <?php if( $settings->form_border_style ) { ?>
-    border-style: <?php echo $settings->form_border_style; ?>;
-    <?php } ?>
-    <?php if( $settings->form_border_radius >= 0 ) { ?>
-    border-radius: <?php echo $settings->form_border_radius; ?>px;
-    <?php } ?>
-    <?php if( $settings->form_padding['top'] >= 0 ) { ?>
-	padding-top: <?php echo $settings->form_padding['top']; ?>px;
-	<?php } ?>
-	<?php if( $settings->form_padding['right'] >= 0 ) { ?>
-	padding-right: <?php echo $settings->form_padding['right']; ?>px;
-	<?php } ?>
-	<?php if( $settings->form_padding['bottom'] >= 0 ) { ?>
-	padding-bottom: <?php echo $settings->form_padding['bottom']; ?>px;
-	<?php } ?>
-	<?php if( $settings->form_padding['left'] >= 0 ) { ?>
-	padding-left: <?php echo $settings->form_padding['left']; ?>px;
-	<?php } ?>
 }
 
 <?php if( $settings->form_bg_image && $settings->form_bg_type == 'image' ) { ?>
@@ -62,18 +87,9 @@
 .fl-node-<?php echo $id; ?> .gform_wrapper .gform_title,
 .fl-node-<?php echo $id; ?> .form-title {
     <?php if( $settings->title_color ) { ?>
-    color: #<?php echo $settings->title_color; ?>;
+    color: <?php echo pp_get_color_value($settings->title_color); ?>;
     <?php } ?>
 	display: <?php echo ($settings->title_field == 'false') ? 'none' : 'block'; ?>;
-    <?php if( $settings->title_font_size ) { ?>
-    font-size: <?php echo $settings->title_font_size; ?>px;
-    <?php } ?>
-    <?php if( $settings->title_font_family['family'] != 'Default' ) { ?>
-    <?php FLBuilderFonts::font_css( $settings->title_font_family ); ?>
-    <?php } ?>
-    <?php if( $settings->title_alignment ) { ?>
-    text-align: <?php echo $settings->title_alignment; ?>;
-    <?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .form-title {
@@ -88,19 +104,10 @@
 
 .fl-node-<?php echo $id; ?> .gform_wrapper span.gform_description,
 .fl-node-<?php echo $id; ?> .form-description {
-    <?php if( $settings->description_font_family['family'] != 'Default' ) { ?>
-    <?php FLBuilderFonts::font_css( $settings->description_font_family ); ?>
-    <?php } ?>
     <?php if( $settings->description_color ) { ?>
-    color: #<?php echo $settings->description_color; ?>;
+    color: <?php echo pp_get_color_value($settings->description_color); ?>;
     <?php } ?>
 	display: <?php echo ($settings->description_field == 'false') ? 'none' : 'block'; ?>;
-    <?php if( $settings->description_font_size ) { ?>
-    font-size: <?php echo $settings->description_font_size; ?>px;
-    <?php } ?>
-    <?php if( $settings->description_alignment ) { ?>
-    text-align: <?php echo $settings->description_alignment; ?>;
-    <?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .form-description {
@@ -115,7 +122,7 @@
 
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield .gfield_label {
     <?php if( $settings->form_label_color ) { ?>
-	color: #<?php echo $settings->form_label_color; ?>;
+	color: <?php echo pp_get_color_value($settings->form_label_color); ?>;
     <?php } ?>
     <?php if( $settings->display_labels ) { ?>
     display: <?php echo $settings->display_labels; ?>;
@@ -140,7 +147,7 @@
 .fl-node-<?php echo $id; ?> .gform_wrapper span.ginput_quantity_label,
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield_html {
     <?php if( $settings->form_label_color ) { ?>
-    color: #<?php echo $settings->form_label_color; ?> !important;
+    color: <?php echo pp_get_color_value($settings->form_label_color); ?> !important;
     <?php } ?>
     <?php if( $settings->label_font_family['family'] != 'Default' ) { ?>
     <?php FLBuilderFonts::font_css( $settings->label_font_family ); ?>
@@ -148,7 +155,8 @@
 }
 
 .fl-node-<?php echo $id; ?> .gform_wrapper ul.gfield_radio li label,
-.fl-node-<?php echo $id; ?> .gform_wrapper ul.gfield_checkbox li label {
+.fl-node-<?php echo $id; ?> .gform_wrapper ul.gfield_checkbox li label,
+.fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_consent label {
 	<?php if ( isset( $settings->radio_checkbox_font_size ) && ! empty( $settings->radio_checkbox_font_size ) ) { ?>
     font-size: <?php echo $settings->radio_checkbox_font_size; ?>px;
     <?php } ?>
@@ -156,7 +164,7 @@
 
 .fl-node-<?php echo $id; ?> .gform_wrapper span.ginput_product_price {
     <?php if( $settings->product_price_color ) { ?>
-    color: #<?php echo $settings->product_price_color; ?> !important;
+    color: <?php echo pp_get_color_value($settings->product_price_color); ?> !important;
     <?php } ?>
     <?php if( $settings->label_font_family['family'] != 'Default' ) { ?>
     <?php FLBuilderFonts::font_css( $settings->label_font_family ); ?>
@@ -168,7 +176,7 @@
     font-size: <?php echo $settings->input_desc_font_size; ?>px;
     <?php } ?>
     <?php if( $settings->input_desc_color ) { ?>
-    color: #<?php echo $settings->input_desc_color; ?>;
+    color: <?php echo pp_get_color_value($settings->input_desc_color); ?>;
     <?php } ?>
     <?php if( $settings->input_desc_line_height ) { ?>
     line-height: <?php echo $settings->input_desc_line_height; ?>;
@@ -183,7 +191,7 @@
 	border-bottom-width: <?php echo $settings->section_border_width; ?>px;
 	<?php } ?>
 	<?php if( $settings->section_border_color ) { ?>
-	border-bottom-color: #<?php echo $settings->section_border_color; ?>;
+	border-bottom-color: <?php echo pp_get_color_value($settings->section_border_color); ?>;
     <?php } ?>
     <?php if( $settings->section_field_margin >= 0 ) { ?>
         margin-bottom: <?php echo $settings->section_field_margin; ?>px;
@@ -191,14 +199,8 @@
 }
 
 .fl-node-<?php echo $id; ?> .gform_wrapper h2.gsection_title {
-    <?php if( $settings->section_font['family'] != 'Default' ) { ?>
-    <?php FLBuilderFonts::font_css( $settings->section_font ); ?>
-    <?php } ?>
 	<?php if( $settings->section_text_color ) { ?>
-	color: #<?php echo $settings->section_text_color; ?>;
-	<?php } ?>
-	<?php if( $settings->section_font_size ) { ?>
-	font-size: <?php echo $settings->section_font_size; ?>px;
+	color: <?php echo pp_get_color_value($settings->section_text_color); ?>;
 	<?php } ?>
 }
 
@@ -207,11 +209,11 @@
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield select,
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield textarea {
     <?php if( $settings->input_field_text_color ) { ?>
-        color: #<?php echo $settings->input_field_text_color; ?>;
+        color: <?php echo pp_get_color_value($settings->input_field_text_color); ?>;
     <?php } ?>
-	background-color: <?php echo $settings->input_field_bg_color ? pp_hex2rgba('#' . $settings->input_field_bg_color, $settings->input_field_background_opacity) : ''; ?>;
+	background-color: <?php echo $settings->input_field_bg_color ? pp_get_color_value( $settings->input_field_bg_color ) : ''; ?>;
 	border-width: 0;
-	border-color: <?php echo $settings->input_field_border_color ? '#' . $settings->input_field_border_color : ''; ?>;
+	border-color: <?php echo $settings->input_field_border_color ? pp_get_color_value($settings->input_field_border_color) : ''; ?>;
     <?php if( $settings->input_field_border_radius >= 0 ) { ?>
         -webkit-border-radius: <?php echo $settings->input_field_border_radius; ?>px;
         -moz-border-radius: <?php echo $settings->input_field_border_radius; ?>px;
@@ -264,28 +266,28 @@
 
 <?php if( $settings->gf_input_placeholder_color && $settings->gf_input_placeholder_display == 'block' ) { ?>
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield input::-webkit-input-placeholder {
-    color: #<?php echo $settings->gf_input_placeholder_color; ?>;
+    color: <?php echo pp_get_color_value($settings->gf_input_placeholder_color); ?>;
 }
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield input:-moz-placeholder {
-    color: #<?php echo $settings->gf_input_placeholder_color; ?>;
+    color: <?php echo pp_get_color_value($settings->gf_input_placeholder_color); ?>;
 }
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield input::-moz-placeholder {
-    color: #<?php echo $settings->gf_input_placeholder_color; ?>;
+    color: <?php echo pp_get_color_value($settings->gf_input_placeholder_color); ?>;
 }
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield input:-ms-input-placeholder {
-    color: #<?php echo $settings->gf_input_placeholder_color; ?>;
+    color: <?php echo pp_get_color_value($settings->gf_input_placeholder_color); ?>;
 }
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield textarea::-webkit-input-placeholder {
-    color: #<?php echo $settings->gf_input_placeholder_color; ?>;
+    color: <?php echo pp_get_color_value($settings->gf_input_placeholder_color); ?>;
 }
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield textarea:-moz-placeholder {
-    color: #<?php echo $settings->gf_input_placeholder_color; ?>;
+    color: <?php echo pp_get_color_value($settings->gf_input_placeholder_color); ?>;
 }
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield textarea::-moz-placeholder {
-    color: #<?php echo $settings->gf_input_placeholder_color; ?>;
+    color: <?php echo pp_get_color_value($settings->gf_input_placeholder_color); ?>;
 }
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield textarea:-ms-input-placeholder {
-    color: #<?php echo $settings->gf_input_placeholder_color; ?>;
+    color: <?php echo pp_get_color_value($settings->gf_input_placeholder_color); ?>;
 }
 <?php } ?>
 
@@ -327,7 +329,7 @@
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield input:not([type='radio']):not([type='checkbox']):not([type='submit']):not([type='button']):not([type='image']):not([type='file']):focus,
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield select:focus,
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield textarea:focus {
-    border-color: <?php echo $settings->input_field_focus_color ? '#' . $settings->input_field_focus_color : 'transparent'; ?>;
+    border-color: <?php echo $settings->input_field_focus_color ? pp_get_color_value($settings->input_field_focus_color) : 'transparent'; ?>;
 }
 
 .fl-node-<?php echo $id; ?> .gform_wrapper .top_label input.medium,
@@ -363,17 +365,9 @@
 .fl-node-<?php echo $id; ?> .gform_wrapper .gform_page_footer .button {
 	width: <?php echo ($settings->button_width == 'true') ? '100%' : 'auto'; ?>;
     <?php if( $settings->button_text_color ) { ?>
-	color: #<?php echo $settings->button_text_color; ?>;
+	color: <?php echo pp_get_color_value($settings->button_text_color); ?>;
     <?php } ?>
-	background-color: <?php echo $settings->button_bg_color ? pp_hex2rgba('#' . $settings->button_bg_color, $settings->button_background_opacity) : 'transparent'; ?>;
-	border: <?php echo $settings->button_border_width; ?>px solid <?php echo $settings->button_border_color ? '#' . $settings->button_border_color : 'transparent'; ?>;
-    <?php if( $settings->button_border_radius >= 0 ) { ?>
-    border-radius: <?php echo $settings->button_border_radius; ?>px;
-    -moz-border-radius: <?php echo $settings->button_border_radius; ?>px;
-    -webkit-border-radius: <?php echo $settings->button_border_radius; ?>px;
-    -ms-border-radius: <?php echo $settings->button_border_radius; ?>px;
-    -o-border-radius: <?php echo $settings->button_border_radius; ?>px;
-    <?php } ?>
+	background-color: <?php echo $settings->button_bg_color ? pp_get_color_value( $settings->button_bg_color ) : 'transparent'; ?>;
     <?php if( $settings->button_padding_top_bottom >= 0 ) { ?>
     padding-top: <?php echo $settings->button_padding_top_bottom; ?>px;
     padding-bottom: <?php echo $settings->button_padding_top_bottom; ?>px;
@@ -381,12 +375,6 @@
     <?php if( $settings->button_padding_left_right >= 0 ) { ?>
     padding-left: <?php echo $settings->button_padding_left_right; ?>px;
     padding-right: <?php echo $settings->button_padding_left_right; ?>px;
-    <?php } ?>
-    <?php if( $settings->button_font_family['family'] != 'Default' ) { ?>
-    <?php FLBuilderFonts::font_css( $settings->button_font_family ); ?>
-    <?php } ?>
-    <?php if( $settings->button_font_size ) { ?>
-    font-size: <?php echo $settings->button_font_size; ?>px;
     <?php } ?>
     white-space: normal;
 }
@@ -412,20 +400,19 @@
 .fl-node-<?php echo $id; ?> .gform_wrapper .gform_footer .gform_button:hover,
 .fl-node-<?php echo $id; ?> .gform_wrapper .gform_page_footer .button:hover {
     <?php if( $settings->button_hover_text_color ) { ?>
-	color: #<?php echo $settings->button_hover_text_color; ?>;
+	color: <?php echo pp_get_color_value($settings->button_hover_text_color); ?>;
     <?php } ?>
-	background: <?php echo $settings->button_hover_bg_color ? '#' . $settings->button_hover_bg_color : 'transparent'; ?>;
-    <?php if( $settings->button_border_width >= 0 ) { ?>
-	border-width: <?php echo $settings->button_border_width; ?>px;
-    <?php } ?>
+	background: <?php echo $settings->button_hover_bg_color ? pp_get_color_value( $settings->button_hover_bg_color ) : 'transparent'; ?>;
 }
 
 <?php if ( 'yes' == $settings->radio_cb_style ) : // Radio & Checkbox ?>
     /* Radio & Checkbox */
     .fl-node-<?php echo $id; ?> .gform_wrapper .gfield_radio li input[type=radio],
-    .fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox li input[type=checkbox],
     .fl-node-<?php echo $id; ?> .gform_wrapper .gfield_radio li input[type=radio]:focus,
-    .fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox li input[type=checkbox]:focus {
+    .fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox li input[type=checkbox],
+    .fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox li input[type=checkbox]:focus,
+    .fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_consent input[type=checkbox],
+    .fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_consent input[type=checkbox]:focus {
         -webkit-appearance: none;
         -moz-appearance: none;
         outline: none;
@@ -434,11 +421,11 @@
             height: <?php echo $settings->radio_cb_size; ?>px !important;
         <?php endif; ?>
         <?php if ( ! empty( $settings->radio_cb_color ) ) : ?>
-            background: #<?php echo $settings->radio_cb_color; ?>;
-            background-color: #<?php echo $settings->radio_cb_color; ?>;
+            background: <?php echo pp_get_color_value($settings->radio_cb_color); ?>;
+            background-color: <?php echo pp_get_color_value($settings->radio_cb_color); ?>;
         <?php endif; ?>
         <?php if ( $settings->radio_cb_border_width >= 0 && ! empty( $settings->radio_cb_border_color ) ) : ?>
-            border: <?php echo $settings->radio_cb_border_width; ?>px solid #<?php echo $settings->radio_cb_border_color; ?>;
+            border: <?php echo $settings->radio_cb_border_width; ?>px solid <?php echo pp_get_color_value($settings->radio_cb_border_color); ?>;
         <?php endif; ?>
         padding: 2px;
     }
@@ -453,7 +440,11 @@
     .fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox li input[type=checkbox],
     .fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox li input[type=checkbox]:focus,
     .fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox li input[type=checkbox]:before,
-    .fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox li input[type=checkbox]:focus:before {
+    .fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox li input[type=checkbox]:focus:before,
+    .fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_consent input[type=checkbox],
+    .fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_consent input[type=checkbox]:focus,
+    .fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_consent input[type=checkbox]:before,
+    .fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_consent input[type=checkbox]:focus:before {
         <?php if ( $settings->radio_cb_radius >= 0 ) : ?>
             border-radius: <?php echo $settings->radio_cb_checkbox_radius; ?>px;
         <?php endif; ?>
@@ -461,7 +452,9 @@
     .fl-node-<?php echo $id; ?> .gform_wrapper .gfield_radio li input[type=radio]:before,
     .fl-node-<?php echo $id; ?> .gform_wrapper .gfield_radio li input[type=radio]:focus:before,
     .fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox li input[type=checkbox]:before,
-    .fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox li input[type=checkbox]:focus:before {
+    .fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox li input[type=checkbox]:focus:before,
+    .fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_consent input[type=checkbox]:before,
+    .fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_consent input[type=checkbox]:focus:before {
         content: "";
         width: 100%;
         height: 100%;
@@ -472,22 +465,24 @@
     .fl-node-<?php echo $id; ?> .gform_wrapper .gfield_radio li input[type=radio]:checked:before,
     .fl-node-<?php echo $id; ?> .gform_wrapper .gfield_radio li input[type=radio]:focus:checked:before,
     .fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox li input[type=checkbox]:checked:before,
-    .fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox li input[type=checkbox]:focus:checked:before {
+    .fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox li input[type=checkbox]:focus:checked:before,
+    .fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_consent input[type=checkbox]:checked:before,
+    .fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_consent input[type=checkbox]:focus:checked:before {
         <?php if ( ! empty( $settings->radio_cb_checked_color ) ) : ?>
-            background: #<?php echo $settings->radio_cb_checked_color; ?>;
-            background-color: #<?php echo $settings->radio_cb_checked_color; ?>;
+            background: <?php echo pp_get_color_value($settings->radio_cb_checked_color); ?>;
+            background-color: <?php echo pp_get_color_value($settings->radio_cb_checked_color); ?>;
         <?php endif; ?>
     }
 <?php endif; ?>
 
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield input[type=file] {
-    background-color: <?php echo $settings->file_bg_color ? '#' . $settings->file_bg_color : 'transparent'; ?>;
-    <?php if( $settings->file_text_color ) { ?>color: #<?php echo $settings->file_text_color; ?>;<?php } ?>
+    background-color: <?php echo $settings->file_bg_color ? pp_get_color_value( $settings->file_bg_color ) : 'transparent'; ?>;
+    <?php if( $settings->file_text_color ) { ?>color: <?php echo pp_get_color_value($settings->file_text_color); ?>;<?php } ?>
     <?php if( $settings->file_border_width >= 0 ) { ?>
     border-width: <?php echo $settings->file_border_width; ?>px;
     <?php } ?>
     <?php if( $settings->file_border_color ) { ?>
-    border-color: #<?php echo $settings->file_border_color; ?>;
+    border-color: <?php echo pp_get_color_value($settings->file_border_color); ?>;
     <?php } ?>
     <?php if( $settings->file_border_style ) { ?>
     border-style: <?php echo $settings->file_border_style; ?>;
@@ -510,9 +505,9 @@
 .fl-node-<?php echo $id; ?> .gform_wrapper li.gfield.gfield_error,
 .fl-node-<?php echo $id; ?> .gform_wrapper li.gfield.gfield_error.gfield_contains_required.gfield_creditcard_warning {
     <?php if( $settings->validation_error_color ) { ?>
-	color: #<?php echo $settings->validation_error_color; ?> !important;
+	color: <?php echo pp_get_color_value($settings->validation_error_color); ?> !important;
     <?php } ?>
-	border-color: <?php echo $settings->validation_error_border_color ? '#' . $settings->validation_error_border_color : 'transparent'; ?> !important;
+	border-color: <?php echo $settings->validation_error_border_color ? pp_get_color_value($settings->validation_error_border_color) : 'transparent'; ?> !important;
     <?php if ( ! isset( $settings->validation_error_border_color ) || empty( $settings->validation_error_border_color ) ) { ?>
         border: none;
         padding-top: 0;
@@ -537,13 +532,13 @@
 }
 
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield.gfield_error {
-	background-color: <?php echo ($settings->form_error_field_background_color) ? '#' . $settings->form_error_field_background_color : 'transparent'; ?>;
+	background-color: <?php echo ($settings->form_error_field_background_color) ? pp_get_color_value( $settings->form_error_field_background_color ) : 'transparent'; ?>;
     Width: 100%;
 }
 
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield.gfield_error .gfield_label {
     <?php if( $settings->form_error_field_label_color ) { ?>
-	color: #<?php echo $settings->form_error_field_label_color; ?>;
+	color: <?php echo pp_get_color_value($settings->form_error_field_label_color); ?>;
     <?php } ?>
 	margin-left: 0;
 }
@@ -553,14 +548,14 @@
 	display: <?php echo $settings->validation_message; ?>;
     <?php } ?>
     <?php if( $settings->validation_message_color ) { ?>
-	color: #<?php echo $settings->validation_message_color; ?>;
+	color: <?php echo pp_get_color_value($settings->validation_message_color); ?>;
     <?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield_error input:not([type='radio']):not([type='checkbox']):not([type='submit']):not([type='button']):not([type='image']):not([type='file']),
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield_error .ginput_container select,
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield_error .ginput_container textarea {
-	border-color: <?php echo ($settings->form_error_input_border_color) ? '#' . $settings->form_error_input_border_color : 'transparent'; ?>;
+	border-color: <?php echo ($settings->form_error_input_border_color) ? pp_get_color_value($settings->form_error_input_border_color) : 'transparent'; ?>;
     <?php if( $settings->form_error_input_border_width >= 0 ) { ?>
 	border-width: <?php echo $settings->form_error_input_border_width; ?>px !important;
     <?php } ?>

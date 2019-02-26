@@ -2,9 +2,9 @@
 
 function pp_row_render_css( $extensions ) {
 
-    if ( array_key_exists( 'gradient', $extensions['row'] ) || in_array( 'gradient', $extensions['row'] ) ) {
-        add_filter( 'fl_builder_render_css', 'pp_row_gradient_css', 10, 3 );
-    }
+    // if ( array_key_exists( 'gradient', $extensions['row'] ) || in_array( 'gradient', $extensions['row'] ) ) {
+    //     add_filter( 'fl_builder_render_css', 'pp_row_gradient_css', 10, 3 );
+    // }
     if ( array_key_exists( 'overlay', $extensions['row'] ) || in_array( 'overlay', $extensions['row'] ) ) {
         add_filter( 'fl_builder_render_css', 'pp_row_overlay_css', 10, 3 );
     }
@@ -140,67 +140,6 @@ function pp_row_overlay_css( $css, $nodes, $global_settings ) {
             .fl-node-<?php echo $row->node; ?> > .fl-row-content-wrap:after {
                 width: 50%;
 				left: auto;
-            }
-        <?php } ?>
-        <?php if ( $row->settings->pp_bg_overlay_type == 'gradient' ) { ?>
-
-            <?php
-            $primary = $row->settings->bg_overlay_color;
-            $secondary = $row->settings->pp_bg_overlay_color_2;
-            ?>
-
-            .fl-node-<?php echo $row->node; ?> > .fl-row-content-wrap:after {
-                <?php if ( $row->settings->pp_bg_overlay_direction == 'bottom' ) { ?>
-                    background-color: #<?php echo $primary; ?>;
-                    background-image: -webkit-linear-gradient(top, <?php echo '#'.$primary; ?> 0%, <?php echo '#'.$secondary; ?> 100%);
-                    background-image: -moz-linear-gradient(bottom, <?php echo '#'.$primary; ?> 0%, <?php echo '#'.$secondary; ?> 100%);
-                    background-image: -o-linear-gradient(bottom, <?php echo '#'.$primary; ?> 0%, <?php echo '#'.$secondary; ?> 100%);
-                    background-image: -ms-linear-gradient(bottom, <?php echo '#'.$primary; ?> 0%, <?php echo '#'.$secondary; ?> 100%);
-                    background-image: linear-gradient(to bottom, <?php echo '#'.$primary; ?> 0%, <?php echo '#'.$secondary; ?> 100%);
-                <?php } ?>
-                <?php if ( $row->settings->pp_bg_overlay_direction == 'right' ) { ?>
-                    background-color: #<?php echo $primary; ?>;
-                    background-image: -webkit-linear-gradient(left, <?php echo '#'.$primary; ?> 0%, <?php echo '#'.$secondary; ?> 100%);
-                    background-image: -moz-linear-gradient(right, <?php echo '#'.$primary; ?> 0%, <?php echo '#'.$secondary; ?> 100%);
-                    background-image: -o-linear-gradient(right, <?php echo '#'.$primary; ?> 0%, <?php echo '#'.$secondary; ?> 100%);
-                    background-image: -ms-linear-gradient(right, <?php echo '#'.$primary; ?> 0%, <?php echo '#'.$secondary; ?> 100%);
-                    background-image: linear-gradient(to right, <?php echo '#'.$primary; ?> 0%, <?php echo '#'.$secondary; ?> 100%);
-                <?php } ?>
-                <?php if ( $row->settings->pp_bg_overlay_direction == 'top_right_diagonal' ) { ?>
-                    background-color: #<?php echo $primary; ?>;
-                    background-image: -webkit-linear-gradient(45deg, <?php echo '#'.$primary; ?> 0%, <?php echo '#'.$secondary; ?> 100%);
-                    background-image: -moz-linear-gradient(45deg, <?php echo '#'.$primary; ?> 0%, <?php echo '#'.$secondary; ?> 100%);
-                    background-image: -o-linear-gradient(45deg, <?php echo '#'.$primary; ?> 0%, <?php echo '#'.$secondary; ?> 100%);
-                    background-image: -ms-linear-gradient(45deg, <?php echo '#'.$primary; ?> 0%, <?php echo '#'.$secondary; ?> 100%);
-                    background-image: linear-gradient(45deg, <?php echo '#'.$primary; ?> 0%, <?php echo '#'.$secondary; ?> 100%);
-                <?php } ?>
-                <?php if ( $row->settings->pp_bg_overlay_direction == 'top_left_diagonal' ) { ?>
-                    background-color: #<?php echo $primary; ?>;
-                    background-image: -webkit-linear-gradient(135deg, <?php echo '#'.$primary; ?> 0%, <?php echo '#'.$secondary; ?> 100%);
-                    background-image: -moz-linear-gradient(315deg, <?php echo '#'.$primary; ?> 0%, <?php echo '#'.$secondary; ?> 100%);
-                    background-image: -o-linear-gradient(315deg, <?php echo '#'.$primary; ?> 0%, <?php echo '#'.$secondary; ?> 100%);
-                    background-image: -ms-linear-gradient(315deg, <?php echo '#'.$primary; ?> 0%, <?php echo '#'.$secondary; ?> 100%);
-                    background-image: linear-gradient(315deg, <?php echo '#'.$primary; ?> 0%, <?php echo '#'.$secondary; ?> 100%);
-                <?php } ?>
-                <?php if ( $row->settings->pp_bg_overlay_direction == 'bottom_right_diagonal' ) { ?>
-                    background-color: #<?php echo $primary; ?>;
-                    background-image: -webkit-linear-gradient(315deg, <?php echo '#'.$primary; ?> 0%, <?php echo '#'.$secondary; ?> 100%);
-                    background-image: -moz-linear-gradient(135deg, <?php echo '#'.$primary; ?> 0%, <?php echo '#'.$secondary; ?> 100%);
-                    background-image: -o-linear-gradient(135deg, <?php echo '#'.$primary; ?> 0%, <?php echo '#'.$secondary; ?> 100%);
-                    background-image: -ms-linear-gradient(135deg, <?php echo '#'.$primary; ?> 0%, <?php echo '#'.$secondary; ?> 100%);
-                    background-image: linear-gradient(135deg, <?php echo '#'.$primary; ?> 0%, <?php echo '#'.$secondary; ?> 100%);
-                <?php } ?>
-                <?php if ( $row->settings->pp_bg_overlay_direction == 'bottom_left_diagonal' ) { ?>
-                    background-color: #<?php echo $primary; ?>;
-                    background-image: -webkit-linear-gradient(255deg, <?php echo '#'.$primary; ?> 0%, <?php echo '#'.$secondary; ?> 100%);
-                    background-image: -moz-linear-gradient(210deg, <?php echo '#'.$primary; ?> 0%, <?php echo '#'.$secondary; ?> 100%);
-                    background-image: -o-linear-gradient(210deg, <?php echo '#'.$primary; ?> 0%, <?php echo '#'.$secondary; ?> 100%);
-                    background-image: -ms-linear-gradient(210deg, <?php echo '#'.$primary; ?> 0%, <?php echo '#'.$secondary; ?> 100%);
-                    background-image: linear-gradient(210deg, <?php echo '#'.$primary; ?> 0%, <?php echo '#'.$secondary; ?> 100%);
-                <?php } ?>
-				<?php if ( isset( $row->settings->bg_overlay_opacity ) ) { ?>
-                opacity: <?php echo $row->settings->bg_overlay_opacity / 100; ?>;
-				<?php } ?>
             }
         <?php } ?>
 

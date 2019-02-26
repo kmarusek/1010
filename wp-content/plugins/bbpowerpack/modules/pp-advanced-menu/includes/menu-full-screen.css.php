@@ -3,12 +3,21 @@
 	background-color: <?php echo ( $settings->responsive_overlay_bg_color ) ? pp_hex2rgba('#'.$settings->responsive_overlay_bg_color, ($settings->responsive_overlay_bg_opacity / 100)) : 'rgba(0,0,0,0.8)'; ?>;
 }
 
-.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-menu-overlay > ul.menu {
-	padding-top: <?php if ( $settings->responsive_overlay_padding['top'] >= 0 ) { echo $settings->responsive_overlay_padding['top'] . 'px'; } ?>;
-	padding-bottom: <?php if ( $settings->responsive_overlay_padding['bottom'] >= 0 ) { echo $settings->responsive_overlay_padding['bottom'] . 'px'; } ?>;
-	padding-left: <?php if ( $settings->responsive_overlay_padding['left'] >= 0 ) { echo $settings->responsive_overlay_padding['left'] . 'px'; } ?>;
-	padding-right: <?php if ( $settings->responsive_overlay_padding['right'] >= 0 ) { echo $settings->responsive_overlay_padding['right'] . 'px'; } ?>;
-}
+<?php
+// Responsive Overlay Padding
+FLBuilderCSS::dimension_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'responsive_overlay_padding',
+	'selector' 		=> ".fl-node-$id .pp-advanced-menu .pp-menu-overlay > ul.menu",
+	'unit'			=> 'px',
+	'props'			=> array(
+		'padding-top' 		=> 'responsive_overlay_padding_top',
+		'padding-right' 	=> 'responsive_overlay_padding_right',
+		'padding-bottom' 	=> 'responsive_overlay_padding_bottom',
+		'padding-left' 		=> 'responsive_overlay_padding_left',
+	),
+) );
+?>
 
 /* Sub Menu */
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .sub-menu {
@@ -54,16 +63,37 @@
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .menu li .pp-has-submenu-container a span.menu-item-text {
 	display: inline-block;
 	border-style: solid;
-	border-top-width: <?php echo ( $settings->responsive_link_border_width['top'] != '' && $settings->responsive_link_border_color ) ? $settings->responsive_link_border_width['top'] : '0'; ?>px;
-	border-bottom-width: <?php echo ( $settings->responsive_link_border_width['bottom'] != '' && $settings->responsive_link_border_color ) ? $settings->responsive_link_border_width['bottom'] : '0'; ?>px;
-	border-left-width: <?php echo ( $settings->responsive_link_border_width['left'] != '' && $settings->responsive_link_border_color ) ? $settings->responsive_link_border_width['left'] : '0'; ?>px;
-	border-right-width: <?php echo ( $settings->responsive_link_border_width['right'] != '' && $settings->responsive_link_border_color ) ? $settings->responsive_link_border_width['right'] : '0'; ?>px;
 	border-color: <?php echo ($settings->responsive_link_border_color) ? '#' . $settings->responsive_link_border_color : 'transparent'; ?>;
-	padding-top: <?php if ( $settings->responsive_link_padding['top'] >= 0 ) { echo $settings->responsive_link_padding['top'] . 'px'; } ?>;
-	padding-bottom: <?php if ( $settings->responsive_link_padding['bottom'] >= 0 ) { echo $settings->responsive_link_padding['bottom'] . 'px'; } ?>;
-	padding-left: <?php if ( $settings->responsive_link_padding['left'] >= 0 ) { echo $settings->responsive_link_padding['left'] . 'px'; } ?>;
-	padding-right: <?php if ( $settings->responsive_link_padding['right'] >= 0 ) { echo $settings->responsive_link_padding['right'] . 'px'; } ?>;
 }
+<?php
+// Responsive Link Border Width
+FLBuilderCSS::dimension_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'responsive_link_border_width',
+	'selector' 		=> ".fl-node-$id .pp-advanced-menu.full-screen .menu li a span.menu-item-text, .fl-node-$id .pp-advanced-menu.full-screen .menu li .pp-has-submenu-container a span.menu-item-text",
+	'unit'			=> 'px',
+	'props'			=> array(
+		'border-top-width' 		=> 'responsive_link_border_width_top',
+		'border-right-width' 	=> 'responsive_link_border_width_right',
+		'border-bottom-width' 	=> 'responsive_link_border_width_bottom',
+		'border-left-width' 	=> 'responsive_link_border_width_left',
+	),
+) );
+
+// Responsive Link Padding
+FLBuilderCSS::dimension_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'responsive_link_padding',
+	'selector' 		=> ".fl-node-$id .pp-advanced-menu.full-screen .menu li a span.menu-item-text, .fl-node-$id .pp-advanced-menu.full-screen .menu li .pp-has-submenu-container a span.menu-item-text",
+	'unit'			=> 'px',
+	'props'			=> array(
+		'padding-top' 		=> 'responsive_link_padding_top',
+		'padding-right' 	=> 'responsive_link_padding_right',
+		'padding-bottom' 	=> 'responsive_link_padding_bottom',
+		'padding-left' 		=> 'responsive_link_padding_left',
+	),
+) );
+?>
 
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .menu li a:hover,
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .menu li a:focus,

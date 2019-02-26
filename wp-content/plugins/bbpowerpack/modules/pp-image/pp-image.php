@@ -31,8 +31,87 @@ class PPImageModule extends FLBuilderModule {
             'editor_export' 	=> true, // Defaults to true and can be omitted.
             'enabled'       	=> true, // Defaults to true and can be omitted.
 			'partial_refresh'	=> true,
-			'icon'				=> 'format-image.svg',
 		));
+	}
+
+	public function filter_settings( $settings, $helper )
+	{
+		// Handle box old padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'box_padding', 'padding', 'box_padding' );
+
+		// Handle old box border and radius fields.
+		$settings = PP_Module_Fields::handle_border_field( $settings, array(
+			'box_border'	=> array(
+				'type'				=> 'style'
+			),
+			'border_width'	=> array(
+				'type'				=> 'width'
+			),
+			'border_color'	=> array(
+				'type'				=> 'color'
+			),
+			'border_radius'	=> array(
+				'type'				=> 'radius'
+			),
+			'box_shadow_settings'	=> array(
+				'type'				=> 'shadow',
+				'condition'			=> ( isset( $settings->box_shadow ) && 'enable' == $settings->box_shadow ),
+				'keys'				=> array(
+					'horizontal'		=> 'h',
+					'vertical'			=> 'v',
+					'blur'				=> 'blur',
+					'spread'			=> 'spread'
+				)
+			),
+			'box_shadow_color'	=> array(
+				'type'				=> 'shadow_color',
+				'condition'			=> ( isset( $settings->box_shadow ) && 'enable' == $settings->box_shadow ),
+				'opacity'			=> isset( $settings->box_shadow_opacity ) ? $settings->box_shadow_opacity : 1
+			)
+		), 'box_border_group' );
+
+		// Handle old link, link_target fields.
+		$settings = PP_Module_Fields::handle_link_field( $settings, array(
+			'link_url'			=> array(
+				'type'			=> 'link'
+			),
+			'link_target'	=> array(
+				'type'			=> 'target'
+			),
+		), 'link' );
+
+		// Handle caption's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'caption_font'	=> array(
+				'type'			=> 'font'
+			),
+			'caption_font_size'	=> array(
+				'type'			=> 'font_size',
+			),
+			'caption_line_height'	=> array(
+				'type'			=> 'line_height',
+			),
+			'caption_alignment'		=> array(
+				'type'			=> 'text_align'
+			)
+		), 'caption_typography' );
+
+		// Handle caption old padding field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'caption_padding', 'padding', 'caption_padding' );
+
+		// Handle old caption background & text dual color field.
+		$settings = PP_Module_Fields::handle_dual_color_field( $settings, 'caption_color', array(
+			'primary'	=> 'caption_text_color',
+			'secondary'	=> 'caption_bg_color',
+			'secondary_opacity' => isset( $settings->caption_opacity ) ? $settings->caption_opacity : 1
+		) );
+
+		// Handle caption opacity + color field.
+		if ( isset( $settings->caption_opacity ) ) {
+			unset( $settings->caption_opacity );
+		}
+
+		return $settings;
 	}
 
 	/**
@@ -261,7 +340,7 @@ class PPImageModule extends FLBuilderModule {
 		$photo = $this->get_data();
 
 		if($this->settings->link_type == 'url') {
-			$link = $this->settings->link_url;
+			$link = $this->settings->link;
 		}
 		else if($this->settings->link_type == 'lightbox') {
 			$link = $photo->url;
@@ -454,11 +533,12 @@ FLBuilder::register_module('PPImageModule', array(
 						'connections'   => array( 'photo' ),
 					),
 					'photo_size'	=> array(
-						'type'			=> 'text',
+						'type'			=> 'unit',
 						'label'			=> __('Custom Photo Size', 'bb-powerpack'),
 						'default'		=> '',
-						'description'	=> 'px',
-						'size'			=> '5',
+						'units'			=> array( 'px' ),
+						'slider'		=> true,
+						'responsive'	=> true,
 						'preview'		=> array(
 							'type'			=> 'css',
 							'selector'		=> '.pp-photo-container .pp-photo-content .pp-photo-content-inner img',
@@ -559,7 +639,7 @@ FLBuilder::register_module('PPImageModule', array(
 						'toggle'        => array(
 							''              => array(),
 							'url'           => array(
-								'fields'        => array('link_url', 'link_target')
+								'fields'        => array('link')
 							),
 							'file'          => array(),
 							'page'          => array()
@@ -569,26 +649,16 @@ FLBuilder::register_module('PPImageModule', array(
 							'type'            => 'none'
 						)
 					),
-					'link_url'     => array(
+					'link'  => array(
 						'type'          => 'link',
-						'label'         => __('Link URL', 'bb-powerpack'),
+						'label'         => __('Link', 'bb-powerpack'),
+						'placeholder'   => 'http://www.example.com',
+						'show_target'	=> true,
 						'connections'   => array( 'url' ),
-						'preview'         => array(
-							'type'            => 'none'
+						'preview'       => array(
+							'type'          => 'none'
 						)
 					),
-					'link_target'   => array(
-						'type'          => 'select',
-						'label'         => __('Link Target', 'bb-powerpack'),
-						'default'       => '_self',
-						'options'       => array(
-							'_self'         => __('Same Window', 'bb-powerpack'),
-							'_blank'        => __('New Window', 'bb-powerpack')
-						),
-						'preview'         => array(
-							'type'            => 'none'
-						)
-					)
 				)
 			)
 		)
@@ -599,141 +669,41 @@ FLBuilder::register_module('PPImageModule', array(
 			'image_box_style' 	=> array(
 				'title'		=> __('Image Box', 'bb-powerpack'),
 				'fields'	=> array(
-					'box_padding' 	=> array(
-						'type'              => 'pp-multitext',
-                        'label'             => __('Padding', 'bb-powerpack'),
-                        'description'       => 'px',
-						'help'				=> __('Padding allows you to adjust the spacing between image and the outer edge of the container.', 'bb-powerpack'),
-                        'default'           => array(
-                            'top'               => '0',
-                            'bottom'            => '0',
-                            'left'              => '0',
-                            'right'             => '0',
-                        ),
-                        'options'           => array(
-                            'top'               => array(
-                                'placeholder'       => __('Top', 'bb-powerpack'),
-                                'icon'              => 'fa-long-arrow-up',
-                                'tooltip'           => __('Top', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'          => '.pp-photo-container .pp-photo-content',
-                                    'property'          => 'padding-top',
-                                    'unit'              => 'px'
-                                )
-                            ),
-                            'bottom'            => array(
-                                'placeholder'       => __('Bottom', 'bb-powerpack'),
-                                'icon'              => 'fa-long-arrow-down',
-                                'tooltip'           => __('Bottom', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'          => '.pp-photo-container .pp-photo-content',
-                                    'property'          => 'padding-bottom',
-                                    'unit'              => 'px'
-                                )
-                            ),
-                            'left'              => array(
-                                'placeholder'       => __('Left', 'bb-powerpack'),
-                                'icon'              => 'fa-long-arrow-left',
-                                'tooltip'           => __('Left', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'          => '.pp-photo-container .pp-photo-content',
-                                    'property'          => 'padding-left',
-                                    'unit'              => 'px'
-                                )
-                            ),
-                            'right'             => array(
-                                'placeholder'       => __('Right', 'bb-powerpack'),
-                                'icon'              => 'fa-long-arrow-right',
-                                'tooltip'           => __('Right', 'bb-powerpack'),
-                                'preview'           => array(
-                                    'selector'          => '.pp-photo-container .pp-photo-content',
-                                    'property'          => 'padding-right',
-                                    'unit'              => 'px'
-                                )
-                            ),
-                        )
+					'box_padding'	=> array(
+						'type'				=> 'dimension',
+						'label'				=> __('Padding', 'bb-powerpack'),
+						'default'			=> '0',
+						'units'				=> array('px'),
+						'slider'			=> true,
+						'responsive'		=> true,
+						'preview'			=> array(
+							'type'				=> 'css',
+							'selector'			=> '.pp-photo-container .pp-photo-content',
+							'property'			=> 'padding',
+							'unit'				=> 'px'
+						)
 					),
 					'box_background' 		=> array(
-						'type'		=> 'color',
-						'label'		=> __('Background Color', 'bb-powerpack'),
-						'show_reset'	=> true,
-						'help'		=> __('Background color will be visible between the image and outside edge of the container when you increase the padding.', 'bb-powerpack'),
-						'preview'	=> array(
-							'type'	=> 'css',
-							'selector'	=> '.pp-photo-container .pp-photo-content',
-							'property'	=> 'background'
-						),
-					),
-					'box_border'	=> array(
-						'type'		=> 'pp-switch',
-						'label'		=> __('Border Style', 'bb-powerpack'),
-						'default'	=> 'none',
-						'options'	=> array(
-							'none'		=> __('None', 'bb-powerpack'),
-							'solid'		=> __('Solid', 'bb-powerpack'),
-							'dashed'	=> __('Dashed', 'bb-powerpack'),
-							'dotted'	=> __('Dotted', 'bb-powerpack'),
-						),
-						'toggle'	=> array(
-							'solid'	=> array(
-								'fields'	=> array('border_width', 'border_color'),
-							),
-							'dotted'	=> array(
-								'fields'	=> array('border_width', 'border_color'),
-							),
-							'dashed'	=> array(
-								'fields'	=> array('border_width', 'border_color'),
-							),
-						),
-					),
-					'border_width'	=> array(
-						'type'			=> 'text',
-						'label'			=> __('Border Width', 'bb-powerpack'),
-						'default'		=> 1,
-						'maxlength'		=> 3,
-						'size'			=> 5,
-						'description'	=> 'px',
-						'preview'		=> array(
-							'type'		=> 'css',
-							'selector'	=> '.pp-photo-container .pp-photo-content',
-							'property'	=> 'border-width',
-							'unit'		=> 'px'
-						),
-					),
-					'border_color'	=> array(
 						'type'			=> 'color',
-						'label'			=> __('Border Color', 'bb-powerpack'),
-						'default'		=> 'cccccc',
+						'label'			=> __('Background Color', 'bb-powerpack'),
 						'show_reset'	=> true,
+						'show_alpha'	=> true,
+						'help'			=> __('Background color will be visible between the image and outside edge of the container when you increase the padding.', 'bb-powerpack'),
 						'preview'		=> array(
-							'type'		=> 'css',
-							'selector'	=> '.pp-photo-container .pp-photo-content',
-							'property'	=> 'border-color',
+							'type'			=> 'css',
+							'selector'		=> '.pp-photo-container .pp-photo-content',
+							'property'		=> 'background-color'
 						),
 					),
-					'border_radius'		=> array(
-						'type'			=> 'text',
-						'label'			=> __('Round Corners', 'bb-powerpack'),
-						'default'		=> '0',
-						'maxlength'		=> 3,
-						'size'			=> 5,
-						'class'			=> 'input-small',
-						'description'	=> 'px',
-						'preview'		=> array(
-							'type'		=> 'css',
-							'rules'		=> array(
-								array(
-									'selector'	=> '.pp-photo-container .pp-photo-content',
-									'property'	=> 'border-radius',
-									'unit'		=> 'px'
-								),
-								array(
-									'selector'	=> '.pp-photo-container .pp-photo-content .pp-photo-content-inner',
-									'property'	=> 'border-radius',
-									'unit'		=> 'px'
-								),
-							),
-						),
+					'box_border_group'	=> array(
+						'type'          => 'border',
+						'label'         => __( 'Border', 'bb-powerpack' ),
+						'responsive'	=> true,
+						'preview'   	=> array(
+                            'type'  		=> 'css',
+                            'selector'  	=> '.pp-photo-container .pp-photo-content',
+                            'property'  	=> 'border',
+                        ),
 					),
 				),
 			),
@@ -777,12 +747,11 @@ FLBuilder::register_module('PPImageModule', array(
 						)
 					),
 					'image_border_width'	=> array(
-						'type'		=> 'text',
+						'type'		=> 'unit',
 						'label'		=> __('Border Width', 'bb-powerpack'),
-						'size'		=> 5,
-						'maxlength'	=> 3,
 						'default'	=> 1,
-						'description'	=> 'px',
+						'units'		=> array( 'px' ),
+						'slider'	=> true,
 						'preview'	=> array(
 							'type'	=> 'css',
 							'rules'	=> array(
@@ -819,12 +788,11 @@ FLBuilder::register_module('PPImageModule', array(
 						)
 					),
 					'image_spacing'		=> array(
-						'type'		=> 'text',
+						'type'		=> 'unit',
 						'label'		=> __('Spacing', 'bb-powerpack'),
-						'size'		=> 5,
-						'maxlength'	=> 3,
 						'default'	=> 10,
-						'description'	=> 'px',
+						'units'		=> array( 'px' ),
+						'slider'	=> true,
 						'preview'	=> array(
 							'type'	=> 'css',
 							'selector'	=> '.pp-photo-content-inner:before',
@@ -834,72 +802,6 @@ FLBuilder::register_module('PPImageModule', array(
 					)
 				)
 			),
-			'image_box_shadow'	=> array(
-				'title'		=> __('Box Shadow', 'bb-powerpack'),
-				'fields'	=> array(
-					'box_shadow'		=> array(
-						'type'			=> 'pp-switch',
-						'label'			=> __('Box Shadow', 'bb-powerpack'),
-						'default'		=> 'disable',
-						'options'		=> array(
-							'enable'		=> __('Enable', 'bb-powerpack'),
-							'disable'		=> __('Disable', 'bb-powerpack'),
-						),
-						'toggle'		=> array(
-							'enable'		=> array(
-								'fields'	=> array('box_shadow_settings','box_shadow_color', 'box_shadow_opacity'),
-							),
-						),
-					),
-					'box_shadow_settings'   => array(
-						'type'          => 'pp-multitext',
-						'label'         => __('Shadow Settings', 'bb-powerpack'),
-						'default'       => array(
-							'h' => 0,
-							'v' => 0,
-							'blur' => 0,
-							'spread' => 10,
-						),
-						'options'       => array(
-							'h'     => array(
-								'placeholder'           => __('Horizontal', 'bb-powerpack'),
-								'maxlength'             => 3,
-								'icon'                  => 'fa-arrows-h',
-								'tooltip'               => __('Horizontal', 'bb-powerpack')
-							),
-							'v'     => array(
-								'placeholder'           => __('Vertical', 'bb-powerpack'),
-								'maxlength'             => 3,
-								'icon'                  => 'fa-arrows-v',
-								'tooltip'               => __('Vertical', 'bb-powerpack')
-							),
-							'blur'     => array(
-								'placeholder'           => __('Blur', 'bb-powerpack'),
-								'maxlength'             => 3,
-								'icon'                  => 'fa-circle-o',
-								'tooltip'               => __('Blur', 'bb-powerpack')
-							),
-							'spread'     => array(
-								'placeholder'           => __('Spread', 'bb-powerpack'),
-								'maxlength'             => 3,
-								'icon'                  => 'fa-paint-brush',
-								'tooltip'               => __('Spread', 'bb-powerpack')
-							),
-						),
-					),
-					'box_shadow_color' => array(
-						'type'              => 'color',
-						'label'             => __('Color', 'bb-powerpack'),
-						'default'           => '666666',
-					),
-					'box_shadow_opacity' => array(
-						'type'              => 'text',
-						'label'             => __('Opacity', 'bb-powerpack'),
-						'class'             => 'input-small',
-						'default'           => 0.5,
-					),
-				),
-			),
 		),
 	),
 	'caption'	=> array(
@@ -908,183 +810,61 @@ FLBuilder::register_module('PPImageModule', array(
 			'colors'		=> array(
 				'title'		=> __('General', 'bb-powerpack'),
 				'fields'	=> array(
-					'caption_alignment'	=> array(
-						'type'		=> 'pp-switch',
-						'label'		=> __('Alignment', 'bb-powerpack'),
-						'default'	=> 'center',
-						'options'	=> array(
-							'left'	=> __('Left', 'bb-powerpack'),
-							'center'	=> __('Center', 'bb-powerpack'),
-							'right'	=> __('Right', 'bb-powerpack'),
+					'caption_text_color' => array(
+						'type'              => 'color',
+						'label'             => __('Text Color', 'bb-powerpack'),
+						'default'           => '000000',
+						'preview'			=> array(
+							'type'				=> 'css',
+							'selector'			=> '.pp-photo-caption',
+							'property'			=> 'color',
 						)
 					),
-					'caption_color'		=> array(
-						'type'		=> 'pp-color',
-						'label'		=> __('Colors', 'bb-powerpack'),
-						'show_reset'	=> true,
-						'default'	=> array(
-							'primary'	=> '000000',
-							'secondary'	=> 'dddddd'
-						),
-						'options'	=> array(
-							'primary'	=> __('Caption', 'bb-powerpack'),
-							'secondary'	=> __('Background', 'bb-powerpack'),
-						),
-					),
-					'caption_opacity'	=> array(
-						'type'		=> 'text',
-						'label'		=> __('Opacity', 'bb-powerpack'),
-						'size'		=> 5,
-						'maxlength'	=> 3,
-						'default'	=> 0.5,
-						'description'	=> __('between 0 & 1', 'bb-powerpack'),
+					'caption_bg_color' => array(
+						'type'              => 'color',
+						'label'             => __('Background Color', 'bb-powerpack'),
+						'default'           => 'dddddd',
+						'show_reset'		=> true,
+						'show_alpha'		=> true,
+						'preview'			=> array(
+							'type'				=> 'css',
+							'selector'			=> '.pp-photo-caption',
+							'property'			=> 'background-color',
+						)
 					),
 					'caption_padding'	=> array(
-						'type'		=> 'pp-multitext',
-						'label'		=> __('Padding', 'bb-powerpack'),
-						'description'	=> 'px',
-						'default'	=> array(
-							'top'	=> 10,
-							'bottom'	=> 10,
-							'left'	=> 10,
-							'right'	=> 10,
-						),
-						'options'	=> array(
-							'top'	=> array(
-								'placeholder'	=> __('Top', 'bb-powerpack'),
-								'maxlength'		=> 3,
-								'icon'			=> 'fa-long-arrow-up',
-								'tooltip'		=> __('Top', 'bb-powerpack'),
-								'preview'		=> array(
-									'selector'	=> '.pp-photo-caption',
-									'property'	=> 'padding-top',
-									'unit'		=> 'px'
-								),
-							),
-							'bottom'	=> array(
-								'placeholder'	=> __('Bottom', 'bb-powerpack'),
-								'maxlength'		=> 3,
-								'icon'			=> 'fa-long-arrow-down',
-								'tooltip'		=> __('Bottom', 'bb-powerpack'),
-								'preview'		=> array(
-									'selector'	=> '.pp-photo-caption',
-									'property'	=> 'padding-bottom',
-									'unit'		=> 'px'
-								),
-							),
-							'left'	=> array(
-								'placeholder'	=> __('Left', 'bb-powerpack'),
-								'maxlength'		=> 3,
-								'icon'			=> 'fa-long-arrow-left',
-								'tooltip'		=> __('Left', 'bb-powerpack'),
-								'preview'		=> array(
-									'selector'	=> '.pp-photo-caption',
-									'property'	=> 'padding-left',
-									'unit'		=> 'px'
-								),
-							),
-							'right'	=> array(
-								'placeholder'	=> __('Right', 'bb-powerpack'),
-								'maxlength'		=> 3,
-								'icon'			=> 'fa-long-arrow-right',
-								'tooltip'		=> __('Right', 'bb-powerpack'),
-								'preview'		=> array(
-									'selector'	=> '.pp-photo-caption',
-									'property'	=> 'padding-right',
-									'unit'		=> 'px'
-								),
-							),
-						),
+						'type'				=> 'dimension',
+						'label'				=> __('Padding', 'bb-powerpack'),
+						'default'			=> '10',
+						'units'				=> array('px'),
+						'slider'			=> true,
+						'responsive'		=> true,
+						'preview'			=> array(
+							'type'				=> 'css',
+							'selector'			=> '.pp-photo-caption',
+							'property'			=> 'padding',
+							'unit'				=> 'px'
+						)
 					),
 					'hover_margin'	=> array(
-						'type'			=> 'text',
+						'type'			=> 'unit',
 						'label'			=> __('Hover Overlay Margin', 'bb-powerpack'),
 						'default'		=> '0',
-						'description'	=> 'px',
-						'size'			=> '5'
+						'units'				=> array('px'),
+						'slider'			=> true,
 					)
 				),
 			),
 			'typography'	=> array(
 				'title'	=> __('Typography', 'bb-powerpack'),
 				'fields'	=> array(
-					'caption_font'	=> array(
-						'type'		=> 'font',
-						'default'		=> array(
-    						'family'		=> 'Default',
-    						'weight'		=> 300
-    					),
-    					'label'         => __('Font', 'bb-powerpack'),
-    					'preview'         => array(
-    						'type'            => 'font',
-    						'selector'        => '.pp-photo-caption'
-    					)
-					),
-					'caption_font_size'	=> array(
-						'type'		=> 'pp-multitext',
-						'label'		=> __('Font Size', 'bb-powerpack'),
-						'default'		=> array(
-							'desktop'	=> 18,
-							'tablet'	=> '',
-							'mobile'	=> '',
-						),
-						'options'		=> array(
-							'desktop'	=> array(
-								'placeholder'	=> __('Desktop', 'bb-powerpack'),
-								'icon'			=> 'fa-desktop',
-								'maxlength'		=> 3,
-								'tooltip'		=> __('Desktop', 'bb-powerpack'),
-								'preview'		=> array(
-									'selector'	=> '.pp-photo-caption',
-									'property'	=> 'font-size',
-									'unit'		=> 'px'
-								)
-							),
-							'tablet'	=> array(
-								'placeholder'	=> __('Tablet', 'bb-powerpack'),
-								'icon'			=> 'fa-tablet',
-								'maxlength'		=> 3,
-								'tooltip'		=> __('Tablet', 'bb-powerpack')
-							),
-							'mobile'	=> array(
-								'placeholder'	=> __('Mobile', 'bb-powerpack'),
-								'icon'			=> 'fa-mobile',
-								'maxlength'		=> 3,
-								'tooltip'		=> __('Mobile', 'bb-powerpack')
-							),
-						),
-					),
-					'caption_line_height'	=> array(
-						'type'		=> 'pp-multitext',
-						'label'		=> __('Line Height', 'bb-powerpack'),
-						'default'		=> array(
-							'desktop'	=> 1.6,
-							'tablet'	=> '',
-							'mobile'	=> '',
-						),
-						'options'		=> array(
-							'desktop'	=> array(
-								'placeholder'	=> __('Desktop', 'bb-powerpack'),
-								'icon'			=> 'fa-desktop',
-								'maxlength'		=> 3,
-								'tooltip'		=> __('Desktop', 'bb-powerpack'),
-								'preview'		=> array(
-									'selector'	=> '.pp-photo-caption',
-									'property'	=> 'line-height',
-								)
-							),
-							'tablet'	=> array(
-								'placeholder'	=> __('Tablet', 'bb-powerpack'),
-								'icon'			=> 'fa-tablet',
-								'maxlength'		=> 3,
-								'tooltip'		=> __('Tablet', 'bb-powerpack')
-							),
-							'mobile'	=> array(
-								'placeholder'	=> __('Mobile', 'bb-powerpack'),
-								'icon'			=> 'fa-mobile',
-								'maxlength'		=> 3,
-								'tooltip'		=> __('Mobile', 'bb-powerpack')
-							),
+					'caption_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Typography', 'bb-powerpack'),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-photo-caption',
 						),
 					),
 				),

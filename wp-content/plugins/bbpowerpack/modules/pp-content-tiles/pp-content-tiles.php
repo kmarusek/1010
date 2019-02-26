@@ -19,7 +19,6 @@ class PPContentTilesModule extends FLBuilderModule {
             'url'           	=> BB_POWERPACK_URL . 'modules/pp-content-tiles/',
 			'editor_export' 	=> false,
 			'partial_refresh'	=> true,
-			'icon'				=> 'layout.svg',
 		));
 
 		add_action( 'wp_ajax_ct_get_post_tax', array( $this, 'get_post_taxonomies' ) );
@@ -116,6 +115,56 @@ class PPContentTilesModule extends FLBuilderModule {
 		
 		return $count;
 	}
+
+	public function filter_settings( $settings, $helper )
+	{
+		// Handle old title typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'title_font'	=> array(
+				'type'			=> 'font'
+			),
+			'title_custom_font_size'	=> array(
+				'type'						=> 'font_size',
+				'condition'					=> ( isset( $settings->title_font_size ) && 'custom' == $settings->title_font_size )
+			),
+			'title_custom_line_height'	=> array(
+				'type'						=> 'line_height',
+				'condition'					=> ( isset( $settings->title_line_height ) && 'custom' == $settings->title_line_height )
+			),
+			'title_custom_letter_spacing'	=> array(
+				'type'							=> 'letter_spacing',
+				'condition'						=> ( isset( $settings->title_letter_spacing ) && 'custom' == $settings->title_letter_spacing )
+			),
+			'title_text_transform'		=> array(
+				'type'						=> 'text_transform'
+			),
+		), 'title_typography' );
+
+		// Handle old small title title font size field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'title_custom_font_size_s', 'responsive', 'title_custom_font_size_s' );
+		// Handle old small title title line height field.
+		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'title_custom_line_height_s', 'responsive', 'title_custom_line_height_s' );
+
+		// Handle old meta typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'meta_font'		=> array(
+				'type'			=> 'font'
+			),
+			'meta_custom_font_size'	=> array(
+				'type'			=> 'font_size',
+				'condition'		=> ( isset( $settings->meta_font_size ) && 'custom' == $settings->meta_font_size )
+			),
+			'meta_custom_letter_spacing'	=> array(
+				'type'			=> 'letter_spacing',
+				'condition'		=> ( isset( $settings->meta_letter_spacing ) && 'custom' == $settings->meta_letter_spacing )
+			),
+			'meta_text_transform'	=> array(
+				'type'			=> 'text_transform'
+			)
+		), 'meta_typography' );
+
+		return $settings;
+	}
 }
 
 /**
@@ -203,20 +252,22 @@ FLBuilder::register_module('PPContentTilesModule', array(
 				'title'         => __('Structure', 'bb-powerpack'),
 				'fields'        => array(
 					'post_height'    => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Height', 'bb-powerpack'),
 						'default'       => '470',
-						'maxlength'     => '3',
-						'size'          => '4',
-						'description'   => 'px'
+						'units'			=> array('px'),
+						'slider'		=> array(
+							'min'			=> 1,
+							'max'			=> 1000,
+							'step'			=> 10
+						),
 					),
 					'post_spacing'  => array(
-						'type'          => 'text',
+						'type'          => 'unit',
 						'label'         => __('Spacing', 'bb-powerpack'),
 						'default'       => '3',
-						'maxlength'     => '3',
-						'size'          => '4',
-						'description'   => 'px'
+						'units'			=> array('px'),
+						'slider'		=> true,
 					),
 				)
 			),
@@ -233,13 +284,15 @@ FLBuilder::register_module('PPContentTilesModule', array(
 						'type'          => 'color',
 						'label'         => __('Taxonomy Background Color', 'bb-powerpack'),
 						'default'       => '333333',
-						'show_reset'    => true
+						'show_reset'    => true,
+						'show_alpha'	=> true
 					),
 					'tax_bg_color_h'  	=> array(
 						'type'          	=> 'color',
-						'label'         	=> __('Taxonomy Hover Background Color', 'bb-powerpack'),
+						'label'         	=> __('Taxonomy Background Hover Color', 'bb-powerpack'),
 						'default'       	=> '6b6b6b',
-						'show_reset'    	=> true
+						'show_reset'    	=> true,
+						'show_alpha'		=> true
 					),
 				)
 			),
@@ -251,162 +304,14 @@ FLBuilder::register_module('PPContentTilesModule', array(
 			'title_typography'	=> array(
 				'title'			=> __('Title', 'bb-powerpack'),
 				'fields'		=> array(
-					'title_font'	=> array(
-						'type'			=> 'font',
-						'label'			=> __('Font', 'bb-powerpack'),
-						'default'		=> array(
-							'family'		=> 'Default',
-							'weight'		=> '400'
+					'title_typography'	=> array(
+						'type'				=> 'typography',
+						'label'				=> __('Title', 'bb-powerpack'),
+						'responsive'		=> true,
+						'preview'       	=> array(
+							'type'				=> 'css',
+							'selector'        	=> '.pp-post-tile-post:not(.pp-post-tile-small) .pp-post-tile-title',
 						),
-					),
-					'title_font_size'	=> array(
-						'type'				=> 'pp-switch',
-						'label'				=> __('Font Size', 'bb-powerpack'),
-						'default'			=> 'default',
-						'options'			=> array(
-							'default'			=> __('Default', 'bb-powerpack'),
-							'custom'			=> __('Custom', 'bb-powerpack')
-						),
-						'toggle'			=> array(
-							'custom'			=> array(
-								'fields'			=> array('title_custom_font_size')
-							)
-						)
-					),
-					'title_custom_font_size'	=> array(
-						'type' 						=> 'pp-multitext',
-						'label'						=> __('Custom Font Size', 'bb-powerpack'),
-						'default'					=> array(
-							'desktop'					=> 30,
-							'tablet'					=> '',
-							'mobile'					=> '',
-						),
-						'options' 					=> array(
-							'desktop' 					=> array(
-								'icon'						=> 'fa-desktop',
-								'placeholder'				=> __('Desktop', 'bb-powerpack'),
-								'tooltip'					=> __('Desktop', 'bb-powerpack'),
-								'preview'       			=> array(
-									'selector'        			=> '.pp-post-tile-post:not(.pp-post-tile-small) .pp-post-tile-title',
-									'property'        			=> 'font-size',
-									'unit'            			=> 'px'
-		                        ),
-							),
-							'tablet' 					=> array(
-								'icon'						=> 'fa-tablet',
-								'placeholder'				=> __('Tablet', 'bb-powerpack'),
-								'tooltip'					=> __('Tablet', 'bb-powerpack'),
-							),
-							'mobile' 					=> array(
-								'icon'						=> 'fa-mobile',
-								'placeholder'				=> __('Mobile', 'bb-powerpack'),
-								'tooltip'					=> __('Mobile', 'bb-powerpack'),
-							),
-
-						),
-					),
-					'title_line_height'	=> array(
-						'type'				=> 'pp-switch',
-						'label'				=> __('Line Height', 'bb-powerpack'),
-						'default'			=> 'default',
-						'options'			=> array(
-							'default'			=> __('Default', 'bb-powerpack'),
-							'custom'			=> __('Custom', 'bb-powerpack')
-						),
-						'toggle'			=> array(
-							'custom'			=> array(
-								'fields'			=> array('title_custom_line_height')
-							)
-						)
-					),
-					'title_custom_line_height'	=> array(
-						'type' 						=> 'pp-multitext',
-						'label'						=> __('Custom Line Height', 'bb-powerpack'),
-						'default'					=> array(
-							'desktop'					=> 1.4,
-							'tablet'					=> '',
-							'mobile'					=> '',
-						),
-						'options' 					=> array(
-							'desktop' 					=> array(
-								'icon'						=> 'fa-desktop',
-								'placeholder'				=> __('Desktop', 'bb-powerpack'),
-								'tooltip'					=> __('Desktop', 'bb-powerpack'),
-								'preview'       			=> array(
-									'selector'        			=> '.pp-post-tile-post:not(.pp-post-tile-small) .pp-post-tile-title',
-									'property'        			=> 'line-height',
-									'unit'            			=> 'em'
-		                        ),
-							),
-							'tablet' 					=> array(
-								'icon'						=> 'fa-tablet',
-								'placeholder'				=> __('Tablet', 'bb-powerpack'),
-								'tooltip'					=> __('Tablet', 'bb-powerpack'),
-							),
-							'mobile' 					=> array(
-								'icon'						=> 'fa-mobile',
-								'placeholder'				=> __('Mobile', 'bb-powerpack'),
-								'tooltip'					=> __('Mobile', 'bb-powerpack'),
-							),
-
-						),
-					),
-					'title_letter_spacing'	=> array(
-						'type'					=> 'pp-switch',
-						'label'					=> __('Letter Spacing', 'bb-powerpack'),
-						'default'				=> 'default',
-						'options'				=> array(
-							'default'				=> __('Default', 'bb-powerpack'),
-							'custom'				=> __('Custom', 'bb-powerpack')
-						),
-						'toggle'				=> array(
-							'custom'				=> array(
-								'fields'				=> array('title_custom_letter_spacing')
-							)
-						)
-					),
-					'title_custom_letter_spacing'	=> array(
-						'type' 						=> 'pp-multitext',
-						'label'						=> __('Custom Letter Spacing', 'bb-powerpack'),
-						'default'					=> array(
-							'desktop'					=> 0,
-							'tablet'					=> '',
-							'mobile'					=> '',
-						),
-						'options' 					=> array(
-							'desktop' 					=> array(
-								'icon'						=> 'fa-desktop',
-								'placeholder'				=> __('Desktop', 'bb-powerpack'),
-								'tooltip'					=> __('Desktop', 'bb-powerpack'),
-								'preview'       			=> array(
-									'selector'        			=> '.pp-post-tile-title',
-									'property'        			=> 'letter-spacing',
-									'unit'            			=> 'px'
-		                        ),
-							),
-							'tablet' 					=> array(
-								'icon'						=> 'fa-tablet',
-								'placeholder'				=> __('Tablet', 'bb-powerpack'),
-								'tooltip'					=> __('Tablet', 'bb-powerpack'),
-							),
-							'mobile' 					=> array(
-								'icon'						=> 'fa-mobile',
-								'placeholder'				=> __('Mobile', 'bb-powerpack'),
-								'tooltip'					=> __('Mobile', 'bb-powerpack'),
-							),
-
-						),
-					),
-					'title_text_transform'	=> array(
-						'type'					=> 'select',
-						'label'					=> __('Text Transform', 'bb-powerpack'),
-						'default'				=> 'none',
-						'options'				=> array(
-							'none'					=> __('None', 'bb-powerpack'),
-							'capitalize'			=> __('Capitalize', 'bb-powerpack'),
-							'lowercase'				=> __('lowercase', 'bb-powerpack'),
-							'uppercase'				=> __('UPPERCASE', 'bb-powerpack'),
-						)
 					),
 					'title_margin'	=> array(
 						'type'			=> 'pp-multitext',
@@ -458,35 +363,17 @@ FLBuilder::register_module('PPContentTilesModule', array(
 						)
 					),
 					'title_custom_font_size_s'	=> array(
-						'type' 						=> 'pp-multitext',
+						'type'						=> 'unit',
 						'label'						=> __('Custom Font Size', 'bb-powerpack'),
-						'default'					=> array(
-							'desktop'					=> 18,
-							'tablet'					=> '',
-							'mobile'					=> '',
-						),
-						'options' 					=> array(
-							'desktop' 					=> array(
-								'icon'						=> 'fa-desktop',
-								'placeholder'				=> __('Desktop', 'bb-powerpack'),
-								'tooltip'					=> __('Desktop', 'bb-powerpack'),
-								'preview'       			=> array(
-									'selector'        			=> '.pp-post-tile-small .pp-post-tile-title',
-									'property'        			=> 'font-size',
-									'unit'            			=> 'px'
-		                        ),
-							),
-							'tablet' 					=> array(
-								'icon'						=> 'fa-tablet',
-								'placeholder'				=> __('Tablet', 'bb-powerpack'),
-								'tooltip'					=> __('Tablet', 'bb-powerpack'),
-							),
-							'mobile' 					=> array(
-								'icon'						=> 'fa-mobile',
-								'placeholder'				=> __('Mobile', 'bb-powerpack'),
-								'tooltip'					=> __('Mobile', 'bb-powerpack'),
-							),
-
+						'default'					=> 18,
+						'units'						=> array('px'),
+						'slider'					=> true,
+						'responsive'				=> true,
+						'preview'       			=> array(
+							'type'						=> 'css',
+							'selector'        			=> '.pp-post-tile-small .pp-post-tile-title, .pp-post-tile-small .pp-post-tile-title a',
+							'property'        			=> 'font-size',
+							'unit'            			=> 'px'
 						),
 					),
 					'title_line_height_s'=> array(
@@ -503,36 +390,16 @@ FLBuilder::register_module('PPContentTilesModule', array(
 							)
 						)
 					),
-					'title_custom_line_height_s'=> array(
-						'type' 						=> 'pp-multitext',
+					'title_custom_line_height_s'	=> array(
+						'type'						=> 'unit',
 						'label'						=> __('Custom Line Height', 'bb-powerpack'),
-						'default'					=> array(
-							'desktop'					=> 1.4,
-							'tablet'					=> '',
-							'mobile'					=> '',
-						),
-						'options' 					=> array(
-							'desktop' 					=> array(
-								'icon'						=> 'fa-desktop',
-								'placeholder'				=> __('Desktop', 'bb-powerpack'),
-								'tooltip'					=> __('Desktop', 'bb-powerpack'),
-								'preview'       			=> array(
-									'selector'        			=> '.pp-post-tile-small .pp-post-tile-title',
-									'property'        			=> 'line-height',
-									'unit'            			=> 'em'
-		                        ),
-							),
-							'tablet' 					=> array(
-								'icon'						=> 'fa-tablet',
-								'placeholder'				=> __('Tablet', 'bb-powerpack'),
-								'tooltip'					=> __('Tablet', 'bb-powerpack'),
-							),
-							'mobile' 					=> array(
-								'icon'						=> 'fa-mobile',
-								'placeholder'				=> __('Mobile', 'bb-powerpack'),
-								'tooltip'					=> __('Mobile', 'bb-powerpack'),
-							),
-
+						'default'					=> 1.4,
+						'slider'					=> true,
+						'responsive'				=> true,
+						'preview'       			=> array(
+							'type'						=> 'css',
+							'selector'        			=> '.pp-post-tile-small .pp-post-tile-title, .pp-post-tile-small .pp-post-tile-title a',
+							'property'        			=> 'line-height',
 						),
 					),
 				)
@@ -540,115 +407,15 @@ FLBuilder::register_module('PPContentTilesModule', array(
 			'meta_typography'	=> array(
 			    'title'				=> __('Meta', 'bb-powerpack'),
 			    'fields'			=> array(
-			        'meta_font'		=> array(
-			            'type'			=> 'font',
-			            'label'			=> __('Font', 'bb-powerpack'),
-			            'default'		=> array(
-			                'family'		=> 'Default',
-			                'weight'		=> '400'
-			            )
-			        ),
-			        'meta_font_size'	=> array(
-			            'type'				=> 'pp-switch',
-			            'label'				=> __('Font Size', 'bb-powerpack'),
-			            'default'			=> 'custom',
-			            'options'			=> array(
-			                'default'			=> __('Default', 'bb-powerpack'),
-			                'custom'			=> __('Custom', 'bb-powerpack')
-			            ),
-			            'toggle'			=> array(
-			                'custom'			=> array(
-			                    'fields'			=> array('meta_custom_font_size')
-			                )
-			            )
-			        ),
-					'meta_custom_font_size'		=> array(
-						'type' 						=> 'pp-multitext',
-						'label'						=> __('Custom Font Size', 'bb-powerpack'),
-						'default'					=> array(
-							'desktop'					=> 12,
-							'tablet'					=> '',
-							'mobile'					=> '',
-						),
-						'options' 					=> array(
-							'desktop' 					=> array(
-								'icon'						=> 'fa-desktop',
-								'placeholder'				=> __('Desktop', 'bb-powerpack'),
-								'tooltip'					=> __('Desktop', 'bb-powerpack'),
-								'preview'       			=> array(
-									'selector'        			=> '.pp-post-tile-meta, .pp-post-tile-category',
-									'property'        			=> 'font-size',
-									'unit'            			=> 'px'
-		                        ),
-							),
-							'tablet' 					=> array(
-								'icon'						=> 'fa-tablet',
-								'placeholder'				=> __('Tablet', 'bb-powerpack'),
-								'tooltip'					=> __('Tablet', 'bb-powerpack'),
-							),
-							'mobile' 					=> array(
-								'icon'						=> 'fa-mobile',
-								'placeholder'				=> __('Mobile', 'bb-powerpack'),
-								'tooltip'					=> __('Mobile', 'bb-powerpack'),
-							),
+					'meta_typography'	=> array(
+						'type'				=> 'typography',
+						'label'				=> __('Typography', 'bb-powerpack'),
+						'responsive'		=> true,
+						'preview'       	=> array(
+							'type'				=> 'css',
+							'selector'        	=> '.pp-post-tile-meta, .pp-post-tile-category',
 						),
 					),
-			        'meta_letter_spacing'	=> array(
-			            'type'					=> 'pp-switch',
-			            'label'					=> __('Letter Spacing', 'bb-powerpack'),
-			            'default'				=> 'default',
-			            'options'				=> array(
-			                'default'				=> __('Default', 'bb-powerpack'),
-			                'custom'				=> __('Custom', 'bb-powerpack')
-			            ),
-			            'toggle'				=> array(
-			                'custom'				=> array(
-			                    'fields'				=> array('meta_custom_letter_spacing')
-			                )
-			            )
-			        ),
-					'meta_custom_letter_spacing'=> array(
-						'type' 						=> 'pp-multitext',
-						'label'						=> __('Custom Letter Spacing', 'bb-powerpack'),
-						'default'					=> array(
-							'desktop'					=> 0,
-							'tablet'					=> '',
-							'mobile'					=> '',
-						),
-						'options' 					=> array(
-							'desktop' 					=> array(
-								'icon'						=> 'fa-desktop',
-								'placeholder'				=> __('Desktop', 'bb-powerpack'),
-								'tooltip'					=> __('Desktop', 'bb-powerpack'),
-								'preview'       			=> array(
-									'selector'        			=> '.pp-post-tile-meta, .pp-post-tile-category',
-									'property'        			=> 'letter-spacing',
-									'unit'            			=> 'px'
-		                        ),
-							),
-							'tablet' 					=> array(
-								'icon'						=> 'fa-tablet',
-								'placeholder'				=> __('Tablet', 'bb-powerpack'),
-								'tooltip'					=> __('Tablet', 'bb-powerpack'),
-							),
-							'mobile' 					=> array(
-								'icon'						=> 'fa-mobile',
-								'placeholder'				=> __('Mobile', 'bb-powerpack'),
-								'tooltip'					=> __('Mobile', 'bb-powerpack'),
-							),
-						),
-					),
-			        'meta_text_transform'	=> array(
-			            'type'					=> 'select',
-			            'label'					=> __('Text Transform', 'bb-powerpack'),
-			            'default'				=> 'none',
-			            'options'				=> array(
-			                'none'					=> __('None', 'bb-powerpack'),
-			                'capitalize'			=> __('Capitalize', 'bb-powerpack'),
-			                'lowercase'				=> __('lowercase', 'bb-powerpack'),
-			                'uppercase'				=> __('UPPERCASE', 'bb-powerpack'),
-			            )
-			        ),
 					'meta_margin'	=> array(
 						'type'			=> 'pp-multitext',
 						'label'			=> __('Margin', 'bb-powerpack'),

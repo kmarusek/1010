@@ -264,15 +264,16 @@ function pp_row_overlay( $form, $id ) {
             'full_width'    => __('Full', 'bb-powerpack'),
             'half_width'    => __('Half Overlay - Left', 'bb-powerpack'),
             'half_right'    => __('Half Overlay - Right', 'bb-powerpack'),
-            'vertical_left' => __('Vertical Angled Left', 'bb-powerpack'),
-            'vertical_right' => __('Vertical Angled Right', 'bb-powerpack'),
+            'vertical_left' => __('Vertical Angled Left*', 'bb-powerpack'),
+            'vertical_right' => __('Vertical Angled Right*', 'bb-powerpack'),
             //'gradient'      => __('Gradient', 'bb-powerpack')
         ),
         'toggle'    => array(
             'gradient'  => array(
                 'fields'    => array('pp_bg_overlay_color_2', 'pp_bg_overlay_direction')
             )
-        )
+		),
+		'help'	=> __('* Vertical Angled Left and Vertical Angled Right will not work with Gradient overlay.', 'bb-powerpack')
     );
 
     $form['tabs']['style']['sections']['bg_overlay']['fields']['bg_overlay_color'] = $bg_overlay_color;
