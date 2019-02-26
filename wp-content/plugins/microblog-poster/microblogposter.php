@@ -4,7 +4,7 @@
  * Plugin Name: Microblog Poster
  * Plugin URI: https://efficientscripts.com/web/products/free
  * Description: Automatically publishes your new and old blog content to Social Networks. Auto posts to Twitter, Facebook, Linkedin, Tumblr, Blogger, Xing..
- * Version: 1.9.5.1
+ * Version: 1.9.5.2
  * Author: Efficient Scripts
  * Author URI: https://efficientscripts.com/
  * Text Domain: microblog-poster
@@ -411,6 +411,7 @@ class MicroblogPoster_Poster
         MicroblogPoster_Poster::update_wordpress($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $featured_image_src_full, $tags);
         MicroblogPoster_Poster::update_googleplus($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $tags);
         MicroblogPoster_Poster::update_facebookb($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $tags);
+        MicroblogPoster_Poster::update_gmb_locations($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $tags);
         
         MicroblogPoster_Poster::maintain_logs();
     }
@@ -758,6 +759,7 @@ class MicroblogPoster_Poster
         MicroblogPoster_Poster::update_wordpress($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $featured_image_src_full, $tags);
         MicroblogPoster_Poster::update_googleplus($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $tags);
         MicroblogPoster_Poster::update_facebookb($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $tags);
+        MicroblogPoster_Poster::update_gmb_locations($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $tags);
         
         MicroblogPoster_Poster::maintain_logs();
     }
@@ -4598,6 +4600,244 @@ class MicroblogPoster_Poster
             }
         }
     }
+    public static function update_gmb_locations($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink, $post_content_actual_lkn, $tags)
+    {
+        $curl = new MicroblogPoster_Curl();
+        $gmb_location_accounts = MicroblogPoster_Poster::get_accounts_by_mode('googlemybusinessl', $post_ID);
+        
+        if(!empty($gmb_location_accounts))
+        {
+            foreach($gmb_location_accounts as $gmb_location_account)
+            {
+                if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Pro','filter_single_account') && 
+                   $dash == 1 && $mp['val'] == 0 && $old == 0)
+                {
+                    if($cdriven && 
+                        MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise','filter_single_account_cdriven'))
+                    {
+                        $active = MicroblogPoster_Poster_Enterprise::filter_single_account_cdriven($gmb_location_account['account_id'], $post_ID, $gmb_location_account['extra']);
+                        if($active === false)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            if(isset($active['message_format']) && $active['message_format'])
+                            {
+                                $gmb_location_account['message_format'] = $active['message_format'];
+                            }
+                        }
+                    }
+                    else
+                    {
+                        $active = MicroblogPoster_Poster_Pro::filter_single_account($gmb_location_account['account_id']);
+                        if($active === false)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            if(isset($active['message_format']) && $active['message_format'])
+                            {
+                                $gmb_location_account['message_format'] = $active['message_format'];
+                            }
+                        }
+                    }
+                    
+                }
+                elseif(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise','filter_single_account_mp') && 
+                   $dash == 1 && $mp['val'] == 1 && $old == 0)
+                {
+                    $active = MicroblogPoster_Poster_Enterprise::filter_single_account_mp($gmb_location_account['account_id']);
+                    if($active === false)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        if(isset($active['message_format']) && $active['message_format'])
+                        {
+                            $gmb_location_account['message_format'] = $active['message_format'];
+                        }
+                    }
+                }
+                elseif(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster','filter_single_account_old') && 
+                   $dash == 1 && $mp['val'] == 0 && $old == 1)
+                {
+                    if($cdriven && 
+                        MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise','filter_single_account_cdriven_old'))
+                    {
+                        $active = MicroblogPoster_Poster_Enterprise::filter_single_account_cdriven_old($gmb_location_account['account_id'], $post_ID, $gmb_location_account['extra']);
+                        if($active === false)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            if(isset($active['message_format']) && $active['message_format'])
+                            {
+                                $gmb_location_account['message_format'] = $active['message_format'];
+                            }
+                        }
+                    }
+                    else
+                    {
+                        $active = MicroblogPoster_Poster::filter_single_account_old($gmb_location_account['account_id']);
+                        if($active === false)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            if(isset($active['message_format']) && $active['message_format'])
+                            {
+                                $gmb_location_account['message_format'] = $active['message_format'];
+                            }
+                        }
+                    }
+                    
+                }
+                elseif($cdriven && MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise','filter_single_account_cdriven_wodash'))
+                {
+                    $active = MicroblogPoster_Poster_Enterprise::filter_single_account_cdriven_wodash($gmb_location_account['account_id'], $post_ID, $gmb_location_account['extra']);
+                    if($active === false)
+                    {
+                        continue;
+                    }
+                }
+                elseif(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Pro','filter_single_account_scheduled') && 
+                       $dash == 0 && $mp['val'] == 0 && $old == 0)
+                {
+                    if(MicroblogPoster_Poster_Pro::isScheduled($post_ID))
+                    {
+                        $active = MicroblogPoster_Poster_Pro::filter_single_account_scheduled($gmb_location_account['account_id'],$post_ID);
+                        if($active === false)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            if(isset($active['message_format']) && $active['message_format'])
+                            {
+                                $gmb_location_account['message_format'] = $active['message_format'];
+                            }
+                        }
+                    }
+                }
+                
+                if(!$gmb_location_account['extra'])
+                {
+                    continue;
+                }
+                
+                $post_content[8] = MicroblogPoster_Poster::strip_shortcodes_and_tags($post_content[8]);
+                if($gmb_location_account['message_format'] && $mp['val'] == 0)
+                {
+                    $update = str_ireplace(MicroblogPoster_Poster::get_shortcodes(), $post_content, $gmb_location_account['message_format']);
+                }
+                elseif($gmb_location_account['message_format'] && $mp['val'] == 1 && $mp['type'] == 'link')
+                {
+                    $update = str_ireplace(MicroblogPoster_Poster::get_shortcodes_mp(), $post_content, $gmb_location_account['message_format']);
+                }
+                elseif($mp['val'] == 1 && $mp['type'] == 'text')
+                {
+                    
+                }
+                else
+                {
+                    $update = "";
+                }
+                
+                $extra = json_decode($gmb_location_account['extra'], true);
+                if($mp['val'] == 1 && $mp['type'] == 'text')
+                {
+                    $extra['post_type'] = 'text';
+                }
+                
+                global $wpdb;
+                $table_accounts = $wpdb->prefix . 'microblogposter_accounts';
+                $sql="SELECT * FROM $table_accounts WHERE account_id = %d LIMIT 1";
+                $rows = $wpdb->get_results($wpdb->prepare($sql, $gmb_location_account['consumer_key']));
+                $current_account = $rows[0];
+                $extra_main = json_decode($current_account->extra, true);
+                if(isset($extra_main['refresh_token']))
+                {
+                    if(isset($extra_main['expires']) && $extra_main['expires'] < time())
+                    {
+                        $customer_license_key_name = "microblogposterpro_plg_customer_license_key";
+                        $customer_license_key_value = get_option($customer_license_key_name, "");
+                        $url = "https://efficientscripts.com/api/googleMyBusinessRefresh.php?mbp_gmb_rt={$extra_main['refresh_token']}&mbp_lk={$customer_license_key_value['key']}";
+                        $json_res = $curl->fetch_url($url);
+                        $response = json_decode($json_res, true);
+                        if(isset($response['access_token']))
+                        {
+                            $extra_main['access_token'] = $response['access_token'];
+                            $extra_main['expires'] = time()+3400;
+
+                            $wpdb->update(
+                                    $table_accounts, 
+                                    array(
+                                        'extra' => json_encode($extra_main)
+                                    ),
+                                    array(
+                                        'account_id' => $gmb_location_account['consumer_key']
+                                    )
+                            );
+                        }
+                    }
+                    
+                    $access_token = "Bearer " . $extra_main['access_token'];
+                    $body = new stdClass();
+                    $body->languageCode = 'en';
+                    $body->summary = $update . ' ' .$permalink;
+                    $body->callToAction = new stdClass();
+                    $body->callToAction->actionType = 'LEARN_MORE';
+                    $body->callToAction->url = $permalink;
+                    $body->topicType = 'STANDARD';
+                    $body_json = json_encode($body);
+                    $headers = array(
+                        'Authorization' => $access_token,
+                        'Content-type'  => 'application/json',
+                    );
+                    
+                    foreach($extra['locations'] as $location)
+                    {
+                        $end_point = 'https://mybusiness.googleapis.com/v4/'.$location.'/localPosts';
+                        $curl->set_headers($headers);
+                        $result = $curl->send_post_data_json($end_point, $body_json);
+                        $result_dec = json_decode($result, true);
+                        $action_result = 2;
+                        if($result_dec && isset($result_dec['name']) && isset($result_dec['createTime']))
+                        {
+                            $action_result = 1;
+                            $result = "Success";
+                        }
+                        
+                        $log_data = array();
+                        $log_data['account_id'] = $gmb_location_account['account_id'];
+                        $log_data['account_type'] = "googlemybusinessl";
+                        $log_data['username'] = $gmb_location_account['username'].' - '.$extra_main['locationsQuickAccess'][$location];
+                        $log_data['post_id'] = $post_ID;
+                        $log_data['action_result'] = $action_result;
+                        $log_data['update_message'] = $update;
+                        $log_data['log_message'] = $result;
+                        if($mp['val'] == 1)
+                        {
+                            $log_data['log_type'] = 'manual';
+                        }
+                        elseif($old == 1)
+                        {
+                            $log_data['log_type'] = 'old';
+                        }
+                        MicroblogPoster_Poster::insert_log($log_data);
+                    }
+                    
+                }
+                
+            }
+            
+        }
+    }
     
     /**
     * Sends OAuth signed request
@@ -5317,6 +5557,27 @@ class MicroblogPoster_Poster
         {
             return null;
         }
+    }
+    
+    public static function get_gmb_locations_object($account_id)
+    {
+        global  $wpdb;
+
+        $table_accounts = $wpdb->prefix . 'microblogposter_accounts';
+        $table_user_accounts = $wpdb->prefix . 'microblogposter_user_accounts';
+        
+        $sql="SELECT * FROM $table_accounts WHERE type='googlemybusinessl' AND consumer_key='{$account_id}'";
+        if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Ultimate','resolve_sql'))
+        {
+            $sql .= MicroblogPoster_Poster_Ultimate::resolve_sql();
+        }
+        else
+        {
+            $sql .= " AND account_id NOT IN (SELECT DISTINCT account_id FROM $table_user_accounts)";
+        }
+        $rows = $wpdb->get_results($sql);
+        
+        return $rows;
     }
     
     public static function create_tags_string($tags)

@@ -384,6 +384,89 @@ function microblogposter_settings_output()
             }
         }
     }
+    if(isset($_GET['googlemybusiness_account_id']))
+    {
+        $mbp_accounts_tab_selected = true;
+        
+        $gmb_account_id = (int) $_GET['googlemybusiness_account_id'];
+        $sql="SELECT * FROM $table_accounts WHERE account_id = %d LIMIT 1";
+        $rows = $wpdb->get_results($wpdb->prepare($sql, $gmb_account_id));
+        $current_account = $rows[0];
+        $extra = array();
+        $extra = json_decode($current_account->extra, true);
+        if(isset($extra['refresh_token']))
+        {
+            $gmb_refresh_token = $extra['refresh_token'];
+            $url = "https://efficientscripts.com/api/googleMyBusinessRefresh.php?mbp_gmb_rt={$gmb_refresh_token}&mbp_lk={$customer_license_key_value['key']}";
+            $curl = new MicroblogPoster_Curl();
+            $json_res = $curl->fetch_url($url);
+            $response = json_decode($json_res, true);
+            if(isset($response['access_token']))
+            {
+                $extra['access_token'] = $response['access_token'];
+                $extra['expires'] = time()+3500;
+                $wpdb->update(
+                        $table_accounts, 
+                        array(
+                            'extra' => json_encode($extra)
+                        ),
+                        array(
+                            'account_id' => $gmb_account_id
+                        )
+                );
+                $end_point = 'https://mybusiness.googleapis.com/v4/accounts';
+                $access_token = "Bearer " . $response['access_token'];
+                $headers = array(
+                    'Authorization' => $access_token,
+                    'Content-type'  => 'application/json',
+                );
+                $curl->set_headers($headers);
+                $result = $curl->fetch_url($end_point);
+                $result_dec = json_decode($result, true);
+                $extra['accounts'] = array();
+                if(isset($result_dec['accounts']) && !empty($result_dec['accounts']))
+                {
+                    $gmb_accounts_quick_access = array();
+                    $gmb_locations_quick_access = array();
+                    foreach($result_dec['accounts'] as $gmb_account)
+                    {
+                        $end_point = 'https://mybusiness.googleapis.com/v4/'.$gmb_account['name'].'/locations';
+                        $curl->set_headers($headers);
+                        $result = $curl->fetch_url($end_point);
+                        $result_dec = json_decode($result, true);
+                        if(isset($result_dec['locations']) && !empty($result_dec['locations']))
+                        {
+                            $gmb_locations = array();
+                            foreach($result_dec['locations'] as $gmb_location)
+                            {
+                                $gmb_locations[] = array(
+                                    'id'=>$gmb_location['name'], 
+                                    'name'=>$gmb_location['locationName']
+                                );
+                                $gmb_locations_quick_access[$gmb_location['name']] = $gmb_location['locationName'];
+                            }
+                        }
+                        $extra['accounts'][] = array(
+                                    'id'=>$gmb_account['name'], 
+                                    'name'=>$gmb_account['accountName'],
+                                    'locations' => $gmb_locations);
+                        $gmb_accounts_quick_access[$gmb_account['name']] = $gmb_account['accountName'];
+                    }
+                    $extra['locationsQuickAccess'] = $gmb_locations_quick_access;
+                    $extra['accountsQuickAccess'] = $gmb_accounts_quick_access;
+                    $wpdb->update(
+                        $table_accounts, 
+                        array(
+                            'extra' => json_encode($extra)
+                        ),
+                        array(
+                            'account_id' => $gmb_account_id
+                        )
+                    );
+                }
+            }
+        }
+    }
     
     if(isset($_POST["update_options"]))
     {
@@ -866,6 +949,17 @@ function microblogposter_settings_output()
         {
             $extra['authorized'] = 1;
         }
+        if($account_type == 'googlemybusinessl')
+        {
+            $consumer_key = sanitize_text_field( intval(trim($_POST['account_id'])) );
+            $extra['account_id'] = sanitize_text_field( $_POST['gmb_account_name'] );
+            $locations = array();
+            foreach($_POST['gmb_location_names'] as $location_id)
+            {
+                $locations[] = sanitize_text_field( $location_id );
+            }
+            $extra['locations'] = $locations;
+        }
         
         $extra = json_encode($extra);
         //$wpdb->escape_by_ref($extra);
@@ -1124,6 +1218,16 @@ function microblogposter_settings_output()
             {
                 $extra['authorized'] = 0;
             }
+            if($account_type == 'googlemybusinessl')
+            {
+                $consumer_key = sanitize_text_field( intval(trim($_POST['main_account_id'])) );
+                $locations = array();
+                foreach($_POST['gmb_location_names'] as $location_id)
+                {
+                    $locations[] = sanitize_text_field( $location_id );
+                }
+                $extra['locations'] = $locations;
+            }
 
             $extra = json_encode($extra);
             //$wpdb->escape_by_ref($extra);
@@ -1212,6 +1316,21 @@ function microblogposter_settings_output()
                         {
                             MicroblogPoster_Poster_Ultimate::unsync($row->account_id);
                         }
+                    }
+                }
+            }
+            if($delete_account->type == 'googlemybusiness')
+            {
+                $sql="SELECT * FROM $table_accounts WHERE type = %s AND consumer_key = %s";
+                $rows = $wpdb->get_results($wpdb->prepare($sql, 'googlemybusinessl', $delete_account->account_id));
+                foreach($rows as $row)
+                {
+                    $sql = "DELETE FROM {$table_accounts} WHERE account_id = %d";
+                    $wpdb->query($wpdb->prepare($sql, $row->account_id));
+
+                    if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Ultimate','unsync') && $multi_author_mode_value)
+                    {
+                        MicroblogPoster_Poster_Ultimate::unsync($row->account_id);
                     }
                 }
             }
@@ -2251,6 +2370,27 @@ function microblogposter_settings_output()
             $redirect_after_auth = true;
         }
     }
+    if(isset($_GET['microblogposter_gmb_rt']) && isset($_GET['account_id']))
+    {
+        $gmb_account_id = (int) $_GET['account_id'];
+        $gmb_refresh_token = $_GET['microblogposter_gmb_rt'];
+        $sql="SELECT * FROM $table_accounts WHERE account_id = %d";
+        $rows = $wpdb->get_results($wpdb->prepare($sql, $gmb_account_id));
+        $row = $rows[0];
+        $gmb_acc_extra_auth = json_decode($row->extra, true);
+        $gmb_acc_extra_auth['refresh_token'] = $gmb_refresh_token;
+        $gmb_acc_extra_auth = json_encode($gmb_acc_extra_auth);
+        
+        $wpdb->update(
+                $table_accounts, 
+                array(
+                    'extra' => $gmb_acc_extra_auth
+                ),
+                array(
+                    'account_id' => $gmb_account_id
+                )
+        );
+    }
     
     $shortcodes_intro = __( 'You can use shortcodes:', 'microblog-poster' );
     $title_shortcode = "{TITLE} = " . __( 'Title of the blog post.', 'microblog-poster' );
@@ -2757,6 +2897,7 @@ function microblogposter_settings_output()
             
         <?php 
         $update_accounts = array();
+        $configure_accounts = array();
         ?>
         
         <div id="social-network-accounts">
@@ -2768,6 +2909,7 @@ function microblogposter_settings_output()
         <?php require_once "options/microblogposter_options_bff.php";?>
         <?php require_once "options/microblogposter_options_gpb.php";?>
         <?php require_once "options/microblogposter_options_fbb.php";?>
+        <?php require_once "options/microblogposter_options_gmb.php";?>
         <?php require_once "options/microblogposter_options_vk.php";?>    
         <?php require_once "options/microblogposter_options_fk.php";?>    
         <?php require_once "options/microblogposter_options_xg.php";?>    
@@ -2798,6 +2940,7 @@ function microblogposter_settings_output()
                         <option value="buffer">Buffer</option>
                         <option value="googleplus">Google+ (via Buffer)</option>
                         <option value="facebookb">Facebook (via Buffer)</option>
+                        <option value="googlemybusiness">Google My Business</option>
                         <option value="vkontakte">VKontakte</option>
                         <option value="flickr">Flickr</option>
                         <option value="xing">Xing</option>
@@ -2927,8 +3070,9 @@ function microblogposter_settings_output()
         }
         textarea#message_format
         {
-            /*resize: none;*/
+            resize: both;
             width: 290px;
+            max-width: 460px;
         }
         .button-holder
         {
@@ -2950,6 +3094,20 @@ function microblogposter_settings_output()
             cursor: pointer;
         }
         .edit-account:hover
+        {
+            color: #CCCCCC;
+            border-color: #BBBBBB;
+        }
+        .configure-account
+        {
+            padding: 1px 8px;
+            background: #0066FF;
+            color: #FFFFFF;
+            border: 1px solid #0066FF;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .configure-account:hover
         {
             color: #CCCCCC;
             border-color: #BBBBBB;
@@ -3282,7 +3440,7 @@ function microblogposter_settings_output()
             margin-left: 750px;
             margin-bottom: 20px;
         }
-        #mbp_refresh_buffer_form_wrapper
+        #mbp_refresh_buffer_form_wrapper, #mbp_refresh_gmb_form_wrapper
         {
             margin-bottom: 20px;
         }
@@ -3375,6 +3533,13 @@ function microblogposter_settings_output()
         #mbp_microblogposter_link-categories_switch
         {
             margin-right: 5px;
+        }
+        #gmb_location_names
+        {
+            width: 290px;
+            max-width: 460px;
+            resize: both;
+            
         }
     </style>
 
@@ -3713,7 +3878,7 @@ function microblogposter_settings_output()
                     'scrolling'	: 'auto',
                     'titleShow'	: false,
                     'onComplete'	: function() {
-                        $('div#fancybox-content #plurk-div,div#fancybox-content #friendfeed-div,div#fancybox-content #delicious-div,div#fancybox-content #facebook-div,div#fancybox-content #diigo-div,div#fancybox-content #linkedin-div,div#fancybox-content #tumblr-div,div#fancybox-content #blogger-div,div#fancybox-content #instapaper-div,div#fancybox-content #vkontakte-div,div#fancybox-content #xing-div,div#fancybox-content #pinterest-div,div#fancybox-content #flickr-div,div#fancybox-content #wordpress-div,div#fancybox-content #buffer-div,div#fancybox-content #googleplus-div,div#fancybox-content #facebookb-div').hide().find('input,select,textarea').attr('disabled','disabled');
+                        $('div#fancybox-content #plurk-div,div#fancybox-content #friendfeed-div,div#fancybox-content #delicious-div,div#fancybox-content #facebook-div,div#fancybox-content #diigo-div,div#fancybox-content #linkedin-div,div#fancybox-content #tumblr-div,div#fancybox-content #blogger-div,div#fancybox-content #instapaper-div,div#fancybox-content #vkontakte-div,div#fancybox-content #xing-div,div#fancybox-content #pinterest-div,div#fancybox-content #flickr-div,div#fancybox-content #wordpress-div,div#fancybox-content #buffer-div,div#fancybox-content #googleplus-div,div#fancybox-content #facebookb-div,div#fancybox-content #googlemybusiness-div').hide().find('input,select,textarea').attr('disabled','disabled');
                         
                         $(".save-account").removeAttr('disabled');
                         
@@ -3757,7 +3922,7 @@ function microblogposter_settings_output()
             $("#account_type").live("change", function(){
                 var type = $(this).val();
                 //console.log(type);
-                $('div#fancybox-content #twitter-div,div#fancybox-content #plurk-div,div#fancybox-content #friendfeed-div,div#fancybox-content #delicious-div,div#fancybox-content #facebook-div,div#fancybox-content #diigo-div,div#fancybox-content #linkedin-div,div#fancybox-content #tumblr-div,div#fancybox-content #blogger-div,div#fancybox-content #instapaper-div,div#fancybox-content #vkontakte-div,div#fancybox-content #xing-div,div#fancybox-content #pinterest-div,div#fancybox-content #flickr-div,div#fancybox-content #wordpress-div,div#fancybox-content #buffer-div,div#fancybox-content #googleplus-div,div#fancybox-content #facebookb-div').hide().find('input,select,textarea').attr('disabled','disabled');
+                $('div#fancybox-content #twitter-div,div#fancybox-content #plurk-div,div#fancybox-content #friendfeed-div,div#fancybox-content #delicious-div,div#fancybox-content #facebook-div,div#fancybox-content #diigo-div,div#fancybox-content #linkedin-div,div#fancybox-content #tumblr-div,div#fancybox-content #blogger-div,div#fancybox-content #instapaper-div,div#fancybox-content #vkontakte-div,div#fancybox-content #xing-div,div#fancybox-content #pinterest-div,div#fancybox-content #flickr-div,div#fancybox-content #wordpress-div,div#fancybox-content #buffer-div,div#fancybox-content #googleplus-div,div#fancybox-content #facebookb-div,div#fancybox-content #googlemybusiness-div').hide().find('input,select,textarea').attr('disabled','disabled');
                 $('div#fancybox-content #'+type+'-div').show().find('input,select,textarea').removeAttr('disabled');
                 $(".save-account").removeAttr('disabled');
                 if(type=='facebook')
@@ -4056,6 +4221,49 @@ function microblogposter_settings_output()
 
                     $('div#fancybox-content #delete_account_form<?php echo $account_id;?>').submit();
                     $.fancybox.close();
+                });
+            <?php endforeach;?>
+            
+            <?php foreach($configure_accounts as $account_id):?>
+                $(".configure<?php echo $account_id;?>").live("click", function(){
+                    $.fancybox({
+                        'content'       : $('#configure_account<?php echo $account_id;?>').html(),
+                        'transitionIn'	: 'none',
+                        'transitionOut'	: 'none',
+                        'autoDimensions': false,
+                        'width'		: 850,
+                        'height'	: 500,
+                        'scrolling'	: 'auto',
+                        'titleShow'	: false,
+                        'onComplete'	: function() {
+                            $("div#fancybox-content #mbp-link-categories-div").hide();
+                        }
+                    });
+                });
+                $(".configure-account<?php echo $account_id;?>").live("click", function(){
+
+                    $('div#fancybox-content #configure_account_form<?php echo $account_id;?>').submit();
+                    $.fancybox.close();
+                    
+                });
+                $("#gmb_account_name_<?php echo $account_id;?>").live("change", function(){
+                    var gmb_account_id = $(this).val();
+
+                    if(gmb_account_id)
+                    {
+                        var data = {
+                                'action': 'microblogposter_gmb_get_locations',
+                                'gmb_user_id': <?php echo $account_id;?>,
+                                'gmb_account_id': gmb_account_id
+                        };
+                        jQuery.post(ajaxurl, data, function(response) {
+                            locations = JSON.parse(response);
+                            $("div#fancybox-content #gmb_location_names").html('');
+                            $.each(locations, function(index, location) {
+                                $("div#fancybox-content #gmb_location_names").append($("<option />").val(location.id).text(location.name));
+                            });
+                        });
+                    }
                 });
             <?php endforeach;?>
             
@@ -4684,6 +4892,19 @@ function microblogposter_show_mini_control_dashboard()
             endforeach;
         endif;
     ?>
+    
+    <?php 
+        $gmbl_accounts = MicroblogPoster_Poster::get_accounts_object('googlemybusinessl');
+        if(!empty($gmbl_accounts)):
+            microblogposter_show_common_account_dashboard_head('googlemybusinessl'); 
+            foreach($gmbl_accounts as $gmbl_account):
+                microblogposter_show_common_account_dashboard($gmbl_account, 'googlemybusinessl');
+    ?>
+
+    <?php
+            endforeach;
+        endif;
+    ?>
 
     <?php
 }
@@ -4698,6 +4919,7 @@ function microblogposter_show_common_account_dashboard_head($site)
             if($site == 'vkontakte'){$site_label = 'vKontakte';}
             if($site == 'googleplus'){$site_label = 'google+(Buffer)';}
             if($site == 'facebookb'){$site_label = 'facebook(Buffer)';}
+            if($site == 'googlemybusinessl'){$site_label = 'GMB Location';}
         ?>
         <?php if( in_array(get_locale(), array('fr_FR', 'pt_PT', 'pt_BR', 'es_ES', 'es_MX', 'es_PE', 'it_IT', 'ru_RU', 'uk', 'pl_PL')) ):?>
             <h4><?php _e('Accounts', 'microblog-poster');?> <?php echo ucfirst($site_label);?></h4>
@@ -5008,6 +5230,19 @@ function microblogposter_show_mini_control_dashboard_old()
             endforeach;
         endif;
     ?>
+    
+    <?php 
+        $gmbl_accounts = MicroblogPoster_Poster::get_accounts_object('googlemybusinessl');
+        if(!empty($gmbl_accounts)):
+            microblogposter_show_common_account_dashboard_head_old('googlemybusinessl'); 
+            foreach($gmbl_accounts as $gmbl_account):
+                microblogposter_show_common_account_dashboard_old($gmbl_account, 'googlemybusinessl');
+    ?>
+
+    <?php
+            endforeach;
+        endif;
+    ?>
 
     <?php
 }
@@ -5022,6 +5257,7 @@ function microblogposter_show_common_account_dashboard_head_old($site)
             if($site == 'vkontakte'){$site_label = 'vKontakte';}
             if($site == 'googleplus'){$site_label = 'google+(Buffer)';}
             if($site == 'facebookb'){$site_label = 'facebook(Buffer)';}
+            if($site == 'googlemybusinessl'){$site_label = 'GMB Location';}
         ?>
         <?php if( in_array(get_locale(), array('fr_FR', 'pt_PT', 'pt_BR', 'es_ES', 'es_MX', 'es_PE', 'it_IT', 'ru_RU', 'uk', 'pl_PL')) ):?>
             <h4><?php _e('Accounts', 'microblog-poster');?> <?php echo ucfirst($site_label);?></h4>
@@ -5083,6 +5319,38 @@ function microblogposter_show_more_infos_category_driven()
     <div class="input-div"> </div>
     <div id="mbp-link-categories-div" class="input-div-large"> </div>
     <?php
+}
+
+add_action( 'wp_ajax_microblogposter_gmb_get_locations', 'microblogposter_gmb_get_locations' );
+
+function microblogposter_gmb_get_locations() 
+{
+    global $wpdb;
+    $table_accounts = $wpdb->prefix . 'microblogposter_accounts';
+    
+    $gmb_user_id = $_POST['gmb_user_id'];
+    $gmb_account_id = $_POST['gmb_account_id'];
+    $content = array();
+    
+    $sql="SELECT * FROM $table_accounts WHERE account_id = %d LIMIT 1";
+    $rows = $wpdb->get_results($wpdb->prepare($sql, $gmb_user_id));
+    $current_account = $rows[0];
+    $extra = json_decode($current_account->extra, true);
+    if(isset($extra['accounts']) && !empty($extra['accounts']))
+    {
+        foreach($extra['accounts'] as $account)
+        {
+            if($account['id'] == $gmb_account_id)
+            {
+                foreach($account['locations'] as $location)
+                {
+                    $content[] = array("id"=>$location['id'], "name"=>$location['name']);
+                }
+            }
+        }
+    }
+    echo json_encode($content);
+    wp_die();
 }
 
 ?>

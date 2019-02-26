@@ -1134,3 +1134,12 @@
         <?php endif;?>
     </div>
 </div>
+<div id="googlemybusiness-div" class="one-account">
+    <div class="help-div"><span class="description">Google My Business&nbsp;:&nbsp;<a href="https://efficientscripts.com/web/microblogposter/googlemybusiness-auto-publish" target="_blank"><?php _e('Help with screenshots in english', 'microblog-poster');?></a></span></div>
+    <div class="input-div">
+        <?php _e('Username:', 'microblog-poster');?>
+    </div>
+    <div class="input-div-large">
+        <input type="text" id="username" name="username" value="" />
+    </div>
+</div>
