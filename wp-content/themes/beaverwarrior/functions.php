@@ -103,6 +103,9 @@ function skeletonwarrior_enqueue_scripts() {
     //Vendored copy of Slick Slider
     wp_register_style('slick-slider', get_stylesheet_directory_uri() . '/assets/vendor/slick/slick/slick.css', false, null, "all");
     wp_register_script('slick-slider', get_stylesheet_directory_uri() . '/assets/vendor/slick/slick/slick.min.js', false, null, true);
+
+    // Intersection Observer polyfill
+    wp_register_script('intersection-observer-polyfill', get_stylesheet_directory_uri() . '/assets/vendor/google/polyfill/intersection-observer.js' );
     
     wp_enqueue_script('scripts');
     wp_enqueue_style('main');
