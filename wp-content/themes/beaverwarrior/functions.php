@@ -30,6 +30,14 @@ while ($dir2 !== FALSE && FALSE !== ($entry = readdir($dir2))) {
     }
 }
 
+// Some legacy sites might already include the BeaverWarriorFLModule class, so only include
+// the following file if that class doesn't already exist
+if ( class_exists( 'FLBuilder') && !class_exists( 'BeaverWarriorFLModule' ) ){
+    if ( file_exists( get_stylesheet_directory() . '/classes/class-beaver-warrior-fl-module.php' )){
+       require_once get_stylesheet_directory() . '/classes/class-beaver-warrior-fl-module.php';
+    }
+}
+
 class SkeletonWarrior_Renderer {
     private $args;
     private $file;
@@ -106,6 +114,9 @@ function skeletonwarrior_enqueue_scripts() {
 
     // Intersection Observer polyfill
     wp_register_script('intersection-observer-polyfill', get_stylesheet_directory_uri() . '/assets/vendor/google/polyfill/intersection-observer.js' );
+
+    // Lottie web
+    wp_register_script('lottie-web', get_stylesheet_directory_uri() . '/assets/vendor/airbnb/lottie-web/lottie.min.js' );
     
     wp_enqueue_script('scripts');
     wp_enqueue_style('main');
