@@ -353,6 +353,18 @@ add_action("after_setup_theme", "beaver_warrior_theme_support");
 function beaver_warrior_less_paths($lesssrc) {
     return [];
 }
+
+function beaver_warrier_huemor_clear_style_cache(){
+    // If the user is logged in and not on Pantheon
+    if ( is_user_logged_in() && !isset( $_ENV['PANTHEON_ENVIRONMENT'] ) && defined( 'HUEMOR_DEV_PACK_ENABLED' ) && HUEMOR_DEV_PACK_ENABLED ) {
+        // Get the current post
+        $current_post_id = get_the_ID();
+        // Remove layouts and partials
+        exec("rm wp-content/uploads/bb-plugin/cache/$current_post_id-*");
+        exec("rm wp-content/uploads/beaverwarrior/*");
+    }
+}
+
 add_action("fl_theme_compile_less_paths", "beaver_warrior_less_paths");
 
 // Theme Actions
@@ -363,3 +375,5 @@ add_action( 'customize_controls_enqueue_scripts',        'BWCustomizerLess::cont
 add_action( 'customize_controls_print_footer_scripts',   'BWCustomizerLess::controls_print_footer_scripts' );
 //add_action( 'customize_register',                        'BWCustomizerLess::register' );
 add_action( 'customize_save_after',                      'BWCustomizerLess::save' );
+
+add_action( 'template_redirect' , 'beaver_warrier_huemor_clear_style_cache' );
