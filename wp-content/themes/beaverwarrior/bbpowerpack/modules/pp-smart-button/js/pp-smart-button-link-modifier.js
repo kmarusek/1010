@@ -23,7 +23,6 @@
                 }
                 // If we don't have GA set up, warn us
                 if (tracker_names.length < 1){
-                    console.error("Error! Unable to find GA tracker names!");
                     return;
                 }
                 // Reformat all links

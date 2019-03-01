@@ -232,6 +232,15 @@ class BeaverWarriorFLModule extends FLBuilderModule {
      * @return boolean True if viewing as themer layout
      */
      public function isViewingInEditor(){
+        return is_user_logged_in() && strpos($_SERVER['REQUEST_URI'], "fl_builder" ) !== false;
+    }
+
+     /**
+     * Method to determine if we're vieiwng as the themer layout
+     *
+     * @return boolean True if viewing as themer layout
+     */
+     public function isViewingInThemerLayout(){
         return is_user_logged_in() && strpos($_SERVER['REQUEST_URI'], "fl-theme-layout" ) !== false;
     }
 
