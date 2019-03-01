@@ -201,7 +201,7 @@ FLBuilder::register_module(
                             'label'    => __('Animation JSON', 'fl-builder'),
                             'type'     => 'code',
                             'rows'     => '2',
-                            'editor'   => 'json',
+                            'editor'   => 'javascript',
                             'sanitize' => 'BWAnimatedSVG::getSanitizedJSON'
                         ),
                         'animation_json_replace_paths' => array(
