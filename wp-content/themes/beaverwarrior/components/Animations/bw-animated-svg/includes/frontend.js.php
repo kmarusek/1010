@@ -4,7 +4,7 @@ $formatted_json = $module->getFormattedJSON();
 ?>
 document.addEventListener( "DOMContentLoaded", function(){
     new BWAnimatedSVG({
-        animateOnScroll    : true,
+        animateOnScroll    : <?php echo $module->getModuleSettingScrollBasedAnimation(); ?>,
         elementContainerID : '<?php echo $module->getLottieContainerUniqueID(); ?>',
         lottieParams       : {
             loop          : <?php echo $module->getModuleSettingLoopAnimation(); ?>,
