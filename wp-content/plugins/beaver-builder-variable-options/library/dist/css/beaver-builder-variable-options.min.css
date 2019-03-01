@@ -1,0 +1,20 @@
+.fl-lightbox .fl-field-connection-label code.bbvo-variable-name {
+  font-family: monospace;
+  cursor: help;
+  color: grey;
+  background-color: transparent; }
+.fl-lightbox .fl-field-connection-label .tooltip .tooltip-inner {
+  font-family: monospace;
+  padding: 10px;
+  color: white; }
+  .fl-lightbox .fl-field-connection-label .tooltip .tooltip-inner .popover-color-preview {
+    position: relative;
+    top: 2px;
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-left: 4px;
+    border: 1px solid grey;
+    border-radius: 2px; }
+.fl-lightbox #fl-field-bbvo_variable_unit {
+  display: none; }

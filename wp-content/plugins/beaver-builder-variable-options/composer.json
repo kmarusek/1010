@@ -1,0 +1,16 @@
+{
+    "name": "huemordesigns/beaver-builder-variable-options",
+    "type": "wordpress-plugin",
+    "authors": [
+        {
+            "name": "Jordan Leven",
+            "email": "jordan@huemordesigns.com"
+        }
+    ],
+    "require": {
+        "aristath/kirki": "v3.0.35.3"
+    },
+    "config": {
+        "vendor-dir": "library/vendor/"
+    }
+}
