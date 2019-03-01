@@ -9,6 +9,28 @@ require_once 'classes/class-bw-customizer-less.php';
 require_once 'classes/beaverbuilder_integration.decl.php';
 
 
+
+/**
+ * Function used by .decl files that include a file if this site is 
+ * using Beaver Builder. Additionally, it checks if the file
+ * actually exists so we can avoid fatal errors for missing or
+ * incomplete plugins.  
+ *
+ * Notably, this must be above the part of functions.php that 
+ * include .decl files.
+ *
+ * @param  string $file_path The absolute file path
+ *
+ * @return void
+ */
+function register_beaver_warrior_module( string $file_path ){
+    add_action ('init', function() use ( $file_path) {
+        if ( class_exists("FLBuilder") && file_exists( $file_path ) ) {
+            require_once $file_path;
+        }
+    }, 15);
+}
+
 //We support splitting functions.php into separate files, so do so whenever possible.
 $theme_path = get_stylesheet_directory();
 
@@ -34,7 +56,7 @@ while ($dir2 !== FALSE && FALSE !== ($entry = readdir($dir2))) {
 // the following file if that class doesn't already exist
 if ( class_exists( 'FLBuilder') && !class_exists( 'BeaverWarriorFLModule' ) ){
     if ( file_exists( get_stylesheet_directory() . '/classes/class-beaver-warrior-fl-module.php' )){
-       require_once get_stylesheet_directory() . '/classes/class-beaver-warrior-fl-module.php';
+        require_once get_stylesheet_directory() . '/classes/class-beaver-warrior-fl-module.php';
     }
 }
 
@@ -116,7 +138,7 @@ function skeletonwarrior_enqueue_scripts() {
     wp_register_script('intersection-observer-polyfill', get_stylesheet_directory_uri() . '/assets/vendor/google/polyfill/intersection-observer.js' );
 
     // Lottie web
-    wp_register_script('lottie-web', get_stylesheet_directory_uri() . '/assets/vendor/airbnb/lottie-web/lottie.min.js' );
+    wp_register_script('lottie-web', get_stylesheet_directory_uri() . '/assets/vendor/airbnb/lottie-web/lottie.min.js', array(), false, true );
     
     wp_enqueue_script('scripts');
     wp_enqueue_style('main');
@@ -167,11 +189,11 @@ add_filter( 'upload_mimes', 'skeletonwarrior_mime_types' );
  */
 function skeletonwarrior_fix_svg() {
   echo '<style type="text/css">
-        .attachment-266x266, .thumbnail img {
-             width: 100% !important;
-             height: auto !important;
-        }
-        </style>';
+  .attachment-266x266, .thumbnail img {
+   width: 100% !important;
+   height: auto !important;
+}
+</style>';
 }
 add_action( 'admin_head', 'skeletonwarrior_fix_svg' );
 
@@ -236,15 +258,15 @@ function exit_loop() {
 function skeletonwarrior_custom_login_image() {
     echo "<style>
     body.login #login h1 a {
-    background: url('".get_bloginfo('template_url')."/assets/img/login_logo.svg') 8px 0 no-repeat transparent;
-    background-position: center center;
-    background-size:50%;
-    height:150px;
-    width:320px; }
+        background: url('".get_bloginfo('template_url')."/assets/img/login_logo.svg') 8px 0 no-repeat transparent;
+        background-position: center center;
+        background-size:50%;
+        height:150px;
+        width:320px; }
 
-    </style>";
-}
-add_action("login_head", "skeletonwarrior_custom_login_image");
+        </style>";
+    }
+    add_action("login_head", "skeletonwarrior_custom_login_image");
 
 /* Custom post type for widgets.
  */
