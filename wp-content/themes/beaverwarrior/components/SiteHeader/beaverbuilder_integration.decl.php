@@ -1,7 +1,7 @@
 <?php
 
 function beaverwarrior_load_SiteHeader_modules() {
-    if (class_exists("FLBuilder")) {
+    if (class_exists("FLBuilder") && class_exists('PPAdvancedMenu'))) {
         require_once "bw-advanced-menu/bw-advanced-menu.php";
     }
 }
