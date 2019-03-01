@@ -39,7 +39,7 @@ class BeaverWarriorFLModule extends FLBuilderModule {
      *
      * @return string                        The default image URL
      */
-    public function getDefaultImage( int $width, int $height, string $background_color = '000', string $text_color = 'fff', string $text = null){
+    public function getDefaultImage( int $width, int $height, string $background_color = '000', string $text_color = 'fff', ?string $text = null){
         // Get the image src
         $the_url = $this->getDefaultImageSrc( $width, $height, $background_color, $text_color, $text );
         // Return the image
@@ -163,7 +163,7 @@ class BeaverWarriorFLModule extends FLBuilderModule {
      *
      * @return string                        The default image URL
      */
-    public function getDefaultImageSrc( int $width, int $height, string $background_color = '000', string $text_color = 'fff', string $text = null){
+    public function getDefaultImageSrc( int $width, int $height, string $background_color = '000', string $text_color = 'fff', ?string $text = null){
         // The image URL
         $image_url = 'https://dummyimage.com';
         // The image array src
