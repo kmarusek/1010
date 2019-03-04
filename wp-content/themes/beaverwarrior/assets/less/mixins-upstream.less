@@ -1,0 +1,78 @@
+/**
+ * Mixin to add flexbox to any element.
+ */
+ .flexbox() {
+    display: -webkit-box;
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    -webkit-box-flex: 0;
+    -moz-box-flex: 0;
+    -ms-box-flex: 0 1 auto;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+    -ms-flex-direction: row;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+/**
+ * Mixin used to reverse the order of the row.
+ */
+ .flexboxReverseOrderRow() {
+    flex-direction: row-reverse;
+}
+
+/**
+ * Mixin used to reverse the order of the column.
+ */
+ .flexboxReverseOrderColumn() {
+    flex-direction: column-reverse;
+}
+
+/**
+ * Mixin used to justify flexbox children to the left.
+ */
+ .flexboxJustifyLeft() {
+    justify-content: flex-start;
+}
+
+/**
+ * Mixin used to justify flexbox children to the right.
+ */
+ .flexboxJustifyRight() {
+    justify-content: flex-end;
+}
+
+/**
+ * Mixin used to align flexbox children at the top.
+ */
+ .flexboxAlignTop() {
+    align-self: flex-start;
+}
+
+/**
+ * Mixin used to align flexbox children at the bottom.
+ */
+ .flexboxAlignBottom() {
+    align-self: flex-end;
+}
+
+/**
+ * Mixin used to add font awesome iconds to elements
+ *
+ * @param  {string} @iconUnicode The Unicode for the icon
+ *
+ */
+ .fontAwesomeIcon(@iconUnicode){
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    &::before{
+        content: "\@{iconUnicode}";
+    }
+}
