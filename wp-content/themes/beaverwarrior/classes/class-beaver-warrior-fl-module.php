@@ -130,7 +130,7 @@ class BeaverWarriorFLModule extends FLBuilderModule {
      *
      * @param  string $filename The file to add
      *
-     * @return [type]           [description]
+     * @return void
      */
     public static function getSettingsFromFile( string $filename = '' ){
         // Get the calling file
@@ -691,7 +691,7 @@ class BeaverWarriorFLModule extends FLBuilderModule {
     /**
     * Function to render the custom CSS for the module
     *
-    * @param  array  $custom_css [description]
+    * @param  array  $custom_css The array of CSS to render
     *
     * @return void
     */
