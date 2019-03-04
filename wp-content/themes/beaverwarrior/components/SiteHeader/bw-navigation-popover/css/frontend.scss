@@ -1,0 +1,139 @@
+@import (reference) '../../../../assets/less/mixins-upstream';
+
+.fl-module-bw-navigation-popover {
+    .mega-menu-container {
+        position: relative;
+
+        @include flexbox();
+
+        width: 100%;
+        margin: 0;
+        padding-left: 0;
+        list-style: none;
+        ul{
+            list-style: none;
+            padding-left:0;
+        }
+        list-style: none;
+        > li {
+            display: inline-block;
+
+            transition: background-color 150ms;
+
+            .mega-menu-contents {
+                display: none;
+            }
+        }
+    }
+    .popover {
+        box-shadow: none;
+        min-width: 350px;
+        border: 0px solid transparent;
+        .popover-content {
+            padding: 20px 0 5px;
+            background-color: white;
+            box-shadow: 0 5px 5px 0 rgba(151,151,151,0.25);
+            .submenu-icon {
+                .icon{
+                    display: inline-block;
+
+                    width: 20px;
+                    height: 20px;
+                    margin-right: 15px;
+
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                }
+            }
+            .section-title {
+                text-align: center;
+            }
+            .sub-menu {
+                > li {
+                    padding: 10px 40px;
+
+                    transition: background-color 150ms;
+
+                    background-color: transparent;
+                    a {
+                        font-size: 12px;
+                        line-height: 15px;
+
+
+                        @include flexbox();
+                        @include flexboxJustifyLeft();
+                    }
+                    span,
+                    ul{
+                        margin-top: 0;
+                        width: ~"calc( 100% - 35px )";
+                    }
+                    &.contains-description {
+                        a > * {
+                            @include flexboxAlignTop();
+                        }
+                    }
+                }
+            }
+        }
+        &.bottom {
+            margin-top: 20px;
+            .triangle-container {
+                position: absolute;
+                z-index: 1px;
+                top: -20px;
+                right: 0;
+                left: 0;
+
+                overflow: hidden;
+
+                width: 40px;
+                height: 20px;
+                margin: auto;
+
+                transform: scaleX(1.5);
+                .triangle {
+                    position: relative;
+
+                    overflow: hidden;
+
+                    width: 30px;
+                    height: 30px;
+                    margin: 0 auto;
+
+                    cursor: pointer;
+                    transform: translateY(50%) rotate(30deg) skewY(30deg) scaleX(0.866);
+                    pointer-events: none;
+                    border: 0px solid transparent;
+
+                    border-radius: 20%;
+                    box-shadow: 0 5px 5px 0 rgba(151,151,151,0.25);
+                    &::before,
+                    &::after {
+                        position: absolute;
+
+                        width: 30px;
+                        height: 30px;
+
+                        content: '';
+                        pointer-events: auto;
+
+                        background: white;
+                    }
+                    &::before {
+                        transform: scaleX(1.155) skewY(-30deg) rotate(-30deg) translateY(-42.3%)
+                        skewX(30deg) scaleY(0.866) translateX(-24%);
+
+                        border-radius: 20% 20% 20% 53%;
+                    }
+                    &::after {
+                        transform: scaleX(1.155) skewY(-30deg) rotate(-30deg) translateY(-42.3%)
+                        skewX(-30deg) scaleY(0.866) translateX(24%);
+
+                        border-radius: 20% 20% 53% 20%;
+                    }
+                }
+            }
+        }
+    }
+}

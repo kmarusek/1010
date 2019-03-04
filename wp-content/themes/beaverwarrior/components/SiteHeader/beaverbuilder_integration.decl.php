@@ -1,5 +1,8 @@
 <?php
 
+// Register the menu popover module
+register_beaver_warrior_module( __DIR__ . '/bw-navigation-popover/bw-navigation-popover.php' );
+
 function beaverwarrior_load_SiteHeader_modules() {
     if (class_exists("FLBuilder") && class_exists('PPAdvancedMenu') ) {
         require_once "bw-advanced-menu/bw-advanced-menu.php";

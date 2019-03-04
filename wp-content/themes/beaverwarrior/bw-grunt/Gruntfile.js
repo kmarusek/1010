@@ -3,7 +3,7 @@ module.exports = function(grunt) {
     // An array of our custom modules paths
     // relative to theme
     let custom_modules_upstream = [
-
+    "/components/SiteHeader/bw-navigation-popover/"
     ],
 
     custom_modules = get_all_custom_modules( custom_modules_upstream );
