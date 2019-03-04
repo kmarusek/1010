@@ -78,7 +78,7 @@ class BWNavigationPopoverMenuWalker extends Walker_Nav_Menu {
             $mega_menu_title = $item->description !== ' ' && $item->description !== '' && $item->description ? $item->description : $item->title;
             $output .= sprintf(
                 '<li class="%s" data-mega-menu-section-title="%s">
-                <a hresf="%s" target="%s" title="%s">%s</a>
+                <a href="%s" target="%s" title="%s">%s</a>
                 <div class="mega-menu-contents">',
                 // The classes
                 implode( ' ', $item->classes ),
