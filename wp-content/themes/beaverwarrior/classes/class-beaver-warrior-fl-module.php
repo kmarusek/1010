@@ -5,29 +5,33 @@
  */
 class BeaverWarriorFLModule extends FLBuilderModule {
 
-    const POST_TYPE_SAVED_BUILDER_ITEM        = 'fl-builder-template';
+   const POST_TYPE_SAVED_BUILDER_ITEM        = 'fl-builder-template';
 
-    const TAXONOMY_SAVED_BUILDER_ITEM_TYPE    = 'fl-builder-template-type';
+   const TAXONOMY_SAVED_BUILDER_ITEM_TYPE    = 'fl-builder-template-type';
 
-    const TERM_SAVED_BUILDER_ITEM_TYPE_MODULE = 'module';
+   const TERM_SAVED_BUILDER_ITEM_TYPE_MODULE = 'module';
 
-    const TERM_SAVED_BUILDER_ITEM_TYPE_ROW    = 'row';
+   const TERM_SAVED_BUILDER_ITEM_TYPE_ROW    = 'row';
 
     /**
+     * The name of the directory inside indivudal modules where additional settings are stored
+     */
+    const DIRECTORY_MODULE_SETTINGS           = 'settings';
+     /**
      * The post type for themer layouts.
      */
-    const FL_LAYOUT_POST_TYPE                 = 'fl-theme-layout';
-
-    /**
+     const FL_LAYOUT_POST_TYPE                 = 'fl-theme-layout';
+     
+     /**
      * An array of characters that, when are the first character of a parent element in the
-     * array, are considered CSS selectors and not property keys.
+     * array, are considered CSS selectors and not property keys
      */
-    const RENDER_MODULE_CSS_SELECTORS         =  array( '.','#','&','>' );
-
-    /**
+     const RENDER_MODULE_CSS_SELECTORS         =  array( '.','#','&','>' );
+     
+     /**
      * The HTML tags used by the CSS parser
      */
-    const RENDER_MODULE_CSS_HTML_TAGS         = array( 'div','a','p','span','ul','li','h1','h2','h3','h4','h5','h6','table','thead','tbody','tr','td','th', 'dl', 'dd', 'dt', 'img' );
+     const RENDER_MODULE_CSS_HTML_TAGS         = array( 'div','a','p','span','ul','li','h1','h2','h3','h4','h5','h6','table','thead','tbody','tr','td','th', 'dl', 'dd', 'dt', 'img' );
 
     /**
      * Function to return a dummy image
@@ -121,6 +125,29 @@ class BeaverWarriorFLModule extends FLBuilderModule {
         return $return_array;
     }
 
+    /**
+     * Static method to get the the settings for a section.
+     *
+     * @param  string $filename The file to add
+     *
+     * @return [type]           [description]
+     */
+    public static function getSettingsFromFile( string $filename = '' ){
+        // Get the calling file
+        $calling_file = debug_backtrace( null, 1 )[0]['file'];
+        // Get the directory of the file
+        $calling_directory = dirname( $calling_file );
+        // Make sure the file exists
+        if ( file_exists( $calling_directory  . '/' . self::DIRECTORY_MODULE_SETTINGS . '/' . $filename ) ){
+            // Add the file...
+            include $calling_directory . '/'. self::DIRECTORY_MODULE_SETTINGS . '/' . $filename;
+            // And return the settings
+            return isset( $settings ) ? $settings : array();
+        }
+        else {
+            error_log( "Warning! Unknown file " . $filename . " in " . __CLASS__ );
+        }
+    }
 
     public static function _getSavedModules(){
 
@@ -497,8 +524,20 @@ class BeaverWarriorFLModule extends FLBuilderModule {
         array_push($dimension_array, $this->getModuleSettingWithUnits( $bottom_dimension, $unit ) );
         // Add our left dimension
         array_push($dimension_array, $this->getModuleSettingWithUnits( $left_dimension, $unit ) );
-        // Return the string
-        return implode(' ', $dimension_array);
+
+        // Only return dimensions if they're non-null
+        if ( count( array_filter( $dimension_array ) ) > 0 ){
+            // If the array value is null, replace with a zero so we can still
+            // use the full dimension
+            $dimension_array = array_map( function($v) {
+                return ( is_null($v) ) ? 0 : $v;
+            }, $dimension_array );
+            // Return the string
+            return implode(' ', $dimension_array);
+        }
+        else {
+            return null;
+        }
     }
 
 

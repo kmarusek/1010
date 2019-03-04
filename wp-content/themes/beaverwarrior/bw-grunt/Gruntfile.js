@@ -67,7 +67,7 @@ module.exports = function(grunt) {
             // Get the current moduke
             let current_module_path = custom_modules[i];
             // Add this modules CSS
-            return_array['..' + current_module_path + 'css/frontend.css'] = '../' + current_module_path + '/css/frontend.less';
+            return_array['..' + current_module_path + 'css/frontend.css'] = '..' + current_module_path + 'css/frontend.less';
         }
         // Return the array
         return return_array;
@@ -205,7 +205,6 @@ module.exports = function(grunt) {
     js_hint_array  = get_js_hint_array(),
     // Get the JS Hint array
     css_min_object = get_css_min_object();
-
     grunt.initConfig({
         jshint: {
             options: {
