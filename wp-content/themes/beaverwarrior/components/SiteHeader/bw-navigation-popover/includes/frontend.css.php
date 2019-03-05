@@ -32,6 +32,7 @@ $custom_css = [
             ],
             '.popover-content' => [
                 'border-radius' => $module->getModuleSettingWithUnits( 'border_radius_popover' ),
+                'padding'       => $module->getModuleSettingDimension( 'padding_popover_content' ),
                 '.section-title'=> array_merge(
                     [
                         'color' => $module->getModuleSettingColor( 'color_popover_header' )
@@ -39,18 +40,22 @@ $custom_css = [
                     $module->getTypography( 'typography_popover_header' )
                 ),
                 '.sub-menu' => [
+                    'margin' => $module->getModuleSettingDimension( 'margin_popover_submenu' ),
                     '> li' => [
+                        'padding' => $module->getModuleSettingDimension( 'padding_popover_submenu_item' ),
                         '&:not(.contains-description)' => [
+                            'background-color' => $module->getModuleSettingColor( 'background_color_popover_content' ),
                             '> a' => array_merge(
                                 [
                                     'color'            => $module->getModuleSettingColor( 'color_popover_content' ),
-                                    'background-color' => $module->getModuleSettingColor( 'background_color_popover_content' )
                                 ],
                                 $module->getTypography( 'typography_popover_contents' )
                             ),
-                            '&:hover > a' => [
-                                'color'            => $module->getModuleSettingColor( 'color_popover_content_hover' ),
-                                'background-color' => $module->getModuleSettingColor( 'background_color_popover_content_hover' )
+                            '&:hover' => [
+                                'background-color' => $module->getModuleSettingColor( 'background_color_popover_content_hover' ),
+                                '> a' => [
+                                    'color' => $module->getModuleSettingColor( 'color_popover_content_hover' ),
+                                ]
                             ]
                         ],
                         '&.contains-description' => [

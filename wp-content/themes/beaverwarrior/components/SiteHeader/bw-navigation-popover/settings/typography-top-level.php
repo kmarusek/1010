@@ -10,8 +10,8 @@ $settings = array(
         'responsive' => true,
         'label'      => __( 'Font', 'skeleton-warrior' ),
         'preview'    => array(
-            'type'      => 'css',
-            'selector'  => '.mega-menu-container > li a'
+            'type'     => 'css',
+            'selector' => '.mega-menu-container > li a'
         )
     ),
     'color_top_level' => array(

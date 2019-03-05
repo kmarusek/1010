@@ -1,6 +1,3 @@
-<?php
-
-?>
 (function($){
     $(function(){
         new BWNavigationPopover({
