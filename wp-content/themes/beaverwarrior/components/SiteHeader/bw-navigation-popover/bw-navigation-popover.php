@@ -35,6 +35,29 @@ class BWNavigationPopover extends BeaverWarriorFLModule {
     public function popoverSectionTilesAreEnabled(){
         return $this->settings->popover_section_titles_enabled === 'enabled';
     }
+
+    public function topLevelMenuIconEnabled(){
+        return $this->settings->show_top_level_menu_icon === 'enabled';
+    }
+
+    public function getTopLevelMenuIconElement(){
+        $return_element = '';
+
+        if ( $this->topLevelMenuIconEnabled() ){
+            // Add the icon
+            $return_element .= sprintf(
+                '<span class="top-level-item-icon %s"><i class="%s icon-primary"></i>%s</span>',
+                // If we need to have hover behavior
+                $this->settings->top_level_menu_icon_hover ? 'top-level-item-has-hover-icon' : '',
+                // The icon
+                $this->settings->top_level_menu_icon,
+                // If we need to have hover behavior
+                $this->settings->top_level_menu_icon_hover ? '<i class="' . $this->settings->top_level_menu_icon_hover . ' icon-hover"></i>' : ''
+            );
+        }
+
+        return $return_element;
+    }
 }
 
 class BWNavigationPopoverMenuWalker extends Walker_Nav_Menu {
@@ -78,7 +101,7 @@ class BWNavigationPopoverMenuWalker extends Walker_Nav_Menu {
             $mega_menu_title = $item->description !== ' ' && $item->description !== '' && $item->description ? $item->description : $item->title;
             $output .= sprintf(
                 '<li class="%s" data-mega-menu-section-title="%s">
-                <a href="%s" target="%s" title="%s">%s</a>
+                <a href="%s" target="%s" title="%s">%s%s</a>
                 <div class="mega-menu-contents">',
                 // The classes
                 implode( ' ', $item->classes ),
@@ -91,7 +114,9 @@ class BWNavigationPopoverMenuWalker extends Walker_Nav_Menu {
                 // The menu url title
                 $item->attr_title,
                 // The menu item name
-                $item->title
+                $item->title,
+                // Get the top level menu icon element (if needed)
+                $this->module->getTopLevelMenuIconElement()
             );
         }
         else {
@@ -181,13 +206,35 @@ FLBuilder::register_module(
             'title'         => __('General', 'skeleton-warrior'),
             'sections'      => array(
                 'general'       => array(
-                    'title'         => '', 
+                    'title'    => __( '', 'skeleton-warrior'),
                     'fields'        => array(
                         'menu' => array(
                             'type'    => 'select',
                             'label'   => __( 'Menu', 'skeleton-warrior' ),
                             'options' => BWNavigationPopover::_get_menus()
                         ),
+                        'show_top_level_menu_icon' => array(
+                            'type'    => 'select',
+                            'label'   => __( 'Top-level icons', 'skeleton-warrior' ),
+                            'default' => 'disabled',
+                            'help'    => 'Choose whether you\'d like to have icons to the right of top-level items that have children.',
+                            'options' => array(
+                                'disabled' => 'Disabled',
+                                'enabled'  => 'Enabled'
+                            ),
+                            'toggle' => array(
+                                'enabled' => array(
+                                    'tabs'=> array(
+                                        'menu_icons'
+                                    )
+                                )
+                            )
+                        )
+                    )
+                ),
+                'general_submenu' => array(
+                    'title'    => __( 'Submenu', 'skeleton-warrior'),
+                    'fields' => array(
                         'popover_section_titles_enabled' => array(
                             'type'    => 'select',
                             'label'   => __( 'Popover titles', 'skeleton-warrior' ),
@@ -207,9 +254,9 @@ FLBuilder::register_module(
                         ),
                         'show_menu_icon' => array(
                             'type'    => 'select',
-                            'label'   => __( 'Menu icons', 'skeleton-warrior' ),
+                            'label'   => __( 'Submenu icons', 'skeleton-warrior' ),
                             'default' => 'disabled',
-                            'help'    => 'Menu icons are small icons that will be placed to the left of your menu name. If enabled, you can specify all your icons and name your classes that you\'ll attach to the menu items in the WordPress menu editor',
+                            'help'    => 'Submenu icons are small icons that will be placed to the left of your menu name. If enabled, you can specify all your icons and name your classes that you\'ll attach to the menu items in the WordPress menu editor',
                             'options' => array(
                                 'disabled' => 'Disabled',
                                 'enabled'  => 'Enabled'
@@ -217,7 +264,7 @@ FLBuilder::register_module(
                             'toggle' => array(
                                 'enabled' => array(
                                     'tabs'=> array(
-                                        'menu_icons'
+                                        'submenu_icons'
                                     )
                                 )
                             )
@@ -225,16 +272,58 @@ FLBuilder::register_module(
                     )
                 )
             )
-        ),
-        'menu_icons' => array( 
+        ),  //
+        'menu_icons' => array(  //
             'title'    => __( 'Menu icons', 'skeleton-warrior'),
             'sections' => array(
                 'style_top_level' => array(
-                    'title'  => __('Menu icon classes', 'skeleton-warrior'),
+                    'title'  => __('', 'skeleton-warrior'),
+                    'fields' => array(
+                        'top_level_menu_icon' => array(
+                            'type'    => 'icon',
+                            'label'   => __( 'Icon', 'skeleton-warrior' ),
+                            'help'    => 'This icon will show up next to top-level items with children.'
+                        ),
+                        'font_size_top_level_menu_icon' => array(
+                            'type'    => 'unit',
+                            'label'   => __( 'Icon size', 'skeleton-warrior' ),
+                            'units'   => array( 'px' ),
+                            'default' => 15,
+                            'preview'    => array(
+                                'type'     => 'css',
+                                'selector' => '.mega-menu-container > li a .top-level-item-icon .icon-primary',
+                                'property' => 'font-size'
+                            )
+                        ),
+                        'top_level_menu_icon_hover' => array(
+                            'type'    => 'icon',
+                            'label'   => __( 'Icon (hover)', 'skeleton-warrior' ),
+                            'help'    => 'Optionally, you may choose an icon to replace the regular top-level icon when hovered over.'
+                        ),
+                        'font_size_top_level_menu_icon_hover' => array(
+                            'type'    => 'unit',
+                            'label'   => __( 'Icon size (hover)', 'skeleton-warrior' ),
+                            'units'   => array( 'px' ),
+                            'default' => 15,
+                            'preview'    => array(
+                                'type'     => 'css',
+                                'selector' => '.mega-menu-container > li a .top-level-item-icon .icon-hover',
+                                'property' => 'font-size'
+                            )
+                        )
+                    )
+                )
+            )
+        ),
+        'submenu_icons' => array(  //
+            'title'    => __( 'Submenu icons', 'skeleton-warrior'),
+            'sections' => array(
+                'style_top_level' => array(
+                    'title'  => __('', 'skeleton-warrior'),
                     'fields' => array(
                         'menu_icons_repeater' => array(
                             'type'         => 'form',
-                            'label'        => __( 'Menu icons class', 'skeleton-warrior' ),
+                            'label'        => __( 'Submenu icon class', 'skeleton-warrior' ),
                             'multiple'     => true,
                             'form'         => 'bw_navigation_popover_menu_icon_classes', 
                             'preview_text' => 'menu_icon_class_name',
@@ -243,7 +332,7 @@ FLBuilder::register_module(
                 )
             )
         ),
-        'typography'       => array( 
+        'typography' => array( 
             'title'    => __('Typography', 'skeleton-warrior'),
             'sections' => array(
                 'typography_top_level' => array(
@@ -256,8 +345,8 @@ FLBuilder::register_module(
                 )
             )
         ),
-        'style'       => array( 
-            'title'    => __('Style', 'skeleton-warrior'),
+        'style' => array( 
+            'title' => __('Style', 'skeleton-warrior'),
             'sections' => array(
                 'style_top_level' => array(
                     'title'    => __('Top-Level items', 'skeleton-warrior'),
@@ -271,7 +360,6 @@ FLBuilder::register_module(
         )
     )
 );
-
 
 /*
  * Register the settings for each of the slides in the slider
@@ -288,11 +376,11 @@ FLBuilder::register_settings_form(
                         'fields' => array(
                             'menu_icon_class_name' => array(
                                 'type'  => 'text',
-                                'label' => __('Menu icon class', 'fl-builder')
+                                'label' => __('Submenu icon class', 'fl-builder')
                             ),
                             'menu_icon_image' => array(
                                 'type'  => 'photo',
-                                'label' => __('Menu icon', 'fl-builder')
+                                'label' => __('Submenu icon', 'fl-builder')
                             ),
                         )
                     )

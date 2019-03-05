@@ -5,6 +5,17 @@
  * @var array
  */
 $settings = array(
+    'min_width_popover' => array(
+        'type'    => 'unit',
+        'label'   => __( 'Min width', 'skeleton-warrior' ),
+        'default' => 350,
+        'units'   => array( 'px' ),
+        'preview'    => array(
+            'type'     => 'css',
+            'selector' => '.popover',
+            'property' => 'min-width'
+        )
+    ),
     'border_color_popover' => array(
         'type'       => 'color',
         'label'      => __( 'Border color', 'skeleton-warrior' ),

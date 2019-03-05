@@ -23,11 +23,27 @@
             .mega-menu-contents {
                 display: none;
             }
+            .top-level-item-icon{
+                margin-left: 5px;
+            }
+            &:hover{
+                .top-level-item-icon.top-level-item-has-hover-icon{
+                    .icon-primary{
+                        display: none;
+                    }
+                }
+            }
+            &:not(:hover){
+                .top-level-item-icon.top-level-item-has-hover-icon{
+                    .icon-hover{
+                        display: none;
+                    }
+                }
+            }
         }
     }
     .popover {
         box-shadow: none;
-        min-width: 350px;
         border: 0px solid transparent;
         .popover-content {
             padding: 20px 0 5px;

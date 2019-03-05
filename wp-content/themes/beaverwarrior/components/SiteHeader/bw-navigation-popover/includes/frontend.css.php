@@ -22,6 +22,7 @@ $custom_css = [
             ]
         ],
         '.popover' => [
+            'min-width'     => $module->getModuleSettingWithUnits( 'min_width_popover' ),
             'border-width'  => $module->getModuleSettingWithUnits( 'border_width_popover' ),
             'border-color'  => $module->getModuleSettingColor( 'border_color_popover' ),
             'border-radius' => $module->getModuleSettingWithUnits( 'border_radius_popover' ),
@@ -47,7 +48,7 @@ $custom_css = [
                                 ],
                                 $module->getTypography( 'typography_popover_contents' )
                             ),
-                            '&:hover' => [
+                            '&:hover > a' => [
                                 'color'            => $module->getModuleSettingColor( 'color_popover_content_hover' ),
                                 'background-color' => $module->getModuleSettingColor( 'background_color_popover_content_hover' )
                             ]
@@ -57,7 +58,7 @@ $custom_css = [
                                 'background-color' => $module->getModuleSettingColor( 'background_color_popover_content' ),
                                 '.term' => array_merge(
                                     [
-                                        'color'            => $module->getModuleSettingColor( 'color_popover_content' ),
+                                        'color' => $module->getModuleSettingColor( 'color_popover_content' ),
                                     ],
                                     $module->getTypography( 'typography_popover_contents' )
                                 ),
@@ -104,6 +105,19 @@ if ( $module->menuIconsAreEnabled() ){
 else {
     $custom_css['&.fl-module-bw-navigation-popover']['.popover .popover-content .submenu-icon .icon'] = [
         'display' => 'none'
+    ];
+}
+
+// If we have the menu icon enabled
+if ( $module->topLevelMenuIconEnabled() ){
+    // Add the font sizes for the icons
+    $custom_css['&.fl-module-bw-navigation-popover']['.mega-menu-container']['> li .top-level-item-icon'] = [
+        '.icon-primary' => [
+            'font-size' => $module->getModuleSettingWithUnits( 'font_size_top_level_menu_icon' )
+        ],
+        '.icon-hover' => [
+            'font-size' => $module->getModuleSettingWithUnits( 'font_size_top_level_menu_icon_hover' )
+        ]
     ];
 }
 

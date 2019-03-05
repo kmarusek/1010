@@ -279,31 +279,36 @@ class BeaverWarriorFLModule extends FLBuilderModule {
      * @return array      An array of settings
      */
     public function getTypography( string $key ){
-
         // Declare our return
         $return_array = array();
-        // Get the typography settings
-        $typography_settings = is_array( $this->settings->$key) ? $this->settings->$key : array();
-        // Add the font family
-        $this->addTypographySettingToReturnArray( $return_array, 'font-family', $typography_settings, 'font_family' );
-        // Add the font weight
-        $this->addTypographySettingToReturnArray( $return_array, 'font-weight', $typography_settings, 'font_weight' );
-        // Add the text align
-        $this->addTypographySettingToReturnArray( $return_array, 'text-align', $typography_settings, 'text_align' );
-        // Add the text transform
-        $this->addTypographySettingToReturnArray( $return_array, 'text-transform', $typography_settings, 'text_transform' );
-        // Add the font style
-        $this->addTypographySettingToReturnArray( $return_array, 'font-style', $typography_settings, 'font_style' );
-        // Add the font variant
-        $this->addTypographySettingToReturnArray( $return_array, 'font-variant', $typography_settings, 'font_variant' );
-        // Add the font size
-        $this->addTypographyLengthAndUnitToReturnArray( $return_array, 'font-size', $typography_settings, 'font_size' );
-        // Add the line height
-        $this->addTypographyLengthAndUnitToReturnArray( $return_array, 'line-height', $typography_settings, 'line_height' );
-        // Add the letting spacing
-        $this->addTypographyLengthAndUnitToReturnArray( $return_array, 'letter-spacing', $typography_settings, 'letter_spacing' );
-        // Add the text shadow
-        $this->getTypographyTextShadow( $return_array, 'text-shadow', $typography_settings, 'text_shadow' );
+        // Use the bult in parser, if it exists
+        if ( class_exists( 'FLBuilderCSS') && method_exists('FLBuilderCSS', 'typography_field_props') ){
+            $return_array = FLBuilderCSS::typography_field_props( $this->settings->$key );
+        }
+        else {
+            // Get the typography settings
+            $typography_settings = is_array( $this->settings->$key) ? $this->settings->$key : array();
+            // Add the font family
+            $this->addTypographySettingToReturnArray( $return_array, 'font-family', $typography_settings, 'font_family' );
+            // Add the font weight
+            $this->addTypographySettingToReturnArray( $return_array, 'font-weight', $typography_settings, 'font_weight' );
+            // Add the text align
+            $this->addTypographySettingToReturnArray( $return_array, 'text-align', $typography_settings, 'text_align' );
+            // Add the text transform
+            $this->addTypographySettingToReturnArray( $return_array, 'text-transform', $typography_settings, 'text_transform' );
+            // Add the font style
+            $this->addTypographySettingToReturnArray( $return_array, 'font-style', $typography_settings, 'font_style' );
+            // Add the font variant
+            $this->addTypographySettingToReturnArray( $return_array, 'font-variant', $typography_settings, 'font_variant' );
+            // Add the font size
+            $this->addTypographyLengthAndUnitToReturnArray( $return_array, 'font-size', $typography_settings, 'font_size' );
+            // Add the line height
+            $this->addTypographyLengthAndUnitToReturnArray( $return_array, 'line-height', $typography_settings, 'line_height' );
+            // Add the letting spacing
+            $this->addTypographyLengthAndUnitToReturnArray( $return_array, 'letter-spacing', $typography_settings, 'letter_spacing' );
+            // Add the text shadow
+            $this->getTypographyTextShadow( $return_array, 'text-shadow', $typography_settings, 'text_shadow' );
+        }
         // Return our array
         return $return_array;
     }
