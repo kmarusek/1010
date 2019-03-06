@@ -53,6 +53,8 @@ BWAnimatedSVG.prototype = {
 
         // First, create the animation object
         this.lotteAnimationObject = this._getLottieAnimationObject();
+        // Remove the height style (it causes an issue on IE11)
+        this._removeHeightStyle();
         // If we're animating on scroll, then bind an observer
         if ( this.animateOnScroll ){
             this._bindIntersectionObserver();
@@ -80,6 +82,42 @@ BWAnimatedSVG.prototype = {
         };
         //  Bind the animation object
         return lottie.loadAnimation( params );
+    },
+
+     /**
+      * Method to remove the height attribute from the lottie SVG (otherwise,
+      * it won't scale on IE11).
+      *
+      * @return {void}
+      */
+      _removeHeightStyle: function(){
+        // Get the element container
+        var container            =   document.getElementById( this.elementContainerID ),
+        // Get the SVG
+        svg                      = container.querySelectorAll( 'svg' )[0],
+        // Get the existing styles
+        existing_style_attribute = svg.getAttribute( 'style' ),
+        // Turn into an array (and remove all empty items)
+        existing_style_array     = existing_style_attribute.split(';').filter( Boolean ),
+        // Make our new array for the style attributes
+        new_style_array          = [];
+        // Loop through the styles
+        for ( var i = 0; i < existing_style_array.length; i++ ){
+            // Get the current style
+            var current_style = existing_style_array[i].trim(),
+            // Get the key for this style
+            style_key = current_style.split(':')[0];
+            // If the style key is anything besides height, then add it back
+            // to the new style array
+            if ( style_key !== 'height' ){
+                // Add it
+                new_style_array.push( current_style );
+            }
+        }
+        // Get the new style attribute
+        var new_style_attribute = new_style_array.join( '; ' ) + ';';
+        // Set the new style attribute
+        svg.setAttribute( 'style', new_style_attribute );
     },
 
     /**
