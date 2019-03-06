@@ -12,6 +12,7 @@
 };
 
 BWAnimatedSVG.prototype = {
+
     /**
      * The element id of the container
      *
@@ -33,6 +34,15 @@ BWAnimatedSVG.prototype = {
      */
      elementHasAnimated : false,
 
+     /**
+      * Remove the height style attribute if we're on these browsers.
+      *
+      * @type {Array}
+      */
+      unsupportedBrowsers : [
+      'internet-explorer11'
+      ],
+
     /**
      * The params we use with Lottie
      *
@@ -53,8 +63,11 @@ BWAnimatedSVG.prototype = {
 
         // First, create the animation object
         this.lotteAnimationObject = this._getLottieAnimationObject();
-        // Remove the height style (it causes an issue on IE11)
-        this._removeHeightStyle();
+        // If we're on an older browser...
+        if ( this._onUnsupportedBrowser() ){
+            // Remove the height style (it causes an issue on IE11)
+            this._removeHeightStyle();
+        }
         // If we're animating on scroll, then bind an observer
         if ( this.animateOnScroll ){
             this._bindIntersectionObserver();
@@ -84,13 +97,31 @@ BWAnimatedSVG.prototype = {
         return lottie.loadAnimation( params );
     },
 
+    /**
+     * Method for determinding if we're on an oldie of a browser
+     *
+     * @return {boolean} True if on an older browser
+     */
+     _onUnsupportedBrowser: function(){
+        var html_classes = document.documentElement.className.split( ' ' ),
+        on_older_browser = false,
+        i = 0;
+        while ( !on_older_browser && i < html_classes.length ){
+            if ( this.unsupportedBrowsers.includes( html_classes[i] ) ){
+                on_older_browser = true;
+            }
+            i++;
+        }
+        return on_older_browser;
+    },
+
      /**
       * Method to remove the height attribute from the lottie SVG (otherwise,
       * it won't scale on IE11).
       *
       * @return {void}
       */
-      _removeHeightStyle: function(){
+      _removeHeightStyle: function(){   
         // Get the element container
         var container            =   document.getElementById( this.elementContainerID ),
         // Get the SVG
