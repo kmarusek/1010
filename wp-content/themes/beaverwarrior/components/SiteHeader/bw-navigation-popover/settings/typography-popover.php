@@ -32,7 +32,7 @@ $settings = array(
         'label'      => __( 'Content font', 'skeleton-warrior' ),
         'preview'    => array(
             'type'      => 'css',
-            'selector'  => '.sub-menu li a'
+            'selector'  => '.popover .sub-menu li a'
         )
     ),
     'color_popover_content' => array(
@@ -43,7 +43,7 @@ $settings = array(
         'show_alpha' => true,
         'preview'    => array(
             'type'     => 'css',
-            'selector'  => '.sub-menu li a',
+            'selector'  => '.popover .popover-content .sub-menu > li:not(.contains-description) > a',
             'property' => 'color'
         )
     ),

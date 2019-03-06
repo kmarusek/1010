@@ -29,10 +29,13 @@ jQuery(function($){
         },
 
         init: function(){
-
             this._initPopovers();
 
             this._bindHidePopoversOnHover();
+
+            this.element
+            .data('BWNavigationPopoverObject', this );
+
         },
 
         _initPopovers: function(){  
@@ -74,6 +77,26 @@ jQuery(function($){
             .find( this.elements.menuItemsPrimary )
             .mouseenter(function(){
                 self._hideSiblingPopovers( $(this) );
+            });
+        },
+
+        _demoShowFirstPopover: function(){
+            this.element
+            .find( this.elements.menuItemsHasChildren )
+            .eq(0)
+            .each(function(){
+                $(this)
+                .popover('show');
+            });
+        },
+
+        _demoHideFirstPopover: function(){
+            this.element
+            .find( this.elements.menuItemsHasChildren )
+            .eq(0)
+            .each(function(){
+                $(this)
+                .popover('hide');
             });
         },
 
