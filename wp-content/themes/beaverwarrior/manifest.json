@@ -9,7 +9,8 @@
                 "./components/**/*.js",
                 "./layouts/**/*.js",
                 "!**/*frontend.js",
-                "!**/*frontend.prebuilt.js"
+                "!**/*frontend.prebuilt.js",
+                "!**/*settings.js"
             ],
             "main": true
         }
