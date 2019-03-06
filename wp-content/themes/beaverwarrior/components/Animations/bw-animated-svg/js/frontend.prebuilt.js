@@ -53,8 +53,6 @@ BWAnimatedSVG.prototype = {
 
         // First, create the animation object
         this.lotteAnimationObject = this._getLottieAnimationObject();
-        // Remove the height atribute (it causes an issue on IE11)
-        this._removeHeightAttribute();
         // If we're animating on scroll, then bind an observer
         if ( this.animateOnScroll ){
             this._bindIntersectionObserver();
@@ -82,21 +80,6 @@ BWAnimatedSVG.prototype = {
         };
         //  Bind the animation object
         return lottie.loadAnimation( params );
-    },
-
-     /**
-      * Method to remove the height attribute from the lottie SVG (otherwise,
-      * it won't scale on IE11).
-      *
-      * @return {void}
-      */
-     _removeHeightAttribute: function(){
-        // Get the element container
-        var container =   document.getElementById( this.elementContainerID ),
-        // Get the SVG
-        svg           = container.querySelectorAll( 'svg' )[0];
-        // Unset the height attribute
-        svg.removeAttribute( 'height' );
     },
 
     /**
