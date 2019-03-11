@@ -17,9 +17,25 @@ class BWAnimatedSVG extends BeaverWarriorFLModule {
     const JSON_KEY_ASSETS_PATH = 'u';
 
     /**
-     * The key in the JSON for the iamge in the assets
+     * The key in the JSON for the image name in the assets
      */
     const JSON_KEY_ASSETS_IMAGE = 'p';
+
+    /**
+     * The key in the JSON for the image width in the assets
+     */
+    const JSON_KEY_ASSETS_WIDTH = 'w';
+
+    /**
+     * The key in the JSON for the image height in the assets
+     */
+    const JSON_KEY_ASSETS_HEIGHT = 'h';
+
+    /**
+     * The max numbers of image variations to check if the height and width
+     * of an image don't match.
+     */
+    const MAX_NUMBER_OF_ALTERNATIVE_IMAGES_TO_CHECK = 20;
 
     /**
      * Parent class constructor.
@@ -101,7 +117,7 @@ class BWAnimatedSVG extends BeaverWarriorFLModule {
     }
 
     /**
-     * Static method to santize the value of the JSON (otherwise, it'll get
+     * Static method to sanitize the value of the JSON (otherwise, it'll get
      * serialized an unable to unwrap after saving in Beaver Builder).
      *
      * @param  mixed $saved_value The saved value
@@ -161,7 +177,7 @@ class BWAnimatedSVG extends BeaverWarriorFLModule {
     }
 
     /**
-     * Method ot return the setting for scroll-based animation.
+     * Method to return the setting for scroll-based animation.
      *
      * @return string True or false (as a string)
      */
@@ -184,8 +200,91 @@ class BWAnimatedSVG extends BeaverWarriorFLModule {
             // Replace the paths
             $this->replaceJSONPaths( $json , $new_asset_path );
         }
+        // Make sure the images are all good to go.
+        $this->validateJSONImages( $json );
         // Return the JSON
         return $json;
+    }
+
+    /**
+     * Method used to validate the JSON images. We need to do this because frequently, 
+     * the images in the JSON use a standard name (i.e., img-1.png) which may not
+     * actually be the name of the file if many images were uploaded
+     * on the same date. This method will check that the image sizes line up with what's
+     * in the file.
+     *
+     * @param  object &$json The JSON
+     *
+     * @return {void}
+     */
+    public function validateJSONImages( &$json ){
+
+        // Loop through the JSON assets
+        if ( property_exists($json, self::JSON_KEY_ASSETS ) ){
+            for ( $i=0; $i<count($json->{self::JSON_KEY_ASSETS}); $i++){
+                $current_node = $json->{self::JSON_KEY_ASSETS}[$i];
+                // Get the defined height and width
+                $set_image_height = property_exists($current_node, self::JSON_KEY_ASSETS_HEIGHT ) ? $current_node->{self::JSON_KEY_ASSETS_HEIGHT} : '';
+                $set_image_width  = property_exists($current_node, self::JSON_KEY_ASSETS_WIDTH ) ? $current_node->{self::JSON_KEY_ASSETS_WIDTH} : '';
+                // Get the image ID for this image
+                $site_url         = get_site_url();
+                $image_directory  = property_exists($current_node, self::JSON_KEY_ASSETS_PATH ) ? $current_node->{self::JSON_KEY_ASSETS_PATH} : '';
+                $image_name       = property_exists($current_node, self::JSON_KEY_ASSETS_IMAGE ) ? $current_node->{self::JSON_KEY_ASSETS_IMAGE} : '';
+                $image_url        = $site_url . $image_directory . $image_name;
+                $image_id         = $this->getAttchmentIDByURL( $image_url );
+                // Get the image attachment metadata
+                $image_meta_data  = wp_get_attachment_metadata( $image_id );
+                // If the height or width do not match, throw a warning
+                if ( $set_image_width !== $image_meta_data['width'] || $set_image_height !== $image_meta_data['height'] ){
+                    // Try to locate alternatives 
+                    $attempt_to_locate_alternatives = true;
+                    $original_image_name_array = explode( '.', $image_name );
+                    $counter = 0;
+                    while ( $attempt_to_locate_alternatives && $counter <= self::MAX_NUMBER_OF_ALTERNATIVE_IMAGES_TO_CHECK ){
+                        // Increment no matter what
+                        $counter++;
+                        $new_image_name_array = $original_image_name_array;
+                        $file_name = $original_image_name_array[ count($original_image_name_array) - 2 ];
+                        $new_image_name_array[ count($original_image_name_array) - 2 ] = $file_name . '-' . $counter;
+                        $new_image_file_name = implode( '.', $new_image_name_array );
+                        // Make sure the image actually exists
+                        $alt_image_doesnt_exist = !file_exists( rtrim( get_home_path(), '/' ) . $image_directory . $new_image_file_name );
+                        if ( $alt_image_doesnt_exist ){
+                            continue;
+                        }
+                        // Make our alt image URL
+                        $alt_image_url       = $site_url . $image_directory . $new_image_file_name;
+                        // Get the alt image id
+                        $alt_image_id        = $this->getAttchmentIDByURL( $alt_image_url );
+                        // Get the alt image attachment metadata
+                        $alt_image_meta_data = wp_get_attachment_metadata( $alt_image_id );
+                        // If we have a match...
+                        if ( $set_image_width === $alt_image_meta_data['width'] || $set_image_height === $alt_image_meta_data['height'] ){
+                            // Kill the loop
+                            $attempt_to_locate_alternatives = false;
+                            $json->{self::JSON_KEY_ASSETS}[$i]->{self::JSON_KEY_ASSETS_IMAGE} = $new_image_file_name;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Method used to get the attachment ID by the image URL
+     *
+     * @param  string $image_url The URL for the image
+     *
+     * @return int            The attachment ID
+     */
+    private function getAttchmentIDByURL( string $image_url ){
+        global $wpdb;
+        $attachment_id = $wpdb->get_var(
+            $wpdb->prepare(
+                "SELECT ID FROM $wpdb->posts WHERE guid='%s' LIMIT 1;", $image_url 
+            )
+        ); 
+        return $attachment_id;
     }
 }
 
@@ -224,7 +323,7 @@ FLBuilder::register_module(
                         'animation_json_replace_paths_upload_date' => array(
                             'label'   => __('Image upload date', 'fl-builder'),
                             'type'    => 'date',
-                            'default' => current_time( 'Y-m' )
+                            'default' => current_time( 'Y-m-d' )
                         )
                     )
                 ),
