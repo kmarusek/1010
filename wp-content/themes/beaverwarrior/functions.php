@@ -60,6 +60,12 @@ if ( class_exists( 'FLBuilder') && !class_exists( 'BeaverWarriorFLModule' ) ){
     }
 }
 
+// Adds support for the downstream functions file. This should be below the inclusion of the BeaverWarriorFLModule
+// class since functions in this class might referenec the BeaverWarriorFLModule class.
+if ( file_exists( get_stylesheet_directory() . '/functions-downstream.php' ) ){
+    require_once get_stylesheet_directory() . '/functions-downstream.php';
+}
+
 class SkeletonWarrior_Renderer {
     private $args;
     private $file;
@@ -376,16 +382,39 @@ function beaver_warrior_less_paths($lesssrc) {
     return [];
 }
 
-function beaver_warrior_huemor_clear_style_cache(){
-    // If the user is logged in and not on Pantheon
+/**
+ * Function to check if the Huemor dev pack constant is enabled and, if so, to add some herbs and spices
+ * that'll help developers.
+ *
+ * @return void 
+ */
+function beaver_warrior_huemor_dev_pack(){
+        // If the user is logged in and not on Pantheon
     if ( is_user_logged_in() && !isset( $_ENV['PANTHEON_ENVIRONMENT'] ) && defined( 'HUEMOR_DEV_PACK_ENABLED' ) && HUEMOR_DEV_PACK_ENABLED ) {
-        // Get the current post
-        $current_post_id = get_the_ID();
-        // Remove layouts and partials
-        exec("rm wp-content/uploads/bb-plugin/cache/$current_post_id-*");
-        exec("rm wp-content/uploads/beaverwarrior/*");
+        // If debug is also enabled, then let's display all errors
+        if ( defined( 'WP_DEBUG' ) && WP_DEBUG ){
+            @ini_set( 'display_errors', 1 );
+            @ini_set( 'display_startup_errors', 1 );
+            @error_reporting( E_ALL );
+        }
+        // Clear the cache
+        add_action( 'template_redirect' , 'beaver_warrior_clear_style_cache' );
     }
 }
+
+/**
+ * Function to clear all the style caches every time a page is loaded.
+ *
+ * @return void
+ */
+function beaver_warrior_clear_style_cache(){
+    // Get the current post
+    $current_post_id = get_the_ID();
+    // Remove layouts and partials
+    exec("rm wp-content/uploads/bb-plugin/cache/$current_post_id-*");
+    exec("rm wp-content/uploads/beaverwarrior/*");
+}
+
 
 add_action("fl_theme_compile_less_paths", "beaver_warrior_less_paths");
 
@@ -397,5 +426,5 @@ add_action( 'customize_controls_enqueue_scripts',        'BWCustomizerLess::cont
 add_action( 'customize_controls_print_footer_scripts',   'BWCustomizerLess::controls_print_footer_scripts' );
 //add_action( 'customize_register',                        'BWCustomizerLess::register' );
 add_action( 'customize_save_after',                      'BWCustomizerLess::save' );
-
-add_action( 'template_redirect' , 'beaver_warrior_huemor_clear_style_cache' );
+// The Huemor Dev pack
+add_action( 'init' , 'beaver_warrior_huemor_dev_pack' );
