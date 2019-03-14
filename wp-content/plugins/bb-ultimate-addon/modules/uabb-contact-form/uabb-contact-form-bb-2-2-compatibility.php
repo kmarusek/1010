@@ -1378,5 +1378,23 @@ FLBuilder::register_module(
 			),
 			'description' => sprintf( /* translators: a%s: search term */ __( 'Please register keys for your website at <a%s>Google Admin Console</a>.', 'uabb' ), ' href="https://www.google.com/recaptcha/admin" target="_blank"' ),
 		),
+		'uabb_docs'  => array(
+			'title'    => __( 'Docs', 'uabb' ),
+			'sections' => array(
+				'knowledge_base' => array(
+					'title'  => __( 'Helpful Information', 'uabb' ),
+					'fields' => array(
+						'uabb_helpful_information' => array(
+							'type'    => 'raw',
+							'content' => '<ul class="uabb-docs-list" data-branding=' . $branding . '>
+
+								<li class="uabb-docs-list-item"> <i class="ua-icon ua-icon-chevron-right2"> </i> <a href="https://www.ultimatebeaver.com/docs/design-email-template-to-receive-user-information-within-mail/?utm_source=uabb-pro-backend&utm_medium=module-editor-screen&utm_campaign=contact-form-module" target="_blank" rel="noopener"> How to Design the Email Template to Receive User Information within the email? </a> </li>
+
+							 </ul>',
+						),
+					),
+				),
+			),
+		),
 	)
 );

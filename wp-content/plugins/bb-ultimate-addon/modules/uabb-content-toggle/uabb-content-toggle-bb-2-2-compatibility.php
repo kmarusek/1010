@@ -633,5 +633,23 @@ FLBuilder::register_module(
 				),
 			),
 		),
+		'uabb_docs'        => array(
+			'title'    => __( 'Docs', 'uabb' ),
+			'sections' => array(
+				'knowledge_base' => array(
+					'title'  => __( 'Helpful Information', 'uabb' ),
+					'fields' => array(
+						'uabb_helpful_information' => array(
+							'type'    => 'raw',
+							'content' => '<ul class="uabb-docs-list" data-branding=' . $branding . '>
+
+								<li class="uabb-docs-list-item"> <i class="ua-icon ua-icon-chevron-right2"> </i> <a href="https://www.ultimatebeaver.com/docs/open-content-toggle-specific-section-from-remote-link/?utm_source=Uabb-Pro-Backend&utm_medium=Module-Editor-Screen&utm_campaign=Content-Toggle-module" target="_blank" rel="noopener"> How to Open a Specific Section of Content Toggle from a Remote Link? </a> </li>
+
+							 </ul>',
+						),
+					),
+				),
+			),
+		),
 	)
 );

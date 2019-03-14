@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Ultimate Addons for Beaver Builder 1.15.1\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/bb-ultimate-addon\n"
-"POT-Creation-Date: 2019-02-26 10:35:50+00:00\n"
+"POT-Creation-Date: 2019-03-12 09:43:35+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -574,7 +574,7 @@ msgstr ""
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:89
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:413
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:597
-#: modules/ihover/ihover-bb-2-2-compatibility.php:408
+#: modules/ihover/ihover-bb-2-2-compatibility.php:428
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:474
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:754
 #: modules/image-icon/image-icon-bb-2-2-compatibility.php:210
@@ -709,6 +709,9 @@ msgstr ""
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:229
 #: modules/uabb-image-carousel/uabb-image-carousel-bb-2-2-compatibility.php:357
 #: modules/uabb-image-carousel/uabb-image-carousel-bb-less-than-2-2-compatibility.php:332
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:289
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:218
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:259
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:99
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:448
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:617
@@ -974,6 +977,8 @@ msgstr ""
 #: modules/uabb-gravity-form/uabb-gravity-form-bb-less-than-2-2-compatibility.php:655
 #: modules/uabb-heading/uabb-heading-bb-2-2-compatibility.php:323
 #: modules/uabb-heading/uabb-heading-bb-less-than-2-2-compatibility.php:308
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:83
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:74
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:397
 #: modules/uabb-numbers/uabb-numbers-bb-less-than-2-2-compatibility.php:396
 #: modules/uabb-separator/uabb-separator-bb-2-2-compatibility.php:50
@@ -1093,7 +1098,7 @@ msgstr ""
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:160
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:401
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:585
-#: modules/ihover/ihover-bb-2-2-compatibility.php:682
+#: modules/ihover/ihover-bb-2-2-compatibility.php:702
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:731
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:781
 #: modules/image-icon/image-icon-bb-less-than-2-2-compatibility.php:412
@@ -1370,7 +1375,7 @@ msgstr ""
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:132
 #: modules/image-icon/image-icon-bb-2-2-compatibility.php:502
 #: modules/image-icon/image-icon-bb-less-than-2-2-compatibility.php:457
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:356
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:370
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:317
 #: modules/info-banner/info-banner-bb-less-than-2-2-compatibility.php:339
 #: modules/info-banner/info-banner-bb-less-than-2-2-compatibility.php:593
@@ -1741,8 +1746,8 @@ msgstr ""
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:133
 #: modules/image-icon/image-icon-bb-2-2-compatibility.php:501
 #: modules/image-icon/image-icon-bb-less-than-2-2-compatibility.php:456
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:357
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:400
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:371
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:414
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:318
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:361
 #: modules/info-banner/info-banner-bb-less-than-2-2-compatibility.php:340
@@ -2046,8 +2051,8 @@ msgstr ""
 #: modules/blog-posts/blog-posts-bb-less-than-2-2-compatibility.php:667
 #: modules/flip-box/flip-box-bb-2-2-compatibility.php:408
 #: modules/flip-box/flip-box-bb-2-2-compatibility.php:539
-#: modules/ihover/ihover-bb-2-2-compatibility.php:706
-#: modules/ihover/ihover-bb-2-2-compatibility.php:710
+#: modules/ihover/ihover-bb-2-2-compatibility.php:726
+#: modules/ihover/ihover-bb-2-2-compatibility.php:730
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:746
 #: modules/info-banner/info-banner-bb-2-2-compatibility.php:484
 #: modules/info-banner/info-banner-bb-less-than-2-2-compatibility.php:490
@@ -2085,6 +2090,7 @@ msgstr ""
 #: modules/uabb-gravity-form/uabb-gravity-form-bb-2-2-compatibility.php:626
 #: modules/uabb-gravity-form/uabb-gravity-form-bb-2-2-compatibility.php:909
 #: modules/uabb-gravity-form/uabb-gravity-form-bb-less-than-2-2-compatibility.php:642
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:261
 #: modules/uabb-price-list/uabb-price-list-bb-2-2-compatibility.php:308
 #: objects/fl-nested-form-button.php:220 objects/fl-nested-form-button.php:585
 msgid "Border"
@@ -2163,7 +2169,7 @@ msgstr ""
 #: modules/advanced-icon/advanced-icon-bb-less-than-2-2-compatibility.php:159
 #: modules/ihover/ihover-bb-2-2-compatibility.php:104
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:92
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:344
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:358
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:305
 #: modules/info-banner/info-banner-bb-2-2-compatibility.php:80
 #: modules/info-banner/info-banner-bb-2-2-compatibility.php:120
@@ -2284,6 +2290,8 @@ msgstr ""
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:241
 #: modules/uabb-gravity-form/uabb-gravity-form-bb-2-2-compatibility.php:644
 #: modules/uabb-gravity-form/uabb-gravity-form-bb-less-than-2-2-compatibility.php:660
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:87
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:79
 #: modules/uabb-photo/uabb-photo-bb-2-2-compatibility.php:164
 #: modules/uabb-photo/uabb-photo-bb-less-than-2-2-compatibility.php:186
 #: modules/uabb-video-gallery/uabb-video-gallery-bb-2-2-compatibility.php:178
@@ -2413,7 +2421,7 @@ msgstr ""
 msgid "%s"
 msgstr ""
 
-#: classes/class-uabb-helper.php:415
+#: classes/class-uabb-helper.php:416
 msgid "UABB"
 msgstr ""
 
@@ -2452,7 +2460,7 @@ msgstr ""
 
 #: classes/class-uabb-wpml.php:74
 #: modules/ihover/ihover-bb-2-2-compatibility.php:216
-#: modules/ihover/ihover-bb-2-2-compatibility.php:477
+#: modules/ihover/ihover-bb-2-2-compatibility.php:497
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:257
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:529
 #: modules/info-banner/info-banner-bb-2-2-compatibility.php:39
@@ -2495,6 +2503,7 @@ msgstr ""
 #: modules/uabb-heading/uabb-heading-bb-2-2-compatibility.php:430
 #: modules/uabb-heading/uabb-heading-bb-less-than-2-2-compatibility.php:52
 #: modules/uabb-heading/uabb-heading-bb-less-than-2-2-compatibility.php:454
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:36
 #: modules/uabb-price-list/uabb-price-list-bb-2-2-compatibility.php:448
 #: modules/uabb-price-list/uabb-price-list-bb-less-than-2-2-compatibility.php:524
 #: modules/uabb-woo-categories/includes/loop-settings.php:121
@@ -2557,11 +2566,11 @@ msgstr ""
 #: modules/creative-link/creative-link-bb-less-than-2-2-compatibility.php:403
 #: modules/dual-color-heading/dual-color-heading-bb-2-2-compatibility.php:62
 #: modules/dual-color-heading/dual-color-heading-bb-less-than-2-2-compatibility.php:71
-#: modules/ihover/ihover-bb-2-2-compatibility.php:490
-#: modules/ihover/ihover-bb-2-2-compatibility.php:498
+#: modules/ihover/ihover-bb-2-2-compatibility.php:510
+#: modules/ihover/ihover-bb-2-2-compatibility.php:518
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:542
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:550
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:367
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:381
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:328
 #: modules/info-banner/info-banner-bb-2-2-compatibility.php:268
 #: modules/info-banner/info-banner-bb-2-2-compatibility.php:326
@@ -2615,6 +2624,10 @@ msgstr ""
 #: modules/uabb-hotspot/uabb-hotspot-bb-2-2-compatibility.php:536
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:450
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:524
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:44
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:48
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:35
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:39
 #: modules/uabb-photo/uabb-photo-bb-2-2-compatibility.php:109
 #: modules/uabb-photo/uabb-photo-bb-less-than-2-2-compatibility.php:110
 #: modules/uabb-price-list/uabb-price-list-bb-2-2-compatibility.php:610
@@ -3178,6 +3191,18 @@ msgstr ""
 msgid "Video : This is info bar"
 msgstr ""
 
+#: classes/class-uabb-wpml.php:1100
+msgid "Marketing Button : Title"
+msgstr ""
+
+#: classes/class-uabb-wpml.php:1105
+msgid "Marketing Button : Description"
+msgstr ""
+
+#: classes/class-uabb-wpml.php:1110
+msgid "Marketing Button : Link"
+msgstr ""
+
 #: classes/class-ui-panel.php:360
 msgid "Search Module..."
 msgstr ""
@@ -3356,6 +3381,10 @@ msgstr ""
 #: modules/uabb-heading/uabb-heading-bb-less-than-2-2-compatibility.php:265
 #: modules/uabb-image-carousel/uabb-image-carousel-bb-2-2-compatibility.php:347
 #: modules/uabb-image-carousel/uabb-image-carousel-bb-less-than-2-2-compatibility.php:322
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:76
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:199
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:67
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:185
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:164
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:366
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:565
@@ -3430,7 +3459,7 @@ msgstr ""
 #: modules/google-map/google-map-bb-less-than-2-2-compatibility.php:31
 #: modules/google-map/google-map-bb-less-than-2-2-compatibility.php:245
 #: modules/ihover/ihover-bb-2-2-compatibility.php:14
-#: modules/ihover/ihover-bb-2-2-compatibility.php:374
+#: modules/ihover/ihover-bb-2-2-compatibility.php:394
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:13
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:440
 #: modules/image-icon/image-icon-bb-2-2-compatibility.php:14
@@ -3511,6 +3540,8 @@ msgstr ""
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:761
 #: modules/uabb-image-carousel/uabb-image-carousel-bb-2-2-compatibility.php:14
 #: modules/uabb-image-carousel/uabb-image-carousel-bb-less-than-2-2-compatibility.php:13
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:23
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:14
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:14
 #: modules/uabb-numbers/uabb-numbers-bb-less-than-2-2-compatibility.php:13
 #: modules/uabb-photo/uabb-photo-bb-2-2-compatibility.php:13
@@ -3593,7 +3624,7 @@ msgstr ""
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:154
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:390
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:574
-#: modules/ihover/ihover-bb-2-2-compatibility.php:675
+#: modules/ihover/ihover-bb-2-2-compatibility.php:695
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:725
 #: modules/image-icon/image-icon-bb-2-2-compatibility.php:455
 #: modules/image-icon/image-icon-bb-2-2-compatibility.php:514
@@ -3725,6 +3756,8 @@ msgstr ""
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:597
 #: modules/uabb-image-carousel/uabb-image-carousel-bb-2-2-compatibility.php:510
 #: modules/uabb-image-carousel/uabb-image-carousel-bb-less-than-2-2-compatibility.php:506
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:233
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:189
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:800
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:862
 #: modules/uabb-numbers/uabb-numbers-bb-less-than-2-2-compatibility.php:799
@@ -3844,6 +3877,8 @@ msgstr ""
 #: modules/uabb-hotspot/uabb-hotspot-bb-2-2-compatibility.php:383
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:317
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:379
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:250
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:205
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:814
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:876
 #: modules/uabb-numbers/uabb-numbers-bb-less-than-2-2-compatibility.php:813
@@ -3875,6 +3910,10 @@ msgstr ""
 #: modules/blog-posts/blog-posts-bb-less-than-2-2-compatibility.php:617
 #: modules/blog-posts/blog-posts-bb-less-than-2-2-compatibility.php:1299
 #: modules/blog-posts/blog-posts-bb-less-than-2-2-compatibility.php:2152
+#: modules/dual-button/dual-button-bb-2-2-compatibility.php:717
+#: modules/dual-button/dual-button-bb-2-2-compatibility.php:755
+#: modules/dual-button/dual-button-bb-less-than-2-2-compatibility.php:747
+#: modules/dual-button/dual-button-bb-less-than-2-2-compatibility.php:849
 #: modules/info-banner/info-banner-bb-2-2-compatibility.php:438
 #: modules/info-banner/info-banner-bb-less-than-2-2-compatibility.php:435
 #: modules/info-box/info-box-bb-2-2-compatibility.php:1312
@@ -3928,6 +3967,10 @@ msgstr ""
 #: modules/advanced-tabs/advanced-tabs-bb-less-than-2-2-compatibility.php:253
 #: modules/blog-posts/blog-posts-bb-2-2-compatibility.php:669
 #: modules/blog-posts/blog-posts-bb-less-than-2-2-compatibility.php:623
+#: modules/dual-button/dual-button-bb-2-2-compatibility.php:730
+#: modules/dual-button/dual-button-bb-2-2-compatibility.php:768
+#: modules/dual-button/dual-button-bb-less-than-2-2-compatibility.php:758
+#: modules/dual-button/dual-button-bb-less-than-2-2-compatibility.php:860
 #: modules/info-banner/info-banner-bb-2-2-compatibility.php:451
 #: modules/info-banner/info-banner-bb-less-than-2-2-compatibility.php:446
 #: modules/info-box/info-box-bb-2-2-compatibility.php:1323
@@ -3983,8 +4026,8 @@ msgstr ""
 #: modules/dual-button/dual-button-bb-less-than-2-2-compatibility.php:813
 #: modules/dual-button/dual-button-bb-less-than-2-2-compatibility.php:912
 #: modules/dual-color-heading/dual-color-heading-bb-less-than-2-2-compatibility.php:216
-#: modules/fancy-text/fancy-text-bb-less-than-2-2-compatibility.php:297
-#: modules/fancy-text/fancy-text-bb-less-than-2-2-compatibility.php:390
+#: modules/fancy-text/fancy-text-bb-less-than-2-2-compatibility.php:298
+#: modules/fancy-text/fancy-text-bb-less-than-2-2-compatibility.php:391
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:822
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:941
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:1076
@@ -4084,6 +4127,8 @@ msgstr ""
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:561
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:684
 #: modules/uabb-image-carousel/uabb-image-carousel-bb-less-than-2-2-compatibility.php:459
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:365
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:471
 #: modules/uabb-numbers/uabb-numbers-bb-less-than-2-2-compatibility.php:944
 #: modules/uabb-numbers/uabb-numbers-bb-less-than-2-2-compatibility.php:1021
 #: modules/uabb-price-list/uabb-price-list-bb-less-than-2-2-compatibility.php:416
@@ -4128,8 +4173,8 @@ msgstr ""
 #: modules/dual-button/dual-button-bb-less-than-2-2-compatibility.php:729
 #: modules/dual-button/dual-button-bb-less-than-2-2-compatibility.php:831
 #: modules/dual-color-heading/dual-color-heading-bb-less-than-2-2-compatibility.php:234
-#: modules/fancy-text/fancy-text-bb-less-than-2-2-compatibility.php:315
-#: modules/fancy-text/fancy-text-bb-less-than-2-2-compatibility.php:408
+#: modules/fancy-text/fancy-text-bb-less-than-2-2-compatibility.php:316
+#: modules/fancy-text/fancy-text-bb-less-than-2-2-compatibility.php:409
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:840
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:959
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:1094
@@ -4224,6 +4269,8 @@ msgstr ""
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:573
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:696
 #: modules/uabb-image-carousel/uabb-image-carousel-bb-less-than-2-2-compatibility.php:477
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:383
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:489
 #: modules/uabb-numbers/uabb-numbers-bb-less-than-2-2-compatibility.php:962
 #: modules/uabb-numbers/uabb-numbers-bb-less-than-2-2-compatibility.php:1039
 #: modules/uabb-price-list/uabb-price-list-bb-less-than-2-2-compatibility.php:434
@@ -4260,8 +4307,8 @@ msgstr ""
 #: modules/dual-button/dual-button-bb-less-than-2-2-compatibility.php:882
 #: modules/dual-button/dual-button-bb-less-than-2-2-compatibility.php:947
 #: modules/dual-color-heading/dual-color-heading-bb-less-than-2-2-compatibility.php:268
-#: modules/fancy-text/fancy-text-bb-less-than-2-2-compatibility.php:360
-#: modules/fancy-text/fancy-text-bb-less-than-2-2-compatibility.php:453
+#: modules/fancy-text/fancy-text-bb-less-than-2-2-compatibility.php:361
+#: modules/fancy-text/fancy-text-bb-less-than-2-2-compatibility.php:454
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:885
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:1004
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:1139
@@ -4369,6 +4416,8 @@ msgstr ""
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:641
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:736
 #: modules/uabb-image-carousel/uabb-image-carousel-bb-less-than-2-2-compatibility.php:541
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:417
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:523
 #: modules/uabb-numbers/uabb-numbers-bb-less-than-2-2-compatibility.php:991
 #: modules/uabb-numbers/uabb-numbers-bb-less-than-2-2-compatibility.php:1084
 #: modules/uabb-price-list/uabb-price-list-bb-less-than-2-2-compatibility.php:488
@@ -5228,6 +5277,8 @@ msgstr ""
 #: modules/uabb-gravity-form/uabb-gravity-form-bb-less-than-2-2-compatibility.php:544
 #: modules/uabb-hotspot/uabb-hotspot-bb-2-2-compatibility.php:353
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:350
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:207
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:224
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:847
 #: modules/uabb-numbers/uabb-numbers-bb-less-than-2-2-compatibility.php:846
 #: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:165
@@ -5775,6 +5826,7 @@ msgstr ""
 #: modules/uabb-call-to-action/uabb-call-to-action-bb-less-than-2-2-compatibility.php:199
 #: modules/uabb-image-carousel/uabb-image-carousel-bb-2-2-compatibility.php:329
 #: modules/uabb-image-carousel/uabb-image-carousel-bb-less-than-2-2-compatibility.php:311
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:232
 #: modules/uabb-price-list/uabb-price-list-bb-less-than-2-2-compatibility.php:309
 #: modules/uabb-table/uabb-table-bb-2-2-compatibility.php:651
 #: modules/uabb-table/uabb-table-bb-less-than-2-2-compatibility.php:576
@@ -5821,8 +5873,8 @@ msgstr ""
 #: modules/creative-link/creative-link-bb-less-than-2-2-compatibility.php:387
 #: modules/creative-link/creative-link-bb-less-than-2-2-compatibility.php:397
 #: modules/ihover/ihover-bb-2-2-compatibility.php:185
-#: modules/ihover/ihover-bb-2-2-compatibility.php:388
-#: modules/ihover/ihover-bb-2-2-compatibility.php:392
+#: modules/ihover/ihover-bb-2-2-compatibility.php:408
+#: modules/ihover/ihover-bb-2-2-compatibility.php:412
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:159
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:454
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:458
@@ -5884,6 +5936,8 @@ msgstr ""
 #: modules/uabb-call-to-action/uabb-call-to-action-bb-2-2-compatibility.php:464
 #: modules/uabb-call-to-action/uabb-call-to-action-bb-less-than-2-2-compatibility.php:20
 #: modules/uabb-call-to-action/uabb-call-to-action-bb-less-than-2-2-compatibility.php:450
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:30
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:21
 #: modules/uabb-price-list/uabb-price-list-bb-2-2-compatibility.php:391
 #: modules/uabb-price-list/uabb-price-list-bb-2-2-compatibility.php:600
 #: modules/uabb-price-list/uabb-price-list-bb-2-2-compatibility.php:604
@@ -6197,6 +6251,10 @@ msgstr ""
 #: modules/uabb-hotspot/uabb-hotspot-bb-2-2-compatibility.php:76
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:41
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:75
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:299
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:303
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:269
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:273
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:449
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:503
 #: modules/uabb-numbers/uabb-numbers-bb-less-than-2-2-compatibility.php:448
@@ -6391,6 +6449,8 @@ msgstr ""
 #: modules/uabb-heading/uabb-heading-bb-less-than-2-2-compatibility.php:172
 #: modules/uabb-hotspot/uabb-hotspot-bb-2-2-compatibility.php:279
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:286
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:362
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:328
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:778
 #: modules/uabb-numbers/uabb-numbers-bb-less-than-2-2-compatibility.php:777
 #: modules/uabb-table/uabb-table-bb-2-2-compatibility.php:994
@@ -6490,7 +6550,7 @@ msgstr ""
 #: modules/advanced-separator/advanced-separator-bb-less-than-2-2-compatibility.php:77
 #: modules/flip-box/flip-box-bb-2-2-compatibility.php:213
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:209
-#: modules/ihover/ihover-bb-2-2-compatibility.php:512
+#: modules/ihover/ihover-bb-2-2-compatibility.php:532
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:564
 #: modules/image-icon/image-icon-bb-2-2-compatibility.php:93
 #: modules/image-icon/image-icon-bb-less-than-2-2-compatibility.php:89
@@ -6907,6 +6967,8 @@ msgstr ""
 #: modules/uabb-heading/uabb-heading-bb-less-than-2-2-compatibility.php:87
 #: modules/uabb-hotspot/uabb-hotspot-bb-2-2-compatibility.php:502
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:491
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:160
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:175
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:241
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:408
 #: modules/uabb-numbers/uabb-numbers-bb-less-than-2-2-compatibility.php:240
@@ -7016,6 +7078,8 @@ msgstr ""
 #: modules/uabb-heading/uabb-heading-bb-less-than-2-2-compatibility.php:89
 #: modules/uabb-hotspot/uabb-hotspot-bb-2-2-compatibility.php:503
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:492
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:161
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:176
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:242
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:409
 #: modules/uabb-numbers/uabb-numbers-bb-less-than-2-2-compatibility.php:241
@@ -7134,6 +7198,8 @@ msgstr ""
 #: modules/uabb-gravity-form/uabb-gravity-form-bb-less-than-2-2-compatibility.php:743
 #: modules/uabb-heading/uabb-heading-bb-less-than-2-2-compatibility.php:72
 #: modules/uabb-heading/uabb-heading-bb-less-than-2-2-compatibility.php:88
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:159
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:174
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:240
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:410
 #: modules/uabb-numbers/uabb-numbers-bb-less-than-2-2-compatibility.php:239
@@ -7205,6 +7271,8 @@ msgstr ""
 #: modules/uabb-heading/uabb-heading-bb-less-than-2-2-compatibility.php:142
 #: modules/uabb-hotspot/uabb-hotspot-bb-2-2-compatibility.php:500
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:489
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:346
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:314
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:296
 #: modules/uabb-numbers/uabb-numbers-bb-less-than-2-2-compatibility.php:295
 #: modules/uabb-price-list/uabb-price-list-bb-2-2-compatibility.php:68
@@ -7436,8 +7504,8 @@ msgstr ""
 #: modules/dual-color-heading/dual-color-heading-bb-2-2-compatibility.php:185
 #: modules/dual-color-heading/dual-color-heading-bb-less-than-2-2-compatibility.php:181
 #: modules/fancy-text/fancy-text-bb-2-2-compatibility.php:275
-#: modules/fancy-text/fancy-text-bb-2-2-compatibility.php:300
-#: modules/fancy-text/fancy-text-bb-2-2-compatibility.php:328
+#: modules/fancy-text/fancy-text-bb-2-2-compatibility.php:301
+#: modules/fancy-text/fancy-text-bb-2-2-compatibility.php:329
 #: modules/fancy-text/fancy-text-bb-less-than-2-2-compatibility.php:260
 #: modules/flip-box/flip-box-bb-2-2-compatibility.php:685
 #: modules/flip-box/flip-box-bb-2-2-compatibility.php:708
@@ -7600,6 +7668,10 @@ msgstr ""
 #: modules/uabb-image-carousel/uabb-image-carousel-bb-2-2-compatibility.php:465
 #: modules/uabb-image-carousel/uabb-image-carousel-bb-2-2-compatibility.php:488
 #: modules/uabb-image-carousel/uabb-image-carousel-bb-less-than-2-2-compatibility.php:424
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:381
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:388
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:426
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:346
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:910
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:933
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:960
@@ -8562,10 +8634,10 @@ msgstr ""
 #: modules/blog-posts/blog-posts-bb-less-than-2-2-compatibility.php:1118
 #: modules/blog-posts/blog-posts-bb-less-than-2-2-compatibility.php:1572
 #: modules/blog-posts/blog-posts-bb-less-than-2-2-compatibility.php:1665
-#: modules/fancy-text/fancy-text-bb-2-2-compatibility.php:310
-#: modules/fancy-text/fancy-text-bb-2-2-compatibility.php:338
-#: modules/fancy-text/fancy-text-bb-less-than-2-2-compatibility.php:333
-#: modules/fancy-text/fancy-text-bb-less-than-2-2-compatibility.php:426
+#: modules/fancy-text/fancy-text-bb-2-2-compatibility.php:311
+#: modules/fancy-text/fancy-text-bb-2-2-compatibility.php:339
+#: modules/fancy-text/fancy-text-bb-less-than-2-2-compatibility.php:334
+#: modules/fancy-text/fancy-text-bb-less-than-2-2-compatibility.php:427
 #: modules/flip-box/flip-box-bb-2-2-compatibility.php:340
 #: modules/flip-box/flip-box-bb-2-2-compatibility.php:472
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:336
@@ -8711,6 +8783,8 @@ msgstr ""
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:585
 #: modules/uabb-image-carousel/uabb-image-carousel-bb-2-2-compatibility.php:498
 #: modules/uabb-image-carousel/uabb-image-carousel-bb-less-than-2-2-compatibility.php:495
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:430
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:547
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:943
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:970
 #: modules/uabb-numbers/uabb-numbers-bb-less-than-2-2-compatibility.php:980
@@ -8900,8 +8974,8 @@ msgstr ""
 #: modules/dual-button/dual-button-bb-less-than-2-2-compatibility.php:801
 #: modules/dual-button/dual-button-bb-less-than-2-2-compatibility.php:900
 #: modules/dual-color-heading/dual-color-heading-bb-less-than-2-2-compatibility.php:204
-#: modules/fancy-text/fancy-text-bb-less-than-2-2-compatibility.php:285
-#: modules/fancy-text/fancy-text-bb-less-than-2-2-compatibility.php:378
+#: modules/fancy-text/fancy-text-bb-less-than-2-2-compatibility.php:286
+#: modules/fancy-text/fancy-text-bb-less-than-2-2-compatibility.php:379
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:810
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:929
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:1064
@@ -9002,6 +9076,8 @@ msgstr ""
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:549
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:672
 #: modules/uabb-image-carousel/uabb-image-carousel-bb-less-than-2-2-compatibility.php:447
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:353
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:459
 #: modules/uabb-numbers/uabb-numbers-bb-less-than-2-2-compatibility.php:932
 #: modules/uabb-numbers/uabb-numbers-bb-less-than-2-2-compatibility.php:1009
 #: modules/uabb-price-list/uabb-price-list-bb-less-than-2-2-compatibility.php:404
@@ -9039,8 +9115,8 @@ msgstr ""
 #: modules/dual-button/dual-button-bb-less-than-2-2-compatibility.php:866
 #: modules/dual-button/dual-button-bb-less-than-2-2-compatibility.php:931
 #: modules/dual-color-heading/dual-color-heading-bb-less-than-2-2-compatibility.php:252
-#: modules/fancy-text/fancy-text-bb-less-than-2-2-compatibility.php:344
-#: modules/fancy-text/fancy-text-bb-less-than-2-2-compatibility.php:437
+#: modules/fancy-text/fancy-text-bb-less-than-2-2-compatibility.php:345
+#: modules/fancy-text/fancy-text-bb-less-than-2-2-compatibility.php:438
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:869
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:988
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:1123
@@ -9138,6 +9214,8 @@ msgstr ""
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:625
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:720
 #: modules/uabb-image-carousel/uabb-image-carousel-bb-less-than-2-2-compatibility.php:525
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:401
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:507
 #: modules/uabb-numbers/uabb-numbers-bb-less-than-2-2-compatibility.php:1068
 #: modules/uabb-price-list/uabb-price-list-bb-less-than-2-2-compatibility.php:472
 #: modules/uabb-price-list/uabb-price-list-bb-less-than-2-2-compatibility.php:598
@@ -9241,6 +9319,8 @@ msgstr ""
 #: modules/uabb-content-toggle/uabb-content-toggle-bb-less-than-2-2-compatibility.php:433
 #: modules/uabb-content-toggle/uabb-content-toggle-bb-less-than-2-2-compatibility.php:545
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:654
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:140
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:123
 #: modules/uabb-price-list/uabb-price-list-bb-2-2-compatibility.php:264
 #: modules/uabb-price-list/uabb-price-list-bb-less-than-2-2-compatibility.php:243
 #: modules/uabb-video/uabb-video-bb-2-2-compatibility.php:631
@@ -9275,6 +9355,8 @@ msgstr ""
 #: modules/info-box/info-box-bb-less-than-2-2-compatibility.php:1532
 #: modules/team/team-bb-2-2-compatibility.php:883
 #: modules/team/team-bb-less-than-2-2-compatibility.php:1134
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:443
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:536
 #: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:256
 #: modules/uabb-social-share/uabb-social-share-bb-less-than-2-2-compatibility.php:251
 #: modules/uabb-video/uabb-video-bb-2-2-compatibility.php:378
@@ -9331,6 +9413,8 @@ msgstr ""
 #: modules/slide-box/slide-box-bb-2-2-compatibility.php:655
 #: modules/slide-box/slide-box-bb-less-than-2-2-compatibility.php:629
 #: modules/slide-box/slide-box-bb-less-than-2-2-compatibility.php:669
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:309
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:278
 #: modules/uabb-table/uabb-table-bb-2-2-compatibility.php:980
 #: modules/uabb-table/uabb-table-bb-2-2-compatibility.php:1178
 #: modules/uabb-table/uabb-table-bb-less-than-2-2-compatibility.php:1012
@@ -9362,6 +9446,8 @@ msgstr ""
 #: modules/uabb-call-to-action/uabb-call-to-action-bb-less-than-2-2-compatibility.php:258
 #: modules/uabb-contact-form/uabb-contact-form-bb-2-2-compatibility.php:846
 #: modules/uabb-contact-form/uabb-contact-form-bb-less-than-2-2-compatibility.php:844
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:324
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:292
 #: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart-bb-2-2-compatibility.php:139
 #: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart-bb-less-than-2-2-compatibility.php:121
 #: objects/fl-nested-form-button.php:157 objects/fl-nested-form-button.php:522
@@ -9396,6 +9482,8 @@ msgstr ""
 #: modules/uabb-call-to-action/uabb-call-to-action-bb-less-than-2-2-compatibility.php:261
 #: modules/uabb-contact-form/uabb-contact-form-bb-2-2-compatibility.php:849
 #: modules/uabb-contact-form/uabb-contact-form-bb-less-than-2-2-compatibility.php:847
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:327
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:295
 #: modules/uabb-table/uabb-table-bb-2-2-compatibility.php:1023
 #: modules/uabb-table/uabb-table-bb-2-2-compatibility.php:1221
 #: modules/uabb-table/uabb-table-bb-less-than-2-2-compatibility.php:1040
@@ -9434,6 +9522,8 @@ msgstr ""
 #: modules/uabb-call-to-action/uabb-call-to-action-bb-less-than-2-2-compatibility.php:262
 #: modules/uabb-contact-form/uabb-contact-form-bb-2-2-compatibility.php:850
 #: modules/uabb-contact-form/uabb-contact-form-bb-less-than-2-2-compatibility.php:848
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:328
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:296
 #: modules/uabb-table/uabb-table-bb-2-2-compatibility.php:1024
 #: modules/uabb-table/uabb-table-bb-2-2-compatibility.php:1222
 #: modules/uabb-table/uabb-table-bb-less-than-2-2-compatibility.php:1041
@@ -9707,6 +9797,8 @@ msgstr ""
 #: modules/uabb-gravity-form/uabb-gravity-form-bb-less-than-2-2-compatibility.php:740
 #: modules/uabb-heading/uabb-heading-bb-2-2-compatibility.php:60
 #: modules/uabb-heading/uabb-heading-bb-less-than-2-2-compatibility.php:68
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:180
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:156
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:404
 #: modules/uabb-numbers/uabb-numbers-bb-less-than-2-2-compatibility.php:403
 #: modules/uabb-photo/uabb-photo-bb-2-2-compatibility.php:67
@@ -9811,7 +9903,7 @@ msgstr ""
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:90
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:414
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:598
-#: modules/ihover/ihover-bb-2-2-compatibility.php:409
+#: modules/ihover/ihover-bb-2-2-compatibility.php:429
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:475
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:755
 #: modules/image-icon/image-icon-bb-2-2-compatibility.php:211
@@ -9868,6 +9960,7 @@ msgstr ""
 #: modules/uabb-hotspot/uabb-hotspot-bb-2-2-compatibility.php:225
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:156
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:230
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:219
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:369
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:618
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:719
@@ -9912,7 +10005,7 @@ msgstr ""
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:91
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:415
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:599
-#: modules/ihover/ihover-bb-2-2-compatibility.php:410
+#: modules/ihover/ihover-bb-2-2-compatibility.php:430
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:476
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:756
 #: modules/image-icon/image-icon-bb-2-2-compatibility.php:212
@@ -9969,6 +10062,7 @@ msgstr ""
 #: modules/uabb-hotspot/uabb-hotspot-bb-2-2-compatibility.php:226
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:157
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:231
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:220
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:370
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:619
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:720
@@ -10013,7 +10107,7 @@ msgstr ""
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:92
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:416
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:600
-#: modules/ihover/ihover-bb-2-2-compatibility.php:411
+#: modules/ihover/ihover-bb-2-2-compatibility.php:431
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:477
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:757
 #: modules/image-icon/image-icon-bb-2-2-compatibility.php:213
@@ -10070,6 +10164,7 @@ msgstr ""
 #: modules/uabb-hotspot/uabb-hotspot-bb-2-2-compatibility.php:227
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:158
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:232
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:221
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:371
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:620
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:721
@@ -10114,7 +10209,7 @@ msgstr ""
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:93
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:417
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:601
-#: modules/ihover/ihover-bb-2-2-compatibility.php:412
+#: modules/ihover/ihover-bb-2-2-compatibility.php:432
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:478
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:758
 #: modules/image-icon/image-icon-bb-2-2-compatibility.php:214
@@ -10164,6 +10259,7 @@ msgstr ""
 #: modules/uabb-hotspot/uabb-hotspot-bb-2-2-compatibility.php:228
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:159
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:233
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:222
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:372
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:621
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:722
@@ -10405,6 +10501,7 @@ msgstr ""
 #: modules/uabb-hotspot/uabb-hotspot-bb-2-2-compatibility.php:220
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:151
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:225
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:215
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:613
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:714
 #: modules/uabb-numbers/uabb-numbers-bb-less-than-2-2-compatibility.php:612
@@ -10500,6 +10597,8 @@ msgstr ""
 #: modules/modal-popup/modal-popup-bb-less-than-2-2-compatibility.php:793
 #: modules/uabb-button/uabb-button-bb-2-2-compatibility.php:429
 #: modules/uabb-button/uabb-button-bb-less-than-2-2-compatibility.php:429
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:190
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:171
 #: modules/uabb-photo/uabb-photo-bb-2-2-compatibility.php:78
 #: modules/uabb-photo/uabb-photo-bb-less-than-2-2-compatibility.php:75
 #: modules/uabb-social-share/uabb-social-share-bb-2-2-compatibility.php:80
@@ -10760,6 +10859,7 @@ msgstr ""
 #: modules/uabb-hotspot/uabb-hotspot-bb-2-2-compatibility.php:403
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:336
 #: modules/uabb-hotspot/uabb-hotspot-bb-less-than-2-2-compatibility.php:398
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:245
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:833
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:895
 #: modules/uabb-numbers/uabb-numbers-bb-less-than-2-2-compatibility.php:832
@@ -10847,7 +10947,7 @@ msgstr ""
 #: modules/blog-posts/blog-posts-bb-less-than-2-2-compatibility.php:503
 #: modules/dual-button/dual-button-bb-less-than-2-2-compatibility.php:267
 #: modules/dual-button/dual-button-bb-less-than-2-2-compatibility.php:408
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:374
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:388
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:335
 #: modules/info-banner/info-banner-bb-less-than-2-2-compatibility.php:322
 #: modules/info-banner/info-banner-bb-less-than-2-2-compatibility.php:576
@@ -10883,7 +10983,7 @@ msgstr ""
 #: modules/dual-button/dual-button-bb-less-than-2-2-compatibility.php:411
 #: modules/dual-color-heading/dual-color-heading-bb-less-than-2-2-compatibility.php:44
 #: modules/dual-color-heading/dual-color-heading-bb-less-than-2-2-compatibility.php:82
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:377
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:391
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:338
 #: modules/info-banner/info-banner-bb-less-than-2-2-compatibility.php:325
 #: modules/info-banner/info-banner-bb-less-than-2-2-compatibility.php:579
@@ -10919,7 +11019,7 @@ msgstr ""
 #: modules/dual-button/dual-button-bb-less-than-2-2-compatibility.php:412
 #: modules/dual-color-heading/dual-color-heading-bb-less-than-2-2-compatibility.php:45
 #: modules/dual-color-heading/dual-color-heading-bb-less-than-2-2-compatibility.php:83
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:378
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:392
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:339
 #: modules/info-banner/info-banner-bb-less-than-2-2-compatibility.php:326
 #: modules/info-banner/info-banner-bb-less-than-2-2-compatibility.php:580
@@ -11725,6 +11825,7 @@ msgstr ""
 #: modules/dual-button/dual-button-bb-less-than-2-2-compatibility.php:53
 #: modules/ribbon/ribbon-bb-2-2-compatibility.php:60
 #: modules/ribbon/ribbon-bb-less-than-2-2-compatibility.php:59
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:86
 msgid "Auto"
 msgstr ""
 
@@ -12490,6 +12591,7 @@ msgstr ""
 #: modules/uabb-button/uabb-button-bb-less-than-2-2-compatibility.php:21
 #: modules/uabb-call-to-action/uabb-call-to-action-bb-2-2-compatibility.php:133
 #: modules/uabb-call-to-action/uabb-call-to-action-bb-less-than-2-2-compatibility.php:136
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:22
 #: objects/fl-nested-form-button.php:24 objects/fl-nested-form-button.php:406
 msgid "Click Here"
 msgstr ""
@@ -12534,6 +12636,7 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7-bb-less-than-2-2-compatibility.php:477
 #: modules/uabb-gravity-form/uabb-gravity-form-bb-2-2-compatibility.php:541
 #: modules/uabb-gravity-form/uabb-gravity-form-bb-less-than-2-2-compatibility.php:542
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:206
 #: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart-bb-2-2-compatibility.php:175
 #: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart-bb-less-than-2-2-compatibility.php:152
 #: objects/fl-nested-form-button.php:78 objects/fl-nested-form-button.php:443
@@ -12574,6 +12677,7 @@ msgstr ""
 #: modules/uabb-gravity-form/uabb-gravity-form-bb-2-2-compatibility.php:542
 #: modules/uabb-gravity-form/uabb-gravity-form-bb-less-than-2-2-compatibility.php:261
 #: modules/uabb-gravity-form/uabb-gravity-form-bb-less-than-2-2-compatibility.php:543
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:208
 #: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart-bb-2-2-compatibility.php:176
 #: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart-bb-less-than-2-2-compatibility.php:153
 #: objects/fl-nested-form-button.php:80 objects/fl-nested-form-button.php:445
@@ -13172,6 +13276,7 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7-bb-less-than-2-2-compatibility.php:677
 #: modules/uabb-gravity-form/uabb-gravity-form-bb-2-2-compatibility.php:643
 #: modules/uabb-gravity-form/uabb-gravity-form-bb-less-than-2-2-compatibility.php:659
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:78
 #: objects/fl-nested-form-button.php:236 objects/fl-nested-form-button.php:601
 msgid "Full Width"
 msgstr ""
@@ -13202,6 +13307,8 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7-bb-less-than-2-2-compatibility.php:694
 #: modules/uabb-gravity-form/uabb-gravity-form-bb-2-2-compatibility.php:660
 #: modules/uabb-gravity-form/uabb-gravity-form-bb-less-than-2-2-compatibility.php:676
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:100
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:95
 #: objects/fl-nested-form-button.php:253 objects/fl-nested-form-button.php:618
 msgid "Custom Width"
 msgstr ""
@@ -13230,6 +13337,8 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7-bb-less-than-2-2-compatibility.php:708
 #: modules/uabb-gravity-form/uabb-gravity-form-bb-2-2-compatibility.php:674
 #: modules/uabb-gravity-form/uabb-gravity-form-bb-less-than-2-2-compatibility.php:690
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:120
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:109
 #: objects/fl-nested-form-button.php:261 objects/fl-nested-form-button.php:626
 msgid "Custom Height"
 msgstr ""
@@ -13424,7 +13533,7 @@ msgstr ""
 
 #: modules/blog-posts/blog-posts-bb-2-2-compatibility.php:875
 #: modules/blog-posts/blog-posts-bb-less-than-2-2-compatibility.php:811
-#: modules/blog-posts/blog-posts.php:2171
+#: modules/blog-posts/blog-posts.php:2169
 msgid "Comment"
 msgstr ""
 
@@ -13885,13 +13994,18 @@ msgstr ""
 
 #: modules/blog-posts/blog-posts-bb-2-2-compatibility.php:1897
 #: modules/google-map/google-map-bb-2-2-compatibility.php:261
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:477
+#: modules/ihover/ihover-bb-2-2-compatibility.php:364
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:491
 #: modules/modal-popup/modal-popup-bb-2-2-compatibility.php:1159
 #: modules/photo-gallery/photo-gallery-bb-2-2-compatibility.php:392
 #: modules/uabb-advanced-menu/uabb-advanced-menu-bb-2-2-compatibility.php:832
 #: modules/uabb-business-hours/uabb-business-hours-bb-2-2-compatibility.php:295
+#: modules/uabb-contact-form/uabb-contact-form-bb-2-2-compatibility.php:1382
 #: modules/uabb-contact-form7/uabb-contact-form7-bb-2-2-compatibility.php:1046
+#: modules/uabb-content-toggle/uabb-content-toggle-bb-2-2-compatibility.php:637
 #: modules/uabb-gravity-form/uabb-gravity-form-bb-2-2-compatibility.php:1249
+#: modules/uabb-image-carousel/uabb-image-carousel-bb-2-2-compatibility.php:540
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:462
 #: modules/uabb-price-list/uabb-price-list-bb-2-2-compatibility.php:563
 #: modules/uabb-table/uabb-table-bb-2-2-compatibility.php:799
 #: modules/uabb-video/uabb-video-bb-2-2-compatibility.php:811
@@ -13904,13 +14018,18 @@ msgstr ""
 
 #: modules/blog-posts/blog-posts-bb-2-2-compatibility.php:1900
 #: modules/google-map/google-map-bb-2-2-compatibility.php:264
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:480
+#: modules/ihover/ihover-bb-2-2-compatibility.php:367
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:494
 #: modules/modal-popup/modal-popup-bb-2-2-compatibility.php:1162
 #: modules/photo-gallery/photo-gallery-bb-2-2-compatibility.php:395
 #: modules/uabb-advanced-menu/uabb-advanced-menu-bb-2-2-compatibility.php:835
 #: modules/uabb-business-hours/uabb-business-hours-bb-2-2-compatibility.php:298
+#: modules/uabb-contact-form/uabb-contact-form-bb-2-2-compatibility.php:1385
 #: modules/uabb-contact-form7/uabb-contact-form7-bb-2-2-compatibility.php:1049
+#: modules/uabb-content-toggle/uabb-content-toggle-bb-2-2-compatibility.php:640
 #: modules/uabb-gravity-form/uabb-gravity-form-bb-2-2-compatibility.php:1252
+#: modules/uabb-image-carousel/uabb-image-carousel-bb-2-2-compatibility.php:543
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:465
 #: modules/uabb-price-list/uabb-price-list-bb-2-2-compatibility.php:566
 #: modules/uabb-table/uabb-table-bb-2-2-compatibility.php:802
 #: modules/uabb-video/uabb-video-bb-2-2-compatibility.php:814
@@ -13948,7 +14067,7 @@ msgstr ""
 msgid "By"
 msgstr ""
 
-#: modules/blog-posts/blog-posts.php:2171
+#: modules/blog-posts/blog-posts.php:2169
 msgid "Comments"
 msgstr ""
 
@@ -14389,7 +14508,7 @@ msgid "Target"
 msgstr ""
 
 #: modules/creative-link/creative-link-bb-less-than-2-2-compatibility.php:412
-#: modules/ihover/ihover-bb-2-2-compatibility.php:521
+#: modules/ihover/ihover-bb-2-2-compatibility.php:541
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:573
 #: modules/interactive-banner-2/interactive-banner-2-bb-less-than-2-2-compatibility.php:121
 #: modules/team/team-bb-less-than-2-2-compatibility.php:294
@@ -14399,7 +14518,7 @@ msgid "New Page"
 msgstr ""
 
 #: modules/creative-link/creative-link-bb-less-than-2-2-compatibility.php:413
-#: modules/ihover/ihover-bb-2-2-compatibility.php:522
+#: modules/ihover/ihover-bb-2-2-compatibility.php:542
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:574
 #: modules/interactive-banner-2/interactive-banner-2-bb-less-than-2-2-compatibility.php:122
 #: modules/team/team-bb-less-than-2-2-compatibility.php:295
@@ -14533,7 +14652,7 @@ msgstr ""
 #: modules/dual-button/dual-button-bb-less-than-2-2-compatibility.php:631
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:418
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:602
-#: modules/ihover/ihover-bb-2-2-compatibility.php:413
+#: modules/ihover/ihover-bb-2-2-compatibility.php:433
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:479
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:759
 msgid "Inset"
@@ -14545,7 +14664,7 @@ msgstr ""
 #: modules/dual-button/dual-button-bb-less-than-2-2-compatibility.php:632
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:419
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:603
-#: modules/ihover/ihover-bb-2-2-compatibility.php:414
+#: modules/ihover/ihover-bb-2-2-compatibility.php:434
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:480
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:760
 msgid "Outset"
@@ -14669,20 +14788,6 @@ msgstr ""
 #: modules/dual-button/dual-button-bb-2-2-compatibility.php:598
 #: modules/dual-button/dual-button-bb-less-than-2-2-compatibility.php:605
 msgid "Divider Border"
-msgstr ""
-
-#: modules/dual-button/dual-button-bb-2-2-compatibility.php:717
-#: modules/dual-button/dual-button-bb-2-2-compatibility.php:755
-#: modules/dual-button/dual-button-bb-less-than-2-2-compatibility.php:747
-#: modules/dual-button/dual-button-bb-less-than-2-2-compatibility.php:849
-msgid "Button Color"
-msgstr ""
-
-#: modules/dual-button/dual-button-bb-2-2-compatibility.php:730
-#: modules/dual-button/dual-button-bb-2-2-compatibility.php:768
-#: modules/dual-button/dual-button-bb-less-than-2-2-compatibility.php:758
-#: modules/dual-button/dual-button-bb-less-than-2-2-compatibility.php:860
-msgid "Button Hover Color"
 msgstr ""
 
 #: modules/dual-button/dual-button-bb-2-2-compatibility.php:777
@@ -14823,9 +14928,9 @@ msgid "String placed before fancy text."
 msgstr ""
 
 #: modules/fancy-text/fancy-text-bb-2-2-compatibility.php:32
-#: modules/fancy-text/fancy-text-bb-2-2-compatibility.php:324
+#: modules/fancy-text/fancy-text-bb-2-2-compatibility.php:325
 #: modules/fancy-text/fancy-text-bb-less-than-2-2-compatibility.php:31
-#: modules/fancy-text/fancy-text-bb-less-than-2-2-compatibility.php:374
+#: modules/fancy-text/fancy-text-bb-less-than-2-2-compatibility.php:375
 #: modules/fancy-text/fancy-text.php:22
 msgid "Fancy Text"
 msgstr ""
@@ -14851,7 +14956,7 @@ msgstr ""
 #: modules/fancy-text/fancy-text-bb-2-2-compatibility.php:56
 #: modules/fancy-text/fancy-text-bb-less-than-2-2-compatibility.php:51
 #: modules/fancy-text/fancy-text-bb-less-than-2-2-compatibility.php:55
-#: modules/ihover/ihover-bb-2-2-compatibility.php:537
+#: modules/ihover/ihover-bb-2-2-compatibility.php:557
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:589
 #: modules/info-banner/info-banner-bb-2-2-compatibility.php:250
 #: modules/info-banner/info-banner-bb-less-than-2-2-compatibility.php:233
@@ -15020,8 +15125,13 @@ msgstr ""
 msgid "Full Text"
 msgstr ""
 
-#: modules/fancy-text/fancy-text-bb-2-2-compatibility.php:296
-#: modules/fancy-text/fancy-text-bb-less-than-2-2-compatibility.php:281
+#: modules/fancy-text/fancy-text-bb-2-2-compatibility.php:291
+#: modules/fancy-text/fancy-text-bb-less-than-2-2-compatibility.php:276
+msgid "P"
+msgstr ""
+
+#: modules/fancy-text/fancy-text-bb-2-2-compatibility.php:297
+#: modules/fancy-text/fancy-text-bb-less-than-2-2-compatibility.php:282
 msgid "Prefix / Suffix Text"
 msgstr ""
 
@@ -15072,7 +15182,7 @@ msgstr ""
 #: modules/flip-box/flip-box-bb-2-2-compatibility.php:440
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:306
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:490
-#: modules/ihover/ihover-bb-2-2-compatibility.php:394
+#: modules/ihover/ihover-bb-2-2-compatibility.php:414
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:460
 #: modules/info-banner/info-banner-bb-2-2-compatibility.php:23
 #: modules/info-banner/info-banner-bb-less-than-2-2-compatibility.php:22
@@ -15563,7 +15673,7 @@ msgstr ""
 
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:457
 #: modules/flip-box/flip-box-bb-less-than-2-2-compatibility.php:641
-#: modules/ihover/ihover-bb-2-2-compatibility.php:448
+#: modules/ihover/ihover-bb-2-2-compatibility.php:468
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:514
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:771
 msgid "Enter value in pixels."
@@ -15858,9 +15968,11 @@ msgid "iHover Item"
 msgstr ""
 
 #: modules/ihover/ihover-bb-2-2-compatibility.php:31
-#: modules/ihover/ihover-bb-2-2-compatibility.php:530
+#: modules/ihover/ihover-bb-2-2-compatibility.php:550
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:30
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:582
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:79
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:70
 msgid "Design"
 msgstr ""
 
@@ -15966,61 +16078,61 @@ msgstr ""
 msgid "Description Bottom Margin"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:371
+#: modules/ihover/ihover-bb-2-2-compatibility.php:391
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:437
 msgid "Add iHover Item"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:381
+#: modules/ihover/ihover-bb-2-2-compatibility.php:401
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:447
 msgid "iHover Image"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:400
+#: modules/ihover/ihover-bb-2-2-compatibility.php:420
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:466
 msgid "Title & Description Divider"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:404
+#: modules/ihover/ihover-bb-2-2-compatibility.php:424
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:470
 #: modules/uabb-business-hours/uabb-business-hours-bb-2-2-compatibility.php:105
 #: modules/uabb-business-hours/uabb-business-hours-bb-less-than-2-2-compatibility.php:130
 msgid "Divider Style"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:406
+#: modules/ihover/ihover-bb-2-2-compatibility.php:426
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:472
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:752
 msgid "Select the border style."
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:442
+#: modules/ihover/ihover-bb-2-2-compatibility.php:462
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:508
 msgid "Divider thickness"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:445
+#: modules/ihover/ihover-bb-2-2-compatibility.php:465
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:511
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:768
 msgid "Size of border"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:459
+#: modules/ihover/ihover-bb-2-2-compatibility.php:479
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:518
 msgid "Divider Width"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:462
+#: modules/ihover/ihover-bb-2-2-compatibility.php:482
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:521
 msgid "Width of border"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:465
+#: modules/ihover/ihover-bb-2-2-compatibility.php:485
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:524
 msgid "Enter value in percentage."
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:484
+#: modules/ihover/ihover-bb-2-2-compatibility.php:504
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:536
 #: modules/info-banner/info-banner-bb-2-2-compatibility.php:40
 #: modules/info-banner/info-banner-bb-less-than-2-2-compatibility.php:39
@@ -16039,17 +16151,17 @@ msgstr ""
 msgid "Enter description text here."
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:494
+#: modules/ihover/ihover-bb-2-2-compatibility.php:514
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:546
 msgid "On Click"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:497
+#: modules/ihover/ihover-bb-2-2-compatibility.php:517
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:549
 msgid "Do Nothing"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:511
+#: modules/ihover/ihover-bb-2-2-compatibility.php:531
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:563
 #: modules/interactive-banner-2/interactive-banner-2-bb-2-2-compatibility.php:98
 #: modules/interactive-banner-2/interactive-banner-2-bb-less-than-2-2-compatibility.php:112
@@ -16058,178 +16170,179 @@ msgstr ""
 msgid "Link URL"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:517
+#: modules/ihover/ihover-bb-2-2-compatibility.php:537
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:569
 #: modules/interactive-banner-2/interactive-banner-2-bb-less-than-2-2-compatibility.php:118
 msgid "Link target"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:519
+#: modules/ihover/ihover-bb-2-2-compatibility.php:539
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:571
 msgid "Description would appear in the selected tag"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:533
+#: modules/ihover/ihover-bb-2-2-compatibility.php:553
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:585
 msgid "Effects and Colors"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:540
+#: modules/ihover/ihover-bb-2-2-compatibility.php:560
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:592
 msgid "Effect 1"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:541
+#: modules/ihover/ihover-bb-2-2-compatibility.php:561
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:593
 msgid "Effect 2"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:542
+#: modules/ihover/ihover-bb-2-2-compatibility.php:562
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:594
 msgid "Effect 3"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:543
+#: modules/ihover/ihover-bb-2-2-compatibility.php:563
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:595
 msgid "Effect 4"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:544
+#: modules/ihover/ihover-bb-2-2-compatibility.php:564
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:596
 msgid "Effect 5"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:545
+#: modules/ihover/ihover-bb-2-2-compatibility.php:565
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:597
 msgid "Effect 6"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:546
+#: modules/ihover/ihover-bb-2-2-compatibility.php:566
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:598
 msgid "Effect 7"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:547
+#: modules/ihover/ihover-bb-2-2-compatibility.php:567
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:599
 msgid "Effect 8"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:548
+#: modules/ihover/ihover-bb-2-2-compatibility.php:568
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:600
 msgid "Effect 9"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:549
+#: modules/ihover/ihover-bb-2-2-compatibility.php:569
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:601
 msgid "Effect 10"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:550
+#: modules/ihover/ihover-bb-2-2-compatibility.php:570
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:602
 msgid "Effect 11"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:551
+#: modules/ihover/ihover-bb-2-2-compatibility.php:571
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:603
 msgid "Effect 12"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:552
+#: modules/ihover/ihover-bb-2-2-compatibility.php:572
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:604
 msgid "Effect 13"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:553
+#: modules/ihover/ihover-bb-2-2-compatibility.php:573
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:605
 msgid "Effect 14"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:554
+#: modules/ihover/ihover-bb-2-2-compatibility.php:574
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:606
 msgid "Effect 15"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:555
+#: modules/ihover/ihover-bb-2-2-compatibility.php:575
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:607
 msgid "Effect 16"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:556
+#: modules/ihover/ihover-bb-2-2-compatibility.php:576
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:608
 msgid "Effect 17"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:557
+#: modules/ihover/ihover-bb-2-2-compatibility.php:577
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:609
 msgid "Effect 18"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:558
+#: modules/ihover/ihover-bb-2-2-compatibility.php:578
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:610
 msgid "Effect 19"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:622
-#: modules/ihover/ihover-bb-2-2-compatibility.php:643
-#: modules/ihover/ihover-bb-2-2-compatibility.php:652
+#: modules/ihover/ihover-bb-2-2-compatibility.php:642
+#: modules/ihover/ihover-bb-2-2-compatibility.php:663
+#: modules/ihover/ihover-bb-2-2-compatibility.php:672
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:674
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:695
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:704
 msgid "Hover Effect Direction"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:625
-#: modules/ihover/ihover-bb-2-2-compatibility.php:656
+#: modules/ihover/ihover-bb-2-2-compatibility.php:645
+#: modules/ihover/ihover-bb-2-2-compatibility.php:676
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:677
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:708
 msgid "Towards Left"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:626
-#: modules/ihover/ihover-bb-2-2-compatibility.php:655
+#: modules/ihover/ihover-bb-2-2-compatibility.php:646
+#: modules/ihover/ihover-bb-2-2-compatibility.php:675
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:678
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:707
 msgid "Towards Right"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:627
 #: modules/ihover/ihover-bb-2-2-compatibility.php:647
+#: modules/ihover/ihover-bb-2-2-compatibility.php:667
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:679
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:699
 msgid "Towards Top"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:628
-#: modules/ihover/ihover-bb-2-2-compatibility.php:646
+#: modules/ihover/ihover-bb-2-2-compatibility.php:648
+#: modules/ihover/ihover-bb-2-2-compatibility.php:666
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:680
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:698
 msgid "Towards Bottom"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:633
+#: modules/ihover/ihover-bb-2-2-compatibility.php:653
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:685
 msgid "Hover Effect Scale"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:636
+#: modules/ihover/ihover-bb-2-2-compatibility.php:656
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:688
 msgid "Scale Up"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:637
+#: modules/ihover/ihover-bb-2-2-compatibility.php:657
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:689
 msgid "Scale Down"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:638
+#: modules/ihover/ihover-bb-2-2-compatibility.php:658
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:690
 msgid "Scale Down Up"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:661
+#: modules/ihover/ihover-bb-2-2-compatibility.php:681
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:713
 #: modules/pricing-box/pricing-box-bb-2-2-compatibility.php:483
 #: modules/pricing-box/pricing-box-bb-less-than-2-2-compatibility.php:690
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:397
 #: modules/uabb-price-list/uabb-price-list-bb-2-2-compatibility.php:405
 #: modules/uabb-price-list/uabb-price-list-bb-less-than-2-2-compatibility.php:452
 #: modules/uabb-video-gallery/uabb-video-gallery-bb-2-2-compatibility.php:366
@@ -16237,7 +16350,7 @@ msgstr ""
 msgid "Title Color"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:668
+#: modules/ihover/ihover-bb-2-2-compatibility.php:688
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:719
 #: modules/info-banner/info-banner-bb-2-2-compatibility.php:713
 #: modules/info-banner/info-banner-bb-less-than-2-2-compatibility.php:823
@@ -16251,13 +16364,14 @@ msgstr ""
 #: modules/uabb-call-to-action/uabb-call-to-action-bb-less-than-2-2-compatibility.php:611
 #: modules/uabb-gravity-form/uabb-gravity-form-bb-2-2-compatibility.php:1185
 #: modules/uabb-gravity-form/uabb-gravity-form-bb-less-than-2-2-compatibility.php:1524
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:435
 #: modules/uabb-price-list/uabb-price-list-bb-2-2-compatibility.php:462
 #: modules/uabb-price-list/uabb-price-list-bb-less-than-2-2-compatibility.php:576
 #: modules/uabb-price-list/uabb-price-list-bb-less-than-2-2-compatibility.php:701
 msgid "Description Color"
 msgstr ""
 
-#: modules/ihover/ihover-bb-2-2-compatibility.php:698
+#: modules/ihover/ihover-bb-2-2-compatibility.php:718
 #: modules/ihover/ihover-bb-less-than-2-2-compatibility.php:739
 #: modules/uabb-business-hours/uabb-business-hours-bb-2-2-compatibility.php:121
 #: modules/uabb-business-hours/uabb-business-hours-bb-less-than-2-2-compatibility.php:145
@@ -16317,7 +16431,7 @@ msgid "Image Top / Bottom Position"
 msgstr ""
 
 #: modules/image-separator/image-separator-bb-2-2-compatibility.php:298
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:318
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:325
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:249
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:271
 msgid "Select the position to display Image Separator"
@@ -16328,31 +16442,31 @@ msgstr ""
 msgid "Gutter"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:310
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:317
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:261
 msgid ""
 "50% is default. Increase to push the image outside or decrease to pull the "
 "image inside."
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:316
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:323
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:269
 #: modules/info-banner/info-banner-bb-2-2-compatibility.php:175
 #: modules/info-banner/info-banner-bb-less-than-2-2-compatibility.php:166
 msgid "Image Alignment"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:332
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:339
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:290
 msgid "Image Position from Left / Right"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:334
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:348
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:292
 msgid "Provides more control to align image at specific position."
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:340
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:354
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:301
 #: modules/mailchimp-subscribe-form/mailchimp-subscribe-form-bb-2-2-compatibility.php:220
 #: modules/mailchimp-subscribe-form/mailchimp-subscribe-form-bb-less-than-2-2-compatibility.php:223
@@ -16361,30 +16475,30 @@ msgstr ""
 msgid "Responsive Alignment"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:342
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:356
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:303
 msgid "To view Image Separator center aligned on different devices use this setting"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:345
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:359
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:306
 #: modules/mailchimp-subscribe-form/mailchimp-subscribe-form-bb-2-2-compatibility.php:268
 #: modules/mailchimp-subscribe-form/mailchimp-subscribe-form-bb-less-than-2-2-compatibility.php:287
 msgid "Small Device"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:346
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:360
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:307
 msgid "Small & Medium Devices"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:353
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:367
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:314
 msgid "Enable Link"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:389
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:396
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:403
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:410
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:350
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:357
 #: modules/info-banner/info-banner-bb-2-2-compatibility.php:246
@@ -16394,12 +16508,12 @@ msgstr ""
 msgid "Animation"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:398
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:412
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:359
 msgid "Choose one of the animation types for Separator."
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:401
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:415
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:362
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:189
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:241
@@ -16408,7 +16522,7 @@ msgstr ""
 msgid "bounce"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:402
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:416
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:363
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:190
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:242
@@ -16417,7 +16531,7 @@ msgstr ""
 msgid "flash"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:403
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:417
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:364
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:191
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:243
@@ -16426,7 +16540,7 @@ msgstr ""
 msgid "pulse"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:404
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:418
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:365
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:192
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:244
@@ -16435,7 +16549,7 @@ msgstr ""
 msgid "rubberBand"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:405
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:419
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:366
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:193
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:245
@@ -16444,7 +16558,7 @@ msgstr ""
 msgid "shake"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:406
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:420
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:367
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:194
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:246
@@ -16453,7 +16567,7 @@ msgstr ""
 msgid "headShake"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:407
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:421
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:368
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:195
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:247
@@ -16462,7 +16576,7 @@ msgstr ""
 msgid "swing"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:408
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:422
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:369
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:196
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:248
@@ -16471,7 +16585,7 @@ msgstr ""
 msgid "tada"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:409
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:423
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:370
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:197
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:249
@@ -16480,7 +16594,7 @@ msgstr ""
 msgid "wobble"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:410
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:424
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:371
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:198
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:250
@@ -16489,7 +16603,7 @@ msgstr ""
 msgid "jello"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:411
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:425
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:372
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:199
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:251
@@ -16498,7 +16612,7 @@ msgstr ""
 msgid "bounceIn"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:412
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:426
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:373
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:200
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:252
@@ -16507,7 +16621,7 @@ msgstr ""
 msgid "bounceInDown"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:413
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:427
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:374
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:201
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:253
@@ -16516,7 +16630,7 @@ msgstr ""
 msgid "bounceInLeft"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:414
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:428
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:375
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:202
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:254
@@ -16525,7 +16639,7 @@ msgstr ""
 msgid "bounceInRight"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:415
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:429
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:376
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:203
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:255
@@ -16534,7 +16648,7 @@ msgstr ""
 msgid "bounceInUp"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:416
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:430
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:377
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:204
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:256
@@ -16543,7 +16657,7 @@ msgstr ""
 msgid "fadeIn"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:417
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:431
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:378
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:205
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:257
@@ -16552,7 +16666,7 @@ msgstr ""
 msgid "fadeInDown"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:418
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:432
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:379
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:206
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:258
@@ -16561,7 +16675,7 @@ msgstr ""
 msgid "fadeInDownBig"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:419
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:433
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:380
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:207
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:259
@@ -16570,7 +16684,7 @@ msgstr ""
 msgid "fadeInLeft"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:420
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:434
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:381
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:208
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:260
@@ -16579,7 +16693,7 @@ msgstr ""
 msgid "fadeInLeftBig"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:421
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:435
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:382
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:209
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:261
@@ -16588,7 +16702,7 @@ msgstr ""
 msgid "fadeInRight"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:422
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:436
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:383
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:210
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:262
@@ -16597,7 +16711,7 @@ msgstr ""
 msgid "fadeInRightBig"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:423
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:437
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:384
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:211
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:263
@@ -16606,7 +16720,7 @@ msgstr ""
 msgid "fadeInUp"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:424
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:438
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:385
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:212
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:264
@@ -16615,7 +16729,7 @@ msgstr ""
 msgid "fadeInUpBig"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:425
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:439
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:386
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:213
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:265
@@ -16624,7 +16738,7 @@ msgstr ""
 msgid "flipInX"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:426
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:440
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:387
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:214
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:266
@@ -16633,7 +16747,7 @@ msgstr ""
 msgid "flipInY"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:427
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:441
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:388
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:215
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:267
@@ -16642,7 +16756,7 @@ msgstr ""
 msgid "flipOutX"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:428
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:442
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:389
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:216
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:268
@@ -16651,7 +16765,7 @@ msgstr ""
 msgid "flipOutY"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:429
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:443
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:390
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:217
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:269
@@ -16660,7 +16774,7 @@ msgstr ""
 msgid "lightSpeedIn"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:430
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:444
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:391
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:218
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:270
@@ -16669,7 +16783,7 @@ msgstr ""
 msgid "rotateIn"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:431
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:445
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:392
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:219
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:271
@@ -16678,7 +16792,7 @@ msgstr ""
 msgid "rotateInDownLeft"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:432
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:446
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:393
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:220
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:272
@@ -16687,7 +16801,7 @@ msgstr ""
 msgid "rotateInDownRight"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:433
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:447
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:394
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:221
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:273
@@ -16696,7 +16810,7 @@ msgstr ""
 msgid "rotateInUpLeft"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:434
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:448
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:395
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:222
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:274
@@ -16705,7 +16819,7 @@ msgstr ""
 msgid "rotateInUpRight"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:435
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:449
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:396
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:223
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:275
@@ -16714,7 +16828,7 @@ msgstr ""
 msgid "rollIn"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:436
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:450
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:397
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:224
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:276
@@ -16723,7 +16837,7 @@ msgstr ""
 msgid "zoomIn"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:437
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:451
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:398
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:225
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:277
@@ -16732,7 +16846,7 @@ msgstr ""
 msgid "zoomInDown"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:438
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:452
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:399
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:226
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:278
@@ -16741,7 +16855,7 @@ msgstr ""
 msgid "zoomInLeft"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:439
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:453
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:400
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:227
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:279
@@ -16750,7 +16864,7 @@ msgstr ""
 msgid "zoomInRight"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:440
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:454
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:401
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:228
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:280
@@ -16759,7 +16873,7 @@ msgstr ""
 msgid "zoomInUp"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:441
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:455
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:402
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:229
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:281
@@ -16768,7 +16882,7 @@ msgstr ""
 msgid "slideInDown"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:442
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:456
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:403
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:230
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:282
@@ -16777,7 +16891,7 @@ msgstr ""
 msgid "slideInLeft"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:443
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:457
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:404
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:231
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:283
@@ -16786,7 +16900,7 @@ msgstr ""
 msgid "slideInRight"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:444
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:458
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:405
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:232
 #: modules/info-circle/info-circle-bb-2-2-compatibility.php:284
@@ -16795,7 +16909,7 @@ msgstr ""
 msgid "slideInUp"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:449
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:463
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:410
 #: modules/progress-bar/progress-bar-bb-2-2-compatibility.php:442
 #: modules/progress-bar/progress-bar-bb-less-than-2-2-compatibility.php:414
@@ -16804,29 +16918,29 @@ msgstr ""
 msgid "Animation Delay"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:451
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:465
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:412
 msgid "Delay the animation effect for seconds you entered."
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:456
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:470
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:419
 msgid "Repeat Animation"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:458
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:472
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:421
 msgid ""
 "The animation effect will repeat to the count you enter. Enter 0 if you "
 "want to repeat it infinitely."
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:465
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:479
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:428
 msgid "Viewport Position"
 msgstr ""
 
-#: modules/image-separator/image-separator-bb-2-2-compatibility.php:467
+#: modules/image-separator/image-separator-bb-2-2-compatibility.php:481
 #: modules/image-separator/image-separator-bb-less-than-2-2-compatibility.php:430
 msgid "The area of screen from top where animation effect will start working."
 msgstr ""
@@ -16877,6 +16991,8 @@ msgstr ""
 #: modules/info-banner/info-banner-bb-2-2-compatibility.php:152
 #: modules/info-banner/info-banner-bb-less-than-2-2-compatibility.php:109
 #: modules/info-banner/info-banner-bb-less-than-2-2-compatibility.php:143
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:347
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:315
 #: modules/uabb-price-list/uabb-price-list-bb-2-2-compatibility.php:111
 #: modules/uabb-price-list/uabb-price-list-bb-less-than-2-2-compatibility.php:102
 msgid "Middle"
@@ -17155,6 +17271,8 @@ msgstr ""
 #: modules/info-list/info-list-bb-less-than-2-2-compatibility.php:56
 #: modules/slide-box/slide-box-bb-2-2-compatibility.php:247
 #: modules/slide-box/slide-box-bb-less-than-2-2-compatibility.php:228
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:343
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:311
 msgid "Icon Vertical Alignment"
 msgstr ""
 
@@ -17246,6 +17364,8 @@ msgstr ""
 #: modules/pricing-box/pricing-box-bb-less-than-2-2-compatibility.php:1064
 #: modules/uabb-button/uabb-button-bb-2-2-compatibility.php:54
 #: modules/uabb-button/uabb-button-bb-less-than-2-2-compatibility.php:74
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:65
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:56
 msgid "Custom Class"
 msgstr ""
 
@@ -17256,6 +17376,7 @@ msgstr ""
 
 #: modules/info-box/info-box-bb-2-2-compatibility.php:1691
 #: modules/info-box/info-box-bb-less-than-2-2-compatibility.php:1754
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:448
 #: modules/uabb-price-list/uabb-price-list-bb-2-2-compatibility.php:475
 #: modules/uabb-price-list/uabb-price-list-bb-less-than-2-2-compatibility.php:588
 #: modules/uabb-price-list/uabb-price-list-bb-less-than-2-2-compatibility.php:713
@@ -18366,12 +18487,16 @@ msgstr ""
 
 #: modules/interactive-banner-2/interactive-banner-2-bb-2-2-compatibility.php:126
 #: modules/interactive-banner-2/interactive-banner-2-bb-less-than-2-2-compatibility.php:148
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:384
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:349
 #: modules/uabb-price-list/uabb-price-list-bb-2-2-compatibility.php:395
 msgid "Title Typography"
 msgstr ""
 
 #: modules/interactive-banner-2/interactive-banner-2-bb-2-2-compatibility.php:194
 #: modules/interactive-banner-2/interactive-banner-2-bb-less-than-2-2-compatibility.php:279
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:422
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:455
 msgid "Description Typography"
 msgstr ""
 
@@ -21007,6 +21132,8 @@ msgstr ""
 
 #: modules/uabb-button/uabb-button-bb-2-2-compatibility.php:50
 #: modules/uabb-button/uabb-button-bb-less-than-2-2-compatibility.php:70
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:61
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:52
 msgid "HTML Element"
 msgstr ""
 
@@ -21020,6 +21147,7 @@ msgid "Photo Width"
 msgstr ""
 
 #: modules/uabb-button/uabb-button.php:23
+#: modules/uabb-marketing-button/uabb-marketing-button.php:23
 msgid "A simple call to action button."
 msgstr ""
 
@@ -21994,6 +22122,8 @@ msgstr ""
 
 #: modules/uabb-countdown/uabb-countdown-bb-2-2-compatibility.php:285
 #: modules/uabb-countdown/uabb-countdown-bb-less-than-2-2-compatibility.php:327
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:293
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:263
 msgid "Bounce"
 msgstr ""
 
@@ -22562,6 +22692,105 @@ msgstr ""
 msgid "Display multiple photos in a carousel view."
 msgstr ""
 
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:31
+msgid "Subscribe Now"
+msgstr ""
+
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:37
+msgid "Get access to premium Features for FREE  for a year!"
+msgstr ""
+
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:165
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:141
+msgid "Space between Title & Description"
+msgstr ""
+
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:203
+msgid " Style"
+msgstr ""
+
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:286
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:256
+#: modules/uabb-price-list/uabb-price-list-bb-2-2-compatibility.php:329
+#: modules/uabb-price-list/uabb-price-list-bb-less-than-2-2-compatibility.php:343
+#: modules/uabb-video/uabb-video-bb-2-2-compatibility.php:388
+#: modules/uabb-video/uabb-video-bb-less-than-2-2-compatibility.php:373
+#: modules/uabb-video-gallery/uabb-video-gallery-bb-2-2-compatibility.php:626
+#: modules/uabb-video-gallery/uabb-video-gallery-bb-less-than-2-2-compatibility.php:607
+msgid "Hover Animation"
+msgstr ""
+
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:290
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:260
+#: modules/uabb-price-list/uabb-price-list-bb-2-2-compatibility.php:333
+#: modules/uabb-price-list/uabb-price-list-bb-less-than-2-2-compatibility.php:347
+#: modules/uabb-video/uabb-video-bb-2-2-compatibility.php:392
+#: modules/uabb-video/uabb-video-bb-less-than-2-2-compatibility.php:377
+#: modules/uabb-video-gallery/uabb-video-gallery-bb-2-2-compatibility.php:631
+#: modules/uabb-video-gallery/uabb-video-gallery-bb-less-than-2-2-compatibility.php:612
+msgid "Float"
+msgstr ""
+
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:291
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:261
+#: modules/uabb-price-list/uabb-price-list-bb-2-2-compatibility.php:334
+#: modules/uabb-price-list/uabb-price-list-bb-less-than-2-2-compatibility.php:348
+#: modules/uabb-video/uabb-video-bb-2-2-compatibility.php:393
+#: modules/uabb-video/uabb-video-bb-less-than-2-2-compatibility.php:378
+#: modules/uabb-video-gallery/uabb-video-gallery-bb-2-2-compatibility.php:630
+#: modules/uabb-video-gallery/uabb-video-gallery-bb-less-than-2-2-compatibility.php:611
+msgid "Sink"
+msgstr ""
+
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:292
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:262
+#: modules/uabb-price-list/uabb-price-list-bb-2-2-compatibility.php:335
+#: modules/uabb-price-list/uabb-price-list-bb-less-than-2-2-compatibility.php:349
+#: modules/uabb-video/uabb-video-bb-2-2-compatibility.php:394
+#: modules/uabb-video/uabb-video-bb-less-than-2-2-compatibility.php:379
+msgid "Wobble Vertical"
+msgstr ""
+
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:329
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:297
+msgid "Before Title & Description"
+msgstr ""
+
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:330
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:298
+msgid "After Title & Description"
+msgstr ""
+
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:352
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:320
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart-bb-2-2-compatibility.php:148
+#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart-bb-less-than-2-2-compatibility.php:130
+msgid "Icon Spacing"
+msgstr ""
+
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:358
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:324
+msgid "This is the spacing between Icon and Title."
+msgstr ""
+
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-2-2-compatibility.php:410
+#: modules/uabb-price-list/uabb-price-list-bb-2-2-compatibility.php:419
+#: modules/uabb-price-list/uabb-price-list-bb-less-than-2-2-compatibility.php:463
+msgid "Title Hover Color"
+msgstr ""
+
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:27
+msgid "Sub Title"
+msgstr ""
+
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:28
+msgid "Lorem ipsum dolor sit amet."
+msgstr ""
+
+#: modules/uabb-marketing-button/uabb-marketing-button.php:22
+msgid "Marketing Button"
+msgstr ""
+
 #: modules/uabb-numbers/uabb-numbers-bb-2-2-compatibility.php:22
 #: modules/uabb-numbers/uabb-numbers-bb-less-than-2-2-compatibility.php:21
 msgid "Counter Style"
@@ -22972,40 +23201,6 @@ msgstr ""
 msgid "Space Between Image & Content"
 msgstr ""
 
-#: modules/uabb-price-list/uabb-price-list-bb-2-2-compatibility.php:329
-#: modules/uabb-price-list/uabb-price-list-bb-less-than-2-2-compatibility.php:343
-#: modules/uabb-video/uabb-video-bb-2-2-compatibility.php:388
-#: modules/uabb-video/uabb-video-bb-less-than-2-2-compatibility.php:373
-#: modules/uabb-video-gallery/uabb-video-gallery-bb-2-2-compatibility.php:626
-#: modules/uabb-video-gallery/uabb-video-gallery-bb-less-than-2-2-compatibility.php:607
-msgid "Hover Animation"
-msgstr ""
-
-#: modules/uabb-price-list/uabb-price-list-bb-2-2-compatibility.php:333
-#: modules/uabb-price-list/uabb-price-list-bb-less-than-2-2-compatibility.php:347
-#: modules/uabb-video/uabb-video-bb-2-2-compatibility.php:392
-#: modules/uabb-video/uabb-video-bb-less-than-2-2-compatibility.php:377
-#: modules/uabb-video-gallery/uabb-video-gallery-bb-2-2-compatibility.php:631
-#: modules/uabb-video-gallery/uabb-video-gallery-bb-less-than-2-2-compatibility.php:612
-msgid "Float"
-msgstr ""
-
-#: modules/uabb-price-list/uabb-price-list-bb-2-2-compatibility.php:334
-#: modules/uabb-price-list/uabb-price-list-bb-less-than-2-2-compatibility.php:348
-#: modules/uabb-video/uabb-video-bb-2-2-compatibility.php:393
-#: modules/uabb-video/uabb-video-bb-less-than-2-2-compatibility.php:378
-#: modules/uabb-video-gallery/uabb-video-gallery-bb-2-2-compatibility.php:630
-#: modules/uabb-video-gallery/uabb-video-gallery-bb-less-than-2-2-compatibility.php:611
-msgid "Sink"
-msgstr ""
-
-#: modules/uabb-price-list/uabb-price-list-bb-2-2-compatibility.php:335
-#: modules/uabb-price-list/uabb-price-list-bb-less-than-2-2-compatibility.php:349
-#: modules/uabb-video/uabb-video-bb-2-2-compatibility.php:394
-#: modules/uabb-video/uabb-video-bb-less-than-2-2-compatibility.php:379
-msgid "Wobble Vertical"
-msgstr ""
-
 #: modules/uabb-price-list/uabb-price-list-bb-2-2-compatibility.php:341
 #: modules/uabb-price-list/uabb-price-list-bb-less-than-2-2-compatibility.php:355
 msgid "Image Section"
@@ -23018,11 +23213,6 @@ msgstr ""
 #: modules/uabb-table/uabb-table-bb-less-than-2-2-compatibility.php:483
 #: modules/uabb-table/uabb-table-bb-less-than-2-2-compatibility.php:525
 msgid "Image Size"
-msgstr ""
-
-#: modules/uabb-price-list/uabb-price-list-bb-2-2-compatibility.php:419
-#: modules/uabb-price-list/uabb-price-list-bb-less-than-2-2-compatibility.php:463
-msgid "Title Hover Color"
 msgstr ""
 
 #: modules/uabb-price-list/uabb-price-list-bb-2-2-compatibility.php:430
@@ -24474,11 +24664,6 @@ msgstr ""
 msgid "Justify"
 msgstr ""
 
-#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart-bb-2-2-compatibility.php:148
-#: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart-bb-less-than-2-2-compatibility.php:130
-msgid "Icon Spacing"
-msgstr ""
-
 #: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart-bb-2-2-compatibility.php:274
 #: modules/uabb-woo-add-to-cart/uabb-woo-add-to-cart-bb-less-than-2-2-compatibility.php:245
 msgid "View Cart Text"
@@ -24909,6 +25094,7 @@ msgstr ""
 #: modules/uabb-contact-form7/uabb-contact-form7-bb-less-than-2-2-compatibility.php:676
 #: modules/uabb-gravity-form/uabb-gravity-form-bb-2-2-compatibility.php:642
 #: modules/uabb-gravity-form/uabb-gravity-form-bb-less-than-2-2-compatibility.php:658
+#: modules/uabb-marketing-button/uabb-marketing-button-bb-less-than-2-2-compatibility.php:77
 #: objects/fl-nested-form-button.php:235 objects/fl-nested-form-button.php:600
 msgctxt "Width."
 msgid "Auto"

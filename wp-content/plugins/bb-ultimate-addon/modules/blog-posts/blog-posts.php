@@ -2140,9 +2140,7 @@ class BlogPostsModule extends FLBuilderModule {
 				echo ( count( $category_detail ) > 0 ) ? ', ' : '';
 				for ( $k = 0; $k < count( $tag_detail ); $k++ ) {
 					?>
-			<span class="uabb-tag-links"><a href="<?php echo get_tag_link( $tag_detail[ $k ]->term_id ); ?>" rel="category tag"><?php echo $tag_detail[ $k ]->name; ?></a></span>
-					<?php
-					echo ( count( $tag_detail ) != $k + 1 ) ? trim( ',&nbsp;' ) : '';
+			<span class="uabb-tag-links"><a href="<?php echo get_tag_link( $tag_detail[ $k ]->term_id ); ?>" rel="category tag"><?php echo $tag_detail[ $k ]->name; ?></a></span><?php echo ( count( $tag_detail ) != $k + 1 ) ? trim( ',&nbsp;' ) : '';
 				}
 			}
 		}

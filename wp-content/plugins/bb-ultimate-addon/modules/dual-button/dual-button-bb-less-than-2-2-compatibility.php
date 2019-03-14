@@ -744,7 +744,7 @@ FLBuilder::register_module(
 						),
 						'_btn_one_text_color'          => array(
 							'type'       => 'color',
-							'label'      => __( 'Button Color', 'uabb' ),
+							'label'      => __( 'Text Color', 'uabb' ),
 							'default'    => '',
 							'show_reset' => true,
 							'preview'    => array(
@@ -755,7 +755,7 @@ FLBuilder::register_module(
 						),
 						'_btn_one_text_hover_color'    => array(
 							'type'       => 'color',
-							'label'      => __( 'Button Hover Color', 'uabb' ),
+							'label'      => __( 'Text Hover Color', 'uabb' ),
 							'default'    => '',
 							'show_reset' => true,
 							'preview'    => array(
@@ -846,7 +846,7 @@ FLBuilder::register_module(
 						),
 						'_btn_two_text_color'          => array(
 							'type'       => 'color',
-							'label'      => __( 'Button Color', 'uabb' ),
+							'label'      => __( 'Text Color', 'uabb' ),
 							'default'    => '',
 							'show_reset' => true,
 							'preview'    => array(
@@ -857,7 +857,7 @@ FLBuilder::register_module(
 						),
 						'_btn_two_text_hover_color'    => array(
 							'type'       => 'color',
-							'label'      => __( 'Button Hover Color', 'uabb' ),
+							'label'      => __( 'Text Hover Color', 'uabb' ),
 							'default'    => '',
 							'show_reset' => true,
 						),

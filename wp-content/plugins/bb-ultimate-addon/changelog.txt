@@ -1,8 +1,15 @@
-Version 1.15.1
+Version 1.16.0 - Tuesday, 12th March 2019
+- New: Introduced Marketing Button
+- Improvement: Fancy Text - Added p Tag support for Title
+- Improvement: Hotspot - Individual Marker name added to the module editor's initial form
+- Fixed: Advanced Posts - Fixed extra space around the comma separator for the tag
+- Fixed: Info Circle - Resolved Background Image overlay issue on mobile devices
+
+Version 1.15.1 - Tuesday, February 26, 2019
 - Improvement: Video - Added sticky video feature
 - Fixed: Countdown - Resolved Border Width issue
 
-Version 1.15.0
+Version 1.15.0 - Thursday, February 14, 2019
 - New: Introduced Price List
 - Improvement: Dual Button - Added nofollow settings option
 - Improvement: Info Circle - Added nofollow settings option

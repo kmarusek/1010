@@ -717,7 +717,7 @@ FLBuilder::register_module(
 							'type'         => 'form',
 							'form'         => 'hotspot_coordinates_form',
 							'label'        => __( 'Markers', 'uabb' ),
-							'preview_text' => 'hotspot_marker_type', // ID of a field to use for the preview.
+							'preview_text' => 'marker_text', // ID of a field to use for the preview.
 							'multiple'     => true,
 						),
 					),

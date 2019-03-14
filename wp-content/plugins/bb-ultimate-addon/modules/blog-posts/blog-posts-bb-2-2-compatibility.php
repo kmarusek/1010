@@ -1907,8 +1907,14 @@ FLBuilder::register_module(
 
 								<li class="uabb-docs-list-item"> <i class="ua-icon ua-icon-chevron-right2"> </i> <a href="https://www.ultimatebeaver.com/docs/enable-taxonomy-filters-advanced-posts/?utm_source=uabb-pro-backend&utm_medium=module-editor-screen&utm_campaign=advanced-posts-module" target="_blank" rel="noopener"> How to enable taxonomy filters in Advanced Posts? </a> </li>
 
-								<li class="uabb-docs-list-item"> <i class="ua-icon ua-icon-chevron-right2"> </i> 
-								<a href="https://www.ultimatebeaver.com/docs/exclude-current-post-in-advanced-post-module/?utm_source=uabb-pro-backend&utm_medium=module-editor-screen&utm_campaign=advanced-posts-module" target="_blank" rel="noopener"> How to Exclude your Current Post from Advanced Post module? </a> </li>
+								<li class="uabb-docs-list-item"> <i class="ua-icon ua-icon-chevron-right2"> </i> <a href="https://www.ultimatebeaver.com/docs/exclude-current-post-in-advanced-post-module/?utm_source=uabb-pro-backend&utm_medium=module-editor-screen&utm_campaign=advanced-posts-module" target="_blank" rel="noopener"> How to Exclude your Current Post from Advanced Post module? </a> </li>
+
+								<li class="uabb-docs-list-item"> <i class="ua-icon ua-icon-chevron-right2"> </i> <a href="https://www.ultimatebeaver.com/docs/how-to-enable-pagination-for-advanced-posts-module/#utm_source=Uabb-Pro-Backend&utm_medium=Module-Editor-Screen&utm_campaign=Advanced-Posts-module" target="_blank" rel="noopener"> How to enable Pagination for Advanced Posts module </a> </li>
+
+								<li class="uabb-docs-list-item"> <i class="ua-icon ua-icon-chevron-right2"> </i> <a href="https://www.ultimatebeaver.com/docs/equal-height-option-advanced-post-module-isnt-working-properly/?utm_source=Uabb-Pro-Backend&utm_medium=Module-Editor-Screen&utm_campaign=Advanced-Posts-module" target="_blank" rel="noopener"> Equal height option of Advanced Post module is not working properly? </a> </li>
+
+								<li class="uabb-docs-list-item"> <i class="ua-icon ua-icon-chevron-right2"> </i> <a href="https://www.ultimatebeaver.com/docs/uabb-filter-reference/?utm_source=Uabb-Pro-Backend&utm_medium=Module-Editor-Screen&utm_campaign=Advanced-Posts-module#module:-advanced-post" target="_blank" rel="noopener"> Filters Reference for Advanced Posts module </a> </li>
+
 							 </ul>',
 						),
 					),

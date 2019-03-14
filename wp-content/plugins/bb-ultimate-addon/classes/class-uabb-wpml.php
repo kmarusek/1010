@@ -1090,6 +1090,28 @@ if ( ! class_exists( 'UABB_WPML_Translatable' ) ) {
 				'fields'            => array(),
 				'integration-class' => 'WPML_UABB_Pricelist',
 			);
+
+			// Marketin Button Module.
+			$form['uabb-marketing-button'] = array(
+				'conditions' => array( 'type' => 'uabb-marketing-button' ),
+				'fields'     => array(
+					array(
+						'field'       => 'title',
+						'type'        => __( 'Marketing Button : Title', 'uabb' ),
+						'editor_type' => 'LINE',
+					),
+					array(
+						'field'       => 'sub_title',
+						'type'        => __( 'Marketing Button : Description', 'uabb' ),
+						'editor_type' => 'LINE',
+					),
+					array(
+						'field'       => 'link',
+						'type'        => __( 'Marketing Button : Link', 'uabb' ),
+						'editor_type' => 'LINK',
+					),
+				),
+			);
 			return $form;
 		}
 	}
