@@ -10,16 +10,16 @@ $settings = FLBuilderWhiteLabel::get_help_button_settings();
 	<form id="help-button-form" action="<?php FLBuilderAdminSettings::render_form_action( 'help-button' ); ?>" method="post">
 
 		<div class="fl-settings-form-content">
-		
+
 			<p>
 				<label>
 					<input type="checkbox" name="fl-help-button-enabled" value="1" <?php checked( $settings['enabled'], 1 ); ?> />
 					<span><?php _e( 'Enable Help Button', 'fl-builder' ); ?></span>
 				</label>
 			</p>
-			
+
 			<div class="fl-help-button-settings">
-				
+
 				<h4><?php _e( 'Help Tour', 'fl-builder' ); ?></h4>
 				<p>
 					<label>
@@ -27,7 +27,7 @@ $settings = FLBuilderWhiteLabel::get_help_button_settings();
 						<span><?php _e( 'Enable Help Tour', 'fl-builder' ); ?></span>
 					</label>
 				</p>
-				
+
 				<h4><?php _e( 'Help Video', 'fl-builder' ); ?></h4>
 				<p>
 					<label>
@@ -41,7 +41,7 @@ $settings = FLBuilderWhiteLabel::get_help_button_settings();
 				<p class="fl-help-video-embed">
 					<input type="text" name="fl-help-video-embed" class="regular-text" value="<?php echo htmlspecialchars( $settings['video_embed'] ); ?>" />
 				</p>
-				
+
 				<h4><?php _e( 'Knowledge Base', 'fl-builder' ); ?></h4>
 				<p>
 					<label>
@@ -55,7 +55,7 @@ $settings = FLBuilderWhiteLabel::get_help_button_settings();
 				<p class="fl-knowledge-base-url">
 					<input type="text" name="fl-knowledge-base-url" class="regular-text" value="<?php echo esc_url_raw( $settings['knowledge_base_url'] ); ?>" />
 				</p>
-				
+
 				<h4><?php _e( 'Contact Support', 'fl-builder' ); ?></h4>
 				<p>
 					<label>
@@ -69,7 +69,7 @@ $settings = FLBuilderWhiteLabel::get_help_button_settings();
 				<p class="fl-forums-url">
 					<input type="text" name="fl-forums-url" class="regular-text" value="<?php echo esc_url_raw( $settings['forums_url'] ); ?>" />
 				</p>
-				
+
 			</div>
 
 		</div>

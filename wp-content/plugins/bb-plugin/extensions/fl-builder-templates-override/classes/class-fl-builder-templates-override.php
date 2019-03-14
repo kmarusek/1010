@@ -16,18 +16,18 @@ final class FLBuilderTemplatesOverride {
 	 */
 	static public function init() {
 		// Actions
-		add_action( 'fl_builder_admin_settings_templates_form',    __CLASS__ . '::render_admin_settings' );
-		add_action( 'fl_builder_admin_settings_save',              __CLASS__ . '::save_admin_settings' );
+		add_action( 'fl_builder_admin_settings_templates_form', __CLASS__ . '::render_admin_settings' );
+		add_action( 'fl_builder_admin_settings_save', __CLASS__ . '::save_admin_settings' );
 
 		// Filters
 		add_filter( 'fl_builder_register_template_post_type_args', __CLASS__ . '::post_type_args' );
-		add_filter( 'fl_builder_render_ui_panel',                  __CLASS__ . '::render_ui_panel' );
-		add_filter( 'fl_builder_template_selector_data',           __CLASS__ . '::selector_data', 10, 2 );
-		add_filter( 'fl_builder_row_templates_data',               __CLASS__ . '::row_templates_data' );
-		add_filter( 'fl_builder_column_templates_data',            __CLASS__ . '::column_templates_data' );
-		add_filter( 'fl_builder_module_templates_data',            __CLASS__ . '::module_templates_data' );
-		add_filter( 'fl_builder_override_apply_node_template',     __CLASS__ . '::apply_node', 10, 2 );
-		add_filter( 'fl_builder_override_apply_template',          __CLASS__ . '::apply', 10, 2 );
+		add_filter( 'fl_builder_render_ui_panel', __CLASS__ . '::render_ui_panel' );
+		add_filter( 'fl_builder_template_selector_data', __CLASS__ . '::selector_data', 10, 2 );
+		add_filter( 'fl_builder_row_templates_data', __CLASS__ . '::row_templates_data' );
+		add_filter( 'fl_builder_column_templates_data', __CLASS__ . '::column_templates_data' );
+		add_filter( 'fl_builder_module_templates_data', __CLASS__ . '::module_templates_data' );
+		add_filter( 'fl_builder_override_apply_node_template', __CLASS__ . '::apply_node', 10, 2 );
+		add_filter( 'fl_builder_override_apply_template', __CLASS__ . '::apply', 10, 2 );
 	}
 
 	/**
@@ -52,10 +52,10 @@ final class FLBuilderTemplatesOverride {
 	static public function render_admin_settings() {
 		if ( is_network_admin() || ! is_multisite() ) {
 
-			$site_id 		= self::get_source_site_id();
-			$show_rows  	= self::show_rows();
-			$show_columns  	= self::show_columns();
-			$show_modules  	= self::show_modules();
+			$site_id      = self::get_source_site_id();
+			$show_rows    = self::show_rows();
+			$show_columns = self::show_columns();
+			$show_modules = self::show_modules();
 
 			include FL_BUILDER_TEMPLATES_OVERRIDE_DIR . 'includes/admin-settings-templates-override.php';
 		}
@@ -181,10 +181,10 @@ final class FLBuilderTemplatesOverride {
 				switch_to_blog( $site_id );
 			}
 
-			$user = FLBuilderModel::get_user_templates( $type );
-			$data['templates'] = $user['templates'];
+			$user                = FLBuilderModel::get_user_templates( $type );
+			$data['templates']   = $user['templates'];
 			$data['categorized'] = $user['categorized'];
-			$data['groups'] = array();
+			$data['groups']      = array();
 
 			foreach ( $data['templates'] as $i => $template ) {
 
@@ -197,14 +197,14 @@ final class FLBuilderTemplatesOverride {
 				foreach ( $template['category'] as $cat_slug => $cat_name ) {
 					if ( ! isset( $data['groups'][ $cat_slug ] ) ) {
 						$data['groups'][ $cat_slug ] = array(
-							'name' => $cat_name,
+							'name'       => $cat_name,
 							'categories' => array(),
 						);
 					}
 					$template['group'][] = $cat_slug;
 				}
 
-				$template['category'] = array(
+				$template['category']    = array(
 					'none' => '',
 				);
 				$data['templates'][ $i ] = $template;
@@ -302,7 +302,7 @@ final class FLBuilderTemplatesOverride {
 					switch_to_blog( $site_id );
 				}
 
-				$template->nodes 	= FLBuilderModel::get_layout_data( 'published', $args['index'] );
+				$template->nodes    = FLBuilderModel::get_layout_data( 'published', $args['index'] );
 				$template->settings = FLBuilderModel::get_layout_settings( 'published', $args['index'] );
 
 				if ( is_multisite() ) {
@@ -337,10 +337,10 @@ final class FLBuilderTemplatesOverride {
 					switch_to_blog( $site_id );
 				}
 
-				$template->nodes 	= FLBuilderModel::get_layout_data( 'published', $args['template_id'] );
+				$template->nodes    = FLBuilderModel::get_layout_data( 'published', $args['template_id'] );
 				$template->settings = FLBuilderModel::get_layout_settings( 'published', $args['template_id'] );
-				$template->type 	= FLBuilderModel::get_user_template_type( $args['template_id'] );
-				$template->global 	= false;
+				$template->type     = FLBuilderModel::get_user_template_type( $args['template_id'] );
+				$template->global   = false;
 
 				if ( is_multisite() ) {
 					restore_current_blog();

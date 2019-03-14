@@ -11,23 +11,23 @@ final class FLBuilderWhiteLabel {
 	 * @return void
 	 */
 	static public function init() {
-		add_filter( 'all_plugins',               __CLASS__ . '::plugins_page' );
-		add_filter( 'wp_prepare_themes_for_js',  __CLASS__ . '::themes_page' );
-		add_filter( 'all_themes',                __CLASS__ . '::network_themes_page' );
-		add_filter( 'update_right_now_text',     __CLASS__ . '::admin_dashboard_page' );
-		add_filter( 'gettext',                   __CLASS__ . '::theme_gettext', 10, 3 );
-		add_filter( 'gettext',                   __CLASS__ . '::plugin_gettext', 10, 3 );
-		add_filter( 'fl_plugin_info_data',       __CLASS__ . '::fl_plugin_info', 10, 2 );
-		add_action( 'customize_render_section',  __CLASS__ . '::theme_customizer' );
-		add_action( 'admin_enqueue_scripts',     __CLASS__ . '::updates_core' );
-		add_filter( 'fl_updater_icon',           __CLASS__ . '::update_icon_branding', 11, 3 );
+		add_filter( 'all_plugins', __CLASS__ . '::plugins_page' );
+		add_filter( 'wp_prepare_themes_for_js', __CLASS__ . '::themes_page' );
+		add_filter( 'all_themes', __CLASS__ . '::network_themes_page' );
+		add_filter( 'update_right_now_text', __CLASS__ . '::admin_dashboard_page' );
+		add_filter( 'gettext', __CLASS__ . '::theme_gettext', 10, 3 );
+		add_filter( 'gettext', __CLASS__ . '::plugin_gettext', 10, 3 );
+		add_filter( 'fl_plugin_info_data', __CLASS__ . '::fl_plugin_info', 10, 2 );
+		add_action( 'customize_render_section', __CLASS__ . '::theme_customizer' );
+		add_action( 'admin_enqueue_scripts', __CLASS__ . '::updates_core' );
+		add_filter( 'fl_updater_icon', __CLASS__ . '::update_icon_branding', 11, 3 );
 
 		if ( is_admin() && isset( $_REQUEST['page'] ) && in_array( $_REQUEST['page'], array( 'fl-builder-settings', 'fl-builder-multisite-settings' ) ) ) {
-			add_action( 'admin_enqueue_scripts',                     __CLASS__ . '::enqueue_scripts' );
-			add_filter( 'fl_builder_admin_settings_nav_items',       __CLASS__ . '::admin_settings_nav_items' );
-			add_action( 'fl_builder_admin_settings_render_forms',    __CLASS__ . '::admin_settings_render_forms' );
-			add_action( 'fl_builder_admin_settings_save',            __CLASS__ . '::save_branding_settings' );
-			add_action( 'fl_builder_admin_settings_save',            __CLASS__ . '::save_help_button_settings' );
+			add_action( 'admin_enqueue_scripts', __CLASS__ . '::enqueue_scripts' );
+			add_filter( 'fl_builder_admin_settings_nav_items', __CLASS__ . '::admin_settings_nav_items' );
+			add_action( 'fl_builder_admin_settings_render_forms', __CLASS__ . '::admin_settings_render_forms' );
+			add_action( 'fl_builder_admin_settings_save', __CLASS__ . '::save_branding_settings' );
+			add_action( 'fl_builder_admin_settings_save', __CLASS__ . '::save_help_button_settings' );
 		}
 
 	}
@@ -55,15 +55,15 @@ final class FLBuilderWhiteLabel {
 	 */
 	static public function admin_settings_nav_items( $nav_items ) {
 		$nav_items['branding'] = array(
-			'title' 	=> __( 'Branding', 'fl-builder' ),
-			'show'		=> is_network_admin() || ! FLBuilderAdminSettings::multisite_support(),
-			'priority'	=> 650,
+			'title'    => __( 'Branding', 'fl-builder' ),
+			'show'     => is_network_admin() || ! FLBuilderAdminSettings::multisite_support(),
+			'priority' => 650,
 		);
 
 		$nav_items['help-button'] = array(
-			'title' 	=> __( 'Help Button', 'fl-builder' ),
-			'show'		=> is_network_admin() || ! FLBuilderAdminSettings::multisite_support(),
-			'priority'	=> 651,
+			'title'    => __( 'Help Button', 'fl-builder' ),
+			'show'     => is_network_admin() || ! FLBuilderAdminSettings::multisite_support(),
+			'priority' => 651,
 		);
 
 		return $nav_items;
@@ -91,16 +91,16 @@ final class FLBuilderWhiteLabel {
 		if ( isset( $_POST['fl-branding-nonce'] ) && wp_verify_nonce( $_POST['fl-branding-nonce'], 'branding' ) ) {
 
 			// Get the plugin branding data.
-			$branding		= wp_kses_post( $_POST['fl-branding'] );
-			$branding_icon	= sanitize_text_field( $_POST['fl-branding-icon'] );
+			$branding      = wp_kses_post( $_POST['fl-branding'] );
+			$branding_icon = sanitize_text_field( $_POST['fl-branding-icon'] );
 
 			// Get the theme branding data.
 			$theme_data = array(
-				'name' 				=> wp_kses_post( $_POST['fl-theme-branding-name'] ),
-				'description' 		=> wp_kses_post( $_POST['fl-theme-branding-description'] ),
-				'company_name' 		=> wp_kses_post( $_POST['fl-theme-branding-company-name'] ),
-				'company_url' 		=> sanitize_text_field( $_POST['fl-theme-branding-company-url'] ),
-				'screenshot_url' 	=> sanitize_text_field( $_POST['fl-theme-branding-screenshot-url'] ),
+				'name'           => wp_kses_post( $_POST['fl-theme-branding-name'] ),
+				'description'    => wp_kses_post( $_POST['fl-theme-branding-description'] ),
+				'company_name'   => wp_kses_post( $_POST['fl-theme-branding-company-name'] ),
+				'company_url'    => sanitize_text_field( $_POST['fl-theme-branding-company-url'] ),
+				'screenshot_url' => sanitize_text_field( $_POST['fl-theme-branding-screenshot-url'] ),
 			);
 
 			// Save the data.
@@ -178,13 +178,13 @@ final class FLBuilderWhiteLabel {
 	 * @return array
 	 */
 	static public function get_theme_branding() {
-		$value = FLBuilderModel::get_admin_settings_option( '_fl_builder_theme_branding', false );
+		$value    = FLBuilderModel::get_admin_settings_option( '_fl_builder_theme_branding', false );
 		$defaults = array(
-			'name' 				=> '',
-			'description' 		=> '',
-			'company_name' 		=> '',
-			'company_url' 		=> '',
-			'screenshot_url' 	=> '',
+			'name'           => '',
+			'description'    => '',
+			'company_name'   => '',
+			'company_url'    => '',
+			'screenshot_url' => '',
 		);
 
 		$value = wp_parse_args( $value, $defaults );
@@ -205,29 +205,29 @@ final class FLBuilderWhiteLabel {
 	static public function save_help_button_settings() {
 		if ( isset( $_POST['fl-help-button-nonce'] ) && wp_verify_nonce( $_POST['fl-help-button-nonce'], 'help-button' ) ) {
 
-			$settings					= FLBuilderModel::get_help_button_defaults();
-			$settings['enabled']		= isset( $_POST['fl-help-button-enabled'] )		? true : false;
-			$settings['tour']			= isset( $_POST['fl-help-tour-enabled'] )		? true : false;
-			$settings['video']			= isset( $_POST['fl-help-video-enabled'] )		? true : false;
-			$settings['knowledge_base'] = isset( $_POST['fl-knowledge-base-enabled'] )	? true : false;
-			$settings['forums']			= isset( $_POST['fl-forums-enabled'] )			? true : false;
+			$settings                   = FLBuilderModel::get_help_button_defaults();
+			$settings['enabled']        = isset( $_POST['fl-help-button-enabled'] ) ? true : false;
+			$settings['tour']           = isset( $_POST['fl-help-tour-enabled'] ) ? true : false;
+			$settings['video']          = isset( $_POST['fl-help-video-enabled'] ) ? true : false;
+			$settings['knowledge_base'] = isset( $_POST['fl-knowledge-base-enabled'] ) ? true : false;
+			$settings['forums']         = isset( $_POST['fl-forums-enabled'] ) ? true : false;
 
 			// Disable everything if the main button is disabled.
 			if ( ! $settings['enabled'] ) {
-				$settings['tour']			= false;
-				$settings['video']			= false;
+				$settings['tour']           = false;
+				$settings['video']          = false;
 				$settings['knowledge_base'] = false;
-				$settings['forums']			= false;
+				$settings['forums']         = false;
 			}
 
 			// Clean the video embed.
 			$video_embed = wp_kses( $_POST['fl-help-video-embed'], array(
 				'iframe' => array(
-					'src'					=> array(),
-					'frameborder'			=> array(),
+					'src'                   => array(),
+					'frameborder'           => array(),
 					'webkitallowfullscreen' => array(),
-					'mozallowfullscreen'	=> array(),
-					'allowfullscreen'		=> array(),
+					'mozallowfullscreen'    => array(),
+					'allowfullscreen'       => array(),
 				),
 			));
 
@@ -265,7 +265,7 @@ final class FLBuilderWhiteLabel {
 	 * @return array
 	 */
 	static public function get_help_button_settings() {
-		$value = FLBuilderModel::get_admin_settings_option( '_fl_builder_help_button', false );
+		$value    = FLBuilderModel::get_admin_settings_option( '_fl_builder_help_button', false );
 		$defaults = apply_filters( 'fl_builder_help_button_defaults', FLBuilderModel::get_help_button_defaults() );
 
 		return false === $value ? $defaults : $value;
@@ -280,12 +280,12 @@ final class FLBuilderWhiteLabel {
 	 */
 	static public function plugins_page( $plugins ) {
 		$branding = self::get_branding();
-		$key	  = FLBuilderModel::plugin_basename();
+		$key      = FLBuilderModel::plugin_basename();
 
 		if ( isset( $plugins[ $key ] ) && $branding !== $plugins[ $key ]['Name'] && self::is_white_labeled() ) {
-			$plugins[ $key ]['Name']	   = $branding;
-			$plugins[ $key ]['Title']	   = $branding;
-			$plugins[ $key ]['Author']	   = '';
+			$plugins[ $key ]['Name']       = $branding;
+			$plugins[ $key ]['Title']      = $branding;
+			$plugins[ $key ]['Author']     = '';
 			$plugins[ $key ]['AuthorName'] = '';
 			$plugins[ $key ]['PluginURI']  = '';
 		}
@@ -320,8 +320,8 @@ final class FLBuilderWhiteLabel {
 				$themes['bb-theme']['description'] = $theme_data['description'];
 			}
 			if ( ! empty( $theme_data['company_name'] ) ) {
-				$company_url = empty( $theme_data['company_url'] ) ? '#' : $theme_data['company_url'];
-				$themes['bb-theme']['author'] = $theme_data['company_name'];
+				$company_url                        = empty( $theme_data['company_url'] ) ? '#' : $theme_data['company_url'];
+				$themes['bb-theme']['author']       = $theme_data['company_name'];
 				$themes['bb-theme']['authorAndUri'] = '<a href="' . $company_url . '">' . $theme_data['company_name'] . '</a>';
 			}
 			if ( ! empty( $theme_data['screenshot_url'] ) ) {
@@ -360,7 +360,7 @@ final class FLBuilderWhiteLabel {
 	static public function network_themes_page( $themes ) {
 		if ( isset( $themes['bb-theme'] ) && is_network_admin() ) {
 
-			$theme_data = self::get_theme_branding();
+			$theme_data         = self::get_theme_branding();
 			$network_theme_data = array();
 
 			if ( ! empty( $theme_data['name'] ) ) {
@@ -377,15 +377,15 @@ final class FLBuilderWhiteLabel {
 				$network_theme_data['Description'] = $theme_data['description'];
 			}
 			if ( ! empty( $theme_data['company_name'] ) ) {
-				$company_url = empty( $theme_data['company_url'] ) ? '#' : $theme_data['company_url'];
-				$network_theme_data['Author'] = $theme_data['company_name'];
+				$company_url                     = empty( $theme_data['company_url'] ) ? '#' : $theme_data['company_url'];
+				$network_theme_data['Author']    = $theme_data['company_name'];
 				$network_theme_data['AuthorURI'] = $company_url;
-				$network_theme_data['ThemeURI'] = $company_url;
+				$network_theme_data['ThemeURI']  = $company_url;
 			}
 
 			if ( count( $network_theme_data ) > 0 ) {
 				$reflectionobject = new ReflectionObject( $themes['bb-theme'] );
-				$headers = $reflectionobject->getProperty( 'headers' );
+				$headers          = $reflectionobject->getProperty( 'headers' );
 				$headers->setAccessible( true );
 
 				$headers_sanitized = $reflectionobject->getProperty( 'headers_sanitized' );
@@ -481,7 +481,7 @@ final class FLBuilderWhiteLabel {
 	 * to cover areas that we can't access like the Customizer.
 	 *
 	 * @since 1.8.4
-	 * @return string 	Only return if theme branding has been filled up.
+	 * @return string   Only return if theme branding has been filled up.
 	 */
 	static public function theme_customizer( $instance ) {
 		if ( 'Beaver Builder Theme' == $instance->title ) {
@@ -503,8 +503,8 @@ final class FLBuilderWhiteLabel {
 		if ( in_array( $settings['slug'], array( 'bb-plugin', 'bb-theme-builder' ) ) ) {
 			if ( self::is_white_labeled() ) {
 				$icons = array(
-					'1x' => self::get_branding_icon(),
-					'2x' => self::get_branding_icon(),
+					'1x'      => self::get_branding_icon(),
+					'2x'      => self::get_branding_icon(),
 					'default' => self::get_branding_icon(),
 				);
 			}

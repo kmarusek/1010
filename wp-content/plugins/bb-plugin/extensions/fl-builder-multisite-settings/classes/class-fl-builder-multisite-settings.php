@@ -14,9 +14,9 @@ final class FLBuilderMultisiteSettings {
 	 * @return void
 	 */
 	static public function init() {
-		add_action( 'admin_init',                        __CLASS__ . '::admin_init' );
-		add_action( 'network_admin_menu',                __CLASS__ . '::menu' );
-		add_filter( 'fl_builder_activate_redirect_url',  __CLASS__ . '::activate_redirect_url' );
+		add_action( 'admin_init', __CLASS__ . '::admin_init' );
+		add_action( 'network_admin_menu', __CLASS__ . '::menu' );
+		add_filter( 'fl_builder_activate_redirect_url', __CLASS__ . '::activate_redirect_url' );
 	}
 
 	/**
