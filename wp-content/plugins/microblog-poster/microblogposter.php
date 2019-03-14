@@ -4,7 +4,7 @@
  * Plugin Name: Microblog Poster
  * Plugin URI: https://efficientscripts.com/web/products/free
  * Description: Automatically publishes your new and old blog content to Social Networks. Auto posts to Twitter, Facebook, Linkedin, Tumblr, Blogger, Xing..
- * Version: 1.9.5.2
+ * Version: 1.9.5.7
  * Author: Efficient Scripts
  * Author URI: https://efficientscripts.com/
  * Text Domain: microblog-poster
@@ -259,6 +259,11 @@ class MicroblogPoster_Poster
             return;
         }
         
+        if(MicroblogPoster_Poster::check_duplicate_posts($post_ID))
+        {
+            return;
+        }
+        
         $apply_filters = MicroblogPoster_Poster::is_apply_filters_activated();
         
         $shortcode_title_max_length = MicroblogPoster_Poster::get_shortcode_title_max_length();
@@ -411,7 +416,7 @@ class MicroblogPoster_Poster
         MicroblogPoster_Poster::update_wordpress($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $featured_image_src_full, $tags);
         MicroblogPoster_Poster::update_googleplus($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $tags);
         MicroblogPoster_Poster::update_facebookb($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $tags);
-        MicroblogPoster_Poster::update_gmb_locations($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $tags);
+        MicroblogPoster_Poster::update_gmb_locations($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $featured_image_src_full, $tags);
         
         MicroblogPoster_Poster::maintain_logs();
     }
@@ -759,7 +764,7 @@ class MicroblogPoster_Poster
         MicroblogPoster_Poster::update_wordpress($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $featured_image_src_full, $tags);
         MicroblogPoster_Poster::update_googleplus($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $tags);
         MicroblogPoster_Poster::update_facebookb($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $tags);
-        MicroblogPoster_Poster::update_gmb_locations($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $tags);
+        MicroblogPoster_Poster::update_gmb_locations($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink_actual, $post_content_actual_lkn, $featured_image_src_full, $tags);
         
         MicroblogPoster_Poster::maintain_logs();
     }
@@ -4600,7 +4605,7 @@ class MicroblogPoster_Poster
             }
         }
     }
-    public static function update_gmb_locations($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink, $post_content_actual_lkn, $tags)
+    public static function update_gmb_locations($cdriven, $old, $mp, $dash, $update, $post_content, $post_ID, $post_title, $permalink, $post_content_actual_lkn, $featured_image_src_full, $tags)
     {
         $curl = new MicroblogPoster_Curl();
         $gmb_location_accounts = MicroblogPoster_Poster::get_accounts_by_mode('googlemybusinessl', $post_ID);
@@ -4766,6 +4771,7 @@ class MicroblogPoster_Poster
                     {
                         $customer_license_key_name = "microblogposterpro_plg_customer_license_key";
                         $customer_license_key_value = get_option($customer_license_key_name, "");
+                        $customer_license_key_value = json_decode($customer_license_key_value, true);
                         $url = "https://efficientscripts.com/api/googleMyBusinessRefresh.php?mbp_gmb_rt={$extra_main['refresh_token']}&mbp_lk={$customer_license_key_value['key']}";
                         $json_res = $curl->fetch_url($url);
                         $response = json_decode($json_res, true);
@@ -4789,11 +4795,18 @@ class MicroblogPoster_Poster
                     $access_token = "Bearer " . $extra_main['access_token'];
                     $body = new stdClass();
                     $body->languageCode = 'en';
-                    $body->summary = $update . ' ' .$permalink;
+                    $body->summary = $update;
                     $body->callToAction = new stdClass();
                     $body->callToAction->actionType = 'LEARN_MORE';
                     $body->callToAction->url = $permalink;
                     $body->topicType = 'STANDARD';
+                    if(isset($extra['include_featured_image']) && $extra['include_featured_image'] == 1 && $featured_image_src_full)
+                    {
+                        $body_photo = new stdClass();
+                        $body_photo->mediaFormat = 'PHOTO';
+                        $body_photo->sourceUrl = $featured_image_src_full;
+                        $body->media = array($body_photo);
+                    }
                     $body_json = json_encode($body);
                     $headers = array(
                         'Authorization' => $access_token,
@@ -5631,6 +5644,24 @@ class MicroblogPoster_Poster
         $wpdb->query($sql);
         
         return true;
+    }
+    
+    private static function check_duplicate_posts($post_id)
+    {
+        global  $wpdb;
+
+        $table_logs = $wpdb->prefix . 'microblogposter_logs';
+        
+        $sql="SELECT * FROM $table_logs WHERE post_id={$post_id} "
+        . "AND log_datetime<=NOW() AND log_datetime>DATE_SUB(NOW(),INTERVAL 30 SECOND)";
+        $rows = $wpdb->get_results($sql);
+        
+        if(is_array($rows) && count($rows)>0)
+        {
+            return true;
+        }
+        
+        return false;
     }
     
     /**

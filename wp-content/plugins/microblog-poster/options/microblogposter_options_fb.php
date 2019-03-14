@@ -40,11 +40,11 @@ foreach($rows as $row):
 
     if($target_type == "page")
     {
-        $fb_scope = "publish_actions,publish_pages,manage_pages";
+        $fb_scope = "publish_pages,manage_pages";
     }
     elseif($target_type == "group")
     {
-        $fb_scope = "publish_actions,publish_pages,manage_pages,user_managed_groups";
+        $fb_scope = "publish_to_groups";
     }
     $fb_scope = urlencode($fb_scope);
 

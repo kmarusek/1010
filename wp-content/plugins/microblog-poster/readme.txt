@@ -3,7 +3,7 @@ Contributors: cybperic
 Tags: microblogging, bookmarking, bookmarks, auto posts, auto publish, social signals, cross-post, cross post, auto submit, auto update, social networks, social media, twitter, facebook, linkedin, tumblr, delicious, diigo, plurk, blogger, automatic, automation, links, backlinks, auto updates status, social media auto publish, social network auto publish, publish to twitter, publish to facebook
 Requires at least: 3.0
 Tested up to: 5.1
-Stable tag: 1.9.5.2
+Stable tag: 1.9.5.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ Auto publish your new and old blog content to Social Networks. Auto post to Twit
 == Description ==
 
 **Auto publish to your social media accounts** your new blog posts/pages/custom post types.
-You only have to configure your social network accounts like Facebook, Twitter, LinkedIn, Tumblr.. 
+You only have to configure your social network accounts like Facebook, Google My Business, Twitter, LinkedIn, Tumblr.. 
 
 **Auto re-publish old blog posts** to all your configured social accounts. 
 By auto sharing your old blog posts, you keep them alive and increase traffic to your blog!
@@ -44,7 +44,7 @@ Please visit **MicroblogPoster**'s [website](https://efficientscripts.com/web/pr
 
 * twitter.com - Auto post to your account.
 * facebook.com - Auto publish to profile / page wall.
-* plus.google.com - Auto publish to Google+ via Buffer.
+* business.google.com - Auto publish to Google My Business.
 * plurk.com - Auto post to your account.
 * delicious.com - Auto submit bookmark of your blogpost to your account.
 * diigo.com - Auto submit bookmark of your blogpost.
@@ -103,8 +103,24 @@ see "posted by MicroblogPoster" in your updates, you'll see "posted by your own 
 
 == Changelog ==
 
+= 1.9.5.7 (12-03-2019) =
+- Fixing javascript bug.
+
+= 1.9.5.6 (12-03-2019) =
+- Fixing facebook scopes.
+- Improvement related to duplicate posts issue.
+
+= 1.9.5.5 (09-03-2019) =
+- Improving buttons design.
+
+= 1.9.5.4 (03-03-2019) =
+- Improving Google My Business auto posting.
+
+= 1.9.5.3 (01-03-2019) =
+- Plugin's banner update.
+
 = 1.9.5.2 (26-02-2019) =
-- Added Google My Business locations auto posting in paid versions.
+- Added Google My Business locations auto posting in Enterprise version.
 
 = 1.9.5.1 (27-01-2019) =
 - Fixing help urls.

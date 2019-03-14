@@ -37,6 +37,7 @@ foreach($rows as $row):
                 <span><?php echo $gmb_account_locations->username; ?></span>
                 <span class="edit-account edit<?php echo $gmb_account_locations->account_id;?>"><?php _e('Edit', 'microblog-poster');?></span>
                 <span class="del-account del<?php echo $gmb_account_locations->account_id;?>"><?php _e('Del', 'microblog-poster');?></span><br />
+                <div class="mbp-separator-small"></div>
             <?php endforeach; ?>
         <?php endif; ?>
     </div>
@@ -91,6 +92,14 @@ foreach($rows as $row):
                 </div>
                 <div class="input-div-large">
                     <span class="description-small"><?php echo $description_shortcodes_bookmark;?></span>
+                </div>
+                <div class="mbp-separator"></div>
+                <div class="input-div">
+                    <?php _e('Include featured image:', 'microblog-poster');?>
+                </div>
+                <div class="input-div-large">
+                    <input type="checkbox" id="include_featured_image" name="include_featured_image" value="1" />
+                    <span class="description"><?php _e('Do you want to include featured image in your updates?', 'microblog-poster');?></span>
                 </div>
                 <div class="mbp-separator"></div>
                 <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise_Options','microblogposter_display_link_categories')):?>
@@ -205,6 +214,7 @@ foreach($rows as $row):
             $gmb_link_categories = $gmbl_acc_extra['link_categories'];
             $gmb_link_categories = json_decode($gmb_link_categories, true);
         }
+        $include_featured_image = (isset($gmbl_acc_extra['include_featured_image']) && $gmbl_acc_extra['include_featured_image'] == 1)?true:false;
     }
     $sql="SELECT * FROM $table_accounts WHERE account_id = %d LIMIT 1";
     $rows = $wpdb->get_results($wpdb->prepare($sql, $row->consumer_key));
@@ -240,7 +250,7 @@ foreach($rows as $row):
                         <input type="text" id="" name="username" value="<?php echo $row->username;?>" />
                     </div>
                     <div class="input-div">
-                        <?php _e('Google account id:', 'microblog-poster');?>
+                        <?php _e('Google account:', 'microblog-poster');?>
                     </div>
                     <div class="input-div-large">
                         <input type="text" id="" name="gmb_account_name" value="<?php echo $main_extra['accountsQuickAccess'][$gmbl_acc_extra['account_id']];?>" disabled='disabled' />
@@ -271,7 +281,14 @@ foreach($rows as $row):
                     <div class="input-div-large">
                         <span class="description-small"><?php echo $description_shortcodes_bookmark;?></span>
                     </div>
-                    
+                    <div class="mbp-separator"></div>
+                    <div class="input-div">
+                        <?php _e('Include featured image:', 'microblog-poster');?>
+                    </div>
+                    <div class="input-div-large">
+                        <input type="checkbox" id="include_featured_image" name="include_featured_image" value="1" <?php if ($include_featured_image) echo "checked";?>/>
+                        <span class="description"><?php _e('Do you want to include featured image in your updates?', 'microblog-poster');?></span>
+                    </div>
                     <div class="mbp-separator"></div>
                     <?php if(MicroblogPoster_Poster::is_method_callable('MicroblogPoster_Poster_Enterprise_Options','microblogposter_display_link_categories')):?>
                         <?php MicroblogPoster_Poster_Enterprise_Options::microblogposter_display_link_categories($gmb_link_categories);?>

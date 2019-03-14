@@ -1,0 +1,580 @@
+
+.microblogposter-name
+{
+    color: #008100;
+}
+.form-table td
+{
+    font-size: 10px;
+    line-height: 1em;
+    padding: 0 0 5px 0;
+}
+.form-table td.label-input
+{
+    width: 200px;
+}
+.form-table td.padding-left
+{
+    padding-left: 15px;
+}
+.form-table td.padding-left1
+{
+    padding-left: 25px;
+}
+.form-table td.padding-top-bottom
+{
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+.form-table td.padding-top1-bottom
+{
+    padding-top: 10px;
+    padding-bottom: 25px;
+}
+.form-table td.row-sep
+{
+    padding-bottom: 25px;
+}
+.form-table td.authorization
+{
+    font-size: 13px;
+}
+.help-div
+{
+    margin-left: 20px;
+    margin-bottom: 25px;
+}
+.input-div
+{
+    margin-left: 20px;
+    margin-bottom: 5px;
+    display: inline-block;
+    width: 150px;
+}
+.input-div-radio
+{
+    vertical-align: top;
+}
+.input-div-large
+{
+    margin-bottom: 5px;
+    display: inline-block;
+    width: 610px;
+}
+.input-div input
+{
+    width: 200px;
+}
+.label-account-type
+{
+    font-size: 14px;
+    margin-left: 10px;
+}
+.new-account-header
+{
+    text-align: center;
+}
+#account_type
+{
+    width: 150px;
+}
+#account_type_wrapper
+{
+    width: 330px;
+    height: 30px;
+    margin: 0 auto;
+    padding-top: 5px;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    text-align: center;
+}
+.one-account
+{
+    margin-top: 20px;
+    background-color: #F3F3F7;
+    border-radius: 10px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+textarea#message_format
+{
+    resize: both;
+    width: 290px;
+    max-width: 460px;
+}
+.button-holder
+{
+    width: 180px;
+    margin: 30px auto;
+}
+.button-holder-del
+{
+    width: 170px;
+    margin: 30px auto;
+}
+.edit-account
+{
+    padding: 3px 10px;
+    background: #FFFFFF;
+    color: #0066FF;
+    border: 1px solid #bfbfbf;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.edit-account:hover
+{
+    background: #0066FF;
+    color: #FFFFFF;
+    border-color: #0066FF;
+}
+.configure-account
+{
+    padding: 3px 10px;
+    background: #FFFFFF;
+    color: #0066FF;
+    border: 1px solid #bfbfbf;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.configure-account:hover
+{
+    color: #FFFFFF;
+    border-color: #0066FF;
+    background: #0066FF;
+}
+.new-account
+{
+    background: #FFFFFF;
+    color: #00B800;
+    border: 1px solid #bfbfbf;
+    margin-bottom: 20px;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 3px 10px;
+}
+.new-account:hover
+{
+    background: #00B800;
+    color: #FFFFFF;
+    border-color: #00B800;
+}
+.del-account
+{
+    padding: 3px 10px;
+    background: #FFFFFF;
+    color: #FF0000;
+    border-radius: 3px;
+    border-color: #FF0000;
+    border: 1px solid #bfbfbf;
+    cursor: pointer;
+}
+.del-account:hover
+{
+    color: #FFFFFF;
+    border-color: #FF0000;
+    background: #FF0000;
+}
+.del-account-fb
+{
+    background: #FFFFFF;
+    color: #FF0000;
+    border-color: #FF0000;
+}
+.del-account-fb:hover
+{
+    color: #B20000;
+    border-color: #B20000;
+}
+.update-options
+{
+
+}
+.account-wrapper
+{
+    width: 350px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #99E399;
+}
+#network-accounts-header
+{
+    margin-top: 0px;
+    margin-bottom: 20px;
+    /*width: 275px;
+    border-bottom: 3px solid #99E399;*/
+    font-size: 14px;
+}
+#general-header
+{
+    margin-top: 0px;
+    /*width: 140px;
+    border-bottom: 3px solid #99E399;*/
+    font-size: 14px;
+}
+#pro-addon-header
+{
+    margin-top: 20px;
+    /*width: 265px;
+    border-bottom: 3px solid #99E399;*/
+    font-size: 14px;
+}
+#logs-header
+{
+    margin-top: 0px;
+    /*width: 120px;
+    border-bottom: 3px solid #99E399;*/
+    display: inline-block;
+    font-size: 14px;
+}
+#manual-post-header
+{
+    margin-top: 0px;
+    /*width: 465px;
+    border-bottom: 3px solid #99E399;
+    display: inline-block;*/
+    font-size: 14px;
+}
+#old-posts-header
+{
+    margin-top: 0px;
+    /*width: 450px;
+    border-bottom: 3px solid #99E399;
+    display: inline-block;*/
+    font-size: 14px;
+}
+#social-network-accounts
+{
+    margin-top: 35px;
+    margin-left: 15px;
+}
+#social-network-accounts .social-network-accounts-site
+{
+    margin-bottom: 20px;
+
+}
+#social-network-accounts h4
+{
+    background-color: #EBEBEB;
+    margin: 0px 0px;
+    padding: 3px 5px;
+    border-radius: 5px;
+    display: inline-block;
+    vertical-align: top;
+    font-size: 14px;
+    width: 330px;
+}
+.delete-wrapper
+{
+    text-align: center;
+}
+.delete-wrapper-del
+{
+    color: #FF0000;
+}
+.delete-wrapper-user
+{
+    color: #0066FF;
+}
+.account-username
+{
+    color: #2C2C2C;
+    font-weight: bold;
+}
+.description-small
+{
+    font-family: sans-serif;
+    font-size: 10px;
+    font-style: italic;
+    color: #666666;
+}
+#mbp-logs-wrapper table
+{
+    table-layout:fixed;
+    width: 970px;
+    border-collapse:collapse;
+}
+#mbp-logs-wrapper table td
+{
+    padding: 3px;
+    word-wrap: break-word;
+    border: 2px solid #E6E6E6;
+}
+.logs-dt
+{
+    width: 150px; 
+}
+.logs-username
+{
+    width: 200px;
+}
+.logs-message
+{
+    width: 500px;
+}
+.logs-post-id
+{
+    width: 100px;
+}
+.logs-text-fail
+{
+    color: red;
+}
+.logs-text-success
+{
+    color: #008100;
+}
+.logs-text-username
+{
+    color: #0066FF;
+}
+.logs-text-type
+{
+    color: #5200A3;
+}
+.logs-text-type-old
+{
+    color: #00008A;
+}
+#mbp-menu-wrapper
+{
+    display: inline-block;
+    vertical-align: bottom;
+    height: 46px;
+}
+#mbp-menu
+{
+    list-style: none outside none;
+    margin: 25px 0px 0px 0px;
+}
+#mbp-menu li
+{
+    display: inline;
+    /*margin-right: 1px;*/
+    color: #222222;
+    padding: 5px 10px;
+    font-size: 14px;
+    border-top: 1px solid #222222;
+    border-right: 1px solid #a8a8a8;
+}
+
+.mbp-tab-background
+{
+    background-color: #CCE6CC;
+    border-bottom: 2px solid #222222;
+}
+.mbp-tab-background:hover
+{
+    background-color: #E6F2E6;
+    cursor: pointer;
+    border-bottom: none;
+}
+.mbp-selected-tab
+{
+    background-color: #FFFFFF;
+    border-bottom: none;
+}
+.mbp-tab-first
+{
+    border-left: 1px solid #222222;
+}
+#mbp-menu #mbp-logs-tab
+{
+    border-right: 1px solid #222222;
+}
+.mbp-warning
+{
+    background-color: #FFFFE0;
+    border: 1px solid #E6DB55;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+.mbp-warning p
+{
+    margin-left: 10px;
+}
+.mbp-blue-title
+{
+    color: #21759B;
+    font-weight: bold;
+}
+.mbp-separator
+{
+    min-height: 10px;
+}
+.mbp-separator-small
+{
+    min-height: 5px;
+}
+#mbp-excluded-category-td .mbp-excluded-category, #mbp-link-categories-div .mbp-excluded-category
+{
+    margin-bottom: 5px;
+}
+#mbp-excluded-category-td .mbp-separator-span, #mbp-link-categories-div .mbp-separator-span
+{
+    padding-right: 15px;
+}
+#mbp-link-categories-div
+{
+    margin-top: 5px;
+}
+#mbp-excluded-category-header
+{
+    padding-bottom: 20px;
+}
+.mbp-deprecated
+{
+    color: #ff0000;
+}
+#mbp-facebook-upgrade-now, #mbp-linkedin-upgrade-now, #mbp-tumblr-upgrade-now, #mbp-vkontakte-upgrade-now
+{
+    margin: 20px auto 20px auto;
+    width: 400px;
+}
+#mbp-old-posts-upgrade-now
+{
+    padding-left: 15px;
+}
+#mbp_facebook_target_type, #mbp_linkedin_target_type, #mbp_vkontakte_target_type
+{
+    width: 130px;
+}
+#mbp_googleplus_select_name, #mbp_buffer_name
+{
+    width: 200px;
+}
+.mbp-facebook-target-type-span, .mbp-linkedin-target-type-span, .mbp-vkontakte-target-type-span
+{
+    width: 130px;
+    font-weight: bold;
+}
+.mbp-green
+{
+    color: green;
+}
+.mbp-red
+{
+    color: red;
+}
+.mbp-blue
+{
+    color: blue;
+}
+.mbp-single-tab-wrapper
+{
+    border-top: 1px solid #888888;
+    border-left: 1px solid #888888;
+    border-bottom: 1px solid #888888;
+    border-right: 1px solid #888888;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    border-top-right-radius: 2px;
+    padding-top: 40px;
+    padding-left: 20px;
+}
+#mbp_empty_logs_form_wrapper
+{
+    display: inline-block;
+    margin-left: 750px;
+    margin-bottom: 20px;
+}
+#mbp_refresh_buffer_form_wrapper, #mbp_refresh_gmb_form_wrapper
+{
+    margin-bottom: 20px;
+}
+#mbp-intro
+{
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+#mbp-intro-p
+{
+    text-align: center;
+    margin-bottom: 40px;
+}
+#mbp-intro .mbp-intro-text
+{
+    color: #001A66;
+    font-size: 13px;
+}
+.mbp-add-review-link
+{
+    color: #001A66;
+    font-size: 13px;
+}
+span.mbp-intro-text
+{
+    margin-left: 20px;
+    margin-right: 5px;
+}
+.mbp_manual_post_link_wrapper
+{
+    margin-left: 65px;
+}
+#mbp_manual_post_post_type
+{
+    margin-bottom: 10px;
+}
+#mbp_manual_post_dash_head
+{
+    margin-left: 20px;
+}
+#mbp_mp_description,#mbp_mp_message
+{
+    resize: none;
+}
+.mbp_mp_description_text
+{
+    color: #666666;
+}
+#mbp_microblogposter_additional-shorteners_switch
+{
+    color: #001a66;
+}
+h3.mbp-additional-shorteners-upgrade
+{
+    color: #222222;
+}
+h3.mbp-additional-shorteners-upgrade a
+{
+    color: #001a66;
+}
+#mbp-manual-post-wrapper .mbp-manual-post-text
+{
+    color: #001A66;
+    font-size: 14px;
+}
+#mbp-manual-post-wrapper .mbp-manual-post-text-red
+{
+    color: red;
+    font-size: 13px;
+}
+#mbp-manual-post-wrapper span.mbp-manual-post-text
+{
+    margin-right: 5px;
+}
+#mbp-manual-post-intro
+{
+    margin-bottom: 15px;
+}
+#mbp-old-posts-status-area
+{
+    margin-left: 85px;
+    display: inline-block;
+    width: 200px;
+}
+#mbp-old-posts-intro-area
+{
+    margin-bottom: 40px;
+}
+#mbp_microblogposter_link-categories_switch
+{
+    margin-right: 5px;
+}
+#gmb_location_names
+{
+    width: 290px;
+    max-width: 460px;
+    resize: both;
+
+}

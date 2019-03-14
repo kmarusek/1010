@@ -5,7 +5,7 @@ Plugin URI: http://fastvelocity.com
 Description: Improve your speed score on GTmetrix, Pingdom Tools and Google PageSpeed Insights by merging and minifying CSS and JavaScript files into groups, compressing HTML and other speed optimizations. 
 Author: Raul Peixoto
 Author URI: http://fastvelocity.com
-Version: 2.5.9
+Version: 2.6.0
 License: GPL2
 
 ------------------------------------------------------------------------
@@ -71,6 +71,7 @@ $plugindir = plugin_dir_path( __FILE__ ); # prints with trailing slash
 include($plugindir.'inc/functions.php');
 include($plugindir.'inc/functions-serverinfo.php');
 include($plugindir.'inc/functions-upgrade.php');
+include($plugindir.'inc/functions-cache.php');
 
 # wp-cli support
 if ( defined( 'WP_CLI' ) && WP_CLI ) { 
@@ -171,10 +172,8 @@ if(is_admin()) {
     add_action('admin_init', 'fastvelocity_min_register_settings');
     
 	# This function runs when WordPress updates or installs/remove something
-	add_action('upgrader_process_complete', 'fvm_purge_all');
-	add_action('after_switch_theme', 'fvm_purge_all');
-	add_action('activated_plugin', 'fvm_purge_all');
-	add_action('deactivated_plugin', 'fvm_purge_all');
+	add_action('upgrader_process_complete', 'fastvelocity_purge_all_global');
+	add_action('after_switch_theme', 'fastvelocity_purge_all_global');
 	add_action('admin_init', 'fastvelocity_purge_onsave', 1);
 	
 	# activation, deactivation
@@ -337,7 +336,6 @@ function fastvelocity_min_load_admin_jscss($hook) {
 # register plugin settings
 function fastvelocity_min_register_settings() {
     register_setting('fvm-group', 'fastvelocity_min_enable_purgemenu');
-	register_setting('fvm-group', 'fastvelocity_min_preserve_oldcache');
 	register_setting('fvm-group', 'fastvelocity_preserve_settings_on_uninstall');
 	register_setting('fvm-group', 'fastvelocity_min_default_protocol');
     register_setting('fvm-group', 'fastvelocity_min_disable_js_merge');
@@ -577,11 +575,6 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'status';
 <label for="fastvelocity_min_enable_purgemenu">
 <input name="fastvelocity_min_enable_purgemenu" type="checkbox" id="fastvelocity_min_enable_purgemenu" value="1" <?php echo checked(1 == get_option('fastvelocity_min_enable_purgemenu'), true, false); ?>>
 Admin Bar Purge <span class="note-info">[ If selected, a new option to purge FVM cache from the admin bar will show up ]</span></label>
-<br />
-
-<label for="fastvelocity_min_preserve_oldcache">
-<input name="fastvelocity_min_preserve_oldcache" type="checkbox" id="fastvelocity_min_preserve_oldcache" value="1" <?php echo checked(1 == get_option('fastvelocity_min_preserve_oldcache'), true, false); ?>>
-Preserve Cache Files <span class="note-info">[ This will reload your cache files when you purge, but preserve the old files ]</span></label>
 <br />
 
 <label for="fastvelocity_preserve_settings_on_uninstall">
@@ -1214,13 +1207,21 @@ $ignore = fastvelocity_default_ignore($ignore);
 foreach( $scripts->to_do as $handle ) :
 
 # is it a footer script?
-$is_footer = 0; if (isset($wp_scripts->registered[$handle]->extra["group"]) || isset($wp_scripts->registered[$handle]->args)) { $is_footer = 1; }
+$is_footer = 0; 
+if (isset($wp_scripts->registered[$handle]->extra["group"]) || isset($wp_scripts->registered[$handle]->args)) { 
+	$is_footer = 1; 
+}
 
 	# skip footer scripts for now
 	if($is_footer != 1) {
 		
 	# get full url
 	$hurl = fastvelocity_min_get_hurl($wp_scripts->registered[$handle]->src, $wp_domain, $wp_home);
+	
+	# inlined scripts without file
+	if( empty($hurl)) {
+		continue;
+	}
 	
 	# Exclude JS files from PSI (Async) takes priority over the ignore list
 	if($fvm_min_excludejslist != false || is_array($fvm_min_excludejslist)) {
@@ -1239,6 +1240,7 @@ $is_footer = 0; if (isset($wp_scripts->registered[$handle]->extra["group"]) || i
 		}
 		if($skipjs != false) { continue; }
 	}
+	
 	
 	# IE only files don't increment things
 	$ieonly = fastvelocity_ie_blacklist($hurl);
@@ -1263,7 +1265,13 @@ $is_footer = 0; if (isset($wp_scripts->registered[$handle]->extra["group"]) || i
 	# make sure that the scripts skipped here, show up in the footer
 	} else {
 		$hurl = fastvelocity_min_get_hurl($wp_scripts->registered[$handle]->src, $wp_domain, $wp_home);
-		wp_enqueue_script($handle, $hurl, array(), null, true);
+		
+		# inlined scripts without file
+		if( empty($hurl)) {
+			wp_enqueue_script($handle, false);
+		} else {
+			wp_enqueue_script($handle, $hurl, array(), null, true);
+		}
 	}
 endforeach;
 
@@ -1276,8 +1284,8 @@ for($i=0,$l=count($header);$i<$l;$i++) {
 		$hash = 'header-'.hash('adler32',implode('',$header[$i]['handles']));
 
 		# create cache files and urls
-		$file = $cachedir.'/'.$hash.'-'.$ctime.'.min.js';
-		$file_url = fvm_get_protocol($cachedirurl.'/'.$hash.'-'.$ctime.'.min.js');
+		$file = $cachedir.'/'.$hash.'.min.js';
+		$file_url = fvm_get_protocol($cachedirurl.'/'.$hash.'.min.js');
 		
 		# generate a new cache file
 		clearstatcache();
@@ -1293,10 +1301,17 @@ for($i=0,$l=count($header);$i<$l;$i++) {
 					
 					# get hurl per handle
 					$hurl = fastvelocity_min_get_hurl($wp_scripts->registered[$handle]->src, $wp_domain, $wp_home);
+					
+					# inlined scripts without file
+					if( empty($hurl)) {
+						continue;
+					}
+					
+					# print url
 					$printurl = str_ireplace(array(site_url(), home_url(), 'http:', 'https:'), '', $hurl);
 					
 					# download, minify, cache
-					$tkey = 'js-'.$ctime.'-'.hash('adler32', $handle.$hurl).'.js';
+					$tkey = 'js-'.hash('adler32', $handle.$hurl).'.js';
 					$json = false; $json = fvm_get_transient($tkey);
 					if ( $json === false) {
 						$json = fvm_download_and_minify($hurl, null, $disable_js_minification, 'js', $handle);
@@ -1410,6 +1425,11 @@ foreach( $scripts->to_do as $handle ) :
 	# get full url
 	$hurl = fastvelocity_min_get_hurl($wp_scripts->registered[$handle]->src, $wp_domain, $wp_home);
 	
+	# inlined scripts without file
+	if( empty($hurl)) {
+		continue;
+	}
+	
 	# Exclude JS files from PSI (Async) takes priority over the ignore list
 	if($fvm_min_excludejslist != false || is_array($fvm_min_excludejslist)) {
 		
@@ -1458,8 +1478,8 @@ for($i=0,$l=count($footer);$i<$l;$i++) {
 		$hash = 'footer-'.hash('adler32',implode('',$footer[$i]['handles']));
 		
 		# create cache files and urls
-		$file = $cachedir.'/'.$hash.'-'.$ctime.'.min.js';
-		$file_url = fvm_get_protocol($cachedirurl.'/'.$hash.'-'.$ctime.'.min.js');
+		$file = $cachedir.'/'.$hash.'.min.js';
+		$file_url = fvm_get_protocol($cachedirurl.'/'.$hash.'.min.js');
 	
 		# generate a new cache file
 		clearstatcache();
@@ -1475,11 +1495,18 @@ for($i=0,$l=count($footer);$i<$l;$i++) {
 					
 					# get hurl per handle
 					$hurl = fastvelocity_min_get_hurl($wp_scripts->registered[$handle]->src, $wp_domain, $wp_home);
+					
+					# inlined scripts without file
+					if( empty($hurl)) {
+						continue;
+					}
+					
+					# print url
 					$printurl = str_ireplace(array(site_url(), home_url(), 'http:', 'https:'), '', $hurl);
 					
 					
 					# download, minify, cache
-					$tkey = 'js-'.$ctime.'-'.hash('adler32', $handle.$hurl).'.js';
+					$tkey = 'js-'.hash('adler32', $handle.$hurl).'.js';
 					$json = false; $json = fvm_get_transient($tkey);
 					if ( $json === false) {
 						$json = fvm_download_and_minify($hurl, null, $disable_js_minification, 'js', $handle);
@@ -1712,6 +1739,11 @@ foreach( $styles->to_do as $handle):
 	# full url or empty
 	$hurl = fastvelocity_min_get_hurl($wp_styles->registered[$handle]->src, $wp_domain, $wp_home);
 	
+	# inlined scripts without file
+	if( empty($hurl)) {
+		continue;
+	}
+	
 	# mark duplicates as done and remove from the queue
 	if(!empty($hurl)) {
 		$key = hash('adler32', $hurl); 
@@ -1800,7 +1832,7 @@ if(!$skip_google_fonts && count($google_fonts) > 0 || ($force_inline_googlefonts
 			} elseif($force_inline_googlefonts == true) {
 				
 				# download, minify, cache
-				$tkey = 'css-'.$ctime.'-'.hash('adler32', $gfurl).'.css';
+				$tkey = 'css-'.hash('adler32', $gfurl).'.css';
 				$json = false; $json = fvm_get_transient($tkey);
 				if ( $json === false) {
 					$json = fvm_download_and_minify($gfurl, null, $disable_css_minification, 'css', null);
@@ -1926,8 +1958,8 @@ for($i=0,$l=count($header);$i<$l;$i++) {
 		$hash = 'header-'.hash('adler32',implode('',$header[$i]['handles']).$inline_css_hash);
 
 		# create cache files and urls
-		$file = $cachedir.'/'.$hash.'-'.$ctime.'.min.css';
-		$file_url = fvm_get_protocol($cachedirurl.'/'.$hash.'-'.$ctime.'.min.css'); 
+		$file = $cachedir.'/'.$hash.'.min.css';
+		$file_url = fvm_get_protocol($cachedirurl.'/'.$hash.'.min.css'); 
 		
 		# generate a new cache file
 		clearstatcache();
@@ -1943,10 +1975,17 @@ for($i=0,$l=count($header);$i<$l;$i++) {
 					
 					# get hurl per handle
 					$hurl = fastvelocity_min_get_hurl($wp_styles->registered[$handle]->src, $wp_domain, $wp_home);
+					
+					# inlined scripts without file
+					if( empty($hurl)) {
+						continue;
+					}
+					
+					# print url
 					$printurl = str_ireplace(array(site_url(), home_url(), 'http:', 'https:'), '', $hurl);
 					
 					# download, minify, cache
-					$tkey = 'css-'.$ctime.'-'.hash('adler32', $handle.$hurl).'.css';
+					$tkey = 'css-'.hash('adler32', $handle.$hurl).'.css';
 					$json = false; $json = fvm_get_transient($tkey);
 					if ( $json === false) {
 						$json = fvm_download_and_minify($hurl, null, $disable_css_minification, 'css', $handle);
@@ -2083,6 +2122,11 @@ foreach( $styles->to_do as $handle ) :
 	# dequeue and get a list of google fonts, or requeue external
 	$hurl = fastvelocity_min_get_hurl($wp_styles->registered[$handle]->src, $wp_domain, $wp_home);
 	
+	# inlined scripts without file
+	if( empty($hurl)) {
+		continue;
+	}
+	
 	if (stripos($hurl, 'fonts.googleapis.com') !== false) { 
 		wp_dequeue_style($handle); 
 		if($remove_googlefonts != false) { $done = array_merge($done, array($handle)); continue; } # mark as done if to be removed
@@ -2133,7 +2177,7 @@ if(!$skip_google_fonts && count($google_fonts) > 0 || ($force_inline_googlefonts
 			} elseif($force_inline_googlefonts == true) {
 				
 				# download, minify, cache
-				$tkey = 'css-'.$ctime.'-'.hash('adler32', $gfurl).'.css';
+				$tkey = 'css-'.hash('adler32', $gfurl).'.css';
 				$json = false; $json = fvm_get_transient($tkey);
 				if ( $json === false) {
 					$json = fvm_download_and_minify($gfurl, null, $disable_css_minification, 'css', null);
@@ -2190,7 +2234,12 @@ foreach( $styles->to_do as $handle ) :
 	
 	# get full url
 	$hurl = fastvelocity_min_get_hurl($wp_styles->registered[$handle]->src, $wp_domain, $wp_home);
-
+	
+	# inlined scripts without file
+	if( empty($hurl)) {
+		continue;
+	}
+	
 	# mark duplicates as done and remove from the queue
 	if(!empty($hurl)) {
 		$key = hash('adler32', $hurl); 
@@ -2297,8 +2346,8 @@ for($i=0,$l=count($footer);$i<$l;$i++) {
 		$hash = 'footer-'.hash('adler32',implode('',$footer[$i]['handles']).$inline_css_hash);
 
 		# create cache files and urls
-		$file = $cachedir.'/'.$hash.'-'.$ctime.'.min.css';
-		$file_url = fvm_get_protocol($cachedirurl.'/'.$hash.'-'.$ctime.'.min.css');
+		$file = $cachedir.'/'.$hash.'.min.css';
+		$file_url = fvm_get_protocol($cachedirurl.'/'.$hash.'.min.css');
 		
 		# generate a new cache file
 		clearstatcache();
@@ -2314,10 +2363,17 @@ for($i=0,$l=count($footer);$i<$l;$i++) {
 					
 					# get hurl per handle
 					$hurl = fastvelocity_min_get_hurl($wp_styles->registered[$handle]->src, $wp_domain, $wp_home);
+					
+					# inlined scripts without file
+					if( empty($hurl)) {
+						continue;
+					}
+					
+					# print url
 					$printurl = str_ireplace(array(site_url(), home_url(), 'http:', 'https:'), '', $hurl);
 					
 					# download, minify, cache
-					$tkey = 'css-'.$ctime.'-'.hash('adler32', $handle.$hurl).'.css';
+					$tkey = 'css-'.hash('adler32', $handle.$hurl).'.css';
 					$json = false; $json = fvm_get_transient($tkey);
 					if ( $json === false) {
 						$json = fvm_download_and_minify($hurl, null, $disable_css_minification, 'css', $handle);
@@ -2616,7 +2672,7 @@ function fastvelocity_optimizecss($html, $handle, $href, $media){
 		if($fvm_fawesome_method == 1 && stripos($href, 'font-awesome') !== false) {
 			
 			# download, minify, cache
-			$tkey = 'css-'.$ctime.'-'.hash('adler32', $handle.$href).'.css';
+			$tkey = 'css-'.hash('adler32', $handle.$href).'.css';
 			$json = false; $json = fvm_get_transient($tkey);
 			if ( $json === false) {
 				$json = fvm_download_and_minify($href, null, $disable_css_minification, 'css', $handle);
@@ -2645,7 +2701,7 @@ function fastvelocity_optimizecss($html, $handle, $href, $media){
 		if(stripos($href, 'fonts.googleapis.com') !== false && $force_inline_googlefonts != false && $css_hide_googlefonts != true && $min_async_googlefonts != true) {
 			
 			# download, minify, cache
-			$tkey = 'css-'.$ctime.'-'.hash('adler32', $handle.$href).'.css';
+			$tkey = 'css-'.hash('adler32', $handle.$href).'.css';
 			$json = false; $json = fvm_get_transient($tkey);
 			if ( $json === false) {
 				$json = fvm_download_and_minify($href, null, $disable_css_minification, 'css', $handle);
@@ -2683,7 +2739,7 @@ function fastvelocity_optimizecss($html, $handle, $href, $media){
 		}
 		
 		# download, minify, cache
-		$tkey = 'css-'.$ctime.'-'.hash('adler32', $handle.$href).'.css';
+		$tkey = 'css-'.hash('adler32', $handle.$href).'.css';
 		$json = false; $json = fvm_get_transient($tkey);
 		if ( $json === false) {
 			$json = fvm_download_and_minify($href, null, $disable_css_minification, 'css', $handle);
@@ -2928,3 +2984,9 @@ function fastvelocity_get_preload_headers(){
 	
 	return false;
 }
+
+
+
+# cron job to delete old FVM cache
+add_action('fastvelocity_purge_old_cron_event', 'fvm_purge_old');
+

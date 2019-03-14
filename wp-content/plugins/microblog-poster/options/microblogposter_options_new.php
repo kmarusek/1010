@@ -252,7 +252,7 @@
     </div>
     <div class="input-div-large">
         <select name="mbp_facebook_target_type" id="mbp_facebook_target_type">
-            <option value="profile"><?php _e('Profile timeline', 'microblog-poster');?></option>
+            <!--option value="profile"><?php _e('Profile timeline', 'microblog-poster');?></option-->
             <option value="page"><?php _e('Page timeline', 'microblog-poster');?></option>
             <option value="group"><?php _e('Group timeline', 'microblog-poster');?></option>
         </select>
