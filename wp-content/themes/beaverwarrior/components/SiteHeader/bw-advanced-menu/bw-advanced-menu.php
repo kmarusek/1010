@@ -24,6 +24,14 @@ class BWAdvancedMenu extends PPAdvancedMenu {
         ));
 
     }
+    
+    /**
+     * Opt-out of all parent class compatibility upgrades, since we're
+     * not bothering to retain compatibility with it.
+     */
+    public function filter_settings( $settings, $helper ) {
+        return $settings;
+    }
 }
 
 class BW_Advanced_Menu_Walker extends Advanced_Menu_Walker {
