@@ -2,8 +2,8 @@
 Contributors: ronalfy, bigwing, nmarks, kzeni
 Tags: gravity forms, google analytics, google tag manager, matomo, piwik, event tracking
 Requires at least:4.0
-Tested up to: 5.0
-Stable tag: 2.3.5
+Tested up to: 5.1
+Stable tag: 2.3.8
 Requires PHP: 5.6
 Donate link: https://mediaron.com/give/
 License: GPLv2 or later
@@ -28,7 +28,7 @@ Also supports:
 Looking for help setting things up? [Read Our Setup Guide](https://mediaron.com/event-tracking-for-gravity-forms/)
 
 = Minimum Requirements =
-- Gravity Forms 2.0+
+- Gravity Forms 2.4
 - Google Analytics Universal Analytics
 - Google Tag Manager (optional)
 - Matomo (formerly Piwik) account (optional)
@@ -50,7 +50,7 @@ Development happens on <a href="https://github.com/ronalfy/wordpress-gravity-for
 == Installation ==
 
 = Minimum Requirements =
-- Gravity Forms 2.0+
+- Gravity Forms 2.4+
 
 = Using The WordPress Dashboard =
 
@@ -126,6 +126,10 @@ Check out the documentation on [github](https://github.com/ronalfy/wordpress-gra
 
 == Changelog ==
 
+= 2.3.8 =
+* Released 2019-03-24
+* Added support for noninteractive hits
+
 = 2.3.5 =
 * Released 2018-11-14
 * Added pagination settings to Gravity Forms form settings screen for per-form override
@@ -147,7 +151,7 @@ Check out the documentation on [github](https://github.com/ronalfy/wordpress-gra
 
 = 2.2.2 =
 * Released 2018-08-27
-* Adding support for gtag 
+* Adding support for gtag
 
 = 2.2.1 =
 * Released 2018-08-23
@@ -160,7 +164,7 @@ Check out the documentation on [github](https://github.com/ronalfy/wordpress-gra
 * Enhancement: Can now set event values to pagination <a href="https://github.com/ronalfy/wordpress-gravity-forms-event-tracking#gform_pagination_event_value">using filters</a>
 * Note: Google only accepts integer values, so total fields and such will be rounded up or down when viewing your conversion reports
 
-= 2.1.1 = 
+= 2.1.1 =
 * Released 2018-06-22
 * Documentation update
 
@@ -280,10 +284,13 @@ Check out the documentation on [github](https://github.com/ronalfy/wordpress-gra
 
 == Upgrade Notice ==
 
+= 2.3.8 =
+Added support for noninteractive hits.
+
 = 2.3.5 =
 Added pagination settings to Gravity Forms form settings screen for per-form override
 
-= 2.3.2 = 
+= 2.3.2 =
 Removed some checks for better event tracking. Updating filter for partial entries.
 
 = 2.3.0 =
