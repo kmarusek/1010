@@ -40,6 +40,7 @@
 				$uabb_enable_template_cloud  = '';
 				$uabb_enable_knowledge_base  = '';
 				$uabb_enable_contact_support = '';
+				$uabb_plugin_icon_url        = '';
 
 			if ( is_array( $uabb ) ) {
 
@@ -61,6 +62,7 @@
 				$uabb_enable_knowledge_base = ( array_key_exists( 'uabb-enable-knowledge-base', $uabb ) && 1 != $uabb['uabb-enable-knowledge-base'] ) ? '' : 'checked';
 
 				$uabb_enable_contact_support = ( array_key_exists( 'uabb-enable-contact-support', $uabb ) && 1 != $uabb['uabb-enable-contact-support'] ) ? '' : 'checked';
+				$uabb_plugin_icon_url        = ( array_key_exists( 'uabb-plugin-icon-url', $uabb ) ) ? $uabb['uabb-plugin-icon-url'] : '';
 			}
 			?>
 
@@ -89,6 +91,11 @@
 			<div class="uabb-branding-fields">
 			<h4 class="field-title"><?php _e( 'Author / Agency URL', 'uabb' ); ?></h4>
 			<input type="text" name="uabb-author-url" placeholder="http://www.brainstormforce.com" value="<?php echo $uabb_author_url; ?>" class="regular-text uabb-author-url" />
+			</div>
+			<?php /* Plugin Icon URL */ ?>
+			<div class="uabb-branding-fields">
+			<h4 class="field-title"><?php _e( 'Plugin Icon URL', 'uabb' ); ?></h4>
+			<input type="text" name="uabb-plugin-icon-url" value="<?php echo $uabb_plugin_icon_url; ?>" class="regular-text uabb-plugin-icon" />
 			</div>
 			<?php /* Knowledge Base URL */ ?>
 			<div class="uabb-branding-fields">

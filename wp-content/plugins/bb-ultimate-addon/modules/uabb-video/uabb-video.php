@@ -289,7 +289,7 @@ class UABBVideo extends FLBuilderModule {
 			$url = 'https://www.youtube' . $cookie . '.com/embed/';
 		}
 
-		$url = add_query_arg( $params, $url . $this->get_video_id() );
+		$url = add_query_arg( $params, $url . $id );
 
 		$url .= ( empty( $params ) ) ? '?' : '&';
 
@@ -300,6 +300,9 @@ class UABBVideo extends FLBuilderModule {
 
 			$url .= '#t=' . $time;
 		}
+
+		$url = apply_filters( 'uabb_video_url_filter', $url, $id );
+
 		return $url;
 	}
 	/**
@@ -384,7 +387,11 @@ class UABBVideo extends FLBuilderModule {
 		$embed_param = $this->get_embed_params();
 		$src         = $this->get_url( $embed_param, $id );
 
-		$device = ( false !== ( stripos( $_SERVER['HTTP_USER_AGENT'], 'iPhone' ) ) ? 'true' : 'false' );
+		if ( 'yes' == $this->settings->video_double_click ) {
+			$device = 'false';
+		} else {
+			$device = ( false !== ( stripos( $_SERVER['HTTP_USER_AGENT'], 'iPhone' ) ) ? 'true' : 'false' );
+		}
 
 		if ( 'youtube' == $this->settings->video_type ) {
 			$autoplay = ( 'yes' == $this->settings->yt_autoplay ) ? '1' : '0';

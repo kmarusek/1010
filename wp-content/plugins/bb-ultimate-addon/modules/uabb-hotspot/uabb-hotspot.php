@@ -40,6 +40,7 @@ class UABBHotspot extends FLBuilderModule {
 				'icon'            => 'uabb-hotspot.svg',
 			)
 		);
+		$this->add_js( 'jquery-waypoints' );
 	}
 	/**
 	 * Ensure backwards compatibility with old settings.
@@ -508,7 +509,16 @@ class UABBHotspot extends FLBuilderModule {
 			return '';
 		}
 	}
-
+	/**
+	 * Function that renders the button for the button
+	 *
+	 * @method render_button
+	 */
+	public function render_button() {
+		if ( '' != $this->settings->button ) {
+			FLBuilder::render_module_html( 'uabb-button', $this->settings->button );
+		}
+	}
 
 	/**
 	 * Function that renders animation
@@ -584,6 +594,7 @@ class UABBHotspot extends FLBuilderModule {
 			echo '<div class="uabb-hotspot-wrap">';
 			FLBuilder::render_module_html( 'image-icon', $img_icon_array );
 			echo ( 'yes' == $this->settings->hotspot_marker[ $i ]->show_animation ) ? $this->render_animation( $this->settings->hotspot_marker[ $i ] ) : '';
+			echo ( 'always' == $this->settings->hotspot_marker[ $i ]->show_animation ) ? $this->render_animation( $this->settings->hotspot_marker[ $i ] ) : '';
 			echo '</div>';
 		} else {
 			echo '<div class="uabb-hotspot-text uabb-hotspot-wrap uabb-text-editor">' . $this->settings->hotspot_marker[ $i ]->marker_text . '</div>';

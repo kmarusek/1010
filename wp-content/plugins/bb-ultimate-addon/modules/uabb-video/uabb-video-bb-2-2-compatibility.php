@@ -282,6 +282,16 @@ FLBuilder::register_module(
 								'important' => true,
 							),
 						),
+						'video_double_click'  => array(
+							'type'    => 'select',
+							'label'   => __( 'Enable Double Click on Mobile', 'uabb' ),
+							'default' => 'no',
+							'options' => array(
+								'yes' => __( 'Yes', 'uabb' ),
+								'no'  => __( 'No', 'uabb' ),
+							),
+							'help'    => __( 'Enable this option if you are not able to see custom thumbnail or overlay color on Mobile.', 'uabb' ),
+						),
 					),
 				),
 				'section_play_icon'     => array(

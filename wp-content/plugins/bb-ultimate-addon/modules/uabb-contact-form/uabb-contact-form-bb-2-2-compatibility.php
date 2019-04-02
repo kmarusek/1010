@@ -1302,7 +1302,7 @@ FLBuilder::register_module(
 							'responsive' => true,
 							'preview'    => array(
 								'type'      => 'css',
-								'selector'  => '.uabb-contact-form .uabb-terms-label',
+								'selector'  => '.uabb-contact-form .uabb-terms-text',
 								'important' => true,
 							),
 						),

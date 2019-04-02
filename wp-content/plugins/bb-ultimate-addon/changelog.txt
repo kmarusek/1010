@@ -1,3 +1,15 @@
+Version 1.16.1 - Monday, 1st April 2019
+- Improvement: Hotspot - Added Hotspot Tour feature
+- Improvement: Video - Added settings to enable Double Click over Custom Thumbnail on mobile view
+- Improvement: Video - Added a filter for Video URL to modify YouTube or Vimeo Query Strings
+- Improvement: Defined constant to disable the Branding settings permanently
+- Improvement: Optimized database calls while fetching Saved Modules, Saved Rows and Saved Templates
+- Fixed: Advanced Posts - Taxonomy Filter settings not working for Custom Post Type
+- Fixed: Contact Form - Resolved preview issue of Terms and Condition Typography settings
+- Fixed: Heading - Fixed Heading Line Height issue with lower values
+- Fixed: Hotspot - Resolved Marker Padding issue on adding new markers
+- Fixed: Video - Fixed AutoPlay settings not working correctly
+
 Version 1.16.0 - Tuesday, 12th March 2019
 - New: Introduced Marketing Button
 - Improvement: Fancy Text - Added p Tag support for Title

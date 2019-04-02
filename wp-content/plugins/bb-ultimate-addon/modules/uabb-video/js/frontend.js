@@ -19,7 +19,7 @@
     });
 
 
-		if( '1' === outer_wrap.data( 'autoplay' ) || true === outer_wrap.data( 'device' ) ) {
+		if( '1' == outer_wrap.data( 'autoplay' ) || true == outer_wrap.data( 'device' ) ) {
       UABBVideos._play( jQuery(this.nodeClass).find( '.uabb-video__play' ) );
     }
 

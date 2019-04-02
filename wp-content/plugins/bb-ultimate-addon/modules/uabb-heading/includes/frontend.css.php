@@ -175,7 +175,7 @@ if ( 'none' != $settings->separator_style ) {
 			array(
 				'settings'     => $settings,
 				'setting_name' => 'font_typo',
-				'selector'     => ".fl-node-$id .fl-module-content.fl-node-content .uabb-heading .uabb-heading-text",
+				'selector'     => ".fl-node-$id .fl-module-content.fl-node-content .uabb-heading .uabb-heading-text, .fl-node-$id .uabb-heading,.fl-node-$id .uabb-heading *",
 			)
 		);
 	}
