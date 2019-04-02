@@ -16,5 +16,11 @@
     "description": "",
     "callback": "import_export",
     "fields": {}
+  },
+  "support": {
+    "title": "Support",
+    "description": "",
+    "callback": "support",
+    "fields": {}
   }
 }

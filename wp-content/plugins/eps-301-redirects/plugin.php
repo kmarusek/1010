@@ -59,10 +59,13 @@ class EPS_Redirects_Plugin
     // Template Hooks
     add_action('redirects_admin_tab', array($this, 'admin_tab_redirects'), 10, 1);
     add_action('404s_admin_tab', array($this, 'admin_tab_404s'), 10, 1);
+    add_action('support_admin_tab', array($this, 'admin_tab_support'), 10, 1);
     add_action('error_admin_tab', array($this, 'admin_tab_error'), 10, 1);
     add_action('import-export_admin_tab', array($this, 'admin_tab_import_export'), 10, 1);
     add_action('eps_redirects_panels_left', array($this, 'admin_panel_cache'));
-    add_action('eps_redirects_panels_right', array($this, 'admin_panel_donate'));
+    //add_action('eps_redirects_panels_right', array($this, 'admin_panel_donate'));
+    add_action('admin_notices', array($this, 'show_review_notice'));
+    add_action('admin_action_301_dismiss_notice', array($this, 'dismiss_notice'));
 
     // Actions
     add_action('admin_init',            array($this, 'check_plugin_actions'));
@@ -101,6 +104,65 @@ class EPS_Redirects_Plugin
   public static function _deactivation()
   { }
 
+  // handle dismiss button for notices
+  static function dismiss_notice()
+  {
+    if (empty($_GET['notice'])) {
+      wp_safe_redirect(admin_url());
+      exit;
+    }
+
+    $notices = get_option('301-redirects-notices', array());
+
+    if ($_GET['notice'] == 'rate') {
+      $notices['dismiss_rate'] = true;
+    } else {
+      wp_safe_redirect(admin_url());
+      exit;
+    }
+
+    update_option('301-redirects-notices', $notices);
+
+    if (!empty($_GET['redirect'])) {
+      wp_safe_redirect($_GET['redirect']);
+    } else {
+      wp_safe_redirect(admin_url());
+    }
+
+    exit;
+  } // dismiss_notice
+
+  function show_review_notice()
+  {
+    global $wpdb;
+    $table_name = $wpdb->prefix . "redirects";
+
+    if (@$_GET['page'] != 'eps_redirects') {
+      return;
+    }
+
+    $notices = get_option('301-redirects-notices', array());
+    if (!empty($notices['dismiss_rate'])) {
+      return false;
+    }
+
+    $tmp1 = $wpdb->get_var("SELECT SUM(count) FROM $table_name");
+    $tmp2 = $wpdb->get_var("SELECT COUNT(id) FROM $table_name");
+
+    if ($tmp1 < 4 || $tmp2 < 2) {
+      return;
+    }
+
+    $rate_url = 'https://wordpress.org/support/plugin/eps-301-redirects/reviews/?filter=5&rate=5#new-post';
+    $dismiss_url = add_query_arg(array('action' => '301_dismiss_notice', 'notice' => 'rate', 'redirect' => urlencode($_SERVER['REQUEST_URI'])), admin_url('admin.php'));
+
+    echo '<div id="301_rate_notice" style="font-size: 14px;" class="notice-info notice"><p>Hi!<br>Saw that you already have ' . $tmp2 . ' redirect rules that got used ' . $tmp1 . ' times - that\'s awesome! We wanted to ask for your help to <b>make the plugin better</b>.<br>We just need a minute of your time to rate the plugin. It helps us out a lot!';
+
+    echo '<br><a target="_blank" href="' . esc_url($rate_url) . '" style="vertical-align: baseline; margin-top: 15px;" class="button-primary">Help make the plugin better by rating it</a>';
+    echo '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . esc_url($dismiss_url) . '">I\'ve already rated the plugin</a>';
+    echo '<br><br><b>Thank you very much!</b> The 301 Redirects team';
+    echo '</p></div>';
+  } // show_review_notice
 
   public function admin_url($vars = array())
   {
@@ -493,6 +555,10 @@ class EPS_Redirects_Plugin
   public static function admin_tab_404s($options)
   {
     include(EPS_REDIRECT_PATH . 'templates/admin-tab-404s.php');
+  }
+  public static function admin_tab_support($options)
+  {
+    include(EPS_REDIRECT_PATH . 'templates/admin-tab-support.php');
   }
   public static function admin_tab_import_export($options)
   {

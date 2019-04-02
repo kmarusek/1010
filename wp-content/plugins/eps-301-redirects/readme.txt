@@ -1,9 +1,9 @@
-=== 301 Redirects ===
+=== 301 Redirects - Easy Redirect Manager ===
 Contributors: WebFactory, wpreset, googlemapswidget, securityninja, underconstructionpage
-Tags: 301 redirects, redirects, redirect, 301, 404, seo, redirection, 302
+Tags: 301 redirect, redirects, redirect, 302 redirect, redirection, 302, seo, 302 redirect, 404, 404 redirect, 301
 Requires at least: 4.0
 Tested up to: 5.1
-Stable tag: 2.3.5
+Stable tag: 2.40
 Requires PHP: 5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -55,6 +55,11 @@ A 301 redirect indicates that the page requested has been permanently moved to t
 
 
 == Changelog ==
+
+= 2.40 =
+* 2019/03/25
+* bug fixes
+* rating notification
 
 = 2.3.5 =
 * 2019/03/11

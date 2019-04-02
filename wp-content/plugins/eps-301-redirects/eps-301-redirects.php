@@ -2,7 +2,7 @@
  /*
 Plugin Name: 301 Redirects
 Description: Easily create and manage 301 redirects.
-Version: 2.3.5
+Version: 2.40
 Author: WebFactory Ltd
 Author URI: https://www.webfactoryltd.com/
 Text Domain: eps-301-redirects
