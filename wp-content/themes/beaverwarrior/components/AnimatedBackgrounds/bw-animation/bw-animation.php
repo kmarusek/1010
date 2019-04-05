@@ -23,6 +23,7 @@ FLBuilder::register_module("BWAnimation", array(
                 'fields' => array(
                     'aspect_ratio' => array(
                         'type' => 'unit',
+                        'default' => 1.77,
                         'label' => __("Aspect ratio", "skeleton-warrior"),
                         'description' => __("The shape of the image", "skeleton-warrior"),
                         'slider' => array(

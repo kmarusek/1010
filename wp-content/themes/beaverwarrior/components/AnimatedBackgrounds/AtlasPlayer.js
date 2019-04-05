@@ -313,7 +313,7 @@
         this.last_frame_drawn = frame;
         
         if (time > this.anim_length) {
-            if (this.atlas_data.loop === true) {
+            if (this.should_loop()) {
                 this.anim_first_time = undefined;
             } else {
                 this.anim_player_running = false;
@@ -384,6 +384,21 @@
         this.draw_frame(frame);
 
         this.last_frame_drawn = frame;
+    };
+    
+    /* Determine if this AtlasPlayer should loop or not.
+     */
+    AtlasPlayer.prototype.should_loop = function () {
+        var loop_force = this.$elem.data("atlasplayer-loop"),
+            loop_deny = this.$elem.data("atlasplayer-once");
+        
+        if (loop_force !== undefined) {
+            return true;
+        } else if (loop_deny !== undefined) {
+            return false;
+        } else {
+            return this.atlas_data.loop === true;
+        }
     };
 
     Behaviors.register_behavior(AtlasPlayer);
