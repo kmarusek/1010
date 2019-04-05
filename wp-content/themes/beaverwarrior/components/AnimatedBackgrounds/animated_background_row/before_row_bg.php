@@ -12,6 +12,7 @@
         $layer_image = "bw_ab_layer_" . $i . "_image";
         $layer_image_src = "bw_ab_layer_" . $i . "_image_src";
         $layer_loop = "bw_ab_layer_" . $i . "_loop";
+        $layer_bob = "bw_ab_layer_" . $i . "_bob";
         $layer_srcset = wp_get_attachment_image_srcset($rows->settings->$layer_image, 'full');
         $layer_id = $id . "_" . $i;
         
@@ -24,14 +25,14 @@
         switch ($rows->settings->$layer_enable) {
             case "image":
                 ?>
-                    <li data-scrollalax-depth="<?php echo $rows->settings->$layer_depth; ?>">
+                    <li data-scrollalax-depth="<?php echo $rows->settings->$layer_depth; ?>" class="AnimatedBackgrounds-layer AnimatedBackgrounds-layer--bob_<?php echo $rows->settings->$layer_bob; ?>">
                         <div class="AnimatedBackgrounds-static_bg" style="background-image: url('<?php echo $rows->settings->$layer_image_src; ?>');"></div>
                     </li>
                 <?php
                 break;
             case "atlas":
                 ?>
-                    <li data-scrollalax-depth="<?php echo $rows->settings->$layer_depth; ?>">
+                    <li data-scrollalax-depth="<?php echo $rows->settings->$layer_depth; ?>" class="AnimatedBackgrounds-layer AnimatedBackgrounds-layer--bob_<?php echo $rows->settings->$layer_bob; ?>">
                         <img class="AnimatedBackgrounds-atlas_source" src="<?php echo $rows->settings->$layer_image_src; ?>" srcset="<?php echo $layer_srcset; ?>" alt="" id="<?php echo $layer_id . "-image"; ?>">
                         <canvas class="AnimatedBackgrounds-atlas_player" data-atlasplayer data-atlasplayer-image="#<?php echo $layer_id . "-image"; ?>" data-atlasplayer-data='<?php echo $layer_animdata_text; ?>'<?php if ($rows->settings->$layer_loop === "force-loop") { ?> data-atlasplayer-loop<?php } ?><?php if ($rows->settings->$layer_loop === "force-once") { ?> data-atlasplayer-once<?php } ?>></canvas>
                     </li>

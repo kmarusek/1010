@@ -60,6 +60,16 @@ function bw_animated_background_row_settings_layer($layer_id) {
                     'force-once' => __("Force animation to play once and stop", 'skeleton-warrior'),
                     'no-override' => __("Use loop setting from the animation data", 'skeleton-warrior')
                 )
+            ),
+            'bw_ab_layer_' . $layer_id . '_bob' => array(
+                'type' => 'select',
+                'label' => __("Bob Animation", 'skeleton-warrior'),
+                "default" => "none",
+                'options' => array(
+                    'none' => __("Do not apply a bob animation", 'skeleton-warrior'),
+                    'vertical' => __("Layer should bob up and down", 'skeleton-warrior'),
+                    'horizontal' => __("Layer should bob left and right", 'skeleton-warrior'),
+                )
             )
         )
     );
