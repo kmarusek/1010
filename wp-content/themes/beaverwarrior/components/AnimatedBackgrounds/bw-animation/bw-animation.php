@@ -3,7 +3,7 @@
 class BWAnimation extends FLBuilderModule {
     public function __construct() {
         parent::__construct(array(
-            "name" => __("BW Animation", "skeleton-warrior"),
+            "name" => __("Sprite Animation", "skeleton-warrior"),
             "description" => __("Stand-alone animation block", "skeleton-warrior"),
             "category" => __("Space Station", "skeleton-warrior"),
             "dir" => get_stylesheet_directory() . "components/AnimatedBackgrounds/bw-animation/",
