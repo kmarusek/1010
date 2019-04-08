@@ -33,7 +33,7 @@ class UABBAdvancedAccordionModule extends FLBuilderModule {
 
 		add_filter( 'fl_builder_render_settings_field', array( $this, 'uabb_accordion_render_settings_field' ), 10, 3 );
 
-		$this->add_css( 'font-awesome' );
+		$this->add_css( 'font-awesome-5' );
 	}
 	/**
 	 * Ensure backwards compatibility with old settings.

@@ -37,7 +37,7 @@ class UABBVideoGallery extends FLBuilderModule {
 		$this->add_js( 'imagesloaded-uabb', BB_ULTIMATE_ADDON_URL . 'assets/js/global-scripts/imagesloaded.min.js', array( 'jquery' ), '', true );
 		$this->add_js( 'jquery-magnificpopup' );
 		$this->add_css( 'jquery-magnificpopup' );
-		$this->add_css( 'font-awesome' );
+		$this->add_css( 'font-awesome-5' );
 	}
 	/**
 	 * Ensure backwards compatibility with old settings.

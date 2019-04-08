@@ -913,7 +913,7 @@ FLBuilder::register_module(
 						'close_icon'       => array(
 							'type'        => 'icon',
 							'label'       => __( 'Close Icon', 'uabb' ),
-							'default'     => 'fa fa-close',
+							'default'     => 'fas fa-close',
 							'show_remove' => true,
 						),
 						'close_photo'      => array(

@@ -32,7 +32,7 @@ class SlideBoxModule extends FLBuilderModule {
 			)
 		);
 
-		$this->add_css( 'font-awesome' );
+		$this->add_css( 'font-awesome-5' );
 	}
 
 	/**
@@ -1195,7 +1195,7 @@ class SlideBoxModule extends FLBuilderModule {
 			$icon_settings = array(
 				'bg_color' => $this->settings->dropdown_icon_bg_color,
 				'color'    => $this->settings->dropdown_icon_color,
-				'icon'     => 'fa fa-angle-down',
+				'icon'     => 'fas fa-angle-down',
 				'size'     => $this->settings->dropdown_icon_size,
 				'text'     => '',
 			);
@@ -1203,7 +1203,7 @@ class SlideBoxModule extends FLBuilderModule {
 			echo '<div class="uabb-slide-dropdown">';
 			echo    '<span class="uabb-icon-wrap">
                         <span class="uabb-icon">
-                            <i class="fa fa-angle-down"></i>
+                            <i class="fas fa-angle-down"></i>
                         </span>
                     </span>';
 			echo '</div>';
@@ -1213,7 +1213,7 @@ class SlideBoxModule extends FLBuilderModule {
 
 			$icon_settings = array(
 				'color' => $this->settings->dropdown_icon_color,
-				'icon'  => 'fa fa-plus',
+				'icon'  => 'fas fa-plus',
 				'size'  => $this->settings->dropdown_icon_size,
 				'text'  => '',
 			);
@@ -1221,7 +1221,7 @@ class SlideBoxModule extends FLBuilderModule {
 			echo '<div class="uabb-slide-dropdown">';
 			echo    '<span class="uabb-icon-wrap">
                         <span class="uabb-icon">
-                            <i class="fa fa-plus"></i>
+                            <i class="fas fa-plus"></i>
                         </span>
                     </span>';
 			echo '</div>';

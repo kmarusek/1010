@@ -32,7 +32,7 @@ class UABBNumbersModule extends FLBuilderModule {
 		);
 
 		$this->add_js( 'jquery-waypoints' );
-		$this->add_css( 'font-awesome' );
+		$this->add_css( 'font-awesome-5' );
 
 	}
 

@@ -108,30 +108,28 @@ if ( isset( $photo_src ) ) {
 							<?php
 						}
 						?>
-					</
-						<?php
-						echo $tag;
-						$counter++;
-						?>
-					>
+					</<?php echo $tag; ?>>
 					</div>
 						<?php
+						$counter++;
 					}
 				}
 				?>
 			</div>
 		<?php
-	}
 
-	if ( 'yes' === $settings->hotspot_tour && 'yes' === $settings->hotspot_tour_autoplay && 'click' === $settings->autoplay_options ) {
-		?>
-		<div class="uabb-hotspot-overlay">
-			<div class="uabb-overlay-button">
-				<?php echo $module->render_button(); ?>
+
+		if ( 'yes' === $settings->hotspot_tour && 'yes' === $settings->hotspot_tour_autoplay && 'click' === $settings->autoplay_options ) {
+			?>
+			<div class="uabb-hotspot-overlay">
+				<div class="uabb-overlay-button">
+					<?php echo $module->render_button(); ?>
+				</div>
 			</div>
-		</div>
-	<?php } ?>
+		<?php } ?>
 	</div>
+</div>
 	<?php
+	}
 }
 ?>

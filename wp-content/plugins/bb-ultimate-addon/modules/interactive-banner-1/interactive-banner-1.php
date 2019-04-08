@@ -40,7 +40,7 @@ class InteractiveBanner1Module extends FLBuilderModule {
 				'icon'            => 'ib-1.svg',
 			)
 		);
-		$this->add_css( 'font-awesome' );
+		$this->add_css( 'font-awesome-5' );
 	}
 	/**
 	 * Ensure backwards compatibility with old settings.

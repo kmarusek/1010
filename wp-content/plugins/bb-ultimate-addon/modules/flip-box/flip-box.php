@@ -31,7 +31,7 @@ class FlipBoxModule extends FLBuilderModule {
 				'icon'            => 'flip-box.svg',
 			)
 		);
-		$this->add_css( 'font-awesome' );
+		$this->add_css( 'font-awesome-5' );
 
 	}
 
