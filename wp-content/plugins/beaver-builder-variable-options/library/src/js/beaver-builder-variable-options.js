@@ -1,5 +1,6 @@
 function beaverBuilderDidReloadNodeHook(){
     (function($){
+
         $('.field-connection-variable-value')
         .each(function(){   
             // Get the variable name
@@ -13,7 +14,7 @@ function beaverBuilderDidReloadNodeHook(){
             // Get the label
             field_connection_label    = $( this ).parents( '.fl-field' ).find( '.fl-field-connection-label' );
 
-            if ( !field_connection_label.data( 'added-variable-name' ) ){
+            if ( current_variable_name && !field_connection_label.data( 'added-variable-name' ) ){
                 field_connection_label
                 .data( 'added-variable-name', true )
                 .append( " <code class=\"bbvo-variable-name\">{" + current_variable_name + "}</code>" );
