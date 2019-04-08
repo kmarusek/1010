@@ -1,3 +1,10 @@
+Version 1.16.3 - Friday, 5th April 2019
+- Improvement: Added Font Awesome-5 support to all modules
+
+Version 1.16.2 - Tuesday, 2nd April 2019
+- Fixed: Hotspot - Resolved Action Link extending issue with the same row content
+- Fixed: Text translation issue on Dashboard and Frontend while your site is not in default English language
+
 Version 1.16.1 - Monday, 1st April 2019
 - Improvement: Hotspot - Added Hotspot Tour feature
 - Improvement: Video - Added settings to enable Double Click over Custom Thumbnail on mobile view

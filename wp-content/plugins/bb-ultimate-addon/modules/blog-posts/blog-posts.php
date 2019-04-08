@@ -46,7 +46,7 @@ class BlogPostsModule extends FLBuilderModule {
 				'icon'            => 'schedule.svg',
 			)
 		);
-		$this->add_css( 'font-awesome' );
+		$this->add_css( 'font-awesome-5' );
 		add_filter( 'wp_footer', array( $this, 'enqueue_scripts' ) );
 		add_filter( 'fl_builder_loop_query_args', array( $this, 'uabb_loop_query_args' ), 1 );
 	}

@@ -38,7 +38,7 @@ class UABBWooAddToCartModule extends FLBuilderModule {
 			)
 		);
 
-		$this->add_css( 'font-awesome' );
+		$this->add_css( 'font-awesome-5' );
 	}
 
 	/**

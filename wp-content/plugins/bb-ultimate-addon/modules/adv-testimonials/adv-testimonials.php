@@ -32,7 +32,7 @@ class UABBAdvancedTestimonialsModule extends FLBuilderModule {
 		);
 
 		$this->add_css( 'jquery-bxslider' );
-		$this->add_css( 'font-awesome' );
+		$this->add_css( 'font-awesome-5' );
 		$this->add_js( 'jquery-bxslider' );
 	}
 	/**
@@ -560,7 +560,7 @@ class UABBAdvancedTestimonialsModule extends FLBuilderModule {
 	 */
 	public function render_ratings( $rating ) {
 
-		$rating_icon = apply_filters( 'uabb_testimonial_rating_icon', 'fa-star-o' );
+		$rating_icon = apply_filters( 'uabb_testimonial_rating_icon', 'fa-star' );
 
 		if ( 'none' != $rating ) {
 			$output  = '<div class="uabb-rating">
@@ -568,23 +568,23 @@ class UABBAdvancedTestimonialsModule extends FLBuilderModule {
                               <input class="uabb-rating__input';
 			$output .= ( 5 == $rating ) ? ' uabb-checked ' : '';
 			$output .= '" type="radio" value="5">
-                  <label class="uabb-rating__ico fa fa-lg ' . $rating_icon . '" title="5 out of 5 stars"></label>
+                  <label class="uabb-rating__ico far ' . $rating_icon . '" title="5 out of 5 stars"></label>
                   <input class="uabb-rating__input';
 			$output .= ( 4 == $rating ) ? ' uabb-checked ' : '';
 			$output .= '" type="radio" value="4">
-                  <label class="uabb-rating__ico fa fa-lg ' . $rating_icon . '" title="4 out of 5 stars"></label>
+                  <label class="uabb-rating__ico far ' . $rating_icon . '" title="4 out of 5 stars"></label>
                   <input class="uabb-rating__input';
 			$output .= ( 3 == $rating ) ? ' uabb-checked ' : '';
 			$output .= '" type="radio" value="3">
-                  <label class="uabb-rating__ico fa fa-lg ' . $rating_icon . '" title="3 out of 5 stars"></label>
+                  <label class="uabb-rating__ico far ' . $rating_icon . '" title="3 out of 5 stars"></label>
                   <input class="uabb-rating__input';
 			$output .= ( 2 == $rating ) ? ' uabb-checked ' : '';
 			$output .= '" type="radio" value="2">
-                  <label class="uabb-rating__ico fa fa-lg ' . $rating_icon . '" title="2 out of 5 stars"></label>
+                  <label class="uabb-rating__ico far ' . $rating_icon . '" title="2 out of 5 stars"></label>
                   <input class="uabb-rating__input';
 			$output .= ( 1 == $rating ) ? ' uabb-checked ' : '';
 			$output .= '" type="radio" value="1">
-                  <label class="uabb-rating__ico fa fa-lg ' . $rating_icon . '" title="1 out of 5 stars"></label>
+                  <label class="uabb-rating__ico far ' . $rating_icon . '" title="1 out of 5 stars"></label>
                 </div>
               </div>';
 

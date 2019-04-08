@@ -248,10 +248,11 @@ if ( 'right' == $settings->creative_menu_alignment ) {
 	.fl-node-<?php echo $id; ?> .uabb-creative-menu.full-screen .uabb-menu-overlay .uabb-menu-toggle:before,
 	.fl-node-<?php echo $id; ?> .uabb-creative-menu.full-screen .uabb-menu-overlay .sub-menu .uabb-menu-toggle:before {
 		content: '\f107';
-		font-family: 'fontAwesome';
+		font-family: 'Font Awesome 5 Free';
 		z-index: 1;
 		font-size: inherit;
 		line-height: 0;
+		font-weight: 900;
 		<?php
 		if ( $settings->creative_menu_responsive_link_color ) {
 			?>
@@ -263,9 +264,10 @@ if ( 'right' == $settings->creative_menu_alignment ) {
 	.fl-node-<?php echo $id; ?> .uabb-creative-menu.full-screen .uabb-menu-overlay .uabb-menu-toggle:before,
 	.fl-node-<?php echo $id; ?> .uabb-creative-menu.full-screen .uabb-menu-overlay .sub-menu .uabb-menu-toggle:before {
 		content: '\f067';
-		font-family: 'fontAwesome';
+		font-family: 'Font Awesome 5 Free';
 		font-size: 0.7em;
 		z-index: 1;
+		font-weight: 900;
 		<?php
 		if ( $settings->creative_menu_responsive_link_color ) {
 			?>
@@ -279,10 +281,11 @@ if ( ( ( 'horizontal' == $settings->creative_menu_layout || 'vertical' == $setti
 	?>
 	.fl-node-<?php echo $id; ?> .uabb-creative-menu .uabb-menu-toggle:before {
 		content: '\f107';
-		font-family: 'fontAwesome';
+		font-family: 'Font Awesome 5 Free';
 		z-index: 1;
 		font-size: inherit;
 		line-height: 0;
+		font-weight: 900;
 	}
 	<?php
 
@@ -291,9 +294,10 @@ if ( ( ( 'horizontal' == $settings->creative_menu_layout || 'vertical' == $setti
 	?>
 	.fl-node-<?php echo $id; ?> .uabb-creative-menu .uabb-menu-toggle:before {
 		content: '\f067';
-		font-family: 'fontAwesome';
+		font-family: 'Font Awesome 5 Free';
 		font-size: 0.7em;
 		z-index: 1;
+		font-weight: 900;
 	}
 	<?php
 }

@@ -498,20 +498,17 @@ if ( ! class_exists( 'BB_Ultimate_Addon_Helper' ) ) {
 		 *  @param string $domain gets an plugin domain.
 		 *  @return string
 		 */
-		function get_plugin_branding_name( $translated_text, $text, $domain ) {
+		public function get_plugin_branding_name( $text, $original, $domain ) {
 
 			$branding_name       = BB_Ultimate_Addon_Helper::get_builder_uabb_branding( 'uabb-plugin-name' );
 
-			if ( empty( $branding_name ) ) {
-				return $text;
-			} else {
-				switch ( $translated_text ) {
-				    case 'Ultimate Addons for Beaver Builder' :
-				        $translated_text = __( $branding_name, 'uabb' );
-				        break;
+			if ( is_admin() && 'Ultimate Addons for Beaver Builder' == $text ) {
+
+				if ( ! empty( $branding_name ) ) {
+					$text = $branding_name;
 				}
-				return $translated_text;
 			}
+			return $text;
 		}
 		/**
 		 * Function that renders UABB's branding Plugin Icon URL

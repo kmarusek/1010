@@ -599,7 +599,7 @@ FLBuilder::register_module(
 
 						'overlay_icon'              => array(
 							'type'        => 'icon',
-							'default'     => 'fa fa-plus-square-o',
+							'default'     => 'fas fa-plus-square-o',
 							'label'       => __( 'Icon', 'uabb' ),
 							'show_remove' => true,
 						),

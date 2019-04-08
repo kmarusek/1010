@@ -29,7 +29,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 				'icon'            => 'editor-table.svg',
 			)
 		);
-		$this->add_css( 'font-awesome' );
+		$this->add_css( 'font-awesome-5' );
 		add_filter( 'fl_builder_render_settings_field', array( $this, 'uabb_price_box_settings_field' ), 10, 3 );
 	}
 
