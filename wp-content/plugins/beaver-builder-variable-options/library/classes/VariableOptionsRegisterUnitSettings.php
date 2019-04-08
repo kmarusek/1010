@@ -109,6 +109,8 @@ class VariableOptionsRegisterUnitSettings extends VariableOptions {
                         $setting_variable_value
                     )
                 );
+                // For some reason, the tooltip is stripping the style attribute, so we need to add some CSS to provide the color here
+                echo "<style type=\"text/css\">#fl-field-$name .popover-color-preview { background-color:#$setting_variable_value; }</style>";
             }
             // Handeling for the dual hex
             else if ( $variable_unit === 'dual_color_hex' ){
