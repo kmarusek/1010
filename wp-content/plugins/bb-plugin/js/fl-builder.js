@@ -5245,13 +5245,8 @@
 					head.append( config.assets.css );
 				}
 				if ( '' !== config.assets.js ) {
-					/**
-					 * Use pure JS as jQuery append cause browser warnings.
-					 */
-					script = document.createElement("script");
-					script.src = config.assets.jsurl;
-					script.setAttribute( 'class', 'fl-builder-settings-js' );
-					document.head.append(script);
+
+					head.append( config.assets.js );
 				}
 				FLBuilder._loadedModuleAssets.push( data.type );
 			}
