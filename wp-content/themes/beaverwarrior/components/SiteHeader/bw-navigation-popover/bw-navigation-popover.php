@@ -23,23 +23,57 @@ class BWNavigationPopover extends BeaverWarriorFLModule {
         );
     }
 
+    /**
+     * Method to retieve the menu ID for this navigation.
+     *
+     * @return int The menu ID
+     */
     public function getMenuID(){
         // Get the menu we're using
         return $this->settings->menu;
     }
 
+    /**
+     * Method to return whether or not menu icons are enabled.
+     *
+     * @return bool True if menu icons are enabled
+     */
     public function menuIconsAreEnabled(){
         return $this->settings->show_menu_icon === 'enabled';
     }
 
-    public function popoverSectionTilesAreEnabled(){
+    /**
+     * Method to return whether or not popover section titles are enabled.
+     *
+     * @return bool True if popover section titles are enabled
+     */
+    public function popoverSectionTitlesAreEnabled(){
         return $this->settings->popover_section_titles_enabled === 'enabled';
     }
 
+    /**
+     * Method to return whether or not top-level menu icons are enabled.
+     *
+     * @return bool True if top-level menu icons are enabled
+     */
     public function topLevelMenuIconEnabled(){
         return $this->settings->show_top_level_menu_icon === 'enabled';
     }
 
+    /**
+     * Method to return whether or not the popover pointer is enabled.
+     *
+     * @return bool True if the popover pointer is enabled
+     */
+    public function popoverPointerIsEnabled(){
+        return $this->settings->include_popover_pointer === 'enabled';
+    }
+
+    /**
+     * Method to get the top-level menu icon.
+     *
+     * @return string The top-level menu with the icon
+     */
     public function getTopLevelMenuIconElement(){
         $return_element = '';
 
@@ -60,6 +94,9 @@ class BWNavigationPopover extends BeaverWarriorFLModule {
     }
 }
 
+/**
+ * Our menu walker
+ */
 class BWNavigationPopoverMenuWalker extends Walker_Nav_Menu {
 
     const CLASS_MENU_HAS_CHILDREN = 'menu-item-has-children';
@@ -79,7 +116,6 @@ class BWNavigationPopoverMenuWalker extends Walker_Nav_Menu {
         else {
             $output .= $this->startMenuItemLevelTwo( $output, $item, $depth, $args, $id );
         }
-
     }
 
     public function end_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
@@ -92,7 +128,6 @@ class BWNavigationPopoverMenuWalker extends Walker_Nav_Menu {
         else {
             $output .= $this->endMenuItemLevelTwo( $output, $item, $depth, $args, $id );
         }
-
     }
 
     private function startMenuItemLevelOne( &$output, $item, $depth, $args, $id ){
@@ -153,7 +188,6 @@ class BWNavigationPopoverMenuWalker extends Walker_Nav_Menu {
     }
 
     private function startMenuItemLevelTwo( &$output, $item, $depth, $args, $id ){
-
         if ( $item->description === '' || $item->description === ' ' ){
             $output .= sprintf(
                 '<li class="%s"><a href="%s" target="%s" title="%s"><i class="icon"></i><span>%s</span></a></li>',

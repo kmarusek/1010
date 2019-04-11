@@ -7,6 +7,7 @@ jQuery(function($){
         // The element we're working with
         this.element               = settings.element;
         this.popoverHeadersEnabled = settings.popoverHeadersEnabled;
+        this.popoverPointerEnabled = settings.popoverPointerEnabled;
         // Init the carousel 
         this.init();
     };
@@ -125,7 +126,11 @@ jQuery(function($){
 
         _getDropDownTemplate : function( ){
 
-            return "<div class=\"popover\" role=\"tooltip\"><div class=\"triangle-container\"><div class=\"triangle\"></div></div><h3 class=\"popover-title\"></h3><div class=\"popover-content\"></div></div>";
+            // Our tooltip
+            var tooltip_string = this.popoverPointerEnabled ? "<div class=\"triangle-container\"><div class=\"triangle\"></div></div>" : '',
+            has_tooltip_class  = this.popoverPointerEnabled ? 'has-tooltip' : '';
+
+            return "<div class=\"popover " + has_tooltip_class + "\" role=\"tooltip\">" + tooltip_string + "<h3 class=\"popover-title\"></h3><div class=\"popover-content\"></div></div>";
         }
     };
 });

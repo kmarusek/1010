@@ -32,7 +32,10 @@ $custom_css = [
             ],
             '.popover-content' => [
                 'border-radius' => $module->getModuleSettingWithUnits( 'border_radius_popover' ),
-                'padding'       => $module->getModuleSettingDimension( 'padding_popover_content' ),
+                'padding-top'    => $module->getModuleSettingWithUnits( 'padding_popover_content_top' ),
+                'padding-bottom' => $module->getModuleSettingWithUnits( 'padding_popover_content_bottom' ),
+                'padding-left'   => $module->getModuleSettingWithUnits( 'padding_popover_content_left' ),
+                'padding-right'  => $module->getModuleSettingWithUnits( 'padding_popover_content_right' ),
                 '.section-title'=> array_merge(
                     [
                         'color' => $module->getModuleSettingColor( 'color_popover_header' )
@@ -126,6 +129,7 @@ if ( $module->topLevelMenuIconEnabled() ){
     ];
 }
 
+// $module->renderModuleCSS( $custom_css, 1, 1 );
 $module->renderModuleCSS( $custom_css );
 
 $mobile_css = [

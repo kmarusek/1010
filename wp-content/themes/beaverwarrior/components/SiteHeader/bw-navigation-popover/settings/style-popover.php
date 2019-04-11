@@ -17,6 +17,16 @@ $settings = array(
             'property' => 'min-width'
         )
     ),
+    'include_popover_pointer' => array(
+        'type'    => 'select',
+        'label'   => __( 'Include popoover pointer', 'skeleton-warrior' ),
+        'default' => 'enabled',
+        'help'    => 'If enabled, the top of the popover will include a triangle pointer',
+        'options' => array(
+            'enabled'  => 'Enabled',
+            'disabled' => 'Disabled'
+        )
+    ),
     'padding_popover_content' => array(
         'type'    => 'dimension',
         'label'   => __( 'Padding', 'skeleton-warrior' ),
