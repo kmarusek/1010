@@ -417,6 +417,58 @@ function beaver_warrior_clear_style_cache(){
     exec("rm wp-content/uploads/beaverwarrior/*");
 }
 
+/**
+ * Function to add the wildcard selector back into the CSS for the FLRichTextModule. Beaver Builder 
+ * 2.2.2.1 removed this focus from this area, so this filter will effectively put it back in
+ *
+ * @param  string $css             The existing CSS
+ * @param  object $nodes           All the nodes for the page
+ * @param  object $global_settings The global settings
+ * @param  boolean $include_global  Whether or not to include the global settings
+ *
+ * @return string               The CSS for the page
+ */
+function beaver_warrior_add_rich_text_wildcard_styles( $css, $nodes, $global_settings, $include_global ){
+    // Only apply to modules
+    if ( array_key_exists('modules', $nodes) ){
+        // Loop through the modules
+        foreach ($nodes['modules'] as $module_key => $module_values ) {
+            // If the the values are actually an object and it's the Rich Text Module
+            if ( is_object( $module_values) && is_a( $module_values, 'FLRichTextModule' ) ){
+                // Get the element's node ID
+                $module_id       = $module_key;
+                // Get the settings. We need to reinstate the wildcard selector for this element
+                $module_settings = isset( $module_values->settings ) ? $module_values->settings : new stdClass;
+                // For the colors
+                if ( ! empty( $module_settings->color ) ) {
+                    // See if we need to as a hex
+                    $hex_hash = ctype_xdigit($module_settings->color) ? '#' : '';
+                    $css .= ".fl-node-$module_id .fl-rich-text * { color: " . $hex_hash . $module_settings->color . ";}";
+                }
+                // If we have any set typography
+                if ( ! empty( $module_settings->typography ) ) {
+                    if ( class_exists( 'FLBuilderCSS') && method_exists('FLBuilderCSS', 'typography_field_props') ){
+                        $typography_array = FLBuilderCSS::typography_field_props( $module_settings->typography );
+                        $typography_string = ".fl-node-$module_id .fl-rich-text * {";
+                        // Loop through all of the values and add to the CSS
+                        foreach ($typography_array as $style_property => $style_value ) {
+                           // Only do anything with nonnull values
+                            if ( $style_value ){
+                                $typography_string .= $style_property . ':' . $style_value . ';';
+                            }
+                        }
+                        // Add the closing bracket
+                        $typography_string .= '}';
+                        // Add the CSS
+                        $css .= $typography_string;
+                    }
+                }
+            }
+        }
+    }
+    // Return the CSS no matter what
+    return $css;
+}
 
 add_action("fl_theme_compile_less_paths", "beaver_warrior_less_paths");
 
@@ -430,3 +482,5 @@ add_action( 'customize_controls_print_footer_scripts',   'BWCustomizerLess::cont
 add_action( 'customize_save_after',                      'BWCustomizerLess::save' );
 // The Huemor Dev pack
 add_action( 'init' , 'beaver_warrior_huemor_dev_pack' );
+// Add the filter to make sure that rich-text styles are generiouslly applied to its children.
+add_filter( 'fl_builder_render_css', 'beaver_warrior_add_rich_text_wildcard_styles', 10, 4 );
