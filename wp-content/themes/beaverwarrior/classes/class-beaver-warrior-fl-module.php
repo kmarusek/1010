@@ -11,12 +11,14 @@ class BeaverWarriorFLModule extends FLBuilderModule {
 
    const TERM_SAVED_BUILDER_ITEM_TYPE_MODULE = 'module';
 
+   const TERM_SAVED_BUILDER_ITEM_TYPE_COLUMN = 'column';
+
    const TERM_SAVED_BUILDER_ITEM_TYPE_ROW    = 'row';
 
-    /**
+     /**
      * The name of the directory inside indivudal modules where additional settings are stored
      */
-    const DIRECTORY_MODULE_SETTINGS           = 'settings';
+     const DIRECTORY_MODULE_SETTINGS           = 'settings';
      /**
      * The post type for themer layouts.
      */
@@ -69,7 +71,27 @@ class BeaverWarriorFLModule extends FLBuilderModule {
         return self::_getMenus();
     }
 
+    /**
+     * Legacy method used to render saved rows.
+     *
+     * @param  int    $post_id The post ID to render
+     *
+     * @return void          
+     *
+     * @deprecated In favor of renderSavedBuilderItem;
+     */
     public function renderSavedRow( int $post_id ){
+        $this->renderSavedBuilderItem( $post_id );
+    }
+
+    /**
+     * Method used to render a saved builder item.
+     *
+     * @param  int    $post_id The post ID to render
+     *
+     * @return void         
+     */
+    public function renderSavedBuilderItem( int $post_id ){
         if ( $post_id ){
             FLBuilder::render_query( 
                 array(
@@ -79,6 +101,64 @@ class BeaverWarriorFLModule extends FLBuilderModule {
             );
         }
     }
+
+    /**
+     * Method to get the content of a saved builder item.
+     *
+     * @param  int    $post_id The saved row ID
+     *
+     * @return string          The content
+     */
+    public function getSavedBuilderItem( int $post_id ){
+        $return_content = '';
+        if ( $post_id ){
+            ob_start();
+            FLBuilder::render_query( 
+                array(
+                    'post_type' => self::POST_TYPE_SAVED_BUILDER_ITEM,
+                    'p'         => $post_id
+                )
+            );
+            $return_content = ob_get_clean();
+        }
+        return $return_content;
+    }
+
+    /**
+     * Method to get the content of a saved row (instead of rendering it)
+     *
+     * @param  int    $post_id The saved row ID
+     *
+     * @return string          The content
+     */
+    public function getSavedRowContent( int $post_id ){
+        $return_content = '';
+        if ( $post_id ){
+            ob_start();
+            FLBuilder::render_query( 
+                array(
+                    'post_type' => self::POST_TYPE_SAVED_BUILDER_ITEM,
+                    'p'         => $post_id
+                )
+            );
+            $return_content = ob_get_clean();
+        }
+        return $return_content;
+    }
+
+
+    /**
+     * Method to get the string value from a boolean value. Used when localizing boolean
+     * values in JavaScript.
+     *
+     * @param  bool   $boolean_value The boolean value to convert
+     *
+     * @return string                The string value of the boolean.
+     */
+    public function getBooleanStringValue( bool $boolean_value ){
+        return $boolean_value ? 'true' : 'false';
+    }
+
     /**
      * Method to get the menus the user has regitered. 
      *
@@ -94,10 +174,42 @@ class BeaverWarriorFLModule extends FLBuilderModule {
         return $menus;
     }
 
+    /**
+     * Method to retrieve all saved rows for a selector in Beaver Builder.   
+     *
+     * @return array An array of saved rows
+     */
     public static function _getSavedRows(){
+        return self::getAvailableSavedBuilderItems( self::TERM_SAVED_BUILDER_ITEM_TYPE_ROW );
+    }
 
+    /**
+     * Method to retrieve all saved rows for a selector in Beaver Builder.   
+     *
+     * @return array An array of saved columns
+     */
+    public static function _getSavedColumns(){
+        return self::getAvailableSavedBuilderItems( self::TERM_SAVED_BUILDER_ITEM_TYPE_COLUMN );
+    }
+
+    /**
+     * Method to retrieve all saved modules for a selector in Beaver Builder.   
+     *
+     * @return array An array of saved modules
+     */
+    public static function _getSavedModules(){
+        return self::getAvailableSavedBuilderItems( self::TERM_SAVED_BUILDER_ITEM_TYPE_MODULE );
+    }
+
+    /**
+     * Method used to get an array of saved builder items
+     *
+     * @param  string $saved_builder_item_term The builder term used to get the saved items.
+     *
+     * @return array                          An array of saved items
+     */
+    public static function getAvailableSavedBuilderItems( $saved_builder_item_term ){
         $return_array = array();
-
         $args = array(
             'post_type'      => self::POST_TYPE_SAVED_BUILDER_ITEM,
             'posts_per_page' => -1,
@@ -107,21 +219,16 @@ class BeaverWarriorFLModule extends FLBuilderModule {
                 array(
                     'taxonomy' => self::TAXONOMY_SAVED_BUILDER_ITEM_TYPE,
                     'field'    => 'slug',
-                    'terms'    => self::TERM_SAVED_BUILDER_ITEM_TYPE_ROW,
+                    'terms'    => $saved_builder_item_term,
                 )
             )
         );
-
-
         $query = new WP_Query( $args );
-
-        $saved_modules = $query->posts;
-
-        for ( $i=0;$i<count($saved_modules); $i++ ){
-            $current_saved_module = $saved_modules[$i];
+        $saved_rows = $query->posts;
+        for ( $i=0;$i<count($saved_rows); $i++ ){
+            $current_saved_module = $saved_rows[$i];
             $return_array[$current_saved_module->ID] = $current_saved_module->post_title;
         }
-
         return $return_array;
     }
 
@@ -147,36 +254,6 @@ class BeaverWarriorFLModule extends FLBuilderModule {
         else {
             error_log( "Warning! Unknown file " . $filename . " in " . __CLASS__ );
         }
-    }
-
-    public static function _getSavedModules(){
-
-        $return_array = array();
-
-        $args = array(
-            'post_type'      => self::POST_TYPE_SAVED_BUILDER_ITEM,
-            'posts_per_page' => -1,
-            'orderby'        => 'title',
-            'order'          => 'asc',
-            'tax_query' => array(
-                array(
-                    'taxonomy' => self::TAXONOMY_SAVED_BUILDER_ITEM_TYPE,
-                    'field'    => 'slug',
-                    'terms'    => self::TERM_SAVED_BUILDER_ITEM_TYPE_MODULE,
-                )
-            )
-        );
-
-
-        $query = new WP_Query( $args );
-
-        $saved_modules = $query->posts;
-
-        for ( $i=0;$i<count($saved_modules); $i++ ){
-            $current_saved_module = $saved_modules[$i];
-            $return_array[$current_saved_module->ID] = $current_saved_module->post_title;
-        }
-        return $return_array;
     }
 
     /**
@@ -277,8 +354,21 @@ class BeaverWarriorFLModule extends FLBuilderModule {
      * @param  string $key The key used for the settings
      *
      * @return array      An array of settings
+     *
+     * @deprecated In favor of getModuleSettingTypography()
      */
     public function getTypography( string $key ){
+        return $this->getModuleSettingTypography( $key );
+    }
+
+    /**
+     * Method used to get the typography array from the typograhy setting.
+     *
+     * @param  string $key The key used for the settings
+     *
+     * @return array      An array of settings
+     */
+    public function getModuleSettingTypography( string $key ){
         // Declare our return
         $return_array = array();
         // Use the bult in parser, if it exists
@@ -310,6 +400,31 @@ class BeaverWarriorFLModule extends FLBuilderModule {
             $this->getTypographyTextShadow( $return_array, 'text-shadow', $typography_settings, 'text_shadow' );
         }
         // Return our array
+        return $return_array;
+    }
+
+
+    /**
+     * Method used to get the module settings for the border.
+     *
+     * @param  string $key The key to get the settings for
+     *
+     * @return array An array of styles
+     */
+    public function getModuleSettingBorder( $key ){
+        // Declare our return
+        $return_array = array();
+        // Use the bult in parser, if it exists
+        if ( class_exists( 'FLBuilderCSS') && method_exists('FLBuilderCSS', 'border_field_props') ){
+            $return_array = FLBuilderCSS::border_field_props( $this->settings->$key );
+        }
+        // If we have a color, do some special handling
+        if ( isset($return_array['border-color']) ){
+            // Check if this is a hex value
+            if ( ctype_xdigit($return_array['border-color']) ){
+                $return_array['border-color']  = '#' . $return_array['border-color'];
+            }
+        }
         return $return_array;
     }
 
@@ -411,7 +526,8 @@ class BeaverWarriorFLModule extends FLBuilderModule {
         if ( isset( $this->settings->connections[$key] ) && isset( $this->settings->connections[$key]->settings ) && class_exists( 'HuemorDesigns\Plugins\BeaverBuilderVariableOptions\VariableOptions' ) && is_object( $this->settings->connections[$key]->settings )){
             $unit = HuemorDesigns\Plugins\BeaverBuilderVariableOptions\VariableOptions::getConnectionVariableUnit( $this->settings->connections[$key]->settings );
         }
-        return isset( $this->settings->$key ) && $this->settings->$key ? "{$this->settings->$key}$unit" : null;
+
+        return isset( $this->settings->$key ) && ( $this->settings->$key || $this->settings->$key === '0' ) ? "{$this->settings->$key}$unit" : null;
     }
 
     /**
