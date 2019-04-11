@@ -393,8 +393,10 @@ function beaver_warrior_huemor_dev_pack(){
     if ( is_user_logged_in() && !isset( $_ENV['PANTHEON_ENVIRONMENT'] ) && defined( 'HUEMOR_DEV_PACK_ENABLED' ) && HUEMOR_DEV_PACK_ENABLED ) {
         // If debug is also enabled, then let's display all errors
         if ( defined( 'WP_DEBUG' ) && WP_DEBUG ){
-            @ini_set( 'display_errors', 1 );
-            @ini_set( 'display_startup_errors', 1 );
+            if ( defined( 'WP_DEBUG_DISPLAY' ) && WP_DEBUG_DISPLAY ){
+                @ini_set( 'display_errors', 1 );
+                @ini_set( 'display_startup_errors', 1 );
+            }
             @error_reporting( E_ALL );
         }
         // Clear the cache
