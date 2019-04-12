@@ -13,7 +13,7 @@ module.exports = function(grunt) {
         // Declare our return
         let return_array          = [];
         // Check that our downstream file exists
-        if ( grunt.file.exists( 'custom-modules-downstream.json') ){
+        if ( grunt.file.exists( 'custom-modules-downstream.json' ) ){
             // Get the contents of the downstream files
             let downstream_custom_modules_file = grunt.file.readJSON( 'custom-modules-downstream.json' );
             // Get the downstream modules
@@ -176,6 +176,30 @@ module.exports = function(grunt) {
     }
 
     /**
+     * Function to get the associative object used with Babel.
+     *
+     * @return {Object} The Babel object.
+     */
+     function get_babel_object(){
+        // Declare our return
+        let return_object = {};
+        // Add all of the custom modules
+        for ( let i=0; i<custom_modules.length; i++){
+            // Get the current moduke
+            let current_module_path = custom_modules[i],
+            // The prebuild file path
+            prebuilt_js_file_path = '..'  + current_module_path + 'js/frontend.prebuilt.js';
+            // Only proceed if the JS file exists
+            if ( grunt.file.exists( prebuilt_js_file_path ) ){
+                // Add the item
+                return_object[ '..'  + current_module_path + 'js/frontend.js' ]  = prebuilt_js_file_path;
+            }
+        }
+        // Return the array
+        return return_object;
+    }
+
+    /**
      * Function to get the JS hint array
      *
      * @return {array} The JS hint array
@@ -206,10 +230,23 @@ module.exports = function(grunt) {
     js_hint_array  = get_js_hint_array(),
     // Get the JS Hint array
     css_min_object = get_css_min_object();
+    // Get the babel array
+    js_babel_object = get_babel_object();
+    // The grunt configuration
     grunt.initConfig({
+        babel: {
+            options: {
+                sourceMap: false,
+                presets: ['@babel/preset-env']
+            },
+            dist: {
+                files: js_babel_object
+            }
+        },
         jshint: {
             options: {
                 es3     : true,
+                esnext  : true,
                 curly   : true,
                 eqeqeq  : true,
                 eqnull  : true,
@@ -319,11 +356,12 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-csslint');
     grunt.loadNpmTasks("grunt-remove-logging");
     grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks("grunt-comment-toggler");
+    grunt.loadNpmTasks('grunt-comment-toggler');
     grunt.loadNpmTasks('grunt-scss2less');
+    grunt.loadNpmTasks('grunt-babel');
 
     grunt.task.registerTask('buildDev',  ['buildCSS', 'buildJS']);
     grunt.task.registerTask('buildCSS',  ['scss2less', 'less']);
-    grunt.task.registerTask('buildJS',   ['copy','jshint']);
+    grunt.task.registerTask('buildJS',   ['babel','jshint']);
     grunt.task.registerTask('buildProd', ['buildJS','uglify','buildCSS','cssmin']);
 };
