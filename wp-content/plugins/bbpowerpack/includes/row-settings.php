@@ -16,9 +16,15 @@ function pp_row_register_settings( $extensions ) {
 		add_filter( 'fl_builder_register_settings_form', 'pp_row_settings_tab', 10, 2 );
     }
 	
-	add_filter( 'pp_row_settings_tab_sections', 'pp_row_separators' );
-	add_filter( 'pp_row_settings_tab_sections', 'pp_row_expandable' );
-	add_filter( 'pp_row_settings_tab_sections', 'pp_row_downarrow' );
+	if ( array_key_exists( 'separators', $extensions['row'] ) || in_array( 'separators', $extensions['row'] ) ) {
+		add_filter( 'pp_row_settings_tab_sections', 'pp_row_separators' );
+	}
+	if ( array_key_exists( 'expandable', $extensions['row'] ) || in_array( 'expandable', $extensions['row'] ) ) {
+		add_filter( 'pp_row_settings_tab_sections', 'pp_row_expandable' );
+	}
+	if ( array_key_exists( 'downarrow', $extensions['row'] ) || in_array( 'downarrow', $extensions['row'] ) ) {
+		add_filter( 'pp_row_settings_tab_sections', 'pp_row_downarrow' );
+	}
 }
 
 function pp_row_fallback_settings( $nodes ) {

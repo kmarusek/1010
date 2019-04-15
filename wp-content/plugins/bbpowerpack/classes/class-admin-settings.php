@@ -54,7 +54,7 @@ final class BB_PowerPack_Admin_Settings {
         add_action( 'network_admin_menu',   __CLASS__ . '::menu' );
         add_filter( 'all_plugins',          __CLASS__ . '::update_branding' );
 
-		if ( isset( $_REQUEST['page'] ) && 'pp-settings' == $_REQUEST['page'] ) {
+		if ( isset( $_REQUEST['page'] ) && 'ppbb-settings' == $_REQUEST['page'] ) {
             add_action( 'admin_enqueue_scripts', __CLASS__ . '::styles_scripts' );
 			self::save();
 		}
@@ -86,7 +86,7 @@ final class BB_PowerPack_Admin_Settings {
 
 			$title = $admin_label;
 			$cap   = 'manage_options';
-			$slug  = 'pp-settings';
+			$slug  = 'ppbb-settings';
 			$func  = __CLASS__ . '::render';
 
 			add_submenu_page( 'options-general.php', $title, $title, $cap, $slug, $func );
@@ -96,7 +96,7 @@ final class BB_PowerPack_Admin_Settings {
 
             $title = $admin_label;
     		$cap   = 'manage_network_plugins';
-    		$slug  = 'pp-settings';
+    		$slug  = 'ppbb-settings';
     		$func  = __CLASS__ . '::render';
 
     		add_submenu_page( 'settings.php', $title, $title, $cap, $slug, $func );
@@ -213,10 +213,10 @@ final class BB_PowerPack_Admin_Settings {
 	static public function get_form_action( $type = '' )
 	{
 		if ( is_network_admin() ) {
-			return network_admin_url( '/settings.php?page=pp-settings' . $type );
+			return network_admin_url( '/settings.php?page=ppbb-settings' . $type );
 		}
 		else {
-			return admin_url( '/options-general.php?page=pp-settings' . $type );
+			return admin_url( '/options-general.php?page=ppbb-settings' . $type );
 		}
 	}
 
@@ -369,7 +369,7 @@ final class BB_PowerPack_Admin_Settings {
 				$error = '';
 
 				if ( is_wp_error( $response ) || 200 !== (int) wp_remote_retrieve_response_code( $response ) ) {
-					$error = __( 'Facebook App ID is not valid.', 'bb-powerpack' );
+					$error = __( 'Facebook App ID is not valid. Error: ' . wp_remote_retrieve_response_message($response), 'bb-powerpack' );
 				}
 
 				if ( ! empty( $error ) ) {

@@ -541,6 +541,7 @@
 		 */
 		_toggleMenu: function() {
 			var self = this;
+			var singleInstance = true;
 			if( self.mobileMenuType === 'full-screen' ) {
 				var winHeight = $(window).height();
 				$(self.nodeClass).find('.pp-menu-overlay').css('height', winHeight + 'px');
@@ -551,6 +552,12 @@
 			}
 			// Toggle Click
 			$(self.nodeClass).find('.pp-advanced-menu-mobile-toggle' ).off('click').on( 'click', function() {
+				if ( singleInstance ) {
+					if ( $('.pp-advanced-menu.menu-open').length > 0 ) {
+						$('.pp-advanced-menu').removeClass('menu-open');
+						$('html').removeClass('pp-full-screen-menu-open');
+					}
+				}
 				if( $(self.nodeClass).find('.pp-advanced-menu').hasClass('menu-open') ) {
 					$(self.nodeClass).find('.pp-advanced-menu').removeClass('menu-open');
 					$(self.nodeClass).find('.pp-advanced-menu').addClass('menu-close');

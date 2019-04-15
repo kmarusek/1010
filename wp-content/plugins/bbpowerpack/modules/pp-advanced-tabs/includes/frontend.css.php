@@ -27,11 +27,24 @@
 	<?php if( $settings->tab_icon_position == 'bottom' ) { ?>
 		margin-top: 10px;
 	<?php } ?>
+	<?php if ( isset( $settings->tab_icon_color ) && !empty( $settings->tab_icon_color ) ) { ?>
+		color: #<?php echo $settings->tab_icon_color; ?>;
+	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-tabs-label .pp-tab-icon:before {
 	font-size: <?php echo $settings->tab_icon_size; ?>px;
 }
+
+<?php
+if ( isset( $settings->label_typography ) ) {
+	?>
+	.fl-node-<?php echo $id; ?> .pp-tabs-vertical .pp-tabs-label {
+		text-align: <?php echo $settings->label_typography['text_align']; ?>;
+	}
+	<?php
+}
+?>
 
 <?php
 // Label typography.
@@ -99,6 +112,14 @@ FLBuilderCSS::dimension_field_rule( array(
 .fl-node-<?php echo $id; ?> .pp-tabs .pp-tabs-label:hover {
 	background-color: #<?php echo $settings->label_background_active_color; ?>;
 	color: #<?php echo $settings->label_active_text_color; ?>;
+}
+
+.fl-node-<?php echo $id; ?> .pp-tabs .pp-tabs-label.pp-tab-active .pp-tab-icon,
+.fl-node-<?php echo $id; ?> .pp-tabs .pp-tabs-label.pp-tab-active:hover .pp-tab-icon,
+.fl-node-<?php echo $id; ?> .pp-tabs .pp-tabs-label:hover .pp-tab-icon {
+	<?php if ( isset( $settings->tab_icon_color_hover ) && !empty( $settings->tab_icon_color_hover ) ) { ?>
+		color: #<?php echo $settings->tab_icon_color_hover; ?>;
+	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-tabs-panel-label .pp-toggle-icon {
@@ -282,8 +303,5 @@ FLBuilderCSS::dimension_field_rule( array(
 	}
 	.fl-node-<?php echo $id; ?> .pp-tabs-style-8 .pp-tabs-label.pp-tab-active {
 		background-color: #<?php echo $settings->label_background_active_color; ?> !important;
-	}
-	.fl-node-<?php echo $id; ?> .pp-tabs-panels {
-		visibility: hidden;
 	}
 }

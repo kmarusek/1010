@@ -62,18 +62,22 @@ class PPLogosGridModule extends FLBuilderModule {
 		// Handle old logo grid padding fields
 		if( isset( $settings->logo_grid_padding_top ) ) {
 			$settings->logo_grid_padding['top'] = $settings->logo_grid_padding_top;
+			unset( $settings->logo_grid_padding_top );
 		}
 
 		if( isset( $settings->logo_grid_padding_bottom ) ) {
 			$settings->logo_grid_padding['bottom'] = $settings->logo_grid_padding_bottom;
+			unset( $settings->logo_grid_padding_bottom );
 		}
 
 		if( isset( $settings->logo_grid_padding_left ) ) {
 			$settings->logo_grid_padding['left'] = $settings->logo_grid_padding_left;
+			unset( $settings->logo_grid_padding_left );
 		}
 
 		if( isset( $settings->logo_grid_padding_right ) ) {
 			$settings->logo_grid_padding['right'] = $settings->logo_grid_padding_right;
+			unset( $settings->logo_grid_padding_right );
 		}
 
 		// Handle old arrow border and radius fields.
@@ -111,12 +115,15 @@ class PPLogosGridModule extends FLBuilderModule {
 
 		if ( isset( $settings->logos_grid_columns_desktop ) ) {
 			$settings->logos_grid_columns = $settings->logos_grid_columns_desktop;
+			unset( $settings->logos_grid_columns_desktop );
 		}
 		if ( isset( $settings->logos_grid_columns_tablet ) ) {
 			$settings->logos_grid_columns_medium = $settings->logos_grid_columns_tablet;
+			unset( $settings->logos_grid_columns_tablet );
 		}
 		if ( isset( $settings->logos_grid_columns_mobile ) ) {
 			$settings->logos_grid_columns_responsive = $settings->logos_grid_columns_mobile;
+			unset( $settings->logos_grid_columns_mobile );
 		}
 
 		return $settings;

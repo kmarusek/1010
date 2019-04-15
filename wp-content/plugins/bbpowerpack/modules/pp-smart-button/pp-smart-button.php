@@ -80,6 +80,7 @@ class PPSmartButtonModule extends FLBuilderModule {
 		// Handle old padding settings.
 		if ( isset( $settings->padding ) && is_array( $settings->padding ) ) {
 			$padding = $settings->padding;
+			unset( $settings->padding );
 			$settings->padding_top = isset( $padding['top'] ) ? $padding['top'] : '';
 			$settings->padding_right = isset( $padding['right'] ) ? $padding['right'] : '';
 			$settings->padding_bottom = isset( $padding['bottom'] ) ? $padding['bottom'] : '';

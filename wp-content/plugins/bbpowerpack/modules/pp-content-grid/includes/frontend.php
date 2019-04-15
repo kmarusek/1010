@@ -29,8 +29,8 @@ FLBuilderModel::default_settings($settings, array(
 	'image_thumb_size'	=> 'large'
 ));
 
-$module_dir = $module->dir;
-$module_url = $module->url;
+$module_dir = pp_get_module_dir('pp-content-grid');
+$module_url = pp_get_module_url('pp-content-grid');
 
 $css_class = '';
 

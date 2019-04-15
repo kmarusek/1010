@@ -120,7 +120,9 @@ FLBuilderCSS::typography_field_rule( array(
 }
 
 .fl-node-<?php echo $id; ?> .tablesaw-sortable .tablesaw-sortable-head button {
+	<?php if ( isset( $settings->header_typography ) && is_array( $settings->header_typography ) ) { ?>
 	text-align: <?php echo $settings->header_typography['text_align']; ?>;
+	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-table-content tbody tr:nth-child(odd) {
@@ -142,11 +144,11 @@ FLBuilderCSS::typography_field_rule( array(
 
 @media only screen and (max-width: 639px) {
 	.fl-node-<?php echo $id; ?> .pp-table-content-cell-label {
-		<?php if ( isset( $settings->header_typography_responsive ) && isset( $settings->header_typography_responsive['font_size'] ) ) { ?>
-		<?php if( '' != $settings->header_typography_responsive['font_size'] && isset( $settings->header_typography_responsive['font_size'] ) ) { ?>
-		    font-size: <?php echo $settings->header_typography_responsive['font_size']['length']; ?><?php echo $settings->header_typography_responsive['font_size']['unit']; ?>;
+		<?php if ( isset( $settings->header_typography_responsive ) ) { ?>
+			<?php if ( isset( $settings->header_typography_responsive['font_size'] ) && '' != $settings->header_typography_responsive['font_size'] ) { ?>
+				font-size: <?php echo $settings->header_typography_responsive['font_size']['length']; ?><?php echo $settings->header_typography_responsive['font_size']['unit']; ?>;
+			<?php } ?>
+			text-transform: <?php echo $settings->header_typography_responsive['text_transform']; ?>;
 		<?php } ?>
-		<?php } ?>
-		text-transform: <?php echo $settings->header_typography['text_transform']; ?>;
 	}
 }

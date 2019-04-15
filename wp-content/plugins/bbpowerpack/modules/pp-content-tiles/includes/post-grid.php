@@ -45,7 +45,7 @@ if ( ! is_array( $image ) ) {
 
 	<?php if ( ! empty( $featured_image ) ) : ?>
 		<div class="<?php echo $class_prefix; ?>-image" style="background-image: url(<?php echo $featured_image; ?>)">
-			<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"></a>
+			<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>" aria-label="<?php echo get_the_title(); ?>"></a>
 		</div>
 	<?php endif; ?>
 

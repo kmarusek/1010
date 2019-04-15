@@ -1078,38 +1078,6 @@ FLBuilder::register_module('PPInfoBoxModule', array(
                             ),
                         )
                     ),
-                    'icon_border_radius'    => array(
-						'type'          => 'unit',
-						'label'         => __('Round Corners', 'bb-powerpack'),
-						'default'       => '0',
-						'units'   		=> array('px'),
-						'slider'		=> true,
-                        'preview'       => array(
-                            'type'          => 'css',
-                            'rules'     => array(
-                                array(
-                                    'selector'      => '.pp-infobox-icon',
-                                    'property'      => 'border-radius',
-                                    'unit'          => 'px'
-                                ),
-                                array(
-                                    'selector'      => '.pp-infobox-icon-inner',
-                                    'property'      => 'border-radius',
-                                    'unit'          => 'px'
-                                ),
-                                array(
-                                    'selector'      => '.pp-infobox-icon-inner span.pp-icon',
-                                    'property'      => 'border-radius',
-                                    'unit'          => 'px'
-                                ),
-                                array(
-                                    'selector'      => '.pp-infobox-image img',
-                                    'property'      => 'border-radius',
-                                    'unit'          => 'px'
-                                ),
-                            ),
-                        )
-					),
                 )
             ),
         ),

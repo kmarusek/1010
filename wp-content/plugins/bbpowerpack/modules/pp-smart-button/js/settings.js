@@ -6,9 +6,6 @@
 			text: {
 				required: true
 			},
-			link: {
-				required: true
-			},
 			border_size: {
 				required: true,
 				number: true

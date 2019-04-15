@@ -193,9 +193,9 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 					'image_custom_size'		=> array(
 						'type'			=> 'unit',
 						'label' 		=> __( 'Custom Size', 'bb-powerpack' ),
-						'size'          => 5,
 						'default'       => '300',
-						'description'	=> 'px',
+						'units'			=> array('px'),
+						'slider'		=> true,
 						'responsive' 	=> array(
 							'placeholder'	=> array(
 								'default'		=> '',

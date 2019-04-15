@@ -233,7 +233,9 @@ for( $i = 0; $i < count( $settings->card_content ); $i++ ) {
 		<?php if ( isset( $settings->hover_card_max_width ) && $settings->hover_card_max_width['tablet'] > 0 ) { ?>
 		max-width: <?php echo $settings->hover_card_max_width['tablet']; ?>px;
 		<?php } ?>
+		<?php if( $cards_tablet < 2 ) { ?>
 		float: none;
+		<?php } ?>
 		display: inline-block;
     }
 	.fl-node-<?php echo $id; ?> .pp-hover-card .pp-hover-card-inner {

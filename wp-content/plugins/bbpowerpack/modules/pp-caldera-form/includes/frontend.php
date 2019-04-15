@@ -24,7 +24,9 @@
 	</p>
     <?php
     if ( $settings->select_form_field ) {
-        echo do_shortcode( '[caldera_form id='.$settings->select_form_field.']' );
+        ?>
+		[caldera_form id="<?php echo $settings->select_form_field; ?>"]
+		<?php
     }
     ?>
 </div>

@@ -19,7 +19,8 @@ class PPCalderaFormModule extends FLBuilderModule {
             'group'         => pp_get_modules_group(),
             'category'		=> pp_get_modules_cat( 'form_style' ),
             'dir'           => BB_POWERPACK_DIR . 'modules/pp-caldera-form/',
-            'url'           => BB_POWERPACK_URL . 'modules/pp-caldera-form/',
+			'url'           => BB_POWERPACK_URL . 'modules/pp-caldera-form/',
+			'partial_refresh' => true,
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
         ));

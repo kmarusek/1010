@@ -93,7 +93,7 @@ final class BB_PowerPack_Templates_Lib {
 	{
 		self::$upload_dir = BB_PowerPack::$upload_dir;
 
-		if ( is_admin() && isset( $_GET['page'] ) && 'pp-settings' == $_GET['page'] ) {
+		if ( is_admin() && isset( $_GET['page'] ) && 'ppbb-settings' == $_GET['page'] ) {
 			self::download_templates_data();
 			self::refresh_templates_data();
 		} else {
@@ -165,7 +165,7 @@ final class BB_PowerPack_Templates_Lib {
      */
 	static public function refresh_templates_data()
 	{
-		if ( isset( $_REQUEST['page'] ) && 'pp-settings' == $_REQUEST['page'] ) {
+		if ( isset( $_REQUEST['page'] ) && 'ppbb-settings' == $_REQUEST['page'] ) {
             if ( isset( $_REQUEST['refresh'] ) ) {
                 self::download_templates_data( 'new' );
             } else {
@@ -429,7 +429,7 @@ final class BB_PowerPack_Templates_Lib {
      */
 	static public function clear_enabled_templates()
 	{
-		if ( isset( $_GET['page'] ) && 'pp-settings' == $_GET['page'] && isset( $_GET['clear_enabled_templates'] ) ) {
+		if ( isset( $_GET['page'] ) && 'ppbb-settings' == $_GET['page'] && isset( $_GET['clear_enabled_templates'] ) ) {
             pp_clear_enabled_templates();
         }
 	}

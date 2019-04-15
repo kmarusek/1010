@@ -83,7 +83,9 @@ for( $i = 0; $i < $number_items; $i++ ) {
 		<?php if ( isset( $timeline->icon_background_color ) && ! empty( $timeline->icon_background_color ) ) { ?>
 			background-color: <?php echo pp_get_color_value( $timeline->icon_background_color ); ?>;
 		<?php } ?>
-		<?php if ( isset( $timeline->icon_text_color ) && ! empty( $timeline->icon_text_color ) ) { ?>color: <?php echo $timeline->icon_text_color; ?>; <?php } ?>
+		<?php if ( isset( $timeline->icon_text_color ) && ! empty( $timeline->icon_text_color ) ) { ?>
+			color: #<?php echo $timeline->icon_text_color; ?>;
+		<?php } ?>
 	}
 
 	<?php
@@ -107,7 +109,7 @@ for( $i = 0; $i < $number_items; $i++ ) {
 		<?php if ( isset( $timeline->title_background_color ) && ! empty( $timeline->title_background_color ) ) { ?>
 			background-color: <?php echo pp_get_color_value( $timeline->title_background_color ); ?>;
 		<?php } ?>
-		<?php if ( isset( $timeline->title_text_color ) && ! empty( $timeline->title_text_color ) ) { ?>color: <?php echo pp_get_color_value( $timeline->title_text_color ); ?>; <?php } ?>
+		<?php if ( isset( $timeline->title_text_color ) && ! empty( $timeline->title_text_color ) ) { ?>color: #<?php echo $timeline->title_text_color; ?>; <?php } ?>
 		<?php if( $timeline->title_border != '' ) { ?>
 			border-bottom-width: <?php echo $timeline->title_border; ?>px;
 			border-bottom-color: #<?php echo $timeline->title_border_color; ?>;
@@ -163,7 +165,7 @@ for( $i = 0; $i < $number_items; $i++ ) {
 		<?php if ( isset( $timeline->timeline_button_background_color ) && ! empty( $timeline->timeline_button_background_color ) ) { ?>
 			background-color: <?php echo pp_get_color_value( $timeline->timeline_button_background_color ); ?>;
 		<?php } ?>
-		<?php if ( isset( $timeline->timeline_button_text_color ) && ! empty( $timeline->timeline_button_text_color ) ) { ?>color: <?php echo $timeline->timeline_button_text_color; ?>; <?php } ?>
+		<?php if ( isset( $timeline->timeline_button_text_color ) && ! empty( $timeline->timeline_button_text_color ) ) { ?>color: #<?php echo $timeline->timeline_button_text_color; ?>; <?php } ?>
 	}
 	<?php
 		if ( is_object( $timeline->timeline_button_border ) ) {
@@ -199,7 +201,7 @@ for( $i = 0; $i < $number_items; $i++ ) {
 		<?php if ( isset( $timeline->timeline_button_background_hover ) && ! empty( $timeline->timeline_button_background_hover ) ) { ?>
 			background-color: <?php echo pp_get_color_value( $timeline->timeline_button_background_hover ); ?>;
 		<?php } ?>
-		<?php if ( isset( $timeline->timeline_button_text_hover ) && ! empty( $timeline->timeline_button_text_hover ) ) { ?>color: <?php echo $timeline->timeline_button_text_hover; ?>; <?php } ?>
+		<?php if ( isset( $timeline->timeline_button_text_hover ) && ! empty( $timeline->timeline_button_text_hover ) ) { ?>color: #<?php echo $timeline->timeline_button_text_hover; ?>; <?php } ?>
 	}
 <?php } ?>
 

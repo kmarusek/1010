@@ -126,6 +126,25 @@ class PPImageModule extends FLBuilderModule {
 	}
 
 	/**
+	 * Returns button link rel based on settings
+	 * @since 2.6.9
+	 */
+	public function get_rel() {
+		$rel = array();
+		if ( '_blank' == $this->settings->link_target ) {
+			$rel[] = 'noopener';
+		}
+		if ( isset( $this->settings->link_nofollow ) && 'yes' == $this->settings->link_nofollow ) {
+			$rel[] = 'nofollow';
+		}
+		$rel = implode( ' ', $rel );
+		if ( $rel ) {
+			$rel = ' rel="' . $rel . '" ';
+		}
+		return $rel;
+	}
+
+	/**
 	 * @method update
 	 * @param $settings {object}
 	 */
@@ -654,6 +673,7 @@ FLBuilder::register_module('PPImageModule', array(
 						'label'         => __('Link', 'bb-powerpack'),
 						'placeholder'   => 'http://www.example.com',
 						'show_target'	=> true,
+						'show_nofollow'	=> true,
 						'connections'   => array( 'url' ),
 						'preview'       => array(
 							'type'          => 'none'

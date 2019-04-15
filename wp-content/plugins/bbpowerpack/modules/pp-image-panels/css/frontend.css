@@ -21,6 +21,10 @@
 	transition: width .3s cubic-bezier(0.39, 0.58, 0.57, 1);
 	will-change: width;
 }
+.pp-image-panels-wrap .pp-image-panels-inner {
+	display: flex;
+	flex: 1 1 auto;
+}
 .pp-image-panels-wrap .pp-panel-title .pp-panel-link {
 	display: block;
 	float: none;

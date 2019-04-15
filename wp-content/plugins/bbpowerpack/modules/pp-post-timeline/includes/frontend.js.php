@@ -6,6 +6,7 @@ $('.fl-node-<?php echo $id; ?>').imagesLoaded(function() {
 		var sconf       	= {};
 		var slider_id   	= $(this).attr('id');
 		var slider_nav_id 	= $(this).attr('post-timeline-slider-nav-for');
+		var nav_id			= '';
 
 		// For Navigation
 		if( typeof(slider_nav_id) != 'undefined' && slider_nav_id != '' ) {

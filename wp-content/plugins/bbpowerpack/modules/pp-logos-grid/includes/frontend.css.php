@@ -11,9 +11,12 @@
 <?php
 	$logo_grid_border_style = 'none';
 	$logo_grid_border_width = 0;
+	$logo_grid_border_right_width = 0;
+	$logo_grid_border_bottom_width = 0;
 	if ( isset( $settings->logo_grid_border ) ) {
 		$logo_grid_border_style = $settings->logo_grid_border['style'];
-		$logo_grid_border_width = $settings->logo_grid_border['width'];
+		$logo_grid_border_right_width = ! empty( $settings->logo_grid_border['width']['right'] ) ? $settings->logo_grid_border['width']['right'] : 0;
+		$logo_grid_border_bottom_width = ! empty( $settings->logo_grid_border['width']['bottom'] ) ? $settings->logo_grid_border['width']['bottom'] : 0;
 	}
 ?>
 
@@ -41,10 +44,10 @@
 .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo {
     position: relative;
     <?php if( $settings->logos_layout == 'grid' ) { ?>
-        width: calc((100% - <?php echo $space_desktop + 1; ?>px) / <?php echo $settings->logos_grid_columns_desktop; ?>);
+        width: calc((100% - <?php echo $space_desktop + 1; ?>px) / <?php echo $settings->logos_grid_columns; ?>);
         <?php if ( $settings->logos_grid_spacing == 0 ) { ?>
-        margin-right: <?php echo $settings->logos_grid_spacing - ( $logo_grid_border_style != 'none' ? $logo_grid_border_width : 0 ); ?>px;
-        margin-bottom: <?php echo $settings->logos_grid_spacing - ( $logo_grid_border_style != 'none' ? $logo_grid_border_width : 0 ); ?>px;
+        margin-right: <?php echo $settings->logos_grid_spacing - ( $logo_grid_border_style != 'none' ? $logo_grid_border_right_width : 0 ); ?>px;
+        margin-bottom: <?php echo $settings->logos_grid_spacing - ( $logo_grid_border_style != 'none' ? $logo_grid_border_bottom_width : 0 ); ?>px;
         <?php } else { ?>
         margin-right: <?php echo $settings->logos_grid_spacing; ?>px;
         margin-bottom: <?php echo $settings->logos_grid_spacing; ?>px;
@@ -86,12 +89,12 @@
 ?>
 
 <?php if( $settings->logos_layout == 'grid' ) { ?>
-.fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo:nth-of-type(<?php echo $settings->logos_grid_columns_desktop; ?>n+1) {
+.fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo:nth-of-type(<?php echo $settings->logos_grid_columns; ?>n+1) {
     clear: left;
 }
 <?php } ?>
 
-.fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo:nth-of-type(<?php echo $settings->logos_layout == 'grid' ? $settings->logos_grid_columns_desktop : $settings->logo_carousel_minimum_grid; ?>n) {
+.fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo:nth-of-type(<?php echo $settings->logos_layout == 'grid' ? $settings->logos_grid_columns : $settings->logo_carousel_minimum_grid; ?>n) {
     margin-right: 0;
 }
 
@@ -101,20 +104,22 @@
     <?php } ?>
 }
 
+.fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
 .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo .pp-logo-inner {
-    <?php if ( $settings->equal_height == 'yes' ) { ?>
-    display: table;
-    <?php } ?>
     width: 100%;
     height: 100%;
 }
 
 .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo .pp-logo-inner .pp-logo-inner-wrap {
-    <?php if ( $settings->equal_height == 'yes' ) { ?>
-    display: table-cell;
-    <?php } ?>
-    vertical-align: middle;
     text-align: center;
+	height: 100%;
+	display: flex;
+	align-items: center;
 }
 
 
@@ -299,32 +304,32 @@
 
 @media only screen and (max-width: 1024px) {
     .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo {
-        <?php if( $settings->logos_layout == 'grid' && $settings->logos_grid_columns_tablet >= 0 ) { ?>
-        width: calc((100% - <?php echo $space_tablet; ?>px) / <?php echo $settings->logos_grid_columns_tablet; ?>);
+        <?php if( $settings->logos_layout == 'grid' && $settings->logos_grid_columns_medium >= 0 ) { ?>
+        width: calc((100% - <?php echo $space_tablet; ?>px) / <?php echo $settings->logos_grid_columns_medium; ?>);
         <?php } ?>
     }
-    .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo:nth-of-type(<?php echo $settings->logos_grid_columns_tablet; ?>n+1) {
+    .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo:nth-of-type(<?php echo $settings->logos_grid_columns_medium; ?>n+1) {
         <?php if( $settings->logos_layout == 'grid' ) { ?>
             clear: left;
         <?php } ?>
     }
-    .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo:nth-of-type(<?php echo $settings->logos_grid_columns_desktop; ?>n) {
+    .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo:nth-of-type(<?php echo $settings->logos_grid_columns; ?>n) {
         <?php if( $settings->logos_layout == 'grid' ) { ?>
             <?php if ( $settings->logos_grid_spacing == 0 ) { ?>
-            margin-right: <?php echo $settings->logos_grid_spacing - ( $logo_grid_border_style != 'none' ? $logo_grid_border_width : 0 ); ?>px;
-            margin-bottom: <?php echo $settings->logos_grid_spacing - ( $logo_grid_border_style != 'none' ? $logo_grid_border_width : 0 ); ?>px;
+            margin-right: <?php echo $settings->logos_grid_spacing - ( $logo_grid_border_style != 'none' ? $logo_grid_border_right_width : 0 ); ?>px;
+            margin-bottom: <?php echo $settings->logos_grid_spacing - ( $logo_grid_border_style != 'none' ? $logo_grid_border_bottom_width : 0 ); ?>px;
             <?php } else { ?>
             margin-right: <?php echo $settings->logos_grid_spacing; ?>px;
             margin-bottom: <?php echo $settings->logos_grid_spacing; ?>px;
             <?php } ?>
         <?php } ?>
     }
-    .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo:nth-of-type(<?php echo $settings->logos_grid_columns_tablet; ?>n) {
+    .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo:nth-of-type(<?php echo $settings->logos_grid_columns_medium; ?>n) {
         <?php if( $settings->logos_layout == 'grid' ) { ?>
             margin-right: 0;
         <?php } ?>
     }
-    .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo:nth-of-type(<?php echo $settings->logos_grid_columns_desktop; ?>n+1) {
+    .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo:nth-of-type(<?php echo $settings->logos_grid_columns; ?>n+1) {
         <?php if( $settings->logos_layout == 'grid' ) { ?>
             clear: none;
         <?php } ?>
@@ -333,32 +338,32 @@
 
 @media only screen and (max-width: 480px) {
     .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo {
-        <?php if( $settings->logos_layout == 'grid' && $settings->logos_grid_columns_mobile >= 0 ) { ?>
-        width: calc((100% - <?php echo $space_mobile; ?>px) / <?php echo $settings->logos_grid_columns_mobile; ?>);
+        <?php if( $settings->logos_layout == 'grid' && $settings->logos_grid_columns_responsive >= 0 ) { ?>
+        width: calc((100% - <?php echo $space_mobile; ?>px) / <?php echo $settings->logos_grid_columns_responsive; ?>);
         <?php } ?>
     }
-    .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo:nth-of-type(<?php echo $settings->logos_grid_columns_tablet; ?>n+1) {
+    .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo:nth-of-type(<?php echo $settings->logos_grid_columns_medium; ?>n+1) {
         <?php if( $settings->logos_layout == 'grid' ) { ?>
             clear: none;
         <?php } ?>
     }
-    .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo:nth-of-type(<?php echo $settings->logos_grid_columns_mobile; ?>n+1) {
+    .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo:nth-of-type(<?php echo $settings->logos_grid_columns_responsive; ?>n+1) {
         <?php if( $settings->logos_layout == 'grid' ) { ?>
             clear: left;
         <?php } ?>
     }
-    .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo:nth-of-type(<?php echo $settings->logos_grid_columns_tablet; ?>n) {
+    .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo:nth-of-type(<?php echo $settings->logos_grid_columns_medium; ?>n) {
         <?php if( $settings->logos_layout == 'grid' ) { ?>
             <?php if ( $settings->logos_grid_spacing == 0 ) { ?>
-            margin-right: <?php echo $settings->logos_grid_spacing - ( $logo_grid_border_style != 'none' ? $logo_grid_border_width : 0 ); ?>px;
-            margin-bottom: <?php echo $settings->logos_grid_spacing - ( $logo_grid_border_style != 'none' ? $logo_grid_border_width : 0 ); ?>px;
+            margin-right: <?php echo $settings->logos_grid_spacing - ( $logo_grid_border_style != 'none' ? $logo_grid_border_right_width : 0 ); ?>px;
+            margin-bottom: <?php echo $settings->logos_grid_spacing - ( $logo_grid_border_style != 'none' ? $logo_grid_border_bottom_width : 0 ); ?>px;
             <?php } else { ?>
             margin-right: <?php echo $settings->logos_grid_spacing; ?>px;
             margin-bottom: <?php echo $settings->logos_grid_spacing; ?>px;
             <?php } ?>
         <?php } ?>
     }
-    .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo:nth-of-type(<?php echo $settings->logos_grid_columns_mobile; ?>n) {
+    .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo:nth-of-type(<?php echo $settings->logos_grid_columns_responsive; ?>n) {
         <?php if( $settings->logos_layout == 'grid' ) { ?>
             margin-right: 0;
         <?php } ?>

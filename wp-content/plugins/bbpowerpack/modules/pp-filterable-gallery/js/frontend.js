@@ -34,18 +34,20 @@
 			this._initFilterData();
 			this._gridLayout();
 
-			$(window).on('load', $.proxy( this._hashChange, this));
+			this._hashChange();
 
 			$(window).on('hashchange', $.proxy( this._hashChange, this ));
 		},
 
 		_hashChange: function()
 		{
-			if( location.hash && $(location.hash).length > 0 ) {
-				if ( $(location.hash).parent().hasClass('pp-gallery-filters') ) {
-					$(location.hash).trigger('click');
+			setTimeout(function() {
+				if( location.hash && $(location.hash).length > 0 ) {
+					if ( $(location.hash).parent().hasClass('pp-gallery-filters') ) {
+						$(location.hash).trigger('click');
+					}
 				}
-			}
+			}, 200);
 		},
 
 		_initFilterData: function()
