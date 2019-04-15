@@ -19,7 +19,9 @@
             display: inline-block;
 
             transition: background-color 150ms;
-
+            a{
+                text-decoration: none;
+            }
             .mega-menu-contents {
                 display: none;
             }
