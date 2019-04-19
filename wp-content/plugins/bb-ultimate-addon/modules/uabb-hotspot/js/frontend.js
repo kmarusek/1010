@@ -58,9 +58,10 @@
 
 			}
 			// Next , Prevoius and End Tour function intialisation with click.
-			var outer_wrap = jQuery(this.nodeClass).find( '.uabb-hotspot-tooltip-content' );
+			var outer_wrap_nav_item = jQuery(this.nodeClass).find( '.uabb-tour' );
+			var outer_wrap_end_tour = jQuery(this.nodeClass).find( '.uabb-hotspot-end' );
 			var self = this;
-			outer_wrap.off( 'click' ).on( 'click', function( event ) {
+			outer_wrap_nav_item.off( 'click' ).on( 'click', function( event ) {
 				 event.preventDefault();
 				if ( jQuery(event.target).hasClass( 'uabb-next' ) ) {
                    self._next( event );
@@ -68,10 +69,15 @@
 				if ( jQuery(event.target).hasClass( 'uabb-prev' ) ) {
                    self._previous( event );
 				}	
+			});
+			outer_wrap_end_tour.off( 'click' ).on( 'click', function( event ) {
+				event.preventDefault();
 				if ( jQuery(event.target).hasClass( 'uabb-tour-end' ) ) {
                    self._endTour( event );
 				}
 			});
+
+
 		},
 
 		// If overlay init funtion. 

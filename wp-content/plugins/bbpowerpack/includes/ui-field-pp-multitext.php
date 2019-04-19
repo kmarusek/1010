@@ -33,10 +33,25 @@ if ( field.responsive ) {
         responsive.small = {};
     }
     for ( var optionKey in field.options ) {
-        var optionVal   = field.options[ optionKey ],
-            label       = optionVal.label,
+		var optionVal = field.options[ optionKey ];
+		var iconClass = '';
+
+		if ( 'fa-desktop' === optionVal.icon ) {
+			iconClass = 'dashicons-desktop';
+		}
+		else if ( 'fa-tablet' === optionVal.icon ) {
+			iconClass = 'dashicons-tablet';
+		}
+		else if ( 'fa-mobile' === optionVal.icon ) {
+			iconClass = 'dashicons-smartphone';
+		}
+		else {
+			iconClass = optionVal.icon;
+		}
+
+        var label       = optionVal.label,
             placeholder = ( optionVal.placeholder ) ? optionVal.placeholder : '',
-            icon        = ( optionVal.icon ) ? 'fa ' + optionVal.icon : '',
+            icon        = ( optionVal.icon ) ? 'fa dashicons ' + iconClass : '',
             preview     = ( optionVal.preview ) ? optionVal.preview : {},
             tooltip     = ( optionVal.tooltip ) ? optionVal.tooltip : '';
 
@@ -64,7 +79,7 @@ if ( field.responsive ) {
             <input type="text" name="{{name}}[][responsive_small][{{optionKey}}]" value="{{value[responsive_small][optionKey]}}" class="text pp-field-multitext pp-field-multitext-responsive pp-field-multitext-small input-small-m valid" placeholder="{{placeholder}}" />
         <# } #>
         <# if ( 0 === count ) { #>
-            <span class="pp-responsive-toggle fa fa-chevron-right pp-tip" title="<?php esc_html_e( 'Responsive Options', 'bb-powerpack' ); ?>"></span>
+            <span class="pp-responsive-toggle dashicons dashicons-arrow-right-alt2 pp-tip" title="<?php esc_html_e( 'Responsive Options', 'bb-powerpack' ); ?>" style="display:none;"></span>
         <# } #>
     </span>
     <#

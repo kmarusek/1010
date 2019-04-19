@@ -165,7 +165,7 @@ FLBuilder::register_module('PPGravityFormModule', array(
                         'type'          => 'select',
                         'label'         => __('Select Form', 'bb-powerpack'),
                         'default'       => '',
-						'options'       => gf_module_form_titles(),
+						'options'       => pp_gf_module_form_titles(),
 						'connections'	=> array('string')
                     ),
                 )
@@ -965,7 +965,8 @@ FLBuilder::register_module('PPGravityFormModule', array(
                                     'unit'            => 'px'
                                 ),
                             ),
-                        )
+						),
+						'responsive'	=> true
                     ),
                     'button_padding_left_right'    => array(
                         'type'          => 'unit',
@@ -987,7 +988,8 @@ FLBuilder::register_module('PPGravityFormModule', array(
                                     'unit'            => 'px'
                                 ),
                             ),
-                        )
+						),
+						'responsive'	=> true
                     ),
                 )
             ),

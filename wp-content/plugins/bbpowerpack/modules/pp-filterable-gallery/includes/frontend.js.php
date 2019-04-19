@@ -36,7 +36,9 @@
 		layout: '<?php echo $settings->gallery_layout; ?>',
 	};
 
-	new PPFilterableGallery(options);
+	$(window).load(function() {
+		new PPFilterableGallery(options);
+	});
 
 	// expandable row fix.
 	var state = 0;

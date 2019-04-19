@@ -59,8 +59,8 @@
 	background-repeat: no-repeat;
 	background-size: cover;
 	position: relative;
-	-webkit-transition: all 0.25s ease-in;
-	transition: all 0.25s ease-in;
+	-webkit-transition: all 0.25s ease-in-out;
+	transition: all 0.25s ease-in-out;
 }
 <?php } ?>
 
@@ -75,8 +75,8 @@
 	width: 100%;
 	z-index: 1;
 	opacity: 0;
-	-webkit-transition: all 0.25s ease-in;
-	transition: all 0.25s ease-in;
+	-webkit-transition: all 0.25s ease-in-out;
+	transition: all 0.25s ease-in-out;
 }
 
 <?php if ( 'solid' == $settings->image_overlay_type ) { ?>
@@ -325,6 +325,11 @@
 		height: <?php echo $settings->image_custom_size_medium; ?>px;
 	}
 	<?php } ?>
+	<?php if ( 'carousel' == $settings->feed_layout && $settings->visible_items_medium == '1' ) { ?>
+		.fl-node-<?php echo $id; ?> .pp-instagram-feed-carousel .swiper-container {
+			max-width: <?php echo $settings->image_custom_size_medium; ?>px;
+		}
+	<?php } ?>
 }
 
 @media only screen and ( max-width:<?php echo $global_settings->responsive_breakpoint; ?>px ) {
@@ -348,8 +353,13 @@
 	}
 	<?php if( ( 'square-grid' == $settings->feed_layout || 'carousel' == $settings->feed_layout ) && '' != $settings->image_custom_size_responsive ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-feed-item-inner {
-		width: <?php echo $settings->image_custom_size_responsive; ?>px;
+		width: <?php echo '-1' === $settings->image_custom_size_responsive ? '100%' : $settings->image_custom_size_responsive . 'px'; ?>;
 		height: <?php echo $settings->image_custom_size_responsive; ?>px;
 	}
+	<?php } ?>
+	<?php if ( 'carousel' == $settings->feed_layout && $settings->visible_items_responsive == '1' ) { ?>
+		.fl-node-<?php echo $id; ?> .pp-instagram-feed-carousel .swiper-container {
+			max-width: <?php echo $settings->image_custom_size_responsive; ?>px;
+		}
 	<?php } ?>
 }

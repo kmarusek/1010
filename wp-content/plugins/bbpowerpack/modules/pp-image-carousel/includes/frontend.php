@@ -24,7 +24,7 @@ $photos = $module->get_photos();
 					<a href="<?php echo $click_action_link; ?>" target="<?php echo $click_action_target; ?>" data-caption="<?php echo $photo->caption; ?>">
 					<?php endif; ?>
 
-					<div class="pp-carousel-image-container" style="background-image:url(<?php echo $photo->src; ?>)"></div>
+					<div class="pp-carousel-image-container" style="background-image:url(<?php echo esc_url( $photo->src ); ?>)"></div>
 
 					<?php if( $settings->overlay != 'none' ) : ?>
 						<!-- Overlay Wrapper -->

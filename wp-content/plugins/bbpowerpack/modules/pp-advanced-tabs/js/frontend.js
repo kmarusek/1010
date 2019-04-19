@@ -35,18 +35,20 @@
 
 		_hashChange: function()
 		{
-			if(location.hash && location.hash.search('pp-tab') !== -1) {
-				$(location.hash).trigger('click');
-			}
-			else if( location.hash && $(location.hash).length > 0 ) {
-				if ( ! $(location.hash).hasClass('pp-tab-active') ) {
-					$(location.hash).trigger('click');
+			if( location.hash && $(location.hash).length > 0 ) {
+				var element = $(location.hash + '.pp-tabs-label');
+				if ( element && element.length > 0 ) {
+					var header = $('.fl-theme-builder-header-sticky');
+					var offset = header.length > 0 ? header.height() + 32 : 120;
+					location.href = '#';
+					$('html, body').animate({
+						scrollTop: element.parents('.pp-tabs').offset().top - offset
+					}, 50, function() {
+						if ( ! element.hasClass('pp-tab-active') ) {
+							element.trigger('click');
+						}
+					});
 				}
-				$('html, body').animate({
-					scrollTop: $(location.hash).parents('.pp-tabs').offset().top - 120
-				}, 500);
-				
-				location.href = '#';
 			}
 		},
 
@@ -61,6 +63,14 @@
 			// Toggle the responsive icons.
 			//allIcons.addClass('fa-plus');
 			//icon.removeClass('fa-plus');
+
+			if ( wrap.hasClass('pp-tabs-vertical') ) {
+				var header = $('.fl-theme-builder-header-sticky');
+				var offset = header.length > 0 ? header.height() + 32 : 120;
+				$('html, body').animate({
+					scrollTop: wrap.offset().top - offset
+				}, 500 );
+			}
 
 			// Toggle the tabs.
 			wrap.find('.pp-tabs-labels:first > .pp-tab-active').removeClass('pp-tab-active');

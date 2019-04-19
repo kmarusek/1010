@@ -56,8 +56,8 @@
 		};
 	}
 
-
-
-	$('.fl-node-<?php echo $id; ?> .pp-testimonials').bxSlider($.extend({}, sliderOptions, carouselOptions));
+	$(window).load(function() {
+		$('.fl-node-<?php echo $id; ?> .pp-testimonials').bxSlider($.extend({}, sliderOptions, carouselOptions));
+	});
 <?php endif; ?>
 })(jQuery);

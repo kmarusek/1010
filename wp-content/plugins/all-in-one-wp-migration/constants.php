@@ -35,7 +35,7 @@ define( 'AI1WM_DEBUG', false );
 // ==================
 // = Plugin Version =
 // ==================
-define( 'AI1WM_VERSION', '6.89' );
+define( 'AI1WM_VERSION', '6.91' );
 
 // ===============
 // = Plugin Name =
@@ -116,6 +116,11 @@ define( 'AI1WM_REPORT_URL', 'https://servmask.com/ai1wm/report/create' );
 // = ServMask Archive Tools URL =
 // ==============================
 define( 'AI1WM_ARCHIVE_TOOLS_URL', 'https://servmask.com/archive/tools' );
+
+// ===========================
+// = ServMask Activation URL =
+// ===========================
+define( 'AI1WM_ACTIVATION_URL', 'https://servmask.com/purchase/activations' );
 
 // =========================
 // = ServMask Table Prefix =

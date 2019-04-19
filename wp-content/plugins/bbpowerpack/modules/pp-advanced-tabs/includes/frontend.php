@@ -5,14 +5,14 @@ $activeTabIndex = $activeTabIndex < 1 ? 0 : $activeTabIndex - 1;
 $css_id = '';
 ?>
 
-<div class="pp-tabs pp-tabs-<?php echo $settings->layout; ?> pp-tabs-<?php echo $settings->tab_style; ?> pp-clearfix">
+<div class="pp-tabs pp-tabs-<?php echo $settings->layout; ?> pp-tabs-<?php echo $settings->tab_style; ?> pp-clearfix" role="tablist">
 
 	<div class="pp-tabs-labels pp-clearfix">
 		<?php for( $i = 0; $i < count($settings->items); $i++ ) :
 			if( !is_object($settings->items[$i]) ) continue;
 			$css_id = ( $settings->tab_id_prefix != '' ) ? $settings->tab_id_prefix . '-' . ($i+1) : 'pp-tab-' . $id . '-' . ($i+1);
 			?>
-		<div id="<?php echo $css_id; ?>" class="pp-tabs-label<?php if($i == $activeTabIndex) echo ' pp-tab-active'; ?> <?php echo 'pp-tab-icon-' . $settings->tab_icon_position; ?>" data-index="<?php echo $i; ?>">
+		<div id="<?php echo $css_id; ?>" class="pp-tabs-label<?php if($i == $activeTabIndex) echo ' pp-tab-active'; ?> <?php echo 'pp-tab-icon-' . $settings->tab_icon_position; ?>" data-index="<?php echo $i; ?>" role="tab" aria-controls="<?php echo $css_id; ?>-content">
 			<div class="pp-tab-label-inner">
 				<?php if( $settings->tab_icon_position == 'left' || $settings->tab_icon_position == 'top' ) { ?>
 					<?php if( $settings->items[$i]->tab_font_icon ) { ?>
@@ -33,9 +33,12 @@ $css_id = '';
 	</div>
 
 	<div class="pp-tabs-panels pp-clearfix">
-		<?php for($i = 0; $i < count($settings->items); $i++) : if(!is_object($settings->items[$i])) continue; ?>
+		<?php for($i = 0; $i < count($settings->items); $i++) :
+			if ( ! is_object( $settings->items[$i] ) ) continue;
+			$css_id = ( $settings->tab_id_prefix != '' ) ? $settings->tab_id_prefix . '-' . ($i+1) : 'pp-tab-' . $id . '-' . ($i+1);
+			?>
 		<div class="pp-tabs-panel"<?php if ( ! empty( $settings->id ) ) echo ' id="' . sanitize_html_class( $settings->id ) . '-' . $i . '"'; ?>>
-			<div class="pp-tabs-label pp-tabs-panel-label<?php if($i == $activeTabIndex) echo ' pp-tab-active'; ?> <?php echo 'pp-tab-icon-' . $settings->tab_icon_position; ?>" data-index="<?php echo $i; ?>">
+			<div class="pp-tabs-label pp-tabs-panel-label<?php if($i == $activeTabIndex) echo ' pp-tab-active'; ?> <?php echo 'pp-tab-icon-' . $settings->tab_icon_position; ?>" data-index="<?php echo $i; ?>" role="tab">
 				<div class="pp-tab-label-inner">
 					<?php if( $settings->tab_icon_position == 'left' || $settings->tab_icon_position == 'top' ) { ?>
 						<?php if( $settings->items[$i]->tab_font_icon ) { ?>
@@ -62,7 +65,7 @@ $css_id = '';
 					<?php } ?>
 				</div>
 			</div>
-			<div class="pp-tabs-panel-content pp-clearfix<?php if($i == $activeTabIndex) echo ' pp-tab-active'; ?>" data-index="<?php echo $i; ?>">
+			<div id="<?php echo $css_id; ?>-content" class="pp-tabs-panel-content pp-clearfix<?php if($i == $activeTabIndex) echo ' pp-tab-active'; ?>" data-index="<?php echo $i; ?>" role="tabpanel" aria-labelledby="<?php echo $css_id; ?>">
 				<?php echo $module->render_content( $settings->items[ $i ] ); ?>
 			</div>
 		</div>

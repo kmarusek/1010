@@ -50,6 +50,14 @@ FLBuilderCSS::typography_field_rule( array(
 		color: #<?php echo $settings->text_color_h; ?>;
 	<?php } ?>
 }
+<?php
+// Icon - Border
+FLBuilderCSS::border_field_rule( array(
+	'settings' 		=> $settings,
+	'setting_name' 	=> 'icon_border',
+	'selector' 		=> ".fl-node-$id .pp-infobox-icon, .fl-node-$id .pp-infobox-image img",
+) );
+?>
 <?php if( $settings->icon_type == 'icon' ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-infobox-icon {
 		<?php if( $settings->icon_box_size ) { ?>padding: <?php echo $settings->icon_box_size; ?>px;<?php } ?>
@@ -93,20 +101,11 @@ FLBuilderCSS::typography_field_rule( array(
 		max-width: 100%;
 	}
 	.fl-node-<?php echo $id; ?> .pp-infobox:hover .pp-infobox-image img {
-		<?php if( $settings->show_border == 'yes' ) { ?>
-			<?php if( $settings->icon_border_color_hover ) { ?>border-color: #<?php echo $settings->icon_border_color_hover; ?>;<?php } ?>
+		<?php if( ! empty( $settings->icon_border_color_hover ) ) { ?>
+			border-color: #<?php echo $settings->icon_border_color_hover; ?>;
 		<?php } ?>
 	}
 <?php } ?>
-
-<?php
-// Icon - Border
-FLBuilderCSS::border_field_rule( array(
-	'settings' 		=> $settings,
-	'setting_name' 	=> 'icon_border',
-	'selector' 		=> ".fl-node-$id .pp-infobox-icon, .fl-node-$id .pp-infobox-image img",
-) );
-?>
 
 .fl-node-<?php echo $id; ?> .pp-infobox-icon-inner span.pp-icon,
 .fl-node-<?php echo $id; ?> .pp-infobox-image img {
@@ -300,7 +299,7 @@ FLBuilderCSS::typography_field_rule( array(
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-3 .pp-icon-wrapper,
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-4 .pp-heading-wrapper,
 	.fl-node-<?php echo $id; ?> .pp-infobox-wrap .layout-4 .pp-icon-wrapper {
-		flex: auto;
+		/*flex: auto;*/
 	}
 <?php } ?>
 

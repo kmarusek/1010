@@ -13,39 +13,40 @@
                 if($panel->link_type == 'none' || $panel->link_type == 'title') { ?>
                     <?php if( $number_panels == 2 ) { ?>
                     $('.fl-node-<?php echo $id; ?> .pp-image-panels-wrap .pp-panel-item-<?php echo $i; ?>').css('width', <?php echo 100/($number_panels); ?> + '%');
-                    $('.fl-node-<?php echo $id; ?> .pp-image-panels-wrap .pp-panel-item-<?php echo $i; ?>').siblings().css('width', <?php echo 100/($number_panels); ?> + '%');
 
                     $('.fl-node-<?php echo $id; ?> .pp-image-panels-wrap .pp-panel-item-<?php echo $i; ?>').on('mouseenter', function() {
-                        $('.fl-node-<?php echo $id; ?> .pp-image-panels-wrap .pp-panel-item-<?php echo $i; ?>').css('width', '70%');
-                        $('.fl-node-<?php echo $id; ?> .pp-image-panels-wrap .pp-panel-item-<?php echo $i; ?>').siblings().css('width', '30%');
+                        $(this).css('width', '70%');
+                        $(this).siblings().css('width', '30%');
                     });
                     <?php } else if( $number_panels > 2 ) { ?>
                     $('.fl-node-<?php echo $id; ?> .pp-image-panels-wrap .pp-panel-item-<?php echo $i; ?>').on('mouseenter', function() {
-                        $('.fl-node-<?php echo $id; ?> .pp-image-panels-wrap .pp-panel-item-<?php echo $i; ?>').css('width', '40%');
-                        $('.fl-node-<?php echo $id; ?> .pp-image-panels-wrap .pp-panel-item-<?php echo $i; ?>').siblings().css('width', <?php echo 60/($number_panels-1); ?> + '%');
+                        $(this).css('width', '40%');
+                        $(this).siblings().css('width', <?php echo 60/($number_panels-1); ?> + '%');
                     });
                     <?php } ?>
                     $('.fl-node-<?php echo $id; ?> .pp-image-panels-wrap .pp-panel-item-<?php echo $i; ?>').on('mouseleave', function() {
-                        $('.fl-node-<?php echo $id; ?> .pp-image-panels-wrap .pp-panel-item-<?php echo $i; ?>').css('width', <?php echo 100/($number_panels); ?> + '%');
-                        $('.fl-node-<?php echo $id; ?> .pp-image-panels-wrap .pp-panel-item-<?php echo $i; ?>').siblings().css('width', <?php echo 100/($number_panels); ?> + '%');
+                        $(this).css('width', <?php echo 100/($number_panels); ?> + '%');
+                        $(this).siblings().css('width', <?php echo 100/($number_panels); ?> + '%');
                     });
                 <?php } else if($panel->link_type == 'panel') { ?>
                     $('.fl-node-<?php echo $id; ?> .pp-image-panels-wrap .pp-panel-link-<?php echo $i; ?>').css('width', <?php echo 100/($number_panels); ?> + '%');
-                    $('.fl-node-<?php echo $id; ?> .pp-image-panels-wrap .pp-panel-link-<?php echo $i; ?>').siblings().css('width', <?php echo 100/($number_panels); ?> + '%');
-                    <?php if( $number_panels == 2 ) { ?>
+                    
+					<?php if( $number_panels == 2 ) { ?>
                         $('.fl-node-<?php echo $id; ?> .pp-image-panels-wrap .pp-panel-link-<?php echo $i; ?>').on('mouseenter', function() {
-                            $('.fl-node-<?php echo $id; ?> .pp-image-panels-wrap .pp-panel-link-<?php echo $i; ?>').css('width', '70%');
-                            $('.fl-node-<?php echo $id; ?> .pp-image-panels-wrap .pp-panel-link-<?php echo $i; ?>').siblings().css('width', '30%');
+                            $(this).css('width', '70%');
+                            $(this).siblings().css('width', '30%');
                         });
                     <?php } else if( $number_panels > 2 ) { ?>
                         $('.fl-node-<?php echo $id; ?> .pp-image-panels-wrap .pp-panel-link-<?php echo $i; ?>').on('mouseenter', function() {
-                            $('.fl-node-<?php echo $id; ?> .pp-image-panels-wrap .pp-panel-link-<?php echo $i; ?>').css('width', '40%');
-                            $('.fl-node-<?php echo $id; ?> .pp-image-panels-wrap .pp-panel-link-<?php echo $i; ?>').siblings().css('width', <?php echo 60/($number_panels-1); ?> + '%');
+                            $(this).css('width', '40%');
+                            $(this).siblings().css('width', <?php echo 60/($number_panels-1); ?> + '%');
                         });
                     <?php } ?>
                     $('.fl-node-<?php echo $id; ?> .pp-image-panels-wrap .pp-panel-link-<?php echo $i; ?>').on('mouseleave', function() {
-                        $('.fl-node-<?php echo $id; ?> .pp-image-panels-wrap .pp-panel-link-<?php echo $i; ?>').css('width', <?php echo 100/($number_panels); ?> + '%');
-                        $('.fl-node-<?php echo $id; ?> .pp-image-panels-wrap .pp-panel-link-<?php echo $i; ?>').siblings().css('width', <?php echo 100/($number_panels); ?> + '%');
+
+                        $(this).css('width', <?php echo 100/($number_panels); ?> + '%');
+                        $(this).siblings().css('width', <?php echo 100/($number_panels); ?> + '%');
+
                     });
                 <?php } ?>
             <?php } ?>

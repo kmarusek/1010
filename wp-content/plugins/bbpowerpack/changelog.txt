@@ -1,3 +1,54 @@
+== 2.6.9.7 ==
+Release date: April 8, 2019
+* Enhancement: Social Icons - Added link nofollow option and rel="noopener" attribute for _blank target
+* Enhancement: Image - Added link nofollow option and rel="noopener" attribute for _blank target
+* Enhancement: Advanced Tabs - Added accessibility attributes
+* Enhancement: Gravity Forms Styler - Added responsive options for button padding fields
+* Enhancement: Advanced Tabs - Added option to change tab icon color
+* Fix: Logos Grid & Carousel - Number of Columns option was not working as expected
+* Fix: Content Grid - Scroll pagination was not working in respect of active filter
+* Fix: Content Grid - Load More pagination was not working as expected when having multiple module instances on the same page
+* Fix: Table - PHP warnings in CSS
+* Fix: Advanced Tabs - Tabs title alignement was not working in typography setting
+* Fix: Filterable Gallery - Filter by URL hash was not working
+* Fix: InfoBox - Icon vertical alignment option was not working
+* Fix: Row Extensions - Row Extensions were showing in row settings despite being unchecked in PowerPack admin settings
+* Fix: Core - FontAwesome icons were not working after BB's latest update
+
+== 2.6.9.6 ==
+Release date: March 22, 2019
+* Fix: Content Grid - Featured Image was not loading after updating PowerPack to 2.6.9.5
+
+== 2.6.9.5 ==
+Release date: March 22, 2019
+* Fix: Content Tiles - Web accessibility issue due to empty link
+* Fix: Content Grid - User added content was not showing on filtering the grid using AJAX filters in overrided module by theme
+* Fix: Image Carousel - Images were not loading due to spaces in image file name
+* Fix: Dual Button - Button hover transparent background issue
+
+== 2.6.9.4 ==
+Release date: March 14, 2019
+* Fix: Filterable Gallery - Overlay background color field was not showing
+* Fix: Instagram Feed - Responsive center alignment issue
+* Fix: Timeline - Icon color was not working
+* Fix: Timeline - Text color was not working
+* Fix: Logos Grid & Columns - Medium and responsive columns setting was not working
+* Fix: Gravity Forms - Database query when fetching forms list
+* Fix: Hover Cards 2 - Medium and responsive columns setting was not working properly
+* Fix: Modal Box - Increased width field maximum slider input value
+
+== 2.6.9.3 ==
+Release date: March 4, 2019
+* Fix: Info Box - Icon border was not working in some cases after updating PowerPack to 2.6.9
+* Fix: Logos & Carousel - Number of Columns setting was not working for desktop after updating PowerPack to 2.6.9
+* Fix: Contact Form 7 - Button border and background hover color were not wroking after updating PowerPack to 2.6.9
+* Fix: Smart Button - Padding was not working after updating PowerPack to 2.6.9
+* Fix: Advanced Menu - Multiple full screen menu overlap issue
+* Fix: Social Icons - Re-added Custom Title option that was somehow removed in previous update
+* Fix: Image Panels - Last panel image shift down on hover in Safari browser
+* Fix: Logos Grid & Carousel - PHP notice
+* Fix: Advanced Tabs - Scroll to tab's content in vertical layout
+
 == 2.6.9.2 ==
 Release date: February 22, 2019
 * Enhancement: Contact Form - Added hooks pp_contact_form_before_send, pp_contact_form_after_send

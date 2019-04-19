@@ -423,9 +423,6 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 							'below'	=> array(
 								'sections'	=> array('caption_style')
 							),
-							'hover'	=> array(
-								'sections'	=> array('overlay_style')
-							)
 						),
 						'help'          => __('The caption pulls from whatever text you put in the caption area in the media manager for each image.', 'bb-powerpack')
 					),

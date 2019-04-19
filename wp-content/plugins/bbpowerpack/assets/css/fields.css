@@ -129,7 +129,18 @@ body:not(.bb-powerpack-ui) .fl-builder-settings-tab {
     -ms-transform: translateX(100%);
     transform: translateX(100%);
 }
-
+.pp-multitext-wrap {
+	height: 40px;
+	float: left;
+}
+.pp-multitext-wrap:before,
+.pp-multitext-wrap:after {
+    content: "";
+    display: table;
+}
+.pp-multitext-wrap:after {
+	clear: both;
+}
 .pp-multitext-wrap .tooltip * {
     color: #fff !important;
 }

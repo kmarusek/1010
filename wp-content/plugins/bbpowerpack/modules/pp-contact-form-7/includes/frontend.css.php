@@ -8,21 +8,19 @@ if( $settings->form_show_border == 'yes' ) {
 	) );
 }
 // Button Border - Settings
-if( $settings->form_show_border == 'yes' ) {
-	FLBuilderCSS::border_field_rule( array(
-		'settings' 		=> $settings,
-		'setting_name' 	=> 'button_border_group',
-		'selector' 		=> ".fl-node-$id .pp-cf7-content input.wpcf7-submit",
-	) );
-}
+FLBuilderCSS::border_field_rule( array(
+	'settings' 		=> $settings,
+	'setting_name' 	=> 'button_border_group',
+	'selector' 		=> ".fl-node-$id .pp-cf7-content input.wpcf7-submit",
+) );
+
 // Validation Error border - Settings
-if( $settings->form_show_border == 'yes' ) {
-	FLBuilderCSS::border_field_rule( array(
-		'settings' 		=> $settings,
-		'setting_name' 	=> 'form_error_field_border_group',
-		'selector' 		=> ".fl-node-$id .pp-cf7-content .wpcf7-response-output",
-	) );
-}
+FLBuilderCSS::border_field_rule( array(
+	'settings' 		=> $settings,
+	'setting_name' 	=> 'form_error_field_border_group',
+	'selector' 		=> ".fl-node-$id .pp-cf7-content .wpcf7-response-output",
+) );
+
 
 // Title Typography
 FLBuilderCSS::typography_field_rule( array(
@@ -161,8 +159,10 @@ FLBuilderCSS::typography_field_rule( array(
     clear: both;
 }
 .fl-node-<?php echo $id; ?> .pp-cf7-content input.wpcf7-submit {
-    <?php if( $settings->button_text_color ) { ?>color: #<?php echo $settings->button_text_color; ?>;<?php } ?>
-    <?php if( $settings->button_bg_color ) { ?>
+    <?php if ( ! empty( $settings->button_text_color ) ) { ?>
+		color: #<?php echo $settings->button_text_color; ?>;
+	<?php } ?>
+    <?php if ( ! empty( $settings->button_bg_color ) ) { ?>
 		background: <?php echo pp_get_color_value( $settings->button_bg_color ); ?>;
 	<?php } ?>
     <?php if( $settings->button_padding_top_bottom  >= 0 ) { ?>
@@ -184,10 +184,16 @@ FLBuilderCSS::typography_field_rule( array(
     width: <?php echo ($settings->button_width == 'true') ? '100%' : $settings->button_width_size . 'px'; ?>;
 }
 
-.fl-node-<?php echo $id; ?> .pp-cf7-content .wpcf7-submit:hover {
-    <?php if( $settings->button_hover_text_color ) { ?>color: #<?php echo $settings->button_hover_text_color; ?>;<?php } ?>
-    background: <?php echo $settings->button_hover_bg_color != '' ? pp_get_color_value( $settings->button_bg_color ) : 'none'; ?>;
-    <?php if( $settings->button_border_color_hover ) { ?>border-color: #<?php echo $settings->button_border_color_hover; ?>;<?php } ?>
+.fl-node-<?php echo $id; ?> .pp-cf7-content input.wpcf7-submit:hover {
+	<?php if ( ! empty( $settings->button_hover_text_color ) ) { ?>
+		color: #<?php echo $settings->button_hover_text_color; ?>;
+	<?php } ?>
+	<?php if ( ! empty( $settings->button_hover_bg_color ) ) { ?>
+		background: <?php echo pp_get_color_value( $settings->button_hover_bg_color ); ?>;
+	<?php } ?>
+	<?php if ( ! empty( $settings->button_border_color_hover ) ) { ?>
+		border-color: #<?php echo $settings->button_border_color_hover; ?>;
+	<?php } ?>
 }
 
 

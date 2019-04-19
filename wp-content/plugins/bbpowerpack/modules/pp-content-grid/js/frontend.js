@@ -10,9 +10,10 @@
 		this.style			= settings.style;
 		this.masonry		= settings.masonry == 'yes' ? true : false;
 		this.perPage 		= settings.perPage;
-		this.filters 		= settings.filters === 'yes' ? true : false;
+		this.filters 		= settings.filters;
 		this.filterTax 		= settings.filterTax;
 		this.filterType 	= settings.filterType;
+		this.cacheData		= {};
 
 		if(this._hasPosts()) {
 			this._initLayout();
@@ -35,7 +36,9 @@
 		totalPages		: 1,
 		currentPage		: 1,
 		cacheData		: {},
-		infscr 			: '',
+		matchHeight		: false,
+		masonry			: false,
+		style			: '',
 
 		_hasPosts: function()
 		{
@@ -269,8 +272,8 @@
 				data['author_id'] = this.settings.current_author;
 			}
 
-			if ('undefined' !== self.settings.orderby || '' !== self.settings.orderby) {
-				data['orderby'] = self.settings.orderby;
+			if ('undefined' !== typeof this.settings.orderby || '' !== this.settings.orderby) {
+				data['orderby'] = this.settings.orderby;
 			}
 
 			$.ajax({
@@ -388,7 +391,7 @@
 				this.cacheData.ajaxCache[filter].page = {};
 			}
 
-			return this.cacheData.ajaxCache[filter].page[paged] = response;
+			this.cacheData.ajaxCache[filter].page[paged] = response;
 		},
 
 		_getCacheData: function (filter) {

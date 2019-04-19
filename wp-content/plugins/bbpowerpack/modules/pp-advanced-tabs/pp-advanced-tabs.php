@@ -544,7 +544,27 @@ FLBuilder::register_module('PPAdvancedTabsModule', array(
 							'property'  => 'font-size',
 							'unit'      => 'px'
                         )
-                    ),
+					),
+					'tab_icon_color'	=> array(
+						'type'				=> 'color',
+						'label'				=> __('Color', 'bb-powerpack'),
+						'default'			=> '',
+						'show_reset'		=> true,
+						'preview'       => array(
+                            'type'      => 'css',
+							'selector'  => '.pp-tabs-label .pp-tab-icon',
+							'property'  => 'color',
+                        )
+					),
+					'tab_icon_color_hover'	=> array(
+						'type'				=> 'color',
+						'label'				=> __('Hover/Active Color', 'bb-powerpack'),
+						'default'			=> '',
+						'show_reset'		=> true,
+						'preview'       => array(
+                            'type'      => 'none',
+                        )
+					),
 				)
 			),
 			'responsive_toggle_icons'	=> array(

@@ -10,6 +10,7 @@ if ( in_array( 'font-awesome-5-brands', $enabled_icons ) ) {
 }
 if ( in_array( 'font-awesome-5-solid', $enabled_icons ) ) {
 	$rss_icon_prefix = 'fas';
+	$email_icon_prefix = 'fas';
 }
 
 $labels = $module->get_labels();
@@ -27,10 +28,12 @@ foreach ( $settings->icons as $icon ) {
 	if ( 'custom' == $icon->icon && isset( $icon->icon_custom_title ) ) {
 		$title = $icon->icon_custom_title;
 	}
+	$link_target = isset($icon->link_target) ? $icon->link_target : '_blank';
+	$link_nofollow = isset($icon->link_nofollow) ? $icon->link_nofollow : 'no';
 	?>
 	<span class="pp-social-icon" itemscope itemtype="http://schema.org/Organization">
 		<link itemprop="url" href="<?php echo site_url(); ?>">
-		<a itemprop="sameAs" href="<?php echo $icon->link; ?>" target="<?php echo isset($icon->link_target) ? $icon->link_target : '_blank'; ?>"<?php echo isset( $labels[ $icon->icon ] ) ? ' title="' . $title . '" aria-label="' . $title . '"' : '' ; ?> role="button">
+		<a itemprop="sameAs" href="<?php echo $icon->link; ?>" target="<?php echo $link_target; ?>"<?php echo isset( $labels[ $icon->icon ] ) ? ' title="' . $title . '" aria-label="' . $title . '"' : '' ; ?> role="button"<?php echo $module->get_rel($link_target, $link_nofollow); ?>>
 			<?php if ( $icon->icon == 'custom' ) { ?>
 				<i class="<?php echo $icon->icon_custom; ?>"></i>
 			<?php } elseif ( 'fa-envelope' == $icon->icon ) { ?>

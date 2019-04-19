@@ -362,7 +362,9 @@ FLBuilderCSS::typography_field_rule( array(
 }
 
 .fl-node-<?php echo $id; ?> .gform_wrapper .gform_footer .gform_button,
-.fl-node-<?php echo $id; ?> .gform_wrapper .gform_page_footer .button {
+.fl-node-<?php echo $id; ?> .gform_wrapper.gf_browser_ie .gform_footer .gform_button,
+.fl-node-<?php echo $id; ?> .gform_wrapper .gform_page_footer .button,
+.fl-node-<?php echo $id; ?> .gform_wrapper.gf_browser_ie .gform_page_footer .button {
 	width: <?php echo ($settings->button_width == 'true') ? '100%' : 'auto'; ?>;
     <?php if( $settings->button_text_color ) { ?>
 	color: <?php echo pp_get_color_value($settings->button_text_color); ?>;
@@ -383,18 +385,6 @@ FLBuilderCSS::typography_field_rule( array(
 	<?php if( $settings->button_width == 'true' ) { ?>
 		margin-bottom: 5px !important;
 	<?php } ?>
-}
-
-.fl-node-<?php echo $id; ?> .gform_wrapper.gf_browser_ie .gform_footer .gform_button,
-.fl-node-<?php echo $id; ?> .gform_wrapper.gf_browser_ie .gform_page_footer .button {
-    <?php if( $settings->button_padding_top_bottom >= 0 ) { ?>
-    padding-top: <?php echo $settings->button_padding_top_bottom; ?>px;
-    padding-bottom: <?php echo $settings->button_padding_top_bottom; ?>px;
-    <?php } ?>
-    <?php if( $settings->button_padding_left_right >= 0 ) { ?>
-    padding-left: <?php echo $settings->button_padding_left_right; ?>px;
-    padding-right: <?php echo $settings->button_padding_left_right; ?>px;
-    <?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .gform_wrapper .gform_footer .gform_button:hover,
@@ -559,4 +549,37 @@ FLBuilderCSS::typography_field_rule( array(
     <?php if( $settings->form_error_input_border_width >= 0 ) { ?>
 	border-width: <?php echo $settings->form_error_input_border_width; ?>px !important;
     <?php } ?>
+}
+
+
+@media only screen and (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) {
+	.fl-node-<?php echo $id; ?> .gform_wrapper .gform_footer .gform_button,
+	.fl-node-<?php echo $id; ?> .gform_wrapper.gf_browser_ie .gform_footer .gform_button,
+	.fl-node-<?php echo $id; ?> .gform_wrapper .gform_page_footer .button,
+	.fl-node-<?php echo $id; ?> .gform_wrapper.gf_browser_ie .gform_page_footer .button {
+		<?php if( isset( $settings->button_padding_top_bottom_medium ) && $settings->button_padding_top_bottom_medium >= 0 ) { ?>
+		padding-top: <?php echo $settings->button_padding_top_bottom_medium; ?>px;
+		padding-bottom: <?php echo $settings->button_padding_top_bottom_medium; ?>px;
+		<?php } ?>
+		<?php if( isset( $settings->button_padding_left_right_medium ) && $settings->button_padding_left_right_medium >= 0 ) { ?>
+		padding-left: <?php echo $settings->button_padding_left_right_medium; ?>px;
+		padding-right: <?php echo $settings->button_padding_left_right_medium; ?>px;
+		<?php } ?>
+	}
+}
+
+@media only screen and (max-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
+	.fl-node-<?php echo $id; ?> .gform_wrapper .gform_footer .gform_button,
+	.fl-node-<?php echo $id; ?> .gform_wrapper.gf_browser_ie .gform_footer .gform_button,
+	.fl-node-<?php echo $id; ?> .gform_wrapper .gform_page_footer .button,
+	.fl-node-<?php echo $id; ?> .gform_wrapper.gf_browser_ie .gform_page_footer .button {
+		<?php if( isset( $settings->button_padding_top_bottom_responsive ) && $settings->button_padding_top_bottom_responsive >= 0 ) { ?>
+		padding-top: <?php echo $settings->button_padding_top_bottom_responsive; ?>px;
+		padding-bottom: <?php echo $settings->button_padding_top_bottom_responsive; ?>px;
+		<?php } ?>
+		<?php if( isset( $settings->button_padding_left_right_responsive ) && $settings->button_padding_left_right_responsive >= 0 ) { ?>
+		padding-left: <?php echo $settings->button_padding_left_right_responsive; ?>px;
+		padding-right: <?php echo $settings->button_padding_left_right_responsive; ?>px;
+		<?php } ?>
+	}
 }

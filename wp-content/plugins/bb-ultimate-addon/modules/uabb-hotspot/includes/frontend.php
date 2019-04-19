@@ -71,7 +71,6 @@ if ( isset( $photo_src ) ) {
 								}
 							}
 							?>
-								</span>
 							<?php
 							if ( 'curved' == $settings->hotspot_marker[ $i ]->tooltip_style ) {
 								?>

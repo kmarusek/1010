@@ -64,6 +64,25 @@ class PPSocialIconsModule extends FLBuilderModule {
 
 		return $labels;
 	}
+
+	/**
+	 * Returns button link rel based on settings
+	 * @since 2.6.9
+	 */
+	public function get_rel( $target, $nofollow = 'no' ) {
+		$rel = array();
+		if ( '_blank' == $target ) {
+			$rel[] = 'noopener';
+		}
+		if ( 'yes' == $nofollow ) {
+			$rel[] = 'nofollow';
+		}
+		$rel = implode( ' ', $rel );
+		if ( $rel ) {
+			$rel = ' rel="' . $rel . '" ';
+		}
+		return $rel;
+	}
 }
 
 /**
@@ -243,11 +262,18 @@ FLBuilder::register_settings_form('social_icon_form', array(
 							'type'			=> 'icon',
 							'label'         => __('Custom Icon', 'bb-powerpack'),
 						),
+						'icon_custom_title'	=> array(
+							'type'				=> 'text',
+							'label'				=> __('Custom Title', 'bb-powerpack'),
+							'default'			=> '',
+							'help'				=> __('Add custom title for HTML "title" attribute.', 'bb-powerpack')
+						),
 						'link'  => array(
 							'type'          => 'link',
 							'label'         => __('Link', 'bb-powerpack'),
 							'placeholder'   => 'http://www.example.com',
 							'show_target'	=> true,
+							'show_nofollow'	=> true,
 							'connections'   => array( 'url' ),
 							'preview'       => array(
 								'type'          => 'none'
