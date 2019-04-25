@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bb-plugin\n"
 "Report-Msgid-Bugs-To: hello@wpbeaverbuilder.com\n"
-"POT-Creation-Date: 2019-04-08 16:44:22+00:00\n"
+"POT-Creation-Date: 2019-04-16 18:04:29+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1645,7 +1645,7 @@ msgid "Templates"
 msgstr ""
 
 #: classes/class-fl-builder-ui-content-panel.php:86
-#: includes/ui-js-templates.php:339
+#: includes/ui-js-templates.php:338
 msgid "Standard Modules"
 msgstr ""
 
@@ -1835,7 +1835,7 @@ msgstr ""
 msgid "Not valid Themer layout."
 msgstr ""
 
-#: classes/class-fl-builder-wpcli-command.php:484
+#: classes/class-fl-builder-wpcli-command.php:486
 msgid "Unable to find Themer, is it installed and activated?"
 msgstr ""
 
@@ -1861,7 +1861,7 @@ msgstr ""
 msgid "Preview Layout"
 msgstr ""
 
-#: classes/class-fl-builder.php:1009 includes/ui-js-templates.php:313
+#: classes/class-fl-builder.php:1009 includes/ui-js-templates.php:312
 msgid "Responsive Editing"
 msgstr ""
 
@@ -1933,7 +1933,7 @@ msgid "Buy Now"
 msgstr ""
 
 #: classes/class-fl-builder.php:1383 includes/ui-js-config.php:105
-#: includes/ui-js-templates.php:303
+#: includes/ui-js-templates.php:302
 msgid "Done"
 msgstr ""
 
@@ -4275,7 +4275,7 @@ msgid "No results found."
 msgstr ""
 
 #: includes/ui-js-config.php:137 includes/ui-js-templates.php:261
-#: includes/ui-js-templates.php:274
+#: includes/ui-js-templates.php:273
 msgid "OK"
 msgstr ""
 
@@ -4506,13 +4506,13 @@ msgstr ""
 msgid "Watch the Video"
 msgstr ""
 
-#: includes/ui-js-config.php:208 includes/ui-js-templates.php:290
+#: includes/ui-js-config.php:208 includes/ui-js-templates.php:289
 msgid ""
 "Welcome! It looks like this might be your first time using the builder. "
 "Would you like to take a tour?"
 msgstr ""
 
-#: includes/ui-js-config.php:210 includes/ui-js-templates.php:292
+#: includes/ui-js-config.php:210 includes/ui-js-templates.php:291
 msgid "Yes Please!"
 msgstr ""
 
@@ -4651,51 +4651,51 @@ msgstr ""
 msgid "More"
 msgstr ""
 
-#: includes/ui-js-templates.php:291
+#: includes/ui-js-templates.php:290
 msgid "No Thanks"
 msgstr ""
 
-#: includes/ui-js-templates.php:299
+#: includes/ui-js-templates.php:298
 msgid "Getting Started Video"
 msgstr ""
 
-#: includes/ui-js-templates.php:322
+#: includes/ui-js-templates.php:321
 msgid "Exit"
 msgstr ""
 
-#: includes/ui-js-templates.php:525
+#: includes/ui-js-templates.php:524
 msgid "Search Modules"
 msgstr ""
 
-#: includes/ui-js-templates.php:592
+#: includes/ui-js-templates.php:591
 msgid "No settings selected."
 msgstr ""
 
-#: includes/ui-js-templates.php:606
+#: includes/ui-js-templates.php:605
 msgid "Group"
 msgstr ""
 
-#: includes/ui-js-templates.php:769 includes/ui-js-templates.php:802
+#: includes/ui-js-templates.php:768 includes/ui-js-templates.php:801
 msgid "Get more time-saving features, modules, and expert support."
 msgstr ""
 
-#: includes/ui-js-templates.php:1021
+#: includes/ui-js-templates.php:1020
 msgid "No Revisions Found"
 msgstr ""
 
-#: includes/ui-js-templates.php:1025
+#: includes/ui-js-templates.php:1024
 msgid ""
 "Revisions are disabled for this site. Please contact your host if you "
 "aren't sure how to enable revisions."
 msgstr ""
 
-#: includes/ui-js-templates.php:1029
+#: includes/ui-js-templates.php:1028
 msgid ""
 "You haven't saved any revisions yet. Each time you publish a new revision "
 "will be saved here."
 msgstr ""
 
-#: includes/ui-js-templates.php:1046
+#: includes/ui-js-templates.php:1045
 msgid "Close"
 msgstr ""
 
@@ -8667,29 +8667,29 @@ msgctxt "%s is the author name."
 msgid "By %s"
 msgstr ""
 
-#: includes/ui-js-templates.php:383
+#: includes/ui-js-templates.php:382
 msgctxt "No content panel search results found"
 msgid "No Results Found"
 msgstr ""
 
-#: includes/ui-js-templates.php:811 includes/ui-js-templates.php:995
+#: includes/ui-js-templates.php:810 includes/ui-js-templates.php:994
 msgctxt "Upgrade message that displays in the templates tab in lite installs."
 msgid ""
 "Save and reuse your layouts or kick-start your creativity with dozens of "
 "professionally designed templates."
 msgstr ""
 
-#: includes/ui-js-templates.php:812 includes/ui-js-templates.php:996
+#: includes/ui-js-templates.php:811 includes/ui-js-templates.php:995
 msgctxt "Link to learn more about premium page builder"
 msgid "Learn More"
 msgstr ""
 
-#: includes/ui-js-templates.php:981
+#: includes/ui-js-templates.php:980
 msgctxt "Message that displays when a panel tab has no view to display"
 msgid "Sorry, no content was found!"
 msgstr ""
 
-#: includes/ui-js-templates.php:988
+#: includes/ui-js-templates.php:987
 msgctxt "Message that displays when there are no templates to display"
 msgid "Sorry, no templates were found!"
 msgstr ""
