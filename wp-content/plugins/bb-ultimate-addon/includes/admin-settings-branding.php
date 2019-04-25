@@ -80,7 +80,7 @@
 			<?php /* Plugin Description */ ?> 
 			<div class="uabb-branding-fields">
 			<h4 class="field-title"><?php _e( 'Plugin Description', 'uabb' ); ?></h4>
-			<input type="text" name="uabb-plugin-desc" placeholder="Ultimate Addons is a premium extension for Beaver Builder that adds 30+ modules, 100+ templates and works on top of any Beaver Builder Package. (Free, Standard, Pro and Agency) You can use it with on any WordPress theme." value="<?php echo $uabb_plugin_desc; ?>" class="regular-text uabb-plugin-desc" />
+			<input type="text" name="uabb-plugin-desc" placeholder="Ultimate Addons is a premium extension for Beaver Builder that adds 55+ modules, 100+ templates and works on top of any Beaver Builder Package. (Free, Standard, Pro and Agency) You can use it with on any WordPress theme." value="<?php echo $uabb_plugin_desc; ?>" class="regular-text uabb-plugin-desc" />
 			</div>			
 			<?php /* Author Name */ ?> 
 			<div class="uabb-branding-fields">

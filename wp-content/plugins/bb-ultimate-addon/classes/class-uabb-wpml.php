@@ -1091,7 +1091,7 @@ if ( ! class_exists( 'UABB_WPML_Translatable' ) ) {
 				'integration-class' => 'WPML_UABB_Pricelist',
 			);
 
-			// Marketin Button Module.
+			// Marketing Button Module.
 			$form['uabb-marketing-button'] = array(
 				'conditions' => array( 'type' => 'uabb-marketing-button' ),
 				'fields'     => array(
@@ -1109,6 +1109,28 @@ if ( ! class_exists( 'UABB_WPML_Translatable' ) ) {
 						'field'       => 'link',
 						'type'        => __( 'Marketing Button : Link', 'uabb' ),
 						'editor_type' => 'LINK',
+					),
+				),
+			);
+
+			// Photo Gallery Module.
+			$form['photo-gallery'] = array(
+				'conditions' => array( 'type' => 'photo-gallery' ),
+				'fields'     => array(
+					array(
+						'field'       => 'filters_all_text',
+						'type'        => __( 'Photo Gallery : "All" Tab Label', 'uabb' ),
+						'editor_type' => 'LINE',
+					),
+					array(
+						'field'       => 'default_filter',
+						'type'        => __( 'Photo Gallery : Enter Default Category Name', 'uabb' ),
+						'editor_type' => 'LINE',
+					),
+					array(
+						'field'       => 'filters_heading_text',
+						'type'        => __( 'Photo Gallery : Title Text', 'uabb' ),
+						'editor_type' => 'LINE',
 					),
 				),
 			);

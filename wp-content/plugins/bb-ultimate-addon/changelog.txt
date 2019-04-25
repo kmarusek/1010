@@ -1,3 +1,9 @@
+Version 1.16.5 - Monday, 22th April 2019
+- Improvement: Photo Gallery - Added Filterable Photo Gallery feature
+- Improvement: Image Carousel - Added nofollow settings option
+- Fixed: Advanced Tabs - Resolved Content Alignment issue
+- Fixed: iHover - Non Numeric value notice for Spacing in rare cases
+
 Version 1.16.4 - Thursday, 11th April 2019
 - Fixed: Hotspot - Resolved curved tooltip pointer style issue with the icon
 - Fixed: Hotspot - Resolved link not clickable issue with tour tooltip

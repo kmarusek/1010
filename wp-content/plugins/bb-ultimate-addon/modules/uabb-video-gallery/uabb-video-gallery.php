@@ -730,7 +730,9 @@ class UABBVideoGallery extends FLBuilderModule {
 					?>
 					">
 						<li class="uabb-video__gallery-filter uabb-filter__current" data-filter="*">
-							<?php echo $this->settings->filters_all_text; ?>
+						<?php
+						echo ( '' !== $this->settings->filters_all_text ) ? $this->settings->filters_all_text : __( 'All', 'uabb' );
+						?>
 						</li>
 						<?php foreach ( $filters as $key => $value ) { ?>
 							<li class="uabb-video__gallery-filter" data-filter="<?php echo '.' . $key; ?>">

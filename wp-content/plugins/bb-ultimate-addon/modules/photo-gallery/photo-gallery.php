@@ -34,6 +34,8 @@ class UABBPhotoGalleryModule extends FLBuilderModule {
 		$this->add_js( 'jquery-magnificpopup' );
 		$this->add_css( 'jquery-magnificpopup' );
 		$this->add_js( 'jquery-masonry' );
+		$this->add_js( 'isotope', BB_ULTIMATE_ADDON_URL . 'assets/js/global-scripts/jquery-masonary.js', array( 'jquery' ), '', true );
+		$this->add_js( 'imagesloaded-uabb', BB_ULTIMATE_ADDON_URL . 'assets/js/global-scripts/imagesloaded.min.js', array( 'jquery' ), '', true );
 	}
 	/**
 	 * Ensure backwards compatibility with old settings.
@@ -228,6 +230,7 @@ class UABBPhotoGalleryModule extends FLBuilderModule {
 		}
 		return $settings;
 	}
+
 	/**
 	 * Function that updates the WordPress Photos
 	 *
@@ -345,13 +348,97 @@ class UABBPhotoGalleryModule extends FLBuilderModule {
 				// Push the photo data.
 				/* Add Custom field attachment data to object */
 				$cta_link       = get_post_meta( $id, 'uabb-cta-link', true );
+				$category       = get_post_meta( $id, 'uabb-categories', true );
 				$data->cta_link = $cta_link;
-
-				$photos[ $id ] = $data;
+				$data->category = $category;
+				$photos[ $id ]  = $data;
 			}
 		}
 
 		return $photos;
+	}
+	/**
+	 * Get Filters.
+	 *
+	 * Returns the Filter HTML.
+	 *
+	 * @since 1.16.5
+	 * @access public
+	 */
+	public function render_gallery_filters() {
+
+		$default    = '';
+		$cat_filter = $this->get_filter_values();
+
+		if ( 'yes' === $this->settings->default_filter_switch && '' !== $this->settings->default_filter ) {
+
+			$default = '.' . trim( $this->settings->default_filter );
+			$default = strtolower( str_replace( ' ', '-', $default ) );
+
+		}
+		?>
+		<div class="uabb-photo-gallery-filters-wrap uabb-photo-gallery-stack-<?php echo $this->settings->filters_tab_heading_stack; ?>">
+			<?php if ( 'yes' === $this->settings->show_filter_title ) { ?>
+				<div class="uabb-photo-gallery-title-filters">
+					<div class="uabb-photo-gallery-title">
+						<<?php echo $this->settings->filter_title_tag; ?> class="uabb-photo-gallery-title-text"><?php echo $this->settings->filters_heading_text; ?></<?php echo $this->settings->filter_title_tag; ?>>
+					</div>
+			<?php } ?>
+				<ul class="uabb-photo__gallery-filters" data-default="
+				<?php
+					echo ( isset( $default ) ) ? $default : '';
+				?>
+				">
+					<li class="uabb-photo__gallery-filter uabb-filter__current" data-filter="*">
+					<?php
+					echo ( '' !== $this->settings->filters_all_text ) ? $this->settings->filters_all_text : __( 'All', 'uabb' );
+					?>
+					</li>
+					<?php
+					foreach ( $cat_filter as $key => $value ) {
+						?>
+						<li class="uabb-photo__gallery-filter" data-filter="<?php echo '.' . $key; ?>">
+							<?php echo $value; ?>
+						</li>
+					<?php } ?>
+				</ul>
+			<?php if ( 'yes' === $this->settings->show_filter_title ) { ?>
+				</div>
+			<?php } ?>
+		</div>
+		<?php
+	}
+	/**
+	 * Get Filter taxonomy array.
+	 *
+	 * Returns the Filter array of objects.
+	 *
+	 * @since 1.16.5
+	 * @access public
+	 */
+	public function get_filter_values() {
+
+		$cat_filter = array();
+
+		$data = $this->get_wordpress_photos();
+
+		foreach ( $data as $item ) {
+
+			$cat = trim( $item->category );
+
+			$cat_arr = explode( ',', $cat );
+
+			foreach ( $cat_arr as $value ) {
+				$cat      = trim( $value );
+				$cat_slug = strtolower( str_replace( ' ', '-', $cat ) );
+
+				$image_cat[] = $cat_slug;
+				if ( ! empty( $cat ) ) {
+					$cat_filter[ $cat_slug ] = $cat;
+				}
+			}
+		}
+		return $cat_filter;
 	}
 }
 
