@@ -311,22 +311,22 @@ FLBuilderCSS::typography_field_rule( array(
 }
 
 @media only screen and (max-width: <?php echo $settings->banner_bp1; ?>px) {
-    .fl-node-<?php echo $id; ?> .pp-info-banner-content {
+    .fl-node-<?php echo $id; ?> div.pp-info-banner-content {
         <?php if( $settings->banner_bp1_min_height ) { ?>
     	height: <?php echo $settings->banner_bp1_min_height; ?>px;
         <?php } ?>
     }
-    .fl-node-<?php echo $id; ?> .pp-info-banner-content .banner-title {
+    .fl-node-<?php echo $id; ?> div.pp-info-banner-content .banner-title {
         <?php if( $settings->banner_bp1_title_font_size ) { ?>
     	font-size: <?php echo $settings->banner_bp1_title_font_size; ?>px;
         <?php } ?>
     }
-    .fl-node-<?php echo $id; ?> .pp-info-banner-content .banner-description {
+    .fl-node-<?php echo $id; ?> div.pp-info-banner-content .banner-description {
         <?php if( $settings->banner_bp1_desc_font_size ) { ?>
     	font-size: <?php echo $settings->banner_bp1_desc_font_size; ?>px;
         <?php } ?>
     }
-    .fl-node-<?php echo $id; ?> .pp-info-banner-content .banner-button {
+    .fl-node-<?php echo $id; ?> div.pp-info-banner-content .banner-button {
         <?php if( $settings->banner_bp1_button_font_size ) { ?>
     	font-size: <?php echo $settings->banner_bp1_button_font_size; ?>px;
         <?php } ?>
@@ -334,22 +334,22 @@ FLBuilderCSS::typography_field_rule( array(
 }
 
 @media only screen and (max-width: <?php echo $settings->banner_bp2; ?>px) {
-    .fl-node-<?php echo $id; ?> .pp-info-banner-content {
+    .fl-node-<?php echo $id; ?> div.pp-info-banner-content {
         <?php if( $settings->banner_bp2_min_height ) { ?>
     	height: <?php echo $settings->banner_bp2_min_height; ?>px;
         <?php } ?>
     }
-    .fl-node-<?php echo $id; ?> .pp-info-banner-content .banner-title {
+    .fl-node-<?php echo $id; ?> div.pp-info-banner-content .banner-title {
         <?php if( $settings->banner_bp2_title_font_size ) { ?>
     	font-size: <?php echo $settings->banner_bp2_title_font_size; ?>px;
         <?php } ?>
     }
-    .fl-node-<?php echo $id; ?> .pp-info-banner-content .banner-description {
+    .fl-node-<?php echo $id; ?> div.pp-info-banner-content .banner-description {
         <?php if( $settings->banner_bp2_desc_font_size ) { ?>
     	font-size: <?php echo $settings->banner_bp2_desc_font_size; ?>px;
         <?php } ?>
     }
-    .fl-node-<?php echo $id; ?> .pp-info-banner-content .banner-button {
+    .fl-node-<?php echo $id; ?> div.pp-info-banner-content .banner-button {
         <?php if( $settings->banner_bp2_button_font_size ) { ?>
     	font-size: <?php echo $settings->banner_bp2_button_font_size; ?>px;
         <?php } ?>
@@ -357,22 +357,22 @@ FLBuilderCSS::typography_field_rule( array(
 }
 
 @media only screen and (max-width: <?php echo $settings->banner_bp3; ?>px) {
-    .fl-node-<?php echo $id; ?> .pp-info-banner-content {
+    .fl-node-<?php echo $id; ?> div.pp-info-banner-content {
         <?php if( $settings->banner_bp3_min_height ) { ?>
     	height: <?php echo $settings->banner_bp3_min_height; ?>px;
         <?php } ?>
     }
-    .fl-node-<?php echo $id; ?> .pp-info-banner-content .banner-title {
+    .fl-node-<?php echo $id; ?> div.pp-info-banner-content .banner-title {
         <?php if( $settings->banner_bp3_title_font_size ) { ?>
     	font-size: <?php echo $settings->banner_bp3_title_font_size; ?>px;
         <?php } ?>
     }
-    .fl-node-<?php echo $id; ?> .pp-info-banner-content .banner-description {
+    .fl-node-<?php echo $id; ?> div.pp-info-banner-content .banner-description {
         <?php if( $settings->banner_bp3_desc_font_size ) { ?>
     	font-size: <?php echo $settings->banner_bp3_desc_font_size; ?>px;
         <?php } ?>
     }
-    .fl-node-<?php echo $id; ?> .pp-info-banner-content .banner-button {
+    .fl-node-<?php echo $id; ?> div.pp-info-banner-content .banner-button {
         <?php if( $settings->banner_bp3_button_font_size ) { ?>
     	font-size: <?php echo $settings->banner_bp3_button_font_size; ?>px;
         <?php } ?>

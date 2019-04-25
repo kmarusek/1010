@@ -1,3 +1,10 @@
+== 2.6.9.8 ==
+Release date: April 18, 2019
+* Enhancement: Photo Gallery - Added scroll pagination option
+* Fix: Smart Banner - Responsive font size issue
+* Fix: Advanced Tabs - Added support for Image Carousel module
+* Fix: Logos Grid & Carousel - Padding and alignment issue after recent update of PowerPack
+
 == 2.6.9.7 ==
 Release date: April 8, 2019
 * Enhancement: Social Icons - Added link nofollow option and rel="noopener" attribute for _blank target

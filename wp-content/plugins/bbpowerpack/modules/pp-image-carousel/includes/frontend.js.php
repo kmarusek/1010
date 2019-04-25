@@ -80,8 +80,14 @@
 	var carousel_<?php echo $id; ?> = new PPImageCarousel(settings);
 	
 	$(document).on('fl-builder.pp-accordion-toggle-complete', function(e) {
-		if ( $(e.target).find('.pp-image-carousel').length > 0 ) {
-			carousel_<?php echo $id; ?> = new PPImageCarousel(settings);
+		if ( $(e.target).find('.fl-node-<?php echo $id; ?>').length > 0 ) {
+			carousel_<?php echo $id; ?>.swipers.main.update();
+		}
+	});
+
+	$(document).on('pp-tabs-switched', function(e, selector) {
+		if ( selector.find('.fl-node-<?php echo $id; ?>').length > 0 ) {
+			carousel_<?php echo $id; ?>.swipers.main.update();
 		}
 	});
 

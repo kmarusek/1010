@@ -58,7 +58,7 @@
 		<?php } ?>
 
 		<?php if ( $settings->equal_height == 'yes' ) { ?>
-		equalheight();
+		//equalheight();
 		<?php } ?>
 
 		// Create the slider.
@@ -111,7 +111,7 @@
 	<?php } ?>
 
 	<?php if ( $settings->logos_layout !== 'carousel' && $settings->equal_height == 'yes' ) { ?>
-	equalheight();
+	//equalheight();
 	<?php } ?>
 
 	});

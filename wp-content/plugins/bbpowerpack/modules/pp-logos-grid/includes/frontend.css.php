@@ -104,22 +104,34 @@
     <?php } ?>
 }
 
+.fl-node-<?php echo $id; ?> .pp-logos-wrapper {
+	display: flex;
+    flex-wrap: wrap;
+}
 .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
 }
 
+<?php
+// Height
+FLBuilderCSS::responsive_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'custom_height',
+	'selector'		=> ".fl-node-$id .pp-logos-content .pp-logo",
+	'prop'			=> 'height',
+	'unit'			=> 'px',
+) );
+?>
+
+.fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo > a,
 .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo .pp-logo-inner {
-    width: 100%;
-    height: 100%;
+    flex: 1 1 auto;
 }
 
 .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo .pp-logo-inner .pp-logo-inner-wrap {
     text-align: center;
-	height: 100%;
-	display: flex;
-	align-items: center;
 }
 
 
@@ -128,7 +140,6 @@
     text-decoration: none;
     box-shadow: none;
     border: none;
-    height: 100%;
 }
 
 .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo div.title-wrapper {

@@ -59,27 +59,6 @@ class PPLogosGridModule extends FLBuilderModule {
 			),
 		), 'logo_grid_border' );
 
-		// Handle old logo grid padding fields
-		if( isset( $settings->logo_grid_padding_top ) ) {
-			$settings->logo_grid_padding['top'] = $settings->logo_grid_padding_top;
-			unset( $settings->logo_grid_padding_top );
-		}
-
-		if( isset( $settings->logo_grid_padding_bottom ) ) {
-			$settings->logo_grid_padding['bottom'] = $settings->logo_grid_padding_bottom;
-			unset( $settings->logo_grid_padding_bottom );
-		}
-
-		if( isset( $settings->logo_grid_padding_left ) ) {
-			$settings->logo_grid_padding['left'] = $settings->logo_grid_padding_left;
-			unset( $settings->logo_grid_padding_left );
-		}
-
-		if( isset( $settings->logo_grid_padding_right ) ) {
-			$settings->logo_grid_padding['right'] = $settings->logo_grid_padding_right;
-			unset( $settings->logo_grid_padding_right );
-		}
-
 		// Handle old arrow border and radius fields.
 		$settings = PP_Module_Fields::handle_border_field( $settings, array(
 			'logo_grid_arrow_border_style'	=> array(
@@ -95,23 +74,6 @@ class PPLogosGridModule extends FLBuilderModule {
 				'type'				=> 'radius'
 			),
 		), 'logo_grid_arrow' );
-
-		// Handle old logo carousel arrow padding fields
-		if( isset( $settings->logo_grid_arrow_padding_top ) ) {
-			$settings->logo_grid_arrow_padding['top'] = $settings->logo_grid_arrow_padding_top;
-		}
-
-		if( isset( $settings->logo_grid_arrow_padding_bottom ) ) {
-			$settings->logo_grid_arrow_padding['bottom'] = $settings->logo_grid_arrow_padding_bottom;
-		}
-
-		if( isset( $settings->logo_grid_arrow_padding_left ) ) {
-			$settings->logo_grid_arrow_padding['left'] = $settings->logo_grid_arrow_padding_left;
-		}
-
-		if( isset( $settings->logo_grid_arrow_padding_right ) ) {
-			$settings->logo_grid_arrow_padding['right'] = $settings->logo_grid_arrow_padding_right;
-		}
 
 		if ( isset( $settings->logos_grid_columns_desktop ) ) {
 			$settings->logos_grid_columns = $settings->logos_grid_columns_desktop;
@@ -219,6 +181,20 @@ FLBuilder::register_module('PPLogosGridModule', array(
                             'type'          => 'none'
 						),
 					),
+					'custom_height'	=> array(
+						'type'			=> 'unit',
+						'label'			=> __('Custom Height', 'bb-powerpack'),
+						'default'		=> '',
+						'units'			=> array('px'),
+						'slider'		=> true,
+						'responsive'	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-logos-content .pp-logo',
+							'property'		=> 'height',
+							'unit'			=> 'px'
+						)
+					)
                 )
             ),
             'logos_grid_count'       => array( // Section
