@@ -121,14 +121,25 @@ final class FLPageDataWooCommerce {
 	static public function get_product_sku( $settings ) {
 
 		global $product;
-		if ( wc_product_sku_enabled() && ( $product->get_sku() || $product->is_type( 'variable' ) ) ) :
-			if ( '1' == $settings->sku_prefix ) {
-				return '<div class="product-meta"><span class="product-sku">' . $settings->prefix_text . $product->get_sku() . '</span></div>';
-			} else {
-				return $product->get_sku();
-			}
-		endif;
+
+		if ( is_object( $product ) ) {
+			$html = '';
+
+			if ( wc_product_sku_enabled() && ( $product->get_sku() || $product->is_type( 'variable' ) ) ) :
+
+				$html = '<div class="product_meta"><span class="sku_wrapper">';
+				if ( '1' == $settings->sku_prefix ) {
+					$html .= $settings->prefix_text;
+				}
+				$html .= '<span class="sku">' . $product->get_sku() . '</span>';
+				$html .= '</span></div>';
+
+				return $html;
+
+			endif;
+		}
 	}
+
 	/**
 	 * @since 1.0
 	 * @return string

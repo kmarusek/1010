@@ -1,3 +1,30 @@
+<h4>1.2.3.1 - 04/26/2019</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Fix JS error in wp-admin rules.</li>
+</ul>
+
+<h4>1.2.3 - 04/24/2019</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Enabled new Browser and Woocommerce rules in Beaver Logic extension.</li>
+	<li>Show parent/child page relationship in Location dropdown.</li>
+	<li>Added an option to order ACF relationship posts list.</li>
+	<li>Added an Event navigation module.</li>
+	<li>Terms List connection/shortcode now supports outputing in list formats.</li>
+</ul>
+
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fixed ACF repeater shortcodes not working in the custom layout for the posts module.</li>
+	<li>Fixed Author Nickname connection.</li>
+	<li>Fixed header & footer layouts on search results page.</li>
+	<li>Fixed row inserted via shortcode in certain Themer parts missing styling.</li>
+	<li>Fixed fatal error when preview is set to none in a singular Woocommerce product layout.</li>
+	<li>Fixed BB layout shortcodes not rendering in themer layouts until the page is refreshed.</li>
+	<li>Fixed custom container element when using custom post layout.</li>
+</ul>
+
 <h4>1.2.2.1 - 02/08/2019</h4>
 <p><strong>Hot Fix</strong></p>
 <ul>

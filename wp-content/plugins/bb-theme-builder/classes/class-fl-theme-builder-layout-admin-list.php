@@ -59,10 +59,10 @@ final class FLThemeBuilderLayoutAdminList {
 	static public function manage_column_headings( $columns ) {
 		unset( $columns['date'] );
 
-		$columns['fl_type']       = __( 'Type', 'fl-theme-builder' );
-		$columns['fl_location']   = __( 'Location', 'fl-theme-builder' );
-		$columns['fl_user_rules'] = __( 'Users', 'fl-theme-builder' );
-
+		$columns['taxonomy-fl-builder-template-category'] = __( 'Categories', 'fl-theme-builder' );
+		$columns['fl_type']                               = __( 'Type', 'fl-theme-builder' );
+		$columns['fl_location']                           = __( 'Location', 'fl-theme-builder' );
+		$columns['fl_user_rules']                         = __( 'Users', 'fl-theme-builder' );
 		return $columns;
 	}
 

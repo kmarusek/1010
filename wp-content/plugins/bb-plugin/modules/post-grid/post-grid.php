@@ -486,11 +486,12 @@ class FLPostGridModule extends FLBuilderModule {
 			return false;
 		}
 
+		$schema = 'https://schema.org/BlogPosting';
 		if ( ! is_object( $post ) || ! isset( $post->post_type ) || 'post' != $post->post_type ) {
-			echo 'https://schema.org/CreativeWork';
-		} else {
-			echo 'https://schema.org/BlogPosting';
+			$schema = 'https://schema.org/CreativeWork';
 		}
+
+		return $schema;
 	}
 
 	/**

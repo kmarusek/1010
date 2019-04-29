@@ -137,6 +137,14 @@ final class BB_Logic_Editor_Beaver_Themer {
 			'BBLogicRules',
 			self::get_rules( $post->ID )
 		);
+		/**
+		 * FLBuilderConfig is not available in wp-admin
+		 */
+		wp_localize_script(
+			'bb-logic-core',
+			'FLBuilderConfig',
+			array( 'logicPermalinks' => get_option( 'permalink_structure' ) ? true : false )
+		);
 	}
 
 	/**

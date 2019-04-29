@@ -1,3 +1,22 @@
+<h4>2.2.2.6 - 04/25/2019</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Fixed issue with Grammerly, LastPass and Keeper browser extensions all breaking AJAX save actions.</li>
+	<li>Fixed schema output in post-grid module.</li>
+	<li>Dont show Beaver Builder enabled post count on our own post type pages.</li>
+	<li>Show warning on license settings page if Curl is not installed.</li>
+	<li>Debug mode will now auto turn off after 48 hours.</li>
+	<li>New filter <code>fl_render_content_by_id_attrs</code> in render_content_by_id function to filter the html attributes for the container.</li>
+	<li>New filters added for the UI Bar buttons text:</li>
+	<ul>
+		<li><code>fl_builder_ui_bar_discard</code></li>
+		<li><code>fl_builder_ui_bar_draft</code></li>
+		<li><code>fl_builder_ui_bar_review</code></li>
+		<li><code>fl_builder_ui_bar_publish</code></li>
+		<li><code>fl_builder_ui_bar_cancel</code></li>
+	</ul>
+</ul>
+
 <h4>2.2.2.5 - 04/16/2019</h4>
 <p><strong>Hot Fix</strong></p>
 <ul>

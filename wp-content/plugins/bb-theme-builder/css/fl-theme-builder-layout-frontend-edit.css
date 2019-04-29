@@ -73,6 +73,3 @@
 .fl-theme-builder-part.single-fl-theme-layout .fl-content {
 	width: 100% !important;
 }
-.fl-builder-content-primary:not([data-type="part"]) {
-	visibility: hidden;
-}

@@ -9845,9 +9845,9 @@
 		_jsonParse: function( data ) {
 			try {
 					data = JSON.parse( data );
-	        } catch (e) {
-	            FLBuilder.logError( e, FLBuilder._parseError( data ) );
-	        }
+					} catch (e) {
+						FLBuilder.logError( e, FLBuilder._parseError( data ) );
+					}
 					return data;
 		},
 
