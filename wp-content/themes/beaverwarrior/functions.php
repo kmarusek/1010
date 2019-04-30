@@ -2,13 +2,17 @@
 // Defines
 define( 'FL_CHILD_THEME_DIR', get_stylesheet_directory() );
 define( 'FL_CHILD_THEME_URL', get_stylesheet_directory_uri() );
+define( 'BEAVER_BUILDER_CACHE_BUST_QUERY_STRINGS', 
+    array(
+        '(.*)fl_builder(.*)',
+        '(.*)fl_builder_load_settings_config(.*)'
+    )
+);
 
 // Classes
 require_once 'classes/lessc.inc.php';
 require_once 'classes/class-bw-customizer-less.php';
 require_once 'classes/beaverbuilder_integration.decl.php';
-
-
 
 /**
  * Function used by .decl files that include a file if this site is 
@@ -363,14 +367,29 @@ function comment_validation_init() {
 }
 add_action('wp_footer', 'comment_validation_init');
 
+
 //Don't cache Beaver Builder.
 function beaver_warrior_bb_cache_buster() {
     header('Cache-Control: no-cache, must-revalidate, max-age=0');
 }
 
-if ($_SERVER["QUERY_STRING"] == "fl_builder") {
-    add_action('send_headers', 'beaver_warrior_bb_cache_buster', 15);
+// Only run if we have a query string to check
+if ( $_SERVER['QUERY_STRING'] ){
+    $clear_cache_sentinal = false;
+    $clear_cache_index    = 0;
+    while ( !$clear_cache_sentinal && $clear_cache_index < count(BEAVER_BUILDER_CACHE_BUST_QUERY_STRINGS) ){
+        // error_log(BEAVER_BUILDER_CACHE_BUST_QUERY_STRINGS[0]);
+        // die;
+        if (preg_match('/' . BEAVER_BUILDER_CACHE_BUST_QUERY_STRINGS[$clear_cache_index] .'/', $_SERVER['QUERY_STRING'])) {
+            $clear_cache_sentinal = true;
+        }
+        $clear_cache_index++;
+    }
+    if ( $clear_cache_sentinal ){
+        add_action('send_headers', 'beaver_warrior_bb_cache_buster', 15);
+    }
 }
+
 
 //Add post thumbnail / featured image support
 function beaver_warrior_theme_support() {
