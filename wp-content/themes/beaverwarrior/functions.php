@@ -378,8 +378,6 @@ if ( $_SERVER['QUERY_STRING'] ){
     $clear_cache_sentinal = false;
     $clear_cache_index    = 0;
     while ( !$clear_cache_sentinal && $clear_cache_index < count(BEAVER_BUILDER_CACHE_BUST_QUERY_STRINGS) ){
-        // error_log(BEAVER_BUILDER_CACHE_BUST_QUERY_STRINGS[0]);
-        // die;
         if (preg_match('/' . BEAVER_BUILDER_CACHE_BUST_QUERY_STRINGS[$clear_cache_index] .'/', $_SERVER['QUERY_STRING'])) {
             $clear_cache_sentinal = true;
         }
