@@ -2,13 +2,17 @@
 // Defines
 define( 'FL_CHILD_THEME_DIR', get_stylesheet_directory() );
 define( 'FL_CHILD_THEME_URL', get_stylesheet_directory_uri() );
+define( 'BEAVER_BUILDER_CACHE_BUST_QUERY_STRINGS', 
+    array(
+        '(.*)fl_builder(.*)',
+        '(.*)fl_builder_load_settings_config(.*)'
+    )
+);
 
 // Classes
 require_once 'classes/lessc.inc.php';
 require_once 'classes/class-bw-customizer-less.php';
 require_once 'classes/beaverbuilder_integration.decl.php';
-
-
 
 /**
  * Function used by .decl files that include a file if this site is 
@@ -146,6 +150,7 @@ function skeletonwarrior_enqueue_scripts() {
     // Lottie web
     wp_register_script('lottie-web', get_stylesheet_directory_uri() . '/assets/vendor/airbnb/lottie-web/lottie.min.js', array(), false, true );
     
+    wp_localize_script('scripts', 'scripts_data', apply_filters( 'bw_scripts_data', array() ) );
     wp_enqueue_script('scripts');
     wp_enqueue_style('main');
     
@@ -362,14 +367,27 @@ function comment_validation_init() {
 }
 add_action('wp_footer', 'comment_validation_init');
 
+
 //Don't cache Beaver Builder.
 function beaver_warrior_bb_cache_buster() {
     header('Cache-Control: no-cache, must-revalidate, max-age=0');
 }
 
-if ($_SERVER["QUERY_STRING"] == "fl_builder") {
-    add_action('send_headers', 'beaver_warrior_bb_cache_buster', 15);
+// Only run if we have a query string to check
+if ( $_SERVER['QUERY_STRING'] ){
+    $clear_cache_sentinal = false;
+    $clear_cache_index    = 0;
+    while ( !$clear_cache_sentinal && $clear_cache_index < count(BEAVER_BUILDER_CACHE_BUST_QUERY_STRINGS) ){
+        if (preg_match('/' . BEAVER_BUILDER_CACHE_BUST_QUERY_STRINGS[$clear_cache_index] .'/', $_SERVER['QUERY_STRING'])) {
+            $clear_cache_sentinal = true;
+        }
+        $clear_cache_index++;
+    }
+    if ( $clear_cache_sentinal ){
+        add_action('send_headers', 'beaver_warrior_bb_cache_buster', 15);
+    }
 }
+
 
 //Add post thumbnail / featured image support
 function beaver_warrior_theme_support() {

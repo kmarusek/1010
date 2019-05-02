@@ -89,7 +89,7 @@ final class FLThemeBuilderSupportBBTheme {
 	 */
 	static public function setup_headers_and_footers() {
 
-		if ( 'tpl-no-header-footer.php' == get_page_template_slug() ) {
+		if ( 'tpl-no-header-footer.php' == get_page_template_slug() && ! is_search() ) {
 			return;
 		}
 

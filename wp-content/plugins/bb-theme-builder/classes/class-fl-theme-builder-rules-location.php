@@ -1071,13 +1071,20 @@ final class FLThemeBuilderRulesLocation {
 
 		} else {
 			$format = implode( ', ', array_fill( 0, count( $post_status ), '%s' ) );
-			$query  = sprintf( "SELECT ID, post_title from $wpdb->posts where post_type = '%s' AND post_status IN(%s) ORDER BY post_title", $post_type, $format );
+			$query  = sprintf( "SELECT ID, post_title, post_parent from $wpdb->posts where post_type = '%s' AND post_status IN(%s) ORDER BY post_title", $post_type, $format );
 			// @codingStandardsIgnoreLine
 			$posts = $wpdb->get_results( $wpdb->prepare( $query, $post_status ) );
 		}
 
 		foreach ( $posts as $post ) {
 			$title             = ( '' != $post->post_title ) ? esc_attr( strip_tags( filter_var( $post->post_title, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES ) ) ) : $post_type . '-' . $post->ID;
+
+			if ( isset( $post->post_parent ) && $post->post_parent > 0 && $post->post_parent !== $post->ID ) {
+				$parent       = get_post( $post->post_parent );
+				$parent_label = ! empty( $parent->post_title ) ? esc_attr( strip_tags( filter_var( $parent->post_title, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES ) ) ) : $post_type . '-' . $parent->ID;
+				$title        = $parent_label . ' > ' . $title;
+			}
+
 			$data['objects'][] = array(
 				'id'   => $post->ID,
 				'name' => $title,
@@ -1435,17 +1442,6 @@ final class FLThemeBuilderRulesLocation {
 
 		// Reset the current page location.
 		self::$current_page_location = null;
-
-		// Force the builder to use the current post ID
-		// during AJAX as we are about to override it.
-		if ( defined( 'DOING_AJAX' ) ) {
-			$original_post = self::get_preview_original_post();
-			$layout_type   = get_post_meta( $original_post->ID, '_fl_theme_layout_type', true );
-
-			if ( ! in_array( $layout_type, array( 'footer', 'header' ) ) ) {
-				FLBuilderModel::set_post_id( $post->ID );
-			}
-		}
 
 		// Create the preview query.
 		self::$preview_query = new WP_Query( self::$preview_args );

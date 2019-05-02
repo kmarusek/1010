@@ -5,6 +5,9 @@
 		this.nodeClass      = '.fl-node-' + settings.id;
 		this.wrapperClass   = this.nodeClass + ' .pp-photo-gallery';
 		this.itemClass      = this.wrapperClass + ' .pp-photo-gallery-item';
+		this.cachedItems	= false;
+		this.cachedIds		= [];
+		this.isBuilderActive = settings.isBuilderActive;
 
 		if ( this._hasItem() ) {
 			this._initLayout();
@@ -20,6 +23,7 @@
 		gallery         : null,
 		cachedItems		: false,
 		cachedIds		: [],
+		isBuilderActive : false,
 
 		_hasItem: function()
 		{
@@ -133,6 +137,9 @@
 			if ( 'load_more' === this.settings.pagination ) {
 				this._initLoadMore();
 			}
+			if ( 'scroll' === this.settings.pagination && ! this.isBuilderActive ) {
+				this._initScroll();
+			}
 		},
 
 		_initLoadMore: function()
@@ -148,32 +155,89 @@
 				if ( self.cachedItems ) {
 					self._renderItems();
 				} else {
-					var data = {
-						pp_action: 'pp_gallery_get_photos',
-						node_id: self.settings.id,
-						images_per_page: self.settings.perPage,
-					};
+					self._getAjaxPhotos();
+				}
+			});
+		},
 
-					if ( self.settings.templateId ) {
-						data['template_id'] = self.settings.templateId;
-					}
-					if ( self.settings.templateNodeId ) {
-						data['template_node_id'] = self.settings.template_node_id;
-					}
+		_initScroll: function() {
+			var self 			= this,
+				galleryOffset 	= $(this.wrapperClass).offset(),
+				galleryHeight 	= $(this.wrapperClass).height(),
+				winHeight		= $(window).height(),
+				loaded			= false;
 
-					$.ajax({
-						type: 'post',
-						url: window.location.href.split( '#' ).shift(),
-						data: data,
-						success: function(response) {
-							response = JSON.parse(response);
-							
-							if ( ! response.error ) {
-								self.cachedItems = response.data;
-								self._renderItems();
-							}
+			$(window).on('scroll', function() {
+				if ( loaded ) {
+					return;
+				}
+				var scrollPos = $(window).scrollTop();
+
+				if ( scrollPos >= galleryOffset.top - ( winHeight - galleryHeight ) ) {
+					if ( $(self.nodeClass).find('.pp-gallery-pagination.loaded').length > 0 ) {
+						loaded = true;
+						$(self.nodeClass).find('.pp-gallery-loader').hide();
+					} else {
+						loaded = true;
+						$(self.wrapperClass).imagesLoaded(function() {
+							setTimeout(function() {
+								//$(self.nodeClass).find('.pp-gallery-loader').show();
+								if ( self.cachedItems ) {
+									self._renderItems();
+									galleryHeight = $(self.wrapperClass).height();
+								} else {
+									self._getAjaxPhotos(function() {
+										galleryHeight = $(self.wrapperClass).height();
+									});
+								}
+							}, 600);
+						});
+					}
+				}
+			});
+
+			$(this.wrapperClass).on('gallery.rendered', function() {
+				if ( $(self.nodeClass).find('.pp-gallery-pagination.loaded').length === 0 ) {
+					loaded = false;
+					galleryHeight = $(self.wrapperClass).height();
+				}
+			});
+		},
+
+		_getAjaxPhotos: function(callback) {
+			var self = this;
+
+			var data = {
+				pp_action: 'pp_gallery_get_photos',
+				node_id: self.settings.id,
+				images_per_page: self.settings.perPage,
+			};
+
+			if ( self.settings.templateId ) {
+				data['template_id'] = self.settings.templateId;
+			}
+			if ( self.settings.templateNodeId ) {
+				data['template_node_id'] = self.settings.template_node_id;
+			}
+
+			$(this.nodeClass).find('.pp-gallery-loader').show();
+
+			$.ajax({
+				type: 'post',
+				url: window.location.href.split( '#' ).shift(),
+				data: data,
+				async: true,
+				success: function(response) {
+					response = JSON.parse(response);
+					
+					if ( ! response.error ) {
+						self.cachedItems = response.data;
+						self._renderItems();
+						if ( 'function' !== typeof callback ) {
+							callback();
 						}
-					});
+						$(self.nodeClass).find('.pp-gallery-loader').hide();
+					}
 				}
 			});
 		},
@@ -181,6 +245,7 @@
 		_renderItems: function()
 		{
 			$(this.nodeClass).find( '.pp-gallery-load-more' ).removeClass('disabled loading');
+			$(this.nodeClass).find('.pp-gallery-loader').show();
 
 			var self = this,
 				wrap = $(self.wrapperClass);
@@ -227,10 +292,15 @@
 							}, 500);
 						}, this));
 					}
+
+					this._initLightbox();
+
+					wrap.trigger('gallery.rendered');
 				}
 
 				if ( $(self.cachedItems).length === self.cachedIds.length ) {
-					$(self.nodeClass).find('.pp-gallery-pagination').hide();
+					$(self.nodeClass).find('.pp-gallery-pagination').addClass('loaded').hide();
+					$(self.nodeClass).find('.pp-gallery-loader').hide();
 				}
 			}
 		}

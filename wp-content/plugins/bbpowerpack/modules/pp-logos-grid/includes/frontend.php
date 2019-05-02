@@ -25,7 +25,9 @@
             <div class="pp-logo-inner">
                 <div class="pp-logo-inner-wrap">
                     <?php if( $logos_grid->upload_logo_grid ) { ?>
-                        <img class="logo-image" src="<?php echo $logos_grid->upload_logo_grid_src; ?>" alt="<?php echo $alt; ?>" data-no-lazy="1" />
+						<div class="logo-image-wrapper">
+                        	<img class="logo-image" src="<?php echo $logos_grid->upload_logo_grid_src; ?>" alt="<?php echo $alt; ?>" data-no-lazy="1" />
+						</div>
                     <?php } ?>
                     <?php if( $logos_grid->upload_logo_title ) { ?>
                         <div class="title-wrapper">

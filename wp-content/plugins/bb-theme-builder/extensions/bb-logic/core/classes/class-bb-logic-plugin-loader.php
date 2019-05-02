@@ -31,7 +31,10 @@ if ( ! class_exists( 'BB_Logic_Plugin_Loader' ) ) {
 			} else {
 				add_action( 'plugins_loaded', __CLASS__ . '::load_files' );
 			}
+
+			add_filter( 'fl_builder_ui_js_config', __CLASS__ . '::rest_permalinks_type' );
 		}
+
 
 		/**
 		 * Define plugin constants.
@@ -195,6 +198,12 @@ if ( ! class_exists( 'BB_Logic_Plugin_Loader' ) ) {
 			}
 
 			return $error;
+		}
+
+		static public function rest_permalinks_type( $config ) {
+
+			$config['logicPermalinks'] = get_option( 'permalink_structure' ) ? true : false;
+			return $config;
 		}
 	}
 

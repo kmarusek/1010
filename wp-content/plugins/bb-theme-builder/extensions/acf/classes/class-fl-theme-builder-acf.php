@@ -94,8 +94,27 @@ final class FLThemeBuilderACF {
 
 			if ( 'relationship' == $settings->data_source_acf_relational_type ) {
 				$args['post__in'] = $object_ids;
-				$args['orderby']  = 'post__in';
 
+				if ( isset( $settings->data_source_acf_order_by ) ) {
+
+					$args['orderby'] = $settings->data_source_acf_order_by;
+					$args['order']   = $settings->data_source_acf_order;
+
+					// Order by meta value arg.
+					if ( strstr( $settings->data_source_acf_order_by, 'meta_value' ) ) {
+						$args['meta_key'] = $settings->order_by_meta_key;
+					}
+
+					// Order by author
+					if ( 'author' == $settings->data_source_acf_order_by ) {
+						$args['orderby'] = array(
+							'author' => $order,
+							'date'   => $order,
+						);
+					}
+				} else {
+					$args['orderby'] = 'post__in';
+				}
 			} elseif ( 'user' == $settings->data_source_acf_relational_type ) {
 				$args['author__in'] = $object_ids;
 			}
@@ -126,11 +145,60 @@ final class FLThemeBuilderACF {
 					'relationship' => __( 'Relationship', 'fl-builder' ),
 					'user'         => __( 'User', 'fl-builder' ),
 				),
+				'toggle'  => array(
+					'relationship' => array(
+						'fields' => array( 'data_source_acf_order', 'data_source_acf_order_by' ),
+					),
+				),
 			), $settings);
 
 			FLBuilder::render_settings_field('data_source_acf_relational_key', array(
 				'type'  => 'text',
 				'label' => __( 'Key', 'fl-builder' ),
+			), $settings);
+
+			// Order
+			FLBuilder::render_settings_field('data_source_acf_order', array(
+				'type'    => 'select',
+				'label'   => __( 'Order', 'fl-theme-builder' ),
+				'options' => array(
+					'DESC' => __( 'Descending', 'fl-theme-builder' ),
+					'ASC'  => __( 'Ascending', 'fl-theme-builder' ),
+				),
+			), $settings);
+
+			// Order by
+			FLBuilder::render_settings_field('data_source_acf_order_by', array(
+				'type'    => 'select',
+				'label'   => __( 'Order By', 'fl-theme-builder' ),
+				'default' => 'post__in',
+				'options' => array(
+					'author'         => __( 'Author', 'fl-theme-builder' ),
+					'comment_count'  => __( 'Comment Count', 'fl-theme-builder' ),
+					'date'           => __( 'Date', 'fl-theme-builder' ),
+					'modified'       => __( 'Date Last Modified', 'fl-theme-builder' ),
+					'ID'             => __( 'ID', 'fl-theme-builder' ),
+					'menu_order'     => __( 'Menu Order', 'fl-theme-builder' ),
+					'meta_value'     => __( 'Meta Value (Alphabetical)', 'fl-theme-builder' ),
+					'meta_value_num' => __( 'Meta Value (Numeric)', 'fl-theme-builder' ),
+					'rand'           => __( 'Random', 'fl-theme-builder' ),
+					'title'          => __( 'Title', 'fl-theme-builder' ),
+					'post__in'       => __( 'Selection Order', 'fl-theme-builder' ),
+				),
+				'toggle'  => array(
+					'meta_value'     => array(
+						'fields' => array( 'data_source_acf_order_by_meta_key' ),
+					),
+					'meta_value_num' => array(
+						'fields' => array( 'data_source_acf_order_by_meta_key' ),
+					),
+				),
+			), $settings);
+
+			// Meta Key
+			FLBuilder::render_settings_field('data_source_acf_order_by_meta_key', array(
+				'type'  => 'text',
+				'label' => __( 'Meta Key', 'fl-theme-builder' ),
 			), $settings);
 
 		echo '</table>';

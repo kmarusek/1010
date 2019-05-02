@@ -245,10 +245,6 @@ class AdvancedTabsModule extends FLBuilderModule {
 				$settings->tab_style_align = $settings->tab_style_alignment;
 				unset( $settings->tab_style_alignment );
 			}
-			if ( isset( $settings->content_alignment ) ) {
-				$settings->content_alignment = $settings->content_alignment;
-				unset( $settings->content_alignment );
-			}
 		} elseif ( $version_bb_check && 'yes' != $page_migrated ) {
 			if ( ! isset( $settings->title_font_typo ) || ! is_array( $settings->title_font_typo ) ) {
 
@@ -411,10 +407,6 @@ class AdvancedTabsModule extends FLBuilderModule {
 			if ( isset( $settings->tab_style_alignment ) ) {
 				$settings->tab_style_align = $settings->tab_style_alignment;
 				unset( $settings->tab_style_alignment );
-			}
-			if ( isset( $settings->content_alignment ) ) {
-				$settings->content_alignment = $settings->content_alignment;
-				unset( $settings->content_alignment );
 			}
 			if ( isset( $settings->tab_padding ) ) {
 

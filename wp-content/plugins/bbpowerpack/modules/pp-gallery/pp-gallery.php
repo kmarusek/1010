@@ -815,6 +815,7 @@ FLBuilder::register_module('PPGalleryModule', array(
 			),
 			'overlay_style'       => array(
 				'title'         => __( 'Overlay', 'bb-powerpack' ),
+				'collapsed'		=> true,
 				'fields'        => array(
 					'overlay_type'     => array(
                         'type'      => 'pp-switch',
@@ -889,6 +890,7 @@ FLBuilder::register_module('PPGalleryModule', array(
 			),
 			'icon_style'	=> array(
 				'title'			=> __('Icon Style', 'bb-powerpack'),
+				'collapsed'		=> true,
 				'fields'		=> array(
 					'overlay_icon_size'     => array(
 						'type'          => 'text',
@@ -990,6 +992,7 @@ FLBuilder::register_module('PPGalleryModule', array(
 			),
 			'lightbox_style'	=> array(
 				'title'	=> __( 'Lightbox', 'bb-powerpack' ),
+				'collapsed'		=> true,
 				'fields'	=> array(
 					'lightbox_overlay_color' => array(
 						'type'       	=> 'color',
@@ -1084,12 +1087,16 @@ FLBuilder::register_module('PPGalleryModule', array(
 						'default'		=> 'none',
 						'options'		=> array(
 							'none'			=> __('None', 'bb-powerpack'),
-							'load_more'		=> __('Load More Button', 'bb-powerpack')
+							'load_more'		=> __('Load More Button', 'bb-powerpack'),
+							'scroll'		=> __('Scroll', 'bb-powerpack'),
 						),
 						'toggle'		=> array(
 							'load_more'		=> array(
 								'sections'		=> array( 'pagination_button_style' ),
 								'fields'		=> array( 'images_per_page', 'load_more_text' )
+							),
+							'scroll'		=> array(
+								'fields'		=> array('images_per_page')
 							)
 						)
 					),

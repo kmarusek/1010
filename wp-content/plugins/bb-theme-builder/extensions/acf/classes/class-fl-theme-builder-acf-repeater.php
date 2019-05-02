@@ -51,6 +51,7 @@ final class FLThemeBuilderACFRepeater {
 	 */
 	static public function init() {
 		add_filter( 'fl_builder_before_render_shortcodes', __CLASS__ . '::parse_shortcodes', 1 );
+		add_filter( 'fl_theme_builder_custom_post_grid_html', __CLASS__ . '::parse_shortcodes', 1 );
 
 		add_shortcode( 'wpbb-acf-repeater', __CLASS__ . '::parse_shortcode' );
 		add_shortcode( 'wpbb-acf-flex', __CLASS__ . '::parse_shortcode' );

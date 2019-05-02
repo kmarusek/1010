@@ -279,6 +279,16 @@ FLPageData::add_post_property_settings_fields( 'terms_list', array(
 		'default' => 'category',
 		'options' => FLPageDataPost::get_taxonomy_options(),
 	),
+	'html_list' => array(
+		'type'    => 'select',
+		'label'   => __( 'Layout', 'fl-theme-builder' ),
+		'default' => 'no',
+		'options' => array(
+			'no' => __( 'Use Separator', 'fl-theme-builder' ),
+			'ol' => __( 'Ordered List', 'fl-theme-builder' ),
+			'ul' => __( 'Unordered List', 'fl-theme-builder' ),
+		),
+	),
 	'separator' => array(
 		'type'    => 'text',
 		'label'   => __( 'Separator', 'fl-theme-builder' ),

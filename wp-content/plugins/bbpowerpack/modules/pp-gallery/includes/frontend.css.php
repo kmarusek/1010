@@ -548,6 +548,9 @@ if ( 'justified' != $settings->gallery_layout ) {
 		text-align: <?php echo $settings->load_more_alignment; ?>;
 	<?php } ?>
 }
+.fl-node-<?php echo $id; ?> .pp-gallery-pagination.pagination-scroll {
+	display: none;
+}
 .fl-node-<?php echo $id; ?> .pp-gallery-pagination .pp-gallery-load-more {
 	<?php if ( isset( $settings->load_more_bg_color ) && ! empty( $settings->load_more_bg_color ) ) { ?>
 		background-color: <?php echo pp_get_color_value( $settings->load_more_bg_color ); ?>;

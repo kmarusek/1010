@@ -14,14 +14,21 @@ final class FLPageDataPost {
 	 */
 	static public function get_excerpt( $settings ) {
 
+		global $post;
 		$filter = false;
 		if ( has_filter( 'the_content', 'FLBuilder::render_content' ) ) {
 			remove_filter( 'the_content', 'FLBuilder::render_content' );
 			$filter = true;
 		}
 
+		if ( is_single() ) {
+			$content = ! empty( $post->post_excerpt ) ? apply_filters( 'the_excerpt', get_the_excerpt() ) : null;
+		} else {
+			$content = apply_filters( 'the_excerpt', get_the_excerpt() );
+		}
+
 		$args = apply_filters( 'fl_theme_builder_get_excerpt', array(
-			'content' => apply_filters( 'the_excerpt', get_the_excerpt() ),
+			'content' => $content,
 			'length'  => is_numeric( $settings->length ) ? $settings->length : 55,
 			'more'    => ! empty( $settings->more ) ? $settings->more : '...',
 		), $settings );
@@ -30,7 +37,50 @@ final class FLPageDataPost {
 			add_filter( 'the_content', 'FLBuilder::render_content' );
 		}
 
-		return sprintf( '<p>%s</p>', wp_trim_words( $args['content'], $args['length'], $args['more'] ) );
+		return self::wp_trim_words( $args['content'], $args['length'], $args['more'] );
+	}
+
+	static public function wp_trim_words( $text, $num_words = 55, $more = null ) {
+		if ( null === $more ) {
+			$more = __( '&hellip;' );
+		}
+
+		$original_text = $text;
+
+		/*
+		* translators: If your word count is based on single characters (e.g. East Asian characters),
+		* enter 'characters_excluding_spaces' or 'characters_including_spaces'. Otherwise, enter 'words'.
+		* Do not translate into your own language.
+		*/
+		if ( strpos( _x( 'words', 'Word count type. Do not translate!' ), 'characters' ) === 0 && preg_match( '/^utf\-?8$/i', get_option( 'blog_charset' ) ) ) {
+			$text = trim( preg_replace( "/[\n\r\t ]+/", ' ', $text ), ' ' );
+			preg_match_all( '/./u', $text, $words_array );
+			$words_array = array_slice( $words_array[0], 0, $num_words + 1 );
+			$sep         = '';
+		} else {
+			$words_array = preg_split( "/[\n\r\t ]+/", $text, $num_words + 1, PREG_SPLIT_NO_EMPTY );
+			$sep         = ' ';
+		}
+
+		if ( count( $words_array ) > $num_words ) {
+			array_pop( $words_array );
+			$text = implode( $sep, $words_array );
+			$text = $text . $more;
+		} else {
+			$text = implode( $sep, $words_array );
+		}
+
+		/**
+		 * Filters the text content after words have been trimmed.
+		 *
+		 * @since 3.3.0
+		 *
+		 * @param string $text          The trimmed text.
+		 * @param int    $num_words     The number of words to trim the text to. Default 55.
+		 * @param string $more          An optional string to append to the end of the trimmed text, e.g. &hellip;.
+		 * @param string $original_text The text before it was trimmed.
+		 */
+		return apply_filters( 'wp_trim_words', $text, $num_words, $more, $original_text );
 	}
 
 	/**
@@ -210,18 +260,59 @@ final class FLPageDataPost {
 	static public function get_terms_list( $settings ) {
 		global $post;
 
-		$terms_list = get_the_term_list( $post->ID, $settings->taxonomy, '', $settings->separator, '' );
-
-		if ( is_string( $terms_list ) ) {
-			if ( 'no' === $settings->linked ) {
-				$terms_list = strip_tags( $terms_list );
-			}
+		if ( isset( $settings->html_list ) && 'no' !== $settings->html_list ) {
+			$seperator  = $settings->html_list;
+			$terms_list = self::get_the_term_list( $post->ID, $settings->taxonomy, "<$seperator class='fl-{$settings->taxonomy}'><li>", '</li><li>', "</li></$seperator>", $settings->linked );
 		} else {
-			$terms_list = '';
+			$terms_list = self::get_the_term_list( $post->ID, $settings->taxonomy, '', $settings->separator, '', $settings->linked );
 		}
 
 		return $terms_list;
 	}
+
+	/**
+	 * @since 1.2.3
+	 */
+	static public function get_the_term_list( $id, $taxonomy, $before = '', $sep = '', $after = '', $linked ) {
+		$terms = get_the_terms( $id, $taxonomy );
+
+		if ( is_wp_error( $terms ) ) {
+			return $terms;
+		}
+
+		if ( empty( $terms ) ) {
+			return false;
+		}
+
+		$links = array();
+
+		foreach ( $terms as $term ) {
+			$link = get_term_link( $term, $taxonomy );
+			if ( is_wp_error( $link ) ) {
+				return $link;
+			}
+			if ( 'no' !== $linked ) {
+				$links[] = '<a href="' . esc_url( $link ) . '" rel="tag" class="' . esc_attr( $term->slug ) . '">' . $term->name . '</a>';
+			} else {
+				$links[] = '<span class="' . esc_attr( $term->slug ) . '">' . $term->name . '</span>';
+			}
+		}
+
+		/**
+		 * Filters the term links for a given taxonomy.
+		 *
+		 * The dynamic portion of the filter name, `$taxonomy`, refers
+		 * to the taxonomy slug.
+		 *
+		 * @since 2.5.0
+		 *
+		 * @param string[] $links An array of term links.
+		 */
+		$term_links = apply_filters( "term_links-{$taxonomy}", $links );
+
+		return $before . join( $sep, $term_links ) . $after;
+	}
+
 
 	/**
 	 * @since 1.0
@@ -318,7 +409,7 @@ final class FLPageDataPost {
 				break;
 
 			case 'nickname':
-				$name = $user->user_nicename;
+				$name = $user->nickname;
 				break;
 
 			case 'username':

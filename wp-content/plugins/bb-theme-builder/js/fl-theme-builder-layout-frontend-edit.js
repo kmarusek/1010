@@ -189,8 +189,8 @@
 		},
 
 		/**
-		 * Shows or hides the content based on the part that
-		 * is being edited.
+		 * When editing a "part" the main builder content area will
+		 * be moved to replace the part for editing.
 		 *
 		 * @since 1.0
 		 * @access private
@@ -201,11 +201,10 @@
 			var part   = $( '.fl-builder-content-primary[data-type="part"]' ),
 				content = $( '.fl-builder-content-primary:not([data-type="part"])' );
 
-			if ( 0 === part.length ) {
-				content.css( 'visibility', 'visible' );
-			} else {
+			if ( part.length ) {
 				content.after( '<div style="padding: 200px 100px; text-align:center; opacity:0.5;">Content Area</div>' );
-				content.remove();
+				part.after( content );
+				part.remove();
 			}
 		}
 	};

@@ -1516,6 +1516,11 @@ final class FLBuilder {
 
 		// Build the attributes string.
 		$attr_string = '';
+		/**
+		 * Change attributes for container.
+		 * @see fl_render_content_by_id_attrs
+		 */
+		$attrs = apply_filters( 'fl_render_content_by_id_attrs', $attrs, $post_id );
 
 		foreach ( $attrs as $attr_key => $attr_value ) {
 			$attr_string .= ' ' . $attr_key . '="' . $attr_value . '"';
