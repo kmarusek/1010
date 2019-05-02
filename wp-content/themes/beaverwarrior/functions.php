@@ -470,6 +470,23 @@ function beaver_warrior_add_rich_text_wildcard_styles( $css, $nodes, $global_set
     return $css;
 }
 
+/**
+ * Function to register a new custom image size with a retina version
+ *
+ * @param  string       $name   The name of the custom image size
+ * @param  int          $width  The width
+ * @param  int          $height The height
+ * @param  bool|boolean $crop   Whether or not to crop
+ *
+ * @return void             
+ */
+function register_custom_image_size( string $name, int $width, int $height, bool $crop = true ){
+    // Regular image
+    add_image_size( $name, $width, $height, $crop );
+    // 2x image
+    add_image_size( $name . '_2x', $width * 2, $height * 2, $crop );
+}
+
 add_action("fl_theme_compile_less_paths", "beaver_warrior_less_paths");
 
 // Theme Actions
