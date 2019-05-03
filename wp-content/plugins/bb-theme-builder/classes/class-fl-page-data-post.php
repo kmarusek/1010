@@ -31,13 +31,16 @@ final class FLPageDataPost {
 			'content' => $content,
 			'length'  => is_numeric( $settings->length ) ? $settings->length : 55,
 			'more'    => ! empty( $settings->more ) ? $settings->more : '...',
+			'trim'    => true,
 		), $settings );
 
 		if ( $filter ) {
 			add_filter( 'the_content', 'FLBuilder::render_content' );
 		}
-
-		return self::wp_trim_words( $args['content'], $args['length'], $args['more'] );
+		if ( isset( $args['trim'] ) && $args['trim'] ) {
+			return self::wp_trim_words( $args['content'], $args['length'], $args['more'] );
+		}
+		return $args['content'];
 	}
 
 	static public function wp_trim_words( $text, $num_words = 55, $more = null ) {
@@ -260,11 +263,17 @@ final class FLPageDataPost {
 	static public function get_terms_list( $settings ) {
 		global $post;
 
-		if ( isset( $settings->html_list ) && 'no' !== $settings->html_list ) {
+		if ( isset( $settings->html_list ) && ( 'ul' === $settings->html_list || 'ol' === $settings->html_list ) ) {
 			$seperator  = $settings->html_list;
 			$terms_list = self::get_the_term_list( $post->ID, $settings->taxonomy, "<$seperator class='fl-{$settings->taxonomy}'><li>", '</li><li>', "</li></$seperator>", $settings->linked );
+		} elseif ( isset( $settings->html_list ) && 'div' === $settings->html_list ) {
+			$seperator  = $settings->html_list;
+			$terms_list = self::get_the_term_list( $post->ID, $settings->taxonomy, "<$seperator class='fl-{$settings->taxonomy}'><span>", '</span><span>', "</span></$seperator>", $settings->linked );
 		} else {
 			$terms_list = self::get_the_term_list( $post->ID, $settings->taxonomy, '', $settings->separator, '', $settings->linked );
+			if ( 'no' === $settings->linked ) {
+				$terms_list = strip_tags( $terms_list );
+			}
 		}
 
 		return $terms_list;
@@ -277,7 +286,7 @@ final class FLPageDataPost {
 		$terms = get_the_terms( $id, $taxonomy );
 
 		if ( is_wp_error( $terms ) ) {
-			return $terms;
+			return;
 		}
 
 		if ( empty( $terms ) ) {

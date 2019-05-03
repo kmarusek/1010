@@ -136,11 +136,13 @@ final class FLThemeBuilderWooCommerceSingular {
 	 * @return void
 	 */
 	static public function after_render_content( $layout_id ) {
-		global $wp_the_query;
+		global $wp_the_query, $woocommerce;
 
 		if ( is_object( $wp_the_query->post ) && 'product' == $wp_the_query->post->post_type ) {
 
+			add_action( 'woocommerce_after_single_product', array( $woocommerce->structured_data, 'generate_product_data' ) );
 			do_action( 'woocommerce_after_single_product' );
+
 		}
 	}
 }

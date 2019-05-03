@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bb-theme-builder\n"
 "Report-Msgid-Bugs-To: hello@wpbeaverbuilder.com\n"
-"POT-Creation-Date: 2019-04-26 21:01:12+00:00\n"
+"POT-Creation-Date: 2019-05-01 17:26:51+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -36,11 +36,11 @@ msgstr ""
 msgid "Posts"
 msgstr ""
 
-#: classes/class-fl-page-data-post.php:45
+#: classes/class-fl-page-data-post.php:48
 msgid "&hellip;"
 msgstr ""
 
-#: classes/class-fl-page-data-post.php:120
+#: classes/class-fl-page-data-post.php:123
 msgid "Pages:"
 msgstr ""
 
@@ -182,8 +182,8 @@ msgstr ""
 #: extensions/acf/classes/class-fl-theme-builder-acf.php:142
 #: extensions/edd/modules/fl-edd-product-description/fl-edd-product-description.php:36
 #: extensions/woocommerce/modules/fl-woo-product-description/fl-woo-product-description.php:36
-#: includes/layout-admin-edit-settings.php:5 includes/page-data-post.php:370
-#: includes/page-data-post.php:431 includes/page-data-site.php:46
+#: includes/layout-admin-edit-settings.php:5 includes/page-data-post.php:376
+#: includes/page-data-post.php:437 includes/page-data-site.php:46
 #: includes/page-data-site.php:109
 msgid "Type"
 msgstr ""
@@ -350,8 +350,8 @@ msgid "Relationship"
 msgstr ""
 
 #: extensions/acf/classes/class-fl-theme-builder-acf.php:157
-#: includes/page-data-archive.php:53 includes/page-data-post.php:523
-#: includes/page-data-post.php:540 includes/page-data-site.php:201
+#: includes/page-data-archive.php:53 includes/page-data-post.php:529
+#: includes/page-data-post.php:546 includes/page-data-site.php:201
 msgid "Key"
 msgstr ""
 
@@ -664,43 +664,43 @@ msgid "Display Type"
 msgstr ""
 
 #: extensions/acf/includes/page-data-acf.php:386
-#: includes/page-data-post.php:373 includes/page-data-site.php:49
+#: includes/page-data-post.php:379 includes/page-data-site.php:49
 msgid "Display Name"
 msgstr ""
 
 #: extensions/acf/includes/page-data-acf.php:387
-#: includes/page-data-post.php:374 includes/page-data-site.php:50
+#: includes/page-data-post.php:380 includes/page-data-site.php:50
 msgid "First Name"
 msgstr ""
 
 #: extensions/acf/includes/page-data-acf.php:388
-#: includes/page-data-post.php:375 includes/page-data-site.php:51
+#: includes/page-data-post.php:381 includes/page-data-site.php:51
 msgid "Last Name"
 msgstr ""
 
 #: extensions/acf/includes/page-data-acf.php:389
-#: includes/page-data-post.php:376 includes/page-data-site.php:52
+#: includes/page-data-post.php:382 includes/page-data-site.php:52
 msgid "First &amp; Last Name"
 msgstr ""
 
 #: extensions/acf/includes/page-data-acf.php:390
-#: includes/page-data-post.php:377 includes/page-data-site.php:53
+#: includes/page-data-post.php:383 includes/page-data-site.php:53
 msgid "Last, First Name"
 msgstr ""
 
 #: extensions/acf/includes/page-data-acf.php:391
-#: includes/page-data-post.php:378 includes/page-data-site.php:54
+#: includes/page-data-post.php:384 includes/page-data-site.php:54
 msgid "Nickname"
 msgstr ""
 
 #: extensions/acf/includes/page-data-acf.php:392
-#: includes/page-data-post.php:379 includes/page-data-site.php:55
+#: includes/page-data-post.php:385 includes/page-data-site.php:55
 msgid "Username"
 msgstr ""
 
 #: extensions/acf/includes/page-data-acf.php:397
-#: includes/page-data-post.php:322 includes/page-data-post.php:384
-#: includes/page-data-post.php:453 includes/page-data-site.php:60
+#: includes/page-data-post.php:328 includes/page-data-post.php:390
+#: includes/page-data-post.php:459 includes/page-data-site.php:60
 #: includes/page-data-site.php:131
 msgid "Link"
 msgstr ""
@@ -711,8 +711,8 @@ msgstr ""
 #: includes/layout-admin-edit-settings.php:57
 #: includes/layout-admin-edit-settings.php:70
 #: includes/layout-admin-edit-settings.php:83 includes/page-data-post.php:226
-#: includes/page-data-post.php:302 includes/page-data-post.php:325
-#: includes/page-data-post.php:387 includes/page-data-post.php:456
+#: includes/page-data-post.php:308 includes/page-data-post.php:331
+#: includes/page-data-post.php:393 includes/page-data-post.php:462
 #: includes/page-data-site.php:63 includes/page-data-site.php:134
 msgid "Yes"
 msgstr ""
@@ -723,33 +723,33 @@ msgstr ""
 #: includes/layout-admin-edit-settings.php:58
 #: includes/layout-admin-edit-settings.php:71
 #: includes/layout-admin-edit-settings.php:84 includes/page-data-post.php:227
-#: includes/page-data-post.php:303 includes/page-data-post.php:326
-#: includes/page-data-post.php:388 includes/page-data-post.php:457
+#: includes/page-data-post.php:309 includes/page-data-post.php:332
+#: includes/page-data-post.php:394 includes/page-data-post.php:463
 #: includes/page-data-site.php:64 includes/page-data-site.php:135
 msgid "No"
 msgstr ""
 
 #: extensions/acf/includes/page-data-acf.php:408
-#: includes/page-data-post.php:395 includes/page-data-post.php:464
+#: includes/page-data-post.php:401 includes/page-data-post.php:470
 msgid "Link to the archive or website for this author."
 msgstr ""
 
 #: extensions/acf/includes/page-data-acf.php:412
-#: includes/page-data-post.php:399 includes/page-data-post.php:468
+#: includes/page-data-post.php:405 includes/page-data-post.php:474
 #: includes/page-data-site.php:75 includes/page-data-site.php:146
 msgid "Link Type"
 msgstr ""
 
 #: extensions/acf/includes/page-data-acf.php:415
-#: includes/page-data-post.php:402 includes/page-data-post.php:434
-#: includes/page-data-post.php:471 includes/page-data-site.php:78
+#: includes/page-data-post.php:408 includes/page-data-post.php:440
+#: includes/page-data-post.php:477 includes/page-data-site.php:78
 #: includes/page-data-site.php:112 includes/page-data-site.php:149
 msgid "Post Archive"
 msgstr ""
 
 #: extensions/acf/includes/page-data-acf.php:416
-#: includes/page-data-post.php:403 includes/page-data-post.php:435
-#: includes/page-data-post.php:472 includes/page-data-site.php:79
+#: includes/page-data-post.php:409 includes/page-data-post.php:441
+#: includes/page-data-post.php:478 includes/page-data-site.php:79
 #: includes/page-data-site.php:113 includes/page-data-site.php:150
 msgid "Website"
 msgstr ""
@@ -1961,7 +1961,7 @@ msgstr ""
 
 #: extensions/woocommerce/includes/page-data-woocommerce.php:191
 #: includes/page-data-post.php:186 includes/page-data-post.php:246
-#: includes/page-data-post.php:477 includes/page-data-post.php:498
+#: includes/page-data-post.php:483 includes/page-data-post.php:504
 #: includes/page-data-site.php:155 includes/page-data-site.php:176
 msgid "Size"
 msgstr ""
@@ -2287,7 +2287,7 @@ msgstr ""
 msgid "Alt Text"
 msgstr ""
 
-#: includes/page-data-post.php:223 includes/page-data-post.php:299
+#: includes/page-data-post.php:223 includes/page-data-post.php:305
 msgid "Linked"
 msgstr ""
 
@@ -2295,7 +2295,7 @@ msgstr ""
 msgid "Link the image to the post."
 msgstr ""
 
-#: includes/page-data-post.php:251 includes/page-data-post.php:506
+#: includes/page-data-post.php:251 includes/page-data-post.php:512
 #: includes/page-data-site.php:184
 msgid "Default Image"
 msgstr ""
@@ -2317,76 +2317,80 @@ msgstr ""
 msgid "Use Separator"
 msgstr ""
 
-#: includes/page-data-post.php:294 modules/fl-post-info/fl-post-info.php:166
+#: includes/page-data-post.php:290
+msgid "Div / Spans"
+msgstr ""
+
+#: includes/page-data-post.php:300 modules/fl-post-info/fl-post-info.php:166
 #: modules/fl-post-info/fl-post-info.php:210
 msgid "Separator"
 msgstr ""
 
-#: includes/page-data-post.php:295 modules/fl-post-info/fl-post-info.php:167
+#: includes/page-data-post.php:301 modules/fl-post-info/fl-post-info.php:167
 msgid ", "
 msgstr ""
 
-#: includes/page-data-post.php:305
+#: includes/page-data-post.php:311
 msgid "Link terms to their archive page."
 msgstr ""
 
-#: includes/page-data-post.php:313
+#: includes/page-data-post.php:319
 msgid "Comments Number"
 msgstr ""
 
-#: includes/page-data-post.php:328
+#: includes/page-data-post.php:334
 msgid "Link the comments text to the comments section for this post."
 msgstr ""
 
-#: includes/page-data-post.php:332 modules/fl-post-info/fl-post-info.php:131
+#: includes/page-data-post.php:338 modules/fl-post-info/fl-post-info.php:131
 msgid "No Comments Text"
 msgstr ""
 
-#: includes/page-data-post.php:333 modules/fl-post-info/fl-post-info.php:132
+#: includes/page-data-post.php:339 modules/fl-post-info/fl-post-info.php:132
 msgid "No Comments"
 msgstr ""
 
-#: includes/page-data-post.php:337 modules/fl-post-info/fl-post-info.php:136
+#: includes/page-data-post.php:343 modules/fl-post-info/fl-post-info.php:136
 msgid "One Comment Text"
 msgstr ""
 
-#: includes/page-data-post.php:338 modules/fl-post-info/fl-post-info.php:137
+#: includes/page-data-post.php:344 modules/fl-post-info/fl-post-info.php:137
 msgid "1 Comment"
 msgstr ""
 
-#: includes/page-data-post.php:342 modules/fl-post-info/fl-post-info.php:141
+#: includes/page-data-post.php:348 modules/fl-post-info/fl-post-info.php:141
 msgid "Comments Text"
 msgstr ""
 
-#: includes/page-data-post.php:343 modules/fl-post-info/fl-post-info.php:142
+#: includes/page-data-post.php:349 modules/fl-post-info/fl-post-info.php:142
 msgid "% Comments"
 msgstr ""
 
-#: includes/page-data-post.php:351
+#: includes/page-data-post.php:357
 msgid "Comments URL"
 msgstr ""
 
-#: includes/page-data-post.php:361
+#: includes/page-data-post.php:367
 msgid "Author Name"
 msgstr ""
 
-#: includes/page-data-post.php:412 modules/fl-author-bio/fl-author-bio.php:14
+#: includes/page-data-post.php:418 modules/fl-author-bio/fl-author-bio.php:14
 msgid "Author Bio"
 msgstr ""
 
-#: includes/page-data-post.php:422
+#: includes/page-data-post.php:428
 msgid "Author URL"
 msgstr ""
 
-#: includes/page-data-post.php:444 includes/page-data-post.php:489
+#: includes/page-data-post.php:450 includes/page-data-post.php:495
 msgid "Author Picture"
 msgstr ""
 
-#: includes/page-data-post.php:514
+#: includes/page-data-post.php:520
 msgid "Author Meta"
 msgstr ""
 
-#: includes/page-data-post.php:531
+#: includes/page-data-post.php:537
 msgid "Post Custom Field"
 msgstr ""
 
@@ -2634,7 +2638,7 @@ msgctxt "Page 1 of 5"
 msgid "of"
 msgstr ""
 
-#: classes/class-fl-page-data-post.php:55
+#: classes/class-fl-page-data-post.php:58
 #. translators: If your word count is based on single characters (e.g. East
 #. Asian characters), enter 'characters_excluding_spaces' or
 #. 'characters_including_spaces'. Otherwise, enter 'words'. Do not translate

@@ -1,3 +1,18 @@
+<h4>1.2.3.4 - 04/30/2019</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Fixed WP_Error if no taxonomy exists when using list_terms.</li>
+	<li>Fixed shrink header image when WP Rocket lazy load is enabled.</li>
+	<li>Enabled WooCommerce JSON+LD for single product layouts.</li>
+	<li>Allow trim to be disabled via fl_theme_builder_get_excerpt filter.</li>
+</ul>
+
+<h4>1.2.3.2 - 04/26/2019</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Fixed bug in terms_list shortcode.</li>
+</ul>
+
 <h4>1.2.3.1 - 04/26/2019</h4>
 <p><strong>Hot Fix</strong></p>
 <ul>

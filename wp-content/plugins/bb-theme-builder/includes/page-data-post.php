@@ -284,9 +284,15 @@ FLPageData::add_post_property_settings_fields( 'terms_list', array(
 		'label'   => __( 'Layout', 'fl-theme-builder' ),
 		'default' => 'no',
 		'options' => array(
-			'no' => __( 'Use Separator', 'fl-theme-builder' ),
-			'ol' => __( 'Ordered List', 'fl-theme-builder' ),
-			'ul' => __( 'Unordered List', 'fl-theme-builder' ),
+			'no'  => __( 'Use Separator', 'fl-theme-builder' ),
+			'ol'  => __( 'Ordered List', 'fl-theme-builder' ),
+			'ul'  => __( 'Unordered List', 'fl-theme-builder' ),
+			'div' => __( 'Div / Spans', 'fl-theme-builder' ),
+		),
+		'toggle'  => array(
+			'no' => array(
+				'fields' => array( 'seperator' ),
+			),
 		),
 	),
 	'separator' => array(

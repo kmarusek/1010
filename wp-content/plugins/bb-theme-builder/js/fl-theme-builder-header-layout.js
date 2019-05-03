@@ -264,6 +264,7 @@
 					className = 'fl-node-' + node + '-img-' + i;
 
 				image.addClass( className );
+				image.attr( 'data-no-lazy', 1 );
 				styles += '.' + className + ' { max-height: ' + height + 'px }';
 			} );
 
