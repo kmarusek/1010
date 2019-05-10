@@ -270,7 +270,7 @@ function exit_loop() {
 function skeletonwarrior_custom_login_image() {
     echo "<style>
     body.login #login h1 a {
-        background: url('".get_bloginfo('template_url')."/assets/img/login_logo.svg') 8px 0 no-repeat transparent;
+        background: url('".get_stylesheet_directory_uri()."/assets/img/login_logo.svg') 8px 0 no-repeat transparent;
         background-position: center center;
         background-size:50%;
         height:150px;
