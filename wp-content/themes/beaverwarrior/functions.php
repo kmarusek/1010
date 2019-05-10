@@ -2,6 +2,7 @@
 // Defines
 define( 'FL_CHILD_THEME_DIR', get_stylesheet_directory() );
 define( 'FL_CHILD_THEME_URL', get_stylesheet_directory_uri() );
+define( 'FL_CHILD_THEME_URL_RELATIVE', get_stylesheet_directory_uri_relative() );
 define( 'BEAVER_BUILDER_CACHE_BUST_QUERY_STRINGS', 
     array(
         '(.*)fl_builder(.*)',
@@ -433,6 +434,16 @@ function beaver_warrior_clear_style_cache(){
     // Remove layouts and partials
     exec("rm wp-content/uploads/bb-plugin/cache/$current_post_id-*");
     exec("rm wp-content/uploads/beaverwarrior/*");
+}
+
+/**
+ * Function used to get the relative path to the theme director from the server root
+ *
+ * @return string The path
+ */
+function get_stylesheet_directory_uri_relative(){
+    // Start by getting the stylesheet directory
+    return str_replace($_SERVER['DOCUMENT_ROOT'], '', get_stylesheet_directory() );
 }
 
 /**

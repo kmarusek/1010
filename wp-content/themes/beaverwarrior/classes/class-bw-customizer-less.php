@@ -878,6 +878,7 @@ final class BWCustomizerLess {
 		// Replace {FL_THEME_URL} placeholder.
 		$css = str_replace( '{FL_THEME_URL}', FL_THEME_URL, $css );
 		$css = str_replace( '{FL_CHILD_THEME_URL}', FL_CHILD_THEME_URL, $css );
+		$css = str_replace( '{FL_CHILD_THEME_URL_RELATIVE}', FL_CHILD_THEME_URL_RELATIVE, $css );
 
 		// Compile LESS
 		$css = self::_compile_less( $css );
