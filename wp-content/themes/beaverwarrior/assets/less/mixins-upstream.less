@@ -1,19 +1,21 @@
 /**
  * Mixin to add flexbox to any element.
  */
- .flexbox() {
+.flexbox() {
     display: -webkit-box;
     display: flex;
-    flex-direction: row;
+        flex-direction: row;
+
     box-sizing: border-box;
+
     -webkit-box-flex: 0;
-    -moz-box-flex: 0;
-    -ms-box-flex: 0 1 auto;
+       -moz-box-flex: 0;
+        -ms-box-flex: 0 1 auto;
     -ms-flex: 0 1 auto;
-    flex: 0 1 auto;
+        flex: 0 1 auto;
     -ms-flex-direction: row;
     -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
+        flex-wrap: wrap;
     align-items: center;
     justify-content: center;
 }
@@ -21,42 +23,42 @@
 /**
  * Mixin used to reverse the order of the row.
  */
- .flexboxReverseOrderRow() {
+.flexboxReverseOrderRow() {
     flex-direction: row-reverse;
 }
 
 /**
  * Mixin used to reverse the order of the column.
  */
- .flexboxReverseOrderColumn() {
+.flexboxReverseOrderColumn() {
     flex-direction: column-reverse;
 }
 
 /**
  * Mixin used to justify flexbox children to the left.
  */
- .flexboxJustifyLeft() {
+.flexboxJustifyLeft() {
     justify-content: flex-start;
 }
 
 /**
  * Mixin used to justify flexbox children to the right.
  */
- .flexboxJustifyRight() {
+.flexboxJustifyRight() {
     justify-content: flex-end;
 }
 
 /**
  * Mixin used to align flexbox children at the top.
  */
- .flexboxAlignTop() {
+.flexboxAlignTop() {
     align-self: flex-start;
 }
 
 /**
  * Mixin used to align flexbox children at the bottom.
  */
- .flexboxAlignBottom() {
+.flexboxAlignBottom() {
     align-self: flex-end;
 }
 
@@ -66,13 +68,24 @@
  * @param  {string} @iconUnicode The Unicode for the icon
  *
  */
- .fontAwesomeIcon(@iconUnicode){
-    display: inline-block;
+.fontAwesomeIcon(@iconUnicode) {
     font: normal normal normal 14px/1 FontAwesome;
     font-size: inherit;
+
+    display: inline-block;
+
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
-    &::before{
-        content: "\@{iconUnicode}";
+    &::before {
+        content: '\@{iconUnicode}';
+    }
+}
+
+
+.stickyHeader() {
+    .fl-builder-content[data-overlay="1"]:not(.fl-theme-builder-header-sticky) {
+        position:         sticky;
+        position: -webkit-sticky;
+        top: 0;
     }
 }
