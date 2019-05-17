@@ -81,7 +81,12 @@
     }
 }
 
-
+/**
+ * Mixin that can be used to ensure that the header is sticky. Put in a media query to
+ * apply only on mobile.   
+ *
+ * @return {string}
+ */
 .stickyHeader() {
     .fl-builder-content[data-overlay="1"]:not(.fl-theme-builder-header-sticky) {
         position:         sticky;
