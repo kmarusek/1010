@@ -493,7 +493,6 @@ FLBuilder::register_module(
 							'help'    => __( 'Enter the value to limit post content words. Keep it empty for default excerpt', 'uabb' ),
 							'default' => '18',
 							'slider'  => true,
-							'units'   => array( 'px' ),
 						),
 					),
 				),

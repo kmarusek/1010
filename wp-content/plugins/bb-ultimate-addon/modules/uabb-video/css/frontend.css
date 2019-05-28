@@ -9,6 +9,9 @@
 .uabb-aspect-ratio-3_2 .uabb-video__outer-wrap {
 	padding-bottom: 66.6666%;
 }
+.uabb-aspect-ratio-1_1 .uabb-video__outer-wrap {
+	padding-bottom: 100%;
+}
 
 .uabb-video__outer-wrap {
 	position: relative;

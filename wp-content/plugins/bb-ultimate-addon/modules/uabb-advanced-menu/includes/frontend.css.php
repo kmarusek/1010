@@ -1102,43 +1102,44 @@ if ( ! $version_bb_check ) {
 
 /* Toggle button */
 <?php if ( isset( $settings->creative_menu_mobile_toggle ) && 'expanded' != $settings->creative_menu_mobile_toggle ) { ?>
-
 	.fl-node-<?php echo $id; ?> .uabb-creative-menu-mobile-toggle {
 		<?php
 		if ( ! empty( $settings->creative_menu_mobile_toggle_color ) ) {
 			echo 'color: #' . $settings->creative_menu_mobile_toggle_color . ';';
 		}
-		if ( ! $version_bb_check ) {
-			if ( isset( $settings->creative_menu_link_text_transform ) ) {
-				echo 'text-transform: ' . $settings->creative_menu_link_text_transform . ';';
-			}
-			if ( 'Default' != $settings->creative_menu_link_font_family['family'] ) {
-				?>
-				<?php FLBuilderFonts::font_css( $settings->creative_menu_link_font_family ); ?>
-			<?php } ?>
-			<?php if ( 'custom' == $settings->creative_menu_link_font_size && $settings->creative_menu_link_font_size_custom ) { ?>
-				font-size: <?php echo $settings->creative_menu_link_font_size_custom; ?>px;
-			<?php } ?>
-			<?php
-		} else {
-			if ( 'custom' == $settings->creative_menu_link_typo ) {
-				if ( isset( $settings->creative_submenu_link_font_typo['text_transform'] ) ) {
-					echo 'text-transform: ' . $settings->creative_submenu_link_font_typo['text_transform'] . ';';
-				}
-				if ( isset( $settings->creative_submenu_link_font_typo['font_family'] ) ) {
-					echo 'font-family:' . $settings->creative_submenu_link_font_typo['font_family'] . ';';
-				}
-				if ( isset( $settings->creative_submenu_link_font_typo['font_weight'] ) ) {
-					echo 'weight:' . $settings->creative_submenu_link_font_typo['font_weight'] . ';';
-				}
-				if ( isset( $settings->creative_menu_link_typo['font_size']['length'] ) ) {
-					echo 'font-size:' . $settings->creative_menu_link_typo['font_size']['length'] . 'px;';
-				}
-			}
-		}
 		?>
-
 	}
+<?php if ( ! $version_bb_check ) { ?>
+	.fl-node-<?php echo $id; ?> .uabb-creative-menu-mobile-toggle {
+		<?php
+		if ( isset( $settings->creative_menu_link_text_transform ) ) {
+			echo 'text-transform: ' . $settings->creative_menu_link_text_transform . ';';
+		}
+		if ( 'Default' != $settings->creative_menu_link_font_family['family'] ) {
+			?>
+			<?php FLBuilderFonts::font_css( $settings->creative_menu_link_font_family ); ?>
+		<?php } ?>
+		<?php if ( 'custom' == $settings->creative_menu_link_font_size && $settings->creative_menu_link_font_size_custom ) { ?>
+			font-size: <?php echo $settings->creative_menu_link_font_size_custom; ?>px;
+		<?php
+}
+		?>
+	}
+<?php
+} else {
+	if ( 'custom' == $settings->creative_menu_link_typo ) {
+		if ( class_exists( 'FLBuilderCSS' ) ) {
+			FLBuilderCSS::typography_field_rule(
+				array(
+					'settings'     => $settings,
+					'setting_name' => 'creative_menu_link_font_typo',
+					'selector'     => ".fl-node-$id .uabb-creative-menu-mobile-toggle",
+				)
+			);
+		}
+	}
+}
+?>
 	.fl-node-<?php echo $id; ?> .uabb-creative-menu-mobile-toggle-container,
 	.fl-node-<?php echo $id; ?> .uabb-creative-menu-mobile-toggle-container > .uabb-creative-menu-mobile-toggle.text {
 		text-align: <?php echo $settings->creative_menu_navigation_alignment; ?>;

@@ -331,6 +331,22 @@ class UABBVideo extends FLBuilderModule {
 	}
 
 	/**
+	 * Returns custom thumbnails alt values.
+	 *
+	 * @since 1.16.6
+	 * @access public
+	 * @method get_alt_tag
+	 */
+	public function get_alt_tag() {
+		$alt = '';
+		if ( isset( $this->settings->image_overlay ) ) {
+			$photo_data = FLBuilderPhoto::get_attachment_data( $this->settings->image_overlay );
+			$alt        = ( isset( $photo_data->alt ) && '' !== $photo_data->alt ) ? "alt ='$photo_data->alt'" : '';
+		}
+		return apply_filters( 'uabb_video_alt_tag', $alt );
+	}
+
+	/**
 	 * Returns Vimeo Headers.
 	 *
 	 * @param string $id Video ID.
@@ -338,6 +354,7 @@ class UABBVideo extends FLBuilderModule {
 	 * @access public
 	 */
 	public function get_header_wrap( $id ) {
+
 		if ( 'vimeo' != $this->settings->video_type ) {
 			return;
 		}
@@ -386,11 +403,10 @@ class UABBVideo extends FLBuilderModule {
 		$id          = $this->get_video_id();
 		$embed_param = $this->get_embed_params();
 		$src         = $this->get_url( $embed_param, $id );
-
 		if ( 'yes' == $this->settings->video_double_click ) {
-			$device = 'false';
+			$device = false;
 		} else {
-			$device = ( false !== ( stripos( $_SERVER['HTTP_USER_AGENT'], 'iPhone' ) ) ? 'true' : 'false' );
+			$device = ( false !== ( stripos( $_SERVER['HTTP_USER_AGENT'], 'iPhone' ) ) ? true : false );
 		}
 
 		if ( 'youtube' == $this->settings->video_type ) {
@@ -418,7 +434,7 @@ class UABBVideo extends FLBuilderModule {
 				<?php $this->get_header_wrap( $id ); ?>
 				<div class="uabb-video-inner-wrap">
 					<div class="uabb-video__play" data-src="<?php echo $src; ?>">
-						<img class="uabb-video__thumb" src="<?php echo $this->get_video_thumb( $id ); ?>"/>
+						<img class="uabb-video__thumb" src="<?php echo $this->get_video_thumb( $id ); ?>" <?php echo $this->get_alt_tag(); ?> />
 						<div class="uabb-video__play-icon <?php echo ( 'icon' == $this->settings->play_source ) ? $this->settings->play_icon : ''; ?> uabb-animation-<?php echo $this->settings->hover_animation; ?>">
 							<?php echo $html; ?>
 						</div>

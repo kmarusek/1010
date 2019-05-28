@@ -283,6 +283,8 @@ if ( ! class_exists( 'BB_Ultimate_Addon_Helper' ) ) {
 				'uabb-row-gradient'  => 'Row Gradient Background',
 				'uabb-col-gradient'  => 'Column Gradient Background',
 				'uabb-col-shadow'    => 'Column Shadow',
+				'uabb-col-particle' =>  'Column Particle Backgrounds',
+				'uabb-row-particle' => 	'Row Particle Backgrounds',
 			);
 			return $extenstions_array;
 		}

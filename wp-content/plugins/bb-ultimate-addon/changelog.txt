@@ -1,4 +1,22 @@
-Version 1.16.5 - Monday, 22th April 2019
+Version 1.17.1 - Tuesday, 28th May 2019
+- Fixed: Gravity Form Styler - Resolved Checkbox Background color issue when the Background color is set to RGB
+- Fixed: Particle Backgrounds - Resolved JavaScript error on IE browser
+
+Version 1.17.0 - Monday, 20th May 2019
+- New: Introduced Column Particle Backgrounds
+- New: Introduced Row Particle Backgrounds
+- Improvement: Added Font Awesome-5 support to Carousel Layout of all modules
+- Improvement: Video - Added ALT tag for thumbnail
+- Improvement: Video - Added aspect ratio of 1:1
+- Fixed: Advanced Menu - Resolved Toggle menu label Typography issue
+- Fixed: Heading - Fixed Heading Font weight issue when <strong> tag used in heading content
+- Fixed: Modal Popup - Resolved Thumbnail issue for Vimeo video type
+- Fixed: Photo Gallery - Fixed Filterable Tab not clickable when category name is multiple words
+- Fixed: Subscribe Form - Resolved the Terms and Conditions Checkbox not clicking issue when using same Saved Module multiple times on the same page
+- Fixed: Video - Fixed Enable Double Click on Mobile setting not working correctly
+- Fixed: Video Gallery - Resolved Light Box Navigation issue with multiple Video Gallery on the same page
+
+Version 1.16.5 - Monday, 22nd April 2019
 - Improvement: Photo Gallery - Added Filterable Photo Gallery feature
 - Improvement: Image Carousel - Added nofollow settings option
 - Fixed: Advanced Tabs - Resolved Content Alignment issue

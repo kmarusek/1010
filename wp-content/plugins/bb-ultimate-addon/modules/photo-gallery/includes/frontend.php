@@ -19,9 +19,17 @@ $filter_data = json_encode( array_keys( $filters ) );
 	<div class="uabb-module-content uabb-photo-gallery uabb-gallery-grid<?php echo $settings->grid_column; ?> <?php echo ( 'none' != $settings->hover_effects ) ? $settings->hover_effects : ''; ?> <?php echo ( 'yes' == $settings->filterable_gallery_enable ) ? 'uabb-photo-gallery-filter-grid' : ''; ?>" data-all-filters=<?php echo ( isset( $filter_data ) ) ? $filter_data : ''; ?> >
 <?php
 foreach ( $module->get_photos() as $photo ) :
-	$tags     = $photo->category;
-	$cat_slug = strtolower( str_replace( ',', ' ', $tags ) );
-?>
+
+	$tags = explode( ',', strtolower( $photo->category ) );
+
+	$tags = array_map( 'trim', $tags );
+
+	$string = str_replace( ' ', '-', $tags );
+
+	$string = preg_replace( '/[^A-Za-z0-9\-]/', '', $string );
+
+	$cat_slug = implode( ' ', $string );
+	?>
 		<div class="uabb-photo-gallery-item <?php echo ( isset( $cat_slug ) ) ? $cat_slug : ''; ?> uabb-photo-item-grid">
 			<div class="uabb-photo-gallery-content <?php echo ( ( 'none' != $settings->click_action ) && ! empty( $photo->link ) ) ? 'uabb-photo-gallery-link' : ''; ?>">	
 
@@ -86,8 +94,15 @@ foreach ( $module->get_photos() as $photo ) :
 		<div class="uabb-grid-sizer"></div>
 		<?php foreach ( $module->get_photos() as $photo ) : ?>
 			<?php
-				$tags     = $photo->category;
-				$cat_slug = strtolower( str_replace( ',', ' ', $tags ) );
+			$tags = explode( ',', strtolower( $photo->category ) );
+
+			$tags = array_map( 'trim', $tags );
+
+			$string = str_replace( ' ', '-', $tags );
+
+			$string = preg_replace( '/[^A-Za-z0-9\-]/', '', $string );
+
+			$cat_slug = implode( ' ', $string );
 			?>
 		<div class="uabb-masonary-item <?php echo ( isset( $cat_slug ) ) ? $cat_slug : ''; ?> uabb-photo-item">
 			<div class="uabb-photo-gallery-content <?php echo ( ( 'none' != $settings->click_action ) && ! empty( $photo->link ) ) ? 'uabb-photo-gallery-link' : ''; ?>">

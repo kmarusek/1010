@@ -429,16 +429,34 @@ class UABBPhotoGalleryModule extends FLBuilderModule {
 			$cat_arr = explode( ',', $cat );
 
 			foreach ( $cat_arr as $value ) {
-				$cat      = trim( $value );
-				$cat_slug = strtolower( str_replace( ' ', '-', $cat ) );
-
+				$cat         = trim( $value );
+				$cat_slug    = strtolower( str_replace( ' ', '-', $cat ) );
 				$image_cat[] = $cat_slug;
 				if ( ! empty( $cat ) ) {
-					$cat_filter[ $cat_slug ] = $cat;
+					$cat_filter[  $this->clean( $cat_slug ) ] = $cat;
 				}
 			}
 		}
 		return $cat_filter;
+	}
+
+	/**
+	 * Clean string - Removes spaces and special chars.
+	 *
+	 * @since 1.16.6
+	 * @param String $string String to be cleaned.
+	 * @return String.
+	 */
+	public function clean( $string ) {
+
+		// Replaces all spaces with hyphens.
+		$string = str_replace( ' ', '-', $string );
+
+		// Removes special chars.
+		$string = preg_replace( '/[^A-Za-z0-9\-]/', '', $string );
+
+		// Turn into lower case characters.
+		return strtolower( $string );
 	}
 }
 

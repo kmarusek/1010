@@ -367,7 +367,7 @@ FLBuilder::register_module(
 							'responsive' => true,
 							'preview'    => array(
 								'type'      => 'css',
-								'selector'  => '.fl-module-content.fl-node-content .uabb-heading .uabb-heading-text, .uabb-heading, .uabb-heading * ',
+								'selector'  => '.fl-module-content.fl-node-content .uabb-heading',
 								'important' => true,
 							),
 						),

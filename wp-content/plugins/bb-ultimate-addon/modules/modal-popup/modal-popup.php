@@ -163,11 +163,9 @@ class ModalPopupModule extends FLBuilderModule {
 			$vid_id = preg_replace( '/[^\/]+[^0-9]|(\/)/', '', rtrim( $url, '/' ) );
 			$thumb  = '';
 			if ( '' !== $vid_id && 0 !== $vid_id ) {
-				if ( file_exists( "https://vimeo.com/api/v2/video/$vid_id.php" ) ) {
-					$vimeo = unserialize( file_get_contents( "https://vimeo.com/api/v2/video/$vid_id.php" ) );
+					$vimeo = unserialize( @file_get_contents( "https://vimeo.com/api/v2/video/$vid_id.php" ) );// @codingStandardsIgnoreStart
 					$thumb = $vimeo[0]['thumbnail_large'];
-				}
-				$html .= '<div class="uabb-modal-iframe uabb-video-player" data-src="vimeo" data-id="' . $vid_id . '" data-append="?title=0&byline=0&portrait=0&badge=0" data-thumb="' . $thumb . '"></div>';
+				$html     .= '<div class="uabb-modal-iframe uabb-video-player" data-src="vimeo" data-id="' . $vid_id . '" data-append="?title=0&byline=0&portrait=0&badge=0" data-thumb="' . $thumb . '"></div>';
 			}
 		}
 		$html .= '</div>';

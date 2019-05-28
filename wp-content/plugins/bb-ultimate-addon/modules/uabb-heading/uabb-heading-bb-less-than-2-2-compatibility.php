@@ -343,7 +343,7 @@ FLBuilder::register_module(
 							'label'   => __( 'Font', 'uabb' ),
 							'preview' => array(
 								'type'     => 'font',
-								'selector' => '.fl-module-content.fl-node-content .uabb-heading .uabb-heading-text, .uabb-heading, .uabb-heading *',
+								'selector' => '.fl-module-content.fl-node-content .uabb-heading',
 							),
 						),
 						'font_size_unit'        => array(
