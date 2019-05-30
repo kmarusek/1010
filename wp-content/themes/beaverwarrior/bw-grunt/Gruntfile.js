@@ -187,12 +187,14 @@ module.exports = function(grunt) {
         for ( let i=0; i<custom_modules.length; i++){
             // Get the current moduke
             let current_module_path = custom_modules[i],
-            // The prebuild file path
-            prebuilt_js_file_path = '..'  + current_module_path + 'js/frontend.prebuilt.js';
+            // The prebuilt path
+            prebuilt_js_file_path = '..'  + current_module_path + 'js/frontend.prebuilt.js',
+            // The file path
+            frontend_js_file_path = '..'  + current_module_path + 'js/frontend.js';
             // Only proceed if the JS file exists
-            if ( grunt.file.exists( prebuilt_js_file_path ) ){
+            if ( grunt.file.exists( frontend_js_file_path ) ){
                 // Add the item
-                return_object[ '..'  + current_module_path + 'js/frontend.js' ]  = prebuilt_js_file_path;
+                return_object[ frontend_js_file_path ]  = frontend_js_file_path;
             }
         }
         // Return the array
@@ -218,6 +220,33 @@ module.exports = function(grunt) {
         return return_array;
     }
 
+    /**
+     * Get the object used for the import task. Basically an associative array 
+     * of dist/src files.
+     *
+     * @return {object} The import object
+     */
+    function get_import_object(){
+        // Our return
+        let return_object = {};
+        // Add all of the custom modules
+        for ( let i=0; i<custom_modules.length; i++){
+            // Get the current module
+            let current_module_path = custom_modules[i],
+            // The prebuilt path
+            prebuilt_js_file_path = '..'  + current_module_path + 'js/frontend.prebuilt.js',
+            // The file path
+            frontend_js_file_path = '..'  + current_module_path + 'js/frontend.js';
+            // Only proceed if the JS file exists
+            if ( grunt.file.exists( prebuilt_js_file_path ) ){
+                // Add the item
+                return_object[ frontend_js_file_path ] = prebuilt_js_file_path;
+            }
+        }
+        // Return the array
+        return return_object
+    }
+
     // Get the LESS object
     let less_items = get_less_object(),
     // Get the uglify items
@@ -230,8 +259,11 @@ module.exports = function(grunt) {
     js_hint_array  = get_js_hint_array(),
     // Get the JS Hint array
     css_min_object = get_css_min_object();
-    // Get the babel array
+    // Get the babel object
     js_babel_object = get_babel_object();
+    // Get the import object
+    js_import_object = get_import_object();
+    uglify_items.options = { mangle: {keep_fnames : true} };
     // The grunt configuration
     grunt.initConfig({
         babel: {
@@ -298,6 +330,14 @@ module.exports = function(grunt) {
                     debounceDelay: 750
                 }
             },
+            fl_bw_module_frontend_superclass : {
+                files: ['../assets/js/class-bw-module-frontend.js'],
+                tasks: ['buildJS'],
+                options: {
+                    livereload : true,
+                    debounceDelay: 750
+                }
+            },
             component_js : {
                 files: ['../components/**/*.prebuilt.js'],
                 tasks: ['buildJS'],
@@ -344,7 +384,13 @@ module.exports = function(grunt) {
                 src: "library/dist/js/**/*.js"
             },
         },
-        copy: copy_object
+        copy: copy_object,
+        import: {
+            options: {},
+            dist: {
+                files : js_import_object
+            }
+        }
     });
 
     grunt.loadNpmTasks('grunt-contrib-less');
@@ -359,9 +405,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-comment-toggler');
     grunt.loadNpmTasks('grunt-scss2less');
     grunt.loadNpmTasks('grunt-babel');
+    grunt.loadNpmTasks('grunt-import');
 
     grunt.task.registerTask('buildDev',  ['buildCSS', 'buildJS']);
     grunt.task.registerTask('buildCSS',  ['scss2less', 'less']);
-    grunt.task.registerTask('buildJS',   ['babel','jshint']);
+    grunt.task.registerTask('buildJS',   ['import','babel']);
     grunt.task.registerTask('buildProd', ['buildJS','uglify','buildCSS','cssmin']);
 };

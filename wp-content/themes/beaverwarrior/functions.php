@@ -516,6 +516,24 @@ function register_custom_image_size( string $name, int $width, int $height, bool
     add_image_size( $name . '_2x', $width * 2, $height * 2, $crop );
 }
 
+/**
+ * Function to enqueue Sentry.io (used by the custom module frontend.js super class).
+ *
+ * @return void
+ */
+function beaver_warrior_add_sentry_io(){
+    wp_register_script( 'sentry-io', 'https://browser.sentry-cdn.com/5.2.0/bundle.min.js');
+    wp_localize_script(
+        'sentry-io',
+        'sentry_data',
+        array(
+            'url'         => get_site_url(),
+            'environment' => isset( $_ENV['PANTHEON_ENVIRONMENT'] ) ? $_ENV['PANTHEON_ENVIRONMENT'] : isset($_ENV['SERVER_NAME'] ) ? $_ENV['SERVER_NAME'] : ''
+        )
+    );
+    wp_enqueue_script( 'sentry-io' );
+}
+
 add_action("fl_theme_compile_less_paths", "beaver_warrior_less_paths");
 
 // Theme Actions
@@ -530,3 +548,4 @@ add_action( 'customize_save_after',                      'BWCustomizerLess::save
 add_action( 'init' , 'beaver_warrior_huemor_dev_pack' );
 // Add the filter to make sure that rich-text styles are generiouslly applied to its children.
 add_filter( 'fl_builder_render_css', 'beaver_warrior_add_rich_text_wildcard_styles', 10, 4 );
+add_action( 'wp_enqueue_scripts', 'beaver_warrior_add_sentry_io');
