@@ -1,7 +1,7 @@
 <?php
 
 // Lottie fuels these animations (duh)
-wp_enqueue_script( 'lottie-web' );
+$module->enqueueLottie();
 // IF we're using the scroll based option, then add the Intersection Observer polyfill
 if ( $module->getModuleSettingScrollBasedAnimation() ){
     wp_enqueue_script( 'intersection-observer-polyfill' );

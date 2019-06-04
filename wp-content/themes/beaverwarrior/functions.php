@@ -150,6 +150,7 @@ function skeletonwarrior_enqueue_scripts() {
 
     // Lottie web
     wp_register_script('lottie-web', get_stylesheet_directory_uri() . '/assets/vendor/airbnb/lottie-web/lottie.min.js', array(), false, true );
+    wp_register_script('lottie-web-5-5-2', get_stylesheet_directory_uri() . '/assets/vendor/airbnb/lottie-web/lottie-5.5.2.min.js', array(), '5-5-2', true );
     
     wp_localize_script('scripts', 'scripts_data', apply_filters( 'bw_scripts_data', array() ) );
     wp_enqueue_script('scripts');

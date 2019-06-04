@@ -67,6 +67,26 @@ class BWAnimatedSVG extends BeaverWarriorFLModule {
     }
 
     /**
+     * Method used to enqueue a specific version of Lottie based on the type of animaiton.
+     *
+     * @return void
+     */
+    public function enqueueLottie(){
+        $module_json             = $this->getModuleSettingJSON();
+        $lottie_version_required = property_exists($module_json, 'v') ? $module_json->v : null;
+
+        switch ($lottie_version_required) {
+            case '5.5.2':
+            wp_enqueue_script('lottie-web-5-5-2');
+            break;
+
+            default:
+            wp_enqueue_script('lottie-web');
+            break;
+        }
+    }
+
+    /**
      * Method to get the new path for the assets in the JSON. This uses the supplied 
      * date to turn into a directory in WordPress.
      *
@@ -235,7 +255,7 @@ class BWAnimatedSVG extends BeaverWarriorFLModule {
                 // Get the image attachment metadata
                 $image_meta_data  = wp_get_attachment_metadata( $image_id );
                 // If the height or width do not match, throw a warning
-                if ( $set_image_width !== $image_meta_data['width'] || $set_image_height !== $image_meta_data['height'] ){
+                if ( isset($image_meta_data['width']) && $image_meta_data['height'] && ($set_image_width !== $image_meta_data['width'] || $set_image_height !== $image_meta_data['height']) ){
                     // Try to locate alternatives 
                     $attempt_to_locate_alternatives = true;
                     $original_image_name_array = explode( '.', $image_name );
