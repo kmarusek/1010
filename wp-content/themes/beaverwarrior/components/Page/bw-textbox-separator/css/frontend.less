@@ -1,0 +1,29 @@
+@import (reference) '../../../../assets/less/mixins-upstream';
+
+.fl-module-bw-textbox-separator {
+    position: relative;
+    .textbox-separator-container {
+        .flexbox();
+        &::before,
+        &::after {
+            display: block;
+
+            width: 100%;
+            height: auto;
+
+            content: '';
+
+            flex: 2 0 0;
+        }
+    }
+    .textbox {
+        display: inline-block;
+
+        margin: 0 auto;
+
+
+        .textbox-header {
+            margin: 0;
+        }
+    }
+}

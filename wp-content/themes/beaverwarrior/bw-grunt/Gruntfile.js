@@ -5,6 +5,7 @@ module.exports = function(grunt) {
     let custom_modules_upstream = [
     "/components/Animations/bw-animated-svg/",
     "/components/Page/bw-descriptive-list/",
+    "/components/Page/bw-textbox-separator/",
     "/components/SiteHeader/bw-navigation-popover/",
     "/components/SiteHeader/bw-woocommerce-icons/",
     "/components/Social/bw-social-icons/",
