@@ -1,0 +1,47 @@
+@import (reference) '../../../../assets/less/mixins-upstream';
+
+.fl-module-bw-woocommerce-icons {
+    .woocommerce-icon-container {
+        padding-left: 0;
+
+        list-style: none;
+
+        @include flexbox();
+    }
+    .woocommerce-icon {
+        position: relative;
+        a {
+            text-decoration: none;
+        }
+        .icon {
+            transition: color 250ms;
+        }
+        &:not(.woocommerce-icon-has-badge) .cart-icon-badge-container{
+            display: none;
+        }
+        &.woocommerce-icon-has-badge {
+            a {
+                .cart-icon-badge-container {
+                    position: absolute;
+                    top: -5px;
+                    right: -5px;
+
+                    width: 15px;
+                    height: 15px;
+
+                    text-align: center;
+
+                    border-radius: 100%;
+                    background-color: red;
+                    .cart-icon-badge {
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        bottom: 0;
+                        left: 0;
+                    }
+                }
+            }
+        }
+    }
+}

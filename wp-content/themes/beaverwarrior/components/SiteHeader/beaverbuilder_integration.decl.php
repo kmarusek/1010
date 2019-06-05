@@ -2,6 +2,7 @@
 
 // Register the menu popover module
 register_beaver_warrior_module( __DIR__ . '/bw-navigation-popover/bw-navigation-popover.php' );
+register_beaver_warrior_module( __DIR__ . '/bw-woocommerce-icons/bw-woocommerce-icons.php' );
 
 function beaverwarrior_load_SiteHeader_modules() {
     if (class_exists("FLBuilder") && class_exists('PPAdvancedMenu') ) {

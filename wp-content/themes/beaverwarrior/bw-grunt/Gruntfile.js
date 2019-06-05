@@ -6,6 +6,7 @@ module.exports = function(grunt) {
     "/components/Animations/bw-animated-svg/",
     "/components/Page/bw-descriptive-list/",
     "/components/SiteHeader/bw-navigation-popover/",
+    "/components/SiteHeader/bw-woocommerce-icons/",
     "/components/Social/bw-social-icons/",
     "/components/VideoPlayer/bw-video-player/"
     ],
