@@ -139,8 +139,17 @@ function get_template_layout($layout, $slug = null, $name = null, $args = array(
 function skeletonwarrior_enqueue_scripts() {
     //wp_register_style('main', get_stylesheet_directory_uri() . '/build/main.css', false, null, "all");
     wp_register_style('main', BWCustomizerLess::css_url(), array("bootstrap"), null, "all");
-    wp_register_script('scripts', get_stylesheet_directory_uri() . '/build/script.js', array('jquery'), null, true);
-    
+    define( 'SCRIPTS_PATH_RELATIVE_TO_THEME', '/build/script.js' );
+    // Default file version number
+    $file_version = null;
+    // Get the mod date of the scripts file
+    if (file_exists(get_stylesheet_directory() . SCRIPTS_PATH_RELATIVE_TO_THEME )){
+        // Get file version
+        $file_version = filemtime(get_stylesheet_directory() . SCRIPTS_PATH_RELATIVE_TO_THEME);
+    }
+
+    wp_register_script('scripts', get_stylesheet_directory_uri() . SCRIPTS_PATH_RELATIVE_TO_THEME, array('jquery'), $file_version, true);
+
     //Vendored copy of Slick Slider
     wp_register_style('slick-slider', get_stylesheet_directory_uri() . '/assets/vendor/slick/slick/slick.css', false, null, "all");
     wp_register_script('slick-slider', get_stylesheet_directory_uri() . '/assets/vendor/slick/slick/slick.min.js', false, null, true);
