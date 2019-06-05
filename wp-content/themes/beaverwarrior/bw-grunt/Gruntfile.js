@@ -4,7 +4,8 @@ module.exports = function(grunt) {
     // relative to theme
     let custom_modules_upstream = [
     "/components/SiteHeader/bw-navigation-popover/",
-    "/components/Animations/bw-animated-svg/"
+    "/components/Animations/bw-animated-svg/",
+    "/components/VideoPlayer/bw-video-player/"
     ],
 
     custom_modules = get_all_custom_modules( custom_modules_upstream );
@@ -226,7 +227,7 @@ module.exports = function(grunt) {
      *
      * @return {object} The import object
      */
-    function get_import_object(){
+     function get_import_object(){
         // Our return
         let return_object = {};
         // Add all of the custom modules
