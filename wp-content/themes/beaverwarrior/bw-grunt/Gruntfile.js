@@ -35,13 +35,14 @@ module.exports = function(grunt) {
         // Get the downstream custom modules
         let custom_modules_downstream = get_downstream_custom_modules(),
         // By default, our module return is just the upstream modules
-        all_custom_modules = custom_modules_upstream;
-        // If we have custom downstream modules, then add those to the return
+        custom_modules_to_transpile = custom_modules_upstream;
+        // If we have custom downstream modules, then we're in an downstream
+        // site and shouldn't transpile upstream files
         if ( custom_modules_downstream.length > 0 ){
-            all_custom_modules = custom_modules_upstream.concat( custom_modules_downstream )
+            custom_modules_to_transpile = custom_modules_downstream
         }
         // Return the array
-        return all_custom_modules;
+        return custom_modules_to_transpile;
     }
 
     /**
