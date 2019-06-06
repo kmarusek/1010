@@ -41,6 +41,38 @@ class BWVideoPlayer extends BeaverWarriorFLModule {
     public function isPlayerTypeModal(){
         return $this->getPlayerType() === 'modal';
     }
+
+    /**
+     * Method used to get the video content. This will change depending on the source
+     * of the video that's being used.
+     *
+     * @return string The HTML for the video content
+     */
+    public function getVideoContent(){
+        // Figure out what markup to include
+        switch( $this->getVideoSource() ){
+
+            case 'youtube':
+            $youtube_id = $this->settings->youtube_id;
+            include __DIR__ . '/includes/frontend-video-source-youtube.php';
+            break;
+
+            case 'upload':
+            default:
+            include __DIR__ . '/includes/frontend-video-source-upload.php';
+            break;
+        }
+    }
+
+    /**
+     * Method to get the video source. If not set, assume upload (since that was the original 
+     * video source type).
+     *
+     * @return string The video source
+     */
+    public function getVideoSource(){
+        return $this->settings->video_source ? $this->settings->video_source : 'upload';
+    }
 }
 
 FLBuilder::register_module( 
@@ -50,9 +82,34 @@ FLBuilder::register_module(
             'sections' => array(
                 'general' => array(
                     'fields' => array(
+                        'video_source' => array(
+                            'type'    => 'select',
+                            'label'   => __( 'Video Source', 'fl-builder' ),
+                            'default' => 'upload',
+                            'options' => array(
+                                'upload'  => 'Upload',
+                                'youtube' => 'YouTube'
+                            ),
+                            'toggle' => array(
+                                'upload' => array(
+                                    'fields' => array(
+                                        'video'
+                                    )
+                                ),
+                                'youtube' => array(
+                                    'fields' => array(
+                                        'youtube_id'
+                                    )
+                                )
+                            )
+                        ),
+                        'youtube_id' => array(
+                            'type'  => 'text',
+                            'label' => __( 'YouTube ID', 'fl-builder' )
+                        ),
                         'video' => array(
                             'type'  => 'video',
-                            'label' => __( 'Video', 'fl-builder' )
+                            'label' => __( 'File', 'fl-builder' )
                         ),
                         'placeholder_image' => array(
                             'type'  => 'photo',

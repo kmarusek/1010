@@ -73,6 +73,11 @@
     .video-content {
         display: none;
     }
+
+    .video-source-youtube {
+        // 16:9 aspect ratio
+        @include youtube_video_16_9();
+    }
 }
 
 .featherlight.bw-video-player-modal {
@@ -83,7 +88,13 @@
         opacity: 1;
     }
 
+    .video-source-container {
+        // 16:9 aspect ratio
+        @include youtube_video_16_9();
+    }
     .featherlight-content {
+        width: 90%;
+
         background: none;
         .featherlight-close-icon {
             background: none;
@@ -106,5 +117,24 @@ body {
         #wpadminbar {
             filter: blur(2px);
         }
+    }
+}
+
+/**
+ * Mixin for styling the YouTube videos of 16:9 aspect ratio. More can be added
+ * over time after the module supports additional aspect ratios;
+ */
+@mixin youtube_video_16_9 {
+    position: relative;
+
+    width: 100%;
+    padding-bottom: (9/16) * 100%;
+    iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 100%;
     }
 }

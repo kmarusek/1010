@@ -74,14 +74,31 @@ jQuery(function($){
          * @return {void}
          */
          _playVideoInline: function(){
-            // Declare self outside of block
-            var self = this;
             // Curtains up
             this.element
             .find( '.video-inline-container' )
             .addClass( 'video-active' );
+            // Figure out how to handle playing the video
+            switch ( this.settings.videoSource ){
+                case 'youtube':
+                this._playVideoInlineYouTube();
+                break;
+
+                default:
+                this._playVideoInlineUpload();
+                break;
+            }
+        },
+
+        /**
+         * Method used to play an inline video that is uploaded.
+         *
+         * @return {void}
+         */
+         _playVideoInlineUpload: function(){
+            var self = this;
             // Add our event listening. We need to reset this once the video is completed.
-            self.plyrObject.on( 'ended', $.proxy(self._resetVideoPlayerInline, self ) );
+            this.plyrObject.on( 'ended', $.proxy(this._resetVideoPlayerInline, this ) );
             // Get the content
             setTimeout(function(){
                 // Play the video
@@ -90,21 +107,129 @@ jQuery(function($){
         },
 
         /**
+         * Method use to handle playing an inline video that is linked from YouTube.
+         *
+         * @return {void}
+         */
+         _playVideoInlineYouTube: function(){
+            this.element.find( '.video-source' ).uniqueId();
+            var unique_id = this.element.find( '.video-source' ).attr('id');
+            var youtube_id = $('#' + unique_id ).data('youtube-embed-id');
+            if ( !this.youTubePlayer ){
+                this._initYouTubeVideo( unique_id, youtube_id );
+            }
+            else {
+                this.youTubePlayer.playVideo();
+            }
+        },
+
+        /**
+         * Method used to init the YouTube video from any type of view.
+         *
+         * @param  {string} element_id The element ID to place the video
+         * @param  {string} youtube_id The YouTube ID of the video to use
+         *
+         * @return {void}
+         */
+        _initYouTubeVideo: function( element_id, youtube_id){
+            this.youTubePlayer = new YT.Player(element_id, {
+                videoId : youtube_id,
+                events  : {
+                    onReady       : this._onYouTubePlayerReady.bind(this),
+                    onStateChange : this._onYouTubePlayerStateChange.bind(this)
+                },
+                playerVars: {
+                    enablejsapi: true
+                }
+            });
+        },
+
+        /**
          * Method to handle resetting the video player when set to inline.
          *
          * @return {void}
          */
          _resetVideoPlayerInline: function(){
-            // Declare self outside of block
-            var self = this;
             // Reset the cutains
             this.element
             .find( '.video-inline-container.video-active' )
             .removeClass( 'video-active' );
+            switch ( this.settings.videoSource ){
+                default:
+                this._resetVideoPlayerUpload();
+                break;
+            }
+        },
+
+        /**
+         * Method used to add any logic required to cleanup the video player
+         * for uploaded videos after it's finished running.
+         *
+         * @return {void}
+         */
+        _resetVideoPlayerUpload: function(){
+            // Declare self outside of block
+            var self = this;
+
             setTimeout(function(){
                 // Rewind the video
                 self.plyrObject.restart();
             }, 300 );
+        },
+
+        /**
+         * Callback used to actually play the YouTube video.
+         *
+         * @param  {object} event The event sent from the YouTube API
+         *
+         * @return {void}     
+         */
+         _onYouTubePlayerReady: function( event ){
+            event.target.playVideo();
+        },
+
+        /**
+         * A callback for when the YouTube state changes. This is particularly useful
+         * for checking the progress of the video.
+         *
+         * @param  {object} event The event sent from the YouTube API
+         *
+         * @return {void}     
+         */
+        _onYouTubePlayerStateChange: function( event ){
+            if(event.data === 0) {          
+                if ( this.settings.videoPlayerType === 'inline' ){
+                    this._resetVideoPlayerInline();
+                }
+            }
+        },
+
+        /**
+         * This method is called for creating the YouTube iFrame on the modal option
+         *
+         * @return {void}
+         */
+         _initModalVideoYouTube: function(){
+            $('.featherlight.' + this.nodeID + ' .video-source').uniqueId();
+            var unique_id = $('.featherlight.' + this.nodeID + ' .video-source').attr('id');
+            var youtube_id = $('#' + unique_id ).data('youtube-embed-id');
+            this._initYouTubeVideo( unique_id, youtube_id );
+        },
+        
+        /**
+         * Method used to init the modal when it contains an 
+         *
+         * @return {void}
+         */
+         _initModalVideoUpload(){
+            // Declare self outside of block
+            var self = this;
+            // Find the video
+            self.plyrObject = new Plyr( $('.featherlight.' + self.nodeID + ' video')  );
+            // Play after a brief pause so we don't startle the user
+            setTimeout(function(){
+                self.plyrObject.play();
+            }, 500);
         },
 
         /**
@@ -137,12 +262,15 @@ jQuery(function($){
                     .removeClass( 'bw-video-modal-open-' + self.nodeID );
                 },
                 afterContent : function(){
-                    // Find the video
-                    self.plyrObject = new Plyr( $('.featherlight.' + self.nodeID + ' video')  );
-                    // Play after a brief pause so we don't startle the user
-                    setTimeout(function(){
-                        self.plyrObject.play();
-                    }, 500);
+                    switch ( self.settings.videoSource ){
+                        case 'youtube':
+                        self._initModalVideoYouTube();
+                        break;
+
+                        default:
+                        self._initModalVideoUpload();
+                        break;
+                    }
                 }
             });
         }

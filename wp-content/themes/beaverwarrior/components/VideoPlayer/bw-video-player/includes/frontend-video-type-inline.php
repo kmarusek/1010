@@ -15,8 +15,8 @@
         </div>
     </div>
     <div class="video-container">
-        <video playsinline controls>
-            <source src="<?php echo $attachment_file;?>" type="video/mp4" >
-        </video>
+        <?php
+        echo $module->getVideoContent();
+        ?>
     </div>
 </div>

@@ -18,8 +18,8 @@ wp_enqueue_style( 'featherlight-css', get_stylesheet_directory_uri() . '/assets/
         </button>
     </div>
     <div class="video-content">
-        <video playsinline controls>
-            <source src="<?php echo $attachment_file;?>" type="video/mp4" >
-        </video>
+        <?php
+        echo $module->getVideoContent();
+        ?>
     </div>
 </div>
