@@ -93,10 +93,15 @@
         @include youtube_video_16_9();
     }
     .featherlight-content {
+        overflow: visible;
+
         width: 90%;
 
         background: none;
         .featherlight-close-icon {
+            top: -10px;
+            right: -10px;
+
             background: none;
         }
         .plyr__control.plyr__control--overlaid {
