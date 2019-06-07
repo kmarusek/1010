@@ -1,0 +1,91 @@
+@import (reference) '../../../../assets/less/mixins-upstream';
+
+.fl-module-bw-posts-grid {
+    .posts-container {
+        padding-left: 0;
+
+        list-style: none;
+
+        transition: opacity 350ms, min-height 500ms;
+
+        opacity: 1;
+
+        .flexbox();
+        .flexboxJustifyLeft();
+        &.fade-out {
+            opacity: 0;
+        }
+        &.invisible {
+            position: absolute;
+            right: 0;
+            left: 0;
+
+            visibility: hidden;
+
+            opacity: 0;
+        }
+        .post {
+            .flexboxAlignTop();
+            &:not(.post-active) {
+                display: none;
+            }
+            a {
+                text-decoration: none;
+            }
+        }
+        .featured-image-container {
+            text-align: center;
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+        .post-title{
+            margin: 0;
+        }
+    }
+
+    .posts-pagination-container {
+        margin-top: 100px;
+        .paginationjs {
+            text-align: center;
+            a {
+                text-decoration: none;
+            }
+            ul {
+                padding-left: 0;
+
+                list-style: none;
+
+                .flexbox();
+
+                li {
+                    &.opacity {
+                        a {
+                            cursor: not-allowed;
+
+                            opacity: 0.5;
+                        }
+                    }
+                    &.active {
+                        a {
+                            color: green; // @todo
+                        }
+                    }
+                    a {
+                        transition: color 250ms, opacity 250ms;
+                    }
+                }
+            }
+            .paginationjs-prev {
+                margin-right: 15px;
+            }
+            .paginationjs-next {
+                margin-left: 15px;
+            }
+            .paginationjs-page {
+                margin: 0 7.5px;
+            }
+        }
+    }
+}
