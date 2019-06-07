@@ -8,7 +8,8 @@ jQuery(function($){
         this.element               = settings.element;
         this.popoverHeadersEnabled = settings.popoverHeadersEnabled;
         this.popoverPointerEnabled = settings.popoverPointerEnabled;
-        // Init the carousel 
+        this.popoverCustomContent  = settings.popoverCustomContent;
+        // Init the navigation 
         this.init();
     };
 
@@ -130,7 +131,7 @@ jQuery(function($){
             var tooltip_string = this.popoverPointerEnabled ? "<div class=\"triangle-container\"><div class=\"triangle\"></div></div>" : '',
             has_tooltip_class  = this.popoverPointerEnabled ? 'has-tooltip' : '';
 
-            return "<div class=\"popover " + has_tooltip_class + "\" role=\"tooltip\">" + tooltip_string + "<h3 class=\"popover-title\"></h3><div class=\"popover-content\"></div></div>";
+            return "<div class=\"popover " + has_tooltip_class + "\" role=\"tooltip\">" + tooltip_string + "<h3 class=\"popover-title\"></h3><div class=\"popover-content\"></div>" + this.popoverCustomContent + "</div>";
         }
     };
 });
