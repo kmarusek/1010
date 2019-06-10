@@ -64,8 +64,3 @@
     header_classes = header.classList;
     return header_classes.contains( 'fl-theme-builder-header-sticky' );
 }
-
-function product_url_is_set_to_regular_pricing(){
-    var window_hash = window.location.hash
-    return window.location.hash.substr(1) !== 'autoship'
-}
