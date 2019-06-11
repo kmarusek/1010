@@ -18,5 +18,22 @@ if ( !$module->jsonIsValid( $json ) && $module->isViewingInEditor() ) {
     echo "<p>Psst...it looks like your JSON is invalid:</p>";
     echo "<pre>$json</pre>";
 }
+
+if ( $module->isLink() ){
+    // Create the anchor
+    echo sprintf(
+        '<a href="%s" %s target="%s">',
+        // The URL
+        $settings->link_url,
+        // If we have no follow specified
+        $settings->link_url_nofollow === 'yes' ? 'rel="nofollow"' : '',
+        // The link target
+        $settings->link_url_target
+    );
+}
 ?>
 <div id="<?php echo $module->getLottieContainerUniqueID();?>"></div>
+<?php
+if ( $module->isLink() ){
+    echo "</a>";
+}

@@ -291,6 +291,15 @@ class BWAnimatedSVG extends BeaverWarriorFLModule {
     }
 
     /**
+     * Method used to determine whether or not this module is a link.
+     *
+     * @return boolean True if this module is a link
+     */
+    public function isLink(){
+        return $this->settings->link_behavior === 'link' && $this->settings->link_url;
+    }
+
+    /**
      * Method used to get the attachment ID by the image URL
      *
      * @param  string $image_url The URL for the image
@@ -313,7 +322,7 @@ FLBuilder::register_module(
         'general' => array(
             'title' => __( 'General', 'fl-builder'),
             'sections' => array(
-                'section_general' => array(
+                'section_json' => array(
                     'title' => __( 'JSON', 'fl-builder'),
                     'fields' => array(
                         'animation_json' => array(
@@ -367,6 +376,33 @@ FLBuilder::register_module(
                                 'disabled' => 'Disabled',
                                 'enabled'  => 'Enabled'
                             )
+                        )
+                    )
+                ),
+                'section_behavior' => array(
+                    'title' => __( 'Behavior', 'fl-builder'),
+                    'fields' => array(
+                        'link_behavior' => array(
+                            'label'   => __('Link behavior', 'fl-builder'),
+                            'type'    => 'select',
+                            'default' => 'none',
+                            'options' => array(
+                                'none' => 'None',
+                                'link' => 'Link'
+                            ),
+                            'toggle' => array(
+                                'link' => array(
+                                    'fields' => array(
+                                        'link_url'
+                                    )
+                                )
+                            )
+                        ),
+                        'link_url' => array(
+                            'label'         => __('Link URL', 'fl-builder'),
+                            'type'          => 'link',
+                            'show_target'   => true,
+                            'show_nofollow' => true
                         )
                     )
                 )
