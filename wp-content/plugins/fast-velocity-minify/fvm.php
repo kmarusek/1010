@@ -5,7 +5,7 @@ Plugin URI: http://fastvelocity.com
 Description: Improve your speed score on GTmetrix, Pingdom Tools and Google PageSpeed Insights by merging and minifying CSS and JavaScript files into groups, compressing HTML and other speed optimizations. 
 Author: Raul Peixoto
 Author URI: http://fastvelocity.com
-Version: 2.6.5
+Version: 2.6.9
 License: GPL2
 
 ------------------------------------------------------------------------
@@ -160,7 +160,7 @@ if($fvm_gfonts_method != false) {
 
 
 # default ua list
-$fvmualist = array('x11.*fox\/54', 'x11.*ome\/39', 'x11.*ome\/62', 'oobot', 'ighth', 'tmetr', 'eadles');
+$fvmualist = array('x11.*fox\/54', 'oid\s4.*xus.*ome\/62', 'x11.*ome\/62', 'oobot', 'ighth', 'tmetr', 'eadles', 'ingdo');
 
 
 # add admin page and rewrite defaults
@@ -303,7 +303,7 @@ function fastvelocity_min_files_callback() {
 			$file = $cachedir.'/'.$file;
 			$ext = pathinfo($file, PATHINFO_EXTENSION);
 			if (in_array($ext, array('js', 'css'))) {
-				$log = file_get_contents($file.'.txt');
+				$log = ''; if (file_exists($file.'.txt')) { $log = file_get_contents($file.'.txt'); }
 				$mincss = substr($file, 0, -4).'.min.css';
 				$minjs = substr($file, 0, -3).'.min.js';
 				$filename = basename($file);
@@ -2099,6 +2099,8 @@ $done = $styles->done;
 $footer = array();
 $google_fonts = array();
 $inline_css = array();
+$code = '';
+$log = '';
 
 # dequeue all styles
 if($fvm_remove_css != false) {
@@ -2843,7 +2845,7 @@ function fastvelocity_add_google_fonts_merged() {
 # collect all fvm JS files and save them to an headers file
 add_filter('script_loader_tag', 'fastvelocity_collect_js_preload_headers', PHP_INT_MAX, 3 );
 function fastvelocity_collect_js_preload_headers($html, $handle, $src){
-	global $collect_preload_js, $fvm_enabled_css_preload, $fvm_enabled_js_preload;
+	global $cachedirurl, $collect_preload_js, $fvm_enabled_css_preload, $fvm_enabled_js_preload;
 	
 	# return if disabled
 	if ($fvm_enabled_js_preload != true) { 
@@ -2851,7 +2853,7 @@ function fastvelocity_collect_js_preload_headers($html, $handle, $src){
 	}
 	
 	# collect
-	if (stripos($src, '/fvm/out/') !== false) { 
+	if (stripos($src, $cachedirurl) !== false) { 
 		$collect_preload_js[] = $src;
 	}
 	return $html;
@@ -2860,7 +2862,7 @@ function fastvelocity_collect_js_preload_headers($html, $handle, $src){
 # generate preload headers file
 add_action('wp_footer', 'fastvelocity_generate_preload_headers', PHP_INT_MAX); 
 function fastvelocity_generate_preload_headers(){
-	global $collect_preload_css, $collect_preload_js, $fvm_enabled_css_preload, $fvm_enabled_js_preload;
+	global $cachedirurl, $collect_preload_css, $collect_preload_js, $fvm_enabled_css_preload, $fvm_enabled_js_preload;
 	
 	# return if disabled
 	if ($fvm_enabled_css_preload != true && $fvm_enabled_js_preload != true) { 
@@ -2887,7 +2889,7 @@ function fastvelocity_generate_preload_headers(){
 		foreach($collect_preload_css as $u) {
 			
 			# filter out footer footer files, because they are not in the critical path
-			if(stripos($u, '/fvm/out/footer-') !== false) { continue; }
+			if(stripos($u, $cachedirurl . '/footer-') !== false) { continue; }
 			
 			# add headers
 			$headers[] = "Link: <$u>; rel=preload; as=style";
@@ -2899,7 +2901,7 @@ function fastvelocity_generate_preload_headers(){
 		foreach($collect_preload_js as $u) {
 			
 			# filter out footer footer files, because they are not in the critical path
-			if(stripos($u, '/fvm/out/footer-') !== false) { continue; }
+			if(stripos($u, $cachedirurl . '/footer-') !== false) { continue; }
 			
 			# add headers
 			$headers[] = "Link: <$u>; rel=preload; as=script";
