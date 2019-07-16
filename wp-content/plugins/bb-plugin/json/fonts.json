@@ -2959,6 +2959,11 @@
   "fallback": "sans-serif"
  }
 }, {
+ "Noto Sans HK": {
+  "variants": ["100", "300", "regular", "500", "700", "900"],
+  "fallback": "sans-serif"
+ }
+}, {
  "Noto Sans JP": {
   "variants": ["100", "300", "regular", "500", "700", "900"],
   "fallback": "sans-serif"

@@ -73,7 +73,7 @@ $row_settings = array(
 								'full'    => __( 'Full Height', 'fl-builder' ),
 								'custom'  => __( 'Minimum Height', 'fl-builder' ),
 							),
-							'help'    => __( 'Full height rows fill the height of the browser window. Minimum height rows are no taller than the value entered.', 'fl-builder' ),
+							'help'    => __( 'Full height rows fill the height of the browser window. Minimum height rows are at least as tall as the value entered.', 'fl-builder' ),
 							'toggle'  => array(
 								'full'   => array(
 									'fields' => array( 'content_alignment' ),
@@ -746,6 +746,10 @@ $row_settings = array(
 							'type'    => 'select',
 							'label'   => __( 'Container Element', 'fl-builder' ),
 							'default' => apply_filters( 'fl_builder_row_container_element_default', 'div' ),
+							/**
+							 * Filter to add/remove container types.
+							 * @see fl_builder_node_container_element_options
+							 */
 							'options' => apply_filters( 'fl_builder_node_container_element_options', array(
 								'div'     => '&lt;div&gt;',
 								'section' => '&lt;section&gt;',

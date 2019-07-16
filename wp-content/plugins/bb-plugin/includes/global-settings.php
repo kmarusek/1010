@@ -227,7 +227,7 @@ FLBuilder::register_settings_form('global', array(
 							'size'        => '5',
 							'description' => 'px',
 							'sanitize'    => 'absint',
-							'help'        => __( 'When typography unit is set to vh/vm this unit will be used to calculate the font size.', 'fl-builder' ),
+							'help'        => __( 'When typography unit is set to vh/vw this unit will be used to calculate the font size.', 'fl-builder' ),
 						),
 					),
 				),

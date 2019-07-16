@@ -671,3 +671,14 @@ add_action( 'fl_theme_builder_after_render_header', 'fix_lazyload_header_end' );
 function fix_lazyload_header_end() {
 	remove_filter( 'fl_builder_photo_attributes', 'fix_lazyload_header_attributes' );
 }
+
+/**
+ * Fix JS error caused by UM-Switcher plugin
+ * @since 2.2.3
+ */
+add_action( 'template_redirect', 'fl_fix_um_switcher' );
+function fl_fix_um_switcher() {
+	if ( isset( $_GET['fl_builder'] ) ) {
+		remove_action( 'wp_footer', 'umswitcher_profile_subscription_expiration_footer' );
+	}
+}

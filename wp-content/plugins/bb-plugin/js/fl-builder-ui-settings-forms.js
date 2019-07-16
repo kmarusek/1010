@@ -158,6 +158,10 @@
 				return false;
 			}
 
+			if ( config.hide ) {
+				return true;
+			}
+
 			// Render the lightbox and form.
 			if ( ! config.lightbox ) {
 

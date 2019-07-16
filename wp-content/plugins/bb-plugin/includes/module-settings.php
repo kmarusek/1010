@@ -103,6 +103,10 @@ FLBuilder::register_settings_form('module_advanced', array(
 					'type'    => 'select',
 					'label'   => __( 'Container Element', 'fl-builder' ),
 					'default' => 'div',
+					/**
+					 * Filter to add/remove container types.
+					 * @see fl_builder_node_container_element_options
+					 */
 					'options' => apply_filters( 'fl_builder_node_container_element_options', array(
 						'div'     => '&lt;div&gt;',
 						'section' => '&lt;section&gt;',

@@ -11,8 +11,10 @@ final class FL_Debug {
 
 		if ( get_transient( 'fl_debug_mode' ) ) {
 			self::enable_logging();
+			add_filter( 'fl_is_debug', '__return_true' );
 		}
 	}
+
 
 	public static function enable_logging() {
 		@ini_set( 'display_errors', 1 ); // @codingStandardsIgnoreLine
