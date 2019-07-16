@@ -301,7 +301,7 @@ FLBuilder::register_module(
 						'icon'                => array(
 							'type'        => 'icon',
 							'label'       => __( 'Icon', 'uabb' ),
-							'default'     => 'fa fa fa-external-link',
+							'default'     => 'fas fa-external-link-alt',
 							'show_remove' => true,
 						),
 						'icon_width'          => array(

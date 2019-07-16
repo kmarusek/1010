@@ -93,9 +93,10 @@
 				}
 				
 				
-				nodeClass.find( '.uabb-vg__play_full' ).on( 'click', function( e ) {
+				if ( 'inline' === action ) {
 
-					if ( 'inline' === action ) {
+					nodeClass.find( '.uabb-vg__play_full' ).on( 'click', function( e ) {
+
 
 						e.preventDefault();
 						var iframe 		= $( "<iframe/>" );
@@ -111,10 +112,11 @@
 							wrap_outer.html( iframe );
 							wrap_outer.attr( 'style', 'background:#000;' );
 							overlay.hide();
-					}
-				});
+					});
 
-				if('lightbox' === action ){
+				}
+
+				if('lightbox' === action ) {
 					nodeClass.find('.uabb-video-gallery-fancybox').magnificPopup({
 						type: 'iframe',
 						mainClass: 'mfp-fade',

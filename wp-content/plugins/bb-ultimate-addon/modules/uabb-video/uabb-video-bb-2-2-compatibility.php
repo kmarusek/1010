@@ -543,7 +543,7 @@ FLBuilder::register_module(
 						'sticky_close_icon'          => array(
 							'type'        => 'icon',
 							'label'       => __( 'Select Icon', 'uabb' ),
-							'default'     => 'fa fa-close',
+							'default'     => 'fas fa-times',
 							'show_remove' => true,
 						),
 

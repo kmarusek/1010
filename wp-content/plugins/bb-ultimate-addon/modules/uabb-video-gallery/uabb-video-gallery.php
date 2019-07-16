@@ -599,7 +599,7 @@ class UABBVideoGallery extends FLBuilderModule {
 				$vurl = 'https://player.vimeo.com/video/' . $url['video_id'] . '?autoplay=1&version=3&enablejsapi=1';
 			}
 			if ( 'inline' !== $this->settings->click_action ) {
-					$html = '<a href="' . $href . '" data-fancybox="uabb-video-gallery" data-url="' . $vurl . '"class="uabb-video-gallery-fancybox ">';
+					$html = '<a href="' . $href . '" data-fancybox="uabb-video-gallery" data-url="' . $vurl . '"class="uabb-video-gallery-fancybox uabb-vg__play_full ">';
 			} else {
 				if ( 'youtube' === $item->video_type ) {
 

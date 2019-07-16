@@ -282,7 +282,7 @@ class UABBMarketingButtonModule extends FLBuilderModule {
 			?>
 			<?php if ( isset( $this->settings->icon ) && '' !== $this->settings->icon ) { ?>
 				<div class="uabb-marketing-button-icon uabb-align-icon-<?php echo $this->settings->icon_position; ?> uabb-marketing-button-icon-<?php echo $this->settings->icon_position; ?>" >
-						<i class="uabb-button-icon uabb-marketing-button-icon <?php echo $this->settings->icon_position; ?> fa <?php echo $this->settings->icon; ?>"></i>
+						<i class="uabb-button-icon uabb-marketing-button-icon <?php echo $this->settings->icon_position; ?> <?php echo $this->settings->icon; ?>"></i>
 				</div>
 			<?php } ?>
 			<div class="uabb-marketing-buttons-wrap">
@@ -304,7 +304,7 @@ class UABBMarketingButtonModule extends FLBuilderModule {
 					<div class="uabb-marketing-buttons-contentwrap uabb-marketing-button-icon-<?php echo $this->settings->icon_position; ?>">
 							<?php if ( isset( $this->settings->icon ) && '' !== $this->settings->icon ) { ?>
 								<span class="uabb-marketing-buttons-icon-innerwrap uabb-marketing-button-icon-<?php echo $this->settings->icon_position; ?>">
-									<i class="uabb-button-icon uabb-marketing-button-icon-<?php echo $this->settings->icon_position; ?> fa <?php echo $this->settings->icon; ?>"></i>
+									<i class="uabb-button-icon uabb-marketing-button-icon-<?php echo $this->settings->icon_position; ?> <?php echo $this->settings->icon; ?>"></i>
 								</span>
 							<?php } ?>
 						<?php if ( isset( $this->settings->title ) && '' !== $this->settings->title ) { ?>

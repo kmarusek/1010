@@ -115,7 +115,27 @@ if ( ! class_exists( 'BB_Ultimate_Addon_Helper' ) ) {
 		static public function module_cat( $cat ) {
 			return class_exists( 'FLBuilderUIContentPanel' ) ? $cat : UABB_CAT;
 		}
+		/**
+		 * Function that renders builder UABB Google and Yelp API key status
+		 *
+		 * @since 1.18.0
+		 */
+		static public function api_key_status() {
 
+			$status = array();
+
+			$google_status = get_option( 'google_status_code' );
+
+			$yelp_status = get_option( 'yelp_status_code' );
+
+			if ( isset( $google_status ) && ! empty( $google_status ) ) {
+				$status ['google_status_code'] = $google_status;
+			}
+			if ( isset( $yelp_status ) && ! empty( $yelp_status ) ) {
+				$status ['yelp_status_code'] = $yelp_status;
+			}
+			return $status;
+		}
 		/**
 		 * Function that renders builder UABB
 		 *
@@ -249,9 +269,11 @@ if ( ! class_exists( 'BB_Ultimate_Addon_Helper' ) ) {
 				'uabb-business-hours'	   => 'Business Hours',
                 'uabb-video'               => 'Video',
 				'uabb-table'			   => 'Table',
-                'uabb-video-gallery'        => 'Video Gallery',
+                'uabb-video-gallery'       => 'Video Gallery',
                 'uabb-price-list'	       => 'Price List',
-                'uabb-marketing-button'		=> 'Marketing Button',
+                'uabb-marketing-button'	   => 'Marketing Button',
+                'uabb-business-reviews'	   => 'Business Reviews',
+
 			);
 
 			/* Include Contact form styler */

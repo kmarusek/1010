@@ -1134,6 +1134,18 @@ if ( ! class_exists( 'UABB_WPML_Translatable' ) ) {
 					),
 				),
 			);
+
+			// Business Reviews Module.
+			$form['uabb-business-reviews'] = array(
+				'conditions' => array( 'type' => 'uabb-business-reviews' ),
+				'fields'     => array(
+					array(
+						'field'       => 'read_more',
+						'type'        => __( 'Business Reviews : Read More Text', 'uabb' ),
+						'editor_type' => 'LINE',
+					),
+				),
+			);
 			return $form;
 		}
 	}

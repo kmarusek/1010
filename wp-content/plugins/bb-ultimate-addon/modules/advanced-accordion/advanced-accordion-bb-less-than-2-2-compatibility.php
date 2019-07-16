@@ -302,13 +302,13 @@ FLBuilder::register_module(
 						'close_icon'       => array(
 							'type'        => 'icon',
 							'label'       => __( 'Close Icon', 'uabb' ),
-							'default'     => 'fa fa-plus',
+							'default'     => 'fas fa-plus',
 							'show_remove' => true,
 						),
 						'open_icon'        => array(
 							'type'        => 'icon',
 							'label'       => __( 'Open Icon', 'uabb' ),
-							'default'     => 'fa fa-minus',
+							'default'     => 'fas fa-minus',
 							'show_remove' => true,
 						),
 						'icon_size'        => array(
