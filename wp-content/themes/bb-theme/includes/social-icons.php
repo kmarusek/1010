@@ -1,5 +1,6 @@
 <?php
 $link_target = ' target="_blank"';
+$link_rel    = ' rel="noopener noreferrer"';
 if ( 'custom' === $settings['fl-social-icons-color'] ) {
 	?>
 	<div class="fl-social-icons-stacked">
@@ -26,7 +27,7 @@ if ( 'custom' === $settings['fl-social-icons-color'] ) {
 				$setting,
 				$size,
 				$icon,
-				$link_target,
+				$link_target . $link_rel,
 				$icon_sreen_reader,
 				$shape,
 				$pre,
@@ -56,7 +57,7 @@ if ( 'custom' === $settings['fl-social-icons-color'] ) {
 			$icon = ( 'facebook' == $icon ) ? 'facebook-f' : $icon;
 
 			if ( ! $circle ) {
-					printf( '<a href="%s"%s>%s<i class="%s fa-%s %s"></i></a>', $setting, $link_target, $icon_sreen_reader, $pre, $icon, $settings['fl-social-icons-color'] );
+					printf( '<a href="%s"%s>%s<i class="%s fa-%s %s"></i></a>', $setting, $link_target . $link_rel, $icon_sreen_reader, $pre, $icon, $settings['fl-social-icons-color'] );
 			} else {
 					printf( '<a href="%s" class="fa-stack icon-%s"%s>%s
 					<i class="fas fa-circle fa-stack-2x %s"></i>
@@ -64,7 +65,7 @@ if ( 'custom' === $settings['fl-social-icons-color'] ) {
 					</a>',
 						$setting,
 						$icon,
-						$link_target,
+						$link_target . $link_rel,
 						$icon_sreen_reader,
 						$settings['fl-social-icons-color'],
 						$pre,

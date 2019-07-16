@@ -283,8 +283,9 @@
 
 			$( '.customize-control-slider input[type=range]' ).each(function() {
 				var $slider     = $(this),
-					$text_input = $( this ).closest( 'label' ).find( '#fl-range-value-input' );
-					value       = $slider.attr( 'value' );
+					$text_input = $( this ).closest( 'label' ).find( '#fl-range-value-input' ),
+					value       = $slider.attr( 'value' ),
+					min         = $slider.attr( 'min' );
 
 				$slider.on('input', function () {
 					value = $slider.attr( 'value' );
@@ -294,6 +295,13 @@
 				$text_input.on('keyup change', function(){
 					$slider.val($text_input.val());
 					$slider.change();
+				});
+
+				$text_input.on('focusout', function(){
+					if ( parseInt( $text_input.val() ) < min ) {
+						$text_input.val( min );
+						$slider.change();
+					}
 				});
 
 			});

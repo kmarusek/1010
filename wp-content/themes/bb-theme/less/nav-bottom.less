@@ -27,7 +27,7 @@ Appearance > Theme Settings > Code or create a child theme.
 /* Media Query - 767px or less
 ----------------------------------------------------------- */
 
-@media (max-width: 767px) {
+@media (max-width: (@mobile-breakpoint - 1)) {
 
 	.fl-page-nav-toggle-icon.fl-page-nav-bottom .fl-page-header-content {
 		border-top: 1px solid @header-border-color;
@@ -38,7 +38,7 @@ Appearance > Theme Settings > Code or create a child theme.
 /* Media Query - 768px or greater
 ----------------------------------------------------------- */
 
-@media (min-width: 768px) {
+@media (min-width: @mobile-breakpoint) {
 
 	.fl-page-nav-bottom {
 		.fl-page-header-row {
@@ -74,7 +74,7 @@ Appearance > Theme Settings > Code or create a child theme.
 /* Media Query - 991px or less (mobile and medium devices)
 ----------------------------------------------------------- */
 
-@media (max-width: 991px) {
+@media (max-width: (@medium-breakpoint - 1)) {
 
 	.fl-page-nav-toggle-icon.fl-page-nav-bottom .fl-page-header-content {
 		margin-right: 0;

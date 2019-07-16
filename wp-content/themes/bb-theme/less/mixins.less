@@ -173,7 +173,8 @@ It's being used in the theme.less for media queries when enabled in the customiz
 					}
 					text-align: left;
 				}
-				&.current-menu-item > a {
+				&.current-menu-item > a,
+				&.current-menu-item > .fl-submenu-icon-wrap .fl-submenu-toggle-icon {
 					color: @mobile-nav-fg-hover-color;
 				}
 			}
@@ -239,9 +240,6 @@ It's being used in the theme.less for media queries when enabled in the customiz
 						margin-right: 10px;
 					}
 				}
-				&.hide-heading {
-					border-top: 0 none;
-				}
 			}
 		}
 		li {
@@ -261,27 +259,80 @@ It's being used in the theme.less for media queries when enabled in the customiz
 				position: absolute;
 			}
 			li {
-				&.menu-item-has-children > a:after {
-					font-family: @font-awesome-family;
-					content: '\f107';
-					font-weight: 900;
-					float: right;
+				&.menu-item-has-children > a {
+					padding-right: 40px;
+				}
+				&.menu-item-has-children > .fl-submenu-icon-wrap {
+					visibility: visible;
 				}
 				&.fl-mobile-sub-menu-open {
-					> a:after {
-						font-family: @font-awesome-family;
+					> .fl-submenu-icon-wrap .fl-submenu-toggle-icon:after {
 						content: '\f106';
-						font-weight: 900;
-						float: right;
 					}
 					> ul.sub-menu,
-					.hide-heading > ul.sub-menu  {
+					.hide-heading > ul.sub-menu {
 						position: static;
 					}
 				}
 				a {
 					padding: 15px;
 				}
+				&:hover,
+				&:focus {
+					> .fl-submenu-icon-wrap .fl-submenu-toggle-icon {
+						color: @mobile-nav-fg-hover-color;
+					}
+				}
+			}
+		}
+	}
+
+	/* Nav Submenu Indicator
+	----------------------------------------------------------- */
+	.fl-submenu-indicator & {
+		ul.navbar-nav li.menu-item-has-children {
+			> a {
+				padding-right: 40px;
+				&:after {
+					content: '' !important;
+				}
+			}
+			> .fl-submenu-icon-wrap {
+				visibility: visible;
+			}
+			&:hover,
+			&:focus {
+				> .fl-submenu-icon-wrap .fl-submenu-toggle-icon {
+					color: @mobile-nav-fg-hover-color;
+				}
+			}
+			&.fl-mobile-sub-menu-open {
+				> .fl-submenu-icon-wrap .fl-submenu-toggle-icon:after {
+					content: '\f106';
+				}
+			}
+		}
+	}
+
+	/* Nav Submenu Toggle Icon
+	----------------------------------------------------------- */
+	.fl-submenu-icon-wrap {
+		visibility: hidden;
+
+		.fl-submenu-toggle-icon {
+			position: absolute;
+			padding: 15px;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			cursor: pointer;
+
+			&:after {
+				font-family: @font-awesome-family;
+				content: '\f107';
+				font-weight: 900;
+				font-size: @nav-font-size;
+				float: right;
 			}
 		}
 	}
@@ -310,6 +361,15 @@ It's being used in the theme.less for media queries when enabled in the customiz
 		.fl-page-header-row .fl-page-header-logo {
 			padding-bottom: @header-padding;
 		}
+		.fl-page-header-logo-col, .fl-page-nav-col {
+			width: 100%;
+		}
+		.fl-framework-bootstrap-4 & {
+			.fl-page-header-logo-col, .fl-page-nav-col {
+				flex-basis: 100%;
+				max-width: 100%;
+			}
+		}
 	}
 
 	/* Nav Left Layout
@@ -328,6 +388,15 @@ It's being used in the theme.less for media queries when enabled in the customiz
 		}
 		.fl-page-nav ul.navbar-nav > li:first-child a {
 			padding-left: 17px;
+		}
+		.fl-page-logo-wrap, .fl-page-nav-col {
+			width: 100%;
+		}
+		.fl-framework-bootstrap-4 & {
+			.fl-page-header-logo-col, .fl-page-nav-col {
+				flex-basis: 100%;
+				max-width: 100%;
+			}
 		}
 	}
 

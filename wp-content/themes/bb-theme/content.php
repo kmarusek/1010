@@ -7,7 +7,7 @@ $thumb_size  = FLTheme::get_setting( 'fl-archive-thumb-size', 'large' );
 
 
 do_action( 'fl_before_post' ); ?>
-<article <?php post_class( 'fl-post' ); ?> id="fl-post-<?php the_ID(); ?>" itemscope="itemscope" itemtype="https://schema.org/BlogPosting">
+<article <?php post_class( 'fl-post' ); ?> id="fl-post-<?php the_ID(); ?>"<?php FLTheme::print_schema( ' itemscope="itemscope" itemtype="https://schema.org/BlogPosting"' ); ?>>
 
 	<?php if ( has_post_thumbnail() && ! empty( $show_thumbs ) ) : ?>
 		<?php if ( 'above-title' == $show_thumbs ) : ?>

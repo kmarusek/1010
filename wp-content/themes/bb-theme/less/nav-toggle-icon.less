@@ -19,7 +19,7 @@ Appearance > Theme Settings > Code or create a child theme.
 ----------------------------------------------------------- */
 
 .mobile-nav-visible-mobile() when (@mobile-nav-breakpoint = mobile) {
-	@media (max-width: 767px) {
+	@media (max-width: (@mobile-breakpoint - 1)) {
 		.fl-page-nav-toggle-icon.fl-page-nav-toggle-visible-mobile {
 			.fl-nav-icon-toggled();
 		}
@@ -31,7 +31,7 @@ Appearance > Theme Settings > Code or create a child theme.
 ----------------------------------------------------------- */
 
 .mobile-nav-visible-medium-mobile() when (@mobile-nav-breakpoint = medium-mobile) {
-	@media (max-width: 991px) {
+	@media (max-width: (@medium-breakpoint - 1)) {
 		.fl-page-nav-toggle-icon.fl-page-nav-toggle-visible-medium-mobile {
 			.fl-nav-icon-toggled();
 		}

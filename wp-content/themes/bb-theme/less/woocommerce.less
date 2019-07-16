@@ -803,7 +803,7 @@ div.woocommerce h3 {
 /* Media Query - 768px or greater
 ----------------------------------------------------------- */
 
-@media (min-width: 768px) {
+@media (min-width: @mobile-breakpoint) {
 
 	/* Main Wrapper
 	----------------------------------------------------------- */
@@ -1022,7 +1022,7 @@ div.woocommerce h3 {
 /* Media Query - 767px or below
 ----------------------------------------------------------- */
 
-@media (max-width: 767px) {
+@media (max-width: (@mobile-breakpoint - 1)) {
 	/* Main Wrapper
 	----------------------------------------------------------- */
 

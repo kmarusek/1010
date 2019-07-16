@@ -17,21 +17,26 @@ final class FLThemeUpdate {
 
 		add_action( 'fl_theme_updated', array( 'FLCustomizer', 'refresh_css' ) );
 
-		// Export CSS Code if user is using WP > 4.7 and custom css exists.
-		self::wp_4_7_export_css();
-
-		// Get the saved version number.
-		$saved_version = self::get_saved_version();
-
 		// Don't update for dev versions.
 		if ( '{FL_THEME_VERSION}' == FL_THEME_VERSION ) {
 			return;
 		}
 
+		// Get the saved version number.
+		$saved_version = self::get_saved_version();
+
 		// Don't update if the saved version matches the current version.
 		if ( version_compare( $saved_version, FL_THEME_VERSION, '=' ) ) {
 			return;
 		}
+
+		// Update to 1.7.3
+		if ( version_compare( $saved_version, '1.7.3', '<' ) ) {
+			self::v_1_7_3();
+		}
+
+		// Export CSS Code if user is using WP > 4.7 and custom css exists.
+		self::wp_4_7_export_css();
 
 		// Update to 1.2.0 or greater.
 		if ( version_compare( $saved_version, '1.2.0', '<' ) ) {
@@ -325,6 +330,41 @@ final class FLThemeUpdate {
 
 		if ( $saved_version ) {
 			set_theme_mod( 'fl-framework', 'bootstrap' );
+		}
+	}
+
+	/**
+	 * @since 1.7.2.1
+	 */
+	static private function v_1_7_3() {
+
+		$responsive_mods = FLCustomizer::_get_resposive_mods();
+		$updated         = false;
+		$mods            = FLCustomizer::get_mods();
+		$defaults        = FLCustomizer::_get_default_mods();
+
+		foreach ( $responsive_mods as $var => $mod_data ) {
+			foreach ( array( 'desktop', 'medium', 'mobile' ) as $device ) {
+				if ( 'desktop' !== $device ) {
+					$option_key = $mod_data['key'] . '_' . $device;
+					$var_key    = 'desktop' !== $device ? $device . '-' . $var : '';
+				} else {
+					$option_key = $mod_data['key'];
+					$var_key    = $var;
+				}
+				if ( 'desktop' !== $device && ! get_theme_mod( $option_key ) ) {
+					if ( $mods[ $mod_data['key'] ] !== $defaults[ $mod_data['key'] ] ) {
+						$mod_value = $mods[ $mod_data['key'] ];
+					} else {
+						$mod_value = $defaults[ $option_key ];
+					}
+					set_theme_mod( $option_key, $mod_value );
+					$updated = true;
+				}
+			}
+		}
+		if ( $updated ) {
+			do_action( 'fl_theme_updated' );
 		}
 	}
 }

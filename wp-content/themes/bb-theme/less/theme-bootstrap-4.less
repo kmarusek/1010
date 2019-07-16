@@ -30,7 +30,7 @@ Appearance > Theme Settings > Code or create a child theme.
 	}
 }
 
-@media (min-width: 768px) {
+@media (min-width: @mobile-breakpoint) {
 	.fl-page-bar-nav {
 		display: flex;
 	}
@@ -40,6 +40,7 @@ Appearance > Theme Settings > Code or create a child theme.
 ----------------------------------------------------------- */
 
 .fl-page-nav {
+	flex-wrap: wrap;
 	padding: 0;
 }
 .fl-page-nav .navbar-nav > li > a.nav-link {
@@ -54,6 +55,7 @@ Appearance > Theme Settings > Code or create a child theme.
 
 	.fl-page-header-row {
 		display: flex;
+		align-items: center;
 	}
 
 	.fl-page-nav {
@@ -68,7 +70,13 @@ Appearance > Theme Settings > Code or create a child theme.
 		max-width: 100%;
 	}
 
-	@media (min-width: 992px) {
+	@media (max-width: (@medium-breakpoint - 1)) {
+		.fl-page-nav-collapse {
+			justify-content: center;
+		}
+	}
+
+	@media (min-width: @medium-breakpoint) {
 		.fl-page-header-row .col-lg-4 {
 			width: 33.333333%;
 		}
@@ -93,7 +101,7 @@ Appearance > Theme Settings > Code or create a child theme.
 		display: block;
 	}
 
-	@media (min-width: 768px) {
+	@media (min-width: @mobile-breakpoint) {
 		.fl-page-nav-collapse {
 			display: block !important;
 		}
@@ -130,6 +138,15 @@ Appearance > Theme Settings > Code or create a child theme.
 			padding: 0 15px 15px 15px;
 			position: relative;
 		}
+	}
+}
+
+/* Media Query - 1100px or greater
+----------------------------------------------------------- */
+
+@media (min-width: 1100px) {
+	.fl-full-width .container {
+	 	max-width: 90%;
 	}
 }
 

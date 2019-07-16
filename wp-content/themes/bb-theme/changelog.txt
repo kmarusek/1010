@@ -1,3 +1,25 @@
+<h4>1.7.3 06/06/2019</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>New filter <code>fl_theme_disable_schema</code> added to disable all schema added by the theme.</li>
+	<li>New filter <code>fl_theme_breakpoint_opts</code> added to configure theme breakpoints in JS.</li>
+	<li>Theme breakpoints for mobile and tablet are now configurable via WP custo fmizer.</li>
+	<li>Added separate submenu icon to toggle on mobile nav.</li>
+	<li>Added noopener and noreferrer to social links.</li>
+	<li>New Vietnamese translation added.</li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fixed menu disappears at 992px issue.</li>
+	<li>Fixed menu nav alignment in medium devices.</li>
+	<li>Fixed issue with logo and wp-rocket lazyload.</li>
+	<li>Fixed logo and menu alignment in BS4 layout.</li>
+	<li>Fixed scrollbar on BS4 with full-width layout.</li>
+	<li>Fixed mobile nav issue when using BS4 layout.</li>
+	<li>Fixed input slider field where number value should not below the minimum in customizer.</li>
+	<li>Update responsive text sizes ONLY if the original value is not the default.</li>
+</ul>
+
 <h4>1.7.2 03/26/2019</h4>
 <p><strong>Enhancements</strong></p>
 <ul>
@@ -15,7 +37,7 @@
 	<li>Fixed Bootstrap 4 header/footer menu alignment.</li>
 	<li>Fixed button styles on Audio shortcode/module.</li>
 	<li>Fixed scrolling issue on mobiles with off canvas menu.</li>
-	<li>Changed the brower scroll history to manual to prevent issues with shrink header logo.</li>
+	<li>Changed the browser scroll history to manual to prevent issues with shrink header logo.</li>
 	<li>Fixed the position of top bar submenu on iOS mobile devices.</li>
 </ul>
 

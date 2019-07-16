@@ -52,7 +52,7 @@ Appearance > Theme Settings > Code or create a child theme.
 	background: transparent !important;
 }
 
-@media only screen and (min-width: 767px) {
+@media only screen and (min-width: (@mobile-breakpoint - 1)) {
 
 	#tribe-events #tribe_events_filters_wrapper.tribe-events-filters-horizontal,
 	#tribe-events .tribe-filters-closed #tribe_events_filters_wrapper.tribe-events-filters-horizontal {
@@ -131,7 +131,7 @@ input#tribeHideRecurrence {
 	margin: 0 5px;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: @mobile-breakpoint) {
 
 	.tribe-events-list .tribe-event-schedule-details {
 		padding: 0 12px;

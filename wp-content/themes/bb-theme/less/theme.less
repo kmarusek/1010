@@ -258,19 +258,24 @@ img {
 	cursor: default;
 }
 
-.fl-page-header[class*=" fl-page-nav-toggle-visible"] ul.navbar-nav li {
-	&.mega-menu, &.mega-menu-disabled {
-		.hide-heading > a {
-			display: none;
-		}
-	}
-}
 .mega-menu-spacer {
 	background: none;
 	display: block;
 	left: 0;
 	position: absolute;
 	width: 100%;
+}
+
+/* Hide Heading */
+.fl-page-header[class*=" fl-page-nav-toggle-visible"] ul.navbar-nav li.hide-heading {
+	border-top: 0 none !important;
+	> a,
+	> .fl-submenu-icon-wrap {
+		display: none !important;
+	}
+	> ul.sub-menu {
+		margin-left: 0;
+	}
 }
 
 /* Nav Collapse
@@ -1118,7 +1123,7 @@ img.mfp-img {
 /* Media Query - 767px or less
 ----------------------------------------------------------- */
 
-@media (max-width: 767px) {
+@media (max-width: (@mobile-breakpoint - 1)) {
 
 	/* Mobile Post Image
 	----------------------------------------------------------- */
@@ -1147,7 +1152,7 @@ img.mfp-img {
 /* Media Query - 768px or greater
 ----------------------------------------------------------- */
 
-@media (min-width: 768px) {
+@media (min-width: @mobile-breakpoint) {
 
 	/* Bootstrap Overrides
 	----------------------------------------------------------- */
@@ -1355,7 +1360,7 @@ img.mfp-img {
 /* Media Query - 992px or greater
 ----------------------------------------------------------- */
 
-@media (min-width: 992px) {
+@media (min-width: @medium-breakpoint) {
 
 	/* General
 	----------------------------------------------------------- */

@@ -22,7 +22,7 @@ final class FLTheme {
 	 * @since 1.7
 	 * @var string $fa5_url
 	 */
-	static public $fa5_url = 'https://use.fontawesome.com/releases/v5.8.1/css/all.css';
+	static public $fa5_url = 'https://use.fontawesome.com/releases/v5.9.0/css/all.css';
 
 	/**
 	 * Font Awesome 4 CDN URL.
@@ -234,6 +234,12 @@ final class FLTheme {
 		// Core theme JS
 		wp_enqueue_script( 'fl-automator', FL_THEME_URL . '/js/theme' . ( self::is_debug() ? '' : '.min' ) . '.js', array(), FL_THEME_VERSION, true );
 
+		/**
+		 * JS Options for breakpoints
+		 * @see fl_theme_breakpoint_opts
+		 */
+		wp_localize_script( 'fl-automator', 'themeopts', self::get_theme_breakpoints() );
+
 		// Skin
 		if ( 'file' == FLTheme::get_asset_enqueue_method() ) {
 			wp_enqueue_style( 'fl-automator-skin', FLCustomizer::css_url(), array(), FL_THEME_VERSION );
@@ -246,6 +252,20 @@ final class FLTheme {
 		if ( is_rtl() ) {
 			wp_enqueue_style( 'fl-automator-rtl', FL_THEME_URL . '/css/rtl.css', array(), FL_THEME_VERSION );
 		}
+	}
+
+	/**
+	 * Return array of theme breakpoints
+	 * @since 1.7.3
+	 */
+	static public function get_theme_breakpoints() {
+
+		$args = array(
+			'medium_breakpoint' => get_theme_mod( 'fl-medium-breakpoint' ) ? get_theme_mod( 'fl-medium-breakpoint' ) : 992,
+			'mobile_breakpoint' => get_theme_mod( 'fl-mobile-breakpoint' ) ? get_theme_mod( 'fl-mobile-breakpoint' ) : 768,
+		);
+
+		return apply_filters( 'fl_theme_breakpoint_opts', $args );
 	}
 
 	/**
@@ -709,8 +729,8 @@ final class FLTheme {
 		$header_fixed  = self::get_setting( 'fl-fixed-header' );
 
 		if ( $sticky_logo && 'fadein' == $header_fixed && 'image' == $logo_type ) {
-			$logo_text = get_bloginfo( 'name' );
-			echo '<img class="fl-logo-img" itemscope itemtype="https://schema.org/ImageObject" src="' . $sticky_logo . '"';
+			$logo_text = apply_filters( 'fl_logo_text', get_bloginfo( 'name' ) );
+			echo '<img data-no-lazy="1" class="fl-logo-img"' . FLTheme::print_schema( ' itemscope itemtype="https://schema.org/ImageObject"', false ) . ' src="' . $sticky_logo . '"';
 			echo ' data-retina="' . $sticky_retina . '"';
 			echo ' alt="' . esc_attr( $logo_text ) . '" />';
 			echo '<meta itemprop="name" content="' . esc_attr( $logo_text ) . '" />';
@@ -810,8 +830,8 @@ final class FLTheme {
 		}
 
 		if ( 'image' == $logo_type ) {
-			$logo_text = get_bloginfo( 'name' );
-			echo '<img class="fl-logo-img" itemscope itemtype="https://schema.org/ImageObject" src="' . $logo_image . '"';
+			$logo_text = apply_filters( 'fl_logo_text', get_bloginfo( 'name' ) );
+			echo '<img data-no-lazy="1" class="fl-logo-img"' . FLTheme::print_schema( ' itemscope itemtype="https://schema.org/ImageObject"', false ) . ' src="' . $logo_image . '"';
 			echo ' data-retina="' . $logo_retina . '"';
 			if ( $mobile_logo ) {
 				echo ' data-mobile="' . $mobile_logo . '"';
@@ -1293,6 +1313,10 @@ final class FLTheme {
 	 * @return void
 	 */
 	static public function post_schema_meta() {
+
+		if ( ! self::is_schema_enabled() ) {
+			return false;
+		}
 		// General Schema Meta
 		echo '<meta itemscope itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage" itemid="' . esc_url( get_permalink() ) . '" content="' . the_title_attribute( array(
 			'echo' => false,
@@ -1523,6 +1547,57 @@ final class FLTheme {
 	static public function pingback_url() {
 		if ( is_singular() && pings_open() ) {
 			printf( '<link rel="pingback" href="%s">' . "\n", get_bloginfo( 'pingback_url' ) );
+		}
+	}
+
+	/**
+	 * Filters a menu item's starting output for submenu indicator.
+	 *
+	 * @param string   $item_output The menu item's starting HTML output.
+	 * @param WP_Post  $item        Menu item data object.
+	 * @param int      $depth       Depth of menu item. Used for padding.
+	 * @param stdClass $args        An object of wp_nav_menu() arguments.
+	 * @since 1.7.3
+	 */
+	static public function nav_menu_start_el( $item_output, $item, $depth, $args ) {
+		if ( ! in_array( 'fl-theme-menu', explode( ' ', $args->menu_class ) ) ) {
+			return $item_output;
+		}
+		if ( ! in_array( 'menu-item-has-children', $item->classes ) ) {
+			return $item_output;
+		}
+
+		$icon        = '<div class="fl-submenu-icon-wrap"><span class="fl-submenu-toggle-icon"></span></div>';
+		$item_output = str_replace( '</a>', '</a>' . $icon, $item_output );
+
+		return $item_output;
+	}
+	/**
+	 * @since 1.7.3
+	 */
+	static public function is_schema_enabled() {
+
+		/**
+		 * Disable all schema.
+		 * @see fl_theme_disable_schema
+		 */
+		if ( false !== apply_filters( 'fl_theme_disable_schema', false ) ) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	/**
+	 * @since 2.2.3
+	 */
+	static public function print_schema( $schema, $echo = true ) {
+		if ( self::is_schema_enabled() ) {
+			if ( $echo ) {
+				echo $schema;
+			} else {
+				return $schema;
+			}
 		}
 	}
 }

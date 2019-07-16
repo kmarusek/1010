@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<?php FLTheme::sidebar( 'left' ); ?>
 
-		<div class="fl-content <?php FLLayout::content_class(); ?>" itemscope="itemscope" itemtype="https://schema.org/Blog">
+		<div class="fl-content <?php FLLayout::content_class(); ?>"<?php FLTheme::print_schema( ' itemscope="itemscope" itemtype="https://schema.org/Blog"' ); ?>>
 
 			<?php FLTheme::archive_page_header(); ?>
 

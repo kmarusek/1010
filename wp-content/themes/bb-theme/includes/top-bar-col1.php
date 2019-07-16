@@ -18,7 +18,8 @@ if ( 'none' != $layout ) {
 	}
 	if ( 'menu' == $col_layout || 'menu-social' == $col_layout ) {
 		?>
-		<nav class="top-bar-nav" aria-label="<?php echo esc_attr( FLTheme::get_nav_locations( 'bar' ) ); ?>" itemscope="itemscope" itemtype="https://schema.org/SiteNavigationElement">
+		<nav class="top-bar-nav" aria-label="<?php echo esc_attr( FLTheme::get_nav_locations( 'bar' ) ); ?>"<?php FLTheme::print_schema( ' itemscope="itemscope" itemtype="https://schema.org/SiteNavigationElement"' ); ?>
+			>
 			<?php
 			wp_nav_menu(array(
 				'theme_location' => 'bar',

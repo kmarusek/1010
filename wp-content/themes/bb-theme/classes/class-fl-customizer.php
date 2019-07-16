@@ -661,7 +661,7 @@ final class FLCustomizer {
 	 * @access private
 	 * @return array
 	 */
-	static private function _get_default_mods() {
+	static public function _get_default_mods() {
 		$mods = array();
 
 		// Loop through the panels.
@@ -992,13 +992,16 @@ final class FLCustomizer {
 		$defaults    = self::_get_default_mods();
 		$vars        = array();
 		$vars_string = '';
+		$breakpoints = FLTheme::get_theme_breakpoints();
 
 		// Layout
-		$boxed                = 'boxed' == $mods['fl-layout-width'];
-		$shadow_size          = $mods['fl-layout-shadow-size'];
-		$shadow_color         = $mods['fl-layout-shadow-color'];
-		$vars['body-padding'] = $boxed ? $mods['fl-layout-spacing'] . 'px 0' : '0';
-		$vars['page-shadow']  = $boxed ? '0 0 ' . $shadow_size . 'px ' . $shadow_color : 'none';
+		$boxed                     = 'boxed' == $mods['fl-layout-width'];
+		$shadow_size               = $mods['fl-layout-shadow-size'];
+		$shadow_color              = $mods['fl-layout-shadow-color'];
+		$vars['body-padding']      = $boxed ? $mods['fl-layout-spacing'] . 'px 0' : '0';
+		$vars['page-shadow']       = $boxed ? '0 0 ' . $shadow_size . 'px ' . $shadow_color : 'none';
+		$vars['mobile-breakpoint'] = $breakpoints['mobile_breakpoint'] . 'px';
+		$vars['medium-breakpoint'] = $breakpoints['medium_breakpoint'] . 'px';
 
 		// Body Background Image
 		$vars['body-bg-image']      = empty( $mods['fl-body-bg-image'] ) ? 'none' : 'url(' . $mods['fl-body-bg-image'] . ')';
@@ -1047,82 +1050,7 @@ final class FLCustomizer {
 			$vars['title-transform'] = $mods['fl-heading-font-format'];
 		}
 
-		// Responsive controls style
-		$responsive_mods = array(
-			'text-size'         => array(
-				'key'    => 'fl-body-font-size',
-				'format' => 'px',
-			),
-			'line-height'       => array(
-				'key' => 'fl-body-line-height',
-			),
-			'h1-size'           => array(
-				'key'    => 'fl-h1-font-size',
-				'format' => 'px',
-			),
-			'h1-line-height'    => array(
-				'key' => 'fl-h1-line-height',
-			),
-			'h1-letter-spacing' => array(
-				'key'    => 'fl-h1-letter-spacing',
-				'format' => 'px',
-			),
-			'h2-size'           => array(
-				'key'    => 'fl-h2-font-size',
-				'format' => 'px',
-			),
-			'h2-line-height'    => array(
-				'key' => 'fl-h2-line-height',
-			),
-			'h2-letter-spacing' => array(
-				'key'    => 'fl-h2-letter-spacing',
-				'format' => 'px',
-			),
-			'h3-size'           => array(
-				'key'    => 'fl-h3-font-size',
-				'format' => 'px',
-			),
-			'h3-line-height'    => array(
-				'key' => 'fl-h3-line-height',
-			),
-			'h3-letter-spacing' => array(
-				'key'    => 'fl-h3-letter-spacing',
-				'format' => 'px',
-			),
-			'h4-size'           => array(
-				'key'    => 'fl-h4-font-size',
-				'format' => 'px',
-			),
-			'h4-line-height'    => array(
-				'key' => 'fl-h4-line-height',
-			),
-			'h4-letter-spacing' => array(
-				'key'    => 'fl-h4-letter-spacing',
-				'format' => 'px',
-			),
-			'h5-size'           => array(
-				'key'    => 'fl-h5-font-size',
-				'format' => 'px',
-			),
-			'h5-line-height'    => array(
-				'key' => 'fl-h5-line-height',
-			),
-			'h5-letter-spacing' => array(
-				'key'    => 'fl-h5-letter-spacing',
-				'format' => 'px',
-			),
-			'h6-size'           => array(
-				'key'    => 'fl-h6-font-size',
-				'format' => 'px',
-			),
-			'h6-line-height'    => array(
-				'key' => 'fl-h6-line-height',
-			),
-			'h6-letter-spacing' => array(
-				'key'    => 'fl-h6-letter-spacing',
-				'format' => 'px',
-			),
-		);
+		$responsive_mods = self::_get_resposive_mods();
 
 		foreach ( $responsive_mods as $var => $mod_data ) {
 			foreach ( array( 'desktop', 'medium', 'mobile' ) as $device ) {
@@ -1359,6 +1287,90 @@ final class FLCustomizer {
 
 		// Return the vars string
 		return $vars_string;
+	}
+
+	/**
+	 * @since 1.7.3
+	 */
+	static public function _get_resposive_mods() {
+
+		// Responsive controls style
+		$responsive_mods = array(
+			'text-size'         => array(
+				'key'    => 'fl-body-font-size',
+				'format' => 'px',
+			),
+			'line-height'       => array(
+				'key' => 'fl-body-line-height',
+			),
+			'h1-size'           => array(
+				'key'    => 'fl-h1-font-size',
+				'format' => 'px',
+			),
+			'h1-line-height'    => array(
+				'key' => 'fl-h1-line-height',
+			),
+			'h1-letter-spacing' => array(
+				'key'    => 'fl-h1-letter-spacing',
+				'format' => 'px',
+			),
+			'h2-size'           => array(
+				'key'    => 'fl-h2-font-size',
+				'format' => 'px',
+			),
+			'h2-line-height'    => array(
+				'key' => 'fl-h2-line-height',
+			),
+			'h2-letter-spacing' => array(
+				'key'    => 'fl-h2-letter-spacing',
+				'format' => 'px',
+			),
+			'h3-size'           => array(
+				'key'    => 'fl-h3-font-size',
+				'format' => 'px',
+			),
+			'h3-line-height'    => array(
+				'key' => 'fl-h3-line-height',
+			),
+			'h3-letter-spacing' => array(
+				'key'    => 'fl-h3-letter-spacing',
+				'format' => 'px',
+			),
+			'h4-size'           => array(
+				'key'    => 'fl-h4-font-size',
+				'format' => 'px',
+			),
+			'h4-line-height'    => array(
+				'key' => 'fl-h4-line-height',
+			),
+			'h4-letter-spacing' => array(
+				'key'    => 'fl-h4-letter-spacing',
+				'format' => 'px',
+			),
+			'h5-size'           => array(
+				'key'    => 'fl-h5-font-size',
+				'format' => 'px',
+			),
+			'h5-line-height'    => array(
+				'key' => 'fl-h5-line-height',
+			),
+			'h5-letter-spacing' => array(
+				'key'    => 'fl-h5-letter-spacing',
+				'format' => 'px',
+			),
+			'h6-size'           => array(
+				'key'    => 'fl-h6-font-size',
+				'format' => 'px',
+			),
+			'h6-line-height'    => array(
+				'key' => 'fl-h6-line-height',
+			),
+			'h6-letter-spacing' => array(
+				'key'    => 'fl-h6-letter-spacing',
+				'format' => 'px',
+			),
+		);
+		return $responsive_mods;
 	}
 
 	/**

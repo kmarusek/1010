@@ -970,7 +970,7 @@
  }
 }, {
  "Comfortaa": {
-  "variants": ["300", "regular", "700"],
+  "variants": ["300", "regular", "500", "600", "700"],
   "fallback": "sans-serif"
  }
 }, {
@@ -2956,6 +2956,11 @@
 }, {
  "Noto Sans": {
   "variants": ["regular", "italic", "700", "700italic"],
+  "fallback": "sans-serif"
+ }
+}, {
+ "Noto Sans HK": {
+  "variants": ["100", "300", "regular", "500", "700", "900"],
   "fallback": "sans-serif"
  }
 }, {

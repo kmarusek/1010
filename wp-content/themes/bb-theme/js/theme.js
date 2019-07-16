@@ -280,7 +280,7 @@
 				image.attr( 'src', '' );
 				image.attr( 'data-src', src );
 
-				if ( win.width() < 768 ) {
+				if ( win.width() < window.themeopts.mobile_breakpoint ) {
 
 					if ( '' != mobileSrc ) {
 						tmpImage.onload = function() {
@@ -343,7 +343,7 @@
 		{
 			var nav        = $('.fl-page-bar-nav'),
 				navItems   = nav.find(' > li'),
-				subToggles = nav.find('> li').has('> ul.sub-menu').find('> a');
+				subToggles = nav.find('> li').has('> ul.sub-menu').find('.fl-submenu-toggle-icon');
 
 			if ( FLTheme._isMobile() ) {
 				if( false !== /iPhone|iPad/i.test( navigator.userAgent ) ) {
@@ -405,6 +405,7 @@
 				nav        = pageNav.find('.fl-page-nav .fl-page-nav-collapse'),
 				navItems   = nav.find('ul li'),
 				subToggles = nav.find('li').has('> ul.sub-menu').find('> a'),
+				toggleIcon = nav.find('li').has('> ul.sub-menu').find('.fl-submenu-toggle-icon'),
 				subMenus   = nav.find('> ul > li').has('ul.sub-menu');
 
 			if( $( '.fl-page-nav .navbar-toggle' ).is( ':visible' ) ) {
@@ -415,6 +416,7 @@
 					subMenus = nav.find('> ul li').has('ul.sub-menu');
 				}
 				subMenus.find('> a').off().on('click', FLTheme._navItemClickMobile);
+				subMenus.find('.fl-submenu-toggle-icon').off().on('click', FLTheme._navItemClickMobile);
 
 				nav.find('.menu').on('click', '.menu-item > a[href*="#"]', FLTheme._toggleForMobile);
 				subToggles.off('click', FLTheme._navSubMenuToggleClick);
@@ -422,6 +424,7 @@
 			else {
 				nav.find('a').off('click', FLTheme._navItemClickMobile);
 				nav.find('a').off('click', FLTheme._toggleForMobile);
+				nav.find('.fl-submenu-toggle-icon').off('click', FLTheme._navItemClickMobile);
 				nav.removeClass('in').addClass('collapse');
 				navItems.removeClass('fl-mobile-sub-menu-open');
 				navItems.find('a').width(0).width('auto');
@@ -447,11 +450,13 @@
 		_navItemClickMobile: function(e)
 		{
 			var nav     = $(this).closest('.fl-page-nav-collapse'),
-				parent  = $(this).parent(),
+				parent  = $(this).closest('li'),
 				href    = $(this).attr('href'),
-				subMenu = parent.find( 'ul.sub-menu' );
+				subMenu = parent.find( 'ul.sub-menu' ),
+				toggle  = $(e.target).hasClass('fl-submenu-toggle-icon'),
+				subChildren = null;
 
-			if( '#' == href && parent.hasClass( 'fl-mobile-sub-menu-open' ) ) {
+			if( ( '#' == href || toggle ) && parent.hasClass( 'fl-mobile-sub-menu-open' ) ) {
 				e.preventDefault();
 				parent.removeClass('fl-mobile-sub-menu-open');
 				subMenu.hide();
@@ -459,12 +464,19 @@
 			else if(!parent.hasClass('fl-mobile-sub-menu-open')) {
 				e.preventDefault();
 				parent.addClass('fl-mobile-sub-menu-open');
+
+				if ( toggle && 0 === $('.fl-submenu-toggle').length ) {
+					subChildren = subMenu.find( 'li.menu-item-has-children' );
+					subChildren.addClass('fl-mobile-sub-menu-open');
+				}
+
 				subMenu.fadeIn(200);
 			}
 
 			if ( $( '.fl-nav-collapse-menu' ).length != 0 ) {
 				nav.find( 'li.fl-mobile-sub-menu-open' )
 					.not( $(this).parents( '.fl-mobile-sub-menu-open' ) )
+					.not( subChildren )
 					.removeClass( 'fl-mobile-sub-menu-open' )
 					.find( 'ul.sub-menu' ).hide();
 			}
@@ -693,7 +705,8 @@
 		{
 			var win = $(window);
 
-			if(win.width() >= 992 && $('.fl-page-header-primary').hasClass('fl-page-nav-toggle-visible-always')){
+
+			if(win.width() >= window.themeopts.medium_breakpoint && $('.fl-page-header-primary').hasClass('fl-page-nav-toggle-visible-always')){
 				$('body').toggleClass('fl-nav-vertical');
 
 				if( $('body').hasClass('fl-nav-vertical-left') ) {
@@ -733,10 +746,10 @@
 		{
 			var win = $(window);
 
-			if(win.width() < 992 || $('.fl-page-header-primary').hasClass('fl-page-nav-toggle-visible-always')) {
+			if(win.width() < window.themeopts.medium_breakpoint || $('.fl-page-header-primary').hasClass('fl-page-nav-toggle-visible-always')) {
 				$('.fl-page-header-primary .fl-page-logo-wrap').insertBefore('.fl-page-header-primary .fl-page-nav-col');
 			}
-			if(win.width() >= 992 && !$('.fl-page-header-primary').hasClass('fl-page-nav-toggle-visible-always')) {
+			if(win.width() >= window.themeopts.medium_breakpoint && !$('.fl-page-header-primary').hasClass('fl-page-nav-toggle-visible-always')) {
 				$('.fl-page-header-primary .fl-page-nav-col').insertBefore('.fl-page-header-primary .fl-page-logo-wrap');
 			}
 
@@ -780,7 +793,7 @@
 		{
 			var win = $( window );
 
-			if ( win.width() >= 992 ) {
+			if ( win.width() >= window.themeopts.medium_breakpoint ) {
 
 				var header             = $('.fl-page-header'),
 					headerHeight       = header.outerHeight(),
@@ -859,7 +872,7 @@
 		 		bar               = $('.fl-page-bar'),
 		 		barHeight         = 0;
 
-		 	if(win.width() >= 992) {
+		 	if(win.width() >= window.themeopts.medium_breakpoint) {
 
 		 		headerHeight = header.outerHeight();
 
@@ -914,7 +927,7 @@
 		{
 			var win = $(window);
 
-			if(win.width() < 992) {
+			if(win.width() < window.themeopts.medium_breakpoint) {
 				win.off('scroll.fl-page-header-fixed');
 				$('.fl-page-header-fixed').hide();
 			}
@@ -1019,7 +1032,7 @@
 				nav_li_length     = $nav.children('li').length,
 				logo_li_location  = Math.round( nav_li_length / 2 ) - 1;
 
-			if(win.width() >= 992 && $inline_logo.length < 1 && !$('.fl-page-header-primary').hasClass('fl-page-nav-toggle-visible-always')) {
+			if(win.width() >= window.themeopts.medium_breakpoint && $inline_logo.length < 1 && !$('.fl-page-header-primary').hasClass('fl-page-nav-toggle-visible-always')) {
 
 				if( $logo.hasClass( 'fl-inline-logo-left' ) && nav_li_length % 2 != 0 ) {
 					$nav.children( 'li:nth( '+logo_li_location+' )' ).before( '<li class="fl-logo-centered-inline"></li>' );
@@ -1030,7 +1043,7 @@
 				$nav.children( '.fl-logo-centered-inline' ).append( $logo );
 		 	}
 
-		 	if(win.width() < 992) {
+		 	if(win.width() < window.themeopts.medium_breakpoint) {
 		 		$( '.fl-page-nav-centered-inline-logo .fl-page-header-row' ).prepend( $inline_logo );
 		 		$( '.fl-logo-centered-inline' ).remove();
 		 	}
@@ -1057,7 +1070,7 @@
 				header = $('.fl-page-header-primary');
 			}
 
-			if(win.width() >= 992) {
+			if(win.width() >= window.themeopts.medium_breakpoint) {
 				win.on('scroll.fl-show-header-on-scroll', function () {
 					if ($(this).scrollTop() > distance) {
 						header.addClass('fl-show');
@@ -1232,7 +1245,7 @@
 				pushOpacity = $( 'body').hasClass( 'fl-offcanvas-push-opacity-left' ) || $( 'body').hasClass( 'fl-offcanvas-push-opacity-right' ),
 				logoPos   = header.find( '.fl-page-header-logo' ).offset();
 
-			if ( FLTheme._isResponsiveNavEnabled() ) {
+			if ( FLTheme._isResponsiveNavEnabled() && button.is( ':visible' ) ) {
 				$( 'body' ).addClass( 'fl-responsive-nav-enabled' );
 
 				button.attr( 'data-toggle', 'offcanvas');
@@ -1263,7 +1276,7 @@
 					navBarTop = navBarTop + ($( '.fl-page-bar' ).height() + 1);
 				}
 
-				if ( $('.fl-scroll-header').length && win.width() >= 992 ) {
+				if ( $('.fl-scroll-header').length && win.width() >= window.themeopts.medium_breakpoint ) {
 					navBar.css('top', pageWrap.offset().top - navBarTop + 'px' );
 				}
 				else {
@@ -1271,7 +1284,7 @@
 				}
 
 				// Set button position for larger screens when nav breakpoint is set to always.
-				if ( win.width() >= 992 && ! header.hasClass( 'fl-page-nav-bottom' ) ) {
+				if ( win.width() >= window.themeopts.medium_breakpoint && ! header.hasClass( 'fl-page-nav-bottom' ) ) {
 					button.css( 'right', logoPos.left );
 				}
 				else {
@@ -1329,7 +1342,7 @@
 		 */
 		_footerEffect: function()
 		{
-			if ( $( window ).width() >= 768 ) {
+			if ( $( window ).width() >= window.themeopts.mobile_breakpoint ) {
 				$( '.fl-page' ).css( 'margin-bottom', $( '.fl-page-footer-wrap' ).height() );
 			}
 			else {
@@ -1427,8 +1440,8 @@
 				enabled = false;
 
 			if ( ( $( '.fl-page-nav-toggle-visible-always' ).length > 0 )
-				|| ( $( '.fl-page-nav-toggle-visible-medium-mobile' ).length > 0 && win.width() < 992 )
-				|| ( $( '.fl-page-nav-toggle-visible-mobile' ).length > 0 && win.width() < 768 )
+				|| ( $( '.fl-page-nav-toggle-visible-medium-mobile' ).length > 0 && win.width() < window.themeopts.medium_breakpoint )
+				|| ( $( '.fl-page-nav-toggle-visible-mobile' ).length > 0 && win.width() < window.themeopts.mobile_breakpoint )
 				) {
 				enabled = true;
 			}

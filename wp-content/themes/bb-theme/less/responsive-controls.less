@@ -10,7 +10,7 @@ Appearance > Theme Settings > Code or create a child theme.
 
 /* Media Query - medium devices
 ----------------------------------------------------------- */
-@media (max-width: 991px) {
+@media (max-width: (@medium-breakpoint - 1)) {
 	body {
 		font-size: @medium-text-size;
 		line-height: @medium-line-height;
@@ -49,7 +49,7 @@ Appearance > Theme Settings > Code or create a child theme.
 
 /* Media Query - mobile devices
 ----------------------------------------------------------- */
-@media (max-width: 767px) {
+@media (max-width: (@mobile-breakpoint - 1)) {
 	body {
 		font-size: @mobile-text-size;
 		line-height: @mobile-line-height;

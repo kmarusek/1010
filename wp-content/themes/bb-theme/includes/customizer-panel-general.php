@@ -142,6 +142,41 @@ FLCustomizer::add_panel('fl-general', array(
 						),
 					),
 				),
+				/* Medium Breakpoint */
+				'fl-medium-breakpoint'      => array(
+					'setting' => array(
+						'default' => 992,
+					),
+					'control' => array(
+						'class'   => 'FLCustomizerControl',
+						'label'   => __( 'Theme Medium Breakpoint', 'fl-automator' ),
+						'description' => __( 'Medium device behavior starts below this setting.', 'fl-automator' ),
+						'type'    => 'slider',
+						'choices' => array(
+							'min'  => 500,
+							'max'  => 1200,
+							'step' => 1,
+						),
+					),
+				),
+
+				/* Mobile Breakpoint */
+				'fl-mobile-breakpoint'      => array(
+					'setting' => array(
+						'default' => 768,
+					),
+					'control' => array(
+						'class'   => 'FLCustomizerControl',
+						'label'   => __( 'Theme Mobile Breakpoint', 'fl-automator' ),
+						'description' => __( 'Mobile device behavior starts below this setting.', 'fl-automator' ),
+						'type'    => 'slider',
+						'choices' => array(
+							'min'  => 500,
+							'max'  => 1200,
+							'step' => 1,
+						),
+					),
+				),
 			),
 		),
 
