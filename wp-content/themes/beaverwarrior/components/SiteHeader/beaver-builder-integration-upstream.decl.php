@@ -196,7 +196,7 @@ function beaver_warrior_reorganize_bb_header_controls() {
 }
 add_action('customize_register', 'beaver_warrior_reorganize_bb_header_controls', 11);
 
-function beaver_warrior_expose_header_settings($vars, $mods) {
+function beaver_warrior_expose_header_settings($vars) {
     $vars["bw-topbar-height-bp"] = get_theme_mod("bw-topbar-height-bp", 38) . "px";
     $vars["bw-header-height"] = get_theme_mod("bw-header-height", 50) . "px";
     $vars["bw-header-logo-height"] = get_theme_mod("bw-header-logo-height", 45) . "px";
@@ -208,7 +208,7 @@ function beaver_warrior_expose_header_settings($vars, $mods) {
 
     return $vars;
 }
-add_action('bw_less_vars', 'beaver_warrior_expose_header_settings', 10, 2);
+add_filter('fl_less_vars', 'beaver_warrior_expose_header_settings');
 
 // adds descriptions to menus
 function beaver_warrior_prefix_nav_description( $item_output, $item, $depth, $args ) {

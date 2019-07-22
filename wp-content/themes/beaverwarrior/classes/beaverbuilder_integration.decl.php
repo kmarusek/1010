@@ -328,7 +328,7 @@ function beaver_warrior_reorganize_bb_type_controls() {
 }
 add_action('customize_register', 'beaver_warrior_reorganize_bb_type_controls', 11);
 
-function beaver_warrior_expose_type_settings($vars, $mods) {
+function beaver_warrior_expose_type_settings($vars) {
     $vars["bw-p-lg-font-size"] = get_theme_mod("bw-p-lg-font-size", 14) . "px";
     $vars["bw-p-lg-line-height"] = get_theme_mod("bw-p-lg-line-height", 1.45);
     $vars["bw-p-margin"] = get_theme_mod("bw-p-margin", 0) . "px";
@@ -348,4 +348,4 @@ function beaver_warrior_expose_type_settings($vars, $mods) {
 
     return $vars;
 }
-add_action('bw_less_vars', 'beaver_warrior_expose_type_settings', 10, 2);
+add_filter('fl_less_vars', 'beaver_warrior_expose_type_settings');

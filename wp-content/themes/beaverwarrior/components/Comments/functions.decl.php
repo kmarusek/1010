@@ -198,7 +198,7 @@ function beaver_warrior_Comment_customize_register() {
 }
 add_action("customize_register", "beaver_warrior_Comment_customize_register", 11);
 
-function beaver_warrior_Comment_bw_less_vars($vars, $mods) {
+function beaver_warrior_Comment_fl_less_vars($vars) {
     $vars["bw-comments-bg-color"] = FLColor::hex_or_transparent(get_theme_mod("bw-comments-bg-color"));
     $vars["bw-comments-color"] = FLColor::hex_or_transparent(get_theme_mod("bw-comments-color"));
     $vars["bw-comments-padding"] = get_theme_mod("bw-comments-padding", 20) . "px";
@@ -213,4 +213,4 @@ function beaver_warrior_Comment_bw_less_vars($vars, $mods) {
     
     return $vars;
 }
-add_action("bw_less_vars", "beaver_warrior_Comment_bw_less_vars", 10, 2);
+add_filter("fl_less_vars", "beaver_warrior_Comment_fl_less_vars");

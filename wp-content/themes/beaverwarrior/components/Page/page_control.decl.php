@@ -36,9 +36,9 @@ function skeleton_warrior_register_page_border($wp_customize) {
 }
 add_action('customize_register', 'skeleton_warrior_register_page_border');
 
-function beaver_warrior_expose_page_border_settings($vars, $mods) {
+function beaver_warrior_expose_page_border_settings($vars) {
     $vars["bw-pageborder-color"] = FLColor::hex_or_transparent(get_theme_mod("bw-pageborder-color"));
 
     return $vars;
 }
-add_action('bw_less_vars', 'beaver_warrior_expose_page_border_settings', 10, 2);
+add_filter('fl_less_vars', 'beaver_warrior_expose_page_border_settings');
