@@ -7,4 +7,4 @@ function spacestation_woocommerce_vars_fallback($vars) {
     
     return $vars;
 }
-add_filter('fl_less_vars', 'spacestation_woocommerce_vars_fallback', 0);
+add_filter('fl_less_vars', 'spacestation_woocommerce_vars_fallback', 999);

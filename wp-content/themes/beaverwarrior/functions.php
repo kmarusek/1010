@@ -14,6 +14,7 @@ define( 'BEAVER_BUILDER_CACHE_BUST_QUERY_STRINGS',
 require_once 'classes/lessc.inc.php';
 require_once 'classes/class-bw-customizer-less.php';
 require_once 'classes/beaverbuilder_integration.decl.php';
+require_once 'classes/woocommerce-fixes.decl.php';
 
 /**
  * Function used by .decl files that include a file if this site is 
