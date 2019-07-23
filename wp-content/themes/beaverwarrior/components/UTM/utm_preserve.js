@@ -14,11 +14,11 @@
         wanted_vars = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
     
     function utm_preserve_enabled() {
-        return $("body").data("utmpreserve-preserve") !== "false";
+        return $("body").data("utmpreserve-preserve") !== false;
     }
     
     function utm_forminject_enabled() {
-        return $("body").data("utmpreserve-forminject") !== "false";
+        return $("body").data("utmpreserve-forminject") !== false;
     }
 
     function getQueryVariable(variable) {
