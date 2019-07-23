@@ -931,7 +931,7 @@ final class BWCustomizerLess {
 
 		// Compile and return
        try {
-           return $less->compile( $mixins . $less_vars . $css );
+           return $less->compile( $less_vars . $mixins . $css );
        } catch (Less_Exception_Compiler $e) {
            trigger_error("LESS compilation failed. Most likely, the settings currently configured for your theme are invalid, which is preventing the theme customizations from being compiled. You won't see a styled website until you resolve this issue. The given error message was: " . $e->getMessage(), E_USER_WARNING);
 
