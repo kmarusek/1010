@@ -434,7 +434,7 @@ class Less_Parser{
 
 		if( !$file_uri ){
 			$uri_root = '';
-			$filename = 'anonymous-file-'.Less_Parser::$next_id++.'.less';
+			$filename = 'unfile-'.Less_Parser::$next_id++.'.less';
 		}else{
 			$file_uri = self::WinPath($file_uri);
 			$filename = $file_uri;
