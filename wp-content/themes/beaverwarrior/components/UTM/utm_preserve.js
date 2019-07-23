@@ -12,6 +12,14 @@
     var module = {},
         utm_variables = {},
         wanted_vars = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
+    
+    function utm_preserve_enabled() {
+        return $("body").data("utmpreserve-preserve") !== "false";
+    }
+    
+    function utm_forminject_enabled() {
+        return $("body").data("utmpreserve-forminject") !== "false";
+    }
 
     function getQueryVariable(variable) {
         var query = window.location.search.substring(1);
@@ -37,6 +45,11 @@
     }
 
     function do_utm_replace($context) {
+        if (!utm_preserve_enabled()) {
+            console.log("UTM preserve is disabled.");
+            return;
+        }
+        
         utm_variables = look_for_utm_variables();
 
         $context.find("a[href]").each(function (index, elem) {
@@ -60,6 +73,11 @@
     function do_gform_insertion(evt, form_id, current_page) {
         var $form = $("#gform_" + form_id), i, k,
             old_action = $form.attr("action");
+        
+        if (!utm_forminject_enabled()) {
+            console.log("UTM form injection is disabled.");
+            return;
+        }
         
         utm_variables = look_for_utm_variables();
         

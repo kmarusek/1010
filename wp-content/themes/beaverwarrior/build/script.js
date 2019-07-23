@@ -1,4 +1,3 @@
-!function(e){function n(){}function t(e,n){return function(){e.apply(n,arguments)}}function o(e){if("object"!=typeof this)throw new TypeError("Promises must be constructed via new");if("function"!=typeof e)throw new TypeError("not a function");this._state=0,this._handled=!1,this._value=void 0,this._deferreds=[],s(e,this)}function i(e,n){for(;3===e._state;)e=e._value;return 0===e._state?void e._deferreds.push(n):(e._handled=!0,void o._immediateFn(function(){var t=1===e._state?n.onFulfilled:n.onRejected;if(null===t)return void(1===e._state?r:u)(n.promise,e._value);var o;try{o=t(e._value)}catch(i){return void u(n.promise,i)}r(n.promise,o)}))}function r(e,n){try{if(n===e)throw new TypeError("A promise cannot be resolved with itself.");if(n&&("object"==typeof n||"function"==typeof n)){var i=n.then;if(n instanceof o)return e._state=3,e._value=n,void f(e);if("function"==typeof i)return void s(t(i,n),e)}e._state=1,e._value=n,f(e)}catch(r){u(e,r)}}function u(e,n){e._state=2,e._value=n,f(e)}function f(e){2===e._state&&0===e._deferreds.length&&o._immediateFn(function(){e._handled||o._unhandledRejectionFn(e._value)});for(var n=0,t=e._deferreds.length;n<t;n++)i(e,e._deferreds[n]);e._deferreds=null}function c(e,n,t){this.onFulfilled="function"==typeof e?e:null,this.onRejected="function"==typeof n?n:null,this.promise=t}function s(e,n){var t=!1;try{e(function(e){t||(t=!0,r(n,e))},function(e){t||(t=!0,u(n,e))})}catch(o){if(t)return;t=!0,u(n,o)}}var a=setTimeout;o.prototype["catch"]=function(e){return this.then(null,e)},o.prototype.then=function(e,t){var o=new this.constructor(n);return i(this,new c(e,t,o)),o},o.all=function(e){var n=Array.prototype.slice.call(e);return new o(function(e,t){function o(r,u){try{if(u&&("object"==typeof u||"function"==typeof u)){var f=u.then;if("function"==typeof f)return void f.call(u,function(e){o(r,e)},t)}n[r]=u,0===--i&&e(n)}catch(c){t(c)}}if(0===n.length)return e([]);for(var i=n.length,r=0;r<n.length;r++)o(r,n[r])})},o.resolve=function(e){return e&&"object"==typeof e&&e.constructor===o?e:new o(function(n){n(e)})},o.reject=function(e){return new o(function(n,t){t(e)})},o.race=function(e){return new o(function(n,t){for(var o=0,i=e.length;o<i;o++)e[o].then(n,t)})},o._immediateFn="function"==typeof setImmediate&&function(e){setImmediate(e)}||function(e){a(e,0)},o._unhandledRejectionFn=function(e){"undefined"!=typeof console&&console&&console.warn("Possible Unhandled Promise Rejection:",e)},o._setImmediateFn=function(e){o._immediateFn=e},o._setUnhandledRejectionFn=function(e){o._unhandledRejectionFn=e},"undefined"!=typeof module&&module.exports?module.exports=o:e.Promise||(e.Promise=o)}(this);
 //https://github.com/JamesMGreene/Function.name/blob/master/Function.name.js
 (function() {
 
@@ -118,6 +117,7 @@ if (needsPolyfill) {
 }
 
 })();
+!function(e){function n(){}function t(e,n){return function(){e.apply(n,arguments)}}function o(e){if("object"!=typeof this)throw new TypeError("Promises must be constructed via new");if("function"!=typeof e)throw new TypeError("not a function");this._state=0,this._handled=!1,this._value=void 0,this._deferreds=[],s(e,this)}function i(e,n){for(;3===e._state;)e=e._value;return 0===e._state?void e._deferreds.push(n):(e._handled=!0,void o._immediateFn(function(){var t=1===e._state?n.onFulfilled:n.onRejected;if(null===t)return void(1===e._state?r:u)(n.promise,e._value);var o;try{o=t(e._value)}catch(i){return void u(n.promise,i)}r(n.promise,o)}))}function r(e,n){try{if(n===e)throw new TypeError("A promise cannot be resolved with itself.");if(n&&("object"==typeof n||"function"==typeof n)){var i=n.then;if(n instanceof o)return e._state=3,e._value=n,void f(e);if("function"==typeof i)return void s(t(i,n),e)}e._state=1,e._value=n,f(e)}catch(r){u(e,r)}}function u(e,n){e._state=2,e._value=n,f(e)}function f(e){2===e._state&&0===e._deferreds.length&&o._immediateFn(function(){e._handled||o._unhandledRejectionFn(e._value)});for(var n=0,t=e._deferreds.length;n<t;n++)i(e,e._deferreds[n]);e._deferreds=null}function c(e,n,t){this.onFulfilled="function"==typeof e?e:null,this.onRejected="function"==typeof n?n:null,this.promise=t}function s(e,n){var t=!1;try{e(function(e){t||(t=!0,r(n,e))},function(e){t||(t=!0,u(n,e))})}catch(o){if(t)return;t=!0,u(n,o)}}var a=setTimeout;o.prototype["catch"]=function(e){return this.then(null,e)},o.prototype.then=function(e,t){var o=new this.constructor(n);return i(this,new c(e,t,o)),o},o.all=function(e){var n=Array.prototype.slice.call(e);return new o(function(e,t){function o(r,u){try{if(u&&("object"==typeof u||"function"==typeof u)){var f=u.then;if("function"==typeof f)return void f.call(u,function(e){o(r,e)},t)}n[r]=u,0===--i&&e(n)}catch(c){t(c)}}if(0===n.length)return e([]);for(var i=n.length,r=0;r<n.length;r++)o(r,n[r])})},o.resolve=function(e){return e&&"object"==typeof e&&e.constructor===o?e:new o(function(n){n(e)})},o.reject=function(e){return new o(function(n,t){t(e)})},o.race=function(e){return new o(function(n,t){for(var o=0,i=e.length;o<i;o++)e[o].then(n,t)})},o._immediateFn="function"==typeof setImmediate&&function(e){setImmediate(e)}||function(e){a(e,0)},o._unhandledRejectionFn=function(e){"undefined"!=typeof console&&console&&console.warn("Possible Unhandled Promise Rejection:",e)},o._setImmediateFn=function(e){o._immediateFn=e},o._setUnhandledRejectionFn=function(e){o._unhandledRejectionFn=e},"undefined"!=typeof module&&module.exports?module.exports=o:e.Promise||(e.Promise=o)}(this);
 /*global define, window, document*/
 
 //Polyfill for Object.create.
@@ -2157,6 +2157,138 @@ if (typeof Object.create !== 'function') {
     return module;
 }));
 
+/*global define,google,Promise*/
+(function (root, factory) {
+    "use strict";
+    if (typeof define === 'function' && define.amd) {
+        define("GoogleMap", ["jquery", "Behaviors"], factory);
+    } else {
+        root.GoogleMap = factory(root.jQuery, root.Behaviors);
+    }
+}(this, function ($, Behaviors) {
+    "use strict";
+    
+    var module = {};
+    
+    function GoogleMap() {
+        Behaviors.init(GoogleMap, this, arguments);
+        
+        this.load_gmaps().then(this.render_map.bind(this));
+    }
+    
+    Behaviors.inherit(GoogleMap, Behaviors.Behavior);
+    
+    GoogleMap.QUERY = "[data-googlemap]";
+    
+    GoogleMap.prototype.center_specified_by_markup = function () {
+        return this.$elem.data("googlemap-lat") !== undefined && this.$elem.data("googlemap-lng") !== undefined;
+    };
+    
+    GoogleMap.prototype.determine_default_args = function () {
+        var args = {
+            center: {lat: 0, lng: 0},
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            disableDefaultUI: true,
+            draggable: false,
+            scrollwheel: false,
+            zoom: 15
+        };
+        
+        if (this.$elem.data("googlemap-draggable") !== undefined) {
+            args.draggable = true;
+        }
+        
+        if (this.$elem.data("googlemap-scrollzoom") !== undefined) {
+            args.scrollwheel = true;
+        }
+        
+        if (this.center_specified_by_markup()) {
+            args.center = {lat: this.$elem.data("googlemap-lat"),
+                           lng: this.$elem.data("googlemap-lng")};
+        }
+        
+        if (this.$elem.data("googlemap-zoom") !== undefined) {
+            args.zoom = this.$elem.data("googlemap-zoom");
+        }
+        
+        return args;
+    };
+    
+    GoogleMap.prototype.load_gmaps = function () {
+        return Promise.resolve().then(function () {
+            if (window.google) {
+                return;
+            } else {
+                //TODO: Autoload Gmaps API
+                throw new Error("Google Maps API not loaded at time of initialization.");
+            }
+        });
+    };
+    
+    GoogleMap.prototype.render_map = function () {
+        var $markers = this.$elem.find('[data-googlemap-marker]'), i;
+        
+        // create map
+        this.map = new google.maps.Map(this.$elem[0], this.determine_default_args());
+        
+        this.map.markers = [];
+        for (i = 0; i < $markers.length; i += 1) {
+            this.add_marker($($markers[i]), this.map);
+        }
+        
+        // center map
+        this.center_map();
+    };
+    
+    GoogleMap.prototype.add_marker = function ($marker) {
+        var latlng = new google.maps.LatLng($marker.data('googlemap-lat'), $marker.data('googlemap-lng')),
+            marker = new google.maps.Marker({
+                position: latlng,
+                map: this.map
+            }),
+            infowindow;
+        
+        this.map.markers.push(marker);
+        
+        // if marker contains HTML, add it to an infoWindow
+        if ($marker.html()) {
+            infowindow = new google.maps.InfoWindow({
+                content		: $marker.html()
+            });
+            
+            google.maps.event.addListener(marker, 'click', this.marker_click_intent.bind(this, marker, infowindow));
+        }
+    };
+    
+    GoogleMap.prototype.marker_click_intent = function (marker, infowindow) {
+        infowindow.open(this.map, marker);
+    };
+    
+    GoogleMap.prototype.center_map = function () {
+        var i, marker, latlng, bounds = new google.maps.LatLngBounds();
+        
+        // loop through all markers and create bounds
+        for (i = 0; i < this.map.markers.length; i += 1) {
+            marker = this.map.markers[i];
+            latlng = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
+            bounds.extend(latlng);
+        }
+        
+        if (!this.center_specified_by_markup()) {
+            if (this.map.markers.length === 1) {
+                this.map.setCenter(bounds.getCenter());
+            } else {
+                this.map.fitBounds(bounds);
+            }
+        }
+    };
+    
+    Behaviors.register_behavior(GoogleMap);
+    
+    module.GoogleMap = GoogleMap;
+    
+    return module;
+}));
 /* Paginate.js
  * A progressively-enhancing infinite scroll library
  * ©2014 HUEMOR Designs All Rights Reserved
@@ -2860,138 +2992,6 @@ if (typeof Object.create !== 'function') {
     module.Paginate = Paginate;
     
     Behaviors.register_behavior(Paginate);
-    
-    return module;
-}));
-/*global define,google,Promise*/
-(function (root, factory) {
-    "use strict";
-    if (typeof define === 'function' && define.amd) {
-        define("GoogleMap", ["jquery", "Behaviors"], factory);
-    } else {
-        root.GoogleMap = factory(root.jQuery, root.Behaviors);
-    }
-}(this, function ($, Behaviors) {
-    "use strict";
-    
-    var module = {};
-    
-    function GoogleMap() {
-        Behaviors.init(GoogleMap, this, arguments);
-        
-        this.load_gmaps().then(this.render_map.bind(this));
-    }
-    
-    Behaviors.inherit(GoogleMap, Behaviors.Behavior);
-    
-    GoogleMap.QUERY = "[data-googlemap]";
-    
-    GoogleMap.prototype.center_specified_by_markup = function () {
-        return this.$elem.data("googlemap-lat") !== undefined && this.$elem.data("googlemap-lng") !== undefined;
-    };
-    
-    GoogleMap.prototype.determine_default_args = function () {
-        var args = {
-            center: {lat: 0, lng: 0},
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            disableDefaultUI: true,
-            draggable: false,
-            scrollwheel: false,
-            zoom: 15
-        };
-        
-        if (this.$elem.data("googlemap-draggable") !== undefined) {
-            args.draggable = true;
-        }
-        
-        if (this.$elem.data("googlemap-scrollzoom") !== undefined) {
-            args.scrollwheel = true;
-        }
-        
-        if (this.center_specified_by_markup()) {
-            args.center = {lat: this.$elem.data("googlemap-lat"),
-                           lng: this.$elem.data("googlemap-lng")};
-        }
-        
-        if (this.$elem.data("googlemap-zoom") !== undefined) {
-            args.zoom = this.$elem.data("googlemap-zoom");
-        }
-        
-        return args;
-    };
-    
-    GoogleMap.prototype.load_gmaps = function () {
-        return Promise.resolve().then(function () {
-            if (window.google) {
-                return;
-            } else {
-                //TODO: Autoload Gmaps API
-                throw new Error("Google Maps API not loaded at time of initialization.");
-            }
-        });
-    };
-    
-    GoogleMap.prototype.render_map = function () {
-        var $markers = this.$elem.find('[data-googlemap-marker]'), i;
-        
-        // create map
-        this.map = new google.maps.Map(this.$elem[0], this.determine_default_args());
-        
-        this.map.markers = [];
-        for (i = 0; i < $markers.length; i += 1) {
-            this.add_marker($($markers[i]), this.map);
-        }
-        
-        // center map
-        this.center_map();
-    };
-    
-    GoogleMap.prototype.add_marker = function ($marker) {
-        var latlng = new google.maps.LatLng($marker.data('googlemap-lat'), $marker.data('googlemap-lng')),
-            marker = new google.maps.Marker({
-                position: latlng,
-                map: this.map
-            }),
-            infowindow;
-        
-        this.map.markers.push(marker);
-        
-        // if marker contains HTML, add it to an infoWindow
-        if ($marker.html()) {
-            infowindow = new google.maps.InfoWindow({
-                content		: $marker.html()
-            });
-            
-            google.maps.event.addListener(marker, 'click', this.marker_click_intent.bind(this, marker, infowindow));
-        }
-    };
-    
-    GoogleMap.prototype.marker_click_intent = function (marker, infowindow) {
-        infowindow.open(this.map, marker);
-    };
-    
-    GoogleMap.prototype.center_map = function () {
-        var i, marker, latlng, bounds = new google.maps.LatLngBounds();
-        
-        // loop through all markers and create bounds
-        for (i = 0; i < this.map.markers.length; i += 1) {
-            marker = this.map.markers[i];
-            latlng = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
-            bounds.extend(latlng);
-        }
-        
-        if (!this.center_specified_by_markup()) {
-            if (this.map.markers.length === 1) {
-                this.map.setCenter(bounds.getCenter());
-            } else {
-                this.map.fitBounds(bounds);
-            }
-        }
-    };
-    
-    Behaviors.register_behavior(GoogleMap);
-    
-    module.GoogleMap = GoogleMap;
     
     return module;
 }));
@@ -4958,6 +4958,14 @@ if (!Array.prototype.indexOf) {
     var module = {},
         utm_variables = {},
         wanted_vars = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
+    
+    function utm_preserve_enabled() {
+        return $("body").data("utmpreserve-preserve") !== "false";
+    }
+    
+    function utm_forminject_enabled() {
+        return $("body").data("utmpreserve-forminject") !== "false";
+    }
 
     function getQueryVariable(variable) {
         var query = window.location.search.substring(1);
@@ -4983,6 +4991,11 @@ if (!Array.prototype.indexOf) {
     }
 
     function do_utm_replace($context) {
+        if (!utm_preserve_enabled()) {
+            console.log("UTM preserve is disabled.");
+            return;
+        }
+        
         utm_variables = look_for_utm_variables();
 
         $context.find("a[href]").each(function (index, elem) {
@@ -5006,6 +5019,11 @@ if (!Array.prototype.indexOf) {
     function do_gform_insertion(evt, form_id, current_page) {
         var $form = $("#gform_" + form_id), i, k,
             old_action = $form.attr("action");
+        
+        if (!utm_forminject_enabled()) {
+            console.log("UTM form injection is disabled.");
+            return;
+        }
         
         utm_variables = look_for_utm_variables();
         

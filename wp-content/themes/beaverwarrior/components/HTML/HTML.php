@@ -21,6 +21,6 @@
         <?php wp_head(); ?>
         <?php FLTheme::head(); ?>
     </head>
-    <body <?php body_class(); ?> itemscope="itemscope" itemtype="http://schema.org/WebPage" data-offcanvas-hover-min="<?php echo get_theme_mod("bw-header-breakpoint"); ?>">
+    <body <?php body_class(); ?> itemscope="itemscope" itemtype="http://schema.org/WebPage" data-offcanvas-hover-min="<?php echo get_theme_mod("bw-header-breakpoint"); ?>" data-utmpreserve-preserve="<?php echo get_theme_mod('sps-utm-preserve'); ?>" data-utmpreserve-forminject="<?php echo get_theme_mod('sps-utm-forminject'); ?>">
         <?php FLTheme::header_code(); ?>
         <?php do_action('fl_body_open'); ?>
