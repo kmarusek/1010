@@ -5,38 +5,31 @@
             <?php $i = 1;
             $id = "AnimatedBackgrounds--" . uniqid();
 
-            while (true) {
-                $layer_enable = "bw_ab_layer_" . $i . "_enable";
-                if (!isset($settings->$layer_enable) || $settings->$layer_enable === "no") break;
-
-                $layer_depth = "bw_ab_layer_" . $i . "_depth";
-                $layer_animdata = "bw_ab_layer_" . $i . "_animdata";
-                $layer_image = "bw_ab_layer_" . $i . "_image";
-                $layer_image_src = "bw_ab_layer_" . $i . "_image_src";
-                $layer_loop = "bw_ab_layer_" . $i . "_loop";
-                $layer_bob = "bw_ab_layer_" . $i . "_bob";
-                $layer_srcset = wp_get_attachment_image_srcset($settings->$layer_image, 'full');
+            foreach ($settings->bw_anim_layers as $id => $anim_settings) {
+                if (!isset($anim_settings->layer_enable) || $anim_settings->layer_enable === "no") break;
+                
+                $layer_srcset = wp_get_attachment_image_srcset($anim_settings->layer_image, 'full');
                 $layer_id = $id . "_" . $i;
 
-                if (isset($settings->$layer_animdata) && is_object($settings->$layer_animdata)) {
-                    $layer_animdata_text = json_encode($settings->$layer_animdata);
+                if (isset($anim_settings->layer_animdata) && is_object($anim_settings->layer_animdata)) {
+                    $layer_animdata_text = json_encode($anim_settings->layer_animdata);
                 } else {
-                    $layer_animdata_text = $settings->$layer_animdata;
+                    $layer_animdata_text = $anim_settings->layer_animdata;
                 }
 
-                switch ($settings->$layer_enable) {
+                switch ($anim_settings->layer_enable) {
                     case "image":
                         ?>
-                            <li data-scrollalax-depth="<?php echo $settings->$layer_depth; ?>" class="AnimatedBackgrounds-layer AnimatedBackgrounds-layer--bob_<?php echo $settings->$layer_bob; ?>">
-                                <div class="AnimatedBackgrounds-static_bg" style="background-image: url('<?php echo $settings->$layer_image_src; ?>');"></div>
+                            <li data-scrollalax-depth="<?php echo $anim_settings->layer_depth; ?>" class="AnimatedBackgrounds-layer AnimatedBackgrounds-layer--bob_<?php echo $anim_settings->layer_bob; ?>">
+                                <div class="AnimatedBackgrounds-static_bg" style="background-image: url('<?php echo $anim_settings->layer_image_src; ?>');"></div>
                             </li>
                         <?php
                         break;
                     case "atlas":
                         ?>
-                            <li data-scrollalax-depth="<?php echo $settings->$layer_depth; ?>" class="AnimatedBackgrounds-layer AnimatedBackgrounds-layer--bob_<?php echo $settings->$layer_bob; ?>">
-                                <img class="AnimatedBackgrounds-atlas_source" src="<?php echo $settings->$layer_image_src; ?>" srcset="<?php echo $layer_srcset; ?>" alt="" id="<?php echo $layer_id . "-image"; ?>">
-                                <canvas class="AnimatedBackgrounds-atlas_player" data-atlasplayer data-atlasplayer-image="#<?php echo $layer_id . "-image"; ?>" data-atlasplayer-data='<?php echo $layer_animdata_text; ?>'<?php if ($settings->$layer_loop === "force-loop") { ?> data-atlasplayer-loop<?php } ?><?php if ($settings->$layer_loop === "force-once") { ?> data-atlasplayer-once<?php } ?>></canvas>
+                            <li data-scrollalax-depth="<?php echo $anim_settings->layer_depth; ?>" class="AnimatedBackgrounds-layer AnimatedBackgrounds-layer--bob_<?php echo $anim_settings->layer_bob; ?>">
+                                <img class="AnimatedBackgrounds-atlas_source" src="<?php echo $anim_settings->layer_image_src; ?>" srcset="<?php echo $layer_srcset; ?>" alt="" id="<?php echo $layer_id . "-image"; ?>">
+                                <canvas class="AnimatedBackgrounds-atlas_player" data-atlasplayer data-atlasplayer-image="#<?php echo $layer_id . "-image"; ?>" data-atlasplayer-data='<?php echo $layer_animdata_text; ?>'<?php if ($anim_settings->layer_loop === "force-loop") { ?> data-atlasplayer-loop<?php } ?><?php if ($anim_settings->layer_loop === "force-once") { ?> data-atlasplayer-once<?php } ?>></canvas>
                             </li>
                         <?php
                         break;
