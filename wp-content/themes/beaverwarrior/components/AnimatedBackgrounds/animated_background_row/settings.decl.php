@@ -9,6 +9,7 @@ class BWAnimatedBackgroundsSettingsCompat extends FLBuilderSettingsCompatRow {
         for ($i = 1; $i <= 8; $i += 1) {
             $legacy_layer_setting = 'bw_ab_layer_' . $i . '_enable';
             $legacy_layer_image = 'bw_ab_layer_' . $i . '_image';
+            $legacy_layer_image_src = 'bw_ab_layer_' . $i . '_image_src';
             $legacy_layer_animdata = 'bw_ab_layer_' . $i . '_animdata';
             $legacy_layer_depth = 'bw_ab_layer_' . $i . '_depth';
             $legacy_layer_loop = 'bw_ab_layer_' . $i . '_loop';
@@ -23,6 +24,7 @@ class BWAnimatedBackgroundsSettingsCompat extends FLBuilderSettingsCompatRow {
                     'layer_label' => sprintf(__('Layer %d', 'skeleton-warrior'), $i),
                     'layer_enable' => $settings->$legacy_layer_setting,
                     'layer_image' => $settings->$legacy_layer_image,
+                    'layer_image_src' => $settings->$legacy_layer_image_src,
                     'layer_animdata' => $settings->$legacy_layer_animdata,
                     'layer_depth' => $settings->$legacy_layer_depth,
                     'layer_loop' => $settings->$legacy_layer_loop,
