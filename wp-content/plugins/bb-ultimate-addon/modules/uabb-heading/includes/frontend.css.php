@@ -134,8 +134,8 @@ if ( 'none' != $settings->separator_style ) {
 	<?php endif; ?>
 }
 <?php if ( ! $version_bb_check ) { ?>
-
-	.fl-node-<?php echo $id; ?> .uabb-heading {
+	.fl-node-<?php echo $id; ?> .uabb-heading,
+	.fl-node-<?php echo $id; ?> .uabb-heading .uabb-heading-text {
 
 		<?php if ( ! empty( $settings->font ) && 'Default' != $settings->font['family'] ) : ?>
 			<?php UABB_Helper::uabb_font_css( $settings->font ); ?>
@@ -174,7 +174,7 @@ if ( 'none' != $settings->separator_style ) {
 			array(
 				'settings'     => $settings,
 				'setting_name' => 'font_typo',
-				'selector'     => ".fl-node-$id .uabb-heading",
+				'selector'     => ".fl-node-$id .uabb-heading,.fl-node-$id .uabb-heading .uabb-heading-text",
 			)
 		);
 	}

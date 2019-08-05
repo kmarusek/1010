@@ -48,6 +48,7 @@ if ( ! class_exists( 'UABB_WPML_Translatable' ) ) {
 				require_once BB_ULTIMATE_ADDON_DIR . 'classes/wpml/class-wpml-uabb-list-icon.php';
 				require_once BB_ULTIMATE_ADDON_DIR . 'classes/wpml/class-wpml-uabb-video-gallery.php';
 				require_once BB_ULTIMATE_ADDON_DIR . 'classes/wpml/class-wpml-uabb-price-list.php';
+				require_once BB_ULTIMATE_ADDON_DIR . 'classes/wpml/class-wpml-uabb-business-hours.php';
 			}
 
 		}
@@ -1005,20 +1006,10 @@ if ( ! class_exists( 'UABB_WPML_Translatable' ) ) {
 			);
 
 			// Business Hours.
-			$form['business-hours'] = array(
-				'conditions' => array( 'type' => 'business-hours' ),
-				'fields'     => array(
-					array(
-						'field'       => 'days',
-						'type'        => __( 'Business Hours : Enter Day', 'uabb' ),
-						'editor_type' => 'LINE',
-					),
-					array(
-						'field'       => 'hours',
-						'type'        => __( 'Business Hours : Enter Time', 'uabb' ),
-						'editor_type' => 'LINE',
-					),
-				),
+			$form['uabb-business-hours'] = array(
+				'conditions'        => array( 'type' => 'uabb-business-hours' ),
+				'fields'            => array(),
+				'integration-class' => 'WPML_UABB_Business_Hours',
 			);
 
 			// Woo - Add to Cart.
@@ -1142,6 +1133,23 @@ if ( ! class_exists( 'UABB_WPML_Translatable' ) ) {
 					array(
 						'field'       => 'read_more',
 						'type'        => __( 'Business Reviews : Read More Text', 'uabb' ),
+						'editor_type' => 'LINE',
+					),
+				),
+			);
+
+			// Off Canvas Module.
+			$form['uabb-off-canvas'] = array(
+				'conditions' => array( 'type' => 'uabb-off-canvas' ),
+				'fields'     => array(
+					array(
+						'field'       => 'ct_content',
+						'type'        => __( 'Off Canvas : Content', 'uabb' ),
+						'editor_type' => 'VISUAL',
+					),
+					array(
+						'field'       => 'btn_text',
+						'type'        => __( 'Off Canvas : Button Text', 'uabb' ),
 						'editor_type' => 'LINE',
 					),
 				),

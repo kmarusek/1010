@@ -5,6 +5,7 @@
  * @package UABB Info Table Module
  */
 
+global $wp_embed;
 $target           = '';
 $it_link_nofollow = '';
 if ( UABB_Compatibility::check_bb_version() ) {
