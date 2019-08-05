@@ -560,6 +560,9 @@ function fastvelocity_min_concatenate_google_fonts($array) {
 	$families = array(); 
 	foreach ($array as $font) {
 		
+		# cleanup font display
+		$font = str_ireplace(array('&display=auto', '&display=block', '&display=swap', '&display=fallback', '&display=optional'), '', html_entity_decode(urldecode($font)));
+		
 		# must have
 		if (stripos($font, 'family=') !== false) {
 
@@ -600,7 +603,7 @@ function fastvelocity_min_concatenate_google_fonts($array) {
 			# subsets to array, unique, trim
 			if (stripos($sub, ',') !== false) {
 				$ft = explode(',', $sub);
-				$ft = array_filter(array_map('trim', array_unique($ft)));
+				$ft = array_filter(array_map('trim', array_flip(array_flip($ft))));
 				foreach ($ft as $s) {
 					$subsets[$s] = $s;
 				}
@@ -618,11 +621,16 @@ function fastvelocity_min_concatenate_google_fonts($array) {
 		if (stripos($font, ':') !== false) {
 			$name = stristr($font, ':', true);       # font name, before :
 			$fwe = trim(stristr($font, ':'), ':');   # second part of the string, after :
+			
+			# cleanup, void stuff like FONT:regular:regular:regular:regular,regular 
+			if (stripos($fwe, ':') !== false) {
+				$fwe = stristr($fwe, ':', true);
+			}
 
 			# ftypes to array, unique, trim
 			if (stripos($font, ',') !== false) {
 				$ft = explode(',', $fwe);
-				$ftypes = array_filter(array_map('trim', array_unique($ft)));
+				$ftypes = array_filter(array_map('trim', array_flip(array_flip($ft))));
 			} else {
 				if (!empty($fwe)) {
 					$ftypes[] = $fwe;
@@ -638,7 +646,7 @@ function fastvelocity_min_concatenate_google_fonts($array) {
 		if(!isset($fonts[$name])) {
 			$fonts[$name] = array('name'=>$name, 'type'=>$ftypes); 
 		} else {
-			$ftypes = array_merge($ftypes, $fonts[$name]['type']);
+			$ftypes = array_filter(array_map('trim', array_unique(array_merge($ftypes, $fonts[$name]['type']))));
 			$fonts[$name] = array('name'=>$name, 'type'=>$ftypes); 
 		}
 		
@@ -661,7 +669,8 @@ function fastvelocity_min_concatenate_google_fonts($array) {
 	if(count($build) > 0) {
 		$merge = implode('|', $build);
 		if(count($subsets) > 0) {
-			$merge.= '&subset='.implode(',', $subsets);
+			$subsetfilter = str_replace('latin,latin-ext', 'latin-ext', implode(',', $subsets));
+			$merge.= '&subset='.$subsetfilter;
 		}
 	}
 
@@ -784,11 +793,57 @@ return str_ireplace(array('\\\\\"', '\\\\"', '\\\"', '\\"'), '\"', json_encode($
 
 
 
+# always load the fvmua javascript code
+function fastvelocity_load_fvuag() {
+		
+	# for compatibility, let's always skip the checkout page
+	if(function_exists('is_checkout') && is_checkout() === true || is_preview() || is_customize_preview()) {
+		return true;
+	}
+		
+	# customizer preview, visual composer
+	$arr = array('customize_theme', 'preview_id', 'preview');
+	foreach ($arr as $a) { if(isset($_GET[$a])) { return true; } }
+
+	# Thrive plugins and other post_types
+	$arr = array('tve_form_type', 'tve_lead_shortcode', 'tqb_splash');
+	foreach ($arr as $a) { if(isset($_GET['post_type']) && $_GET['post_type'] == $a) { return true; } }
+	
+	# elementor
+	if(isset($_GET['elementor-preview'])) { return true; }
+	if(is_array($_GET)) {
+		foreach ($_GET as $k=>$v) {
+			if(is_string($v) && is_string($k)) {
+				if(stripos($k, 'elementor') !== false || stripos($v, 'elementor') !== false) {
+					return true;
+				}
+			}
+		}
+	}
+	
+	# do not load
+	return false;
+}
+
+
 # exclude processing from some pages / posts / contents
 function fastvelocity_exclude_contents() {
 	
+	# prevent execution for specific urls
+	if(isset($_SERVER['REQUEST_URI']) && !empty($_SERVER['REQUEST_URI'])) {
+		$disable_on_url = array_filter(array_map('trim', explode(PHP_EOL, get_option('fastvelocity_disable_on_url', ''))));
+		foreach ($disable_on_url as $url) {
+			if($url == parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) { return true; }
+		}
+	}
+	
+	# for compatibility, let's always skip the checkout page
+	if(function_exists('is_checkout') && is_checkout() === true) {
+		return true;
+	}
+	
 	# exclude processing here
-	if (is_admin() || (defined('DOING_AJAX') && DOING_AJAX) || (function_exists('wp_doing_ajax') && wp_doing_ajax()) || (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) || (defined('WP_BLOG_ADMIN') && WP_BLOG_ADMIN) || (defined('WP_NETWORK_ADMIN') && WP_NETWORK_ADMIN) || (defined('WP_INSTALLING') && WP_INSTALLING) || (defined('WP_IMPORTING') && WP_IMPORTING) || (defined('WP_REPAIRING') && WP_REPAIRING) || (defined('XMLRPC_REQUEST') && XMLRPC_REQUEST) || (defined('SHORTINIT') && SHORTINIT) || (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') || 
+	if (is_feed() || is_admin()  || is_preview() || is_customize_preview() || (defined('DOING_AJAX') && DOING_AJAX) || (function_exists('wp_doing_ajax') && wp_doing_ajax()) || (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) || (defined('WP_BLOG_ADMIN') && WP_BLOG_ADMIN) || (defined('WP_NETWORK_ADMIN') && WP_NETWORK_ADMIN) || (defined('WP_INSTALLING') && WP_INSTALLING) || (defined('WP_IMPORTING') && WP_IMPORTING) || (defined('WP_REPAIRING') && WP_REPAIRING) || (defined('XMLRPC_REQUEST') && XMLRPC_REQUEST) || (defined('SHORTINIT') && SHORTINIT) || (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') || (function_exists( 'is_amp_endpoint' ) && is_amp_endpoint()) || 
 	(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') || (isset($_SERVER['REQUEST_URI']) && (substr($_SERVER['REQUEST_URI'], -4) == '.txt' || substr($_SERVER['REQUEST_URI'], -4) == '.xml'))) {
 		return true;
 	}
@@ -822,6 +877,7 @@ function fastvelocity_exclude_contents() {
 	# default
 	return false;
 }
+
 
 # Know files that should always be ignored
 function fastvelocity_default_ignore($ignore) {
