@@ -612,7 +612,7 @@ body .fl-builder-bar .fl-builder-bar-content.is-muted > *:not(.fl-builder-publis
 	padding:0;
 	z-index: -1;
 	font-size: 16px;
-	overflow: visible;
+	overflow-y: scroll;
 	height: auto !important;
 	max-height: calc(100vh - 66px);
 	min-height: 300px;

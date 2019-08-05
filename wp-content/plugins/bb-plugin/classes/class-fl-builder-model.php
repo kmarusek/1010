@@ -4118,8 +4118,6 @@ final class FLBuilderModel {
 
 		if ( count( $post_meta ) !== 0 ) {
 
-			$sql = "INSERT INTO {$wpdb->postmeta} (post_id, meta_key, meta_value) ";
-
 			foreach ( $post_meta as $meta_info ) {
 				$meta_key = $meta_info->meta_key;
 
@@ -4128,14 +4126,10 @@ final class FLBuilderModel {
 				} else {
 					$meta_value = addslashes( $meta_info->meta_value );
 				}
-
-				$sql_select[] = "SELECT {$new_post_id}, '{$meta_key}', '{$meta_value}'";
+				// @codingStandardsIgnoreStart
+				$wpdb->query( "INSERT INTO {$wpdb->postmeta} (post_id, meta_key, meta_value) values ({$new_post_id}, '{$meta_key}', '{$meta_value}')" );
+				// @codingStandardsIgnoreEnd
 			}
-
-			$sql .= implode( ' UNION ALL ', $sql_select );
-			// @codingStandardsIgnoreStart
-			$wpdb->query($sql);
-			// @codingStandardsIgnoreEnd
 		}
 
 		// Duplicate post terms.
