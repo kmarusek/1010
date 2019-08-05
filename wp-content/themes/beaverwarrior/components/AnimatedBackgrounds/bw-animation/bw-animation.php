@@ -66,6 +66,52 @@ FLBuilder::register_module("BWAnimation", array(
                             'max' => 2,
                             'step' => 0.01,
                         )
+                    ),
+                ),
+            ),
+            'preload' => array(
+                'title' => __("Preload appearance", 'skeleton-warrior'),
+                'fields' => array(
+                    'anim_load' => array(
+                        'type' => 'select',
+                        'label' => __("Load behavior", 'skeleton-warrior'),
+                        'description' => __("Select an option for how the animation should look when loading", 'skeleton-warrior'),
+                        'options' => array(
+                            'color' => __("Show a solid color when loading"),
+                            'image' => __("Show a loading image"),
+                            'none' => __("Do not apply a load behavior (not recommended)")
+                        ),
+                        'default' => 'none',
+                        'toggle' => array(
+                            'color' => array(
+                                'fields' => array('anim_load_color')
+                            ),
+                            'image' => array(
+                                'fields' => array('anim_load_color', 'anim_load_image')
+                            ),
+                            'none' => array()
+                        )
+                    ),
+                    'anim_load_color' => array(
+                        'type' => 'color',
+                        'label' => __("Load color", 'skeleton-warrior'),
+                        'description' => __("Select a color to hide the animation with until it loads.", 'skeleton-warrior'),
+                        'default' => 'ffffff'
+                    ),
+                    'anim_load_image' => array(
+                        'type' => 'photo',
+                        'label' => __("Load image", 'skeleton-warrior'),
+                        'description' => __("Select an image to hide the animation with until it loads.", 'skeleton-warrior')
+                    ),
+                    'ab_loadanim' => array(
+                        'type' => 'select',
+                        'label' => __("Load animation present", 'skeleton-warrior'),
+                        'description' => __("Indicates that a load animation has been applied in CSS. If so, the load animation will remain active until it has completed. Not to be used on a looping animation.", 'skeleton-warrior'),
+                        'options' => array(
+                            'yes' => __("Yes"),
+                            'no' => __("No"),
+                        ),
+                        'default' => 'no',
                     )
                 )
             )

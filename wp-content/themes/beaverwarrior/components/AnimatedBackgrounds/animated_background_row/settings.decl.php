@@ -63,6 +63,42 @@ function bw_animated_background_row_settings($form, $id) {
                             ),
                             'default' => 'no',
                         ),
+                    ),
+                ),
+                'bw_ab_load' => array(
+                    'title' => __("Preload appearance", 'skeleton-warrior'),
+                    'fields' => array(
+                        'bw_anim_load' => array(
+                            'type' => 'select',
+                            'label' => __("Load behavior", 'skeleton-warrior'),
+                            'description' => __("Select an option for how the animation should look when loading", 'skeleton-warrior'),
+                            'options' => array(
+                                'color' => __("Show a solid color when loading"),
+                                'image' => __("Show a loading image"),
+                                'none' => __("Do not apply a load behavior (not recommended)")
+                            ),
+                            'default' => 'none',
+                            'toggle' => array(
+                                'color' => array(
+                                    'fields' => array('bw_anim_load_color')
+                                ),
+                                'image' => array(
+                                    'fields' => array('bw_anim_load_color', 'bw_anim_load_image')
+                                ),
+                                'none' => array()
+                            )
+                        ),
+                        'bw_anim_load_color' => array(
+                            'type' => 'color',
+                            'label' => __("Load color", 'skeleton-warrior'),
+                            'description' => __("Select a color to hide the animation with until it loads.", 'skeleton-warrior'),
+                            'default' => 'ffffff'
+                        ),
+                        'bw_anim_load_image' => array(
+                            'type' => 'photo',
+                            'label' => __("Load image", 'skeleton-warrior'),
+                            'description' => __("Select an image to hide the animation with until it loads.", 'skeleton-warrior')
+                        ),
                         'bw_ab_loadanim' => array(
                             'type' => 'select',
                             'label' => __("Load animation present", 'skeleton-warrior'),
@@ -101,3 +137,21 @@ function bw_animated_background_before_row_bg($rows) {
     }
 }
 add_action('fl_builder_before_render_row_bg', 'bw_animated_background_before_row_bg', 10, 1);
+
+function bw_animated_background_render_css_internal($module, $id, $settings) {
+    if ($settings->bw_ab_enable == 'yes') {
+        include "before_row_bg.css.php";
+    }
+}
+
+function bw_animated_background_render_css($css, $nodes, $global_settings) {
+    //array(5) { [0]=> string(4) "node" [1]=> string(4) "type" [2]=> string(6) "parent" [3]=> string(8) "position" [4]=> string(8) "settings" } 
+    foreach ($nodes["rows"] as $key => $row) {
+        ob_start();
+        bw_animated_background_render_css_internal($row, $key, $row->settings);
+        $css .= ob_get_clean() . " ";
+    }
+    
+    return $css;
+}
+add_filter('fl_builder_render_css', 'bw_animated_background_render_css', 10, 3);
