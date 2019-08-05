@@ -291,7 +291,7 @@ FLPageData::add_post_property_settings_fields( 'terms_list', array(
 		),
 		'toggle'  => array(
 			'no' => array(
-				'fields' => array( 'seperator' ),
+				'fields' => array( 'separator' ),
 			),
 		),
 	),

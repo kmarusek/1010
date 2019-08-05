@@ -49,7 +49,7 @@ final class FLThemeBuilderWooCommerceArchive {
 	 * @return void
 	 */
 	static public function print_notices( $settings, $query ) {
-		if ( 'product' == $query->query_vars['post_type'] ) {
+		if ( 'product' == $query->query_vars['post_type'] && function_exists( 'wc_print_notices' ) ) {
 			wc_print_notices();
 		}
 	}

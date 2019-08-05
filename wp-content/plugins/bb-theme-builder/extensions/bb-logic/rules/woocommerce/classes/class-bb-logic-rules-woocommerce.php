@@ -130,7 +130,7 @@ final class BB_Logic_Rules_WooCommerce {
 			return false;
 		}
 
-		return BB_Logic_Rules::process_date_rule(
+		return BB_Logic_Rules::evaluate_date_rule(
 			$rule,
 			$date->date( 'm/d/Y h:i:s' )
 		);
@@ -164,7 +164,7 @@ final class BB_Logic_Rules_WooCommerce {
 			return false;
 		}
 
-		return BB_Logic_Rules::process_date_rule(
+		return BB_Logic_Rules::evaluate_date_rule(
 			$rule,
 			$date->date( 'm/d/Y h:i:s' )
 		);

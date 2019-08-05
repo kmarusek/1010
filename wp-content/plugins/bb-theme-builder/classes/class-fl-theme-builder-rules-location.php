@@ -252,7 +252,7 @@ final class FLThemeBuilderRulesLocation {
 							$exclude = true;
 						} elseif ( strstr( $exclusion, ':taxonomy:' ) ) {
 							$parts = explode( ':', $exclusion );
-							if ( ( 4 === count( $parts ) && has_term( '', $parts[3] ) ) || has_term( $parts[4], $parts[3] ) ) {
+							if ( 4 === count( $parts ) && has_term( '', $parts[3] ) || 5 === count( $parts ) && has_term( $parts[4], $parts[3] ) ) {
 								$exclude = true;
 							}
 						} elseif ( stristr( $exclusion, ':post:' ) ) {
@@ -1077,7 +1077,7 @@ final class FLThemeBuilderRulesLocation {
 		}
 
 		foreach ( $posts as $post ) {
-			$title             = ( '' != $post->post_title ) ? esc_attr( strip_tags( filter_var( $post->post_title, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES ) ) ) : $post_type . '-' . $post->ID;
+			$title = ( '' != $post->post_title ) ? esc_attr( strip_tags( filter_var( $post->post_title, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES ) ) ) : $post_type . '-' . $post->ID;
 
 			if ( isset( $post->post_parent ) && $post->post_parent > 0 && $post->post_parent !== $post->ID ) {
 				$parent       = get_post( $post->post_parent );

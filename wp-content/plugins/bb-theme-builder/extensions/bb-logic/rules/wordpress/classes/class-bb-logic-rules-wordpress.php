@@ -545,7 +545,7 @@ final class BB_Logic_Rules_WordPress {
 	 */
 	static public function user_registered( $rule ) {
 		$user = wp_get_current_user();
-		return BB_Logic_Rules::process_date_rule(
+		return BB_Logic_Rules::evaluate_date_rule(
 			$rule,
 			$user->user_registered
 		);

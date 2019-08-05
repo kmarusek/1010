@@ -295,6 +295,11 @@ final class FLPageDataACF {
 				$name  = '';
 
 				foreach ( $values as $user_data ) {
+
+					if ( is_object( $user_data ) && isset( $user_data->data ) ) {
+						$user_data = (array) $user_data->data;
+					}
+
 					switch ( $settings->display_type ) {
 						case 'display':
 							$name = $user_data['display_name'];
