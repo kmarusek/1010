@@ -1,4 +1,8 @@
 <?php
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * WP Cli commands for PowerPack.
@@ -29,19 +33,18 @@ class BB_PowerPack_WPCLI_Command extends WP_CLI_Command {
 			$response = bb_powerpack_license( 'deactivate_license' );
 
 			// make sure the response came back okay
-			if ( is_wp_error($response) || 200 !== wp_remote_retrieve_response_code($response) ) {
-				if ( is_wp_error($response) ) {
+			if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
+				if ( is_wp_error( $response ) ) {
 					WP_CLI::error( $response->get_error_message() );
-				}
-				else {
-					WP_CLI::error( __('An error occurred, please try again.', 'bb-powerpack') );
+				} else {
+					WP_CLI::error( __( 'An error occurred, please try again.', 'bb-powerpack' ) );
 				}
 			} else {
 				// decode the license data
 				$license_data = json_decode( wp_remote_retrieve_body( $response ) );
 
 				// $license_data->license will be either "deactivated" or "failed"
-				if ( $license_data->license == 'deactivated' ) {
+				if ( 'deactivated' === $license_data->license ) {
 					bb_powerpack_delete( 'bb_powerpack_license_status' );
 				}
 
@@ -50,7 +53,6 @@ class BB_PowerPack_WPCLI_Command extends WP_CLI_Command {
 
 			return false;
 		}
-
 
 		if ( isset( $assoc_args['license'] ) && '' != $assoc_args['license'] ) {
 			$license = $assoc_args['license'];
@@ -67,27 +69,26 @@ class BB_PowerPack_WPCLI_Command extends WP_CLI_Command {
 		$response = bb_powerpack_license( 'activate_license', $license );
 
 		// make sure the response came back okay
-		if ( is_wp_error($response) || 200 !== wp_remote_retrieve_response_code($response) ) {
-			if (is_wp_error($response)) {
+		if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
+			if ( is_wp_error( $response ) ) {
 				WP_CLI::error( $response->get_error_message() );
-			}
-			else {
-				WP_CLI::error( __('An error occurred, please try again.', 'bb-powerpack') );
+			} else {
+				WP_CLI::error( __( 'An error occurred, please try again.', 'bb-powerpack' ) );
 			}
 		} else {
 			// decode the license data
 			$license_data = json_decode( wp_remote_retrieve_body( $response ) );
 
-			if (false === $license_data->success) {
+			if ( false === $license_data->success ) {
 				WP_CLI::error( bb_powerpack_license_messages( $license_data->error ) );
 			} else {
 				// $license_data->license will be either "valid" or "invalid"
 				bb_powerpack_update( 'bb_powerpack_license_status', $license_data->license );
-				
-				if ( $license_data->license == 'valid' ) {
+
+				if ( 'valid' === $license_data->license ) {
 					WP_CLI::success( 'activated' );
 				} else {
-					WP_CLI::error( __('Invalid license.', 'bb-powerpack') );
+					WP_CLI::error( __( 'Invalid license.', 'bb-powerpack' ) );
 				}
 			}
 		}
@@ -109,7 +110,7 @@ class BB_PowerPack_WPCLI_Command extends WP_CLI_Command {
 	public function branding( $args, $assoc_args ) {
 		if ( isset( $assoc_args['reset'] ) ) {
 			bb_powerpack_plugin_activation();
-			WP_CLI::success('White Label branding has been reset successfully.');
+			WP_CLI::success( __( 'White Label branding has been reset successfully.', 'bb-powerpack' ) );
 		}
 	}
 
@@ -129,7 +130,7 @@ class BB_PowerPack_WPCLI_Command extends WP_CLI_Command {
 	public function templates( $args, $assoc_args ) {
 		if ( isset( $assoc_args['reset'] ) ) {
 			pp_clear_enabled_templates();
-			WP_CLI::success('Templates have been reset successfully.');
+			WP_CLI::success( __( 'Templates have been reset successfully.', 'bb-powerpack' ) );
 		}
 	}
 }

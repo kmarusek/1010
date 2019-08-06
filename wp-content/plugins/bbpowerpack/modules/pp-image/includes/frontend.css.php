@@ -9,14 +9,14 @@
 	FLBuilderCSS::border_field_rule( array(
 		'settings' 		=> $settings,
 		'setting_name' 	=> 'box_border_group',
-		'selector' 		=> ".fl-node-$id .pp-photo-container .pp-photo-content",
+		'selector' 		=> ".fl-node-$id .pp-photo-container .pp-photo-content .pp-photo-content-inner",
 	) );
 
 	// Box - Padding
 	FLBuilderCSS::dimension_field_rule( array(
 		'settings'		=> $settings,
 		'setting_name' 	=> 'box_padding',
-		'selector' 		=> ".fl-node-$id .pp-photo-container .pp-photo-content",
+		'selector' 		=> ".fl-node-$id .pp-photo-container .pp-photo-content .pp-photo-content-inner",
 		'unit'			=> 'px',
 		'props'			=> array(
 			'padding-top' 		=> 'box_padding_top',
@@ -28,13 +28,22 @@
 ?>
 
 .fl-node-<?php echo $id; ?> .pp-photo-container .pp-photo-content .pp-photo-content-inner {
+	background-clip: border-box;
     <?php if ( isset( $settings->box_border_group ) && isset( $settings->box_border_group['radius'] ) ) { ?>
 		border-top-left-radius: <?php echo $settings->box_border_group['radius']['top_left']; ?>px;
 		border-top-right-radius: <?php echo $settings->box_border_group['radius']['top_right']; ?>px;
 		border-bottom-left-radius: <?php echo $settings->box_border_group['radius']['bottom_left']; ?>px;
 		border-bottom-right-radius: <?php echo $settings->box_border_group['radius']['bottom_right']; ?>px;
 	<?php } ?>
+	transition: all 0.3s ease-in-out;
 }
+
+.fl-node-<?php echo $id; ?> .pp-photo-container .pp-photo-content:hover .pp-photo-content-inner {
+	<?php if ( isset( $settings->box_border_hover_color ) && ! empty( $settings->box_border_hover_color ) ) { ?>
+		border-color: #<?php echo $settings->box_border_hover_color; ?>;
+	<?php } ?>
+}
+
 <?php
 // Image - Size
 FLBuilderCSS::responsive_rule( array(
@@ -69,6 +78,8 @@ FLBuilderCSS::responsive_rule( array(
 				border-bottom-left-radius: <?php echo $settings->box_border_group['radius']['bottom_left']; ?>px;
 				border-bottom-right-radius: <?php echo $settings->box_border_group['radius']['bottom_right']; ?>px;
 			<?php } ?>
+			z-index: 9999;
+			transition: all 0.3s ease;
         }
     <?php } else if( '' ==  $settings->link_type ) { ?>
         .fl-node-<?php echo $id; ?> .pp-photo-container .pp-photo-content .pp-photo-content-inner:before {
@@ -89,6 +100,8 @@ FLBuilderCSS::responsive_rule( array(
 				border-bottom-left-radius: <?php echo $settings->box_border_group['radius']['bottom_left']; ?>px;
 				border-bottom-right-radius: <?php echo $settings->box_border_group['radius']['bottom_right']; ?>px;
 			<?php } ?>
+			z-index: 9999;
+			transition: all 0.3s ease;
         }
     <?php } ?>
 <?php } ?>

@@ -114,6 +114,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 					'feed_by_tags'  => array(
 						'type'          => 'pp-switch',
 						'label'         => __( 'Filter the feed by Hashtag', 'bb-powerpack' ),
+						'description'	=> __('<storng style="display: block; color: red;">This option is deprecated by Instagram.</strong>', 'bb-powerpack'),
 						'default'       => 'no',
 						'options'       => array(
 							'yes'			=> __( 'Yes', 'bb-powerpack' ),
@@ -447,6 +448,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 						'label'     	=> __( 'Background Color', 'bb-powerpack' ),
 						'show_reset' 	=> true,
 						'default'   	=> 'eaeaea',
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'            => 'css',
 							'selector'        => '.pp-instagram-feed .pp-swiper-button',
@@ -458,6 +460,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 						'label'     	=> __( 'Background Hover Color', 'bb-powerpack' ),
 						'show_reset' 	=> true,
 						'default'   	=> '4c4c4c',
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'            => 'css',
 							'selector'        => '.pp-instagram-feed .pp-swiper-button:hover',
@@ -469,6 +472,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 						'label'			=> __( 'Arrow Color', 'bb-powerpack' ),
 						'show_reset' 	=> true,
 						'default'   	=> '000000',
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'			=> 'css',
 							'selector'      => '.pp-instagram-feed .pp-swiper-button',
@@ -480,6 +484,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 						'label'     	=> __( 'Arrow Hover Color', 'bb-powerpack' ),
 						'show_reset' 	=> true,
 						'default'   	=> 'eeeeee',
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'			=> 'css',
 							'selector'      => '.pp-instagram-feed .pp-swiper-button:hover',
@@ -536,6 +541,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 						'label'     	=> __( 'Border Color', 'bb-powerpack' ),
 						'show_reset' 	=> true,
 						'default'   	=> '',
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'			=> 'css',
 							'selector'      => '.pp-instagram-feed .pp-swiper-button',
@@ -547,6 +553,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 						'label'     	=> __( 'Border Hover Color', 'bb-powerpack' ),
 						'show_reset' 	=> true,
 						'default'   	=> '',
+						'connections'	=> array('color'),
 						'preview'      	=> array(
 							'type'			=> 'css',
 							'selector'      => '.pp-instagram-feed .pp-swiper-button:hover',
@@ -633,6 +640,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 						'label'         => __( 'Background Color', 'bb-powerpack' ),
 						'default'       => '666666',
 						'show_reset'    => true,
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'			=> 'css',
 							'selector'      => '.pp-instagram-feed .swiper-pagination-bullet',
@@ -644,6 +652,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 						'label'         => __( 'Active Color', 'bb-powerpack' ),
 						'default'       => '000000',
 						'show_reset'    => true,
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'			=> 'css',
 							'selector'      => '.pp-instagram-feed .swiper-pagination-bullet:hover, .pp-instagram-feed .swiper-pagination-bullet-active',
@@ -729,12 +738,14 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 						'label'         		=> __( 'Overlay Color', 'bb-powerpack' ),
 						'default'       		=> '',
 						'show_reset'    		=> true,
+						'connections'			=> array('color'),
 					),
 					'image_overlay_secondary_color'	=> array(
 						'type'			=> 'color',
 						'label'     	=> __( 'Overlay Secondary Color', 'bb-powerpack' ),
 						'default'		=> '',
 						'show_reset' 	=> true,
+						'connections'	=> array('color'),
 					),
 					'image_overlay_gradient_type'	=> array(
 						'type'			=> 'pp-switch',
@@ -790,6 +801,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 						'label'     	=> __( 'Likes & Comments Color', 'bb-powerpack' ),
 						'default'		=> '',
 						'show_reset' 	=> true,
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'			=> 'css',
 							'selector'      => '.pp-instagram-feed .pp-feed-item .pp-overlay-container',
@@ -825,7 +837,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 								'fields'    => array( 'image_hover_overlay_color', 'image_hover_overlay_opacity' ),
 							),
 							'gradient' => array(
-								'fields'    => array( 'image_hover_overlay_angle', 'image_hover_overlay_color', 'image_hover_overlay_secondary_color', 'image_hover_overlay_gradient_type', 'image_hover_overlay_opacity' ),
+								'fields'    => array( 'image_hover_overlay_color', 'image_hover_overlay_secondary_color', 'image_hover_overlay_gradient_type', 'image_hover_overlay_opacity' ),
 							),
 						),
 					),
@@ -834,12 +846,14 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 						'label'         => __( 'Overlay Color', 'bb-powerpack' ),
 						'default'       => '',
 						'show_reset'    => true,
+						'connections'	=> array('color'),
 					),
 					'image_hover_overlay_secondary_color'	=> array(
 						'type'       	=> 'color',
 						'label'     	=> __( 'Overlay Secondary Color', 'bb-powerpack' ),
 						'default'		=> '',
 						'show_reset' 	=> true,
+						'connections'	=> array('color'),
 					),
 					'image_hover_overlay_gradient_type'	=> array(
 						'type'			=> 'pp-switch',
@@ -895,6 +909,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 						'label'     	=> __( 'Likes & Comments Color', 'bb-powerpack' ),
 						'default'		=> '',
 						'show_reset' 	=> true,
+						'connections'	=> array('color'),
 					),
 				),
 			),
@@ -918,6 +933,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 						'default'       => '',
 						'show_reset'    => true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'			=> 'css',
 							'selector'      => '.pp-instagram-feed .pp-instagram-feed-title-wrap',
@@ -930,6 +946,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 						'default'       => '',
 						'show_reset'    => true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'          => 'css',
 							'selector'      => '.pp-instagram-feed .pp-instagram-feed-title-wrap:hover',
@@ -942,6 +959,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 						'default'       => '',
 						'show_reset'    => true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'          => 'css',
 							'selector'      => '.pp-instagram-feed .pp-instagram-feed-title-wrap .pp-instagram-feed-title',
@@ -954,6 +972,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 						'default'       => '',
 						'show_reset'    => true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'			=> 'css',
 							'selector'      => '.pp-instagram-feed .pp-instagram-feed-title-wrap:hover .pp-instagram-feed-title',
@@ -975,6 +994,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 						'label'     	=> __( 'Border Hover Color', 'bb-powerpack' ),
 						'show_reset' 	=> true,
 						'default'   	=> '',
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'			=> 'css',
 							'selector'      => '.pp-instagram-feed .pp-instagram-feed-title-wrap:hover',

@@ -90,6 +90,23 @@ class PPLogosGridModule extends FLBuilderModule {
 
 		return $settings;
 	}
+
+	/**
+	 * Returns button link rel based on settings
+	 * @since 2.6.10
+	 */
+	public function get_rel() {
+		$rel = array();
+		if ( '_blank' == $this->settings->upload_logo_link_target ) {
+			$rel[] = 'noopener';
+		}
+		
+		$rel = implode( ' ', $rel );
+		if ( $rel ) {
+			$rel = ' rel="' . $rel . '" ';
+		}
+		return $rel;
+	}
 }
 
 /**
@@ -248,10 +265,10 @@ FLBuilder::register_module('PPLogosGridModule', array(
                         'default'       => '250',
                     ),
                     'logo_carousel_minimum_grid'   => array(
-                        'type'          => 'text',
+                        'type'          => 'unit',
                         'label'         => __('Number of Items', 'bb-powerpack'),
-                        'class'         => 'pp-logo-grid-input input-small',
-                        'default'       => '4',
+						'default'       => '4',
+						'responsive'	=> true
 					),
 					'logo_carousel_move_slide'	=> array(
 						'type'			=> 'text',
@@ -273,8 +290,8 @@ FLBuilder::register_module('PPLogosGridModule', array(
 						'label'         => __('Pause on Hover', 'bb-powerpack'),
 						'default'       => 'false',
 						'options'       => array(
-                            'true'             => __('Yes', 'bb-powerpack'),
 							'false'             => __('No', 'bb-powerpack'),
+                            'true'             => __('Yes', 'bb-powerpack'),
 						)
 					),
 					'logo_slider_pause'         => array(
@@ -348,7 +365,8 @@ FLBuilder::register_module('PPLogosGridModule', array(
                         'type'         => 'color',
                         'label'        => __('Background Color', 'bb-powerpack'),
                         'default'      => '',
-                        'show_reset'   => true,
+						'show_reset'   => true,
+						'connections'	=> array('color'),
                         'preview'      => array(
                             'type'     => 'css',
                             'selector' => '.pp-logos-content .pp-logo',
@@ -359,7 +377,8 @@ FLBuilder::register_module('PPLogosGridModule', array(
                         'type'         => 'color',
                         'label'        => __('Background Color Hover', 'bb-powerpack'),
                         'default'      => '',
-                        'show_reset'   => true,
+						'show_reset'   => true,
+						'connections'	=> array('color'),
                         'preview'      => array(
                             'type'     => 'css',
                             'selector' => '.pp-logos-content .pp-logo:hover',
@@ -484,7 +503,8 @@ FLBuilder::register_module('PPLogosGridModule', array(
                         'type'          => 'color',
                         'label'         => __('Border Color', 'bb-powerpack'),
                         'default'       => '',
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-logos-content .pp-logo img',
@@ -495,7 +515,8 @@ FLBuilder::register_module('PPLogosGridModule', array(
                         'type'          => 'color',
                         'label'         => __('Border Color Hover', 'bb-powerpack'),
                         'default'       => '',
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-logos-content .pp-logo:hover img',
@@ -540,6 +561,7 @@ FLBuilder::register_module('PPLogosGridModule', array(
 						'default'       => '000000',
 						'show_reset'    => true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'          => 'css',
 							'selector'      => '.pp-logos-content .fa',
@@ -551,6 +573,7 @@ FLBuilder::register_module('PPLogosGridModule', array(
 						'label'         => __('Arrow Color', 'bb-powerpack'),
 						'default'       => 'ffffff',
 						'show_reset'    => true,
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'          => 'css',
 							'selector'      => '.pp-logos-content .fa',
@@ -562,6 +585,7 @@ FLBuilder::register_module('PPLogosGridModule', array(
 						'label'         => __('Arrow Color Hover', 'bb-powerpack'),
 						'default'       => '999999',
 						'show_reset'    => true,
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'          => 'css',
 							'selector'      => '.pp-logos-content .fa:hover',
@@ -574,6 +598,7 @@ FLBuilder::register_module('PPLogosGridModule', array(
 						'default'       => '',
 						'show_reset'    => true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'          => 'css',
 							'selector'      => '.pp-logos-content .fa:hover',
@@ -608,7 +633,8 @@ FLBuilder::register_module('PPLogosGridModule', array(
                         'type'          => 'color',
                         'label'         => __('Border Color Hover', 'bb-powerpack'),
                         'default'       => '',
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-logos-content .fa:hover',
@@ -640,6 +666,7 @@ FLBuilder::register_module('PPLogosGridModule', array(
 						'default'       => 'f5f5f5',
 						'show_reset'    => true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'          => 'css',
                             'selector'        => '.pp-logos-content .bx-wrapper .bx-pager.bx-default-pager a',
@@ -652,6 +679,7 @@ FLBuilder::register_module('PPLogosGridModule', array(
 						'default'       => '999999',
 						'show_reset'    => true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'       => array(
                             'type'          => 'css',
                             'selector'        => '.pp-logos-content .bx-wrapper .bx-pager.bx-default-pager a:active',
@@ -716,7 +744,8 @@ FLBuilder::register_module('PPLogosGridModule', array(
                         'type'          => 'color',
                         'label'         => __('Color', 'bb-powerpack'),
                         'default'       => '000000',
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-logos-content .pp-logo div.title-wrapper p.logo-title',
@@ -727,7 +756,8 @@ FLBuilder::register_module('PPLogosGridModule', array(
                         'type'          => 'color',
                         'label'         => __('Color Hover', 'bb-powerpack'),
                         'default'       => '666666',
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-logos-content .pp-logo:hover div.title-wrapper p.logo-title',

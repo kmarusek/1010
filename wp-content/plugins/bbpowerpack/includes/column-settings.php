@@ -171,7 +171,7 @@ function pp_column_gradient( $form, $id ) {
             'gradient_color'    => array(
                 'type'              => 'pp-color',
                 'label'             => __('Colors', 'bb-powerpack'),
-                'show_reset'        => true,
+				'show_reset'        => true,
                 'default'           => array(
                     'primary'           => 'd81660',
                     'secondary'         => '7d22bd',
@@ -304,7 +304,8 @@ function pp_column_separators( $form, $id ) {
                     'separator_color'           => array(
                         'type'                      => 'color',
                         'label'                     => __('Color', 'bb-powerpack'),
-                        'default'                   => 'ffffff',
+						'default'                   => 'ffffff',
+						'connections'				=> array('color'),
                         'preview'                   => array(
                             'type'                      => 'css',
                             'selector'                  => '.pp-col-separator svg',
@@ -424,7 +425,8 @@ function pp_column_shadow( $form, $id ) {
                     'pp_box_shadow_color'   => array(
                         'type'                  => 'color',
                         'label'                 => __('Color', 'bb-powerpack'),
-                        'default'               => '000000',
+						'default'               => '000000',
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'                  => 'none'
                         )
@@ -512,7 +514,8 @@ function pp_column_shadow( $form, $id ) {
                     'pp_box_shadow_color_hover' => array(
                         'type'                  => 'color',
                         'label'                 => __('Color', 'bb-powerpack'),
-                        'default'               => '000000',
+						'default'               => '000000',
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'                  => 'none'
                         )

@@ -364,7 +364,8 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                         'label'         => __('Background Color', 'bb-powerpack'),
                         'default'       => 'ffffff',
                         'show_reset'    => true,
-                        'show_alpha'    => true,
+						'show_alpha'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-ninja-form-content',
@@ -406,7 +407,8 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                         'label'         => __('Background Overlay Color', 'bb-powerpack'),
                         'default'       => '000000',
                         'show_reset'    => true,
-                        'show_alpha'    => true,
+						'show_alpha'    => true,
+						'connections'	=> array('color'),
                     ),
                 )
             ),
@@ -533,7 +535,8 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                     'input_field_text_color'    => array(
                         'type'                  => 'color',
                         'label'                 => __('Text Color', 'bb-powerpack'),
-                        'default'               => '333333',
+						'default'               => '333333',
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'                  => 'css',
                             'selector'              => '.pp-ninja-form-content .ninja-forms-form-wrap input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-ninja-form-content .ninja-forms-form-wrap select, .pp-ninja-form-content .ninja-forms-form-wrap textarea',
@@ -545,7 +548,8 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                         'label'                 => __('Background Color', 'bb-powerpack'),
                         'default'               => 'ffffff',
                         'show_reset'            => true,
-                        'show_alpha'            => true,
+						'show_alpha'            => true,
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.pp-ninja-form-content .ninja-forms-form-wrap input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-ninja-form-content .ninja-forms-form-wrap select, .pp-ninja-form-content .ninja-forms-form-wrap textarea',
@@ -562,7 +566,8 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                         'type'                  => 'color',
                         'label'                 => __('Border Color', 'bb-powerpack'),
                         'default'               => 'eeeeee',
-                        'show_reset'            => true,
+						'show_reset'            => true,
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.pp-ninja-form-content .ninja-forms-form-wrap input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-ninja-form-content .ninja-forms-form-wrap select, .pp-ninja-form-content .ninja-forms-form-wrap textarea',
@@ -628,7 +633,8 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                         'type'                  => 'color',
                         'label'                 => __('Focus Border Color', 'bb-powerpack'),
                         'default'               => '719ece',
-                        'show_reset'            => true,
+						'show_reset'            => true,
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.pp-ninja-form-content .ninja-forms-form-wrap input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]):focus, .pp-ninja-form-content .ninja-forms-form-wrap select:focus, .pp-ninja-form-content .ninja-forms-form-wrap textarea:focus',
@@ -712,7 +718,8 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                     'input_shadow_color'		=> array(
                         'type'          => 'color',
                         'label'         => __('Shadow Color', 'bb-powerpack'),
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-ninja-form-content .ninja-forms-form-wrap input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-ninja-form-content .ninja-forms-form-wrap select, .pp-ninja-form-content .ninja-forms-form-wrap textarea',
@@ -778,7 +785,8 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                         'type'                  => 'color',
                         'label'                 => __('Color', 'bb-powerpack'),
                         'default'               => 'eeeeee',
-                        'show_reset'            => true,
+						'show_reset'            => true,
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.pp-ninja-form-content .ninja-forms-form-wrap input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"])::-webkit-input-placeholder, .pp-ninja-form-content .ninja-forms-form-wrap select::-webkit-input-placeholder, .pp-ninja-form-content .ninja-forms-form-wrap textarea::-webkit-input-placeholder',
@@ -800,12 +808,14 @@ FLBuilder::register_module('PPNinjaFormModule', array(
 						'label'		=> __('Text Color', 'bb-powerpack'),
 						'default'	=> 'fffffff',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 					),
 					'button_text_color_hover'	=> array(
 						'type'		=> 'color',
 						'label'		=> __('Text Hover Color', 'bb-powerpack'),
 						'default'	=> 'eeeeee',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 					),
 					'button_bg_color_default'	=> array(
 						'type'		=> 'color',
@@ -813,6 +823,7 @@ FLBuilder::register_module('PPNinjaFormModule', array(
 						'default'	=> '333333',
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 					),
 					'button_bg_color_hover'	=> array(
 						'type'		=> 'color',
@@ -820,6 +831,7 @@ FLBuilder::register_module('PPNinjaFormModule', array(
 						'default'	=> '000000',
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 					),
                 )
             ),
@@ -922,7 +934,8 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                     'validation_error_color'    => array(
                         'type'                  => 'color',
                         'label'                 => __('Error Description Color', 'bb-powerpack'),
-                        'default'               => 'b94a4b',
+						'default'               => 'b94a4b',
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.pp-ninja-form-content .ninja-forms-error-msg, .pp-ninja-form-content .nf-form-errors .nf-error-msg',
@@ -947,7 +960,8 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                     'validation_message_color'    => array(
                         'type'                    => 'color',
                         'label'                   => __('Color', 'bb-powerpack'),
-                        'default'                 => 'dd4b39',
+						'default'                 => 'dd4b39',
+						'connections'				=> array('color'),
                         'preview'                 => array(
                             'type'                => 'css',
                             'selector'            => '.pp-ninja-form-content .nf-form-wrap .nf-field-container .nf-error-msg, .pp-ninja-form-content .ninja-forms-form .field-wrap .ninja-forms-field-error',
@@ -962,7 +976,8 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                     'success_message_color'    => array(
                         'type'                         => 'color',
                         'label'                        => __('Color', 'bb-powerpack'),
-                        'default'                      => '3c763d',
+						'default'                      => '3c763d',
+						'connections'					=> array('color'),
                         'preview'                      => array(
                             'type'                     => 'css',
                             'selector'                 => '.pp-ninja-form-content .nf-response-msg, .pp-ninja-form-content .ninja-forms-success-msg',
@@ -992,7 +1007,8 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                         'type'          => 'color',
                         'label'         => __('Color', 'bb-powerpack'),
                         'default'       => '',
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-ninja-form-content .pp-form-title, .pp-ninja-form-content .ninja-forms-form-title, .pp-ninja-form-content .nf-form-title',
@@ -1018,7 +1034,8 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                         'type'          => 'color',
                         'label'         => __('Color', 'bb-powerpack'),
                         'default'       => '',
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-ninja-form-content .pp-form-description',
@@ -1045,7 +1062,8 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                         'type'          => 'color',
                         'label'         => __('Color', 'bb-powerpack'),
                         'default'       => '',
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-ninja-form-content .nf-form-wrap .field-wrap label, .pp-ninja-form-content .ninja-forms-form .field-wrap label, .pp-ninja-form-content .ninja-forms-required-items, .pp-ninja-form-content .field-wrap.profile_pass-wrap p',
@@ -1110,7 +1128,8 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                         'type'                  => 'color',
                         'label'                 => __('Description Color', 'bb-powerpack'),
                         'default'               => '',
-                        'show_reset'            => true,
+						'show_reset'            => true,
+						'connections'	=> array('color'),
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.pp-ninja-form-content .nf-form-wrap .nf-field-description, .pp-ninja-form-content .ninja-forms-form .nf-field-description',

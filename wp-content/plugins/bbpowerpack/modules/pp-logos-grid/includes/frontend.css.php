@@ -14,7 +14,7 @@
 	$logo_grid_border_right_width = 0;
 	$logo_grid_border_bottom_width = 0;
 	if ( isset( $settings->logo_grid_border ) ) {
-		$logo_grid_border_style = $settings->logo_grid_border['style'];
+		$logo_grid_border_style = isset( $settings->logo_grid_border['style'] ) ? $settings->logo_grid_border['style'] : 'none';
 		$logo_grid_border_right_width = ! empty( $settings->logo_grid_border['width']['right'] ) ? $settings->logo_grid_border['width']['right'] : 0;
 		$logo_grid_border_bottom_width = ! empty( $settings->logo_grid_border['width']['bottom'] ) ? $settings->logo_grid_border['width']['bottom'] : 0;
 	}
@@ -22,12 +22,12 @@
 
 <?php
 	if ( isset( $settings->logos_grid_columns ) && ! empty( $settings->logos_grid_columns ) ) {
-		$space_desktop = ( $settings->logos_grid_columns - 1 ) * $settings->logos_grid_spacing;
+		$space_desktop = $space_tablet = $space_mobile = ( $settings->logos_grid_columns - 1 ) * $settings->logos_grid_spacing;
 		$logos_grid_columns_desktop = ( 100 - $space_desktop ) / $settings->logos_grid_columns;
 	}
 
 	if ( isset( $settings->logos_grid_columns ) && ! empty( $settings->logos_grid_columns_medium ) ) {
-		$space_tablet = ( $settings->logos_grid_columns_medium - 1 ) * $settings->logos_grid_spacing;
+		$space_tablet = $space_mobile = ( $settings->logos_grid_columns_medium - 1 ) * $settings->logos_grid_spacing;
 		$logos_grid_columns_tablet = ( 100 - $space_tablet ) / $settings->logos_grid_columns_medium;
 	}
 
@@ -316,7 +316,7 @@ FLBuilderCSS::responsive_rule( array(
 @media only screen and (max-width: 1024px) {
     .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo {
         <?php if( $settings->logos_layout == 'grid' && $settings->logos_grid_columns_medium >= 0 ) { ?>
-        width: calc((100% - <?php echo $space_tablet; ?>px) / <?php echo $settings->logos_grid_columns_medium; ?>);
+        width: calc((100% - <?php echo $space_tablet + 1; ?>px) / <?php echo $settings->logos_grid_columns_medium; ?>);
         <?php } ?>
     }
     .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo:nth-of-type(<?php echo $settings->logos_grid_columns_medium; ?>n+1) {
@@ -350,7 +350,7 @@ FLBuilderCSS::responsive_rule( array(
 @media only screen and (max-width: 480px) {
     .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo {
         <?php if( $settings->logos_layout == 'grid' && $settings->logos_grid_columns_responsive >= 0 ) { ?>
-        width: calc((100% - <?php echo $space_mobile; ?>px) / <?php echo $settings->logos_grid_columns_responsive; ?>);
+        width: calc((100% - <?php echo $space_mobile + 1; ?>px) / <?php echo $settings->logos_grid_columns_responsive; ?>);
         <?php } ?>
     }
     .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo:nth-of-type(<?php echo $settings->logos_grid_columns_medium; ?>n+1) {

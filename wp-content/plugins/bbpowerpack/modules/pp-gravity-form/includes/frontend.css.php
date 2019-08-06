@@ -365,7 +365,13 @@ FLBuilderCSS::typography_field_rule( array(
 .fl-node-<?php echo $id; ?> .gform_wrapper.gf_browser_ie .gform_footer .gform_button,
 .fl-node-<?php echo $id; ?> .gform_wrapper .gform_page_footer .button,
 .fl-node-<?php echo $id; ?> .gform_wrapper.gf_browser_ie .gform_page_footer .button {
-	width: <?php echo ($settings->button_width == 'true') ? '100%' : 'auto'; ?>;
+	<?php if ( $settings->button_width == 'true' ) { ?>
+	width: 100%;
+	<?php } elseif ( isset( $settings->button_custom_width ) && ! empty( $settings->button_custom_width ) ) { ?>
+	width: <?php echo $settings->button_custom_width; ?>px;
+	<?php } else { ?>
+	width: auto;
+	<?php } ?>
     <?php if( $settings->button_text_color ) { ?>
 	color: <?php echo pp_get_color_value($settings->button_text_color); ?>;
     <?php } ?>

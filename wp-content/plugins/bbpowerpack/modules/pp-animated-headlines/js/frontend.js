@@ -80,7 +80,9 @@
 					preserveAspectRatio: 'none'
 				}).html(this._getSvgPaths( settings.headline_shape ));
 
-				dynamicWrapper.append( dynamicText, svg[0].outerHTML );
+				if ( dynamicWrapper.find('.' + classes.dynamicText).length === 0 ) {
+					dynamicWrapper.append( dynamicText, svg[0].outerHTML );
+				}
 			}
 
 			this.elements.dynamicText = dynamicWrapper.children( '.' + classes.dynamicText );

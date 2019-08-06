@@ -15,7 +15,7 @@ function pp_column_separators_js( $js, $nodes, $global_settings ) {
             ;(function($) {
                 var colH_<?php echo $column->node; ?> = $('.fl-node-<?php echo $column->node; ?>').outerHeight();
                 $('.fl-node-<?php echo $column->node; ?> .pp-col-separator-left svg, .fl-node-<?php echo $column->node; ?> .pp-col-separator-right svg').css('width', colH_<?php echo $column->node; ?> + 'px');
-                $(window).load(function() {
+                $(window).on('load resize', function() {
                     var colH_<?php echo $column->node; ?> = $('.fl-node-<?php echo $column->node; ?>').outerHeight();
                     $('.fl-node-<?php echo $column->node; ?> .pp-col-separator-left svg, .fl-node-<?php echo $column->node; ?> .pp-col-separator-right svg').css('width', colH_<?php echo $column->node; ?> + 'px');
                 });

@@ -31,7 +31,11 @@ class PPCalderaFormModule extends FLBuilderModule {
      */
     public static function caldera_form_titles()
     {
-        $options = array( '' => __('None', 'bb-powerpack') );
+		$options = array( '' => __('None', 'bb-powerpack') );
+		
+		if ( is_admin() ) {
+			return $options;
+		}
 
         if ( class_exists('Caldera_Forms_Forms') ) {
             $forms = Caldera_Forms_Forms::get_forms( true );
@@ -352,7 +356,8 @@ FLBuilder::register_module('PPCalderaFormModule', array(
                         'label'         => __('Background Color', 'bb-powerpack'),
                         'default'       => 'ffffff',
                         'show_reset'    => true,
-                        'show_alpha'    => true,
+						'show_alpha'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-caldera-form-content',
@@ -394,7 +399,8 @@ FLBuilder::register_module('PPCalderaFormModule', array(
                         'label'         => __('Background Overlay Color', 'bb-powerpack'),
                         'default'       => '000000',
                         'show_reset'    => true,
-                        'show_alpha'    => true,
+						'show_alpha'    => true,
+						'connections'	=> array('color'),
                     ),
                 )
             ),
@@ -521,7 +527,8 @@ FLBuilder::register_module('PPCalderaFormModule', array(
                     'input_field_text_color'    => array(
                         'type'                  => 'color',
                         'label'                 => __('Text Color', 'bb-powerpack'),
-                        'default'               => '333333',
+						'default'               => '333333',
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'                  => 'css',
                             'selector'              => '.pp-caldera-form-content .caldera-grid .form-control',
@@ -533,7 +540,8 @@ FLBuilder::register_module('PPCalderaFormModule', array(
                         'label'                 => __('Background Color', 'bb-powerpack'),
                         'default'               => 'ffffff',
                         'show_reset'            => true,
-                        'show_alpha'            => true,
+						'show_alpha'            => true,
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.pp-caldera-form-content .caldera-grid .form-control',
@@ -550,7 +558,8 @@ FLBuilder::register_module('PPCalderaFormModule', array(
                         'type'                  => 'color',
                         'label'                 => __('Border Color', 'bb-powerpack'),
                         'default'               => 'eeeeee',
-                        'show_reset'            => true,
+						'show_reset'            => true,
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.pp-caldera-form-content .caldera-grid .form-control',
@@ -616,7 +625,8 @@ FLBuilder::register_module('PPCalderaFormModule', array(
                         'type'                  => 'color',
                         'label'                 => __('Focus Border Color', 'bb-powerpack'),
                         'default'               => '719ece',
-                        'show_reset'            => true,
+						'show_reset'            => true,
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.pp-caldera-form-content .caldera-grid .form-control:focus',
@@ -700,7 +710,8 @@ FLBuilder::register_module('PPCalderaFormModule', array(
                     'input_shadow_color'      => array(
                         'type'          => 'color',
                         'label'         => __('Shadow Color', 'bb-powerpack'),
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-caldera-form-content .caldera-grid .form-control',
@@ -766,7 +777,8 @@ FLBuilder::register_module('PPCalderaFormModule', array(
                         'type'                  => 'color',
                         'label'                 => __('Color', 'bb-powerpack'),
                         'default'               => 'eeeeee',
-                        'show_reset'            => true,
+						'show_reset'            => true,
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.pp-caldera-form-content .caldera-grid .form-control::-webkit-input-placeholder',
@@ -783,7 +795,8 @@ FLBuilder::register_module('PPCalderaFormModule', array(
                         'label'                 => __('Background Color', 'bb-powerpack'),
                         'default'               => '',
                         'show_reset'            => true,
-                        'show_alpha'            => true,
+						'show_alpha'            => true,
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.pp-caldera-form-content .caldera-grid input[type=file]',
@@ -794,7 +807,8 @@ FLBuilder::register_module('PPCalderaFormModule', array(
                         'type'                  => 'color',
                         'label'                 => __('Color', 'bb-powerpack'),
                         'default'               => '',
-                        'show_reset'            => true,
+						'show_reset'            => true,
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.pp-caldera-form-content .caldera-grid input[type=file]',
@@ -869,12 +883,14 @@ FLBuilder::register_module('PPCalderaFormModule', array(
 						'label'		=> __('Text Color', 'bb-powerpack'),
 						'default'	=> 'fffffff',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 					),
 					'button_text_color_hover'	=> array(
 						'type'		=> 'color',
 						'label'		=> __('Text Hover Color', 'bb-powerpack'),
 						'default'	=> 'eeeeee',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 					),
 					'button_bg_color_default'	=> array(
 						'type'		=> 'color',
@@ -882,6 +898,7 @@ FLBuilder::register_module('PPCalderaFormModule', array(
 						'default'	=> '333333',
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 					),
 					'button_bg_color_hover'	=> array(
 						'type'		=> 'color',
@@ -889,6 +906,7 @@ FLBuilder::register_module('PPCalderaFormModule', array(
 						'default'	=> '000000',
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 					),
                 )
             ),
@@ -982,7 +1000,8 @@ FLBuilder::register_module('PPCalderaFormModule', array(
                     'validation_message_color'    => array(
                         'type'                    => 'color',
                         'label'                   => __('Color', 'bb-powerpack'),
-                        'default'                 => 'dd4b39',
+						'default'                 => 'dd4b39',
+						'connections'			=> array('color'),
                         'preview'                 => array(
                             'type'                => 'css',
                             'selector'            => '.pp-caldera-form-content .caldera-grid .form-group .has-error .help-block',
@@ -999,7 +1018,8 @@ FLBuilder::register_module('PPCalderaFormModule', array(
                         'label'                        => __('Background Color', 'bb-powerpack'),
                         'default'                      => 'dff0d8',
                         'show_reset'                   => true,
-                        'show_alpha'                   => true,
+						'show_alpha'                   => true,
+						'connections'					=> array('color'),
                         'preview'                      => array(
                             'type'                     => 'css',
                             'selector'                 => '.pp-caldera-form-content .caldera-grid .alert-success',
@@ -1009,7 +1029,8 @@ FLBuilder::register_module('PPCalderaFormModule', array(
                     'success_message_color'    => array(
                         'type'                         => 'color',
                         'label'                        => __('Color', 'bb-powerpack'),
-                        'default'                      => '3c763d',
+						'default'                      => '3c763d',
+						'connections'					=> array('color'),
                         'preview'                      => array(
                             'type'                     => 'css',
                             'selector'                 => '.pp-caldera-form-content .caldera-grid .alert-success',
@@ -1020,7 +1041,8 @@ FLBuilder::register_module('PPCalderaFormModule', array(
                         'type'                         => 'color',
                         'label'                        => __('Border Color', 'bb-powerpack'),
                         'default'                      => 'a3d48e',
-                        'show_reset'                   => true,
+						'show_reset'                   => true,
+						'connections'					=> array('color'),
                         'preview'                      => array(
                             'type'                     => 'css',
                             'selector'                 => '.pp-caldera-form-content .caldera-grid .alert-success',
@@ -1050,7 +1072,8 @@ FLBuilder::register_module('PPCalderaFormModule', array(
                         'type'          => 'color',
                         'label'         => __('Color', 'bb-powerpack'),
                         'default'       => '333333',
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-caldera-form-content .pp-form-title',
@@ -1075,7 +1098,8 @@ FLBuilder::register_module('PPCalderaFormModule', array(
                     'description_color' => array(
                         'type'          => 'color',
                         'label'         => __('Color', 'bb-powerpack'),
-                        'default'       => '333333',
+						'default'       => '333333',
+						'connections'	=> array('color'),
                         'show_reset'    => true,
                         'preview'       => array(
                             'type'      => 'css',
@@ -1104,7 +1128,8 @@ FLBuilder::register_module('PPCalderaFormModule', array(
                         'type'          => 'color',
                         'label'         => __('Color', 'bb-powerpack'),
                         'default'       => '333333',
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-caldera-form-content .caldera-grid .form-group > label, .pp-caldera-form-content .caldera-grid .form-group label, .pp-caldera-form-content .caldera-grid',
@@ -1166,7 +1191,9 @@ FLBuilder::register_module('PPCalderaFormModule', array(
                     'input_desc_color'		=> array(
                         'type'                  => 'color',
                         'label'                 => __('Description Color', 'bb-powerpack'),
-                        'default'               => '000000',
+						'default'               => '000000',
+						'connections'			=> array('color'),
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.pp-caldera-form-content .caldera-grid .form-group .help-block',

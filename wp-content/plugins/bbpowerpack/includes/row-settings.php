@@ -393,6 +393,7 @@ function pp_row_separators( $sections ) {
 					'type'                      => 'color',
 					'label'                     => __('Color', 'bb-powerpack'),
 					'default'                   => 'ffffff',
+					'connections'				=> array('color'),
 					'preview'                   => array(
 						'type'                      => 'css',
 						'selector'                  => '.pp-row-separator-top svg',
@@ -403,6 +404,7 @@ function pp_row_separators( $sections ) {
 					'type'                      => 'color',
 					'label'                     => __('Shadow Color', 'bb-powerpack'),
 					'default'                   => 'f4f4f4',
+					'connections'				=> array('color'),
 					'preview'                   => array(
 						'type'                      => 'css',
 						'selector'                  => '.pp-row-separator-top svg .pp-shadow-color',
@@ -512,6 +514,7 @@ function pp_row_separators( $sections ) {
 					'type'                      => 'color',
 					'label'                     => __('Color', 'bb-powerpack'),
 					'default'                   => 'ffffff',
+					'connections'				=> array('color'),
 					'preview'                   => array(
 						'type'                      => 'css',
 						'selector'                  => '.pp-row-separator-bottom svg',
@@ -522,6 +525,7 @@ function pp_row_separators( $sections ) {
 					'type'                      => 'color',
 					'label'                     => __('Shadow Color', 'bb-powerpack'),
 					'default'                   => 'f4f4f4',
+					'connections'				=> array('color'),
 					'preview'                   => array(
 						'type'                      => 'css',
 						'selector'                  => '.pp-row-separator-bottom svg .pp-shadow-color',
@@ -631,6 +635,7 @@ function pp_row_expandable( $sections ) {
 					'type'          => 'text',
 					'label'         => __('Title on Collapse', 'bb-powerpack'),
 					'default'       => __('Click here to expand this row', 'bb-powerpack'),
+					'connections'	=> array('string'),
 					'preview'         => array(
 						'type'             => 'text',
 						'selector'         => '.pp-er-title'
@@ -639,7 +644,8 @@ function pp_row_expandable( $sections ) {
 				'er_title_e'     => array(
 					'type'          => 'text',
 					'label'         => __('Title on Expand', 'bb-powerpack'),
-					'default'       => __('Click here to collapse this row', 'bb-powerpack')
+					'default'       => __('Click here to collapse this row', 'bb-powerpack'),
+					'connections'	=> array('string'),
 				),
 				'er_transition_speed'   => array(
 					'type'                  => 'text',
@@ -918,6 +924,7 @@ function pp_row_expandable( $sections ) {
 					'type'          => 'color',
 					'label'         => __('Color', 'bb-powerpack'),
 					'default'       => '',
+					'connections'	=> array('color'),
 					'preview'       => array(
 						'type'          => 'css',
 						'selector'      => '.pp-er-wrap',

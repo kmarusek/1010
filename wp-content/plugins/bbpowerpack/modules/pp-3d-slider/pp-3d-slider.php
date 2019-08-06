@@ -294,7 +294,8 @@ FLBuilder::register_module('PP3dSliderModule', array(
                         'type'              => 'color',
                         'label'             => __('Color', 'bb-powerpack'),
                         'default'           => '',
-                        'show_reset'        => true,
+						'show_reset'        => true,
+						'connections'		=> array('color'),
                         'preview'           => array(
                             'type'              => 'css',
                             'selector'          => '.pp-3d-slider .pp-slider-img-caption',
@@ -311,7 +312,8 @@ FLBuilder::register_module('PP3dSliderModule', array(
                         'type'              => 'color',
                         'label'             => __('Color', 'bb-powerpack'),
                         'default'           => '333333',
-                        'show_reset'        => true,
+						'show_reset'        => true,
+						'connections'		=> array('color'),
                         'preview'           => array(
                             'type'              => 'css',
                             'selector'          => '.pp-3d-slider .pp-slider-nav .fa',
@@ -322,7 +324,8 @@ FLBuilder::register_module('PP3dSliderModule', array(
                         'type'              => 'color',
                         'label'             => __('Hover Color', 'bb-powerpack'),
                         'default'           => '333333',
-                        'show_reset'        => true,
+						'show_reset'        => true,
+						'connections'		=> array('color'),
                         'preview'           => array(
                             'type'              => 'none'
                         )
@@ -332,7 +335,8 @@ FLBuilder::register_module('PP3dSliderModule', array(
                         'label'             => __('Background Color', 'bb-powerpack'),
                         'default'           => '',
                         'show_reset'        => true,
-                        'show_alpha'        => true,
+						'show_alpha'        => true,
+						'connections'		=> array('color'),
                         'preview'           => array(
                             'type'              => 'css',
                             'selector'          => '.pp-3d-slider .pp-slider-nav .fa',
@@ -344,7 +348,8 @@ FLBuilder::register_module('PP3dSliderModule', array(
                         'label'                 => __('Background Hover Color', 'bb-powerpack'),
                         'default'               => '',
                         'show_reset'            => true,
-                        'show_alpha'            => true,
+						'show_alpha'            => true,
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'                  => 'none'
                         )

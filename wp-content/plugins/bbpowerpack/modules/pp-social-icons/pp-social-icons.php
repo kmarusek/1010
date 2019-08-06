@@ -116,11 +116,13 @@ FLBuilder::register_module('PPSocialIconsModule', array(
 						'type'          => 'color',
 						'label'         => __('Color', 'bb-powerpack'),
 						'show_reset'    => true,
+						'connections'	=> array('color'),
 					),
 					'hover_color' => array(
 						'type'          => 'color',
 						'label'         => __('Hover Color', 'bb-powerpack'),
 						'show_reset'    => true,
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'          => 'none'
 						)
@@ -129,13 +131,15 @@ FLBuilder::register_module('PPSocialIconsModule', array(
 						'type'          => 'color',
 						'label'         => __('Background Color', 'bb-powerpack'),
 						'show_reset'    => true,
-						'show_alpha'	=> true
+						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 					),
 					'bg_hover_color' => array(
 						'type'          => 'color',
 						'label'         => __('Background Hover Color', 'bb-powerpack'),
 						'show_reset'    => true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'          => 'none'
 						)
@@ -181,11 +185,13 @@ FLBuilder::register_module('PPSocialIconsModule', array(
 						'type'          => 'color',
 						'label'         => __('Border Color', 'bb-powerpack'),
 						'show_reset'    => true,
+						'connections'	=> array('color'),
 					),
 					'border_hover_color'  => array(
 						'type'          => 'color',
 						'label'         => __('Border Hover Color', 'bb-powerpack'),
 						'show_reset'    => true,
+						'connections'	=> array('color'),
 					),
 					'radius'		=> array(
 						'type'          => 'unit',
@@ -196,7 +202,7 @@ FLBuilder::register_module('PPSocialIconsModule', array(
 					),
 					'direction'		=> array(
 						'type'          => 'pp-switch',
-						'label'         => __('Direction', 'bb-powerpack'),
+						'label'         => __('Layout', 'bb-powerpack'),
 						'default'       => 'horizontal',
 						'options'       => array(
 							'horizontal'    => __('Horizontal', 'bb-powerpack'),
@@ -292,12 +298,14 @@ FLBuilder::register_settings_form('social_icon_form', array(
 						'color'         => array(
 							'type'          => 'color',
 							'label'         => __('Color', 'bb-powerpack'),
-							'show_reset'    => true
+							'show_reset'    => true,
+							'connections'	=> array('color'),
 						),
 						'hover_color' => array(
 							'type'          => 'color',
 							'label'         => __('Hover Color', 'bb-powerpack'),
 							'show_reset'    => true,
+							'connections'	=> array('color'),
 							'preview'       => array(
 								'type'          => 'none'
 							)
@@ -306,13 +314,15 @@ FLBuilder::register_settings_form('social_icon_form', array(
 							'type'          => 'color',
 							'label'         => __('Background Color', 'bb-powerpack'),
 							'show_reset'    => true,
-							'show_alpha'	=> true
+							'show_alpha'	=> true,
+							'connections'	=> array('color'),
 						),
 						'bg_hover_color' => array(
 							'type'          => 'color',
 							'label'         => __('Background Hover Color', 'bb-powerpack'),
 							'show_reset'    => true,
 							'show_alpha'	=> true,
+							'connections'	=> array('color'),
 							'preview'       => array(
 								'type'          => 'none'
 							)
@@ -334,11 +344,13 @@ FLBuilder::register_settings_form('social_icon_form', array(
 							'type'          => 'color',
 							'label'         => __('Border Color', 'bb-powerpack'),
 							'show_reset'    => true,
+							'connections'	=> array('color'),
 						),
 						'border_hover_color'  => array(
 							'type'          => 'color',
 							'label'         => __('Border Hover Color', 'bb-powerpack'),
 							'show_reset'    => true,
+							'connections'	=> array('color'),
 						),
 					)
 				)

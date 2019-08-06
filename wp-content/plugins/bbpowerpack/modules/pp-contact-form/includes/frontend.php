@@ -1,9 +1,13 @@
+<?php
+$title_tag = isset( $settings->title_tag ) ? $settings->title_tag : 'h3';
+?>
+
 <form class="pp-contact-form pp-form-<?php echo $settings->form_layout; ?>" <?php if ( isset( $module->template_id ) ) echo 'data-template-id="' . $module->template_id . '" data-template-node-id="' . $module->template_node_id . '"'; ?>>
-    <h3 class="pp-form-title">
+    <<?php echo $title_tag; ?> class="pp-form-title">
 	<?php if ( $settings->custom_title ) {
 	 	echo $settings->custom_title;
 	} ?>
-	</h3>
+	</<?php echo $title_tag; ?>>
 	<p class="pp-form-description">
 	<?php if ( $settings->custom_description ) {
 		echo $settings->custom_description;
@@ -15,25 +19,25 @@
         <?php } ?>
     	<?php if ($settings->name_toggle == 'show') : ?>
     	<div class="pp-input-group pp-name">
-    		<label for="pp-name"><?php echo ( ! isset( $settings->name_label ) ) ? _x( 'Name', 'Contact form Name field label.', 'bb-powerpack' ) : $settings->name_label;?></label>
+    		<label for="pp-name-<?php echo $id; ?>"><?php echo ( ! isset( $settings->name_label ) ) ? _x( 'Name', 'Contact form Name field label.', 'bb-powerpack' ) : $settings->name_label;?></label>
     		<span class="pp-contact-error"><?php esc_html_e('Please enter your name.', 'bb-powerpack');?></span>
-    		<input type="text" name="pp-name" value="" <?php if( $settings->input_placeholder_display == 'block' ) { ?>placeholder="<?php echo ! empty($settings->name_label) ? $settings->name_label : esc_attr__( 'Name', 'bb-powerpack' ); ?>" <?php } ?> />
+    		<input type="text" name="pp-name" id="pp-name-<?php echo $id; ?>" value="" <?php if( $settings->input_placeholder_display == 'block' ) { ?>placeholder="<?php echo ! empty($settings->name_label) ? $settings->name_label : esc_attr__( 'Name', 'bb-powerpack' ); ?>" <?php } ?> />
     	</div>
     	<?php endif; ?>
 
     	<?php if ($settings->email_toggle == 'show') : ?>
     	<div class="pp-input-group pp-email">
-    		<label for="pp-email"><?php echo ( ! isset( $settings->email_label ) ) ? _x( 'Email', 'Contact form Email field label.', 'bb-powerpack' ) : $settings->email_label;?></label>
+    		<label for="pp-email-<?php echo $id; ?>"><?php echo ( ! isset( $settings->email_label ) ) ? _x( 'Email', 'Contact form Email field label.', 'bb-powerpack' ) : $settings->email_label;?></label>
     		<span class="pp-contact-error"><?php esc_html_e('Please enter a valid email.', 'bb-powerpack');?></span>
-    		<input type="email" name="pp-email" value="" <?php if( $settings->input_placeholder_display == 'block' ) { ?>placeholder="<?php echo ! empty($settings->email_label) ? $settings->email_label : esc_attr__( 'Email', 'bb-powerpack' ); ?>" <?php } ?> />
+    		<input type="email" name="pp-email" id="pp-email-<?php echo $id; ?>" value="" <?php if( $settings->input_placeholder_display == 'block' ) { ?>placeholder="<?php echo ! empty($settings->email_label) ? $settings->email_label : esc_attr__( 'Email', 'bb-powerpack' ); ?>" <?php } ?> />
     	</div>
     	<?php endif; ?>
 
     	<?php if ($settings->phone_toggle == 'show') : ?>
     	<div class="pp-input-group pp-phone">
-    		<label for="pp-phone"><?php echo ( ! isset( $settings->phone_label ) ) ? _x( 'Phone', 'Contact form Phone field label.', 'bb-powerpack' ) : $settings->phone_label;?></label>
+    		<label for="pp-phone-<?php echo $id; ?>"><?php echo ( ! isset( $settings->phone_label ) ) ? _x( 'Phone', 'Contact form Phone field label.', 'bb-powerpack' ) : $settings->phone_label;?></label>
     		<span class="pp-contact-error"><?php esc_html_e('Please enter a valid phone number.', 'bb-powerpack');?></span>
-    		<input type="tel" name="pp-phone" value="" <?php if( $settings->input_placeholder_display == 'block' ) { ?>placeholder="<?php echo ! empty($settings->phone_label) ? $settings->phone_label : esc_attr__( 'Phone', 'bb-powerpack' ); ?>" <?php } ?> />
+    		<input type="tel" name="pp-phone" id="pp-phone-<?php echo $id; ?>" value="" <?php if( $settings->input_placeholder_display == 'block' ) { ?>placeholder="<?php echo ! empty($settings->phone_label) ? $settings->phone_label : esc_attr__( 'Phone', 'bb-powerpack' ); ?>" <?php } ?> />
     	</div>
     	<?php endif; ?>
 
@@ -47,17 +51,17 @@
 
     	<?php if ($settings->subject_toggle == 'show') : ?>
     	<div class="pp-input-group pp-subject">
-    		<label for="pp-subject"><?php echo ( ! isset( $settings->subject_label ) ) ? _x( 'Subject', 'Contact form Subject field label.', 'bb-powerpack' ) : $settings->subject_label;?></label>
+    		<label for="pp-subject-<?php echo $id; ?>"><?php echo ( ! isset( $settings->subject_label ) ) ? _x( 'Subject', 'Contact form Subject field label.', 'bb-powerpack' ) : $settings->subject_label;?></label>
     		<span class="pp-contact-error"><?php esc_html_e('Please enter a subject.', 'bb-powerpack');?></span>
-    		<input type="text" name="pp-subject" value="" <?php if( $settings->input_placeholder_display == 'block' ) { ?>placeholder="<?php echo ! empty($settings->subject_label) ? $settings->subject_label : esc_attr__( 'Subject', 'bb-powerpack' ); ?>" <?php } ?> />
+    		<input type="text" name="pp-subject" id="pp-subject-<?php echo $id; ?>" value="" <?php if( $settings->input_placeholder_display == 'block' ) { ?>placeholder="<?php echo ! empty($settings->subject_label) ? $settings->subject_label : esc_attr__( 'Subject', 'bb-powerpack' ); ?>" <?php } ?> />
     	</div>
     	<?php endif; ?>
 
         <?php if ($settings->message_toggle == 'show') : ?>
     	<div class="pp-input-group pp-message">
-    		<label for="pp-message"><?php echo ( ! isset( $settings->message_label ) ) ? _x( 'Message', 'Contact form Message field label.', 'bb-powerpack' ) : $settings->message_label;?></label>
+    		<label for="pp-message-<?php echo $id; ?>"><?php echo ( ! isset( $settings->message_label ) ) ? _x( 'Message', 'Contact form Message field label.', 'bb-powerpack' ) : $settings->message_label;?></label>
     		<span class="pp-contact-error"><?php esc_html_e('Please enter a message.', 'bb-powerpack');?></span>
-    		<textarea name="pp-message" <?php if( $settings->input_placeholder_display == 'block' ) { ?>placeholder="<?php echo ! empty($settings->message_label) ? $settings->message_label : esc_attr__( 'Message', 'bb-powerpack' ); ?>" <?php } ?>></textarea>
+    		<textarea name="pp-message" id="pp-message-<?php echo $id; ?>" <?php if( $settings->input_placeholder_display == 'block' ) { ?>placeholder="<?php echo ! empty($settings->message_label) ? $settings->message_label : esc_attr__( 'Message', 'bb-powerpack' ); ?>" <?php } ?>></textarea>
     	</div>
         <?php endif; ?>
 

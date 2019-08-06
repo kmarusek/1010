@@ -27,7 +27,7 @@ else if( $settings->announcement_bar_position == 'top' ) {
 			<?php } ?>
 		</div>
 		<div class="pp-announcement-bar-close-button">
-			<span class="fa fa-close pp-close-button"></span>
+			<span class="fas fa-times pp-close-button"></span>
 		</div>
 	</div>
 </div>

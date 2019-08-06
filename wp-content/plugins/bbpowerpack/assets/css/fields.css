@@ -774,3 +774,35 @@ span.pp-switch-button:not(.pp-switch-active):hover {
 	margin-right: 6px !important;
 	max-width: 78px !important;
 }
+
+/* File upload */
+.pp-field-file {
+	width: 100% !important;
+}
+.pp-field-file.disabled {
+	pointer-events: none !important;
+}
+.pp-field-file-upload {
+	display: inline-block;
+    padding: 10px;
+    background: #e7ebef;
+    border-radius: 0;
+    color: #69717c;
+    font-weight: 500;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    position: absolute;
+    right: -1px;
+    top: 0;
+    border: 2px solid transparent;
+}
+.pp-field-file-upload.disabled {
+	opacity: 0.5;
+	pointer-events: none;
+}
+.fl-builder-ui-skin--dark .pp-field-file-upload {
+	background: #2c333a;
+}
+.pp-field-file-msg {
+	padding: 10px;
+}

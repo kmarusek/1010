@@ -20,7 +20,7 @@
 		?>
 		<div class="pp-logo pp-logo-<?php echo $i; ?>">
         <?php if ( $logos_grid->upload_logo_link != '' ) { ?>
-            <a href="<?php echo $logos_grid->upload_logo_link; ?>" target="<?php echo $settings->upload_logo_link_target; ?>" >
+            <a href="<?php echo $logos_grid->upload_logo_link; ?>" target="<?php echo $settings->upload_logo_link_target; ?>"<?php echo $module->get_rel(); ?>>
         <?php } ?>
             <div class="pp-logo-inner">
                 <div class="pp-logo-inner-wrap">

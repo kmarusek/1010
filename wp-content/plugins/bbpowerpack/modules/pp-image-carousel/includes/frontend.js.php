@@ -1,3 +1,5 @@
+var carousel_<?php echo $id; ?> = '';
+
 (function($) {
 	<?php if($settings->click_action == 'lightbox') : ?>
 
@@ -74,20 +76,50 @@
 		breakpoint: {
 			medium: <?php echo $global_settings->medium_breakpoint; ?>,
 			responsive: <?php echo $global_settings->responsive_breakpoint; ?>
-		}
+		},
 	};
 
-	var carousel_<?php echo $id; ?> = new PPImageCarousel(settings);
+	carousel_<?php echo $id; ?> = new PPImageCarousel(settings);
+
+	function updateCarousel() {
+		setTimeout(function() {
+			if ( 'number' !== typeof carousel_<?php echo $id; ?>.swipers.main.length ) {
+				carousel_<?php echo $id; ?>.swipers.main.update();
+			} else {
+				carousel_<?php echo $id; ?>.swipers.main.forEach(function(item) {
+					if ( 'undefined' !== typeof item ) {
+						item.update();
+					}
+				});
+			}
+		}, 10);
+	}
+
+	// Modal Box fix
+	$(document).on('pp_modal_box_rendered', function(e, selector) {
+		if ( selector.find('.fl-node-<?php echo $id; ?>').length > 0 ) {
+			updateCarousel();
+		}
+	});
 	
 	$(document).on('fl-builder.pp-accordion-toggle-complete', function(e) {
 		if ( $(e.target).find('.fl-node-<?php echo $id; ?>').length > 0 ) {
-			carousel_<?php echo $id; ?>.swipers.main.update();
+			updateCarousel();
 		}
 	});
 
 	$(document).on('pp-tabs-switched', function(e, selector) {
 		if ( selector.find('.fl-node-<?php echo $id; ?>').length > 0 ) {
-			carousel_<?php echo $id; ?>.swipers.main.update();
+			updateCarousel();
+		}
+	});
+
+	// Beaver Builder Tabs module.
+	$('.fl-tabs').find('.fl-tabs-label').on('click', function() {
+		var index = $(this).data('index');
+		var panel = $(this).parents('.fl-tabs').find('.fl-tabs-panel-content[data-index="' + index + '"]');
+		if ( panel.find('.fl-node-<?php echo $id; ?>').length > 0 ) {
+			updateCarousel();
 		}
 	});
 

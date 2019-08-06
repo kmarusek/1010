@@ -111,7 +111,8 @@ FLBuilder::register_module('PPQuoteModule', array(
                     'quote_background'      => array(
                         'type'      => 'color',
                         'label'     => __('Background Color', 'bb-powerpack'),
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-pullquote-wrapper',
@@ -211,6 +212,7 @@ FLBuilder::register_module('PPQuoteModule', array(
 						'type'          => 'color',
 						'label'         => __('Border Color', 'bb-powerpack'),
 						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'          => 'css',
                             'selector'      => '.pp-pullquote-wrapper',
@@ -296,7 +298,8 @@ FLBuilder::register_module('PPQuoteModule', array(
                     'icon_color'    => array(
                         'type'      => 'color',
                         'label'     => __('Color', 'bb-powerpack'),
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'   => array(
                             'type'  => 'css',
                             'selector'  => '.pp-quote-wrap .pp-pullquote-wrapper .pp-pullquote-icon .pp-icon',
@@ -414,6 +417,7 @@ FLBuilder::register_module('PPQuoteModule', array(
 						'type'          => 'color',
 						'label'         => __('Color', 'bb-powerpack'),
 						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'          => 'css',
                             'selector'      => '.pp-quote-wrap .pp-pullquote-wrapper .pp-pullquote-title h4',
@@ -503,6 +507,7 @@ FLBuilder::register_module('PPQuoteModule', array(
 						'type'          => 'color',
 						'label'         => __('Color', 'bb-powerpack'),
 						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'          => 'css',
                             'selector'      => '.pp-quote-wrap .pp-pullquote-wrapper .pp-pullquote-content p',

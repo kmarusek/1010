@@ -28,6 +28,7 @@ class PPTableModule extends FLBuilderModule {
         $this->add_css( 'tablesaw' );
 		$this->add_js( 'tablesaw' );
 	}
+	
 	public function filter_settings( $settings, $helper ) {
 		// Header old padding field.
 		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'header_padding', 'padding', 'header_padding' );
@@ -66,6 +67,7 @@ class PPTableModule extends FLBuilderModule {
 				'type'			=> 'text_transform',
 			),
 		), 'row_typography' );
+		
 		return $settings;
 	}
 }
@@ -74,20 +76,50 @@ class PPTableModule extends FLBuilderModule {
  * Register the module and its form settings.
  */
 FLBuilder::register_module('PPTableModule', array(
-	'header'		=> array(
-        'title'         => __('Table Headers', 'bb-powerpack'),
-        'sections'      => array(
-            'headers'       => array(
-                'title'         => __('Column Headers', 'bb-powerpack'),
-                'fields'        => array( // Section Fields
-                    'header'     => array(
-                        'type'          => 'text',
-                        'label'         => __('Header', 'bb-powerpack'),
-                        'multiple'       => true,
-                    ),
-                )
-            ),
-            'sort'       => array(
+	'general'		=> array(
+		'title'			=> __('General', 'bb-powerpack'),
+		'sections'		=> array(
+			'general'		=> array(
+				'title'			=> '',
+				'fields'		=> array(
+					'source'		=> array(
+						'type'			=> 'select',
+						'label'			=> __('Source', 'bb-powerpack'),
+						'default'		=> 'manual',
+						'options'		=> array(
+							'manual'		=> __('Manual', 'bb-powerpack'),
+							'csv_import'	=> __('CSV Import', 'bb-powerpack')
+						),
+						'toggle'		=> array(
+							'manual'		=> array(
+								'tabs'			=> array('header', 'row')
+							),
+							'csv_import'	=> array(
+								'fields'		=> array('csv_import', 'first_row_header')
+							)
+						)
+					),
+					'csv_import'	=> array(
+						'type'			=> 'pp-file',
+						'label'			=> __('Upload CSV', 'bb-powerpack'),
+						'default'		=> '',
+						'accept'		=> '.csv',
+						'preview'		=> array(
+							'type'			=> 'none'
+						)
+					),
+					'first_row_header'	=> array(
+						'type'				=> 'pp-switch',
+						'label'				=> __( 'Make first row as Header?', 'bb-powerpack' ),
+						'default'			=> 'yes',
+						'options'			=> array(
+							'yes'				=> __( 'Yes', 'bb-powerpack' ),
+							'no'				=> __( 'No', 'bb-powerpack' ),
+						),
+					),
+				)
+			),
+			'sort'       	=> array(
                 'title'         => __('Sortable Table', 'bb-powerpack'),
                 'fields'        => array( // Section Fields
                     'sortable'     => array(
@@ -128,6 +160,21 @@ FLBuilder::register_module('PPTableModule', array(
                     )
                 )
             ),
+		)
+	),
+	'header'		=> array(
+        'title'         => __('Table Headers', 'bb-powerpack'),
+        'sections'      => array(
+            'headers'       => array(
+                'title'         => __('Column Headers', 'bb-powerpack'),
+                'fields'        => array( // Section Fields
+                    'header'     => array(
+                        'type'          => 'text',
+                        'label'         => __('Header', 'bb-powerpack'),
+                        'multiple'       => true,
+                    ),
+                )
+            ),
         )
     ),
 	'row'			=> array(
@@ -138,7 +185,7 @@ FLBuilder::register_module('PPTableModule', array(
                 'fields'        => array( // Section Fields
                     'rows'     => array(
                         'type'          => 'form',
-                        'label'        => __('Rows', 'bb-powerpack'),
+                        'label'        => __('Row', 'bb-powerpack'),
                         'form'          => 'pp_content_table_row',
                         'preview_text'  => 'label',
                         'multiple'      => true
@@ -161,6 +208,7 @@ FLBuilder::register_module('PPTableModule', array(
                         'help'          => __('Change the table header background color', 'bb-powerpack'),
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-table-content thead',
@@ -173,6 +221,7 @@ FLBuilder::register_module('PPTableModule', array(
                         'label'         => __('Border Color', 'bb-powerpack'),
                         'help'          => __('Change the table header border color', 'bb-powerpack'),
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'		=> array(
 							'type'			=> 'css',
 							'selector'		=> '.pp-table-content thead tr:first-child th',
@@ -222,6 +271,7 @@ FLBuilder::register_module('PPTableModule', array(
                         'help'          => __('Change the table row background color', 'bb-powerpack'),
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-table-content tbody tr',
@@ -235,6 +285,7 @@ FLBuilder::register_module('PPTableModule', array(
                         'help'          => __('Change the tables even rows background color', 'bb-powerpack'),
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-table-content .even',
@@ -304,6 +355,7 @@ FLBuilder::register_module('PPTableModule', array(
                         'label'         => __('Border Color', 'bb-powerpack'),
                         'help'          => __('Change the table row border color', 'bb-powerpack'),
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'		=> 'css',
 							'rules'		=> array(
@@ -349,8 +401,9 @@ FLBuilder::register_module('PPTableModule', array(
 					),
                     'header_font_color'     => array(
                         'type'          => 'color',
-                        'default'          => 'ffffff',
-                        'label'         => __('Text Color', 'bb-powerpack'),
+                        'default'       => 'ffffff',
+						'label'         => __('Text Color', 'bb-powerpack'),
+						'connections'	=> array('color'),
                         'help'          => __('Change the table header font color', 'bb-powerpack'),
 						'preview'	=> array(
 							'type'		=> 'css',
@@ -381,6 +434,7 @@ FLBuilder::register_module('PPTableModule', array(
                         'label'         => __('Text Color', 'bb-powerpack'),
                         'help'          => __('Change the table row text color', 'bb-powerpack'),
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-table-content tbody tr td',
@@ -393,6 +447,7 @@ FLBuilder::register_module('PPTableModule', array(
                         'label'         => __('Even Rows Text Color', 'bb-powerpack'),
                         'help'          => __('Change the tables even rows text color', 'bb-powerpack'),
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-table-content .even td',
@@ -402,7 +457,8 @@ FLBuilder::register_module('PPTableModule', array(
                     'rows_font_odd'     => array(
                         'type'          => 'color',
                         'default'       => '',
-                        'label'         => __('Odd Rows Text Color', 'bb-powerpack'),
+						'label'         => __('Odd Rows Text Color', 'bb-powerpack'),
+						'connections'	=> array('color'),
                         'help'          => __('Change the tables odd rows text color', 'bb-powerpack'),
 						'show_reset'	=> true,
 						'preview'	=> array(

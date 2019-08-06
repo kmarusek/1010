@@ -75,9 +75,11 @@
 			// Toggle the tabs.
 			wrap.find('.pp-tabs-labels:first > .pp-tab-active').removeClass('pp-tab-active');
 			wrap.find('.pp-tabs-panels:first > .pp-tabs-panel > .pp-tab-active').removeClass('pp-tab-active');
+			wrap.find('.pp-tabs-panels:first > .pp-tabs-panel > .pp-tabs-label').removeClass('pp-tab-active');
 
 			wrap.find('.pp-tabs-labels:first > .pp-tabs-label[data-index="' + index + '"]').addClass('pp-tab-active');
 			wrap.find('.pp-tabs-panels:first > .pp-tabs-panel > .pp-tabs-panel-content[data-index="' + index + '"]').addClass('pp-tab-active');
+			wrap.find('.pp-tabs-panels:first > .pp-tabs-panel > .pp-tabs-label[data-index="' + index + '"]').addClass('pp-tab-active');
 
 			// Gallery module support.
 			FLBuilderLayout.refreshGalleries( wrap.find('.pp-tabs-panel-content[data-index="' + index + '"]') );

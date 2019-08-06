@@ -173,6 +173,7 @@ FLBuilder::register_module('PPDotNavModule', array(
                         'default'       => '',
                         'show_reset'    => true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'          => 'css',
                             'selector'      => '.pp-dotnav .pp-dot .pp-dot-circle',
@@ -183,13 +184,15 @@ FLBuilder::register_module('PPDotNavModule', array(
                         'type'          => 'color',
                         'label'         => __('Color Hover', 'bb-powerpack'),
                         'default'       => 'ffffff',
-						'show_alpha'	=> true
+						'show_alpha'	=> true,
+						'connections'	=> array('color'),
                     ),
                     'dot_color_active' => array(
                         'type'          => 'color',
                         'label'         => __('Color Active', 'bb-powerpack'),
                         'default'       => 'ffffff',
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'          => 'css',
                             'selector'      => '.pp-dotnav .pp-dot.active .pp-dot-circle',
@@ -213,7 +216,8 @@ FLBuilder::register_module('PPDotNavModule', array(
                         'type'              => 'color',
                         'label'             => __('Border Color', 'bb-powerpack'),
                         'default'           => 'f4f4f4',
-                        'show_reset'        => true,
+						'show_reset'        => true,
+						'connections'		=> array('color'),
                         'preview'           => array(
                             'type'              => 'css',
                             'selector'          => '.pp-dotnav .pp-dot .pp-dot-circle',
@@ -224,13 +228,15 @@ FLBuilder::register_module('PPDotNavModule', array(
                         'type'              => 'color',
                         'label'             => __('Border Color Hover', 'bb-powerpack'),
                         'default'           => 'f4f4f4',
-                        'show_reset'        => true,
+						'show_reset'        => true,
+						'connections'		=> array('color'),
                     ),
                     'dot_border_color_active'  => array(
                         'type'              => 'color',
                         'label'             => __('Border Color Active', 'bb-powerpack'),
                         'default'           => 'f4f4f4',
-                        'show_reset'        => true,
+						'show_reset'        => true,
+						'connections'		=> array('color'),
                         'preview'           => array(
                             'type'              => 'css',
                             'selector'          => '.pp-dotnav .pp-dot.active .pp-dot-circle',
@@ -298,12 +304,14 @@ FLBuilder::register_module('PPDotNavModule', array(
                         'label'             => __('Background Color', 'bb-powerpack'),
                         'default'           => 'ffffff',
                         'show_reset'        => true,
-						'show_alpha'		=> true
+						'show_alpha'		=> true,
+						'connections'		=> array('color'),
                     ),
                     'dot_label_text'    => array(
                         'type'              => 'color',
                         'label'             => __('Text Color', 'bb-powerpack'),
-                        'default'           => '444444',
+						'default'           => '444444',
+						'connections'		=> array('color'),
                     )
                 )
             )

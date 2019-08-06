@@ -6,7 +6,12 @@
 <?php } ?>
 
 .fl-node-<?php echo $id; ?> .pp-image-carousel.pp-image-carousel-slideshow {
-	margin-bottom: <?php echo $settings->spacing; ?>px;
+	<?php if ( ! isset( $settings->thumb_position ) || ( isset( $settings->thumb_position ) && 'below' == $settings->thumb_position ) ) { ?>
+		margin-bottom: <?php echo $settings->spacing; ?>px;
+	<?php } ?>
+	<?php if ( isset( $settings->thumb_position ) && 'above' == $settings->thumb_position ) { ?>
+		margin-top: <?php echo $settings->spacing; ?>px;
+	<?php } ?>
 }
 
 <?php

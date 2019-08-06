@@ -145,7 +145,8 @@ FLBuilderCSS::responsive_rule( array(
 }
 
 .fl-node-<?php echo $id; ?> .pp-content-grid-pagination li a.page-numbers:hover,
-.fl-node-<?php echo $id; ?> .pp-content-grid-pagination li span.current {
+.fl-node-<?php echo $id; ?> .pp-content-grid-pagination li span.current,
+.fl-node-<?php echo $id; ?> .pp-content-grid-pagination li span[aria-current] {
 	<?php if ( isset( $settings->pagination_bg_color_hover ) && ! empty( $settings->pagination_bg_color_hover ) ) { ?>
 		background-color: <?php echo pp_get_color_value( $settings->pagination_bg_color_hover ); ?>;
 	<?php } ?>

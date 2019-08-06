@@ -725,14 +725,16 @@ FLBuilder::register_module('PPTeamModule', array(
 						'label'			=> __('Background Color', 'bb-powerpack'),
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
-						'default'		=> ''
+						'default'		=> '',
+						'connections'	=> array('color'),
 					),
 					'box_bg_hover_color'	=> array(
 						'type'			=> 'color',
 						'label'			=> __('Background Hover Color', 'bb-powerpack'),
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
-						'default'		=> ''
+						'default'		=> '',
+						'connections'	=> array('color'),
 					),
                     'box_border_group'	=> array(
 						'type'          => 'border',
@@ -792,7 +794,8 @@ FLBuilder::register_module('PPTeamModule', array(
                     'separator_color' => array(
                         'type'              => 'color',
                         'label'             => __('Color', 'bb-powerpack'),
-                        'default'           => '000000',
+						'default'           => '000000',
+						'connections'		=> array('color'),
                         'preview'              => array(
                             'type'				=> 'css',
                             'selector'	=> '.pp-member-wrapper .pp-member-separator',
@@ -854,6 +857,7 @@ FLBuilder::register_module('PPTeamModule', array(
                         'default'           => '',
 						'show_reset'		=> true,
 						'show_alpha'		=> true,
+						'connections'		=> array('color'),
 						'preview'			=> array(
 							'type'				=> 'css',
 							'selector'			=> '.pp-member-wrapper .pp-member-content',
@@ -885,26 +889,30 @@ FLBuilder::register_module('PPTeamModule', array(
 						'label'			=> __('Background Color', 'bb-powerpack'),
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
-						'default'		=> ''
+						'default'		=> '',
+						'connections'	=> array('color'),
 					),
 					'social_links_bg_hover_color'	=> array(
 						'type'			=> 'color',
 						'label'			=> __('Background Hover Color', 'bb-powerpack'),
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
-						'default'		=> ''
+						'default'		=> '',
+						'connections'	=> array('color'),
 					),
 					'social_links_text_color'	=> array(
 						'type'			=> 'color',
 						'label'			=> __('Icon Color', 'bb-powerpack'),
 						'show_reset'	=> true,
-						'default'		=> '666666'
+						'default'		=> '666666',
+						'connections'	=> array('color'),
 					),
 					'social_links_text_hover_color'	=> array(
 						'type'			=> 'color',
 						'label'			=> __('Icon Hover Color', 'bb-powerpack'),
 						'show_reset'	=> true,
-						'default'		=> '333333'
+						'default'		=> '333333',
+						'connections'	=> array('color'),
 					),
                     'social_links_font_size'   => array(
                         'type'          => 'unit',
@@ -932,7 +940,8 @@ FLBuilder::register_module('PPTeamModule', array(
 					'social_links_border_hover_color'	=> array(
 						'type'			=> 'color',
 						'label'			=> __( 'Border Hover Color', 'bb-powerpack' ),
-						'default'		=> '333333'
+						'default'		=> '333333',
+						'connections'	=> array('color'),
 					),
                     'social_links_space'   => array(
                         'type'          => 'unit',
@@ -998,7 +1007,8 @@ FLBuilder::register_module('PPTeamModule', array(
 					'title_font_color' 		=> array(
 						'type'			=> 'color',
 						'label'			=> __('Text Color', 'bb-powerpack'),
-                        'default'       => '000000',
+						'default'       => '000000',
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'		=> 'css',
                             'selector'        => '.pp-member-wrapper .pp-member-name',
@@ -1056,7 +1066,8 @@ FLBuilder::register_module('PPTeamModule', array(
 					'designation_font_color' 		=> array(
 						'type'			=> 'color',
 						'label'			=> __('Text Color', 'bb-powerpack'),
-                        'default'       => '666666',
+						'default'       => '666666',
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'		=> 'css',
 							'selector'        => '.pp-member-wrapper .pp-member-designation',
@@ -1114,7 +1125,8 @@ FLBuilder::register_module('PPTeamModule', array(
 					'description_font_color' 		=> array(
 						'type'			=> 'color',
 						'label'			=> __('Text Color', 'bb-powerpack'),
-                        'default'       => '444444',
+						'default'       => '444444',
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'		=> 'css',
 							'selector'        => '.pp-member-wrapper .pp-member-description',

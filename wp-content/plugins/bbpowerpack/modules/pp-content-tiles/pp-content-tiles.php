@@ -278,21 +278,24 @@ FLBuilder::register_module('PPContentTilesModule', array(
 						'type'          => 'color',
 						'label'         => __('Text Color', 'bb-powerpack'),
 						'default'       => 'ffffff',
-						'show_reset'    => true
+						'show_reset'    => true,
+						'connections'	=> array('color'),
 					),
 					'tax_bg_color'  => array(
 						'type'          => 'color',
 						'label'         => __('Taxonomy Background Color', 'bb-powerpack'),
 						'default'       => '333333',
 						'show_reset'    => true,
-						'show_alpha'	=> true
+						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 					),
 					'tax_bg_color_h'  	=> array(
 						'type'          	=> 'color',
 						'label'         	=> __('Taxonomy Background Hover Color', 'bb-powerpack'),
 						'default'       	=> '6b6b6b',
 						'show_reset'    	=> true,
-						'show_alpha'		=> true
+						'show_alpha'		=> true,
+						'connections'	=> array('color'),
 					),
 				)
 			),

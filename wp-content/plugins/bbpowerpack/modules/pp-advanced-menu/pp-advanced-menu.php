@@ -436,21 +436,6 @@ FLBuilder::register_module('PPAdvancedMenu', array(
 								'responsive' => '',
 							),
 						),
-						'preview'         => array(
-							'type'          => 'css',
-							'rules'			=> array(
-								array(
-									'selector'        => '.pp-advanced-menu .menu > li',
-									'property'        => 'margin-left',
-									'unit'            => 'px'
-								),
-								array(
-									'selector'        => '.pp-advanced-menu .menu > li',
-									'property'        => 'margin-right',
-									'unit'            => 'px'
-								)
-							)
-						)
                     ),
                     'link_bottom_spacing'    => array(
 						'type' 			=> 'unit',
@@ -494,7 +479,8 @@ FLBuilder::register_module('PPAdvancedMenu', array(
                         'type'       => 'color',
                         'label'      => __('Link Color', 'bb-powerpack'),
                         'default'    => '',
-                        'show_reset' => true,
+						'show_reset' => true,
+						'connections'	=> array('color'),
 						'preview'         => array(
 							'type'          => 'css',
 							'rules'			=> array(
@@ -517,7 +503,8 @@ FLBuilder::register_module('PPAdvancedMenu', array(
                         'type'       => 'color',
                         'label'      => __('Link Hover Color', 'bb-powerpack'),
                         'default'    => '',
-                        'show_reset' => true,
+						'show_reset' => true,
+						'connections'	=> array('color'),
 						'preview'         => array(
 							'type'          => 'css',
 							'rules'			=> array(
@@ -538,6 +525,7 @@ FLBuilder::register_module('PPAdvancedMenu', array(
                         'default'    => '',
                         'show_reset' => true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'         => array(
 							'type'            => 'css',
 							'selector'        => '.pp-advanced-menu .menu > li > a, .pp-advanced-menu .menu > li > .pp-has-submenu-container > a',
@@ -550,6 +538,7 @@ FLBuilder::register_module('PPAdvancedMenu', array(
                         'default'    => '',
                         'show_reset' => true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'         => array(
 							'type'            => 'css',
 							'selector'        => '.menu > li > a:hover, .menu > li > a:focus, .menu > li > .pp-has-submenu-container:hover > a, .menu > li > .pp-has-submenu-container.focus > a, .menu > li.current-menu-item > a, .menu > li.current-menu-item > .pp-has-submenu-container > a',
@@ -642,7 +631,8 @@ FLBuilder::register_module('PPAdvancedMenu', array(
                         'type'       => 'color',
                         'label'      => __('Border Color', 'bb-powerpack'),
                         'default'    => '',
-                        'show_reset' => true,
+						'show_reset' => true,
+						'connections'	=> array('color'),
 						'preview'         => array(
 							'type'            => 'css',
 							'selector'        => '.pp-advanced-menu .menu > li > a, .pp-advanced-menu .menu > li > .pp-has-submenu-container > a',
@@ -713,6 +703,7 @@ FLBuilder::register_module('PPAdvancedMenu', array(
                         'default'    	=> '',
 						'show_reset' 	=> true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'         => array(
 							'type'            => 'css',
 							'selector'        => '.sub-menu > li > a:hover, .sub-menu > li > a:focus, .sub-menu > li > .pp-has-submenu-container > a:hover, .sub-menu > li > .pp-has-submenu-container > a:focus',
@@ -723,7 +714,8 @@ FLBuilder::register_module('PPAdvancedMenu', array(
                         'type'       => 'color',
                         'label'      => __('Link Color', 'bb-powerpack'),
                         'default'    => '',
-                        'show_reset' => true,
+						'show_reset' => true,
+						'connections'	=> array('color'),
 						'preview'         => array(
 							'type'            => 'css',
 							'selector'        => '.sub-menu > li > a, .sub-menu > li > .pp-has-submenu-container > a',
@@ -734,7 +726,8 @@ FLBuilder::register_module('PPAdvancedMenu', array(
                         'type'       => 'color',
                         'label'      => __('Link Hover Color', 'bb-powerpack'),
                         'default'    => '',
-                        'show_reset' => true,
+						'show_reset' => true,
+						'connections'	=> array('color'),
 						'preview'         => array(
 							'type'            => 'css',
 							'selector'        => '.sub-menu > li > a:hover, .sub-menu > li > a:focus, .sub-menu > li > .pp-has-submenu-container > a:hover, .sub-menu > li > .pp-has-submenu-container > a:focus',
@@ -793,7 +786,8 @@ FLBuilder::register_module('PPAdvancedMenu', array(
                         'type'       => 'color',
                         'label'      => __('Link Separator Color', 'bb-powerpack'),
                         'default'    => '',
-                        'show_reset' => true,
+						'show_reset' => true,
+						'connections'	=> array('color'),
 						'preview'         => array(
 							'type'            => 'css',
 							'selector'        => '.sub-menu > li > a, .sub-menu > li > .pp-has-submenu-container > a',
@@ -839,7 +833,8 @@ FLBuilder::register_module('PPAdvancedMenu', array(
                         'type'       => 'color',
                         'label'      => __('Background Color', 'bb-powerpack'),
                         'default'    => '',
-                        'show_reset' => true,
+						'show_reset' => true,
+						'connections'	=> array('color'),
 						'preview'	 => array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-advanced-menu .pp-menu-overlay, .pp-advanced-menu .pp-off-canvas-menu',
@@ -877,6 +872,7 @@ FLBuilder::register_module('PPAdvancedMenu', array(
 						'label'      => __('Link Color', 'bb-powerpack'),
 						'default'    => '',
 						'show_reset' => true,
+						'connections'	=> array('color'),
 						'preview'	 => array(
 							'type'		=> 'css',
 							'rules'		=> array(
@@ -898,6 +894,7 @@ FLBuilder::register_module('PPAdvancedMenu', array(
 						'label'      => __('Link Hover Color', 'bb-powerpack'),
 						'default'    => '',
 						'show_reset' => true,
+						'connections'	=> array('color'),
 						'preview'	 => array(
 							'type'		=> 'css',
 							'rules'		=> array(
@@ -921,6 +918,8 @@ FLBuilder::register_module('PPAdvancedMenu', array(
 						'label'      => __('Link Background Color', 'bb-powerpack'),
 						'default'    => '',
 						'show_reset' => true,
+						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'    => array(
 							'type'      => 'css',
 							'selector'	=> '.pp-advanced-menu.full-screen .menu li a, .pp-advanced-menu.full-screen .menu li .pp-has-submenu-container a, .pp-advanced-menu.off-canvas .menu li a, .pp-advanced-menu.off-canvas .menu li .pp-has-submenu-container a',
@@ -932,6 +931,8 @@ FLBuilder::register_module('PPAdvancedMenu', array(
 						'label'      => __('Link Background Hover Color', 'bb-powerpack'),
 						'default'    => '',
 						'show_reset' => true,
+						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'          => 'none'
 						)
@@ -966,6 +967,7 @@ FLBuilder::register_module('PPAdvancedMenu', array(
 						'label'      => __('Link Border Color', 'bb-powerpack'),
 						'default'    => '',
 						'show_reset' => true,
+						'connections'	=> array('color'),
 						'preview'	 => array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-advanced-menu.full-screen .menu li a span.menu-item-text, .pp-advanced-menu.full-screen .menu li .pp-has-submenu-container a span.menu-item-text, .pp-advanced-menu.off-canvas .menu li a, .pp-advanced-menu.off-canvas .menu li .pp-has-submenu-container a',
@@ -1026,7 +1028,8 @@ FLBuilder::register_module('PPAdvancedMenu', array(
                     'menu_shadow_color'     => array(
                         'type'                  => 'color',
                         'label'                 => __('Shadow Color', 'bb-powerpack'),
-                        'default'               => '000000',
+						'default'               => '000000',
+						'connections'			=> array('color'),
                     ),
                     'menu_shadow_opacity'   => array(
                         'type'                  => 'text',
@@ -1077,7 +1080,8 @@ FLBuilder::register_module('PPAdvancedMenu', array(
                         'type'       => 'color',
                         'label'      => __('Color', 'bb-powerpack'),
                         'default'    => '',
-                        'show_reset' => true,
+						'show_reset' => true,
+						'connections'	=> array('color'),
                         'preview'	 => array(
                             'type'		=> 'css',
                             'rules'		=> array(
@@ -1130,7 +1134,8 @@ FLBuilder::register_module('PPAdvancedMenu', array(
                         'type'       => 'color',
                         'label'      => __('Close Icon Color', 'bb-powerpack'),
                         'default'    => '',
-                        'show_reset' => true,
+						'show_reset' => true,
+						'connections'	=> array('color'),
 						'preview'	 => array(
 							'type'		=> 'css',
 							'rules'		=> array(

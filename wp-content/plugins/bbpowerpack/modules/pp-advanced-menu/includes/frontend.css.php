@@ -369,10 +369,18 @@ if( $global_settings->responsive_enabled ) { ?>
 
 	<?php } ?>
 
-	<?php if( $settings->mobile_toggle != 'expanded' ) { ?>
+	<?php if( $settings->mobile_toggle == 'expanded' ) { ?>
 		.fl-node-<?php echo $id; ?> .pp-advanced-menu-mobile-toggle {
 			display: none;
 		}
+	<?php } ?>
+
+	<?php if ( 'always' != $module->get_media_breakpoint() ) { ?>
+	@media (min-width: <?php echo $module->get_media_breakpoint(); ?>px) {
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu-mobile-toggle {
+			display: none;
+		}
+	}
 	<?php } ?>
 
 <?php } ?>
@@ -800,6 +808,10 @@ if( isset( $settings->mobile_toggle ) && $settings->mobile_toggle != 'expanded' 
 	.fl-node-<?php echo $id; ?> .sub-menu > li > a,
 	.fl-node-<?php echo $id; ?> .sub-menu > li > .pp-has-submenu-container > a {
 		border-bottom-width: <?php echo ( $settings->submenu_border_size_medium != '' && $settings->submenu_border_color ) ? $settings->submenu_border_size_medium : ''; ?>px;
+	}
+
+	.fl-node-<?php echo $id; ?> .sub-menu {
+		width: auto;
 	}
 
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu-mobile-toggle {

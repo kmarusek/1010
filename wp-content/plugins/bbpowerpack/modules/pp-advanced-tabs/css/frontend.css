@@ -64,12 +64,6 @@
 	display: none;
 }
 
-.pp-tab-icon {
-    /*width: 25px;*/
-    /*font-size: 25px;*/
-    /*height: 25px;*/
-}
-
 /*  Panels
 ------------------------------------ */
 
@@ -83,13 +77,13 @@
 	clear: both;
 }
 .pp-tabs-panel-content {
-	display: none;
+	display: none !important;
 	padding: 30px;
 	clear: both;
 }
 
 .pp-tabs-panel-content.pp-tab-active {
-	display: block;
+	display: block !important;
 }
 .pp-tabs-panel-content p:last-child {
 	margin-bottom: 0;

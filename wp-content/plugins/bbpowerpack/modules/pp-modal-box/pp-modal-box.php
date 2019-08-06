@@ -605,7 +605,8 @@ FLBuilder::register_module('PPModalBoxModule', array(
                     'button_text_color' => array(
                         'type'              => 'color',
                         'label'             => __('Color', 'bb-powerpack'),
-                        'default'           => 'ffffff',
+						'default'           => 'ffffff',
+						'connections'		=> array('color'),
                         'preview'           => array(
                             'type'              => 'css',
                             'selector'          => '.pp-modal-trigger',
@@ -615,7 +616,8 @@ FLBuilder::register_module('PPModalBoxModule', array(
                     'button_text_hover' => array(
                         'type'              => 'color',
                         'label'             => __('Color Hover', 'bb-powerpack'),
-                        'default'           => 'f7f7f7',
+						'default'           => 'f7f7f7',
+						'connections'	=> array('color'),
                     ),
                 )
             ),
@@ -628,6 +630,7 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         'default'           => '428bca',
 						'show_alpha'		=> true,
 						'show_reset'		=> true,
+						'connections'		=> array('color'),
                         'preview'           => array(
                             'type'              => 'css',
                             'selector'          => '.pp-modal-trigger',
@@ -640,6 +643,7 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         'default'           => '444444',
 						'show_alpha'		=> true,
 						'show_reset'		=> true,
+						'connections'		=> array('color'),
                     ),
                 )
             ),
@@ -660,7 +664,8 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         'type'                      => 'color',
                         'label'                     => __('Border Color Hover', 'bb-powerpack'),
 						'default'                   => '222222',
-						'show_reset'				=> true
+						'show_reset'				=> true,
+						'connections'				=> array('color'),
                     ),
                 )
             ),
@@ -770,7 +775,8 @@ FLBuilder::register_module('PPModalBoxModule', array(
                     'title_color'       => array(
                         'type'              => 'color',
                         'label'             => __('Color', 'bb-powerpack'),
-                        'default'           => '444444',
+						'default'           => '444444',
+						'connections'		=> array('color'),
                         'preview'           => array(
                             'type'              => 'css',
                             'selector'          => '.pp-modal-title',
@@ -783,6 +789,7 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         'default'           => 'ffffff',
                         'show_reset'        => true,
 						'show_alpha'		=> true,
+						'connections'		=> array('color'),
                         'preview'           => array(
                             'type'              => 'css',
                             'selector'          => '.pp-modal-header',
@@ -820,7 +827,8 @@ FLBuilder::register_module('PPModalBoxModule', array(
                     'title_border_color' => array(
                         'type'              => 'color',
                         'label'             => __('Border Color', 'bb-powerpack'),
-                        'default'           => 'eeeeee',
+						'default'           => 'eeeeee',
+						'connections'		=> array('color'),
                         'preview'           => array(
                             'type'              => 'css',
                             'selector'          => '.pp-modal-header',
@@ -877,6 +885,7 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         'default'           => 'ffffff',
                         'show_reset'        => true,
 						'show_alpha'		=> true,
+						'connections'		=> array('color'),
                         'preview'           => array(
                             'type'              => 'css',
                             'selector'          => '.pp-modal',
@@ -975,7 +984,8 @@ FLBuilder::register_module('PPModalBoxModule', array(
                     'modal_border_color' => array(
                         'type'              => 'color',
                         'label'             => __('Border Color', 'bb-powerpack'),
-                        'default'           => 'ffffff',
+						'default'           => 'ffffff',
+						'connections'		=> array('color'),
                         'preview'           => array(
                             'type'              => 'css',
                             'selector'          => '.pp-modal',
@@ -1136,7 +1146,8 @@ FLBuilder::register_module('PPModalBoxModule', array(
                     'box_shadow_color' => array(
                         'type'              => 'color',
                         'label'             => __('Color', 'bb-powerpack'),
-                        'default'           => '000000',
+						'default'           => '000000',
+						'connections'		=> array('color'),
                     ),
                     'box_shadow_opacity' => array(
                         'type'              => 'text',
@@ -1163,7 +1174,8 @@ FLBuilder::register_module('PPModalBoxModule', array(
                     'content_text_color'     => array(
                         'type'                  => 'color',
                         'label'                 => __('Text Color', 'bb-powerpack'),
-                        'show_reset'            => true
+						'show_reset'            => true,
+						'connections'			=> array('color'),
                     ),
                     'content_padding'        => array(
                         'type'                  => 'unit',
@@ -1202,6 +1214,7 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         'label'             => __('Background Color', 'bb-powerpack'),
                         'default'           => '000000',
 						'show_alpha'		=> true,
+						'connections'		=> array('color'),
                         'preview'           => array(
                             'type'              => 'css',
                             'selector'          => '.pp-modal-overlay',
@@ -1225,17 +1238,22 @@ FLBuilder::register_module('PPModalBoxModule', array(
                     'close_btn_color'    => array(
                         'type'              => 'color',
                         'label'             => __('Color', 'bb-powerpack'),
-                        'default'           => 'ffffff',
+						'default'           => 'ffffff',
+						'show_reset'		=> true,
+						'connections'		=> array('color'),
                     ),
                     'close_btn_color_hover' => array(
                         'type'                  => 'color',
                         'label'                 => __('Color Hover', 'bb-powerpack'),
-                        'default'               => 'dddddd',
+						'default'               => 'dddddd',
+						'show_reset'			=> true,
+						'connections'			=> array('color'),
                     ),
                     'close_btn_bg'      => array(
                         'type'              => 'color',
                         'label'             => __('Background Color', 'bb-powerpack'),
-                        'default'           => '3a3a3a',
+						'default'           => '3a3a3a',
+						'connections'		=> array('color'),
                         'show_reset'        => true,
 						'show_alpha'		=> true
                     ),
@@ -1244,7 +1262,8 @@ FLBuilder::register_module('PPModalBoxModule', array(
                         'label'             => __('Background Color Hover', 'bb-powerpack'),
                         'default'           => 'b53030',
                         'show_reset'        => true,
-						'show_alpha'		=> true
+						'show_alpha'		=> true,
+						'connections'		=> array('color'),
                     ),
                     'close_btn_border'  => array(
                         'type'              => 'unit',
@@ -1256,7 +1275,9 @@ FLBuilder::register_module('PPModalBoxModule', array(
                     'close_btn_border_color'    => array(
                         'type'                      => 'color',
                         'label'                     => __('Border Color', 'bb-powerpack'),
-                        'default'                   => 'ffffff',
+						'default'                   => 'ffffff',
+						'show_reset'				=> true,
+						'connections'				=> array('color'),
                     ),
                     'close_btn_border_radius'   => array(
                         'type'                      => 'unit',

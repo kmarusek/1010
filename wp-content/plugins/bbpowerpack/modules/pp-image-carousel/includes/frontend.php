@@ -2,6 +2,11 @@
 $photos = $module->get_photos();
 ?>
 <div class="pp-image-carousel-wrapper">
+	<?php
+	if ( isset( $settings->thumb_position ) && 'above' == $settings->thumb_position ) {
+		include $module->dir . 'includes/thumbnails.php';
+	}
+	?>
 	<div class="pp-image-carousel swiper-container<?php echo ( $settings->carousel_type == 'slideshow') ? ' pp-image-carousel-slideshow' : ''; ?><?php echo ($settings->pagination_position && $settings->carousel_type != 'slideshow') ? ' pp-carousel-navigation-' . $settings->pagination_position : ''; ?>">
 		<div class="swiper-wrapper">
 			<?php foreach($photos as $photo) : ?>
@@ -66,25 +71,13 @@ $photos = $module->get_photos();
 			<div class="pp-swiper-button pp-swiper-button-next"><span class="fa fa-angle-right"></span></div>
 			<?php } ?>
 		<?php endif; ?>
-			
 	</div>
-
-	<?php if ( $settings->carousel_type == 'slideshow' ) : ?>
-	<div class="pp-thumbnails-swiper swiper-container pp-thumbs-ratio-<?php echo $settings->thumb_ratio; ?>">
-		<div class="swiper-wrapper">
-			<?php foreach($photos as $photo) : ?>
-				<?php
-					$photo_thumb_link = $photo->src;
-
-					if ( isset( $photo->thumb_link ) && ! empty( $photo->thumb_link ) ) {
-						$photo_thumb_link = $photo->thumb_link;
-					}
-				?>
-				<div class="swiper-slide">
-					<div class="pp-image-carousel-thumb" style="background-image:url(<?php echo $photo_thumb_link; ?>)"></div>
-				</div>
-			<?php endforeach; ?>
-		</div>
-	</div>
-	<?php endif; ?>
+	<?php
+	if ( isset( $settings->thumb_position ) && 'below' == $settings->thumb_position ) {
+		include $module->dir . 'includes/thumbnails.php';
+	}
+	if ( ! isset( $settings->thumb_position ) ) {
+		include $module->dir . 'includes/thumbnails.php';
+	}
+	?>
 </div>

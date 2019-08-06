@@ -40,3 +40,8 @@
 .fl-builder-settings.pp-cg-module-style-9 #fl-builder-settings-section-content_typography {
 	display: none !important;
 }
+
+/* custom content field connection */
+.fl-field-connections-menu[data-field="fl-field-custom_content"] .fl-field-connections-property-connect {
+	display: none !important;
+}

@@ -69,7 +69,9 @@ class PPAdvancedTabsModule extends FLBuilderModule {
 	public function filter_settings( $settings, $helper )
 	{
 		// Handle old content padding multitext field.
-		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'content_padding', 'padding', 'content_padding' );
+		if ( isset( $settings->content_padding ) && is_array( $settings->content_padding ) ) {
+			$settings = PP_Module_Fields::handle_multitext_field( $settings, 'content_padding', 'padding', 'content_padding' );
+		}
 
 		// Handle old title typography fields.
 		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
@@ -222,6 +224,7 @@ FLBuilder::register_module('PPAdvancedTabsModule', array(
 						'label'         => __('Background Color', 'bb-powerpack'),
 						'default'       => 'ffffff',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'	=> 'css',
 							'selector'	=> '.pp-tabs .pp-tabs-label:not(.pp-tab-active)',
@@ -233,6 +236,7 @@ FLBuilder::register_module('PPAdvancedTabsModule', array(
 						'label'         => __('Background Color Active', 'bb-powerpack'),
 						'default'       => 'f7f7f7',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'	=> 'css',
 							'rules'	=>	array(
@@ -260,6 +264,7 @@ FLBuilder::register_module('PPAdvancedTabsModule', array(
 						'label'         => __('Text Color', 'bb-powerpack'),
 						'default'       => '666666',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'	=> 'css',
 							'selector'	=> '.pp-tabs .pp-tabs-label',
@@ -271,6 +276,7 @@ FLBuilder::register_module('PPAdvancedTabsModule', array(
 						'label'         => __('Text Color Active', 'bb-powerpack'),
 						'default'       => '333333',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'	=> 'css',
 							'rules'	=> array(
@@ -290,6 +296,7 @@ FLBuilder::register_module('PPAdvancedTabsModule', array(
 						'label'         => __('Border Color', 'bb-powerpack'),
 						'default'       => 'eeeeee',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'	=> 'css',
 							'rules'	=> array(
@@ -414,6 +421,7 @@ FLBuilder::register_module('PPAdvancedTabsModule', array(
 						'label'         => __('Background Color', 'bb-powerpack'),
 						'default'       => '',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'		=> array(
 							'type'			=> 'css',
 							'selector'		=> '.pp-tabs-panels .pp-tabs-panel-content',
@@ -425,6 +433,7 @@ FLBuilder::register_module('PPAdvancedTabsModule', array(
 						'label'         => __('Text Color', 'bb-powerpack'),
 						'default'       => '',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'		=> array(
 							'type'			=> 'css',
 							'selector'		=> '.pp-tabs-panels .pp-tabs-panel-content',
@@ -493,6 +502,7 @@ FLBuilder::register_module('PPAdvancedTabsModule', array(
 						'label'         => __('Border Color', 'bb-powerpack'),
 						'default'       => '',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'		=> array(
 							'type'			=> 'css',
 							'selector'		=> '.pp-tabs-panels .pp-tabs-panel-content',
@@ -550,6 +560,7 @@ FLBuilder::register_module('PPAdvancedTabsModule', array(
 						'label'				=> __('Color', 'bb-powerpack'),
 						'default'			=> '',
 						'show_reset'		=> true,
+						'connections'		=> array('color'),
 						'preview'       => array(
                             'type'      => 'css',
 							'selector'  => '.pp-tabs-label .pp-tab-icon',
@@ -561,6 +572,7 @@ FLBuilder::register_module('PPAdvancedTabsModule', array(
 						'label'				=> __('Hover/Active Color', 'bb-powerpack'),
 						'default'			=> '',
 						'show_reset'		=> true,
+						'connections'		=> array('color'),
 						'preview'       => array(
                             'type'      => 'none',
                         )
@@ -597,6 +609,7 @@ FLBuilder::register_module('PPAdvancedTabsModule', array(
 						'type'          => 'color',
 						'label'         => __('Color', 'bb-powerpack'),
 						'default'       => '333333',
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'	=> 'css',
 							'selector'	=> '.pp-tabs-panel-label .pp-toggle-icon',

@@ -306,7 +306,8 @@ FLBuilder::register_module('PPInfoBannerModule', array(
                         'type'          => 'color',
                         'label'         => __('Overlay Color', 'bb-powerpack'),
                         'default'       => '',
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-info-banner-content .pp-info-banner-bg:before',
@@ -459,7 +460,8 @@ FLBuilder::register_module('PPInfoBannerModule', array(
                         'label'         => __('Background Color', 'bb-powerpack'),
                         'default'       => 'f3f3f3',
                         'show_reset'    => true,
-                        'show_alpha'    => true,
+						'show_alpha'    => true,
+						'connections'	=> array('color'),
                         'preview'		=> array(
                             'type'			=> 'css',
                             'selector'		=> '.pp-info-banner-content',
@@ -521,7 +523,8 @@ FLBuilder::register_module('PPInfoBannerModule', array(
                         'type'          => 'color',
                         'label'         => __('Color', 'bb-powerpack'),
                         'default'       => '333333',
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-info-banner-content .banner-title',
@@ -558,7 +561,8 @@ FLBuilder::register_module('PPInfoBannerModule', array(
                         'type'          => 'color',
                         'label'         => __('Border Color', 'bb-powerpack'),
                         'default'       => 'f3f3f3',
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-info-banner-content .banner-title',
@@ -631,7 +635,8 @@ FLBuilder::register_module('PPInfoBannerModule', array(
 					'banner_desc_color'    => array(
                         'type'          => 'color',
                         'label'         => __('Color', 'bb-powerpack'),
-                        'default'       => '333333',
+						'default'       => '333333',
+						'connections'	=> array('color'),
                         'show_reset'    => true,
                         'preview'         => array(
                             'type'            => 'css',
@@ -644,7 +649,7 @@ FLBuilder::register_module('PPInfoBannerModule', array(
                         'label'         => __('Margin Bottom', 'bb-powerpack'),
                         'units'			=> array('px'),
                         'slider'		=> true,
-                        'default'       => '10',
+						'default'       => '10',
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-info-banner-content .banner-description',
@@ -676,7 +681,8 @@ FLBuilder::register_module('PPInfoBannerModule', array(
                         'label'         => __('Background Color', 'bb-powerpack'),
                         'default'       => 'ffffff',
                         'show_reset'    => true,
-                        'show_alpha'    => true,
+						'show_alpha'    => true,
+						'connections'	=> array('color'),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-info-banner-content .banner-button',
@@ -688,7 +694,8 @@ FLBuilder::register_module('PPInfoBannerModule', array(
                         'label'         => __('Background Hover Color', 'bb-powerpack'),
                         'default'       => 'ffffff',
                         'show_reset'    => true,
-                        'show_alpha'    => true,
+						'show_alpha'    => true,
+						'connections'	=> array('color'),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-info-banner-content .banner-button:hover',
@@ -699,7 +706,8 @@ FLBuilder::register_module('PPInfoBannerModule', array(
                         'type'          => 'color',
                         'label'         => __('Text Color', 'bb-powerpack'),
                         'default'       => '333333',
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-info-banner-content .banner-button',
@@ -710,7 +718,8 @@ FLBuilder::register_module('PPInfoBannerModule', array(
                         'type'          => 'color',
                         'label'         => __('Text Hover Color', 'bb-powerpack'),
                         'default'       => 'cccccc',
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-info-banner-content .banner-button:hover',
@@ -730,7 +739,8 @@ FLBuilder::register_module('PPInfoBannerModule', array(
                         'type'          => 'color',
                         'label'         => __('Border Hover Color', 'bb-powerpack'),
                         'default'       => '222222',
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-info-banner-content .banner-button:hover',

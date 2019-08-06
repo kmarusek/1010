@@ -302,7 +302,7 @@ class PPFilterableGalleryModule extends FLBuilderModule {
 
 
 			// Only use photos who have the sizes object.
-			if(isset($photo->sizes)) {
+			if (isset($photo->sizes)) {
 
 				$data = new stdClass();
 
@@ -316,41 +316,21 @@ class PPFilterableGalleryModule extends FLBuilderModule {
 				$image_size = $this->settings->photo_size;
 
 				// Collage photo src
-				if($this->settings->gallery_layout == 'masonry') {
-
-					if($this->settings->photo_size == 'thumbnail' && isset($photo->sizes->thumbnail)) {
-						$data->src = $photo->sizes->thumbnail->url;
-					}
-					elseif($this->settings->photo_size == 'medium' && isset($photo->sizes->medium)) {
-						$data->src = $photo->sizes->medium->url;
-					}
-					elseif( isset( $photo->sizes->{$image_size} ) ) {
-						$data->src = $photo->sizes->{$image_size}->url;
-					}
-					else {
-						$data->src = $photo->sizes->full->url;
-					}
+				if ( $this->settings->photo_size == 'thumbnail' && isset( $photo->sizes->thumbnail ) ) {
+					$data->src = $photo->sizes->thumbnail->url;
 				}
-
-				// Grid photo src
+				elseif ( $this->settings->photo_size == 'medium' && isset( $photo->sizes->medium ) ) {
+					$data->src = $photo->sizes->medium->url;
+				}
+				elseif ( isset( $photo->sizes->{$image_size} ) ) {
+					$data->src = $photo->sizes->{$image_size}->url;
+				}
 				else {
-
-					if($this->settings->photo_size == 'thumbnail' && isset($photo->sizes->thumbnail)) {
-						$data->src = $photo->sizes->thumbnail->url;
-					}
-					elseif($this->settings->photo_size == 'medium' && isset($photo->sizes->medium)) {
-						$data->src = $photo->sizes->medium->url;
-					}
-					elseif( isset( $photo->sizes->{$image_size} ) ) {
-						$data->src = $photo->sizes->{$image_size}->url;
-					}
-					else {
-						$data->src = $photo->sizes->full->url;
-					}
+					$data->src = $photo->sizes->full->url;
 				}
 
 				// Photo Link
-				if(isset($photo->sizes->large)) {
+				if (isset($photo->sizes->large)) {
 					$data->link = $photo->sizes->large->url;
 				}
 				else {
@@ -559,6 +539,7 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 						'type'          => 'text',
 						'label'         => __('Custom Text', 'bb-powerpack'),
 						'default'       => '',
+						'connections'	=> array('string'),
 						'preview'         => array(
                             'type'            => 'text',
                             'selector'        => '.pp-gallery-filters li.all',
@@ -569,6 +550,7 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 						'label'				=> __('Custom ID Prefix', 'bb-powerpack'),
 						'default'			=> '',
 						'placeholder'		=> __('mygallery', 'bb-powerpack'),
+						'connections'		=> array('string'),
 						'help'				=> __('To filter the gallery using URL parameters, a prefix that will be applied to ID attribute of filter button in HTML. For example, prefix "mygallery" will be applied as "mygallery-1", "mygallery-2" in ID attribute of filter button 1 and filter button 2 respectively. It should only contain dashes, underscores, letters or numbers. No spaces and no other special characters.', 'bb-powerpack')
 					),
 					'active_filter'	=> array(
@@ -590,7 +572,7 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
                         'slider'          => true,
 						'responsive' => array(
 							'placeholder' => array(
-								'default' => '4',
+								'default' => '3',
 								'medium' => '',
 								'responsive' => '',
 							),
@@ -676,6 +658,7 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 						'show_reset' 	=> true,
 						'show_alpha'	=> true,
 						'preview'		=> 'none',
+						'connections'	=> array('color'),
 					),
 				)
 			),
@@ -702,6 +685,7 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 						'default'    	=> '',
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-gallery-overlay .pp-overlay-icon span',
@@ -713,6 +697,7 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 						'label'     	=> __('Color', 'bb-powerpack'),
 						'default'    	=> '',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'		=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-gallery-overlay .pp-overlay-icon span',
@@ -758,6 +743,7 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 						'default'    	=> '',
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-photo-gallery-caption',
@@ -804,6 +790,7 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 						'default'    	=> 'eeeeee',
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-gallery-filters li',
@@ -816,12 +803,14 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 						'default'    	=> 'bbbbbb',
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 					),
 					'filter_text_color'	=> array(
 						'type'       	=> 'color',
 						'label'     	=> __('Text Color', 'bb-powerpack'),
 						'default'    	=> '000000',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-gallery-filters li',
@@ -833,6 +822,7 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 						'label'     	=> __('Text Hover Color', 'bb-powerpack'),
 						'default'    	=> 'ffffff',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-gallery-filters li:hover',
@@ -853,6 +843,7 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 						'type'			=> 'color',
 						'label'			=> __( 'Border Hover Color', 'bb-powerpack' ),
 						'default'		=> 'eeeeee',
+						'connections'	=> array('color'),
 						'preview'   	=> array(
                             'type'  		=> 'css',
                             'selector'  	=> '.pp-gallery-filters li:hover',
@@ -868,7 +859,7 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 						'responsive'		=> true,
 						'preview'			=> array(
 							'type'				=> 'css',
-							'selector'			=> '.pp-photo-gallery-caption',
+							'selector'			=> '.pp-gallery-filters li',
 							'property'			=> 'padding',
 							'unit'				=> 'px'
 						)
@@ -920,6 +911,7 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 						'default'			=> 'fafafa',
 						'show_reset' 		=> true,
 						'show_alpha'		=> true,
+						'connections'	=> array('color'),
 						'preview'			=> array(
 							'type'				=> 'none'
 						)
@@ -928,11 +920,13 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 						'type'		=>	'color',
 						'label'		=> __( 'Toggle Text Color', 'bb-powerpack' ),
 						'default'	=> '333333',
+						'connections'	=> array('color'),
 					),
 					'filter_toggle_icon_color'	=> array(
 						'type'		=>	'color',
 						'label'		=> __( 'Toggle Icon Color', 'bb-powerpack' ),
 						'default'	=> '333333',
+						'connections'	=> array('color'),
 					),
 					'filter_toggle_border'	=> array(
 						'type'					=> 'unit',
@@ -948,6 +942,7 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 						'type'			=> 'color',
 						'label'			=> __('Toggle Border Color', 'bb-powerpack'),
 						'default'		=> 'eeeeee',
+						'connections'	=> array('color'),
 						'preview'		=> array(
 							'type'			=> 'none'
 						)
@@ -968,12 +963,14 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 						'default'    	=> '',
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 					),
 					'filter_res_bg_hover'	=> array(
 						'type'       	=> 'color',
 						'label'     	=> __('Filter Background Hover Color', 'bb-powerpack'),
 						'default'    	=> '',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 					),
 					'filter_res_text_color'	=> array(
 						'type'       	=> 'color',
@@ -981,12 +978,14 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 						'default'    	=> '',
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 					),
 					'filter_res_text_hover'	=> array(
 						'type'       	=> 'color',
 						'label'     	=> __('Filter Text Hover Color', 'bb-powerpack'),
 						'default'    	=> '',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 					),
 				)
 			)
@@ -1010,7 +1009,8 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 			        'caption_color'        => array(
 			            'type'       => 'color',
 			            'label'      => __('Color', 'bb-powerpack'),
-			            'default'    => '',
+						'default'    => '',
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-photo-gallery-caption, .pp-gallery-overlay .pp-caption',

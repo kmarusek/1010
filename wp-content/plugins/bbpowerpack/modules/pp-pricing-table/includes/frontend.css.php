@@ -1,6 +1,12 @@
-.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-switch {
-	margin-bottom: 20px;
-}
+<?php
+FLBuilderCSS::responsive_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'dp_button_spacing_bottom',
+	'selector'		=> ".fl-node-$id .pp-pricing-table .pp-pricing-table-switch",
+	'prop'			=> 'margin-bottom',
+	'unit'			=> 'px'
+) );
+?>
 .fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-buttons {
 	display: block;
     float: none;

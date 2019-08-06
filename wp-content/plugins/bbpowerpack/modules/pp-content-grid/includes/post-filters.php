@@ -48,4 +48,6 @@ if ( isset( $settings->{$post_filter_field} ) ) :
 		</ul>
 	</div>
 
+	<?php do_action( 'pp_cg_after_post_filters', $settings ); ?>
+
 <?php endif; ?>

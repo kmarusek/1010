@@ -148,16 +148,7 @@ class PPGalleryModule extends FLBuilderModule {
         $template_node_id   = isset( $_POST['template_node_id'] ) ? sanitize_text_field( $_POST['template_node_id'] ) : false;
 
 		if ( $node_id ) {
-			$module = FLBuilderModel::get_module( $node_id );
-
-			// Get the module settings.
-			if ( $template_id ) {
-				$post_id  = FLBuilderModel::get_node_template_post_id( $template_id );
-				$data	  = FLBuilderModel::get_layout_data( 'published', $post_id );
-				$settings = $data[ $template_node_id ]->settings;
-			} else {
-				$settings = $module->settings;
-			}
+			$settings = (object)$_POST['settings'];
 
 			if ( ! isset( $this->settings ) ) {
 				$this->settings = $settings;
@@ -170,11 +161,11 @@ class PPGalleryModule extends FLBuilderModule {
 				$this->get_photos();
 			}
 
-			$item_class = $module->get_item_class();
+			$item_class = $this->get_item_class();
 
 			ob_start();
 			foreach ( $this->photos as $photo ) {
-				include $module->dir . 'includes/layout.php';
+				include $this->dir . 'includes/layout.php';
 			}
 			$response['data'] = ob_get_clean();
 		} else {
@@ -406,7 +397,8 @@ FLBuilder::register_module('PPGalleryModule', array(
 						),
 						'toggle'	=> array(
 							'grid'	=> array(
-								'sections'	=> array('gallery_columns', 'general_style', 'image_shadow_style', 'image_shadow_hover_style')
+								'sections'	=> array('gallery_columns', 'general_style', 'image_shadow_style', 'image_shadow_hover_style'),
+								'fields'	=> array( 'align_items' ),
 							),
 							'masonry'	=> array(
 								'sections'	=> array('gallery_columns', 'general_style', 'image_shadow_style', 'image_shadow_hover_style')
@@ -436,8 +428,17 @@ FLBuilder::register_module('PPGalleryModule', array(
 						'label'         => __( 'Display Order', 'bb-powerpack' ),
 						'default'       => 'normal',
 						'options'       => array(
-							'normal'     	=> __( 'Normal', 'bb-powerpack'),
+							'normal'     	=> __( 'Normal', 'bb-powerpack' ),
 							'random' 		=> __( 'Random', 'bb-powerpack' )
+						),
+					),
+					'align_items'	=> array(
+						'type'			=> 'pp-switch',
+						'label'			=> __( 'Last Row Centered', 'bb-powerpack' ),
+						'default'		=> 'no',
+						'options'		=> array(
+							'yes'			=> __( 'Yes', 'bb-powerpack' ),
+							'no'			=> __( 'No', 'bb-powerpack' ),
 						),
 					),
 					'show_captions' => array(
@@ -802,7 +803,8 @@ FLBuilder::register_module('PPGalleryModule', array(
                         'type'              => 'color',
                         'label'             => __('Shadow Color', 'bb-powerpack'),
                         'default'           => 'rgba(0,0,0,0.5)',
-						'show_alpha'		=> true
+						'show_alpha'		=> true,
+						'connections'		=> array('color'),
                     ),
 					'image_shadow_hover_speed' => array(
                         'type'              => 'text',
@@ -840,6 +842,7 @@ FLBuilder::register_module('PPGalleryModule', array(
 						'default'	=> '',
 						'show_reset' => true,
 						'preview'	=> 'none',
+						'connections'	=> array('color'),
 					),
 					'overlay_primary_color' => array(
 						'type'       => 'color',
@@ -847,6 +850,7 @@ FLBuilder::register_module('PPGalleryModule', array(
 						'default'	=> '',
 						'show_reset' => true,
 						'preview'	=> 'none',
+						'connections'	=> array('color'),
 					),
 					'overlay_secondary_color' => array(
 						'type'       => 'color',
@@ -854,6 +858,7 @@ FLBuilder::register_module('PPGalleryModule', array(
 						'default'	=> '',
 						'show_reset' => true,
 						'preview'	=> 'none',
+						'connections'	=> array('color'),
 					),
 					'overlay_color_opacity'    => array(
 						'type'        => 'text',
@@ -877,6 +882,7 @@ FLBuilder::register_module('PPGalleryModule', array(
 						'default'	=> '',
 						'show_reset' => true,
 						'preview'	=> 'none',
+						'connections'	=> array('color'),
 					),
 					'overlay_spacing'    => array(
 						'type'        => 'text',
@@ -911,6 +917,7 @@ FLBuilder::register_module('PPGalleryModule', array(
 						'label'     => __('Background Color', 'bb-powerpack'),
 						'default'    => '',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-gallery-overlay .pp-overlay-icon span',
@@ -922,6 +929,7 @@ FLBuilder::register_module('PPGalleryModule', array(
 						'label'     	=> __('Color', 'bb-powerpack'),
 						'default'    	=> '',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'		=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-gallery-overlay .pp-overlay-icon span',
@@ -999,7 +1007,8 @@ FLBuilder::register_module('PPGalleryModule', array(
 						'label'     	=> __('Overlay Color', 'bb-powerpack'),
 						'default'    	=> 'rgba(0,0,0,0.5)',
 						'show_reset'	=> true,
-						'show_alpha'	=> true
+						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 					),
 				),
 			)
@@ -1017,6 +1026,7 @@ FLBuilder::register_module('PPGalleryModule', array(
 						'default'    	=> '',
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-photo-gallery-caption',
@@ -1064,7 +1074,8 @@ FLBuilder::register_module('PPGalleryModule', array(
 			        'caption_color'        => array(
 			            'type'       => 'color',
 			            'label'      => __('Color', 'bb-powerpack'),
-			            'default'    => '',
+						'default'    => '',
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-photo-gallery-caption, .pp-gallery-overlay .pp-caption',
@@ -1129,6 +1140,7 @@ FLBuilder::register_module('PPGalleryModule', array(
 							)
 						),
 						'text_color' => array(
+							'connections'	=> array('color'),
 							'preview'	=> array(
 								'type'		=> 'css',
 								'selector'	=> '.pp-gallery-pagination .pp-gallery-load-more',
@@ -1143,6 +1155,7 @@ FLBuilder::register_module('PPGalleryModule', array(
 							)
 						),
 						'border_hover_color' => array(
+							'connections'	=> array('color'),
 							'preview'	=> array(
 								'type'		=> 'css',
 								'selector'	=> '.pp-gallery-pagination .pp-gallery-load-more:hover',

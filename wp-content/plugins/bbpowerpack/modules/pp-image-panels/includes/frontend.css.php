@@ -43,7 +43,7 @@ for( $i = 0; $i < $number_panels; $i++ ) {
 	}
 ?>
 	.fl-node-<?php echo $id; ?> .pp-image-panels-wrap .pp-panel-link-<?php echo $i; ?> {
-		<?php if( $panel->link_type == 'panel' ) { ?>
+		<?php if( $panel->link_type == 'panel' || $panel->link_type == 'lightbox' ) { ?>
 			width: <?php echo 100/$number_panels; ?>%;
 		<?php } ?>
 	}

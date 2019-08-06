@@ -69,14 +69,44 @@ function pp_get_upload_dir()
 		'url'	 => $wp_info['baseurl'] . '/' . $dir_name . '/'
 	);
 
+	// Create .htaccess file for security.
+	$htaccess = '<FilesMatch "\.(php|php\.)$">';
+	$htaccess .= "\n\r";
+	$htaccess .= 'Order Allow,Deny';
+	$htaccess .= "\n\r";
+	$htaccess .= 'Deny from all';
+	$htaccess .= "\n\r";
+	$htaccess .= '</FilesMatch>';
+
 	// Create the upload dir if it doesn't exist.
-	if ( ! file_exists( $dir_info['path'] ) ) {
+	if ( function_exists( 'fl_builder_filesystem' ) ) {
+		if ( ! fl_builder_filesystem()->file_exists( $dir_info['path'] ) ) {
 
-		// Create the directory.
-		mkdir( $dir_info['path'] );
+			// Create the directory.
+			fl_builder_filesystem()->mkdir( $dir_info['path'] );
 
-		// Add an index file for security.
-		file_put_contents( $dir_info['path'] . 'index.html', '' );
+			// Add an index file for security.
+			fl_builder_filesystem()->file_put_contents( $dir_info['path'] . 'index.html', '' );
+		}
+
+		if ( fl_builder_filesystem()->file_exists( $dir_info['path'] ) ) {
+			// Add .htaccess file.
+			fl_builder_filesystem()->file_put_contents( $dir_info['path'] . '.htaccess', $htaccess );
+		}
+	} else {
+		if ( ! file_exists( $dir_info['path'] ) ) {
+
+			// Create the directory.
+			mkdir( $dir_info['path'] );
+
+			// Add an index file for security.
+			file_put_contents( $dir_info['path'] . 'index.html', '' );
+		}
+
+		if ( file_exists( $dir_info['path'] ) ) {
+			// Add .htaccess file.
+			file_put_contents( $dir_info['path'] . '.htaccess', $htaccess );
+		}
 	}
 
 	return $dir_info;
@@ -162,8 +192,12 @@ function pp_template_filters()
  */
 function pp_templates_src( $type = 'page', $category = '' )
 {
+	if ( ! is_admin() ) {
+		return;
+	}
+
 	$src = array();
-	$url = 'https://s3.amazonaws.com/ppbeaver/data/';
+	$url = 'https://ppbeaver.s3.amazonaws.com/data/';
 
 	if ( $type == 'row' ) {
 		$mode 	= 'color';
@@ -212,7 +246,7 @@ function pp_templates_preview_src( $type = 'page', $category = '' )
 
 function pp_get_template_screenshot_url( $type, $category, $mode = '' )
 {
-	$url = 'https://s3.amazonaws.com/ppbeaver/assets/400x400/';
+	$url = 'https://ppbeaver.s3.amazonaws.com/assets/400x400/';
 
 	return $url . $category . '.jpg';
 }
@@ -388,15 +422,31 @@ function pp_get_user_agent()
 	return;
 }
 
+function pp_get_client_details()
+{
+	$ip = $_SERVER['REMOTE_ADDR'];
+
+	if ( array_key_exists( 'HTTP_X_FORWARDED_FOR', $_SERVER ) ) {
+		$ip = array_pop( explode( ',', $_SERVER['HTTP_X_FORWARDED_FOR'] ) );
+	}
+
+	$user_agent = pp_get_user_agent();
+
+	return array(
+		'ip'			=> $ip,
+		'user_agent'	=> $user_agent
+	);
+}
+
 function pp_get_modules_categories( $cat = '' )
 {
 	$admin_label = pp_get_admin_label();
 
 	$cats = array(
-		'creative'		=> sprintf(__('Creative Modules - %s', 'bb-powerpack'), $admin_label),
-		'content'		=> sprintf(__('Content Modules - %s', 'bb-powerpack'), $admin_label),
-		'lead_gen'		=> sprintf(__('Lead Generation Modules - %s', 'bb-powerpack'), $admin_label),
-		'form_style'	=> sprintf(__('Form Styler Modules - %s', 'bb-powerpack'), $admin_label),
+		'creative'		=> sprintf( __('Creative Modules%s', 'bb-powerpack'), ' - ' . $admin_label ),
+		'content'		=> sprintf( __('Content Modules%s', 'bb-powerpack'), ' - ' . $admin_label ),
+		'lead_gen'		=> sprintf( __('Lead Generation Modules%s', 'bb-powerpack'), ' - ' . $admin_label ),
+		'form_style'	=> sprintf( __('Form Styler Modules%s', 'bb-powerpack'), ' - ' . $admin_label ),
 	);
 
 	if ( empty( $cat ) ) {
@@ -443,6 +493,12 @@ function pp_get_admin_label()
  */
 function pp_get_modules_group()
 {
+	$list_with_standard = BB_PowerPack_Admin_Settings::get_option( 'ppwl_list_modules_with_standard' );
+
+	if ( $list_with_standard ) {
+		return '';
+	}
+
 	$group_name = BB_PowerPack_Admin_Settings::get_option( 'ppwl_builder_label' );
 	$group_name = trim( $group_name ) !== '' ? trim( $group_name ) : 'PowerPack ' . __('Modules', 'bb-powerpack');
 
@@ -575,7 +631,18 @@ function pp_get_fb_module_desc()
 		return sprintf( __( 'You are connected to Facebook App %1$s, <a href="%2$s" target="_blank">Change App</a>', 'bb-powerpack' ), $app_id, BB_PowerPack_Admin_Settings::get_form_action() );
 	}
 }
+function pp_get_google_api_key() {
+	return BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_google_api_key' );
+}
 
+function pp_get_google_api_url() {
+	$key = pp_get_google_api_key();
+	if ( ! empty( $key ) ) {
+		return "https://maps.googleapis.com/maps/api/js?key={$key}";
+	}
+	
+	return false;
+}
 function pp_clear_enabled_templates()
 {
 	BB_PowerPack_Admin_Settings::update_option( 'bb_powerpack_page_templates', array('disabled') );

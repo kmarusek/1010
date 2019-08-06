@@ -51,7 +51,7 @@ FLBuilderCSS::dimension_field_rule( array(
 
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .menu li a,
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .menu li .pp-has-submenu-container a {
-	<?php if( $settings->responsive_link_bg_color ) { ?>background-color: #<?php echo $settings->responsive_link_bg_color; ?>;<?php } ?>
+	<?php if( $settings->responsive_link_bg_color ) { ?>background-color: <?php echo pp_get_color_value( $settings->responsive_link_bg_color ); ?>;<?php } ?>
 	<?php if( $settings->responsive_link_color ) { ?>color: #<?php echo $settings->responsive_link_color; ?>;<?php } ?>
 	-webkit-transition: all 0.3s ease-in-out;
 	-moz-transition: all 0.3s ease-in-out;
@@ -99,7 +99,7 @@ FLBuilderCSS::dimension_field_rule( array(
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .menu li a:focus,
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .menu li .pp-has-submenu-container a:hover,
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.full-screen .menu li .pp-has-submenu-container a:focus {
-	<?php if( $settings->responsive_link_bg_hover_color ) { ?>background-color: #<?php echo $settings->responsive_link_bg_hover_color; ?>;<?php } ?>
+	<?php if( $settings->responsive_link_bg_hover_color ) { ?>background-color: <?php echo pp_get_color_value( $settings->responsive_link_bg_hover_color ); ?>;<?php } ?>
 	<?php if( $settings->responsive_link_hover_color ) { ?>color: #<?php echo $settings->responsive_link_hover_color; ?>;<?php } ?>
 }
 

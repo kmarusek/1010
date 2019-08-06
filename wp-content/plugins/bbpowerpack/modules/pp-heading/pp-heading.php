@@ -39,12 +39,20 @@ class PPHeadingModule extends FLBuilderModule {
 		), 'heading_link' );
 
 		// Handle old title border width field.
-		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'heading_border', 'dimension' );
-		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'heading2_border', 'dimension' );
+		if ( isset( $settings->heading_border ) && is_array( $settings->heading_border ) ) {
+			$settings = PP_Module_Fields::handle_multitext_field( $settings, 'heading_border', 'dimension' );
+		}
+		if ( isset( $settings->heading2_border ) && is_array( $settings->heading2_border ) ) {
+			$settings = PP_Module_Fields::handle_multitext_field( $settings, 'heading2_border', 'dimension' );
+		}
 		
 		// Handle old title padding field.
-		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'heading_padding', 'dimension' );
-		$settings = PP_Module_Fields::handle_multitext_field( $settings, 'heading2_padding', 'dimension' );
+		if ( isset( $settings->heading_padding ) && is_array( $settings->heading_padding ) ) {
+			$settings = PP_Module_Fields::handle_multitext_field( $settings, 'heading_padding', 'dimension' );
+		}
+		if ( isset( $settings->heading2_padding ) && is_array( $settings->heading2_padding ) ) {
+			$settings = PP_Module_Fields::handle_multitext_field( $settings, 'heading2_padding', 'dimension' );
+		}
 
 		// Title Gradient Fields
 		if ( isset( $settings->heading_gradient ) && 'yes' == $settings->heading_gradient ) {
@@ -561,8 +569,9 @@ FLBuilder::register_module('PPHeadingModule', array(
                     'line_color'    => array(
                         'type'          => 'color',
                         'label'         => __('Color', 'bb-powerpack'),
-                        'default'       => '000000',
-                        'show_reset'    => true,
+                        'default'       => '',
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'         => array(
                             'type'            => 'css',
                             'rules'           => array(
@@ -619,8 +628,9 @@ FLBuilder::register_module('PPHeadingModule', array(
                     'font_icon_color'    => array(
                         'type'          => 'color',
                         'label'         => __('Color', 'bb-powerpack'),
-                        'default'       => '000000',
-                        'show_reset'    => true,
+                        'default'       => '',
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-heading-content .pp-heading-separator',
@@ -633,6 +643,7 @@ FLBuilder::register_module('PPHeadingModule', array(
                         'default'       => '',
 						'show_reset'    => true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
                         'preview'         => array(
                             'type'            => 'css',
                             'rules'           => array(
@@ -689,7 +700,8 @@ FLBuilder::register_module('PPHeadingModule', array(
                         'type'          => 'color',
                         'label'         => __('Border Color', 'bb-powerpack'),
                         'default'       => '',
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'         => array(
                             'type'            => 'css',
                             'rules'           => array(
@@ -827,7 +839,8 @@ FLBuilder::register_module('PPHeadingModule', array(
                         'label'         => __('Color', 'bb-powerpack'),
                         'default'       => '',
                         'show_reset'    => true,
-                        'show_alpha'    => true,
+						'show_alpha'    => true,
+						'connections'	=> array('color'),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-heading-content .pp-heading .heading-title span.pp-primary-title',
@@ -852,7 +865,8 @@ FLBuilder::register_module('PPHeadingModule', array(
                         'label'         => __('Background Color', 'bb-powerpack'),
                         'default'       => '',
                         'show_reset'    => true,
-                        'show_alpha'    => true,
+						'show_alpha'    => true,
+						'connections'	=> array('color'),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-heading-content .pp-heading .heading-title span.pp-primary-title',
@@ -907,7 +921,8 @@ FLBuilder::register_module('PPHeadingModule', array(
                         'type'          => 'color',
                         'label'         => __('Border Color', 'bb-powerpack'),
                         'default'       => '000000',
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-heading-content .pp-heading .heading-title span.pp-primary-title',
@@ -985,7 +1000,8 @@ FLBuilder::register_module('PPHeadingModule', array(
                         'label'         => __('Color', 'bb-powerpack'),
                         'default'       => '',
                         'show_reset'    => true,
-                        'show_alpha'    => true,
+						'show_alpha'    => true,
+						'connections'	=> array('color'),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-heading-content .pp-heading span.pp-secondary-title',
@@ -1010,7 +1026,8 @@ FLBuilder::register_module('PPHeadingModule', array(
                         'label'         => __('Background Color', 'bb-powerpack'),
                         'default'       => '',
                         'show_reset'    => true,
-                        'show_alpha'    => true,
+						'show_alpha'    => true,
+						'connections'	=> array('color'),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-heading-content .pp-heading span.pp-secondary-title',
@@ -1044,7 +1061,8 @@ FLBuilder::register_module('PPHeadingModule', array(
                         'type'          => 'color',
                         'label'         => __('Border Color', 'bb-powerpack'),
                         'default'       => '000000',
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-heading-content .pp-heading .heading-title span.pp-secondary-title',
@@ -1090,8 +1108,9 @@ FLBuilder::register_module('PPHeadingModule', array(
                     'sub_heading_color'    => array(
                         'type'          => 'color',
                         'label'         => __('Color', 'bb-powerpack'),
-                        'default'       => '000000',
-                        'show_reset'    => true,
+                        'default'       => '',
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-heading-content .pp-sub-heading',

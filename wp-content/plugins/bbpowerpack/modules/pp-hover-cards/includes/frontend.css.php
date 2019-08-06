@@ -6,12 +6,28 @@ $hover_card_columns_desktop = ( 100 - $space_desktop ) / $settings->hover_card_c
 $hover_card_columns_tablet = ( 100 - $space_tablet ) / $settings->hover_card_columns_medium;
 $hover_card_columns_mobile = ( 100 - $space_mobile ) / $settings->hover_card_columns_responsive; ?>
 
-.fl-node-<?php echo $id; ?> .pp-hover-card-container {
-	width: <?php echo $hover_card_columns_desktop; ?>%;
-    margin-right: <?php echo $settings->hover_card_spacing; ?>%;
-    margin-bottom: <?php echo $settings->hover_card_spacing; ?>%;
-	float: left;
-}
+<?php
+FLBuilderCSS::rule( array(
+    'selector'  => ".fl-node-$id .pp-hover-card-container",
+    'props'     => array(
+        'width'     => array(
+            'value'     => $hover_card_columns_desktop,
+            'unit'      => '%'
+        ),
+        'margin-right'  => array(
+            'value'         => $settings->hover_card_spacing,
+            'unit'          => '%'
+        ),
+        'margin-bottom' => array(
+            'value'         => $settings->hover_card_spacing,
+            'unit'          => '%'
+        ),
+        'float'     => array(
+            'value'     => 'left'
+        )
+    )
+) );
+?>
 
 <?php
 // Card - Height
@@ -232,7 +248,7 @@ FLBuilderCSS::typography_field_rule( array(
 ?>
 
 @media only screen and (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) {
-    .fl-node-<?php echo $id; ?> .pp-hover-card-container {
+    div.fl-node-<?php echo $id; ?> .pp-hover-card-container {
         <?php if( $settings->hover_card_columns_medium >= 0 ) { ?>
         width: <?php echo $hover_card_columns_tablet; ?>%;
         <?php } ?>
@@ -252,21 +268,21 @@ FLBuilderCSS::typography_field_rule( array(
 }
 
 @media only screen and (max-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
-    .fl-node-<?php echo $id; ?> .pp-hover-card-container {
+    div.fl-node-<?php echo $id; ?> .pp-hover-card-container {
         <?php if( $settings->hover_card_columns_responsive >= 0 ) { ?>
         width: <?php echo $hover_card_columns_mobile; ?>%;
         <?php } ?>
     }
     .fl-node-<?php echo $id; ?> .pp-hover-card-container:nth-of-type(<?php echo $settings->hover_card_columns_medium; ?>n+1) {
-            clear: none;
+        clear: none;
     }
     .fl-node-<?php echo $id; ?> .pp-hover-card-container:nth-of-type(<?php echo $settings->hover_card_columns_responsive; ?>n+1) {
-            clear: left;
+        clear: left;
     }
     .fl-node-<?php echo $id; ?> .pp-hover-card-container:nth-of-type(<?php echo $settings->hover_card_columns_medium; ?>n) {
-            margin-right: <?php echo $settings->hover_card_spacing; ?>%;
+        margin-right: <?php echo $settings->hover_card_spacing; ?>%;
     }
     .fl-node-<?php echo $id; ?> .pp-hover-card-container:nth-of-type(<?php echo $settings->hover_card_columns_responsive; ?>n) {
-            margin-right: 0;
+        margin-right: 0;
     }
 }

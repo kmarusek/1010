@@ -1,21 +1,26 @@
 <div class="pp-image-panels-wrap clearfix">
 	<div class="pp-image-panels-inner">
 		<?php
-		$number_panels = count($settings->image_panels);
-		for( $i = 0; $i < $number_panels; $i++ ) {
-			if(!is_object($settings->image_panels[$i])) {
+		$panels_count = count( $settings->image_panels );
+
+		for ( $i = 0; $i < $panels_count; $i++ ) {
+			if ( ! is_object( $settings->image_panels[ $i ] ) ) {
 				continue;
 			}
-			$panel = $settings->image_panels[$i];
+			$panel = $settings->image_panels[ $i ];
+			$link = $panel->link;
+			if ( 'lightbox' == $panel->link_type ) {
+				$link = $panel->photo_src;
+			}
 		?>
-		<?php if( $panel->link_type == 'panel' ) { ?>
-			<a class="pp-panel-link pp-panel-link-<?php echo $i; ?>" href="<?php echo $panel->link; ?>" target="<?php echo $panel->link_target; ?>" style="width: <?php echo 100/($number_panels); ?>%;">
+		<?php if ( 'panel' == $panel->link_type || 'lightbox' == $panel->link_type ) { ?>
+			<a class="pp-panel-link pp-panel-link-<?php echo $i; ?><?php echo ( 'lightbox' == $panel->link_type ) ? ' pp-panel-has-lightbox' : ''; ?>" href="<?php echo $link; ?>" target="<?php echo $panel->link_target; ?>" style="width: <?php echo 100 / ( $panels_count ); ?>%;">
 		<?php } ?>
-			<div class="pp-panel-item pp-panel-item-<?php echo $i; ?> clearfix" style="width: <?php echo $panel->link_type != 'panel' ? 100/($number_panels) . '%;' : '' ?>">
+			<div class="pp-panel-item pp-panel-item-<?php echo $i; ?> clearfix" style="width: <?php echo ( $panel->link_type != 'panel' && $panel->link_type != 'lightbox' ) ? 100 / ( $panels_count ) . '%;' : '' ?>">
 				<?php if( $panel->title ) { ?>
 					<div class="pp-panel-title">
 						<?php if( $panel->link_type == 'title' ) { ?>
-						<a class="pp-panel-link" href="<?php echo $panel->link; ?>" target="<?php echo $panel->link_target; ?>">
+						<a class="pp-panel-link" href="<?php echo $link; ?>" target="<?php echo $panel->link_target; ?>">
 						<?php } ?>
 						<h3><?php echo $panel->title; ?></h3>
 						<?php if( $panel->link_type == 'title' ) { ?>
@@ -24,7 +29,7 @@
 					</div>
 				<?php } ?>
 			</div>
-		<?php if( $panel->link_type == 'panel' ) { ?>
+		<?php if( $panel->link_type == 'panel' || 'lightbox' == $panel->link_type ) { ?>
 			</a>
 		<?php } ?>
 		<?php

@@ -34,6 +34,7 @@
 	var options = {
 		id: '<?php echo $id ?>',
 		layout: '<?php echo $settings->gallery_layout; ?>',
+		captions: '<?php echo $settings->show_captions; ?>',
 	};
 
 	$(window).load(function() {

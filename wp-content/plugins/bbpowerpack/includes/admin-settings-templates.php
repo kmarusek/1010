@@ -9,7 +9,7 @@
 ?>
 
 <?php
-    $navigate = ( isset( $_REQUEST['navigate'] ) && ! empty( $_REQUEST['navigate'] ) ) ? $_REQUEST['navigate'] : 'page-templates';
+    $navigate = ( isset( $_GET['navigate'] ) && ! empty( $_GET['navigate'] ) ) ? $_GET['navigate'] : 'page-templates';
     $template_type = ( $navigate == 'page-templates' ) ? 'page' : 'row';
     $template_categories = pp_templates_categories( $template_type );
     $activated_templates = self::get_enabled_templates( $template_type );
@@ -182,6 +182,7 @@
             type: 'post',
             data: {
                 action: 'pp_activate_template',
+				nonce: '<?php echo wp_create_nonce( 'pp-activate-template' ); ?>',
                 pp_template_cat: button.data('template-cat'),
                 pp_template_type: button.data('template-type'),
             },
@@ -216,6 +217,7 @@
             type: 'post',
             data: {
                 action: 'pp_deactivate_template',
+				nonce: '<?php echo wp_create_nonce( 'pp-deactivate-template' ); ?>',
                 pp_template_cat: button.data('template-cat'),
                 pp_template_type: button.data('template-type'),
             },

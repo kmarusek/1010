@@ -576,6 +576,7 @@ if ( ! class_exists( 'PP_Module_Fields' ) ) {
             $fields['pp-color']         = BB_POWERPACK_DIR . 'includes/ui-field-pp-color.php';
             $fields['pp-multitext']     = BB_POWERPACK_DIR . 'includes/ui-field-pp-multitext.php';
             $fields['pp-separator']     = BB_POWERPACK_DIR . 'includes/ui-field-pp-separator.php';
+            $fields['pp-file']        	= BB_POWERPACK_DIR . 'includes/ui-field-pp-file.php';
             $fields['pp-hidden']        = BB_POWERPACK_DIR . 'includes/ui-field-pp-hidden.php';
             $fields['pp-hidden-textarea'] = BB_POWERPACK_DIR . 'includes/ui-field-pp-hidden-textarea.php';
             $fields['pp-css-class']     = BB_POWERPACK_DIR . 'includes/ui-field-pp-css-class.php';
@@ -760,6 +761,10 @@ if ( ! class_exists( 'PP_Module_Fields' ) ) {
 
 			$value = $settings->{$field};
 
+			if ( is_array( $settings->{$field} ) ) {
+				unset( $settings->{$field} );
+			}
+
 			if ( is_object( $value ) ) {
 				$value = (array) $value;
 			}
@@ -788,12 +793,17 @@ if ( ! class_exists( 'PP_Module_Fields' ) ) {
 					$settings->{$new_field . '_right'} = isset( $value['right'] ) ? $value['right'] : '';
 					$settings->{$new_field . '_bottom'} = isset( $value['bottom'] ) ? $value['bottom'] : '';
 					$settings->{$new_field . '_left'} = isset( $value['left'] ) ? $value['left'] : '';
-					unset( $settings->{$field} );
+					if ( $field != $new_field ) {
+						unset( $settings->{$field} );
+					}
 					break;
 				case 'responsive':
 					$settings->{$new_field} = $value['desktop'];
 					$settings->{$new_field . '_medium'} = isset( $value['tablet'] ) ? $value['tablet'] : '';
 					$settings->{$new_field . '_responsive'} = isset( $value['mobile'] ) ? $value['mobile'] : '';
+					if ( $field != $new_field ) {
+						unset( $settings->{$field} );
+					}
 					break;
 			}
 

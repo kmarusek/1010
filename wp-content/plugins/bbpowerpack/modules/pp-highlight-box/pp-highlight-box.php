@@ -163,7 +163,8 @@ FLBuilder::register_module('PPHighlightBoxModule', array(
                         'label'         => __('Background Color', 'bb-powerpack'),
                         'default'       => 'ff0000',
                         'show_reset'    => true,
-                        'show_alpha'    => true,
+						'show_alpha'    => true,
+						'connections'	=> array('color'),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-highlight-box-content',
@@ -174,7 +175,8 @@ FLBuilder::register_module('PPHighlightBoxModule', array(
                         'type'          => 'color',
                         'label'         => __('Text Color', 'bb-powerpack'),
                         'default'       => 'ffffff',
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-highlight-box-content',
@@ -186,7 +188,8 @@ FLBuilder::register_module('PPHighlightBoxModule', array(
                         'label'         => __('Hover Background Color', 'bb-powerpack'),
                         'default'       => 'c72929',
                         'show_reset'    => true,
-                        'show_alpha'    => true,
+						'show_alpha'    => true,
+						'connections'	=> array('color'),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-highlight-box-content:hover',
@@ -197,7 +200,8 @@ FLBuilder::register_module('PPHighlightBoxModule', array(
                         'type'          => 'color',
                         'label'         => __('Hover Text Color', 'bb-powerpack'),
                         'default'       => 'ffffff',
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-highlight-box-content:hover',
@@ -277,7 +281,8 @@ FLBuilder::register_module('PPHighlightBoxModule', array(
                         'type'          => 'color',
                         'label'         => __('Color', 'bb-powerpack'),
                         'default'       => '333333',
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-highlight-box-content .font_icon',

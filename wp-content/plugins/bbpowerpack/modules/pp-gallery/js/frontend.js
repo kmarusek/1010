@@ -2,6 +2,7 @@
 	PPGallery = function(settings)
 	{
 		this.settings       = settings;
+		this.id				= settings.id;
 		this.nodeClass      = '.fl-node-' + settings.id;
 		this.wrapperClass   = this.nodeClass + ' .pp-photo-gallery';
 		this.itemClass      = this.wrapperClass + ' .pp-photo-gallery-item';
@@ -211,6 +212,7 @@
 				pp_action: 'pp_gallery_get_photos',
 				node_id: self.settings.id,
 				images_per_page: self.settings.perPage,
+				settings: self.settings.settings
 			};
 
 			if ( self.settings.templateId ) {
@@ -233,7 +235,7 @@
 					if ( ! response.error ) {
 						self.cachedItems = response.data;
 						self._renderItems();
-						if ( 'function' !== typeof callback ) {
+						if ( 'function' === typeof callback ) {
 							callback();
 						}
 						$(self.nodeClass).find('.pp-gallery-loader').hide();

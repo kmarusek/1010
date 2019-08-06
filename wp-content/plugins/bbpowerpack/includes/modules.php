@@ -58,8 +58,16 @@ $modules = array(
     'modules/pp-twitter-timeline/pp-twitter-timeline.php',
     'modules/pp-twitter-buttons/pp-twitter-buttons.php',
     'modules/pp-countdown/pp-countdown.php',
+    'modules/pp-search-form/pp-search-form.php',
+    'modules/pp-album/pp-album.php',
+    'modules/pp-image-comparison/pp-image-comparison.php',
+    'modules/pp-hotspot/pp-hotspot.php',
+    'modules/pp-image-scroll/pp-image-scroll.php',
+    'modules/pp-login-form/pp-login-form.php',
+    'modules/pp-video/pp-video.php',
+    'modules/pp-google-map/pp-google-map.php',
 );
-
+	
 /* Custom Grid */
 if ( class_exists('FLThemeBuilderLoader') ) {
     $modules[] = 'modules/pp-custom-grid/pp-custom-grid.php';

@@ -3,14 +3,18 @@ $photo_border_width = ( isset( $settings->photo_border_group ) && ! empty( $sett
 $photo_border_radius = ( isset( $settings->photo_border_group ) && ! empty( $settings->photo_border_group['radius'] ) ) ? $settings->photo_border_group['radius'] : 0;
 $photo_border = ( isset( $settings->photo_border_group ) && ! empty( $settings->photo_border_group['style'] ) ) ? $settings->photo_border_group['style'] : 'none';
 
-$space_desktop = ( $settings->photo_grid_count - 1 ) * $settings->photo_spacing;
-$photo_columns_desktop = ( 100 - $space_desktop ) / $settings->photo_grid_count;
+$columns = '' === $settings->photo_grid_count ? 3 : (int) $settings->photo_grid_count;
+$columns_tablet = '' === $settings->photo_grid_count_medium ? $columns : (int) $settings->photo_grid_count_medium;
+$columns_mobile = '' === $settings->photo_grid_count_responsive ? $columns_tablet : (int) $settings->photo_grid_count_responsive;
 
-$space_tablet = ( $settings->photo_grid_count_medium - 1 ) * $settings->photo_spacing;
-$photo_columns_tablet = ( 100 - $space_tablet ) / $settings->photo_grid_count_medium;
+$space_desktop = ( $columns - 1 ) * $settings->photo_spacing;
+$photo_columns_desktop = ( 100 - $space_desktop ) / $columns;
 
-$space_mobile = ( $settings->photo_grid_count_responsive - 1 ) * $settings->photo_spacing;
-$photo_columns_mobile = ( 100 - $space_mobile ) / $settings->photo_grid_count_responsive;
+$space_tablet = ( $columns_tablet - 1 ) * $settings->photo_spacing;
+$photo_columns_tablet = ( 100 - $space_tablet ) / $columns_tablet;
+
+$space_mobile = ( $columns_mobile - 1 ) * $settings->photo_spacing;
+$photo_columns_mobile = ( 100 - $space_mobile ) / $columns_mobile;
 ?>
 
 div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-close {
@@ -87,7 +91,6 @@ div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-bottom-bar {
 	<?php } else { ?>
 		margin-bottom: <?php echo $settings->photo_spacing; ?>%;
 	<?php } ?>
-	visibility: hidden;
 }
 <?php
 	// Photo - Border

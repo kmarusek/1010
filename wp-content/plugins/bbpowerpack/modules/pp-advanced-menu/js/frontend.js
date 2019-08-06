@@ -81,6 +81,22 @@
 			return window.innerWidth <= this.breakPoints.custom ? true : false;
 		},
 
+		_isTouch: function() {
+			var prefixes = ' -webkit- -moz- -o- -ms- '.split(' ');
+			var mq = function(query) {
+			  return window.matchMedia(query).matches;
+			}
+		  
+			if (('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch) {
+			  return true;
+			}
+		  
+			// include the 'heartz' as a way to have a non matching MQ to help terminate the join
+			// https://git.io/vznFH
+			var query = ['(', prefixes.join('touch-enabled),('), 'heartz', ')'].join('');
+			return mq(query);
+		},
+
 		/**
 		 * Check if the menu should toggle for the current viewport base on the selected breakpoint
 		 *
@@ -193,6 +209,13 @@
 			var $mainItem = '';
 
 			$( this.wrapperClass ).off().on( 'click', '.pp-has-submenu-container', $.proxy( function( e ) {
+
+				if ( self._isTouch() ) {
+					if ( ! $(this).hasClass('first-click') ) {
+						e.preventDefault();
+						$(this).addClass('first-click');
+					}
+				}
 
 				var isMainEl = $(e.target).parents('.menu-item').parent().parent().hasClass('pp-advanced-menu');
 
