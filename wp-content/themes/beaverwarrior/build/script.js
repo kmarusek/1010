@@ -4553,9 +4553,10 @@ if (!Array.prototype.indexOf) {
 
     /* Update the scroll animation. */
     ScrollAlax.prototype.update_css_classes = function (evt) {
+        var pct_down = Math.max(Math.min((this.contextScrollTop - this.top) / this.$elem.height(), 1.0), 0.0);
+        
         this.$layers.each(function (index, layer_elem) {
-            var pct_down = Math.max(Math.min((this.contextScrollTop - this.top) / this.$elem.height(), 1.0), 0.0),
-                $layer_elem = $(layer_elem);
+            var $layer_elem = $(layer_elem);
 
             this.apply_transform_css(layer_elem.style, index, 0, pct_down);
         }.bind(this));
