@@ -1,3 +1,142 @@
+== 2.7.2.4 ==
+Release date: July 31, 2019
+* Fix: Filterable Gallery - Number of Columns field was not getting saved
+* Fix: Advanced Menu - Responsive Breakpoint setting was not working for toggle button sometimes
+* Fix: Content Tiles - Breaking layout when Show Other Posts field is enabled and there are no more posts to be displayed 
+
+== 2.7.2.3 ==
+Release date: July 29, 2019
+* Fix: Login Form - Redirect Logout URL was the same as Login URL
+* Fix: Login Form - Redirecting to wp-login page sometimes without logged-in
+* Fix: Photo Gallery - Removed srcset tag from images that was making images uneven in size
+
+== 2.7.2.2 ==
+Release date: July 25, 2019
+* Hotfix: Video - External video type was not working
+
+== 2.7.2.1 ==
+Release date: July 24, 2019
+* Fix: Advanced Menu - Submenu width below 220px was not working
+* Fix: Album - PHP warning due to empty data
+* Fix: Table - Minor JS issue when using this module in Advanced Tabs
+* Fix: Hotspot - Multiple tooltip issue on click
+* Fix: Header / Footer - Missing imagesloaded script error
+
+== 2.7.2 ==
+Release date: July 17, 2019
+* New: Added Video module
+* New: Added Album module
+* New: Added Google Maps module
+* Enhancement: Timeline - Added alpha option for Box background color
+* Enhancement: Content Grid - Added logic to scroll the page to Content Grid module after paginating
+* Enhancement: Content Grid - Added option to center align slides when there is only one item/post in carousel
+* Enhancement: Contact Form - Added HTML tag selection option for Custom Title
+* Enhancement: Advanced Menu - Added alpha channel for responsive Link Background and Link Background Hover color options
+* Enhancement: Table - Added option choose first as header row in CSV import
+* Enhancement: Animated Headline - Added div and p as HTML tags for headline
+* Enhancement: Countdown - Added responsive option for block width
+* Enhancement: Photo Gallery - Added option to center align last row
+* Enhancement: Core - Added Header / Footer and Maintenance Mode toggle options in White Label settings
+* Fix: Content Grid - Active pagination colors were not working when using FacetWP
+* Fix: Content Grid - Layout broke when using dynamic filters and content type set to custom
+* Fix: Advanced Tabs - Tab was showing as inactive on window resize
+* Fix: Animated Headlines - Duplicate highlighted text issue when layout created with Beaver Themer
+* Fix: Login Form - Added input width default in module to avoid theme dependency
+* Fix: Photo Gallery - Load More button was showing even when the number of images is equal to the images per page
+* Fix: Contact Form 7 - Removed default styling set in module for button
+* Fix: InfoList - Full size Image icon was loading instead of selected one
+* Fix: Contact Form - Added missing ID attributes of fields
+* Fix: Advanced Menu - Incorrect horizontal spacing issue in preview
+* Fix: Advanced Menu - Sub-menu desktop width was being applied to responsive element
+* Fix: Smart Heading - Separator alignment issue on responsive devices
+* Fix: Filterable Gallery - Filter padding field preview issue
+* Fix: Image Hotspot - Tooltip was not working on touch devices when marker animation is active
+* Fix: Pricing Table - Minor CSS issue
+* Development: Content Grid - Added hook pp_cg_carousel_max_breakpoint to change maximum device breakpoint
+* Development: Login Form - Added filter pp_login_form_logged_in_message to customize logged-in message
+
+== 2.7.1 ==
+Release date: June 11, 2019
+* New: Added Login Form module
+* New: Added option in PowerPack's admin settings to create custom Header / Footer for entire site
+* Enhancement: Info Box - Added media buttons to content field
+* Enhancement: Info Box - Added HTML tag selection for title prefix
+* Enhancement: Content Grid - Added hook pp_cg_after_post_filters
+* Enhancement: Pricing Table - Added option to adjust bottom spacing of dual pricing switch control
+* Enhancement: Facebook Page - Added None as layout option to do not render any layout tabs in embedded page
+* Enhancement: Maintenance Mode - Added compatibility for BB theme, GeneratePress, Genesis, Page Builder Framework, and Storefront theme
+* Enhancement: Maintenance Mode - Added logic to clear BB's cache once enabling/disabling maintenance mode
+* Enhancement: Core - Added admin notice if PowerPack detects Beaver Builder version less than 2.2
+* Enhancement: Core - Added color field connections in all modules
+* Fix: Info List - Title typography was not working for tags other than h3
+* Fix: Smart Headings - Removed default colors to inherit them from active theme
+* Fix: Modal Box - Added support for Image Carousel module
+* Fix: Row templates were showing directly in UI panel without Row Templates group if white label setting field is empty
+
+== 2.7.0.2 ==
+Release date: June 3, 2019
+* Fix: Info Box - Module was showing against the visibility settings when using equal height columns
+* Fix: Hover Cards - Responsive width was not working
+* Fix: Search Form - Toggle icon was not working for full screen search
+* Fix: Info List - Title color was not working for HTML tags other than h3
+* Fix: Announcement Bar - Close icon was not appearing
+* Fix: Content Tiles - Responsive size and spacing issue
+* Fix: Gallery - Pagination was not working with ACF field connection
+* Fix: Core - Updated templates data URLs
+* Development: Content Grid - Added $settings variable as another parameter to pp_cg_before_post_content and pp_cg_after_post_content hooks
+
+== 2.7.0.1 ==
+Release date: May 17, 2019
+* Enhancement: Search Form - Added separate option for Toggle Size and Input Height for full screen layout
+* Enhancement: Gravity Forms - Added button Custom Width option
+* Enhancement: Maintenance Mode - Added compatibility for Astra theme
+* Enhancement: Maintenance Mode - Added hook pp_maintenance_mode_before_render to trigger custom actions before rendering maintenance page
+* Fix: Advanced Menu - Submenu link background and background hover color was not working in off-canvas menu
+* Fix: Instagram Feed - Greyscale effect was not working properly
+* Fix: Content Grid - PHP warning on pagination due to empty offset value
+* Fix: Image Carousel - Module stopped working in Advanced Tabs module after last update of PowerPack
+
+== 2.7.0 ==
+Release date: May 14, 2019
+* New: Image Hotspot module
+* New: Image Scroll module
+* New: Image Comparison module
+* New: Maintenance Mode feature
+* Enhancement: Table - Added CSV import feature
+* Enhancement: Content Grid - Added CSS classes on post terms elements
+* Enhancement: Image Carousel - Added support for BB's Tabs module
+* Fix: Advanced Accordion - Content was rendering without line breaks when using field connection
+* Fix: Hover Cards - Renamed clearfix class to prevent theme overrides
+* Fix: Hover Cards 2 - Renamed clearfix class to prevent theme overrides
+* Fix: Image - Removed default caption overlay background color
+* Fix: Content Grid - Carousel breakpoints were different than set in global settings
+* Fix: Smart Button - Forced background hover color to transparent if it is empty
+* Fix: Content Tiles - Some typography settings were not applying on the title
+* Fix: Logos Grid & Carousel - Grid layout was not appearing properly in Safari browser
+* Fix: Core - Added condition to prevent Modernizer JS conflicts
+* Fix: Core - Responsive unit field was not retaining value
+
+== 2.6.10 ==
+Release date: May 1, 2019
+* New: Search Form module
+* Enhancement: Logos Grid & Carousel - Added responsive options for Number of Items field
+* Enhancement: Image Panels - Added lightbox option as link type
+* Enhancement: Image Carousel - Added option to position slideshow thumbnail above or below
+* Enhancement: Info Box - Added new layout option "Icon below Title"
+* Enhancement: Image - Added container border hover color option
+* Enhancement: Restaurant/Services Menu - Added tabindex option for menu items
+* Enhancement: Content Grid - Added "Custom" as option to display custom content from post meta by field connection or shortcode
+* Fix: Custom Grid - Post terms alignment related issue
+* Fix: Content Grid - Carousel overflow box shadow cut-off issue
+* Fix: Content Grid - Spacing was not working for Style-9 in carousel mode
+* Fix: Table - PHP notice in CSS
+* Fix: Advance Tabs - PHP notice in CSS
+* Fix: Logos Grid & Carousel - PHP notice in CSS
+* Fix: Hover Cards - Height field was not retaining values for medium and responsive breakpoint
+* Fix: Advanced Menu - Off-canvas menu sluggish scroll issue in iOS
+* Fix: Fancy Headings - Text clip was not working in Firefox browser
+* Fix: Filterable Gallery - Added missing field connections
+
 == 2.6.9.8 ==
 Release date: April 18, 2019
 * Enhancement: Photo Gallery - Added scroll pagination option

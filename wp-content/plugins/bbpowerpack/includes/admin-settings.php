@@ -66,7 +66,7 @@ $hide_support_msg 	= self::get_option( 'ppwl_hide_support_msg' );
 		// Integration settings.
         if ( 'integration' == $current_tab && ( ! $hide_integration || $hide_integration == 0 ) ) {
             include BB_POWERPACK_DIR . 'includes/admin-settings-integration.php';
-        }
+		}
 
         do_action( 'pp_admin_settings_forms', $current_tab );
 

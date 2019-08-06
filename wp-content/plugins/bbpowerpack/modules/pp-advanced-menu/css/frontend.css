@@ -31,7 +31,7 @@
 	text-decoration: none;
 }
 .pp-advanced-menu .sub-menu {
-	min-width: 220px;
+	width: 220px;
 }
 
 /* Expanded menus */
@@ -439,6 +439,7 @@
     perspective: 1000;
     backface-visibility: hidden;
 	will-change: transform;
+	-webkit-overflow-scrolling: touch;
 }
 
 .pp-advanced-menu .pp-off-canvas-menu.pp-menu-left {

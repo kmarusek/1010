@@ -105,6 +105,22 @@
 					});
 				});
 			}
+			<?php /* if ( 'square-grid' == $settings->feed_layout ) { ?>
+			$('#pp-instagram-<?php echo $id; ?>').imagesLoaded( function() {
+				var width = 0;
+				$('#pp-instagram-<?php echo $id; ?> .pp-feed-item').each(function() {
+					if ( width === 0 ) {
+						width = Math.floor( $(this).width() );
+					}
+					if ( width > 0 ) {
+						$(this).find('.pp-feed-item-inner').css({
+							'height': width + 'px',
+							'width': width + 'px'
+						});
+					}
+				});
+			});
+			<?php } */?>
 		}
 	});
 	

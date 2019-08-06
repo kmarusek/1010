@@ -28,6 +28,7 @@ var pp_gallery_<?php echo $id; ?>;
 		templateId: '<?php echo $module->template_id; ?>',
 		templateNodeId: '<?php echo $module->template_node_id; ?>',
 		<?php } ?>
+		settings: <?php echo json_encode( $settings ); ?>,
 		isBuilderActive: <?php echo FLBuilderModel::is_builder_active() ? 'true' : 'false'; ?>
 	};
 

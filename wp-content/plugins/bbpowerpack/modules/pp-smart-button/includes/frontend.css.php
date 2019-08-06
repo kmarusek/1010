@@ -44,11 +44,6 @@ FLBuilderCSS::typography_field_rule( array(
 	'selector' 		=> ".fl-node-$id .pp-button-wrap a.pp-button, .fl-node-$id .pp-button-wrap a.pp-button:visited",
 ) );
 
-// Default background hover color
-if ( ! empty( $settings->bg_color ) && empty( $settings->bg_hover_color ) ) {
-	$settings->bg_hover_color = $settings->bg_color;
-}
-
 // Default background color for gradient styles.
 if ( empty( $settings->bg_color_primary ) && 'gradient' === $settings->style ) {
 	$settings->bg_color_primary = 'a3a3a3';
@@ -76,14 +71,15 @@ if ( empty( $settings->bg_color_primary ) && 'gradient' === $settings->style ) {
 		background: linear-gradient(to bottom,  <?php echo pp_get_color_value( $settings->bg_color_primary ); ?> 0%, <?php echo pp_get_color_value( $settings->bg_color_secondary ); ?> 100%); /* W3C */
 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='<?php echo pp_get_color_value( $settings->bg_color_primary ); ?>', endColorstr='<?php echo pp_get_color_value( $settings->bg_color_secondary ); ?>', GradientType=0 ); /* IE6-9 */
 	<?php } ?>
+	background-clip: border-box;
 }
 
 .fl-node-<?php echo $id; ?> .pp-button-wrap a.pp-button:hover,
 .fl-node-<?php echo $id; ?> .pp-button-wrap a.pp-button:focus {
 	text-decoration: none;
 
-	<?php if ( 'gradient' != $settings->style && ! empty( $settings->bg_hover_color ) ) { ?>
-		background: <?php echo pp_get_color_value( $settings->bg_hover_color ); ?>;
+	<?php if ( 'gradient' != $settings->style ) { ?>
+		background: <?php echo ! empty( $settings->bg_hover_color ) ? pp_get_color_value( $settings->bg_hover_color ) : 'rgba(255, 255, 255, 0)'; ?>;
 	<?php } ?>
 
 	<?php if ( 'gradient' == $settings->style ) { // Gradient ?>
@@ -133,7 +129,9 @@ FLBuilderCSS::border_field_rule( array(
 }
 
 <?php if ( isset( $settings->text_color ) && ! empty( $settings->text_color ) ) : ?>
-.fl-node-<?php echo $id; ?> a.pp-button {
+.fl-node-<?php echo $id; ?> a.pp-button,
+.fl-node-<?php echo $id; ?> a.pp-button i,
+.fl-node-<?php echo $id; ?> a.pp-button i:before {
 	color: #<?php echo $settings->text_color; ?>;
 	-webkit-transition: all .3s ease 0s;
     -moz-transition: all .3s ease 0s;
@@ -150,7 +148,9 @@ FLBuilderCSS::border_field_rule( array(
 .fl-node-<?php echo $id; ?> a.pp-button:hover,
 .fl-node-<?php echo $id; ?> a.pp-button:focus,
 .fl-node-<?php echo $id; ?> a.pp-button:hover *,
-.fl-node-<?php echo $id; ?> a.pp-button:focus * {
+.fl-node-<?php echo $id; ?> a.pp-button:focus *,
+.fl-node-<?php echo $id; ?> a.pp-button:hover *:before,
+.fl-node-<?php echo $id; ?> a.pp-button:focus *:before {
 	color: #<?php echo $settings->text_hover_color; ?>;
 }
 <?php endif; ?>

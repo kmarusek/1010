@@ -1,11 +1,11 @@
 /* Clearfix */
-.clearfix:before,
-.clearfix:after {
+.pp-clearfix:before,
+.pp-clearfix:after {
 	content: " ";
 	display: table;
 }
 
-.clearfix:after {
+.pp-clearfix:after {
 	clear: both;
 }
 

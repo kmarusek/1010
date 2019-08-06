@@ -33,7 +33,20 @@
 		$('.fl-node-<?php echo $id; ?> .logo-slider-prev').empty();
 
 		var minSlides = ($(window).width() <= 768) ? parseInt($('.fl-node-<?php echo $id; ?>').width() / <?php echo $settings->logo_carousel_width + ($settings->logos_carousel_spacing * ($settings->logo_carousel_minimum_grid - 1)); ?>) : <?php echo $settings->logo_carousel_minimum_grid; ?>;
-		minSlides = (minSlides == 0) ? 1 : minSlides;
+
+		<?php if ( isset( $settings->logo_carousel_minimum_grid_medium ) && ! empty( $settings->logo_carousel_minimum_grid_medium ) ) { ?>
+		if ( window.innerWidth <= <?php echo $global_settings->medium_breakpoint; ?> ) {
+			minSlides = <?php echo $settings->logo_carousel_minimum_grid_medium; ?>;
+		}
+		<?php } ?>
+		<?php if ( isset( $settings->logo_carousel_minimum_grid_responsive ) && ! empty( $settings->logo_carousel_minimum_grid_responsive ) ) { ?>
+		if ( window.innerWidth <= <?php echo $global_settings->responsive_breakpoint; ?> ) {
+			minSlides = <?php echo $settings->logo_carousel_minimum_grid_responsive; ?>;
+		}
+		<?php } ?>
+
+		minSlides = (minSlides === 0) ? 1 : minSlides;
+
 		var maxSlides = minSlides;
 		var moveSlides = maxSlides;
 

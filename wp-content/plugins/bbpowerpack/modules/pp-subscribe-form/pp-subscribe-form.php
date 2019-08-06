@@ -638,6 +638,7 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 	                    'default'       	=> 'ffffff',
 						'show_reset'    	=> true,
 						'show_alpha'		=> true,
+						'connections'		=> array('color'),
 	                    'preview'       	=> array(
 	                        'type'      		=> 'css',
 	                        'selector'  		=> '.pp-subscribe-box',
@@ -697,7 +698,8 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 						'type'          	=> 'color',
 	                    'label'         	=> __('Color', 'bb-powerpack'),
 	                    'default'       	=> '000000',
-	                    'show_reset'    	=> false,
+						'show_reset'    	=> false,
+						'connections'		=> array('color'),
 	                    'preview'       	=> array(
 	                        'type'      		=> 'none',
 	                    )
@@ -761,6 +763,7 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 	                    'default'       => 'ffffff',
 						'show_reset'    => true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 	                    'preview'       => array(
 	                        'type'      => 'css',
 	                        'selector'  => '.pp-subscribe-form',
@@ -820,7 +823,8 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
                     'input_field_text_color'    => array(
                         'type'                  => 'color',
                         'label'                 => __('Text Color', 'bb-powerpack'),
-                        'default'               => '333333',
+						'default'               => '333333',
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'                  => 'css',
                             'selector'              => '.pp-subscribe-form textarea, .pp-subscribe-form input[type=text], .pp-subscribe-form input[type=tel], .pp-subscribe-form input[type=email]',
@@ -833,6 +837,7 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
                         'default'               => 'ffffff',
 						'show_reset'            => true,
 						'show_alpha'			=> true,
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.pp-subscribe-form textarea, .pp-subscribe-form input[type=text], .pp-subscribe-form input[type=tel], .pp-subscribe-form input[type=email]',
@@ -849,7 +854,8 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
                         'type'                  => 'color',
                         'label'                 => __('Border Color', 'bb-powerpack'),
                         'default'               => 'eeeeee',
-                        'show_reset'            => true,
+						'show_reset'            => true,
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.pp-subscribe-form textarea, .pp-subscribe-form input[type=text], .pp-subscribe-form input[type=tel], .pp-subscribe-form input[type=email]',
@@ -917,7 +923,8 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
                         'type'                  => 'color',
                         'label'                 => __('Focus Border Color', 'bb-powerpack'),
                         'default'               => '719ece',
-                        'show_reset'            => true,
+						'show_reset'            => true,
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.pp-subscribe-form textarea:focus, .pp-subscribe-form input[type=text]:focus, .pp-subscribe-form input[type=tel]:focus, .pp-subscribe-form input[type=email]:focus',
@@ -961,6 +968,7 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
                         'type'          => 'color',
                         'label'         => __('Shadow Color', 'bb-powerpack'),
 						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-subscribe-form textarea, .pp-subscribe-form input[type=text], .pp-subscribe-form input[type=tel], .pp-subscribe-form input[type=email]',
@@ -1021,7 +1029,8 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
                         'type'                  => 'color',
                         'label'                 => __('Color', 'bb-powerpack'),
                         'default'               => 'dddddd',
-                        'show_reset'            => true,
+						'show_reset'            => true,
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.pp-subscribe-form input[type=text]::-webkit-input-placeholder, .pp-subscribe-form input[type=tel]::-webkit-input-placeholder, .pp-subscribe-form input[type=email]::-webkit-input-placeholder, .pp-subscribe-form textarea::-webkit-input-placeholder',
@@ -1091,6 +1100,7 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 						'default'       => '3074b0',
 						'show_reset'    => true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 					),
 					'btn_bg_hover_color' => array(
 						'type'          => 'color',
@@ -1098,6 +1108,7 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 						'default'       => '428bca',
 						'show_reset'    => true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'          => 'none'
 						)
@@ -1106,13 +1117,15 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 						'type'          => 'color',
 						'label'         => __( 'Text Color', 'bb-powerpack' ),
 						'default'       => 'ffffff',
-						'show_reset'    => true
+						'show_reset'    => true,
+						'connections'	=> array('color'),
 					),
 					'btn_text_hover_color' => array(
 						'type'          => 'color',
 						'label'         => __( 'Text Hover Color', 'bb-powerpack' ),
 						'default'       => 'ffffff',
 						'show_reset'    => true,
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'          => 'none'
 						)
@@ -1174,7 +1187,8 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 						'type'          => 'color',
 						'label'         => __( 'Border Hover Color', 'bb-powerpack' ),
 						'default'       => '',
-						'show_reset'    => true
+						'show_reset'    => true,
+						'connections'	=> array('color'),
 					),
 				)
 			),
@@ -1316,6 +1330,7 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 						'type'					=> 'color',
 						'label'					=> __('Checkbox Text Color', 'bb-powerpack'),
 						'show_reset'			=> true,
+						'connections'			=> array('color'),
 						'preview'           	=> array(
 							'type'					=> 'css',
 							'selector'      		=> '.pp-subscribe-form .pp-checkbox-input label',
@@ -1424,7 +1439,8 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 					'validation_message_color'    => array(
                         'type'                    => 'color',
                         'label'                   => __('Color', 'bb-powerpack'),
-                        'default'                 => 'dd4420',
+						'default'                 => 'dd4420',
+						'connections'				=> array('color'),
                         'preview'                 => array(
                             'type'                => 'css',
                             'selector'            => '.pp-subscribe-form .pp-form-error-message',
@@ -1476,7 +1492,8 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 					'success_message_color'    => array(
                         'type'                         => 'color',
                         'label'                        => __('Color', 'bb-powerpack'),
-                        'default'                      => '29bb41',
+						'default'                      => '29bb41',
+						'connections'					=> array('color'),
                         'preview'                      => array(
                             'type'                     => 'css',
                             'selector'                 => '.pp-subscribe-form .pp-form-success-message',

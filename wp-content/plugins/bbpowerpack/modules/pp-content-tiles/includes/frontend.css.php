@@ -50,7 +50,7 @@ if ( $settings->layout > 1 ) {
 FLBuilderCSS::typography_field_rule( array(
 	'settings'		=> $settings,
 	'setting_name'	=> 'title_typography',
-	'selector'		=> ".fl-node-$id .pp-post-tile-post .pp-post-tile-title"
+	'selector'		=> ".fl-node-$id .pp-post-tile-post .pp-post-tile-title a"
 ) );
 ?>
 .fl-node-<?php echo $id; ?> .pp-post-tile-post .pp-post-tile-title {
@@ -143,13 +143,24 @@ FLBuilderCSS::typography_field_rule( array(
 	.fl-node-<?php echo $id; ?> .pp-post-tile-right {
 		width: 100%;
 	}
-	.fl-node-<?php echo $id; ?> .pp-post-tile-left .pp-post-tile-post {
+	.fl-node-<?php echo $id; ?> .pp-post-tile-group .pp-post-tile-post {
+		margin-right: <?php echo $settings->post_spacing; ?>px;
+	}
+	.fl-node-<?php echo $id; ?> .pp-post-tile-left .pp-post-tile-post,
+	.fl-node-<?php echo $id; ?> .pp-post-tile-right .pp-post-tile-post,
+	.fl-node-<?php echo $id; ?> .pp-post-tile-group .pp-post-tile-post:nth-child(2n) {
 		margin-right: 0;
+	}
+	.fl-node-<?php echo $id; ?> .pp-post-col-50 .pp-post-tile-medium {
+		width: calc(50% - <?php echo $settings->post_spacing - 20; ?>px);
 	}
 }
 
 @media only screen and (max-width: 480px) {
 	.fl-node-<?php echo $id; ?> .pp-post-tile-small {
+		width: 100%;
+	}
+	.fl-node-<?php echo $id; ?> .pp-post-col-50 .pp-post-tile-medium {
 		width: 100%;
 	}
 }

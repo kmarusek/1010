@@ -148,7 +148,9 @@ FLBuilderCSS::typography_field_rule( array(
 			<?php if ( isset( $settings->header_typography_responsive['font_size'] ) && '' != $settings->header_typography_responsive['font_size'] ) { ?>
 				font-size: <?php echo $settings->header_typography_responsive['font_size']['length']; ?><?php echo $settings->header_typography_responsive['font_size']['unit']; ?>;
 			<?php } ?>
+			<?php if ( isset( $settings->header_typography_responsive['text_transform'] ) ) { ?>
 			text-transform: <?php echo $settings->header_typography_responsive['text_transform']; ?>;
+			<?php } ?>
 		<?php } ?>
 	}
 }

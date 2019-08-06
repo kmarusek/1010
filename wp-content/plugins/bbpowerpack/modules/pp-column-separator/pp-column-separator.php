@@ -104,7 +104,8 @@ FLBuilder::register_module('PPColumnSeparatorModule', array(
                     'separator_color'   => array(
                         'type'      => 'color',
                         'label'     => __('Color', 'bb-powerpack'),
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'		=> array('color'),
                         'preview'       => array(
                             'type'      => 'css',
                             'rules'     => array(
@@ -122,7 +123,8 @@ FLBuilder::register_module('PPColumnSeparatorModule', array(
                     'separator_shadow_color'   => array(
                         'type'      => 'color',
                         'label'     => __('Shadow Color', 'bb-powerpack'),
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'		=> array('color'),
                         'preview'       => array(
                             'type'      => 'css',
                             'rules'     => array(

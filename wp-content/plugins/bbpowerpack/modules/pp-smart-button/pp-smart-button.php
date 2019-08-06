@@ -56,6 +56,9 @@ class PPSmartButtonModule extends FLBuilderModule {
 			$settings->button_effect = 'none';
 			if ( isset( $settings->bg_color_transparent ) ) {
 				$settings->bg_hover_color = $settings->bg_color_transparent;
+				if ( empty( $settings->bg_hover_color ) ) {
+					$settings->bg_hover_color = $settings->bg_color;
+				}
 				unset( $settings->bg_color_transparent );
 			}
 		}
@@ -98,16 +101,20 @@ class PPSmartButtonModule extends FLBuilderModule {
 		if ( ! isset( $settings->border ) || empty( $settings->border ) ) {
 			$border = array();
 
-			$border['style'] = $settings->border_type;
-			$border['width'] = array(
-				'top' 		=> $settings->border_size,
-				'right' 	=> $settings->border_size,
-				'bottom' 	=> $settings->border_size,
-				'left' 		=> $settings->border_size,
-			);
-			$border['color'] = ( is_array( $settings->border_color ) && isset( $settings->border_color['primary'] ) ) ? $settings->border_color['primary'] : '';
+			if ( isset( $settings->border_type ) && isset( $settings->border_size ) && isset( $settings->border_color ) ) {
+				$border['style'] = $settings->border_type;
+				$border['width'] = array(
+					'top' 		=> $settings->border_size,
+					'right' 	=> $settings->border_size,
+					'bottom' 	=> $settings->border_size,
+					'left' 		=> $settings->border_size,
+				);
+				$border['color'] = ( is_array( $settings->border_color ) && isset( $settings->border_color['primary'] ) ) ? $settings->border_color['primary'] : '';
+			}
 			
-			$settings->border_hover_color = ( is_array( $settings->border_color ) && isset( $settings->border_color['secondary'] ) ) ? $settings->border_color['secondary'] : '';
+			if ( isset( $settings->border_color ) ) {
+				$settings->border_hover_color = ( is_array( $settings->border_color ) && isset( $settings->border_color['secondary'] ) ) ? $settings->border_color['secondary'] : '';
+			}
 
 			unset( $settings->border_type );
 			unset( $settings->border_size );
@@ -437,6 +444,7 @@ FLBuilder::register_module('PPSmartButtonModule', array(
 						'default'		=> 'd6d6d6',
 						'show_reset'    => true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'		=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-button-wrap a.pp-button',
@@ -449,6 +457,7 @@ FLBuilder::register_module('PPSmartButtonModule', array(
 						'default'		=> '333333',
 						'show_reset'    => true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'		=> array(
 							'type'		=> 'none',
 						),
@@ -457,11 +466,13 @@ FLBuilder::register_module('PPSmartButtonModule', array(
 						'type'          => 'color',
 						'label'         => __('Gradient Color Primary', 'bb-powerpack'),
 						'show_reset'    => true,
+						'connections'	=> array('color'),
 					),
 					'bg_color_secondary'	=> array(
 						'type'          => 'color',
 						'label'         => __('Gradient Color Secondary', 'bb-powerpack'),
 						'show_reset'    => true,
+						'connections'	=> array('color'),
 					),
 					'gradient_hover'	=> array(
 						'type'			=> 'select',
@@ -478,6 +489,7 @@ FLBuilder::register_module('PPSmartButtonModule', array(
 						'label'         => __('Text Color', 'bb-powerpack'),
 						'default'		=> '000000',
 						'show_reset'    => true,
+						'connections'	=> array('color'),
 						'preview'		=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-button-wrap a.pp-button span',
@@ -489,6 +501,7 @@ FLBuilder::register_module('PPSmartButtonModule', array(
 						'label'         => __('Text Hover Color', 'bb-powerpack'),
 						'default'		=> 'dddddd',
 						'show_reset'    => true,
+						'connections'	=> array('color'),
 						'preview'		=> array(
 							'type'			=> 'none',
 						),
@@ -576,6 +589,7 @@ FLBuilder::register_module('PPSmartButtonModule', array(
 						'default'       => '',
 						'show_reset'    => true,
 						'show_alpha'    => true,
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'          => 'none',
 						),

@@ -19,6 +19,7 @@ class PPCustomGridModule extends FLBuilderModule {
             'url'               => BB_POWERPACK_URL . 'modules/pp-custom-grid/',
 			'editor_export' 	=> true,
 			'partial_refresh'	=> true,
+			'enabled'			=> true
 		));
 
 		add_filter( 'fl_builder_register_settings_form',   				__CLASS__ . '::presets_form_fields', 10, 2 );
@@ -474,6 +475,7 @@ class PPCustomGridModule extends FLBuilderModule {
 FLBuilder::register_module('PPCustomGridModule', array(
 	'layout'        => array(
 		'title'         => __('Layout', 'bb-powerpack'),
+		'description'	=> __('We recommend using <strong>Content Grid</strong> module with "Custom Layout" option to create custom layouts instead of this module.', 'bb-powerpack'),
 		'sections'      => array(
 			'general'       => array(
 				'title'         => '',
@@ -607,6 +609,7 @@ FLBuilder::register_module('PPCustomGridModule', array(
 						'label'         => __('Background Color', 'bb-powerpack'),
 						'show_alpha'	=> true,
 						'show_reset'    => true,
+						'connections'	=> array('color'),
 						'preview'		=> array(
 							'type'			=> 'css',
 							'selector'		=> '.pp-custom-grid-post',
@@ -634,6 +637,7 @@ FLBuilder::register_module('PPCustomGridModule', array(
 						'default'				=> '',
 						'show_alpha'			=> true,
 						'show_reset'    		=> true,
+						'connections'			=> array('color'),
 						'preview'				=> array(
 							'type'					=> 'css',
 							'selector'				=> '.pp-custom-grid-pagination li a.page-numbers, .pp-custom-grid-pagination li span.page-numbers',
@@ -646,6 +650,7 @@ FLBuilder::register_module('PPCustomGridModule', array(
 						'default'				=> '',
 						'show_alpha'			=> true,
 						'show_reset'    		=> true,
+						'connections'			=> array('color'),
 						'preview'				=> array(
 							'type'					=> 'none',
 						)
@@ -655,6 +660,7 @@ FLBuilder::register_module('PPCustomGridModule', array(
 						'label'					=> __('Text Color', 'bb-powerpack'),
 						'default'				=> '',
 						'show_reset'    		=> true,
+						'connections'			=> array('color'),
 						'preview'				=> array(
 							'type'					=> 'css',
 							'selector'				=> '.pp-custom-grid-pagination li a.page-numbers, .pp-custom-grid-pagination li span.page-numbers',
@@ -665,7 +671,8 @@ FLBuilder::register_module('PPCustomGridModule', array(
 						'type'						=> 'color',
 						'label'						=> __('Text Hover Color', 'bb-powerpack'),
 						'default'					=> '',
-						'show_reset'    		=> true,
+						'show_reset'    			=> true,
+						'connections'				=> array('color'),
 						'preview'					=> array(
 							'type'						=> 'none',
 						)

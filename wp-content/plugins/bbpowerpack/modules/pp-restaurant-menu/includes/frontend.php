@@ -1,14 +1,29 @@
-
+<?php
+	$enable_tabindex = false;
+	$tabindex = -1;
+	if ( isset( $settings->card_tabindex ) && 'yes' == $settings->card_tabindex ) {
+		$enable_tabindex = true;
+		$tabindex = 0;
+		if ( isset( $settings->card_custom_tabindex ) && '' != $settings->card_custom_tabindex ) {
+			$tabindex = $settings->card_custom_tabindex;
+		}
+	}
+?>
 <div class="fl-node-<?php echo $id; ?> pp-restaurant-menu-item-wrap">
 	<h3 class="pp-restaurant-menu-heading"><?php echo $settings->menu_heading; ?></h3>
 	<div class="pp-restaurant-menu-item-wrap-in">
 		<?php
 		foreach ( $settings->menu_items as $key => $menu_item ) {
 			$item_title = '' != trim( $menu_item->menu_items_title ) ? trim( $menu_item->menu_items_title ) : '';
+			$attr = '';
+
+			if ( $enable_tabindex && $tabindex >= 0 ) {
+				$attr .= ' tabindex="'.$tabindex.'"';
+			}
 			 
 			if ( $settings->restaurant_menu_layout == 'stacked' ) {
 			 	?>
-			 	<div class="pp-restaurant-menu-item pp-restaurant-menu-item-<?php echo $key; ?> pp-menu-item pp-menu-item-<?php echo $key; ?>">
+			 	<div class="pp-restaurant-menu-item pp-restaurant-menu-item-<?php echo $key; ?> pp-menu-item pp-menu-item-<?php echo $key; ?>"<?php echo $attr; ?>>
 				 	<?php if ( '' != trim( $menu_item->menu_item_images ) && 'yes' == $menu_item->restaurant_select_images ) { ?>
 					 	<a <?php if ( '' != $menu_item->menu_items_link ) { ?>href="<?php echo $menu_item->menu_items_link;?>"<?php } ?> target="<?php echo $menu_item->menu_items_link_target;?>"<?php if('yes' == $menu_item->menu_items_link_nofollow){ echo " rel='nofollow'"; }else{ echo ''; } ?> class="pp-restaurant-menu-item-images">
 							<?php
@@ -45,9 +60,9 @@
 					</div>
 				</div>
 				<?php
-			 } else {
+			 	} else {
 			 	?>
-			 		<div class="pp-restaurant-menu-item-inline pp-restaurant-menu-item-inline-<?php echo $key; ?> pp-menu-item pp-menu-item-<?php echo $key; ?>">
+			 		<div class="pp-restaurant-menu-item-inline pp-restaurant-menu-item-inline-<?php echo $key; ?> pp-menu-item pp-menu-item-<?php echo $key; ?>"<?php echo $attr; ?>>
 				 		<?php if ( '' != trim( $menu_item->menu_item_images ) && 'yes' == $menu_item->restaurant_select_images ) { ?>
 				 			<a <?php if ( '' != $menu_item->menu_items_link ) { ?>href="<?php echo $menu_item->menu_items_link;?>"<?php } ?> target="<?php echo $menu_item->menu_items_link_target;?>"<?php if('yes' == $menu_item->menu_items_link_nofollow){ echo " rel='nofollow'"; }else{ echo ''; } ?> class="pp-restaurant-menu-item-images">
 							<?php

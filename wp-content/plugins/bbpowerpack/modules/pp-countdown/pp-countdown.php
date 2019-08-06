@@ -537,6 +537,7 @@ FLBuilder::register_module('PPCountdownModule', array(
 						'label'         => __( 'Separator Color', 'bb-powerpack' ),
 						'show_reset'    => true,
 						'show_alpha'    => true,
+						'connections'	=> array('color'),
 					),
 					'separator_size' => array(
 						'type'          => 'unit',
@@ -586,6 +587,7 @@ FLBuilder::register_module('PPCountdownModule', array(
 						'placeholder'	=> __( '100', 'bb-powerpack' ),
 						'units'			=> array( 'px' ),
 						'slider'		=> true,
+						'responsive'	=> true,
 					),
 					'block_bg_type'   => array(
 						'type'          => 'pp-switch',
@@ -609,18 +611,21 @@ FLBuilder::register_module('PPCountdownModule', array(
 						'label'         => __( 'Background Color', 'bb-powerpack' ),
 						'default'       => 'eaeaea',
 						'show_reset'    => true,
+						'connections'	=> array('color'),
 					),
 					'block_primary_color'    => array(
 						'type'          => 'color',
 						'label'         => __( 'Primary Color', 'bb-powerpack' ),
 						'default'       => '',
 						'show_reset'    => true,
+						'connections'	=> array('color'),
 					),
 					'block_secondary_color'    => array(
 						'type'          => 'color',
 						'label'         => __( 'Secondary Color', 'bb-powerpack' ),
 						'default'       => '',
 						'show_reset'    => true,
+						'connections'	=> array('color'),
 					),
 					'block_bg_color_opc'   => array(
 						'type'          => 'unit',
@@ -651,6 +656,7 @@ FLBuilder::register_module('PPCountdownModule', array(
 						'label'         => __( 'Border Color', 'bb-powerpack' ),
 						'default'       => '',
 						'show_reset'    => true,
+						'connections'	=> array('color'),
 					),
 					'block_border_radius'   => array(
 						'type'          => 'unit',
@@ -709,7 +715,8 @@ FLBuilder::register_module('PPCountdownModule', array(
 						'type'              => 'color',
 						'label'             => __( 'Shadow Color', 'bb-powerpack' ),
 						'default'           => '000000',
-						'show_alpha'		=> true
+						'show_alpha'		=> true,
+						'connections'	=> array('color'),
 					),
 				),
 			),
@@ -767,7 +774,8 @@ FLBuilder::register_module('PPCountdownModule', array(
 						'label'			=> __( 'Background Color', 'bb-powerpack' ),
 						'default'		=> '',
 						'show_reset'	=> true,
-						'show_alpha'	=> true
+						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 					),
 					'label_horizontal_padding'	=> array(
 						'type'			=> 'unit',
@@ -818,8 +826,9 @@ FLBuilder::register_module('PPCountdownModule', array(
 						),
 					),
 					'digit_color'        => array(
-						'type'       => 'color',
-						'label' => __( 'Color', 'bb-powerpack' ),
+						'type'       		=> 'color',
+						'label' 			=> __( 'Color', 'bb-powerpack' ),
+						'connections'		=> array('color'),
 						'preview'         => array(
 							'type'            => 'css',
 							'selector'        => '.pp-countdown-fixed-timer .pp-countdown-digit, .pp-countdown-evergreen-timer .pp-countdown-digit',
@@ -863,6 +872,7 @@ FLBuilder::register_module('PPCountdownModule', array(
 						'label' 		=> __( 'Color', 'bb-powerpack' ),
 						'default'    	=> '',
 						'show_reset' 	=> true,
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'      	=> 'css',
 							'selector'      => '.pp-countdown-fixed-timer .pp-countdown-label, .pp-countdown-evergreen-timer .pp-countdown-label',
@@ -889,6 +899,7 @@ FLBuilder::register_module('PPCountdownModule', array(
 						'label' 		=> __( 'Color', 'bb-powerpack' ),
 						'default'		=> '',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'			=> 'css',
 							'selector'      => '.pp-countdown-expire-message',

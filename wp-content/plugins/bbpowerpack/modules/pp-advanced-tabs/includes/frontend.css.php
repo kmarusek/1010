@@ -40,7 +40,9 @@
 if ( isset( $settings->label_typography ) ) {
 	?>
 	.fl-node-<?php echo $id; ?> .pp-tabs-vertical .pp-tabs-label {
+		<?php if ( isset( $settings->label_typography ) && is_array( $settings->label_typography ) && isset( $settings->label_typography['text_align'] ) ) { ?>
 		text-align: <?php echo $settings->label_typography['text_align']; ?>;
+		<?php } ?>
 	}
 	<?php
 }

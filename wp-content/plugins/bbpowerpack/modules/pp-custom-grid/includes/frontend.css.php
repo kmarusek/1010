@@ -65,16 +65,23 @@
 }
 
 <?php if ( 'right' == $settings->post_align ) { ?>
-.pp-custom-align-right .pp-custom-grid-separator {
+.fl-node-<?php echo $id; ?> .pp-custom-align-right .pp-custom-grid-separator {
 	margin-right: 0;
     margin-left: auto;
+}
+.fl-node-<?php echo $id; ?> .pp-custom-align-center .pp-custom-grid-post-image + .pp-custom-grid-post-terms {
+	right: 0;
 }
 <?php } ?>
 
 <?php if ( 'center' == $settings->post_align ) { ?>
-.pp-custom-align-center .pp-custom-grid-separator {
+.fl-node-<?php echo $id; ?> .pp-custom-align-center .pp-custom-grid-separator {
 	margin-right: auto;
     margin-left: auto;
+}
+.fl-node-<?php echo $id; ?> .pp-custom-align-center .pp-custom-grid-post-image + .pp-custom-grid-post-terms {
+	left: 50%;
+    transform: translateX(-50%);
 }
 <?php } ?>
 

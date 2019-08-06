@@ -105,7 +105,16 @@ class PPImagePanelsModule extends FLBuilderModule {
     public function update($settings)
     {
         return $settings;
-    }
+	}
+	
+	/**
+	 * @method enqueue_scripts
+	 */
+	public function enqueue_scripts()
+	{
+		$this->add_js('jquery-magnificpopup');
+		$this->add_css('jquery-magnificpopup');
+	}
 }
 
 /**
@@ -241,13 +250,14 @@ FLBuilder::register_settings_form('pp_image_panels_form', array(
                             )
                         ),
                         'link_type'     => array(
-                            'type'          => 'pp-switch',
+                            'type'          => 'select',
                             'label'         => __('Link Type', 'bb-powerpack'),
                             'default'       => 'none',
                             'options'       => array(
                                 'none'          => __('None', 'bb-powerpack'),
                                 'title'         => __('Title', 'bb-powerpack'),
                                 'panel'         => __('Panel', 'bb-powerpack'),
+                                'lightbox'      => __('Lightbox', 'bb-powerpack'),
                             ),
                             'toggle'    => array(
                                 'title' => array(
@@ -277,14 +287,16 @@ FLBuilder::register_settings_form('pp_image_panels_form', array(
 							'type'			=> 'color',
 							'label'			=> __( 'Text Color', 'bb-powerpack' ),
 							'default'		=> '000000',
-							'show_reset'	=> true
+							'show_reset'	=> true,
+							'connections'	=> array('color'),
 						),
 						'title_bg_color'	=> array(
 							'type'			=> 'color',
 							'label'			=> __( 'Background Color', 'bb-powerpack' ),
 							'default'		=> 'dddddd',
 							'show_alpha'	=> true,
-							'show_reset'	=> true
+							'show_reset'	=> true,
+							'connections'	=> array('color'),
 						),
                     ),
                 ),

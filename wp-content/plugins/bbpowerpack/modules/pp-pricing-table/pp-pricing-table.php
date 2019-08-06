@@ -363,6 +363,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'default'		=> 'f1f1f1',
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'		=> array(
 							'type'			=> 'css',
 							'selector'		=> '.pp-pricing-table .pp-pricing-table-buttons .pp-pricing-table-button.pp-pricing-button-active',
@@ -374,6 +375,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'label'		=> __('Active Text Color', 'bb-powerpack'),
 						'default'	=> '000000',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-pricing-table .pp-pricing-table-buttons .pp-pricing-table-button.pp-pricing-button-active',
@@ -385,6 +387,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'label'		=> __('Default Text Color', 'bb-powerpack'),
 						'default'	=> '',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-pricing-table .pp-pricing-table-buttons .pp-pricing-table-button',
@@ -485,7 +488,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 					),
 					'dp_button_spacing'				=> array(
 						'type'					=> 'unit',
-						'label'					=> __('Spacing', 'bb-powerpack'),
+						'label'					=> __('Spacing b/w Buttons', 'bb-powerpack'),
 						'default'				=> '10',
 						'slider'				=> true,
 						'responsive' 			=> array(
@@ -499,6 +502,25 @@ FLBuilder::register_module('PPPricingTableModule', array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-pricing-table .pp-pricing-table-buttons .pp-pricing-button-1',
 							'property'	=> 'margin-right',
+							'unit'		=> 'px'
+						)
+					),
+					'dp_button_spacing_bottom'	=> array(
+						'type'					=> 'unit',
+						'label'					=> __('Spacing Below', 'bb-powerpack'),
+						'default'				=> '20',
+						'slider'				=> true,
+						'responsive' 			=> array(
+							'placeholder' 			=> array(
+								'default' 				=> '20',
+								'medium' 				=> '',
+								'responsive'			=> '',
+							),
+						),
+						'preview'	=> array(
+							'type'		=> 'css',
+							'selector'	=> '.pp-pricing-table .pp-pricing-table-switch',
+							'property'	=> 'margin-bottom',
 							'unit'		=> 'px'
 						)
 					),
@@ -546,6 +568,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'label'         	=> __( 'Box Background Color', 'bb-powerpack' ),
 						'show_reset'		=> true,
 						'show_alpha'		=> true,
+						'connections'		=> array('color'),
 						'preview'			=> array(
 							'type'				=> 'css',
 							'selector'			=> '.pp-pricing-table .pp-pricing-table-col.pp-pricing-table-matrix .pp-pricing-table-column',
@@ -558,6 +581,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'label'         => __('Alternate Background Color', 'bb-powerpack'),
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'		=> array(
 							'type'			=> 'css',
 							'selector'		=> '.pp-pricing-table .pp-pricing-table-col.pp-pricing-table-matrix .pp-pricing-table-column .pp-pricing-table-features li:nth-child(even)',
@@ -569,6 +593,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'default'       => '',
 						'label'         => __('Items Text Color', 'bb-powerpack'),
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'		=> array(
 							'type'			=> 'css',
 							'selector'		=> '.pp-pricing-table .pp-pricing-table-col.pp-pricing-table-matrix .pp-pricing-table-column .pp-pricing-table-features',
@@ -620,6 +645,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'label'     => __('Items Border Color', 'bb-powerpack'),
 						'show_reset'   => true,
 						'default'	=> '',
+						'connections'	=> array('color'),
 						'preview'              => array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-pricing-table .pp-pricing-table-col.pp-pricing-table-matrix .pp-pricing-table-column .pp-pricing-table-features li',
@@ -670,6 +696,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'default'	=> 'f5f5f5',
 						'show_reset'   => true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'              => array(
 							'type'				=> 'css',
 							'selector'			=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix):not(.pp-pricing-table-highlight) .pp-pricing-table-column',
@@ -711,6 +738,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'default'           => 'cccccc',
 						'show_reset'		=> true,
 						'show_alpha'		=> true,
+						'connections'	=> array('color'),
 						'preview'       	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-highlight) .pp-pricing-table-column .pp-pricing-featured-title',
@@ -722,6 +750,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'label'             => __('Text Color', 'bb-powerpack'),
 						'default'           => '',
 						'show_reset'    => true,
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-highlight) .pp-pricing-table-column .pp-pricing-featured-title',
@@ -762,6 +791,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'default'           => '',
 						'show_reset'		=> true,
 						'show_alpha'		=> true,
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix):not(.pp-pricing-table-highlight):not(.pp-pricing-table-highlight-title) .pp-pricing-table-column .pp-pricing-table-title',
@@ -773,6 +803,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'label'             => __('Text Color', 'bb-powerpack'),
 						'default'           => '',
 						'show_reset'    => true,
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix):not(.pp-pricing-table-highlight):not(.pp-pricing-table-highlight-title) .pp-pricing-table-column .pp-pricing-table-title',
@@ -804,6 +835,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'default'       => '',
 						'show_reset'    => true,
 						'show_alpha'		=> true,
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'			=> 'css',
 							'selector'		=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix):not(.pp-pricing-table-highlight):not(.pp-pricing-table-highlight-price) .pp-pricing-table-column .pp-pricing-table-price',
@@ -815,6 +847,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'label'         => __('Text Color', 'bb-powerpack'),
 						'default'       => '',
 						'show_reset'    => true,
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'			=> 'css',
 							'selector'		=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix):not(.pp-pricing-table-highlight):not(.pp-pricing-table-highlight-price) .pp-pricing-table-column .pp-pricing-table-price',
@@ -826,6 +859,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'label'			=> __( 'Duration Color', 'bb-powerpack' ),
 						'default'		=> '',
 						'show_reset'    => true,
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'		=> 'css',
 							'selector'        => '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix):not(.pp-pricing-table-highlight):not(.pp-pricing-table-highlight-price) .pp-pricing-table-column .pp-pricing-table-duration',
@@ -871,6 +905,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'label'         => __('Alternate Background Color', 'bb-powerpack'),
 						'show_reset'	=> true,
 						'show_alpha'		=> true,
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix):not(.pp-pricing-table-highlight) .pp-pricing-table-column .pp-pricing-table-features li:nth-child(even)',
@@ -882,6 +917,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'label'			=> __('Text Color', 'bb-powerpack'),
 						'default'		=> '',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'		=> 'css',
 							'selector'        => '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix):not(.pp-pricing-table-highlight) .pp-pricing-table-column .pp-pricing-table-features',
@@ -933,6 +969,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'label'     => __('Border Color', 'bb-powerpack'),
 						'show_reset'   => true,
 						'default'	=> 'dddddd',
+						'connections'	=> array('color'),
 						'preview'              => array(
 							'type'				=> 'css',
 							'selector'	=> '.pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix):not(.pp-pricing-table-highlight) .pp-pricing-table-column .pp-pricing-table-features li',
@@ -1012,6 +1049,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'show_reset'   => true,
 						'show_alpha'	=> true,
 						'default'		=> 'f3f3f3',
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'			=> 'css',
 							'selector'		=> '.pp-pricing-table .pp-pricing-table-col.pp-pricing-table-highlight .pp-pricing-table-column',
@@ -1066,6 +1104,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'default'           => 'cccccc',
 						'show_reset'		=> true,
 						'show_alpha'		=> true,
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-pricing-table .pp-pricing-table-col.pp-pricing-table-highlight .pp-pricing-table-column .pp-pricing-featured-title',
@@ -1077,6 +1116,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'default'       => '',
 						'label'         => __('Text Color', 'bb-powerpack'),
 						'show_reset'    => true,
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-pricing-table .pp-pricing-table-col.pp-pricing-table-highlight .pp-pricing-table-column .pp-pricing-featured-title',
@@ -1094,6 +1134,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'default'           => 'cccccc',
 						'show_reset'		=> true,
 						'show_alpha'		=> true,
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'			=> 'css',
 							'rules'			=> array(
@@ -1113,6 +1154,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'label'         => __('Text Color', 'bb-powerpack'),
 						'default'       => '',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'			=> 'css',
 							'rules'			=> array(
@@ -1138,6 +1180,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'default'           => 'cccccc',
 						'show_reset'		=> true,
 						'show_alpha'		=> true,
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'			=> 'css',
 							'rules'			=> array(
@@ -1176,6 +1219,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'default'       => '',
 						'label'         => __('Duration Color', 'bb-powerpack'),
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'			=> 'css',
 							'rules'			=> array(
@@ -1201,6 +1245,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'label'         => __('Alternate Background Color', 'bb-powerpack'),
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-pricing-table .pp-pricing-table-col.pp-pricing-table-highlight .pp-pricing-table-column .pp-pricing-table-features li:nth-child(even)',
@@ -1212,6 +1257,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'default'       => '',
 						'label'         => __('Text Color', 'bb-powerpack'),
 						'show_reset'    => true,
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-pricing-table .pp-pricing-table-col.pp-pricing-table-highlight .pp-pricing-table-column .pp-pricing-table-features',
@@ -1263,6 +1309,7 @@ FLBuilder::register_module('PPPricingTableModule', array(
 						'label'     => __('Border Color', 'bb-powerpack'),
 						'show_reset'   => true,
 						'default'	=> '',
+						'connections'	=> array('color'),
 						'preview'              => array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-pricing-table .pp-pricing-table-col.pp-pricing-table-highlight .pp-pricing-table-column .pp-pricing-table-features li',
@@ -1542,26 +1589,30 @@ FLBuilder::register_settings_form('pp_pricing_column_form', array(
 							'label'         => __('Background Color', 'bb-powerpack'),
 							'default'       => '',
 							'show_reset'    => true,
-							'show_alpha'	=> true
+							'show_alpha'	=> true,
+							'connections'	=> array('color'),
 						),
 						'btn_bg_hover_color' => array(
 							'type'          => 'color',
 							'label'         => __('Background Hover Color', 'bb-powerpack'),
 							'default'       => '',
 							'show_reset'    => true,
-							'show_alpha'	=> true
+							'show_alpha'	=> true,
+							'connections'	=> array('color'),
 						),
 						'btn_text_color' => array(
 							'type'          => 'color',
 							'label'         => __('Text Color', 'bb-powerpack'),
 							'default'       => '',
-							'show_reset'    => true
+							'show_reset'    => true,
+							'connections'	=> array('color'),
 						),
 						'btn_text_hover_color' => array(
 							'type'          => 'color',
 							'label'         => __('Text Hover Color', 'bb-powerpack'),
 							'default'       => '',
 							'show_reset'    => true,
+							'connections'	=> array('color'),
 						)
 					)
 				),
@@ -1697,7 +1748,8 @@ FLBuilder::register_settings_form('pp_pricing_column_form', array(
 							'label'         => __('Package Background Color', 'bb-powerpack'),
 							'default'       => '',
 							'show_reset'    => true,
-							'show_alpha'	=> true
+							'show_alpha'	=> true,
+							'connections'	=> array('color'),
 						),
 					)
 				),

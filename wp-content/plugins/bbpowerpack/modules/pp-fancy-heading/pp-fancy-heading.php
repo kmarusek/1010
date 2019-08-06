@@ -24,6 +24,7 @@ class PPFancyHeadingModule extends FLBuilderModule {
             'enabled'       => true, // Defaults to true and can be omitted.
         ));
 	}
+
 	public function filter_settings( $settings, $helper ) {
 		// Handle Heading's old typography fields.
 		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
@@ -45,7 +46,12 @@ class PPFancyHeadingModule extends FLBuilderModule {
 				'type'			=> 'letter_spacing',
 			),
 		), 'font_typography' );
+		
 		return $settings;
+	}
+
+	public function enqueue_scripts() {
+		$this->add_js('modernizr-custom');
 	}
 }
 
@@ -102,13 +108,15 @@ FLBuilder::register_module('PPFancyHeadingModule', array(
                         'type'          => 'color',
                         'label'         => __('Primary Color', 'bb-powerpack'),
                         'default'       => '255dea',
-                        'show_reset'    => false,
+						'show_reset'    => false,
+						'connections'	=> array('color'),
                     ),
                     'secondary_color'	=> array(
                         'type'              => 'color',
                         'label'             => __('Secondary Color', 'bb-powerpack'),
                         'default'           => '34d6e5',
-                        'show_reset'        => false,
+						'show_reset'        => false,
+						'connections'		=> array('color'),
                     ),
                     'animation_speed'   => array(
                         'type'              => 'unit',

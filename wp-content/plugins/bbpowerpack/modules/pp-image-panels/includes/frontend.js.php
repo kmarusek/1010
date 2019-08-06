@@ -28,7 +28,7 @@
                         $(this).css('width', <?php echo 100/($number_panels); ?> + '%');
                         $(this).siblings().css('width', <?php echo 100/($number_panels); ?> + '%');
                     });
-                <?php } else if($panel->link_type == 'panel') { ?>
+                <?php } else if($panel->link_type == 'panel' || $panel->link_type == 'lightbox') { ?>
                     $('.fl-node-<?php echo $id; ?> .pp-image-panels-wrap .pp-panel-link-<?php echo $i; ?>').css('width', <?php echo 100/($number_panels); ?> + '%');
                     
 					<?php if( $number_panels == 2 ) { ?>
@@ -56,5 +56,13 @@
     $(window).resize(function() {
         pp_render_panels();
     });
+
+	if ( $('.fl-node-<?php echo $id; ?> a.pp-panel-has-lightbox').length > 0 ) {
+		$('.fl-node-<?php echo $id; ?> a.pp-panel-has-lightbox').magnificPopup({
+			type: 'image',
+			closeOnContentClick: true,
+			closeBtnInside: false
+		});
+	}
 
 })(jQuery);

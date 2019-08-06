@@ -1,6 +1,9 @@
 .pp-social-icons .pp-social-icon {
 	display: inline-block;
 	line-height: 0;
+}
+
+.pp-social-icons .pp-social-icon.pp-social-icon-vertical {
 	margin-bottom: 10px;
 	margin-top: 10px;
 }

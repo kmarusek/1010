@@ -101,29 +101,6 @@ class PPFlipBoxModule extends FLBuilderModule {
 		return $settings;
 	}
 
-    /**
-     * Use this method to work with settings data before
-     * it is saved. You must return the settings object.
-     *
-     * @method update
-     * @param $settings {object}
-     */
-    public function update($settings)
-    {
-        return $settings;
-    }
-
-    /**
-     * This method will be called by the builder
-     * right before the module is deleted.
-     *
-     * @method delete
-     */
-    public function delete()
-    {
-
-    }
-
 }
 
 /**
@@ -346,7 +323,8 @@ FLBuilder::register_module('PPFlipBoxModule', array(
 						'type'          => 'color',
 						'label'         => __('Background Color', 'bb-powerpack'),
 						'show_reset'    => true,
-                        'show_alpha'    => true,
+						'show_alpha'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'          => 'css',
                             'selector'      => '.pp-flipbox-front',
@@ -357,6 +335,7 @@ FLBuilder::register_module('PPFlipBoxModule', array(
 						'type'          => 'color',
 						'label'         => __('Border Color', 'bb-powerpack'),
 						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'          => 'css',
                             'selector'      => '.pp-flipbox-front',
@@ -395,6 +374,7 @@ FLBuilder::register_module('PPFlipBoxModule', array(
 						'type'          => 'color',
 						'label'         => __('Title Color', 'bb-powerpack'),
 						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'          => 'css',
                             'selector'      => '.pp-flipbox-front .pp-flipbox-title h3',
@@ -445,6 +425,7 @@ FLBuilder::register_module('PPFlipBoxModule', array(
 						'type'          => 'color',
 						'label'         => __('Description Color', 'bb-powerpack'),
 						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'          => 'css',
                             'selector'      => '.pp-flipbox-front .pp-flipbox-description',
@@ -560,7 +541,8 @@ FLBuilder::register_module('PPFlipBoxModule', array(
                         'type'      => 'color',
                         'label'     => __('Text Color', 'bb-powerpack'),
                         'default'   => '',
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'   => array(
                             'type'  => 'css',
                             'selector'  => '.pp-more-link',
@@ -571,7 +553,8 @@ FLBuilder::register_module('PPFlipBoxModule', array(
                         'type'      => 'color',
                         'label'     => __('Text Hover Color', 'bb-powerpack'),
                         'default'   => '',
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'   => array(
                             'type'  => 'css',
                             'selector'  => '.pp-more-link:hover',
@@ -584,6 +567,7 @@ FLBuilder::register_module('PPFlipBoxModule', array(
                         'default'   => '',
                         'show_reset'    => true,
 						'show_alpa'		=> true,
+						'connections'	=> array('color'),
                         'preview'   => array(
                             'type'  => 'css',
                             'selector'  => '.pp-more-link',
@@ -596,6 +580,7 @@ FLBuilder::register_module('PPFlipBoxModule', array(
                         'default'   => '',
                         'show_reset'    => true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
                         'preview'   => array(
                             'type'  => 'css',
                             'selector'  => '.pp-more-link:hover',
@@ -626,7 +611,8 @@ FLBuilder::register_module('PPFlipBoxModule', array(
 						'type'          => 'color',
 						'label'         => __('Background Color', 'bb-powerpack'),
 						'show_reset'    => true,
-                        'show_alpha'    => true,
+						'show_alpha'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'          => 'css',
                             'selector'      => '.pp-flipbox-back',
@@ -637,6 +623,7 @@ FLBuilder::register_module('PPFlipBoxModule', array(
 						'type'          => 'color',
 						'label'         => __('Border Color', 'bb-powerpack'),
 						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'          => 'css',
                             'selector'      => '.pp-flipbox-back',
@@ -675,6 +662,7 @@ FLBuilder::register_module('PPFlipBoxModule', array(
 						'type'          => 'color',
 						'label'         => __('Title Color', 'bb-powerpack'),
 						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'          => 'css',
                             'selector'      => '.pp-flipbox-back .pp-flipbox-title h3',
@@ -725,6 +713,7 @@ FLBuilder::register_module('PPFlipBoxModule', array(
 						'type'          => 'color',
 						'label'         => __('Description Color', 'bb-powerpack'),
 						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'          => 'css',
                             'selector'      => '.pp-flipbox-back .pp-flipbox-description',
@@ -859,6 +848,7 @@ FLBuilder::register_module('PPFlipBoxModule', array(
 						'type'          => 'color',
 						'label'         => __('Color', 'bb-powerpack'),
 						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'          => 'css',
                             'selector'      => '.pp-flipbox-icon-inner',
@@ -869,6 +859,7 @@ FLBuilder::register_module('PPFlipBoxModule', array(
 						'type'          => 'color',
 						'label'         => __('Color Hover', 'bb-powerpack'),
 						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'          => 'css',
                             'selector'      => '.pp-flipbox-icon:hover-inner',
@@ -879,6 +870,7 @@ FLBuilder::register_module('PPFlipBoxModule', array(
 						'type'          => 'color',
 						'label'         => __('Background', 'bb-powerpack'),
 						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'          => 'css',
                             'selector'      => '.pp-flipbox-icon-inner',
@@ -889,6 +881,7 @@ FLBuilder::register_module('PPFlipBoxModule', array(
 						'type'          => 'color',
 						'label'         => __('Background Hover', 'bb-powerpack'),
 						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'          => 'css',
                             'selector'      => '.pp-flipbox-icon-inner:hover',
@@ -941,6 +934,7 @@ FLBuilder::register_module('PPFlipBoxModule', array(
 						'type'          => 'color',
 						'label'         => __('Border Color', 'bb-powerpack'),
 						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'          => 'css',
                             'rules'     => array(
@@ -959,6 +953,7 @@ FLBuilder::register_module('PPFlipBoxModule', array(
 						'type'          => 'color',
 						'label'         => __('Border Color Hover', 'bb-powerpack'),
 						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'          => 'css',
                             'rules'     => array(

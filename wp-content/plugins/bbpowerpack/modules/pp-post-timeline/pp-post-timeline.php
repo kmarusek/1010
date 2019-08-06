@@ -371,7 +371,8 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 						'type'      	=> 'color',
                         'label'     	=> __('Arrow Color', 'bb-powerpack'),
 						'show_reset' 	=> true,
-                        'default'		=> '',
+						'default'		=> '',
+						'connections'	=> array('color'),
 						'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-post-timeline-slide-navigation span.slick-arrow, .pp-post-timeline-slide-navigation span.slick-arrow:before',
@@ -382,7 +383,8 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 						'type'      	=> 'color',
                         'label'     	=> __('Arrow Hover Color', 'bb-powerpack'),
 						'show_reset' 	=> true,
-                        'default'		=> '',
+						'default'		=> '',
+						'connections'	=> array('color'),
 						'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-post-timeline-slide-navigation span.slick-arrow:hover, .pp-post-timeline-slide-navigation span.slick-arrow:hover:before',
@@ -394,7 +396,8 @@ FLBuilder::register_module('PPPostTimelineModule', array(
                         'label'     	=> __('Background Color', 'bb-powerpack'),
 						'show_reset' 	=> true,
 						'show_alpha'	=> true,
-                        'default'		=> '',
+						'default'		=> '',
+						'connections'	=> array('color'),
 						'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-post-timeline-slide-navigation span.slick-arrow',
@@ -406,7 +409,8 @@ FLBuilder::register_module('PPPostTimelineModule', array(
                         'label'     	=> __('Background Hover Color', 'bb-powerpack'),
 						'show_reset' 	=> true,
 						'show_alpha'	=> true,
-                        'default'		=> '',
+						'default'		=> '',
+						'connections'	=> array('color'),
 						'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-post-timeline-slide-navigation span.slick-arrow:hover',
@@ -490,6 +494,7 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 						'label'         => __('Background Color', 'bb-powerpack'),
 						'default'       => '666666',
 						'show_reset'    => true,
+						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'          => 'css',
                             'selector'        => '.pp-post-timeline .slick-dots li button:before',
@@ -501,6 +506,7 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 						'label'         => __('Active Color', 'bb-powerpack'),
 						'default'       => '000000',
 						'show_reset'    => true,
+						'connections'	=> array('color'),
 						'preview'       => array(
                             'type'          => 'css',
                             'selector'        => '.pp-post-timeline .slick-dots li button:hover:before, .pp-post-timeline .slick-dots li.slick-active button:before',
@@ -597,7 +603,8 @@ FLBuilder::register_module('PPPostTimelineModule', array(
                         'type'      	=> 'color',
                         'label'     	=> __('Color', 'bb-powerpack'),
                         'show_reset'    => true,
-                        'default'  		=> '000000',
+						'default'  		=> '000000',
+						'connections'	=> array('color'),
                         'preview'   	=> array(
                             'type'  	=> 'css',
                             'rules' 	=> array(
@@ -631,6 +638,7 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 						'label' => __('Background Color', 'bb-powerpack'),
 						'show_reset'    => true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'         => array(
 							'type'          => 	'css',
 							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content',
@@ -715,6 +723,7 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 						'show_reset'    => true,
 						'show_alpha'	=> true,
 						'default'       => '',
+						'connections'	=> array('color'),
 						'preview'         => array(
 							'type'          => 	'css',
 							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-title-wrapper',
@@ -726,6 +735,7 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 						'label' => __('Text Color', 'bb-powerpack'),
 						'show_reset'    => true,
 						'default'       => '',
+						'connections'	=> array('color'),
 						'preview'         => array(
 							'type'          => 	'css',
 							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-title, .pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-title a',
@@ -749,6 +759,7 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 						'type'				=> 'color',
 						'label'				=> __('Border Color', 'bb-powerpack'),
 						'show_reset'		=> true,
+						'connections'	=> array('color'),
 						'preview'         => array(
 							'type'          => 	'css',
 							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-title-wrapper',
@@ -760,6 +771,7 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 						'label' => __('Meta Text Color', 'bb-powerpack'),
 						'show_reset'    => true,
 						'default'       => '',
+						'connections'	=> array('color'),
 						'preview'         => array(
 							'type'          => 	'css',
 							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-meta',
@@ -771,6 +783,7 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 						'label' => __('Meta Link Color', 'bb-powerpack'),
 						'show_reset'    => true,
 						'default'       => '',
+						'connections'	=> array('color'),
 						'preview'         => array(
 							'type'          => 	'css',
 							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-meta a',
@@ -782,6 +795,7 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 						'label' => __('Meta Link Hover Color', 'bb-powerpack'),
 						'show_reset'    => true,
 						'default'       => '',
+						'connections'	=> array('color'),
 						'preview'         => array(
 							'type'          => 	'css',
 							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-meta a:hover',
@@ -798,6 +812,7 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 						'type'      => 'color',
 						'label'     => __('Text Color', 'bb-powerpack'),
 						'show_reset'    => true,
+						'connections'	=> array('color'),
 						'preview'         => array(
 							'type'          => 	'css',
 							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-text-wrapper',
@@ -898,6 +913,7 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 						'show_reset'    => true,
 						'show_alpha'	=> true,
 						'default'       => '',
+						'connections'	=> array('color'),
 						'preview'         => array(
 							'type'          => 	'css',
 							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-icon, .pp-post-timeline.horizontal .pp-post-timeline-slide-navigation .pp-post-timeline-icon',
@@ -909,6 +925,7 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 						'label' => __('Icon Color', 'bb-powerpack'),
 						'show_reset'    => true,
 						'default'       => '',
+						'connections'	=> array('color'),
 						'preview'         => array(
 							'type'          => 	'css',
 							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-icon, .pp-post-timeline.horizontal .pp-post-timeline-slide-navigation .pp-post-timeline-icon',
@@ -959,6 +976,7 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 						'type'      => 'color',
 						'label'     => __('Border Color', 'bb-powerpack'),
 						'show_reset'    => true,
+						'connections'	=> array('color'),
 						'preview'         => array(
 							'type'          => 	'css',
 							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-icon, .pp-post-timeline.horizontal .pp-post-timeline-slide-navigation .pp-post-timeline-icon',
@@ -989,6 +1007,7 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 						'label'     => __('Background Color', 'bb-powerpack'),
 						'show_reset'    => true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'         => array(
 							'type'          => 	'css',
 							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-button',
@@ -1000,6 +1019,7 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 						'label'     => __('Background Hover Color', 'bb-powerpack'),
 						'show_reset'    => true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'         => array(
 							'type'          => 	'css',
 							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-button:hover',
@@ -1010,6 +1030,7 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 						'type'      => 'color',
 						'label'     => __('Text Color', 'bb-powerpack'),
 						'show_reset'    => true,
+						'connections'	=> array('color'),
 						'preview'         => array(
 							'type'          => 	'css',
 							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-button',
@@ -1020,6 +1041,7 @@ FLBuilder::register_module('PPPostTimelineModule', array(
 						'type'      => 'color',
 						'label'     => __('Text Hover Color', 'bb-powerpack'),
 						'show_reset'    => true,
+						'connections'	=> array('color'),
 						'preview'         => array(
 							'type'          => 	'css',
 							'selector'      => 	'.pp-post-timeline-content-wrapper .pp-post-timeline-item .pp-post-timeline-content .pp-post-timeline-button:hover',

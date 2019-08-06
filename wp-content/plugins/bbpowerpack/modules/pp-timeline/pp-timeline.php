@@ -264,7 +264,8 @@ FLBuilder::register_module('PPTimelineModule', array(
                         'type'      => 'color',
                         'label'     => __('Color', 'bb-powerpack'),
                         'show_reset'    => true,
-                        'default'   => '000000',
+						'default'   => '000000',
+						'connections'	=> array('color'),
                         'preview'   => array(
                             'type'  => 'css',
                             'rules' => array(
@@ -492,14 +493,16 @@ FLBuilder::register_settings_form('pp_timeline_form', array(
 							'type'			=> 'color',
 							'label'			=> __( 'Text Color', 'bb-powerpack' ),
 							'default'		=> '000000',
-							'show_reset'	=> true
+							'show_reset'	=> true,
+							'connections'	=> array('color'),
 						),
 						'icon_background_color'	=> array(
 							'type'			=> 'color',
 							'label'			=> __( 'Background Color', 'bb-powerpack' ),
 							'default'		=> 'ffffff',
 							'show_alpha'	=> true,
-							'show_reset'	=> true
+							'show_reset'	=> true,
+							'connections'	=> array('color'),
 						),
 						'icon_border'	=> array(
 							'type'          => 'border',
@@ -520,14 +523,16 @@ FLBuilder::register_settings_form('pp_timeline_form', array(
 							'type'			=> 'color',
 							'label'			=> __( 'Text Color', 'bb-powerpack' ),
 							'default'		=> '000000',
-							'show_reset'	=> true
+							'show_reset'	=> true,
+							'connections'	=> array('color'),
 						),
 						'title_background_color'	=> array(
 							'type'			=> 'color',
 							'label'			=> __( 'Background Color', 'bb-powerpack' ),
 							'default'		=> 'ffffff',
 							'show_alpha'	=> true,
-							'show_reset'	=> true
+							'show_reset'	=> true,
+							'connections'	=> array('color'),
 						),
 						'title_border'	=> array(
 							'type'			=> 'unit',
@@ -540,6 +545,7 @@ FLBuilder::register_settings_form('pp_timeline_form', array(
 							'type'				=> 'color',
 							'label'				=> __('Border Color', 'bb-powerpack'),
 							'show_reset'		=> true,
+							'connections'	=> array('color'),
 						)
                     ),
                 ),
@@ -549,7 +555,8 @@ FLBuilder::register_settings_form('pp_timeline_form', array(
                         'text_color'    => array(
                             'type'      => 'color',
                             'label'     => __('Text Color', 'bb-powerpack'),
-                            'show_reset'    => true
+							'show_reset'    => true,
+							'connections'	=> array('color'),
                         ),
                     ),
                 ),
@@ -559,7 +566,9 @@ FLBuilder::register_settings_form('pp_timeline_form', array(
                         'timeline_box_background'   => array(
                             'type'  => 'color',
                             'label' => __('Background Color', 'bb-powerpack'),
-                            'show_reset'    => true
+							'show_reset'    => true,
+							'show_alpha'	=> true,
+							'connections'	=> array('color'),
                         ),
                         'timeline_box_border'	=> array(
 							'type'          => 'border',
@@ -580,25 +589,29 @@ FLBuilder::register_settings_form('pp_timeline_form', array(
 							'type'		=> 'color',
 							'label' => __('Text Color', 'bb-powerpack'),
 							'default'	=> '333333',
+							'connections'	=> array('color'),
 						),
 						'timeline_button_text_hover'	=> array(
 							'type'		=> 'color',
 							'label' => __('Text Hover Color', 'bb-powerpack'),
 							'default'	=> 'dddddd',
+							'connections'	=> array('color'),
 						),
 						'timeline_button_background_color'	=> array(
 							'type'		=> 'color',
 							'label' => __('Background Color', 'bb-powerpack'),
 							'default'	=> 'dddddd',
 							'show_alpha'	=> true,
-							'show_reset'	=> true
+							'show_reset'	=> true,
+							'connections'	=> array('color'),
 						),
 						'timeline_button_background_hover'	=> array(
 							'type'		=> 'color',
 							'label' => __('Background Hover Color', 'bb-powerpack'),
 							'default'	=> '333333',
 							'show_alpha'	=> true,
-							'show_reset'	=> true
+							'show_reset'	=> true,
+							'connections'	=> array('color'),
 						),
                         'timeline_button_border'	=> array(
 							'type'          => 'border',

@@ -30,7 +30,7 @@ endswitch;
 $settings->posts_per_page = $default_posts_count;
 
 if ( $show_other_posts ) {
-	if ( ! empty( $settings->number_of_posts ) && is_numeric( $settings->number_of_posts ) ) {
+	if ( ! empty( $settings->number_of_posts ) && is_numeric( $settings->number_of_posts ) && $settings->number_of_posts > 0 ) {
 		$number_of_posts = absint( $settings->number_of_posts );
 		$settings->posts_per_page += $number_of_posts;
 	} else {
@@ -39,10 +39,10 @@ if ( $show_other_posts ) {
 }
 $other_posts_displayed = false;
 
-$query = FLBuilderLoop::query($settings);
+$query = FLBuilderLoop::query( $settings );
 
 // Render the posts.
-if($query->have_posts()) :
+if ( $query->have_posts() ) :
 
 	do_action( 'pp_tiles_before_posts', $settings, $query );
 
@@ -52,10 +52,10 @@ if($query->have_posts()) :
 
 	$count = 1;
 
-	while($query->have_posts()) :
+	while ( $query->have_posts() ) :
 
 		$query->the_post();
-		
+
 		$image_size = 'large';
 
 		if ( $count == 1 || ( $count == 2 && $layout == 1 ) ) {
@@ -89,16 +89,16 @@ if($query->have_posts()) :
 			}
 
 			// Other posts.
-			if ( $show_other_posts && $count > $layout_posts_count && ! $other_posts_displayed ) {
+			if ( $show_other_posts && $count > $layout_posts_count && $query->post_count > $layout_posts_count && ! $other_posts_displayed ) {
 				$other_posts_displayed = true;
-				echo '<div class="pp-post-tile-group pp-post-col-'. $settings->column_width .'">';
+				echo '<div class="pp-post-tile-group pp-post-col-' . $settings->column_width . '">';
 			}
 
 			if ( $show_other_posts && $count > $layout_posts_count && $count <= $query->post_count ) {
 				include apply_filters( 'pp_tiles_layout_path', $module->dir . 'includes/post-grid.php', $layout, $settings );
 			}
 
-			if ( $show_other_posts && $count >= $query->post_count ) {
+			if ( $show_other_posts && $count >= $query->post_count && $query->post_count > $layout_posts_count ) {
 				echo '</div>';
 			}
 

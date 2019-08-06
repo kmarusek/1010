@@ -16,10 +16,6 @@ if ( 'grid' == $settings->feed_layout && $settings->grid_columns ) {
 	$class[] = 'pp-instagram-feed-' . $settings->grid_columns;
 }
 
-if ( 'yes' == $settings->image_grayscale ) {
-	$class[] = 'pp-instagram-feed-gray';
-}
-
 if ( 'yes' == $settings->image_hover_grayscale ) {
 	$class[] = 'pp-instagram-feed-hover-gray';
 }

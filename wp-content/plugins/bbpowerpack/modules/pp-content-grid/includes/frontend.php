@@ -91,6 +91,10 @@ add_filter( 'fl_builder_loop_query_args', function( $args ) {
 	return $args;
 } );
 
+if ( ! isset( $settings->offset ) || empty( $settings->offset ) ) {
+	$settings->offset = 0;
+}
+
 // Get the query data.
 $query = FLBuilderLoop::query( $settings );
 

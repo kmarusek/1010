@@ -296,6 +296,19 @@ FLBuilderCSS::typography_field_rule( array(
 			text-align: <?php echo $settings->counter_alignment_medium; ?>;
 		}
 	<?php } ?>
+
+	.fl-node-<?php echo $id;?> .pp-countdown-digit-wrapper.circle,
+	.fl-node-<?php echo $id;?> .pp-countdown-digit-wrapper.square {
+		width: <?php if ( isset( $settings->block_width_medium ) && '' != $settings->block_width_medium ) { echo $settings->block_width_medium; } ?>px;
+		height: <?php if ( isset( $settings->block_width_medium ) && '' != $settings->block_width_medium ) { echo $settings->block_width_medium; } ?>px;
+	}
+
+	.fl-node-<?php echo $id;?> .pp-countdown-digit-wrapper.circle {
+		padding: <?php if ( isset( $settings->block_width_medium ) && '' != $settings->block_width_medium ) { echo $settings->block_width_medium / 5; } ?>px;
+	}
+	.fl-node-<?php echo $id;?> .pp-countdown-digit-wrapper.square {
+		padding: <?php if ( isset( $settings->block_width_medium ) && '' != $settings->block_width_medium ) { echo $settings->block_width_medium / 4; } ?>px;
+	}
 }
 
 @media only screen and ( max-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {
@@ -318,4 +331,17 @@ FLBuilderCSS::typography_field_rule( array(
 			padding-right: <?php echo $settings->block_spacing; ?>px;
 		}
 	<?php } ?>
+
+	.fl-node-<?php echo $id;?> .pp-countdown-digit-wrapper.circle,
+	.fl-node-<?php echo $id;?> .pp-countdown-digit-wrapper.square {
+		width: <?php if ( isset( $settings->block_width_responsive ) && '' != $settings->block_width_responsive ) { echo $settings->block_width_responsive; } ?>px;
+		height: <?php if ( isset( $settings->block_width_responsive ) && '' != $settings->block_width_responsive ) { echo $settings->block_width_responsive; } ?>px;
+	}
+
+	.fl-node-<?php echo $id;?> .pp-countdown-digit-wrapper.circle {
+		padding: <?php if ( isset( $settings->block_width_responsive ) && '' != $settings->block_width_responsive ) { echo $settings->block_width_responsive / 5; } ?>px;
+	}
+	.fl-node-<?php echo $id;?> .pp-countdown-digit-wrapper.square {
+		padding: <?php if ( isset( $settings->block_width_responsive ) && '' != $settings->block_width_responsive ) { echo $settings->block_width_responsive / 4; } ?>px;
+	}
 }

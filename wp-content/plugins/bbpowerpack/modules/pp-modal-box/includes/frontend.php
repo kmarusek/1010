@@ -27,7 +27,7 @@
 	</div>
 	<?php } ?>
 <?php } ?>
-<div id="modal-<?php echo $module->node; ?>" class="pp-modal-wrap<?php echo ('yes' == $settings->modal_height_auto && 'fullscreen' != $settings->modal_layout) ? ' pp-modal-height-auto' : ''; ?>">
+<div id="modal-<?php echo $module->node; ?>" class="pp-modal-wrap">
 	<div class="pp-modal-container">
 		<div class="pp-modal-overlay"></div>
 		<?php if ( 'win-top-right' == $settings->close_btn_position || 'win-top-left' == $settings->close_btn_position ) { ?>

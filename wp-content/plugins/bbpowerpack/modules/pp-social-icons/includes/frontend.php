@@ -1,4 +1,4 @@
-<div class="pp-social-icons pp-social-icons-<?php echo $settings->align; ?> pp-responsive-<?php echo $settings->responsive_align; ?>">
+<div class="pp-social-icons pp-social-icons-<?php echo $settings->align; ?> pp-social-icons-<?php echo $settings->direction; ?> pp-responsive-<?php echo $settings->responsive_align; ?>">
 <?php
 $icon_prefix = 'fa';
 $email_icon_prefix = 'fa';

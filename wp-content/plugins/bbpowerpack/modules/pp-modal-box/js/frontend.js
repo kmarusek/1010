@@ -120,6 +120,7 @@
 				self.bindEvents();
 
 				self.element.trigger('afterload');
+				$(document).trigger( 'pp_modal_box_rendered', [self.element] );
 				
             }, self.settings.auto_load ? parseFloat(self.settings.delay) * 1000 : 0);
 		},

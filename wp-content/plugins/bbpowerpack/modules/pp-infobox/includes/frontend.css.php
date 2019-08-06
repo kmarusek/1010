@@ -89,7 +89,7 @@ FLBuilderCSS::border_field_rule( array(
 		<?php if( $settings->layouts == '3' || $settings->layouts == '4' ) { ?>
 			margin-bottom: 0;
 		<?php } ?>
-		<?php if( $settings->layouts == '5' ) { ?>
+		<?php if( $settings->layouts == '5' || $settings->layouts == '6' ) { ?>
 			text-align: <?php echo $settings->alignment; ?>
 		<?php } ?>
 	}

@@ -368,7 +368,8 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                         'label'         => __('Background Color', 'bb-powerpack'),
                         'default'       => 'ffffff',
                         'show_reset'    => true,
-                        'show_alpha'    => true,
+						'show_alpha'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-ff-content',
@@ -408,7 +409,8 @@ FLBuilder::register_module('PPFormidableFormModule', array(
 					'form_bg_overlay'     => array(
                         'type'          => 'color',
                         'label'         => __('Background Overlay Color', 'bb-powerpack'),
-                        'default'       => '000000',
+						'default'       => '000000',
+						'connections'	=> array('color'),
                         'show_reset'    => true,
                         'show_alpha'    => true,
                     ),
@@ -470,7 +472,8 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                         'label'         => __('Background Color', 'bb-powerpack'),
                         'default'       => '',
                         'show_reset'    => true,
-                        'show_alpha'    => true,
+						'show_alpha'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-ff-content .frm_forms .frm-show-form  .frm_section_heading h3',
@@ -480,7 +483,8 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                     'section_field_color'  => array(
                         'type'                  => 'color',
                         'label'                 => __('Color', 'bb-powerpack'),
-                        'default'               => '444444',
+						'default'               => '444444',
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.pp-ff-content .frm_forms .frm-show-form  .frm_section_heading h3, .pp-ff-content .frm_forms .frm_icon_font',
@@ -531,7 +535,8 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                         'type'          => 'color',
                         'label'         => __('Border Color', 'bb-powerpack'),
                         'default'       => 'ffffff',
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-ff-content .frm_forms .frm-show-form  .frm_section_heading h3',
@@ -687,7 +692,8 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                     'input_field_text_color'    => array(
                         'type'                  => 'color',
                         'label'                 => __('Text Color', 'bb-powerpack'),
-                        'default'               => '333333',
+						'default'               => '333333',
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'                  => 'css',
                             'selector'              => '.pp-ff-content .frm_forms .form-field input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-ff-content .frm_forms .form-field select, .pp-ff-content .frm_forms .form-field textarea',
@@ -699,7 +705,8 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                         'label'                 => __('Background Color', 'bb-powerpack'),
                         'default'               => 'ffffff',
                         'show_reset'            => true,
-                        'show_alpha'            => true,
+						'show_alpha'            => true,
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.pp-ff-content .frm_forms .form-field input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-ff-content .frm_forms .form-field select, .pp-ff-content .frm_forms .form-field textarea, .pp-ff-content .frm_forms .frm_dropzone',
@@ -716,7 +723,8 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                         'type'                  => 'color',
                         'label'                 => __('Border Color', 'bb-powerpack'),
                         'default'               => 'eeeeee',
-                        'show_reset'            => true,
+						'show_reset'            => true,
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.pp-ff-content .frm_forms .form-field input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-ff-content .frm_forms .form-field select, .pp-ff-content .frm_forms .form-field textarea',
@@ -752,7 +760,8 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                         'type'                  => 'color',
                         'label'                 => __('Focus Border Color', 'bb-powerpack'),
                         'default'               => '719ece',
-                        'show_reset'            => true,
+						'show_reset'            => true,
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.pp-ff-content .frm_forms .form-field input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]):focus, .pp-ff-content .frm_forms .form-field select:focus, .pp-ff-content .frm_forms .form-field textarea:focus',
@@ -836,7 +845,8 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                     'input_shadow_color'		=> array(
                         'type'          => 'color',
                         'label'         => __('Shadow Color', 'bb-powerpack'),
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-ff-content .frm_forms .form-field input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-ff-content .frm_forms .form-field select, .pp-ff-content .frm_forms .form-field textarea',
@@ -902,7 +912,8 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                         'type'                  => 'color',
                         'label'                 => __('Color', 'bb-powerpack'),
                         'default'               => 'eeeeee',
-                        'show_reset'            => true,
+						'show_reset'            => true,
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.pp-ff-content .frm_forms .form-field input::-webkit-input-placeholder, .pp-ff-content .frm_forms .form-field select::-webkit-input-placeholder, .pp-ff-content .frm_forms .form-field textarea::-webkit-input-placeholder',
@@ -924,12 +935,14 @@ FLBuilder::register_module('PPFormidableFormModule', array(
 						'label'		=> __('Text Color', 'bb-powerpack'),
 						'default'	=> 'fffffff',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 					),
 					'button_text_color_hover'	=> array(
 						'type'		=> 'color',
 						'label'		=> __('Text Hover Color', 'bb-powerpack'),
 						'default'	=> 'eeeeee',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 					),
 					'button_bg_color_default'	=> array(
 						'type'		=> 'color',
@@ -937,6 +950,7 @@ FLBuilder::register_module('PPFormidableFormModule', array(
 						'default'	=> '333333',
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 					),
 					'button_bg_color_hover'		=> array(
 						'type'		=> 'color',
@@ -944,6 +958,7 @@ FLBuilder::register_module('PPFormidableFormModule', array(
 						'default'	=> '000000',
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 					),
                 )
             ),
@@ -1034,7 +1049,8 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                         'label'                        => __('Error Background Color', 'bb-powerpack'),
                         'default'                      => 'f2dede',
                         'show_reset'                   => true,
-                        'show_alpha'                   => true,
+						'show_alpha'                   => true,
+						'connections'					=> array('color'),
                         'preview'                      => array(
                             'type'                     => 'css',
                             'selector'                 => '.frm_forms .frm_error_style',
@@ -1044,7 +1060,8 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                     'validation_error_color'		=> array(
                         'type'                  => 'color',
                         'label'                 => __('Error Description Color', 'bb-powerpack'),
-                        'default'               => 'b94a4b',
+						'default'               => 'b94a4b',
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.frm_forms .frm_error_style',
@@ -1055,7 +1072,8 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                         'type'                         => 'color',
                         'label'                        => __('Error Border Color', 'bb-powerpack'),
                         'default'                      => 'ebccd1',
-                        'show_reset'                   => true,
+						'show_reset'                   => true,
+						'connections'					=> array('color'),
                         'preview'                      => array(
                             'type'                     => 'css',
                             'selector'                 => '.frm_forms .frm_error_style',
@@ -1080,7 +1098,8 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                     'validation_message_color'		=> array(
                         'type'                    => 'color',
                         'label'                   => __('Error Field Message Color', 'bb-powerpack'),
-                        'default'                 => '790000',
+						'default'                 => '790000',
+						'connections'				=> array('color'),
                         'preview'                 => array(
                             'type'                => 'css',
                             'selector'            => '.frm_forms .frm_error',
@@ -1098,7 +1117,8 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                         'label'                        => __('Background Color', 'bb-powerpack'),
                         'default'                      => 'dff0d8',
                         'show_reset'                   => true,
-                        'show_alpha'                   => true,
+						'show_alpha'                   => true,
+						'connections'					=> array('color'),
                         'preview'                      => array(
                             'type'                     => 'css',
                             'selector'                 => '.frm_forms .frm_message',
@@ -1108,7 +1128,8 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                     'success_message_color'    => array(
                         'type'                         => 'color',
                         'label'                        => __('Color', 'bb-powerpack'),
-                        'default'                      => '468847',
+						'default'                      => '468847',
+						'connections'					=> array('color'),
                         'preview'                      => array(
                             'type'                     => 'css',
                             'selector'                 => '.frm_forms .frm_message',
@@ -1119,7 +1140,8 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                         'type'                         => 'color',
                         'label'                        => __('Border Color', 'bb-powerpack'),
                         'default'                      => 'd6e9c6',
-                        'show_reset'                   => true,
+						'show_reset'                   => true,
+						'connections'					=> array('color'),
                         'preview'                      => array(
                             'type'                     => 'css',
                             'selector'                 => '.frm_forms .frm_message',
@@ -1149,7 +1171,8 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                         'type'          => 'color',
                         'label'         => __('Color', 'bb-powerpack'),
                         'default'       => '333333',
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-ff-content .frm_forms h3.frm_form_title, .pp-ff-content .pp-form-title',
@@ -1175,7 +1198,8 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                         'type'          => 'color',
                         'label'         => __('Color', 'bb-powerpack'),
                         'default'       => '333333',
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-ff-content .frm_forms .frm_form_title + div.frm_description p, .pp-ff-content .pp-form-description',
@@ -1204,7 +1228,8 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                         'type'          => 'color',
                         'label'         => __('Color', 'bb-powerpack'),
                         'default'       => '333333',
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-ff-content .frm_forms label.frm_primary_label, .pp-ff-content .frm_forms .form-field.frm_third div.frm_description, .pp-ff-content .frm_forms label, .pp-ff-content .frm_forms .frm_form_field.frm_html_container',
@@ -1263,7 +1288,8 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                     'input_desc_color'  		=> array(
                         'type'                  => 'color',
                         'label'                 => __('Description Color', 'bb-powerpack'),
-                        'default'               => '000000',
+						'default'               => '000000',
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.pp-ff-content .frm_forms .form-field input + .frm_description',

@@ -379,6 +379,7 @@ FLBuilder::register_module('PPWPFormsModule', array(
                         'default'       => 'ffffff',
                         'show_reset'    => true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-wpforms-content',
@@ -420,7 +421,8 @@ FLBuilder::register_module('PPWPFormsModule', array(
                         'label'         => __('Background Overlay Color', 'bb-powerpack'),
                         'default'       => '000000',
                         'show_reset'    => true,
-						'show_alpha'	=> true
+						'show_alpha'	=> true,
+						'connections'	=> array('color'),
                     ),
                 )
             ),
@@ -545,7 +547,8 @@ FLBuilder::register_module('PPWPFormsModule', array(
                     'input_field_text_color'    => array(
                         'type'                  => 'color',
                         'label'                 => __('Text Color', 'bb-powerpack'),
-                        'default'               => '333333',
+						'default'               => '333333',
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'                  => 'css',
                             'selector'              => '.pp-wpforms-content div.wpforms-container-full .wpforms-form input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-wpforms-content div.wpforms-container-full .wpforms-form select, .pp-wpforms-content div.wpforms-container-full .wpforms-form textarea',
@@ -558,6 +561,7 @@ FLBuilder::register_module('PPWPFormsModule', array(
                         'default'               => 'ffffff',
                         'show_reset'            => true,
 						'show_alpha'			=> true,
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.pp-wpforms-content div.wpforms-container-full .wpforms-form input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-wpforms-content div.wpforms-container-full .wpforms-form select, .pp-wpforms-content div.wpforms-container-full .wpforms-form textarea',
@@ -573,7 +577,8 @@ FLBuilder::register_module('PPWPFormsModule', array(
                         'type'                  => 'color',
                         'label'                 => __('Focus Border Color', 'bb-powerpack'),
                         'default'               => '719ece',
-                        'show_reset'            => true,
+						'show_reset'            => true,
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.pp-wpforms-content div.wpforms-container-full .wpforms-form input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]):focus, .pp-wpforms-content div.wpforms-container-full .wpforms-form select:focus, .pp-wpforms-content div.wpforms-container-full .wpforms-form textarea:focus',
@@ -584,7 +589,8 @@ FLBuilder::register_module('PPWPFormsModule', array(
                         'type'                  => 'color',
                         'label'                 => __('Border Color', 'bb-powerpack'),
                         'default'               => 'eeeeee',
-                        'show_reset'            => true,
+						'show_reset'            => true,
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.pp-wpforms-content div.wpforms-container-full .wpforms-form input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-wpforms-content div.wpforms-container-full .wpforms-form select, .pp-wpforms-content div.wpforms-container-full .wpforms-form textarea',
@@ -597,6 +603,7 @@ FLBuilder::register_module('PPWPFormsModule', array(
                         'default'                 => '1',
 						'units'					  => array( 'px' ),
 						'slider'				  => true,
+						'connections'				=> array('color'),
                         'preview'                 => array(
                             'type'                => 'css',
                             'rules'                 => array(
@@ -721,7 +728,8 @@ FLBuilder::register_module('PPWPFormsModule', array(
                     'input_shadow_color'      => array(
                         'type'          => 'color',
                         'label'         => __('Shadow Color', 'bb-powerpack'),
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-wpforms-content div.wpforms-container-full .wpforms-form input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .pp-wpforms-content div.wpforms-container-full .wpforms-form select, .pp-wpforms-content div.wpforms-container-full .wpforms-form textarea',
@@ -787,7 +795,8 @@ FLBuilder::register_module('PPWPFormsModule', array(
                         'type'                  => 'color',
                         'label'                 => __('Color', 'bb-powerpack'),
                         'default'               => 'eeeeee',
-                        'show_reset'            => true,
+						'show_reset'            => true,
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.pp-wpforms-content div.wpforms-container-full .wpforms-form input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"])::-webkit-input-placeholder, .pp-wpforms-content div.wpforms-container-full .wpforms-form select::-webkit-input-placeholder, .pp-wpforms-content div.wpforms-container-full .wpforms-form textarea::-webkit-input-placeholder',
@@ -809,6 +818,7 @@ FLBuilder::register_module('PPWPFormsModule', array(
 						'label'     	=> __('Text Color', 'bb-powerpack'),
 						'default'    	=> 'ffffff',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-wpforms-content div.wpforms-container-full .wpforms-form button',
@@ -820,6 +830,7 @@ FLBuilder::register_module('PPWPFormsModule', array(
 						'label'     	=> __('Text Hover Color', 'bb-powerpack'),
 						'default'    	=> 'eeeeee',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-wpforms-content div.wpforms-container-full .wpforms-form button:hover',
@@ -832,6 +843,7 @@ FLBuilder::register_module('PPWPFormsModule', array(
 						'default'    	=> '333333',
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-wpforms-content div.wpforms-container-full .wpforms-form button',
@@ -844,6 +856,7 @@ FLBuilder::register_module('PPWPFormsModule', array(
 						'default'    	=> '000000',
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'		=> 'css',
 							'selector'	=> '.pp-wpforms-content div.wpforms-container-full .wpforms-form button:hover',
@@ -942,7 +955,8 @@ FLBuilder::register_module('PPWPFormsModule', array(
                     'validation_message_color'    => array(
                         'type'                    => 'color',
                         'label'                   => __('Color', 'bb-powerpack'),
-                        'default'                 => '990000',
+						'default'                 => '990000',
+						'connections'				=> array('color'),
                         'preview'                 => array(
                             'type'                => 'css',
                             'selector'            => '.pp-wpforms-content div.wpforms-container-full .wpforms-form label.wpforms-error',
@@ -960,6 +974,7 @@ FLBuilder::register_module('PPWPFormsModule', array(
                         'default'                      => 'e0ffc7',
                         'show_reset'                   => true,
 						'show_alpha'				   => true,
+						'connections'					=> array('color'),
                         'preview'                      => array(
                             'type'                     => 'css',
                             'selector'                 => '.pp-wpforms-content .wpforms-confirmation-container-full',
@@ -969,7 +984,8 @@ FLBuilder::register_module('PPWPFormsModule', array(
                     'success_message_color'    => array(
                         'type'                         => 'color',
                         'label'                        => __('Color', 'bb-powerpack'),
-                        'default'                      => '333333',
+						'default'                      => '333333',
+						'connections'					=> array('color'),
                         'preview'                      => array(
                             'type'                     => 'css',
                             'selector'                 => '.pp-wpforms-content .wpforms-confirmation-container-full',
@@ -980,7 +996,8 @@ FLBuilder::register_module('PPWPFormsModule', array(
                         'type'                         => 'color',
                         'label'                        => __('Border Color', 'bb-powerpack'),
                         'default'                      => 'b4d39b',
-                        'show_reset'                   => true,
+						'show_reset'                   => true,
+						'connections'					=> array('color'),
                         'preview'                      => array(
                             'type'                     => 'css',
                             'selector'                 => '.pp-wpforms-content .wpforms-confirmation-container-full',
@@ -1010,7 +1027,8 @@ FLBuilder::register_module('PPWPFormsModule', array(
                         'type'          => 'color',
                         'label'         => __('Color', 'bb-powerpack'),
                         'default'       => '',
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-title, .pp-wpforms-content .pp-form-title',
@@ -1036,7 +1054,8 @@ FLBuilder::register_module('PPWPFormsModule', array(
                         'type'          => 'color',
                         'label'         => __('Color', 'bb-powerpack'),
                         'default'       => '',
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-description, .pp-wpforms-content .pp-form-description',
@@ -1062,7 +1081,8 @@ FLBuilder::register_module('PPWPFormsModule', array(
                         'type'          => 'color',
                         'label'         => __('Color', 'bb-powerpack'),
                         'default'       => '',
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-field-label, .pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-field-sublabel',
@@ -1127,7 +1147,8 @@ FLBuilder::register_module('PPWPFormsModule', array(
                         'type'                  => 'color',
                         'label'                 => __('Description Color', 'bb-powerpack'),
                         'default'               => '',
-                        'show_reset'            => true,
+						'show_reset'            => true,
+						'connections'			=> array('color'),
                         'preview'               => array(
                             'type'              => 'css',
                             'selector'          => '.pp-wpforms-content div.wpforms-container-full .wpforms-form .wpforms-field-description',

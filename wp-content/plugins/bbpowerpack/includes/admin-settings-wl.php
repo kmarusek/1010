@@ -92,6 +92,14 @@
                     <input id="ppwl_remove_license_key_link" name="ppwl_remove_license_key_link" type="checkbox" value="1" <?php echo self::get_option('ppwl_remove_license_key_link') == 1 ? 'checked="checked"' : '' ?> />
                 </td>
             </tr>
+			<tr valign="top">
+                <th scope="row" valign="top">
+                    <label for="ppwl_list_modules_with_standard"><?php esc_html_e('List PowerPack modules with Standard Modules', 'bb-powerpack'); ?></label>
+                </th>
+                <td>
+                    <input id="ppwl_list_modules_with_standard" name="ppwl_list_modules_with_standard" type="checkbox" value="1" <?php echo self::get_option('ppwl_list_modules_with_standard') == 1 ? 'checked="checked"' : '' ?> />
+                </td>
+            </tr>
             <tr valign="top">
                 <th scope="row" valign="top">
                     <label for="ppwl_hide_support_msg"><?php esc_html_e('Hide Support message', 'bb-powerpack'); ?></label>
@@ -122,6 +130,22 @@
                 </th>
                 <td>
 					<input id="ppwl_hide_integration_tab" name="ppwl_hide_integration_tab" type="checkbox" value="1" <?php echo self::get_option('ppwl_hide_integration_tab') == 1 ? 'checked="checked"' : '' ?> />
+                </td>
+            </tr>
+			<tr valign="top">
+                <th scope="row" valign="top">
+                    <label for="ppwl_hide_header_footer_tab"><?php esc_html_e('Hide Header/Footer setting tab', 'bb-powerpack'); ?></label>
+                </th>
+                <td>
+					<input id="ppwl_hide_header_footer_tab" name="ppwl_hide_header_footer_tab" type="checkbox" value="1" <?php echo self::get_option('ppwl_hide_header_footer_tab') == 1 ? 'checked="checked"' : '' ?> />
+                </td>
+            </tr>
+			<tr valign="top">
+                <th scope="row" valign="top">
+                    <label for="ppwl_hide_maintenance_tab"><?php esc_html_e('Hide Maintenance Mode setting tab', 'bb-powerpack'); ?></label>
+                </th>
+                <td>
+					<input id="ppwl_hide_maintenance_tab" name="ppwl_hide_maintenance_tab" type="checkbox" value="1" <?php echo self::get_option('ppwl_hide_maintenance_tab') == 1 ? 'checked="checked"' : '' ?> />
                 </td>
             </tr>
             <tr valign="top">

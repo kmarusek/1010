@@ -27,12 +27,16 @@
 }
 .pp-custom-grid-post-terms {
     display: inline-block;
-    bottom: 20px;
+    bottom: 0;
     background: #f9f9f9;
     padding: 2px 10px;
     font-size: 12px;
     border-radius: 3px;
-    margin: 20px 0 0 20px;
+    margin: 20px;
+}
+.pp-custom-align-center .pp-custom-grid-post-terms {
+	margin: 0;
+	bottom: 20px;
 }
 .pp-custom-grid-post-terms,
 .pp-custom-grid-post-terms a {

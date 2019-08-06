@@ -476,6 +476,7 @@ FLBuilder::register_module('PPDualButtonModule', array(
 						'default'		=> 'eeeeee',
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-dual-button-content .pp-dual-button-1 a',
@@ -487,6 +488,7 @@ FLBuilder::register_module('PPDualButtonModule', array(
 						'label'			=> __('Text Color', 'bb-powerpack'),
 						'default'		=> '565656',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-dual-button-content .pp-dual-button-1 a',
@@ -499,6 +501,7 @@ FLBuilder::register_module('PPDualButtonModule', array(
 						'default'		=> 'dddddd',
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'         => array(
                             'type'            => 'none',
                         )
@@ -508,6 +511,7 @@ FLBuilder::register_module('PPDualButtonModule', array(
 						'label'			=> __('Text Hover Color', 'bb-powerpack'),
 						'default'		=> '565656',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'         => array(
                             'type'            => 'none',
                         )
@@ -518,6 +522,7 @@ FLBuilder::register_module('PPDualButtonModule', array(
 						'default'	=> '333333',
 						'show_alpha'	=> true,
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'  	=> 'css',
 							'selector'  => '.pp-dual-button-1 .pp-button',
@@ -530,6 +535,7 @@ FLBuilder::register_module('PPDualButtonModule', array(
 						'default'	=> 'c6c6c6',
 						'show_alpha'	=> true,
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'  	=> 'none',
 						)
@@ -571,6 +577,7 @@ FLBuilder::register_module('PPDualButtonModule', array(
 						'default'		=> 'dddddd',
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-dual-button-content .pp-dual-button-2 a',
@@ -582,6 +589,7 @@ FLBuilder::register_module('PPDualButtonModule', array(
 						'label'			=> __('Text Color', 'bb-powerpack'),
 						'default'		=> '565656',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'         => array(
                             'type'            => 'css',
                             'selector'        => '.pp-dual-button-content .pp-dual-button-2 a',
@@ -594,6 +602,7 @@ FLBuilder::register_module('PPDualButtonModule', array(
 						'default'		=> 'eeeeee',
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'         => array(
                             'type'            => 'none',
                         )
@@ -603,6 +612,7 @@ FLBuilder::register_module('PPDualButtonModule', array(
 						'label'			=> __('Text Hover Color', 'bb-powerpack'),
 						'default'		=> '565656',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'         => array(
                             'type'            => 'none',
                         )
@@ -613,6 +623,7 @@ FLBuilder::register_module('PPDualButtonModule', array(
 						'default'	=> '333333',
 						'show_alpha'	=> true,
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'  	=> 'css',
 							'selector'  => '.pp-dual-button-2 .pp-button',
@@ -625,6 +636,7 @@ FLBuilder::register_module('PPDualButtonModule', array(
 						'default'	=> 'c6c6c6',
 						'show_alpha'	=> true,
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'  	=> 'none',
 						)

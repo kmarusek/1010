@@ -19,7 +19,7 @@ FLBuilderModel::default_settings($settings, array(
 	'more_link_text'	=> __('Read More', 'bb-powerpack'),
 	'post_grid_filters_display' => 'no',
 	'post_grid_filters'	=> 'none',
-	'post_grid_filters_type'	=> 'static',
+	'post_grid_filters_type'	=> 'dynamic',
 	'all_filter_label'	=> __('All', 'bb-powerpack'),
 	'post_taxonomies'	=> 'none',
 	'product_rating'	=> 'yes',
@@ -237,12 +237,16 @@ do_action( 'pp_cg_loop_settings_before_form', $settings ); // e.g Add custom FLB
 			'label'         => __('Show Content', 'bb-powerpack'),
 			'default'       => 'yes',
 			'options'       => array(
-				'yes'          => __('Yes', 'bb-powerpack'),
-				'no'         => __('No', 'bb-powerpack'),
+				'yes'          	=> __('Yes', 'bb-powerpack'),
+				'no'         	=> __('No', 'bb-powerpack'),
+				'custom'		=> __('Custom', 'bb-powerpack')
 			),
 			'toggle'	=> array(
 				'yes'	=> array(
 					'fields'	=> array('content_type')
+				),
+				'custom'	=> array(
+					'fields'	=> array('custom_content')
 				)
 			)
 		),$settings);
@@ -261,7 +265,15 @@ do_action( 'pp_cg_loop_settings_before_form', $settings ); // e.g Add custom FLB
 					'fields' 		=> array('content_length'),
 				)
 			)
-		),$settings);
+		), $settings);
+
+		FLBuilder::render_settings_field('custom_content',  array(
+			'type'          => 'text',
+			'label'         => __('Custom Content', 'bb-powerpack'),
+			'default'       => '',
+			'connections'	=> array('string', 'html', 'url', 'custom_field'),
+			'help'			=> __('If you are using Beaver Themer, you can display custom content by field conection.', 'bb-powerpack')
+		), $settings);
 
 		FLBuilder::render_settings_field('content_length', array(
 			'type'		=> 'text',

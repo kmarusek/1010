@@ -248,7 +248,8 @@ FLBuilder::register_module('PPAnnouncementBarModule', array(
                         'type'      => 'color',
                         'label'     => __('Background Color', 'bb-powerpack'),
                         'show_reset'    => true,
-                        'show_alpha'    => true,
+						'show_alpha'    => true,
+						'connections'	=> array('color'),
                         'preview'   => array(
                             'type'  => 'css',
                             'selector'  => '.pp-announcement-bar-wrap',
@@ -293,7 +294,8 @@ FLBuilder::register_module('PPAnnouncementBarModule', array(
                     'announcement_bar_border_color'	=> array(
                         'type'      => 'color',
                         'label'     => __('Border Color', 'bb-powerpack'),
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'   => array(
                             'type'  => 'css',
                             'selector'  => '.pp-announcement-bar-wrap',
@@ -322,7 +324,8 @@ FLBuilder::register_module('PPAnnouncementBarModule', array(
                     'announcement_icon_color'   => array(
                         'type'      => 'color',
                         'label'     => __('Color', 'bb-powerpack'),
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'   => array(
                             'type'  => 'css',
                             'selector'  => '.pp-announcement-bar-icon .pp-icon',
@@ -388,7 +391,8 @@ FLBuilder::register_module('PPAnnouncementBarModule', array(
                     'announcement_box_shadow_color'		=> array(
                         'type'              => 'color',
                         'label'             => __('Color', 'bb-powerpack'),
-                        'default'           => '000000',
+						'default'           => '000000',
+						'connections'	=> array('color'),
                     ),
                     'announcement_box_shadow_opacity'	=> array(
                         'type'              => 'text',
@@ -405,7 +409,8 @@ FLBuilder::register_module('PPAnnouncementBarModule', array(
                     'announcement_close_color'  => array(
                         'type'      => 'color',
                         'label'     => __('Color', 'bb-powerpack'),
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'   => array(
                             'type'  => 'css',
                             'selector'  => '.pp-announcement-bar-wrap .pp-announcement-bar-close-button .pp-close-button',
@@ -438,6 +443,7 @@ FLBuilder::register_module('PPAnnouncementBarModule', array(
 						'default'		=> 'dddddd',
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'      	=> 'css',
                             'selector'  	=> '.pp-announcement-bar-link a',
@@ -450,6 +456,7 @@ FLBuilder::register_module('PPAnnouncementBarModule', array(
 						'default'		=> '333333',
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 					),
 					'announcement_button_border_group'	=> array(
 						'type'					=> 'border',
@@ -495,7 +502,8 @@ FLBuilder::register_module('PPAnnouncementBarModule', array(
                     'announcement_text_color'    => array(
                         'type'      => 'color',
                         'label'     => __('Color', 'bb-powerpack'),
-                        'show_reset'    => true,
+						'show_reset'    => true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-announcement-bar-content p',
@@ -521,12 +529,14 @@ FLBuilder::register_module('PPAnnouncementBarModule', array(
 						'label'			=> __('Text Color', 'bb-powerpack'),
 						'default'		=> '333333',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 					),
 					'announcement_link_color_hover'		=> array(
 						'type'			=> 'color',
 						'label'			=> __('Text Hover Color', 'bb-powerpack'),
 						'default'		=> 'dddddd',
 						'show_reset'	=> true,
+						'connections'	=> array('color'),
 					),
                 ),
             ),

@@ -1,7 +1,7 @@
 <?php
 	$title_tag = isset( $settings->hover_card_title_tag ) ? $settings->hover_card_title_tag : 'h2';
 ?>
-<div class="pp-hover-card-wrap clearfix">
+<div class="pp-hover-card-wrap pp-clearfix">
 	<?php
 	for( $i = 0; $i < count( $settings->card_content ); $i++ ) {
 		if( !is_object( $settings->card_content[$i] ) ) {
@@ -9,7 +9,7 @@
 		}
 		$card = $settings->card_content[$i];
 	?>
-		<div class="pp-hover-card pp-hover-card-<?php echo $i; ?> <?php echo $settings->style_type; ?> clearfix" onclick="">
+		<div class="pp-hover-card pp-hover-card-<?php echo $i; ?> <?php echo $settings->style_type; ?> pp-clearfix" onclick="">
 			<?php if( $card->hover_card_link_type == 'box' ) { ?>
 			<a class="pp-more-link-container" href="<?php echo $card->box_link == '#' ? 'javascript:void(0)' : $card->box_link; ?>" target="<?php echo $card->box_link_target; ?>">
 			<?php } ?>

@@ -120,6 +120,7 @@ FLBuilder::register_module('PPNotificationsModule', array(
                         'default'   => 'dddddd',
                         'show_reset'    => true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => 'div.pp-notification-wrapper',
@@ -172,7 +173,8 @@ FLBuilder::register_module('PPNotificationsModule', array(
                         'type'      => 'color',
                         'label'     => __('Color', 'bb-powerpack'),
                         'show_reset'    => true,
-                        'default'   => '000000',
+						'default'   => '000000',
+						'connections'	=> array('color'),
                         'preview'   => array(
                             'type'  => 'css',
                             'selector'  => '.pp-notification-wrapper .pp-notification-inner .pp-notification-icon span.pp-icon',
@@ -202,7 +204,8 @@ FLBuilder::register_module('PPNotificationsModule', array(
                         'type'      => 'color',
                         'label'     => __('Color', 'bb-powerpack'),
                         'show_reset'    => true,
-                        'default'       => '000000',
+						'default'       => '000000',
+						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-notification-wrapper .pp-notification-inner .pp-notification-content p',
