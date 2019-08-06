@@ -105,11 +105,11 @@ FLBuilder::register_module("BWAnimation", array(
                     ),
                     'ab_loadanim' => array(
                         'type' => 'select',
-                        'label' => __("Load animation present", 'skeleton-warrior'),
-                        'description' => __("Indicates that a load animation has been applied in CSS. If so, the load animation will remain active until it has completed. Not to be used on a looping animation.", 'skeleton-warrior'),
+                        'label' => __("Custom load animation present", 'skeleton-warrior'),
+                        'description' => __("Indicates that a custom load animation has been applied in CSS. When indicated, backgrounds will not start to animate until indicated pre-load animations have completed. Should not be enabled alongisde a load behavior.", 'skeleton-warrior'),
                         'options' => array(
-                            'yes' => __("Yes"),
-                            'no' => __("No"),
+                            'yes' => __("Load animation with fade out present, wait for it to completely fade out"),
+                            'no' => __("No load animation present, animate backgrounds in sync"),
                         ),
                         'default' => 'no',
                     )

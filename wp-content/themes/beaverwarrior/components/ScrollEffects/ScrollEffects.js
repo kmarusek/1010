@@ -22,7 +22,7 @@
 
         this.$scrollCtxt.on("scroll", this.scrollHandler);
         
-        this.has_load_animation = $(elem).data("scrolleffects-loadanimation") !== false;
+        this.has_load_animation = $(elem).data("scrolleffects-loadanimation") !== undefined;
     }
 
     Behaviors.inherit(ScrollEffects, Behaviors.Behavior);
@@ -140,10 +140,14 @@
         this.loaded = false;
         this.load().then(this.on_loaded.bind(this));
         
-        this.load_animation_watcher = new Animations.AnimationWatcher(this.$elem);
-        this.load_animation_watcher.promise.then(this.on_load_animation_complete.bind(this));
-        
         this.load_animation_playing = this.has_load_animation;
+        
+        if (this.has_load_animation) {
+            this.load_animation_watcher = new Animations.AnimationWatcher(this.$elem);
+            this.load_animation_watcher.promise.then(this.on_load_animation_complete.bind(this));
+        } else {
+            this.on_load_animation_complete();
+        }
     }
 
     Behaviors.inherit(ScrollAlax, ScrollEffects);
@@ -273,8 +277,12 @@
         this.update_css_classes();
         
         if (!this.load_animation_playing) {
-            this.unload_animation_watcher = new Animations.AnimationWatcher(this.$elem);
-            this.unload_animation_watcher.promise.then(this.on_unload_animation_complete.bind(this));
+            if (this.has_load_animation) {
+                this.unload_animation_watcher = new Animations.AnimationWatcher(this.$elem);
+                this.unload_animation_watcher.promise.then(this.on_unload_animation_complete.bind(this));
+            } else {
+                this.on_unload_animation_complete();
+            }
         }
     };
     
@@ -283,8 +291,12 @@
         this.update_css_classes();
         
         if (this.loaded) {
-            this.unload_animation_watcher = new Animations.AnimationWatcher(this.$elem);
-            this.unload_animation_watcher.promise.then(this.on_unload_animation_complete.bind(this));
+            if (this.has_load_animation) {
+                this.unload_animation_watcher = new Animations.AnimationWatcher(this.$elem);
+                this.unload_animation_watcher.promise.then(this.on_unload_animation_complete.bind(this));
+            } else {
+                this.on_unload_animation_complete();
+            }
         }
     };
     
