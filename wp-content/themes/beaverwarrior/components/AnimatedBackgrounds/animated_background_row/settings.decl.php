@@ -37,6 +37,28 @@ class BWAnimatedBackgroundsSettingsCompat extends FLBuilderSettingsCompatRow {
         
         return $settings;
     }
+    
+    public static function saved_row_select_list($addl = array()) {
+        $results = array();
+        $args    = array(
+            'post_type'      => 'fl-builder-template',
+            'post_status'    => array( 'publish' ),
+            'posts_per_page' => -1,
+        );
+        
+        $query   = new WP_Query( $args );
+        $posts   = $query->posts;
+        
+        foreach ( $posts as $post ) {
+            $results[$post->ID] = $post->post_title;
+        }
+        
+        foreach ($addl as $k => $v) {
+            $results[$k] = $v;
+        }
+        
+        return $results;
+    }
 }
 
 FLBuilderSettingsCompat::register_helper('row', 'BWAnimatedBackgroundsSettingsCompat');
@@ -75,6 +97,7 @@ function bw_animated_background_row_settings($form, $id) {
                             'options' => array(
                                 'color' => __("Show a solid color when loading"),
                                 'image' => __("Show a loading image"),
+                                'content' => __("Show a saved row"),
                                 'none' => __("Do not apply a load behavior (not recommended)")
                             ),
                             'default' => 'none',
@@ -85,14 +108,17 @@ function bw_animated_background_row_settings($form, $id) {
                                 'image' => array(
                                     'fields' => array('bw_anim_load_color', 'bw_anim_load_image', 'bw_anim_load_bgsize')
                                 ),
+                                'content' => array(
+                                    'fields' => array('bw_anim_load_color', 'bw_anim_load_image', 'bw_anim_load_bgsize', 'bw_anim_load_content')
+                                ),
                                 'none' => array()
                             )
                         ),
-                        'bw_anim_load_color' => array(
-                            'type' => 'color',
-                            'label' => __("Load color", 'skeleton-warrior'),
-                            'description' => __("Select a color to hide the animation with until it loads.", 'skeleton-warrior'),
-                            'default' => 'ffffff'
+                        'bw_anim_load_content' => array(
+                            'type' => 'select',
+                            'label' => __("Load content row"),
+                            'options' => BWAnimatedBackgroundsSettingsCompat::saved_row_select_list(),
+                            'description' => __("")
                         ),
                         'bw_anim_load_image' => array(
                             'type' => 'photo',
@@ -107,6 +133,12 @@ function bw_animated_background_row_settings($form, $id) {
                                 'contain' => __("Fit the size of the animation without cropping", 'skeleton-warrior'),
                             ),
                             'default' => 'cover'
+                        ),
+                        'bw_anim_load_color' => array(
+                            'type' => 'color',
+                            'label' => __("Load color", 'skeleton-warrior'),
+                            'description' => __("Select a color to hide the animation with until it loads.", 'skeleton-warrior'),
+                            'default' => 'ffffff'
                         ),
                         'bw_ab_loadanim' => array(
                             'type' => 'select',
