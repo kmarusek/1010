@@ -24,5 +24,6 @@
         
         background-color: #<?php echo $settings->bw_anim_load_color; ?>;
         background-image: url("<?php echo $settings->bw_anim_load_image_src; ?>");
+        background-size: <?php echo $settings->bw_anim_load_bgsize; ?>;
     }
 <?php } ?>

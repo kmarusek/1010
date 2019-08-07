@@ -83,7 +83,7 @@ function bw_animated_background_row_settings($form, $id) {
                                     'fields' => array('bw_anim_load_color')
                                 ),
                                 'image' => array(
-                                    'fields' => array('bw_anim_load_color', 'bw_anim_load_image')
+                                    'fields' => array('bw_anim_load_color', 'bw_anim_load_image', 'bw_anim_load_bgsize')
                                 ),
                                 'none' => array()
                             )
@@ -98,6 +98,15 @@ function bw_animated_background_row_settings($form, $id) {
                             'type' => 'photo',
                             'label' => __("Load image", 'skeleton-warrior'),
                             'description' => __("Select an image to hide the animation with until it loads.", 'skeleton-warrior')
+                        ),
+                        'bw_anim_load_bgsize' => array(
+                            'type' => 'select',
+                            'label' => __("Load image sizing", 'skeleton-warrior'),
+                            'options' => array(
+                                'cover' => __("Cover the whole animation", 'skeleton-warrior'),
+                                'contain' => __("Fit the size of the animation without cropping", 'skeleton-warrior'),
+                            ),
+                            'default' => 'cover'
                         ),
                         'bw_ab_loadanim' => array(
                             'type' => 'select',

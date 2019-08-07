@@ -87,7 +87,7 @@ FLBuilder::register_module("BWAnimation", array(
                                 'fields' => array('anim_load_color')
                             ),
                             'image' => array(
-                                'fields' => array('anim_load_color', 'anim_load_image')
+                                'fields' => array('anim_load_color', 'anim_load_image', 'anim_load_bgsize')
                             ),
                             'none' => array()
                         )
@@ -102,6 +102,15 @@ FLBuilder::register_module("BWAnimation", array(
                         'type' => 'photo',
                         'label' => __("Load image", 'skeleton-warrior'),
                         'description' => __("Select an image to hide the animation with until it loads.", 'skeleton-warrior')
+                    ),
+                    'anim_load_bgsize' => array(
+                        'type' => 'select',
+                        'label' => __("Load image sizing", 'skeleton-warrior'),
+                        'options' => array(
+                            'cover' => __("Cover the whole animation", 'skeleton-warrior'),
+                            'contain' => __("Fit the size of the animation without cropping", 'skeleton-warrior'),
+                        ),
+                        'default' => 'cover'
                     ),
                     'ab_loadanim' => array(
                         'type' => 'select',
