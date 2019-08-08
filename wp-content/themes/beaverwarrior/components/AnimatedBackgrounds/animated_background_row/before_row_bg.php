@@ -1,4 +1,4 @@
-<ul data-scrollalax data-scrollalax-depthrange="inside"<?php if ($rows->settings->bw_ab_loadanim === "yes") { ?> data-scrolleffects-loadanimation="true"<?php } ?> class="AnimatedBackgrounds is-ScrollEffects--indeterminate<?php if ($rows->settings->bw_anim_load !== "none") { ?> is-ScrollEffects--unloaded<?php } ?>">
+<ul data-scrollalax data-scrollalax-depthrange="inside" data-scrollalax-loadmin="<?php echo $rows->settings->bw_anim_load_min; ?>"<?php if ($rows->settings->bw_ab_loadanim === "yes") { ?> data-scrolleffects-loadanimation="true"<?php } ?> class="AnimatedBackgrounds is-ScrollEffects--indeterminate<?php if ($rows->settings->bw_anim_load !== "none") { ?> is-ScrollEffects--unloaded<?php } ?>">
     <li class="AnimatedBackgrounds-extra_bg_layer"></li>
     <?php $i = 1;
     $id = "AnimatedBackgrounds--" . uniqid();

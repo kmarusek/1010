@@ -129,6 +129,13 @@ FLBuilder::register_module("BWAnimation", array(
                         'units' => array('s'),
                         'default' => 0
                     ),
+                    'anim_load_min' => array(
+                        'type' => 'unit',
+                        'label' => __("Minimum load time", 'skeleton-warrior'),
+                        'slider' => true,
+                        'units' => array('s'),
+                        'default' => 0
+                    ),
                     'ab_loadanim' => array(
                         'type' => 'select',
                         'label' => __("Custom load animation present", 'skeleton-warrior'),

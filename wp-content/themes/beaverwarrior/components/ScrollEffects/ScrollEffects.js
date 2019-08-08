@@ -138,6 +138,7 @@
         this.on_scroll_intent();
         
         this.loaded = false;
+        this.minimum_load_time = this.$elem.data("scrollalax-loadmin");
         this.load().then(this.on_loaded.bind(this));
         
         this.load_animation_playing = this.has_load_animation;
@@ -223,6 +224,12 @@
      */
     ScrollAlax.prototype.load = function () {
         var promises = [];
+        
+        if (this.minimum_load_time > 0) {
+            promises.push(new Promise (function (resolve) {
+                window.setTimeout(resolve, this.minimum_load_time * 1000);
+            }.bind(this)));
+        }
         
         this.$layers.each(function (index, layer_elem) {
             var $backgrounds = $(layer_elem).find("[style*='background-image']"),

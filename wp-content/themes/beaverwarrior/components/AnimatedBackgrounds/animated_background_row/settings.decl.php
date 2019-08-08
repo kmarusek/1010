@@ -382,6 +382,13 @@ function bw_animated_background_row_settings($form, $id) {
                             'units' => array('s'),
                             'default' => 0
                         ),
+                        'bw_anim_load_min' => array(
+                            'type' => 'unit',
+                            'label' => __("Minimum load time", 'skeleton-warrior'),
+                            'slider' => true,
+                            'units' => array('s'),
+                            'default' => 0
+                        ),
                         'bw_ab_loadanim' => array(
                             'type' => 'select',
                             'label' => __("Custom load animation present", 'skeleton-warrior'),

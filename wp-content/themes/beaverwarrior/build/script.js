@@ -1501,120 +1501,6 @@ if (typeof Object.create !== 'function') {
     return module;
 }));
 
-/*global define, console, document, window*/
-(function (root, factory) {
-    "use strict";
-    if (typeof define === 'function' && define.amd) {
-        define("Animations", ["jquery", "Behaviors"], factory);
-    } else {
-        root.Animations = factory(root.jQuery, root.Behaviors);
-    }
-}(this, function ($, Behaviors) {
-    "use strict";
-    
-    var module = {};
-
-    /* Watches for the start and end of an animation.
-     *
-     * The .promise attribute stores a promise which resolves whenever the
-     * animation has completed or no animation events were detected over a
-     * timeout period of 5 second.
-     *
-     * An important caveat: Animations with delay longer than 5 seconds will
-     * fail to fire events and the animation watcher will trigger the timeout
-     * behavior instead. You can avoid this behavior by triggering another
-     * animation of any kind during the timeout period and keeping it alive
-     * until the delayed animation begins.
-     */
-    function AnimationWatcher($elem) {
-        var Class = this.constructor,
-            eventSelector = Class.get_unique_id(),
-            that = this,
-            evtStartNames = "animationstart." + eventSelector +
-                      " webkitAnimationStart." + eventSelector +
-                      " oanimationstart." + eventSelector +
-                      " MSAnimationStart." + eventSelector,
-            evtEndNames = "animationend." + eventSelector +
-                      " webkitAnimationEnd." + eventSelector +
-                      " oanimationend." + eventSelector +
-                      " MSAnimationEnd." + eventSelector,
-            animation_start = this.animation_start.bind(this),
-            animation_end = this.animation_end.bind(this),
-            animation_timeout_delay = 5000;
-
-        this.eventSelector = eventSelector;
-
-        this.$elem = $elem;
-        this.$elem.on(evtStartNames, animation_start);
-        this.$elem.on(evtEndNames, animation_end);
-
-        if (window.Modernizr && window.Modernizr.cssanimations === false) {
-            animation_timeout_delay = 0;
-        }
-
-        this.timeout = window.setTimeout(this.abort_animation.bind(this), animation_timeout_delay);
-        this.remaining_animations = [];
-
-        //We remove event handlers after one of the handlers resolves the
-        //animation promise.
-        this.promise = new Promise(function (resolve, reject) {
-            that.resolve = resolve;
-            that.reject = reject;
-        }).then(function () {
-            that.$elem.off(evtStartNames, animation_start);
-            that.$elem.off(evtEndNames, animation_end);
-        });
-
-        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Created");
-    }
-
-    AnimationWatcher.count = 0;
-
-    AnimationWatcher.get_unique_id = function () {
-        var Class = this,
-            sel = "." + Class.name + "_" + Class.count;
-
-        Class.count += 1;
-        return sel;
-    };
-
-    AnimationWatcher.prototype.animation_start = function (evt) {
-        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Begun (" + evt.originalEvent.animationName + ")");
-        if (this.timeout !== null) {
-            window.clearTimeout(this.timeout);
-            this.timeout = null;
-        }
-
-        this.remaining_animations.push(evt.originalEvent.animationName);
-    };
-
-    AnimationWatcher.prototype.animation_end = function (evt) {
-        var loc = this.remaining_animations.indexOf(evt.originalEvent.animationName);
-
-        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Ended (" + evt.originalEvent.animationName + ")");
-
-        if (loc !== -1) {
-            this.remaining_animations.splice(loc, 1);
-        }
-
-        if (this.remaining_animations.length === 0) {
-            this.resolve();
-        }
-    };
-
-    AnimationWatcher.prototype.abort_animation = function (evt) {
-        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Abort timeout triggered");
-
-        if (this.remaining_animations.length === 0) {
-            this.resolve();
-        }
-    };
-
-    module.AnimationWatcher = AnimationWatcher;
-
-    return module;
-}));
-
 /*global define, console, window, HTMLImageElement, Promise*/
 
 (function (root, factory) {
@@ -2021,6 +1907,120 @@ if (typeof Object.create !== 'function') {
     Behaviors.register_behavior(AtlasPlayer);
 
     module.AtlasPlayer = AtlasPlayer;
+
+    return module;
+}));
+
+/*global define, console, document, window*/
+(function (root, factory) {
+    "use strict";
+    if (typeof define === 'function' && define.amd) {
+        define("Animations", ["jquery", "Behaviors"], factory);
+    } else {
+        root.Animations = factory(root.jQuery, root.Behaviors);
+    }
+}(this, function ($, Behaviors) {
+    "use strict";
+    
+    var module = {};
+
+    /* Watches for the start and end of an animation.
+     *
+     * The .promise attribute stores a promise which resolves whenever the
+     * animation has completed or no animation events were detected over a
+     * timeout period of 5 second.
+     *
+     * An important caveat: Animations with delay longer than 5 seconds will
+     * fail to fire events and the animation watcher will trigger the timeout
+     * behavior instead. You can avoid this behavior by triggering another
+     * animation of any kind during the timeout period and keeping it alive
+     * until the delayed animation begins.
+     */
+    function AnimationWatcher($elem) {
+        var Class = this.constructor,
+            eventSelector = Class.get_unique_id(),
+            that = this,
+            evtStartNames = "animationstart." + eventSelector +
+                      " webkitAnimationStart." + eventSelector +
+                      " oanimationstart." + eventSelector +
+                      " MSAnimationStart." + eventSelector,
+            evtEndNames = "animationend." + eventSelector +
+                      " webkitAnimationEnd." + eventSelector +
+                      " oanimationend." + eventSelector +
+                      " MSAnimationEnd." + eventSelector,
+            animation_start = this.animation_start.bind(this),
+            animation_end = this.animation_end.bind(this),
+            animation_timeout_delay = 5000;
+
+        this.eventSelector = eventSelector;
+
+        this.$elem = $elem;
+        this.$elem.on(evtStartNames, animation_start);
+        this.$elem.on(evtEndNames, animation_end);
+
+        if (window.Modernizr && window.Modernizr.cssanimations === false) {
+            animation_timeout_delay = 0;
+        }
+
+        this.timeout = window.setTimeout(this.abort_animation.bind(this), animation_timeout_delay);
+        this.remaining_animations = [];
+
+        //We remove event handlers after one of the handlers resolves the
+        //animation promise.
+        this.promise = new Promise(function (resolve, reject) {
+            that.resolve = resolve;
+            that.reject = reject;
+        }).then(function () {
+            that.$elem.off(evtStartNames, animation_start);
+            that.$elem.off(evtEndNames, animation_end);
+        });
+
+        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Created");
+    }
+
+    AnimationWatcher.count = 0;
+
+    AnimationWatcher.get_unique_id = function () {
+        var Class = this,
+            sel = "." + Class.name + "_" + Class.count;
+
+        Class.count += 1;
+        return sel;
+    };
+
+    AnimationWatcher.prototype.animation_start = function (evt) {
+        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Begun (" + evt.originalEvent.animationName + ")");
+        if (this.timeout !== null) {
+            window.clearTimeout(this.timeout);
+            this.timeout = null;
+        }
+
+        this.remaining_animations.push(evt.originalEvent.animationName);
+    };
+
+    AnimationWatcher.prototype.animation_end = function (evt) {
+        var loc = this.remaining_animations.indexOf(evt.originalEvent.animationName);
+
+        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Ended (" + evt.originalEvent.animationName + ")");
+
+        if (loc !== -1) {
+            this.remaining_animations.splice(loc, 1);
+        }
+
+        if (this.remaining_animations.length === 0) {
+            this.resolve();
+        }
+    };
+
+    AnimationWatcher.prototype.abort_animation = function (evt) {
+        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Abort timeout triggered");
+
+        if (this.remaining_animations.length === 0) {
+            this.resolve();
+        }
+    };
+
+    module.AnimationWatcher = AnimationWatcher;
 
     return module;
 }));
@@ -4493,6 +4493,7 @@ if (!Array.prototype.indexOf) {
         this.on_scroll_intent();
         
         this.loaded = false;
+        this.minimum_load_time = this.$elem.data("scrollalax-loadmin");
         this.load().then(this.on_loaded.bind(this));
         
         this.load_animation_playing = this.has_load_animation;
@@ -4578,6 +4579,12 @@ if (!Array.prototype.indexOf) {
      */
     ScrollAlax.prototype.load = function () {
         var promises = [];
+        
+        if (this.minimum_load_time > 0) {
+            promises.push(new Promise (function (resolve) {
+                window.setTimeout(resolve, this.minimum_load_time * 1000);
+            }.bind(this)));
+        }
         
         this.$layers.each(function (index, layer_elem) {
             var $backgrounds = $(layer_elem).find("[style*='background-image']"),
@@ -4954,145 +4961,6 @@ if (!Array.prototype.indexOf) {
 
     module.TabbedContentSet = TabbedContentSet;
 
-    return module;
-}));
-
-/*jslint continue: true, es5: true*/
-/*global detectZoom, console, jQuery, define, Float32Array, Uint16Array*/
-(function (root, factory) {
-    "use strict";
-    if (typeof define === 'function' && define.amd) {
-        define("UTM", ["jquery", "Behaviors"], factory);
-    } else {
-        root.UTM = factory(root.jQuery, root.Behaviors);
-    }
-}(this, function ($, Behaviors) {
-    "use strict";
-    var module = {},
-        utm_variables = {},
-        wanted_vars = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
-    
-    function utm_preserve_enabled() {
-        return $("body").data("utmpreserve-preserve") !== false;
-    }
-    
-    function utm_forminject_enabled() {
-        return $("body").data("utmpreserve-forminject") !== false;
-    }
-
-    function getQueryVariable(variable) {
-        var query = window.location.search.substring(1);
-        var vars = query.split('&');
-        for (var i = 0; i < vars.length; i++) {
-            var pair = vars[i].split('=');
-            if (decodeURIComponent(pair[0]) == variable) {
-                return decodeURIComponent(pair[1]);
-            }
-        }
-    }
-
-    /* Given a query string, return an object whose keys are matched UTM vars.
-     */
-    function look_for_utm_variables() {
-        var new_utm_variables = {}, i;
-
-        for (i = 0; i < wanted_vars.length; i += 1) {
-            new_utm_variables[wanted_vars[i]] = getQueryVariable(wanted_vars[i]);
-        }
-
-        return new_utm_variables;
-    }
-
-    function do_utm_replace($context) {
-        if (!utm_preserve_enabled()) {
-            console.log("UTM preserve is disabled.");
-            return;
-        }
-        
-        utm_variables = look_for_utm_variables();
-
-        $context.find("a[href]").each(function (index, elem) {
-            var k, $elem = $(elem),
-                old_href = $elem.attr("href");
-
-            for (k in utm_variables) {
-                if (utm_variables.hasOwnProperty(k) && utm_variables[k] !== undefined) {
-                    if (old_href.indexOf("?") !== -1) {
-                        old_href = old_href + "&" + k + "=" + utm_variables[k];
-                    } else {
-                        old_href = old_href + "?" + k + "=" + utm_variables[k];
-                    }
-                }
-            }
-
-            $elem.attr("href", old_href);
-        })
-    }
-    
-    function do_gform_insertion(evt, form_id, current_page) {
-        var $form = $("#gform_" + form_id), i, k,
-            old_action = $form.attr("action");
-        
-        if (!utm_forminject_enabled()) {
-            console.log("UTM form injection is disabled.");
-            return;
-        }
-        
-        utm_variables = look_for_utm_variables();
-        
-        //Remove any existing query vars.
-        //TODO: should we bother preserving old vars that aren't UTMs?
-        old_action = old_action.split("?")[0];
-        
-        //Add UTM variables as seen by the client.
-        for (k in utm_variables) {
-            if (utm_variables.hasOwnProperty(k) && utm_variables[k] !== undefined) {
-                if (old_action.indexOf("?") !== -1) {
-                    old_action = old_action + "&" + k + "=" + utm_variables[k];
-                } else {
-                    old_action = old_action + "?" + k + "=" + utm_variables[k];
-                }
-            }
-        }
-        
-        $form.attr("action", old_action);
-        
-        //We can't auto-insert UTM variables into hidden fields, so instead we
-        //replace by hidden values.
-        $form.find("input[type='hidden']").each(function (index, ielem) {
-            var $ielem = $(ielem), old_value = $ielem.attr("value"), new_key;
-            
-            // Polyfill for IE11/pre-ES5
-            if (!String.prototype.startsWith) {
-                String.prototype.startsWith = function(search, pos) {
-                    return this.substr(!pos || pos < 0 ? 0 : +pos, search.length) === search;
-                };
-            }
-
-            if (!String.prototype.endsWith) {
-                String.prototype.endsWith = function(search, this_len) {
-                    if (this_len === undefined || this_len > this.length) {
-                        this_len = this.length;
-                    }
-                    return this.substring(this_len - search.length, this_len) === search;
-                };
-            }
-
-            if (old_value.startsWith("replace_param[") && old_value.endsWith("]")) {
-                new_key = old_value.split("[")[1].split("]")[0];
-                $ielem.val(utm_variables[new_key]);
-            }
-        })
-    }
-    
-    $(document).bind("gform_post_render", do_gform_insertion);
-    
-    Behaviors.register_content_listener(do_utm_replace);
-    
-    module.do_utm_replace = do_utm_replace;
-    module.look_for_utm_variables = look_for_utm_variables;
-    module.getQueryVariable = getQueryVariable;
-    
     return module;
 }));
 
@@ -6209,6 +6077,145 @@ if (!Array.prototype.indexOf) {
     module.VideoPlayer__html5 = VideoPlayer__html5;
     module.VideoPlayer__youtube = VideoPlayer__youtube;
     module.VideoPlayer__vimeo = VideoPlayer__vimeo;
+    return module;
+}));
+
+/*jslint continue: true, es5: true*/
+/*global detectZoom, console, jQuery, define, Float32Array, Uint16Array*/
+(function (root, factory) {
+    "use strict";
+    if (typeof define === 'function' && define.amd) {
+        define("UTM", ["jquery", "Behaviors"], factory);
+    } else {
+        root.UTM = factory(root.jQuery, root.Behaviors);
+    }
+}(this, function ($, Behaviors) {
+    "use strict";
+    var module = {},
+        utm_variables = {},
+        wanted_vars = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
+    
+    function utm_preserve_enabled() {
+        return $("body").data("utmpreserve-preserve") !== false;
+    }
+    
+    function utm_forminject_enabled() {
+        return $("body").data("utmpreserve-forminject") !== false;
+    }
+
+    function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split('&');
+        for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split('=');
+            if (decodeURIComponent(pair[0]) == variable) {
+                return decodeURIComponent(pair[1]);
+            }
+        }
+    }
+
+    /* Given a query string, return an object whose keys are matched UTM vars.
+     */
+    function look_for_utm_variables() {
+        var new_utm_variables = {}, i;
+
+        for (i = 0; i < wanted_vars.length; i += 1) {
+            new_utm_variables[wanted_vars[i]] = getQueryVariable(wanted_vars[i]);
+        }
+
+        return new_utm_variables;
+    }
+
+    function do_utm_replace($context) {
+        if (!utm_preserve_enabled()) {
+            console.log("UTM preserve is disabled.");
+            return;
+        }
+        
+        utm_variables = look_for_utm_variables();
+
+        $context.find("a[href]").each(function (index, elem) {
+            var k, $elem = $(elem),
+                old_href = $elem.attr("href");
+
+            for (k in utm_variables) {
+                if (utm_variables.hasOwnProperty(k) && utm_variables[k] !== undefined) {
+                    if (old_href.indexOf("?") !== -1) {
+                        old_href = old_href + "&" + k + "=" + utm_variables[k];
+                    } else {
+                        old_href = old_href + "?" + k + "=" + utm_variables[k];
+                    }
+                }
+            }
+
+            $elem.attr("href", old_href);
+        })
+    }
+    
+    function do_gform_insertion(evt, form_id, current_page) {
+        var $form = $("#gform_" + form_id), i, k,
+            old_action = $form.attr("action");
+        
+        if (!utm_forminject_enabled()) {
+            console.log("UTM form injection is disabled.");
+            return;
+        }
+        
+        utm_variables = look_for_utm_variables();
+        
+        //Remove any existing query vars.
+        //TODO: should we bother preserving old vars that aren't UTMs?
+        old_action = old_action.split("?")[0];
+        
+        //Add UTM variables as seen by the client.
+        for (k in utm_variables) {
+            if (utm_variables.hasOwnProperty(k) && utm_variables[k] !== undefined) {
+                if (old_action.indexOf("?") !== -1) {
+                    old_action = old_action + "&" + k + "=" + utm_variables[k];
+                } else {
+                    old_action = old_action + "?" + k + "=" + utm_variables[k];
+                }
+            }
+        }
+        
+        $form.attr("action", old_action);
+        
+        //We can't auto-insert UTM variables into hidden fields, so instead we
+        //replace by hidden values.
+        $form.find("input[type='hidden']").each(function (index, ielem) {
+            var $ielem = $(ielem), old_value = $ielem.attr("value"), new_key;
+            
+            // Polyfill for IE11/pre-ES5
+            if (!String.prototype.startsWith) {
+                String.prototype.startsWith = function(search, pos) {
+                    return this.substr(!pos || pos < 0 ? 0 : +pos, search.length) === search;
+                };
+            }
+
+            if (!String.prototype.endsWith) {
+                String.prototype.endsWith = function(search, this_len) {
+                    if (this_len === undefined || this_len > this.length) {
+                        this_len = this.length;
+                    }
+                    return this.substring(this_len - search.length, this_len) === search;
+                };
+            }
+
+            if (old_value.startsWith("replace_param[") && old_value.endsWith("]")) {
+                new_key = old_value.split("[")[1].split("]")[0];
+                $ielem.val(utm_variables[new_key]);
+            }
+        })
+    }
+    
+    $(document).bind("gform_post_render", do_gform_insertion);
+    
+    Behaviors.register_content_listener(do_utm_replace);
+    
+    module.do_utm_replace = do_utm_replace;
+    module.look_for_utm_variables = look_for_utm_variables;
+    module.getQueryVariable = getQueryVariable;
+    
     return module;
 }));
 

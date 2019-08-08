@@ -1,6 +1,6 @@
 <div class="AnimatedBackgrounds-standalone_wrapper">
     <div class="AnimatedBackgrounds-standalone" style="position: relative; padding-top: <?php echo 1 / floatval($settings->aspect_ratio) * 100; ?>%">
-        <ul data-scrollalax data-scrollalax-depthrange="inside" class="AnimatedBackgrounds is-ScrollEffects--indeterminate<?php if ($rows->settings->anim_load !== "none") { ?> is-ScrollEffects--unloaded<?php } ?>"<?php if ($settings->ab_loadanim === "yes") { ?> data-scrolleffects-loadanimation="true"<?php } ?>>
+        <ul data-scrollalax data-scrollalax-depthrange="inside" data-scrollalax-loadmin="<?php echo $settings->anim_load_min; ?>" class="AnimatedBackgrounds is-ScrollEffects--indeterminate<?php if ($rows->settings->anim_load !== "none") { ?> is-ScrollEffects--unloaded<?php } ?>"<?php if ($settings->ab_loadanim === "yes") { ?> data-scrolleffects-loadanimation="true"<?php } ?>>
             <li class="AnimatedBackgrounds-extra_bg_layer"></li>
             <?php $i = 1;
             $id = "AnimatedBackgrounds--" . uniqid();
