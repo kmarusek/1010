@@ -48,28 +48,6 @@ class BWAnimation extends FLBuilderModule {
         
         return $settings;
     }
-    
-    public static function saved_row_select_list($addl = array()) {
-        $results = array();
-        $args    = array(
-            'post_type'      => 'fl-builder-template',
-            'post_status'    => array( 'publish' ),
-            'posts_per_page' => -1,
-        );
-        
-        $query   = new WP_Query( $args );
-        $posts   = $query->posts;
-        
-        foreach ( $posts as $post ) {
-            $results[$post->ID] = $post->post_title;
-        }
-        
-        foreach ($addl as $k => $v) {
-            $results[$k] = $v;
-        }
-        
-        return $results;
-    }
 }
 
 FLBuilder::register_module("BWAnimation", array(
@@ -121,7 +99,7 @@ FLBuilder::register_module("BWAnimation", array(
                     'anim_load_content' => array(
                         'type' => 'select',
                         'label' => __("Load content row"),
-                        'options' => BWAnimation::saved_row_select_list(),
+                        'options' => BWAnimatedBackgroundsSettingsCompat::saved_row_select_list(),
                         'description' => __("")
                     ),
                     'anim_load_image' => array(
