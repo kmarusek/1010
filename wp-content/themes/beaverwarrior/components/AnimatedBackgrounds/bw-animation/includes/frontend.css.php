@@ -44,3 +44,9 @@
     }
     <?php BWAnimatedBackgroundsSettingsCompat::render_content_css_by_id($settings->anim_load_content); ?>
 <?php } ?>
+
+<?php if ($settings->anim_load !== "none") { ?>
+    .fl-node-<?php echo $id; ?> .AnimatedBackgrounds-load_animation {
+        transition: z-index 0s <?php echo $settings->anim_load_fade; ?>s, opacity <?php echo $settings->anim_load_fade; ?>s;
+    }
+<?php } ?>

@@ -338,13 +338,13 @@ function bw_animated_background_row_settings($form, $id) {
                             'default' => 'none',
                             'toggle' => array(
                                 'color' => array(
-                                    'fields' => array('bw_anim_load_color')
+                                    'fields' => array('bw_anim_load_color', 'bw_anim_load_fade')
                                 ),
                                 'image' => array(
-                                    'fields' => array('bw_anim_load_color', 'bw_anim_load_image', 'bw_anim_load_bgsize')
+                                    'fields' => array('bw_anim_load_color', 'bw_anim_load_image', 'bw_anim_load_bgsize', 'bw_anim_load_fade')
                                 ),
                                 'content' => array(
-                                    'fields' => array('bw_anim_load_color', 'bw_anim_load_image', 'bw_anim_load_bgsize', 'bw_anim_load_content')
+                                    'fields' => array('bw_anim_load_color', 'bw_anim_load_image', 'bw_anim_load_bgsize', 'bw_anim_load_content', 'bw_anim_load_fade')
                                 ),
                                 'none' => array()
                             )
@@ -374,6 +374,13 @@ function bw_animated_background_row_settings($form, $id) {
                             'label' => __("Load color", 'skeleton-warrior'),
                             'description' => __("Select a color to hide the animation with until it loads.", 'skeleton-warrior'),
                             'default' => 'ffffff'
+                        ),
+                        'bw_anim_load_fade' => array(
+                            'type' => 'unit',
+                            'label' => __("Fade time", 'skeleton-warrior'),
+                            'slider' => true,
+                            'units' => array('s'),
+                            'default' => 0
                         ),
                         'bw_ab_loadanim' => array(
                             'type' => 'select',

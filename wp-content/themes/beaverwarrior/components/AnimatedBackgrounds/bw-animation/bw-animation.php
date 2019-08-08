@@ -85,13 +85,13 @@ FLBuilder::register_module("BWAnimation", array(
                         'default' => 'none',
                         'toggle' => array(
                             'color' => array(
-                                'fields' => array('anim_load_color')
+                                'fields' => array('anim_load_color', 'anim_load_fade')
                             ),
                             'image' => array(
-                                'fields' => array('anim_load_color', 'anim_load_image', 'anim_load_bgsize')
+                                'fields' => array('anim_load_color', 'anim_load_image', 'anim_load_bgsize', 'anim_load_fade')
                             ),
                             'content' => array(
-                                'fields' => array('anim_load_color', 'anim_load_image', 'anim_load_bgsize', 'anim_load_content')
+                                'fields' => array('anim_load_color', 'anim_load_image', 'anim_load_bgsize', 'anim_load_content', 'anim_load_fade')
                             ),
                             'none' => array()
                         )
@@ -121,6 +121,13 @@ FLBuilder::register_module("BWAnimation", array(
                         'label' => __("Load color", 'skeleton-warrior'),
                         'description' => __("Select a color to hide the animation with until it loads.", 'skeleton-warrior'),
                         'default' => 'ffffff'
+                    ),
+                    'anim_load_fade' => array(
+                        'type' => 'unit',
+                        'label' => __("Fade time", 'skeleton-warrior'),
+                        'slider' => true,
+                        'units' => array('s'),
+                        'default' => 0
                     ),
                     'ab_loadanim' => array(
                         'type' => 'select',

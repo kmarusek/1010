@@ -1,5 +1,5 @@
 <?php if ($settings->bw_anim_load === "color") { ?>
-    .fl-node-<?php echo $id; ?> .AnimatedBackgrounds.is-ScrollEffects--unloaded + .AnimatedBackgrounds-load_animation:before {
+    .fl-node-<?php echo $id; ?> .AnimatedBackgrounds-load_animation:before {
         content: "";
         position: absolute;
         top: 0;
@@ -13,7 +13,7 @@
 <?php } ?>
 
 <?php if ($settings->bw_anim_load === "image") { ?>
-    .fl-node-<?php echo $id; ?> .AnimatedBackgrounds.is-ScrollEffects--unloaded + .AnimatedBackgrounds-load_animation:before {
+    .fl-node-<?php echo $id; ?> .AnimatedBackgrounds-load_animation:before {
         content: "";
         position: absolute;
         top: 0;
@@ -29,7 +29,7 @@
 <?php } ?>
 
 <?php if ($settings->bw_anim_load === "content") { ?>
-    .fl-node-<?php echo $id; ?> .AnimatedBackgrounds.is-ScrollEffects--unloaded + .AnimatedBackgrounds-load_animation:before {
+    .fl-node-<?php echo $id; ?> .AnimatedBackgrounds-load_animation:before {
         content: "";
         position: absolute;
         top: 0;
@@ -43,4 +43,10 @@
         background-size: <?php echo $settings->bw_anim_load_bgsize; ?>;
     }
     <?php BWAnimatedBackgroundsSettingsCompat::render_content_css_by_id($settings->bw_anim_load_content); ?>
+<?php } ?>
+
+<?php if ($settings->bw_anim_load !== "none") { ?>
+    .fl-node-<?php echo $id; ?> .AnimatedBackgrounds-load_animation {
+        transition: z-index 0s <?php echo $settings->bw_anim_load_fade; ?>s, opacity <?php echo $settings->bw_anim_load_fade; ?>s;
+    }
 <?php } ?>
