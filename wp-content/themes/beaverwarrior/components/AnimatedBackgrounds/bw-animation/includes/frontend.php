@@ -42,11 +42,13 @@
         </ul>
     </div>
 </div>
-<?php if ($settings->anim_load === "content") { ?>
+<?php if ($settings->anim_load !== "none") { ?>
     <div class="AnimatedBackgrounds-load_animation">
-        <?php FLBuilder::render_query(array(
-            'post_type' => 'fl-builder-template',
-            'p' => intval($settings->anim_load_content)
-        )); ?>
+        <?php if ($settings->anim_load === "content") {
+            FLBuilder::render_query(array(
+                'post_type' => 'fl-builder-template',
+                'p' => intval($settings->anim_load_content)
+            ));
+        } ?>
     </div>
 <?php } ?>

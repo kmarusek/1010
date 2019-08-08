@@ -378,7 +378,7 @@ function bw_animated_background_row_settings($form, $id) {
                         'bw_ab_loadanim' => array(
                             'type' => 'select',
                             'label' => __("Custom load animation present", 'skeleton-warrior'),
-                            'description' => __("Indicates that a custom load animation has been applied in CSS. When indicated, backgrounds will not start to animate until indicated pre-load animations have completed. Should not be enabled alongisde a load behavior.", 'skeleton-warrior'),
+                            'description' => __("Indicates that a custom load animation has been applied in CSS. When indicated, backgrounds will not start to animate until indicated pre-load animations have completed. Should not be enabled alongisde a load behavior AS THIS DOES NOT ENABLE ANIMATIONS AND WILL CAUSE DELAYS IN YOUR ANIMATION.", 'skeleton-warrior'),
                             'options' => array(
                                 'yes' => __("Load animation with fade out present, wait for it to completely fade out"),
                                 'no' => __("No load animation present, animate backgrounds in sync"),

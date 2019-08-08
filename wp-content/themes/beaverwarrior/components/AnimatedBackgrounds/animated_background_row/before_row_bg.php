@@ -38,11 +38,13 @@
         $i += 1;
     } ?>
 </ul>
-<?php if ($rows->settings->bw_anim_load === "content") { ?>
+<?php if ($rows->settings->bw_anim_load !== "none") { ?>
     <div class="AnimatedBackgrounds-load_animation">
-        <?php FLBuilder::render_query(array(
-            'post_type' => 'fl-builder-template',
-            'p' => intval($rows->settings->bw_anim_load_content)
-        )); ?>
+        <?php if ($rows->settings->bw_anim_load === "content") {
+            FLBuilder::render_query(array(
+                'post_type' => 'fl-builder-template',
+                'p' => intval($rows->settings->bw_anim_load_content)
+            ));
+        } ?>
     </div>
 <?php } ?>
