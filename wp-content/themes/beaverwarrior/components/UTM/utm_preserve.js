@@ -102,22 +102,6 @@
         //replace by hidden values.
         $form.find("input[type='hidden']").each(function (index, ielem) {
             var $ielem = $(ielem), old_value = $ielem.attr("value"), new_key;
-            
-            // Polyfill for IE11/pre-ES5
-            if (!String.prototype.startsWith) {
-                String.prototype.startsWith = function(search, pos) {
-                    return this.substr(!pos || pos < 0 ? 0 : +pos, search.length) === search;
-                };
-            }
-
-            if (!String.prototype.endsWith) {
-                String.prototype.endsWith = function(search, this_len) {
-                    if (this_len === undefined || this_len > this.length) {
-                        this_len = this.length;
-                    }
-                    return this.substring(this_len - search.length, this_len) === search;
-                };
-            }
 
             if (old_value.startsWith("replace_param[") && old_value.endsWith("]")) {
                 new_key = old_value.split("[")[1].split("]")[0];
