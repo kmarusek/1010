@@ -46,11 +46,15 @@
 	color: #ccc;
 	display: none;
 }
-.fl-theme-builder-preview-select-item:hover .fa-caret-down {
+.fl-theme-builder-preview-select-item:hover .fa-caret-down,
+.fl-theme-builder-preview-select-item-open .fa-caret-down {
 	display: inline-block;
 }
 .fl-theme-builder-preview-select-item-children {
 	display: none;
+}
+.fl-theme-builder-preview-select-item-open {
+	overflow-y: auto;
 }
 .fl-theme-builder-preview-select-item-open .fl-theme-builder-preview-select-item-children {
 	display: block;
@@ -62,6 +66,7 @@
 .fl-theme-builder-preview-select-item-child {
 	color: #b3b3b3;
 	padding-top: 10px;
+	white-space: normal;
 }
 .fl-theme-builder-preview-select-item-child:hover {
 	color: #000;

@@ -70,6 +70,9 @@ $form = array(
 			'checkbox' => array(
 				'fields' => array( 'checkbox_format' ),
 			),
+			'select'   => array(
+				'fields' => array( 'select_format' ),
+			),
 		),
 	),
 	'name'            => array(
@@ -85,6 +88,16 @@ $form = array(
 		'type'    => 'select',
 		'label'   => __( 'Format', 'fl-theme-builder' ),
 		'default' => 'string',
+		'options' => array(
+			'text' => __( 'Text', 'fl-theme-builder' ),
+			'ol'   => __( 'Ordered List', 'fl-theme-builder' ),
+			'ul'   => __( 'Unordered List', 'fl-theme-builder' ),
+		),
+	),
+	'select_format'   => array(
+		'type'    => 'select',
+		'label'   => __( 'Format', 'fl-theme-builder' ),
+		'default' => 'text',
 		'options' => array(
 			'text' => __( 'Text', 'fl-theme-builder' ),
 			'ol'   => __( 'Ordered List', 'fl-theme-builder' ),
@@ -213,7 +226,7 @@ FLPageData::add_site_property( 'acf_option_photo', array(
 ) );
 
 $form = array(
-	'type'       => array(
+	'type'           => array(
 		'type'    => 'select',
 		'label'   => __( 'Field Type', 'fl-theme-builder' ),
 		'default' => 'text',
@@ -226,15 +239,20 @@ $form = array(
 		),
 		'toggle'  => array(
 			'image' => array(
-				'fields' => array( 'image_size' ),
+				'fields' => array( 'image_size', 'image_fallback' ),
 			),
 		),
 	),
-	'name'       => array(
+	'name'           => array(
 		'type'  => 'text',
 		'label' => __( 'Field Name', 'fl-theme-builder' ),
 	),
-	'image_size' => array(
+	'image_fallback' => array(
+		'type'        => 'photo',
+		'label'       => __( 'Fallback Image', 'fl-theme-builder' ),
+		'show_remove' => true,
+	),
+	'image_size'     => array(
 		'type'    => 'photo-sizes',
 		'label'   => __( 'Image Size', 'fl-theme-builder' ),
 		'default' => 'thumbnail',

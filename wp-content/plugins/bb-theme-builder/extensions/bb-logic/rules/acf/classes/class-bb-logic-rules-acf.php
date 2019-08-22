@@ -19,11 +19,11 @@ final class BB_Logic_Rules_ACF {
 		}
 
 		BB_Logic_Rules::register( array(
-			'acf/archive-field' 		=> __CLASS__ . '::archive_field',
-			'acf/option-field' 			=> __CLASS__ . '::option_field',
-			'acf/post-field' 			=> __CLASS__ . '::post_field',
-			'acf/post-author-field' 	=> __CLASS__ . '::post_author_field',
-			'acf/user-field' 			=> __CLASS__ . '::user_field',
+			'acf/archive-field'     => __CLASS__ . '::archive_field',
+			'acf/option-field'      => __CLASS__ . '::option_field',
+			'acf/post-field'        => __CLASS__ . '::post_field',
+			'acf/post-author-field' => __CLASS__ . '::post_author_field',
+			'acf/user-field'        => __CLASS__ . '::user_field',
 		) );
 	}
 
@@ -46,10 +46,10 @@ final class BB_Logic_Rules_ACF {
 		}
 
 		return BB_Logic_Rules::evaluate_rule( array(
-			'value' 	=> $value,
-			'operator' 	=> $rule->operator,
-			'compare' 	=> $rule->compare,
-			'isset' 	=> $value,
+			'value'    => $value,
+			'operator' => $rule->operator,
+			'compare'  => $rule->compare,
+			'isset'    => $value,
 		) );
 	}
 

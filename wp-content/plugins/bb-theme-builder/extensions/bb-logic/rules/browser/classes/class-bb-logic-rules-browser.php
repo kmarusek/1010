@@ -15,9 +15,9 @@ final class BB_Logic_Rules_Browser {
 	 */
 	static public function init() {
 		BB_Logic_Rules::register( array(
-			'browser/cookie' 			=> __CLASS__ . '::cookie',
-			'browser/referer' 			=> __CLASS__ . '::referer',
-			'browser/url-variable'		=> __CLASS__ . '::url_variable',
+			'browser/cookie'       => __CLASS__ . '::cookie',
+			'browser/referer'      => __CLASS__ . '::referer',
+			'browser/url-variable' => __CLASS__ . '::url_variable',
 		) );
 	}
 
@@ -30,10 +30,10 @@ final class BB_Logic_Rules_Browser {
 	 */
 	static public function cookie( $rule ) {
 		return BB_Logic_Rules::evaluate_rule( array(
-			'value' 	=> isset( $_COOKIE[ $rule->key ] ) ? $_COOKIE[ $rule->key ] : '',
-			'operator' 	=> $rule->operator,
-			'compare' 	=> $rule->compare,
-			'isset' 	=> isset( $_COOKIE[ $rule->key ] ),
+			'value'    => isset( $_COOKIE[ $rule->key ] ) ? $_COOKIE[ $rule->key ] : '',
+			'operator' => $rule->operator,
+			'compare'  => $rule->compare,
+			'isset'    => isset( $_COOKIE[ $rule->key ] ),
 		) );
 	}
 
@@ -46,9 +46,9 @@ final class BB_Logic_Rules_Browser {
 	 */
 	static public function referer( $rule ) {
 		return BB_Logic_Rules::evaluate_rule( array(
-			'value' 	=> isset( $_SERVER[ 'HTTP_REFERER' ] ) ? $_SERVER[ 'HTTP_REFERER' ] : '',
-			'operator' 	=> $rule->operator,
-			'compare' 	=> $rule->compare,
+			'value'    => isset( $_SERVER['HTTP_REFERER'] ) ? $_SERVER['HTTP_REFERER'] : '',
+			'operator' => $rule->operator,
+			'compare'  => $rule->compare,
 		) );
 	}
 
@@ -61,10 +61,10 @@ final class BB_Logic_Rules_Browser {
 	 */
 	static public function url_variable( $rule ) {
 		return BB_Logic_Rules::evaluate_rule( array(
-			'value' 	=> isset( $_GET[ $rule->key ] ) ? $_GET[ $rule->key ] : '',
-			'operator' 	=> $rule->operator,
-			'compare' 	=> $rule->compare,
-			'isset' 	=> isset( $_GET[ $rule->key ] ),
+			'value'    => isset( $_GET[ $rule->key ] ) ? $_GET[ $rule->key ] : '',
+			'operator' => $rule->operator,
+			'compare'  => $rule->compare,
+			'isset'    => isset( $_GET[ $rule->key ] ),
 		) );
 	}
 }

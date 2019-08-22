@@ -19,17 +19,17 @@ final class BB_Logic_Rules_WooCommerce {
 		}
 
 		BB_Logic_Rules::register( array(
-			'woocommerce/cart'		 					=> __CLASS__ . '::cart',
-			'woocommerce/cart-products'		 			=> __CLASS__ . '::cart_products',
-			'woocommerce/cart-total'		 			=> __CLASS__ . '::cart_total',
-			'woocommerce/customer-billing-address'		=> __CLASS__ . '::customer_billing_address',
-			'woocommerce/customer-first-ordered'		=> __CLASS__ . '::customer_first_ordered',
-			'woocommerce/customer-last-ordered'		 	=> __CLASS__ . '::customer_last_ordered',
-			'woocommerce/customer-products-purchased'	=> __CLASS__ . '::customer_products_purchased',
-			'woocommerce/customer-shipping-address'		=> __CLASS__ . '::customer_shipping_address',
-			'woocommerce/customer-total-orders'		 	=> __CLASS__ . '::customer_total_orders',
-			'woocommerce/customer-total-products'		=> __CLASS__ . '::customer_total_products',
-			'woocommerce/customer-total-spent' 			=> __CLASS__ . '::customer_total_spent',
+			'woocommerce/cart'                        => __CLASS__ . '::cart',
+			'woocommerce/cart-products'               => __CLASS__ . '::cart_products',
+			'woocommerce/cart-total'                  => __CLASS__ . '::cart_total',
+			'woocommerce/customer-billing-address'    => __CLASS__ . '::customer_billing_address',
+			'woocommerce/customer-first-ordered'      => __CLASS__ . '::customer_first_ordered',
+			'woocommerce/customer-last-ordered'       => __CLASS__ . '::customer_last_ordered',
+			'woocommerce/customer-products-purchased' => __CLASS__ . '::customer_products_purchased',
+			'woocommerce/customer-shipping-address'   => __CLASS__ . '::customer_shipping_address',
+			'woocommerce/customer-total-orders'       => __CLASS__ . '::customer_total_orders',
+			'woocommerce/customer-total-products'     => __CLASS__ . '::customer_total_products',
+			'woocommerce/customer-total-spent'        => __CLASS__ . '::customer_total_spent',
 		) );
 	}
 
@@ -42,8 +42,8 @@ final class BB_Logic_Rules_WooCommerce {
 	 */
 	static public function cart( $rule ) {
 		return BB_Logic_Rules::evaluate_rule( array(
-			'value' 	=> count( WC()->cart->get_cart_contents() ),
-			'operator' 	=> $rule->operator,
+			'value'    => count( WC()->cart->get_cart_contents() ),
+			'operator' => $rule->operator,
 		) );
 	}
 
@@ -62,9 +62,9 @@ final class BB_Logic_Rules_WooCommerce {
 		}
 
 		return BB_Logic_Rules::evaluate_rule( array(
-			'value' 	=> $products,
-			'operator' 	=> $rule->operator,
-			'compare' 	=> $rule->compare,
+			'value'    => $products,
+			'operator' => $rule->operator,
+			'compare'  => $rule->compare,
 		) );
 	}
 
@@ -77,9 +77,9 @@ final class BB_Logic_Rules_WooCommerce {
 	 */
 	static public function cart_total( $rule ) {
 		return BB_Logic_Rules::evaluate_rule( array(
-			'value' 	=> WC()->cart->get_total( false ),
-			'operator' 	=> $rule->operator,
-			'compare' 	=> floatval( $rule->compare ),
+			'value'    => WC()->cart->get_total( false ),
+			'operator' => $rule->operator,
+			'compare'  => floatval( $rule->compare ),
 		) );
 	}
 
@@ -91,14 +91,14 @@ final class BB_Logic_Rules_WooCommerce {
 	 * @return bool
 	 */
 	static public function customer_billing_address( $rule ) {
-		$user = wp_get_current_user();
+		$user     = wp_get_current_user();
 		$customer = new WC_Customer( $user->ID );
-		$address = $customer->get_billing();
+		$address  = $customer->get_billing();
 
 		return BB_Logic_Rules::evaluate_rule( array(
-			'value' 	=> $address[ $rule->part ],
-			'operator' 	=> $rule->operator,
-			'compare' 	=> $rule->compare,
+			'value'    => $address[ $rule->part ],
+			'operator' => $rule->operator,
+			'compare'  => $rule->compare,
 		) );
 	}
 
@@ -110,13 +110,13 @@ final class BB_Logic_Rules_WooCommerce {
 	 * @return bool
 	 */
 	static public function customer_first_ordered( $rule ) {
-		$user = wp_get_current_user();
-		$date = null;
+		$user   = wp_get_current_user();
+		$date   = null;
 		$orders = wc_get_orders( array(
 			'customer_id' => $user->ID,
-			'status' => 'completed',
-			'orderby' => 'date',
-			'order' => 'ASC',
+			'status'      => 'completed',
+			'orderby'     => 'date',
+			'order'       => 'ASC',
 		) );
 
 		foreach ( $orders as $order ) {
@@ -144,13 +144,13 @@ final class BB_Logic_Rules_WooCommerce {
 	 * @return bool
 	 */
 	static public function customer_last_ordered( $rule ) {
-		$user = wp_get_current_user();
-		$date = null;
+		$user   = wp_get_current_user();
+		$date   = null;
 		$orders = wc_get_orders( array(
 			'customer_id' => $user->ID,
-			'status' => 'completed',
-			'orderby' => 'date',
-			'order' => 'DESC',
+			'status'      => 'completed',
+			'orderby'     => 'date',
+			'order'       => 'DESC',
 		) );
 
 		foreach ( $orders as $order ) {
@@ -178,9 +178,9 @@ final class BB_Logic_Rules_WooCommerce {
 	 * @return bool
 	 */
 	static public function customer_products_purchased( $rule ) {
-		$user = wp_get_current_user();
+		$user     = wp_get_current_user();
 		$products = array();
-		$orders = wc_get_orders( array(
+		$orders   = wc_get_orders( array(
 			'customer_id' => $user->ID,
 		) );
 
@@ -191,9 +191,9 @@ final class BB_Logic_Rules_WooCommerce {
 		}
 
 		return BB_Logic_Rules::evaluate_rule( array(
-			'value' 	=> $products,
-			'operator' 	=> $rule->operator,
-			'compare' 	=> $rule->compare,
+			'value'    => $products,
+			'operator' => $rule->operator,
+			'compare'  => $rule->compare,
 		) );
 	}
 
@@ -205,14 +205,14 @@ final class BB_Logic_Rules_WooCommerce {
 	 * @return bool
 	 */
 	static public function customer_shipping_address( $rule ) {
-		$user = wp_get_current_user();
+		$user     = wp_get_current_user();
 		$customer = new WC_Customer( $user->ID );
-		$address = $customer->get_shipping();
+		$address  = $customer->get_shipping();
 
 		return BB_Logic_Rules::evaluate_rule( array(
-			'value' 	=> $address[ $rule->part ],
-			'operator' 	=> $rule->operator,
-			'compare' 	=> $rule->compare,
+			'value'    => $address[ $rule->part ],
+			'operator' => $rule->operator,
+			'compare'  => $rule->compare,
 		) );
 	}
 
@@ -226,9 +226,9 @@ final class BB_Logic_Rules_WooCommerce {
 	static public function customer_total_orders( $rule ) {
 		$user = wp_get_current_user();
 		return BB_Logic_Rules::evaluate_rule( array(
-			'value' 	=> $user->ID ? wc_get_customer_order_count( $user->ID ) : 0,
-			'operator' 	=> $rule->operator,
-			'compare' 	=> absint( $rule->compare ),
+			'value'    => $user->ID ? wc_get_customer_order_count( $user->ID ) : 0,
+			'operator' => $rule->operator,
+			'compare'  => absint( $rule->compare ),
 		) );
 	}
 
@@ -240,11 +240,11 @@ final class BB_Logic_Rules_WooCommerce {
 	 * @return bool
 	 */
 	static public function customer_total_products( $rule ) {
-		$user = wp_get_current_user();
-		$count = 0;
+		$user   = wp_get_current_user();
+		$count  = 0;
 		$orders = wc_get_orders( array(
 			'customer_id' => $user->ID,
-			'status' => 'completed',
+			'status'      => 'completed',
 		) );
 
 		foreach ( $orders as $order ) {
@@ -252,9 +252,9 @@ final class BB_Logic_Rules_WooCommerce {
 		}
 
 		return BB_Logic_Rules::evaluate_rule( array(
-			'value' 	=> $count,
-			'operator' 	=> $rule->operator,
-			'compare' 	=> $rule->compare,
+			'value'    => $count,
+			'operator' => $rule->operator,
+			'compare'  => $rule->compare,
 		) );
 	}
 
@@ -268,9 +268,9 @@ final class BB_Logic_Rules_WooCommerce {
 	static public function customer_total_spent( $rule ) {
 		$user = wp_get_current_user();
 		return BB_Logic_Rules::evaluate_rule( array(
-			'value' 	=> $user->ID ? wc_get_customer_total_spent( $user->ID ) : 0,
-			'operator' 	=> $rule->operator,
-			'compare' 	=> floatval( $rule->compare ),
+			'value'    => $user->ID ? wc_get_customer_total_spent( $user->ID ) : 0,
+			'operator' => $rule->operator,
+			'compare'  => floatval( $rule->compare ),
 		) );
 	}
 }

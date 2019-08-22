@@ -154,8 +154,8 @@ if ( ! class_exists( 'BB_Logic_Plugin_Loader' ) ) {
 			global $pagenow;
 
 			if ( 'plugins.php' == $pagenow ) {
-				add_action( 'admin_notices',           __CLASS__ . '::admin_notice' );
-				add_action( 'network_admin_notices',   __CLASS__ . '::admin_notice' );
+				add_action( 'admin_notices', __CLASS__ . '::admin_notice' );
+				add_action( 'network_admin_notices', __CLASS__ . '::admin_notice' );
 			}
 		}
 
@@ -193,7 +193,8 @@ if ( ! class_exists( 'BB_Logic_Plugin_Loader' ) ) {
 			$error = false;
 
 			if ( version_compare( phpversion(), '5.4', '<' ) ) {
-				$url   = 'http://www.wpupdatephp.com/contact-host/';
+				$url = 'http://www.wpupdatephp.com/contact-host/';
+				/* translators: %s: url */
 				$error = sprintf( __( 'Beaver Logic requires PHP 5.4 or above. Please <a href="%s">update your PHP version</a> before continuing.', 'fl-theme-builder' ), $url );
 			}
 

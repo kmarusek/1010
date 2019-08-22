@@ -300,6 +300,13 @@ FLPageData::add_post_property_settings_fields( 'terms_list', array(
 		'label'   => __( 'Separator', 'fl-theme-builder' ),
 		'default' => __( ', ', 'fl-theme-builder' ),
 	),
+	'limit'     => array(
+		'type'        => 'text',
+		'placeholder' => '3',
+		'label'       => __( 'Limit', 'fl-theme-buider' ),
+		'default'     => '',
+		'help'        => __( 'Limit number of terms returned.', 'fl-theme-builder' ),
+	),
 	'linked'    => array(
 		'type'    => 'select',
 		'label'   => __( 'Linked', 'fl-theme-builder' ),

@@ -57,7 +57,6 @@ final class FLPageDataACF {
 			case 'password':
 			case 'wysiwyg':
 			case 'oembed':
-			case 'select':
 			case 'page_link':
 			case 'date_time_picker':
 			case 'time_picker':
@@ -81,6 +80,25 @@ final class FLPageDataACF {
 				} else {
 					$content .= '<li>' . implode( '</li><li>', $values ) . '</li>';
 					$content .= '</' . $settings->checkbox_format . '>';
+				}
+				break;
+			case 'select':
+				$values    = array();
+				$obj_value = (array) $object['value'];
+
+				if ( 'text' !== $settings->select_format ) {
+					$content .= '<' . $settings->select_format . '>';
+				}
+
+				foreach ( $obj_value as $value ) {
+					$values[] = is_array( $value ) ? $value['label'] : $value;
+				}
+
+				if ( 'text' === $settings->select_format ) {
+					$content = implode( ', ', $values );
+				} else {
+					$content .= '<li>' . implode( '</li><li>', $values ) . '</li>';
+					$content .= '</' . $settings->select_format . '>';
 				}
 				break;
 			case 'date_picker':
@@ -212,24 +230,30 @@ final class FLPageDataACF {
 	 */
 	static public function photo_field( $settings, $property ) {
 		$content = '';
-		$object  = get_field_object( trim( $settings->name ), self::get_object_id( $property ) );
+		if ( isset( $settings->image_fallback_src ) ) {
+			$content = $settings->image_fallback_src;
+		}
+		$object = get_field_object( trim( $settings->name ), self::get_object_id( $property ) );
 
 		if ( empty( $object ) || ! isset( $object['type'] ) || $object['type'] != $settings->type ) {
 			return $content;
 		}
-
 		switch ( $object['type'] ) {
 			case 'text':
 			case 'url':
 			case 'select':
 			case 'radio':
-				$content = isset( $object['value'] ) ? $object['value'] : '';
+				$content = isset( $object['value'] ) ? $object['value'] : $content;
 				break;
 			case 'image':
-				$content = array(
-					'id'  => self::get_image_id_from_object( $object ),
-					'url' => self::get_file_url_from_object( $object, $settings->image_size ),
-				);
+				$id  = self::get_image_id_from_object( $object );
+				$url = self::get_file_url_from_object( $object, $settings->image_size );
+				if ( $url ) {
+					$content = array(
+						'id'  => $id,
+						'url' => $url,
+					);
+				}
 				break;
 		}
 

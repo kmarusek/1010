@@ -64,10 +64,24 @@ final class FLThemeBuilderWooCommerceArchive {
 	 */
 	static public function posts_module_before_posts( $settings ) {
 		if ( 'show' == $settings->woo_ordering ) {
+			$force = false;
+			if ( ! isset( $GLOBALS['woocommerce_loop'] ) ) {
+				$GLOBALS['woocommerce_loop']                 = array();
+				$GLOBALS['woocommerce_loop']['total']        = 10;
+				$GLOBALS['woocommerce_loop']['is_filtered']  = true;
+				$GLOBALS['woocommerce_loop']['total']        = $GLOBALS['wp_query']->found_posts;
+				$GLOBALS['woocommerce_loop']['total_pages']  = $GLOBALS['wp_query']->max_num_pages;
+				$GLOBALS['woocommerce_loop']['per_page']     = $GLOBALS['wp_query']->get( 'posts_per_page' );
+				$GLOBALS['woocommerce_loop']['current_page'] = max( 1, $GLOBALS['wp_query']->get( 'paged', 1 ) );
+				$force                                       = true;
+			}
 			echo '<div class="fl-post-module-woo-ordering">';
 			do_action( 'woocommerce_before_shop_loop' );
 			echo '<div class="fl-clear"></div>';
 			echo '</div>';
+			if ( $force ) {
+				unset( $GLOBALS['woocommerce_loop'] );
+			}
 		}
 	}
 

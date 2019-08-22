@@ -14,35 +14,38 @@ final class BB_Logic_Rules_WordPress {
 	 * @return void
 	 */
 	static public function init() {
-		BB_Logic_Rules::register( array(
-			'wordpress/archive-description' 		=> __CLASS__ . '::archive_description',
-			'wordpress/archive-term-meta' 			=> __CLASS__ . '::archive_term_meta',
-			'wordpress/archive-term' 				=> __CLASS__ . '::archive_term',
-			'wordpress/archive-title' 				=> __CLASS__ . '::archive_title',
-			'wordpress/archive' 					=> __CLASS__ . '::archive',
-			'wordpress/author-bio' 					=> __CLASS__ . '::author_bio',
-			'wordpress/author-meta' 				=> __CLASS__ . '::author_meta',
-			'wordpress/author' 						=> __CLASS__ . '::author',
-			'wordpress/post-comments-number' 		=> __CLASS__ . '::post_comments_number',
-			'wordpress/post-content' 				=> __CLASS__ . '::post_content',
-			'wordpress/post-excerpt' 				=> __CLASS__ . '::post_excerpt',
-			'wordpress/post-featured-image' 		=> __CLASS__ . '::post_featured_image',
-			'wordpress/post-meta' 					=> __CLASS__ . '::post_meta',
-			'wordpress/post-parent' 				=> __CLASS__ . '::post_parent',
-			'wordpress/post-status' 				=> __CLASS__ . '::post_status',
-			'wordpress/post-template' 				=> __CLASS__ . '::post_template',
-			'wordpress/post-term' 					=> __CLASS__ . '::post_term',
-			'wordpress/post-title' 					=> __CLASS__ . '::post_title',
-			'wordpress/post-type' 					=> __CLASS__ . '::post_type',
-			'wordpress/post' 						=> __CLASS__ . '::post',
-			'wordpress/user-capability' 			=> __CLASS__ . '::user_capability',
-			'wordpress/user-bio' 					=> __CLASS__ . '::user_bio',
-			'wordpress/user-login-status' 			=> __CLASS__ . '::user_login_status',
-			'wordpress/user-meta' 					=> __CLASS__ . '::user_meta',
-			'wordpress/user-role' 					=> __CLASS__ . '::user_role',
-			'wordpress/user-registered' 			=> __CLASS__ . '::user_registered',
-			'wordpress/user' 						=> __CLASS__ . '::user',
-		) );
+		BB_Logic_Rules::register(
+			array(
+				'wordpress/archive-description'  => __CLASS__ . '::archive_description',
+				'wordpress/archive-term-meta'    => __CLASS__ . '::archive_term_meta',
+				'wordpress/archive-term'         => __CLASS__ . '::archive_term',
+				'wordpress/archive-title'        => __CLASS__ . '::archive_title',
+				'wordpress/archive'              => __CLASS__ . '::archive',
+				'wordpress/author-bio'           => __CLASS__ . '::author_bio',
+				'wordpress/author-login-status'  => __CLASS__ . '::author_logged_in',
+				'wordpress/author-meta'          => __CLASS__ . '::author_meta',
+				'wordpress/author'               => __CLASS__ . '::author',
+				'wordpress/post-comments-number' => __CLASS__ . '::post_comments_number',
+				'wordpress/post-content'         => __CLASS__ . '::post_content',
+				'wordpress/post-excerpt'         => __CLASS__ . '::post_excerpt',
+				'wordpress/post-featured-image'  => __CLASS__ . '::post_featured_image',
+				'wordpress/post-meta'            => __CLASS__ . '::post_meta',
+				'wordpress/post-parent'          => __CLASS__ . '::post_parent',
+				'wordpress/post-status'          => __CLASS__ . '::post_status',
+				'wordpress/post-template'        => __CLASS__ . '::post_template',
+				'wordpress/post-term'            => __CLASS__ . '::post_term',
+				'wordpress/post-title'           => __CLASS__ . '::post_title',
+				'wordpress/post-type'            => __CLASS__ . '::post_type',
+				'wordpress/post'                 => __CLASS__ . '::post',
+				'wordpress/user-capability'      => __CLASS__ . '::user_capability',
+				'wordpress/user-bio'             => __CLASS__ . '::user_bio',
+				'wordpress/user-login-status'    => __CLASS__ . '::user_login_status',
+				'wordpress/user-meta'            => __CLASS__ . '::user_meta',
+				'wordpress/user-role'            => __CLASS__ . '::user_role',
+				'wordpress/user-registered'      => __CLASS__ . '::user_registered',
+				'wordpress/user'                 => __CLASS__ . '::user',
+			)
+		);
 	}
 
 	/**
@@ -68,9 +71,9 @@ final class BB_Logic_Rules_WordPress {
 	 */
 	static public function archive_description( $rule ) {
 		return BB_Logic_Rules::evaluate_rule( array(
-			'value' 	=> get_the_archive_description(),
-			'operator' 	=> $rule->operator,
-			'compare' 	=> $rule->compare,
+			'value'    => get_the_archive_description(),
+			'operator' => $rule->operator,
+			'compare'  => $rule->compare,
 		) );
 	}
 
@@ -90,10 +93,10 @@ final class BB_Logic_Rules_WordPress {
 		}
 
 		return BB_Logic_Rules::evaluate_rule( array(
-			'value' 	=> get_term_meta( $term_id, $rule->key, true ),
-			'operator' 	=> $rule->operator,
-			'compare' 	=> $rule->compare,
-			'isset' 	=> metadata_exists( 'term', $term_id, $rule->key ),
+			'value'    => get_term_meta( $term_id, $rule->key, true ),
+			'operator' => $rule->operator,
+			'compare'  => $rule->compare,
+			'isset'    => metadata_exists( 'term', $term_id, $rule->key ),
 		) );
 	}
 
@@ -125,9 +128,9 @@ final class BB_Logic_Rules_WordPress {
 	 */
 	static public function archive_title( $rule ) {
 		return BB_Logic_Rules::evaluate_rule( array(
-			'value' 	=> get_the_archive_title(),
-			'operator' 	=> $rule->operator,
-			'compare' 	=> $rule->compare,
+			'value'    => get_the_archive_title(),
+			'operator' => $rule->operator,
+			'compare'  => $rule->compare,
 		) );
 	}
 
@@ -139,7 +142,7 @@ final class BB_Logic_Rules_WordPress {
 	 * @return object|bool
 	 */
 	static public function archive( $rule ) {
-		$parts = explode( '/', $rule->archive );
+		$parts  = explode( '/', $rule->archive );
 		$result = false;
 
 		if ( 'general' === $parts[0] ) {
@@ -181,9 +184,9 @@ final class BB_Logic_Rules_WordPress {
 		if ( $post ) {
 			$bio = get_the_author_meta( 'description', $post->post_author );
 			return BB_Logic_Rules::evaluate_rule( array(
-				'value' 	=> $bio ? $bio : '',
-				'operator' 	=> $rule->operator,
-				'compare' 	=> $rule->compare,
+				'value'    => $bio ? $bio : '',
+				'operator' => $rule->operator,
+				'compare'  => $rule->compare,
 			) );
 		}
 		return false;
@@ -200,13 +203,32 @@ final class BB_Logic_Rules_WordPress {
 		$post = self::get_post();
 		if ( $post ) {
 			return BB_Logic_Rules::evaluate_rule( array(
-				'value' 	=> get_user_meta( $post->post_author, $rule->key, true ),
-				'operator' 	=> $rule->operator,
-				'compare' 	=> $rule->compare,
-				'isset' 	=> metadata_exists( 'user', $post->post_author, $rule->key ),
+				'value'    => get_user_meta( $post->post_author, $rule->key, true ),
+				'operator' => $rule->operator,
+				'compare'  => $rule->compare,
+				'isset'    => metadata_exists( 'user', $post->post_author, $rule->key ),
 			) );
 		}
 		return false;
+	}
+
+	/**
+	 * Author logged in/out
+	 *
+	 * @since  0.1
+	 * @param object $rule
+	 * @return bool
+	 */
+	static public function author_logged_in( $rule ) {
+		$post = self::get_post();
+		if ( $post ) {
+			$author = $post->post_author;
+			return BB_Logic_Rules::evaluate_rule( array(
+				'value'    => get_current_user_id() == $author ? 'logged_in' : 'logged_out',
+				'operator' => $rule->operator,
+				'compare'  => $rule->compare,
+			) );
+		}
 	}
 
 	/**
@@ -221,9 +243,9 @@ final class BB_Logic_Rules_WordPress {
 		if ( $post ) {
 			$username = get_the_author_meta( 'user_login', $post->post_author );
 			return BB_Logic_Rules::evaluate_rule( array(
-				'value' 	=> $username ? $username : '',
-				'operator' 	=> $rule->operator,
-				'compare' 	=> $rule->compare,
+				'value'    => $username ? $username : '',
+				'operator' => $rule->operator,
+				'compare'  => $rule->compare,
 			) );
 		}
 		return false;
@@ -240,9 +262,9 @@ final class BB_Logic_Rules_WordPress {
 		$post = self::get_post();
 		if ( $post ) {
 			return BB_Logic_Rules::evaluate_rule( array(
-				'value' 	=> get_comments_number( $post->ID ),
-				'operator' 	=> $rule->operator,
-				'compare' 	=> $rule->compare,
+				'value'    => get_comments_number( $post->ID ),
+				'operator' => $rule->operator,
+				'compare'  => $rule->compare,
 			) );
 		}
 		return false;
@@ -259,9 +281,9 @@ final class BB_Logic_Rules_WordPress {
 		$post = self::get_post();
 		if ( $post ) {
 			return BB_Logic_Rules::evaluate_rule( array(
-				'value' 	=> $post->post_content,
-				'operator' 	=> $rule->operator,
-				'compare' 	=> $rule->compare,
+				'value'    => $post->post_content,
+				'operator' => $rule->operator,
+				'compare'  => $rule->compare,
 			) );
 		}
 		return false;
@@ -278,9 +300,9 @@ final class BB_Logic_Rules_WordPress {
 		$post = self::get_post();
 		if ( $post ) {
 			return BB_Logic_Rules::evaluate_rule( array(
-				'value' 	=> get_the_excerpt( $post ),
-				'operator' 	=> $rule->operator,
-				'compare' 	=> $rule->compare,
+				'value'    => get_the_excerpt( $post ),
+				'operator' => $rule->operator,
+				'compare'  => $rule->compare,
 			) );
 		}
 		return false;
@@ -313,10 +335,10 @@ final class BB_Logic_Rules_WordPress {
 		$post = self::get_post();
 		if ( $post ) {
 			return BB_Logic_Rules::evaluate_rule( array(
-				'value' 	=> get_post_meta( $post->ID, $rule->key, true ),
-				'operator' 	=> $rule->operator,
-				'compare' 	=> $rule->compare,
-				'isset' 	=> metadata_exists( 'post', $post->ID, $rule->key ),
+				'value'    => get_post_meta( $post->ID, $rule->key, true ),
+				'operator' => $rule->operator,
+				'compare'  => $rule->compare,
+				'isset'    => metadata_exists( 'post', $post->ID, $rule->key ),
 			) );
 		}
 		return false;
@@ -333,9 +355,9 @@ final class BB_Logic_Rules_WordPress {
 		$post = self::get_post();
 		if ( $post ) {
 			return BB_Logic_Rules::evaluate_rule( array(
-				'value' 	=> $post->post_parent,
-				'operator' 	=> $rule->operator,
-				'compare' 	=> absint( $rule->post ),
+				'value'    => $post->post_parent,
+				'operator' => $rule->operator,
+				'compare'  => absint( $rule->post ),
 			) );
 		}
 		return false;
@@ -352,9 +374,9 @@ final class BB_Logic_Rules_WordPress {
 		$post = self::get_post();
 		if ( $post ) {
 			return BB_Logic_Rules::evaluate_rule( array(
-				'value' 	=> $post->post_status,
-				'operator' 	=> $rule->operator,
-				'compare' 	=> $rule->compare,
+				'value'    => $post->post_status,
+				'operator' => $rule->operator,
+				'compare'  => $rule->compare,
 			) );
 		}
 		return false;
@@ -369,11 +391,16 @@ final class BB_Logic_Rules_WordPress {
 	 */
 	static public function post_template( $rule ) {
 		$post = self::get_post();
+
+		if ( is_home() || is_404() || is_search() || is_archive() ) {
+			return true;
+		}
+
 		if ( $post ) {
 			return BB_Logic_Rules::evaluate_rule( array(
-				'value' 	=> get_page_template_slug( $post->ID ),
-				'operator' 	=> $rule->operator,
-				'compare' 	=> $rule->compare,
+				'value'    => get_page_template_slug( $post->ID ),
+				'operator' => $rule->operator,
+				'compare'  => $rule->compare,
 			) );
 		}
 		return false;
@@ -406,9 +433,9 @@ final class BB_Logic_Rules_WordPress {
 		$post = self::get_post();
 		if ( $post ) {
 			return BB_Logic_Rules::evaluate_rule( array(
-				'value' 	=> get_the_title( $post ),
-				'operator' 	=> $rule->operator,
-				'compare' 	=> $rule->compare,
+				'value'    => get_the_title( $post ),
+				'operator' => $rule->operator,
+				'compare'  => $rule->compare,
 			) );
 		}
 		return false;
@@ -425,9 +452,9 @@ final class BB_Logic_Rules_WordPress {
 		$post = self::get_post();
 		if ( $post ) {
 			return BB_Logic_Rules::evaluate_rule( array(
-				'value' 	=> $post->post_type,
-				'operator' 	=> $rule->operator,
-				'compare' 	=> $rule->compare,
+				'value'    => $post->post_type,
+				'operator' => $rule->operator,
+				'compare'  => $rule->compare,
 			) );
 		}
 		return false;
@@ -444,9 +471,9 @@ final class BB_Logic_Rules_WordPress {
 		$post = self::get_post();
 		if ( $post ) {
 			return BB_Logic_Rules::evaluate_rule( array(
-				'value' 	=> $post->ID,
-				'operator' 	=> $rule->operator,
-				'compare' 	=> absint( $rule->post ),
+				'value'    => $post->ID,
+				'operator' => $rule->operator,
+				'compare'  => absint( $rule->post ),
 			) );
 		}
 		return false;
@@ -460,12 +487,12 @@ final class BB_Logic_Rules_WordPress {
 	 * @return bool
 	 */
 	static public function user_capability( $rule ) {
-		$user = wp_get_current_user();
+		$user    = wp_get_current_user();
 		$has_cap = current_user_can( $rule->compare );
 		return BB_Logic_Rules::evaluate_rule( array(
-			'value' 	=> $has_cap ? $rule->compare : '',
-			'operator' 	=> $rule->operator,
-			'compare' 	=> $rule->compare,
+			'value'    => $has_cap ? $rule->compare : '',
+			'operator' => $rule->operator,
+			'compare'  => $rule->compare,
 		) );
 	}
 
@@ -478,11 +505,11 @@ final class BB_Logic_Rules_WordPress {
 	 */
 	static public function user_bio( $rule ) {
 		$user = wp_get_current_user();
-		$bio = get_user_meta( $user->ID, 'description', true );
+		$bio  = get_user_meta( $user->ID, 'description', true );
 		return BB_Logic_Rules::evaluate_rule( array(
-			'value' 	=> $bio ? $bio : '',
-			'operator' 	=> $rule->operator,
-			'compare' 	=> $rule->compare,
+			'value'    => $bio ? $bio : '',
+			'operator' => $rule->operator,
+			'compare'  => $rule->compare,
 		) );
 	}
 
@@ -495,9 +522,9 @@ final class BB_Logic_Rules_WordPress {
 	 */
 	static public function user_login_status( $rule ) {
 		return BB_Logic_Rules::evaluate_rule( array(
-			'value' 	=> is_user_logged_in() ? 'logged_in' : 'logged_out',
-			'operator' 	=> $rule->operator,
-			'compare' 	=> $rule->compare,
+			'value'    => is_user_logged_in() ? 'logged_in' : 'logged_out',
+			'operator' => $rule->operator,
+			'compare'  => $rule->compare,
 		) );
 	}
 
@@ -512,10 +539,10 @@ final class BB_Logic_Rules_WordPress {
 		$user = wp_get_current_user();
 		$meta = get_user_meta( $user->ID, $rule->key, true );
 		return BB_Logic_Rules::evaluate_rule( array(
-			'value' 	=> $meta ? $meta : '',
-			'operator' 	=> $rule->operator,
-			'compare' 	=> $rule->compare,
-			'isset' 	=> metadata_exists( 'user', $user->ID, $rule->key ),
+			'value'    => $meta ? $meta : '',
+			'operator' => $rule->operator,
+			'compare'  => $rule->compare,
+			'isset'    => metadata_exists( 'user', $user->ID, $rule->key ),
 		) );
 	}
 
@@ -527,12 +554,12 @@ final class BB_Logic_Rules_WordPress {
 	 * @return bool
 	 */
 	static public function user_role( $rule ) {
-		$user = wp_get_current_user();
+		$user  = wp_get_current_user();
 		$value = in_array( $rule->compare, (array) $user->roles ) ? $rule->compare : '';
 		return BB_Logic_Rules::evaluate_rule( array(
-			'value' 	=> $value,
-			'operator' 	=> $rule->operator,
-			'compare' 	=> $rule->compare,
+			'value'    => $value,
+			'operator' => $rule->operator,
+			'compare'  => $rule->compare,
 		) );
 	}
 
@@ -561,9 +588,9 @@ final class BB_Logic_Rules_WordPress {
 	static public function user( $rule ) {
 		$user = wp_get_current_user();
 		return BB_Logic_Rules::evaluate_rule( array(
-			'value' 	=> $user->user_login ? $user->user_login : '',
-			'operator' 	=> $rule->operator,
-			'compare' 	=> $rule->compare,
+			'value'    => $user->user_login ? $user->user_login : '',
+			'operator' => $rule->operator,
+			'compare'  => $rule->compare,
 		) );
 	}
 }

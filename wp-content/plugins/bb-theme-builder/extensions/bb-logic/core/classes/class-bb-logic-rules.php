@@ -89,8 +89,8 @@ final class BB_Logic_Rules {
 	 * @return bool
 	 */
 	static public function process_rule( $rule ) {
-		$rule = is_array( $rule ) ? (object) $rule : $rule;
-		$key = $rule->type;
+		$rule   = is_array( $rule ) ? (object) $rule : $rule;
+		$key    = $rule->type;
 		$result = true;
 
 		if ( isset( self::$callbacks[ $key ] ) && is_callable( self::$callbacks[ $key ] ) ) {
@@ -118,89 +118,89 @@ final class BB_Logic_Rules {
 	 * @return bool
 	 */
 	static public function evaluate_rule( $data ) {
-		$result 	= false;
-		$value 	 	= $data['value'];
-		$operator  	= $data['operator'];
-		$compare  	= isset( $data['compare'] ) ? $data['compare'] : '';
-		$isset  	= isset( $data['isset'] ) ? $data['isset'] : false;
-		$start  	= isset( $data['start'] ) ? $data['start'] : 0;
-		$end	  	= isset( $data['end'] ) ? $data['end'] : 0;
+		$result   = false;
+		$value    = $data['value'];
+		$operator = $data['operator'];
+		$compare  = isset( $data['compare'] ) ? $data['compare'] : '';
+		$isset    = isset( $data['isset'] ) ? $data['isset'] : false;
+		$start    = isset( $data['start'] ) ? $data['start'] : 0;
+		$end      = isset( $data['end'] ) ? $data['end'] : 0;
 
 		switch ( $operator ) {
 			case 'equals':
 			case 'on':
 			case 'is_on':
 				$result = $value === $compare;
-			break;
+				break;
 			case 'does_not_equal':
 			case 'not_on':
 			case 'is_not_on':
 				$result = $value !== $compare;
-			break;
+				break;
 			case 'is_less_than':
 			case 'before':
 			case 'is_before':
 				$result = $value < floatval( $compare );
-			break;
+				break;
 			case 'is_less_than_or_equal_to':
 			case 'on_or_before':
 			case 'is_on_or_before':
 			case 'over':
 				$result = $value <= floatval( $compare );
-			break;
+				break;
 			case 'is_greater_than':
 			case 'after':
 			case 'is_after':
 				$result = $value > floatval( $compare );
-			break;
+				break;
 			case 'is_greater_than_or_equal_to':
 			case 'on_or_after':
 			case 'is_on_or_after':
 			case 'in_the_past':
 				$result = $value >= floatval( $compare );
-			break;
+				break;
 			case 'starts_with':
 				$length = strlen( $compare );
 				$result = substr( $value, 0, $length ) === $compare;
-			break;
+				break;
 			case 'ends_with':
 				$length = strlen( $compare );
-				$result = $length === 0 || substr( $value, -$length ) === $compare;
-			break;
+				$result = 0 === $length || substr( $value, -$length ) === $compare;
+				break;
 			case 'contains':
 			case 'include':
 			case 'includes':
 				$result = is_string( $value ) ? strstr( $value, $compare ) : in_array( $compare, $value );
-			break;
+				break;
 			case 'does_not_contain':
 			case 'do_not_include':
 			case 'does_not_include':
 				$result = is_string( $value ) ? ! strstr( $value, $compare ) : ! in_array( $compare, $value );
-			break;
+				break;
 			case 'is_set':
 				$result = $isset;
-			break;
+				break;
 			case 'is_not_set':
 				$result = ! $isset;
-			break;
+				break;
 			case 'is_empty':
 				$result = empty( $value );
-			break;
+				break;
 			case 'is_not_empty':
 				$result = ! empty( $value );
-			break;
+				break;
 			case 'within':
 			case 'is_within':
 			case 'between':
 			case 'is_between':
 				$result = $value >= $start && $value <= $end;
-			break;
+				break;
 			case 'not_within':
 			case 'is_not_within':
 			case 'not_between':
 			case 'is_not_between':
 				$result = $value < $start || $value > $end;
-			break;
+				break;
 		}
 
 		return $result;
@@ -226,22 +226,22 @@ final class BB_Logic_Rules {
 
 		if ( in_array( $rule->operator, array( 'in_the_past', 'over' ) ) ) {
 			$compare = strtotime( "-{$rule->duration} {$rule->period}", $now );
-			$start = null;
-			$end = null;
+			$start   = null;
+			$end     = null;
 		} else {
-			$parts = explode( ' ', $date );
-			$date = array_shift( $parts );
+			$parts   = explode( ' ', $date );
+			$date    = array_shift( $parts );
 			$compare = strtotime( $rule->start, $now );
-			$start = strtotime( $rule->start, $now );
-			$end = strtotime( $rule->end, $now );
+			$start   = strtotime( $rule->start, $now );
+			$end     = strtotime( $rule->end, $now );
 		}
 
 		return BB_Logic_Rules::evaluate_rule( array(
-			'value' 	=> strtotime( $date, $now ),
-			'operator' 	=> $rule->operator,
-			'compare'	=> $compare,
-			'start' 	=> $start,
-			'end'		=> $end,
+			'value'    => strtotime( $date, $now ),
+			'operator' => $rule->operator,
+			'compare'  => $compare,
+			'start'    => $start,
+			'end'      => $end,
 		) );
 	}
 }

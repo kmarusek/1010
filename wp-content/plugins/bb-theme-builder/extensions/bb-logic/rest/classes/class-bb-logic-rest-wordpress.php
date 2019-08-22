@@ -122,14 +122,14 @@ final class BB_Logic_REST_WordPress {
 	 * @return array
 	 */
 	static public function posts( $request ) {
-		$response = array();
+		$response  = array();
 		$post_type = $request->get_param( 'post_type' );
 
 		$posts = get_posts( array(
-			'post_type' => $post_type ? $post_type : 'post',
+			'post_type'   => $post_type ? $post_type : 'post',
 			'numberposts' => -1,
-			'orderby' => 'title',
-			'order' => 'ASC',
+			'orderby'     => 'title',
+			'order'       => 'ASC',
 		) );
 
 		foreach ( $posts as $post ) {
@@ -151,14 +151,14 @@ final class BB_Logic_REST_WordPress {
 	 * @return array
 	 */
 	static public function post_types( $request ) {
-		$response = array();
+		$response     = array();
 		$hierarchical = $request->get_param( 'hierarchical' );
-		$args = array(
+		$args         = array(
 			'public' => true,
 		);
 
-		if ( NULL !== $hierarchical ) {
-			$args[ 'hierarchical' ] = $hierarchical;
+		if ( null !== $hierarchical ) {
+			$args['hierarchical'] = $hierarchical;
 		}
 
 		$post_types = get_post_types( $args, 'objects' );
@@ -182,7 +182,7 @@ final class BB_Logic_REST_WordPress {
 	 */
 	static public function post_stati() {
 		$response = array();
-		$stati = get_post_stati( array(), 'objects' );
+		$stati    = get_post_stati( array(), 'objects' );
 
 		foreach ( $stati as $slug => $status ) {
 			$response[] = array(
@@ -202,13 +202,13 @@ final class BB_Logic_REST_WordPress {
 	 * @return array
 	 */
 	static public function post_templates() {
-		$response = array();
-		$templates = wp_get_theme()->get_post_templates();
-		$post_type_objects = get_post_types( array(
+		$response           = array();
+		$templates          = wp_get_theme()->get_post_templates();
+		$post_type_objects  = get_post_types( array(
 			'public' => true,
 		), 'objects' );
-		$templates_by_file = array();
-		$templates_by_name = array();
+		$templates_by_file  = array();
+		$templates_by_name  = array();
 		$templates_by_group = array();
 
 		foreach ( $templates as $post_type => $files ) {
@@ -217,7 +217,7 @@ final class BB_Logic_REST_WordPress {
 					$templates_by_file[ $file ] = array();
 				}
 				$templates_by_file[ $file ][] = $post_type_objects[ $post_type ]->labels->singular_name;
-				$templates_by_name[ $file ] = $name;
+				$templates_by_name[ $file ]   = $name;
 			}
 		}
 
@@ -231,11 +231,11 @@ final class BB_Logic_REST_WordPress {
 
 		foreach ( $templates_by_group as $label => $files ) {
 			$group = array(
-				'label' => $label,
+				'label'   => $label,
 				'options' => array(),
 			);
 			foreach ( $files as $file ) {
-				$group[ 'options' ][] = array(
+				$group['options'][] = array(
 					'label' => $templates_by_name[ $file ],
 					'value' => $file,
 				);
@@ -256,7 +256,7 @@ final class BB_Logic_REST_WordPress {
 	static public function archives() {
 		$response = array(
 			array(
-				'label' => __( 'General', 'fl-theme-builder' ),
+				'label'   => __( 'General', 'fl-theme-builder' ),
 				'options' => array(
 					array(
 						'label' => __( 'Author Archives', 'fl-theme-builder' ),
@@ -280,12 +280,13 @@ final class BB_Logic_REST_WordPress {
 
 		foreach ( $post_types as $slug => $type ) {
 			$group = array(
-				'label' => $type->labels->singular_name,
+				'label'   => $type->labels->singular_name,
 				'options' => array(),
 			);
 
 			if ( 'post' == $slug || ! empty( $type->has_archive ) ) {
-				$group[ 'options' ][] = array(
+				$group['options'][] = array(
+					/* translators: %s: post type singular name */
 					'label' => sprintf( _x( '%s Archive', '%s post type singular name', 'fl-theme-builder' ), $type->labels->singular_name ),
 					'value' => "post/$slug",
 				);
@@ -303,7 +304,7 @@ final class BB_Logic_REST_WordPress {
 					$type->labels->singular_name,
 				), '', $taxonomy->labels->singular_name );
 
-				$group[ 'options' ][] = array(
+				$group['options'][] = array(
 					'label' => $type->labels->singular_name . ' ' . $label,
 					'value' => "taxonomy/$taxonomy_slug",
 				);
@@ -326,7 +327,7 @@ final class BB_Logic_REST_WordPress {
 	 */
 	static public function taxonomies() {
 		$response = array();
-		$types = get_post_types( array(
+		$types    = get_post_types( array(
 			'public' => true,
 		), 'objects' );
 
@@ -338,7 +339,7 @@ final class BB_Logic_REST_WordPress {
 			}
 
 			$group = array(
-				'label' => $type->labels->singular_name,
+				'label'   => $type->labels->singular_name,
 				'options' => array(),
 			);
 
@@ -352,7 +353,7 @@ final class BB_Logic_REST_WordPress {
 					$type->labels->singular_name,
 				), '', $taxonomy->labels->singular_name );
 
-				$group[ 'options' ][] = array(
+				$group['options'][] = array(
 					'label' => $type->labels->singular_name . ' ' . $label,
 					'value' => $taxonomy_slug,
 				);
@@ -378,7 +379,7 @@ final class BB_Logic_REST_WordPress {
 
 		if ( $taxonomy ) {
 			$terms = get_terms( array(
-				'taxonomy' => $taxonomy,
+				'taxonomy'   => $taxonomy,
 				'hide_empty' => false,
 			) );
 			foreach ( $terms as $term ) {
@@ -403,7 +404,7 @@ final class BB_Logic_REST_WordPress {
 	 */
 	static public function users( $request ) {
 		$response = array();
-		$suggest = $request->get_param( 'suggest' );
+		$suggest  = $request->get_param( 'suggest' );
 
 		if ( $suggest ) {
 			$users = get_users( array(
@@ -450,7 +451,7 @@ final class BB_Logic_REST_WordPress {
 	 */
 	static public function capabilities() {
 		global $wp_roles;
-		$response = array();
+		$response     = array();
 		$capabilities = array();
 
 		foreach ( $wp_roles->roles as $role ) {

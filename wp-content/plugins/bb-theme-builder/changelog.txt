@@ -1,3 +1,30 @@
+<h4>1.2.4.1 - 08/13/2019</h4>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Re-added missing content filter in excerpt shortcode.</li>
+</ul>
+
+<h4>1.2.4 - 08/12/2019</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Added fallback option for ACF image fields.</li>
+	<li>Added conditional logic to check if logged in user is Post Author.</li>
+	<li>Added limit setting for terms_list shortcode.</li>
+	<li>Added format options for ACF select field.</li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fixed post:excerpt length defaulting to 55.</li>
+	<li>Fixed preview dropdown where unable to see all posts.</li>
+	<li>Fixed WooCommerce Waitlist elements not rendering on the Add To Cart Button module.</li>
+	<li>Fixed "onsale" Button being cut-off on Woocommerce Shop Page/Layout.</li>
+	<li>Fixed the missing author data when the shortcode is added outside of loop.</li>
+	<li>Fixed GeneratePress Premium causing CSS issue on the Singular Product Layout.</li>
+	<li>Fixed Post Template rule affecting 404 layout & search results layout.</li>
+	<li>Fixed field connection from template shortcode in posts module when using custom layout.</li>
+	<li>Fixed conflict with YITH Woocommerce Request A Quote when preview is none.</li>
+</ul>
+
 <h4>1.2.3.5 - 07/18/2019</h4>
 <p><strong>Hot Fix</strong></p>
 <ul>

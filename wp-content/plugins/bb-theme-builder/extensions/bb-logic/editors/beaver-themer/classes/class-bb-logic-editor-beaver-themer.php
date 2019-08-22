@@ -49,29 +49,29 @@ final class BB_Logic_Editor_Beaver_Themer {
 	 * @return array
 	 */
 	static public function get_rules( $post_id ) {
-		$rules = get_post_meta( $post_id, '_fl_theme_builder_logic', true );
+		$rules      = get_post_meta( $post_id, '_fl_theme_builder_logic', true );
 		$user_rules = FLThemeBuilderRulesUser::get_saved( $post_id );
-		$new_rules = array();
-		$rules = is_array( $rules ) ? $rules : array();
+		$new_rules  = array();
+		$rules      = is_array( $rules ) ? $rules : array();
 
 		foreach ( $user_rules as $rule ) {
 			$parts = explode( ':', $rule );
 			if ( 'general' === $parts[0] ) {
 				if ( in_array( $parts[1], array( 'logged-in', 'logged-out' ) ) ) {
-					$new_rule = new stdClass;
-					$new_rule->type = 'wordpress/user-login-status';
+					$new_rule           = new stdClass;
+					$new_rule->type     = 'wordpress/user-login-status';
 					$new_rule->operator = 'equals';
-					$new_rule->compare = str_replace( '-', '_', $parts[1] );
-					$new_rules[] = $new_rule;
+					$new_rule->compare  = str_replace( '-', '_', $parts[1] );
+					$new_rules[]        = $new_rule;
 				} else {
 					continue;
 				}
 			} elseif ( 'role' === $parts[0] ) {
-				$new_rule = new stdClass;
-				$new_rule->type = 'wordpress/user-role';
+				$new_rule           = new stdClass;
+				$new_rule->type     = 'wordpress/user-role';
 				$new_rule->operator = 'equals';
-				$new_rule->compare = $parts[1];
-				$new_rules[] = $new_rule;
+				$new_rule->compare  = $parts[1];
+				$new_rules[]        = $new_rule;
 			}
 		}
 
@@ -91,7 +91,7 @@ final class BB_Logic_Editor_Beaver_Themer {
 	static public function is_admin_edit() {
 		global $pagenow;
 		global $post;
-		$screen  = get_current_screen();
+		$screen = get_current_screen();
 		return 'post.php' === $pagenow && 'fl-theme-layout' === $screen->post_type;
 	}
 
@@ -190,7 +190,7 @@ final class BB_Logic_Editor_Beaver_Themer {
 		}
 
 		$post_id = absint( $_POST['post_ID'] );
-		$rules = json_decode( stripslashes_deep( $_POST['bb-logic-json'] ) );
+		$rules   = json_decode( stripslashes_deep( $_POST['bb-logic-json'] ) );
 		update_post_meta( $post_id, '_fl_theme_builder_logic', $rules );
 
 		// Clear old user rules as they are no longer needed.

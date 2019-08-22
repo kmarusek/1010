@@ -21,26 +21,29 @@ final class FLPageDataPost {
 			$filter = true;
 		}
 
+		add_filter( 'excerpt_length', array( __CLASS__, 'excerpt_length_filter' ), 9999 );
+		add_filter( 'excerpt_more', array( __CLASS__, 'excerpt_more_filter' ), 9999 );
+
 		if ( is_single() ) {
-			$content = ! empty( $post->post_excerpt ) ? apply_filters( 'the_excerpt', get_the_excerpt() ) : null;
+			setup_postdata( $post );
+			if ( has_excerpt() ) {
+				$content = '<p>' . self::wp_trim_words( get_the_excerpt(), $settings->length, $settings->more ) . '</p>';
+			} else {
+				$content = apply_filters( 'the_excerpt', get_the_excerpt() );
+			}
+			wp_reset_postdata();
 		} else {
 			$content = apply_filters( 'the_excerpt', get_the_excerpt() );
 		}
 
-		$args = apply_filters( 'fl_theme_builder_get_excerpt', array(
-			'content' => $content,
-			'length'  => is_numeric( $settings->length ) ? $settings->length : 55,
-			'more'    => ! empty( $settings->more ) ? $settings->more : '...',
-			'trim'    => true,
-		), $settings );
-
 		if ( $filter ) {
 			add_filter( 'the_content', 'FLBuilder::render_content' );
 		}
-		if ( isset( $args['trim'] ) && $args['trim'] ) {
-			return self::wp_trim_words( $args['content'], $args['length'], $args['more'] );
-		}
-		return $args['content'];
+
+		remove_filter( 'excerpt_length', array( __CLASS__, 'excerpt_length_filter' ) );
+		remove_filter( 'excerpt_more', array( __CLASS__, 'excerpt_more_filter' ) );
+
+		return $content;
 	}
 
 	static public function wp_trim_words( $text, $num_words = 55, $more = null ) {
@@ -73,39 +76,25 @@ final class FLPageDataPost {
 			$text = implode( $sep, $words_array );
 		}
 
-		/**
-		 * Filters the text content after words have been trimmed.
-		 *
-		 * @since 3.3.0
-		 *
-		 * @param string $text          The trimmed text.
-		 * @param int    $num_words     The number of words to trim the text to. Default 55.
-		 * @param string $more          An optional string to append to the end of the trimmed text, e.g. &hellip;.
-		 * @param string $original_text The text before it was trimmed.
-		 */
-		return apply_filters( 'wp_trim_words', $text, $num_words, $more, $original_text );
+		return $text;
 	}
 
 	/**
 	 * @since 1.0
-	 * @deprecated 1.1.3
 	 * @param string $length
 	 * @return string
 	 */
 	static public function excerpt_length_filter( $length ) {
-		_deprecated_function( __METHOD__, '1.1.3' );
 		$settings = FLPageData::get_current_settings();
 		return $settings && is_numeric( $settings->length ) ? $settings->length : 55;
 	}
 
 	/**
 	 * @since 1.0
-	 * @deprecated 1.1.3
 	 * @param string $more
 	 * @return string
 	 */
 	static public function excerpt_more_filter( $more ) {
-		_deprecated_function( __METHOD__, '1.1.3' );
 		$settings = FLPageData::get_current_settings();
 		return $settings && ! empty( $settings->more ) ? $settings->more : '...';
 	}
@@ -265,12 +254,12 @@ final class FLPageDataPost {
 
 		if ( isset( $settings->html_list ) && ( 'ul' === $settings->html_list || 'ol' === $settings->html_list ) ) {
 			$seperator  = $settings->html_list;
-			$terms_list = self::get_the_term_list( $post->ID, $settings->taxonomy, "<$seperator class='fl-{$settings->taxonomy}'><li>", '</li><li>', "</li></$seperator>", $settings->linked );
+			$terms_list = self::get_the_term_list( $post->ID, $settings->taxonomy, "<$seperator class='fl-{$settings->taxonomy}'><li>", '</li><li>', "</li></$seperator>", $settings->linked, $settings->limit );
 		} elseif ( isset( $settings->html_list ) && 'div' === $settings->html_list ) {
 			$seperator  = $settings->html_list;
-			$terms_list = self::get_the_term_list( $post->ID, $settings->taxonomy, "<$seperator class='fl-{$settings->taxonomy}'><span>", '</span><span>', "</span></$seperator>", $settings->linked );
+			$terms_list = self::get_the_term_list( $post->ID, $settings->taxonomy, "<$seperator class='fl-{$settings->taxonomy}'><span>", '</span><span>', "</span></$seperator>", $settings->linked, $settings->limit );
 		} else {
-			$terms_list = self::get_the_term_list( $post->ID, $settings->taxonomy, '', $settings->separator, '', $settings->linked );
+			$terms_list = self::get_the_term_list( $post->ID, $settings->taxonomy, '', $settings->separator, '', $settings->linked, $settings->limit );
 			if ( 'no' === $settings->linked ) {
 				$terms_list = strip_tags( $terms_list );
 			}
@@ -282,7 +271,7 @@ final class FLPageDataPost {
 	/**
 	 * @since 1.2.3
 	 */
-	static public function get_the_term_list( $id, $taxonomy, $before = '', $sep = '', $after = '', $linked ) {
+	static public function get_the_term_list( $id, $taxonomy, $before = '', $sep = '', $after = '', $linked, $limit = false ) {
 		$terms = get_the_terms( $id, $taxonomy );
 
 		if ( is_wp_error( $terms ) ) {
@@ -294,6 +283,10 @@ final class FLPageDataPost {
 		}
 
 		$links = array();
+
+		if ( $limit && is_numeric( $limit ) ) {
+			$terms = array_slice( $terms, 0, $limit );
+		}
 
 		foreach ( $terms as $term ) {
 			$link = get_term_link( $term, $taxonomy );
@@ -317,7 +310,7 @@ final class FLPageDataPost {
 		 *
 		 * @param string[] $links An array of term links.
 		 */
-		$term_links = apply_filters( "term_links-{$taxonomy}", $links );
+		$term_links = apply_filters( "term_links-{$taxonomy}", $links ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 
 		return $before . join( $sep, $term_links ) . $after;
 	}
@@ -378,13 +371,34 @@ final class FLPageDataPost {
 	}
 
 	/**
+	 * @since 1.2.4
+	 * @return integer
+	 */
+	static public function get_author_id() {
+		$author_id = get_the_author_meta( 'ID' );
+
+		// If not in loop, try checking author ID from the original wp query.
+		if ( ! $author_id ) {
+			if ( is_archive() && is_author() ) {
+				global $wp_the_query;
+
+				if ( isset( $wp_the_query->queried_object_id ) && $wp_the_query->queried_object_id ) {
+					$author_id = $wp_the_query->queried_object_id;
+				}
+			}
+		}
+
+		return $author_id;
+	}
+
+	/**
 	 * @since 1.0
 	 * @param object $settings
 	 * @return string
 	 */
 	static public function get_author_name( $settings ) {
 
-		$user = get_userdata( get_the_author_meta( 'ID' ) );
+		$user = get_userdata( self::get_author_id() );
 		$name = '';
 
 		if ( ! $user ) {
@@ -439,7 +453,7 @@ final class FLPageDataPost {
 	 * @return string
 	 */
 	static public function get_author_bio() {
-		return get_the_author_meta( 'description' );
+		return get_the_author_meta( 'description', self::get_author_id() );
 	}
 
 	/**
@@ -449,7 +463,7 @@ final class FLPageDataPost {
 	 */
 	static public function get_author_url( $settings ) {
 
-		$id  = get_the_author_meta( 'ID' );
+		$id  = self::get_author_id();
 		$url = '';
 
 		if ( 'archive' == $settings->type ) {
@@ -469,7 +483,7 @@ final class FLPageDataPost {
 	 */
 	static public function get_author_profile_picture( $settings ) {
 		$size   = ! is_numeric( $settings->size ) ? 512 : $settings->size;
-		$avatar = get_avatar( get_the_author_meta( 'ID' ), $size );
+		$avatar = get_avatar( self::get_author_id(), $size );
 		if ( '1' == $settings->link || 'yes' == $settings->link ) {
 			$settings->type = $settings->link_type;
 			$avatar         = '<a href="' . self::get_author_url( $settings ) . '">' . $avatar . '</a>';
@@ -485,7 +499,7 @@ final class FLPageDataPost {
 	 */
 	static public function get_author_profile_picture_url( $settings ) {
 
-		$author = get_the_author_meta( 'ID' );
+		$author = self::get_author_id();
 
 		// if not in loop use global $post to find author ID
 		if ( ! $author ) {
@@ -517,7 +531,12 @@ final class FLPageDataPost {
 			return '';
 		}
 
-		return get_user_meta( get_the_author_meta( 'ID' ), $settings->key, true );
+		$value = get_user_meta( self::get_author_id(), $settings->key, true );
+		if ( ! $value ) {
+			$value = get_the_author_meta( $settings->key, self::get_author_id() );
+		}
+
+		return $value;
 	}
 
 	/**

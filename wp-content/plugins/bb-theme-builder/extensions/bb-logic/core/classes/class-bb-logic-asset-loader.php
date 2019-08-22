@@ -31,18 +31,18 @@ final class BB_Logic_Asset_Loader {
 	 * @var array $classes
 	 */
 	static private $classes = array(
-		'acf' => 'acf',
+		'acf'         => 'acf',
 		'woocommerce' => 'WooCommerce',
 	);
 
-    /**
-     * Enqueue the necessary assets.
-     *
-     * @since  0.1
+	/**
+	 * Enqueue the necessary assets.
+	 *
+	 * @since  0.1
 	 * @param array $rules
-     * @return void
-     */
-    static public function enqueue( $rules = null ) {
+	 * @return void
+	 */
+	static public function enqueue( $rules = null ) {
 		// Core
 		wp_enqueue_style(
 			'bb-logic-core',
@@ -82,5 +82,5 @@ final class BB_Logic_Asset_Loader {
 		}
 
 		do_action( 'bb_logic_enqueue_scripts' );
-    }
+	}
 }

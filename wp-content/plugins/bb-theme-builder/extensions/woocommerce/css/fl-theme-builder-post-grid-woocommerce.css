@@ -3,6 +3,10 @@
 	padding-bottom: 40px;
 }
 
+.fl-product-ordering{
+	text-align: center;
+}
+
 /* Grid */
 .woocommerce.fl-post-grid-woo-meta {
 	padding-bottom: 5px;
@@ -23,6 +27,9 @@
 }
 .fl-module-post-grid .woocommerce.fl-post-grid-woo-button {
 	padding-top: 10px;
+}
+.woocommerce .fl-post-grid-post {
+	overflow: inherit;
 }
 
 /* Feed */

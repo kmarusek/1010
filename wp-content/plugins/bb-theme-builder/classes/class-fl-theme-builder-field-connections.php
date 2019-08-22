@@ -372,8 +372,11 @@ final class FLThemeBuilderFieldConnections {
 	 * @return object
 	 */
 	static public function connect_node_settings( $settings, $node ) {
-		$repeater = array();
-		$nested   = array();
+		global $post;
+
+		$repeater  = array();
+		$nested    = array();
+		$cache_key = $post && isset( $post->ID ) ? $node->node . '_' . $post->ID : $node->node;
 
 		// Gather any repeater or nested settings.
 		foreach ( $settings as $key => $value ) {
@@ -395,8 +398,8 @@ final class FLThemeBuilderFieldConnections {
 		}
 
 		// Return cached connections?
-		if ( isset( self::$connected_settings[ $node->node ] ) ) {
-			return self::$connected_settings[ $node->node ];
+		if ( isset( self::$connected_settings[ $cache_key ] ) ) {
+			return self::$connected_settings[ $cache_key ];
 		}
 
 		// Connect the main settings object.
@@ -415,7 +418,7 @@ final class FLThemeBuilderFieldConnections {
 		}
 
 		// Cache the connected settings.
-		self::$connected_settings[ $node->node ] = $settings;
+		self::$connected_settings[ $cache_key ] = $settings;
 
 		return $settings;
 	}

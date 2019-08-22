@@ -111,6 +111,7 @@ final class BB_Logic_I18n {
 			'Username'                    => __( 'Username', 'fl-theme-builder' ),
 			'Author Bio'                  => __( 'Author Bio', 'fl-theme-builder' ),
 			'Author Meta'                 => __( 'Author Meta', 'fl-theme-builder' ),
+			'Author Login Status'         => __( 'Author Login Status', 'fl-theme-builder' ),
 			'User'                        => __( 'User', 'fl-theme-builder' ),
 			'Username'                    => __( 'Username', 'fl-theme-builder' ),
 			'User Bio'                    => __( 'User Bio', 'fl-theme-builder' ),
