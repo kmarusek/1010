@@ -414,12 +414,17 @@ $printurl = str_ireplace(array(site_url(), home_url(), 'http:', 'https:'), '', $
 				$code = fastvelocity_min_get_css($hurl, file_get_contents($f).$inline, $disable_minification); 
 			}
 			
-			# log, save and return
-			$log = $printurl;
-			if($fvm_debug == true) { $log.= " --- Debug: $printhandle was opened from $f ---"; }
-			$log.= PHP_EOL;
-			$return = array('request'=>$dreq, 'log'=>$log, 'code'=>$code, 'status'=>true);
-			return json_encode($return);
+			# check for php code, skip if found
+			if(strtolower(substr($code, 0, 5)) != "<?php" && stripos($code, "<?php") === false) {
+				# log, save and return
+				$log = $printurl;
+				if($fvm_debug == true) { $log.= " --- Debug: $printhandle was opened from $f ---"; }
+				$log.= PHP_EOL;
+				$return = array('request'=>$dreq, 'log'=>$log, 'code'=>$code, 'status'=>true);
+				return json_encode($return);
+			}
+			
+
 		}
 		
 		# failover when home_url != site_url
@@ -433,12 +438,15 @@ $printurl = str_ireplace(array(site_url(), home_url(), 'http:', 'https:'), '', $
 				$code = fastvelocity_min_get_css($hurl, file_get_contents($f).$inline, $disable_minification); 
 			}
 			
-			# log, save and return
-			$log = $printurl;
-			if($fvm_debug == true) { $log.= " --- Debug: $printhandle was opened from $f ---"; }
-			$log.= PHP_EOL;
-			$return = array('request'=>$dreq, 'log'=>$log, 'code'=>$code, 'status'=>true);
-			return json_encode($return);
+			# check for php code, skip if found
+			if(strtolower(substr($code, 0, 5)) != "<?php" && stripos($code, "<?php") === false) {
+				# log, save and return
+				$log = $printurl;
+				if($fvm_debug == true) { $log.= " --- Debug: $printhandle was opened from $f ---"; }
+				$log.= PHP_EOL;
+				$return = array('request'=>$dreq, 'log'=>$log, 'code'=>$code, 'status'=>true);
+				return json_encode($return);
+			}
 		}
 	}
 	}
@@ -484,52 +492,10 @@ $printurl = str_ireplace(array(site_url(), home_url(), 'http:', 'https:'), '', $
 			return json_encode($return);
 		}
 	}
-
-
-	# if remote urls failed... try to open locally again, regardless of OS in use
-	if (stripos($hurl, $wp_domain) !== false) { 
-		# default
-		$f = str_ireplace(rtrim($wp_home, '/'), rtrim($wp_home_path, '/'), $hurl);
-		clearstatcache();
-		if (file_exists($f)) { 
-			if($type == 'js') {
-				$code = fastvelocity_min_get_js($hurl, file_get_contents($f), $disable_minification); 
-			} else { 
-				$code = fastvelocity_min_get_css($hurl, file_get_contents($f).$inline, $disable_minification); 
-			}
-			
-			# log, save and return
-			$log = $printurl;
-			if($fvm_debug == true) { $log.= " --- Debug: $printhandle was opened from $f ---"; }
-			$log.= PHP_EOL;
-			$return = array('request'=>$dreq, 'log'=>$log, 'code'=>$code, 'status'=>true);
-			return json_encode($return);
-		}
-		
-		# failover when home_url != site_url
-		$nhurl = str_ireplace(site_url(), home_url(), $hurl);
-		$f = str_ireplace(rtrim($wp_home, '/'), rtrim($wp_home_path, '/'), $nhurl);
-		clearstatcache();
-		if (file_exists($f)) { 
-			if($type == 'js') { 
-				$code = fastvelocity_min_get_js($hurl, file_get_contents($f), $disable_minification); 
-			} else { 
-				$code = fastvelocity_min_get_css($hurl, file_get_contents($f).$inline, $disable_minification); 
-			}
-			
-			# log, save and return
-			$log = $printurl;
-			if($fvm_debug == true) { $log.= " --- Debug: $printhandle was opened from $f ---"; }
-			$log.= PHP_EOL;
-			$return = array('request'=>$dreq, 'log'=>$log, 'code'=>$code, 'status'=>true);
-			return json_encode($return);
-		}
-	}
-
 	
 	# else fail
 	$log = $printurl;
-	if($fvm_debug == true) { $log.= " --- Debug: $printhandle failed. Tried wp_remote_get, curl and local file_get_contents. ---"; }
+	if($fvm_debug == true) { $log.= " --- Debug: $printhandle failed. Tried wp_remote_get and local file_get_contents. ---"; }
 	$return = array('request'=>$dreq, 'log'=>$log, 'code'=>'', 'status'=>false);
 	return json_encode($return);
 }
