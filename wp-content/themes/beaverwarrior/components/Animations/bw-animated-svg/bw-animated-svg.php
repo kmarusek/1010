@@ -73,6 +73,10 @@ class BWAnimatedSVG extends BeaverWarriorFLModule {
      */
     public function enqueueLottie(){
         $module_json             = $this->getModuleSettingJSON();
+        if (!isset($module_json)) {
+            return;
+        }
+        
         $lottie_version_required = property_exists($module_json, 'v') ? $module_json->v : null;
 
         switch ($lottie_version_required) {
