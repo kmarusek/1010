@@ -45,6 +45,7 @@ FLBuilder::register_module(
 								'selector' => '.info-table-description',
 							),
 							'connections' => array( 'string', 'html' ),
+							'wpautop'     => false,
 						),
 						'it_link_type'     => array(
 							'type'    => 'select',

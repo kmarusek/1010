@@ -1,7 +1,21 @@
+Version 1.20.2 - Thursday, 12th September 2019
+- Improvement: Introduced background process to change all the HotLink Image URLs.This process will download images from the UABB Template Cloud and upload it to your media library.Earlier all the Image URLs used to come from our server. With this update all of them will be uploaded to your media library.
+- Fixed: Heading - Resolved font issue of text being enlarged
+
+Version 1.20.1 - Monday, 19th August 2019
+- Improvement: Advanced Menu - Added Responsive support for Navigation Alignment settings options
+- Improvement: Heading - Added Background color and Padding setting options for Heading
+- Improvement: Heading - Added Filter for removing default space between Description Paragraph
+- Improvement: Price Box - Added Padding settings option for Price Box
+- Improvement: Added filter for Carousel Next & Previous Arrows
+- Fixed: Woo - Add To Cart - Resolved fatal error when WooCommerce plugin is deactivated and Add to Cart module is used
+- Fixed: Line breaks in paragraphs not working while editing certain modules in the editor
+- Fixed: Resolved JavaScript error when Photo field is empty in some cases
+
 Version 1.20.0 - Monday, 5th August 2019
 - New: Introduced WPForms Styler
 - Improvement: Business Hours - Added WPML support
-- Fixed: Heading - Heading Font size not overriding Theme Font size in some cases
+- Fixed: Heading - Heading Font size not overriding Theme's Font size in some cases
 
 Version 1.19.0 - Wednesday, 17th July 2019
 - New: Introduced Off Canvas
@@ -103,17 +117,17 @@ Version 1.15.0 - Thursday, February 14, 2019
 Version 1.14.4 - Thursday, 31st January 2019
 - Fixed: Advanced Menu - Fixed Show Border settings not working correctly
 - Fixed: Advanced Menu - Resolved default Sub Menu Border Width issue
-- Fixed: Advanced Icon - Resolved Background Color Opacity issue 
+- Fixed: Advanced Icon - Resolved Background Color Opacity issue
 - Fixed: Button - Fixed Link nofollow option not working correctly
-- Fixed: CF7 Styler - Resolved default Border Width issue 
-- Fixed: Gravity Form Styler - Resolved default Border Width issue 
-- Fixed: Heading - Fixed Mobile alignment not working correctly 
+- Fixed: CF7 Styler - Resolved default Border Width issue
+- Fixed: Gravity Form Styler - Resolved default Border Width issue
+- Fixed: Heading - Fixed Mobile alignment not working correctly
 - Fixed: Info Box - Fixed Background Color Opacity settings
 - Fixed: Info Box - Resolved Text  nofollow option not working
 - Fixed: Modal Popup - Fixed Mobile alignment not working correctly
 - Fixed: Table - Typography settings not reflecting for preview mode
 - Fixed: Video Gallery - Resolved default Border Width issue
-- Fixed: Woo Products - Resolved console error of Invalid or Unexpected Token 
+- Fixed: Woo Products - Resolved console error of Invalid or Unexpected Token
 
 Version 1.14.3 - Tuesday, 15th January 2019
 - Fixed: Advanced Menu - Sub menu Typography settings not working in case of Beaver Builder 2.2
@@ -124,9 +138,9 @@ Version 1.14.3 - Tuesday, 15th January 2019
 - Fixed: Info Box - Link option not working in case of Beaver Builder 2.2
 - Fixed: Info List - Description Typography settings not working in case of Beaver Builder 2.2
 
-Version 1.14.2 - Friday, 11th January 2019 
+Version 1.14.2 - Friday, 11th January 2019
 - Fixed: Info Box - Fixed Icon and Image alignment issue
-- Fixed: Advanced Separator - Fixed Text Content width issue 
+- Fixed: Advanced Separator - Fixed Text Content width issue
 - Fixed: Non Numeric value notice for line height in rare cases
 
 Version 1.14.1 - Thursday, 10th January 2019
