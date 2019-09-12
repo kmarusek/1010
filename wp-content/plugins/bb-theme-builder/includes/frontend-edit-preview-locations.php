@@ -15,6 +15,11 @@
 		</div>
 		<?php endforeach; ?>
 		<?php foreach ( $locations['post'] as $post_type => $data ) : ?>
+			<?php
+			if ( ! isset( $data['label'] ) ) {
+				continue;
+			}
+			?>
 		<div class="fl-theme-builder-preview-select-item" data-location="post:<?php echo $post_type; ?>" data-children-loaded="<?php echo ( $data['all'] ? 0 : 1 ); ?>">
 			<div class="fl-theme-builder-preview-select-item-title"><?php echo $data['label']; ?><i class="fas fa-caret-down"></i></div>
 			<div class="fl-theme-builder-preview-select-item-children">

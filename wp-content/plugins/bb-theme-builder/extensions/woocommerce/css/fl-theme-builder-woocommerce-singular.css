@@ -17,14 +17,14 @@
 	}
 
 	.woocommerce .fl-module-fl-woo-related-products .related ul.products li.product{
-		width: 22.05%;
+		width: 22.05% !important;
 	  margin-left: 10px;
 	  margin-right: 10px;
 	}
 
 	.woocommerce .fl-module-fl-woo-product-upsells .up-sells ul.products li.product {
-		width: auto !important;
-		margin-left: 10px !important;
-		margin-right: 10px !important;
+		width: 22.05% !important;
+		margin-left: 10px;
+		margin-right: 10px;
 	}
 }

@@ -11,9 +11,11 @@ final class FLThemeBuilderWhiteLabel {
 	 * @return void
 	 */
 	static public function init() {
-		add_filter( 'all_plugins', __CLASS__ . '::plugins_page' );
-		add_filter( 'gettext', __CLASS__ . '::plugin_gettext' );
-		add_filter( 'fl_plugin_info_data', __CLASS__ . '::fl_plugin_info', 10, 2 );
+		if ( is_admin() ) {
+			add_filter( 'all_plugins', __CLASS__ . '::plugins_page' );
+			add_filter( 'gettext', __CLASS__ . '::plugin_gettext' );
+			add_filter( 'fl_plugin_info_data', __CLASS__ . '::fl_plugin_info', 10, 2 );
+		}
 	}
 
 	/**

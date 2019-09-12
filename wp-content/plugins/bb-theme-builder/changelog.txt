@@ -1,3 +1,12 @@
+<h4>1.2.4.2 - 09/10/2019</h4>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fixed shortcodes in custom layouts if excerpt is used it set the wrong post global.</li>
+	<li>Fixed php warning for missing data if a post type is removed.</li>
+	<li>Fixed WooCommerce Up-Sell Column wrap on Singular Layout.</li>
+	<li>Exclude Waitlist button on external and composite product types.</li>
+</ul>
+
 <h4>1.2.4.1 - 08/13/2019</h4>
 <p><strong>Bug Fixes</strong></p>
 <ul>

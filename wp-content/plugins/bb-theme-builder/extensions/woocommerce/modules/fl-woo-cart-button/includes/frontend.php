@@ -16,5 +16,9 @@ if ( function_exists( 'YITH_YWRAQ_Frontend' ) ) {
 }
 
 if ( class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
+	global $product;
+
+	if ( ( ! $product->is_type( 'external' ) ) && ( ! $product->is_type( 'composite' ) ) ) {
 		echo do_shortcode( '[woocommerce_waitlist]' );
+	}
 }

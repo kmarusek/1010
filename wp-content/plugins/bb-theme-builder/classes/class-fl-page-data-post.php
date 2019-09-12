@@ -15,7 +15,8 @@ final class FLPageDataPost {
 	static public function get_excerpt( $settings ) {
 
 		global $post;
-		$filter = false;
+		$real_post = $post;
+		$filter    = false;
 		if ( has_filter( 'the_content', 'FLBuilder::render_content' ) ) {
 			remove_filter( 'the_content', 'FLBuilder::render_content' );
 			$filter = true;
@@ -42,7 +43,7 @@ final class FLPageDataPost {
 
 		remove_filter( 'excerpt_length', array( __CLASS__, 'excerpt_length_filter' ) );
 		remove_filter( 'excerpt_more', array( __CLASS__, 'excerpt_more_filter' ) );
-
+		$post = $real_post;
 		return $content;
 	}
 
