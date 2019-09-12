@@ -712,6 +712,13 @@ function ai1wm_plugin_filters( $filters = array() ) {
 		$filters[] = 'plugins' . DIRECTORY_SEPARATOR . 'all-in-one-wp-migration-digitalocean-extension';
 	}
 
+	// Direct Extension
+	if ( defined( 'AI1WMXE_PLUGIN_BASENAME' ) ) {
+		$filters[] = 'plugins' . DIRECTORY_SEPARATOR . dirname( AI1WMXE_PLUGIN_BASENAME );
+	} else {
+		$filters[] = 'plugins' . DIRECTORY_SEPARATOR . 'all-in-one-wp-migration-direct-extension';
+	}
+
 	// Dropbox Extension
 	if ( defined( 'AI1WMDE_PLUGIN_BASENAME' ) ) {
 		$filters[] = 'plugins' . DIRECTORY_SEPARATOR . dirname( AI1WMDE_PLUGIN_BASENAME );
@@ -849,6 +856,11 @@ function ai1wm_active_servmask_plugins( $plugins = array() ) {
 	// DigitalOcean Spaces Extension
 	if ( defined( 'AI1WMIE_PLUGIN_BASENAME' ) ) {
 		$plugins[] = AI1WMIE_PLUGIN_BASENAME;
+	}
+
+	// Direct Extension
+	if ( defined( 'AI1WMXE_PLUGIN_BASENAME' ) ) {
+		$plugins[] = AI1WMXE_PLUGIN_BASENAME;
 	}
 
 	// Dropbox Extension
@@ -1085,6 +1097,82 @@ function ai1wm_deactivate_jetpack_modules( $modules ) {
 	sort( $current );
 
 	return update_option( AI1WM_JETPACK_ACTIVE_MODULES, $current );
+}
+
+/**
+ * Deactivate sitewide Revolution Slider
+ *
+ * @param  string  $basename Plugin basename
+ * @return boolean
+ */
+function ai1wm_deactivate_sitewide_revolution_slider( $basename ) {
+	global $wp_version;
+
+	// Do not deactivate Revolution Slider (WordPress >= 5.2)
+	if ( version_compare( $wp_version, '5.2', '>=' ) ) {
+		return false;
+	}
+
+	// Deactivate Revolution Slider
+	if ( ( $plugins = get_plugins() ) ) {
+		if ( isset( $plugins[ $basename ]['Version'] ) && ( $version = $plugins[ $basename ]['Version'] ) ) {
+			if ( version_compare( PHP_VERSION, '7.3', '>=' ) && version_compare( $version, '5.4.8.3', '<' ) ) {
+				return ai1wm_deactivate_sitewide_plugins( array( $basename ) );
+			}
+
+			if ( version_compare( PHP_VERSION, '7.2', '>=' ) && version_compare( $version, '5.4.6', '<' ) ) {
+				return ai1wm_deactivate_sitewide_plugins( array( $basename ) );
+			}
+
+			if ( version_compare( PHP_VERSION, '7.1', '>=' ) && version_compare( $version, '5.4.1', '<' ) ) {
+				return ai1wm_deactivate_sitewide_plugins( array( $basename ) );
+			}
+
+			if ( version_compare( PHP_VERSION, '7.0', '>=' ) && version_compare( $version, '4.6.5', '<' ) ) {
+				return ai1wm_deactivate_sitewide_plugins( array( $basename ) );
+			}
+		}
+	}
+
+	return false;
+}
+
+/**
+ * Deactivate Revolution Slider
+ *
+ * @param  string  $basename Plugin basename
+ * @return boolean
+ */
+function ai1wm_deactivate_revolution_slider( $basename ) {
+	global $wp_version;
+
+	// Do not deactivate Revolution Slider (WordPress >= 5.2)
+	if ( version_compare( $wp_version, '5.2', '>=' ) ) {
+		return false;
+	}
+
+	// Deactivate Revolution Slider
+	if ( ( $plugins = get_plugins() ) ) {
+		if ( isset( $plugins[ $basename ]['Version'] ) && ( $version = $plugins[ $basename ]['Version'] ) ) {
+			if ( version_compare( PHP_VERSION, '7.3', '>=' ) && version_compare( $version, '5.4.8.3', '<' ) ) {
+				return ai1wm_deactivate_plugins( array( $basename ) );
+			}
+
+			if ( version_compare( PHP_VERSION, '7.2', '>=' ) && version_compare( $version, '5.4.6', '<' ) ) {
+				return ai1wm_deactivate_plugins( array( $basename ) );
+			}
+
+			if ( version_compare( PHP_VERSION, '7.1', '>=' ) && version_compare( $version, '5.4.1', '<' ) ) {
+				return ai1wm_deactivate_plugins( array( $basename ) );
+			}
+
+			if ( version_compare( PHP_VERSION, '7.0', '>=' ) && version_compare( $version, '4.6.5', '<' ) ) {
+				return ai1wm_deactivate_plugins( array( $basename ) );
+			}
+		}
+	}
+
+	return false;
 }
 
 /**

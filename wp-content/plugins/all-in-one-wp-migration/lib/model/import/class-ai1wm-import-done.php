@@ -74,11 +74,11 @@ class Ai1wm_Import_Done {
 				ai1wm_discover_plugin_basename( 'pro-sites/pro-sites.php' ),
 			) );
 
+			// Deactivate Revolution Slider
+			ai1wm_deactivate_revolution_slider( ai1wm_discover_plugin_basename( 'revslider/revslider.php' ) );
+
 			// Deactivate Jetpack modules
-			ai1wm_deactivate_jetpack_modules( array(
-				'photon',
-				'sso',
-			) );
+			ai1wm_deactivate_jetpack_modules( array( 'photon', 'sso' ) );
 
 		} else {
 
@@ -136,11 +136,11 @@ class Ai1wm_Import_Done {
 					ai1wm_discover_plugin_basename( 'pro-sites/pro-sites.php' ),
 				) );
 
+				// Deactivate Revolution Slider
+				ai1wm_deactivate_revolution_slider( ai1wm_discover_plugin_basename( 'revslider/revslider.php' ) );
+
 				// Deactivate Jetpack modules
-				ai1wm_deactivate_jetpack_modules( array(
-					'photon',
-					'sso',
-				) );
+				ai1wm_deactivate_jetpack_modules( array( 'photon', 'sso' ) );
 			}
 		}
 
@@ -200,11 +200,11 @@ class Ai1wm_Import_Done {
 					ai1wm_discover_plugin_basename( 'pro-sites/pro-sites.php' ),
 				) );
 
+				// Deactivate Revolution Slider
+				ai1wm_deactivate_revolution_slider( ai1wm_discover_plugin_basename( 'revslider/revslider.php' ) );
+
 				// Deactivate Jetpack modules
-				ai1wm_deactivate_jetpack_modules( array(
-					'photon',
-					'sso',
-				) );
+				ai1wm_deactivate_jetpack_modules( array( 'photon', 'sso' ) );
 			}
 		}
 
