@@ -21,7 +21,6 @@
 	};
 
 	PPContentGrid.prototype = {
-
 		settings        : {},
 		nodeClass       : '',
 		wrapperClass    : '',
@@ -47,6 +46,10 @@
 
 		_initLayout: function()
 		{
+			if ( $(this.nodeClass).find('.pp-posts-wrapper').hasClass('pp-posts-initiated') ) {
+				return;
+			}
+
 			switch(this.settings.layout) {
 
 				case 'grid':
@@ -58,7 +61,6 @@
 				case 'carousel':
 					this._carouselLayout();
 					break;
-
 			}
 
 			$(this.postClass).css('visibility', 'visible');
@@ -68,6 +70,8 @@
 			$(window).on('load', function() {
 				FLBuilderLayout._scrollToElement( $( self.nodeClass + ' .pp-paged-scroll-to' ) );
 			});
+
+			$(this.nodeClass).find('.pp-posts-wrapper').addClass('pp-posts-initiated');
 		},
 
 		_gridLayout: function()

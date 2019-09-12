@@ -30,6 +30,7 @@ class BB_PowerPack_Ajax {
 		add_action( 'wp_ajax_nopriv_pp_get_taxonomies', 		__CLASS__ . '::get_post_taxonomies' );
 		add_action( 'wp_ajax_pp_get_saved_templates', 			__CLASS__ . '::get_saved_templates' );
 		add_action( 'wp_ajax_nopriv_pp_get_saved_templates', 	__CLASS__ . '::get_saved_templates' );
+		add_action( 'wp_ajax_pp_notice_close', 					__CLASS__ . '::close_notice' );
 	}
 
 	/**
@@ -532,6 +533,22 @@ class BB_PowerPack_Ajax {
 
 		echo json_encode( $response );
 		die;
+	}
+
+	static public function close_notice() {
+		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['nonce'] ) ), 'pp_notice' ) ) {
+			wp_send_json_error( esc_html__( 'Action failed. Please refresh the page and retry.', 'bb-powerpack' ) );
+		}
+		if ( ! isset( $_POST['notice'] ) || empty( $_POST['notice'] ) ) {
+			wp_send_json_error( esc_html__( 'Action failed. Please refresh the page and retry.', 'bb-powerpack' ) );
+		}
+
+		try {
+			update_user_meta( get_current_user_id(), 'bb_powerpack_dismissed_latest_update_notice', true );
+			wp_send_json_success();
+		} catch ( Exception $e ) {
+			wp_die( $e->getMessage() );
+		}
 	}
 }
 

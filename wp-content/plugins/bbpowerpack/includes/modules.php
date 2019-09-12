@@ -63,9 +63,12 @@ $modules = array(
     'modules/pp-image-comparison/pp-image-comparison.php',
     'modules/pp-hotspot/pp-hotspot.php',
     'modules/pp-image-scroll/pp-image-scroll.php',
-    'modules/pp-login-form/pp-login-form.php',
     'modules/pp-video/pp-video.php',
+    'modules/pp-video-gallery/pp-video-gallery.php',
     'modules/pp-google-map/pp-google-map.php',
+	'modules/pp-login-form/pp-login-form.php',
+	'modules/pp-devices/pp-devices.php',
+	'modules/pp-faq/pp-faq.php',
 );
 	
 /* Custom Grid */

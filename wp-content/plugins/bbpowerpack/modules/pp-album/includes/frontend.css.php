@@ -415,3 +415,10 @@ FLBuilderCSS::typography_field_rule( array(
 		font-size: <?php echo $settings->trigger_icon_size_responsive;?>px;
 	}
 }
+.fancybox-is-open.pp-fancybox-<?php echo $id; ?> .fancybox-bg {
+	background-color: <?php echo pp_get_color_value( $settings->lightbox_bg_color ); ?>;
+	opacity: <?php echo $settings->lightboxbg_opacity; ?>;
+}
+.fancybox-is-open.pp-fancybox-<?php echo $id; ?> .fancybox-thumbs {
+	background-color: <?php echo pp_get_color_value( $settings->thumbs_bg_color ); ?>;
+}

@@ -56,7 +56,7 @@
 		};
 	}
 
-	$(window).load(function() {
+	$(window).on('load', function() {
 		$('.fl-node-<?php echo $id; ?> .pp-testimonials').bxSlider($.extend({}, sliderOptions, carouselOptions));
 	});
 <?php endif; ?>

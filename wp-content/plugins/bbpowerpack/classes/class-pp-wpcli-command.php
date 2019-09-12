@@ -44,7 +44,7 @@ class BB_PowerPack_WPCLI_Command extends WP_CLI_Command {
 				$license_data = json_decode( wp_remote_retrieve_body( $response ) );
 
 				// $license_data->license will be either "deactivated" or "failed"
-				if ( 'deactivated' === $license_data->license ) {
+				if ( 'deactivated' === $license_data->license || 'failed' === $license_data->license ) {
 					bb_powerpack_delete( 'bb_powerpack_license_status' );
 				}
 

@@ -6,7 +6,7 @@
 			|| (navigator.msMaxTouchPoints > 0));
 	}
 
-	$(window).load(function() {
+	$(window).on('load', function() {
 		if ( ! is_touch_device() ) {
 			$('.fl-node-<?php echo $id; ?> .pp-flipbox-container').on('mouseenter', function(e) {
 				e.preventDefault();

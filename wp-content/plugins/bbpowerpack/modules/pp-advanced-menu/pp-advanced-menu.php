@@ -950,6 +950,17 @@ FLBuilder::register_module('PPAdvancedMenu', array(
 							'unit'          => 'px'
 						)
 					),
+					'responsive_submenu_bg_color'  => array(
+						'type'       => 'color',
+						'label'      => __('Submenu Background Color', 'bb-powerpack'),
+						'default'    => '',
+						'show_reset' => true,
+						'show_alpha'	=> true,
+						'connections'	=> array('color'),
+						'preview'    => array(
+							'type'      => 'none',
+						)
+					),
 				)
 			),
 			'responsive_border'	=> array(
@@ -1252,6 +1263,7 @@ class Advanced_Menu_Walker extends Walker_Nav_Menu {
         $attributes .= ! empty( $item->target ) ? ' target="' . esc_attr( $item->target ) .'"' : '';
         $attributes .= ! empty( $item->xfn ) ? ' rel="' . esc_attr( $item->xfn ) .'"' : '';
         $attributes .= ! empty( $item->url ) ? ' href="' . esc_attr( $item->url ) .'"' : '';
+		$attributes .= ' tabindex="0" role="link"';
 
         $item_output = $args->has_children ? '<div class="pp-has-submenu-container">' : '';
         $item_output .= $args->before;
@@ -1260,7 +1272,11 @@ class Advanced_Menu_Walker extends Walker_Nav_Menu {
 		if( $args->has_children ) {
 			$item_output .= '<span class="pp-menu-toggle"></span>';
 		}
-        $item_output .= '</span></a>';
+		$item_output .= '</span>';
+		if ( apply_filters( 'pp_advanced_menu_enable_item_description', false ) ) {
+			$item_output .= '<p class="menu-item-description">' . $item->description . '</p>';
+		}
+		$item_output .= '</a>';
 
 
         $item_output .= $args->after;

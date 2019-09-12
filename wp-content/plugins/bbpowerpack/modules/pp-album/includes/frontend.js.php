@@ -20,6 +20,9 @@ foreach( $settings->toolbar_buttons as $i => $item ){
 		thumbsPosition:		'<?php echo $settings->thumbs_position; ?>',
 		lightboxAnimation:	'<?php echo $settings->lightbox_animation; ?>',
 		transitionEffect:	'<?php echo $settings->transition_effect; ?>',
+		lightboxBgColor:	'<?php echo $settings->lightbox_bg_color; ?>',
+		lightboxbgOpacity:	'<?php echo $settings->lightboxbg_opacity; ?>',
+		thumbsBgColor:		'<?php echo $settings->thumbs_bg_color; ?>',
 	});
 
 })(jQuery);

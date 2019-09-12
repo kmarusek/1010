@@ -419,7 +419,7 @@ FLBuilder::register_module('PPRestaurantMenuModule', array(
 						),
 						'toggle'	=> array(
 							'yes'		=> array(
-								'fields'	=> 'card_custom_tabindex'
+								'fields'	=> array('card_custom_tabindex'),
 							)
 						)
 					),

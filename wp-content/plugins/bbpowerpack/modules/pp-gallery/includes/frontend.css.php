@@ -438,6 +438,17 @@ if ( 'justified' != $settings->gallery_layout ) {
 	.fl-node-<?php echo $id; ?> .pp-photo-gallery-content:hover .pp-gallery-overlay {
 		opacity: 1;
 	}
+
+	.fl-node-<?php echo $id; ?> .pp-photo-gallery-content .pp-caption {
+		position: absolute;
+		left: <?php echo ( $settings->overlay_spacing ) ? $settings->overlay_spacing . 'px' : '30px'; ?>;
+		right: <?php echo ( $settings->overlay_spacing ) ? $settings->overlay_spacing . 'px' : '30px'; ?>;
+		top: 50%;
+		transform: translateY( -50% );
+		-webkit-transition: -webkit-transform .35s ease 0s;
+			-ms-transition: -ms-transform .35s ease 0s;
+				transition: transform .35s ease 0s;
+	}
 <?php } ?>
 
 <?php if ( 'zoom-in' == $settings->hover_effects || 'zoom-out' == $settings->hover_effects || 'greyscale' == $settings->hover_effects || 'blur' == $settings->hover_effects || 'rotate' == $settings->hover_effects ) { ?>

@@ -34,6 +34,17 @@ and
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
+CREDITS
+
+three.js licensed under MIT License 
+https://github.com/mrdoob/three.js/blob/dev/LICENSE
+
+Vanta JS licensed under MIT License
+https://github.com/tengbao/vanta/blob/master/LICENSE.md
+
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
 
 		    GNU GENERAL PUBLIC LICENSE
 		       Version 2, June 1991

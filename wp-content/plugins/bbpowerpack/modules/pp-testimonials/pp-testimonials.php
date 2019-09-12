@@ -323,6 +323,7 @@ FLBuilder::register_module('PPTestimonialsModule', array(
 						'type'          => 'color',
 						'label'         => __('Arrow Color', 'bb-powerpack'),
 						'default'       => '999999',
+						'show_alpha'    => true,
 						'show_reset'    => true,
 						'connections'	=> array('color'),
 						'preview'       => array(
@@ -364,6 +365,7 @@ FLBuilder::register_module('PPTestimonialsModule', array(
 						'type'          => 'color',
 						'label'         => __('Dot Color', 'bb-powerpack'),
 						'default'       => '999999',
+						'show_alpha'    => true,
 						'show_reset'    => true,
 						'connections'	=> array('color'),
                         'preview'       => array(
@@ -376,6 +378,7 @@ FLBuilder::register_module('PPTestimonialsModule', array(
 						'type'          => 'color',
 						'label'         => __('Active Dot Color', 'bb-powerpack'),
 						'default'       => '999999',
+						'show_alpha'    => true,
 						'show_reset'    => true,
 						'connections'	=> array('color'),
                         'preview'       => array(
@@ -437,6 +440,7 @@ FLBuilder::register_module('PPTestimonialsModule', array(
                         'type'      => 'color',
                         'label'     => __('Background Color', 'bb-powerpack'),
 						'show_reset'    => true,
+						'show_alpha'    => true,
 						'connections'	=> array('color'),
                         'preview'       => array(
                             'type'          => 'css',

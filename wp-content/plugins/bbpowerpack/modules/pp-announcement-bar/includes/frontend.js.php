@@ -42,7 +42,7 @@
 		return false;
 	}
 
-    $(window).load(function() {
+    $(window).on('load', function() {
         <?php if ( $responsive_display != '' && $breakpoint != '' ) { ?>
         if ( $(window).width() <?php echo $breakpoint; ?> ) {
         <?php } ?>

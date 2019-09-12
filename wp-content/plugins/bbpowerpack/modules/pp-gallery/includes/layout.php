@@ -19,6 +19,11 @@
 			href="<?php echo $click_action_link; ?>"
 			<?php if ( 'custom-link' == $settings->click_action ) { ?> 
 			target="<?php echo $click_action_target; ?>" 
+			<?php if ( '_blank' === $click_action_target ) { ?>
+			rel="nofollow noopener"
+			<?php } else { ?>
+			rel="nofollow"
+			<?php } ?>
 			<?php } ?> 
 			<?php if ( 'lightbox' == $settings->click_action ) { ?>
 			rel="nofollow" data-fancybox="images" 

@@ -15,7 +15,7 @@
 		}
 		
 		if ( typeof Swiper === 'undefined' ) {
-			$(window).load( $.proxy(function() {
+			$(window).on('load', $.proxy(function() {
 				if ( typeof Swiper === 'undefined' ) {
 					return;
 				} else {
@@ -236,11 +236,11 @@
 			if ( ! this.settings.isBuilderActive && this.settings.autoplay_speed !== false ) {
 				options.autoplay = {
 					delay: this.settings.autoplay_speed,
-					disableOnInteraction: this.settings.pause_on_interaction
+					disableOnInteraction: !!this.settings.pause_on_interaction
 				};
 			}
 			
-			if ('cube' !== this._getEffect()) {
+			if ('cube' !== this._getEffect() && 'fade' !== this._getEffect()) {
 				options.breakpoints[medium_breakpoint] = {
 					slidesPerView: this._getSlidesPerViewTablet(),
 					slidesPerGroup: this._getSlidesToScrollTablet(),

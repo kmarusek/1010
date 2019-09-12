@@ -276,6 +276,15 @@ final class BB_PowerPack_Header_Footer {
 		self::$header = get_option( 'bb_powerpack_header_footer_template_header' );
 		self::$footer = get_option( 'bb_powerpack_header_footer_template_footer' );
 
+		// Remove option if header template has deleted.
+		if ( ! empty( self::$header ) && 'publish' != get_post_status( self::$header ) ) {
+			delete_option( 'bb_powerpack_header_footer_template_header' );
+		}
+		// Remove option if footer template has deleted.
+		if ( ! empty( self::$footer ) && 'publish' != get_post_status( self::$footer ) ) {
+			delete_option( 'bb_powerpack_header_footer_template_footer' );
+		}
+
 		if ( empty( self::$header ) && empty( self::$footer ) ) {
 			return;
 		}
@@ -348,6 +357,9 @@ final class BB_PowerPack_Header_Footer {
 		$overlay_bg = get_option( 'bb_powerpack_header_footer_overlay_header_bg', 'default' );
 
 		do_action( 'pp_header_footer_before_render_header', $id );
+
+		// Enqueue jQyery throttle.
+		wp_enqueue_script( 'jquery-throttle' );
 
 		// Enqueue imagesloaded.
 		wp_enqueue_script( 'imagesloaded' );

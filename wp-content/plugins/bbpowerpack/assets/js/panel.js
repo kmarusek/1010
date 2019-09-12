@@ -1,6 +1,6 @@
 ;(function($) {
 
-	$(window).load(function() {
+	$(window).on('load', function() {
 
 		/**
 		 * Closes PowerPack templates panel.

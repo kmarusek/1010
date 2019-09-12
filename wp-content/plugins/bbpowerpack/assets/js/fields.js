@@ -21,7 +21,7 @@
                 PPFields._initSwitchFields();
                 PPFields._initMultitextFields();
                 PPFields._initDatepickerFields();
-                PPFields._settingsCloseEsc();
+                //PPFields._settingsCloseEsc();
             });
             PPFields._bindEvents();
         },

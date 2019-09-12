@@ -13,6 +13,9 @@
 		this.thumbsPosition		= settings.thumbsPosition,
 		this.lightboxAnimation	= settings.lightboxAnimation,
 		this.transitionEffect	= settings.transitionEffect,
+		this.lightboxBgColor	= settings.lightboxBgColor,
+		this.lightboxbgOpacity	= settings.lightboxbgOpacity,
+		this.thumbsBgColor		= settings.thumbsBgColor,
 		this.album 				= this.node.find('.pp-album'),
 		this.fancyboxThumbs 	= this.album.data('fancybox-class'),
 		this.fancyboxAxis 		= this.album.data('fancybox-axis'),
@@ -20,6 +23,7 @@
 		this.lightboxSelector 	= this.node.find('.pp-album-' + this.id );
 
 		this._init();
+		this._init_light_box();
 	};
 	PPAlbum.prototype = {
 		_init: function () {
@@ -39,11 +43,15 @@
 					thumbs: {
 						autoStart: 		self.thumbsAutoStart,
 						axis: 			self.fancyboxAxis
-					}
+					},
 				});
 				self.node.find('.pp-album-1.pp-album-' + self.id).trigger('click');
-
 			});
+		},
+		_init_light_box: function () {
+
+			$('body').find('.fancybox-container').addClass( 'pp-fancybox-' + self.id );
+
 		}
 	};
 

@@ -641,7 +641,7 @@ FLBuilder::register_module('PPContentGridModule', array(
 					'slides_center_align'	=> array(
 						'type'			=> 'pp-switch',
 						'label'			=> __('Center Aligned Slides', 'bb-powerpack'),
-						'default'		=> 'yes',
+						'default'		=> 'no',
 						'options'       => array(
 							'yes'          	=> __('Yes', 'bb-powerpack'),
 							'no'         	=> __('No', 'bb-powerpack'),
@@ -661,6 +661,15 @@ FLBuilder::register_module('PPContentGridModule', array(
 						'default'       => '',
 						'size'          => '5',
 						'description'   => _x( 'seconds', 'Value unit for form field of time in seconds. Such as: "5 seconds"', 'bb-powerpack' )
+					),
+					'slide_loop'	=> array(
+						'type'			=> 'pp-switch',
+						'label'			=> __( 'Loop', 'bb-powerpack' ),
+						'options'		=> array(
+							'yes'			=> __('Yes', 'bb-powerpack'),
+							'no'			=> __('No', 'bb-powerpack'),
+						),
+						'default'		=> 'yes',
 					),
 				)
 			),
@@ -919,7 +928,31 @@ FLBuilder::register_module('PPContentGridModule', array(
 							'unit'				=> 'px'
 						)
 					),
+					'show_image_effect'		=> array(
+						'type'					=> 'pp-switch',
+						'label'					=> __('Show Image Effects', 'bb-powerpack'),
+						'default'				=> 'no',
+						'options'				=> array(
+							'yes'					=> __('Yes', 'bb-powerpack'),
+							'no'					=> __('No', 'bb-powerpack'),
+						),
+						'toggle'				=> array(
+							'yes'				=> array(
+								'sections'				=> array('image_effects','image_hover_effects')
+							)
+						)
+					),
 				)
+			),
+			'image_effects'		=> array(
+				'title'				=> __('Image Effects', 'bb-powerpack'),
+				'collapsed'			=> true,
+				'fields'			=> pp_image_effect_fields(),
+			),
+			'image_hover_effects'=> array(
+				'title'				=> __('Image Effects on Hover', 'bb-powerpack'),
+				'collapsed'			=> true,
+				'fields'			=> pp_image_effect_fields(true),
 			),
 			'divider_style'	=> array(
 				'title'	=> __('Divider', 'bb-powerpack'),

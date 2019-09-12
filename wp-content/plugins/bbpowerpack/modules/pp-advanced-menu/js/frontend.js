@@ -194,7 +194,9 @@
 				$parents.addClass('focus');
 
 			}, this ) ).on( 'focusout', 'a', $.proxy( function( e ) {
-				$( e.target ).parentsUntil( this.wrapperClass ).removeClass( 'focus' );
+				if ( ! $('.pp-advanced-menu .focus').hasClass('pp-has-submenu') ) {
+					$( e.target ).parentsUntil( this.wrapperClass ).removeClass( 'focus' );
+				}
 			}, this ) );
 		},
 
@@ -525,7 +527,7 @@
 				if ( null === this.offCanvasMenu && $(this.nodeClass).find('.pp-advanced-menu.off-canvas').length > 0 ) {
 					this.offCanvasMenu = $(this.nodeClass).find('.pp-advanced-menu.off-canvas');
 				}
-				if ($('#pp-advanced-menu-off-canvas-'+this.settingsId).length === 0) {
+				if ($('#pp-advanced-menu-off-canvas-'+this.settingsId).length === 0 && null !== this.offCanvasMenu) {
 					this.offCanvasMenu.appendTo('body').wrap('<div id="pp-advanced-menu-off-canvas-'+this.settingsId+'" class="fl-node-'+this.settingsId+'">');
 				}
 			}

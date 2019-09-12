@@ -129,17 +129,15 @@ FLBuilderCSS::border_field_rule( array(
 }
 
 <?php if ( isset( $settings->text_color ) && ! empty( $settings->text_color ) ) : ?>
-.fl-node-<?php echo $id; ?> a.pp-button,
-.fl-node-<?php echo $id; ?> a.pp-button i,
-.fl-node-<?php echo $id; ?> a.pp-button i:before {
-	color: #<?php echo $settings->text_color; ?>;
+.fl-node-<?php echo $id; ?> a.pp-button {
 	-webkit-transition: all .3s ease 0s;
-    -moz-transition: all .3s ease 0s;
-    -o-transition: all .3s ease 0s;
-    -ms-transition: all .3s ease 0s;
-    transition: all .3s ease 0s;
+	-moz-transition: all .3s ease 0s;
+	-o-transition: all .3s ease 0s;
+	-ms-transition: all .3s ease 0s;
+	transition: all .3s ease 0s;
 }
-.fl-node-<?php echo $id; ?> a.pp-button span {
+.fl-node-<?php echo $id; ?> a.pp-button,
+.fl-node-<?php echo $id; ?> a.pp-button * {
 	color: #<?php echo $settings->text_color; ?>;
 }
 <?php endif; ?>
@@ -148,9 +146,7 @@ FLBuilderCSS::border_field_rule( array(
 .fl-node-<?php echo $id; ?> a.pp-button:hover,
 .fl-node-<?php echo $id; ?> a.pp-button:focus,
 .fl-node-<?php echo $id; ?> a.pp-button:hover *,
-.fl-node-<?php echo $id; ?> a.pp-button:focus *,
-.fl-node-<?php echo $id; ?> a.pp-button:hover *:before,
-.fl-node-<?php echo $id; ?> a.pp-button:focus *:before {
+.fl-node-<?php echo $id; ?> a.pp-button:focus * {
 	color: #<?php echo $settings->text_hover_color; ?>;
 }
 <?php endif; ?>

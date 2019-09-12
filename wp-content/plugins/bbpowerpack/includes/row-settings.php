@@ -11,11 +11,12 @@ function pp_row_register_settings( $extensions ) {
 	
 	if ( ( array_key_exists( 'separators', $extensions['row'] ) || in_array( 'separators', $extensions['row'] ) )
 		|| ( array_key_exists( 'expandable', $extensions['row'] ) || in_array( 'expandable', $extensions['row'] ) )
-		|| ( array_key_exists( 'downarrow', $extensions['row'] ) || in_array( 'downarrow', $extensions['row'] ) ) )
+		|| ( array_key_exists( 'downarrow', $extensions['row'] ) || in_array( 'downarrow', $extensions['row'] ) )
+		|| ( array_key_exists( 'animated_bg', $extensions['row'] ) || in_array( 'animated_bg', $extensions['row'] ) ) )
 	{
 		add_filter( 'fl_builder_register_settings_form', 'pp_row_settings_tab', 10, 2 );
     }
-	
+
 	if ( array_key_exists( 'separators', $extensions['row'] ) || in_array( 'separators', $extensions['row'] ) ) {
 		add_filter( 'pp_row_settings_tab_sections', 'pp_row_separators' );
 	}
@@ -25,6 +26,10 @@ function pp_row_register_settings( $extensions ) {
 	if ( array_key_exists( 'downarrow', $extensions['row'] ) || in_array( 'downarrow', $extensions['row'] ) ) {
 		add_filter( 'pp_row_settings_tab_sections', 'pp_row_downarrow' );
 	}
+	if ( array_key_exists( 'background_effect', $extensions['row'] ) || in_array( 'background_effect', $extensions['row'] ) ) {
+		add_filter( 'fl_builder_register_settings_form', 'pp_background_toggle', 10, 2 );
+	}
+
 }
 
 function pp_row_fallback_settings( $nodes ) {
@@ -314,7 +319,6 @@ function pp_row_overlay( $form, $id ) {
     return $form;
 }
 
-
 /** Row settings tab */
 function pp_row_settings_tab( $form, $id ) {
 	if ( 'row' != $id ) {
@@ -325,7 +329,7 @@ function pp_row_settings_tab( $form, $id ) {
 
 	$advanced = $form['tabs']['advanced'];
 	unset( $form['tabs']['advanced'] );
-	
+
 	$form['tabs']['powerpack'] = array(
 		'title'			=> $tab_name,
 		'sections'		=> apply_filters( 'pp_row_settings_tab_sections', array() )
@@ -1181,4 +1185,727 @@ function pp_row_downarrow( $sections ) {
 	);
 
 	return array_merge( $sections, $data );
+}
+
+/** Background Toggle */
+function pp_background_toggle( $form, $id ){
+	if ( 'row' != $id ) {
+        return $form;
+	}
+	$admin_label = pp_get_admin_label();
+
+    if( isset( $form['tabs']['style']['sections']['border'] ) ){
+		$section_border = $form['tabs']['style']['sections']['border'];
+		unset($form['tabs']['style']['sections']['border']);
+	}
+    if( isset( $form['tabs']['style']['sections']['top_edge_shape'] ) ){
+		$section_top_edge_shape = $form['tabs']['style']['sections']['top_edge_shape'];
+		unset($form['tabs']['style']['sections']['top_edge_shape']);
+	}
+    if( isset( $form['tabs']['style']['sections']['top_edge_style'] ) ){
+		$section_top_edge_style = $form['tabs']['style']['sections']['top_edge_style'];
+		unset($form['tabs']['style']['sections']['top_edge_style']);
+	}
+    if( isset( $form['tabs']['style']['sections']['bottom_edge_shape'] ) ){
+		$section_bottom_edge_shape = $form['tabs']['style']['sections']['bottom_edge_shape'];
+		unset($form['tabs']['style']['sections']['bottom_edge_shape']);
+	}
+    if( isset( $form['tabs']['style']['sections']['bottom_edge_style'] ) ){
+		$section_bottom_edge_style = $form['tabs']['style']['sections']['bottom_edge_style'];
+		unset($form['tabs']['style']['sections']['bottom_edge_style']);
+	}
+	if( isset( $form['tabs']['style']['sections']['shapes_container'] ) ){
+		$section_shapes_container = $form['tabs']['style']['sections']['shapes_container'];
+		unset($form['tabs']['style']['sections']['shapes_container']);
+	}
+
+
+	// Infinite Background
+    $form['tabs']['style']['sections']['background']['fields']['bg_type']['options']['pp_infinite_bg'] = __('Infinite Background (' . $admin_label . ')', 'bb-powerpack');
+    $form['tabs']['style']['sections']['background']['fields']['bg_type']['toggle']['pp_infinite_bg'] = array(
+		'sections'	=> array( 'pp_infinite_bg' ),
+	);
+	$form['tabs']['style']['sections']['pp_infinite_bg'] = array(
+		'title'				=> __('Infinite Background (' . $admin_label . ')', 'bb-powerpack'),
+		'fields'			=> array(
+			'pp_bg_image'			=> array(
+				'type'          		=> 'photo',
+				'label'         		=> __('Background Image', 'bb-powerpack'),
+				'connections'   		=> array( 'photo' ),
+			),
+			'pp_infinite_overlay'	=> array(
+				'type'					=> 'color',
+				'label'					=> __('Background Color', 'bb-powerpack'),
+				'show_alpha'			=> true,
+				'show_reset'			=> true,
+				'connections'			=> array('color'),
+			),
+			'scrolling_direction'	=> array(
+				'type'					=> 'pp-switch',
+				'label'					=> __('Scrolling Direction', 'bb-powerpack'),
+				'default'				=> 'horizontal',
+				'options'				=> array(
+					'horizontal'			=> __('Horizontal', 'bb-powerpack'),
+					'vertical'				=> __('Vertical', 'bb-powerpack')
+				),
+				'toggle'				=> array(
+					'horizontal'    		=> array(
+						'fields' 				=> array( 'scrolling_direction_h')
+					),
+					'vertical'    			=> array(
+						'fields' 				=> array( 'scrolling_direction_v')
+					),
+				)
+			),
+			'scrolling_direction_h'	=> array(
+				'type'					=> 'pp-switch',
+				'label'					=> __('Move Horizontally from', 'bb-powerpack'),
+				'default'				=> 'right_left',
+				'options'				=> array(
+					'left_right'			=> __('Left to Right', 'bb-powerpack'),
+					'right_left'			=> __('Right to Left', 'bb-powerpack')
+				),
+			),
+			'scrolling_direction_v'	=> array(
+				'type'					=> 'pp-switch',
+				'label'					=> __('Move Vertically from', 'bb-powerpack'),
+				'default'				=> 'bottom_top',
+				'options'				=> array(
+					'top_bottom'			=> __('Top to Bottom', 'bb-powerpack'),
+					'bottom_top'			=> __('Bottom to Top', 'bb-powerpack')
+				),
+			),
+			'scrolling_speed'		=> array(
+				'type'					=> 'unit',
+				'label'					=> __('Animation Delay', 'bb-powerpack'),
+				'default'				=> 50,
+				'slider'				=> true,
+				'units'					=> array('seconds'),
+			),
+		),
+	);
+	// Animated Background
+	$form['tabs']['style']['sections']['background']['fields']['bg_type']['options']['pp_animated_bg'] = __('Animated Background (' . $admin_label . ')', 'bb-powerpack');
+    $form['tabs']['style']['sections']['background']['fields']['bg_type']['toggle']['pp_animated_bg'] = array(
+		'sections'	=> array( 'pp_animated_bg' ),
+	);
+	$form['tabs']['style']['sections']['pp_animated_bg'] = array(
+		'title'				=> __('Animated Background (' . $admin_label . ')', 'bb-powerpack'),
+		'fields'			=> array(
+			'animation_type'	=> array(
+				'type'				=> 'select',
+				'label'				=> __('Animation Type', 'bb-powerpack'),
+				'options'			=> array(
+					'birds'				=> __('Birds', 'bb-powerpack'),
+					'fog'				=> __('Fog', 'bb-powerpack'),
+					'waves'				=> __('Waves', 'bb-powerpack'),
+					'net'				=> __('Net', 'bb-powerpack'),
+					'dots'				=> __('Dots', 'bb-powerpack'),
+					'rings'				=> __('Rings', 'bb-powerpack'),
+					'cells'				=> __('Cells', 'bb-powerpack'),
+					'particles'			=> __('Line Particles', 'bb-powerpack'),
+					'nasa'				=> __('NASA', 'bb-powerpack'),
+					'bubble'			=> __('Bubble', 'bb-powerpack'),
+					'snow'				=> __('Snow', 'bb-powerpack'),
+					'custom'			=> __('Custom', 'bb-powerpack'),
+				),
+				'toggle'			=> array(
+					'birds'    			=> array(
+						'fields' 			=> array( 'bird_bg_color', 'bird_bg_opacity', 'bird_color_1', 'bird_color_2', 'bird_color_mode', 'bird_quantity', 'bird_size', 'bird_wing_span', 'bird_speed_limit', 'bird_separation', 'bird_alignment', 'bird_cohesion' )
+					),
+					'fog'    			=> array(
+						'fields' 			=> array( 'fog_highlight_color', 'fog_midtone_color', 'fog_lowlight_color', 'fog_base_color', 'fog_blur_factor', 'fog_zoom', 'fog_speed' )
+					),
+					'waves'    			=> array(
+						'fields' 			=> array( 'waves_color', 'waves_shininess', 'waves_height', 'waves_speed', 'waves_zoom' )
+					),
+					'net'    			=> array(
+						'fields' 			=> array( 'net_color', 'net_bg_color', 'net_points', 'net_max_distance', 'net_spacing', 'net_show_dot' )
+					),
+					'dots'    			=> array(
+						'fields' 			=> array( 'dots_color_1', 'dots_color_2', 'dots_bg_color', 'dots_size', 'dots_spacing' )
+					),
+					'rings'    			=> array(
+						'fields' 			=> array( 'rings_bg_color', 'rings_bg_opacity', 'rings_color' )
+					),
+					'cells'    			=> array(
+						'fields' 			=> array( 'cells_color_1', 'cells_color_2', 'cells_size', 'cells_speed' )
+					),
+					'particles'			=> array(
+						'fields' 			=> array( 'part_color','part_opacity','part_rand_opacity','part_bg_color','part_bg_type','part_quantity','part_size','part_speed','part_hover_effect','part_direction' )
+					),
+					'nasa'    			=> array(
+						'fields' 			=> array( 'part_color','part_opacity','part_rand_opacity','part_bg_color','part_bg_type','part_quantity','part_size','part_speed','part_hover_effect','part_direction' )
+					),
+					'bubble'   			=> array(
+						'fields' 			=> array( 'part_color','part_opacity','part_rand_opacity','part_bg_color','part_bg_type','part_quantity','part_size','part_speed','part_hover_effect','part_direction' )
+					),
+					'snow'   			=> array(
+						'fields' 			=> array( 'part_color','part_opacity','part_rand_opacity','part_bg_color','part_bg_type','part_quantity','part_size','part_speed','part_hover_effect','part_direction' )
+					),
+					'custom'   			=> array(
+						'fields' 			=> array( 'part_bg_color','part_bg_type', 'part_custom_code1', 'part_custom_code' )
+					),
+				)
+			),
+			'bird_bg_color'		=> array(
+				'type'				=> 'color',
+				'label'				=> __('Background Color', 'bb-powerpack'),
+				'default'			=> '07192f',
+				'show_reset'		=> true,
+				'connections'		=> array('color'),
+			),
+			'bird_bg_opacity'	=> array(
+				'type'				=> 'unit',
+				'label'				=> __('Background Opacity', 'bb-powerpack'),
+				'default'			=> '1',
+				'slider'			=> array(
+					'min'				=> '0',
+					'max'				=> '1',
+					'step'				=> '0.1'
+				),
+			),
+			'bird_color_1'		=> array(
+				'type'				=> 'color',
+				'label'				=> __('Primary Color', 'bb-powerpack'),
+				'default'			=> 'ff0001',
+				'show_reset'		=> true,
+				'connections'		=> array('color'),
+			),
+			'bird_color_2'		=> array(
+				'type'				=> 'color',
+				'label'				=> __('Secondary Color', 'bb-powerpack'),
+				'default'			=> '00d1ff',
+				'show_reset'		=> true,
+				'connections'		=> array('color'),
+			),
+			'bird_color_mode'	=> array(
+				'type'				=> 'select',
+				'label'				=> __('Color Mode', 'bb-powerpack'),
+				'default'			=> 'lerp',
+				'options'			=> array(
+					'lerp'				=> __('Lerp', 'bb-powerpack'),
+					'variance'			=> __('Variance', 'bb-powerpack'),
+					'lerpGradient'		=> __('Lerp Gradient', 'bb-powerpack'),
+					'varianceGradient'	=> __('Variance Gradient', 'bb-powerpack'),
+				),
+			),
+			'bird_quantity'		=> array(
+				'type'				=> 'unit',
+				'label'				=> __('Quantity', 'bb-powerpack'),
+				'default'			=> '4',
+				'slider'			=> array(
+					'min'				=> '1',
+					'max'				=> '5',
+					'step'				=> '1'
+				),
+			),
+			'bird_size'			=> array(
+				'type'				=> 'unit',
+				'label'				=> __('Bird Size', 'bb-powerpack'),
+				'default'			=> '1.5',
+				'slider'			=> array(
+					'min'				=> '1',
+					'max'				=> '3',
+					'step'				=> '0.1'
+				),
+			),
+			'bird_wing_span'	=> array(
+				'type'				=> 'unit',
+				'label'				=> __('Wing Span', 'bb-powerpack'),
+				'default'			=> '30',
+				'slider'			=> array(
+					'min'				=> '10',
+					'max'				=> '40',
+					'step'				=> '1'
+				),
+			),
+			'bird_speed_limit'	=> array(
+				'type'				=> 'unit',
+				'label'				=> __('Speed Limit', 'bb-powerpack'),
+				'default'			=> '5',
+				'slider'			=> array(
+					'min'				=> '1',
+					'max'				=> '10',
+					'step'				=> '1'
+				),
+			),
+			'bird_separation'	=> array(
+				'type'				=> 'unit',
+				'label'				=> __('Separation', 'bb-powerpack'),
+				'default'			=> '20',
+				'slider'			=> array(
+					'min'				=> '1',
+					'max'				=> '100',
+					'step'				=> '1'
+				),
+			),
+			'bird_alignment'	=> array(
+				'type'				=> 'unit',
+				'label'				=> __('Alignment', 'bb-powerpack'),
+				'default'			=> '20',
+				'slider'			=> array(
+					'min'				=> '1',
+					'max'				=> '100',
+					'step'				=> '1'
+				),
+			),
+			'bird_cohesion'		=> array(
+				'type'				=> 'unit',
+				'label'				=> __('Cohesion', 'bb-powerpack'),
+				'default'			=> '30',
+				'slider'			=> array(
+					'min'				=> '1',
+					'max'				=> '100',
+					'step'				=> '1'
+				),
+			),
+			'fog_highlight_color'	=> array(
+				'type'					=> 'color',
+				'label'					=> __('Highlight Color', 'bb-powerpack'),
+				'default'				=> 'ffc302',
+				'show_reset'			=> true,
+				'connections'			=> array('color'),
+			),
+			'fog_midtone_color'		=> array(
+				'type'					=> 'color',
+				'label'					=> __('Midtone Color', 'bb-powerpack'),
+				'default'				=> 'ff1d01',
+				'show_reset'			=> true,
+				'connections'			=> array('color'),
+			),
+			'fog_lowlight_color'	=> array(
+				'type'					=> 'color',
+				'label'					=> __('Lowlight Color', 'bb-powerpack'),
+				'default'				=> '2c07ff',
+				'show_reset'			=> true,
+				'connections'			=> array('color'),
+			),
+			'fog_base_color'		=> array(
+				'type'					=> 'color',
+				'label'					=> __('Base Color', 'bb-powerpack'),
+				'default'				=> 'ffebeb',
+				'show_reset'			=> true,
+				'connections'			=> array('color'),
+			),
+			'fog_blur_factor'		=> array(
+				'type'					=> 'unit',
+				'label'					=> __('Blur Factor', 'bb-powerpack'),
+				'default'				=> '0.6',
+				'slider'				=> array(
+					'min'					=> '0.1',
+					'max'					=> '0.9',
+					'step'					=> '0.1'
+				),
+			),
+			'fog_zoom'				=> array(
+				'type'					=> 'unit',
+				'label'					=> __('Zoom', 'bb-powerpack'),
+				'default'				=> '1',
+				'slider'				=> array(
+					'min'					=> '0.1',
+					'max'					=> '3',
+					'step'					=> '0.1'
+				),
+			),
+			'fog_speed'				=> array(
+				'type'					=> 'unit',
+				'label'					=> __('Speed', 'bb-powerpack'),
+				'default'				=> '1',
+				'slider'				=> array(
+					'min'					=> '0',
+					'max'					=> '5',
+					'step'					=> '0.1'
+				),
+			),
+			'waves_color'		=> array(
+				'type'				=> 'color',
+				'label'				=> __('Waves Color', 'bb-powerpack'),
+				'default'			=> '005588',
+				'show_reset'		=> true,
+				'connections'		=> array('color'),
+			),
+			'waves_shininess'	=> array(
+				'type'				=> 'unit',
+				'label'				=> __('Shininess', 'bb-powerpack'),
+				'default'			=> '30',
+				'slider'			=> array(
+					'min'				=> '0',
+					'max'				=> '150',
+					'step'				=> '1'
+				),
+			),
+			'waves_height'		=> array(
+				'type'				=> 'unit',
+				'label'				=> __('Wave Height', 'bb-powerpack'),
+				'default'			=> '15',
+				'slider'			=> array(
+					'min'				=> '0',
+					'max'				=> '40',
+					'step'				=> '1'
+				),
+			),
+			'waves_speed'		=> array(
+				'type'				=> 'unit',
+				'label'				=> __('Speed', 'bb-powerpack'),
+				'default'			=> '1',
+				'slider'			=> array(
+					'min'				=> '0',
+					'max'				=> '2',
+					'step'				=> '0.1'
+				),
+			),
+			'waves_zoom'		=> array(
+				'type'				=> 'unit',
+				'label'				=> __('Zoom', 'bb-powerpack'),
+				'default'			=> '1',
+				'slider'			=> array(
+					'min'				=> '0.7',
+					'max'				=> '1.8',
+					'step'				=> '0.1'
+				),
+			),
+			'net_color'			=> array(
+				'type'				=> 'color',
+				'label'				=> __('Net Color', 'bb-powerpack'),
+				'default'			=> 'ff3f81',
+				'show_reset'		=> true,
+				'connections'		=> array('color'),
+			),
+			'net_bg_color'		=> array(
+				'type'				=> 'color',
+				'label'				=> __('Background Color', 'bb-powerpack'),
+				'default'			=> '23153d',
+				'show_reset'		=> true,
+				'connections'		=> array('color'),
+			),
+			'net_points'		=> array(
+				'type'				=> 'unit',
+				'label'				=> __('Points', 'bb-powerpack'),
+				'default'			=> '10',
+				'slider'			=> array(
+					'min'				=> '1',
+					'max'				=> '20',
+					'step'				=> '1'
+				),
+			),
+			'net_max_distance'	=> array(
+				'type'				=> 'unit',
+				'label'				=> __('Max Distance', 'bb-powerpack'),
+				'default'			=> '20',
+				'slider'			=> array(
+					'min'				=> '10',
+					'max'				=> '40',
+					'step'				=> '1'
+				),
+			),
+			'net_spacing'		=> array(
+				'type'				=> 'unit',
+				'label'				=> __('Spacing', 'bb-powerpack'),
+				'default'			=> '15',
+				'slider'			=> array(
+					'min'				=> '10',
+					'max'				=> '20',
+					'step'				=> '1'
+				),
+			),
+			'net_show_dot'		=> array(
+				'type'				=> 'pp-switch',
+				'label'				=> __('Show Dot', 'bb-powerpack'),
+				'default'			=> 'true',
+				'options'			=> array(
+					'true'				=> __('True', 'bb-powerpack'),
+					'false'				=> __('False', 'bb-powerpack'),
+				),
+			),
+			'dots_color_1'		=> array(
+				'type'				=> 'color',
+				'label'				=> __('Dots Color', 'bb-powerpack'),
+				'default'			=> 'ff8721',
+				'show_reset'		=> true,
+				'connections'		=> array('color'),
+			),
+			'dots_color_2'		=> array(
+				'type'				=> 'color',
+				'label'				=> __('Center Ball Color', 'bb-powerpack'),
+				'default'			=> 'ff8721',
+				'show_reset'		=> true,
+				'connections'		=> array('color'),
+			),
+			'dots_bg_color'		=> array(
+				'type'				=> 'color',
+				'label'				=> __('Background Color', 'bb-powerpack'),
+				'default'			=> '222222',
+				'show_reset'		=> true,
+				'connections'		=> array('color'),
+			),
+			'dots_size'			=> array(
+				'type'				=> 'unit',
+				'label'				=> __('Size', 'bb-powerpack'),
+				'default'			=> '3',
+				'slider'			=> array(
+					'min'				=> '0.5',
+					'max'				=> '10',
+					'step'				=> '0.1'
+				),
+			),
+			'dots_spacing'		=> array(
+				'type'				=> 'unit',
+				'label'				=> __('Spacing', 'bb-powerpack'),
+				'default'			=> '35',
+				'slider'			=> array(
+					'min'				=> '5',
+					'max'				=> '100',
+					'step'				=> '1'
+				),
+			),
+			'rings_bg_color'	=> array(
+				'type'				=> 'color',
+				'label'				=> __('Background Color', 'bb-powerpack'),
+				'default'			=> '000000',
+				'show_reset'		=> true,
+				'connections'		=> array('color'),
+			),
+			'rings_bg_opacity'	=> array(
+				'type'				=> 'unit',
+				'label'				=> __('Background Opacity', 'bb-powerpack'),
+				'default'			=> '1',
+				'slider'			=> array(
+					'min'				=> '0',
+					'max'				=> '1',
+					'step'				=> '0.1'
+				),
+			),
+			'rings_color'		=> array(
+				'type'				=> 'color',
+				'label'				=> __('Color', 'bb-powerpack'),
+				'default'			=> 'ff0000',
+				'show_reset'		=> true,
+				'connections'		=> array('color'),
+			),
+			'cells_color_1'		=> array(
+				'type'				=> 'color',
+				'label'				=> __('Primary Color', 'bb-powerpack'),
+				'default'			=> '008c8c',
+				'show_reset'		=> true,
+				'connections'		=> array('color'),
+			),
+			'cells_color_2'		=> array(
+				'type'				=> 'color',
+				'label'				=> __('Secondary Color', 'bb-powerpack'),
+				'default'			=> 'f2e736',
+				'show_reset'		=> true,
+				'connections'		=> array('color'),
+			),
+			'cells_size'		=> array(
+				'type'				=> 'unit',
+				'label'				=> __('Size', 'bb-powerpack'),
+				'default'			=> '1.5',
+				'slider'			=> array(
+					'min'				=> '0.2',
+					'max'				=> '5',
+					'step'				=> '0.1'
+				),
+			),
+			'cells_speed'		=> array(
+				'type'				=> 'unit',
+				'label'				=> __('Speed', 'bb-powerpack'),
+				'default'			=> '2',
+				'slider'			=> array(
+					'min'				=> '0',
+					'max'				=> '5',
+					'step'				=> '0.1'
+				),
+			),
+			'part_bg_color'		=> array(
+				'type'				=> 'color',
+				'label'				=> __('Background Color', 'bb-powerpack'),
+				'default'			=> '07192f',
+				'show_alpha'		=> true,
+				'show_reset'		=> true,
+				'connections'		=> array('color'),
+			),
+			'part_color'		=> array(
+				'type'				=> 'color',
+				'label'				=> __('Color', 'bb-powerpack'),
+				'show_reset'		=> true,
+				'connections'		=> array('color'),
+			),
+			'part_opacity'		=> array(
+				'type'				=> 'unit',
+				'label'				=> __('Color Opacity', 'bb-powerpack'),
+				'slider'			=> array(
+					'min'				=> '0',
+					'max'				=> '1',
+					'step'				=> '0.1'
+				),
+			),
+			'part_rand_opacity'	=> array(
+				'type'				=> 'pp-switch',
+				'label'				=> __('Randomized Opacity', 'bb-powerpack'),
+				'default'			=> 'true',
+				'options'			=> array(
+					'true'				=> __('Yes', 'bb-powerpack'),
+					'false'				=> __('No', 'bb-powerpack'),
+				),
+			),
+			'part_quantity'		=> array(
+				'type'				=> 'unit',
+				'label'				=> __('Quantity', 'bb-powerpack'),
+				'slider'			=> array(
+					'min'				=> '0',
+					'max'				=> '500',
+					'step'				=> '1'
+				),
+			),
+			'part_size'			=> array(
+				'type'				=> 'unit',
+				'label'				=> __('Size', 'bb-powerpack'),
+				'slider'			=> array(
+					'min'				=> '0',
+					'max'				=> '200',
+					'step'				=> '1'
+				),
+			),
+			'part_speed'		=> array(
+				'type'				=> 'unit',
+				'label'				=> __('Moving Speed', 'bb-powerpack'),
+				'slider'			=> array(
+					'min'				=> '0',
+					'max'				=> '20',
+					'step'				=> '1'
+				),
+			),
+			'part_direction'	=> array(
+				'type'    			=> 'select',
+				'label'   			=> __( 'Moving direction', 'bb-powerpack'),
+				'default' 			=> 'none',
+				'options' 			=> array(
+					'none'         		=> __( 'Default', 'bb-powerpack'),
+					'top'          		=> __( 'Top', 'bb-powerpack'),
+					'bottom'       		=> __( 'Bottom', 'bb-powerpack'),
+					'left'         		=> __( 'Left', 'bb-powerpack'),
+					'right'        		=> __( 'Right', 'bb-powerpack'),
+					'top-left'     		=> __( 'Top Left', 'bb-powerpack'),
+					'top-right'    		=> __( 'Top Right', 'bb-powerpack'),
+					'bottom-left'  		=> __( 'Bottom Left', 'bb-powerpack'),
+					'bottom-right' 		=> __( 'Bottom Right', 'bb-powerpack'),
+				),
+			),
+			'part_hover_effect'	=> array(
+				'type'				=> 'select',
+				'label'				=> __('Hover Effect', 'bb-powerpack'),
+				'default'			=> 'none',
+				'options'			=> array(
+					'none'				=> __('Default', 'bb-powerpack'),
+					'grab'				=> __('Grab', 'bb-powerpack'),
+					'bubble'			=> __('Bubble', 'bb-powerpack'),
+					'repulse'			=> __('Repulse', 'bb-powerpack'),
+					'noeffect'			=> __('None', 'bb-powerpack'),
+				),
+				'toggle'			=> array(
+					'bubble'   			=> array(
+						'fields' 			=> array( 'part_hover_size' )
+					),
+				),
+			),
+			'part_hover_size'	=> array(
+				'type'				=> 'unit',
+				'label'				=> __('Particles Size on Hover', 'bb-powerpack'),
+				'slider'			=> array(
+					'min'				=> '0',
+					'max'				=> '200',
+					'step'				=> '1'
+				),
+			),
+			'part_custom_code1'	=> array(
+				'type'          	=> 'static',
+				'description'		=> __('<span class="fl-field-description">
+				<p> Add custom JSON for the Particles in the Background Effects.</p>
+				<p>To add custom effects to the background particles, Follow steps below.</p>
+				<ol><li><a href="https://vincentgarreau.com/particles.js/" target="_blank"><b style="color: #0000ff;">Click Here</b></a> and you can choose from the multiple options to customize every aspect of the background particles.</li><br/>
+				<li>Once you created a custom style for particles, you can download JSON file from the "Download current config (json)" link.</li><br/>
+				<li>Copy JSON code from the download file & paste it.</li></ol></span>', 'bb-powerpack'),
+			),
+			'part_custom_code'	=> array(
+				'type'        		=> 'editor',
+				'label'       		=> __( '', 'bb-powerpack'),
+				'connections' 		=> array( 'html', 'string', 'url' ),
+				'media_buttons' 	=> false,
+			),
+			'part_bg_type'		=> array(
+				'type'				=> 'pp-switch',
+				'label'				=> __('Show Background Image', 'bb-powerpack'),
+				'default'			=> 'no',
+				'options'			=> array(
+					'yes'				=> __('Yes', 'bb-powerpack'),
+					'no'				=> __('No', 'bb-powerpack'),
+				),
+				'toggle'			=> array(
+					'yes'    			=> array(
+						'fields' 			=> array( 'part_bg_image','part_bg_size','part_bg_position' )
+					),
+				),
+			),
+			'part_bg_image'		=> array(
+				'type'          	=> 'photo',
+				'label'         	=> __('Image', 'bb-powerpack'),
+				'connections'   	=> array( 'photo' ),
+			),
+			'part_bg_size'		=> array(
+				'type'				=> 'unit',
+				'label'				=> __('Background Size', 'bb-powerpack'),
+				'default'			=> '20',
+				'units'				=> array('%'),
+				'slider'			=> array(
+					'min'				=> '1',
+					'max'				=> '100',
+					'step'				=> '1'
+				),
+			),
+			'part_bg_position'	=> array(
+				'type'              => 'select',
+				'label'             => __('Background Position', 'bb-powerpack'),
+				'default'           => 'center center',
+				'options'           => array(
+					'left top'          => __('Left Top', 'bb-powerpack'),
+					'left center'       => __('Left Center', 'bb-powerpack'),
+					'left bottom'       => __('Left Bottom', 'bb-powerpack'),
+					'right top'         => __('Right Top', 'bb-powerpack'),
+					'right center'      => __('Right Center', 'bb-powerpack'),
+					'right bottom'      => __('Right Bottom', 'bb-powerpack'),
+					'center top'        => __('Center Top', 'bb-powerpack'),
+					'center center'     => __('Center Center', 'bb-powerpack'),
+					'center bottom'     => __('Center Bottom', 'bb-powerpack'),
+				),
+			),
+		),
+	);
+
+	if( isset( $section_border ) ){
+		$form['tabs']['style']['sections']['border'] = $section_border;
+		$form['tabs']['style']['sections']['border']['collapsed'] = 'true';
+	}
+	if( isset( $section_top_edge_shape ) ){
+		$form['tabs']['style']['sections']['top_edge_shape'] = $section_top_edge_shape;
+		$form['tabs']['style']['sections']['top_edge_shape']['collapsed'] = 'true';
+	}
+	if( isset( $section_top_edge_style ) ){
+		$form['tabs']['style']['sections']['top_edge_style'] = $section_top_edge_style;
+		$form['tabs']['style']['sections']['top_edge_style']['collapsed'] = 'true';
+	}
+	if( isset( $section_bottom_edge_shape ) ){
+		$form['tabs']['style']['sections']['bottom_edge_shape'] = $section_bottom_edge_shape;
+		$form['tabs']['style']['sections']['bottom_edge_shape']['collapsed'] = 'true';
+	}
+	if( isset( $section_bottom_edge_style ) ){
+		$form['tabs']['style']['sections']['bottom_edge_style'] = $section_bottom_edge_style;
+		$form['tabs']['style']['sections']['bottom_edge_style']['collapsed'] = 'true';
+	}
+	if( isset( $section_shapes_container ) ){
+		$form['tabs']['style']['sections']['shapes_container'] = $section_shapes_container;
+		$form['tabs']['style']['sections']['shapes_container']['collapsed'] = 'true';
+	}
+
+	return $form;
 }

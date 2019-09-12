@@ -767,16 +767,16 @@ if( isset( $settings->mobile_toggle ) && $settings->mobile_toggle != 'expanded' 
 <?php } ?>
 
 
-<?php if ( 'always' != $module->get_media_breakpoint() ) : ?>
+<?php if (  'expanded' != $settings->mobile_toggle ) : ?>
+	<?php if ( 'always' != $module->get_media_breakpoint() ) : ?>
 		@media ( max-width: <?php echo $module->get_media_breakpoint() ?>px ) {
 	<?php endif; ?>
-
-	.fl-node-<?php echo $id; ?> .pp-advanced-menu {
-		text-align: <?php echo $settings->responsive_alignment; ?>;
-	}
-
-<?php if ( 'always' != $module->get_media_breakpoint() ) : ?>
-	}
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu {
+			text-align: <?php echo $settings->responsive_alignment; ?>;
+		}
+	<?php if ( 'always' != $module->get_media_breakpoint() ) : ?>
+		}
+	<?php endif; ?>
 <?php endif; ?>
 
 <?php if ( 'always' != $module->get_media_breakpoint() ) : ?>
@@ -808,6 +808,9 @@ if( isset( $settings->mobile_toggle ) && $settings->mobile_toggle != 'expanded' 
 	.fl-node-<?php echo $id; ?> .sub-menu > li > a,
 	.fl-node-<?php echo $id; ?> .sub-menu > li > .pp-has-submenu-container > a {
 		border-bottom-width: <?php echo ( $settings->submenu_border_size_medium != '' && $settings->submenu_border_color ) ? $settings->submenu_border_size_medium : ''; ?>px;
+		<?php if( isset( $settings->responsive_submenu_bg_color ) ) {
+			echo 'background-color: '. pp_get_color_value($settings->responsive_submenu_bg_color) .' !important;';
+		} ?>
 	}
 
 	.fl-node-<?php echo $id; ?> .sub-menu {
@@ -836,6 +839,9 @@ if( isset( $settings->mobile_toggle ) && $settings->mobile_toggle != 'expanded' 
 	.fl-node-<?php echo $id; ?> .sub-menu > li > a,
 	.fl-node-<?php echo $id; ?> .sub-menu > li > .pp-has-submenu-container > a {
 		border-bottom-width: <?php echo ( $settings->submenu_border_size_responsive != '' && $settings->submenu_border_color ) ? $settings->submenu_border_size_responsive : ''; ?>px;
+		<?php if( isset( $settings->responsive_submenu_bg_color ) ) {
+			echo 'background-color: '. pp_get_color_value($settings->responsive_submenu_bg_color) .' !important;';
+		} ?>
 	}
 
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu-mobile-toggle {

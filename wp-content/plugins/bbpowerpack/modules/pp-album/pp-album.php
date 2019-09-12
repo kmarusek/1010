@@ -87,16 +87,29 @@ FLBuilder::register_module('PPAlbumModule', array(
 					    'type'          => 'select',
 						'label'         => __( 'Cover Image', 'bb-powerpack' ),
 						'default'		=> 'first_img',
-						'show_remove'	=> true,
 						'options'		=> array(
 							'first_img'		=> __('First Image of Album', 'bb-powerpack'),
 							'custom'		=> __('Custom', 'bb-powerpack'),
 						),
                         'toggle' 		=> array(
+                            'first_img'    	=> array(
+                                'fields'   		=> array( 'first_img_size' ),
+                            ),
                             'custom'    	=> array(
                                 'fields'   		=> array( 'custom_cover' ),
                             ),
 						)
+					),
+					'first_img_size'	=> array(
+					    'type'          => 'select',
+						'label'         => __( 'Image Size', 'bb-powerpack' ),
+						'default'		=> 'full',
+						'options'		=> array(
+							'thumbnail'		=> __('Thumbnail', 'bb-powerpack'),
+							'medium'		=> __('Medium', 'bb-powerpack'),
+							'large'			=> __('Large', 'bb-powerpack'),
+							'full'			=> __('Full', 'bb-powerpack'),
+						),
 					),
 					'custom_cover'	=> array(
 					    'type'          => 'photo',
@@ -883,6 +896,43 @@ FLBuilder::register_module('PPAlbumModule', array(
 							'property'				=> 'margin',
 							'unit'					=> 'px'
 						)
+					),
+				),
+			),
+			'album_lightbox'		=> array(
+				'title'					=> __('Lightbox', 'bb-powerpack'),
+				'collapsed'				=> true,
+				'fields'				=> array(
+					'lightbox_bg_color'		=> array(
+						'type'						=> 'color',
+						'label'						=> __('Background color', 'bb-powerpack'),
+						'default'					=> '000',
+						'show_reset'				=> true,
+						'preview'					=> false,
+						'connections'  				=> array('color')
+					),
+					'lightboxbg_opacity'	=> array(
+						'type'					=> 'unit',
+						'label'					=> __('Backgroung Opacity', 'bb-powerpack'),
+						'property'				=> 'opacity',
+						'default'				=> '0.87',
+						'slider'				=> array(
+							'min'					=> 0,
+							'max'					=> 1,
+							'step'					=> 0.1
+						),
+						'preview'   			=> array(
+							'type'  				=> 'none',
+						),
+					),
+					'thumbs_bg_color'		=> array(
+						'type'						=> 'color',
+						'label'						=> __('Thumbs Background Color', 'bb-powerpack'),
+						'default'					=> 'ffffff',
+						'show_reset'				=> true,
+						'show_alpha'				=> true,
+						'preview'					=> false,
+						'connections'  				=> array('color')
 					),
 				),
 			),

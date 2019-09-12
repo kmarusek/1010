@@ -68,7 +68,7 @@ div.mfp-wrap.mfp-<?php echo $id; ?> .mfp-bottom-bar {
 }
 
 .fl-node-<?php echo $id; ?> .pp-photo-space {
-	width: <?php echo $settings->photo_spacing; ?>%;
+	width: <?php echo $settings->photo_spacing >= 0 ? $settings->photo_spacing : 0; ?>%;
 }
 
 <?php if($settings->gallery_layout == 'grid') { ?>

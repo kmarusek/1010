@@ -1,3 +1,39 @@
+== 2.7.4 ==
+Release date: September 4, 2019
+* New: FAQ module with schema markup
+* Enhancement: Core - Admin UI refresh 
+* Enhancement: Album - Added lightbox styling options
+* Enhancement: Album - Added image size option when first image is selected as cover image
+* Enhancement: Advanced Menu - Added tabindex for tab navigation
+* Enhancement: Advanced Menu - Added option to change submenu background color for responsive devices
+* Enhancement: Content Grid - Added option to toggle carousel loop
+* Enhancement: Testimonials - Added alpha channel for background color
+* Enhancement: Row Background Effects - Added option to choose whether to enable hover effects or not
+* Enhancement: Row Background Effects - Added option to put custom JSON for particle JS
+* Enhancement: Row Background Effects - Added option to change particle size on hover
+* Fix: Header / Footer - Sticky header was not working due to missing jQuery throttle dependency
+* Fix: Post Timeline - Hidden items issue in horizontal layout
+* Fix: Modal Box - Cut-off issue in iPhone
+* Fix: Content Grid - Duplicate posts rendering due to BB's cached JS loaded twice on some server
+* Fix: Filterable Gallery - Number of Columns was not working if spacing field left empty
+* Fix: Photo Gallery - Long caption overflow issue
+* Fix: Image Carousel - Responsive container width issue when using fade effect
+* Fix: Row Background Effects - Issue with particle size on hover toggle
+* Development: Advanced Menu - Added hook pp_advanced_menu_enable_item_description to render menu item description
+
+== 2.7.3 ==
+Release date: August 12, 2019
+* New: Video Gallery module
+* New: Devices module
+* New: Various Background Effects for Row
+* Enhancement: Image - Added image effects options
+* Enhancement: Content Grid - Added image effects options
+* Enhancement: Core - Added logic to define license key in wp-config.php file
+* Fix: Video - Video was being auto played when custom overlay is enabled
+* Fix: Photo Gallery - Added missing rel attribute on link
+* Fix: Filterable Gallery - Added missing rel attribute on link
+* Fix: Header / Footer was being rendered even when the template post has deleted
+
 == 2.7.2.4 ==
 Release date: July 31, 2019
 * Fix: Filterable Gallery - Number of Columns field was not getting saved

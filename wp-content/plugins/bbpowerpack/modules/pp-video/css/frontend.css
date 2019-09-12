@@ -58,13 +58,12 @@
     line-height: 1;
     border: none;
 }
-.pp-video-wrapper .pp-video {
+.pp-video-wrapper .pp-video-player {
 	-o-object-fit: cover;
     object-fit: cover;
 }
 
 .pp-video-image-overlay {
-	cursor: pointer;
 	text-align: center;
 	position: relative;
 }
@@ -90,13 +89,13 @@
     line-height: 0;
     padding: 20px;
     border-radius: 100%;
-    background: #fff;
+	background: #fff;
+	cursor: pointer;
 }
 .pp-video-play-icon svg {
 	width: 30px;
     height: 30px;
-    position: relative;
-    left: 3px;
+    transform: translateX(3px);
 }
 
 .pp-video-play-icon i {

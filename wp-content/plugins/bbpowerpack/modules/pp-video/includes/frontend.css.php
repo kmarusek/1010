@@ -21,6 +21,9 @@ FLBuilderCSS::border_field_rule( array(
 		border-color: #<?php echo $settings->play_icon_border_hover_color; ?>;
 	<?php } ?>
 }
+.fl-node-<?php echo $id; ?> .pp-video-image-overlay {
+	cursor: pointer;
+}
 <?php
 FLBuilderCSS::responsive_rule( array(
 	'settings'	=> $settings,

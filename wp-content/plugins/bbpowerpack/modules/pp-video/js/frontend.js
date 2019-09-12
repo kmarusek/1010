@@ -23,6 +23,7 @@
 		_inlinePlay: function() {
 			if ( this.node.find( '.pp-video-iframe' ).length > 0 ) {
 				this.node.find( '.pp-video-iframe' )[0].src = this.node.find( '.pp-video-iframe' )[0].src.replace('&autoplay=1', '');
+				this.node.find( '.pp-video-iframe' )[0].src = this.node.find( '.pp-video-iframe' )[0].src.replace('autoplay=1', '');
 			}
 
 			this.node.find('.pp-video-image-overlay').on('click', $.proxy(function() {
@@ -30,14 +31,22 @@
 					this.remove();
 				});
 
-				if ( this.node.find( '.pp-video' ).length > 0 ) {
-					this.node.find( '.pp-video' )[0].play();
+				if ( this.node.find( '.pp-video-player' ).length > 0 ) {
+					this.node.find( '.pp-video-player' )[0].play();
 
 					return;
 				}
 
 				var iframeSrc = this.node.find( '.pp-video-iframe' )[0].src.replace('&autoplay=0', '');
-				this.node.find( '.pp-video-iframe' )[0].src = iframeSrc + '&autoplay=1';
+				iframeSrc = iframeSrc.replace('autoplay=0', '');
+
+				var src = iframeSrc.split('#');
+				iframeSrc = src[0] + '&autoplay=1';
+
+				if ( 'undefined' !== typeof src[1] ) {
+					iframeSrc += '#' + src[1];
+				}
+				this.node.find( '.pp-video-iframe' )[0].src = iframeSrc;
 			}, this));
 		},
 
@@ -50,6 +59,7 @@
 					'close'
 				],
 				wheel			: false,
+				touch			: false,
 				afterLoad		: function(current, previous) {
 					$('.fancybox-' + id).find('.fancybox-bg').addClass('fancybox-' + id + '-overlay');
 				},

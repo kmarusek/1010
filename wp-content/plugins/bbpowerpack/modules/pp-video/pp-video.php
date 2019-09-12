@@ -426,7 +426,7 @@ class PPVideoModule extends FLBuilderModule {
 
 		$video_params = $this->get_hosted_params();
 		?>
-		<video class="pp-video" src="<?php echo esc_url( $video_url ); ?>" <?php echo $this->render_html_attributes( $video_params ); ?>></video>
+		<video class="pp-video-player" src="<?php echo esc_url( $video_url ); ?>" <?php echo $this->render_html_attributes( $video_params ); ?>></video>
 		<?php
 	}
 

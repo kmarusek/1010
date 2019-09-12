@@ -1,16 +1,16 @@
 .fl-node-<?php echo $id; ?> .pp-testimonials-wrap .bx-wrapper .bx-pager a {
-	<?php if( $settings->dot_color ) { ?>background: #<?php echo $settings->dot_color; ?>;<?php } ?>
+	<?php if( $settings->dot_color ) { ?>background: <?php echo pp_get_color_value($settings->dot_color); ?>;<?php } ?>
 }
 .fl-node-<?php echo $id; ?> .pp-testimonials-wrap .bx-wrapper .bx-pager a {
 	opacity: 0.5;
 }
 .fl-node-<?php echo $id; ?> .pp-testimonials-wrap .bx-wrapper .bx-pager a.active {
-	<?php if( $settings->active_dot_color ) { ?>background: #<?php echo $settings->active_dot_color; ?>;<?php } ?>
+	<?php if( $settings->active_dot_color ) { ?>background: <?php echo pp_get_color_value($settings->active_dot_color); ?>;<?php } ?>
 	opacity: 1;
 }
 .fl-node-<?php echo $id; ?> .pp-testimonials-wrap .fa:hover,
 .fl-node-<?php echo $id; ?> .pp-testimonials-wrap .fa {
-	<?php if( $settings->arrow_color ) { ?>color: #<?php echo $settings->arrow_color; ?>;<?php } ?>
+	<?php if( $settings->arrow_color ) { ?>color: <?php echo pp_get_color_value($settings->arrow_color); ?>;<?php } ?>
 }
 .fl-node-<?php echo $id; ?> .pp-testimonials-wrap .pp-arrow-wrapper {
 	<?php if( $settings->arrow_alignment ) { ?>text-align: <?php echo $settings->arrow_alignment; ?>;<?php } ?>
@@ -24,21 +24,21 @@
 
 <?php if( $settings->testimonial_layout == '1' ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-testimonial.layout-1 .pp-content-wrapper {
-		<?php if( $settings->layout_4_content_bg ) { ?>background: #<?php echo $settings->layout_4_content_bg; ?>;<?php } ?>
+		<?php if( $settings->layout_4_content_bg ) { ?>background: <?php echo pp_get_color_value($settings->layout_4_content_bg); ?>;<?php } ?>
 	}
 	<?php if( $settings->show_arrow == 'yes' ) { ?>
 		.fl-node-<?php echo $id; ?> .pp-testimonial.layout-1 .pp-arrow-top {
-			<?php if( $settings->layout_4_content_bg ) { ?>border-bottom-color: #<?php echo $settings->layout_4_content_bg; ?>;<?php } ?>
+			<?php if( $settings->layout_4_content_bg ) { ?>border-bottom-color: <?php echo pp_get_color_value($settings->layout_4_content_bg); ?>;<?php } ?>
 		}
 	<?php } ?>
 <?php } ?>
 <?php if( $settings->testimonial_layout == '2' ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-testimonial.layout-2 .pp-content-wrapper {
-		<?php if( $settings->layout_4_content_bg ) { ?>background: #<?php echo $settings->layout_4_content_bg; ?>;<?php } ?>
+		<?php if( $settings->layout_4_content_bg ) { ?>background: <?php echo pp_get_color_value($settings->layout_4_content_bg); ?>;<?php } ?>
 	}
 	<?php if( $settings->show_arrow == 'yes' ) { ?>
 		.fl-node-<?php echo $id; ?> .pp-testimonial.layout-2 .pp-arrow-bottom {
-			<?php if( $settings->layout_4_content_bg ) { ?>border-top-color: #<?php echo $settings->layout_4_content_bg; ?>;<?php } ?>
+			<?php if( $settings->layout_4_content_bg ) { ?>border-top-color: <?php echo pp_get_color_value($settings->layout_4_content_bg); ?>;<?php } ?>
 		}
 	<?php } ?>
 <?php } ?>
@@ -46,11 +46,11 @@
 	$wd = $settings->image_size + 30; ?>
 	.fl-node-<?php echo $id; ?> .pp-testimonial.layout-3 .pp-content-wrapper {
 		width: calc(100% - <?php echo $wd; ?>px);
-		<?php if( $settings->layout_4_content_bg ) { ?>background: #<?php echo $settings->layout_4_content_bg; ?>;<?php } ?>
+		<?php if( $settings->layout_4_content_bg ) { ?>background: <?php echo pp_get_color_value($settings->layout_4_content_bg); ?>;<?php } ?>
 	}
 	<?php if( $settings->show_arrow == 'yes' ) { ?>
 		.fl-node-<?php echo $id; ?> .pp-testimonial.layout-3 .pp-arrow-left {
-			<?php if( $settings->layout_4_content_bg ) { ?>border-right-color: #<?php echo $settings->layout_4_content_bg; ?>;<?php } ?>
+			<?php if( $settings->layout_4_content_bg ) { ?>border-right-color: <?php echo pp_get_color_value($settings->layout_4_content_bg); ?>;<?php } ?>
 		}
 	<?php } ?>
 	.fl-node-<?php echo $id; ?> .pp-testimonials .layout-3 .pp-testimonials-image {
@@ -61,16 +61,16 @@
 <?php } ?>
 <?php if( $settings->testimonial_layout == '4' ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-testimonial.layout-4 .layout-4-content {
-		<?php if( $settings->layout_4_content_bg ) { ?>background: #<?php echo $settings->layout_4_content_bg; ?>;<?php } ?>
+		<?php if( $settings->layout_4_content_bg ) { ?>background: <?php echo pp_get_color_value($settings->layout_4_content_bg); ?>;<?php } ?>
 	}
 <?php } ?>
 <?php if( $settings->testimonial_layout == '5' ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-testimonial.layout-5 .pp-content-wrapper {
-		<?php if( $settings->layout_4_content_bg ) { ?>background: #<?php echo $settings->layout_4_content_bg; ?>;<?php } ?>
+		<?php if( $settings->layout_4_content_bg ) { ?>background: <?php echo pp_get_color_value($settings->layout_4_content_bg); ?>;<?php } ?>
 	}
 	<?php if( $settings->show_arrow == 'yes' ) { ?>
 		.fl-node-<?php echo $id; ?> .pp-testimonial.layout-5 .pp-arrow-top {
-			<?php if( $settings->layout_4_content_bg ) { ?>border-bottom-color: #<?php echo $settings->layout_4_content_bg; ?>;<?php } ?>
+			<?php if( $settings->layout_4_content_bg ) { ?>border-bottom-color: <?php echo pp_get_color_value($settings->layout_4_content_bg); ?>;<?php } ?>
 		}
 	<?php } ?>
 <?php } ?>

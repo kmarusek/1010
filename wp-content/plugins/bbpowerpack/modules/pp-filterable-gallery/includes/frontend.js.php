@@ -1,7 +1,7 @@
 ;(function($) {
 
 	<?php if($settings->click_action == 'lightbox') : ?>
-	$(window).load(function() {
+	$(window).on('load', function() {
 		var gallery_selector = $( '.fl-node-<?php echo $id; ?> .pp-photo-gallery' );
 		if( gallery_selector.length && typeof $.fn.magnificPopup !== 'undefined') {
 			gallery_selector.magnificPopup({
@@ -37,7 +37,7 @@
 		captions: '<?php echo $settings->show_captions; ?>',
 	};
 
-	$(window).load(function() {
+	$(window).on('load', function() {
 		new PPFilterableGallery(options);
 	});
 

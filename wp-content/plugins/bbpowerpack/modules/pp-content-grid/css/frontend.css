@@ -296,12 +296,18 @@
 	height: auto !important;
 	width: 100% !important;
 }
+.pp-post-featured-img img {
+	-webkit-transition-duration: 0.3s;
+	-moz-transition-duration: 0.3s;
+	-ms-transition-duration: 0.3s;
+	-o-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+}
 .pp-content-grid-content p:last-of-type {
 	margin-bottom: 0;
 	padding-bottom: 0;
 }
-.pp-content-body a {
-}
+
 .pp-content-grid-title,
 .pp-content-carousel-title {
 	margin: 0;

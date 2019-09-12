@@ -15,9 +15,14 @@ if ( 'bottom' === $settings->thumbs_position ) {
 }
 
 // Album Cover Image.
+if ( isset( $settings->first_img_size ) ) {
+	$first_size = $settings->first_img_size;
+}else{
+	$first_size = 'full';
+}
 if ( ! empty( $settings->gallery_photos ) ) {
 	if ( 'first_img' == $settings->cover_img ) {
-		$first_img_url = wp_get_attachment_image_src( $settings->gallery_photos[0], 'full' );
+		$first_img_url = wp_get_attachment_image_src( $settings->gallery_photos[0], $first_size );
 	} else {
 		$first_img_url = array( $settings->custom_cover_src );
 	}

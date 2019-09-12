@@ -52,9 +52,12 @@ final class BB_PowerPack_Admin_Settings {
 
 		self::multisite_fallback();
 
-		add_action( 'admin_menu',           __CLASS__ . '::menu' );
-		add_action( 'network_admin_menu',   __CLASS__ . '::menu' );
-		add_filter( 'all_plugins',          __CLASS__ . '::update_branding' );
+		add_action( 'admin_menu',           	__CLASS__ . '::menu' );
+		add_action( 'network_admin_menu',   	__CLASS__ . '::menu' );
+		add_filter( 'all_plugins',          	__CLASS__ . '::update_branding' );
+		add_action( 'admin_enqueue_scripts', 	__CLASS__ . '::enqueue_script' );
+		add_action( 'admin_notices', 			__CLASS__ . '::render_latest_update_notice' );
+		add_action( 'network_admin_notices', 	__CLASS__ . '::render_latest_update_notice' );
 
 		if ( isset( $_GET['page'] ) && 'ppbb-settings' == $_GET['page'] ) {
 			add_action( 'admin_enqueue_scripts', __CLASS__ . '::styles_scripts' );
@@ -63,7 +66,7 @@ final class BB_PowerPack_Admin_Settings {
 	}
 
 	/**
-	 * Enqueues the needed CSS/JS for the builder's admin settings page.
+	 * Enqueues the needed CSS/JS for the admin settings page.
 	 *
 	 * @since 1.0
 	 * @return void
@@ -71,6 +74,16 @@ final class BB_PowerPack_Admin_Settings {
 	static public function styles_scripts() {
 		// Styles
 		wp_enqueue_style( 'pp-admin-settings', BB_POWERPACK_URL . 'assets/css/admin-settings.css', array(), BB_POWERPACK_VER );
+	}
+
+	/**
+	 * Enqueues the admin notice JS.
+	 *
+	 * @since 2.7.4
+	 * @return void
+	 */
+	static public function enqueue_script() {
+		wp_enqueue_script( 'pp-admin-notices', BB_POWERPACK_URL . 'assets/js/admin.js', array( 'jquery' ), BB_POWERPACK_VER, true );
 	}
 
 	/**
@@ -138,7 +151,7 @@ final class BB_PowerPack_Admin_Settings {
 			),
 			'extensions' => array(
 				'title'     => esc_html__( 'Extensions', 'bb-powerpack' ),
-				'show'      => is_network_admin() || ! is_multisite(),
+				'show'      => true,
 				'priority'  => 250,
 			),
 			'integration'	=> array(
@@ -198,6 +211,115 @@ final class BB_PowerPack_Admin_Settings {
 		} elseif ( ! empty( $_POST ) && ! isset( $_POST['email'] ) ) {
 			echo '<div class="updated"><p>' . esc_html__( 'Settings updated!', 'bb-powerpack' ) . '</p></div>';
 		}
+	}
+
+	/**
+	 * Renders the latest update post message.
+	 *
+	 * @since 2.7.4
+	 * @return void
+	 */
+	static public function render_latest_update_notice() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+		if ( is_multisite() && ( ! is_network_admin() || ! is_main_site() ) ) {
+			return;
+		}
+
+		if ( ! self::get_option( 'ppwl_enable_latest_update_notice' ) ) {
+			return;
+		}
+
+		if ( get_user_meta( get_current_user_id(), 'bb_powerpack_dismissed_latest_update_notice', true ) ) {
+			return;
+		}
+
+		$latest_info = self::get_latest_update_info();
+		if ( isset( $latest_info['error'] ) && $latest_info['error'] ) {
+			if ( isset( $latest_info['message'] ) ) {
+				// uncomment below condition for debug purpose.
+				// self::add_error( $latest_info['message'] );
+			}
+			return;
+		}
+
+		?>
+		<div
+			class="notice notice-info pp-latest-update-notice"
+			style="position: relative; background: #f0fbff;"
+			data-nonce="<?php echo wp_create_nonce( 'pp_notice' ); ?>"
+			>
+			<p>
+				<?php
+					$pp_string = 'PowerPack v' . BB_POWERPACK_VER;
+					// translators: %s is for PowerPack.
+					echo sprintf( esc_html__( 'See what\'s new in %s', 'bb-powerpack' ), $pp_string );
+				?> - <strong><?php echo $latest_info['title']; ?></strong>
+				<a href="<?php echo $latest_info['link']; ?>" target="_blank">
+				<?php echo __( 'Read More', 'bb-powerpack' ); ?>
+				</a>
+			</p>
+			<button type="button" class="notice-dismiss">
+				<span class="screen-reader-text">Dismiss this notice.</span>
+			</button>
+		</div>
+		<?php
+		self::update_option( 'bb_powerpack_current_version', BB_POWERPACK_VER );
+	}
+
+	/**
+	 * Get latest update info from remote server.
+	 *
+	 * @since 2.7.4
+	 * @return array $data
+	 */
+	static private function get_latest_update_info() {
+		$data = array(
+			'error'	=> false,
+			'message' => '',
+		);
+
+		$version = self::get_option( 'bb_powerpack_current_version' );
+
+		if ( ! $version || version_compare( $version, BB_POWERPACK_VER, '<' ) ) {
+			self::delete_option( 'bb_powerpack_latest_update_info' );
+		} else {
+			// Check and return if we've cached the response already.
+			$db_latest_info = self::get_option( 'bb_powerpack_latest_update_info' );
+
+			if ( is_array( $db_latest_info ) ) {
+				$data = $db_latest_info;
+
+				return $db_latest_info;
+			}
+		}
+
+		// Get response from remote server.
+		$response = wp_remote_post( 'https://wpbeaveraddons.com/', array(
+			'timeout' => 15,
+			'sslverify' => false,
+			'body' => array(
+				'ibx_action' => 'get_latest_update_info',
+			),
+		) );
+
+		if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
+			$data['error'] = true;
+			$data['message'] = $response->get_error_message();
+		} else {
+			$data['error'] = false;
+			$data = (array) json_decode( wp_remote_retrieve_body( $response ) );
+		}
+
+		if ( isset( $data['title'] ) && ! empty( $data['title'] ) ) {
+			self::update_option( 'bb_powerpack_latest_update_info', $data );
+		} else {
+			$data['error'] = true;
+			$data['message'] = __( 'Empty title', 'bb-powerpack' );
+		}
+
+		return $data;
 	}
 
 	/**
@@ -298,6 +420,10 @@ final class BB_PowerPack_Admin_Settings {
 		} else {
 			delete_option( $key );
 		}
+	}
+
+	static public function has_license_key_defined() {
+		return defined( 'BB_POWERPACK_LICENSE_KEY' );
 	}
 
 	/**
@@ -402,13 +528,16 @@ final class BB_PowerPack_Admin_Settings {
 		$tmpl_category_label    = isset( $_POST['ppwl_tmpcat_label'] ) ? sanitize_text_field( $_POST['ppwl_tmpcat_label'] ) : 'PowerPack Layouts';
 		$row_templates_label    = isset( $_POST['ppwl_rt_label'] ) ? sanitize_text_field( $_POST['ppwl_rt_label'] ) : 'PowerPack ' . __( 'Row Templates', 'bb-powerpack' );
 		$support_link           = isset( $_POST['ppwl_support_link'] ) ? esc_url_raw( $_POST['ppwl_support_link'] ) : 'httsp://wpbeaveraddons.com/contact/';
+		$docs_link           	= isset( $_POST['ppwl_docs_link'] ) ? esc_url_raw( $_POST['ppwl_docs_link'] ) : 'httsp://wpbeaveraddons.com/docs/';
 		$remove_license_link    = isset( $_POST['ppwl_remove_license_key_link'] ) ? absint( $_POST['ppwl_remove_license_key_link'] ) : 0;
+		$remove_docs_link    	= isset( $_POST['ppwl_remove_docs_link'] ) ? absint( $_POST['ppwl_remove_docs_link'] ) : 0;
+		$remove_support_link    = isset( $_POST['ppwl_remove_support_link'] ) ? absint( $_POST['ppwl_remove_support_link'] ) : 0;
+		$enable_latest_notice  	= isset( $_POST['ppwl_enable_latest_update_notice'] ) ? absint( $_POST['ppwl_enable_latest_update_notice'] ) : 0;
 		$list_modules_standard  = isset( $_POST['ppwl_list_modules_with_standard'] ) ? absint( $_POST['ppwl_list_modules_with_standard'] ) : 0;
-		$hide_support_msg       = isset( $_POST['ppwl_hide_support_msg'] ) ? absint( $_POST['ppwl_hide_support_msg'] ) : 0;
 		$hide_templates_tab     = isset( $_POST['ppwl_hide_templates_tab'] ) ? absint( $_POST['ppwl_hide_templates_tab'] ) : 0;
 		$hide_extensions_tab    = isset( $_POST['ppwl_hide_extensions_tab'] ) ? absint( $_POST['ppwl_hide_extensions_tab'] ) : 0;
 		$hide_integration_tab   = isset( $_POST['ppwl_hide_integration_tab'] ) ? absint( $_POST['ppwl_hide_integration_tab'] ) : 0;
-		$hide_header_footer_tab   = isset( $_POST['ppwl_hide_header_footer_tab'] ) ? absint( $_POST['ppwl_hide_header_footer_tab'] ) : 0;
+		$hide_header_footer_tab = isset( $_POST['ppwl_hide_header_footer_tab'] ) ? absint( $_POST['ppwl_hide_header_footer_tab'] ) : 0;
 		$hide_maintenance_tab   = isset( $_POST['ppwl_hide_maintenance_tab'] ) ? absint( $_POST['ppwl_hide_maintenance_tab'] ) : 0;
 		$hide_wl_form           = isset( $_POST['ppwl_hide_form'] ) ? absint( $_POST['ppwl_hide_form'] ) : 0;
 		$hide_plugin            = isset( $_POST['ppwl_hide_plugin'] ) ? absint( $_POST['ppwl_hide_plugin'] ) : 0;
@@ -417,8 +546,12 @@ final class BB_PowerPack_Admin_Settings {
 		self::update_option( 'ppwl_tmpcat_label', $tmpl_category_label );
 		self::update_option( 'ppwl_rt_label', $row_templates_label );
 		self::update_option( 'ppwl_support_link', $support_link );
+		self::update_option( 'ppwl_docs_link', $docs_link );
+		self::update_option( 'ppwl_remove_license_key_link', $remove_license_link );
+		self::update_option( 'ppwl_remove_docs_link', $remove_docs_link );
+		self::update_option( 'ppwl_remove_support_link', $remove_support_link );
+		self::update_option( 'ppwl_enable_latest_update_notice', $enable_latest_notice );
 		self::update_option( 'ppwl_list_modules_with_standard', $list_modules_standard );
-		self::update_option( 'ppwl_hide_support_msg', $hide_support_msg );
 		self::update_option( 'ppwl_hide_templates_tab', $hide_templates_tab );
 		self::update_option( 'ppwl_hide_extensions_tab', $hide_extensions_tab );
 		self::update_option( 'ppwl_hide_integration_tab', $hide_integration_tab );
@@ -519,7 +652,7 @@ final class BB_PowerPack_Admin_Settings {
 			}
 
 			if ( ! isset( $_POST['bb_powerpack_extensions'] ) ) {
-				self::update_option( 'bb_powerpack_extensions', array( 'disabled' ) );
+				self::update_option( 'bb_powerpack_extensions', array( 'disabled' ), true );
 			}
 		}
 	}
@@ -621,6 +754,20 @@ final class BB_PowerPack_Admin_Settings {
 		}
 
 		return $all_plugins;
+	}
+
+	static public function get_support_link() {
+		$support_link = self::get_option( 'ppwl_support_link' );
+		$support_link = ! empty( $support_link ) ? $support_link : 'https://wpbeaveraddons.com/contact/';
+
+		return $support_link;
+	}
+
+	static public function get_docs_link() {
+		$docs_link = self::get_option( 'ppwl_docs_link' );
+		$docs_link = ! empty( $docs_link ) ? $docs_link : 'https://wpbeaveraddons.com/docs/';
+
+		return $docs_link;
 	}
 
 	/**

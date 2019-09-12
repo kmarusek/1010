@@ -278,20 +278,36 @@ function pp_modules()
  */
 function pp_extensions()
 {
-    $extensions = array(
-        'row'       => array(
-            'separators'    => __('Separators', 'bb-powerpack'),
-            'overlay'       => __('Overlay Style', 'bb-powerpack'),
-            'expandable'    => __('Expandable', 'bb-powerpack'),
-            'downarrow'     => __('Down Arrow', 'bb-powerpack'),
-        ),
-        'col'       => array(
-            'separators'    => __('Separators', 'bb-powerpack'),
-            // 'gradient'      => __('Gradient', 'bb-powerpack'),
-            // 'corners'       => __('Round Corners', 'bb-powerpack'),
-            // 'shadow'        => __('Box Shadow', 'bb-powerpack'),
-        )
-    );
+	$extensions = array(
+		'row'       => array(
+			'separators'    	=> array(
+				'label'				=> __('Separators', 'bb-powerpack'),
+				'description'		=> __('Row separators can be added to the top, bottom or both the ends of a row.', 'bb-powerpack'),
+			),
+			'overlay'       	=> array(
+				'label'				=> __('Overlay Style', 'bb-powerpack'),
+				'description'		=> __('Choose overlay pattern among Half Overlay Left or Right, Vertical Angled Left or Right.', 'bb-powerpack'),
+			),
+			'expandable'		=> array(
+				'label'				=> __('Expandable', 'bb-powerpack'),
+				'description'		=> __('This feature lets you toggle the entire row on just a single click.', 'bb-powerpack'),
+			),
+			'downarrow'     	=> array(
+				'label'				=> __('Down Arrow', 'bb-powerpack'),
+				'description'		=> __('This feature will add an arrow icon button at the bottom of a row which let users jump to the next row by clicking on it.', 'bb-powerpack'),
+			),
+			'background_effect'	=> array(
+				'label'				=> __('Background Effects', 'bb-powerpack'),
+				'description'		=> __('This feature includes 13 types of amazing animated background for row. These animations consist of an extensive list of styling options.', 'bb-powerpack'),
+			),
+		),
+		'col'       => array(
+			'separators'    => array(
+				'label'			=> __('Separators', 'bb-powerpack'),
+				'description'	=> __('Just like row separators, this feature adds various shapes for column.', 'bb-powerpack'),
+			),
+		)
+	);
 
     return $extensions;
 }
@@ -706,4 +722,131 @@ function pp_gradient_angle_to_direction( $angle = 45 ) {
 	}
 
 	return $direction;
+}
+
+function pp_image_effect_fields( $hover = false ) {
+	$suffix = $hover ? '_hover' : '';
+
+	return array(
+		'image_effect_opacity'.$suffix		=> array(
+			'type'						=> 'unit',
+			'label'						=> __('Opacity', 'bb-powerpack'),
+			'property'					=> 'opacity',
+			'slider'					=> array(
+				'min'						=> 0,
+				'max'						=> 1,
+				'step'						=> 0.1
+			),
+		),
+		'image_effect_brightness'.$suffix	=> array(
+			'type'						=> 'unit',
+			'label'						=> __('Brightness', 'bb-powerpack'),
+			'property'					=> 'brightness',
+			'units'						=> array('%'),
+			'slider'					=> array(
+				'min'						=> 0,
+				'max'						=> 200,
+				'step'						=> 1
+			),
+		),
+		'image_effect_contrast'.$suffix		=> array(
+			'type'						=> 'unit',
+			'label'						=> __('Contrast', 'bb-powerpack'),
+			'property'					=> 'contrast',
+			'units'						=> array('%'),
+			'slider'					=> array(
+				'min'						=> 0,
+				'max'						=> 200,
+				'step'						=> 1
+			),
+		),
+		'image_effect_saturate'.$suffix		=> array(
+			'type'						=> 'unit',
+			'label'						=> __('Saturate', 'bb-powerpack'),
+			'property'					=> 'saturate',
+			'slider'					=> array(
+				'min'						=> 0,
+				'max'						=> 1,
+				'step'						=> 0.1
+			),
+		),
+		'image_effect_hue_rotate'.$suffix	=> array(
+			'type'						=> 'unit',
+			'label'						=> __('Hue Rotate', 'bb-powerpack'),
+			'property'					=> 'hue-rotate',
+			'units'						=> array('deg'),
+			'slider'					=> array(
+				'min'						=> 0,
+				'max'						=> 360,
+				'step'						=> 1
+			),
+		),
+		'image_effect_grayscale'.$suffix	=> array(
+			'type'						=> 'unit',
+			'label'						=> __('Grayscale', 'bb-powerpack'),
+			'property'					=> 'grayscale',
+			'units'						=> array( '%' ),
+			'slider'					=> true,
+		),
+		'image_effect_blur'.$suffix			=> array(
+			'type'						=> 'unit',
+			'label'						=> __('Blur', 'bb-powerpack'),
+			'property'					=> 'blur',
+			'units'						=> array( 'px' ),
+			'slider'					=> array(
+				'min'						=> 1,
+				'max'						=> 30,
+				'step'						=> 1
+			),
+		),
+		'image_effect_sepia'.$suffix		=> array(
+			'type'						=> 'unit',
+			'label'						=> __('Sepia', 'bb-powerpack'),
+			'property'					=> 'sepia',
+			'slider'					=> array(
+				'min'						=> 0,
+				'max'						=> 1,
+				'step'						=> 0.1
+			),
+		),
+		'image_effect_invert'.$suffix		=> array(
+			'type'						=> 'unit',
+			'label'						=> __('Invert', 'bb-powerpack'),
+			'property'					=> 'invert',
+			'units'						=> array('%'),
+			'slider'					=> array(
+				'min'						=> 0,
+				'max'						=> 100,
+				'step'						=> 1
+			),
+		),
+	);
+}
+
+function pp_image_effect_render_style( $settings, $selector, $is_hover = false ) {
+    $fields 		= pp_image_effect_fields( $is_hover );
+	
+	$css 			= "\n $selector {";
+	$css			.= "\n\t cursor: pointer;\n";
+
+	$webkit_props = array();
+	$filter_props = array();
+
+	foreach ( $fields as $name => $field ) {
+        $unit = isset( $field['units'] ) ? $field['units'][0] : '';
+        if ( isset( $settings->{$name} ) && '' != $settings->{$name} ) {
+			$webkit_props[] = $field['property']."(" . $settings->{$name} . $unit .")";
+			$filter_props[] = $field['property']."(" . $settings->{$name} . $unit .")";
+        }
+    }
+
+	if ( ! empty( $webkit_props ) ) {
+		$css .= "\n\t" . '-webkit-filter: ' . implode( ' ', $webkit_props ) . ';';
+	}
+	if ( ! empty( $filter_props ) ) {
+		$css .= "\n\t" . 'filter: ' . implode( ' ', $filter_props ) . ';';
+	}
+    $css .= "\n" . '}';
+
+    return $css;
 }

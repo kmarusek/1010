@@ -17,6 +17,11 @@ function pp_row_render_css( $extensions ) {
     if ( array_key_exists( 'downarrow', $extensions['row'] ) || in_array( 'downarrow', $extensions['row'] ) ) {
         add_filter( 'fl_builder_render_css', 'pp_row_downarrow_css', 10, 3 );
     }
+    if ( array_key_exists( 'background_effect', $extensions['row'] ) || in_array( 'background_effect', $extensions['row'] ) ) {
+        add_filter( 'fl_builder_render_css', 'pp_row_infinite_bg_css', 10, 3 );
+		add_filter( 'fl_builder_render_css', 'pp_row_animated_bg_css', 10, 3 );
+	}
+
 }
 
 function pp_row_gradient_css( $css, $nodes, $global_settings ) {
@@ -560,6 +565,121 @@ function pp_row_downarrow_css( $css, $nodes, $global_settings ) {
                 transform: translateY(-15px);
               }
             }
+        <?php } ?>
+
+        <?php
+        $css .= ob_get_clean();
+    }
+
+    return $css;
+}
+
+function pp_row_infinite_bg_css( $css, $nodes, $global_settings ) {
+
+	foreach ( $nodes['rows'] as $row ) {
+		ob_start();
+		?>
+
+		<?php if ( isset( $row->settings->bg_type ) && 'pp_infinite_bg' == $row->settings->bg_type ) { ?>
+			<?php if ( isset( $row->settings->pp_bg_image ) ){ ?>
+				.fl-node-<?php echo $row->node; ?>.fl-row-bg-pp_infinite_bg .fl-row-content-wrap .fl-builder-shape-layer {
+					z-index: 1;
+				}
+				.fl-node-<?php echo $row->node; ?> .fl-row-content-wrap {
+					background-color: transparent;
+					background-image: url(<?php echo $row->settings->pp_bg_image_src;?>);
+					background-repeat: repeat;
+					background-position: 0 0;
+				}
+				<?php if ( isset($row->settings->scrolling_direction ) && 'horizontal' == $row->settings->scrolling_direction ) { ?>
+					.fl-node-<?php echo $row->node; ?> .fl-row-content-wrap {
+						animation: pp-animation-horizontally-<?php echo $row->settings->scrolling_direction_h; ?>-<?php echo $row->node; ?> <?php echo $row->settings->scrolling_speed; ?>s linear infinite;
+						background-size: cover;
+					}
+				<?php } elseif ( isset($row->settings->scrolling_direction ) && 'vertical' == $row->settings->scrolling_direction ) { ?>
+					.fl-node-<?php echo $row->node; ?> .fl-row-content-wrap {
+						animation: pp-animation-vertically-<?php echo $row->settings->scrolling_direction_v; ?>-<?php echo $row->node; ?> <?php echo $row->settings->scrolling_speed; ?>s linear infinite;
+						background-size: contain;
+					}
+				<?php } ?>
+				<?php if( isset($row->settings->pp_infinite_overlay) ) { ?>
+					.fl-node-<?php echo $row->node; ?> > .fl-row-content-wrap:after {
+						background-color: <?php echo isset($row->settings->pp_infinite_overlay) ? pp_get_color_value($row->settings->pp_infinite_overlay) : 'transparent'; ?>;
+						border-radius: inherit;
+						content: '';
+						display: block;
+						position: absolute;
+						top: 0;
+						right: 0;
+						bottom: 0;
+						left: 0;
+						z-index: 0;
+					}
+					.fl-node-<?php echo $row->node; ?> > .fl-row-content-wrap .fl-row-content {
+						position: relative;
+						z-index: 2;
+					}
+				<?php } ?>
+			<?php } ?>
+        <?php } ?>
+
+        <?php
+        $css .= ob_get_clean();
+    }
+
+    return $css;
+}
+
+function pp_row_animated_bg_css( $css, $nodes, $global_settings ) {
+
+	foreach ( $nodes['rows'] as $row ) {
+		ob_start();
+		?>
+
+		<?php if ( isset( $row->settings->bg_type ) && 'pp_animated_bg' == $row->settings->bg_type ) { ?>
+			<?php if ( isset( $row->settings->pp_bg_image ) ){ ?>
+				.fl-node-<?php echo $row->node; ?>.fl-row-bg-pp_animated_bg .fl-row-content-wrap .fl-builder-shape-layer {
+					z-index: 1;
+				}
+			<?php }
+			$anim_type = $row->settings->animation_type;
+
+			if ( 'particles' == $anim_type || 'nasa' == $anim_type || 'bubble' == $anim_type || 'snow' == $anim_type || 'custom' == $anim_type ) { ?>
+				.fl-node-<?php echo $row->node; ?> #pp-particles-wrap-<?php echo $row->node; ?> {
+					position: absolute;
+					top: 0;
+					bottom: 0;
+					left: 0;
+					right: 0;
+				}
+				.fl-node-<?php echo $row->node; ?> .fl-row-content-wrap {
+					background-color: <?php echo isset($row->settings->part_bg_color) ? pp_get_color_value($row->settings->part_bg_color) : '#07192f'; ?>
+				}
+				<?php if ( 'yes' == $row->settings->part_bg_type ) { ?>
+					.fl-node-<?php echo $row->node; ?> #pp-particles-wrap-<?php echo $row->node; ?> {
+						background-image: url(<?php echo isset($row->settings->part_bg_image) ? $row->settings->part_bg_image_src : ''; ?>);
+						background-size: <?php echo isset($row->settings->part_bg_size) ? $row->settings->part_bg_size . '%' : '50%'; ?>;
+						background-repeat: no-repeat;
+						background-position: <?php echo isset($row->settings->part_bg_position) ? $row->settings->part_bg_position : '50% 50%'; ?>;
+					}
+				<?php } ?>
+				.fl-node-<?php echo $row->node; ?> .fl-row-content-wrap #pp-particles-wrap-<?php echo $row->node; ?> {
+					z-index: 0;
+				}
+				.fl-node-<?php echo $row->node; ?> .fl-row-content-wrap .fl-row-content {
+					z-index: 1;
+				}
+
+			<?php }else{ ?>
+				#fl-builder-settings-section-pp_animated_bg #fl-field-part_hover_size,
+				#fl-builder-settings-section-pp_animated_bg #fl-field-part_bg_image,
+				#fl-builder-settings-section-pp_animated_bg #fl-field-part_bg_size,
+				#fl-builder-settings-section-pp_animated_bg #fl-field-part_hover_size,
+				#fl-builder-settings-section-pp_animated_bg #fl-field-part_bg_position {
+					display: none !important;
+				}
+			<?php } ?>
+
         <?php } ?>
 
         <?php

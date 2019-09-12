@@ -37,11 +37,19 @@ function bb_powerpack_delete( $key ) {
 	}
 }
 
+function bb_powerpack_get_license_key() {
+	if ( defined( 'BB_POWERPACK_LICENSE_KEY' ) ) {
+		return ! empty( BB_POWERPACK_LICENSE_KEY ) ? trim( BB_POWERPACK_LICENSE_KEY ) : '';
+	} else {
+		return trim( bb_powerpack_get( 'bb_powerpack_license_key' ) );
+	}
+}
+
 function bb_powerpack_license( $action = '', $license_key = '' ) {
 	$license = trim( $license_key );
 
 	if ( empty( $license ) ) {
-		$license = trim( bb_powerpack_get( 'bb_powerpack_license_key' ) );
+		$license = bb_powerpack_get_license_key();
 	}
 
 	// data to send in our API request
@@ -61,7 +69,7 @@ function bb_powerpack_license( $action = '', $license_key = '' ) {
 function bb_powerpack_plugin_updater() {
 
 	// retrieve our license key from the DB
-	$license_key = trim( bb_powerpack_get( 'bb_powerpack_license_key' ) );
+	$license_key = bb_powerpack_get_license_key();
 
 	// setup the updater
 	$edd_updater = new PP_Plugin_Updater( BEAVER_ADDONS_URL, BB_POWERPACK_DIR . '/bb-powerpack.php', array(
@@ -75,96 +83,100 @@ function bb_powerpack_plugin_updater() {
 }
 add_action( 'admin_init', 'bb_powerpack_plugin_updater', 0 );
 
-/************************************
-* this illustrates how to activate
-* a license key
-*************************************/
-
+/***********************************************
+* Activate license key.
+***********************************************/
 function bb_powerpack_activate_license() {
 
-	// listen for our activate button to be clicked
-	if( isset( $_POST['bb_powerpack_license_activate'] ) && isset( $_POST['bb_powerpack_license_key'] ) ) {
-
-		// run a quick security check
-	 	if( ! isset( $_POST['bb_powerpack_nonce'] ) || ! wp_verify_nonce( $_POST['bb_powerpack_nonce'], 'bb_powerpack_nonce' ) )
-			return; // get out if we didn't click the Activate button
-
-		// retrieve the license from the database
-		$license = trim( $_POST['bb_powerpack_license_key'] );
-
-		$response = bb_powerpack_license( 'activate_license', $license );
-
-		// make sure the response came back okay
-		if (is_wp_error($response) || 200 !== wp_remote_retrieve_response_code($response)) {
-
-			if (is_wp_error($response)) {
-				$message = $response->get_error_message();
-			}
-			else {
-				$message = __('An error occurred, please try again.', 'bb-powerpack');
-			}
-
-		}
-		else {
-			// decode the license data
-			$license_data = json_decode( wp_remote_retrieve_body( $response ) );
-
-			if (false === $license_data->success) {
-				$message = bb_powerpack_license_messages( $license_data->error );
-			}
-		}
-
-		// Check if anything passed on a message constituting a failure
-		if (!empty($message)) {
-			$base_url = BEAVER_ADDONS_LICENSE_PAGE;
-			$redirect = add_query_arg(array('sl_activation' => 'false', 'message' => urlencode($message)), $base_url);
-
-			wp_redirect($redirect);
-			exit();
-		}
-
-		// $license_data->license will be either "valid" or "invalid"
-
-		bb_powerpack_update( 'bb_powerpack_license_status', $license_data->license );
-
-		wp_redirect(BEAVER_ADDONS_LICENSE_PAGE);
-        exit();
+	if ( ! isset( $_POST['bb_powerpack_license_activate'] ) ) {
+		return;
 	}
+
+	// run a quick security check
+	if ( ! isset( $_POST['bb_powerpack_nonce'] ) || ! wp_verify_nonce( $_POST['bb_powerpack_nonce'], 'bb_powerpack_nonce' ) ) {
+		return; // get out if we didn't click the Activate button
+	}
+
+	$license = '';
+
+	if ( isset( $_POST['bb_powerpack_license_key'] ) ) {
+		$license = trim( $_POST['bb_powerpack_license_key'] );
+	} else {
+		$license = bb_powerpack_get_license_key();
+	}
+
+	$response = bb_powerpack_license( 'activate_license', $license );
+
+	// make sure the response came back okay
+	if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
+
+		if ( is_wp_error( $response ) ) {
+			$message = $response->get_error_message();
+		} else {
+			$message = __( 'An error occurred, please try again.', 'bb-powerpack' );
+		}
+	} else {
+		// decode the license data
+		$license_data = json_decode( wp_remote_retrieve_body( $response ) );
+
+		if ( false === $license_data->success ) {
+			$message = bb_powerpack_license_messages( $license_data->error );
+		}
+	}
+
+	// Check if anything passed on a message constituting a failure
+	if ( ! empty( $message ) ) {
+		$base_url = BEAVER_ADDONS_LICENSE_PAGE;
+		$redirect = add_query_arg( array(
+				'sl_activation' => 'false',
+				'message' => urlencode( $message ),
+		), $base_url );
+
+		wp_redirect( $redirect );
+		exit();
+	}
+
+	// $license_data->license will be either "valid" or "invalid"
+
+	bb_powerpack_update( 'bb_powerpack_license_status', $license_data->license );
+
+	wp_redirect( BEAVER_ADDONS_LICENSE_PAGE );
+	exit();
 }
-add_action('admin_init', 'bb_powerpack_activate_license');
+add_action( 'admin_init', 'bb_powerpack_activate_license' );
 
 /***********************************************
-* Illustrates how to deactivate a license key.
-* This will descrease the site count
+* Deactivate license key.
 ***********************************************/
-
 function bb_powerpack_deactivate_license() {
 
 	// listen for our activate button to be clicked
-	if( isset( $_POST['bb_powerpack_license_deactivate'] ) ) {
+	if ( isset( $_POST['bb_powerpack_license_deactivate'] ) ) {
 
 		// run a quick security check
-	 	if( ! isset( $_POST['bb_powerpack_nonce'] ) || ! wp_verify_nonce( $_POST['bb_powerpack_nonce'], 'bb_powerpack_nonce' ) )
+		if ( ! isset( $_POST['bb_powerpack_nonce'] ) || ! wp_verify_nonce( $_POST['bb_powerpack_nonce'], 'bb_powerpack_nonce' ) ) {
 			return; // get out if we didn't click the Activate button
+		}
 
-		// retrieve the license from the database
-		$license = trim( bb_powerpack_get( 'bb_powerpack_license_key' ) );
+		$license = bb_powerpack_get_license_key();
 
 		$response = bb_powerpack_license( 'deactivate_license', $license );
 
 		// make sure the response came back okay
-		if (is_wp_error($response) || 200 !== wp_remote_retrieve_response_code($response)) {
+		if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
 
-			if (is_wp_error($response)) {
+			if ( is_wp_error( $response ) ) {
 				$message = $response->get_error_message();
-			}
-			else {
-				$message = __('An error occurred, please try again.', 'bb-powerpack');
+			} else {
+				$message = __( 'An error occurred, please try again.', 'bb-powerpack' );
 			}
 
-			$redirect = add_query_arg(array('sl_activation' => 'false', 'message' => urlencode($message)), BEAVER_ADDONS_LICENSE_PAGE);
+			$redirect = add_query_arg( array(
+				'sl_activation' => 'false',
+				'message' => urlencode( $message ),
+			), BEAVER_ADDONS_LICENSE_PAGE );
 
-			wp_redirect($redirect);
+			wp_redirect( $redirect );
 			exit();
 		}
 
@@ -172,15 +184,15 @@ function bb_powerpack_deactivate_license() {
 		$license_data = json_decode( wp_remote_retrieve_body( $response ) );
 
 		// $license_data->license will be either "deactivated" or "failed"
-		if ( $license_data->license == 'deactivated' ) {
+		if ( 'deactivated' === $license_data->license || 'failed' === $license_data->license ) {
 			bb_powerpack_delete( 'bb_powerpack_license_status' );
 		}
 
-		wp_redirect(BEAVER_ADDONS_LICENSE_PAGE);
-        exit();
-	}
+		wp_redirect( BEAVER_ADDONS_LICENSE_PAGE );
+		exit();
+	} // End if().
 }
-add_action('admin_init', 'bb_powerpack_deactivate_license');
+add_action( 'admin_init', 'bb_powerpack_deactivate_license' );
 
 /************************************
 * check if
@@ -190,10 +202,9 @@ add_action('admin_init', 'bb_powerpack_deactivate_license');
 *************************************/
 
 function bb_powerpack_check_license() {
-
 	global $wp_version;
 
-	$license = trim( bb_powerpack_get( 'bb_powerpack_license_key' ) );
+	$license = bb_powerpack_get_license_key();
 	$license_status = trim( bb_powerpack_get( 'bb_powerpack_license_status' ) );
 
 	if ( '' == $license_status || 'invalid' == $license_status ) {
@@ -204,35 +215,43 @@ function bb_powerpack_check_license() {
 		'edd_action' => 'check_license',
 		'license' 	=> $license,
 		'item_name' => urlencode( BEAVER_ADDONS_ITEM_NAME ),
-		'url'       => network_home_url()
+		'url'       => network_home_url(),
 	);
 
 	// Call the custom API.
-	$response = wp_remote_post( BEAVER_ADDONS_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
+	$response = wp_remote_post(
+		BEAVER_ADDONS_URL,
+		array(
+			'timeout' => 15,
+			'sslverify' => false,
+			'body' => $api_params,
+		)
+	);
 
-	if ( is_wp_error( $response ) )
+	if ( is_wp_error( $response ) ) {
 		return array(
-			'message'	=> $response->get_error_message()
+			'message' => $response->get_error_message(),
 		);
+	}
 
 	$license_data = json_decode( wp_remote_retrieve_body( $response ) );
 
-	if( $license_data->license == 'valid' ) {
+	if ( 'valid' === $license_data->license ) {
 		return 'valid';
-		// this license is still valid
+		// this license is still valid.
 	} else {
 		// this license is no longer valid
 		// delete license status.
 		bb_powerpack_delete( 'bb_powerpack_license_status' );
 
-		if ( 'site_inactive' == $license_data->license ) {
+		if ( 'site_inactive' === $license_data->license ) {
 			$response = bb_powerpack_license( 'activate_license' );
 
 			if ( ! is_wp_error( $response ) ) {
 				// decode the license data
 				$license_data = json_decode( wp_remote_retrieve_body( $response ) );
 
-				if ( 'valid' == $license_data->license ) {
+				if ( 'valid' === $license_data->license ) {
 					bb_powerpack_update( 'bb_powerpack_license_status', $license_data->license );
 				}
 			}

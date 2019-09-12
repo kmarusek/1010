@@ -53,6 +53,12 @@ FLBuilderCSS::responsive_rule( array(
 	'prop'			=> 'width',
 	'unit'			=> 'px',
 ) );
+
+// Image Effects
+if ( isset( $settings->show_image_effect ) && 'yes' === $settings->show_image_effect ){
+	echo pp_image_effect_render_style( $settings, ".fl-node-$id .pp-photo-container .pp-photo-content .pp-photo-content-inner img" );
+	echo pp_image_effect_render_style( $settings, ".fl-node-$id .pp-photo-container .pp-photo-content .pp-photo-content-inner:hover img", true );
+}
 ?>
 .fl-node-<?php echo $id; ?> .pp-photo-container .pp-photo-content .pp-photo-content-inner a {
     display: block;
