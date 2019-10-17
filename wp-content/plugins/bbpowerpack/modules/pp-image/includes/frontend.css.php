@@ -84,7 +84,7 @@ if ( isset( $settings->show_image_effect ) && 'yes' === $settings->show_image_ef
 				border-bottom-left-radius: <?php echo $settings->box_border_group['radius']['bottom_left']; ?>px;
 				border-bottom-right-radius: <?php echo $settings->box_border_group['radius']['bottom_right']; ?>px;
 			<?php } ?>
-			z-index: 9999;
+			z-index: 99;
 			transition: all 0.3s ease;
         }
     <?php } else if( '' ==  $settings->link_type ) { ?>
@@ -106,7 +106,7 @@ if ( isset( $settings->show_image_effect ) && 'yes' === $settings->show_image_ef
 				border-bottom-left-radius: <?php echo $settings->box_border_group['radius']['bottom_left']; ?>px;
 				border-bottom-right-radius: <?php echo $settings->box_border_group['radius']['bottom_right']; ?>px;
 			<?php } ?>
-			z-index: 9999;
+			z-index: 99;
 			transition: all 0.3s ease;
         }
     <?php } ?>

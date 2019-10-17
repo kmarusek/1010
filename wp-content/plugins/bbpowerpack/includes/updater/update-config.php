@@ -39,7 +39,7 @@ function bb_powerpack_delete( $key ) {
 
 function bb_powerpack_get_license_key() {
 	if ( defined( 'BB_POWERPACK_LICENSE_KEY' ) ) {
-		return ! empty( BB_POWERPACK_LICENSE_KEY ) ? trim( BB_POWERPACK_LICENSE_KEY ) : '';
+		return BB_POWERPACK_LICENSE_KEY ? trim( BB_POWERPACK_LICENSE_KEY ) : '';
 	} else {
 		return trim( bb_powerpack_get( 'bb_powerpack_license_key' ) );
 	}

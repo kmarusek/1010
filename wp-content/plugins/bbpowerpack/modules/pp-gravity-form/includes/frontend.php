@@ -1,8 +1,8 @@
 <?php
-$enable_ajax = 'yes' == $settings->form_ajax ? 'true' : 'false';
+$enable_ajax = 'yes' === $settings->form_ajax ? 'true' : 'false';
 ?>
 <div class="pp-gf-content">
-	<?php if ( 'yes' == $settings->form_custom_title_desc ) { ?>
+	<?php if ( 'yes' === $settings->form_custom_title_desc ) { ?>
 		<h3 class="form-title"><?php echo $settings->custom_title; ?></h3>
 		<p class="form-description"><?php echo $settings->custom_description; ?></p>
 	<?php } ?>

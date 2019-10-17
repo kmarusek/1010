@@ -1,6 +1,6 @@
 <?php
 /**
- * Handles logic for the templates library in admin settings.
+ * Handles logic for modules.
  *
  * @package BB_PowerPack
  * @since 2.6.10
@@ -14,18 +14,108 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * PPPostModuleExtend.
+ * PPModuleExtend.
  */
-final class PPPostModuleExtend {
+final class PPModuleExtend {
 	/**
 	 * @since 2.7.0
 	 * @return void
 	 */
 	static public function init() {
 		// Filters.
-		add_filter( 'fl_builder_register_settings_form',   	__CLASS__ . '::post_grid_settings', 10, 2 );
-		add_filter( 'fl_builder_render_css',               	__CLASS__ . '::post_grid_css', 10, 2 );
-		add_filter( 'pp_cg_module_layout_path', 			__CLASS__ . '::post_grid_layout_path', 10, 3 );
+		if ( class_exists( 'FLThemeBuilderLoader' ) ) {
+			add_filter( 'fl_builder_register_settings_form',   	__CLASS__ . '::post_grid_settings', 10, 2 );
+			add_filter( 'fl_builder_render_css',               	__CLASS__ . '::post_grid_css', 10, 2 );
+			add_filter( 'pp_cg_module_layout_path', 			__CLASS__ . '::post_grid_layout_path', 10, 3 );
+		}
+		add_action( 'wp_head', __CLASS__ . '::render_faq_schema' );
+	}
+
+	static public function render_faq_schema() {
+		if ( ! is_callable( 'FLBuilderModel::get_nodes' ) ) {
+			return;
+		}
+
+		$nodes = FLBuilderModel::get_nodes();
+		$modules = array();
+		$schema = false;
+
+		// @codingStandardsIgnoreStart.
+		$schema_data = array(
+			"@context" => "https://schema.org",
+			"@type" => "FAQPage",
+			"mainEntity" => array(),
+		);
+		// @codingStandardsIgnoreEnd.
+
+		foreach ( $nodes as $node ) {
+			if ( ! is_object( $node ) ) {
+				continue;
+			}
+
+			if ( 'module' == $node->type && 'pp-faq' == $node->settings->type ) {
+				$modules[] = $node;
+			}
+
+			if ( 'module' != $node->type && isset( $node->template_id ) ) {
+				$template_id = $node->template_id;
+				$template_node_id = $node->template_node_id;
+				$post_id  = FLBuilderModel::get_node_template_post_id( $template_id );
+				$data     = FLBuilderModel::get_layout_data( 'published', $post_id );
+
+				foreach ( $data as $global_node ) {
+					if ( 'module' == $global_node->type && 'pp-faq' == $global_node->settings->type ) {
+						$modules[] = $global_node;
+					}
+				}
+			}
+		} // End foreach().
+
+		if ( empty( $modules ) ) {
+			return;
+		}
+
+		foreach ( $modules as $node ) {
+			$settings = $node->settings;
+
+			if ( isset( $settings->enable_schema ) && 'no' == $settings->enable_schema ) {
+				continue;
+			}
+
+			if ( ! is_callable( 'FLBuilderModel::get_module' ) ) {
+				continue;
+			}
+
+			$module = FLBuilderModel::get_module( $node );
+
+			$items = $module->get_faq_items();
+
+			for ( $i = 0; $i < count( $items ); $i++ ) {
+				if ( ! is_object( $items[ $i ] ) ) {
+					continue;
+				}
+
+				// @codingStandardsIgnoreStart.
+				$item = (object) array(
+					"@type" => "Question",
+					"name" => $items[ $i ]->faq_question,
+					"acceptedAnswer" => (object) array(
+						"@type" => "Answer",
+						"text" => $items[ $i ]->answer,
+					),
+				);
+				// @codingStandardsIgnoreEnd.
+
+				$schema_data['mainEntity'][] = $item;
+			}
+		} // End foreach().
+
+		if ( ! empty( $schema_data['mainEntity'] ) ) {
+			$schema_data = apply_filters( 'pp_faq_module_schema_markup', $schema_data );
+			echo '<script type="application/ld+json">';
+			echo json_encode( $schema_data );
+			echo '</script>';
+		}
 	}
 
 	/**
@@ -85,7 +175,7 @@ final class PPPostModuleExtend {
 									'preview'           => array(
 										'type'              => 'none',
 									),
-									'connections'       => array( 'html', 'string' ),
+									'connections'       => array( 'html', 'string', 'url' ),
 								),
 							),
 						),
@@ -266,4 +356,4 @@ final class PPPostModuleExtend {
 	}
 }
 
-PPPostModuleExtend::init();
+PPModuleExtend::init();

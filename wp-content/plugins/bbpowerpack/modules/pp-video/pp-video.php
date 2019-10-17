@@ -353,6 +353,10 @@ class PPVideoModule extends FLBuilderModule {
 		foreach ( array( 'autoplay', 'loop' ) as $option_name ) {
 			if ( 'yes' === $settings->{$option_name} ) {
 				$video_params[ $option_name ] = '';
+				if ( 'autoplay' == $option_name ) {
+					$video_params['webkit-playsinline'] = '';
+					$video_params['playsinline'] = '';
+				}
 			}
 		}
 
@@ -452,442 +456,459 @@ class PPVideoModule extends FLBuilderModule {
 	}
 }
 
-FLBuilder::register_module('PPVideoModule', array(
-	'general'	=> array(
-		'title'		=> __( 'General', 'bb-powerpack' ),
-		'sections'	=> array(
-			'general'	=> array(
-				'title'		=> '',
-				'fields'	=> array(
-					'video_type'	=> array(
-						'type'			=> 'select',
-						'label'			=> __( 'Source', 'bb-powerpack' ),
-						'options' 		=> array(
-							'youtube' 		=> __( 'YouTube', 'bb-powerpack' ),
-							'vimeo' 		=> __( 'Vimeo', 'bb-powerpack' ),
-							'dailymotion' 	=> __( 'Dailymotion', 'bb-powerpack' ),
-							'hosted' 		=> __( 'Self Hosted', 'bb-powerpack' ),
-							'external'		=> __( 'External URL', 'bb-powerpack' ),
+FLBuilder::register_module(
+	'PPVideoModule',
+	array(
+		'general' => array(
+			'title'		=> __( 'General', 'bb-powerpack' ),
+			'sections'	=> array(
+				'general'	=> array(
+					'title'		=> '',
+					'fields'	=> array(
+						'video_type'	=> array(
+							'type'			=> 'select',
+							'label'			=> __( 'Source', 'bb-powerpack' ),
+							'options' 		=> array(
+								'youtube' 		=> __( 'YouTube', 'bb-powerpack' ),
+								'vimeo' 		=> __( 'Vimeo', 'bb-powerpack' ),
+								'dailymotion' 	=> __( 'Dailymotion', 'bb-powerpack' ),
+								'hosted' 		=> __( 'Self Hosted', 'bb-powerpack' ),
+								'external'		=> __( 'External URL', 'bb-powerpack' ),
+							),
+							'toggle'		=> array(
+								'youtube'		=> array(
+									'fields'		=> array( 'youtube_url', 'end_time', 'loop', 'controls', 'modestbranding', 'yt_privacy', 'rel' ),
+								),
+								'vimeo'		=> array(
+									'fields'	=> array( 'vimeo_url', 'loop', 'color', 'vimeo_title', 'vimeo_portrait', 'vimeo_byline' ),
+								),
+								'dailymotion'	=> array(
+									'fields'		=> array( 'dailymotion_url', 'controls', 'showinfo', 'logo', 'color' ),
+								),
+								'hosted'	=> array(
+									'fields'	=> array( 'hosted_url', 'end_time', 'loop', 'controls', 'download_button', 'poster' ),
+								),
+								'external'	=> array(
+									'fields'	=> array( 'external_url', 'end_time', 'loop', 'controls', 'poster' ),
+								),
+							),
 						),
-						'toggle'		=> array(
-							'youtube'		=> array(
-								'fields'		=> array( 'youtube_url', 'end_time', 'loop', 'controls', 'modestbranding', 'yt_privacy', 'rel' ),
-							),
-							'vimeo'		=> array(
-								'fields'	=> array( 'vimeo_url', 'loop', 'color', 'vimeo_title', 'vimeo_portrait', 'vimeo_byline' ),
-							),
-							'dailymotion'	=> array(
-								'fields'		=> array( 'dailymotion_url', 'controls', 'showinfo', 'logo', 'color' ),
-							),
-							'hosted'	=> array(
-								'fields'	=> array( 'hosted_url', 'end_time', 'loop', 'controls', 'download_button', 'poster' ),
-							),
-							'external'	=> array(
-								'fields'	=> array( 'external_url', 'end_time', 'loop', 'controls', 'poster' ),
+						'youtube_url'	=> array(
+							'type'			=> 'text',
+							'label'			=> __( 'Link', 'bb-powerpack' ),
+							'placeholder'	=> __( 'Enter YouTube URL', 'bb-powerpack' ),
+							'default'		=> 'https://www.youtube.com/watch?v=A7ZkZazfvao',
+							'connections'	=> array( 'url' ),
+						),
+						'vimeo_url'		=> array(
+							'type'			=> 'text',
+							'label'			=> __( 'Link', 'bb-powerpack' ),
+							'placeholder'	=> __( 'Enter Viemo URL', 'bb-powerpack' ),
+							'default'		=> 'https://vimeo.com/103344490',
+							'connections'	=> array( 'url' ),
+						),
+						'dailymotion_url'	=> array(
+							'type'			=> 'text',
+							'label'			=> __( 'Link', 'bb-powerpack' ),
+							'placeholder'	=> __( 'Enter Dailymotion URL', 'bb-powerpack' ),
+							'default'		=> '',
+							'connections'	=> array( 'url' ),
+						),
+						'hosted_url'	=> array(
+							'type'			=> 'video',
+							'label'			=> __( 'Choose File', 'bb-powerpack' ),
+							'show_remove' 	=> true,
+						),
+						'external_url'	=> array(
+							'type'			=> 'text',
+							'label'			=> __( 'External URL', 'bb-powerpack' ),
+							'default'		=> '',
+							'connections'	=> array( 'url' ),
+						),
+						'start_time'	=> array(
+							'type'			=> 'unit',
+							'label'			=> __( 'Start Time', 'bb-powerpack' ),
+							'default'		=> '',
+							'slider'		=> true,
+							'units'			=> array( 'seconds' ),
+							'help'			=> __( 'Specify a start time (in seconds)', 'bb-powerpack' ),
+						),
+						'end_time'		=> array(
+							'type'			=> 'unit',
+							'label'			=> __( 'End Time', 'bb-powerpack' ),
+							'default'		=> '',
+							'slider'		=> true,
+							'units'			=> array( 'seconds' ),
+							'help'			=> __( 'Specify a end time (in seconds)', 'bb-powerpack' ),
+						),
+						'aspect_ratio'	=> array(
+							'type'			=> 'select',
+							'label'			=> __( 'Aspect Ratio', 'bb-powerpack' ),
+							'default' 		=> '169',
+							'options' 		=> array(
+								'169' 			=> '16:9',
+								'219' 			=> '21:9',
+								'43' 			=> '4:3',
+								'32' 			=> '3:2',
+								'11' 			=> '1:1',
 							),
 						),
 					),
-					'youtube_url'	=> array(
-						'type'			=> 'text',
-						'label'			=> __( 'Link', 'bb-powerpack' ),
-						'placeholder'	=> __( 'Enter YouTube URL', 'bb-powerpack' ),
-						'default'		=> 'https://www.youtube.com/watch?v=A7ZkZazfvao',
-						'connections'	=> array( 'url' ),
+				),
+				'video_options'	=> array(
+					'title'			=> __( 'Video Options', 'bb-powerpack' ),
+					'collapsed'		=> true,
+					'fields'		=> array(
+						'autoplay'		=> array(
+							'type'			=> 'pp-switch',
+							'label'			=> __( 'Auto Play', 'bb-powerpack' ),
+							'default'		=> 'no',
+							'options'		=> array(
+								'yes'			=> __( 'Yes', 'bb-powerpack' ),
+								'no'			=> __( 'No', 'bb-powerpack' ),
+							),
+						),
+						'mute'			=> array(
+							'type'			=> 'pp-switch',
+							'label'			=> __( 'Mute', 'bb-powerpack' ),
+							'default'		=> 'no',
+							'options'		=> array(
+								'yes'			=> __( 'Yes', 'bb-powerpack' ),
+								'no'			=> __( 'No', 'bb-powerpack' ),
+							),
+						),
+						'loop'			=> array(
+							'type'			=> 'pp-switch',
+							'label'			=> __( 'Loop', 'bb-powerpack' ),
+							'default'		=> 'no',
+							'options'		=> array(
+								'yes'			=> __( 'Yes', 'bb-powerpack' ),
+								'no'			=> __( 'No', 'bb-powerpack' ),
+							),
+						),
+						'controls'		=> array(
+							'type'			=> 'pp-switch',
+							'label'			=> __( 'Controls', 'bb-powerpack' ),
+							'default'		=> 'yes',
+							'options'		=> array(
+								'yes'			=> __( 'Show', 'bb-powerpack' ),
+								'no'			=> __( 'Hide', 'bb-powerpack' ),
+							),
+						),
+						'showinfo'		=> array(
+							'type'			=> 'pp-switch',
+							'label'			=> __( 'Video Info', 'bb-powerpack' ),
+							'default'		=> 'show',
+							'options'		=> array(
+								'show'			=> __( 'Show', 'bb-powerpack' ),
+								'hide'			=> __( 'Hide', 'bb-powerpack' ),
+							),
+						),
+						'modestbranding'	=> array(
+							'type'			=> 'pp-switch',
+							'label'			=> __( 'Modest Branding', 'bb-powerpack' ),
+							'help'			=> __( 'This option lets you use a YouTube player that does not show a YouTube logo. Note that a small YouTube text label will still display in the upper-right corner of a paused video when the user\'s mouse pointer hovers over the player.', 'bb-powerpack' ),
+							'default'		=> 'no',
+							'options'		=> array(
+								'yes'			=> __( 'Yes', 'bb-powerpack' ),
+								'no'			=> __( 'No', 'bb-powerpack' ),
+							),
+						),
+						'logo'			=> array(
+							'type'			=> 'pp-switch',
+							'label'			=> __( 'Logo', 'bb-powerpack' ),
+							'default'		=> 'show',
+							'options'		=> array(
+								'show'			=> __( 'Show', 'bb-powerpack' ),
+								'hide'			=> __( 'Hide', 'bb-powerpack' ),
+							),
+						),
+						'color'			=> array(
+							'type'			=> 'color',
+							'label'			=> __( 'Controls Color', 'bb-powerpack' ),
+							'default'		=> '',
+							'show_reset'	=> true,
+							'connections'	=> array( 'color' ),
+						),
+						'yt_privacy'	=> array(
+							'type'			=> 'pp-switch',
+							'label'			=> __( 'Privacy Mode', 'bb-powerpack' ),
+							'help'			=> __( 'When you turn on privacy mode, YouTube won\'t store information about visitors on your website unless they play the video.', 'bb-powerpack' ),
+							'default'		=> 'no',
+							'options'		=> array(
+								'yes'			=> __( 'Yes', 'bb-powerpack' ),
+								'no'			=> __( 'No', 'bb-powerpack' )
+							),
+						),
+						'rel'		=> array(
+							'type'		=> 'select',
+							'label'		=> __( 'Suggested Video', 'bb-powerpack' ),
+							'options'	=> array(
+								''			=> __( 'Current Video Channel', 'bb-powerpack' ),
+								'any'		=> __( 'Any Video', 'bb-powerpack' ),
+							),
+						),
+						'vimeo_title'	=> array(
+							'type'			=> 'pp-switch',
+							'label'			=> __( 'Intro Title', 'bb-powerpack' ),
+							'default'		=> 'show',
+							'options'		=> array(
+								'show'			=> __( 'Show', 'bb-powerpack' ),
+								'hide'			=> __( 'Hide', 'bb-powerpack' ),
+							),
+						),
+						'vimeo_portrait'	=> array(
+							'type'				=> 'pp-switch',
+							'label'				=> __( 'Intro Portrait', 'bb-powerpack' ),
+							'default'			=> 'show',
+							'options'			=> array(
+								'show'				=> __( 'Show', 'bb-powerpack' ),
+								'hide'				=> __( 'Hide', 'bb-powerpack' ),
+							),
+						),
+						'vimeo_byline'	=> array(
+							'type'			=> 'pp-switch',
+							'label'			=> __( 'Intro Byline', 'bb-powerpack' ),
+							'default'		=> 'show',
+							'options'		=> array(
+								'show'			=> __( 'Show', 'bb-powerpack' ),
+								'hide'			=> __( 'Hide', 'bb-powerpack' ),
+							),
+						),
+						'download_button'	=> array(
+							'type'				=> 'pp-switch',
+							'label'				=> __( 'Download Button', 'bb-powerpack' ),
+							'default'			=> 'show',
+							'options'			=> array(
+								'show'				=> __( 'Show', 'bb-powerpack' ),
+								'hide'				=> __( 'Hide', 'bb-powerpack' ),
+							),
+							'preview'			=> array(
+								'type'				=> 'none',
+							),
+						),
+						'poster'	=> array(
+							'type'		=> 'photo',
+							'label'		=> __( 'Poster', 'bb-powerpack' ),
+							'show_remove'	=> true,
+						),
 					),
-					'vimeo_url'		=> array(
-						'type'			=> 'text',
-						'label'			=> __( 'Link', 'bb-powerpack' ),
-						'placeholder'	=> __( 'Enter Viemo URL', 'bb-powerpack' ),
-						'default'		=> 'https://vimeo.com/103344490',
-						'connections'	=> array( 'url' ),
-					),
-					'dailymotion_url'	=> array(
-						'type'			=> 'text',
-						'label'			=> __( 'Link', 'bb-powerpack' ),
-						'placeholder'	=> __( 'Enter Dailymotion URL', 'bb-powerpack' ),
-						'default'		=> '',
-						'connections'	=> array( 'url' ),
-					),
-					'hosted_url'	=> array(
-						'type'			=> 'video',
-						'label'			=> __( 'Choose File', 'bb-powerpack' ),
-						'show_remove' 	=> true,
-					),
-					'external_url'	=> array(
-						'type'			=> 'text',
-						'label'			=> __( 'External URL', 'bb-powerpack' ),
-						'default'		=> '',
-						'connections'	=> array( 'url' ),
-					),
-					'start_time'	=> array(
-						'type'			=> 'unit',
-						'label'			=> __( 'Start Time', 'bb-powerpack' ),
-						'default'		=> '',
-						'slider'		=> true,
-						'units'			=> array( 'seconds' ),
-						'help'			=> __( 'Specify a start time (in seconds)', 'bb-powerpack' ),
-					),
-					'end_time'		=> array(
-						'type'			=> 'unit',
-						'label'			=> __( 'End Time', 'bb-powerpack' ),
-						'default'		=> '',
-						'slider'		=> true,
-						'units'			=> array( 'seconds' ),
-						'help'			=> __( 'Specify a end time (in seconds)', 'bb-powerpack' ),
-					),
-					'aspect_ratio'	=> array(
-						'type'			=> 'select',
-						'label'			=> __( 'Aspect Ratio', 'bb-powerpack' ),
-						'default' 		=> '169',
-						'options' 		=> array(
-							'169' 			=> '16:9',
-							'219' 			=> '21:9',
-							'43' 			=> '4:3',
-							'32' 			=> '3:2',
-							'11' 			=> '1:1',
+				),
+				'overlay'	=> array(
+					'title'		=> __( 'Overlay', 'bb-powerpack' ),
+					'collapsed'	=> true,
+					'fields'	=> array(
+						'overlay'	=> array(
+							'type'		=> 'pp-switch',
+							'label'		=> __( 'Overlay', 'bb-powerpack' ),
+							'default'	=> 'default',
+							'options'	=> array(
+								'default'	=> __( 'Default', 'bb-powerpack' ),
+								'custom'	=> __( 'Custom', 'bb-powerpack' ),
+							),
+							'toggle'	=> array(
+								'custom'	=> array(
+									'fields'	=> array( 'custom_overlay', 'play_icon', 'lightbox' ),
+								),
+							),
+						),
+						'custom_overlay'	=> array(
+							'type'				=> 'photo',
+							'label'				=> __( 'Custom Overlay', 'bb-powerpack' ),
+							'show_remove'		=> true,
+						),
+						'play_icon'	=> array(
+							'type'		=> 'pp-switch',
+							'label'		=> __( 'Custom Play Icon', 'bb-powerpack' ),
+							'default'	=> 'hide',
+							'options'	=> array(
+								'show'		=> __( 'Show', 'bb-powerpack' ),
+								'hide'		=> __( 'Hide', 'bb-powerpack' ),
+							),
+							'toggle'	=> array(
+								'show'		=> array(
+									'sections'	=> array( 'play_icon' ),
+								),
+							),
+						),
+						'lightbox'	=> array(
+							'type'		=> 'pp-switch',
+							'label'		=> __( 'Enable Lightbox', 'bb-powerpack' ),
+							'default'	=> 'no',
+							'options'	=> array(
+								'yes'		=> __( 'Yes', 'bb-powerpack' ),
+								'no'		=> __( 'No', 'bb-powerpack' ),
+							),
+							'toggle'	=> array(
+								'yes'		=> array(
+									'sections'	=> array( 'lightbox_style' ),
+								),
+							),
 						),
 					),
 				),
 			),
-			'video_options'	=> array(
-				'title'			=> __( 'Video Options', 'bb-powerpack' ),
-				'collapsed'		=> true,
-				'fields'		=> array(
-					'autoplay'		=> array(
-						'type'			=> 'pp-switch',
-						'label'			=> __( 'Auto Play', 'bb-powerpack' ),
-						'default'		=> 'no',
-						'options'		=> array(
-							'yes'			=> __( 'Yes', 'bb-powerpack' ),
-							'no'			=> __( 'No', 'bb-powerpack' ),
+		),
+		'style'   => array(
+			'title'       => __( 'Style', 'bb-powerpack' ),
+			'description' => __( 'Styling options are available for Play Icon and Lightbox. You will need to enable them under General > Overlay > Custom.', 'bb-powerpack' ),
+			'sections'    => array(
+				'general_style'  => array(
+					'title'  => __( 'Box Style', 'bb-powerpack' ),
+					'fields' => array(
+						'box_border' => array(
+							'type'    => 'border',
+							'label'   => __( 'Border', 'bb-powerpack' ),
+							'preview' => array(
+								'type'     => 'css',
+								'selector' => '.pp-video-wrapper',
+							),
 						),
-					),
-					'mute'			=> array(
-						'type'			=> 'pp-switch',
-						'label'			=> __( 'Mute', 'bb-powerpack' ),
-						'default'		=> 'no',
-						'options'		=> array(
-							'yes'			=> __( 'Yes', 'bb-powerpack' ),
-							'no'			=> __( 'No', 'bb-powerpack' ),
-						),
-					),
-					'loop'			=> array(
-						'type'			=> 'pp-switch',
-						'label'			=> __( 'Loop', 'bb-powerpack' ),
-						'default'		=> 'no',
-						'options'		=> array(
-							'yes'			=> __( 'Yes', 'bb-powerpack' ),
-							'no'			=> __( 'No', 'bb-powerpack' ),
-						),
-					),
-					'controls'		=> array(
-						'type'			=> 'pp-switch',
-						'label'			=> __( 'Controls', 'bb-powerpack' ),
-						'default'		=> 'yes',
-						'options'		=> array(
-							'yes'			=> __( 'Show', 'bb-powerpack' ),
-							'no'			=> __( 'Hide', 'bb-powerpack' ),
-						),
-					),
-					'showinfo'		=> array(
-						'type'			=> 'pp-switch',
-						'label'			=> __( 'Video Info', 'bb-powerpack' ),
-						'default'		=> 'show',
-						'options'		=> array(
-							'show'			=> __( 'Show', 'bb-powerpack' ),
-							'hide'			=> __( 'Hide', 'bb-powerpack' ),
-						),
-					),
-					'modestbranding'	=> array(
-						'type'			=> 'pp-switch',
-						'label'			=> __( 'Modest Branding', 'bb-powerpack' ),
-						'help'			=> __( 'This option lets you use a YouTube player that does not show a YouTube logo. Note that a small YouTube text label will still display in the upper-right corner of a paused video when the user\'s mouse pointer hovers over the player.', 'bb-powerpack' ),
-						'default'		=> 'no',
-						'options'		=> array(
-							'yes'			=> __( 'Yes', 'bb-powerpack' ),
-							'no'			=> __( 'No', 'bb-powerpack' ),
-						),
-					),
-					'logo'			=> array(
-						'type'			=> 'pp-switch',
-						'label'			=> __( 'Logo', 'bb-powerpack' ),
-						'default'		=> 'show',
-						'options'		=> array(
-							'show'			=> __( 'Show', 'bb-powerpack' ),
-							'hide'			=> __( 'Hide', 'bb-powerpack' ),
-						),
-					),
-					'color'			=> array(
-						'type'			=> 'color',
-						'label'			=> __( 'Controls Color', 'bb-powerpack' ),
-						'default'		=> '',
-						'show_reset'	=> true,
-						'connections'	=> array( 'color' ),
-					),
-					'yt_privacy'	=> array(
-						'type'			=> 'pp-switch',
-						'label'			=> __( 'Privacy Mode', 'bb-powerpack' ),
-						'help'			=> __( 'When you turn on privacy mode, YouTube won\'t store information about visitors on your website unless they play the video.', 'bb-powerpack' ),
-						'default'		=> 'no',
-						'options'		=> array(
-							'yes'			=> __( 'Yes', 'bb-powerpack' ),
-							'no'			=> __( 'No', 'bb-powerpack' )
-						),
-					),
-					'rel'		=> array(
-						'type'		=> 'select',
-						'label'		=> __( 'Suggested Video', 'bb-powerpack' ),
-						'options'	=> array(
-							''			=> __( 'Current Video Channel', 'bb-powerpack' ),
-							'any'		=> __( 'Any Video', 'bb-powerpack' ),
-						),
-					),
-					'vimeo_title'	=> array(
-						'type'			=> 'pp-switch',
-						'label'			=> __( 'Intro Title', 'bb-powerpack' ),
-						'default'		=> 'show',
-						'options'		=> array(
-							'show'			=> __( 'Show', 'bb-powerpack' ),
-							'hide'			=> __( 'Hide', 'bb-powerpack' ),
-						),
-					),
-					'vimeo_portrait'	=> array(
-						'type'				=> 'pp-switch',
-						'label'				=> __( 'Intro Portrait', 'bb-powerpack' ),
-						'default'			=> 'show',
-						'options'			=> array(
-							'show'				=> __( 'Show', 'bb-powerpack' ),
-							'hide'				=> __( 'Hide', 'bb-powerpack' ),
-						),
-					),
-					'vimeo_byline'	=> array(
-						'type'			=> 'pp-switch',
-						'label'			=> __( 'Intro Byline', 'bb-powerpack' ),
-						'default'		=> 'show',
-						'options'		=> array(
-							'show'			=> __( 'Show', 'bb-powerpack' ),
-							'hide'			=> __( 'Hide', 'bb-powerpack' ),
-						),
-					),
-					'download_button'	=> array(
-						'type'				=> 'pp-switch',
-						'label'				=> __( 'Download Button', 'bb-powerpack' ),
-						'default'			=> 'show',
-						'options'			=> array(
-							'show'				=> __( 'Show', 'bb-powerpack' ),
-							'hide'				=> __( 'Hide', 'bb-powerpack' ),
-						),
-						'preview'			=> array(
-							'type'				=> 'none',
-						),
-					),
-					'poster'	=> array(
-						'type'		=> 'photo',
-						'label'		=> __( 'Poster', 'bb-powerpack' ),
-						'show_remove'	=> true,
 					),
 				),
-			),
-			'overlay'	=> array(
-				'title'		=> __( 'Overlay', 'bb-powerpack' ),
-				'collapsed'	=> true,
-				'fields'	=> array(
-					'overlay'	=> array(
-						'type'		=> 'pp-switch',
-						'label'		=> __( 'Overlay', 'bb-powerpack' ),
-						'default'	=> 'default',
-						'options'	=> array(
-							'default'	=> __( 'Default', 'bb-powerpack' ),
-							'custom'	=> __( 'Custom', 'bb-powerpack' ),
+				'play_icon'	     => array(
+					'title'		=> __( 'Custom Play Icon', 'bb-powerpack' ),
+					'collapsed' => true,
+					'fields'	=> array(
+						'play_icon_bg_color'	=> array(
+							'type'				=> 'color',
+							'label'				=> __( 'Background Color', 'bb-powerpack' ),
+							'default'			=> '',
+							'show_reset'		=> true,
+							'show_alpha'		=> true,
+							'connections'		=> array( 'color' ),
+							'preview'			=> array(
+								'type'				=> 'css',
+								'selector'			=> '.pp-video-play-icon',
+								'property'			=> 'background',
+							),
 						),
-						'toggle'	=> array(
-							'custom'	=> array(
-								'fields'	=> array( 'custom_overlay', 'play_icon', 'lightbox' ),
+						'play_icon_bg_hover_color'	=> array(
+							'type'				=> 'color',
+							'label'				=> __( 'Background Hover Color', 'bb-powerpack' ),
+							'default'			=> '',
+							'show_reset'		=> true,
+							'show_alpha'		=> true,
+							'connections'		=> array( 'color' ),
+							'preview'			=> array(
+								'type'				=> 'none',
+							),
+						),
+						'play_icon_color'	=> array(
+							'type'				=> 'color',
+							'label'				=> __( 'Color', 'bb-powerpack' ),
+							'default'			=> '',
+							'show_reset'		=> true,
+							'show_alpha'		=> true,
+							'connections'		=> array( 'color' ),
+							'preview'			=> array(
+								'type'				=> 'css',
+								'selector'			=> '.pp-video-play-icon svg',
+								'property'			=> 'fill',
+							),
+						),
+						'play_icon_hover_color'	=> array(
+							'type'				=> 'color',
+							'label'				=> __( 'Hover Color', 'bb-powerpack' ),
+							'default'			=> '',
+							'show_reset'		=> true,
+							'show_alpha'		=> true,
+							'connections'		=> array( 'color' ),
+							'preview'			=> array(
+								'type'				=> 'none',
+							),
+						),
+						'play_icon_size'	=> array(
+							'type'				=> 'unit',
+							'label'				=> __( 'Size', 'bb-powerpack' ),
+							'default'			=> '',
+							'slider'			=> array(
+								'min'				=> '10',
+								'max'				=> '300',
+								'step'				=> '1',
+							),
+							'units'				=> array( 'px' ),
+							'responsive'		=> true,
+						),
+						'play_icon_border'	=> array(
+							'type'				=> 'border',
+							'label'				=> __( 'Border', 'bb-powerpack' ),
+							'preview'			=> array(
+								'type'				=> 'css',
+								'selector'			=> '.pp-video-play-icon'
+							)
+						),
+						'play_icon_border_hover_color'	=> array(
+							'type'		=> 'color',
+							'label'		=> __( 'Border Hover Color', 'bb-powerpack' ),
+							'default'	=> '',
+							'connections'	=> array( 'color' ),
+							'preview'	=> array(
+								'type'		=> 'none',
 							),
 						),
 					),
-					'custom_overlay'	=> array(
-						'type'				=> 'photo',
-						'label'				=> __( 'Custom Overlay', 'bb-powerpack' ),
-						'show_remove'		=> true,
-					),
-					'play_icon'	=> array(
-						'type'		=> 'pp-switch',
-						'label'		=> __( 'Custom Play Icon', 'bb-powerpack' ),
-						'default'	=> 'hide',
-						'options'	=> array(
-							'show'		=> __( 'Show', 'bb-powerpack' ),
-							'hide'		=> __( 'Hide', 'bb-powerpack' ),
-						),
-						'toggle'	=> array(
-							'show'		=> array(
-								'sections'	=> array( 'play_icon' ),
+				),
+				'lightbox_style' => array(
+					'title'				=> __( 'Lightbox', 'bb-powerpack' ),
+					'collapsed'			=> true,
+					'fields'			=> array(
+						'lightbox_bg_color'	=> array(
+							'type'				=> 'color',
+							'label'				=> __( 'Background Color', 'bb-powerpack' ),
+							'default'			=> '',
+							'show_reset'		=> true,
+							'show_alpha'		=> true,
+							'connections'		=> array( 'color' ),
+							'preview'			=> array(
+								'type'				=> 'none',
 							),
 						),
-					),
-					'lightbox'	=> array(
-						'type'		=> 'pp-switch',
-						'label'		=> __( 'Enable Lightbox', 'bb-powerpack' ),
-						'default'	=> 'no',
-						'options'	=> array(
-							'yes'		=> __( 'Yes', 'bb-powerpack' ),
-							'no'		=> __( 'No', 'bb-powerpack' ),
+						'lightbox_color'	=> array(
+							'type'				=> 'color',
+							'label'				=> __( 'Close Button Color', 'bb-powerpack' ),
+							'default'			=> '',
+							'show_reset'		=> true,
+							'connections'		=> array( 'color' ),
+							'preview'			=> array(
+								'type'				=> 'none',
+							),
 						),
-						'toggle'	=> array(
-							'yes'		=> array(
-								'sections'	=> array( 'lightbox_style' ),
+						'lightbox_hover_color'	=> array(
+							'type'				=> 'color',
+							'label'				=> __( 'Close Button Hover Color', 'bb-powerpack' ),
+							'default'			=> '',
+							'show_reset'		=> true,
+							'connections'		=> array( 'color' ),
+							'preview'			=> array(
+								'type'				=> 'none',
+							),
+						),
+						'lightbox_video_width'	=> array(
+							'type'		=> 'unit',
+							'label'		=> __( 'Content Width', 'bb-powerpack' ),
+							'default'	=> '',
+							'slider'	=> true,
+							'units'		=> array( '%' ),
+							'preview'	=> array(
+								'type'		=> 'none',
+							),
+						),
+						'lightbox_video_position'	=> array(
+							'type'		=> 'pp-switch',
+							'label'		=> __( 'Content Position', 'bb-powerpack' ),
+							'default'	=> 'center',
+							'options'	=> array(
+								'center'	=> __( 'Center', 'bb-powerpack' ),
+								'top'		=> __( 'Top', 'bb-powerpack' ),
+							),
+							'preview'	=> array(
+								'type'		=> 'none',
 							),
 						),
 					),
 				),
 			),
 		),
-	),
-	'style'		=> array(
-		'title'		=> __( 'Style', 'bb-powerpack' ),
-		'description'	=> __('Styling options are available for Play Icon and Lightbox. You will need to enable them under General > Overlay > Custom.', 'bb-powerpack'),
-		'sections'	=> array(
-			'play_icon'	=> array(
-				'title'		=> __( 'Custom Play Icon', 'bb-powerpack' ),
-				'fields'	=> array(
-					'play_icon_bg_color'	=> array(
-						'type'				=> 'color',
-						'label'				=> __( 'Background Color', 'bb-powerpack' ),
-						'default'			=> '',
-						'show_reset'		=> true,
-						'show_alpha'		=> true,
-						'connections'		=> array( 'color' ),
-						'preview'			=> array(
-							'type'				=> 'css',
-							'selector'			=> '.pp-video-play-icon',
-							'property'			=> 'background',
-						),
-					),
-					'play_icon_bg_hover_color'	=> array(
-						'type'				=> 'color',
-						'label'				=> __( 'Background Hover Color', 'bb-powerpack' ),
-						'default'			=> '',
-						'show_reset'		=> true,
-						'show_alpha'		=> true,
-						'connections'		=> array( 'color' ),
-						'preview'			=> array(
-							'type'				=> 'none',
-						),
-					),
-					'play_icon_color'	=> array(
-						'type'				=> 'color',
-						'label'				=> __( 'Color', 'bb-powerpack' ),
-						'default'			=> '',
-						'show_reset'		=> true,
-						'show_alpha'		=> true,
-						'connections'		=> array( 'color' ),
-						'preview'			=> array(
-							'type'				=> 'css',
-							'selector'			=> '.pp-video-play-icon svg',
-							'property'			=> 'fill',
-						),
-					),
-					'play_icon_hover_color'	=> array(
-						'type'				=> 'color',
-						'label'				=> __( 'Hover Color', 'bb-powerpack' ),
-						'default'			=> '',
-						'show_reset'		=> true,
-						'show_alpha'		=> true,
-						'connections'		=> array( 'color' ),
-						'preview'			=> array(
-							'type'				=> 'none',
-						),
-					),
-					'play_icon_size'	=> array(
-						'type'				=> 'unit',
-						'label'				=> __( 'Size', 'bb-powerpack' ),
-						'default'			=> '',
-						'slider'			=> array(
-							'min'				=> '10',
-							'max'				=> '300',
-							'step'				=> '1',
-						),
-						'units'				=> array( 'px' ),
-						'responsive'		=> true,
-					),
-					'play_icon_border'	=> array(
-						'type'				=> 'border',
-						'label'				=> __( 'Border', 'bb-powerpack' ),
-						'preview'			=> array(
-							'type'				=> 'css',
-							'selector'			=> '.pp-video-play-icon'
-						)
-					),
-					'play_icon_border_hover_color'	=> array(
-						'type'		=> 'color',
-						'label'		=> __( 'Border Hover Color', 'bb-powerpack' ),
-						'default'	=> '',
-						'connections'	=> array( 'color' ),
-						'preview'	=> array(
-							'type'		=> 'none',
-						),
-					),
-				),
-			),
-			'lightbox_style'	=> array(
-				'title'				=> __( 'Lightbox', 'bb-powerpack' ),
-				'collapsed'			=> true,
-				'fields'			=> array(
-					'lightbox_bg_color'	=> array(
-						'type'				=> 'color',
-						'label'				=> __( 'Background Color', 'bb-powerpack' ),
-						'default'			=> '',
-						'show_reset'		=> true,
-						'show_alpha'		=> true,
-						'connections'		=> array( 'color' ),
-						'preview'			=> array(
-							'type'				=> 'none',
-						),
-					),
-					'lightbox_color'	=> array(
-						'type'				=> 'color',
-						'label'				=> __( 'Close Button Color', 'bb-powerpack' ),
-						'default'			=> '',
-						'show_reset'		=> true,
-						'connections'		=> array( 'color' ),
-						'preview'			=> array(
-							'type'				=> 'none',
-						),
-					),
-					'lightbox_hover_color'	=> array(
-						'type'				=> 'color',
-						'label'				=> __( 'Close Button Hover Color', 'bb-powerpack' ),
-						'default'			=> '',
-						'show_reset'		=> true,
-						'connections'		=> array( 'color' ),
-						'preview'			=> array(
-							'type'				=> 'none',
-						),
-					),
-					'lightbox_video_width'	=> array(
-						'type'		=> 'unit',
-						'label'		=> __( 'Content Width', 'bb-powerpack' ),
-						'default'	=> '',
-						'slider'	=> true,
-						'units'		=> array( '%' ),
-						'preview'	=> array(
-							'type'		=> 'none',
-						),
-					),
-					'lightbox_video_position'	=> array(
-						'type'		=> 'pp-switch',
-						'label'		=> __( 'Content Position', 'bb-powerpack' ),
-						'default'	=> 'center',
-						'options'	=> array(
-							'center'	=> __( 'Center', 'bb-powerpack' ),
-							'top'		=> __( 'Top', 'bb-powerpack' ),
-						),
-						'preview'	=> array(
-							'type'		=> 'none',
-						),
-					),
-				),
-			),
-		),
-	),
-) );
+	)
+);

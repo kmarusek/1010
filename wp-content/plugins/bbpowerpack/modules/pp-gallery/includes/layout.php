@@ -29,6 +29,7 @@
 			rel="nofollow" data-fancybox="images" 
 			<?php } ?> 
 			title="<?php echo $photo->title; ?>" 
+			data-caption="<?php echo $photo->caption; ?>"
 			data-description="<?php echo $photo->description; ?>" 
 			itemprop="contentUrl"
 		>

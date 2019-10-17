@@ -520,6 +520,15 @@ FLBuilder::register_module('PPGalleryModule', array(
 							'no'		=> __('No', 'bb-powerpack')
 						)
 					),
+					'lightbox_caption_source'	=> array(
+						'type'			=> 'pp-switch',
+						'label'			=> __('Caption Source', 'bb-powerpack'),
+						'default'		=> 'title',
+						'options'		=> array(
+							'title'			=> __( 'Title', 'bb-powerpack' ),
+							'caption'		=> __( 'Caption', 'bb-powerpack' ),
+						),
+					),
 					'custom_link_target' => array(
 						'type'		=> 'select',
 						'label'		=> __('Link Target', 'bb-powerpack'),
@@ -715,7 +724,39 @@ FLBuilder::register_module('PPGalleryModule', array(
 						),
 					)
 				)
-			)
+			),
+			'lightbox_settings'	=> array(
+				'title'				=>	__('Lightbox Settings', 'bb-powerpack'),
+				'collapsed'			=> true,
+				'fields'			=> array(
+					'lightbox_animation' => array(
+						'type'				=> 'select',
+						'label'				=> __( 'Open/Close Animation', 'bb-powerpack'),
+						'default'			=> 'zoom',
+						'options'			=> array(
+							''              	=> __( 'None', 'bb-powerpack' ),
+							'fade'          	=> __( 'Fade', 'bb-powerpack' ),
+							'zoom'          	=> __( 'Zoom', 'bb-powerpack' ),
+							'zoom-in-out'   	=> __( 'Zoom in Out', 'bb-powerpack' ),
+						),
+					),
+					'transition_effect'	=> array(
+						'type'				=> 'select',
+						'label'				=> __( 'Transition Effect', 'bb-powerpack'),
+						'default'			=> 'fade',
+						'help'				=> __( 'Transition effect between slides', 'bb-powerpack' ),
+						'options'			=> array(
+							''              	=> __( 'None', 'bb-powerpack' ),
+							'fade'          	=> __( 'Fade', 'bb-powerpack' ),
+							'slide'         	=> __( 'Slide', 'bb-powerpack' ),
+							'circular'      	=> __( 'Circular', 'bb-powerpack' ),
+							'tube'          	=> __( 'Tube', 'bb-powerpack' ),
+							'zoom-in-out'   	=> __( 'Zoom in Out', 'bb-powerpack' ),
+							'rotate'        	=> __( 'Rotate', 'bb-powerpack' ),
+						),
+					),
+				),
+			),
         )
     ),
 	'style'	=> array(

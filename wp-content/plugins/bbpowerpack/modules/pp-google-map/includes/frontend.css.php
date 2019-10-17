@@ -8,22 +8,24 @@
 	background-color: #ccc;
 }
 .fl-node-<?php echo $id; ?> .gm-style .pp-infowindow-content {
-	max-width: <?php echo ( '' !== $settings->info_width ) ? $settings->info_width : '200';?>px;
+	max-width: <?php echo ( '' !== $settings->info_width ) ? $settings->info_width : '200'; ?>px;
 }
 <?php
 // Form Padding
-FLBuilderCSS::dimension_field_rule( array(
-	'settings'		=> $settings,
-	'setting_name' 	=> 'info_padding',
-	'selector' 		=> ".fl-node-$id .gm-style .pp-infowindow-content",
-	'unit'			=> 'px',
-	'props'			=> array(
-		'padding-top' 		=> 'info_padding_top',
-		'padding-right' 	=> 'info_padding_right',
-		'padding-bottom' 	=> 'info_padding_bottom',
-		'padding-left' 		=> 'info_padding_left',
-	),
-) );
+FLBuilderCSS::dimension_field_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'info_padding',
+		'selector'     => ".fl-node-$id .gm-style .pp-infowindow-content",
+		'unit'         => 'px',
+		'props'        => array(
+			'padding-top'    => 'info_padding_top',
+			'padding-right'  => 'info_padding_right',
+			'padding-bottom' => 'info_padding_bottom',
+			'padding-left'   => 'info_padding_left',
+		),
+	)
+);
 ?>
 @media only screen and (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) {
 	<?php if ( '' !== $settings->map_width_medium ) { ?>
@@ -38,7 +40,7 @@ FLBuilderCSS::dimension_field_rule( array(
 	<?php } ?>
 	<?php if ( '' !== $settings->info_width_medium ) { ?>
 		.fl-node-<?php echo $id; ?> .gm-style .pp-infowindow-content {
-			max-width: <?php echo $settings->info_width_medium;?>px;
+			max-width: <?php echo $settings->info_width_medium; ?>px;
 		}
 	<?php } ?>
 }
@@ -55,7 +57,7 @@ FLBuilderCSS::dimension_field_rule( array(
 	<?php } ?>
 	<?php if ( '' !== $settings->info_width_responsive ) { ?>
 		.fl-node-<?php echo $id; ?> .gm-style .pp-infowindow-content {
-			max-width: <?php echo $settings->info_width_responsive;?>px;
+			max-width: <?php echo $settings->info_width_responsive; ?>px;
 		}
 	<?php } ?>
 }

@@ -19,7 +19,10 @@ var pp_gallery_<?php echo $id; ?>;
 		lastRow: '<?php echo $settings->last_row; ?>',
 		lightbox: <?php echo 'lightbox' == $settings->click_action ? 'true' : 'false'; ?>,
 		lightboxCaption: <?php echo ( isset( $settings->lightbox_caption ) && 'yes' == $settings->lightbox_caption ) ? 'true' : 'false'; ?>,
+		lightboxCaptionSource: '<?php echo isset( $settings->lightbox_caption_source ) ? $settings->lightbox_caption_source : 'title'; ?>',
 		lightboxThumbs: <?php echo 'yes' == $settings->show_lightbox_thumb ? 'true' : 'false'; ?>,
+		lightboxAnimation: '<?php echo isset( $settings->lightbox_animation ) ? $settings->lightbox_animation : ''; ?>',
+		transitionEffect: '<?php echo isset( $settings->transition_effect ) ? $settings->transition_effect : ''; ?>',
 		<?php if ( isset( $settings->pagination ) ) { ?>
 		pagination: '<?php echo $settings->pagination; ?>',
 		perPage: <?php echo ! empty( $settings->images_per_page ) ? absint( $settings->images_per_page ) : 6; ?>,

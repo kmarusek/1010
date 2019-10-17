@@ -463,7 +463,7 @@ class PPCustomGridModule extends FLBuilderModule {
 	 * @return string
 	 */
 	static public function custom_grid_css( $css, $nodes ) {
-		$css = PPPostModuleExtend::post_grid_css( $css, $nodes );
+		$css = PPModuleExtend::post_grid_css( $css, $nodes );
 
 		return $css;
 	}

@@ -1,3 +1,64 @@
+== 2.7.6.3 ==
+Release date: October 14, 2019
+* Fix: FAQ - Minor issue with schema markup
+* Fix: Info Box - Equal height was not working when equal height set in column settings
+* Fix: Pricing Table - Items alignement issue in matrix layout
+
+== 2.7.6.2 ==
+Release date: October 11, 2019
+* Enhancement: FAQ - Added option to enable or disable schema markup
+* Enhancement: FAQ - Added div, span, and p tags for question
+* Enhancement: FAQ - Removed default value from text color fields
+* Enhancement: FAQ - Added typography options for answer
+* Fix: FAQ - Allow icon color reset
+* Fix: FAQ - Allow text color reset
+* Fix: FAQ - Added CSS preview to color fields
+
+== 2.7.6.1 ==
+Release date: Ocotober 10, 2019
+* Enhancement: Category Grid - Added an option to toggle empty categories
+* Enhancement: Breadcrumbs - Added SEOPress integration
+* Enhancement: Sitemap - Added hover color option for list item
+* Enhancement: Sitemap - Added separator option
+* Fix: Category Grid - Counter Text can be singular or plural based on posts count
+
+== 2.7.6 ==
+Release date: Ocotober 9, 2019
+* New: Category Grid module
+* New: Sitemap module
+* New: Breadcrumbs module
+* Enhancement: Dual Button - Added option to set title HTML attribute
+* Enhancement: FAQ - Added option to align toggle icon left or right
+* Enhancement: Video - Added border option
+* Fix: Video - Autoplay was not working in iOS
+* Fix: Image Scroll - Link href HTML attribute issue
+
+== 2.7.5.1 ==
+Release date: September 30, 2019
+* Fix: FAQ - Post titles were not showing when using posts as source
+* Fix: Content Grid - Filters were not working sometimes
+
+== 2.7.5 ==
+Release date: September 25, 2019
+* New: How-to mdoule
+* Enhancement: FAQ - Added ACF and Post Type support
+* Enhancement: FAQ - Added HTML tag selection option for questions
+* Enhancement: Smart Heading - Added responsive support for padding fields
+* Enhancement: Google Map - Added logic to show tooltip on click
+* Enhancement: Content Grid - Added URL support to field connection for Custom Layout HTML field
+* Enhancement: Info Box - Added icon option for button
+* Enhancement: Hotspot - Added marker link option when tooltips set to disabled
+* Enhancement: Gravity Forms Styler - Added styling options for success message
+* Enhancement: Photo Gallery - Added lightbox animation and transition options
+* Fix: Album - Lightbox background color was not working
+* Fix: Album - Button text color was beign overridden when a text color set in row settings
+* Fix: Image - Overlapping sticky header due to higher z-index
+* Fix: Modal Box - Added missing reset options to color fields
+* Fix: Dual Button - Added responsive alignment option
+* Fix: Advanced Menu - Toggle icon responsive alignement options were not working sometimes
+* Fix: Countdown - Expiration message style was not loading when using Evergreen countdown
+* Fix: Core - JS error due to row background effects
+
 == 2.7.4 ==
 Release date: September 4, 2019
 * New: FAQ module with schema markup

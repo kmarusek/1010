@@ -88,6 +88,36 @@ $enabled_extensions = self::get_enabled_extensions();
 	<?php } ?>
 </table>
 
+<hr>
+<h3><?php _e('Taxonomy Thumbnail', 'bb-powerpack'); ?></h3>
+<p><?php echo __( 'Add Image Thumbnail option to Taxonomies.', 'bb-powerpack' ); ?></p>
+
+<table class="form-table">
+	<tr align="top">
+		<th scope="row" valign="top">
+			<label for="bb_powerpack_taxonomy_thumbnail_enable"><?php esc_html_e('Enable Taxonomy Thumbnail', 'bb-powerpack'); ?></label>
+		</th>
+		<td>
+
+			<select id="bb_powerpack_taxonomy_thumbnail_enable" name="bb_powerpack_taxonomy_thumbnail_enable" style="min-width: 200px;">
+				<?php $selected = BB_PowerPack_Admin_Settings::get_option('bb_powerpack_taxonomy_thumbnail_enable', true); ?>
+				<option value="enabled" <?php selected( $selected, 'enabled' ); ?>><?php _e('Enabled', 'bb-powerpack'); ?></option>
+				<option value="disabled" <?php selected( $selected, 'disabled' ); ?>><?php _e('Disabled', 'bb-powerpack'); ?></option>
+			</select>
+		</td>
+	</tr>
+	<tr align="top">
+		<th scope="row" valign="top">
+			<label for="bb_powerpack_taxonomy_thumbnail_taxonomies"><?php esc_html_e('Select Taxonomies', 'bb-powerpack'); ?></label>
+		</th>
+		<td>
+			<?php
+			BB_PowerPack_Taxonomy_Thumbnail::get_taxonomies_checklist();
+			?>
+		</td>
+	</tr>
+</table>
+
 <?php submit_button(); ?>
 <?php wp_nonce_field('pp-extensions', 'pp-extensions-nonce'); ?>
 <input type="hidden" name="bb_powerpack_override_ms" value="1" />

@@ -303,13 +303,13 @@ if( 'left' == $settings->cover_btn_align ){
 }
 .fl-node-<?php echo $id; ?> .pp-album-button-inner {
 	<?php echo $iconCss;?>;
-	color: <?php echo pp_get_color_value( $settings->trigger_button_color ); ?>;
+	color: <?php echo pp_get_color_value( $settings->trigger_button_color ); ?> !important;
 	background-color: <?php echo pp_get_color_value( $settings->trigger_button_bg ); ?>;
 	transition: all 0.4s ease-in-out;
 }
 
 .fl-node-<?php echo $id; ?> .pp-album-button-inner:hover {
-	color: <?php echo pp_get_color_value( $settings->trigger_button_hover_color ); ?>;
+	color: <?php echo pp_get_color_value( $settings->trigger_button_hover_color ); ?> !important;
 	background-color: <?php echo pp_get_color_value( $settings->trigger_button_hover_bg ); ?>;
 	border-color: <?php echo pp_get_color_value( $settings->trigger_button_hover_border ); ?>;
 }

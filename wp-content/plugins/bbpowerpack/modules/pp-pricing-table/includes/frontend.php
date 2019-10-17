@@ -22,9 +22,11 @@
 	<?php if( $settings->pricing_table_style == 'matrix' ) { ?>
 		<div class="pp-pricing-table-col pp-pricing-table-col-<?php echo $columns; ?> pp-pricing-table-matrix">
 			<div class="pp-pricing-table-column">
-				<<?php echo $settings->title_tag; ?> class="pp-pricing-table-title">&nbsp;</<?php echo $settings->title_tag; ?>>
-				<div class="pp-pricing-table-price">
-					&nbsp;
+				<div class="pp-pricing-table-header">
+					<<?php echo $settings->title_tag; ?> class="pp-pricing-table-title">&nbsp;</<?php echo $settings->title_tag; ?>>
+					<div class="pp-pricing-table-price">
+						&nbsp;
+					</div>
 				</div>
 				<ul class="pp-pricing-table-features">
 					<?php if ( ! empty( $settings->matrix_items ) ) : $item_count = 0; ?>
@@ -62,7 +64,7 @@
 			$f_title = ' pp-has-featured-title';
 		}
 	?>
-	<div class="pp-pricing-table-col pp-pricing-table-col-<?php echo $columns; ?><?php echo $highlight; ?><?php echo $f_title; ?>">
+	<div class="pp-pricing-table-col pp-pricing-table-card pp-pricing-table-col-<?php echo $columns; ?><?php echo $highlight; ?><?php echo $f_title; ?>">
 		<div class="pp-pricing-table-column pp-pricing-table-column-<?php echo $i; ?>">
 			<?php if( $pricingColumn->hl_featured_title ) { ?>
 				<div class="pp-pricing-featured-title">
@@ -70,20 +72,22 @@
 				</div>
 			<?php } ?>
 			<div class="pp-pricing-table-inner-wrap">
-				<?php if( $settings->title_position == 'above' ) { ?>
-					<<?php echo $settings->title_tag; ?> class="pp-pricing-table-title"><?php echo isset( $pricingColumn->title ) ? $pricingColumn->title : ''; ?></<?php echo $settings->title_tag; ?>>
-				<?php } ?>
-				<div class="pp-pricing-table-price pp-price-primary">
-					<?php echo isset( $pricingColumn->price ) ? $pricingColumn->price : ''; ?> <span class="pp-pricing-table-duration"><?php echo isset( $pricingColumn->duration ) ? $pricingColumn->duration : ''; ?></span>
+				<div class="pp-pricing-table-header">
+					<?php if( $settings->title_position == 'above' ) { ?>
+						<<?php echo $settings->title_tag; ?> class="pp-pricing-table-title"><?php echo isset( $pricingColumn->title ) ? $pricingColumn->title : ''; ?></<?php echo $settings->title_tag; ?>>
+					<?php } ?>
+					<div class="pp-pricing-table-price pp-price-primary">
+						<?php echo isset( $pricingColumn->price ) ? $pricingColumn->price : ''; ?> <span class="pp-pricing-table-duration"><?php echo isset( $pricingColumn->duration ) ? $pricingColumn->duration : ''; ?></span>
+					</div>
+					<?php if ( 'yes' == $settings->dual_pricing ) { ?>
+						<div class="pp-pricing-table-price pp-price-secondary">
+						<?php echo $pricingColumn->price_2; ?> <span class="pp-pricing-table-duration"><?php echo $pricingColumn->duration_2; ?></span>
+					</div>
+					<?php } ?>
+					<?php if( $settings->title_position == 'below' ) { ?>
+						<<?php echo $settings->title_tag; ?> class="pp-pricing-table-title"><?php echo $pricingColumn->title; ?></<?php echo $settings->title_tag; ?>>
+					<?php } ?>
 				</div>
-				<?php if ( 'yes' == $settings->dual_pricing ) { ?>
-					<div class="pp-pricing-table-price pp-price-secondary">
-					<?php echo $pricingColumn->price_2; ?> <span class="pp-pricing-table-duration"><?php echo $pricingColumn->duration_2; ?></span>
-				</div>
-				<?php } ?>
-				<?php if( $settings->title_position == 'below' ) { ?>
-					<<?php echo $settings->title_tag; ?> class="pp-pricing-table-title"><?php echo $pricingColumn->title; ?></<?php echo $settings->title_tag; ?>>
-				<?php } ?>
 				<ul class="pp-pricing-table-features">
 					<?php if ( ! empty( $pricingColumn->features ) ) : $item_count = 0; ?>
 						<?php foreach ( $pricingColumn->features as $feature ) : $item_count++; ?>

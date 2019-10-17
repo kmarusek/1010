@@ -254,7 +254,7 @@
 
 				if( this.evergreen_timer_action == 'msg' ) {
 					if( parseInt(window.location.href.toLowerCase().indexOf("?fl_builder")) === parseInt(-1) ) {
-						$( this.timerid ).append($.cookie( "countdown-" + this.settings.id + "expiremsg" ));
+						$( this.timerid ).append(this.timer_exp_text);
 					} else {
 						$( this.timerid ).countdown({
 							until: this.timer_date,

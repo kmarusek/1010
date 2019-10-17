@@ -139,7 +139,7 @@
 					this.element.find('.pp-modal-iframe').attr( 'src', src );
 				}
 			}
-			if ( 'video' == this.type ) {
+			if ( this.element.find('iframe, source').length > 0 ) {
 				var src = '';
 				var m_src = this.element.find('iframe, source').attr('src');
 				
@@ -168,13 +168,13 @@
 
 		reset: function()
 		{
-            if ( 'url' === this.type || 'video' == this.type) {
+            if ( this.element.find('iframe, source').length > 0 ) {
 				var src = this.element.find('iframe, source').attr('src');
 				if ( '' !== src ) {
 					this.element.find('iframe, source').attr('data-src', src).attr('src', '');
 				}
 				
-				if ( this.element.find('video').length ) {
+				if ( this.element.find('video').length > 0 ) {
                     this.element.find('video')[0].pause();
                 }
             }

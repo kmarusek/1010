@@ -1,9 +1,20 @@
 <?php
-FLBuilderCSS::border_field_rule( array(
-	'settings'		=> $settings,
-	'setting_name'	=> 'play_icon_border',
-	'selector'		=> ".fl-node-$id .pp-video-play-icon"
-) );
+// Item Border.
+FLBuilderCSS::border_field_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'box_border',
+		'selector'     => ".fl-node-$id .pp-video-wrapper",
+	)
+);
+
+FLBuilderCSS::border_field_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'play_icon_border',
+		'selector'     => ".fl-node-$id .pp-video-play-icon",
+	)
+);
 ?>
 .fl-node-<?php echo $id; ?> .pp-video-play-icon {
 	<?php if ( ! empty( $settings->play_icon_bg_color ) ) { ?>

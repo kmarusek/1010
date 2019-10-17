@@ -843,17 +843,25 @@ if( isset( $settings->mobile_toggle ) && $settings->mobile_toggle != 'expanded' 
 			echo 'background-color: '. pp_get_color_value($settings->responsive_submenu_bg_color) .' !important;';
 		} ?>
 	}
-
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu-mobile-toggle {
 		<?php if( $settings->mobile_toggle_font_size == 'custom' && $settings->mobile_toggle_font_size_custom_responsive ) { ?>font-size: <?php echo $settings->mobile_toggle_font_size_custom_responsive; ?>px;<?php } ?>
 		<?php if ( isset( $settings->responsive_toggle_alignment ) && 'default' != $settings->responsive_toggle_alignment ) { ?>
-		text-align: <?php echo $settings->responsive_toggle_alignment; ?>
-		<?php $toggle_alignment = ( 'left' == $settings->responsive_toggle_alignment ) ? 'flex-start' : ( 'right' == $settings->responsive_toggle_alignment ) ? 'flex-end' : 'center'; ?>
-		-webkit-justify-content: <?php echo $toggle_alignment; ?>;
-		-ms-flex-pack: <?php echo $toggle_alignment; ?>;
-		justify-content: <?php echo $toggle_alignment; ?>;
+			text-align: <?php echo $settings->responsive_toggle_alignment; ?>;
+			<?php
+			if ( 'left' === $settings->responsive_toggle_alignment ) {
+				$toggle_alignment = 'flex-start';
+			} elseif ( 'right' === $settings->responsive_toggle_alignment ) {
+				$toggle_alignment = 'flex-end';
+			} else {
+				$toggle_alignment = 'center';
+			}
+			?>
+			-webkit-justify-content: <?php echo $toggle_alignment; ?>;
+			-ms-flex-pack: <?php echo $toggle_alignment; ?>;
+			justify-content: <?php echo $toggle_alignment; ?>;
 		<?php } ?>
 	}
+
 }
 
 <?php

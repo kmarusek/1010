@@ -23,7 +23,6 @@
 		this.lightboxSelector 	= this.node.find('.pp-album-' + this.id );
 
 		this._init();
-		this._init_light_box();
 	};
 	PPAlbum.prototype = {
 		_init: function () {
@@ -46,13 +45,16 @@
 					},
 				});
 				self.node.find('.pp-album-1.pp-album-' + self.id).trigger('click');
+
+				if ( $('body').find('.fancybox-container').hasClass( 'pp-fancybox-' + self.id ) ) {
+					return;
+				} else {
+					$('body').find('.fancybox-container').addClass( 'pp-fancybox-' + self.id );
+				}
+
 			});
 		},
-		_init_light_box: function () {
 
-			$('body').find('.fancybox-container').addClass( 'pp-fancybox-' + self.id );
-
-		}
 	};
 
 })(jQuery);

@@ -3,7 +3,7 @@
 	$(document).ready(function() {
 		new PPHotspot({
 			id: 				'<?php echo $id; ?>',
-			markerLength:		'<?php echo sizeof($settings->markers_content); ?>',
+			markerLength:		'<?php echo sizeof( $settings->markers_content ); ?>',
 			tooltipEnable:		'<?php echo $settings->tooltip; ?>',
 			tooltipPosition:	'<?php echo $settings->tooltip_position; ?>',
 			tooltipTrigger:		'<?php echo $settings->tooltip_trigger; ?>',
@@ -21,7 +21,7 @@
 			adminTitlePreview:	'<?php echo $settings->admin_title_preview; ?>',
 			tooltipPreview:		'<?php echo $settings->tooltip_preview; ?>',
 			viewport:			90,
-			tooltipArrow:		<?php echo 'show' == $settings->tooltip_arrow ? 'true' : 'false'; ?>,
+			tooltipArrow:		<?php echo 'show' === $settings->tooltip_arrow ? 'true' : 'false'; ?>,
 			isBuilderActive:	<?php echo FLBuilderModel::is_builder_active() ? 'true' : 'false'; ?>,
 		});
 	});

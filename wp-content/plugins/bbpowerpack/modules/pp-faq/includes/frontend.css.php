@@ -1,33 +1,37 @@
 .fl-node-<?php echo $id; ?> .pp-faq-item:not(:last-child) {
-	<?php if( $settings->item_spacing == 0 ){ ?>
+	<?php if ( '0' === $settings->item_spacing ) { ?>
 		border-bottom-width: 0;
-	<?php }else{ ?>
+	<?php } else { ?>
 		margin-bottom: <?php echo $settings->item_spacing; ?>px;
 	<?php }; ?>
 }
 
 <?php
 // Label padding.
-FLBuilderCSS::dimension_field_rule( array(
-	'settings'		=> $settings,
-	'setting_name'	=> 'qus_padding',
-	'selector'		=> ".fl-node-$id .pp-faq-item .pp-faq-button",
-	'unit'			=> 'px',
-	'props'			=> array(
-		'padding-top'		=> 'qus_padding_top',
-		'padding-right'		=> 'qus_padding_right',
-		'padding-bottom'	=> 'qus_padding_bottom',
-		'padding-left'		=> 'qus_padding_left',
+FLBuilderCSS::dimension_field_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'qus_padding',
+		'selector'     => ".fl-node-$id .pp-faq-item .pp-faq-button",
+		'unit'         => 'px',
+		'props'        => array(
+			'padding-top'    => 'qus_padding_top',
+			'padding-right'  => 'qus_padding_right',
+			'padding-bottom' => 'qus_padding_bottom',
+			'padding-left'   => 'qus_padding_left',
+		),
 	)
-) );
+);
 
 // Label border.
-FLBuilderCSS::border_field_rule( array(
-	'settings' 		=> $settings,
-	'setting_name' 	=> 'box_border',
-	'selector' 		=> ".fl-node-$id .pp-faq-item",
-) );
-?> 
+FLBuilderCSS::border_field_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'box_border',
+		'selector'     => ".fl-node-$id .pp-faq-item",
+	)
+);
+?>
 .fl-node-<?php echo $id; ?> .pp-faq-item .pp-faq-button {
 	<?php if ( isset( $settings->qus_bg_color_default ) && ! empty( $settings->qus_bg_color_default ) ) { ?>
 	background-color: <?php echo pp_get_color_value( $settings->qus_bg_color_default ); ?>;
@@ -61,42 +65,50 @@ FLBuilderCSS::border_field_rule( array(
 
 <?php
 // Label typography.
-FLBuilderCSS::typography_field_rule( array(
-	'settings'		=> $settings,
-	'setting_name' 	=> 'qus_typography',
-	'selector' 		=> ".fl-node-$id .pp-faq-item .pp-faq-button .pp-faq-button-label",
-) );
+FLBuilderCSS::typography_field_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'qus_typography',
+		'selector'     => ".fl-node-$id .pp-faq-item .pp-faq-button .pp-faq-button-label",
+	)
+);
 ?>
 
 <?php
 // Content typography.
-FLBuilderCSS::typography_field_rule( array(
-	'settings'		=> $settings,
-	'setting_name' 	=> 'answer_typography',
-	'selector' 		=> ".fl-node-$id .pp-faq-item .pp-faq-content",
-) );
+FLBuilderCSS::typography_field_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'answer_typography',
+		'selector'     => ".fl-node-$id .pp-faq-item .pp-faq-content",
+	)
+);
 ?>
 <?php
 // Content border.
-FLBuilderCSS::border_field_rule( array(
-	'settings' 		=> $settings,
-	'setting_name' 	=> 'answer_border',
-	'selector' 		=> ".fl-node-$id .pp-faq-item .pp-faq-content",
-) );
+FLBuilderCSS::border_field_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'answer_border',
+		'selector'     => ".fl-node-$id .pp-faq-item .pp-faq-content",
+	)
+);
 
 // Content Padding.
-FLBuilderCSS::dimension_field_rule( array(
-	'settings'		=> $settings,
-	'setting_name'	=> 'answer_padding',
-	'selector'		=> ".fl-node-$id .pp-faq-item .pp-faq-content",
-	'unit'			=> 'px',
-	'props'			=> array(
-		'padding-top'		=> 'answer_padding_top',
-		'padding-right'		=> 'answer_padding_right',
-		'padding-bottom'	=> 'answer_padding_bottom',
-		'padding-left'		=> 'answer_padding_left',
+FLBuilderCSS::dimension_field_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'answer_padding',
+		'selector'     => ".fl-node-$id .pp-faq-item .pp-faq-content",
+		'unit'         => 'px',
+		'props'        => array(
+			'padding-top'    => 'answer_padding_top',
+			'padding-right'  => 'answer_padding_right',
+			'padding-bottom' => 'answer_padding_bottom',
+			'padding-left'   => 'answer_padding_left',
+		),
 	)
-) );
+);
 ?>
 .fl-node-<?php echo $id; ?> .pp-faq-item .pp-faq-content {
 	background-color: <?php echo pp_get_color_value( $settings->answer_bg_color ); ?>;
@@ -118,36 +130,55 @@ FLBuilderCSS::dimension_field_rule( array(
 		color: <?php echo pp_get_color_value( $settings->faq_toggle_icon_color_hover ); ?>;
 	<?php } ?>
 }
-
 .fl-node-<?php echo $id; ?> .pp-faq-item .pp-faq-button-icon:before {
 	font-size: <?php echo $settings->faq_toggle_icon_size; ?>px;
 }
 
+.fl-node-<?php echo $id; ?> .pp-faq-item .pp-faq-button-icon.pp-faq-icon-right {
+	padding-left: <?php echo $settings->faq_toggle_icon_spacing; ?>px;
+}
+.fl-node-<?php echo $id; ?> .pp-faq-item .pp-faq-button-icon.pp-faq-icon-left {
+	padding-right: <?php echo $settings->faq_toggle_icon_spacing; ?>px;
+}
+
 @media only screen and (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) {
+	.fl-node-<?php echo $id; ?> .pp-faq-item .pp-faq-button-icon.pp-faq-icon-right {
+		padding-left: <?php echo $settings->faq_toggle_icon_spacing_medium; ?>px;
+	}
+	.fl-node-<?php echo $id; ?> .pp-faq-item .pp-faq-button-icon.pp-faq-icon-left {
+		padding-right: <?php echo $settings->faq_toggle_icon_spacing_medium; ?>px;
+	}
 	.fl-node-<?php echo $id; ?> .pp-faq-item .pp-faq-button-icon,
 	.fl-node-<?php echo $id; ?> .pp-faq-item .pp-faq-button-icon:before {
 		font-size: <?php echo $settings->faq_toggle_icon_size_medium; ?>px;
 	}
 	.fl-node-<?php echo $id; ?> .pp-faq-item:not(:last-child) {
-		<?php if( $settings->item_spacing_medium == '0' ){ ?>
+		<?php if ( '0' === $settings->item_spacing_medium ) { ?>
 			border-bottom-width: 0;
 			margin-bottom: 0px;
-		<?php }else{ ?>
+		<?php } else { ?>
 			margin-bottom: <?php echo $settings->item_spacing_medium; ?>px;
 		<?php }; ?>
 	}
 }
 
 @media only screen and (max-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
+	.fl-node-<?php echo $id; ?> .pp-faq-item .pp-faq-button-icon.pp-faq-icon-right {
+		padding-left: <?php echo $settings->faq_toggle_icon_spacing_responsive; ?>px;
+	}
+	.fl-node-<?php echo $id; ?> .pp-faq-item .pp-faq-button-icon.pp-faq-icon-left {
+		padding-right: <?php echo $settings->faq_toggle_icon_spacing_responsive; ?>px;
+	}
+
 	.fl-node-<?php echo $id; ?> .pp-faq-item .pp-faq-button-icon,
 	.fl-node-<?php echo $id; ?> .pp-faq-item .pp-faq-button-icon:before {
 		font-size: <?php echo $settings->faq_toggle_icon_size_responsive; ?>px;
 	}
 	.fl-node-<?php echo $id; ?> .pp-faq-item:not(:last-child) {
-		<?php if( $settings->item_spacing_responsive == '0' ){ ?>
+		<?php if ( '0' === $settings->item_spacing_responsive ) { ?>
 			border-bottom-width: 0;
 			margin-bottom: 0px;
-		<?php }else{ ?>
+		<?php } else { ?>
 			margin-bottom: <?php echo $settings->item_spacing_responsive; ?>px;
 		<?php }; ?>
 	}

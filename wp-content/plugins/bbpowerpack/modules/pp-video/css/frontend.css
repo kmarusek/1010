@@ -1,6 +1,6 @@
-.fl-module-pp-video .fl-module-content {
+/* .fl-module-pp-video .fl-module-content {
 	overflow: hidden;
-}
+} */
 .fancybox-container .pp-video-container {
 	position: absolute;
     top: 50%;
@@ -49,6 +49,7 @@
 }
 .pp-video-wrapper {
 	background: #000;
+	overflow: hidden;
 }
 .pp-video-wrapper video,
 .pp-video-wrapper iframe {

@@ -11,15 +11,22 @@
 	vertical-align: middle;
 	width: 100%;
 }
-.pp-faq-button-icon {
+.pp-faq-button-icon.pp-faq-icon-right {
 	display: table-cell;
 	padding-left: 15px;
+	vertical-align: middle;
+}
+.pp-faq-button-icon.pp-faq-icon-left {
+	display: table-cell;
+	padding-right: 15px;
 	vertical-align: middle;
 }
 .pp-faq-content {
 	display: none;
 }
-
+.pp-faq-item .pp-faq-button {
+	width: 100%;
+}
 .pp-faq-item .pp-faq-button,
 .pp-faq-item .pp-faq-button:hover {
 	transition: all 0.1s ease-in;

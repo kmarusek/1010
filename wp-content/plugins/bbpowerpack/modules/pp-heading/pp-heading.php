@@ -759,7 +759,7 @@ FLBuilder::register_module('PPHeadingModule', array(
 						'units'   	=> array('px'),
 						'slider'	=> true,
 						'default'	=> '0',
-						'responsive'	=> false,
+						'responsive'	=> true,
 						'preview'       => array(
                             'type'      => 'css',
                             'rules'           => array(
@@ -938,7 +938,7 @@ FLBuilder::register_module('PPHeadingModule', array(
 						'label'				=> __('Padding', 'bb-powerpack'),
 						'units'				=> array('px'),
 						'slider'			=> true,
-						'responsive'		=> false,
+						'responsive'		=> true,
 						'preview'			=> array(
 							'type'				=> 'css',
 							'selector'			=> '.pp-heading-content .pp-heading .heading-title span.pp-primary-title',
@@ -1078,7 +1078,7 @@ FLBuilder::register_module('PPHeadingModule', array(
 						'label'				=> __('Padding', 'bb-powerpack'),
 						'units'				=> array('px'),
 						'slider'			=> true,
-						'responsive'		=> false,
+						'responsive'		=> true,
 						'preview'			=> array(
 							'type'				=> 'css',
 							'selector'			=> '.pp-heading-content .pp-heading .heading-title span.pp-secondary-title',

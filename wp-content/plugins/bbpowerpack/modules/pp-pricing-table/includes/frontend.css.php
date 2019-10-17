@@ -108,6 +108,11 @@ FLBuilderCSS::border_field_rule( array(
 ) );
 ?>
 
+.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-matrix .pp-pricing-table-header {
+	padding-top: <?php echo ( $settings->box_padding_top / 2 ); ?>px;
+	padding-bottom: <?php echo ( $settings->box_padding_top / 2 ); ?>px;
+}
+
 <?php if( $settings->highlight == 'package' ) { ?>
 .fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-col.pp-pricing-table-highlight .pp-pricing-table-column {
 	<?php if ( isset( $settings->hl_box_bg_color ) && ! empty( $settings->hl_box_bg_color ) ) { ?>
@@ -151,19 +156,6 @@ FLBuilderCSS::border_field_rule( array(
 }
 
 <?php
-// Matrix - Padding
-FLBuilderCSS::dimension_field_rule( array(
-	'settings'		=> $settings,
-	'setting_name' 	=> 'box_padding',
-	'selector' 		=> ".fl-node-$id .pp-pricing-table .pp-pricing-table-col.pp-pricing-table-matrix .pp-pricing-table-column ul",
-	'unit'			=> 'px',
-	'props'			=> array(
-		'padding-top' 		=> 'box_padding_top',
-		'padding-right' 	=> 'box_padding_right',
-		'padding-bottom' 	=> 'box_padding_bottom',
-		'padding-left' 		=> 'box_padding_left',
-	),
-) );
 // Matrix - Border
 FLBuilderCSS::border_field_rule( array(
 	'settings' 		=> $settings,
@@ -300,6 +292,18 @@ FLBuilderCSS::typography_field_rule( array(
 	'selector' 		=> ".fl-node-$id .pp-pricing-table .pp-pricing-table-column .pp-pricing-table-features",
 ) );
 ?>
+
+.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-column .pp-pricing-table-features li {
+	<?php if ( isset( $settings->features_typography['text_align'] ) ) { ?>
+		<?php if ( 'left' == $settings->features_typography['text_align'] ) { ?>
+			justify-content: flex-start;
+		<?php } elseif ( 'center' == $settings->features_typography['text_align'] ) { ?>
+			justify-content: center;
+		<?php } elseif ( 'right' == $settings->features_typography['text_align'] ) { ?>
+			justify-content: flex-end;
+		<?php } ?>
+	<?php } ?> 
+}
 
 /* Highlight */
 .fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-col.pp-pricing-table-highlight-title .pp-pricing-table-column .pp-pricing-table-title,
@@ -539,6 +543,10 @@ FLBuilderCSS::typography_field_rule( array(
 	}
    .fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-features li span.pp-pricing-table-item-label {
 	   display: block;
+   }
+   .fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-features li {
+	   height: auto !important;
+	   display: block !important;
    }
 }
 
