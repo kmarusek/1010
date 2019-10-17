@@ -115,6 +115,23 @@ img {
 /* Accessibility
 ----------------------------------------------------------- */
 
+.fl-screen-reader-text {
+	position:absolute;
+	left:-10000px;
+	top:auto;
+	width:1px;
+	height:1px;
+	overflow:hidden;
+	&:focus {
+			position: static;
+			width:auto;
+			height:auto;
+	}
+}
+body.rtl .fl-screen-reader-text {
+	right:-10000px;
+}
+
 .screen-reader-text {
 	clip: rect(1px, 1px, 1px, 1px);
 	position: absolute;
@@ -479,6 +496,8 @@ img {
 	.fa-stack.icon-twitter i.fa-circle.branded, .fa-twitter.branded { color: #00aaef; }
 
 	.fa-stack.icon-google i.fa-circle.branded, .fa-google.branded { color: #d13e2b; }
+
+	.fa-stack.icon-google-maps i.fa-circle.branded, .fa-map-marker-alt.branded { color: #eb5f1a; } 
 
 	.fa-stack.icon-linkedin i.fa-circle.branded, .fa-linkedin.branded { color: #007ab8; }
 

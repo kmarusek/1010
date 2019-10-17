@@ -206,6 +206,13 @@ final class FLCustomizer {
 	}
 
 	/**
+	 * @since 1.7.4
+	 */
+	static public function clearmodcache() {
+		self::$_mods = false;
+	}
+
+	/**
 	 * Returns an array of all theme mods.
 	 *
 	 * @since 1.2.0
@@ -232,9 +239,10 @@ final class FLCustomizer {
 				$mods = self::_get_default_mods();
 				update_option( 'theme_mods_' . get_option( 'stylesheet' ), $mods );
 			}
-		} else {
-			$mods = self::$_mods;
+			self::$_mods = $mods;
 		}
+
+		$mods = self::$_mods;
 
 		// Hack to insure the mod values are the same as the customzier
 		// values since get_theme_mods doesn't return the correct values
@@ -289,6 +297,7 @@ final class FLCustomizer {
 	 * @return void
 	 */
 	static public function refresh_css() {
+		self::clearmodcache();
 		self::_clear_css_cache();
 		return self::_compile_css();
 	}
@@ -946,6 +955,8 @@ final class FLCustomizer {
 			'submenu-indicator'        => 'enable' === $mods['fl-nav-submenu-indicator'],
 			'footer-widgets'           => 'disabled' !== $mods['fl-footer-widgets-display'],
 			'footer'                   => 'none' !== $mods['fl-footer-layout'],
+			'bigcommerce'              => function_exists( 'bigcommerce' ),
+			'bigcommerce-buttons'      => function_exists( 'bigcommerce' ) && 'custom' === $mods['fl-button-style'],
 			'woocommerce'              => 'disabled' !== $mods['fl-woo-css'] && class_exists( 'WooCommerce' ),
 			'the-events-calendar'      => defined( 'TRIBE_EVENTS_FILE' ),
 			'blocks'                   => true,
@@ -1050,7 +1061,7 @@ final class FLCustomizer {
 			$vars['title-transform'] = $mods['fl-heading-font-format'];
 		}
 
-		$responsive_mods = self::_get_resposive_mods();
+		$responsive_mods = self::_get_responsive_mods();
 
 		foreach ( $responsive_mods as $var => $mod_data ) {
 			foreach ( array( 'desktop', 'medium', 'mobile' ) as $device ) {
@@ -1292,7 +1303,7 @@ final class FLCustomizer {
 	/**
 	 * @since 1.7.3
 	 */
-	static public function _get_resposive_mods() {
+	static public function _get_responsive_mods() {
 
 		// Responsive controls style
 		$responsive_mods = array(

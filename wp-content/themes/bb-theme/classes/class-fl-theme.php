@@ -729,9 +729,12 @@ final class FLTheme {
 		$header_fixed  = self::get_setting( 'fl-fixed-header' );
 
 		if ( $sticky_logo && 'fadein' == $header_fixed && 'image' == $logo_type ) {
-			$logo_text = apply_filters( 'fl_logo_text', get_bloginfo( 'name' ) );
+			$logo_text  = apply_filters( 'fl_logo_text', get_bloginfo( 'name' ) );
+			$logo_title = apply_filters( 'fl_logo_title', '' );
+
 			echo '<img data-no-lazy="1" class="fl-logo-img"' . FLTheme::print_schema( ' itemscope itemtype="https://schema.org/ImageObject"', false ) . ' src="' . $sticky_logo . '"';
 			echo ' data-retina="' . $sticky_retina . '"';
+			echo ' title="' . esc_attr( $logo_title ) . '"';
 			echo ' alt="' . esc_attr( $logo_text ) . '" />';
 			echo '<meta itemprop="name" content="' . esc_attr( $logo_text ) . '" />';
 		} else {
@@ -830,12 +833,15 @@ final class FLTheme {
 		}
 
 		if ( 'image' == $logo_type ) {
-			$logo_text = apply_filters( 'fl_logo_text', get_bloginfo( 'name' ) );
+			$logo_text  = apply_filters( 'fl_logo_text', get_bloginfo( 'name' ) );
+			$logo_title = apply_filters( 'fl_logo_title', '' );
+
 			echo '<img data-no-lazy="1" class="fl-logo-img"' . FLTheme::print_schema( ' itemscope itemtype="https://schema.org/ImageObject"', false ) . ' src="' . $logo_image . '"';
 			echo ' data-retina="' . $logo_retina . '"';
 			if ( $mobile_logo ) {
 				echo ' data-mobile="' . $mobile_logo . '"';
 			}
+			echo ' title="' . esc_attr( $logo_title ) . '"';
 			echo ' alt="' . esc_attr( $logo_text ) . '" />';
 			echo '<meta itemprop="name" content="' . esc_attr( $logo_text ) . '" />';
 		} else {
@@ -901,7 +907,7 @@ final class FLTheme {
 
 		if ( 'icon' == $type ) {
 			FLTheme::enqueue_fontawesome();
-			$text = '<i class="fas fa-bars"></i>';
+			$text = sprintf( '<i class="fas fa-bars" aria-hidden="true"></i><span class="sr-only">%s</span>', __( 'Menu', 'fl-automator' ) );
 		} else {
 			$text = '' != $menu ? $menu : _x( 'Menu', 'Mobile navigation toggle button text.', 'fl-automator' );
 		}
@@ -923,6 +929,7 @@ final class FLTheme {
 			'facebook',
 			'twitter',
 			'google',
+			'google-maps',
 			'snapchat',
 			'linkedin',
 			'yelp',
@@ -1464,9 +1471,9 @@ final class FLTheme {
 	 * @return void
 	 */
 	static public function go_to_top() {
-		if ( self::get_setting( 'fl-scroll-to-top' ) == 'enable' ) {
+		if ( self::get_setting( 'fl-scroll-to-top' ) === 'enable' ) {
 			FLTheme::enqueue_fontawesome();
-			echo '<a href="#" id="fl-to-top"><i class="fas fa-chevron-up"></i></a>';
+			printf( '<a href="#" id="fl-to-top"><span class="sr-only">%s</span><i class="fas fa-chevron-up" aria-hidden="true"></i></a>', esc_attr__( 'Scroll To Top', 'fl-automator' ) );
 		}
 	}
 
@@ -1518,14 +1525,14 @@ final class FLTheme {
 		$commenter = wp_get_current_commenter();
 		$req       = get_option( 'require_name_email' );
 
-		$fields['author'] = '<label for="author">' . _x( 'Name', 'Comment form label: comment author name.', 'fl-automator' ) . ( $req ? __( ' (required)', 'fl-automator' ) : '' ) . '</label>
-									<input type="text" name="author" class="form-control" value="' . esc_attr( $commenter['comment_author'] ) . '" tabindex="1"' . ( $req ? ' aria-required="true"' : '' ) . ' /><br />';
+		$fields['author'] = '<label for="fl-author">' . _x( 'Name', 'Comment form label: comment author name.', 'fl-automator' ) . ( $req ? __( ' (required)', 'fl-automator' ) : '' ) . '</label>
+									<input type="text" id="fl-author" name="author" class="form-control" value="' . esc_attr( $commenter['comment_author'] ) . '" tabindex="1"' . ( $req ? ' aria-required="true"' : '' ) . ' /><br />';
 
-		$fields['email'] = '<label for="email">' . _x( 'Email (will not be published)', 'Comment form label: comment author email.', 'fl-automator' ) . ( $req ? __( ' (required)', 'fl-automator' ) : '' ) . '</label>
-									<input type="text" name="email" class="form-control" value="' . esc_attr( $commenter['comment_author_email'] ) . '" tabindex="2"' . ( $req ? ' aria-required="true"' : '' ) . ' /><br />';
+		$fields['email'] = '<label for="fl-email">' . _x( 'Email (will not be published)', 'Comment form label: comment author email.', 'fl-automator' ) . ( $req ? __( ' (required)', 'fl-automator' ) : '' ) . '</label>
+									<input type="text" id="fl-email" name="email" class="form-control" value="' . esc_attr( $commenter['comment_author_email'] ) . '" tabindex="2"' . ( $req ? ' aria-required="true"' : '' ) . ' /><br />';
 
-		$fields['url'] = '<label for="url">' . _x( 'Website', 'Comment form label: comment author website.', 'fl-automator' ) . '</label>
-									<input type="text" name="url" class="form-control" value="' . esc_attr( $commenter['comment_author_url'] ) . '" tabindex="3" /><br />';
+		$fields['url'] = '<label for="fl-url">' . _x( 'Website', 'Comment form label: comment author website.', 'fl-automator' ) . '</label>
+									<input type="text" id="fl-url" name="url" class="form-control" value="' . esc_attr( $commenter['comment_author_url'] ) . '" tabindex="3" /><br />';
 
 		return $fields;
 	}
@@ -1589,7 +1596,7 @@ final class FLTheme {
 	}
 
 	/**
-	 * @since 2.2.3
+	 * @since 1.7.3
 	 */
 	static public function print_schema( $schema, $echo = true ) {
 		if ( self::is_schema_enabled() ) {
@@ -1599,5 +1606,19 @@ final class FLTheme {
 				return $schema;
 			}
 		}
+	}
+
+	/**
+	 * @since 1.7.4
+	 */
+	public static function comments_popup_link_attributes( $attrs ) {
+		return $attrs . ' tabindex="-1" aria-hidden="true"';
+	}
+
+	/**
+	 * @since 1.7.4
+	 */
+	public static function skip_to_link() {
+		printf( '<a aria-label="%1$s" class="fl-screen-reader-text" href="#fl-main-content">%1$s</a>', __( 'Skip to content', 'fl-automator' ) );
 	}
 }

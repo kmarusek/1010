@@ -70,7 +70,7 @@ if ( post_password_required() ) {
 		'comment_notes_before' => '',
 		'comment_notes_after'  => '',
 
-		'comment_field'        => '<label for="comment">' . _x( 'Comment', 'Comment form label: comment content.', 'fl-automator' ) . '</label><textarea name="comment" class="form-control" cols="60" rows="8" tabindex="4"></textarea><br />',
+		'comment_field'        => '<label for="fl-comment">' . _x( 'Comment', 'Comment form label: comment content.', 'fl-automator' ) . '</label><textarea id="fl-comment" name="comment" class="form-control" cols="60" rows="8" tabindex="4"></textarea><br />',
 		/* translators: %s: Please, keep the HTML tags */
 		'must_log_in'          => '<p>' . sprintf( _x( 'You must be <a%s>logged in</a> to post a comment.', 'Please, keep the HTML tags.', 'fl-automator' ), ' href="' . esc_url( home_url( '/wp-login.php' ) ) . '?redirect_to=' . urlencode( get_permalink() ) . '"' ) . '</p>',
 		/* translators: %s: user name */

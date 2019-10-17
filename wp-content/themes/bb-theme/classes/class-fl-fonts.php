@@ -72,7 +72,7 @@ final class FLFontFamilies {
 	/**
 	 * Cache for google fonts
 	 */
-	static private $_google_json = array();
+	static private $_google_fonts = false;
 
 	/**
 	 * @property system
@@ -149,11 +149,9 @@ final class FLFontFamilies {
 	 * @since 1.7.1
 	 */
 	static private function _get_json() {
-		if ( ! empty( self::$_google_json ) ) {
-			$json = self::$_google_json;
-		} else {
-			$json = (array) json_decode( file_get_contents( trailingslashit( FL_THEME_DIR ) . 'json/fonts.json' ), true );
-		}
+
+		$json = (array) json_decode( file_get_contents( trailingslashit( FL_THEME_DIR ) . 'json/fonts.json' ), true );
+
 		/**
 		 * Filter raw google json data
 		 * @see fl_theme_get_google_json
@@ -165,23 +163,28 @@ final class FLFontFamilies {
 	 * @method get_google
 	 */
 	static function get_google() {
-		$fonts = array();
 
-		$json = self::_get_json();
+		if ( ! self::$_google_fonts ) {
+			$fonts = array();
 
-		foreach ( $json as $k => $font ) {
-			$name = key( $font );
+			$json = self::_get_json();
 
-			foreach ( $font[ $name ]['variants'] as $key => $variant ) {
+			foreach ( $json as $k => $font ) {
+				$name = key( $font );
 
-				if ( 'regular' == $variant ) {
-					$font[ $name ]['variants'][ $key ] = '400';
+				foreach ( $font[ $name ]['variants'] as $key => $variant ) {
+
+					if ( 'regular' == $variant ) {
+						$font[ $name ]['variants'][ $key ] = '400';
+					}
 				}
-			}
 
-			$fonts[ $name ] = $font[ $name ]['variants'];
+				$fonts[ $name ] = $font[ $name ]['variants'];
+			}
+			self::$_google_fonts = $fonts;
 		}
-		return apply_filters( 'fl_theme_google_fonts', $fonts );
+
+		return apply_filters( 'fl_theme_google_fonts', self::$_google_fonts );
 	}
 
 	/**

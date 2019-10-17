@@ -143,16 +143,16 @@ FLCustomizer::add_panel('fl-general', array(
 					),
 				),
 				/* Medium Breakpoint */
-				'fl-medium-breakpoint'      => array(
+				'fl-medium-breakpoint'   => array(
 					'setting' => array(
 						'default' => 992,
 					),
 					'control' => array(
-						'class'   => 'FLCustomizerControl',
-						'label'   => __( 'Theme Medium Breakpoint', 'fl-automator' ),
+						'class'       => 'FLCustomizerControl',
+						'label'       => __( 'Theme Medium Breakpoint', 'fl-automator' ),
 						'description' => __( 'Medium device behavior starts below this setting.', 'fl-automator' ),
-						'type'    => 'slider',
-						'choices' => array(
+						'type'        => 'slider',
+						'choices'     => array(
 							'min'  => 500,
 							'max'  => 1200,
 							'step' => 1,
@@ -161,16 +161,16 @@ FLCustomizer::add_panel('fl-general', array(
 				),
 
 				/* Mobile Breakpoint */
-				'fl-mobile-breakpoint'      => array(
+				'fl-mobile-breakpoint'   => array(
 					'setting' => array(
 						'default' => 768,
 					),
 					'control' => array(
-						'class'   => 'FLCustomizerControl',
-						'label'   => __( 'Theme Mobile Breakpoint', 'fl-automator' ),
+						'class'       => 'FLCustomizerControl',
+						'label'       => __( 'Theme Mobile Breakpoint', 'fl-automator' ),
 						'description' => __( 'Mobile device behavior starts below this setting.', 'fl-automator' ),
-						'type'    => 'slider',
-						'choices' => array(
+						'type'        => 'slider',
+						'choices'     => array(
 							'min'  => 500,
 							'max'  => 1200,
 							'step' => 1,
@@ -1293,6 +1293,14 @@ FLCustomizer::add_panel('fl-general', array(
 						'label' => 'Google',
 					),
 				),
+
+				'fl-social-google-maps'       => array(
+					'control' => array(
+						'class' => 'WP_Customize_Control',
+						'label' => 'Google Maps',
+					),
+				),
+
 				'fl-social-snapchat'          => array(
 					'control' => array(
 						'class' => 'WP_Customize_Control',

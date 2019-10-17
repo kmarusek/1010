@@ -8,26 +8,17 @@ Appearance > Theme Settings > Code or create a child theme.
 
 */
 .fl-page,
-.fl-responsive-preview-content {
+.fl-responsive-preview-content,
+.fl-button-lightbox-content {
 	button,
 	button:visited,
 	input[type=button],
 	input[type=submit],
 	a.fl-button,
-	a.fl-button:visited {
-		color: @button-color;
-		background-color: @button-bg-color;
-
-		font-family: @button-font-family;
-		font-weight: @button-font-weight;
-		font-size: @button-font-size;
-		line-height: @button-line-height;
-		text-transform: @button-text-transform;
-
-		border-style: @button-border-style;
-		border-width: @button-border-width;
-		border-color: @button-border-color;
-		border-radius: @button-border-radius;
+	a.fl-button:visited,
+	.fl-page-nav-toggle-button .fl-page-nav .navbar-toggle,
+	.fl-page-nav-toggle-button .fl-page-nav .navbar-toggle:visited {
+		.fl-button-inactive-styles();
 	}
 
 	button *,
@@ -35,28 +26,26 @@ Appearance > Theme Settings > Code or create a child theme.
 	input[type=button] *,
 	input[type=submit] *,
 	a.fl-button *,
-	a.fl-button:visited * {
-		color: @button-color;
+	a.fl-button:visited *,
+	.fl-page-nav-toggle-button .fl-page-nav .navbar-toggle *,
+	.fl-page-nav-toggle-button .fl-page-nav .navbar-toggle:visited * {
+		.fl-button-inactive-child-styles();
 	}
 
 	button:hover,
 	input[type=button]:hover,
 	input[type=submit]:hover,
-	a.fl-button:hover {
-		background-color: @button-bg-hover-color;
-		color: @button-hover-color;
-
-	    border-style: @button-border-style;
-		border-width: @button-border-width;
-		border-color: @button-border-color;
-		border-radius: @button-border-radius;
+	a.fl-button:hover,
+	.fl-page-nav-toggle-button .fl-page-nav .navbar-toggle:hover {
+		.fl-button-hover-styles();
 	}
 
 	button:hover *,
 	input[type=button]:hover *,
 	input[type=submit]:hover *,
-	a.fl-button:hover * {
-		color: @button-hover-color;
+	a.fl-button:hover *,
+	.fl-page-nav-toggle-button .fl-page-nav .navbar-toggle:hover * {
+		.fl-button-hover-child-styles();
 	}
 
 	.mejs-controls button,

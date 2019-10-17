@@ -371,6 +371,11 @@
 			callback: function( val ) {
 				return ( 'custom' === val ) && ( 'none' !== api( 'fl-button-border-style' ).get() );
 			}
+		},{
+			controls: [ 'bigcommerce_button_color', 'bigcommerce_button_text_color' ],
+			callback: function( val ) {
+					return '' === val;
+				},
 		}],
 
 		'fl-button-border-style': [{

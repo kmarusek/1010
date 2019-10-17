@@ -1,9 +1,39 @@
+<h4>1.7.4.1 10/10/2019</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Fixed scrollbar issue on RTL sites.</li>
+	<li>Fixed schema markup issue introduced in 1.7.4</li>
+</ul>
+
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Accessibility: Enable Nav Search TAB support and add aria label.</li>
+	<li>Accessibility: Add accessibility features to the Comment Form fields.</li>
+	<li>Accessibility: Add text to scroll to top link for screenreaders.</li>
+	<li>Accessibility: Add support for tabbing through sub-menus.</li>
+	<li>Accessibility: Added skip to content link for screenreaders.</li>
+	<li>Accessibility: Added aria-labels to thumbnail images, comment count and social icons.</li>
+	<li>Accessibility: Added aria-labels to searchform.php</li>
+	<li>Added filter for Image Logo TITLE attribute <code>fl_logo_title</code>.</li>
+	<li>Added support and styles for BigCommerce plugin.</li>
+	<li>Added Google Maps Social Icon</li>
+	<li>Performance tweaks.</li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fixed button styles inside the lightbox content.</li>
+	<li>Change CreativeWork to Article markup in content-page.</li>
+	<li>Fixed button styles applying to menu toggle but only on hover.</li>
+	<li>Fixed menu transition not smooth when collapsing.</li>
+	<li>Fixed JS error in mobile menu when Bootstrap JS is not loaded.</li>
+</ul>
+
 <h4>1.7.3 06/06/2019</h4>
 <p><strong>Enhancements</strong></p>
 <ul>
 	<li>New filter <code>fl_theme_disable_schema</code> added to disable all schema added by the theme.</li>
 	<li>New filter <code>fl_theme_breakpoint_opts</code> added to configure theme breakpoints in JS.</li>
-	<li>Theme breakpoints for mobile and tablet are now configurable via WP custo fmizer.</li>
+	<li>Theme breakpoints for mobile and tablet are now configurable via WP customizer.</li>
 	<li>Added separate submenu icon to toggle on mobile nav.</li>
 	<li>Added noopener and noreferrer to social links.</li>
 	<li>New Vietnamese translation added.</li>

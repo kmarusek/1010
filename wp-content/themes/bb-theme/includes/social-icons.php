@@ -10,25 +10,26 @@ if ( 'custom' === $settings['fl-social-icons-color'] ) {
 	foreach ( $icons as $icon ) {
 
 		if ( ! empty( $settings[ 'fl-social-' . $icon ] ) ) {
-			$setting           = $settings[ 'fl-social-' . $icon ];
-			$icon_sreen_reader = '<span class="sr-only">' . ucfirst( $icon ) . '</span>';
+			$setting            = $settings[ 'fl-social-' . $icon ];
+			$icon_screen_reader = '<span class="sr-only">' . ucfirst( $icon ) . '</span>';
 			if ( 'email' == $icon ) {
 				$setting     = 'mailto:' . $setting;
 				$link_target = '';
 				$icon        = 'envelope';
 			}
-			$pre  = ( 'envelope' == $icon || 'rss' == $icon ) ? 'fas' : 'fab';
+			$pre  = ( 'envelope' == $icon || 'rss' == $icon || 'google-maps' == $icon ) ? 'fas' : 'fab';
 			$icon = ( 'facebook' == $icon ) ? 'facebook-f' : $icon;
+			$icon = ( 'google-maps' == $icon ) ? 'map-marker-alt' : $icon;
 
 			printf( '<a href="%s" class="fa-stack fa-%sx icon-%s"%s>%s
-			<i class="fas fa-%s fa-stack-2x"></i>
-			<i class="%s fa-%s fa-stack-1x fa-inverse"></i>
+			<i aria-hidden="true" class="fas fa-%s fa-stack-2x"></i>
+			<i aria-hidden="true" class="%s fa-%s fa-stack-1x fa-inverse"></i>
 			</a>',
 				$setting,
 				$size,
 				$icon,
 				$link_target . $link_rel,
-				$icon_sreen_reader,
+				$icon_screen_reader,
 				$shape,
 				$pre,
 				$icon
@@ -44,29 +45,29 @@ if ( 'custom' === $settings['fl-social-icons-color'] ) {
 
 		if ( ! empty( $settings[ 'fl-social-' . $icon ] ) ) {
 
-			$setting           = $settings[ 'fl-social-' . $icon ];
-			$icon_sreen_reader = '<span class="sr-only">' . ucfirst( $icon ) . '</span>';
+			$setting            = $settings[ 'fl-social-' . $icon ];
+			$icon_screen_reader = '<span class="sr-only">' . ucfirst( $icon ) . '</span>';
 			if ( 'email' == $icon ) {
 				$setting     = 'mailto:' . $setting;
 				$link_target = '';
 				$icon        = 'envelope';
 			}
 
-			$pre = ( 'envelope' == $icon || 'rss' == $icon ) ? 'fas' : 'fab';
-
+			$pre  = ( 'envelope' == $icon || 'rss' == $icon || 'google-maps' == $icon ) ? 'fas' : 'fab';
 			$icon = ( 'facebook' == $icon ) ? 'facebook-f' : $icon;
+			$icon = ( 'google-maps' == $icon ) ? 'map-marker-alt' : $icon;
 
 			if ( ! $circle ) {
-					printf( '<a href="%s"%s>%s<i class="%s fa-%s %s"></i></a>', $setting, $link_target . $link_rel, $icon_sreen_reader, $pre, $icon, $settings['fl-social-icons-color'] );
+					printf( '<a href="%s"%s>%s<i aria-hidden="true" class="%s fa-%s %s"></i></a>', $setting, $link_target . $link_rel, $icon_screen_reader, $pre, $icon, $settings['fl-social-icons-color'] );
 			} else {
 					printf( '<a href="%s" class="fa-stack icon-%s"%s>%s
-					<i class="fas fa-circle fa-stack-2x %s"></i>
-					<i class="%s fa-%s %s fa-stack-1x fa-inverse"></i>
+					<i aria-hidden="true" class="fas fa-circle fa-stack-2x %s"></i>
+					<i aria-hidden="true" class="%s fa-%s %s fa-stack-1x fa-inverse"></i>
 					</a>',
 						$setting,
 						$icon,
 						$link_target . $link_rel,
-						$icon_sreen_reader,
+						$icon_screen_reader,
 						$settings['fl-social-icons-color'],
 						$pre,
 						$icon,

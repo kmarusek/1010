@@ -434,6 +434,29 @@
 					subToggles.on('click', FLTheme._navSubMenuToggleClick);
 				}
 				else {
+					navItems.keydown( function(e){
+						if ( 9 === e.keyCode ) {
+							el = $(this)
+							focused = el.find(':focus')
+							if( focused.parent().is(':last-child') ) {
+								sub  = focused.parent().find('ul.sub-menu').first()
+								mega = focused.parent().parent().parent().parent().parent().hasClass('mega-menu')
+								mega_last = focused.parent().parent().parent().is(':last-child' )
+
+								if ( sub.length > 0 ) {
+									sub.trigger('mouseenter')
+								} else {
+									if ( ! mega || mega_last ) {
+										el.trigger('mouseleave')
+									}
+								}
+							}
+							parent = focused.closest('ul.sub-menu').parent()
+							if ( ! parent.hasClass('fl-sub-menu-open') ) {
+								focused.trigger('mouseenter')
+							}
+						}
+					} );
 					navItems.hover(FLTheme._navItemMouseover, FLTheme._navItemMouseout);
 				}
 			}
@@ -502,6 +525,7 @@
 				currentLink.parent().addClass('current-menu-item');
 			}
 		},
+
 
 		/**
 		 * Callback for when the mouse leaves an item
@@ -635,20 +659,27 @@
 		 * @since  1.5.3
 		 * @return void
 		 */
-		_toggleForMobile: function( e ){
-			var nav 	= $('.fl-page-nav .fl-page-nav-collapse'),
-				href 	= $(this).attr('href'),
-				targetId = '';
+		 _toggleForMobile: function( e ){
+ 			var nav 	= $('.fl-page-nav .fl-page-nav-collapse'),
+ 				href 	= $(this).attr('href'),
+ 				targetId = '';
 
-			if ( href !== '#' ) {
-				targetId = href.split('#')[1];
+ 			if ( href !== '#' ) {
+ 				targetId = href.split('#')[1];
 
-				if ( $('body').find('#'+  targetId).length > 0 ) {
-					e.preventDefault();
-					nav.collapse('hide');
-				}
-			}
-		},
+ 				if ( $('body').find('#'+  targetId).length > 0 ) {
+ 					/**
+ 					 * Make sure bootstrap collapse is available before using it.
+ 					 */
+ 					if ( ! $.isFunction(nav.collapse) ) {
+ 						el = $(this).parent().closest('nav').find( '.navbar-toggle')
+ 						el.trigger('click')
+ 					} else {
+ 						nav.collapse('hide');
+ 					}
+ 				}
+ 			}
+ 		},
 
 		/**
 		 * Shows or hides the nav search form.

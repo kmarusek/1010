@@ -271,7 +271,14 @@
 										'.fl-responsive-preview-content input[type=button],' +
 										'.fl-responsive-preview-content input[type=submit],' +
 										'.fl-responsive-preview-content a.fl-button,' +
-										'.fl-responsive-preview-content a.fl-button:visited';
+										'.fl-responsive-preview-content a.fl-button:visited,' +
+										'.fl-page .fl-page-nav-toggle-button .fl-page-nav .navbar-toggle,' +
+										'.fl-page .fl-page-nav-toggle-button .fl-page-nav .navbar-toggle:visited,' +
+										'.fl-page .bc-btn,' +
+										'.fl-page button.bc-btn,' +
+										'.fl-page button.bc-btn[disabled],' +
+										'.fl-page button.bc-link,' +
+										'.fl-page a.bc-btn';
 
 			var mainInsideSelector =    '.fl-page button *,' +
 										'.fl-page button:visited *,' +
@@ -284,7 +291,14 @@
 										'.fl-responsive-preview-content input[type=button] *,' +
 										'.fl-responsive-preview-content input[type=submit] *,' +
 										'.fl-responsive-preview-content a.fl-button *,' +
-										'.fl-responsive-preview-content a.fl-button:visited *';
+										'.fl-responsive-preview-content a.fl-button:visited *,' +
+										'.fl-page .fl-page-nav-toggle-button .fl-page-nav .navbar-toggle *,' +
+										'.fl-page .fl-page-nav-toggle-button .fl-page-nav .navbar-toggle:visited *,' +
+										'.fl-page .bc-btn *,' +
+										'.fl-page button.bc-btn *,' +
+										'.fl-page button.bc-btn[disabled] *,' +
+										'.fl-page button.bc-link *,' +
+										'.fl-page a.bc-btn *';
 
 			var hoverSelector = 		'.fl-page button:hover,' +
 										'.fl-page input[type=button]:hover,' +
@@ -293,7 +307,14 @@
 										'.fl-responsive-preview-content button:hover,' +
 										'.fl-responsive-preview-content input[type=button]:hover,' +
 										'.fl-responsive-preview-content input[type=submit]:hover,' +
-										'.fl-responsive-preview-content a.fl-button:hover';
+										'.fl-page .fl-responsive-preview-content a.fl-button:hover,' +
+										'.fl-page .fl-page-nav-toggle-button .fl-page-nav .navbar-toggle:hover,' +
+										'.fl-responsive-preview-content a.fl-button:hover,' +
+										'.fl-page .bc-btn:hover,' +
+										'.fl-page button.bc-btn:hover,' +
+										'.fl-page button.bc-btn[disabled]:hover,' +
+										'.fl-page button.bc-link:hover,' +
+										'.fl-page a.bc-btn:hover';
 
 			var hoverInsideSelector = 	'.fl-page button:hover *,' +
 										'.fl-page input[type=button]:hover *,' +
@@ -302,7 +323,14 @@
 										'.fl-responsive-preview-content button:hover *,' +
 										'.fl-responsive-preview-content input[type=button]:hover *,' +
 										'.fl-responsive-preview-content input[type=submit]:hover *,' +
-										'.fl-responsive-preview-content a.fl-button:hover *';
+										'.fl-page .fl-responsive-preview-content a.fl-button:hover *,' +
+										'.fl-page .fl-page-nav-toggle-button .fl-page-nav .navbar-toggle:hover *,' +
+										'.fl-responsive-preview-content a.fl-button:hover *,' +
+										'.fl-page .bc-btn:hover *,' +
+										'.fl-page button.bc-btn:hover *,' +
+										'.fl-page button.bc-btn[disabled]:hover *,' +
+										'.fl-page button.bc-link:hover *,' +
+										'.fl-page a.bc-btn:hover *';
 
 			// Color
 			this._css( 'fl-button-color', mainSelector, 'color' );

@@ -33,8 +33,12 @@ if ( $comments && $comment_count ) {
 		echo '<span class="fl-sep"> | </span>';
 	}
 	FLTheme::enqueue_fontawesome();
+	$comments_txt = __( 'Comments', 'fl-automator' );
+	$none         = sprintf( '<span aria-label="%s: 0">0 <i aria-hidden="true" class="fas fa-comment"></i></span>', $comments_txt );
+	$one          = sprintf( '<span aria-label="%s: 1">1 <i aria-hidden="true" class="fas fa-comment"></i></span>', $comments_txt );
+	$more         = sprintf( '<span aria-label="%s: %%">%% <i aria-hidden="true" class="fas fa-comments"></i></span>', $comments_txt );
 	echo '<span class="fl-comments-popup-link">';
-	comments_popup_link( '0 <i class="fas fa-comment"></i>', '1 <i class="fas fa-comment"></i>', '% <i class="fas fa-comments"></i>' );
+	comments_popup_link( $none, $one, $more );
 	echo '</span>';
 }
 

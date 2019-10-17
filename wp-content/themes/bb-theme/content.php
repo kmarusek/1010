@@ -45,7 +45,7 @@ do_action( 'fl_before_post' ); ?>
 			<div class="fl-post-image-<?php echo $show_thumbs; ?>">
 				<div class="fl-post-thumb">
 					<a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>">
-						<?php the_post_thumbnail( $thumb_size ); ?>
+						<?php the_post_thumbnail( $thumb_size, array( 'aria-label' => the_title_attribute( array( 'echo' => false ) ) ) ); ?>
 					</a>
 				</div>
 			</div>

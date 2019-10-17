@@ -338,7 +338,7 @@ final class FLThemeUpdate {
 	 */
 	static private function v_1_7_3() {
 
-		$responsive_mods = FLCustomizer::_get_resposive_mods();
+		$responsive_mods = FLCustomizer::_get_responsive_mods();
 		$updated         = false;
 		$mods            = FLCustomizer::get_mods();
 		$defaults        = FLCustomizer::_get_default_mods();

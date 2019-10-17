@@ -40,6 +40,43 @@ Appearance > Theme Settings > Code or create a child theme.
 	}
 }
 
+/* Buttons
+----------------------------------------------------------- */
+
+.fl-button-inactive-styles() {
+	color: @button-color;
+	background-color: @button-bg-color;
+
+	font-family: @button-font-family;
+	font-weight: @button-font-weight;
+	font-size: @button-font-size;
+	line-height: @button-line-height;
+	text-transform: @button-text-transform;
+
+	border-style: @button-border-style;
+	border-width: @button-border-width;
+	border-color: @button-border-color;
+	border-radius: @button-border-radius;
+}
+
+.fl-button-inactive-child-styles() {
+	color: @button-color;
+}
+
+.fl-button-hover-styles() {
+	background-color: @button-bg-hover-color;
+	color: @button-hover-color;
+
+	border-style: @button-border-style;
+	border-width: @button-border-width;
+	border-color: @button-border-color;
+	border-radius: @button-border-radius;
+}
+
+.fl-button-hover-child-styles() {
+	color: @button-hover-color;
+}
+
 /*
 Nav Toggle - Hamburger Icon
 It's being used in the theme.less for media queries when enabled in the customizer.
@@ -151,6 +188,9 @@ It's being used in the theme.less for media queries when enabled in the customiz
 				display: block!important;
 				visibility: visible!important;
 			}
+		}
+		&.collapsing {
+			display: block !important;
 		}
 
 		/* Nav Colors
