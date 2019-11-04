@@ -1880,6 +1880,13 @@ final class FLBuilderModel {
 					$mp4->extension                        = array_pop( $parts );
 					$new_settings->bg_video_data           = $mp4;
 					$new_settings->bg_video_data->fallback = $fallback;
+				} else {
+					$new_settings->bg_video_data            = new stdClass();
+					$new_settings->bg_video_data->url       = '';
+					$new_settings->bg_video_data->width     = '';
+					$new_settings->bg_video_data->height    = '';
+					$new_settings->bg_video_data->extension = '';
+					$new_settings->bg_video_data->fallback  = '';
 				}
 
 				// Video WebM
@@ -1890,6 +1897,13 @@ final class FLBuilderModel {
 					$webm->extension                            = array_pop( $parts );
 					$new_settings->bg_video_webm_data           = $webm;
 					$new_settings->bg_video_webm_data->fallback = $fallback;
+				} else {
+					$new_settings->bg_video_webm_data            = new stdClass();
+					$new_settings->bg_video_webm_data->url       = '';
+					$new_settings->bg_video_webm_data->width     = '';
+					$new_settings->bg_video_webm_data->height    = '';
+					$new_settings->bg_video_webm_data->extension = '';
+					$new_settings->bg_video_webm_data->fallback  = '';
 				}
 			}
 		}
