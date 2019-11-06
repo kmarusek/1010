@@ -1,21 +1,11 @@
 <?php
 /**
- *  UABB Photo Module file
+ *  UABB Image Icon Module front-end Js php file
  *
- *  @package UABB Photo Module
+ *  @package UABB Image Icon Module
  */
 
 ?>
-
-<?php if ( 'lightbox' == $settings->link_type ) : ?>
-jQuery(function() {
-	jQuery('.fl-node-<?php echo $id; ?> a').magnificPopup({
-		type: 'image',
-		closeOnContentClick: true,
-		closeBtnInside: false
-	});
-});
-<?php endif; ?>
 jQuery(function($) {
 	$(function() {
 		$( '.fl-node-<?php echo $id; ?> .uabb-photo-img' )
