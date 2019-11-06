@@ -1,3 +1,17 @@
+<h4>2.2.6.1 - 11/04/2019</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>New filter <code>fl_builder_module_groups</code>.</li>
+	<li>New JS hooks <code>didCancelNodeSettings</code> and <code>didTriggerSettingsSave</code>.</li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fixed XML import issue where illegal characters pasted from MSWord will break the importer.</li>
+	<li>Fixed some CDNs breaking the builder UI when responsive preview is active.</li>
+	<li>Fixed issue with spaces in font families not having quotes added in css.</li>
+	<li>Fixed multisite issue with Cache Enabler plugin during publish.</li>
+</ul>
+
 <h4>2.2.6 - 10/18/2019</h4>
 <p><strong>Enhancements</strong></p>
 <ul>
@@ -12,7 +26,6 @@
 	<li>Post Module excerpt length slider increased from 100 to 1000.</li>
 	<li>Added aria-label to Content Slider background links for accessibility.</li>
 </ul>
-
 <p><strong>Bug Fixes</strong></p>
 <ul>
 	<li>Fixed bxslider issues.</li>

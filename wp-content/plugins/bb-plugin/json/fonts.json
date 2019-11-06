@@ -3870,7 +3870,7 @@
  }
 }, {
  "Rosario": {
-  "variants": ["regular", "italic", "700", "700italic"],
+  "variants": ["300", "regular", "500", "600", "700", "300italic", "italic", "500italic", "600italic", "700italic"],
   "fallback": "sans-serif"
  }
 }, {

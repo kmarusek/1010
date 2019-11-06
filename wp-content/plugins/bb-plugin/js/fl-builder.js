@@ -6144,6 +6144,7 @@
 
 			FLBuilder.preview = null;
 			FLLightbox.closeParent(this);
+			FLBuilder.triggerHook( 'didCancelNodeSettings' );
 		},
 
 		/**
@@ -6648,6 +6649,8 @@
 				if ( showAlert && ! $( '.fl-builder-alert-lightbox:visible' ).length ) {
 					FLBuilder.alert( FLBuilderStrings.settingsHaveErrors );
 				}
+			} else {
+				FLBuilder.triggerHook( 'didTriggerSettingsSave' );
 			}
 
 			return valid;

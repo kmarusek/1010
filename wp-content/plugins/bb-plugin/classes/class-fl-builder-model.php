@@ -2965,7 +2965,12 @@ final class FLBuilderModel {
 
 		ksort( $groups );
 
-		return $groups;
+		/**
+		 * Returns an array of module group slugs and names.
+		 * @see fl_builder_module_groups
+		 * @since 2.2.6
+		 */
+		return apply_filters( 'fl_builder_module_groups', $groups );
 	}
 
 	/**
