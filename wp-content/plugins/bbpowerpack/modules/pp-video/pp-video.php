@@ -299,6 +299,9 @@ class PPVideoModule extends FLBuilderModule {
 		$settings = $this->settings;
 		$video_type = $settings->video_type;
 
+		if ( 'hosted' == $video_type || 'external' == $video_type ) {
+			return $this->get_hosted_video_url();
+		}
 		if ( isset( $settings->{$video_type . '_url'} ) ) {
 			return $settings->{$video_type . '_url'};
 		}
@@ -374,6 +377,7 @@ class PPVideoModule extends FLBuilderModule {
 
 		if ( isset( $settings->poster_src ) ) {
 			$video_params['poster'] = $settings->poster_src;
+			$video_params['preload'] = 'none';
 		}
 
 		return $video_params;
@@ -453,6 +457,40 @@ class PPVideoModule extends FLBuilderModule {
 		}
 
 		return implode( ' ', $rendered_attributes );
+	}
+
+	/**
+	 * Get structured data - https://schema.org/VideoObject
+	 *
+	 * @param object $settings
+	 *
+	 * @return string
+	 */
+	public function get_structured_data( $settings = null ) {
+		$settings = ! is_object( $settings ) ? $this->settings : $settings;
+		
+		if ( ! isset( $settings->schema_enabled ) || 'no' == $settings->schema_enabled ) {
+			return false;
+		}
+
+		$markup = '';
+		$url 	= $this->get_video_url();
+
+		if ( '' == $settings->video_title || '' == $settings->video_desc || '' == $settings->video_thumbnail || '' == $settings->video_upload_date ) {
+			return false;
+		}
+	
+		$markup .= sprintf( '<meta itemprop="name" content="%s" />', esc_attr( $settings->video_title ) );
+		$markup .= sprintf( '<meta itemprop="description" content="%s" />', esc_attr( $settings->video_desc ) );
+		$markup .= sprintf( '<meta itemprop="uploadDate" content="%s" />', esc_attr( $settings->video_upload_date ) );
+		$markup .= sprintf( '<meta itemprop="thumbnailUrl" content="%s" />', $settings->video_thumbnail_src );
+
+		if ( ! empty( $url ) ) {
+			$markup .= sprintf( '<meta itemprop="contentUrl" content="%s" />', $url );
+			$markup .= sprintf( '<meta itemprop="embedUrl" content="%s" />', $url );
+		}
+
+		return $markup;
 	}
 }
 
@@ -904,6 +942,65 @@ FLBuilder::register_module(
 							),
 							'preview'	=> array(
 								'type'		=> 'none',
+							),
+						),
+					),
+				),
+			),
+		),
+		'structured_data'	=> array(
+			'title'		=> __( 'Structured Data', 'bb-powerpack' ),
+			'sections'	=> array(
+				'video_info'	=> array(
+					'title'			=> '',
+					'fields'		=> array(
+						'schema_enabled'	=> array(
+							'type'		=> 'pp-switch',
+							'label'		=> __( 'Enable Structured Data?', 'bb-powerpack' ),
+							'default'	=> 'no',
+							'options'	=> array(
+								'yes'		=> __( 'Yes', 'bb-powerpack' ),
+								'no'		=> __( 'No', 'bb-powerpack' ),
+							),
+							'toggle'	=> array(
+								'yes'		=> array(
+									'fields'	=> array( 'video_title', 'video_desc', 'video_thumbnail', 'video_upload_date' ),
+								),
+							),
+						),
+						'video_title'	=> array(
+							'type'			=> 'text',
+							'label'			=> __( 'Video Title', 'bb-powerpack' ),
+							'default'		=> '',
+							'connections'	=> array( 'string' ),
+							'preview' 		=> array(
+								'type' 			=> 'none',
+							),
+						),
+						'video_desc'	=> array(
+							'type'			=> 'text',
+							'label'			=> __( 'Video Description', 'bb-powerpack' ),
+							'default'		=> '',
+							'connections'	=> array( 'string' ),
+							'preview' 		=> array(
+								'type' 			=> 'none',
+							),
+						),
+						'video_thumbnail'	=> array(
+							'type'			=> 'photo',
+							'label'			=> __( 'Video Thumbnail', 'bb-powerpack' ),
+							'show_remove'	=> true,
+							'connections'	=> array( 'photo' ),
+							'preview' 		=> array(
+								'type' 			=> 'none',
+							),
+						),
+						'video_upload_date'	=> array(
+							'type'   		=> 'date',
+							'label'   		=> __( 'Upload Date', 'bb-powerpack' ),
+							'connections'	=> array( 'string' ),
+							'preview' 		=> array(
+								'type' 			=> 'none',
 							),
 						),
 					),

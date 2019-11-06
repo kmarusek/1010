@@ -1,3 +1,25 @@
+== 2.7.7.2 ==
+Release date: October 25, 2019
+* Hotfix: Video - Module settings were not being saved due to structured data fields validation
+
+== 2.7.7.1 ==
+Release date: Ocotober 24, 2019
+* Enhancement: Coupon - Added link icon position option
+* Fix: Coupon - Added missing alpha channel for background color fields
+* Fix: Coupon - Minor CSS issues
+
+== 2.7.7 ==
+Relase date: October 23, 2019
+* New: Added Coupon module
+* New: Added new row templates - Coming Soon, Testimonials, and Contact Form
+* Enhancement: Video - Added options to set structure data
+* Enhancement: Content Grid - Used existing meta separator field for taxonomy terms separation
+* Enhancement: Advanced Accordion - Added option to create accordion with ACF and Posts/Custom Post Types
+* Enhancement: Content Tiles - Added image size option for medium tiles
+* Fix: Team - Image sizing issue
+* Fix: Image Carousel - Added missing rel attribute for link
+* Fix: Filterable Gallery - Overlay was being extended the image occupied area
+
 == 2.7.6.3 ==
 Release date: October 14, 2019
 * Fix: FAQ - Minor issue with schema markup

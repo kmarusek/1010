@@ -29,10 +29,10 @@ class PPFAQModule extends FLBuilderModule {
 
 	public function filter_settings( $settings, $helper ) {
 		if ( isset( $settings->collapse ) ) {
-			if ( '0' == $settings->collapse ) {
+			if ( '0' === $settings->collapse ) {
 				$settings->collapse = 'no';
 			}
-			if ( '1' == $settings->collapse ) {
+			if ( '1' === $settings->collapse ) {
 				$settings->collapse = 'yes';
 			}
 		}
@@ -61,10 +61,10 @@ class PPFAQModule extends FLBuilderModule {
 	 * Render schema markup.
 	 */
 	public function render_schema( $return = false ) {
-		$settings = $this->settings;
+		$settings      = $this->settings;
 		$enable_schema = true;
 
-		if ( isset( $settings->enable_schema ) && 'no' == $settings->enable_schema ) {
+		if ( isset( $settings->enable_schema ) && 'no' === $settings->enable_schema ) {
 			$enable_schema = false;
 		}
 
@@ -119,7 +119,7 @@ class PPFAQModule extends FLBuilderModule {
 
 	public static function get_general_fields() {
 		$fields = array(
-			'faq_source' => array(
+			'faq_source'    => array(
 				'type'    => 'select',
 				'label'   => __( 'Source', 'bb-powerpack' ),
 				'default' => '',
@@ -136,25 +136,31 @@ class PPFAQModule extends FLBuilderModule {
 					),
 				),
 			),
-			'items'      => array(
+			'items'         => array(
 				'type'         => 'form',
 				'label'        => __( 'FAQ', 'bb-powerpack' ),
 				'form'         => 'pp_faq_items_form', // ID from registered form below
 				'preview_text' => 'faq_question', // Name of a field to use for the preview text
 				'multiple'     => true,
 			),
-			'post_slug'  => array(
+			'post_slug'     => array(
 				'type'  => 'post-type',
 				'label' => __( 'Post type', 'bb-powerpack' ),
 			),
-			'post_count' => array(
+			'post_count'    => array(
 				'type'    => 'unit',
 				'label'   => __( 'Total Number of Posts', 'bb-powerpack' ),
 				'default' => '10',
 				'slider'  => true,
 				'help'    => __( 'Leave Blank or add -1 for all posts.', 'bb-powerpack' ),
 			),
-			'post_order' => array(
+			// 'category_name' => array(
+			// 	'type'        => 'text',
+			// 	'label'       => __( 'Filter posts by category', 'bb-powerpack' ),
+			// 	'connections' => array( 'string' ),
+			// 	'help'        => __( 'Filter posts by category. You can add multiple categories using "," (comma) separator.', 'bb-powerpack' ),
+			// ),
+			'post_order'    => array(
 				'type'    => 'pp-switch',
 				'label'   => __( 'Order', 'bb-powerpack' ),
 				'default' => 'ASC',
@@ -225,16 +231,18 @@ class PPFAQModule extends FLBuilderModule {
 		$data = array();
 
 		$post_slug = ! empty( $this->settings->post_slug ) ? $this->settings->post_slug : '';
+		//$cat_name  = ! empty( $this->settings->category_name ) ? $this->settings->category_name : '';
 		$cpt_count = ! empty( $this->settings->post_count ) || '-1' !== $this->settings->post_count ? $this->settings->post_count : '-1';
 		$cpt_order = ! empty( $this->settings->post_order ) ? $this->settings->post_order : 'ASC';
 
 		$posts = get_posts(
-			[
-				'post_type'   => $post_slug,
-				'post_status' => 'publish',
-				'numberposts' => $cpt_count,
-				'order'       => $cpt_order,
-			]
+			array(
+				'post_type'     => $post_slug,
+				'post_status'   => 'publish',
+				'numberposts'   => $cpt_count,
+				'order'         => $cpt_order,
+				//'category_name' => $cat_name,
+			)
 		);
 
 		foreach ( $posts as $row ) {
@@ -277,11 +285,11 @@ FLBuilder::register_module(
 				'schema_markup' => array(
 					'title'  => 'Schema Markup',
 					'fields' => array(
-						'enable_schema'      => array(
-							'type'    => 'pp-switch',
-							'label'   => __( 'Enable Schema Markup', 'bb-powerpack' ),
-							'default' => 'yes',
-							'options' => array(
+						'enable_schema' => array(
+							'type'        => 'pp-switch',
+							'label'       => __( 'Enable Schema Markup', 'bb-powerpack' ),
+							'default'     => 'yes',
+							'options'     => array(
 								'yes' => __( 'Yes', 'bb-powerpack' ),
 								'no'  => __( 'No', 'bb-powerpack' ),
 							),
@@ -294,7 +302,7 @@ FLBuilder::register_module(
 					'collapsed' => true,
 					'fields'    => PPFAQModule::get_general_fields(),
 				),
-				'faq_settings'       => array(
+				'faq_settings'  => array(
 					'title'     => __( 'Settings', 'bb-powerpack' ),
 					'collapsed' => true,
 					'fields'    => array(
@@ -329,8 +337,8 @@ FLBuilder::register_module(
 							'label'   => __( 'Collapse Inactive', 'bb-powerpack' ),
 							'default' => 'yes',
 							'options' => array(
-								'yes' 	=> __( 'Yes', 'bb-powerpack' ),
-								'no' 	=> __( 'No', 'bb-powerpack' ),
+								'yes' => __( 'Yes', 'bb-powerpack' ),
+								'no'  => __( 'No', 'bb-powerpack' ),
 							),
 							'help'    => __( 'Choosing yes will keep only one item open at a time. Choosing no will allow multiple items to be open at the same time.', 'bb-powerpack' ),
 							'preview' => array(
@@ -578,9 +586,9 @@ FLBuilder::register_module(
 			),
 		),
 		'typography' => array(
-			'title'             => __( 'Typography', 'bb-powerpack' ),
-			'sections'          => array(
-				'qus_typography' => array(
+			'title'    => __( 'Typography', 'bb-powerpack' ),
+			'sections' => array(
+				'qus_typography'    => array(
 					'title'  => __( 'Questions', 'bb-powerpack' ),
 					'fields' => array(
 						'qus_tag'        => array(

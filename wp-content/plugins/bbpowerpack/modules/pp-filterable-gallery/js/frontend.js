@@ -90,6 +90,11 @@
 			
 			wrap.imagesLoaded( $.proxy( function() {
 
+				if ( wrap.find( '.pp-gallery-overlay' ).length > 0 ) {
+					var imgW = wrap.find( '.pp-gallery-img' ).outerWidth();
+					wrap.find( '.pp-gallery-overlay' ).css('max-width', imgW + 'px');
+				}
+
 				filterToggle.on('click', function () {
 					filtersWrap.slideToggle(function () {
 						if ($(this).is(':visible')) {

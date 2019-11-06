@@ -34,6 +34,12 @@ do_action( 'pp_content_tiles_settings_before_form', $settings ); // e.g Add cust
 		'default'		=> 'large'
 	), $settings);
 
+	FLBuilder::render_settings_field('image_size_medium_tile', array(
+		'type'          => 'photo-sizes',
+		'label'         => __('Medium Tile Image Size', 'bb-powerpack'),
+		'default'		=> 'large'
+	), $settings);
+
 	FLBuilder::render_settings_field('image_size_small_tile', array(
 		'type'          => 'photo-sizes',
 		'label'         => __('Small Tile Image Size', 'bb-powerpack'),

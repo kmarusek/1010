@@ -139,7 +139,7 @@
 							<?php if( $i == count($terms_list) ) { ?>
 								<a href="<?php echo get_term_link($term); ?>" class="pp-post-meta-term"><?php echo $term->name; ?></a>
 							<?php } else { ?>
-								<a href="<?php echo get_term_link($term); ?>" class="pp-post-meta-term"><?php echo $term->name; ?></a> /
+								<a href="<?php echo get_term_link($term); ?>" class="pp-post-meta-term"><?php echo $term->name; ?></a> <?php echo ! empty( $settings->meta_separator ) ? $settings->meta_separator : '/'; ?>
 							<?php } ?>
 							<?php $i++; endforeach; ?>
 						<?php } ?>

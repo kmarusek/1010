@@ -23,6 +23,7 @@
 	position: absolute;
 	overflow: hidden;
 	transition: .5s ease;
+	margin: 0 auto;
 }
 
 .pp-gallery-overlay .pp-caption {

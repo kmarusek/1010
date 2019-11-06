@@ -531,7 +531,7 @@ FLBuilder::register_module('PPImageCarouselModule', array(
 							'type'		=> 'none'
 						)
 					),
-				)
+				),
 			),
 			'slide_settings'    => array(
 				'title'         => __('Slide Settings', 'bb-powerpack'),

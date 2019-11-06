@@ -58,12 +58,22 @@ if ( $query->have_posts() ) :
 
 		$image_size = 'large';
 
-		if ( $count == 1 || ( $count == 2 && $layout == 1 ) ) {
+		// Large size for all layout's first post.
+		if ( $count == 1 ) {
 			$image_size = isset( $settings->image_size_large_tile ) ? $settings->image_size_large_tile : $image_size;
 		}
+
+		// Medium size for Layout 1 - Post 2, Layout 3 - Post 2 and Post 3.
+		if ( ( $count == 2 && ( $layout == 1 || $layout == 3 ) ) || ( $count == 3 && $layout == 3 ) ) {
+			$image_size = isset( $settings->image_size_medium_tile ) ? $settings->image_size_medium_tile : $image_size;
+		}
+
+		// Small size for Layout 2 - Post 3 and Post 4.
 		if ( ( $count == 2 || $count == 4 ) && $layout == 2 ) {
 			$image_size = isset( $settings->image_size_small_tile ) ? $settings->image_size_small_tile : $image_size;
 		}
+
+		// Small size for Layout 1 - Post 3 and Post 4, Layout 2 - Post 1-4, Layout 4 - Post 2 and Post 3.
 		if ( ( $count == 3 || $count == 4 ) && ( $layout == 1 || $layout == 2 || $layout == 4 ) ) {
 			$image_size = isset( $settings->image_size_small_tile ) ? $settings->image_size_small_tile : $image_size;
 		}

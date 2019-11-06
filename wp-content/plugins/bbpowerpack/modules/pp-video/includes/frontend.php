@@ -30,9 +30,17 @@ $wrapper_classes = array(
 
 // Attributes for image overlay.
 $overlay_attrs = array();
+
+// Structured data.
+$schema = $module->get_structured_data( $settings );
 ?>
 
-<div class="<?php echo implode( ' ', $wrapper_classes ); ?>">
+<div class="<?php echo implode( ' ', $wrapper_classes ); ?>"<?php echo $schema ? ' itemscope itemtype="https://schema.org/VideoObject"' : ''; ?>>
+	<?php
+		if ( $schema ) {
+			echo $schema;
+		}
+	?>
 	<div class="pp-fit-aspect-ratio">
 	<?php
 	if ( ! $lightbox ) {

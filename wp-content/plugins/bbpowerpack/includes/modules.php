@@ -75,6 +75,7 @@ $modules = array(
 	'modules/pp-breadcrumbs/pp-breadcrumbs.php',
 	'modules/pp-sitemap/pp-sitemap.php',
 	'modules/pp-category-grid/pp-category-grid.php',
+	'modules/pp-coupon/pp-coupon.php',
 );
 
 /* Custom Grid */

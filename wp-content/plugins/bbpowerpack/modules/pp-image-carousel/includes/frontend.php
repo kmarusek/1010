@@ -14,6 +14,7 @@ $photos = $module->get_photos();
 					<?php if( $settings->click_action != 'none' ) : ?>
 							<?php $click_action_link = '#';
 								$click_action_target = $settings->custom_link_target;
+								$click_action_rel = ( '_blank' === $click_action_target ) ? ' rel="nofollow noopener"' : '';
 
 								if ( $settings->click_action == 'custom-link' ) {
 									if ( ! empty( $photo->cta_link ) ) {
@@ -26,7 +27,7 @@ $photos = $module->get_photos();
 								}
 
 							?>
-					<a href="<?php echo $click_action_link; ?>" target="<?php echo $click_action_target; ?>" data-caption="<?php echo $photo->caption; ?>">
+					<a href="<?php echo $click_action_link; ?>" target="<?php echo $click_action_target; ?>"<?php echo $click_action_rel; ?> data-caption="<?php echo $photo->caption; ?>">
 					<?php endif; ?>
 
 					<div class="pp-carousel-image-container" style="background-image:url(<?php echo esc_url( $photo->src ); ?>)"></div>
