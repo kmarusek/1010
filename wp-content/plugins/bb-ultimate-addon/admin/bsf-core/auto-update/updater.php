@@ -33,11 +33,12 @@ if ( ! function_exists( 'bsf_get_remote_version' ) ) {
 
 		if ( ! is_wp_error( $request ) || wp_remote_retrieve_response_code( $request ) === 200 ) {
 			$result = json_decode( wp_remote_retrieve_body( $request ) );
-
-			if ( ! $result->error ) {
-				return $result->updated_versions;
-			} else {
-				return $result->error;
+			if ( ! is_null( $result ) ) {
+				if ( ! $result->error ) {
+					return $result->updated_versions;
+				} else {
+					return $result->error;
+				}
 			}
 		}
 	}

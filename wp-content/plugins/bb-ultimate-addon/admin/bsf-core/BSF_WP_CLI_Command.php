@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * WP CLI Commands to manage Brainstorm Force products.
+ */
 class BSF_WP_CLI_Command extends WP_CLI_Command {
 
 	private $license_manager = '';

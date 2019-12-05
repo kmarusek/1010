@@ -265,7 +265,7 @@ if ( ! class_exists( 'UABB_Batch_Process' ) ) :
 
 			$current_version = $_journey_details['0']['current_version'];
 
-			$version_compare = version_compare( BB_ULTIMATE_ADDON_VER, $current_version, '<=' );
+			$version_compare = version_compare( '1.20.2', $current_version, '<' );
 
 			$notice_dismissed = get_option( 'uabb_batch_notice_dismissed', 'no' );
 
