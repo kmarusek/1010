@@ -36,7 +36,7 @@
 			<?php endif; ?>
 
 			<div class="pp-form-field pp-email-field">
-				<input type="text" name="pp-subscribe-form-email" placeholder="<?php echo $settings->input_email_placeholder; ?>" />
+				<input type="email" name="pp-subscribe-form-email" placeholder="<?php echo $settings->input_email_placeholder; ?>" />
 				<div class="pp-form-error-message"><?php esc_html_e( 'Please enter a valid email address.', 'bb-powerpack' ); ?></div>
 			</div>
 

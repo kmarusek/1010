@@ -8,11 +8,11 @@ $class = 'carousel' == $settings->layout ? 'pp-content-carousel-post' : 'pp-cont
 	
 	BB_PowerPack_Post_Helper::schema_meta();
 
-	$custom_layout = $settings->custom_layout;
-	$custom_layout = (array) $custom_layout;
+	$custom_layout = (array) $settings->custom_layout;
+	$custom_layout_html = apply_filters( 'pp_post_custom_layout_html', $custom_layout['html'] );
 
 	do_action( 'pp_post_custom_layout_before_content', $settings );
-	echo do_shortcode( FLThemeBuilderFieldConnections::parse_shortcodes( stripslashes( $custom_layout['html'] ) ) );
+	echo do_shortcode( FLThemeBuilderFieldConnections::parse_shortcodes( stripslashes( $custom_layout_html ) ) );
 	do_action( 'pp_post_custom_layout_after_content', $settings );
 	
 	?>

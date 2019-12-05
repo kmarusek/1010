@@ -31,6 +31,9 @@
 		this.hotspotInterval 	= [];
 		this.hoverFlag 			= '';
 		this.scrolling 			= false;
+		this.hideMaxWidth       = settings.maxWidth;
+		this.hideMinWidth       = settings.minWidth;
+		this.winWidth           = $( window ).width();
 
 		this._init();
 	};
@@ -76,8 +79,14 @@
 			}
 
 			// Start of hotspot functionality.
-			if ('yes' == this.tourEnable) {
-				this._initButtonOverlay();
+			if ( 'yes' == this.tourEnable ) {
+				if ( this.winWidth > this.hideMaxWidth || this.winWidth < this.hideMinWidth || 'none' == this.hideMaxWidth || 'none' == this.hideMinWidth ) {
+					this._initButtonOverlay();
+				} else {
+					this.node.find('.pp-hotspot-overlay').hide();
+					this.node.find('.pp-tour').hide();
+					clearInterval(this.hotspotInterval[this.id]);
+				}
 			} else {
 				clearInterval(this.hotspotInterval[this.id]);
 			}

@@ -36,6 +36,8 @@ if ( 'yes' == $settings->grab_cursor ) {
 	$attrs['data-grab-cursor'] = 1;
 }
 
+$attrs['data-layout'] = $settings->feed_layout;
+
 foreach ( $attrs as $key => $value ) {
 	$attr .= $key . '=' . $value . ' ';
 }
@@ -45,7 +47,7 @@ foreach ( $attrs as $key => $value ) {
 	<?php if ( 'yes' == $settings->profile_link ) { ?>
 		<?php if ( ! empty( $settings->insta_link_title ) ) { ?>
 			<span class="pp-instagram-feed-title-wrap">
-				<a href="<?php echo $settings->insta_profile_url; ?>" target="_blank">
+				<a href="<?php echo $settings->insta_profile_url; ?>" target="_blank" rel="nofollow noopener">
 					<span class="pp-instagram-feed-title">
 						<?php if ( ! empty( $settings->insta_title_icon ) ) { ?>
 							<?php if ( 'before_title' == $settings->insta_title_icon_position ) { ?>

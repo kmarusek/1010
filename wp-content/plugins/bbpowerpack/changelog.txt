@@ -1,3 +1,43 @@
+== 2.7.7.7 ==
+Release date: December 4, 2019
+* Fix: Advanced Accordion - Line breaks were not appearing in post content
+* Fix: Content Grid - Post content was not being rendered when filtering posts using dynamic filters with custom layout
+* Fix: Pricing Table - Items alignment issue
+* Fix: Content Tiles - Spacing issues
+* Development: Advanced Menu - Added hook nav_menu_link_attributes to filter HTML attributes for menu links
+
+== 2.7.7.6 ==
+Release date: November 26, 2019
+* Hotfix: Dual Button - Module was throwing PHP error
+
+== 2.7.7.5 ==
+Release date: November 25, 2019
+* Fix: Dual Button - Icons were not showing
+* Fix: Advanced Accordion - Multiple toggle issue when using module on single post page created via Themer
+* Fix: Image Comparison - Added missing image alt tag
+* Fix: Photo Gallery - Caption background color was not working
+* Fix: Photo Gallery - Caption was showing in lightbox irrespective of module setting
+* Fix: Content Grid - ACF Repeater field shortcode was not working in custom layout
+* Fix: Core - PowerPack admin label was no longer appearing in module settings form title after recent BB update
+* Development: Content Grid - Added hook pp_cg_scroll_to_grid_on_filter to disable page scroll to grid after filtering
+
+== 2.7.7.4 ==
+Release date: November 13, 2019
+* Fix: Core - Moved back PowerPack top-level admin menu into WP settings menu
+
+== 2.7.7.3 ==
+Release date: November 11, 2019
+* Enhancement: Instagram - Added logic to display feeds without using Instagram API
+* Enhancement: Contact Form - Added field to change default error message
+* Enhancement: Core - Added PowerPack as top level admin menu
+* Enhancement: Core - Added PowerPack Templates access to Editor and Author user roles
+* Fix: Content Tiles - Minor CSS issue
+* Fix: Content Grid - When using module on single post, author name was being queried of parent post
+* Fix: Content Grid - Background image was not being loaded due to spaces in image file name
+* Fix: Hotspot - Tooltips were visible even if the module was hidden using display conditions
+* Fix: Google Map - Multiple tooltips were showing on load
+* Fix: Advanced Menu - Submenu custom width was not working sometimes
+
 == 2.7.7.2 ==
 Release date: October 25, 2019
 * Hotfix: Video - Module settings were not being saved due to structured data fields validation

@@ -11,11 +11,7 @@
 <?php
 
 $license 	  		= self::get_option( 'bb_powerpack_license_key' );
-$status 	  		= self::get_option( 'bb_powerpack_license_status' );
 $current_tab  		= self::get_current_tab();
-$hide_templates 	= self::get_option( 'ppwl_hide_templates_tab' );
-$hide_extensions 	= self::get_option( 'ppwl_hide_extensions_tab' );
-$hide_integration 	= self::get_option( 'ppwl_hide_integration_tab' );
 $remove_support_link = self::get_option( 'ppwl_remove_support_link' );
 $remove_docs_link 	= self::get_option( 'ppwl_remove_docs_link' );
 ?>
@@ -52,38 +48,13 @@ $remove_docs_link 	= self::get_option( 'ppwl_remove_docs_link' );
 		<?php self::render_update_message(); ?>
 
 		<form method="post" id="pp-settings-form" action="<?php echo self::get_form_action( '&tab=' . $current_tab ); ?>">
-
 			<?php
 
-			// General settings.
-			if ( ! isset($_GET['tab']) || 'general' == $current_tab ) {
-				include BB_POWERPACK_DIR . 'includes/admin-settings-license.php';
-			}
-
-			// White Label settings.
-			if ( 'white-label' == $current_tab ) {
-				include BB_POWERPACK_DIR . 'includes/admin-settings-wl.php';
-			}
-
-			// Page templates settings.
-			if ( 'templates' == $current_tab && ( ! $hide_templates || $hide_templates == 0 ) ) {
-				include BB_POWERPACK_DIR . 'includes/admin-settings-templates.php';
-			}
-
-			// Extensions settings.
-			if ( 'extensions' == $current_tab && ( ! $hide_extensions || $hide_extensions == 0 ) ) {
-				include BB_POWERPACK_DIR . 'includes/admin-settings-extensions.php';
-			}
-			
-			// Integration settings.
-			if ( 'integration' == $current_tab && ( ! $hide_integration || $hide_integration == 0 ) ) {
-				include BB_POWERPACK_DIR . 'includes/admin-settings-integration.php';
-			}
+			self::render_setting_page();
 
 			do_action( 'pp_admin_settings_forms', $current_tab );
 
 			?>
-
 		</form>
 	</div>
 </div>

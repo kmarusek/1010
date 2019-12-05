@@ -41,7 +41,7 @@ class PPAccordionModule extends FLBuilderModule {
 						'fields' => array( 'items' ),
 					),
 					'post'   => array(
-						'fields' => array( 'post_slug', 'post_count', 'post_order' ),
+						'sections' => array( 'post_content' ),
 					),
 				),
 			),
@@ -51,26 +51,6 @@ class PPAccordionModule extends FLBuilderModule {
 				'form'         => 'pp_accordion_items_form',
 				'preview_text' => 'label',
 				'multiple'     => true,
-			),
-			'post_slug'        => array(
-				'type'  => 'post-type',
-				'label' => __( 'Post type', 'bb-powerpack' ),
-			),
-			'post_count'       => array(
-				'type'    => 'unit',
-				'label'   => __( 'Total Number of Posts', 'bb-powerpack' ),
-				'default' => '10',
-				'slider'  => true,
-				'help'    => __( 'Leave Blank or add -1 for all posts.', 'bb-powerpack' ),
-			),
-			'post_order'       => array(
-				'type'    => 'pp-switch',
-				'label'   => __( 'Order', 'bb-powerpack' ),
-				'default' => 'ASC',
-				'options' => array(
-					'ASC'  => __( 'Ascending', 'bb-powerpack' ),
-					'DESC' => __( 'Descending', 'bb-powerpack' ),
-				),
 			),
 		);
 
@@ -104,23 +84,66 @@ class PPAccordionModule extends FLBuilderModule {
 		}
 		$data = array();
 
-		$post_slug = ! empty( $this->settings->post_slug ) ? $this->settings->post_slug : '';
+		$post_type = ! empty( $this->settings->post_slug ) ? $this->settings->post_slug : 'post';
 		$cpt_count = ! empty( $this->settings->post_count ) || '-1' !== $this->settings->post_count ? $this->settings->post_count : '-1';
 		$cpt_order = ! empty( $this->settings->post_order ) ? $this->settings->post_order : 'ASC';
 
+		$var_tax_type     = 'posts_' . $post_type . '_tax_type';
+		$tax_type         = '';
+		$var_cat_matching = '';
+		$var_cat          = '';
+
+		if ( isset( $this->settings->$var_tax_type ) ) {
+			$tax_type         = $this->settings->$var_tax_type;
+			$var_cat          = 'tax_' . $post_type . '_' . $tax_type;
+			$var_cat_matching = $var_cat . '_matching';
+		}
+
+		$cat_match = isset( $this->settings->$var_cat_matching ) ? $this->settings->$var_cat_matching : false;
+		$ids       = isset( $this->settings->$var_cat ) ? explode( ',', $this->settings->$var_cat ) : array();
+		$taxonomy  = isset( $tax_type ) ? $tax_type : '';
+		$tax_query = array();
+
+		if ( isset( $ids[0] ) && ! empty( $ids[0] ) ) {
+			if ( $cat_match && 'related' !== $cat_match ) {
+				$tax_query = array(
+					'relation' => 'AND',
+					array(
+						'taxonomy' => $taxonomy,
+						'field'    => 'term_id',
+						'terms'    => $ids,
+					),
+				);
+			} elseif ( ! $cat_match || 'related' === $cat_match ) {
+
+				$tax_query = array(
+					'relation' => 'AND',
+					array(
+						'taxonomy'    => $taxonomy,
+						'field'       => 'term_id',
+						'terms'       => $ids,
+						'operator'    => 'NOT IN', // exclude
+						'post_parent' => 0, // top level only
+					),
+				);
+			}
+		}
 		$posts = get_posts(
 			array(
-				'post_type'   => $post_slug,
+				'post_type'   => $post_type,
 				'post_status' => 'publish',
 				'numberposts' => $cpt_count,
 				'order'       => $cpt_order,
+				'tax_query'   => $tax_query,
 			)
 		);
+
+		global $wp_embed;
 
 		foreach ( $posts as $row ) {
 			$item          = new stdClass;
 			$item->label   = isset( $row->post_title ) ? $row->post_title : '';
-			$item->content = isset( $row->post_content ) ? $row->post_content : '';
+			$item->content = isset( $row->post_content ) ? wpautop( $wp_embed->autoembed( $row->post_content ) ) : '';
 
 			$data[] = $item;
 		}
@@ -145,10 +168,12 @@ class PPAccordionModule extends FLBuilderModule {
 			return;
 		}
 
+		global $wp_embed;
+
 		foreach ( $repeater_rows as $row ) {
 			$item          = new stdClass;
 			$item->label   = isset( $row[ $label_name ] ) ? $row[ $label_name ] : '';
-			$item->content = isset( $row[ $content_name ] ) ? $row[ $content_name ] : '';
+			$item->content = isset( $row[ $content_name ] ) ? wpautop( $wp_embed->autoembed( $row[ $content_name ] ) ) : '';
 
 			$data[] = $item;
 		}
@@ -350,9 +375,13 @@ FLBuilder::register_module(
 		'items'      => array(
 			'title'    => __( 'Items', 'bb-powerpack' ),
 			'sections' => array(
-				'general' => array(
+				'general'      => array(
 					'title'  => '',
 					'fields' => PPAccordionModule::get_general_fields(),
+				),
+				'post_content' => array(
+					'title' => __( 'Content', 'bb-powerpack' ),
+					'file'  => BB_POWERPACK_DIR . 'modules/pp-advanced-accordion/includes/loop-settings.php',
 				),
 			),
 		),
@@ -407,16 +436,17 @@ FLBuilder::register_module(
 							'type'          => 'color',
 							'label'         => __( 'Color', 'bb-powerpack' ),
 							'default'       => '666666',
+							'show_reset'	=> true,
 							'connections'	=> array( 'color' ),
-							'preview'	=> array(
+							'preview'	    => array(
 								'type'	=> 'css',
 								'selector'	=> '.pp-accordion-item .pp-accordion-button-icon',
-								'property'	=> 'color'
-							)
+								'property'	=> 'color',
+							),
 						),
-					)
-				)
-			)
+					),
+				),
+			),
 		),
 		'style'      => array(
 			'title'         => __( 'Style', 'bb-powerpack' ),
@@ -504,8 +534,8 @@ FLBuilder::register_module(
 							'preview'		=> array(
 								'type'			=> 'css',
 								'selector'		=> '.pp-accordion-item .pp-accordion-button',
-								'property'		=> 'background-color'
-							)
+								'property'		=> 'background-color',
+							),
 						),
 						'label_bg_color_active'	=> array(
 							'type'			=> 'color',
@@ -524,15 +554,15 @@ FLBuilder::register_module(
 							'preview'		=> array(
 								'type'			=> 'css',
 								'selector'		=> '.pp-accordion-item .pp-accordion-button',
-								'property'		=> 'color'
-							)
+								'property'		=> 'color',
+							),
 						),
 						'label_text_color_active'	=> array(
 							'type'			=> 'color',
 							'label'			=> __( 'Text Color - Active', 'bb-powerpack' ),
 							'default'		=> '777777',
 							'connections'	=> array( 'color' ),
-							'show_reset'	=> true
+							'show_reset'	=> true,
 						),
 						'label_border'		=> array(
 							'type'				=> 'border',
@@ -555,10 +585,10 @@ FLBuilder::register_module(
 								'type'			=> 'css',
 								'selector'		=> '.pp-accordion-item .pp-accordion-button',
 								'property'		=> 'padding',
-								'unit'			=> 'px'
-							)
+								'unit'			=> 'px',
+							),
 						),
-					)
+					),
 				),
 				'content_style'       => array(
 					'title'         => __( 'Content', 'bb-powerpack' ),
@@ -573,19 +603,20 @@ FLBuilder::register_module(
 							'preview'		=> array(
 								'type'			=> 'css',
 								'selector'		=> '.pp-accordion-item .pp-accordion-content',
-								'property'		=> 'background-color'
-							)
+								'property'		=> 'background-color',
+							),
 						),
 						'content_text_color'  => array(
 							'type'          => 'color',
 							'label'         => __( 'Text Color', 'bb-powerpack' ),
 							'default'       => '333333',
+							'show_reset'	=> true,
 							'connections'	=> array( 'color' ),
 							'preview'		=> array(
 								'type'			=> 'css',
 								'selector'		=> '.pp-accordion-item .pp-accordion-content',
-								'property'		=> 'color'
-							)
+								'property'		=> 'color',
+							),
 						),
 						'content_border'	=> array(
 							'type'				=> 'border',
@@ -604,11 +635,10 @@ FLBuilder::register_module(
 							'units'				=> array( 'px' ),
 							'slider'			=> true,
 							'responsive'		=> true,
-
 						),
-					)
-				)
-			)
+					),
+				),
+			),
 		),
 		'typography' => array(
 			'title'         => __( 'Typography', 'bb-powerpack' ),
@@ -622,10 +652,10 @@ FLBuilder::register_module(
 							'responsive'  		=> true,
 							'preview'			=> array(
 								'type'				=> 'css',
-								'selector'			=> '.pp-accordion-item .pp-accordion-button .pp-accordion-button-label'
-							)
+								'selector'			=> '.pp-accordion-item .pp-accordion-button .pp-accordion-button-label',
+							),
 						),
-					)
+					),
 				),
 				'content_typography'	=> array(
 					'title'	=> __( 'Content', 'bb-powerpack' ),

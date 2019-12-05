@@ -19,20 +19,24 @@ class PPInstagramFeedModule extends FLBuilderModule {
 			'editor_export' 	=> true, // Defaults to true and can be omitted.
 			'enabled'       	=> true, // Defaults to true and can be omitted.
 		));
-		
-		$this->add_js( 'imagesloaded' );
 
 		$this->add_css( 'font-awesome' );
 
 		$this->add_js( 'jquery-magnificpopup' );
 		$this->add_css( 'jquery-magnificpopup' );
 
-		$this->add_js( 'instafeed' );
+		$this->add_js( 'imagesloaded' );
 
 		$this->add_css( 'jquery-swiper' );
 		$this->add_js( 'jquery-swiper' );
 
 		$this->add_js('jquery-masonry');
+	}
+
+	public function enqueue_scripts() {
+		if ( ! isset( $this->settings->use_api ) || 'yes' == $this->settings->use_api ) {
+			$this->add_js( 'instafeed' );
+		}
 	}
 
 	public function filter_settings( $settings, $helper )
@@ -83,9 +87,43 @@ class PPInstagramFeedModule extends FLBuilderModule {
 FLBuilder::register_module('PPInstagramFeedModule', array(
 	'general'       => array( // Tab
 		'title'         => __( 'General', 'bb-powerpack' ), // Tab title
+		'description' => __( '<span style="color: red;">Starting October 15, 2019, new client registration and permission review on Instagram API platform are discontinued.</span>', 'bb-powerpack' ),
 		'sections'      => array( // Tab Sections
+			'use_api' => array(
+				'title'		=> '',
+				'fields'	=> array(
+					'use_api'	=> array(
+						'type'			=> 'pp-switch',
+						'label'			=> __( 'Use Instagram API', 'bb-powerpack' ),
+						'default'		=> 'yes',
+						'options'		=> array(
+							'yes'			=> __( 'Yes', 'bb-powerpack' ),
+							'no'			=> __( 'No', 'bb-powerpack' ),
+						),
+						'toggle'		=> array(
+							'yes'			=> array(
+								'sections'		=> array( 'account_settings' ),
+								'fields'		=> array( 'image_resolution', 'sort_by' ),
+							),
+							'no'			=> array(
+								'fields'		=> array( 'username' ),
+							),
+						),
+						'preview'	=> array(
+							'type'		=> 'none',
+						),
+					),
+					'username'	=> array(
+						'type'		=> 'text',
+						'label'		=> __( 'Instagram Username', 'bb-powerpack' ),
+						'default'	=> '',
+						'help'		=> __( 'This must be public account.', 'bb-powerpack' ),
+						'connections'	=> array( 'string' ),
+					),
+				),
+			),
 			'account_settings'	=> array( // Section
-				'title'				=> __( 'Authentication Settings', 'bb-powerpack' ), // Section Title
+				'title'				=> __( 'API Authentication', 'bb-powerpack' ), // Section Title
 				'fields'        	=> array( // Section Fields
 					'user_id'     	=> array(
 						'type'          => 'text',
@@ -93,16 +131,16 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 						'default'       => '',
 						'connections'	=> array('string')
 					),
-					'access_token'	=> array(
-						'type'          => 'text',
-						'label'         => __( 'Access Token', 'bb-powerpack' ),
-						'default'       => '',
-						'connections'	=> array('string')
-					),
 					'client_id'	=> array(
 						'type'		=> 'text',
 						'label'     => __( 'Client ID', 'bb-powerpack' ),
 						'default'   => '',
+						'connections'	=> array('string')
+					),
+					'access_token'	=> array(
+						'type'          => 'text',
+						'label'         => __( 'Access Token', 'bb-powerpack' ),
+						'default'       => '',
 						'connections'	=> array('string')
 					),
 				),
@@ -134,7 +172,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 					),
 					'images_count'		=> array(
 						'type'          => 'unit',
-						'label'         => __( 'Images Count', 'bb-powerpack' ),
+						'label'         => __( 'Max Images Count', 'bb-powerpack' ),
 						'default'       => '12',
 						'slider'        => true,
 					),
@@ -194,9 +232,13 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 					'image_custom_size'		=> array(
 						'type'			=> 'unit',
 						'label' 		=> __( 'Custom Size', 'bb-powerpack' ),
-						'default'       => '300',
+						'default'       => '',
 						'units'			=> array('px'),
-						'slider'		=> true,
+						'slider'		=> array(
+							'min'			=> '150',
+							'max'			=> '1000',
+							'step'			=> '1',
+						),
 						'responsive' 	=> array(
 							'placeholder'	=> array(
 								'default'		=> '',
@@ -234,7 +276,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 					),
 					'likes'	=> array(
 						'type'		=> 'pp-switch',
-						'label'     => __( 'Likes', 'bb-powerpack' ),
+						'label'     => __( 'Show Likes Count', 'bb-powerpack' ),
 						'default'   => 'no',
 						'options'   => array(
 							'yes'		=> __( 'Yes', 'bb-powerpack' ),
@@ -243,7 +285,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 					),
 					'comments'	=> array(
 						'type'		=> 'pp-switch',
-						'label'     => __( 'Comments', 'bb-powerpack' ),
+						'label'     => __( 'Show Comments Count', 'bb-powerpack' ),
 						'default'  	=> 'no',
 						'options'   => array(
 							'yes'		=> __( 'Yes', 'bb-powerpack' ),
@@ -251,7 +293,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 						),
 					),
 					'content_visibility'  => array(
-						'type'          => 'select',
+						'type'          => 'pp-switch',
 						'label'         => __( 'Content Visibility', 'bb-powerpack' ),
 						'default'       => 'always',
 						'options'       => array(
@@ -287,20 +329,21 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 					),
 					'insta_link_title'	=> array(
 						'type'				=> 'text',
-						'label'         	=> __( 'Link Title', 'bb-powerpack' ),
+						'label'         	=> __( 'Link Text', 'bb-powerpack' ),
 						'default'       	=> __( 'Follow @example on instagram', 'bb-powerpack' ),
 						'connections'		=> array('string')
 					),
 					'insta_profile_url'	=> array(
 						'type'          	=> 'link',
 						'label'         	=> __( 'Instagram Profile URL', 'bb-powerpack' ),
+						'connections'		=> array( 'url' ),
 						'preview'       	=> array(
 							'type'      	=> 'none',
 						),
 					),
 					'insta_title_icon'  => array(
 						'type'          	=> 'icon',
-						'label'         	=> __( 'Title Icon', 'bb-powerpack' ),
+						'label'         	=> __( 'Icon', 'bb-powerpack' ),
 						'preview'			=> 'none',
 						'show_remove' 		=> true,
 					),
@@ -702,6 +745,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 	),
 	'style' => array(
 		'title'     => __( 'Style', 'bb-powerpack' ),
+		'description' => __( 'For smooth transition effect, please do not use grayscale feature with overlay.', 'bb-powerpack' ),
 		'sections'  => array(
 			'image'		=> array(
 				'title'		=> __( 'Image', 'bb-powerpack' ),
@@ -714,6 +758,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 							'yes'        	=> __( 'Yes', 'bb-powerpack' ),
 							'no'            => __( 'No', 'bb-powerpack' ),
 						),
+						'help'	=> __( 'For smooth transition effect, please do not use this feature with overlay.', 'bb-powerpack' ),
 					),
 					'image_overlay_type'	=> array(
 						'type'          	=> 'pp-switch',
@@ -822,6 +867,7 @@ FLBuilder::register_module('PPInstagramFeedModule', array(
 							'yes'			=> __( 'Yes', 'bb-powerpack' ),
 							'no'            => __( 'No', 'bb-powerpack' ),
 						),
+						'help'	=> __( 'For smooth transition effect, please do not use this feature with overlay.', 'bb-powerpack' ),
 					),
 					'image_hover_overlay_type'	=> array(
 						'type'          => 'pp-switch',

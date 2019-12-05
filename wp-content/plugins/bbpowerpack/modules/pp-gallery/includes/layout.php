@@ -29,7 +29,9 @@
 			rel="nofollow" data-fancybox="images" 
 			<?php } ?> 
 			title="<?php echo $photo->title; ?>" 
+			<?php if ( isset( $settings->lightbox_caption ) && 'yes' == $settings->lightbox_caption ) { ?>
 			data-caption="<?php echo $photo->caption; ?>"
+			<?php } ?>
 			data-description="<?php echo $photo->description; ?>" 
 			itemprop="contentUrl"
 		>

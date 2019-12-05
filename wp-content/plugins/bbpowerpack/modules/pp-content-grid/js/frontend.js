@@ -353,10 +353,12 @@
 			}
 
 			if ( ('load_more' !== self.settings.pagination && 'scroll' !== self.settings.pagination) || self.isFiltering ) {
-				var offsetTop = wrap.offset().top - 200;
-				$('html, body').stop().animate({
-					scrollTop: offsetTop
-				}, 300);
+				if ( self.settings.scrollTo ) {
+					var offsetTop = wrap.offset().top - 200;
+					$('html, body').stop().animate({
+						scrollTop: offsetTop
+					}, 300);
+				}
 			}
 
 			if ( self.isFiltering ) {

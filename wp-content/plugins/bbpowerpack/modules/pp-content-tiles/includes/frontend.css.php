@@ -12,17 +12,21 @@ if ( $settings->layout > 1 ) {
 	overflow: hidden;
 	height: <?php echo $settings->post_height + $settings->post_spacing; ?>px;
 }
-.fl-node-<?php echo $id; ?> .pp-post-tile-left,
-.fl-node-<?php echo $id; ?> .pp-post-tile-right {
-	float: left;
-	width: 50%;
-}
-<?php if ( $settings->layout == 4 ) { ?>
+
+<?php if ( '4' === $settings->layout ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-post-tile-left {
 		width: 75%;
+		float: left;
 	}
 	.fl-node-<?php echo $id; ?> .pp-post-tile-right {
 		width: 25%;
+		float: left;
+	}
+<?php } else { ?>
+	.fl-node-<?php echo $id; ?> .pp-post-tile-left,
+	.fl-node-<?php echo $id; ?> .pp-post-tile-right {
+		float: left;
+		width: 50%;
 	}
 <?php } ?>
 
@@ -32,16 +36,8 @@ if ( $settings->layout > 1 ) {
 .fl-node-<?php echo $id; ?> .pp-post-tile-small {
 	float: left;
 	height: <?php echo $settings->post_height - (($settings->post_height * $percent) / 100); ?>px;
-	width: calc(50% - <?php echo $settings->post_spacing; ?>px);
-	<?php if ( $settings->layout == 4 ) { ?>
-	width: 100%;
-	<?php } ?>
-}
-.fl-node-<?php echo $id; ?> .pp-post-col-25 .pp-post-tile-small {
-	width: calc(25% - <?php echo $settings->post_spacing; ?>px);
 }
 .fl-node-<?php echo $id; ?> .pp-post-col-50 .pp-post-tile-medium {
-	width: calc(50% - <?php echo $settings->post_spacing; ?>px);
 	float: left;
 }
 
@@ -137,30 +133,129 @@ FLBuilderCSS::typography_field_rule( array(
 	color: #<?php echo ( isset( $settings->text_color ) && !empty( $settings->text_color ) ) ? $settings->text_color : 'ffffff'; ?>;
     text-shadow: 1px 1px 1px rgba(0,0,0,.3);
 }
+<?php // New CSS ?>
+<?php
+	$post_spacing    = $settings->post_spacing / 2;
+	$post_spacing_25 = $post_spacing + ( $post_spacing / 2 );
+?>
+.fl-node-<?php echo $id; ?> .pp-post-tile-left .pp-post-tile-post-1 {
+	margin-right: <?php echo $post_spacing; ?>px;
+}
+.fl-node-<?php echo $id; ?> .pp-post-tile-right .pp-post-tile-small {
+	width: calc(50% - <?php echo $post_spacing_25; ?>px);
+}
+.fl-node-<?php echo $id; ?> .pp-post-tile-right .pp-post-tile-small,
+.fl-node-<?php echo $id; ?> .pp-post-tile-right .pp-post-tile-medium {
+	margin-right: <?php echo $post_spacing; ?>px;
+	margin-left: <?php echo $post_spacing; ?>px;
+}
+
+.fl-node-<?php echo $id; ?> .pp-tile-layout-1 .pp-post-tile-right .pp-post-tile-post-2 {
+	margin-right: 0;
+}
+.fl-node-<?php echo $id; ?> .pp-tile-layout-1 .pp-post-tile-right .pp-post-tile-post-4 {
+	margin-right: 0;
+}
+
+.fl-node-<?php echo $id; ?> .pp-tile-layout-2 .pp-post-tile-right .pp-post-tile-post-3,
+.fl-node-<?php echo $id; ?> .pp-tile-layout-2 .pp-post-tile-right .pp-post-tile-post-5 {
+	margin-right: 0px;
+}
+
+.fl-node-<?php echo $id; ?> .pp-tile-layout-3 .pp-post-tile-right .pp-post-tile-post-2,
+.fl-node-<?php echo $id; ?> .pp-tile-layout-3 .pp-post-tile-right .pp-post-tile-post-3 {
+	margin-right: 0px;
+}
+
+.fl-node-<?php echo $id; ?> .pp-tile-layout-4 .pp-post-tile-right .pp-post-tile-small {
+	width: 100%;
+	margin-right: 0px;
+}
+
+.fl-node-<?php echo $id; ?> .pp-post-tile-group.pp-post-col-50 .pp-post-tile-medium {
+	width: calc(50% - <?php echo $post_spacing; ?>px);
+}
+.fl-node-<?php echo $id; ?> .pp-post-tile-group.pp-post-col-50 .pp-post-tile-medium:nth-child(even) {
+	margin-right: 0;
+	margin-left: <?php echo $post_spacing; ?>px;
+}
+.fl-node-<?php echo $id; ?> .pp-post-tile-group.pp-post-col-50 .pp-post-tile-medium:nth-child(odd) {
+	margin-right: <?php echo $post_spacing; ?>px;
+}
+.fl-node-<?php echo $id; ?> .pp-post-tile-group.pp-post-col-25 .pp-post-tile-small {
+	width: calc(25% - <?php echo $post_spacing_25; ?>px);
+	margin-left: <?php echo $post_spacing; ?>px;
+	margin-right: <?php echo $post_spacing; ?>px;
+}
+.fl-node-<?php echo $id; ?> .pp-post-tile-group.pp-post-col-25 .pp-post-tile-small:nth-child(4n+1) {
+	margin-left: 0;
+}
+.fl-node-<?php echo $id; ?> .pp-post-tile-group.pp-post-col-25 .pp-post-tile-small:nth-child(4n) {
+	margin-right: 0;
+}
 
 @media only screen and (max-width: 768px) {
 	.fl-node-<?php echo $id; ?> .pp-post-tile-left,
 	.fl-node-<?php echo $id; ?> .pp-post-tile-right {
 		width: 100%;
 	}
-	.fl-node-<?php echo $id; ?> .pp-post-tile-group .pp-post-tile-post {
-		margin-right: <?php echo $settings->post_spacing; ?>px;
-	}
 	.fl-node-<?php echo $id; ?> .pp-post-tile-left .pp-post-tile-post,
 	.fl-node-<?php echo $id; ?> .pp-post-tile-right .pp-post-tile-post,
-	.fl-node-<?php echo $id; ?> .pp-post-tile-group .pp-post-tile-post:nth-child(2n) {
+	.fl-node-<?php echo $id; ?> .pp-post-tile-group.pp-post-col-50 .pp-post-tile-post:nth-child(2n),
+	.fl-node-<?php echo $id; ?> .pp-post-tile-group.pp-post-col-25 .pp-post-tile-post:nth-child(2n) {
 		margin-right: 0;
 	}
-	.fl-node-<?php echo $id; ?> .pp-post-col-50 .pp-post-tile-medium {
-		width: calc(50% - <?php echo $settings->post_spacing - 20; ?>px);
+	.fl-node-<?php echo $id; ?> .pp-post-tile-group.pp-post-col-50 .pp-post-tile-post:nth-child(2n+1),
+	.fl-node-<?php echo $id; ?> .pp-post-tile-group.pp-post-col-25 .pp-post-tile-post:nth-child(2n+1) {
+		margin-left: 0;
+	}
+	.fl-node-<?php echo $id; ?> .pp-post-tile-group.pp-post-col-50 .pp-post-tile-medium {
+		width: calc(50% - <?php echo $post_spacing_25; ?>px);
+	}
+	.fl-node-<?php echo $id; ?> .pp-post-tile-group.pp-post-col-25 .pp-post-tile-small {
+		width: calc(50% - <?php echo $post_spacing_25; ?>px);
+	}
+	.fl-node-<?php echo $id; ?> .pp-tile-layout-1 .pp-post-tile-left .pp-post-tile-post-1 {
+		margin-right: 0;
+	}
+	.fl-node-<?php echo $id; ?> .pp-tile-layout-1 .pp-post-tile-right .pp-post-tile-post-2 {
+		margin-left: 0;
+	}
+	.fl-node-<?php echo $id; ?> .pp-tile-layout-1 .pp-post-tile-right .pp-post-tile-post-3 {
+		margin-left: 0;
+		margin-right: <?php echo $post_spacing; ?>px;
+	}
+	.fl-node-<?php echo $id; ?> .pp-tile-layout-1 .pp-post-tile-right .pp-post-tile-small,
+	.fl-node-<?php echo $id; ?> .pp-tile-layout-2 .pp-post-tile-right .pp-post-tile-small {
+		width: calc(50% - <?php echo $post_spacing; ?>px);
+	}
+	.fl-node-<?php echo $id; ?> .pp-tile-layout-2 .pp-post-tile-right .pp-post-tile-post-2,
+	.fl-node-<?php echo $id; ?> .pp-tile-layout-2 .pp-post-tile-right .pp-post-tile-post-4 {
+		margin-right: <?php echo $post_spacing; ?>px;
+		margin-left: 0;
+	}
+	.fl-node-<?php echo $id; ?> .pp-tile-layout-3 .pp-post-tile-right .pp-post-tile-post,
+	.fl-node-<?php echo $id; ?> .pp-tile-layout-4 .pp-post-tile-right .pp-post-tile-post {
+		margin-left: 0;
+		margin-right: 0;
 	}
 }
 
 @media only screen and (max-width: 480px) {
-	.fl-node-<?php echo $id; ?> .pp-post-tile-small {
-		width: 100%;
+	.fl-node-<?php echo $id; ?> .pp-post-tile-small,
+	.fl-node-<?php echo $id; ?> .pp-post-tile-group.pp-post-col-25 .pp-post-tile-small {
+		width: 100% !important;
+		margin-left: 0px !important;
+		margin-right: 0px !important;
 	}
-	.fl-node-<?php echo $id; ?> .pp-post-col-50 .pp-post-tile-medium {
-		width: 100%;
+	.fl-node-<?php echo $id; ?> .pp-post-tile-medium,
+	.fl-node-<?php echo $id; ?> .pp-post-tile-group.pp-post-col-50 .pp-post-tile-medium {
+		width: 100% !important;
+		margin-left: 0px !important;
+		margin-right: 0px !important;
+	}
+	.fl-node-<?php echo $id; ?> .pp-post-tile-medium,
+	.fl-node-<?php echo $id; ?> .pp-post-tile-small {
+		height: <?php echo ( $settings->post_height * $percent ) / 100; ?>px;
 	}
 }

@@ -27,6 +27,7 @@ final class PPModuleExtend {
 			add_filter( 'fl_builder_register_settings_form',   	__CLASS__ . '::post_grid_settings', 10, 2 );
 			add_filter( 'fl_builder_render_css',               	__CLASS__ . '::post_grid_css', 10, 2 );
 			add_filter( 'pp_cg_module_layout_path', 			__CLASS__ . '::post_grid_layout_path', 10, 3 );
+			add_filter( 'pp_post_custom_layout_html', 			__CLASS__ . '::post_custom_html_parse_shortcodes', 1 );
 		}
 		add_action( 'wp_head', __CLASS__ . '::render_faq_schema' );
 	}
@@ -353,6 +354,16 @@ final class PPModuleExtend {
 		}
 
 		return $path;
+	}
+
+	static public function post_custom_html_parse_shortcodes( $content ) {
+		return FLThemeBuilderFieldConnections::parse_shortcodes(
+			$content,
+			array(
+				'wpbb-acf-flex',
+				'wpbb-acf-repeater',
+			)
+		);
 	}
 }
 

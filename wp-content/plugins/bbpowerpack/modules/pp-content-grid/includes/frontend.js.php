@@ -11,6 +11,7 @@ $breakpoints	= array(
 	'mobile'		=> empty( $global_settings->responsive_breakpoint ) ? '768' : $global_settings->responsive_breakpoint,
 	'tablet'		=> empty( $global_settings->medium_breakpoint ) ? '980' : $global_settings->medium_breakpoint,
 );
+$scrollTo		= apply_filters( 'pp_cg_scroll_to_grid_on_filter', true );
 ?>
 
 var ppcg_<?php echo $id; ?> = '';
@@ -24,6 +25,7 @@ var ppcg_<?php echo $id; ?> = '';
 		layout: '<?php echo $settings->layout; ?>',
 		style: '<?php echo $settings->post_grid_style_select; ?>',
 		ajaxUrl: '<?php echo admin_url( 'admin-ajax.php' ); ?>',
+		scrollTo: <?php echo $scrollTo ? 'true' : 'false'; ?>,
 		perPage: '<?php echo $settings->posts_per_page; ?>',
 		fields: <?php echo json_encode( $settings ); ?>,
 		pagination: '<?php echo $settings->pagination; ?>',
@@ -110,7 +112,8 @@ var ppcg_<?php echo $id; ?> = '';
 	var state = 0;
 	$(document).on('pp_expandable_row_toggle', function(e, selector) {
 		if ( selector.is('.pp-er-open') && state === 0 ) {
-			ppcg_<?php echo $id; ?> = new PPContentGrid( PPContentGridOptions );
+			//ppcg_<?php echo $id; ?> = new PPContentGrid( PPContentGridOptions );
+			$(ppcg_<?php echo $id; ?>.wrapperClass).isotope('layout');
 			state = 1;
 		}
 	});

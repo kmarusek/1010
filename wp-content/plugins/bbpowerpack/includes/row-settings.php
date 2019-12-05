@@ -1879,6 +1879,24 @@ function pp_background_toggle( $form, $id ){
 					'center bottom'     => __('Center Bottom', 'bb-powerpack'),
 				),
 			),
+			'bg_hide_tablet'    => array(
+				'type'    => 'pp-switch',
+				'label'   => __('Hide on Tablet', 'bb-powerpack'),
+				'default' => 'no',
+				'options' => array(
+					'yes' => __('Yes', 'bb-powerpack'),
+					'no'  => __('No', 'bb-powerpack'),
+				),
+			),
+			'bg_hide_mobile'    => array(
+				'type'    => 'pp-switch',
+				'label'   => __('Hide on Mobile', 'bb-powerpack'),
+				'default' => 'no',
+				'options' => array(
+					'yes' => __('Yes', 'bb-powerpack'),
+					'no'  => __('No', 'bb-powerpack'),
+				),
+			),
 		),
 	);
 

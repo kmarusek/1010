@@ -54,7 +54,6 @@ final class BB_PowerPack_Header_Footer {
 	 */
 	static public function init() {
 		add_filter( 'pp_admin_settings_tabs', 	__CLASS__ . '::render_settings_tab', 10, 1 );
-		add_action( 'pp_admin_settings_forms', 	__CLASS__ . '::render_settings' );
 		add_action( 'pp_admin_settings_save', 	__CLASS__ . '::save_settings' );
 
 		add_action( 'after_setup_theme', __CLASS__ . '::load' );
@@ -75,24 +74,12 @@ final class BB_PowerPack_Header_Footer {
 		$tabs[ self::SETTINGS_TAB ] = array(
 			'title'				=> esc_html__( 'Header / Footer', 'bb-powerpack' ),
 			'show'				=> ! is_network_admin() && ! BB_PowerPack_Admin_Settings::get_option( 'ppwl_hide_header_footer_tab' ),
+			'cap'				=> ! is_network_admin() ? 'manage_options' : 'manage_network_plugins',
+			'file'				=> BB_POWERPACK_DIR . 'includes/admin-settings-header-footer.php',
 			'priority'			=> 325,
 		);
 
 		return $tabs;
-	}
-
-	/**
-	 * Render settings.
-	 *
-	 * Adds settings form fields for Header / Footer tab.
-	 *
-	 * @since 2.7.1
-	 * @param string $current_tab Active tab.
-	 */
-	static public function render_settings( $current_tab ) {
-		if ( self::SETTINGS_TAB === $current_tab ) {
-			include BB_POWERPACK_DIR . 'includes/admin-settings-header-footer.php';
-		}
 	}
 
 	/**

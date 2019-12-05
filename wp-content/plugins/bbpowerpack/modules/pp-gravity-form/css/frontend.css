@@ -51,7 +51,7 @@
 }
 
 .pp-gf-content .gform_wrapper .gfield input[type="checkbox"]:focus, .pp-gf-content .gform_wrapper .gfield input[type="radio"]:focus {
-    width: auto !important;
+    width: auto;
     text-align: left !important;
 }
 

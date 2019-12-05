@@ -336,6 +336,9 @@ FLBuilderCSS::typography_field_rule( array(
 	color: #<?php echo $settings->matrix_text_color; ?>;
 	text-align: <?php echo $settings->matrix_alignment; ?>;
 }
+.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-col.pp-pricing-table-matrix .pp-pricing-table-column .pp-pricing-table-features li {
+	display: block;
+}
 
 /* All Items */
 .fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-features li {

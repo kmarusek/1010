@@ -174,46 +174,49 @@ class BB_PowerPack_Ajax {
 			'pp_content_grid'       => true,
 		);
 
-		if ( isset( $settings->posts_per_page ) ) {
-			$args['posts_per_page'] = $settings->posts_per_page;
-		}
+		if ( 'custom_query' === $settings->data_source ) {
 
-		// posts filter.
-		if ( isset( $settings->{'posts_' . $post_type} ) ) {
+			if ( isset( $settings->posts_per_page ) ) {
+				$args['posts_per_page'] = $settings->posts_per_page;
+			}
 
-			$ids = $settings->{'posts_' . $post_type};
-			$arg = 'post__in';
+			// posts filter.
+			if ( isset( $settings->{'posts_' . $post_type} ) ) {
 
-			if ( isset( $settings->{'posts_' . $post_type . '_matching'} ) ) {
-				if ( ! $settings->{'posts_' . $post_type . '_matching'} ) {
-					$arg = 'post__not_in';
+				$ids = $settings->{'posts_' . $post_type};
+				$arg = 'post__in';
+
+				if ( isset( $settings->{'posts_' . $post_type . '_matching'} ) ) {
+					if ( ! $settings->{'posts_' . $post_type . '_matching'} ) {
+						$arg = 'post__not_in';
+					}
+				}
+
+				if ( ! empty( $ids ) ) {
+					$args[ $arg ] = explode( ',', $ids );
 				}
 			}
 
-			if ( ! empty( $ids ) ) {
-				$args[ $arg ] = explode( ',', $ids );
-			}
-		}
+			// author filter.
+			if ( isset( $settings->users ) ) {
 
-		// author filter.
-		if ( isset( $settings->users ) ) {
+				$users = $settings->users;
+				$arg = 'author__in';
 
-			$users = $settings->users;
-			$arg = 'author__in';
-
-			// Set to NOT IN if matching is present and set to 0.
-			if ( isset( $settings->users_matching ) && ! $settings->users_matching ) {
-				$arg = 'author__not_in';
-			}
-
-			if ( ! empty( $users ) ) {
-				if ( is_string( $users ) ) {
-					$users = explode( ',', $users );
+				// Set to NOT IN if matching is present and set to 0.
+				if ( isset( $settings->users_matching ) && ! $settings->users_matching ) {
+					$arg = 'author__not_in';
 				}
 
-				$args[ $arg ] = $users;
+				if ( ! empty( $users ) ) {
+					if ( is_string( $users ) ) {
+						$users = explode( ',', $users );
+					}
+
+					$args[ $arg ] = $users;
+				}
 			}
-		}
+		} // End if().
 
 		if ( isset( $_POST['author_id'] ) && ! empty( $_POST['author_id'] ) ) {
 			$args['author__in'] = array( absint( wp_unslash( $_POST['author_id'] ) ) );
@@ -323,41 +326,43 @@ class BB_PowerPack_Ajax {
 			$args['paged'] = absint( wp_unslash( $_POST['page'] ) );
 		}
 
-		// Offset.
-		if ( isset( $settings->offset ) ) {
-			$page = isset( $args['paged'] ) ? $args['paged'] : 1;
-			$per_page = ( isset( $args['posts_per_page'] ) && $args['posts_per_page'] > 0 ) ? $args['posts_per_page'] : 10;
-			if ( $page < 2 ) {
-				$args['offset'] = absint( $settings->offset );
+		if ( 'custom_query' === $settings->data_source ) {
+			// Offset.
+			if ( isset( $settings->offset ) ) {
+				$page = isset( $args['paged'] ) ? $args['paged'] : 1;
+				$per_page = ( isset( $args['posts_per_page'] ) && $args['posts_per_page'] > 0 ) ? $args['posts_per_page'] : 10;
+				if ( $page < 2 ) {
+					$args['offset'] = absint( $settings->offset );
+				} else {
+					$args['offset'] = absint( $settings->offset ) + ( ( $page - 1 ) * $per_page );
+				}
+			}
+
+			// Order by author.
+			if ( 'author' === $settings->order_by ) {
+				$args['orderby'] = array(
+					'author' => $settings->order,
+					'date' => $settings->order,
+				);
 			} else {
-				$args['offset'] = absint( $settings->offset ) + ( ( $page - 1 ) * $per_page );
+				$args['orderby'] = $settings->order_by;
+
+				// Order by meta value arg.
+				if ( strstr( $settings->order_by, 'meta_value' ) ) {
+					$args['meta_key'] = $settings->order_by_meta_key;
+				}
+
+				if ( isset( $_POST['orderby'] ) ) {
+					$orderby = esc_attr( wp_unslash( $_POST['orderby'] ) );
+
+					$args = self::get_conditional_args( $orderby, $args );
+				}
+
+				if ( isset( $settings->order ) ) {
+					$args['order'] = $settings->order;
+				}
 			}
-		}
-
-		// Order by author.
-		if ( 'author' === $settings->order_by ) {
-			$args['orderby'] = array(
-				'author' => $settings->order,
-				'date' => $settings->order,
-			);
-		} else {
-			$args['orderby'] = $settings->order_by;
-
-			// Order by meta value arg.
-			if ( strstr( $settings->order_by, 'meta_value' ) ) {
-				$args['meta_key'] = $settings->order_by_meta_key;
-			}
-
-			if ( isset( $_POST['orderby'] ) ) {
-				$orderby = esc_attr( wp_unslash( $_POST['orderby'] ) );
-
-				$args = self::get_conditional_args( $orderby, $args );
-			}
-
-			if ( isset( $settings->order ) ) {
-				$args['order'] = $settings->order;
-			}
-		}
+		} // End if().
 
 		$args = apply_filters( 'pp_post_grid_ajax_query_args', $args );
 

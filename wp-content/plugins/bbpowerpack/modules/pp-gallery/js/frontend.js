@@ -89,6 +89,10 @@
 
 		_initLightbox: function()
 		{
+			if ( ! this.settings.lightbox ) {
+				return;
+			}
+
 			var id = this.id;
 			var options = {
 				modal			: false,
@@ -117,6 +121,8 @@
                     }
                     return caption;
                 };
+			} else {
+				options.caption = '';
 			}
 
 			if ( this.settings.lightboxThumbs ) {

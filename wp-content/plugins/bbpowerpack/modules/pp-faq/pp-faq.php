@@ -119,7 +119,7 @@ class PPFAQModule extends FLBuilderModule {
 
 	public static function get_general_fields() {
 		$fields = array(
-			'faq_source'    => array(
+			'faq_source' => array(
 				'type'    => 'select',
 				'label'   => __( 'Source', 'bb-powerpack' ),
 				'default' => '',
@@ -132,42 +132,16 @@ class PPFAQModule extends FLBuilderModule {
 						'fields' => array( 'items' ),
 					),
 					'post'   => array(
-						'fields' => array( 'post_slug', 'post_count', 'post_order' ),
+						'sections' => array( 'post_content' ),
 					),
 				),
 			),
-			'items'         => array(
+			'items'      => array(
 				'type'         => 'form',
 				'label'        => __( 'FAQ', 'bb-powerpack' ),
 				'form'         => 'pp_faq_items_form', // ID from registered form below
 				'preview_text' => 'faq_question', // Name of a field to use for the preview text
 				'multiple'     => true,
-			),
-			'post_slug'     => array(
-				'type'  => 'post-type',
-				'label' => __( 'Post type', 'bb-powerpack' ),
-			),
-			'post_count'    => array(
-				'type'    => 'unit',
-				'label'   => __( 'Total Number of Posts', 'bb-powerpack' ),
-				'default' => '10',
-				'slider'  => true,
-				'help'    => __( 'Leave Blank or add -1 for all posts.', 'bb-powerpack' ),
-			),
-			// 'category_name' => array(
-			// 	'type'        => 'text',
-			// 	'label'       => __( 'Filter posts by category', 'bb-powerpack' ),
-			// 	'connections' => array( 'string' ),
-			// 	'help'        => __( 'Filter posts by category. You can add multiple categories using "," (comma) separator.', 'bb-powerpack' ),
-			// ),
-			'post_order'    => array(
-				'type'    => 'pp-switch',
-				'label'   => __( 'Order', 'bb-powerpack' ),
-				'default' => 'ASC',
-				'options' => array(
-					'ASC'  => __( 'Ascending', 'bb-powerpack' ),
-					'DESC' => __( 'Descending', 'bb-powerpack' ),
-				),
 			),
 		);
 
@@ -230,21 +204,59 @@ class PPFAQModule extends FLBuilderModule {
 		}
 		$data = array();
 
-		$post_slug = ! empty( $this->settings->post_slug ) ? $this->settings->post_slug : '';
-		//$cat_name  = ! empty( $this->settings->category_name ) ? $this->settings->category_name : '';
+		$post_type = ! empty( $this->settings->post_slug ) ? $this->settings->post_slug : 'post';
 		$cpt_count = ! empty( $this->settings->post_count ) || '-1' !== $this->settings->post_count ? $this->settings->post_count : '-1';
 		$cpt_order = ! empty( $this->settings->post_order ) ? $this->settings->post_order : 'ASC';
 
+		$var_tax_type     = 'posts_' . $post_type . '_tax_type';
+		$tax_type         = '';
+		$var_cat_matching = '';
+		$var_cat          = '';
+
+		if ( isset( $this->settings->$var_tax_type ) ) {
+			$tax_type         = $this->settings->$var_tax_type;
+			$var_cat          = 'tax_' . $post_type . '_' . $tax_type;
+			$var_cat_matching = $var_cat . '_matching';
+		}
+
+		$cat_match = isset( $this->settings->$var_cat_matching ) ? $this->settings->$var_cat_matching : false;
+		$ids       = isset( $this->settings->$var_cat ) ? explode( ',', $this->settings->$var_cat ) : array();
+		$taxonomy  = isset( $tax_type ) ? $tax_type : '';
+		$tax_query = array();
+
+		if ( isset( $ids[0] ) && ! empty( $ids[0] ) ) {
+			if ( $cat_match && 'related' !== $cat_match ) {
+				$tax_query = array(
+					'relation' => 'AND',
+					array(
+						'taxonomy' => $taxonomy,
+						'field'    => 'term_id',
+						'terms'    => $ids,
+					),
+				);
+			} elseif ( ! $cat_match || 'related' === $cat_match ) {
+
+				$tax_query = array(
+					'relation' => 'AND',
+					array(
+						'taxonomy'    => $taxonomy,
+						'field'       => 'term_id',
+						'terms'       => $ids,
+						'operator'    => 'NOT IN', // exclude
+						'post_parent' => 0, // top level only
+					),
+				);
+			}
+		}
 		$posts = get_posts(
 			array(
-				'post_type'     => $post_slug,
-				'post_status'   => 'publish',
-				'numberposts'   => $cpt_count,
-				'order'         => $cpt_order,
-				//'category_name' => $cat_name,
+				'post_type'   => $post_type,
+				'post_status' => 'publish',
+				'numberposts' => $cpt_count,
+				'order'       => $cpt_order,
+				'tax_query'   => $tax_query,
 			)
 		);
-
 		foreach ( $posts as $row ) {
 			$item               = new stdClass;
 			$item->faq_question = isset( $row->post_title ) ? $row->post_title : '';
@@ -298,9 +310,12 @@ FLBuilder::register_module(
 					),
 				),
 				'faq_general'   => array(
-					'title'     => __( 'FAQ Items', 'bb-powerpack' ),
-					'collapsed' => true,
-					'fields'    => PPFAQModule::get_general_fields(),
+					'title'  => __( 'FAQ Items', 'bb-powerpack' ),
+					'fields' => PPFAQModule::get_general_fields(),
+				),
+				'post_content'  => array(
+					'title' => __( 'Content', 'bb-powerpack' ),
+					'file'  => BB_POWERPACK_DIR . 'modules/pp-faq/includes/loop-settings.php',
 				),
 				'faq_settings'  => array(
 					'title'     => __( 'Settings', 'bb-powerpack' ),

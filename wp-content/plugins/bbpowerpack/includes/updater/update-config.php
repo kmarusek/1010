@@ -205,11 +205,6 @@ function bb_powerpack_check_license() {
 	global $wp_version;
 
 	$license = bb_powerpack_get_license_key();
-	$license_status = trim( bb_powerpack_get( 'bb_powerpack_license_status' ) );
-
-	if ( '' == $license_status || 'invalid' == $license_status ) {
-		//return 'invalid';
-	}
 
 	$api_params = array(
 		'edd_action' => 'check_license',
@@ -244,7 +239,7 @@ function bb_powerpack_check_license() {
 		// delete license status.
 		bb_powerpack_delete( 'bb_powerpack_license_status' );
 
-		if ( 'site_inactive' === $license_data->license ) {
+		if ( in_array( $license_data->license, array( 'site_inactive' ) ) ) {
 			$response = bb_powerpack_license( 'activate_license' );
 
 			if ( ! is_wp_error( $response ) ) {
@@ -331,8 +326,8 @@ function bb_powerpack_license_messages( $status ) {
 			break;
 
 		default :
-
-			$message = __('An error occurred, please try again.', 'bb-powerpack');
+			// translators: %s for license status.
+			$message = sprintf( __('An error occurred, please try again. Status: %s', 'bb-powerpack'), $status );
 			break;
 	}
 

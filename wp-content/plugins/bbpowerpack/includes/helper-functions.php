@@ -87,9 +87,7 @@ function pp_get_upload_dir()
 
 			// Add an index file for security.
 			fl_builder_filesystem()->file_put_contents( $dir_info['path'] . 'index.html', '' );
-		}
 
-		if ( fl_builder_filesystem()->file_exists( $dir_info['path'] ) ) {
 			// Add .htaccess file.
 			fl_builder_filesystem()->file_put_contents( $dir_info['path'] . '.htaccess', $htaccess );
 		}
@@ -101,9 +99,7 @@ function pp_get_upload_dir()
 
 			// Add an index file for security.
 			file_put_contents( $dir_info['path'] . 'index.html', '' );
-		}
 
-		if ( file_exists( $dir_info['path'] ) ) {
 			// Add .htaccess file.
 			file_put_contents( $dir_info['path'] . '.htaccess', $htaccess );
 		}

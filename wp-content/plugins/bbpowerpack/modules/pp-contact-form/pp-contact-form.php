@@ -642,7 +642,7 @@ FLBuilder::register_module('PPContactFormModule', array(
 	                'form_bg_color'     => array(
 	                    'type'          => 'color',
 	                    'label'         => __('Background Color', 'bb-powerpack'),
-	                    'default'       => 'ffffff',
+	                    'default'       => '',
 						'show_reset'    => true,
 						'show_alpha'	=> true,
 						'connections'	=> array('color'),
@@ -1046,7 +1046,7 @@ FLBuilder::register_module('PPContactFormModule', array(
                     'input_placeholder_color'  => array(
                         'type'                  => 'color',
                         'label'                 => __('Color', 'bb-powerpack'),
-                        'default'               => 'eeeeee',
+                        'default'               => '',
 						'show_reset'            => true,
 						'connections'			=> array('color'),
                         'preview'               => array(
@@ -1281,6 +1281,20 @@ FLBuilder::register_module('PPContactFormModule', array(
 	'form_messages_setting' => array(
         'title' => __('Messages', 'bb-powerpack'),
         'sections'  => array(
+			'form_messages'	=> array(
+				'title'			=> '',
+				'fields'		=> array(
+					'error_message'	=> array(
+						'type'		=> 'text',
+						'label'		=> __( 'Error Message', 'bb-powerpack' ),
+						'default'	=> __( 'Message failed. Please try again.', 'bb-powerpack' ),
+						'preview'	=> array(
+							'type'		=> 'text',
+							'selector'	=> '.pp-send-error',
+						),
+					),
+				),
+			),
 			'form_error_styling'    => array( // Section
                 'title'             => __('Errors', 'bb-powerpack'), // Section Title
                 'fields'            => array( // Section Fields

@@ -531,7 +531,7 @@ if( !empty( $settings->background_hover_color ) || $settings->link_hover_color )
 /**
  * Sub Menu
  **/
-.fl-node-<?php echo $id; ?> .sub-menu {
+.fl-node-<?php echo $id; ?> .pp-advanced-menu .sub-menu {
 	<?php if ( ! empty( $settings->submenu_container_bg_color ) ) { ?>
 	background-color: <?php echo pp_get_color_value( $settings->submenu_container_bg_color ); ?>;
 	<?php } ?>

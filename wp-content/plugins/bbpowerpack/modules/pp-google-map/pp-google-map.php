@@ -176,7 +176,7 @@ FLBuilder::register_module(
 						),
 						'hide_tooltip'       => array(
 							'type'    => 'pp-switch',
-							'label'   => __( 'Hide all Tooltip on Load', 'bb-powerpack' ),
+							'label'   => __( 'Show Tooltips on Click', 'bb-powerpack' ),
 							'default' => 'no',
 							'options' => array(
 								'yes' => __( 'Yes', 'bb-powerpack' ),

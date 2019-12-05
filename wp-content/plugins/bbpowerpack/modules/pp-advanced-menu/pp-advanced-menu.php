@@ -1255,15 +1255,42 @@ class Advanced_Menu_Walker extends Walker_Nav_Menu {
         $submenu = $args->has_children ? ' pp-has-submenu' : '';
 
         $class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args, $depth ) );
-        $class_names = ' class="' . esc_attr( $class_names ) . $submenu . '"';
+		$class_names = ' class="' . esc_attr( $class_names ) . $submenu . '"';
+		
+		$item_id = apply_filters( 'pp_advanced_menu_item_id', 'menu-item-' . $item->ID, $item, $depth );
 
-        $output .= $indent . '<li id="menu-item-'. $item->ID . '"' . $value . $class_names . '>';
+        $output .= $indent . '<li id="'. $item_id . '"' . $value . $class_names . '>';
 
-        $attributes = ! empty( $item->attr_title ) ? ' title="' . esc_attr( $item->attr_title ) .'"' : '';
-        $attributes .= ! empty( $item->target ) ? ' target="' . esc_attr( $item->target ) .'"' : '';
-        $attributes .= ! empty( $item->xfn ) ? ' rel="' . esc_attr( $item->xfn ) .'"' : '';
-        $attributes .= ! empty( $item->url ) ? ' href="' . esc_attr( $item->url ) .'"' : '';
-		$attributes .= ' tabindex="0" role="link"';
+		$atts = array();
+
+		$atts['title'] = ! empty( $item->attr_title ) ? esc_attr( $item->attr_title ) : '';
+		$atts['target'] = ! empty( $item->target ) ? esc_attr( $item->target ) : '';
+		
+		if ( '_blank' === $item->target && empty( $item->xfn ) ) {
+			$atts['rel'] = 'noopener noreferrer';
+		} else {
+			$atts['rel'] = $item->xfn;
+		}
+
+		$atts['href'] = ! empty( $item->url ) ? $item->url : '';
+		$atts['aria-current'] = $item->current ? 'page' : '';
+
+		/**
+		 * Filters the HTML attributes applied to a menu item's anchor element.
+		 */
+		$atts = apply_filters( 'nav_menu_link_attributes', $atts, $item, $args, $depth );
+
+		$atts['tabindex'] 	= '0';
+		$atts['role'] 		= 'link';
+
+		$attributes = '';
+
+		foreach ( $atts as $attr => $value ) {
+			if ( is_scalar( $value ) && '' !== $value && false !== $value ) {
+				$value 		 = ( 'href' === $attr ) ? esc_url( $value ) : esc_attr( $value );
+				$attributes .= ' ' . $attr . '="' . $value . '"';
+			}
+		}
 
         $item_output = $args->has_children ? '<div class="pp-has-submenu-container">' : '';
         $item_output .= $args->before;

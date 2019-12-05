@@ -41,7 +41,9 @@
 					if ( 'manual' === $source ) {
 						echo $module->render_content( $items[ $i ] );
 					} else {
+						echo '<div itemprop="text">';
 						echo $items[ $i ]->content;
+						echo '</div>';
 					}
 				}
 				?>

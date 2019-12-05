@@ -106,8 +106,8 @@ $title_tag = isset( $settings->title_tag ) ? $settings->title_tag : 'h3';
 	<?php elseif($settings->success_action == 'none') : ?>
 		<span class="pp-success-none" style="display:none;"><?php esc_html_e( 'Message Sent!', 'bb-powerpack' ); ?></span>
 	<?php endif; ?>
-
-	<span class="pp-send-error" style="display:none;"><?php esc_html_e( 'Message failed. Please try again.', 'bb-powerpack' ); ?></span>
+	<?php $error_msg = isset( $settings->error_message ) && ! empty( $settings->error_message ) ? $settings->error_message : __( 'Message failed. Please try again.', 'bb-powerpack' ); ?>
+	<span class="pp-send-error" style="display:none;"><?php echo $error_msg; ?></span>
 </form>
 <?php if($settings->success_action == 'show_message') : ?>
   <span class="pp-success-msg" style="display:none;"><?php echo $settings->success_message; ?></span>

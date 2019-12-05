@@ -1,3 +1,8 @@
+.fl-node-<?php echo $id; ?> .pp-instagram-feed-carousel .pp-feed-item {
+	<?php if ( ! empty( $settings->image_custom_size ) ) { ?>
+	max-width: <?php echo $settings->image_custom_size; ?>px;
+	<?php } ?>
+}
 .fl-node-<?php echo $id; ?> .pp-instagram-feed-grid .pp-feed-item {
 	width: calc( 100% / <?php echo $settings->grid_columns; ?> );
 	<?php if ( ( 'grid' == $settings->feed_layout || 'square-grid' == $settings->feed_layout ) && '' != $settings->spacing ) { ?>
@@ -7,8 +12,6 @@
 		margin-bottom: <?php echo ( $settings->spacing / 2 ); ?>px;
 	<?php } ?>
 	float: left;
-	-webkit-transition: all 0.3s ease-in;
-	transition: all 0.3s ease-in;
 }
 
 .fl-node-<?php echo $id; ?> .pp-feed-item img,
@@ -18,7 +21,7 @@
 }
 
 <?php if ( 'yes' == $settings->image_grayscale ) { ?>
-	.fl-node-<?php echo $id; ?> .pp-feed-item .pp-feed-item-inner,
+	.fl-node-<?php echo $id; ?> .pp-instagram-feed[data-layout="square-grid"] .pp-feed-item .pp-feed-item-inner,
 	.fl-node-<?php echo $id; ?> .pp-feed-item img {
 		-webkit-filter: grayscale(100%);
 		filter: grayscale(100%);
@@ -26,7 +29,7 @@
 <?php } ?>
 
 <?php if ( 'yes' == $settings->image_hover_grayscale ) { ?>
-	.fl-node-<?php echo $id; ?> .pp-feed-item:hover .pp-feed-item-inner,
+	.fl-node-<?php echo $id; ?> .pp-instagram-feed[data-layout="square-grid"] .pp-feed-item:hover .pp-feed-item-inner,
 	.fl-node-<?php echo $id; ?> .pp-feed-item:hover img {
 		-webkit-filter: grayscale(100%);
 		filter: grayscale(100%);

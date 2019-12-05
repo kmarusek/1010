@@ -3,7 +3,7 @@
  * Plugin Name: PowerPack for Beaver Builder
  * Plugin URI: https://wpbeaveraddons.com
  * Description: A set of custom, creative, unique modules for Beaver Builder to speed up your web design and development process.
- * Version: 2.7.7.2
+ * Version: 2.7.7.7
  * Author: IdeaBox Creations
  * Author URI: https://ideaboxcreations.com
  * Copyright: (c) 2016 IdeaBox Creations
@@ -117,7 +117,7 @@ final class BB_PowerPack {
 	 * @return void
 	 */
 	private function define_constants() {
-		define( 'BB_POWERPACK_VER', '2.7.7.2' );
+		define( 'BB_POWERPACK_VER', '2.7.7.7' );
 		define( 'BB_POWERPACK_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'BB_POWERPACK_URL', plugins_url( '/', __FILE__ ) );
 		define( 'BB_POWERPACK_PATH', plugin_basename( __FILE__ ) );
@@ -239,6 +239,7 @@ final class BB_PowerPack {
 		wp_register_script( 'pp-facebook-sdk', pp_get_fb_sdk_url(), array(), '2.12', true );
 		wp_register_script( 'pp-twitter-widgets', BB_POWERPACK_URL . 'assets/js/twitter-widgets.js', array(), BB_POWERPACK_VER, true );
 		wp_register_script( 'instafeed', BB_POWERPACK_URL . 'assets/js/instafeed.min.js', array( 'jquery' ), BB_POWERPACK_VER, true );
+		wp_register_script( 'jquery-instagramfeed', BB_POWERPACK_URL . 'assets/js/jquery.instagramFeed.js', array( 'jquery' ), '1.2.0', true );
 		wp_register_script( 'jquery-isotope', BB_POWERPACK_URL . 'assets/js/isotope.pkgd.min.js', array( 'jquery' ), '3.0.1', true );
 		wp_register_script( 'jquery-colorbox', BB_POWERPACK_URL . 'assets/js/jquery.colorbox.js', array( 'jquery' ), '1.6.3', true );
 		wp_register_script( 'jquery-cookie', BB_POWERPACK_URL . 'assets/js/jquery.cookie.min.js', array( 'jquery' ), '1.4.1' );
@@ -290,7 +291,7 @@ final class BB_PowerPack {
 		?>
 		<style>
 		form[class*="fl-builder-pp-"] .fl-lightbox-header h1:before {
-			content: "<?php echo pp_get_admin_label(); ?> ";
+			content: "<?php echo pp_get_admin_label(); ?> " !important;
 			position: relative;
 			display: inline-block;
 			margin-right: 5px;

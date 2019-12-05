@@ -6,8 +6,16 @@
  * @package bb-powerpack
  */
 
+$status = self::get_option( 'bb_powerpack_license_status' );
+$license = self::get_option( 'bb_powerpack_license_key' );
+$licesne_status = bb_powerpack_check_license();
+if ( is_array( $licesne_status ) && isset( $licesne_status['message'] ) ) {
+	echo '<p style="color: red; background: #fff3f3; padding: 10px;">' . self::parse_error( $licesne_status['message'] ) . '</p>';
+	$licesne_status = $status;
+} else {
+	bb_powerpack_update( 'bb_powerpack_license_status', $licesne_status );
+}
 ?>
-
 <?php if ( is_network_admin() || ! is_multisite() ) { ?>
 
     <?php settings_fields( 'bb_powerpack_license' ); ?>
@@ -41,13 +49,13 @@
 						<?php esc_html_e( 'License Status', 'bb-powerpack' ); ?>
 					</th>
 					<td>
-						<?php if ( $status == 'valid' ) { ?>
+						<?php if ( $licesne_status == 'valid' ) { ?>
 							<span style="color: #267329; background: #caf1cb; padding: 5px 10px; text-shadow: none; border-radius: 3px; display: inline-block; text-transform: uppercase;"><?php esc_html_e('active'); ?></span>
 							<?php wp_nonce_field( 'bb_powerpack_nonce', 'bb_powerpack_nonce' ); ?>
 								<input type="submit" class="button-secondary" name="bb_powerpack_license_deactivate" value="<?php esc_html_e('Deactivate License', 'bb-powerpack'); ?>" />
 						<?php } else { ?>
-							<?php if ( $status == '' ) { $status = 'inactive'; } ?>
-							<span style="<?php echo $status == 'inactive' ? 'color: #fff; background: #b1b1b1;' : 'color: red; background: #ffcdcd;'; ?> padding: 5px 10px; text-shadow: none; border-radius: 3px; display: inline-block; text-transform: uppercase;"><?php echo $status; ?></span>
+							<?php if ( $licesne_status == '' ) { $licesne_status = 'inactive'; } ?>
+							<span style="<?php echo $licesne_status == 'inactive' ? 'color: #fff; background: #b1b1b1;' : 'color: red; background: #ffcdcd;'; ?> padding: 5px 10px; text-shadow: none; border-radius: 3px; display: inline-block; text-transform: uppercase;"><?php echo $licesne_status; ?></span>
 							<?php
 							wp_nonce_field( 'bb_powerpack_nonce', 'bb_powerpack_nonce' ); ?>
 							<input type="submit" class="button-secondary" name="bb_powerpack_license_activate" value="<?php esc_html_e( 'Activate License', 'bb-powerpack' ); ?>"/>

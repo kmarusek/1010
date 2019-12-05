@@ -422,7 +422,9 @@ FLBuilderCSS::typography_field_rule(
 	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox li input[type=checkbox],
 	.fl-node-<?php echo $id; ?> .gform_wrapper .gfield_checkbox li input[type=checkbox]:focus,
 	.fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_consent input[type=checkbox],
-	.fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_consent input[type=checkbox]:focus {
+	.fl-node-<?php echo $id; ?> .gform_wrapper .ginput_container_consent input[type=checkbox]:focus,
+	.fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper .gfield input[type="checkbox"]:focus,
+	.fl-node-<?php echo $id; ?> .pp-gf-content .gform_wrapper .gfield input[type="radio"]:focus {
 		-webkit-appearance: none;
 		-moz-appearance: none;
 		outline: none;

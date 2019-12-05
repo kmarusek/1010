@@ -15,6 +15,10 @@
 
 		_init: function()
 		{
+			if ( $( this.nodeClass ).find( '.pp-accordion-initialized' ).length > 0 ) {
+				return;
+			}
+
 			$( this.nodeClass + ' .pp-accordion-button' ).css('height', $( this.nodeClass + ' .pp-accordion-button' ).outerHeight() + 'px');
 			$( this.nodeClass + ' .pp-accordion-button' ).on('click', $.proxy( this._buttonClick, this ) );
 
@@ -23,6 +27,7 @@
 			this._hashChange();
 
 			$(window).on('hashchange', $.proxy( this._hashChange, this ));
+			$( this.nodeClass ).find( '.pp-accordion' ).addClass('pp-accordion-initialized');
 		},
 
 		_hashChange: function()

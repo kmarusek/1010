@@ -86,25 +86,54 @@ final class BB_PowerPack_Admin_Settings {
 		wp_enqueue_script( 'pp-admin-notices', BB_POWERPACK_URL . 'assets/js/admin.js', array( 'jquery' ), BB_POWERPACK_VER, true );
 	}
 
+	static public function menu() {
+		$admin_label = pp_get_admin_label();
+		$callback = __CLASS__ . '::render';
+		$slug = 'ppbb-settings';
+
+		// Add menu in network admin settings - multisite.
+		if ( current_user_can( 'manage_options' ) ) {
+			add_submenu_page( 'options-general.php', $admin_label, $admin_label, 'manage_options', $slug, $callback );
+		}
+
+		// Add menu in network admin settings - multisite.
+		if ( current_user_can( 'manage_network_plugins' ) ) {
+			add_submenu_page( 'settings.php', $admin_label, $admin_label, 'manage_network_plugins', $slug, $callback );
+		}
+	}
+
 	/**
 	 * Renders the admin settings menu.
 	 *
 	 * @since 1.1.5
 	 * @return void
 	 */
-	static public function menu() {
+	static public function _menu() {
 		$admin_label = pp_get_admin_label();
+		$slug = 'ppbb-settings';
 
-		if ( current_user_can( 'manage_options' ) ) {
+		// Add main menu.
+		add_menu_page( $admin_label, $admin_label, 'edit_posts', $slug, __CLASS__ . '::render' );
 
-			$title = $admin_label;
-			$cap   = 'manage_options';
-			$slug  = 'ppbb-settings';
-			$func  = __CLASS__ . '::render';
+		$tabs = self::get_tabs();
 
-			add_submenu_page( 'options-general.php', $title, $title, $cap, $slug, $func );
+		foreach ( $tabs as $tab_key => $tab ) {
+			$child_slug = 'admin.php?page=' . $slug . '&tab=' . $tab_key;
+			$cap 		= ! isset( $tab['cap'] ) ? 'manage_options' : $tab['cap'];
+			$render 	= ! isset( $tab['show'] ) ? true : $tab['show'];
+
+			if ( $render ) {
+				add_submenu_page( $slug, $tab['title'], $tab['title'], $cap, $child_slug );
+			}
 		}
 
+		// Remove parent menu added as submenu.
+		remove_submenu_page( $slug, $slug );
+
+		// Set the correct parent_file to highlight the correct top level menu.
+		add_filter( 'parent_file', __CLASS__ . '::parent_file' );
+
+		// Add menu in network admin settings - multisite.
 		if ( current_user_can( 'manage_network_plugins' ) ) {
 
 			$title = $admin_label;
@@ -112,8 +141,31 @@ final class BB_PowerPack_Admin_Settings {
 			$slug  = 'ppbb-settings';
 			$func  = __CLASS__ . '::render';
 
-			add_submenu_page( 'settings.php', $title, $title, $cap, $slug, $func );
+			//add_submenu_page( 'settings.php', $title, $title, $cap, $slug, $func );
 		}
+	}
+
+	/**
+	 * Set the correct parent_file to highlight the correct top level menu
+	 *
+	 * @param string $parent_file The parent file.
+	 *
+	 * @return mixed|string
+	 *
+	 * @since 2.7.8
+	 */
+	static public function parent_file( $parent_file ) {
+		global $submenu_file;
+
+		if ( 'ppbb-settings' === $parent_file ) {
+			if ( isset( $_GET['tab'] ) && ! empty( $_GET['tab'] ) ) {
+				$submenu_file = 'admin.php?page=ppbb-settings&tab=' . sanitize_text_field( $_GET['tab'] );
+			} else {
+				$submenu_file = 'admin.php?page=ppbb-settings&tab=general';
+			}
+		}
+
+		return $parent_file;
 	}
 
 	/**
@@ -126,6 +178,87 @@ final class BB_PowerPack_Admin_Settings {
 		include BB_POWERPACK_DIR . 'includes/admin-settings.php';
 	}
 
+	static public function render_setting_page() {
+		$tabs = self::get_tabs();
+		$current_tab = self::get_current_tab();
+
+		if ( isset( $tabs[ $current_tab ] ) ) {
+			$no_setting_file_msg = esc_html__( 'Setting page file could not be located.', 'bb-powerpack' );
+			
+			if ( ! isset( $tabs[ $current_tab ]['file'] ) || empty( $tabs[ $current_tab ]['file'] ) ) {
+				echo $no_setting_file_msg;
+				return;
+			}
+
+			if ( ! file_exists( $tabs[ $current_tab ]['file'] ) ) {
+				echo $no_setting_file_msg;
+				return;
+			}
+
+			$render = ! isset( $tabs[ $current_tab ]['show'] ) ? true : $tabs[ $current_tab ]['show'];
+			$cap = 'manage_options';
+
+			if ( isset( $tabs[ $current_tab ]['cap'] ) && ! empty( $tabs[ $current_tab ]['cap'] ) ) {
+				$cap = $tabs[ $current_tab ]['cap'];
+			} else {
+				$cap = ! is_network_admin() ? 'manage_options' : 'manage_network_plugins';
+			}
+
+			if ( ! $render || ! current_user_can( $cap ) ) {
+				esc_html_e( 'You do not have permission to view this setting.', 'bb-powerpack' );
+				return;
+			}
+
+			include $tabs[ $current_tab ]['file'];
+		}
+	}
+
+	/**
+	 * Get tabs for admin settings.
+	 *
+	 * @since 1.2.7
+	 * @return array
+	 */
+	static public function get_tabs() {
+		return apply_filters( 'pp_admin_settings_tabs', array(
+			'general'   => array(
+				'title'     => esc_html__( 'General', 'bb-powerpack' ),
+				'show'      => ( is_network_admin() || ! is_multisite() ),
+				'cap'		=> ! is_network_admin() ? 'manage_options' : 'manage_network_plugins',
+				'file'		=> BB_POWERPACK_DIR . 'includes/admin-settings-license.php',
+				'priority'  => 50,
+			),
+			'white-label'   => array(
+				'title'     => esc_html__( 'White Label', 'bb-powerpack' ),
+				'show'      => ( is_network_admin() || ! is_multisite() ) && ( ! self::get_option( 'ppwl_hide_form' ) || self::get_option( 'ppwl_hide_form' ) == 0 ),
+				'cap'		=> ! is_network_admin() ? 'manage_options' : 'manage_network_plugins',
+				'file'		=> BB_POWERPACK_DIR . 'includes/admin-settings-wl.php',
+				'priority'  => 100,
+			),
+			'templates' => array(
+				'title'     => esc_html__( 'Templates', 'bb-powerpack' ),
+				'show'      => ! self::get_option( 'ppwl_hide_templates_tab' ) || self::get_option( 'ppwl_hide_templates_tab' ) == 0,
+				'cap'		=> 'edit_posts',
+				'file'		=> BB_POWERPACK_DIR . 'includes/admin-settings-templates.php',
+				'priority'  => 200,
+			),
+			'extensions' => array(
+				'title'     => esc_html__( 'Extensions', 'bb-powerpack' ),
+				'show'      => true,
+				'cap'		=> ! is_network_admin() ? 'manage_options' : 'manage_network_plugins',
+				'file'		=> BB_POWERPACK_DIR . 'includes/admin-settings-extensions.php',
+				'priority'  => 250,
+			),
+			'integration'	=> array(
+				'title'			=> esc_html__( 'Integration', 'bb-powerpack' ),
+				'show'			=> ! self::get_option( 'ppwl_hide_integration_tab' ),
+				'cap'			=> ! is_network_admin() ? 'manage_options' : 'manage_network_plugins',
+				'file'			=> BB_POWERPACK_DIR . 'includes/admin-settings-integration.php',
+				'priority'  	=> 300,
+			),
+		) );
+	}
+
 	/**
 	 * Renders tabs for admin settings.
 	 *
@@ -133,33 +266,7 @@ final class BB_PowerPack_Admin_Settings {
 	 * @return void
 	 */
 	static public function render_tabs( $current_tab ) {
-		$tabs = apply_filters( 'pp_admin_settings_tabs', array(
-			'general'   => array(
-				'title'     => esc_html__( 'General', 'bb-powerpack' ),
-				'show'      => is_network_admin() || ! is_multisite(),
-				'priority'  => 50,
-			),
-			'white-label'   => array(
-				'title'     => esc_html__( 'White Label', 'bb-powerpack' ),
-				'show'      => ( is_network_admin() || ! is_multisite() ) && ( ! self::get_option( 'ppwl_hide_form' ) || self::get_option( 'ppwl_hide_form' ) == 0 ),
-				'priority'  => 100,
-			),
-			'templates' => array(
-				'title'     => esc_html__( 'Templates', 'bb-powerpack' ),
-				'show'      => ! self::get_option( 'ppwl_hide_templates_tab' ) || self::get_option( 'ppwl_hide_templates_tab' ) == 0,
-				'priority'  => 200,
-			),
-			'extensions' => array(
-				'title'     => esc_html__( 'Extensions', 'bb-powerpack' ),
-				'show'      => true,
-				'priority'  => 250,
-			),
-			'integration'	=> array(
-				'title'			=> esc_html__( 'Integration', 'bb-powerpack' ),
-				'show'			=> ! self::get_option( 'ppwl_hide_integration_tab' ),
-				'priority'  	=> 300,
-			),
-		) );
+		$tabs = self::get_tabs();
 
 		$sorted_data = array();
 
@@ -172,6 +279,9 @@ final class BB_PowerPack_Admin_Settings {
 
 		foreach ( $sorted_data as $data ) {
 			if ( $data['show'] ) {
+				if ( isset( $data['cap'] ) && ! current_user_can( $data['cap'] ) ) {
+					continue;
+				}
 				?>
 				<a href="<?php echo self::get_form_action( '&tab=' . $data['key'] ); ?>" class="nav-tab<?php echo ( $current_tab == $data['key'] ? ' nav-tab-active' : '' ); ?>"><?php echo $data['title']; ?></a>
 				<?php
@@ -352,6 +462,14 @@ final class BB_PowerPack_Admin_Settings {
 	 */
 	static public function add_error( $message ) {
 		self::$errors[] = $message;
+	}
+
+	static public function parse_error( $message ) {
+		if ( false !== strpos( $message, 'wpbeaveraddons' ) ) {
+			return esc_html__( 'Could not connect to the host.', 'bb-powerpack' );
+		}
+
+		return;
 	}
 
 	static public function is_network_admin() {
