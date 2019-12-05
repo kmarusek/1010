@@ -281,6 +281,10 @@ final class FLBuilderModel {
 					$_POST['fl_builder_data']['node_settings'] = FLBuilderUtils::modsec_fix_decode( $_POST['fl_builder_data']['node_settings'] );
 				}
 
+				if ( isset( $_POST['fl_builder_data']['node_preview'] ) ) {
+					$_POST['fl_builder_data']['node_preview'] = FLBuilderUtils::modsec_fix_decode( $_POST['fl_builder_data']['node_preview'] );
+				}
+
 				$data = FLBuilderUtils::json_decode_deep( wp_unslash( $_POST['fl_builder_data'] ) );
 
 				foreach ( $data as $key => $val ) {

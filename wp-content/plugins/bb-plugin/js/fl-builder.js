@@ -9322,6 +9322,10 @@
 				data.node_settings = FLBuilder._ajaxModSecFix( $.extend( true, {}, data.node_settings ) );
 			}
 
+			if ( 'undefined' != typeof data.node_preview ) {
+				data.node_preview = FLBuilder._ajaxModSecFix( $.extend( true, {}, data.node_preview ) );
+			}
+
 			data.settings      = FLBuilder._inputVarsCheck( data.settings );
 			data.node_settings = FLBuilder._inputVarsCheck( data.node_settings );
 

@@ -126,8 +126,7 @@ class FLSubscribeFormModule extends FLBuilderModule {
 	public function submit() {
 		$name             = isset( $_POST['name'] ) ? sanitize_text_field( $_POST['name'] ) : false;
 		$email            = isset( $_POST['email'] ) ? sanitize_email( $_POST['email'] ) : false;
-		$success_message  = isset( $_POST['success_message'] ) ? sanitize_text_field( $_POST['success_message'] ) : false;
-		$success_url      = isset( $_POST['success_url'] ) ? sanitize_text_field( $_POST['success_url'] ) : false;
+		$success_url      = isset( $_POST['success_url'] ) ? $_POST['success_url'] : '';
 		$terms_checked    = isset( $_POST['terms_checked'] ) && 1 == $_POST['terms_checked'] ? true : false;
 		$recaptcha        = isset( $_POST['recaptcha'] ) ? $_POST['recaptcha'] : false;
 		$post_id          = isset( $_POST['post_id'] ) ? $_POST['post_id'] : false;
@@ -189,8 +188,6 @@ class FLSubscribeFormModule extends FLBuilderModule {
 
 					// Success message.
 					if ( 'message' == $settings->success_action ) {
-						$result['message'] = $success_message;
-
 						// Existing email message.
 						if ( method_exists( $instance, 'subscriber_status' ) ) {
 							if ( in_array( $instance->subscriber_status(), array( 'subscribed', 'unsubscribed' ) ) ) {
