@@ -20,7 +20,7 @@
                 switch ($anim_settings->layer_enable) {
                     case "image":
                         ?>
-                            <li data-scrollalax-depth="<?php echo $anim_settings->layer_depth; ?>" class="AnimatedBackgrounds-layer AnimatedBackgrounds-layer--bob_<?php echo $anim_settings->layer_bob; ?>">
+                            <li data-scrollalax-depth="<?php echo $anim_settings->layer_depth; ?>" class="AnimatedBackgrounds-layer AnimatedBackgrounds-layer--bob_<?php echo $anim_settings->layer_bob; ?> AnimatedBackgrounds-layer--num_<?php echo $id; ?>">
                                 <div class="AnimatedBackgrounds-static_bg" style="background-image: url('<?php echo $anim_settings->layer_image_src; ?>');"></div>
                             </li>
                         <?php
