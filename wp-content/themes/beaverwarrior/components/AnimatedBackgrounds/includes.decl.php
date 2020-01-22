@@ -119,6 +119,30 @@ FLBuilder::register_settings_form('bw_anim_layer', array(
                             'label' => __("Background image", 'skeleton-warrior'),
                             'show_remove' => true
                         ),
+                        'layer_sizing' => array(
+                            'type' => 'select',
+                            'label' => __("Sizing", 'skeleton-warrior'),
+                            'default' => 'cover',
+                            'options' => array(
+                                'cover' => __("Cover the viewport", 'skeleton-warrior'),
+                                'contain' => __("Avoid clipping the image", 'skeleton-warrior'),
+                                'max-width' => __("Use a maximum width", 'skeleton-warrior')
+                            ),
+                            'default' => 'cover',
+                            'toggle' => array(
+                                'max-width' => array(
+                                    'fields' => array(
+                                        'layer_max_width'
+                                    )
+                                )
+                            )
+                        ),
+                        'layer_max_width' => array(
+                            'type' => 'unit',
+                            'label' => __("Maximum width", 'skeleton-warrior'),
+                            'responsive' => true,
+                            'description' => 'px',
+                        ),
                         'layer_animdata' => array(
                             'type' => 'textarea',
                             'label' => __("Animation data", 'skeleton-warrior'),
