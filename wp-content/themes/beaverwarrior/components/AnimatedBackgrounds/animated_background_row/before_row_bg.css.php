@@ -50,3 +50,17 @@
         transition: z-index 0s <?php echo $settings->bw_anim_load_fade; ?>s, opacity <?php echo $settings->bw_anim_load_fade; ?>s;
     }
 <?php } ?>
+
+<?php foreach ($settings->bw_anim_layers as $layer_id => $anim_settings) { ?>
+    .fl-node-<?php echo $id; ?> AnimatedBackgrounds-layer--num_<?php echo $layer_id; ?> .AnimatedBackgrounds-static_bg {
+        <?php if ($anim_settings->layer_bgsize === "max_width") { ?>
+            max-width: <?php echo $anim_settings->layer_max_width; ?>px;
+            margin: 0 auto;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: bottom;
+        <?php } else { ?>
+            background-size: <?php echo $anim_settings->layer_bgsize; ?>
+        <?php } ?>
+    }
+<?php } ?>
