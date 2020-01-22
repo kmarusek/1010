@@ -119,7 +119,7 @@ FLBuilder::register_settings_form('bw_anim_layer', array(
                             'label' => __("Background image", 'skeleton-warrior'),
                             'show_remove' => true
                         ),
-                        'layer_sizing' => array(
+                        'layer_bgsize' => array(
                             'type' => 'select',
                             'label' => __("Sizing", 'skeleton-warrior'),
                             'default' => 'cover',
