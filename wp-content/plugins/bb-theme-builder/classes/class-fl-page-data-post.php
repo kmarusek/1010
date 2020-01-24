@@ -107,6 +107,10 @@ final class FLPageDataPost {
 	static public function get_content() {
 		remove_filter( 'the_content', 'FLBuilder::render_content' );
 
+		if ( has_filter( 'the_content', '_restore_wpautop_hook' ) && ! has_filter( 'the_content', 'wpautop' ) ) {
+			add_filter( 'the_content', 'wpautop' );
+		}
+
 		$content = apply_filters( 'the_content', get_the_content() );
 
 		$content .= wp_link_pages( array(
@@ -398,9 +402,14 @@ final class FLPageDataPost {
 	 * @return string
 	 */
 	static public function get_author_name( $settings ) {
-
-		$user = get_userdata( self::get_author_id() );
+		global $post;
 		$name = '';
+
+		if ( ! isset( $post ) ) {
+			$user = get_userdata( self::get_author_id() );
+		} else {
+			$user = get_userdata( $post->post_author );
+		}
 
 		if ( ! $user ) {
 			return '';

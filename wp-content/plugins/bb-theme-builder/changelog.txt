@@ -1,3 +1,33 @@
+<h4>1.2.5 - 12/6/2019</h4>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+ 	<li>Fixed an issue with conditional logic and archives with no results</li>
+ 	<li>ACF: Fixed empty output issue with Page Link field when multiple values allowed</li>
+ 	<li>ACF: Fix relational fields not outputting in a repeater field</li>
+ 	<li>Fixed Post Module stripping out p tags when using classic editor</li>
+ 	<li>WooCommerce: Fixed double waitlist button with WooCommerce Waitlist extension</li>
+ 	<li>The Events Calendar:  Fix empty Event Category description</li>
+ 	<li>Fix wrong post info being pulled in on a singular layout</li>
+</ul>
+<strong>Enhancements</strong>
+<ul>
+ 	<li>New filter <code>fl_theme_builder_sticky_header_breakpoint</code> to change the sticky and shrink breakpoint for Header layout</li>
+</ul>
+
+<h4>1.2.4.4 - 10/30/2019</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Fixed possible fatal error when editing WooCommerce pages in wp-admin.</li>
+	<li>Fixed file permission issues with created bundle css/js files.</li>
+</ul>
+
+<h4>1.2.4.3 - 10/22/2019</h4>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fixed field connections showing defaults instead of connected value when editing a themer layout.</li>
+	<li>Fixed issue where WooCommerce options were showing when the plugin was not installed.</li>
+</ul>
+
 <h4>1.2.4.2 - 09/10/2019</h4>
 <p><strong>Bug Fixes</strong></p>
 <ul>

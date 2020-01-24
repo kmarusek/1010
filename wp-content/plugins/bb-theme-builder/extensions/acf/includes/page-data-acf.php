@@ -385,6 +385,7 @@ $form = array(
 		'options' => array(
 			'user'        => __( 'User', 'fl-theme-builder' ),
 			'post_object' => __( 'Post Object', 'fl-theme-builder' ),
+			'page_link'   => __( 'Page Link', 'fl-theme-builder' ),
 		),
 		'toggle'  => array(
 			'user' => array(
