@@ -5,7 +5,7 @@
  * @package Off Canvas Module
  */
 
-$version_bb_check = UABB_Compatibility::check_bb_version();
+$version_bb_check = UABB_Compatibility::$version_bb_check;
 
 $settings->page_overlay        = UABB_Helper::uabb_colorpicker( $settings, 'page_overlay', true );
 $settings->menu_color          = UABB_Helper::uabb_colorpicker( $settings, 'menu_color', true );
@@ -164,14 +164,14 @@ if ( isset( $settings->menu_bg_color_hover ) ) {
 }
 if ( isset( $settings->img_bg_color ) ) {
 	?>
-	.fl-node-<?php echo $id; ?>   .uabb-offcanvas-photo-wrap {
+	.fl-node-<?php echo $id; ?>   .uabb-offcanvas-photo-wrap .uabb-offcanvas-photo-content {
 	<?php echo ( '' !== $settings->img_bg_color ) ? 'background-color:' . $settings->img_bg_color . ';' : ''; ?>
 	}
 	<?php
 }
 if ( isset( $settings->img_bg_hover_color ) ) {
 	?>
-	.fl-node-<?php echo $id; ?>   .uabb-offcanvas-photo-wrap {
+	.fl-node-<?php echo $id; ?>   .uabb-offcanvas-photo-wrap .uabb-offcanvas-photo-content:hover {
 	<?php echo ( '' !== $settings->img_bg_hover_color ) ? 'background-color:' . $settings->img_bg_hover_color . ';' : ''; ?>
 	}
 	<?php
@@ -211,6 +211,9 @@ if ( 'button' === $settings->offcanvas_on ) {
 		'border_radius'              => $settings->btn_border_radius,
 		'align'                      => $settings->btn_align,
 		'mob_align'                  => $settings->btn_mob_align,
+		'button_padding_dimension'   => ( isset( $settings->button_padding_dimension ) ) ? $settings->button_padding_dimension : '',
+		'button_border'              => ( isset( $settings->button_border ) ) ? $settings->button_border : '',
+		'border_hover_color'         => ( isset( $settings->border_hover_color ) ) ? $settings->border_hover_color : '',
 	);
 	/* CSS Render Function */
 	FLBuilder::render_module_css( 'uabb-button', $id, $btn_settings );
@@ -273,6 +276,13 @@ if ( ! $version_bb_check ) {
 	}
 	<?php
 } else {
+	if ( 'default' === $settings->btn_style ) {
+		$button_typo = uabb_theme_button_typography( $settings->btn_typo );
+
+		$settings->btn_typo            = ( array_key_exists( 'desktop', $button_typo ) ) ? $button_typo['desktop'] : $settings->btn_typo;
+		$settings->btn_typo_medium     = ( array_key_exists( 'tablet', $button_typo ) ) ? $button_typo['tablet'] : $settings->btn_typo_medium;
+		$settings->btn_typo_responsive = ( array_key_exists( 'mobile', $button_typo ) ) ? $button_typo['mobile'] : $settings->btn_typo_responsive;
+	}
 	if ( class_exists( 'FLBuilderCSS' ) ) {
 		FLBuilderCSS::typography_field_rule(
 			array(
@@ -354,7 +364,7 @@ if ( ! $version_bb_check ) {
 	}
 }
 ?>
-.fl-node-<?php echo $id; ?> .uabb-offcanvas-photo-wrap {
+.fl-node-<?php echo $id; ?> .uabb-offcanvas-photo-wrap .uabb-offcanvas-photo-content {
 	<?php
 	if ( isset( $settings->img_padding ) ) {
 		echo ( '' !== $settings->img_padding ) ? 'padding:' . $settings->img_padding . 'px;' : '';

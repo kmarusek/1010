@@ -48,9 +48,9 @@ class InfoBannerModule extends FLBuilderModule {
 	 * @return object
 	 */
 	public function filter_settings( $settings, $helper ) {
-		$version_bb_check        = UABB_Compatibility::check_bb_version();
-		$page_migrated           = UABB_Compatibility::check_old_page_migration();
-		$stable_version_new_page = UABB_Compatibility::check_stable_version_new_page();
+		$version_bb_check        = UABB_Compatibility::$version_bb_check;
+		$page_migrated           = UABB_Compatibility::$uabb_migration;
+		$stable_version_new_page = UABB_Compatibility::$stable_version_new_page;
 
 		if ( $version_bb_check && ( 'yes' == $page_migrated || 'yes' == $stable_version_new_page ) ) {
 
@@ -823,7 +823,7 @@ class InfoBannerModule extends FLBuilderModule {
 	 */
 	public function render_button() {
 		if ( 'button' == $this->settings->cta_type ) {
-			if ( ! UABB_Compatibility::check_bb_version() ) {
+			if ( ! UABB_Compatibility::$version_bb_check ) {
 				$btn_settings = array(
 
 					/* General Section */
@@ -873,6 +873,13 @@ class InfoBannerModule extends FLBuilderModule {
 					'line_height_unit_responsive' => $this->settings->tbtn_line_height_unit_responsive,
 					'transform'                   => $this->settings->tbtn_content_transform,
 					'letter_spacing'              => $this->settings->tbtn_content_letter_spacing,
+					'button_padding_dimension'    => ( isset( $this->settings->button_padding_dimension ) ) ? $this->settings->button_padding_dimension : '',
+					'button_border_style'         => ( isset( $this->settings->button_border_style ) ) ? $this->settings->button_border_style : '',
+					'button_border_width'         => ( isset( $this->settings->button_border_width ) ) ? $this->settings->button_border_width : '',
+					'button_border_radius'        => ( isset( $this->settings->button_border_radius ) ) ? $this->settings->button_border_radius : '',
+					'button_border_color'         => ( isset( $this->settings->button_border_color ) ) ? $this->settings->button_border_color : '',
+
+					'border_hover_color'          => ( isset( $this->settings->border_hover_color ) ) ? $this->settings->border_hover_color : '',
 				);
 			} else {
 				$btn_settings = array(
@@ -918,6 +925,9 @@ class InfoBannerModule extends FLBuilderModule {
 					'button_typo'                => ( isset( $this->settings->btn_font_typo ) ) ? $this->settings->btn_font_typo : '',
 					'button_typo_medium'         => ( isset( $this->settings->btn_font_typo_medium ) ) ? $this->settings->btn_font_typo_medium : '',
 					'button_typo_responsive'     => ( isset( $this->settings->btn_font_typo_responsive ) ) ? $this->settings->btn_font_typo_responsive : '',
+					'button_padding_dimension'   => ( isset( $this->settings->button_padding_dimension ) ) ? $this->settings->button_padding_dimension : '',
+					'button_border'              => ( isset( $this->settings->button_border ) ) ? $this->settings->button_border : '',
+					'border_hover_color'         => ( isset( $this->settings->border_hover_color ) ) ? $this->settings->border_hover_color : '',
 				);
 			}
 			FLBuilder::render_module_html( 'uabb-button', $btn_settings );
@@ -929,7 +939,7 @@ class InfoBannerModule extends FLBuilderModule {
  * Condition to verify Beaver Builder version.
  * And accordingly render the required form settings file.
  */
-if ( UABB_Compatibility::check_bb_version() ) {
+if ( UABB_Compatibility::$version_bb_check ) {
 	require_once BB_ULTIMATE_ADDON_DIR . 'modules/info-banner/info-banner-bb-2-2-compatibility.php';
 } else {
 	require_once BB_ULTIMATE_ADDON_DIR . 'modules/info-banner/info-banner-bb-less-than-2-2-compatibility.php';

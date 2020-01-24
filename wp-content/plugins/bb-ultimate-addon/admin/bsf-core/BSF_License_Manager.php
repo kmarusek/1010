@@ -101,7 +101,7 @@ if ( ! class_exists( 'BSF_License_Manager' ) ) {
 			$response = wp_remote_post(
 				$path, array(
 					'body'    => $data,
-					'timeout' => '30',
+					'timeout' => '10',
 				)
 			);
 
@@ -111,7 +111,7 @@ if ( ! class_exists( 'BSF_License_Manager' ) ) {
 				$response = wp_remote_post(
 					$path, array(
 						'body'    => $data,
-						'timeout' => '30',
+						'timeout' => '8',
 					)
 				);
 			}
@@ -196,7 +196,7 @@ if ( ! class_exists( 'BSF_License_Manager' ) ) {
 			$response = wp_remote_post(
 				$path, array(
 					'body'    => $data,
-					'timeout' => '30',
+					'timeout' => '10',
 				)
 			);
 
@@ -207,7 +207,7 @@ if ( ! class_exists( 'BSF_License_Manager' ) ) {
 				$response = wp_remote_post(
 					$path, array(
 						'body'    => $data,
-						'timeout' => '30',
+						'timeout' => '8',
 					)
 				);
 			}
@@ -371,7 +371,7 @@ if ( ! class_exists( 'BSF_License_Manager' ) ) {
 				$response = wp_remote_post(
 					$path, array(
 						'body'    => $data,
-						'timeout' => '10',
+						'timeout' => '8',
 					)
 				);
 			}

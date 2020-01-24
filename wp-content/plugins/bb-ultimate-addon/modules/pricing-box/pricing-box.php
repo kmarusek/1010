@@ -57,7 +57,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 	 * @param var $column gets the value for the fields.
 	 */
 	public function render_button( $column ) {
-		if ( ! UABB_Compatibility::check_bb_version() ) {
+		if ( ! UABB_Compatibility::$version_bb_check ) {
 			$btn_settings = array(
 
 				'text'                        => $this->settings->pricing_columns[ $column ]->btn_text,
@@ -96,6 +96,14 @@ class UABBPricingTableModule extends FLBuilderModule {
 				'line_height_unit_medium'     => $this->settings->pricing_columns[ $column ]->button_typography_line_height_unit_medium,
 				'font_size_unit_responsive'   => $this->settings->pricing_columns[ $column ]->button_typography_font_size_unit_responsive,
 				'line_height_unit_responsive' => $this->settings->pricing_columns[ $column ]->button_typography_line_height_unit_responsive,
+
+				'button_padding_dimension'    => ( isset( $this->settings->pricing_columns[ $column ]->button_padding_dimension ) ) ? $this->settings->pricing_columns[ $column ]->button_padding_dimension : '',
+				'button_border_style'         => ( isset( $this->settings->pricing_columns[ $column ]->button_border_style ) ) ? $this->settings->pricing_columns[ $column ]->button_border_style : '',
+				'button_border_width'         => ( isset( $this->settings->pricing_columns[ $column ]->button_border_width ) ) ? $this->settings->pricing_columns[ $column ]->button_border_width : '',
+				'button_border_radius'        => ( isset( $this->settings->pricing_columns[ $column ]->button_border_radius ) ) ? $this->settings->pricing_columns[ $column ]->button_border_radius : '',
+				'button_border_color'         => ( isset( $this->settings->pricing_columns[ $column ]->button_border_color ) ) ? $this->settings->pricing_columns[ $column ]->button_border_color : '',
+
+				'border_hover_color'          => ( isset( $this->settings->pricing_columns[ $column ]->border_hover_color ) ) ? $this->settings->pricing_columns[ $column ]->border_hover_color : '',
 			);
 		} else {
 
@@ -132,6 +140,10 @@ class UABBPricingTableModule extends FLBuilderModule {
 				'button_typo_medium'         => ( isset( $this->settings->pricing_columns[ $column ]->button_typo_medium ) ) ? $this->settings->pricing_columns[ $column ]->button_typo_medium : '',
 
 				'button_typo_responsive'     => ( isset( $this->settings->pricing_columns[ $column ]->button_typo_responsive ) ) ? $this->settings->pricing_columns[ $column ]->button_typo_responsive : '',
+
+				'button_padding_dimension'   => ( isset( $this->settings->pricing_columns[ $column ]->button_padding_dimension ) ) ? $this->settings->pricing_columns[ $column ]->button_padding_dimension : '',
+				'button_border'              => ( isset( $this->settings->pricing_columns[ $column ]->button_border ) ) ? $this->settings->pricing_columns[ $column ]->button_border : '',
+				'border_hover_color'         => ( isset( $this->settings->pricing_columns[ $column ]->border_hover_color ) ) ? $this->settings->pricing_columns[ $column ]->border_hover_color : '',
 			);
 		}
 		FLBuilder::render_module_html( 'uabb-button', $btn_settings );
@@ -147,9 +159,9 @@ class UABBPricingTableModule extends FLBuilderModule {
 	 */
 	public function filter_settings( $settings, $helper ) {
 
-		$version_bb_check        = UABB_Compatibility::check_bb_version();
-		$page_migrated           = UABB_Compatibility::check_old_page_migration();
-		$stable_version_new_page = UABB_Compatibility::check_stable_version_new_page();
+		$version_bb_check        = UABB_Compatibility::$version_bb_check;
+		$page_migrated           = UABB_Compatibility::$uabb_migration;
+		$stable_version_new_page = UABB_Compatibility::$stable_version_new_page;
 
 		if ( $version_bb_check && ( 'yes' == $page_migrated || 'yes' == $stable_version_new_page ) ) {
 
@@ -1326,7 +1338,7 @@ class UABBPricingTableModule extends FLBuilderModule {
  *
  */
 
-if ( UABB_Compatibility::check_bb_version() ) {
+if ( UABB_Compatibility::$version_bb_check ) {
 	require_once BB_ULTIMATE_ADDON_DIR . 'modules/pricing-box/pricing-box-bb-2-2-compatibility.php';
 } else {
 	require_once BB_ULTIMATE_ADDON_DIR . 'modules/pricing-box/pricing-box-bb-less-than-2-2-compatibility.php';

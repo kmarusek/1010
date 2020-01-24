@@ -5,7 +5,7 @@
  *  @package UABB Image Icon Module
  */
 
-$version_bb_check = UABB_Compatibility::check_bb_version();
+$version_bb_check = UABB_Compatibility::$version_bb_check;
 
 if ( 'none' != $settings->image_type ) : // Condition contain whole Style.
 
@@ -135,7 +135,7 @@ if ( 'none' != $settings->image_type ) : // Condition contain whole Style.
 			<?php /* Border Style */ ?>
 			<?php if ( 'custom' == $settings->icon_style && 'none' != $settings->icon_border_style ) : ?>
 				border-style: <?php echo $settings->icon_border_style; ?>;
-				box-sizing:content-box;
+				box-sizing: border-box;
 
 				<?php if ( ! empty( $settings->icon_border_color ) ) : ?>
 					border-color: <?php echo $settings->icon_border_color; ?>;

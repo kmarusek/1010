@@ -58,9 +58,9 @@ class UABBCtaModule extends FLBuilderModule {
 	 */
 	public function filter_settings( $settings, $helper ) {
 
-		$version_bb_check        = UABB_Compatibility::check_bb_version();
-		$page_migrated           = UABB_Compatibility::check_old_page_migration();
-		$stable_version_new_page = UABB_Compatibility::check_stable_version_new_page();
+		$version_bb_check        = UABB_Compatibility::$version_bb_check;
+		$page_migrated           = UABB_Compatibility::$uabb_migration;
+		$stable_version_new_page = UABB_Compatibility::$stable_version_new_page;
 
 		if ( $version_bb_check && ( 'yes' == $page_migrated || 'yes' == $stable_version_new_page ) ) {
 
@@ -588,7 +588,7 @@ class UABBCtaModule extends FLBuilderModule {
 	 */
 	public function render_button() {
 
-		$version_bb_check = UABB_Compatibility::check_bb_version();
+		$version_bb_check = UABB_Compatibility::$version_bb_check;
 
 		if ( $version_bb_check ) {
 
@@ -649,6 +649,9 @@ class UABBCtaModule extends FLBuilderModule {
 				'button_typo'                => ( isset( $this->settings->btn_typo ) ) ? $this->settings->btn_typo : '',
 				'button_typo_medium'         => ( isset( $this->settings->btn_typo_medium ) ) ? $this->settings->btn_typo_medium : '',
 				'button_typo_responsive'     => ( isset( $this->settings->btn_typo_responsive ) ) ? $this->settings->btn_typo_responsive : '',
+				'button_padding_dimension'   => ( isset( $this->settings->button_padding_dimension ) ) ? $this->settings->button_padding_dimension : '',
+				'button_border'              => ( isset( $this->settings->button_border ) ) ? $this->settings->button_border : '',
+				'border_hover_color'         => ( isset( $this->settings->border_hover_color ) ) ? $this->settings->border_hover_color : '',
 
 			);
 
@@ -703,6 +706,13 @@ class UABBCtaModule extends FLBuilderModule {
 				'font_family'                 => $this->settings->btn_font_family,
 				'transform'                   => $this->settings->btn_transform,
 				'letter_spacing'              => $this->settings->btn_letter_spacing,
+				'button_padding_dimension'    => ( isset( $this->settings->button_padding_dimension ) ) ? $this->settings->button_padding_dimension : '',
+				'button_border_style'         => ( isset( $this->settings->button_border_style ) ) ? $this->settings->button_border_style : '',
+				'button_border_width'         => ( isset( $this->settings->button_border_width ) ) ? $this->settings->button_border_width : '',
+				'button_border_radius'        => ( isset( $this->settings->button_border_radius ) ) ? $this->settings->button_border_radius : '',
+				'button_border_color'         => ( isset( $this->settings->button_border_color ) ) ? $this->settings->button_border_color : '',
+
+				'border_hover_color'          => ( isset( $this->settings->border_hover_color ) ) ? $this->settings->border_hover_color : '',
 			);
 		}
 
@@ -715,7 +725,7 @@ class UABBCtaModule extends FLBuilderModule {
  * And accordingly render the required form settings file.
  */
 
-if ( UABB_Compatibility::check_bb_version() ) {
+if ( UABB_Compatibility::$version_bb_check ) {
 	require_once BB_ULTIMATE_ADDON_DIR . 'modules/uabb-call-to-action/uabb-call-to-action-bb-2-2-compatibility.php';
 } else {
 	require_once BB_ULTIMATE_ADDON_DIR . 'modules/uabb-call-to-action/uabb-call-to-action-bb-less-than-2-2-compatibility.php';

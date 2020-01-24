@@ -205,21 +205,23 @@ class UABBPhotoModule extends FLBuilderModule {
 	public function get_classes() {
 		$classes = array( 'uabb-photo-img' );
 
-		if ( ! empty( $this->settings->photo ) ) {
+		if ( 'library' === $this->settings->photo_source ) {
+			if ( ! empty( $this->settings->photo ) ) {
 
-			$data = self::get_data();
+				$data = self::get_data();
 
-			if ( is_object( $data ) ) {
+				if ( is_object( $data ) ) {
 
-				$classes[] = 'wp-image-' . $data->id;
+					$classes[] = 'wp-image-' . $data->id;
 
-				if ( isset( $data->sizes ) ) {
+					if ( isset( $data->sizes ) ) {
 
-					foreach ( $data->sizes as $key => $size ) {
+						foreach ( $data->sizes as $key => $size ) {
 
-						if ( $size->url == $this->settings->photo_src ) {
-							$classes[] = 'size-' . $key;
-							break;
+							if ( $size->url === $this->settings->photo_src ) {
+								$classes[] = 'size-' . $key;
+								break;
+							}
 						}
 					}
 				}
@@ -448,9 +450,9 @@ class UABBPhotoModule extends FLBuilderModule {
 	 */
 	public function filter_settings( $settings, $helper ) {
 
-		$version_bb_check        = UABB_Compatibility::check_bb_version();
-		$page_migrated           = UABB_Compatibility::check_old_page_migration();
-		$stable_version_new_page = UABB_Compatibility::check_stable_version_new_page();
+		$version_bb_check        = UABB_Compatibility::$version_bb_check;
+		$page_migrated           = UABB_Compatibility::$uabb_migration;
+		$stable_version_new_page = UABB_Compatibility::$stable_version_new_page;
 
 		if ( $version_bb_check && ( 'yes' == $page_migrated || 'yes' == $stable_version_new_page ) ) {
 			// Link handling.
@@ -504,7 +506,7 @@ class UABBPhotoModule extends FLBuilderModule {
  * And accordingly render the required form settings file.
  */
 
-if ( UABB_Compatibility::check_bb_version() ) {
+if ( UABB_Compatibility::$version_bb_check ) {
 	require_once BB_ULTIMATE_ADDON_DIR . 'modules/uabb-photo/uabb-photo-bb-2-2-compatibility.php';
 } else {
 	require_once BB_ULTIMATE_ADDON_DIR . 'modules/uabb-photo/uabb-photo-bb-less-than-2-2-compatibility.php';

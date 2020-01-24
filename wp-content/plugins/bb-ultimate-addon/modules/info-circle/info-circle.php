@@ -42,9 +42,9 @@ class UABBInfoCircleModule extends FLBuilderModule {
 	 */
 	public function filter_settings( $settings, $helper ) {
 
-		$version_bb_check        = UABB_Compatibility::check_bb_version();
-		$page_migrated           = UABB_Compatibility::check_old_page_migration();
-		$stable_version_new_page = UABB_Compatibility::check_stable_version_new_page();
+		$version_bb_check        = UABB_Compatibility::$version_bb_check;
+		$page_migrated           = UABB_Compatibility::$uabb_migration;
+		$stable_version_new_page = UABB_Compatibility::$stable_version_new_page;
 
 		if ( $version_bb_check && ( 'yes' == $page_migrated || 'yes' == $stable_version_new_page ) ) {
 
@@ -623,7 +623,7 @@ class UABBInfoCircleModule extends FLBuilderModule {
 	function render_cta( $item ) {
 
 		if ( 'button' == $item->desc_cta_type ) {
-			if ( ! UABB_Compatibility::check_bb_version() ) {
+			if ( ! UABB_Compatibility::$version_bb_check ) {
 				$btn_settings = array(
 
 					/* General Section */
@@ -673,6 +673,13 @@ class UABBInfoCircleModule extends FLBuilderModule {
 					'font_family'                 => $item->btn_font_family,
 					'transform'                   => $item->btn_transform,
 					'letter-spacing'              => $item->btn_letter_spacing,
+					'button_padding_dimension'    => ( isset( $item->button_padding_dimension ) ) ? $item->button_padding_dimension : '',
+					'button_border_style'         => ( isset( $item->button_border_style ) ) ? $item->button_border_style : '',
+					'button_border_width'         => ( isset( $item->button_border_width ) ) ? $item->button_border_width : '',
+					'button_border_radius'        => ( isset( $item->button_border_radius ) ) ? $item->button_border_radius : '',
+					'button_border_color'         => ( isset( $item->button_border_color ) ) ? $item->button_border_color : '',
+
+					'border_hover_color'          => ( isset( $item->border_hover_color ) ) ? $item->border_hover_color : '',
 				);
 			} else {
 				$btn_settings = array(
@@ -718,6 +725,10 @@ class UABBInfoCircleModule extends FLBuilderModule {
 					'button_typo'                => ( isset( $item->btn_font_typo ) ) ? $item->btn_font_typo : '',
 					'button_typo_medium'         => ( isset( $item->btn_font_typo_medium ) ) ? $item->btn_font_typo_medium : '',
 					'button_typo_responsive'     => ( isset( $item->btn_font_typo_responsive ) ) ? $item->btn_font_typo_responsive : '',
+
+					'button_padding_dimension'   => ( isset( $item->button_padding_dimension ) ) ? $item->button_padding_dimension : '',
+					'button_border'              => ( isset( $item->button_border ) ) ? $item->button_border : '',
+					'border_hover_color'         => ( isset( $item->border_hover_color ) ) ? $item->border_hover_color : '',
 				);
 			}
 			FLBuilder::render_module_html( 'uabb-button', $btn_settings );
@@ -736,7 +747,7 @@ $default_breakpoint = ( trim( UABB_Model_Helper::$bb_global_settings->medium_bre
  * Condition to verify Beaver Builder version.
  * And accordingly render the required form settings file.
  */
-if ( UABB_Compatibility::check_bb_version() ) {
+if ( UABB_Compatibility::$version_bb_check ) {
 	require_once BB_ULTIMATE_ADDON_DIR . 'modules/info-circle/info-circle-bb-2-2-compatibility.php';
 } else {
 	require_once BB_ULTIMATE_ADDON_DIR . 'modules/info-circle/info-circle-bb-less-than-2-2-compatibility.php';

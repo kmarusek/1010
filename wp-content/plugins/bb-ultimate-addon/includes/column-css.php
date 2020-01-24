@@ -45,17 +45,7 @@ function uabb_column_particle_css( $css, $nodes, $global_settings ) {
 			.fl-node-<?php echo $column->node; ?> .fl-module {
 				position: inherit;
 			}
-			<?php if ( ! FLBuilderModel::is_builder_active() ) { ?>
-				.fl-node-<?php echo $column->node; ?> .fl-module,
-				.fl-node-<?php echo $column->node; ?> .fl-module * {
-					z-index: 2;
-				}
-				.fl-col .uabb-col-particles-background {
-					z-index: 1;
-				}
-
-			<?php } ?>
-		<?php
+			<?php
 		}
 		$css .= ob_get_clean();
 	}
@@ -164,7 +154,7 @@ function uabb_column_gradient_css( $css, $nodes, $global_settings ) {
  * @param object $global_settings an object to get various settings.
  */
 function uabb_column_shadow_css( $css, $nodes, $global_settings ) {
-	$version_bb_check = UABB_Compatibility::check_bb_version();
+	$version_bb_check = UABB_Compatibility::$version_bb_check;
 	if ( $version_bb_check ) {
 		foreach ( $nodes['columns'] as $column ) {
 			ob_start();

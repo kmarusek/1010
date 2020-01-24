@@ -215,9 +215,9 @@ class UabbBusinessReview extends FLBuilderModule {
 	 */
 	public function get_google_api_call( $settings ) {
 
-		$placeid = $settings->google_place_id;
+		$place_id = $settings->google_place_id;
 
-		if ( '' === $placeid ) {
+		if ( '' === $place_id ) {
 			return;
 		}
 
@@ -226,12 +226,12 @@ class UabbBusinessReview extends FLBuilderModule {
 		if ( '' === $api_key || null === $api_key || false === $api_key ) {
 			return;
 		}
+		$add_query_arg = apply_filters( 'uabb_reviews_google_url_filter', array(
+			'key'     => $api_key,
+			'placeid' => $place_id,
+		) );
 
-		$url = add_query_arg(
-			array(
-				'key'     => $api_key,
-				'placeid' => $placeid,
-			),
+		$url = add_query_arg( $add_query_arg,
 			'https://maps.googleapis.com/maps/api/place/details/json'
 		);
 
@@ -239,7 +239,7 @@ class UabbBusinessReview extends FLBuilderModule {
 
 		$reviews = '';
 
-		$transient_name = 'uabb_reviews_' . $placeid;
+		$transient_name = 'uabb_reviews_' . $place_id;
 
 		$result = get_transient( $transient_name );
 
@@ -283,9 +283,9 @@ class UabbBusinessReview extends FLBuilderModule {
 	 */
 	public function get_google_reviews( $settings ) {
 
-		$placeid = $settings->google_place_id;
+		$place_id = $settings->google_place_id;
 
-		if ( '' === $placeid ) {
+		if ( '' === $place_id ) {
 			return;
 		}
 
@@ -298,7 +298,7 @@ class UabbBusinessReview extends FLBuilderModule {
 
 		$is_editor = FLBuilderModel::is_builder_active();
 
-		$transient_name = 'uabb_reviews_' . $placeid;
+		$transient_name = 'uabb_reviews_' . $place_id;
 
 		$admin_link = admin_url( 'options-general.php?page=uabb-builder-settings#uabb' );
 
@@ -1092,7 +1092,7 @@ if ( ! empty( $google_api_key ) && ! empty( $uabb_yelp_api_key ) ) {
  * And accordingly render the required form settings file.
  */
 
-if ( uabb_Compatibility::check_bb_version() ) {
+if ( UABB_Compatibility::$version_bb_check ) {
 	require_once BB_ULTIMATE_ADDON_DIR . 'modules/uabb-business-reviews/uabb-business-reviews-bb-2-2-compatibility.php';
 } else {
 	require_once BB_ULTIMATE_ADDON_DIR . 'modules/uabb-business-reviews/uabb-business-reviews-bb-less-than-2-2-compatibility.php';

@@ -96,15 +96,18 @@
 					auth2.attachClickHandler( 'uabb-google-login', {},
 
 						function( googleUser ) {
+		
 							var profile = googleUser.getBasicProfile();
 							var name =  profile.getName();
 							var email = profile.getEmail();
+							var id_token = googleUser.getAuthResponse().id_token;
 				
 							var data = {
 										'action'  : 'uabb-lf-google-submit',
 										'name'  : name,
 										'email' : email,
 										'nonce' : uabb_lf_nonce,
+										'security_string' : id_token
 									};
 							if( is_google_button_clicked === true ) {
 								
@@ -133,19 +136,22 @@
 			FB.login( function( response ) {
 
 				if ( response.status === 'connected' ) {
-
-					 FB.api( '/me', { fields: 'id, name, first_name, last_name, email,link, gender, locale, picture' },
+					 FB.api( '/me', { fields: 'id, email, name , first_name, last_name,link, gender, locale, picture' },
 					    function ( response ) {
-			
+				
+					 		var access_token =   FB.getAuthResponse()['accessToken'];
+					 		var userID =   FB.getAuthResponse()['userID'];
+	
 					        var fb_data = {
 					        	'action'  : 'uabb-lf-facebook-submit',
-								'id'  : response.id,
+								'userID'  : userID,
 								'name' : response.name,
 								'first_name' : response.first_name,
 								'last_name' : response.last_name,
 								'email' : response.email,
 								'link' : response.link,
 								'nonce' : uabb_lf_nonce,
+								'security_string' : access_token,
 							};
 
 					  	$.post( ajaxurl, fb_data, function( response ) {
@@ -159,6 +165,9 @@
 
 					console.log( 'Error: Not connected to facebook' );
 				}
+			} , {
+			    scope: 'email', 
+			    return_scopes: true
 			});
 		},
 		_googleClick: function()
