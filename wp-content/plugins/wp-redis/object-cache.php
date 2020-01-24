@@ -17,6 +17,10 @@ if ( ! defined( 'WP_REDIS_USE_CACHE_GROUPS' ) ) {
 	define( 'WP_REDIS_USE_CACHE_GROUPS', false );
 }
 
+if ( ! defined( 'WP_REDIS_DEFAULT_EXPIRE_SECONDS' ) ) {
+	define( 'WP_REDIS_DEFAULT_EXPIRE_SECONDS', 0 );
+}
+
 /**
  * Adds data to the cache, if the cache key doesn't already exist.
  *
@@ -29,7 +33,7 @@ if ( ! defined( 'WP_REDIS_USE_CACHE_GROUPS' ) ) {
  * @param int $expire When the cache data should be expired
  * @return bool False if cache key and group already exist, true on success
  */
-function wp_cache_add( $key, $data, $group = '', $expire = 0 ) {
+function wp_cache_add( $key, $data, $group = '', $expire = WP_REDIS_DEFAULT_EXPIRE_SECONDS ) {
 	global $wp_object_cache;
 
 	return $wp_object_cache->add( $key, $data, $group, (int) $expire );
@@ -171,7 +175,7 @@ function wp_cache_init() {
  * @param int $expire When to expire the cache contents
  * @return bool False if not exists, true if contents were replaced
  */
-function wp_cache_replace( $key, $data, $group = '', $expire = 0 ) {
+function wp_cache_replace( $key, $data, $group = '', $expire = WP_REDIS_DEFAULT_EXPIRE_SECONDS ) {
 	global $wp_object_cache;
 
 	return $wp_object_cache->replace( $key, $data, $group, (int) $expire );
@@ -189,7 +193,7 @@ function wp_cache_replace( $key, $data, $group = '', $expire = 0 ) {
  * @param int $expire When to expire the cache contents
  * @return bool False on failure, true on success
  */
-function wp_cache_set( $key, $data, $group = '', $expire = 0 ) {
+function wp_cache_set( $key, $data, $group = '', $expire = WP_REDIS_DEFAULT_EXPIRE_SECONDS ) {
 	global $wp_object_cache;
 
 	return $wp_object_cache->set( $key, $data, $group, (int) $expire );
@@ -383,7 +387,7 @@ class WP_Object_Cache {
 	 * @param int $expire When to expire the cache contents
 	 * @return bool False if cache key and group already exist, true on success
 	 */
-	public function add( $key, $data, $group = 'default', $expire = 0 ) {
+	public function add( $key, $data, $group = 'default', $expire = WP_REDIS_DEFAULT_EXPIRE_SECONDS ) {
 
 		if ( empty( $group ) ) {
 			$group = 'default';
@@ -574,7 +578,7 @@ class WP_Object_Cache {
 	public function flush( $redis = true ) {
 		$this->cache = array();
 		if ( $redis ) {
-			$this->_call_redis( 'flushAll' );
+			$this->_call_redis( 'flushdb' );
 		}
 
 		return true;
@@ -708,7 +712,7 @@ class WP_Object_Cache {
 	 * @param int $expire When to expire the cache contents
 	 * @return bool False if not exists, true if contents were replaced
 	 */
-	public function replace( $key, $data, $group = 'default', $expire = 0 ) {
+	public function replace( $key, $data, $group = 'default', $expire = WP_REDIS_DEFAULT_EXPIRE_SECONDS ) {
 
 		if ( empty( $group ) ) {
 			$group = 'default';
@@ -748,7 +752,7 @@ class WP_Object_Cache {
 	 * @param int $expire TTL for the data, in seconds
 	 * @return bool Always returns true
 	 */
-	public function set( $key, $data, $group = 'default', $expire = 0 ) {
+	public function set( $key, $data, $group = 'default', $expire = WP_REDIS_DEFAULT_EXPIRE_SECONDS ) {
 
 		if ( empty( $group ) ) {
 			$group = 'default';
@@ -998,14 +1002,18 @@ class WP_Object_Cache {
 		}
 		$client_parameters = $this->build_client_parameters( $redis_server );
 
-		$client_connection = array( $this, 'prepare_client_connection' );
-		/**
-		 * Permits alternate initial client connection mechanism to be used.
-		 *
-		 * @param callable $client_connection Callback to execute.
-		 */
-		$client_connection = apply_filters( 'wp_redis_prepare_client_connection_callback', $client_connection );
-		$this->redis       = call_user_func_array( $client_connection, array( $client_parameters ) );
+		try {
+			$client_connection = array( $this, 'prepare_client_connection' );
+			/**
+			 * Permits alternate initial client connection mechanism to be used.
+			 *
+			 * @param callable $client_connection Callback to execute.
+			 */
+			$client_connection = apply_filters( 'wp_redis_prepare_client_connection_callback', $client_connection );
+			$this->redis       = call_user_func_array( $client_connection, array( $client_parameters ) );
+		} catch ( Exception $e ) {
+			$this->_exception_handler( $e );
+		}
 
 		$keys_methods = array(
 			'auth'     => 'auth',
@@ -1040,7 +1048,7 @@ class WP_Object_Cache {
 	 */
 	public function check_client_dependencies() {
 		if ( ! class_exists( 'Redis' ) ) {
-			return 'Warning! PHPRedis module is unavailable, which is required by WP Redis object cache.';
+			return 'Warning! PHPRedis extension is unavailable, which is required by WP Redis object cache.';
 		}
 		return true;
 	}
@@ -1221,6 +1229,7 @@ class WP_Object_Cache {
 			case 'hDel':
 				return 1;
 			case 'flushAll':
+			case 'flushdb':
 			case 'IsConnected':
 			case 'exists':
 			case 'get':
@@ -1344,7 +1353,7 @@ class WP_Object_Cache {
 			$this->do_redis_failback_flush = (bool) $wpdb->get_results( "SELECT {$col2} FROM {$table} WHERE {$col1}='wp_redis_do_redis_failback_flush'" );
 			// @codingStandardsIgnoreEnd
 			if ( $this->is_redis_connected && $this->do_redis_failback_flush ) {
-				$ret = $this->_call_redis( 'flushAll' );
+				$ret = $this->_call_redis( 'flushdb' );
 				if ( $ret ) {
 					// @codingStandardsIgnoreStart
 					$wpdb->query( "DELETE FROM {$table} WHERE {$col1}='wp_redis_do_redis_failback_flush'" );
