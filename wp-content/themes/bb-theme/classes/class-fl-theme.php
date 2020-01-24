@@ -74,7 +74,7 @@ final class FLTheme {
 			return true;
 		} elseif ( 0 === stripos( get_option( 'siteurl' ), 'https://' ) ) {
 			return true;
-		} elseif ( isset( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && 'https' == $_SERVER['HTTP_X_FORWARDED_PROTO'] ) {
+		} elseif ( isset( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && 'https' === $_SERVER['HTTP_X_FORWARDED_PROTO'] ) {
 			return true;
 		}
 
@@ -195,7 +195,7 @@ final class FLTheme {
 
 		// jQuery
 		wp_enqueue_script( 'jquery-throttle', FL_THEME_URL . '/js/jquery.throttle.min.js', array( 'jquery' ), FL_THEME_VERSION, true );
-		if ( 'fadein' != self::get_setting( 'fl-fixed-header' ) ) {
+		if ( 'fadein' !== self::get_setting( 'fl-fixed-header' ) ) {
 			global $wp_version;
 			if ( version_compare( $wp_version, '4.6', '<' ) ) {
 				wp_register_script( 'imagesloaded', FL_THEME_URL . '/js/jquery.imagesloaded.min.js', array( 'jquery' ), FL_THEME_VERSION, true );
@@ -204,14 +204,14 @@ final class FLTheme {
 		}
 
 		// Lightbox
-		if ( self::get_setting( 'fl-lightbox' ) == 'enabled' ) {
+		if ( self::get_setting( 'fl-lightbox' ) === 'enabled' ) {
 			wp_enqueue_style( 'jquery-magnificpopup', FL_THEME_URL . '/css/jquery.magnificpopup.css', array(), FL_THEME_VERSION );
 			wp_enqueue_script( 'jquery-magnificpopup', FL_THEME_URL . '/js/jquery.magnificpopup.min.js', array(), FL_THEME_VERSION, true );
 		}
 
 		// FitVids
 		$body_classes = get_body_class();
-		if ( ! in_array( 'fl-builder', $body_classes ) ) {
+		if ( ! in_array( 'fl-builder', $body_classes, true ) ) {
 			wp_enqueue_script( 'jquery-fitvids', FL_THEME_URL . '/js/jquery.fitvids.js', array(), FL_THEME_VERSION, true );
 		}
 
@@ -241,11 +241,11 @@ final class FLTheme {
 		wp_localize_script( 'fl-automator', 'themeopts', self::get_theme_breakpoints() );
 
 		// Skin
-		if ( 'file' == FLTheme::get_asset_enqueue_method() ) {
+		if ( 'file' === FLTheme::get_asset_enqueue_method() ) {
 			wp_enqueue_style( 'fl-automator-skin', FLCustomizer::css_url(), array(), FL_THEME_VERSION );
 		} else {
 			wp_enqueue_style( 'bb-theme-style', get_stylesheet_uri() );
-			wp_add_inline_style( 'bb-theme-style', self::get_cached_css( true == FLCustomizer::is_customizer_preview() ? 'customizer' : 'skin' ) );
+			wp_add_inline_style( 'bb-theme-style', self::get_cached_css( true === FLCustomizer::is_customizer_preview() ? 'customizer' : 'skin' ) );
 		}
 
 		// RTL Support
@@ -321,7 +321,7 @@ final class FLTheme {
 	 */
 	static public function enqueue_fontawesome_legacy() {
 		if ( class_exists( 'FLBuilder' ) && method_exists( 'FLBuilder', 'get_fa5_url' ) ) {
-			if ( isset( FLBuilder::$fa4_url ) && '' == FLBuilder::$fa4_url ) {
+			if ( isset( FLBuilder::$fa4_url ) && '' === FLBuilder::$fa4_url ) {
 				wp_enqueue_style( 'font-awesome' );
 				return;
 			}
@@ -350,7 +350,7 @@ final class FLTheme {
 		));
 
 		// Footer Widgets
-		if ( 'disabled' != $footer_widgets_display ) {
+		if ( 'disabled' !== $footer_widgets_display ) {
 			register_sidebars( 4, array(
 				/* translators: %d: order number of the auto-created sidebar */
 				'name'          => _x( 'Footer Column %d', 'Sidebar title. %d stands for the order number of the auto-created sidebar, 4 in total.', 'fl-automator' ),
@@ -363,7 +363,7 @@ final class FLTheme {
 		}
 
 		// WooCommerce Sidebar
-		if ( 'no-sidebar' != $woo_layout && self::is_plugin_active( 'woocommerce' ) ) {
+		if ( 'no-sidebar' !== $woo_layout && self::is_plugin_active( 'woocommerce' ) ) {
 			register_sidebar( array(
 				'name'          => __( 'WooCommerce Sidebar', 'fl-automator' ),
 				'id'            => 'woo-sidebar',
@@ -450,7 +450,7 @@ final class FLTheme {
 		self::add_font( $settings['fl-nav-font-family'], $settings['fl-nav-font-weight'] );
 		self::add_font( $settings['fl-button-font-family'], $settings['fl-button-font-weight'] );
 
-		if ( 'text' == $settings['fl-logo-type'] ) {
+		if ( 'text' === $settings['fl-logo-type'] ) {
 			self::add_font( $settings['fl-logo-font-family'], $settings['fl-logo-font-weight'] );
 		}
 
@@ -471,7 +471,7 @@ final class FLTheme {
 
 		if ( isset( self::$fonts[ $name ] ) ) {
 			foreach ( (array) $variants as $variant ) {
-				if ( ! in_array( $variant, self::$fonts[ $name ]['variants'] ) ) {
+				if ( ! in_array( $variant, self::$fonts[ $name ]['variants'], true ) ) {
 					self::$fonts[ $name ]['variants'][] = $variant;
 				}
 			}
@@ -550,7 +550,7 @@ final class FLTheme {
 		}
 
 		// Width
-		if ( self::get_setting( 'fl-layout-width' ) == 'full-width' ) {
+		if ( self::get_setting( 'fl-layout-width' ) === 'full-width' ) {
 			$classes[] = 'fl-full-width';
 		} else {
 			$classes[] = 'fl-fixed-width';
@@ -560,22 +560,22 @@ final class FLTheme {
 		if ( $header_enabled ) {
 
 			// Nav Vertical Left
-			if ( self::get_setting( 'fl-header-layout' ) == 'vertical-left' ) {
+			if ( self::get_setting( 'fl-header-layout' ) === 'vertical-left' ) {
 				$classes[] = 'fl-nav-vertical fl-nav-vertical-left';
 			}
 
 			// Nav Vertical Right
-			if ( self::get_setting( 'fl-header-layout' ) == 'vertical-right' ) {
+			if ( self::get_setting( 'fl-header-layout' ) === 'vertical-right' ) {
 				$classes[] = 'fl-nav-vertical fl-nav-vertical-right';
 			}
 
 			// Nav Left
-			if ( self::get_setting( 'fl-header-layout' ) == 'left' ) {
+			if ( self::get_setting( 'fl-header-layout' ) === 'left' ) {
 				$classes[] = 'fl-nav-left';
 			}
 
 			// Responsive Nav Layout (Offcanvas)
-			if ( self::get_setting( 'fl-nav-mobile-layout' ) != 'dropdown' ) {
+			if ( self::get_setting( 'fl-nav-mobile-layout' ) !== 'dropdown' ) {
 				$nav_layout          = self::get_setting( 'fl-nav-mobile-layout' );
 				$nav_layout_position = self::get_setting( 'fl-nav-mobile-layout-position' );
 
@@ -583,34 +583,34 @@ final class FLTheme {
 			}
 
 			// Shrink Fixed Header
-			if ( ( self::get_setting( 'fl-fixed-header' ) == 'shrink' ) && ( self::get_setting( 'fl-header-layout' ) != 'vertical-left' ) && ( self::get_setting( 'fl-header-layout' ) != 'vertical-right' ) ) {
+			if ( ( self::get_setting( 'fl-fixed-header' ) === 'shrink' ) && ( self::get_setting( 'fl-header-layout' ) !== 'vertical-left' ) && ( self::get_setting( 'fl-header-layout' ) !== 'vertical-right' ) ) {
 				$classes[] = 'fl-shrink';
 			}
 
 			// Fixed Header
-			if ( ( self::get_setting( 'fl-fixed-header' ) == 'fixed' ) && ( self::get_setting( 'fl-header-layout' ) != 'vertical-left' ) && ( self::get_setting( 'fl-header-layout' ) != 'vertical-right' ) ) {
+			if ( ( self::get_setting( 'fl-fixed-header' ) === 'fixed' ) && ( self::get_setting( 'fl-header-layout' ) !== 'vertical-left' ) && ( self::get_setting( 'fl-header-layout' ) !== 'vertical-right' ) ) {
 				$classes[] = 'fl-fixed-header';
 			}
 
 			// Hide Header Until Scroll
-			if ( ( self::get_setting( 'fl-hide-until-scroll-header' ) == 'enable' ) && ( self::get_setting( 'fl-fixed-header' ) == 'hidden' ) && ( self::get_setting( 'fl-header-layout' ) != 'vertical-left' ) && ( self::get_setting( 'fl-header-layout' ) != 'vertical-right' ) ) {
+			if ( ( self::get_setting( 'fl-hide-until-scroll-header' ) === 'enable' ) && ( self::get_setting( 'fl-fixed-header' ) === 'hidden' ) && ( self::get_setting( 'fl-header-layout' ) !== 'vertical-left' ) && ( self::get_setting( 'fl-header-layout' ) !== 'vertical-right' ) ) {
 				$classes[] = 'fl-fixed-header';
 				$classes[] = 'fl-scroll-header';
 			}
 		}
 
 		// Footer Parallax Effect
-		if ( ( self::get_setting( 'fl-footer-parallax-effect' ) == 'enable' ) && ( self::get_setting( 'fl-layout-width' ) == 'full-width' ) ) {
+		if ( ( self::get_setting( 'fl-footer-parallax-effect' ) === 'enable' ) && ( self::get_setting( 'fl-layout-width' ) === 'full-width' ) ) {
 			$classes[] = 'fl-footer-effect';
 		}
 
 		// Scroll To Top Button
-		if ( self::get_setting( 'fl-scroll-to-top' ) == 'enable' ) {
+		if ( self::get_setting( 'fl-scroll-to-top' ) === 'enable' ) {
 			$classes[] = 'fl-scroll-to-top';
 		}
 
 		// Search Active
-		if ( self::get_setting( 'fl-header-nav-search' ) == 'visible' ) {
+		if ( self::get_setting( 'fl-header-nav-search' ) === 'visible' ) {
 			$classes[] = 'fl-search-active';
 		}
 
@@ -621,18 +621,18 @@ final class FLTheme {
 		}
 
 		// Submenu Indicator
-		if ( self::get_setting( 'fl-nav-submenu-indicator' ) == 'enable' ) {
+		if ( self::get_setting( 'fl-nav-submenu-indicator' ) === 'enable' ) {
 			FLTheme::enqueue_fontawesome();
 			$classes[] = 'fl-submenu-indicator';
 		}
 
 		// Submenu Toggle
-		if ( self::get_setting( 'fl-nav-submenu-toggle' ) == 'enable' ) {
+		if ( self::get_setting( 'fl-nav-submenu-toggle' ) === 'enable' ) {
 			$classes[] = 'fl-submenu-toggle';
 		}
 
 		// Responsive collapse menu items
-		if ( self::get_setting( 'fl-nav-collapse-menu' ) == '1' ) {
+		if ( self::get_setting( 'fl-nav-collapse-menu' ) === '1' ) {
 			$classes[] = 'fl-nav-collapse-menu';
 		}
 
@@ -685,7 +685,7 @@ final class FLTheme {
 		$top_bar_layout  = self::get_setting( 'fl-topbar-layout' );
 		$top_bar_enabled = apply_filters( 'fl_topbar_enabled', true );
 
-		if ( 'none' != $top_bar_layout && $top_bar_enabled ) {
+		if ( 'none' !== $top_bar_layout && $top_bar_enabled ) {
 			get_template_part( 'includes/top-bar' );
 		}
 	}
@@ -710,7 +710,7 @@ final class FLTheme {
 		$header_layout  = self::get_setting( 'fl-fixed-header' );
 		$nav_layout     = self::get_setting( 'fl-header-layout' );
 		$header_enabled = apply_filters( 'fl_fixed_header_enabled', true );
-		if ( 'fadein' == $header_layout && $header_enabled && 'vertical-left' != $nav_layout && 'vertical-right' != $nav_layout ) {
+		if ( 'fadein' === $header_layout && $header_enabled && 'vertical-left' !== $nav_layout && 'vertical-right' !== $nav_layout ) {
 			get_template_part( 'includes/fixed-header' );
 		}
 	}
@@ -728,7 +728,7 @@ final class FLTheme {
 		$sticky_retina = self::get_setting( 'fl-sticky-header-logo-retina' );
 		$header_fixed  = self::get_setting( 'fl-fixed-header' );
 
-		if ( $sticky_logo && 'fadein' == $header_fixed && 'image' == $logo_type ) {
+		if ( $sticky_logo && 'fadein' === $header_fixed && 'image' === $logo_type ) {
 			$logo_text  = apply_filters( 'fl_logo_text', get_bloginfo( 'name' ) );
 			$logo_title = apply_filters( 'fl_logo_title', '' );
 
@@ -752,7 +752,7 @@ final class FLTheme {
 		$header_layout  = self::get_setting( 'fl-header-layout' );
 		$header_enabled = apply_filters( 'fl_header_enabled', true );
 
-		if ( 'none' != $header_layout && $header_enabled ) {
+		if ( 'none' !== $header_layout && $header_enabled ) {
 			get_template_part( 'includes/nav-' . $header_layout );
 		}
 	}
@@ -783,7 +783,7 @@ final class FLTheme {
 	static public function header_data_attrs() {
 
 		// Scroll Distance
-		if ( self::get_setting( 'fl-hide-until-scroll-header' ) == 'enable' ) {
+		if ( self::get_setting( 'fl-hide-until-scroll-header' ) === 'enable' ) {
 			$scroll_distance = self::get_setting( 'fl-scroll-distance' );
 			echo ' data-fl-distance=' . $scroll_distance;
 		}
@@ -803,10 +803,10 @@ final class FLTheme {
 
 		do_action( 'fl_header_content_open' );
 
-		if ( 'text' == $layout || 'social-text' == $layout ) {
+		if ( 'text' === $layout || 'social-text' === $layout ) {
 			echo '<div class="fl-page-header-text">' . do_shortcode( $text ) . '</div>';
 		}
-		if ( 'social' == $layout || 'social-text' == $layout ) {
+		if ( 'social' === $layout || 'social-text' === $layout ) {
 			self::social_icons();
 		}
 
@@ -832,7 +832,7 @@ final class FLTheme {
 			$logo_text    = apply_filters( 'fl-logo-text', self::get_setting( 'fl-logo-text' ) ); // @codingStandardsIgnoreLine
 		}
 
-		if ( 'image' == $logo_type ) {
+		if ( 'image' === $logo_type ) {
 			$logo_text  = apply_filters( 'fl_logo_text', get_bloginfo( 'name' ) );
 			$logo_title = apply_filters( 'fl_logo_title', '' );
 
@@ -889,7 +889,7 @@ final class FLTheme {
 	static public function nav_search() {
 		$nav_search = self::get_setting( 'fl-header-nav-search' );
 
-		if ( 'visible' == $nav_search ) {
+		if ( 'visible' === $nav_search ) {
 			FLTheme::enqueue_fontawesome();
 			get_template_part( 'includes/nav-search' );
 		}
@@ -905,11 +905,11 @@ final class FLTheme {
 		$type = self::get_setting( 'fl-mobile-nav-toggle' );
 		$menu = self::get_setting( 'fl-mobile-nav-text' );
 
-		if ( 'icon' == $type ) {
+		if ( 'icon' === $type ) {
 			FLTheme::enqueue_fontawesome();
 			$text = sprintf( '<i class="fas fa-bars" aria-hidden="true"></i><span class="sr-only">%s</span>', __( 'Menu', 'fl-automator' ) );
 		} else {
-			$text = '' != $menu ? $menu : _x( 'Menu', 'Mobile navigation toggle button text.', 'fl-automator' );
+			$text = '' !== $menu ? $menu : _x( 'Menu', 'Mobile navigation toggle button text.', 'fl-automator' );
 		}
 
 		echo apply_filters( 'fl_nav_toggle_text', $text );
@@ -964,7 +964,7 @@ final class FLTheme {
 		$footer_layout  = self::get_setting( 'fl-footer-layout' );
 		$footer_enabled = apply_filters( 'fl_footer_enabled', true );
 
-		return $footer_enabled && ( self::has_footer_widgets() || 'none' != $footer_layout );
+		return $footer_enabled && ( self::has_footer_widgets() || 'none' !== $footer_layout );
 	}
 
 	/**
@@ -988,13 +988,13 @@ final class FLTheme {
 	static public function has_footer_widgets() {
 		$show = self::get_setting( 'fl-footer-widgets-display' );
 
-		if ( 'disabled' == $show || ( ! is_front_page() && 'home' == $show ) ) {
+		if ( 'disabled' === $show || ( ! is_front_page() && 'home' === $show ) ) {
 			return false;
 		}
 
 		for ( $i = 1; $i <= 4; $i++ ) {
 
-			$id = 1 == $i ? 'footer-col' : 'footer-col-' . $i;
+			$id = 1 === $i ? 'footer-col' : 'footer-col-' . $i;
 
 			if ( is_active_sidebar( $id ) ) {
 				return true;
@@ -1016,7 +1016,7 @@ final class FLTheme {
 
 		for ( $i = 1; $i <= 4; $i++ ) {
 
-			$id = 1 == $i ? 'footer-col' : 'footer-col-' . $i;
+			$id = 1 === $i ? 'footer-col' : 'footer-col-' . $i;
 
 			if ( is_active_sidebar( $id ) ) {
 				$active[] = $id;
@@ -1046,7 +1046,7 @@ final class FLTheme {
 	static public function footer() {
 		$footer_layout = self::get_setting( 'fl-footer-layout' );
 
-		if ( 'none' != $footer_layout ) {
+		if ( 'none' !== $footer_layout ) {
 			get_template_part( 'includes/footer' );
 		}
 	}
@@ -1119,30 +1119,30 @@ final class FLTheme {
 	static public function is_sidebar_enabled( $section = 'blog' ) {
 		$locations     = FLCustomizer::sanitize_checkbox_multiple( self::get_setting( 'fl-' . $section . '-sidebar-location' ) );
 		$post_types    = FLCustomizer::sanitize_checkbox_multiple( self::get_setting( 'fl-' . $section . '-sidebar-location-post-types' ) );
-		$is_woo        = ( 'woo' == $section && class_exists( 'WooCommerce' ) ) ? true : false;
+		$is_woo        = ( 'woo' === $section && class_exists( 'WooCommerce' ) ) ? true : false;
 		$show_sidebar  = false;
 		$get_post_type = get_query_var( 'post_type' );
-		if ( in_array( 'single', $locations ) && is_single() ) {
+		if ( in_array( 'single', $locations, true ) && is_single() ) {
 			$show_sidebar = true;
 
-			if ( in_array( 'all', $post_types ) ) {
+			if ( in_array( 'all', $post_types, true ) ) {
 				$show_sidebar = true;
 			} elseif ( ! is_singular( $post_types ) ) {
 				$show_sidebar = false;
 			}
 		}
-		if ( in_array( 'blog', $locations ) && is_home() ) {
+		if ( in_array( 'blog', $locations, true ) && is_home() ) {
 			$show_sidebar = true;
 		}
 
-		if ( in_array( 'search', $locations ) && is_search() ) {
+		if ( in_array( 'search', $locations, true ) && is_search() ) {
 			$show_sidebar = true;
 		}
 
-		if ( in_array( 'archive', $locations ) && is_archive() ) {
+		if ( in_array( 'archive', $locations, true ) && is_archive() ) {
 			$show_sidebar = true;
 
-			if ( in_array( 'all', $post_types ) ) {
+			if ( in_array( 'all', $post_types, true ) ) {
 				$show_sidebar = true;
 			} elseif ( ! empty( $get_post_type ) && ! is_post_type_archive( $post_types ) ) {
 				$show_sidebar = false;
@@ -1162,15 +1162,15 @@ final class FLTheme {
 			}
 		}
 
-		if ( $is_woo && is_shop() && in_array( 'shop', $locations ) ) {
+		if ( $is_woo && is_shop() && in_array( 'shop', $locations, true ) ) {
 			$show_sidebar = true;
 		}
 
-		if ( $is_woo && is_product() && in_array( 'single', $locations ) ) {
+		if ( $is_woo && is_product() && in_array( 'single', $locations, true ) ) {
 			$show_sidebar = true;
 		}
 
-		if ( $is_woo && is_product_category() && in_array( 'archive', $locations ) ) {
+		if ( $is_woo && is_product_category() && in_array( 'archive', $locations, true ) ) {
 			$show_sidebar = true;
 		}
 
@@ -1241,7 +1241,7 @@ final class FLTheme {
 		if ( function_exists( 'wp_pagenavi' ) ) {
 			wp_pagenavi();
 		} elseif ( $wp_query->max_num_pages > 1 ) {
-			echo '<nav class="fl-archive-nav clearfix">';
+			echo '<nav class="fl-archive-nav clearfix" role="navigation">';
 			echo '<div class="fl-archive-nav-prev">' . get_previous_posts_link( __( '&laquo; Newer Posts', 'fl-automator' ) ) . '</div>';
 			echo '<div class="fl-archive-nav-next">' . get_next_posts_link( __( 'Older Posts &raquo;', 'fl-automator' ) ) . '</div>';
 			echo '</nav>';
@@ -1289,10 +1289,10 @@ final class FLTheme {
 		global $post;
 
 		$settings      = self::get_settings();
-		$show_author   = 'visible' == $settings['fl-blog-post-author'] ? true : false;
-		$show_date     = 'visible' == $settings['fl-blog-post-date'] ? true : false;
-		$comments      = comments_open() || '0' != get_comments_number();
-		$comment_count = 'visible' == $settings['fl-blog-comment-count'] ? true : false;
+		$show_author   = 'visible' === $settings['fl-blog-post-author'] ? true : false;
+		$show_date     = 'visible' === $settings['fl-blog-post-date'] ? true : false;
+		$comments      = comments_open() || '0' !== get_comments_number();
+		$comment_count = 'visible' === $settings['fl-blog-comment-count'] ? true : false;
 
 		include locate_template( 'includes/post-top-meta.php' );
 	}
@@ -1306,9 +1306,9 @@ final class FLTheme {
 	static public function post_bottom_meta() {
 		$settings  = self::get_settings();
 		$show_full = $settings['fl-archive-show-full'];
-		$show_cats = 'visible' == $settings['fl-posts-show-cats'] ? true : false;
-		$show_tags = 'visible' == $settings['fl-posts-show-tags'] && get_the_tags() ? true : false;
-		$comments  = comments_open() || '0' != get_comments_number();
+		$show_cats = 'visible' === $settings['fl-posts-show-cats'] ? true : false;
+		$show_tags = 'visible' === $settings['fl-posts-show-tags'] && get_the_tags() ? true : false;
+		$comments  = comments_open() || '0' !== get_comments_number();
 
 		include locate_template( 'includes/post-bottom-meta.php' );
 	}
@@ -1335,7 +1335,7 @@ final class FLTheme {
 		echo '<div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">';
 		echo '<meta itemprop="name" content="' . get_bloginfo( 'name' ) . '">';
 
-		if ( 'image' == self::get_setting( 'fl-logo-type' ) ) {
+		if ( 'image' === self::get_setting( 'fl-logo-type' ) ) {
 			echo '<div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">';
 			echo '<meta itemprop="url" content="' . self::get_setting( 'fl-logo-image' ) . '">';
 			echo '</div>';
@@ -1379,7 +1379,7 @@ final class FLTheme {
 	static public function post_navigation() {
 		$show_nav = self::get_setting( 'fl-posts-show-nav' );
 
-		if ( 'visible' == $show_nav ) {
+		if ( 'visible' === $show_nav ) {
 			echo '<div class="fl-post-nav clearfix">';
 			previous_post_link( '<span class="fl-post-nav-prev">%link</span>', '&larr; %title' );
 			next_post_link( '<span class="fl-post-nav-next">%link</span>', '%title &rarr;' );
@@ -1422,7 +1422,7 @@ final class FLTheme {
 	 */
 	static public function woocommerce_wrapper_start() {
 		$layout          = self::get_setting( 'fl-woo-layout' );
-		$col_size        = ( 'no-sidebar' == $layout ) ? '12' : '8';
+		$col_size        = ( 'no-sidebar' === $layout ) ? '12' : '8';
 		$container_class = FLLayout::get_container_class();
 		$row_class       = FLLayout::get_row_class();
 
@@ -1500,7 +1500,7 @@ final class FLTheme {
 	static public function post_author_box() {
 		$allowable_types = apply_filters( 'post_author_box_types', array( 'post' ) );
 
-		if ( self::get_setting( 'fl-post-author-box' ) == 'visible' && is_single() && in_array( get_post_type(), $allowable_types ) ) {
+		if ( self::get_setting( 'fl-post-author-box' ) === 'visible' && is_single() && in_array( get_post_type(), $allowable_types, true ) ) {
 			get_template_part( 'content', 'author' );
 		}
 	}
@@ -1567,10 +1567,10 @@ final class FLTheme {
 	 * @since 1.7.3
 	 */
 	static public function nav_menu_start_el( $item_output, $item, $depth, $args ) {
-		if ( ! in_array( 'fl-theme-menu', explode( ' ', $args->menu_class ) ) ) {
+		if ( ! in_array( 'fl-theme-menu', explode( ' ', $args->menu_class ), true ) ) {
 			return $item_output;
 		}
-		if ( ! in_array( 'menu-item-has-children', $item->classes ) ) {
+		if ( ! in_array( 'menu-item-has-children', $item->classes, true ) ) {
 			return $item_output;
 		}
 

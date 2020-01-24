@@ -42,6 +42,6 @@ do_action( 'fl_body_open' );
 	do_action( 'fl_before_content' );
 
 	?>
-	<div id="fl-main-content" class="fl-page-content" itemprop="mainContentOfPage">
+	<div id="fl-main-content" class="fl-page-content" itemprop="mainContentOfPage" role="main">
 
 		<?php do_action( 'fl_content_open' ); ?>

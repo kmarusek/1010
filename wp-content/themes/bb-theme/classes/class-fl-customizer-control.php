@@ -280,11 +280,11 @@ final class FLCustomizerControl extends WP_Customize_Control {
 
 		$multi_values = ! is_array( $this->value() ) ? explode( ',', $this->value() ) : $this->value();
 
-		if ( isset( $this->choices['custom'] ) && 'post_types' == $this->choices['custom'] ) {
+		if ( isset( $this->choices['custom'] ) && 'post_types' === $this->choices['custom'] ) {
 			$choices = $this->get_checkbox_choices_post_types();
 
 			// Set all post types as default.
-			if ( 'all' == $this->value() ) {
+			if ( 'all' === $this->value() ) {
 				$multi_values = array_keys( $choices );
 			}
 		} else {
@@ -298,7 +298,7 @@ final class FLCustomizerControl extends WP_Customize_Control {
 				echo '<li>';
 					echo '<label>';
 						echo '<input type="checkbox" value="' . esc_attr( $value ) . '" ';
-								checked( in_array( $value, $multi_values ) );
+								checked( in_array( $value, $multi_values, true ) );
 						echo ' />';
 						echo esc_html( $label );
 					echo '</label>';

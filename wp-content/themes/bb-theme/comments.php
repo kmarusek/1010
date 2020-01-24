@@ -1,6 +1,6 @@
 <?php
 
-if ( ! comments_open() && '0' == get_comments_number() ) {
+if ( ! comments_open() && '0' === get_comments_number() ) {
 	return;
 }
 if ( post_password_required() ) {
@@ -46,7 +46,7 @@ if ( post_password_required() ) {
 		</ol>
 
 		<?php if ( get_comment_pages_count() > 1 ) : ?>
-		<nav class="fl-comments-list-nav clearfix">
+		<nav class="fl-comments-list-nav clearfix" role="navigation">
 			<div class="fl-comments-list-prev"><?php previous_comments_link(); ?></div>
 			<div class="fl-comments-list-next"><?php next_comments_link(); ?></div>
 		</nav>

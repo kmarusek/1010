@@ -174,7 +174,7 @@ final class FLFontFamilies {
 
 				foreach ( $font[ $name ]['variants'] as $key => $variant ) {
 
-					if ( 'regular' == $variant ) {
+					if ( 'regular' === $variant ) {
 						$font[ $name ]['variants'][ $key ] = '400';
 					}
 				}
@@ -194,7 +194,7 @@ final class FLFontFamilies {
 		$json = self::_get_json();
 		foreach ( $json as $k => $google ) {
 			$name = key( $google );
-			if ( $name == $font ) {
+			if ( $name === $font ) {
 				return $google[ $name ]['fallback'];
 			}
 		}

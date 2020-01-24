@@ -385,6 +385,24 @@ FLCustomizer::add_panel('fl-header', array(
 					),
 				),
 
+				/* Logo Max Height */
+				'fl-logo-max-height'          => array(
+					'setting' => array(
+						'default'   => '46',
+						'transport' => 'postMessage',
+					),
+					'control' => array(
+						'class'   => 'FLCustomizerControl',
+						'label'   => __( 'Logo Max Height', 'fl-automator' ),
+						'type'    => 'slider',
+						'choices' => array(
+							'min'  => 0,
+							'max'  => 200,
+							'step' => 1,
+						),
+					),
+				),
+
 				/* Hide Header Until Scroll */
 				'fl-hide-until-scroll-header' => array(
 					'setting' => array(
@@ -800,11 +818,7 @@ FLCustomizer::add_panel('fl-header', array(
 						'class'   => 'FLCustomizerControl',
 						'label'   => __( 'Font Size', 'fl-automator' ),
 						'type'    => 'slider',
-						'choices' => array(
-							'min'  => 14,
-							'max'  => 72,
-							'step' => 1,
-						),
+						'choices' => get_font_size_limits(),
 					),
 				),
 
@@ -1250,11 +1264,7 @@ FLCustomizer::add_panel('fl-header', array(
 						'class'   => 'FLCustomizerControl',
 						'label'   => __( 'Font Size', 'fl-automator' ),
 						'type'    => 'slider',
-						'choices' => array(
-							'min'  => 10,
-							'max'  => 25,
-							'step' => 1,
-						),
+						'choices' => get_font_size_limits(),
 					),
 				),
 			),

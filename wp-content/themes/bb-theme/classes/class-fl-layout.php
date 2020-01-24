@@ -238,9 +238,9 @@ final class FLLayout {
 		$sidebar_size = FLTheme::get_setting( 'fl-' . $section . '-sidebar-size' );
 		$content_size = '8';
 
-		if ( '2' == $sidebar_size ) {
+		if ( '2' === $sidebar_size ) {
 			$content_size = '10';
-		} elseif ( '3' == $sidebar_size ) {
+		} elseif ( '3' === $sidebar_size ) {
 			$content_size = '9';
 		}
 

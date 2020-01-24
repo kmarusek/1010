@@ -22,12 +22,12 @@ final class FLThemeShortcodes {
 			'format' => 'Y',
 		), $atts );
 
-		$date = date( $atts['format'] );
+		$date = gmdate( $atts['format'] );
 
 		$tz = get_option( 'timezone_string' );
 
 		if ( $tz ) {
-			$tzdate = new DateTime( date( 'Y-m-d H:i:s' ), new DateTimeZone( 'UTC' ) );
+			$tzdate = new DateTime( gmdate( 'Y-m-d H:i:s' ), new DateTimeZone( 'UTC' ) );
 			$tzdate->setTimezone( new DateTimeZone( $tz ) );
 			$date = $tzdate->format( $atts['format'] );
 		}

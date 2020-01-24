@@ -89,7 +89,7 @@ class FLWPEditor {
 		}
 
 		// Save the new css.
-		if ( 'file' == FLTheme::get_asset_enqueue_method() ) {
+		if ( 'file' === FLTheme::get_asset_enqueue_method() ) {
 			fl_theme_filesystem()->file_put_contents( $filename, $css );
 		} else {
 			FLTheme::update_cached_css( 'editor', $css );
@@ -142,7 +142,7 @@ class FLWPEditor {
 	static public function enqueue_styles() {
 		self::refresh_css();
 		$url = self::css_url();
-		if ( 'file' == FLTheme::get_asset_enqueue_method() ) {
+		if ( 'file' === FLTheme::get_asset_enqueue_method() ) {
 			wp_enqueue_style( 'fl-automator-editor', $url, array(), FL_THEME_VERSION );
 		} else {
 			wp_enqueue_style( 'bb-theme-style', get_stylesheet_uri() );

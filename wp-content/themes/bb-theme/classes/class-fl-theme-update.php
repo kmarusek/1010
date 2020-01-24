@@ -18,7 +18,7 @@ final class FLThemeUpdate {
 		add_action( 'fl_theme_updated', array( 'FLCustomizer', 'refresh_css' ) );
 
 		// Don't update for dev versions.
-		if ( '{FL_THEME_VERSION}' == FL_THEME_VERSION ) {
+		if ( '{FL_THEME_VERSION}' === FL_THEME_VERSION ) {
 			return;
 		}
 
@@ -200,7 +200,7 @@ final class FLThemeUpdate {
 
 			if ( isset( $key_map[ $key ] ) ) {
 
-				if ( in_array( $key, $color_keys ) && ! strstr( $val, '#' ) ) {
+				if ( in_array( $key, $color_keys, true ) && ! strstr( $val, '#' ) ) {
 					$val = '#' . $val;
 				} else {
 					$val = htmlspecialchars_decode( $val );
@@ -236,7 +236,7 @@ final class FLThemeUpdate {
 		self::v_1_3_1_update_colors( 'footer-widgets', $mods );
 		self::v_1_3_1_update_colors( 'footer', $mods );
 
-		if ( ! isset( $mods['fl-nav-text-type'] ) || ( isset( $mods['fl-nav-text-type'] ) && 'default' == $mods['fl-nav-text-type'] ) ) {
+		if ( ! isset( $mods['fl-nav-text-type'] ) || ( isset( $mods['fl-nav-text-type'] ) && 'default' === $mods['fl-nav-text-type'] ) ) {
 			set_theme_mod( 'fl-nav-font-family', $mods['fl-body-font-family'] );
 			set_theme_mod( 'fl-nav-font-weight', '400' );
 			set_theme_mod( 'fl-nav-font-format', 'none' );
@@ -260,11 +260,11 @@ final class FLThemeUpdate {
 			$bg_type = $mods[ 'fl-' . $slug . '-bg-type' ];
 		}
 
-		if ( 'none' == $bg_type ) {
+		if ( 'none' === $bg_type ) {
 			$bg   = '';
 			$text = FLColor::foreground( $mods['fl-body-bg-color'] );
 			$link = $text;
-		} elseif ( 'content' == $bg_type ) {
+		} elseif ( 'content' === $bg_type ) {
 			$bg   = $mods['fl-content-bg-color'];
 			$text = FLColor::foreground( $mods['fl-content-bg-color'] );
 			$link = $mods['fl-accent'];

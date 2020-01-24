@@ -16,7 +16,7 @@ final class FLColor {
 	 * @return bool
 	 */
 	static public function is_hex( $hex ) {
-		if ( 'transparent' == $hex || 'false' == $hex || '#' == $hex || empty( $hex ) ) {
+		if ( 'transparent' === $hex || 'false' === $hex || '#' === $hex || empty( $hex ) ) {
 			return false;
 		}
 
@@ -133,7 +133,7 @@ final class FLColor {
 	static public function clean_hex( $hex ) {
 		$hex = str_replace( '#', '', $hex );
 
-		if ( strlen( $hex ) == 3 ) {
+		if ( strlen( $hex ) === 3 ) {
 			$hex = str_repeat( substr( $hex, 0, 1 ), 2 ) . str_repeat( substr( $hex, 1, 1 ), 2 ) . str_repeat( substr( $hex, 2, 1 ), 2 );
 		}
 

@@ -130,7 +130,7 @@ class FL_Theme_Filesystem {
 
 		global $wp_filesystem;
 
-		if ( ! $wp_filesystem || 'direct' != $wp_filesystem->method ) {
+		if ( ! $wp_filesystem || 'direct' !== $wp_filesystem->method ) {
 			require_once ABSPATH . '/wp-admin/includes/file.php';
 
 			$context = apply_filters( 'request_filesystem_credentials_context', false );

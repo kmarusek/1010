@@ -17,7 +17,6 @@
 		init: function()
 		{
 			this._bind();
-			this._initRetinaImages();
 		},
 
 		/**
@@ -31,11 +30,6 @@
 		{
 			// Base Framework Nav Toggles
 			$( '.fl-framework-base .navbar-toggle, .fl-framework-base-4 .navbar-toggle' ).on( 'click', this.navbarToggleClick );
-
-			// Mobile Logo
-			if ( ! ( $( 'html.fl-builder-edit' ).length != 0 ) ) {
-				this._initMobileHeaderLogo();
-			}
 
 			// Top Nav Drop Downs
 			if($('.fl-page-bar-nav ul.sub-menu').length != 0) {
@@ -90,9 +84,6 @@
 				$(window).on('resize', $.throttle(500, this._shrinkHeaderEnable));
 				this._shrinkHeaderInit();
 				this._shrinkHeaderEnable();
-				$('.fl-page-header').imagesLoaded( function() {
-					$(window).trigger('resize')
-				});
 			}
 
 			// Fixed Header (Fade In)
@@ -105,9 +96,6 @@
 			if( ($('body.fl-fixed-header').length != 0) && !($('html.fl-builder-edit').length != 0) ) {
 				$(window).on('resize', $.throttle(500, this._fixedHeader));
 				this._fixedHeader();
-				$('.fl-page-header').imagesLoaded( function() {
-					$(window).trigger('resize')
-				});
 			}
 
 			// Hide Header Until Scroll
@@ -229,7 +217,7 @@
 						height = image.height();
 					}
 
-					image.css( 'max-height', height );
+				//image.css( 'max-height', height );
 					image.width( width );
 					image.attr( 'src', retinaSrc );
 				};
@@ -284,10 +272,8 @@
 
 					if ( '' != mobileSrc ) {
 						tmpImage.onload = function() {
-							image.width( tmpImage.width );
 							image.attr( 'src', mobileSrc );
 						};
-
 						tmpImage.src = src;
 						image.show();
 					}
@@ -517,7 +503,7 @@
 		{
 			var nav 		= $('.fl-page-nav .navbar-nav'),
 				targetId 	= typeof e !== 'undefined' ? $(e.target).prop('hash') : window.location.hash,
-				targetId    = targetId.replace( /(:|\.|\[|\]|,|=|@)/g, "\\$1" ),
+				targetId  = targetId.replace( /(:|\.|\[|\]|,|=|@|\/)/g, "\\$1" ),
 				currentLink = targetId.length ? nav.find('a[href*=\\'+ targetId +']:not([href=\\#])') : null;
 
 			if ( currentLink != null && $('body').find(targetId).length > 0 ) {
@@ -1014,6 +1000,11 @@
 			else {
 				header.css( 'position', 'initial' );
 			}
+
+			// Fix animations.
+			if ( 'undefined' != typeof Waypoint ) {
+				Waypoint.refreshAll();
+			}
 		},
 
 		/**
@@ -1484,5 +1475,11 @@
 	$(function(){
 		FLTheme.init();
 	});
+
+	// Mobile Logo
+	if ( ! ( $( 'html.fl-builder-edit' ).length !== 0 ) ) {
+		FLTheme._initMobileHeaderLogo();
+	}
+	FLTheme._initRetinaImages();
 
 })(jQuery);

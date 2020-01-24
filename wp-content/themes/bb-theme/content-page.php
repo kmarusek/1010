@@ -2,7 +2,7 @@
 <article <?php post_class( 'fl-post' ); ?> id="fl-post-<?php the_ID(); ?>"<?php FLTheme::print_schema( ' itemscope="itemscope" itemtype="https://schema.org/CreativeWork"' ); ?>>
 
 	<?php if ( FLTheme::show_post_header() ) : ?>
-	<header class="fl-post-header">
+	<header class="fl-post-header" role="banner">
 		<h1 class="fl-post-title" itemprop="headline"><?php the_title(); ?></h1>
 		<?php edit_post_link( _x( 'Edit', 'Edit page link text.', 'fl-automator' ) ); ?>
 	</header><!-- .fl-post-header -->

@@ -13,7 +13,7 @@
 		</div><!-- .comment-meta -->
 
 		<div class="comment-content clearfix">
-			<?php if ( '0' == $comment->comment_approved ) : ?>
+			<?php if ( '0' === $comment->comment_approved ) : ?>
 				<p class="comment-moderation"><?php esc_html_e( 'Your comment is awaiting moderation.', 'fl-automator' ); ?></p>
 			<?php endif; ?>
 			<?php comment_text(); ?>

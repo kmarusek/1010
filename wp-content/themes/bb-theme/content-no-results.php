@@ -1,7 +1,7 @@
 <?php do_action( 'fl_before_post' ); ?>
 <article class="fl-post">
 
-	<header class="fl-post-header">
+	<header class="fl-post-header" role="banner">
 		<h2 class="fl-post-title"><?php _e( 'Nothing Found', 'fl-automator' ); ?></h2>
 	</header><!-- .fl-post-header -->
 <?php do_action( 'fl_before_post_content' ); ?>

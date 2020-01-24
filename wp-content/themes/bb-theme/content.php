@@ -10,7 +10,7 @@ do_action( 'fl_before_post' ); ?>
 <article <?php post_class( 'fl-post' ); ?> id="fl-post-<?php the_ID(); ?>"<?php FLTheme::print_schema( ' itemscope="itemscope" itemtype="https://schema.org/BlogPosting"' ); ?>>
 
 	<?php if ( has_post_thumbnail() && ! empty( $show_thumbs ) ) : ?>
-		<?php if ( 'above-title' == $show_thumbs ) : ?>
+		<?php if ( 'above-title' === $show_thumbs ) : ?>
 		<div class="fl-post-thumb">
 			<a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>">
 				<?php
@@ -23,7 +23,7 @@ do_action( 'fl_before_post' ); ?>
 		<?php endif; ?>
 	<?php endif; ?>
 
-	<header class="fl-post-header">
+	<header class="fl-post-header" role="banner">
 		<h2 class="fl-post-title" itemprop="headline">
 			<a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a>
 			<?php edit_post_link( _x( 'Edit', 'Edit post link text.', 'fl-automator' ) ); ?>
@@ -32,7 +32,7 @@ do_action( 'fl_before_post' ); ?>
 	</header><!-- .fl-post-header -->
 
 	<?php if ( has_post_thumbnail() && ! empty( $show_thumbs ) ) : ?>
-		<?php if ( 'above' == $show_thumbs ) : ?>
+		<?php if ( 'above' === $show_thumbs ) : ?>
 		<div class="fl-post-thumb">
 			<a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>">
 				<?php the_post_thumbnail( $thumb_size ); ?>
@@ -40,7 +40,7 @@ do_action( 'fl_before_post' ); ?>
 		</div>
 		<?php endif; ?>
 
-		<?php if ( 'beside' == $show_thumbs ) : ?>
+		<?php if ( 'beside' === $show_thumbs ) : ?>
 		<div class="row fl-post-image-<?php echo $show_thumbs; ?>-wrap">
 			<div class="fl-post-image-<?php echo $show_thumbs; ?>">
 				<div class="fl-post-thumb">
@@ -68,7 +68,7 @@ do_action( 'fl_before_post' ); ?>
 
 	<?php FLTheme::post_bottom_meta(); ?>
 	<?php do_action( 'fl_after_post_content' ); ?>
-	<?php if ( has_post_thumbnail() && 'beside' == $show_thumbs ) : ?>
+	<?php if ( has_post_thumbnail() && 'beside' === $show_thumbs ) : ?>
 		</div>
 	</div>
 	<?php endif; ?>

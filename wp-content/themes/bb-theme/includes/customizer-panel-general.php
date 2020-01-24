@@ -484,11 +484,7 @@ FLCustomizer::add_panel('fl-general', array(
 						'label'      => sprintf( _x( '%s Font Size', '%s stands for HTML heading tag.', 'fl-automator' ), 'H1' ),
 						'type'       => 'slider',
 						'priority'   => 5.0,
-						'choices'    => array(
-							'min'  => 10,
-							'max'  => 72,
-							'step' => 1,
-						),
+						'choices'    => get_font_size_limits(),
 						'responsive' => true,
 					),
 				),
@@ -555,11 +551,7 @@ FLCustomizer::add_panel('fl-general', array(
 						/* translators: %s: HTML heading tag */
 						'label'      => sprintf( _x( '%s Font Size', '%s stands for HTML heading tag.', 'fl-automator' ), 'H2' ),
 						'type'       => 'slider',
-						'choices'    => array(
-							'min'  => 10,
-							'max'  => 72,
-							'step' => 1,
-						),
+						'choices'    => get_font_size_limits(),
 						'responsive' => true,
 					),
 				),
@@ -623,11 +615,7 @@ FLCustomizer::add_panel('fl-general', array(
 						/* translators: %s: HTML heading tag */
 						'label'      => sprintf( _x( '%s Font Size', '%s stands for HTML heading tag.', 'fl-automator' ), 'H3' ),
 						'type'       => 'slider',
-						'choices'    => array(
-							'min'  => 10,
-							'max'  => 72,
-							'step' => 1,
-						),
+						'choices'    => get_font_size_limits(),
 						'responsive' => true,
 					),
 				),
@@ -691,11 +679,7 @@ FLCustomizer::add_panel('fl-general', array(
 						/* translators: %s: HTML heading tag */
 						'label'      => sprintf( _x( '%s Font Size', '%s stands for HTML heading tag.', 'fl-automator' ), 'H4' ),
 						'type'       => 'slider',
-						'choices'    => array(
-							'min'  => 10,
-							'max'  => 72,
-							'step' => 1,
-						),
+						'choices'    => get_font_size_limits(),
 						'responsive' => true,
 					),
 				),
@@ -759,11 +743,7 @@ FLCustomizer::add_panel('fl-general', array(
 						/* translators: %s: HTML heading tag */
 						'label'      => sprintf( _x( '%s Font Size', '%s stands for HTML heading tag.', 'fl-automator' ), 'H5' ),
 						'type'       => 'slider',
-						'choices'    => array(
-							'min'  => 10,
-							'max'  => 72,
-							'step' => 1,
-						),
+						'choices'    => get_font_size_limits(),
 						'responsive' => true,
 					),
 				),
@@ -827,11 +807,7 @@ FLCustomizer::add_panel('fl-general', array(
 						/* translators: %s: HTML heading tag */
 						'label'      => sprintf( _x( '%s Font Size', '%s stands for HTML heading tag.', 'fl-automator' ), 'H6' ),
 						'type'       => 'slider',
-						'choices'    => array(
-							'min'  => 10,
-							'max'  => 72,
-							'step' => 1,
-						),
+						'choices'    => get_font_size_limits(),
 						'responsive' => true,
 					),
 				),
@@ -930,11 +906,7 @@ FLCustomizer::add_panel('fl-general', array(
 						'class'      => 'FLCustomizerControl',
 						'label'      => __( 'Font Size', 'fl-automator' ),
 						'type'       => 'slider',
-						'choices'    => array(
-							'min'  => 10,
-							'max'  => 72,
-							'step' => 1,
-						),
+						'choices'    => get_font_size_limits(),
 						'responsive' => true,
 					),
 				),
@@ -1069,11 +1041,7 @@ FLCustomizer::add_panel('fl-general', array(
 						'class'   => 'FLCustomizerControl',
 						'label'   => _x( 'Font Size', 'Font size for buttons.', 'fl-automator' ),
 						'type'    => 'slider',
-						'choices' => array(
-							'min'  => 10,
-							'max'  => 72,
-							'step' => 1,
-						),
+						'choices' => get_font_size_limits(),
 					),
 				),
 				'fl-button-line-height'            => array(

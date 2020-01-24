@@ -1,3 +1,32 @@
+<h4>1.7.5.1 01/13/2019</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Added Select2 support to font settings in customizer.</li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fixed a jQuery error if using slashes in scrollto links.</li>
+	<li>Fixed H5 line height setting slider in customizer.</li>
+</ul>
+
+<h4>1.7.5 12/19/2019</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Accessibility: Add landmarks to main elements.</li>
+	<li>Increase font size max from 72 to 100 and make it filterable.</li>
+	<li>Move retina and mobile image code out of jQuery ready() so they load much faster.</li>
+	<li>Added settings for Logo Image max-height in the Customizer for the Shrink and Fade-in Header Layout.</li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Remove max-height from retina image code.</li>
+	<li>Fixed WooCommerce quantity field not displaying the entire value.</li>
+	<li>Fixed animations when themer part is added before fixed header with shrink.</li>
+	<li>Fixed woocommerce login screen issues with IE 11</li>
+	<li>Fixed Image Logo Using Non-Retina When Mobile Header Logo is Set</li>
+	<li>Fixed pixelated mobile logo</li>
+</ul>
+
 <h4>1.7.4.1 10/10/2019</h4>
 <p><strong>Hot Fix</strong></p>
 <ul>
@@ -5,6 +34,7 @@
 	<li>Fixed schema markup issue introduced in 1.7.4</li>
 </ul>
 
+<h4>1.7.4 10/01/2019</h4>
 <p><strong>Enhancements</strong></p>
 <ul>
 	<li>Accessibility: Enable Nav Search TAB support and add aria label.</li>

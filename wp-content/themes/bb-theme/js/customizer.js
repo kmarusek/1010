@@ -41,6 +41,10 @@
 			$( '.fl-preview-button' ).on( 'click', function() {
 				wp.customize.previewer.refresh();
 			} );
+
+			$( '#_customize-input-fl-button-style, #_customize-input-fl-heading-style').on( 'change', function() {
+				FLCustomizer._initFonts();
+			})
 		},
 
 		/**
@@ -109,6 +113,11 @@
 			var select  = $( this ),
 				link    = select.data( 'customize-setting-link' ),
 				weight  = select.data( 'connected-control' );
+
+				if (typeof select.select2 === "function") {
+					select.select2();
+				}
+
 
 			if ( 'undefined' != typeof weight ) {
 				api( link ).bind( FLCustomizer._fontSelectChange );

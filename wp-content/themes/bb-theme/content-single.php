@@ -7,7 +7,7 @@ $thumb_size  = FLTheme::get_setting( 'fl-posts-thumb-size' );
 <article <?php post_class( 'fl-post' ); ?> id="fl-post-<?php the_ID(); ?>"<?php FLTheme::print_schema( ' itemscope itemtype="https://schema.org/BlogPosting"' ); ?>>
 
 	<?php if ( has_post_thumbnail() && ! empty( $show_thumbs ) ) : ?>
-		<?php if ( 'above-title' == $show_thumbs ) : ?>
+		<?php if ( 'above-title' === $show_thumbs ) : ?>
 		<div class="fl-post-thumb">
 			<?php
 			the_post_thumbnail( 'large', array(
@@ -18,7 +18,7 @@ $thumb_size  = FLTheme::get_setting( 'fl-posts-thumb-size' );
 		<?php endif; ?>
 	<?php endif; ?>
 
-	<header class="fl-post-header">
+	<header class="fl-post-header" role="banner">
 		<h1 class="fl-post-title" itemprop="headline">
 			<?php the_title(); ?>
 			<?php edit_post_link( _x( 'Edit', 'Edit post link text.', 'fl-automator' ) ); ?>
@@ -27,13 +27,13 @@ $thumb_size  = FLTheme::get_setting( 'fl-posts-thumb-size' );
 	</header><!-- .fl-post-header -->
 
 	<?php if ( has_post_thumbnail() && ! empty( $show_thumbs ) ) : ?>
-		<?php if ( 'above' == $show_thumbs ) : ?>
+		<?php if ( 'above' === $show_thumbs ) : ?>
 		<div class="fl-post-thumb">
 			<?php the_post_thumbnail( 'large' ); ?>
 		</div>
 		<?php endif; ?>
 
-		<?php if ( 'beside' == $show_thumbs ) : ?>
+		<?php if ( 'beside' === $show_thumbs ) : ?>
 			<div class="row fl-post-image-<?php echo $show_thumbs; ?>-wrap">
 				<div class="fl-post-image-<?php echo $show_thumbs; ?>">
 					<div class="fl-post-thumb">
@@ -62,7 +62,7 @@ $thumb_size  = FLTheme::get_setting( 'fl-posts-thumb-size' );
 		?>
 	</div><!-- .fl-post-content -->
 
-	<?php if ( has_post_thumbnail() && 'beside' == $show_thumbs ) : ?>
+	<?php if ( has_post_thumbnail() && 'beside' === $show_thumbs ) : ?>
 		</div>
 	</div>
 	<?php endif; ?>

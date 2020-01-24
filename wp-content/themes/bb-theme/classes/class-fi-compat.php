@@ -13,6 +13,7 @@ final class FLThemeCompat {
 
 		// Filter fl_archive_show_full to fix CRED form preview.
 		add_filter( 'fl_archive_show_full', 'FLThemeCompat::fix_cred_preview' );
+		add_action( 'customize_controls_enqueue_scripts', array( __CLASS__, 'tribe_select2' ) );
 	}
 
 	/**
@@ -26,5 +27,14 @@ final class FLThemeCompat {
 			return true;
 		}
 		return $show_full;
+	}
+
+	/**
+	 * Deregister tribe select2, we load our own for font selection.
+	 * @since 1.7.4
+	 */
+	public static function tribe_select2() {
+		wp_deregister_script( 'tribe-select2' );
+		wp_deregister_style( 'tribe-select2-css' );
 	}
 }

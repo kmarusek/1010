@@ -107,3 +107,31 @@
 .customize-control-slider .fl-slider-reset span:hover {
 	color: red;
 }
+
+.wp-customizer .select2-container--default .selection .select2-selection--single {
+	border-color: black !important;
+	border-radius: 3px !important;
+	height: 30px !important;
+	line-height: 30px !important;
+	outline: none !important;
+}
+
+.wp-customizer .select2-container--default .select2-selection--multiple .select2-selection__rendered {
+	width: 95% !important;
+}
+
+.wp-customizer .select2-container--default .select2-selection--multiple .select2-selection__clear {
+	position: absolute !important;
+	right: 0 !important;
+}
+
+.wp-customizer .select2-container .select2-dropdown {
+	z-index: 900000 !important;
+}
+
+/* .customize-control select:active,
+.customize-control select:focus {
+	outline: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+} */

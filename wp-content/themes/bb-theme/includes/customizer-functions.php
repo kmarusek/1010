@@ -47,3 +47,16 @@ function fl_theme_filesystem() {
 		return FL_Theme_Filesystem::instance();
 	}
 }
+
+/**
+ * Setup font size limit for slider
+ * @since 1.7.5
+ */
+function get_font_size_limits() {
+	$limits         = array();
+	$limits['min']  = 10;
+	$limits['max']  = 100;
+	$limits['step'] = 1;
+
+	return apply_filters( 'fl_theme_font_size_limits', $limits );
+}
