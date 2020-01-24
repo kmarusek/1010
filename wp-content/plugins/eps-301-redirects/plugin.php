@@ -8,6 +8,10 @@
  */
 
 
+// include only file
+if (!defined('ABSPATH')) {
+  die('Do not open this file directly.');
+}
 
 class EPS_Redirects_Plugin
 {
@@ -273,9 +277,16 @@ class EPS_Redirects_Plugin
     if (is_admin() && isset($_GET['page']) && $_GET['page'] == $EPS_Redirects_Plugin->config('page_slug')) {
       wp_enqueue_script('jquery');
 
-
       wp_enqueue_script('eps_redirect_script', EPS_REDIRECT_URL . 'js/scripts.js');
       wp_enqueue_style('eps_redirect_styles', EPS_REDIRECT_URL . 'css/eps_redirect.css');
+
+      $js_vars = array(
+        'nonce_get_entry' => wp_create_nonce('eps_301_get_entry'),
+        'nonce_save_redirect' => wp_create_nonce('eps_301_save_redirect'),
+        'nonce_delete_entry' => wp_create_nonce('eps_301_delete_entry'),
+        'nonce_get_inline_edit_entry' => wp_create_nonce('eps_301_get_inline_edit_entry'),
+      );
+      wp_localize_script('eps_redirect_script', 'eps_301', $js_vars);
     }
 
     global $wp_rewrite;

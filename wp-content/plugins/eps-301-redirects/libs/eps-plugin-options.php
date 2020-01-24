@@ -10,6 +10,11 @@
  *
  */
 
+// include only file
+if (!defined('ABSPATH')) {
+  die('Do not open this file directly.');
+}
+
 if (!class_exists('EPS_Redirects_Plugin_Options')) {
 
   class EPS_Redirects_Plugin_Options

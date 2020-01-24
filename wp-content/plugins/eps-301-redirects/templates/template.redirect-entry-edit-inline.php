@@ -10,6 +10,10 @@
  */
 
 
+// include only file
+if (!defined('ABSPATH')) {
+  die('Do not open this file directly.');
+}
 ?>
 <tr id="eps-redirect-edit">
     <td colspan="5">

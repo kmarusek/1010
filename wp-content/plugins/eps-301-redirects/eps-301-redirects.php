@@ -2,7 +2,7 @@
  /*
 Plugin Name: 301 Redirects
 Description: Easily create and manage 301 redirects.
-Version: 2.40
+Version: 2.45
 Author: WebFactory Ltd
 Author URI: https://www.webfactoryltd.com/
 Text Domain: eps-301-redirects
@@ -25,14 +25,14 @@ Text Domain: eps-301-redirects
 
 // include only file
 if (!defined('ABSPATH')) {
-  wp_die(__('Do not open this file directly.', 'eps-301-redirect'));
+  die('Do not open this file directly.');
 }
 
 if (!defined('EPS_REDIRECT_PRO')) {
 
   define('EPS_REDIRECT_PATH',       plugin_dir_path(__FILE__));
   define('EPS_REDIRECT_URL',        plugins_url() . '/eps-301-redirects/');
-  define('EPS_REDIRECT_VERSION',    '2.3.5');
+  define('EPS_REDIRECT_VERSION',    '2.45');
   define('EPS_REDIRECT_PRO',        false);
 
   include(EPS_REDIRECT_PATH . 'eps-form-elements.php');
@@ -68,16 +68,17 @@ if (!defined('EPS_REDIRECT_PRO')) {
           add_action('admin_init', array($this, 'clear_cache'));
         }
 
-
-        // Ajax funcs
         add_action('wp_ajax_eps_redirect_get_new_entry',            array($this, 'ajax_get_entry'));
         add_action('wp_ajax_eps_redirect_delete_entry',             array($this, 'ajax_eps_delete_entry'));
         add_action('wp_ajax_eps_redirect_get_inline_edit_entry',    array($this, 'ajax_get_inline_edit_entry'));
         add_action('wp_ajax_eps_redirect_save',                     array($this, 'ajax_save_redirect'));
         add_filter('plugin_action_links_' . plugin_basename(__FILE__), array($this, 'plugin_action_links'));
       } else {
-        add_action('init', array($this, 'do_redirect'), 1); // Priority 1 for redirects.
-        add_action('template_redirect', array($this, 'check_404'), 1); // Priority 1 for redirects.
+        if (defined('WP_CLI') && WP_CLI) {
+        } else {
+          add_action('init', array($this, 'do_redirect'), 1); // Priority 1 for redirects.
+          add_action('template_redirect', array($this, 'check_404'), 1); // Priority 1 for redirects.
+        }
       }
     }
 
@@ -226,8 +227,14 @@ if (!defined('EPS_REDIRECT_PRO')) {
     public function ajax_save_redirect()
     {
 
+      check_ajax_referer('eps_301_save_redirect');
+
+      if (!current_user_can('manage_options')) {
+        wp_die('You are not allowed to run this action.');
+      }
+
       $update = array(
-        'id'        => ($_POST['id']) ? $_POST['id'] : false,
+        'id'        => ($_POST['id']) ? intval($_POST['id']) : false,
         'url_from'  => $_POST['url_from'], // remove the $root from the url if supplied, and a leading /
         'url_to'    => $_POST['url_to'],
         'type'      => (is_numeric($_POST['url_to']) ? 'post' : 'url'),
@@ -447,6 +454,12 @@ if (!defined('EPS_REDIRECT_PRO')) {
      */
     public static function ajax_eps_delete_entry()
     {
+      check_ajax_referer('eps_301_delete_entry');
+
+      if (!current_user_can('manage_options')) {
+        wp_die('You are not allowed to run this action.');
+      }
+
       if (!isset($_POST['id'])) exit();
 
       global $wpdb;
@@ -495,6 +508,12 @@ public static function get_inline_edit_entry($redirect_id = false)
 
 public static function ajax_get_inline_edit_entry()
 {
+  check_ajax_referer('eps_301_get_inline_edit_entry');
+
+  if (!current_user_can('manage_options')) {
+    wp_die('You are not allowed to run this action.');
+  }
+
   $redirect_id = isset($_REQUEST['redirect_id']) ? intval($_REQUEST['redirect_id']) : false;
 
   ob_start();
@@ -511,6 +530,12 @@ public static function ajax_get_inline_edit_entry()
 
 public static function ajax_get_entry()
 {
+  check_ajax_referer('eps_301_get_entry');
+
+  if (!current_user_can('manage_options')) {
+    wp_die('You are not allowed to run this action.');
+  }
+
   echo self::get_entry();
   exit();
 }
@@ -535,7 +560,7 @@ public function clear_cache()
      */
 public static function set_ajax_url()
 {
-  echo '<script>var eps_redirect_ajax_url = "' . admin_url('admin-ajax.php') . '"</script>';
+  //echo '<script>var eps_redirect_ajax_url = "' . admin_url('admin-ajax.php') . '"</script>';
 }
 
 

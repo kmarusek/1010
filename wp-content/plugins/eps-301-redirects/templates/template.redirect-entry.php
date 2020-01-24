@@ -8,9 +8,13 @@
  * @author     WebFactory Ltd
  */
 
+// include only file
+if (!defined('ABSPATH')) {
+  die('Do not open this file directly.');
+}
+
 global $EPS_Redirects_Plugin;
 $query_args = array('page' => $EPS_Redirects_Plugin->config('page_slug'), 'delete_redirect' => esc_attr($redirect->id));
-
 
 ?>
 <tr class="redirect-entry <?php echo esc_attr($redirect->status); ?> id-<?php echo esc_attr($redirect->id); ?>"

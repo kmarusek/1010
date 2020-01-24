@@ -2,13 +2,13 @@
 Contributors: WebFactory, wpreset, googlemapswidget, securityninja, underconstructionpage
 Tags: 301 redirect, redirects, redirect, 302 redirect, redirection, 302, seo, 302 redirect, 404, 404 redirect, 301
 Requires at least: 4.0
-Tested up to: 5.1
-Stable tag: 2.40
+Tested up to: 5.3
+Stable tag: 2.45
 Requires PHP: 5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Easily manage and create 301 & 302 redirects. Simple to use and validate redirects. Includes redirect stats.
+Easily manage and create 301 & 302 redirects. Simple to use & validate redirects. Includes redirect stats.
 
 == Description ==
 
@@ -55,6 +55,11 @@ A 301 redirect indicates that the page requested has been permanently moved to t
 
 
 == Changelog ==
+
+= 2.45 =
+* 2019/12/17
+* security fixes - big thank you to Chloe from Wordfence
+* WP-CLI fix
 
 = 2.40 =
 * 2019/03/25

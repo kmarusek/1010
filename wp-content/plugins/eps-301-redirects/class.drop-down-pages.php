@@ -10,6 +10,10 @@
  * @return string or HTML content, if not displaying.
  */
 
+// include only file
+if (!defined('ABSPATH')) {
+  die('Do not open this file directly.');
+}
 
 if (!function_exists('eps_dropdown_pages')) {
   function eps_dropdown_pages($args = '')

@@ -9,8 +9,12 @@
  * @author     WebFactory Ltd
  */
 
-$redirect = self::get_redirect($redirect_id);
+// include only file
+if (!defined('ABSPATH')) {
+  die('Do not open this file directly.');
+}
 
+$redirect = self::get_redirect($redirect_id);
 ?>
 <td>
     <input type="hidden" type="text" name="redirect[id][]" value="<?php echo ($redirect_id) ? $redirect_id : ''; ?>">

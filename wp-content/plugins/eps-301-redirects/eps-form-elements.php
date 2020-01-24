@@ -15,6 +15,11 @@
  * @version    2.1.0
  */
 
+// include only file
+if (!defined('ABSPATH')) {
+  die('Do not open this file directly.');
+}
+
 /**
  *
  * GET_TYPE_SELECT

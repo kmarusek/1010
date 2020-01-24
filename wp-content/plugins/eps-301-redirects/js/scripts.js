@@ -48,9 +48,10 @@ jQuery(document).ready(function($) {
     // Do the request
     $.ajax({
       type: 'POST',
-      url: eps_redirect_ajax_url,
+      url: ajaxurl,
       data: {
         action: 'eps_redirect_get_inline_edit_entry',
+        _ajax_nonce: eps_301.nonce_get_inline_edit_entry,
         redirect_id: redirect_id
       },
       success: function(data) {
@@ -104,9 +105,10 @@ jQuery(document).ready(function($) {
 
     $.ajax({
       type: 'POST',
-      url: eps_redirect_ajax_url,
+      url: ajaxurl,
       data: {
         action: 'eps_redirect_save',
+        _ajax_nonce: eps_301.nonce_save_redirect,
         id: $('#eps-redirect-save input[name="redirect[id][]"]').val(),
         status: $('#eps-redirect-save select[name="redirect[status][]"]').val(),
         url_from: $(
@@ -161,9 +163,10 @@ jQuery(document).ready(function($) {
     // Do the request
     $.ajax({
       type: 'POST',
-      url: eps_redirect_ajax_url,
+      url: ajaxurl,
       data: {
         action: 'eps_redirect_get_inline_edit_entry',
+        _ajax_nonce: eps_301.nonce_get_inline_edit_entry,
         redirect_id: false
       },
       success: function(data) {
@@ -203,8 +206,9 @@ jQuery(document).ready(function($) {
     $(this).prop('disabled', true);
     $(this).attr('disabled', 'disabled'); // Disable button to disallow multiple submissions.
 
-    var request = $.post(eps_redirect_ajax_url, {
+    var request = $.post(ajaxurl, {
       action: 'eps_redirect_delete_entry',
+      _ajax_nonce: eps_301.nonce_delete_entry,
       id: $(this).data('id')
     });
     request.done(function(data) {

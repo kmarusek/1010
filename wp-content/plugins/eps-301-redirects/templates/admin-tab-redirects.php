@@ -8,9 +8,13 @@
  * @package    EPS 301 Redirects
  * @author     WebFactory Ltd
  */
+
+// include only file
+if (!defined('ABSPATH')) {
+  die('Do not open this file directly.');
+}
+
 global $EPS_Redirects_Plugin;
-
-
 ?>
 
 <div class="wrap">
