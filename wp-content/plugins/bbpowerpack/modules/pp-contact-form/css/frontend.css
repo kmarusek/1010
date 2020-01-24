@@ -1,10 +1,6 @@
 .bb-cf-input.input-small {
 	width: 50px !important;
 }
-.pp-input-group {
-	margin-bottom: 10px;
-	position: relative;
-}
 .pp-clearfix:after {
 	content: "";
 	display: block;
@@ -12,13 +8,17 @@
 	clear: both;
 	visibility: hidden;
 }
-.pp-align-left {
+.pp-contact-form .pp-input-group {
+	margin-bottom: 10px;
+	position: relative;
+}
+.pp-contact-form .pp-align-left {
 	text-align: left;
 }
-.pp-align-right {
+.pp-contact-form .pp-align-right {
 	text-align: right;
 }
-.pp-align-center {
+.pp-contact-form .pp-align-center {
 	text-align: center;
 }
 .pp-contact-form textarea,
@@ -76,7 +76,7 @@
 .pp-contact-form .pp-send-error {
 	color: #DD6420;
 }
-.pp-disabled {
+.pp-contact-form .pp-disabled {
 	opacity: 0.5;
 	pointer-events: none;
 }

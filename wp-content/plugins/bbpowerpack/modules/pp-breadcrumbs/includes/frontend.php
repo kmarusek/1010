@@ -1,5 +1,4 @@
-<?php if ( ( 'yoast' === $settings->seo_type && function_exists( 'yoast_breadcrumb' ) ) || ( 'rankmath' === $settings->seo_type && function_exists( 'rank_math_the_breadcrumbs' ) ) || ( 'navxt' == $settings->seo_type && function_exists( 'bcn_display' ) ) || ( 'seopress' == $settings->seo_type && function_exists( 'seopress_display_breadcrumbs' ) ) ) { ?>
-<div class="pp-breadcrumbs">
+<div class="pp-breadcrumbs pp-breadcrumbs-<?php echo $settings->seo_type; ?>">
 	<?php
 	if ( 'yoast' === $settings->seo_type && function_exists( 'yoast_breadcrumb' ) ) {
 		yoast_breadcrumb( '<p id="breadcrumbs">','</p>' );
@@ -12,4 +11,3 @@
 	}
 	?>
 </div>
-<?php } ?>

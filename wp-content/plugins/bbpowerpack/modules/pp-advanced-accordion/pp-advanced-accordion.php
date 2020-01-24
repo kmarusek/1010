@@ -75,6 +75,27 @@ class PPAccordionModule extends FLBuilderModule {
 			);
 		}
 
+		if ( function_exists( 'acf_add_options_page' ) ) {
+			$fields['accordion_source']['options']['acf_options_page']          = __( 'ACF Option Page', 'bb-powerpack' );
+			$fields['accordion_source']['toggle']['acf_options_page']['fields'] = array( 'acf_options_page_repeater_name', 'acf_options_page_repeater_label', 'acf_options_page_repeater_content' );
+			$fields['accordion_source']['help']                                 = __( 'To make use of the <b>\'ACF Option Page\'</b> feature, you will need ACF PRO (ACF v5), or the options page add-on (ACF v4)', 'bb-powerpack' );
+
+			$fields['acf_options_page_repeater_name']    = array(
+				'type'        => 'text',
+				'label'       => __( 'ACF Repeater Field Name', 'bb-powerpack' ),
+				'connections' => array( 'string' ),
+			);
+			$fields['acf_options_page_repeater_label']   = array(
+				'type'        => 'text',
+				'label'       => __( 'ACF Repeater Sub Field Name (Label)', 'bb-powerpack' ),
+				'connections' => array( 'string' ),
+			);
+			$fields['acf_options_page_repeater_content'] = array(
+				'type'        => 'text',
+				'label'       => __( 'ACF Repeater Sub Field Name (Content)', 'bb-powerpack' ),
+				'connections' => array( 'string' ),
+			);
+		}
 		return $fields;
 	}
 
@@ -156,7 +177,7 @@ class PPAccordionModule extends FLBuilderModule {
 		}
 
 		$data    = array();
-		$post_id = apply_filters( 'pp_faq_acf_post_id', $post_id );
+		$post_id = apply_filters( 'pp_accordion_acf_post_id', $post_id );
 
 		$repeater_name = $this->settings->acf_repeater_name;
 		$label_name    = $this->settings->acf_repeater_label;
@@ -180,6 +201,34 @@ class PPAccordionModule extends FLBuilderModule {
 
 		return $data;
 	}
+
+	public function get_acf_options_page_data( $post_id = false ) {
+		if ( ! isset( $this->settings->acf_options_page_repeater_name ) || empty( $this->settings->acf_options_page_repeater_name ) ) {
+			return;
+		}
+
+		$data    = array();
+		$post_id = apply_filters( 'pp_accordion_acf_options_page_post_id', $post_id );
+
+		$repeater_name = $this->settings->acf_options_page_repeater_name;
+		$label_name    = $this->settings->acf_options_page_repeater_label;
+		$content_name  = $this->settings->acf_options_page_repeater_content;
+
+		$repeater_rows = get_field( $repeater_name, 'option' );
+		if ( ! $repeater_rows ) {
+			return;
+		}
+
+		foreach ( $repeater_rows as $row ) {
+			$item          = new stdClass;
+			$item->label   = isset( $row[ $label_name ] ) ? $row[ $label_name ] : '';
+			$item->content = isset( $row[ $content_name ] ) ? $row[ $content_name ] : '';
+
+			$data[] = $item;
+		}
+		return $data;
+	}
+
 	public function get_accordion_items() {
 		$source = $this->settings->accordion_source;
 
@@ -189,6 +238,10 @@ class PPAccordionModule extends FLBuilderModule {
 
 		if ( 'acf' === $source ) {
 			return $this->get_acf_data();
+		}
+
+		if ( 'acf_options_page' === $source ) {
+			return $this->get_acf_options_page_data();
 		}
 
 		if ( 'post' === $source ) {
@@ -409,17 +462,34 @@ FLBuilder::register_module(
 				'responsive_toggle_icons' => array(
 					'title'	=> __( 'Toggle Icons', 'bb-powerpack' ),
 					'fields'	=> array(
-						'accordion_open_icon' => array(
+						'accordion_open_icon'         => array(
 							'type'          => 'icon',
 							'label'         => __( 'Open Icon', 'bb-powerpack' ),
 							'show_remove'   => true
 						),
-						'accordion_close_icon' => array(
+						'accordion_close_icon'        => array(
 							'type'          => 'icon',
 							'label'         => __( 'Close Icon', 'bb-powerpack' ),
 							'show_remove'   => true
 						),
-						'accordion_toggle_icon_size'   => array(
+						'accordion_icon_position'     => array(
+							'type'    => 'select',
+							'label'   => __( 'Icon Position', 'bb-powerpack' ),
+							'default' => 'right',
+							'options' => array(
+								'left'  => __( 'Before Text', 'bb-powerpack' ),
+								'right' => __( 'After Text', 'bb-powerpack' ),
+							),
+						),
+						'accordion_icon_spacing'      => array(
+							'type'       => 'unit',
+							'label'      => __( 'Spacing', 'bb-powerpack' ),
+							'units'      => array( 'px' ),
+							'slider'     => true,
+							'responsive' => true,
+							'default'    => '15',
+						),
+						'accordion_toggle_icon_size'  => array(
 							'type'          => 'unit',
 							'label'         => __( 'Size', 'bb-powerpack' ),
 							'units'			=> array( 'px' ),
@@ -432,7 +502,7 @@ FLBuilder::register_module(
 								'unit'      => 'px'
 							)
 						),
-						'accordion_toggle_icon_color'  => array(
+						'accordion_toggle_icon_color' => array(
 							'type'          => 'color',
 							'label'         => __( 'Color', 'bb-powerpack' ),
 							'default'       => '666666',

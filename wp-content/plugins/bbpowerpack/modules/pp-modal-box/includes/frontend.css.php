@@ -1,23 +1,24 @@
 .fl-node-<?php echo $id; ?> .pp-modal-button {
-    text-align: <?php echo $settings->button_alignment; ?>;
+	text-align: <?php echo $settings->button_alignment; ?>;
 }
 .fl-node-<?php echo $id; ?> .pp-modal-trigger,
-.fl-node-<?php echo $id; ?> .pp-modal-button .pp-modal-trigger {
-    <?php if ( 'button' == $settings->button_type || 'icon' == $settings->button_type ) { ?>
-    color: #<?php echo $settings->button_text_color; ?>;
+.fl-node-<?php echo $id; ?> .pp-modal-button .pp-modal-trigger,
+.fl-node-<?php echo $id; ?> .pp-modal-button .pp-modal-trigger .pp-modal-trigger-icon {
+	<?php if ( 'button' == $settings->button_type || 'icon' == $settings->button_type ) { ?>
+	color: #<?php echo $settings->button_text_color; ?>;
 	<?php if ( isset( $settings->button_color ) && ! empty( $settings->button_color ) ) { ?>
 		background-color: <?php echo pp_get_color_value( $settings->button_color ); ?>;
 	<?php } ?>
 	<?php if ( 'full' == $settings->button_width ) { ?>
-        display: inline-block;
-        width: 100%;
-        <?php } ?>
-    <?php } ?>
-    <?php if ( 'image' == $settings->button_type || 'icon' == $settings->button_type ) { ?>
-    display: inline-block;
-    <?php } ?>
-    text-align: center;
-    text-decoration: none;
+		display: inline-block;
+		width: 100%;
+		<?php } ?>
+	<?php } ?>
+	<?php if ( 'image' == $settings->button_type || 'icon' == $settings->button_type ) { ?>
+	display: inline-block;
+	<?php } ?>
+	text-align: center;
+	text-decoration: none;
 }
 <?php
 	// Button - Border

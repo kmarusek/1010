@@ -240,3 +240,9 @@ FLBuilderCSS::dimension_field_rule( array(
 <?php if ( 'always' != $module->get_media_breakpoint() ) { ?>
 	}
 <?php } ?>
+
+@media ( max-width: 1024px ) {
+	html.pp-off-canvas-menu-open {
+		overflow: hidden !important;
+	}
+}

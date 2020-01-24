@@ -116,6 +116,10 @@ for( $i = 0; $i < $number_items; $i++ ) {
 			border-bottom-style: solid;
 		<?php } ?>
 	}
+
+	.fl-node-<?php echo $id; ?> .pp-timeline-content-wrapper .pp-timeline-item .pp-timeline-content .pp-timeline-title {
+		<?php if ( isset( $timeline->title_text_color ) && ! empty( $timeline->title_text_color ) ) { ?>color: #<?php echo $timeline->title_text_color; ?>; <?php } ?>
+	}
 	.fl-node-<?php echo $id; ?> .pp-timeline-content-wrapper .pp-timeline-item-<?php echo $i; ?> .pp-timeline-content .pp-timeline-text-wrapper p {
 		color: <?php echo ($timeline->text_color) ? '#'.$timeline->text_color : '#000' ?>;
 	}

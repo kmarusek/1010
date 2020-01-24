@@ -261,7 +261,7 @@
 							format: this.timer_format,
 							layout: this.timer_layout,
 							labels: this.timer_labels.split(","),
-							timezone: this.timezone,
+							//timezone: this.timezone,
 				    		labels1: this.timer_labels_singular.split(","),
 				    		expiryText: $.cookie( "countdown-" + this.settings.id + "expiremsg" ),
 						});
@@ -277,7 +277,7 @@
 							format: this.timer_format,
 							layout: this.timer_layout,
 							labels: this.timer_labels.split(","),
-							timezone: this.timezone,
+							//timezone: this.timezone,
 				    		labels1: this.timer_labels_singular.split(","),
 				    		onExpiry: this._redirectCounter
 						});
@@ -292,7 +292,7 @@
 							format: this.timer_format,
 							layout: this.timer_layout,
 							labels: this.timer_labels.split(","),
-							timezone: this.timezone,
+							//timezone: this.timezone,
 				    		labels1: this.timer_labels_singular.split(","),
 				    		onExpiry: this._destroyCounter
 						});
@@ -305,7 +305,7 @@
 						format: this.timer_format,
 						layout: this.timer_layout,
 						labels: this.timer_labels.split(","),
-						timezone: this.timezone,
+						//timezone: this.timezone,
 			    		labels1: this.timer_labels_singular.split(","),
 			        	onExpiry: this._restartCountdown
 					});
@@ -316,7 +316,7 @@
 						format: this.timer_format,
 						layout: this.timer_layout,
 						labels: this.timer_labels.split(","),
-						timezone: this.timezone,
+						//timezone: this.timezone,
 			    		labels1: this.timer_labels_singular.split(","),
 					});
 				}
@@ -329,7 +329,7 @@
 							format: this.timer_format,
 							layout: this.timer_layout,
 							labels: this.timer_labels.split(","),
-							timezone: this.timezone,
+							//timezone: this.timezone,
 				    		labels1: this.timer_labels_singular.split(","),
 				        	expiryText: $.cookie( "countdown-" + this.settings.id + "expiremsg" ),
 						});
@@ -339,7 +339,7 @@
 							format: this.timer_format,
 							layout: this.timer_layout,
 							labels: this.timer_labels.split(","),
-							timezone: this.timezone,
+							//timezone: this.timezone,
 				    		labels1: this.timer_labels_singular.split(","),
 						});
 					}
@@ -351,7 +351,7 @@
 						format: this.timer_format,
 						layout: this.timer_layout,
 						labels: this.timer_labels.split(","),
-						timezone: this.timezone,
+						//timezone: this.timezone,
 			    		labels1: this.timer_labels_singular.split(","),
 			        	onExpiry: this._redirectCounter
 					});
@@ -363,7 +363,7 @@
 						format: this.timer_format,
 						layout: this.timer_layout,
 						labels: this.timer_labels.split(","),
-						timezone: this.timezone,
+						//timezone: this.timezone,
 			    		labels1: this.timer_labels_singular.split(","),
 			        	onExpiry: this._destroyCounter
 					});
@@ -375,7 +375,7 @@
 						format: this.timer_format,
 						layout: this.timer_layout,
 						labels: this.timer_labels.split(","),
-						timezone: this.timezone,
+						//timezone: this.timezone,
 			    		labels1: this.timer_labels_singular.split(","),
 			        	onExpiry: this._restartCountdown
 					});
@@ -386,7 +386,7 @@
 						format: this.timer_format,
 						layout: this.timer_layout,
 						labels: this.timer_labels.split(","),
-						timezone: this.timezone,
+						//timezone: this.timezone,
 			    		labels1: this.timer_labels_singular.split(","),
 					});
 				}

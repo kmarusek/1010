@@ -181,7 +181,6 @@ $border_style = ( isset( $settings->btn_border_style ) ) ? $settings->btn_border
 
 .fl-node-<?php echo $id; ?> .pp-contact-form a.fl-button,
 .fl-node-<?php echo $id; ?> .pp-contact-form a.fl-button:visited {
-
 	-webkit-border-radius: <?php echo $settings->btn_border_radius; ?>px;
 	-moz-border-radius: <?php echo $settings->btn_border_radius; ?>px;
 	border-radius: <?php echo $settings->btn_border_radius; ?>px;
@@ -409,13 +408,16 @@ $border_style = ( isset( $settings->btn_border_style ) ) ? $settings->btn_border
 .fl-node-<?php echo $id; ?> .pp-contact-form input[type=text],
 .fl-node-<?php echo $id; ?> .pp-contact-form input[type=tel],
 .fl-node-<?php echo $id; ?> .pp-contact-form input[type=email] {
-	<?php if( $settings->input_field_text_color ) { ?>
+	<?php if ( ! empty( $settings->input_field_text_color ) ) { ?>
     color: #<?php echo $settings->input_field_text_color; ?>;
-    <?php } ?>
-	background-color: <?php echo $settings->input_field_bg_color ? pp_get_color_value( $settings->input_field_bg_color ) : 'transparent'; ?>;
-	border-width: 0;
-	border-color: <?php echo $settings->input_field_border_color ? '#' . $settings->input_field_border_color : 'transparent'; ?>;
-    <?php if( $settings->input_field_border_width >= 0 ) { ?>
+	<?php } ?>
+	<?php if ( ! empty( $settings->input_field_bg_color ) ) { ?>
+	background-color: <?php echo pp_get_color_value( $settings->input_field_bg_color ); ?>;
+	<?php } ?>
+	<?php if ( ! empty( $settings->input_field_border_color ) ) { ?>
+	border-color: #<?php echo $settings->input_field_border_color; ?>;
+	<?php } ?>
+    <?php if ( $settings->input_field_border_width >= 0 ) { ?>
 		border-style: solid;
     	<?php echo $settings->input_field_border_position; ?>-width: <?php echo $settings->input_field_border_width; ?>px;
     <?php } ?>
@@ -438,13 +440,13 @@ $border_style = ( isset( $settings->btn_border_style ) ) ? $settings->btn_border
 .fl-node-<?php echo $id; ?> .pp-contact-form input[type=text],
 .fl-node-<?php echo $id; ?> .pp-contact-form input[type=tel],
 .fl-node-<?php echo $id; ?> .pp-contact-form input[type=email] {
-	<?php if( $settings->input_field_height ) { ?>
+	<?php if ( ! empty( $settings->input_field_height ) ) { ?>
     height: <?php echo $settings->input_field_height; ?>px;
     <?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-contact-form textarea {
-	<?php if( $settings->input_textarea_height ) { ?>
+	<?php if ( ! empty( $settings->input_textarea_height ) ) { ?>
     height: <?php echo $settings->input_textarea_height; ?>px;
     <?php } ?>
 }
@@ -453,13 +455,17 @@ $border_style = ( isset( $settings->btn_border_style ) ) ? $settings->btn_border
 .fl-node-<?php echo $id; ?> .pp-contact-form input[type=text]:focus,
 .fl-node-<?php echo $id; ?> .pp-contact-form input[type=tel]:focus,
 .fl-node-<?php echo $id; ?> .pp-contact-form input[type=email]:focus {
-	border-color: <?php echo $settings->input_field_focus_color ? '#' . $settings->input_field_focus_color : 'transparent'; ?>;
+	<?php if ( ! empty( $settings->input_field_border_color ) ) { ?>
+	border-color: #<?php echo $settings->input_field_focus_color; ?>;
+	<?php } ?>
 	outline: none;
 }
 
 .fl-node-<?php echo $id; ?> .pp-contact-form input[type=text]::-webkit-input-placeholder {
-    <?php if( $settings->input_placeholder_color && $settings->input_placeholder_display == 'block' ) { ?>
-    color: #<?php echo $settings->input_placeholder_color; ?>;
+	<?php if ( ! empty( $settings->input_placeholder_color ) && $settings->input_placeholder_display == 'block' ) { ?>
+		<?php if ( ! empty( $settings->input_placeholder_color ) ) { ?>
+		color: #<?php echo $settings->input_placeholder_color; ?>;
+		<?php } ?>
     <?php } else { ?>
     color: transparent;
 	opacity: 0;
@@ -467,88 +473,94 @@ $border_style = ( isset( $settings->btn_border_style ) ) ? $settings->btn_border
 }
 
 .fl-node-<?php echo $id; ?> .pp-contact-form input[type=text]:-moz-placeholder {
-    <?php if( $settings->input_placeholder_color && $settings->input_placeholder_display == 'block' ) { ?>
-    color: #<?php echo $settings->input_placeholder_color; ?>;
+    <?php if ( ! empty( $settings->input_placeholder_color ) && $settings->input_placeholder_display == 'block' ) { ?>
+		<?php if ( ! empty( $settings->input_placeholder_color ) ) { ?>
+		color: #<?php echo $settings->input_placeholder_color; ?>;
+		<?php } ?>
     <?php } else { ?>
     color: transparent;
 	opacity: 0;
     <?php } ?>
 }
 .fl-node-<?php echo $id; ?> .pp-contact-form input[type=text]::-moz-placeholder {
-    <?php if( $settings->input_placeholder_color && $settings->input_placeholder_display == 'block' ) { ?>
-    color: #<?php echo $settings->input_placeholder_color; ?>;
+    <?php if ( ! empty( $settings->input_placeholder_color ) && $settings->input_placeholder_display == 'block' ) { ?>
+		<?php if ( ! empty( $settings->input_placeholder_color ) ) { ?>
+		color: #<?php echo $settings->input_placeholder_color; ?>;
+		<?php } ?>
     <?php } else { ?>
     color: transparent;
 	opacity: 0;
     <?php } ?>
 }
 .fl-node-<?php echo $id; ?> .pp-contact-form input[type=text]:-ms-input-placeholder {
-    <?php if( $settings->input_placeholder_color && $settings->input_placeholder_display == 'block' ) { ?>
-    color: #<?php echo $settings->input_placeholder_color; ?>;
+    <?php if ( ! empty( $settings->input_placeholder_color ) && $settings->input_placeholder_display == 'block' ) { ?>
+		<?php if ( ! empty( $settings->input_placeholder_color ) ) { ?>
+		color: #<?php echo $settings->input_placeholder_color; ?>;
+		<?php } ?>
     <?php } else { ?>
     color: transparent;
 	opacity: 0;
     <?php } ?>
 }
 .fl-node-<?php echo $id; ?> .pp-contact-form input[type=tel]::-webkit-input-placeholder {
-    <?php if( $settings->input_placeholder_color && $settings->input_placeholder_display == 'block' ) { ?>
-    color: #<?php echo $settings->input_placeholder_color; ?>;
+    <?php if( ! empty( $settings->input_placeholder_color ) && $settings->input_placeholder_display == 'block' ) { ?>
+		color: #<?php echo $settings->input_placeholder_color; ?>;
     <?php } else { ?>
     color: transparent;
 	opacity: 0;
     <?php } ?>
 }
 .fl-node-<?php echo $id; ?> .pp-contact-form input[type=tel]:-moz-placeholder {
-    <?php if( $settings->input_placeholder_color && $settings->input_placeholder_display == 'block' ) { ?>
-    color: #<?php echo $settings->input_placeholder_color; ?>;
+    <?php if( ! empty( $settings->input_placeholder_color ) && $settings->input_placeholder_display == 'block' ) { ?>
+		color: #<?php echo $settings->input_placeholder_color; ?>;
     <?php } else { ?>
     color: transparent;
 	opacity: 0;
     <?php } ?>
 }
 .fl-node-<?php echo $id; ?> .pp-contact-form input[type=tel]::-moz-placeholder {
-    <?php if( $settings->input_placeholder_color ) { ?>
-    color: #<?php echo $settings->input_placeholder_color; ?>;
+    <?php if( ! empty( $settings->input_placeholder_color ) && $settings->input_placeholder_display == 'block' ) { ?>
+		color: #<?php echo $settings->input_placeholder_color; ?>;
     <?php } else { ?>
 	color: transparent;
 	opacity: 0;
 	<?php } ?>
 }
 .fl-node-<?php echo $id; ?> .pp-contact-form input[type=tel]:-ms-input-placeholder {
-    <?php if( $settings->input_placeholder_color ) { ?>
-    color: #<?php echo $settings->input_placeholder_color; ?>;
+    <?php if( ! empty( $settings->input_placeholder_color ) && $settings->input_placeholder_display == 'block' ) { ?>
+		color: #<?php echo $settings->input_placeholder_color; ?>;
 	<?php } else { ?>
 	color: transparent;
 	opacity: 0;
 	<?php } ?>
 }
 .fl-node-<?php echo $id; ?> .pp-contact-form input[type=email]::-webkit-input-placeholder {
-    <?php if( $settings->input_placeholder_color && $settings->input_placeholder_display == 'block' ) { ?>
-    color: #<?php echo $settings->input_placeholder_color; ?>;
+    <?php if ( ! empty( $settings->input_placeholder_color ) && $settings->input_placeholder_display == 'block' ) { ?>
+		color: #<?php echo $settings->input_placeholder_color; ?>;
     <?php } else { ?>
     color: transparent;
 	opacity: 0;
     <?php } ?>
 }
 .fl-node-<?php echo $id; ?> .pp-contact-form input[type=email]:-moz-placeholder {
-    <?php if( $settings->input_placeholder_color ) { ?>
-    color: #<?php echo $settings->input_placeholder_color; ?>;
-	<?php } else { ?>
+	<?php if ( ! empty( $settings->input_placeholder_color ) && $settings->input_placeholder_display == 'block' ) { ?>
+		color: #<?php echo $settings->input_placeholder_color; ?>;
+    <?php } else { ?>
     color: transparent;
 	opacity: 0;
     <?php } ?>
 }
 .fl-node-<?php echo $id; ?> .pp-contact-form input[type=email]::-moz-placeholder {
-    <?php if( $settings->input_placeholder_color && $settings->input_placeholder_display == 'block' ) { ?>
-    color: #<?php echo $settings->input_placeholder_color; ?>;
+     <?php if ( ! empty( $settings->input_placeholder_color ) && $settings->input_placeholder_display == 'block' ) { ?>
+		color: #<?php echo $settings->input_placeholder_color; ?>;
     <?php } else { ?>
     color: transparent;
 	opacity: 0;
     <?php } ?>
 }
 .fl-node-<?php echo $id; ?> .pp-contact-form input[type=email]:-ms-input-placeholder {
-    <?php if( $settings->input_placeholder_color && $settings->input_placeholder_display == 'block' ) { ?>
-    color: #<?php echo $settings->input_placeholder_color; ?>;
+     <?php if ( ! empty( $settings->input_placeholder_color ) && $settings->input_placeholder_display == 'block' ) { ?>
+		color: #<?php echo $settings->input_placeholder_color; ?>;
     <?php } else { ?>
     color: transparent;
 	opacity: 0;
@@ -556,40 +568,40 @@ $border_style = ( isset( $settings->btn_border_style ) ) ? $settings->btn_border
 }
 
 .fl-node-<?php echo $id; ?> .pp-contact-form textarea::-webkit-input-placeholder {
-    <?php if( $settings->input_placeholder_color && $settings->input_placeholder_display == 'block' ) { ?>
-    color: #<?php echo $settings->input_placeholder_color; ?>;
+     <?php if ( ! empty( $settings->input_placeholder_color ) && $settings->input_placeholder_display == 'block' ) { ?>
+		color: #<?php echo $settings->input_placeholder_color; ?>;
     <?php } else { ?>
     color: transparent;
 	opacity: 0;
     <?php } ?>
 }
 .fl-node-<?php echo $id; ?> .pp-contact-form textarea:-moz-placeholder {
-    <?php if( $settings->input_placeholder_color ) { ?>
-    color: #<?php echo $settings->input_placeholder_color; ?>;
-	<?php } else { ?>
+    <?php if ( ! empty( $settings->input_placeholder_color ) && $settings->input_placeholder_display == 'block' ) { ?>
+		color: #<?php echo $settings->input_placeholder_color; ?>;
+    <?php } else { ?>
     color: transparent;
 	opacity: 0;
     <?php } ?>
 }
 .fl-node-<?php echo $id; ?> .pp-contact-form textarea::-moz-placeholder {
-    <?php if( $settings->input_placeholder_color && $settings->input_placeholder_display == 'block' ) { ?>
-    color: #<?php echo $settings->input_placeholder_color; ?>;
-	<?php } else { ?>
+	<?php if ( ! empty( $settings->input_placeholder_color ) && $settings->input_placeholder_display == 'block' ) { ?>
+		color: #<?php echo $settings->input_placeholder_color; ?>;
+    <?php } else { ?>
     color: transparent;
 	opacity: 0;
     <?php } ?>
 }
 .fl-node-<?php echo $id; ?> .pp-contact-form textarea:-ms-input-placeholder {
-    <?php if( $settings->input_placeholder_color && $settings->input_placeholder_display == 'block' ) { ?>
-    color: #<?php echo $settings->input_placeholder_color; ?>;
-	<?php } else { ?>
+    <?php if ( ! empty( $settings->input_placeholder_color ) && $settings->input_placeholder_display == 'block' ) { ?>
+		color: #<?php echo $settings->input_placeholder_color; ?>;
+    <?php } else { ?>
     color: transparent;
 	opacity: 0;
     <?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-contact-form .pp-contact-error {
-    <?php if( $settings->validation_message_color ) { ?>
+    <?php if ( ! empty( $settings->validation_message_color ) ) { ?>
 		color: #<?php echo $settings->validation_message_color; ?>;
     <?php } ?>
 	<?php if( $settings->label_font_family['family'] != 'Default' ) { ?>
@@ -601,13 +613,13 @@ $border_style = ( isset( $settings->btn_border_style ) ) ? $settings->btn_border
 .fl-node-<?php echo $id; ?> .pp-contact-form .pp-error input[type=text],
 .fl-node-<?php echo $id; ?> .pp-contact-form .pp-error input[type=tel],
 .fl-node-<?php echo $id; ?> .pp-contact-form .pp-error input[type=email] {
-	<?php if( $settings->validation_field_border_color ) { ?>
+	<?php if ( ! empty( $settings->validation_field_border_color ) ) { ?>
 		border-color: #<?php echo $settings->validation_field_border_color; ?>;
     <?php } ?>
 }
 
 .fl-builder-content .fl-node-<?php echo $id; ?> .pp-success-msg {
-	<?php if( $settings->success_message_color ) { ?>
+	<?php if ( ! empty( $settings->success_message_color ) ) { ?>
 		color: #<?php echo $settings->success_message_color; ?>;
     <?php } ?>
 }

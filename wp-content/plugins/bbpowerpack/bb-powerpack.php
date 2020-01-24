@@ -3,7 +3,7 @@
  * Plugin Name: PowerPack for Beaver Builder
  * Plugin URI: https://wpbeaveraddons.com
  * Description: A set of custom, creative, unique modules for Beaver Builder to speed up your web design and development process.
- * Version: 2.7.7.7
+ * Version: 2.7.10.2
  * Author: IdeaBox Creations
  * Author URI: https://ideaboxcreations.com
  * Copyright: (c) 2016 IdeaBox Creations
@@ -117,7 +117,7 @@ final class BB_PowerPack {
 	 * @return void
 	 */
 	private function define_constants() {
-		define( 'BB_POWERPACK_VER', '2.7.7.7' );
+		define( 'BB_POWERPACK_VER', '2.7.10.2' );
 		define( 'BB_POWERPACK_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'BB_POWERPACK_URL', plugins_url( '/', __FILE__ ) );
 		define( 'BB_POWERPACK_PATH', plugin_basename( __FILE__ ) );
@@ -271,6 +271,12 @@ final class BB_PowerPack {
 			wp_enqueue_script( 'pp-fields-script', BB_POWERPACK_URL . 'assets/js/fields.js', array( 'jquery' ), BB_POWERPACK_VER, true );
 			wp_enqueue_style( 'pp-panel-style', BB_POWERPACK_URL . 'assets/css/panel.css', array(), BB_POWERPACK_VER );
 			wp_enqueue_script( 'pp-panel-script', BB_POWERPACK_URL . 'assets/js/panel.js', array( 'jquery' ), BB_POWERPACK_VER, true );
+
+			$var = array(
+				'site_key' => BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_recaptcha_site_key' ),
+				'v3_site_key' => BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_recaptcha_v3_site_key' ),
+			);
+			wp_add_inline_script( 'g-recaptcha', 'var pp_recaptcha = ' . json_encode( $var ) );
 		}
 	}
 

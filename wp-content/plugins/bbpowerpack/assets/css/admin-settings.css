@@ -542,7 +542,8 @@
 	width: 200px !important;
 	box-shadow: none;
     font-size: 14px;
-    padding: 4px 8px;
+	padding: 4px 8px;
+	line-height: 1;
 }
 
 .pp-template-filter .filter-sublinks {

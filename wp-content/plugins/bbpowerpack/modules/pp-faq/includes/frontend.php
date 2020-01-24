@@ -7,7 +7,7 @@ $icon_position = $settings->faq_toggle_icon_position;
 if ( ! empty( $settings->faq_open_icon ) ) {
 	$open_icon_class = 'pp-faq-button-icon pp-faq-open ' . $settings->faq_open_icon . ' pp-faq-icon-' . $icon_position;
 } else {
-	$open_icon_class = 'pp-faq-button-icon pp-faq-open fa fa-plus pp-fa-icon-' . $icon_position;
+	$open_icon_class = 'pp-faq-button-icon pp-faq-open fa fa-plus pp-faq-icon-' . $icon_position;
 }
 if ( ! empty( $settings->faq_close_icon ) ) {
 	$close_icon_class = 'pp-faq-button-icon pp-faq-close ' . $settings->faq_close_icon . ' pp-faq-icon-' . $icon_position;

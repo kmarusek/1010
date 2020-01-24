@@ -719,6 +719,20 @@ class BB_PowerPack_WPML {
 					),
 				)
 			),
+			'pp-file-download'	=> array(
+				'fields'	=> array(
+					array(
+						'field'	=> 'file',
+						'type'	=> __( 'File Download - URL', 'bb-powerpack' ),
+						'editor-type' => 'LINE',
+					),
+					array(
+						'field' => 'text',
+						'type'	=> __( 'File Download - Button Text', 'bb-powerpack' ),
+						'editor-type' => 'LINE',
+					),
+				),
+			),
         );
 
         foreach ( $config as $module_name => $module_fields ) {

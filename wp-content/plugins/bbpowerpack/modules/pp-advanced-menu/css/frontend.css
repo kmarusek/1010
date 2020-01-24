@@ -455,9 +455,7 @@
     -moz-transform: translate3d(350px, 0, 0);
     transform: translate3d(350px, 0, 0);
 }
-html.pp-off-canvas-menu-open {
-	overflow: hidden !important;
-}
+
 html.pp-off-canvas-menu-open .pp-advanced-menu.menu-open .pp-off-canvas-menu {
 	-webkit-transform: translate3d(0, 0, 0);
 	-moz-transform: translate3d(0, 0, 0);

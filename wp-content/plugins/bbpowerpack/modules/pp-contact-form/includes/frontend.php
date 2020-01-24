@@ -1,5 +1,12 @@
 <?php
 $title_tag = isset( $settings->title_tag ) ? $settings->title_tag : 'h3';
+if ( isset( $settings->recaptcha_key_source ) && 'default' == $settings->recaptcha_key_source ) {
+	$recaptcha_site_key = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_recaptcha_site_key' );
+	$recaptcha_secret_key = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_recaptcha_secret_key' );
+} else {
+	$recaptcha_site_key = $settings->recaptcha_site_key;
+	$recaptcha_secret_key = $settings->recaptcha_secret_key;
+}
 ?>
 
 <form class="pp-contact-form pp-form-<?php echo $settings->form_layout; ?>" <?php if ( isset( $module->template_id ) ) echo 'data-template-id="' . $module->template_id . '" data-template-node-id="' . $module->template_node_id . '"'; ?>>
@@ -70,11 +77,11 @@ $title_tag = isset( $settings->title_tag ) ? $settings->title_tag : 'h3';
         <?php } ?>
 
 		<?php
-		if ( 'show' == $settings->recaptcha_toggle && (isset( $settings->recaptcha_site_key ) && ! empty( $settings->recaptcha_site_key )) ) :
+		if ( 'show' == $settings->recaptcha_toggle && ( isset( $recaptcha_site_key ) && ! empty( $recaptcha_site_key ) ) ) :
 		?>
-		<div class="fl-input-group fl-recaptcha">
+		<div class="pp-input-group pp-recaptcha">
 			<p class="pp-contact-error"><?php _e( 'Please check the captcha to verify you are not a robot.', 'bb-powerpack' );?></p>
-			<div id="<?php echo $id; ?>-fl-grecaptcha" class="fl-grecaptcha" data-sitekey="<?php echo $settings->recaptcha_site_key; ?>"<?php if ( isset( $settings->recaptcha_validate_type ) ) { echo ' data-validate="' . $settings->recaptcha_validate_type . '"';} ?><?php if ( isset( $settings->recaptcha_theme ) ) { echo ' data-theme="' . $settings->recaptcha_theme . '"';} ?>></div>
+			<div id="<?php echo $id; ?>-pp-grecaptcha" class="pp-grecaptcha" data-sitekey="<?php echo $recaptcha_site_key; ?>"<?php if ( isset( $settings->recaptcha_validate_type ) ) { echo ' data-validate="' . $settings->recaptcha_validate_type . '"';} ?><?php if ( isset( $settings->recaptcha_theme ) ) { echo ' data-theme="' . $settings->recaptcha_theme . '"';} ?>></div>
 		</div>
 		<?php endif; ?>
 	</div>

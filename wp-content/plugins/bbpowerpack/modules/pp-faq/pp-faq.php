@@ -44,6 +44,7 @@ class PPFAQModule extends FLBuilderModule {
 	 * Render content.
 	 */
 	public function render_content( $item, $embed = true ) {
+
 		if ( ! $embed ) {
 			$text = ! empty( $item->answer ) ? json_encode( $item->answer ) : '';
 			return $text;
@@ -165,6 +166,27 @@ class PPFAQModule extends FLBuilderModule {
 				'connections' => array( 'string' ),
 			);
 		}
+		if ( function_exists( 'acf_add_options_page' ) ) {
+			$fields['faq_source']['options']['acf_options_page']          = __( 'ACF Option Page', 'bb-powerpack' );
+			$fields['faq_source']['toggle']['acf_options_page']['fields'] = array( 'acf_options_page_repeater_name', 'acf_options_page_repeater_question', 'acf_options_page_repeater_answer' );
+			$fields['faq_source']['help']                                 = __( 'To make use of the \'ACF Option Page\' feature, you will need ACF PRO (ACF v5), or the options page add-on (ACF v4)', 'bb-powerpack' );
+
+			$fields['acf_options_page_repeater_name']     = array(
+				'type'        => 'text',
+				'label'       => __( 'ACF Repeater Field Name', 'bb-powerpack' ),
+				'connections' => array( 'string' ),
+			);
+			$fields['acf_options_page_repeater_question'] = array(
+				'type'        => 'text',
+				'label'       => __( 'ACF Repeater Sub Field Name (Question)', 'bb-powerpack' ),
+				'connections' => array( 'string' ),
+			);
+			$fields['acf_options_page_repeater_answer']   = array(
+				'type'        => 'text',
+				'label'       => __( 'ACF Repeater Sub Field Name (Answer)', 'bb-powerpack' ),
+				'connections' => array( 'string' ),
+			);
+		}
 
 		return $fields;
 	}
@@ -195,6 +217,33 @@ class PPFAQModule extends FLBuilderModule {
 			$data[] = $item;
 		}
 
+		return $data;
+	}
+
+	public function get_acf_options_page_data( $post_id = false ) {
+		if ( ! isset( $this->settings->acf_options_page_repeater_name ) || empty( $this->settings->acf_options_page_repeater_name ) ) {
+			return;
+		}
+
+		$data    = array();
+		$post_id = apply_filters( 'pp_faq_acf_options_page_post_id', $post_id );
+
+		$repeater_name = $this->settings->acf_options_page_repeater_name;
+		$question_name = $this->settings->acf_options_page_repeater_question;
+		$answer_name   = $this->settings->acf_options_page_repeater_answer;
+
+		$repeater_rows = get_field( $repeater_name, 'option' );
+		if ( ! $repeater_rows ) {
+			return;
+		}
+
+		foreach ( $repeater_rows as $row ) {
+			$item               = new stdClass;
+			$item->faq_question = isset( $row[ $question_name ] ) ? $row[ $question_name ] : '';
+			$item->answer       = isset( $row[ $answer_name ] ) ? $row[ $answer_name ] : '';
+
+			$data[] = $item;
+		}
 		return $data;
 	}
 
@@ -274,6 +323,10 @@ class PPFAQModule extends FLBuilderModule {
 
 		if ( 'acf' === $this->settings->faq_source ) {
 			return $this->get_acf_data();
+		}
+
+		if ( 'acf_options_page' === $this->settings->faq_source ) {
+			return $this->get_acf_options_page_data();
 		}
 
 		if ( 'post' === $this->settings->faq_source ) {
@@ -402,8 +455,8 @@ FLBuilder::register_module(
 							'label'   => __( 'Icon Position', 'bb-powerpack' ),
 							'default' => 'right',
 							'options' => array(
-								'left'  => __( 'Left', 'bb-powerpack' ),
-								'right' => __( 'Right', 'bb-powerpack' ),
+								'left'  => __( 'Before Text', 'bb-powerpack' ),
+								'right' => __( 'After Text', 'bb-powerpack' ),
 							),
 						),
 						'faq_toggle_icon_spacing'     => array(

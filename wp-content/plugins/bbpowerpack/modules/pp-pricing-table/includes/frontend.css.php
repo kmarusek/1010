@@ -1,15 +1,17 @@
 <?php
-FLBuilderCSS::responsive_rule( array(
-	'settings'		=> $settings,
-	'setting_name'	=> 'dp_button_spacing_bottom',
-	'selector'		=> ".fl-node-$id .pp-pricing-table .pp-pricing-table-switch",
-	'prop'			=> 'margin-bottom',
-	'unit'			=> 'px'
-) );
+FLBuilderCSS::responsive_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'dp_button_spacing_bottom',
+		'selector'     => ".fl-node-$id .pp-pricing-table .pp-pricing-table-switch",
+		'prop'         => 'margin-bottom',
+		'unit'         => 'px',
+	)
+);
 ?>
 .fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-buttons {
 	display: block;
-    float: none;
+	float: none;
 	text-align: <?php echo $settings->dp_button_alignment; ?>;
 }
 .fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-buttons .pp-pricing-table-button {
@@ -29,7 +31,7 @@ FLBuilderCSS::responsive_rule( array(
 	padding-left: <?php echo $settings->dp_button_padding_h; ?>px;
 	padding-right: <?php echo $settings->dp_button_padding_h; ?>px;
 	<?php } ?>
-	 <?php if ( isset( $settings->dp_button_border_group ) && isset( $settings->dp_button_border_group['radius'] ) ) { ?>
+	<?php if ( isset( $settings->dp_button_border_group ) && isset( $settings->dp_button_border_group['radius'] ) ) { ?>
 		border-top-left-radius: <?php echo $settings->dp_button_border_group['radius']['top_left']; ?>px;
 		border-top-right-radius: <?php echo $settings->dp_button_border_group['radius']['top_right']; ?>px;
 		border-bottom-left-radius: <?php echo $settings->dp_button_border_group['radius']['bottom_left']; ?>px;
@@ -40,14 +42,16 @@ FLBuilderCSS::responsive_rule( array(
 	transition: all 0.25s ease-in-out;
 }
 <?php // Toggle - Border
-FLBuilderCSS::border_field_rule( array(
-	'settings' 		=> $settings,
-	'setting_name' 	=> 'dp_button_border_group',
-	'selector' 		=> ".fl-node-$id .pp-pricing-table .pp-pricing-table-buttons .pp-pricing-table-button",
-) );
+FLBuilderCSS::border_field_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'dp_button_border_group',
+		'selector'     => ".fl-node-$id .pp-pricing-table .pp-pricing-table-buttons .pp-pricing-table-button",
+	)
+);
 ?>
 
-<?php if ( 'active' == $settings->dp_button_apply_border ) { ?>
+<?php if ( 'active' === $settings->dp_button_apply_border ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-buttons .pp-pricing-table-button:not(.pp-pricing-button-active) {
 		border-color: transparent;
 	}
@@ -56,10 +60,10 @@ FLBuilderCSS::border_field_rule( array(
 .fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-buttons .pp-pricing-table-button.pp-pricing-button-active,
 .fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-buttons .pp-pricing-table-button:hover {
 	<?php if ( ! empty( $settings->dp_button_active_bg_color ) ) { ?>
-		background-color: <?php echo pp_get_color_value($settings->dp_button_active_bg_color); ?>;
+		background-color: <?php echo pp_get_color_value( $settings->dp_button_active_bg_color ); ?>;
 	<?php } ?>
 	<?php if ( ! empty( $settings->dp_button_active_text_color ) ) { ?>
-		color: <?php echo pp_get_color_value($settings->dp_button_active_text_color); ?>;
+		color: <?php echo pp_get_color_value( $settings->dp_button_active_text_color ); ?>;
 	<?php } ?>
 }
 
@@ -74,7 +78,7 @@ FLBuilderCSS::border_field_rule( array(
 	padding-right: <?php echo $settings->box_spacing; ?>px;
 }
 
-<?php if( $settings->box_spacing == 0 && isset( $settings->box_border_group ) && '' != $settings->box_border_group['width']['right'] ) { ?>
+<?php if ( $settings->box_spacing === 0 && isset( $settings->box_border_group ) && '' !== $settings->box_border_group['width']['right'] ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-col {
 		margin-right: -<?php echo $settings->box_border_group['width']['right']; ?>px;
 	}
@@ -82,30 +86,34 @@ FLBuilderCSS::border_field_rule( array(
 
 .fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-col .pp-pricing-table-column {
 	<?php if ( ! empty( $settings->box_bg_color ) ) { ?>
-		background-color: <?php echo pp_get_color_value($settings->box_bg_color); ?>;
+		background-color: <?php echo pp_get_color_value( $settings->box_bg_color ); ?>;
 	<?php } ?>
 }
 
 <?php
 // Box - Padding
-FLBuilderCSS::dimension_field_rule( array(
-	'settings'		=> $settings,
-	'setting_name' 	=> 'box_padding',
-	'selector' 		=> ".fl-node-$id .pp-pricing-table .pp-pricing-table-col .pp-pricing-table-column",
-	'unit'			=> 'px',
-	'props'			=> array(
-		'padding-top' 		=> 'box_padding_top',
-		'padding-right' 	=> 'box_padding_right',
-		'padding-bottom' 	=> 'box_padding_bottom',
-		'padding-left' 		=> 'box_padding_left',
-	),
-) );
+FLBuilderCSS::dimension_field_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'box_padding',
+		'selector'     => ".fl-node-$id .pp-pricing-table .pp-pricing-table-col .pp-pricing-table-column",
+		'unit'         => 'px',
+		'props'        => array(
+			'padding-top'    => 'box_padding_top',
+			'padding-right'  => 'box_padding_right',
+			'padding-bottom' => 'box_padding_bottom',
+			'padding-left'   => 'box_padding_left',
+		),
+	)
+);
 // Box - Border
-FLBuilderCSS::border_field_rule( array(
-	'settings' 		=> $settings,
-	'setting_name' 	=> 'box_border_group',
-	'selector' 		=> ".fl-node-$id .pp-pricing-table .pp-pricing-table-col .pp-pricing-table-column",
-) );
+FLBuilderCSS::border_field_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'box_border_group',
+		'selector'     => ".fl-node-$id .pp-pricing-table .pp-pricing-table-col .pp-pricing-table-column",
+	)
+);
 ?>
 
 .fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-matrix .pp-pricing-table-header {
@@ -123,24 +131,28 @@ FLBuilderCSS::border_field_rule( array(
 
 <?php
 // Highlight Box - Padding
-FLBuilderCSS::dimension_field_rule( array(
-	'settings'		=> $settings,
-	'setting_name' 	=> 'hl_box_padding',
-	'selector' 		=> ".fl-node-$id .pp-pricing-table .pp-pricing-table-col.pp-pricing-table-highlight .pp-pricing-table-column",
-	'unit'			=> 'px',
-	'props'			=> array(
-		'padding-top' 		=> 'hl_box_padding_top',
-		'padding-right' 	=> 'hl_box_padding_right',
-		'padding-bottom' 	=> 'hl_box_padding_bottom',
-		'padding-left' 		=> 'hl_box_padding_left',
-	),
-) );
+FLBuilderCSS::dimension_field_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'hl_box_padding',
+		'selector'     => ".fl-node-$id .pp-pricing-table .pp-pricing-table-col.pp-pricing-table-highlight .pp-pricing-table-column",
+		'unit'         => 'px',
+		'props'        => array(
+			'padding-top'    => 'hl_box_padding_top',
+			'padding-right'  => 'hl_box_padding_right',
+			'padding-bottom' => 'hl_box_padding_bottom',
+			'padding-left'   => 'hl_box_padding_left',
+		),
+	)
+);
 // Highlight box - Border
-FLBuilderCSS::border_field_rule( array(
-	'settings' 		=> $settings,
-	'setting_name' 	=> 'hl_box_border_group',
-	'selector' 		=> ".fl-node-$id .pp-pricing-table .pp-pricing-table-col.pp-pricing-table-highlight .pp-pricing-table-column",
-) );
+FLBuilderCSS::border_field_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'hl_box_border_group',
+		'selector'     => ".fl-node-$id .pp-pricing-table .pp-pricing-table-col.pp-pricing-table-highlight .pp-pricing-table-column",
+	)
+);
 ?>
 
 <?php } ?>
@@ -152,16 +164,18 @@ FLBuilderCSS::border_field_rule( array(
 }
 
 .fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-col.pp-pricing-table-matrix .pp-pricing-table-column ul {
-	background-color: <?php echo ($settings->matrix_bg) ? pp_get_color_value( $settings->matrix_bg ) : 'transparent'; ?>;
+	background-color: <?php echo ( $settings->matrix_bg) ? pp_get_color_value( $settings->matrix_bg ) : 'transparent'; ?>;
 }
 
 <?php
 // Matrix - Border
-FLBuilderCSS::border_field_rule( array(
-	'settings' 		=> $settings,
-	'setting_name' 	=> 'box_border_group',
-	'selector' 		=> ".fl-node-$id .pp-pricing-table .pp-pricing-table-col.pp-pricing-table-matrix .pp-pricing-table-column ul",
-) );
+FLBuilderCSS::border_field_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'box_border_group',
+		'selector'     => ".fl-node-$id .pp-pricing-table .pp-pricing-table-col.pp-pricing-table-matrix .pp-pricing-table-column ul",
+	)
+);
 ?>
 
 .fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-column .pp-pricing-featured-title {
@@ -172,24 +186,28 @@ FLBuilderCSS::border_field_rule( array(
 }
 <?php
 // Featured Title Typography
-FLBuilderCSS::typography_field_rule( array(
-	'settings'		=> $settings,
-	'setting_name' 	=> 'featured_title_typography',
-	'selector' 		=> ".fl-node-$id .pp-pricing-table .pp-pricing-table-column .pp-pricing-featured-title",
-) );
+FLBuilderCSS::typography_field_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'featured_title_typography',
+		'selector'     => ".fl-node-$id .pp-pricing-table .pp-pricing-table-column .pp-pricing-featured-title",
+	)
+);
 // Featured Title - Padding
-FLBuilderCSS::dimension_field_rule( array(
-	'settings'		=> $settings,
-	'setting_name' 	=> 'featured_title_padding',
-	'selector' 		=> ".fl-node-$id .pp-pricing-table .pp-pricing-table-column .pp-pricing-featured-title",
-	'unit'			=> 'px',
-	'props'			=> array(
-		'padding-top' 		=> 'featured_title_padding_top',
-		'padding-right' 	=> 'featured_title_padding_right',
-		'padding-bottom' 	=> 'featured_title_padding_bottom',
-		'padding-left' 		=> 'featured_title_padding_left',
-	),
-) );
+FLBuilderCSS::dimension_field_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'featured_title_padding',
+		'selector'     => ".fl-node-$id .pp-pricing-table .pp-pricing-table-column .pp-pricing-featured-title",
+		'unit'         => 'px',
+		'props'        => array(
+			'padding-top'    => 'featured_title_padding_top',
+			'padding-right'  => 'featured_title_padding_right',
+			'padding-bottom' => 'featured_title_padding_bottom',
+			'padding-left'   => 'featured_title_padding_left',
+		),
+	)
+);
 ?>
 
 .fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-col.pp-pricing-table-highlight .pp-pricing-table-column .pp-pricing-featured-title {
@@ -208,24 +226,28 @@ FLBuilderCSS::dimension_field_rule( array(
 
 <?php
 // Title Typography
-FLBuilderCSS::typography_field_rule( array(
-	'settings'		=> $settings,
-	'setting_name' 	=> 'title_typography',
-	'selector' 		=> ".fl-node-$id .pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix) .pp-pricing-table-column .pp-pricing-table-title",
-) );
+FLBuilderCSS::typography_field_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'title_typography',
+		'selector'     => ".fl-node-$id .pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix) .pp-pricing-table-column .pp-pricing-table-title",
+	)
+);
 // Title - Padding
-FLBuilderCSS::dimension_field_rule( array(
-	'settings'		=> $settings,
-	'setting_name' 	=> 'title_padding',
-	'selector' 		=> ".fl-node-$id .pp-pricing-table .pp-pricing-table-col .pp-pricing-table-column .pp-pricing-table-title",
-	'unit'			=> 'px',
-	'props'			=> array(
-		'padding-top' 		=> 'title_padding_top',
-		'padding-right' 	=> 'title_padding_right',
-		'padding-bottom' 	=> 'title_padding_bottom',
-		'padding-left' 		=> 'title_padding_left',
-	),
-) );
+FLBuilderCSS::dimension_field_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'title_padding',
+		'selector'     => ".fl-node-$id .pp-pricing-table .pp-pricing-table-col .pp-pricing-table-column .pp-pricing-table-title",
+		'unit'         => 'px',
+		'props'        => array(
+			'padding-top'    => 'title_padding_top',
+			'padding-right'  => 'title_padding_right',
+			'padding-bottom' => 'title_padding_bottom',
+			'padding-left'   => 'title_padding_left',
+		),
+	)
+);
 ?>
 
 .fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-col .pp-pricing-table-column .pp-pricing-table-title {
@@ -238,24 +260,28 @@ FLBuilderCSS::dimension_field_rule( array(
 
 <?php
 // Price Typography
-FLBuilderCSS::typography_field_rule( array(
-	'settings'		=> $settings,
-	'setting_name' 	=> 'price_typography',
-	'selector' 		=> ".fl-node-$id .pp-pricing-table .pp-pricing-table-col .pp-pricing-table-column .pp-pricing-table-price",
-) );
+FLBuilderCSS::typography_field_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'price_typography',
+		'selector'     => ".fl-node-$id .pp-pricing-table .pp-pricing-table-col .pp-pricing-table-column .pp-pricing-table-price",
+	)
+);
 // Price - Padding
-FLBuilderCSS::dimension_field_rule( array(
-	'settings'		=> $settings,
-	'setting_name' 	=> 'price_padding',
-	'selector' 		=> ".fl-node-$id .pp-pricing-table .pp-pricing-table-col .pp-pricing-table-column .pp-pricing-table-price",
-	'unit'			=> 'px',
-	'props'			=> array(
-		'padding-top' 		=> 'price_padding_top',
-		'padding-right' 	=> 'price_padding_right',
-		'padding-bottom' 	=> 'price_padding_bottom',
-		'padding-left' 		=> 'price_padding_left',
-	),
-) );
+FLBuilderCSS::dimension_field_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'price_padding',
+		'selector'     => ".fl-node-$id .pp-pricing-table .pp-pricing-table-col .pp-pricing-table-column .pp-pricing-table-price",
+		'unit'         => 'px',
+		'props'        => array(
+			'padding-top'    => 'price_padding_top',
+			'padding-right'  => 'price_padding_right',
+			'padding-bottom' => 'price_padding_bottom',
+			'padding-left'   => 'price_padding_left',
+		),
+	)
+);
 ?>
 
 .fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-col:not(.pp-pricing-table-matrix) .pp-pricing-table-column .pp-pricing-table-price {
@@ -470,41 +496,48 @@ FLBuilderCSS::dimension_field_rule( array(
 /* Button CSS */
 .fl-builder-content .fl-node-<?php echo $id; ?> .pp-pricing-table-column-<?php echo $i; ?> a.fl-button {
 	<?php if ( empty( $pricing_column->btn_width ) ) : ?>
-	 	display:block;
-	 	margin: 0 30px 5px;
+		display:block;
+		margin: 0 30px 5px;
 	<?php endif; ?>
 }
 
 <?php
-FLBuilder::render_module_css('fl-button', $id . ' .pp-pricing-table-column-' . $i , array(
-	'align'             => 'center',
-	'bg_color'          => $pricing_column->btn_bg_color,
-	'bg_hover_color'    => $pricing_column->btn_bg_hover_color,
-	'bg_opacity'        => $pricing_column->btn_bg_opacity,
-	'bg_hover_opacity'  => $pricing_column->btn_bg_hover_opacity,
-	'button_transition' => $pricing_column->btn_button_transition,
-	'border_radius'     => $pricing_column->btn_border_radius,
-	'border_size'       => $pricing_column->btn_border_size,
-	'icon'              => $pricing_column->btn_icon,
-	'icon_position'     => $pricing_column->btn_icon_position,
-	'link'              => $pricing_column->button_url,
-	'link_target'       => '_self',
-	'style'             => $pricing_column->btn_style,
-	'text_color'        => $pricing_column->btn_text_color,
-	'text_hover_color'  => $pricing_column->btn_text_hover_color,
-	'width'             => $pricing_column->btn_width
-));
+// Button Typography
+FLBuilder::render_module_css(
+	'fl-button',
+	$id . ' .pp-pricing-table-column-' . $i,
+	array(
+		'align'             => 'center',
+		'bg_color'          => $pricing_column->btn_bg_color,
+		'bg_hover_color'    => $pricing_column->btn_bg_hover_color,
+		'bg_opacity'        => $pricing_column->btn_bg_opacity,
+		'bg_hover_opacity'  => $pricing_column->btn_bg_hover_opacity,
+		'button_transition' => $pricing_column->btn_button_transition,
+		'border_radius'     => $pricing_column->btn_border_radius,
+		'border_size'       => $pricing_column->btn_border_size,
+		'icon'              => $pricing_column->btn_icon,
+		'icon_position'     => $pricing_column->btn_icon_position,
+		'link'              => $pricing_column->button_url,
+		'link_target'       => '_self',
+		'style'             => $pricing_column->btn_style,
+		'text_color'        => $pricing_column->btn_text_color,
+		'text_hover_color'  => $pricing_column->btn_text_hover_color,
+		'width'             => $pricing_column->btn_width,
+	)
+);
 ?>
 
 <?php endfor; ?>
 
 <?php
 // Button Typography
-FLBuilderCSS::typography_field_rule( array(
-	'settings'		=> $settings,
-	'setting_name' 	=> 'button_typography',
-	'selector' 		=> "div.fl-node-$id .pp-pricing-table .pp-pricing-table-column a.fl-button",
-) );
+FLBuilderCSS::typography_field_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'button_typography',
+		'selector'     => "div.fl-node-$id .pp-pricing-table .pp-pricing-table-column a.fl-button",
+	)
+);
 ?>
 
 
@@ -544,13 +577,13 @@ FLBuilderCSS::typography_field_rule( array(
 	.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-matrix {
 		display: none;
 	}
-   .fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-features li span.pp-pricing-table-item-label {
-	   display: block;
-   }
-   .fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-features li {
-	   height: auto !important;
-	   display: block !important;
-   }
+	.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-features li span.pp-pricing-table-item-label {
+		display: block;
+	}
+	.fl-node-<?php echo $id; ?> .pp-pricing-table .pp-pricing-table-features li {
+		height: auto !important;
+		display: block !important;
+	}
 }
 
 @media only screen and ( max-width: 600px ) {

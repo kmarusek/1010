@@ -10,3 +10,15 @@ img.pp-how-to-image {
 .pp-how-to-step-image {
     width: 30%;
 }
+.pp-how-to-container .pp-supply {
+	display: flex;
+    align-items: center;
+}
+.pp-how-to-container .pp-tool {
+	display: flex;
+    align-items: center;
+}
+
+.pp-how-to-container .pp-how-to-step.pp-has-img .pp-how-to-step-image img {
+	width: 100%;
+}

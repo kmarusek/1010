@@ -64,6 +64,12 @@ FLBuilderCSS::border_field_rule( array(
 	<?php } ?>
 }
 
+.fl-node-<?php echo $id; ?> .pp-accordion-item .pp-accordion-button-icon.pp-accordion-icon-right {
+	padding-left: <?php echo $settings->accordion_icon_spacing; ?>px;
+}
+.fl-node-<?php echo $id; ?> .pp-accordion-item .pp-accordion-button-icon.pp-accordion-icon-left {
+	padding-right: <?php echo $settings->accordion_icon_spacing; ?>px;
+}
 
 <?php if( $settings->item_spacing == 0 && isset( $settings->label_border['width'] ) ) : ?>
 .fl-node-<?php echo $id; ?> .pp-accordion-item .pp-accordion-button:last-child {

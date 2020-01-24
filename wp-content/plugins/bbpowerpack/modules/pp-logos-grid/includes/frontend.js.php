@@ -16,7 +16,7 @@
 		});
 		$('.fl-node-<?php echo $id; ?> .pp-logos-wrapper .pp-logo').css('height', maxHeight + 'px');
 
-		<?php if ( $settings->logos_layout == 'carousel' && $settings->logo_slider_transition == 'fade' ) { ?>
+		<?php if ( 'carousel' === $settings->logos_layout && 'fade' === $settings->logo_slider_transition ) { ?>
 		if($(window).width() <= 768 ){
 			$('.fl-node-<?php echo $id; ?> .pp-logos-wrapper .pp-logo').each(function(index) {
 				//$(this).css('height', $('.fl-node-<?php echo $id; ?> .pp-logos-content').outerHeight() + 'px');
@@ -27,12 +27,13 @@
 	}
 
 	$('.fl-node-<?php echo $id; ?> .pp-logos-wrapper').imagesLoaded(function() {
-	<?php if( $settings->logos_layout == 'carousel' ) { ?>
+	<?php if ( 'carousel' === $settings->logos_layout ) { ?>
 		// Clear the controls in case they were already created.
 		$('.fl-node-<?php echo $id; ?> .logo-slider-next').empty();
 		$('.fl-node-<?php echo $id; ?> .logo-slider-prev').empty();
 
-		var minSlides = ($(window).width() <= 768) ? parseInt($('.fl-node-<?php echo $id; ?>').width() / <?php echo $settings->logo_carousel_width + ($settings->logos_carousel_spacing * ($settings->logo_carousel_minimum_grid - 1)); ?>) : <?php echo $settings->logo_carousel_minimum_grid; ?>;
+		<?php $logo_carousel_width = isset( $settings->logo_carousel_width ) && ! empty( $settings->logo_carousel_width ) ? $settings->logo_carousel_width : '250'; ?>
+		var minSlides = ( $( window ).width() <= 768 ) ? parseInt( $( '.fl-node-<?php echo $id; ?>' ).width() / <?php echo $logo_carousel_width + ( $settings->logos_carousel_spacing * ( $settings->logo_carousel_minimum_grid - 1 ) ); ?>) : <?php echo $settings->logo_carousel_minimum_grid; ?>;
 
 		<?php if ( isset( $settings->logo_carousel_minimum_grid_medium ) && ! empty( $settings->logo_carousel_minimum_grid_medium ) ) { ?>
 		if ( window.innerWidth <= <?php echo $global_settings->medium_breakpoint; ?> ) {
@@ -56,40 +57,40 @@
 
 		var totalSlides = minSlides - 1;
 
-		<?php if ( $settings->logo_slider_transition == 'fade' ) { ?>
+		<?php if ( 'fade' === $settings->logo_slider_transition ) { ?>
 		var min_<?php echo $id; ?> = minSlides;
 		$('.fl-node-<?php echo $id; ?> .pp-logos-wrapper .pp-logo').each(function(index) {
 			//$(this).css('width', 'calc((100% - '+totalSlides * <?php echo $settings->logos_carousel_spacing; ?>+'px) /'+ minSlides + ')');
 			$(this).css('width', 'calc((100% - '+totalSlides * <?php echo $settings->logos_carousel_spacing; ?>+'px) /'+ minSlides + ')');
-			//$(this).css('width', '<?php echo $settings->logo_carousel_width; ?>px');
+			//$(this).css('width', '<?php echo $logo_carousel_width; ?>px');
 			if(index % min_<?php echo $id; ?> == 0) {
-	    		$(this).before('<div class="slide-group clearfix"></div>');
+				$(this).before('<div class="slide-group clearfix"></div>');
 			}
 			$(this).appendTo($(this).prev());
 		});
 		$('.fl-node-<?php echo $id; ?> .pp-logos-wrapper .slide-group .pp-logo:nth-of-type('+minSlides+'n)').css('margin-right', 0);
 		<?php } ?>
 
-		<?php if ( $settings->equal_height == 'yes' ) { ?>
+		<?php if ( 'yes' === $settings->equal_height ) { ?>
 		//equalheight();
 		<?php } ?>
 
 		// Create the slider.
 		$('.fl-node-<?php echo $id; ?> .pp-logos-wrapper').bxSlider({
-			<?php if ( $settings->logo_slider_transition != 'fade' ) { ?>
-	        slideWidth: <?php echo $settings->logo_carousel_width; ?>,
+			<?php if ( 'fade' !== $settings->logo_slider_transition ) { ?>
+				slideWidth: <?php echo $logo_carousel_width; ?>,
 			<?php } ?>
 			moveSlides: moveSlides,
 			slideMargin: <?php echo $settings->logos_carousel_spacing; ?>,
-	        minSlides: minSlides,
-	        maxSlides: maxSlides,
-			autoStart : <?php echo $settings->logo_slider_auto_play ?>,
+			minSlides: minSlides,
+			maxSlides: maxSlides,
+			autoStart : <?php echo $settings->logo_slider_auto_play; ?>,
 			auto : true,
 			autoHover: <?php echo $settings->logo_slider_pause_hover; ?>,
 			adaptiveHeight: false,
 			pause : <?php echo $settings->logo_slider_pause * 1000; ?>,
 			mode : '<?php echo $settings->logo_slider_transition; ?>',
-			speed : <?php echo $settings->logo_slider_speed * 1000;  ?>,
+			speed : <?php echo $settings->logo_slider_speed * 1000; ?>,
 			pager : <?php echo $settings->logo_slider_dots; ?>,
 			nextSelector : '.fl-node-<?php echo $id; ?> .logo-slider-next',
 			prevSelector : '.fl-node-<?php echo $id; ?> .logo-slider-prev',
@@ -103,9 +104,9 @@
 
 	<?php } ?>
 
-	<?php if( $settings->logos_layout == 'carousel' ) { ?>
+	<?php if ( 'carousel' === $settings->logos_layout ) { ?>
 
-		<?php if ( $settings->logo_slider_transition != 'fade' ) { ?>
+		<?php if ( 'fade' !== $settings->logo_slider_transition ) { ?>
 		if($(window).width() <= 768 ){
 			$('.fl-node-<?php echo $id; ?> .pp-logos-wrapper .pp-logo').each(function(index) {
 				//$(this).css('height', $(this).css('width'));
@@ -113,7 +114,7 @@
 			//$('.fl-node-<?php echo $id; ?> .bx-viewport').css('height', $('.fl-node-<?php echo $id; ?> .pp-logos-wrapper').outerHeight() + 'px');
 		}
 		<?php } ?>
-		<?php if ( $settings->logo_slider_transition == 'fade' ) { ?>
+		<?php if ( 'fade' === $settings->logo_slider_transition ) { ?>
 		if($(window).width() <= 768 ){
 			var viewport_h = $('.fl-node-<?php echo $id; ?> .bx-viewport').outerHeight();
 			$('.fl-node-<?php echo $id; ?> .pp-logos-wrapper .pp-logo').css('height', viewport_h + 'px');
@@ -123,7 +124,7 @@
 
 	<?php } ?>
 
-	<?php if ( $settings->logos_layout !== 'carousel' && $settings->equal_height == 'yes' ) { ?>
+	<?php if ( 'carousel' !== $settings->logos_layout && 'yes' === $settings->equal_height ) { ?>
 	//equalheight();
 	<?php } ?>
 

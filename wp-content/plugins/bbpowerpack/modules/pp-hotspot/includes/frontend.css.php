@@ -310,6 +310,34 @@ FLBuilderCSS::typography_field_rule(
 .pp-tooltip-wrap-<?php echo $id; ?>.tooltipster-sidetip .tooltipster-box .tooltipster-content .pp-hotspot-tour .pp-hotspot-end {
 	text-align: center;
 }
+.pp-tooltip-wrap-<?php echo $id; ?>.tooltipster-sidetip .tooltipster-box .tooltipster-content .pp-tooltip-close {
+	position: absolute;
+	right: 0;
+	top: 0;
+	margin: 5px;
+	font-size: <?php echo $settings->close_font_size . 'px'; ?>;
+	color: <?php echo pp_get_color_value( $settings->close_color ); ?>;
+}
+.pp-tooltip-wrap-<?php echo $id; ?>.tooltipster-sidetip .tooltipster-box .tooltipster-content .pp-tooltip-close:hover {
+	color: <?php echo pp_get_color_value( $settings->close_hover_color ); ?>;
+}
+<?php
+// Tooltip Close Icon Margin
+FLBuilderCSS::dimension_field_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'close_margin',
+		'selector'     => ".pp-tooltip-wrap-$id.tooltipster-sidetip .tooltipster-box .tooltipster-content .pp-tooltip-close",
+		'unit'         => 'px',
+		'props'        => array(
+			'margin-top'    => 'close_margin_top',
+			'margin-right'  => 'close_margin_right',
+			'margin-bottom' => 'close_margin_bottom',
+			'margin-left'   => 'close_margin_left',
+		),
+	)
+);
+?>
 
 @media only screen and (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) {
 	.fl-node-<?php echo $id; ?> .pp-hotspot-image-container .pp-hotspot-image {
@@ -348,6 +376,9 @@ FLBuilderCSS::typography_field_rule(
 		border-bottom-left-radius:  <?php echo $settings->img_border_medium['radius']['bottom_left']; ?>px;
 		border-bottom-right-radius:  <?php echo $settings->img_border_medium['radius']['bottom_right']; ?>px;
 	}
+	.pp-tooltip-wrap-<?php echo $id; ?>.tooltipster-sidetip .tooltipster-box .tooltipster-content .pp-tooltip-close {
+		font-size: <?php echo $settings->close_font_size_medium . 'px'; ?>;
+	}
 }
 @media only screen and (max-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
 	.fl-node-<?php echo $id; ?> .pp-hotspot-image-container .pp-hotspot-image {
@@ -385,5 +416,8 @@ FLBuilderCSS::typography_field_rule(
 		border-top-right-radius:  <?php echo $settings->img_border_responsive['radius']['top_right']; ?>px;
 		border-bottom-left-radius:  <?php echo $settings->img_border_responsive['radius']['bottom_left']; ?>px;
 		border-bottom-right-radius:  <?php echo $settings->img_border_responsive['radius']['bottom_right']; ?>px;
+	}
+	.pp-tooltip-wrap-<?php echo $id; ?>.tooltipster-sidetip .tooltipster-box .tooltipster-content .pp-tooltip-close {
+		font-size: <?php echo $settings->close_font_size_responsive . 'px'; ?>;
 	}
 }

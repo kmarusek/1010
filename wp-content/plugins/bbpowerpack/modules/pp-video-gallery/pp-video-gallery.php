@@ -1340,5 +1340,64 @@ FLBuilder::register_settings_form('pp_video_gallery_items', array(
 				),
 			),
 		),
+		'structured_data'	=> array(
+			'title'		=> __( 'Structured Data', 'bb-powerpack' ),
+			'sections'	=> array(
+				'video_info'	=> array(
+					'title'			=> '',
+					'fields'		=> array(
+						'schema_enabled'	=> array(
+							'type'		=> 'pp-switch',
+							'label'		=> __( 'Enable Structured Data?', 'bb-powerpack' ),
+							'default'	=> 'no',
+							'options'	=> array(
+								'yes'		=> __( 'Yes', 'bb-powerpack' ),
+								'no'		=> __( 'No', 'bb-powerpack' ),
+							),
+							'toggle'	=> array(
+								'yes'		=> array(
+									'fields'	=> array( 'schema_video_title', 'schema_video_desc', 'schema_video_thumbnail', 'schema_video_upload_date' ),
+								),
+							),
+						),
+						'schema_video_title'	=> array(
+							'type'			=> 'text',
+							'label'			=> __( 'Video Title', 'bb-powerpack' ),
+							'default'		=> '',
+							'connections'	=> array( 'string' ),
+							'preview' 		=> array(
+								'type' 			=> 'none',
+							),
+						),
+						'schema_video_desc'	=> array(
+							'type'			=> 'text',
+							'label'			=> __( 'Video Description', 'bb-powerpack' ),
+							'default'		=> '',
+							'connections'	=> array( 'string' ),
+							'preview' 		=> array(
+								'type' 			=> 'none',
+							),
+						),
+						'schema_video_thumbnail'	=> array(
+							'type'			=> 'photo',
+							'label'			=> __( 'Video Thumbnail', 'bb-powerpack' ),
+							'show_remove'	=> true,
+							'connections'	=> array( 'photo' ),
+							'preview' 		=> array(
+								'type' 			=> 'none',
+							),
+						),
+						'schema_video_upload_date'	=> array(
+							'type'   		=> 'date',
+							'label'   		=> __( 'Upload Date', 'bb-powerpack' ),
+							'connections'	=> array( 'string' ),
+							'preview' 		=> array(
+								'type' 			=> 'none',
+							),
+						),
+					),
+				),
+			),
+		),
 	),
 ) );

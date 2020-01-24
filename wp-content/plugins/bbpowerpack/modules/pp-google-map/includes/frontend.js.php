@@ -29,12 +29,14 @@
 		$map_style_code = '';
 	}
 
+	$map_addresses  = $module->get_map_data();
 	$order          = array( "\r\n", "\n", "\r", '<br/>', '<br>' );
 	$map_style      = strip_tags( $map_style_code );
 	$map_style_code = rawurldecode( str_replace( $order, '', $map_style ) );
 	$api_url        = pp_get_google_api_url();
-	if ( 0 < count( $settings->pp_gmap_addresses ) ) {
-		foreach ( $settings->pp_gmap_addresses as $data ) {
+
+	if ( 0 < count( $map_addresses ) ) {
+		foreach ( $map_addresses as $data ) {
 			$data->map_latitude  = ( '' !== $data->map_latitude ) ? $data->map_latitude : 24.553311;
 			$data->map_longitude = ( '' !== $data->map_longitude ) ? $data->map_longitude : 73.694076; ?>
 

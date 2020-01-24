@@ -38,6 +38,18 @@ $toggle_height 	= 28;
 	<?php } ?>
 }
 
+.fl-node-<?php echo $id; ?>-clone {
+    display: none;
+}
+.fl-node-<?php echo $id; ?> .pp-advanced-menu-mobile-toggle + .pp-clear + ul.menu {
+    display: none;
+}
+@media (min-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
+	.fl-node-<?php echo $id; ?> .pp-advanced-menu-mobile-toggle + .pp-clear + ul.menu {
+    	display: block;
+	}
+}
+
 <?php
 
 /**

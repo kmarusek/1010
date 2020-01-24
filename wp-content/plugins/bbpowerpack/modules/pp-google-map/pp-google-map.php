@@ -29,6 +29,339 @@ class PPGoogleMapModule extends FLBuilderModule {
 	public function update( $settings ) {
 		return $settings;
 	}
+	public static function get_general_fields() {
+		$fields = array(
+			'map_source'        => array(
+				'type'    => 'select',
+				'label'   => __( 'Source', 'bb-powerpack' ),
+				'default' => 'manual',
+				'options' => array(
+					'manual' => __( 'Manual', 'bb-powerpack' ),
+					'post'   => __( 'Post', 'bb-powerpack' ),
+				),
+				'toggle'  => array(
+					'manual' => array(
+						'fields' => array( 'pp_gmap_addresses' ),
+					),
+					'post'   => array(
+						'fields'   => array( 'post_map_name', 'post_map_latitude', 'post_map_longitude', 'post_marker_point' ),
+						'sections' => array( 'post_content' ),
+					),
+				),
+			),
+			'pp_gmap_addresses' => array(
+				'type'         => 'form',
+				'label'        => __( 'Location', 'bb-powerpack' ),
+				'form'         => 'pp_google_map_addresses',
+				'preview_text' => 'map_name',
+				'multiple'     => true,
+			),
+		);
+		if ( class_exists( 'acf' ) ) {
+			$fields['map_source']['options']['acf']          = __( 'ACF Repeater Field', 'bb-powerpack' );
+			$fields['map_source']['toggle']['acf']['fields'] = array( 'acf_repeater_name', 'acf_map_name', 'acf_map_latitude', 'acf_map_longitude', 'acf_marker_point', 'acf_marker_img', 'acf_enable_info' );
+
+			$fields['acf_repeater_name']    = array(
+				'type'        => 'text',
+				'label'       => __( 'ACF Repeater Field Name', 'bb-powerpack' ),
+				'connections' => array( 'string' ),
+			);
+			$fields['acf_map_name']         = array(
+				'type'        => 'text',
+				'label'       => __( 'Location Name', 'bb-powerpack' ),
+				'help'        => __( 'Location Name to identify while editing', 'bb-powerpack' ),
+				'connections' => array( 'string' ),
+			);
+			$fields['acf_map_latitude']     = array(
+				'type'        => 'text',
+				'label'       => __( 'Latitude', 'bb-powerpack' ),
+				'connections' => array( 'string' ),
+			);
+			$fields['acf_map_longitude']    = array(
+				'type'        => 'text',
+				'label'       => __( 'Longitude', 'bb-powerpack' ),
+				'connections' => array( 'string' ),
+			);
+			$fields['acf_marker_point']     = array(
+				'type'    => 'select',
+				'label'   => __( 'Marker Point Icon', 'bb-powerpack' ),
+				'default' => 'default',
+				'options' => array(
+					'default' => 'Default',
+					'custom'  => 'Custom',
+				),
+				'toggle'  => array(
+					'custom' => array(
+						'fields' => array( 'acf_marker_img' ),
+					),
+				),
+			);
+			$fields['acf_marker_img']       = array(
+				'type'        => 'photo',
+				'label'       => __( 'Custom Marker', 'bb-powerpack' ),
+				'show_remove' => true,
+				'connections' => array( 'photo' ),
+			);
+			$fields['acf_enable_info']      = array(
+				'type'    => 'select',
+				'label'   => __( 'Show Tooltip', 'bb-powerpack' ),
+				'default' => 'no',
+				'options' => array(
+					'yes' => __( 'Yes', 'bb-powerpack' ),
+					'no'  => __( 'No', 'bb-powerpack' ),
+				),
+				'toggle'  => array(
+					'yes' => array(
+						'fields' => array( 'acf_info_window_text' ),
+					),
+				),
+			);
+			$fields['acf_info_window_text'] = array(
+				'type'          => 'editor',
+				'label'         => '',
+				'default'       => __( 'IdeaBox Creations', 'bb-powerpack' ),
+				'media_buttons' => false,
+				'connections'   => array( 'string', 'html' ),
+			);
+		}
+		if ( function_exists( 'acf_add_options_page' ) ) {
+			$fields['map_source']['options']['acf_options_page']          = __( 'ACF Option Page', 'bb-powerpack' );
+			$fields['map_source']['toggle']['acf_options_page']['fields'] = array( 'acf_options_page_repeater_name', 'acf_options_map_name', 'acf_options_map_latitude', 'acf_options_map_longitude', 'acf_options_marker_point', 'acf_options_marker_img', 'acf_options_enable_info' );
+			$fields['map_source']['help']                                 = __( 'To make use of the \'ACF Option Page\' feature, you will need ACF PRO (ACF v5), or the options page add-on (ACF v4)', 'bb-powerpack' );
+
+			$fields['acf_options_page_repeater_name'] = array(
+				'type'        => 'text',
+				'label'       => __( 'ACF Repeater Field Name', 'bb-powerpack' ),
+				'connections' => array( 'string' ),
+			);
+
+			$fields['acf_options_map_name']         = array(
+				'type'        => 'text',
+				'label'       => __( 'Location Name', 'bb-powerpack' ),
+				'help'        => __( 'Location Name to identify while editing', 'bb-powerpack' ),
+				'connections' => array( 'string' ),
+			);
+			$fields['acf_options_map_latitude']     = array(
+				'type'        => 'text',
+				'label'       => __( 'Latitude', 'bb-powerpack' ),
+				'connections' => array( 'string' ),
+			);
+			$fields['acf_options_map_longitude']    = array(
+				'type'        => 'text',
+				'label'       => __( 'Longitude', 'bb-powerpack' ),
+				'connections' => array( 'string' ),
+			);
+			$fields['acf_options_marker_point']     = array(
+				'type'    => 'select',
+				'label'   => __( 'Marker Point Icon', 'bb-powerpack' ),
+				'default' => 'default',
+				'options' => array(
+					'default' => 'Default',
+					'custom'  => 'Custom',
+				),
+				'toggle'  => array(
+					'custom' => array(
+						'fields' => array( 'acf_options_marker_img' ),
+					),
+				),
+			);
+			$fields['acf_options_marker_img']       = array(
+				'type'        => 'photo',
+				'label'       => __( 'Custom Marker', 'bb-powerpack' ),
+				'show_remove' => true,
+				'connections' => array( 'photo' ),
+			);
+			$fields['acf_options_enable_info']      = array(
+				'type'    => 'select',
+				'label'   => __( 'Show Tooltip', 'bb-powerpack' ),
+				'default' => 'no',
+				'options' => array(
+					'yes' => __( 'Yes', 'bb-powerpack' ),
+					'no'  => __( 'No', 'bb-powerpack' ),
+				),
+				'toggle'  => array(
+					'yes' => array(
+						'fields' => array( 'acf_options_info_window_text' ),
+					),
+				),
+			);
+			$fields['acf_options_info_window_text'] = array(
+				'type'          => 'editor',
+				'label'         => '',
+				'default'       => __( 'IdeaBox Creations', 'bb-powerpack' ),
+				'media_buttons' => false,
+				'connections'   => array( 'string', 'html' ),
+			);
+		}
+
+		return $fields;
+	}
+	public function get_cpt_data() {
+		if ( ! isset( $this->settings->post_slug ) || empty( $this->settings->post_slug ) ) {
+			return;
+		}
+		$data = array();
+
+		$post_type = ! empty( $this->settings->post_slug ) ? $this->settings->post_slug : 'post';
+		$cpt_count = ! empty( $this->settings->post_count ) || '-1' !== $this->settings->post_count ? $this->settings->post_count : '-1';
+
+		$var_tax_type     = 'posts_' . $post_type . '_tax_type';
+		$tax_type         = '';
+		$var_cat_matching = '';
+		$var_cat          = '';
+
+		if ( isset( $this->settings->$var_tax_type ) ) {
+			$tax_type         = $this->settings->$var_tax_type;
+			$var_cat          = 'tax_' . $post_type . '_' . $tax_type;
+			$var_cat_matching = $var_cat . '_matching';
+		}
+
+		$cat_match = isset( $this->settings->$var_cat_matching ) ? $this->settings->$var_cat_matching : false;
+		$ids       = isset( $this->settings->$var_cat ) ? explode( ',', $this->settings->$var_cat ) : array();
+		$taxonomy  = isset( $tax_type ) ? $tax_type : '';
+		$tax_query = array();
+
+		if ( isset( $ids[0] ) && ! empty( $ids[0] ) ) {
+			if ( $cat_match && 'related' !== $cat_match ) {
+				$tax_query = array(
+					'relation' => 'AND',
+					array(
+						'taxonomy' => $taxonomy,
+						'field'    => 'term_id',
+						'terms'    => $ids,
+					),
+				);
+			} elseif ( ! $cat_match || 'related' === $cat_match ) {
+
+				$tax_query = array(
+					'relation' => 'AND',
+					array(
+						'taxonomy'    => $taxonomy,
+						'field'       => 'term_id',
+						'terms'       => $ids,
+						'operator'    => 'NOT IN', // exclude
+						'post_parent' => 0, // top level only
+					),
+				);
+			}
+		}
+		$posts = get_posts(
+			array(
+				'post_type'   => $post_type,
+				'post_status' => 'publish',
+				'numberposts' => $cpt_count,
+				'order'       => 'ASC',
+				'tax_query'   => $tax_query,
+			)
+		);
+		foreach ( $posts as $row ) {
+			$item                   = new stdClass;
+			$item->map_name         = ! empty( $this->settings->post_map_name ) ? $this->settings->post_map_name : '';
+			$item->map_latitude     = ! empty( $this->settings->post_map_latitude ) ? $this->settings->post_map_latitude : '';
+			$item->map_longitude    = ! empty( $this->settings->post_map_longitude ) ? $this->settings->post_map_longitude : '';
+			$item->marker_point     = ! empty( $this->settings->post_marker_point ) ? $this->settings->post_marker_point : 'default';
+			$item->marker_img       = ! empty( $this->settings->post_marker_img ) ? $this->settings->post_marker_img : '';
+			$item->enable_info      = ! empty( $this->settings->post_enable_info ) ? $this->settings->post_enable_info : 'no';
+			$item->info_window_text = ! empty( $this->settings->post_info_window_text ) ? $this->settings->post_info_window_text : '';
+
+			$data[] = $item;
+		}
+		return $data;
+	}
+	public function get_acf_data( $post_id = false ) {
+		if ( ( ! isset( $this->settings->acf_repeater_name ) || empty( $this->settings->acf_repeater_name ) ) ) {
+			return;
+		}
+
+		$data    = array();
+		$post_id = apply_filters( 'pp_google_map_acf_post_id', $post_id );
+
+		$repeater_name    = $this->settings->acf_repeater_name;
+		$map_name         = $this->settings->acf_map_name;
+		$map_latitude     = $this->settings->acf_map_latitude;
+		$map_longitude    = $this->settings->acf_map_longitude;
+		$marker_point     = $this->settings->acf_marker_point;
+		$marker_img       = $this->settings->acf_marker_img;
+		$enable_info      = $this->settings->acf_enable_info;
+		$info_window_text = $this->settings->acf_info_window_text;
+
+		$repeater_rows = get_field( $repeater_name, $post_id );
+
+		if ( ! $repeater_rows ) {
+			return;
+		}
+
+		foreach ( $repeater_rows as $row ) {
+			$item                   = new stdClass;
+			$item->map_name         = ! empty( $row[ $map_name ] ) ? $row[ $map_name ] : '';
+			$item->map_latitude     = ! empty( $row[ $map_latitude ] ) ? $row[ $map_latitude ] : '';
+			$item->map_longitude    = ! empty( $row[ $map_longitude ] ) ? $row[ $map_longitude ] : '';
+			$item->marker_point     = ! empty( $row[ $marker_point ] ) ? $row[ $marker_point ] : '';
+			$item->marker_img       = ! empty( $row[ $marker_img ] ) ? $row[ $marker_img ] : '';
+			$item->enable_info      = ! empty( $row[ $enable_info ] ) ? $row[ $enable_info ] : '';
+			$item->info_window_text = ! empty( $row[ $info_window_text ] ) ? $row[ $info_window_text ] : '';
+
+			$data[] = $item;
+		}
+
+		return $data;
+	}
+	public function get_acf_options_page_data( $post_id = false ) {
+		if ( ! isset( $this->settings->acf_options_page_repeater_name ) || empty( $this->settings->acf_options_page_repeater_name ) ) {
+			return;
+		}
+
+		$data    = array();
+		$post_id = apply_filters( 'pp_google_map_acf_options_page_post_id', $post_id );
+
+		$repeater_name    = $this->settings->acf_options_page_repeater_name;
+		$map_name         = $this->settings->acf_options_map_name;
+		$map_latitude     = $this->settings->acf_options_map_latitude;
+		$map_longitude    = $this->settings->acf_options_map_longitude;
+		$marker_point     = $this->settings->acf_options_marker_point;
+		$marker_img       = $this->settings->acf_options_marker_img;
+		$enable_info      = $this->settings->acf_options_enable_info;
+		$info_window_text = $this->settings->acf_options_info_window_text;
+
+		$repeater_rows = get_field( $repeater_name, 'option' );
+		if ( ! $repeater_rows ) {
+			return;
+		}
+
+		foreach ( $repeater_rows as $row ) {
+			$item                   = new stdClass;
+			$item->map_name         = ! empty( $row[ $map_name ] ) ? $row[ $map_name ] : '';
+			$item->map_latitude     = ! empty( $row[ $map_latitude ] ) ? $row[ $map_latitude ] : '';
+			$item->map_longitude    = ! empty( $row[ $map_longitude ] ) ? $row[ $map_longitude ] : '';
+			$item->marker_point     = ! empty( $row[ $marker_point ] ) ? $row[ $marker_point ] : '';
+			$item->marker_img       = ! empty( $row[ $marker_img ] ) ? $row[ $marker_img ] : '';
+			$item->enable_info      = ! empty( $row[ $enable_info ] ) ? $row[ $enable_info ] : '';
+			$item->info_window_text = ! empty( $row[ $info_window_text ] ) ? $row[ $info_window_text ] : '';
+
+			$data[] = $item;
+		}
+		return $data;
+	}
+
+	public function get_map_data() {
+		if ( ! isset( $this->settings->map_source ) || empty( $this->settings->map_source ) ) {
+			return $this->settings->pp_gmap_addresses;
+		}
+
+		if ( 'acf' === $this->settings->map_source ) {
+			return $this->get_acf_data();
+		}
+
+		if ( 'acf_options_page' === $this->settings->map_source ) {
+			return $this->get_acf_options_page_data();
+		}
+
+		if ( 'post' === $this->settings->map_source ) {
+			return $this->get_cpt_data();
+		}
+
+		return $this->settings->pp_gmap_addresses;
+	}
 }
 
 /**
@@ -42,15 +375,11 @@ FLBuilder::register_module(
 			'sections' => array(
 				'address_form' => array(
 					'title'  => 'Locations',
-					'fields' => array(
-						'pp_gmap_addresses' => array(
-							'type'         => 'form',
-							'label'        => __( 'Location', 'bb-powerpack' ),
-							'form'         => 'pp_google_map_addresses',
-							'preview_text' => 'map_name',
-							'multiple'     => true,
-						),
-					),
+					'fields' => PPGoogleMapModule::get_general_fields(),
+				),
+				'post_content' => array(
+					'title' => __( 'Content', 'bb-powerpack' ),
+					'file'  => BB_POWERPACK_DIR . 'modules/pp-google-map/includes/loop-settings.php',
 				),
 			),
 		),

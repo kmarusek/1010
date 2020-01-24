@@ -25,6 +25,13 @@ class PPHowToModule extends FLBuilderModule {
 			)
 		);
 	}
+	public function filter_settings( $settings, $helper ) {
+		if ( isset( $settings->total_time ) && ! empty( $settings->total_time ) ) {
+			$settings->time_minutes = $settings->total_time;
+			unset( $settings->total_time );
+		}
+		return $settings;
+	}
 }
 
 
@@ -37,9 +44,25 @@ FLBuilder::register_module(
 		'general'        => array(
 			'title'    => __( 'General', 'bb-powerpack' ),
 			'sections' => array(
-				'general'         => array(
-					'title'  => 'General',
+				'schema_markup'   => array(
+					'title'  => 'Schema Markup',
 					'fields' => array(
+						'enable_schema' => array(
+							'type'        => 'pp-switch',
+							'label'       => __( 'Enable Schema Markup', 'bb-powerpack' ),
+							'default'     => 'yes',
+							'description' => __( '<span style="line-height: 1.4;font-style: italic;"><br>Enable Schema Markup option if you are setting up a unique \'HowTo\' page on your website. The Module adds \'HowTo\' Page schema to the page as per Google\'s Structured Data guideline.<br><a target="_blank" rel="noopener" href="https://developers.google.com/search/docs/data-types/how-to"><b style="color: #2d7ea2;">Click here</b></a> for more details.</span><p style="font-style: normal; padding: 10px; background: #fffbd4; color: #333; margin-top: 10px; border: 1px solid #FFEB3B; border-radius: 5px; font-size: 12px;">To use schema markup, your page must have only single instance of HowTo widget.</p>', 'powerpack' ),
+							'options'     => [
+								'yes' => __( 'Yes', 'bb-powerpack' ),
+								'no'  => __( 'No', 'bb-powerpack' ),
+							],
+						),
+					),
+				),
+				'general'         => array(
+					'title'     => 'General',
+					'collapsed' => true,
+					'fields'    => array(
 						'title'         => array(
 							'type'  => 'text',
 							'label' => __( 'Title', 'bb-powerpack' ),
@@ -81,11 +104,50 @@ FLBuilder::register_module(
 							'label'   => __( 'Total Time Text', 'bb-powerpack' ),
 							'default' => 'Time Needed:',
 						),
-						'total_time'          => array(
-							'type'  => 'unit',
-							'label' => __( 'Total Time', 'bb-powerpack' ),
-							'units' => array( 'minutes' ),
-							'help'  => __( 'How much time this process will take in Minutes.', 'bb-powerpack' ),
+						'time_years'          => array(
+							'type'   => 'unit',
+							'label'  => __( 'Years', 'bb-powerpack' ),
+							'slider' => array(
+								'min'  => 0,
+								'max'  => 10,
+								'step' => 1,
+							),
+						),
+						'time_months'         => array(
+							'type'   => 'unit',
+							'label'  => __( 'Months', 'bb-powerpack' ),
+							'slider' => array(
+								'min'  => 0,
+								'max'  => 12,
+								'step' => 1,
+							),
+						),
+						'time_days'           => array(
+							'type'   => 'unit',
+							'label'  => __( 'Days', 'bb-powerpack' ),
+							'slider' => array(
+								'min'  => 0,
+								'max'  => 31,
+								'step' => 1,
+							),
+						),
+						'time_hours'          => array(
+							'type'   => 'unit',
+							'label'  => __( 'Hours', 'bb-powerpack' ),
+							'slider' => array(
+								'min'  => 0,
+								'max'  => 24,
+								'step' => 1,
+							),
+						),
+						'time_minutes'        => array(
+							'type'   => 'unit',
+							'label'  => __( 'Minutes', 'bb-powerpack' ),
+							'slider' => array(
+								'min'  => 0,
+								'max'  => 60,
+								'step' => 1,
+							),
 						),
 						'estimated_cost_text' => array(
 							'type'    => 'text',
@@ -102,7 +164,7 @@ FLBuilder::register_module(
 							'label'       => __( 'Currency ISO Code', 'bb-powerpack' ),
 							'default'     => 'USD',
 							'size'        => 5,
-							'description' => __( 'For your country ISO code <a href="https://en.wikipedia.org/wiki/List_of_circulating_currencies" target="_blank" rel="noopener"><b style="color: #0000ff;">Click here</b></a>', 'bb-powerpack' ),
+							'description' => __( 'For your country ISO code <a href="https://en.wikipedia.org/wiki/List_of_circulating_currencies" target="_blank" rel="noopener"><b style="color: #2d7ea2;">Click here</b></a>', 'bb-powerpack' ),
 						),
 						'add_supply'          => array(
 							'type'    => 'pp-switch',
@@ -114,7 +176,7 @@ FLBuilder::register_module(
 							),
 							'toggle'  => array(
 								'yes' => array(
-									'fields' => array( 'supply_title', 'pp_supply', 'supply_title_color', 'supply_title_margin', 'supply_text_color', 'supply_text_margin', 'supply_title_typography', 'supply_text_typography' ),
+									'fields' => array( 'supply_title', 'pp_supply', 'supply_icon', 'supply_icon_space', 'supply_icon_size', 'supply_title_color', 'supply_box_margin', 'supply_title_margin', 'supply_text_color', 'supply_text_margin', 'supply_title_typography', 'supply_text_typography' ),
 								),
 							),
 						),
@@ -127,6 +189,36 @@ FLBuilder::register_module(
 							'label'    => __( 'Supply', 'bb-powerpack' ),
 							'multiple' => true,
 						),
+						'supply_icon'         => array(
+							'type'        => 'icon',
+							'label'       => __( 'Supply Icon', 'bb-powerpack' ),
+							'show_remove' => true,
+						),
+						'supply_icon_space'   => array(
+							'type'    => 'unit',
+							'label'   => __( 'Icon Spacing', 'bb-powerpack' ),
+							'default' => 10,
+							'units'   => array( 'px' ),
+							'slider'  => true,
+							'preview' => array(
+								'type'     => 'css',
+								'property' => 'margin-right',
+								'selector' => '.pp-how-to-container .pp-supply .pp-supply-icon',
+								'unit'     => 'px',
+							),
+						),
+						'supply_icon_size'    => array(
+							'type'    => 'unit',
+							'label'   => __( 'Icon Size', 'bb-powerpack' ),
+							'units'   => array( 'px' ),
+							'slider'  => true,
+							'preview' => array(
+								'type'     => 'css',
+								'property' => 'font-size',
+								'selector' => '.pp-how-to-container .pp-supply .pp-supply-icon',
+								'unit'     => 'px',
+							),
+						),
 						'add_tool'            => array(
 							'type'    => 'pp-switch',
 							'label'   => __( 'Add Tools', 'bb-powerpack' ),
@@ -137,7 +229,7 @@ FLBuilder::register_module(
 							),
 							'toggle'  => array(
 								'yes' => array(
-									'fields' => array( 'tool_title', 'pp_tool', 'tool_title_color', 'tool_title_margin', 'tool_text_color', 'tool_text_margin', 'tool_title_typography', 'tool_text_typography' ),
+									'fields' => array( 'tool_title', 'pp_tool', 'tool_icon', 'tool_icon_space', 'tool_icon_size', 'tool_box_color', 'tool_title_color', 'tool_title_margin', 'tool_text_color', 'tool_text_margin', 'tool_title_typography', 'tool_text_typography' ),
 								),
 							),
 						),
@@ -149,6 +241,36 @@ FLBuilder::register_module(
 							'type'     => 'text',
 							'label'    => __( 'Tool', 'bb-powerpack' ),
 							'multiple' => true,
+						),
+						'tool_icon'           => array(
+							'type'        => 'icon',
+							'label'       => __( 'Tool Icon', 'bb-powerpack' ),
+							'show_remove' => true,
+						),
+						'tool_icon_space'     => array(
+							'type'    => 'unit',
+							'label'   => __( 'Tool Icon Spacing', 'bb-powerpack' ),
+							'default' => 10,
+							'units'   => array( 'px' ),
+							'slider'  => true,
+							'preview' => array(
+								'type'     => 'css',
+								'property' => 'margin-right',
+								'selector' => '.pp-how-to-container .pp-tool .pp-tool-icon',
+								'unit'     => 'px',
+							),
+						),
+						'tool_icon_size'      => array(
+							'type'    => 'unit',
+							'label'   => __( 'Tool Icon Size', 'bb-powerpack' ),
+							'units'   => array( 'px' ),
+							'slider'  => true,
+							'preview' => array(
+								'type'     => 'css',
+								'property' => 'font-size',
+								'selector' => '.pp-how-to-container .pp-tool .pp-tool-icon',
+								'unit'     => 'px',
+							),
 						),
 					),
 				),
@@ -401,6 +523,20 @@ FLBuilder::register_module(
 								'property' => 'color',
 							),
 						),
+						'supply_box_margin'     => array(
+							'type'       => 'unit',
+							'label'      => __( 'Supply Box Margin Bottom', 'bb-powerpack' ),
+							'default'    => '10',
+							'units'      => array( 'px' ),
+							'slider'     => true,
+							'responsive' => true,
+							'preview'    => array(
+								'type'     => 'css',
+								'selector' => '.pp-how-to-supply',
+								'property' => 'margin-bottom',
+								'unit'     => 'px',
+							),
+						),
 						'supply_title_margin'   => array(
 							'type'       => 'unit',
 							'label'      => __( 'Supply Title Margin Bottom', 'bb-powerpack' ),
@@ -436,7 +572,7 @@ FLBuilder::register_module(
 							'responsive' => true,
 							'preview'    => array(
 								'type'     => 'css',
-								'selector' => '.pp-supply',
+								'selector' => '.pp-how-to-container .pp-supply:not(:last-child)',
 								'property' => 'margin-bottom',
 								'unit'     => 'px',
 							),
@@ -451,6 +587,20 @@ FLBuilder::register_module(
 								'type'     => 'css',
 								'selector' => '.pp-how-to-tool-title',
 								'property' => 'color',
+							),
+						),
+						'tool_box_margin'       => array(
+							'type'       => 'unit',
+							'label'      => __( 'Tool Box Margin Bottom', 'bb-powerpack' ),
+							'default'    => '10',
+							'units'      => array( 'px' ),
+							'slider'     => true,
+							'responsive' => true,
+							'preview'    => array(
+								'type'     => 'css',
+								'selector' => '.pp-how-to-tool',
+								'property' => 'margin-bottom',
+								'unit'     => 'px',
 							),
 						),
 						'tool_title_margin'     => array(
@@ -488,7 +638,7 @@ FLBuilder::register_module(
 							'responsive' => true,
 							'preview'    => array(
 								'type'     => 'css',
-								'selector' => '.pp-tool',
+								'selector' => '.pp-how-to-container .pp-tool:not(:last-child)',
 								'property' => 'margin-bottom',
 								'unit'     => 'px',
 							),
@@ -539,21 +689,64 @@ FLBuilder::register_module(
 								'unit'     => 'px',
 							),
 						),
+						'step_img_position'         => array(
+							'type'    => 'select',
+							'label'   => __( 'Step Image Position', 'bb-powerpack' ),
+							'default' => 'right',
+							'options' => array(
+								'top'    => __( 'Top', 'bb-powerpack' ),
+								'bottom' => __( 'Bottom', 'bb-powerpack' ),
+								'left'   => __( 'Left', 'bb-powerpack' ),
+								'right'  => __( 'Right', 'bb-powerpack' ),
+							),
+							'toggle'  => array(
+								'top'    => array(
+									'fields' => array( 'step_align_horizontal' ),
+								),
+								'bottom' => array(
+									'fields' => array( 'step_align_horizontal' ),
+								),
+								'left'   => array(
+									'fields' => array( 'step_align_vertical' ),
+								),
+								'right'  => array(
+									'fields' => array( 'step_align_vertical' ),
+								),
+							),
+						),
+						'step_align_horizontal'     => array(
+							'type'    => 'select',
+							'label'   => __( 'Horizontal Alignment', 'bb-powerpack' ),
+							'default' => 'center',
+							'options' => array(
+								'flex-start' => __( 'Left', 'bb-powerpack' ),
+								'center'     => __( 'Center', 'bb-powerpack' ),
+								'flex-end'   => __( 'Right', 'bb-powerpack' ),
+							),
+						),
+						'step_align_vertical'       => array(
+							'type'    => 'select',
+							'label'   => __( 'Vertical Alignment', 'bb-powerpack' ),
+							'default' => 'center',
+							'options' => array(
+								'flex-start' => __( 'Top', 'bb-powerpack' ),
+								'center'     => __( 'Middle', 'bb-powerpack' ),
+								'flex-end'   => __( 'Bottom', 'bb-powerpack' ),
+							),
+						),
 						'step_image_width'          => array(
-							'type'       => 'unit',
-							'label'      => __( 'Image Width', 'bb-powerpack' ),
-							'default'    => '30',
-							'units'      => array( '%' ),
-							'slider'     => true,
-							'responsive' => true,
+							'type'    => 'unit',
+							'label'   => __( 'Image Width', 'bb-powerpack' ),
+							'default' => '30',
+							'units'   => array( '%' ),
+							'slider'  => true,
 						),
 						'step_image_spacing'        => array(
-							'type'       => 'unit',
-							'label'      => __( 'Image Spacing', 'bb-powerpack' ),
-							'default'    => '10',
-							'units'      => array( 'px' ),
-							'slider'     => true,
-							'responsive' => true,
+							'type'    => 'unit',
+							'label'   => __( 'Image Spacing', 'bb-powerpack' ),
+							'default' => '10',
+							'units'   => array( 'px' ),
+							'slider'  => true,
 						),
 						'step_title_color'          => array(
 							'type'        => 'color',
@@ -589,6 +782,43 @@ FLBuilder::register_module(
 						),
 					),
 				),
+				'step_responsive'   => array(
+					'title'     => __( 'Steps Responsive (Mobile)', 'bb-powerpack' ),
+					'collapsed' => true,
+					'fields'    => array(
+						'step_img_position_responsive'  => array(
+							'type'    => 'select',
+							'label'   => __( 'Step Image Position', 'bb-powerpack' ),
+							'default' => 'top',
+							'options' => array(
+								'top'    => __( 'Top', 'bb-powerpack' ),
+								'bottom' => __( 'Bottom', 'bb-powerpack' ),
+							),
+						),
+						'step_align_responsive'         => array(
+							'type'    => 'select',
+							'label'   => __( 'Horizontal Alignment', 'bb-powerpack' ),
+							'default' => 'center',
+							'options' => array(
+								'flex-start' => __( 'Left', 'bb-powerpack' ),
+								'center'     => __( 'Center', 'bb-powerpack' ),
+								'flex-end'   => __( 'Right', 'bb-powerpack' ),
+							),
+						),
+						'step_image_width_responsive'   => array(
+							'type'   => 'unit',
+							'label'  => __( 'Image Width', 'bb-powerpack' ),
+							'units'  => array( '%' ),
+							'slider' => true,
+						),
+						'step_image_spacing_responsive' => array(
+							'type'   => 'unit',
+							'label'  => __( 'Image Spacing', 'bb-powerpack' ),
+							'units'  => array( 'px' ),
+							'slider' => true,
+						),
+					),
+				),
 			),
 		),
 		'typography_tab' => array(
@@ -598,17 +828,20 @@ FLBuilder::register_module(
 					'title'     => __( 'Title', 'bb-powerpack' ),
 					'collapsed' => true,
 					'fields'    => array(
-						'title_tag'				=> array(
-							'type'					=> 'select',
-							'label'					=> __('HTML Tag', 'bb-powerpack'),
-							'default'				=> 'h1',
-							'options'				=> array(
-								'h1'					=> 'H1',
-								'h2'					=> 'H2',
-								'h3'					=> 'H3',
-								'h4'					=> 'H4',
-								'h5'					=> 'H5',
-								'h6'					=> 'H6'
+						'title_tag'        => array(
+							'type'    => 'select',
+							'label'   => __( 'HTML Tag', 'bb-powerpack' ),
+							'default' => 'h1',
+							'options' => array(
+								'h1'   => 'H1',
+								'h2'   => 'H2',
+								'h3'   => 'H3',
+								'h4'   => 'H4',
+								'h5'   => 'H5',
+								'h6'   => 'H6',
+								'div'  => 'Div',
+								'span' => 'Span',
+								'p'    => 'P',
 							),
 						),
 						'title_typography' => array(
@@ -659,17 +892,17 @@ FLBuilder::register_module(
 								'selector' => '.pp-how-to-estimated-cost',
 							),
 						),
-						'supply_title_tag'				=> array(
-							'type'					=> 'select',
-							'label'					=> __('Supply Title HTML Tag', 'bb-powerpack'),
-							'default'				=> 'h3',
-							'options'				=> array(
-								'h1'					=> 'H1',
-								'h2'					=> 'H2',
-								'h3'					=> 'H3',
-								'h4'					=> 'H4',
-								'h5'					=> 'H5',
-								'h6'					=> 'H6'
+						'supply_title_tag'          => array(
+							'type'    => 'select',
+							'label'   => __( 'Supply Title HTML Tag', 'bb-powerpack' ),
+							'default' => 'h3',
+							'options' => array(
+								'h1' => 'H1',
+								'h2' => 'H2',
+								'h3' => 'H3',
+								'h4' => 'H4',
+								'h5' => 'H5',
+								'h6' => 'H6',
 							),
 						),
 						'supply_title_typography'   => array(
@@ -690,17 +923,17 @@ FLBuilder::register_module(
 								'selector' => '.pp-supply',
 							),
 						),
-						'tool_title_tag'				=> array(
-							'type'					=> 'select',
-							'label'					=> __('Tool Title HTML Tag', 'bb-powerpack'),
-							'default'				=> 'h3',
-							'options'				=> array(
-								'h1'					=> 'H1',
-								'h2'					=> 'H2',
-								'h3'					=> 'H3',
-								'h4'					=> 'H4',
-								'h5'					=> 'H5',
-								'h6'					=> 'H6'
+						'tool_title_tag'            => array(
+							'type'    => 'select',
+							'label'   => __( 'Tool Title HTML Tag', 'bb-powerpack' ),
+							'default' => 'h3',
+							'options' => array(
+								'h1' => 'H1',
+								'h2' => 'H2',
+								'h3' => 'H3',
+								'h4' => 'H4',
+								'h5' => 'H5',
+								'h6' => 'H6',
 							),
 						),
 						'tool_title_typography'     => array(
@@ -727,17 +960,17 @@ FLBuilder::register_module(
 					'title'     => __( 'Steps', 'bb-powerpack' ),
 					'collapsed' => true,
 					'fields'    => array(
-						'step_section_title_tag'				=> array(
-							'type'					=> 'select',
-							'label'					=> __('Step Section Title HTML Tag', 'bb-powerpack'),
-							'default'				=> 'h3',
-							'options'				=> array(
-								'h1'					=> 'H1',
-								'h2'					=> 'H2',
-								'h3'					=> 'H3',
-								'h4'					=> 'H4',
-								'h5'					=> 'H5',
-								'h6'					=> 'H6'
+						'step_section_title_tag'        => array(
+							'type'    => 'select',
+							'label'   => __( 'Step Section Title HTML Tag', 'bb-powerpack' ),
+							'default' => 'h3',
+							'options' => array(
+								'h1' => 'H1',
+								'h2' => 'H2',
+								'h3' => 'H3',
+								'h4' => 'H4',
+								'h5' => 'H5',
+								'h6' => 'H6',
 							),
 						),
 						'step_section_title_typography' => array(

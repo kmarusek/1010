@@ -190,7 +190,13 @@ class PPModalBoxModule extends FLBuilderModule {
             case 'html':
                 return $settings->modal_type_html;
             break;
-            case 'templates':
+			case 'templates':
+				global $post;
+				if ( is_object( $post ) && isset( $post->ID ) ) {
+					if ( $post->ID == $settings->modal_type_templates ) {
+						return __( 'You cannot use the current page as template.', 'bb-powerpack' );
+					}
+				}
                 return '[fl_builder_insert_layout id="'.$settings->modal_type_templates.'" type="fl-builder-template"]';
             break;
             default:
@@ -597,10 +603,6 @@ FLBuilder::register_module('PPModalBoxModule', array(
 						'type'			=> 'typography',
 						'label'			=> __('Typography', 'bb-powerpack'),
 						'responsive'  	=> true,
-						'preview'		=> array(
-							'type'			=> 'css',
-							'selector'		=> '.pp-modal-trigger .pp-modal-trigger-text',
-						),
 					),
                     'button_text_color' => array(
                         'type'              => 'color',

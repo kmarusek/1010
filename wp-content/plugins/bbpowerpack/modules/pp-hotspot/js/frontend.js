@@ -8,6 +8,8 @@
 		this.markerClass 		= this.node.find('.pp-hotspot-marker');
 		this.customClass 		= 'pp-tooltip-wrap-' + this.id;
 		this.tooltipEnable 		= settings.tooltipEnable;
+		this.enableCloseIcon    = settings.enableCloseIcon;
+		this.escToClose 		= settings.escToClose;
 		this.tooltipPosition 	= settings.tooltipPosition;
 		this.tooltipTrigger 	= settings.tooltipTrigger;
 		this.tooltipArrow 		= settings.tooltipArrow;
@@ -46,6 +48,8 @@
 		markerClass:	 	'',
 		customClass:	 	'',
 		tooltipEnable:	 	'',
+		enableCloseIcon:    '',
+		escToClose:         '',
 		tooltipPosition:	'',
 		tooltipTrigger:	 	'',
 		tooltipArrow:	 	'',
@@ -137,8 +141,28 @@
 					if ( typeof $all_tooltipser !== 'undefined' ){
 						$all_tooltipser.not(tooltip.origin).tooltipster('hide');
 					}
-						return false;
+
+					// Click on Close Icon to Close 
+					if ( 'yes' == self.enableCloseIcon ) {
+						$( '.pp-tooltip-content-' + self.id ).find( '.pp-tooltip-close' ).off('click').on('click', function (e) {
+							e.preventDefault();
+							$all_tooltipser.tooltipster('hide');
+						});
 					}
+					// ESC key to Close 
+					if ( 'yes' == self.escToClose ) {
+						var	prefix = 'cbox';
+						// Key Bindings
+						$( document ).bind( 'keydown.' + prefix, function (e) {
+							var key    = e.keyCode;
+							if ( key == 27) {
+								e.preventDefault();
+								$all_tooltipser.tooltipster('hide');
+							}
+						});
+					}
+					return false;
+				}
 			});
 		},
 

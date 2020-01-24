@@ -4,9 +4,9 @@
 require_once FL_BUILDER_DIR . 'includes/vendor/recaptcha/autoload.php';
 
 if ( function_exists( 'curl_exec' ) ) {
-	$recaptcha = new \ReCaptcha\ReCaptcha( $settings->recaptcha_secret_key, new \ReCaptcha\RequestMethod\CurlPost() );
+	$recaptcha = new \ReCaptcha\ReCaptcha( $recaptcha_secret_key, new \ReCaptcha\RequestMethod\CurlPost() );
 } else {
-	$recaptcha = new \ReCaptcha\ReCaptcha( $settings->recaptcha_secret_key );
+	$recaptcha = new \ReCaptcha\ReCaptcha( $recaptcha_secret_key );
 }
 
 $resp = $recaptcha->verify( $recaptcha_response, $_SERVER['REMOTE_ADDR'] );

@@ -43,8 +43,9 @@
             $('body').delegate('.fl-builder-settings-fields .pp-multitext.fa-desktop', 'click', PPFields._settingsMultitextToggle);
             $('body').delegate('.fl-builder-settings-fields .pp-multitext-wrap .pp-multitext-responsive-toggle span', 'click', PPFields._settingsMultitextToggleResponsive);
             $('body').delegate('.fl-builder-settings-fields .pp-switch-button', 'click', PPFields._settingsSwitchClick);
-            $('body').delegate('.fl-builder-settings-fields .pp-field-switch', 'change', PPFields._settingsSwitchChanged);
-
+			$('body').delegate('.fl-builder-settings-fields .pp-field-switch', 'change', PPFields._settingsSwitchChanged);
+			$('body').delegate('.fl-builder-settings-fields .pp-field-media-upload', 'click', PPFields._settingsMediaUploadClick);
+			$('body').delegate('.fl-builder-settings-fields .pp-field-media-remove', 'click', PPFields._settingsMediaRemoveClick);
         },
 
         /* Radio Input Fields
@@ -86,12 +87,8 @@
 
             // Add selected class to the label.
             $('.pp-label.'+control).removeClass('selected');
-            if(input.is(':checked')) {
-                input.parent().addClass('selected');
                 field.val(input.val());
                 val = input.val();
-            }
-
             // TOGGLE sections, fields or tabs.
 			if(typeof toggle !== 'undefined') {
 
@@ -489,7 +486,89 @@
 				}
 			}
 
-        },
+		},
+
+		/**
+		 * Triggers WP media frame.
+		 *
+		 * @since 1.0
+		 * @access private
+		 * @method _imageUploadTrigger
+         * @param {Object} button
+		 */
+		_settingsMediaUploadClick: function (e) {
+			e.preventDefault();
+			var uploadButton = $(e.target),
+				wrapper = uploadButton.parents('.pp-field-media-wrapper'),
+				removeButton = wrapper.find('a.pp-field-media-remove'),
+				fileContainer = wrapper.find('.pp-field-media-container'),
+				fileField = wrapper.find('.pp-field-media-file'),
+				fileIdField = wrapper.find('.pp-field-media-id');
+
+			// Create a new media frame
+			var frame = wp.media({
+				title: 'Select File',
+				button: {
+					text: 'Select'
+				},
+				multiple: false  // Set to true to allow multiple files to be selected
+			});
+
+			// When an image is selected in the media frame...
+			frame.on('select', function () {
+
+				// Get media attachment details from the frame state
+				var attachment = frame.state().get('selection').first().toJSON();
+				// Send the attachment URL to our custom image input field.
+				wrapper.find('.pp-field-media-msg').val(attachment.url).removeClass('hidden');
+
+				// Send the attachment id to our hidden input
+				fileIdField.val(attachment.id);
+
+				// Send the attachment url to our url input
+				fileField.val(attachment.url);
+
+				// Hide the upload button
+				uploadButton.addClass('hidden');
+
+				// Show the remove button
+				removeButton.removeClass('hidden');
+			});
+
+			// Finally, open the modal on click
+			frame.open();
+		},
+
+        /**
+		 * Remove image clicking on 'remove' button in photo field.
+		 *
+		 * @since 1.0
+		 * @access private
+		 * @method _imageRemoveTrigger
+		 */
+		_settingsMediaRemoveClick: function (e) {
+			e.preventDefault();
+			var removeButton = $(e.target),
+				wrapper = removeButton.parents('.pp-field-media-wrapper'),
+				uploadButton = wrapper.find('a.pp-field-media-upload'),
+				fileContainer = wrapper.find('.pp-field-media-container'),
+				fileField = wrapper.find('.pp-field-media-file'),
+				fileIdField = wrapper.find('.pp-field-media-id');
+
+			wrapper.find('.pp-field-media-msg').val('');//.addClass('hidden');;
+
+			// Show the upload button
+			uploadButton.removeClass('hidden');
+
+			// Hide the remove button
+			removeButton.addClass('hidden');
+
+			// Delete the file id from the hidden input
+			fileIdField.val('');
+
+			// Delete the file url from the url input
+			fileField.val('');
+		},
 
         /**
 		 * @since 1.0

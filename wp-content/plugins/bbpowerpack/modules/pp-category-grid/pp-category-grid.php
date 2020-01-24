@@ -30,6 +30,59 @@ class PPCategoryGridModule extends FLBuilderModule {
 		$this->add_js( 'jquery-swiper' );
 	}
 
+	public static function get_categories( $args, $display_data ) {
+		$all_categories = array();
+
+		if ( 'children_only' === $display_data ) {
+			if ( isset( $args['parent'] ) && is_array( $args['parent'] ) && intval( $args['parent'][0] ) > 0 ) {
+				$parents = $args['parent'];
+				unset( $args['parent'] );
+				foreach ( $parents as $parent_id ) {
+					$args['child_of'] = $parent_id;
+					$tmp_categories   = get_categories( $args );
+					if ( count( $tmp_categories ) > 0 ) {
+						foreach ( $tmp_categories as $cat ) {
+							$all_categories[] = $cat;
+						}
+					}
+				}
+			} else {
+				$all_categories = get_categories( $args );
+			}
+		} elseif ( 'default' === $display_data ) {
+			if ( isset( $args['parent'] ) && is_array( $args['parent'] ) && intval( $args['parent'][0] ) > 0 ) {
+				$parents = $args['parent'];
+				unset( $args['parent'] );
+				foreach ( $parents as $parent_id ) {
+					$args['child_of'] = $parent_id;
+					$tmp_categories   = get_categories( $args );
+					if ( count( $tmp_categories ) > 0 ) {
+						foreach ( $tmp_categories as $cat ) {
+							$all_categories[] = $cat;
+						}
+					}
+				}
+				unset( $args['child_of'] );
+				//include parent also
+				$args['hierarchical'] = 0;
+				$args['include'] = $parents;
+
+				$tmp_categories = get_categories( $args );
+				if ( count( $tmp_categories ) > 0 ) {
+					foreach ( $tmp_categories as $cat ) {
+						$all_categories[] = $cat;
+					}
+				}
+			} else {
+				unset( $args['parent'] );
+				$all_categories = get_categories( $args );
+			}
+		} else {
+			$all_categories = get_categories( $args );
+		}
+		return $all_categories;
+	}
+
 }
 /**
 * Register the module and its form settings.
@@ -126,6 +179,39 @@ FLBuilder::register_module(
 				'content_setting' => array(
 					'title'  => __( 'Settings', 'bb-powerpack' ),
 					'fields' => array(
+						// 'display_data'               => array(
+						// 	'type'    => 'select',
+						// 	'label'   => __( 'Display', 'bb-powerpack' ),
+						// 	'default' => 'default',
+						// 	'options' => array(
+						// 		'default'       => __( 'Default', 'bb-powerpack' ),
+						// 		'parent_only'   => __( 'Parent Only', 'bb-powerpack' ),
+						// 		'children_only' => __( 'Children Only', 'bb-powerpack' ),
+						// 	),
+
+						// ),
+						// 'order_by'                   => array(
+						// 	'type'    => 'select',
+						// 	'label'   => __( 'Order By', 'bb-powerpack' ),
+						// 	'default' => 'name',
+						// 	'options' => array(
+						// 		'name'   => __( 'Name', 'bb-powerpack' ),
+						// 		'slug'   => __( 'Slug', 'bb-powerpack' ),
+						// 		'parent' => __( 'Parent', 'bb-powerpack' ),
+						// 		'count'  => __( 'Post Count', 'bb-powerpack' ),
+						// 	),
+
+						// ),
+						// 'order'                      => array(
+						// 	'type'    => 'select',
+						// 	'label'   => __( 'Order', 'bb-powerpack' ),
+						// 	'default' => 'ASC',
+						// 	'options' => array(
+						// 		'ASC'  => __( 'Ascending', 'bb-powerpack' ),
+						// 		'DESC' => __( 'Descending', 'bb-powerpack' ),
+						// 	),
+
+						// ),
 						'show_empty'                 => array(
 							'type'    => 'pp-switch',
 							'label'   => __( 'Show Empty?', 'bb-powerpack' ),

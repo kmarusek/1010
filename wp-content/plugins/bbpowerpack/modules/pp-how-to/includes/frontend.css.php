@@ -162,6 +162,11 @@
 		margin-bottom: <?php echo $settings->estimated_cost_margin; ?>px;
 	<?php } ?>
 }
+.fl-node-<?php echo $id; ?> .pp-how-to-container .pp-how-to-supply {
+	<?php if ( isset( $settings->supply_box_margin ) ) { ?>
+		margin-bottom: <?php echo $settings->supply_box_margin; ?>px;
+	<?php } ?>
+}
 .fl-node-<?php echo $id; ?> .pp-how-to-container .pp-how-to-supply-title {
 	<?php if ( isset( $settings->supply_title_color ) ) { ?>
 		color: <?php echo pp_get_color_value( $settings->supply_title_color ); ?>;
@@ -174,8 +179,19 @@
 	<?php if ( isset( $settings->supply_text_color ) ) { ?>
 		color: <?php echo pp_get_color_value( $settings->supply_text_color ); ?>;
 	<?php } ?>
+}
+.fl-node-<?php echo $id; ?> .pp-how-to-container .pp-supply:not(:last-child) {
 	<?php if ( isset( $settings->supply_text_margin ) ) { ?>
 		margin-bottom: <?php echo $settings->supply_text_margin; ?>px;
+	<?php } ?>
+}
+.fl-node-<?php echo $id; ?> .pp-how-to-container .pp-supply .pp-supply-icon {
+	margin-right: <?php echo $settings->supply_icon_space; ?>px;
+	font-size: <?php echo $settings->supply_icon_size; ?>px;
+}
+.fl-node-<?php echo $id; ?> .pp-how-to-container .pp-how-to-tool {
+	<?php if ( isset( $settings->tool_box_margin ) ) { ?>
+		margin-bottom: <?php echo $settings->tool_box_margin; ?>px;
 	<?php } ?>
 }
 .fl-node-<?php echo $id; ?> .pp-how-to-container .pp-how-to-tool-title {
@@ -190,9 +206,15 @@
 	<?php if ( isset( $settings->tool_text_color ) ) { ?>
 		color: <?php echo pp_get_color_value( $settings->tool_text_color ); ?>;
 	<?php } ?>
+}
+.fl-node-<?php echo $id; ?> .pp-how-to-container .pp-tool:not(:last-child) {
 	<?php if ( isset( $settings->tool_text_margin ) ) { ?>
 		margin-bottom: <?php echo $settings->tool_text_margin; ?>px;
 	<?php } ?>
+}
+.fl-node-<?php echo $id; ?> .pp-how-to-container .pp-tool .pp-tool-icon {
+	margin-right: <?php echo $settings->tool_icon_space; ?>px;
+	font-size: <?php echo $settings->tool_icon_size; ?>px;
 }
 <?php
 	// Step Section Title - Typography
@@ -236,13 +258,56 @@
 .fl-node-<?php echo $id; ?> .pp-how-to-container .pp-how-to-step.pp-no-img .pp-how-to-step-content {
 	width: 100%;
 }
-.fl-node-<?php echo $id; ?> .pp-how-to-container .pp-how-to-step.pp-has-img .pp-how-to-step-content {
-	width: <?php echo '100' - ( isset( $settings->step_image_width ) ? $settings->step_image_width : '0' ); ?>%;
-}
-.fl-node-<?php echo $id; ?> .pp-how-to-container .pp-how-to-step.pp-has-img .pp-how-to-step-image {
-	width: <?php echo $settings->step_image_width; ?>%;
-	margin-left: <?php echo $settings->step_image_spacing; ?>px;
-}
+<?php if ( 'top' === $settings->step_img_position ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-how-to-container .pp-how-to-step.pp-has-img.pp-step-img-top {
+		flex-direction: column-reverse;
+		align-items: <?php echo $settings->step_align_horizontal; ?>;
+	}
+	.fl-node-<?php echo $id; ?> .pp-how-to-container .pp-how-to-step.pp-has-img.pp-step-img-top .pp-how-to-step-image {
+		width: <?php echo $settings->step_image_width; ?>%;
+		margin-bottom: <?php echo $settings->step_image_spacing; ?>px;
+	}
+	.fl-node-<?php echo $id; ?> .pp-how-to-container .pp-how-to-step.pp-has-img .pp-how-to-step-content {
+		width: 100%;
+	}
+<?php } elseif ( 'bottom' === $settings->step_img_position ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-how-to-container .pp-how-to-step.pp-has-img.pp-step-img-bottom {
+		flex-direction: column;
+		align-items: <?php echo $settings->step_align_horizontal; ?>;
+	}
+	.fl-node-<?php echo $id; ?> .pp-how-to-container .pp-how-to-step.pp-has-img.pp-step-img-bottom .pp-how-to-step-image {
+		width: <?php echo $settings->step_image_width; ?>%;
+		margin-top: <?php echo $settings->step_image_spacing; ?>px;
+	}
+	.fl-node-<?php echo $id; ?> .pp-how-to-container .pp-how-to-step.pp-has-img .pp-how-to-step-content {
+		width: 100%;
+	}
+<?php } elseif ( 'left' === $settings->step_img_position ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-how-to-container .pp-how-to-step.pp-has-img.pp-step-img-left {
+		flex-direction: row-reverse;
+		align-items: <?php echo $settings->step_align_vertical; ?>;
+	}
+	.fl-node-<?php echo $id; ?> .pp-how-to-container .pp-how-to-step.pp-has-img.pp-step-img-left .pp-how-to-step-image {
+		width: <?php echo $settings->step_image_width; ?>%;
+		margin-right: <?php echo $settings->step_image_spacing; ?>px;
+	}
+	.fl-node-<?php echo $id; ?> .pp-how-to-container .pp-how-to-step.pp-has-img .pp-how-to-step-content {
+		width: <?php echo '100' - ( isset( $settings->step_image_width ) ? $settings->step_image_width : '0' ); ?>%;
+	}
+<?php } elseif ( 'right' === $settings->step_img_position ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-how-to-container .pp-how-to-step.pp-has-img.pp-step-img-right {
+		flex-direction: row;
+		align-items: <?php echo $settings->step_align_vertical; ?>;
+	}
+	.fl-node-<?php echo $id; ?> .pp-how-to-container .pp-how-to-step.pp-has-img.pp-step-img-right .pp-how-to-step-image {
+		width: <?php echo $settings->step_image_width; ?>%;
+		margin-left: <?php echo $settings->step_image_spacing; ?>px;
+	}
+	.fl-node-<?php echo $id; ?> .pp-how-to-container .pp-how-to-step.pp-has-img .pp-how-to-step-content {
+		width: <?php echo '100' - ( isset( $settings->step_image_width ) ? $settings->step_image_width : '0' ); ?>%;
+	}
+<?php } ?>
+
 .fl-node-<?php echo $id; ?> .pp-how-to-container .pp-how-to-step .pp-how-to-step-title {
 	<?php if ( isset( $settings->step_title_color ) ) { ?>
 		color: <?php echo pp_get_color_value( $settings->step_title_color ); ?>;
@@ -254,5 +319,38 @@
 .fl-node-<?php echo $id; ?> .pp-how-to-container .pp-how-to-step .pp-how-to-step-description {
 	<?php if ( isset( $settings->step_description_color ) ) { ?>
 		color: <?php echo pp_get_color_value( $settings->step_description_color ); ?>;
+	<?php } ?>
+}
+
+
+@media only screen and (max-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
+	<?php if ( 'top' === $settings->step_img_position_responsive ) { ?>
+		.fl-node-<?php echo $id; ?> .pp-how-to-container .pp-how-to-step.pp-has-img {
+			flex-direction: column-reverse !important;
+			align-items: <?php echo $settings->step_align_responsive; ?> !important;
+		}
+		.fl-node-<?php echo $id; ?> .pp-how-to-container .pp-how-to-step.pp-has-img .pp-how-to-step-image {
+			width: <?php echo $settings->step_image_width_responsive; ?>% !important;
+			margin-bottom: <?php echo $settings->step_image_spacing_responsive; ?>px !important;
+			margin-left: 0 !important;
+			margin-right: 0 !important;
+		}
+		.fl-node-<?php echo $id; ?> .pp-how-to-container .pp-how-to-step.pp-has-img .pp-how-to-step-content {
+			width: 100% !important;
+		}
+	<?php } elseif ( 'bottom' === $settings->step_img_position_responsive ) { ?>
+		.fl-node-<?php echo $id; ?> .pp-how-to-container .pp-how-to-step.pp-has-img {
+			flex-direction: column !important;
+			align-items: <?php echo $settings->step_align_responsive; ?> !important;
+		}
+		.fl-node-<?php echo $id; ?> .pp-how-to-container .pp-how-to-step.pp-has-img .pp-how-to-step-image {
+			width: <?php echo $settings->step_image_width_responsive; ?>% !important;
+			margin-top: <?php echo $settings->step_image_spacing_responsive; ?>px !important;
+			margin-left: 0 !important;
+			margin-right: 0 !important;
+		}
+		.fl-node-<?php echo $id; ?> .pp-how-to-container .pp-how-to-step.pp-has-img .pp-how-to-step-content {
+			width: 100% !important;
+		}
 	<?php } ?>
 }

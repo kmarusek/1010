@@ -62,6 +62,9 @@ if ( 'yes' === $settings->enable_tour && 'yes' === $settings->non_active_marker 
 				<?php if ( 'yes' === $settings->tooltip && ! empty( $marker->tooltip_content ) ) { ?>
 					<span class="pp-tooltip-container pp-tooltip-<?php echo ( $i + 1 ); ?>">
 						<span class="<?php echo $hotspot_tour; ?> pp-tooltip-content-<?php echo $id; ?>" id="pp-tooltip-content-<?php echo $id . '-' . ( $i + 1 ); ?>">
+							<?php if ( 'yes' === $settings->enable_close_icon ) { ?>
+								<i class="pp-tooltip-close fas fa-times"></i>
+							<?php } ?>
 							<?php echo $marker->tooltip_content; ?>
 							<?php if ( 'yes' === $settings->enable_tour ) { ?>
 								<span class="pp-tour">

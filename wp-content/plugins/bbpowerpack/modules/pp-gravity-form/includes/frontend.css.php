@@ -343,7 +343,7 @@ FLBuilderCSS::typography_field_rule(
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield input:not([type='radio']):not([type='checkbox']):not([type='submit']):not([type='button']):not([type='image']):not([type='file']):focus,
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield select:focus,
 .fl-node-<?php echo $id; ?> .gform_wrapper .gfield textarea:focus {
-	border-color: <?php echo $settings->input_field_focus_color ? pp_get_color_value( $settings->input_field_focus_color ) : 'transparent'; ?>;
+	border-color: <?php echo $settings->input_field_focus_color ? pp_get_color_value( $settings->input_field_focus_color ) : ''; ?>;
 }
 
 .fl-node-<?php echo $id; ?> .gform_wrapper .top_label input.medium,
@@ -389,7 +389,7 @@ FLBuilderCSS::typography_field_rule(
 	<?php if ( $settings->button_text_color ) { ?>
 	color: <?php echo pp_get_color_value( $settings->button_text_color ); ?>;
 	<?php } ?>
-	background-color: <?php echo $settings->button_bg_color ? pp_get_color_value( $settings->button_bg_color ) : 'transparent'; ?>;
+	background-color: <?php echo $settings->button_bg_color ? pp_get_color_value( $settings->button_bg_color ) : ''; ?>;
 	<?php if ( $settings->button_padding_top_bottom >= 0 ) { ?>
 	padding-top: <?php echo $settings->button_padding_top_bottom; ?>px;
 	padding-bottom: <?php echo $settings->button_padding_top_bottom; ?>px;
@@ -412,7 +412,7 @@ FLBuilderCSS::typography_field_rule(
 	<?php if ( $settings->button_hover_text_color ) { ?>
 	color: <?php echo pp_get_color_value( $settings->button_hover_text_color ); ?>;
 	<?php } ?>
-	background: <?php echo $settings->button_hover_bg_color ? pp_get_color_value( $settings->button_hover_bg_color ) : 'transparent'; ?>;
+	background: <?php echo $settings->button_hover_bg_color ? pp_get_color_value( $settings->button_hover_bg_color ) : ''; ?>;
 }
 
 <?php if ( 'yes' === $settings->radio_cb_style ) : // Radio & Checkbox ?>

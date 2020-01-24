@@ -24,6 +24,8 @@
 			id: 				'<?php echo $id; ?>',
 			markerLength:		'<?php echo sizeof( $settings->markers_content ); ?>',
 			tooltipEnable:		'<?php echo $settings->tooltip; ?>',
+			enableCloseIcon:    '<?php echo $settings->enable_close_icon; ?>',
+			escToClose:         '<?php echo $settings->esc_to_close; ?>',
 			tooltipPosition:	'<?php echo $settings->tooltip_position; ?>',
 			tooltipTrigger:		'<?php echo $settings->tooltip_trigger; ?>',
 			tooltipDistance:	'<?php echo $settings->tooltip_distance; ?>',

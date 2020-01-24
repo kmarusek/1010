@@ -122,7 +122,7 @@ FLBuilder::register_module(
 				'tooltip'          => array(
 					'title'  => 'Tooltip',
 					'fields' => array(
-						'tooltip'         => array(
+						'tooltip'           => array(
 							'type'    => 'pp-switch',
 							'label'   => __( 'Enable Tooltip', 'bb-powerpack' ),
 							'default' => 'yes',
@@ -132,7 +132,7 @@ FLBuilder::register_module(
 							),
 							'toggle'  => array(
 								'yes' => array(
-									'fields'   => array( '' ),
+									'fields'   => array( 'enable_close_icon', 'esc_to_close' ),
 									'sections' => array( 'tooltip_general', 'tooltip_style', 'button_style' ),
 									'tabs'     => array( 'hotspot_tour' ),
 								),
@@ -141,10 +141,33 @@ FLBuilder::register_module(
 								),
 							),
 						),
-						'add_marker_link' => array(
+						'add_marker_link'   => array(
 							'type'    => 'pp-switch',
 							'label'   => __( 'Add Link on Marker', 'bb-powerpack' ),
 							'default' => 'yes',
+							'options' => array(
+								'yes' => __( 'Yes', 'bb-powerpack' ),
+								'no'  => __( 'No', 'bb-powerpack' ),
+							),
+						),
+						'enable_close_icon' => array(
+							'type'    => 'pp-switch',
+							'label'   => __( 'Enable Tooltip Close Icon', 'bb-powerpack' ),
+							'default' => 'no',
+							'options' => array(
+								'yes' => __( 'Yes', 'bb-powerpack' ),
+								'no'  => __( 'No', 'bb-powerpack' ),
+							),
+							'toggle'  => array(
+								'yes' => array(
+									'sections' => array( 'tooltip_close' ),
+								),
+							),
+						),
+						'esc_to_close'      => array(
+							'type'    => 'pp-switch',
+							'label'   => __( 'Enable ESC key to Close Tooltip', 'bb-powerpack' ),
+							'default' => 'no',
 							'options' => array(
 								'yes' => __( 'Yes', 'bb-powerpack' ),
 								'no'  => __( 'No', 'bb-powerpack' ),
@@ -234,7 +257,7 @@ FLBuilder::register_module(
 				'hotspot_tour'    => array(
 					'title'  => 'Hotspot Tour',
 					'fields' => array(
-						'enable_tour' => array(
+						'enable_tour'      => array(
 							'type'    => 'pp-switch',
 							'label'   => __( 'Enable Tour', 'bb-powerpack' ),
 							'default' => 'no',
@@ -654,6 +677,42 @@ FLBuilder::register_module(
 							'type'       => 'typography',
 							'label'      => __( 'Typography', 'bb-powerpack' ),
 							'responsive' => true,
+						),
+					),
+				),
+				'tooltip_close' => array(
+					'title'     => 'Tooltip Close Icon',
+					'collapsed' => true,
+					'fields'    => array(
+						'close_color'       => array(
+							'label'       => __( 'Color', 'bb-powerpack' ),
+							'type'        => 'color',
+							'default'     => '',
+							'show_reset'  => true,
+							'connections' => array( 'color' ),
+						),
+						'close_hover_color' => array(
+							'type'        => 'color',
+							'label'       => __( 'Hover Color', 'bb-powerpack' ),
+							'default'     => '',
+							'show_reset'  => true,
+							'connections' => array( 'color' ),
+						),
+						'close_font_size'   => array(
+							'type'       => 'unit',
+							'label'      => __( 'Size', 'bb-powerpack' ),
+							'default'    => '',
+							'slider'     => true,
+							'units'      => array( 'px' ),
+							'responsive' => true,
+						),
+						'close_margin'      => array(
+							'type'       => 'dimension',
+							'label'      => __( 'Margin From Corner', 'bb-powerpack' ),
+							'default'    => 5,
+							'slider'     => true,
+							'responsive' => true,
+							'units'      => array( 'px' ),
 						),
 					),
 				),

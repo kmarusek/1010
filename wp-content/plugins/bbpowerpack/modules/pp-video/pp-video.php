@@ -260,10 +260,10 @@ class PPVideoModule extends FLBuilderModule {
 		if ( ! $video_embed_url ) {
 			return null;
 		}
-		if ( ! isset( $options['lazy_load'] ) || ! $options['lazy_load'] ) {
+		if ( ! $this->has_image_overlay() || $this->has_lightbox() ) {
 			$default_frame_attributes['src'] = $video_embed_url;
 		} else {
-			$default_frame_attributes['data-lazy-load'] = $video_embed_url;
+			$default_frame_attributes['data-src'] = $video_embed_url;
 		}
 
 		$frame_attributes = array_merge( $default_frame_attributes, $frame_attributes );
@@ -738,11 +738,11 @@ FLBuilder::register_module(
 					'fields'	=> array(
 						'overlay'	=> array(
 							'type'		=> 'pp-switch',
-							'label'		=> __( 'Overlay', 'bb-powerpack' ),
+							'label'		=> __( 'Use Custom Overlay', 'bb-powerpack' ),
 							'default'	=> 'default',
 							'options'	=> array(
-								'default'	=> __( 'Default', 'bb-powerpack' ),
-								'custom'	=> __( 'Custom', 'bb-powerpack' ),
+								'custom'	=> __( 'Yes', 'bb-powerpack' ),
+								'default'	=> __( 'No', 'bb-powerpack' ),
 							),
 							'toggle'	=> array(
 								'custom'	=> array(
@@ -752,7 +752,7 @@ FLBuilder::register_module(
 						),
 						'custom_overlay'	=> array(
 							'type'				=> 'photo',
-							'label'				=> __( 'Custom Overlay', 'bb-powerpack' ),
+							'label'				=> __( 'Overlay Image', 'bb-powerpack' ),
 							'show_remove'		=> true,
 						),
 						'play_icon'	=> array(

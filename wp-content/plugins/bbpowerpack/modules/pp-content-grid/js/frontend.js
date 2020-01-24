@@ -82,6 +82,7 @@
 				itemSelector: '.pp-content-post',
 				percentPosition: true,
 				transitionDuration: '0.3s',
+				isOriginLeft: ! $('body').hasClass( 'rtl' ),
 			};
 
 			if ( !this.masonry ) {

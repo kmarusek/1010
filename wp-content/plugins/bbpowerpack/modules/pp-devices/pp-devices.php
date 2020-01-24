@@ -456,6 +456,7 @@ FLBuilder::register_module(
 							'type'        => 'photo',
 							'label'       => __( 'Image', 'bb-powerpack' ),
 							'show_remove' => true,
+							'connections' => array( 'photo' ),
 						),
 						'image_fit'          => array(
 							'type'    => 'select',
@@ -541,6 +542,7 @@ FLBuilder::register_module(
 							'type'        => 'photo',
 							'label'       => __( 'Overlay Image', 'bb-powerpack' ),
 							'show_remove' => true,
+							'connections' => array( 'photo' ),
 						),
 					),
 				),
@@ -576,8 +578,9 @@ FLBuilder::register_module(
 							),
 						),
 						'mp4_video_url'     => array(
-							'type'  => 'text',
-							'label' => __( 'URL', 'bb-powerpack' ),
+							'type'        => 'text',
+							'label'       => __( 'URL', 'bb-powerpack' ),
+							'connections' => array( 'url' ),
 						),
 						'mp4_video'         => array(
 							'type'  => 'video',
@@ -601,8 +604,9 @@ FLBuilder::register_module(
 							),
 						),
 						'm4v_video_url'     => array(
-							'type'  => 'text',
-							'label' => __( 'URL', 'bb-powerpack' ),
+							'type'        => 'text',
+							'label'       => __( 'URL', 'bb-powerpack' ),
+							'connections' => array( 'url' ),
 						),
 						'm4v_video'         => array(
 							'type'  => 'video',
@@ -626,8 +630,9 @@ FLBuilder::register_module(
 							),
 						),
 						'ogg_video_url'     => array(
-							'type'  => 'text',
-							'label' => __( 'URL', 'bb-powerpack' ),
+							'type'        => 'text',
+							'label'       => __( 'URL', 'bb-powerpack' ),
+							'connections' => array( 'url' ),
 						),
 						'ogg_video'         => array(
 							'type'  => 'video',
@@ -651,8 +656,9 @@ FLBuilder::register_module(
 							),
 						),
 						'webm_video_url'    => array(
-							'type'  => 'text',
-							'label' => __( 'URL', 'bb-powerpack' ),
+							'type'        => 'text',
+							'label'       => __( 'URL', 'bb-powerpack' ),
+							'connections' => array( 'url' ),
 						),
 						'webm_video'        => array(
 							'type'  => 'video',
@@ -662,6 +668,7 @@ FLBuilder::register_module(
 							'type'        => 'photo',
 							'label'       => __( 'Cover Image', 'bb-powerpack' ),
 							'show_remove' => true,
+							'connections' => array( 'photo' ),
 						),
 					),
 				),
@@ -983,28 +990,29 @@ FLBuilder::register_module(
 							),
 						),
 						'device_color'              => array(
-							'type'       => 'color',
-							'label'      => __( 'Device Color', 'bb-powerpack' ),
-							'default'    => '',
-							'show_alpha' => true,
-							'show_reset' => true,
-
+							'type'        => 'color',
+							'label'       => __( 'Device Color', 'bb-powerpack' ),
+							'default'     => '',
+							'show_alpha'  => true,
+							'show_reset'  => true,
+							'connections' => array( 'color' ),
 						),
 						'device_bg_color'           => array(
-							'type'       => 'color',
-							'label'      => __( 'Device Background Color', 'bb-powerpack' ),
-							'default'    => '',
-							'show_alpha' => true,
-							'show_reset' => true,
-
+							'type'        => 'color',
+							'label'       => __( 'Device Background Color', 'bb-powerpack' ),
+							'default'     => '',
+							'show_alpha'  => true,
+							'show_reset'  => true,
+							'connections' => array( 'color' ),
 						),
 						'orientation_control_color' => array(
-							'type'       => 'color',
-							'label'      => __( 'Orientation Control Color', 'bb-powerpack' ),
-							'default'    => '',
-							'show_alpha' => true,
-							'show_reset' => true,
-							'preview'    => array(
+							'type'        => 'color',
+							'label'       => __( 'Orientation Control Color', 'bb-powerpack' ),
+							'default'     => '',
+							'show_alpha'  => true,
+							'show_reset'  => true,
+							'connections' => array( 'color' ),
+							'preview'     => array(
 								'type'     => 'css',
 								'property' => 'color',
 								'selector' => '.pp-device-orientation .fa-mobile',
@@ -1040,11 +1048,12 @@ FLBuilder::register_module(
 					'title'  => __( 'Video Overlay', 'bb-powerpack' ), // Section Title.
 					'fields' => array( // Section Fields.
 						'overlay_background' => array(
-							'type'       => 'color',
-							'label'      => __( 'Overlay Color', 'bb-powerpack' ),
-							'show_alpha' => true,
-							'show_reset' => true,
-							'preview'    => array(
+							'type'        => 'color',
+							'label'       => __( 'Overlay Color', 'bb-powerpack' ),
+							'show_alpha'  => true,
+							'show_reset'  => true,
+							'connections' => array( 'color' ),
+							'preview'     => array(
 								'type'     => 'css',
 								'property' => 'background-color',
 								'selector' => '.pp-video-player-cover.pp-player-cover:after',
@@ -1071,11 +1080,12 @@ FLBuilder::register_module(
 					'title'  => __( 'Video Interface', 'bb-powerpack' ), // Section Title.
 					'fields' => array( // Section Fields.
 						'controls_color'          => array(
-							'type'       => 'color',
-							'label'      => __( 'Controls Color', 'bb-powerpack' ),
-							'show_alpha' => true,
-							'show_reset' => true,
-							'preview'    => array(
+							'type'        => 'color',
+							'label'       => __( 'Controls Color', 'bb-powerpack' ),
+							'show_alpha'  => true,
+							'show_reset'  => true,
+							'connections' => array( 'color' ),
+							'preview'     => array(
 								'type'  => 'css',
 								'rules' => array(
 									array(
@@ -1090,11 +1100,12 @@ FLBuilder::register_module(
 							),
 						),
 						'controls_bg_color'       => array(
-							'type'       => 'color',
-							'label'      => __( 'Controls Background Color', 'bb-powerpack' ),
-							'show_alpha' => true,
-							'show_reset' => true,
-							'preview'    => array(
+							'type'        => 'color',
+							'label'       => __( 'Controls Background Color', 'bb-powerpack' ),
+							'show_alpha'  => true,
+							'show_reset'  => true,
+							'connections' => array( 'color' ),
+							'preview'     => array(
 								'type'  => 'css',
 								'rules' => array(
 									array(
@@ -1119,11 +1130,12 @@ FLBuilder::register_module(
 							),
 						),
 						'hover_controls_color'    => array(
-							'type'       => 'color',
-							'label'      => __( 'Hover Controls Color', 'bb-powerpack' ),
-							'show_alpha' => true,
-							'show_reset' => true,
-							'preview'    => array(
+							'type'        => 'color',
+							'label'       => __( 'Hover Controls Color', 'bb-powerpack' ),
+							'show_alpha'  => true,
+							'show_reset'  => true,
+							'connections' => array( 'color' ),
+							'preview'     => array(
 								'type'  => 'css',
 								'rules' => array(
 									array(
@@ -1138,11 +1150,12 @@ FLBuilder::register_module(
 							),
 						),
 						'hover_controls_bg_color' => array(
-							'type'       => 'color',
-							'label'      => __( 'Hover Controls Background Color', 'bb-powerpack' ),
-							'show_alpha' => true,
-							'show_reset' => true,
-							'preview'    => array(
+							'type'        => 'color',
+							'label'       => __( 'Hover Controls Background Color', 'bb-powerpack' ),
+							'show_alpha'  => true,
+							'show_reset'  => true,
+							'connections' => array( 'color' ),
+							'preview'     => array(
 								'type'  => 'css',
 								'rules' => array(
 									array(
@@ -1195,11 +1208,12 @@ FLBuilder::register_module(
 							'responsive' => true,
 						),
 						'button_controls_color'          => array(
-							'type'       => 'color',
-							'label'      => __( 'Color', 'bb-powerpack' ),
-							'show_alpha' => true,
-							'show_reset' => true,
-							'preview'    => array(
+							'type'        => 'color',
+							'label'       => __( 'Color', 'bb-powerpack' ),
+							'show_alpha'  => true,
+							'show_reset'  => true,
+							'connections' => array( 'color' ),
+							'preview'     => array(
 								'type'  => 'css',
 								'rules' => array(
 									array(
@@ -1210,11 +1224,12 @@ FLBuilder::register_module(
 							),
 						),
 						'button_controls_bg_color'       => array(
-							'type'       => 'color',
-							'label'      => __( 'Background Color', 'bb-powerpack' ),
-							'show_alpha' => true,
-							'show_reset' => true,
-							'preview'    => array(
+							'type'        => 'color',
+							'label'       => __( 'Background Color', 'bb-powerpack' ),
+							'show_alpha'  => true,
+							'show_reset'  => true,
+							'connections' => array( 'color' ),
+							'preview'     => array(
 								'type'  => 'css',
 								'rules' => array(
 									array(
@@ -1225,16 +1240,18 @@ FLBuilder::register_module(
 							),
 						),
 						'hover_button_controls_color'    => array(
-							'type'       => 'color',
-							'label'      => __( 'Hover Color', 'bb-powerpack' ),
-							'show_alpha' => true,
-							'show_reset' => true,
+							'type'        => 'color',
+							'label'       => __( 'Hover Color', 'bb-powerpack' ),
+							'show_alpha'  => true,
+							'show_reset'  => true,
+							'connections' => array( 'color' ),
 						),
 						'hover_button_controls_bg_color' => array(
-							'type'       => 'color',
-							'label'      => __( 'Hover Background Color', 'bb-powerpack' ),
-							'show_alpha' => true,
-							'show_reset' => true,
+							'type'        => 'color',
+							'label'       => __( 'Hover Background Color', 'bb-powerpack' ),
+							'show_alpha'  => true,
+							'show_reset'  => true,
+							'connections' => array( 'color' ),
 						),
 						'button_border'                  => array(
 							'type'       => 'border',

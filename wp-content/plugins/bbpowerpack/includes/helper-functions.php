@@ -178,6 +178,8 @@ function pp_template_filters()
 		'landing'			=> __( 'Landing', 'bb-powerpack' ),
 		'sales'				=> __( 'Sales', 'bb-powerpack' ),
 		'coming-soon'		=> __( 'Coming Soon', 'bb-powerpack' ),
+		'login'				=> __( 'Login', 'bb-powerpack' ),
+		'under-construction' => __( 'Under Construction', 'bb-powerpack' ),
 	);
 
 	return $filters;
@@ -434,13 +436,30 @@ function pp_get_user_agent()
 	return;
 }
 
+function pp_get_client_ip() {
+	$keys = array(
+		'HTTP_CLIENT_IP',
+		'HTTP_X_FORWARDED_FOR',
+		'HTTP_X_FORWARDED',
+		'HTTP_X_CLUSTER_CLIENT_IP',
+		'HTTP_FORWARDED_FOR',
+		'HTTP_FORWARDED',
+		'REMOTE_ADDR',
+	);
+
+	foreach ( $keys as $key ) {
+		if ( isset( $_SERVER[ $key ] ) && filter_var( $_SERVER[ $key ], FILTER_VALIDATE_IP ) ) {
+			return $_SERVER[ $key ];
+		}
+	}
+
+	// fallback IP address.
+	return '127.0.0.1';
+}
+
 function pp_get_client_details()
 {
-	$ip = $_SERVER['REMOTE_ADDR'];
-
-	if ( array_key_exists( 'HTTP_X_FORWARDED_FOR', $_SERVER ) ) {
-		$ip = array_pop( explode( ',', $_SERVER['HTTP_X_FORWARDED_FOR'] ) );
-	}
+	$ip = pp_get_client_ip();
 
 	$user_agent = pp_get_user_agent();
 
@@ -845,4 +864,13 @@ function pp_image_effect_render_style( $settings, $selector, $is_hover = false )
     $css .= "\n" . '}';
 
     return $css;
+}
+
+function pp_get_site_domain() {
+	return str_ireplace( 'www.', '', parse_url( home_url(), PHP_URL_HOST ) );
+}
+
+function pp_get_recaptcha_desc() {
+	// translators: %s: Integration Setting Page link
+	return sprintf( __( 'To use reCAPTCHA, you need to add the API keys in the <a href="%s" target="_blank">Integrations Settings</a> and complete the setup process.', 'bb-powerpack' ), BB_PowerPack_Admin_Settings::get_form_action( '&tab=integration' ) );
 }

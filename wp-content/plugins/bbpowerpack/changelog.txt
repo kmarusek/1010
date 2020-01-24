@@ -1,3 +1,70 @@
+== 2.7.10.2 ==
+Release date: January 16, 2020
+* Hotfix: Logo Grid & Carousel - JS error due to incorrect PHP code format
+
+== 2.7.10.1 ==
+Release date: January 16, 2020
+* Hotfix: Advanced Menu - Stopped being displayed on desktop and medium devices after recent update
+
+== 2.7.10 ==
+Release date: January 15, 2020
+* New: Added Registration Form module
+* Enhancement: Social Share - Added fallback image option for Pinterest if featured image is not available
+* Enhancement: Contact Form - Added logic to get reCAPTCHA API keys form PowerPack settings or keep it module-wise
+* Enhancement: Image Hotspot - Added close button on tooltip and logic to close on Esc key press
+* Enhancement: Fluent Forms - Added typography options for Radio & Checkbox fields
+* Enhancement: Star Rating - Added field connections to rating option
+* Fix: Advanced Menu - On mobile device menu temporary appears and again disappears within a second
+* Fix: Formidable Form - Success message color was not working
+* Fix: Logo Grid & Carousel - Empty slider width field causing PHP error
+* Fix: Social Share - Minor CSS issues
+
+== 2.7.9.1 ==
+Release date: January 9, 2020
+* Fix: Fluent Form - Removed default button colors from module settings
+* Fix: Gravity Form - Removed default button colors from module settings
+* Fix: Modal Box - Button styling was not working after 2.7.9 update
+* Fix: Social Share - Row and Column styling was overriding module colors
+* Fix: Social Share - Re-arranged module setting fields
+* Fix: Social Share - Minor CSS issues
+
+== 2.7.9 ==
+Release date: January 8, 2020
+* New: Added Social Share module
+* Enhancement: Google Map - Added multiple markup support using custom post types and ACF
+* Enhancement: How-To - Added option to enable/disable Schema markup
+* Enhancement: Image Panels - Added option to selectively decolor/overlay inactive panel
+* Fix: Countdown Timer - Incorrect timing when set minutes and seconds only
+* Fix: Advanced Menu - Issue with scroll bar visibility toggling causing viewport to shake on Windows OS
+* Fix: Devices - Added missing field connections for image and video option
+* Fix: Timeline - Title color was not working sometimes
+* Fix: Modal Box - Updated button icon CSS targeting
+
+== 2.7.8.1 ==
+Release date: December 26, 2019
+* New: Added Login page, Under Construction, and Coming Soon templates
+* Enhancement: File Download - Allowed manually enter file URL
+* Enhancement: File Download - Added WPML support
+* Enhancement: Content Grid - Added RTL support for grid
+* Fix: Content Grid - Added missing title attributes on post links
+
+== 2.7.8 ==
+Release date: December 11, 2019
+* New: Fluent Forms Styler module
+* New: Reviews module
+* New: Author Box module
+* New: Star Rating module
+* New: File Download module
+* Enhancement: Category Grid - Added option to choose between parent or child categories to be displayed
+* Enhancement: Advanced Accordion - Added ACF Option Page as a new source
+* Enhancement: Advanced Accordion - Added option to change icon position
+* Enhancement: FAQ - Added ACF Option Page as a new source
+* Enhancement: FAQ - Added option to change icon position
+* Enhancement: Video - External resources will load only after clicking on play button when using custom overlay
+* Enhancement: Breadcrumbs - Added CSS class to identify the plugin used to display breadcrumbs
+* Fix: Advanced Menu - Submenu was not being closed when clicking anywhere outside the menu
+* Development: Content Grid - Added hook pp_cg_filters_all to remove "All" filter
+
 == 2.7.7.7 ==
 Release date: December 4, 2019
 * Fix: Advanced Accordion - Line breaks were not appearing in post content

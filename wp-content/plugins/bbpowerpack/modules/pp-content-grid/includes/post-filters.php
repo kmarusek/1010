@@ -39,7 +39,7 @@ $count = is_array( $terms ) ? count( $terms ) : 0;
 	</div>
 	<ul class="pp-post-filters">
 		<?php
-			echo '<li class="pp-post-filter pp-filter-active" data-filter="*">' . $all_label . '</li>';
+			echo apply_filters( 'pp_cg_filters_all', '<li class="pp-post-filter pp-filter-active" data-filter="*">' . $all_label . '</li>', $settings );
 			if ( $count > 0 ) {
 				foreach ( $terms as $term ) {
 					$slug = $term->slug;

@@ -93,6 +93,11 @@ if ( 'carousel' === $layout ) {
 						'custom_overlay_src'	=> $video->custom_overlay_src,
 						'play_icon'			=> $settings->play_icon,
 						'lightbox'			=> $settings->lightbox,
+						'schema_enabled'	=> $video->schema_enabled,
+						'video_title'		=> $video->schema_video_title,
+						'video_desc'		=> $video->schema_video_desc,
+						'video_thumbnail'	=> $video->schema_video_thumbnail,
+						'video_upload_date'	=> $video->schema_video_upload_date,
 					) );
 				?>
 				<?php

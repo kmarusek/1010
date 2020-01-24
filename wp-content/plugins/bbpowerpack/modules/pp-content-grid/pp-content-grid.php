@@ -472,33 +472,33 @@ FLBuilder::register_module('PPContentGridModule', array(
                         ),
 						'toggle'	=> array(
 							'default'	=> array(
-								'fields'	=> array('post_content_alignment', 'show_categories')
+								'fields'	=> array('post_content_alignment')
 							),
 							'style-1'	=> array(
-								'fields'	=> array('post_content_alignment', 'show_categories')
+								'fields'	=> array('post_content_alignment')
 							),
 							'style-2'	=> array(
-								'fields'	=> array('post_content_alignment', 'show_categories'),
+								'fields'	=> array('post_content_alignment'),
 								'sections'	=> array('divider_style')
 							),
 							'style-3'	=> array(
-								'fields'	=> array('post_content_alignment', 'show_categories'),
+								'fields'	=> array('post_content_alignment'),
 								'sections'	=> array('post_category_style')
 							),
 							'style-4'	=> array(
-								'fields'	=> array('post_content_alignment', 'show_categories'),
+								'fields'	=> array('post_content_alignment'),
 								'sections'	=> array('post_title_style')
 							),
 							'style-5'	=> array(
-								'fields'	=> array('post_date_day_bg_color', 'show_categories', 'post_date_day_text_color', 'post_date_month_bg_color', 'post_date_month_text_color', 'post_date_border_radius'),
+								'fields'	=> array('post_date_day_bg_color', 'post_date_day_text_color', 'post_date_month_bg_color', 'post_date_month_text_color', 'post_date_border_radius'),
 								'sections'	=> array('post_date_style')
 							),
 							'style-6'	=> array(
-								'fields'	=> array('post_date_bg_color', 'post_date_text_color', 'show_categories'),
+								'fields'	=> array('post_date_bg_color', 'post_date_text_color'),
 								'sections'	=> array('post_date_style')
 							),
 							'style-7'	=> array(
-								'fields'	=> array('post_content_alignment', 'show_categories')
+								'fields'	=> array('post_content_alignment')
 							),
 							'style-9'	=> array(
 								'fields'	=> array('custom_height', 'post_meta_bg_color')

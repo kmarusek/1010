@@ -621,6 +621,18 @@ final class BB_PowerPack_Admin_Settings {
 			if ( isset( $_POST['bb_powerpack_google_api_key'] ) ) {
 				self::update_option( 'bb_powerpack_google_api_key', trim( $_POST['bb_powerpack_google_api_key'] ), false );
 			}
+			if ( isset( $_POST['bb_powerpack_recaptcha_site_key'] ) ) {
+				self::update_option( 'bb_powerpack_recaptcha_site_key', trim( $_POST['bb_powerpack_recaptcha_site_key'] ), false );
+			}
+			if ( isset( $_POST['bb_powerpack_recaptcha_secret_key'] ) ) {
+				self::update_option( 'bb_powerpack_recaptcha_secret_key', trim( $_POST['bb_powerpack_recaptcha_secret_key'] ), false );
+			}
+			if ( isset( $_POST['bb_powerpack_recaptcha_v3_site_key'] ) ) {
+				self::update_option( 'bb_powerpack_recaptcha_v3_site_key', trim( $_POST['bb_powerpack_recaptcha_v3_site_key'] ), false );
+			}
+			if ( isset( $_POST['bb_powerpack_recaptcha_v3_secret_key'] ) ) {
+				self::update_option( 'bb_powerpack_recaptcha_v3_secret_key', trim( $_POST['bb_powerpack_recaptcha_v3_secret_key'] ), false );
+			}
 		}
 	}
 

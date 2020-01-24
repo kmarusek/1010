@@ -897,7 +897,7 @@ FLBuilder::register_module(
 						'button_text_color'       => array(
 							'type'        => 'color',
 							'label'       => __( 'Text Color', 'bb-powerpack' ),
-							'default'     => 'ffffff',
+							'default'     => '',
 							'show_reset'  => true,
 							'connections' => array( 'color' ),
 							'preview'     => array(
@@ -909,7 +909,7 @@ FLBuilder::register_module(
 						'button_hover_text_color' => array(
 							'type'        => 'color',
 							'label'       => __( 'Text Color Hover', 'bb-powerpack' ),
-							'default'     => 'eeeeee',
+							'default'     => '',
 							'show_reset'  => true,
 							'connections' => array( 'color' ),
 							'preview'     => array(
@@ -921,7 +921,7 @@ FLBuilder::register_module(
 						'button_bg_color'         => array(
 							'type'        => 'color',
 							'label'       => __( 'Background Color', 'bb-powerpack' ),
-							'default'     => '333333',
+							'default'     => '',
 							'show_reset'  => true,
 							'show_alpha'  => true,
 							'connections' => array( 'color' ),
@@ -934,7 +934,7 @@ FLBuilder::register_module(
 						'button_hover_bg_color'   => array(
 							'type'        => 'color',
 							'label'       => __( 'Background Color Hover', 'bb-powerpack' ),
-							'default'     => '000000',
+							'default'     => '',
 							'show_reset'  => true,
 							'show_alpha'  => true,
 							'connections' => array( 'color' ),
@@ -1002,7 +1002,7 @@ FLBuilder::register_module(
 							'label'      => __( 'Top/Bottom Padding', 'bb-powerpack' ),
 							'slider'     => true,
 							'units'      => array( 'px' ),
-							'default'    => '10',
+							'default'    => '',
 							'preview'    => array(
 								'type'  => 'css',
 								'rules' => array(
@@ -1025,7 +1025,7 @@ FLBuilder::register_module(
 							'label'      => __( 'Left/Right Padding', 'bb-powerpack' ),
 							'slider'     => true,
 							'units'      => array( 'px' ),
-							'default'    => '10',
+							'default'    => '',
 							'preview'    => array(
 								'type'  => 'css',
 								'rules' => array(

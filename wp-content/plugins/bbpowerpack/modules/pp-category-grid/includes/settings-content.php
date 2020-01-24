@@ -73,5 +73,60 @@
 				<?php echo __( 'Click to enable thumbnail for taxonomies.', 'bb-powerpack' ); ?>
 			</a>
 		</p>
+		<table class='fl-form-table'>
+			<?php
+
+				FLBuilder::render_settings_field(
+					'display_data',
+					array(
+						'type'    => 'select',
+						'label'   => __( 'Display', 'bb-powerpack' ),
+						'default' => isset( $settings->display_data ) ? $settings->display_data : 'default',
+						'options' => array(
+							'default'       => __( 'Default', 'bb-powerpack' ),
+							'parent_only'   => __( 'Parent Only', 'bb-powerpack' ),
+							'children_only' => __( 'Children Only', 'bb-powerpack' ),
+						),
+					)
+				);
+				?>
+		</table>
+
+		<table class='fl-form-table'>
+			<?php
+				FLBuilder::render_settings_field(
+					'order_by',
+					array(
+						'type'    => 'select',
+						'label'   => __( 'Order By', 'bb-powerpack' ),
+						'default' => isset( $settings->order_by ) ? $settings->order_by : 'name',
+						'options' => array(
+							'name'   => __( 'Name', 'bb-powerpack' ),
+							'slug'   => __( 'Slug', 'bb-powerpack' ),
+							'parent' => __( 'Parent', 'bb-powerpack' ),
+							'count'  => __( 'Post Count', 'bb-powerpack' ),
+						),
+					)
+				);
+				?>
+		</table>
+
+		<table class='fl-form-table'>
+		<?php
+				FLBuilder::render_settings_field(
+					'order',
+					array(
+						'type'    => 'select',
+						'label'   => __( 'Order', 'bb-powerpack' ),
+						'default' => isset( $settings->order ) ? $settings->order : 'ASC',
+						'options' => array(
+							'ASC'  => __( 'Ascending', 'bb-powerpack' ),
+							'DESC' => __( 'Descending', 'bb-powerpack' ),
+						),
+					)
+				);
+
+				?>
+		</table>
 	</div>
 </div>

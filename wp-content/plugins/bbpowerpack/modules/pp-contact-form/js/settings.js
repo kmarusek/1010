@@ -99,23 +99,34 @@
 
 		init: function()
 		{
-			var form      = $( '.fl-builder-settings' ),
-				action    = form.find( 'select[name=success_action]' );
+			var form    = $( '.fl-builder-settings' ),
+				action  = form.find( 'select[name=success_action]' ),
+				self	= this;
 
 			this._actionChanged();
 
-            action.on( 'change', this._actionChanged );
+			action.on( 'change', this._actionChanged );
+			
+			this._keySourceChanged();
+
+			$('input[name=recaptcha_key_source]').on( 'change', this._keySourceChanged );
+			$('input[name=recaptcha_toggle]').on( 'change', function() {
+				setTimeout( function() {
+					self._keySourceChanged();
+				}, 500 );
+			} );
             
             // Toggle reCAPTCHA display
             this._toggleReCaptcha();
-            $('select[name=recaptcha_toggle]').on('change', $.proxy(this._toggleReCaptcha, this));
+            $('input[name=recaptcha_toggle]').on('change', $.proxy(this._toggleReCaptcha, this));
+            $('input[name=recaptcha_key_source]').on('change', $.proxy(this._toggleReCaptcha, this));
             $('input[name=recaptcha_site_key]').on('change', $.proxy(this._toggleReCaptcha, this));
             $('select[name=recaptcha_validate_type]').on('change', $.proxy(this._toggleReCaptcha, this));
-            $('select[name=recaptcha_theme]').on('change', $.proxy(this._toggleReCaptcha, this));
+            $('input[name=recaptcha_theme]').on('change', $.proxy(this._toggleReCaptcha, this));
 
             // Render reCAPTCHA after layout rendered via AJAX
-            if (window.onLoadFLReCaptcha) {
-                $(FLBuilder._contentClass).on('fl-builder.layout-rendered', onLoadFLReCaptcha);
+            if (window.onLoadPPReCaptcha) {
+                $(FLBuilder._contentClass).on('fl-builder.layout-rendered', onLoadPPReCaptcha);
             }
 		},
 
@@ -132,6 +143,22 @@
 			}
 		},
 
+		_keySourceChanged: function() {
+			var form = $( '.fl-builder-settings' );
+			if ( 'hide' === form.find('input[name=recaptcha_toggle]').val() ) {
+				$('#fl-field-recaptcha_site_key').hide();
+				$('#fl-field-recaptcha_secret_key').hide();
+				return;
+			}
+			if ( 'default' === form.find('input[name=recaptcha_key_source]').val() ) {
+				$('#fl-field-recaptcha_site_key').hide();
+				$('#fl-field-recaptcha_secret_key').hide();
+			} else {
+				$('#fl-field-recaptcha_site_key').show();
+				$('#fl-field-recaptcha_secret_key').show();
+			}
+		},
+
         /**
 		 * Custom preview method for reCAPTCHA settings
 		 *
@@ -141,24 +168,30 @@
         _toggleReCaptcha: function (event) {
             var form = $('.fl-builder-settings'),
                 nodeId = form.attr('data-node'),
-                toggle = form.find('select[name=recaptcha_toggle]'),
+                toggle = form.find('input[name=recaptcha_toggle]'),
                 captchaKey = form.find('input[name=recaptcha_site_key]').val(),
                 captType = form.find('select[name=recaptcha_validate_type]').val(),
-                theme = form.find('select[name=recaptcha_theme]').val(),
-                reCaptcha = $('.fl-node-' + nodeId).find('.fl-grecaptcha'),
-                reCaptchaId = nodeId + '-fl-grecaptcha',
+                theme = form.find('input[name=recaptcha_theme]').val(),
+                reCaptcha = $('.fl-node-' + nodeId).find('.pp-grecaptcha'),
+                reCaptchaId = nodeId + '-pp-grecaptcha',
                 target = typeof event !== 'undefined' ? $(event.currentTarget) : null,
                 inputEvent = target != null && typeof target.attr('name') !== typeof undefined && target.attr('name') === 'recaptcha_site_key',
                 selectEvent = target != null && typeof target.attr('name') !== typeof undefined && target.attr('name') === 'recaptcha_toggle',
                 typeEvent = target != null && typeof target.attr('name') !== typeof undefined && target.attr('name') === 'recaptcha_validate_type',
                 themeEvent = target != null && typeof target.attr('name') !== typeof undefined && target.attr('name') === 'recaptcha_theme',
                 scriptTag = $('<script>'),
-                isRender = false;
+				isRender = false;
+				
+			if ( 'undefined' !== typeof pp_recaptcha ) {
+				if ( 'default' === form.find( 'input[name=recaptcha_key_source]' ).val() ) {
+					captchaKey = pp_recaptcha.site_key;
+				}
+			}
 
             // Add library if not exists
             if (0 === $('script#g-recaptcha-api').length) {
                 scriptTag
-                    .attr('src', 'https://www.google.com/recaptcha/api.js?onload=onLoadFLReCaptcha&render=explicit')
+                    .attr('src', 'https://www.google.com/recaptcha/api.js?onload=onLoadPPReCaptcha&render=explicit')
                     .attr('type', 'text/javascript')
                     .attr('id', 'g-recaptcha-api')
                     .attr('async', 'async')
@@ -184,7 +217,7 @@
 
                 if (isRender) {
                     this._renderReCaptcha(nodeId, reCaptchaId, captchaKey, captType, theme);
-                }
+				}
             }
             else if ('show' === toggle.val() && captchaKey.length === 0 && reCaptcha.length > 0) {
                 reCaptcha.parent().remove();
@@ -205,8 +238,8 @@
 		 * @since 1.9.5
 		 */
         _renderReCaptcha: function (nodeId, reCaptchaId, reCaptchaKey, reCaptType, theme) {
-            var captchaField = $('<div class="fl-input-group fl-recaptcha">'),
-                captchaElement = $('<div id="' + reCaptchaId + '" class="fl-grecaptcha">'),
+            var captchaField = $('<div class="pp-input-group pp-recaptcha">'),
+                captchaElement = $('<div id="' + reCaptchaId + '" class="pp-grecaptcha">'),
                 widgetID;
 
             captchaElement.attr('data-sitekey', reCaptchaKey);
@@ -216,7 +249,7 @@
             // Append recaptcha element to an appended element
             captchaField
                 .html(captchaElement)
-                .insertAfter($('.fl-node-' + nodeId).find('.pp-contact-form > .pp-message'));
+                .appendTo($('.fl-node-' + nodeId).find('.pp-contact-form-inner'));
 
             widgetID = grecaptcha.render(reCaptchaId, {
                 sitekey: reCaptchaKey,

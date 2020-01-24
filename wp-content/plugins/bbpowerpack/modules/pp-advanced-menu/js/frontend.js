@@ -194,7 +194,7 @@
 				$parents.addClass('focus');
 
 			}, this ) ).on( 'focusout', 'a', $.proxy( function( e ) {
-				if ( ! $('.pp-advanced-menu .focus').hasClass('pp-has-submenu') ) {
+				if ( $('.pp-advanced-menu .focus').hasClass('pp-has-submenu') ) {
 					$( e.target ).parentsUntil( this.wrapperClass ).removeClass( 'focus' );
 				}
 			}, this ) );
