@@ -41,9 +41,9 @@ class UABBPricingTableModule extends FLBuilderModule {
 	 * @param array  $name an array to get the names.
 	 * @param object $settings an object to get various settings.
 	 */
-	function uabb_price_box_settings_field( $field, $name, $settings ) {
+	public function uabb_price_box_settings_field( $field, $name, $settings ) {
 		if ( isset( $settings->legend_column->legend_feature_color ) ) {
-			if ( '' != $settings->legend_column->legend_feature_color && '' == $settings->legend_column->legend_color ) {
+			if ( '' !== $settings->legend_column->legend_feature_color && '' === $settings->legend_column->legend_color ) {
 				$settings->legend_column->legend_color = $settings->legend_column->legend_feature_color;
 			}
 		}
@@ -60,90 +60,113 @@ class UABBPricingTableModule extends FLBuilderModule {
 		if ( ! UABB_Compatibility::$version_bb_check ) {
 			$btn_settings = array(
 
-				'text'                        => $this->settings->pricing_columns[ $column ]->btn_text,
-				'link'                        => $this->settings->pricing_columns[ $column ]->btn_link,
-				'link_target'                 => $this->settings->pricing_columns[ $column ]->btn_link_target,
-				'link_nofollow'               => $this->settings->pricing_columns[ $column ]->btn_link_nofollow,
-				'icon'                        => $this->settings->pricing_columns[ $column ]->btn_icon,
-				'icon_position'               => $this->settings->pricing_columns[ $column ]->btn_icon_position,
-				'style'                       => $this->settings->pricing_columns[ $column ]->btn_style,
-				'border_size'                 => $this->settings->pricing_columns[ $column ]->btn_border_size,
-				'transparent_button_options'  => $this->settings->pricing_columns[ $column ]->btn_transparent_button_options,
-				'threed_button_options'       => $this->settings->pricing_columns[ $column ]->btn_threed_button_options,
-				'flat_button_options'         => $this->settings->pricing_columns[ $column ]->btn_flat_button_options,
-				'bg_color'                    => $this->settings->pricing_columns[ $column ]->btn_bg_color,
-				'bg_hover_color'              => $this->settings->pricing_columns[ $column ]->btn_bg_hover_color,
-				'text_color'                  => $this->settings->pricing_columns[ $column ]->btn_text_color,
-				'text_hover_color'            => $this->settings->pricing_columns[ $column ]->btn_text_hover_color,
-				'width'                       => $this->settings->pricing_columns[ $column ]->btn_width,
-				'custom_width'                => $this->settings->pricing_columns[ $column ]->btn_custom_width,
-				'custom_height'               => $this->settings->pricing_columns[ $column ]->btn_custom_height,
-				'padding_top_bottom'          => $this->settings->pricing_columns[ $column ]->btn_padding_top_bottom,
-				'padding_left_right'          => $this->settings->pricing_columns[ $column ]->btn_padding_left_right,
-				'border_radius'               => $this->settings->pricing_columns[ $column ]->btn_border_radius,
-				'custom_class'                => $this->settings->pricing_columns[ $column ]->btn_custom_class,
-				'align'                       => '',
-				'mob_align'                   => '',
-				'font_family'                 => $this->settings->pricing_columns[ $column ]->button_typography_font_family,
+				'text'                                     => $this->settings->pricing_columns[ $column ]->btn_text,
+				'link'                                     => $this->settings->pricing_columns[ $column ]->btn_link,
+				'link_target'                              => $this->settings->pricing_columns[ $column ]->btn_link_target,
+				'link_nofollow'                            => $this->settings->pricing_columns[ $column ]->btn_link_nofollow,
+				'icon'                                     => $this->settings->pricing_columns[ $column ]->btn_icon,
+				'icon_position'                            => $this->settings->pricing_columns[ $column ]->btn_icon_position,
+				'style'                                    => $this->settings->pricing_columns[ $column ]->btn_style,
+				'border_size'                              => $this->settings->pricing_columns[ $column ]->btn_border_size,
+				'transparent_button_options'               => $this->settings->pricing_columns[ $column ]->btn_transparent_button_options,
+				'threed_button_options'                    => $this->settings->pricing_columns[ $column ]->btn_threed_button_options,
+				'flat_button_options'                      => $this->settings->pricing_columns[ $column ]->btn_flat_button_options,
+				'bg_color'                                 => $this->settings->pricing_columns[ $column ]->btn_bg_color,
+				'bg_hover_color'                           => $this->settings->pricing_columns[ $column ]->btn_bg_hover_color,
+				'text_color'                               => $this->settings->pricing_columns[ $column ]->btn_text_color,
+				'text_hover_color'                         => $this->settings->pricing_columns[ $column ]->btn_text_hover_color,
+				'width'                                    => $this->settings->pricing_columns[ $column ]->btn_width,
+				'custom_width'                             => $this->settings->pricing_columns[ $column ]->btn_custom_width,
+				'custom_height'                            => $this->settings->pricing_columns[ $column ]->btn_custom_height,
+				'padding_top_bottom'                       => $this->settings->pricing_columns[ $column ]->btn_padding_top_bottom,
+				'padding_left_right'                       => $this->settings->pricing_columns[ $column ]->btn_padding_left_right,
+				'border_radius'                            => $this->settings->pricing_columns[ $column ]->btn_border_radius,
+				'custom_class'                             => $this->settings->pricing_columns[ $column ]->btn_custom_class,
+				'align'                                    => '',
+				'mob_align'                                => '',
+				'font_family'                              => $this->settings->pricing_columns[ $column ]->button_typography_font_family,
 
-				'font_size'                   => ( isset( $this->settings->pricing_columns[ $column ]->button_typography_font_size ) ) ? $this->settings->pricing_columns[ $column ]->button_typography_font_size : '',
+				'font_size'                                => ( isset( $this->settings->pricing_columns[ $column ]->button_typography_font_size ) ) ? $this->settings->pricing_columns[ $column ]->button_typography_font_size : '',
 
-				'line_height'                 => ( isset( $this->settings->pricing_columns[ $column ]->button_typography_line_height ) ) ? $this->settings->pricing_columns[ $column ]->button_typography_line_height : '',
+				'line_height'                              => ( isset( $this->settings->pricing_columns[ $column ]->button_typography_line_height ) ) ? $this->settings->pricing_columns[ $column ]->button_typography_line_height : '',
 
-				'font_size_unit'              => $this->settings->pricing_columns[ $column ]->button_typography_font_size_unit,
-				'line_height_unit'            => $this->settings->pricing_columns[ $column ]->button_typography_line_height_unit,
-				'font_size_unit_medium'       => $this->settings->pricing_columns[ $column ]->button_typography_font_size_unit_medium,
-				'line_height_unit_medium'     => $this->settings->pricing_columns[ $column ]->button_typography_line_height_unit_medium,
-				'font_size_unit_responsive'   => $this->settings->pricing_columns[ $column ]->button_typography_font_size_unit_responsive,
-				'line_height_unit_responsive' => $this->settings->pricing_columns[ $column ]->button_typography_line_height_unit_responsive,
+				'font_size_unit'                           => $this->settings->pricing_columns[ $column ]->button_typography_font_size_unit,
+				'line_height_unit'                         => $this->settings->pricing_columns[ $column ]->button_typography_line_height_unit,
+				'font_size_unit_medium'                    => $this->settings->pricing_columns[ $column ]->button_typography_font_size_unit_medium,
+				'line_height_unit_medium'                  => $this->settings->pricing_columns[ $column ]->button_typography_line_height_unit_medium,
+				'font_size_unit_responsive'                => $this->settings->pricing_columns[ $column ]->button_typography_font_size_unit_responsive,
+				'line_height_unit_responsive'              => $this->settings->pricing_columns[ $column ]->button_typography_line_height_unit_responsive,
 
-				'button_padding_dimension'    => ( isset( $this->settings->pricing_columns[ $column ]->button_padding_dimension ) ) ? $this->settings->pricing_columns[ $column ]->button_padding_dimension : '',
-				'button_border_style'         => ( isset( $this->settings->pricing_columns[ $column ]->button_border_style ) ) ? $this->settings->pricing_columns[ $column ]->button_border_style : '',
-				'button_border_width'         => ( isset( $this->settings->pricing_columns[ $column ]->button_border_width ) ) ? $this->settings->pricing_columns[ $column ]->button_border_width : '',
-				'button_border_radius'        => ( isset( $this->settings->pricing_columns[ $column ]->button_border_radius ) ) ? $this->settings->pricing_columns[ $column ]->button_border_radius : '',
-				'button_border_color'         => ( isset( $this->settings->pricing_columns[ $column ]->button_border_color ) ) ? $this->settings->pricing_columns[ $column ]->button_border_color : '',
+				'button_padding_dimension_top'             => ( isset( $this->settings->pricing_columns[ $column ]->button_padding_dimension_top ) ) ? $this->settings->pricing_columns[ $column ]->button_padding_dimension_top : '',
+				'button_padding_dimension_left'            => ( isset( $this->settings->pricing_columns[ $column ]->button_padding_dimension_left ) ) ? $this->settings->pricing_columns[ $column ]->button_padding_dimension_left : '',
+				'button_padding_dimension_bottom'          => ( isset( $this->settings->pricing_columns[ $column ]->button_padding_dimension_bottom ) ) ? $this->settings->pricing_columns[ $column ]->button_padding_dimension_bottom : '',
+				'button_padding_dimension_right'           => ( isset( $this->settings->pricing_columns[ $column ]->button_padding_dimension_right ) ) ? $this->settings->pricing_columns[ $column ]->button_padding_dimension_right : '',
+				'button_padding_dimension_top_medium'      => ( isset( $this->settings->pricing_columns[ $column ]->button_padding_dimension_top_medium ) ) ? $this->settings->pricing_columns[ $column ]->button_padding_dimension_top_medium : '',
+				'button_padding_dimension_left_medium'     => ( isset( $this->settings->pricing_columns[ $column ]->button_padding_dimension_left_medium ) ) ? $this->settings->pricing_columns[ $column ]->button_padding_dimension_left_medium : '',
+				'button_padding_dimension_bottom_medium'   => ( isset( $this->settings->pricing_columns[ $column ]->button_padding_dimension_bottom_medium ) ) ? $this->settings->pricing_columns[ $column ]->button_padding_dimension_bottom_medium : '',
+				'button_padding_dimension_right_medium'    => ( isset( $this->settings->pricing_columns[ $column ]->button_padding_dimension_right_medium ) ) ? $this->settings->pricing_columns[ $column ]->button_padding_dimension_right_medium : '',
+				'button_padding_dimension_top_responsive'  => ( isset( $this->settings->pricing_columns[ $column ]->button_padding_dimension_top_responsive ) ) ? $this->settings->pricing_columns[ $column ]->button_padding_dimension_top_responsive : '',
+				'button_padding_dimension_left_responsive' => ( isset( $this->settings->pricing_columns[ $column ]->button_padding_dimension_left_responsive ) ) ? $this->settings->pricing_columns[ $column ]->button_padding_dimension_left_responsive : '',
+				'button_padding_dimension_bottom_responsive' => ( isset( $this->settings->pricing_columns[ $column ]->button_padding_dimension_bottom_responsive ) ) ? $this->settings->pricing_columns[ $column ]->button_padding_dimension_bottom_responsive : '',
+				'button_padding_dimension_right_responsive' => ( isset( $this->settings->pricing_columns[ $column ]->button_padding_dimension_right_responsive ) ) ? $this->settings->pricing_columns[ $column ]->button_padding_dimension_right_responsive : '',
 
-				'border_hover_color'          => ( isset( $this->settings->pricing_columns[ $column ]->border_hover_color ) ) ? $this->settings->pricing_columns[ $column ]->border_hover_color : '',
+				'button_border_style'                      => ( isset( $this->settings->pricing_columns[ $column ]->button_border_style ) ) ? $this->settings->pricing_columns[ $column ]->button_border_style : '',
+				'button_border_width'                      => ( isset( $this->settings->pricing_columns[ $column ]->button_border_width ) ) ? $this->settings->pricing_columns[ $column ]->button_border_width : '',
+				'button_border_radius'                     => ( isset( $this->settings->pricing_columns[ $column ]->button_border_radius ) ) ? $this->settings->pricing_columns[ $column ]->button_border_radius : '',
+				'button_border_color'                      => ( isset( $this->settings->pricing_columns[ $column ]->button_border_color ) ) ? $this->settings->pricing_columns[ $column ]->button_border_color : '',
+
+				'border_hover_color'                       => ( isset( $this->settings->pricing_columns[ $column ]->border_hover_color ) ) ? $this->settings->pricing_columns[ $column ]->border_hover_color : '',
 			);
 		} else {
 
 			$btn_settings = array(
 
-				'text'                       => $this->settings->pricing_columns[ $column ]->btn_text,
-				'link'                       => $this->settings->pricing_columns[ $column ]->btn_link,
-				'link_target'                => $this->settings->pricing_columns[ $column ]->btn_link_target,
-				'link_nofollow'              => $this->settings->pricing_columns[ $column ]->btn_link_nofollow,
-				'icon'                       => $this->settings->pricing_columns[ $column ]->btn_icon,
-				'icon_position'              => $this->settings->pricing_columns[ $column ]->btn_icon_position,
-				'style'                      => $this->settings->pricing_columns[ $column ]->btn_style,
-				'border_size'                => $this->settings->pricing_columns[ $column ]->btn_border_size,
-				'transparent_button_options' => $this->settings->pricing_columns[ $column ]->btn_transparent_button_options,
-				'threed_button_options'      => $this->settings->pricing_columns[ $column ]->btn_threed_button_options,
-				'flat_button_options'        => $this->settings->pricing_columns[ $column ]->btn_flat_button_options,
-				'bg_color'                   => $this->settings->pricing_columns[ $column ]->btn_bg_color,
-				'bg_hover_color'             => $this->settings->pricing_columns[ $column ]->btn_bg_hover_color,
-				'text_color'                 => $this->settings->pricing_columns[ $column ]->btn_text_color,
-				'text_hover_color'           => $this->settings->pricing_columns[ $column ]->btn_text_hover_color,
-				'width'                      => $this->settings->pricing_columns[ $column ]->btn_width,
-				'custom_width'               => $this->settings->pricing_columns[ $column ]->btn_custom_width,
-				'custom_height'              => $this->settings->pricing_columns[ $column ]->btn_custom_height,
-				'padding_top_bottom'         => $this->settings->pricing_columns[ $column ]->btn_padding_top_bottom,
-				'padding_left_right'         => $this->settings->pricing_columns[ $column ]->btn_padding_left_right,
-				'border_radius'              => $this->settings->pricing_columns[ $column ]->btn_border_radius,
-				'custom_class'               => $this->settings->pricing_columns[ $column ]->btn_custom_class,
-				'align'                      => '',
-				'mob_align'                  => '',
-				'font_size'                  => ( isset( $this->settings->pricing_columns[ $column ]->button_typography_font_size ) ) ? $this->settings->pricing_columns[ $column ]->button_typography_font_size : '',
-				'line_height'                => ( isset( $this->settings->pricing_columns[ $column ]->button_typography_line_height ) ) ? $this->settings->pricing_columns[ $column ]->button_typography_line_height : '',
-				'button_typo'                => ( isset( $this->settings->pricing_columns[ $column ]->button_typo ) ) ? $this->settings->pricing_columns[ $column ]->button_typo : '',
+				'text'                                     => $this->settings->pricing_columns[ $column ]->btn_text,
+				'link'                                     => $this->settings->pricing_columns[ $column ]->btn_link,
+				'link_target'                              => $this->settings->pricing_columns[ $column ]->btn_link_target,
+				'link_nofollow'                            => $this->settings->pricing_columns[ $column ]->btn_link_nofollow,
+				'icon'                                     => $this->settings->pricing_columns[ $column ]->btn_icon,
+				'icon_position'                            => $this->settings->pricing_columns[ $column ]->btn_icon_position,
+				'style'                                    => $this->settings->pricing_columns[ $column ]->btn_style,
+				'border_size'                              => $this->settings->pricing_columns[ $column ]->btn_border_size,
+				'transparent_button_options'               => $this->settings->pricing_columns[ $column ]->btn_transparent_button_options,
+				'threed_button_options'                    => $this->settings->pricing_columns[ $column ]->btn_threed_button_options,
+				'flat_button_options'                      => $this->settings->pricing_columns[ $column ]->btn_flat_button_options,
+				'bg_color'                                 => $this->settings->pricing_columns[ $column ]->btn_bg_color,
+				'bg_hover_color'                           => $this->settings->pricing_columns[ $column ]->btn_bg_hover_color,
+				'text_color'                               => $this->settings->pricing_columns[ $column ]->btn_text_color,
+				'text_hover_color'                         => $this->settings->pricing_columns[ $column ]->btn_text_hover_color,
+				'width'                                    => $this->settings->pricing_columns[ $column ]->btn_width,
+				'custom_width'                             => $this->settings->pricing_columns[ $column ]->btn_custom_width,
+				'custom_height'                            => $this->settings->pricing_columns[ $column ]->btn_custom_height,
+				'padding_top_bottom'                       => $this->settings->pricing_columns[ $column ]->btn_padding_top_bottom,
+				'padding_left_right'                       => $this->settings->pricing_columns[ $column ]->btn_padding_left_right,
+				'border_radius'                            => $this->settings->pricing_columns[ $column ]->btn_border_radius,
+				'custom_class'                             => $this->settings->pricing_columns[ $column ]->btn_custom_class,
+				'align'                                    => '',
+				'mob_align'                                => '',
+				'font_size'                                => ( isset( $this->settings->pricing_columns[ $column ]->button_typography_font_size ) ) ? $this->settings->pricing_columns[ $column ]->button_typography_font_size : '',
+				'line_height'                              => ( isset( $this->settings->pricing_columns[ $column ]->button_typography_line_height ) ) ? $this->settings->pricing_columns[ $column ]->button_typography_line_height : '',
+				'button_typo'                              => ( isset( $this->settings->pricing_columns[ $column ]->button_typo ) ) ? $this->settings->pricing_columns[ $column ]->button_typo : '',
 
-				'button_typo_medium'         => ( isset( $this->settings->pricing_columns[ $column ]->button_typo_medium ) ) ? $this->settings->pricing_columns[ $column ]->button_typo_medium : '',
+				'button_typo_medium'                       => ( isset( $this->settings->pricing_columns[ $column ]->button_typo_medium ) ) ? $this->settings->pricing_columns[ $column ]->button_typo_medium : '',
 
-				'button_typo_responsive'     => ( isset( $this->settings->pricing_columns[ $column ]->button_typo_responsive ) ) ? $this->settings->pricing_columns[ $column ]->button_typo_responsive : '',
+				'button_typo_responsive'                   => ( isset( $this->settings->pricing_columns[ $column ]->button_typo_responsive ) ) ? $this->settings->pricing_columns[ $column ]->button_typo_responsive : '',
 
-				'button_padding_dimension'   => ( isset( $this->settings->pricing_columns[ $column ]->button_padding_dimension ) ) ? $this->settings->pricing_columns[ $column ]->button_padding_dimension : '',
-				'button_border'              => ( isset( $this->settings->pricing_columns[ $column ]->button_border ) ) ? $this->settings->pricing_columns[ $column ]->button_border : '',
-				'border_hover_color'         => ( isset( $this->settings->pricing_columns[ $column ]->border_hover_color ) ) ? $this->settings->pricing_columns[ $column ]->border_hover_color : '',
+				'button_padding_dimension_top'             => ( isset( $this->settings->pricing_columns[ $column ]->button_padding_dimension_top ) ) ? $this->settings->pricing_columns[ $column ]->button_padding_dimension_top : '',
+				'button_padding_dimension_left'            => ( isset( $this->settings->pricing_columns[ $column ]->button_padding_dimension_left ) ) ? $this->settings->pricing_columns[ $column ]->button_padding_dimension_left : '',
+				'button_padding_dimension_bottom'          => ( isset( $this->settings->pricing_columns[ $column ]->button_padding_dimension_bottom ) ) ? $this->settings->pricing_columns[ $column ]->button_padding_dimension_bottom : '',
+				'button_padding_dimension_right'           => ( isset( $this->settings->pricing_columns[ $column ]->button_padding_dimension_right ) ) ? $this->settings->pricing_columns[ $column ]->button_padding_dimension_right : '',
+				'button_padding_dimension_top_medium'      => ( isset( $this->settings->pricing_columns[ $column ]->button_padding_dimension_top_medium ) ) ? $this->settings->pricing_columns[ $column ]->button_padding_dimension_top_medium : '',
+				'button_padding_dimension_left_medium'     => ( isset( $this->settings->pricing_columns[ $column ]->button_padding_dimension_left_medium ) ) ? $this->settings->pricing_columns[ $column ]->button_padding_dimension_left_medium : '',
+				'button_padding_dimension_bottom_medium'   => ( isset( $this->settings->pricing_columns[ $column ]->button_padding_dimension_bottom_medium ) ) ? $this->settings->pricing_columns[ $column ]->button_padding_dimension_bottom_medium : '',
+				'button_padding_dimension_right_medium'    => ( isset( $this->settings->pricing_columns[ $column ]->button_padding_dimension_right_medium ) ) ? $this->settings->pricing_columns[ $column ]->button_padding_dimension_right_medium : '',
+				'button_padding_dimension_top_responsive'  => ( isset( $this->settings->pricing_columns[ $column ]->button_padding_dimension_top_responsive ) ) ? $this->settings->pricing_columns[ $column ]->button_padding_dimension_top_responsive : '',
+				'button_padding_dimension_left_responsive' => ( isset( $this->settings->pricing_columns[ $column ]->button_padding_dimension_left_responsive ) ) ? $this->settings->pricing_columns[ $column ]->button_padding_dimension_left_responsive : '',
+				'button_padding_dimension_bottom_responsive' => ( isset( $this->settings->pricing_columns[ $column ]->button_padding_dimension_bottom_responsive ) ) ? $this->settings->pricing_columns[ $column ]->button_padding_dimension_bottom_responsive : '',
+				'button_padding_dimension_right_responsive' => ( isset( $this->settings->pricing_columns[ $column ]->button_padding_dimension_right_responsive ) ) ? $this->settings->pricing_columns[ $column ]->button_padding_dimension_right_responsive : '',
+				'button_border'                            => ( isset( $this->settings->pricing_columns[ $column ]->button_border ) ) ? $this->settings->pricing_columns[ $column ]->button_border : '',
+				'border_hover_color'                       => ( isset( $this->settings->pricing_columns[ $column ]->border_hover_color ) ) ? $this->settings->pricing_columns[ $column ]->border_hover_color : '',
 			);
 		}
 		FLBuilder::render_module_html( 'uabb-button', $btn_settings );
@@ -163,7 +186,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 		$page_migrated           = UABB_Compatibility::$uabb_migration;
 		$stable_version_new_page = UABB_Compatibility::$stable_version_new_page;
 
-		if ( $version_bb_check && ( 'yes' == $page_migrated || 'yes' == $stable_version_new_page ) ) {
+		if ( $version_bb_check && ( 'yes' === $page_migrated || 'yes' === $stable_version_new_page ) ) {
 
 			// For Title typo.
 			if ( ! isset( $settings->title_typo ) || ! is_array( $settings->title_typo ) ) {
@@ -178,7 +201,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 					unset( $settings->title_typography_font_family['family'] );
 				}
 				if ( isset( $settings->title_typography_font_family['weight'] ) ) {
-					if ( 'regular' == $settings->title_typography_font_family['weight'] ) {
+					if ( 'regular' === $settings->title_typography_font_family['weight'] ) {
 						$settings->title_typo['font_weight'] = 'normal';
 					} else {
 						$settings->title_typo['font_weight'] = $settings->title_typography_font_family['weight'];
@@ -258,7 +281,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 					unset( $settings->feature_typography_font_family['family'] );
 				}
 				if ( isset( $settings->feature_typography_font_family['weight'] ) ) {
-					if ( 'regular' == $settings->feature_typography_font_family['weight'] ) {
+					if ( 'regular' === $settings->feature_typography_font_family['weight'] ) {
 						$settings->feature_typo['font_weight'] = 'normal';
 					} else {
 						$settings->feature_typo['font_weight'] = $settings->feature_typography_font_family['weight'];
@@ -342,7 +365,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 					unset( $settings->price_typography_font_family['family'] );
 				}
 				if ( isset( $settings->price_typography_font_family['weight'] ) ) {
-					if ( 'regular' == $settings->price_typography_font_family['weight'] ) {
+					if ( 'regular' === $settings->price_typography_font_family['weight'] ) {
 						$settings->price_typo['font_weight'] = 'normal';
 					} else {
 						$settings->price_typo['font_weight'] = $settings->price_typography_font_family['weight'];
@@ -422,7 +445,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 					unset( $settings->duration_typography_font_family['family'] );
 				}
 				if ( isset( $settings->duration_typography_font_family['weight'] ) ) {
-					if ( 'regular' == $settings->duration_typography_font_family['weight'] ) {
+					if ( 'regular' === $settings->duration_typography_font_family['weight'] ) {
 						$settings->duration_typo['font_weight'] = 'normal';
 					} else {
 						$settings->duration_typo['font_weight'] = $settings->duration_typography_font_family['weight'];
@@ -490,7 +513,8 @@ class UABBPricingTableModule extends FLBuilderModule {
 				);
 				unset( $settings->duration_typography_letter_spacing );
 			}
-			for ( $i = 0; $i < count( $settings->pricing_columns ); $i++ ) {
+			$count = count( $settings->pricing_columns );
+			for ( $i = 0; $i < $count; $i++ ) {
 
 				if ( ! isset( $settings->pricing_columns[ $i ]->button_typo ) || ! is_object( $settings->pricing_columns[ $i ]->button_typo ) ) {
 
@@ -504,7 +528,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 						$settings->pricing_columns[ $i ]->button_typo->font_family = $settings->pricing_columns[ $i ]->button_typography_font_family->family;
 					}
 					if ( isset( $settings->pricing_columns[ $i ]->button_typography_font_family->weight ) ) {
-						if ( 'regular' == $settings->pricing_columns[ $i ]->button_typography_font_family->weight ) {
+						if ( 'regular' === $settings->pricing_columns[ $i ]->button_typography_font_family->weight ) {
 							$settings->pricing_columns[ $i ]->button_typo->font_weight = 'normal';
 						} else {
 							$settings->pricing_columns[ $i ]->button_typo->font_weight = $settings->pricing_columns[ $i ]->button_typography_font_family->weight;
@@ -573,7 +597,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 					unset( $settings->pricing_columns[ $i ]->button_letter_spacing );
 				}
 				if ( isset( $settings->pricing_columns[ $i ]->btn_link_nofollow ) ) {
-					if ( '1' == $settings->pricing_columns[ $i ]->btn_link_nofollow || 'yes' == $settings->pricing_columns[ $i ]->btn_link_nofollow ) {
+					if ( '1' === $settings->pricing_columns[ $i ]->btn_link_nofollow || 'yes' === $settings->pricing_columns[ $i ]->btn_link_nofollow ) {
 						$settings->pricing_columns[ $i ]->btn_link_nofollow = 'yes';
 					}
 				}
@@ -590,7 +614,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 						unset( $settings->pricing_columns[ $i ]->featured_font_family->family );
 					}
 					if ( isset( $settings->pricing_columns[ $i ]->featured_font_family->weight ) ) {
-						if ( 'regular' == $settings->pricing_columns[ $i ]->featured_font_family->weight ) {
+						if ( 'regular' === $settings->pricing_columns[ $i ]->featured_font_family->weight ) {
 							$settings->pricing_columns[ $i ]->featured_typo->font_weight = 'normal';
 						} else {
 							$settings->pricing_columns[ $i ]->featured_typo->font_weight = $settings->pricing_columns[ $i ]->featured_font_family->weight;
@@ -668,7 +692,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 						unset( $settings->legend_column->legend_font_family->family );
 					}
 					if ( isset( $settings->legend_column->legend_font_family->weight ) ) {
-						if ( 'regular' == $settings->legend_column->legend_font_family->weight ) {
+						if ( 'regular' === $settings->legend_column->legend_font_family->weight ) {
 							$settings->legend_column->legend_typo->font_weight = 'normal';
 						} else {
 							$settings->legend_column->legend_typo->font_weight = $settings->legend_column->legend_font_family->weight;
@@ -736,7 +760,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 					unset( $settings->legend_column->legend_letter_spacing );
 				}
 			}
-		} elseif ( $version_bb_check && 'yes' != $page_migrated ) {
+		} elseif ( $version_bb_check && 'yes' !== $page_migrated ) {
 
 			// For Title typo.
 			if ( ! isset( $settings->title_typo ) || ! is_array( $settings->title_typo ) ) {
@@ -752,7 +776,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 					unset( $settings->title_typography_font_family['family'] );
 				}
 				if ( isset( $settings->title_typography_font_family['weight'] ) ) {
-					if ( 'regular' == $settings->title_typography_font_family['weight'] ) {
+					if ( 'regular' === $settings->title_typography_font_family['weight'] ) {
 						$settings->title_typo['font_weight'] = 'normal';
 					} else {
 						$settings->title_typo['font_weight'] = $settings->title_typography_font_family['weight'];
@@ -780,7 +804,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 				);
 			}
 
-			if ( isset( $settings->title_typography_line_height['small'] ) && isset( $settings->title_typography_font_size['small'] ) && 0 != $settings->title_typography_font_size['small'] ) {
+			if ( isset( $settings->title_typography_line_height['small'] ) && isset( $settings->title_typography_font_size['small'] ) && 0 !== $settings->title_typography_font_size['small'] ) {
 				if ( is_numeric( $settings->title_typography_line_height['small'] ) && is_numeric( $settings->title_typography_font_size['small'] ) ) {
 					$settings->title_typo_responsive['line_height'] = array(
 						'length' => round( $settings->title_typography_line_height['small'] / $settings->title_typography_font_size['small'], 2 ),
@@ -788,7 +812,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 					);
 				}
 			}
-			if ( isset( $settings->title_typography_line_height['medium'] ) && isset( $settings->title_typography_font_size['medium'] ) && 0 != $settings->title_typography_font_size['medium'] ) {
+			if ( isset( $settings->title_typography_line_height['medium'] ) && isset( $settings->title_typography_font_size['medium'] ) && 0 !== $settings->title_typography_font_size['medium'] ) {
 				if ( is_numeric( $settings->title_typography_line_height['medium'] ) && is_numeric( $settings->title_typography_font_size['medium'] ) ) {
 					$settings->title_typo_medium['line_height'] = array(
 						'length' => round( $settings->title_typography_line_height['medium'] / $settings->title_typography_font_size['medium'], 2 ),
@@ -796,7 +820,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 					);
 				}
 			}
-			if ( isset( $settings->title_typography_line_height['desktop'] ) && isset( $settings->title_typography_font_size['desktop'] ) && 0 != $settings->title_typography_font_size['desktop'] ) {
+			if ( isset( $settings->title_typography_line_height['desktop'] ) && isset( $settings->title_typography_font_size['desktop'] ) && 0 !== $settings->title_typography_font_size['desktop'] ) {
 				if ( is_numeric( $settings->title_typography_line_height['desktop'] ) && is_numeric( $settings->title_typography_font_size['desktop'] ) ) {
 					$settings->title_typo['line_height'] = array(
 						'length' => round( $settings->title_typography_line_height['desktop'] / $settings->title_typography_font_size['desktop'], 2 ),
@@ -819,7 +843,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 					unset( $settings->feature_typography_font_family['family'] );
 				}
 				if ( isset( $settings->feature_typography_font_family['weight'] ) ) {
-					if ( 'regular' == $settings->feature_typography_font_family['weight'] ) {
+					if ( 'regular' === $settings->feature_typography_font_family['weight'] ) {
 						$settings->feature_typo['font_weight'] = 'normal';
 					} else {
 						$settings->feature_typo['font_weight'] = $settings->feature_typography_font_family['weight'];
@@ -847,7 +871,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 				);
 			}
 
-			if ( isset( $settings->feature_typography_line_height['small'] ) && isset( $settings->feature_typography_font_size['small'] ) && 0 != $settings->feature_typography_font_size['small'] ) {
+			if ( isset( $settings->feature_typography_line_height['small'] ) && isset( $settings->feature_typography_font_size['small'] ) && 0 !== $settings->feature_typography_font_size['small'] ) {
 				if ( is_numeric( $settings->feature_typography_line_height['small'] ) && is_numeric( $settings->feature_typography_font_size['small'] ) ) {
 					$settings->feature_typo_responsive['line_height'] = array(
 						'length' => round( $settings->feature_typography_line_height['small'] / $settings->feature_typography_font_size['small'], 2 ),
@@ -855,7 +879,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 					);
 				}
 			}
-			if ( isset( $settings->feature_typography_line_height['medium'] ) && isset( $settings->feature_typography_font_size['medium'] ) && 0 != $settings->feature_typography_font_size['medium'] ) {
+			if ( isset( $settings->feature_typography_line_height['medium'] ) && isset( $settings->feature_typography_font_size['medium'] ) && 0 !== $settings->feature_typography_font_size['medium'] ) {
 				if ( is_numeric( $settings->feature_typography_line_height['medium'] ) && is_numeric( $settings->feature_typography_font_size['medium'] ) ) {
 					$settings->feature_typo_medium['line_height'] = array(
 						'length' => round( $settings->feature_typography_line_height['medium'] / $settings->feature_typography_font_size['medium'], 2 ),
@@ -863,7 +887,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 					);
 				}
 			}
-			if ( isset( $settings->feature_typography_line_height['desktop'] ) && isset( $settings->feature_typography_font_size['desktop'] ) && 0 != $settings->feature_typography_font_size['desktop'] ) {
+			if ( isset( $settings->feature_typography_line_height['desktop'] ) && isset( $settings->feature_typography_font_size['desktop'] ) && 0 !== $settings->feature_typography_font_size['desktop'] ) {
 				if ( is_numeric( $settings->feature_typography_line_height['desktop'] ) && is_numeric( $settings->feature_typography_font_size['desktop'] ) ) {
 					$settings->feature_typo['line_height'] = array(
 						'length' => round( $settings->feature_typography_line_height['desktop'] / $settings->feature_typography_font_size['desktop'], 2 ),
@@ -890,7 +914,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 					unset( $settings->price_typography_font_family['family'] );
 				}
 				if ( isset( $settings->price_typography_font_family['weight'] ) ) {
-					if ( 'regular' == $settings->price_typography_font_family['weight'] ) {
+					if ( 'regular' === $settings->price_typography_font_family['weight'] ) {
 						$settings->price_typo['font_weight'] = 'normal';
 					} else {
 						$settings->price_typo['font_weight'] = $settings->price_typography_font_family['weight'];
@@ -917,7 +941,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 				);
 			}
 
-			if ( isset( $settings->price_typography_line_height['small'] ) && isset( $settings->price_typography_font_size['small'] ) && 0 != $settings->price_typography_font_size['small'] ) {
+			if ( isset( $settings->price_typography_line_height['small'] ) && isset( $settings->price_typography_font_size['small'] ) && 0 !== $settings->price_typography_font_size['small'] ) {
 				if ( is_numeric( $settings->price_typography_line_height['small'] ) && is_numeric( $settings->price_typography_font_size['small'] ) ) {
 					$settings->price_typo_responsive['line_height'] = array(
 						'length' => round( $settings->price_typography_line_height['small'] / $settings->price_typography_font_size['small'], 2 ),
@@ -925,7 +949,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 					);
 				}
 			}
-			if ( isset( $settings->price_typography_line_height['medium'] ) && isset( $settings->price_typography_font_size['medium'] ) && 0 != $settings->price_typography_font_size['medium'] ) {
+			if ( isset( $settings->price_typography_line_height['medium'] ) && isset( $settings->price_typography_font_size['medium'] ) && 0 !== $settings->price_typography_font_size['medium'] ) {
 				if ( is_numeric( $settings->price_typography_line_height['medium'] ) && is_numeric( $settings->price_typography_font_size['medium'] ) ) {
 					$settings->price_typo_medium['line_height'] = array(
 						'length' => round( $settings->price_typography_line_height['medium'] / $settings->price_typography_font_size['medium'], 2 ),
@@ -933,7 +957,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 					);
 				}
 			}
-			if ( isset( $settings->price_typography_line_height['desktop'] ) && isset( $settings->price_typography_font_size['desktop'] ) && 0 != $settings->price_typography_font_size['desktop'] ) {
+			if ( isset( $settings->price_typography_line_height['desktop'] ) && isset( $settings->price_typography_font_size['desktop'] ) && 0 !== $settings->price_typography_font_size['desktop'] ) {
 				if ( is_numeric( $settings->price_typography_line_height['desktop'] ) && is_numeric( $settings->price_typography_font_size['desktop'] ) ) {
 					$settings->price_typo['line_height'] = array(
 						'length' => round( $settings->price_typography_line_height['desktop'] / $settings->price_typography_font_size['desktop'], 2 ),
@@ -956,7 +980,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 					unset( $settings->duration_typography_font_family['family'] );
 				}
 				if ( isset( $settings->duration_typography_font_family['weight'] ) ) {
-					if ( 'regular' == $settings->duration_typography_font_family['weight'] ) {
+					if ( 'regular' === $settings->duration_typography_font_family['weight'] ) {
 						$settings->duration_typo['font_weight'] = 'normal';
 					} else {
 						$settings->duration_typo['font_weight'] = $settings->duration_typography_font_family['weight'];
@@ -983,7 +1007,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 				);
 			}
 
-			if ( isset( $settings->duration_typography_line_height['small'] ) && isset( $settings->duration_typography_font_size['small'] ) && 0 != $settings->duration_typography_font_size['small'] ) {
+			if ( isset( $settings->duration_typography_line_height['small'] ) && isset( $settings->duration_typography_font_size['small'] ) && 0 !== $settings->duration_typography_font_size['small'] ) {
 				if ( is_numeric( $settings->duration_typography_line_height['small'] ) && is_numeric( $settings->duration_typography_font_size['small'] ) ) {
 					$settings->duration_typo_responsive['line_height'] = array(
 						'length' => round( $settings->duration_typography_line_height['small'] / $settings->duration_typography_font_size['small'], 2 ),
@@ -991,7 +1015,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 					);
 				}
 			}
-			if ( isset( $settings->duration_typography_line_height['medium'] ) && isset( $settings->duration_typography_font_size['medium'] ) && 0 != $settings->duration_typography_font_size['medium'] ) {
+			if ( isset( $settings->duration_typography_line_height['medium'] ) && isset( $settings->duration_typography_font_size['medium'] ) && 0 !== $settings->duration_typography_font_size['medium'] ) {
 				if ( is_numeric( $settings->duration_typography_line_height['medium'] ) && is_numeric( $settings->duration_typography_font_size['medium'] ) ) {
 					$settings->duration_typo_medium['line_height'] = array(
 						'length' => round( $settings->duration_typography_line_height['medium'] / $settings->duration_typography_font_size['medium'], 2 ),
@@ -999,7 +1023,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 					);
 				}
 			}
-			if ( isset( $settings->duration_typography_line_height['desktop'] ) && isset( $settings->duration_typography_font_size['desktop'] ) && 0 != $settings->duration_typography_font_size['desktop'] ) {
+			if ( isset( $settings->duration_typography_line_height['desktop'] ) && isset( $settings->duration_typography_font_size['desktop'] ) && 0 !== $settings->duration_typography_font_size['desktop'] ) {
 				if ( is_numeric( $settings->duration_typography_line_height['desktop'] ) && is_numeric( $settings->duration_typography_font_size['desktop'] ) ) {
 					$settings->duration_typo['line_height'] = array(
 						'length' => round( $settings->duration_typography_line_height['desktop'] / $settings->duration_typography_font_size['desktop'], 2 ),
@@ -1007,8 +1031,8 @@ class UABBPricingTableModule extends FLBuilderModule {
 					);
 				}
 			}
-
-			for ( $i = 0; $i < count( $settings->pricing_columns ); $i++ ) {
+			$count = count( $settings->pricing_columns );
+			for ( $i = 0; $i < $count; $i++ ) {
 
 				if ( ! isset( $settings->pricing_columns[ $i ]->button_typo ) || ! is_object( $settings->pricing_columns[ $i ]->button_typo ) ) {
 
@@ -1022,7 +1046,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 						$settings->pricing_columns[ $i ]->button_typo->font_family = $settings->pricing_columns[ $i ]->button_typography_font_family->family;
 					}
 					if ( isset( $settings->pricing_columns[ $i ]->button_typography_font_family->weight ) ) {
-						if ( 'regular' == $settings->pricing_columns[ $i ]->button_typography_font_family->weight ) {
+						if ( 'regular' === $settings->pricing_columns[ $i ]->button_typography_font_family->weight ) {
 							$settings->pricing_columns[ $i ]->button_typo->font_weight = 'normal';
 						} else {
 							$settings->pricing_columns[ $i ]->button_typo->font_weight = $settings->pricing_columns[ $i ]->button_typography_font_family->weight;
@@ -1049,7 +1073,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 						'unit'   => 'px',
 					);
 				}
-				if ( isset( $settings->pricing_columns[ $i ]->button_typography_line_height->desktop ) && isset( $settings->pricing_columns[ $i ]->button_typography_font_size->desktop ) && 0 != $settings->pricing_columns[ $i ]->button_typography_font_size->desktop ) {
+				if ( isset( $settings->pricing_columns[ $i ]->button_typography_line_height->desktop ) && isset( $settings->pricing_columns[ $i ]->button_typography_font_size->desktop ) && 0 !== $settings->pricing_columns[ $i ]->button_typography_font_size->desktop ) {
 					if ( is_numeric( $settings->pricing_columns[ $i ]->button_typography_line_height->desktop ) && is_numeric( $settings->pricing_columns[ $i ]->button_typography_font_size->desktop ) ) {
 
 						$settings->pricing_columns[ $i ]->button_typo->line_height = (object) array(
@@ -1058,7 +1082,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 						);
 					}
 				}
-				if ( isset( $settings->pricing_columns[ $i ]->button_typography_line_height->medium ) && isset( $settings->pricing_columns[ $i ]->button_typography_font_size->medium ) && 0 != $settings->pricing_columns[ $i ]->button_typography_font_size->medium ) {
+				if ( isset( $settings->pricing_columns[ $i ]->button_typography_line_height->medium ) && isset( $settings->pricing_columns[ $i ]->button_typography_font_size->medium ) && 0 !== $settings->pricing_columns[ $i ]->button_typography_font_size->medium ) {
 					if ( is_numeric( $settings->pricing_columns[ $i ]->button_typography_line_height->medium ) && is_numeric( $settings->pricing_columns[ $i ]->button_typography_font_size->medium ) ) {
 						$settings->pricing_columns[ $i ]->button_typo_medium->line_height = (object) array(
 							'length' => round( $settings->pricing_columns[ $i ]->button_typography_line_height->medium / $settings->pricing_columns[ $i ]->button_typography_font_size->medium, 2 ),
@@ -1066,7 +1090,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 						);
 					}
 				}
-				if ( isset( $settings->pricing_columns[ $i ]->button_typography_line_height->small ) && isset( $settings->pricing_columns[ $i ]->button_typography_font_size->small ) && 0 != $settings->pricing_columns[ $i ]->button_typography_font_size->small ) {
+				if ( isset( $settings->pricing_columns[ $i ]->button_typography_line_height->small ) && isset( $settings->pricing_columns[ $i ]->button_typography_font_size->small ) && 0 !== $settings->pricing_columns[ $i ]->button_typography_font_size->small ) {
 					if ( is_numeric( $settings->pricing_columns[ $i ]->button_typography_line_height->small ) && is_numeric( $settings->pricing_columns[ $i ]->button_typography_font_size->small ) ) {
 						$settings->pricing_columns[ $i ]->button_typo_responsive->line_height = (object) array(
 							'length' => round( $settings->pricing_columns[ $i ]->button_typography_line_height->small / $settings->pricing_columns[ $i ]->button_typography_font_size->small, 2 ),
@@ -1094,7 +1118,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 						unset( $settings->pricing_columns[ $i ]->featured_font_family->family );
 					}
 					if ( isset( $settings->pricing_columns[ $i ]->featured_font_family->weight ) ) {
-						if ( 'regular' == $settings->pricing_columns[ $i ]->featured_font_family->weight ) {
+						if ( 'regular' === $settings->pricing_columns[ $i ]->featured_font_family->weight ) {
 							$settings->pricing_columns[ $i ]->featured_typo->font_weight = 'normal';
 						} else {
 							$settings->pricing_columns[ $i ]->featured_typo->font_weight = $settings->pricing_columns[ $i ]->featured_font_family->weight;
@@ -1121,7 +1145,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 						'unit'   => 'px',
 					);
 				}
-				if ( isset( $settings->pricing_columns[ $i ]->featured_line_height->desktop ) && isset( $settings->pricing_columns[ $i ]->featured_font_size->desktop ) && 0 != $settings->pricing_columns[ $i ]->featured_font_size->desktop ) {
+				if ( isset( $settings->pricing_columns[ $i ]->featured_line_height->desktop ) && isset( $settings->pricing_columns[ $i ]->featured_font_size->desktop ) && 0 !== $settings->pricing_columns[ $i ]->featured_font_size->desktop ) {
 
 					if ( is_numeric( $settings->pricing_columns[ $i ]->featured_line_height->desktop ) && is_numeric( $settings->pricing_columns[ $i ]->featured_font_size->desktop ) ) {
 
@@ -1131,7 +1155,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 						);
 					}
 				}
-				if ( isset( $settings->pricing_columns[ $i ]->featured_line_height->medium ) && isset( $settings->pricing_columns[ $i ]->featured_font_size->medium ) && 0 != $settings->pricing_columns[ $i ]->featured_font_size->medium ) {
+				if ( isset( $settings->pricing_columns[ $i ]->featured_line_height->medium ) && isset( $settings->pricing_columns[ $i ]->featured_font_size->medium ) && 0 !== $settings->pricing_columns[ $i ]->featured_font_size->medium ) {
 
 					if ( is_numeric( $settings->pricing_columns[ $i ]->featured_line_height->medium ) && is_numeric( $settings->pricing_columns[ $i ]->featured_font_size->medium ) ) {
 						$settings->pricing_columns[ $i ]->featured_typo_medium->line_height = (object) array(
@@ -1140,7 +1164,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 						);
 					}
 				}
-				if ( isset( $settings->pricing_columns[ $i ]->featured_line_height->small ) && isset( $settings->pricing_columns[ $i ]->featured_font_size->small ) && 0 != $settings->pricing_columns[ $i ]->featured_font_size->small ) {
+				if ( isset( $settings->pricing_columns[ $i ]->featured_line_height->small ) && isset( $settings->pricing_columns[ $i ]->featured_font_size->small ) && 0 !== $settings->pricing_columns[ $i ]->featured_font_size->small ) {
 					if ( is_numeric( $settings->pricing_columns[ $i ]->featured_line_height->small ) && is_numeric( $settings->pricing_columns[ $i ]->featured_font_size->small ) ) {
 						$settings->pricing_columns[ $i ]->featured_typo_responsive->line_height = (object) array(
 							'length' => round( $settings->pricing_columns[ $i ]->featured_line_height->small / $settings->pricing_columns[ $i ]->featured_font_size->small, 2 ),
@@ -1179,7 +1203,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 						unset( $settings->legend_column->legend_font_family->family );
 					}
 					if ( isset( $settings->legend_column->legend_font_family->weight ) ) {
-						if ( 'regular' == $settings->legend_column->legend_font_family->weight ) {
+						if ( 'regular' === $settings->legend_column->legend_font_family->weight ) {
 							$settings->legend_column->legend_typo->font_weight = 'normal';
 						} else {
 							$settings->legend_column->legend_typo->font_weight = $settings->legend_column->legend_font_family->weight;
@@ -1206,7 +1230,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 						'unit'   => 'px',
 					);
 				}
-				if ( isset( $settings->legend_column->legend_line_height->desktop ) && isset( $settings->legend_column->legend_font_size->desktop ) && 0 != $settings->legend_column->legend_font_size->desktop ) {
+				if ( isset( $settings->legend_column->legend_line_height->desktop ) && isset( $settings->legend_column->legend_font_size->desktop ) && 0 !== $settings->legend_column->legend_font_size->desktop ) {
 
 					if ( is_numeric( $settings->legend_column->legend_line_height->desktop ) && is_numeric( $settings->legend_column->legend_font_size->desktop ) ) {
 
@@ -1216,7 +1240,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 						);
 					}
 				}
-				if ( isset( $settings->legend_column->legend_line_height->medium ) && isset( $settings->legend_column->legend_font_size->medium ) && 0 != $settings->legend_column->legend_font_size->medium ) {
+				if ( isset( $settings->legend_column->legend_line_height->medium ) && isset( $settings->legend_column->legend_font_size->medium ) && 0 !== $settings->legend_column->legend_font_size->medium ) {
 					if ( is_numeric( $settings->legend_column->legend_line_height->medium ) && is_numeric( $settings->legend_column->legend_font_size->medium ) ) {
 						$settings->legend_column->legend_typo_medium->line_height = (object) array(
 							'length' => round( $settings->legend_column->legend_line_height->medium / $settings->legend_column->legend_font_size->medium, 2 ),
@@ -1224,7 +1248,7 @@ class UABBPricingTableModule extends FLBuilderModule {
 						);
 					}
 				}
-				if ( isset( $settings->legend_column->legend_line_height->small ) && isset( $settings->legend_column->legend_font_size->small ) && 0 != $settings->legend_column->legend_font_size->small ) {
+				if ( isset( $settings->legend_column->legend_line_height->small ) && isset( $settings->legend_column->legend_font_size->small ) && 0 !== $settings->legend_column->legend_font_size->small ) {
 					if ( is_numeric( $settings->legend_column->legend_line_height->small ) && is_numeric( $settings->legend_column->legend_font_size->small ) ) {
 						$settings->legend_column->legend_typo_responsive->line_height = (object) array(
 							'length' => round( $settings->legend_column->legend_line_height->small / $settings->legend_column->legend_font_size->small, 2 ),

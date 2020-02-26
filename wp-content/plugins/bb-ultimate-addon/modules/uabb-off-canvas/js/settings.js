@@ -28,6 +28,8 @@
 
             this._btn_style_changed();
             $( '.fl-builder-content' ).on( 'fl-builder.layout-rendered', $.proxy( this._showCanavsPreview, this ) );
+
+            form.find("#fl-field-ct_raw_nonce").hide();
 		},
         _btn_style_changed: function() {
 
@@ -160,12 +162,19 @@
                 type = 'layout';
             }
             var self = this;
+            var form = $('.fl-builder-settings');
+            nonce = form.find( '.uabb-module-raw' ).data( 'uabb-module-nonce' );
+
+            if ( 'undefined' === typeof nonce ) {
+                nonce     = form.find('input[name=ct_raw_nonce]').val();
+            }
 
             $.post(
                 ajaxurl,
                 {
                     action: 'uabb_get_saved_templates',
-                    type: type
+                    type: type,
+                    nonce: nonce,
                 },
                 function( response ) {
                     callback(response);
@@ -191,7 +200,7 @@
             }
 
             this._getTemplates(type, function( data ) {
-                var response = JSON.parse( data );
+                var response = data;
 
                 if ( response.success ) {
                     self._templates[type] = response.data;
