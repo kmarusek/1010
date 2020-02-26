@@ -1,9 +1,9 @@
 === Fast Velocity Minify ===
 Contributors: Alignak
-Tags: PHP Minify, Lighthouse, GTmetrix, Pingdom, Pagespeed, CSS Merging, JS Merging, CSS Minification, JS Minification, Speed Optimization, HTML Minification, Performance, Optimization, Speed, Fast
+Tags: PHP Minify, Lighthouse, GTmetrix, Pingdom, Pagespeed, CSS Merging, JS Merging, CSS Minification, JS Minification, Speed Optimization, HTML Minification, Performance, Optimization, FVM
 Requires at least: 4.7
 Requires PHP: 5.6
-Stable tag: 2.7.7
+Stable tag: 2.7.9
 Tested up to: 5.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -197,6 +197,15 @@ Please backup your site before updating. Version 3.0 will have a major code rewr
 
 
 == Changelog ==
+
+= 2.7.9 [2020.02.18] =
+* changed cache file names hash to longer names to avoid colisions on elementor plugin
+
+= 2.7.8 [2020.02.06] =
+* updated PHP Minify with full support for PHP 7.4
+* added try, catch wrappers for merged javacript files with console log errors (instead of letting the browser stop execution on error)
+* improved compatibility with windows servers
+* improved compatibility for font paths with some themes
 
 = 2.7.7 [2019.10.15] =
 * added a capability check on the status page ajax request, which could show the cache file path when debug mode is enabled to subscribers
