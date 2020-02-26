@@ -499,7 +499,7 @@ final class FLThemeBuilderLayoutRenderer {
 	 * @return string
 	 */
 	static public function override_the_content( $content ) {
-		return '<div style="padding: 200px 100px; text-align:center; opacity:0.5;">' . __( 'Content Area', 'fl-theme-builder' ) . '</div>';
+		return '<div style="padding: 200px 100px; text-align:center; opacity:0.5;">' . __( 'Content Area', 'bb-theme-builder' ) . '</div>';
 	}
 }
 

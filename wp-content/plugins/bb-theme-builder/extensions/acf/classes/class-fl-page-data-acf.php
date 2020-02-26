@@ -13,7 +13,7 @@ final class FLPageDataACF {
 	 */
 	static public function init() {
 		FLPageData::add_group( 'acf', array(
-			'label' => __( 'Advanced Custom Fields', 'fl-theme-builder' ),
+			'label' => __( 'Advanced Custom Fields', 'bb-theme-builder' ),
 		) );
 	}
 
@@ -136,7 +136,7 @@ final class FLPageDataACF {
 				} else {
 					if ( isset( $settings->format ) && '' !== $settings->format && isset( $object['value'] ) ) {
 						$date    = str_replace( '/', '-', $object['value'] );
-						$content = date( $settings->format, strtotime( $date ) );
+						$content = date( $settings->format, strtotime( $date ) ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
 					} else {
 						$content = isset( $object['value'] ) ? $object['value'] : '';
 					}

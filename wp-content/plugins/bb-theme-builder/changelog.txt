@@ -1,3 +1,47 @@
+<h4>1.3.0.1 - 02/24/2020</h4>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fixed location issues introduced in 1.3</li>
+</ul>
+
+<h4>1.3 - 02/14/2020</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>New filter <code>fl_theme_builder_terms_list</code> to change the output for tags.</li>
+	<li>Translation domain changed to match plugin slug in preparation for language pack support.</li>
+	<li>Event Calendar: Text Editor module alias for the event website.</li>
+	<li>Event Calendar: Add Event Venue to Posts Module options.</li>
+	<li>Event Calendar: Hide countdown module if not using TEC Pro.</li>
+	<li>Added support for BigCommerce. This integration is similar to our WooCommerce integration. The BigCommerce WordPress plugin is required to use.</li>
+	<li>In WP admin, you can now publish/unpublish Themer layouts from the Themer layout list</li>
+	<li>If you access a Themer layout from viewing a page/archive, etc, after editing the Themer layout, it will redirect you to the page you came from instead of keeping you on the Themer layout</li>
+	<li>Added a settings cog next to a Themer layout so that you can now access editing a Themer layout in the WP admin in addition to opening up the Themer layout to edit in BB</li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fixed PHP 7.4 warnings in lessc class.</li>
+	<li>Fixed an issue where if two layouts have same location only one can be edited.</li>
+	<li>Fixed PHP Warning on the Post Content module when Page Preview is set to 'None'.</li>
+	<li>Event Calendar: Fixed issues with their v2 views added in v5.0</li>
+</ul>
+
+<h4>1.3 Beta 2 - 01/07/2020</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Event Calendar: Text Editor module alias for the event website.</li>
+	<li>Event Calendar: Add Event Venue to Posts Module options.</li>
+	<li>Event Calendar: Hide countdown module if not using TEC Pro.</li>
+</ul>
+
+<h4>1.3 Beta 1 - November 19, 2019</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Added support for BigCommerce. This integration is similar to our WooCommerce integration. The BigCommerce WordPress plugin is required to use.</li>
+	<li>In WP admin, you can now publish/unpublish Themer layouts from the Themer layout list</li>
+	<li>If you access a Themer layout from viewing a page/archive, etc, after editing the Themer layout, it will redirect you to the page you came from instead of keeping you on the Themer layout</li>
+	<li>Added a settings cog next to a Themer layout so that you can now access editing a Themer layout in the WP admin in addition to opening up the Themer layout to edit in BB</li>
+</ul>
+
 <h4>1.2.5 - 12/6/2019</h4>
 <p><strong>Bug Fixes</strong></p>
 <ul>

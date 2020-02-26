@@ -114,7 +114,7 @@ final class FLPageDataPost {
 		$content = apply_filters( 'the_content', get_the_content() );
 
 		$content .= wp_link_pages( array(
-			'before'      => '<div class="page-links">' . __( 'Pages:', 'fl-theme-builder' ),
+			'before'      => '<div class="page-links">' . __( 'Pages:', 'bb-theme-builder' ),
 			'after'       => '</div>',
 			'link_before' => '<span class="page-number">',
 			'link_after'  => '</span>',
@@ -269,8 +269,12 @@ final class FLPageDataPost {
 				$terms_list = strip_tags( $terms_list );
 			}
 		}
-
-		return $terms_list;
+		/**
+		 * Modify output of get_terms_list()
+		 * @see fl_theme_builder_terms_list
+		 * @since 1.3
+		 */
+		return apply_filters( 'fl_theme_builder_terms_list', $terms_list );
 	}
 
 	/**

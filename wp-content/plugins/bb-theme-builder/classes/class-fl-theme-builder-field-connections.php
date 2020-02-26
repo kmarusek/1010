@@ -545,13 +545,13 @@ final class FLThemeBuilderFieldConnections {
 	 */
 	static public function parse_conditional_shortcode( $attrs, $content = '' ) {
 		if ( ! isset( $attrs ) || ! isset( $attrs[0] ) ) {
-			return __( 'Incorrect wpbb-if shortcode attributes.', 'fl-theme-builder' );
+			return __( 'Incorrect wpbb-if shortcode attributes.', 'bb-theme-builder' );
 		}
 
 		$parts = explode( ':', $attrs[0] );
 
 		if ( count( $parts ) < 2 ) {
-			return __( 'Incorrect wpbb-if shortcode attributes.', 'fl-theme-builder' );
+			return __( 'Incorrect wpbb-if shortcode attributes.', 'bb-theme-builder' );
 		}
 
 		$else     = false;
