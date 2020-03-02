@@ -1578,120 +1578,6 @@ if (typeof Object.create !== 'function') {
     return module;
 }));
 
-/*global define, console, document, window*/
-(function (root, factory) {
-    "use strict";
-    if (typeof define === 'function' && define.amd) {
-        define("Animations", ["jquery", "Behaviors"], factory);
-    } else {
-        root.Animations = factory(root.jQuery, root.Behaviors);
-    }
-}(this, function ($, Behaviors) {
-    "use strict";
-    
-    var module = {};
-
-    /* Watches for the start and end of an animation.
-     *
-     * The .promise attribute stores a promise which resolves whenever the
-     * animation has completed or no animation events were detected over a
-     * timeout period of 5 second.
-     *
-     * An important caveat: Animations with delay longer than 5 seconds will
-     * fail to fire events and the animation watcher will trigger the timeout
-     * behavior instead. You can avoid this behavior by triggering another
-     * animation of any kind during the timeout period and keeping it alive
-     * until the delayed animation begins.
-     */
-    function AnimationWatcher($elem) {
-        var Class = this.constructor,
-            eventSelector = Class.get_unique_id(),
-            that = this,
-            evtStartNames = "animationstart." + eventSelector +
-                      " webkitAnimationStart." + eventSelector +
-                      " oanimationstart." + eventSelector +
-                      " MSAnimationStart." + eventSelector,
-            evtEndNames = "animationend." + eventSelector +
-                      " webkitAnimationEnd." + eventSelector +
-                      " oanimationend." + eventSelector +
-                      " MSAnimationEnd." + eventSelector,
-            animation_start = this.animation_start.bind(this),
-            animation_end = this.animation_end.bind(this),
-            animation_timeout_delay = 5000;
-
-        this.eventSelector = eventSelector;
-
-        this.$elem = $elem;
-        this.$elem.on(evtStartNames, animation_start);
-        this.$elem.on(evtEndNames, animation_end);
-
-        if (window.Modernizr && window.Modernizr.cssanimations === false) {
-            animation_timeout_delay = 0;
-        }
-
-        this.timeout = window.setTimeout(this.abort_animation.bind(this), animation_timeout_delay);
-        this.remaining_animations = [];
-
-        //We remove event handlers after one of the handlers resolves the
-        //animation promise.
-        this.promise = new Promise(function (resolve, reject) {
-            that.resolve = resolve;
-            that.reject = reject;
-        }).then(function () {
-            that.$elem.off(evtStartNames, animation_start);
-            that.$elem.off(evtEndNames, animation_end);
-        });
-
-        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Created");
-    }
-
-    AnimationWatcher.count = 0;
-
-    AnimationWatcher.get_unique_id = function () {
-        var Class = this,
-            sel = "." + Class.name + "_" + Class.count;
-
-        Class.count += 1;
-        return sel;
-    };
-
-    AnimationWatcher.prototype.animation_start = function (evt) {
-        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Begun (" + evt.originalEvent.animationName + ")");
-        if (this.timeout !== null) {
-            window.clearTimeout(this.timeout);
-            this.timeout = null;
-        }
-
-        this.remaining_animations.push(evt.originalEvent.animationName);
-    };
-
-    AnimationWatcher.prototype.animation_end = function (evt) {
-        var loc = this.remaining_animations.indexOf(evt.originalEvent.animationName);
-
-        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Ended (" + evt.originalEvent.animationName + ")");
-
-        if (loc !== -1) {
-            this.remaining_animations.splice(loc, 1);
-        }
-
-        if (this.remaining_animations.length === 0) {
-            this.resolve();
-        }
-    };
-
-    AnimationWatcher.prototype.abort_animation = function (evt) {
-        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Abort timeout triggered");
-
-        if (this.remaining_animations.length === 0) {
-            this.resolve();
-        }
-    };
-
-    module.AnimationWatcher = AnimationWatcher;
-
-    return module;
-}));
-
 /*global define, console, window, HTMLImageElement, Promise*/
 
 (function (root, factory) {
@@ -2106,6 +1992,120 @@ if (typeof Object.create !== 'function') {
 (function (root, factory) {
     "use strict";
     if (typeof define === 'function' && define.amd) {
+        define("Animations", ["jquery", "Behaviors"], factory);
+    } else {
+        root.Animations = factory(root.jQuery, root.Behaviors);
+    }
+}(this, function ($, Behaviors) {
+    "use strict";
+    
+    var module = {};
+
+    /* Watches for the start and end of an animation.
+     *
+     * The .promise attribute stores a promise which resolves whenever the
+     * animation has completed or no animation events were detected over a
+     * timeout period of 5 second.
+     *
+     * An important caveat: Animations with delay longer than 5 seconds will
+     * fail to fire events and the animation watcher will trigger the timeout
+     * behavior instead. You can avoid this behavior by triggering another
+     * animation of any kind during the timeout period and keeping it alive
+     * until the delayed animation begins.
+     */
+    function AnimationWatcher($elem) {
+        var Class = this.constructor,
+            eventSelector = Class.get_unique_id(),
+            that = this,
+            evtStartNames = "animationstart." + eventSelector +
+                      " webkitAnimationStart." + eventSelector +
+                      " oanimationstart." + eventSelector +
+                      " MSAnimationStart." + eventSelector,
+            evtEndNames = "animationend." + eventSelector +
+                      " webkitAnimationEnd." + eventSelector +
+                      " oanimationend." + eventSelector +
+                      " MSAnimationEnd." + eventSelector,
+            animation_start = this.animation_start.bind(this),
+            animation_end = this.animation_end.bind(this),
+            animation_timeout_delay = 5000;
+
+        this.eventSelector = eventSelector;
+
+        this.$elem = $elem;
+        this.$elem.on(evtStartNames, animation_start);
+        this.$elem.on(evtEndNames, animation_end);
+
+        if (window.Modernizr && window.Modernizr.cssanimations === false) {
+            animation_timeout_delay = 0;
+        }
+
+        this.timeout = window.setTimeout(this.abort_animation.bind(this), animation_timeout_delay);
+        this.remaining_animations = [];
+
+        //We remove event handlers after one of the handlers resolves the
+        //animation promise.
+        this.promise = new Promise(function (resolve, reject) {
+            that.resolve = resolve;
+            that.reject = reject;
+        }).then(function () {
+            that.$elem.off(evtStartNames, animation_start);
+            that.$elem.off(evtEndNames, animation_end);
+        });
+
+        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Created");
+    }
+
+    AnimationWatcher.count = 0;
+
+    AnimationWatcher.get_unique_id = function () {
+        var Class = this,
+            sel = "." + Class.name + "_" + Class.count;
+
+        Class.count += 1;
+        return sel;
+    };
+
+    AnimationWatcher.prototype.animation_start = function (evt) {
+        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Begun (" + evt.originalEvent.animationName + ")");
+        if (this.timeout !== null) {
+            window.clearTimeout(this.timeout);
+            this.timeout = null;
+        }
+
+        this.remaining_animations.push(evt.originalEvent.animationName);
+    };
+
+    AnimationWatcher.prototype.animation_end = function (evt) {
+        var loc = this.remaining_animations.indexOf(evt.originalEvent.animationName);
+
+        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Ended (" + evt.originalEvent.animationName + ")");
+
+        if (loc !== -1) {
+            this.remaining_animations.splice(loc, 1);
+        }
+
+        if (this.remaining_animations.length === 0) {
+            this.resolve();
+        }
+    };
+
+    AnimationWatcher.prototype.abort_animation = function (evt) {
+        console.log("ANIMATIONWATCHER" + this.eventSelector + ": Abort timeout triggered");
+
+        if (this.remaining_animations.length === 0) {
+            this.resolve();
+        }
+    };
+
+    module.AnimationWatcher = AnimationWatcher;
+
+    return module;
+}));
+
+/*global define, console, document, window*/
+(function (root, factory) {
+    "use strict";
+    if (typeof define === 'function' && define.amd) {
         define("CollapseContent", ["jquery", "Behaviors"], factory);
     } else {
         root.CollapseContent = factory(root.jQuery, root.Behaviors);
@@ -2234,6 +2234,259 @@ if (typeof Object.create !== 'function') {
     return module;
 }));
 
+(function (root, factory) {
+    "use strict";
+    if (typeof define === 'function' && define.amd) {
+        define("ContentSlider", ["jquery", "Behaviors"], factory);
+    } else {
+        root.ContentSlider = factory(root.jQuery, root.Behaviors);
+    }
+}(window, function ($, Behaviors) {
+    //TODO: Move this file out of `frontend.prebuilt.js` and into the global script pack
+    "use strict";
+    var module = {};
+    
+    function ContentSlider() {
+        Behaviors.init(ContentSlider, this, arguments);
+        this.element = this.$elem[0];
+        this.left_arrow = this.$elem.data("contentslider-leftarrow");
+        this.right_arrow = this.$elem.data("contentslider-rightarrow");
+        this.has_nav = false;
+        if (this.left_arrow) {
+            this.has_nav = true;
+        }
+        
+        if (this.right_arrow) {
+            this.has_nav = true;
+        }
+        this.initOwlCarousel();
+    };
+    
+    Behaviors.inherit(ContentSlider, Behaviors.Behavior);
+    
+    ContentSlider.QUERY = "[data-contentslider]";
+    
+    ContentSlider.ELEMENTS = {
+        heightContainer: ".scrollContainerHeight",
+        widthContainer: ".scrollContainerWidth",
+        sliderContents: ".horizontalContents",
+        section: ".section",
+        progressBar: ".progressBarFill",
+        progressBall: ".progressBall",
+        carousel: ".owl-carousel"
+    };
+    
+    ContentSlider.prototype.initOwlCarousel = function() {
+        this.carousel = this.$elem.find(ContentSlider.ELEMENTS.carousel).owlCarousel({
+            loop: false,
+            center: true,
+            dots: true,
+            margin: 50,
+            items: 1.25, 
+            nav: this.has_nav,
+            navClass: ["owl-prev " + this.left_arrow, "owl-next " + this.right_arrow]
+            //onDragged: self.updatePagination.bind(self)
+        });
+        //self.updateNav(0);
+    };
+
+    
+    
+    ContentSlider.prototype.init = function () {
+        this.fixed = false;
+        //this.setHeight();
+        //this.handleScroll();
+        //this.handleResize();
+        this.initMobileSlider();
+        //this.handleDrag();
+        //this.element.querySelector(".currentSlide").innerHTML = "01";
+        //this.element.querySelector(".maxSlide").innerHTML = "0".concat(this.sectionNumber);
+        //this.setTitlePos();
+    };
+    
+    ContentSlider.prototype.setHeight = function () {
+        this.elementHeight = this.element.querySelector(ContentSlider.ELEMENTS.section).offsetHeight;
+        this.sectionNumber = this.element.querySelectorAll(ContentSlider.ELEMENTS.section).length;
+        var width = this.element.querySelector(ContentSlider.ELEMENTS.section).offsetWidth;
+        this.height = (this.sectionNumber - 1) * (width * 3) + this.elementHeight;
+        this.element.querySelector(ContentSlider.ELEMENTS.heightContainer).style.height = "".concat(this.height, "px");
+    };
+    
+    ContentSlider.prototype.handleScroll = function () {
+        var self = this;
+        wContainer = self.element.querySelector(ContentSlider.ELEMENTS.widthContainer), sContents = self.element.querySelector(ContentSlider.ELEMENTS.sliderContents), pBar = self.element.querySelector(ContentSlider.ELEMENTS.progressBar);
+        pBall = self.element.querySelector(ContentSlider.ELEMENTS.progressBall);
+        window.addEventListener("scroll", function () {
+            self.scrollHandler.call(self, wContainer, sContents, pBar, pBall);
+        });
+    };
+    
+    ContentSlider.prototype.scrollHandler = function(wContainer, sContents, pBar, pBall) {
+        var self = this;
+        var s = self.getOffsetTop(self.element) - window.scrollY;
+        self.currentScroll = window.scrollY;
+        var pFill = s * -1 / (self.height - self.elementHeight) * 100;
+
+        if (s <= 0 && s >= (self.height - self.elementHeight) * -1 && self.fixed === false) {
+            document.body.style.overscrollBehaviorX = 'none';
+            wContainer.style.position = "fixed";
+            self.fixed = true;
+        } else if (s > 0) {
+            wContainer.style.position = "absolute";
+            wContainer.classList.add('top');
+            wContainer.classList.remove('bottom');
+            sContents.style.transform = "translate3d(0px, 0px, 0px)";
+            pBar.style.width = "0%";
+            pBall.style.left = "0%";
+            self.fixed = false;
+        } else if (s <= (self.height - self.elementHeight) * -1) {
+            var height = (self.height - self.elementHeight) * -1 / 3;
+            wContainer.style.position = "absolute";
+            wContainer.classList.add('bottom');
+            wContainer.classList.remove('top');
+            sContents.style.transform = "translate3d(".concat(height, "px, 0px, 0px)");
+            pBar.style.width = "100%";
+            pBall.style.left = "100%";
+            document.body.style.overscrollBehaviorX = 'auto';
+            self.fixed = false;
+        }
+
+        if (self.fixed) {
+            var ns = s / 3;
+            self.ns = ns;
+            var wScroll = s * -1;
+
+            var _height = (self.height - self.elementHeight) * -1 / 3;
+
+            if (ns) sContents.style.transform = "translate3d(".concat(ns, "px, 0px, 0px)");
+            pBar.style.width = "".concat(pFill, "%");
+            pBall.style.left = "".concat(pFill, "%");
+            var newIndex = Math.floor(self.sectionNumber * (pFill / 100)) + 1;
+
+            if (newIndex < 10) {
+                newIndex = "0".concat(newIndex);
+            }
+
+            var maxIndex = self.sectionNumber;
+
+            if (maxIndex < 10) {
+                maxIndex = "0".concat(maxIndex);
+            }
+
+            self.element.querySelector(".currentSlide").innerHTML = newIndex;
+            self.element.querySelector(".maxSlide").innerHTML = maxIndex; // if(pFill >= 90 && !self.circleOpen){
+            //         self.toggleProgressCircle('open');
+            // }else if(pFill < 90 && self.circleOpen){
+            //         self.toggleProgressCircle('close');
+            // }
+            // if(newIndex > self.sectionNum - 1){
+            //         return;
+            // }else if(newIndex !== self.currentIndex){
+            //         self.currentIndex = newIndex;
+            // }
+            // self.changeImageOpacity();
+        }
+
+        self.scrollPos = s;
+    };
+    
+    ContentSlider.prototype.handleDrag = function() {
+        var self = this;
+        var wee = self.element.querySelector(ContentSlider.ELEMENTS.sliderContents);
+        wee.addEventListener('mousedown', function (e) {
+            self.mousedown = true;
+            self.x = e.clientX;
+        });
+        wee.addEventListener('mouseup', function (e) {
+            self.mousedown = false;
+        });
+        wee.addEventListener('mousemove', function (e) {
+            if (self.mousedown === true && self.scrollPos < +30 && self.scrollPos > (self.height - self.elementHeight) * -1 - 30) {
+                var ws = window.scrollY,
+                        change = (self.x - e.clientX) * 3,
+                        newPos = ws += change;
+                window.scrollTo(0, newPos);
+                self.x = e.clientX;
+            }
+        });
+    };
+    
+    ContentSlider.prototype.getOffsetTop = function(ele) {
+        var offsetTop = 0;
+
+        while (ele) {
+            offsetTop += ele.offsetTop;
+            ele = ele.offsetParent;
+        }
+
+        return offsetTop;
+    };
+    
+    ContentSlider.prototype.setTitlePos = function() {
+        var width = this.element.querySelector(".fl-row-content").offsetWidth,
+                title = this.element.querySelector(".sliderLabel"),
+                prog = this.element.querySelector(".progressBarContainer");
+        var leftPos = (window.innerWidth - width) / 2;
+        title.style.left = "".concat(leftPos, "px");
+        prog.style.left = "".concat(leftPos, "px");
+    };
+    
+    ContentSlider.prototype.handleResize = function() {
+        var self = this,
+                wContainer = self.element.querySelector(ContentSlider.ELEMENTS.widthContainer),
+                sContents = self.element.querySelector(ContentSlider.ELEMENTS.sliderContents),
+                pBar = self.element.querySelector(ContentSlider.ELEMENTS.progressBar),
+                pBall = self.element.querySelector(ContentSlider.ELEMENTS.progressBall);
+        window.addEventListener("resize", function () {
+            self.setHeight();
+            self.setTitlePos();
+            self.scrollHandler.call(self, wContainer, sContents, pBar, pBall);
+            this.setTimeout(function () {
+                self.setMobileOffset();
+            }, 500);
+        });
+    };
+    
+    ContentSlider.prototype.setMobileOffset = function() {
+        var offset = $(".owl-stage").offset().left;
+        $(".sliderLabel").css("margin-left", "".concat(offset, "px"));
+        $(".progressBarContainerMobile").css("margin-left", "".concat(offset, "px"));
+    };
+    
+    ContentSlider.prototype.updatePagination = function(event) {
+        var index = event.item.index;
+        this.updateNav(index);
+    };
+    
+    ContentSlider.prototype.updateNav = function(index) {
+        var current = this.element.querySelector(".currentSlideMobile");
+        var slideMax = this.element.querySelector(".maxSlideMobile");
+        var max = this.element.querySelectorAll(".mobile-slider-item").length;
+        index++;
+
+        if (index < 10) {
+            index = "0".concat(index);
+        }
+
+        if (max < 10) {
+            max = "0".concat(max);
+        }
+
+        current.innerHTML = index;
+        slideMax.innerHTML = max;
+        var percent = index / max * 100;
+        var ball = this.element.querySelector(".progressBallMobile");
+        var fill = this.element.querySelector(".progressBarFillMobile");
+        ball.style.left = "".concat(percent, "%");
+        fill.style.width = "".concat(percent, "%");
+    };
+    
+    Behaviors.register_behavior(ContentSlider);
+    
+    module.ContentSlider = ContentSlider;
+    
+    return module;
+}));
 /* Paginate.js
  * A progressively-enhancing infinite scroll library
  * ©2014 HUEMOR Designs All Rights Reserved
@@ -4874,6 +5127,296 @@ if (!Array.prototype.indexOf) {
     return module;
 }));
 
+/*global define, console, document, window*/
+(function (root, factory) {
+    "use strict";
+    if (typeof define === 'function' && define.amd) {
+        define("TabbedContent", ["jquery", "Behaviors"], factory);
+    } else {
+        root.TabbedContent = factory(root.jQuery, root.Behaviors);
+    }
+}(this, function ($, Behaviors) {
+    "use strict";
+
+    var module = {};
+
+    function $do(that, target) {
+        return function () {
+            target.apply(that, arguments);
+        };
+    }
+
+    function TabbedContentRegion(elem) {
+        Behaviors.init(TabbedContentRegion, this, arguments);
+
+        this.$elem = $(elem);
+        this.id = this.$elem.attr("id");
+        this.active = this.$elem.data("tabbedcontent-region-active") !== undefined;
+
+        this.links = [];
+
+        this.reflect_status();
+    }
+
+    Behaviors.inherit(TabbedContentRegion, Behaviors.Behavior);
+
+    TabbedContentRegion.QUERY = "[data-tabbedcontent-region]";
+
+    TabbedContentRegion.prototype.reflect_status = function (status) {
+        var i;
+
+        if (status === undefined) {
+            status = this.active;
+        }
+
+        if (status) {
+            this.$elem.addClass("is-TabbedContent--active");
+            this.$elem.removeClass("is-TabbedContent--inactive");
+        } else {
+            this.$elem.removeClass("is-TabbedContent--active");
+            this.$elem.addClass("is-TabbedContent--inactive");
+        }
+
+        for (i = 0; i < this.links.length; i += 1) {
+            if (status) {
+                this.links[i].addClass("is-TabbedContent--target_active");
+                this.links[i].removeClass("is-TabbedContent--target_inactive");
+            } else {
+                this.links[i].removeClass("is-TabbedContent--target_active");
+                this.links[i].addClass("is-TabbedContent--target_inactive");
+            }
+        }
+    };
+
+    TabbedContentRegion.prototype.add_incoming_link = function ($li) {
+        this.links.push($li);
+    };
+
+    function TabbedContentSet(elem) {
+        Behaviors.init(TabbedContentSet, this, arguments);
+
+        this.$elem = $(elem);
+
+        this.tabset_name = this.$elem.attr("data-tabbedcontent-set");
+        if (this.tabset_name === undefined) {
+            this.tabset_name = this.$elem.attr("id");
+        }
+
+        this.tab_members = {};
+        this.list = [];
+
+        this.find_links();
+    }
+
+    Behaviors.inherit(TabbedContentSet, Behaviors.Behavior);
+
+    TabbedContentSet.QUERY = "[data-tabbedcontent-set]";
+
+    TabbedContentSet.prototype.new_tab = function (id) {
+        var $elem = $("#" + id);
+
+        if ($elem.length === 0) {
+            return false;
+        }
+
+        if (this.tab_members[id] === undefined) {
+            this.tab_members[id] = {
+                "toggles": [],
+                "content": TabbedContentRegion.locate($elem)
+            };
+        }
+
+        return true;
+    };
+
+    TabbedContentSet.prototype.set_active_tab = function (id) {
+        var k;
+
+        for (k in this.tab_members) {
+            if (this.tab_members.hasOwnProperty(k)) {
+                this.tab_members[k].content.active = k === id;
+                this.tab_members[k].content.reflect_status();
+            }
+        }
+    };
+
+    TabbedContentSet.prototype.navigate_tab_intent = function (id, evt) {
+        this.set_active_tab(id);
+
+        if (evt) {
+            evt.preventDefault();
+        }
+    };
+
+    TabbedContentSet.prototype.import_list_item = function (li) {
+        var $li = $(li),
+            $link = $li.find("a"),
+            href = $link.attr("href"),
+            id;
+
+        if ($link.length === 0) {
+            return;
+        }
+
+        if (href.indexOf("#") !== -1) {
+            id = href.slice(1);
+        }
+
+        if (id === undefined) {
+            return;
+        }
+
+        if (this.tab_members[id] === undefined && !this.new_tab(id)) {
+            return;
+        }
+
+        this.list.push({
+            "li": $li,
+            "id": id
+        });
+        this.tab_members[id].content.add_incoming_link($li);
+        this.tab_members[id].content.reflect_status();
+        $link.on("touchend click", this.navigate_tab_intent.bind(this, id));
+    };
+
+    TabbedContentSet.prototype.find_links = function () {
+        var that = this;
+
+        this.$elem.find("li").each(function (index, elem) {
+            return that.import_list_item(elem);
+        });
+    };
+
+    Behaviors.register_behavior(TabbedContentSet);
+
+    module.TabbedContentSet = TabbedContentSet;
+
+    return module;
+}));
+
+/*jslint continue: true, es5: true*/
+/*global detectZoom, console, jQuery, define, Float32Array, Uint16Array*/
+(function (root, factory) {
+    "use strict";
+    if (typeof define === 'function' && define.amd) {
+        define("UTM", ["jquery", "Behaviors"], factory);
+    } else {
+        root.UTM = factory(root.jQuery, root.Behaviors);
+    }
+}(this, function ($, Behaviors) {
+    "use strict";
+    var module = {},
+        utm_variables = {},
+        wanted_vars = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
+    
+    function utm_preserve_enabled() {
+        return $("body").data("utmpreserve-preserve") !== false;
+    }
+    
+    function utm_forminject_enabled() {
+        return $("body").data("utmpreserve-forminject") !== false;
+    }
+
+    function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split('&');
+        for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split('=');
+            if (decodeURIComponent(pair[0]) == variable) {
+                return decodeURIComponent(pair[1]);
+            }
+        }
+    }
+
+    /* Given a query string, return an object whose keys are matched UTM vars.
+     */
+    function look_for_utm_variables() {
+        var new_utm_variables = {}, i;
+
+        for (i = 0; i < wanted_vars.length; i += 1) {
+            new_utm_variables[wanted_vars[i]] = getQueryVariable(wanted_vars[i]);
+        }
+
+        return new_utm_variables;
+    }
+
+    function do_utm_replace($context) {
+        if (!utm_preserve_enabled()) {
+            console.log("UTM preserve is disabled.");
+            return;
+        }
+        
+        utm_variables = look_for_utm_variables();
+
+        $context.find("a[href]").each(function (index, elem) {
+            var k, $elem = $(elem),
+                old_href = $elem.attr("href");
+
+            for (k in utm_variables) {
+                if (utm_variables.hasOwnProperty(k) && utm_variables[k] !== undefined) {
+                    if (old_href.indexOf("?") !== -1) {
+                        old_href = old_href + "&" + k + "=" + utm_variables[k];
+                    } else {
+                        old_href = old_href + "?" + k + "=" + utm_variables[k];
+                    }
+                }
+            }
+
+            $elem.attr("href", old_href);
+        })
+    }
+    
+    function do_gform_insertion(evt, form_id, current_page) {
+        var $form = $("#gform_" + form_id), i, k,
+            old_action = $form.attr("action");
+        
+        if (!utm_forminject_enabled()) {
+            console.log("UTM form injection is disabled.");
+            return;
+        }
+        
+        utm_variables = look_for_utm_variables();
+        
+        //Remove any existing query vars.
+        //TODO: should we bother preserving old vars that aren't UTMs?
+        old_action = old_action.split("?")[0];
+        
+        //Add UTM variables as seen by the client.
+        for (k in utm_variables) {
+            if (utm_variables.hasOwnProperty(k) && utm_variables[k] !== undefined) {
+                if (old_action.indexOf("?") !== -1) {
+                    old_action = old_action + "&" + k + "=" + utm_variables[k];
+                } else {
+                    old_action = old_action + "?" + k + "=" + utm_variables[k];
+                }
+            }
+        }
+        
+        $form.attr("action", old_action);
+        
+        //We can't auto-insert UTM variables into hidden fields, so instead we
+        //replace by hidden values.
+        $form.find("input[type='hidden']").each(function (index, ielem) {
+            var $ielem = $(ielem), old_value = $ielem.attr("value"), new_key;
+
+            if (old_value.startsWith("replace_param[") && old_value.endsWith("]")) {
+                new_key = old_value.split("[")[1].split("]")[0];
+                $ielem.val(utm_variables[new_key]);
+            }
+        })
+    }
+    
+    $(document).bind("gform_post_render", do_gform_insertion);
+    
+    Behaviors.register_content_listener(do_utm_replace);
+    
+    module.do_utm_replace = do_utm_replace;
+    module.look_for_utm_variables = look_for_utm_variables;
+    module.getQueryVariable = getQueryVariable;
+    
+    return module;
+}));
+
 /*global define, window, document, Promise*/
 (function (root, factory) {
     "use strict";
@@ -5987,296 +6530,6 @@ if (!Array.prototype.indexOf) {
     module.VideoPlayer__html5 = VideoPlayer__html5;
     module.VideoPlayer__youtube = VideoPlayer__youtube;
     module.VideoPlayer__vimeo = VideoPlayer__vimeo;
-    return module;
-}));
-
-/*global define, console, document, window*/
-(function (root, factory) {
-    "use strict";
-    if (typeof define === 'function' && define.amd) {
-        define("TabbedContent", ["jquery", "Behaviors"], factory);
-    } else {
-        root.TabbedContent = factory(root.jQuery, root.Behaviors);
-    }
-}(this, function ($, Behaviors) {
-    "use strict";
-
-    var module = {};
-
-    function $do(that, target) {
-        return function () {
-            target.apply(that, arguments);
-        };
-    }
-
-    function TabbedContentRegion(elem) {
-        Behaviors.init(TabbedContentRegion, this, arguments);
-
-        this.$elem = $(elem);
-        this.id = this.$elem.attr("id");
-        this.active = this.$elem.data("tabbedcontent-region-active") !== undefined;
-
-        this.links = [];
-
-        this.reflect_status();
-    }
-
-    Behaviors.inherit(TabbedContentRegion, Behaviors.Behavior);
-
-    TabbedContentRegion.QUERY = "[data-tabbedcontent-region]";
-
-    TabbedContentRegion.prototype.reflect_status = function (status) {
-        var i;
-
-        if (status === undefined) {
-            status = this.active;
-        }
-
-        if (status) {
-            this.$elem.addClass("is-TabbedContent--active");
-            this.$elem.removeClass("is-TabbedContent--inactive");
-        } else {
-            this.$elem.removeClass("is-TabbedContent--active");
-            this.$elem.addClass("is-TabbedContent--inactive");
-        }
-
-        for (i = 0; i < this.links.length; i += 1) {
-            if (status) {
-                this.links[i].addClass("is-TabbedContent--target_active");
-                this.links[i].removeClass("is-TabbedContent--target_inactive");
-            } else {
-                this.links[i].removeClass("is-TabbedContent--target_active");
-                this.links[i].addClass("is-TabbedContent--target_inactive");
-            }
-        }
-    };
-
-    TabbedContentRegion.prototype.add_incoming_link = function ($li) {
-        this.links.push($li);
-    };
-
-    function TabbedContentSet(elem) {
-        Behaviors.init(TabbedContentSet, this, arguments);
-
-        this.$elem = $(elem);
-
-        this.tabset_name = this.$elem.attr("data-tabbedcontent-set");
-        if (this.tabset_name === undefined) {
-            this.tabset_name = this.$elem.attr("id");
-        }
-
-        this.tab_members = {};
-        this.list = [];
-
-        this.find_links();
-    }
-
-    Behaviors.inherit(TabbedContentSet, Behaviors.Behavior);
-
-    TabbedContentSet.QUERY = "[data-tabbedcontent-set]";
-
-    TabbedContentSet.prototype.new_tab = function (id) {
-        var $elem = $("#" + id);
-
-        if ($elem.length === 0) {
-            return false;
-        }
-
-        if (this.tab_members[id] === undefined) {
-            this.tab_members[id] = {
-                "toggles": [],
-                "content": TabbedContentRegion.locate($elem)
-            };
-        }
-
-        return true;
-    };
-
-    TabbedContentSet.prototype.set_active_tab = function (id) {
-        var k;
-
-        for (k in this.tab_members) {
-            if (this.tab_members.hasOwnProperty(k)) {
-                this.tab_members[k].content.active = k === id;
-                this.tab_members[k].content.reflect_status();
-            }
-        }
-    };
-
-    TabbedContentSet.prototype.navigate_tab_intent = function (id, evt) {
-        this.set_active_tab(id);
-
-        if (evt) {
-            evt.preventDefault();
-        }
-    };
-
-    TabbedContentSet.prototype.import_list_item = function (li) {
-        var $li = $(li),
-            $link = $li.find("a"),
-            href = $link.attr("href"),
-            id;
-
-        if ($link.length === 0) {
-            return;
-        }
-
-        if (href.indexOf("#") !== -1) {
-            id = href.slice(1);
-        }
-
-        if (id === undefined) {
-            return;
-        }
-
-        if (this.tab_members[id] === undefined && !this.new_tab(id)) {
-            return;
-        }
-
-        this.list.push({
-            "li": $li,
-            "id": id
-        });
-        this.tab_members[id].content.add_incoming_link($li);
-        this.tab_members[id].content.reflect_status();
-        $link.on("touchend click", this.navigate_tab_intent.bind(this, id));
-    };
-
-    TabbedContentSet.prototype.find_links = function () {
-        var that = this;
-
-        this.$elem.find("li").each(function (index, elem) {
-            return that.import_list_item(elem);
-        });
-    };
-
-    Behaviors.register_behavior(TabbedContentSet);
-
-    module.TabbedContentSet = TabbedContentSet;
-
-    return module;
-}));
-
-/*jslint continue: true, es5: true*/
-/*global detectZoom, console, jQuery, define, Float32Array, Uint16Array*/
-(function (root, factory) {
-    "use strict";
-    if (typeof define === 'function' && define.amd) {
-        define("UTM", ["jquery", "Behaviors"], factory);
-    } else {
-        root.UTM = factory(root.jQuery, root.Behaviors);
-    }
-}(this, function ($, Behaviors) {
-    "use strict";
-    var module = {},
-        utm_variables = {},
-        wanted_vars = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
-    
-    function utm_preserve_enabled() {
-        return $("body").data("utmpreserve-preserve") !== false;
-    }
-    
-    function utm_forminject_enabled() {
-        return $("body").data("utmpreserve-forminject") !== false;
-    }
-
-    function getQueryVariable(variable) {
-        var query = window.location.search.substring(1);
-        var vars = query.split('&');
-        for (var i = 0; i < vars.length; i++) {
-            var pair = vars[i].split('=');
-            if (decodeURIComponent(pair[0]) == variable) {
-                return decodeURIComponent(pair[1]);
-            }
-        }
-    }
-
-    /* Given a query string, return an object whose keys are matched UTM vars.
-     */
-    function look_for_utm_variables() {
-        var new_utm_variables = {}, i;
-
-        for (i = 0; i < wanted_vars.length; i += 1) {
-            new_utm_variables[wanted_vars[i]] = getQueryVariable(wanted_vars[i]);
-        }
-
-        return new_utm_variables;
-    }
-
-    function do_utm_replace($context) {
-        if (!utm_preserve_enabled()) {
-            console.log("UTM preserve is disabled.");
-            return;
-        }
-        
-        utm_variables = look_for_utm_variables();
-
-        $context.find("a[href]").each(function (index, elem) {
-            var k, $elem = $(elem),
-                old_href = $elem.attr("href");
-
-            for (k in utm_variables) {
-                if (utm_variables.hasOwnProperty(k) && utm_variables[k] !== undefined) {
-                    if (old_href.indexOf("?") !== -1) {
-                        old_href = old_href + "&" + k + "=" + utm_variables[k];
-                    } else {
-                        old_href = old_href + "?" + k + "=" + utm_variables[k];
-                    }
-                }
-            }
-
-            $elem.attr("href", old_href);
-        })
-    }
-    
-    function do_gform_insertion(evt, form_id, current_page) {
-        var $form = $("#gform_" + form_id), i, k,
-            old_action = $form.attr("action");
-        
-        if (!utm_forminject_enabled()) {
-            console.log("UTM form injection is disabled.");
-            return;
-        }
-        
-        utm_variables = look_for_utm_variables();
-        
-        //Remove any existing query vars.
-        //TODO: should we bother preserving old vars that aren't UTMs?
-        old_action = old_action.split("?")[0];
-        
-        //Add UTM variables as seen by the client.
-        for (k in utm_variables) {
-            if (utm_variables.hasOwnProperty(k) && utm_variables[k] !== undefined) {
-                if (old_action.indexOf("?") !== -1) {
-                    old_action = old_action + "&" + k + "=" + utm_variables[k];
-                } else {
-                    old_action = old_action + "?" + k + "=" + utm_variables[k];
-                }
-            }
-        }
-        
-        $form.attr("action", old_action);
-        
-        //We can't auto-insert UTM variables into hidden fields, so instead we
-        //replace by hidden values.
-        $form.find("input[type='hidden']").each(function (index, ielem) {
-            var $ielem = $(ielem), old_value = $ielem.attr("value"), new_key;
-
-            if (old_value.startsWith("replace_param[") && old_value.endsWith("]")) {
-                new_key = old_value.split("[")[1].split("]")[0];
-                $ielem.val(utm_variables[new_key]);
-            }
-        })
-    }
-    
-    $(document).bind("gform_post_render", do_gform_insertion);
-    
-    Behaviors.register_content_listener(do_utm_replace);
-    
-    module.do_utm_replace = do_utm_replace;
-    module.look_for_utm_variables = look_for_utm_variables;
-    module.getQueryVariable = getQueryVariable;
-    
     return module;
 }));
 
