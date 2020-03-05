@@ -19,8 +19,7 @@ class BWContentSlider extends BeaverWarriorFLModule {
                 'dir'             => $this->getModuleDirectory( __DIR__ ),
                 'url'             => $this->getModuleDirectoryURI( __DIR__ ),
                 'editor_export'   => true,
-                'enabled'         => true, 
-                'partial_refresh' => true
+                'enabled'         => true
             ]
         );
     }
