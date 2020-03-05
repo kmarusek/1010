@@ -41,6 +41,10 @@ if ($settings->dots_style === "icon") {
     $wrapper_attributes["data-contentslider-dotsicon"][] = $settings->dots_icon;
 }
 
+if ($settings->play_loop === "loop") {
+    $wrapper_attributes["data-contentslider-loop"][] = "";
+}
+
 if ($settings->play_auto === "autoplay") {
     if ($settings->play_delay_unit === "s") {
         $wrapper_attributes["data-contentslider-autoplay"] = $settings->play_delay * 1000;

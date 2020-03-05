@@ -70,8 +70,17 @@ FLBuilder::register_module(
                     ]
                 ],
                 'playback' => [
-                    'title' => __('Autoplay', 'skeleton-warrior'),
+                    'title' => __('Playback settings', 'skeleton-warrior'),
                     'fields' => [
+                        'play_loop' => [
+                            'type' => 'select',
+                            'label' => __("Loop slides", 'skeleton-warrior'),
+                            'default' => 'none',
+                            'options' => [
+                                'none' => __("Stop at the last slide", 'skeleton-warrior'),
+                                'loop' => __("Loop back to the beginning after the last slide", 'skeleton-warrior'),
+                            ],
+                        ],
                         'play_auto' => [
                             'type' => 'select',
                             'label' => __("Autoplay", 'skeleton-warrior'),

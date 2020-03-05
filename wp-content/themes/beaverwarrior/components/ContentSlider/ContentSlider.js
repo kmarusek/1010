@@ -18,6 +18,8 @@
         this.dots = this.$elem.data("contentslider-dots");
         this.dots_icon = this.$elem.data("contentslider-dotsicon");
         this.autoplay_timeout = this.$elem.data("contentslider-autoplay");
+        
+        this.has_loop = this.$elem.data("contentslider-loop") !== undefined;
         this.has_autoplay = this.autoplay_timeout !== undefined;
         this.has_hoverpause = this.$elem.data("contentslider-hoverpause") !== undefined;
         this.has_dots = this.dots !== "none";
@@ -60,7 +62,7 @@
     
     ContentSlider.prototype.initOwlCarousel = function() {
         this.carousel = this.$elem.find(ContentSlider.ELEMENTS.carousel).owlCarousel({
-            loop: false,
+            loop: this.has_loop,
             center: true,
             dots: this.has_dots,
             dotsClass: this.dots_class(),
