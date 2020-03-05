@@ -70,58 +70,107 @@ FLBuilder::register_module(
                 ]
             ]
         ],
-        /* Not Showing any fields 2/21/20 */
-        // This should have corrected the issue -- Update 2/24/20 It didn't resolve the problem
-        // Should have fixed the above issue 2/24/20 -- Resolved 2/24/20
-        // Color the background color of the arrow should change and not the arrow itself 
-        'slider_arrows' => [
-            'title' => __('Slider Arrows','fl-builder'),
+        'navigation' => [
+            'title' => __('Navigation','skeleton-warrior'),
             'sections' => [ 
-                'title_text' => [
-                    'title' => __('Arrow Styles','fl-builder'), 
+                'arrows' => [
+                    'title' => __('Arrow Navigation','skeleton-warrior'), 
                     'fields' => [
                         'left_arrow_icon' => [
                             'type' => 'icon',
-                            'label' => __('Left Arrow','fl-builder'),
+                            'label' => __('Left Arrow','skeleton-warrior'),
                             'show_remove' => true,
                         ],
                         'left_arrow_bg_color' => [
                             'type'          => 'color',
-                            'label'         => __( 'Left Arrow Color', 'fl-builder' ),
+                            'label'         => __( 'Left Arrow Color', 'skeleton-warrior' ),
                             'default'       => '#222222',
                             'show_reset'    => true,
                             'show_alpha'    => true
                         ],
                         'left_arrow_bg_color_hover' => [
                             'type' => 'color',
-                            'label' => __('Left Arrow Hover Color','fl-builder'),
+                            'label' => __('Left Arrow Hover Color','skeleton-warrior'),
                             'default' => '#EC4067', 
                             'show_reset' => true,
                             'show_alpha' => true
                         ],
                         'right_arrow_icon' => [
                             'type' => 'icon',
-                            'label' => __('Right Arrow','fl-builder'),
+                            'label' => __('Right Arrow','skeleton-warrior'),
                             'show_remove' => true,
                         ],
                         'right_arrow_bg_color' => [
                             'type'          => 'color',
-                            'label'         => __('Right Arrow Color', 'fl-builder'),
+                            'label'         => __('Right Arrow Color', 'skeleton-warrior'),
                             'default'       => '#222222',
                             'show_reset'    => true,
                             'show_alpha'    => true
                         ],
                         'right_arrow_bg_color_hover' => [
                             'type' => 'color',
-                            'label' => __('Right Arrow Hover Color','fl-builder'),
+                            'label' => __('Right Arrow Hover Color','skeleton-warrior'),
                             'default' => '#EC4067',
                             'show_reset' => true,
                             'show_alpha' => true
                         ]
                     ]
+                ],
+                'dots' => [
+                    'title' => __("Dot Slide Navigation", 'skeleton-warrior'),
+                    'fields' => [
+                        'dots_style' => [
+                            'type' => 'select',
+                            'label' => __("Navigation style", 'skeleton-warrior'),
+                            'default' => 'none',
+                            'options' => [
+                                'none' => __("No slide navigation", 'skeleton-warrior'),
+                                'dots' => __("Dots", 'skeleton-warrior'),
+                                'icon' => __("Icon", 'skeleton-warrior'),
+                            ],
+                            'toggle' => [
+                                'icon' => [
+                                    'fields' => ['dots_icon']
+                                ]
+                            ],
+                        ],
+                        'dots_icon' => [
+                            'type' => 'icon',
+                            'label' => __('Icon','skeleton-warrior'),
+                            'show_remove' => true,
+                        ],
+                        'dots_size' => [
+                            'type' => 'unit',
+                            'label' => __('Size','skeleton-warrior'),
+                            'units' => array('px', 'em', 'vw', '%'),
+                            'default_unit' => 'px',
+                            'default' => 10,
+                        ],
+                        'dots_color' => [
+                            'type' => 'color',
+                            'label' => __("Dot Color", 'skeleton-warrior'),
+                            'default' => '#000000',
+                            'show_reset' => true,
+                            'show_alpha' => true,
+                        ],
+                        'dots_color_active' => [
+                            'type' => 'color',
+                            'label' => __("Dot Color (Active)", 'skeleton-warrior'),
+                            'default' => '#3b68d0',
+                            'show_reset' => true,
+                            'show_alpha' => true,
+                        ],
+                        'dots_color_hover' => [
+                            'type' => 'color',
+                            'label' => __("Dot Color (Hover/Focus)", 'skeleton-warrior'),
+                            'default' => '#447af7',
+                            'show_reset' => true,
+                            'show_alpha' => true,
+                        ]
+                    ]
                 ]
             ]
-        ]            
+        ]
     ]
 );
 /* This field for saved row selection is not showing up 2/21/20 */
@@ -129,29 +178,29 @@ FLBuilder::register_module(
 FLBuilder::register_settings_form(
     'bw_contentslider_slide', 
     [
-        'title' => __('Slider Content', 'fl-builder'),
+        'title' => __('Slider Content', 'skeleton-warrior'),
         'tabs' => [
             'general' => [
-                'title' => __('General','fl-builder'),
+                'title' => __('General','skeleton-warrior'),
                 'sections' => [
                     'general' => [
-                        'title' => __("General", 'fl-builder'),
+                        'title' => __("General", 'skeleton-warrior'),
                         'fields' => [
                             'slide_title' => [
                                 'type' => 'text',
-                                'label' => __('Slide Title','fl-builder')
+                                'label' => __('Slide Title','skeleton-warrior')
                             ],
                             'saved_content_row' => [
                                 'type' => 'select',
-                                'label' => __('Saved Row','fl-builder'),
+                                'label' => __('Saved Row','skeleton-warrior'),
                                 'options' => BWContentSlider::getSavedRows()
                             ],
                             'saved_row' => [
                                 'type' => 'select',
-                                'label' => __('Use same row on mobile?','fl-builder'),
+                                'label' => __('Use same row on mobile?','skeleton-warrior'),
                                 'options' => [
-                                    true => __('Yes','fl-builder'),
-                                    false => __('No','fl-builder')
+                                    true => __('Yes','skeleton-warrior'),
+                                    false => __('No','skeleton-warrior')
                                 ],
                                 'default' => true,
                                 'toggle' => [
@@ -164,7 +213,7 @@ FLBuilder::register_settings_form(
                             ],
                             'mobile_saved_row' => [
                                 'type' => 'select',
-                                'label' => __('Mobile Saved Row','fl-builder'),
+                                'label' => __('Mobile Saved Row','skeleton-warrior'),
                                 'options' => BWContentSlider::getSavedRows()
                             ]
                         ]

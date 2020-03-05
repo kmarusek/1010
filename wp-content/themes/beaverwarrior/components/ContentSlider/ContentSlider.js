@@ -15,6 +15,9 @@
         this.element = this.$elem[0];
         this.left_arrow = this.$elem.data("contentslider-leftarrow");
         this.right_arrow = this.$elem.data("contentslider-rightarrow");
+        this.dots = this.$elem.data("contentslider-dots");
+        this.dots_icon = this.$elem.data("contentslider-dotsicon");
+        this.has_dots = this.dots !== "none";
         this.has_nav = false;
         if (this.left_arrow) {
             this.has_nav = true;
@@ -40,11 +43,25 @@
         carousel: ".owl-carousel"
     };
     
+    ContentSlider.prototype.dots_class = function () {
+        return "owl-dots ContentSlider-dots ContentSlider-dots--style_" + this.dots;
+    };
+    
+    ContentSlider.prototype.dot_class = function () {
+        if (this.dots_icon) {
+            return "ContentSlider-dot ContentSlider-dot--style_" + this.dots + " " + this.dots_icon;
+        } else {
+            return "ContentSlider-dot ContentSlider-dot--style_" + this.dots;
+        }
+    };
+    
     ContentSlider.prototype.initOwlCarousel = function() {
         this.carousel = this.$elem.find(ContentSlider.ELEMENTS.carousel).owlCarousel({
             loop: false,
             center: true,
-            dots: true,
+            dots: this.has_dots,
+            dotsClass: this.dots_class(),
+            dotClass: this.dot_class(),
             margin: 50,
             items: 1.25, 
             nav: this.has_nav,
