@@ -44,3 +44,19 @@
 .ContentSlider-dot--style_dots span {
     border-radius: 100%;
 }
+
+.ContentSlider-contents--desktop {
+    display: none;
+    
+    @media (min-width: @Viewport-sm) {
+        display: block;
+    }
+}
+
+.ContentSlider-contents--mobile {
+    display: block;
+    
+    @media (min-width: @Viewport-sm) {
+        display: none;
+    }
+}
