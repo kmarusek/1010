@@ -17,6 +17,9 @@
         this.right_arrow = this.$elem.data("contentslider-rightarrow");
         this.dots = this.$elem.data("contentslider-dots");
         this.dots_icon = this.$elem.data("contentslider-dotsicon");
+        this.autoplay_timeout = this.$elem.data("contentslider-autoplay");
+        this.has_autoplay = this.autoplay_timeout !== undefined;
+        this.has_hoverpause = this.$elem.data("contentslider-hoverpause") !== undefined;
         this.has_dots = this.dots !== "none";
         this.has_nav = false;
         if (this.left_arrow) {
@@ -65,8 +68,11 @@
             //margin: 50,
             //items: 1.25, 
             nav: this.has_nav,
-            navClass: ["owl-prev " + this.left_arrow, "owl-next " + this.right_arrow]
-            //onDragged: self.updatePagination.bind(self)
+            navClass: ["owl-prev " + this.left_arrow, "owl-next " + this.right_arrow],
+            //onDragged: self.updatePagination.bind(self),
+            autoplay: this.has_autoplay,
+            autoplayTimeout: this.autoplay_timeout,
+            autoplayHoverPause: this.has_hoverpause
         });
         //self.updateNav(0);
     };

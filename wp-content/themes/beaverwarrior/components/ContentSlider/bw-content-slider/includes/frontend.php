@@ -41,6 +41,18 @@ if ($settings->dots_style === "icon") {
     $wrapper_attributes["data-contentslider-dotsicon"][] = $settings->dots_icon;
 }
 
+if ($settings->play_auto === "autoplay") {
+    if ($settings->play_delay_unit === "s") {
+        $wrapper_attributes["data-contentslider-autoplay"] = $settings->play_delay * 1000;
+    } else if ($settings->play_delay_unit === "ms") {
+        $wrapper_attributes["data-contentslider-autoplay"] = $settings->play_delay * 1;
+    }
+    
+    if ($settings->play_hoverpause === "hoverpause") {
+        $wrapper_attributes["data-contentslider-hoverpause"] = "";
+    }
+}
+
 ?>
 <div<?php echo spacestation_render_attributes($wrapper_attributes); ?>>
     <div class='owl-carousel'>

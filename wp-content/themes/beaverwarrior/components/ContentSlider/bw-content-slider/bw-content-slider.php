@@ -53,7 +53,8 @@ FLBuilder::register_module(
         'content' => [
             'title' => __('Content', 'fl-builder'),
             'sections' => [
-                'section_general' => [
+                'slides' => [
+                    'title' => __("Slides", 'skeleton-warrior'),
                     'fields' => [
                         'slider_label' => [
                             'type' => 'text',
@@ -66,6 +67,41 @@ FLBuilder::register_module(
                             'preview_text' => 'slide_title',
                             'multiple' => true
                         ]
+                    ]
+                ],
+                'playback' => [
+                    'title' => __('Autoplay', 'skeleton-warrior'),
+                    'fields' => [
+                        'play_auto' => [
+                            'type' => 'select',
+                            'label' => __("Autoplay", 'skeleton-warrior'),
+                            'default' => 'none',
+                            'options' => [
+                                'none' => __("Do not autoplay", 'skeleton-warrior'),
+                                'autoplay' => __("Automatically move through slides", 'skeleton-warrior'),
+                            ],
+                            'toggle' => [
+                                'autoplay' => [
+                                    'fields' => ['play_delay', 'play_hoverpause']
+                                ]
+                            ],
+                        ],
+                        'play_delay' => [
+                            'type' => 'unit',
+                            'label' => __('Time between slides','skeleton-warrior'),
+                            'units' => array('s', 'ms'),
+                            'default_unit' => 's',
+                            'default' => 5,
+                        ],
+                        'play_hoverpause' => [
+                            'type' => 'select',
+                            'label' => __("Pause autoplay on hover", 'skeleton-warrior'),
+                            'default' => 'none',
+                            'options' => [
+                                'none' => __("Ignore hover", 'skeleton-warrior'),
+                                'hoverpause' => __("Pause autoplay on hover", 'skeleton-warrior'),
+                            ],
+                        ],
                     ]
                 ]
             ]
