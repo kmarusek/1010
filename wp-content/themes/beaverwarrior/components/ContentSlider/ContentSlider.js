@@ -62,8 +62,8 @@
             dots: this.has_dots,
             dotsClass: this.dots_class(),
             dotClass: this.dot_class(),
-            margin: 50,
-            items: 1.25, 
+            //margin: 50,
+            //items: 1.25, 
             nav: this.has_nav,
             navClass: ["owl-prev " + this.left_arrow, "owl-next " + this.right_arrow]
             //onDragged: self.updatePagination.bind(self)
