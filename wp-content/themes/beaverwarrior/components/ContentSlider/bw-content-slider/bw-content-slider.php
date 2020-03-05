@@ -131,13 +131,13 @@ FLBuilder::register_module(
                             ],
                             'toggle' => [
                                 'icon' => [
-                                    'fields' => ['dots_color', 'dots_color_active', 'dots_color_hover', 'dots_icon', 'dots_size']
+                                    'fields' => ['dots_color', 'dots_color_active', 'dots_color_hover', 'dots_spacing', 'dots_icon', 'dots_size']
                                 ],
                                 'dots' => [
-                                    'fields' => ['dots_color', 'dots_color_active', 'dots_color_hover', 'dots_size']
+                                    'fields' => ['dots_color', 'dots_color_active', 'dots_color_hover', 'dots_spacing', 'dots_size']
                                 ],
                                 'line' => [
-                                    'fields' => ['dots_color', 'dots_color_active', 'dots_color_hover', 'dots_width', 'dots_height']
+                                    'fields' => ['dots_color', 'dots_color_active', 'dots_color_hover', 'dots_spacing', 'dots_width', 'dots_height']
                                 ]
                             ],
                         ],
@@ -166,6 +166,13 @@ FLBuilder::register_module(
                             'units' => array('px', 'em', 'vw', '%'),
                             'default_unit' => 'px',
                             'default' => 10,
+                        ],
+                        'dots_spacing' => [
+                            'type' => 'unit',
+                            'label' => __('Spacing','skeleton-warrior'),
+                            'units' => array('px', 'em', 'vw', '%'),
+                            'default_unit' => 'px',
+                            'default' => 2,
                         ],
                         'dots_color' => [
                             'type' => 'color',

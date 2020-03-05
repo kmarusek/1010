@@ -59,3 +59,11 @@
         height: <?php echo $settings->dots_height; ?><?php echo $settings->dots_height_unit; ?>;
     }
 <?php } ?>
+
+.fl-node-<?php echo $id; ?> .ContentSlider-dot {
+    padding-left: <?php echo $settings->dots_spacing; ?><?php echo $settings->dots_spacing_unit; ?>;
+}
+
+.fl-node-<?php echo $id; ?> .ContentSlider-dot:first-child {
+    padding-left: 0;
+}
