@@ -65,7 +65,9 @@ if ($settings->play_auto === "autoplay") {
             <article class="item">
                 <div class="ContentSlider-contents<?php if (!$same_contents) { ?> ContentSlider-contents--desktop<?php } ?>">
                     <?php 
-                        if ($settings->slides[$i]->saved_content_row) {
+                        if (FLBuilderModel::is_builder_active()) {
+                            echo "<div class='ContentSlider-placeholder'><span>Slider rows are not rendered while builder is active</span></div>";
+                        } else if ($settings->slides[$i]->saved_content_row) {
                             FLBuilder::render_query([
                                 'post_type' => 'fl-builder-template',
                                 'p' => $settings->slides[$i]->saved_content_row
@@ -78,7 +80,9 @@ if ($settings->play_auto === "autoplay") {
                 <?php if (!$same_contents) { ?>
                     <div class="ContentSlider-contents ContentSlider-contents--mobile">
                         <?php 
-                            if ($settings->slides[$i]->mobile_saved_row) {
+                            if (FLBuilderModel::is_builder_active()) {
+                                echo "<div class='ContentSlider-placeholder'><span>Slider rows are not rendered while builder is active</span></div>";
+                            } else     if ($settings->slides[$i]->mobile_saved_row) {
                                 FLBuilder::render_query([
                                     'post_type' => 'fl-builder-template',
                                     'p' => $settings->slides[$i]->mobile_saved_row
