@@ -131,13 +131,13 @@ FLBuilder::register_module(
                             ],
                             'toggle' => [
                                 'icon' => [
-                                    'fields' => ['dots_color', 'dots_color_active', 'dots_color_hover', 'dots_spacing', 'dots_icon', 'dots_size']
+                                    'fields' => ['dots_color', 'dots_color_active', 'dots_color_hover', 'dots_orientation', 'dots_edge_distance', 'dots_spacing', 'dots_icon', 'dots_size']
                                 ],
                                 'dots' => [
-                                    'fields' => ['dots_color', 'dots_color_active', 'dots_color_hover', 'dots_spacing', 'dots_size']
+                                    'fields' => ['dots_color', 'dots_color_active', 'dots_color_hover', 'dots_orientation', 'dots_edge_distance', 'dots_spacing', 'dots_size']
                                 ],
                                 'line' => [
-                                    'fields' => ['dots_color', 'dots_color_active', 'dots_color_hover', 'dots_spacing', 'dots_width', 'dots_height']
+                                    'fields' => ['dots_color', 'dots_color_active', 'dots_color_hover', 'dots_orientation', 'dots_edge_distance', 'dots_spacing', 'dots_width', 'dots_height']
                                 ]
                             ],
                         ],
@@ -173,6 +173,24 @@ FLBuilder::register_module(
                             'units' => array('px', 'em', 'vw', '%'),
                             'default_unit' => 'px',
                             'default' => 2,
+                        ],
+                        'dots_orientation' => [
+                            'type' => 'select',
+                            'label' => __("Orientation", 'skeleton-warrior'),
+                            'default' => 'bottom',
+                            'options' => [
+                                'top' => __("Top of the slider, horizontal"),
+                                'bottom' => __("Bottom of the slider, horizontal"),
+                                'left' => __("Left of the slider, vertical"),
+                                'right' => __("Right of the slider, vertical"),
+                            ]
+                        ],
+                        'dots_edge_distance' => [
+                            'type' => 'unit',
+                            'label' => __('Distance from edge','skeleton-warrior'),
+                            'units' => array('px', 'em', 'vw', '%'),
+                            'default_unit' => 'px',
+                            'default' => 0,
                         ],
                         'dots_color' => [
                             'type' => 'color',
