@@ -127,10 +127,17 @@ FLBuilder::register_module(
                                 'none' => __("No slide navigation", 'skeleton-warrior'),
                                 'dots' => __("Dots", 'skeleton-warrior'),
                                 'icon' => __("Icon", 'skeleton-warrior'),
+                                'line' => __("Line", 'skeleton-warrior'),
                             ],
                             'toggle' => [
                                 'icon' => [
-                                    'fields' => ['dots_icon']
+                                    'fields' => ['dots_color', 'dots_color_active', 'dots_color_hover', 'dots_icon', 'dots_size']
+                                ],
+                                'dots' => [
+                                    'fields' => ['dots_color', 'dots_color_active', 'dots_color_hover', 'dots_size']
+                                ],
+                                'line' => [
+                                    'fields' => ['dots_color', 'dots_color_active', 'dots_color_hover', 'dots_width', 'dots_height']
                                 ]
                             ],
                         ],
@@ -142,6 +149,20 @@ FLBuilder::register_module(
                         'dots_size' => [
                             'type' => 'unit',
                             'label' => __('Size','skeleton-warrior'),
+                            'units' => array('px', 'em', 'vw', '%'),
+                            'default_unit' => 'px',
+                            'default' => 10,
+                        ],
+                        'dots_width' => [
+                            'type' => 'unit',
+                            'label' => __('Width','skeleton-warrior'),
+                            'units' => array('px', 'em', 'vw', '%'),
+                            'default_unit' => 'px',
+                            'default' => 10,
+                        ],
+                        'dots_height' => [
+                            'type' => 'unit',
+                            'label' => __('Height','skeleton-warrior'),
                             'units' => array('px', 'em', 'vw', '%'),
                             'default_unit' => 'px',
                             'default' => 10,

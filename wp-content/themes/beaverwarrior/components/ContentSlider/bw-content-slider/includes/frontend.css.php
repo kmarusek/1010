@@ -53,4 +53,9 @@
         width: <?php echo $settings->dots_size; ?><?php echo $settings->dots_size_unit; ?>;
         height: <?php echo $settings->dots_size; ?><?php echo $settings->dots_size_unit; ?>;
     }
+<?php } else if ($settings->dots_style === "line") { ?>
+    .fl-node-<?php echo $id; ?> .ContentSlider-dot--style_line span {
+        width: <?php echo $settings->dots_width; ?><?php echo $settings->dots_width_unit; ?>;
+        height: <?php echo $settings->dots_height; ?><?php echo $settings->dots_height_unit; ?>;
+    }
 <?php } ?>

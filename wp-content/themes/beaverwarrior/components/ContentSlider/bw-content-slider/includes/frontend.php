@@ -35,6 +35,9 @@ if ($settings->right_arrow_icon) {
 
 if ($settings->dots_style !== "none") {
     $wrapper_attributes["data-contentslider-dots"][] = $settings->dots_style;
+}
+
+if ($settings->dots_style === "icon") {
     $wrapper_attributes["data-contentslider-dotsicon"][] = $settings->dots_icon;
 }
 
