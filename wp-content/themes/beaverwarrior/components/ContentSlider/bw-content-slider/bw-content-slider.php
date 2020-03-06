@@ -120,6 +120,13 @@ FLBuilder::register_module(
                 'arrows' => [
                     'title' => __('Arrow Navigation','skeleton-warrior'), 
                     'fields' => [
+                        'arrows_size' => [
+                            'type' => 'unit',
+                            'label' => __('Size','skeleton-warrior'),
+                            'units' => array('px', 'em', 'vw', '%'),
+                            'default_unit' => 'px',
+                            'default' => 10,
+                        ],
                         'left_arrow_icon' => [
                             'type' => 'icon',
                             'label' => __('Left Arrow','skeleton-warrior'),

@@ -16,6 +16,12 @@
     color: #<?php echo $settings->right_arrow_bg_color_hover; ?> !important;
 }
 
+.fl-node-<?php echo $id; ?> .ContentSlider-navigation,
+.fl-node-<?php echo $id; ?> .owl-carousel .ContentSlider-navigation.owl-prev,
+.fl-node-<?php echo $id; ?> .owl-carousel .ContentSlider-navigation.owl-next {
+    font-size: <?php echo $settings->arrows_size; ?><?php echo $settings->arrows_size_unit; ?>;
+}
+
 <?php if ($settings->dots_style === "icon") {?>
     .fl-node-<?php echo $id; ?> .ContentSlider-dot--style_icon {
         color: #<?php echo $settings->dots_color; ?>
