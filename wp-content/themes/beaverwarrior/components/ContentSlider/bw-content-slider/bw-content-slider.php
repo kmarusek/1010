@@ -285,7 +285,7 @@ FLBuilder::register_settings_form(
                                 'label' => __('Saved Row','skeleton-warrior'),
                                 'options' => BWContentSlider::getSavedRows()
                             ],
-                            'saved_row' => [
+                            'same_row' => [
                                 'type' => 'select',
                                 'label' => __('Use same row on mobile?','skeleton-warrior'),
                                 'options' => [
