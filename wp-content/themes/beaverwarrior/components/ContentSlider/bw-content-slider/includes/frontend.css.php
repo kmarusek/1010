@@ -16,10 +16,12 @@
     color: #<?php echo $settings->right_arrow_bg_color_hover; ?> !important;
 }
 
-.fl-node-<?php echo $id; ?> .ContentSlider-navigation,
-.fl-node-<?php echo $id; ?> .owl-carousel .ContentSlider-navigation.owl-prev,
-.fl-node-<?php echo $id; ?> .owl-carousel .ContentSlider-navigation.owl-next {
+.fl-node-<?php echo $id; ?> .ContentSlider-navigation:before,
+.fl-node-<?php echo $id; ?> .owl-carousel .ContentSlider-navigation.owl-prev:before,
+.fl-node-<?php echo $id; ?> .owl-carousel .ContentSlider-navigation.owl-next:before {
     font-size: <?php echo $settings->arrows_size; ?><?php echo $settings->arrows_size_unit; ?>;
+    width: <?php echo $settings->arrows_size; ?><?php echo $settings->arrows_size_unit; ?>;
+    height: <?php echo $settings->arrows_size; ?><?php echo $settings->arrows_size_unit; ?>;
 }
 
 <?php if ($settings->dots_style === "icon") {?>
