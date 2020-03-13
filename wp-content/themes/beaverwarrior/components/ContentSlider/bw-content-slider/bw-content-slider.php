@@ -29,7 +29,7 @@ class BWContentSlider extends BeaverWarriorFLModule {
 
         $args = array(
             'post_type' => 'fl-builder-template',
-            'post_per_page' => -1,
+            'posts_per_page' => -1,
             'orderby' => 'title',
             'order' => 'asc'
         );
