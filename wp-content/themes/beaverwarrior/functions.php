@@ -560,3 +560,33 @@ add_action( 'init' , 'beaver_warrior_huemor_dev_pack' );
 // Add the filter to make sure that rich-text styles are generiouslly applied to its children.
 add_filter( 'fl_builder_render_css', 'beaver_warrior_add_rich_text_wildcard_styles', 10, 4 );
 add_action( 'wp_enqueue_scripts', 'beaver_warrior_add_sentry_io');
+
+/**
+ * Convert an associative array of attribute keys and values into an HTML
+ * attribute string.
+ * 
+ * The provided attributes may have string or array values. Arrays will be
+ * joined with spaces, this allows, e.g. providing an array of CSS classes that
+ * will be merged into a single class attribute.
+ * 
+ * All provided or computed strings are escaped for inclusion into HTML.
+ * Attributes that generate an empty string will only emit the key value as
+ * allowed by HTML.
+ */
+function spacestation_render_attributes(array $wrapper_attributes) {
+    $attributes = "";
+    foreach ($wrapper_attributes as $key => $value) {
+        $attributes .= " " . $key;
+        if (is_array($value)) {
+            $attr_value = esc_attr(implode(" ", $value));
+        } else {
+            $attr_value = esc_attr($value);
+        }
+
+        if (strlen($attr_value) > 0) {
+            $attributes .= '="' . $attr_value . '"';
+        }
+    }
+    
+    return $attributes;
+}
