@@ -201,15 +201,15 @@ final class FLPageDataPost {
 		} elseif ( 'alt' == $settings->display ) {
 			return get_post_meta( get_post_thumbnail_id( $post->ID ), '_wp_attachment_image_alt', true );
 		} else {
-
-			$image = get_post( get_post_thumbnail_id( $post->ID ) );
-
-			if ( 'title' == $settings->display ) {
-				return $image->post_title;
-			} elseif ( 'caption' == $settings->display ) {
-				return $image->post_excerpt;
-			} elseif ( 'description' == $settings->display ) {
-				return $image->post_content;
+			if ( get_post_thumbnail_id( $post->ID ) ) {
+				$image = get_post( get_post_thumbnail_id( $post->ID ) );
+				if ( 'title' == $settings->display ) {
+					return $image->post_title;
+				} elseif ( 'caption' == $settings->display ) {
+					return $image->post_excerpt;
+				} elseif ( 'description' == $settings->display ) {
+					return $image->post_content;
+				}
 			}
 		}
 	}

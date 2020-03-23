@@ -385,6 +385,12 @@ final class FLThemeBuilderFieldConnections {
 			$cache_key = $post && isset( $post->ID ) ? $node->node . '_' . $post->ID : $node->node;
 		}
 
+		/**
+		 * @since 1.3.1
+		 * @see fl_themer_builder_connect_node_settings_cache_key
+		 */
+		$cache_key = apply_filters( 'fl_themer_builder_connect_node_settings_cache_key', $cache_key, $settings, $node );
+
 		// Gather any repeater or nested settings.
 		foreach ( $settings as $key => $value ) {
 			if ( is_array( $value ) && count( $value ) && isset( $value[0]->connections ) ) {

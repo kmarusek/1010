@@ -21,5 +21,6 @@ FLBuilder::register_module_alias( 'fl-the-events-calendar-posts', array(
 		'event_date'    => '0',
 		'event_address' => '0',
 		'event_venue'   => 'hide',
+		'show_events'   => 'future',
 	),
 ) );

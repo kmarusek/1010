@@ -24,6 +24,15 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 		add_filter( 'fl_builder_register_settings_form', __CLASS__ . '::post_grid_settings', 10, 2 );
 		add_filter( 'fl_builder_render_css', __CLASS__ . '::post_grid_css', 10, 2 );
 		add_action( 'fl_builder_loop_query_args', __CLASS__ . '::builder_loop_query_args' );
+
+		add_action( 'fl_builder_before_render_ajax_layout', function() {
+			$location         = FLThemeBuilderRulesLocation::get_preview_location( get_the_ID() );
+			$is_event_preview = stristr( $location, 'tribe_events' );
+			$is_theme_layout  = 'fl-theme-layout' === get_post_type();
+			if ( $is_event_preview && $is_theme_layout ) {
+				add_filter( 'fl_builder_loop_query', __CLASS__ . '::builder_loop_query', 10, 2 );
+			}
+		});
 	}
 
 	/**
@@ -43,6 +52,7 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 		if ( $is_event_preview && $is_theme_layout && 'archive' === $theme_layout_type ) {
 			add_filter( 'body_class', __CLASS__ . '::body_class' );
 			add_filter( 'tribe_events_views_v2_assets_should_enqueue_frontend', '__return_true' );
+			add_filter( 'fl_builder_loop_query', __CLASS__ . '::builder_loop_query', 10, 2 );
 		} elseif ( is_post_type_archive( 'tribe_events' ) ) {
 			add_filter( 'fl_builder_loop_query', __CLASS__ . '::builder_loop_query', 10, 2 );
 			add_action( 'fl_theme_builder_before_render_content', __CLASS__ . '::before_render_content' );
@@ -76,21 +86,52 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 	static public function builder_loop_query( $query, $settings ) {
 
 		if ( isset( $settings->data_source ) && 'main_query' == $settings->data_source ) {
-			$orderby = 'EventStartDate';
-			$order   = 'ASC';
 
-			if ( isset( $settings->event_orderby ) && ! empty( $settings->event_orderby ) ) {
+			$compare = '>=';
+
+			if ( isset( $settings->event_orderby ) && '' !== $settings->event_orderby ) {
 				$orderby = $settings->event_orderby;
-				$order   = $settings->event_order;
+			} else {
+				$orderby = 'EventStartDate';
 			}
 
-			$query = new WP_Query( array_merge( $query->query, array(
-				'orderby' => $orderby,
-				'order'   => $order,
-				'paged'   => FLBuilderLoop::get_paged(),
-			) ) );
-		}
+			if ( isset( $settings->event_order ) && '' !== $settings->event_order && 'Ascending' !== $settings->event_order ) {
+				$order = $settings->event_order;
+			} else {
+				$order = 'ASC';
+			}
 
+			if ( isset( $settings->show_events ) && ! empty( $settings->show_events ) ) {
+				switch ( $settings->show_events ) {
+					case 'past':
+						$compare = '<';
+						break;
+					case 'today':
+						$compare = '=';
+						break;
+				}
+			}
+
+			$query = array(
+				'post_type'    => 'tribe_events',
+				'meta_key'     => '_' . $orderby,
+				'orderby'      => 'meta_value',
+				'order'        => $order,
+				'eventDisplay' => 'custom',
+				'paged'        => FLBuilderLoop::get_paged(),
+			);
+			if ( 'all' !== $settings->show_events ) {
+				$today               = gmdate( 'Y-m-d' ) . ' 00:00:00';
+				$query['meta_query'] = array(
+					array(
+						'key'     => '_EventStartDate',
+						'compare' => $compare,
+						'value'   => $today,
+					),
+				);
+			}
+			$query = new WP_Query( $query );
+		}
 		return $query;
 	}
 
@@ -108,18 +149,54 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 			return $args;
 		}
 
-		if ( 'tribe_events' != $args['post_type'] ) {
+		if ( 'tribe_events' !== $settings->post_type ) {
 			return $args;
 		}
 
-		if ( ! isset( $settings->event_orderby ) || empty( $settings->event_orderby ) ) {
+		if ( ! isset( $settings->event_orderby ) ) {
 			return $args;
 		}
 
-		$args['orderby']   = 'meta_value_num';
-		$args['meta_key']  = '_' . $settings->event_orderby;
-		$args['meta_type'] = 'DATE';
-		$args['order']     = $settings->event_order;
+		$compare = '>=';
+
+		if ( isset( $settings->event_orderby ) && '' !== $settings->event_orderby ) {
+			$orderby = $settings->event_orderby;
+		} else {
+			$orderby = 'EventStartDate';
+		}
+
+		if ( isset( $settings->event_order ) && '' !== $settings->event_order && 'Ascending' !== $settings->event_order ) {
+			$order = $settings->event_order;
+		} else {
+			$order = 'ASC';
+		}
+
+		if ( isset( $settings->show_events ) && ! empty( $settings->show_events ) ) {
+			switch ( $settings->show_events ) {
+				case 'past':
+					$compare = '<';
+					break;
+				case 'today':
+					$compare = '=';
+					break;
+			}
+		}
+
+		$args['orderby']      = 'meta_value';
+		$args['eventDisplay'] = 'custom';
+		$args['meta_key']     = '_' . $orderby;
+		$args['order']        = $order;
+
+		if ( isset( $settings->show_events ) && 'all' !== $settings->show_events ) {
+			$today              = gmdate( 'Y-m-d' ) . ' 00:00:00';
+			$args['meta_query'] = array(
+				array(
+					'key'     => '_EventStartDate',
+					'compare' => $compare,
+					'value'   => $today,
+				),
+			);
+		}
 
 		return $args;
 	}
@@ -201,10 +278,21 @@ final class FLThemeBuilderTheEventsCalendarArchive {
 				'event_order'   => array(
 					'type'    => 'select',
 					'label'   => __( 'Events Order', 'bb-theme-builder' ),
-					'default' => 'Ascending',
+					'default' => 'ASC',
 					'options' => array(
 						'ASC'  => __( 'Ascending', 'bb-theme-builder' ),
 						'DESC' => __( 'Descending', 'bb-theme-builder' ),
+					),
+				),
+				'show_events'   => array(
+					'type'    => 'select',
+					'label'   => __( 'Show Events', 'bb-theme-builder' ),
+					'default' => 'future',
+					'options' => array(
+						'future' => __( 'Future Events', 'bb-theme-builder' ),
+						'past'   => __( 'Past Events', 'bb-theme-builder' ),
+						'today'  => __( 'Todays Events', 'bb-theme-builder' ),
+						'all'    => __( 'All Events', 'bb-theme-builder' ),
 					),
 				),
 			),
