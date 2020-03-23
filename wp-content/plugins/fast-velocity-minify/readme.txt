@@ -3,8 +3,8 @@ Contributors: Alignak
 Tags: PHP Minify, Lighthouse, GTmetrix, Pingdom, Pagespeed, CSS Merging, JS Merging, CSS Minification, JS Minification, Speed Optimization, HTML Minification, Performance, Optimization, FVM
 Requires at least: 4.7
 Requires PHP: 5.6
-Stable tag: 2.7.9
-Tested up to: 5.3
+Stable tag: 2.8.1
+Tested up to: 5.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -197,6 +197,13 @@ Please backup your site before updating. Version 3.0 will have a major code rewr
 
 
 == Changelog ==
+
+= 2.8.1 [2020.03.15] =
+* added filter for the fvm_get_url function
+
+= 2.8.0 [2020.03.10] =
+* improved compatibility with Thrive Architect editor
+* improved compatibility with Divi theme
 
 = 2.7.9 [2020.02.18] =
 * changed cache file names hash to longer names to avoid colisions on elementor plugin
