@@ -3,6 +3,9 @@
 	background-color: <?php echo pp_get_color_value( $settings->form_bg_color ); ?>;
 	<?php } ?>
 }
+.fl-node-<?php echo $id; ?> .pp-login-form-wrap.pp-event-disabled:before {
+	background-image: url(<?php echo BB_POWERPACK_URL; ?>images/spinner.gif);
+}
 <?php
 // Form padding.
 FLBuilderCSS::dimension_field_rule( array(
@@ -130,7 +133,7 @@ FLBuilderCSS::typography_field_rule( array(
 FLBuilderCSS::responsive_rule( array(
 	'settings'		=> $settings,
 	'setting_name'	=> 'button_align',
-	'selector'		=> ".fl-node-$id .pp-field-group.pp-field-type-submit, .fl-node-$id .pp-field-group.pp-field-type-link",
+	'selector'		=> ".fl-node-$id .pp-field-group.pp-field-type-submit, .fl-node-$id .pp-field-group.pp-field-type-link, .fl-node-$id .pp-field-group.pp-field-type-recaptcha",
 	'prop'			=> 'text-align'
 ) );
 
@@ -184,3 +187,185 @@ FLBuilderCSS::typography_field_rule( array(
 	border-color: #<?php echo $settings->button_border_hover_color; ?>;
 	<?php } ?>
 }
+
+<?php
+/******************************
+ * Social Login Buttons.
+ ******************************/
+?>
+.fl-node-<?php echo $id; ?> .pp-login-form .pp-social-login-wrap {
+	<?php if ( 'left' === $settings->social_button_alignment ) { ?>
+		justify-content: flex-start;
+		align-items: flex-start;
+	<?php } elseif ( 'right' === $settings->social_button_alignment ) { ?>
+		justify-content: flex-end;
+		align-items: flex-end;
+	<?php } ?>
+}
+<?php
+// Social Buttons width.
+FLBuilderCSS::responsive_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'social_button_width',
+	'selector'		=> ".fl-node-$id .pp-login-form .pp-social-login-wrap .pp-social-login-button",
+	'prop'			=> 'width',
+	'unit'			=> $settings->social_button_width_unit
+) );
+
+// Social Buttons Spacing.
+FLBuilderCSS::responsive_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'social_button_spacing',
+	'selector'		=> ".fl-node-$id .pp-login-form .pp-social-login-wrap .pp-social-login-button",
+	'prop'			=> 'inline' === $settings->social_button_layout ? 'margin-right' : 'margin-bottom',
+	'unit'			=> 'px',
+) );
+
+// Social Buttons Typography.
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'social_button_typography',
+	'selector'		=> ".fl-node-$id .pp-login-form .pp-social-login-button .pp-social-login-label",
+) );
+?>
+
+<?php
+// Button Type - Custom
+if ( 'custom' === $settings->social_button_type ) :
+	// Facebook - Button border.
+	FLBuilderCSS::border_field_rule( array(
+		'settings'		=> $settings,
+		'setting_name'	=> 'social_button_fb_border',
+		'selector'		=> ".fl-node-$id .pp-login-form .pp-social-login-button.pp-fb-login-button"
+	) );
+	// Google - Button border.
+	FLBuilderCSS::border_field_rule( array(
+		'settings'		=> $settings,
+		'setting_name'	=> 'social_button_google_border',
+		'selector'		=> ".fl-node-$id .pp-login-form .pp-social-login-button.pp-google-login-button"
+	) );
+?>
+.fl-node-<?php echo $id; ?> .pp-login-form .pp-social-login-button.pp-fb-login-button {
+	<?php if ( ! empty( $settings->social_button_fb_color ) ) { ?>
+		color: #<?php echo $settings->social_button_fb_color; ?>;
+	<?php } ?>
+	<?php if ( ! empty( $settings->social_button_fb_bg_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->social_button_fb_bg_color ); ?>;
+	<?php } ?>
+}
+.fl-node-<?php echo $id; ?> .pp-login-form .pp-social-login-button.pp-fb-login-button:hover {
+	<?php if ( ! empty( $settings->social_button_fb_hover_color ) ) { ?>
+		color: #<?php echo $settings->social_button_fb_hover_color; ?>;
+	<?php } ?>
+	<?php if ( ! empty( $settings->social_button_fb_hover_bg_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->social_button_fb_hover_bg_color ); ?>;
+	<?php } ?>
+	<?php if ( ! empty( $settings->social_button_fb_border_hover_color ) ) { ?>
+		border-color: #<?php echo $settings->social_button_fb_border_hover_color; ?>;
+	<?php } ?>
+}
+.fl-node-<?php echo $id; ?> .pp-login-form .pp-social-login-button.pp-fb-login-button span svg path {
+	<?php if ( ! empty( $settings->social_button_fb_color ) ) { ?>
+		fill: #<?php echo $settings->social_button_fb_color; ?>;
+	<?php } ?>
+}
+.fl-node-<?php echo $id; ?> .pp-login-form .pp-social-login-button.pp-fb-login-button:hover span svg path {
+	<?php if ( ! empty( $settings->social_button_fb_hover_color ) ) { ?>
+		fill: #<?php echo $settings->social_button_fb_hover_color; ?>;
+	<?php } ?>
+}
+<?php // Google Button. ?>
+.fl-node-<?php echo $id; ?> .pp-login-form .pp-social-login-button.pp-google-login-button {
+	<?php if ( ! empty( $settings->social_button_google_color ) ) { ?>
+		color: #<?php echo $settings->social_button_google_color; ?>;
+	<?php } ?>
+	<?php if ( ! empty( $settings->social_button_google_bg_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->social_button_google_bg_color ); ?>;
+	<?php } ?>
+}
+.fl-node-<?php echo $id; ?> .pp-login-form .pp-social-login-button.pp-google-login-button:hover {
+	<?php if ( ! empty( $settings->social_button_google_hover_color ) ) { ?>
+		color: #<?php echo $settings->social_button_google_hover_color; ?>;
+	<?php } ?>
+	<?php if ( ! empty( $settings->social_button_google_hover_bg_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->social_button_google_hover_bg_color ); ?>;
+	<?php } ?>
+	<?php if ( ! empty( $settings->social_button_google_border_hover_color ) ) { ?>
+		border-color: #<?php echo $settings->social_button_google_border_hover_color; ?>;
+	<?php } ?>
+}
+.fl-node-<?php echo $id; ?> .pp-login-form .pp-social-login-button.pp-google-login-button span svg path {
+	<?php if ( ! empty( $settings->social_button_google_color ) ) { ?>
+		fill: #<?php echo $settings->social_button_google_color; ?>;
+	<?php } ?>
+}
+.fl-node-<?php echo $id; ?> .pp-login-form .pp-social-login-button.pp-google-login-button:hover span svg path {
+	<?php if ( ! empty( $settings->social_button_google_hover_color ) ) { ?>
+		fill: #<?php echo $settings->social_button_google_hover_color; ?>;
+	<?php } ?>
+}
+<?php endif; ?>
+
+<?php
+// Separator.
+if ( isset( $settings->separator ) && 'no' !== $settings->separator ) :
+	// Separator Text Typography.
+	FLBuilderCSS::typography_field_rule( array(
+		'settings'		=> $settings,
+		'setting_name'	=> 'separator_text_typography',
+		'selector'		=> ".fl-node-$id .pp-login-form .pp-login-form-sep-text",
+	) );
+
+	// Separator width.
+	FLBuilderCSS::responsive_rule( array(
+		'settings'		=> $settings,
+		'setting_name'	=> 'separator_width',
+		'selector'		=> ".fl-node-$id .pp-login-form-sep-text:before, .fl-node-$id .pp-login-form-sep-text:after",
+		'prop'			=> 'width',
+		'unit'			=> 'px',
+	) );
+
+	// Separator spacing.
+	FLBuilderCSS::dimension_field_rule( array(
+		'settings'		=> $settings,
+		'setting_name'	=> 'separator_spacing',
+		'selector'		=> ".fl-node-$id .pp-login-form-sep",
+		'unit'			=> 'px',
+		'props'			=> array(
+			'margin-top' 		=> 'separator_spacing_top',
+			'margin-right' 		=> 'separator_spacing_right',
+			'margin-bottom' 	=> 'separator_spacing_bottom',
+			'margin-left' 		=> 'separator_spacing_left',
+		),
+	) );
+	?>
+	.fl-node-<?php echo $id; ?> .pp-login-form-sep {
+		text-align: <?php echo $settings->social_button_alignment; ?>;
+	}
+	<?php if ( 'left' === $settings->social_button_alignment ) { ?>
+		.fl-node-<?php echo $id; ?> .pp-login-form-sep-text {
+			padding-left: 0;
+		}
+		.fl-node-<?php echo $id; ?> .pp-login-form-sep-text:before {
+			content: none;
+		}
+	<?php } elseif ( 'right' === $settings->social_button_alignment ) { ?>
+		.fl-node-<?php echo $id; ?> .pp-login-form-sep-text {
+			padding-right: 0;
+		}
+		.fl-node-<?php echo $id; ?> .pp-login-form-sep-text:after {
+			content: none;
+		}
+	<?php } ?>
+	.fl-node-<?php echo $id; ?> .pp-login-form-sep-text:before,
+	.fl-node-<?php echo $id; ?> .pp-login-form-sep-text:after {
+		<?php if ( ! empty( $settings->separator_color ) ) { ?>
+			color: #<?php echo $settings->separator_color; ?>;
+		<?php } ?>
+	}
+	.fl-node-<?php echo $id; ?> .pp-login-form-sep-text {
+		<?php if ( ! empty( $settings->separator_text_color ) ) { ?>
+			color: #<?php echo $settings->separator_text_color; ?>;
+		<?php } ?>
+	}
+<?php endif; ?>

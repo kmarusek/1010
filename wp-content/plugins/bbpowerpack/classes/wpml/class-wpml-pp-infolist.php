@@ -11,7 +11,7 @@ class WPML_PP_Infolist extends WPML_Beaver_Builder_Module_With_Items {
 	}
 
 	protected function get_title( $field ) {
-		switch( $field ) {
+		switch ( $field ) {
 			case 'title':
 				return esc_html__( 'InfoList - Title', 'bb-powerpack' );
 
@@ -30,7 +30,7 @@ class WPML_PP_Infolist extends WPML_Beaver_Builder_Module_With_Items {
 	}
 
 	protected function get_editor_type( $field ) {
-		switch( $field ) {
+		switch ( $field ) {
 			case 'title':
 			case 'read_more_text':
 				return 'LINE';

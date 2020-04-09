@@ -1,5 +1,8 @@
 <div class="pp-content-grid-image pp-post-image">
-	<?php $featured_image_url = wp_get_attachment_url( get_post_thumbnail_id( get_the_ID() ) ); ?>
+	<?php
+		$featured_image_src = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() ), $settings->image_thumb_size );
+		$featured_image_url = $featured_image_src ? $featured_image_src[0] : wp_get_attachment_url( get_post_thumbnail_id( get_the_ID() ) );
+	?>
     <?php if ( $featured_image_url && '' != $featured_image_url ) { ?>
 		<?php if ( 'style-9' == $settings->post_grid_style_select ) { ?>
 			<div class="pp-post-featured-img" style="background-image: url('<?php echo $featured_image_url; ?>');">

@@ -1,4 +1,9 @@
-<?php $padding = $settings->logo_grid_padding_top + $settings->logo_grid_padding_bottom + $settings->logo_grid_padding_left + $settings->logo_grid_padding_right; ?>
+<?php
+$padding_top = empty( $settings->logo_grid_padding_top ) ? '0' : $settings->logo_grid_padding_top;
+$padding_right = empty( $settings->logo_grid_padding_right ) ? '0' : $settings->logo_grid_padding_right;
+$padding_bottom = empty( $settings->logo_grid_padding_bottom ) ? '0' : $settings->logo_grid_padding_bottom;
+$padding_left = empty( $settings->logo_grid_padding_left ) ? '0' : $settings->logo_grid_padding_left;
+$padding = $padding_top + $padding_right + $padding_bottom + $padding_left; ?>
 
 (function($) {
 
@@ -81,7 +86,7 @@
 				slideWidth: <?php echo $logo_carousel_width; ?>,
 			<?php } ?>
 			moveSlides: moveSlides,
-			slideMargin: <?php echo $settings->logos_carousel_spacing; ?>,
+			slideMargin: <?php echo ( $settings->logos_carousel_spacing ) ? $settings->logos_carousel_spacing : '0'; ?>,
 			minSlides: minSlides,
 			maxSlides: maxSlides,
 			autoStart : <?php echo $settings->logo_slider_auto_play; ?>,

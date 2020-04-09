@@ -79,7 +79,7 @@ FLBuilderCSS::dimension_field_rule( array(
 ) );
 ?>
 .fl-node-<?php echo $id; ?> .pp-tabs-panels .pp-tabs-panel-content {
-	<?php if( $settings->content_bg_color ) { ?>background-color: #<?php echo $settings->content_bg_color; ?>;<?php } ?>
+	<?php if( $settings->content_bg_color ) { ?>background-color: <?php echo pp_get_color_value( $settings->content_bg_color ); ?>;<?php } ?>
 	<?php if( $settings->content_bg_type == 'image' && $settings->content_bg_image ) { ?>
 		background-image: url( <?php echo $settings->content_bg_image_src; ?> );
 		background-size: <?php echo $settings->content_bg_size; ?>;

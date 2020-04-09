@@ -53,7 +53,7 @@
 
             this.swipers.main = new Swiper(this.elements.mainSwiper, swiperOptions.main);
 
-            if (this._isSlideshow()) {
+            if (this._isSlideshow() && 1 < this._getSlidesCount()) {
                 this.swipers.main.controller.control = this.swipers.thumbs = new Swiper(this.elements.thumbSwiper, swiperOptions.thumbs);
                 this.swipers.thumbs.controller.control = this.swipers.main;
             }
@@ -227,16 +227,17 @@
                 slidesPerView: this._getSlidesPerView(),
                 slidesPerGroup: this._getSlidesToScrollDesktop(),
                 spaceBetween: this._getSpaceBetween(),
-                loop: true,
+                loop: 'undefined' !== typeof this.settings.loop ? this.settings.loop : true,
                 loopedSlides: this._getSlidesCount(),
                 speed: this.settings.speed,
-                breakpoints: {}
+				breakpoints: {}
 			};
 			
 			if ( ! this.settings.isBuilderActive && this.settings.autoplay_speed !== false ) {
 				options.autoplay = {
 					delay: this.settings.autoplay_speed,
-					disableOnInteraction: !!this.settings.pause_on_interaction
+					disableOnInteraction: !!this.settings.pause_on_interaction,
+					stopOnLastSlide: 'undefined' !== typeof this.settings.stopOnLastSlide ? this.settings.stopOnLastSlide : false,
 				};
 			}
 			

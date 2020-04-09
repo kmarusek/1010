@@ -30,7 +30,11 @@ class PPNinjaFormModule extends FLBuilderModule {
      */
     public static function ninja_form_titles()
     {
-        $options = array( '' => __('None', 'bb-powerpack') );
+		$options = array( '' => __('None', 'bb-powerpack') );
+		
+		if ( ! isset( $_GET['fl_builder'] ) ) {
+			return $options;
+		}
 
         if ( function_exists( 'Ninja_Forms' ) ) {
             if ( get_option( 'ninja_forms_load_deprecated' ) == FALSE ) {
@@ -453,7 +457,7 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                     'title_margin' 	=> array(
                         'type' 			=> 'pp-multitext',
                         'label' 		=> __('Margin', 'bb-powerpack'),
-                        'description'   => __( 'px', 'Value unit for font size. Such as: "14 px"', 'bb-powerpack' ),
+                        'description'   => 'px',
                         'default'       => array(
                             'top' => 10,
                             'bottom' => 10,
@@ -492,7 +496,7 @@ FLBuilder::register_module('PPNinjaFormModule', array(
                     'description_margin' 	=> array(
                         'type' 			=> 'pp-multitext',
                         'label' 		=> __('Margin', 'bb-powerpack'),
-                        'description'   => __( 'px', 'Value unit for margin. Such as: "14 px"', 'bb-powerpack' ),
+                        'description'   => 'px',
                         'default'       => array(
                             'top' => 10,
                             'bottom' => 10,

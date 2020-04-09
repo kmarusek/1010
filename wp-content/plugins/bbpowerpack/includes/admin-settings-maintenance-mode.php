@@ -33,6 +33,21 @@
 	</tr>
 	<tr align="top">
 		<th scope="row" valign="top">
+			<label for="bb_powerpack_maintenance_mode_template"><?php esc_html_e('Page', 'bb-powerpack'); ?></label>
+		</th>
+		<td>
+			<?php $selected = BB_PowerPack_Admin_Settings::get_option('bb_powerpack_maintenance_mode_template', true); ?>
+			<select id="bb_powerpack_maintenance_mode_template" name="bb_powerpack_maintenance_mode_template" style="min-width: 200px;">
+				<?php echo BB_PowerPack_Maintenance_Mode::get_templates( $selected ); ?>
+			</select>
+			<p class="description">
+				<span class="desc--template-select" style="color: red;"><?php _e('To enable maintenance mode you have to set a template for the maintenance mode page.'); ?></span>
+				<span class="desc--template-edit"><a href="" class="edit-template" target="_blank"><?php _e('Edit Page'); ?></a></span>
+			</p>
+		</td>
+	</tr>
+	<tr align="top">
+		<th scope="row" valign="top">
 			<label for="bb_powerpack_maintenance_mode_access"><?php esc_html_e('Who Can Access', 'bb-powerpack'); ?></label>
 		</th>
 		<td>
@@ -68,16 +83,51 @@
 	</tr>
 	<tr align="top">
 		<th scope="row" valign="top">
-			<label for="bb_powerpack_maintenance_mode_template"><?php esc_html_e('Page', 'bb-powerpack'); ?></label>
+			<label for="bb_powerpack_maintenance_mode_access_type"><?php esc_html_e('Include/Exclude URLs', 'bb-powerpack'); ?></label>
 		</th>
 		<td>
-			<?php $selected = BB_PowerPack_Admin_Settings::get_option('bb_powerpack_maintenance_mode_template', true); ?>
-			<select id="bb_powerpack_maintenance_mode_template" name="bb_powerpack_maintenance_mode_template" style="min-width: 200px;">
-				<?php echo BB_PowerPack_Maintenance_Mode::get_templates( $selected ); ?>
+			<select id="bb_powerpack_maintenance_mode_access_type" name="bb_powerpack_maintenance_mode_access_type" style="min-width: 200px;">
+				<?php $selected = BB_PowerPack_Admin_Settings::get_option('bb_powerpack_maintenance_mode_access_type', true); ?>
+				<option value="entire_site" <?php selected( $selected, 'entire_site' ); ?>><?php _e('Show on the Entire Site', 'bb-powerpack'); ?></option>
+				<option value="include_urls" <?php selected( $selected, 'include_urls' ); ?>><?php _e('Include URLs', 'bb-powerpack'); ?></option>
+				<option value="exclude_urls" <?php selected( $selected, 'exclude_urls' ); ?>><?php _e('Exclude URLs', 'bb-powerpack'); ?></option>
 			</select>
 			<p class="description">
-				<span class="desc--template-select" style="color: red;"><?php _e('To enable maintenance mode you have to set a template for the maintenance mode page.'); ?></span>
-				<span class="desc--template-edit"><a href="" class="edit-template" target="_blank"><?php _e('Edit Page'); ?></a></span>
+				<span class="desc--entire_site" style="display: none;"><?php _e('By default the Maintenance Mode/Coming Soon is shown on the entire site.', 'bb-powerpack'); ?></span>
+				<span class="desc--include_urls" style="display: none;"><?php _e('Maintenance Mode/Coming Soon will be shown on these URLs only.', 'bb-powerpack'); ?></span>
+				<span class="desc--exclude_urls" style="display: none;"><?php _e('Maintenance Mode/Coming Soon will not be shown on these URLs.', 'bb-powerpack'); ?></span>
+			</p>
+		</td>
+	</tr>
+	<tr align="top" class="field-maintenance_mode_access_urls" style="display: none;">
+		<th scope="row" valign="top">
+			<label for="bb_powerpack_maintenance_mode_access_urls"></label>
+		</th>
+		<td>
+			<?php $urls = BB_PowerPack_Admin_Settings::get_option('bb_powerpack_maintenance_mode_access_urls', true); ?>
+			<textarea
+				id="bb_powerpack_maintenance_mode_access_urls"
+				name="bb_powerpack_maintenance_mode_access_urls"
+				style="min-width: 380px;"
+			><?php echo $urls; ?></textarea>
+			<p class="description">
+				<?php echo __( 'Enter one URL fragment per line. Use * character as a wildcard. Example: category/peace/* to target all posts in category peace.', 'bb-powerpack' ); ?>
+			</p>
+		</td>
+	</tr>
+	<tr align="top">
+		<th scope="row" valign="top">
+			<label for="bb_powerpack_maintenance_mode_ip_whitelist"><?php esc_html_e( 'IP Whitelist', 'bb-powerpack' ); ?></label>
+		</th>
+		<td>
+			<?php $ips = BB_PowerPack_Admin_Settings::get_option('bb_powerpack_maintenance_mode_ip_whitelist', true); ?>
+			<textarea
+				id="bb_powerpack_maintenance_mode_ip_whitelist"
+				name="bb_powerpack_maintenance_mode_ip_whitelist"
+				style="min-width: 380px;"
+			><?php echo $ips; ?></textarea>
+			<p class="description">
+				<?php echo __( 'Enter one IP address per line.', 'bb-powerpack' ); ?>
 			</p>
 		</td>
 	</tr>
@@ -105,6 +155,15 @@
 		}
 		$(this).parent().find('.description span').hide();
 		$(this).parent().find('.desc--' + $(this).val()).show();
+	}).trigger('change');
+
+	$('#bb_powerpack_maintenance_mode_access_type').on('change', function() {
+		$(this).parent().find('.description span').hide();
+		$(this).parent().find('.desc--' + $(this).val()).show();
+		$('.field-maintenance_mode_access_urls').hide();
+		if ( $(this).val() !== 'entire_site' ) {
+			$('.field-maintenance_mode_access_urls').show();
+		}
 	}).trigger('change');
 
 	$('#bb_powerpack_maintenance_mode_type').on('change', function() {

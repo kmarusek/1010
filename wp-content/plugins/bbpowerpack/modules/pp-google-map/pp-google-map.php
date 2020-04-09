@@ -26,9 +26,23 @@ class PPGoogleMapModule extends FLBuilderModule {
 		);
 	}
 
-	public function update( $settings ) {
-		return $settings;
+	public function enqueue_scripts() {
+		$url = pp_get_google_api_url();
+		if ( $url ) {
+			$this->add_js(
+				'pp-google-map',
+				$url,
+				array( 'jquery' ),
+				'3.0',
+				true
+			);
+
+			if ( isset( $this->settings->marker_clustering ) && 'yes' === $this->settings->marker_clustering ) {
+				$this->add_js( 'pp-cluster' );
+			}
+		}
 	}
+
 	public static function get_general_fields() {
 		$fields = array(
 			'map_source'        => array(
@@ -57,6 +71,7 @@ class PPGoogleMapModule extends FLBuilderModule {
 				'multiple'     => true,
 			),
 		);
+
 		if ( class_exists( 'acf' ) ) {
 			$fields['map_source']['options']['acf']          = __( 'ACF Repeater Field', 'bb-powerpack' );
 			$fields['map_source']['toggle']['acf']['fields'] = array( 'acf_repeater_name', 'acf_map_name', 'acf_map_latitude', 'acf_map_longitude', 'acf_marker_point', 'acf_marker_img', 'acf_enable_info' );
@@ -66,29 +81,33 @@ class PPGoogleMapModule extends FLBuilderModule {
 				'label'       => __( 'ACF Repeater Field Name', 'bb-powerpack' ),
 				'connections' => array( 'string' ),
 			);
+
 			$fields['acf_map_name']         = array(
 				'type'        => 'text',
 				'label'       => __( 'Location Name', 'bb-powerpack' ),
-				'help'        => __( 'Location Name to identify while editing', 'bb-powerpack' ),
+				'help'        => __( 'A browser based tooltip will be applied on marker.', 'bb-powerpack' ),
 				'connections' => array( 'string' ),
 			);
+
 			$fields['acf_map_latitude']     = array(
 				'type'        => 'text',
-				'label'       => __( 'Latitude', 'bb-powerpack' ),
+				'label'       => __( 'Latitude (ACF Field)', 'bb-powerpack' ),
 				'connections' => array( 'string' ),
 			);
+
 			$fields['acf_map_longitude']    = array(
 				'type'        => 'text',
-				'label'       => __( 'Longitude', 'bb-powerpack' ),
+				'label'       => __( 'Longitude (ACF Field)', 'bb-powerpack' ),
 				'connections' => array( 'string' ),
 			);
+
 			$fields['acf_marker_point']     = array(
-				'type'    => 'select',
+				'type'    => 'pp-switch',
 				'label'   => __( 'Marker Point Icon', 'bb-powerpack' ),
 				'default' => 'default',
 				'options' => array(
-					'default' => 'Default',
-					'custom'  => 'Custom',
+					'default' => __( 'Default', 'bb-powerpack' ),
+					'custom'  => __( 'Custom', 'bb-powerpack' ),
 				),
 				'toggle'  => array(
 					'custom' => array(
@@ -96,26 +115,25 @@ class PPGoogleMapModule extends FLBuilderModule {
 					),
 				),
 			);
+
 			$fields['acf_marker_img']       = array(
 				'type'        => 'photo',
 				'label'       => __( 'Custom Marker', 'bb-powerpack' ),
 				'show_remove' => true,
 				'connections' => array( 'photo' ),
 			);
+
 			$fields['acf_enable_info']      = array(
-				'type'    => 'select',
-				'label'   => __( 'Show Tooltip', 'bb-powerpack' ),
+				'type'    => 'pp-switch',
+				'label'   => __( 'Show Info Window', 'bb-powerpack' ),
 				'default' => 'no',
-				'options' => array(
-					'yes' => __( 'Yes', 'bb-powerpack' ),
-					'no'  => __( 'No', 'bb-powerpack' ),
-				),
 				'toggle'  => array(
 					'yes' => array(
 						'fields' => array( 'acf_info_window_text' ),
 					),
 				),
 			);
+
 			$fields['acf_info_window_text'] = array(
 				'type'          => 'editor',
 				'label'         => '',
@@ -124,10 +142,11 @@ class PPGoogleMapModule extends FLBuilderModule {
 				'connections'   => array( 'string', 'html' ),
 			);
 		}
+
 		if ( function_exists( 'acf_add_options_page' ) ) {
 			$fields['map_source']['options']['acf_options_page']          = __( 'ACF Option Page', 'bb-powerpack' );
 			$fields['map_source']['toggle']['acf_options_page']['fields'] = array( 'acf_options_page_repeater_name', 'acf_options_map_name', 'acf_options_map_latitude', 'acf_options_map_longitude', 'acf_options_marker_point', 'acf_options_marker_img', 'acf_options_enable_info' );
-			$fields['map_source']['help']                                 = __( 'To make use of the \'ACF Option Page\' feature, you will need ACF PRO (ACF v5), or the options page add-on (ACF v4)', 'bb-powerpack' );
+			$fields['map_source']['help']                                 = __( 'To use the "ACF Option Page" feature, you will need ACF PRO (ACF v5), or the options page add-on (ACF v4)', 'bb-powerpack' );
 
 			$fields['acf_options_page_repeater_name'] = array(
 				'type'        => 'text',
@@ -141,23 +160,26 @@ class PPGoogleMapModule extends FLBuilderModule {
 				'help'        => __( 'Location Name to identify while editing', 'bb-powerpack' ),
 				'connections' => array( 'string' ),
 			);
+
 			$fields['acf_options_map_latitude']     = array(
 				'type'        => 'text',
-				'label'       => __( 'Latitude', 'bb-powerpack' ),
+				'label'       => __( 'Latitude (ACF Field)', 'bb-powerpack' ),
 				'connections' => array( 'string' ),
 			);
+
 			$fields['acf_options_map_longitude']    = array(
 				'type'        => 'text',
-				'label'       => __( 'Longitude', 'bb-powerpack' ),
+				'label'       => __( 'Longitude (ACF Field)', 'bb-powerpack' ),
 				'connections' => array( 'string' ),
 			);
+
 			$fields['acf_options_marker_point']     = array(
 				'type'    => 'select',
 				'label'   => __( 'Marker Point Icon', 'bb-powerpack' ),
 				'default' => 'default',
 				'options' => array(
-					'default' => 'Default',
-					'custom'  => 'Custom',
+					'default' => __( 'Default', 'bb-powerpack' ),
+					'custom'  => __( 'Custom', 'bb-powerpack' ),
 				),
 				'toggle'  => array(
 					'custom' => array(
@@ -165,15 +187,17 @@ class PPGoogleMapModule extends FLBuilderModule {
 					),
 				),
 			);
+
 			$fields['acf_options_marker_img']       = array(
 				'type'        => 'photo',
 				'label'       => __( 'Custom Marker', 'bb-powerpack' ),
 				'show_remove' => true,
 				'connections' => array( 'photo' ),
 			);
+
 			$fields['acf_options_enable_info']      = array(
 				'type'    => 'select',
-				'label'   => __( 'Show Tooltip', 'bb-powerpack' ),
+				'label'   => __( 'Show Info Window', 'bb-powerpack' ),
 				'default' => 'no',
 				'options' => array(
 					'yes' => __( 'Yes', 'bb-powerpack' ),
@@ -185,6 +209,7 @@ class PPGoogleMapModule extends FLBuilderModule {
 					),
 				),
 			);
+
 			$fields['acf_options_info_window_text'] = array(
 				'type'          => 'editor',
 				'label'         => '',
@@ -196,78 +221,129 @@ class PPGoogleMapModule extends FLBuilderModule {
 
 		return $fields;
 	}
+
 	public function get_cpt_data() {
 		if ( ! isset( $this->settings->post_slug ) || empty( $this->settings->post_slug ) ) {
 			return;
 		}
+
 		$data = array();
+		$settings = $this->settings;
 
-		$post_type = ! empty( $this->settings->post_slug ) ? $this->settings->post_slug : 'post';
-		$cpt_count = ! empty( $this->settings->post_count ) || '-1' !== $this->settings->post_count ? $this->settings->post_count : '-1';
+		$post_type = ! empty( $settings->post_slug ) ? $settings->post_slug : 'post';
+		$post_count = ! empty( $settings->post_count ) || '-1' !== $settings->post_count ? $settings->post_count : '-1';
 
-		$var_tax_type     = 'posts_' . $post_type . '_tax_type';
-		$tax_type         = '';
-		$var_cat_matching = '';
-		$var_cat          = '';
-
-		if ( isset( $this->settings->$var_tax_type ) ) {
-			$tax_type         = $this->settings->$var_tax_type;
-			$var_cat          = 'tax_' . $post_type . '_' . $tax_type;
-			$var_cat_matching = $var_cat . '_matching';
-		}
-
-		$cat_match = isset( $this->settings->$var_cat_matching ) ? $this->settings->$var_cat_matching : false;
-		$ids       = isset( $this->settings->$var_cat ) ? explode( ',', $this->settings->$var_cat ) : array();
-		$taxonomy  = isset( $tax_type ) ? $tax_type : '';
-		$tax_query = array();
-
-		if ( isset( $ids[0] ) && ! empty( $ids[0] ) ) {
-			if ( $cat_match && 'related' !== $cat_match ) {
-				$tax_query = array(
-					'relation' => 'AND',
-					array(
-						'taxonomy' => $taxonomy,
-						'field'    => 'term_id',
-						'terms'    => $ids,
-					),
-				);
-			} elseif ( ! $cat_match || 'related' === $cat_match ) {
-
-				$tax_query = array(
-					'relation' => 'AND',
-					array(
-						'taxonomy'    => $taxonomy,
-						'field'       => 'term_id',
-						'terms'       => $ids,
-						'operator'    => 'NOT IN', // exclude
-						'post_parent' => 0, // top level only
-					),
-				);
-			}
-		}
-		$posts = get_posts(
-			array(
-				'post_type'   => $post_type,
-				'post_status' => 'publish',
-				'numberposts' => $cpt_count,
-				'order'       => 'ASC',
-				'tax_query'   => $tax_query,
-			)
+		$post_args = array(
+			'post_type'   => $post_type,
+			'post_status' => 'publish',
+			'numberposts' => $post_count,
 		);
-		foreach ( $posts as $row ) {
+
+		if ( is_tax() ) {
+			$post_args['tax_query'] = array(
+				array(
+					'taxonomy' => get_queried_object()->taxonomy,
+					'field'	=> 'slug',
+					'terms' => get_queried_object()->slug,
+				)
+			);
+		} else {
+
+			$taxonomies = FLBuilderLoop::taxonomies( $post_type );
+
+			foreach ( $taxonomies as $tax_slug => $tax ) {
+
+				$tax_value = '';
+				$term_ids  = array();
+				$operator  = 'IN';
+
+				// Get the value of the suggest field.
+				if ( isset( $settings->{'tax_' . $post_type . '_' . $tax_slug} ) ) {
+					// New style slug.
+					$tax_value = $settings->{'tax_' . $post_type . '_' . $tax_slug};
+				} elseif ( isset( $settings->{'tax_' . $tax_slug} ) ) {
+					// Old style slug for backwards compat.
+					$tax_value = $settings->{'tax_' . $tax_slug};
+				}
+
+				// Get the term IDs array.
+				if ( ! empty( $tax_value ) ) {
+					$term_ids = explode( ',', $tax_value );
+				}
+
+				// Handle matching settings.
+				if ( isset( $settings->{'tax_' . $post_type . '_' . $tax_slug . '_matching'} ) ) {
+
+					$tax_matching = $settings->{'tax_' . $post_type . '_' . $tax_slug . '_matching'};
+
+					if ( ! $tax_matching ) {
+						// Do not match these terms.
+						$operator = 'NOT IN';
+					} elseif ( 'related' === $tax_matching ) {
+						// Match posts by related terms from the global post.
+						global $post;
+						$terms 	 = wp_get_post_terms( $post->ID, $tax_slug );
+						$related = array();
+
+						foreach ( $terms as $term ) {
+							if ( ! in_array( $term->term_id, $term_ids ) ) {
+								$related[] = $term->term_id;
+							}
+						}
+
+						if ( empty( $related ) ) {
+							// If no related terms, match all except those in the suggest field.
+							$operator = 'NOT IN';
+						} else {
+
+							// Don't include posts with terms selected in the suggest field.
+							$post_args['tax_query'][] = array(
+								'taxonomy'	=> $tax_slug,
+								'field'		=> 'id',
+								'terms'		=> $term_ids,
+								'operator'  => 'NOT IN',
+							);
+
+							// Set the term IDs to the related terms.
+							$term_ids = $related;
+						}
+					}
+				} // End if().
+
+				if ( ! empty( $term_ids ) ) {
+
+					$post_args['tax_query'][] = array(
+						'taxonomy'	=> $tax_slug,
+						'field'		=> 'id',
+						'terms'		=> $term_ids,
+						'operator'  => $operator,
+					);
+				}
+			} // End foreach().
+		}
+
+		$posts = get_posts( $post_args );
+
+		global $post;
+
+		foreach ( $posts as $post ) {
+			setup_postdata( $post );
 			$item                   = new stdClass;
-			$item->map_name         = ! empty( $this->settings->post_map_name ) ? $this->settings->post_map_name : '';
-			$item->map_latitude     = ! empty( $this->settings->post_map_latitude ) ? $this->settings->post_map_latitude : '';
-			$item->map_longitude    = ! empty( $this->settings->post_map_longitude ) ? $this->settings->post_map_longitude : '';
-			$item->marker_point     = ! empty( $this->settings->post_marker_point ) ? $this->settings->post_marker_point : 'default';
-			$item->marker_img       = ! empty( $this->settings->post_marker_img ) ? $this->settings->post_marker_img : '';
-			$item->enable_info      = ! empty( $this->settings->post_enable_info ) ? $this->settings->post_enable_info : 'no';
-			$item->info_window_text = ! empty( $this->settings->post_info_window_text ) ? $this->settings->post_info_window_text : '';
+			$item->map_name         = ! empty( $settings->post_map_name ) ? do_shortcode( $settings->post_map_name ) : get_the_title( $post->ID );
+			$item->map_latitude     = ! empty( $settings->post_map_latitude ) ? do_shortcode( $settings->post_map_latitude ) : '';
+			$item->map_longitude    = ! empty( $settings->post_map_longitude ) ? do_shortcode( $settings->post_map_longitude ) : '';
+			$item->marker_point     = ! empty( $settings->post_marker_point ) ? $settings->post_marker_point : 'default';
+			$item->marker_img       = isset( $settings->post_marker_img_src ) && ! empty( $settings->post_marker_img_src ) ? $settings->post_marker_img_src : '';
+			$item->enable_info      = ! empty( $settings->post_enable_info ) ? $settings->post_enable_info : 'no';
+			$item->info_window_text = ! empty( $settings->post_info_window_text ) ? do_shortcode( $settings->post_info_window_text ) : get_the_title( $post->ID );
 
 			$data[] = $item;
 		}
+		wp_reset_postdata();
+
 		return $data;
 	}
+
 	public function get_acf_data( $post_id = false ) {
 		if ( ( ! isset( $this->settings->acf_repeater_name ) || empty( $this->settings->acf_repeater_name ) ) ) {
 			return;
@@ -275,16 +351,21 @@ class PPGoogleMapModule extends FLBuilderModule {
 
 		$data    = array();
 		$post_id = apply_filters( 'pp_google_map_acf_post_id', $post_id );
+		$settings = $this->settings;
 
-		$repeater_name    = $this->settings->acf_repeater_name;
+		$repeater_name 	  = $settings->acf_repeater_name;
 		$map_name         = $this->settings->acf_map_name;
 		$map_latitude     = $this->settings->acf_map_latitude;
 		$map_longitude    = $this->settings->acf_map_longitude;
 		$marker_point     = $this->settings->acf_marker_point;
-		$marker_img       = $this->settings->acf_marker_img;
+		$marker_img       = $this->settings->acf_marker_img_src;
 		$enable_info      = $this->settings->acf_enable_info;
 		$info_window_text = $this->settings->acf_info_window_text;
 
+		if ( empty( $repeater_name ) ) {
+			return;
+		}
+		
 		$repeater_rows = get_field( $repeater_name, $post_id );
 
 		if ( ! $repeater_rows ) {
@@ -293,33 +374,33 @@ class PPGoogleMapModule extends FLBuilderModule {
 
 		foreach ( $repeater_rows as $row ) {
 			$item                   = new stdClass;
-			$item->map_name         = ! empty( $row[ $map_name ] ) ? $row[ $map_name ] : '';
-			$item->map_latitude     = ! empty( $row[ $map_latitude ] ) ? $row[ $map_latitude ] : '';
-			$item->map_longitude    = ! empty( $row[ $map_longitude ] ) ? $row[ $map_longitude ] : '';
-			$item->marker_point     = ! empty( $row[ $marker_point ] ) ? $row[ $marker_point ] : '';
-			$item->marker_img       = ! empty( $row[ $marker_img ] ) ? $row[ $marker_img ] : '';
-			$item->enable_info      = ! empty( $row[ $enable_info ] ) ? $row[ $enable_info ] : '';
-			$item->info_window_text = ! empty( $row[ $info_window_text ] ) ? $row[ $info_window_text ] : '';
+			$item->map_name         = ! empty( $map_name ) ? $map_name : '';
+			$item->map_latitude     = ! empty( $map_latitude ) ? $map_latitude : '';
+			$item->map_longitude    = ! empty( $map_longitude ) ? $map_longitude : '';
+			$item->marker_point     = ! empty( $marker_point ) ? $marker_point : 'default';
+			$item->marker_img       = ! empty( $marker_img ) ? $marker_img : '';
+			$item->enable_info      = ! empty( $enable_info ) ? $enable_info : 'no';
+			$item->info_window_text = ! empty( $info_window_text ) ? $info_window_text : '';
 
 			$data[] = $item;
 		}
 
 		return $data;
 	}
-	public function get_acf_options_page_data( $post_id = false ) {
+
+	public function get_acf_options_page_data() {
 		if ( ! isset( $this->settings->acf_options_page_repeater_name ) || empty( $this->settings->acf_options_page_repeater_name ) ) {
 			return;
 		}
 
-		$data    = array();
-		$post_id = apply_filters( 'pp_google_map_acf_options_page_post_id', $post_id );
+		$data = array();
 
 		$repeater_name    = $this->settings->acf_options_page_repeater_name;
 		$map_name         = $this->settings->acf_options_map_name;
 		$map_latitude     = $this->settings->acf_options_map_latitude;
 		$map_longitude    = $this->settings->acf_options_map_longitude;
 		$marker_point     = $this->settings->acf_options_marker_point;
-		$marker_img       = $this->settings->acf_options_marker_img;
+		$marker_img       = $this->settings->acf_options_marker_img_src;
 		$enable_info      = $this->settings->acf_options_enable_info;
 		$info_window_text = $this->settings->acf_options_info_window_text;
 
@@ -330,13 +411,13 @@ class PPGoogleMapModule extends FLBuilderModule {
 
 		foreach ( $repeater_rows as $row ) {
 			$item                   = new stdClass;
-			$item->map_name         = ! empty( $row[ $map_name ] ) ? $row[ $map_name ] : '';
-			$item->map_latitude     = ! empty( $row[ $map_latitude ] ) ? $row[ $map_latitude ] : '';
-			$item->map_longitude    = ! empty( $row[ $map_longitude ] ) ? $row[ $map_longitude ] : '';
-			$item->marker_point     = ! empty( $row[ $marker_point ] ) ? $row[ $marker_point ] : '';
-			$item->marker_img       = ! empty( $row[ $marker_img ] ) ? $row[ $marker_img ] : '';
-			$item->enable_info      = ! empty( $row[ $enable_info ] ) ? $row[ $enable_info ] : '';
-			$item->info_window_text = ! empty( $row[ $info_window_text ] ) ? $row[ $info_window_text ] : '';
+			$item->map_name         = ! empty( $map_name ) ? $map_name : '';
+			$item->map_latitude     = ! empty( $map_latitude ) ? $map_latitude : '';
+			$item->map_longitude    = ! empty( $map_longitude ) ? $map_longitude : '';
+			$item->marker_point     = ! empty( $marker_point ) ? $marker_point : 'default';
+			$item->marker_img       = ! empty( $marker_img ) ? $marker_img : '';
+			$item->enable_info      = ! empty( $enable_info ) ? $enable_info : 'no';
+			$item->info_window_text = ! empty( $info_window_text ) ? $info_window_text : '';
 
 			$data[] = $item;
 		}
@@ -374,7 +455,7 @@ FLBuilder::register_module(
 			'title'    => __( 'Locations', 'bb-powerpack' ),
 			'sections' => array(
 				'address_form' => array(
-					'title'  => 'Locations',
+					'title'  => '',
 					'fields' => PPGoogleMapModule::get_general_fields(),
 				),
 				'post_content' => array(
@@ -394,8 +475,8 @@ FLBuilder::register_module(
 							'label'   => __( 'Zoom Type', 'bb-powerpack' ),
 							'default' => 'auto',
 							'options' => array(
-								'auto'   => 'Auto',
-								'custom' => 'Custom',
+								'auto'   => __( 'Auto', 'bb-powerpack' ),
+								'custom' => __( 'Custom', 'bb-powerpack' ),
 							),
 							'toggle'  => array(
 								'custom' => array(
@@ -408,26 +489,26 @@ FLBuilder::register_module(
 							'label'   => __( 'Map Zoom', 'bb-powerpack' ),
 							'default' => '12',
 							'options' => array(
-								'1'  => __( '1', 'bb-powerpack' ),
-								'2'  => __( '2', 'bb-powerpack' ),
-								'3'  => __( '3', 'bb-powerpack' ),
-								'4'  => __( '4', 'bb-powerpack' ),
-								'5'  => __( '5', 'bb-powerpack' ),
-								'6'  => __( '6', 'bb-powerpack' ),
-								'7'  => __( '7', 'bb-powerpack' ),
-								'8'  => __( '8', 'bb-powerpack' ),
-								'9'  => __( '9', 'bb-powerpack' ),
-								'10' => __( '10', 'bb-powerpack' ),
-								'11' => __( '11', 'bb-powerpack' ),
-								'12' => __( '12', 'bb-powerpack' ),
-								'13' => __( '13', 'bb-powerpack' ),
-								'14' => __( '14', 'bb-powerpack' ),
-								'15' => __( '15', 'bb-powerpack' ),
-								'16' => __( '16', 'bb-powerpack' ),
-								'17' => __( '17', 'bb-powerpack' ),
-								'18' => __( '18', 'bb-powerpack' ),
-								'19' => __( '19', 'bb-powerpack' ),
-								'20' => __( '20', 'bb-powerpack' ),
+								'1'  => '1',
+								'2'  => '2',
+								'3'  => '3',
+								'4'  => '4',
+								'5'  => '5',
+								'6'  => '6',
+								'7'  => '7',
+								'8'  => '8',
+								'9'  => '9',
+								'10' => '10',
+								'11' => '11',
+								'12' => '12',
+								'13' => '13',
+								'14' => '14',
+								'15' => '15',
+								'16' => '16',
+								'17' => '17',
+								'18' => '18',
+								'19' => '19',
+								'20' => '20',
 							),
 						),
 						'scroll_zoom'      => array(
@@ -460,6 +541,12 @@ FLBuilder::register_module(
 								'drop'   => __( 'Drop', 'bb-powerpack' ),
 								'bounce' => __( 'Bounce', 'bb-powerpack' ),
 							),
+						),
+						'marker_clustering'	=> array(
+							'type'	=> 'pp-switch',
+							'label'	=> __( 'Marker Clustering', 'bb-powerpack' ),
+							'default' => 'no',
+							'help'	=> __( 'Use marker clustering to display a large number of markers on a map and prevent overlapping.', 'bb-powerpack' ),
 						),
 					),
 				),
@@ -505,7 +592,7 @@ FLBuilder::register_module(
 						),
 						'hide_tooltip'       => array(
 							'type'    => 'pp-switch',
-							'label'   => __( 'Show Tooltips on Click', 'bb-powerpack' ),
+							'label'   => __( 'Show Info Window on Click', 'bb-powerpack' ),
 							'default' => 'no',
 							'options' => array(
 								'yes' => __( 'Yes', 'bb-powerpack' ),
@@ -600,7 +687,7 @@ FLBuilder::register_module(
 						),
 						'map_style1'     => array(
 							'type'        => 'static',
-							'description' => __( '<br/><a target="_blank" rel="noopener" href="https://mapstyle.withgoogle.com/"><b style="color: #0000ff;">Click here</b></a> to get JSON style code to style your map.', 'bb-powerpack' ),
+							'description' => __( '<a target="_blank" rel="noopener" href="https://mapstyle.withgoogle.com/"><b>Click here</b></a> to get JSON style code to style your map.', 'bb-powerpack' ),
 						),
 						'map_style_code' => array(
 							'type'          => 'editor',
@@ -612,11 +699,11 @@ FLBuilder::register_module(
 					),
 				),
 				'info_style' => array(
-					'title'  => __( 'Marker Tooltip', 'bb-powerpack' ),
+					'title'  => __( 'Marker Info', 'bb-powerpack' ),
 					'fields' => array(
 						'info_width'   => array(
 							'type'       => 'unit',
-							'label'      => __( 'Marker Tooltip Max Width', 'bb-powerpack' ),
+							'label'      => __( 'Marker Info Window Width', 'bb-powerpack' ),
 							'default'    => '200',
 							'units'      => array( 'px' ),
 							'slider'     => array(
@@ -668,30 +755,30 @@ FLBuilder::register_settings_form(
 								'type'        => 'text',
 								'label'       => __( 'Location Name', 'bb-powerpack' ),
 								'default'     => 'IdeaBox Creations',
-								'help'        => __( 'Location Name to identify while editing', 'bb-powerpack' ),
+								'help'        => __( 'A browser based tooltip will be applied on marker.', 'bb-powerpack' ),
 								'connections' => array( 'string' ),
 							),
 							'map_latitude'  => array(
 								'type'        => 'text',
 								'label'       => __( 'Latitude', 'bb-powerpack' ),
 								'default'     => '24.553311',
-								'description' => __( '</br></br><a href="https://www.latlong.net/" target="_blank" rel="noopener"><b style="color: #0000ff;">Click here</b></a> to find Latitude and Longitude of your location', 'bb-powerpack' ),
+								'description' => __( '<a href="https://www.latlong.net/" target="_blank" rel="noopener"><b>Click here</b></a> to find Latitude and Longitude of a location.', 'bb-powerpack' ),
 								'connections' => array( 'string' ),
 							),
 							'map_longitude' => array(
 								'type'        => 'text',
 								'label'       => __( 'Longitude', 'bb-powerpack' ),
 								'default'     => '73.694076',
-								'description' => __( '</br></br><a href="https://www.latlong.net/" target="_blank" rel="noopener"><b style="color: #0000ff;">Click here</b></a> to find Latitude and Longitude of your location', 'bb-powerpack' ),
+								'description' => __( '<a href="https://www.latlong.net/" target="_blank" rel="noopener"><b>Click here</b></a> to find Latitude and Longitude of a location.', 'bb-powerpack' ),
 								'connections' => array( 'string' ),
 							),
 							'marker_point'  => array(
-								'type'    => 'select',
-								'label'   => __( 'Marker Point Icon', 'bb-powerpack' ),
+								'type'    => 'pp-switch',
+								'label'   => __( 'Marker Icon', 'bb-powerpack' ),
 								'default' => 'default',
 								'options' => array(
-									'default' => 'Default',
-									'custom'  => 'Custom',
+									'default' => __( 'Default', 'bb-powerpack' ),
+									'custom'  => __( 'Custom', 'bb-powerpack' ),
 								),
 								'toggle'  => array(
 									'custom' => array(
@@ -717,7 +804,7 @@ FLBuilder::register_settings_form(
 						'fields' => array(
 							'enable_info'      => array(
 								'type'    => 'select',
-								'label'   => __( 'Show Tooltip', 'bb-powerpack' ),
+								'label'   => __( 'Show Info Window', 'bb-powerpack' ),
 								'default' => 'yes',
 								'options' => array(
 									'yes' => __( 'Yes', 'bb-powerpack' ),

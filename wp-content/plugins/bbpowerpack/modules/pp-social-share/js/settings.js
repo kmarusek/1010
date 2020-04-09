@@ -1,5 +1,22 @@
 (function($){
 
+	FLBuilder.registerModuleHelper('pp-social-share', {
+		init: function() {
+			var form = $('.fl-builder-settings');
+			form.find('[name="columns"]').on('change', $.proxy(this.showAlignField, this));
+			this.showAlignField();
+		},
+
+		showAlignField: function() {
+			var form = $('.fl-builder-settings');
+			if ( '0' == form.find('select[name="columns"]').val() ) {
+				form.find('#fl-field-alignment').show();
+			} else {
+				form.find('#fl-field-alignment').hide();
+			}
+		}
+	} );
+
 	FLBuilder.registerModuleHelper('pp_social_share_form', {
 		
 		rules: {
@@ -17,11 +34,11 @@
 		},
 
 		init: function () {
-			this._getField('social_share_type').on('change', $.proxy(this.hide_fields, this));
-			this.hide_fields();
+			this._getField('social_share_type').on('change', $.proxy(this.hideFields, this));
+			this.hideFields();
 		},
 
-		hide_fields: function () {
+		hideFields: function () {
 			var type = this._getField('social_share_type').val();
 
 			if ('fb-messenger' === type) {

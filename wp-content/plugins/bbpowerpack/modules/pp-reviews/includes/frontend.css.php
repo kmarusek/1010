@@ -206,15 +206,19 @@
 	<?php
 
 	if ( 'show' === $settings->separator ) {
-		?>
-		border-bottom: 1px solid #e1e8ed;
-		<?php
+		if ( isset( $settings->header_position ) && 'top' === $settings->header_position ) { ?>
+			border-bottom: 1px solid #e1e8ed;
+		<?php } elseif ( isset( $settings->header_position ) && 'bottom' === $settings->header_position ) { ?>
+			border-top: 1px solid #e1e8ed;
+		<?php }
 	}
 
 	if ( '' !== $settings->separator_color ) {
-		?>
-		border-bottom-color: <?php echo pp_get_color_value( $settings->separator_color ); ?>;
-		<?php
+		if ( isset( $settings->header_position ) && 'top' === $settings->header_position ) { ?>
+			border-bottom-color: <?php echo pp_get_color_value( $settings->separator_color ); ?>;
+		<?php } elseif ( isset( $settings->header_position ) && 'bottom' === $settings->header_position ) { ?>
+			border-top-color: <?php echo pp_get_color_value( $settings->separator_color ); ?>;
+		<?php }
 	}
 	?>
 }
@@ -289,8 +293,10 @@
 }
 
 .fl-node-<?php echo $id; ?> .pp-review:hover .pp-review-header {
-	<?php if ( isset( $settings->separator_color_hover ) && ! empty( $settings->separator_color_hover ) ) { ?>
-	border-bottom-color: <?php echo pp_get_color_value( $settings->separator_color_hover ); ?>;
+	<?php if ( isset( $settings->header_position ) && 'top' === $settings->header_position && isset( $settings->separator_color_hover ) && ! empty( $settings->separator_color_hover ) ) { ?>
+		border-bottom-color: <?php echo pp_get_color_value( $settings->separator_color_hover ); ?>;
+	<?php } elseif ( isset( $settings->header_position ) && 'bottom' === $settings->header_position && isset( $settings->separator_color_hover ) && ! empty( $settings->separator_color_hover ) ) { ?>
+		border-top-color: <?php echo pp_get_color_value( $settings->separator_color_hover ); ?>;
 	<?php } ?>
 }
 
@@ -438,15 +444,13 @@ if ( '' !== $settings->bullets_border_radius ) {
 }
 
 
-.fl-node-<?php echo $id; ?> .pp-review .pp-review-icon.pp-icon i {
+.fl-node-<?php echo $id; ?> .pp-review .pp-review-icon i {
 	<?php if ( isset( $settings->icon_color ) && ! empty( $settings->icon_color ) ) { ?>
 	color: <?php echo pp_get_color_value( $settings->icon_color ); ?>;
 	<?php } ?>
-
 }
 
-.fl-node-<?php echo $id; ?> .pp-review:hover .pp-review-icon.pp-icon i {
-
+.fl-node-<?php echo $id; ?> .pp-review:hover .pp-review-icon i {
 	<?php if ( isset( $settings->icon_color_hover ) && ! empty( $settings->icon_color_hover ) ) { ?>
 	color: <?php echo pp_get_color_value( $settings->icon_color_hover ); ?>;
 	<?php } ?>
@@ -471,20 +475,22 @@ for ( $i = 0; $i < $number_reviews; $i++ ) {
 	}
 
 	.fl-node-<?php echo $id; ?> .pp-review-item-<?php echo $i; ?> .pp-review:hover .pp-review-header {
-		<?php if ( isset( $review->separator_color_hover ) && ! empty( $review->separator_color_hover ) ) { ?>
-		border-bottom-color: <?php echo pp_get_color_value( $review->separator_color_hover ); ?>;
+		<?php if ( isset( $settings->header_position ) && 'top' === $settings->header_position && isset( $review->separator_color_hover ) && ! empty( $review->separator_color_hover ) ) { ?>
+			border-bottom-color: <?php echo pp_get_color_value( $review->separator_color_hover ); ?>;
+		<?php } elseif ( isset( $settings->header_position ) && 'bottom' === $settings->header_position && isset( $review->separator_color_hover ) && ! empty( $review->separator_color_hover ) ) { ?>
+			border-top-color: <?php echo pp_get_color_value( $review->separator_color_hover ); ?>;
 		<?php } ?>
 
 	}
 
-	.fl-node-<?php echo $id; ?> .pp-review-item-<?php echo $i; ?> .pp-review .pp-review-icon.pp-icon i {
+	.fl-node-<?php echo $id; ?> .pp-review-item-<?php echo $i; ?> .pp-review .pp-review-icon i {
 		<?php if ( isset( $review->icon_color ) && ! empty( $review->icon_color ) ) { ?>
 		color: <?php echo pp_get_color_value( $review->icon_color ); ?>;
 		<?php } ?>
 
 	}
 
-	.fl-node-<?php echo $id; ?> .pp-review-item-<?php echo $i; ?> .pp-review:hover .pp-review-icon.pp-icon i {
+	.fl-node-<?php echo $id; ?> .pp-review-item-<?php echo $i; ?> .pp-review:hover .pp-review-icon i {
 
 		<?php if ( isset( $review->icon_color_hover ) && ! empty( $review->icon_color_hover ) ) { ?>
 		color: <?php echo pp_get_color_value( $review->icon_color_hover ); ?>;
@@ -492,9 +498,11 @@ for ( $i = 0; $i < $number_reviews; $i++ ) {
 	}
 
 	.fl-node-<?php echo $id; ?> .pp-review-item-<?php echo $i; ?> .pp-review-header {
-	<?php if ( isset( $review->separator_color ) && ! empty( $review->separator_color ) ) { ?>
+	<?php if ( isset( $settings->header_position ) && 'top' === $settings->header_position && isset( $review->separator_color ) && ! empty( $review->separator_color ) ) { ?>
 		border-bottom-color: <?php echo pp_get_color_value( $review->separator_color ); ?>;
-		<?php } ?>
+	<?php } elseif ( isset( $settings->header_position ) && 'bottom' === $settings->header_position && isset( $review->separator_color ) && ! empty( $review->separator_color ) ) { ?>
+		border-top-color: <?php echo pp_get_color_value( $review->separator_color ); ?>;
+	<?php } ?>
 	}
 
 	.fl-node-<?php echo $id; ?> .pp-review-item-<?php echo $i; ?> .pp-review-name {

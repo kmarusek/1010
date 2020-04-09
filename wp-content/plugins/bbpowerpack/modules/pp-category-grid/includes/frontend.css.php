@@ -299,7 +299,6 @@ if ( 'no' === $settings->category_grid_slider ) {
 	?>
 	height: <?php echo ( $height - ( $margin_top + $margin_bottom ) ); ?>px;
 	width: calc( 100% - <?php echo ( $margin_left + $margin_right ); ?>px );
-	display: table;
 
 	<?php
 	if ( '' !== $settings->overlay_width ) {
@@ -320,8 +319,39 @@ if ( 'no' === $settings->category_grid_slider ) {
 	}
 
 	?>
-
 }
+
+.fl-node-<?php echo $id; ?> .pp-category.pp-category__no-image .pp-category__content {
+	top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: none;
+	height: <?php echo $height; ?>px !important;
+	<?php
+	if ( 'bottom' === $settings->overlay_vertical_align ) {
+		?>
+			align-items: flex-end;
+		<?php
+	} elseif ( 'top' === $settings->overlay_vertical_align ) {
+		?>
+			align-items: flex-start;
+		<?php
+	}
+
+	if ( 'left' === $settings->category_text_align ) {
+		?>
+			justify-content: flex-start;
+		<?php
+	}
+	if ( 'right' === $settings->category_text_align ) {
+		?>
+			justify-content: flex-end;
+		<?php
+	}
+	?>
+}
+
 .fl-node-<?php echo $id; ?> .pp-category .pp-category__title {
 
 	<?php
@@ -688,10 +718,6 @@ if ( 'style-0' === $category_style ) {
 			height: <?php echo ( $height_medium - 40 ); ?>px;
 		<?php } ?>
 	}
-	.fl-node-<?php echo $id; ?> .pp-category .pp-category__title_wrapper span {
-		<?php
-		?>
-	}
 
 	.fl-node-<?php echo $id; ?> .pp-category__button_wrapper .pp-category__button {
 		<?php
@@ -782,12 +808,6 @@ if ( 'style-0' === $category_style ) {
 		<?php if ( ! empty( $height_responsive ) ) { ?>
 			height: <?php echo ( $height_responsive - 40 ); ?>px;
 		<?php } ?>
-	}
-
-	.fl-node-<?php echo $id; ?> .pp-category .pp-category__title_wrapper span {
-		<?php
-
-		?>
 	}
 
 	.fl-node-<?php echo $id; ?> .pp-category__button_wrapper .pp-category__button {

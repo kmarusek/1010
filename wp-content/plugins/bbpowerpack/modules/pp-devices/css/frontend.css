@@ -454,18 +454,10 @@
 	display: contents;
 }
 
-
-.pp-image-fit .pp-device-media-screen-inner, .pp-image-fit .pp-device-media-screen figure, .pp-image-fit .pp-device-media-screen figure img {
-	height: 100%;
-}
 .pp-image-fit .pp-device-media-screen-inner {
 	position: relative;
 	bottom: 0;
 	top: 0;
-}
-
-.pp-image-fit .pp-device-media-screen figure img {
-	object-position: top;
 }
 
 .pp-device-media-screen-video .pp-device-media-screen-inner {

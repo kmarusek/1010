@@ -66,7 +66,7 @@ FLBuilderCSS::border_field_rule(
 	array(
 		'settings'     => $settings,
 		'setting_name' => 'icon_border',
-		'selector'     => '.fl-node-$id .twentytwenty-handle',
+		'selector'     => ".fl-node-$id .twentytwenty-handle",
 	)
 );
 ?>
@@ -148,7 +148,7 @@ FLBuilderCSS::border_field_rule(
 	array(
 		'settings'     => $settings,
 		'setting_name' => 'before_border',
-		'selector'     => '.fl-node-$id .twentytwenty-before-label:before',
+		'selector'     => ".fl-node-$id .twentytwenty-before-label:before",
 	)
 );
 // Before - Padding
@@ -156,7 +156,7 @@ FLBuilderCSS::dimension_field_rule(
 	array(
 		'settings'     => $settings,
 		'setting_name' => 'before_padding',
-		'selector'     => '.fl-node-$id .twentytwenty-before-label:before',
+		'selector'     => ".fl-node-$id .twentytwenty-before-label:before",
 		'unit'         => 'px',
 		'props'        => array(
 			'padding-top'    => 'before_padding_top',
@@ -171,7 +171,7 @@ FLBuilderCSS::border_field_rule(
 	array(
 		'settings'     => $settings,
 		'setting_name' => 'after_border',
-		'selector'     => '.fl-node-$id .twentytwenty-after-label:before',
+		'selector'     => ".fl-node-$id .twentytwenty-after-label:before",
 	)
 );
 // After - Padding
@@ -179,7 +179,7 @@ FLBuilderCSS::dimension_field_rule(
 	array(
 		'settings'     => $settings,
 		'setting_name' => 'after_padding',
-		'selector'     => '.fl-node-$id .twentytwenty-after-label:before',
+		'selector'     => ".fl-node-$id .twentytwenty-after-label:before",
 		'unit'         => 'px',
 		'props'        => array(
 			'padding-top'    => 'after_padding_top',
@@ -194,8 +194,8 @@ FLBuilderCSS::typography_field_rule(
 	array(
 		'settings'     => $settings,
 		'setting_name' => 'label_typography',
-		'selector'     => '.fl-node-$id .twentytwenty-before-label:before,
-							.fl-node-$id .twentytwenty-after-label:before',
+		'selector'     => ".fl-node-$id .twentytwenty-before-label:before,
+							.fl-node-$id .twentytwenty-after-label:before",
 	)
 );
 ?>

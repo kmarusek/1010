@@ -1,3 +1,114 @@
+== 2.8.0.2 ==
+Release date: April 3, 2020
+Enhancement: Added new field connection property for PowerPack's Custom Taxonomy Thumbnail extension
+Enhancement: Performance optimization
+Enhancement: Smart Banner - Added option to disable old responsive settings to support BB 2.0 responsive typography options
+Enhancement: Smart Button - Added aria-label accessibility attribute
+Fix: Info List - Icons alignment issue when using link after recent update
+Fix: Video - Added custom field support for URL field connection
+Fix: Google Map - JS error when custom fields left emptied in CPT
+Fix: Advanced Menu - Submenu width was not getting applied
+Fix: Image Comparison - Color was not getting applied on the container circle
+Fix: Core - Row infinite background JS error due to missing imagesLoaded dependency
+Fix: Core - PowerPack's Custom Taxonomy Thumbnail option was not showing all images in media library
+
+== 2.8.0.1 ==
+Release date: March 27, 2020
+Hotfix: Login Form - Redirect to the same page caused the form to be shown again
+Hotfix: Testimonials - Content disappears when there is only one testimonial
+Hotfix: Testimonials - Equal height issue with slider
+
+== 2.8.0 ==
+Release date: March 25, 2020
+New: Added Off-Canvas Content module
+New: Added Sliding Menu module
+Enhancement: Login Form - Social login integration
+Enhancement: Login Form - reCAPTCHA integration
+Enhancement: Category Grid - Added logic to show only children categories on taxonomy archive
+Enhancement: Category Grid - Added option to hide or show category image
+Enhancement: Category Grid - Added orderby ID option
+Enhancement: Content Grid - Added RTL support for carousel
+Enhancement: Content Grid - Added orderby option for ACF Relationship
+Enhancement: Content Grid - Added option Content Alternate Layout to swap image and content in a row
+Enhancement: Content Grid - Added support for Events Calendar - order, orderby, and show upcoming or past events
+Enhancement: Social Share - Added option to hide text on responsive devices
+Enhancement: Reviews - Added option to change header position
+Enhancement: Info List - Added responsive options for icon position field
+Enhancement: Testimonials - Added rtl support
+Enhancement: Video - Added shortcode support for video link field
+Enhancement: Maintenance Mode - Added IP Whitelist option
+Enhancement: FAQ - Added WPML support
+Enhancement: Google Map - Added WPML support
+Enhancement: Hotspot - Added WPML support
+Enhancement: HowTo - Added WPML support
+Enhancement: Registration Form - Added WPML support
+Enhancement: Reviews - Added WPML support
+Enhancement: Sitemap - Added WPML support
+Enhancement: Social Icons - Added WPML support
+Enhancement: Social Share - Added WPML support
+Enhancement: Video Gallery - Added WPML support
+Enhancement: Login Form - Added WPML support
+Fix: Photo Gallery - JS error due to empty row height value
+Fix: Content Grid - Image size was not working for Style 9
+Fix: Content Grid - Image link was not working in some cases for style 9
+Fix: Content Grid - Pods Relationship field was not working with AJAX pagination
+Fix: Instagram Feed - Left padding issue
+Fix: Advanced Menu - Submenu desktop width was getting applied on responsive devices too
+Fix: Advanced Menu - Responsive issues
+Fix: Google Map - Issue with multiple markup render
+Fix: Google Map - Issue with conditional logic
+Fix: Category Grid - Taxonomy field resets after saving module settings
+Fix: Content Tiles - Page break when number of posts found is less than the posts to be displayed for a layout
+Fix: Coupon - Special characters in coupon field lead to JS error
+Fix: Fancy Heading - Text alignment was not working for tablet and mobile devices
+Fix: Fancy Heading - Curved script fonts cropping out
+Fix: Info List - Minor CSS and JS issues
+Fix: Testimonials - Touch swipe was not working in iOS
+Fix: FAQ - PHP warning when there is no taxonomy for a post type
+Fix: Logos Grid - PHP notice
+Fix: Fluent Forms - PHP notice
+Fix: Maintenance Mode - was not working when using WPML
+Development: Search Form - Added hook pp_search_form_input_attrs to modify search input HTML attributes
+Development: Contact Form - Added hook pp_contact_form_from_email to modify email in From header
+Development: Contact Form - Added JS hooks pp_contact_form_after_submit and pp_contact_form_submit_success
+
+== 2.7.11.1 ==
+Release date: February 11, 2020
+* Enhancement: Google Map - Added marker clustering option
+* Enhancement: Added WPML integration for Login and Registration Form modules
+* Fix: Google Map - CPT settings were not getting saved in module
+* Fix: Google Map - Restructured CPT fields
+* Fix: Logo Grid & Carousel - Empty slide margin field causes JS error
+* Fix: Content Grid - $settings object was not getting rebuilt via AJAX on some servers
+* Fix: Testimonials - Changed default layout to slider
+
+== 2.7.11 ==
+Release date: February 5, 2020
+* New: Added admin setting to setup default pages for Login/Register
+* Enhancement: Maintenance Mode - Added option to include/exclude URLs
+* Enhancement: Reviews - Added Google and Yelp integrations
+* Enhancement: Login Form - Added inline validation messages
+* Enhancement: Login Form - Will no longer redirect to default WP login page in case of wrong password entered
+* Enhancement: Login Form - Added logic to reset password on the same page
+* Enhancement: Image Carousel - Added option to control loop and autoplay stop on last slide
+* Enhancement: Testimonials - Added responsive column option
+* Enhancement: Advanced Tabs - Added alpha channel for content background color
+* Enhancement: Device - Added option for auto-scroll images
+* Fix: Registration Form - Input full width issue
+* Fix: Registration Form - Removed default values of input height and padding
+* Fix: Content Grid - Undefined isotope JS variable when using carousel and expandable row on the same page
+* Fix: Content Grid - Carousel autoplay issue
+* Fix: Image Carousel - Prevented loading large thumbnail in slideshow if there is only one image
+* Fix: Social Share - Alignment field was not being shown sometimes
+* Fix: Search Form - Overlay color was not working
+* Fix: Search Form - Cursor position was showing at left when reopening form after a search
+* Fix: Video Gallery - Active color was not working for navigation dots
+* Fix: File Download - Custom width option was not working
+* Fix: Photo Gallery - nofollow attribute was being applied for _self target
+* Fix: Logo Grid & Carousel - Added missing nofollow attributes for _blank target
+* Fix: Timeline - Title color given for individual timeline items was not working
+* Fix: Reviews - Minor CSS issues
+
 == 2.7.10.2 ==
 Release date: January 16, 2020
 * Hotfix: Logo Grid & Carousel - JS error due to incorrect PHP code format

@@ -166,6 +166,10 @@ class PPRegistrationFormModule extends FLBuilderModule {
 	 * @return array
 	 */
 	public static function get_user_roles() {
+		if ( ! isset( $_GET['fl_builder'] ) ) {
+			return array();
+		}
+
 		global $wp_roles;
 
 		$_wp_roles = $wp_roles;
@@ -515,7 +519,7 @@ class PPRegistrationFormModule extends FLBuilderModule {
 		do_action( 'pp_rf_before_button_wrap', $settings );
 		?>
 		<div class="pp-rf-field pp-rf-button-wrap">
-			<button type="submit" class="pp-button" role="button">
+			<button type="submit" class="pp-button pp-submit-button" role="button">
 				<?php if ( ! empty( $settings->btn_icon ) && ( ! isset( $settings->btn_icon_position ) || 'before' === $settings->btn_icon_position ) ) : ?>
 					<i class="pp-button-icon pp-button-icon-before <?php echo $settings->btn_icon; ?>"></i>
 				<?php endif; ?>
@@ -629,15 +633,18 @@ FLBuilder::register_module(
 								array(
 									'field_type'	=> 'user_login',
 									'field_label'	=> __( 'Username', 'bb-powerpack' ),
+									'placeholder'	=> __( 'Username', 'bb-powerpack' ),
 								),
 								array(
 									'field_type'	=> 'user_email',
 									'field_label'	=> __( 'Email', 'bb-powerpack' ),
+									'placeholder'	=> __( 'Email', 'bb-powerpack' ),
 									'required'		=> 'yes',
 								),
 								array(
 									'field_type'	=> 'user_pass',
 									'field_label'	=> __( 'Password', 'bb-powerpack' ),
+									'placeholder'	=> __( 'Password', 'bb-powerpack' ),
 									'required'		=> 'yes',
 								),
 							),
@@ -1165,7 +1172,7 @@ FLBuilder::register_module(
 						'form_padding' => array(
 							'type'       => 'dimension',
 							'label'      => __( 'Padding', 'bb-powerpack' ),
-							'default'    => '10',
+							'default'    => '',
 							'units'      => array( 'px' ),
 							'slider'     => true,
 							'responsive' => true,
@@ -1218,7 +1225,7 @@ FLBuilder::register_module(
 						'input_field_height'         => array(
 							'type'       => 'unit',
 							'label'      => __( 'Input Height', 'bb-powerpack' ),
-							'default'    => '32',
+							'default'    => '',
 							'units'      => array( 'px' ),
 							'slider'     => true,
 							'responsive' => true,
@@ -1276,7 +1283,7 @@ FLBuilder::register_module(
 						'input_field_padding' => array(
 							'type'       => 'dimension',
 							'label'      => __( 'Padding', 'bb-powerpack' ),
-							'default'    => '10',
+							'default'    => '',
 							'units'      => array( 'px' ),
 							'slider'     => true,
 							'responsive' => true,
@@ -1661,14 +1668,14 @@ FLBuilder::register_module(
 			),
 		),
 		'messages_style'  => array(
-			'title'    => __( 'Messages', 'woopack' ),
+			'title'    => __( 'Messages', 'bb-powerpack' ),
 			'sections' => array(
 				'message_style' => array(
-					'title'  => __( 'Success Message', 'woopack' ),
+					'title'  => __( 'Success Message', 'bb-powerpack' ),
 					'fields' => array(
 						'message_bg_color'     => array(
 							'type'       => 'color',
-							'label'      => __( 'Background Color', 'woopack' ),
+							'label'      => __( 'Background Color', 'bb-powerpack' ),
 							'show_reset' => true,
 							'show_alpha' => true,
 							'preview'    => array(
@@ -1677,7 +1684,7 @@ FLBuilder::register_module(
 						),
 						'message_color'        => array(
 							'type'       => 'color',
-							'label'      => __( 'Text Color', 'woopack' ),
+							'label'      => __( 'Text Color', 'bb-powerpack' ),
 							'show_reset' => true,
 							'preview'    => array(
 								'type' => 'none',
@@ -1685,7 +1692,7 @@ FLBuilder::register_module(
 						),
 						'message_border_group' => array(
 							'type'       => 'border',
-							'label'      => __( 'Border Style', 'woopack' ),
+							'label'      => __( 'Border Style', 'bb-powerpack' ),
 							'responsive' => true,
 							'preview'    => array(
 								'type' => 'none',
@@ -1730,7 +1737,7 @@ FLBuilder::register_module(
 						),
 						'error_border_group'     => array(
 							'type'       => 'border',
-							'label'      => __( 'Border Style', 'woopack' ),
+							'label'      => __( 'Border Style', 'bb-powerpack' ),
 							'responsive' => true,
 							'preview'    => array(
 								'type' => 'none',
@@ -1819,7 +1826,7 @@ FLBuilder::register_module(
 					'fields'    => array(
 						'message_typography' => array(
 							'type'       => 'typography',
-							'label'      => __( 'Success Message Typography', 'woopack' ),
+							'label'      => __( 'Success Message Typography', 'bb-powerpack' ),
 							'responsive' => true,
 							'preview'    => array(
 								'type' => 'none',
@@ -1827,7 +1834,7 @@ FLBuilder::register_module(
 						),
 						'error_typography'   => array(
 							'type'       => 'typography',
-							'label'      => __( 'Error Message Typography', 'woopack' ),
+							'label'      => __( 'Error Message Typography', 'bb-powerpack' ),
 							'responsive' => true,
 							'preview'    => array(
 								'type' => 'none',

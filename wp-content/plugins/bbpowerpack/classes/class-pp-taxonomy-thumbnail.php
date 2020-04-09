@@ -48,12 +48,13 @@ final class BB_PowerPack_Taxonomy_Thumbnail {
 
 		self::$taxonomies = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_taxonomy_thumbnail_taxonomies' );
 
-		if ( ! self::$taxonomy_thumbnail_enable ) {
+		if ( 'disabled' === self::$taxonomy_thumbnail_enable ) {
 			return;
 		}
 		add_action( 'admin_init', __CLASS__ . '::taxonomy_thumbnail_hooks' );
 		add_action( 'admin_print_scripts', __CLASS__ . '::taxonomy_admin_scripts' );
 		add_action( 'admin_print_styles', __CLASS__ . '::taxonomy_admin_styles' );
+		add_action( 'fl_page_data_add_properties', __CLASS__ . '::add_field_connection' );
 	}
 
 	static public function taxonomy_admin_scripts() {
@@ -326,6 +327,53 @@ final class BB_PowerPack_Taxonomy_Thumbnail {
 			<span class="description"><?php printf( esc_html__( 'Add an image from media library to this %1$s.', 'bb-powerpack' ), esc_html( $name ) ); ?></span>
 		</div>
 		<?php
+	}
+
+	static public function add_field_connection() {
+		FLPageData::add_archive_property( 'pp_term_thumbnail_url', array(
+			'label'  => sprintf( __( 'Term Thumbnail (%s)', 'bb-powerpack' ), pp_get_admin_label() ),
+			'group'  => 'archives',
+			'type'   => 'photo',
+			'getter' => __CLASS__ . '::get_thumbnail_image_data',
+		) );
+
+		FLPageData::add_archive_property_settings_fields( 'pp_term_thumbnail_url', array(
+			'size'        => array(
+				'type'    => 'photo-sizes',
+				'label'   => __( 'Size', 'bb-powerpack' ),
+				'default' => 'thumbnail',
+			),
+			'default_img' => array(
+				'type'  => 'photo',
+				'label' => __( 'Default Image', 'bb-powerpack' ),
+			),
+		) );
+	}
+
+	static public function get_thumbnail_image_data( $settings ) {
+		$term_id        = 0;
+		$queried_object = get_queried_object();
+
+		if ( is_object( $queried_object ) && isset( $queried_object->term_id ) ) {
+			$term_id = $queried_object->term_id;
+		}
+
+		$id = get_term_meta( $term_id, 'taxonomy_thumbnail_id', true );
+		$url = '';
+
+		if ( empty( $id ) ) {
+			if ( isset( $settings->default_img_src ) ) {
+				$url = $settings->default_img_src;
+			}
+		} else {
+			$image = wp_get_attachment_image_src( $id, $settings->size );
+			$url = ! empty( $image ) ? $image[0] : '';
+		}
+
+		return array(
+			'id' => $id,
+			'url' => $url,
+		);
 	}
 }
 

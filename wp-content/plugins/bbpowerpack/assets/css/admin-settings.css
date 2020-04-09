@@ -22,7 +22,6 @@
 .pp-admin-settings-topbar-nav {
 	float: right;
 	margin: 0;
-    padding-top: 22px;
 }
 .pp-admin-settings-topbar-nav-item {
 	display: inline-block;
@@ -46,7 +45,8 @@
 .pp-admin-settings-header h3 {
 	font-size: 18px;
 	font-weight: 400;
-	margin-top: 5px;
+	margin-top: 0;
+	display: inline-block;
 }
 .pp-admin-settings-header {
 	background: #fff;
@@ -132,7 +132,7 @@
     right: 0;
     bottom: 0;
 	background-color: #fff;
-	border: 1px solid #ccc;
+	border: 1px solid #7e8993;
 	border-radius: 34px;
     -webkit-transition: .4s;
     transition: .4s;
@@ -145,7 +145,7 @@
     width: 12px;
     left: 2px;
     bottom: 2px;
-    background-color: #ccc;
+    background-color: #7e8993;
     -webkit-transition: .4s;
     transition: .4s;
 }
@@ -177,8 +177,22 @@
 	box-shadow: none !important;
     border-radius: 5px;
 	min-height: 32px;
-	padding: 8px 10px;
-	font-size: 13px;
+	padding: 5px 10px;
+    font-size: 13px;
+    line-height: 1.2;
+}
+.pp-admin-settings-wrap input[type=email],
+.pp-admin-settings-wrap input[type=number],
+.pp-admin-settings-wrap input[type=password],
+.pp-admin-settings-wrap input[type=search],
+.pp-admin-settings-wrap input[type=text],
+.pp-admin-settings-wrap input[type=url],
+.pp-admin-settings-wrap select,
+.pp-admin-settings-wrap textarea {
+	height: 36px;
+}
+.pp-admin-settings-wrap textarea {
+	min-height: 70px;
 }
 .pp-admin-settings-wrap input[type=checkbox] {
 	min-height: inherit;
@@ -541,9 +555,10 @@
 .pp-template-filter .search-form input[type=search] {
 	width: 200px !important;
 	box-shadow: none;
-    font-size: 14px;
-	padding: 4px 8px;
-	line-height: 1;
+	height: 30px;
+}
+.pp-template-filter .filter-links li>a {
+	padding: 16px 0;
 }
 
 .pp-template-filter .filter-sublinks {

@@ -10,15 +10,15 @@ class WPML_PP_Pricing_Table extends WPML_Beaver_Builder_Module_With_Items {
 	}
 
 	protected function get_title( $field ) {
-		switch( $field ) {
+		switch ( $field ) {
 			case 'hl_featured_title':
-                return esc_html__( 'Pricing Table - Featured Title', 'bb-powerpack' );
+				return esc_html__( 'Pricing Table - Featured Title', 'bb-powerpack' );
 
-            case 'title':
-                return esc_html__( 'Pricing Table - Package Title', 'bb-powerpack' );
+			case 'title':
+				return esc_html__( 'Pricing Table - Package Title', 'bb-powerpack' );
 
-            case 'price':
-                return esc_html__( 'Pricing Table - Price', 'bb-powerpack' );
+			case 'price':
+				return esc_html__( 'Pricing Table - Price', 'bb-powerpack' );
 
 			case 'duration':
 				return esc_html__( 'Pricing Table - Duration', 'bb-powerpack' );
@@ -41,17 +41,17 @@ class WPML_PP_Pricing_Table extends WPML_Beaver_Builder_Module_With_Items {
 	}
 
 	protected function get_editor_type( $field ) {
-		switch( $field ) {
-            case 'hl_featured_title':
-    		case 'title':
+		switch ( $field ) {
+			case 'hl_featured_title':
+			case 'title':
 			case 'price':
-        	case 'duration':
-        	case 'button_text':
-                return 'LINE';
+			case 'duration':
+			case 'button_text':
+				return 'LINE';
 
-            case 'features':
-            case 'matrix_items':
-                return 'VISUAL';
+			case 'features':
+			case 'matrix_items':
+				return 'VISUAL';
 
 			case 'button_url':
 				return 'LINK';

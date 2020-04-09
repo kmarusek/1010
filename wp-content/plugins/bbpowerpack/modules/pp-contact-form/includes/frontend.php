@@ -95,7 +95,7 @@ if ( isset( $settings->recaptcha_key_source ) && 'default' == $settings->recaptc
 	<?php endif; ?>
 
     <div class="pp-button-wrap fl-button-wrap">
-    	<a href="#" target="_self" class="fl-button<?php if ('enable' == $settings->btn_icon_animation): ?> fl-button-icon-animation<?php endif; ?>" role="button">
+    	<a href="#" target="_self" class="fl-button<?php if ('enable' == $settings->btn_icon_animation): ?> fl-button-icon-animation<?php endif; ?> pp-submit-button" role="button">
     		<?php if ( ! empty( $settings->btn_icon ) && ( 'before' == $settings->btn_icon_position || ! isset( $settings->btn_icon_position ) ) ) : ?>
     		<i class="fl-button-icon fl-button-icon-before fa <?php echo $settings->btn_icon; ?>"></i>
     		<?php endif; ?>

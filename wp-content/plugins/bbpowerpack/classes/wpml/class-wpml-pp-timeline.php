@@ -11,15 +11,15 @@ class WPML_PP_Timeline extends WPML_Beaver_Builder_Module_With_Items {
 	}
 
 	protected function get_title( $field ) {
-		switch( $field ) {
+		switch ( $field ) {
 			case 'title':
-                return esc_html__( 'Timeline - Title', 'bb-powerpack' );
+				return esc_html__( 'Timeline - Title', 'bb-powerpack' );
 
-            case 'content':
-                return esc_html__( 'Timeline - Content', 'bb-powerpack' );
+			case 'content':
+				return esc_html__( 'Timeline - Content', 'bb-powerpack' );
 
-            case 'button_text':
-                return esc_html__( 'Timeline - Button Text', 'bb-powerpack' );
+			case 'button_text':
+				return esc_html__( 'Timeline - Button Text', 'bb-powerpack' );
 
 			case 'button_link':
 				return esc_html__( 'Timeline - Link', 'bb-powerpack' );
@@ -30,15 +30,15 @@ class WPML_PP_Timeline extends WPML_Beaver_Builder_Module_With_Items {
 	}
 
 	protected function get_editor_type( $field ) {
-		switch( $field ) {
+		switch ( $field ) {
 			case 'title':
-                return 'LINE';
+				return 'LINE';
 
-            case 'content':
-                return 'VISUAL';
+			case 'content':
+				return 'VISUAL';
 
-            case 'button_text':
-                return 'LINE';
+			case 'button_text':
+				return 'LINE';
 
 			case 'button_link':
 				return 'LINK';

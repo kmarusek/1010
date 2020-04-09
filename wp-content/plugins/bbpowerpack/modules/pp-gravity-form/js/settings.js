@@ -1,22 +1,9 @@
 (function($){
 
-    /**
-     * Use this file to register a module helper that
-     * adds additional logic to the settings form. The
-     * method 'FLBuilder._registerModuleHelper' accepts
-     * two parameters, the module slug (same as the folder name)
-     * and an object containing the helper methods and properties.
-     */
     FLBuilder._registerModuleHelper('pp-gravity-form', {
 
-        /**
-         * The 'rules' property is where you setup
-         * validation rules that are passed to the jQuery
-         * validate plugin (http://jqueryvalidation.org).
-         *
-         * @property rules
-         * @type object
-         */
+		_forms: '',
+
         rules: {
             'form_border_width': {
                 number: true
@@ -75,7 +62,51 @@
             'validation_error_font_size': {
                 number: true
             }
-        }
+		},
+		
+		init: function() {
+			this._setForms();
+		},
+
+		_getForms: function(callback) {
+			$.post(
+				ajaxurl,
+				{
+					action: 'pp_gf_forms_dropdown_html',
+				},
+				function( response ) {
+					callback( response );
+				}
+			);
+		},
+
+		_setForms: function()
+		{
+			var form = $('.fl-builder-settings'),
+				select = form.find( 'select[name="select_form_field"]' ),
+				value = '', self = this;
+
+			if ( 'undefined' !== typeof FLBuilderSettingsForms && 'undefined' !== typeof FLBuilderSettingsForms.config ) {
+				if ( "pp-gravity-form" === FLBuilderSettingsForms.config.id ) {
+					value = FLBuilderSettingsForms.config.settings['select_form_field'];
+				}
+			}
+
+			if ( this._forms !== '' ) {
+				select.html( this._forms );
+				select.find( 'option[value="' + value + '"]').attr('selected', 'selected');
+
+				return;
+			}
+
+			this._getForms(function(data) {
+				self._forms = data;
+				select.html( data );
+				if ( '' !== value ) {
+					select.find( 'option[value="' + value + '"]').attr('selected', 'selected');
+				}
+			});
+		},
     });
 
 })(jQuery);

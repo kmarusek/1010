@@ -418,10 +418,11 @@ FLBuilder::register_module('PPAdvancedTabsModule', array(
 					),
 					'content_bg_color'  => array(
 						'type'          => 'color',
-						'label'         => __('Background Color', 'bb-powerpack'),
+						'label'         => __( 'Background Color', 'bb-powerpack' ),
 						'default'       => '',
 						'show_reset'	=> true,
-						'connections'	=> array('color'),
+						'show_alpha'	=> true,
+						'connections'	=> array( 'color' ),
 						'preview'		=> array(
 							'type'			=> 'css',
 							'selector'		=> '.pp-tabs-panels .pp-tabs-panel-content',

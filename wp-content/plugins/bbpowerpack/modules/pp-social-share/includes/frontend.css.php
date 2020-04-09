@@ -299,4 +299,10 @@ FLBuilderCSS::responsive_rule( array(
 		font-size: <?php echo $settings->icon_size_responsive; ?>px;
 	}
 	<?php } ?>
+
+	<?php if ( isset( $settings->text_hide_mobile ) && 'yes' == $settings->text_hide_mobile && 'icon-text' == $settings->view ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-social-share-content .pp-share-button .pp-share-button-text {
+		display: none;
+	}
+	<?php } ?>
 }

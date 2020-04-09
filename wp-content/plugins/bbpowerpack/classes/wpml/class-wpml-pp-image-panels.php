@@ -11,7 +11,7 @@ class WPML_PP_Image_Panels extends WPML_Beaver_Builder_Module_With_Items {
 	}
 
 	protected function get_title( $field ) {
-		switch( $field ) {
+		switch ( $field ) {
 			case 'title':
 				return esc_html__( 'Image Panel - Title', 'bb-powerpack' );
 
@@ -24,7 +24,7 @@ class WPML_PP_Image_Panels extends WPML_Beaver_Builder_Module_With_Items {
 	}
 
 	protected function get_editor_type( $field ) {
-		switch( $field ) {
+		switch ( $field ) {
 			case 'title':
 				return 'LINE';
 

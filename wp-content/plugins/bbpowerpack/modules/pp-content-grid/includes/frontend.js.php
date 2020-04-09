@@ -3,8 +3,8 @@
 $space_desktop	= ( $settings->post_grid_count['desktop'] - 1 ) * $settings->post_spacing;
 $space_tablet 	= ( $settings->post_grid_count['tablet'] - 1 ) * $settings->post_spacing;
 $space_mobile 	= ( $settings->post_grid_count['mobile'] - 1 ) * $settings->post_spacing;
-$speed          = ! empty( $settings->transition_speed ) ? $settings->transition_speed * 1000 : '200';
-$slide_speed    = ( isset( $settings->slides_speed ) && ! empty( $settings->slides_speed ) ) ? $settings->slides_speed * 1000 : 'false';
+$speed          = ! empty( $settings->transition_speed ) ? $settings->transition_speed * 1000 : 3000;
+$slide_speed    = ( isset( $settings->slides_speed ) && ! empty( $settings->slides_speed ) ) ? $settings->slides_speed * 1000 : 1000;
 $page_arg	 	= is_front_page() ? 'page' : 'paged';
 $paged 			= get_query_var( $page_arg, 1 );
 $breakpoints	= array(
@@ -43,8 +43,8 @@ var ppcg_<?php echo $id; ?> = '';
 		<?php echo ( isset( $settings->post_grid_filters_display ) && 'yes' == $settings->post_grid_filters_display ) ? 'filters: true' : 'filters: false'; ?>,
 		<?php if ( isset( $settings->post_grid_filters ) && 'none' != $settings->post_grid_filters ) { ?>
 			filterTax: '<?php echo $settings->post_grid_filters; ?>',
-			filterType: '<?php echo isset( $settings->post_grid_filters_type ) ? $settings->post_grid_filters_type : 'static'; ?>',
 		<?php } ?>
+		filterType: '<?php echo isset( $settings->post_grid_filters_type ) ? $settings->post_grid_filters_type : 'static'; ?>',
 		<?php if ( 'grid' == $settings->layout && 'no' == $settings->match_height && 'style-9' != $settings->post_grid_style_select ) { ?>
 		masonry: 'yes',
 		<?php } ?>
@@ -91,10 +91,13 @@ var ppcg_<?php echo $id; ?> = '';
 		PPContentGridOptions.is_archive = true;
 	<?php } ?>
 
-	<?php if ( is_tax() ) { ?>
+	<?php if ( is_tax() || is_archive() ) { ?>
 	PPContentGridOptions.is_tax = true;
-	PPContentGridOptions.current_tax = '<?php echo get_queried_object()->taxonomy; ?>';
-	PPContentGridOptions.current_term = '<?php echo get_queried_object()->slug; ?>';
+	<?php } ?>
+
+	<?php if ( isset( get_queried_object()->taxonomy ) && isset( get_queried_object()->slug ) ) { ?>
+		PPContentGridOptions.current_tax = '<?php echo get_queried_object()->taxonomy; ?>';
+		PPContentGridOptions.current_term = '<?php echo get_queried_object()->slug; ?>';
 	<?php } ?>
 
 	<?php if ( is_author() ) { ?>
@@ -106,6 +109,11 @@ var ppcg_<?php echo $id; ?> = '';
 	PPContentGridOptions.orderby = '<?php echo (string) $_GET['orderby']; ?>';
 	<?php } ?>
 
+	<?php if ( isset( $module->template_id ) ) { ?>
+	PPContentGridOptions.template_id = '<?php echo $module->template_id; ?>';
+	PPContentGridOptions.template_node_id = '<?php echo $module->template_node_id; ?>';
+	<?php } ?>
+
 	ppcg_<?php echo $id; ?> = new PPContentGrid( PPContentGridOptions );
 	
 	// expandable row fix.
@@ -113,7 +121,9 @@ var ppcg_<?php echo $id; ?> = '';
 	$(document).on('pp_expandable_row_toggle', function(e, selector) {
 		if ( selector.is('.pp-er-open') && state === 0 ) {
 			//ppcg_<?php echo $id; ?> = new PPContentGrid( PPContentGridOptions );
-			$(ppcg_<?php echo $id; ?>.wrapperClass).isotope('layout');
+			if ( 'undefined' !== typeof $.fn.isotope ) {
+				$(ppcg_<?php echo $id; ?>.wrapperClass).isotope('layout');
+			}
 			state = 1;
 		}
 	});

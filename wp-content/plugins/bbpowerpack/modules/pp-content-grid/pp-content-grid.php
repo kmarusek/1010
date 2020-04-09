@@ -36,9 +36,9 @@ class PPContentGridModule extends FLBuilderModule {
 
 		if(FLBuilderModel::is_builder_active() || $this->settings->layout == 'carousel') {
 			$this->add_css( BB_POWERPACK()->fa_css );
-			$this->add_css( 'owl-carousel' );
-			$this->add_css( 'owl-carousel-theme' );
-			$this->add_js( 'owl-carousel' );
+			$this->add_css( 'pp-owl-carousel' );
+			$this->add_css( 'pp-owl-carousel-theme' );
+			$this->add_js( 'pp-owl-carousel' );
 		}
 
 		// Jetpack sharing has settings to enable sharing on posts, post types and pages.
@@ -426,12 +426,12 @@ FLBuilder::register_module('PPContentGridModule', array(
 	'layout'        => array(
 		'title'         => __('Layout', 'bb-powerpack'),
 		'sections'      => array(
-			'layout_cg'       => array(
+			'general'       => array(
 				'title'         => '',
 				'fields'        => array(
 					'layout'        => array(
 						'type'          => 'pp-switch',
-						'label'         => __('Layout Type', 'bb-powerpack'),
+						'label'         => __('Layout', 'bb-powerpack'),
 						'default'       => 'grid',
 						'options'       => array(
 							'grid'          => __('Grid', 'bb-powerpack'),
@@ -472,17 +472,17 @@ FLBuilder::register_module('PPContentGridModule', array(
                         ),
 						'toggle'	=> array(
 							'default'	=> array(
-								'fields'	=> array('post_content_alignment')
+								'fields'	=> array('alternate_content', 'post_content_alignment')
 							),
 							'style-1'	=> array(
 								'fields'	=> array('post_content_alignment')
 							),
 							'style-2'	=> array(
-								'fields'	=> array('post_content_alignment'),
+								'fields'	=> array('alternate_content', 'post_content_alignment'),
 								'sections'	=> array('divider_style')
 							),
 							'style-3'	=> array(
-								'fields'	=> array('post_content_alignment'),
+								'fields'	=> array('alternate_content', 'post_content_alignment'),
 								'sections'	=> array('post_category_style')
 							),
 							'style-4'	=> array(
@@ -490,7 +490,7 @@ FLBuilder::register_module('PPContentGridModule', array(
 								'sections'	=> array('post_title_style')
 							),
 							'style-5'	=> array(
-								'fields'	=> array('post_date_day_bg_color', 'post_date_day_text_color', 'post_date_month_bg_color', 'post_date_month_text_color', 'post_date_border_radius'),
+								'fields'	=> array('alternate_content', 'post_date_day_bg_color', 'post_date_day_text_color', 'post_date_month_bg_color', 'post_date_month_text_color', 'post_date_border_radius'),
 								'sections'	=> array('post_date_style')
 							),
 							'style-6'	=> array(
@@ -498,13 +498,18 @@ FLBuilder::register_module('PPContentGridModule', array(
 								'sections'	=> array('post_date_style')
 							),
 							'style-7'	=> array(
-								'fields'	=> array('post_content_alignment')
+								'fields'	=> array('alternate_content', 'post_content_alignment')
 							),
 							'style-9'	=> array(
 								'fields'	=> array('custom_height', 'post_meta_bg_color')
 							)
 						),
-                    ),
+					),
+					'alternate_content'	=> array(
+						'type'	=> 'pp-switch',
+						'label'	=> __( 'Content Alternate Layout', 'bb-powerpack' ),
+						'default' => 'no'
+					),
 					'match_height'  => array(
 						'type'          => 'pp-switch',
 						'label'         => __('Equal Heights', 'bb-powerpack'),
@@ -566,6 +571,7 @@ FLBuilder::register_module('PPContentGridModule', array(
 			),
 			'grid'          => array(
 				'title'         => __('Column Settings', 'bb-powerpack'),
+				'collapsed'		=> true,
 				'fields'        => array(
 					'post_grid_count'    => array(
 						'type' 			=> 'pp-multitext',
@@ -611,6 +617,13 @@ FLBuilder::register_module('PPContentGridModule', array(
 			'slider_general'       => array(
 				'title'         => '',
 				'fields'        => array(
+					'slides_speed' => array(
+						'type'          => 'text',
+						'label'         => __('Slides Speed', 'bb-powerpack'),
+						'default'       => '1',
+						'size'          => '5',
+						'description'   => _x( 'seconds', 'Value unit for form field of time in seconds. Such as: "5 seconds"', 'bb-powerpack' )
+					),
 					'auto_play'     => array(
 						'type'          => 'pp-switch',
 						'label'         => __('Autoplay', 'bb-powerpack'),
@@ -618,11 +631,32 @@ FLBuilder::register_module('PPContentGridModule', array(
 						'options'       => array(
 							'yes'          	=> __('Yes', 'bb-powerpack'),
 							'no'         	=> __('No', 'bb-powerpack'),
-						)
+						),
+						'toggle'	=> array(
+							'yes'		=> array(
+								'fields'	=> array( 'transition_speed' ),
+							),
+						),
+					),
+					'transition_speed' => array(
+						'type'          => 'text',
+						'label'         => __('Autoplay Timeout', 'bb-powerpack'),
+						'default'       => '3',
+						'size'          => '5',
+						'description'   => _x( 'seconds', 'Value unit for form field of time in seconds. Such as: "5 seconds"', 'bb-powerpack' )
+					),
+					'slide_loop'	=> array(
+						'type'			=> 'pp-switch',
+						'label'			=> __( 'Loop', 'bb-powerpack' ),
+						'options'		=> array(
+							'yes'			=> __('Yes', 'bb-powerpack'),
+							'no'			=> __('No', 'bb-powerpack'),
+						),
+						'default'		=> 'yes',
 					),
 					'stop_on_hover'     => array(
 						'type'          => 'pp-switch',
-						'label'         => __('Stop On Hover', 'bb-powerpack'),
+						'label'         => __('Pause on Hover', 'bb-powerpack'),
 						'default'       => 'no',
 						'options'       => array(
 							'yes'          => __('Yes', 'bb-powerpack'),
@@ -647,29 +681,6 @@ FLBuilder::register_module('PPContentGridModule', array(
 							'no'         	=> __('No', 'bb-powerpack'),
 						),
 						'help'			=> __('Useful when there is only one item.', 'bb-powerpack')
-					),
-					'transition_speed' => array(
-						'type'          => 'text',
-						'label'         => __('Autoplay Timeout', 'bb-powerpack'),
-						'default'       => '2',
-						'size'          => '5',
-						'description'   => _x( 'seconds', 'Value unit for form field of time in seconds. Such as: "5 seconds"', 'bb-powerpack' )
-					),
-					'slides_speed' => array(
-						'type'          => 'text',
-						'label'         => __('Slides Speed', 'bb-powerpack'),
-						'default'       => '',
-						'size'          => '5',
-						'description'   => _x( 'seconds', 'Value unit for form field of time in seconds. Such as: "5 seconds"', 'bb-powerpack' )
-					),
-					'slide_loop'	=> array(
-						'type'			=> 'pp-switch',
-						'label'			=> __( 'Loop', 'bb-powerpack' ),
-						'options'		=> array(
-							'yes'			=> __('Yes', 'bb-powerpack'),
-							'no'			=> __('No', 'bb-powerpack'),
-						),
-						'default'		=> 'yes',
 					),
 				)
 			),
@@ -930,7 +941,7 @@ FLBuilder::register_module('PPContentGridModule', array(
 					),
 					'show_image_effect'		=> array(
 						'type'					=> 'pp-switch',
-						'label'					=> __('Show Image Effects', 'bb-powerpack'),
+						'label'					=> __('Enable Image Effects', 'bb-powerpack'),
 						'default'				=> 'no',
 						'options'				=> array(
 							'yes'					=> __('Yes', 'bb-powerpack'),
@@ -1268,7 +1279,7 @@ FLBuilder::register_module('PPContentGridModule', array(
 					'button_margin' 	=> array(
                     	'type' 				=> 'pp-multitext',
                     	'label' 			=> __('Margin', 'bb-powerpack'),
-                        'description'   	=> __( 'px', 'Value unit for font size. Such as: "14 px"', 'bb-powerpack' ),
+                        'description'   	=> 'px',
                         'default'       	=> array(
                             'top' 				=> 10,
                             'bottom' 			=> 5,

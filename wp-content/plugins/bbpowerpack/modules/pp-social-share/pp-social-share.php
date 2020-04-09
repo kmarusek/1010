@@ -90,7 +90,7 @@ FLBuilder::register_module(
 							),
 							'toggle'  => array(
 								'icon-text'  => array(
-									'fields' => array( 'icon_size' ),
+									'fields' => array( 'icon_size', 'text_hide_mobile' ),
 								),
 								'icon'  => array(
 									'fields' => array( 'icon_size' ),
@@ -142,11 +142,6 @@ FLBuilder::register_module(
 								'4' 		=> __( '4', 'bb-powerpack' ),
 								'5' 		=> __( '5', 'bb-powerpack' ),
 								'6' 		=> __( '6', 'bb-powerpack' ),
-							),
-							'toggle'  => array(
-								'0'  => array(
-									'fields' => array( 'alignment' ),
-								),
 							),
 							'responsive'	=> true,
 						),
@@ -302,6 +297,15 @@ FLBuilder::register_module(
 					'title'		=> __( 'Text', 'bb-powerpack' ),
 					'collapsed'			=> true,
 					'fields'	=> array(
+						'text_hide_mobile' => array(
+							'type'    => 'pp-switch',
+							'label'   => __( 'Hide on Mobile', 'bb-powerpack' ),
+							'default' => 'no',
+							'options' => array(
+								'yes'    => __( 'Yes', 'bb-powerpack' ),
+								'no'     => __( 'No', 'bb-powerpack' ),
+							),
+						),
 						'title_typography'	=> array(
 							'type'        	   => 'typography',
 							'label'       	   => __( 'Typography', 'bb-powerpack' ),
@@ -353,7 +357,7 @@ FLBuilder::register_settings_form(
 								'label'       => __( 'Social Share Type', 'bb-powerpack' ),
 								'default'     => 'facebook',
 								'options'     => PPSocialShareModule::social_share_options(),
-								'description' => pp_get_fb_module_desc(),
+								'description' => ( isset( $_GET['fl_builder'] ) ) ? pp_get_fb_module_desc() : '',
 								'toggle'      => array(
 									'pinterest' => array(
 										'fields' => array( 'fallback_image' ),

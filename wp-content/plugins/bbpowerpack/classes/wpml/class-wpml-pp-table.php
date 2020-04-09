@@ -11,7 +11,7 @@ class WPML_PP_Table extends WPML_Beaver_Builder_Module_With_Items {
 	}
 
 	protected function get_title( $field ) {
-		switch( $field ) {
+		switch ( $field ) {
 			case 'header':
 				return esc_html__( 'Table - Header', 'bb-powerpack' );
 
@@ -27,7 +27,7 @@ class WPML_PP_Table extends WPML_Beaver_Builder_Module_With_Items {
 	}
 
 	protected function get_editor_type( $field ) {
-		switch( $field ) {
+		switch ( $field ) {
 			case 'header':
 			case 'label':
 			case 'cell':

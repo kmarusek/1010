@@ -163,6 +163,8 @@ final class BB_PowerPack_Header_Footer {
 			'orderby' 			=> 'title',
 			'order' 			=> 'ASC',
 			'posts_per_page' 	=> '-1',
+			'update_post_meta_cache' => false,
+			'update_post_term_cache' => false,
 		);
 
 		$pages = get_posts( $args );
@@ -220,7 +222,7 @@ final class BB_PowerPack_Header_Footer {
 			$options .= '<optgroup label="' . $label . '">';
 
 			foreach ( $data as $post ) {
-				$options .= '<option value="' . $post->ID . '" ' . selected( $selected, $post->ID ) . '>' . $post->post_title . '</option>';
+				$options .= '<option value="' . $post->ID . '" ' . selected( $selected, $post->ID, false ) . '>' . $post->post_title . '</option>';
 			}
 
 			$options .= '</optgroup>';

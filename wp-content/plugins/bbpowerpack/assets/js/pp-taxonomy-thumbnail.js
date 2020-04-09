@@ -7,7 +7,6 @@ jQuery(function ($) {
 			pp_uploader = wp.media({
 				title: 'Select Image',
 				library: {
-					uploadedTo: wp.media.view.settings.post.id,
 					type: 'image'
 				},
 				multiple: false

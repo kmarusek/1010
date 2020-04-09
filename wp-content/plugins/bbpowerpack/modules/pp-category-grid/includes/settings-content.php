@@ -89,6 +89,19 @@
 						),
 					)
 				);
+
+				FLBuilder::render_settings_field(
+					'on_tax_archive',
+					array(
+						'type'    => 'select',
+						'label'   => __( 'On Taxonomy Archive', 'bb-powerpack' ),
+						'default' => isset( $settings->on_tax_archive ) ? $settings->on_tax_archive : 'default',
+						'options' => array(
+							'default'       => __( 'Default', 'bb-powerpack' ),
+							'children_only' => __( 'Children of Current Category', 'bb-powerpack' ),
+						),
+					)
+				);
 				?>
 		</table>
 
@@ -101,6 +114,7 @@
 						'label'   => __( 'Order By', 'bb-powerpack' ),
 						'default' => isset( $settings->order_by ) ? $settings->order_by : 'name',
 						'options' => array(
+							'term_id'	=> __( 'ID', 'bb-powerpack' ),
 							'name'   => __( 'Name', 'bb-powerpack' ),
 							'slug'   => __( 'Slug', 'bb-powerpack' ),
 							'parent' => __( 'Parent', 'bb-powerpack' ),

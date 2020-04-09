@@ -92,12 +92,16 @@ final class BB_PowerPack_Maintenance_Mode {
 	 * @since 2.6.10
 	 */
 	static public function setup_maintenance_mode() {
-		$access = get_option( 'bb_powerpack_maintenance_mode_access' );
+		$access 		= get_option( 'bb_powerpack_maintenance_mode_access' );
+		$access_type 	= get_option( 'bb_powerpack_maintenance_mode_access_type' );
+		$ips 			= get_option( 'bb_powerpack_maintenance_mode_ip_whitelist' );
 
+		// Access type.
 		if ( 'logged_in' === $access && is_user_logged_in() ) {
 			return;
 		}
 
+		// User roles.
 		if ( 'custom' === $access ) {
 			$access_roles = get_option( 'bb_powerpack_maintenance_mode_access_roles', array() );
 			$user 		= wp_get_current_user();
@@ -110,6 +114,29 @@ final class BB_PowerPack_Maintenance_Mode {
 			$compare_roles = array_intersect( $user_roles, $access_roles );
 
 			if ( ! empty( $compare_roles ) ) {
+				return;
+			}
+		}
+
+		// Include/Exclude URLs.
+		if ( 'entire_site' !== $access_type ) {
+			$access_urls = get_option( 'bb_powerpack_maintenance_mode_access_urls' );
+			if ( ! empty( $access_urls ) ) {
+				$matches = self::check_url( $access_urls );
+				if ( 'exclude_urls' === $access_type && $matches ) {
+					return;
+				}
+				if ( 'include_urls' === $access_type && ! $matches ) {
+					return;
+				}
+			}
+		}
+
+		// IP whitelist.
+		if ( ! empty( trim( $ips ) ) ) {
+			$ips = explode( "\n", trim( $ips ) );
+			$current_ip = pp_get_client_ip();
+			if ( in_array( $current_ip, $ips ) ) {
 				return;
 			}
 		}
@@ -127,6 +154,7 @@ final class BB_PowerPack_Maintenance_Mode {
 		remove_action( 'astra_header', 'astra_header_markup' );
 		remove_action( 'astra_footer', 'astra_footer_markup' );
 		remove_action( 'astra_entry_after', 'astra_single_post_navigation_markup' );
+		add_filter( 'astra_the_title_enabled', '__return_false' );
 
 		// Remove Page Builder Framework theme's header / footer.
 		remove_action( 'wpbf_header', 'wpbf_do_header' );
@@ -208,7 +236,16 @@ final class BB_PowerPack_Maintenance_Mode {
 		query_posts( array(
 			'p' => self::$template,
 			'post_type' => 'page',
+			'page_id' => self::$template,
 		) );
+
+		$GLOBALS['wp_query']->is_page = true;
+		$GLOBALS['wp_query']->is_single = false;
+
+		// WPML fix.
+		if ( class_exists( 'sitepress' ) ) {
+			$GLOBALS['wp_the_query'] = $GLOBALS['wp_query'];
+		}
 		// @codingStandardsIgnoreEnd
 	}
 
@@ -227,6 +264,7 @@ final class BB_PowerPack_Maintenance_Mode {
 			'orderby' 			=> 'title',
 			'order' 			=> 'ASC',
 			'posts_per_page' 	=> '-1',
+			'update_post_meta_cache' => false
 		);
 
 		$posts = get_posts( $args );
@@ -235,7 +273,7 @@ final class BB_PowerPack_Maintenance_Mode {
 
 		if ( count( $posts ) ) {
 			foreach ( $posts as $post ) {
-				$options .= '<option value="' . $post->ID . '" ' . selected( $selected, $post->ID ) . '>' . $post->post_title . '</option>';
+				$options .= '<option value="' . $post->ID . '" ' . selected( $selected, $post->ID, false ) . '>' . $post->post_title . '</option>';
 			}
 		} else {
 			$options = '<option value="" disabled>' . __( 'No templates found!', 'bb-powerpack' ) . '</option>';
@@ -316,11 +354,14 @@ final class BB_PowerPack_Maintenance_Mode {
 			return;
 		}
 
-		$enable = sanitize_text_field( $_POST['bb_powerpack_maintenance_mode_enable'] );
-		$type 	= sanitize_text_field( $_POST['bb_powerpack_maintenance_mode_type'] );
-		$access = sanitize_text_field( $_POST['bb_powerpack_maintenance_mode_access'] );
-		$roles 	= array();
-		$template 	= isset( $_POST['bb_powerpack_maintenance_mode_template'] ) ? sanitize_text_field( $_POST['bb_powerpack_maintenance_mode_template'] ) : '';
+		$enable 		= sanitize_text_field( $_POST['bb_powerpack_maintenance_mode_enable'] );
+		$type 			= sanitize_text_field( $_POST['bb_powerpack_maintenance_mode_type'] );
+		$access 		= sanitize_text_field( $_POST['bb_powerpack_maintenance_mode_access'] );
+		$access_type 	= sanitize_text_field( $_POST['bb_powerpack_maintenance_mode_access_type'] );
+		$access_urls 	= sanitize_textarea_field( $_POST['bb_powerpack_maintenance_mode_access_urls'] );
+		$ip_whitelist 	= sanitize_textarea_field( $_POST['bb_powerpack_maintenance_mode_ip_whitelist'] );
+		$template 		= isset( $_POST['bb_powerpack_maintenance_mode_template'] ) ? sanitize_text_field( $_POST['bb_powerpack_maintenance_mode_template'] ) : '';
+		$roles 			= array();
 
 		if ( isset( $_POST['bb_powerpack_maintenance_mode_access_roles'] ) && ! empty( $_POST['bb_powerpack_maintenance_mode_access_roles'] ) ) {
 			foreach ( $_POST['bb_powerpack_maintenance_mode_access_roles'] as $role ) {
@@ -330,14 +371,69 @@ final class BB_PowerPack_Maintenance_Mode {
 
 		update_option( 'bb_powerpack_maintenance_mode_enable', $enable );
 		update_option( 'bb_powerpack_maintenance_mode_type', $type );
+		update_option( 'bb_powerpack_maintenance_mode_template', $template );
 		update_option( 'bb_powerpack_maintenance_mode_access', $access );
 		update_option( 'bb_powerpack_maintenance_mode_access_roles', $roles );
-		update_option( 'bb_powerpack_maintenance_mode_template', $template );
+		update_option( 'bb_powerpack_maintenance_mode_access_type', $access_type );
+		update_option( 'bb_powerpack_maintenance_mode_access_urls', $access_urls );
+		update_option( 'bb_powerpack_maintenance_mode_ip_whitelist', $ip_whitelist );
 
 		// Clear BB's assets cache.
 		if ( class_exists( 'FLBuilderModel' ) && method_exists( 'FLBuilderModel', 'delete_asset_cache_for_all_posts' ) ) {
 			FLBuilderModel::delete_asset_cache_for_all_posts();
 		}
+	}
+
+	static public function check_url( $urls ) {
+		$urls = trim( $urls );
+
+		if ( empty( $urls ) ) {
+			return true;
+		}
+
+		if ( self::match_path( $urls ) ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	static public function match_path( $patterns ) {
+		$patterns_safe = array();
+
+		// Get the request URI from WP
+		list( $url_request ) = explode( '?', $_SERVER['REQUEST_URI'] ); //$wp->request;
+		$url_request = ltrim( trim( $url_request ), '/' );
+
+		// Append the query string
+		// if ( ! empty( $_SERVER['QUERY_STRING'] ) ) {
+		// 	$url_request .= '?' . $_SERVER['QUERY_STRING'];
+		// } else {
+		// 	$url_request = trim( $url_request, '/' );
+		// }
+		$url_request = trim( $url_request, '/' );
+
+		$rows = explode( "\n", $patterns );
+
+		foreach ( $rows as $pattern ) {
+			// Trim trailing, leading slashes and whitespace
+			$pattern = trim( trim( $pattern ), '/' );
+
+			// Escape regex chars
+			$pattern = preg_quote( $pattern, '/' );
+
+			// Enable wildcard checks
+			$pattern = str_replace( '\*', '.*', $pattern );
+
+			$patterns_safe[] = $pattern;
+		}
+
+		// Remove empty patterns
+		$patterns_safe = array_filter( $patterns_safe );
+
+		$regexps = sprintf( '/^(%s)$/i', implode( '|', $patterns_safe ) );
+
+		return preg_match( $regexps, $url_request );
 	}
 }
 

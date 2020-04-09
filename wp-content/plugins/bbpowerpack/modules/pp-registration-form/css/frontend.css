@@ -46,6 +46,7 @@
 
 .pp-registration-form .pp-rf-field .pp-rf-pws-status {
 	font-size: 12px;
+	margin-right: 10px;
 }
 .pp-registration-form .pp-rf-field .pp-rf-pws-status.short {
 	color: red;
@@ -151,7 +152,9 @@
     text-align: center;
     margin: 5px;
 }
-
+.pp-registration-form .pp-rf-failed-error {
+	color: red;
+}
 .pp-registration-form .pp-rf-error,
 .pp-registration-form .pp-rf-error-inline {
 	display: none;

@@ -11,12 +11,12 @@ class WPML_PP_Hover_Cards_2 extends WPML_Beaver_Builder_Module_With_Items {
 	}
 
 	protected function get_title( $field ) {
-		switch( $field ) {
+		switch ( $field ) {
 			case 'title':
-                return esc_html__( 'Hover Cards 2 - Title', 'bb-powerpack' );
-                
-            case 'hover_content':
-                return esc_html__( 'Hover Cards 2 - Content', 'bb-powerpack' );
+				return esc_html__( 'Hover Cards 2 - Title', 'bb-powerpack' );
+
+			case 'hover_content':
+				return esc_html__( 'Hover Cards 2 - Content', 'bb-powerpack' );
 
 			case 'box_link':
 				return esc_html__( 'Hover Cards 2 - Link', 'bb-powerpack' );
@@ -27,12 +27,12 @@ class WPML_PP_Hover_Cards_2 extends WPML_Beaver_Builder_Module_With_Items {
 	}
 
 	protected function get_editor_type( $field ) {
-		switch( $field ) {
+		switch ( $field ) {
 			case 'title':
-                return 'LINE';
-                
-            case 'hover_content':
-                return 'VISUAL';
+				return 'LINE';
+
+			case 'hover_content':
+				return 'VISUAL';
 
 			case 'box_link':
 				return 'LINK';

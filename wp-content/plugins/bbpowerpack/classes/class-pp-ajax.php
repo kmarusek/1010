@@ -17,6 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * PowerPack AJAX handler.
  */
 class BB_PowerPack_Ajax {
+	static public $cg_settings = array();
 	/**
 	 * Initializes actions.
 	 *
@@ -150,11 +151,48 @@ class BB_PowerPack_Ajax {
 	static public function get_ajax_posts() {
 		$is_error = false;
 
-		if ( ! isset( $_POST['settings'] ) || empty( $_POST['settings'] ) ) {
-			return;
+		$node_id            = isset( $_POST['node_id'] ) ? wp_unslash( $_POST['node_id'] ) : false;
+		$template_id        = isset( $_POST['template_id'] ) ? wp_unslash( $_POST['template_id'] ) : false;
+		$template_node_id   = isset( $_POST['template_node_id'] ) ? wp_unslash( $_POST['template_node_id'] ) : false;
+
+		if ( ! empty( self::$cg_settings ) && isset( self::$cg_settings[ $node_id ] ) ) {
+			$settings = self::$cg_settings[ $node_id ];
+		} elseif ( ! isset( $_POST['settings'] ) || empty( $_POST['settings'] ) ) {
+			if ( $node_id ) {
+				// Get the module settings.
+				if ( $template_id ) {
+					$post_id  = FLBuilderModel::get_node_template_post_id( $template_id );
+					$data     = FLBuilderModel::get_layout_data( 'published', $post_id );
+					$module   = isset( $data[ $template_node_id ] ) ? $data[ $template_node_id ] : '';
+					$settings = is_object( $module ) ? $module->settings : false;
+				} else {
+					// $module   = FLBuilderModel::get_module( $node_id );
+					// $settings = is_object( $module ) ? $module->settings : false;
+				}
+
+				if ( ! isset( $settings ) || empty( $settings ) ) {
+					$module = FLBuilderModel::get_node( $node_id );
+					if ( $module && isset( $module->settings ) ) {
+						$settings = $module->settings;
+					}
+				}
+
+				if ( isset( $settings ) && class_exists( 'FLThemeBuilderFieldConnections' ) ) {
+					$settings = FLThemeBuilderFieldConnections::connect_settings( $settings );
+				}
+			}
+		} else {
+			$settings = (object) $_POST['settings'];
 		}
 
-		$settings = (object) $_POST['settings'];
+		if ( isset( $settings ) ) {
+			self::$cg_settings[ $node_id ] = $settings;
+		} else {
+			wp_send_json_error();
+		}
+
+		$settings = apply_filters( 'fl_builder_loop_before_query_settings', $settings );
+
 		$module_dir = pp_get_module_dir( 'pp-content-grid' );
 		$module_url = pp_get_module_url( 'pp-content-grid' );
 
@@ -172,10 +210,12 @@ class BB_PowerPack_Ajax {
 			'post_status'           => 'publish',
 			'ignore_sticky_posts'   => true,
 			'pp_content_grid'       => true,
+			'pp_node_id'			=> $node_id,
+			'pp_node_html_id'		=> isset( $settings->id ) ? $settings->id : '',
+			'settings'				=> $settings,
 		);
 
-		if ( 'custom_query' === $settings->data_source ) {
-
+		if ( 'main_query' !== $settings->data_source ) {
 			if ( isset( $settings->posts_per_page ) ) {
 				$args['posts_per_page'] = $settings->posts_per_page;
 			}
@@ -196,6 +236,9 @@ class BB_PowerPack_Ajax {
 					$args[ $arg ] = explode( ',', $ids );
 				}
 			}
+		}
+
+		if ( 'custom_query' === $settings->data_source ) {
 
 			// author filter.
 			if ( isset( $settings->users ) ) {
@@ -242,77 +285,80 @@ class BB_PowerPack_Ajax {
 			}
 		}
 
-		$taxonomies = FLBuilderLoop::taxonomies( $post_type );
+		if ( 'custom_query' === $settings->data_source ) {
 
-		foreach ( $taxonomies as $tax_slug => $tax ) {
+			$taxonomies = FLBuilderLoop::taxonomies( $post_type );
 
-			$tax_value = '';
-			$term_ids  = array();
-			$operator  = 'IN';
+			foreach ( $taxonomies as $tax_slug => $tax ) {
 
-			// Get the value of the suggest field.
-			if ( isset( $settings->{'tax_' . $post_type . '_' . $tax_slug} ) ) {
-				// New style slug.
-				$tax_value = $settings->{'tax_' . $post_type . '_' . $tax_slug};
-			} elseif ( isset( $settings->{'tax_' . $tax_slug} ) ) {
-				// Old style slug for backwards compat.
-				$tax_value = $settings->{'tax_' . $tax_slug};
-			}
+				$tax_value = '';
+				$term_ids  = array();
+				$operator  = 'IN';
 
-			// Get the term IDs array.
-			if ( ! empty( $tax_value ) ) {
-				$term_ids = explode( ',', $tax_value );
-			}
+				// Get the value of the suggest field.
+				if ( isset( $settings->{'tax_' . $post_type . '_' . $tax_slug} ) ) {
+					// New style slug.
+					$tax_value = $settings->{'tax_' . $post_type . '_' . $tax_slug};
+				} elseif ( isset( $settings->{'tax_' . $tax_slug} ) ) {
+					// Old style slug for backwards compat.
+					$tax_value = $settings->{'tax_' . $tax_slug};
+				}
 
-			// Handle matching settings.
-			if ( isset( $settings->{'tax_' . $post_type . '_' . $tax_slug . '_matching'} ) ) {
+				// Get the term IDs array.
+				if ( ! empty( $tax_value ) ) {
+					$term_ids = explode( ',', $tax_value );
+				}
 
-				$tax_matching = $settings->{'tax_' . $post_type . '_' . $tax_slug . '_matching'};
+				// Handle matching settings.
+				if ( isset( $settings->{'tax_' . $post_type . '_' . $tax_slug . '_matching'} ) ) {
 
-				if ( ! $tax_matching ) {
-					// Do not match these terms.
-					$operator = 'NOT IN';
-				} elseif ( 'related' === $tax_matching ) {
-					// Match posts by related terms from the global post.
-					global $post;
-					$terms 	 = wp_get_post_terms( $post->ID, $tax_slug );
-					$related = array();
+					$tax_matching = $settings->{'tax_' . $post_type . '_' . $tax_slug . '_matching'};
 
-					foreach ( $terms as $term ) {
-						if ( ! in_array( $term->term_id, $term_ids ) ) {
-							$related[] = $term->term_id;
+					if ( ! $tax_matching ) {
+						// Do not match these terms.
+						$operator = 'NOT IN';
+					} elseif ( 'related' === $tax_matching ) {
+						// Match posts by related terms from the global post.
+						global $post;
+						$terms 	 = wp_get_post_terms( $post->ID, $tax_slug );
+						$related = array();
+
+						foreach ( $terms as $term ) {
+							if ( ! in_array( $term->term_id, $term_ids ) ) {
+								$related[] = $term->term_id;
+							}
+						}
+
+						if ( empty( $related ) ) {
+							// If no related terms, match all except those in the suggest field.
+							$operator = 'NOT IN';
+						} else {
+
+							// Don't include posts with terms selected in the suggest field.
+							$args['tax_query'][] = array(
+								'taxonomy'	=> $tax_slug,
+								'field'		=> 'id',
+								'terms'		=> $term_ids,
+								'operator'  => 'NOT IN',
+							);
+
+							// Set the term IDs to the related terms.
+							$term_ids = $related;
 						}
 					}
+				} // End if().
 
-					if ( empty( $related ) ) {
-						// If no related terms, match all except those in the suggest field.
-						$operator = 'NOT IN';
-					} else {
+				if ( ! empty( $term_ids ) ) {
 
-						// Don't include posts with terms selected in the suggest field.
-						$args['tax_query'][] = array(
-							'taxonomy'	=> $tax_slug,
-							'field'		=> 'id',
-							'terms'		=> $term_ids,
-							'operator'  => 'NOT IN',
-						);
-
-						// Set the term IDs to the related terms.
-						$term_ids = $related;
-					}
+					$args['tax_query'][] = array(
+						'taxonomy'	=> $tax_slug,
+						'field'		=> 'id',
+						'terms'		=> $term_ids,
+						'operator'  => $operator,
+					);
 				}
-			} // End if().
-
-			if ( ! empty( $term_ids ) ) {
-
-				$args['tax_query'][] = array(
-					'taxonomy'	=> $tax_slug,
-					'field'		=> 'id',
-					'terms'		=> $term_ids,
-					'operator'  => $operator,
-				);
-			}
-		} // End foreach().
+			} // End foreach().
+		}
 
 		if ( 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) && 'product' === $post_type ) {
 			$args['meta_query'][] = array(
@@ -326,7 +372,7 @@ class BB_PowerPack_Ajax {
 			$args['paged'] = absint( wp_unslash( $_POST['page'] ) );
 		}
 
-		if ( 'custom_query' === $settings->data_source ) {
+		if ( 'main_query' !== $settings->data_source && 'acf_relationship' !== $settings->data_source ) {
 			// Offset.
 			if ( isset( $settings->offset ) ) {
 				$page = isset( $args['paged'] ) ? $args['paged'] : 1;
@@ -367,6 +413,10 @@ class BB_PowerPack_Ajax {
 		$args = apply_filters( 'pp_post_grid_ajax_query_args', $args );
 
 		do_action( 'pp_post_grid_ajax_before_query', $settings );
+
+		if ( isset( $args['settings'] ) ) {
+			unset( $args['settings'] );
+		}
 
 		$query = new WP_Query( $args );
 

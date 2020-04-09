@@ -27,7 +27,11 @@ class PPFormidableFormModule extends FLBuilderModule {
 
     public static function formidable_titles()
     {
-        $options = array( '' => __('None', 'bb-powerpack') );
+		$options = array( '' => __('None', 'bb-powerpack') );
+		
+		if ( ! isset( $_GET['fl_builder'] ) ) {
+			return $options;
+		}
 
         if( class_exists('FrmForm') ) {
             $forms = FrmForm::get_published_forms( array(), 999, 'exclude' );
@@ -558,7 +562,7 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                     'section_field_margin'			=> array(
                         'type' 			=> 'pp-multitext',
                         'label' 		=> __('Margin', 'bb-powerpack'),
-                        'description'   => __( 'px', 'Value unit for font size. Such as: "14 px"', 'bb-powerpack' ),
+                        'description'   => 'px',
                         'default'       => array(
                             'top' => 10,
                             'bottom' => 10,
@@ -610,7 +614,7 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                     'title_margin' 	=> array(
                         'type' 			=> 'pp-multitext',
                         'label' 		=> __('Margin', 'bb-powerpack'),
-                        'description'   => __( 'px', 'Value unit for font size. Such as: "14 px"', 'bb-powerpack' ),
+                        'description'   => 'px',
                         'default'       => array(
                             'top' => 10,
                             'bottom' => 10,
@@ -649,7 +653,7 @@ FLBuilder::register_module('PPFormidableFormModule', array(
                     'description_margin' 	=> array(
                         'type' 			=> 'pp-multitext',
                         'label' 		=> __('Margin', 'bb-powerpack'),
-                        'description'   => __( 'px', 'Value unit for font size. Such as: "14 px"', 'bb-powerpack' ),
+                        'description'   => 'px',
                         'default'       => array(
                             'top' => 10,
                             'bottom' => 10,

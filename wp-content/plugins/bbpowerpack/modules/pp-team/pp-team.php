@@ -1038,7 +1038,7 @@ FLBuilder::register_module('PPTeamModule', array(
 					'title_margin' 	=> array(
                     	'type' 				=> 'pp-multitext',
                     	'label' 			=> __('Margin', 'bb-powerpack'),
-                        'description'   	=> __( 'px', 'Value unit for font size. Such as: "14 px"', 'bb-powerpack' ),
+                        'description'   	=> 'px',
                         'default'       	=> array(
                             'top' 				=> 30,
                             'bottom' 			=> 5,
@@ -1097,7 +1097,7 @@ FLBuilder::register_module('PPTeamModule', array(
 					'designation_margin' 	=> array(
                     	'type' 				=> 'pp-multitext',
                     	'label' 			=> __('Margin', 'bb-powerpack'),
-                        'description'   	=> __( 'px', 'Value unit for font size. Such as: "14 px"', 'bb-powerpack' ),
+                        'description'   	=> 'px',
                         'default'       	=> array(
                             'top' 				=> 0,
                             'bottom' 			=> 15,
@@ -1156,7 +1156,7 @@ FLBuilder::register_module('PPTeamModule', array(
 					'description_margin' 	=> array(
                     	'type' 				=> 'pp-multitext',
                     	'label' 			=> __('Margin', 'bb-powerpack'),
-                        'description'   	=> __( 'px', 'Value unit for font size. Such as: "14 px"', 'bb-powerpack' ),
+                        'description'   	=> 'px',
                         'default'       	=> array(
                             'top' 				=> 5,
                             'bottom' 			=> 20,

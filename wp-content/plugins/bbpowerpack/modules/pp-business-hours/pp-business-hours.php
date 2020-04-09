@@ -218,7 +218,7 @@ FLBuilder::register_module('PPBusinessHoursModule', array(
 					'separator_width'       => array(
 						'type'          => 'text',
 						'label'         => __( 'Separator Width', 'bb-powerpack' ),
-						'description'	=> __( 'px', 'bb-powerpack' ),
+						'description'	=> 'px',
 						'default'       => 1,
 						'size'			=> 5,
 						'maxlength'		=> 10,

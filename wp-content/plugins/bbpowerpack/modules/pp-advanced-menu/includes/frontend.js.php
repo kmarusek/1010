@@ -11,7 +11,8 @@
     new PPAdvancedMenu({
     	id: '<?php echo $id ?>',
     	type: '<?php echo $type ?>',
-    	mobile: '<?php echo $mobile ?>',
+		mobile: '<?php echo $mobile ?>',
+		menuPosition: '<?php echo isset( $settings->menu_position ) ? $settings->menu_position : 'below'; ?>',
 		breakPoints: {
 			medium: <?php echo empty( $global_settings->medium_breakpoint ) ? '' : $global_settings->medium_breakpoint; ?>,
 			small: <?php echo empty( $global_settings->responsive_breakpoint ) ? '' : $global_settings->responsive_breakpoint; ?>,

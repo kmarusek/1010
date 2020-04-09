@@ -13,13 +13,9 @@
 			$(this).removeClass( 'pp-mobile-icon-landscape' );
 		}
 	});
-	/**
- * This file should contain frontend logic for
- * all module instances.
- */
 
 
-$(function() {
+	$(function() {
 		var nodeclass = '.fl-node-' + '<?php echo $id; ?>';
 		var $video_obj = $(nodeclass + ' .pp-video-player-source');
 		var video = $(nodeclass + ' .pp-video-player-source')[0];
@@ -310,6 +306,20 @@ $(function() {
 			<?php
 		}
 		?>
+	});
+
+})(jQuery);
+
+;(function($){
+
+	new PPDevice({
+		id:              '<?php echo $id; ?>',
+		imgTriggerOn:    '<?php echo $settings->img_trigger; ?>',
+		scrollable:      '<?php echo $settings->scrollable; ?>',
+		scrollSpeed:     '<?php echo $settings->scroll_speed; ?>',
+		scrollDir:       '<?php echo $settings->scroll_dir; ?>',
+		reverseDir:      '<?php echo $settings->reverse_dir; ?>',
+		isBuilderActive: <?php echo FLBuilderModel::is_builder_active() ? 'true' : 'false'; ?>,
 	});
 
 })(jQuery);

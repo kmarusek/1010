@@ -24,6 +24,29 @@ class PPGravityFormModule extends FLBuilderModule {
 				'enabled'       => true, // Defaults to true and can be omitted.
 			)
 		);
+
+		add_action( 'wp_ajax_pp_gf_forms_dropdown_html', array( $this, 'gf_forms_dropdown_html' ) );
+		add_action( 'wp_ajax_nopriv_pp_gf_forms_dropdown_html', array( $this, 'gf_forms_dropdown_html' ) );
+	}
+
+	public function gf_forms_dropdown_html() {
+		$options = '<option value="">' . __( 'None', 'bb-powerpack' ) . '</option>';
+
+		global $wpdb;
+
+		if ( class_exists( 'GFForms' ) ) {
+			$form_table_name = GFFormsModel::get_form_table_name();
+			$id              = 0;
+			$forms           = $wpdb->get_results( $wpdb->prepare( 'SELECT id, title FROM ' . $form_table_name . ' WHERE id != %d', $id ), object );
+			if ( ! is_wp_error( $forms ) ) {
+				foreach ( $forms as $form ) {
+					$options .= '<option value="' . $form->id . '">' . $form->title . '</option>';
+				}
+			}
+		}
+
+		echo $options;
+		die;
 	}
 
 	public function filter_settings( $settings, $helper ) {
@@ -172,7 +195,7 @@ class PPGravityFormModule extends FLBuilderModule {
 	}
 }
 
-require_once BB_POWERPACK_DIR . 'modules/pp-gravity-form/includes/functions.php';
+//require_once BB_POWERPACK_DIR . 'modules/pp-gravity-form/includes/functions.php';
 
 /**
 	* Register the module and its form settings.
@@ -190,7 +213,7 @@ FLBuilder::register_module(
 							'type'        => 'select',
 							'label'       => __( 'Select Form', 'bb-powerpack' ),
 							'default'     => '',
-							'options'     => pp_gf_module_form_titles(),
+							'options'     => array(),
 							'connections' => array( 'string' ),
 						),
 					),
@@ -1173,14 +1196,14 @@ FLBuilder::register_module(
 			),
 		),
 		'messages_style'  => array(
-			'title'    => __( 'Messages', 'woopack' ),
+			'title'    => __( 'Messages', 'bb-powerpack' ),
 			'sections' => array(
 				'message_style' => array(
-					'title'  => __( 'Success Message', 'woopack' ),
+					'title'  => __( 'Success Message', 'bb-powerpack' ),
 					'fields' => array(
 						'message_bg_color'     => array(
 							'type'       => 'color',
-							'label'      => __( 'Background Color', 'woopack' ),
+							'label'      => __( 'Background Color', 'bb-powerpack' ),
 							'show_reset' => true,
 							'show_alpha' => true,
 							'preview'    => array(
@@ -1191,7 +1214,7 @@ FLBuilder::register_module(
 						),
 						'message_color'        => array(
 							'type'       => 'color',
-							'label'      => __( 'Text Color', 'woopack' ),
+							'label'      => __( 'Text Color', 'bb-powerpack' ),
 							'show_reset' => true,
 							'preview'    => array(
 								'type'     => 'css',
@@ -1201,7 +1224,7 @@ FLBuilder::register_module(
 						),
 						'message_border_group' => array(
 							'type'       => 'border',
-							'label'      => __( 'Border Style', 'woopack' ),
+							'label'      => __( 'Border Style', 'bb-powerpack' ),
 							'responsive' => true,
 							'preview'    => array(
 								'type'     => 'css',
@@ -1223,7 +1246,7 @@ FLBuilder::register_module(
 						),
 						'message_typography'   => array(
 							'type'       => 'typography',
-							'label'      => __( 'Typography', 'woopack' ),
+							'label'      => __( 'Typography', 'bb-powerpack' ),
 							'responsive' => true,
 							'preview'    => array(
 								'type'     => 'css',

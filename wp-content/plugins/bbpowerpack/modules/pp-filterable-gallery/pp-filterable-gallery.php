@@ -417,7 +417,7 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 						'label'         => __('Click Action', 'bb-powerpack'),
 						'default'       => 'lightbox',
 						'options'       => array(
-							'none'          => __( 'None', 'Click action.', 'bb-powerpack' ),
+							'none'          => __( 'None', 'bb-powerpack' ),
 							'lightbox'      => __('Lightbox', 'bb-powerpack'),
 							'custom-link'   => __('Custom URL', 'bb-powerpack')
 						),
@@ -558,6 +558,7 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 						'label'			=> __('Active Filter Index', 'bb-powerpack'),
 						'default'		=> '',
 						'size'			=> 5,
+						'connections'	=> array('string'),
 						'help'			=> __('Add an index number of a filter to be activated on page load. For example, place 1 for the first filter.', 'bb-powerpack')
 					)
 				)

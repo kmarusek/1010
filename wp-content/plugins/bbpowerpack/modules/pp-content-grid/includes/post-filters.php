@@ -1,7 +1,7 @@
 <?php
 $all_label			= empty( $settings->all_filter_label ) ? __('All', 'bb-powerpack') : $settings->all_filter_label;
 $post_type_slug 	= $settings->post_type;
-$post_filter_tax 	= ! empty( $settings->post_grid_filters ) ? $settings->post_grid_filters : '';
+$post_filter_tax 	= ! empty( $settings->post_grid_filters ) && 'none' !== $settings->post_grid_filters ? $settings->post_grid_filters : '';
 
 if ( empty( $post_filter_tax ) ) {
 	return;
@@ -10,7 +10,6 @@ if ( empty( $post_filter_tax ) ) {
 $post_filter_field 	= 'tax_' . $post_type_slug . '_' . $post_filter_tax;
 $post_filter_terms	= array();
 $taxonomy 			= get_taxonomy( $post_filter_tax );
-$taxonmy_name 		= $taxonomy->name;
 
 if ( isset( $settings->{$post_filter_field} ) ) :
 

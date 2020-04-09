@@ -7,9 +7,9 @@
 	width: calc( 100% / <?php echo $settings->grid_columns; ?> );
 	<?php if ( ( 'grid' == $settings->feed_layout || 'square-grid' == $settings->feed_layout ) && '' != $settings->spacing ) { ?>
 		padding-left: <?php echo ( $settings->spacing / 2 ); ?>px;
-		/*padding-right: <?php echo ( $settings->spacing / 2 ); ?>px;*/
-		/*padding-bottom: <?php echo $settings->spacing; ?>px;*/
-		margin-bottom: <?php echo ( $settings->spacing / 2 ); ?>px;
+		padding-right: <?php echo ( $settings->spacing / 2 ); ?>px;
+		padding-bottom: <?php echo $settings->spacing; ?>px;
+		/*margin-bottom: <?php echo ( $settings->spacing / 2 ); ?>px;*/
 	<?php } ?>
 	float: left;
 }
@@ -46,7 +46,7 @@
 
 <?php if( ( 'square-grid' == $settings->feed_layout || 'carousel' == $settings->feed_layout ) && '' != $settings->image_custom_size ) { ?>
 .fl-node-<?php echo $id; ?> .pp-instagram-feed .pp-feed-item-inner {
-	width: <?php echo $settings->image_custom_size; ?>px;
+	/*width: <?php echo $settings->image_custom_size; ?>px;*/
 	height: <?php echo $settings->image_custom_size; ?>px;
 	background-position: center;
 	background-repeat: no-repeat;

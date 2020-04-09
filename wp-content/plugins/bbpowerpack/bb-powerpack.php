@@ -3,7 +3,7 @@
  * Plugin Name: PowerPack for Beaver Builder
  * Plugin URI: https://wpbeaveraddons.com
  * Description: A set of custom, creative, unique modules for Beaver Builder to speed up your web design and development process.
- * Version: 2.7.10.2
+ * Version: 2.8.0.2
  * Author: IdeaBox Creations
  * Author URI: https://ideaboxcreations.com
  * Copyright: (c) 2016 IdeaBox Creations
@@ -78,9 +78,11 @@ final class BB_PowerPack {
 		require_once 'classes/class-pp-post-helper.php';
 		require_once 'classes/class-pp-ajax.php';
 		require_once 'classes/class-admin-settings.php';
+		require_once 'classes/class-pp-recaptcha.php';
 		require_once 'classes/class-pp-templates-library.php';
 		require_once 'classes/class-pp-header-footer.php';
 		require_once 'classes/class-pp-maintenance-mode.php';
+		require_once 'classes/class-pp-login-register.php';
 		require_once 'classes/class-media-fields.php';
 		require_once 'classes/class-wpml-compatibility.php';
 		require_once 'classes/class-pp-taxonomy-thumbnail.php';
@@ -117,7 +119,7 @@ final class BB_PowerPack {
 	 * @return void
 	 */
 	private function define_constants() {
-		define( 'BB_POWERPACK_VER', '2.7.10.2' );
+		define( 'BB_POWERPACK_VER', '2.8.0.2' );
 		define( 'BB_POWERPACK_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'BB_POWERPACK_URL', plugins_url( '/', __FILE__ ) );
 		define( 'BB_POWERPACK_PATH', plugin_basename( __FILE__ ) );
@@ -131,7 +133,7 @@ final class BB_PowerPack {
 	 * @return void
 	 */
 	public function init_hooks() {
-		add_action( 'init', array( $this, 'load_modules' ) );
+		add_action( 'init', array( $this, 'load_modules' ), 2 );
 		add_action( 'plugins_loaded', array( $this, 'loader' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_scripts' ), 5 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_scripts' ), 9999 );
@@ -228,8 +230,8 @@ final class BB_PowerPack {
 		wp_register_style( 'pp-jquery-fancybox', BB_POWERPACK_URL . 'assets/css/jquery.fancybox.min.css', array(), '3.3.5' );
 		wp_register_style( 'jquery-justifiedgallery', BB_POWERPACK_URL . 'assets/css/justifiedGallery.min.css', array(), '3.7.0' );
 		wp_register_style( 'jquery-swiper', BB_POWERPACK_URL . 'assets/css/swiper.min.css', array(), '4.4.6' );
-		wp_register_style( 'owl-carousel', BB_POWERPACK_URL . 'assets/css/owl.carousel.css', array(), BB_POWERPACK_VER );
-		wp_register_style( 'owl-carousel-theme', BB_POWERPACK_URL . 'assets/css/owl.theme.css', array( 'owl-carousel' ), BB_POWERPACK_VER );
+		wp_register_style( 'pp-owl-carousel', BB_POWERPACK_URL . 'assets/css/owl.carousel.css', array(), BB_POWERPACK_VER );
+		wp_register_style( 'pp-owl-carousel-theme', BB_POWERPACK_URL . 'assets/css/owl.theme.css', array( 'pp-owl-carousel' ), BB_POWERPACK_VER );
 		wp_register_style( 'jquery-slick', BB_POWERPACK_URL . 'assets/css/slick.css', array(), '1.6.0' );
 		wp_register_style( 'jquery-slick-theme', BB_POWERPACK_URL . 'assets/css/slick-theme.css', array( 'jquery-slick' ), '1.6.0' );
 		wp_register_style( 'tablesaw', BB_POWERPACK_URL . 'assets/css/tablesaw.css', array(), '2.0.1' );
@@ -250,12 +252,13 @@ final class BB_PowerPack {
 		wp_register_script( 'jquery-swiper', BB_POWERPACK_URL . 'assets/js/swiper.jquery.min.js', array( 'jquery' ), '4.4.6', true );
 		wp_register_script( 'jquery-slick', BB_POWERPACK_URL . 'assets/js/slick.min.js', array( 'jquery' ), '1.6.0', true );
 		wp_register_script( 'modernizr-custom', BB_POWERPACK_URL . 'assets/js/modernizr.custom.53451.js', array(), '3.6.0', true );
-		wp_register_script( 'owl-carousel', BB_POWERPACK_URL . 'assets/js/owl.carousel.min.js', array( 'jquery' ), BB_POWERPACK_VER, true );
+		wp_register_script( 'pp-owl-carousel', BB_POWERPACK_URL . 'assets/js/owl.carousel.min.js', array( 'jquery' ), BB_POWERPACK_VER, true );
 		wp_register_script( 'tablesaw', BB_POWERPACK_URL . 'assets/js/tablesaw.js', array( 'jquery' ), '2.0.1', true );
 		wp_register_script( 'twentytwenty', BB_POWERPACK_URL . 'assets/js/jquery.twentytwenty.js', array( 'jquery' ), '', true );
 		wp_register_script( 'jquery-event-move', BB_POWERPACK_URL . 'assets/js/jquery.event.move.js', array( 'jquery' ), '2.0.0', true );
 		wp_register_script( 'tooltipster', BB_POWERPACK_URL . 'assets/js/tooltipster.main.js', array( 'jquery' ), '', true );
 		wp_register_script( 'pp-jquery-carousel', BB_POWERPACK_URL . 'assets/js/jquery-carousel.js', array( 'jquery' ), '', true );
+		wp_register_script( 'pp-cluster', BB_POWERPACK_URL . 'assets/js/cluster.js', array( 'jquery' ), '', true );
 	}
 
 	/**
@@ -304,12 +307,6 @@ final class BB_PowerPack {
 		}
 		</style>
 		<?php
-		}
-		if ( pp_get_google_api_url() ) {
-			?>
-			<!-- Google Map API URL -->
-			<script src="<?php echo pp_get_google_api_url(); ?>" type="text/javascript"></script>
-			<?php
 		}
 	}
 

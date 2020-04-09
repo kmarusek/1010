@@ -34,6 +34,14 @@
             },
 		},
 
+		init: function() {
+			$('input[name="testimonial_layout"]').on( 'change', $.proxy( this._onLayoutChange, this ) );
+		},
+
+		_onLayoutChange: function() {
+			var preview = FLBuilder.preview;
+			preview.delay( 1000, $.proxy( preview.preview, preview ) );
+		}
 	});
 
 })(jQuery);

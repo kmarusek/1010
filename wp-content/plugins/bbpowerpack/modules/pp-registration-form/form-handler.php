@@ -106,7 +106,13 @@ class PPRegistrationFormHandler extends PPRegistrationFormModule {
 
 				if ( ! empty( $recaptcha_secret_key ) && ! empty( $recaptcha_site_key ) ) {
 					if ( version_compare( phpversion(), '5.3', '>=' ) ) {
-						include $module->dir . 'includes/validate-recaptcha.php';
+						$validate = new BB_PowerPack_ReCaptcha( $recaptcha_secret_key, $recaptcha_validate_type, $recaptcha_response );
+						if ( ! $validate->is_success() ) {
+							wp_send_json_error( array(
+								'code' 		=> 'recaptcha',
+								'message' 	=> __( 'Error verifying reCAPTCHA, please try again.', 'bb-powerpack' ),
+							) );
+						}
 					} else {
 						wp_send_json_error( array(
 							'code'		=> 'recaptcha_php_ver',

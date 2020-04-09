@@ -21,8 +21,6 @@
 			target="<?php echo $click_action_target; ?>" 
 			<?php if ( '_blank' === $click_action_target ) { ?>
 			rel="nofollow noopener"
-			<?php } else { ?>
-			rel="nofollow"
 			<?php } ?>
 			<?php } ?> 
 			<?php if ( 'lightbox' == $settings->click_action ) { ?>

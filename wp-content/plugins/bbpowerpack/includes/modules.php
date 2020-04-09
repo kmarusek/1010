@@ -80,6 +80,8 @@ $modules = array(
 	'modules/pp-file-download/pp-file-download.php',
 	'modules/pp-reviews/pp-reviews.php',
 	'modules/pp-social-share/pp-social-share.php',
+	'modules/pp-offcanvas-content/pp-offcanvas-content.php',
+	'modules/pp-sliding-menus/pp-sliding-menus.php',
 );
 /* Custom Grid */
 if ( class_exists( 'FLThemeBuilderLoader' ) ) {

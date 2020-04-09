@@ -94,7 +94,12 @@ if ( $query->have_posts() ) :
 			if ( $count == 1 ) {
 				echo '</div>';
 			}
-			if ( ($count == 3 && $settings->layout == 3) || ($count == 3 && $settings->layout == 4) || ($count == 4 && $settings->layout == 1) || ($count == 5 && $settings->layout == 2) ) {
+			if ( ( $count == 3 && $settings->layout == 3 ) || 
+				( $count == 3 && $settings->layout == 4 ) || 
+				( $count == 3 && $query->found_posts == 3 ) || 
+				( $count == 4 && $settings->layout == 1 ) || 
+				( $count == 4 && $query->found_posts == 4 ) || 
+				( $count == 5 && $settings->layout == 2 ) ) {
 				echo '</div>';
 			}
 

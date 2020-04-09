@@ -289,6 +289,16 @@ FLBuilder::register_module(
 								'_blank' => __( 'New Window', 'bb-powerpack' ),
 							),
 						),
+						'category_show_image' => array(
+							'type'	=> 'pp-switch',
+							'label'	=> __( 'Show Image', 'bb-powerpack' ),
+							'default' => 'yes',
+							'toggle' => array(
+								'yes' => array(
+									'fields' => array( 'category_fallback_image', 'category_image_size' ),
+								),
+							),
+						),
 						'category_fallback_image'   => array(
 							'type'        => 'photo',
 							'label'       => __( 'Fallback Image', 'bb-powerpack' ),
@@ -506,7 +516,6 @@ FLBuilder::register_module(
 			'sections' => array(
 				'box_styles'       => array(
 					'title'     => __( 'Box', 'bb-powerpack' ),
-					'collapsed' => true,
 					'fields'    => array(
 						'box_border_group' => array(
 							'type'       => 'border',
@@ -521,6 +530,7 @@ FLBuilder::register_module(
 				),
 				'overlay_styles'   => array(
 					'title'  => __( 'Content', 'bb-powerpack' ),
+					'collapsed' => true,
 					'fields' => array(
 						'category_bg_color'       => array(
 							'type'       => 'color',
@@ -644,6 +654,7 @@ FLBuilder::register_module(
 				),
 				'slide_settings'   => array(
 					'title'  => __( 'Slider Settings', 'bb-powerpack' ),
+					'collapsed' => true,
 					'fields' => array(
 						'transition_speed'     => array(
 							'type'        => 'text',
@@ -723,6 +734,7 @@ FLBuilder::register_module(
 				),
 				'pagination_style' => array(
 					'title'  => __( 'Pagination', 'bb-powerpack' ),
+					'collapsed' => true,
 					'fields' => array(
 						'pagination_bg_color'   => array(
 							'type'        => 'color',
@@ -819,6 +831,7 @@ FLBuilder::register_module(
 				),
 				'arrow_style'      => array(
 					'title'  => __( 'Navigation Arrows', 'bb-powerpack' ),
+					'collapsed' => true,
 					'fields' => array(
 						'arrow_size'                   => array(
 							'type'    => 'unit',

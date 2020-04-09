@@ -472,7 +472,7 @@ FLBuilder::register_module('PPGalleryModule', array(
 						'label'         => __('Click Action', 'bb-powerpack'),
 						'default'       => 'lightbox',
 						'options'       => array(
-							'none'          => __( 'None', 'Click action.', 'bb-powerpack' ),
+							'none'          => __( 'None', 'bb-powerpack' ),
 							'lightbox'      => __('Lightbox', 'bb-powerpack'),
 							'custom-link'   => __('Custom URL', 'bb-powerpack')
 						),

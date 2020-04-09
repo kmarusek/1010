@@ -133,12 +133,12 @@ final class PPModuleExtend {
 			return $form;
 		}
 
-		$form['layout']['sections']['layout_cg']['fields']['post_grid_style_select']['options']['custom'] = __( 'Custom', 'bb-powerpack' );
-		$form['layout']['sections']['layout_cg']['fields']['post_grid_style_select']['toggle']['custom'] = array(
+		$form['layout']['sections']['general']['fields']['post_grid_style_select']['options']['custom'] = __( 'Custom', 'bb-powerpack' );
+		$form['layout']['sections']['general']['fields']['post_grid_style_select']['toggle']['custom'] = array(
 			'fields' => array( 'custom_layout' ),
 		);
 
-		$fields = $form['layout']['sections']['layout_cg']['fields'];
+		$fields = $form['layout']['sections']['general']['fields'];
 		$custom_layout = array(
 			'type'          => 'form',
 			'label'         => __( 'Custom Layout', 'bb-powerpack' ),
@@ -156,7 +156,7 @@ final class PPModuleExtend {
 			array_slice( $fields, $position )
 		);
 
-		$form['layout']['sections']['layout_cg']['fields'] = $fields;
+		$form['layout']['sections']['general']['fields'] = $fields;
 
 		FLBuilder::register_settings_form( 'pp_post_custom_layout', array(
 			'title' => __( 'Customize Layout', 'bb-powerpack' ),

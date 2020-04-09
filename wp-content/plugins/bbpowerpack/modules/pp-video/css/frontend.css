@@ -48,7 +48,7 @@
 	width: 100%;
 }
 .pp-video-wrapper {
-	background: #000;
+	background-color: transparent;
 	overflow: hidden;
 }
 .pp-video-wrapper video,

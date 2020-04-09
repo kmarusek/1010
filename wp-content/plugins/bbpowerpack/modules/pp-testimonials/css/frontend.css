@@ -9,6 +9,48 @@
 	clear: both;
 }
 
+/* Grid Layout */
+.pp-testimonials-grid-0 .pp-testimonials {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    overflow: hidden;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.pp-testimonials-grid-1 .pp-testimonials {
+    grid-template-columns: repeat(1,1fr);
+    display: grid;
+}
+
+.pp-testimonials-grid-2 .pp-testimonials {
+    grid-template-columns: repeat(2,1fr);
+    display: grid;
+}
+
+.pp-testimonials-grid-3 .pp-testimonials {
+    grid-template-columns: repeat(3,1fr);
+    display: grid;
+}
+
+.pp-testimonials-grid-4 .pp-testimonials {
+    grid-template-columns: repeat(4,1fr);
+    display: grid;
+}
+
+.pp-testimonials-grid-5 .pp-testimonials {
+    grid-template-columns: repeat(5,1fr);
+    display: grid;
+}
+
+.pp-testimonials-grid-6 .pp-testimonials {
+    grid-template-columns: repeat(6,1fr);
+    display: grid;
+}
+
 /* Default layout */
 .fl-module .pp-testimonials-image img {
 	border: 0 solid;
@@ -188,6 +230,10 @@
 	width: 100%;
 }
 
+.pp-testimonials .layout-5 .pp-testimonials-subtitle {
+	margin-bottom: 20px;
+}
+
 /* Wrappers */
 .pp-module-testimonials .bx-wrapper {
 	margin: 0 auto 35px;
@@ -195,13 +241,13 @@
 .pp-testimonials-wrap {
 	position: relative;
 }
-.pp-testimonials-wrap .pp-testimonial {
+.pp-testimonials-wrap.pp-testimonials-slider .pp-testimonial {
 	position: absolute;
 	top: 0;
 	visibility: hidden;
 }
-.pp-testimonials-wrap .pp-testimonial:first-child,
-.pp-testimonials-loaded .pp-testimonial {
+.pp-testimonials-wrap.pp-testimonials-slider .pp-testimonial:first-child,
+.pp-testimonials-slider .pp-testimonials-loaded .pp-testimonial {
 	position: relative;
 	visibility: visible;
 }
@@ -220,13 +266,16 @@
 	margin-bottom: 10px;
 	text-align: center;
 }
-.pp-testimonials-wrap .pp-arrow-wrapper .pp-slider-nav {
-	display: inline-block;
-	margin-right: 5px;
-}
-.pp-testimonials-wrap .pp-arrow-wrapper .pp-slider-nav a {
+.pp-testimonials-wrap .owl-theme .owl-nav button {
 	box-shadow: none;
-}
-.pp-testimonials-wrap .pp-arrow-wrapper .pp-slider-nav a:focus {
 	outline: none;
+	background: none !important;
+	top: 0 !important;
+}
+.pp-testimonials-wrap .owl-theme .owl-nav button svg {
+	width: 20px;
+	height: 20px;
+	box-shadow: none;
+	outline: none;
+	border-radius: 100%;
 }

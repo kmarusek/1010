@@ -116,12 +116,51 @@ class PPInfoBannerModule extends FLBuilderModule {
 			),
 		), 'banner_title_typography' );
 
+		// Handle title's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'banner_title_font'	=> array(
+				'type'			=> 'font'
+			),
+			'banner_title_font_size'	=> array(
+				'type'          => 'font_size',
+			),
+			'banner_title_alignment'	=> array(
+				'type'			=> 'text_align',
+			),
+			'banner_title_line_height'	=> array(
+				'type'			=> 'line_height',
+			),
+			'banner_title_spacing'	=> array(
+				'type'			=> 'letter_spacing',
+			),
+		), 'banner_title_typography' );
+
+		// Handle description's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'banner_desc_font'	=> array(
+				'type'			=> 'font'
+			),
+			'banner_desc_font_size'	=> array(
+				'type'          => 'font_size',
+			),
+		), 'banner_desc_typography' );
+
+		// Handle button's old typography fields.
+		$settings = PP_Module_Fields::handle_typography_field( $settings, array(
+			'banner_button_font'	=> array(
+				'type'			=> 'font'
+			),
+			'banner_button_font_size'	=> array(
+				'type'          => 'font_size',
+			),
+		), 'banner_button_typography' );
+
 		return $settings;
 	}
 
 	/**
 	 * Returns button link rel based on settings
-	 * @since 2.6.9
+	 * @since 2.6.9 
 	 */
 	public function get_rel() {
 		$rel = array();
@@ -473,7 +512,8 @@ FLBuilder::register_module('PPInfoBannerModule', array(
                         'label'         => __('Height', 'bb-powerpack'),
                         'units'			=> array('px'),
                         'slider'		=> true,
-                        'default'       => '300',
+						'default'       => '300',
+						'responsive'	=> true,
                         'preview'       => array(
                             'type'      => 'css',
                             'selector'  => '.pp-info-banner-content',
@@ -785,69 +825,53 @@ FLBuilder::register_module('PPInfoBannerModule', array(
 				'title'             => __('Description', 'bb-powerpack'),
 				'collapsed'			=> true,
                 'fields'            => array(
-                    'banner_desc_font'		=> array(
-                        'type'          => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.pp-info-banner-content .banner-description'
-                        )
-                    ),
-					'banner_desc_font_size'	=> array(
-                        'type'          => 'unit',
-                        'label'         => __('Font Size', 'bb-powerpack'),
-                        'units'			=> array('px'),
-                        'slider'		=> true,
-                        'default'       => '20',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-info-banner-content .banner-description',
-                            'property'  => 'font-size',
-                            'unit'      => 'px'
-                        )
-                    ),
+					'banner_desc_typography'	=> array(
+						'type'        	   => 'typography',
+						'label'       	   => __( 'Typography', 'bb-powerpack' ),
+						'responsive'  	   => true,
+						'preview'          => array(
+							'type'         		=> 'css',
+							'selector' 		    => '.pp-info-banner-content .banner-description',
+						),
+					),
                 )
             ),
             'button_typography' => array(
 				'title'             => __('Button', 'bb-powerpack'),
 				'collapsed'			=> true,
                 'fields'            => array(
-                    'banner_button_font' => array(
-                        'type'          => 'font',
-                        'default'		=> array(
-                            'family'		=> 'Default',
-                            'weight'		=> 300
-                        ),
-                        'label'         => __('Font', 'bb-powerpack'),
-                        'preview'         => array(
-                            'type'            => 'font',
-                            'selector'        => '.pp-info-banner-content .banner-button'
-                        )
-                    ),
-					'banner_button_font_size'   => array(
-                        'type'          => 'text',
-                        'label'         => __('Font Size', 'bb-powerpack'),
-                        'units'			=> array('px'),
-                        'slider'		=> true,
-                        'default'       => '16',
-                        'preview'       => array(
-                            'type'      => 'css',
-                            'selector'  => '.pp-info-banner-content .banner-button',
-                            'property'  => 'font-size',
-                            'unit'      => 'px'
-                        )
-                    ),
+					'banner_button_typography'	=> array(
+						'type'        	   => 'typography',
+						'label'       	   => __( 'Typography', 'bb-powerpack' ),
+						'responsive'  	   => true,
+						'preview'          => array(
+							'type'         		=> 'css',
+							'selector' 		    => '.pp-info-banner-content .banner-button',
+						),
+					),
                 )
             )
         )
     ),
     'banner_responsive_style'	=> array( // Tab
-        'title'         => __('Responsive', 'bb-powerpack'), // Tab title
-        'sections'      => array( // Tab Sections
+		'title'         => __('Responsive', 'bb-powerpack'), // Tab title
+		'description'	=> __( 'Since BB 2.0 the responsive Font Settings are available under Typography tab. We highly recommend to use them instead of the previous responsive options for better compatibility.', 'bb-powerpack' ),
+		'sections'      => array( // Tab Sections
+			'enable_responsive'	=> array(
+				'title'	=> '',
+				'fields'	=> array(
+					'enable_responsive'	=> array(
+						'type'	=> 'pp-switch',
+						'label'	=> __( 'Enable Responsive Settings', 'bb-powerpack' ),
+						'default' => 'yes',
+						'toggle'	=> array(
+							'yes'	=> array(
+								'sections'	=> array( 'banner_breakpoint1_style', 'banner_breakpoint2_style', 'banner_breakpoint3_style' ),
+							),
+						),
+					),
+				),
+			),
             'banner_breakpoint1_style'      => array( // Section
                 'title'         => __('Break Point 1 Style', 'bb-powerpack'), // Section Title
                 'fields'        => array( // Section Fields

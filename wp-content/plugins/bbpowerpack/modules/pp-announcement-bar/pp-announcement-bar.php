@@ -210,6 +210,7 @@ FLBuilder::register_module('PPAnnouncementBarModule', array(
 						'default'		=> '',
 						'description'	=> __('day(s)', 'bb-powerpack'),
 						'size'			=> 5,
+						'help'			=> __( 'Use this option to display the announcement bar again after a day or few days once visitor closes it.', 'bb-powerpack' ),
 						'connections'	=> array('string')
 					)
 				)

@@ -5,7 +5,7 @@ var pp_gallery_<?php echo $id; ?>;
 
 	<?php
 	$row_height = '' == $settings->row_height ? 0 : $settings->row_height;
-	$max_row_height = '' == $settings->max_row_height ? $row_height : $settings->row_height;
+	$max_row_height = '' == $settings->max_row_height ? $row_height : $settings->max_row_height;
 	?>
 
 	var options = {
@@ -14,8 +14,12 @@ var pp_gallery_<?php echo $id; ?>;
 		gutter: <?php echo '' == $settings->photo_spacing ? 0 : $settings->photo_spacing; ?>,
 		spacing: <?php echo '' == $settings->justified_spacing ? 0 : $settings->justified_spacing; ?>,
 		columns: <?php echo '' == $settings->photo_grid_count ? 3 : intval( $settings->photo_grid_count ); ?>,
+		<?php if ( ! empty( $row_height ) ) { ?>
 		rowHeight: <?php echo $row_height; ?>,
+		<?php } ?>
+		<?php if ( ! empty( $max_row_height ) ) { ?>
 		maxRowHeight: <?php echo $max_row_height; ?>,
+		<?php } ?>
 		lastRow: '<?php echo $settings->last_row; ?>',
 		lightbox: <?php echo 'lightbox' == $settings->click_action ? 'true' : 'false'; ?>,
 		lightboxCaption: <?php echo ( isset( $settings->lightbox_caption ) && 'yes' == $settings->lightbox_caption ) ? 'true' : 'false'; ?>,

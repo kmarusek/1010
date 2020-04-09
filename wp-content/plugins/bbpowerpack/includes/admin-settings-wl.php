@@ -213,6 +213,18 @@
 			</tr>
 			<tr valign="top">
 				<th scope="row" valign="top">
+					<label for="ppwl_hide_login_register_tab"><?php esc_html_e( 'Hide Login/Register setting tab', 'bb-powerpack' ); ?></label>
+					<p class="description"><?php esc_html_e( 'The Login/Register setting page will no longer accessible by enabling this option.', 'bb-powerpack' ); ?></p>
+				</th>
+				<td>
+					<label class="pp-admin-field-toggle">
+						<input id="ppwl_hide_login_register_tab" name="ppwl_hide_login_register_tab" type="checkbox" value="1" <?php echo self::get_option( 'ppwl_hide_login_register_tab' ) == 1 ? 'checked="checked"' : '' ?> />
+						<span class="pp-admin-field-toggle-slider"></span>
+					</label>
+				</td>
+			</tr>
+			<tr valign="top">
+				<th scope="row" valign="top">
 					<label for="ppwl_hide_form"><?php esc_html_e( 'Hide White Label settings', 'bb-powerpack' ); ?></label>
 					<?php // translators: %s is HTML attributes for anchor tags containing docs link. ?>
 					<p class="description"><?php echo sprintf( __( 'The white label setting page will no longer accessible by enabling this option. <a%s>Learn More</a>', 'bb-powerpack' ), ' href="https://wpbeaveraddons.com/docs/powerpack/white-label/how-to-hide-white-label-settings/" target="_blank"' ); ?></p>

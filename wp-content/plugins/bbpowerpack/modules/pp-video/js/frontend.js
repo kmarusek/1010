@@ -82,6 +82,9 @@
 					}
 					$('.fancybox-' + id).find( '.pp-video-iframe' )[0].src = iframeSrc;
 				},
+				iframe: {
+					preload: false
+				}
 			};
 
 			var wrapperClasses = 'pp-aspect-ratio-' + this.aspectRatio;

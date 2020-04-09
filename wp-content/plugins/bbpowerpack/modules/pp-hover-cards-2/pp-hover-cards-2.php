@@ -24,9 +24,8 @@ class PPHoverCardsModuleNew extends FLBuilderModule {
             'enabled'       => true, // Defaults to true and can be omitted.
             'partial_refresh'   => true,
         ));
+	}
 
-        $this->add_css( 'hover-cards-2-settings-style', $this->url . 'css/settings.css' );
-    }
 	public function filter_settings( $settings, $helper ) {
 
 		// Handle hover card title's old typography fields.

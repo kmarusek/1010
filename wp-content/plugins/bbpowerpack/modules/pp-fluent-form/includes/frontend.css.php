@@ -95,12 +95,6 @@
 	color: #<?php echo $settings->description_color; ?>;
 	<?php } ?>
 	display: <?php echo ( 'yes' == $settings->form_custom_title_desc ) ? 'block' : 'none'; ?>;
-	<?php if ( $settings->description_margin['top'] >= 0 ) { ?>
-	margin-top: <?php echo $settings->description_margin['top']; ?>px;
-	<?php } ?>
-	<?php if ( $settings->description_margin['bottom'] >= 0 ) { ?>
-	margin-bottom: <?php echo $settings->description_margin['bottom']; ?>px;
-	<?php } ?>
 }
 
 <?php

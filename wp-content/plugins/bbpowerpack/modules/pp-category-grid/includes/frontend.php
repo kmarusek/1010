@@ -58,6 +58,12 @@ if ( ( ! $cat_match || 'related' === $cat_match ) && ! empty( $ids ) ) {
 	}
 }
 
+// Show child terms on taxonomy archive page.
+if ( isset( $settings->on_tax_archive ) && 'children_only' === $settings->on_tax_archive && is_tax() ) {
+	$current_term = get_queried_object()->term_id;
+	$args['child_of'] = $current_term;
+}
+
 $args = apply_filters( 'pp_category_grid_query_args', $args, $settings );
 
 if ( isset( $settings->display_data ) && 'children_only' === $settings->display_data && isset( $args['parent'] ) && ! empty( $args['parent'][0] ) ) {
@@ -68,10 +74,11 @@ if ( isset( $settings->display_data ) && 'children_only' === $settings->display_
 	$all_categories = get_categories( $args );
 }
 
+$hide_img = isset( $settings->category_show_image ) && 'no' === $settings->category_show_image;
 ?>
 
-<div class="<?php echo 'yes' === $settings->category_grid_slider ? 'swiper-container' : ''; ?> pp-categories-container">
-	<div class="<?php echo 'yes' === $settings->category_grid_slider ? 'swiper-wrapper' : ''; ?> pp-categories pp-clear">
+<div class="pp-categories-container<?php echo 'yes' === $settings->category_grid_slider ? ' swiper-container' : ''; ?>">
+	<div class="pp-categories<?php echo 'yes' === $settings->category_grid_slider ? ' swiper-wrapper' : ''; ?> pp-clear">
 	<?php
 
 	foreach ( $all_categories as $cat ) {

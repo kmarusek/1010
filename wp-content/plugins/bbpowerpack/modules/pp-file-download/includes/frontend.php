@@ -17,4 +17,5 @@ FLBuilder::render_module_html( 'pp-smart-button', array(
 	'link'			=> $filepath,
 	'download' 		=> $filename,
 	'button_effect'	=> $settings->button_effect,
+	'width'			=> $settings->width,
 ), $module );

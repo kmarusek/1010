@@ -80,6 +80,13 @@ var carousel_<?php echo $id; ?> = '';
 		},
 	};
 
+	<?php if ( isset( $settings->loop ) ) { ?>
+	settings.loop = <?php echo 'yes' === $settings->loop ? 'true' : 'false'; ?>;
+	<?php } ?>
+	<?php if ( isset( $settings->stop_last_slide ) && 'yes' === $settings->stop_last_slide ) { ?>
+	settings.stopOnLastSlide = true;
+	<?php } ?>
+
 	carousel_<?php echo $id; ?> = new PPImageCarousel(settings);
 
 	function updateCarousel() {

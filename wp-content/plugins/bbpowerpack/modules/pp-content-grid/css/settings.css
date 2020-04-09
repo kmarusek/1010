@@ -18,6 +18,10 @@
 	display: none !important;
 }
 
+.fl-builder-settings:not(.pp-cg-post-type_tribe_events) #fl-builder-settings-section-events-calendar-settings {
+	display: none !important;
+}
+
 /* Style tab */
 .fl-builder-settings.pp-style-custom #fl-field-post_content_padding,
 .fl-builder-settings.pp-style-custom #fl-builder-settings-section-divider_style,

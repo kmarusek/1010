@@ -203,6 +203,7 @@
 					onResized: $.proxy(this._gridLayoutMatchHeightSimple, this),
 					onRefreshed: $.proxy(this._gridLayoutMatchHeightSimple, this),
 					onLoadedLazy: $.proxy(this._gridLayoutMatchHeightSimple, this),
+					rtl: $('body').hasClass( 'rtl' ),
 				};
 				if ( $(this.postClass).length < this.settings.carousel.items ) {
 					this.settings.carousel.slideBy = 'page';
@@ -250,8 +251,6 @@
 				paged = 'undefined' === typeof paged ? false : paged,
 				self = this;
 
-			var gridWrap = $(this.wrapperClass);
-
 			var currentPage = this.settings.current_page.split('?')[0];
 
 			var data = {
@@ -259,8 +258,17 @@
 				node_id: this.settings.id,
 				page: !paged ? this.settings.page : paged,
 				current_page: currentPage,
-				settings: this.settings.fields
+				//settings: this.settings.fields
 			};
+
+			if ( 'undefined' !== typeof this.includeSettings && this.includeSettings ) {
+				data.settings = this.settings.fields;
+			}
+
+			if ( 'undefined' !== typeof this.settings.template_id ) {
+				data.template_id = this.settings.template_id;
+				data.template_node_id = this.settings.template_node_id;
+			}
 
 			// Archive.
 			if ( 'undefined' !== typeof this.settings.is_archive ) {
@@ -286,11 +294,19 @@
 				data['orderby'] = this.settings.orderby;
 			}
 
+			$(this.wrapperClass).addClass('pp-is-filtering');
+
 			$.ajax({
 				type: 'post',
 				url: window.location.href.split( '#' ).shift(),
 				data: data,
 				success: function (response) {
+					if ( 'undefined' !== typeof response.success && ! response.success ) {
+						self.includeSettings = true;
+						self._getAjaxPosts( term, isotopeData, paged );
+						return;
+					}
+					self.includeSettings = false;
 					self._setCacheData(term, response, paged);
 					$(self.nodeClass).trigger('grid.beforeRender');
 					self._renderPosts(response, {
@@ -298,6 +314,7 @@
 						isotopeData: isotopeData,
 						page: paged
 					});
+					$(self.wrapperClass).removeClass('pp-is-filtering');
 				}
 			});
 		},

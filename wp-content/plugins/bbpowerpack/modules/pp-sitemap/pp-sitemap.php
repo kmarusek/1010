@@ -304,7 +304,7 @@ FLBuilder::register_module(
 							'type'         => 'unit',
 							'label'        => __( 'Indent', 'bb-powerpack' ),
 							'default'      => 0,
-							// 'description'   => __('px', 'bb-powerpack'),
+							// 'description'   => 'px',
 							'units'        => array( 'px', 'em' ),
 							'default_unit' => 'px',
 							'slider'       => true,
@@ -319,7 +319,7 @@ FLBuilder::register_module(
 							'label'       => __( 'Padding', 'bb-powerpack' ),
 							'responsive'  => true,
 							'slider'      => true,
-							'description' => __( 'px', 'bb-powerpack' ),
+							'description' => 'px',
 							'preview'     => array(
 								'type'     => 'css',
 								'selector' => '.pp-sitemap-section',
@@ -355,7 +355,7 @@ FLBuilder::register_module(
 							'label'       => __( 'Padding', 'bb-powerpack' ),
 							'responsive'  => true,
 							'slider'      => true,
-							'description' => __( 'px', 'bb-powerpack' ),
+							'description' => 'px',
 							'preview'     => array(
 								'type'     => 'css',
 								'selector' => '.pp-sitemap-section .pp-sitemap-label',
@@ -432,7 +432,7 @@ FLBuilder::register_module(
 							'label'       => __( 'Padding', 'bb-powerpack' ),
 							'responsive'  => true,
 							'slider'      => true,
-							'description' => __( 'px', 'bb-powerpack' ),
+							'description' => 'px',
 							'preview'     => array(
 								'type'     => 'css',
 								'selector' => '.pp-sitemap-section .pp-sitemap-list > li',
@@ -476,7 +476,7 @@ FLBuilder::register_module(
 							'type'        => 'unit',
 							'label'       => __( 'Seperator Size', 'bb-powerpack' ),
 							'default'     => 1,
-							'description' => __( 'px', 'bb-powerpack' ),
+							'description' => 'px',
 							'preview'     => array(
 								'type'     => 'css',
 								'selector' => '.pp-sitemap-section .pp-sitemap-list > li',
@@ -571,8 +571,7 @@ FLBuilder::register_settings_form(
 							'sitemap_taxonomy_source'     => array(
 								'type'    => 'select',
 								'label'   => __( 'Source', 'bb-powerpack' ),
-								'options' => PPSiteMapModule::get_taxonomies(),
-
+								'options' => isset( $_GET['fl_builder'] ) ? PPSiteMapModule::get_taxonomies() : array(),
 							),
 							'sitemap_post_type_orderby'   => array(
 								'type'    => 'select',
@@ -584,7 +583,6 @@ FLBuilder::register_settings_form(
 									'menu_order' => __( 'Menu Order', 'bb-powerpack' ),
 									'random'     => __( 'Random', 'bb-powerpack' ),
 								),
-
 							),
 							'sitemap_taxonomy_orderby'    => array(
 								'type'    => 'select',
@@ -594,7 +592,6 @@ FLBuilder::register_settings_form(
 									'id'   => __( 'ID', 'bb-powerpack' ),
 									'name' => __( 'Name', 'bb-powerpack' ),
 								),
-
 							),
 							'sitemap_order'               => array(
 								'type'    => 'select',
@@ -604,7 +601,6 @@ FLBuilder::register_settings_form(
 									'asc'  => __( 'ASC', 'bb-powerpack' ),
 									'desc' => __( 'DESC', 'bb-powerpack' ),
 								),
-
 							),
 							'sitemap_taxonomy_hide_empty' => array(
 								'type'    => 'pp-switch',
@@ -666,7 +662,7 @@ FLBuilder::register_settings_form(
 				),
 			),
 			'exclude' => array(
-				'title' => __( 'Include/Exclude', 'fl-builder' ),
+				'title' => __( 'Include/Exclude', 'bb-powerpack' ),
 				'file'  => BB_POWERPACK_DIR . 'modules/pp-sitemap/includes/exclude-posts.php',
 			),
 		),

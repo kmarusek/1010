@@ -9,7 +9,7 @@
 	margin: auto;
 }
 
-.pp-reviews-swiper .swiper-container {
+.pp-reviews-wrapper .swiper-container {
 	margin-left: auto;
 	margin-right: auto;
 	position: relative;
@@ -18,7 +18,7 @@
 	width: 100%;
 }
 
-.pp-reviews-swiper .swipper-wrapper {
+.pp-reviews-wrapper .swiper-wrapper {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
@@ -33,7 +33,7 @@
 	z-index: 1;
 }
 
-.pp-reviews-swiper .swiper-slide {
+.pp-reviews-wrapper .swiper-slide {
 	-webkit-flex-shrink: 0;
 	-ms-flex-negative: 0;
 	flex-shrink: 0;
@@ -42,16 +42,14 @@
 	position: relative;
 }
 
-.pp-reviews-swiper .pp-review-item.swiper-slide {
-	width:100%;
+.pp-reviews-wrapper .pp-review-item.swiper-slide {
+	width: 100%;
 	text-align: center;
-	background-color: #fff;
-	border-radius: 5px;
 	padding: 0;
 	height: auto;
 }
 
-.pp-reviews-swiper .pp-swiper-button {
+.pp-reviews-wrapper .pp-swiper-button {
 	background-image: none;
 	width: auto;
 	height: auto;
@@ -66,38 +64,40 @@
 	color: hsla(0,0%,93%,.9);
 }
 
-.pp-reviews-swiper .pp-swiper-button-prev {
+.pp-reviews-wrapper .pp-swiper-button-prev {
 	left: 0;
 }
 
-.pp-reviews-swiper .pp-swiper-button-next {
+.pp-reviews-wrapper .pp-swiper-button-next {
 	right: 0;
 }
 
-.pp-reviews-swiper {
+.pp-reviews-wrapper .pp-reviews-swiper {
 	padding-bottom: 30px;
 }
 
-.pp-reviews-swiper .swiper-container-horizontal .swiper-pagination {
+.pp-reviews-wrapper .swiper-container-horizontal .swiper-pagination {
 	position: relative;
 	top: 0 !important;
 	bottom: unset !important;
 }
 
-.pp-reviews-swiper .swiper-container-horizontal > .swiper-pagination-bullets,
-.pp-reviews-swiper .swiper-pagination-custom,
-.pp-reviews-swiper .swiper-pagination-fraction {
+.pp-reviews-wrapper .swiper-container-horizontal > .swiper-pagination-bullets,
+.pp-reviews-wrapper .swiper-pagination-custom,
+.pp-reviews-wrapper .swiper-pagination-fraction {
 	bottom: unset;
-}
-
-.pp-review {
-	border: 1px solid #e8e8e8;
-	height: 100%;
 }
 
 .pp-reviews-wrapper .dashicons,
 .pp-reviews-wrapper .dashicons-before:before {
 	width: unset !important;
+}
+
+.pp-review {
+	border: 1px solid #e8e8e8;
+	height: 100%;
+	background-color: #fff;
+	border-radius: 5px;
 }
 
 .pp-review-header,
@@ -187,8 +187,7 @@
 }
 
 .pp-rating {
-	font-size: 25px;
-	text-align:left;
+	text-align: left;
 }
 .pp-rating i {
 	font-style: normal;

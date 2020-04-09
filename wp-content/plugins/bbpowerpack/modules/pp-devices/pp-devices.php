@@ -316,7 +316,7 @@ FLBuilder::register_module(
 		'general' => array(
 			'title'    => __( 'General', 'bb-powerpack' ),
 			'sections' => array(
-				'device'      => array(
+				'device'        => array(
 					'title'  => 'Device',
 					'fields' => array(
 						'device_type'         => array(
@@ -449,7 +449,7 @@ FLBuilder::register_module(
 						),
 					),
 				),
-				'image'       => array(
+				'image'         => array(
 					'title'  => 'Image',
 					'fields' => array(
 						'image'              => array(
@@ -477,8 +477,11 @@ FLBuilder::register_module(
 								'no'  => __( 'No', 'bb-powerpack' ),
 							),
 							'toggle'  => array(
-								'no' => array(
-									'fields' => array( 'vertical_alignment' ),
+								'no'  => array(
+									'fields' => array( 'image_fit', 'vertical_alignment' ),
+								),
+								'yes' => array(
+									'sections' => array( 'image_control' ),
 								),
 							),
 						),
@@ -514,7 +517,7 @@ FLBuilder::register_module(
 						),
 					),
 				),
-				'embed_video' => array(
+				'embed_video'   => array(
 					'title'  => 'Video',
 					'fields' => array(
 						'youtube_url'       => array(
@@ -546,7 +549,7 @@ FLBuilder::register_module(
 						),
 					),
 				),
-				'video'       => array(
+				'video'         => array(
 					'title'  => 'Video',
 					'fields' => array(
 						'video_type'        => array(
@@ -672,7 +675,7 @@ FLBuilder::register_module(
 						),
 					),
 				),
-				'behaviour'   => array(
+				'behaviour'     => array(
 					'title'  => 'Behaviour',
 					'fields' => array(
 						'auto_play'         => array(
@@ -842,7 +845,7 @@ FLBuilder::register_module(
 						),
 					),
 				),
-				'display'     => array(
+				'display'       => array(
 					'title'  => 'Display',
 					'fields' => array(
 						'show_buttons'    => array(
@@ -910,7 +913,7 @@ FLBuilder::register_module(
 						),
 					),
 				),
-				'volume'      => array(
+				'volume'        => array(
 					'title'  => 'Volume',
 					'fields' => array(
 						'show_volume'      => array(
@@ -948,6 +951,50 @@ FLBuilder::register_module(
 								'min'  => 0,
 								'max'  => 1,
 								'step' => 0.01,
+							),
+						),
+					),
+				),
+				'image_control' => array(
+					'title'     => __( 'Scroll Settings', 'bb-powerpack' ),
+					'collapsed' => true,
+					'fields'    => array(
+						'img_trigger'  => array(
+							'type'    => 'pp-switch',
+							'label'   => __( 'Trigger on', 'bb-powerpack' ),
+							'default' => 'scroll',
+							'options' => array(
+								'hover'  => __( 'Hover', 'bb-powerpack' ),
+								'scroll' => __( 'Mouse Scroll', 'bb-powerpack' ),
+							),
+							'toggle'  => array(
+								'hover' => array(
+									'fields' => array( 'scroll_speed', 'scroll_dir', 'reverse_dir' ),
+								),
+							),
+						),
+						'scroll_speed' => array(
+							'type'    => 'unit',
+							'label'   => __( 'Scroll Speed', 'bb-powerpack' ),
+							'slider'  => true,
+							'default' => '3',
+						),
+						'scroll_dir'   => array(
+							'type'    => 'pp-switch',
+							'label'   => __( 'Scroll Direction', 'bb-powerpack' ),
+							'default' => 'vertical',
+							'options' => array(
+								'horizontal' => __( 'Horizontal', 'bb-powerpack' ),
+								'vertical'   => __( 'Vertical', 'bb-powerpack' ),
+							),
+						),
+						'reverse_dir'  => array(
+							'type'    => 'pp-switch',
+							'label'   => __( 'Reverse Direction', 'bb-powerpack' ),
+							'default' => 'no',
+							'options' => array(
+								'yes' => __( 'Yes', 'bb-powerpack' ),
+								'no'  => __( 'No', 'bb-powerpack' ),
 							),
 						),
 					),

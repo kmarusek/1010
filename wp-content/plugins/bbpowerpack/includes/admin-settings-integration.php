@@ -16,19 +16,67 @@
 	</tr>
 	<tr align="top">
 		<th scope="row" valign="top">
+			<label for="bb_powerpack_fb_app_secret"><?php esc_html_e( 'Facebook App Secret', 'bb-powerpack' ); ?></label>
+		</th>
+		<td>
+			<input id="bb_powerpack_fb_app_secret" name="bb_powerpack_fb_app_secret" type="password" class="regular-text" value="<?php echo BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_fb_app_secret', true); ?>" autofill="false" autocomplete="false" autosuggest="false" />
+			<p class="description">
+				<?php // translators: %s: Facebook App Setting link ?>
+				<?php echo sprintf( __( 'To get your Facebook App Secret, you need to <a href="%s" target="_blank">register and configure</a> an app. Once registered, you will find App Secret under <a href="%s" target="_blank">App Domains</a>', 'bb-powerpack' ), 'https://developers.facebook.com/docs/apps/register/', pp_get_fb_app_settings_url() ); ?>
+			</p>
+		</td>
+	</tr>
+	<tr align="top">
+		<th scope="row" valign="top">
+			<label for="bb_powerpack_google_client_id"><?php esc_html_e( 'Google Client ID', 'bb-powerpack' ); ?></label>
+		</th>
+		<td>
+			<input id="bb_powerpack_google_client_id" name="bb_powerpack_google_client_id" type="text" class="regular-text" value="<?php echo BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_google_client_id', true); ?>" />
+			<p class="description">
+				<?php // translators: %s: Google API document ?>
+				<?php echo sprintf( __( 'To get your Google Client ID, read <a href="https://wpbeaveraddons.com/docs/powerpack/modules/login-form/create-google-client-id" target="_blank">this document</a>', 'bb-powerpack' ), '#' ); ?>
+			</p>
+		</td>
+	</tr>
+	<tr align="top">
+		<th scope="row" valign="top">
 			<label for="bb_powerpack_google_api_key"><?php esc_html_e( 'Google Map API Key', 'bb-powerpack' ); ?></label>
 		</th>
 		<td>
 			<input id="bb_powerpack_google_api_key" name="bb_powerpack_google_api_key" type="text" class="regular-text" value="<?php echo BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_google_api_key', true); ?>" />
 			<p class="description">
 				<?php // translators: %s: Google API document ?>
-				<?php echo sprintf( __( 'To get your Google API Key, read <a href="%s" target="_blank">this article</a>', 'bb-powerpack' ), 'https://developers.google.com/maps/documentation/javascript/get-api-key' ); ?>
+				<?php echo sprintf( __( 'To get your Google API Key, read <a href="%s" target="_blank">this document</a>', 'bb-powerpack' ), 'https://developers.google.com/maps/documentation/javascript/get-api-key' ); ?>
+			</p>
+		</td>
+	</tr>
+	<tr align="top">
+		<th scope="row" valign="top">
+			<label for="bb_powerpack_google_places_api_key"><?php esc_html_e('Google Places API Key', 'bb-powerpack'); ?></label>
+		</th>
+		<td>
+			<input id="bb_powerpack_google_places_api_key" name="bb_powerpack_google_places_api_key" type="text" class="regular-text" value="<?php echo BB_PowerPack_Admin_Settings::get_option('bb_powerpack_google_places_api_key', true); ?>" />
+			<p class="description">
+				<?php // translators: %s: Google API document ?>
+				<?php echo sprintf( __( 'To get your Google Places API Key, read <a href="%s" target="_blank">this document</a>', 'bb-powerpack' ), 'https://developers.google.com/places/web-service/get-api-key' ); ?>
+			</p>
+		</td>
+	</tr>
+	<tr align="top">
+		<th scope="row" valign="top">
+			<label for="bb_powerpack_yelp_api_key"><?php esc_html_e('Yelp Business API Key', 'bb-powerpack'); ?></label>
+		</th>
+		<td>
+			<input id="bb_powerpack_yelp_api_key" name="bb_powerpack_yelp_api_key" type="text" class="regular-text" value="<?php echo BB_PowerPack_Admin_Settings::get_option('bb_powerpack_yelp_api_key', true); ?>" />
+			<p class="description">
+				<?php // translators: %s: Yelp API document ?>
+				<?php echo sprintf( __( 'To get your Yelp API Key, read <a href="%s" target="_blank">this document</a>', 'bb-powerpack' ), 'https://www.yelp.com/developers/documentation/v3/authentication' ); ?>
 			</p>
 		</td>
 	</tr>
 </table>
 
-<h3><?php esc_html_e( 'reCAPTCHA', 'bb-powerpack' ); ?></h3>
+<h3><?php esc_html_e( 'reCAPTCHA V2', 'bb-powerpack' ); ?></h3>
 <p>
 	<?php // translators: %s: reCAPTCHA Site Key document ?>
 	<?php echo sprintf( __( 'Register keys for your website at the <a href="%s" target="_blank">Google Admin Console</a>.', 'bb-powerpack' ), 'https://www.google.com/recaptcha/admin' ); ?>

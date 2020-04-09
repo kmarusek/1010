@@ -27,8 +27,11 @@
 
 			this._currentStyle = form.find('select[name="post_grid_style_select"]').val();
 
-			this._tirggerStyleChange();
 			form.find('select[name="post_grid_style_select"]').on('change', $.proxy( this._tirggerStyleChange, this ));
+			this._tirggerStyleChange();
+			form.find('select[name="post_type"]').on('change', $.proxy( this._triggerPostTypeChange, this ));
+			form.find('select[name="data_source"]').on('change', $.proxy( this._triggerSourceChange, this ));
+			this._triggerSourceChange();
 
 			if ( $( '#fl-field-custom_layout:visible' ).length > 0 ) {
 				$( '#fl-field-custom_layout:visible' ).on('click', function() {
@@ -38,28 +41,12 @@
 				});
 			}
 
-			if( $('#fl-builder-settings-section-general select[name="post_type"]').val() == 'product' || $('#fl-builder-settings-section-general select[name="post_type"]').val() == 'download' ) {
-                $('#fl-builder-settings-section-product-settings').show();
-                $('#fl-field-more_link_text').hide();
-                if ( $('#fl-builder-settings-section-general select[name="post_type"]').val() == 'download' ) {
-                    $('#fl-field-product_rating, #fl-field-product_rating_color').hide();
-                }
-		   	}
+			$('#fl-builder-settings-section-product-settings').hide();
+			$('#fl-builder-settings-section-product_info_style').hide();
 
-			$('#fl-builder-settings-section-general select[name="post_type"]').on('change', function() {
-				if( $('#fl-builder-settings-section-general select[name="post_type"]').val() == 'product' || $('#fl-builder-settings-section-general select[name="post_type"]').val() == 'download' ) {
-                    $('#fl-builder-settings-section-product-settings').show();
-                    $('#fl-field-more_link_text').hide();
-                    if ( $('#fl-builder-settings-section-general select[name="post_type"]').val() == 'download' ) {
-                        $('#fl-field-product_rating, #fl-field-product_rating_color').hide();
-                    }
-			   	} else {
-				   $('#fl-builder-settings-section-product-settings').hide();
-                   self._showField( 'more_link_text', form.find( 'select[name="more_link_type"]' ).val() === 'button' );
-			   	}
-			});
+			this._triggerPostTypeChange();
 
-			$('#fl-builder-settings-section-general select[name="post_type"]').trigger('change');
+			//$('#fl-builder-settings-section-query select[name="post_type"]').trigger('change');
 
 			// Show more link text field if more_link_type is button.
 			self._showField( 'more_link_text', form.find( 'select[name="more_link_type"]' ).val() === 'button' );
@@ -97,6 +84,55 @@
 				form.addClass( 'pp-style-custom' );
 			} else {
 				form.removeClass( 'pp-style-custom' );
+			}
+		},
+
+		_triggerPostTypeChange: function() {
+			var form = $('.fl-builder-settings'),
+				field = form.find('select[name="post_type"]');
+
+			field.find('option').each(function() {
+				var cls = 'pp-cg-post-type_' + $(this).attr('value');
+				form.removeClass( cls );
+			});
+
+			form.addClass( 'pp-cg-post-type_' + field.val() );
+
+			// WooCommerce and EDD
+			if( field.val() === 'product' || field.val() === 'download' ) {
+				$('#fl-builder-settings-section-product-settings').show();
+				$('#fl-builder-settings-section-product_info_style').show();
+                $('#fl-field-more_link_text').hide();
+                if ( $('#fl-builder-settings-section-query select[name="post_type"]').val() == 'download' ) {
+                    $('#fl-field-product_rating, #fl-field-product_rating_color').hide();
+                } else {
+					$('#fl-field-product_rating, #fl-field-product_rating_color').show();
+				}
+		   	} else {
+				$('#fl-builder-settings-section-product-settings').hide();
+				$('#fl-builder-settings-section-product_info_style').hide();
+				this._showField( 'more_link_text', form.find( 'select[name="more_link_type"]' ).val() === 'button' );
+			}
+
+			// The Events Calendar
+			if ( 'tribe_events' !== field.val() ) {
+				$('#fl-builder-settings-section-events-calendar-settings').hide();
+				$('#fl-builder-settings-section-events_calendar_style').hide();
+			} else {
+				$('#fl-builder-settings-section-events-calendar-settings').show();
+				$('#fl-builder-settings-section-events-calendar-settings').show();
+				if ( 'yes' === form.find( 'input[name="event_enable"]' ).val() ) {
+					$('#fl-builder-settings-section-events_calendar_style').show();
+				}
+			}
+		},
+
+		_triggerSourceChange: function() {
+			var form = $('.fl-builder-settings'),
+				field = form.find('select[name="data_source"]');
+			
+			if ( 'pods_relationship' === field.val() ) {
+				this._showSection( 'query' );
 			}
 		},
 
@@ -161,11 +197,11 @@
 			}
 		},
 
-		_showSection: function(section_ids, condition)
+		_showSection: function(section_ids)
 		{
-			if ( 'boolean' !== typeof condition || ! condition ) {
-				return;
-			}
+			// if ( 'boolean' !== typeof condition || ! condition ) {
+			// 	return;
+			// }
 
 			var form = $('.fl-builder-settings');
 

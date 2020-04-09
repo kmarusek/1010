@@ -628,9 +628,9 @@ function pp_get_fb_app_id()
  * @since 2.4
  * @return string
  */
-function pp_get_fb_sdk_url()
+function pp_get_fb_sdk_url( $app_id = '' )
 {
-	$app_id = pp_get_fb_app_id();
+	$app_id = empty( $app_id ) ? pp_get_fb_app_id() : $app_id;
 	
 	if ( $app_id && ! empty( $app_id ) ) {
 		return sprintf( 'https://connect.facebook.net/%s/sdk.js#xfbml=1&version=v2.12&appId=%s', get_locale(), $app_id );
@@ -650,8 +650,7 @@ function pp_get_fb_app_settings_url()
 	}
 }
 
-function pp_get_fb_module_desc()
-{
+function pp_get_fb_module_desc() {
 	$app_id = pp_get_fb_app_id();
 
 	if ( ! $app_id ) {
@@ -662,6 +661,7 @@ function pp_get_fb_module_desc()
 		return sprintf( __( 'You are connected to Facebook App %1$s, <a href="%2$s" target="_blank">Change App</a>', 'bb-powerpack' ), $app_id, BB_PowerPack_Admin_Settings::get_form_action() );
 	}
 }
+
 function pp_get_google_api_key() {
 	return BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_google_api_key' );
 }
@@ -671,11 +671,28 @@ function pp_get_google_api_url() {
 	if ( ! empty( $key ) ) {
 		return "https://maps.googleapis.com/maps/api/js?key={$key}";
 	}
-	
+
 	return false;
 }
-function pp_clear_enabled_templates()
-{
+
+function pp_get_google_places_api_key() {
+	return BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_google_places_api_key' );
+}
+
+function pp_get_google_places_api_url() {
+	$key = pp_get_google_places_api_key();
+	if ( ! empty( $key ) ) {
+		return "https://maps.googleapis.com/maps/api/place/details/json?key={$key}";
+	}
+
+	return false;
+}
+
+function pp_get_yelp_api_key() {
+	return BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_yelp_api_key' );
+}
+
+function pp_clear_enabled_templates() {
 	BB_PowerPack_Admin_Settings::update_option( 'bb_powerpack_page_templates', array('disabled') );
 	BB_PowerPack_Admin_Settings::update_option( 'bb_powerpack_templates', array('disabled') );
 	BB_PowerPack_Admin_Settings::delete_option( 'bb_powerpack_row_templates_type' );
@@ -873,4 +890,8 @@ function pp_get_site_domain() {
 function pp_get_recaptcha_desc() {
 	// translators: %s: Integration Setting Page link
 	return sprintf( __( 'To use reCAPTCHA, you need to add the API keys in the <a href="%s" target="_blank">Integrations Settings</a> and complete the setup process.', 'bb-powerpack' ), BB_PowerPack_Admin_Settings::get_form_action( '&tab=integration' ) );
+}
+
+function pp_is_builder_active() {
+	return is_user_logged_in() && isset( $_GET['fl_builder'] );
 }

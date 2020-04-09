@@ -51,7 +51,7 @@ FLBuilder::register_module(
 							'type'        => 'pp-switch',
 							'label'       => __( 'Enable Schema Markup', 'bb-powerpack' ),
 							'default'     => 'yes',
-							'description' => __( '<span style="line-height: 1.4;font-style: italic;"><br>Enable Schema Markup option if you are setting up a unique \'HowTo\' page on your website. The Module adds \'HowTo\' Page schema to the page as per Google\'s Structured Data guideline.<br><a target="_blank" rel="noopener" href="https://developers.google.com/search/docs/data-types/how-to"><b style="color: #2d7ea2;">Click here</b></a> for more details.</span><p style="font-style: normal; padding: 10px; background: #fffbd4; color: #333; margin-top: 10px; border: 1px solid #FFEB3B; border-radius: 5px; font-size: 12px;">To use schema markup, your page must have only single instance of HowTo widget.</p>', 'powerpack' ),
+							'description' => __( '<span style="line-height: 1.4;font-style: italic;"><br>Enable Schema Markup option if you are setting up a unique \'HowTo\' page on your website. The Module adds \'HowTo\' Page schema to the page as per Google\'s Structured Data guideline.<br><a target="_blank" rel="noopener" href="https://developers.google.com/search/docs/data-types/how-to"><b style="color: #2d7ea2;">Click here</b></a> for more details.</span><p style="font-style: normal; padding: 10px; background: #fffbd4; color: #333; margin-top: 10px; border: 1px solid #FFEB3B; border-radius: 5px; font-size: 12px;">To use schema markup, your page must have only single instance of HowTo widget.</p>', 'bb-powerpack' ),
 							'options'     => [
 								'yes' => __( 'Yes', 'bb-powerpack' ),
 								'no'  => __( 'No', 'bb-powerpack' ),

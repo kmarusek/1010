@@ -254,10 +254,14 @@ $input_classes = '.fl-node-' . $id . ' .pp-rf-wrap .pp-rf-field input[type=text]
 	<?php } ?>
 }
 .fl-node-<?php echo $id; ?> .pp-rf-wrap .pp-rf-field input:not([type="checkbox"]),
+.fl-node-<?php echo $id; ?> .pp-rf-wrap .pp-rf-field input:not([type="radio"]),
 .fl-node-<?php echo $id; ?> .pp-rf-wrap .pp-rf-field select {
 	<?php if ( ! empty( $settings->input_field_height ) ) { ?>
 	height: <?php echo $settings->input_field_height; ?>px;
 	<?php } ?>
+}
+.fl-node-<?php echo $id; ?> .pp-rf-wrap .pp-rf-field select {
+	width: 100%;
 }
 .fl-node-<?php echo $id; ?> .pp-rf-wrap .pp-rf-field textarea {
 	<?php if ( isset( $settings->input_textarea_height ) && ! empty( $settings->input_textarea_height ) ) { ?>

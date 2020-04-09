@@ -134,6 +134,9 @@
 				touch			: false,
 				afterLoad		: function(current, previous) {
 					$('.fancybox-' + id).find('.fancybox-bg').addClass('fancybox-' + id + '-overlay');
+				},
+				iframe: {
+					preload: false
 				}
 			};
 

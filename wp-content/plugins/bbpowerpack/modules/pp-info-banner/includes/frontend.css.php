@@ -69,15 +69,21 @@ FLBuilderCSS::typography_field_rule( array(
 	'setting_name' 	=> 'banner_title_typography',
 	'selector' 		=> ".fl-node-$id .pp-info-banner-content .banner-title",
 ) );
+
+// Height
+FLBuilderCSS::responsive_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'banner_min_height',
+	'selector'		=> ".fl-node-$id .pp-info-banner-content",
+	'prop'			=> 'height',
+	'unit'			=> 'px',
+) );
 ?>
 .fl-node-<?php echo $id; ?> .pp-info-banner-content {
     width: 100%;
     position: relative;
     overflow: hidden;
     background: <?php echo $settings->banner_bg_color ? pp_get_color_value( $settings->banner_bg_color ) : 'transparent' ?>;
-    <?php if( $settings->banner_min_height ) { ?>
-	height: <?php echo $settings->banner_min_height; ?>px;
-    <?php } ?>
 }
 <?php if( $settings->banner_image_arrangement == 'background' ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-info-banner-content .pp-info-banner-bg {
@@ -171,13 +177,16 @@ FLBuilderCSS::typography_field_rule( array(
     <?php echo $settings->banner_title_border_position; ?>-width: <?php echo $settings->banner_title_border_width; ?>px;
 }
 
+<?php
+// Banner Description Typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'banner_desc_typography',
+	'selector' 		=> ".fl-node-$id .pp-info-banner-content .banner-description",
+) );
+?>
+
 .fl-node-<?php echo $id; ?> .pp-info-banner-content .banner-description {
-    <?php if( $settings->banner_desc_font['family'] != 'Default' ) { ?>
-	<?php FLBuilderFonts::font_css( $settings->banner_desc_font ); ?>
-    <?php } ?>
-    <?php if( $settings->banner_desc_font_size ) { ?>
-	font-size: <?php echo $settings->banner_desc_font_size; ?>px;
-    <?php } ?>
     <?php if( $settings->banner_desc_color ) { ?>
 	color: <?php echo pp_get_color_value( $settings->banner_desc_color ); ?>;
     <?php } ?>
@@ -277,16 +286,18 @@ FLBuilderCSS::typography_field_rule( array(
     left: auto;
 }
 
+<?php
+// Banner Button Typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'banner_button_typography',
+	'selector' 		=> ".fl-node-$id .pp-info-banner-content .banner-button",
+) );
+?>
 
 .fl-node-<?php echo $id; ?> .pp-info-banner-content .banner-button {
     background-color: <?php echo $settings->banner_button_bg_color ? pp_get_color_value( $settings->banner_button_bg_color ) : 'transparent'; ?>;
 	color: <?php echo pp_get_color_value( $settings->banner_button_text_color ); ?>;
-    <?php if( $settings->banner_button_font['family'] != 'Default' ) { ?>
-	<?php FLBuilderFonts::font_css( $settings->banner_button_font ); ?>
-    <?php } ?>
-    <?php if( $settings->banner_button_font_size ) { ?>
-	font-size: <?php echo $settings->banner_button_font_size; ?>px;
-    <?php } ?>
 	display: inline-block;
     box-shadow: none;
     text-decoration: none;
@@ -310,6 +321,7 @@ FLBuilderCSS::typography_field_rule( array(
     text-decoration: none;
 }
 
+<?php if ( ! isset( $settings->enable_responsive ) || 'yes' === $settings->enable_responsive ) { ?>
 @media only screen and (max-width: <?php echo $settings->banner_bp1; ?>px) {
     .fl-node-<?php echo $id; ?> div.pp-info-banner-content {
         <?php if( $settings->banner_bp1_min_height ) { ?>
@@ -378,3 +390,4 @@ FLBuilderCSS::typography_field_rule( array(
         <?php } ?>
     }
 }
+<?php } // End if(). ?>

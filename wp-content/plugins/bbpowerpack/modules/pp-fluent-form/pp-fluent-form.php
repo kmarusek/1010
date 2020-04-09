@@ -23,8 +23,12 @@ class PPFluentFormModule extends FLBuilderModule {
 	}
 
 	// Get all forms of WP Fluent Forms plugin
-	public static function pp_get_fluent_forms() {
+	public static function get_fluent_forms() {
 		$options = array();
+
+		if ( ! isset( $_GET['fl_builder'] ) ) {
+			return $options;
+		}
 
 		if ( function_exists( 'wpFluentForm' ) ) {
 			global $wpdb;
@@ -59,7 +63,7 @@ FLBuilder::register_module(
 							'type'          => 'select',
 							'label'         => __( 'Select Form', 'bb-powerpack' ),
 							'default'       => '',
-							'options'       => PPFluentFormModule::pp_get_fluent_forms(),
+							'options'       => PPFluentFormModule::get_fluent_forms(),
 						),
 					),
 				),

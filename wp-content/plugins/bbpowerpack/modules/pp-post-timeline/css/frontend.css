@@ -254,6 +254,10 @@ html:not(.fl-builder-edit) .pp-post-timeline .pp-post-timeline-content-wrapper .
 	transition: all 0.2s ease-in;
 }
 
+.pp-post-timeline-slide-navigation span.slick-arrow:before {
+	color: #000;
+}
+
 .pp-post-timeline .slick-dots li button:before {
 	opacity: 1;
 }

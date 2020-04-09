@@ -29,37 +29,52 @@
 		$map_style_code = '';
 	}
 
+	$map_source 	= ! isset( $settings->map_source ) ? 'manual' : $settings->map_source;
 	$map_addresses  = $module->get_map_data();
 	$order          = array( "\r\n", "\n", "\r", '<br/>', '<br>' );
 	$map_style      = strip_tags( $map_style_code );
 	$map_style_code = rawurldecode( str_replace( $order, '', $map_style ) );
 	$api_url        = pp_get_google_api_url();
 
+	$marker_data = array(
+		'markerData'	=> array(),
+		'markerName'	=> array(),
+		'markerPoint'	=> array(),
+		'markerImage'	=> array(),
+		'infoWindowText' => array(),
+		'enableInfo'	=> array(),
+	);
+
 	if ( 0 < count( $map_addresses ) ) {
 		foreach ( $map_addresses as $data ) {
 			$data->map_latitude  = ( '' !== $data->map_latitude ) ? $data->map_latitude : 24.553311;
-			$data->map_longitude = ( '' !== $data->map_longitude ) ? $data->map_longitude : 73.694076; ?>
-
-			markerName.push( '<?php echo ( isset( $data->map_name ) ) ? $data->map_name : 'default'; ?>' );
-			position['latitude']  = <?php echo json_encode( do_shortcode( $data->map_latitude ) ); ?>;
-			position['longitude'] = <?php echo json_encode( do_shortcode( $data->map_longitude ) ); ?>;
-			markerData.push(position);
-
-			position = [];
-
-			markerPoint.push( '<?php echo ( isset( $data->marker_point ) ) ? $data->marker_point : 'default'; ?>' );
-			markerImage.push( '<?php echo ( isset( $data->marker_img_src ) ) ? $data->marker_img_src : ''; ?>' );
-			infoWindowText.push( <?php echo json_encode( trim( preg_replace( '/\s+/', ' ', do_shortcode( $data->info_window_text ) ) ) ); ?> );
-			enableInfo.push( '<?php echo $data->enable_info; ?>' );
-			<?php
+			$data->map_longitude = ( '' !== $data->map_longitude ) ? $data->map_longitude : 73.694076;
+			
+			$marker_image = ( isset( $data->marker_img ) ) ? $data->marker_img : '';
+			if ( 'manual' === $map_source ) {
+				if ( isset( $data->marker_img_src ) ) {
+					$marker_image = $data->marker_img_src;
+				}
+			}
+			
+			$marker_data['markerName'][] = ( isset( $data->map_name ) ) ? $data->map_name : 'default';
+			$marker_data['markerData'][] = array(
+				'latitude' => do_shortcode( $data->map_latitude ),
+				'longitude' => do_shortcode( $data->map_longitude ),
+			);
+			$marker_data['markerPoint'][] = ( isset( $data->marker_point ) ) ? $data->marker_point : 'default';
+			$marker_data['markerImage'][] = $marker_image;
+			$marker_data['infoWindowText'][] = do_shortcode( trim( preg_replace( '/\s+/', ' ', do_shortcode( $data->info_window_text ) ) ) );
+			$marker_data['enableInfo'][] = $data->enable_info;
 		}
 	}
 	?>
 
-new PPGoogleMap({
-	id:                '<?php echo $id; ?>',
-	scrollZoom:        '<?php echo ( 'yes' === $settings->scroll_zoom ) ? 'none' : 'auto'; ?>',
-	dragging:           <?php echo $settings->dragging; ?>,
+var options = $.extend({
+	id 					: '<?php echo $id; ?>',
+	apiUrl 				: '<?php echo pp_get_google_api_url(); ?>',
+	scrollZoom 			: '<?php echo ( 'yes' === $settings->scroll_zoom ) ? 'none' : 'auto'; ?>',
+	dragging 			: <?php echo $settings->dragging; ?>,
 	streetView: 		<?php echo ( 'yes' === $settings->street_view ) ? 'true' : 'false'; ?>,
 	mapTypeControl:		<?php echo ( 'yes' === $settings->map_type_control ) ? 'true' : 'false'; ?>,
 	zoomControl:		<?php echo ( 'yes' === $settings->zoom ) ? 'true' : 'false'; ?>,
@@ -68,16 +83,15 @@ new PPGoogleMap({
 	zoomType:          '<?php echo ( 'auto' === $settings->zoom_type ) ? 'auto' : 'custom'; ?>',
 	mapZoom:            <?php echo ( '' !== $settings->map_zoom ) ? $settings->map_zoom : 12; ?>,
 	markerAnimation:   '<?php echo $settings->marker_animation; ?>',
+	markerClustering:	<?php echo isset( $settings->marker_clustering ) && 'yes' === $settings->marker_clustering ? 'true' : 'false'; ?>,
 	mapSkin:           '<?php echo $settings->map_skin; ?>',
 	mapStyleCode:      '<?php echo $map_style_code; ?>',
 	isBuilderActive:    <?php echo FLBuilderModel::is_builder_active() ? 'true' : 'false'; ?>,
-	markerData:			markerData,
-	markerName:         markerName,
-	markerPoint:        markerPoint,
-	markerImage:        markerImage,
-	infoWindowText:     infoWindowText,
-	enableInfo:         enableInfo,
 	hideTooltip:       '<?php echo $settings->hide_tooltip; ?>',
+}, <?php echo json_encode($marker_data); ?>);
+
+$(document).ready(function() {
+	new PPGoogleMap( options );
 });
 
 })(jQuery);

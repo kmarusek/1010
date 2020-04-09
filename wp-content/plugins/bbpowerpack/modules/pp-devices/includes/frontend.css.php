@@ -85,19 +85,51 @@ FLBuilderCSS::dimension_field_rule(
 
 
 <?php
-if ( 'yes' === $settings->scrollable ) {
+if ( 'yes' === $settings->scrollable && 'scroll' === $settings->img_trigger ) {
 	?>
 	.fl-module-pp-devices.fl-node-<?php echo $id; ?> .pp-scrollable {
-		overflow-y: auto;
+		overflow: auto;
 	}
-
 	.fl-module-pp-devices.fl-node-<?php echo $id; ?> .pp-scrollable .pp-device-media-screen-inner figure {
 		height: auto;
+	}
+	.fl-module-pp-devices.fl-node-<?php echo $id; ?> .pp-image-fit .pp-device-media-screen figure img {
+		object-position: top;
 	}
 	<?php
 }
 ?>
-
+<?php
+if ( 'yes' === $settings->scrollable && 'hover' === $settings->img_trigger && 'horizontal' === $settings->scroll_dir ) {
+	?>
+	.fl-module-pp-devices.fl-node-<?php echo $id; ?> .pp-image-fit .pp-device-media-screen-inner,
+	.fl-module-pp-devices.fl-node-<?php echo $id; ?> .pp-image-fit .pp-device-media-screen figure,
+	.fl-module-pp-devices.fl-node-<?php echo $id; ?> .pp-image-fit .pp-device-media-screen figure img {
+		height: 100%;
+	}
+	.fl-module-pp-devices.fl-node-<?php echo $id; ?> .pp-image-fit .pp-device-media-screen figure img {
+		object-fit: cover !important;
+	}
+	<?php
+}
+if ( 'no' === $settings->scrollable ) {
+	?>
+	.fl-module-pp-devices.fl-node-<?php echo $id; ?> .pp-image-fit .pp-device-media-screen-inner,
+	.fl-module-pp-devices.fl-node-<?php echo $id; ?> .pp-image-fit .pp-device-media-screen figure,
+	.fl-module-pp-devices.fl-node-<?php echo $id; ?> .pp-image-fit .pp-device-media-screen figure img {
+		height: 100%;
+	}
+	<?php
+}
+?>
+<?php
+if ( 'yes' === $settings->scrollable && 'hover' === $settings->img_trigger ) {
+	?>
+	.fl-module-pp-devices.fl-node-<?php echo $id; ?> .pp-device-media-screen-inner img {
+		-webkit-transition: all <?php echo $settings->scroll_speed ? $settings->scroll_speed : '0.3'; ?>s ease-in-out !important;
+		transition: all <?php echo $settings->scroll_speed ? $settings->scroll_speed : '0.3'; ?>s ease-in-out !important;
+	}
+<?php } ?>
 
 <?php
 if ( '' !== $settings->orientation_control_color ) {

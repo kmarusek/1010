@@ -295,8 +295,8 @@ class PPCustomGridModule extends FLBuilderModule {
 		);
 
 
-		if ( isset( $presets[$type] ) ) {
-			return $presets[$type];
+		if ( isset( $presets[ $type ] ) ) {
+			return $presets[ $type ];
 		}
 
 		return $presets;
@@ -693,4 +693,6 @@ FLBuilder::register_module('PPCustomGridModule', array(
 	),
 ));
 
-include BB_POWERPACK_DIR . 'modules/pp-custom-grid/includes/settings-form.php';
+if ( isset( $_GET['fl_builder'] ) ) {
+	include BB_POWERPACK_DIR . 'modules/pp-custom-grid/includes/settings-form.php';
+}

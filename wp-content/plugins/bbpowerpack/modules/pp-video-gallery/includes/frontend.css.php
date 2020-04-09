@@ -204,8 +204,8 @@ FLBuilderCSS::typography_field_rule( array(
 .fl-node-<?php echo $id; ?> .pp-video-carousel .swiper-pagination-bullet:hover,
 .fl-node-<?php echo $id; ?> .pp-video-carousel .swiper-pagination-bullet.swiper-pagination-bullet-active,
 .fl-node-<?php echo $id; ?> .pp-video-carousel .swiper-pagination-progress .swiper-pagination-progressbar {
-	<?php if ( isset( $settings->pagination_bg_hover ) && ! empty( $settings->pagination_bg_hover ) ) { ?>
-		background-color: <?php echo pp_get_color_value( $settings->pagination_bg_hover ); ?>;
+	<?php if ( isset( $settings->pagination_active_bg_color ) && ! empty( $settings->pagination_active_bg_color ) ) { ?>
+		background-color: <?php echo pp_get_color_value( $settings->pagination_active_bg_color ); ?>;
 	<?php } ?>
     box-shadow: none;
 }

@@ -13,6 +13,7 @@
 		this.wrapperClass        = this.nodeClass + ' .pp-advanced-menu';
 		this.type				 = settings.type;
 		this.mobileToggle		 = settings.mobile;
+		this.mobileBelowRow		 = 'below' === settings.menuPosition;
 		this.breakPoints         = settings.breakPoints;
 		this.mobileBreakpoint	 = settings.mobileBreakpoint;
 		this.mediaBreakpoint	 = settings.mediaBreakpoint;
@@ -425,13 +426,12 @@
 
 			if( this._isMenuToggle() ) {
 
-				if (this.mobileMenuType === 'default') {
+				if ( this._isMobileBelowRowEnabled() ) {
 					this._placeMobileMenuBelowRow();
 					$wrapper = $(this.wrapperClass);
 					$menu = $(this.nodeClass + '-clone');
 					$menu.find('ul.menu').show();
-				}
-				else {
+				} else {
 					$wrapper = $(this.wrapperClass);
 					$menu = $wrapper.children('.menu');
 				}
@@ -470,7 +470,7 @@
 			}
 			else {
 
-				if (this.mobileMenuType === 'default') {
+				if ( this._isMobileBelowRowEnabled() ) {
 					this._removeMenuFromBelowRow();
 				}
 
@@ -634,6 +634,19 @@
 		},
 
 		/**
+		 * Check to see if Below Row should be enabled.
+		 *
+		 * @since  	2.8.0
+		 * @return boolean
+		 */
+		_isMobileBelowRowEnabled: function() {
+			if (this.mobileMenuType === 'default') {
+				return this.mobileBelowRow && $( this.nodeClass ).closest( '.fl-col' ).length;
+			}
+			return false;
+		},
+
+		/**
 		 * Logic for putting the mobile menu below the menu's
 		 * column so it spans the full width of the page.
 		 *
@@ -654,6 +667,11 @@
 			clone.addClass((this.nodeClass + '-clone').replace('.', ''));
 			clone.find('.pp-advanced-menu-mobile-toggle').remove();
 			col.after(clone);
+
+			// Removes animation when enabled.
+			if ( module.hasClass( 'fl-animation' ) ) {
+				clone.removeClass( 'fl-animation' );
+			}
 
 			this._menuOnClick();
 		},

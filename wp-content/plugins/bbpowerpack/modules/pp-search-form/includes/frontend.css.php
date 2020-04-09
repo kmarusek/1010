@@ -86,6 +86,12 @@
 	<?php } ?>
 }
 
+.fl-node-<?php echo $id; ?> .pp-search-form-wrap.pp-search-form--style-full_screen .pp-search-form__container {
+	<?php if ( ! empty( $settings->overlay_bg_color ) ) { ?>
+	background-color: <?php echo pp_get_color_value( $settings->overlay_bg_color ); ?>
+	<?php } ?>
+}
+
 .fl-node-<?php echo $id; ?> .pp-search-form-wrap.pp-search-form--style-full_screen .pp-search-form--focus input[type="search"].pp-search-form__input {
 	<?php if ( ! empty( $settings->input_focus_border_color ) ) { ?>
 		border-color: <?php echo pp_get_color_value( $settings->input_focus_border_color ); ?>;

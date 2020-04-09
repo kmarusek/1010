@@ -1,45 +1,3 @@
-(function($) {
-
-	FLBuilder.registerModuleHelper(
-		'pp-google-map',
-		{
-			rules: '',
-
-			init: function()
-		{
-
-				$( '.fl-builder-settings select[name=post_slug]' ).on(
-					"change",
-					function(){
-						$( '.fl-builder-settings .fl-form-table.fl-custom-query-filter' ).css( 'display', 'none' );
-
-						$( '.fl-builder-settings .fl-form-table.fl-custom-query-filter.fl-custom-query-' + $( this ).val() + '-filter' ).css( 'display', 'table' );
-
-						$( '.fl-builder-settings select[name=posts_' + $( '.fl-builder-settings select[name=post_slug]' ).val() + '_tax_type]' ).on(
-							"change",
-							function () {
-
-								$( '.fl-builder-settings .fl-form-table.fl-custom-query-filter.fl-custom-query-' + $( '.fl-builder-settings select[name=post_slug]' ).val() + '-filter tr.fl-field' ).show();
-								$( '.fl-builder-settings .fl-form-table.fl-custom-query-filter.fl-custom-query-' + $( '.fl-builder-settings select[name=post_slug]' ).val() + '-filter tr.fl-field:not(#fl-field-tax_' + $( '.fl-builder-settings select[name=post_slug]' ).val() + '_' + $( this ).val() + ', #fl-field-posts_' + $( '.fl-builder-settings select[name=post_slug]' ).val() + '_tax_type)' ).hide();
-
-								$( '.fl-builder-settings select[name=tax_' + $( '.fl-builder-settings select[name=post_slug]' ).val() + '_' + $( this ).val() + '_matching] option:selected' ).ready(
-									function(){
-										setTimeout( function () { $( '.fl-builder-settings select[name=tax_' + $( '.fl-builder-settings select[name=post_slug]' ).val() + '_' + $( '.fl-builder-settings select[name=posts_' + $( '.fl-builder-settings select[name=post_slug]' ).val() + '_tax_type]' ).val() + '_matching]' ).trigger( "change" ); }, 1000 );
-									}
-								);
-
-							}
-						);
-						$( '.fl-builder-settings select[name=posts_' + $( '.fl-builder-settings select[name=post_slug]' ).val() + '_tax_type]' ).trigger( "change" );
-					}
-				);
-
-				$( '.fl-builder-settings select[name=post_slug]' ).trigger( "change" );
-			}
-		}
-	);
-
-})( jQuery );
 ;(function($) {
 	
 	FLBuilder.registerModuleHelper( 'pp-google-map', {
@@ -48,9 +6,14 @@
 			var self = this;
 			
 			self._toggleOverlayFields();
+			self._toggleFilterFields();
 
-			form.find('#fl-field-map_source').on('DOMSubtreeModified', function() {
+			form.find('#fl-field-map_source').on('change', function() {
 				self._toggleOverlayFields();
+			});
+
+			form.find('#fl-field-post_slug').on('change', function() {
+				self._toggleFilterFields();
 			});
 		},
 
@@ -68,6 +31,18 @@
 				form.find('#fl-field-acf_options_info_window_text').hide();
 			} else {
 				form.find('#fl-field-acf_options_info_window_text').show();
+			}
+		},
+
+		_toggleFilterFields: function() {
+			var form  = $('.fl-builder-settings');
+			var postType = form.find('#fl-field-post_slug select').val();
+			var section = $('.pp-custom-query-' + postType + '-filter');
+
+			form.find('.fl-custom-query-filter').hide();
+
+			if ( section.length > 0 ) {
+				section.show();
 			}
 		}
 	});

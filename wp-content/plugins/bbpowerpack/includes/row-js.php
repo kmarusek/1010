@@ -390,8 +390,7 @@ function pp_infinite_bg_js( $js, $nodes, $global_settings ) {
 			;(function($) {
 				var createStyle = function() {
 					var height = 0;
-					$('.fl-node-<?php echo $row->node; ?> .fl-row-content-wrap').imagesLoaded(function() {
-
+					var func = function() {
 						var width = $('.fl-node-<?php echo $row->node; ?> > .fl-row-content-wrap').outerWidth();
 
 						height = height + $('.fl-node-<?php echo $row->node; ?> > .fl-row-content-wrap')[0].scrollHeight + 1;
@@ -420,8 +419,15 @@ function pp_infinite_bg_js( $js, $nodes, $global_settings ) {
 						s.innerHTML +=	' }';
 
 						document.head.appendChild(s);
-					
-					});
+					};
+
+					if ( 'undefined' === typeof jQuery.fn.imagesLoaded ) {
+						$.getScript('<?php echo BB_POWERPACK_URL . 'assets/js/jquery.imagesloaded.js'; ?>', function() {
+							$('.fl-node-<?php echo $row->node; ?> .fl-row-content-wrap').imagesLoaded(func);
+						});
+					} else {
+						$('.fl-node-<?php echo $row->node; ?> .fl-row-content-wrap').imagesLoaded(func);
+					}
 				}
 				
 				$(window).on('load', function() {

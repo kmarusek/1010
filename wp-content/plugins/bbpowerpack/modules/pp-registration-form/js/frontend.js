@@ -1,7 +1,3 @@
-/**
- * This file should contain frontend logic for 
- * all module instances.
- */
 (function($) {
 
 	window.onLoadPPReCaptcha = function () {
@@ -31,7 +27,7 @@
 
 								// Re-submitting the form after a successful invisible validation.
 								if ('invisible' == self.data('validate')) {
-									self.closest('.pp-registration-form').find('a.pp-button').trigger('click');
+									self.closest('.fl-module').find('.pp-submit-button').trigger('click');
 								}
 							}
 						}
@@ -49,6 +45,9 @@
 		this.i18n  		= settings.i18n;
 		this.messages  	= settings.i18n.messages;
 		this.form    	= $( this.nodeClass ).find( '.pp-registration-form' );
+		this.fields 	= {};
+		this.errorCodes = {};
+
 		this._init();
 	};
 
@@ -208,7 +207,7 @@
 				formData		= this._getFormData(),
 				reCaptchaField 	= $(this.nodeClass + ' .pp-grecaptcha'),
 				reCaptchaValue 	= reCaptchaField.data('pp-grecaptcha-response'),
-				ajaxurl	  		= FLBuilderLayoutConfig.paths.wpAjaxUrl,
+				ajaxurl	  		= this.settings.ajaxurl,
 				email_regex 	= /\S+@\S+\.\S+/,
 				postId      	= theForm.closest( '.fl-builder-content' ).data( 'post-id' ),
 				templateId		= theForm.data( 'template-id' ),
@@ -335,7 +334,7 @@
 		},
 
 		_submitComplete: function( response ) {
-			var noMessage 	= $( this.nodeClass + ' .pp-rf-success-none' ); console.log(response);
+			var noMessage 	= $( this.nodeClass + ' .pp-rf-success-none' );
 
 			// On success show the success message
 			if ( typeof response.success !== 'undefined' && response.success === true ) {

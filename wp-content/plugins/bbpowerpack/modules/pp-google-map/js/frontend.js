@@ -1,6 +1,5 @@
 (function ($) {
 	PPGoogleMap = function (settings) {
-
 		this.id                = settings.id;
 		this.nodeClass         = '.fl-node-' + this.id;
 		this.mapElement        = $(this.nodeClass).find('.pp-google-map');
@@ -13,7 +12,7 @@
 		this.mapTypeControl    = settings.mapTypeControl;
 		this.markerAnimation   = settings.markerAnimation;
 		this.mapSkin           = settings.mapSkin;
-		this.mapStyleCode      = ( '' != settings.mapStyleCode ) ? jQuery.parseJSON(settings.mapStyleCode) : '';
+		this.mapStyleCode      = ( '' != settings.mapStyleCode ) ? jQuery.parseJSON( settings.mapStyleCode ) : '';
 		this.isBuilderActive   = settings.isBuilderActive;
 		this.markerData        = settings.markerData;
 		this.markerName        = settings.markerName;
@@ -24,40 +23,72 @@
 		this.zoomType          = settings.zoomType;
 		this.mapZoom           = settings.mapZoom;
 		this.hideTooltip       = settings.hideTooltip;
+		this.settings			= settings;
 
-		this.latlng = new google.maps.LatLng( this.markerData[0]['latitude'], this.markerData[0]['longitude'] );
-
-		this.mapOptions = {
-			zoom:              this.mapZoom,
-			center:            this.latlng,
-			mapTypeId:         this.mapType,
-			mapTypeControl:    this.mapTypeControl,
-			streetViewControl: this.streetView,
-			zoomControl:       this.zoomControl,
-			fullscreenControl: this.fullscreenControl,
-			gestureHandling:   this.scrollZoom,
-			styles:            this.mapStyleCode,
-			draggable:         ( $( document).width() > 641 ) ? true : this.dragging,
-			gestureHandling:   this.scrollZoom,
-		}
-
-		if ( 'drop' == this.markerAnimation ) {
-			this.markerAnimation = google.maps.Animation.DROP;
-		} else if ( 'bounce' == this.markerAnimation ) {
-			this.markerAnimation = google.maps.Animation.BOUNCE;
+		if ( 'undefined' === typeof google ) {
+			this._initApi();
 		} else {
-			this.markerAnimation = '';
+			this._init();
 		}
-
-		this._init();
 	}
 
 	PPGoogleMap.prototype = {
+		_initApi: function() {
+			var d = document, s = 'script', id = 'pp-google-map';
+			var js, fjs = d.getElementsByTagName(s)[0];
+			
+			if (d.getElementById(id)) return;
+			
+			js = d.createElement(s); js.id = id;
+			js.src = this.settings.apiUrl;
+			fjs.parentNode.insertBefore(js, fjs);
+
+			setTimeout( $.proxy(function() {
+				this._init();
+			}, this), 1000 );
+		},
+
 		_init: function () {
+			if ( typeof this.markerData[0] === 'undefined' ) {
+				return false;
+			}
+
+			this.latlng = new google.maps.LatLng( this.markerData[0]['latitude'], this.markerData[0]['longitude'] );
+
+			this.mapOptions = {
+				zoom:              this.mapZoom,
+				center:            this.latlng,
+				mapTypeId:         this.mapType,
+				mapTypeControl:    this.mapTypeControl,
+				streetViewControl: this.streetView,
+				zoomControl:       this.zoomControl,
+				fullscreenControl: this.fullscreenControl,
+				gestureHandling:   this.scrollZoom,
+				styles:            this.mapStyleCode,
+				draggable:         ( $( document).width() > 641 ) ? true : this.dragging,
+				gestureHandling:   this.scrollZoom,
+			}
+
+			if ( 'drop' == this.markerAnimation ) {
+				this.markerAnimation = google.maps.Animation.DROP;
+			} else if ( 'bounce' == this.markerAnimation ) {
+				this.markerAnimation = google.maps.Animation.BOUNCE;
+			} else {
+				this.markerAnimation = '';
+			}
+
+			if ( typeof this.mapElement[0] === 'undefined' ) {
+				return false;
+			}
 
 			var map 		= new google.maps.Map( this.mapElement[0], this.mapOptions );
 			var infowindow 	= new google.maps.InfoWindow();
 			var bounds      = new google.maps.LatLngBounds();
+			var allMarkers  = [];
+
+			if ( 'undefined' !== typeof MarkerClusterer ) {
+				var markerCluster = new MarkerClusterer( map );
+			}
 
 			for (i = 0; i < this.markerData.length; i++) {
 
@@ -90,6 +121,13 @@
 						icon: 		icon,
 						animation: 	this.markerAnimation,
 					});
+
+					allMarkers.push( marker );
+
+					// Add the marker to the markerClusterer.
+					if ( 'undefined' !== typeof markerCluster ) {
+						markerCluster.addMarker( marker );
+					}
 
 					if ( '' != info_win && 'yes' == this.enableInfo[i] ) {
 						var contentString = '<div class="pp-infowindow-content">';
@@ -130,6 +168,14 @@
 					}
 				}
 			}
+
+			// Marker clustering
+			// TODO: Add support for custom cluster images.
+			// if ( 'undefined' !== typeof MarkerClusterer ) {
+			// 	var markerCluster = new MarkerClusterer( map, allMarkers, {
+			// 		imagePath: ''
+			// 	} );
+			// }
 		},
 		_autoZoon: function () {
 			var map = new google.maps.Map( this.mapElement[0], this.mapOptions );

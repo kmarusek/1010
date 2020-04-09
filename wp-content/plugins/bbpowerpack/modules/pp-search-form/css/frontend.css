@@ -38,12 +38,13 @@
 
 .pp-search-form input[type="search"]:focus,
 .pp-search-form button:focus {
-    outline: 0;
+	outline: 0;
     color: inherit;
 }
 .pp-search-form input[type="search"]:focus {
 	background: none;
 	background-color: transparent;
+	border: 0;
 }
 
 .pp-search-form input[type="search"] {

@@ -74,11 +74,13 @@ $photos = $module->get_photos();
 		<?php endif; ?>
 	</div>
 	<?php
-	if ( isset( $settings->thumb_position ) && 'below' == $settings->thumb_position ) {
-		include $module->dir . 'includes/thumbnails.php';
-	}
-	if ( ! isset( $settings->thumb_position ) ) {
-		include $module->dir . 'includes/thumbnails.php';
+	if ( 1 < count( $photos ) ) {
+		if ( isset( $settings->thumb_position ) && 'below' == $settings->thumb_position ) {
+			include $module->dir . 'includes/thumbnails.php';
+		}
+		if ( ! isset( $settings->thumb_position ) ) {
+			include $module->dir . 'includes/thumbnails.php';
+		}
 	}
 	?>
 </div>

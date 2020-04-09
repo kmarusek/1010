@@ -99,9 +99,11 @@ class PPContactFormModule extends FLBuilderModule {
 		$subject 			= (isset($_POST['subject']) ? $_POST['subject'] : __('Contact Form Submission', 'bb-powerpack'));
 		$admin_email 		= get_option('admin_email');
 		$site_name 			= get_option( 'blogname' );
+		$email_from 		= apply_filters( 'pp_contact_form_from_email', $admin_email );
+		$email_from			= sanitize_email( $email_from );
 
-		if ( $site_name ) {
-			$site_name = apply_filters( 'pp_contact_form_from_name', html_entity_decode( $site_name ) );
+		if ( ! is_email( $email_from ) ) {
+			$email_from = $admin_email;
 		}
 
 		$response = array(
@@ -157,12 +159,16 @@ class PPContactFormModule extends FLBuilderModule {
 				$response['error'] = false;
 			}
 
-			$pp_contact_from_email = (isset($_POST['email']) ? sanitize_email($_POST['email']) : null);
-			$pp_contact_from_name = (isset($_POST['name']) ? $_POST['name'] : '');
+			$sender_email = ( isset($_POST['email'] ) ? sanitize_email( $_POST['email'] ) : null );
+			$sender_name = ( isset( $_POST['name'] ) ? $_POST['name'] : '' );
+
+			$site_name = apply_filters( 'pp_contact_form_from_name', $site_name, $sender_name );
+
+			$site_name = html_entity_decode( $site_name );
 
 			$headers = array(
-				'From: ' . $site_name . ' <' . $admin_email . '>',
-				  'Reply-To: ' . $pp_contact_from_name . ' <' . $pp_contact_from_email . '>',
+				'From: ' . $site_name . ' <' . $email_from . '>',
+				  'Reply-To: ' . $sender_name . ' <' . $sender_email . '>',
 			);
 
 			// Build the email
@@ -729,7 +735,7 @@ FLBuilder::register_module('PPContactFormModule', array(
                     'title_margin' 	=> array(
                         'type' 			=> 'pp-multitext',
                         'label' 		=> __('Margin', 'bb-powerpack'),
-                        'description'   => __( 'px', 'Value unit for font size. Such as: "14 px"', 'bb-powerpack' ),
+                        'description'   => 'px',
                         'default'       => array(
                             'top' => 10,
                             'bottom' => 10,
@@ -768,7 +774,7 @@ FLBuilder::register_module('PPContactFormModule', array(
                     'description_margin' 	=> array(
                         'type' 			=> 'pp-multitext',
                         'label' 		=> __('Margin', 'bb-powerpack'),
-                        'description'   => __( 'px', 'Value unit for font size. Such as: "14 px"', 'bb-powerpack' ),
+                        'description'   => 'px',
                         'default'       => array(
                             'top' => 10,
                             'bottom' => 10,

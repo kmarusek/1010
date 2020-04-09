@@ -26,32 +26,29 @@ class PPAdvancedMenu extends FLBuilderModule {
     }
 
 	public static function _get_menus() {
-		$get_menus =  get_terms( 'nav_menu', array( 'hide_empty' => true ) );
-		$fields = array(
-		    'type'          => 'select',
-		    'label'         => __( 'Menu', 'bb-powerpack' ),
-		    'helper'		=> __( 'Select a WordPress menu that you created in the admin under Appearance > Menus.', 'bb-powerpack' )
-		);
+		if ( ! isset( $_GET['fl_builder'] ) ) {
+			return array();
+		}
 
-		if( $get_menus ) {
+		$get_menus =  get_terms( 'nav_menu', array( 'hide_empty' => true ) );
+		$options = array();
+
+		if ( $get_menus ) {
 
 			foreach( $get_menus as $key => $menu ) {
 
-				if( $key == 0 ) {
+				if ( $key == 0 ) {
 					$fields['default'] = $menu->name;
 				}
 
-				$menus[ $menu->slug ] = $menu->name;
+				$options[ $menu->slug ] = $menu->name;
 			}
 
-			$fields['options'] = $menus;
-
 		} else {
-			$fields['options'] = array( '' => __( 'No Menus Found', 'bb-powerpack' ) );
+			$options = array( '' => __( 'No Menus Found', 'bb-powerpack' ) );
 		}
 
-		return $fields;
-
+		return $options;
 	}
 
 	public function render_toggle_button() {
@@ -238,7 +235,12 @@ FLBuilder::register_module('PPAdvancedMenu', array(
             'general'       => array( // Section
                 'title'         => '', // Section Title
                 'fields'        => array( // Section Fields
-					'wp_menu' => PPAdvancedMenu::_get_menus(),
+					'wp_menu' => array(
+						'type'          => 'select',
+						'label'         => __( 'Menu', 'bb-powerpack' ),
+						'helper'		=> __( 'Select a WordPress menu that you created in the admin under Appearance > Menus.', 'bb-powerpack' ),
+						'options'		=> PPAdvancedMenu::_get_menus(),
+					),
 					'menu_layout' => array(
 					    'type'          => 'pp-switch',
 					    'label'         => __( 'Layout', 'bb-powerpack' ),
@@ -318,7 +320,7 @@ FLBuilder::register_module('PPAdvancedMenu', array(
                         'type'				=> 'text',
                         'label'             => __('Custom Breakpoint', 'bb-powerpack'),
                         'default'       	=> '768',
-                        'description'       => __('px', 'bb-powerpack'),
+                        'description'       => 'px',
                         'size'              => 5
                     ),
 					'mobile_toggle' => array(
@@ -333,17 +335,17 @@ FLBuilder::register_module('PPAdvancedMenu', array(
 					    ),
 					    'toggle'		=> array(
 					    	'hamburger'	=> array(
-					    		'fields'		=> array( 'mobile_menu_type', 'mobile_breakpoint', 'mobile_toggle_size', 'mobile_toggle_thickness' ),
+					    		'fields'		=> array( 'mobile_menu_type', 'mobile_breakpoint', 'mobile_toggle_size', 'mobile_toggle_thickness', 'menu_position' ),
 								'sections'		=> array('mobile_toggle_typography', 'mobile_toggle_style'),
 								'tabs'		=> array( 'responsive_style' )
 					    	),
 					    	'hamburger-label'	=> array(
-					    		'fields'		=> array( 'mobile_menu_type', 'mobile_breakpoint', 'custom_menu_text', 'mobile_toggle_font', 'mobile_toggle_size', 'mobile_toggle_thickness' ),
+					    		'fields'		=> array( 'mobile_menu_type', 'mobile_breakpoint', 'custom_menu_text', 'mobile_toggle_font', 'mobile_toggle_size', 'mobile_toggle_thickness', 'menu_position' ),
 								'sections'		=> array('mobile_toggle_typography', 'mobile_toggle_style'),
 								'tabs'			=> array( 'responsive_style' )
 					    	),
 					    	'text'	=> array(
-					    		'fields'		=> array( 'mobile_menu_type', 'mobile_breakpoint', 'custom_menu_text', 'mobile_toggle_font' ),
+					    		'fields'		=> array( 'mobile_menu_type', 'mobile_breakpoint', 'custom_menu_text', 'mobile_toggle_font', 'menu_position' ),
 								'sections'		=> array('mobile_toggle_typography', 'mobile_toggle_style'),
 								'tabs'		=> array( 'responsive_style' )
 					    	),
@@ -358,6 +360,15 @@ FLBuilder::register_module('PPAdvancedMenu', array(
 							'selector'		=> '.pp-advanced-menu-mobile-toggle-label',
 						),
 						'connections'		=> array('string')
+					),
+					'menu_position' => array(
+						'type'	=> 'pp-switch',
+						'label'	=> __( 'Menu Position', 'bb-powerpack' ),
+						'default' => 'below',
+						'options' => array(
+							'inline' => __( 'Inline', 'bb-powerpack' ),
+							'below'  => __( 'Below Row', 'bb-powerpack' ),
+						),
 					),
 					'mobile_menu_type'	=> array(
 						'type'          => 'select',
@@ -381,7 +392,7 @@ FLBuilder::register_module('PPAdvancedMenu', array(
 					),
 					'full_screen_effects'	=> array(
 						'type'          => 'select',
-					    'label'         => __( 'Effects', 'bb-powerpack' ),
+					    'label'         => __( 'Full Screen Effects', 'bb-powerpack' ),
 					    'default'       => 'fade',
 					    'options'       => array(
 					    	'fade'			=> __( 'Fade', 'bb-powerpack' ),
@@ -393,7 +404,7 @@ FLBuilder::register_module('PPAdvancedMenu', array(
 					),
 					'offcanvas_direction'	=> array(
 						'type'          => 'select',
-					    'label'         => __( 'Direction', 'bb-powerpack' ),
+					    'label'         => __( 'Off Canvas Direction', 'bb-powerpack' ),
 					    'default'       => 'left',
 					    'options'       => array(
 					    	'left'			=> __( 'From Left', 'bb-powerpack' ),

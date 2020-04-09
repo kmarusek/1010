@@ -1,76 +1,160 @@
-<div class="pp-reviews-wrapper pp-content-wrapper">
-	<!-- Slider container -->
+<?php
+$is_social_reviews = isset( $settings->review_source ) && 'default' !== $settings->review_source;
+
+$reviews = $module->get_reviews();
+
+if ( $is_social_reviews && is_wp_error( $reviews ) ) {
+	if ( pp_is_builder_active() ) {
+		echo $reviews->get_error_message();
+	}
+	return;
+}
+?>
+
+<div class="pp-reviews-wrapper pp-reviews-<?php echo $settings->review_source; ?>">
 	<div class="pp-reviews-swiper swiper-container">
 		<!-- Slides wrapper -->
+		<?php if ( $is_social_reviews ) { ?>
 		<div class="swiper-wrapper">
 			<!-- Slides -->
 			<?php
-			$number_reviews = count( $settings->reviews );
-			for ( $i = 0; $i < $number_reviews; $i++ ) {
-				$review = $settings->reviews[ $i ];
-				if ( ! is_object( $review ) ) {
-					continue;
-				}
+			foreach ( $reviews as $key => $review ) {
 				?>
-					<div class="pp-review-item pp-review-item-<?php echo $i; ?> swiper-slide">
+					<div class="pp-review-item swiper-slide">
 						<div class="pp-review">
+							<?php if ( isset( $settings->header_position ) && 'top' == $settings->header_position ) { ?>
 							<div class="pp-review-header">
 								<div class="pp-review-image">
-									<img src="<?php echo $review->image_src; ?>" alt="<?php echo $review->name; ?>">
+									<img src="<?php echo $review['profile_photo_url']; ?>" alt="<?php echo $review['author_name']; ?>" />
 								</div>
 								<cite class="pp-review-cite">
-									<span class="pp-review-name"><?php echo $review->name; ?></span>
+									<span class="pp-review-name"><?php echo $review['author_name']; ?></span>
 									<?php
-									$rating = (float) $review->rating > 5 ? 5 : $review->rating;
+									$rating = (float) $review['rating'] > 5 ? 5 : $review['rating'];
 									if ( $rating > 0 ) {
-										?>
-									<div class="pp-rating">
-										<?php
-										$icon = '&#9733;';
-
-										if ( 'outline' === $settings->star_style ) {
-											$icon = '&#9734;';
-										}
-
-										$floored_rating = (int) $rating;
-										$stars_html     = '';
-
-										for ( $stars = 1; $stars <= 5; $stars++ ) {
-											if ( $stars <= $floored_rating ) {
-												$stars_html .= '<i class="pp-star-full">' . $icon . '</i>';
-											} elseif ( $floored_rating + 1 === $stars && $rating !== $floored_rating ) {
-												$stars_html .= '<i class="pp-star-' . ( $rating - $floored_rating ) * 10 . '">' . $icon . '</i>';
-											} else {
-												$stars_html .= '<i class="pp-star-empty">' . $icon . '</i>';
-											}
-										}
-
-										echo $stars_html;
-										?>
-									</div>
-									<?php } ?>
-									<span class="pp-review-title"><?php echo $review->title; ?></span>
+										include $module->dir . 'includes/rating-html.php';
+									}
+									?>
+									<span class="pp-review-title"><?php echo $review['title']; ?></span>
 								</cite>
-								<div class="pp-review-icon pp-icon"><i class="<?php echo $review->icon; ?>" aria-hidden="true"></i></div>
-							</div>
-							<div class="pp-review-content">
-								<div class="pp-review-text">
-									<?php echo $review->review; ?>
+								<div class="pp-review-icon">
+									<?php if ( 'yelp' === $review['source'] && ! empty( $module->get_source_icon( 'yelp' ) ) ) { ?>
+									<i class="<?php echo $module->get_source_icon( 'yelp' ); ?>" aria-hidden="true"></i>
+									<?php } else {
+										echo $module->get_source_icon( 'google' );
+									}
+									?>
 								</div>
 							</div>
+							<?php } ?>
+							<div class="pp-review-content">
+								<div class="pp-review-text">
+									<?php echo $review['text']; ?>
+								</div>
+							</div>
+							<?php if ( isset( $settings->header_position ) && 'bottom' == $settings->header_position ) { ?>
+							<div class="pp-review-header">
+								<div class="pp-review-image">
+									<img src="<?php echo $review['profile_photo_url']; ?>" alt="<?php echo $review['author_name']; ?>" />
+								</div>
+								<cite class="pp-review-cite">
+									<span class="pp-review-name"><?php echo $review['author_name']; ?></span>
+									<?php
+									$rating = (float) $review['rating'] > 5 ? 5 : $review['rating'];
+									if ( $rating > 0 ) {
+										include $module->dir . 'includes/rating-html.php';
+									}
+									?>
+									<span class="pp-review-title"><?php echo $review['title']; ?></span>
+								</cite>
+								<div class="pp-review-icon">
+									<?php if ( 'yelp' === $review['source'] && ! empty( $module->get_source_icon( 'yelp' ) ) ) { ?>
+									<i class="<?php echo $module->get_source_icon( 'yelp' ); ?>" aria-hidden="true"></i>
+									<?php } else {
+										echo $module->get_source_icon( 'google' );
+									}
+									?>
+								</div>
+							</div>
+							<?php } ?>
 						</div>
 					</div>
 				<?php
 			}
 			?>
 		</div>
+		<?php } else { ?>
+			<div class="swiper-wrapper">
+			<!-- Slides -->
+			<?php
+			for ( $i = 0; $i < count( $settings->reviews ); $i++ ) {
+				$review = $settings->reviews[ $i ];
+				if ( ! is_object( $review ) ) {
+					continue;
+				}
+				?>
+			<div class="pp-review-item pp-review-item-<?php echo $i; ?> swiper-slide">
+				<div class="pp-review">
+					<?php if ( isset( $settings->header_position ) && 'top' == $settings->header_position ) { ?>
+					<div class="pp-review-header">
+						<div class="pp-review-image">
+							<?php
+							$img_src = empty( $review->image_src ) ? BB_POWERPACK_URL . 'images/user.png' : $review->image_src;
+							?>
+							<img src="<?php echo $img_src; ?>" alt="<?php echo $review->name; ?>" />
+						</div>
+						<cite class="pp-review-cite">
+							<span class="pp-review-name"><?php echo $review->name; ?></span>
+							<?php
+							$rating = (float) $review->rating > 5 ? 5 : $review->rating;
+							if ( $rating > 0 ) {
+								include $module->dir . 'includes/rating-html.php';
+							}
+							?>
+							<span class="pp-review-title"><?php echo $review->title; ?></span>
+						</cite>
+						<div class="pp-review-icon"><i class="<?php echo $review->icon; ?>" aria-hidden="true"></i></div>
+					</div>
+					<?php } ?>
+					<div class="pp-review-content">
+						<div class="pp-review-text">
+							<?php echo $review->review; ?>
+						</div>
+					</div>
+					<?php if ( isset( $settings->header_position ) && 'bottom' == $settings->header_position ) { ?>
+					<div class="pp-review-header">
+						<div class="pp-review-image">
+							<?php
+							$img_src = empty( $review->image_src ) ? BB_POWERPACK_URL . 'images/user.png' : $review->image_src;
+							?>
+							<img src="<?php echo $img_src; ?>" alt="<?php echo $review->name; ?>" />
+						</div>
+						<cite class="pp-review-cite">
+							<span class="pp-review-name"><?php echo $review->name; ?></span>
+							<?php
+							$rating = (float) $review->rating > 5 ? 5 : $review->rating;
+							if ( $rating > 0 ) {
+								include $module->dir . 'includes/rating-html.php';
+							}
+							?>
+							<span class="pp-review-title"><?php echo $review->title; ?></span>
+						</cite>
+						<div class="pp-review-icon"><i class="<?php echo $review->icon; ?>" aria-hidden="true"></i></div>
+					</div>
+					<?php } ?>
+				</div>
+			</div>
+				<?php
+			}
+			?>
+		</div>
+		<?php } ?>
 		<!-- Pagination, if required -->
 		<div class="swiper-pagination"></div>
 
 	</div>
-</div>
-<?php if ( 'yes' === $settings->slider_navigation ) { ?>
-		<!-- navigation arrows -->
+	<?php if ( 'yes' === $settings->slider_navigation ) { ?>
 		<div class="pp-swiper-button pp-swiper-button-prev"><span class="fa fa-angle-left"></span></div>
 		<div class="pp-swiper-button pp-swiper-button-next"><span class="fa fa-angle-right"></span></div>
-<?php } ?>
+	<?php } ?>
+</div>

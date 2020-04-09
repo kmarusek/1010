@@ -118,7 +118,7 @@ FLBuilder::register_module('PPAlbumModule', array(
 					),
 					'cover_width'	=> array(
 						'type'			=> 'unit',
-						'label'			=> __('Album Cover Width', 'bb-switch'),
+						'label'			=> __('Album Cover Width', 'bb-powerpack'),
 						'units'			=> array('px'),
 						'slider'		=> array(
 							'min'			=> '1',
@@ -130,7 +130,7 @@ FLBuilder::register_module('PPAlbumModule', array(
 					),
 					'cover_height'	=> array(
 						'type'			=> 'unit',
-						'label'			=> __('Album Cover Height', 'bb-switch'),
+						'label'			=> __('Album Cover Height', 'bb-powerpack'),
 						'units'			=> array('px'),
 						'slider'		=> array(
 							'min'			=> '1',

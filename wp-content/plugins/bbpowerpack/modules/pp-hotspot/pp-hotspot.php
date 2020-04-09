@@ -388,27 +388,27 @@ FLBuilder::register_module(
 						),
 						'pre_icon'        => array(
 							'type'    => 'icon',
-							'label'   => __( 'Previous Icon', 'bb_powerpack' ),
+							'label'   => __( 'Previous Icon', 'bb-powerpack' ),
 							'default' => 'fas fa-angle-double-left',
 						),
 						'pre_text'        => array(
 							'type'    => 'text',
-							'label'   => __( 'Previous Text', 'bb_powerpack' ),
+							'label'   => __( 'Previous Text', 'bb-powerpack' ),
 							'default' => 'Previous',
 						),
 						'next_icon'       => array(
 							'type'    => 'icon',
-							'label'   => __( 'Next Icon', 'bb_powerpack' ),
+							'label'   => __( 'Next Icon', 'bb-powerpack' ),
 							'default' => 'fas fa-angle-double-right',
 						),
 						'next_text'       => array(
 							'type'    => 'text',
-							'label'   => __( 'Next Text', 'bb_powerpack' ),
+							'label'   => __( 'Next Text', 'bb-powerpack' ),
 							'default' => 'Next',
 						),
 						'end_text'        => array(
 							'type'    => 'text',
-							'label'   => __( 'End Tour Text', 'bb_powerpack' ),
+							'label'   => __( 'End Tour Text', 'bb-powerpack' ),
 							'default' => 'End Tour',
 						),
 					),
@@ -838,7 +838,7 @@ FLBuilder::register_settings_form(
 							'tooltip_content' => array(
 								'type'        => 'editor',
 								'label'       => __( 'Content', 'bb-powerpack' ),
-								'default'     => 'This is Tootlip',
+								'default'     => __( 'This is Tootlip', 'bb-powerpack' ),
 								'connections' => array( 'html', 'string' ),
 							),
 						),

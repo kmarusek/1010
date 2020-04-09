@@ -197,6 +197,8 @@ class PPVideoModule extends FLBuilderModule {
 	 * @return null|array The video properties, or null.
 	 */
 	public function get_embed_url( $video_url, array $embed_url_params = array(), array $options = array() ) {
+		$video_url = do_shortcode( $video_url );
+
 		$video_properties = $this->get_video_properties( $video_url );
 
 		if ( ! $video_properties ) {
@@ -561,7 +563,7 @@ FLBuilder::register_module(
 							'type'			=> 'text',
 							'label'			=> __( 'External URL', 'bb-powerpack' ),
 							'default'		=> '',
-							'connections'	=> array( 'url' ),
+							'connections'	=> array( 'url', 'custom_field' ),
 						),
 						'start_time'	=> array(
 							'type'			=> 'unit',

@@ -43,6 +43,12 @@ if ( $settings->layout == 'grid' && $settings->post_grid_filters_display == 'yes
 	$css_class .= ' pp-filters-active';
 }
 
+if ( in_array( $settings->post_grid_style_select, array( 'default', 'style-2', 'style-3', 'style-5', 'style-8' ) ) ) {
+	if ( isset( $settings->alternate_content ) && 'yes' === $settings->alternate_content ) {
+		$css_class .= ' pp-content-alternate';
+	}
+}
+
 // Set custom parameteres in module settings to verify
 // our module when using filter hooks.
 if ( ! isset( $settings->pp_content_grid ) ) {

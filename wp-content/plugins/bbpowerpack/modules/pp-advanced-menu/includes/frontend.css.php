@@ -547,11 +547,15 @@ if( !empty( $settings->background_hover_color ) || $settings->link_hover_color )
 	<?php if ( ! empty( $settings->submenu_container_bg_color ) ) { ?>
 	background-color: <?php echo pp_get_color_value( $settings->submenu_container_bg_color ); ?>;
 	<?php } ?>
+}
+@media (min-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
+	.fl-node-<?php echo $id; ?> .pp-advanced-menu .sub-menu {
 	<?php if ( $settings->submenu_width ) { ?>
 		width: <?php echo $settings->submenu_width; ?>px;
 		margin-left: auto;
 		margin-right: auto;
 	<?php } ?>
+	}
 }
 <?php
 // Submenu Border
@@ -782,11 +786,11 @@ if( isset( $settings->mobile_toggle ) && $settings->mobile_toggle != 'expanded' 
 <?php if (  'expanded' != $settings->mobile_toggle ) : ?>
 	<?php if ( 'always' != $module->get_media_breakpoint() ) : ?>
 		@media ( max-width: <?php echo $module->get_media_breakpoint() ?>px ) {
-	<?php endif; ?>
-		.fl-node-<?php echo $id; ?> .pp-advanced-menu {
-			text-align: <?php echo $settings->responsive_alignment; ?>;
-		}
-	<?php if ( 'always' != $module->get_media_breakpoint() ) : ?>
+
+			.fl-node-<?php echo $id; ?> .pp-advanced-menu {
+				text-align: <?php echo $settings->responsive_alignment; ?>;
+			}
+
 		}
 	<?php endif; ?>
 <?php endif; ?>
@@ -835,6 +839,9 @@ if( isset( $settings->mobile_toggle ) && $settings->mobile_toggle != 'expanded' 
 }
 
 @media only screen and (max-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
+	.fl-node-<?php echo $id; ?> .pp-advanced-menu {
+		text-align: <?php echo $settings->responsive_alignment; ?>;
+	}
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu .menu > li {
 		<?php if ( isset( $settings->spacing_responsive ) && ! empty( $settings->spacing_responsive ) ) { ?>
 			<?php if( $settings->alignment == 'left' ) { ?>
@@ -856,7 +863,9 @@ if( isset( $settings->mobile_toggle ) && $settings->mobile_toggle != 'expanded' 
 		} ?>
 	}
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu-mobile-toggle {
-		<?php if( $settings->mobile_toggle_font_size == 'custom' && $settings->mobile_toggle_font_size_custom_responsive ) { ?>font-size: <?php echo $settings->mobile_toggle_font_size_custom_responsive; ?>px;<?php } ?>
+		<?php if( $settings->mobile_toggle_font_size == 'custom' && $settings->mobile_toggle_font_size_custom_responsive ) { ?>
+			font-size: <?php echo $settings->mobile_toggle_font_size_custom_responsive; ?>px;
+		<?php } ?>
 		<?php if ( isset( $settings->responsive_toggle_alignment ) && 'default' != $settings->responsive_toggle_alignment ) { ?>
 			text-align: <?php echo $settings->responsive_toggle_alignment; ?>;
 			<?php

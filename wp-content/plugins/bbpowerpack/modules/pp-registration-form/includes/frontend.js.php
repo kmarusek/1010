@@ -28,6 +28,7 @@
 					hide: '<?php _e( 'Hide password', 'bb-powerpack' ); ?>',
 				},
 			},
+			ajaxurl: '<?php echo admin_url( 'admin-ajax.php' ); ?>'
 		});
 	});
 
