@@ -3,7 +3,7 @@
  * Plugin Name: Pods Beaver Themer Add-On
  * Plugin URI: http://pods.io/
  * Description: Integration with Beaver Builder Themer (https://www.wpbeaverbuilder.com). Provides a UI for mapping Field Connections with Pods
- * Version: 1.3.2
+ * Version: 1.3.3
  * Author: Quasel, Pods Framework Team
  * Author URI: http://pods.io/about/
  * Text Domain: pods-beaver-builder-themer-add-on
@@ -30,7 +30,7 @@
  * @package Pods\Beaver Themer
  */
 
-define( 'PODS_BEAVER_VERSION', '1.3.2' );
+define( 'PODS_BEAVER_VERSION', '1.3.3' );
 define( 'PODS_BEAVER_FILE', __FILE__ );
 define( 'PODS_BEAVER_DIR', plugin_dir_path( PODS_BEAVER_FILE ) );
 define( 'PODS_BEAVER_URL', plugin_dir_url( PODS_BEAVER_FILE ) );
@@ -486,4 +486,44 @@ function pods_beaver_update_module_settings_data_source( $data, $status, $post_i
 
 	return $data;
 }
+
+/**
+ * Register add-on with Pods Freemius connection.
+ *
+ * @since 1.3.3
+ */
+function pods_beaver_freemius() {
+	try {
+		fs_dynamic_init( [
+			'id'               => '5349',
+			'slug'             => 'pods-beaver-builder-themer-add-on',
+			'type'             => 'plugin',
+			'public_key'       => 'pk_d8a10a25a662419add4ff3fbcc493',
+			'is_premium'       => false,
+			'has_paid_plans'   => false,
+			'is_org_compliant' => true,
+			'parent'           => [
+				'id'         => '5347',
+				'slug'       => 'pods',
+				'public_key' => 'pk_737105490825babae220297e18920',
+				'name'       => 'Pods',
+			],
+			'menu'             => [
+				'slug'        => 'pods-settings',
+				'contact'     => false,
+				'support'     => false,
+				'affiliation' => false,
+				'account'     => true,
+				'pricing'     => false,
+				'addons'      => true,
+				'parent'      => [
+					'slug' => 'pods',
+				],
+			],
+		] );
+	} catch ( \Exception $exception ) {
+		return;
+	}
+}
+add_action( 'pods_freemius_init', 'pods_beaver_freemius' );
 
