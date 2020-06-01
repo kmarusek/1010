@@ -1,0 +1,674 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: WP Client Reports Pro\n"
+"POT-Creation-Date: 2020-04-15 09:44-0500\n"
+"PO-Revision-Date: 2020-04-15 09:44-0500\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.4\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: wp_client_reports_pro.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+"X-Poedit-SearchPathExcluded-1: vendor\n"
+
+#: services/backupbuddy/wp_client_reports_pro_backupbuddy.php:175
+#: services/backwpup/wp_client_reports_pro_backwpup.php:148
+#: services/caldera-forms/wp_client_reports_pro_caldera_forms.php:145
+#: services/easy-digital-downloads/wp_client_reports_pro_edd.php:93
+#: services/formidable/wp_client_reports_pro_formidable.php:119
+#: services/google-analytics/wp_client_reports_pro_google_analytics.php:284
+#: services/gravity-forms/wp_client_reports_pro_gravity_forms.php:106
+#: services/mailchimp/wp_client_reports_pro_mailchimp.php:266
+#: services/ninja-forms/wp_client_reports_pro_ninja_forms.php:116
+#: services/pingdom/wp_client_reports_pro_pingdom.php:299
+#: services/searchwp/wp_client_reports_pro_searchwp.php:103
+#: services/updraftplus/wp_client_reports_pro_updraftplus.php:136
+#: services/uptime-robot/wp_client_reports_pro_uptime_robot.php:244
+#: services/woocommerce/wp_client_reports_pro_woocommerce.php:95
+#: services/wpcf7/wp_client_reports_pro_wpcf7.php:124
+#: services/wpengine-backups/wp_client_reports_pro_wpengine_backups.php:101
+#: services/wpforms/wp_client_reports_pro_wpforms.php:117
+msgid "Toggle panel"
+msgstr ""
+
+#: services/backupbuddy/wp_client_reports_pro_backupbuddy.php:175
+#: services/backupbuddy/wp_client_reports_pro_backupbuddy.php:204
+#: services/backwpup/wp_client_reports_pro_backwpup.php:148
+#: services/backwpup/wp_client_reports_pro_backwpup.php:177
+#: services/updraftplus/wp_client_reports_pro_updraftplus.php:136
+#: services/updraftplus/wp_client_reports_pro_updraftplus.php:165
+#: services/wpengine-backups/wp_client_reports_pro_wpengine_backups.php:101
+#: services/wpengine-backups/wp_client_reports_pro_wpengine_backups.php:134
+msgid "Site Backups"
+msgstr ""
+
+#: services/backupbuddy/wp_client_reports_pro_backupbuddy.php:181
+#: services/backupbuddy/wp_client_reports_pro_backupbuddy.php:208
+#: services/backwpup/wp_client_reports_pro_backwpup.php:154
+#: services/backwpup/wp_client_reports_pro_backwpup.php:181
+#: services/updraftplus/wp_client_reports_pro_updraftplus.php:142
+#: services/updraftplus/wp_client_reports_pro_updraftplus.php:169
+#: services/wpengine-backups/wp_client_reports_pro_wpengine_backups.php:107
+#: services/wpengine-backups/wp_client_reports_pro_wpengine_backups.php:138
+msgid "Backups"
+msgstr ""
+
+#: services/backupbuddy/wp_client_reports_pro_backupbuddy.php:185
+#: services/backupbuddy/wp_client_reports_pro_backupbuddy.php:210
+#: services/backwpup/wp_client_reports_pro_backwpup.php:158
+#: services/backwpup/wp_client_reports_pro_backwpup.php:183
+#: services/updraftplus/wp_client_reports_pro_updraftplus.php:146
+#: services/updraftplus/wp_client_reports_pro_updraftplus.php:171
+msgid "Data"
+msgstr ""
+
+#: services/caldera-forms/wp_client_reports_pro_caldera_forms.php:145
+#: services/caldera-forms/wp_client_reports_pro_caldera_forms.php:176
+#: services/formidable/wp_client_reports_pro_formidable.php:119
+#: services/formidable/wp_client_reports_pro_formidable.php:152
+#: services/gravity-forms/wp_client_reports_pro_gravity_forms.php:106
+#: services/gravity-forms/wp_client_reports_pro_gravity_forms.php:139
+#: services/ninja-forms/wp_client_reports_pro_ninja_forms.php:116
+#: services/ninja-forms/wp_client_reports_pro_ninja_forms.php:147
+#: services/wpcf7/wp_client_reports_pro_wpcf7.php:124
+#: services/wpcf7/wp_client_reports_pro_wpcf7.php:157
+#: services/wpforms/wp_client_reports_pro_wpforms.php:117
+#: services/wpforms/wp_client_reports_pro_wpforms.php:150
+msgid "Site Forms"
+msgstr ""
+
+#: services/caldera-forms/wp_client_reports_pro_caldera_forms.php:151
+#: services/caldera-forms/wp_client_reports_pro_caldera_forms.php:180
+#: services/formidable/wp_client_reports_pro_formidable.php:125
+#: services/formidable/wp_client_reports_pro_formidable.php:156
+#: services/gravity-forms/wp_client_reports_pro_gravity_forms.php:112
+#: services/gravity-forms/wp_client_reports_pro_gravity_forms.php:143
+#: services/ninja-forms/wp_client_reports_pro_ninja_forms.php:122
+#: services/ninja-forms/wp_client_reports_pro_ninja_forms.php:151
+#: services/wpcf7/wp_client_reports_pro_wpcf7.php:130
+#: services/wpcf7/wp_client_reports_pro_wpcf7.php:161
+#: services/wpforms/wp_client_reports_pro_wpforms.php:123
+#: services/wpforms/wp_client_reports_pro_wpforms.php:154
+#, php-format
+msgid "Form %s Views"
+msgstr ""
+
+#: services/caldera-forms/wp_client_reports_pro_caldera_forms.php:155
+#: services/formidable/wp_client_reports_pro_formidable.php:129
+#: services/gravity-forms/wp_client_reports_pro_gravity_forms.php:116
+#: services/ninja-forms/wp_client_reports_pro_ninja_forms.php:126
+#: services/wpcf7/wp_client_reports_pro_wpcf7.php:134
+#: services/wpforms/wp_client_reports_pro_wpforms.php:127
+#, php-format
+msgid "Forms %s Submitted"
+msgstr ""
+
+#: services/caldera-forms/wp_client_reports_pro_caldera_forms.php:159
+#: services/caldera-forms/wp_client_reports_pro_caldera_forms.php:187
+#: services/formidable/wp_client_reports_pro_formidable.php:133
+#: services/formidable/wp_client_reports_pro_formidable.php:163
+#: services/gravity-forms/wp_client_reports_pro_gravity_forms.php:120
+#: services/gravity-forms/wp_client_reports_pro_gravity_forms.php:150
+#: services/ninja-forms/wp_client_reports_pro_ninja_forms.php:130
+#: services/ninja-forms/wp_client_reports_pro_ninja_forms.php:158
+#: services/wpcf7/wp_client_reports_pro_wpcf7.php:138
+#: services/wpcf7/wp_client_reports_pro_wpcf7.php:168
+#: services/wpforms/wp_client_reports_pro_wpforms.php:131
+#: services/wpforms/wp_client_reports_pro_wpforms.php:161
+#, php-format
+msgid "Conversion %s Rate"
+msgstr ""
+
+#: services/caldera-forms/wp_client_reports_pro_caldera_forms.php:182
+#: services/formidable/wp_client_reports_pro_formidable.php:158
+#: services/gravity-forms/wp_client_reports_pro_gravity_forms.php:145
+#: services/ninja-forms/wp_client_reports_pro_ninja_forms.php:153
+#: services/wpcf7/wp_client_reports_pro_wpcf7.php:163
+#: services/wpforms/wp_client_reports_pro_wpforms.php:156
+#, php-format
+msgid "New %s Entries"
+msgstr ""
+
+#: services/easy-digital-downloads/wp_client_reports_pro_edd.php:93
+#: services/easy-digital-downloads/wp_client_reports_pro_edd.php:122
+#: wp_client_reports_pro.php:803
+msgid "Easy Digital Downloads"
+msgstr ""
+
+#: services/easy-digital-downloads/wp_client_reports_pro_edd.php:99
+#: services/easy-digital-downloads/wp_client_reports_pro_edd.php:126
+msgid "Sales"
+msgstr ""
+
+#: services/easy-digital-downloads/wp_client_reports_pro_edd.php:103
+#: services/easy-digital-downloads/wp_client_reports_pro_edd.php:128
+msgid "Earnings"
+msgstr ""
+
+#: services/google-analytics/wp_client_reports_pro_google_analytics.php:39
+msgid "Google Analytics API Key"
+msgstr ""
+
+#: services/google-analytics/wp_client_reports_pro_google_analytics.php:104
+msgid "Remove Config File"
+msgstr ""
+
+#: services/google-analytics/wp_client_reports_pro_google_analytics.php:284
+#: services/google-analytics/wp_client_reports_pro_google_analytics.php:347
+msgid "Site Analytics"
+msgstr ""
+
+#: services/google-analytics/wp_client_reports_pro_google_analytics.php:291
+#: services/google-analytics/wp_client_reports_pro_google_analytics.php:351
+msgid "Users"
+msgstr ""
+
+#: services/google-analytics/wp_client_reports_pro_google_analytics.php:295
+#, php-format
+msgid "New %s Users"
+msgstr ""
+
+#: services/google-analytics/wp_client_reports_pro_google_analytics.php:299
+#: services/google-analytics/wp_client_reports_pro_google_analytics.php:358
+msgid "Sessions"
+msgstr ""
+
+#: services/google-analytics/wp_client_reports_pro_google_analytics.php:303
+#, php-format
+msgid "Sessions Per %s User"
+msgstr ""
+
+#: services/google-analytics/wp_client_reports_pro_google_analytics.php:314
+#: services/google-analytics/wp_client_reports_pro_google_analytics.php:365
+msgid "Pageviews"
+msgstr ""
+
+#: services/google-analytics/wp_client_reports_pro_google_analytics.php:318
+#, php-format
+msgid "Pages Per %s Session"
+msgstr ""
+
+#: services/google-analytics/wp_client_reports_pro_google_analytics.php:322
+#, php-format
+msgid "Avg Session %s Duration"
+msgstr ""
+
+#: services/google-analytics/wp_client_reports_pro_google_analytics.php:326
+#, php-format
+msgid "Bounce %s Rate"
+msgstr ""
+
+#: services/google-analytics/wp_client_reports_pro_google_analytics.php:353
+msgid "New Users"
+msgstr ""
+
+#: services/google-analytics/wp_client_reports_pro_google_analytics.php:360
+msgid "Sessions/User"
+msgstr ""
+
+#: services/google-analytics/wp_client_reports_pro_google_analytics.php:367
+msgid "Pages/Session"
+msgstr ""
+
+#: services/google-analytics/wp_client_reports_pro_google_analytics.php:372
+msgid "Avg Session Duration"
+msgstr ""
+
+#: services/google-analytics/wp_client_reports_pro_google_analytics.php:374
+msgid "Bounce Rate"
+msgstr ""
+
+#: services/mailchimp/wp_client_reports_pro_mailchimp.php:39
+msgid "Mailchimp Site API Key"
+msgstr ""
+
+#: services/mailchimp/wp_client_reports_pro_mailchimp.php:76
+msgid "Mailchimp Audience/List"
+msgstr ""
+
+#: services/mailchimp/wp_client_reports_pro_mailchimp.php:85
+msgid "No audience/list found in your mailchimp account"
+msgstr ""
+
+#: services/mailchimp/wp_client_reports_pro_mailchimp.php:146
+msgid "Something went wrong: "
+msgstr ""
+
+#: services/mailchimp/wp_client_reports_pro_mailchimp.php:266
+#: services/mailchimp/wp_client_reports_pro_mailchimp.php:300
+msgid "Mailing List"
+msgstr ""
+
+#: services/mailchimp/wp_client_reports_pro_mailchimp.php:272
+#: services/mailchimp/wp_client_reports_pro_mailchimp.php:304
+msgid "Subscribes"
+msgstr ""
+
+#: services/mailchimp/wp_client_reports_pro_mailchimp.php:276
+#: services/mailchimp/wp_client_reports_pro_mailchimp.php:306
+msgid "Unsubscribes"
+msgstr ""
+
+#: services/mailchimp/wp_client_reports_pro_mailchimp.php:280
+#: services/mailchimp/wp_client_reports_pro_mailchimp.php:311
+msgid "Current List Size"
+msgstr ""
+
+#: services/pingdom/wp_client_reports_pro_pingdom.php:39
+msgid "Pingdom API Key"
+msgstr ""
+
+#: services/pingdom/wp_client_reports_pro_pingdom.php:299
+#: services/pingdom/wp_client_reports_pro_pingdom.php:306
+#: services/pingdom/wp_client_reports_pro_pingdom.php:341
+#: services/pingdom/wp_client_reports_pro_pingdom.php:345
+#: services/uptime-robot/wp_client_reports_pro_uptime_robot.php:244
+#: services/uptime-robot/wp_client_reports_pro_uptime_robot.php:251
+#: services/uptime-robot/wp_client_reports_pro_uptime_robot.php:286
+#: services/uptime-robot/wp_client_reports_pro_uptime_robot.php:290
+msgid "Uptime"
+msgstr ""
+
+#: services/pingdom/wp_client_reports_pro_pingdom.php:310
+#: services/pingdom/wp_client_reports_pro_pingdom.php:347
+#: services/uptime-robot/wp_client_reports_pro_uptime_robot.php:255
+#: services/uptime-robot/wp_client_reports_pro_uptime_robot.php:292
+msgid "Events"
+msgstr ""
+
+#: services/pingdom/wp_client_reports_pro_pingdom.php:314
+#: services/pingdom/wp_client_reports_pro_pingdom.php:352
+#: services/uptime-robot/wp_client_reports_pro_uptime_robot.php:259
+#: services/uptime-robot/wp_client_reports_pro_uptime_robot.php:297
+msgid "Days Without Issue"
+msgstr ""
+
+#: services/pingdom/wp_client_reports_pro_pingdom.php:322
+#: services/pingdom/wp_client_reports_pro_pingdom.php:360
+#: services/uptime-robot/wp_client_reports_pro_uptime_robot.php:267
+#: services/uptime-robot/wp_client_reports_pro_uptime_robot.php:305
+msgid "Down Events"
+msgstr ""
+
+#: services/pingdom/wp_client_reports_pro_pingdom.php:368
+#: services/uptime-robot/wp_client_reports_pro_uptime_robot.php:313
+#: wp_client_reports_pro.php:47
+msgid "No Downtime Events"
+msgstr ""
+
+#: services/searchwp/wp_client_reports_pro_searchwp.php:103
+#: services/searchwp/wp_client_reports_pro_searchwp.php:136
+msgid "Site Searches"
+msgstr ""
+
+#: services/searchwp/wp_client_reports_pro_searchwp.php:109
+#: services/searchwp/wp_client_reports_pro_searchwp.php:140
+#, php-format
+msgid "Total %s Searches"
+msgstr ""
+
+#: services/searchwp/wp_client_reports_pro_searchwp.php:113
+#: services/searchwp/wp_client_reports_pro_searchwp.php:142
+#, php-format
+msgid "Unique %s Searches"
+msgstr ""
+
+#: services/searchwp/wp_client_reports_pro_searchwp.php:117
+#: services/searchwp/wp_client_reports_pro_searchwp.php:147
+#, php-format
+msgid "Empty %s Searches"
+msgstr ""
+
+#: services/uptime-robot/wp_client_reports_pro_uptime_robot.php:37
+msgid "Uptime Robot Site API Key"
+msgstr ""
+
+#: services/woocommerce/wp_client_reports_pro_woocommerce.php:95
+#: services/woocommerce/wp_client_reports_pro_woocommerce.php:132
+#: wp_client_reports_pro.php:780
+msgid "WooCommerce"
+msgstr ""
+
+#: services/woocommerce/wp_client_reports_pro_woocommerce.php:101
+#: services/woocommerce/wp_client_reports_pro_woocommerce.php:136
+#, php-format
+msgid "Gross %s Sales"
+msgstr ""
+
+#: services/woocommerce/wp_client_reports_pro_woocommerce.php:105
+#: services/woocommerce/wp_client_reports_pro_woocommerce.php:138
+#, php-format
+msgid "Net %s Sales"
+msgstr ""
+
+#: services/woocommerce/wp_client_reports_pro_woocommerce.php:109
+#: services/woocommerce/wp_client_reports_pro_woocommerce.php:143
+#, php-format
+msgid "Orders %s Placed"
+msgstr ""
+
+#: services/woocommerce/wp_client_reports_pro_woocommerce.php:113
+#: services/woocommerce/wp_client_reports_pro_woocommerce.php:145
+#, php-format
+msgid "Items %s Purchased"
+msgstr ""
+
+#: services/wpengine-backups/wp_client_reports_pro_wpengine_backups.php:111
+#: services/wpengine-backups/wp_client_reports_pro_wpengine_backups.php:140
+msgid "Schedule"
+msgstr ""
+
+#: services/wpengine-backups/wp_client_reports_pro_wpengine_backups.php:115
+#: services/wpengine-backups/wp_client_reports_pro_wpengine_backups.php:145
+msgid "Days Stored"
+msgstr ""
+
+#: wp_client_reports_pro.php:30
+#, php-format
+msgid ""
+"WP Client Reports Pro requires the free base plugin %1$sWP Client Reports"
+"%2$s to be installed and active."
+msgstr ""
+
+#: wp_client_reports_pro.php:272
+msgid "Plugin Settings"
+msgstr ""
+
+#: wp_client_reports_pro.php:279
+msgid "WP Client Reports Pro License"
+msgstr ""
+
+#: wp_client_reports_pro.php:299
+msgid "active"
+msgstr ""
+
+#: wp_client_reports_pro.php:301
+msgid "Deactivate License"
+msgstr ""
+
+#: wp_client_reports_pro.php:304
+msgid "Activate License"
+msgstr ""
+
+#: wp_client_reports_pro.php:358 wp_client_reports_pro.php:406
+#: wp_client_reports_pro.php:465
+msgid "An error occurred, please try again."
+msgstr ""
+
+#: wp_client_reports_pro.php:372
+#, php-format
+msgid "Your license key expired on %s."
+msgstr ""
+
+#: wp_client_reports_pro.php:380
+msgid "Your license key has been disabled."
+msgstr ""
+
+#: wp_client_reports_pro.php:385
+msgid "Invalid license."
+msgstr ""
+
+#: wp_client_reports_pro.php:391
+msgid "Your license is not active for this URL."
+msgstr ""
+
+#: wp_client_reports_pro.php:396
+msgid "This appears to be an invalid license key for WP Client Reports Pro."
+msgstr ""
+
+#: wp_client_reports_pro.php:401
+msgid "Your license key has reached its activation limit."
+msgstr ""
+
+#: wp_client_reports_pro.php:536
+msgid "Site Report Automatic Send"
+msgstr ""
+
+#: wp_client_reports_pro.php:544
+msgid "Site Report Logo"
+msgstr ""
+
+#: wp_client_reports_pro.php:552
+msgid "Site Report Primary Color"
+msgstr ""
+
+#: wp_client_reports_pro.php:564
+msgid "Google Analytics"
+msgstr ""
+
+#: wp_client_reports_pro.php:571
+msgid "Enable Google Analytics"
+msgstr ""
+
+#: wp_client_reports_pro.php:583
+msgid "Uptime Robot"
+msgstr ""
+
+#: wp_client_reports_pro.php:590
+msgid "Enable Uptime Robot"
+msgstr ""
+
+#: wp_client_reports_pro.php:602
+msgid "Pingdom"
+msgstr ""
+
+#: wp_client_reports_pro.php:609
+msgid "Enable Pingdom"
+msgstr ""
+
+#: wp_client_reports_pro.php:621
+msgid "Mailchimp"
+msgstr ""
+
+#: wp_client_reports_pro.php:628
+msgid "Enable Mailchimp"
+msgstr ""
+
+#: wp_client_reports_pro.php:642
+msgid "Gravity Forms"
+msgstr ""
+
+#: wp_client_reports_pro.php:649
+msgid "Enable Gravity Forms"
+msgstr ""
+
+#: wp_client_reports_pro.php:665
+msgid "Ninja Forms"
+msgstr ""
+
+#: wp_client_reports_pro.php:672
+msgid "Enable Ninja Forms"
+msgstr ""
+
+#: wp_client_reports_pro.php:688
+msgid "WPForms"
+msgstr ""
+
+#: wp_client_reports_pro.php:695
+msgid "Enable WPForms"
+msgstr ""
+
+#: wp_client_reports_pro.php:711
+msgid "Formidable"
+msgstr ""
+
+#: wp_client_reports_pro.php:718
+msgid "Enable Formidable"
+msgstr ""
+
+#: wp_client_reports_pro.php:734
+msgid "Contact Form 7"
+msgstr ""
+
+#: wp_client_reports_pro.php:741
+msgid "Enable Contact Form 7"
+msgstr ""
+
+#: wp_client_reports_pro.php:757
+msgid "Caldera Forms"
+msgstr ""
+
+#: wp_client_reports_pro.php:764
+msgid "Enable Caldera Forms"
+msgstr ""
+
+#: wp_client_reports_pro.php:787
+msgid "Enable WooCommerce"
+msgstr ""
+
+#: wp_client_reports_pro.php:810
+msgid "Enable Easy Digital Downloads"
+msgstr ""
+
+#: wp_client_reports_pro.php:827
+msgid "UpdraftPlus"
+msgstr ""
+
+#: wp_client_reports_pro.php:834
+msgid "Enable UpdraftPlus"
+msgstr ""
+
+#: wp_client_reports_pro.php:850
+msgid "BackWPup"
+msgstr ""
+
+#: wp_client_reports_pro.php:857
+msgid "Enable BackWPup"
+msgstr ""
+
+#: wp_client_reports_pro.php:873
+msgid "BackupBuddy"
+msgstr ""
+
+#: wp_client_reports_pro.php:880
+msgid "Enable BackupBuddy"
+msgstr ""
+
+#: wp_client_reports_pro.php:896
+msgid "WPEngine Backups"
+msgstr ""
+
+#: wp_client_reports_pro.php:903
+msgid "Enable WPEngine Backups"
+msgstr ""
+
+#: wp_client_reports_pro.php:919
+msgid "SearchWP"
+msgstr ""
+
+#: wp_client_reports_pro.php:926
+msgid "Enable SearchWP"
+msgstr ""
+
+#: wp_client_reports_pro.php:952
+msgid "Never"
+msgstr ""
+
+#: wp_client_reports_pro.php:953
+msgid "Weekly"
+msgstr ""
+
+#: wp_client_reports_pro.php:954
+msgid "Monthly"
+msgstr ""
+
+#: wp_client_reports_pro.php:958
+msgid "Sunday"
+msgstr ""
+
+#: wp_client_reports_pro.php:959
+msgid "Monday"
+msgstr ""
+
+#: wp_client_reports_pro.php:960
+msgid "Tuesday"
+msgstr ""
+
+#: wp_client_reports_pro.php:961
+msgid "Wednesday"
+msgstr ""
+
+#: wp_client_reports_pro.php:962
+msgid "Thursday"
+msgstr ""
+
+#: wp_client_reports_pro.php:963
+msgid "Friday"
+msgstr ""
+
+#: wp_client_reports_pro.php:964
+msgid "Saturday"
+msgstr ""
+
+#: wp_client_reports_pro.php:995
+msgid "Last Day"
+msgstr ""
+
+#: wp_client_reports_pro.php:1026
+msgid "Report End This Day"
+msgstr ""
+
+#: wp_client_reports_pro.php:1027
+msgid "Report End Day Before"
+msgstr ""
+
+#: wp_client_reports_pro.php:1030
+#, php-format
+msgid ""
+"Timing may not be exact unless you do additional configuration for your site/"
+"server. %sRead more%s."
+msgstr ""
+
+#: wp_client_reports_pro.php:1245
+msgid "Select image"
+msgstr ""
+
+#: wp_client_reports_pro.php:1288 wp_client_reports_pro.php:1306
+#: wp_client_reports_pro.php:1324 wp_client_reports_pro.php:1342
+#: wp_client_reports_pro.php:1360 wp_client_reports_pro.php:1377
+#: wp_client_reports_pro.php:1394 wp_client_reports_pro.php:1411
+#: wp_client_reports_pro.php:1428 wp_client_reports_pro.php:1445
+#: wp_client_reports_pro.php:1462 wp_client_reports_pro.php:1479
+#: wp_client_reports_pro.php:1496 wp_client_reports_pro.php:1513
+#: wp_client_reports_pro.php:1530 wp_client_reports_pro.php:1547
+#: wp_client_reports_pro.php:1564
+msgid "Learn More"
+msgstr ""
+
+#: wp_client_reports_pro.php:1289 wp_client_reports_pro.php:1307
+#: wp_client_reports_pro.php:1325 wp_client_reports_pro.php:1343
+msgid "Setup Instructions"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WP Client Reports Pro"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://switchwp.com/wp-client-reports/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Send beautiful client maintenance reports with integrations from many "
+"popular plugins and services"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "SwitchWP"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://switchwp.com/"
+msgstr ""
