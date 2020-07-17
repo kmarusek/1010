@@ -20,6 +20,9 @@
     },
     "config": {
         "no_concat": [],
-        "no_include": []
+        "no_include": [],
+        "theme_name": "SpaceStation",
+        "build_directory": "build/interim",
+        "asset_directory": "build"
     }
 }
