@@ -341,9 +341,6 @@ if ( 'grid' === $settings->is_carousel || 'masonary' === $settings->is_carousel 
 	margin: 0 -<?php echo esc_attr( $grid_margin ); ?>px;
 }
 	<?php
-}
-
-if ( 'masonary' === $settings->is_carousel ) {
 
 	if ( isset( $settings->selfilter_border_enable ) && 'yes' === $settings->selfilter_border_enable ) {
 		$border_style = $settings->selfilter_border_style;

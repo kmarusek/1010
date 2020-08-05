@@ -43,6 +43,7 @@ class UABBWooProductsModule extends FLBuilderModule {
 		$this->add_js( 'carousel', BB_ULTIMATE_ADDON_URL . 'assets/js/global-scripts/jquery-carousel.js', array( 'jquery' ), '', true );
 
 		add_filter( 'fl_builder_loop_query_args', array( $this, 'woo_filter_args' ) );
+		add_filter( 'nonce_user_logged_out', array( $this, 'filter_nonce_user_logged_out' ) );
 
 		// quick view ajax.
 		add_action( 'wp_ajax_uabb_woo_quick_view', array( $this, 'load_quick_view_product' ) );
@@ -67,6 +68,20 @@ class UABBWooProductsModule extends FLBuilderModule {
 			return fl_builder_filesystem()->file_get_contents( BB_ULTIMATE_ADDON_DIR . 'modules/uabb-woo-products/icon/' . $icon );
 		}
 		return '';
+	}
+
+	/**
+	 * Get uid for logged out user
+	 *
+	 * @param int    $uid user id.
+	 * @param string $action action.
+	 */
+	public function filter_nonce_user_logged_out( $uid = 0, $action = '' ) {
+		if ( $uid && 0 !== $uid && $action && 'add_cart_single_product_ajax' === $action ) {
+			return $uid;
+		}
+
+		return 0;
 	}
 
 	/**
@@ -157,6 +172,21 @@ class UABBWooProductsModule extends FLBuilderModule {
 						'terms'    => $product_visibility_term_ids['featured'],
 					);
 				}
+			}
+
+			$args['tax_query'][] = array(
+				'taxonomy' => 'product_visibility',
+				'field'    => 'name',
+				'terms'    => 'exclude-from-catalog',
+				'operator' => 'NOT IN',
+			);
+
+			if ( 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) ) {
+				$args['meta_query'][] = array(
+					'key'     => '_stock_status',
+					'value'   => 'instock',
+					'compare' => '=',
+				);
 			}
 		}
 

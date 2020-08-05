@@ -44,6 +44,8 @@ var UABBBlogPosts;
             }
         } else if ( this.is_carousel == 'masonary' ) {
             this._uabbBlogPostMasonary();
+        } else if ( this.is_carousel == 'grid' ) {
+            this._uabbBlogPostGrid();
         }
 
         if( settings.blog_image_position == 'background' ) {
@@ -215,6 +217,37 @@ var UABBBlogPosts;
                 columnWidth: '.uabb-blog-posts-masonary-item-' + id,
                 itemSelector: '.uabb-blog-posts-masonary-item-' + id
             });*/
+        },
+
+        _uabbBlogPostGrid: function() {
+
+            var id = this.id,
+                nodeClass = this.nodeClass,
+                LayoutMode = 'fitRows';
+
+            $grid = jQuery( nodeClass ).find('.uabb-blog-posts-grid').isotope({
+                layoutMode: LayoutMode,
+                itemSelector: '.uabb-blog-posts-grid-item-' + this.id,
+                masonry: {
+                    columnWidth: '.uabb-blog-posts-grid-item-' + this.id
+                }
+            });
+
+            if( this.uabb_masonary_filter_type == 'drop-down' ) {
+
+                jQuery( nodeClass ).find('.uabb-masonary-filters').on('change', function() {
+                    value = jQuery( nodeClass ).find('.uabb-masonary-filters option:selected').data('filter');
+                    jQuery( nodeClass + ' .uabb-blog-posts-grid' ).isotope( { filter: value } )
+                });
+            }
+            else {
+                jQuery( nodeClass ).find('.uabb-masonary-filters .uabb-masonary-filter-' + id).on('click', function(){
+                    jQuery( this ).siblings().removeClass( 'uabb-masonary-current' );
+                    jQuery( this ).addClass( 'uabb-masonary-current' );
+                    var value = jQuery( this ).data( 'filter' );
+                    jQuery( nodeClass + ' .uabb-blog-posts-grid' ).isotope( { filter: value } )
+                });
+            }
         },
 
         _uabbBlogPostCarouselEqualHeight: function() {

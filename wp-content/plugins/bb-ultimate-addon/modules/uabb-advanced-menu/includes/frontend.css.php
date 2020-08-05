@@ -476,15 +476,12 @@ if ( $global_settings->responsive_enabled ) {
 		<?php // Horizontal Or Vertical Menu. ?>
 		<?php if ( in_array( $settings->creative_menu_layout, array( 'horizontal', 'vertical' ), true ) ) { ?>
 
-			.fl-node-<?php echo esc_attr( $id ); ?> .uabb-creative-menu .uabb-has-submenu:hover > .sub-menu,
-			.fl-node-<?php echo esc_attr( $id ); ?> .uabb-creative-menu .uabb-has-submenu:focus > .sub-menu {
-				display: block;
-			}
-
-			.fl-node-<?php echo esc_attr( $id ); ?> .uabb-creative-menu .uabb-has-submenu:hover > .sub-menu,
-			.fl-node-<?php echo esc_attr( $id ); ?> .uabb-creative-menu .uabb-has-submenu:focus > .sub-menu {
+			.fl-node-<?php echo esc_attr( $id ); ?> .uabb-creative-menu .uabb-has-submenu:focus-within > .sub-menu,
+			.fl-node-<?php echo esc_attr( $id ); ?> .uabb-creative-menu .uabb-has-submenu:hover > .sub-menu {
 				visibility: visible;
 				opacity: 1;
+				display: block;
+
 			}
 
 			.fl-node-<?php echo esc_attr( $id ); ?> .menu .uabb-has-submenu.uabb-menu-submenu-right .sub-menu {
@@ -1954,6 +1951,12 @@ if ( ! $version_bb_check ) {
 	}
 <?php } ?>
 
+/***************************** Accordion **********************************/
+<?php if ( 'default' === $settings->creative_mobile_menu_type && isset( $settings->collapse_menu ) && 'yes' === $settings->collapse_menu ) { ?>
+	.fl-node-<?php echo esc_attr( $id ); ?> .uabb-creative-menu .menu {
+		display: none;
+	}
+<?php } ?>
 
 /***************************** Off Canvas **********************************/
 <?php if ( 'off-canvas' === $settings->creative_mobile_menu_type ) { ?>

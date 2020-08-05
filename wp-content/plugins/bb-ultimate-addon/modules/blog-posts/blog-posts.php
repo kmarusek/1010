@@ -1741,10 +1741,11 @@ class BlogPostsModule extends FLBuilderModule {
 		if ( -1 !== $id && '' !== $id ) {
 			if ( 'custom' !== $size ) {
 				$temp  = wp_get_attachment_image_src( $id, $size );
-				$image = $temp[0];
+				$image = ( isset( $temp[0] ) ) ? $temp[0] : null;
 			} else {
 				$temp  = wp_get_attachment_image_src( $id, 'full' );
-				$image = $this->crop( $i, $temp[0], $this->settings->featured_image_size_width, $this->settings->featured_image_size_height );
+				$img   = ( isset( $temp[0] ) ) ? $temp[0] : null;
+				$image = $this->crop( $i, $img, $this->settings->featured_image_size_width, $this->settings->featured_image_size_height );
 			}
 		} else {
 			$return_array = array(
