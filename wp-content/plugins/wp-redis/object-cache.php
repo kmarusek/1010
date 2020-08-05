@@ -134,6 +134,24 @@ function wp_cache_get( $key, $group = '', $force = false, &$found = null ) {
 }
 
 /**
+ * Retrieves multiple values from the cache in one call.
+ *
+ * @see WP_Object_Cache::get_multiple()
+ * @global WP_Object_Cache $wp_object_cache Object cache global instance.
+ *
+ * @param array  $keys  Array of keys under which the cache contents are stored.
+ * @param string $group Optional. Where the cache contents are grouped. Default empty.
+ * @param bool   $force Optional. Whether to force an update of the local cache
+ *                      from the persistent cache. Default false.
+ * @return array Array of values organized into groups.
+ */
+function wp_cache_get_multiple( $keys, $group = '', $force = false ) {
+	global $wp_object_cache;
+
+	return $wp_object_cache->get_multiple( $keys, $group, $force );
+}
+
+/**
  * Increment numeric cache item's value
  *
  * @uses $wp_object_cache Object Cache Class
@@ -645,6 +663,74 @@ class WP_Object_Cache {
 	}
 
 	/**
+	 * Retrieves multiple values from the cache in one call.
+	 *
+	 * @param array  $keys  Array of keys under which the cache contents are stored.
+	 * @param string $group Optional. Where the cache contents are grouped. Default empty.
+	 * @param bool   $force Optional. Whether to force an update of the local cache
+	 *                      from the persistent cache. Default false.
+	 * @return array Array of values organized into groups.
+	 */
+	public function get_multiple( $keys, $group = 'default', $force = false ) {
+		if ( empty( $group ) ) {
+			$group = 'default';
+		}
+
+		$cache = array();
+		if ( ! $this->_should_persist( $group ) ) {
+			foreach ( $keys as $key ) {
+				$cache[ $key ] = $this->_isset_internal( $key, $group ) ? $this->_get_internal( $key, $group ) : false;
+				false !== $cache[ $key ] ? $this->cache_hits++ : $this->cache_misses++;
+			}
+			return $cache;
+		}
+
+		// Attempt to fetch values from the internal cache.
+		if ( ! $force ) {
+			foreach ( $keys as $key ) {
+				if ( $this->_isset_internal( $key, $group ) ) {
+					$cache[ $key ] = $this->_get_internal( $key, $group );
+					$this->cache_hits++;
+				}
+			}
+		}
+		$remaining_keys = array_diff( $keys, array_keys( $cache ) );
+		// If all keys were satisfied by the internal cache, we're sorted.
+		if ( empty( $remaining_keys ) ) {
+			return $cache;
+		}
+		if ( $this->_should_use_redis_hashes( $group ) ) {
+			$redis_safe_group = $this->_key( '', $group );
+			$results          = $this->_call_redis( 'hmGet', $redis_safe_group, $remaining_keys );
+		} else {
+			$ids = array();
+			foreach ( $remaining_keys as $key ) {
+				$ids[] = $this->_key( $key, $group );
+			}
+			$results = $this->_call_redis( 'mget', $ids );
+		}
+		// Process the results from the Redis call.
+		foreach ( $remaining_keys as $i => $key ) {
+			$value = isset( $results[ $i ] ) ? $results[ $i ] : false;
+			if ( false !== $value ) {
+				// All non-numeric values are serialized
+				$value = is_numeric( $value ) ? intval( $value ) : unserialize( $value );
+				$this->_set_internal( $key, $group, $value );
+				$this->cache_hits++;
+			} else {
+				$this->cache_misses++;
+			}
+			$cache[ $key ] = $value;
+		}
+		// Make sure return values are returned in the order of the passed keys.
+		$return_cache = array();
+		foreach ( $keys as $key ) {
+			$return_cache[ $key ] = isset( $cache[ $key ] ) ? $cache[ $key ] : false;
+		}
+		return $return_cache;
+	}
+
+	/**
 	 * Increment numeric cache item's value
 	 *
 	 * @param int|string $key The cache key to increment
@@ -1013,6 +1099,8 @@ class WP_Object_Cache {
 			$this->redis       = call_user_func_array( $client_connection, array( $client_parameters ) );
 		} catch ( Exception $e ) {
 			$this->_exception_handler( $e );
+			$this->is_redis_connected = false;
+			return $this->is_redis_connected;
 		}
 
 		$keys_methods = array(
@@ -1031,6 +1119,8 @@ class WP_Object_Cache {
 			call_user_func_array( $setup_connection, array( $this->redis, $client_parameters, $keys_methods ) );
 		} catch ( Exception $e ) {
 			$this->_exception_handler( $e );
+			$this->is_redis_connected = false;
+			return $this->is_redis_connected;
 		}
 
 		$this->is_redis_connected = $this->redis->isConnected();
@@ -1066,14 +1156,16 @@ class WP_Object_Cache {
 			// Attempt to automatically load Pantheon's Redis config from the env.
 			if ( isset( $_SERVER['CACHE_HOST'] ) ) {
 				$redis_server = array(
-					'host' => $_SERVER['CACHE_HOST'],
-					'port' => $_SERVER['CACHE_PORT'],
-					'auth' => $_SERVER['CACHE_PASSWORD'],
+					'host'     => $_SERVER['CACHE_HOST'],
+					'port'     => $_SERVER['CACHE_PORT'],
+					'auth'     => $_SERVER['CACHE_PASSWORD'],
+					'database' => isset( $_SERVER['CACHE_DB'] ) ? $_SERVER['CACHE_DB'] : 0,
 				);
 			} else {
 				$redis_server = array(
-					'host' => '127.0.0.1',
-					'port' => 6379,
+					'host'     => '127.0.0.1',
+					'port'     => 6379,
+					'database' => 0,
 				);
 			}
 		}
@@ -1233,7 +1325,9 @@ class WP_Object_Cache {
 			case 'IsConnected':
 			case 'exists':
 			case 'get':
+			case 'mget':
 			case 'hGet':
+			case 'hmGet':
 				return false;
 		}
 
