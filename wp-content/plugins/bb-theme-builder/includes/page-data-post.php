@@ -295,6 +295,15 @@ FLPageData::add_post_property_settings_fields( 'terms_list', array(
 			),
 		),
 	),
+	'display'   => array(
+		'type'    => 'select',
+		'label'   => __( 'Display', 'bb-theme-builder' ),
+		'default' => 'name',
+		'options' => array(
+			'name' => __( 'Name', 'bb-theme-builder' ),
+			'slug' => __( 'Slug', 'bb-theme-builder' ),
+		),
+	),
 	'separator' => array(
 		'type'    => 'text',
 		'label'   => __( 'Separator', 'bb-theme-builder' ),
@@ -303,7 +312,7 @@ FLPageData::add_post_property_settings_fields( 'terms_list', array(
 	'limit'     => array(
 		'type'        => 'text',
 		'placeholder' => '3',
-		'label'       => __( 'Limit', 'fl-theme-buider' ),
+		'label'       => __( 'Limit', 'bb-theme-builder' ),
 		'default'     => '',
 		'help'        => __( 'Limit number of terms returned.', 'bb-theme-builder' ),
 	),

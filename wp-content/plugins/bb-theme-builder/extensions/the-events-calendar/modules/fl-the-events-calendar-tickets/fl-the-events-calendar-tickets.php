@@ -35,6 +35,11 @@ FLBuilder::register_module( 'FLTheEventsCalendarTicketsModule', array(
 						'type'       => 'color',
 						'label'      => __( 'Background Color', 'bb-theme-builder' ),
 						'show_reset' => true,
+						'preview'    => array(
+							'type'     => 'css',
+							'property' => 'background-color',
+							'selector' => '.tribe-common',
+						),
 					),
 					'text_color' => array(
 						'type'       => 'color',
@@ -45,21 +50,46 @@ FLBuilder::register_module( 'FLTheEventsCalendarTicketsModule', array(
 						'type'       => 'color',
 						'label'      => __( 'Separator Color', 'bb-theme-builder' ),
 						'show_reset' => true,
+						'preview'    => array(
+							'type'     => 'css',
+							'property' => 'border-top-color',
+							'selector' => '.tribe-common .tribe-tickets__item, .tribe-common .tribe-tickets__footer',
+						),
 					),
 				),
 			),
 			'button'  => array(
 				'title'  => __( 'Button', 'bb-theme-builder' ),
 				'fields' => array(
-					'btn_bg_color'   => array(
+					'btn_bg_color'            => array(
 						'type'       => 'color',
-						'label'      => __( 'Background Color', 'bb-theme-builder' ),
+						'label'      => __( 'Active Button Background Color', 'bb-theme-builder' ),
 						'show_reset' => true,
 					),
-					'btn_text_color' => array(
+					'btn_text_color'          => array(
 						'type'       => 'color',
-						'label'      => __( 'Text Color', 'bb-theme-builder' ),
+						'label'      => __( 'Active Button Text Color', 'bb-theme-builder' ),
 						'show_reset' => true,
+					),
+					'disabled_btn_bg_color'   => array(
+						'type'       => 'color',
+						'label'      => __( 'Disabled Button Background Color', 'bb-theme-builder' ),
+						'show_reset' => true,
+						'preview'    => array(
+							'type'     => 'css',
+							'property' => 'background-color',
+							'selector' => '.tribe-common .tribe-tickets__footer button[disabled=disabled]',
+						),
+					),
+					'disabled_btn_text_color' => array(
+						'type'       => 'color',
+						'label'      => __( 'Disabled Button Text Color', 'bb-theme-builder' ),
+						'show_reset' => true,
+						'preview'    => array(
+							'type'     => 'css',
+							'property' => 'color',
+							'selector' => '.tribe-common .tribe-tickets__footer button[disabled=disabled]',
+						),
 					),
 				),
 			),

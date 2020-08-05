@@ -91,7 +91,7 @@ final class FLThemeBuilderPostModules {
 									'preview'     => array(
 										'type' => 'none',
 									),
-									'connections' => array( 'html', 'string', 'url' ),
+									'connections' => array( 'html', 'string', 'url', 'color' ),
 								),
 							),
 						),

@@ -21,7 +21,7 @@ final class FLThemeBuilderWPML {
 	}
 
 	/**
-	 * Copys Themer post meta for new translations.
+	 * Copies Themer post meta for new translations.
 	 *
 	 * @since 1.0.4
 	 * @param int post_id

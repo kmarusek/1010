@@ -127,7 +127,7 @@ final class FLPageDataACF {
 					$format = self::js_date_format_to_php( $object['display_format'] );
 					$date   = DateTime::createFromFormat( 'Ymd', $object['value'] );
 
-					// Only pass to format() if vaid date, DateTime returns false if not valid.
+					// Only pass to format() if valid date, DateTime returns false if not valid.
 					if ( $date ) {
 						$content = $date->format( $format );
 					} else {
@@ -440,11 +440,15 @@ final class FLPageDataACF {
 				}
 				$content .= '</ul>';
 			} elseif ( ! empty( $object['type'] ) && ( 'page_link' == $object['type'] ) ) {
-				$content = '<ul>';
-				foreach ( $values as $v ) {
-					$content .= "<li><a href='{$v}'>{$v}</a></li>";
+				if ( ! $object['multiple'] && 'array' === gettype( $values ) && count( $values ) <= 1 ) {
+					$content = implode( '', $values );
+				} else {
+					$content = '<ul>';
+					foreach ( $values as $v ) {
+						$content .= "<li><a href='{$v}'>{$v}</a></li>";
+					}
+					$content .= '</ul>';
 				}
-				$content .= '</ul>';
 			}
 		}
 

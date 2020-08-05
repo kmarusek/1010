@@ -1,3 +1,61 @@
+<h4>1.3.2.2 - 07/21/2020</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>On shrink, limit auto-height and auto-width to BB Photo module only.</li>
+	<li>Tweaked nested connections fix.</li>
+</ul>
+
+<h4>1.3.2.1 - 07/15/2020</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Fixed broken nested connections.</li>
+</ul>
+
+<h4>1.3.2 - 07/13/2020</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>WooCommerce: Add new fields for Upsell and Related Products modules.</li>
+	<li>Added ACF Color Field support/options to Post Module Custom Layout.</li>
+	<li>Post Terms List: add ability to output term slug instead of term title/name.</li>
+	<li>Add new filter <code>fl_theme_builder_shrink_image_height</code> to control shrink logo height (default: 50px).</li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fixed missing mo translation files.</li>
+	<li>Fixed field connection not pulling in post data correctly.</li>
+	<li>Fixed unshrunk header when back button is clicked.</li>
+	<li>Fixed ACF Page Link field render value when Multiple is Off.</li>
+	<li>Fixed Yith Request a Quote: doesn't show variable product options when enabled.</li>
+	<li>Fixd WooCommerce button styles not being applied.</li>
+	<li>TEC: Fixed Event Ticket module styling.</li>
+	<li>TEC: Fix organizer or venue content pulling in the event content when venue or organizer are not set.</li>
+</ul>
+
+<h4>1.3.1.1 - 05/21/2020</h4>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fixed broken translation files.</li>
+</ul>
+
+<h4>1.3.1 - 05/06/2020</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Added new filter <code>fl_theme_builder_disable_schema</code>.</li>
+	<li>Added connections for Events Calendar venue and organiser content.</li>
+	<li>Added Conditional Tags -- is_404(), is_tax(), is_search() to Conditional Logic.</li>
+	<li>Added Author Role to Conditional Logic.</li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fixed empty author name on Author Archive with no post.</li>
+	<li>Fixed ACF Relationship field sorting.</li>
+	<li>Fixed Posts module set to main query on an archive layout displays all Event Calendar events.</li>
+	<li>Fixed Add To Cart visibility on Archive Layout.</li>
+	<li>Fixed various translation string issues.</li>
+	<li>Remove Post Navigation extra space on RTL.</li>
+	<li>Make sure result is same post type when checking for post parent.</li>
+</ul>
+
 <h4>1.3.0.2 - 03/18/2020</h4>
 <p><strong>Enhancements</strong></p>
 <ul>
@@ -157,7 +215,7 @@
 	<li>Show parent/child page relationship in Location dropdown.</li>
 	<li>Added an option to order ACF relationship posts list.</li>
 	<li>Added an Event navigation module.</li>
-	<li>Terms List connection/shortcode now supports outputing in list formats.</li>
+	<li>Terms List connection/shortcode now supports outputting in list formats.</li>
 </ul>
 
 <p><strong>Bug Fixes</strong></p>
@@ -183,7 +241,7 @@
 	<li>Updated to WPCS 2.0</li>
 	<li>Added SKU field connection for WooCommerce.</li>
 	<li>Added individual field connections for address parts for Events Calendar Events.</li>
-	<li>Added timezone support for Events Calender time field connections.</li>
+	<li>Added timezone support for Events Calendar time field connections.</li>
 	<li>Added WooCommerce classes option to Posts Module.</li>
 	<li>Added FitVids support to videos in Post Content Module.</li>
 	<li>Added option to Post module to order events by start/end date.</li>

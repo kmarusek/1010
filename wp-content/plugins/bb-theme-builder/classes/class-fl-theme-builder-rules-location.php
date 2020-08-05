@@ -311,7 +311,7 @@ final class FLThemeBuilderRulesLocation {
 					foreach ( $post['locations'] as $post_location ) {
 						if ( stristr( $post_location, ':post:' ) ) {
 							$parts = explode( ':', $post_location );
-							if ( 5 === count( $parts ) && wp_get_post_parent_id( $post_id ) == $parts[4] ) {
+							if ( 5 === count( $parts ) && wp_get_post_parent_id( $post_id ) == $parts[4] && get_post_type( wp_get_post_parent_id( $post_id ) ) == $parts[3] ) {
 								$posts[] = $post;
 							}
 						} elseif ( stristr( $post_location, ':ancestor:' ) ) {
@@ -772,7 +772,7 @@ final class FLThemeBuilderRulesLocation {
 				$by_template_type['post'][ $post_type_slug . ':post:' . $post_type_slug ]                     =
 				$by_post_type[ $post_type_slug ]['locations'][ $post_type_slug . ':post:' . $post_type_slug ] = array( // @codingStandardsIgnoreLine
 					'id'    => $post_type_slug . ':post:' . $post_type_slug,
-					/* translators: %s: singlular post type name */
+					/* translators: %s: singular post type name */
 					'label' => sprintf( esc_html_x( '%s Parent', '%s is a singular post type name', 'bb-theme-builder' ), $post_type->labels->singular_name ),
 					'type'  => 'post',
 					'count' => $count,
@@ -781,7 +781,7 @@ final class FLThemeBuilderRulesLocation {
 				$by_template_type['post'][ $post_type_slug . ':ancestor:' . $post_type_slug ]                     =
 				$by_post_type[ $post_type_slug ]['locations'][ $post_type_slug . ':ancestor:' . $post_type_slug ] = array( // @codingStandardsIgnoreLine
 					'id'    => $post_type_slug . ':ancestor:' . $post_type_slug,
-					/* translators: %s: singlular post type name */
+					/* translators: %s: singular post type name */
 					'label' => sprintf( esc_html_x( '%s Ancestor', '%s is a singular post type name', 'bb-theme-builder' ), $post_type->labels->singular_name ),
 					'type'  => 'post',
 					'count' => $count,
@@ -790,7 +790,7 @@ final class FLThemeBuilderRulesLocation {
 
 			// Add the post type archive.
 			$by_post_type[ $post_type_slug . '_archive' ] = array(
-				/* translators: %s: singlular post type name */
+				/* translators: %s: singular post type name */
 				'label'     => sprintf( esc_html_x( '%s Archives', '%s is a singular post type name', 'bb-theme-builder' ), $post_type->labels->singular_name ),
 				'locations' => array(),
 			);
@@ -799,7 +799,7 @@ final class FLThemeBuilderRulesLocation {
 
 				$by_template_type['archive'][ $post_type_slug ] = array(
 					'id'    => $post_type_slug,
-					/* translators: %s: singlular post type name */
+					/* translators: %s: singular post type name */
 					'label' => sprintf( esc_html_x( '%s Archive', '%s is a singular post type name', 'bb-theme-builder' ), $post_type->labels->singular_name ),
 					'type'  => 'archive',
 				);

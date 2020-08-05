@@ -49,7 +49,7 @@ final class FLPageDataPost {
 
 	static public function wp_trim_words( $text, $num_words = 55, $more = null ) {
 		if ( null === $more ) {
-			$more = __( '&hellip;' );
+			$more = __( '&hellip;', 'bb-theme-builder' );
 		}
 
 		$original_text = $text;
@@ -59,7 +59,7 @@ final class FLPageDataPost {
 		* enter 'characters_excluding_spaces' or 'characters_including_spaces'. Otherwise, enter 'words'.
 		* Do not translate into your own language.
 		*/
-		if ( strpos( _x( 'words', 'Word count type. Do not translate!' ), 'characters' ) === 0 && preg_match( '/^utf\-?8$/i', get_option( 'blog_charset' ) ) ) {
+		if ( strpos( _x( 'words', 'Word count type. Do not translate!', 'bb-theme-builder' ), 'characters' ) === 0 && preg_match( '/^utf\-?8$/i', get_option( 'blog_charset' ) ) ) {
 			$text = trim( preg_replace( "/[\n\r\t ]+/", ' ', $text ), ' ' );
 			preg_match_all( '/./u', $text, $words_array );
 			$words_array = array_slice( $words_array[0], 0, $num_words + 1 );
@@ -258,13 +258,13 @@ final class FLPageDataPost {
 		global $post;
 
 		if ( isset( $settings->html_list ) && ( 'ul' === $settings->html_list || 'ol' === $settings->html_list ) ) {
-			$seperator  = $settings->html_list;
-			$terms_list = self::get_the_term_list( $post->ID, $settings->taxonomy, "<$seperator class='fl-{$settings->taxonomy}'><li>", '</li><li>', "</li></$seperator>", $settings->linked, $settings->limit );
+			$separator  = $settings->html_list;
+			$terms_list = self::get_the_term_list( $post->ID, $settings->taxonomy, "<$separator class='fl-{$settings->taxonomy}'><li>", '</li><li>', "</li></$separator>", $settings->linked, $settings->limit, $settings->display );
 		} elseif ( isset( $settings->html_list ) && 'div' === $settings->html_list ) {
-			$seperator  = $settings->html_list;
-			$terms_list = self::get_the_term_list( $post->ID, $settings->taxonomy, "<$seperator class='fl-{$settings->taxonomy}'><span>", '</span><span>', "</span></$seperator>", $settings->linked, $settings->limit );
+			$separator  = $settings->html_list;
+			$terms_list = self::get_the_term_list( $post->ID, $settings->taxonomy, "<$separator class='fl-{$settings->taxonomy}'><span>", '</span><span>', "</span></$separator>", $settings->linked, $settings->limit, $settings->display );
 		} else {
-			$terms_list = self::get_the_term_list( $post->ID, $settings->taxonomy, '', $settings->separator, '', $settings->linked, $settings->limit );
+			$terms_list = self::get_the_term_list( $post->ID, $settings->taxonomy, '', $settings->separator, '', $settings->linked, $settings->limit, $settings->display );
 			if ( 'no' === $settings->linked ) {
 				$terms_list = strip_tags( $terms_list );
 			}
@@ -280,7 +280,7 @@ final class FLPageDataPost {
 	/**
 	 * @since 1.2.3
 	 */
-	static public function get_the_term_list( $id, $taxonomy, $before = '', $sep = '', $after = '', $linked, $limit = false ) {
+	static public function get_the_term_list( $id, $taxonomy, $before = '', $sep = '', $after = '', $linked, $limit = false, $display = 'name' ) {
 		$terms = get_the_terms( $id, $taxonomy );
 
 		if ( is_wp_error( $terms ) ) {
@@ -303,9 +303,9 @@ final class FLPageDataPost {
 				return $link;
 			}
 			if ( 'no' !== $linked ) {
-				$links[] = '<a href="' . esc_url( $link ) . '" rel="tag" class="' . esc_attr( $term->slug ) . '">' . $term->name . '</a>';
+				$links[] = '<a href="' . esc_url( $link ) . '" rel="tag" class="' . esc_attr( $term->slug ) . '">' . ( 'slug' === $display ? $term->slug : $term->name ) . '</a>';
 			} else {
-				$links[] = '<span class="' . esc_attr( $term->slug ) . '">' . $term->name . '</span>';
+				$links[] = '<span class="' . esc_attr( $term->slug ) . '">' . ( 'slug' === $display ? $term->slug : $term->name ) . '</span>';
 			}
 		}
 

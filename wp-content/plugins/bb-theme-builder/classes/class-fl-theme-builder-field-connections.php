@@ -36,6 +36,15 @@ final class FLThemeBuilderFieldConnections {
 	static private $page_data_object_keys = array();
 
 	/**
+	 * Whether the connection has rendered inside the post-grid module loop.
+	 *
+	 * @since 1.3.2
+	 * @access public
+	 * @var boolean $in_post_grid_loop
+	 */
+	static public $in_post_grid_loop = null;
+
+	/**
 	 * Initialize hooks.
 	 *
 	 * @since 1.0
@@ -48,6 +57,8 @@ final class FLThemeBuilderFieldConnections {
 		add_action( 'wp_footer', __CLASS__ . '::js_templates' );
 		add_action( 'fl_builder_before_control', __CLASS__ . '::render_connection', 10, 4 );
 		add_action( 'fl_builder_before_render_ajax_layout', __CLASS__ . '::connect_all_layout_settings' );
+		add_action( 'fl_builder_posts_module_before_posts', __CLASS__ . '::posts_grid_before_posts', 10, 2 );
+		add_action( 'fl_builder_posts_module_after_posts', __CLASS__ . '::posts_grid_after_posts', 10, 2 );
 
 		// Filters
 		add_filter( 'fl_builder_node_settings', __CLASS__ . '::connect_node_settings', 10, 2 );
@@ -361,6 +372,30 @@ final class FLThemeBuilderFieldConnections {
 	}
 
 	/**
+	 * Sets flag that determine we are inside the post grid loop.
+	 *
+	 * @since 1.3.2
+	 * @param object $settings The settings object for a module.
+	 * @param object $query The query object.
+	 * @return void
+	 */
+	static public function posts_grid_before_posts( $settings, $query ) {
+		self::$in_post_grid_loop = true;
+	}
+
+	/**
+	 * Resets flag for post grid loop.
+	 *
+	 * @since 1.3.2
+	 * @param object $settings The settings object for a module.
+	 * @param object $query The query object.
+	 * @return void
+	 */
+	static public function posts_grid_after_posts( $settings, $query ) {
+		self::$in_post_grid_loop = false;
+	}
+
+	/**
 	 * Connects any settings that have a field connection for
 	 * a node. Settings aren't connected if a builder settings
 	 * form is rendering or saving since we don't want connected
@@ -372,9 +407,7 @@ final class FLThemeBuilderFieldConnections {
 	 * @return object
 	 */
 	static public function connect_node_settings( $settings, $node ) {
-		global $wp_the_query;
-		global $post;
-
+		global $post, $wp_the_query;
 		$repeater = array();
 		$nested   = array();
 
@@ -383,6 +416,12 @@ final class FLThemeBuilderFieldConnections {
 			$cache_key = $node->node;
 		} else {
 			$cache_key = $post && isset( $post->ID ) ? $node->node . '_' . $post->ID : $node->node;
+		}
+		// check for bb loop
+		if ( isset( self::$in_post_grid_loop ) ) {
+			if ( self::$in_post_grid_loop && $post && isset( $post->ID ) ) {
+				$cache_key = $node->node . '_' . $post->ID;
+			}
 		}
 
 		/**
@@ -399,18 +438,15 @@ final class FLThemeBuilderFieldConnections {
 				$nested[] = $key;
 			}
 		}
-
-		// Return if we don't have connections.
+				// Return if we don't have connections.
 		if ( ! isset( $settings->connections ) && empty( $repeater ) && empty( $nested ) ) {
 			return $settings;
 		}
-
-		// Return if connecting isn't allowed right now.
+				// Return if connecting isn't allowed right now.
 		if ( ! self::is_connecting_allowed() ) {
 			return $settings;
 		}
-
-		// Return cached connections?
+				// Return cached connections?
 		if ( isset( self::$connected_settings[ $cache_key ] ) ) {
 			return self::$connected_settings[ $cache_key ];
 		}

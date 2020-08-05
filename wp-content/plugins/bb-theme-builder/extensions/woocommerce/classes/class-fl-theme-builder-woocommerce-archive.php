@@ -361,11 +361,17 @@ final class FLThemeBuilderWooCommerceArchive {
 					'type'       => 'color',
 					'label'      => __( 'Product Sale Background', 'bb-theme-builder' ),
 					'show_reset' => true,
+					'preview'    => array(
+						'type' => 'refresh',
+					),
 				),
 				'woo_sale_flash_color' => array(
 					'type'       => 'color',
 					'label'      => __( 'Product Sale Text Color', 'bb-theme-builder' ),
 					'show_reset' => true,
+					'preview'    => array(
+						'type' => 'refresh',
+					),
 				),
 				'woo_rating_fg'        => array(
 					'type'       => 'color',
@@ -409,12 +415,18 @@ final class FLThemeBuilderWooCommerceArchive {
 					'label'      => __( 'Background Color', 'bb-theme-builder' ),
 					'default'    => '',
 					'show_reset' => true,
+					'preview'    => array(
+						'type' => 'refresh',
+					),
 				),
 				'woo_button_text_color' => array(
 					'type'       => 'color',
 					'label'      => __( 'Text Color', 'bb-theme-builder' ),
 					'default'    => '',
 					'show_reset' => true,
+					'preview'    => array(
+						'type' => 'refresh',
+					),
 				),
 			),
 		);

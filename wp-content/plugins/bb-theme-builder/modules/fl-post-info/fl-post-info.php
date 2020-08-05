@@ -161,6 +161,15 @@ FLBuilder::register_module( 'FLPostInfoModule', array(
 						'default' => 'category',
 						'options' => FLPageDataPost::get_taxonomy_options(),
 					),
+					'terms_display'   => array(
+						'type'    => 'select',
+						'label'   => __( 'Display', 'bb-theme-builder' ),
+						'default' => 'name',
+						'options' => array(
+							'name' => __( 'Name', 'bb-theme-builder' ),
+							'slug' => __( 'Slug', 'bb-theme-builder' ),
+						),
+					),
 					'terms_separator' => array(
 						'type'    => 'text',
 						'label'   => __( 'Separator', 'bb-theme-builder' ),

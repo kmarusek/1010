@@ -70,7 +70,7 @@ final class FLThemeBuilderLayoutPostType {
 	}
 
 	/**
-	 * Trys to load page.php for a header, footer or part theme layout.
+	 * Tries to load page.php for a header, footer or part theme layout.
 	 *
 	 * @since 1.0
 	 * @param string $template The current template to be loaded.
