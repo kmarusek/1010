@@ -27,8 +27,6 @@ class WPSEO_Option_Titles extends WPSEO_Option {
 	 * @var array
 	 */
 	protected $defaults = [
-		// Non-form fields, set via (ajax) function.
-		'title_test'                    => 0,
 		// Form fields.
 		'forcerewritetitle'             => false,
 		'separator'                     => 'sc-dash',
@@ -82,7 +80,6 @@ class WPSEO_Option_Titles extends WPSEO_Option {
 		 * - 'title-' . $pt->name                => ''; // Text field.
 		 * - 'metadesc-' . $pt->name             => ''; // Text field.
 		 * - 'noindex-' . $pt->name              => false;
-		 * - 'showdate-' . $pt->name             => false;
 		 * - 'display-metabox-pt-' . $pt->name   => false;
 		 *
 		 * - 'title-ptarchive-' . $pt->name      => ''; // Text field.
@@ -113,7 +110,6 @@ class WPSEO_Option_Titles extends WPSEO_Option {
 		'title-',
 		'metadesc-',
 		'noindex-',
-		'showdate-',
 		'display-metabox-pt-',
 		'bctitle-ptarchive-',
 		'post_types-',
@@ -126,8 +122,6 @@ class WPSEO_Option_Titles extends WPSEO_Option {
 	 * @var array
 	 */
 	public $ms_exclude = [
-		/* Theme dependent. */
-		'title_test',
 		'forcerewritetitle',
 	];
 
@@ -266,7 +260,6 @@ class WPSEO_Option_Titles extends WPSEO_Option {
 				$enriched_defaults[ 'title-' . $pt->name ]                   = '%%title%% %%page%% %%sep%% %%sitename%%'; // Text field.
 				$enriched_defaults[ 'metadesc-' . $pt->name ]                = ''; // Text area.
 				$enriched_defaults[ 'noindex-' . $pt->name ]                 = false;
-				$enriched_defaults[ 'showdate-' . $pt->name ]                = false;
 				$enriched_defaults[ 'display-metabox-pt-' . $pt->name ]      = true;
 				$enriched_defaults[ 'post_types-' . $pt->name . '-maintax' ] = 0; // Select box.
 
@@ -489,7 +482,6 @@ class WPSEO_Option_Titles extends WPSEO_Option {
 				case 'company_or_person_user_id':
 				case 'company_logo_id':
 				case 'person_logo_id':
-				case 'title_test': /* Integer field - not in form. */
 					if ( isset( $dirty[ $key ] ) ) {
 						$int = WPSEO_Utils::validate_int( $dirty[ $key ] );
 						if ( $int !== false && $int >= 0 ) {
@@ -535,8 +527,6 @@ class WPSEO_Option_Titles extends WPSEO_Option {
 				 *  'disable-date':
 				 *  'disable-post_format';
 				 *  'noindex-'
-				 *  'showdate-'
-				 *  'showdate-'. $pt->name
 				 *  'display-metabox-pt-'
 				 *  'display-metabox-pt-'. $pt->name
 				 *  'display-metabox-tax-'
@@ -762,7 +752,6 @@ class WPSEO_Option_Titles extends WPSEO_Option {
 					/*
 					 * Covers:
 					 *  'noindex-'
-					 *  'showdate-'
 					 *  'hideeditbox-'
 					 */
 					default:
