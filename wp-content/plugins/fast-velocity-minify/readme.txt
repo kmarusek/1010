@@ -3,7 +3,7 @@ Contributors: Alignak
 Tags: PHP Minify, Lighthouse, GTmetrix, Pingdom, Pagespeed, CSS Merging, JS Merging, CSS Minification, JS Minification, Speed Optimization, HTML Minification, Performance, Optimization, FVM
 Requires at least: 4.7
 Requires PHP: 5.6
-Stable tag: 2.8.1
+Stable tag: 2.8.9
 Tested up to: 5.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -197,6 +197,34 @@ Please backup your site before updating. Version 3.0 will have a major code rewr
 
 
 == Changelog ==
+
+= 2.8.9 [2020.06.23] =
+* new filter for wp hide compatibility
+
+= 2.8.8 [2020.05.01] =
+* bug fixes for woocommerce, which could result in 403 errors when adding to cart under certain cases
+
+= 2.8.7 [2020.04.30] =
+* fixed the sourceMappingURL removal regex introduced on 2.8.3 for js files and css files
+
+= 2.8.6 [2020.04.30] =
+* fixed an error notice on php
+
+= 2.8.5 [2020.04.30] =
+* bug fixes and some more minification default exclusions
+
+= 2.8.4 [2020.04.24] =
+* added frontend-builder-global-functions.js to the list of minification exclusions, but allowing merging (Divi Compatibility)
+
+= 2.8.3 [2020.04.17] =
+* Removed some options out of the autoload wp_option to avoid getting cached on the alloptions when using OPCache 
+* Removed the CDN purge option for WP Engine (not needed since FVM automatically does cache busting)
+* Added support for Kinsta, Pagely, Pressidum, Savvii and Pantheon
+* Better sourcemaps regex removal from minified css and js files
+
+= 2.8.2 [2020.04.13] =
+* Skip changing clip-path: url(#some-svg); to absolute urls during css minification
+* Added a better cronjob duplicate cleanup task, when uninstalling the plugin
 
 = 2.8.1 [2020.03.15] =
 * added filter for the fvm_get_url function
