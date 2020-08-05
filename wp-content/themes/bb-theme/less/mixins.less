@@ -77,12 +77,43 @@ Appearance > Theme Settings > Code or create a child theme.
 	color: @button-hover-color;
 }
 
+/* Woo Buttons
+----------------------------------------------------------- */
+
+.fl-woo-button-inactive-styles() {
+	color: @woo-button-color;
+	background-color: @woo-button-bg-color;
+
+	font-family: @woo-button-font-family;
+	font-weight: @woo-button-font-weight;
+	font-size: @woo-button-font-size;
+	line-height: @woo-button-line-height;
+	text-transform: @woo-button-text-transform;
+	border: @woo-button-border;
+	border-radius: @woo-button-border-radius;
+}
+
+.fl-woo-button-inactive-child-styles() {
+	color: @woo-button-color;
+}
+
+.fl-woo-button-hover-styles() {
+	background-color: @woo-button-bg-hover-color;
+	color: @woo-button-hover-color;
+	border: @woo-button-border-hover;
+	border-radius: @woo-button-hover-border-radius;
+}
+
+.fl-woo-button-hover-child-styles() {
+	color: @woo-button-hover-color;
+}
+
 /*
 Nav Toggle - Hamburger Icon
 It's being used in the theme.less for media queries when enabled in the customizer.
 ------------------------------------------------------------------------------------ */
 
-.fl-nav-icon-toggled() {
+.fl-nav-icon-toggled( @hamburger-icon-top-pos: 24px ) {
 
 	/* Page Nav Toggle Common mixin
 	----------------------------------------------------------- */
@@ -115,7 +146,7 @@ It's being used in the theme.less for media queries when enabled in the customiz
 		padding: 6px 8px;
 		position: absolute;
 		right: 20px;
-		top: ceil(@header-padding - 6);
+		top: @hamburger-icon-top-pos;
 		width: auto;
 		&:hover,
 		&:focus {
@@ -125,6 +156,12 @@ It's being used in the theme.less for media queries when enabled in the customiz
 		* {
 			color: @mobile-nav-fg-link-color;
 		}
+	}
+}
+
+.fl-hamburger-icon-position( @hamburger-icon-top-pos : 24px ){
+	.fl-page-nav .navbar-toggle {
+		top: @hamburger-icon-top-pos;
 	}
 }
 
@@ -218,15 +255,19 @@ It's being used in the theme.less for media queries when enabled in the customiz
 					color: @mobile-nav-fg-hover-color;
 				}
 			}
-			> li.current-menu-item ~ li.current-menu-item > a {
-				color: @mobile-nav-fg-link-color;
-			}
 		}
-		ul.sub-menu li {
-			border-color: @mobile-nav-btn-color;
-			a {
-				color: @mobile-nav-fg-link-color;
-				&:hover {
+		ul.sub-menu {
+			li {
+				border-color: @mobile-nav-btn-color;
+				a {
+					color: @mobile-nav-fg-link-color;
+					&:hover {
+						color: @mobile-nav-fg-hover-color;
+					}
+				}
+			}
+			li.current-menu-item {
+				a {
 					color: @mobile-nav-fg-hover-color;
 				}
 			}
@@ -584,7 +625,7 @@ when not( @bg-image = none ) {
 		}
 	}
 	.navbar-nav li.current-menu-item ~ li.current-menu-item > a {
-		color: @fg-color;
+		color: @fg-hover-color;
 	}
 }
 

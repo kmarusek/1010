@@ -142,8 +142,7 @@ class Less_Tree_Mixin_Call extends Less_Tree{
 		}
 
 		if( $isOneFound ){
-			$selectorName = $this->selector->toCSS();
-			throw new Less_Exception_Compiler('No matching definition was found for ' . $selectorName . ' with args `'.$this->Format( $args ).'`', null, $this->index, $this->currentFileInfo);
+			throw new Less_Exception_Compiler('No matching definition was found for `'.$this->Format( $args ).'`', null, $this->index, $this->currentFileInfo);
 
 		}else{
 			throw new Less_Exception_Compiler(trim($this->selector->toCSS()) . " is undefined in ".$this->currentFileInfo['filename'], null, $this->index);
@@ -199,3 +198,5 @@ class Less_Tree_Mixin_Call extends Less_Tree{
 	}
 
 }
+
+

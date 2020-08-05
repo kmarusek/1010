@@ -101,6 +101,8 @@ final class FLTheme {
 	 * @return void
 	 */
 	static public function setup() {
+
+		global $wp_version;
 		// Localization (load as first thing before any translation texts)
 		// Note: the first-loaded translation file overrides any following ones if the same translation is present.
 
@@ -130,6 +132,10 @@ final class FLTheme {
 
 		// Default block styles
 		add_theme_support( 'wp-block-styles' );
+
+		if ( version_compare( $wp_version, '5.3', '>=' ) ) {
+			add_theme_support( 'html5', array( 'script', 'style' ) );
+		}
 
 		// Nav menus
 		register_nav_menus( self::get_nav_locations() );
@@ -446,9 +452,12 @@ final class FLTheme {
 
 		self::add_font( $settings['fl-body-font-family'], apply_filters( 'fl_body_font_family', array( 300, 400, 700 ) ) );
 		self::add_font( $settings['fl-heading-font-family'], $settings['fl-heading-font-weight'] );
-		self::add_font( $settings['fl-title-font-family'], $settings['fl-title-font-weight'] );
 		self::add_font( $settings['fl-nav-font-family'], $settings['fl-nav-font-weight'] );
 		self::add_font( $settings['fl-button-font-family'], $settings['fl-button-font-weight'] );
+
+		if ( '' !== $settings['fl-heading-style'] ) {
+			self::add_font( $settings['fl-title-font-family'], $settings['fl-title-font-weight'] );
+		}
 
 		if ( 'text' === $settings['fl-logo-type'] ) {
 			self::add_font( $settings['fl-logo-font-family'], $settings['fl-logo-font-weight'] );
@@ -556,6 +565,15 @@ final class FLTheme {
 			$classes[] = 'fl-fixed-width';
 		}
 
+		if ( is_singular( 'post' ) ) {
+			$sidebar       = get_theme_mod( 'fl-blog-layout' );
+			$page_template = basename( get_page_template() );
+
+			if ( 'tpl-full-width.php' !== $page_template && 'no-sidebar' !== $sidebar ) {
+				$classes[] = 'fl-has-sidebar';
+			}
+		}
+
 		// Header classes
 		if ( $header_enabled ) {
 
@@ -590,6 +608,11 @@ final class FLTheme {
 			// Fixed Header
 			if ( ( self::get_setting( 'fl-fixed-header' ) === 'fixed' ) && ( self::get_setting( 'fl-header-layout' ) !== 'vertical-left' ) && ( self::get_setting( 'fl-header-layout' ) !== 'vertical-right' ) ) {
 				$classes[] = 'fl-fixed-header';
+			}
+
+			// Custom Padding Top
+			if ( 'custom' === self::get_setting( 'fl-fixed-header-padding-top' ) && 1 === count( array_diff( array( 'fl-shrink', 'fl-fixed-header' ), $classes ) ) ) {
+				$classes[] = 'fl-header-padding-top-custom';
 			}
 
 			// Hide Header Until Scroll
@@ -875,7 +898,7 @@ final class FLTheme {
 
 		echo '<ul class="fl-page-' . $args['theme_location'] . '-nav nav navbar-nav menu">';
 		echo '<li>';
-		echo '<a href="' . $url . '">' . $text . '</a>';
+		echo '<a class="no-menu" href="' . $url . '">' . $text . '</a>';
 		echo '</li>';
 		echo '</ul>';
 	}
@@ -1028,9 +1051,10 @@ final class FLTheme {
 			$col_length = 12 / $num_active;
 
 			for ( $i = 0; $i < $num_active; $i++ ) {
+				$count    = $i + 1;
 				$sm_class = FLLayout::get_col_class( 'sm', $col_length );
 				$md_class = FLLayout::get_col_class( 'md', $col_length );
-				echo '<div class="' . $sm_class . ' ' . $md_class . '">';
+				echo '<div class="' . $sm_class . ' ' . $md_class . ' fl-page-footer-widget-col fl-page-footer-widget-col-' . $count . '">';
 				dynamic_sidebar( $active[ $i ] );
 				echo '</div>';
 			}

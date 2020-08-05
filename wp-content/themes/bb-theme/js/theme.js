@@ -148,7 +148,10 @@
 			if(typeof $.fn.fitVids != 'undefined' && !$('body').hasClass('fl-builder')) {
 				this._enableFitVids();
 			}
-			FLTheme._navBackiosFix()
+			FLTheme._navBackiosFix();
+
+			// Smooth scrolling.
+			this._initSmoothScroll()
 		},
 
 		/**
@@ -365,6 +368,26 @@
 		},
 
 		/**
+		 * Initializes builder smooth scrolling.
+		 *
+		 * @since 1.7.6
+		 * @return void
+		 */
+		_initSmoothScroll: function() {
+			// Bail if builder doesn't exist.
+			if ('undefined' === typeof FLBuilderLayout) {
+				return;
+			}
+
+			if (location.hash && $( location.hash ).length) {
+				setTimeout(function() {
+					window.scrollTo(0, 0);
+					FLBuilderLayout._scrollToElement( $(location.hash) );
+				}, 1);
+			}
+		},
+
+		/**
 		 * Initializes drop down menu logic for the main nav for primary and fixed header.
 		 *
 		 * @since 1.0
@@ -561,8 +584,12 @@
 			}
 
 			li.addClass('fl-sub-menu-open');
-			subMenu.hide();
-			subMenu.stop().fadeIn(200);
+
+			if ( ! li.hasClass('hide-heading') ) {
+				subMenu.hide();
+				subMenu.stop().fadeIn(200);
+			}
+
 			FLTheme._hideNavSearch();
 
 			// Mega menu hover fix
@@ -592,10 +619,16 @@
 			var li      = $(this),
 				subMenu = li.find('ul.sub-menu');
 
-			subMenu.stop().fadeOut({
-				duration: 200,
-				done: FLTheme._navItemMouseoutComplete
-			});
+
+			if ( ! li.hasClass('hide-heading') ) {
+				subMenu.stop().fadeOut({
+					duration: 200,
+					done: FLTheme._navItemMouseoutComplete
+				});
+			}
+			else {
+				FLTheme._navItemMouseoutComplete();
+			}
 		},
 
 		/**
@@ -784,17 +817,37 @@
 		 */
 		_shrinkHeaderInit: function()
 		{
+			var distanceY = $(window).scrollTop(),
+				shrinkOn  = 250,
+				header    = $( '.fl-page-header' );
+
 			$( 'body' ).addClass( 'fl-shrink-header-enabled' );
 
 			if ('scrollRestoration' in history) {
 				history.scrollRestoration = 'manual';
 			}
 
-			$( window ).load(function() {
-				var logo = $( '.fl-logo-img' );
-				logo.css( 'max-height', logo.height() );
+			$('.fl-page-header-logo').imagesLoaded(function(){
+				var logo       = $( '.fl-logo-img' ),
+					logoHeight = logo.height();
+
+				// Check to see if original height is set on scroll while the page is reloading.
+				if ( 'undefined' !== typeof logo.data('origHeight') ) {
+					logoHeight = parseInt( logo.data('origHeight') );
+				}
+
+				logo.css( 'max-height', logoHeight );
+
 				setTimeout( function() {
 					$('.fl-page-header').addClass( 'fl-shrink-header-transition' );
+
+					// Shrink on page load
+					if ( distanceY > shrinkOn ) {
+						header.addClass( 'fl-shrink-header' );
+					}
+					else {
+						header.removeClass( 'fl-shrink-header' );
+					}
 				}, 100 );
 			});
 		},
@@ -838,7 +891,10 @@
 					totalHeaderHeight = topbar.outerHeight();
 				}
 
-				$( '.fl-page' ).css( 'padding-top', totalHeaderHeight );
+				if ( $('.fl-header-padding-top-custom').length === 0 ) {
+					$( '.fl-page' ).css( 'padding-top', totalHeaderHeight );
+				}
+
 				$( win ).on( 'scroll.fl-shrink-header', FLTheme._shrinkHeader );
 			}
 			else {
@@ -859,18 +915,27 @@
 		{
 			var distanceY = $( this ).scrollTop(),
 				shrinkOn  = 250,
-				header    = $( '.fl-page-header' );
+				header    = $( '.fl-page-header' ),
+				logo      = null;
 
-			if ( distanceY > shrinkOn ) {
-				header.addClass( 'fl-shrink-header' );
-			}
-			else {
-				header.removeClass( 'fl-shrink-header' );
-			}
+			$('.fl-page-header-logo').imagesLoaded(function(){
+				logo = $( '.fl-logo-img' );
 
-			if ( 'undefined' !== typeof header.data( 'original-top' ) ) {
-				FLTheme._fixThemerLayoutOnScroll();
-			}
+				if ( 'undefined' === typeof logo.data('origHeight') ) {
+					logo.data( 'origHeight', logo.height() );
+				}
+
+				if ( distanceY > shrinkOn ) {
+					header.addClass( 'fl-shrink-header' );
+				}
+				else {
+					header.removeClass( 'fl-shrink-header' );
+				}
+
+				if ( 'undefined' !== typeof header.data( 'original-top' ) ) {
+					FLTheme._fixThemerLayoutOnScroll();
+				}
+			});
 		},
 
 		/**
@@ -920,7 +985,7 @@
 					$( win ).on( 'scroll.fl-fixed-header', FLTheme._fixThemerLayoutOnScroll );
 				}
 
-		 		if($('body.fl-scroll-header').length === 0) {
+				if($('body.fl-scroll-header').length === 0 && $('.fl-header-padding-top-custom').length === 0 ) {
 		 			$('.fl-page').css('padding-top', totalHeaderHeight);
 		 		}
 		 	}

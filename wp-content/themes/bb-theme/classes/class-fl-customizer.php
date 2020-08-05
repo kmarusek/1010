@@ -500,7 +500,7 @@ final class FLCustomizer {
 							$option_data['control']['priority'] = $option_priority;
 
 							// Add responsive controls.
-							if ( isset( $option_data['control']['responsive'] ) ) {
+							if ( isset( $option_data['control']['responsive'] ) && $option_data['control']['responsive'] ) {
 								$option_data['control']['classes'] = array( 'fl-responsive-customize-control' );
 								self::_add_responsive_control( $customizer, $option_key, $option_data );
 							}
@@ -541,33 +541,39 @@ final class FLCustomizer {
 	 * @return void
 	 */
 	static private function _add_responsive_control( $customizer, $key, $data ) {
-		$devices = array( 'medium', 'mobile' );
+		if ( empty( $data['control']['responsive'] ) ) {
+			return;
+		}
 
-		// We don't need responsive setting.
+		$label      = $data['control']['label'];
+		$priority   = $data['control']['priority'];
+		$responsive = $data['control']['responsive'];
+
+		// We don't need responsive setting for each device.
 		unset( $data['control']['responsive'] );
 
-		$label       = $data['control']['label'];
-		$get_classes = $data['control']['classes'];
-
-		foreach ( $devices as $device ) {
+		foreach ( array( 'medium', 'mobile' ) as $device ) {
 			$option_key = $key . '_' . $device;
+			$setting    = $data['setting'];
+			$control    = $data['control'];
 
-			$classes   = $get_classes;
-			$classes[] = $device;
+			// Setting default value
+			if ( is_array( $responsive ) && isset( $responsive['default'] ) && isset( $responsive['default'][ $device ] ) ) {
+				$setting['default'] = $responsive['default'][ $device ];
+			}
 
 			// Add setting
-			$customizer->add_setting( $option_key, $data['setting'] );
+			$customizer->add_setting( $option_key, $setting );
 
 			// Add control
-			$data['control']['label']    = $label . ' (' . ucwords( $device ) . ')';
-			$data['control']['settings'] = $option_key;
-			$data['control']['priority'] = $data['control']['priority'] + .1;
-			$data['control']['classes']  = $classes;
-			$customizer->add_control(
-				new $data['control']['class']( $customizer, $option_key, $data['control'] )
-			);
+			$control['label']     = $label;
+			$control['settings']  = $option_key;
+			$control['priority']  = $priority + .1;
+			$control['classes'][] = $device;
 
-			unset( $classes );
+			$customizer->add_control(
+				new $control['class']( $customizer, $option_key, $control )
+			);
 		}
 	}
 
@@ -693,12 +699,24 @@ final class FLCustomizer {
 
 				// Loop through the section options.
 				foreach ( $section['options'] as $option_id => $option ) {
-					$mods[ $option_id ] = isset( $option['setting']['default'] ) ? $option['setting']['default'] : '';
+					$default_option = isset( $option['setting']['default'] ) ? $option['setting']['default'] : '';
+					$control        = $option['control'];
 
-					// Add default for responsive controls.
-					if ( isset( $option['control']['responsive'] ) && true === $option['control']['responsive'] ) {
+					// Add default for desktop
+					$mods[ $option_id ] = $default_option;
+
+					// Add responsive option for each device if enabled
+					$responsive = isset( $control['responsive'] ) && $control['responsive'] ? $control['responsive'] : false;
+
+					if ( $responsive ) {
 						foreach ( array( 'medium', 'mobile' ) as $device ) {
-							$mods[ $option_id . '_' . $device ] = isset( $option['setting']['default'] ) ? $option['setting']['default'] : '';
+							$opt_name = $option_id . '_' . $device;
+
+							if ( is_array( $responsive ) && isset( $responsive['default'] ) && isset( $responsive['default'][ $device ] ) ) {
+								$mods[ $opt_name ] = $responsive['default'][ $device ];
+							} else {
+								$mods[ $opt_name ] = $default_option;
+							}
 						}
 					}
 				}
@@ -1010,13 +1028,14 @@ final class FLCustomizer {
 		$breakpoints = FLTheme::get_theme_breakpoints();
 
 		// Layout
-		$boxed                     = 'boxed' === $mods['fl-layout-width'];
-		$shadow_size               = $mods['fl-layout-shadow-size'];
-		$shadow_color              = $mods['fl-layout-shadow-color'];
-		$vars['body-padding']      = $boxed ? $mods['fl-layout-spacing'] . 'px 0' : '0';
-		$vars['page-shadow']       = $boxed ? '0 0 ' . $shadow_size . 'px ' . $shadow_color : 'none';
-		$vars['mobile-breakpoint'] = $breakpoints['mobile_breakpoint'] . 'px';
-		$vars['medium-breakpoint'] = $breakpoints['medium_breakpoint'] . 'px';
+		$boxed                      = 'boxed' === $mods['fl-layout-width'];
+		$shadow_size                = $mods['fl-layout-shadow-size'];
+		$shadow_color               = $mods['fl-layout-shadow-color'];
+		$vars['body-padding']       = $boxed ? $mods['fl-layout-spacing'] . 'px 0' : '0';
+		$vars['page-shadow']        = $boxed ? '0 0 ' . $shadow_size . 'px ' . $shadow_color : 'none';
+		$vars['mobile-breakpoint']  = $breakpoints['mobile_breakpoint'] . 'px';
+		$vars['medium-breakpoint']  = $breakpoints['medium_breakpoint'] . 'px';
+		$vars['padding-top-custom'] = $mods['fl-fixed-header-padding-top-custom'] . 'px';
 
 		// Body Background Image
 		$vars['body-bg-image']      = empty( $mods['fl-body-bg-image'] ) ? 'none' : 'url(' . $mods['fl-body-bg-image'] . ')';
@@ -1088,24 +1107,94 @@ final class FLCustomizer {
 			}
 		}
 
-		$vars['logo-font']   = self::_get_font_family_string( $mods['fl-logo-font-family'] );
-		$vars['logo-weight'] = self::_sanitize_weight( $mods['fl-logo-font-weight'] );
-		$vars['logo-size']   = $mods['fl-logo-font-size'] . 'px';
+		$vars['logo-font']             = self::_get_font_family_string( $mods['fl-logo-font-family'] );
+		$vars['logo-weight']           = self::_sanitize_weight( $mods['fl-logo-font-weight'] );
+		$vars['logo-size']             = $mods['fl-logo-font-size'] . 'px';
+		$vars['logo-text-color']       = $mods['fl-logo-text-color'];
+		$vars['logo-text-hover-color'] = $mods['fl-logo-text-hover-color'];
+		$vars['logo-tagline-color']    = $mods['fl-logo-tagline-color'];
 
 		// Button Styles
-		$vars['button-color']          = $mods['fl-button-color'] ? $mods['fl-button-color'] : $defaults['fl-button-color'];
-		$vars['button-hover-color']    = $mods['fl-button-hover-color'] ? $mods['fl-button-hover-color'] : $defaults['fl-button-hover-color'];
-		$vars['button-bg-color']       = $mods['fl-button-background-color'] ? $mods['fl-button-background-color'] : $defaults['fl-button-background-color'];
-		$vars['button-bg-hover-color'] = $mods['fl-button-background-hover-color'] ? $mods['fl-button-background-hover-color'] : $defaults['fl-button-background-hover-color'];
-		$vars['button-font-family']    = self::_get_font_family_string( $mods['fl-button-font-family'] );
-		$vars['button-font-weight']    = self::_sanitize_weight( $mods['fl-button-font-weight'] );
-		$vars['button-font-size']      = is_numeric( $mods['fl-button-font-size'] ) ? $mods['fl-button-font-size'] . 'px' : $mods['fl-button-font-size'];
-		$vars['button-line-height']    = $mods['fl-button-line-height'];
-		$vars['button-text-transform'] = $mods['fl-button-text-transform'];
-		$vars['button-border-style']   = $mods['fl-button-border-style'];
-		$vars['button-border-width']   = $mods['fl-button-border-width'] . 'px';
-		$vars['button-border-color']   = $mods['fl-button-border-color'] ? $mods['fl-button-border-color'] : 'transparent';
-		$vars['button-border-radius']  = $mods['fl-button-border-radius'] . 'px';
+		if ( 'custom' === $mods['fl-button-style'] ) {
+			$vars['button-font-size']      = is_numeric( $mods['fl-button-font-size'] ) ? $mods['fl-button-font-size'] . 'px' : '16px';
+			$vars['button-line-height']    = is_numeric( $mods['fl-button-line-height'] ) ? $mods['fl-button-line-height'] : '1.2';
+			$vars['button-color']          = $mods['fl-button-color'] ? $mods['fl-button-color'] : $defaults['fl-button-color'];
+			$vars['button-bg-color']       = $mods['fl-button-background-color'] ? $mods['fl-button-background-color'] : $defaults['fl-button-background-color'];
+			$vars['button-hover-color']    = $mods['fl-button-hover-color'] ? $mods['fl-button-hover-color'] : $defaults['fl-button-hover-color'];
+			$vars['button-bg-hover-color'] = $mods['fl-button-background-hover-color'] ? $mods['fl-button-background-hover-color'] : $defaults['fl-button-background-hover-color'];
+			$vars['button-border-width']   = is_numeric( $mods['fl-button-border-width'] ) ? $mods['fl-button-border-width'] . 'px' : '0px';
+			$vars['button-border-style']   = $mods['fl-button-border-style'] ? $mods['fl-button-border-style'] : 'none';
+			$vars['button-border-color']   = $mods['fl-button-border-color'] ? $mods['fl-button-border-color'] : 'initial';
+			$vars['button-border']         = $vars['button-border-width'] . ' ' . $vars['button-border-style'] . ' ' . $vars['button-border-color'];
+			$vars['button-border-hover']   = $vars['button-border-width'] . ' ' . $vars['button-border-style'] . ' ' . $vars['button-border-color'];
+			$vars['button-border-radius']  = $mods['fl-button-border-radius'] . 'px';
+
+		} else {
+			$vars['button-font-size']          = '16px';
+			$vars['medium-button-font-size']   = '16px';
+			$vars['mobile-button-font-size']   = '16px';
+			$vars['button-line-height']        = '1.2';
+			$vars['medium-button-line-height'] = '1.2';
+			$vars['mobile-button-line-height'] = '1.2';
+			$vars['button-color']              = $vars['accent-fg-color'];
+			$vars['button-bg-color']           = $vars['accent-color'];
+			$vars['button-hover-color']        = $vars['accent-fg-hover-color'];
+			$vars['button-bg-hover-color']     = $vars['accent-hover-color'];
+			$vars['button-border']             = '1px solid darken( ' . $vars['accent-color'] . ', 12%)';
+			$vars['button-border-hover']       = '1px solid darken( ' . $vars['accent-hover-color'] . ', 12%)';
+			$vars['button-border-radius']      = '4px';
+		}
+
+		$vars['button-font-family']             = self::_get_font_family_string( $mods['fl-button-font-family'] );
+		$vars['button-font-weight']             = self::_sanitize_weight( $mods['fl-button-font-weight'] );
+		$vars['button-text-transform']          = $mods['fl-button-text-transform'];
+		$vars['woo-button-font-family']         = $vars['button-font-family'];
+		$vars['woo-button-font-weight']         = $vars['button-font-weight'];
+		$vars['woo-button-text-transform']      = $vars['button-text-transform'];
+		$vars['woo-button-border']              = $vars['button-border'];
+		$vars['woo-button-border-hover']        = $vars['button-border-hover'];
+		$vars['woo-button-border-radius']       = $vars['button-border-radius'];
+		$vars['woo-button-hover-border-radius'] = $vars['button-border-radius'];
+
+		if ( class_exists( 'WooCommerce' ) ) {
+			$vars['woo-button-font-size']          = $vars['button-font-size'];
+			$vars['medium-woo-button-font-size']   = $vars['medium-button-font-size'];
+			$vars['mobile-woo-button-font-size']   = $vars['mobile-button-font-size'];
+			$vars['woo-button-line-height']        = $vars['button-line-height'];
+			$vars['medium-woo-button-line-height'] = $vars['medium-button-line-height'];
+			$vars['mobile-woo-button-line-height'] = $vars['mobile-button-line-height'];
+
+			if ( 'enabled' === $mods['fl-woo-css'] ) {
+				$vars['woo-button-color']          = $vars['button-color'];
+				$vars['woo-button-bg-color']       = $vars['button-bg-color'];
+				$vars['woo-button-hover-color']    = $vars['button-hover-color'];
+				$vars['woo-button-bg-hover-color'] = $vars['button-bg-hover-color'];
+			} else {
+				$vars['woo-button-color']               = '#fff';
+				$vars['woo-button-bg-color']            = '#a46497';
+				$vars['woo-button-hover-color']         = '#fff';
+				$vars['woo-button-bg-hover-color']      = '#96588a';
+				$vars['woo-button-border']              = 'none';
+				$vars['woo-button-border-hover']        = 'none';
+				$vars['woo-button-border-radius']       = '3px';
+				$vars['woo-button-hover-border-radius'] = '3px';
+			}
+		} else {
+			$vars['woo-button-font-size']          = '16px';
+			$vars['medium-woo-button-font-size']   = '16px';
+			$vars['mobile-woo-button-font-size']   = '16px';
+			$vars['woo-button-line-height']        = '1.2';
+			$vars['medium-woo-button-line-height'] = '1.2';
+			$vars['mobile-woo-button-line-height'] = '1.2';
+			$vars['woo-button-font-weight']        = '700';
+			$vars['woo-button-color']              = '#515151';
+			$vars['woo-button-bg-color']           = '#ebe9eb';
+			$vars['woo-button-hover-color']        = '#515151';
+			$vars['woo-button-bg-hover-color']     = '#dfdcde';
+			$vars['woo-button-border']             = 'none';
+			$vars['woo-button-border-hover']       = 'none';
+			$vars['woo-button-border-radius']      = '4px';
+		}
 
 		// Top Bar Background Image
 		$vars['topbar-bg-image']      = empty( $mods['fl-topbar-bg-image'] ) ? 'none' : 'url(' . $mods['fl-topbar-bg-image'] . ')';
@@ -1313,77 +1402,88 @@ final class FLCustomizer {
 
 		// Responsive controls style
 		$responsive_mods = array(
-			'text-size'         => array(
+			'text-size'                   => array(
 				'key'    => 'fl-body-font-size',
 				'format' => 'px',
 			),
-			'line-height'       => array(
+			'button-font-size'            => array(
+				'key'    => 'fl-button-font-size',
+				'format' => 'px',
+			),
+			'button-line-height'          => array(
+				'key' => 'fl-button-line-height',
+			),
+			'line-height'                 => array(
 				'key' => 'fl-body-line-height',
 			),
-			'h1-size'           => array(
+			'h1-size'                     => array(
 				'key'    => 'fl-h1-font-size',
 				'format' => 'px',
 			),
-			'h1-line-height'    => array(
+			'h1-line-height'              => array(
 				'key' => 'fl-h1-line-height',
 			),
-			'h1-letter-spacing' => array(
+			'h1-letter-spacing'           => array(
 				'key'    => 'fl-h1-letter-spacing',
 				'format' => 'px',
 			),
-			'h2-size'           => array(
+			'h2-size'                     => array(
 				'key'    => 'fl-h2-font-size',
 				'format' => 'px',
 			),
-			'h2-line-height'    => array(
+			'h2-line-height'              => array(
 				'key' => 'fl-h2-line-height',
 			),
-			'h2-letter-spacing' => array(
+			'h2-letter-spacing'           => array(
 				'key'    => 'fl-h2-letter-spacing',
 				'format' => 'px',
 			),
-			'h3-size'           => array(
+			'h3-size'                     => array(
 				'key'    => 'fl-h3-font-size',
 				'format' => 'px',
 			),
-			'h3-line-height'    => array(
+			'h3-line-height'              => array(
 				'key' => 'fl-h3-line-height',
 			),
-			'h3-letter-spacing' => array(
+			'h3-letter-spacing'           => array(
 				'key'    => 'fl-h3-letter-spacing',
 				'format' => 'px',
 			),
-			'h4-size'           => array(
+			'h4-size'                     => array(
 				'key'    => 'fl-h4-font-size',
 				'format' => 'px',
 			),
-			'h4-line-height'    => array(
+			'h4-line-height'              => array(
 				'key' => 'fl-h4-line-height',
 			),
-			'h4-letter-spacing' => array(
+			'h4-letter-spacing'           => array(
 				'key'    => 'fl-h4-letter-spacing',
 				'format' => 'px',
 			),
-			'h5-size'           => array(
+			'h5-size'                     => array(
 				'key'    => 'fl-h5-font-size',
 				'format' => 'px',
 			),
-			'h5-line-height'    => array(
+			'h5-line-height'              => array(
 				'key' => 'fl-h5-line-height',
 			),
-			'h5-letter-spacing' => array(
+			'h5-letter-spacing'           => array(
 				'key'    => 'fl-h5-letter-spacing',
 				'format' => 'px',
 			),
-			'h6-size'           => array(
+			'h6-size'                     => array(
 				'key'    => 'fl-h6-font-size',
 				'format' => 'px',
 			),
-			'h6-line-height'    => array(
+			'h6-line-height'              => array(
 				'key' => 'fl-h6-line-height',
 			),
-			'h6-letter-spacing' => array(
+			'h6-letter-spacing'           => array(
 				'key'    => 'fl-h6-letter-spacing',
+				'format' => 'px',
+			),
+			'hamburger-icon-top-position' => array(
+				'key'    => 'fl-hamburger-icon-top-position',
 				'format' => 'px',
 			),
 		);

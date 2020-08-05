@@ -1035,28 +1035,33 @@ FLCustomizer::add_panel('fl-general', array(
 
 				'fl-button-font-size'              => array(
 					'setting' => array(
-						'default' => '16',
+						'default'   => '16',
+						'transport' => 'postMessage',
 					),
 					'control' => array(
-						'class'   => 'FLCustomizerControl',
-						'label'   => _x( 'Font Size', 'Font size for buttons.', 'fl-automator' ),
-						'type'    => 'slider',
-						'choices' => get_font_size_limits(),
+						'class'      => 'FLCustomizerControl',
+						'label'      => _x( 'Font Size', 'Font size for buttons.', 'fl-automator' ),
+						'type'       => 'slider',
+						'choices'    => get_font_size_limits(),
+						'responsive' => true,
 					),
 				),
+
 				'fl-button-line-height'            => array(
 					'setting' => array(
-						'default' => '1.2',
+						'default'   => '1.2',
+						'transport' => 'postMessage',
 					),
 					'control' => array(
-						'class'   => 'FLCustomizerControl',
-						'label'   => __( 'Line Height', 'fl-automator' ),
-						'type'    => 'slider',
-						'choices' => array(
+						'class'      => 'FLCustomizerControl',
+						'label'      => __( 'Line Height', 'fl-automator' ),
+						'type'       => 'slider',
+						'choices'    => array(
 							'min'  => 1,
 							'max'  => 2.5,
 							'step' => 0.05,
 						),
+						'responsive' => true,
 					),
 				),
 				'fl-button-text-transform'         => array(

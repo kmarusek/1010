@@ -118,7 +118,21 @@ final class FLCustomizerControl extends WP_Customize_Control {
 	 */
 	protected function render_content_title() {
 		if ( ! empty( $this->label ) ) {
-			echo '<span class="customize-control-title">' . esc_html( $this->label ) . '</span>';
+			echo '<span class="customize-control-title">' . esc_html( $this->label );
+
+			if ( isset( $this->args['classes'] ) && in_array( 'fl-responsive-customize-control', $this->args['classes'], true ) ) {
+				$icon = end( $this->args['classes'] );
+
+				if ( 'medium' === $icon ) {
+					$icon = 'tablet';
+				} elseif ( 'mobile' === $icon ) {
+					$icon = 'smartphone';
+				}
+
+				echo '<i class="fl-responsive-control-toggle dashicons dashicons-' . $icon . '"></i>';
+			}
+
+			echo '</span>';
 		}
 		if ( ! empty( $this->description ) ) {
 			echo '<span class="description customize-control-description">' . $this->description . '</span>';

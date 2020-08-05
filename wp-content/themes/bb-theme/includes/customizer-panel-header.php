@@ -292,7 +292,7 @@ FLCustomizer::add_panel('fl-header', array(
 			'options' => array(
 
 				/* Header Layout */
-				'fl-header-layout'            => array(
+				'fl-header-layout'                   => array(
 					'setting' => array(
 						'default' => 'right',
 					),
@@ -314,7 +314,7 @@ FLCustomizer::add_panel('fl-header', array(
 				),
 
 				/* Inline Logo Side */
-				'fl-inline-logo-side'         => array(
+				'fl-inline-logo-side'                => array(
 					'setting' => array(
 						'default' => 'right',
 					),
@@ -331,7 +331,7 @@ FLCustomizer::add_panel('fl-header', array(
 				),
 
 				/* Vertical Header Width */
-				'fl-vertical-header-width'    => array(
+				'fl-vertical-header-width'           => array(
 					'setting' => array(
 						'default'   => '230',
 						'transport' => 'postMessage',
@@ -349,7 +349,7 @@ FLCustomizer::add_panel('fl-header', array(
 				),
 
 				/* Header Padding */
-				'fl-header-padding'           => array(
+				'fl-header-padding'                  => array(
 					'setting' => array(
 						'default'   => '30',
 						'transport' => 'postMessage',
@@ -367,7 +367,7 @@ FLCustomizer::add_panel('fl-header', array(
 				),
 
 				/* Fixed Header */
-				'fl-fixed-header'             => array(
+				'fl-fixed-header'                    => array(
 					'setting' => array(
 						'default' => 'fadein',
 					),
@@ -386,7 +386,7 @@ FLCustomizer::add_panel('fl-header', array(
 				),
 
 				/* Logo Max Height */
-				'fl-logo-max-height'          => array(
+				'fl-logo-max-height'                 => array(
 					'setting' => array(
 						'default'   => '46',
 						'transport' => 'postMessage',
@@ -403,8 +403,42 @@ FLCustomizer::add_panel('fl-header', array(
 					),
 				),
 
+				/* Padding Top */
+				'fl-fixed-header-padding-top'        => array(
+					'setting' => array(
+						'default' => 'auto',
+					),
+					'control' => array(
+						'class'   => 'WP_Customize_Control',
+						'label'   => __( 'Padding Top', 'fl-automator' ),
+						'type'    => 'select',
+						'choices' => array(
+							'auto'   => __( 'Auto', 'fl-automator' ),
+							'custom' => __( 'Custom', 'fl-automator' ),
+						),
+					),
+				),
+
+				/* Custom Padding Top */
+				'fl-fixed-header-padding-top-custom' => array(
+					'setting' => array(
+						'default'   => '0',
+						'transport' => 'postMessage',
+					),
+					'control' => array(
+						'class'   => 'FLCustomizerControl',
+						'label'   => __( 'Custom Padding Top', 'fl-automator' ),
+						'type'    => 'slider',
+						'choices' => array(
+							'min'  => 0,
+							'max'  => 300,
+							'step' => 1,
+						),
+					),
+				),
+
 				/* Hide Header Until Scroll */
-				'fl-hide-until-scroll-header' => array(
+				'fl-hide-until-scroll-header'        => array(
 					'setting' => array(
 						'default' => 'disable',
 					),
@@ -420,7 +454,7 @@ FLCustomizer::add_panel('fl-header', array(
 				),
 
 				/* Scroll Distance for Hide Header Until Scroll */
-				'fl-scroll-distance'          => array(
+				'fl-scroll-distance'                 => array(
 					'setting' => array(
 						'default' => '200',
 					),
@@ -437,7 +471,7 @@ FLCustomizer::add_panel('fl-header', array(
 				),
 
 				/* Line */
-				'fl-header-line1'             => array(
+				'fl-header-line1'                    => array(
 					'control' => array(
 						'class' => 'FLCustomizerControl',
 						'type'  => 'line',
@@ -445,7 +479,7 @@ FLCustomizer::add_panel('fl-header', array(
 				),
 
 				/* Header Content Layout */
-				'fl-header-content-layout'    => array(
+				'fl-header-content-layout'           => array(
 					'setting' => array(
 						'default' => 'social-text',
 					),
@@ -463,7 +497,7 @@ FLCustomizer::add_panel('fl-header', array(
 				),
 
 				/* Header Content Text */
-				'fl-header-content-text'      => array(
+				'fl-header-content-text'             => array(
 					'setting' => array(
 						'default' => 'Call Us! 1-800-555-5555',
 					),
@@ -821,6 +855,38 @@ FLCustomizer::add_panel('fl-header', array(
 						'choices' => get_font_size_limits(),
 					),
 				),
+				// logo text colour
+				'fl-logo-text-color'           => array(
+					'setting' => array(
+						'default' => '#808080',
+					),
+					'control' => array(
+						'class' => 'WP_Customize_Color_Control',
+						'label' => __( 'Logo Text Color', 'fl-automator' ),
+					),
+				),
+
+				// logo text hover colour
+				'fl-logo-text-hover-color'     => array(
+					'setting' => array(
+						'default' => '#428bca',
+					),
+					'control' => array(
+						'class' => 'WP_Customize_Color_Control',
+						'label' => __( 'Logo Text Hover Color', 'fl-automator' ),
+					),
+				),
+
+				// logo text hover colour
+				'fl-logo-tagline-color'        => array(
+					'setting' => array(
+						'default' => '#808080',
+					),
+					'control' => array(
+						'class' => 'WP_Customize_Color_Control',
+						'label' => __( 'Logo Tagline Color', 'fl-automator' ),
+					),
+				),
 
 				/* Logo Top Spacing */
 				'fl-header-logo-top-spacing'   => array(
@@ -848,7 +914,7 @@ FLCustomizer::add_panel('fl-header', array(
 			'options' => array(
 
 				/* Nav Item Spacing */
-				'fl-nav-item-spacing'           => array(
+				'fl-nav-item-spacing'            => array(
 					'setting' => array(
 						'default'   => '15',
 						'transport' => 'postMessage',
@@ -866,7 +932,7 @@ FLCustomizer::add_panel('fl-header', array(
 				),
 
 				/* Nav Menu Top Spacing */
-				'fl-nav-menu-top-spacing'       => array(
+				'fl-nav-menu-top-spacing'        => array(
 					'setting' => array(
 						'default'   => '30',
 						'transport' => 'postMessage',
@@ -884,7 +950,7 @@ FLCustomizer::add_panel('fl-header', array(
 				),
 
 				/* Nav Item Align */
-				'fl-nav-item-align'             => array(
+				'fl-nav-item-align'              => array(
 					'setting' => array(
 						'default' => 'left',
 					),
@@ -901,7 +967,7 @@ FLCustomizer::add_panel('fl-header', array(
 				),
 
 				/* Nav Search */
-				'fl-header-nav-search'          => array(
+				'fl-header-nav-search'           => array(
 					'setting' => array(
 						'default' => 'visible',
 					),
@@ -917,7 +983,7 @@ FLCustomizer::add_panel('fl-header', array(
 				),
 
 				/* Mobile Nav Toggle */
-				'fl-mobile-nav-toggle'          => array(
+				'fl-mobile-nav-toggle'           => array(
 					'setting' => array(
 						'default' => 'button',
 					),
@@ -933,7 +999,7 @@ FLCustomizer::add_panel('fl-header', array(
 				),
 
 				/* Mobile Nav Text */
-				'fl-mobile-nav-text'            => array(
+				'fl-mobile-nav-text'             => array(
 					'setting' => array(
 						'default' => _x( 'Menu', 'Mobile navigation toggle button text.', 'fl-automator' ),
 					),
@@ -948,7 +1014,7 @@ FLCustomizer::add_panel('fl-header', array(
 				),
 
 				/* Responsive Nav Breakpoint */
-				'fl-nav-breakpoint'             => array(
+				'fl-nav-breakpoint'              => array(
 					'setting' => array(
 						'default' => 'mobile',
 					),
@@ -964,8 +1030,26 @@ FLCustomizer::add_panel('fl-header', array(
 					),
 				),
 
+				/* Hamburger Icon Top Position (Responsive) */
+				'fl-hamburger-icon-top-position' => array(
+					'setting' => array(
+						'default' => '24',
+					),
+					'control' => array(
+						'class'      => 'FLCustomizerControl',
+						'label'      => __( 'Hamburger Icon Position', 'fl-automator' ),
+						'type'       => 'slider',
+						'choices'    => array(
+							'min'  => 0,
+							'max'  => 200,
+							'step' => 1,
+						),
+						'responsive' => true,
+					),
+				),
+
 				/* Responsive Nav Layout */
-				'fl-nav-mobile-layout'          => array(
+				'fl-nav-mobile-layout'           => array(
 					'setting' => array(
 						'default' => 'dropdown',
 					),
@@ -982,7 +1066,7 @@ FLCustomizer::add_panel('fl-header', array(
 					),
 				),
 
-				'fl-nav-mobile-layout-position' => array(
+				'fl-nav-mobile-layout-position'  => array(
 					'setting' => array(
 						'default' => 'left',
 					),
@@ -998,7 +1082,7 @@ FLCustomizer::add_panel('fl-header', array(
 				),
 
 				/* Submenu Toggle */
-				'fl-nav-submenu-toggle'         => array(
+				'fl-nav-submenu-toggle'          => array(
 					'setting' => array(
 						'default' => 'disable',
 					),
@@ -1014,7 +1098,7 @@ FLCustomizer::add_panel('fl-header', array(
 				),
 
 				/* Responsive Collapse */
-				'fl-nav-collapse-menu'          => array(
+				'fl-nav-collapse-menu'           => array(
 					'setting' => array(
 						'default' => '0',
 					),
@@ -1023,10 +1107,10 @@ FLCustomizer::add_panel('fl-header', array(
 						'label'       => __( 'Responsive Collapse', 'fl-automator' ),
 						'type'        => 'select',
 						'choices'     => array(
-							'1' => __( 'Yes', 'fl-builder' ),
-							'0' => __( 'No', 'fl-builder' ),
+							'1' => __( 'Yes', 'fl-automator' ),
+							'0' => __( 'No', 'fl-automator' ),
 						),
-						'description' => __( 'Only allow one menu item at a time to be expanded?', 'fl-builder' ),
+						'description' => __( 'Only allow one menu item at a time to be expanded?', 'fl-automator' ),
 					),
 				),
 			),

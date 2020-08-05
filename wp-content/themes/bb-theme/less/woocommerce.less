@@ -142,21 +142,6 @@ div.woocommerce h3 {
 				display: none;
 			}
 		}
-		&.alt,
-		&.alt.disabled {
-			background: @accent-color;
-			border: 1px solid darken(@accent-color, 12%);
-			color: @accent-fg-color;
-		    padding: 6px 12px;
-			text-shadow: none;
-			&:hover {
-				background: @accent-hover-color;
-				border: 1px solid darken(@accent-hover-color, 12%);
-				color: @accent-fg-hover-color;
-				text-decoration:none;
-				text-shadow: none;
-			}
-		}
 	}
 	&.tax-product_cat {
 		.add_to_cart_button {
@@ -739,21 +724,9 @@ div.woocommerce h3 {
 			display: none;
 		}
 		a.button {
-			color: @accent-color;
 			display: block;
 			float: none;
 			margin-bottom: 20px;
-		}
-		a.button:hover {
-			color: @accent-hover-color;
-		}
-		a.button,
-		a.button:hover {
-			background: none;
-			border: none;
-			line-height: inherit;
-			padding: 0;
-			.fl-box-shadow(none);
 		}
 	}
 	.woocommerce-error {
@@ -972,6 +945,9 @@ div.woocommerce h3 {
 				max-width: 100px;
 			}
 			td.actions {
+				.button:disabled{
+					background-color: inherit;
+				}
 				.button {
 					display: inline-block;
 					margin-bottom: 0;

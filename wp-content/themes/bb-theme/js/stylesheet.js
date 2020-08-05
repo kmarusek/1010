@@ -8,15 +8,15 @@
 	 * @since 1.2.0
 	 */
 	FLStyleSheet = function() {};
-	
+
 	/**
 	 * Prototype for new instances.
 	 *
 	 * @since 1.2.0
 	 * @property {Object} prototype
-	 */ 
+	 */
 	FLStyleSheet.prototype = {
-		
+
 		/**
 		 * A reference to the stylesheet object.
 		 *
@@ -25,7 +25,7 @@
 		 * @property {Object} _sheet
 		 */
 		_sheet          : null,
-		
+
 		/**
 		 * A reference to the HTML style element.
 		 *
@@ -43,43 +43,69 @@
 		 * @param {String} selector The CSS selector to update.
 		 * @param {String} property The CSS property to update. Can also be an object of key/value pairs.
 		 * @param {String} value The value of the property to update. Can be omitted if property is an object.
-		 */   
+		 */
 		updateRule: function(selector, property, value)
 		{
 			this._createSheet();
-			
+
 			var rules   = this._sheet.cssRules ? this._sheet.cssRules : this._sheet.rules;
 				rule    = null,
 				i       = 0;
-			
+
 			// Find the rule to update.
 			for( ; i < rules.length; i++) {
-				
+
 				if(rules[i].selectorText.toLowerCase() == selector.toLowerCase()) {
 					rule = rules[i];
 				}
 			}
-			
+
 			// Update the existing rule.
 			if(rule) {
-			
+
 				if(typeof property == 'object') {
-					
+
 					for(i in property) {
-						rule.style[this._toCamelCase(i)] = property[i];
+						this.setProperty( rule, i, property[ i ] );
 					}
 				}
 				else {
-					rule.style[this._toCamelCase(property)] = value;
+					this.setProperty( rule, property, value );
 				}
 			}
-			
+
 			// No rule found. Add a new one.
 			else {
 				this.addRule(selector, property, value);
 			}
 		},
-		
+
+		/**
+		 * Sets a property for a rule.
+		 *
+		 * @since 1.7.6
+		 * @method setProperty
+		 * @param {Object} rule
+		 * @param {String} selector
+		 * @param {String} value
+		 */
+		setProperty: function( rule, property, value )
+		{
+			var important = '';
+
+			if ( rule.style.setProperty ) {
+
+				if ( value.indexOf( '!important' ) > -1 ) {
+					important = 'important';
+					value = value.replace( '!important', '' ).trim();
+				}
+
+				rule.style.setProperty( property, value, important );
+			} else {
+				rule.style[ this._toCamelCase( property ) ] = value;
+			}
+		},
+
 		/**
 		 * Add a new rule to this stylesheet.
 		 *
@@ -88,16 +114,16 @@
 		 * @param {String} selector The CSS selector to add.
 		 * @param {String} property The CSS property to add. Can also be an object of key/value pairs.
 		 * @param {String} value The value of the property to add. Can be omitted if property is an object.
-		 */   
+		 */
 		addRule: function(selector, property, value)
 		{
 			this._createSheet();
-			
+
 			var styles  = '',
 				i       = '';
-			
+
 			if(typeof property == 'object') {
-					
+
 				for(i in property) {
 					styles += i + ':' + property[i] + ';';
 				}
@@ -105,24 +131,24 @@
 			else {
 				styles = property + ':' + value + ';';
 			}
-		
+
 			if(this._sheet.insertRule) {
 				this._sheet.insertRule(selector + ' { ' + styles + ' }', this._sheet.cssRules.length);
 			}
 			else {
-				this._sheet.addRule(selector, styles);  
+				this._sheet.addRule(selector, styles);
 			}
 		},
-		
+
 		/**
 		 * Remove the stylesheet element from the DOM
 		 * and the stored object reference.
 		 *
 		 * @since 1.2.0
 		 * @method remove
-		 */   
-		remove: function() 
-		{   
+		 */
+		remove: function()
+		{
 			if(this._sheetElement) {
 				this._sheetElement.remove();
 				this._sheetElement = null;
@@ -131,7 +157,7 @@
 				this._sheet = null;
 			}
 		},
-		
+
 		/**
 		 * Create the style element, add it to the DOM
 		 * and save references.
@@ -140,18 +166,18 @@
 		 * @access private
 		 * @method _createSheet
 		 */
-		_createSheet: function() 
+		_createSheet: function()
 		{
 			if(!this._sheet) {
-			
+
 				this._sheetElement = $('<style type="text/css"></style>');
-				
+
 				$('body').append(this._sheetElement);
-			
+
 				this._sheet = document.styleSheets[document.styleSheets.length - 1];
 			}
 		},
-		
+
 		/**
 		 * Convert a string to camel case.
 		 *
@@ -159,9 +185,9 @@
 		 * @access private
 		 * @method _toCamelCase
 		 * @param {String} input The string to convert.
-		 */   
-		_toCamelCase: function(input) 
-		{ 
+		 */
+		_toCamelCase: function(input)
+		{
 			return input.toLowerCase().replace(/-(.)/g, function(match, group1) {
 				return group1.toUpperCase();
 			});

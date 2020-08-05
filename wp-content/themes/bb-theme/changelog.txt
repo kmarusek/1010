@@ -1,3 +1,57 @@
+<h4>1.7.6.3 06/03/2020</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Fixed an issue where Google fonts might still be enqueued when not needed.</li>
+	<li>Fixed menu styling issue when no menu is set.</li>
+	<li>Fixed WooCommerce variable product button styling issues.</li>
+	<li>Fixed WocCommerce button border issues.</li>
+</ul>
+
+<h4>1.7.6.2 05/05/2020</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Fixed Menu Link in Customizer Affected by Custom Button Style.</li>
+	<li>Fixed custom button styles overriding button module styles on Themer layouts.</li>
+	<li>Fixed WooCommerce disable styles not fully working.</li>
+	<li>Fixed Menu Module styles being overridden by Custom Button Styles.</li>
+</ul>
+
+<h4>1.7.6.1 04/16/2020</h4>
+<p><strong>Hot Fix</strong></p>
+<ul>
+	<li>Fixed Button CSS issues.</li>
+</ul>
+
+<h4>1.7.6 04/13/2020</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Add hook wp_body_open.</li>
+	<li>Remove type='javascript' from script enqueues.</li>
+	<li>Make custom button font styling settings responsive.</li>
+	<li>Allow the changing of all default font sizes for all devices via <code>fl_theme_add_panel_data</code> filter.</li>
+	<li>Add site title color control.</li>
+	<li>Add padding-top option for shrink and fixed header.</li>
+	<li>Add position from top option for hamburger menu.</li>
+	<li>Custom button styles now apply to WooCommerce buttons</li>
+	<li>Added toggles to responsive options in Customizer</li>
+	<li>Add new classes to Footer Widget columns to allow more styling options</li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fix PHP 7.4 Notices</li>
+	<li>Fix Self-hosted videos extending outside the container.</li>
+	<li>Fix menu items being hidden on devices when hide-heading class is used.</li>
+	<li>Fix Google Maps social icon missing.</li>
+	<li>Fix custom social icon color being blank.</li>
+	<li>Fix issue with logo in header staying small when refreshing at the bottom of the page.</li>
+	<li>Fix jump links from different pages not working when fixed header set to shrink.</li>
+	<li>Fix WooCommerce product Lightbox not working properly if theme Woo styling is turned.</li>
+	<li>Fix input height issue.</li>
+	<li>Fix current menu highlighting not working properly when page and custom link to same location appear in the same menu.</li>
+	<li>Fix top bar menu alignment on small devices</li>
+	<li>Fix for full width Gutenberg images not displaying as full width with our Full Width Layout</li>
+</ul>
+
 <h4>1.7.5.1 01/13/2019</h4>
 <p><strong>Enhancements</strong></p>
 <ul>

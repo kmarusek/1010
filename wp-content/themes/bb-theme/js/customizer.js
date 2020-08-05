@@ -28,6 +28,7 @@
 			FLCustomizer._initCheckboxMultiple();
 			FLCustomizer._initHeadingControls();
 			FLCustomizer._initResponsiveControls();
+			FLCustomizer._initResponsiveToggle();
 		},
 
 		/**
@@ -74,7 +75,28 @@
 
 								// Define the visibility callback.
 								var visibility = function( to ) {
-									control.container.toggle( toggle.callback( to ) );
+									var breakpoints = ['', 'medium', 'mobile'],
+										controlKey = '',
+										previewedDevice = 'tablet' == api.previewedDevice.get() ? 'medium' : api.previewedDevice.get(),
+										previewControl = 'desktop' != previewedDevice ? controlId + '_' + previewedDevice : controlId;
+
+									// Toggle for responsive controls.
+									if ( control.container.hasClass('fl-responsive-customize-control') ) {
+										$( '#customize-control-' + previewControl ).toggle( toggle.callback( to ) );
+
+										for ( var i in breakpoints ) {
+											controlKey = '' != breakpoints[i] ? controlId + '_' + breakpoints[i] : controlId;
+
+											if ( false !== toggle.callback( to ) ) {
+												$( '#customize-control-' + controlKey ).removeClass('responsive-hidden');
+											} else {
+												$( '#customize-control-' + controlKey ).addClass('responsive-hidden');
+											}
+										}
+									}
+									else {
+										control.container.toggle( toggle.callback( to ) );
+									}
 								};
 
 								// Init visibility.
@@ -350,16 +372,31 @@
 
 			// The controls we want to reposition
 			var keys = [ 'fl-h1-font-size', 'fl-h1-line-height', 'fl-h1-letter-spacing', 'fl-h1-line' ],
+			    breakpoints = ['medium', 'mobile'],
 				a = 5.0; // The new starting priority
 
+			for( var k in keys ) {
+				if ( 'fl-h1-line' != keys[k] ) {
+					for ( var i in breakpoints ) {
+						keys.push( keys[k] + '_' + breakpoints[i] );
+					}
+				}
+			}
+
 			var controls = keys.map( function( key, i ) {
-				var control = api.control( key );
+				var control = api.control( key ),
+				    customPriority = a + ( i * .1 );
+
+				if ( 'fl-h1-line' == key ) {
+					customPriority = a + ( (keys.length - 1) * .1 );
+				}
+
 				return {
 					i: i,
 					key: key,
 					control: control,
 					initPriority: control.priority(),
-					titlePriority: a + ( i * .1 ),
+					titlePriority: customPriority,
 				}
 			});
 
@@ -400,11 +437,32 @@
 			api.previewedDevice.bind( function( new_device ) {
 				new_device = 'tablet' == new_device ? 'medium' : new_device;
 				$( '.fl-responsive-customize-control' ).hide();
-				$( '.fl-responsive-customize-control.' + new_device ).show();
+				$( '.fl-responsive-customize-control.' + new_device ).not( '.responsive-hidden' ).show();
 
 				sendPreviewedDevice();
 			});
 		},
+
+		/**
+		 * Initializes responsive toggle icon for each control.
+		 *
+		 * @since 1.7.6
+		 */
+		_initResponsiveToggle: function(){
+			$('.fl-responsive-control-toggle').on('click', function(){
+				var devices = $('.devices'),
+				    button = devices.find('.preview-desktop');
+
+				if ( $(this).hasClass('dashicons-desktop') ) {
+					button = devices.find('.preview-tablet');
+				}
+				else if ( $(this).hasClass('dashicons-tablet') ) {
+					button = devices.find('.preview-mobile');
+				}
+
+				button.trigger( 'click' );
+			})
+		}
 	};
 
 	$( function() { FLCustomizer.init(); } );

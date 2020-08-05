@@ -39,6 +39,15 @@
 		_responsiveControls: {},
 
 		/**
+		 * A reference of the current previewed device.
+		 *
+		 * @since 1.7.6
+		 * @access private
+		 * @property String _previewedDevice
+		 */
+		_previewedDevice: 'desktop',
+
+		/**
 		 * Initializes all live Customizer previews.
 		 *
 		 * @since 1.2.0
@@ -124,6 +133,7 @@
 			this._css( 'fl-nav-item-spacing', '.fl-page-header-vertical .navbar-nav > li > a', 'padding-botom', '{val}px', '0' );
 			this._css( 'fl-nav-item-spacing', '.fl-page-nav .navbar-nav > li > a', 'padding-left', '{val}px', '0' );
 			this._css( 'fl-nav-item-spacing', '.fl-page-nav .navbar-nav > li > a', 'padding-right', '{val}px', '0' );
+			this._css( 'fl-fixed-header-padding-top-custom', '.fl-page', 'padding-top', '{val}px !important', '0', '', false );
 
 			// Bind HTML callbacks.
 			this._html( 'fl-topbar-col1-text', '.fl-page-bar-text-1' );
@@ -136,8 +146,10 @@
 			this._bind( 'fl-css-code', this._cssCodeChanged );
 
 			// Setup Button Styles Preview
-			this._initButtonStyles();
-
+			if ( 'custom' === api( 'fl-button-style' ).get()  ){
+				this._initButtonStyles();
+			}
+			
 			// Bind responsive controls callback.
 			this._initResponsiveStyles();
 
@@ -182,6 +194,7 @@
 			api( key, function( val ) {
 
 				val.bind( function( newVal ) {
+					var updateAllowed = true;
 
 					switch ( sanitizeCallback ) {
 						case 'int':
@@ -196,17 +209,24 @@
 						newVal = format.replace( '{val}', newVal );
 					}
 
-					FLCustomizerPreview._styleSheet.updateRule( selector, property, newVal );
+					if ( 'undefined' !== typeof responsive && false === responsive && 'desktop' != FLCustomizerPreview._previewedDevice ) {
+						updateAllowed = false;
+					}
+
+					if ( updateAllowed ) {
+						FLCustomizerPreview._styleSheet.updateRule( selector, property, newVal );
+					}
 				});
 			});
 
-			if ( 'undefined' !== typeof responsive && false !== responsive ) {
+			if ( 'undefined' !== typeof responsive ) {
 				FLCustomizerPreview._responsiveControls[ key ] = {
 					selector: selector,
 					property: property,
 					format  : format,
 					fallback: fallback,
 					sanitizeCallback: sanitizeCallback,
+					responsive: responsive
 				};
 			}
 		},
@@ -259,9 +279,8 @@
 		},
 
 		_initButtonStyles: function() {
-
-			var mainSelector =  		'.fl-page button,' +
-										'.fl-page button:visited,' +
+			
+			var mainSelector =  		'.fl-page button:visited,' +
 										'.fl-page input[type=button],' +
 										'.fl-page input[type=submit],' +
 										'.fl-page a.fl-button,' +
@@ -278,14 +297,26 @@
 										'.fl-page button.bc-btn,' +
 										'.fl-page button.bc-btn[disabled],' +
 										'.fl-page button.bc-link,' +
-										'.fl-page a.bc-btn';
-
-			var mainInsideSelector =    '.fl-page button *,' +
-										'.fl-page button:visited *,' +
+										'.fl-page a.bc-btn, ' +
+										'.fl-page .woocommerce a.button,' +
+										'.fl-page .woocommerce a.button:visited,' +
+										'body.theme-bb-theme.woocommerce-page .fl-page a.button,' +
+										'body.theme-bb-theme.woocommerce-page .fl-page a.button:visited,'+
+										'body.theme-bb-theme.woocommerce-page .fl-page .product a.button,' +
+										'body.theme-bb-theme.woocommerce-page .fl-page .product a.button:visited,'+
+										'body.theme-bb-theme.woocommerce-page .fl-page .product button.button,' +
+										'body.theme-bb-theme.woocommerce-page .fl-page .product button.button:visited,'+
+										'body.theme-bb-theme.woocommerce-page .fl-page .woocommerce button.button,' +
+										'body.theme-bb-theme.woocommerce-page .fl-page .woocommerce button.button:visited,'+
+										'body.theme-bb-theme:not(.woocommerce-page) .fl-page .fl-module-woocommerce a.button,' +
+										'body.theme-bb-theme:not(.woocommerce-page) .fl-page .fl-module-woocommerce a.button:visited,' + 
+										'body.theme-bb-theme:not(.woocommerce-page) .fl-page .fl-post-module-woo-button a.button,' +
+										'body.theme-bb-theme:not(.woocommerce-page) .fl-page .fl-post-module-woo-button a.button:visited';
+      
+			var mainInsideSelector =    '.fl-page button:visited *,' +
 										'.fl-page input[type=button] *,' +
 										'.fl-page input[type=submit] *,' +
 										'.fl-page a.fl-button *,' +
-										'.fl-page a.fl-button:visited *,' +
 										'.fl-responsive-preview-content button *,' +
 										'.fl-responsive-preview-content button:visited *,' +
 										'.fl-responsive-preview-content input[type=button] *,' +
@@ -298,10 +329,11 @@
 										'.fl-page button.bc-btn *,' +
 										'.fl-page button.bc-btn[disabled] *,' +
 										'.fl-page button.bc-link *,' +
-										'.fl-page a.bc-btn *';
+										'.fl-page a.bc-btn *,' +
+										'.fl-page .woocommerce a.button *,' +
+										'.fl-page .woocommerce a.button:visited *';
 
-			var hoverSelector = 		'.fl-page button:hover,' +
-										'.fl-page input[type=button]:hover,' +
+			var hoverSelector = 		'.fl-page input[type=button]:hover,' +
 										'.fl-page input[type=submit]:hover,' +
 										'.fl-page a.fl-button:hover,' +
 										'.fl-responsive-preview-content button:hover,' +
@@ -314,10 +346,16 @@
 										'.fl-page button.bc-btn:hover,' +
 										'.fl-page button.bc-btn[disabled]:hover,' +
 										'.fl-page button.bc-link:hover,' +
-										'.fl-page a.bc-btn:hover';
+										'.fl-page a.bc-btn:hover,' +
+										'.fl-page .woocommerce a.button:hover,' +
+										'body.theme-bb-theme.woocommerce-page .fl-page a.button:hover,'+
+										'body.theme-bb-theme.woocommerce-page .fl-page .product button.button:hover,'+
+										'body.theme-bb-theme.woocommerce-page .fl-page .product a.button:hover,'+
+										'body.theme-bb-theme.woocommerce-page .fl-page .woocommerce button.button:hover,'+
+										'body.theme-bb-theme:not(.woocommerce-page) .fl-page .fl-module-woocommerce a.button:hover,' + 
+										'body.theme-bb-theme:not(.woocommerce-page) .fl-page .fl-post-module-woo-button a.button:hover';
 
-			var hoverInsideSelector = 	'.fl-page button:hover *,' +
-										'.fl-page input[type=button]:hover *,' +
+			var hoverInsideSelector = 	'.fl-page input[type=button]:hover *,' +
 										'.fl-page input[type=submit]:hover *,' +
 										'.fl-page a.fl-button:hover *,' +
 										'.fl-responsive-preview-content button:hover *,' +
@@ -330,8 +368,15 @@
 										'.fl-page button.bc-btn:hover *,' +
 										'.fl-page button.bc-btn[disabled]:hover *,' +
 										'.fl-page button.bc-link:hover *,' +
-										'.fl-page a.bc-btn:hover *';
-
+										'.fl-page a.bc-btn:hover *,' +
+										'.fl-page .woocommerce a.button:hover *';
+						
+			// Font Size
+			this._css( 'fl-button-font-size', mainSelector, 'font-size', '{val}px', '16px', 'int', true );
+			
+			// Line Height
+			this._css( 'fl-button-line-height', mainSelector, 'line-height', '{val}', '1.2', null, true );
+			
 			// Color
 			this._css( 'fl-button-color', mainSelector, 'color' );
 			this._css( 'fl-button-color', mainInsideSelector, 'color' );
@@ -372,6 +417,10 @@
 			if ( ! $.isEmptyObject( controls ) ) {
 				for (i = 0; i < breakpoints.length; i++ ) {
 					$.each( controls, function( key, data ) {
+						if ( false === data.responsive ) {
+							return;
+						}
+
 						FLCustomizerPreview._css( key + '_' + breakpoints[i], data.selector, data.property, data.format, data.fallback, data.sanitizeCallback );
 					});
 				}
@@ -393,14 +442,19 @@
 			// Listen for a previewed-device message.
     		api.preview.bind( 'previewed-device', function( newDevicePreview ) {
 				controlValues = api.get();
+				FLCustomizerPreview._previewedDevice = newDevicePreview;
 
 				if ( ! $.isEmptyObject( controls ) ) {
 					$.each( controls, function( key, data ) {
-						if ( 'desktop' != newDevicePreview ) {
+
+						if ( 'desktop' != newDevicePreview && false !== data.responsive ) {
 							newVal = controlValues[ key + '_' + newDevicePreview ];
 						}
-						else {
+						else if ( 'desktop' == newDevicePreview ) {
 							newVal = controlValues[ key ];
+						}
+						else {
+							newVal = '';
 						}
 
 						switch ( data.sanitizeCallback ) {

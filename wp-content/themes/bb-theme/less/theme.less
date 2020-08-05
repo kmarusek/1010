@@ -112,6 +112,14 @@ img {
 	height: auto;
 }
 
+.woocommerce button.pswp__button {
+	position: absolute;
+	top: 50%;
+	margin-top: -50px;
+	width: 70px;
+	height: 100px;
+}
+
 /* Accessibility
 ----------------------------------------------------------- */
 
@@ -190,14 +198,26 @@ body.rtl .fl-screen-reader-text {
 		text-decoration: none;
 	}
 }
+
 .fl-logo-text {
 	font-family: @logo-font;
 	font-weight: @logo-weight;
 	font-size: @logo-size;
+	color: @logo-text-color !important;
+	&:hover,
+	&:focus {
+		color: @logo-text-hover-color !important;
+	}
 }
+
+.fl-theme-tagline {
+	color: @logo-tagline-color !important;
+}
+
 .fl-logo-img {
 	max-width: 100%;
 }
+
 .fl-page-header-primary .fl-logo-img {
 	height: auto !important;
 }
@@ -429,6 +449,16 @@ body.rtl .fl-screen-reader-text {
 						right: 0;
 					}
 				}
+				.hide-heading {
+					> ul.sub-menu {
+						position: static;
+						padding: 0;
+						border-top: 0 none;
+						box-shadow: none;
+						-moz-box-shadow: none;
+						-webkit-box-shadow: none;
+					}
+				}
 			}
 		}
 	}
@@ -497,7 +527,7 @@ body.rtl .fl-screen-reader-text {
 
 	.fa-stack.icon-google i.fa-circle.branded, .fa-google.branded { color: #d13e2b; }
 
-	.fa-stack.icon-google-maps i.fa-circle.branded, .fa-map-marker-alt.branded { color: #eb5f1a; } 
+	.fa-stack.icon-google-maps i.fa-circle.branded, .fa-map-marker-alt.branded { color: #eb5f1a; }
 
 	.fa-stack.icon-linkedin i.fa-circle.branded, .fa-linkedin.branded { color: #007ab8; }
 
@@ -943,31 +973,121 @@ input[type=text].fl-search-input {
 
 /* Buttons
 ----------------------------------------------------------- */
+/* WooCommerce Buttons */
+
+.fl-page .fl-module span.onsale {
+	color: @accent-fg-color;
+	background: @accent-color;
+	font-size: 13px;
+	font-weight: normal;
+	left: 10px;
+	margin: 0;
+	padding: 2px 13px;
+	right: auto;
+	text-shadow: none;
+	top: 10px;
+	min-height: 3.236em;
+    min-width: 3.236em;
+    position: absolute;
+    text-align: center;
+    line-height: 3.236;
+    z-index: 9;
+	.fl-box-shadow(none);
+	.fl-border-radius(0);
+}
+
+.fl-page {
+	.fl-module-woocommerce a.button,
+	.fl-module-woocommerce button.button.alt,
+	.fl-post-module-woo-button a.button {
+		.fl-woo-button-inactive-styles();
+	}
+
+	.fl-module-woocommerce a.button:hover,
+	.fl-module-woocommerce button.button.alt:hover,
+	.fl-post-module-woo-button a.button:hover {
+		.fl-woo-button-hover-styles();
+	}
+
+	.fl-module-woocommerce button.button:disabled, 
+	.fl-module-woocommerce button.button:disabled[disabled],
+	.fl-module-woocommerce button.alt.disabled {
+		padding: 6px 12px;
+	}
+}
+
+.woocommerce-page {
+	ul.products li.product a.button,
+	.woocommerce-message a.button,
+	.woocommerce-message a.button.wc-forward,
+	.woocommerce a.button.wc-forward,
+	button.button,
+	button.button.alt,
+	a.button,
+	a.button.alt,
+	.woocommerce button[type=submit],
+	button[type=submit].alt.disabled {
+		.fl-woo-button-inactive-styles();
+	}
+
+	button.button:disabled, 
+	button.button:disabled[disabled],
+	button.alt.disabled {
+		padding: 6px 12px;
+	}
+
+	ul.products li.product a.button:hover,
+	.woocommerce-message a.button:hover,
+	button.button:hover,
+	button.button.alt:hover,
+	a.button.alt:hover,
+	a.button:hover,
+	.woocommerce button[type=submit]:hover,
+	button[type=submit].alt.disabled:hover {
+		.fl-woo-button-hover-styles();
+	}
+}
 
 /* Builder Buttons */
 a.fl-button,
-a.fl-button:visited,
-.fl-builder-content a.fl-button,
-.fl-builder-content a.fl-button:visited {
-	background: @accent-color;
+a.fl-button:visited {
+	color: @button-color;
+	background: @button-bg-color;
 	color: @accent-fg-color;
 	border: 1px solid darken(@accent-color, 12%);
 }
-a.fl-button *,
-a.fl-button:visited *,
-.fl-builder-content a.fl-button *,
-.fl-builder-content a.fl-button:visited * {
-	color: @accent-fg-color;
-}
 a.fl-button:hover,
 .fl-builder-content a.fl-button:hover {
-	background: @accent-hover-color;
-	color: @accent-fg-hover-color;
+	color: @button-hover-color;
+	background: @button-bg-hover-color;
+}
+
+a.fl-button *,
+a.fl-button:visited * {
+	color: @button-color;
+}
+
+a.fl-button:hover * {
+	color: @button-hover-color;
+}
+
+a.fl-button:hover,
+a.button:hover {
+	color: @button-hover-color;
+	background-color: @button-bg-hover-color;
 	border: 1px solid darken(@accent-hover-color, 12%);
 }
-a.fl-button:hover *,
-.fl-builder-content a.fl-button:hover * {
-	color: @accent-fg-hover-color;
+
+/* Fix WooCommerce Button wonky on hover. */
+.woocommerce a.button,
+.woocommerce a.button:hover {
+	border: 1px solid transparent;
+}
+
+/* Gutenberg Buttons */
+.wp-block-button .wp-block-button__link {
+	font-size: @button-font-size;
+	line-height: @button-line-height;
 }
 
 /* HTML Buttons */
@@ -976,8 +1096,8 @@ input[type=button],
 input[type=submit] {
 	background: @accent-color;
 	color: @accent-fg-color;
-	font-size: 14px;
-	line-height: 20px;
+	font-size: @button-font-size;
+	line-height: @button-line-height;
 	padding: 6px 12px;
 	font-weight: normal;
 	text-shadow: none;
@@ -1046,19 +1166,7 @@ textarea {
 		.fl-box-shadow(none);
 	}
 }
-input[type=text],
-input[type=password],
-input[type=email],
-input[type=tel],
-input[type=date],
-input[type=month],
-input[type=week],
-input[type=time],
-input[type=number],
-input[type=search],
-input[type=url] {
-	height: 34px;
-}
+
 .form-control {
 	background-color: @content-bg-color-2;
 	border-color: @border-color;
@@ -1573,5 +1681,12 @@ img.mfp-img {
 				width: @content-width;
 			}
 		}
+	}
+}
+
+body.fl-framework-base-4,
+body.fl-framework-bootstrap-4 {
+	nav a.no-menu {
+		display:block;
 	}
 }

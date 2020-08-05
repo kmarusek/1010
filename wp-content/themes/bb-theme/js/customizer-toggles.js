@@ -91,6 +91,11 @@
 			callback: function( val ) { return '' != val; }
 		}],
 
+		'fl-theme-tagline': [{
+			controls: [ 'fl-logo-tagline-color' ],
+			callback: function( val ) { return '' != val; }
+		}],
+
 		'fl-header-bg-color': [{
 			controls: [ 'fl-header-bg-gradient' ],
 			callback: function( val ) { return '' != val; }
@@ -201,8 +206,16 @@
 			callback: function( val ) {
 
 			    var fixedHeader = api( 'fl-fixed-header' ).get();
-				
+
 				return ( ('fadein' == fixedHeader) || ('shrink' == fixedHeader) );
+			}
+		},{
+			controls: [ 'fl-fixed-header-padding-top' ],
+			callback: function( val ) {
+
+			    var fixedHeader = api( 'fl-fixed-header' ).get();
+
+				return 'shrink' == fixedHeader || 'fixed' == fixedHeader;
 			}
 		},{
 			controls: [ 'fl-layout-spacing' ],
@@ -223,6 +236,11 @@
 				var logoType = api( 'fl-logo-type' ).get();
                 return 'fadein' === val && 'image' === logoType;
 			}
+		}],
+
+		'fl-fixed-header-padding-top': [{
+			controls: [ 'fl-fixed-header-padding-top-custom' ],
+			callback: function( val ) { return 'custom' == val; }
 		}],
 
 		'fl-hide-until-scroll-header': [{
@@ -397,6 +415,11 @@
 			controls: [ 'fl-mobile-nav-text'],
 			callback: function( val ) {
 				return ( 'button' === val )
+			}
+		},{
+			controls: [ 'fl-hamburger-icon-top-position'],
+			callback: function( val ) {
+				return ( 'icon' === val )
 			}
 		}],
 

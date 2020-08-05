@@ -8,7 +8,7 @@
 						<?php echo FLTheme::get_tagline(); ?>
 					</div>
 				</div>
-				<div class="<?php FLLayout::col_classes( array( 'sm' => 6, 'md' => 6 ) ); // @codingStandardsIgnoreLine ?>">
+				<div class="<?php FLLayout::col_classes( array( 'sm' => 6, 'md' => 6 ) ); // @codingStandardsIgnoreLine ?> fl-page-nav-col">
 					<div class="fl-page-header-content">
 						<?php FLTheme::header_content(); ?>
 					</div>

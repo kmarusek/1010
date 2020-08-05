@@ -45,6 +45,46 @@ Appearance > Theme Settings > Code or create a child theme.
 		line-height: @medium-h6-line-height;
 		letter-spacing: @medium-h6-letter-spacing;
 	}
+
+	/* Gutenberg Buttons */
+	.wp-block-button .wp-block-button__link {
+		font-size: @medium-button-font-size;
+		line-height: @medium-button-line-height;
+	}
+
+	/* HTML Buttons */
+	.fl-page button,
+	.fl-page input[type=button],
+	.fl-page input[type=submit] {
+		font-size: @medium-button-font-size;
+		line-height: @medium-button-line-height;
+	}
+
+	/* Builder Buttons */
+	a.fl-button,
+	a.fl-button:visited,
+	.fl-page a.fl-button,
+	.fl-page a.fl-button:visited {
+		font-size: @medium-button-font-size;
+		line-height: @medium-button-line-height;
+	}
+
+	a.fl-button:hover {
+		font-size: @medium-button-font-size;
+		line-height: @medium-button-line-height;
+	}
+
+    .fl-page .fl-module-woocommerce,
+    .fl-page .fl-post-module-woo-button {
+		a.button,
+		a.button:visited,
+		button[type=button],
+		button[type=submit] {
+			font-size: @medium-button-font-size;
+			line-height: @medium-button-line-height;
+		}
+	}
+
 }
 
 /* Media Query - mobile devices
@@ -89,4 +129,40 @@ Appearance > Theme Settings > Code or create a child theme.
 		line-height: @mobile-h6-line-height;
 		letter-spacing: @mobile-h6-letter-spacing;
 	}
+
+	/* Gutenberg Buttons */
+	.wp-block-button .wp-block-button__link {
+		font-size: @mobile-button-font-size;
+		line-height: @mobile-button-line-height;
+	}
+
+	/* HTML Buttons */
+	.fl-page button,
+	.fl-page input[type=button],
+	.fl-page input[type=submit] {
+		font-size: @mobile-button-font-size;
+		line-height: @mobile-button-line-height;
+	}
+
+	/* Builder Buttons */
+	a.fl-button,
+	a.fl-button:visited,
+	.fl-page a.fl-button,
+	.fl-page a.fl-button:visited {
+		font-size: @mobile-button-font-size;
+		line-height: @mobile-button-line-height;
+	}
+
+	/* WooCommerce Buttons */
+    .fl-page .fl-module-woocommerce,
+    .fl-page .fl-post-module-woo-button {
+		a.button,
+		a.button:visited,
+		button[type=button],
+		button[type=submit] {
+			font-size: @mobile-button-font-size;
+			line-height: @mobile-button-line-height;
+		}
+	}
+    
 }

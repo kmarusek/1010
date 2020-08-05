@@ -65,7 +65,7 @@ if ( 'custom' === $settings['fl-social-icons-color'] ) {
 					<i aria-hidden="true" class="%s fa-%s %s fa-stack-1x fa-inverse"></i>
 					</a>',
 						$setting,
-						$icon,
+						( 'map-marker-alt' === $icon ) ? 'google-maps' : $icon,
 						$link_target . $link_rel,
 						$icon_screen_reader,
 						$settings['fl-social-icons-color'],

@@ -30,6 +30,11 @@ final class FLThemeUpdate {
 			return;
 		}
 
+		// Update to 1.7.6
+		if ( version_compare( $saved_version, '1.7.6', '<' ) ) {
+			self::v_1_7_6();
+		}
+
 		// Update to 1.7.3
 		if ( version_compare( $saved_version, '1.7.3', '<' ) ) {
 			self::v_1_7_3();
@@ -365,6 +370,21 @@ final class FLThemeUpdate {
 		}
 		if ( $updated ) {
 			do_action( 'fl_theme_updated' );
+		}
+	}
+
+	/**
+	 * 1.7.6 adds new colour controls for the text logo which previously
+	 * inherited its color from the main text colour.
+	 * So if main text colour is NOT default, set new logo colour to use same.
+	 */
+	private static function v_1_7_6() {
+
+		self::v_1_7_3();
+		$mods = FLCustomizer::get_mods();
+
+		if ( isset( $mods['fl-body-text-color'] ) && '' !== $mods['fl-body-text-color'] && '#808080' !== $mods['fl-body-text-color'] ) {
+			set_theme_mod( 'fl-logo-text-color', $mods['fl-body-text-color'] );
 		}
 	}
 }

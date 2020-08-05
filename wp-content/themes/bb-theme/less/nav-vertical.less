@@ -187,6 +187,9 @@ Appearance > Theme Settings > Code or create a child theme.
 		top: 0;
 		text-align: right;
 	}
+	ul.navbar-vertical-right li.fl-sub-menu-open li.hide-heading > ul.sub-menu {
+		text-align: right;
+	}
 	.fl-page-nav ul.navbar-vertical-right li.fl-sub-menu-open > ul.sub-menu li.fl-sub-menu-open > ul.sub-menu {
 		left: auto;
 		right: 100%;
@@ -245,10 +248,12 @@ Appearance > Theme Settings > Code or create a child theme.
 			}
 		}
 	}
-	.fl-page-nav-vertical-left ul.navbar-nav li.mega-menu ul ul {
+	.fl-page-nav-vertical-left ul.navbar-nav li.mega-menu ul ul,
+	.fl-page-nav-vertical-left ul.navbar-nav li.hide-heading > ul {
 		border-left: none;
 	}
-	.fl-page-nav-vertical-right ul.navbar-nav li.mega-menu ul ul {
+	.fl-page-nav-vertical-right ul.navbar-nav li.mega-menu ul ul,
+	.fl-page-nav-vertical-right ul.navbar-nav li.hide-heading > ul {
 		border-right: none;
 	}
 

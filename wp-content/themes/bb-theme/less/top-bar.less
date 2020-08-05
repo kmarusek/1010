@@ -205,3 +205,16 @@ Appearance > Theme Settings > Code or create a child theme.
 		}
 	}
 }
+
+/* Media Query - 767px or less
+----------------------------------------------------------- */
+
+@media (max-width: (@mobile-breakpoint - 1)) {
+
+	.fl-page-bar {
+		.fl-page-bar-row .text-left,
+		.fl-page-bar-row .text-right {
+				text-align: center !important;
+		}
+	}
+}
