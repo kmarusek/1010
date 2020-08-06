@@ -65,7 +65,7 @@
 							$click_action_link = $photo->link;
 						}
 					?>
-				<a href="<?php echo $click_action_link; ?>" target="<?php echo $click_action_target; ?>"<?php echo ( '_blank' === $click_action_target ) ? ' rel="nofollow noopener"' : ''; ?>>
+				<a href="<?php echo $click_action_link; ?>" target="<?php echo $click_action_target; ?>"<?php echo ( '_blank' === $click_action_target && ( ! isset( $settings->custom_link_nofollow ) || 'yes' === $settings->custom_link_nofollow ) ) ? ' rel="nofollow noopener"' : ''; ?>>
 				<?php endif; ?>
 
 				<img class="pp-gallery-img" src="<?php echo $photo->src; ?>" alt="<?php echo $photo->alt; ?>" data-no-lazy="1" />

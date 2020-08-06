@@ -34,19 +34,25 @@ $module_url = pp_get_module_url('pp-content-grid');
 
 $css_class = '';
 
-if ( $settings->match_height == 'no' ) {
-	$css_class .= ' pp-masonry-active';
+if ('no' == $settings->match_height) {
+    $css_class .= ' pp-masonry-active';
 } else {
-	$css_class .= ' pp-equal-height';
+    $css_class .= ' pp-equal-height';
 }
-if ( $settings->layout == 'grid' && $settings->post_grid_filters_display == 'yes' && ! empty( $settings->post_grid_filters ) ) {
-	$css_class .= ' pp-filters-active';
+if ('grid' == $settings->layout && 'yes' == $settings->post_grid_filters_display && !empty($settings->post_grid_filters)) {
+    $css_class .= ' pp-filters-active';
 }
 
-if ( in_array( $settings->post_grid_style_select, array( 'default', 'style-2', 'style-3', 'style-5', 'style-8' ) ) ) {
-	if ( isset( $settings->alternate_content ) && 'yes' === $settings->alternate_content ) {
-		$css_class .= ' pp-content-alternate';
-	}
+if (in_array($settings->post_grid_style_select, array('default', 'style-2', 'style-3', 'style-5', 'style-8'))) {
+    if (isset($settings->alternate_content) && 'yes' === $settings->alternate_content) {
+        $css_class .= ' pp-content-alternate';
+    }
+}
+
+$wrapper_class = 'pp-posts-wrapper';
+
+if ( 'grid' === $settings->layout && isset( $settings->filter_position ) && 'top' !== $settings->filter_position ) {
+	$wrapper_class .= ' pp-post-filters-sidebar pp-post-filters-sidebar-' . $settings->filter_position;
 }
 
 // Set custom parameteres in module settings to verify
@@ -97,6 +103,25 @@ add_filter( 'fl_builder_loop_query_args', function( $args ) {
 	return $args;
 } );
 
+// Default filter.
+add_filter( 'fl_builder_loop_query_args', function( $args ) {
+	if ( ! isset( $args['settings']->pp_content_grid ) ) {
+		return $args;
+	}
+
+	if ( 'carousel' !== $args['settings']->layout && 'yes' === $args['settings']->post_grid_filters_display ) {
+		if ( isset( $args['settings']->post_grid_filters_default ) && ! empty( $args['settings']->post_grid_filters_default ) ) {
+			$args['tax_query'][] = array(
+				'taxonomy' => $args['settings']->post_grid_filters,
+				'field'    => 'slug',
+				'terms'    => $args['settings']->post_grid_filters_default
+			);
+		}
+	}
+
+	return $args;
+} );
+
 if ( ! isset( $settings->offset ) || empty( $settings->offset ) ) {
 	$settings->offset = 0;
 }
@@ -109,15 +134,17 @@ $initial_current_post = $post;
 $query = FLBuilderLoop::query( $settings );
 
 ?>
-<div class="pp-posts-wrapper">
+<div class="<?php echo $wrapper_class; ?>">
 	<?php
 
 	// Render the posts.
-	if ( $query->have_posts() ) :
+	if ( $query->have_posts() ) {
 
 		do_action( 'pp_cg_before_posts', $settings, $query );
 
 		$css_class .= ( FLBuilderLoop::get_paged() > 0 ) ? ' pp-paged-scroll-to' : '';
+		$data_source = isset( $settings->data_source ) ? $settings->data_source : 'custom_query';
+		$post_type   = isset( $settings->post_type ) ? $settings->post_type : 'post';
 
 		if ( 'acf_relationship' != $settings->data_source ) {
 			// Post filters.
@@ -128,109 +155,115 @@ $query = FLBuilderLoop::query( $settings );
 
 	?>
 
-	<div class="pp-content-post-<?php echo $settings->layout; ?><?php echo $css_class; ?> clearfix" itemscope="itemscope" itemtype="http://schema.org/Blog">
-		<?php if( $settings->layout == 'carousel' ) { ?>
-			<div class="pp-content-posts-inner owl-carousel owl-theme">
-		<?php } ?>
+	<div class="pp-content-posts">
+		<div class="pp-content-post-<?php echo $settings->layout; ?><?php echo $css_class; ?> clearfix"<?php BB_PowerPack_Post_Helper::print_schema( ' itemscope="itemscope" itemtype="' . PPContentGridModule::schema_collection_type( $data_source, $post_type ) . '"' ); ?>>
+			<?php if( $settings->layout == 'carousel' ) { ?>
+				<div class="pp-content-posts-inner owl-carousel owl-theme">
+			<?php } ?>
 
-			<?php
+				<?php
 
-			$render = true;
+				$render = true;
+				$count = 0;
 
-			while( $query->have_posts() ) {
+				while( $query->have_posts() ) {
 
-				$query->the_post();
+					$query->the_post();
 
-				$post_id 	= get_the_ID();
-				$permalink 	= get_permalink();
+					$post_id 	= get_the_ID();
+					$permalink 	= get_permalink();
 
-				$terms_list = wp_get_post_terms( $post_id, $settings->post_taxonomies );
-				
-				if ( $settings->post_type == 'product' && function_exists( 'wc_get_product' ) ) {
-					$product = wc_get_product( $post_id );
-					if ( ! is_object( $product ) ) {
-						$render = false;
+					$terms_list = wp_get_post_terms( $post_id, $settings->post_taxonomies );
+					
+					if ( $settings->post_type == 'product' && function_exists( 'wc_get_product' ) ) {
+						$product = wc_get_product( $post_id );
+						if ( ! is_object( $product ) ) {
+							$render = false;
+						}
+					}
+
+					if ( $render ) {
+						$count++;
+
+						ob_start();
+
+						include apply_filters( 'pp_cg_module_layout_path', $module->dir . 'includes/post-' . $settings->layout . '.php', $settings->layout, $settings );
+
+						// Do shortcodes here so they are parsed in context of the current post.
+						echo do_shortcode( ob_get_clean() );
 					}
 				}
 
-				if ( $render ) {
-					ob_start();
+				?>
 
-					include apply_filters( 'pp_cg_module_layout_path', $module->dir . 'includes/post-' . $settings->layout . '.php', $settings->layout, $settings );
+				<?php if ( $settings->layout == 'grid' ) { ?>
+				<div class="pp-grid-space"></div>
+				<?php } ?>
 
-					// Do shortcodes here so they are parsed in context of the current post.
-					echo do_shortcode( ob_get_clean() );
-				}
-			}
-
-			?>
-
-			<?php if ( $settings->layout == 'grid' ) { ?>
-			<div class="pp-grid-space"></div>
+			<?php if ( $settings->layout == 'carousel' ) { ?>
+				</div>
+				<?php if ( 'yes' === $settings->slider_navigation ) { ?>
+				<div class="owl-nav pp-carousel-nav"></div>
+				<?php } ?>
 			<?php } ?>
+		</div>
 
-		<?php if ( $settings->layout == 'carousel' ) { ?>
-			</div>
+		<div class="fl-clear"></div>
+
 		<?php } ?>
-	</div>
 
-	<div class="fl-clear"></div>
-
-	<?php endif; ?>
-
-	<?php
-
-	do_action( 'pp_cg_after_posts', $settings, $query );
-
-	// Render the pagination.
-	if( $settings->layout != 'carousel' && $settings->pagination != 'none' && $query->have_posts() && $query->max_num_pages > 1 ) :
-
-	?>
-
-	<div class="pp-content-grid-pagination fl-builder-pagination"<?php if($settings->pagination == 'scroll' || 'load_more' == $settings->pagination) echo ' style="display:none;"'; ?>>
 		<?php
-		if ( 'yes' == $settings->post_grid_filters_display && 'dynamic' == $settings->post_grid_filters_type ) {
-			BB_PowerPack_Post_Helper::ajax_pagination( $query, $settings );
-		} else {
-			BB_PowerPack_Post_Helper::pagination( $query, $settings );
-		}
+
+		do_action( 'pp_cg_after_posts', $settings, $query );
+
+		// Render the pagination.
+		if( $settings->layout != 'carousel' && $settings->pagination != 'none' && $query->have_posts() && $query->max_num_pages > 1 ) {
 		?>
-	</div>
+			<div class="pp-content-grid-pagination fl-builder-pagination"<?php if($settings->pagination == 'scroll' || 'load_more' == $settings->pagination) echo ' style="display:none;"'; ?>>
+				<?php
+				if ( 'yes' == $settings->post_grid_filters_display && 'dynamic' == $settings->post_grid_filters_type ) {
+					BB_PowerPack_Post_Helper::ajax_pagination( $query, $settings );
+				} else {
+					BB_PowerPack_Post_Helper::pagination( $query, $settings );
+				}
+				?>
+			</div>
 
-	<?php if ( 'load_more' == $settings->pagination ) { ?>
-		<div class="pp-content-grid-load-more">
-			<a href="#" class="pp-grid-load-more-button">
-			<span class="pp-grid-loader-text"><?php echo $settings->load_more_text; ?></span>
-			<span class="pp-grid-loader-icon"><img src="<?php echo BB_POWERPACK_URL . 'images/spinner.gif'; ?>" /></span></a>
-		</div>
-	<?php } ?>
-	<?php if ( 'scroll' == $settings->pagination ) { ?>
-		<div class="pp-content-grid-loader" style="display: none;">
-			<span class="pp-grid-loader-text"><?php _e('Loading...', 'bb-powerpack'); ?></span>
-			<span class="pp-grid-loader-icon"><img src="<?php echo BB_POWERPACK_URL . 'images/spinner.gif'; ?>" /></span>
-		</div>
-	<?php } ?>
+			<?php if ( 'load_more' == $settings->pagination ) { ?>
+				<div class="pp-content-grid-load-more">
+					<a href="#" class="pp-grid-load-more-button">
+					<span class="pp-grid-loader-text"><?php echo $settings->load_more_text; ?></span>
+					<span class="pp-grid-loader-icon"><img src="<?php echo BB_POWERPACK_URL . 'images/spinner.gif'; ?>" /></span></a>
+				</div>
+			<?php } ?>
+			<?php if ( 'scroll' == $settings->pagination ) { ?>
+				<div class="pp-content-grid-loader" style="display: none;">
+					<span class="pp-grid-loader-text"><?php _e('Loading...', 'bb-powerpack'); ?></span>
+					<span class="pp-grid-loader-icon"><img src="<?php echo BB_POWERPACK_URL . 'images/spinner.gif'; ?>" /></span>
+				</div>
+			<?php } ?>
+		<?php } ?>
+		<?php do_action( 'pp_cg_after_pagination', $settings, $query ); ?>
 
-	<?php endif; ?>
+	<?php if ( $query->have_posts() ) {	?>
+	</div><!-- .pp-content-posts -->
+	<?php } ?>
 
 	<?php
-
-	do_action( 'pp_cg_after_pagination', $settings, $query );
 
 	// Render the empty message.
-	if( ! $query->have_posts() ) :
+	if ( ! $query->have_posts() ) {
 
 	?>
 	<div class="pp-content-grid-empty">
 		<p><?php echo $settings->no_results_message; ?></p>
-		<?php if ( $settings->show_search == 'yes' ) : ?>
+		<?php if ( $settings->show_search == 'yes' ) { ?>
 		<?php get_search_form(); ?>
-		<?php endif; ?>
+		<?php } ?>
 	</div>
 
 	<?php
-
-	endif;
+	}
 
 	wp_reset_postdata();
 

@@ -294,6 +294,14 @@ class BB_PowerPack_Post_Helper {
 	 * @return void
 	 */
 	static public function schema_meta() {
+		/**
+		 * Disable all post-grid schema markup
+		 * @see pp_post_disable_schema
+		 */
+		if ( ! self::is_schema_enabled() ) {
+			return false;
+		}
+
 		do_action( 'pp_post_before_schema_meta' );
 
 		// General Schema Meta
@@ -371,10 +379,55 @@ class BB_PowerPack_Post_Helper {
 	static public function schema_itemtype() {
 		global $post;
 
+		if ( ! self::is_schema_enabled() ) {
+			return false;
+		}
+
+		$schema = 'https://schema.org/BlogPosting';
 		if ( ! is_object( $post ) || ! isset( $post->post_type ) || 'post' != $post->post_type ) {
-			echo 'https://schema.org/CreativeWork';
+			$schema = 'https://schema.org/CreativeWork';
+		}
+
+		return $schema;
+	}
+
+	/**
+	 * Renders the schema itemtype for the collection
+	 *
+	 * @return string
+	 */
+	static public function schema_collection_type( $data_source = 'custom_query', $post_type = 'post' ) {
+		$schema = '';
+
+		if ( ! self::is_schema_enabled() ) {
+			return $schema;
+		}
+
+		if ( is_archive() && 'main_query' === $data_source ) {
+			$schema = is_post_type_archive( 'post' ) ? 'https://schema.org/Blog' : 'https://schema.org/Collection';
 		} else {
-			echo 'https://schema.org/BlogPosting';
+			$schema = ( 'post' === $post_type ) ? 'https://schema.org/Blog' : 'https://schema.org/Collection';
+		}
+
+		return $schema;
+	}
+
+	static public function print_schema( $schema ) {
+		if ( self::is_schema_enabled() ) {
+			echo $schema;
+		}
+	}
+
+	static public function is_schema_enabled() {
+
+		/**
+		 * Disable all schema.
+		 * @see pp_post_disable_schema
+		 */
+		if ( false !== apply_filters( 'pp_post_disable_schema', false ) ) {
+			return false;
+		} else {
+			return true;
 		}
 	}
 }

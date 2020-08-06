@@ -1,3 +1,36 @@
+<?php if ( '' === $settings->responsive_display ) { ?>
+.fl-col-group-equal-height .fl-node-<?php echo $id; ?>,
+.fl-col-group-equal-height .fl-node-<?php echo $id; ?> .fl-module-content,
+.fl-col-group-equal-height .fl-node-<?php echo $id; ?> .fl-module-content .pp-infobox-wrap,
+.fl-col-group-equal-height .fl-node-<?php echo $id; ?> .fl-module-content .pp-infobox-wrap .pp-infobox,
+.fl-col-group-equal-height .fl-node-<?php echo $id; ?> .fl-module-content .pp-infobox-wrap > .pp-infobox-link,
+.fl-col-group-equal-height .fl-node-<?php echo $id; ?> .fl-module-content .pp-infobox-wrap > .pp-more-link {
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	flex-shrink: 1;
+	min-width: 1px;
+	max-width: 100%;
+	-webkit-box-flex: 1 1 auto;
+	-moz-box-flex: 1 1 auto;
+	-webkit-flex: 1 1 auto;
+	-ms-flex: 1 1 auto;
+	flex: 1 1 auto;
+}
+.fl-col-group-equal-height.fl-col-group-align-center .fl-node-<?php echo $id; ?> .fl-module-content .pp-infobox-wrap .pp-infobox {
+	justify-content: center;
+}
+.fl-col-group-equal-height.fl-col-group-align-top .fl-node-<?php echo $id; ?> .fl-module-content .pp-infobox-wrap .pp-infobox {
+	justify-content: flex-start;
+}
+.fl-col-group-equal-height.fl-col-group-align-bottom .fl-node-<?php echo $id; ?> .fl-module-content .pp-infobox-wrap .pp-infobox {
+	justify-content: flex-end;
+}
+<?php } ?>
+
 .fl-node-<?php echo $id; ?> .pp-infobox-title-prefix {
 	<?php if ( empty( $settings->title_prefix ) ) { ?>
 	display: none;

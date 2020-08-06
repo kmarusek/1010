@@ -1,8 +1,13 @@
-<?php if( $settings->carousel_height != '' ) { ?>
+<?php if ( ! empty( $settings->carousel_height ) ) { ?>
 .fl-node-<?php echo $id; ?> .pp-image-carousel.pp-image-carousel-slideshow,
 .fl-node-<?php echo $id; ?> .pp-image-carousel {
 	height: <?php echo $settings->carousel_height; ?>px;
 }
+<?php } elseif ( isset( $settings->use_image_as ) && 'img' === $settings->use_image_as ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-image-carousel,
+	.fl-node-<?php echo $id; ?> .pp-image-carousel.pp-image-carousel-slideshow {
+		height: auto;
+	}
 <?php } ?>
 
 .fl-node-<?php echo $id; ?> .pp-image-carousel.pp-image-carousel-slideshow {
@@ -60,8 +65,17 @@
     <?php if( $settings->bullets_border_radius >= 0 ) { ?>
     border-radius: <?php echo $settings->bullets_border_radius; ?>px;
     <?php } ?>
-    box-shadow: none;
+	box-shadow: none;
+	<?php if ( isset( $settings->bullets_spacing_h ) && ! empty( $settings->bullets_spacing_h ) ) { ?>
+		margin-left: 0;
+		margin-right: <?php echo $settings->bullets_spacing_h; ?>px;
+	<?php } ?>
 }
+<?php if ( isset( $settings->bullets_spacing_v ) && ! empty( $settings->bullets_spacing_v ) && 'slideshow' !== $settings->carousel_type ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-image-carousel .swiper-wrapper {
+		margin-bottom: <?php echo $settings->bullets_spacing_v; ?>px;
+	}
+<?php } ?>
 
 .fl-node-<?php echo $id; ?> .pp-image-carousel.swiper-container-horizontal>.swiper-pagination-progress {
 	<?php if ( isset( $settings->pagination_bg_color ) && ! empty( $settings->pagination_bg_color ) ) { ?>

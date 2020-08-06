@@ -70,7 +70,7 @@
 
 		_getForms: function(callback) {
 			$.post(
-				ajaxurl,
+				bb_powerpack.ajaxurl,
 				{
 					action: 'pp_gf_forms_dropdown_html',
 				},

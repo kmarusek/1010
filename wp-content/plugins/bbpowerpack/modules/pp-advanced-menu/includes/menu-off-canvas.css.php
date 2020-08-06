@@ -1,5 +1,8 @@
 /* Container */
 .fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-off-canvas-menu {
+	<?php if ( isset( $settings->offcanvas_width ) && ! empty( $settings->offcanvas_width ) ) { ?>
+		width: <?php echo $settings->offcanvas_width; ?>px;
+	<?php } ?>
 	background-color: <?php echo pp_hex2rgba( '#'.$settings->responsive_overlay_bg_color, $settings->responsive_overlay_bg_opacity / 100 ); ?>;
 	<?php
 	    if ( $settings->enable_shadow == 'yes' ) {
@@ -15,6 +18,20 @@
 	    }
 	?>
 }
+
+<?php if ( isset( $settings->offcanvas_width ) && ! empty( $settings->offcanvas_width ) ) { ?>
+.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-off-canvas-menu.pp-menu-left {
+    -webkit-transform: translate3d(-<?php echo $settings->offcanvas_width + 30; ?>px, 0, 0);
+    -moz-transform: translate3d(-<?php echo $settings->offcanvas_width + 30; ?>px, 0, 0);
+    transform: translate3d(-<?php echo $settings->offcanvas_width + 30; ?>px, 0, 0);
+}
+
+.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-off-canvas-menu.pp-menu-right {
+    -webkit-transform: translate3d(<?php echo $settings->offcanvas_width + 30; ?>px, 0, 0);
+    -moz-transform: translate3d(<?php echo $settings->offcanvas_width + 30; ?>px, 0, 0);
+    transform: translate3d(<?php echo $settings->offcanvas_width + 30; ?>px, 0, 0);
+}
+<?php } ?>
 
 /* Close Button */
 .fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-off-canvas-menu .pp-menu-close-btn {
@@ -57,6 +74,9 @@ FLBuilderCSS::dimension_field_rule( array(
 	box-shadow: none;
 	border: none;
 }
+.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .menu > li.current-menu-parent.pp-has-submenu .sub-menu {
+	display: block;
+}
 
 /* Links */
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .menu > li,
@@ -92,7 +112,9 @@ FLBuilderCSS::dimension_field_rule( array(
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .sub-menu > li > a:hover,
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .sub-menu > li > a:focus,
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .sub-menu > li > .pp-has-submenu-container > a:hover,
-.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .sub-menu > li > .pp-has-submenu-container > a:focus {
+.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .sub-menu > li > .pp-has-submenu-container > a:focus,
+.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .sub-menu > li.current-menu-item > a,
+.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .sub-menu > li.current-menu-item > .pp-has-submenu-container > a {
 	background-color: <?php echo pp_get_color_value( $settings->submenu_background_hover_color ); ?>;
 }
 <?php } ?>
@@ -154,8 +176,10 @@ FLBuilderCSS::dimension_field_rule( array(
 
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .menu li a:hover,
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .menu li a:focus,
+.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .menu li.current-menu-item > a,
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .menu li .pp-has-submenu-container a:hover,
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .menu li .pp-has-submenu-container a:focus,
+.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .menu li.current-menu-parent .pp-has-submenu-container li.current-menu-item > a,
 .fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .menu li.pp-active > .pp-has-submenu-container > a {
 	<?php if( $settings->responsive_link_bg_hover_color ) { ?>background-color: <?php echo pp_get_color_value( $settings->responsive_link_bg_hover_color ); ?>;<?php } ?>
 	<?php if( $settings->responsive_link_hover_color ) { ?>color: #<?php echo $settings->responsive_link_hover_color; ?>;<?php } ?>
@@ -220,13 +244,22 @@ FLBuilderCSS::dimension_field_rule( array(
 		<?php } ?>
 <?php } ?>
 
+.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .pp-toggle-arrows .pp-menu-toggle {
+    width: <?php echo $toggle_width ?>px;
+    height: <?php echo $toggle_height ?>px;
+    margin: -<?php echo $toggle_height ?>px;
+    padding: <?php echo $toggle_height ?>px;
+    right: <?php echo $toggle_height ?>px;
+}
+
 <?php if( $settings->responsive_alignment == 'right' ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .pp-toggle-arrows .pp-has-submenu-container > a > span,
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .pp-toggle-plus .pp-has-submenu-container > a > span {
 		padding-right: 0;
+		padding-left: 28px;
 	}
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .pp-toggle-arrows .pp-menu-toggle {
-		right: auto;
+		right: 0;
 		left: 28px;
 	}
 <?php } ?>
@@ -245,4 +278,68 @@ FLBuilderCSS::dimension_field_rule( array(
 	html.pp-off-canvas-menu-open {
 		overflow: hidden !important;
 	}
+}
+
+@media only screen and (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) {
+	<?php if ( isset( $settings->offcanvas_width_medium ) && ! empty( $settings->offcanvas_width_medium ) ) { ?>
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-off-canvas-menu {
+			width: <?php echo $settings->offcanvas_width_medium; ?>px;
+		}
+
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-off-canvas-menu.pp-menu-left {
+			-webkit-transform: translate3d(-<?php echo $settings->offcanvas_width_medium + 30; ?>px, 0, 0);
+			-moz-transform: translate3d(-<?php echo $settings->offcanvas_width_medium + 30; ?>px, 0, 0);
+			transform: translate3d(-<?php echo $settings->offcanvas_width_medium + 30; ?>px, 0, 0);
+		}
+
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-off-canvas-menu.pp-menu-right {
+			-webkit-transform: translate3d(<?php echo $settings->offcanvas_width_medium + 30; ?>px, 0, 0);
+			-moz-transform: translate3d(<?php echo $settings->offcanvas_width_medium + 30; ?>px, 0, 0);
+			transform: translate3d(<?php echo $settings->offcanvas_width_medium + 30; ?>px, 0, 0);
+		}
+	<?php } ?>
+
+	<?php if( ( isset( $settings->alignment_medium ) && 'right' == $settings->alignment_medium ) ) { ?>
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .pp-toggle-arrows .pp-has-submenu-container > a > span,
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .pp-toggle-plus .pp-has-submenu-container > a > span {
+			padding-right: 0;
+			padding-left: 28px;
+		}
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .pp-toggle-arrows .pp-menu-toggle {
+			right: 0;
+			left: 28px;
+		}
+	<?php } ?>
+}
+
+@media only screen and (max-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
+	<?php if ( isset( $settings->offcanvas_width_responsive ) && ! empty( $settings->offcanvas_width_responsive ) ) { ?>
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-off-canvas-menu {
+			width: <?php echo $settings->offcanvas_width_responsive; ?>px;
+		}
+
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-off-canvas-menu.pp-menu-left {
+			-webkit-transform: translate3d(-<?php echo $settings->offcanvas_width_responsive + 30; ?>px, 0, 0);
+			-moz-transform: translate3d(-<?php echo $settings->offcanvas_width_responsive + 30; ?>px, 0, 0);
+			transform: translate3d(-<?php echo $settings->offcanvas_width_responsive + 30; ?>px, 0, 0);
+		}
+
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-off-canvas-menu.pp-menu-right {
+			-webkit-transform: translate3d(<?php echo $settings->offcanvas_width_responsive + 30; ?>px, 0, 0);
+			-moz-transform: translate3d(<?php echo $settings->offcanvas_width_responsive + 30; ?>px, 0, 0);
+			transform: translate3d(<?php echo $settings->offcanvas_width_responsive + 30; ?>px, 0, 0);
+		}
+	<?php } ?>
+
+	<?php if( ( isset( $settings->alignment_responsive ) && 'right' == $settings->alignment_responsive ) ) { ?>
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .pp-toggle-arrows .pp-has-submenu-container > a > span,
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .pp-toggle-plus .pp-has-submenu-container > a > span {
+			padding-right: 0;
+			padding-left: 28px;
+		}
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .pp-toggle-arrows .pp-menu-toggle {
+			right: 0;
+			left: 28px;
+		}
+	<?php } ?>
 }

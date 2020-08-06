@@ -39,15 +39,22 @@ if ( $show_other_posts ) {
 }
 $other_posts_displayed = false;
 
+// Save the current post, so that it can be restored later (see the end of this file).
+global $post;
+$initial_current_post = $post;
+
 $query = FLBuilderLoop::query( $settings );
 
 // Render the posts.
 if ( $query->have_posts() ) :
 
+	$data_source = isset( $settings->data_source ) ? $settings->data_source : 'custom_query';
+	$post_type   = isset( $settings->post_type ) ? $settings->post_type : 'post';
+
 	do_action( 'pp_tiles_before_posts', $settings, $query );
 
 ?>
-<div class="pp-post-tiles pp-tile-layout-<?php echo $settings->layout; ?>" itemscope="itemscope" itemtype="http://schema.org/Blog">
+<div class="pp-post-tiles pp-tile-layout-<?php echo $settings->layout; ?>"<?php BB_PowerPack_Post_Helper::print_schema( ' itemscope="itemscope" itemtype="' . PPContentTilesModule::schema_collection_type( $data_source, $post_type ) . '"' ); ?>>
 	<?php
 
 	$count = 1;
@@ -151,5 +158,15 @@ if(!$query->have_posts() && (defined('DOING_AJAX') || isset($_REQUEST['fl_builde
 endif;
 
 wp_reset_postdata();
+
+// Restore the original current post.
+//
+// Note that wp_reset_postdata() isn't enough because it resets the current post by using the main
+// query, but it doesn't take into account the possibility that it might have been overridden by a
+// third-party plugin in the meantime.
+//
+// Specifically, this used to cause problems with Toolset Views, when its Content Templates were used.
+$post = $initial_current_post;
+setup_postdata( $initial_current_post );
 
 ?>

@@ -1,5 +1,5 @@
 (function($){
-
+	var nodeId = '';
 	FLBuilder.registerModuleHelper('pp-offcanvas-content', {
 
 		rules: {
@@ -16,6 +16,7 @@
 		},
 
 		init: function() {
+			nodeId = $( '.fl-builder-settings' ).data( 'node' );
 			$( 'select[name="content_type"]' ).on( 'change', $.proxy( this._contentTypeChange, this ) );
 			this._contentTypeChange();
 		},
@@ -84,6 +85,12 @@
 					}
 				}
 			});
+		}
+	});
+
+	FLBuilder.registerModuleHelper('pp_content_form', {
+		init: function() {
+			$('.pp-module-id-class').html( '<strong>pp-offcanvas-' + nodeId + '-close</strong>' );
 		}
 	});
 

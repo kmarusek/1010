@@ -66,7 +66,7 @@ class PPFileDownloadModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module( 'PPFileDownloadModule', array(
+BB_PowerPack::register_module( 'PPFileDownloadModule', array(
 	'general'       => array(
 		'title'         => __( 'General', 'bb-powerpack' ),
 		'sections'      => array(
@@ -98,7 +98,18 @@ FLBuilder::register_module( 'PPFileDownloadModule', array(
 				'fields'        => array(
 					'file'          => array(
 						'type'          => 'pp-media-uploader',
-						'label'         => '',
+						'label'         => __( 'Enter File URL or Upload File', 'bb-powerpack' ),
+						'preview'       => array(
+							'type'          => 'none',
+						),
+						'connections'	=> array( 'url', 'string' ),
+					),
+					'file_name'	=> array(
+						'type'		=> 'text',
+						'label'		=> __( 'Custom Name for Download', 'bb-powerpack' ),
+						'default' 	=> '',
+						'help' 		=> __( 'You can use this field to use custom name for file. Please do NOT enter special characters and add proper extension', 'bb-powerpack' ),
+						'connections' => array( 'string' ),
 						'preview'       => array(
 							'type'          => 'none',
 						),

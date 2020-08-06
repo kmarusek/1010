@@ -25,7 +25,7 @@ class PPImageModule extends FLBuilderModule {
 			'name'          	=> __('Image', 'bb-powerpack'),
 			'description'   	=> __('Upload a photo or display one from the media library.', 'bb-powerpack'),
 			'group'         	=> pp_get_modules_group(),
-            'category'			=> pp_get_modules_cat( 'content' ),
+            'category'			=> pp_get_modules_cat( 'media' ),
 			'dir'           	=> BB_POWERPACK_DIR . 'modules/pp-image/',
             'url'           	=> BB_POWERPACK_URL . 'modules/pp-image/',
             'editor_export' 	=> true, // Defaults to true and can be omitted.
@@ -521,7 +521,7 @@ class PPImageModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPImageModule', array(
+BB_PowerPack::register_module('PPImageModule', array(
 	'general'       => array( // Tab
 		'title'         => __('General', 'bb-powerpack'), // Tab title
 		'sections'      => array( // Tab Sections

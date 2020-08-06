@@ -62,7 +62,7 @@ class PPDotNavModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPDotNavModule', array(
+BB_PowerPack::register_module('PPDotNavModule', array(
     'general'       => array( // Tab
         'title'         => __('General', 'bb-powerpack'), // Tab title
         'sections'      => array( // Tab Sections

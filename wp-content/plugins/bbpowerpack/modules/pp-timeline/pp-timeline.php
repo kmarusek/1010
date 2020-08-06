@@ -213,7 +213,7 @@ class PPTimelineModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPTimelineModule', array(
+BB_PowerPack::register_module('PPTimelineModule', array(
 	'general'      => array( // Tab
 		'title'         => __('Content', 'bb-powerpack'), // Tab title
 		'sections'      => array( // Tab Sections

@@ -289,7 +289,7 @@ class PPPricingTableModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPPricingTableModule', array(
+BB_PowerPack::register_module('PPPricingTableModule', array(
 	'general'	=> array(
 		'title'		=> __('General', 'bb-powerpack'),
 		'sections'	=> array(

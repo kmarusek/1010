@@ -21,6 +21,9 @@
 		this.offCanvasDirection	 = settings.offCanvasDirection;
 		this.isBuilderActive	 = settings.isBuilderActive;
 		this.currentBrowserWidth = window.innerWidth;
+		this.fullScreenMenu 	= null;
+		this.offCanvasMenu 		= null;
+		this.$submenus 			= null;
 
 		this._bindSettingsFormEvents();
 		// initialize the menu
@@ -168,7 +171,7 @@
 				}
 			}
 
-			$(this.wrapperClass).find('li:not(.menu-item-has-children)').off().on('click', 'a', $.proxy(function (e) {
+			$(this.wrapperClass).find('li:not(.menu-item-has-children)').on('click', 'a', $.proxy(function (e) {
 
 				$(this.nodeClass).find('.pp-advanced-menu').removeClass('menu-open');
 				$(this.nodeClass).find('.pp-advanced-menu').addClass('menu-close');
@@ -549,9 +552,9 @@
 			if ( 'always' === this.mediaBreakpoint || this.mediaBreakpoint >= this.currentBrowserWidth ) {
 				if ( null === this.offCanvasMenu && $(this.nodeClass).find('.pp-advanced-menu.full-screen').length > 0 ) {
 					this.fullScreenMenu = $(this.nodeClass).find('.pp-advanced-menu.full-screen');
-				}
-				if ($('#pp-advanced-menu-full-screen-'+this.settingsId).length === 0) {
-					this.fullScreenMenu.appendTo('body').wrap('<div id="pp-advanced-menu-full-screen-'+this.settingsId+'" class="fl-node-'+this.settingsId+'">');
+					if ( $('#pp-advanced-menu-full-screen-'+this.settingsId).length === 0 ) {
+						this.fullScreenMenu.appendTo('body').wrap('<div id="pp-advanced-menu-full-screen-'+this.settingsId+'" class="fl-node-'+this.settingsId+'">');
+					}
 				}
 			}
 			this._toggleMenu();

@@ -114,7 +114,7 @@ class PPAdvancedTabsModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPAdvancedTabsModule', array(
+BB_PowerPack::register_module('PPAdvancedTabsModule', array(
 	'items'         => array(
 		'title'         => __('Items', 'bb-powerpack'),
 		'sections'      => array(
@@ -145,7 +145,21 @@ FLBuilder::register_module('PPAdvancedTabsModule', array(
 						'options'       => array(
 							'horizontal'    => __('Horizontal', 'bb-powerpack'),
 							'vertical'      => __('Vertical', 'bb-powerpack'),
-						)
+						),
+						'toggle'	=> array(
+							'vertical'	=> array(
+								'fields'	=> array( 'vertical_position' ),
+							),
+						),
+					),
+					'vertical_position'	=> array(
+						'type'	=> 'pp-switch',
+						'label'	=> __( 'Vertical Position', 'bb-powerpack' ),
+						'default' => 'left',
+						'options' => array(
+							'left' => __( 'Left', 'bb-powerpack' ),
+							'right' => __( 'Right', 'bb-powerpack' ),
+						),
 					),
 					'tab_style'        => array(
 						'type'          => 'select',
@@ -218,12 +232,14 @@ FLBuilder::register_module('PPAdvancedTabsModule', array(
 			),
 			'label_style'       => array(
 				'title'         => __('Title', 'bb-powerpack'),
+				'collapsed'		=> true,
 				'fields'        => array(
 					'label_background_color'  => array(
 						'type'          => 'color',
 						'label'         => __('Background Color', 'bb-powerpack'),
 						'default'       => 'ffffff',
 						'show_reset'	=> true,
+						'show_alpha'	=> true,
 						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'	=> 'css',
@@ -236,6 +252,7 @@ FLBuilder::register_module('PPAdvancedTabsModule', array(
 						'label'         => __('Background Color Active', 'bb-powerpack'),
 						'default'       => 'f7f7f7',
 						'show_reset'	=> true,
+						'show_alpha'	=> true,
 						'connections'	=> array('color'),
 						'preview'	=> array(
 							'type'	=> 'css',
@@ -290,7 +307,31 @@ FLBuilder::register_module('PPAdvancedTabsModule', array(
 								)
 							)
 						)
-                    ),
+					),
+					'description_color'	=> array(
+						'type'		=> 'color',
+						'label'		=> __( 'Description Color', 'bb-powerpack' ),
+						'default'	=> '',
+						'show_reset' => true,
+						'connections'	=> array('color'),
+						'preview'	=> array(
+							'type'	=> 'css',
+							'selector'	=> '.pp-tabs .pp-tabs-label .pp-tab-description',
+							'property'	=> 'color',
+						)
+					),
+					'description_active_color'	=> array(
+						'type'		=> 'color',
+						'label'		=> __( 'Description Active Color', 'bb-powerpack' ),
+						'default'	=> '',
+						'show_reset' => true,
+						'connections'	=> array('color'),
+						'preview'	=> array(
+							'type'	=> 'css',
+							'selector'	=> '.pp-tabs .pp-tabs-label.pp-tab-active .pp-tab-description',
+							'property'	=> 'color',
+						)
+					),
 					'border_color'  => array(
 						'type'          => 'color',
 						'label'         => __('Border Color', 'bb-powerpack'),
@@ -323,6 +364,10 @@ FLBuilder::register_module('PPAdvancedTabsModule', array(
 								array(
 									'selector'	=> '.pp-tabs-vertical.pp-tabs-style-7 .pp-tabs-label .pp-tab-label-inner',
 									'property'	=> 'border-right-color',
+								),
+								array(
+									'selector'	=> '.pp-tabs-vertical.pp-tabs-vertical-right.pp-tabs-style-7 .pp-tabs-label .pp-tab-label-inner',
+									'property'	=> 'border-left-color',
 								),
 								array(
 									'selector'	=> '.pp-tabs-vertical.pp-tabs-style-7 .pp-tabs-label.pp-tab-active .pp-tab-label-inner:before, .pp-tabs-vertical.pp-tabs-style-7 .pp-tabs-label.pp-tab-active .pp-tab-label-inner:after',
@@ -358,6 +403,7 @@ FLBuilder::register_module('PPAdvancedTabsModule', array(
 			),
 			'content_style'       => array(
 				'title'         => __('Content', 'bb-powerpack'),
+				'collapsed'		=> true,
 				'fields'        => array(
 					'content_bg_type'        => array(
 						'type'          => 'pp-switch',
@@ -629,11 +675,20 @@ FLBuilder::register_module('PPAdvancedTabsModule', array(
 				'fields'	=> array(
 					'label_typography'	=> array(
 						'type'			=> 'typography',
-						'label'			=> __('Typography', 'bb-powerpack'),
+						'label'			=> __('Title Typography', 'bb-powerpack'),
 						'responsive'	=> true,
 						'preview'		=> array(
 							'type'			=> 'css',
 							'selector'		=> '.pp-tabs-labels .pp-tabs-label .pp-tab-title'
+						)
+					),
+					'description_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __('Description Typography', 'bb-powerpack'),
+						'responsive'	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-tabs-labels .pp-tabs-label .pp-tab-description'
 						)
 					),
 				)
@@ -677,6 +732,12 @@ FLBuilder::register_settings_form('tab_items_form', array(
 							'type'          => 'text',
 							'label'         => __('Title', 'bb-powerpack'),
 							'connections'   => array( 'string', 'html', 'url' ),
+						),
+						'description'	=> array(
+							'type'			=> 'textarea',
+							'label'			=> __( 'Description', 'bb-powerpack' ),
+							'connections'	=> array( 'string', 'html', 'url' ),
+							'rows'			=> 3,
 						),
 					)
 				),

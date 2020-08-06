@@ -374,13 +374,13 @@ class PPGoogleMapModule extends FLBuilderModule {
 
 		foreach ( $repeater_rows as $row ) {
 			$item                   = new stdClass;
-			$item->map_name         = ! empty( $map_name ) ? $map_name : '';
-			$item->map_latitude     = ! empty( $map_latitude ) ? $map_latitude : '';
-			$item->map_longitude    = ! empty( $map_longitude ) ? $map_longitude : '';
+			$item->map_name         = ! empty( $map_name ) ?  ( isset( $row[ $map_name ] ) ? $row[ $map_name ] : $map_name ) : '';
+			$item->map_latitude     = ! empty( $map_latitude ) ? ( isset( $row[ $map_latitude ] ) ? $row[ $map_latitude ] : $map_latitude ) : '';
+			$item->map_longitude    = ! empty( $map_longitude ) ? ( isset( $row[ $map_longitude ] ) ? $row[ $map_longitude ] : $map_longitude ) : '';
 			$item->marker_point     = ! empty( $marker_point ) ? $marker_point : 'default';
 			$item->marker_img       = ! empty( $marker_img ) ? $marker_img : '';
 			$item->enable_info      = ! empty( $enable_info ) ? $enable_info : 'no';
-			$item->info_window_text = ! empty( $info_window_text ) ? $info_window_text : '';
+			$item->info_window_text = ! empty( $info_window_text ) ? ( ! empty( strip_tags( $info_window_text ) ) && isset( $row[ strip_tags( $info_window_text ) ] ) ? $row[ strip_tags( $info_window_text ) ] : $info_window_text ) : '';
 
 			$data[] = $item;
 		}
@@ -411,13 +411,13 @@ class PPGoogleMapModule extends FLBuilderModule {
 
 		foreach ( $repeater_rows as $row ) {
 			$item                   = new stdClass;
-			$item->map_name         = ! empty( $map_name ) ? $map_name : '';
-			$item->map_latitude     = ! empty( $map_latitude ) ? $map_latitude : '';
-			$item->map_longitude    = ! empty( $map_longitude ) ? $map_longitude : '';
+			$item->map_name         = ! empty( $map_name ) ?  ( isset( $row[ $map_name ] ) ? $row[ $map_name ] : $map_name ) : '';
+			$item->map_latitude     = ! empty( $map_latitude ) ? ( isset( $row[ $map_latitude ] ) ? $row[ $map_latitude ] : $map_latitude ) : '';
+			$item->map_longitude    = ! empty( $map_longitude ) ? ( isset( $row[ $map_longitude ] ) ? $row[ $map_longitude ] : $map_longitude ) : '';
 			$item->marker_point     = ! empty( $marker_point ) ? $marker_point : 'default';
 			$item->marker_img       = ! empty( $marker_img ) ? $marker_img : '';
 			$item->enable_info      = ! empty( $enable_info ) ? $enable_info : 'no';
-			$item->info_window_text = ! empty( $info_window_text ) ? $info_window_text : '';
+			$item->info_window_text = ! empty( $info_window_text ) ? ( ! empty( strip_tags( $info_window_text ) ) && isset( $row[ strip_tags( $info_window_text ) ] ) ? $row[ strip_tags( $info_window_text ) ] : $info_window_text ) : '';
 
 			$data[] = $item;
 		}
@@ -425,30 +425,32 @@ class PPGoogleMapModule extends FLBuilderModule {
 	}
 
 	public function get_map_data() {
+		$data = $this->settings->pp_gmap_addresses;
+
 		if ( ! isset( $this->settings->map_source ) || empty( $this->settings->map_source ) ) {
-			return $this->settings->pp_gmap_addresses;
+			$data = $this->settings->pp_gmap_addresses;
 		}
 
 		if ( 'acf' === $this->settings->map_source ) {
-			return $this->get_acf_data();
+			$data = $this->get_acf_data();
 		}
 
 		if ( 'acf_options_page' === $this->settings->map_source ) {
-			return $this->get_acf_options_page_data();
+			$data = $this->get_acf_options_page_data();
 		}
 
 		if ( 'post' === $this->settings->map_source ) {
-			return $this->get_cpt_data();
+			$data = $this->get_cpt_data();
 		}
 
-		return $this->settings->pp_gmap_addresses;
+		return apply_filters( 'pp_google_map_data', $data, $this->settings );
 	}
 }
 
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module(
+BB_PowerPack::register_module(
 	'PPGoogleMapModule',
 	array(
 		'form'      => array(
@@ -511,9 +513,19 @@ FLBuilder::register_module(
 								'20' => '20',
 							),
 						),
+						'max_zoom'	=> array(
+							'type'	=> 'unit',
+							'label'	=> __( 'Maximum Zoom', 'bb-powerpack' ),
+							'default' => '',
+							'slider' => array(
+								'min'	=> 1,
+								'max'	=> 20,
+								'step'	=> 1
+							),
+						),
 						'scroll_zoom'      => array(
 							'type'    => 'pp-switch',
-							'label'   => __( 'Disable map zoom on Mouse Wheel Scroll', 'bb-powerpack' ),
+							'label'   => __( 'Disable zoom on scroll', 'bb-powerpack' ),
 							'default' => 'no',
 							'options' => array(
 								'yes' => __( 'Yes', 'bb-powerpack' ),

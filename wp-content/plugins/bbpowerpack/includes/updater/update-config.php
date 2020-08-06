@@ -234,7 +234,7 @@ function bb_powerpack_check_license() {
 	if ( 'valid' === $license_data->license ) {
 		return 'valid';
 		// this license is still valid.
-	} else {
+	} elseif ( 'deactivated' !== $license_data->license ) {
 		// this license is no longer valid
 		// delete license status.
 		bb_powerpack_delete( 'bb_powerpack_license_status' );
@@ -251,9 +251,9 @@ function bb_powerpack_check_license() {
 				}
 			}
 		}
-
-		return $license_data->license;
 	}
+
+	return $license_data->license;
 }
 
  /**

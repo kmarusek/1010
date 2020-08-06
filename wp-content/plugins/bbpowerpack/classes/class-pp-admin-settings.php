@@ -52,17 +52,34 @@ final class BB_PowerPack_Admin_Settings {
 
 		self::multisite_fallback();
 
+		if ( isset( $_GET['page'] ) && 'ppbb-settings' == $_GET['page'] ) {
+			add_action( 'in_admin_header', __CLASS__ . '::remove_all_notices', PHP_INT_MAX );
+			add_action( 'admin_enqueue_scripts', __CLASS__ . '::styles_scripts' );
+			if ( isset( $_GET['reset_wl'] ) && pp_plugin_get_hash() === $_GET['reset_wl'] ) {
+				pp_wl_reset_settings();
+				wp_safe_redirect( remove_query_arg( 'reset_wl' ) );
+			}
+			self::register_routes();
+			self::save();
+		}
+
 		add_action( 'admin_menu',           	__CLASS__ . '::menu' );
 		add_action( 'network_admin_menu',   	__CLASS__ . '::menu' );
 		add_filter( 'all_plugins',          	__CLASS__ . '::update_branding' );
 		add_action( 'admin_enqueue_scripts', 	__CLASS__ . '::enqueue_script' );
 		add_action( 'admin_notices', 			__CLASS__ . '::render_latest_update_notice' );
 		add_action( 'network_admin_notices', 	__CLASS__ . '::render_latest_update_notice' );
+	}
 
-		if ( isset( $_GET['page'] ) && 'ppbb-settings' == $_GET['page'] ) {
-			add_action( 'admin_enqueue_scripts', __CLASS__ . '::styles_scripts' );
-			self::save();
-		}
+	/**
+	 * Remove all notices from setting page.
+	 *
+	 * @since 1.0
+	 * @return void
+	 */
+	static public function remove_all_notices() {
+		remove_all_actions( 'admin_notices' );
+		remove_all_actions( 'all_admin_notices' );
 	}
 
 	/**
@@ -84,6 +101,40 @@ final class BB_PowerPack_Admin_Settings {
 	 */
 	static public function enqueue_script() {
 		wp_enqueue_script( 'pp-admin-notices', BB_POWERPACK_URL . 'assets/js/admin.js', array( 'jquery' ), BB_POWERPACK_VER, true );
+	}
+
+	static public function register_routes() {
+		if ( ! isset( $_REQUEST['pp_action'] ) || empty( $_REQUEST['pp_action'] ) ) {
+			return;
+		}
+
+		$action = sanitize_text_field( wp_unslash( $_REQUEST['pp_action'] ) );
+
+		if ( 'get_templates_data' === $action ) {
+			$template_type = sanitize_text_field( wp_unslash( $_REQUEST['templates_type'] ) );
+			$categories = pp_templates_categories( $template_type );
+			$activated_templates = self::get_enabled_templates( $template_type );
+			$activated_templates = is_array( $activated_templates ) ? $activated_templates : array();
+			$templates_data = array();
+			foreach ( $categories as $cat => $info ) {
+				$templates_data[] = array(
+					'type'		=> $template_type,
+					'category' 	=> $cat,
+					'filter' 	=> $info['type'],
+					'is_active' => in_array( $cat, $activated_templates ),
+					'preview_url'	=> pp_templates_preview_src( $template_type, $cat ),
+					'screenshot' => pp_get_template_screenshot_url( $template_type, $cat, 'color' ),
+					'title'		=> $info['title'],
+					'slug'		=> sanitize_title( $info['title'] ),
+					'count'		=> isset( $info['count'] ) ? $info['count'] : '',
+				);
+			}
+			wp_send_json_success( $templates_data );
+		}
+		if ( 'sync_templates_data' === $action ) {
+			$response = BB_PowerPack_Templates_Lib::download_templates_data( 'new' );
+			wp_send_json( $response );
+		}
 	}
 
 	static public function menu() {
@@ -242,6 +293,13 @@ final class BB_PowerPack_Admin_Settings {
 				'file'		=> BB_POWERPACK_DIR . 'includes/admin-settings-templates.php',
 				'priority'  => 200,
 			),
+			'modules'	=> array(
+				'title'     => esc_html__( 'Modules', 'bb-powerpack' ),
+				'show'      => ! self::get_option( 'ppwl_hide_modules_tab' ) || self::get_option( 'ppwl_hide_modules_tab' ) == 0,
+				'cap'		=> ! is_network_admin() ? 'manage_options' : 'manage_network_plugins',
+				'file'		=> BB_POWERPACK_DIR . 'includes/admin-settings-modules.php',
+				'priority'  => 220,
+			),
 			'extensions' => array(
 				'title'     => esc_html__( 'Extensions', 'bb-powerpack' ),
 				'show'      => true,
@@ -344,7 +402,7 @@ final class BB_PowerPack_Admin_Settings {
 				echo '<div class="error"><p>' . $message . '</p></div>';
 			}
 		} elseif ( ! empty( $_POST ) && ! isset( $_POST['email'] ) ) {
-			echo '<div class="updated"><p>' . esc_html__( 'Settings updated!', 'bb-powerpack' ) . '</p></div>';
+			echo '<div class="updated dismissible"><p>' . esc_html__( 'Settings updated!', 'bb-powerpack' ) . '</p></div>';
 		}
 	}
 
@@ -707,6 +765,7 @@ final class BB_PowerPack_Admin_Settings {
 		$enable_latest_notice  	= isset( $_POST['ppwl_enable_latest_update_notice'] ) ? absint( $_POST['ppwl_enable_latest_update_notice'] ) : 0;
 		$list_modules_standard  = isset( $_POST['ppwl_list_modules_with_standard'] ) ? absint( $_POST['ppwl_list_modules_with_standard'] ) : 0;
 		$hide_templates_tab     = isset( $_POST['ppwl_hide_templates_tab'] ) ? absint( $_POST['ppwl_hide_templates_tab'] ) : 0;
+		$hide_modules_tab     	= isset( $_POST['ppwl_hide_modules_tab'] ) ? absint( $_POST['ppwl_hide_modules_tab'] ) : 0;
 		$hide_extensions_tab    = isset( $_POST['ppwl_hide_extensions_tab'] ) ? absint( $_POST['ppwl_hide_extensions_tab'] ) : 0;
 		$hide_integration_tab   = isset( $_POST['ppwl_hide_integration_tab'] ) ? absint( $_POST['ppwl_hide_integration_tab'] ) : 0;
 		$hide_header_footer_tab = isset( $_POST['ppwl_hide_header_footer_tab'] ) ? absint( $_POST['ppwl_hide_header_footer_tab'] ) : 0;
@@ -726,6 +785,7 @@ final class BB_PowerPack_Admin_Settings {
 		self::update_option( 'ppwl_enable_latest_update_notice', $enable_latest_notice );
 		self::update_option( 'ppwl_list_modules_with_standard', $list_modules_standard );
 		self::update_option( 'ppwl_hide_templates_tab', $hide_templates_tab );
+		self::update_option( 'ppwl_hide_modules_tab', $hide_modules_tab );
 		self::update_option( 'ppwl_hide_extensions_tab', $hide_extensions_tab );
 		self::update_option( 'ppwl_hide_integration_tab', $hide_integration_tab );
 		self::update_option( 'ppwl_hide_header_footer_tab', $hide_header_footer_tab );
@@ -733,6 +793,24 @@ final class BB_PowerPack_Admin_Settings {
 		self::update_option( 'ppwl_hide_login_register_tab', $hide_login_reg_tab );
 		self::update_option( 'ppwl_hide_form', $hide_wl_form );
 		self::update_option( 'ppwl_hide_plugin', $hide_plugin );
+
+		if ( $hide_wl_form || $hide_plugin ) {
+			remove_all_actions( 'admin_notices' );
+			add_action( 'admin_notices', function() {
+				?>
+				<style>
+					.pp-wl-reset-notice pre {
+						background: #eee;
+						display: inline-block;
+					}
+				</style>
+				<div class="notice notice-info pp-wl-reset-notice">
+					<p><?php esc_html_e( 'Copy the following reset URL, keep it safe and use it when required to reset White Label settings:', 'bb-powerpack' ); ?></p>
+					<div><pre><?php echo pp_wl_get_reset_url(); ?></pre></div>
+				</div>
+				<?php
+			} );
+		}
 	}
 
 	/**
@@ -745,24 +823,22 @@ final class BB_PowerPack_Admin_Settings {
 	static private function save_modules() {
 		if ( isset( $_POST['pp-modules-nonce'] ) && wp_verify_nonce( $_POST['pp-modules-nonce'], 'pp-modules' ) ) {
 
-			if ( isset( $_POST['bb_powerpack_modules_all'] ) ) {
-				self::update_option( 'bb_powerpack_modules_all', 1 );
+			if ( isset( $_POST['bb_powerpack_module_categories'] ) ) {
+				$categories = array_map( 'sanitize_text_field', $_POST['bb_powerpack_module_categories'] );
+				self::update_option( 'bb_powerpack_module_categories', $categories, false );
 			} else {
-				self::update_option( 'bb_powerpack_modules_all', 2 );
+				self::update_option( 'bb_powerpack_module_categories', array(), false );
 			}
 
-			$enabled_modules = self::get_option( '_fl_builder_enabled_modules', true );
-			if ( ! $enabled_modules || false === $enabled_modules ) {
-				$enabled_modules = FLBuilderModel::get_enabled_modules();
-			}
-
+			$modules = array();
 			if ( isset( $_POST['bb_powerpack_modules'] ) && is_array( $_POST['bb_powerpack_modules'] ) ) {
 				$modules = array_map( 'sanitize_text_field', $_POST['bb_powerpack_modules'] );
-				self::update_option( 'bb_powerpack_modules', $modules );
 			}
-			if ( ! isset( $_POST['bb_powerpack_modules'] ) ) {
-				self::update_option( 'bb_powerpack_modules', array( 'disabled' ) );
+			if ( ! isset( $_POST['bb_powerpack_modules'] ) || empty( $_POST['bb_powerpack_modules'] ) ) {
+				$modules = array();
 			}
+
+			self::update_option( 'bb_powerpack_modules', $modules, false );
 		}
 	}
 
@@ -829,27 +905,6 @@ final class BB_PowerPack_Admin_Settings {
 				self::update_option( 'bb_powerpack_extensions', array( 'disabled' ), true );
 			}
 		}
-	}
-
-	/**
-	* Returns an array of all PowerPack modules that are enabled.
-	*
-	* @since 1.1.5
-	* @return array
-	*/
-	static public function get_enabled_modules() {
-		$enabled_modules = self::get_option( 'bb_powerpack_modules', true );
-
-		if ( ! ( $enabled_modules ) || false === $enabled_modules || ! is_array( $enabled_modules ) ) {
-
-			$modules = pp_modules();
-
-			foreach ( $modules as $slug => $title ) {
-				$enabled_modules[] = $slug;
-			}
-		}
-
-		return $enabled_modules;
 	}
 
 	/**

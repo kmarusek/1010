@@ -17,7 +17,7 @@
 				</p>
 			</td>
 		</tr>
-		<tr align="top">
+		<tr align="top" id="field-bb_powerpack_header_footer_fixed_header">
 			<th scope="row" valign="top"></th>
 			<td>
 				<label for="bb_powerpack_header_footer_fixed_header" style="font-weight: 500;">
@@ -111,7 +111,7 @@
 			} else {
 				$('#field-bb_powerpack_header_footer_shrink_header').hide();
 			}
-		}).trigger('chnage');
+		}).trigger('change');
 
 		$('#bb_powerpack_header_footer_overlay_header').on('change', function() {
 			if ( $(this).is(':checked') ) {
@@ -119,7 +119,7 @@
 			} else {
 				$('#field-bb_powerpack_header_footer_overlay_header_bg').hide();
 			}
-		}).trigger('chnage');
+		}).trigger('change');
 	})(jQuery);
 	</script>
 <?php } else { ?>

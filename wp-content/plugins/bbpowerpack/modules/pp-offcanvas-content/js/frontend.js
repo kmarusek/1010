@@ -78,7 +78,7 @@
 			var $trigger = false;
 
 			if (this.toggleSource == 'id' && this.toggle_id != '') {
-				var toggleId = this.toggleId.replace('#', '');
+				var toggleId = this.toggle_id.replace('#', '');
 				$trigger = $('#' + toggleId);
 			} else if (this.toggleSource == 'class' && this.toggle_class != '') {
 				var toggleClass = this.toggle_class.replace('#', '');
@@ -91,14 +91,21 @@
 		},
 
 		_bindEvents: function () {
-			$trigger = this._setTrigger();
+			var self = this;
+			var $trigger = this._setTrigger();
 
 			if ($trigger) {
 				$trigger.on('click', $.proxy(this._toggleContent, this));
 			}
 
 			$('body').delegate('.pp-offcanvas-content .pp-offcanvas-close', 'click', $.proxy(this._close, this));
-			// $('body').delegate('.pp-offcanvas-content .pp-offcanvas-body a', 'click', $.proxy(this._close, this));
+			$('body').delegate('.pp-offcanvas-' + this.id + '-close', 'click', function(e) {
+				e.preventDefault();
+				window['pp_offcanvas_' + self.id]._close();
+			});
+
+			// Close the off-canvas panel on clicking on inner links start with hash.
+			$('body').delegate('.pp-offcanvas-content .pp-offcanvas-body a[href*="#"]', 'click', $.proxy(this._close, this));
 
 			if (this.escClose === 'yes') {
 				this._closeESC();

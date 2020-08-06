@@ -31,7 +31,8 @@
 		this.elements			= {};
 
 		this._fillWords();
-		this._initHeadlines();
+
+		$( window ).on( 'load', $.proxy( this._initHeadlines, this ) );
 	};
 
   	PPAnimatedHeadlines.prototype = {

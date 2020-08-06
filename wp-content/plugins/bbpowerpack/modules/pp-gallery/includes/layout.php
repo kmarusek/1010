@@ -19,12 +19,12 @@
 			href="<?php echo $click_action_link; ?>"
 			<?php if ( 'custom-link' == $settings->click_action ) { ?> 
 			target="<?php echo $click_action_target; ?>" 
-			<?php if ( '_blank' === $click_action_target ) { ?>
+			<?php if ( '_blank' === $click_action_target && ( ! isset( $settings->custom_link_nofollow ) || 'yes' === $settings->custom_link_nofollow ) ) { ?>
 			rel="nofollow noopener"
 			<?php } ?>
 			<?php } ?> 
 			<?php if ( 'lightbox' == $settings->click_action ) { ?>
-			rel="nofollow" data-fancybox="images" 
+			data-fancybox="images" 
 			<?php } ?> 
 			title="<?php echo $photo->title; ?>" 
 			<?php if ( isset( $settings->lightbox_caption ) && 'yes' == $settings->lightbox_caption ) { ?>

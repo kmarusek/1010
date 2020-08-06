@@ -32,7 +32,7 @@ class PPColumnSeparatorModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPColumnSeparatorModule', array(
+BB_PowerPack::register_module('PPColumnSeparatorModule', array(
 	'general'      => array( // Tab
 		'title'         => __('Separator', 'bb-powerpack'), // Tab title
 		'sections'      => array( // Tab Sections

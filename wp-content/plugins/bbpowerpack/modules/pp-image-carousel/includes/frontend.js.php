@@ -134,8 +134,8 @@ var carousel_<?php echo $id; ?> = '';
 	// expandable row fix.
 	var state = 0;
 	$(document).on('pp_expandable_row_toggle', function(e, selector) {
-		if ( selector.is('.pp-er-open') && state === 0 ) {
-			new PPImageCarousel(settings);
+		if ( selector.is('.pp-er-open') && state === 0 && selector.find( '.fl-node-<?php echo $id; ?>' ).length > 0 ) {
+			updateCarousel();
 			state = 1;
 		}
 	});

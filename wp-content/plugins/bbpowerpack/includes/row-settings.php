@@ -381,11 +381,13 @@ function pp_row_separators( $sections ) {
 						'tilt_left'                 => __('Tilt Left', 'bb-powerpack'),
 						'tilt_right'                => __('Tilt Right', 'bb-powerpack'),
 						'curve'                     => __('Curve', 'bb-powerpack'),
+						'curve_layers'              => __('Curve Layers', 'bb-powerpack'),
 						'wave'                      => __('Wave', 'bb-powerpack'),
 						'cloud'                     => __('Cloud', 'bb-powerpack'),
 						'slit'                      => __('Slit', 'bb-powerpack'),
 						'water'                     => __('Water', 'bb-powerpack'),
 						'zigzag'                    => __('ZigZag', 'bb-powerpack'),
+						'mountains'					=> __( 'Mountains', 'bb-powerpack' ),
 					),
 					'toggle'                    => array(
 						'triangle_shadow'           => array(
@@ -502,11 +504,13 @@ function pp_row_separators( $sections ) {
 						'tilt_left'                 => __('Tilt Left', 'bb-powerpack'),
 						'tilt_right'                => __('Tilt Right', 'bb-powerpack'),
 						'curve'                     => __('Curve', 'bb-powerpack'),
+						'curve_layers'              => __('Curve Layers', 'bb-powerpack'),
 						'wave'                      => __('Wave', 'bb-powerpack'),
 						'cloud'                     => __('Cloud', 'bb-powerpack'),
 						'slit'                      => __('Slit', 'bb-powerpack'),
 						'water'                     => __('Water', 'bb-powerpack'),
 						'zigzag'                    => __('ZigZag', 'bb-powerpack'),
+						'mountains'					=> __( 'Mountains', 'bb-powerpack' ),
 					),
 					'toggle'                    => array(
 						'triangle_shadow'           => array(
@@ -998,23 +1002,35 @@ function pp_row_downarrow( $sections ) {
 					'toggle'                    => array(
 						'yes'                       => array(
 							'sections'                  => array('da_style'),
-							'fields'                    => array('da_transition_speed', 'da_top_offset')
+							'fields'                    => array('da_transition_speed', 'da_top_offset', 'da_icon_style')
 						)
 					)
 				),
+				'da_icon_style'	=> array(
+					'type'				=> 'pp-switch',
+					'label'				=> __('Style', 'bb-powerpack'),
+					'default'			=> 'style-1',
+					'options'			=> array(
+						'style-1'			=> __('Style 1', 'bb-powerpack'),
+						'style-2'			=> __('Style 2', 'bb-powerpack'),
+					),
+					'toggle'	=> array(
+						'style-1'			=> array(
+							'fields'		=> array('da_arrow_weight', 'da_arrow_padding', 'da_animation')
+						)	
+					)
+				),
 				'da_transition_speed'   => array(
-					'type'                  => 'text',
+					'type'                  => 'unit',
 					'label'                 => __('Transition Speed', 'bb-powerpack'),
 					'default'               => 500,
-					'description'           => 'ms',
-					'class'                 => 'input-small'
+					'untis'       			=> array('ms'),
 				),
 				'da_top_offset'         => array(
-					'type'                  => 'text',
+					'type'                  => 'unit',
 					'label'                 => __('Top Offset', 'bb-powerpack'),
 					'default'               => 0,
-					'description'           => 'px',
-					'class'                 => 'input-small',
+					'untis'       			=> array('px'),
 					'help'                  => __('If your theme uses a sticky header, then please enter the header height in px (numbers only) to avoid overlapping of row content.', 'bb-powerpack')
 				),
 				'da_animation'          => array(
@@ -1038,7 +1054,8 @@ function pp_row_downarrow( $sections ) {
 			)
 		),
 		'da_style'      => array(
-			'title'         => __('Style', 'bb-powerpack'),
+			'title'         => __('Down Arrow Style', 'bb-powerpack'),
+			'collapsed'		=> true,
 			'fields'        => array(
 				'da_arrow_weight'   => array(
 					'type'              => 'pp-switch',
@@ -1093,11 +1110,10 @@ function pp_row_downarrow( $sections ) {
 					)
 				),
 				'da_arrow_border'   => array(
-					'type'              => 'text',
+					'type'              => 'unit',
 					'label'             => __('Border Width', 'bb-powerpack'),
 					'default'           => 0,
-					'description'       => 'px',
-					'class'             => 'input-small',
+					'untis'       		=> array('px'),
 					'preview'           => array(
 						'type'              => 'css',
 						'selector'          => '.pp-down-arrow-wrap .pp-down-arrow',
@@ -1124,11 +1140,10 @@ function pp_row_downarrow( $sections ) {
 					)
 				),
 				'da_arrow_padding'  => array(
-					'type'              => 'text',
+					'type'              => 'unit',
 					'label'             => __('Padding', 'bb-powerpack'),
 					'default'           => 0,
-					'description'       => 'px',
-					'class'             => 'input-small',
+					'untis'       		=> array('px'),
 					'preview'           => array(
 						'type'              => 'css',
 						'selector'          => '.pp-down-arrow-wrap .pp-down-arrow',
@@ -1168,11 +1183,10 @@ function pp_row_downarrow( $sections ) {
 					)
 				),
 				'da_arrow_radius'   => array(
-					'type'              => 'text',
+					'type'              => 'unit',
 					'label'             => __('Round Corners', 'bb-powerpack'),
-					'default'           => 0,
-					'description'       => 'px',
-					'class'             => 'input-small',
+					'default'           => '',
+					'untis'       		=> array('px'),
 					'preview'           => array(
 						'type'              => 'css',
 						'selector'          => '.pp-down-arrow-wrap .pp-down-arrow',

@@ -50,7 +50,7 @@ class PPFluentFormModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module(
+BB_PowerPack::register_module(
 	'PPFluentFormModule',
 	array(
 		'form'            => array( // Tab

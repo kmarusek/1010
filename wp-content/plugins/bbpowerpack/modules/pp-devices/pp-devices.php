@@ -20,7 +20,7 @@ class PPDevicesModule extends FLBuilderModule {
 				'name'            => __( 'Devices', 'bb-powerpack' ),
 				'description'     => __( 'A module for Devices.', 'bb-powerpack' ),
 				'group'           => pp_get_modules_group(),
-				'category'        => pp_get_modules_cat( 'content' ),
+				'category'        => pp_get_modules_cat( 'media' ),
 				'dir'             => BB_POWERPACK_DIR . 'modules/pp-devices/',
 				'url'             => BB_POWERPACK_URL . 'modules/pp-devices/',
 				'editor_export'   => true, // Defaults to true and can be omitted.
@@ -310,7 +310,7 @@ class PPDevicesModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module(
+BB_PowerPack::register_module(
 	'PPDevicesModule',
 	array(
 		'general' => array(

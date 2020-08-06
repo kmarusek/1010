@@ -86,7 +86,12 @@ for ( $i = 0; $i < $number_panels; $i++ ) {
 	}
 <?php } ?>
 
-@media only screen and ( max-width: 768px ) {
+@media only screen and ( max-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {
+	<?php if ( isset( $settings->responsive_stack ) && 'yes' === $settings->responsive_stack ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-image-panels-wrap .pp-image-panels-inner {
+		flex-direction: column;
+	}
+	<?php } ?>
 	<?php
 	for ( $i = 0; $i < $number_panels; $i++ ) {
 		$panel = $settings->image_panels[ $i ];

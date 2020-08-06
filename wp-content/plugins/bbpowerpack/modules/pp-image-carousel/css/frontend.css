@@ -41,8 +41,8 @@ div.mfp-wrap .mfp-bottom-bar {
 .pp-image-carousel {
     position: relative;
     text-align: center;
+	overflow: hidden;
 	height: 250px;
-    overflow: hidden;
 }
 
 .pp-image-carousel-item {

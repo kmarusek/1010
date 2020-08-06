@@ -618,22 +618,21 @@ if ( isset( $settings->message_border_group ) && ! empty( $settings->message_bor
 	);
 }
 // Success Message Padding
-if ( isset( $settings->message_padding ) && ! empty( $settings->message_padding ) ) {
-	FLBuilderCSS::dimension_field_rule(
-		array(
-			'settings'     => $settings,
-			'setting_name' => 'message_padding',
-			'selector'     => ".fl-node-$id .gform_confirmation_wrapper",
-			'unit'         => 'px',
-			'props'        => array(
-				'padding-top'    => 'message_padding_top',
-				'padding-right'  => 'message_padding_right',
-				'padding-bottom' => 'message_padding_bottom',
-				'padding-left'   => 'message_padding_left',
-			),
-		)
-	);
-}
+FLBuilderCSS::dimension_field_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'message_padding',
+		'selector'     => ".fl-node-$id .gform_confirmation_wrapper",
+		'unit'         => 'px',
+		'props'        => array(
+			'padding-top'    => 'message_padding_top',
+			'padding-right'  => 'message_padding_right',
+			'padding-bottom' => 'message_padding_bottom',
+			'padding-left'   => 'message_padding_left',
+		),
+	)
+);
+
 // Success Message Typography
 if ( isset( $settings->message_typography ) && ! empty( $settings->message_typography ) ) {
 	FLBuilderCSS::typography_field_rule(

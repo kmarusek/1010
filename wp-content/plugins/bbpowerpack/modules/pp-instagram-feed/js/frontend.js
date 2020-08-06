@@ -139,7 +139,7 @@
 
 					// Image.
 					if ( ( '' === this.settings.image_size || 0 === this.settings.image_size ) || 'grid' === this.settings.layout ) {
-						html += '<img src="' + image + '" alt="' + caption + '" />'
+						html += '<img src="' + image + '" alt="' + caption.replace(/"|'/g, '') + '" />'
 					}
 
 					// End link.

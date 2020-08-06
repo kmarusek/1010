@@ -6,6 +6,10 @@ if ( isset( $settings->file ) ) {
 	$ext      = pathinfo( $filepath, PATHINFO_EXTENSION ); // to get extension
 	$name     = pathinfo( $filepath, PATHINFO_FILENAME ); //file name without extension
 	$filename = $name . '.' . $ext;
+
+	if ( isset( $settings->file_name ) && ! empty( $settings->file_name ) ) {
+		$filename = wp_unslash( $settings->file_name );
+	}
 }
 
 FLBuilder::render_module_html( 'pp-smart-button', array(

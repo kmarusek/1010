@@ -133,8 +133,9 @@ final class BB_PowerPack_Maintenance_Mode {
 		}
 
 		// IP whitelist.
-		if ( ! empty( trim( $ips ) ) ) {
-			$ips = explode( "\n", trim( $ips ) );
+		$ips = trim( $ips );
+		if ( ! empty( $ips ) ) {
+			$ips = explode( "\n", $ips );
 			$current_ip = pp_get_client_ip();
 			if ( in_array( $current_ip, $ips ) ) {
 				return;

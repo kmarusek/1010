@@ -13,7 +13,7 @@ class PPImageCarouselModule extends FLBuilderModule {
 			'name'          => __( 'Image Carousel', 'bb-powerpack' ),
 			'description'   => __( 'A module for image carousel.', 'bb-powerpack' ),
 			'group'         => pp_get_modules_group(),
-			'category'		=> pp_get_modules_cat( 'content' ),
+			'category'		=> pp_get_modules_cat( 'media' ),
 			'dir'           => BB_POWERPACK_DIR . 'modules/pp-image-carousel/',
 			'url'           => BB_POWERPACK_URL . 'modules/pp-image-carousel/',
 			'editor_export' => true, // Defaults to true and can be omitted.
@@ -216,7 +216,7 @@ class PPImageCarouselModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPImageCarouselModule', array(
+BB_PowerPack::register_module('PPImageCarouselModule', array(
 	'general'       => array( // Tab
 		'title'         => __( 'General', 'bb-powerpack' ), // Tab title
 		'sections'      => array( // Tab Sections
@@ -444,10 +444,24 @@ FLBuilder::register_module('PPImageCarouselModule', array(
 						'label'         => __( 'Image Size', 'bb-powerpack' ),
 						'default'       => 'medium',
 					),
+					'use_image_as'	=> array(
+						'type'			=> 'select',
+						'label'			=> __( 'Use Image as', 'bb-powerpack' ),
+						'default' 		=> 'background',
+						'options'		=> array(
+							'background'	=> __( 'Background Image', 'bb-powerpack' ),
+							'img'			=> __( 'Image tag', 'bb-powerpack' ),
+						),
+						'toggle'	=> array(
+							'background'	=> array(
+								'fields'		=> array( 'image_fit' ),
+							),
+						),
+					),
 					'image_fit'        => array(
 						'type'          => 'select',
 						'label'         => __( 'Image Fit', 'bb-powerpack' ),
-						'default'       => 'normal',
+						'default'       => 'auto',
 						'options'       => array(
 							'cover'     	=> __( 'Cover', 'bb-powerpack' ),
 							'contain' 		=> __( 'Contain', 'bb-powerpack' ),
@@ -624,7 +638,7 @@ FLBuilder::register_module('PPImageCarouselModule', array(
 						'toggle'			=> array(
 							'bullets'			=> array(
 								'sections'			=> array( 'pagination_style' ),
-								'fields'			=> array( 'bullets_width', 'bullets_border_radius' ),
+								'fields'			=> array( 'bullets_width', 'bullets_border_radius', 'bullets_spacing_h', 'bullets_spacing_v' ),
 							),
 							'fraction'			=> array(
 								'sections'			=> array( 'pagination_style' ),
@@ -997,6 +1011,32 @@ FLBuilder::register_module('PPImageCarouselModule', array(
 							'type'            => 'css',
 							'selector'        => '.pp-image-carousel .swiper-pagination-bullet',
 							'property'        => 'border-radius',
+							'unit'            => 'px',
+						),
+					),
+					'bullets_spacing_h'	=> array(
+						'type'          => 'unit',
+						'label'         => __( 'Bullets Horizontal Spacing', 'bb-powerpack' ),
+						'default'       => '',
+						'units'			=> array( 'px' ),
+						'slider'		=> true,
+						'preview'         => array(
+							'type'            => 'css',
+							'selector'        => '.pp-image-carousel .swiper-pagination-bullet',
+							'property'        => 'margin-right',
+							'unit'            => 'px',
+						),
+					),
+					'bullets_spacing_v'	=> array(
+						'type'          => 'unit',
+						'label'         => __( 'Bullets Vertical Spacing', 'bb-powerpack' ),
+						'default'       => '',
+						'units'			=> array( 'px' ),
+						'slider'		=> true,
+						'preview'         => array(
+							'type'            => 'css',
+							'selector'        => '.pp-image-carousel .swiper-wrapper',
+							'property'        => 'margin-bottom',
 							'unit'            => 'px',
 						),
 					),

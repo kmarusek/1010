@@ -28,7 +28,8 @@
 					'label'   => __( 'Post Type', 'bb-powerpack' ),
 					'options' => $post_types,
 					'default' => isset( $settings->post_type ) ? $settings->post_type : 'post',
-				)
+				),
+				$settings
 			);
 			?>
 		</table>
@@ -50,7 +51,8 @@
 					'type'    => 'select',
 					'label'   => __( 'Taxonomy', 'bb-powerpack' ),
 					'options' => $taxonomy_type[ $slug ],
-				)
+				),
+				$settings
 			);
 
 			foreach ( $taxonomy_type[ $slug ] as $tax_slug => $tax_label ) {
@@ -83,7 +85,8 @@
 					'default' => '10',
 					'slider'  => true,
 					'help'    => __( 'Leave Blank or add -1 for all posts.', 'bb-powerpack' ),
-				)
+				),
+				$settings
 			);
 			FLBuilder::render_settings_field(
 				'post_order',
@@ -95,7 +98,8 @@
 						'ASC'  => __( 'Ascending', 'bb-powerpack' ),
 						'DESC' => __( 'Descending', 'bb-powerpack' ),
 					),
-				)
+				),
+				$settings
 			);
 			?>
 		</table>

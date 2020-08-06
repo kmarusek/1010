@@ -16,7 +16,7 @@ class PPAdvancedMenu extends FLBuilderModule {
             'name'          => __('Advanced Menu', 'bb-powerpack'),
             'description'   => __('A module for advanced menu.', 'bb-powerpack'),
 			'group'         => pp_get_modules_group(),
-			'category'      => pp_get_modules_cat( 'creative' ),
+			'category'      => pp_get_modules_cat( 'content' ),
             'dir'           => BB_POWERPACK_DIR . 'modules/pp-advanced-menu/',
             'url'           => BB_POWERPACK_URL . 'modules/pp-advanced-menu/',
             'editor_export' => true, // Defaults to true and can be omitted.
@@ -61,11 +61,11 @@ class PPAdvancedMenu extends FLBuilderModule {
 			if( in_array( $toggle, array( 'hamburger', 'hamburger-label' ) ) ) {
 
 				echo '<div class="pp-advanced-menu-mobile-toggle '. $toggle .'">';
-                    echo '<div class="pp-hamburger">';
-					echo '<div class="pp-hamburger-box">';
-					echo '<div class="pp-hamburger-inner"></div>';
-					echo '</div>';
-					echo '</div>';
+				echo '<div class="pp-hamburger">';
+				echo '<div class="pp-hamburger-box">';
+				echo '<div class="pp-hamburger-inner"></div>';
+				echo '</div>';
+				echo '</div>';
 
 				if( $toggle == 'hamburger-label' ) {
 					if( $menu_text ) {
@@ -228,7 +228,7 @@ class PPAdvancedMenu extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPAdvancedMenu', array(
+BB_PowerPack::register_module('PPAdvancedMenu', array(
     'general'       => array( // Tab
         'title'         => __('General', 'bb-powerpack'), // Tab title
         'sections'      => array( // Tab Sections
@@ -337,17 +337,14 @@ FLBuilder::register_module('PPAdvancedMenu', array(
 					    	'hamburger'	=> array(
 					    		'fields'		=> array( 'mobile_menu_type', 'mobile_breakpoint', 'mobile_toggle_size', 'mobile_toggle_thickness', 'menu_position' ),
 								'sections'		=> array('mobile_toggle_typography', 'mobile_toggle_style'),
-								'tabs'		=> array( 'responsive_style' )
 					    	),
 					    	'hamburger-label'	=> array(
 					    		'fields'		=> array( 'mobile_menu_type', 'mobile_breakpoint', 'custom_menu_text', 'mobile_toggle_font', 'mobile_toggle_size', 'mobile_toggle_thickness', 'menu_position' ),
 								'sections'		=> array('mobile_toggle_typography', 'mobile_toggle_style'),
-								'tabs'			=> array( 'responsive_style' )
 					    	),
 					    	'text'	=> array(
 					    		'fields'		=> array( 'mobile_menu_type', 'mobile_breakpoint', 'custom_menu_text', 'mobile_toggle_font', 'menu_position' ),
 								'sections'		=> array('mobile_toggle_typography', 'mobile_toggle_style'),
-								'tabs'		=> array( 'responsive_style' )
 					    	),
 					    )
 					),
@@ -382,7 +379,7 @@ FLBuilder::register_module('PPAdvancedMenu', array(
 						'toggle'	=> array(
 							'off-canvas'	=> array(
                                 'sections'      => array('menu_shadow', 'close_icon'),
-								'fields'	    => array( 'offcanvas_direction', 'animation_speed', 'responsive_overlay_bg_color', 'responsive_overlay_bg_opacity', 'responsive_overlay_padding', 'close_icon_size', 'close_icon_color', 'responsive_link_color', 'responsive_link_hover_color', 'responsive_link_border_color', 'responsive_alignment_vertical' )
+								'fields'	    => array( 'offcanvas_direction', 'offcanvas_width', 'animation_speed', 'responsive_overlay_bg_color', 'responsive_overlay_bg_opacity', 'responsive_overlay_padding', 'close_icon_size', 'close_icon_color', 'responsive_link_color', 'responsive_link_hover_color', 'responsive_link_border_color', 'responsive_alignment_vertical' )
 							),
 							'full-screen'	=> array(
 								'sections'	=> array('close_icon'),
@@ -411,6 +408,18 @@ FLBuilder::register_module('PPAdvancedMenu', array(
 					    	'right'			=> __( 'From Right', 'bb-powerpack' ),
 					    ),
 					),
+					'offcanvas_width'	=> array(
+						'type'	=> 'unit',
+						'label'	=> __( 'Off Canvas Width', 'bb-powerpack' ),
+						'default' => '',
+						'units'	=> array('px'),
+						'slider'	=> array(
+							'min'		=> 100,
+							'max'		=> 500,
+							'step'		=> 10
+						),
+						'responsive' => true,
+					),
 					'animation_speed'   => array(
                         'type'              => 'text',
                         'label'             => __('Animation Speed', 'bb-powerpack'),
@@ -431,7 +440,8 @@ FLBuilder::register_module('PPAdvancedMenu', array(
                     'alignment'    => array(
                         'type'          => 'align',
                         'label'         => __('Alignment', 'bb-powerpack'),
-                        'default'       => 'center',
+						'default'       => 'center',
+						'responsive'	=> true,
                     ),
                     'spacing'    => array(
 						'type' 			=> 'unit',
@@ -817,12 +827,12 @@ FLBuilder::register_module('PPAdvancedMenu', array(
 				'fields'	=> array(
 					'responsive_alignment'    => array(
                         'type'          => 'align',
-                        'label'         => __('Horizontal Alignment', 'bb-powerpack'),
+                        'label'         => __('Content Horizontal Alignment', 'bb-powerpack'),
                         'default'       => 'center',
                     ),
                     'responsive_alignment_vertical' => array(
                         'type'  => 'pp-switch',
-                        'label' => __('Vertical Alignment', 'bb-powerpack'),
+                        'label' => __('Content Vertical Alignment', 'bb-powerpack'),
                         'default'   => 'top',
                         'options'   => array(
                             'top'       => __('Top', 'bb-powerpack'),

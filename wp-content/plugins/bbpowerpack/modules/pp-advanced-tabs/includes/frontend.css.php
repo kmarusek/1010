@@ -55,6 +55,13 @@ FLBuilderCSS::typography_field_rule( array(
 	'setting_name'	=> 'label_typography',
 	'selector'		=> ".fl-node-$id .pp-tabs-labels .pp-tabs-label .pp-tab-title, .fl-node-$id .pp-tabs-panels .pp-tabs-label .pp-tab-title"
 ) );
+
+// Description typography.
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name'	=> 'description_typography',
+	'selector'		=> ".fl-node-$id .pp-tabs-labels .pp-tabs-label .pp-tab-description, .fl-node-$id .pp-tabs-panels .pp-tabs-label .pp-tab-description"
+) );
 ?>
 
 <?php
@@ -105,15 +112,38 @@ FLBuilderCSS::dimension_field_rule( array(
 }
 
 .fl-node-<?php echo $id; ?> .pp-tabs .pp-tabs-label {
-	background-color: #<?php echo $settings->label_background_color; ?>;
+	<?php if ( ! empty( $settings->label_background_color ) ) { ?>
+	background-color: <?php echo pp_get_color_value( $settings->label_background_color ); ?>;
+	<?php } ?>
+	<?php if ( ! empty( $settings->label_text_color ) ) { ?>
 	color: #<?php echo $settings->label_text_color; ?>;
+	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-tabs .pp-tabs-label.pp-tab-active,
 .fl-node-<?php echo $id; ?> .pp-tabs .pp-tabs-label.pp-tab-active:hover,
-.fl-node-<?php echo $id; ?> .pp-tabs .pp-tabs-label:hover {
-	background-color: #<?php echo $settings->label_background_active_color; ?>;
+.fl-node-<?php echo $id; ?> .pp-tabs .pp-tabs-label:hover,
+.fl-node-<?php echo $id; ?> .pp-tabs .pp-tabs-label:focus {
+	<?php if ( ! empty( $settings->label_background_active_color ) ) { ?>
+	background-color: <?php echo pp_get_color_value( $settings->label_background_active_color ); ?>;
+	<?php } ?>
+	<?php if ( ! empty( $settings->label_active_text_color ) ) { ?>
 	color: #<?php echo $settings->label_active_text_color; ?>;
+	<?php } ?>
+}
+
+.fl-node-<?php echo $id; ?> .pp-tabs .pp-tabs-label .pp-tab-description {
+	<?php if ( isset( $settings->description_color ) && ! empty( $settings->description_color ) ) { ?>
+	color: #<?php echo $settings->description_color; ?>;
+	<?php } ?>
+}
+
+.fl-node-<?php echo $id; ?> .pp-tabs .pp-tabs-label.pp-tab-active .pp-tab-description,
+.fl-node-<?php echo $id; ?> .pp-tabs .pp-tabs-label.pp-tab-active:hover .pp-tab-description,
+.fl-node-<?php echo $id; ?> .pp-tabs .pp-tabs-label:hover .pp-tab-description {
+	<?php if ( isset( $settings->description_active_color ) && ! empty( $settings->description_active_color ) ) { ?>
+	color: #<?php echo $settings->description_active_color; ?>;
+	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-tabs .pp-tabs-label.pp-tab-active .pp-tab-icon,
@@ -288,6 +318,9 @@ FLBuilderCSS::dimension_field_rule( array(
 
 	.fl-node-<?php echo $id; ?> .pp-tabs-vertical.pp-tabs-style-7 .pp-tabs-label .pp-tab-label-inner {
 		border-right-color: #<?php echo $settings->border_color; ?>;
+	}
+	.fl-node-<?php echo $id; ?> .pp-tabs-vertical.pp-tabs-vertical-right.pp-tabs-style-7 .pp-tabs-label .pp-tab-label-inner {
+		border-left-color: #<?php echo $settings->border_color; ?>;
 	}
 	.fl-node-<?php echo $id; ?> .pp-tabs-vertical.pp-tabs-style-7 .pp-tabs-label.pp-tab-active .pp-tab-label-inner:before,
 	.fl-node-<?php echo $id; ?> .pp-tabs-vertical.pp-tabs-style-7 .pp-tabs-label.pp-tab-active .pp-tab-label-inner:after {

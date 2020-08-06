@@ -77,7 +77,11 @@ class PPContentGridModule extends FLBuilderModule {
 	 */
 	static public function schema_itemtype()
 	{
-		BB_PowerPack_Post_Helper::schema_itemtype();
+		return BB_PowerPack_Post_Helper::schema_itemtype();
+	}
+
+	static public function schema_collection_type( $data_source, $post_type ) {
+		return BB_PowerPack_Post_Helper::schema_collection_type( $data_source, $post_type );
 	}
 
 	public function pp_get_settings() {
@@ -422,7 +426,7 @@ class PPContentGridModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPContentGridModule', array(
+BB_PowerPack::register_module('PPContentGridModule', array(
 	'layout'        => array(
 		'title'         => __('Layout', 'bb-powerpack'),
 		'sections'      => array(
@@ -617,6 +621,11 @@ FLBuilder::register_module('PPContentGridModule', array(
 			'slider_general'       => array(
 				'title'         => '',
 				'fields'        => array(
+					'slide_by'	=> array(
+						'type'		=> 'unit',
+						'label'		=> __( 'Slides to Move', 'bb-powerpack' ),
+						'default'	=> '1',
+					),
 					'slides_speed' => array(
 						'type'          => 'text',
 						'label'         => __('Slides Speed', 'bb-powerpack'),
@@ -793,6 +802,12 @@ FLBuilder::register_module('PPContentGridModule', array(
 						'default'		=> 10,
 						'units'			=> array('px'),
 						'slider'		=> true
+					),
+					'arrow_spacing'	=> array(
+						'type'	=> 'unit',
+						'label'	=> __( 'Spacing', 'bb-powerpack' ),
+						'default' => '-15',
+						'units' => array( 'px' ),
 					),
                 )
             ),
@@ -1319,6 +1334,43 @@ FLBuilder::register_module('PPContentGridModule', array(
 			'filter_general_setting'	=> array(
 				'title'	=> __('General', 'bb-powerpack'),
 				'fields'	=> array(
+					'filter_position' => array(
+						'type'	=> 'pp-switch',
+						'label'	=> __( 'Position', 'bb-powerpack' ),
+						'default' => 'top',
+						'options' => array(
+							'top'	=> __( 'Top', 'bb-powerpack' ),
+							'left'	=> __( 'Left', 'bb-powerpack' ),
+							'right'	=> __( 'Right', 'bb-powerpack' ),
+						),
+						'toggle'	=> array(
+							'left'		=> array(
+								'fields'	=> array( 'filter_margin_vertical' ),
+							),
+							'right'		=> array(
+								'fields'	=> array( 'filter_margin_vertical' ),
+							),
+						),
+					),
+					'filter_alignment'    => array(
+                        'type'      => 'align',
+                        'label'     => __('Alignment', 'bb-powerpack'),
+                        'default'   => 'left',
+					),
+					'filter_margin' 	=> array(
+						'type'      => 'unit',
+                        'label'     => __('Spacing', 'bb-powerpack'),
+                        'units'     => array('px'),
+                        'slider' 	=> true,
+                        'default'   => 10,
+					),
+					'filter_margin_vertical' 	=> array(
+						'type'      => 'unit',
+                        'label'     => __('Spacing between filters', 'bb-powerpack'),
+                        'units'     => array('px'),
+                        'slider' 	=> true,
+                        'default'   => 10,
+					),
 					'responsive_filter'	=> array(
 						'type'				=> 'select',
 						'label'				=> __('Filter Toggle Breakpoint', 'bb-powerpack'),
@@ -1334,24 +1386,6 @@ FLBuilder::register_module('PPContentGridModule', array(
 						),
 						'help'				=> __('By enabling this option will convert filters into a toggle. If you want to display the filters as they are appearing on desktop, keep it disabled.', 'bb-powerpack')
 					),
-					'filter_alignment'    => array(
-                        'type'      => 'align',
-                        'label'     => __('Alignment', 'bb-powerpack'),
-                        'default'   => 'left',
-					),
-					'filter_margin' 	=> array(
-						'type'      => 'unit',
-                        'label'     => __('Spacing', 'bb-powerpack'),
-                        'units'     => array('px'),
-                        'slider' 	=> true,
-                        'default'   => 10,
-                        'preview'       => array(
-							'type'            => 'css',
-							'selector'        => '.pp-post-filters li',
-							'property'        => 'margin-right',
-							'unit'            => 'px'
-                        ),
-                    ),
 				)
 			),
 			'filter_colors'	=> array(

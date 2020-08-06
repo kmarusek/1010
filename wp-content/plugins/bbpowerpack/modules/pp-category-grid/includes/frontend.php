@@ -38,7 +38,7 @@ $args = array(
 );
 
 if ( $cat_match && 'related' !== $cat_match && ! empty( $ids ) ) {
-	if ( isset( $settings->display_data ) && ( 'children_only' === $settings->display_data || 'default' === $settings->display_data ) && ! empty( $ids ) && ! empty( $ids[0] ) ) {
+	if ( isset( $settings->display_data ) && ( 'children_only' === $settings->display_data || 'default' === $settings->display_data ) && ! empty( $ids[0] ) ) {
 		//only single value is allowed so we have made new custom function, get_child_categories()
 		$args['parent'] = $ids;
 	} else {
@@ -46,7 +46,7 @@ if ( $cat_match && 'related' !== $cat_match && ! empty( $ids ) ) {
 	}
 }
 if ( ( ! $cat_match || 'related' === $cat_match ) && ! empty( $ids ) ) {
-	if ( isset( $settings->display_data ) && ( 'parent_only' !== $settings->display_data ) && ! empty( $ids ) && ! empty( $ids[0] ) ) {
+	if ( isset( $settings->display_data ) && ( 'parent_only' !== $settings->display_data ) && ! empty( $ids[0] ) ) {
 
 		foreach ( $ids as $term_id ) {
 			$tmp_ids = get_term_children( $term_id, $taxonomy );
@@ -59,9 +59,14 @@ if ( ( ! $cat_match || 'related' === $cat_match ) && ! empty( $ids ) ) {
 }
 
 // Show child terms on taxonomy archive page.
-if ( isset( $settings->on_tax_archive ) && 'children_only' === $settings->on_tax_archive && is_tax() ) {
-	$current_term = get_queried_object()->term_id;
-	$args['child_of'] = $current_term;
+if ( isset( $settings->on_tax_archive ) && ( is_tax() || is_category() || is_tag() ) ) {
+	$current_object = get_queried_object();
+	if ( 'children_only' === $settings->on_tax_archive ) {
+		$args['child_of'] = $current_object->term_id;
+	}
+	if ( 'parent_only' === $settings->on_tax_archive && intval( $current_object->parent ) > 0 ) {
+		$args['include'] = (array) $current_object->parent;
+	}
 }
 
 $args = apply_filters( 'pp_category_grid_query_args', $args, $settings );
@@ -74,6 +79,15 @@ if ( isset( $settings->display_data ) && 'children_only' === $settings->display_
 	$all_categories = get_categories( $args );
 }
 
+global $post;
+
+$current_post_terms = array();
+$assigned_only = isset( $settings->on_post ) && 'assigned_only' === $settings->on_post;
+
+if ( is_single() && $post && $post->ID ) {
+	$current_post_terms = wp_get_post_terms( $post->ID, $taxonomy, array( 'fields' => 'slugs' ) );
+}
+
 $hide_img = isset( $settings->category_show_image ) && 'no' === $settings->category_show_image;
 ?>
 
@@ -82,6 +96,11 @@ $hide_img = isset( $settings->category_show_image ) && 'no' === $settings->categ
 	<?php
 
 	foreach ( $all_categories as $cat ) {
+		// filter categories which are actually assigned to current post.
+		if ( $assigned_only && ! empty( $current_post_terms ) && ! in_array( $cat->slug, $current_post_terms ) ) {
+			continue;
+		}
+
 		if ( isset( $settings->display_data ) && 'parent_only' === $settings->display_data ) {
 			if ( isset( $args['include'][0] ) && intval( $args['include'][0] ) > 0 ) {
 				$inc_array = $args['include'];
@@ -90,6 +109,12 @@ $hide_img = isset( $settings->category_show_image ) && 'no' === $settings->categ
 				}
 			} elseif ( 0 !== $cat->parent ) {
 				continue;
+			} elseif ( ! empty( $current_post_terms ) ) {
+				// To display only assigned parents on single post.
+				$parent = get_term_by( 'id', $cat->parent );
+				if ( $parent && ! in_array( $parent->slug, $current_post_terms ) ) {
+					continue;
+				}
 			}
 		} elseif ( isset( $settings->display_data ) && 'children_only' === $settings->display_data ) {
 			if ( isset( $args['include'][0] ) && intval( $args['include'][0] ) > 0 ) {
@@ -104,6 +129,12 @@ $hide_img = isset( $settings->category_show_image ) && 'no' === $settings->categ
 				}
 			} elseif ( 0 === $cat->parent ) {
 				continue;
+			} elseif ( ! empty( $current_post_terms ) ) {
+				// To display only assigned children on single post.
+				$parent = get_term_by( 'id', $cat->parent );
+				if ( $parent && ! in_array( $parent->slug, $current_post_terms ) ) {
+					continue;
+				}
 			}
 		} elseif ( isset( $settings->display_data ) && 'default' === $settings->display_data && isset( $args['exclude'] ) && ! empty( $args['exclude'][0] ) ) {
 			$exc_array = $args['exclude'];

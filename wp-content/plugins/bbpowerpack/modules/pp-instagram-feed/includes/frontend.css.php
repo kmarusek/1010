@@ -37,7 +37,7 @@
 <?php } ?>
 
 <?php if ( 'no' == $settings->image_hover_grayscale ) { ?>
-	.fl-node-<?php echo $id; ?> .pp-feed-item:hover .pp-feed-item-inner,
+	.fl-node-<?php echo $id; ?> .pp-instagram-feed[data-layout="square-grid"] .pp-feed-item:hover .pp-feed-item-inner,
 	.fl-node-<?php echo $id; ?> .pp-feed-item:hover img {
 		filter: none;
 	}

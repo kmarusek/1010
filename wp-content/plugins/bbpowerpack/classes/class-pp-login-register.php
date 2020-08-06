@@ -33,6 +33,7 @@ final class BB_PowerPack_Login_Register {
 		add_filter( 'pp_admin_settings_tabs', 	__CLASS__ . '::render_settings_tab', 10, 1 );
 		add_action( 'pp_admin_settings_save', 	__CLASS__ . '::save_settings' );
 		add_action( 'login_init', 				__CLASS__ . '::redirect' );
+		add_filter( 'login_url',				__CLASS__ . '::login_url', 10, 3 );
 		//add_action( 'init', 					__CLASS__ . '::login_redirect' );
 		add_filter( 'authenticate', 			__CLASS__ . '::auth_redirect', 10, 3 );
 		add_action( 'wp_logout', 				__CLASS__ . '::logout_redirect' );
@@ -121,28 +122,50 @@ final class BB_PowerPack_Login_Register {
 	 */
 	static public function redirect() {
 		$redirect_to = '';
-		$page_id = '';
+		$action = isset( $_GET['action'] ) ? $_GET['action'] : '';
 
 		if ( isset( $_REQUEST['interim-login'] ) ) {
 			return;
 		}
 
-		if ( isset( $_GET['action'] ) && 'register' == $_GET['action'] ) {
+		if ( 'register' === $action ) {
 			$page_id = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_register_page', true );
+			$redirect_to = get_permalink( $page_id );
+			if ( ! empty( $page_id ) && ! empty( $redirect_to ) ) {
+				wp_redirect( $redirect_to );
+				exit;
+			}
 		} else {
 			if ( ! is_user_logged_in() ) {
 				$page_id = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_login_page', true );
+				$redirect_to = get_permalink( $page_id );
+				if ( 'lostpassword' === $action || 'retrievepassword' === $action ) {
+					$redirect_to = add_query_arg( 'action', 'lost_pass', $redirect_to );
+				}
+				if ( ! empty( $page_id ) && ! empty( $redirect_to ) ) {
+					wp_redirect( $redirect_to );
+					exit;
+				}
+			}
+		}
+	}
+
+	static public function login_url( $login_url, $redirect, $force_reauth ) {
+		$page_id = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_login_page', true );
+		
+		if ( ! empty( $page_id ) ) {
+			$login_url = get_permalink( $page_id );
+
+			if ( ! empty( $redirect ) ) {
+				$login_url = add_query_arg( 'redirect_to', urlencode( $redirect ), $login_url );
+			}
+		
+			if ( $force_reauth ) {
+				$login_url = add_query_arg( 'reauth', '1', $login_url );
 			}
 		}
 
-		if ( ! empty( $page_id ) ) {
-			$redirect_to = get_permalink( $page_id );
-		}
-
-		if ( ! empty( $redirect_to ) ) {
-			wp_redirect( $redirect_to );
-			exit;
-		}
+		return $login_url;
 	}
 
 	/**

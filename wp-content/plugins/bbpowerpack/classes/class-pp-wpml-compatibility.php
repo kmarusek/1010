@@ -78,7 +78,7 @@ class BB_PowerPack_WPML {
 						'editor_type' => 'LINE',
 					),
 					array(
-						'field'       => 'announcement_link_url',
+						'field'       => 'announcement_link',
 						'type'        => __( 'Annoucement Bar - Link', 'bb-powerpack' ),
 						'editor_type' => 'LINK',
 					),

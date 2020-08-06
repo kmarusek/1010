@@ -5,6 +5,8 @@
 class PPGalleryModule extends FLBuilderModule {
 	public $photos = array();
 	public $current_photos = array();
+	private $cached_ids = array();
+	private $is_ajax = false;
 
 	/**
 	 * @method __construct
@@ -15,7 +17,7 @@ class PPGalleryModule extends FLBuilderModule {
 			'name'          => __('Photo Gallery', 'bb-powerpack'),
 			'description'   => __('A module for photo gallery.', 'bb-powerpack'),
 			'group'         => pp_get_modules_group(),
-			'category'		=> pp_get_modules_cat( 'content' ),
+			'category'		=> pp_get_modules_cat( 'media' ),
 			'dir'           => BB_POWERPACK_DIR . 'modules/pp-gallery/',
 			'url'           => BB_POWERPACK_URL . 'modules/pp-gallery/',
 			'editor_export' => true, // Defaults to true and can be omitted.
@@ -138,6 +140,8 @@ class PPGalleryModule extends FLBuilderModule {
 			define( 'DOING_AJAX', true );
 		}
 
+		$this->is_ajax = true;
+
 		$response = array(
 			'error'	=> false,
 			'data'	=> ''
@@ -146,14 +150,16 @@ class PPGalleryModule extends FLBuilderModule {
 		$node_id 			= isset( $_POST['node_id'] ) ? sanitize_text_field( $_POST['node_id'] ) : false;
 		$template_id    	= isset( $_POST['template_id'] ) ? sanitize_text_field( $_POST['template_id'] ) : false;
 		$template_node_id   = isset( $_POST['template_node_id'] ) ? sanitize_text_field( $_POST['template_node_id'] ) : false;
+		$cached_ids			= isset( $_POST['cached_ids'] ) ? $_POST['cached_ids'] : array();
+
+		if ( ! empty( $cached_ids ) && is_array( $cached_ids ) ) {
+			$this->cached_ids = $cached_ids;
+		}
 
 		if ( $node_id ) {
 			$settings = (object)$_POST['settings'];
 
-			if ( ! isset( $this->settings ) ) {
-				$this->settings = $settings;
-			}
-			elseif ( empty( $this->settings ) ) {
+			if ( ! isset( $this->settings ) || empty( $this->settings ) ) {
 				$this->settings = $settings;
 			}
 
@@ -240,8 +246,13 @@ class PPGalleryModule extends FLBuilderModule {
 		$photo_from_template = false;
 		$photo_attachment_data = false;
 
-		if(empty($this->settings->gallery_photos)) {
+		if ( empty( $this->settings->gallery_photos ) ) {
 			return $photos;
+		}
+
+		if ( ! empty( $this->cached_ids ) && $this->is_ajax ) {
+			$ids = array_diff( $ids, $this->cached_ids );
+			$ids = array_slice( $ids, 0, $this->settings->images_per_page );
 		}
 
 		/* Check if all photos are available on host */
@@ -379,7 +390,7 @@ class PPGalleryModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPGalleryModule', array(
+BB_PowerPack::register_module('PPGalleryModule', array(
 	'general'       => array( // Tab
 		'title'         => __('General', 'bb-powerpack'), // Tab title
 		'sections'      => array( // Tab Sections
@@ -539,8 +550,21 @@ FLBuilder::register_module('PPGalleryModule', array(
 						),
 						'preview'	=> array(
 							'type'		=> 'none'
-						)
-					)
+						),
+						'toggle'	=> array(
+							'_blank'	=> array(
+								'fields'	=> array( 'custom_link_nofollow' ),
+							),
+						),
+					),
+					'custom_link_nofollow'	=> array(
+						'type'	=> 'pp-switch',
+						'label' => __( 'Link nofollow', 'bb-powerpack' ),
+						'default' => 'yes',
+						'preview'	=> array(
+							'type'		=> 'none'
+						),
+					),
 				)
 			),
 			'hover_effects'	=> array(

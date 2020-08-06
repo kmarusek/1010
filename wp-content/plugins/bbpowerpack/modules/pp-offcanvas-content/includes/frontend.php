@@ -8,7 +8,7 @@ $offcanvas_class .= ' pp-offcanvas-' . $settings->content_transition;
 	<div class="<?php echo $offcanvas_class; ?>" data-id="<?php echo $id; ?>">
 		<?php if ( 'yes' === $settings->close_button ) { ?>
 			<div class="pp-offcanvas-header">
-				<div class="pp-offcanvas-close" role="button">
+				<div class="pp-offcanvas-close" role="button" aria-label="<?php _e( 'Close Off Canvas Content', 'bb-powerpack' ); ?>">
 					<span class="<?php echo ( '' != $settings->close_button_icon ) ? $settings->close_button_icon : 'fa fa-times'; ?>"></span>
 				</div>
 			</div>
@@ -26,9 +26,11 @@ $offcanvas_class .= ' pp-offcanvas-' . $settings->content_transition;
 				<span class="pp-hamburger-box">
 					<span class="pp-hamburger-inner"></span>
 				</span>
+				<?php if ( '' !== $settings->burger_label ) { ?>
 				<span class="pp-hamburger-label pp-toggle-label">
 					<?php echo $settings->burger_label; ?>
 				</span>
+				<?php } ?>
 			</div>
 		<?php } elseif ( 'button' === $settings->toggle_source ) { ?>
 			<div class="pp-offcanvas-toggle pp-offcanvas-toggle-button pp-offcanvas-icon-<?php echo $settings->toggle_text_align; ?>">

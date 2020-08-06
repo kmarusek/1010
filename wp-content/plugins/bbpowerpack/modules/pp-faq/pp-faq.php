@@ -62,6 +62,8 @@ class PPFAQModule extends FLBuilderModule {
 	 * Render schema markup.
 	 */
 	public function render_schema( $return = false ) {
+		global $pp_faq_schema_items;
+
 		$settings      = $this->settings;
 		$enable_schema = true;
 
@@ -104,11 +106,13 @@ class PPFAQModule extends FLBuilderModule {
 		}
 		// @codingStandardsIgnoreEnd.
 
+		$schema_data = apply_filters( 'pp_faq_schema_markup', $schema_data, $settings );
+
+		$pp_faq_schema_items[] = $schema_data['mainEntity'];
+
 		if ( $return ) {
 			return $schema_data;
 		}
-
-		$schema_data = apply_filters( 'pp_faq_schema_markup', $schema_data, $settings );
 		?>
 		<script type="application/ld+json">
 		<?php echo json_encode( $schema_data ); ?>
@@ -341,7 +345,7 @@ class PPFAQModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module(
+BB_PowerPack::register_module(
 	'PPFAQModule',
 	array(
 		'items'      => array(

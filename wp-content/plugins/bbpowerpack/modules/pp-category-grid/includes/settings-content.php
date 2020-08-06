@@ -27,7 +27,8 @@
 					'label'   => __( 'Post Type', 'bb-powerpack' ),
 					'options' => $post_types,
 					'default' => isset( $settings->post_type ) ? $settings->post_type : 'post',
-				)
+				),
+				$settings
 			);
 			?>
 		</table>
@@ -45,7 +46,8 @@
 					'type'    => 'select',
 					'label'   => __( 'Taxonomy', 'bb-powerpack' ),
 					'options' => $taxonomy_type[ $slug ],
-				)
+				),
+				$settings
 			);
 
 			foreach ( $taxonomy_type[ $slug ] as $tax_slug => $tax_label ) {
@@ -87,7 +89,8 @@
 							'parent_only'   => __( 'Parent Only', 'bb-powerpack' ),
 							'children_only' => __( 'Children Only', 'bb-powerpack' ),
 						),
-					)
+					),
+					$settings
 				);
 
 				FLBuilder::render_settings_field(
@@ -98,10 +101,28 @@
 						'default' => isset( $settings->on_tax_archive ) ? $settings->on_tax_archive : 'default',
 						'options' => array(
 							'default'       => __( 'Default', 'bb-powerpack' ),
+							'parent_only' => __( 'Parent of Current Category', 'bb-powerpack' ),
 							'children_only' => __( 'Children of Current Category', 'bb-powerpack' ),
 						),
-					)
+					),
+					$settings
 				);
+
+				if ( is_single() ) {
+					FLBuilder::render_settings_field(
+						'on_post',
+						array(
+							'type'    => 'select',
+							'label'   => __( 'On Single Post', 'bb-powerpack' ),
+							'default' => isset( $settings->on_post ) ? $settings->on_post : 'default',
+							'options' => array(
+								'default'       => __( 'Default', 'bb-powerpack' ),
+								'assigned_only' => __( 'Assigned only', 'bb-powerpack' ),
+							),
+						),
+						$settings
+					);
+				}
 				?>
 		</table>
 
@@ -120,7 +141,8 @@
 							'parent' => __( 'Parent', 'bb-powerpack' ),
 							'count'  => __( 'Post Count', 'bb-powerpack' ),
 						),
-					)
+					),
+					$settings
 				);
 				?>
 		</table>
@@ -137,7 +159,8 @@
 							'ASC'  => __( 'Ascending', 'bb-powerpack' ),
 							'DESC' => __( 'Descending', 'bb-powerpack' ),
 						),
-					)
+					),
+					$settings
 				);
 
 				?>

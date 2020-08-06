@@ -131,7 +131,7 @@ class PPAnnouncementBarModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPAnnouncementBarModule', array(
+BB_PowerPack::register_module('PPAnnouncementBarModule', array(
 	'general'      => array( // Tab
 		'title'         => __('General', 'bb-powerpack'), // Tab title
 		'sections'      => array( // Tab Sections

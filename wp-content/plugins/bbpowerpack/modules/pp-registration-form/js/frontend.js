@@ -207,7 +207,7 @@
 				formData		= this._getFormData(),
 				reCaptchaField 	= $(this.nodeClass + ' .pp-grecaptcha'),
 				reCaptchaValue 	= reCaptchaField.data('pp-grecaptcha-response'),
-				ajaxurl	  		= this.settings.ajaxurl,
+				ajaxurl	  		= bb_powerpack.ajaxurl,
 				email_regex 	= /\S+@\S+\.\S+/,
 				postId      	= theForm.closest( '.fl-builder-content' ).data( 'post-id' ),
 				templateId		= theForm.data( 'template-id' ),

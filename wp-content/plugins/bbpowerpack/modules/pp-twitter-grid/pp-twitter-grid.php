@@ -14,7 +14,7 @@ class PPTwitterGridModule extends FLBuilderModule {
 			'name'          => __( 'Twitter Embedded Grid', 'bb-powerpack' ),
 			'description'   => __( 'A collection timeline displays multiple Tweets curated by a Twitter user in their chosen display order or sorted by time.', 'bb-powerpack' ),
 			'group'         	=> pp_get_modules_group(),
-			'category'			=> pp_get_modules_cat( 'creative' ),
+			'category'			=> pp_get_modules_cat( 'social' ),
 			'dir'           	=> BB_POWERPACK_DIR . 'modules/pp-twitter-grid/',
 			'url'           	=> BB_POWERPACK_URL . 'modules/pp-twitter-grid/',
 			'editor_export' 	=> true, // Defaults to true and can be omitted.
@@ -28,7 +28,7 @@ class PPTwitterGridModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPTwitterGridModule', array(
+BB_PowerPack::register_module('PPTwitterGridModule', array(
 	'general'       => array( // Tab
 		'title'         => __( 'General', 'bb-powerpack' ), // Tab title
 		'description'	=> sprintf(

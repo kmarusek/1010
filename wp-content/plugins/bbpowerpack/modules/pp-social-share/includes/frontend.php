@@ -5,6 +5,8 @@
  *  @package  Social Share Module
  */
 
+global $post;
+
 $main_el_class  = 'pp-social-share-content';
 $main_el_class .= ' pp-share-buttons-view-' . $settings->view;
 $main_el_class .= ' pp-share-buttons-skin-' . $settings->skin;

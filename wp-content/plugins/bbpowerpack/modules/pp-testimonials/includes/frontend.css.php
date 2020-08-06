@@ -195,66 +195,83 @@ FLBuilderCSS::responsive_rule( array(
 	) );
 ?>
 
+.fl-node-<?php echo $id; ?>.pp-masonry-grid .pp-testimonials {
+	<?php if ( isset( $settings->grid_columns ) && ! empty( $settings->grid_columns ) ) { ?>
+	column-count: <?php echo $settings->grid_columns; ?>;
+	<?php } ?>
+}
+
 @media only screen and ( max-width: <?php echo $global_settings->medium_breakpoint; ?>px ) {
-	.pp-testimonials-grid-md-1 .pp-testimonials {
+	.fl-node-<?php echo $id; ?> .pp-testimonials-grid-md-1 .pp-testimonials {
 		grid-template-columns: repeat(1,1fr);
 		display: grid;
 	}
 
-	.pp-testimonials-grid-md-2 .pp-testimonials {
+	.fl-node-<?php echo $id; ?> .pp-testimonials-grid-md-2 .pp-testimonials {
 		grid-template-columns: repeat(2,1fr);
 		display: grid;
 	}
 
-	.pp-testimonials-grid-md-3 .pp-testimonials {
+	.fl-node-<?php echo $id; ?> .pp-testimonials-grid-md-3 .pp-testimonials {
 		grid-template-columns: repeat(3,1fr);
 		display: grid;
 	}
 
-	.pp-testimonials-grid-md-4 .pp-testimonials {
+	.fl-node-<?php echo $id; ?> .pp-testimonials-grid-md-4 .pp-testimonials {
 		grid-template-columns: repeat(4,1fr);
 		display: grid;
 	}
 
-	.pp-testimonials-grid-md-5 .pp-testimonials {
+	.fl-node-<?php echo $id; ?> .pp-testimonials-grid-md-5 .pp-testimonials {
 		grid-template-columns: repeat(5,1fr);
 		display: grid;
 	}
 
-	.pp-testimonials-grid-md-6 .pp-testimonials {
+	.fl-node-<?php echo $id; ?> .pp-testimonials-grid-md-6 .pp-testimonials {
 		grid-template-columns: repeat(6,1fr);
 		display: grid;
+	}
+	.fl-node-<?php echo $id; ?>.pp-masonry-grid .pp-testimonials {
+		<?php if ( isset( $settings->grid_columns_medium ) && ! empty( $settings->grid_columns_medium ) ) { ?>
+		column-count: <?php echo $settings->grid_columns_medium; ?>;
+		<?php } ?>
 	}
 }
 
 @media only screen and ( max-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {
-	.pp-testimonials-grid-sm-1 .pp-testimonials {
+	.fl-node-<?php echo $id; ?> .pp-testimonials-grid-sm-1 .pp-testimonials {
 		grid-template-columns: repeat(1,1fr);
 		display: grid;
 	}
 
-	.pp-testimonials-grid-sm-2 .pp-testimonials {
+	.fl-node-<?php echo $id; ?> .pp-testimonials-grid-sm-2 .pp-testimonials {
 		grid-template-columns: repeat(2,1fr);
 		display: grid;
 	}
 
-	.pp-testimonials-grid-sm-3 .pp-testimonials {
+	.fl-node-<?php echo $id; ?> .pp-testimonials-grid-sm-3 .pp-testimonials {
 		grid-template-columns: repeat(3,1fr);
 		display: grid;
 	}
 
-	.pp-testimonials-grid-sm-4 .pp-testimonials {
+	.fl-node-<?php echo $id; ?> .pp-testimonials-grid-sm-4 .pp-testimonials {
 		grid-template-columns: repeat(4,1fr);
 		display: grid;
 	}
 
-	.pp-testimonials-grid-sm-5 .pp-testimonials {
+	.fl-node-<?php echo $id; ?> .pp-testimonials-grid-sm-5 .pp-testimonials {
 		grid-template-columns: repeat(5,1fr);
 		display: grid;
 	}
 
-	.pp-testimonials-grid-sm-6 .pp-testimonials {
+	.fl-node-<?php echo $id; ?> .pp-testimonials-grid-sm-6 .pp-testimonials {
 		grid-template-columns: repeat(6,1fr);
 		display: grid;
+	}
+
+	.fl-node-<?php echo $id; ?>.pp-masonry-grid .pp-testimonials {
+		<?php if ( isset( $settings->grid_columns_responsive ) && ! empty( $settings->grid_columns_responsive ) ) { ?>
+		column-count: <?php echo $settings->grid_columns_responsive; ?>;
+		<?php } ?>
 	}
 }

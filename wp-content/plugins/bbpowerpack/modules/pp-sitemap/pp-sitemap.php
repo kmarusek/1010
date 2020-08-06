@@ -186,7 +186,7 @@ class PPSiteMapModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module(
+BB_PowerPack::register_module(
 	'PPSiteMapModule',
 	array(
 		'general'  => array(

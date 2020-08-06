@@ -17,7 +17,7 @@ class PPImagePanelsModule extends FLBuilderModule {
 				'name'            => __( 'Image Panels', 'bb-powerpack' ),
 				'description'     => __( 'Create beautiful images panels.', 'bb-powerpack' ),
 				'group'           => pp_get_modules_group(),
-				'category'        => pp_get_modules_cat( 'content' ),
+				'category'        => pp_get_modules_cat( 'media' ),
 				'dir'             => BB_POWERPACK_DIR . 'modules/pp-image-panels/',
 				'url'             => BB_POWERPACK_URL . 'modules/pp-image-panels/',
 				'editor_export'   => true, // Defaults to true and can be omitted.
@@ -135,7 +135,7 @@ class PPImagePanelsModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module(
+BB_PowerPack::register_module(
 	'PPImagePanelsModule',
 	array(
 		'content' => array( // Tab
@@ -201,6 +201,14 @@ FLBuilder::register_module(
 								'yes' => array(
 									'sections' => array( 'image_effects_active', 'image_effects_inactive' ),
 								),
+							),
+						),
+						'responsive_stack'	=> array(
+							'type'	=> 'pp-switch',
+							'label'	=> __( 'Stack on mobile devices', 'bb-powerpack' ),
+							'default' => 'no',
+							'preview' => array(
+								'type'	=> 'none',
 							),
 						),
 					),

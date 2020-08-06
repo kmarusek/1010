@@ -29,6 +29,12 @@ class PPGravityFormModule extends FLBuilderModule {
 		add_action( 'wp_ajax_nopriv_pp_gf_forms_dropdown_html', array( $this, 'gf_forms_dropdown_html' ) );
 	}
 
+	public function enqueue_scripts() {
+		if ( isset( $_GET['fl_builder'] ) ) {
+			wp_enqueue_style( 'gforms_formsmain_css' );
+		}
+	}
+
 	public function gf_forms_dropdown_html() {
 		$options = '<option value="">' . __( 'None', 'bb-powerpack' ) . '</option>';
 
@@ -200,7 +206,7 @@ class PPGravityFormModule extends FLBuilderModule {
 /**
 	* Register the module and its form settings.
 	*/
-FLBuilder::register_module(
+BB_PowerPack::register_module(
 	'PPGravityFormModule',
 	array(
 		'form'            => array( // Tab
@@ -508,6 +514,7 @@ FLBuilder::register_module(
 							'label'       => __( 'Text Color', 'bb-powerpack' ),
 							'default'     => '333333',
 							'connections' => array( 'color' ),
+							'show_reset'	=> true,
 							'preview'     => array(
 								'type'     => 'css',
 								'selector' => '.gform_wrapper .gfield input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]), .gform_wrapper .gfield select, .gform_wrapper .gfield textarea',
@@ -532,6 +539,7 @@ FLBuilder::register_module(
 							'label'       => __( 'Description Color', 'bb-powerpack' ),
 							'default'     => '000000',
 							'connections' => array( 'color' ),
+							'show_reset'	=> true,
 							'preview'     => array(
 								'type'     => 'css',
 								'selector' => '.gform_wrapper .gfield .gfield_description',

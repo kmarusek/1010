@@ -126,6 +126,13 @@ FLBuilderCSS::border_field_rule( array(
 
 .fl-node-<?php echo $id; ?> .pp-button .pp-button-icon {
 	font-size: <?php echo ( $settings->icon_size >= 0 ) ? $settings->icon_size . 'px' : '16px'; ?>;
+	<?php if ( isset( $settings->icon_spacing ) && $settings->icon_spacing !== '' ) { ?>
+		<?php if ( 'before' === $settings->icon_position ) { ?>
+			margin-right: <?php echo $settings->icon_spacing; ?>px;
+		<?php } else { ?>
+			margin-left: <?php echo $settings->icon_spacing; ?>px;
+		<?php } ?>
+	<?php } ?>
 }
 
 <?php if ( isset( $settings->text_color ) && ! empty( $settings->text_color ) ) : ?>

@@ -57,7 +57,7 @@ class PPLineSeparatorModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPLineSeparatorModule', array(
+BB_PowerPack::register_module('PPLineSeparatorModule', array(
 	'general'      => array( // Tab
 		'title'         => __('Separator', 'bb-powerpack'), // Tab title
 		'sections'      => array( // Tab Sections

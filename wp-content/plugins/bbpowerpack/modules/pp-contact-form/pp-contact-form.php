@@ -374,7 +374,7 @@ class PPContactFormModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPContactFormModule', array(
+BB_PowerPack::register_module('PPContactFormModule', array(
 	'general'       => array(
 		'title'         => __('General', 'bb-powerpack'),
 		'sections'      => array(

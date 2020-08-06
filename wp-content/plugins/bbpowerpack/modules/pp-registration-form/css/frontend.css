@@ -48,6 +48,9 @@
 	font-size: 12px;
 	margin-right: 10px;
 }
+.pp-registration-form .pp-rf-field .pp-rf-pws-status:empty {
+	display: none;
+}
 .pp-registration-form .pp-rf-field .pp-rf-pws-status.short {
 	color: red;
 }
@@ -160,6 +163,9 @@
 	display: none;
 	color: red;
 	font-size: 12px;
+}
+.pp-registration-form .pp-rf-field[data-field-type="consent"] .pp-rf-error {
+	width: 100%;
 }
 form.pp-registration-form div.pp-rf-field.pp-rf-validation-error .pp-rf-control,
 form.pp-registration-form div.pp-rf-field.pp-rf-field-error .pp-rf-control {

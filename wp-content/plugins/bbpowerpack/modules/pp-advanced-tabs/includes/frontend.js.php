@@ -2,9 +2,13 @@
 
 	$(function() {
 
+		<?php $scroll_animate = apply_filters( 'pp_advanced_tabs_scroll_animate', true ); ?>
+
 		new PPAdvancedTabs({
 			id: '<?php echo $id ?>',
+			layout: '<?php echo $settings->layout; ?>',
 			responsiveClosed: <?php echo ( isset( $settings->responsive_closed ) && 'yes' == $settings->responsive_closed ) ? 'true' : 'false'; ?>,
+			scrollAnimate: <?php echo $scroll_animate ? 'true' : 'false'; ?>,
 		});
 
 		$('.fl-node-<?php echo $id; ?> .pp-tabs-style-2 .pp-tabs-label.pp-tab-active').prev().addClass('pp-no-border');

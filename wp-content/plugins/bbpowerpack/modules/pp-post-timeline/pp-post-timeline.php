@@ -31,8 +31,8 @@ class PPPostTimelineModule extends FLBuilderModule {
 		$this->add_css( 'jquery-slick-theme' );
 		$this->add_js( 'jquery-slick' );
 
-		add_action( 'wp_ajax_get_post_tax', array( $this, 'pp_get_post_taxonomies' ) );
-		add_action( 'wp_ajax_nopriv_get_post_tax', array( $this, 'pp_get_post_taxonomies' ) );
+		add_action( 'wp_ajax_pp_timeline_get_post_tax', array( $this, 'pp_get_post_taxonomies' ) );
+		add_action( 'wp_ajax_nopriv_pp_timeline_get_post_tax', array( $this, 'pp_get_post_taxonomies' ) );
 	}
 
 	public function filter_settings( $settings, $helper )
@@ -192,7 +192,7 @@ class PPPostTimelineModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPPostTimelineModule', array(
+BB_PowerPack::register_module('PPPostTimelineModule', array(
 	'general'      => array( // Tab
 		'title'         => __('Structure', 'bb-powerpack'), // Tab title
 		'sections'      => array( // Tab Sections

@@ -46,15 +46,16 @@ FLBuilderCSS::typography_field_rule( array(
 	float: none !important;
 }
 
-.fl-node-<?php echo $id; ?> .pp-table-content thead,
-.fl-node-<?php echo $id; ?> .pp-table-content.tablesaw thead {
+.fl-node-<?php echo $id; ?> .pp-table-content thead th,
+.fl-node-<?php echo $id; ?> .pp-table-content.tablesaw thead th,
+.fl-node-<?php echo $id; ?> .pp-table-content.tablesaw-sortable th.tablesaw-sortable-head button {
     background: <?php echo pp_get_color_value($settings->header_background); ?>;
 	border: 0;
 }
 
 .fl-node-<?php echo $id; ?> .pp-table-content thead tr th,
 .fl-node-<?php echo $id; ?> .pp-table-content.tablesaw-sortable th.tablesaw-sortable-head,
-.fl-node-<?php echo $id; ?> .pp-table-content.tablesaw-sortable tr:first-child th.tablesaw-sortable-head {
+.fl-node-<?php echo $id; ?> .pp-table-content.tablesaw-sortable tr:first-child th.tablesaw-sortable-head button {
     color: <?php echo pp_get_color_value($settings->header_font_color); ?>;
 }
 
@@ -126,19 +127,19 @@ FLBuilderCSS::typography_field_rule( array(
 }
 
 .fl-node-<?php echo $id; ?> .pp-table-content tbody tr:nth-child(odd) {
-    <?php if( $settings->rows_odd_background ) { ?>background: #<?php echo $settings->rows_odd_background; ?>;<?php } ?>
+    <?php if( $settings->rows_odd_background ) { ?>background: <?php echo pp_get_color_value($settings->rows_odd_background); ?>;<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-table-content tbody tr:nth-child(odd) td {
-    <?php if( $settings->rows_font_odd ) { ?>color: #<?php echo $settings->rows_font_odd; ?>;<?php } ?>
+    <?php if( $settings->rows_font_odd ) { ?>color: <?php echo pp_get_color_value($settings->rows_font_odd); ?>;<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-table-content tbody tr:nth-child(even) {
-    <?php if( $settings->rows_even_background ) { ?>background: #<?php echo $settings->rows_even_background; ?>;<?php } ?>
+    <?php if( $settings->rows_even_background ) { ?>background: <?php echo pp_get_color_value($settings->rows_even_background); ?>;<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-table-content tbody tr:nth-child(even) td {
-    <?php if( $settings->rows_font_even ) { ?>color: #<?php echo $settings->rows_font_even; ?>;<?php } ?>
+    <?php if( $settings->rows_font_even ) { ?>color: <?php echo pp_get_color_value($settings->rows_font_even); ?>;<?php } ?>
 }
 
 

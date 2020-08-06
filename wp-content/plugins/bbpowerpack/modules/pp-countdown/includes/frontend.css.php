@@ -1,4 +1,36 @@
 <?php
+
+// Title Typography
+FLBuilderCSS::typography_field_rule( array(
+	'settings'		=> $settings,
+	'setting_name' 	=> 'title_typography',
+	'selector' 		=> ".fl-node-$id .pp-countdown-wrapper .pp-countdown-title",
+) );
+
+FLBuilderCSS::responsive_rule( array(
+	'settings'	=> $settings,
+	'setting_name'	=> 'title_margin_top',
+	'selector'	=> ".fl-node-$id .pp-countdown-wrapper .pp-countdown-title",
+	'prop'		=> 'margin-top',
+	'unit'		=> 'px',
+) );
+
+FLBuilderCSS::responsive_rule( array(
+	'settings'	=> $settings,
+	'setting_name'	=> 'title_margin_bottom',
+	'selector'	=> ".fl-node-$id .pp-countdown-wrapper .pp-countdown-title",
+	'prop'		=> 'margin-bottom',
+	'unit'		=> 'px',
+) );
+?>
+
+.fl-node-<?php echo $id; ?> .pp-countdown-wrapper .pp-countdown-title {
+	<?php if ( isset( $settings->title_color ) && '' != $settings->title_color ) : ?>
+		color: <?php echo '#' . $settings->title_color; ?>;
+	<?php endif; ?>
+}
+
+<?php
 $settings->block_bg_color_opc = ( '' != $settings->block_bg_color_opc ) ? $settings->block_bg_color_opc : 100;
 $block_spacing = ( isset( $settings->block_spacing ) && ! empty( $settings->block_spacing ) ) ? $settings->block_spacing : 10;
 ?>

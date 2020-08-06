@@ -65,6 +65,13 @@ class PPRegistrationFormHandler extends PPRegistrationFormModule {
 	public function register_user() {
 		check_ajax_referer( 'pp-registration-nonce', 'security' );
 
+		if ( ! get_option( 'users_can_register' ) ) {
+			wp_send_json_error( array(
+				'code'		=> 'registration_disabled',
+				'message'	=> __( 'Registration is disabled.', 'bb-powerpack' ),
+			) );
+		}
+
 		$userdata = $_POST;
 		$response = array();
 

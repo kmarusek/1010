@@ -65,8 +65,11 @@ FLBuilderCSS::typography_field_rule( array(
 	'selector'		=> ".fl-node-$id ul.pp-post-filters li",
 ) );
 ?>
-
+.fl-node-<?php echo $id; ?> ul.pp-post-filters li {
+	outline: 0;
+}
 .fl-node-<?php echo $id; ?> ul.pp-post-filters li:hover,
+.fl-node-<?php echo $id; ?> ul.pp-post-filters li:focus,
 .fl-node-<?php echo $id; ?> ul.pp-post-filters li.pp-filter-active {
 	<?php if ( isset( $settings->filter_bg_color_active ) && ! empty( $settings->filter_bg_color_active ) ) { ?>
 		background: <?php echo pp_get_color_value( $settings->filter_bg_color_active ); ?>;
@@ -217,7 +220,7 @@ FLBuilderCSS::typography_field_rule( array(
 ) );
 ?>
 
-<?php if ( 'tribe_events' == $settings->post_type && 'style-9' == $settings->post_grid_style_select ) { ?>
+<?php if ( isset( $settings->post_type ) && 'tribe_events' == $settings->post_type && 'style-9' == $settings->post_grid_style_select ) { ?>
 	<?php if ( ( isset( $settings->event_date ) && 'yes' == $settings->event_date )
 		|| ( isset( $settings->event_venue ) && 'yes' == $settings->event_venue ) 
 		|| ( isset( $settings->event_cost ) && 'yes' == $settings->event_cost ) ) { ?>
@@ -487,7 +490,16 @@ FLBuilderCSS::typography_field_rule( array(
     box-shadow: none;
 }
 
-.fl-node-<?php echo $id; ?> .pp-content-post-carousel .owl-theme .owl-nav button svg {
+<?php if ( isset( $settings->arrow_spacing ) && '' !== $settings->arrow_spacing ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-content-post-carousel .owl-nav button.owl-prev {
+		left: <?php echo $settings->arrow_spacing; ?>px;
+	}
+	.fl-node-<?php echo $id; ?> .pp-content-post-carousel .owl-nav button.owl-next {
+		right: <?php echo $settings->arrow_spacing; ?>px;
+	}
+<?php } ?>
+
+.fl-node-<?php echo $id; ?> .pp-content-post-carousel .owl-nav button svg {
 	width: <?php echo ( $settings->post_slider_arrow_font_size * 1.7 ); ?>px;
 	height: <?php echo ( $settings->post_slider_arrow_font_size * 1.7 ); ?>px;
 	<?php if ( isset( $settings->arrow_color ) && ! empty( $settings->arrow_color ) ) { ?>
@@ -502,14 +514,14 @@ FLBuilderCSS::typography_field_rule( array(
 FLBuilderCSS::border_field_rule( array(
 	'settings' 		=> $settings,
 	'setting_name' 	=> 'arrow_border',
-	'selector' 		=> ".fl-node-$id .pp-content-post-carousel .owl-theme .owl-nav button svg",
+	'selector' 		=> ".fl-node-$id .pp-content-post-carousel .owl-nav button svg",
 ) );
 
 // Arrow padding
 FLBuilderCSS::dimension_field_rule( array(
 	'settings'		=> $settings,
 	'setting_name'	=> 'arrow_padding',
-	'selector' 		=> ".fl-node-$id .pp-content-post-carousel .owl-theme .owl-nav button svg",
+	'selector' 		=> ".fl-node-$id .pp-content-post-carousel .owl-nav button svg",
 	'unit'			=> 'px',
 	'props'			=> array(
 		'padding-top' 		=> 'arrow_padding_top',
@@ -520,7 +532,7 @@ FLBuilderCSS::dimension_field_rule( array(
 ) );
 ?>
 
-.fl-node-<?php echo $id; ?> .pp-content-post-carousel .owl-theme .owl-nav button:hover svg {
+.fl-node-<?php echo $id; ?> .pp-content-post-carousel .owl-nav button:hover svg {
     <?php if ( isset( $settings->arrow_hover_color ) && ! empty( $settings->arrow_hover_color ) ) { ?>
 		color: <?php echo pp_get_color_value( $settings->arrow_hover_color ); ?>;
 	<?php } ?>
@@ -690,35 +702,63 @@ FLBuilderCSS::dimension_field_rule( array(
 	<?php } ?>
 }
 
-<?php if ( $responsive_filter != 'no' ) { ?>
-	<?php if ( $responsive_filter == 'all' ) { ?>
-	<?php } elseif ( $responsive_filter == 'large' ) { ?>
-		@media screen and (min-width: <?php echo intval( $global_settings->medium_breakpoint ) - 1; ?>px) {
-	<?php } elseif ( $responsive_filter == 'large_medium' ) { ?>
-		@media screen and (min-width: <?php echo intval( $global_settings->responsive_breakpoint ) - 1; ?>px) {
-	<?php } elseif ( $responsive_filter == 'medium' ) { ?>
-		@media screen and (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) and (min-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
-	<?php } elseif ( $responsive_filter == 'medium_small' ) { ?>
-		@media screen and (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) {
-	<?php } elseif ( $responsive_filter == 'yes' ) { ?>
-		@media screen and (max-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
-	<?php } ?>
-			.fl-node-<?php echo $id; ?> .pp-post-filters-toggle {
-				display: block;
-			}
-			.fl-node-<?php echo $id; ?> ul.pp-post-filters {
-				display: none;
-			}
-			.fl-node-<?php echo $id; ?> ul.pp-post-filters li {
-				display: block;
-				float: none;
-				margin: 0 !important;
-				text-align: left;
-			}
-		<?php if ( $responsive_filter != 'all' ) { ?>	
-		}
+<?php if ('all' !== $responsive_filter) {?>
+	.fl-node-<?php echo $id; ?> .pp-post-filters-sidebar .pp-content-posts {
+		width: 100%;
+	}
+	.fl-node-<?php echo $id; ?> .pp-post-filters-sidebar.pp-posts-wrapper {
+		display: flex;
+		flex-direction: row;
+	}
+	.fl-node-<?php echo $id; ?> .pp-post-filters-sidebar-right.pp-posts-wrapper {
+		flex-direction: row-reverse;
+	}
+	.fl-node-<?php echo $id; ?> .pp-post-filters-sidebar .pp-post-filters-wrapper {
+		flex: 1 0 0;
+	}
+	.fl-node-<?php echo $id; ?> .pp-post-filters-sidebar .pp-post-filters li {
+		display: block;
+		<?php if ( isset( $settings->filter_margin_vertical ) && '' !== $settings->filter_margin_vertical ) { ?>
+			margin-bottom: <?php echo $settings->filter_margin_vertical; ?>px;
 		<?php } ?>
+	}
+	<?php if ( '' !== $settings->filter_margin ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-post-filters-sidebar-right .pp-post-filters li {
+		margin-right: 0;
+		margin-left: <?php echo $settings->filter_margin; ?>px;
+	}
+	<?php } ?>
 <?php } ?>
+
+<?php if ('no' != $responsive_filter) {?>
+<?php if ('all' == $responsive_filter) {?>
+<?php } elseif ('large' == $responsive_filter) {?>
+	@media screen and (min-width: <?php echo intval($global_settings->medium_breakpoint) - 1; ?>px) {
+<?php } elseif ('large_medium' == $responsive_filter) {?>
+	@media screen and (min-width: <?php echo intval($global_settings->responsive_breakpoint) - 1; ?>px) {
+<?php } elseif ('medium' == $responsive_filter) {?>
+	@media screen and (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) and (min-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
+<?php } elseif ('medium_small' == $responsive_filter) {?>
+	@media screen and (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) {
+<?php } elseif ('yes' == $responsive_filter) { // small devices. ?>
+	@media screen and (max-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
+<?php }?>
+		.fl-node-<?php echo $id; ?> .pp-post-filters-toggle {
+			display: block;
+		}
+		.fl-node-<?php echo $id; ?> ul.pp-post-filters {
+			display: none;
+		}
+		.fl-node-<?php echo $id; ?> ul.pp-post-filters li {
+			display: block;
+			float: none;
+			margin: 0 !important;
+			text-align: left;
+		}
+	<?php if ('all' != $responsive_filter) {?>
+	}
+	<?php }?>
+<?php }?>
 
 @media screen and (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) {
 	.fl-node-<?php echo $id; ?> .pp-content-post.pp-grid-style-9 {

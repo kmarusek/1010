@@ -402,6 +402,20 @@ function pp_short_day_format( $day )
 	}
 }
 
+function pp_get_date_formats() {
+	return array(
+		''			=> __( 'Default', 'bb-powerpack' ),
+		'F j, Y'	=> current_time( 'F j, y' ),
+		'Y-m-d'		=> current_time( 'Y-m-d' ),
+		'm/d/Y'		=> current_time( 'm/d/Y' ),
+		'd/m/Y'		=> current_time( 'd/m/Y' ),
+	);
+}
+
+function pp_is_tribe_events_post( $post_id ) {
+	return 'tribe_events' === get_post_type( $post_id );
+}
+
 /**
  * Returns user agent.
  *
@@ -471,13 +485,19 @@ function pp_get_client_details()
 
 function pp_get_modules_categories( $cat = '' )
 {
-	$admin_label = pp_get_admin_label();
+	if ( isset( $_GET['tab'] ) && 'modules' === $_GET['tab'] ) {
+		$admin_label = '';
+	} else {
+		$admin_label = ' - ' . pp_get_admin_label();
+	}
 
 	$cats = array(
-		'creative'		=> sprintf( __('Creative Modules%s', 'bb-powerpack'), ' - ' . $admin_label ),
-		'content'		=> sprintf( __('Content Modules%s', 'bb-powerpack'), ' - ' . $admin_label ),
-		'lead_gen'		=> sprintf( __('Lead Generation Modules%s', 'bb-powerpack'), ' - ' . $admin_label ),
-		'form_style'	=> sprintf( __('Form Styler Modules%s', 'bb-powerpack'), ' - ' . $admin_label ),
+		'creative'		=> sprintf( __('Creative Modules%s', 'bb-powerpack'), $admin_label ),
+		'content'		=> sprintf( __('Content Modules%s', 'bb-powerpack'), $admin_label ),
+		'form_style'	=> sprintf( __('Form Styler Modules%s', 'bb-powerpack'), $admin_label ),
+		'lead_gen'		=> sprintf( __('Lead Generation Modules%s', 'bb-powerpack'), $admin_label ),
+		'media'			=> sprintf( __('Media Modules%s', 'bb-powerpack'), $admin_label ),
+		'social'		=> sprintf( __('Social Media Modules%s', 'bb-powerpack'), $admin_label ),
 	);
 
 	if ( empty( $cat ) ) {
@@ -894,4 +914,22 @@ function pp_get_recaptcha_desc() {
 
 function pp_is_builder_active() {
 	return is_user_logged_in() && isset( $_GET['fl_builder'] );
+}
+
+function pp_wl_reset_settings() {
+	delete_option( 'ppwl_hide_form' );
+	delete_option( 'ppwl_hide_plugin' );
+
+	if ( is_network_admin() ) {
+		delete_site_option( 'ppwl_hide_form' );
+		delete_site_option( 'ppwl_hide_plugin' );
+	}
+}
+
+function pp_wl_get_reset_url() {
+	return BB_PowerPack_Admin_Settings::get_form_action( '&tab=white-label&reset_wl=' . pp_plugin_get_hash() );
+}
+
+function pp_plugin_get_hash() {
+	return md5( 'PowerPack for Beaver Builder' );
 }

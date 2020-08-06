@@ -47,7 +47,7 @@ final class BB_PowerPack_Templates_Lib {
 	 * @since 1.1.8
 	 * @var array $upload_dir
 	 */
-	public static $upload_dir;
+	public static $upload_dir = null;
 
 	/**
 	 * Initialize the class.
@@ -61,10 +61,9 @@ final class BB_PowerPack_Templates_Lib {
 			'row'   => 0,
 		);
 
-		self::$remote_urls = array(
-			'page'	=> 'https://wpbeaveraddons.com/wp-json/powerpack/v2/get/templates/page/',
-			'row'	=> 'https://wpbeaveraddons.com/wp-json/powerpack/v2/get/templates/row/',
-		);
+		self::get_remote_urls();
+
+		self::get_upload_dir();
 
 		self::clear_enabled_templates();
 
@@ -92,6 +91,25 @@ final class BB_PowerPack_Templates_Lib {
 		return self::$filesystem;
 	}
 
+	static public function get_upload_dir() {
+		if ( is_null( self::$upload_dir ) ) {
+			self::$upload_dir = BB_PowerPack::$upload_dir;
+		}
+
+		return self::$upload_dir;
+	}
+
+	static public function get_remote_urls() {
+		if ( empty( self::$remote_urls ) ) {
+			self::$remote_urls = array(
+				'page'	=> 'https://wpbeaveraddons.com/wp-json/powerpack/v2/get/templates/page/',
+				'row'	=> 'https://wpbeaveraddons.com/wp-json/powerpack/v2/get/templates/row/',
+			);
+		}
+
+		return self::$remote_urls;
+	}
+
 	/**
 	 * Initialize the templates data.
 	 *
@@ -99,8 +117,6 @@ final class BB_PowerPack_Templates_Lib {
 	 * @return void
 	 */
 	static public function init_templates_data() {
-		self::$upload_dir = BB_PowerPack::$upload_dir;
-
 		if ( is_admin() && isset( $_GET['page'] ) && 'ppbb-settings' == $_GET['page'] ) {
 			self::download_templates_data();
 			self::refresh_templates_data();
@@ -113,9 +129,9 @@ final class BB_PowerPack_Templates_Lib {
 				$row_group = ( ! $row_group || '' == trim( $row_group ) ) ? sprintf( __( '%s Row Templates', 'bb-powerpack' ), pp_get_admin_label() ) : $row_group;
 
 				foreach ( $row_templates as $template ) {
-					if ( file_exists( self::$upload_dir['path'] . $template . '.dat' ) ) {
+					if ( file_exists( self::get_upload_dir()['path'] . $template . '.dat' ) ) {
 						// Template filename should be the same as the category name.
-						FLBuilder::register_templates( self::$upload_dir['path'] . $template . '.dat', array(
+						FLBuilder::register_templates( self::get_upload_dir()['path'] . $template . '.dat', array(
 							'group'	=> $row_group,
 						) );
 					}
@@ -129,9 +145,9 @@ final class BB_PowerPack_Templates_Lib {
 
 				foreach ( $page_templates as $template ) {
 
-					if ( file_exists( self::$upload_dir['path'] . $template . '.dat' ) ) {
+					if ( file_exists( self::get_upload_dir()['path'] . $template . '.dat' ) ) {
 						// Template filename should be the same as the category name.
-						FLBuilder::register_templates( self::$upload_dir['path'] . $template . '.dat', array(
+						FLBuilder::register_templates( self::get_upload_dir()['path'] . $template . '.dat', array(
 							'group'	=> $page_group,
 						) );
 					}
@@ -149,7 +165,8 @@ final class BB_PowerPack_Templates_Lib {
 	 * @return object
 	 */
 	static public function get_templates_data( $type ) {
-		$path = self::$upload_dir['path'];
+		$upload_dir = self::get_upload_dir();
+		$path = $upload_dir['path'];
 		$file = $path . $type . '-templates.json';
 
 		if ( ! file_exists( $file ) ) {
@@ -189,13 +206,20 @@ final class BB_PowerPack_Templates_Lib {
 	 * @param string $request	Either new or blank.
 	 * @return void
 	 */
-	static private function download_templates_data( $request = '' ) {
-		if ( 'new' != $request && file_exists( self::$upload_dir['path'] . 'page-templates.json' ) && file_exists( self::$upload_dir['path'] . 'row-templates.json' ) ) {
+	static public function download_templates_data( $request = '' ) {
+		if ( 'new' != $request && file_exists( self::get_upload_dir()['path'] . 'page-templates.json' ) && file_exists( self::get_upload_dir()['path'] . 'row-templates.json' ) ) {
 			return;
 		}
 
-		$page 	= self::download_templates_json( self::$remote_urls['page'], self::$upload_dir['path'], 'page-templates.json' );
-		$row 	= self::download_templates_json( self::$remote_urls['row'], self::$upload_dir['path'], 'row-templates.json' );
+		$upload_dir = self::get_upload_dir();
+
+		$page 	= self::download_templates_json( self::get_remote_urls()['page'], $upload_dir['path'], 'page-templates.json' );
+		$row 	= self::download_templates_json( self::get_remote_urls()['row'], $upload_dir['path'], 'row-templates.json' );
+
+		return array(
+			'page' => $page,
+			'row' => $row
+		);
 	}
 
 	/**
@@ -210,15 +234,20 @@ final class BB_PowerPack_Templates_Lib {
 	static private function download_templates_json( $url, $path, $filename = '' ) {
 		// Initialize the flag.
 		$downloaded = false;
+		$output = array(
+			'error'	=> false,
+		);
 
 		if ( empty( $filename ) ) {
-			return $downloaded;
+			$output['error'] = __( 'Filename is not valid.', 'bb-powerpack' );
+			return $output;
 		}
 
 		// Additional check for JSON filename.
 		if ( 'page-templates.json' !== $filename ) {
 			if ( 'row-templates.json' !== $filename ) {
-				return $downloaded;
+				$output['error'] = __( 'Filename is not valid.', 'bb-powerpack' );
+				return $output;
 			}
 		}
 
@@ -236,8 +265,9 @@ final class BB_PowerPack_Templates_Lib {
 
 		if ( is_wp_error( $response ) ) {
 			pp_set_error( 'fetch_error' );
-			@error_log( 'bb-powerpack: ' . $response->get_error_message() ); // @codingStandardsIgnoreLine
-			return $downloaded;
+			$output['error'] = $response->get_error_message(); // @codingStandardsIgnoreLine
+			@error_log( 'bb-powerpack: ' . $output['error'] );
+			return $output;
 		}
 
 		$templates_json = wp_remote_retrieve_body( $response );
@@ -248,21 +278,23 @@ final class BB_PowerPack_Templates_Lib {
 			// Check if there is proper response or something went unexpected.
 			if ( array_key_exists( 'code', $templates_data ) || array_key_exists( 'message', $templates_data ) || array_key_exists( 'data', $templates_data ) ) {
 				pp_set_error( 'fetch_error' );
-				return $downloaded;
+				$output['error'] = __( 'Unable to fetch templates data.', 'bb-powerpack' );
+				return $output;
 			}
 
 			file_put_contents( $path, $templates_json );
 		} else {
 			pp_set_error( 'fetch_error' );
-			return $downloaded;
+			$output['error'] = __( 'Something went wrong. Please try again.', 'bb-powerpack' );
+			return $output;
 		}
 
 		// Set the flag true if the template file is downloaded.
 		if ( file_exists( $path ) ) {
-			$downloaded = true;
+			$output['error'] = false;
 		}
 
-		return $downloaded;
+		return $output;
 	}
 
 	/**
@@ -344,7 +376,7 @@ final class BB_PowerPack_Templates_Lib {
 		$url = pp_templates_src( $type, $cat );
 
 		// Get the upload dir path.
-		$path = self::$upload_dir['path'];
+		$path = self::get_upload_dir()['path'];
 
 		// Downloads the template.
 		$response = self::download_template( $url, $path );

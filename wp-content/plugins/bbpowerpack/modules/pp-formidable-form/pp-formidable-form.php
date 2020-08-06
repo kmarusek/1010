@@ -251,7 +251,7 @@ class PPFormidableFormModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPFormidableFormModule', array(
+BB_PowerPack::register_module('PPFormidableFormModule', array(
     'form'					=> array( // Tab
         'title'         => __('General', 'bb-powerpack'), // Tab title
         'sections'      => array( // Tab Sections

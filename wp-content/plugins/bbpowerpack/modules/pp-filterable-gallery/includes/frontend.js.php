@@ -44,7 +44,7 @@
 	// expandable row fix.
 	var state = 0;
 	$(document).on('pp_expandable_row_toggle', function(e, selector) {
-		if ( selector.is('.pp-er-open') && state === 0 ) {
+		if ( selector.is('.pp-er-open') && state === 0 && selector.find( '.fl-node-<?php echo $id; ?>' ).length > 0 ) {
 			new PPFilterableGallery(options);
 			state = 1;
 		}

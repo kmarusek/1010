@@ -155,7 +155,7 @@ class PPTestimonialsModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPTestimonialsModule', array(
+BB_PowerPack::register_module('PPTestimonialsModule', array(
 	'general'      => array( // Tab
 		'title'         => __( 'General', 'bb-powerpack' ), // Tab title
 		'sections'      => array( // Tab Sections
@@ -212,19 +212,13 @@ FLBuilder::register_module('PPTestimonialsModule', array(
 					'grid_columns'   => array(
 						'type'          => 'unit',
 						'label' 		=> __( 'Grid Columns', 'bb-powerpack' ),
-						'default'		=> '3',		
+						'default'		=> '3',
 						'slider'  => array(
 							'min'  => 1,
 							'max'  => 6,
 							'step' => 1,
 						),
-						'responsive' => array(
-							'placeholder' => array(
-								'default' => '3',
-								'medium' => '2',
-								'responsive' => '1',
-							),
-						),
+						'responsive' => true,
 					),
 					'spacing'          => array(
 						'type'          => 'unit',

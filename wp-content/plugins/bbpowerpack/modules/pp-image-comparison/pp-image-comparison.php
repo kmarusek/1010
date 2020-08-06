@@ -25,7 +25,7 @@ class PPImageComparisonModule extends FLBuilderModule {
 				'name'            => __( 'Image Comparison', 'bb-powerpack' ),
 				'description'     => __( 'Comparison of Two Images.', 'bb-powerpack' ),
 				'group'           => pp_get_modules_group(),
-				'category'        => pp_get_modules_cat( 'creative' ),
+				'category'        => pp_get_modules_cat( 'media' ),
 				'dir'             => BB_POWERPACK_DIR . 'modules/pp-image-comparison/',
 				'url'             => BB_POWERPACK_URL . 'modules/pp-image-comparison/',
 				'editor_export'   => true, // Defaults to true and can be omitted.
@@ -49,7 +49,7 @@ class PPImageComparisonModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module(
+BB_PowerPack::register_module(
 	'PPImageComparisonModule',
 	array(
 		'general'      => array(

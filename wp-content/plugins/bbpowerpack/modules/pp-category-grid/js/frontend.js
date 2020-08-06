@@ -188,7 +188,6 @@
 				loopedSlides: this._getSlidesCount(),
 				speed: this.settings.speed,
 				breakpoints: {},
-				initialSlide : 0
 			};
 
 			if (!this.settings.isBuilderActive && this.settings.autoplay_speed !== false) {

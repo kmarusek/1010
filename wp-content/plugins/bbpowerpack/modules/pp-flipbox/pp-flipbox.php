@@ -106,7 +106,7 @@ class PPFlipBoxModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPFlipBoxModule', array(
+BB_PowerPack::register_module('PPFlipBoxModule', array(
 	'general'      => array( // Tab
 		'title'         => __('General', 'bb-powerpack'), // Tab title
 		'sections'      => array( // Tab Sections
@@ -291,7 +291,8 @@ FLBuilder::register_module('PPFlipBoxModule', array(
         'title'     => __('Front Content', 'bb-powerpack'),
         'sections'  => array(
             'content_front'     => array(
-                'title'             => __('Front Content', 'bb-powerpack'),
+				'title'             => __('Front Content', 'bb-powerpack'),
+				'collapsed'			=> true,
                 'fields'            => array(
                     'front_title'       => array(
                         'label'             => __('Title', 'bb-powerpack'),
@@ -306,7 +307,7 @@ FLBuilder::register_module('PPFlipBoxModule', array(
                     'front_description'     => array(
                         'type'                  => 'editor',
                         'label'                 => '',
-                        'default'               => __('Front Description', 'bb-powerpack'),
+						'default'               => __('Front Description', 'bb-powerpack'),
                         'connections'           => array( 'string', 'html', 'url' ),
                         'preview'               => array(
                             'type'                  => 'text',
@@ -472,7 +473,8 @@ FLBuilder::register_module('PPFlipBoxModule', array(
 		'title'         => __('Back Content', 'bb-powerpack'), // Tab title
 		'sections'      => array( // Tab Sections
             'content_back'     => array(
-                'title'     => __('Back Content', 'bb-powerpack'),
+				'title'     => __('Back Content', 'bb-powerpack'),
+				'collapsed'			=> true,
                 'fields'    => array(
                     'back_title'     => array(
                         'label'     => __('Title', 'bb-powerpack'),

@@ -14,7 +14,7 @@ class PPFBCommentsModule extends FLBuilderModule {
 			'name'          	=> __( 'Facebook Comments', 'bb-powerpack' ),
 			'description'   	=> __( 'A module to embed facebook comments.', 'bb-powerpack' ),
 			'group'         	=> pp_get_modules_group(),
-			'category'			=> pp_get_modules_cat( 'creative' ),
+			'category'			=> pp_get_modules_cat( 'social' ),
 			'dir'           	=> BB_POWERPACK_DIR . 'modules/pp-facebook-comments/',
 			'url'           	=> BB_POWERPACK_URL . 'modules/pp-facebook-comments/',
 			'editor_export' 	=> true, // Defaults to true and can be omitted.
@@ -26,7 +26,7 @@ class PPFBCommentsModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module( 'PPFBCommentsModule', array(
+BB_PowerPack::register_module( 'PPFBCommentsModule', array(
 	'general'       => array( // Tab
 		'title'         => __( 'General', 'bb-powerpack' ), // Tab title
 		'description'	=> pp_get_fb_module_desc(),

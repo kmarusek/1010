@@ -1,13 +1,12 @@
 <?php
 $is_social_reviews = isset( $settings->review_source ) && 'default' !== $settings->review_source;
-
 $reviews = $module->get_reviews();
 
-if ( $is_social_reviews && is_wp_error( $reviews ) ) {
-	if ( pp_is_builder_active() ) {
+if ( $is_social_reviews ) {
+	if ( is_wp_error( $reviews ) && pp_is_builder_active() ) {
 		echo $reviews->get_error_message();
+		return;
 	}
-	return;
 }
 ?>
 

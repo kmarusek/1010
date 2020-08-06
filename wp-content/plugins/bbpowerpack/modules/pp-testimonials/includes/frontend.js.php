@@ -1,6 +1,9 @@
 (function($) {
-<?php if ( 'yes' === $settings->adaptive_height ) { ?>
+	var fixedHeight = <?php echo 'yes' === $settings->adaptive_height ? 'true' : 'false'; ?>;
 	function equalheight() {
+		if ( ! fixedHeight ) {
+			return;
+		}
 		var maxHeight = 0;
 		$('.fl-node-<?php echo $id; ?> .pp-testimonial .pp-content-wrapper').each(function(index) {
 			if(($(this).outerHeight()) > maxHeight) {
@@ -10,12 +13,8 @@
 		$('.fl-node-<?php echo $id; ?> .pp-testimonial .pp-content-wrapper').css('height', maxHeight + 'px');
 	}
 	<?php if ( isset( $settings->layout ) && 'slider' === $settings->layout ) { ?>
-	$(document).ready(function () {
-		equalheight();
-	});
-	$(window).on("resize", equalheight);
+	//$(window).on("resize", equalheight);
 	<?php } ?>
-<?php } ?>
 
 <?php if ( count( $settings->testimonials ) >= 1 && isset( $settings->layout ) && 'slider' === $settings->layout ) : ?>
 	var left_arrow_svg = '<svg aria-hidden="true" data-prefix="fal" data-icon="angle-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512" class="svg-inline--fa fa-angle-left fa-w-6 fa-2x"><path fill="currentColor" d="M25.1 247.5l117.8-116c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L64.7 256l102.2 100.4c4.7 4.7 4.7 12.3 0 17l-7.1 7.1c-4.7 4.7-12.3 4.7-17 0L25 264.5c-4.6-4.7-4.6-12.3.1-17z" class=""></path></svg>';
@@ -60,6 +59,7 @@
 		nav: <?php echo 1 == $settings->arrows ? 'true' : 'false'; ?>,
 		navText: [left_arrow_svg, right_arrow_svg],
 		loop: <?php echo 1 == $settings->loop ? 'true' : 'false'; ?>,
+		autoHeight: ! fixedHeight,
 		<?php if ( 'vertical' === $settings->transition ) { ?>
 			items: 1,
 			responsive: {},
@@ -74,12 +74,10 @@
 		responsiveBaseWidth: window,
 		margin: <?php echo ( 1 == $settings->carousel && ! empty( $settings->slide_margin ) ) ? $settings->slide_margin : '0'; ?>,
 		rtl: $('body').hasClass( 'rtl' ),
-		<?php if ( 'yes' === $settings->adaptive_height ) { ?>
 		onInitialized: equalheight,
 		onResized: equalheight,
 		onRefreshed: equalheight,
 		onLoadedLazy: equalheight,
-		<?php } ?>
 	};
 
 	$('.fl-node-<?php echo $id; ?> .owl-carousel').owlCarousel( options );

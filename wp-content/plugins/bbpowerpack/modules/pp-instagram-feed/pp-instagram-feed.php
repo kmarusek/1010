@@ -13,7 +13,7 @@ class PPInstagramFeedModule extends FLBuilderModule {
 			'name'          	=> __( 'Instagram Feed', 'bb-powerpack' ),
 			'description'   	=> __( 'A module to fetch instagram photos.', 'bb-powerpack' ),
 			'group'         	=> pp_get_modules_group(),
-			'category'			=> pp_get_modules_cat( 'creative' ),
+			'category'			=> pp_get_modules_cat( 'social' ),
 			'dir'           	=> BB_POWERPACK_DIR . 'modules/pp-instagram-feed/',
 			'url'           	=> BB_POWERPACK_URL . 'modules/pp-instagram-feed/',
 			'editor_export' 	=> true, // Defaults to true and can be omitted.
@@ -84,7 +84,7 @@ class PPInstagramFeedModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPInstagramFeedModule', array(
+BB_PowerPack::register_module('PPInstagramFeedModule', array(
 	'general'       => array( // Tab
 		'title'         => __( 'General', 'bb-powerpack' ), // Tab title
 		'description' => __( '<span style="color: red;">Starting October 15, 2019, new client registration and permission review on Instagram API platform are discontinued.</span>', 'bb-powerpack' ),

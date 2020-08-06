@@ -3,7 +3,7 @@
  * Plugin Name: PowerPack for Beaver Builder
  * Plugin URI: https://wpbeaveraddons.com
  * Description: A set of custom, creative, unique modules for Beaver Builder to speed up your web design and development process.
- * Version: 2.8.0.2
+ * Version: 2.9.2
  * Author: IdeaBox Creations
  * Author URI: https://ideaboxcreations.com
  * Copyright: (c) 2016 IdeaBox Creations
@@ -77,14 +77,14 @@ final class BB_PowerPack {
 		/* Classes */
 		require_once 'classes/class-pp-post-helper.php';
 		require_once 'classes/class-pp-ajax.php';
-		require_once 'classes/class-admin-settings.php';
+		require_once 'classes/class-pp-admin-settings.php';
 		require_once 'classes/class-pp-recaptcha.php';
 		require_once 'classes/class-pp-templates-library.php';
 		require_once 'classes/class-pp-header-footer.php';
 		require_once 'classes/class-pp-maintenance-mode.php';
 		require_once 'classes/class-pp-login-register.php';
-		require_once 'classes/class-media-fields.php';
-		require_once 'classes/class-wpml-compatibility.php';
+		require_once 'classes/class-pp-media-fields.php';
+		require_once 'classes/class-pp-wpml-compatibility.php';
 		require_once 'classes/class-pp-taxonomy-thumbnail.php';
 
 		/* Includes */
@@ -119,7 +119,7 @@ final class BB_PowerPack {
 	 * @return void
 	 */
 	private function define_constants() {
-		define( 'BB_POWERPACK_VER', '2.8.0.2' );
+		define( 'BB_POWERPACK_VER', '2.9.2' );
 		define( 'BB_POWERPACK_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'BB_POWERPACK_URL', plugins_url( '/', __FILE__ ) );
 		define( 'BB_POWERPACK_PATH', plugin_basename( __FILE__ ) );
@@ -176,17 +176,14 @@ final class BB_PowerPack {
 				$this->fa_css = 'font-awesome';
 			}
 
-			// Fields
-			require_once 'classes/class-module-fields.php';
-
-			$load_modules_in_admin = apply_filters( 'pp_load_modules_in_admin', true );
-
-			if ( $load_modules_in_admin ) {
-				require_once 'includes/modules.php';
-			} elseif ( ! is_admin() ) {
-				require_once 'includes/modules.php';
-			}
+			require_once 'classes/class-pp-modules.php';
+			require_once 'classes/class-pp-module-fields.php';
+			require_once 'includes/modules.php';
 		}
+	}
+
+	public static function register_module( $class, $form ) {
+		BB_PowerPack_Modules::register_module( $class, $form );
 	}
 
 	/**
@@ -308,6 +305,13 @@ final class BB_PowerPack {
 		</style>
 		<?php
 		}
+		?>
+		<script>
+			var bb_powerpack = {
+				ajaxurl: '<?php echo admin_url( 'admin-ajax.php' ); ?>'
+			};
+		</script>
+		<?php
 	}
 
 	/**

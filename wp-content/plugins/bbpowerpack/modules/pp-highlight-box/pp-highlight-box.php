@@ -78,7 +78,7 @@ class PPHighlightBoxModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPHighlightBoxModule', array(
+BB_PowerPack::register_module('PPHighlightBoxModule', array(
     'highlight_box'       => array( // Tab
         'title'         => __('Box', 'bb-powerpack'), // Tab title
         'sections'      => array( // Tab Sections

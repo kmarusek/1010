@@ -165,6 +165,18 @@
 			</tr>
 			<tr valign="top">
 				<th scope="row" valign="top">
+					<label for="ppwl_hide_modules_tab"><?php esc_html_e( 'Hide Modules setting tab', 'bb-powerpack' ); ?></label>
+					<p class="description"><?php esc_html_e( 'The modules setting page will no longer accessible by enabling this option.', 'bb-powerpack' ); ?></p>
+				</th>
+				<td>
+					<label class="pp-admin-field-toggle">
+						<input id="ppwl_hide_modules_tab" name="ppwl_hide_modules_tab" type="checkbox" value="1" <?php echo self::get_option( 'ppwl_hide_modules_tab' ) == 1 ? 'checked="checked"' : '' ?> />
+						<span class="pp-admin-field-toggle-slider"></span>
+					</label>
+				</td>
+			</tr>
+			<tr valign="top">
+				<th scope="row" valign="top">
 					<label for="ppwl_hide_extensions_tab"><?php esc_html_e( 'Hide Extensions setting tab', 'bb-powerpack' ); ?></label>
 					<p class="description"><?php esc_html_e( 'The extensions setting page will no longer accessible by enabling this option.', 'bb-powerpack' ); ?></p>
 				</th>

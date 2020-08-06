@@ -250,9 +250,11 @@ final class BB_PowerPack_Header_Footer {
 			$slug = 'generatepress';
 		} elseif ( function_exists( 'storefront_is_woocommerce_activated' ) ) {
 			$slug = 'storefront';
+		} elseif ( get_theme_support( 'pp-header-footer' ) ) {
+			$slug = 'custom';
 		}
 
-		return $slug;
+		return apply_filters( 'pp_header_footer_theme_slug', $slug );
 	}
 
 	/**
@@ -282,10 +284,20 @@ final class BB_PowerPack_Header_Footer {
 
 		add_filter( 'body_class', __CLASS__ . '::body_class' );
 
-		if ( $slug ) {
-			if ( is_callable( 'FLBuilder::render_content_by_id' ) ) {
-				require_once BB_POWERPACK_DIR . "classes/theme-support/class-pp-theme-support-$slug.php";
+		if ( $slug && is_callable( 'FLBuilder::render_content_by_id' ) ) {
+			$file = BB_POWERPACK_DIR . "classes/theme-support/class-pp-theme-support-$slug.php";
+			if ( file_exists( $file ) ) {
+				require_once $file;
 			}
+
+			/**
+			 * Hook to support additional themes or perform any actions.
+			 *
+			 * @since 2.9.0
+			 *
+			 * @param string $slug Current theme slug or custom.
+			 */
+			do_action( 'pp_header_footer_after_setup', $slug );
 		}
 	}
 
@@ -347,7 +359,7 @@ final class BB_PowerPack_Header_Footer {
 
 		do_action( 'pp_header_footer_before_render_header', $id );
 
-		// Enqueue jQyery throttle.
+		// Enqueue jQuery throttle.
 		wp_enqueue_script( 'jquery-throttle' );
 
 		// Enqueue imagesloaded.

@@ -14,7 +14,7 @@ class PPFBEmbedModule extends FLBuilderModule {
 			'name'          	=> __( 'Facebook Embed', 'bb-powerpack' ),
 			'description'   	=> __( 'A module to embed facebook post.', 'bb-powerpack' ),
 			'group'         	=> pp_get_modules_group(),
-			'category'			=> pp_get_modules_cat( 'creative' ),
+			'category'			=> pp_get_modules_cat( 'social' ),
 			'dir'           	=> BB_POWERPACK_DIR . 'modules/pp-facebook-embed/',
 			'url'           	=> BB_POWERPACK_URL . 'modules/pp-facebook-embed/',
 			'editor_export' 	=> true, // Defaults to true and can be omitted.
@@ -26,7 +26,7 @@ class PPFBEmbedModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module( 'PPFBEmbedModule', array(
+BB_PowerPack::register_module( 'PPFBEmbedModule', array(
 	'general'       => array( // Tab
 		'title'         => __( 'General', 'bb-powerpack' ), // Tab title
 		'description'	=> pp_get_fb_module_desc(),

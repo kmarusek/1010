@@ -149,7 +149,7 @@ require_once BB_POWERPACK_DIR . 'modules/pp-contact-form-7/includes/functions.ph
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPContactForm7Module', array(
+BB_PowerPack::register_module('PPContactForm7Module', array(
     'form'       => array(
         'title'         => __('Form', 'bb-powerpack'), // Tab title
         'sections'      => array( // Tab Sections

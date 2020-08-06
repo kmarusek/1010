@@ -61,7 +61,11 @@ class PPContentTilesModule extends FLBuilderModule {
 	 */
 	static public function schema_itemtype()
 	{
-		BB_PowerPack_Post_Helper::schema_itemtype();
+		return BB_PowerPack_Post_Helper::schema_itemtype();
+	}
+
+	static public function schema_collection_type( $data_source, $post_type ) {
+		return BB_PowerPack_Post_Helper::schema_collection_type( $data_source, $post_type );
 	}
 
 	public function get_post_class( $count, $layout )
@@ -170,7 +174,7 @@ class PPContentTilesModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPContentTilesModule', array(
+BB_PowerPack::register_module('PPContentTilesModule', array(
 	'layout'	=> array(
 		'title'		=> __('Layout', 'bb-powerpack'),
 		'sections'	=> array(

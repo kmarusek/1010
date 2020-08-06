@@ -11,7 +11,7 @@ class PPVideoGalleryModule extends FLBuilderModule {
 			'name'              => __( 'Video Gallery', 'bb-powerpack' ),
 			'description'       => __( 'A module that displays a gallery of videos.', 'bb-powerpack' ),
 			'group'             => pp_get_modules_group(),
-			'category'		    => pp_get_modules_cat( 'content' ),
+			'category'		    => pp_get_modules_cat( 'media' ),
 			'dir'               => BB_POWERPACK_DIR . 'modules/pp-video-gallery/',
 			'url'               => BB_POWERPACK_URL . 'modules/pp-video-gallery/',
 			'editor_export'     => true,
@@ -195,7 +195,7 @@ class PPVideoGalleryModule extends FLBuilderModule {
 	}
 }
 
-FLBuilder::register_module('PPVideoGalleryModule', array(
+BB_PowerPack::register_module('PPVideoGalleryModule', array(
 	'layout'	=> array(
 		'title'		=> __( 'General', 'bb-powerpack' ),
 		'sections'	=> array(

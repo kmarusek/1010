@@ -221,7 +221,7 @@ class PPInfoBoxModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPInfoBoxModule', array(
+BB_PowerPack::register_module('PPInfoBoxModule', array(
 	'general'      => array( // Tab
 		'title'         => __('General', 'bb-powerpack'), // Tab title
 		'sections'      => array( // Tab Sections

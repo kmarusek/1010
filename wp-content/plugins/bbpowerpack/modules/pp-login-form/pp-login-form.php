@@ -45,7 +45,7 @@ class PPLoginFormModule extends FLBuilderModule {
             'name'              => __('Login Form', 'bb-powerpack'),
             'description'       => __('A module for better login form.', 'bb-powerpack'),
             'group'             => pp_get_modules_group(),
-            'category'		    => pp_get_modules_cat( 'creative' ),
+            'category'		    => pp_get_modules_cat( 'content' ),
             'dir'               => BB_POWERPACK_DIR . 'modules/pp-login-form/',
             'url'               => BB_POWERPACK_URL . 'modules/pp-login-form/',
             'editor_export'     => true,
@@ -187,8 +187,10 @@ class PPLoginFormModule extends FLBuilderModule {
 	public function process_login() {
 		if (
 			! isset( $_POST['pp-lf-login-nonce'] ) ||
-			! wp_verify_nonce( wp_unslash( $_POST['pp-lf-login-nonce'] ), 'login_nonce' ) ) {
-				wp_send_json_error( __( 'Invalid data.', 'bb-powerpack' ) );
+			! check_ajax_referer( 'login_nonce', 'pp-lf-login-nonce', false ) ) {
+				if ( ! isset( $_POST['reauth'] ) || empty( $_POST['reauth'] ) ) {
+					wp_send_json_error( __( 'Error: Invalid data.', 'bb-powerpack' ) );
+				}
 		}
 
 		$recaptcha_response = isset( $_POST['recaptcha_response'] ) ? $_POST['recaptcha_response'] : false;
@@ -248,7 +250,10 @@ class PPLoginFormModule extends FLBuilderModule {
 
 				if ( is_wp_error( $user ) ) {
 					$message = $user->get_error_message();
-					$message = preg_replace( '/<\/?a[^>].*>/', '', $message );
+					// Exclude BuddyPress activation link.
+					// if ( 'bp_account_not_activated' !== $user->get_error_code() ) {
+					// 	$message = preg_replace( '/<\/?a[^>].*>/', '', $message );
+					// }
 					throw new Exception( $message );
 				} else {
 					wp_send_json_success( array(
@@ -272,7 +277,7 @@ class PPLoginFormModule extends FLBuilderModule {
 	public function process_social_login() {
 		if (
 			! isset( $_POST['nonce'] ) ||
-			! wp_verify_nonce( wp_unslash( $_POST['nonce'] ), 'login_nonce' ) ) {
+			! check_ajax_referer( 'login_nonce', 'nonce', false ) ) {
 				wp_send_json_error( __( 'Invalid data.', 'bb-powerpack' ) );
 		}
 
@@ -466,6 +471,13 @@ class PPLoginFormModule extends FLBuilderModule {
 				'redirect_url' => $this->get_redirect_url(),
 			) );
 		} else {
+			if ( ! apply_filters( 'pp_login_form_social_login_registration', get_option( 'users_can_register' ) ) ) {
+				wp_send_json_error( array(
+					'code'		=> 'registration_disabled',
+					'message' 	=> sprintf( __( 'Account does not exist with the email %s', 'bb-powerpack' ), $email ),
+				) );
+			}
+
 			if ( username_exists( $username ) ) {
 				$username .= '-' . zeroise( wp_rand( 0, 9999 ), 4 );
 			}
@@ -494,7 +506,7 @@ class PPLoginFormModule extends FLBuilderModule {
 	public function process_lost_password() {
 		if (
 			! isset( $_POST['pp-lf-lost-password-nonce'] ) ||
-			! wp_verify_nonce( wp_unslash( $_POST['pp-lf-lost-password-nonce'] ), 'lost_password' ) ) {
+			! check_ajax_referer( 'lost_password', 'pp-lf-lost-password-nonce', false ) ) {
 				wp_send_json_error( __( 'Invalid data.', 'bb-powerpack' ) );
 		}
 
@@ -624,7 +636,7 @@ class PPLoginFormModule extends FLBuilderModule {
 	public function process_reset_password() {
 		if (
 			! isset( $_POST['pp-lf-reset-password-nonce'] ) ||
-			! wp_verify_nonce( wp_unslash( $_POST['pp-lf-reset-password-nonce'] ), 'reset_password' ) ) {
+			! check_ajax_referer( 'reset_password', 'pp-lf-reset-password-nonce', false ) ) {
 				wp_send_json_error( __( 'Invalid data.', 'bb-powerpack' ) );
 		}
 
@@ -767,7 +779,7 @@ class PPLoginFormModule extends FLBuilderModule {
 	}
 }
 
-FLBuilder::register_module('PPLoginFormModule', array(
+BB_PowerPack::register_module('PPLoginFormModule', array(
 	'general'	=> array(
 		'title'		=> __('General', 'bb-powerpack'),
 		'sections'	=> array(
@@ -1351,6 +1363,15 @@ FLBuilder::register_module('PPLoginFormModule', array(
 				'title'	=> __( 'Social Login', 'bb-powerpack' ),
 				'collapsed' => true,
 				'fields' => array(
+					'social_button_position' => array(
+						'type'	=> 'select',
+						'label'	=> __( 'Position', 'bb-powerpack' ),
+						'default' => 'below',
+						'options'	=> array(
+							'above'	=> __( 'Above the form', 'bb-powerpack' ),
+							'below'	=> __( 'Below the form', 'bb-powerpack' ),
+						),
+					),
 					'social_button_layout' => array(
 						'type'	=> 'pp-switch',
 						'label'	=> __( 'Layout', 'bb-powerpack' ),

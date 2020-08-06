@@ -62,8 +62,13 @@
 
 		<?php if('style-6' == $settings->post_grid_style_select && 'yes' == $settings->show_date) { ?>
 		<div class="pp-content-post-date pp-post-meta">
-			<span class="pp-post-month"><?php echo get_the_date('M'); ?></span>
-			<span class="pp-post-day"><?php echo get_the_date('d'); ?></span>
+			<?php if ( pp_is_tribe_events_post( $post_id ) && function_exists( 'tribe_get_start_date' ) ) { ?>
+				<span class="pp-post-month"><?php echo tribe_get_start_date( null, false, 'M' ); ?></span>
+				<span class="pp-post-day"><?php echo tribe_get_start_date( null, false, 'd' ); ?></span>
+			<?php } else { ?>
+				<span class="pp-post-month"><?php echo get_the_date('M'); ?></span>
+				<span class="pp-post-day"><?php echo get_the_date('d'); ?></span>
+			<?php } ?>
 		</div>
 		<?php } ?>
 	<?php } ?>

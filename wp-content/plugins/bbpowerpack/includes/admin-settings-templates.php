@@ -11,10 +11,6 @@
 <?php
 	$navigate = ( isset( $_GET['navigate'] ) && ! empty( $_GET['navigate'] ) ) ? $_GET['navigate'] : 'page-templates';
 	$template_type = ( $navigate == 'page-templates' ) ? 'page' : 'row';
-	$template_categories = pp_templates_categories( $template_type );
-	$activated_templates = self::get_enabled_templates( $template_type );
-	$activated_templates = is_array( $activated_templates ) ? $activated_templates : array();
-	$template_filters = pp_template_filters();
 ?>
 
 <div class="pp-page-templates">
@@ -25,80 +21,27 @@
 		<p><?php esc_html_e( 'You can manage the templates for your site from this page. By activating / deactivating any template will override the network settings.', 'bb-powerpack' ); ?></p>
 	</div>
 
-<?php endif; ?>
+	<?php endif; ?>
 
 	<div class="wp-filter pp-template-filter hide-if-no-js">
-		<div class="filter-count">
-			<span class="count theme-count">
-				<?php
-					if ( $template_type == 'page' ) {
-						echo count( $template_categories );
-					}
-					if ( $template_type == 'row' ) {
-						$count = 0;
-						foreach ( $template_categories as $template_cat => $template_info ) {
-							if ( isset( $template_info['count'] ) ) {
-								$count = $count + $template_info['count'];
-							}
-						}
-						echo $count;
-					}
-				?>
-			</span>
-		</div>
-		<ul class="filter-links">
-			<li><a href="<?php echo self::get_form_action( '&tab=templates&navigate=page-templates' ); ?>" class="<?php echo ( 'page-templates' == $navigate ) ? 'current' : ''; ?>" data-type="page-templates"><?php esc_html_e( 'Page Templates', 'bb-powerpack' ); ?></a></li>
-			<li><a href="<?php echo self::get_form_action( '&tab=templates&navigate=row-templates' ); ?>" class="<?php echo ( 'row-templates' == $navigate ) ? 'current' : ''; ?>" data-type="row-templates"><?php esc_html_e( 'Row Templates', 'bb-powerpack' ); ?></a></li>
-		</ul>
-		<div class="search-form">
-			<label class="screen-reader-text" for="wp-filter-search-input"><?php esc_html_e( 'Search Templates', 'bb-powerpack' ); ?></label>
-			<input placeholder="Search templates..." type="search" aria-describedby="live-search-desc" id="wp-filter-search-input" class="wp-filter-search">
-		</div>
-		<div class="filter-sublinks">
-			<label><?php esc_html_e( 'Filter:', 'bb-powerpack' ); ?></label>
-			<div class="filter-dropdown">
-				<span class="filter-dropdown-placeholder"><?php esc_html_e( 'All', 'bb-powerpack' ); ?></span>
-				<ul class="filter-page-templates" <?php echo ( 'page-templates' !== $navigate ) ? 'style="display:none;"' : ''; ?>>
-					<!-- <li class="filter-label"><strong><?php esc_html_e( 'Filter:', 'bb-powerpack' ); ?></strong></li> -->
-					<?php $count = 0; foreach ( $template_filters as $filter_key => $filter_name ) : $count++; ?>
-						<li>
-							<a href="<?php echo self::get_form_action( '&tab=templates&navigate=page-templates&filter='.$filter_key ); ?>" class="" data-filter="<?php echo $filter_key; ?>"><?php echo $filter_name; ?></a>
-							<!-- <?php if ( $count < count( $template_filters ) ) { ?>
-							<span>|</span>
-							<?php } ?> -->
-						</li>
-					<?php endforeach; ?>
-				</ul>
+		<div>
+			<div class="filter-count">
+				<span class="count theme-count">0</span>
 			</div>
+			<ul class="filter-links">
+				<li><a href="<?php echo self::get_form_action( '&tab=templates&navigate=page-templates' ); ?>" class="<?php echo ( 'page-templates' == $navigate ) ? 'current' : ''; ?>" data-type="page-templates"><?php esc_html_e( 'Page Templates', 'bb-powerpack' ); ?></a></li>
+				<li><a href="<?php echo self::get_form_action( '&tab=templates&navigate=row-templates' ); ?>" class="<?php echo ( 'row-templates' == $navigate ) ? 'current' : ''; ?>" data-type="row-templates"><?php esc_html_e( 'Row Templates', 'bb-powerpack' ); ?></a></li>
+			</ul>
 		</div>
 		<div class="pp-refresh-panel">
-			<a href="<?php echo self::get_form_action( '&tab=templates&navigate='.$navigate.'&refresh=1' ); ?>" class="button button-primary"><?php esc_html_e( 'Reload', 'bb-powerpack' ); ?></a>
+			<a href="<?php echo self::get_form_action( '&tab=templates&navigate='.$navigate.'&refresh=1' ); ?>" title="<?php _e( 'Sync Templates', 'bb-powerpack' ); ?>" aria-label="<?php _e( 'Sync Templates', 'bb-powerpack' ); ?>">
+				<span class="dashicons dashicons-update"></span>
+			</a>
 		</div>
 	</div>
 
-	<div class="pp-page-templates-grid wp-clearfix">
-
-		<?php if ( count( $template_categories ) ) : ?>
-
-			<?php foreach ( $template_categories as $cat => $info ) : $preview = pp_templates_preview_src( $template_type, $cat ); ?>
-
-				<div class="pp-template pp-<?php echo $template_type; ?>-template is-visible<?php echo in_array( $cat, $activated_templates ) ? ' active' : ''; ?><?php echo !empty( $preview ) ? ' pp-preview-enabled' : ''; ?>" data-filter="<?php echo $info['type']; ?>">
-					<div class="pp-template-screenshot"><img src="<?php echo pp_get_template_screenshot_url( $template_type, $cat, 'color' ); ?>" /></div>
-					<?php if ( !empty( $preview ) ) { ?>
-					<span class="pp-template-preview" data-preview-src="<?php echo $preview; ?>" data-template-cat="<?php echo $cat; ?>"><?php esc_html_e( 'Preview', 'bb-powerpack' ); ?></span>
-					<?php } ?>
-					<h2 class="pp-template-category"><span><?php echo in_array( $cat, $activated_templates ) ? esc_html__( 'Active: ', 'bb-powerpack' ) : ''; ?></span> <?php esc_html_e( $info['title'], 'bb-powerpack' ); ?> <?php echo isset( $info['count'] ) ? '- ' . $info['count'] : ''; ?></h2>
-					<div class="pp-template-actions">
-						<span class="ajax-spinner"><img src="<?php echo admin_url( 'images/loading.gif' ); ?>" class="loader-image" /></span>
-						<a class="button button-primary pp-activate-template" href="<?php echo self::get_form_action( '&tab=templates&action=pp_activate_template&pp_template_cat=' . $cat ); ?>" data-template-type="<?php echo $template_type; ?>" data-template-cat="<?php echo $cat; ?>"><?php esc_html_e('Activate', 'bb-powerpack'); ?></a>
-						<a class="button button-secondary pp-deactivate-template" href="<?php echo self::get_form_action( '&tab=templates&action=pp_deactivate_template&pp_template_cat=' . $cat ); ?>" data-template-type="<?php echo $template_type; ?>" data-template-cat="<?php echo $cat; ?>"><?php esc_html_e('Deactivate', 'bb-powerpack'); ?></a>
-					</div>
-				</div>
-
-			<?php endforeach; ?>
-
-		<?php endif; ?>
-
+	<div class="pp-templates-grid pp-page-templates-grid wp-clearfix">
+		<span class="ajax-spinner"><img src="<?php echo admin_url( 'images/spinner.gif' ); ?>" class="loader-image" /></span>
 	</div>
 
 </div>
@@ -124,179 +67,403 @@
 
 <?php wp_nonce_field( 'pp-templates', 'pp-templates-nonce' ); ?>
 
-<script>
-	jQuery(document).ready(function($) {
+<script type="text/template" id="tmpl-pp-templates-view">
+	<# if ( 'row' === data.templates_type ) { #>
+		<h4 style="margin-top: 0; background: #f9f1db; padding: 10px; border: 1px solid #f3da92;">
+		<?php _e( 'Note: Row templates are grouped into different categories. Activating a category set will activate all the templates available in the respective category.', 'bb-powerpack' ); ?>
+		</h4>
+	<# } #>
+	<div class="pp-templates-actions">{{{data.actions}}}</div>
+	<div class="pp-templates">{{{data.templates}}}</div>
+</script>
 
-		if ( history.pushState ) {
-			if ( document.location.search.search( '&refresh' ) > -1 ) {
-				var url = document.location.href.split('&refresh')[0];
-				window.history.pushState( { path:url }, '', url );
+<script type="text/template" id="tmpl-pp-template">
+	<div class="pp-template pp-{{{data.type}}}-template is-visible<# if ( data.is_active ) { #> active<# } #><# if ( '' !== data.preview_url ) { #> pp-preview-enabled<# } #>" tabindex="0" data-filter="{{{data.filter}}}" aria-describedby="pp-{{{data.slug}}}">
+		<div class="pp-template-screenshot"><img src="{{{data.screenshot}}}" alt="{{{data.slug}}}" /></div>
+		<# if ( '' !== data.preview_url ) { #>
+		<span class="pp-template-preview" data-preview-src="{{{data.preview_url}}}" data-template-cat="{{{data.category}}}" role="button" aria-label="<?php esc_html_e( 'Show Preview', 'bb-powerpack' ); ?>"><?php esc_html_e( 'Preview', 'bb-powerpack' ); ?></span>
+		<# } #>
+		<h2 class="pp-template-category" id="pp-{{{data.slug}}}">{{{data.title}}}<# if ( '' !== data.count ) { #> - {{{data.count}}}<# } #><# if ( 'row' === data.type ) { #> <?php esc_html_e( 'Templates', 'bb-powerpack' ); ?><# } #></h2>
+		<div class="pp-template-actions">
+			<span class="ajax-spinner"><img src="<?php echo admin_url( 'images/loading.gif' ); ?>" class="loader-image" /></span>
+			<a class="button button-primary pp-activate-template" href="javascript:void(0)" data-template-type="{{{data.type}}}" data-template-cat="{{{data.category}}}"><?php esc_html_e('Activate', 'bb-powerpack'); ?></a>
+			<a class="button button-secondary pp-deactivate-template" href="javascript:void(0)" data-template-type="{{{data.type}}}" data-template-cat="{{{data.category}}}"><?php esc_html_e('Deactivate', 'bb-powerpack'); ?></a>
+		</div>
+	</div>
+</script>
+
+<script type="text/template" id="tmpl-pp-template-filters">
+	<label><?php esc_html_e( 'Filter:', 'bb-powerpack' ); ?></label>
+	<div class="filter-dropdown">
+		<span class="filter-dropdown-placeholder"><?php esc_html_e( 'All', 'bb-powerpack' ); ?></span>
+		<ul class="filter-page-templates" role="menu">
+			<li role="menuitem"><a href="javascript:void(0)" data-filter="all">all</a></li>
+			<#
+				var filters = {};
+				data.templates.forEach(function(item) {
+					if ( 'undefined' !== typeof item ) {
+						if ( 'undefined' === typeof filters[ item.filter ] ) {
+							filters[ item.filter ] = {
+								key: item.filter,
+								label: item.filter.replace( /-/g, ' ' )
+							};
+						}
+					}
+				});
+
+				filters = _(filters).sortBy('key');
+
+				_.each(filters, function(filter) {
+					#>
+					<li role="menuitem"><a href="javascript:void(0)" data-filter="{{{filter.key}}}">{{{filter.label}}}</a></li>
+					<#
+				});
+			#>
+		</ul>
+	</div>
+</script>
+
+<script type="text/template" id="tmpl-pp-template-actions">
+	<div class="filter-sublinks" tabindex="0" aria-haspopup="true" aria-label="<?php _e( 'Filter Templates', 'bb-powerpack' ); ?>" aria-expanded="false">
+		{{{data.filters}}}
+	</div>
+	<div class="search-form">
+		<label class="screen-reader-text" for="wp-filter-search-input"><?php esc_html_e( 'Search Templates', 'bb-powerpack' ); ?></label>
+		<span class="hidden" aria-hidden="true" id="live-search-desc"><?php esc_html_e( 'The search results will be updated as you type.', 'bb-powerpack' ); ?></span>
+		<input placeholder="Search templates..." type="text" aria-describedby="live-search-desc" id="wp-filter-search-input" class="wp-filter-search" />
+		<?php echo file_get_contents( BB_POWERPACK_DIR . 'assets/images/search-icon.svg' ); ?>
+	</div>
+</script>
+
+<script>
+	var pp_templates = [];
+	var pp_templates_type = '<?php echo $template_type; ?>';
+
+	;(function($) {
+		var ajaxSpinner = '<span class="ajax-spinner"><img src="<?php echo admin_url( 'images/spinner.gif' ); ?>" class="loader-image" /></span>';
+		var activeFilter = 'all';
+		var searchTerm = '';
+
+		var request = function( data, callback ) {
+			$.post( location.href, data, function( response ) {
+				if ( 'function' === typeof callback ) {
+					callback( response );
+				}
+			} );
+		};
+
+		var renderCount = function() {
+			if ( pp_templates.length === 0 ) {
+				return;
 			}
+			var $count = $('.filter-count > .count');
+			if ( 'page' === pp_templates_type ) {
+				$count.html( pp_templates.length );
+			} else {
+				var count = 0;
+				pp_templates.forEach(function(item) {
+					if ( 'undefined' !== typeof item && ! isNaN( parseInt( item.count ) ) ) {
+						count += parseInt( item.count );
+					}
+				});
+				$count.html( count );
+			}
+		};
+
+		var getActions = function() {
+			var filters = '';
+
+			if ( 'page' === pp_templates_type ) {
+				filters = wp.template( 'pp-template-filters' )({
+					templates_type: 'page',
+					templates: pp_templates
+				});
+			}
+
+			var actions = wp.template( 'pp-template-actions' )({
+				filters: filters
+			});
+
+			return actions;
+		};
+
+		var renderActions = function() {
+			if ( pp_templates.length === 0 ) {
+				return;
+			}
+
+			var actions = getActions();
+
+			$('.pp-templates-actions').html( actions );
+		};
+
+		var getTemplates = function() {
+			var data = [];
+			var templates = '';
+
+			pp_templates.forEach(function(item) {
+				if ( 'undefined' !== typeof item && ( 'all' === activeFilter || activeFilter === item.filter ) ) {
+					if ( '' !== searchTerm && item.title.toLowerCase().search( searchTerm ) !== -1 ) {
+						data.push( item );
+					} else {
+						if ( '' === searchTerm ) {
+							data.push( item );
+						}
+					}
+				}
+			});
+
+			data.forEach(function(item) {
+				if ( 'undefined' !== typeof item ) {
+					var template = wp.template( 'pp-template' )( item );
+					templates += template;
+				}
+			});
+
+			return templates;
 		}
 
-		$('.pp-template-filter .filter-sublinks').on('click', function() {
-			$(this).find('.filter-page-templates').toggleClass( 'is-active' );
+		var renderTemplates = function() {
+			var templates = getTemplates();
+
+			$( '.pp-templates' ).html( templates );
+		};
+
+		var renderTemplatesView = function() {
+			if ( pp_templates.length === 0 ) {
+				return;
+			}
+			var view = wp.template( 'pp-templates-view' )({
+				templates_type: pp_templates_type,
+				actions: getActions(),
+				templates: getTemplates(),
+			});
+
+			$('.pp-templates-grid').html( view );
+		};
+
+		var render = function() {
+			request( {
+				pp_action: 'get_templates_data',
+				templates_type: '<?php echo $template_type; ?>',
+			}, function( response ) {
+				$('.pp-templates-grid').find('.ajax-spinner').hide();
+				if ( response.success ) {
+					pp_templates = response.data;
+					if ( pp_templates.length === 0 ) {
+						$('.pp-templates-grid').append('<?php _e( 'Something went wrong. Please reload the page.', 'bb-powerpack' ); ?>');
+						return;
+					}
+					renderCount();
+					renderTemplatesView();
+				}
+			} );
+		};
+
+		jQuery(document).ready(function($) {
+
+			if ( history.pushState ) {
+				if ( document.location.search.search( '&refresh' ) > -1 ) {
+					var url = document.location.href.split('&refresh')[0];
+					window.history.pushState( { path:url }, '', url );
+				}
+			}
+
+			render();
+
+			$('.pp-refresh-panel a').on('click', function(e) {
+				e.preventDefault();
+
+				var $this = $(this);
+
+				$(this).addClass( 'is-syncing disabled' );
+
+				request( {
+					pp_action: 'sync_templates_data'
+				}, function( response ) {
+					$this.removeClass( 'is-syncing disabled' );
+					if ( response.page.error && 'page' === pp_templates_type ) {
+						alert( response.page.error );
+						return;
+					}
+					if ( response.row.error && 'row' === pp_templates_type ) {
+						alert( response.row.error );
+						return;
+					}
+					$('.pp-templates-grid').html('');
+					$('.pp-templates-grid').append( ajaxSpinner );
+					activeFilter = 'all';
+					searchTerm = '';
+					render();
+				} );
+			});
+
+			$('body').delegate('.pp-templates-actions .filter-sublinks', 'click keyup', function(e) {
+				var showFilters = 'click' === e.type || ( 'keyup' === e.type && ( 13 === e.keyCode || 13 === e.which ) )
+				if ( ! showFilters ) {
+					return;
+				}
+				$(this).find('.filter-page-templates').toggleClass( 'is-active' );
+				if ( $(this).find('.filter-page-templates').hasClass( 'is-active' ) ) {
+					$(this).attr('aria-expanded', 'true');
+				} else {
+					$(this).attr('aria-expanded', 'false');
+				}
+			});
+
+			$('body').delegate('.pp-templates-actions .filter-sublinks a', 'click', function(e) {
+
+				e.preventDefault();
+
+				$('.pp-template').removeClass('is-visible');
+
+				activeFilter = $(this).data('filter');
+
+				$(this).parents('.filter-dropdown').find('.filter-dropdown-placeholder').text( $(this).text() );
+
+				$(this).parents('.filter-sublinks').find('li').removeClass('current');
+				$(this).parent().addClass('current');
+
+				$('.pp-template').remove();
+
+				renderTemplates();
+			});
+
+			/* Search */
+			$('body').delegate('#wp-filter-search-input', 'keyup', function(e) {
+				var keyCode = e.which || e.keyCode;
+				if ( keyCode === 9 ) {
+					return;
+				}
+				if ( $(this).val().length >= 3 ) {
+					searchTerm = $(this).val().toLowerCase().trim();
+					setTimeout(function() {
+						$('.pp-template').remove();
+						renderTemplates();
+					}, 250);
+				} else {
+					if ( $(this).val().length === 0 ) {
+						searchTerm = '';
+						setTimeout(function() {
+							$('.pp-template').remove();
+							renderTemplates();
+						}, 250);
+					}
+				}
+			});
+
 		});
 
-		$('.pp-template-filter .filter-sublinks a').on('click', function(e) {
+		jQuery(document).on('click', '.pp-activate-template', function(e) {
+
+			e.preventDefault();
+			e.stopPropagation();
+
+			var button = jQuery(this);
+			var parent = button.parents('.pp-template, .pp-template-overlay');
+			parent.addClass('activating');
+
+			console.log('Template is downloading...');
+
+			jQuery.ajax({
+				url: '<?php echo admin_url( 'admin-ajax.php' ); ?>',
+				type: 'post',
+				data: {
+					action: 'pp_activate_template',
+					nonce: '<?php echo wp_create_nonce( 'pp-activate-template' ); ?>',
+					pp_template_cat: button.data('template-cat'),
+					pp_template_type: button.data('template-type'),
+				},
+				success: function(response) {
+					if('activated' === response) {
+						if(parent.hasClass('pp-template-overlay')) {
+							location.reload();
+						}
+						parent.removeClass('activating').addClass('active');
+						parent.find('.pp-template-category span').html('Active: ');
+						console.info('Template has downloaded and activated successfully.');
+					} else {
+						console.error(response);
+					}
+				}
+			});
+		});
+
+		jQuery(document).on('click', '.pp-deactivate-template', function(e) {
+
+			e.preventDefault();
+			e.stopPropagation();
+
+			var button = jQuery(this);
+			var parent = button.parents('.pp-template, .pp-template-overlay');
+			parent.addClass('activating').removeClass('active');
+
+			console.log('Template is deactivating...');
+
+			jQuery.ajax({
+				url: '<?php echo admin_url( 'admin-ajax.php' ); ?>',
+				type: 'post',
+				data: {
+					action: 'pp_deactivate_template',
+					nonce: '<?php echo wp_create_nonce( 'pp-deactivate-template' ); ?>',
+					pp_template_cat: button.data('template-cat'),
+					pp_template_type: button.data('template-type'),
+				},
+				success: function(response) {
+					if('deactivated' === response) {
+						if(parent.hasClass('pp-template-overlay')) {
+							location.reload();
+						}
+						parent.removeClass('activating').removeClass('active');
+						parent.find('.pp-template-category span').html('');
+						console.info('Template has deactivated successfully.');
+					} else {
+						parent.addClass('active')
+						console.error(response);
+					}
+				}
+			});
+		});
+
+		jQuery(document).on('click keyup', '.pp-template.pp-preview-enabled', function(e) {
+			var showPreview = 'click' === e.type || ( 'keyup' === e.type && ( 13 === e.keyCode || 13 === e.which ) )
+			if ( ! showPreview ) {
+				return;
+			}
 
 			e.preventDefault();
 
-			$('.pp-template').removeClass('is-visible');
+			var preview = jQuery(this).find('.pp-template-preview');
+			var previewSrc = preview.data('preview-src');
+			var templateCat = preview.data('template-cat');
+			var activateLink = jQuery(this).find('.pp-activate-template').attr('href');
+			var deactivateLink = jQuery(this).find('.pp-deactivate-template').attr('href');
+			var scrollPos = jQuery(window).scrollTop();
 
-			var filter = $(this).data('filter');
+			jQuery('.pp-template-overlay').show().find('.pp-template-preview-frame').attr('src', previewSrc);
+			jQuery('.pp-template-overlay').find('.pp-activate-template').attr('data-template-cat', templateCat).attr('href', activateLink);
+			jQuery('.pp-template-overlay').find('.pp-deactivate-template').attr('data-template-cat', templateCat).attr('href', deactivateLink);
 
-			$(this).parents('.filter-dropdown').find('.filter-dropdown-placeholder').text( $(this).text() );
-
-			$(this).parents('.filter-sublinks').find('li').removeClass('current');
-			$(this).parent().addClass('current');
-
-			if ( 'all' === filter ) {
-				$('.pp-template').fadeIn().addClass('is-visible');
-			} else {
-				$('.pp-template[data-filter="'+filter+'"]').fadeIn().addClass('is-visible');
-				$('.pp-template:not([data-filter="'+filter+'"])').fadeOut().removeClass('is-visible');
+			if(jQuery(this).hasClass('active')) {
+				jQuery('.pp-template-overlay').addClass('active');
 			}
 
-			// if ( history.pushState ) {
-			//     e.preventDefault();
-			//     var filter = $(this).data('filter');
-			//     var url = document.location.href.split('&filter')[0];
-			//     url = url + '&filter=' + filter;
-			//     window.history.pushState({path:url},'',url);
-			// }
+			jQuery('.pp-template-overlay').find('button.close').on('click', function() {
+				jQuery(window).scrollTop(scrollPos);
+			});
 		});
 
-		/* Search */
-		$('#wp-filter-search-input').on('keyup', function() {
-			if( $(this).val().length >= 3 ){
-				var search_term = $(this).val().toLowerCase().trim();
-				$('.pp-template').hide();
-				$('.pp-template').each(function() {
-					if( $(this).find('.pp-template-category').text().toLowerCase().trim().search(search_term) !== -1 ) {
-						$(this).show();
-					} else {
-						$(this).hide();
-					}
-				});
-			} else {
-				var activeFilter = $('.filter-page-templates li.current a').data('filter');
-				if ( 'undefined' !== typeof activeFilter ) {
-					$('.pp-template').hide();
-					$('.pp-template[data-filter="' + activeFilter + '"]').show();
-				} else {
-					$('.pp-template').show();
-				}
-			}
+		jQuery('.pp-template-overlay .pp-template-header .close').on('click', function(e) {
+
+			e.preventDefault();
+
+			var overlay = jQuery(this).parents('.pp-template-overlay');
+			overlay.fadeOut(100).find('.pp-template-preview-frame').attr('src', '');
+
+			setTimeout(function() {
+				overlay.removeClass('active');
+			}, 100);
+
 		});
-
-	});
-
-	jQuery(document).on('click', '.pp-activate-template', function(e) {
-
-		e.preventDefault();
-		e.stopPropagation();
-
-		var button = jQuery(this);
-		var parent = button.parents('.pp-template, .pp-template-overlay');
-		parent.addClass('activating');
-
-		console.log('Template is downloading...');
-
-		jQuery.ajax({
-			url: '<?php echo admin_url( 'admin-ajax.php' ); ?>',
-			type: 'post',
-			data: {
-				action: 'pp_activate_template',
-				nonce: '<?php echo wp_create_nonce( 'pp-activate-template' ); ?>',
-				pp_template_cat: button.data('template-cat'),
-				pp_template_type: button.data('template-type'),
-			},
-			success: function(response) {
-				if('activated' === response) {
-					if(parent.hasClass('pp-template-overlay')) {
-						location.reload();
-					}
-					parent.removeClass('activating').addClass('active');
-					parent.find('.pp-template-category span').html('Active: ');
-					console.info('Template has downloaded and activated successfully.');
-				} else {
-					console.error(response);
-				}
-			}
-		});
-	});
-
-	jQuery(document).on('click', '.pp-deactivate-template', function(e) {
-
-		e.preventDefault();
-		e.stopPropagation();
-
-		var button = jQuery(this);
-		var parent = button.parents('.pp-template, .pp-template-overlay');
-		parent.addClass('activating').removeClass('active');
-
-		console.log('Template is deactivating...');
-
-		jQuery.ajax({
-			url: '<?php echo admin_url( 'admin-ajax.php' ); ?>',
-			type: 'post',
-			data: {
-				action: 'pp_deactivate_template',
-				nonce: '<?php echo wp_create_nonce( 'pp-deactivate-template' ); ?>',
-				pp_template_cat: button.data('template-cat'),
-				pp_template_type: button.data('template-type'),
-			},
-			success: function(response) {
-				if('deactivated' === response) {
-					if(parent.hasClass('pp-template-overlay')) {
-						location.reload();
-					}
-					parent.removeClass('activating').removeClass('active');
-					parent.find('.pp-template-category span').html('');
-					console.info('Template has deactivated successfully.');
-				} else {
-					parent.addClass('active')
-					console.error(response);
-				}
-			}
-		});
-	});
-
-	jQuery(document).on('click', '.pp-template.pp-preview-enabled', function(e) {
-
-		e.preventDefault();
-
-		var preview = jQuery(this).find('.pp-template-preview');
-		var previewSrc = preview.data('preview-src');
-		var templateCat = preview.data('template-cat');
-		var activateLink = jQuery(this).find('.pp-activate-template').attr('href');
-		var deactivateLink = jQuery(this).find('.pp-deactivate-template').attr('href');
-		var scrollPos = jQuery(window).scrollTop();
-
-		jQuery('.pp-template-overlay').show().find('.pp-template-preview-frame').attr('src', previewSrc);
-		jQuery('.pp-template-overlay').find('.pp-activate-template').attr('data-template-cat', templateCat).attr('href', activateLink);
-		jQuery('.pp-template-overlay').find('.pp-deactivate-template').attr('data-template-cat', templateCat).attr('href', deactivateLink);
-
-		if(jQuery(this).hasClass('active')) {
-			jQuery('.pp-template-overlay').addClass('active');
-		}
-
-		jQuery('.pp-template-overlay').find('button.close').on('click', function() {
-			jQuery(window).scrollTop(scrollPos);
-		});
-	});
-
-	jQuery('.pp-template-overlay .pp-template-header .close').on('click', function(e) {
-
-		e.preventDefault();
-
-		var overlay = jQuery(this).parents('.pp-template-overlay');
-		overlay.fadeOut(100).find('.pp-template-preview-frame').attr('src', '');
-
-		setTimeout(function() {
-			overlay.removeClass('active');
-		}, 100);
-
-	});
+	})(jQuery);
 </script>

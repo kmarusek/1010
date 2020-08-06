@@ -10,6 +10,7 @@ FLBuilderModel::default_settings($settings, array(
 	'show_image' 		=> 'yes',
 	'show_author'		=> 'yes',
 	'show_date'			=> 'yes',
+	'date_format'		=> '',
 	'show_categories'	=> 'no',
 	'meta_separator'	=> ' | ',
 	'show_content'		=> 'yes',
@@ -338,9 +339,10 @@ do_action( 'pp_cg_loop_settings_before_form', $settings ); // e.g Add custom FLB
 			), $settings);
 
 			FLBuilder::render_settings_field('custom_content',  array(
-				'type'          => 'text',
+				'type'          => 'textarea',
 				'label'         => __('Custom Content', 'bb-powerpack'),
 				'default'       => '',
+				'rows'			=> 5,
 				'connections'	=> array('string', 'html', 'url', 'custom_field'),
 				'help'			=> __('If you are using Beaver Themer, you can display custom content by field conection.', 'bb-powerpack')
 			), $settings);
@@ -409,7 +411,7 @@ do_action( 'pp_cg_loop_settings_before_form', $settings ); // e.g Add custom FLB
 				),
 				'toggle'	=> array(
 					'yes'	=> array(
-						'fields'	=> array('post_grid_filters_type', 'post_grid_filters', 'all_filter_label'),
+						'fields'	=> array('post_grid_filters_type', 'post_grid_filters', 'post_grid_filters_default', 'all_filter_label'),
 						'tabs'		=> array('filters_style'),
 						'sections'	=> array('filter_typography')
 					)
@@ -430,14 +432,34 @@ do_action( 'pp_cg_loop_settings_before_form', $settings ); // e.g Add custom FLB
 
 			FLBuilder::render_settings_field('post_grid_filters', array(
 				'type'		=> 'select',
-				'label'		=> __('Select Post Filter', 'bb-powerpack'),
+				'label'		=> __('Select Taxonomy', 'bb-powerpack'),
 				'default'	=> '',
 				'options'       => array()
+			), $settings);
+
+			FLBuilder::render_settings_field('post_grid_filters_terms', array(
+				'type'		=> 'select',
+				'label'		=> __('Terms to Show', 'bb-powerpack'),
+				'default'	=> '',
+				'options'       => array(
+					''			=> __( 'All', 'bb-powerpack' ),
+					'parent'	=> __( 'Parent only', 'bb-powerpack' ),
+					'children'	=> __( 'Children only', 'bb-powerpack' ),
+				)
+			), $settings);
+
+			FLBuilder::render_settings_field('post_grid_filters_default', array(
+				'type'	=> 'text',
+				'label'	=> __('Default Filter Term (slug)', 'bb-powerpack'),
+				'default'	=> '',
+				'help'	=> __( 'Show filtered posts on load for the given term by default. Enter term slug only.', 'bb-powerpack' ),
+				'connections'	=> array('string')
 			), $settings);
 
 			FLBuilder::render_settings_field('all_filter_label', array(
 				'type'	=> 'text',
 				'label'	=> __('"All" Filter Label', 'bb-powerpack'),
+				'default' => '',
 				'size'	=> 8,
 				'connections'	=> array('string')
 			), $settings);
@@ -724,7 +746,19 @@ do_action( 'pp_cg_loop_settings_before_form', $settings ); // e.g Add custom FLB
 					'yes'          => __('Yes', 'bb-powerpack'),
 					'no'         => __('No', 'bb-powerpack'),
 				),
-			),$settings);
+				'toggle'		=> array(
+					'yes'			=> array(
+						'fields'		=> array( 'date_format' )
+					),
+				),
+			), $settings);
+
+			// FLBuilder::render_settings_field( 'date_format', array(
+			// 	'type'	=> 'select',
+			// 	'label'	=> __( 'Date Format', 'bb-powerpack' ),
+			// 	'default' => '',
+			// 	'options'	=> pp_get_date_formats(),
+			// ) );
 
 			FLBuilder::render_settings_field('show_categories', array(
 				'type'			=> 'pp-switch',
@@ -804,7 +838,7 @@ do_action( 'pp_cg_loop_settings_after_form', $settings ); // e.g Add custom FLBu
 			if ( '' !== post_type ) {
 				$.ajax({
 					type: 'post',
-					data: { action: 'get_post_tax', post_type_slug: post_type },
+					data: { action: 'pp_get_taxonomies', post_type: post_type },
 					url: ajaxurl,
 					success: function(res) {
 						if ( res !== 'undefined' || res !== '' ) {

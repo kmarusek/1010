@@ -84,7 +84,7 @@ class PPNotificationsModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPNotificationsModule', array(
+BB_PowerPack::register_module('PPNotificationsModule', array(
 	'general'      => array( // Tab
 		'title'         => __('General', 'bb-powerpack'), // Tab title
 		'sections'      => array( // Tab Sections

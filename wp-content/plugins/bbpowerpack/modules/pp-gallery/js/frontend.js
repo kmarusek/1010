@@ -9,6 +9,7 @@
 		this.cachedItems		= false;
 		this.lightboxAnimation 	= settings.lightboxAnimation,
 		this.transitionEffect 	= settings.transitionEffect,
+		this.photosIds 			= settings.settings.gallery_photos,
 		this.cachedIds			= [];
 		this.isBuilderActive 	= settings.isBuilderActive;
 
@@ -164,7 +165,7 @@
 				var $this = $(this);
 				$this.addClass('disabled loading');
 
-				if ( self.cachedItems ) {
+				if ( self.cachedItems.length === self.photosIds.length ) {
 					self._renderItems();
 				} else {
 					self._getAjaxPhotos();
@@ -194,7 +195,7 @@
 						$(self.wrapperClass).imagesLoaded(function() {
 							setTimeout(function() {
 								//$(self.nodeClass).find('.pp-gallery-loader').show();
-								if ( self.cachedItems ) {
+								if ( self.cachedItems.length === self.photosIds.length ) {
 									self._renderItems();
 									galleryHeight = $(self.wrapperClass).height();
 								} else {
@@ -223,6 +224,7 @@
 				pp_action: 'pp_gallery_get_photos',
 				node_id: self.settings.id,
 				images_per_page: self.settings.perPage,
+				cached_ids: self.cachedIds,
 				settings: self.settings.settings
 			};
 
@@ -311,7 +313,7 @@
 					wrap.trigger('gallery.rendered');
 				}
 
-				if ( $(self.cachedItems).length === self.cachedIds.length ) {
+				if ( self.cachedIds.length === self.photosIds.length ) {
 					$(self.nodeClass).find('.pp-gallery-pagination').addClass('loaded').hide();
 					$(self.nodeClass).find('.pp-gallery-loader').hide();
 				}

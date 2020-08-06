@@ -11,7 +11,7 @@ class PPVideoModule extends FLBuilderModule {
 			'name'              => __( 'Video', 'bb-powerpack' ),
 			'description'       => __( 'A module that displays a video player.', 'bb-powerpack' ),
 			'group'             => pp_get_modules_group(),
-			'category'		    => pp_get_modules_cat( 'content' ),
+			'category'		    => pp_get_modules_cat( 'media' ),
 			'dir'               => BB_POWERPACK_DIR . 'modules/pp-video/',
 			'url'               => BB_POWERPACK_URL . 'modules/pp-video/',
 			'editor_export'     => true,
@@ -24,7 +24,7 @@ class PPVideoModule extends FLBuilderModule {
 	 * Enqueue scripts.
 	 */
 	public function enqueue_scripts() {
-		if ( isset( $this->settings ) && 'yes' === $this->settings->lightbox ) {
+		if ( isset( $this->settings ) && $this->has_lightbox() ) {
 			$this->add_css( 'pp-jquery-fancybox' );
 			$this->add_js( 'pp-jquery-fancybox' );
 		}
@@ -496,7 +496,7 @@ class PPVideoModule extends FLBuilderModule {
 	}
 }
 
-FLBuilder::register_module(
+BB_PowerPack::register_module(
 	'PPVideoModule',
 	array(
 		'general' => array(
@@ -735,7 +735,8 @@ FLBuilder::register_module(
 					),
 				),
 				'overlay'	=> array(
-					'title'		=> __( 'Overlay', 'bb-powerpack' ),
+					'title'		=> __( 'Overlay & Lightbox', 'bb-powerpack' ),
+					'description'	=> __( 'Lightbox option will be visible when you enable the custom overlay and upload an image.', 'bb-powerpack' ),
 					'collapsed'	=> true,
 					'fields'	=> array(
 						'overlay'	=> array(
@@ -756,6 +757,7 @@ FLBuilder::register_module(
 							'type'				=> 'photo',
 							'label'				=> __( 'Overlay Image', 'bb-powerpack' ),
 							'show_remove'		=> true,
+							'connections'		=> array( 'photo' ),
 						),
 						'play_icon'	=> array(
 							'type'		=> 'pp-switch',

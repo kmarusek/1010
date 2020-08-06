@@ -14,7 +14,7 @@ class PPTwitterTimelineModule extends FLBuilderModule {
 			'name'          => __( 'Twitter Embedded Timeline', 'bb-powerpack' ),
 			'description'   => __( 'A module to embed twitter timeline.', 'bb-powerpack' ),
 			'group'         	=> pp_get_modules_group(),
-			'category'			=> pp_get_modules_cat( 'creative' ),
+			'category'			=> pp_get_modules_cat( 'social' ),
 			'dir'           	=> BB_POWERPACK_DIR . 'modules/pp-twitter-timeline/',
 			'url'           	=> BB_POWERPACK_URL . 'modules/pp-twitter-timeline/',
 			'editor_export' 	=> true, // Defaults to true and can be omitted.
@@ -28,7 +28,7 @@ class PPTwitterTimelineModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPTwitterTimelineModule', array(
+BB_PowerPack::register_module('PPTwitterTimelineModule', array(
 	'general'       => array( // Tab
 		'title'         => __( 'General', 'bb-powerpack' ), // Tab title
 		'sections'      => array( // Tab Sections
@@ -88,6 +88,7 @@ FLBuilder::register_module('PPTwitterTimelineModule', array(
 					'height'     	=> array(
 						'type'          => 'unit',
 						'label'         => __( 'Height', 'bb-powerpack' ),
+						'description'	=> __('It will not work when Tweet Limit is set.', 'bb-powerpack'),
 						'default'       => '',
 						'units'   		=> array( 'px' ),
 						'slider'		=> array(

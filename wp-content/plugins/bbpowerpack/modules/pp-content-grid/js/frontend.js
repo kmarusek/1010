@@ -107,6 +107,11 @@
 			// set filter data globally to use later for ajax scroll pagination.
 			this.filterData = postFilterData;
 
+			// set default filter as active filter.
+			if ( this.settings.defaultFilter !== '' ) {
+				this.activeFilter = this.settings.defaultFilter;
+			}
+
 			wrap.imagesLoaded( $.proxy( function() {
 
 				var node = $(this.nodeClass);
@@ -129,7 +134,11 @@
 						});
 					});
 
-					filterWrap.on('click', '.pp-post-filter', function() {
+					filterWrap.on('click keyup', '.pp-post-filter', function(e) {
+						var shouldFilter = 'click' === e.type || ( 'keyup' === e.type && ( 13 === e.keyCode || 13 === e.which ) )
+						if ( ! shouldFilter ) {
+							return;
+						}
 						// set active filter globally to use later for ajax scroll pagination.
 						base.activeFilter = $(this).data('term');
 						base.isFiltering = true;
@@ -162,6 +171,14 @@
 							base.currentPage = pageNumber;
 							base._getPosts('', postFilterData, pageNumber);
 						});
+					}
+
+					// Default filter.
+					if ( base.settings.defaultFilter !== '' ) {
+						var defaultFilter = base.settings.defaultFilter;
+						if ( filterWrap.find('li[data-term="' + defaultFilter + '"]').length > 0 ) {
+							//filterWrap.find('li[data-term="' + defaultFilter + '"]').trigger('click');
+						}
 					}
 
 					// Trigger filter by hash parameter in URL.
@@ -197,18 +214,26 @@
 		_carouselLayout: function()
 		{
 			var wrap = $(this.nodeClass + ' .pp-content-post-carousel .pp-content-posts-inner');
+
+			var owlOptions = {
+				onInitialized: $.proxy(this._gridLayoutMatchHeightSimple, this),
+				onResized: $.proxy(this._gridLayoutMatchHeightSimple, this),
+				onRefreshed: $.proxy(this._gridLayoutMatchHeightSimple, this),
+				onLoadedLazy: $.proxy(this._gridLayoutMatchHeightSimple, this),
+				rtl: $('body').hasClass( 'rtl' ),
+			};
+			if ( $(this.postClass).length < this.settings.carousel.items ) {
+				this.settings.carousel.slideBy = 'page';
+				this.settings.carousel.loop = false;
+			}
+			if ( this.settings.carousel.lazyLoad ) {
+				$( this.postClass ).each(function() {
+					var src = $( this ).find( '.pp-post-image img' ).addClass( 'owl-lazy' ).attr( 'src' );
+					$( this ).find( '.pp-post-image img' ).removeAttr( 'src' ).attr( 'data-src', src );
+				});
+			}
+
 			wrap.imagesLoaded( $.proxy( function() {
-				var owlOptions = {
-					onInitialized: $.proxy(this._gridLayoutMatchHeightSimple, this),
-					onResized: $.proxy(this._gridLayoutMatchHeightSimple, this),
-					onRefreshed: $.proxy(this._gridLayoutMatchHeightSimple, this),
-					onLoadedLazy: $.proxy(this._gridLayoutMatchHeightSimple, this),
-					rtl: $('body').hasClass( 'rtl' ),
-				};
-				if ( $(this.postClass).length < this.settings.carousel.items ) {
-					this.settings.carousel.slideBy = 'page';
-					this.settings.carousel.loop = false;
-				}
 				wrap.owlCarousel( $.extend({}, this.settings.carousel, owlOptions) );
 			}, this));
 		},
@@ -221,6 +246,8 @@
 			if ('undefined' === typeof term || '' === term) {
 				filter = 'all';
 			}
+
+			this._getTotalPages();
 
 			var cacheData = this._getCacheData(filter);
 
@@ -276,7 +303,7 @@
 			}
 
 			// Term.
-			if ('' !== term || 'undefined' === typeof term) {
+			if ('undefined' !== typeof term && '' !== term) {
 				data['term'] = term;
 			} else if ( this.settings.is_tax && this.settings.current_term ) {
 				data['is_tax'] = true;
@@ -350,6 +377,15 @@
 					wrap.isotope('layout');
 				}, 500);
 			}, this));
+
+			if ( 'load_more' === self.settings.pagination ) {
+				$(self.nodeClass).find('.pp-content-grid-load-more').remove();
+			}
+			if ( 'scroll' === self.settings.pagination ) {
+				$(self.nodeClass).find('.pp-content-grid-loader').remove();
+			}
+
+			self._getTotalPages();
 
 			if (response.pagination) {
 				var $pagination = $(response.pagination);
@@ -584,7 +620,19 @@
 			var self 		= this,
 				$button 	= $(this.nodeClass).find('.pp-grid-load-more-button'),
 				currentPage = self.currentPage,
+				activeFilter = self.activeFilter,
 				isAjaxPagination = 'dynamic' === self.filterType;
+
+			if ( ! self.filters || 'dynamic' !== self.filterType ) {
+				activeFilter = '';
+			}
+
+			$(self.nodeClass).on('grid.filter.change', function() {
+				// re-assign active filter.
+				if ( self.filters && 'dynamic' === self.filterType ) {
+					activeFilter = self.activeFilter
+				}
+			});
 
 			$button.on('click', function(e) {
 				e.preventDefault();
@@ -594,7 +642,7 @@
 
 				currentPage = parseInt( currentPage ) + 1;
 
-				self._getPosts(self.activeFilter, self.filterData, currentPage);
+				self._getPosts(activeFilter, self.filterData, currentPage);
 				self.currentPage = currentPage;
 			});
 

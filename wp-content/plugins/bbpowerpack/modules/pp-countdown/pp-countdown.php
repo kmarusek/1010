@@ -148,7 +148,8 @@ class PPCountdownModule extends FLBuilderModule {
 
 	public function get_gmt_difference() {
 
-		$timezone = get_option('timezone_string');
+		//$timezone = isset( $this->settings->time_zone ) && '' != $this->settings->time_zone ? $this->settings->time_zone : date( 'e', current_time( 'timestamp', 1 ) );
+		$timezone = isset( $this->settings->time_zone ) && '' != $this->settings->time_zone ? $this->settings->time_zone : get_option( 'timezone_string' );
 
 		if( ! empty( $timezone ) ) {
 
@@ -172,13 +173,19 @@ class PPCountdownModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPCountdownModule', array(
+BB_PowerPack::register_module('PPCountdownModule', array(
 	'general'       => array( // Tab
 		'title'         => __( 'General', 'bb-powerpack' ), // Tab title
 		'sections'      => array( // Tab Sections
 			'general'       => array( // Section
 				'title'         => '', // Section Title
 				'fields'        => array( // Section Fields
+					'title'       => array(
+						'label'             => __( 'Title', 'bb-powerpack' ),
+						'type'              => 'text',
+						'default'           => '',
+						'connections'       => array( 'string', 'html', 'url' ),
+					),
 					'timer_type'   => array(
 						'type'          => 'pp-switch',
 						'label'         => __( 'Timer Type', 'bb-powerpack' ),
@@ -205,6 +212,11 @@ FLBuilder::register_module('PPCountdownModule', array(
 						'type'          => 'pp-evergreen-date',
 						'label'         => __( 'Expire Countdown In', 'bb-powerpack' ),
 						'default'       => '',
+					),
+					'time_zone' => array(
+						'type'    => 'timezone',
+						'label'   => __( 'Time Zone', 'bb-powerpack' ),
+						'default' => get_option('timezone_string'),
 					),
 				),
 			),
@@ -798,6 +810,72 @@ FLBuilder::register_module('PPCountdownModule', array(
 	'typography'       => array( // Tab
 		'title'         => __( 'Typography', 'bb-powerpack' ), // Tab title
 		'sections'      => array( // Tab Sections
+			'title_typography'      => array(
+				'title'                 => __( 'Title', 'bb-powerpack' ),
+				'fields'                => array(
+					'title_tag'   => array(
+						'type'              => 'select',
+						'label'             => __( 'HTML Tag', 'bb-powerpack' ),
+						'default'           => 'h3',
+						'options'           => array(
+							'h1'                => 'H1',
+							'h2'                => 'H2',
+							'h3'                => 'H3',
+							'h4'                => 'H4',
+							'h5'                => 'H5',
+							'h6'                => 'H6',
+						),
+					),
+					'title_typography'	=> array(
+						'type'			=> 'typography',
+						'label'			=> __( 'Typography', 'bb-powerpack' ),
+						'responsive'  	=> true,
+						'preview'		=> array(
+							'type'			=> 'css',
+							'selector'		=> '.pp-countdown-wrapper .pp-countdown-title',
+						),
+					),
+					'title_color' => array(
+						'type'          => 'color',
+						'label'         => __( 'Color', 'bb-powerpack' ),
+						'show_reset'    => true,
+						'connections'	=> array( 'color'),
+						'preview'       => array(
+							'type'          => 'css',
+							'selector'      => '.pp-countdown-wrapper .pp-countdown-title',
+							'property'      => 'color',
+						),
+					),
+					'title_margin_top' => array(
+						'type'          => 'unit',
+						'label'         => __( 'Margin Top', 'bb-powerpack' ),
+						'default'       => '',
+						'units'   		=> array( 'px' ),
+						'slider'		=> true,
+						'responsive'	=> true,
+						'preview'       => array(
+							'type'          => 'css',
+							'selector'      => '.pp-countdown-wrapper .pp-countdown-title',
+							'property'      => 'margin-top',
+							'unit'			=> 'px'
+						),
+					),
+					'title_margin_bottom' => array(
+						'type'          => 'unit',
+						'label'         => __( 'Margin Bottom', 'bb-powerpack' ),
+						'default'       => '',
+						'units'   		=> array( 'px' ),
+						'slider'		=> true,
+						'responsive'	=> true,
+						'preview'       => array(
+							'type'          => 'css',
+							'selector'      => '.pp-countdown-wrapper .pp-countdown-title',
+							'property'      => 'margin-bottom',
+							'unit'			=> 'px'
+						),
+					),
+				),
+			),
 			'digit_typography'    => array(
 				'title'     => __( 'Digit', 'bb-powerpack' ),
 				'fields'    => array(

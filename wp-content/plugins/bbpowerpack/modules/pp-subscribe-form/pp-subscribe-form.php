@@ -262,7 +262,7 @@ class PPSubscribeFormModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module( 'PPSubscribeFormModule', array(
+BB_PowerPack::register_module( 'PPSubscribeFormModule', array(
 	'general'       => array(
 		'title'         => __( 'General', 'bb-powerpack' ),
 		'sections'      => array(
@@ -615,8 +615,8 @@ FLBuilder::register_module( 'PPSubscribeFormModule', array(
 					'success_url'  => array(
 						'type'          => 'link',
 						'label'         => __( 'Success URL', 'bb-powerpack' ),
-						'show_target'	=> true,
-						'show_nofollow'	=> true,
+						'show_target'	=> false,
+						'show_nofollow'	=> false,
 						'connections'   => array( 'url' ),
 						'preview'       => array(
 							'type'             => 'none'

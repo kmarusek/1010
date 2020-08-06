@@ -2,7 +2,7 @@
 $class = 'carousel' == $settings->layout ? 'pp-content-carousel-post' : 'pp-content-grid-post';
 ?>
 
-<div <?php post_class('pp-content-post ' . $class . ' pp-grid-' . $settings->post_grid_style_select); ?> itemscope itemtype="<?php BB_PowerPack_Post_Helper::schema_itemtype(); ?>" data-id="<?php echo get_the_ID(); ?>">
+<div <?php post_class('pp-content-post ' . $class . ' pp-grid-' . $settings->post_grid_style_select); ?><?php BB_PowerPack_Post_Helper::print_schema( ' itemscope itemtype="' . BB_PowerPack_Post_Helper::schema_itemtype() . '"' ); ?> data-id="<?php echo get_the_ID(); ?>">
 
 	<?php
 	

@@ -220,7 +220,7 @@ class PPReviewsModule extends FLBuilderModule {
 	 *
 	 * @return array	$response	API response.
 	 */
-	private function get_api_data( $source ) {
+	public function get_api_data( $source ) {
 		$api_args = array(
 			'method'      => 'POST',
 			'timeout'     => 60,
@@ -241,11 +241,13 @@ class PPReviewsModule extends FLBuilderModule {
 
 			$url = add_query_arg(
 				array(
-					'key'     => pp_get_google_api_key(),
+					'key'     => $api_key,
 					'placeid' => $this->settings->google_place_id,
 				),
 				'https://maps.googleapis.com/maps/api/place/details/json'
 			);
+
+			//$url = pp_get_google_places_api_url();
 		}
 
 		if ( 'yelp' === $source ) {
@@ -268,6 +270,14 @@ class PPReviewsModule extends FLBuilderModule {
 			esc_url_raw( $url ),
 			$api_args
 		);
+
+		if ( ! is_wp_error( $response ) ) {
+			$body = json_decode( wp_remote_retrieve_body( $response ) );
+			if ( isset( $body->error_message ) && ! empty( $body->error_message ) ) {
+				$status = isset( $body->status ) ? $body->status : $source . '_api_error';
+				return new WP_Error( $status, $body->error_message );
+			}
+		}
 
 		return $response;
 	}
@@ -505,7 +515,7 @@ class PPReviewsModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module(
+BB_PowerPack::register_module(
 	'PPReviewsModule',
 	array(
 		'reviews'    => array( // Tab.

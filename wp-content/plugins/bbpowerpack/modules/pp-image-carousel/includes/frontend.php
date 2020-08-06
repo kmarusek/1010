@@ -30,7 +30,16 @@ $photos = $module->get_photos();
 					<a href="<?php echo $click_action_link; ?>" target="<?php echo $click_action_target; ?>"<?php echo $click_action_rel; ?> data-caption="<?php echo $photo->caption; ?>">
 					<?php endif; ?>
 
+					<?php if ( ! isset( $settings->use_image_as ) || 'background' === $settings->use_image_as ) { ?>
 					<div class="pp-carousel-image-container" style="background-image:url(<?php echo esc_url( $photo->src ); ?>)"></div>
+					<?php } ?>
+					<?php if ( isset( $settings->use_image_as ) && 'img' === $settings->use_image_as ) { ?>
+					<div class="pp-carousel-image-container">
+						<figure class="swiper-slide-inner">
+							<img class="swiper-slide-image" src="<?php echo esc_url( $photo->src ); ?>" alt="<?php echo esc_attr( $photo->alt ); ?>" />
+						</figure>
+					</div>
+					<?php } ?>
 
 					<?php if( $settings->overlay != 'none' ) : ?>
 						<!-- Overlay Wrapper -->

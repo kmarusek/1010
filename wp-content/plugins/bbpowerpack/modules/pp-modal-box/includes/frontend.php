@@ -11,7 +11,7 @@
 			<?php } ?>
 		<?php } ?>
 		<?php if ( 'image' == $settings->button_type ) { ?>
-			<img src="<?php echo $settings->image_source_src; ?>" class="pp-modal-trigger-image" />
+			<img src="<?php echo $settings->image_source_src; ?>" class="pp-modal-trigger-image" alt="<?php echo pp_get_image_alt( $settings->image_source ); ?>" />
 		<?php } ?>
 		<?php if ( 'icon' == $settings->button_type ) { ?>
 			<span class="<?php echo $settings->icon_source; ?> pp-modal-trigger-icon"></span>

@@ -31,7 +31,6 @@ FLBuilderCSS::responsive_rule(
 		'setting_name' => 'offcanvas_bar_width',
 		'selector'     => ".pp-offcanvas-content-$id",
 		'prop'         => 'width',
-		'unit'         => 'px',
 	)
 );
 
@@ -52,7 +51,6 @@ FLBuilderCSS::responsive_rule(
 		'setting_name' => 'offcanvas_bar_width',
 		'selector'     => ".pp-offcanvas-content-$id.pp-offcanvas-content-top, .pp-offcanvas-content-$id.pp-offcanvas-content-bottom",
 		'prop'         => 'height',
-		'unit'         => 'px',
 	)
 );
 ?>
@@ -63,22 +61,22 @@ FLBuilderCSS::responsive_rule(
 .pp-offcanvas-content-reveal.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-left .pp-offcanvas-container,
 .pp-offcanvas-content-push.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-left .pp-offcanvas-container,
 .pp-offcanvas-content-slide-along.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-left .pp-offcanvas-container {
-	transform: translate3d(<?php echo $settings->offcanvas_bar_width; ?>px, 0, 0);
+	transform: translate3d(<?php echo $settings->offcanvas_bar_width; ?><?php echo $settings->offcanvas_bar_width_unit; ?>, 0, 0);
 }
 .pp-offcanvas-content-reveal.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-right .pp-offcanvas-container,
 .pp-offcanvas-content-push.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-right .pp-offcanvas-container,
 .pp-offcanvas-content-slide-along.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-right .pp-offcanvas-container {
-	transform: translate3d(-<?php echo $settings->offcanvas_bar_width; ?>px, 0, 0);
+	transform: translate3d(-<?php echo $settings->offcanvas_bar_width; ?><?php echo $settings->offcanvas_bar_width_unit; ?>, 0, 0);
 }
 .pp-offcanvas-content-reveal.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-top .pp-offcanvas-container,
 .pp-offcanvas-content-push.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-top .pp-offcanvas-container,
 .pp-offcanvas-content-slide-along.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-top .pp-offcanvas-container {
-	transform: translate3d(0, <?php echo $settings->offcanvas_bar_width; ?>px, 0);
+	transform: translate3d(0, <?php echo $settings->offcanvas_bar_width; ?><?php echo $settings->offcanvas_bar_width_unit; ?>, 0);
 }
 .pp-offcanvas-content-reveal.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-bottom .pp-offcanvas-container,
 .pp-offcanvas-content-push.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-bottom .pp-offcanvas-container,
 .pp-offcanvas-content-slide-along.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-bottom .pp-offcanvas-container {
-	transform: translate3d(0, -<?php echo $settings->offcanvas_bar_width; ?>px, 0);
+	transform: translate3d(0, -<?php echo $settings->offcanvas_bar_width; ?><?php echo $settings->offcanvas_bar_width_unit; ?>, 0);
 }
 .pp-offcanvas-content-<?php echo $id; ?> .pp-offcanvas-body {
 	text-align: <?php echo $settings->content_align; ?>;
@@ -132,9 +130,12 @@ FLBuilderCSS::dimension_field_rule(
 .pp-offcanvas-content-<?php echo $id; ?>.pp-offcanvas-content .pp-offcanvas-header {
 	text-align: <?php echo $settings->close_button_align; ?>;
 }
-.pp-offcanvas-content-<?php echo $id; ?> .pp-offcanvas-header .pp-offcanvas-close span {
+.pp-offcanvas-content-<?php echo $id; ?> .pp-offcanvas-header .pp-offcanvas-close span,
+.pp-offcanvas-content-<?php echo $id; ?> .pp-offcanvas-header .pp-offcanvas-close span:before {
 	color: <?php echo pp_get_color_value( $settings->close_button_color ); ?>;
+	<?php if ( ! empty( $settings->close_button_size ) ) { ?>
 	font-size: <?php echo ( $settings->close_button_size ); ?>px;
+	<?php } ?>
 }
 <?php
 // Toggle Padding
@@ -161,6 +162,10 @@ FLBuilderCSS::dimension_field_rule(
 	color: <?php echo pp_get_color_value( $settings->toggle_text_color ); ?>;
 	background: <?php echo pp_get_color_value( $settings->toggle_bg_color ); ?>;
 	transition: all 0.3s ease-in-out;
+	<?php if ( 'button' == $settings->toggle_source && 'yes' == $settings->toggle_full_width ) { ?>
+		width: 100%;
+		display: block;
+	<?php } ?>
 }
 .fl-node-<?php echo $id; ?> .pp-offcanvas-toggle-wrap .pp-offcanvas-toggle .pp-hamburger-box,
 .fl-node-<?php echo $id; ?> .pp-offcanvas-toggle-wrap .pp-offcanvas-toggle .pp-hamburger-inner,
@@ -249,22 +254,22 @@ FLBuilderCSS::typography_field_rule(
 	.pp-offcanvas-content-reveal.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-left .pp-offcanvas-container,
 	.pp-offcanvas-content-push.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-left .pp-offcanvas-container,
 	.pp-offcanvas-content-slide-along.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-left .pp-offcanvas-container {
-		transform: translate3d(<?php echo $settings->offcanvas_bar_width_medium; ?>px, 0, 0);
+		transform: translate3d(<?php echo $settings->offcanvas_bar_width_medium; ?><?php echo $settings->offcanvas_bar_width_medium_unit; ?>, 0, 0);
 	}
 	.pp-offcanvas-content-reveal.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-right .pp-offcanvas-container,
 	.pp-offcanvas-content-push.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-right .pp-offcanvas-container,
 	.pp-offcanvas-content-slide-along.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-right .pp-offcanvas-container {
-		transform: translate3d(-<?php echo $settings->offcanvas_bar_width_medium; ?>px, 0, 0);
+		transform: translate3d(-<?php echo $settings->offcanvas_bar_width_medium; ?><?php echo $settings->offcanvas_bar_width_medium_unit; ?>, 0, 0);
 	}
 	.pp-offcanvas-content-reveal.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-top .pp-offcanvas-container,
 	.pp-offcanvas-content-push.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-top .pp-offcanvas-container,
 	.pp-offcanvas-content-slide-along.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-top .pp-offcanvas-container {
-		transform: translate3d(0, <?php echo $settings->offcanvas_bar_width_medium; ?>px, 0);
+		transform: translate3d(0, <?php echo $settings->offcanvas_bar_width_medium; ?><?php echo $settings->offcanvas_bar_width_medium_unit; ?>, 0);
 	}
 	.pp-offcanvas-content-reveal.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-bottom .pp-offcanvas-container,
 	.pp-offcanvas-content-push.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-bottom .pp-offcanvas-container,
 	.pp-offcanvas-content-slide-along.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-bottom .pp-offcanvas-container {
-		transform: translate3d(0, -<?php echo $settings->offcanvas_bar_width_medium; ?>px, 0);
+		transform: translate3d(0, -<?php echo $settings->offcanvas_bar_width_medium; ?><?php echo $settings->offcanvas_bar_width_medium_unit; ?>, 0);
 	}
 }
 
@@ -272,21 +277,25 @@ FLBuilderCSS::typography_field_rule(
 	.pp-offcanvas-content-reveal.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-left .pp-offcanvas-container,
 	.pp-offcanvas-content-push.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-left .pp-offcanvas-container,
 	.pp-offcanvas-content-slide-along.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-left .pp-offcanvas-container {
-		transform: translate3d(<?php echo $settings->offcanvas_bar_width_responsive; ?>px, 0, 0);
+		transform: translate3d(<?php echo $settings->offcanvas_bar_width_responsive; ?><?php echo $settings->offcanvas_bar_width_responsive_unit; ?>, 0, 0);
 	}
 	.pp-offcanvas-content-reveal.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-right .pp-offcanvas-container,
 	.pp-offcanvas-content-push.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-right .pp-offcanvas-container,
 	.pp-offcanvas-content-slide-along.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-right .pp-offcanvas-container {
-		transform: translate3d(-<?php echo $settings->offcanvas_bar_width_responsive; ?>px, 0, 0);
+		transform: translate3d(-<?php echo $settings->offcanvas_bar_width_responsive; ?><?php echo $settings->offcanvas_bar_width_responsive_unit; ?>, 0, 0);
 	}
 	.pp-offcanvas-content-reveal.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-top .pp-offcanvas-container,
 	.pp-offcanvas-content-push.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-top .pp-offcanvas-container,
 	.pp-offcanvas-content-slide-along.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-top .pp-offcanvas-container {
-		transform: translate3d(0, <?php echo $settings->offcanvas_bar_width_responsive; ?>px, 0);
+		transform: translate3d(0, <?php echo $settings->offcanvas_bar_width_responsive; ?><?php echo $settings->offcanvas_bar_width_responsive_unit; ?>, 0);
 	}
 	.pp-offcanvas-content-reveal.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-bottom .pp-offcanvas-container,
 	.pp-offcanvas-content-push.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-bottom .pp-offcanvas-container,
 	.pp-offcanvas-content-slide-along.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-bottom .pp-offcanvas-container {
-		transform: translate3d(0, -<?php echo $settings->offcanvas_bar_width_responsive; ?>px, 0);
+		transform: translate3d(0, -<?php echo $settings->offcanvas_bar_width_responsive; ?><?php echo $settings->offcanvas_bar_width_responsive_unit; ?>, 0);
+	}
+	/* Animated Headlines fix */
+	.pp-offcanvas-content-<?php echo $id; ?>-open .pp-offcanvas-container .pp-headline-dynamic-wrapper {
+		display: none;
 	}
 }

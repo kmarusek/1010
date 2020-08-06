@@ -26,7 +26,7 @@ class BB_PowerPack_Ajax {
 	 */
 	static public function init() {
 		add_action( 'wp', 										__CLASS__ . '::handle_ajax' );
-		// add_action( 'pp_post_grid_ajax_before_query', 			__CLASS__ . '::loop_fake_actions' );
+		add_action( 'pp_post_grid_ajax_before_query', 			__CLASS__ . '::loop_fake_actions' );
 		add_action( 'wp_ajax_pp_get_taxonomies', 				__CLASS__ . '::get_post_taxonomies' );
 		add_action( 'wp_ajax_nopriv_pp_get_taxonomies', 		__CLASS__ . '::get_post_taxonomies' );
 		add_action( 'wp_ajax_pp_get_saved_templates', 			__CLASS__ . '::get_saved_templates' );
@@ -41,8 +41,10 @@ class BB_PowerPack_Ajax {
 	 * @return void
 	 */
 	static public function loop_fake_actions() {
-		add_action( 'loop_start', __CLASS__ . '::fake_loop_true' );
-		add_action( 'loop_end', __CLASS__ . '::fake_loop_false' );
+		if ( apply_filters( 'pp_post_grid_ajax_fake_loop', false ) ) {
+			add_action( 'loop_start', __CLASS__ . '::fake_loop_true' );
+			add_action( 'loop_end', __CLASS__ . '::fake_loop_false' );
+		}
 	}
 
 	/**
@@ -203,6 +205,7 @@ class BB_PowerPack_Ajax {
 
 		$post_type = $settings->post_type;
 
+		global $post;
 		global $wp_query;
 
 		$args = array(
@@ -214,29 +217,6 @@ class BB_PowerPack_Ajax {
 			'pp_node_html_id'		=> isset( $settings->id ) ? $settings->id : '',
 			'settings'				=> $settings,
 		);
-
-		if ( 'main_query' !== $settings->data_source ) {
-			if ( isset( $settings->posts_per_page ) ) {
-				$args['posts_per_page'] = $settings->posts_per_page;
-			}
-
-			// posts filter.
-			if ( isset( $settings->{'posts_' . $post_type} ) ) {
-
-				$ids = $settings->{'posts_' . $post_type};
-				$arg = 'post__in';
-
-				if ( isset( $settings->{'posts_' . $post_type . '_matching'} ) ) {
-					if ( ! $settings->{'posts_' . $post_type . '_matching'} ) {
-						$arg = 'post__not_in';
-					}
-				}
-
-				if ( ! empty( $ids ) ) {
-					$args[ $arg ] = explode( ',', $ids );
-				}
-			}
-		}
 
 		if ( 'custom_query' === $settings->data_source ) {
 
@@ -265,8 +245,9 @@ class BB_PowerPack_Ajax {
 			$args['author__in'] = array( absint( wp_unslash( $_POST['author_id'] ) ) );
 		}
 
-		if ( isset( $settings->post_grid_filters ) && 'none' !== $settings->post_grid_filters && isset( $_POST['term'] ) ) {
+		if ( 'no' !== $settings->post_grid_filters_display && 'none' !== $settings->post_grid_filters && isset( $_POST['term'] ) && ! isset( $_POST['is_tax'] ) ) {
 			$args['tax_query'] = array(
+				'relation'	=> 'AND',
 				array(
 					'taxonomy' => $settings->post_grid_filters,
 					'field'    => 'slug',
@@ -276,6 +257,7 @@ class BB_PowerPack_Ajax {
 		} else {
 			if ( isset( $_POST['taxonomy'] ) && isset( $_POST['term'] ) ) {
 				$args['tax_query'] = array(
+					'relation'	=> 'AND',
 					array(
 						'taxonomy' => sanitize_text_field( wp_unslash( $_POST['taxonomy'] ) ),
 						'field'    => 'slug',
@@ -359,6 +341,33 @@ class BB_PowerPack_Ajax {
 				}
 			} // End foreach().
 		}
+		
+		if ( 'main_query' !== $settings->data_source ) {
+			if ( isset( $settings->posts_per_page ) ) {
+				$args['posts_per_page'] = $settings->posts_per_page;
+			}
+
+			// posts filter.
+			if ( isset( $settings->{'posts_' . $post_type} ) ) {
+
+				$ids = $settings->{'posts_' . $post_type};
+				$arg = 'post__in';
+
+				if ( isset( $settings->{'posts_' . $post_type . '_matching'} ) ) {
+					if ( ! $settings->{'posts_' . $post_type . '_matching'} ) {
+						$arg = 'post__not_in';
+					}
+				}
+
+				if ( ! empty( $ids ) ) {
+					$args[ $arg ] = explode( ',', $ids );
+				}
+			}
+			
+			if ( $post && isset( $settings->exclude_current_post ) && 'yes' === $settings->exclude_current_post ) {
+				$args['post__not_in'][] = $post->ID;
+			}
+		}
 
 		if ( 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) && 'product' === $post_type ) {
 			$args['meta_query'][] = array(
@@ -418,7 +427,34 @@ class BB_PowerPack_Ajax {
 			unset( $args['settings'] );
 		}
 
-		$query = new WP_Query( $args );
+		if ( 'main_query' !== $settings->data_source ) {
+			$query = new WP_Query( $args );
+		} else {
+			$query = $wp_query;
+			if ( method_exists( 'WC_Query', 'pre_get_posts' ) ) {
+				WC()->query->pre_get_posts( $query );
+			}
+
+			$tax_query = $query->get( 'tax_query' );
+
+			if ( ! is_array( $tax_query ) ) {
+				$tax_query = array();
+			}
+			
+			if ( isset( $args['tax_query'] ) ) {
+				$query->set( 'tax_query', array_merge( $tax_query, $args['tax_query'] ) );
+			}
+	
+			if ( isset( $_POST['page'] ) ) {
+				$query->set('paged', absint( wp_unslash( $_POST['page'] ) ) );
+			}
+
+			if ( isset( $_POST['author_id'] ) && ! empty( $_POST['author_id'] ) ) {
+				$query->set( 'author__in', array( absint( wp_unslash( $_POST['author_id'] ) ) ) );
+			}
+
+			$query = new WP_Query( $query->query_vars );
+		}
 
 		do_action( 'pp_post_grid_ajax_after_query', $settings );
 
@@ -430,7 +466,7 @@ class BB_PowerPack_Ajax {
 				ob_start();
 
 				echo '<div class="pp-content-grid-pagination pp-ajax-pagination fl-builder-pagination"' . $style . '>';
-				if ( 'scroll' === $settings->pagination && isset( $_POST['term'] ) ) {
+				if ( ('scroll' === $settings->pagination || 'load_more' === $settings->pagination ) && isset( $_POST['term'] ) ) {
 					BB_PowerPack_Post_Helper::ajax_pagination(
 						$query,
 						$settings,
@@ -448,9 +484,27 @@ class BB_PowerPack_Ajax {
 					);
 				}
 				echo '</div>';
+				if ( 'load_more' == $settings->pagination ) { ?>
+					<div class="pp-content-grid-load-more">
+						<a href="#" class="pp-grid-load-more-button">
+						<span class="pp-grid-loader-text"><?php echo $settings->load_more_text; ?></span>
+						<span class="pp-grid-loader-icon"><img src="<?php echo BB_POWERPACK_URL . 'images/spinner.gif'; ?>" /></span></a>
+					</div>
+				<?php } ?>
+				<?php if ( 'scroll' == $settings->pagination ) { ?>
+					<div class="pp-content-grid-loader" style="display: none;">
+						<span class="pp-grid-loader-text"><?php _e('Loading...', 'bb-powerpack'); ?></span>
+						<span class="pp-grid-loader-icon"><img src="<?php echo BB_POWERPACK_URL . 'images/spinner.gif'; ?>" /></span>
+					</div>
+				<?php }
 
 				$response['pagination'] = ob_get_clean();
 			}
+			if ( $query->max_num_pages < 1 ) {
+				$response['last'] = true;
+			}
+
+			$count = 0;
 
 			// posts query.
 			while ( $query->have_posts() ) {
@@ -460,6 +514,8 @@ class BB_PowerPack_Ajax {
 				$terms_list = wp_get_post_terms( get_the_ID(), $settings->post_taxonomies );
 				$post_id = get_the_ID();
 				$permalink = get_permalink();
+
+				$count++;
 
 				ob_start();
 

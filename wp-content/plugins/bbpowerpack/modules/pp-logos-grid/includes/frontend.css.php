@@ -313,7 +313,7 @@ FLBuilderCSS::responsive_rule( array(
     <?php } ?>
 }
 
-@media only screen and (max-width: 1024px) {
+@media only screen and (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) {
     .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo {
         <?php if( $settings->logos_layout == 'grid' && $settings->logos_grid_columns_medium >= 0 ) { ?>
         width: calc((100% - <?php echo $space_tablet + 1; ?>px) / <?php echo $settings->logos_grid_columns_medium; ?>);

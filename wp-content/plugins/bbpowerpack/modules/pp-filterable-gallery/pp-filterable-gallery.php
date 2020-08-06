@@ -13,7 +13,7 @@ class PPFilterableGalleryModule extends FLBuilderModule {
 			'name'          => __('Filterable Gallery', 'bb-powerpack'),
             'description'   => __('A module for filterable gallery.', 'bb-powerpack'),
 			'group'			=> pp_get_modules_group(),
-            'category'		=> pp_get_modules_cat( 'content' ),
+            'category'		=> pp_get_modules_cat( 'media' ),
             'dir'           => BB_POWERPACK_DIR . 'modules/pp-filterable-gallery/',
             'url'           => BB_POWERPACK_URL . 'modules/pp-filterable-gallery/',
             'editor_export' => true, // Defaults to true and can be omitted.
@@ -360,7 +360,7 @@ class PPFilterableGalleryModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPFilterableGalleryModule', array(
+BB_PowerPack::register_module('PPFilterableGalleryModule', array(
     'general'       => array( // Tab
         'title'         => __('General', 'bb-powerpack'), // Tab title
         'sections'      => array( // Tab Sections
@@ -461,8 +461,21 @@ FLBuilder::register_module('PPFilterableGalleryModule', array(
 						),
 						'preview'	=> array(
 							'type'		=> 'none'
-						)
-					)
+						),
+						'toggle'	=> array(
+							'_blank'	=> array(
+								'fields'	=> array( 'custom_link_nofollow' ),
+							),
+						),
+					),
+					'custom_link_nofollow'	=> array(
+						'type'	=> 'pp-switch',
+						'label' => __( 'Link nofollow', 'bb-powerpack' ),
+						'default' => 'yes',
+						'preview'	=> array(
+							'type'		=> 'none'
+						),
+					),
 				)
 			),
 			'overlay_settings'	=> array(

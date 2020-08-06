@@ -33,7 +33,7 @@ class PPStarRatingModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module(
+BB_PowerPack::register_module(
 	'PPStarRatingModule',
 	array(
 		'star_rating_tab'  => array( // Tab

@@ -15,7 +15,7 @@ class PPAlbumModule extends FLBuilderModule {
 			'name'          	=> __('Album', 'bb-powerpack'),
             'description'   	=> __('A module for photo Album.', 'bb-powerpack'),
             'group'         	=> pp_get_modules_group(),
-            'category'			=> pp_get_modules_cat( 'content' ),
+            'category'			=> pp_get_modules_cat( 'media' ),
             'dir'           	=> BB_POWERPACK_DIR . 'modules/pp-album/',
             'url'           	=> BB_POWERPACK_URL . 'modules/pp-album/',
             'editor_export' 	=> true, // Defaults to true and can be omitted.
@@ -38,7 +38,7 @@ class PPAlbumModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPAlbumModule', array(
+BB_PowerPack::register_module('PPAlbumModule', array(
     'general'       => array(
         'title'         => __('General', 'bb-powerpack'),
         'sections'      => array(
@@ -487,6 +487,13 @@ FLBuilder::register_module('PPAlbumModule', array(
 							'zoom-in-out'   	=> __( 'Zoom in Out', 'bb-powerpack' ),
 							'rotate'        	=> __( 'Rotate', 'bb-powerpack' ),
 						),
+					),
+					'transition_speed' => array(
+						'type'              => 'text',
+						'label'             => __('Transition Speed', 'bb-powerpack'),
+						'default'			=> '366',
+						'description'       => 'ms',
+						'size'             	=> 5,
 					),
 				),
 			),

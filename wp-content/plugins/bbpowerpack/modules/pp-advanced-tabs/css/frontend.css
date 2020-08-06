@@ -2,6 +2,7 @@
 ------------------------------------ */
 
 .pp-tabs-label {
+	outline: 0;
 	cursor: pointer;
 	transition: all 0.2s ease-in;
 	-webkit-transition: all 0.2s ease-in;
@@ -20,6 +21,15 @@
 .pp-tabs-label.pp-tab-active {
 	position: relative;
 	z-index: 1;
+}
+.pp-tab-label-flex {
+	display: inline-flex;
+    flex-direction: row;
+    flex: 1 1 auto;
+}
+.pp-tab-description {
+	position: relative;
+	margin-top: 10px;
 }
 
 .pp-clearfix:before,
@@ -143,6 +153,9 @@
 	float: left;
 	width: 30%;
 }
+.pp-tabs-vertical.pp-tabs-vertical-right .pp-tabs-labels {
+	float: right;
+}
 .pp-tabs-vertical .pp-tabs-label {
 	text-align: center;
 	padding: 20px 10px;
@@ -153,6 +166,10 @@
 }
 .pp-tabs-vertical.pp-tabs-default .pp-tabs-label {
 	margin-right: -1px;
+}
+.pp-tabs-vertical.pp-tabs-vertical-right.pp-tabs-default .pp-tabs-label {
+	margin-right: auto;
+	margin-left: -1px;
 }
 .pp-tabs-vertical.pp-tabs-default .pp-tabs-label.pp-tab-active {
 	border-width: 1px;
@@ -422,8 +439,6 @@
     transform: perspective(900px) rotate3d(1,0,0,0deg);
 }
 
-
-
 /*  Style 6
 ------------------------------------ */
 .pp-tabs-style-6 .pp-tabs-label .pp-tab-label-inner {
@@ -455,7 +470,6 @@
 
 /*  Style 7
 ------------------------------------ */
-
 .pp-tabs-style-7 .pp-tabs-label {
 	padding: 0 !important;
 	background-color: transparent !important;
@@ -469,7 +483,7 @@
 	padding: 20px 10px;
 }
 
-.pp-tabs-style-7 .pp-tabs-label.pp-tab-active .pp-tab-label-inner:after,
+/* .pp-tabs-style-7 .pp-tabs-label.pp-tab-active .pp-tab-label-inner:after, */
 .pp-tabs-style-7 .pp-tabs-label.pp-tab-active .pp-tab-label-inner:before {
 	position: absolute;
     top: 100%;
@@ -482,7 +496,7 @@
 }
 
 .pp-tabs-style-7 .pp-tabs-label.pp-tab-active .pp-tab-label-inner:before {
-	margin-left: -11px;
+	/* margin-left: -11px; */
 	border-width: 11px;
 	border-top-color: rgba(0,0,0,0.2);
 }
@@ -560,18 +574,28 @@
 		content: "";
 		position: absolute;
 	}
+	.pp-tabs-vertical.pp-tabs-vertical-right.pp-tabs-style-2 .pp-tabs-label .pp-tab-label-inner:after {
+		right: auto;
+		left: -40px;
+		transform: rotate(180deg);
+	}
 
-	.pp-tabs-vertical.pp-tabs-style-2 .pp-tabs-label:first-child:before, .pp-tabs-vertical.pp-tabs-style-2 .pp-tabs-label::after {
+	.pp-tabs-vertical.pp-tabs-style-2 .pp-tabs-label:first-child:before,
+	.pp-tabs-vertical.pp-tabs-style-2 .pp-tabs-label::after {
 		display: none;
 	}
 
 	/* Style 7 */
-
 	.pp-tabs-vertical.pp-tabs-style-7 .pp-tabs-label .pp-tab-label-inner {
 		border-bottom: 0;
 		border-right: 1px solid rgba(0,0,0,0.2);
 	}
-	.pp-tabs-vertical.pp-tabs-style-7 .pp-tabs-label.pp-tab-active .pp-tab-label-inner:after,
+	.pp-tabs-vertical.pp-tabs-vertical-right.pp-tabs-style-7 .pp-tabs-label .pp-tab-label-inner {
+		border-left: 1px solid rgba(0,0,0,0.2);
+		border-right: 0;
+	}
+
+	/*.pp-tabs-vertical.pp-tabs-style-7 .pp-tabs-label.pp-tab-active .pp-tab-label-inner:after,*/
 	.pp-tabs-vertical.pp-tabs-style-7 .pp-tabs-label.pp-tab-active .pp-tab-label-inner:before {
 		position: absolute;
 		top: 35%;
@@ -584,17 +608,22 @@
 	    pointer-events: none;
 		border-top-color: transparent !important;
 	}
+	.pp-tabs-vertical.pp-tabs-vertical-right.pp-tabs-style-7 .pp-tabs-label.pp-tab-active .pp-tab-label-inner:before {
+		right: auto;
+		left: -22px;
+		transform: rotate(180deg);
+	}
 
 	.pp-tabs-vertical.pp-tabs-style-7 .pp-tabs-label.pp-tab-active .pp-tab-label-inner:before {
-		margin-left: -11px;
+		/* margin-left: -11px; */
 		border-width: 11px;
 		border-left-color: rgba(0,0,0,0.2);
 	}
-	.pp-tabs-vertical.pp-tabs-style-7 .pp-tabs-label.pp-tab-active .pp-tab-label-inner:after {
+	/* .pp-tabs-vertical.pp-tabs-style-7 .pp-tabs-label.pp-tab-active .pp-tab-label-inner:after {
 		margin-left: -10px;
 	    border-width: 10px;
 	    border-left-color: #e7ecea;
-	}
+	} */
 
 }
 
@@ -631,7 +660,8 @@
 	.pp-tabs-style-2 .pp-tabs-label.pp-tab-active .pp-tab-label-inner:after,
 	.pp-tabs-style-3 .pp-tabs-label:after,
 	.pp-tabs-style-4 .pp-tabs-label.pp-tab-active:before,
-	.pp-tabs-style-7 .pp-tabs-label.pp-tab-active .pp-tab-label-inner:after, .pp-tabs-style-7 .pp-tabs-label.pp-tab-active .pp-tab-label-inner:before {
+	.pp-tabs-style-7 .pp-tabs-label.pp-tab-active .pp-tab-label-inner:after,
+	.pp-tabs-style-7 .pp-tabs-label.pp-tab-active .pp-tab-label-inner:before {
 		display: none;
 	}
 	.pp-tabs-style-7 .pp-tabs-label .pp-tab-label-inner {

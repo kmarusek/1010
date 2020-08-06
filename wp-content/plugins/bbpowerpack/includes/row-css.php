@@ -314,6 +314,76 @@ function pp_row_separators_css( $css, $nodes, $global_settings ) {
                 background-image: linear-gradient(135deg, #<?php echo $row->settings->separator_color_bottom; ?> 25%, transparent 25%), linear-gradient(225deg, #<?php echo $row->settings->separator_color_bottom; ?> 25%, transparent 25%);
             }
             <?php } ?>
+			<?php if ( 'mountains' == $row->settings->separator_type || 'mountains' == $row->settings->separator_type_bottom ) { ?>
+				.fl-node-<?php echo $row->node; ?> .pp-row-separator {
+					position: absolute;
+					left: 0;
+					right: 0;
+					width: 100%;
+					height: 200px;
+					z-index: 2;
+				}
+				.fl-node-<?php echo $row->node; ?> .pp-row-separator.pp-row-separator-top {
+					height: <?php echo $row->settings->separator_height; ?>px;
+					transform: rotate(180deg) translateZ(0);
+				}
+				.fl-node-<?php echo $row->node; ?> .pp-row-separator.pp-row-separator-bottom {
+					height: <?php echo $row->settings->separator_height_bottom; ?>px;
+					transform: translateZ(0);
+				}
+				.fl-node-<?php echo $row->node; ?> .pp-row-separator svg {
+					width: 100%;
+					left: 0;
+					bottom: -1px;
+					height: 100% !important;
+					position: absolute;
+				}
+				.fl-node-<?php echo $row->node; ?> .pp-row-separator svg path:first-child {
+					opacity: 0.1;
+				}
+				.fl-node-<?php echo $row->node; ?> .pp-row-separator svg path:nth-child(2) {
+					opacity: 0.12;
+				}
+				.fl-node-<?php echo $row->node; ?> .pp-row-separator svg path:nth-child(3) {
+					opacity: 0.13;
+				}
+				.fl-node-<?php echo $row->node; ?> .pp-row-separator svg path:nth-child(4) {
+					opacity: 0.33;
+				}
+			<?php } ?>
+			<?php if ( 'curve_layers' == $row->settings->separator_type || 'curve_layers' == $row->settings->separator_type_bottom ) { ?>
+            .fl-node-<?php echo $row->node; ?> .pp-row-separator {
+                position: absolute;
+				left: 0;
+				right: 0;
+				width: 100%;
+				height: 150px;
+				z-index: 2;
+            }
+			.fl-node-<?php echo $row->node; ?> .pp-row-separator.pp-row-separator-top {
+				top: -1px;
+    			bottom: auto;
+				height: <?php echo $row->settings->separator_height; ?>px;
+				transform: rotate(180deg);
+			}
+			.fl-node-<?php echo $row->node; ?> .pp-row-separator.pp-row-separator-bottom {
+				height: <?php echo $row->settings->separator_height_bottom; ?>px;
+				transform: translateZ(0);
+			}
+			.fl-node-<?php echo $row->node; ?> .pp-row-separator svg {
+				width: 100%;
+				left: 0;
+				bottom: -1px;
+				height: 100%;
+				position: absolute;
+			}
+			.fl-node-<?php echo $row->node; ?> .pp-row-separator svg path:nth-child(1) {
+				opacity: 0.15;
+			}
+			.fl-node-<?php echo $row->node; ?> .pp-row-separator svg path:nth-child(2) {
+				opacity: 0.3;
+			}
+            <?php } ?>
 
             @media only screen and (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) {
                 .fl-node-<?php echo $row->node; ?> .pp-row-separator-top {
@@ -330,11 +400,21 @@ function pp_row_separators_css( $css, $nodes, $global_settings ) {
                     .fl-node-<?php echo $row->node; ?> .pp-row-separator-top svg {
                         height: <?php echo $row->settings->separator_height_tablet; ?>px;
                     }
+					<?php if ( 'mountains' == $row->settings->separator_type || 'curve_layers' == $row->settings->separator_type ) { ?>
+						.fl-node-<?php echo $row->node; ?> .pp-row-separator.pp-row-separator-top {
+							height: <?php echo $row->settings->separator_height_tablet; ?>px;
+						}
+					<?php } ?>
                 <?php } ?>
                 <?php if ( 'yes' == $row->settings->separator_tablet_bottom && $row->settings->separator_height_tablet_bottom > 0 ) { ?>
                     .fl-node-<?php echo $row->node; ?> .pp-row-separator-bottom svg {
                         height: <?php echo $row->settings->separator_height_tablet_bottom; ?>px;
                     }
+					<?php if ( 'mountains' == $row->settings->separator_type_bottom || 'curve_layers' == $row->settings->separator_type_bottom ) { ?>
+						.fl-node-<?php echo $row->node; ?> .pp-row-separator.pp-row-separator-bottom {
+							height: <?php echo $row->settings->separator_height_tablet_bottom; ?>px;
+						}
+					<?php } ?>
                 <?php } ?>
             }
             @media only screen and (max-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
@@ -352,11 +432,21 @@ function pp_row_separators_css( $css, $nodes, $global_settings ) {
                     .fl-node-<?php echo $row->node; ?> .pp-row-separator-top svg {
                         height: <?php echo $row->settings->separator_height_mobile; ?>px;
                     }
+					<?php if ( 'mountains' == $row->settings->separator_type || 'curve_layers' == $row->settings->separator_type ) { ?>
+						.fl-node-<?php echo $row->node; ?> .pp-row-separator.pp-row-separator-top {
+							height: <?php echo $row->settings->separator_height_mobile; ?>px;
+						}
+					<?php } ?>
                 <?php } ?>
                 <?php if ( 'yes' == $row->settings->separator_mobile_bottom && $row->settings->separator_height_mobile_bottom > 0 ) { ?>
                     .fl-node-<?php echo $row->node; ?> .pp-row-separator-bottom svg {
                         height: <?php echo $row->settings->separator_height_mobile_bottom; ?>px;
                     }
+					<?php if ( 'mountains' == $row->settings->separator_type_bottom || 'curve_layers' == $row->settings->separator_type_bottom ) { ?>
+						.fl-node-<?php echo $row->node; ?> .pp-row-separator.pp-row-separator-bottom {
+							height: <?php echo $row->settings->separator_height_mobile_bottom; ?>px;
+						}
+					<?php } ?>
                 <?php } ?>
             }
         <?php } ?>
@@ -477,6 +567,8 @@ function pp_row_downarrow_css( $css, $nodes, $global_settings ) {
                 bottom: <?php echo $row->settings->da_arrow_margin['bottom']; ?>px;
                 z-index: 1;
             }
+
+			<?php if ( ! isset( $row->settings->da_icon_style ) || 'style-1' == $row->settings->da_icon_style ) { ?>
             .fl-node-<?php echo $row->node; ?> .pp-down-arrow-wrap .pp-down-arrow {
                 display: inline-block;
                 background-color: <?php echo '' != $row->settings->da_arrow_bg['primary'] ? '#'.$row->settings->da_arrow_bg['primary'] : 'transparent'; ?>;
@@ -508,6 +600,73 @@ function pp_row_downarrow_css( $css, $nodes, $global_settings ) {
                 stroke: <?php echo '#'.$row->settings->da_arrow_color['secondary']; ?>;
 	            fill: <?php echo '#'.$row->settings->da_arrow_color['secondary']; ?>;
             }
+			<?php } ?>
+
+			<?php if ( isset( $row->settings->da_icon_style ) && 'style-2' == $row->settings->da_icon_style ) { ?>
+			.fl-node-<?php echo $row->node; ?> .pp-down-arrow-wrap .pp-down-icon-scroll,
+			.fl-node-<?php echo $row->node; ?> .pp-down-arrow-wrap .pp-down-icon-scroll:before {
+				position: absolute;
+				left: 50%;
+			}
+
+			.fl-node-<?php echo $row->node; ?> .pp-down-arrow-wrap .pp-down-icon-scroll {
+				width: 40px;
+				height: 70px;
+				cursor: pointer;
+				box-shadow: inset 0 0 0 <?php echo $row->settings->da_arrow_border; ?>px <?php echo '#'.$row->settings->da_arrow_border_color['primary']; ?>;
+				<?php if ( $row->settings->da_arrow_border ) { ?>
+				box-shadow: inset 0 0 0 <?php echo $row->settings->da_arrow_border; ?>px <?php echo '#'.$row->settings->da_arrow_border_color['primary']; ?>;
+				<?php } else { ?>
+					box-shadow: inset 0 0 0 1px #000;
+				<?php } ?>
+				border-radius: <?php echo $row->settings->da_arrow_radius === '' ? 20 : $row->settings->da_arrow_radius; ?>px;
+				background-color: <?php echo '' != $row->settings->da_arrow_bg['primary'] ? '#'.$row->settings->da_arrow_bg['primary'] : 'transparent'; ?>;
+			}
+
+			.fl-node-<?php echo $row->node; ?> .pp-down-arrow-wrap .pp-down-icon-scroll:hover {
+				box-shadow: inset 0 0 0 <?php echo $row->settings->da_arrow_border; ?>px <?php echo '#'.$row->settings->da_arrow_border_color['secondary']; ?>;
+				background-color: <?php echo '' != $row->settings->da_arrow_bg['secondary'] ? '#'.$row->settings->da_arrow_bg['secondary'] : 'transparent'; ?>;
+			}
+
+			.fl-node-<?php echo $row->node; ?> .pp-down-arrow-wrap .pp-down-icon-scroll:before {
+				content: '';
+				width: 8px;
+				height: 8px;
+				background: <?php echo '#'.$row->settings->da_arrow_color['primary']; ?>;
+				margin-left: -4px;
+				top: 8px;
+				border-radius: 4px;
+				animation-duration: 1.5s;
+				animation-iteration-count: infinite;
+				animation-name: pp-arrow-scroll;
+			}
+
+			.fl-node-<?php echo $row->node; ?> .pp-down-arrow-wrap .pp-down-icon-scroll:hover:before {
+				background: <?php echo '#'.$row->settings->da_arrow_color['secondary']; ?>;
+			}
+
+			@-webkit-keyframes pp-arrow-scroll {
+			0% {
+				opacity: 1;
+			}
+			100% {
+				opacity: 0;
+				-webkit-transform: translateY(46px);
+						transform: translateY(46px);
+			}
+			}
+
+			@keyframes pp-arrow-scroll {
+				0% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+					-webkit-transform: translateY(46px);
+						transform: translateY(46px);
+				}
+			}
+			<?php } ?>
 
             @media only screen and (max-width: 767px) {
                 .fl-node-<?php echo $row->node; ?> .pp-down-arrow-container {

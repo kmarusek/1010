@@ -648,7 +648,7 @@ FLBuilderCSS::dimension_field_rule( array(
  */
 if( ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) && in_array( $settings->submenu_hover_toggle, array( 'arrows', 'none' ) ) ) || ( $settings->menu_layout == 'accordion' && $settings->submenu_click_toggle == 'arrows' ) ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu-<?php echo $settings->menu_layout ?>.pp-toggle-arrows .pp-has-submenu-container > a > span {
-		padding-right: <?php echo $toggle_width ?>px;
+		padding-right: <?php echo 'default' === $settings->mobile_menu_type ? $toggle_width : '0'; ?>px;
 	}
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu-<?php echo $settings->menu_layout ?>.pp-toggle-arrows .pp-menu-toggle,
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu-<?php echo $settings->menu_layout ?>.pp-toggle-none .pp-menu-toggle {
@@ -681,14 +681,6 @@ if( ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) && i
 		margin: -<?php echo $toggle_height/2 ?>px 0 0;
 	}
 <?php } ?>
-
-.fl-node-<?php echo $id; ?> .pp-advanced-menu.off-canvas .pp-toggle-arrows .pp-menu-toggle {
-    width: <?php echo $toggle_width ?>px;
-    height: <?php echo $toggle_height ?>px;
-    margin: -<?php echo $toggle_height ?>px;
-    padding: <?php echo $toggle_height ?>px;
-    right: <?php echo $toggle_height ?>px;
-}
 
 <?php
 /**
@@ -789,6 +781,9 @@ if( isset( $settings->mobile_toggle ) && $settings->mobile_toggle != 'expanded' 
 
 			.fl-node-<?php echo $id; ?> .pp-advanced-menu {
 				text-align: <?php echo $settings->responsive_alignment; ?>;
+				<?php if ( ( isset( $settings->alignment_responsive ) && ! empty( $settings->alignment_responsive ) ) ) { ?>
+				text-align: <?php echo $settings->alignment_responsive; ?>;
+				<?php } ?>
 			}
 
 		}
@@ -802,12 +797,22 @@ if( isset( $settings->mobile_toggle ) && $settings->mobile_toggle != 'expanded' 
 			.fl-node-<?php echo $id; ?> ul.sub-menu {
 				padding: <?php echo ! empty( $settings->submenu_spacing ) ? $settings->submenu_spacing . 'px' : '0' ?>;
 			}
-		<?php endif; ?>		
+		<?php endif; ?>
+		<?php if ( ( in_array( $settings->menu_layout, array( 'horizontal', 'vertical' ) ) && in_array( $settings->submenu_hover_toggle, array( 'arrows', 'none' ) ) ) || ( $settings->menu_layout == 'accordion' && $settings->submenu_click_toggle == 'arrows' ) ) { ?>
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu-<?php echo $settings->menu_layout ?>.pp-toggle-arrows .pp-has-submenu-container > a > span {
+			padding-right: <?php echo $toggle_width; ?>px;
+		}
+		<?php } ?>
 	}
 <?php endif; ?>
 
 
 @media only screen and (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) {
+	.fl-node-<?php echo $id; ?> .pp-advanced-menu {
+		<?php if ( isset( $settings->alignment_medium ) ) { ?>
+		text-align: <?php echo $settings->alignment_medium; ?>;
+		<?php } ?>
+	}
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu .menu > li {
 		<?php if ( isset( $settings->spacing_medium ) && ! empty( $settings->spacing_medium ) ) { ?>
 			<?php if( $settings->alignment == 'left' ) { ?>
@@ -825,7 +830,7 @@ if( isset( $settings->mobile_toggle ) && $settings->mobile_toggle != 'expanded' 
 	.fl-node-<?php echo $id; ?> .sub-menu > li > .pp-has-submenu-container > a {
 		border-bottom-width: <?php echo ( $settings->submenu_border_size_medium != '' && $settings->submenu_border_color ) ? $settings->submenu_border_size_medium : ''; ?>px;
 		<?php if( isset( $settings->responsive_submenu_bg_color ) ) {
-			echo 'background-color: '. pp_get_color_value($settings->responsive_submenu_bg_color) .' !important;';
+			echo 'background-color: '. pp_get_color_value($settings->responsive_submenu_bg_color);
 		} ?>
 	}
 
@@ -836,11 +841,28 @@ if( isset( $settings->mobile_toggle ) && $settings->mobile_toggle != 'expanded' 
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu-mobile-toggle {
 		<?php if( $settings->mobile_toggle_font_size == 'custom' && $settings->mobile_toggle_font_size_custom_medium ) { ?>font-size: <?php echo $settings->mobile_toggle_font_size_custom_medium; ?>px;<?php } ?>
 	}
+
+	<?php if( ( isset( $settings->alignment_medium ) && 'right' == $settings->alignment_medium ) ) { ?>
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu-horizontal.pp-toggle-arrows .pp-has-submenu-container > a > span,
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu-horizontal.pp-toggle-plus .pp-has-submenu-container > a > span {
+			padding-right: 0;
+			padding-left: 28px;
+		}
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu-horizontal.pp-toggle-arrows .pp-menu-toggle {
+			right: 0;
+			left: 28px;
+		}
+	<?php } ?>
 }
 
 @media only screen and (max-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu {
 		text-align: <?php echo $settings->responsive_alignment; ?>;
+	}
+	.fl-node-<?php echo $id; ?> .pp-advanced-menu {
+		<?php if ( isset( $settings->alignment_responsive ) && ! empty( $settings->alignment_responsive ) ) { ?>
+		text-align: <?php echo $settings->alignment_responsive; ?>;
+		<?php } ?>
 	}
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu .menu > li {
 		<?php if ( isset( $settings->spacing_responsive ) && ! empty( $settings->spacing_responsive ) ) { ?>
@@ -859,7 +881,7 @@ if( isset( $settings->mobile_toggle ) && $settings->mobile_toggle != 'expanded' 
 	.fl-node-<?php echo $id; ?> .sub-menu > li > .pp-has-submenu-container > a {
 		border-bottom-width: <?php echo ( $settings->submenu_border_size_responsive != '' && $settings->submenu_border_color ) ? $settings->submenu_border_size_responsive : ''; ?>px;
 		<?php if( isset( $settings->responsive_submenu_bg_color ) ) {
-			echo 'background-color: '. pp_get_color_value($settings->responsive_submenu_bg_color) .' !important;';
+			echo 'background-color: '. pp_get_color_value($settings->responsive_submenu_bg_color);
 		} ?>
 	}
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu-mobile-toggle {
@@ -882,6 +904,18 @@ if( isset( $settings->mobile_toggle ) && $settings->mobile_toggle != 'expanded' 
 			justify-content: <?php echo $toggle_alignment; ?>;
 		<?php } ?>
 	}
+
+	<?php if( $settings->responsive_alignment == 'right' || ( isset( $settings->alignment_responsive ) && 'right' == $settings->alignment_responsive ) ) { ?>
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu-horizontal.pp-toggle-arrows .pp-has-submenu-container > a > span,
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu-horizontal.pp-toggle-plus .pp-has-submenu-container > a > span {
+			padding-right: 0;
+			padding-left: 28px;
+		}
+		.fl-node-<?php echo $id; ?> .pp-advanced-menu-horizontal.pp-toggle-arrows .pp-menu-toggle {
+			right: 0;
+			left: 28px;
+		}
+	<?php } ?>
 
 }
 

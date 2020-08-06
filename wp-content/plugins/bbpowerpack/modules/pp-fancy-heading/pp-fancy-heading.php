@@ -58,7 +58,7 @@ class PPFancyHeadingModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPFancyHeadingModule', array(
+BB_PowerPack::register_module('PPFancyHeadingModule', array(
     'general'       => array( // Tab
         'title'         => __('General', 'bb-powerpack'), // Tab title
         'sections'      => array( // Tab Sections

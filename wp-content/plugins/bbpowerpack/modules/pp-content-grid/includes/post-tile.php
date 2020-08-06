@@ -51,7 +51,11 @@
 				<span class="pp-meta-separator"> <?php echo $settings->meta_separator; ?> </span>
 			<?php endif; ?>
 			<span class="<?php echo $class_prefix; ?>-date">
-				<?php FLBuilderLoop::post_date(); ?>
+				<?php if ( pp_is_tribe_events_post( $post_id ) && function_exists( 'tribe_get_start_date' ) ) { ?>
+					<?php echo tribe_get_start_date( null, false, $date_format ); ?>
+				<?php } else { ?>
+					<?php FLBuilderLoop::post_date(); ?>
+				<?php } ?>
 			</span>
 		<?php endif; ?>
 	</div>

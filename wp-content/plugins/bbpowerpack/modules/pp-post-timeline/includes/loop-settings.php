@@ -361,7 +361,7 @@ do_action( 'pp_cg_loop_settings_after_form', $settings ); // e.g Add custom FLBu
 			var selected_taxonomy = '<?php echo $settings->post_taxonomies; ?>';
 			$.ajax({
 				type: 'post',
-				data: {action: 'get_post_tax', post_type_slug: post_type_slug},
+				data: {action: 'pp_timeline_get_post_tax', post_type_slug: post_type_slug},
 				url: ajaxurl,
 				success: function(res) {
 					if ( res !== 'undefined' || res !== '' ) {

@@ -1,3 +1,124 @@
+== 2.9.2 ==
+Release date: July 17, 2020
+* Fix: Gravity Forms - PHP error missing GFFormDisplay class in some cases
+* Fix: Content Grid - HTML structure broken when no posts are available
+* Fix: Category Grid - Issue in IE 11
+
+== 2.9.1 ==
+Release date: July 16, 2020
+* Fix: Table of Contents - Anchors were not working when disabling hierarchical view
+* Fix: Post Timeline - PHP warnings in CSS
+
+== 2.9.0 ==
+Release date: July 15, 2020
+* New: Table of Contents module
+* Enhancement: File Download - Added field connections
+* Enhancement: File Download - Added an option for custom file name
+* Enhancement: Content Grid - Added option to change number of slides to move at a time for carousel
+* Enhancement: Content Grid - Added option to change the filters position top, left, or right
+* Enhancement: Category Grid - Added option to show only assigned categories' children or parents on single post
+* Enhancement: Advanced Tabs - Added option to position vertical tabs left or right
+* Enhancement: Advanced Tabs - Added option to set tab description
+* Enhancement: Advanced Tabs - Added accessibility support
+* Enhancement: Restaurant Menu - Added option to set currency symbol position
+* Enhancement: Photo Gallery - Added option to enable or disable link nofollow
+* Enhancement: Filterable Gallery - Added option to enable or disable link nofollow
+* Enhancement: Logos Grid & Carousel - Added option to enable or disable link nofollow
+* Enhancement: Google Map - Added option to control maximum zoom
+* Enhancement: Image Carousel - Added option to render image via background image or with img tag
+* Enhancement: Image Carousel - Added options to change bullets vertical and horizontal spacing
+* Enhancement: Image Panels - Added option to stack panels on responsive devices
+* Enhancement: Login Form - Added option to position social login button above or below the form
+* Enhancement: Off-Canvas - Added logic to close the off-canvas panel when clicking on on-page links
+* Enhancement: Header/Footer - Added logic to support additional themes via add_theme_support function
+* Enhancement: Row settings - Added new PowerPack row separators - Curve Layers, Mountains
+* Fix: Modal Box - PHP warning due to undefined array offset in CSS
+* Fix: Modal Box - Added missing alt tag for image button
+* Fix: Off-Canvas Content - Using Animated Headlines on the same page causes Off-Canvas panel slightly flicker
+* Fix: Content Grid - Issue with nav buttons getting cut-off in carousel
+* Fix: Google Map - Issue with ACF Repeater field
+* Fix: Image Carousel - Pagination was not working properly due to JS conflict with PP Instagram Feed module on the same page
+* Fix: Instagram Feed - Special characters in alt text breaks the content
+* Fix: Photo Gallery - Pagination was not working properly in some cases
+* Development: Google Map - Added hook pp_google_map_data to filter the data
+* Development: Google Map - Added hook pp_google_map_cluster_images_url to change marker cluster images URL
+* Development: Off-Canvas Content - Introduced a CSS class to close the panel by clicking on any element having this class
+* Development: Login Form - Added hook pp_login_form_social_login_registration to allow new user registration via social login
+* Development: FAQ - Added hook pp_faq_schema_force_render to print schema data when module is rendered through shortcode or as a saved template 
+
+== 2.8.2.1 ==
+Release date: June 22, 2020
+* Fix: Content Grid - Exclude Current Post set in module setting causes the last post being repeated with AJAX pagination
+* Fix: Image Carousel - Last update broke slideshow functionality
+* Fix: Login - WP lost password URL redirecting to custom action
+
+== 2.8.2 ==
+Release date: June 17, 2020
+* Enhancement: Category Grid - Added Parent only selector for current taxonomy field
+* Enhancement: Video - Added field connection for image overlay
+* Enhancement: Content Grid - Added accessibility support for filters
+* Enhancement: Countdown - Increased number of years
+* Fix: Content Grid - Same image was getting applied on all posts in Carousel mode when lazy load is enabled
+* Fix: Content Grid - Child terms were not getting displayed when the option is set to show Children only
+* Fix: Content Grid - Last post was getting shown up again on scroll pagination when setting up default filter
+* Fix: Content Grid - Static filters were not working when post tags are used for CPTs
+* Fix: Announcement Bar - Link field was not showing for WPML translation
+* Fix: Login Form - Added compatibility for 3rd party plugins
+* Fix: Registration Form - Consent field was not getting marked as required
+* Fix: Category Grid - All child terms were showing irrespective of current parent term
+* Fix: Social Share - PHP notice on single post
+* Fix: Reviews - JS error when using expandable row
+* Fix: Image Carousel - JS error when using expandable row
+* Fix: Image Carousel - Minor JS issue when slider gets stuck on first slide group in autoplay
+* Fix: FAQ - Content settings were getting reverted after publishing the changes
+* Fix: InfoBox - Visibility rules were not working for module when equal height is enabled in column settings
+* Fix: Off-Canvas Content - "1" was appearing at the bottom when using sidebar as content
+* Fix: Logo Grid - Updated medium breakpoint to get value from global settings
+* Development: Content Grid - Added hook pp_post_disable_schema to disable schema
+
+== 2.8.1.1 ==
+Release date: May 13, 2020
+* Enhancement: Core - Added filters in Modules Manager
+* Fix: Core - Modules Manager will sync with BB's modules list
+* Fix: Content Grid - PHP error on AJAX filter
+* Fix: Content Grid - Carousel's Lazy Load was not working
+* Fix: Gravity Forms - Success message styling issue
+* Fix: Video Gallery - Added support for Advanced Tabs and Advanced Accordion module
+
+== 2.8.1 ==
+Release date: May 6, 2020
+* New: Core - Added Modules Manager in settings
+* Enhancement: Core - Added a logic to restore white label settings form and plugin visibility via URL argument
+* Enhancement: Content Grid - Post date will display event start date for The Events Calendar
+* Enhancement: Countdown - Added Time Zone option
+* Enhancement: Album - Added Transition Speed option
+* Enhancement: Advanced Menu - Added Off Canvas width option
+* Enhancement: Content Grid - Added option to set default filter for grid
+* Enhancement: Smart Button - Added Icon Spacing option
+* Enhancement: Row Extension - Added new style for Down Arrow
+* Fix: Off-Canvas Content - Close button position issue
+* Fix: Table - Background color was not working with some themes
+* Fix: Table - Header color was not working when table is sortable
+* Fix: Advanced Menu - Link background hover color was not working for current item in offcanvas menu
+* Fix: Advanced Menu - Responsive Style tab gets hidden when responsive toggle option set to "None"
+* Fix: Advanced Menu - Minor JS issue
+* Fix: Animated Headline - Width computation issue for rotating animation
+* Fix: Content Grid - Posts image and content were not getting stacked when using alternate layout
+* Fix: Video Gallery - Filters responsive layout issue
+* Fix: File Download - Icon Spacing was not working
+* Fix: Testimonials - Fixed height issue
+* Fix: Instagram Feed - Minor CSS issue
+
+== 2.8.0.3 ==
+Release date: April 17, 2020
+* Fix: Content Grid - Posts order change while AJAX paginating on WooCommerce archive page
+* Fix: Photo Gallery - Layout break due to sub-pixel rounding in Safari browser
+* Fix: Advanced Menu - Full screen menu throws JS error when there are multiple instances of module
+* Fix: Testimonials - Incorrect height computation in builder when fixed height is enabled
+* Fix: Announcement Bar - Overlapping module setting in builder due to higher z-index
+* Development: Advanced Tabs - Added hook pp_advanced_tabs_scroll_animate to enable or disable scroll animation on tab switch
+* Development: Smart Button - Added hook pp_smart_button_html_attrs to modify HTML attributes of button
+
 == 2.8.0.2 ==
 Release date: April 3, 2020
 Enhancement: Added new field connection property for PowerPack's Custom Taxonomy Thumbnail extension

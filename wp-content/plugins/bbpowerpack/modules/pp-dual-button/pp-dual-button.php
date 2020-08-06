@@ -173,7 +173,7 @@ class PPDualButtonModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module(
+BB_PowerPack::register_module(
 	'PPDualButtonModule',
 	array(
 		'button_1_tab'      => array( // Tab

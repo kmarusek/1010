@@ -1,7 +1,8 @@
+var pp_offcanvas_<?php echo $id; ?> = '';
 ;(function($){
 
 	$(document).ready(function() {
-		new PPOffcanvasContent({
+		pp_offcanvas_<?php echo $id; ?> = new PPOffcanvasContent({
 			id:                '<?php echo $id; ?>',
 			direction:         '<?php echo $settings->direction; ?>',
 			contentTransition: '<?php echo $settings->content_transition; ?>',

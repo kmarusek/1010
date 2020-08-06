@@ -14,6 +14,8 @@ if ( ! empty( $settings->faq_close_icon ) ) {
 } else {
 	$close_icon_class = 'pp-faq-button-icon pp-faq-close fa fa-minus pp-faq-icon-' . $icon_position;
 }
+
+$module->render_schema( true );
 ?>
 
 <div class="pp-faq <?php echo ( 'all' !== $settings->expand_option && $settings->collapse ) ? 'pp-faq-collapse' : ''; ?>">

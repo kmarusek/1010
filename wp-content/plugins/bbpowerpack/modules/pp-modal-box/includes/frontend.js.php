@@ -43,7 +43,9 @@ var pp_modal_<?php echo $id; ?> = false;
         <?php echo 'yes' == $settings->modal_click_exit ? 'click_exit: true' : 'click_exit: false'; ?>,
         layout: '<?php echo $settings->modal_layout; ?>',
         <?php echo 'yes' == $settings->modal_height_auto ? 'auto_height: true' : 'auto_height: false'; ?>,
-        <?php echo 'no' == $settings->modal_height_auto ? 'height:' . $settings->modal_height . ',' : ''; ?>
+        <?php if ( 'no' == $settings->modal_height_auto && ! empty( $settings->modal_height ) ) { ?>
+		height: <?php echo $settings->modal_height; ?>,
+		<?php } ?>
         width: <?php echo empty( $settings->modal_width ) ? 550 : intval( $settings->modal_width ); ?>,
         breakpoint: <?php echo intval( $settings->media_breakpoint ); ?>,
         <?php if ( $responsive_display != '' && $breakpoint != '' ) { ?>

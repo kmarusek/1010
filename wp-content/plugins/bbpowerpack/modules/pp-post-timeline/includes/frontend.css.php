@@ -132,7 +132,7 @@
 		border-left-color: <?php echo pp_get_color_value( $settings->title_bg_color ); ?>;
 	<?php } ?>
 
-	<?php if ( 'none' != $settings->post_timeline_border['style'] && isset( $settings->post_timeline_border['style'] ) && '' != $settings->post_timeline_border['color'] && isset( $settings->post_timeline_border['color'] ) ) { ?>
+	<?php if ( isset( $settings->post_timeline_border['style'] ) && 'none' != $settings->post_timeline_border['style'] && isset( $settings->post_timeline_border['color'] ) && '' != $settings->post_timeline_border['color'] ) { ?>
 		border-top-color: #<?php echo $settings->post_timeline_border['color']; ?>;
 		border-left-color: #<?php echo $settings->post_timeline_border['color']; ?>;
 	<?php } elseif ( isset( $settings->post_timeline_border['shadow'] ) && $settings->post_timeline_border['shadow']['color'] != '' ) { ?>
@@ -158,7 +158,7 @@
 		border-right-color: <?php echo pp_get_color_value( $settings->title_bg_color ); ?>;
 	<?php } ?>
 
-	<?php if ( 'none' != $settings->post_timeline_border['style'] && isset( $settings->post_timeline_border['style'] ) && '' != $settings->post_timeline_border['color'] && isset( $settings->post_timeline_border['color'] ) ) { ?>
+	<?php if ( isset( $settings->post_timeline_border['style'] ) && 'none' != $settings->post_timeline_border['style'] && isset( $settings->post_timeline_border['color'] ) && '' != $settings->post_timeline_border['color'] ) { ?>
 		border-bottom-color: #<?php echo $settings->post_timeline_border['color']; ?>;
 		border-right-color: #<?php echo $settings->post_timeline_border['color']; ?>;
 	<?php } elseif ( isset( $settings->post_timeline_border['shadow'] ) && $settings->post_timeline_border['shadow']['color'] != '' ) { ?>
@@ -184,7 +184,7 @@
 		border-left-color: <?php echo pp_get_color_value( $settings->title_bg_color ); ?>;
 	<?php } ?>
 
-	<?php if ( 'none' != $settings->post_timeline_border['style'] && isset( $settings->post_timeline_border['style'] ) && '' != $settings->post_timeline_border['color'] && isset( $settings->post_timeline_border['color'] ) ) { ?>
+	<?php if ( isset( $settings->post_timeline_border['style'] ) && 'none' != $settings->post_timeline_border['style'] && isset( $settings->post_timeline_border['color'] ) && '' != $settings->post_timeline_border['color'] ) { ?>
 		border-bottom-color: #<?php echo $settings->post_timeline_border['color']; ?>;
 		border-left-color: #<?php echo $settings->post_timeline_border['color']; ?>;
 	<?php } elseif ( isset( $settings->post_timeline_border['shadow'] ) && '' != $settings->post_timeline_border['shadow']['color'] ) { ?>

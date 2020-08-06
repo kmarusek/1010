@@ -31,7 +31,7 @@ class PPAuthorBoxModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module(
+BB_PowerPack::register_module(
 	'PPAuthorBoxModule',
 	array(
 		'general'              => array( // Tab

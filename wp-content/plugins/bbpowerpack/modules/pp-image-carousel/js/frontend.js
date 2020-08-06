@@ -228,10 +228,13 @@
                 slidesPerGroup: this._getSlidesToScrollDesktop(),
                 spaceBetween: this._getSpaceBetween(),
                 loop: 'undefined' !== typeof this.settings.loop ? this.settings.loop : true,
-                loopedSlides: this._getSlidesCount(),
                 speed: this.settings.speed,
 				breakpoints: {}
 			};
+
+			if ( this._isSlideshow() ) {
+				options.loopedSlides = this._getSlidesCount();
+			}
 			
 			if ( ! this.settings.isBuilderActive && this.settings.autoplay_speed !== false ) {
 				options.autoplay = {

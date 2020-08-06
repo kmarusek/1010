@@ -144,6 +144,7 @@
 				} else if( this.fixed_timer_action == 'hide' ) {
 					if( parseInt(window.location.href.toLowerCase().indexOf("?fl_builder")) === parseInt(-1) ) {
 						$( this.timerid ).countdown('destroy');
+						$( this.nodeClass ).find('.pp-countdown-title').remove();
 					} else {
 						$( this.timerid ).countdown({
 							until: this.timer_date,
@@ -212,7 +213,7 @@
 						timezone: this.timezone,
 			    		labels1: this.timer_labels_singular.split(","),
 			        	expiryText: this.timer_exp_text,
-			        	onExpiry: this._destroyCounter
+			        	onExpiry: $.proxy( this._destroyCounter, this )
 					});
 
 				} else {
@@ -231,7 +232,8 @@
 
 		_destroyCounter: function() {
 			if( parseInt(window.location.href.toLowerCase().indexOf("?fl_builder")) === parseInt(-1) ) {
-				jQuery( this ).countdown('destroy');
+				$( this.timerid ).countdown('destroy');
+				$( this.nodeClass ).find('.pp-countdown-title').remove();
 			}
 		},
 
@@ -286,6 +288,7 @@
 				} else if( this.evergreen_timer_action == 'hide' ) {
 					if( parseInt(window.location.href.toLowerCase().indexOf("?fl_builder")) === parseInt(-1) ) {
 						$( this.timerid ).countdown('destroy');
+						$( this.nodeClass ).find('.pp-countdown-title').remove();
 					} else {
 						$( this.timerid ).countdown({
 							until: this.timer_date,
@@ -294,7 +297,7 @@
 							labels: this.timer_labels.split(","),
 							//timezone: this.timezone,
 				    		labels1: this.timer_labels_singular.split(","),
-				    		onExpiry: this._destroyCounter
+				    		onExpiry: $.proxy( this._destroyCounter, this )
 						});
 					}
 
@@ -365,7 +368,7 @@
 						labels: this.timer_labels.split(","),
 						//timezone: this.timezone,
 			    		labels1: this.timer_labels_singular.split(","),
-			        	onExpiry: this._destroyCounter
+			        	onExpiry: $.proxy( this._destroyCounter, this )
 					});
 
 				} else if( this.evergreen_timer_action == 'reset' ) {

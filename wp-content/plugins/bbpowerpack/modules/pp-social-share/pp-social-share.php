@@ -14,7 +14,7 @@ class PPSocialShareModule extends FLBuilderModule {
 				'name'            => __( 'Social Share', 'bb-powerpack' ),
 				'description'     => __( 'Display a group of linked social share.', 'bb-powerpack' ),
 				'group'           => pp_get_modules_group(),
-				'category'		  => pp_get_modules_cat( 'content' ),
+				'category'		  => pp_get_modules_cat( 'social' ),
 				'dir'             => BB_POWERPACK_DIR . 'modules/pp-social-share/',
 				'url'             => BB_POWERPACK_URL . 'modules/pp-social-share/',
 				'editor_export'   => true,
@@ -58,7 +58,7 @@ class PPSocialShareModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module(
+BB_PowerPack::register_module(
 	'PPSocialShareModule',
 	array(
 		'icons'         => array(

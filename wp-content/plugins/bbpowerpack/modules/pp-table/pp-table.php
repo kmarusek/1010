@@ -75,7 +75,7 @@ class PPTableModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPTableModule', array(
+BB_PowerPack::register_module('PPTableModule', array(
 	'general'		=> array(
 		'title'			=> __('General', 'bb-powerpack'),
 		'sections'		=> array(

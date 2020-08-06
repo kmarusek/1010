@@ -35,12 +35,13 @@ var ppcg_<?php echo $id; ?> = '';
 		is_author: false,
 		postSpacing: '<?php echo $settings->post_spacing; ?>',
 		postColumns: {
-			desktop: <?php echo $settings->post_grid_count['desktop']; ?>,
-			tablet: <?php echo $settings->post_grid_count['tablet']; ?>,
-			mobile: <?php echo $settings->post_grid_count['mobile']; ?>,
+			desktop: <?php echo isset( $settings->post_grid_count['desktop'] ) && ! empty( $settings->post_grid_count['desktop'] ) ? $settings->post_grid_count['desktop'] : '3' ?>,
+			tablet: <?php echo isset( $settings->post_grid_count['tablet'] ) && ! empty( $settings->post_grid_count['tablet'] )? $settings->post_grid_count['tablet'] : '2' ?>,
+			mobile: <?php echo isset( $settings->post_grid_count['mobile'] ) && ! empty( $settings->post_grid_count['mobile'] ) ? $settings->post_grid_count['mobile'] : '1' ?>,
 		},
 		matchHeight: '<?php echo $settings->match_height; ?>',
 		<?php echo ( isset( $settings->post_grid_filters_display ) && 'yes' == $settings->post_grid_filters_display ) ? 'filters: true' : 'filters: false'; ?>,
+		defaultFilter: '<?php echo isset( $settings->post_grid_filters_default ) && ! empty( $settings->post_grid_filters_default ) ? $settings->post_grid_filters_default : ''; ?>',
 		<?php if ( isset( $settings->post_grid_filters ) && 'none' != $settings->post_grid_filters ) { ?>
 			filterTax: '<?php echo $settings->post_grid_filters; ?>',
 		<?php } ?>
@@ -50,26 +51,29 @@ var ppcg_<?php echo $id; ?> = '';
 		<?php } ?>
 		<?php if ( 'carousel' == $settings->layout ) { ?>
 			carousel: {
-				items: <?php echo $settings->post_grid_count['desktop']; ?>,
+				items: <?php echo isset( $settings->post_grid_count['desktop'] ) && ! empty( $settings->post_grid_count['desktop'] ) ? $settings->post_grid_count['desktop'] : '3' ?>,
 				responsive: {
 					0: {
-						items: <?php echo $settings->post_grid_count['mobile']; ?>,
+						items: <?php echo isset( $settings->post_grid_count['mobile'] ) && ! empty( $settings->post_grid_count['mobile'] ) ? $settings->post_grid_count['mobile'] : '1' ?>,
 					},
 					<?php echo $breakpoints['mobile']; ?>: {
-						items: <?php echo $settings->post_grid_count['tablet']; ?>,
+						items: <?php echo isset( $settings->post_grid_count['mobile'] ) && ! empty( $settings->post_grid_count['mobile'] ) ? $settings->post_grid_count['mobile'] : '1' ?>,
 					},
 					<?php echo $breakpoints['tablet']; ?>: {
-						items: <?php echo $settings->post_grid_count['desktop']; ?>,
+						items: <?php echo isset( $settings->post_grid_count['tablet'] ) && ! empty( $settings->post_grid_count['tablet'] )? $settings->post_grid_count['tablet'] : '2' ?>,
 					},
 					<?php echo apply_filters( 'pp_cg_carousel_max_breakpoint', 1199 ); ?>: {
-						items: <?php echo $settings->post_grid_count['desktop']; ?>,
+						items: <?php echo isset( $settings->post_grid_count['desktop'] ) && ! empty( $settings->post_grid_count['desktop'] ) ? $settings->post_grid_count['desktop'] : '3' ?>,
 					},
 				},
+			<?php if ( isset( $settings->slide_by ) && absint( $settings->slide_by ) ) : ?>
+				slideBy: <?php echo absint( $settings->slide_by ); ?>,
+			<?php endif; ?>
 			<?php if ( isset( $settings->slider_pagination ) && 'no' === $settings->slider_pagination ) : ?>
 				dots: false,
 			<?php endif; ?>
 			<?php if ( isset( $settings->auto_play ) ) : ?>
-				<?php echo 'yes' === $settings->auto_play ? 'autoplay: true' : 'autoplay: false'; ?>,
+				<?php echo 'yes' === $settings->auto_play && ! FLBuilderModel::is_builder_active() ? 'autoplay: true' : 'autoplay: false'; ?>,
 			<?php endif; ?>
 				autoplayTimeout: <?php echo $speed ?>,
 				autoplaySpeed: <?php echo $slide_speed ?>,
@@ -79,6 +83,7 @@ var ppcg_<?php echo $id; ?> = '';
 				<?php echo 'yes' === $settings->stop_on_hover ? 'autoplayHoverPause: true' : 'autoplayHoverPause: false'; ?>,
 				<?php echo 'yes' === $settings->lazy_load ? 'lazyLoad: true' : 'lazyLoad: false'; ?>,
 				navText : [left_arrow_svg, right_arrow_svg],
+				navContainer: '.pp-carousel-nav',
 				responsiveRefreshRate: 200,
 				responsiveBaseWidth: window,
 				loop: <?php echo isset( $settings->slide_loop ) && 'yes' === $settings->slide_loop ? 'true' : 'false'; ?>,
@@ -119,23 +124,20 @@ var ppcg_<?php echo $id; ?> = '';
 	// expandable row fix.
 	var state = 0;
 	$(document).on('pp_expandable_row_toggle', function(e, selector) {
-		if ( selector.is('.pp-er-open') && state === 0 ) {
-			//ppcg_<?php echo $id; ?> = new PPContentGrid( PPContentGridOptions );
+		if ( selector.is('.pp-er-open') && state === 0 && selector.find( '.pp-content-post-grid' ).length > 0 ) {
 			if ( 'undefined' !== typeof $.fn.isotope ) {
-				$(ppcg_<?php echo $id; ?>.wrapperClass).isotope('layout');
+				selector.find('.pp-content-post-grid').isotope('layout');
 			}
 			state = 1;
 		}
 	});
 
 	// Tabs and Content Grid fix
-	var tabs_state = false;
 	$(document).on('pp-tabs-switched', function(e, selector) {
-		if ( selector.find('.pp-content-post-grid').length > 0 && ! tabs_state ) {
+		if ( selector.find('.pp-content-post-grid').length > 0 ) {
 			if ( 'undefined' !== typeof $.fn.isotope ) {
 				setTimeout(function() {
 					selector.find('.pp-content-post-grid').isotope('layout');
-					tabs_state = true;
 				}, 500);
 			}
 		}

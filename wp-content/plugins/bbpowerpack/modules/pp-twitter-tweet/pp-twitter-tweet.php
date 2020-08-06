@@ -14,7 +14,7 @@ class PPTwitterTweetModule extends FLBuilderModule {
 			'name'          => __( 'Twitter Embedded Tweet', 'bb-powerpack' ),
 			'description'   => __( 'A module to embed twitter tweet.', 'bb-powerpack' ),
 			'group'         	=> pp_get_modules_group(),
-			'category'			=> pp_get_modules_cat( 'creative' ),
+			'category'			=> pp_get_modules_cat( 'social' ),
 			'dir'           	=> BB_POWERPACK_DIR . 'modules/pp-twitter-tweet/',
 			'url'           	=> BB_POWERPACK_URL . 'modules/pp-twitter-tweet/',
 			'editor_export' 	=> true, // Defaults to true and can be omitted.
@@ -28,7 +28,7 @@ class PPTwitterTweetModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPTwitterTweetModule', array(
+BB_PowerPack::register_module('PPTwitterTweetModule', array(
 	'general'       => array( // Tab
 		'title'         => __( 'General', 'bb-powerpack' ), // Tab title
 		'sections'      => array( // Tab Sections

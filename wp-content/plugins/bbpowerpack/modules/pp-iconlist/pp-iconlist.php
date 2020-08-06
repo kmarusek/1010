@@ -66,7 +66,7 @@ class PPIconListModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPIconListModule', array(
+BB_PowerPack::register_module('PPIconListModule', array(
     'general'   => array(
         'title'     => __('General', 'bb-powerpack'),
         'sections'  => array(

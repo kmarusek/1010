@@ -136,7 +136,12 @@
 						args['auth_response'] = authResponse;
 						self._ajax( args, function( response ) {
 							if ( ! response.success ) {
-								console.error( response.data );
+								if ( 'undefined' !== typeof response.data.code ) {
+									theForm.find( '.pp-lf-error' ).remove();
+									$('<span class="pp-lf-error">').appendTo( theForm ).html( response.data.message );
+								} else {
+									console.error( response.data );
+								}
 								self._enableForm();
 							} else {
 								if ( response.data.redirect_url ) {
@@ -208,7 +213,12 @@
 					if ( self.isGoogleLoginClicked ) {
 						self._ajax( args, function( response ) {
 							if ( ! response.success ) {
-								console.error( response.data );
+								if ( 'undefined' !== typeof response.data.code ) {
+									theForm.find( '.pp-lf-error' ).remove();
+									$('<span class="pp-lf-error">').appendTo( theForm ).html( response.data.message );
+								} else {
+									console.error( response.data );
+								}
 								self._enableForm();
 							} else {
 								if ( response.data.redirect_url ) {
@@ -254,6 +264,7 @@
 				password 		= theForm.find( 'input[name="pwd"]' ),
 				remember 		= theForm.find( 'input[name="rememberme"]' ),
 				redirect 		= theForm.find( 'input[name="redirect_to"]' ),
+				reauth 			= theForm.find( 'input[name="reauth"]' ),
 				reCaptchaField 	= theForm.find( '.pp-grecaptcha' ),
 				reCaptchaValue 	= reCaptchaField.data( 'pp-grecaptcha-response' ),
 				self 			= this;
@@ -298,6 +309,10 @@
 				formData.append( 'redirect', redirect.val() );
 			}
 
+			if ( reauth.length > 0 && '' !== reauth.val() ) {
+				formData.append( 'reauth', 1 );
+			}
+
 			if ( remember.length > 0 && remember.is(':checked') ) {
 				formData.append( 'remember', '1' );
 			}
@@ -312,7 +327,7 @@
 
 			this._disableForm();
 
-			this._ajax( formData, function( response ) {
+			this._ajax( formData, function( response ) { console.log(response);
 				if ( ! response.success ) {
 					self._enableForm();
 					theForm.find( '.pp-lf-error' ).remove();
@@ -428,7 +443,7 @@
 		_ajax: function( data, callback ) {
 			var ajaxArgs = {
 				type: 'POST',
-				url: FLBuilderLayoutConfig.paths.wpAjaxUrl,
+				url: bb_powerpack.ajaxurl,
 				data: data,
 				dataType: 'json',
 				success: function( response ) {

@@ -22,12 +22,12 @@ var pp_feed_<?php echo $id; ?>;
 			grabCursor				: <?php echo 'yes' == $settings->grab_cursor ? 'true' : 'false'; ?>,
 			loop					: <?php echo 'yes' == $settings->infinite_loop ? 'true' : 'false'; ?>,
 			pagination				: {
-				el: '.swiper-pagination',
+				el: '.fl-node-<?php echo $id; ?> .swiper-pagination',
 				clickable: true
 			},
 			navigation				: {
-				prevEl: '.swiper-button-prev',
-				nextEl: '.swiper-button-next'
+				prevEl: '.fl-node-<?php echo $id; ?> .swiper-button-prev',
+				nextEl: '.fl-node-<?php echo $id; ?> .swiper-button-next'
 			},
 			breakpoints: {
 				<?php echo $global_settings->medium_breakpoint; ?>: {

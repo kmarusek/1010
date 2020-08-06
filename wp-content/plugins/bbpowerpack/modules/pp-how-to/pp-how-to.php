@@ -38,7 +38,7 @@ class PPHowToModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module(
+BB_PowerPack::register_module(
 	'PPHowToModule',
 	array(
 		'general'        => array(

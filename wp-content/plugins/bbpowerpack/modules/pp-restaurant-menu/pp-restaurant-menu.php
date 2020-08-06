@@ -147,7 +147,7 @@ class PPRestaurantMenuModule extends FLBuilderModule {
 	}
 }
 
-FLBuilder::register_module('PPRestaurantMenuModule', array(
+BB_PowerPack::register_module('PPRestaurantMenuModule', array(
 	'restaurant_menu_general'	=> array(
 		'title'         => __('General', 'bb-powerpack'), // Tab title
 		'sections'      => array( // Tab Sections
@@ -218,7 +218,7 @@ FLBuilder::register_module('PPRestaurantMenuModule', array(
 						'default'           => 'yes',
 						'toggle'        => array(
 							'yes'           => array(
-								'fields'        => array('currency_symbol')
+								'fields'        => array('currency_symbol', 'currency_symbol_pos')
 							)
 						)
 					),
@@ -227,7 +227,16 @@ FLBuilder::register_module('PPRestaurantMenuModule', array(
 						'label'             => __('Currency Symbol', 'bb-powerpack'),
 						'default'           => '$',
 						'size'              => 5,
-					)
+					),
+					'currency_symbol_pos'    => array(
+						'type'              => 'pp-switch',
+						'label'             => __('Currency Symbol Position', 'bb-powerpack'),
+						'options'           => array(
+							'left'               => __( 'Left', 'bb-powerpack' ),
+							'right'                => __( 'Right', 'bb-powerpack' )
+						),
+						'default'           => 'left',
+					),
 				)
 			),
 			'general'       => array( // Section

@@ -2,11 +2,6 @@
 
 	FLBuilder.registerModuleHelper('pp-countdown', {
 
-		rules: {
-			title: {
-				required: true
-			}
-		},
 		submit: function () {
 
 			var timer_type = this._getField('timer_type').val(),

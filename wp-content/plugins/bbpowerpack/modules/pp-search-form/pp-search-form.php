@@ -46,7 +46,7 @@ class PPSearchFormModule extends FLBuilderModule {
 	}
 }
 
-FLBuilder::register_module('PPSearchFormModule', array(
+BB_PowerPack::register_module('PPSearchFormModule', array(
 	'general'		=> array(
 		'title'			=> __('General', 'bb-powerpack'),
 		'sections'		=> array(

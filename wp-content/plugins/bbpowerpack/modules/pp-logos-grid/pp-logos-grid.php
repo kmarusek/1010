@@ -112,7 +112,7 @@ class PPLogosGridModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPLogosGridModule', array(
+BB_PowerPack::register_module('PPLogosGridModule', array(
     'logos_grid_general'       => array( // Tab
         'title'         => __('General', 'bb-powerpack'), // Tab title
         'sections'      => array( // Tab Sections
@@ -184,8 +184,21 @@ FLBuilder::register_module('PPLogosGridModule', array(
                         ),
                         'preview'         => array(
                             'type'            => 'none'
-                        )
-                    ),
+						),
+						'toggle'	=> array(
+							'_blank'	=> array(
+								'fields'	=> array( 'link_nofollow' ),
+							),
+						),
+					),
+					'link_nofollow'	=> array(
+						'type'	=> 'pp-switch',
+						'label' => __( 'Link nofollow', 'bb-powerpack' ),
+						'default' => 'yes',
+						'preview'	=> array(
+							'type'		=> 'none'
+						),
+					),
                     'equal_height'  => array(
                         'type'          => 'pp-switch',
                         'label'         => __('Equal Height', 'bb-powerpack'),
@@ -200,7 +213,7 @@ FLBuilder::register_module('PPLogosGridModule', array(
 					),
 					'custom_height'	=> array(
 						'type'			=> 'unit',
-						'label'			=> __('Custom Height', 'bb-powerpack'),
+						'label'			=> __('Outer Wrapper Height', 'bb-powerpack'),
 						'default'		=> '',
 						'units'			=> array('px'),
 						'slider'		=> true,
@@ -210,7 +223,8 @@ FLBuilder::register_module('PPLogosGridModule', array(
 							'selector'		=> '.pp-logos-content .pp-logo',
 							'property'		=> 'height',
 							'unit'			=> 'px'
-						)
+						),
+						'help'	=> __( 'This height will be applied on outer wrapper of the image.', 'bb-powerpack' ),
 					)
                 )
             ),
@@ -538,7 +552,7 @@ FLBuilder::register_module('PPLogosGridModule', array(
                     ),
                     'logo_grid_size'    => array(
                         'type'              => 'unit',
-                        'label'             => __('Custom Size', 'bb-powerpack'),
+                        'label'             => __('Image Custom Height', 'bb-powerpack'),
                         'default'           => '',
 						'units'				=> array( 'px' ),
 						'slider'			=> true,
@@ -548,7 +562,7 @@ FLBuilder::register_module('PPLogosGridModule', array(
                             'property'          => 'height',
                             'unit'              => 'px'
                         ),
-                        'help'              => __('Leave blank for default size.', 'bb-powerpack')
+                        'help'              => __('This will be applied on <img> tag. Leave blank for default size.', 'bb-powerpack')
                     )
                 )
             ),

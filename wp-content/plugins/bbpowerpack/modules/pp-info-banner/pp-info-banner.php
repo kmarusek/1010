@@ -181,7 +181,7 @@ class PPInfoBannerModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPInfoBannerModule', array(
+BB_PowerPack::register_module('PPInfoBannerModule', array(
     'info_banner_image'			=> array(
         'title'             => __('Image', 'bb-powerpack'),
         'sections'          => array(

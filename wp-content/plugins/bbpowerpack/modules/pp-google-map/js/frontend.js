@@ -21,6 +21,7 @@
 		this.infoWindowText    = settings.infoWindowText;
 		this.enableInfo        = settings.enableInfo;
 		this.zoomType          = settings.zoomType;
+		this.maxZoom          = settings.maxZoom;
 		this.mapZoom           = settings.mapZoom;
 		this.hideTooltip       = settings.hideTooltip;
 		this.settings			= settings;
@@ -69,6 +70,10 @@
 				gestureHandling:   this.scrollZoom,
 			}
 
+			if ( this.maxZoom && ! isNaN( parseInt( this.maxZoom ) ) ) {
+				this.mapOptions.maxZoom = this.maxZoom;
+			}
+
 			if ( 'drop' == this.markerAnimation ) {
 				this.markerAnimation = google.maps.Animation.DROP;
 			} else if ( 'bounce' == this.markerAnimation ) {
@@ -85,10 +90,6 @@
 			var infowindow 	= new google.maps.InfoWindow();
 			var bounds      = new google.maps.LatLngBounds();
 			var allMarkers  = [];
-
-			if ( 'undefined' !== typeof MarkerClusterer ) {
-				var markerCluster = new MarkerClusterer( map );
-			}
 
 			for (i = 0; i < this.markerData.length; i++) {
 
@@ -123,11 +124,6 @@
 					});
 
 					allMarkers.push( marker );
-
-					// Add the marker to the markerClusterer.
-					if ( 'undefined' !== typeof markerCluster ) {
-						markerCluster.addMarker( marker );
-					}
 
 					if ( '' != info_win && 'yes' == this.enableInfo[i] ) {
 						var contentString = '<div class="pp-infowindow-content">';
@@ -170,12 +166,11 @@
 			}
 
 			// Marker clustering
-			// TODO: Add support for custom cluster images.
-			// if ( 'undefined' !== typeof MarkerClusterer ) {
-			// 	var markerCluster = new MarkerClusterer( map, allMarkers, {
-			// 		imagePath: ''
-			// 	} );
-			// }
+			if ( 'undefined' !== typeof MarkerClusterer ) {
+				var markerCluster = new MarkerClusterer( map, allMarkers, {
+					imagePath: this.settings.markerClusterImagesURL
+				} );
+			}
 		},
 		_autoZoon: function () {
 			var map = new google.maps.Map( this.mapElement[0], this.mapOptions );

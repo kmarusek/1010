@@ -13,6 +13,7 @@
 		this.thumbsPosition		= settings.thumbsPosition,
 		this.lightboxAnimation	= settings.lightboxAnimation,
 		this.transitionEffect	= settings.transitionEffect,
+		this.transitionDuration = settings.transitionDuration,
 		this.lightboxBgColor	= settings.lightboxBgColor,
 		this.lightboxbgOpacity	= settings.lightboxbgOpacity,
 		this.thumbsBgColor		= settings.thumbsBgColor,
@@ -36,8 +37,9 @@
 					keyboard: 			self.keyboardNav,
 					toolbar: 			self.toolbar,
 					buttons: 			self.toolbarButtons.split(","),
-					animationEffect: 	self.lightboxAnimation,
+					animationEffect:	self.lightboxAnimation,
 					transitionEffect:	self.transitionEffect,
+					transitionDuration: self.transitionDuration,
 					baseClass: 			self.fancyboxThumbs,
 					thumbs: {
 						autoStart: 		self.thumbsAutoStart,

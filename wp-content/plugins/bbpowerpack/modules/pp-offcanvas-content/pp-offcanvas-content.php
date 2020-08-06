@@ -63,7 +63,9 @@ class PPOffcanvasContent extends FLBuilderModule {
 				if ( empty( $sidebar ) ) {
 					return;
 				}
-				$html = dynamic_sidebar( $sidebar );
+				ob_start();
+				dynamic_sidebar( $sidebar );
+				$html = ob_get_clean();
 				break;
 			default:
 				break;
@@ -110,7 +112,7 @@ class PPOffcanvasContent extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module(
+BB_PowerPack::register_module(
 	'PPOffcanvasContent',
 	array(
 		'items'      => array(
@@ -150,7 +152,7 @@ FLBuilder::register_module(
 						),
 						'content_form'    => array(
 							'type'         => 'form',
-							'label'        => __( 'Box', 'bb-powerpack' ),
+							'label'        => __( 'Content', 'bb-powerpack' ),
 							'form'         => 'pp_content_form',
 							'preview_text' => 'content_title',
 							'multiple'     => true,
@@ -190,7 +192,7 @@ FLBuilder::register_module(
 							'toggle'  => array(
 								'button'    => array(
 									'sections' => array( 'toggle_style' ),
-									'fields' => array( 'button_text', 'button_icon', 'toggle_text_align', 'toggle_text_space', 'button_icon_color', 'button_icon_color_hover', 'button_icon_size' ),
+									'fields' => array( 'toggle_full_width', 'button_text', 'button_icon', 'toggle_text_align', 'toggle_text_space', 'button_icon_color', 'button_icon_color_hover', 'button_icon_size' ),
 								),
 								'hamburger' => array(
 									'sections' => array( 'toggle_style' ),
@@ -207,7 +209,7 @@ FLBuilder::register_module(
 						'button_text'       => array(
 							'type'    => 'text',
 							'label'   => __( 'Button Text', 'bb-powerpack' ),
-							'default' => __( 'Reveal Offcanvas', 'bb-powerpack' ),
+							'default' => __( 'Reveal Off-Canvas', 'bb-powerpack' ),
 							'connections' => array( 'string', 'html' ),
 						),
 						'button_icon'       => array(
@@ -218,7 +220,7 @@ FLBuilder::register_module(
 						'burger_label'      => array(
 							'type'    => 'text',
 							'label'   => __( 'Label', 'bb-powerpack' ),
-							'default' => __( 'Menu', 'bb-powerpack' ),
+							'default' => __( 'Open Off-Canvas Content', 'bb-powerpack' ),
 							'connections' => array( 'string', 'html' ),
 						),
 						'toggle_text_align' => array(
@@ -360,6 +362,15 @@ FLBuilder::register_module(
 				'toggle_style'  => array(
 					'title'  => __( 'Toggle', 'bb-powerpack' ),
 					'fields' => array(
+						'toggle_full_width' => array(
+							'type'    => 'pp-switch',
+							'label'   => __( 'Full Width', 'bb-powerpack' ),
+							'default' => 'no',
+							'options' => array(
+								'yes' => __( 'Yes', 'bb-powerpack' ),
+								'no'  => __( 'No', 'bb-powerpack' ),
+							),
+						),
 						'toggle_align'              => array(
 							'type'    => 'align',
 							'label'   => __( 'Alignment', 'bb-powerpack' ),
@@ -513,13 +524,13 @@ FLBuilder::register_module(
 					),
 				),
 				'offcanvas'     => array(
-					'title'     => __( 'Offcanvas Container', 'bb-powerpack' ),
+					'title'     => __( 'Off-Canvas Container', 'bb-powerpack' ),
 					'collapsed' => true,
 					'fields'    => array(
 						'offcanvas_bar_width'   => array(
 							'type'       => 'unit',
 							'label'      => __( 'Width', 'bb-powerpack' ),
-							'units'      => array( 'px' ),
+							'units'      => array( 'px', '%' ),
 							'default'    => '300',
 							'slider'     => true,
 							'responsive' => true,
@@ -733,6 +744,7 @@ FLBuilder::register_settings_form(
 		'tabs'  => array(
 			'content_general' => array(
 				'title'    => __( 'General', 'bb-powerpack' ),
+				'description' => sprintf( __( 'Apply this CSS class on any custom element which you want to use to close the panel.%s', 'bb-powerpack' ), '<br><br><span class="pp-module-id-class"></span>' ),
 				'sections' => array(
 					'content_general' => array(
 						'title'  => __( 'General', 'bb-powerpack' ),

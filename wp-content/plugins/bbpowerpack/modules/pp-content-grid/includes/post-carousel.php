@@ -20,7 +20,7 @@
 ));
 
 ?>
-<div class="pp-content-post pp-content-carousel-post pp-grid-<?php echo $settings->post_grid_style_select; ?> <?php echo join( ' ', get_post_class() ); ?>" itemscope="itemscope" itemtype="<?php PPContentGridModule::schema_itemtype(); ?>">
+<div class="pp-content-post pp-content-carousel-post pp-grid-<?php echo $settings->post_grid_style_select; ?> <?php echo join( ' ', get_post_class() ); ?>"<?php BB_PowerPack_Post_Helper::print_schema( ' itemscope itemtype="' . PPContentGridModule::schema_itemtype() . '"' ); ?>>
 
 	<?php PPContentGridModule::schema_meta(); ?>
 	
@@ -62,7 +62,11 @@
 				<span> <?php echo $settings->meta_separator; ?> </span>
 			<?php endif; ?>
 			<span class="pp-content-grid-date">
-				<?php echo get_the_date(); ?>
+				<?php if ( pp_is_tribe_events_post( $post_id ) && function_exists( 'tribe_get_start_date' ) ) { ?>
+					<?php echo tribe_get_start_date( null, false, $date_format ); ?>
+				<?php } else { ?>
+					<?php echo get_the_date( $date_format ); ?>
+				<?php } ?>
 			</span>
 		<?php endif; ?>
 
@@ -78,8 +82,13 @@
 
 		<?php if('style-5' == $settings->post_grid_style_select && 'yes' == $settings->show_date) { ?>
 		<div class="pp-content-post-date pp-post-meta">
-			<span class="pp-post-day"><?php echo get_the_date('d'); ?></span>
-			<span class="pp-post-month"><?php echo get_the_date('M'); ?></span>
+			<?php if ( pp_is_tribe_events_post( $post_id ) && function_exists( 'tribe_get_start_date' ) ) { ?>
+				<span class="pp-post-day"><?php echo tribe_get_start_date( null, false, 'd' ); ?></span>
+				<span class="pp-post-month"><?php echo tribe_get_start_date( null, false, 'M' ); ?></span>
+			<?php } else { ?>
+				<span class="pp-post-day"><?php echo get_the_date('d'); ?></span>
+				<span class="pp-post-month"><?php echo get_the_date('M'); ?></span>
+			<?php } ?>
 		</div>
 		<?php } ?>
 
@@ -122,7 +131,11 @@
 						<span> <?php echo $settings->meta_separator; ?> </span>
 					<?php endif; ?>
 					<span class="pp-content-carousel-date">
-						<?php echo get_the_date(); ?>
+						<?php if ( pp_is_tribe_events_post( $post_id ) && function_exists( 'tribe_get_start_date' ) ) { ?>
+							<?php echo tribe_get_start_date( null, false, $date_format ); ?>
+						<?php } else { ?>
+							<?php echo get_the_date( $date_format ); ?>
+						<?php } ?>
 					</span>
 				<?php endif; ?>
 

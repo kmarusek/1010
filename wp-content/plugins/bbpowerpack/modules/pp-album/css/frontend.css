@@ -1,7 +1,7 @@
 .pp-album {
 	position: relative;
 }
-.pp-album-cover-wrap {
+/* .pp-album-cover-wrap {
 	height: 300px;
 }
 .pp-album-cover {
@@ -11,7 +11,7 @@
     right: 0;
     bottom: 0;
 	overflow: hidden;
-}
+} */
 .pp-album-cover	img {
 	object-fit: cover;
 	height: 100%;

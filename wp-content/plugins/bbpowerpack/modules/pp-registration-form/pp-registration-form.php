@@ -72,7 +72,7 @@ class PPRegistrationFormModule extends FLBuilderModule {
 				'name'          => __( 'Registration Form', 'bb-powerpack' ),
 				'description'   => __( 'A module for Registration Form.', 'bb-powerpack' ),
 				'group'         => pp_get_modules_group(),
-				'category'      => pp_get_modules_cat( 'creative' ),
+				'category'      => pp_get_modules_cat( 'content' ),
 				'dir'           => BB_POWERPACK_DIR . 'modules/pp-registration-form/',
 				'url'           => BB_POWERPACK_URL . 'modules/pp-registration-form/',
 				'editor_export' => true, // Defaults to true and can be omitted.
@@ -367,7 +367,7 @@ class PPRegistrationFormModule extends FLBuilderModule {
 		if ( 'yes' === $field->required ) {
 			$field_wrap_class[] = 'pp-rf-field-required';
 		} else {
-			if ( in_array( $field->field_type, array( 'user_email', 'user_pass', 'confirm_user_pass' ) ) ) {
+			if ( in_array( $field->field_type, array( 'user_email', 'user_pass', 'confirm_user_pass', 'consent' ) ) ) {
 				$field_wrap_class[] = 'pp-rf-field-required';
 			}
 		}
@@ -613,7 +613,7 @@ require_once 'form-handler.php';
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module(
+BB_PowerPack::register_module(
 	'PPRegistrationFormModule',
 	array(
 		'form_fields'     => array(

@@ -24,7 +24,7 @@
 
 /* Style - 0 ( Default ) */
 .pp-category .category-style-0 .pp-category__content {
-	height: unset !important;
+	height: auto !important;
 	width: 90%;
 	position: absolute;
 	left: 5%;

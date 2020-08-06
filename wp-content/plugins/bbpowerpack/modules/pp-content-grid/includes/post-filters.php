@@ -2,6 +2,8 @@
 $all_label			= empty( $settings->all_filter_label ) ? __('All', 'bb-powerpack') : $settings->all_filter_label;
 $post_type_slug 	= $settings->post_type;
 $post_filter_tax 	= ! empty( $settings->post_grid_filters ) && 'none' !== $settings->post_grid_filters ? $settings->post_grid_filters : '';
+$default_filter		= isset( $settings->post_grid_filters_default ) ? $settings->post_grid_filters_default : '';
+$terms_to_show		= isset( $settings->post_grid_filters_terms ) ? $settings->post_grid_filters_terms : '';
 
 if ( empty( $post_filter_tax ) ) {
 	return;
@@ -38,14 +40,49 @@ $count = is_array( $terms ) ? count( $terms ) : 0;
 	</div>
 	<ul class="pp-post-filters">
 		<?php
-			echo apply_filters( 'pp_cg_filters_all', '<li class="pp-post-filter pp-filter-active" data-filter="*">' . $all_label . '</li>', $settings );
+			if ( empty( $default_filter ) ) {
+				echo apply_filters( 'pp_cg_filters_all', '<li class="pp-post-filter pp-filter-active" data-filter="*" tabindex="0" aria-label="'. strip_tags( $all_label ) .'">' . $all_label . '</li>', $settings );
+			} else {
+				echo apply_filters( 'pp_cg_filters_all', '<li class="pp-post-filter" data-filter="*" tabindex="0" aria-label="'. strip_tags( $all_label ) .'">' . $all_label . '</li>', $settings );
+			}
 			if ( $count > 0 ) {
+				$terms = apply_filters( 'pp_cg_filter_terms', $terms, $settings );
+				$filter_terms = array();
 				foreach ( $terms as $term ) {
-					$slug = $term->slug;
-					if( $post_type_slug == 'post' && $post_filter_tax == 'post_tag' ) {
-						echo '<li class="pp-post-filter" data-filter=".tag-'.$slug.'" data-term="'.$slug.'">'.$term->name.'</li>';
+					if ( ! empty( $terms_to_show ) ) {
+						if ( 'parent' === $terms_to_show ) {
+							if ( $term->parent ) {
+								$filter_terms[] = $term->parent;
+								continue;
+							} else {
+								$filter_terms[] = $term->term_id;
+							}
+						} elseif ( 'children' === $terms_to_show ) {
+							if ( ! $term->parent ) {
+								$filter_terms = get_term_children( $term->term_id, $term->taxonomy );
+								continue;	
+							} else {
+								$filter_terms[] = $term->term_id;
+							}
+						}
 					} else {
-						echo '<li class="pp-post-filter" data-filter=".'.$taxonomy->name.'-'.$slug.'" data-term="'.$slug.'">'.$term->name.'</li>';
+						$filter_terms[] = $term->term_id;
+					}
+				}
+				if ( ! is_wp_error( $filter_terms ) && count( $filter_terms ) ) {
+					$filter_terms = array_unique( $filter_terms );
+					foreach ( $filter_terms as $term_id ) {
+						$term = get_term( $term_id );
+						$slug = $term->slug;
+						$filter_active_class = '';
+						if ( $slug === $default_filter ) {
+							$filter_active_class = ' pp-filter-active';
+						}
+						if ( $post_filter_tax == 'post_tag' ) {
+							echo '<li class="pp-post-filter' . $filter_active_class . '" data-filter=".tag-'.$slug.'" data-term="'.$slug.'" tabindex="0" aria-label="'. strip_tags( $term->name ) .'">'.$term->name.'</li>';
+						} else {
+							echo '<li class="pp-post-filter' . $filter_active_class . '" data-filter=".'.$taxonomy->name.'-'.$slug.'" data-term="'.$slug.'" tabindex="0" aria-label="'. strip_tags( $term->name ) .'">'.$term->name.'</li>';
+						}
 					}
 				}
 			}

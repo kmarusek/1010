@@ -11,13 +11,13 @@ if ( 'justified' != $settings->gallery_layout ) {
 	$mobile_col = ( $settings->photo_grid_count_responsive ) ? $settings->photo_grid_count_responsive : 1;
 
 	$space_desktop = ( $desktop_col - 1 ) * $settings->photo_spacing;
-	$photo_columns_desktop = ( 100 - $space_desktop ) / $desktop_col;
+	$photo_columns_desktop = ( ( 100 - $space_desktop ) / $desktop_col ) - 0.1;
 
 	$space_tablet = ( $medium_col - 1 ) * $settings->photo_spacing;
-	$photo_columns_tablet = ( 100 - $space_tablet ) / $medium_col;
+	$photo_columns_tablet = ( ( 100 - $space_tablet ) / $medium_col ) - 0.1;
 
 	$space_mobile = ( $mobile_col - 1 ) * $settings->photo_spacing;
-	$photo_columns_mobile = ( 100 - $space_mobile ) / $mobile_col;
+	$photo_columns_mobile = ( ( 100 - $space_mobile ) / $mobile_col ) - 0.1;
 ?>
 
 .fancybox-<?php echo $id; ?> button.fancybox-button {

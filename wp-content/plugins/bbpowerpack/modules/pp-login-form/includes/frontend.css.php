@@ -6,6 +6,20 @@
 .fl-node-<?php echo $id; ?> .pp-login-form-wrap.pp-event-disabled:before {
 	background-image: url(<?php echo BB_POWERPACK_URL; ?>images/spinner.gif);
 }
+<?php if ( isset( $settings->social_button_position ) && 'above' === $settings->social_button_position ) { ?>
+	.fl-node-<?php echo $id; ?> .pp-login-form-inner,
+	.fl-node-<?php echo $id; ?> .pp-login-form-inner .pp-social-login {
+		display: flex;
+		flex-direction: column-reverse;
+	}
+	.fl-node-<?php echo $id; ?> .pp-login-form-inner .pp-social-login-wrap {
+		margin-top: 0;
+	}
+	.fl-node-<?php echo $id; ?> .pp-login-form-sep {
+		margin-bottom: 20px;
+	}
+<?php } ?>
+
 <?php
 // Form padding.
 FLBuilderCSS::dimension_field_rule( array(

@@ -14,7 +14,7 @@ class PPBreadcrumbsModule extends FLBuilderModule {
             'name'          => __('Breadcrumbs', 'bb-powerpack'),
             'description'   => __('Breadcrumbs module.', 'bb-powerpack'),
             'group'         => pp_get_modules_group(),
-            'category'		=> pp_get_modules_cat( 'creative' ),
+            'category'		=> pp_get_modules_cat( 'content' ),
             'dir'           => BB_POWERPACK_DIR . 'modules/pp-breadcrumbs/',
             'url'           => BB_POWERPACK_URL . 'modules/pp-breadcrumbs/',
             'editor_export' => true, // Defaults to true and can be omitted.
@@ -26,7 +26,7 @@ class PPBreadcrumbsModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPBreadcrumbsModule', array(
+BB_PowerPack::register_module('PPBreadcrumbsModule', array(
     'general'       => array( // Tab
         'title'         => __('General', 'bb-powerpack'), // Tab title
         'sections'      => array( // Tab Sections

@@ -135,7 +135,7 @@ class PPSlidingMenusModule extends FLBuilderModule {
 /**
  * Register the module settings.
  */
-FLBuilder::register_module(
+BB_PowerPack::register_module(
 	'PPSlidingMenusModule',
 	array(
 		'General'    => array(

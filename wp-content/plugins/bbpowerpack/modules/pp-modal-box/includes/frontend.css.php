@@ -44,7 +44,7 @@
 ?>
 
 .fl-node-<?php echo $id; ?> .pp-modal-trigger .pp-button-icon {
-	<?php if( isset( $settings->button_typography ) && is_array( $settings->button_typography ) ) { ?>
+	<?php if( isset( $settings->button_typography ) && is_array( $settings->button_typography ) && '' !== $settings->button_typography['font_size']['length'] ) { ?>
     font-size: <?php echo $settings->button_typography['font_size']['length']; ?><?php echo $settings->button_typography['font_size']['unit']; ?>;
 	<?php } ?>
 }

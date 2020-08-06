@@ -198,7 +198,7 @@ class PPHoverCardsModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPHoverCardsModule', array(
+BB_PowerPack::register_module('PPHoverCardsModule', array(
     'general'   => array(
         'title'     => __('General', 'bb-powerpack'),
         'sections'  => array(

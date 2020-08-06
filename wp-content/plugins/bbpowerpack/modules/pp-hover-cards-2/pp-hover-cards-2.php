@@ -111,9 +111,10 @@ class PPHoverCardsModuleNew extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('PPHoverCardsModuleNew', array(
+BB_PowerPack::register_module('PPHoverCardsModuleNew', array(
     'general'				=> array(
-        'title'     => __('General', 'bb-powerpack'),
+		'title'     => __('General', 'bb-powerpack'),
+		'description' => __( 'This is an improved version of Hover Cards.', 'bb-powerpack' ),
         'sections'  => array(
             'style_type'		=> array(
                 'title'         => '',

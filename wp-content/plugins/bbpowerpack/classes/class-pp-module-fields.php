@@ -395,7 +395,8 @@ if ( ! class_exists( 'PP_Module_Fields' ) ) {
 			// Year
 			echo '<div class="pp-countdown-custom-fields pp-countdown-field-years"><select class="text text-full" name="'.$name.'_year" >';
 			echo '<option value="0">' . __( 'Years', 'bb-powerpack' ) . '</option>';
-			for ( $i = date('Y'); $i < date('Y') + 6; $i++ ) {
+			$max_years = apply_filters( 'pp_fixed_date_max_years', ( date('Y') + 10 ), $settings );
+			for ( $i = date('Y'); $i <= $max_years; $i++ ) {
 			    $selected = "";
 			    if ( isset( $settings->fixed_date_year ) ) {
 			        if ( $i == $settings->fixed_date_year ) {
@@ -403,7 +404,7 @@ if ( ! class_exists( 'PP_Module_Fields' ) ) {
 			        } else {
 			            $selected = "";
 			        }
-			    } else if ( $i == date('Y') + 5 ) {
+			    } else if ( $i == $max_years ) {
 			        $selected = "selected";
 			    }
 			    echo '<option value="'.$i.'" '. $selected .'>'.$i.'</option>';
@@ -849,8 +850,10 @@ if ( ! class_exists( 'PP_Module_Fields' ) ) {
 				
 				switch ( $type ) {
 					case 'font':
-						$typography['font_family'] = $value['family'];
-						$typography['font_weight'] = $value['weight'] === 'regular' ? 'normal' : $value['weight'];
+						if ( is_array( $value ) ) {
+							$typography['font_family'] = $value['family'];
+							$typography['font_weight'] = $value['weight'] === 'regular' ? 'normal' : $value['weight'];
+						}
 						break;
 
 					case 'font_size':

@@ -50,7 +50,7 @@ if ( isset( $settings->layout ) ) {
 
 		$classes = '';
 		if ( 'slider' == $layout ) {
-			$classes = 1 == $settings->carousel ? 'carousel-enabled' : '';
+			$classes = 1 == $settings->carousel ? ' carousel-enabled' : '';
 			echo '<div class="owl-carousel owl-theme' . ( 'no' === $settings->adaptive_height ? ' owl-height' : '' ) . '">';
 		} else {
 			$classes = '';
@@ -65,7 +65,7 @@ if ( isset( $settings->layout ) ) {
 				}
 
 				?>
-				<div class="pp-testimonial layout-1 <?php echo $classes; ?>">
+				<div class="pp-testimonial layout-1<?php echo $classes; ?>">
 					<?php if ( $testimonial->photo ) { ?>
 						<div class="pp-testimonials-image">
 							<img src="<?php echo $testimonial->photo_src; ?>" alt="<?php echo $module->get_alt($testimonial); ?>" />
@@ -99,7 +99,7 @@ if ( isset( $settings->layout ) ) {
 				}
 
 				?>
-				<div class="pp-testimonial layout-2 <?php echo $classes; ?>">
+				<div class="pp-testimonial layout-2<?php echo $classes; ?>">
 					<?php if ( $testimonial->testimonial ) { ?>
 						<div class="pp-content-wrapper">
 							<div class="pp-testimonials-content"><?php echo $testimonial->testimonial; ?></div>
@@ -135,7 +135,7 @@ if ( isset( $settings->layout ) ) {
 				}
 
 				?>
-				<div class="pp-testimonial layout-3 <?php echo $classes; ?> clearfix">
+				<div class="pp-testimonial layout-3<?php echo $classes; ?> clearfix">
 					<?php if ( $testimonial->photo ) { ?>
 						<div class="pp-testimonials-image">
 							<img src="<?php echo $testimonial->photo_src; ?>" alt="<?php echo $module->get_alt($testimonial); ?>" />
@@ -169,7 +169,7 @@ if ( isset( $settings->layout ) ) {
 				}
 
 				?>
-				<div class="pp-testimonial layout-4 <?php echo $classes; ?> <?php echo (!$testimonial->photo) ? 'no-image-inner' : ''; ?>">
+				<div class="pp-testimonial layout-4<?php echo $classes; ?><?php echo ! $testimonial->photo ? ' no-image-inner' : ''; ?>">
 					<?php if ( $testimonial->photo ) { ?>
 						<div class="pp-testimonials-image">
 							<img src="<?php echo $testimonial->photo_src; ?>" alt="<?php echo $module->get_alt($testimonial); ?>" />
@@ -202,7 +202,7 @@ if ( isset( $settings->layout ) ) {
 				}
 
 				?>
-				<div class="pp-testimonial layout-5 <?php echo $classes; ?>">
+				<div class="pp-testimonial layout-5<?php echo $classes; ?>">
 					<div class="pp-vertical-align">
 						<?php if ( $testimonial->title || $testimonial->subtitle ) { ?>
 							<div class="pp-title-wrapper">
@@ -233,7 +233,7 @@ if ( isset( $settings->layout ) ) {
 				}
 
 				?>
-				<div class="pp-testimonial layout-1 <?php echo $classes; ?>">
+				<div class="pp-testimonial layout-1<?php echo $classes; ?>">
 					<?php if ( $testimonial->photo ) { ?>
 						<div class="pp-testimonials-image">
 							<img src="<?php echo $testimonial->photo_src; ?>" alt="<?php echo $module->get_alt($testimonial); ?>" />
