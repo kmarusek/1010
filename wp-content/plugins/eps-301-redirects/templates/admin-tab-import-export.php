@@ -30,7 +30,7 @@ if (!defined('ABSPATH')) {
         &nbsp;&nbsp;&nbsp;<input type="radio" name="eps_redirect_upload_method" value="update"> Update Duplicates
       </p>
 
-      <br><small class="eps-grey-text">Supply Columns: <strong>Status</strong> (301,302,inactive), <strong>Request URL</strong>, <strong>Redirect
+      <br><small class="eps-grey-text">Supply Columns: <strong>Status</strong> (301,302,307,inactive), <strong>Request URL</strong>, <strong>Redirect
           To</strong> (ID or URL). <a href="<?php echo EPS_REDIRECT_URL . 'example.csv' ?>" target="_blank">Download Example CSV</a></small>
     </form>
   </div>

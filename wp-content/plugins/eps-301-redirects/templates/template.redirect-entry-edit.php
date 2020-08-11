@@ -22,6 +22,7 @@ $redirect = self::get_redirect($redirect_id);
     <select name="redirect[status][]" class="eps-small-select">
         <option default value="301" <?php echo ($redirect && $redirect->status == '301') ? 'selected="selected"' : null; ?>>301</option>
         <option value="302" <?php echo ($redirect && $redirect->status == '302') ? 'selected="selected"' : null; ?>>302</option>
+        <option value="307" <?php echo ($redirect && $redirect->status == '307') ? 'selected="selected"' : null; ?>>307</option>
         <option value="inactive" <?php echo ($redirect && $redirect->status == 'inactive') ? 'selected="selected"' : null; ?>>Off</option>
     </select>
 

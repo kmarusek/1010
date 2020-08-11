@@ -2,7 +2,7 @@
  /*
 Plugin Name: 301 Redirects
 Description: Easily create and manage 301 redirects.
-Version: 2.45
+Version: 2.50
 Author: WebFactory Ltd
 Author URI: https://www.webfactoryltd.com/
 Text Domain: eps-301-redirects
@@ -128,6 +128,8 @@ if (!defined('EPS_REDIRECT_PRO')) {
             header('HTTP/1.1 301 Moved Permanently');
           } elseif ($redirect->status == '302') {
             header('HTTP/1.1 302 Moved Temporarily');
+          } elseif ($redirect->status == '307') {
+            header('HTTP/1.1 307 Temporary Redirect');
           }
 
           $to = ($redirect->type == "url" && !is_numeric($redirect->url_to)) ? urldecode($redirect->url_to) : get_permalink($redirect->url_to);

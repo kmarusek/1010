@@ -461,6 +461,9 @@ class EPS_Redirects_Plugin
           case '302':
             $status = 302;
             break;
+          case '307':
+              $status = 307;
+              break;
           case 'off':
           case 'no':
           case 'inactive':

@@ -1,9 +1,9 @@
 === 301 Redirects - Easy Redirect Manager ===
-Contributors: WebFactory, wpreset, googlemapswidget, securityninja, underconstructionpage
-Tags: 301 redirect, redirects, redirect, 302 redirect, redirection, 302, seo, 302 redirect, 404, 404 redirect, 301
+Contributors: WebFactory, wpreset, googlemapswidget, underconstructionpage
+Tags: 301 redirect, redirects, redirect, 302 redirect, redirection, 302, seo, 302 redirect, 404, 404 redirect, 301, 307
 Requires at least: 4.0
-Tested up to: 5.3
-Stable tag: 2.45
+Tested up to: 5.5
+Stable tag: 2.50
 Requires PHP: 5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -12,7 +12,7 @@ Easily manage and create 301 & 302 redirects. Simple to use & validate redirects
 
 == Description ==
 
-**301 Redirects** helps you manage and create 301 & 302 redirects for your WordPress site to **improve SEO and visitor experience**. With a user-friendly interface, 301 Redirects is easy to install and configure. Perfect for new sites or repairing links after re-organizing your existing WordPress content, or when your site has content that expires and you wish to avoid sending visitors to a 404 page.
+**301 Redirects** helps you manage and create 301, 302, 307 redirects for your WordPress site to **improve SEO and visitor experience**. With a user-friendly interface, 301 Redirects is easy to install and configure. Perfect for new sites or repairing links after re-organizing your existing WordPress content, or when your site has content that expires and you wish to avoid sending visitors to a 404 page.
 
 301 Redirects GUI is located in WP Admin Dashboard - Settings - 301 Redirects
 
@@ -55,6 +55,11 @@ A 301 redirect indicates that the page requested has been permanently moved to t
 
 
 == Changelog ==
+
+= 2.50 =
+* 2020/08/10
+* added support for 307 Temporary Redirect
+* 100k installs hit on 2020/07/22 with about 365,000 downloads
 
 = 2.45 =
 * 2019/12/17
