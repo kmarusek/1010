@@ -138,8 +138,8 @@ function get_template_layout($layout, $slug = null, $name = null, $args = array(
 }
 
 function skeletonwarrior_enqueue_scripts() {
-    //wp_register_style('main', get_stylesheet_directory_uri() . '/build/main.css', false, null, "all");
-    wp_register_style('main', BWCustomizerLess::css_url(), array("bootstrap"), null, "all");
+    //wp_register_style('space-station-main', get_stylesheet_directory_uri() . '/build/main.css', false, null, "all");
+    wp_register_style('space-station-main', BWCustomizerLess::css_url(), array("bootstrap"), null, "all");
     define( 'SCRIPTS_PATH_RELATIVE_TO_THEME', '/build/script.js' );
     // Default file version number
     $file_version = null;
@@ -164,7 +164,7 @@ function skeletonwarrior_enqueue_scripts() {
     
     wp_localize_script('scripts', 'scripts_data', apply_filters( 'bw_scripts_data', array() ) );
     wp_enqueue_script('scripts');
-    wp_enqueue_style('main');
+    wp_enqueue_style('space-station-main');
     
     //If you are not using Slick sliders, or any component functionality that
     //uses Slick sliders (such as StaffGrid with it's slider option) then it is
