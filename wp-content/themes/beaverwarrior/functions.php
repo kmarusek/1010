@@ -590,3 +590,21 @@ function spacestation_render_attributes(array $wrapper_attributes) {
     
     return $attributes;
 }
+
+/**
+ * Warn about use of "Minimal Bootstrap 3"
+ */
+function spacestation_warn_minimal_bs3() {
+    $framework = get_theme_mod('fl-framework');
+
+    if ($framework === "base") {
+        ?>
+        <div class="notice notice-error is-dismissible">
+            <p>"Minimal Bootstrap 3" is enabled in the Space Station theme.
+            This will cause various errors, up to and including a complete loss
+            of theme CSS. Please change it to "Full Bootstrap 3" immediately.</p>
+        </div>
+        <?php
+    }
+}
+add_filter("admin_notices", "spacestation_warn_minimal_bs3");
