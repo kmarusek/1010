@@ -1,0 +1,95 @@
+@-moz-keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+@-webkit-keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+@keyframes marquee {
+  0% {
+    -moz-transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+  100% {
+    -moz-transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+}
+.fl-module-bw-logo-list .marquee {
+  white-space: nowrap;
+  will-change: transform;
+  -moz-animation: marquee 30s linear infinite;
+  -webkit-animation: marquee 30s linear infinite;
+  animation: marquee 30s linear infinite;
+  animation-iteration-count: infinite;
+  flex-wrap: nowrap!important;
+  width: 100%;
+  min-width: 1920px;
+}
+.fl-module-bw-logo-list .marquee:hover {
+  animation-play-state: paused;
+}
+.fl-module-bw-logo-list .marquee .logo_image_container img {
+  min-width: 150px;
+}
+.fl-module-bw-logo-list .gradient {
+  position: relative;
+}
+.fl-module-bw-logo-list .gradient:before {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  justify-content: center;
+  align-items: center;
+  content: "";
+  z-index: 1;
+  width: 50px;
+}
+.fl-module-bw-logo-list .gradient:after {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  justify-content: center;
+  align-items: center;
+  content: "";
+  z-index: 1;
+  width: 50px;
+}
+.fl-module-bw-logo-list .container-fluid {
+  overflow: hidden;
+  padding-left: 0;
+  padding-right: 0;
+}
+.fl-module-bw-logo-list .row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  justify-items: center;
+  align-items: center;
+}
+.fl-module-bw-logo-list .row:after,
+.fl-module-bw-logo-list .row:before {
+  display: none;
+}
+.fl-module-bw-logo-list .logo_image_container img {
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+@media only screen and (max-width: 1600px) {
+}
