@@ -69,6 +69,18 @@ FLBuilder::register_module( 'BWLogoList', [
                             'step'  => 1,
                           ),
                     ],
+                    'margin' => array(
+                        'type'        => 'dimension',
+                        'label'       => 'Logo Margins',
+                        'description' => 'px',
+                        'responsive' => true
+                    ),
+                    'padding' => array(
+                        'type'        => 'dimension',
+                        'label'       => 'Logo Padding',
+                        'description' => 'px',
+                        'responsive' => true
+                    ),
                     'marquee' => array(
                         'type'          => 'select',
                         'label'         => __( 'Marquee', 'fl-builder' ),
@@ -132,18 +144,21 @@ FLBuilder::register_settings_form('logo_form', array(
                             'show_reset'    => true,
                             'show_alpha'    => true,
                         ),
-                        'margin' => array(
-                            'type'        => 'dimension',
-                            'label'       => 'Margins',
-                            'description' => 'px',
-                            'responsive' => true
-                        ),
-                        'padding' => array(
-                            'type'        => 'dimension',
-                            'label'       => 'Padding',
-                            'description' => 'px',
-                            'responsive' => true
-                        ),
+                        'url_option' => array(
+                            'type'          => 'select',
+                            'label'         => __( 'Select Field', 'fl-builder' ),
+                            'default'       => 'option-1',
+                            'options'       => array(
+                              'option-1'      => __( 'Link Enabled', 'fl-builder' ),
+                              'option-2'      => __( 'Link Disabled', 'fl-builder' )
+                            ),
+                            'toggle'        => array(
+                              'option-1'      => array(
+                                'fields'        => array( 'url' ),
+                              ),
+                              'option-2'      => array()
+                            )
+                          ),
                         'url' => [
                             'type' => 'link',
                             'label' => __('Link', 'fl-builder'),

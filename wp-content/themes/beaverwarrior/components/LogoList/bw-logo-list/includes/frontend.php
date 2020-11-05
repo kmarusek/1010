@@ -14,6 +14,7 @@ wp_enqueue_style(
 );
 $gradientClass;
 $class;
+$link;
 if($settings->marquee == 'option-1'){
     $class='marquee';
     $gradientClass='gradient';
@@ -29,14 +30,14 @@ if($settings->marquee == 'option-3'){
     <div class="container-fluid <?php echo $gradientClass; ?>">
         <div class="row <?php echo $class; ?>">
             <?php foreach($settings->the_logo as $logo):
-                    $margin_left = $logo->margin_left;
-                    $margin_top = $logo->margin_top;
-                    $margin_right = $logo->margin_right;
-                    $margin_bottom = $logo->margin_bottom;
-                    $padding_left = $logo->padding_left;
-                    $padding_top = $logo->padding_top;
-                    $padding_right = $logo->padding_right;
-                    $padding_bottom = $logo->padding_bottom;
+                    $margin_left = $settings->margin_left;
+                    $margin_top = $settings->margin_top;
+                    $margin_right = $settings->margin_right;
+                    $margin_bottom = $settings->margin_bottom;
+                    $padding_left = $settings->padding_left;
+                    $padding_top = $settings->padding_top;
+                    $padding_right = $settings->padding_right;
+                    $padding_bottom = $settings->padding_bottom;
                     $background_color = $logo->bg_color;
                     if($logo->logo_sizes_field == 'thumbnail'){
                         $logo_size = 150;
@@ -74,17 +75,23 @@ if($settings->marquee == 'option-3'){
                         $logo_size = getimagesize();
                         $unit = '%';
                     }
+                    if($logo->url_option == 'option-1'){
+                        $link='enabled';
+                    }
+                    if($logo->url_option == 'option-2'){
+                        $link='disabled';
+                    }
                 ?>
             <div class="logo_block cursorAnim">
                 <div class="logo_block_wrapper">
-                    <a href="<?php echo $logo->url; ?>" 
-                    class="triptych_panel_link">
+                    <a href="<?php echo $logo->url; ?>" class="triptych_panel_link <?php echo $link ?>">
                         <div class="logo_image_container" style="background-color:#<?php echo $background_color ?>;">
-                            <img src="<?php echo wp_get_attachment_image_src($logo->image, 'full', false)[0]; ?>" style="width:<?php echo $logo_size ?><?php echo $unit ?>;"> 
-                        </div>
+                            <img src="<?php echo wp_get_attachment_image_src($logo->image, 'full', false)[0]; ?>" style="width:<?php echo $logo_size ?><?php echo $unit ?>;"/>
+                        </div>                    
                     </a>
                 </div>
             </div>
+
             <?php 
                 endforeach;
             ?>
