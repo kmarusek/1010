@@ -10,7 +10,8 @@ module.exports = function(grunt) {
     "/components/SiteHeader/bw-woocommerce-icons/",
     "/components/Social/bw-social-icons/",
     "/components/VideoPlayer/bw-video-player/",
-    "/components/ContentGrid/bw-team-grid/"
+    "/components/ContentGrid/bw-team-grid/",
+    "/components/LogoList/bw-logo-list/"
     ],
 
     custom_modules = get_all_custom_modules( custom_modules_upstream )

@@ -11,7 +11,6 @@
             const self = this;
             this.handleHover();
             this.enableMarquee();
-            this.infiniteMarquee();
         },
         handleHover(){
             $(".logo_block").hover(
