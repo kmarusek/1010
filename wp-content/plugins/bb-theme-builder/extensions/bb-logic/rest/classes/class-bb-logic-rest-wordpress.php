@@ -25,8 +25,9 @@ final class BB_Logic_REST_WordPress {
 		register_rest_route(
 			self::$namespace, '/posts', array(
 				array(
-					'methods'  => WP_REST_Server::READABLE,
-					'callback' => __CLASS__ . '::posts',
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => __CLASS__ . '::posts',
+					'permission_callback' => __CLASS__ . '::check_permission',
 				),
 			)
 		);
@@ -34,8 +35,9 @@ final class BB_Logic_REST_WordPress {
 		register_rest_route(
 			self::$namespace, '/post-types', array(
 				array(
-					'methods'  => WP_REST_Server::READABLE,
-					'callback' => __CLASS__ . '::post_types',
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => __CLASS__ . '::post_types',
+					'permission_callback' => __CLASS__ . '::check_permission',
 				),
 			)
 		);
@@ -43,8 +45,9 @@ final class BB_Logic_REST_WordPress {
 		register_rest_route(
 			self::$namespace, '/post-stati', array(
 				array(
-					'methods'  => WP_REST_Server::READABLE,
-					'callback' => __CLASS__ . '::post_stati',
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => __CLASS__ . '::post_stati',
+					'permission_callback' => __CLASS__ . '::check_permission',
 				),
 			)
 		);
@@ -52,8 +55,9 @@ final class BB_Logic_REST_WordPress {
 		register_rest_route(
 			self::$namespace, '/post-templates', array(
 				array(
-					'methods'  => WP_REST_Server::READABLE,
-					'callback' => __CLASS__ . '::post_templates',
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => __CLASS__ . '::post_templates',
+					'permission_callback' => __CLASS__ . '::check_permission',
 				),
 			)
 		);
@@ -61,8 +65,9 @@ final class BB_Logic_REST_WordPress {
 		register_rest_route(
 			self::$namespace, '/archives', array(
 				array(
-					'methods'  => WP_REST_Server::READABLE,
-					'callback' => __CLASS__ . '::archives',
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => __CLASS__ . '::archives',
+					'permission_callback' => __CLASS__ . '::check_permission',
 				),
 			)
 		);
@@ -70,8 +75,9 @@ final class BB_Logic_REST_WordPress {
 		register_rest_route(
 			self::$namespace, '/taxonomies', array(
 				array(
-					'methods'  => WP_REST_Server::READABLE,
-					'callback' => __CLASS__ . '::taxonomies',
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => __CLASS__ . '::taxonomies',
+					'permission_callback' => __CLASS__ . '::check_permission',
 				),
 			)
 		);
@@ -79,8 +85,9 @@ final class BB_Logic_REST_WordPress {
 		register_rest_route(
 			self::$namespace, '/terms', array(
 				array(
-					'methods'  => WP_REST_Server::READABLE,
-					'callback' => __CLASS__ . '::terms',
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => __CLASS__ . '::terms',
+					'permission_callback' => __CLASS__ . '::check_permission',
 				),
 			)
 		);
@@ -88,8 +95,9 @@ final class BB_Logic_REST_WordPress {
 		register_rest_route(
 			self::$namespace, '/users', array(
 				array(
-					'methods'  => WP_REST_Server::READABLE,
-					'callback' => __CLASS__ . '::users',
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => __CLASS__ . '::users',
+					'permission_callback' => __CLASS__ . '::check_permission',
 				),
 			)
 		);
@@ -97,8 +105,9 @@ final class BB_Logic_REST_WordPress {
 		register_rest_route(
 			self::$namespace, '/roles', array(
 				array(
-					'methods'  => WP_REST_Server::READABLE,
-					'callback' => __CLASS__ . '::roles',
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => __CLASS__ . '::roles',
+					'permission_callback' => __CLASS__ . '::check_permission',
 				),
 			)
 		);
@@ -106,8 +115,9 @@ final class BB_Logic_REST_WordPress {
 		register_rest_route(
 			self::$namespace, '/capabilities', array(
 				array(
-					'methods'  => WP_REST_Server::READABLE,
-					'callback' => __CLASS__ . '::capabilities',
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => __CLASS__ . '::capabilities',
+					'permission_callback' => __CLASS__ . '::check_permission',
 				),
 			)
 		);
@@ -472,6 +482,15 @@ final class BB_Logic_REST_WordPress {
 		}
 
 		return rest_ensure_response( $response );
+	}
+
+	/**
+	 * Checks permission.
+	 *
+	 * @return boolean
+	 */
+	static public function check_permission() {
+		return current_user_can( 'edit_posts' );
 	}
 }
 

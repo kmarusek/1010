@@ -64,6 +64,9 @@ final class FLThemeBuilderBigCommerceArchive {
 	 * @return void
 	 */
 	static public function post_grid_before_image( $settings ) {
+		if ( ! class_exists( 'FLPageDataBigCommerce' ) ) {
+			return false;
+		}
 		$product = FLPageDataBigCommerce::get_product();
 		if ( 'show' == $settings->bc_sale_flash && $product->on_sale() ) {
 			echo '<div class="bc-product-flag--sale">SALE</div>';
@@ -81,7 +84,9 @@ final class FLThemeBuilderBigCommerceArchive {
 	 * @return bool
 	 */
 	static public function show_product_info( $settings, $type, $class_suffix ) {
-
+		if ( ! class_exists( 'FLPageDataBigCommerce' ) ) {
+			return false;
+		}
 		$product = FLPageDataBigCommerce::get_product();
 
 		// if custom layout then dont do these.
@@ -138,7 +143,9 @@ final class FLThemeBuilderBigCommerceArchive {
 	 * @return bool
 	 */
 	static public function show_add_to_cart( $settings, $type ) {
-
+		if ( ! class_exists( 'FLPageDataBigCommerce' ) ) {
+			return false;
+		}
 		// if custom layout then dont do these.
 		if ( 'custom' == $settings->post_layout ) {
 			return false;

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bb-theme-builder\n"
 "Report-Msgid-Bugs-To: hello@wpbeaverbuilder.com\n"
-"POT-Creation-Date: 2020-07-21 17:40:33+00:00\n"
+"POT-Creation-Date: 2020-08-17 17:16:40+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -139,8 +139,8 @@ msgstr ""
 msgid "Themer Layouts"
 msgstr ""
 
-#: classes/class-fl-theme-builder-field-connections.php:587
-#: classes/class-fl-theme-builder-field-connections.php:593
+#: classes/class-fl-theme-builder-field-connections.php:590
+#: classes/class-fl-theme-builder-field-connections.php:596
 msgid "Incorrect wpbb-if shortcode attributes."
 msgstr ""
 
@@ -1423,7 +1423,7 @@ msgid "Website"
 msgstr ""
 
 #: extensions/bigcommerce/classes/class-fl-page-data-bigcommerce.php:29
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:315
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:322
 #: extensions/bigcommerce/modules/fl-bc-cart-form/fl-bc-cart-form.php:9
 #: extensions/bigcommerce/modules/fl-bc-product-description/fl-bc-product-description.php:18
 #: extensions/bigcommerce/modules/fl-bc-product-images/fl-bc-product-images.php:18
@@ -1441,11 +1441,11 @@ msgstr ""
 msgid "Choose Options"
 msgstr ""
 
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:240
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:247
 msgid "Product Ratings"
 msgstr ""
 
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:243
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:250
 #: extensions/bigcommerce/modules/fl-bc-cart-form/fl-bc-cart-form.php:21
 #: extensions/bigcommerce/modules/fl-bc-product-description/fl-bc-product-description.php:29
 #: extensions/bigcommerce/modules/fl-bc-product-images/fl-bc-product-images.php:29
@@ -1479,9 +1479,9 @@ msgstr ""
 msgid "Style"
 msgstr ""
 
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:252
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:412
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:416
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:259
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:419
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:423
 #: extensions/bigcommerce/modules/fl-bc-product-price/fl-bc-product-price.php:13
 #: extensions/edd/includes/page-data-edd.php:23
 #: extensions/edd/modules/fl-edd-product-price/fl-edd-product-price.php:15
@@ -1491,42 +1491,42 @@ msgstr ""
 msgid "Product Price"
 msgstr ""
 
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:258
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:265
 #: extensions/bigcommerce/modules/fl-bc-product-price/fl-bc-product-price.php:50
 msgid "Original Price"
 msgstr ""
 
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:262
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:269
 #: extensions/bigcommerce/modules/fl-bc-product-price/fl-bc-product-price.php:55
 msgid "Sale Price"
 msgstr ""
 
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:273
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:280
 #: extensions/bigcommerce/modules/fl-bc-cart-form/fl-bc-cart-form.php:6
 msgid "Add To Cart Form"
 msgstr ""
 
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:276
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:283
 #: extensions/edd/classes/class-fl-theme-builder-edd-archive.php:157
 #: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:335
 msgid "Cart Button"
 msgstr ""
 
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:285
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:292
 #: extensions/bigcommerce/modules/fl-bc-cart-form/fl-bc-cart-form.php:43
 msgid "Product Options Form"
 msgstr ""
 
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:293
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:300
 msgid "Product Options"
 msgstr ""
 
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:296
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:331
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:354
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:392
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:419
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:444
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:303
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:338
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:361
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:399
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:426
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:451
 #: extensions/bigcommerce/modules/fl-bc-product-reviews/fl-bc-product-reviews.php:74
 #: extensions/bigcommerce/settings/refinery.php:9
 #: extensions/edd/classes/class-fl-theme-builder-edd-archive.php:151
@@ -1549,12 +1549,12 @@ msgstr ""
 msgid "Show"
 msgstr ""
 
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:297
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:332
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:355
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:393
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:420
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:445
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:304
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:339
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:362
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:400
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:427
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:452
 #: extensions/bigcommerce/modules/fl-bc-product-reviews/fl-bc-product-reviews.php:75
 #: extensions/bigcommerce/settings/refinery.php:10
 #: extensions/edd/classes/class-fl-theme-builder-edd-archive.php:152
@@ -1577,42 +1577,42 @@ msgstr ""
 msgid "Hide"
 msgstr ""
 
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:318
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:325
 msgid "Refinery"
 msgstr ""
 
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:322
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:329
 msgid "Sale Display"
 msgstr ""
 
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:327
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:334
 #: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:308
 #: extensions/woocommerce/includes/page-data-woocommerce.php:115
 msgid "Product Sale"
 msgstr ""
 
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:328
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:335
 msgid "Show a \"SALE\" badge when a product is marked as on sale."
 msgstr ""
 
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:347
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:354
 #: extensions/bigcommerce/includes/page-data-bigcommerce.php:59
 msgid "Product Brand"
 msgstr ""
 
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:351
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:358
 msgid "Show Product Brand?"
 msgstr ""
 
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:365
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:372
 msgid "Brand Text"
 msgstr ""
 
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:374
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:381
 msgid "Brand Text Color"
 msgstr ""
 
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:385
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:392
 #: extensions/bigcommerce/modules/fl-bc-product-rating/fl-bc-product-rating.php:15
 #: extensions/woocommerce/classes/class-fl-theme-builder-woocommerce-archive.php:317
 #: extensions/woocommerce/includes/page-data-woocommerce.php:24
@@ -1620,27 +1620,27 @@ msgstr ""
 msgid "Product Rating"
 msgstr ""
 
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:389
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:396
 msgid "Show Product Rating"
 msgstr ""
 
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:406
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:413
 msgid "Product Ratings Style"
 msgstr ""
 
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:430
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:437
 msgid "Product Price Styles"
 msgstr ""
 
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:437
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:441
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:444
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:448
 #: extensions/bigcommerce/includes/page-data-bigcommerce.php:94
 #: extensions/bigcommerce/modules/fl-bc-cart-form/fl-bc-cart-form.php:38
 #: extensions/bigcommerce/modules/fl-bc-related-products/fl-bc-related-products.php:102
 msgid "Add To Cart Button"
 msgstr ""
 
-#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:457
+#: extensions/bigcommerce/classes/class-fl-theme-builder-bigcommerce-archive.php:464
 msgid "Cart Form"
 msgstr ""
 
