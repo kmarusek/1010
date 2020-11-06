@@ -44,6 +44,10 @@
 	width: 100%;
 }
 
+.pp-registration-form .pp-rf-field .pp-rf-control {
+    width: 100%;
+}
+
 .pp-registration-form .pp-rf-field .pp-rf-pws-status {
 	font-size: 12px;
 	margin-right: 10px;

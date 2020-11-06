@@ -15,7 +15,7 @@ FLBuilderCSS::typography_field_rule( array(
 FLBuilderCSS::typography_field_rule( array(
 	'settings'		=> $settings,
 	'setting_name'	=> 'animated_typography',
-	'selector'		=> ".fl-node-$id .pp-headline-dynamic-wrapper"
+	'selector'		=> ".fl-node-$id .pp-headline-dynamic-wrapper, .fl-node-$id .pp-headline-dynamic-text"
 ) );
 ?>
 .fl-node-<?php echo $id; ?> .pp-headline-dynamic-wrapper {

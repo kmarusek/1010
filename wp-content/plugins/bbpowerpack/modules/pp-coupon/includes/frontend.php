@@ -69,7 +69,7 @@ if ( isset( $settings->image_select ) && ! empty( $settings->image_select ) ) {
 		$image_attr .= ' alt="' . $alt . '"';
 	}
 } else {
-	$image_attr = 'src="' . BB_POWERPACK_URL . 'images/default-img.jpg"';
+	$image_attr = 'src="' . BB_POWERPACK_URL . 'assets/images/default-img.jpg"';
 }
 ?>
 

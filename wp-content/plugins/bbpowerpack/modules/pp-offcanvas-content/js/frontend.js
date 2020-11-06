@@ -93,10 +93,18 @@
 		_bindEvents: function () {
 			var self = this;
 			var $trigger = this._setTrigger();
+			var scrollPos = $(window).scrollTop();
 
 			if ($trigger) {
 				$trigger.on('click', $.proxy(this._toggleContent, this));
 			}
+
+			this._onHashChange();
+
+			$(window).on('hashchange', function(e) {
+				e.preventDefault();
+				window['pp_offcanvas_' + self.id]._onHashChange();
+			});
 
 			$('body').delegate('.pp-offcanvas-content .pp-offcanvas-close', 'click', $.proxy(this._close, this));
 			$('body').delegate('.pp-offcanvas-' + this.id + '-close', 'click', function(e) {
@@ -105,13 +113,36 @@
 			});
 
 			// Close the off-canvas panel on clicking on inner links start with hash.
-			$('body').delegate('.pp-offcanvas-content .pp-offcanvas-body a[href*="#"]', 'click', $.proxy(this._close, this));
+			$('body').delegate('.pp-offcanvas-content .pp-offcanvas-body a[href*="#"]:not([href="#"])', 'click', $.proxy(this._close, this));
+
+			$('body').delegate( 'a[href*="#"]:not([href="#"])', 'click', function(e) {
+				var hash = '#' + $(this).attr('href').split('#')[1];
+
+				if ( $(hash).length > 0 && $(hash).hasClass( 'fl-node-' + self.id ) ) {
+					if ( ! $('html').hasClass('pp-offcanvas-content-open') ) {
+						self._show();
+					}
+				}
+			} );
 
 			if (this.escClose === 'yes') {
 				this._closeESC();
 			}
 			if (this.bodyClickClose === 'yes') {
 				this._closeClick();
+			}
+		},
+
+		_onHashChange: function() {
+			var hash = location.hash;
+			var self = this;
+
+			if ( $(hash).length > 0 && $(hash).hasClass( 'fl-node-' + this.id ) ) {
+				setTimeout(function() {
+					if ( ! $('html').hasClass('pp-offcanvas-content-open') ) {
+						self._show();
+					}
+				}, 500);
 			}
 		},
 
@@ -123,7 +154,6 @@
 			} else {
 				this._close();
 			}
-
 		},
 
 		_show: function () {
@@ -148,6 +178,8 @@
 		},
 
 		_close: function () {
+			var hash = location.hash;
+
 			$('html').removeClass('pp-offcanvas-content-open');
 			$('html').removeClass('pp-offcanvas-content-' + this.id + '-open');
 			setTimeout($.proxy(function () {
@@ -155,6 +187,14 @@
 				$('html').removeClass('pp-offcanvas-content-' + this.contentTransition);
 				$('html').removeClass('pp-offcanvas-content-' + this.direction);
 				$('.pp-offcanvas-content-' + this.id).removeClass('pp-offcanvas-content-visible');
+
+				if ( $(hash).length > 0 && $(hash).hasClass( 'fl-node-' + this.id ) ) {
+					if ( ! $('html').hasClass('pp-offcanvas-content-open') ) {
+						var scrollPos = $(window).scrollTop();
+						location.href = location.href.split('#')[0] + '#';
+						window.scrollTo(0, scrollPos);
+					}
+				}
 			}, this), 500);
 
 			this.button.removeClass('pp-is-active');

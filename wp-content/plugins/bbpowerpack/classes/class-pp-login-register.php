@@ -37,6 +37,7 @@ final class BB_PowerPack_Login_Register {
 		//add_action( 'init', 					__CLASS__ . '::login_redirect' );
 		add_filter( 'authenticate', 			__CLASS__ . '::auth_redirect', 10, 3 );
 		add_action( 'wp_logout', 				__CLASS__ . '::logout_redirect' );
+		add_action( 'wp_loaded',				__CLASS__ . '::check_reauth' );
 	}
 
 	/**
@@ -249,6 +250,17 @@ final class BB_PowerPack_Login_Register {
 
 			wp_redirect( $login_page );
 			exit;
+		}
+	}
+
+	static public function check_reauth() {
+		$id = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_login_page', true );
+
+		if ( ! empty( $id ) && isset( $_GET['redirect_to'] ) && isset( $_GET['reauth'] ) ) {
+			if ( ! empty( $_GET['redirect_to'] ) && $_GET['reauth'] ) {
+				// Clear any stale cookies.
+				wp_clear_auth_cookie();
+			}
 		}
 	}
 }

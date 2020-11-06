@@ -139,14 +139,15 @@
 					this.element.find('.pp-modal-iframe').attr( 'src', src );
 				}
 			}
-			if ( this.element.find('iframe, source').length > 0 ) {
+			var iframeAndSource = this.element.find('iframe, source');
+			if ( iframeAndSource.length > 0 && iframeAndSource.closest( '.fl-module' ).length === 0 ) {
 				var src = '';
-				var m_src = this.element.find('iframe, source').attr('src');
+				var m_src = iframeAndSource.attr('src');
 				
 				if ( m_src === undefined || m_src === '' ) {
-					src = this.element.find('iframe, source').data('src');
+					src = iframeAndSource.data('src');
 				} else {
-					src = this.element.find('iframe, source').attr('src');
+					src = iframeAndSource.attr('src');
 				}
 
 				if ( src ) {
@@ -157,7 +158,7 @@
 							src = src + '?autoplay=1&rel=0';
 						}
 					}
-					this.element.find('iframe, source').attr('src', src);
+					iframeAndSource.attr('src', src);
 				}
 				
 				if ( this.element.find('video').length ) {
@@ -168,10 +169,11 @@
 
 		reset: function()
 		{
-            if ( this.element.find('iframe, source').length > 0 ) {
-				var src = this.element.find('iframe, source').attr('src');
+            var iframeAndSource = this.element.find('iframe, source');
+			if ( iframeAndSource.length > 0 && iframeAndSource.closest( '.fl-module' ).length === 0 ) {
+				var src = iframeAndSource.attr('src');
 				if ( '' !== src ) {
-					this.element.find('iframe, source').attr('data-src', src).attr('src', '');
+					iframeAndSource.attr('data-src', src).attr('src', '');
 				}
 				
 				if ( this.element.find('video').length > 0 ) {

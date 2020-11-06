@@ -278,14 +278,14 @@ if( $global_settings->responsive_enabled ) { ?>
 			<?php if( $settings->submenu_hover_toggle == 'arrows' ) { ?>
 				<?php if( $settings->menu_layout == 'horizontal' ) { ?>
 					.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-has-submenu .pp-has-submenu .pp-menu-toggle:before {
-						<?php } elseif( $settings->menu_layout == 'vertical' ) { ?>
-						.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-has-submenu .pp-menu-toggle:before {
-						<?php } ?>
-							-webkit-transform: translateY( -5px ) rotate( -45deg );
-								-ms-transform: translateY( -5px ) rotate( -45deg );
-									transform: translateY( -5px ) rotate( -45deg );
-						}
-					<?php } ?>
+				<?php } elseif( $settings->menu_layout == 'vertical' ) { ?>
+					.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-has-submenu .pp-menu-toggle:before {
+				<?php } ?>
+						-webkit-transform: translateY( -5px ) rotate( -45deg );
+							-ms-transform: translateY( -5px ) rotate( -45deg );
+								transform: translateY( -5px ) rotate( -45deg );
+					}
+				<?php } ?>
 
 					<?php if( $settings->submenu_hover_toggle == 'none' ) { ?>
 						.fl-node-<?php echo $id; ?> .pp-advanced-menu .pp-menu-toggle {
@@ -432,6 +432,12 @@ FLBuilderCSS::typography_field_rule( array(
 	border-color: <?php echo '#' . $settings->border_color; ?>;
 	background-color: <?php echo ( false === strpos( $settings->background_color, 'rgb' ) ) ? '#' . $settings->background_color : $settings->background_color; ?>;
 	color: <?php echo '#' . $settings->link_color; ?>;
+}
+.fl-node-<?php echo $id; ?> .pp-advanced-menu .menu > li > a:hover,
+.fl-node-<?php echo $id; ?> .pp-advanced-menu .menu > li > .pp-has-submenu-container > a:hover {
+	<?php if ( ! empty( $settings->border_hover_color ) ) { ?>
+	border-color: #<?php echo $settings->border_hover_color; ?>;
+	<?php } ?>
 }
 <?php
 // Link Padding
@@ -839,7 +845,20 @@ if( isset( $settings->mobile_toggle ) && $settings->mobile_toggle != 'expanded' 
 	}
 
 	.fl-node-<?php echo $id; ?> .pp-advanced-menu-mobile-toggle {
-		<?php if( $settings->mobile_toggle_font_size == 'custom' && $settings->mobile_toggle_font_size_custom_medium ) { ?>font-size: <?php echo $settings->mobile_toggle_font_size_custom_medium; ?>px;<?php } ?>
+		<?php if( $settings->mobile_toggle_font_size == 'custom' && $settings->mobile_toggle_font_size_custom_medium ) { ?>
+		font-size: <?php echo $settings->mobile_toggle_font_size_custom_medium; ?>px;
+		<?php } ?>
+		<?php
+			$toggle_alignment_medium = 'center';
+			if ( 'left' == $settings->alignment_medium ) {
+				$toggle_alignment_medium = 'flex-start';
+			} elseif ( 'right' == $settings->alignment_medium ) {
+				$toggle_alignment_medium = 'flex-end';
+			}
+		?>
+		-webkit-justify-content: <?php echo $toggle_alignment_medium; ?>;
+		-ms-flex-pack: <?php echo $toggle_alignment_medium; ?>;
+		justify-content: <?php echo $toggle_alignment_medium; ?>;
 	}
 
 	<?php if( ( isset( $settings->alignment_medium ) && 'right' == $settings->alignment_medium ) ) { ?>

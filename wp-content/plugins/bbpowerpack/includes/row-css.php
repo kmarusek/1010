@@ -804,7 +804,7 @@ function pp_row_animated_bg_css( $css, $nodes, $global_settings ) {
 			$anim_type = $row->settings->animation_type;
 
 			if ( 'particles' == $anim_type || 'nasa' == $anim_type || 'bubble' == $anim_type || 'snow' == $anim_type || 'custom' == $anim_type ) { ?>
-				.fl-node-<?php echo $row->node; ?> #pp-particles-wrap-<?php echo $row->node; ?> {
+				.fl-node-<?php echo $row->node; ?> .pp-particles-wrap {
 					position: absolute;
 					top: 0;
 					bottom: 0;
@@ -815,14 +815,14 @@ function pp_row_animated_bg_css( $css, $nodes, $global_settings ) {
 					background-color: <?php echo isset($row->settings->part_bg_color) ? pp_get_color_value($row->settings->part_bg_color) : '#07192f'; ?>
 				}
 				<?php if ( 'yes' == $row->settings->part_bg_type ) { ?>
-					.fl-node-<?php echo $row->node; ?> #pp-particles-wrap-<?php echo $row->node; ?> {
+					.fl-node-<?php echo $row->node; ?> .pp-particles-wrap {
 						background-image: url(<?php echo isset($row->settings->part_bg_image) ? $row->settings->part_bg_image_src : ''; ?>);
 						background-size: <?php echo isset($row->settings->part_bg_size) ? $row->settings->part_bg_size . '%' : '50%'; ?>;
 						background-repeat: no-repeat;
 						background-position: <?php echo isset($row->settings->part_bg_position) ? $row->settings->part_bg_position : '50% 50%'; ?>;
 					}
 				<?php } ?>
-				.fl-node-<?php echo $row->node; ?> .fl-row-content-wrap #pp-particles-wrap-<?php echo $row->node; ?> {
+				.fl-node-<?php echo $row->node; ?> .fl-row-content-wrap .pp-particles-wrap {
 					z-index: 0;
 				}
 				.fl-node-<?php echo $row->node; ?> .fl-row-content-wrap .fl-row-content {

@@ -794,7 +794,7 @@ FLBuilder::register_settings_form(
 								),
 								'toggle'  => array(
 									'custom' => array(
-										'fields' => array( 'marker_img' ),
+										'fields' => array( 'marker_img', 'marker_width', 'marker_height' ),
 									),
 								),
 							),
@@ -803,6 +803,18 @@ FLBuilder::register_settings_form(
 								'label'       => __( 'Custom Marker', 'bb-powerpack' ),
 								'show_remove' => true,
 								'connections' => array( 'photo' ),
+							),
+							'marker_width'	=> array(
+								'type'	=> 'unit',
+								'label'	=> __( 'Custom Marker Width', 'bb-powerpack' ),
+								'default' => '',
+								'slider' => true
+							),
+							'marker_height'	=> array(
+								'type'	=> 'unit',
+								'label'	=> __( 'Custom Marker Height', 'bb-powerpack' ),
+								'default' => '',
+								'slider' => true
 							),
 						),
 					),

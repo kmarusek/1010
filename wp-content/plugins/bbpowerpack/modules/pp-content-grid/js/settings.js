@@ -53,7 +53,7 @@
 			// Hide more link text field if more_link_type is not button.
 			self._hideField( 'more_link_text', form.find( 'select[name="more_link_type"]' ).val() !== 'button' );
 
-			if ( form.find( 'input[name="event_enable"]' ).val() === 'yes' || form.find( 'select[name="more_link_type"]' ).val() === 'button' || form.find( 'select[name="product_button"]' ).val() === 'yes' ) {
+			if ( form.find( 'input[name="event_enable"]' ).val() === 'yes' || form.find( 'select[name="more_link_type"]' ).val() === 'button' || form.find( 'input[name="product_button"]' ).val() === 'yes' ) {
 				self._showSection( button_sections );
 			} else {
 				self._hideSection( button_sections );
@@ -99,7 +99,7 @@
 			form.addClass( 'pp-cg-post-type_' + field.val() );
 
 			// WooCommerce and EDD
-			if( field.val() === 'product' || field.val() === 'download' ) {
+			if( field.val() === 'product' || field.val() === 'download' || form.find( 'select[name="data_source"]' ).val() === 'main_query' ) {
 				$('#fl-builder-settings-section-product-settings').show();
 				$('#fl-builder-settings-section-product_info_style').show();
                 $('#fl-field-more_link_text').hide();

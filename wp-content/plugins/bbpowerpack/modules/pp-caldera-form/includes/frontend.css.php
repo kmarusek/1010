@@ -20,7 +20,7 @@ FLBuilderCSS::border_field_rule( array(
 FLBuilderCSS::border_field_rule( array(
 	'settings' 		=> $settings,
 	'setting_name' 	=> 'button_border_group',
-	'selector' 		=> ".fl-node-$id .pp-caldera-form-content .caldera-grid input[type=submit]",
+	'selector' 		=> ".fl-node-$id .pp-caldera-form-content .caldera-grid input[type=submit], .fl-node-$id .pp-caldera-form-content .caldera-grid .cf-page-btn",
 ) );
 // Form Padding
 FLBuilderCSS::dimension_field_rule( array(
@@ -52,7 +52,7 @@ FLBuilderCSS::dimension_field_rule( array(
 FLBuilderCSS::dimension_field_rule( array(
 	'settings'		=> $settings,
 	'setting_name' 	=> 'button_padding',
-	'selector' 		=> ".fl-node-$id .pp-caldera-form-content .caldera-grid input[type=submit]",
+	'selector' 		=> ".fl-node-$id .pp-caldera-form-content .caldera-grid input[type=submit], .fl-node-$id .pp-caldera-form-content .caldera-grid .cf-page-btn",
 	'unit'			=> 'px',
 	'props'			=> array(
 		'padding-top' 		=> 'button_padding_top',
@@ -90,7 +90,7 @@ FLBuilderCSS::typography_field_rule( array(
 FLBuilderCSS::typography_field_rule( array(
 	'settings'		=> $settings,
 	'setting_name' 	=> 'button_typography',
-	'selector' 		=> ".fl-node-$id .pp-caldera-form-content .caldera-grid input[type=submit]",
+	'selector' 		=> ".fl-node-$id .pp-caldera-form-content .caldera-grid input[type=submit], .fl-node-$id .pp-caldera-form-content .caldera-grid .cf-page-btn",
 ) );
 // Custom Description Font Size
 FLBuilderCSS::responsive_rule( array(
@@ -328,7 +328,8 @@ FLBuilderCSS::responsive_rule( array(
     <?php } ?>
 }
 
-.fl-node-<?php echo $id; ?> .pp-caldera-form-content .caldera-grid input[type=submit] {
+.fl-node-<?php echo $id; ?> .pp-caldera-form-content .caldera-grid input[type=submit],
+.fl-node-<?php echo $id; ?> .pp-caldera-form-content .caldera-grid .cf-page-btn {
     <?php if( isset( $settings->button_text_color_default ) && ! empty( $settings->button_text_color_default ) ) { ?>
 		color: <?php echo pp_get_color_value( $settings->button_text_color_default ); ?>;
     <?php } ?>
@@ -344,7 +345,8 @@ FLBuilderCSS::responsive_rule( array(
     <?php if( $settings->button_width == 'true' ) { ?>width: 100%; <?php } ?>
 }
 
-.fl-node-<?php echo $id; ?> .pp-caldera-form-content .caldera-grid input[type=submit]:hover {
+.fl-node-<?php echo $id; ?> .pp-caldera-form-content .caldera-grid input[type=submit]:hover,
+.fl-node-<?php echo $id; ?> .pp-caldera-form-content .caldera-grid .cf-page-btn:hover {
 	<?php if( isset( $settings->button_text_color_hover ) && ! empty( $settings->button_text_color_hover ) ) { ?>
 		color: <?php echo pp_get_color_value( $settings->button_text_color_hover ); ?>;
     <?php } ?>

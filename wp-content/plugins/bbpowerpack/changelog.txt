@@ -1,3 +1,116 @@
+== 2.12.3 ==
+Release date: October 21, 2020
+* Fix: Filterable Gallery - Medium and responsive settings were not working properly
+* Fix: Advanced Menu - Hamburger alignment was not working for medium breakpoint
+* Fix: Animated Headline - Some typography options were not working for animating text
+* Fix: Content Grid - Layout issue when using the module in expandable row
+* Fix: Login Form - Invalid data issue
+* Fix: Breadcrumbs - Added missing alpha channel for background color fields
+
+== 2.12.2 ==
+Release date: October 19, 2020
+* Fix: Reviews - Custom reviews were stopped getting displayed
+* Fix: Instagram Feed - CORS issue on some servers
+
+== 2.12.1 ==
+Release date: October 15, 2020
+* Fix: Table of Contents - JS error after 2.12.0 update
+
+== 2.12.0 ==
+Release date: October 14, 2020
+* Enhancement: Content Grid - Added an option to display child terms as filters for taxonomy archive
+* Enhancement: Content Grid - Added options to add hover text color for title, content, and meta
+* Enhancement: Table of Contents - Added an option to choose whether to generate anchor ID from heading text or auto
+* Enhancement: Google Map - Added an option for custom marker image size
+* Enhancement: Smart Heading - Added new percent unit for separator width
+* Enhancement: Advanced Menu - Added border hover color option
+* Enhancement: Off-Canvas Content - Added logic to trigger off-canvas panel via URL
+* Enhancement: Login Form - Added an option to change Register link text
+* Enhancement: Content Ticker - Added logic to display event date instead of post date for The Events Calendar
+* Enhancement: Card Slider - Added logic to display event date instead of post date for The Events Calendar
+* Enhancement: Core - Added individual license activation settings for subsites in multisite network
+* Enhancement: Core - Added indicator with tooltip to show dependent modules under modules manager admin settings
+* Fix: Announcement Bar - Close icon was not appearing sometimes
+* Fix: Off-Canvas Content - Toggle button accessibility issues
+* Fix: Off-Canvas Content - Link with hash value in href leads the panel to close
+* Fix: Card Slider - Double quotes issue in URL
+* Fix: Author Box - Broken image alt tag due to HTML used in author name
+* Fix: Content Grid - Beaver Themer ACF fields shortcodes were not working in custom content
+* Fix: Sliding Menu - Submenu overlap issue with transparent background
+* Fix: Modal Box - Issue with multiple iframes used in saved template
+* Fix: Caldera Forms Styler - CSS was not getting applied to pagination button
+* Fix: Logos Grid - Empty spacing field is leading to PHP error
+* Fix: Content Grid - Product price and cart button were not showing on shop archive when using main query
+* Fix: Video Gallery - Missing video thumbnail URL in structured data
+* Fix: Advanced Menu - Added missing field connections for 2 color fields
+* Fix: Advanced Menu - Browser outline issue
+* Fix: Advanced Accordion - Browser window was not getting scrolled to accordion item triggered via URL hash
+* Fix: Album - Custom registered image sizes were not showing
+* Fix: Login Form - Issue with reCAPTCHA v3
+* Fix: Category Grid - RTL issue
+* Fix: Advanced Menu - RTL issue
+* Fix: Fancy Heading - Minor PHP warning
+* Fix: Advanced Accordion - Minor PHP warning
+* Fix: FAQ - Minor PHP warning
+* Fix: Reviews - PHP error
+* Fix: Core - Enabled Modules were not getting saved properly when used or not used modules filter is active
+* Development: Subscribe Form - Added filter pp_subscribe_form_strings_i18n to modify validation and error messages
+* Development: Login Form - Added filter pp_login_form_password_reset_email_subject
+* Development: Login Form - Added filter pp_login_form_password_reset_email_content
+* Development: Login Form - Added filter pp_login_form_js_messages_i18n
+* Development: Login Form - Added filter pp_login_form_redirect_url
+* Development: Content Grid - Added filter pp_post_grid_ajax_response
+* Development: Photo Gallery - Added filter pp_gallery_output_image_srcset (default: false)
+* Development: Core - Added filter pp_modules_override_theme_dir
+
+== 2.11.0 ==
+Release date: August 26, 2020
+* New: Added Card Slider module
+* Enhancement: Reviews - Added an option to show or hide user profile image
+* Fix: Reviews - When linking to Google + Yelp reviews, if a user does not have an avatar it displays as a broken image
+* Fix: Reviews - The "Icon Size" setting was not getting applied to Google reviews as it does for Yelp reviews
+
+== 2.10.3 ==
+Release date: August 21, 2020
+* Fix: Advanced Menu - Sub-menu was not getting shown in some cases on touch devices
+* Fix: Advanced Menu - Added missing alpha slider for Container Background Color field
+
+== 2.10.2 ==
+Release date: August 19, 2020
+* Fix: Content Grid - Scroll pagination was returning duplicate posts
+* Fix: Content Grid - Read More button styling options were not showing for product add-to-cart button
+* Fix: Advanced Menu - When desktop menu is used on touch devices, parent menu item was getting clicked and not allowing access to sub-menu
+
+== 2.10.1 ==
+Release date: August 13, 2020
+* Fix: Content Grid - "All" filter was not working in WP 5.5
+* Fix: Row animated background was not working when using multiple instances of the same saved row on a page 
+
+== 2.10.0 ==
+Release date: August 12, 2020
+* New: Content Ticker module
+* Enhancement: Advanced Accordion - Added logic to trigger nested accordion via URL
+* Enhancement: Video Gallery - Added unique CSS classes based on the tags to filter items
+* Enhancement: Video Gallery - Added logic to trigger the filter by providing #hash in URL
+* Enhancement: Contact Form - Added option to mark fields as required or optional
+* Enhancement: Author Box - Added option to display info from other users
+* Enhancement: Table - Added logic to display data from ACF Repeater field
+* Fix: Content Grid - Duplicate carousel navigation buttons were rendering
+* Fix: Content Grid - Tribe Events - Expired event posts were showing on AJAX filter irrespective of module settings
+* Fix: Content Grid - Price CSS was getting overridden by theme
+* Fix: Content Grid - Load More pagination was not working properly after the last update
+* Fix: Content Grid - AJAX issue in WP 5.5
+* Fix: Gravity Forms - Links in confirmation message were not clickable
+* Fix: Image Carousel - Not working properly when used inside expandable row
+* Fix: Info Box - Added missing field connection for button text
+* Fix: Info Box - Button icon was not removable
+* Fix: Star Rating - PHP error
+* Fix: Video - JS error when lightbox does not contain iframe
+* Fix: Video Gallery - iframe was showing current page instead of video sometimes
+* Fix: Countdown - Expiry message was not getting displayed once evergreen timer ends
+* Fix: Off-Canvas Content - Responsive padding and width were not getting reflected on frontend
+* Core - Removed field "Google Places API Key" from plugin settings. Use "Google Map API key" for both places and map.
+
 == 2.9.2 ==
 Release date: July 17, 2020
 * Fix: Gravity Forms - PHP error missing GFFormDisplay class in some cases

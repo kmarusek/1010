@@ -30,7 +30,7 @@ if ( 'yes' == $settings->redirect_after_login && ! empty( $settings->redirect_ur
 if ( isset( $_GET['redirect_to'] ) && isset( $_GET['reauth'] ) ) {
 	if ( ! empty( $_GET['redirect_to'] ) && $_GET['reauth'] ) {
 		// Clear any stale cookies.
-		wp_clear_auth_cookie();
+		//wp_clear_auth_cookie();
 		// Get redirect URL.
 		$redirect_url = $_GET['redirect_to'];
 		$reauth = true;
@@ -99,6 +99,10 @@ if ( ! isset( $_GET['id'] ) || empty( $_GET['id'] ) ) {
 					}
 					?>
 
+					<div class="pp-field-group pp-login-form-extra">
+						<?php do_action( 'login_form' ); ?>
+					</div>
+
 					<div class="pp-field-group pp-field-type-submit">
 						<button type="submit" name="wp-submit" class="pp-login-form--button pp-submit-button">
 							<span class="pp-login-form--button-text"><?php echo $settings->button_text; ?></span>
@@ -117,7 +121,7 @@ if ( ! isset( $_GET['id'] ) || empty( $_GET['id'] ) ) {
 								<span class="pp-login-separator"> | </span>
 							<?php } ?>
 							<a class="pp-login-register" href="<?php echo $module->get_registration_url(); ?>">
-								<?php _e( 'Register', 'bb-powerpack' ); ?>
+								<?php echo isset( $settings->register_link_text ) && ! empty( $settings->register_link_text ) ? $settings->register_link_text : __( 'Register', 'bb-powerpack' ); ?>
 							</a>
 						<?php } ?>
 					</div>

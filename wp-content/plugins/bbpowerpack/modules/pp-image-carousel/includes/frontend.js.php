@@ -93,6 +93,9 @@ var carousel_<?php echo $id; ?> = '';
 		setTimeout(function() {
 			if ( 'number' !== typeof carousel_<?php echo $id; ?>.swipers.main.length ) {
 				carousel_<?php echo $id; ?>.swipers.main.update();
+				if ( 'object' === typeof carousel_<?php echo $id; ?>.swipers.thumbs ) {
+					carousel_<?php echo $id; ?>.swipers.thumbs.update();
+				}
 			} else {
 				carousel_<?php echo $id; ?>.swipers.main.forEach(function(item) {
 					if ( 'undefined' !== typeof item ) {
@@ -134,7 +137,7 @@ var carousel_<?php echo $id; ?> = '';
 	// expandable row fix.
 	var state = 0;
 	$(document).on('pp_expandable_row_toggle', function(e, selector) {
-		if ( selector.is('.pp-er-open') && state === 0 && selector.find( '.fl-node-<?php echo $id; ?>' ).length > 0 ) {
+		if ( selector.is('.pp-er-open') && state === 0 && selector.parent().find( '.fl-node-<?php echo $id; ?>' ).length > 0 ) {
 			updateCarousel();
 			state = 1;
 		}

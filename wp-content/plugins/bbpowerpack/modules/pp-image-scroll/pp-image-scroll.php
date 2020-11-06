@@ -130,7 +130,7 @@ BB_PowerPack::register_module(
 						'scroll_dir'   => array(
 							'type'    => 'pp-switch',
 							'label'   => __( 'Scroll Direction', 'bb-powerpack' ),
-							'default' => 'Vertical',
+							'default' => 'vertical',
 							'options' => array(
 								'horizontal' => __( 'Horizontal', 'bb-powerpack' ),
 								'vertical'   => __( 'Vertical', 'bb-powerpack' ),
@@ -174,7 +174,7 @@ BB_PowerPack::register_module(
 						'overlay_type'    => array(
 							'type'    => 'select',
 							'label'   => __( 'Overlay Type', 'bb-powerpack' ),
-							'default' => 'iocn',
+							'default' => 'icon',
 							'options' => array(
 								'icon'      => __( 'Icon', 'bb-powerpack' ),
 								'text'      => __( 'Text', 'bb-powerpack' ),
@@ -198,6 +198,7 @@ BB_PowerPack::register_module(
 						),
 						'overlay_icon'    => array(
 							'type'        => 'icon',
+							'default'     => 'fas fa-chevron-circle-down',
 							'label'       => __( 'Icon', 'bb-powerpack' ),
 							'show_remove' => true,
 						),
@@ -275,8 +276,8 @@ BB_PowerPack::register_module(
 					'fields'    => array(
 						'icon_size'       => array(
 							'type'    => 'unit',
+							'default'     => 30,
 							'label'   => __( 'Size', 'bb-powerpack' ),
-							'default' => '18',
 							'units'   => array( 'px' ),
 							'slider'  => true,
 						),

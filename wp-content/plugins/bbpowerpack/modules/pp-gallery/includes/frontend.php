@@ -22,7 +22,7 @@ $photos = $module->get_photos();
 			<?php if ( 'scroll' == $settings->pagination ) { ?>
 				<div class="pp-gallery-loader" style="display: none;">
 					<span class="pp-grid-loader-text"><?php _e('Loading...', 'bb-powerpack'); ?></span>
-					<span class="pp-grid-loader-icon"><img src="<?php echo BB_POWERPACK_URL . 'images/spinner.gif'; ?>" style="height: 15px;"/></span>
+					<span class="pp-grid-loader-icon"><img src="<?php echo BB_POWERPACK_URL . 'assets/images/spinner.gif'; ?>" style="height: 15px;"/></span>
 				</div>
 			<?php } ?>
 		<?php } ?>

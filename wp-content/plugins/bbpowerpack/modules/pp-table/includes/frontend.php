@@ -1,5 +1,7 @@
 <?php
 $source = isset( $settings->source ) ? $settings->source : 'manual';
+$tableheaders = array();
+$tablerows = array();
 ?>
 
 <div class="pp-table-wrap">
@@ -31,6 +33,66 @@ if ( 'csv_import' == $source ) {
 			}
 		}
 	}
+} elseif ( 'acf_repeater' === $source ) {
+	$repeater_name = isset( $settings->acf_repeater_name ) ? $settings->acf_repeater_name : '';
+	$post_id = empty( $settings->acf_repeater_post_id ) ? get_the_ID() : absint( $settings->acf_repeater_post_id );
+	if ( isset( $_GET['fl_builder'] ) ) {
+		if ( ! class_exists( 'acf' ) ) {
+			esc_html_e( 'ACF Pro plugin is not active.', 'bb-powerpack' );
+			return;
+		} elseif ( empty( $repeater_name ) ) {
+			esc_html_e( 'Enter ACF Repeater Name.', 'bb-powerpack' );
+			return;
+		} elseif ( ! $post_id ) {
+			esc_html_e( 'Invalid post ID.', 'bb-powerpack' );
+			return;
+		}
+	}
+
+	$field = get_field_object( $repeater_name, $post_id );
+
+	// Check whether it is ACF repeater field or not.
+	if ( isset( $_GET['fl_builder'] ) ) {
+		if ( empty( $field ) || ! is_array( $field ) || 'repeater' !== $field['type'] ) {
+			echo sprintf( __( '"%s" ACF Repeater field does not exist.', 'bb-powerpack' ), $repeater_name );
+			return;
+		}
+	}
+
+	$sub_fields = $field['sub_fields'];
+	$repeater_rows = $field['value'];
+	$image_fields = array();
+
+	// Check if the field is empty.
+	if ( ( empty( $sub_fields ) || empty( $repeater_rows ) ) && isset( $_GET['fl_builder'] ) ) {
+		esc_html_e( 'ACF Repeater field is empty.', 'bb-powerpack' );
+		return;
+	}
+
+	foreach ( $sub_fields as $sub_field ) {
+		if ( 'image' === $sub_field['type'] && isset( $sub_field['return_format'] ) ) {
+			$field_name = $sub_field['name'];
+			$image_fields[ $field_name ] = $sub_field['return_format'];
+		}
+		$tableheaders[] = $sub_field['label'];
+	}
+
+	foreach ( $repeater_rows as $index => $repeater_row ) {
+		$row_cell = $repeater_row;
+		foreach ( $repeater_row as $key => $value ) {
+			if ( isset( $image_fields[ $key ] ) ) {
+				$url = 'url' === $image_fields[ $key ] ? $value : '';
+				$url = 'array' === $image_fields[ $key ] ? $value['url'] : $value;
+				$row_cell[ $key ] = '<img src="' . $url . '" alt="' . basename( $url ) . '" />';
+			}
+		}
+
+		$row = new stdClass();
+		$row->cell = $row_cell;
+
+		$tablerows[] = $row;
+	}
+
 } else {
 	$tableheaders = $settings->header;
 	$tablerows = $settings->rows;

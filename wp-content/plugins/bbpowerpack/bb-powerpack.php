@@ -3,7 +3,7 @@
  * Plugin Name: PowerPack for Beaver Builder
  * Plugin URI: https://wpbeaveraddons.com
  * Description: A set of custom, creative, unique modules for Beaver Builder to speed up your web design and development process.
- * Version: 2.9.2
+ * Version: 2.12.3
  * Author: IdeaBox Creations
  * Author URI: https://ideaboxcreations.com
  * Copyright: (c) 2016 IdeaBox Creations
@@ -119,7 +119,7 @@ final class BB_PowerPack {
 	 * @return void
 	 */
 	private function define_constants() {
-		define( 'BB_POWERPACK_VER', '2.9.2' );
+		define( 'BB_POWERPACK_VER', '2.12.3' );
 		define( 'BB_POWERPACK_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'BB_POWERPACK_URL', plugins_url( '/', __FILE__ ) );
 		define( 'BB_POWERPACK_PATH', plugin_basename( __FILE__ ) );
@@ -224,7 +224,7 @@ final class BB_PowerPack {
 	 */
 	public function register_scripts() {
 		wp_register_style( 'pp-animate', BB_POWERPACK_URL . 'assets/css/animate.min.css', array(), '3.5.1' );
-		wp_register_style( 'pp-jquery-fancybox', BB_POWERPACK_URL . 'assets/css/jquery.fancybox.min.css', array(), '3.3.5' );
+		wp_register_style( 'pp-jquery-fancybox', BB_POWERPACK_URL . 'assets/css/jquery.fancybox.min.css', array(), '3.5.4' );
 		wp_register_style( 'jquery-justifiedgallery', BB_POWERPACK_URL . 'assets/css/justifiedGallery.min.css', array(), '3.7.0' );
 		wp_register_style( 'jquery-swiper', BB_POWERPACK_URL . 'assets/css/swiper.min.css', array(), '4.4.6' );
 		wp_register_style( 'pp-owl-carousel', BB_POWERPACK_URL . 'assets/css/owl.carousel.css', array(), BB_POWERPACK_VER );
@@ -244,7 +244,7 @@ final class BB_PowerPack {
 		wp_register_script( 'jquery-cookie', BB_POWERPACK_URL . 'assets/js/jquery.cookie.min.js', array( 'jquery' ), '1.4.1' );
 		wp_register_script( 'pp-jquery-plugin', BB_POWERPACK_URL . 'assets/js/jquery.plugin.js', array( 'jquery' ), BB_POWERPACK_VER, true );
 		wp_register_script( 'pp-jquery-countdown', BB_POWERPACK_URL . 'assets/js/jquery.countdown.js', array( 'jquery', 'pp-jquery-plugin' ), '2.0.2', true );
-		wp_register_script( 'pp-jquery-fancybox', BB_POWERPACK_URL . 'assets/js/jquery.fancybox.min.js', array( 'jquery' ), '3.3.5', true );
+		wp_register_script( 'pp-jquery-fancybox', BB_POWERPACK_URL . 'assets/js/jquery.fancybox.min.js', array( 'jquery' ), '3.5.7', true );
 		wp_register_script( 'jquery-justifiedgallery', BB_POWERPACK_URL . 'assets/js/jquery.justifiedGallery.min.js', array( 'jquery' ), '3.7.0', true );
 		wp_register_script( 'jquery-swiper', BB_POWERPACK_URL . 'assets/js/swiper.jquery.min.js', array( 'jquery' ), '4.4.6', true );
 		wp_register_script( 'jquery-slick', BB_POWERPACK_URL . 'assets/js/slick.min.js', array( 'jquery' ), '1.6.0', true );

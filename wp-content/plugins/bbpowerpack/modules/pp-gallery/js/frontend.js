@@ -67,6 +67,7 @@
 					columnWidth: '.pp-gallery-masonry-item',
 					gutter: '.pp-photo-space'
 				},
+				originLeft: $('body').hasClass( 'rtl' ) ? false : true
 			};
 
 			wrap.imagesLoaded( $.proxy( function() {

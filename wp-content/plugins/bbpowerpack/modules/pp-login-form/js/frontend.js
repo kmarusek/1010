@@ -320,6 +320,9 @@
 			if ( reCaptchaField.length > 0 ) {
 				formData.append( 'recaptcha', true );
 				formData.append( 'recaptcha_validate', reCaptchaField.data( 'validate' ) );
+				if ( reCaptchaField.data( 'invisible' ) ) {
+					formData.append( 'recaptcha_invisible', true );
+				}
 			}
 			if ( reCaptchaValue ) {
 				formData.append( 'recaptcha_response', reCaptchaValue );
@@ -327,7 +330,7 @@
 
 			this._disableForm();
 
-			this._ajax( formData, function( response ) { console.log(response);
+			this._ajax( formData, function( response ) {
 				if ( ! response.success ) {
 					self._enableForm();
 					theForm.find( '.pp-lf-error' ).remove();

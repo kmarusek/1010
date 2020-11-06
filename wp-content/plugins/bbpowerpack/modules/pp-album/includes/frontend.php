@@ -30,7 +30,7 @@ if ( ! empty( $settings->gallery_photos ) ) {
 		$alt = pp_get_image_alt( $settings->custom_cover );
 	}
 } else {
-	$first_img_url = array( BB_POWERPACK_URL . 'images/placeholder-600.jpg' );
+	$first_img_url = array( BB_POWERPACK_URL . 'assets/images/placeholder-600.jpg' );
 }
 
 // Button Type.
@@ -105,8 +105,8 @@ if ( 'text' === $settings->cover_btn_type ) {
 						</a>
 					<?php }
 				} else { ?>
-					<a class="pp-album-image pp-album-1 pp-album-<?php echo $id; ?>" href="<?php BB_POWERPACK_URL . 'images/placeholder-600.jpg';?>" data-fancybox="pp-album-<?php echo $id; ?>">
-						<img src="<?php BB_POWERPACK_URL . 'images/placeholder-600.jpg';?>" alt="Album Image" />
+					<a class="pp-album-image pp-album-1 pp-album-<?php echo $id; ?>" href="<?php BB_POWERPACK_URL . 'assets/images/placeholder-600.jpg';?>" data-fancybox="pp-album-<?php echo $id; ?>">
+						<img src="<?php BB_POWERPACK_URL . 'assets/images/placeholder-600.jpg';?>" alt="Album Image" />
 					</a>
 				<?php } ?>
 			</div>

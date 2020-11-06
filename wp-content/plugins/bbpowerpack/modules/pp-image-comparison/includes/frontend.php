@@ -8,7 +8,7 @@ if ( isset( $settings->before_img ) && ! empty( $settings->before_img ) ) {
 		$before_img_attr .= ' alt="' . $before_alt . '"';
 	}
 } else {
-	$before_img_attr = 'src="' . BB_POWERPACK_URL . 'images/default-img.jpg"';
+	$before_img_attr = 'src="' . BB_POWERPACK_URL . 'assets/images/default-img.jpg"';
 }
 // After
 if ( isset( $settings->after_img ) && ! empty( $settings->after_img ) ) {
@@ -19,7 +19,7 @@ if ( isset( $settings->after_img ) && ! empty( $settings->after_img ) ) {
 		$after_img_attr .= ' alt="' . $after_alt . '"';
 	}
 } else {
-	$after_img_attr = 'src="' . BB_POWERPACK_URL . 'images/default-img.jpg"';
+	$after_img_attr = 'src="' . BB_POWERPACK_URL . 'assets/images/default-img.jpg"';
 }
 ?>
 

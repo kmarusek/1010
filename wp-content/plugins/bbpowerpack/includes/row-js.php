@@ -21,6 +21,7 @@ function pp_animated_bg_js( $js, $nodes, $global_settings ) {
 	$anim_array              = array();
 	$anim_three_enqueued     = false;
 	$anim_particles_enqueued = false;
+	$count 					= 0;
 
 	foreach ( $nodes['rows'] as $row ) {
 		if ( isset( $row->settings->bg_type ) && 'pp_animated_bg' === $row->settings->bg_type ) {
@@ -143,9 +144,14 @@ function pp_animated_bg_js( $js, $nodes, $global_settings ) {
 							});
 						<?php }
 						if ( 'particles' == $anim_type || 'nasa' == $anim_type || 'bubble' == $anim_type || 'snow' == $anim_type || 'custom' == $anim_type ) { ?>
-							var appendDiv = "<div id='pp-particles-wrap-<?php echo $row->node; ?>' class='pp-particles-wrap'></div>";
+							var appendDiv = '<div id="pp-particles-wrap-<?php echo $row->node; ?>" class="pp-particles-wrap"></div>';
 
 							$(".fl-node-<?php echo $row->node; ?> .fl-row-content-wrap").prepend(appendDiv);
+
+							$('.pp-particles-wrap').each(function( i ) {
+								var newId = $(this).attr( 'id' ) + '-' + i;
+								$(this).attr( 'id', newId );
+							});
 
 							<?php if ( 'particles' === $anim_type ) { ?>
 								var lineLinked 		= true,
@@ -240,14 +246,17 @@ function pp_animated_bg_js( $js, $nodes, $global_settings ) {
 							<?php } ?>
 
 							<?php
-							if( 'custom' == $anim_type ){
+							if ( 'custom' == $anim_type ) {
 								if ( ! empty($row->settings->part_custom_code) && isset($row->settings->part_custom_code) ) {
 		
 									$json_particles_custom = wp_strip_all_tags( $row->settings->part_custom_code ); ?>
-									particlesJS( 'pp-particles-wrap-<?php echo $row->node; ?>', <?php echo $json_particles_custom;?> );
+									$('.fl-node-<?php echo $row->node; ?>').each(function() {
+										var id = $(this).find( '.fl-row-content-wrap > .pp-particles-wrap' ).attr('id');
+										particlesJS( id, <?php echo $json_particles_custom; ?> );
+									});
 
 								<?php } ?>
-							<?php }else{ ?>
+							<?php } else { ?>
 
 								var particlesData = {
 									"particles": {
@@ -359,7 +368,10 @@ function pp_animated_bg_js( $js, $nodes, $global_settings ) {
 									},
 									"retina_detect": true
 								}
-								particlesJS( 'pp-particles-wrap-<?php echo $row->node; ?>', particlesData );
+								$('.fl-node-<?php echo $row->node; ?>').each(function() {
+									var id = $(this).find( '.fl-row-content-wrap > .pp-particles-wrap' ).attr('id');
+									particlesJS( id, particlesData );
+								});
 							<?php } ?>
 
 						<?php } ?>
@@ -373,6 +385,7 @@ function pp_animated_bg_js( $js, $nodes, $global_settings ) {
 			<?php } ?>	
 			<?php
 			$js .= ob_get_clean();
+			$count++;
 		}
 	}
 

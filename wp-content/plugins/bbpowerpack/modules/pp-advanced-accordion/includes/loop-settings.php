@@ -34,8 +34,10 @@
 		</table>
 
 		<?php
-
 		foreach ( $post_types as $slug => $label ) :
+			if ( ! isset( $taxonomy_type[ $slug ] ) ) {
+				continue;
+			}
 			$selected = isset( $settings->{'posts_' . $slug . '_type'} ) ? $settings->{'posts_' . $slug . '_type'} : 'post';
 			?>
 			<table class="fl-form-table fl-custom-query-filter fl-custom-query-<?php echo $slug; ?>-filter"<?php echo ( $slug === $selected ) ? ' style="display:table;"' : ''; ?>>

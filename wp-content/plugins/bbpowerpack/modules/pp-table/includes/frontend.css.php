@@ -110,11 +110,9 @@ FLBuilderCSS::typography_field_rule( array(
 	border-left: 0;
 }
 
-.fl-node-<?php echo $id; ?> .pp-table-content thead tr:first-child th {
-	border-style: solid;
-	border-width: 1px;
-	border-color: <?php echo ( $settings->header_border ) ? pp_get_color_value($settings->header_border) : 'transparent'; ?>;
-}
+/* .fl-node-<?php echo $id; ?> .pp-table-content thead tr:first-child th {
+	border: 1px solid <?php echo ( $settings->header_border ) ? pp_get_color_value($settings->header_border) : 'transparent'; ?>;
+} */
 
 .fl-node-<?php echo $id; ?> .pp-table-content tbody tr td {
     color: <?php echo pp_get_color_value($settings->rows_font_color); ?>;

@@ -72,7 +72,7 @@ BB_PowerPack::register_module('PPBreadcrumbsModule', array(
                         'label'         => __('Background Color', 'bb-powerpack'),
                         'default'       => '',
 						'show_reset'    => true,
-						'show_remove'	=> true,
+						'show_alpha'	=> true,
 						'connections'	=> array('color'),
 						'preview'          => array(
 							'type'         		=> 'css',
@@ -120,21 +120,21 @@ BB_PowerPack::register_module('PPBreadcrumbsModule', array(
                         'type'          => 'color',
                         'label'         => __('Text Color', 'bb-powerpack'),
                         'default'       => '',
-						'show_reset'    => false,
+						'show_reset'    => true,
 						'connections'	=> array('color'),
                     ),
 					'link_color'		=> array(
                         'type'          => 'color',
                         'label'         => __('Link Color', 'bb-powerpack'),
                         'default'       => '',
-						'show_reset'    => false,
+						'show_reset'    => true,
 						'connections'	=> array('color'),
                     ),
 					'link_hover_color'		=> array(
                         'type'          => 'color',
                         'label'         => __('Link Hover Color', 'bb-powerpack'),
                         'default'       => '',
-						'show_reset'    => false,
+						'show_reset'    => true,
 						'connections'	=> array('color'),
                     ),
 					'link_bg_color'		=> array(
@@ -142,7 +142,7 @@ BB_PowerPack::register_module('PPBreadcrumbsModule', array(
                         'label'         => __('Background Color', 'bb-powerpack'),
                         'default'       => '',
 						'show_reset'    => true,
-						'show_remove'	=> true,
+						'show_alpha'	=> true,
 						'connections'	=> array('color'),
                     ),
 					'link_bg_hover'		=> array(
@@ -150,7 +150,7 @@ BB_PowerPack::register_module('PPBreadcrumbsModule', array(
                         'label'         => __('Background Hover Color', 'bb-powerpack'),
                         'default'       => '',
 						'show_reset'    => true,
-						'show_remove'	=> true,
+						'show_alpha'	=> true,
 						'connections'	=> array('color'),
                     ),
 					'link_padding'	=> array(

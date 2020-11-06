@@ -36,6 +36,10 @@ if ( isset( $settings->show_image_effect ) && 'yes' === $settings->show_image_ef
 	margin-right: <?php echo $settings->filter_margin; ?>px;
 	margin-bottom: <?php echo ($settings->filter_margin / 2); ?>px;
 }
+.rtl .fl-node-<?php echo $id; ?> ul.pp-post-filters li {
+	margin-left: <?php echo $settings->filter_margin; ?>px;
+	margin-right: 0;
+}
 <?php
 // Filter Border
 FLBuilderCSS::border_field_rule( array(
@@ -83,7 +87,7 @@ FLBuilderCSS::typography_field_rule( array(
 }
 
 .fl-node-<?php echo $id; ?> .pp-content-post-grid.pp-is-filtering:after {
-	background-image: url(<?php echo BB_POWERPACK_URL; ?>images/spinner.gif);
+	background-image: url(<?php echo BB_POWERPACK_URL; ?>assets/images/spinner.gif);
 }
 
 .fl-node-<?php echo $id; ?> .pp-post-filters-toggle {
@@ -211,6 +215,12 @@ FLBuilderCSS::responsive_rule( array(
 		color: #<?php echo $settings->title_font_color; ?>;
 	<?php } ?>
 }
+.fl-node-<?php echo $id; ?> .pp-content-post:hover .pp-post-title,
+.fl-node-<?php echo $id; ?> .pp-content-post:hover .pp-post-title a {
+	<?php if( isset( $settings->title_font_hover_color ) && ! empty( $settings->title_font_hover_color ) ) { ?>
+		color: #<?php echo $settings->title_font_hover_color; ?>;
+	<?php } ?>
+}
 <?php
 // Post Title typography.
 FLBuilderCSS::typography_field_rule( array(
@@ -244,6 +254,11 @@ FLBuilderCSS::typography_field_rule( array(
 	<?php } ?>
 	<?php if( $settings->description_margin['bottom'] >= 0 ) { ?>
 		margin-bottom: <?php echo $settings->description_margin['bottom']; ?>px;
+	<?php } ?>
+}
+.fl-node-<?php echo $id; ?> .pp-content-post:hover .pp-post-content {
+	<?php if ( isset( $settings->content_font_hover_color ) && ! empty( $settings->content_font_hover_color ) ) { ?>
+		color: #<?php echo $settings->content_font_hover_color; ?>;
 	<?php } ?>
 }
 <?php
@@ -427,7 +442,14 @@ FLBuilderCSS::typography_field_rule( array(
 
 
 .fl-node-<?php echo $id; ?> .pp-content-post .pp-post-meta {
+	<?php if ( ! empty( $settings->post_meta_font_color ) ) { ?>
 	color: #<?php echo $settings->post_meta_font_color; ?>;
+	<?php } ?>
+}
+.fl-node-<?php echo $id; ?> .pp-content-post:hover .pp-post-meta {
+	<?php if ( isset( $settings->post_meta_font_hover_color ) && ! empty( $settings->post_meta_font_hover_color ) ) { ?>
+	color: #<?php echo $settings->post_meta_font_hover_color; ?>;
+	<?php } ?>
 }
 <?php
 // Content typography.
@@ -443,7 +465,14 @@ FLBuilderCSS::typography_field_rule( array(
 	<?php } ?>
 }
 .fl-node-<?php echo $id; ?> .pp-content-post .pp-post-meta a {
+	<?php if ( ! empty( $settings->post_meta_font_color ) ) { ?>
 	color: #<?php echo $settings->post_meta_font_color; ?>;
+	<?php } ?>
+}
+.fl-node-<?php echo $id; ?> .pp-content-post:hover .pp-post-meta a {
+	<?php if ( isset( $settings->post_meta_font_hover_color ) && ! empty( $settings->post_meta_font_hover_color ) ) { ?>
+	color: #<?php echo $settings->post_meta_font_hover_color; ?>;
+	<?php } ?>
 }
 
 .fl-node-<?php echo $id; ?> .pp-content-grid-post .pp-content-category-list,
@@ -687,7 +716,8 @@ FLBuilderCSS::dimension_field_rule( array(
     color: #<?php echo isset( $settings->product_rating_color ) ? $settings->product_rating_color : ''; ?>;
 }
 
-.fl-node-<?php echo $id; ?> .pp-content-post .pp-product-price {
+.fl-node-<?php echo $id; ?> .pp-content-post .pp-product-price,
+.fl-node-<?php echo $id; ?> .pp-content-post .pp-product-price span.price {
     color: #<?php echo isset( $settings->product_price_color ) ? $settings->product_price_color : ''; ?>;
     <?php if ( isset( $settings->meta_typography ) && isset( $settings->meta_typography['font_size'] ) ) { ?>
 	font-size: <?php echo $settings->meta_typography['font_size']['length']; ?><?php echo $settings->meta_typography['font_size']['unit']; ?>;

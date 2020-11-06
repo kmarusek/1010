@@ -1,19 +1,25 @@
 <?php
+if ( empty( $settings->post_grid_filters ) || 'none' === $settings->post_grid_filters ) {
+	return;
+}
+
 $all_label			= empty( $settings->all_filter_label ) ? __('All', 'bb-powerpack') : $settings->all_filter_label;
 $post_type_slug 	= $settings->post_type;
-$post_filter_tax 	= ! empty( $settings->post_grid_filters ) && 'none' !== $settings->post_grid_filters ? $settings->post_grid_filters : '';
+$post_filter_tax 	= $settings->post_grid_filters;
 $default_filter		= isset( $settings->post_grid_filters_default ) ? $settings->post_grid_filters_default : '';
 $terms_to_show		= isset( $settings->post_grid_filters_terms ) ? $settings->post_grid_filters_terms : '';
+$terms_to_show_archive		= isset( $settings->post_grid_filters_archive_terms ) ? $settings->post_grid_filters_archive_terms : '';
+$terms_children_on_archive 	= ( is_tax( $post_filter_tax ) || is_category() ) && ! empty( $terms_to_show_archive );
 
-if ( empty( $post_filter_tax ) ) {
-	return;
+if ( $terms_children_on_archive ) {
+	$terms_to_show = $terms_to_show_archive;
 }
 
 $post_filter_field 	= 'tax_' . $post_type_slug . '_' . $post_filter_tax;
 $post_filter_terms	= array();
 $taxonomy 			= get_taxonomy( $post_filter_tax );
 
-if ( isset( $settings->{$post_filter_field} ) ) :
+if ( isset( $settings->{$post_filter_field} ) && 'main_query' !== $settings->data_source ) :
 
 	$post_filter_value	= $settings->{$post_filter_field};
 	$post_filter_matching = $settings->{$post_filter_field . '_matching'};
@@ -31,7 +37,16 @@ if ( isset( $settings->{$post_filter_field} ) ) :
 
 endif;
 
-$terms = ( count( $post_filter_terms ) > 0 ) ? $post_filter_terms : get_terms( $post_filter_tax );
+if ( 'main_query' === $settings->data_source && $terms_children_on_archive ) {
+	$current_term = get_queried_object();
+	$current_children = get_term_children( $current_term->term_id, $current_term->taxonomy );
+	if ( count( $current_children ) === 0 ) {
+		return;
+	}
+	$terms = array( $current_term );
+} else {
+	$terms = ( count( $post_filter_terms ) > 0 ) ? $post_filter_terms : get_terms( $post_filter_tax );
+}
 $count = is_array( $terms ) ? count( $terms ) : 0;
 ?>
 <div class="pp-post-filters-wrapper">
@@ -79,9 +94,9 @@ $count = is_array( $terms ) ? count( $terms ) : 0;
 							$filter_active_class = ' pp-filter-active';
 						}
 						if ( $post_filter_tax == 'post_tag' ) {
-							echo '<li class="pp-post-filter' . $filter_active_class . '" data-filter=".tag-'.$slug.'" data-term="'.$slug.'" tabindex="0" aria-label="'. strip_tags( $term->name ) .'">'.$term->name.'</li>';
+							echo '<li class="pp-post-filter' . $filter_active_class . '" data-filter=".tag-'.$slug.'" data-term="'.$slug.'" data-item-count="'.$term->count.'" tabindex="0" aria-label="'. strip_tags( $term->name ) .'">'.$term->name.'</li>';
 						} else {
-							echo '<li class="pp-post-filter' . $filter_active_class . '" data-filter=".'.$taxonomy->name.'-'.$slug.'" data-term="'.$slug.'" tabindex="0" aria-label="'. strip_tags( $term->name ) .'">'.$term->name.'</li>';
+							echo '<li class="pp-post-filter' . $filter_active_class . '" data-filter=".'.$taxonomy->name.'-'.$slug.'" data-term="'.$slug.'" data-item-count="'.$term->count.'" tabindex="0" aria-label="'. strip_tags( $term->name ) .'">'.$term->name.'</li>';
 						}
 					}
 				}

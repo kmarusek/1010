@@ -273,8 +273,8 @@ final class BB_PowerPack_Admin_Settings {
 	static public function get_tabs() {
 		return apply_filters( 'pp_admin_settings_tabs', array(
 			'general'   => array(
-				'title'     => esc_html__( 'General', 'bb-powerpack' ),
-				'show'      => ( is_network_admin() || ! is_multisite() ),
+				'title'     => esc_html__( 'License', 'bb-powerpack' ),
+				'show'      => true, //( is_network_admin() || ! is_multisite() ),
 				'cap'		=> ! is_network_admin() ? 'manage_options' : 'manage_network_plugins',
 				'file'		=> BB_POWERPACK_DIR . 'includes/admin-settings-license.php',
 				'priority'  => 50,
@@ -302,7 +302,7 @@ final class BB_PowerPack_Admin_Settings {
 			),
 			'extensions' => array(
 				'title'     => esc_html__( 'Extensions', 'bb-powerpack' ),
-				'show'      => true,
+				'show'      => ! self::get_option( 'ppwl_hide_extensions_tab' ),
 				'cap'		=> ! is_network_admin() ? 'manage_options' : 'manage_network_plugins',
 				'file'		=> BB_POWERPACK_DIR . 'includes/admin-settings-extensions.php',
 				'priority'  => 250,
@@ -575,12 +575,12 @@ final class BB_PowerPack_Admin_Settings {
 	 * @param bool $network_override Multisite template override check.
 	 * @return mixed
 	 */
-	static public function get_option( $key, $network_override = true ) {
+	static public function get_option( $key, $network_override = true, $force_local = false ) {
 		if ( is_network_admin() ) {
 			$value = get_site_option( $key );
 		} elseif ( ! $network_override && is_multisite() ) {
 			$value = get_site_option( $key );
-		} elseif ( $network_override && is_multisite() ) {
+		} elseif ( $network_override && is_multisite() && ! $force_local ) {
 			$value = get_option( $key );
 			$value = ( false === $value || ( is_array( $value ) && in_array( 'disabled', $value ) && get_option( 'bb_powerpack_override_ms' ) != 1 ) ) ? get_site_option( $key ) : $value;
 		} else {
@@ -669,7 +669,7 @@ final class BB_PowerPack_Admin_Settings {
 				self::delete_option( 'bb_powerpack_license_status' ); // new license has been entered, so must reactivate
 			}
 
-			self::update_option( 'bb_powerpack_license_key', $new );
+			self::update_option( 'bb_powerpack_license_key', $new, true );
 		}
 	}
 

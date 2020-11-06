@@ -584,13 +584,7 @@ BB_PowerPack::register_module('PPFilterableGalleryModule', array(
 						'type' 			=> 'unit',
 						'label' 		=> __('Number of Columns', 'bb-powerpack'),
                         'slider'          => true,
-						'responsive' => array(
-							'placeholder' => array(
-								'default' => '3',
-								'medium' => '',
-								'responsive' => '',
-							),
-						),
+						'responsive' => true,
                     ),
 					'photo_spacing' => array(
 						'type'          => 'unit',

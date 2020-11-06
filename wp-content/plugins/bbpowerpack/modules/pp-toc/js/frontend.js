@@ -4,6 +4,7 @@
 		this.settings = settings;
 		this.id = settings.id;
 		this.nodeClass = '.fl-node-' + settings.id;
+		this.anchorId = settings.anchorId;
 		this.headData = settings.headData;
 		this.additionalOffset = settings.additionalOffset;
 		this.container = settings.container;
@@ -92,10 +93,34 @@
 			$( window ).on( 'resize', $.proxy( this.resizeToCBody, this ) );
 		},
 
+		getAutoId: function( index ) {
+			return 'pp-toc-' + this.id + '-anchor-' + index;
+		},
+
+		getTextId: function( $element ) {
+			//var regex = /\s+|"|'|#|\.|*|\^|{|}|/g;
+			var id = $($element).text().toLowerCase().trim().replace(/\W+(?!$)/g, '-').replace(/\W$/, '');
+
+			return id;
+		},
+
+		getId: function( $element, index ) {
+			if ( 'text' === this.anchorId ) {
+				var id = this.getTextId( $element );
+				if ( $( '#' + id ).length > 1 ) {
+					id = id + '-' + index;
+				}
+				return id;
+			}
+
+			return this.getAutoId( index );
+		},
+
 		insertAnchors: function() {
-			var nodeId = this.id;
+			var self = this;
 			$( this.container ).find( this.headData ).not( '.pp-toc-exclude-element' ).before(function (index) {
-				var id = 'pp-toc-' + nodeId + '-anchor-' + index;
+				var id = self.getId( $(this), index );
+
 				return (
 					'<span id="' + id + '"></span>'
 				);
@@ -103,10 +128,10 @@
 		},
 
 		nestedView: function (options) {
+			var self = this;
 			var list = $( this.nodeClass + ' .pp-toc-list-wrapper' ),
 				stack = [list], // The upside-down stack keeps track of list elements
 				listTag = list.prop('tagName').toLowerCase(),
-				nodeId = this.id,
 				currentLevel = 0,
 				headingSelectors;
 
@@ -144,7 +169,7 @@
 					stack.splice( 0, Math.min( currentLevel - level, Math.max( stack.length - 1, 0 ) ) );
 				}
 
-				var id = 'pp-toc-' + nodeId + '-anchor-' + index;
+				var id = self.getId( elem, index );
 
 				// Add the list item
 				$( "<li/>" ).appendTo( stack[0] ).append(
@@ -159,11 +184,11 @@
 		flatView: function () {
 			var listIcon = this.listIcon;
 			var listStyle = this.listStyle;
-			var nodeId = this.id;
+			var self = this;
 
 			$( this.container ).find( this.headData ).not( '.pp-toc-exclude-element' ).each(function (index) {
 
-				var anchor = '<a href="#pp-toc-' + nodeId + '-anchor-' + index + '">' + $( this ).text().trim() + '</a>';
+				var anchor = '<a href="#' + self.getId( $(this), index ) + '">' + $( this ).text().trim() + '</a>';
 
 				if ('icon' !== listStyle) {
 					var li = '<li>' + anchor + '</li>';

@@ -9,30 +9,31 @@
 }
 
 <?php
-	$logo_grid_border_style = 'none';
-	$logo_grid_border_width = 0;
-	$logo_grid_border_right_width = 0;
-	$logo_grid_border_bottom_width = 0;
+	$spacing = empty( $settings->logos_grid_spacing ) ? 0 : $settings->logos_grid_spacing;
+	$border_style = 'none';
+	$border_width = 0;
+	$border_right_width = 0;
+	$border_bottom_width = 0;
 	if ( isset( $settings->logo_grid_border ) ) {
-		$logo_grid_border_style = isset( $settings->logo_grid_border['style'] ) ? $settings->logo_grid_border['style'] : 'none';
-		$logo_grid_border_right_width = ! empty( $settings->logo_grid_border['width']['right'] ) ? $settings->logo_grid_border['width']['right'] : 0;
-		$logo_grid_border_bottom_width = ! empty( $settings->logo_grid_border['width']['bottom'] ) ? $settings->logo_grid_border['width']['bottom'] : 0;
+		$border_style = isset( $settings->logo_grid_border['style'] ) ? $settings->logo_grid_border['style'] : 'none';
+		$border_right_width = ! empty( $settings->logo_grid_border['width']['right'] ) ? $settings->logo_grid_border['width']['right'] : 0;
+		$border_bottom_width = ! empty( $settings->logo_grid_border['width']['bottom'] ) ? $settings->logo_grid_border['width']['bottom'] : 0;
 	}
 ?>
 
 <?php
 	if ( isset( $settings->logos_grid_columns ) && ! empty( $settings->logos_grid_columns ) ) {
-		$space_desktop = $space_tablet = $space_mobile = ( $settings->logos_grid_columns - 1 ) * $settings->logos_grid_spacing;
+		$space_desktop = $space_tablet = $space_mobile = ( $settings->logos_grid_columns - 1 ) * $spacing;
 		$logos_grid_columns_desktop = ( 100 - $space_desktop ) / $settings->logos_grid_columns;
 	}
 
 	if ( isset( $settings->logos_grid_columns ) && ! empty( $settings->logos_grid_columns_medium ) ) {
-		$space_tablet = $space_mobile = ( $settings->logos_grid_columns_medium - 1 ) * $settings->logos_grid_spacing;
+		$space_tablet = $space_mobile = ( $settings->logos_grid_columns_medium - 1 ) * $spacing;
 		$logos_grid_columns_tablet = ( 100 - $space_tablet ) / $settings->logos_grid_columns_medium;
 	}
 
 	if ( isset( $settings->logos_grid_columns ) && ! empty( $settings->logos_grid_columns_responsive ) ) {
-		$space_mobile = ( $settings->logos_grid_columns_responsive - 1 ) * $settings->logos_grid_spacing;
+		$space_mobile = ( $settings->logos_grid_columns_responsive - 1 ) * $spacing;
 		$logos_grid_columns_mobile = ( 100 - $space_mobile ) / $settings->logos_grid_columns_responsive;
 	}
  ?>
@@ -45,12 +46,12 @@
     position: relative;
     <?php if( $settings->logos_layout == 'grid' ) { ?>
         width: calc((100% - <?php echo $space_desktop + 1; ?>px) / <?php echo $settings->logos_grid_columns; ?>);
-        <?php if ( $settings->logos_grid_spacing == 0 ) { ?>
-        margin-right: <?php echo $settings->logos_grid_spacing - ( $logo_grid_border_style != 'none' ? $logo_grid_border_right_width : 0 ); ?>px;
-        margin-bottom: <?php echo $settings->logos_grid_spacing - ( $logo_grid_border_style != 'none' ? $logo_grid_border_bottom_width : 0 ); ?>px;
+        <?php if ( $spacing == 0 ) { ?>
+        margin-right: <?php echo $spacing - ( $border_style != 'none' ? $border_right_width : 0 ); ?>px;
+        margin-bottom: <?php echo $spacing - ( $border_style != 'none' ? $border_bottom_width : 0 ); ?>px;
         <?php } else { ?>
-        margin-right: <?php echo $settings->logos_grid_spacing; ?>px;
-        margin-bottom: <?php echo $settings->logos_grid_spacing; ?>px;
+        margin-right: <?php echo $spacing; ?>px;
+        margin-bottom: <?php echo $spacing; ?>px;
         <?php } ?>
     <?php } ?>
     <?php if( $settings->logos_layout == 'carousel' ) { ?>
@@ -326,12 +327,12 @@ FLBuilderCSS::responsive_rule( array(
     }
     .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo:nth-of-type(<?php echo $settings->logos_grid_columns; ?>n) {
         <?php if( $settings->logos_layout == 'grid' ) { ?>
-            <?php if ( $settings->logos_grid_spacing == 0 ) { ?>
-            margin-right: <?php echo $settings->logos_grid_spacing - ( $logo_grid_border_style != 'none' ? $logo_grid_border_right_width : 0 ); ?>px;
-            margin-bottom: <?php echo $settings->logos_grid_spacing - ( $logo_grid_border_style != 'none' ? $logo_grid_border_bottom_width : 0 ); ?>px;
+            <?php if ( $logos_grid_spacing == 0 ) { ?>
+            margin-right: <?php echo $logos_grid_spacing - ( $border_style != 'none' ? $border_right_width : 0 ); ?>px;
+            margin-bottom: <?php echo $logos_grid_spacing - ( $border_style != 'none' ? $border_bottom_width : 0 ); ?>px;
             <?php } else { ?>
-            margin-right: <?php echo $settings->logos_grid_spacing; ?>px;
-            margin-bottom: <?php echo $settings->logos_grid_spacing; ?>px;
+            margin-right: <?php echo $logos_grid_spacing; ?>px;
+            margin-bottom: <?php echo $logos_grid_spacing; ?>px;
             <?php } ?>
         <?php } ?>
     }
@@ -365,12 +366,12 @@ FLBuilderCSS::responsive_rule( array(
     }
     .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo:nth-of-type(<?php echo $settings->logos_grid_columns_medium; ?>n) {
         <?php if( $settings->logos_layout == 'grid' ) { ?>
-            <?php if ( $settings->logos_grid_spacing == 0 ) { ?>
-            margin-right: <?php echo $settings->logos_grid_spacing - ( $logo_grid_border_style != 'none' ? $logo_grid_border_right_width : 0 ); ?>px;
-            margin-bottom: <?php echo $settings->logos_grid_spacing - ( $logo_grid_border_style != 'none' ? $logo_grid_border_bottom_width : 0 ); ?>px;
+            <?php if ( $logos_grid_spacing == 0 ) { ?>
+            margin-right: <?php echo $logos_grid_spacing - ( $border_style != 'none' ? $border_right_width : 0 ); ?>px;
+            margin-bottom: <?php echo $logos_grid_spacing - ( $border_style != 'none' ? $border_bottom_width : 0 ); ?>px;
             <?php } else { ?>
-            margin-right: <?php echo $settings->logos_grid_spacing; ?>px;
-            margin-bottom: <?php echo $settings->logos_grid_spacing; ?>px;
+            margin-right: <?php echo $logos_grid_spacing; ?>px;
+            margin-bottom: <?php echo $logos_grid_spacing; ?>px;
             <?php } ?>
         <?php } ?>
     }

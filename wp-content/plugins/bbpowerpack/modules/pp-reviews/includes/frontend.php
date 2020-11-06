@@ -1,12 +1,16 @@
 <?php
 $is_social_reviews = isset( $settings->review_source ) && 'default' !== $settings->review_source;
-$reviews = $module->get_reviews();
+$reviews           = $module->get_reviews();
 
 if ( $is_social_reviews ) {
 	if ( is_wp_error( $reviews ) && pp_is_builder_active() ) {
 		echo $reviews->get_error_message();
 		return;
 	}
+}
+
+if ( $is_social_reviews && ( ! is_array( $reviews ) || empty( $reviews ) ) ) {
+	return;
 }
 ?>
 
@@ -18,14 +22,21 @@ if ( $is_social_reviews ) {
 			<!-- Slides -->
 			<?php
 			foreach ( $reviews as $key => $review ) {
+
+				$img_src = ! empty( $review['profile_photo_url'] ) ? $review['profile_photo_url'] : BB_POWERPACK_URL . 'assets/images/user.png';
+
 				?>
 					<div class="pp-review-item swiper-slide">
 						<div class="pp-review">
 							<?php if ( isset( $settings->header_position ) && 'top' == $settings->header_position ) { ?>
 							<div class="pp-review-header">
+
+								<?php if ( ! isset( $settings->show_image ) || 'yes' === $settings->show_image ) { ?>
 								<div class="pp-review-image">
-									<img src="<?php echo $review['profile_photo_url']; ?>" alt="<?php echo $review['author_name']; ?>" />
+									<img src="<?php echo $img_src; ?>" alt="<?php echo $review['author_name']; ?>" />
 								</div>
+							<?php } ?>
+
 								<cite class="pp-review-cite">
 									<span class="pp-review-name"><?php echo $review['author_name']; ?></span>
 									<?php
@@ -39,8 +50,11 @@ if ( $is_social_reviews ) {
 								<div class="pp-review-icon">
 									<?php if ( 'yelp' === $review['source'] && ! empty( $module->get_source_icon( 'yelp' ) ) ) { ?>
 									<i class="<?php echo $module->get_source_icon( 'yelp' ); ?>" aria-hidden="true"></i>
-									<?php } else {
-										echo $module->get_source_icon( 'google' );
+										<?php
+									} else {
+										?>
+										<i class="<?php echo $module->get_source_icon( 'google' ); ?>" aria-hidden="true"></i>
+										<?php
 									}
 									?>
 								</div>
@@ -53,9 +67,13 @@ if ( $is_social_reviews ) {
 							</div>
 							<?php if ( isset( $settings->header_position ) && 'bottom' == $settings->header_position ) { ?>
 							<div class="pp-review-header">
+
+								<?php if ( ! isset( $settings->show_image ) || 'yes' === $settings->show_image ) { ?>
 								<div class="pp-review-image">
-									<img src="<?php echo $review['profile_photo_url']; ?>" alt="<?php echo $review['author_name']; ?>" />
+									<img src="<?php echo $img_src; ?>" alt="<?php echo $review['author_name']; ?>" />
 								</div>
+							<?php } ?>
+
 								<cite class="pp-review-cite">
 									<span class="pp-review-name"><?php echo $review['author_name']; ?></span>
 									<?php
@@ -69,8 +87,11 @@ if ( $is_social_reviews ) {
 								<div class="pp-review-icon">
 									<?php if ( 'yelp' === $review['source'] && ! empty( $module->get_source_icon( 'yelp' ) ) ) { ?>
 									<i class="<?php echo $module->get_source_icon( 'yelp' ); ?>" aria-hidden="true"></i>
-									<?php } else {
-										echo $module->get_source_icon( 'google' );
+										<?php
+									} else {
+										?>
+										<i class="<?php echo $module->get_source_icon( 'google' ); ?>" aria-hidden="true"></i>
+										<?php
 									}
 									?>
 								</div>
@@ -96,12 +117,16 @@ if ( $is_social_reviews ) {
 				<div class="pp-review">
 					<?php if ( isset( $settings->header_position ) && 'top' == $settings->header_position ) { ?>
 					<div class="pp-review-header">
+
+						<?php if ( ! isset( $settings->show_image ) || 'yes' === $settings->show_image ) { ?>
 						<div class="pp-review-image">
 							<?php
-							$img_src = empty( $review->image_src ) ? BB_POWERPACK_URL . 'images/user.png' : $review->image_src;
+							$img_src = empty( $review->image_src ) ? BB_POWERPACK_URL . 'assets/images/user.png' : $review->image_src;
 							?>
 							<img src="<?php echo $img_src; ?>" alt="<?php echo $review->name; ?>" />
 						</div>
+						<?php } ?>
+						
 						<cite class="pp-review-cite">
 							<span class="pp-review-name"><?php echo $review->name; ?></span>
 							<?php
@@ -122,12 +147,16 @@ if ( $is_social_reviews ) {
 					</div>
 					<?php if ( isset( $settings->header_position ) && 'bottom' == $settings->header_position ) { ?>
 					<div class="pp-review-header">
+
+						<?php if ( ! isset( $settings->show_image ) || 'yes' === $settings->show_image ) { ?>
 						<div class="pp-review-image">
 							<?php
-							$img_src = empty( $review->image_src ) ? BB_POWERPACK_URL . 'images/user.png' : $review->image_src;
+							$img_src = empty( $review->image_src ) ? BB_POWERPACK_URL . 'assets/images/user.png' : $review->image_src;
 							?>
 							<img src="<?php echo $img_src; ?>" alt="<?php echo $review->name; ?>" />
 						</div>
+					<?php } ?>
+
 						<cite class="pp-review-cite">
 							<span class="pp-review-name"><?php echo $review->name; ?></span>
 							<?php

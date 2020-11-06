@@ -191,7 +191,7 @@
 					content.find( '.pp-content-post-grid' ).isotope( 'layout' );
 				}
 
-				if (label.offset().top < $( window ).scrollTop() + 100) {
+				if (label.offset().top < $( window ).scrollTop() + 100 && ! wrap.hasClass('pp-tabs-no-scroll')) {
 					$( 'html, body' ).animate( { scrollTop: label.offset().top - 100 }, 500, 'swing' );
 				}
 

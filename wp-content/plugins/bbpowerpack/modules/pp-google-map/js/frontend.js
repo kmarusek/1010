@@ -18,6 +18,8 @@
 		this.markerName        = settings.markerName;
 		this.markerPoint       = settings.markerPoint;
 		this.markerImage       = settings.markerImage;
+		this.markerImageWidth   = settings.markerImageWidth;
+		this.markerImageHeight  = settings.markerImageHeight;
 		this.infoWindowText    = settings.infoWindowText;
 		this.enableInfo        = settings.enableInfo;
 		this.zoomType          = settings.zoomType;
@@ -100,6 +102,8 @@
 					title 		= this.markerName[i],
 					icon_type 	= this.markerPoint[i],
 					icon_url 	= this.markerImage[i];
+					icon_width 	= this.markerImageWidth[i];
+					icon_height = this.markerImageHeight[i];
 
 				if ( lat != '' && lng != '') {
 
@@ -108,6 +112,12 @@
 						icon = {
 							url: icon_url
 						};
+
+						if ( '' !== icon_width && '' !== icon_height ) {
+							icon['scaledSize'] = new google.maps.Size(icon_width, icon_height);
+							icon['origin'] = new google.maps.Point(0, 0), // origin
+    						icon['anchor'] = new google.maps.Point(0, 0) // anchor
+						}
 					}
 					if ( 'auto' === this.zoomType ) {	
 						var loc = new google.maps.LatLng(lat, lng);

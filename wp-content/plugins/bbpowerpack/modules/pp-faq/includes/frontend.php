@@ -4,6 +4,10 @@ $qus_tag       = isset( $settings->qus_tag ) ? $settings->qus_tag : 'h3';
 $items         = $module->get_faq_items();
 $icon_position = $settings->faq_toggle_icon_position;
 
+if ( empty( $items ) ) {
+	return;
+}
+
 if ( ! empty( $settings->faq_open_icon ) ) {
 	$open_icon_class = 'pp-faq-button-icon pp-faq-open ' . $settings->faq_open_icon . ' pp-faq-icon-' . $icon_position;
 } else {

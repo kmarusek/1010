@@ -1,3 +1,6 @@
+<?php
+$line_width_unit = isset( $settings->line_width_unit ) ? $settings->line_width_unit : 'px';
+?>
 
 div.fl-node-<?php echo $id; ?> .pp-heading-content {
 	text-align: <?php echo $settings->heading_alignment; ?>;
@@ -185,7 +188,7 @@ div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading.pp-separator-inli
 
 div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading.pp-separator-inline .heading-title <?php if ( 'no' == $settings->dual_heading ) { ?>span<?php } else { ?>span.pp-primary-title<?php } ?>:before {
 	<?php if ( $settings->line_width >= 0 ) { ?>
-	width: <?php echo $settings->line_width; ?>px;
+	width: <?php echo $settings->line_width; ?><?php echo $line_width_unit; ?>;
 	<?php } ?>
 	<?php if ( $settings->heading_line_style ) { ?>
 	border-style: <?php echo $settings->heading_line_style; ?>;
@@ -200,7 +203,7 @@ div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading.pp-separator-inli
 
 div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading.pp-separator-inline .heading-title <?php if ( 'no' == $settings->dual_heading ) { ?>span<?php } else { ?>span.pp-secondary-title<?php } ?>:after {
 	<?php if ( $settings->line_width >= 0 ) { ?>
-	width: <?php echo $settings->line_width; ?>px;
+	width: <?php echo $settings->line_width; ?><?php echo $line_width_unit; ?>;
 	<?php } ?>
 	<?php if ( $settings->heading_line_style ) { ?>
 	border-style: <?php echo $settings->heading_line_style; ?>;
@@ -266,7 +269,7 @@ div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading-separator.line_wi
 div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading-separator.line_with_icon:before,
 div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading-separator.line_with_icon:after {
 	<?php if ( $settings->line_width >= 0 ) { ?>
-	width: <?php echo $settings->line_width; ?>px;
+	width: <?php echo $settings->line_width; ?><?php echo $line_width_unit; ?>;
 	<?php } ?>
 	<?php if ( $settings->heading_line_style ) { ?>
 	border-style: <?php echo $settings->heading_line_style; ?>;
@@ -298,7 +301,7 @@ div.fl-node-<?php echo $id; ?> .pp-heading-content .pp-heading-separator .pp-sep
 	border-bottom-color: #<?php echo $settings->line_color; ?>;
 	<?php } ?>
 	<?php if ( $settings->line_width >= 0 ) { ?>
-	width: <?php echo $settings->line_width; ?>px;
+	width: <?php echo $settings->line_width; ?><?php echo $line_width_unit; ?>;
 	<?php } ?>
 	<?php if ( 'right' == $settings->heading_alignment ) { ?>
 	float: right;

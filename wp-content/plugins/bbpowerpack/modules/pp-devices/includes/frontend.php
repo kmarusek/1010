@@ -6,7 +6,7 @@ if ( 'video' === $settings->media_type && 'self_hosted' !== $settings->video_src
 }
 
 
-$image_src = BB_POWERPACK_URL . 'images/default-img.jpg';
+$image_src = BB_POWERPACK_URL . 'assets/images/default-img.jpg';
 if ( '' !== $settings->image_src ) {
 	$image_src = $settings->image_src;
 }

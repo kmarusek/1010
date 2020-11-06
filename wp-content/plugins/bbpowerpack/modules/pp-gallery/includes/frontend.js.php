@@ -13,7 +13,7 @@ var pp_gallery_<?php echo $id; ?>;
 		layout: '<?php echo $settings->gallery_layout; ?>',
 		gutter: <?php echo '' == $settings->photo_spacing ? 0 : $settings->photo_spacing; ?>,
 		spacing: <?php echo '' == $settings->justified_spacing ? 0 : $settings->justified_spacing; ?>,
-		columns: <?php echo '' == $settings->photo_grid_count ? 3 : intval( $settings->photo_grid_count ); ?>,
+		columns: <?php echo '' == $settings->photo_grid_count ? 4 : intval( $settings->photo_grid_count ); ?>,
 		<?php if ( ! empty( $row_height ) ) { ?>
 		rowHeight: <?php echo $row_height; ?>,
 		<?php } ?>

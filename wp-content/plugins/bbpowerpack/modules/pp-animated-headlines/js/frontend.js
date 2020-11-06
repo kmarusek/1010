@@ -140,17 +140,7 @@
 				dynamicWrapper.width( dynamicWrapper.width() + 10 );
 			} else if ( 'typing' !== animationType ) {
 				//assign to .pp-headline-dynamic-wrapper the width of its longest word
-				var width = 0;
-
-				self.elements.dynamicText.each( function() {
-					var wordWidth = $( this ).width();
-
-					if ( wordWidth > width ) {
-						width = wordWidth;
-					}
-				} );
-
-				dynamicWrapper.css( 'width', width );
+				self._setWidth();
 			}
 
 			//trigger animation
@@ -248,6 +238,10 @@
 
 				nextWord.addClass( classes.textActive );
 
+				setTimeout( function() {
+					$(self.dynamicWrapper).css( { width: nextWord.width() } );
+				}, 200 );
+
 			} else if ( 'clip' === animationType ) {
 				$(self.dynamicWrapper).animate( { width: '2px' }, self.revealDuration, function() {
 					self._switchWord( $word, nextWord );
@@ -258,6 +252,7 @@
 
 				setTimeout( function() {
 					self._hideWord( nextWord );
+					//$(self.dynamicWrapper).removeAttr('style').css( { width: nextWord.width() } );
 				}, self.animationDelay );
 			}
 		},
@@ -288,6 +283,21 @@
 
 			return $paths;
 		},
+
+		_setWidth: function() {
+			var self = this;
+			var width = $(self.dynamicWrapper).width();
+
+			self.elements.dynamicText.each( function() {
+				var wordWidth = $( this ).width();
+
+				if ( wordWidth > width ) {
+					width = wordWidth;
+				}
+			} );
+
+			$(self.dynamicWrapper).removeAttr('style').css( 'width', width );
+		}
   	};
 
 })(jQuery);

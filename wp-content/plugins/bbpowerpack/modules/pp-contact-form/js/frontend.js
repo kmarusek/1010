@@ -87,7 +87,7 @@
 
 			// validate the name
 			if(name.length) {
-				if (name.val() === '') {
+				if (name.val() === '' && name.parents('.pp-input-required').length) {
 					isValid = false;
 					name.parent().addClass('pp-error');
 				}
@@ -98,7 +98,7 @@
 
 			// validate the email
 			if(email.length) {
-				if (email.val() === '' || !email_regex.test(email.val())) {
+				if ((email.val() === '' || !email_regex.test(email.val())) && email.parents('.pp-input-required').length) {
 					isValid = false;
 					email.parent().addClass('pp-error');
 				}
@@ -109,7 +109,7 @@
 
 			// validate the subject..just make sure it's there
 			if(subject.length) {
-				if (subject.val() === '') {
+				if (subject.val() === '' && subject.parents('.pp-input-required').length) {
 					isValid = false;
 					subject.parent().addClass('pp-error');
 				}
@@ -120,7 +120,7 @@
 
 			// validate the phone..just make sure it's there
 			if(phone.length) {
-				if (phone.val() === '') {
+				if (phone.val() === '' && phone.parents('.pp-input-required').length) {
 					isValid = false;
 					phone.parent().addClass('pp-error');
 				}
@@ -131,7 +131,7 @@
 
 			// validate the message..just make sure it's there
 			if (message.length > 0) {
-				if (message.val() === '') {
+				if (message.val() === '' && message.parents('.pp-input-required').length) {
 					isValid = false;
 					message.parent().addClass('pp-error');
 				}
@@ -142,7 +142,7 @@
 
 			// validate the checkbox
 			if (checkbox.length > 0) {
-				if (!checkbox.is(':checked')) {
+				if (!checkbox.is(':checked') && checkbox.parents('.pp-input-required').length) {
 					isValid = false;
 					checkbox.parent().addClass('pp-error');
 				}

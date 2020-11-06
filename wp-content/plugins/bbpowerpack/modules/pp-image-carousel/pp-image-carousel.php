@@ -264,26 +264,14 @@ BB_PowerPack::register_module('PPImageCarouselModule', array(
 						'label' 		=> __( 'Slides Per View', 'bb-powerpack' ),
 						'default'		=> 3,
 						'slide'			=> true,
-						'responsive' => array(
-							'placeholder' => array(
-								'default' => '3',
-								'medium' => '2',
-								'responsive' => '1',
-							),
-						),
+						'responsive' => true,
 					),
 					'slides_to_scroll'    => array(
 						'type' 			=> 'unit',
 						'label' 		=> __( 'Slides to Scroll', 'bb-powerpack' ),
 						'default'		=> 1,
 						'slide'			=> true,
-						'responsive' 	=> array(
-							'placeholder' 	=> array(
-								'default' 		=> '1',
-								'medium' 		=> '1',
-								'responsive' 	=> '1',
-							),
-						),
+						'responsive' 	=> true,
 						'help'	=> __( 'Set numbers of slides to move at a time.', 'bb-powerpack' ),
 					),
 					'spacing' => array(
@@ -292,26 +280,14 @@ BB_PowerPack::register_module('PPImageCarouselModule', array(
 						'default'		=> 20,
 						'units'			=> array( 'px' ),
 						'slide'			=> true,
-						'responsive' => array(
-							'placeholder' => array(
-								'default' => '20',
-								'medium' => '20',
-								'responsive' => '20',
-							),
-						),
+						'responsive' => true,
 					),
 					'carousel_height' => array(
 						'type' 			=> 'unit',
 						'label' 		=> __( 'Height', 'bb-powerpack' ),
 						'units'			=> array( 'px' ),
 						'slide'			=> true,
-						'responsive' => array(
-							'placeholder' => array(
-								'default' => '',
-								'medium' => '',
-								'responsive' => '',
-							),
-						),
+						'responsive' => true,
 						'preview'       => array(
 							'type'          => 'css',
 							'selector'      => '.pp-image-carousel.pp-image-carousel-slideshow, .pp-image-carousel',
@@ -388,16 +364,10 @@ BB_PowerPack::register_module('PPImageCarouselModule', array(
 				'fields'	=> array(
 					'thumb_columns'    => array(
 						'type' 			=> 'unit',
-						'label' 		=> __( 'Slider Per View', 'bb-powerpack' ),
+						'label' 		=> __( 'Slides Per View', 'bb-powerpack' ),
 						'default'		=> 5,
 						'slide'			=> true,
-						'responsive' => array(
-							'placeholder' => array(
-								'default' => '5',
-								'medium' => '2',
-								'responsive' => '1',
-							),
-						),
+						'responsive' => true,
 					),
 					'thumb_ratio' => array(
 						'type'          => 'select',

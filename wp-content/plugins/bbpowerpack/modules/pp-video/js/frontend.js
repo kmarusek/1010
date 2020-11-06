@@ -70,17 +70,18 @@
 				touch			: false,
 				afterLoad		: function(current, previous) {
 					$('.fancybox-' + id).find('.fancybox-bg').addClass('fancybox-' + id + '-overlay');
+					if ( $('.fancybox-' + id).find( '.pp-video-iframe' ).length > 0 ) {
+						var iframeSrc = $('.fancybox-' + id).find( '.pp-video-iframe' )[0].src.replace('&autoplay=0', '');
+						iframeSrc = iframeSrc.replace('autoplay=0', '');
 
-					var iframeSrc = $('.fancybox-' + id).find( '.pp-video-iframe' )[0].src.replace('&autoplay=0', '');
-					iframeSrc = iframeSrc.replace('autoplay=0', '');
+						var src = iframeSrc.split('#');
+						iframeSrc = src[0] + '&autoplay=1';
 
-					var src = iframeSrc.split('#');
-					iframeSrc = src[0] + '&autoplay=1';
-
-					if ( 'undefined' !== typeof src[1] ) {
-						iframeSrc += '#' + src[1];
+						if ( 'undefined' !== typeof src[1] ) {
+							iframeSrc += '#' + src[1];
+						}
+						$('.fancybox-' + id).find( '.pp-video-iframe' )[0].src = iframeSrc;
 					}
-					$('.fancybox-' + id).find( '.pp-video-iframe' )[0].src = iframeSrc;
 				},
 				iframe: {
 					preload: false

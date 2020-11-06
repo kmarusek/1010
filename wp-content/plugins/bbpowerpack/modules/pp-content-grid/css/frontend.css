@@ -41,6 +41,10 @@
 	background-size: 50px;
 	background-repeat: no-repeat;
 }
+.rtl .pp-content-post-grid.pp-is-filtering:after {
+	left: auto;
+	right: 50%;
+}
 .pp-content-post-grid.pp-is-filtering .pp-content-post {
 	opacity: 0.5;
 }
@@ -116,6 +120,11 @@
 
 .pp-content-post a {
 	border: none;
+}
+.pp-content-post a,
+.pp-content-post .pp-post-content,
+.pp-content-post .pp-post-meta {
+	transition: color 0.3s ease-in-out;
 }
 
 .pp-content-post-carousel .owl-carousel {
@@ -758,6 +767,10 @@ body .pp-post-feed-meta {
 .pp-post-event-calendar-cost {
 	margin-top: 12px;
     margin-bottom: 12px;
+}
+
+.pp-posts-not-found-text {
+	width: 100% !important;
 }
 
 @media only screen and (max-width: 768px) {

@@ -88,6 +88,10 @@ class PPFAQModule extends FLBuilderModule {
 
 		$items = $this->get_faq_items();
 
+		if ( empty( $items ) ) {
+			return;
+		}
+
 		for ( $i = 0; $i < count( $items ); $i++ ) {
 			if ( ! is_object( $items[ $i ] ) ) {
 				continue;

@@ -28,7 +28,7 @@ if ( 'bottom' === $settings->star_position ) {
 		if ( $stars <= $floored_rating ) {
 			$stars_html .= '<i class="pp-star-full">' . $icon . '</i>';
 		} elseif ( $floored_rating + 1 === $stars && $rating !== $floored_rating ) {
-			$stars_html .= '<i class="pp-star-' . ( $rating - $floored_rating ) * 10 . '">' . $icon . '</i>';
+			$stars_html .= '<i class="pp-star-' . ( (float) $rating - $floored_rating ) * 10 . '">' . $icon . '</i>';
 		} else {
 			$stars_html .= '<i class="pp-star-empty">' . $icon . '</i>';
 		}

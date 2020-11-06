@@ -7,7 +7,9 @@ FLBuilderCSS::typography_field_rule( array(
 ) );
 ?>
 .fl-node-<?php echo $id; ?> {
+	<?php if ( isset( $settings->font_typography ) && isset( $settings->font_typography['text_align'] ) ) { ?>
     text-align: <?php echo $settings->font_typography['text_align']; ?>;
+	<?php } ?>
 }
 .fl-node-<?php echo $id; ?> .pp-fancy-heading-title {
 	padding: 0 15px;

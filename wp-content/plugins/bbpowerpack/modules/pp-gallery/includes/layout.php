@@ -35,7 +35,11 @@
 		>
 		<?php endif; ?>
 
-		<img class="pp-gallery-img" src="<?php echo $photo->src; ?>" alt="<?php echo $photo->alt; ?>" data-no-lazy="1" itemprop="thumbnail" />
+		<?php 
+			$srcset = apply_filters( 'pp_gallery_output_image_srcset', false ) ? esc_attr( $photo->srcset ) : '';
+		?>
+
+		<img class="pp-gallery-img" src="<?php echo $photo->src; ?>"<?php echo ! empty( $srcset ) ? ' srcset="' . $srcset . '"' : ''; ?> alt="<?php echo $photo->alt; ?>" data-no-lazy="1" itemprop="thumbnail" />
 			<!-- Overlay Wrapper -->
 			<div class="pp-gallery-overlay">
 				<div class="pp-overlay-inner">

@@ -15,6 +15,7 @@
 	if ( ! empty( $current_filter ) ) {
 		$used_modules = BB_PowerPack_Modules::get_used_modules();
 	}
+	$module_deps = BB_PowerPack_Modules::get_module_dependency();
 ?>
 <?php if ( ! is_network_admin() && is_multisite() ) : ?>
 
@@ -53,11 +54,16 @@
 				<table class="form-table pp-flex-table pp-modules" data-category="<?php echo $cat; ?>">
 					<?php foreach ( $data['modules'] as $module ) {
 						$is_enabled = in_array( $module['slug'], $enabled_modules ) && $module['enabled'];
+						$row_class = ! $is_enabled ? 'pp-module-inactive' : '';
+						$row_class .= isset( $module_deps[ $module['slug'] ] ) ? ' pp-module-has-dep' : '';
+						$deps = isset( $module_deps[ $module['slug'] ] ) ? $module_deps[ $module['slug'] ] : array();
 						if ( 'used' === $current_filter && ! isset( $used_modules[ $module['slug'] ] ) ) {
-							continue;
+							$row_class .= ' pp-modules-filter-used';
+							//continue;
 						}
 						if ( 'notused' === $current_filter && isset( $used_modules[ $module['slug'] ] ) ) {
-							continue;
+							$row_class .= ' pp-modules-filter-notused';
+							//continue;
 						}
 						$used_on = isset( $used_modules[ $module['slug'] ] ) ? $used_modules[ $module['slug'] ] : false;
 						$used_on_text = array();
@@ -69,12 +75,22 @@
 							}
 							$used_on_text = implode( ', ', $used_on_text );
 						}
+						$row_class .= $used_on ? ' pp-module-used' : '';
 						?>
-						<tr valign="top" class="<?php echo ! $is_enabled ? 'pp-module-inactive' : ''; ?><?php echo $used_on ? ' pp-module-used' : ''; ?>">
+						<tr valign="top" class="<?php echo $row_class; ?>">
 							<th scope="row" valign="top">
 								<label for="bb_powerpack_modules_<?php echo $module['slug']; ?>"><?php echo $module['name']; ?></label>
 								<?php if ( ! empty( $used_on_text ) ) { ?>
 								<span class="pp-module-used-description"><?php echo $used_on_text; ?></span>
+								<?php } ?>
+								<?php if ( ! empty( $deps ) ) { ?>
+									<span class="pp-module-tooltip">
+										<?php foreach ( $deps as $dep ) { ?>
+											<?php echo isset( $data['modules'][ $dep ] ) ?
+												sprintf( __( 'Dependent modules: %s', 'bb-powerpack' ), $data['modules'][ $dep ]['name'] )
+												: $dep; ?>
+										<?php } ?>
+									</span>
 								<?php } ?>
 							</th>
 							<td>
@@ -118,12 +134,14 @@
 			var category = $(this).val();
 			var $table = $('.pp-modules-manager').find('table[data-category="' + category + '"]');
 			$table.find('input[name="bb_powerpack_modules[]"]').each(function() {
-				if ( active ) {
-					$(this).prop('checked', true);
-				} else {
-					$(this).prop('checked', false);
+				if ( $(this).parents('.pp-modules-filter-used').length === 0 && $(this).parents('.pp-modules-filter-notused').length === 0 ) {
+					if ( active ) {
+						$(this).prop('checked', true);
+					} else {
+						$(this).prop('checked', false);
+					}
+					$(this).trigger('change');
 				}
-				$(this).trigger('change');
 			});
 		});
 

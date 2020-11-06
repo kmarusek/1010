@@ -548,14 +548,14 @@ BB_PowerPack::register_module(
 						),
 						'responsive_breakpoint'       => array(
 							'type'    => 'unit',
-							'label'   => __( 'Responsive Breakpoint', 'bb-powerpack' ),
+							'label'   => __( 'Stack Buttons on Breakpoint', 'bb-powerpack' ),
 							'default' => '480',
 							'units'   => array( 'px' ),
 							'help'    => __( 'Buttons will be stacked on top of each other.', 'bb-powerpack' ),
 						),
 						'button_alignment_responsive' => array(
 							'type'    => 'align',
-							'label'   => __( 'Responsive Alignment', 'bb-powerpack' ),
+							'label'   => __( 'Stack Buttons Alignment', 'bb-powerpack' ),
 							'default' => '',
 						),
 					),

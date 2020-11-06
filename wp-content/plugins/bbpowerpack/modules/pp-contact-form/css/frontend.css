@@ -12,6 +12,9 @@
 	margin-bottom: 10px;
 	position: relative;
 }
+.pp-contact-form .pp-input-required label:after {
+	content: "*";
+}
 .pp-contact-form .pp-align-left {
 	text-align: left;
 }

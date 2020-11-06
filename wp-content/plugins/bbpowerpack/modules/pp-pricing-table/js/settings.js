@@ -72,7 +72,7 @@
 				success: function( res ) {
 					if ( res !== 'undefined' || res !== '' ) {
 
-						var selected = parseInt(res); console.log(res);
+						var selected = parseInt(res);
 						var count = 0;
 						var html = '';
 

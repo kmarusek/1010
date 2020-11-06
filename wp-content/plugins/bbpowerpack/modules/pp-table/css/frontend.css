@@ -1,5 +1,6 @@
 .pp-table-content thead {
 	border: 0;
+	background: none;
 }
 
 .pp-table-content thead tr th {

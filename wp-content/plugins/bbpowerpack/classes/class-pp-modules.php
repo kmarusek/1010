@@ -82,7 +82,7 @@ final class BB_PowerPack_Modules {
 		foreach ( $modules as $slug => $module ) {
 			$category = sanitize_title( $module['category'] );
 			$categorized_modules[ $category ]['category'] = $module['category'];
-			$categorized_modules[ $category ]['modules'][] = $module;
+			$categorized_modules[ $category ]['modules'][ $slug ] = $module;
 		}
 
 		ksort( $categorized_modules );
@@ -240,6 +240,26 @@ final class BB_PowerPack_Modules {
 			</script>
 			<?php
 		}
+	}
+
+	public static function get_module_dependency( $slug = false ) {
+		$deps = array(
+			'pp-video'	=> array(
+				'pp-video-gallery'
+			),
+			'pp-smart-button' => array(
+				'pp-file-download'
+			)
+		);
+
+		if ( empty( $slug ) ) {
+			return $deps;
+		}
+		if ( isset( $deps[ $slug ] ) ) {
+			$deps[ $slug ];
+		}
+
+		return $slug;
 	}
 }
 

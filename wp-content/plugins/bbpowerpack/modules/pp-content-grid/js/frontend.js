@@ -13,7 +13,12 @@
 		this.filters 		= settings.filters;
 		this.filterTax 		= settings.filterTax;
 		this.filterType 	= settings.filterType;
+		this.isFiltering	= false;
+		this.activeFilter 	= '';
+		this.totalPages 	= 1;
+		this.currentPage 	= 1;
 		this.cacheData		= {};
+		this.ajaxData 		= {};
 
 		if(this._hasPosts()) {
 			this._initLayout();
@@ -35,6 +40,7 @@
 		totalPages		: 1,
 		currentPage		: 1,
 		cacheData		: {},
+		ajaxData 		: {},
 		matchHeight		: false,
 		masonry			: false,
 		style			: '',
@@ -68,7 +74,9 @@
 			var self = this;
 
 			$(window).on('load', function() {
-				FLBuilderLayout._scrollToElement( $( self.nodeClass + ' .pp-paged-scroll-to' ) );
+				if ( ! $( self.nodeClass ).hasClass( 'pp-cg-no-page-scroll' ) ) {
+					FLBuilderLayout._scrollToElement( $( self.nodeClass + ' .pp-paged-scroll-to' ) );
+				}
 			});
 
 			$(this.nodeClass).find('.pp-posts-wrapper').addClass('pp-posts-initiated');
@@ -233,8 +241,11 @@
 				});
 			}
 
+			owlOptions = $.extend({}, this.settings.carousel, owlOptions);
+			$(this.nodeClass).trigger( 'carousel.beforeInit', [ owlOptions ] );
+
 			wrap.imagesLoaded( $.proxy( function() {
-				wrap.owlCarousel( $.extend({}, this.settings.carousel, owlOptions) );
+				wrap.owlCarousel( owlOptions );
 			}, this));
 		},
 
@@ -283,7 +294,7 @@
 			var data = {
 				pp_action: 'get_ajax_posts',
 				node_id: this.settings.id,
-				page: !paged ? this.settings.page : paged,
+				paged: !paged ? this.settings.page : paged,
 				current_page: currentPage,
 				//settings: this.settings.fields
 			};
@@ -321,13 +332,14 @@
 				data['orderby'] = this.settings.orderby;
 			}
 
+			this.ajaxData = data;
+
 			$(this.wrapperClass).addClass('pp-is-filtering');
 
-			$.ajax({
-				type: 'post',
-				url: window.location.href.split( '#' ).shift(),
-				data: data,
-				success: function (response) {
+			$.post(
+				location.href.split('#').shift(),
+				data,
+				function (response) {
 					if ( 'undefined' !== typeof response.success && ! response.success ) {
 						self.includeSettings = true;
 						self._getAjaxPosts( term, isotopeData, paged );
@@ -343,27 +355,29 @@
 					});
 					$(self.wrapperClass).removeClass('pp-is-filtering');
 				}
-			});
+			);
 		},
 
 		_renderPosts: function (response, args) {
 			var self = this,
 				wrap = $(this.wrapperClass),
-				posts = $(response.data);
+				posts = $(response.data),
+				notFoundText = false;
 
 			if ( ( 'load_more' !== self.settings.pagination && 'scroll' !== self.settings.pagination ) || self.isFiltering ) {
 				wrap.isotope('remove', $(this.postClass));
 			}
 
+			wrap.isotope( 'remove', $( '.pp-posts-not-found-text' ) );
 			if (!this.masonry) {
-				wrap.isotope('insert', $(response.data), $.proxy(this._gridLayoutMatchHeight, this));
+				wrap.isotope('insert', posts, $.proxy(this._gridLayoutMatchHeight, this));
 				wrap.imagesLoaded($.proxy(function () {
 					setTimeout(function () {
 						self._gridLayoutMatchHeight();
 					}, 150);
 				}, this));
 			} else {
-				wrap.isotope('insert', $(response.data));
+				wrap.isotope('insert', posts);
 			}
 			
 			wrap.find('.pp-grid-space').remove();
@@ -385,17 +399,22 @@
 				$(self.nodeClass).find('.pp-content-grid-loader').remove();
 			}
 
-			self._getTotalPages();
-
 			if (response.pagination) {
 				var $pagination = $(response.pagination);
 
-				if ( 'load_more' === self.settings.pagination || 'scroll' === self.settings.pagination ) {
-					$pagination.hide();
-				}
-
 				$(self.nodeClass).find('.fl-builder-pagination').remove();
-				$(self.nodeClass).find('.fl-module-content').append($pagination);
+				$(self.nodeClass).find( '> .fl-module-content' ).append($pagination);
+				if ( 'load_more' === self.settings.pagination ) {
+					setTimeout(function() {
+						self._getTotalPages();
+						if ( self.totalPages !== self.currentPage ) {
+							$(self.nodeClass).find('.fl-module-content .pp-content-grid-load-more').fadeIn();
+							self._initPagination();
+						} else {
+							$(self.nodeClass).find('.fl-module-content .pp-content-grid-load-more').slideUp();
+						}
+					}, 250);
+				}
 				$(self.nodeClass).find('.pp-ajax-pagination a').off('click').on('click', function (e) {
 					e.preventDefault();
 					var pageNumber = self._getPageNumber( this );
@@ -532,6 +551,7 @@
 					if ( k > postElements.length ) {
 						k = postElements.length;
 					}
+					highestBox = 0;
 				}
 			} else {
 				// carousel layout.

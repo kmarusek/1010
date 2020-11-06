@@ -52,6 +52,7 @@ class PPSubscribeFormModule extends FLBuilderModule {
 			'message'   		=> false,
 			'url'       		=> false
 		);
+		$messages = $this->get_strings_i18n();
 
 		if ( $email && $node_id ) {
 
@@ -68,7 +69,7 @@ class PPSubscribeFormModule extends FLBuilderModule {
 
 			// Validate terms and conditions if enabled
 			if ( ( isset( $settings->checkbox_field ) && 'show' == $settings->checkbox_field ) && ! $acceptance ) {
-				$result['error'] = __( 'Please check the required field.', 'bb-powerpack' );
+				$result['error'] = $messages['not_checked'];
 			}
 
 			if ( ! $result['error'] ) {
@@ -97,12 +98,25 @@ class PPSubscribeFormModule extends FLBuilderModule {
 			}
 		}
 		else {
-			$result['error'] = __( 'There was an error subscribing. Please try again.', 'bb-powerpack' );
+			$result['error'] = $messages['unknown_error'];
 		}
 
 		echo json_encode( $result );
 
 		die();
+	}
+
+	public function get_strings_i18n() {
+		$strings = array(
+			'empty_name' 			=> esc_html__( 'Please enter your name.', 'bb-powerpack' ),
+			'empty_invalid_email' 	=> esc_html__( 'Please enter a valid email address.', 'bb-powerpack' ),
+			'not_checked' 			=> esc_html__( 'Please check the required field.', 'bb-powerpack' ),
+			'wait_text' 			=> esc_attr__( 'Please Wait...', 'bb-powerpack' ),
+			'form_error' 			=> esc_html__( 'Something went wrong. Please check your entries and try again.', 'bb-powerpack' ),
+			'unknown_error' 		=> esc_html__( 'There was an error subscribing. Please try again.', 'bb-powerpack' )
+		);
+
+		return apply_filters( 'pp_subscribe_form_strings_i18n', $strings );
 	}
 
 	public function filter_settings( $settings, $helper ) {

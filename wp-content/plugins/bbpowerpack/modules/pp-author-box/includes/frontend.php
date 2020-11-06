@@ -14,7 +14,7 @@ if ( 'custom' === $settings->source ) {
 	$biography   = $settings->biography_text;
 	// originally image id
 	if ( '' == $settings->img_url || 0 == $settings->img_url ) {
-		$img_url = BB_POWERPACK_URL . 'images/default-user.png';
+		$img_url = BB_POWERPACK_URL . 'assets/images/default-user.png';
 	} else {
 		$img_url = $settings->img_url_src;
 	}
@@ -61,6 +61,39 @@ if ( 'custom' === $settings->source ) {
 		$link_url_target = $settings->link_to_target;
 		$link_nofollow   = "rel='nofollow'";
 	}
+} elseif ( 'other_author' === $settings->source ) {
+	$avatar_args['size'] = 300;
+	$author_username = $settings->other_author_name;
+	if ( empty( $author_username ) ) {
+		return;
+	}
+
+	$author = get_user_by( 'login', $author_username );
+
+	if ( empty( $author ) || is_wp_error( $author ) ) {
+		if ( isset( $_GET['fl_builder'] ) ) {
+			echo sprintf( __( '"%s" author does not exist.', 'bb-powerpack' ), $author_username );
+		}
+		return;
+	}
+
+	$author_id 	= $author->ID;
+	$img_url     = get_avatar_url( $author_id, $avatar_args );
+	$author_name = get_the_author_meta( 'display_name', $author_id );
+	$biography   = get_the_author_meta( 'description', $author_id );
+
+	$archive_url = get_author_posts_url( $author_id );
+
+	if ( 'posts_archive' === $settings->link_to ) {
+		$link_url = $archive_url;
+	} elseif ( 'website' === $settings->link_to ) {
+		$link_url = get_the_author_meta( 'user_url', $author_id );
+	}
+
+	if ( '_blank' === $settings->link_to_target ) {
+		$link_url_target = $settings->link_to_target;
+		$link_nofollow   = "rel='nofollow'";
+	}
 }
 
 if ( isset( $settings->content_length ) && ! empty( $settings->content_length ) ) {
@@ -75,8 +108,8 @@ if ( isset( $settings->content_length ) && ! empty( $settings->content_length ) 
 		if ( 'show' == $settings->profile_picture ) {
 			?>
 			<div class="pp-authorbox-img">
-				<a href="<?php echo $link_url; ?>" target='<?php echo $link_url_target; ?>' <?php echo $link_nofollow; ?> >
-					<img src="<?php echo $img_url; ?>" >
+				<a href="<?php echo $link_url; ?>" target="<?php echo $link_url_target; ?>" <?php echo $link_nofollow; ?> >
+					<img src="<?php echo $img_url; ?>" alt="<?php echo esc_attr( $author_name ); ?>" />
 				</a>
 			</div>
 			<?php

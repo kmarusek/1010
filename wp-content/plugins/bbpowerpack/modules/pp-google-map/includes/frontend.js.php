@@ -45,7 +45,7 @@
 		'enableInfo'	=> array(),
 	);
 
-	if ( 0 < count( $map_addresses ) ) {
+	if ( is_array( $map_addresses ) && 0 < count( $map_addresses ) ) {
 		foreach ( $map_addresses as $data ) {
 			$data->map_latitude  = ( '' !== $data->map_latitude ) ? $data->map_latitude : 24.553311;
 			$data->map_longitude = ( '' !== $data->map_longitude ) ? $data->map_longitude : 73.694076;
@@ -64,6 +64,8 @@
 			);
 			$marker_data['markerPoint'][] = ( isset( $data->marker_point ) ) ? $data->marker_point : 'default';
 			$marker_data['markerImage'][] = $marker_image;
+			$marker_data['markerImageWidth'][] = isset( $data->marker_width ) && ! empty( $data->marker_width ) ? $data->marker_width : '';
+			$marker_data['markerImageHeight'][] = isset( $data->marker_height ) && ! empty( $data->marker_height ) ? $data->marker_height : '';
 			$marker_data['infoWindowText'][] = do_shortcode( trim( preg_replace( '/\s+/', ' ', do_shortcode( $data->info_window_text ) ) ) );
 			$marker_data['enableInfo'][] = $data->enable_info;
 		}

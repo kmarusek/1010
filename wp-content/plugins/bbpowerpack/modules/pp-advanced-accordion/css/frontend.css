@@ -69,10 +69,10 @@
 	display: none;
 }
 
-.pp-accordion-item.pp-accordion-item-active .pp-accordion-close {
+.pp-accordion-item.pp-accordion-item-active > .pp-accordion-button .pp-accordion-close {
 	display: table-cell;
 }
 
-.pp-accordion-item.pp-accordion-item-active .pp-accordion-open {
+.pp-accordion-item.pp-accordion-item-active > .pp-accordion-button .pp-accordion-open {
 	display: none;
 }

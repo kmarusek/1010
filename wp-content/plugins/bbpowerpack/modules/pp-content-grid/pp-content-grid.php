@@ -444,7 +444,7 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 						'toggle'		=> array(
 							'grid'			=> array(
 								'fields'		=> array('pagination', 'post_grid_filters_display'),
-								'sections'		=> array('pagination_style'),
+								'sections'		=> array('post-filter', 'pagination_style'),
 								'tabs'			=> array('filters_style', 'pagination')
 							),
 							'carousel'			=> array(
@@ -1779,6 +1779,15 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 						   ),
 						),
 					),
+					'title_font_hover_color' 		=> array(
+						'type'			=> 'color',
+						'label'			=> __('Text Hover Color', 'bb-powerpack'),
+						'show_reset'	=> true,
+						'connections'	=> array('color'),
+						'preview'       => array(
+							'type'		=> 'none',
+						),
+					),
 					'title_margin' 	=> array(
                     	'type' 				=> 'pp-multitext',
                     	'label' 			=> __('Margin', 'bb-powerpack'),
@@ -1836,6 +1845,15 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 							'type'			=> 'css',
 							'selector'      => '.pp-content-post .pp-post-content',
 							'property'      => 'color',
+						),
+					),
+					'content_font_hover_color' 		=> array(
+						'type'			=> 'color',
+						'label'			=> __('Text Hover Color', 'bb-powerpack'),
+						'show_reset'	=> true,
+						'connections'	=> array('color'),
+						'preview'       => array(
+							'type'		=> 'none',
 						),
 					),
 					'description_margin' 	=> array(
@@ -1904,6 +1922,15 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 									'property'        => 'color',
 								)
 							)
+						),
+					),
+					'post_meta_font_hover_color' 		=> array(
+						'type'			=> 'color',
+						'label'			=> __('Text Hover Color', 'bb-powerpack'),
+						'show_reset'	=> true,
+						'connections'	=> array('color'),
+						'preview'       => array(
+							'type'		=> 'none',
 						),
 					),
 					'post_meta_bg_color'	=> array(

@@ -20,6 +20,9 @@
 		 * @since 2.8.0
 		 */
         _toggleReCaptcha: function (event) {
+			if ( 'undefined' === typeof pp_recaptcha ) {
+				return;
+			}
             var form = $('.fl-builder-settings'),
                 nodeId = form.attr('data-node'),
                 enabled = form.find('input[name=enable_recaptcha]'),

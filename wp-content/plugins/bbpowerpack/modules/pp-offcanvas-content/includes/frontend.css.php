@@ -5,7 +5,7 @@ FLBuilderCSS::border_field_rule(
 	array(
 		'settings'     => $settings,
 		'setting_name' => 'offcanvas_bar_border',
-		'selector'     => ".pp-offcanvas-content-$id",
+		'selector'     => ".pp-offcanvas-content.pp-offcanvas-content-$id",
 	)
 );
 // Offcanvas Padding
@@ -13,7 +13,7 @@ FLBuilderCSS::dimension_field_rule(
 	array(
 		'settings'     => $settings,
 		'setting_name' => 'offcanvas_bar_padding',
-		'selector'     => ".pp-offcanvas-content-$id",
+		'selector'     => ".pp-offcanvas-content.pp-offcanvas-content-$id",
 		'unit'         => 'px',
 		'props'        => array(
 			'padding-top'    => 'offcanvas_bar_padding_top',
@@ -29,13 +29,13 @@ FLBuilderCSS::responsive_rule(
 	array(
 		'settings'     => $settings,
 		'setting_name' => 'offcanvas_bar_width',
-		'selector'     => ".pp-offcanvas-content-$id",
+		'selector'     => ".pp-offcanvas-content.pp-offcanvas-content-$id",
 		'prop'         => 'width',
 	)
 );
 
 ?>
-.pp-offcanvas-content-<?php echo $id; ?> {
+.pp-offcanvas-content.pp-offcanvas-content-<?php echo $id; ?> {
 	background: <?php echo pp_get_color_value( $settings->offcanvas_bar_bg ); ?>;
 }
 .pp-offcanvas-content-<?php echo $id; ?>.pp-offcanvas-content-top,
@@ -78,12 +78,12 @@ FLBuilderCSS::responsive_rule(
 .pp-offcanvas-content-slide-along.pp-offcanvas-content-<?php echo $id; ?>-open.pp-offcanvas-content-bottom .pp-offcanvas-container {
 	transform: translate3d(0, -<?php echo $settings->offcanvas_bar_width; ?><?php echo $settings->offcanvas_bar_width_unit; ?>, 0);
 }
-.pp-offcanvas-content-<?php echo $id; ?> .pp-offcanvas-body {
+.pp-offcanvas-content.pp-offcanvas-content-<?php echo $id; ?> .pp-offcanvas-body {
 	text-align: <?php echo $settings->content_align; ?>;
 	color: <?php echo pp_get_color_value( $settings->content_text_color ); ?>;
 	background: <?php echo pp_get_color_value( $settings->content_bg_color ); ?>;
 }
-.pp-offcanvas-content-<?php echo $id; ?> .pp-offcanvas-body a {
+.pp-offcanvas-content.pp-offcanvas-content-<?php echo $id; ?> .pp-offcanvas-body a {
 	color: <?php echo pp_get_color_value( $settings->content_link_color ); ?>;
 }
 <?php
@@ -92,7 +92,7 @@ FLBuilderCSS::typography_field_rule(
 	array(
 		'settings'     => $settings,
 		'setting_name' => 'title_typography',
-		'selector'     => ".pp-offcanvas-content-$id .pp-offcanvas-body .pp-offcanvas-content-title",
+		'selector'     => ".pp-offcanvas-content.pp-offcanvas-content-$id .pp-offcanvas-body .pp-offcanvas-content-title",
 	)
 );
 // Description Typography
@@ -100,7 +100,7 @@ FLBuilderCSS::typography_field_rule(
 	array(
 		'settings'     => $settings,
 		'setting_name' => 'description_typography',
-		'selector'     => ".pp-offcanvas-content-$id .pp-offcanvas-body .pp-offcanvas-content-description",
+		'selector'     => ".pp-offcanvas-content.pp-offcanvas-content-$id .pp-offcanvas-body .pp-offcanvas-content-description",
 	)
 );
 // Content Border - Settings
@@ -108,7 +108,7 @@ FLBuilderCSS::border_field_rule(
 	array(
 		'settings'     => $settings,
 		'setting_name' => 'content_border',
-		'selector'     => ".pp-offcanvas-content-$id .pp-offcanvas-body",
+		'selector'     => ".pp-offcanvas-content.pp-offcanvas-content-$id .pp-offcanvas-body",
 	)
 );
 // Content Padding
@@ -116,7 +116,7 @@ FLBuilderCSS::dimension_field_rule(
 	array(
 		'settings'     => $settings,
 		'setting_name' => 'content_padding',
-		'selector'     => ".pp-offcanvas-content-$id .pp-offcanvas-body",
+		'selector'     => ".pp-offcanvas-content.pp-offcanvas-content-$id .pp-offcanvas-body",
 		'unit'         => 'px',
 		'props'        => array(
 			'padding-top'    => 'content_padding_top',

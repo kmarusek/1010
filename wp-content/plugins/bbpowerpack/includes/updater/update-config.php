@@ -188,7 +188,11 @@ function bb_powerpack_deactivate_license() {
 			bb_powerpack_delete( 'bb_powerpack_license_status' );
 		}
 
-		wp_redirect( BEAVER_ADDONS_LICENSE_PAGE );
+		$redirect = add_query_arg( array(
+			'status' => $license_data->license,
+		), BEAVER_ADDONS_LICENSE_PAGE );
+
+		wp_redirect( $redirect );
 		exit();
 	} // End if().
 }
@@ -231,27 +235,27 @@ function bb_powerpack_check_license() {
 
 	$license_data = json_decode( wp_remote_retrieve_body( $response ) );
 
-	if ( 'valid' === $license_data->license ) {
-		return 'valid';
-		// this license is still valid.
-	} elseif ( 'deactivated' !== $license_data->license ) {
-		// this license is no longer valid
-		// delete license status.
-		bb_powerpack_delete( 'bb_powerpack_license_status' );
+	// if ( 'valid' === $license_data->license ) {
+	// 	return 'valid';
+	// 	// this license is still valid.
+	// } elseif ( 'deactivated' !== $license_data->license ) {
+	// 	// this license is no longer valid
+	// 	// delete license status.
+	// 	bb_powerpack_delete( 'bb_powerpack_license_status' );
 
-		if ( in_array( $license_data->license, array( 'site_inactive' ) ) ) {
-			$response = bb_powerpack_license( 'activate_license' );
+	// 	if ( in_array( $license_data->license, array( 'site_inactive' ) ) ) {
+	// 		$response = bb_powerpack_license( 'activate_license' );
 
-			if ( ! is_wp_error( $response ) ) {
-				// decode the license data
-				$license_data = json_decode( wp_remote_retrieve_body( $response ) );
+	// 		if ( ! is_wp_error( $response ) ) {
+	// 			// decode the license data
+	// 			$license_data = json_decode( wp_remote_retrieve_body( $response ) );
 
-				if ( 'valid' === $license_data->license ) {
-					bb_powerpack_update( 'bb_powerpack_license_status', $license_data->license );
-				}
-			}
-		}
-	}
+	// 			if ( 'valid' === $license_data->license ) {
+	// 				bb_powerpack_update( 'bb_powerpack_license_status', $license_data->license );
+	// 			}
+	// 		}
+	// 	}
+	// }
 
 	return $license_data->license;
 }
@@ -271,14 +275,15 @@ function bb_powerpack_update_message( $plugin_data, $response ) {
 		}
 
 		$message  = '';
-		$message .= '<p style="padding: 5px 10px; margin-top: 10px; background: #d54e21; color: #fff;">';
+		$message .= '<div style="padding: 5px 10px; margin-top: 10px; background: #d54e21; color: #fff; margin-bottom: 10px;">';
 		$message .= __( '<strong>UPDATE UNAVAILABLE!</strong>', 'bb-powerpack' );
 		$message .= '&nbsp;&nbsp;&nbsp;';
 		$message .= $main_msg;
 		$message .= ' <a href="' . BEAVER_ADDONS_URL . '" target="_blank" style="color: #fff; text-decoration: underline;">';
 		$message .= __( 'Buy Now', 'bb-powerpack' );
 		$message .= ' &raquo;</a>';
-		$message .= '</p>';
+		$message .= '</div>';
+		$message .= '<style>#bb-powerpack-update .notice p:empty {display:none;}</style>';
 
 		echo $message;
 	}

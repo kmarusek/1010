@@ -33,8 +33,15 @@ $alternate_class = '';
 if ( $count % 2 === 0 ) {
 	$alternate_class = ' pp-post-2n';
 }
+
+$post_classes = join( ' ', get_post_class() );
+$html_classes = "pp-content-post pp-content-grid-post$alternate_class pp-grid-{$settings->post_grid_style_select}";
+
+do_action( 'pp_cg_before_render_post', $settings, $count, $html_classes );
+
+$html_classes .= " $post_classes";
 ?>
-<div class="pp-content-post pp-content-grid-post<?php echo $alternate_class; ?> pp-grid-<?php echo $settings->post_grid_style_select; ?> <?php echo join( ' ', get_post_class() ); ?>"<?php BB_PowerPack_Post_Helper::print_schema( ' itemscope itemtype="' . PPContentGridModule::schema_itemtype() . '"' ); ?> data-id="<?php echo $post_id; ?>">
+<div class="<?php echo $html_classes; ?>"<?php BB_PowerPack_Post_Helper::print_schema( ' itemscope itemtype="' . PPContentGridModule::schema_itemtype() . '"' ); ?> data-id="<?php echo $post_id; ?>">
 
 	<?php PPContentGridModule::schema_meta(); ?>
 

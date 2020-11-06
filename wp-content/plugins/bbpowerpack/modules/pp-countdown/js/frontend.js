@@ -255,8 +255,10 @@
 			if( ( dateNow.getTime() - this.timer_date.getTime() ) > 0 ) {
 
 				if( this.evergreen_timer_action == 'msg' ) {
+					var msg = '<div class="pp-countdown-expire-message">' + $.cookie( "countdown-" + this.settings.id + "expiremsg" ) + '</div>';
 					if( parseInt(window.location.href.toLowerCase().indexOf("?fl_builder")) === parseInt(-1) ) {
-						$( this.timerid ).append(this.timer_exp_text);
+						$( this.timerid ).append(msg);
+						$( this.timerid ).trigger( 'pp_countdown_expired', [ this ] );
 					} else {
 						$( this.timerid ).countdown({
 							until: this.timer_date,
@@ -265,7 +267,10 @@
 							labels: this.timer_labels.split(","),
 							//timezone: this.timezone,
 				    		labels1: this.timer_labels_singular.split(","),
-				    		expiryText: $.cookie( "countdown-" + this.settings.id + "expiremsg" ),
+							expiryText: msg,
+							onExpiry: function() {
+								$( this.timerid ).trigger( 'pp_countdown_expired', [ this ] );
+							}
 						});
 					}
 
@@ -325,7 +330,7 @@
 				}
 			} else {
 				if( this.evergreen_timer_action == 'msg' ) {
-
+					var msg = '<div class="pp-countdown-expire-message">' + this.settings.expire_message + '</div>';
 					if( parseInt(window.location.href.toLowerCase().indexOf("?fl_builder")) === parseInt(-1) ) {
 						$( this.timerid ).countdown({
 							until: this.timer_date,
@@ -334,7 +339,11 @@
 							labels: this.timer_labels.split(","),
 							//timezone: this.timezone,
 				    		labels1: this.timer_labels_singular.split(","),
-				        	expiryText: $.cookie( "countdown-" + this.settings.id + "expiremsg" ),
+							expiryText: msg,
+							onExpiry: function() {
+								$( this.timerid ).html( msg );
+								$( this.timerid ).trigger( 'pp_countdown_expired', [ this ] );
+							}
 						});
 					} else {
 						$( this.timerid ).countdown({

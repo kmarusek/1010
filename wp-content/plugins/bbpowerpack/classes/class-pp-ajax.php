@@ -377,8 +377,8 @@ class BB_PowerPack_Ajax {
 			);
 		}
 
-		if ( isset( $_POST['page'] ) ) {
-			$args['paged'] = absint( wp_unslash( $_POST['page'] ) );
+		if ( isset( $_POST['paged'] ) ) {
+			$args['paged'] = absint( wp_unslash( $_POST['paged'] ) );
 		}
 
 		if ( 'main_query' !== $settings->data_source && 'acf_relationship' !== $settings->data_source ) {
@@ -419,6 +419,44 @@ class BB_PowerPack_Ajax {
 			}
 		} // End if().
 
+		if ( 'tribe_events' === $post_type ) {
+			$compare = '>=';
+			if ( isset( $settings->event_orderby ) && '' !== $settings->event_orderby ) {
+				$orderby = $settings->event_orderby;
+			} else {
+				$orderby = 'EventStartDate';
+			}
+			if ( isset( $settings->event_order ) && '' !== $settings->event_order ) {
+				$order = $settings->event_order;
+			} else {
+				$order = 'ASC';
+			}
+			if ( isset( $settings->show_events ) && ! empty( $settings->show_events ) ) {
+				switch ( $settings->show_events ) {
+					case 'past':
+						$compare = '<';
+						break;
+					case 'today':
+						$compare = '=';
+						break;
+				}
+			}
+			$args['meta_key'] 		= '_' . $orderby;
+			$args['orderby'] 		= 'meta_value';
+			$args['order'] 			= $order;
+			$args['eventDisplay'] 	= 'custom';
+			if ( 'all' !== $settings->show_events ) {
+				$today              = gmdate( 'Y-m-d' ) . ' 00:00:00';
+				$args['meta_query'] = array(
+					array(
+						'key'     => '_EventStartDate',
+						'compare' => $compare,
+						'value'   => $today,
+					),
+				);
+			}
+		}
+
 		$args = apply_filters( 'pp_post_grid_ajax_query_args', $args );
 
 		do_action( 'pp_post_grid_ajax_before_query', $settings );
@@ -445,8 +483,8 @@ class BB_PowerPack_Ajax {
 				$query->set( 'tax_query', array_merge( $tax_query, $args['tax_query'] ) );
 			}
 	
-			if ( isset( $_POST['page'] ) ) {
-				$query->set('paged', absint( wp_unslash( $_POST['page'] ) ) );
+			if ( isset( $_POST['paged'] ) ) {
+				$query->set('paged', absint( wp_unslash( $_POST['paged'] ) ) );
 			}
 
 			if ( isset( $_POST['author_id'] ) && ! empty( $_POST['author_id'] ) ) {
@@ -462,7 +500,7 @@ class BB_PowerPack_Ajax {
 
 			// create pagination.
 			if ( $query->max_num_pages > 1 && 'none' !== $settings->pagination ) {
-				$style = ( 'scroll' === $settings->pagination ) ? ' style="display: none;"' : '';
+				$style = ( 'scroll' === $settings->pagination || 'load_more' === $settings->pagination ) ? ' style="display: none;"' : '';
 				ob_start();
 
 				echo '<div class="pp-content-grid-pagination pp-ajax-pagination fl-builder-pagination"' . $style . '>';
@@ -471,7 +509,7 @@ class BB_PowerPack_Ajax {
 						$query,
 						$settings,
 						esc_attr( wp_unslash( $_POST['current_page'] ) ),
-						esc_attr( wp_unslash( $_POST['page'] ) ),
+						esc_attr( wp_unslash( $_POST['paged'] ) ),
 						sanitize_text_field( wp_unslash( $_POST['term'] ) ),
 						esc_attr( wp_unslash( $_POST['node_id'] ) )
 					);
@@ -480,7 +518,7 @@ class BB_PowerPack_Ajax {
 						$query,
 						$settings,
 						esc_attr( wp_unslash( $_POST['current_page'] ) ),
-						esc_attr( wp_unslash( $_POST['page'] ) )
+						esc_attr( wp_unslash( $_POST['paged'] ) )
 					);
 				}
 				echo '</div>';
@@ -488,13 +526,13 @@ class BB_PowerPack_Ajax {
 					<div class="pp-content-grid-load-more">
 						<a href="#" class="pp-grid-load-more-button">
 						<span class="pp-grid-loader-text"><?php echo $settings->load_more_text; ?></span>
-						<span class="pp-grid-loader-icon"><img src="<?php echo BB_POWERPACK_URL . 'images/spinner.gif'; ?>" /></span></a>
+						<span class="pp-grid-loader-icon"><img src="<?php echo BB_POWERPACK_URL . 'assets/images/spinner.gif'; ?>" /></span></a>
 					</div>
 				<?php } ?>
 				<?php if ( 'scroll' == $settings->pagination ) { ?>
 					<div class="pp-content-grid-loader" style="display: none;">
 						<span class="pp-grid-loader-text"><?php _e('Loading...', 'bb-powerpack'); ?></span>
-						<span class="pp-grid-loader-icon"><img src="<?php echo BB_POWERPACK_URL . 'images/spinner.gif'; ?>" /></span>
+						<span class="pp-grid-loader-icon"><img src="<?php echo BB_POWERPACK_URL . 'assets/images/spinner.gif'; ?>" /></span>
 					</div>
 				<?php }
 
@@ -531,10 +569,13 @@ class BB_PowerPack_Ajax {
 			wp_reset_postdata();
 
 		else :
-			$response['data'] = '<div>' . esc_html__( 'No posts found.', 'bb-powerpack' ) . '</div>';
+			$no_posts_found = apply_filters( 'pp_post_grid_ajax_not_found_text', esc_html__( 'No posts found.', 'bb-powerpack' ), $settings, $query );
+			$response['data'] = '<div class="pp-content-post pp-posts-not-found-text">' . $no_posts_found . '</div>';
 		endif;
 
 		wp_reset_query();
+
+		$response = apply_filters( 'pp_post_grid_ajax_response', $response, $settings, $query );
 
 		wp_send_json( $response );
 	}

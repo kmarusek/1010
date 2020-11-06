@@ -432,7 +432,7 @@ BB_PowerPack::register_module('PPAdvancedMenu', array(
         )
     ),
     'style'       => array( // Tab
-        'title'         => __('Style', 'bb-powerpack'), // Tab title
+		'title'         => __('Style', 'bb-powerpack'), // Tab title
         'sections'      => array( // Tab Sections
             'general'       => array( // Section
                 'title'         => __('Style', 'bb-powerpack'), // Section Title
@@ -659,6 +659,16 @@ BB_PowerPack::register_module('PPAdvancedMenu', array(
 							'selector'        => '.pp-advanced-menu .menu > li > a, .pp-advanced-menu .menu > li > .pp-has-submenu-container > a',
 							'property'        => 'border-color',
 						)
+					),
+					'border_hover_color' => array(
+                        'type'       => 'color',
+                        'label'      => __('Border Hover Color', 'bb-powerpack'),
+                        'default'    => '',
+						'show_reset' => true,
+						'connections'	=> array('color'),
+						'preview'         => array(
+							'type'            => 'none',
+						)
                     ),
                 )
             ),
@@ -698,7 +708,9 @@ BB_PowerPack::register_module('PPAdvancedMenu', array(
                         'type'       => 'color',
                         'label'      => __('Container Background Color', 'bb-powerpack'),
                         'default'    => '',
-                        'show_reset' => true,
+						'show_reset' => true,
+						'show_alpha' => true,
+						'connections'	=> array('color'),
 						'preview'         => array(
 							'type'            => 'css',
 							'selector'        => 'ul.sub-menu',
@@ -712,6 +724,7 @@ BB_PowerPack::register_module('PPAdvancedMenu', array(
                         'default'    	=> '',
 						'show_reset' 	=> true,
 						'show_alpha'	=> true,
+						'connections'	=> array('color'),
 						'preview'         => array(
 							'type'            => 'css',
 							'selector'        => '.sub-menu > li > a, .sub-menu > li > .pp-has-submenu-container > a',
@@ -821,6 +834,7 @@ BB_PowerPack::register_module('PPAdvancedMenu', array(
     ),
 	'responsive_style'	=> array(
 		'title'	=> __('Responsive', 'bb-powerpack'),
+		'description'	=> __( 'These settings are intended for <strong>responsive breakpoint only</strong>. Preview will not work on large or medium devices.', 'bb-powerpack' ),
 		'sections'	=> array(
 			'responsive_container'	=> array(
 				'title'	=> __( 'Container', 'bb-powerpack' ),

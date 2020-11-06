@@ -4,7 +4,7 @@
 	<?php } ?>
 }
 .fl-node-<?php echo $id; ?> .pp-login-form-wrap.pp-event-disabled:before {
-	background-image: url(<?php echo BB_POWERPACK_URL; ?>images/spinner.gif);
+	background-image: url(<?php echo BB_POWERPACK_URL; ?>assets/images/spinner.gif);
 }
 <?php if ( isset( $settings->social_button_position ) && 'above' === $settings->social_button_position ) { ?>
 	.fl-node-<?php echo $id; ?> .pp-login-form-inner,

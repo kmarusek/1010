@@ -145,6 +145,11 @@ $query = FLBuilderLoop::query( $settings );
 		$css_class .= ( FLBuilderLoop::get_paged() > 0 ) ? ' pp-paged-scroll-to' : '';
 		$data_source = isset( $settings->data_source ) ? $settings->data_source : 'custom_query';
 		$post_type   = isset( $settings->post_type ) ? $settings->post_type : 'post';
+		$current_post_type = is_callable( 'get_post_type' ) ? get_post_type() : '';
+
+		if ( 'main_query' === $settings->data_source && ! empty( $current_post_type ) ) {
+			$settings->post_type = $current_post_type;
+		}
 
 		if ( 'acf_relationship' != $settings->data_source ) {
 			// Post filters.
@@ -233,13 +238,13 @@ $query = FLBuilderLoop::query( $settings );
 				<div class="pp-content-grid-load-more">
 					<a href="#" class="pp-grid-load-more-button">
 					<span class="pp-grid-loader-text"><?php echo $settings->load_more_text; ?></span>
-					<span class="pp-grid-loader-icon"><img src="<?php echo BB_POWERPACK_URL . 'images/spinner.gif'; ?>" /></span></a>
+					<span class="pp-grid-loader-icon"><img src="<?php echo BB_POWERPACK_URL . 'assets/images/spinner.gif'; ?>" /></span></a>
 				</div>
 			<?php } ?>
 			<?php if ( 'scroll' == $settings->pagination ) { ?>
 				<div class="pp-content-grid-loader" style="display: none;">
 					<span class="pp-grid-loader-text"><?php _e('Loading...', 'bb-powerpack'); ?></span>
-					<span class="pp-grid-loader-icon"><img src="<?php echo BB_POWERPACK_URL . 'images/spinner.gif'; ?>" /></span>
+					<span class="pp-grid-loader-icon"><img src="<?php echo BB_POWERPACK_URL . 'assets/images/spinner.gif'; ?>" /></span>
 				</div>
 			<?php } ?>
 		<?php } ?>

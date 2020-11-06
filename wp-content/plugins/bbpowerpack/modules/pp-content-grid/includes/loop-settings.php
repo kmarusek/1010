@@ -448,6 +448,16 @@ do_action( 'pp_cg_loop_settings_before_form', $settings ); // e.g Add custom FLB
 				)
 			), $settings);
 
+			FLBuilder::render_settings_field('post_grid_filters_archive_terms', array(
+				'type'		=> 'select',
+				'label'		=> __('On Taxonomy Archive', 'bb-powerpack'),
+				'default'	=> '',
+				'options'       => array(
+					''			=> __( 'Default', 'bb-powerpack' ),
+					'children'	=> __( 'Children of current term', 'bb-powerpack' ),
+				)
+			), $settings);
+
 			FLBuilder::render_settings_field('post_grid_filters_default', array(
 				'type'	=> 'text',
 				'label'	=> __('Default Filter Term (slug)', 'bb-powerpack'),

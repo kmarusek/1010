@@ -38,14 +38,22 @@
 			}
 
 			var self = this;
-			$.get( url, function( data ) {
-				data = self._processData( data );
-				if ( 'function' === typeof callback ) {
-					callback( data );
+			var xhr = new XMLHttpRequest();
+			xhr.open( 'GET', url );
+			xhr.send( null );
+			xhr.onreadystatechange = function() {
+				if ( xhr.readyState == 4 ) {
+					if ( xhr.status == 200 ) {
+						if ( 'function' === typeof callback ) {
+							var data = self._processData( xhr.responseText );
+							callback( data );
+						}
+					} else {
+						self.node.append('<div class="pp-instagram-warning">' + self._messages.invalid_username + '</div>');
+						console.error('PP Instagram Feed ('+ self.id +'): Unable to fetch the given user. Instagram responded with the status code: ', xhr.status);
+					}
 				}
-			} ).fail(function(e) {
-				console.error('PP Instagram Feed ('+ self.id +'): Unable to fetch the given user. Instagram responded with the status code: ', e.status);
-			} );
+			};
 		},
 
 		_processData: function( data ) {

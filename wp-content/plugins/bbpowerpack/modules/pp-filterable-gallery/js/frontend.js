@@ -95,7 +95,7 @@
 					wrap.find( '.pp-gallery-overlay' ).css('max-width', imgW + 'px');
 				}
 
-				filterToggle.on('click', function () {
+				filterToggle.off('click').on('click', function () {
 					filtersWrap.slideToggle(function () {
 						if ($(this).is(':visible')) {
 							$(this).addClass('pp-gallery-filters-open');

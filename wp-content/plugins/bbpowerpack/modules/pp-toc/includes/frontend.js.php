@@ -42,6 +42,7 @@ $additional_offset_mobile = isset( $settings->additional_offset_responsive ) && 
 			},
 			listIcon: '<?php echo esc_attr( $settings->list_icon_field ); ?>',
 			listStyle: '<?php echo esc_attr( $settings->list_style ); ?>',
+			anchorId: '<?php echo isset( $settings->anchor_id ) ? $settings->anchor_id : 'auto'; ?>',
 		});
 
 	});

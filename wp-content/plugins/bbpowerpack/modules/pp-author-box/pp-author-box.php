@@ -47,6 +47,7 @@ BB_PowerPack::register_module(
 							'default' => 'current_author',
 							'options' => array(
 								'current_author' => __( 'Current Author', 'bb-powerpack' ),
+								'other_author' => __( 'Other Author', 'bb-powerpack' ),
 								'custom'         => __( 'Custom', 'bb-powerpack' ),
 							),
 							'toggle'  => array(
@@ -58,7 +59,17 @@ BB_PowerPack::register_module(
 									'sections' => array(''),
 									'fields'   => array( 'link_to', 'link_to_target' ),
 								),
+								'other_author' => array(
+									'sections' => array(''),
+									'fields'   => array( 'other_author_name', 'link_to', 'link_to_target' ),
+								),
 							),
+						),
+						'other_author_name'	=> array(
+							'type'	=> 'text',
+							'label'	=> __( 'Enter username', 'bb-powerpack' ),
+							'default' => '',
+							'connections' => array( 'string' ),
 						),
 					),
 				),

@@ -171,7 +171,14 @@ class PPLoginFormModule extends FLBuilderModule {
 			$recaptcha_theme = $settings->recaptcha_theme;
 
 			if ( isset( $recaptcha_site_key ) && ! empty( $recaptcha_site_key ) ) { ?>
-				<div id="<?php echo $id; ?>-pp-grecaptcha" class="pp-grecaptcha" data-sitekey="<?php echo $recaptcha_site_key; ?>" data-validate="<?php echo $recaptcha_validate_type; ?>" data-theme="<?php echo $recaptcha_theme; ?>"></div>
+				<div
+					id="<?php echo $id; ?>-pp-grecaptcha" 
+					class="pp-grecaptcha" 
+					data-sitekey="<?php echo $recaptcha_site_key; ?>" 
+					data-validate="<?php echo $recaptcha_validate_type; ?>" 
+					data-theme="<?php echo $recaptcha_theme; ?>"
+					<?php echo 'invisible_v3' == $settings->recaptcha_validate_type ? ' data-invisible="true"' : ''; ?>
+				></div>
 			<?php } else { ?>
 				<div><?php echo pp_get_recaptcha_desc(); ?></div>
 			<?php } ?>
@@ -188,9 +195,9 @@ class PPLoginFormModule extends FLBuilderModule {
 		if (
 			! isset( $_POST['pp-lf-login-nonce'] ) ||
 			! check_ajax_referer( 'login_nonce', 'pp-lf-login-nonce', false ) ) {
-				if ( ! isset( $_POST['reauth'] ) || empty( $_POST['reauth'] ) ) {
+				//if ( ! isset( $_POST['reauth'] ) || empty( $_POST['reauth'] ) ) {
 					wp_send_json_error( __( 'Error: Invalid data.', 'bb-powerpack' ) );
-				}
+				//}
 		}
 
 		$recaptcha_response = isset( $_POST['recaptcha_response'] ) ? $_POST['recaptcha_response'] : false;
@@ -199,13 +206,18 @@ class PPLoginFormModule extends FLBuilderModule {
 		if ( isset( $_POST['recaptcha'] ) && $recaptcha_response ) {
 			$this->init_recaptcha_keys();
 
-			$recaptcha_validate_type = sanitize_text_field( $_POST['recaptcha_validate'] );
+			$recaptcha_invisible = isset( $_POST['recaptcha_invisible'] ) && $_POST['recaptcha_invisible'] ? true : false;
+			$recaptcha_validate_type = sanitize_text_field( $_POST['recaptcha_validate'] ) . ( $recaptcha_invisible ? '_v3' : '' );
 			$recaptcha_site_key   = 'invisible_v3' == $recaptcha_validate_type ? $this->recaptcha_v3_site_key : $this->recaptcha_site_key;
 			$recaptcha_secret_key = 'invisible_v3' == $recaptcha_validate_type ? $this->recaptcha_v3_secret_key : $this->recaptcha_secret_key;
 
 			if ( ! empty( $recaptcha_secret_key ) && ! empty( $recaptcha_site_key ) ) {
 				if ( version_compare( phpversion(), '5.3', '>=' ) ) {
-					$validate = new BB_PowerPack_ReCaptcha( $recaptcha_secret_key, $recaptcha_validate_type, $recaptcha_response );
+					$validate = new BB_PowerPack_ReCaptcha(
+						$recaptcha_secret_key,
+						str_replace( '_v3', '', $recaptcha_validate_type ),
+						$recaptcha_response
+					);
 					if ( ! $validate->is_success() ) {
 						wp_send_json_error( __( 'Error verifying reCAPTCHA, please try again.', 'bb-powerpack' ) );
 					}
@@ -250,14 +262,16 @@ class PPLoginFormModule extends FLBuilderModule {
 
 				if ( is_wp_error( $user ) ) {
 					$message = $user->get_error_message();
-					// Exclude BuddyPress activation link.
-					// if ( 'bp_account_not_activated' !== $user->get_error_code() ) {
-					// 	$message = preg_replace( '/<\/?a[^>].*>/', '', $message );
-					// }
+					$code = $user->get_error_code();
+					if ( 'incorrect_password' === $code ) {
+						// Remove Lost Password link from the message.
+						$message = preg_replace( '/<\/?a[^>].*>/', '', $message );
+					}
 					throw new Exception( $message );
 				} else {
+					$redirect_url = apply_filters( 'pp_login_form_redirect_url', $this->get_redirect_url(), $user );
 					wp_send_json_success( array(
-						'redirect_url' => $this->get_redirect_url(),
+						'redirect_url' => $redirect_url,
 					) );
 				}
 			} catch ( Exception $e ) {
@@ -468,7 +482,7 @@ class PPLoginFormModule extends FLBuilderModule {
 			do_action( 'wp_login', $userdata->user_login, $userdata );
 
 			wp_send_json_success( array(
-				'redirect_url' => $this->get_redirect_url(),
+				'redirect_url' => apply_filters( 'pp_login_form_redirect_url', $this->get_redirect_url(), $userdata ),
 			) );
 		} else {
 			if ( ! apply_filters( 'pp_login_form_social_login_registration', get_option( 'users_can_register' ) ) ) {
@@ -521,6 +535,7 @@ class PPLoginFormModule extends FLBuilderModule {
 
 	private function retrieve_password() {
 		$login = isset( $_POST['user_login'] ) ? sanitize_user( wp_unslash( $_POST['user_login'] ) ) : ''; // WPCS: input var ok, CSRF ok.
+		$user_data = false;
 
 		if ( empty( $login ) ) {
 
@@ -537,6 +552,8 @@ class PPLoginFormModule extends FLBuilderModule {
 		if ( ! $user_data && is_email( $login ) ) {
 			$user_data = get_user_by( 'email', $login );
 		}
+
+		do_action( 'pp_login_form_retrieve_password', $user_data );
 
 		$errors = new WP_Error();
 
@@ -606,6 +623,7 @@ class PPLoginFormModule extends FLBuilderModule {
 		$blogname = esc_html( wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES ) );
 		$admin_email = get_option( 'admin_email' );
 		$subject = sprintf( esc_html__( 'Password Reset Request for %s', 'bb-powerpack' ), $blogname );
+		$subject = apply_filters( 'pp_login_form_password_reset_email_subject', $subject, $user->data );
 
 		$content = '';
 		/* translators: %s: Username */
@@ -620,6 +638,8 @@ class PPLoginFormModule extends FLBuilderModule {
 		$content .= esc_html__( 'Click here to reset your password', 'bb-powerpack' );
 		$content .= '</a>';
 		$content .= '</p>';
+
+		$content = apply_filters( 'pp_login_form_password_reset_email_content', $content, $user->data, $reset_url );
 
 		// translators: %s: email_from_name
 		$headers = sprintf( 'From: %s <%s>' . "\r\n", $blogname, get_option( 'admin_email' ) );
@@ -644,7 +664,7 @@ class PPLoginFormModule extends FLBuilderModule {
 
 		foreach ( $posted_fields as $field ) {
 			if ( ! isset( $_POST[ $field ] ) ) {
-				return;
+				wp_send_json_error( __( 'Invalid data.', 'bb-powerpack' ) );
 			}
 
 			if ( in_array( $field, array( 'password_1', 'password_2' ) ) ) {
@@ -654,19 +674,18 @@ class PPLoginFormModule extends FLBuilderModule {
 				$posted_fields[ $field ] = wp_unslash( $_POST[ $field ] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			}
 		}
+		
+		if ( empty( $posted_fields['password_1'] ) ) {
+			$this->form_error = __( 'Please enter your password.', 'powerpack' );
+		} elseif ( $posted_fields['password_1'] !== $posted_fields['password_2'] ) {
+			$this->form_error = __( 'Passwords do not match.', 'powerpack' );
+		}
 
 		$user = $this->check_password_reset_key( $posted_fields['reset_key'], $posted_fields['reset_login'] );
 
-		if ( $user instanceof WP_User ) {
-			if ( empty( $posted_fields['password_1'] ) ) {
-				$this->form_error = __( 'Please enter your password.', 'bb-powerpack' );
-			}
+		if ( is_object( $user ) && empty( $this->form_error ) ) {
 
-			if ( $posted_fields['password_1'] !== $posted_fields['password_2'] ) {
-				$this->form_error = __( 'Passwords do not match.', 'bb-powerpack' );
-			}
-
-			$errors = new WP_Error();
+			$errors = new \WP_Error();
 
 			do_action( 'validate_password_reset', $errors, $user );
 
@@ -676,18 +695,18 @@ class PPLoginFormModule extends FLBuilderModule {
 				}
 			}
 
-			if ( empty( $this->form_error ) ) {
-				$this->reset_password( $user, $posted_fields['password_1'] );
+			$this->reset_password( $user, $posted_fields['password_1'] );
 
-				do_action( 'pp_login_form_user_reset_password', $user );
+			do_action( 'pp_login_form_user_reset_password', $user );
 
-				wp_send_json_success();
-			}
+			wp_send_json_success();
 		}
 
 		if ( ! empty( $this->form_error ) ) {
 			wp_send_json_error( $this->form_error );
 		}
+		
+		wp_send_json_error( __( 'Unknown error', 'bb-powerpack' ) );
 	}
 
 	public function check_password_reset_key( $key, $login ) {
@@ -776,6 +795,20 @@ class PPLoginFormModule extends FLBuilderModule {
 
 	public function get_error_message() {
 		return $this->form_error;
+	}
+
+	public function get_js_messages_i18n() {
+		$messages = apply_filters( 'pp_login_form_js_messages_i18n', array(
+			'empty_username' => esc_html__( 'Enter a username or email address.', 'bb-powerpack' ),
+			'empty_password' => esc_html__( 'Enter password.', 'bb-powerpack' ),
+			'empty_password_1' => esc_html__( 'Enter a password.', 'bb-powerpack' ),
+			'empty_password_2' => esc_html__( 'Re-enter password.', 'bb-powerpack' ),
+			'empty_recaptcha' => esc_html__( 'Please check the captcha to verify you are not a robot.', 'bb-powerpack' ),
+			'email_sent' => esc_html__( 'A password reset email has been sent to the email address for your account, but may take several minutes to show up in your inbox. Please wait at least 10 minutes before attempting another reset.', 'bb-powerpack' ),
+			'reset_success' => esc_html__( 'Your password has been reset successfully.', 'bb-powerpack' ),
+		) );
+
+		return $messages;
 	}
 }
 
@@ -972,6 +1005,21 @@ BB_PowerPack::register_module('PPLoginFormModule', array(
 							'yes'			=> __('Yes', 'bb-powerpack'),
 							'no'			=> __('No', 'bb-powerpack')
 						),
+						'toggle'		=> array(
+							'yes'			=> array(
+								'fields'		=> array('register_link_text')
+							)
+						)
+					),
+					'register_link_text'	=> array(
+						'type'		=> 'text',
+						'label'		=> __('Text', 'bb-powerpack'),
+						'default'	=> __('Register', 'bb-powerpack'),
+						'preview'	=> array(
+							'type'		=> 'text',
+							'selector'	=> '.pp-field-group .pp-login-register'
+						),
+						'connections'	=> array('string')
 					),
 					'show_remember_me'	=> array(
 						'type'			=> 'pp-switch',

@@ -53,7 +53,7 @@ BB_PowerPack::register_module('PPAlbumModule', array(
                 )
 			),
             'trigger'       => array(
-				'title'         => 'Trigger',
+				'title'         => __( 'Trigger', 'bb-powerpack' ),
 				'collapsed'		=> true,
                 'fields'        => array(
 					'trigger_on'	=> array(
@@ -101,7 +101,7 @@ BB_PowerPack::register_module('PPAlbumModule', array(
 						)
 					),
 					'first_img_size'	=> array(
-					    'type'          => 'select',
+					    'type'          => 'photo-sizes',
 						'label'         => __( 'Image Size', 'bb-powerpack' ),
 						'default'		=> 'full',
 						'options'		=> array(

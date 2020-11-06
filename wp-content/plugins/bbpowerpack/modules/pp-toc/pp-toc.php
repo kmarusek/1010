@@ -93,6 +93,15 @@ BB_PowerPack::register_module(
 							'label'   => __( 'Hierarchical View', 'bb-powerpack' ),
 							'default' => 'yes',
 						),
+						'anchor_id' => array(
+							'type'	=> 'select',
+							'label' => __( 'Generate Anchor From', 'bb-powerpack' ),
+							'default' => 'auto',
+							'options' => array(
+								'auto'	=> __( 'Auto Generate', 'bb-powerpack' ),
+								'text'	=> __( 'Heading Text', 'bb-powerpack' ),
+							),
+						),
 						'additional_offset' => array(
 							'type'	=> 'unit',
 							'label' => __( 'Additional Offset', 'bb-powerpack' ),

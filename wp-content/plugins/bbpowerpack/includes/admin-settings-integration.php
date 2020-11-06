@@ -7,7 +7,7 @@
 			<label for="bb_powerpack_fb_app_id"><?php esc_html_e( 'Facebook App ID', 'bb-powerpack' ); ?></label>
 		</th>
 		<td>
-			<input id="bb_powerpack_fb_app_id" name="bb_powerpack_fb_app_id" type="text" class="regular-text" value="<?php echo BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_fb_app_id', true); ?>" />
+			<input id="bb_powerpack_fb_app_id" name="bb_powerpack_fb_app_id" type="text" class="regular-text" value="<?php echo BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_fb_app_id', true); ?>" autofill="false" autocomplete="false" autosuggest="false" />
 			<p class="description">
 				<?php // translators: %s: Facebook App Setting link ?>
 				<?php echo sprintf( __( 'To get your Facebook App ID, you need to <a href="%s" target="_blank">register and configure</a> an app. Once registered, add the domain to your <a href="%s" target="_blank">App Domains</a>', 'bb-powerpack' ), 'https://developers.facebook.com/docs/apps/register/', pp_get_fb_app_settings_url() ); ?>
@@ -50,14 +50,13 @@
 			</p>
 		</td>
 	</tr>
-	<tr align="top">
+	<tr align="top" style="display: none;">
 		<th scope="row" valign="top">
-			<label for="bb_powerpack_google_places_api_key"><?php esc_html_e('Google Places API Key', 'bb-powerpack'); ?></label>
+			<label for="bb_powerpack_google_places_api_key"><?php esc_html_e('Google Places API Key (deprecated)', 'bb-powerpack'); ?></label>
 		</th>
 		<td>
 			<input id="bb_powerpack_google_places_api_key" name="bb_powerpack_google_places_api_key" type="text" class="regular-text" value="<?php echo BB_PowerPack_Admin_Settings::get_option('bb_powerpack_google_places_api_key', true); ?>" />
 			<p class="description">
-				<?php // translators: %s: Google API document ?>
 				<?php echo sprintf( __( 'To get your Google Places API Key, read <a href="%s" target="_blank">this document</a>', 'bb-powerpack' ), 'https://developers.google.com/places/web-service/get-api-key' ); ?>
 			</p>
 		</td>

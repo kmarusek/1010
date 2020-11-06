@@ -83,6 +83,8 @@ $modules = array(
 	'modules/pp-offcanvas-content/pp-offcanvas-content.php',
 	'modules/pp-sliding-menus/pp-sliding-menus.php',
 	'modules/pp-toc/pp-toc.php',
+	'modules/pp-content-ticker/pp-content-ticker.php',
+	'modules/pp-card-slider/pp-card-slider.php',
 );
 /* Custom Grid */
 if ( class_exists( 'FLThemeBuilderLoader' ) ) {
@@ -119,6 +121,8 @@ if ( is_child_theme() ) {
 } else {
 	$theme_dir = get_template_directory();
 }
+
+$theme_dir = apply_filters( 'pp_modules_override_theme_dir', $theme_dir );
 
 sort( $modules );
 

@@ -174,10 +174,10 @@ class PPVideoGalleryModule extends FLBuilderModule {
 		<div class="pp-video-gallery-filters-wrap">
 			<ul class="pp-video-gallery-filters">
 			<?php if ( isset( $this->settings->filters_all_text ) && ! empty( $this->settings->filters_all_text ) ) { ?>
-				<li class="pp-video-gallery-filter pp-filter--active" data-filter="*"><span><?php echo $this->settings->filters_all_text; ?></span></li>
+				<li class="pp-video-gallery-filter pp-filter-item--all pp-filter--active" data-filter="*"><span><?php echo $this->settings->filters_all_text; ?></span></li>
 			<?php } ?>
 			<?php foreach ( $filters as $key => $value ) { ?>
-				<li class="pp-video-gallery-filter" data-filter=".pp-filter-<?php echo $key; ?>"><span><?php echo $value; ?></span></li>
+				<li class="pp-video-gallery-filter pp-filter-item--<?php echo sanitize_title( $key ); ?>" data-filter=".pp-filter-<?php echo $key; ?>"><span><?php echo $value; ?></span></li>
 			<?php } ?>
 			</ul>
 		</div>

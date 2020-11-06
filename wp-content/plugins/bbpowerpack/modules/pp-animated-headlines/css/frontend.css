@@ -119,6 +119,7 @@
     display: inline-block;
 	position: relative;
 	text-align: left;
+	transition: width 0.3s ease;
 }
 .pp-headline-dynamic-wrapper .pp-headline-dynamic-text {
     display: inline-block;
@@ -126,6 +127,7 @@
 	white-space: nowrap;
 	top: 0;
 	left: 0;
+	right: 0;
 }
 .pp-headline-center.pp-headline-animation-type-wave .pp-headline-dynamic-wrapper .pp-headline-dynamic-text {
 	left: 50%;

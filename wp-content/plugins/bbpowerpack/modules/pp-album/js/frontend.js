@@ -40,7 +40,7 @@
 					animationEffect:	self.lightboxAnimation,
 					transitionEffect:	self.transitionEffect,
 					transitionDuration: self.transitionDuration,
-					baseClass: 			self.fancyboxThumbs,
+					baseClass: 			self.fancyboxThumbs + ' ' + 'pp-fancybox-' + self.id,
 					thumbs: {
 						autoStart: 		self.thumbsAutoStart,
 						axis: 			self.fancyboxAxis
@@ -48,11 +48,11 @@
 				});
 				self.node.find('.pp-album-1.pp-album-' + self.id).trigger('click');
 
-				if ( $('body').find('.fancybox-container').hasClass( 'pp-fancybox-' + self.id ) ) {
-					return;
-				} else {
-					$('body').find('.fancybox-container').addClass( 'pp-fancybox-' + self.id );
-				}
+				// if ( $('body').find('.fancybox-container').hasClass( 'pp-fancybox-' + self.id ) ) {
+				// 	return;
+				// } else {
+				// 	$('body').find('.fancybox-container').addClass( 'pp-fancybox-' + self.id );
+				// }
 
 			});
 		},

@@ -31,7 +31,7 @@ if ( ! empty( $settings->accordion_close_icon ) ) {
 					<span class="<?php echo $close_icon_class; ?>"></span>
 				<?php } ?>
 
-				<?php if ( $items[ $i ]->accordion_font_icon ) { ?>
+				<?php if ( isset( $items[ $i ]->accordion_font_icon ) && ! empty( $items[ $i ]->accordion_font_icon ) ) { ?>
 					<span class="pp-accordion-icon <?php echo $items[ $i ]->accordion_font_icon; ?>"></span>
 				<?php } ?>
 				<span class="pp-accordion-button-label" itemprop="name description"><?php echo $items[ $i ]->label; ?></span>

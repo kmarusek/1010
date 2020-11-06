@@ -310,7 +310,13 @@ class PPImageModule extends FLBuilderModule {
 			}
 		}
 
-		return implode( ' ', $classes );
+		$classes = implode( ' ', $classes );
+
+		if ( isset( $this->settings->img_classes ) && ! empty( $this->settings->img_classes ) ) {
+			$classes .= $this->settings->img_classes;
+		}
+
+		return $classes;
 	}
 
 	/**

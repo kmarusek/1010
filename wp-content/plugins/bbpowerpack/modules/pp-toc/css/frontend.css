@@ -109,9 +109,8 @@
 .pp-toc-container .pp-toc-list-wrapper.pp-toc-list-number li::before {
 	content: counters(item, ".") " ";
 	color: #000;
-	display: inline-block;
 	width: 2em;
-	margin-left: -2.5em;
+	margin-left: -1.5em;
 	margin-right: 0.5em;
 	text-align: right;
 	font-size: 10px;

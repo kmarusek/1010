@@ -37,6 +37,11 @@
 	transform: translateX(-50%);
 	display: table;
 }
+.rtl .pp-category .category-style-0 .pp-category__content {
+	left: auto;
+    right: 50%;
+    transform: translateX(50%);
+}
 .pp-category.pp-category__no-image .pp-category__content {
 	position: relative;
 	display: flex;

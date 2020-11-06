@@ -25,6 +25,7 @@ var ppcg_<?php echo $id; ?> = '';
 		layout: '<?php echo $settings->layout; ?>',
 		style: '<?php echo $settings->post_grid_style_select; ?>',
 		ajaxUrl: '<?php echo admin_url( 'admin-ajax.php' ); ?>',
+		siteUrl: '<?php echo site_url(); ?>',
 		scrollTo: <?php echo $scrollTo ? 'true' : 'false'; ?>,
 		perPage: '<?php echo $settings->posts_per_page; ?>',
 		fields: <?php echo json_encode( $settings ); ?>,
@@ -83,7 +84,7 @@ var ppcg_<?php echo $id; ?> = '';
 				<?php echo 'yes' === $settings->stop_on_hover ? 'autoplayHoverPause: true' : 'autoplayHoverPause: false'; ?>,
 				<?php echo 'yes' === $settings->lazy_load ? 'lazyLoad: true' : 'lazyLoad: false'; ?>,
 				navText : [left_arrow_svg, right_arrow_svg],
-				navContainer: '.pp-carousel-nav',
+				navContainer: '.fl-node-<?php echo $id; ?> .pp-carousel-nav',
 				responsiveRefreshRate: 200,
 				responsiveBaseWidth: window,
 				loop: <?php echo isset( $settings->slide_loop ) && 'yes' === $settings->slide_loop ? 'true' : 'false'; ?>,
@@ -96,7 +97,7 @@ var ppcg_<?php echo $id; ?> = '';
 		PPContentGridOptions.is_archive = true;
 	<?php } ?>
 
-	<?php if ( is_tax() || is_archive() ) { ?>
+	<?php if ( is_tax() || is_category() ) { ?>
 	PPContentGridOptions.is_tax = true;
 	<?php } ?>
 
@@ -124,9 +125,9 @@ var ppcg_<?php echo $id; ?> = '';
 	// expandable row fix.
 	var state = 0;
 	$(document).on('pp_expandable_row_toggle', function(e, selector) {
-		if ( selector.is('.pp-er-open') && state === 0 && selector.find( '.pp-content-post-grid' ).length > 0 ) {
+		if ( selector.is('.pp-er-open') && state === 0 && selector.parent().find( '.pp-content-post-grid' ).length > 0 ) {
 			if ( 'undefined' !== typeof $.fn.isotope ) {
-				selector.find('.pp-content-post-grid').isotope('layout');
+				selector.parent().find('.pp-content-post-grid').isotope('layout');
 			}
 			state = 1;
 		}
@@ -135,9 +136,13 @@ var ppcg_<?php echo $id; ?> = '';
 	// Tabs and Content Grid fix
 	$(document).on('pp-tabs-switched', function(e, selector) {
 		if ( selector.find('.pp-content-post-grid').length > 0 ) {
+			var postsWrapper = selector.find('.pp-content-post-grid');
 			if ( 'undefined' !== typeof $.fn.isotope ) {
 				setTimeout(function() {
-					selector.find('.pp-content-post-grid').isotope('layout');
+					if ( ! postsWrapper.hasClass('pp-isotope-initialized') ) {
+						postsWrapper.isotope('layout');
+						postsWrapper.addClass('pp-isotope-initialized');
+					}
 				}, 500);
 			}
 		}

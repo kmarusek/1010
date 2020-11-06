@@ -370,6 +370,9 @@ class PPGalleryModule extends FLBuilderModule {
 					$data->cta_link = esc_url( $cta_link );
 				}
 
+				// srcset.
+				$data->srcset = wp_get_attachment_image_srcset( $id, $image_size );
+
 				$photos[$id] = $data;
 			}
 		}
@@ -695,13 +698,7 @@ BB_PowerPack::register_module('PPGalleryModule', array(
 						'type' 			=> 'unit',
 						'label' 		=> __('Number of Columns', 'bb-powerpack'),
 						'slider'          => true,
-						'responsive' => array(
-							'placeholder' => array(
-								'default' => '4',
-								'medium' => '2',
-								'responsive' => '1',
-							),
-						),
+						'responsive' => true,
 					),
 					'photo_spacing' => array(
 						'type'          => 'unit',

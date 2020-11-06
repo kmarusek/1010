@@ -24,6 +24,8 @@ class PPAnnouncementBarModule extends FLBuilderModule {
             'enabled'       => true, // Defaults to true and can be omitted.
             'partial_refresh'   => true,
 		));
+
+		$this->add_css(BB_POWERPACK()->fa_css);
 	}
 	
 	public function enqueue_scripts() {

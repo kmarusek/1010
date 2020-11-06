@@ -479,9 +479,9 @@ FLBuilderCSS::border_field_rule( array(
 	}
 <?php } ?>
 
-@media only screen and ( max-width: 768px ) {
+@media only screen and ( max-width: <?php echo $global_settings->medium_breakpoint; ?>px ) {
 	.fl-node-<?php echo $id; ?> .pp-gallery-item {
-		width: <?php echo $photo_columns_tablet;?>%;
+		width: <?php echo $photo_columns_tablet; ?>%;
 	}
 	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count; ?>n+1){
 		clear: none;
@@ -490,6 +490,21 @@ FLBuilderCSS::border_field_rule( array(
 		clear: none;
 	}
 	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count_medium; ?>n){
+		margin-right: 0;
+	}
+}
+
+@media only screen and ( max-width: <?php echo $global_settings->responsive_breakpoint; ?>px ) {
+	.fl-node-<?php echo $id; ?> .pp-gallery-item {
+		width: <?php echo $photo_columns_mobile; ?>%;
+	}
+	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count_medium; ?>n+1){
+		clear: none;
+	}
+	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count_medium; ?>n+0){
+		clear: none;
+	}
+	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count_responsive; ?>n){
 		margin-right: 0;
 	}
 	.fl-node-<?php echo $id; ?> .pp-gallery-filters-toggle {
@@ -534,20 +549,5 @@ FLBuilderCSS::border_field_rule( array(
 		<?php if ( isset( $settings->filter_res_text_hover ) && ! empty( $settings->filter_res_text_hover ) ) { ?>
 			color: <?php echo pp_get_color_value( $settings->filter_res_text_hover ); ?>;
 		<?php } ?>
-	}
-}
-
-@media only screen and ( max-width: 480px ) {
-	.fl-node-<?php echo $id; ?> .pp-gallery-item {
-		width: <?php echo $photo_columns_mobile;?>%;
-	}
-	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count_medium; ?>n+1){
-		clear: none;
-	}
-	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count_medium; ?>n+0){
-		clear: none;
-	}
-	.fl-node-<?php echo $id; ?> .pp-gallery-grid-item:nth-child(<?php echo $settings->photo_grid_count_responsive; ?>n){
-		margin-right: 0;
 	}
 }

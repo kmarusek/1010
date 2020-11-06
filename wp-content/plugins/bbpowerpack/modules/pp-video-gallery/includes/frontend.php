@@ -97,6 +97,7 @@ if ( 'carousel' === $layout ) {
 						'video_title'		=> $video->schema_video_title,
 						'video_desc'		=> $video->schema_video_desc,
 						'video_thumbnail'	=> $video->schema_video_thumbnail,
+						'video_thumbnail_src'	=> isset( $video->schema_video_thumbnail_src ) ? $video->schema_video_thumbnail_src : '',
 						'video_upload_date'	=> $video->schema_video_upload_date,
 					) );
 				?>

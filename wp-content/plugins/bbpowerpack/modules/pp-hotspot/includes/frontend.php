@@ -5,7 +5,7 @@ if ( 'library' === $settings->photo_source ) {
 	$img_url = $settings->photo_url;
 }
 if ( empty( $img_url ) ) {
-	$img_url = BB_POWERPACK_URL . 'images/default-img.jpg';
+	$img_url = BB_POWERPACK_URL . 'assets/images/default-img.jpg';
 }
 // Hotspot Tour Check
 if ( 'yes' === $settings->enable_tour ) {

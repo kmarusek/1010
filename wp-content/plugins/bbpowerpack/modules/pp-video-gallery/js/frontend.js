@@ -14,6 +14,7 @@
 		this.lightboxWrap	= '<div class="pp-aspect-ratio-'+this.aspectRatio+'"></div>';
 		this.lightboxData	= [];
 		this.activeIndex	= false;
+		this.filtersObj 	= '';
 
 		this._init();
 	};
@@ -160,31 +161,29 @@
 		},
 
 		_inlinePlay: function($item) {
-			// Stop autoplay from all iframes.
-			$item.parents('.pp-video-gallery-items').find( '.pp-video-has-overlay' ).each(function() {
-				if ( $(this).find('.pp-video-iframe').length > 0 ) {
-					$(this).find('.pp-video-iframe')[0].src = $(this).find('.pp-video-iframe')[0].src.replace('&autoplay=1', '');
-					$(this).find('.pp-video-iframe')[0].src = $(this).find('.pp-video-iframe')[0].src.replace('autoplay=1', '');
-				}
-			});
-
 			$item.find( '.pp-video-image-overlay' ).fadeOut(800, function() {
-				this.remove();
+				$(this).remove();
 			});
 
-			if ( $item.find( '.pp-video' ).length > 0 ) {
-				$item.find( '.pp-video' )[0].play();
+			if ( $item.find( '.pp-video-player' ).length > 0 ) {
+				$item.find( '.pp-video-player' )[0].play();
 
 				return;
 			}
 
 			if ( $item.find( '.pp-video-iframe' ).length > 0 ) {
-				var iframeSrc = $item.find( '.pp-video-iframe' )[0].src.replace('&autoplay=0', '');
+				var lazyLoad = $item.find( '.pp-video-iframe' ).data( 'src' );
+
+				if ( lazyLoad ) {
+					$item.find( '.pp-video-iframe' ).attr( 'src', lazyLoad );
+				}
+
+				var iframeSrc = $item.find( '.pp-video-iframe' )[0].src;
 				iframeSrc = iframeSrc.replace('autoplay=0', '');
-				
+
 				var src = iframeSrc.split('#');
 				iframeSrc = src[0] + '&autoplay=1';
-				
+
 				if ( 'undefined' !== typeof src[1] ) {
 					iframeSrc += '#' + src[1];
 				}
@@ -205,8 +204,12 @@
 				},
 			} );
 
-			var filters = this.elements.wrap.isotope( filterData );
+			var filters = this.filtersObj = this.elements.wrap.isotope( filterData );
 			var filtersWrap = this.elements.node.find( '.pp-video-gallery-filters' );
+
+			this._filterByHash();
+
+			$(window).on('hashchange', $.proxy( this._filterByHash, this ));
 
 			this.elements.wrap.imagesLoaded( $.proxy( function() {
 				filtersWrap.on('click', '.pp-video-gallery-filter', function() {
@@ -217,6 +220,20 @@
 					$(this).addClass('pp-filter--active');
 				});
 			}, this ) );
+		},
+
+		_filterByHash: function() {
+			var filtersWrap = this.elements.node.find( '.pp-video-gallery-filters' );
+
+			if ( '' !== location.hash ) {
+				var hash = location.hash.replace('#', '.');
+				if ( filtersWrap.find( hash ).length > 0 ) {
+					var filterVal = filtersWrap.find( hash ).attr('data-filter');
+					this.filtersObj.isotope({ filter: filterVal });
+					filtersWrap.find('.pp-video-gallery-filter').removeClass('pp-filter--active');
+					filtersWrap.find( hash ).addClass('pp-filter--active');
+				}
+			}
 		},
 
 		_initResponsiveFilters: function() {

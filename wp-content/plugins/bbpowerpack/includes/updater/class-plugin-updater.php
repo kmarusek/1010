@@ -241,7 +241,7 @@ class PP_Plugin_Updater {
 			}
 
 			do_action( "in_plugin_update_message-{$file}", $plugin, $version_info );
-
+			echo '<script> if ( jQuery("#bb-powerpack-update").prev("tr").addClass("update").hasClass("active") ) {  jQuery("#bb-powerpack-update").addClass("active"); } </script>';
 			echo '</div></td></tr>';
 		}
 	}

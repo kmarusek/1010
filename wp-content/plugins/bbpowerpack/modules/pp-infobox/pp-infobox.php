@@ -482,10 +482,12 @@ BB_PowerPack::register_module('PPInfoBoxModule', array(
 							'type'      => 'text',
 							'selector'  => '.pp-more-link'
 						),
+						'connections'	=> array('string'),
 					),
 					'button_icon'               => array(
 						'type'          => 'icon',
-						'label'         => __('Icon', 'bb-powerpack')
+						'label'         => __('Icon', 'bb-powerpack'),
+						'show_remove'	=> true
 					),
 					'button_icon_aligment'             => array(
 						'type'          => 'pp-switch',

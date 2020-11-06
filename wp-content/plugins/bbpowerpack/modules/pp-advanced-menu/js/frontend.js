@@ -145,6 +145,17 @@
 			this._submenuOnClick();
 			if ( $( this.nodeClass ).length && this.type == 'horizontal' ) {
 				this._initMegaMenus();
+				var self = this;
+				$( this.wrapperClass ).find('.pp-has-submenu-container').on( 'click', function( e ) {
+					if ( self.mobileMenuType !== 'off-canvas' && self.mobileMenuType !== 'full-screen' ) {
+						if ( self._isTouch() ) {
+							if ( ! $(this).hasClass('first-click') ) {
+								e.preventDefault();
+								$(this).addClass('first-click');
+							}
+						}
+					}
+				} );
 			}
 
 			if( this._isMenuToggle() || this.type == 'accordion' ) {
@@ -199,7 +210,7 @@
 
 			}, this ) ).on( 'focusout', 'a', $.proxy( function( e ) {
 				if ( $('.pp-advanced-menu .focus').hasClass('pp-has-submenu') ) {
-					$( e.target ).parentsUntil( this.wrapperClass ).removeClass( 'focus' );
+					$( e.target ).parentsUntil( this.wrapperClass ).removeClass( 'focus' ).find('.pp-has-submenu-container').removeClass('first-click');
 				}
 			}, this ) );
 		},

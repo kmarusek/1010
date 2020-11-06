@@ -70,6 +70,66 @@ class PPTableModule extends FLBuilderModule {
 		
 		return $settings;
 	}
+
+	public static function get_general_fields() {
+		$fields = array(
+			'source'		=> array(
+				'type'			=> 'select',
+				'label'			=> __('Source', 'bb-powerpack'),
+				'default'		=> 'manual',
+				'options'		=> array(
+					'manual'		=> __('Manual', 'bb-powerpack'),
+					'csv_import'	=> __('CSV Import', 'bb-powerpack'),
+				),
+				'toggle'		=> array(
+					'manual'		=> array(
+						'tabs'			=> array('header', 'row')
+					),
+					'csv_import'	=> array(
+						'fields'		=> array('csv_import', 'first_row_header')
+					)
+				)
+			),
+			'csv_import'	=> array(
+				'type'			=> 'pp-file',
+				'label'			=> __('Upload CSV', 'bb-powerpack'),
+				'default'		=> '',
+				'accept'		=> '.csv',
+				'preview'		=> array(
+					'type'			=> 'none'
+				)
+			),
+			'first_row_header'	=> array(
+				'type'				=> 'pp-switch',
+				'label'				=> __( 'Make first row as Header?', 'bb-powerpack' ),
+				'default'			=> 'yes',
+				'options'			=> array(
+					'yes'				=> __( 'Yes', 'bb-powerpack' ),
+					'no'				=> __( 'No', 'bb-powerpack' ),
+				),
+			),
+		);
+
+		if ( class_exists( 'acf' ) ) {
+			$fields['source']['options']['acf_repeater'] = __( 'ACF Repeater', 'bb-powerpack' );
+			$fields['source']['toggle']['acf_repeater'] = array(
+				'fields'	=> array( 'acf_repeater_name', 'acf_repeater_post_id' )
+			);
+			$fields['acf_repeater_name'] = array(
+				'type'	=> 'text',
+				'label'	=> __( 'ACF Repeater Name', 'bb-powerpack' ),
+				'default' => '',
+			);
+			$fields['acf_repeater_post_id'] = array(
+				'type'	=> 'text',
+				'label'	=> __( 'Post ID (optional)', 'bb-powerpack' ),
+				'default' => '',
+				'help'	=> __( 'You can enter the ID of the page or post where your ACF Repeater field belongs to. Or leave it empty for current post/page ID.', 'bb-powerpack' ),
+			);
+		}
+
+		return $fields;
+	}
 }
 
 /**
@@ -81,43 +141,7 @@ BB_PowerPack::register_module('PPTableModule', array(
 		'sections'		=> array(
 			'general'		=> array(
 				'title'			=> '',
-				'fields'		=> array(
-					'source'		=> array(
-						'type'			=> 'select',
-						'label'			=> __('Source', 'bb-powerpack'),
-						'default'		=> 'manual',
-						'options'		=> array(
-							'manual'		=> __('Manual', 'bb-powerpack'),
-							'csv_import'	=> __('CSV Import', 'bb-powerpack')
-						),
-						'toggle'		=> array(
-							'manual'		=> array(
-								'tabs'			=> array('header', 'row')
-							),
-							'csv_import'	=> array(
-								'fields'		=> array('csv_import', 'first_row_header')
-							)
-						)
-					),
-					'csv_import'	=> array(
-						'type'			=> 'pp-file',
-						'label'			=> __('Upload CSV', 'bb-powerpack'),
-						'default'		=> '',
-						'accept'		=> '.csv',
-						'preview'		=> array(
-							'type'			=> 'none'
-						)
-					),
-					'first_row_header'	=> array(
-						'type'				=> 'pp-switch',
-						'label'				=> __( 'Make first row as Header?', 'bb-powerpack' ),
-						'default'			=> 'yes',
-						'options'			=> array(
-							'yes'				=> __( 'Yes', 'bb-powerpack' ),
-							'no'				=> __( 'No', 'bb-powerpack' ),
-						),
-					),
-				)
+				'fields'		=> PPTableModule::get_general_fields()
 			),
 			'sort'       	=> array(
                 'title'         => __('Sortable Table', 'bb-powerpack'),
@@ -245,7 +269,8 @@ BB_PowerPack::register_module('PPTableModule', array(
 					),
 					'header_padding'	=> array(
                         'type'				=> 'dimension',
-                        'label'				=> __('Padding', 'bb-powerpack'),
+						'label'				=> __('Padding', 'bb-powerpack'),
+						'default'			=> 10,
 						'slider'			=> true,
 						'units'				=> array( 'px' ),
                         'preview'			=> array(

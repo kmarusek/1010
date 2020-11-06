@@ -16,7 +16,7 @@
 					<?php
 				} else {
 					?>
-						<img src="<?php echo BB_POWERPACK_URL; ?>images/placeholder-300.jpg" alt="<?php echo $cat->name; ?>">
+						<img src="<?php echo BB_POWERPACK_URL; ?>assets/images/placeholder-300.jpg" alt="<?php echo $cat->name; ?>">
 				<?php } ?>
 			</div>
 			<?php } ?>

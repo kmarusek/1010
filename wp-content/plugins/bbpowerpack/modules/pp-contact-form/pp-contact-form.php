@@ -124,10 +124,14 @@ class PPContactFormModule extends FLBuilderModule {
 				$settings = $module->settings;
 			}
 
+			if ( class_exists( 'FLThemeBuilderFieldConnections' ) ) {
+				$settings = FLThemeBuilderFieldConnections::connect_settings( $settings );
+			}
+
 			if ( isset($settings->mailto_email) && !empty($settings->mailto_email) ) {
 				$mailto   = $settings->mailto_email;
 			} else {
-				$mailto   = $mailto;
+				$mailto   = $admin_email;
 			}
 
 			if ( isset( $settings->subject_toggle ) && ( 'hide' == $settings->subject_toggle ) && isset( $settings->subject_hidden ) && ! empty( $settings->subject_hidden ) ) {
@@ -451,7 +455,17 @@ BB_PowerPack::register_module('PPContactFormModule', array(
 						'options'       => array(
 							'show'      => __('Show', 'bb-powerpack'),
 							'hide'      => __('Hide', 'bb-powerpack'),
-						)
+						),
+						'toggle'			=> array(
+							'show'				=> array(
+								'fields'			=> array( 'name_required' )
+							),
+						),
+					),
+					'name_required'	=> array(
+						'type'          => 'pp-switch',
+						'label'         => __('Name Field Required', 'bb-powerpack'),
+						'default'       => 'yes',
 					),
 					'email_toggle'   => array(
 						'type'          => 'pp-switch',
@@ -460,7 +474,17 @@ BB_PowerPack::register_module('PPContactFormModule', array(
 						'options'       => array(
 							'show'      => __('Show', 'bb-powerpack'),
 							'hide'      => __('Hide', 'bb-powerpack'),
-						)
+						),
+						'toggle'			=> array(
+							'show'				=> array(
+								'fields'			=> array( 'email_required' )
+							),
+						),
+					),
+					'email_required'	=> array(
+						'type'          => 'pp-switch',
+						'label'         => __('Email Field Required', 'bb-powerpack'),
+						'default'       => 'yes',
 					),
 					'phone_toggle'   => array(
 						'type'          => 'pp-switch',
@@ -469,7 +493,17 @@ BB_PowerPack::register_module('PPContactFormModule', array(
 						'options'       => array(
 							'show'      => __('Show', 'bb-powerpack'),
 							'hide'      => __('Hide', 'bb-powerpack'),
-						)
+						),
+						'toggle'			=> array(
+							'show'				=> array(
+								'fields'			=> array( 'phone_required' )
+							),
+						),
+					),
+					'phone_required'	=> array(
+						'type'          => 'pp-switch',
+						'label'         => __('Phone Field Required', 'bb-powerpack'),
+						'default'       => 'yes',
 					),
 					'subject_toggle'	=> array(
 						'type'		  		=> 'pp-switch',
@@ -480,10 +514,18 @@ BB_PowerPack::register_module('PPContactFormModule', array(
 							'hide'	   			=> __( 'Hide', 'bb-powerpack' ),
 						),
 						'toggle'			=> array(
+							'show'				=> array(
+								'fields'			=> array( 'subject_required' )
+							),
 							'hide'				=> array(
 								'fields'			=> array( 'subject_hidden' ),
 							),
 						),
+					),
+					'subject_required'	=> array(
+						'type'          => 'pp-switch',
+						'label'         => __('Subject Field Required', 'bb-powerpack'),
+						'default'       => 'yes',
 					),
 					'subject_hidden'	=> array(
 						'type'		  		=> 'text',
@@ -499,7 +541,17 @@ BB_PowerPack::register_module('PPContactFormModule', array(
 						'options'       => array(
 							'show'      => __('Show', 'bb-powerpack'),
 							'hide'      => __('Hide', 'bb-powerpack'),
-						)
+						),
+						'toggle'			=> array(
+							'show'				=> array(
+								'fields'			=> array( 'message_required' )
+							),
+						),
+					),
+					'message_required'	=> array(
+						'type'          => 'pp-switch',
+						'label'         => __('Message Field Required', 'bb-powerpack'),
+						'default'       => 'yes',
 					),
 					'checkbox_toggle'	=> array(
 						'type'          => 'pp-switch',
@@ -511,9 +563,14 @@ BB_PowerPack::register_module('PPContactFormModule', array(
 						),
 						'toggle'		=> array(
 							'show'			=> array(
-								'fields'		=> array('checked_default', 'checkbox_label')
+								'fields'		=> array('checkbox_required', 'checked_default', 'checkbox_label')
 							)
 						)
+					),
+					'checkbox_required'	=> array(
+						'type'          => 'pp-switch',
+						'label'         => __('Checkbox Field Required', 'bb-powerpack'),
+						'default'       => 'yes',
 					),
 					'checked_default'	=> array(
 						'type'          => 'pp-switch',
