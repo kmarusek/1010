@@ -7,7 +7,6 @@
 
         this.infinite          = settings.infinite;
         this.arrows            = settings.arrows;
-        this.arrows_responsive = settings.responsive_arrows;
         this.slidesToScroll    = settings.slidesToScroll;
         this.autoplay          = settings.autoplay;
         this.on_pause_hover    = settings.onhover;
@@ -21,6 +20,8 @@
         this.small_breakpoint  = settings.small_breakpoint;
         this.next_arrow = settings.next_arrow;
         this.prev_arrow = settings.prev_arrow;
+        this.enable_fade = settings.enable_fade;
+        this.enable_dots = settings.enable_dots;
         
         /* Execute when slick initialize */
         $( this.nodeClass ).find( '.uabb-image-carousel' ).on('init', $.proxy( this._adaptiveImageHeight, this ) );
@@ -51,7 +52,8 @@
                 img_carousel = node.find( '.uabb-image-carousel' );
 
             img_carousel.uabbslick({
-                dots: false,
+                dots: this.enable_dots,
+                fade: this.enable_fade,
                 infinite: this.infinite,
                 arrows: this.arrows,
                 lazyLoad: 'ondemand',
@@ -74,11 +76,10 @@
                         breakpoint: this.small_breakpoint,
                         settings: {
                             slidesToShow: this.small,
-                            arrows: this.arrows_responsive
                         }
                     }
                 ]
-            });
+                });
 
             img_carousel.on('afterChange', $.proxy( this._adaptiveImageHeight, this ) );
         },

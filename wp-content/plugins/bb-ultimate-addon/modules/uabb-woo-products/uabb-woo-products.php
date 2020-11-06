@@ -43,7 +43,6 @@ class UABBWooProductsModule extends FLBuilderModule {
 		$this->add_js( 'carousel', BB_ULTIMATE_ADDON_URL . 'assets/js/global-scripts/jquery-carousel.js', array( 'jquery' ), '', true );
 
 		add_filter( 'fl_builder_loop_query_args', array( $this, 'woo_filter_args' ) );
-		add_filter( 'nonce_user_logged_out', array( $this, 'filter_nonce_user_logged_out' ) );
 
 		// quick view ajax.
 		add_action( 'wp_ajax_uabb_woo_quick_view', array( $this, 'load_quick_view_product' ) );
@@ -714,6 +713,7 @@ class UABBWooProductsModule extends FLBuilderModule {
 	 * @return void.
 	 */
 	public function add_cart_single_product_ajax() {
+		add_filter( 'nonce_user_logged_out', array( $this, 'filter_nonce_user_logged_out' ) );
 		if ( isset( $_POST['security'] ) && wp_verify_nonce( $_POST['security'], 'uabb-woo-nonce' ) ) {
 			$product_id   = isset( $_POST['product_id'] ) ? sanitize_text_field( $_POST['product_id'] ) : 0;
 			$variation_id = isset( $_POST['variation_id'] ) ? sanitize_text_field( $_POST['variation_id'] ) : 0;

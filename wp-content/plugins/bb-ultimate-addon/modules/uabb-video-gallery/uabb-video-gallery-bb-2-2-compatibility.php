@@ -694,7 +694,11 @@ FLBuilder::register_module(
 								'always' => __( 'Always', 'uabb' ),
 							),
 							'toggle'  => array(
-								'yes' => array(
+								'yes'    => array(
+									'fields'   => array( 'caption_color', 'caption_font', 'caption_font_size_unit', 'caption_line_height_unit', 'caption_letter_spacing', 'caption_transform' ),
+									'sections' => array( 'section_typography_caption' ),
+								),
+								'always' => array(
 									'fields'   => array( 'caption_color', 'caption_font', 'caption_font_size_unit', 'caption_line_height_unit', 'caption_letter_spacing', 'caption_transform' ),
 									'sections' => array( 'section_typography_caption' ),
 								),

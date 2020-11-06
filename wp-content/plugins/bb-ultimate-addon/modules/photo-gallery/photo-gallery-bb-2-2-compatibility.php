@@ -426,7 +426,7 @@ FLBuilder::register_module(
 								'yes' => __( 'Yes', 'uabb' ),
 								'no'  => __( 'No', 'uabb' ),
 							),
-							'help'    => $notice,
+							'help'    => 'This option is to set shadows for the individual images in the gallery',
 							'toggle'  => array(
 								'yes' => array(
 									'fields'   => array( 'img_shadow_color_hor', 'img_shadow_color_ver', 'img_shadow_color_blur', 'img_shadow_color_spr', 'img_shadow_color', 'img_shadow_color_opc' ),

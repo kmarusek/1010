@@ -73,7 +73,7 @@ $col = ( 'carousel' === $settings->is_carousel ) ? $settings->post_per_grid_desk
  */
 
 if ( 'masonary' === $settings->is_carousel || 'grid' === $settings->is_carousel ) {
-	$module->render_masonary_filters();
+	$module->render_masonary_filters( $the_query->posts );
 }
 
 ?>
@@ -141,6 +141,9 @@ if ( 'masonary' === $settings->is_carousel || 'grid' === $settings->is_carousel 
 	}
 
 	?>
+	<?php if ( 'grid' === $settings->is_carousel ) : ?>
+	<div class="uabb-post-grid-sizer"></div>
+	<?php endif; ?>
 </div>
 <?php
 

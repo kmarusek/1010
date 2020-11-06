@@ -3,6 +3,7 @@
 		
 		this.settings       = settings;
 		this.node           = settings.id;
+		this.uabb_ajaxurl   = settings.uabb_ajaxurl;
 		this.nodeClass      = '.fl-node-' + settings.id;
 		this.layout 		= settings.layout;
 		this.pagination     = settings.pagination;
@@ -288,7 +289,8 @@
 		_getAjaxPhotos: function(callback) {
 			var self = this;
 			var _nonce = $(self.wrapperClass).data( 'nonce' );
-
+			var ajaxurl = this.uabb_ajaxurl;
+			
 			var data = {
 				action: 'uabb_get_photos',
 				node_id: self.settings.id,
@@ -301,7 +303,7 @@
 
 			$.ajax({
 				type: 'post',
-				url: uabb.ajax_url,
+				url: ajaxurl,
 				data: data,
 				dataType: 'json',
 				async: true,

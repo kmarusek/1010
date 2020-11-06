@@ -1281,6 +1281,8 @@ class BlogPostsModule extends FLBuilderModule {
 	public function enqueue_scripts() {
 
 		$this->add_js( 'jquery-infinitescroll' );
+		$this->add_js( 'imagesloaded' );
+		$this->add_js( 'jquery-throttle' );
 		$this->add_js( 'jquery-mosaicflow' );
 		$this->add_js( 'isotope', BB_ULTIMATE_ADDON_URL . 'assets/js/global-scripts/jquery-masonary.js', array( 'jquery' ), '', true );
 		$this->add_js( 'carousel', BB_ULTIMATE_ADDON_URL . 'assets/js/global-scripts/jquery-carousel.js', array( 'jquery' ), '', true );
@@ -1767,14 +1769,22 @@ class BlogPostsModule extends FLBuilderModule {
 	 * Function that renders Mansonry Filters
 	 *
 	 * @method render_masonary_filters
+	 * @param array $query_posts gets array of posts.
 	 */
-	public function render_masonary_filters() {
+	public function render_masonary_filters( $query_posts ) {
 
 		$post_type = ( isset( $this->settings->post_type ) ) ? $this->settings->post_type : 'post';
 
 		// Get taxonomies for given custom/default post type.
 		$taxonomies = get_object_taxonomies( $post_type, 'objects' );
 		$data       = array();
+
+		$post_ids = array_map(
+			function( $arr ) {
+				return $arr->ID;
+			},
+			$query_posts
+		);
 
 		foreach ( $taxonomies as $tax_slug => $tax ) {
 
@@ -1812,7 +1822,7 @@ class BlogPostsModule extends FLBuilderModule {
 
 				if ( ! empty( $object_taxonomies ) ) {
 
-					$category_detail = get_terms( $this->settings->$cat );
+					$category_detail = get_terms( $this->settings->$cat, array( 'object_ids' => $post_ids ) );
 
 					if ( count( $category_detail ) > 0 ) {
 
@@ -2162,7 +2172,8 @@ class BlogPostsModule extends FLBuilderModule {
 			$post_type         = ( isset( $this->settings->post_type ) ) ? $this->settings->post_type : 'post';
 			$object_taxonomies = get_object_taxonomies( $post_type );
 			if ( ! empty( $object_taxonomies ) ) {
-				$category_detail = wp_get_post_terms( $obj->ID, $object_taxonomies[0] );
+				$taxonomy        = ( 'product' === $this->settings->post_type && isset( $object_taxonomies[2] ) ) ? $object_taxonomies[2] : $object_taxonomies[0];
+				$category_detail = wp_get_post_terms( $obj->ID, $taxonomy );
 
 				if ( count( $category_detail ) > 0 ) {
 
@@ -2240,7 +2251,8 @@ class BlogPostsModule extends FLBuilderModule {
 		$show_comments   = ( isset( $this->settings->show_comments ) ) ? $this->settings->show_comments : 'no';
 		$show_date       = ( isset( $this->settings->show_date ) ) ? $this->settings->show_date : 'yes';
 
-		$output = '';
+		$output         = '';
+		$meta_separator = $this->settings->seprator_meta;
 
 		if ( 'yes' === $show_meta ) {
 			if ( 'yes' === $show_author || 'yes' === $show_categories || 'yes' === $show_tags || 'yes' === $show_comments || 'yes' === $show_date ) {
@@ -2273,7 +2285,7 @@ class BlogPostsModule extends FLBuilderModule {
 					}
 					$output_array[] = $output;
 				}
-					$meta_html = implode( ' | ', array_filter( $output_array ) );
+					$meta_html = implode( $meta_separator, array_filter( $output_array ) );
 					echo wp_kses_post( $meta_html );
 				?>
 				</<?php echo esc_attr( $this->settings->meta_tag_selection ); ?>>

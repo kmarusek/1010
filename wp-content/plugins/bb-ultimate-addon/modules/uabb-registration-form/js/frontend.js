@@ -42,6 +42,7 @@
 		this.password_match_err_msg		 = settings.password_match_err_msg;
 		this.email_invalid_err_msg		 = settings.email_invalid_err_msg;
 		this.required_field_err_msg		 = settings.required_field_err_msg;
+		this.wp_version                  = settings.wp_version;
 		submit_button.on('click', $.proxy( this._submitform, this ) );
 		confirm_password = $node_module.find( 'input[name=uabb_confirm_pass]' );
 
@@ -76,9 +77,13 @@
 			var pass1 = $pass1.val();
    			var pass2 = $pass2.val();
 
-   				// Extend our blacklist array with those from the inputs & site data
-    		blacklistArray = blacklistArray.concat( wp.passwordStrength.userInputBlacklist() )
- 
+   			// Extend our blacklist array with those from the inputs & site data
+   			if ( this.wp_version ) {
+   				blacklistArray = blacklistArray.concat( wp.passwordStrength.userInputDisallowedList() );
+   			} else {
+    			blacklistArray = blacklistArray.concat( wp.passwordStrength.userInputBlacklist() );
+    		}
+
     			// Get the password strength
    			var strength = wp.passwordStrength.meter( pass1, blacklistArray );
  
@@ -180,6 +185,10 @@
 				
 			} else {
 				node_module.find( '.uabb-rf-honeypot' ).hide();
+			}
+
+			if ( user_pass.length > 0  && '' !== user_pass.val() ) {
+				$password = user_pass.val();
 			}
 
 			if ( user_pass.length > 0 && confirm_password.length > 0 ) {
