@@ -67,6 +67,14 @@ echo 'FLBuilderConfig              = ' . FLBuilderUtils::json_encode( apply_filt
 	'statsEnabled'               => get_site_option( 'fl_builder_usage_enabled', false ),
 	'rememberTab'                => apply_filters( 'fl_remember_settings_tabs_enabled', true ),
 	'select2Enabled'             => apply_filters( 'fl_select2_enabled', true ),
+	'uploadTypes'                => apply_filters( 'fl_media_modal_types', array(
+		'image' => 'image',
+		'video' => 'video',
+	) ),
+	'themerLayoutsUrl'           => admin_url( '/edit.php?post_type=fl-theme-layout' ),
+	'userCaps'                   => array(
+		'unfiltered_html' => current_user_can( 'unfiltered_html' ),
+	),
 ) ) ) . ';';
 
 /**
@@ -131,6 +139,7 @@ echo 'FLBuilderStrings             = ' . FLBuilderUtils::json_encode( apply_filt
 	'large'                          => esc_attr__( 'Large', 'fl-builder' ),
 	'manageTemplates'                => esc_attr__( 'Manage Templates', 'fl-builder' ),
 	'medium'                         => esc_attr__( 'Medium', 'fl-builder' ),
+	'mobile'                         => esc_attr__( 'Small', 'fl-builder' ),
 	'module'                         => esc_attr__( 'Module', 'fl-builder' ),
 	'moduleTemplateSaved'            => esc_attr__( 'Module Saved!', 'fl-builder' ),
 	'move'                           => esc_attr__( 'Move', 'fl-builder' ),
@@ -218,6 +227,10 @@ echo 'FLBuilderStrings             = ' . FLBuilderUtils::json_encode( apply_filt
 	'widgetsCategoryTitle'           => esc_attr__( 'WordPress Widgets', 'fl-builder' ),
 	'uncategorized'                  => esc_attr__( 'Uncategorized', 'fl-builder' ),
 	'yesPlease'                      => esc_attr__( 'Yes Please!', 'fl-builder' ),
+	'noScriptWarn'                   => array(
+		'heading' => esc_attr__( 'Error! Settings not saved.', 'fl-builder' ),
+		'message' => esc_attr__( 'These settings contain sensitive code that can only be edited by an administrator of this site. Remove the code or contact an administrator for help.', 'fl-builder' ),
+	),
 	'savedStatus'                    => array(
 		'saving'               => esc_attr__( 'Saving...', 'fl-builder' ),
 		'savingTooltip'        => esc_attr__( 'The layout is currently being saved', 'fl-builder' ),
@@ -232,7 +245,6 @@ echo 'FLBuilderStrings             = ' . FLBuilderUtils::json_encode( apply_filt
 		'publishingTooltip'    => esc_attr__( 'Changes being published', 'fl-builder' ),
 		'nothingToSave'        => esc_attr__( 'No new changes to save', 'fl-builder' ),
 		'hasAlreadySaved'      => esc_attr__( 'Your changes are saved', 'fl-builder' ),
-
 	),
 	'typeLabels'                     => array(
 		'template' => esc_attr__( 'Template', 'fl-builder' ),

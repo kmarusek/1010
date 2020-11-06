@@ -20,10 +20,10 @@ $rel      = $module->get_rel();
 		</a>
 		<?php endif; ?>
 		<?php if ( $photo && ! empty( $photo->caption ) && 'hover' == $settings->show_caption ) : ?>
-		<div class="fl-photo-caption fl-photo-caption-hover" itemprop="caption"><?php echo $photo->caption; ?></div>
+		<div class="fl-photo-caption fl-photo-caption-hover" itemprop="caption"><?php echo wp_kses_post( wp_get_attachment_caption( $photo->id ) ); ?></div>
 		<?php endif; ?>
 	</div>
 	<?php if ( $photo && ! empty( $photo->caption ) && 'below' == $settings->show_caption ) : ?>
-	<div class="fl-photo-caption fl-photo-caption-below" itemprop="caption"><?php echo $photo->caption; ?></div>
+	<div class="fl-photo-caption fl-photo-caption-below" itemprop="caption"><?php echo wp_kses_post( wp_get_attachment_caption( $photo->id ) ); ?></div>
 	<?php endif; ?>
 </div>

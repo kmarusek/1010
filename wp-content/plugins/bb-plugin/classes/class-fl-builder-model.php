@@ -265,7 +265,7 @@ final class FLBuilderModel {
 	 * @return string
 	 */
 	static public function get_relative_plugin_url() {
-		$url = str_ireplace( home_url(), '', FL_BUILDER_URL );
+		$url         = str_ireplace( home_url(), '', FL_BUILDER_URL );
 		$parsed_path = parse_url( FL_BUILDER_URL, PHP_URL_PATH );
 
 		if ( strstr( $url, '://' ) && $parsed_path ) {
@@ -512,6 +512,7 @@ final class FLBuilderModel {
 
 			wp_set_post_lock( $data['fl_builder_post_lock']['post_id'] );
 		}
+		return $response;
 	}
 
 	/**
@@ -950,11 +951,10 @@ final class FLBuilderModel {
 	 * @since 1.6.3
 	 * @return void
 	 */
-	static public function delete_asset_cache_for_all_posts() {
+	static public function delete_asset_cache_for_all_posts( $parts = '*' ) {
 		$cache_dir = self::get_cache_dir();
-		$css       = glob( $cache_dir['path'] . '*.css' );
-		$js        = glob( $cache_dir['path'] . '*.js' );
-
+		$css       = glob( $cache_dir['path'] . $parts . '.css' );
+		$js        = glob( $cache_dir['path'] . $parts . '.js' );
 		if ( is_array( $css ) ) {
 			array_map( array( fl_builder_filesystem(), 'unlink' ), $css );
 		}
@@ -2922,10 +2922,7 @@ final class FLBuilderModel {
 	static public function get_default_enabled_modules() {
 		$default = array_keys( self::$modules );
 
-		// These modules are deprecated and disabled by default.
-		$deprecated = array(
-			'social-buttons',
-		);
+		$deprecated = self::get_deprecated_modules();
 
 		// Remove deprecated modules from the defaults.
 		foreach ( $default as $key => $slug ) {
@@ -2935,6 +2932,17 @@ final class FLBuilderModel {
 		}
 
 		return array_values( $default );
+	}
+
+	/**
+	 * @since 2.4.1
+	 */
+	static public function get_deprecated_modules() {
+		// These modules are deprecated and disabled by default.
+		$deprecated = array(
+			'social-buttons',
+		);
+		return $deprecated;
 	}
 
 	/**
@@ -4036,6 +4044,36 @@ final class FLBuilderModel {
 			'settings' => $new_settings,
 			'layout'   => FLBuilderAJAXLayout::render(),
 		);
+	}
+
+	/**
+	 * Verify the settings for a node to make sure they
+	 * can be saved safely.
+	 *
+	 * @since 2.4.1
+	 * @param object $settings The settings to verify.
+	 * @return bool
+	 */
+	static public function verify_settings( $settings ) {
+		return self::verify_settings_kses( $settings );
+	}
+
+	/**
+	 * Verify the settings for a node by running them through wp_kses.
+	 * Any settings that have changed mean unallowed code was entered.
+	 *
+	 * @since 2.4.1
+	 * @param object $settings The settings to verify.
+	 * @return bool
+	 */
+	public static function verify_settings_kses( $settings ) {
+		foreach ( $settings as $key => $value ) {
+			$sanitized = wp_kses_post_deep( $value );
+			if ( json_encode( $sanitized ) !== json_encode( $value ) ) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	/**
@@ -6005,8 +6043,11 @@ final class FLBuilderModel {
 
 		// glob() will return false on error so cast as an array() just in case.
 		foreach ( (array) $templates as $template ) {
+			$basename = basename( $template );
 
-			if ( 'templates.dat' == basename( $template ) ) {
+			if ( 'templates.dat' === $basename ) {
+				continue;
+			} elseif ( true !== FL_BUILDER_LITE && 'templates-config.dat' === $basename ) {
 				continue;
 			}
 
@@ -6263,6 +6304,7 @@ final class FLBuilderModel {
 				'type'     => 'core',
 				'kind'     => 'template',
 				'content'  => ! in_array( $type, array( 'row', 'column', 'module' ) ) ? 'layout' : $type,
+				'premium'  => isset( $template->premium ) ? ! ! $template->premium : false,
 			), $template );
 		}
 
@@ -6378,6 +6420,23 @@ final class FLBuilderModel {
 	 */
 	static public function get_module_templates_data() {
 		return apply_filters( 'fl_builder_module_templates_data', self::get_template_selector_data( 'module' ) );
+	}
+
+	/**
+	 * Returns the config for pro modules if it exists.
+	 *
+	 * @since 2.4
+	 * @return object
+	 */
+	static public function get_pro_modules_config() {
+		$path   = FL_BUILDER_DIR . 'json/modules-config.json';
+		$config = new stdClass;
+
+		if ( file_exists( $path ) ) {
+			$config = json_decode( file_get_contents( $path ) );
+		}
+
+		return $config;
 	}
 
 	/**

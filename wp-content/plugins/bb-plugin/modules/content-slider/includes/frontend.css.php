@@ -121,17 +121,17 @@ for ( $i = 0; $i < count( $settings->slides ); $i++ ) {
 
 	// Text Color
 	if ( ! empty( $slide->text_color ) ) {
-		echo '.fl-node-' . $id . ' .fl-slide-' . $i . ' .fl-slide-title, ';
-		echo '.fl-node-' . $id . ' .fl-slide-' . $i . ' .fl-slide-text, ';
-		echo '.fl-node-' . $id . ' .fl-slide-' . $i . ' .fl-slide-text * ';
+		echo '.fl-builder-content .fl-node-' . $id . ' .fl-slide-' . $i . ' .fl-slide-title, ';
+		echo '.fl-builder-content .fl-node-' . $id . ' .fl-slide-' . $i . ' .fl-slide-text, ';
+		echo '.fl-builder-content .fl-node-' . $id . ' .fl-slide-' . $i . ' .fl-slide-text * ';
 		echo '{ color: ' . FLBuilderColor::hex_or_rgb( $slide->text_color ) . '; }';
-		echo '.fl-node-' . $id . ' .fl-slide-' . $i . ' .fl-slide-text strong ';
+		echo '.fl-builder-content .fl-node-' . $id . ' .fl-slide-' . $i . ' .fl-slide-text strong ';
 		echo '{ color: inherit; }';
 	}
 
 	// Text BG Color
 	if ( ! empty( $slide->text_bg_color ) ) {
-		echo '.fl-node-' . $id . ' .fl-slide-' . $i . ' .fl-slide-content ';
+		echo '.fl-builder-content .fl-node-' . $id . ' .fl-slide-' . $i . ' .fl-slide-content ';
 		echo '{ background-color: ' . FLBuilderColor::hex_or_rgb( $slide->text_bg_color ) . ';';
 		echo 'padding-top: ' . $slide->text_padding_top . 'px;';
 		echo 'padding-right: ' . $slide->text_padding_right . 'px;';
@@ -152,9 +152,9 @@ for ( $i = 0; $i < count( $settings->slides ); $i++ ) {
 
 		// Responsive Text Color
 		if ( ! empty( $slide->r_text_color ) ) {
-			echo '.fl-node-' . $id . ' .fl-slide-' . $i . ' .fl-slide-title, ';
-			echo '.fl-node-' . $id . ' .fl-slide-' . $i . ' .fl-slide-text, ';
-			echo '.fl-node-' . $id . ' .fl-slide-' . $i . ' .fl-slide-text * ';
+			echo '.fl-builder-content .fl-node-' . $id . ' .fl-slide-' . $i . ' .fl-slide-title, ';
+			echo '.fl-builder-content .fl-node-' . $id . ' .fl-slide-' . $i . ' .fl-slide-text, ';
+			echo '.fl-builder-content .fl-node-' . $id . ' .fl-slide-' . $i . ' .fl-slide-text * ';
 			echo '{ color: ' . FLBuilderColor::hex_or_rgb( $slide->r_text_color ) . '; }';
 			echo '.fl-node-' . $id . ' .fl-slide-' . $i . ' .fl-slide-text strong ';
 			echo '{ color: inherit; }';
@@ -167,10 +167,10 @@ for ( $i = 0; $i < count( $settings->slides ); $i++ ) {
 
 		// Responsive Text BG Color
 		if ( ! empty( $slide->r_text_bg_color ) ) {
-			echo '.fl-node-' . $id . ' .fl-slide-' . $i . ' .fl-slide-content ';
+			echo '.fl-builder-content .fl-node-' . $id . ' .fl-slide-' . $i . ' .fl-slide-content ';
 			echo '{ background-color: ' . FLBuilderColor::hex_or_rgb( $slide->r_text_bg_color ) . '; }';
 		} else {
-			echo '.fl-node-' . $id . ' .fl-slide-' . $i . ' .fl-slide-content ';
+			echo '.fl-builder-content .fl-node-' . $id . ' .fl-slide-' . $i . ' .fl-slide-content ';
 			echo '{ background-color: transparent; }';
 		}
 
@@ -189,34 +189,17 @@ for ( $i = 0; $i < count( $settings->slides ); $i++ ) {
 			$slide->btn_style = 'flat';
 		}
 
-		FLBuilderCSS::responsive_rule( array(
+		FLBuilderCSS::dimension_field_rule( array(
 			'settings'     => $slide,
 			'unit'         => 'px',
-			'setting_name' => 'btn_padding_top',
-			'selector'     => ".fl-slide-$i .fl-slide-cta-button .fl-button-wrap",
-			'prop'         => 'padding-top',
-		) );
-
-		FLBuilderCSS::responsive_rule( array(
-			'settings'     => $slide,
-			'unit'         => 'px',
-			'setting_name' => 'btn_padding_right',
-			'selector'     => ".fl-slide-$i .fl-slide-cta-button .fl-button-wrap",
-			'prop'         => 'padding-right',
-		) );
-		FLBuilderCSS::responsive_rule( array(
-			'settings'     => $slide,
-			'unit'         => 'px',
-			'setting_name' => 'btn_padding_bottom',
-			'selector'     => ".fl-slide-$i .fl-slide-cta-button .fl-button-wrap",
-			'prop'         => 'padding-bottom',
-		) );
-		FLBuilderCSS::responsive_rule( array(
-			'settings'     => $slide,
-			'unit'         => 'px',
-			'setting_name' => 'btn_padding_left',
-			'selector'     => ".fl-slide-$i .fl-slide-cta-button .fl-button-wrap",
-			'prop'         => 'padding-left',
+			'setting_name' => 'btn_padding',
+			'selector'     => ".fl-slide-$i .fl-slide-cta-button .fl-button-wrap a.fl-button",
+			'props'        => array(
+				'padding-top'    => 'btn_padding_top',
+				'padding-right'  => 'btn_padding_right',
+				'padding-bottom' => 'btn_padding_bottom',
+				'padding-left'   => 'btn_padding_left',
+			),
 		) );
 
 		FLBuilderCSS::rule( array(
