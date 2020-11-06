@@ -576,8 +576,8 @@ FLCustomizer::add_panel('fl-content', array(
 					),
 					'control' => array(
 						'class'       => 'WP_Customize_Control',
-						'label'       => __( 'Number of Columns', 'fl-automator' ),
-						'description' => __( 'Select how many columns on product category pages?', 'fl-automator' ),
+						'label'       => __( 'Number of Columns/Products per row', 'fl-automator' ),
+						'description' => __( 'How many columns/products per row to display on the page?', 'fl-automator' ),
 						'type'        => 'select',
 						'choices'     => array(
 							'1' => __( '1 Column', 'fl-automator' ),
@@ -586,6 +586,25 @@ FLCustomizer::add_panel('fl-content', array(
 							'4' => __( '4 Columns', 'fl-automator' ),
 							'5' => __( '5 Columns', 'fl-automator' ),
 							'6' => __( '6 Columns', 'fl-automator' ),
+						),
+					),
+				),
+
+				/* Number of Products Per Page */
+				'fl-woo-products-per-page'   => array(
+					'setting' => array(
+						'default'           => '16',
+						'sanitize_callback' => 'FLCustomizer::sanitize_number',
+					),
+					'control' => array(
+						'class'       => 'FLCustomizerControl',
+						'type'        => 'slider',
+						'label'       => __( 'Products Per Page', 'fl-automator' ),
+						'description' => __( 'How many products to display per page?', 'fl-automator' ),
+						'choices'     => array(
+							'min'  => 1,
+							'max'  => 200,
+							'step' => 1,
 						),
 					),
 				),

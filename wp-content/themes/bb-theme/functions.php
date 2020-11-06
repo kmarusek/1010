@@ -11,7 +11,7 @@ Appearance > Theme Settings > Code or create a child theme.
 */
 
 // Defines
-define( 'FL_THEME_VERSION', '1.7.6.3' );
+define( 'FL_THEME_VERSION', '1.7.7' );
 define( 'FL_THEME_DIR', get_template_directory() );
 define( 'FL_THEME_URL', get_template_directory_uri() );
 
@@ -60,6 +60,7 @@ if ( function_exists( 'wp_body_open' ) ) {
 add_filter( 'body_class', 'FLTheme::body_class' );
 add_filter( 'excerpt_more', 'FLTheme::excerpt_more' );
 add_filter( 'loop_shop_columns', 'FLTheme::woocommerce_columns' );
+add_filter( 'loop_shop_per_page', 'FLTheme::woocommerce_shop_products_per_page' );
 add_filter( 'comment_form_default_fields', 'FLTheme::comment_form_default_fields' );
 add_filter( 'woocommerce_style_smallscreen_breakpoint', 'FLTheme::woo_mobile_breakpoint' );
 add_filter( 'walker_nav_menu_start_el', 'FLTheme::nav_menu_start_el', 10, 4 );

@@ -389,7 +389,7 @@
 			this._css( 'fl-button-background-hover-color', hoverSelector, 'background-color' );
 			// Border Color
 			this._css( 'fl-button-border-color', mainSelector, 'border-color' );
-			this._css( 'fl-button-border-color', hoverSelector, 'border-color' );
+			this._css( 'fl-button-border-hover-color', hoverSelector, 'border-color' );
 			// Border Width
 			this._css( 'fl-button-border-width', mainSelector, 'border-width', '{val}px' );
 			this._css( 'fl-button-border-width', hoverSelector, 'border-width', '{val}px' );

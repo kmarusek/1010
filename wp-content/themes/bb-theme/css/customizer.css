@@ -85,7 +85,7 @@
     position: relative;
     top: 1px;
 }
-.customize-control-slider input#fl-range-value-input {
+.customize-control-slider input.fl-range-value-input {
 	width: 42px;
     height: 23px;
     font-size: 13px;

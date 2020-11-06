@@ -388,12 +388,14 @@
 
 				'fl-button-border-line',
 				'fl-button-border-style',
+
+				'fl-button-border-radius',
 			],
 			callback: function( val ) {
 				return 'custom' === val;
 			}
 		},{
-			controls: [ 'fl-button-border-width', 'fl-button-border-radius', 'fl-button-border-color' ],
+			controls: [ 'fl-button-border-width', 'fl-button-border-color', 'fl-button-border-hover-color' ],
 			callback: function( val ) {
 				return ( 'custom' === val ) && ( 'none' !== api( 'fl-button-border-style' ).get() );
 			}
@@ -405,7 +407,7 @@
 		}],
 
 		'fl-button-border-style': [{
-			controls: [ 'fl-button-border-width', 'fl-button-border-radius', 'fl-button-border-color' ],
+			controls: [ 'fl-button-border-width', 'fl-button-border-color', 'fl-button-border-hover-color' ],
 			callback: function( val ) {
 				return ( 'none' !== val ) && ( 'custom' === api( 'fl-button-style' ).get() );
 			}

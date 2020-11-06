@@ -52,7 +52,6 @@ Appearance > Theme Settings > Code or create a child theme.
 	font-size: @button-font-size;
 	line-height: @button-line-height;
 	text-transform: @button-text-transform;
-
 	border-style: @button-border-style;
 	border-width: @button-border-width;
 	border-color: @button-border-color;
@@ -66,10 +65,9 @@ Appearance > Theme Settings > Code or create a child theme.
 .fl-button-hover-styles() {
 	background-color: @button-bg-hover-color;
 	color: @button-hover-color;
-
 	border-style: @button-border-style;
 	border-width: @button-border-width;
-	border-color: @button-border-color;
+	border-color: @button-border-hover-color;
 	border-radius: @button-border-radius;
 }
 
@@ -102,6 +100,7 @@ Appearance > Theme Settings > Code or create a child theme.
 	color: @woo-button-hover-color;
 	border: @woo-button-border-hover;
 	border-radius: @woo-button-hover-border-radius;
+	border-color: @woo-button-border-hover-color;
 }
 
 .fl-woo-button-hover-child-styles() {

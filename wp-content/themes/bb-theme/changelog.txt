@@ -1,3 +1,28 @@
+<h4>1.7.7 09/08/2020</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+<li>Add filter <code>fl_post_navigation_same_term</code> to allow next/prev post navigation on single posts to be limited to the same term</li>
+<li>Add new filter <code>fl_theme_print_schema</code> to change schema markup</li>
+<li>Adjust line height so line height can be lower than 1</li>
+<li>Add border hover options for custom button styles</li>
+<li>Add support for changing the WooCommerce products per page</li>
+<li>Button border radius is now available even if no border is set</li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+<li>Fix Full Width Post Template not going full width when using a Nav Vertical Layout</li>
+<li>Fix jumpy Parallax background when using a Fixed Header</li>
+<li>Fix notice in console when in Customizer about duplicate IDs used</li>
+<li>Fix single column issue on WooCommerce addresses page when using Bootstrap 4</li>
+<li>Fix WooCommerce single product Lightbox being cut off at the top</li>
+<li>Remove opacity on Top bar social icons when using a custom color</li>
+<li>Fix lazy load issues with the logo when using WordPress 5.5</li>
+<li>Fix WooCommerce options appearing in customizer if WooCommerce is not active</li>
+<li>Fix styling issue with a checkbox on the WooCommerce Subscriptions Add Payment Method Page</li>
+<li>Fix Customizer slider not updating the text</li>
+<li>Fix some custom button styles still being applied to WooCommerce buttons even if they are then turned off</li>
+</ul>
+
 <h4>1.7.6.3 06/03/2020</h4>
 <p><strong>Hot Fix</strong></p>
 <ul>

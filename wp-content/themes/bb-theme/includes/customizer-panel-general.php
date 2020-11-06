@@ -502,7 +502,7 @@ FLCustomizer::add_panel('fl-general', array(
 						'priority'   => 5.1,
 						'type'       => 'slider',
 						'choices'    => array(
-							'min'  => 1,
+							'min'  => 0.5,
 							'max'  => 2.5,
 							'step' => 0.05,
 						),
@@ -568,7 +568,7 @@ FLCustomizer::add_panel('fl-general', array(
 						'label'      => sprintf( _x( '%s Line Height', '%s stands for HTML heading tag.', 'fl-automator' ), 'H2' ),
 						'type'       => 'slider',
 						'choices'    => array(
-							'min'  => 1,
+							'min'  => 0.5,
 							'max'  => 2.5,
 							'step' => 0.05,
 						),
@@ -632,7 +632,7 @@ FLCustomizer::add_panel('fl-general', array(
 						'label'      => sprintf( _x( '%s Line Height', '%s stands for HTML heading tag.', 'fl-automator' ), 'H3' ),
 						'type'       => 'slider',
 						'choices'    => array(
-							'min'  => 1,
+							'min'  => 0.5,
 							'max'  => 2.5,
 							'step' => 0.05,
 						),
@@ -696,7 +696,7 @@ FLCustomizer::add_panel('fl-general', array(
 						'label'      => sprintf( _x( '%s Line Height', '%s stands for HTML heading tag.', 'fl-automator' ), 'H4' ),
 						'type'       => 'slider',
 						'choices'    => array(
-							'min'  => 1,
+							'min'  => 0.5,
 							'max'  => 2.5,
 							'step' => 0.05,
 						),
@@ -760,7 +760,7 @@ FLCustomizer::add_panel('fl-general', array(
 						'label'      => sprintf( _x( '%s Line Height', '%s stands for HTML heading tag.', 'fl-automator' ), 'H5' ),
 						'type'       => 'slider',
 						'choices'    => array(
-							'min'  => 1,
+							'min'  => 0.5,
 							'max'  => 2.5,
 							'step' => 0.05,
 						),
@@ -824,7 +824,7 @@ FLCustomizer::add_panel('fl-general', array(
 						'label'      => sprintf( _x( '%s Line Height', '%s stands for HTML heading tag.', 'fl-automator' ), 'H6' ),
 						'type'       => 'slider',
 						'choices'    => array(
-							'min'  => 1,
+							'min'  => 0.5,
 							'max'  => 2.5,
 							'step' => 0.05,
 						),
@@ -922,7 +922,7 @@ FLCustomizer::add_panel('fl-general', array(
 						'label'      => __( 'Line Height', 'fl-automator' ),
 						'type'       => 'slider',
 						'choices'    => array(
-							'min'  => 1,
+							'min'  => 0.5,
 							'max'  => 2.5,
 							'step' => 0.05,
 						),
@@ -1057,7 +1057,7 @@ FLCustomizer::add_panel('fl-general', array(
 						'label'      => __( 'Line Height', 'fl-automator' ),
 						'type'       => 'slider',
 						'choices'    => array(
-							'min'  => 1,
+							'min'  => 0.5,
 							'max'  => 2.5,
 							'step' => 0.05,
 						),
@@ -1129,16 +1129,6 @@ FLCustomizer::add_panel('fl-general', array(
 						),
 					),
 				),
-				'fl-button-border-color'           => array(
-					'setting' => array(
-						'default'   => '',
-						'transport' => 'postMessage',
-					),
-					'control' => array(
-						'class' => 'WP_Customize_Color_Control',
-						'label' => __( 'Border Color', 'fl-automator' ),
-					),
-				),
 				'fl-button-border-radius'          => array(
 					'setting' => array(
 						'default'   => 0,
@@ -1150,9 +1140,29 @@ FLCustomizer::add_panel('fl-general', array(
 						'type'    => 'slider',
 						'choices' => array(
 							'min'  => 0,
-							'max'  => 25,
+							'max'  => 50,
 							'step' => 1,
 						),
+					),
+				),
+				'fl-button-border-color'           => array(
+					'setting' => array(
+						'default'   => '',
+						'transport' => 'postMessage',
+					),
+					'control' => array(
+						'class' => 'WP_Customize_Color_Control',
+						'label' => __( 'Border Color', 'fl-automator' ),
+					),
+				),
+				'fl-button-border-hover-color'     => array(
+					'setting' => array(
+						'default'   => '',
+						'transport' => 'postMessage',
+					),
+					'control' => array(
+						'class' => 'WP_Customize_Color_Control',
+						'label' => __( 'Border Hover Color', 'fl-automator' ),
 					),
 				),
 			),

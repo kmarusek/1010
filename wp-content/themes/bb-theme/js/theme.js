@@ -984,10 +984,12 @@
 
 					$( win ).on( 'scroll.fl-fixed-header', FLTheme._fixThemerLayoutOnScroll );
 				}
-
+				
 				if($('body.fl-scroll-header').length === 0 && $('.fl-header-padding-top-custom').length === 0 ) {
-		 			$('.fl-page').css('padding-top', totalHeaderHeight);
-		 		}
+					$('.fl-page').css('padding-top', totalHeaderHeight);
+				}
+				
+				$( win ).trigger( 'scroll' );
 		 	}
 		 	else {
 		 		$('.fl-page-header').css('top', 0);

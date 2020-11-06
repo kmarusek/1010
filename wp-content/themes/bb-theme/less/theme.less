@@ -112,14 +112,6 @@ img {
 	height: auto;
 }
 
-.woocommerce button.pswp__button {
-	position: absolute;
-	top: 50%;
-	margin-top: -50px;
-	width: 70px;
-	height: 100px;
-}
-
 /* Accessibility
 ----------------------------------------------------------- */
 
@@ -971,6 +963,12 @@ input[type=text].fl-search-input {
 	}
 }
 
+/* WooCommerce Pages
+---------------------------------------------------------- */
+.woocommerce-account .woocommerce-Address {
+    max-width: none;
+}
+
 /* Buttons
 ----------------------------------------------------------- */
 /* WooCommerce Buttons */
@@ -1047,6 +1045,21 @@ input[type=text].fl-search-input {
 		.fl-woo-button-hover-styles();
 	}
 }
+
+/* WooCommerce Gallery Photo Swipe Navigation */
+.woocommerce-page .pswp--open button.pswp__button:active,
+.woocommerce-page .pswp--open button.pswp__button:focus {
+	position: absolute;
+	top: 50%;
+	margin-top: -50px;
+	width: 70px;
+	height: 100px;
+}
+
+.woocommerce form .form-row .input-checkbox {
+    position: static;
+}
+
 
 /* Builder Buttons */
 a.fl-button,

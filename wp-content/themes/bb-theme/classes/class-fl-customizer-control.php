@@ -262,14 +262,14 @@ final class FLCustomizerControl extends WP_Customize_Control {
 		$this->choices['max']  = ( isset( $this->choices['max'] ) ) ? $this->choices['max'] : '100';
 		$this->choices['step'] = ( isset( $this->choices['step'] ) ) ? $this->choices['step'] : '1';
 
-		echo '<label>';
+		echo '<label class="fl-range-label">';
 		$this->render_content_title();
 		echo '<div class="wrapper">';
-		echo '<input type="range" min="' . $this->choices['min'] . '" max="' . $this->choices['max'] . '" step="' . $this->choices['step'] . '" value="' . $this->value() . '"';
+		echo '<input type="range" class="fl-range-slider" min="' . $this->choices['min'] . '" max="' . $this->choices['max'] . '" step="' . $this->choices['step'] . '" value="' . $this->value() . '"';
 		$this->link();
 		echo 'data-reset_value="' . $this->settings['default']->default . '">';
 		echo '<div class="fl-range-value">';
-		echo '<input type="text" id="fl-range-value-input" value="' . $this->value() . '">';
+		echo '<input type="text" class="fl-range-value-input" value="' . $this->value() . '">';
 		echo '</div>';
 		echo '<div class="fl-slider-reset">';
 		echo '<span class="dashicons dashicons-image-rotate"></span>';

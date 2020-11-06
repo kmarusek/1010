@@ -304,7 +304,7 @@
 		{
 			$( '.customize-control-slider .fl-slider-reset' ).click( function () {
 				var $slider       = $( this ).closest( 'label' ).find( 'input' ),
-					$text_input   = $( this ).closest( 'label' ).find( '#fl-range-value-input' );
+					$text_input   = $( this ).closest( 'label' ).find( '.fl-range-value-input' );
 					default_value = $slider.data( 'reset_value' );
 
 				$slider.val( default_value );
@@ -313,26 +313,29 @@
 			});
 
 			$( '.customize-control-slider input[type=range]' ).each(function() {
-				var $slider     = $(this),
-					$text_input = $( this ).closest( 'label' ).find( '#fl-range-value-input' ),
+				var $slider     = $( this ),
+					$text_input = $( this ).closest( 'label' ).find( '.fl-range-value-input' ),
 					value       = $slider.attr( 'value' ),
 					min         = $slider.attr( 'min' );
 
-				$slider.on('input', function () {
-					value = $slider.attr( 'value' );
-					$text_input.val( value );
-				});
+				$( 'label.fl-range-label' ).on( 'input', $slider, function(e) {
+					var sliderValue = $(this).find( '.fl-range-slider' ).val();
 
-				$text_input.on('keyup change', function(){
-					$slider.val($text_input.val());
-					$slider.change();
-				});
-
-				$text_input.on('focusout', function(){
-					if ( parseInt( $text_input.val() ) < min ) {
-						$text_input.val( min );
-						$slider.change();
+					if ( 'undefined' === typeof e.which) {
+						$(this).find( '.fl-range-value-input' ).val(sliderValue );	
 					}
+				});
+
+				$text_input.on( 'keyup focusout', function () {
+					var textValue = $(this).val();
+
+					if ( parseInt( textValue ) < min ) {
+						textValue = min ;
+					}
+
+					$slider.val( textValue );
+					$slider.change();
+
 				});
 
 			});
