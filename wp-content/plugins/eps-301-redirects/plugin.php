@@ -181,7 +181,7 @@ class EPS_Redirects_Plugin
      * This function will check the current version and do any fixes required
      *
      * @return string - version number.
-     * @author epstudios
+     * @author WebFactory Ltd
      *
      */
   public function update_self()
@@ -203,7 +203,7 @@ class EPS_Redirects_Plugin
      * Will migrate the old storage method to the new tables.
      *
      * @return nothing
-     * @author epstudios
+     * @author WebFactory Ltd
      *
      */
   public static function _migrate_to_v2()
@@ -234,7 +234,7 @@ class EPS_Redirects_Plugin
      * Creates the database architecture
      *
      * @return nothing
-     * @author epstudios
+     * @author WebFactory Ltd
      *
      */
   public static function _create_redirect_table()
@@ -268,7 +268,7 @@ class EPS_Redirects_Plugin
      * Enqueues the resources, and makes sure we have what we need to proceed.
      *
      * @return nothing
-     * @author epstudios
+     * @author WebFactory Ltd
      *
      */
   public static function plugin_resources()
@@ -309,7 +309,7 @@ class EPS_Redirects_Plugin
      * This function handles various POST requests.
      *
      * @return nothing
-     * @author epstudios
+     * @author WebFactory Ltd
      *
      */
   public function check_plugin_actions()
@@ -331,7 +331,7 @@ class EPS_Redirects_Plugin
           $options = eps_dropdown_pages(array('post_type' => $post_type->name));
           set_transient('post_type_cache_' . $post_type->name, $options, HOUR_IN_SECONDS);
         }
-        $this->add_admin_message("SUCCCESS: Cache Refreshed.", "updated");
+        $this->add_admin_message("Success: Cache Refreshed.", "updated");
       }
 
       // Save Redirects
@@ -352,7 +352,7 @@ class EPS_Redirects_Plugin
      * export_csv
      *
      * @return nothing
-     * @author epstudios
+     * @author WebFactory Ltd
      *
      */
   public static function export_csv()
@@ -388,7 +388,7 @@ class EPS_Redirects_Plugin
      * This function handles the upload of CSV files, in accordance to the upload method specified.
      *
      * @return html string
-     * @author epstudios
+     * @author WebFactory Ltd
      *
      */
   private function _upload()
@@ -449,10 +449,10 @@ class EPS_Redirects_Plugin
           continue;
         }
 
-        $status     = (isset($redirect[0])) ? $redirect[0] : false;
-        $url_from   = (isset($redirect[1])) ? $redirect[1] : false;
-        $url_to     = (isset($redirect[2])) ? $redirect[2] : false;
-        $count      = (isset($redirect[3])) ? $redirect[3] : false;
+        $status     = (isset($redirect[0])) ? esc_attr(strip_tags($redirect[0])) : false;
+        $url_from   = (isset($redirect[1])) ? esc_attr(strip_tags($redirect[1])) : false;
+        $url_to     = (isset($redirect[2])) ? esc_attr(strip_tags($redirect[2])) : false;
+        $count      = (isset($redirect[3])) ? esc_attr(strip_tags($redirect[3])) : false;
 
         switch (strtolower($status)) {
           case '404':
@@ -531,7 +531,7 @@ class EPS_Redirects_Plugin
       }
 
       $this->add_admin_message(sprintf(
-        "SUCCCESS: %d New Redirects, %d Updated, %d Skipped, %d Errors. (Attempted to import %d redirects).",
+        "Success: %d New Redirects, %d Updated, %d Skipped, %d Errors. (Attempted to import %d redirects).",
         $counter['new'],
         $counter['updated'],
         $counter['skipped'],
@@ -550,7 +550,7 @@ class EPS_Redirects_Plugin
      *
      * Template Hooks
      *
-     * @author epstudios
+     * @author WebFactory Ltd
      *
      */
   public static function admin_panel_cache()
@@ -591,7 +591,7 @@ class EPS_Redirects_Plugin
      * This function will check the current version and do any fixes required
      *
      * @return string - version number.
-     * @author epstudios
+     * @author WebFactory Ltd
      *
      */
 
@@ -606,7 +606,7 @@ class EPS_Redirects_Plugin
      * Activation and Deactivation Handlers.
      *
      * @return nothing
-     * @author epstudios
+     * @author WebFactory Ltd
      */
   public function activation_error()
   {
@@ -634,7 +634,7 @@ class EPS_Redirects_Plugin
      *
      * These functions will output a variable containing the admin ajax url for use in javascript.
      *
-     * @author epstudios
+     * @author WebFactory Ltd
      *
      */
   protected function add_admin_message($message, $code)
@@ -665,6 +665,14 @@ class EPS_Redirects_Plugin
       $string
     );
   }
+
+
+	public static function protect_from_translation_plugins()
+	{
+		global $original_request_uri;
+
+		$original_request_uri = strtolower(urldecode($_SERVER['REQUEST_URI']));
+	}
 }
 
 // Init the plugin.

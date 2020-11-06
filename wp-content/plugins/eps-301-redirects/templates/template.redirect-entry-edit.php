@@ -27,7 +27,7 @@ $redirect = self::get_redirect($redirect_id);
     </select>
 
     <div class="eps-url"><span class="eps-url-root"><?php bloginfo('url'); ?>/&nbsp;</span></div>
-    <input class="eps-url-input" type="text" name="redirect[url_from][]" value="<?php echo ($redirect) ? $redirect->url_from : ''; ?>">
+    <input class="eps-url-input" type="text" name="redirect[url_from][]" value="<?php echo ($redirect) ? esc_attr(stripslashes($redirect->url_from)) : ''; ?>">
 
 </td>
 <td>

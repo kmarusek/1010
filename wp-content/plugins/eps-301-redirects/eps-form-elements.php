@@ -27,7 +27,7 @@ if (!defined('ABSPATH')) {
  * This function will initialze a series of html form elements so a user can narrow down their redirect destination.
  *
  * @return html string
- * @author epstudios
+ * @author WebFactory Ltd
  *
  */
 
@@ -53,7 +53,7 @@ function eps_get_selector($redirect = false)
   $html .= '<input class="eps-url-input select-eps-url-input"
                      type="text"
                      name="redirect[url_to][]"
-                     value="' . (isset($redirect->url_to) ? $redirect->url_to : null) . '"
+                     value="' . (isset($redirect->url_to) ? stripslashes(esc_attr($redirect->url_to)) : null) . '"
                      placeholder="' . get_bloginfo('url') . '" ' . (!isset($redirect->type) || ((isset($redirect->type) && $redirect->type != 'post')) ? null : ' style="display:none;"') .
     '" />';
 
@@ -68,7 +68,7 @@ function eps_get_selector($redirect = false)
  * This function will output the formatted destination string.
  *
  * @return html string
- * @author epstudios
+ * @author WebFactory Ltd
  *
  */
 function eps_get_destination($redirect = false)
@@ -96,9 +96,9 @@ function eps_get_destination($redirect = false)
 } else {
   // This is redirect points to a url
   ?>
-<a target="_blank" class="eps-url" href="<?php echo esc_attr($redirect->url_to); ?>" title="<?php echo esc_attr($redirect->url_to); ?>">
+<a target="_blank" class="eps-url" href="<?php echo stripslashes(esc_attr($redirect->url_to)); ?>" title="<?php echo stripslashes(esc_attr($redirect->url_to)); ?>">
   <span class="eps-url-root eps-url-startcap">URL:</span><span
-    class="eps-url-fragment eps-url-endcap "><?php echo esc_attr($redirect->url_to); ?></span>
+    class="eps-url-fragment eps-url-endcap "><?php echo stripslashes(esc_attr($redirect->url_to)); ?></span>
 </a>
 <?php
 
@@ -117,7 +117,7 @@ function eps_get_destination($redirect = false)
  * This function will output the available destination types.
  *
  * @return html string
- * @author epstudios
+ * @author WebFactory Ltd
  *
  */
 function eps_get_type_select($post_types, $current_post = false)
@@ -141,7 +141,7 @@ function eps_get_type_select($post_types, $current_post = false)
  * This function will output the available post types.
  *
  * @return html string
- * @author epstudios
+ * @author WebFactory Ltd
  *
  */
 function eps_get_post_type_selects($post_type, $current_post = false)
@@ -171,7 +171,7 @@ function eps_get_post_type_selects($post_type, $current_post = false)
  * This function will output a select box with all the taxonomies and terms.
  *
  * @return html string
- * @author epstudios
+ * @author WebFactory Ltd
  *
  */
 function eps_get_term_archive_select()

@@ -23,10 +23,10 @@ $query_args = array('page' => $EPS_Redirects_Plugin->config('page_slug'), 'delet
     <p class="eps-grey-text eps-text-center eps-small"><?php echo $redirect->id; ?></p>
   </td>
   <td>
-    <a target="_blank" class="eps-url" href="<?php bloginfo('url'); ?>/<?php echo esc_attr($dfrom); ?>"
-      title="<?php bloginfo('url'); ?>/<?php echo esc_attr($dfrom); ?>">
+    <a target="_blank" class="eps-url" href="<?php bloginfo('url'); ?>/<?php echo stripslashes(esc_attr($dfrom)); ?>"
+      title="<?php bloginfo('url'); ?>/<?php echo stripslashes(esc_attr($dfrom)); ?>">
       <span class="eps-url-root eps-url-startcap"><?php echo ($redirect->status == 'inactive') ? 'OFF' : esc_attr($redirect->status); ?></span><span
-        class="eps-url-root"><?php bloginfo('url'); ?>/</span><span class="eps-url-fragment eps-url-endcap"><?php echo esc_attr($dfrom); ?></span>
+        class="eps-url-root"><?php bloginfo('url'); ?>/</span><span class="eps-url-fragment eps-url-endcap"><?php echo stripslashes($dfrom); ?></span>
     </a>
   </td>
   <td>

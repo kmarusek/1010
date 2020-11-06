@@ -56,7 +56,7 @@ jQuery(document).ready(function($) {
       },
       success: function(data) {
         var data = jQuery.parseJSON(data);
-        console.log(data);
+        //console.log(data);
         $('#eps-redirect-edit').remove();
         $('tr.redirect-entry').removeClass('active');
         $('tr.redirect-entry[data-id=' + data.redirect_id + ']').addClass(

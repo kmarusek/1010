@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) {
 }
 ?>
 
-<div class="eps-panel eps-margin-top">
+<div class="eps-panel eps-margin-top rating-box">
     <form method="post" action="">
         <?php wp_nonce_field('eps_redirect_nonce', 'eps_redirect_nonce_submit');   ?>
         <input type="submit" name="eps_redirect_refresh" id="submit" class="button button-secondary" value="Refresh Cache" />

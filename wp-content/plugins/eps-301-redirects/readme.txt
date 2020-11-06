@@ -1,9 +1,9 @@
 === 301 Redirects - Easy Redirect Manager ===
-Contributors: WebFactory, wpreset, googlemapswidget, underconstructionpage
+Contributors: WebFactory
 Tags: 301 redirect, redirects, redirect, 302 redirect, redirection, 302, seo, 302 redirect, 404, 404 redirect, 301, 307
 Requires at least: 4.0
 Tested up to: 5.5
-Stable tag: 2.50
+Stable tag: 2.53
 Requires PHP: 5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -24,6 +24,7 @@ Easily manage and create 301 & 302 redirects. Simple to use & validate redirects
 * Super-fast redirection
 * Import/Export feature for bulk redirects management
 * Simple redirect stats so you know how much a redirection is used
+* Fully compatible with translation plugins (Weglot, TranslatePress, Gtranslate, Loco Translate) that use lang prefix in URL
 
 
 **What is a 301 Redirect?**
@@ -55,6 +56,20 @@ A 301 redirect indicates that the page requested has been permanently moved to t
 
 
 == Changelog ==
+
+= 2.53 =
+* 2020/09/29
+* More issues fixed related to translation plugins
+* Fixed issue with encoding source & target URLs in some situations.
+* Added promo campaign for PRO version in November
+
+= 2.52 =
+* 2020/09/07
+* Fixed issue with URL prefix on translate plugins like Weglot, TranslatePress, Gtranslate, Loco Translate
+
+= 2.51 =
+* 2020/08/13
+* security fixes - thank you <a href="http://eringerm.com/">Erin</a>
 
 = 2.50 =
 * 2020/08/10

@@ -240,7 +240,7 @@ if (!class_exists('EPS_Redirects_Plugin_Options')) {
      * This function initialize the plugin settings page.
      *
      * @return string
-     * @author epstudios
+     * @author WebFactory Ltd
      *
      */
     public function add_options_page()
@@ -261,7 +261,7 @@ if (!class_exists('EPS_Redirects_Plugin_Options')) {
      *
      * This function will create the admin page.
      *
-     * @author epstudios
+     * @author WebFactory Ltd
      *
      */
     public function do_admin_page()

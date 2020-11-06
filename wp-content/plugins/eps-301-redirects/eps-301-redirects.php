@@ -2,12 +2,12 @@
  /*
 Plugin Name: 301 Redirects
 Description: Easily create and manage 301 redirects.
-Version: 2.50
+Version: 2.53
 Author: WebFactory Ltd
 Author URI: https://www.webfactoryltd.com/
 Text Domain: eps-301-redirects
 
-  Copyright 2015 - 2019  Web factory Ltd  (email: support@webfactoryltd.com)
+  Copyright 2015 - 2020  Web factory Ltd  (email: 301redirects@webfactoryltd.com)
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License, version 2, as
@@ -40,8 +40,12 @@ if (!defined('EPS_REDIRECT_PRO')) {
   include(EPS_REDIRECT_PATH . 'libs/eps-plugin-options.php');
   include(EPS_REDIRECT_PATH . 'plugin.php');
 
+  require_once 'wp301/wp301.php';
+  new wf_wp301(__FILE__, 'settings_page_eps_redirects');
+
   register_activation_hook(__FILE__, array('EPS_Redirects_Plugin', '_activation'));
   register_deactivation_hook(__FILE__, array('EPS_Redirects_Plugin', '_deactivation'));
+  add_action('plugins_loaded', array('EPS_Redirects_Plugin', 'protect_from_translation_plugins'), -9999);
 
   class EPS_Redirects
   {
@@ -68,6 +72,8 @@ if (!defined('EPS_REDIRECT_PRO')) {
           add_action('admin_init', array($this, 'clear_cache'));
         }
 
+        add_filter('install_plugins_table_api_args_featured', array($this, 'featured_plugins_tab'));
+        add_filter('install_plugins_table_api_args_popular', array($this, 'featured_plugins_tab'));
         add_action('wp_ajax_eps_redirect_get_new_entry',            array($this, 'ajax_get_entry'));
         add_action('wp_ajax_eps_redirect_delete_entry',             array($this, 'ajax_eps_delete_entry'));
         add_action('wp_ajax_eps_redirect_get_inline_edit_entry',    array($this, 'ajax_get_inline_edit_entry'));
@@ -98,7 +104,7 @@ if (!defined('EPS_REDIRECT_PRO')) {
      *
      * This function will redirect the user if it can resolve that this url request has a redirect.
      *
-     * @author epstudios
+     * @author WebFactory Ltd
      *
      */
     public function do_redirect()
@@ -116,7 +122,7 @@ if (!defined('EPS_REDIRECT_PRO')) {
 
 
       foreach ($redirects as $redirect) {
-        $from = urldecode($redirect->url_from);
+        $from = urldecode(html_entity_decode($redirect->url_from));
 
         if ($redirect->status != 'inactive' && rtrim(trim($url_request), '/')  === self::format_from_url(trim($from))) {
 
@@ -132,7 +138,7 @@ if (!defined('EPS_REDIRECT_PRO')) {
             header('HTTP/1.1 307 Temporary Redirect');
           }
 
-          $to = ($redirect->type == "url" && !is_numeric($redirect->url_to)) ? urldecode($redirect->url_to) : get_permalink($redirect->url_to);
+          $to = ($redirect->type == "url" && !is_numeric($redirect->url_to)) ? urldecode(html_entity_decode($redirect->url_to)) : get_permalink($redirect->url_to);
           $to = ($query_string) ? $to . "?" . $query_string : $to;
 
           header('Location: ' . $to, true, (int)$redirect->status);
@@ -148,18 +154,16 @@ if (!defined('EPS_REDIRECT_PRO')) {
      * Will construct and format the from url from what we have in storage.
      *
      * @return url string
-     * @author epstudios
+     * @author WebFactory Ltd
      *
      */
     private function format_from_url($string)
     {
-      //$from = home_url() . '/' . $string;
-      //return strtolower( rtrim( $from,'/') );
+      $complete = rtrim(home_url(), '/') . '/' . $string;
 
-
-      $complete = home_url() . '/' . $string;
       list($uprotocol, $uempty, $uhost, $from) = explode('/', $complete, 4);
       $from = '/' . $from;
+      $from = strtolower(rtrim($from,'/'));
       return strtolower(rtrim($from, '/'));
     }
 
@@ -170,20 +174,86 @@ if (!defined('EPS_REDIRECT_PRO')) {
      * This function returns the current url.
      *
      * @return URL string
-     * @author epstudios
+     * @author WebFactory Ltd
      *
      */
     public static function get_url()
     {
-      return strtolower(urldecode($_SERVER['REQUEST_URI']));
-      //$protocol = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ) ? 'https' : 'http';
-      //return strtolower( urldecode( $protocol . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] ) );
+	    global $original_request_uri;
+
+	    return $original_request_uri;
     }
 
+    public function featured_plugins_tab($args)
+  {
+    add_filter('plugins_api_result', array($this, 'plugins_api_result'), 10);
+
+    return $args;
+  } // featured_plugins_tab
 
 
+  /**
+   * Append plugin favorites list with recommended addon plugins
+   *
+   * @since 1.5
+   *
+   * @return object API response
+   */
+  public function plugins_api_result($res)
+  {
+    remove_filter('plugins_api_result', array($this, 'plugins_api_result'), 10);
+    $res = $this->add_plugin_favs('wp-reset', $res);
+    $res = $this->add_plugin_favs('wp-external-links', $res);
+    $res = $this->add_plugin_favs('simple-author-box', $res);
+    return $res;
+  } // plugins_api_result
 
 
+  /**
+   * Create plugin favorites list plugin object
+   *
+   * @since 1.5
+   *
+   * @return object favorite plugins
+   */
+  public function add_plugin_favs($plugin_slug, $res)
+  {
+    if (!isset($res->plugins) || !is_array($res->plugins)) {
+      return $res;
+    }
+
+    if (!empty($res->plugins) && is_array($res->plugins)) {
+      foreach ($res->plugins as $plugin) {
+        if (is_object($plugin) && !empty($plugin->slug) && $plugin->slug == $plugin_slug) {
+          return $res;
+        }
+      } // foreach
+    }
+
+    $plugin_info = get_transient('wf-plugin-info-' . $plugin_slug);
+    if ($plugin_info && is_object($plugin_info)) {
+      array_unshift($res->plugins, $plugin_info);
+    } else {
+      $plugin_info = plugins_api('plugin_information', array(
+        'slug'   => $plugin_slug,
+        'is_ssl' => is_ssl(),
+        'fields' => array(
+          'banners'           => true,
+          'reviews'           => true,
+          'downloaded'        => true,
+          'active_installs'   => true,
+          'icons'             => true,
+          'short_description' => true,
+        )
+      ));
+      if (!is_wp_error($plugin_info) && is_object($plugin_info) && $plugin_info) {
+        array_unshift($res->plugins, $plugin_info);
+        set_transient('wf-plugin-info-' . $plugin_slug, $plugin_info, DAY_IN_SECONDS * 7);
+      }
+    }
+
+    return $res;
+  } // add_plugin_favs
 
 
     /**
@@ -193,7 +263,7 @@ if (!defined('EPS_REDIRECT_PRO')) {
      * A necessary data parser to change the POST arrays into save-able data.
      *
      * @return array of redirects
-     * @author epstudios
+     * @author WebFactory Ltd
      *
      */
     public static function _parse_serial_array($array)
@@ -206,8 +276,8 @@ if (!defined('EPS_REDIRECT_PRO')) {
         if (empty($array['url_to'][$i]) || empty($array['url_from'][$i])) continue;
         $new_redirects[] = array(
           'id'        => isset($array['id'][$i]) ? $array['id'][$i] : null,
-          'url_from'  => $array['url_from'][$i],
-          'url_to'    => $array['url_to'][$i],
+          'url_from'  => esc_attr($array['url_from'][$i]),
+          'url_to'    => esc_attr($array['url_to'][$i]),
           'type'      => (is_numeric($array['url_to'][$i])) ? 'post' : 'url',
           'status'    => isset($array['status'][$i]) ? $array['status'][$i] : '301'
         );
@@ -224,7 +294,7 @@ if (!defined('EPS_REDIRECT_PRO')) {
      * TODO: Maybe refactor this to reduce the number of queries.
      *
      * @return nothing
-     * @author epstudios
+     * @author WebFactory Ltd
      */
     public function ajax_save_redirect()
     {
@@ -237,8 +307,8 @@ if (!defined('EPS_REDIRECT_PRO')) {
 
       $update = array(
         'id'        => ($_POST['id']) ? intval($_POST['id']) : false,
-        'url_from'  => $_POST['url_from'], // remove the $root from the url if supplied, and a leading /
-        'url_to'    => $_POST['url_to'],
+        'url_from'  => esc_attr($_POST['url_from']), // remove the $root from the url if supplied, and a leading /
+        'url_to'    => esc_attr($_POST['url_to']),
         'type'      => (is_numeric($_POST['url_to']) ? 'post' : 'url'),
         'status'    => $_POST['status']
       );
@@ -292,7 +362,7 @@ if (!defined('EPS_REDIRECT_PRO')) {
      * TODO: Maybe refactor this to reduce the number of queries.
      *
      * @return nothing
-     * @author epstudios
+     * @author WebFactory Ltd
      */
     public static function _save_redirects($array)
     {
@@ -356,7 +426,7 @@ if (!defined('EPS_REDIRECT_PRO')) {
      * Gets the redirects. Can be switched to return Active Only redirects.
      *
      * @return array of redirects
-     * @author epstudios
+     * @author WebFactory Ltd
      *
      */
     public static function get_redirects($active_only = false)
@@ -407,7 +477,7 @@ if (!defined('EPS_REDIRECT_PRO')) {
      * Add +1 to the specified field for a given id
      *
      * @return the result
-     * @author epstudios
+     * @author WebFactory Ltd
      *
      */
     public static function increment_field($id, $field)
@@ -425,7 +495,7 @@ if (!defined('EPS_REDIRECT_PRO')) {
      * This function will list out all the current entries.
      *
      * @return html string
-     * @author epstudios
+     * @author WebFactory Ltd
      *
      */
     public static function list_redirects()
@@ -451,7 +521,7 @@ if (!defined('EPS_REDIRECT_PRO')) {
      * This function will remove an entry.
      *
      * @return nothing
-     * @author epstudios
+     * @author WebFactory Ltd
      *
      */
     public static function ajax_eps_delete_entry()
@@ -486,7 +556,7 @@ if (!defined('EPS_REDIRECT_PRO')) {
      * This function will return a blank row ready for user input.
      *
      * @return html string
-     * @author epstudios
+     * @author WebFactory Ltd
      *
      */
     public static function get_entry($redirect_id = false)
@@ -557,7 +627,7 @@ public function clear_cache()
      *
      * This function will output a variable containing the admin ajax url for use in javascript.
      *
-     * @author epstudios
+     * @author WebFactory Ltd
      *
      */
 public static function set_ajax_url()
@@ -584,7 +654,7 @@ public static function check_404()
  *
  * @return void
  * @param $string = the object to prettify; Typically a string.
- * @author epstudios
+ * @author WebFactory Ltd
  */
 if (!function_exists('eps_prettify')) {
   function eps_prettify($string)

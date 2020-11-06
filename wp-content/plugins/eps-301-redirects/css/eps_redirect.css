@@ -64,6 +64,10 @@
 /*---------------------- notifications ---------------------*/
 /*----------------------------------------------------------*/
 
+.rating-box p {
+  font-size: 14px;
+}
+
 .eps-notification-area {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
