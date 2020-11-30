@@ -27,12 +27,12 @@
 		$logos_grid_columns_desktop = ( 100 - $space_desktop ) / $settings->logos_grid_columns;
 	}
 
-	if ( isset( $settings->logos_grid_columns ) && ! empty( $settings->logos_grid_columns_medium ) ) {
+	if ( isset( $settings->logos_grid_columns_medium ) && ! empty( $settings->logos_grid_columns_medium ) ) {
 		$space_tablet = $space_mobile = ( $settings->logos_grid_columns_medium - 1 ) * $spacing;
 		$logos_grid_columns_tablet = ( 100 - $space_tablet ) / $settings->logos_grid_columns_medium;
 	}
 
-	if ( isset( $settings->logos_grid_columns ) && ! empty( $settings->logos_grid_columns_responsive ) ) {
+	if ( isset( $settings->logos_grid_columns_responsive ) && ! empty( $settings->logos_grid_columns_responsive ) ) {
 		$space_mobile = ( $settings->logos_grid_columns_responsive - 1 ) * $spacing;
 		$logos_grid_columns_mobile = ( 100 - $space_mobile ) / $settings->logos_grid_columns_responsive;
 	}
@@ -327,12 +327,12 @@ FLBuilderCSS::responsive_rule( array(
     }
     .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo:nth-of-type(<?php echo $settings->logos_grid_columns; ?>n) {
         <?php if( $settings->logos_layout == 'grid' ) { ?>
-            <?php if ( $logos_grid_spacing == 0 ) { ?>
-            margin-right: <?php echo $logos_grid_spacing - ( $border_style != 'none' ? $border_right_width : 0 ); ?>px;
-            margin-bottom: <?php echo $logos_grid_spacing - ( $border_style != 'none' ? $border_bottom_width : 0 ); ?>px;
+            <?php if ( $space_tablet == 0 ) { ?>
+            margin-right: <?php echo $space_tablet - ( $border_style != 'none' ? $border_right_width : 0 ); ?>px;
+            margin-bottom: <?php echo $space_tablet - ( $border_style != 'none' ? $border_bottom_width : 0 ); ?>px;
             <?php } else { ?>
-            margin-right: <?php echo $logos_grid_spacing; ?>px;
-            margin-bottom: <?php echo $logos_grid_spacing; ?>px;
+            margin-right: <?php echo $spacing; ?>px;
+            margin-bottom: <?php echo $spacing; ?>px;
             <?php } ?>
         <?php } ?>
     }
@@ -348,7 +348,7 @@ FLBuilderCSS::responsive_rule( array(
     }
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
     .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo {
         <?php if( $settings->logos_layout == 'grid' && $settings->logos_grid_columns_responsive >= 0 ) { ?>
         width: calc((100% - <?php echo $space_mobile + 1; ?>px) / <?php echo $settings->logos_grid_columns_responsive; ?>);
@@ -366,12 +366,12 @@ FLBuilderCSS::responsive_rule( array(
     }
     .fl-node-<?php echo $id; ?> .pp-logos-content .pp-logo:nth-of-type(<?php echo $settings->logos_grid_columns_medium; ?>n) {
         <?php if( $settings->logos_layout == 'grid' ) { ?>
-            <?php if ( $logos_grid_spacing == 0 ) { ?>
-            margin-right: <?php echo $logos_grid_spacing - ( $border_style != 'none' ? $border_right_width : 0 ); ?>px;
-            margin-bottom: <?php echo $logos_grid_spacing - ( $border_style != 'none' ? $border_bottom_width : 0 ); ?>px;
+            <?php if ( $space_mobile == 0 ) { ?>
+            margin-right: <?php echo $space_mobile - ( $border_style != 'none' ? $border_right_width : 0 ); ?>px;
+            margin-bottom: <?php echo $space_mobile - ( $border_style != 'none' ? $border_bottom_width : 0 ); ?>px;
             <?php } else { ?>
-            margin-right: <?php echo $logos_grid_spacing; ?>px;
-            margin-bottom: <?php echo $logos_grid_spacing; ?>px;
+            margin-right: <?php echo $spacing; ?>px;
+            margin-bottom: <?php echo $spacing; ?>px;
             <?php } ?>
         <?php } ?>
     }

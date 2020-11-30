@@ -873,7 +873,7 @@ BB_PowerPack::register_module('PPContactForm7Module', array(
 						'responsive'  	   => true,
 						'preview'          => array(
 							'type'         		=> 'css',
-							'selector' 		    => '.pp-cf7-content form p'
+							'selector' 		    => '.pp-cf7-content form p, .pp-cf7-content form label'
 						),
 					),
                     'form_label_color'  => array(
@@ -883,7 +883,7 @@ BB_PowerPack::register_module('PPContactForm7Module', array(
                         'show_reset'    => true,
                         'preview'       => array(
                             'type'      => 'css',
-                            'selector'  => '.pp-cf7-content form p',
+                            'selector'  => '.pp-cf7-content form p, .pp-cf7-content form label',
                             'property'  => 'color'
                         )
                     ),

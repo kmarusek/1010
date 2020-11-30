@@ -124,7 +124,7 @@
 
 				var node = $(this.nodeClass);
 				var base = this;
-				var postFilters = $(this.nodeClass).find('.pp-content-post-grid').isotope(postFilterData);
+				var postFilters = wrap.isotope(postFilterData);
 
                 if ( this.settings.filters || this.masonry ) {
 
@@ -781,9 +781,31 @@
 		_reLayout: function()
 		{
 			var self = this;
+			var wrap = $(this.wrapperClass);
 
 			$(document).on('sf:ajaxfinish', '.searchandfilter', function(){
 				self._gridLayout();
+			});
+
+			$(document).on('facetwp-loaded', function() {
+				if ( 'undefined' !== typeof FWPBB && 'undefined' !== typeof FWPBB.modules ) {
+					FWPBB.modules[ self.settings.id ] = self.settings;
+				}
+				wrap.imagesLoaded(function() {
+					if ( $('body').hasClass('fl-builder-active') ) {
+						return;
+					}
+					if ( ! self.masonry ) {
+						self._gridLayoutMatchHeight();
+					}
+					setTimeout(function() {
+						if ( wrap.data( 'isotope' ) ) {
+							wrap.isotope('destroy');
+						}
+						self._gridLayout();
+						self._initPagination();
+					}, 500);
+				});
 			});
 		}
 	};

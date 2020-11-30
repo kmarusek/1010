@@ -36,7 +36,7 @@ class PPCardSliderModule extends FLBuilderModule {
 		$this->add_js( 'jquery-swiper' );
 	}
 
-	public function get_ticker_items() {
+	public function get_slider_items() {
 		$settings = $this->settings;
 
 		if ( 'posts' === $settings->source ) {

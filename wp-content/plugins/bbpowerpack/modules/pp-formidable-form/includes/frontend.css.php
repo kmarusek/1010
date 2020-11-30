@@ -56,7 +56,7 @@ FLBuilderCSS::dimension_field_rule( array(
 	'settings'		=> $settings,
 	'setting_name' 	=> 'button_padding',
 	'selector' 		=> ".fl-node-$id .pp-ff-content .frm_forms input[type=submit],
-						.fl-node-$id .pp-ff-content .frm_forms input[type=button],
+						.fl-node-$id .pp-ff-content .frm_forms input[type=button]:not([data-page]),
 						.fl-node-$id .pp-ff-content .frm_forms input[type=reset],
 						.fl-node-$id .pp-ff-content .frm_forms .frm_submit button",
 	'unit'			=> 'px',
@@ -72,7 +72,7 @@ FLBuilderCSS::border_field_rule( array(
 	'settings' 		=> $settings,
 	'setting_name' 	=> 'button_border_group',
 	'selector' 		=> ".fl-node-$id .pp-ff-content .frm_forms input[type=submit],
-						.fl-node-$id .pp-ff-content .frm_forms input[type=button],
+						.fl-node-$id .pp-ff-content .frm_forms input[type=button]:not([data-page]),
 						.fl-node-$id .pp-ff-content .frm_forms input[type=reset],
 						.fl-node-$id .pp-ff-content .frm_forms .frm_submit button",
 ) );
@@ -130,7 +130,7 @@ FLBuilderCSS::typography_field_rule( array(
 	'settings'		=> $settings,
 	'setting_name' 	=> 'button_typography',
 	'selector' 		=> ".fl-node-$id .pp-ff-content .frm_forms input[type=submit],
-						.fl-node-$id .pp-ff-content .frm_forms input[type=button],
+						.fl-node-$id .pp-ff-content .frm_forms input[type=button]:not([data-page]),
 						.fl-node-$id .pp-ff-content .frm_forms input[type=reset],
 						.fl-node-$id .pp-ff-content .frm_forms .frm_submit button",
 ) );
@@ -460,7 +460,7 @@ FLBuilderCSS::responsive_rule( array(
 }
 
 .fl-node-<?php echo $id; ?> .pp-ff-content .frm_forms input[type=submit],
-.fl-node-<?php echo $id; ?> .pp-ff-content .frm_forms input[type=button],
+.fl-node-<?php echo $id; ?> .pp-ff-content .frm_forms input[type=button]:not([data-page]),
 .fl-node-<?php echo $id; ?> .pp-ff-content .frm_forms input[type=reset],
 .fl-node-<?php echo $id; ?> .pp-ff-content .frm_forms .frm_submit button {
 	<?php if( isset( $settings->button_text_color_default ) && ! empty( $settings->button_text_color_default ) ) { ?>
@@ -473,7 +473,7 @@ FLBuilderCSS::responsive_rule( array(
 }
 
 .fl-node-<?php echo $id; ?> .pp-ff-content .frm_forms input[type=submit]:hover,
-.fl-node-<?php echo $id; ?> .pp-ff-content .frm_forms input[type=button]:hover,
+.fl-node-<?php echo $id; ?> .pp-ff-content .frm_forms input[type=button]:not([data-page]):hover,
 .fl-node-<?php echo $id; ?> .pp-ff-content .frm_forms input[type=reset]:hover,
 .fl-node-<?php echo $id; ?> .pp-ff-content .frm_forms .frm_submit button:hover {
 	<?php if( isset( $settings->button_text_color_hover ) && ! empty( $settings->button_text_color_hover ) ) { ?>

@@ -29,12 +29,6 @@
 
 .fl-node-<?php echo $id; ?> .pp-photo-container .pp-photo-content .pp-photo-content-inner {
 	background-clip: border-box;
-    <?php if ( isset( $settings->box_border_group ) && isset( $settings->box_border_group['radius'] ) ) { ?>
-		border-top-left-radius: <?php echo $settings->box_border_group['radius']['top_left']; ?>px;
-		border-top-right-radius: <?php echo $settings->box_border_group['radius']['top_right']; ?>px;
-		border-bottom-left-radius: <?php echo $settings->box_border_group['radius']['bottom_left']; ?>px;
-		border-bottom-right-radius: <?php echo $settings->box_border_group['radius']['bottom_right']; ?>px;
-	<?php } ?>
 	transition: all 0.3s ease-in-out;
 }
 
@@ -64,8 +58,8 @@ if ( isset( $settings->show_image_effect ) && 'yes' === $settings->show_image_ef
     display: block;
     text-decoration: none !important;
 }
-<?php if( $settings->image_border_type == 'inside' ) { ?>
-    <?php if(!empty($settings->link_type)) { ?>
+<?php if ( 'inside' === $settings->image_border_type ) { ?>
+    <?php if ( ! empty( $settings->link_type ) ) { ?>
         .fl-node-<?php echo $id; ?> .pp-photo-container .pp-photo-content .pp-photo-content-inner a:before {
             bottom: 0;
             content: '';
@@ -74,10 +68,16 @@ if ( isset( $settings->show_image_effect ) && 'yes' === $settings->show_image_ef
             position: absolute;
             right: 0;
             top: 0;
-            <?php if($settings->image_border_color) { ?>border-color: #<?php echo $settings->image_border_color; ?>;<?php } ?>
-            border-style: <?php echo $settings->image_border_style; ?>;
-            <?php if($settings->image_border_width) { ?>border-width: <?php echo $settings->image_border_width; ?>px;<?php } ?>
-            <?php if($settings->image_spacing) { ?>margin: <?php echo $settings->image_spacing; ?>px;<?php } ?>
+            <?php if ( $settings->image_border_color ) { ?>
+				border-color: #<?php echo $settings->image_border_color; ?>;
+			<?php } ?>
+            	border-style: <?php echo $settings->image_border_style; ?>;
+            <?php if ( $settings->image_border_width )  { ?>
+				border-width: <?php echo $settings->image_border_width; ?>px;
+			<?php } ?>
+            <?php if ( $settings->image_spacing ) { ?>
+				margin: <?php echo $settings->image_spacing; ?>px;
+			<?php } ?>
 			<?php if ( isset( $settings->box_border_group ) && isset( $settings->box_border_group['radius'] ) ) { ?>
 				border-top-left-radius: <?php echo $settings->box_border_group['radius']['top_left']; ?>px;
 				border-top-right-radius: <?php echo $settings->box_border_group['radius']['top_right']; ?>px;
@@ -87,7 +87,7 @@ if ( isset( $settings->show_image_effect ) && 'yes' === $settings->show_image_ef
 			z-index: 99;
 			transition: all 0.3s ease;
         }
-    <?php } else if( '' ==  $settings->link_type ) { ?>
+    <?php } else if ( empty( $settings->link_type ) ) { ?>
         .fl-node-<?php echo $id; ?> .pp-photo-container .pp-photo-content .pp-photo-content-inner:before {
             bottom: 0;
             content: '';
@@ -96,10 +96,16 @@ if ( isset( $settings->show_image_effect ) && 'yes' === $settings->show_image_ef
             position: absolute;
             right: 0;
             top: 0;
-            <?php if($settings->image_border_color) { ?>border-color: #<?php echo $settings->image_border_color; ?>;<?php } ?>
-            border-style: <?php echo $settings->image_border_style; ?>;
-            <?php if($settings->image_border_width) { ?>border-width: <?php echo $settings->image_border_width; ?>px;<?php } ?>
-            <?php if($settings->image_spacing) { ?>margin: <?php echo $settings->image_spacing; ?>px;<?php } ?>
+            <?php if ($settings->image_border_color ) { ?>
+				border-color: #<?php echo $settings->image_border_color; ?>;
+			<?php } ?>
+            	border-style: <?php echo $settings->image_border_style; ?>;
+            <?php if ($settings->image_border_width ) { ?>
+				border-width: <?php echo $settings->image_border_width; ?>px;
+			<?php } ?>
+            <?php if ($settings->image_spacing ) { ?>
+				margin: <?php echo $settings->image_spacing; ?>px;
+			<?php } ?>
 			<?php if ( isset( $settings->box_border_group ) && isset( $settings->box_border_group['radius'] ) ) { ?>
 				border-top-left-radius: <?php echo $settings->box_border_group['radius']['top_left']; ?>px;
 				border-top-right-radius: <?php echo $settings->box_border_group['radius']['top_right']; ?>px;
@@ -111,11 +117,15 @@ if ( isset( $settings->show_image_effect ) && 'yes' === $settings->show_image_ef
         }
     <?php } ?>
 <?php } ?>
-<?php if( $settings->image_border_type == 'outside' ) { ?>
+<?php if ( 'outside' === $settings->image_border_type ) { ?>
     .fl-node-<?php echo $id; ?> .pp-photo-container .pp-photo-content .pp-photo-content-inner img {
-        <?php if($settings->image_border_color) { ?>border-color: #<?php echo $settings->image_border_color; ?>;<?php } ?>
-        border-style: <?php echo $settings->image_border_style; ?>;
-        <?php if($settings->image_border_width) { ?>border-width: <?php echo $settings->image_border_width; ?>px;<?php } ?>
+        <?php if ( $settings->image_border_color ) { ?>
+			border-color: #<?php echo $settings->image_border_color; ?>;
+		<?php } ?>
+        <?php if ( $settings->image_border_width ) { ?>
+			border-width: <?php echo $settings->image_border_width; ?>px;
+		<?php } ?>
+		border-style: <?php echo $settings->image_border_style; ?>;
 		<?php if ( isset( $settings->box_border_group ) && isset( $settings->box_border_group['radius'] ) ) { ?>
 			border-top-left-radius: <?php echo $settings->box_border_group['radius']['top_left']; ?>px;
 			border-top-right-radius: <?php echo $settings->box_border_group['radius']['top_right']; ?>px;
@@ -126,7 +136,7 @@ if ( isset( $settings->show_image_effect ) && 'yes' === $settings->show_image_ef
 <?php } ?>
 
 .fl-node-<?php echo $id; ?> .pp-photo-caption {
-	<?php if ( $settings->show_caption != 'hover' && isset( $settings->caption_bg_color ) && ! empty( $settings->caption_bg_color ) ) { ?>
+	<?php if ( 'hover' !== $settings->show_caption && isset( $settings->caption_bg_color ) && ! empty( $settings->caption_bg_color ) ) { ?>
 		background-color: <?php echo pp_get_color_value( $settings->caption_bg_color ); ?>;
 	<?php } ?>
 	<?php if ( isset( $settings->caption_text_color ) && ! empty( $settings->caption_text_color ) ) { ?>
@@ -158,7 +168,7 @@ if ( isset( $settings->show_image_effect ) && 'yes' === $settings->show_image_ef
 ?>
 
 .fl-node-<?php echo $id; ?> .pp-overlay-wrap .pp-overlay-bg {
-    <?php if ( isset( $settings->hover_margin ) && !empty( $settings->hover_margin ) ) { ?>
+    <?php if ( isset( $settings->hover_margin ) && ! empty( $settings->hover_margin ) ) { ?>
         margin: <?php echo $settings->hover_margin; ?>px;
     <?php } ?>
 	<?php if ( isset( $settings->caption_bg_color ) && ! empty( $settings->caption_bg_color ) ) { ?>
@@ -172,14 +182,37 @@ if ( isset( $settings->show_image_effect ) && 'yes' === $settings->show_image_ef
 	<?php } ?>
 }
 
+@media only screen and (max-width: <?php echo $global_settings->medium_breakpoint; ?>px) {
+	<?php if ( 'outside' === $settings->image_border_type ) { ?>
+    .fl-node-<?php echo $id; ?> .pp-photo-container .pp-photo-content .pp-photo-content-inner img {
+		<?php if ( isset( $settings->box_border_group_medium ) && isset( $settings->box_border_group_medium['radius'] ) ) { ?>
+			border-top-left-radius: <?php echo $settings->box_border_group_medium['radius']['top_left']; ?>px;
+			border-top-right-radius: <?php echo $settings->box_border_group_medium['radius']['top_right']; ?>px;
+			border-bottom-left-radius: <?php echo $settings->box_border_group_medium['radius']['bottom_left']; ?>px;
+			border-bottom-right-radius: <?php echo $settings->box_border_group_medium['radius']['bottom_right']; ?>px;
+		<?php } ?>
+    }
+	<?php } ?>
+}
+
 @media only screen and (max-width: <?php echo $global_settings->responsive_breakpoint; ?>px) {
-	.pp-photo-container .pp-photo-align-responsive-left {
+	.fl-node-<?php echo $id; ?> .pp-photo-container .pp-photo-align-responsive-left {
 		text-align: left !important;
 	}
-	.pp-photo-container .pp-photo-align-responsive-center {
+	.fl-node-<?php echo $id; ?> .pp-photo-container .pp-photo-align-responsive-center {
 		text-align: center !important;
 	}
-	.pp-photo-container .pp-photo-align-responsive-right {
+	.fl-node-<?php echo $id; ?> .pp-photo-container .pp-photo-align-responsive-right {
 		text-align: right !important;
 	}
+	<?php if ( 'outside' === $settings->image_border_type ) { ?>
+    .fl-node-<?php echo $id; ?> .pp-photo-container .pp-photo-content .pp-photo-content-inner img {
+		<?php if ( isset( $settings->box_border_group_responsive ) && isset( $settings->box_border_group_responsive['radius'] ) ) { ?>
+			border-top-left-radius: <?php echo $settings->box_border_group_responsive['radius']['top_left']; ?>px;
+			border-top-right-radius: <?php echo $settings->box_border_group_responsive['radius']['top_right']; ?>px;
+			border-bottom-left-radius: <?php echo $settings->box_border_group_responsive['radius']['bottom_left']; ?>px;
+			border-bottom-right-radius: <?php echo $settings->box_border_group_responsive['radius']['bottom_right']; ?>px;
+		<?php } ?>
+    }
+	<?php } ?>
 }

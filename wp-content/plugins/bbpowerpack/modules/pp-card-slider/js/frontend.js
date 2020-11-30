@@ -44,7 +44,7 @@
 				this.setHeight();
 			}
 			if ( window.innerWidth < this.responsive ) {
-				this.sliderOptions.direction = 'vertical';
+				//this.sliderOptions.direction = 'vertical';
 			}
 
 			this.slider = new Swiper( this.wrapperClass, this.sliderOptions );

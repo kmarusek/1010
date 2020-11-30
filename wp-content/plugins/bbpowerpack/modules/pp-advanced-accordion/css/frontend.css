@@ -1,6 +1,7 @@
 .pp-accordion-button {
 	cursor: pointer;
-	display: table;
+	display: block;
+	width: 100%;
 }
 .pp-accordion-button-label {
 	display: table-cell;

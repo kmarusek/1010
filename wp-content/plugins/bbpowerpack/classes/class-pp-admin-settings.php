@@ -551,6 +551,9 @@ final class BB_PowerPack_Admin_Settings {
 	}
 
 	static public function parse_error( $message ) {
+		if ( isset( $_GET['pp_debug'] ) ) {
+			return $message;
+		}
 		if ( false !== strpos( $message, 'wpbeaveraddons' ) ) {
 			return esc_html__( 'Could not connect to the host.', 'bb-powerpack' );
 		}

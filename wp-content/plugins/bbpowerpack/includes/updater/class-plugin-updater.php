@@ -117,6 +117,12 @@ class PP_Plugin_Updater {
 
 		if ( false !== $version_info && is_object( $version_info ) && isset( $version_info->new_version ) ) {
 
+			$version_info->icons = array(
+				'1x'      => BB_POWERPACK_URL . 'assets/images/icon-128x128.png',
+				'2x'      => BB_POWERPACK_URL . 'assets/images/icon-256x256.png',
+				'default' => BB_POWERPACK_URL . 'assets/images/icon-256x256.png',
+			);
+
 			if ( version_compare( $this->version, $version_info->new_version, '<' ) ) {
 
 				$_transient_data->response[ $this->name ] = $version_info;
@@ -179,7 +185,11 @@ class PP_Plugin_Updater {
 				}
 
 				if ( isset( $version_info->icons ) && ! is_array( $version_info->icons ) ) {
-					$version_info->icons = $this->convert_object_to_array( $version_info->icons );
+					$version_info->icons = array(
+						'1x'      => BB_POWERPACK_URL . 'assets/images/icon-128x128.png',
+						'2x'      => BB_POWERPACK_URL . 'assets/images/icon-256x256.png',
+						'default' => BB_POWERPACK_URL . 'assets/images/icon-256x256.png',
+					);
 				}
 
 				$this->set_version_info_cache( $version_info );

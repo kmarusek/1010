@@ -434,8 +434,8 @@ final class BB_PowerPack_Header_Footer {
 		if ( is_object( $post ) ) {
 			$header = get_option( 'bb_powerpack_header_footer_template_header' );
 			$footer = get_option( 'bb_powerpack_header_footer_template_footer' );
-			$has_header = $post->ID === $header;
-			$has_footer = $post->ID === $footer;
+			$has_header = $post->ID == $header;
+			$has_footer = $post->ID == $footer;
 
 			if ( $has_header || $has_footer ) {
 				remove_filter( 'the_content', 'FLBuilder::render_content' );

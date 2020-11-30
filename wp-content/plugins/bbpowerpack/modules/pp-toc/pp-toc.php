@@ -44,8 +44,8 @@ class PPToCModule extends FLBuilderModule {
 			'large' 		=> __( 'Large Devices Only', 'bb-powerpack' ),
 			'large-medium' 	=> __( 'Large and Medium Devices', 'bb-powerpack' ),
 			'medium'  		=> __( 'Medium Devices Only', 'bb-powerpack' ),
-			'medium-responsive'  => __( 'Medium and Responsive Devices', 'bb-powerpack' ),
-			'responsive'  	=> __( 'Responsive Devices Only', 'bb-powerpack' ),
+			'medium-responsive'  => __( 'Medium and Small Devices', 'bb-powerpack' ),
+			'responsive'  	=> __( 'Small Devices Only', 'bb-powerpack' ),
 		);
 	}
 }

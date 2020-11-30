@@ -40,7 +40,7 @@ FLBuilderCSS::typography_field_rule( array(
 FLBuilderCSS::typography_field_rule( array(
 	'settings'		=> $settings,
 	'setting_name' 	=> 'label_typography',
-	'selector' 		=> ".fl-node-$id .pp-cf7-content form p",
+	'selector' 		=> ".fl-node-$id .pp-cf7-content form p, .fl-node-$id .pp-cf7-content form label",
 ) );
 
 // Input Typography

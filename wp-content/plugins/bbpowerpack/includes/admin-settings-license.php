@@ -8,15 +8,15 @@
 
 $status = self::get_option( 'bb_powerpack_license_status', true, true );
 $license = self::get_option( 'bb_powerpack_license_key', true, true );
-$licesne_status = bb_powerpack_check_license();
-if ( is_array( $licesne_status ) && isset( $licesne_status['message'] ) ) {
-	echo '<p style="color: red; background: #fff3f3; padding: 10px;">' . self::parse_error( $licesne_status['message'] ) . '</p>';
-	$licesne_status = $status;
+$license_status = bb_powerpack_check_license();
+if ( is_array( $license_status ) && isset( $license_status['message'] ) ) {
+	echo '<p style="color: red; background: #fff3f3; padding: 10px;">' . self::parse_error( $license_status['message'] ) . '</p>';
+	$license_status = $status;
 } else {
-	if ( ! is_array( $licesne_status ) && 'invalid' === $licesne_status ) {
+	if ( ! is_array( $license_status ) && 'invalid' === $license_status ) {
 		$status = '';
 	}
-	//bb_powerpack_update( 'bb_powerpack_license_status', $licesne_status );
+	//bb_powerpack_update( 'bb_powerpack_license_status', $license_status );
 }
 ?>
 

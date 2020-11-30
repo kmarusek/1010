@@ -672,6 +672,9 @@
 			if ($(this.nodeClass + '-clone').length) {
 				return;
 			}
+			if ( $('html').hasClass( 'fl-builder-is-showing-toolbar' ) ) {
+				return;
+			}
 
 			var module = $(this.nodeClass),
 				clone = module.clone(),

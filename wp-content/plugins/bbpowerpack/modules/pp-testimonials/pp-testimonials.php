@@ -321,9 +321,8 @@ BB_PowerPack::register_module(
 						),
 						'min_slides'   => array(
 							'type'       => 'unit',
-							'label'      => __( 'Minimum Slides', 'bb-powerpack' ),
+							'label'      => __( 'Number of Slides', 'bb-powerpack' ),
 							'default'    => '1',
-							'units'      => array( 'px' ),
 							'slider'     => true,
 							'responsive' => true,
 							'help'       => __( 'The minimum number of slides to be shown.', 'bb-powerpack' ),
@@ -341,7 +340,6 @@ BB_PowerPack::register_module(
 							'type'       => 'unit',
 							'label'      => __( 'Move Slides', 'bb-powerpack' ),
 							'default'    => '1',
-							'units'      => array( 'px' ),
 							'slider'     => true,
 							'responsive' => true,
 							'help'       => __( 'The number of slides to move on transition.', 'bb-powerpack' ),

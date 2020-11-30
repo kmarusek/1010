@@ -282,7 +282,13 @@ final class BB_PowerPack_Templates_Lib {
 				return $output;
 			}
 
-			file_put_contents( $path, $templates_json );
+			try {
+				file_put_contents( $path, $templates_json );
+			} catch ( Exception $e ) {
+				pp_set_error( 'fetch_error' );
+				$output['error'] = $e->getMessage();
+				return $output;
+			}
 		} else {
 			pp_set_error( 'fetch_error' );
 			$output['error'] = __( 'Something went wrong. Please try again.', 'bb-powerpack' );

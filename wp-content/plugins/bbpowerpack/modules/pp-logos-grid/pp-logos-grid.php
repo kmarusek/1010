@@ -237,12 +237,11 @@ BB_PowerPack::register_module('PPLogosGridModule', array(
                         'slider'        => true,
 						'default'		=> '6',		
 						'responsive' => array(
-							'placeholder' => array(
-								'default' => '6',
-								'medium' => '4',
-								'responsive' => '2',
-							),
-						),
+							'default'	=> array(
+								'medium' 	=> '4',
+								'responsive' => '2'
+							)
+						)
                     ),
                 )
             )

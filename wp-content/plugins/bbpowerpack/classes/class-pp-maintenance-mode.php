@@ -175,6 +175,14 @@ final class BB_PowerPack_Maintenance_Mode {
 		remove_action( 'genesis_footer', 'genesis_footer_markup_open', 5 );
 		remove_action( 'genesis_footer', 'genesis_do_footer' );
 		remove_action( 'genesis_footer', 'genesis_footer_markup_close', 15 );
+		remove_all_actions( 'genesis_entry_header' );
+		add_filter( 'genesis_attr_site-inner', function( $attributes, $context, $args ) {
+			if ( ! is_array( $attributes ) || empty( $attributes ) ) {
+				$attributes = array( 'class' => 'site-inner' );
+			}
+			
+			return $attributes;
+		}, 15, 3 );
 
 		// Remove Storefront theme's header / footer.
 		remove_all_actions( 'storefront_header' );

@@ -503,7 +503,7 @@ BB_PowerPack::register_module(
 						'line_width'   => array(
 							'type'          => 'unit',
 							'label'         => __('Width', 'bb-powerpack'),
-							'units'   		=> array('px, %'),
+							'units'   		=> array('px', '%'),
 							'slider'		=> true,
 							'default'       => '100',
 							'preview'       => array(

@@ -81,7 +81,11 @@ var pp_modal_<?php echo $id; ?> = false;
             // If the URL contains a hash beginning with modal, trigger that modal box.
             if ( tabHash && tabHash.indexOf('modal-') >= 0 ) {
                 if ( modalId === '<?php echo $id; ?>' ) {
-                    pp_modal_<?php echo $id; ?> = new PPModalBox(modal_<?php echo $id; ?>);
+					if ( pp_modal_<?php echo $id; ?> instanceof PPModalBox ) {
+						pp_modal_<?php echo $id; ?>.show();
+					} else {
+                    	pp_modal_<?php echo $id; ?> = new PPModalBox(modal_<?php echo $id; ?>);
+					}
                 }
             }
         });

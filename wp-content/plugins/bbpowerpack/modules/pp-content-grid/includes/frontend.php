@@ -238,13 +238,13 @@ $query = FLBuilderLoop::query( $settings );
 				<div class="pp-content-grid-load-more">
 					<a href="#" class="pp-grid-load-more-button">
 					<span class="pp-grid-loader-text"><?php echo $settings->load_more_text; ?></span>
-					<span class="pp-grid-loader-icon"><img src="<?php echo BB_POWERPACK_URL . 'assets/images/spinner.gif'; ?>" /></span></a>
+					<span class="pp-grid-loader-icon"><img src="<?php echo BB_POWERPACK_URL . 'assets/images/spinner.gif'; ?>" alt="loader" /></span></a>
 				</div>
 			<?php } ?>
 			<?php if ( 'scroll' == $settings->pagination ) { ?>
 				<div class="pp-content-grid-loader" style="display: none;">
 					<span class="pp-grid-loader-text"><?php _e('Loading...', 'bb-powerpack'); ?></span>
-					<span class="pp-grid-loader-icon"><img src="<?php echo BB_POWERPACK_URL . 'assets/images/spinner.gif'; ?>" /></span>
+					<span class="pp-grid-loader-icon"><img src="<?php echo BB_POWERPACK_URL . 'assets/images/spinner.gif'; ?>" alt="loader" /></span>
 				</div>
 			<?php } ?>
 		<?php } ?>

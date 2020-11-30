@@ -1,3 +1,21 @@
+== 2.12.4 ==
+Release date: November 12, 2020
+* Fix: Smart Headings - Separator width percent unit was not working properly
+* Fix: Card Slider - Button link was not working properly
+* Fix: Card Slider - Height issue in iPhone when direction is set to horizontal
+* Fix: Formidable Forms - Button styles were getting applied to progress bar too due to the same HTML elements
+* Fix: Testimonial - Renamed Minimum Slides field to Number of Slides
+* Fix: Social Icons - Colors set in Row settings were not getting applied to module elements properly
+* Fix: Content Grid - Load More pagination was not working after resetting FacetWP filters
+* Fix: Content Grid - Added missing alt attribute to loading spinner image
+* Fix: Content Grid - AJAX based pagination was not workig on search page with Relevanssi plugin
+* Fix: Logos Grid - Extra margin on the last logo item
+* Fix: Image - Border radius was not getting applied to responsive layout
+* Fix: Contact Form 7 - Label typography settings were not getting applied
+* Fix: Info List - z-index issue
+* Fix: Core (Header/Footer) - Duplicate row was showing in header template
+* Fix: Core (Maintenance Mode) - PHP warning with Genesis theme when viewing single product post
+
 == 2.12.3 ==
 Release date: October 21, 2020
 * Fix: Filterable Gallery - Medium and responsive settings were not working properly

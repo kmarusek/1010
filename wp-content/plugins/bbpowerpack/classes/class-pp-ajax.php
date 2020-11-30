@@ -494,7 +494,12 @@ class BB_PowerPack_Ajax {
 			$query = new WP_Query( $query->query_vars );
 		}
 
-		do_action( 'pp_post_grid_ajax_after_query', $settings );
+		// Add compatibility for Relevanssi.
+		if ( $query->is_search() && function_exists( 'relevanssi_do_query' ) ) {
+			relevanssi_do_query( $query );
+		}
+
+		do_action( 'pp_post_grid_ajax_after_query', $settings, $query );
 
 		if ( $query->have_posts() ) :
 
@@ -526,13 +531,13 @@ class BB_PowerPack_Ajax {
 					<div class="pp-content-grid-load-more">
 						<a href="#" class="pp-grid-load-more-button">
 						<span class="pp-grid-loader-text"><?php echo $settings->load_more_text; ?></span>
-						<span class="pp-grid-loader-icon"><img src="<?php echo BB_POWERPACK_URL . 'assets/images/spinner.gif'; ?>" /></span></a>
+						<span class="pp-grid-loader-icon"><img src="<?php echo BB_POWERPACK_URL . 'assets/images/spinner.gif'; ?>" alt="loader" /></span></a>
 					</div>
 				<?php } ?>
 				<?php if ( 'scroll' == $settings->pagination ) { ?>
 					<div class="pp-content-grid-loader" style="display: none;">
 						<span class="pp-grid-loader-text"><?php _e('Loading...', 'bb-powerpack'); ?></span>
-						<span class="pp-grid-loader-icon"><img src="<?php echo BB_POWERPACK_URL . 'assets/images/spinner.gif'; ?>" /></span>
+						<span class="pp-grid-loader-icon"><img src="<?php echo BB_POWERPACK_URL . 'assets/images/spinner.gif'; ?>" alt="loader" /></span>
 					</div>
 				<?php }
 

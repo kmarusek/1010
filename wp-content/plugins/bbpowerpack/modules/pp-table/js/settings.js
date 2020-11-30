@@ -49,7 +49,7 @@
 
 				$.ajax({
 					type: 'POST',
-					url: '/',
+					url: location.href.split('#').shift().replace('fl_builder', 'ppajax'),
 					data: formData,
 					contentType: false,
 					processData: false,

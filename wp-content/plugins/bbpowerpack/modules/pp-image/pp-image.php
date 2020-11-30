@@ -726,11 +726,6 @@ BB_PowerPack::register_module('PPImageModule', array(
 						'type'          => 'border',
 						'label'         => __( 'Border', 'bb-powerpack' ),
 						'responsive'	=> true,
-						'preview'   	=> array(
-                            'type'  		=> 'css',
-                            'selector'  	=> '.pp-photo-container .pp-photo-content',
-                            'property'  	=> 'border',
-                        ),
 					),
 					'box_border_hover_color'	=> array(
 						'type'				=> 'color',
