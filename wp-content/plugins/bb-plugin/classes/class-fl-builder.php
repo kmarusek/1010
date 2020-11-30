@@ -737,6 +737,10 @@ final class FLBuilder {
 				return;
 			}
 
+			if ( $global ) {
+				$asset_ver = FLBuilderModel::get_asset_version( $path );
+			}
+
 			// Enqueue.
 			if ( 'css' == $type ) {
 				wp_enqueue_style( $handle, $url, $css_deps, $asset_ver, $css_media );

@@ -1,3 +1,14 @@
+<h4>2.4.1.1 - 11/18/2020</h4>
+<strong>Hot Fix</strong>
+<ul>
+	<li>Fix RankMath integration (#866)</li>
+	<li>Tweak sensitive code fix so that it doesn't prevent allowed HTML (#840)</li>
+	<li>Fix updating global element does not update CSS (#838)</li>
+	<li>Fix attribute preview not selecting all matching elements (#864)</li>
+	<li>Fix Content Slider button padding applying to other Content Slider modules on the same page (#850)</li>
+	<li>More UI Style hardening for letter-spacing in CSS (#842)</li>
+</ul>
+
 <h4>2.4.1 - 11/5/2020</h4>
 <strong>Enhancements</strong>
 <ul>
@@ -9,8 +20,8 @@
 	<li>Subscribe Module: Add integration with Mailjet</li>
 	<li>Update FontAwesome to 5.15.1 (#784)</li>
 	<li>Do not clear cache on upgrader_process_complete as cache is already cleared when BB is updated</li>
-	<li> Use wp_kses_post for photo captions (#448)</li>
-	<li> Make sure users who enter sensitive code have WordPress' unfiltered html capability (#448)</li>
+	<li>Use wp_kses_post for photo captions (#448)</li>
+	<li>Make sure users who enter sensitive code have WordPress' unfiltered html capability (#448)</li>
 </ul>
 
 <strong>Bug Fix</strong>

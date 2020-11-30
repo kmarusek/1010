@@ -6796,7 +6796,15 @@
 					if ( verified ) {
 						finishSavingSettings()
 					} else {
-						msg = FLBuilderStrings.noScriptWarn.heading + '<br /><br />' + FLBuilderStrings.noScriptWarn.message;
+						msg = '<p style="font-weight:bold;text-align:center;">' + FLBuilderStrings.noScriptWarn.heading + '</p>';
+
+						if ( FLBuilderConfig.userCaps.global_unfiltered_html ) {
+							msg += '<p>' + FLBuilderStrings.noScriptWarn.global + '</p>';
+						} else {
+							msg += '<p>' + FLBuilderStrings.noScriptWarn.message + '</p>';
+						}
+
+						msg += '<p>' + FLBuilderStrings.noScriptWarn.footer + '</p>';
 						FLBuilderSettingsForms.hideLightboxLoader()
 						FLBuilder.alert( msg );
 					}

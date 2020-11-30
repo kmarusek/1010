@@ -634,6 +634,26 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Big Shoulders Inline Display": {
+    "variants": ["100", "300", "regular", "500", "600", "700", "800", "900"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Big Shoulders Inline Text": {
+    "variants": ["100", "300", "regular", "500", "600", "700", "800", "900"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Big Shoulders Stencil Display": {
+    "variants": ["100", "300", "regular", "500", "600", "700", "800", "900"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Big Shoulders Stencil Text": {
+    "variants": ["100", "300", "regular", "500", "600", "700", "800", "900"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Big Shoulders Text": {
     "variants": ["100", "300", "regular", "500", "600", "700", "800", "900"],
     "fallback": "sans-serif"
@@ -905,7 +925,7 @@
   }
 }, {
   "Caveat": {
-    "variants": ["regular", "700"],
+    "variants": ["regular", "500", "600", "700"],
     "fallback": "cursive"
   }
 }, {
@@ -1839,6 +1859,11 @@
     "fallback": "cursive"
   }
 }, {
+  "Goldman": {
+    "variants": ["regular", "700"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Gorditas": {
     "variants": ["regular", "700"],
     "fallback": "sans-serif"
@@ -2110,7 +2135,7 @@
   }
 }, {
   "Ibarra Real Nova": {
-    "variants": ["regular", "italic", "600", "600italic", "700", "700italic"],
+    "variants": ["regular", "500", "600", "700", "italic", "500italic", "600italic", "700italic"],
     "fallback": "serif"
   }
 }, {
@@ -2645,7 +2670,7 @@
   }
 }, {
   "Libre Franklin": {
-    "variants": ["100", "100italic", "200", "200italic", "300", "300italic", "regular", "italic", "500", "500italic", "600", "600italic", "700", "700italic", "800", "800italic", "900", "900italic"],
+    "variants": ["100", "200", "300", "regular", "500", "600", "700", "800", "900", "100italic", "200italic", "300italic", "italic", "500italic", "600italic", "700italic", "800italic", "900italic"],
     "fallback": "sans-serif"
   }
 }, {
@@ -4977,6 +5002,11 @@
   "Work Sans": {
     "variants": ["100", "200", "300", "regular", "500", "600", "700", "800", "900", "100italic", "200italic", "300italic", "italic", "500italic", "600italic", "700italic", "800italic", "900italic"],
     "fallback": "sans-serif"
+  }
+}, {
+  "Xanh Mono": {
+    "variants": ["regular", "italic"],
+    "fallback": "monospace"
   }
 }, {
   "Yanone Kaffeesatz": {

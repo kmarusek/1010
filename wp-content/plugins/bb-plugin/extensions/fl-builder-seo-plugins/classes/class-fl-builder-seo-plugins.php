@@ -97,7 +97,7 @@ class FLBuilderSeoPlugins {
 		if ( 'yoast' === $plugin ) {
 			$deps = array();
 		} else {
-			$deps = array( 'rank-math-post-metabox' );
+			$deps = array( 'wp-hooks', 'rank-math-analyzer' );
 		}
 
 		$data = $this->content_data();

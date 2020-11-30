@@ -73,7 +73,8 @@ echo 'FLBuilderConfig              = ' . FLBuilderUtils::json_encode( apply_filt
 	) ),
 	'themerLayoutsUrl'           => admin_url( '/edit.php?post_type=fl-theme-layout' ),
 	'userCaps'                   => array(
-		'unfiltered_html' => current_user_can( 'unfiltered_html' ),
+		'unfiltered_html'        => current_user_can( 'unfiltered_html' ),
+		'global_unfiltered_html' => defined( 'DISALLOW_UNFILTERED_HTML' ) && DISALLOW_UNFILTERED_HTML ? true : false,
 	),
 ) ) ) . ';';
 
@@ -228,8 +229,12 @@ echo 'FLBuilderStrings             = ' . FLBuilderUtils::json_encode( apply_filt
 	'uncategorized'                  => esc_attr__( 'Uncategorized', 'fl-builder' ),
 	'yesPlease'                      => esc_attr__( 'Yes Please!', 'fl-builder' ),
 	'noScriptWarn'                   => array(
-		'heading' => esc_attr__( 'Error! Settings not saved.', 'fl-builder' ),
-		'message' => esc_attr__( 'These settings contain sensitive code that can only be edited by an administrator of this site. Remove the code or contact an administrator for help.', 'fl-builder' ),
+		'heading' => esc_attr__( 'Settings could not be saved.', 'fl-builder' ),
+		// translators: %s : User Role
+		'message' => sprintf( esc_attr__( "Your user role (%s) doesn't allow you to enter sensitive code with tags such as <iframe> or <script>.", 'fl-builder' ), FLBuilderUtils::get_current_user_role() ),
+		'global'  => esc_attr__( "Sensitive code (with tags such as <iframe> or <script>) is not allowed because the site's wp-config.php file contains the DISALLOW_UNFILTERED_HTML setting.", 'fl-builder' ),
+		// translators: %s : Link to Docs
+		'footer'  => sprintf( esc_attr__( 'See [%s] for more information.', 'fl-builder' ), '<a target="_blank" href="https://docs.wpbeaverbuilder.com/beaver-builder/troubleshooting/common-issues/error-settings-not-saved">link</a>' ),
 	),
 	'savedStatus'                    => array(
 		'saving'               => esc_attr__( 'Saving...', 'fl-builder' ),

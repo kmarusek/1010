@@ -790,7 +790,7 @@ final class FLBuilderModel {
 	 * @since 1.0
 	 * @return string
 	 */
-	static public function get_asset_version() {
+	static public function get_asset_version( $path = false ) {
 		$post_id = self::get_post_id();
 		$active  = self::is_builder_active();
 		$preview = self::is_builder_draft_preview();
@@ -798,9 +798,10 @@ final class FLBuilderModel {
 		if ( $active || $preview ) {
 			return md5( uniqid() );
 		} else {
-			return md5( get_post_modified_time( 'U', false, $post_id ) );
+			return $path ? md5( file_get_contents( $path ) ) : md5( get_post_modified_time( 'U', false, $post_id ) );
 		}
 	}
+
 
 	/**
 	 * Returns an array of paths for the CSS and JS assets
@@ -4067,14 +4068,32 @@ final class FLBuilderModel {
 	 * @return bool
 	 */
 	public static function verify_settings_kses( $settings ) {
+
+		if ( ! has_filter( 'safe_style_css', '__return_empty_array' ) ) {
+			add_filter( 'safe_style_css', '__return_empty_array' );
+		}
+
 		foreach ( $settings as $key => $value ) {
-			$sanitized = wp_kses_post_deep( $value );
-			if ( json_encode( $sanitized ) !== json_encode( $value ) ) {
-				return false;
+			if ( is_string( $value ) ) {
+				$sanitized = wp_kses_post( $value );
+				if ( json_encode( $sanitized ) !== json_encode( $value ) ) {
+					remove_filter( 'safe_style_css', '__return_empty_array' );
+					return false;
+				}
+			} else {
+				if ( is_object( $value ) || is_array( $value ) ) {
+					if ( ! self::verify_settings_kses( $value ) ) {
+						remove_filter( 'safe_style_css', '__return_empty_array' );
+						return false;
+					}
+				}
 			}
 		}
+
+		remove_filter( 'safe_style_css', '__return_empty_array' );
 		return true;
 	}
+
 
 	/**
 	 * Sanitizes settings for a form.
