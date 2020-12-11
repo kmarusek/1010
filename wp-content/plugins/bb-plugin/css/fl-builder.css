@@ -6295,3 +6295,13 @@ Rules to ensure compatibility with v2.0.
 .fl-builder-ui-skin--light .select2-search__field:-moz-placeholder {
 	color: #808080 !important;
 }
+
+.fl-diff td.diff-addedline,
+.fl-diff td.diff-context,
+.fl-diff td.diff-deletedline span {
+	display: none;
+}
+
+.fl-diff table.diff {
+	width: 100%;
+}

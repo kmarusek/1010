@@ -955,8 +955,12 @@ final class FLBuilderCompatibility {
 			return;
 		}
 
-		if ( ( $query->is_main_query() && is_post_type_archive( 'tribe_events' ) ) || ( 'fl-theme-layout' == get_post_type() ) ) {
-			$query->set( 'post__not_in', Tribe__Events__Query::getHideFromUpcomingEvents() );
+		if ( ( $query->is_main_query() && is_post_type_archive( 'tribe_events' ) ) || ( 'fl-theme-layout' === get_post_type() ) ) {
+			$hide_upcoming_events = Tribe__Events__Query::getHideFromUpcomingEvents();
+			if ( ! empty( $hide_upcoming_events ) ) {
+				$current_post_not_in = $query->get( 'post__not_in' );
+				$query->set( 'post__not_in', array_merge( $current_post_not_in, $hide_upcoming_events ) );
+			}
 		}
 	}
 
@@ -975,8 +979,13 @@ final class FLBuilderCompatibility {
 			return $args;
 		}
 
-		if ( 'tribe_events' == $args['settings']->post_type && 'custom_query' == $args['settings']->data_source ) {
-			$args['post__not_in'] = Tribe__Events__Query::getHideFromUpcomingEvents();
+		if ( 'tribe_events' !== $args['settings']->post_type || 'custom_query' !== $args['settings']->data_source ) {
+			return $args;
+		}
+
+		$hide_upcoming_events = Tribe__Events__Query::getHideFromUpcomingEvents();
+		if ( ! empty( $hide_upcoming_events ) ) {
+			$args['post__not_in'] = array_merge( $args['post__not_in'], $hide_upcoming_events );
 		}
 
 		return $args;

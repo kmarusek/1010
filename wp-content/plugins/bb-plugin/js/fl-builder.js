@@ -6792,21 +6792,38 @@
 					action          : 'verify_settings',
 					settings        : settings,
 				}, function( response ) {
-					var verified = FLBuilder._jsonParse( response )
-					if ( verified ) {
+					if ( 'true' === response ) {
 						finishSavingSettings()
 					} else {
 						msg = '<p style="font-weight:bold;text-align:center;">' + FLBuilderStrings.noScriptWarn.heading + '</p>';
-
 						if ( FLBuilderConfig.userCaps.global_unfiltered_html ) {
 							msg += '<p>' + FLBuilderStrings.noScriptWarn.global + '</p>';
 						} else {
 							msg += '<p>' + FLBuilderStrings.noScriptWarn.message + '</p>';
 						}
 
+						msg += '<p><div class="fl-diff"></div></p>';
 						msg += '<p>' + FLBuilderStrings.noScriptWarn.footer + '</p>';
 						FLBuilderSettingsForms.hideLightboxLoader()
 						FLBuilder.alert( msg );
+						data = $.parseJSON(response);
+						if ( '' !== data.diff  ) {
+							$('.fl-diff').html( data.diff );
+							$('.fl-diff').prepend( '<p>' + FLBuilderStrings.codeErrorDetected + '</p>');
+							$('.fl-diff .diff-deletedline').each(function(){
+								if ( $(this).find('del').length < 1 ) {
+									$(this).css('background-color', 'red');
+								} else {
+									$(this).find('del').css('background-color', 'red');
+								}
+							});
+							console.log( '============' );
+							console.log( 'key: ' + data.key );
+							console.log( 'value: ' + data.value );
+							console.log( 'parsed: ' + data.parsed );
+							console.log( '============' );
+						}
+
 					}
 				} );
 			}

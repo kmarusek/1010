@@ -216,33 +216,6 @@ FLBuilder::register_module(
 								'content_right' => __( 'Right of Content', 'fl-builder' ),
 							),
 						),
-						'heading_tag'         => array(
-							'type'    => 'select',
-							'label'   => __( 'List Item Heading Tag', 'fl-builder' ),
-							'default' => 'h3',
-							'options' => array(
-								'h1'   => __( 'h1', 'fl-builder' ),
-								'h2'   => __( 'h2', 'fl-builder' ),
-								'h3'   => __( 'h3', 'fl-builder' ),
-								'h4'   => __( 'h4', 'fl-builder' ),
-								'h5'   => __( 'h5', 'fl-builder' ),
-								'h6'   => __( 'h6', 'fl-builder' ),
-								'span' => __( 'span', 'fl-builder' ),
-								'div'  => __( 'div', 'fl-builder' ),
-							),
-							'help'    => __( 'The wrapper tag for the heading of each list item. Heading appears above the text content.', 'fl-builder' ),
-						),
-						'content_tag'         => array(
-							'type'    => 'select',
-							'label'   => __( 'List Item Content Tag', 'fl-builder' ),
-							'default' => 'div',
-							'options' => array(
-								'div'     => __( 'div', 'fl-builder' ),
-								'aside'   => __( 'aside', 'fl-builder' ),
-								'section' => __( 'section', 'fl-builder' ),
-							),
-							'help'    => __( 'The wrapper tag for the text content of each list item. Text content is right below the list item heading.', 'fl-builder' ),
-						),
 					),
 				),
 				'list_item_tags_section' => array(

@@ -1,3 +1,15 @@
+<h4>2.4.1.2 - 12/03/2020</h4>
+<strong>Hot Fix</strong>
+<ul>
+	<li>Gallery Module: Captions do not show when image source is SmugMug (#891)</li>
+	<li>List Module: Fix Duplicate Heading and Content tag options (#879)</li>
+	<li>Posts Modules: Fix "match all posts except" option not working properly with TEC Events(#874)</li>
+	<li>Fix Fatal errors when using PHP 5.4 and WP 4.9 and below (#875)</li>
+	<li>Notifications Area: Fix background transparency (#898)</li>
+	<li>Sensitive code protection: allow some improper HTML and when triggered, try to highlight the problem code (#872)</li>
+	<li>Agency Version: Fix issue with Branding filter where icon doesn't work if you previously changed that value in WP admin (#849)</li>
+</ul>
+
 <h4>2.4.1.1 - 11/18/2020</h4>
 <strong>Hot Fix</strong>
 <ul>

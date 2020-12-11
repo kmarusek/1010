@@ -104,6 +104,7 @@ echo 'FLBuilderStrings             = ' . FLBuilderUtils::json_encode( apply_filt
 	'codeerrorhtml'                  => esc_attr__( 'You cannot add <script> or <iframe> tag here.', 'fl-builder' ),
 	'codeErrorFix'                   => esc_attr__( 'Fix Errors', 'fl-builder' ),
 	'codeErrorIgnore'                => esc_attr__( 'Save With Errors', 'fl-builder' ),
+	'codeErrorDetected'              => esc_html__( 'We detected a possible issue here:', 'fl-builder' ),
 	'column'                         => esc_attr__( 'Column', 'fl-builder' ),
 	'contentSliderSelectLayout'      => esc_attr__( 'Please select either a background layout or content layout before submitting.', 'fl-builder' ),
 	'contentSliderTransitionWarn'    => esc_attr__( 'Transition value should be lower than Delay value.', 'fl-builder' ),
@@ -231,8 +232,8 @@ echo 'FLBuilderStrings             = ' . FLBuilderUtils::json_encode( apply_filt
 	'noScriptWarn'                   => array(
 		'heading' => esc_attr__( 'Settings could not be saved.', 'fl-builder' ),
 		// translators: %s : User Role
-		'message' => sprintf( esc_attr__( "Your user role (%s) doesn't allow you to enter sensitive code with tags such as <iframe> or <script>.", 'fl-builder' ), FLBuilderUtils::get_current_user_role() ),
-		'global'  => esc_attr__( "Sensitive code (with tags such as <iframe> or <script>) is not allowed because the site's wp-config.php file contains the DISALLOW_UNFILTERED_HTML setting.", 'fl-builder' ),
+		'message' => sprintf( esc_attr__( 'These settings contain sensitive code that is not allowed for your user role (%s).', 'fl-builder' ), FLBuilderUtils::get_current_user_role() ),
+		'global'  => esc_attr__( 'These settings contain sensitive code that is not allowed as DISALLOW_UNFILTERED_HTML has been set globally via wp-config.', 'fl-builder' ),
 		// translators: %s : Link to Docs
 		'footer'  => sprintf( esc_attr__( 'See [%s] for more information.', 'fl-builder' ), '<a target="_blank" href="https://docs.wpbeaverbuilder.com/beaver-builder/troubleshooting/common-issues/error-settings-not-saved">link</a>' ),
 	),

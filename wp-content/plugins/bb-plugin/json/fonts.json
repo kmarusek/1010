@@ -300,7 +300,7 @@
   }
 }, {
   "Arimo": {
-    "variants": ["regular", "italic", "700", "700italic"],
+    "variants": ["regular", "500", "600", "700", "italic", "500italic", "600italic", "700italic"],
     "fallback": "sans-serif"
   }
 }, {
@@ -912,6 +912,11 @@
   "Carter One": {
     "variants": ["regular"],
     "fallback": "sans-serif"
+  }
+}, {
+  "Castoro": {
+    "variants": ["regular", "italic"],
+    "fallback": "serif"
   }
 }, {
   "Catamaran": {
@@ -2234,6 +2239,11 @@
     "fallback": "sans-serif"
   }
 }, {
+  "JetBrains Mono": {
+    "variants": ["100", "200", "300", "regular", "500", "600", "700", "800", "100italic", "200italic", "300italic", "italic", "500italic", "600italic", "700italic", "800italic"],
+    "fallback": "monospace"
+  }
+}, {
   "Jim Nightshade": {
     "variants": ["regular"],
     "fallback": "cursive"
@@ -2265,7 +2275,7 @@
   }
 }, {
   "Josefin Slab": {
-    "variants": ["100", "100italic", "300", "300italic", "regular", "italic", "600", "600italic", "700", "700italic"],
+    "variants": ["100", "200", "300", "regular", "500", "600", "700", "100italic", "200italic", "300italic", "italic", "500italic", "600italic", "700italic"],
     "fallback": "serif"
   }
 }, {
@@ -2350,7 +2360,7 @@
   }
 }, {
   "Karla": {
-    "variants": ["regular", "italic", "700", "700italic"],
+    "variants": ["200", "300", "regular", "500", "600", "700", "800", "200italic", "300italic", "italic", "500italic", "600italic", "700italic", "800italic"],
     "fallback": "sans-serif"
   }
 }, {
@@ -3240,6 +3250,11 @@
   }
 }, {
   "Nanum Pen Script": {
+    "variants": ["regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Nerko One": {
     "variants": ["regular"],
     "fallback": "cursive"
   }
@@ -4732,6 +4747,11 @@
   "Text Me One": {
     "variants": ["regular"],
     "fallback": "sans-serif"
+  }
+}, {
+  "Texturina": {
+    "variants": ["100", "200", "300", "regular", "500", "600", "700", "800", "900", "100italic", "200italic", "300italic", "italic", "500italic", "600italic", "700italic", "800italic", "900italic"],
+    "fallback": "serif"
   }
 }, {
   "Thasadith": {

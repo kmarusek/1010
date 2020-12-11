@@ -4075,10 +4075,17 @@ final class FLBuilderModel {
 
 		foreach ( $settings as $key => $value ) {
 			if ( is_string( $value ) ) {
+				$value     = stripslashes( $value );
 				$sanitized = wp_kses_post( $value );
-				if ( json_encode( $sanitized ) !== json_encode( $value ) ) {
+				if ( json_encode( $sanitized ) !== json_encode( self::fix_kses( $value ) ) ) {
 					remove_filter( 'safe_style_css', '__return_empty_array' );
-					return false;
+					$output = array(
+						'diff'   => wp_text_diff( $value, $sanitized, array( 'show_split_view' => false ) ),
+						'value'  => self::fix_kses( $value ),
+						'parsed' => $sanitized,
+						'key'    => $key,
+					);
+					return $output;
 				}
 			} else {
 				if ( is_object( $value ) || is_array( $value ) ) {
@@ -4092,6 +4099,21 @@ final class FLBuilderModel {
 
 		remove_filter( 'safe_style_css', '__return_empty_array' );
 		return true;
+	}
+
+	/**
+	 * Add a space to self closing tags and other things if there isnt one because kses will and checks will fail.
+	 * @since 2.4.2
+	 */
+	static public function fix_kses( $value ) {
+
+		// fix & -> &amp;
+		$value = str_replace( '&', '&amp;', $value );
+
+		// fix <br/> -> <br />
+		$value = preg_replace( '#(<[a-z]+)(\/>)#', '$1 $2', $value );
+
+		return $value;
 	}
 
 
