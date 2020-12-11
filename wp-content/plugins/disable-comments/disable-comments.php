@@ -4,7 +4,7 @@
  * Plugin Name: Disable Comments
  * Plugin URI: https://wordpress.org/plugins/disable-comments/
  * Description: Allows administrators to globally disable comments on their site. Comments can be disabled according to post type. You could bulk delete comments using Tools.
- * Version: 2.0.1
+ * Version: 2.0.2
  * Author: WPDeveloper
  * Author URI: https://wpdeveloper.net
  * License: GPL-3.0+
@@ -37,15 +37,12 @@ class Disable_Comments
 
 	function __construct()
 	{
-		define('DC_VERSION', '2.0.1');
+		define('DC_VERSION', '2.0.2');
 		define('DC_PLUGIN_SLUG', 'disable_comments_settings');
 		define('DC_PLUGIN_ROOT_PATH', dirname(__FILE__));
 		define('DC_PLUGIN_VIEWS_PATH', DC_PLUGIN_ROOT_PATH . '/views/');
 		define('DC_PLUGIN_ROOT_URI', plugins_url("/", __FILE__));
 		define('DC_ASSETS_URI', DC_PLUGIN_ROOT_URI . 'assets/');
-
-		register_activation_hook(__FILE__, array($this, 'activate'));
-		add_action('wp_loaded', array($this, 'plugin_redirect'));
 
 		// save settings
 		add_action('wp_ajax_disable_comments_save_settings', array($this, 'disable_comments_settings'));
@@ -110,7 +107,7 @@ class Disable_Comments
 			}
 			$current_screen = get_current_screen()->id;
 			$hascaps = $this->networkactive ? is_network_admin() && current_user_can('manage_network_plugins') : current_user_can('manage_options');
-			if( ! in_array( $current_screen, ['admin_page_disable_comments_settings_setup', 'settings_page_disable_comments_settings', 'settings_page_disable_comments_settings_setup', 'settings_page_disable_comments_settings-network', 'settings_page_disable_comments_settings_setup-network', 'admin_page_disable_comments_settings_setup-network' ]) && $hascaps ) {
+			if( ! in_array( $current_screen, ['settings_page_disable_comments_settings', 'settings_page_disable_comments_settings-network']) && $hascaps ) {
 				$this->tracker->notice();
 			}
 		}
@@ -127,8 +124,8 @@ class Disable_Comments
 			'item_id'      => 'b0112c9030af6ba53de4'
 		]);
 		$tracker->set_notice_options(array(
-			'notice' => __('Want to help make Disable Comments even better?', 'disable-comments-on-attachments'),
-			'extra_notice' => __('We collect non-sensitive diagnostic data and plugin usage information. Your site URL, WordPress & PHP version, plugins & themes and email address to send you the discount coupon. This data lets us make sure this plugin always stays compatible with the most popular plugins and themes. No spam, I promise.', 'disable-comments-on-attachments'),
+			'notice' => __('Want to help make Disable Comments even better?', 'disable-comments'),
+			'extra_notice' => __('We collect non-sensitive diagnostic data and plugin usage information. Your site URL, WordPress & PHP version, plugins & themes and email address to send you the discount coupon. This data lets us make sure this plugin always stays compatible with the most popular plugins and themes. No spam, I promise.', 'disable-comments'),
 		));
 		$tracker->init();
 	}
@@ -240,15 +237,6 @@ class Disable_Comments
 		add_action('admin_enqueue_scripts', array($this, 'settings_page_assets'));
 	}
 
-	/**
-	 * Do stuff upon plugin activation
-	 *
-	 * @return void
-	 */
-	public function activate()
-	{
-		$this->update_option('dc_do_activation_redirect', true);
-	}
 
 	public function register_text_domain()
 	{
@@ -325,19 +313,6 @@ class Disable_Comments
 	}
 	public function delete_option( $option ){
 		return $this->networkactive ? delete_site_option( $option ) : delete_option( $option );
-	}
-
-	public function plugin_redirect()
-	{
-		if ( $this->get_option( 'dc_do_activation_redirect') ) {
-			$this->delete_option('dc_do_activation_redirect');
-			if( $this->get_option('dc_setup_screen_seen') ) {
-				wp_safe_redirect($this->settings_page_url());
-			} else {
-				wp_safe_redirect($this->quick_setup_url());
-			}
-			exit;
-		}
 	}
 
 	/**
@@ -448,9 +423,7 @@ class Disable_Comments
 	{
 		if (
 			$hook_suffix === 'settings_page_' . DC_PLUGIN_SLUG ||
-			$hook_suffix === 'options-general_' . DC_PLUGIN_SLUG ||
-			$hook_suffix === 'admin_page_' . DC_PLUGIN_SLUG . '_setup' ||
-			$hook_suffix === 'settings_page_' . DC_PLUGIN_SLUG . '_setup'
+			$hook_suffix === 'options-general_' . DC_PLUGIN_SLUG
 		) {
 			// css
 			wp_enqueue_style('sweetalert2',  DC_ASSETS_URI . 'css/sweetalert2.min.css', [], false);
@@ -511,16 +484,6 @@ class Disable_Comments
 		return add_query_arg('page', DC_PLUGIN_SLUG, $base);
 	}
 
-
-	/**
-	 * Return context-aware settings page URL
-	 */
-	private function quick_setup_url()
-	{
-		$base = $this->networkactive ? network_admin_url('settings.php') : admin_url('admin.php');
-		return add_query_arg('page', $this->get_option('dc_setup_screen_seen') ? DC_PLUGIN_SLUG : DC_PLUGIN_SLUG . '_setup', $base);
-	}
-
 	/**
 	 * Return context-aware tools page URL
 	 */
@@ -536,13 +499,10 @@ class Disable_Comments
 		if (strpos(get_current_screen()->id, 'settings_page_disable_comments_settings') === 0) {
 			return;
 		}
-		if (strpos(get_current_screen()->id, 'admin_page_disable_comments_settings_setup') === 0) {
-			return;
-		}
 		$hascaps = $this->networkactive ? is_network_admin() && current_user_can('manage_network_plugins') : current_user_can('manage_options');
 		if ($hascaps) {
 			$this->setup_notice_flag = true;
-			echo '<div class="notice dc-text__block disable__comment__alert mb30"><img height="30" src="'. DC_ASSETS_URI .'img/icon-logo.png" alt=""><p>' . sprintf(__('The <strong>Disable Comments</strong> plugin is active, but isn\'t configured to do anything yet. Visit the <a href="%s">configuration page</a> to choose which post types to disable comments on.', 'disable-comments'), esc_attr($this->quick_setup_url())) . '</p></div>';
+			echo '<div class="notice dc-text__block disable__comment__alert mb30"><img height="30" src="'. DC_ASSETS_URI .'img/icon-logo.png" alt=""><p>' . sprintf(__('The <strong>Disable Comments</strong> plugin is active, but isn\'t configured to do anything yet. Visit the <a href="%s">configuration page</a> to choose which post types to disable comments on.', 'disable-comments'), esc_attr($this->settings_page_url())) . '</p></div>';
 		}
 	}
 
@@ -643,20 +603,12 @@ class Disable_Comments
 	{
 		$title = _x('Disable Comments', 'settings menu title', 'disable-comments');
 		if ($this->networkactive) {
-			$hook = add_submenu_page('settings.php', $title, $title, 'manage_network_plugins', DC_PLUGIN_SLUG, array($this, 'settings_page'));
+			add_submenu_page('settings.php', $title, $title, 'manage_network_plugins', DC_PLUGIN_SLUG, array($this, 'settings_page'));
 		} else {
-			$hook = add_submenu_page('options-general.php', $title, $title, 'manage_options', DC_PLUGIN_SLUG, array($this, 'settings_page'));
-		}
-		add_submenu_page(null, $title, $title, 'manage_options', DC_PLUGIN_SLUG . '_setup', array($this, 'setup_settings_page'));
-		add_action('load-' . $hook, array($this, 'root_redirect'));
-	}
-	public function root_redirect(){
-		$is_setup_page = isset( $_GET['page'] ) && trim( $_GET['page'] ) === 'disable_comments_settings_setup';
-		if( isset( $_GET['page'] ) && trim( $_GET['page'] ) === 'disable_comments_settings' && ! $this->get_option('dc_setup_screen_seen') && ! $is_setup_page ) {
-			wp_safe_redirect( $this->quick_setup_url(), 301 );
-			exit;
+			add_submenu_page('options-general.php', $title, $title, 'manage_options', DC_PLUGIN_SLUG, array($this, 'settings_page'));
 		}
 	}
+
 	public function tools_menu()
 	{
 		$title = __('Delete Comments', 'disable-comments');
@@ -727,11 +679,6 @@ class Disable_Comments
 		include_once DC_PLUGIN_VIEWS_PATH . 'settings.php';
 	}
 
-	public function setup_settings_page()
-	{
-		$this->update_option('dc_setup_screen_seen', true);
-		include_once DC_PLUGIN_VIEWS_PATH . 'setup-settings.php';
-	}
 
 	public function form_data_modify($form_data)
 	{
