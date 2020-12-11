@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'PantheonCurl' => $baseDir . '/includes/class-pantheoncurl.php',
     'SolrPower' => $baseDir . '/includes/class-solrpower.php',
     'SolrPower_Api' => $baseDir . '/includes/class-solrpower-api.php',

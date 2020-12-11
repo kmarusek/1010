@@ -26,6 +26,7 @@ class ComposerStaticInit0bb59497016483031cb4014c8d1a18c4
     );
 
     public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'PantheonCurl' => __DIR__ . '/../..' . '/includes/class-pantheoncurl.php',
         'SolrPower' => __DIR__ . '/../..' . '/includes/class-solrpower.php',
         'SolrPower_Api' => __DIR__ . '/../..' . '/includes/class-solrpower-api.php',
