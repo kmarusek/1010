@@ -15,7 +15,7 @@ if ( 'csv_import' == $source ) {
 				$csv_content 	= file_get_contents( $csv_filepath );
 				if ( ! empty( $csv_content ) ) {
 					$csv_rows 		= explode( "\n", $csv_content );
-					$tableheaders 	= explode( ',', $csv_rows[0] );
+					$tableheaders 	= str_getcsv( $csv_rows[0] );
 					$tablerows 		= array();
 
 					if ( isset( $settings->first_row_header ) && 'yes' === $settings->first_row_header ) {
@@ -26,7 +26,7 @@ if ( 'csv_import' == $source ) {
 
 					for ( ; $i < count( $csv_rows ); $i++ ) {
 						$row 		= new stdClass();
-						$row->cell 	= explode( ',', $csv_rows[ $i ] );
+						$row->cell 	= str_getcsv( $csv_rows[ $i ] );
 						$tablerows[] = $row;
 					}
 				}
@@ -139,16 +139,8 @@ if ( ! empty( $tableheaders[0] ) ) {
 		?>
 	</tbody>
 </table>
-<?php if ( $settings->scrollable == 'swipe' && $settings->custom_breakpoint > 0 ) : ?>
-	<script>
-	if ( jQuery(window).width() >= <?php echo $settings->custom_breakpoint; ?> ) {
-		jQuery(".fl-node-<?php echo $id; ?> table.pp-table-content").removeAttr('data-tablesaw-mode');
-	}
-	</script>
-<?php endif;
-
+<?php
 do_action( 'pp_after_table_module', $settings );
-
 } // End if().
 ?>
 </div>

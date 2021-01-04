@@ -7,7 +7,7 @@ var carousel_<?php echo $id; ?> = '';
 		if( gallery_selector.length && typeof $.fn.magnificPopup !== 'undefined') {
 			gallery_selector.magnificPopup({
 				delegate: '.pp-image-carousel-item a',
-				closeBtnInside: true,
+				closeBtnInside: false,
 				type: 'image',
 				gallery: {
 					enabled: true,

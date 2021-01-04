@@ -1071,7 +1071,7 @@ BB_PowerPack::register_module('PPInfoBoxModule', array(
 						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'          => 'css',
-							'selector'      => '.pp-infobox-icon-inner',
+							'selector'      => '.pp-infobox-icon span.pp-icon',
 							'property'      => 'color',
 						)
 					),
@@ -1081,9 +1081,7 @@ BB_PowerPack::register_module('PPInfoBoxModule', array(
 						'show_reset'    => true,
 						'connections'	=> array('color'),
 						'preview'       => array(
-							'type'          => 'css',
-							'selector'      => '.pp-infobox-icon:hover-inner',
-							'property'      => 'color',
+							'type'          => 'none',
 						)
 					),
 					'icon_background'    => array(
@@ -1094,7 +1092,7 @@ BB_PowerPack::register_module('PPInfoBoxModule', array(
 						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'          => 'css',
-							'selector'      => '.pp-infobox-icon-inner',
+							'selector'      => '.pp-infobox-icon',
 							'property'      => 'background',
 						)
 					),
@@ -1106,7 +1104,7 @@ BB_PowerPack::register_module('PPInfoBoxModule', array(
 						'connections'	=> array('color'),
 						'preview'       => array(
 							'type'          => 'css',
-							'selector'      => '.pp-infobox-icon-inner:hover',
+							'selector'      => '.pp-infobox-icon:hover',
 							'property'      => 'background',
 						)
 					),

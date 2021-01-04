@@ -488,12 +488,8 @@ if ( 'no' === $settings->category_grid_slider ) {
 	}
 	?>
 }
-.fl-node-<?php echo $id; ?> .pp-category,
-.fl-node-<?php echo $id; ?> .pp-category .category-<?php echo $category_style; ?> .pp-category__link,
+
 .fl-node-<?php echo $id; ?> .pp-category .category-<?php echo $category_style; ?> .pp-category__content,
-.fl-node-<?php echo $id; ?> .pp-category .category-<?php echo $category_style; ?> .pp-category__title_wrapper,
-.fl-node-<?php echo $id; ?> .pp-category .category-<?php echo $category_style; ?> .pp-category__title,
-.fl-node-<?php echo $id; ?> .pp-category .category-<?php echo $category_style; ?> .pp-category__title_wrapper span,
 .fl-node-<?php echo $id; ?> .pp-category .category-<?php echo $category_style; ?> .pp-category__img,
 .fl-node-<?php echo $id; ?> .pp-category .category-<?php echo $category_style; ?> .pp-category__img img,
 .fl-node-<?php echo $id; ?> .pp-category .category-<?php echo $category_style; ?> .pp-category__button_wrapper,
@@ -501,22 +497,6 @@ if ( 'no' === $settings->category_grid_slider ) {
 .fl-node-<?php echo $id; ?> .pp-category .category-<?php echo $category_style; ?> .pp-category__content::before,
 .fl-node-<?php echo $id; ?> .pp-category .category-<?php echo $category_style; ?> .pp-category__content::after,
 .fl-node-<?php echo $id; ?> .pp-category .category-<?php echo $category_style; ?> .pp-category__description_wrapper {
-	-webkit-transition: all <?php echo $speed; ?>s ease-in-out;
-		-moz-transition: all <?php echo $speed; ?>s ease-in-out;
-			transition: all <?php echo $speed; ?>s ease-in-out;
-}
-.fl-node-<?php echo $id; ?> .pp-category:hover,
-.fl-node-<?php echo $id; ?> .pp-category .category-<?php echo $category_style; ?>:hover .pp-category__content,
-.fl-node-<?php echo $id; ?> .pp-category .category-<?php echo $category_style; ?>:hover .pp-category__title_wrapper,
-.fl-node-<?php echo $id; ?> .pp-category .category-<?php echo $category_style; ?>:hover .pp-category__title,
-.fl-node-<?php echo $id; ?> .pp-category .category-<?php echo $category_style; ?>:hover .pp-category__title_wrapper span,
-.fl-node-<?php echo $id; ?> .pp-category .category-<?php echo $category_style; ?>:hover .pp-category__img,
-.fl-node-<?php echo $id; ?> .pp-category .category-<?php echo $category_style; ?>:hover .pp-category__img img,
-.fl-node-<?php echo $id; ?> .pp-category .category-<?php echo $category_style; ?>:hover .pp-category__button_wrapper,
-.fl-node-<?php echo $id; ?> .pp-category .category-<?php echo $category_style; ?>:hover .pp-category__button_wrapper .pp-category__button,
-.fl-node-<?php echo $id; ?> .pp-category .category-<?php echo $category_style; ?>:hover .pp-category__content::before,
-.fl-node-<?php echo $id; ?> .pp-category .category-<?php echo $category_style; ?>:hover .pp-category__content::after,
-.fl-node-<?php echo $id; ?> .pp-category .category-<?php echo $category_style; ?>:hover .pp-category__description_wrapper {
 	-webkit-transition: all <?php echo $speed; ?>s ease-in-out;
 		-moz-transition: all <?php echo $speed; ?>s ease-in-out;
 			transition: all <?php echo $speed; ?>s ease-in-out;

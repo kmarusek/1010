@@ -63,6 +63,7 @@
 	background: #fff;
 	-webkit-transition: all 0.5s;
 	transition: all 0.5s;
+	outline: 0;
 }
 
 .pp-offcanvas-content.pp-offcanvas-content-right {

@@ -1,35 +1,3 @@
-div.mfp-wrap .mfp-close {
-	opacity: 1;
-    background-color: rgba(0,0,0,0.8) !important;
-    padding: 1px 7px !important;
-    height: 30px;
-    width: 30px;
-    border-radius: 0;
-    line-height: 1 !important;
-    font-family: inherit !important;
-    font-weight: bold !important;
-	font-size: 16px;
-    text-align: center !important;
-    top: 0 !important;
-    right: 0 !important;
-}
-
-.admin-bar div.mfp-wrap .mfp-close,
-.admin-bar div.mfp-wrap .mfp-close:active,
-.admin-bar div.mfp-wrap .mfp-close:hover,
-.admin-bar div.mfp-wrap .mfp-close:focus {
-    top: 0 !important;
-}
-
-div.mfp-wrap .mfp-close:hover,
-div.mfp-wrap .mfp-close:focus {
-	background-color: #000 !important;
-}
-
-div.mfp-wrap .mfp-bottom-bar {
-    margin-top: 10px;
-}
-
 .compat-field-pp-custom-link .alignleft {
     margin: 0;
 }

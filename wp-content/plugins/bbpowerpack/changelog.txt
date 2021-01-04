@@ -1,3 +1,33 @@
+== 2.13.1 ==
+Release date: December 15, 2020
+* Hotfix: Same version was showing on the plugin update page
+
+== 2.13.0 ==
+Release date: December 15, 2020
+* Enhancement: Added an option in PowerPack extensions setting to disable WordPress Lazy Load
+* Enhancement: Table of Contents - Added compatibility with RankMath plugin
+* Enhancement: Content Grid - Improved AJAX response speed for dynamic filters
+* Enhancement: Card Slider - Added options to control content margin, padding, and card max-width
+* Enhancement: Content Tiles - Other posts image size will be controlled by Medium or Small tile image size options based on the selected Column Width
+* Enhancement: Smart Banner - Description field is now WYSIWYG editor
+* Fix: Card Slider - Responsive image width issue
+* Fix: Hover Cards - Heading typography was not working for the tag other than h3
+* Fix: Table - Scroll mode was getting reverted to original when changing orientation to landscape on responsive devices
+* Fix: Table - Incorrect split of CSV data when the comma is found inside double quotes string
+* Fix: Category Grid - Delayed hover transition issue
+* Fix: Content Grid - Fallback image was not getting cropped
+* Fix: Content Grid - Equal height was not getting applied when using the Content Grid in Advanced Tabs module
+* Fix: Content Grid - Grid layout issue due to lazy load
+* Fix: Content Grid - Default filter was not working
+* Fix: Content Grid - Unfefined date_format variable PHP warning in carousel mode
+* Fix: Contact Form - Field connection was not working in email subject field
+* Fix: Advanced Accordion - Icon alignment issue
+* Fix: Video Gallery - Minor CSS issue
+* Fix: Pricing Table - Layout issue when using in the expandable row
+* Fix: Image Carousel - Lightbox close button CSS conflict with the CSS of Image module
+* Fix: Info Box - Hairline visible gap between icon and border when background color is filled
+* Fix: Photo Gallery - Minor JS issue
+
 == 2.12.4 ==
 Release date: November 12, 2020
 * Fix: Smart Headings - Separator width percent unit was not working properly

@@ -907,6 +907,12 @@ final class BB_PowerPack_Admin_Settings {
 			if ( ! isset( $_POST['bb_powerpack_extensions'] ) ) {
 				self::update_option( 'bb_powerpack_extensions', array( 'disabled' ), true );
 			}
+
+			if ( isset( $_POST['bb_powerpack_disable_wp_lazyload'] ) && ! empty( $_POST['bb_powerpack_disable_wp_lazyload'] ) ) {
+				self::update_option( 'bb_powerpack_disable_wp_lazyload', 'yes' );
+			} else {
+				self::update_option( 'bb_powerpack_disable_wp_lazyload', 'no' );
+			}
 		}
 	}
 

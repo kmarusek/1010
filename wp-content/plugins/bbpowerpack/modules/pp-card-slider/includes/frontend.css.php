@@ -18,6 +18,38 @@ FLBuilderCSS::dimension_field_rule(
 	)
 );
 
+// Card Content Margin.
+FLBuilderCSS::dimension_field_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'card_content_margin',
+		'selector'     => ".fl-node-$id .pp-card-slider-container .pp-card-slider-content-wrap",
+		'unit'         => 'px',
+		'props'        => array(
+			'margin-top'    => 'card_content_margin_top',
+			'margin-right'  => 'card_content_margin_right',
+			'margin-bottom' => 'card_content_margin_bottom',
+			'margin-left'   => 'card_content_margin_left',
+		),
+	)
+);
+
+// Card Content Padding.
+FLBuilderCSS::dimension_field_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'card_content_padding',
+		'selector'     => ".fl-node-$id .pp-card-slider-container .pp-card-slider-content-wrap",
+		'unit'         => 'px',
+		'props'        => array(
+			'padding-top'    => 'card_content_padding_top',
+			'padding-right'  => 'card_content_padding_right',
+			'padding-bottom' => 'card_content_padding_bottom',
+			'padding-left'   => 'card_content_padding_left',
+		),
+	)
+);
+
 // Image margin
 FLBuilderCSS::dimension_field_rule(
 	array(
@@ -73,7 +105,7 @@ FLBuilderCSS::typography_field_rule(
 	array(
 		'settings'     => $settings,
 		'setting_name' => 'title_typography',
-		'selector'     => ".fl-node-$id .pp-card-slider-container .pp-card-slider-title",
+		'selector'     => ".fl-node-$id .pp-card-slider-container .pp-card-slider-title, .fl-node-$id .pp-card-slider-container .pp-card-slider-title a",
 	)
 );
 
@@ -143,6 +175,16 @@ FLBuilderCSS::border_field_rule(
 );
 
 // -------------------Responsive-----------------------------
+
+// Container Max Width
+FLBuilderCSS::responsive_rule(
+	array(
+		'settings'     => $settings,
+		'setting_name' => 'card_max_width',
+		'selector'     => ".fl-node-$id .pp-card-slider-container .pp-card-slider",
+		'prop'         => 'max-width',
+	)
+);
 
 // Container Width
 FLBuilderCSS::responsive_rule(
@@ -286,17 +328,17 @@ FLBuilderCSS::rule(
 );
 
 // Image Responsive rule
-FLBuilderCSS::rule(
-	array(
-		'selector' => ".fl-node-$id .pp-card-slider-container .pp-card-slider-image",
-		'media'    => 'responsive',
-		'props'    => array(
-			'margin' => '10px',
-			'width'  => ( '' !== $settings->card_image_width && 90 > $settings->card_image_width ) ? $settings->card_image_width . '%' : '90%',
-			'height' => '250px',
-		),
-	)
-);
+// FLBuilderCSS::rule(
+// 	array(
+// 		'selector' => ".fl-node-$id .pp-card-slider-container .pp-card-slider-image",
+// 		'media'    => 'responsive',
+// 		'props'    => array(
+// 			'margin' => '10px',
+// 			'width'  => ( '' !== $settings->card_image_width && 90 > $settings->card_image_width ) ? $settings->card_image_width . '%' : '90%',
+// 			'height' => '250px',
+// 		),
+// 	)
+// );
 
 // Content Wrap
 FLBuilderCSS::rule(

@@ -1,4 +1,6 @@
 <?php
+global $post;
+
 $title_tag = isset( $settings->title_tag ) ? $settings->title_tag : 'h3';
 if ( isset( $settings->recaptcha_key_source ) && 'default' == $settings->recaptcha_key_source ) {
 	$recaptcha_site_key = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_recaptcha_site_key' );
@@ -10,6 +12,7 @@ if ( isset( $settings->recaptcha_key_source ) && 'default' == $settings->recaptc
 ?>
 
 <form class="pp-contact-form pp-form-<?php echo $settings->form_layout; ?>" <?php if ( isset( $module->template_id ) ) echo 'data-template-id="' . $module->template_id . '" data-template-node-id="' . $module->template_node_id . '"'; ?>>
+	<input type="hidden" name="fl-layout-id" value="<?php echo $post->ID; ?>" />
     <<?php echo $title_tag; ?> class="pp-form-title">
 	<?php if ( $settings->custom_title ) {
 	 	echo $settings->custom_title;

@@ -279,6 +279,7 @@
 			}
 			
 			this.element.trigger('afterclose');
+			$(document).trigger( 'pp_modal_box_after_close', [this.element] );
 		},
 
 		close: function()

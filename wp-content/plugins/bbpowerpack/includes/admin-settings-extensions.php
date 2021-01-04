@@ -118,6 +118,23 @@ $enabled_extensions = self::get_enabled_extensions();
 	</tr>
 </table>
 
+<hr>
+<h3><?php _e('Toggle Lazy Load', 'bb-powerpack'); ?></h3>
+<table class="form-table">
+	<tr align="top">
+		<th scope="row" valign="top">
+			<label for="bb_powerpack_disable_wp_lazyload"><?php esc_html_e('Disable Lazy Load', 'bb-powerpack'); ?></label>
+			<p class="description"><?php _e( 'If you find some modules with images behaving weird then it maybe a lazyload issue of browser. You can disable the lazyload from here.', 'bb-powerpack' ); ?></p>
+		</th>
+		<td>
+			<label class="pp-admin-field-toggle">
+				<input id="bb_powerpack_disable_wp_lazyload" name="bb_powerpack_disable_wp_lazyload" type="checkbox" value="yes"<?php echo 'yes' === get_option( 'bb_powerpack_disable_wp_lazyload' ) ? ' checked="checked"' : '' ?> />
+				<span class="pp-admin-field-toggle-slider"></span>
+			</label>
+		</td>
+	</tr>
+</table>
+
 <?php submit_button(); ?>
 <?php wp_nonce_field('pp-extensions', 'pp-extensions-nonce'); ?>
 <input type="hidden" name="bb_powerpack_override_ms" value="1" />

@@ -9,6 +9,7 @@ class BB_PowerPack_Post_Helper {
 
 	static public function post_catch_image( $content, $size = 'large' ) {
 		$first_img = '';
+		$id = '';
 		ob_start();
 		ob_end_clean();
 		$output = preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $content, $matches );
@@ -26,13 +27,22 @@ class BB_PowerPack_Post_Helper {
 			}
 		}
 
-		return $first_img;
+		return array(
+			'id' => $id,
+			'src' => $first_img
+		);
 	}
 
-	static public function post_image_get_settings( $id, $crop, $settings ) {
-		// get image source and data
-		$src = self::post_image_get_full_src( $id, $settings );
-		$photo_data = self::post_image_get_data( $id );
+	static public function post_image_get_settings( $id, $crop, $settings, $has_featured_image ) {
+		if ( $has_featured_image ) {
+			// get image source and data
+			$src = self::post_image_get_full_src( $id, $settings );
+			$photo_data = self::post_image_get_data( $id );
+		} else {
+			$has_fallback_image = isset( $settings->fallback_image ) && 'custom' == $settings->fallback_image && ! empty( $settings->fallback_image_custom );
+			$src = $has_fallback_image ? self::post_image_get_full_src( $id, $settings, $settings->fallback_image_custom ) : '';
+			$photo_data = self::post_image_get_data( $id, $settings->fallback_image_custom );
+		}
 
 		// set params
 		$photo_settings = array(
@@ -40,7 +50,7 @@ class BB_PowerPack_Post_Helper {
 			'link_type'     => '',
 			'link_url'      => '',
 			'photo'         => $photo_data,
-			'photo_src'     => $src,
+			'photo_src'     => ! empty( $src ) ? $src : apply_filters( 'pp_cg_placeholder_img', BB_POWERPACK_URL . 'assets/images/placeholder.jpg' ),
 			'photo_source'  => 'library',
 			'attributes'	=> array(
 				'data-no-lazy'	=> 1,
@@ -55,16 +65,16 @@ class BB_PowerPack_Post_Helper {
 		return $photo_settings;
 	}
 
-	static public function post_image_get_full_src( $id, $settings ) {
-		$thumb_id = get_post_thumbnail_id( $id );
+	static public function post_image_get_full_src( $id, $settings, $attachment_id = false ) {
+		$attachment_id = $attachment_id ? $attachment_id : get_post_thumbnail_id( $id );
 		$size = isset( $settings->image_thumb_size ) ? $settings->image_thumb_size : 'medium';
-		$img = wp_get_attachment_image_src( $thumb_id, $size );
+		$img = wp_get_attachment_image_src( $attachment_id, $size );
 		return $img[0];
 	}
 
-	static protected function post_image_get_data( $id ) {
-		$thumb_id = get_post_thumbnail_id( $id );
-		return FLBuilderPhoto::get_attachment_data( $thumb_id );
+	static protected function post_image_get_data( $id, $attachment_id = false ) {
+		$attachment_id = $attachment_id ? $attachment_id : get_post_thumbnail_id( $id );
+		return FLBuilderPhoto::get_attachment_data( $attachment_id );
 	}
 
 	static public function post_build_array( $settings ) {

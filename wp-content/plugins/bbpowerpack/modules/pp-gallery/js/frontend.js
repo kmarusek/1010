@@ -72,6 +72,7 @@
 
 			wrap.imagesLoaded( $.proxy( function() {
 				wrap.isotope(isotopeData);
+				$( this.wrapperClass ).css( "opacity", 1 );
 			}, this ) );
 		},
 
@@ -86,6 +87,7 @@
 					maxRowHeight: this.settings.maxRowHeight,
 					lastRow: this.settings.lastRow,
 				});
+				$( this.wrapperClass ).css( "opacity", 1 );
 			}, this));
 		},
 

@@ -421,6 +421,81 @@ class PPContentGridModule extends FLBuilderModule {
 
 		return $settings;
 	}
+
+	public function get_fields_for_js( $form, $settings ) {
+		$js_fields = clone $settings;
+
+		if ( ! is_callable( 'FLBuilderModel::get_settings_form_fields' ) ) {
+			return $js_fields;
+		}
+		try {
+			$form_fields = FLBuilderModel::get_settings_form_fields( $form );
+			// List of deprecated fields.
+			$deprecated_fields = array(
+				'content_custom_font_size',
+				'content_custom_line_height',
+				'content_font_size_toggle',
+				'content_line_height_toggle',
+				'title_custom_line_height',
+				'title_font_size_toggle',
+				'title_line_height_toggle',
+				'post_shadow_display',
+				'post_shadow_opacity'
+			);
+
+			foreach ( $deprecated_fields as $field_key ) {
+				if ( isset( $js_fields->{ $field_key } ) ) {
+					unset( $js_fields->{ $field_key } );
+				}
+			}
+
+			if ( is_array( $form_fields ) && ! empty( $form_fields ) ) {
+				foreach ( $form_fields as $field_key => $field ) {
+					if ( isset( $field['preview'] ) && isset( $field['preview']['type'] ) ) {
+						if ( isset( $js_fields->{ $field_key } ) ) {
+							unset( $js_fields->{ $field_key } );
+						} elseif ( 'dimension' === $field['type'] ) {
+							foreach ( array( 'top', 'right', 'bottom', 'left' ) as $suffix ) {
+								$setting_key = $field_key . '_' . $suffix;
+								if ( isset( $js_fields->{ $setting_key } ) ) {
+									unset( $js_fields->{ $setting_key } );
+								}
+								if ( isset( $js_fields->{ $setting_key . '_unit' } ) ) {
+									unset( $js_fields->{ $setting_key . '_unit' } );
+								}
+								foreach ( array( 'medium', 'responsive' ) as $device ) {
+									$device_setting_key = $setting_key . '_' . $device;
+									if ( isset( $js_fields->{ $device_setting_key } ) ) {
+										unset( $js_fields->{ $device_setting_key } );
+									}
+									if ( isset( $js_fields->{ $device_setting_key . '_unit' } ) ) {
+										unset( $js_fields->{ $device_setting_key . '_unit' } );
+									}
+								}
+							}
+						}
+
+						if ( isset( $js_fields->{ $field_key . '_unit' } ) ) {
+							unset( $js_fields->{ $field_key . '_unit' } );
+						}
+						foreach ( array( 'medium', 'responsive' ) as $device ) {
+							$setting_key = $field_key . '_' . $device;
+							if ( isset( $js_fields->{ $setting_key } ) ) {
+								unset( $js_fields->{ $setting_key } );
+							}
+							if ( isset( $js_fields->{ $setting_key . '_unit' } ) ) {
+								unset( $js_fields->{ $setting_key . '_unit' } );
+							}
+						}
+					}
+				}
+			}
+		} catch ( Excption $e ) {
+			return $js_fields;
+		}
+
+		return $js_fields;
+	}
 }
 
 /**
@@ -522,6 +597,9 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 							'yes'          	=> __('Yes', 'bb-powerpack'),
 							'no'         	=> __('No', 'bb-powerpack'),
 						),
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
 					),
 					'custom_height'	=> array(
 						'type'			=> 'unit',
@@ -533,7 +611,10 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 							'max'			=> 1000,
 							'step'			=> 1
 						),
-						'responsive'	=> true			
+						'responsive'	=> true,
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),		
 					),
 					'total_post'  => array(
 						'type'          => 'pp-switch',
@@ -599,6 +680,9 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 								'tooltip'	=> __('Mobile', 'bb-powerpack'),
 							),
 						),
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
 					),
 					'post_spacing'  => array(
 						'type'          => 'unit',
@@ -609,6 +693,9 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 							'min'			=> '0',
 							'max'			=> '20',
 							'step'			=> '1'
+						),
+						'preview'	=> array(
+							'type'		=> 'refresh'
 						),
 					),
 				)
@@ -625,13 +712,19 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 						'type'		=> 'unit',
 						'label'		=> __( 'Slides to Move', 'bb-powerpack' ),
 						'default'	=> '1',
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
 					),
 					'slides_speed' => array(
 						'type'          => 'text',
 						'label'         => __('Slides Speed', 'bb-powerpack'),
 						'default'       => '1',
 						'size'          => '5',
-						'description'   => _x( 'seconds', 'Value unit for form field of time in seconds. Such as: "5 seconds"', 'bb-powerpack' )
+						'description'   => _x( 'seconds', 'Value unit for form field of time in seconds. Such as: "5 seconds"', 'bb-powerpack' ),
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
 					),
 					'auto_play'     => array(
 						'type'          => 'pp-switch',
@@ -646,13 +739,19 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 								'fields'	=> array( 'transition_speed' ),
 							),
 						),
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
 					),
 					'transition_speed' => array(
 						'type'          => 'text',
 						'label'         => __('Autoplay Timeout', 'bb-powerpack'),
 						'default'       => '3',
 						'size'          => '5',
-						'description'   => _x( 'seconds', 'Value unit for form field of time in seconds. Such as: "5 seconds"', 'bb-powerpack' )
+						'description'   => _x( 'seconds', 'Value unit for form field of time in seconds. Such as: "5 seconds"', 'bb-powerpack' ),
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
 					),
 					'slide_loop'	=> array(
 						'type'			=> 'pp-switch',
@@ -662,6 +761,9 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 							'no'			=> __('No', 'bb-powerpack'),
 						),
 						'default'		=> 'yes',
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
 					),
 					'stop_on_hover'     => array(
 						'type'          => 'pp-switch',
@@ -670,7 +772,10 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 						'options'       => array(
 							'yes'          => __('Yes', 'bb-powerpack'),
 							'no'         => __('No', 'bb-powerpack'),
-						)
+						),
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
 					),
 					'lazy_load'     => array(
 						'type'          => 'pp-switch',
@@ -679,7 +784,10 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 						'options'       => array(
 							'yes'          => __('Yes', 'bb-powerpack'),
 							'no'         => __('No', 'bb-powerpack'),
-						)
+						),
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
 					),
 					'slides_center_align'	=> array(
 						'type'			=> 'pp-switch',
@@ -689,7 +797,10 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 							'yes'          	=> __('Yes', 'bb-powerpack'),
 							'no'         	=> __('No', 'bb-powerpack'),
 						),
-						'help'			=> __('Useful when there is only one item.', 'bb-powerpack')
+						'help'			=> __('Useful when there is only one item.', 'bb-powerpack'),
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
 					),
 				)
 			),
@@ -709,7 +820,10 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 							'yes'	=> array(
 								'sections'	=> array('post_carousel_dot_style')
 							)
-						)
+						),
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
 					),
 					'slider_navigation'     => array(
 						'type'          => 'pp-switch',
@@ -723,7 +837,10 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 							'yes'			=> array(
 								'sections'		=> array( 'arrow_style' )
 							)
-						)
+						),
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
 					),
 				)
 			),
@@ -742,14 +859,17 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 							'selector'        => '.pp-content-post-carousel .owl-theme .owl-nav button svg',
 							'property'        => 'font-size',
 							'unit'            => 'px'
-						)
+						),
 					),
 					'arrow_color'	=> array(
 						'type'			=> 'color',
 						'label'			=> __('Arrow Color', 'bb-powerpack'),
 						'default'		=> '000000',
 						'show_reset'	=> true,
-						'connections'	=> array('color')
+						'connections'	=> array('color'),
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
 					),
 					'arrow_hover_color'	=> array(
 						'type'			=> 'color',
@@ -758,7 +878,7 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 						'show_reset'	=> true,
 						'connections'	=> array('color'),
 						'preview'		=> array(
-							'type'			=> 'none'
+							'type'			=> 'refresh'
 						)
 					),
 					'arrow_bg_color'	=> array(
@@ -768,6 +888,9 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
 						'connections'	=> array('color'),
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
 					),
 					'arrow_bg_hover_color'	=> array(
 						'type'			=> 'color',
@@ -776,6 +899,9 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 						'show_reset'	=> true,
 						'show_alpha'	=> true,
 						'connections'	=> array('color'),
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
 					),
 					'arrow_border'	=> array(
 						'type'			=> 'border',
@@ -793,7 +919,7 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 						'show_reset'	=> true,
 						'connections'	=> array('color'),
 						'preview'		=> array(
-							'type'			=> 'none'
+							'type'			=> 'refresh'
 						)
 					),
 					'arrow_padding'	=> array(
@@ -801,13 +927,19 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 						'label'			=> __('Padding', 'bb-powerpack'),
 						'default'		=> 10,
 						'units'			=> array('px'),
-						'slider'		=> true
+						'slider'		=> true,
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
 					),
 					'arrow_spacing'	=> array(
 						'type'	=> 'unit',
 						'label'	=> __( 'Spacing', 'bb-powerpack' ),
 						'default' => '-15',
 						'units' => array( 'px' ),
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
 					),
                 )
             ),
@@ -909,17 +1041,23 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 						'show_alpha'	=> true,
 						'connections'	=> array('color'),
 						'preview'		=> array(
-							'type'			=> 'none'
+							'type'			=> 'refresh'
 						)
 					),
 					'post_content_alignment'    => array(
                         'type'      	=> 'align',
                         'label'     	=> __('Text Alignment', 'bb-powerpack'),
-                        'default'   	=> 'left',
+						'default'   	=> 'left',
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
                     ),
 					'field_separator_1'  => array(
                         'type'                => 'pp-separator',
-                        'color'               => 'eeeeee'
+						'color'               => 'eeeeee',
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
 					),
 					'post_grid_padding'	=> array(
 						'type'				=> 'dimension',
@@ -938,7 +1076,10 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 					'post_border_group'	=> array(
 						'type'				=> 'border',
 						'label'				=> __('Border', 'bb-powerpack'),
-						'responsive'		=> true
+						'responsive'		=> true,
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
 					),
 					'post_content_padding'	=> array(
 						'type'				=> 'dimension',
@@ -966,7 +1107,10 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 							'yes'				=> array(
 								'sections'				=> array('image_effects','image_hover_effects')
 							)
-						)
+						),
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
 					),
 				)
 			),
@@ -1033,6 +1177,9 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 						'options'       => array(
 							'left'          => __('Left', 'bb-powerpack'),
 							'right'         => __('Right', 'bb-powerpack'),
+						),
+						'preview'	=> array(
+							'type'		=> 'refresh'
 						),
 					),
 				)
@@ -1223,7 +1370,10 @@ BB_PowerPack::register_module('PPContentGridModule', array(
                         'options'   => array(
                             'default'  => __('Auto', 'bb-powerpack'),
                             'full'  => __('Full Width', 'bb-powerpack'),
-                        ),
+						),
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
                     ),
 					'button_bg_color'	=> array(
 						'type'				=> 'color',
@@ -1232,6 +1382,9 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 						'show_reset'		=> true,
 						'show_alpha'		=> true,
 						'connections'		=> array('color'),
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
 					),
 					'button_bg_hover_color'	=> array(
 						'type'				=> 'color',
@@ -1250,6 +1403,9 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 						'default'			=> 'ffffff',
 						'show_reset'		=> true,
 						'connections'		=> array('color'),
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
 					),
 					'button_text_hover_color'	=> array(
 						'type'				=> 'color',
@@ -1276,6 +1432,9 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 						'default'		=> 'eeeeee',
 						'show_reset'	=> true,
 						'connections'	=> array('color'),
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
 					),
 					'button_padding'	=> array(
 						'type'				=> 'dimension',
@@ -1322,7 +1481,10 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 									'unit'          => 'px'
 		                        ),
                     		),
-                    	)
+						),
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
                     ),
 				)
 			),
@@ -1351,25 +1513,37 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 								'fields'	=> array( 'filter_margin_vertical' ),
 							),
 						),
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
 					),
 					'filter_alignment'    => array(
                         'type'      => 'align',
                         'label'     => __('Alignment', 'bb-powerpack'),
-                        'default'   => 'left',
+						'default'   => 'left',
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
 					),
 					'filter_margin' 	=> array(
 						'type'      => 'unit',
                         'label'     => __('Spacing', 'bb-powerpack'),
                         'units'     => array('px'),
                         'slider' 	=> true,
-                        'default'   => 10,
+						'default'   => 10,
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
 					),
 					'filter_margin_vertical' 	=> array(
 						'type'      => 'unit',
                         'label'     => __('Spacing between filters', 'bb-powerpack'),
                         'units'     => array('px'),
                         'slider' 	=> true,
-                        'default'   => 10,
+						'default'   => 10,
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
 					),
 					'responsive_filter'	=> array(
 						'type'				=> 'select',
@@ -1384,7 +1558,10 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 							'medium_small'		=> __('Medium & Small devices', 'bb-powerpack'),
 							'yes'				=> __('Small devices', 'bb-powerpack')
 						),
-						'help'				=> __('By enabling this option will convert filters into a toggle. If you want to display the filters as they are appearing on desktop, keep it disabled.', 'bb-powerpack')
+						'help'				=> __('By enabling this option will convert filters into a toggle. If you want to display the filters as they are appearing on desktop, keep it disabled.', 'bb-powerpack'),
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
 					),
 				)
 			),
@@ -1436,7 +1613,7 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 						'connections'	=> array('color'),
 						'preview'		=> array(
 							'type'			=> 'none',
-						)
+						),
 					),
 				),
 			),
@@ -1545,7 +1722,7 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 								'fields'	=> array('load_more_text'),
 								'sections'	=> array('pagination_style', 'pagination_colors', 'pagination_border', 'pagination_typography'),
 							)
-						)
+						),
 					),
 					'load_more_text'	=> array(
 						'type'				=> 'text',
@@ -1819,7 +1996,10 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 									'unit'          => 'px'
 		                        ),
                     		),
-                    	)
+						),
+						'preview'       => array(
+							'type'		=> 'refresh',
+						),
                     ),
 				)
 			),
@@ -1887,7 +2067,10 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 									'unit'          => 'px'
 		                        ),
                     		),
-                    	)
+						),
+						'preview'	=> array(
+							'type'		=> 'refresh'
+						),
                     ),
 				)
 			),
@@ -1980,7 +2163,10 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 						)
 					),
 					'field_separator_e1'	=> array(
-						'type'		=> 'pp-separator'
+						'type'		=> 'pp-separator',
+						'preview'	=> array(
+							'type'		=> 'none'
+						),
 					),
 					'event_venue_color'	=> array(
 						'type'				=> 'color',
@@ -1995,7 +2181,10 @@ BB_PowerPack::register_module('PPContentGridModule', array(
 						)
 					),
 					'field_separator_e2'	=> array(
-						'type'		=> 'pp-separator'
+						'type'		=> 'pp-separator',
+						'preview'	=> array(
+							'type'		=> 'none'
+						),
 					),
 					'event_cost_color'	=> array(
 						'type'				=> 'color',

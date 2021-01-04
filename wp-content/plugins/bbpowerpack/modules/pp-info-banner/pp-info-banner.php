@@ -387,7 +387,7 @@ BB_PowerPack::register_module('PPInfoBannerModule', array(
                         )
                     ),
 					'banner_description'    => array(
-                        'type'              => 'textarea',
+                        'type'              => 'editor',
                         'label'             => __('Description', 'bb-powerpack'),
                         'default'           => '',
                         'placeholder'       => '',
@@ -533,7 +533,7 @@ BB_PowerPack::register_module('PPInfoBannerModule', array(
 					),
 					'banner_border_group'	=> array(
 						'type'					=> 'border',
-						'label'					=> __('Border Style', 'bb-powerpack'),
+						'label'					=> __('Border', 'bb-powerpack'),
 						'responsive'			=> true,
 						'preview'				=> array(
 							'type'					=> 'css',
@@ -544,6 +544,7 @@ BB_PowerPack::register_module('PPInfoBannerModule', array(
                         'type'				=> 'dimension',
                         'label'				=> __('Padding', 'bb-powerpack'),
 						'slider'			=> true,
+						'default'			=> 30,
 						'units'				=> array( 'px', '%' ),
                         'preview'			=> array(
                             'type'				=> 'css',

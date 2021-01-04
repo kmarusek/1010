@@ -5,6 +5,7 @@ div.fancybox-container {
     position: relative;
 	text-align: center;
 	text-decoration: none;
+	opacity: 0;
 }
 .pp-photo-gallery:before,
 .pp-photo-gallery:after {

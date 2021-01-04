@@ -25,7 +25,7 @@
 
 			var button = this.accordion.find( '> .pp-accordion-item > .pp-accordion-button' );
 
-			button.css('height', button.outerHeight() + 'px');
+			//button.css('height', button.outerHeight() + 'px');
 			button.off('click').on('click', $.proxy( this._buttonClick, this ) );
 			button.on('mouseup', $.proxy( this._mouseEvent, this ) );
 

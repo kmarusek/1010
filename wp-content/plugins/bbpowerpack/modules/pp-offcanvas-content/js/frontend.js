@@ -107,7 +107,7 @@
 			});
 
 			$('body').delegate('.pp-offcanvas-content .pp-offcanvas-close', 'click', $.proxy(this._close, this));
-			$('body').delegate('.pp-offcanvas-' + this.id + '-close', 'click', function(e) {
+			$('body').delegate('.pp-offcanvas-' + this.id + '-close', 'click keyup', function(e) {
 				e.preventDefault();
 				window['pp_offcanvas_' + self.id]._close();
 			});
@@ -158,14 +158,19 @@
 
 		_show: function () {
 			this._previous = this._active;
+			var self = this;
 
-			$('.pp-offcanvas-content-' + this.id).addClass('pp-offcanvas-content-visible');
+			$('.pp-offcanvas-content-' + this.id).addClass('pp-offcanvas-content-visible').attr('tabindex', '0');
 			// init animation class.
 			$('html').addClass('pp-offcanvas-content-' + this.contentTransition);
 			$('html').addClass('pp-offcanvas-content-' + this.direction);
 			$('html').addClass('pp-offcanvas-content-open');
 			$('html').addClass('pp-offcanvas-content-' + this.id + '-open');
 			$('html').addClass('pp-offcanvas-content-reset');
+
+			setTimeout(function() {
+				$('.pp-offcanvas-content-' + self.id).trigger( 'focus' );
+			}, 250);
 
 			this.button.addClass('pp-is-active');
 
@@ -187,6 +192,7 @@
 				$('html').removeClass('pp-offcanvas-content-' + this.contentTransition);
 				$('html').removeClass('pp-offcanvas-content-' + this.direction);
 				$('.pp-offcanvas-content-' + this.id).removeClass('pp-offcanvas-content-visible');
+				$('.pp-offcanvas-content-' + this.id).trigger('blur');
 
 				if ( $(hash).length > 0 && $(hash).hasClass( 'fl-node-' + this.id ) ) {
 					if ( ! $('html').hasClass('pp-offcanvas-content-open') ) {

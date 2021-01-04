@@ -389,10 +389,6 @@ class PPGoogleMapModule extends FLBuilderModule {
 	}
 
 	public function get_acf_options_page_data() {
-		if ( ! isset( $this->settings->acf_options_page_repeater_name ) || empty( $this->settings->acf_options_page_repeater_name ) ) {
-			return;
-		}
-
 		$data = array();
 
 		$repeater_name    = $this->settings->acf_options_page_repeater_name;
@@ -404,23 +400,38 @@ class PPGoogleMapModule extends FLBuilderModule {
 		$enable_info      = $this->settings->acf_options_enable_info;
 		$info_window_text = $this->settings->acf_options_info_window_text;
 
-		$repeater_rows = get_field( $repeater_name, 'option' );
-		if ( ! $repeater_rows ) {
-			return;
-		}
-
-		foreach ( $repeater_rows as $row ) {
+		if ( empty( $this->settings->acf_options_page_repeater_name ) ) {
 			$item                   = new stdClass;
-			$item->map_name         = ! empty( $map_name ) ?  ( isset( $row[ $map_name ] ) ? $row[ $map_name ] : $map_name ) : '';
-			$item->map_latitude     = ! empty( $map_latitude ) ? ( isset( $row[ $map_latitude ] ) ? $row[ $map_latitude ] : $map_latitude ) : '';
-			$item->map_longitude    = ! empty( $map_longitude ) ? ( isset( $row[ $map_longitude ] ) ? $row[ $map_longitude ] : $map_longitude ) : '';
+			$item->map_name 	 	= $map_name;
+			$item->map_latitude     = ! empty( $map_latitude ) ? get_field( $map_latitude, 'option' ) : '';
+			$item->map_longitude    = ! empty( $map_longitude ) ? get_field( $map_longitude, 'option' ) : '';
 			$item->marker_point     = ! empty( $marker_point ) ? $marker_point : 'default';
 			$item->marker_img       = ! empty( $marker_img ) ? $marker_img : '';
 			$item->enable_info      = ! empty( $enable_info ) ? $enable_info : 'no';
-			$item->info_window_text = ! empty( $info_window_text ) ? ( ! empty( strip_tags( $info_window_text ) ) && isset( $row[ strip_tags( $info_window_text ) ] ) ? $row[ strip_tags( $info_window_text ) ] : $info_window_text ) : '';
+			$item->info_window_text = ! empty( $info_window_text ) ? $info_window_text : '';
 
 			$data[] = $item;
+		} else {
+			$rows = get_field( $repeater_name, 'option' );
+			
+			if ( ! isset( $rows ) || ! $rows ) {
+				return;
+			}
+	
+			foreach ( $rows as $row ) {
+				$item                   = new stdClass;
+				$item->map_name         = ! empty( $map_name ) ?  ( isset( $row[ $map_name ] ) ? $row[ $map_name ] : $map_name ) : '';
+				$item->map_latitude     = ! empty( $map_latitude ) ? ( isset( $row[ $map_latitude ] ) ? $row[ $map_latitude ] : $map_latitude ) : '';
+				$item->map_longitude    = ! empty( $map_longitude ) ? ( isset( $row[ $map_longitude ] ) ? $row[ $map_longitude ] : $map_longitude ) : '';
+				$item->marker_point     = ! empty( $marker_point ) ? $marker_point : 'default';
+				$item->marker_img       = ! empty( $marker_img ) ? $marker_img : '';
+				$item->enable_info      = ! empty( $enable_info ) ? $enable_info : 'no';
+				$item->info_window_text = ! empty( $info_window_text ) ? ( ! empty( strip_tags( $info_window_text ) ) && isset( $row[ strip_tags( $info_window_text ) ] ) ? $row[ strip_tags( $info_window_text ) ] : $info_window_text ) : '';
+	
+				$data[] = $item;
+			}
 		}
+
 		return $data;
 	}
 

@@ -398,7 +398,7 @@ BB_PowerPack::register_module('PPHoverCardsModule', array(
 						'responsive'  	=> true,
 						'preview'		=> array(
 							'type'			=> 'css',
-							'selector'		=> '.pp-hover-card-container .pp-hover-card-title h3',
+							'selector'		=> '.pp-hover-card-container .pp-hover-card-title h1, .pp-hover-card-container .pp-hover-card-title h2, .pp-hover-card-container .pp-hover-card-title h3, .pp-hover-card-container .pp-hover-card-title h4, .pp-hover-card-container .pp-hover-card-title h5, .pp-hover-card-container .pp-hover-card-title h6',
 						),
 					),
                 ),

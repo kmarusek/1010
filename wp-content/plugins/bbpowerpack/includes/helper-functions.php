@@ -789,6 +789,9 @@ function pp_image_effect_fields( $hover = false ) {
 				'max'						=> 1,
 				'step'						=> 0.1
 			),
+			'preview'	=> array(
+				'type'		=> 'refresh'
+			),
 		),
 		'image_effect_brightness'.$suffix	=> array(
 			'type'						=> 'unit',
@@ -799,6 +802,9 @@ function pp_image_effect_fields( $hover = false ) {
 				'min'						=> 0,
 				'max'						=> 200,
 				'step'						=> 1
+			),
+			'preview'	=> array(
+				'type'		=> 'refresh'
 			),
 		),
 		'image_effect_contrast'.$suffix		=> array(
@@ -811,6 +817,9 @@ function pp_image_effect_fields( $hover = false ) {
 				'max'						=> 200,
 				'step'						=> 1
 			),
+			'preview'	=> array(
+				'type'		=> 'refresh'
+			),
 		),
 		'image_effect_saturate'.$suffix		=> array(
 			'type'						=> 'unit',
@@ -820,6 +829,9 @@ function pp_image_effect_fields( $hover = false ) {
 				'min'						=> 0,
 				'max'						=> 1,
 				'step'						=> 0.1
+			),
+			'preview'	=> array(
+				'type'		=> 'refresh'
 			),
 		),
 		'image_effect_hue_rotate'.$suffix	=> array(
@@ -832,6 +844,9 @@ function pp_image_effect_fields( $hover = false ) {
 				'max'						=> 360,
 				'step'						=> 1
 			),
+			'preview'	=> array(
+				'type'		=> 'refresh'
+			),
 		),
 		'image_effect_grayscale'.$suffix	=> array(
 			'type'						=> 'unit',
@@ -839,6 +854,9 @@ function pp_image_effect_fields( $hover = false ) {
 			'property'					=> 'grayscale',
 			'units'						=> array( '%' ),
 			'slider'					=> true,
+			'preview'	=> array(
+				'type'		=> 'refresh'
+			),
 		),
 		'image_effect_blur'.$suffix			=> array(
 			'type'						=> 'unit',
@@ -850,6 +868,9 @@ function pp_image_effect_fields( $hover = false ) {
 				'max'						=> 30,
 				'step'						=> 1
 			),
+			'preview'	=> array(
+				'type'		=> 'refresh'
+			),
 		),
 		'image_effect_sepia'.$suffix		=> array(
 			'type'						=> 'unit',
@@ -859,6 +880,9 @@ function pp_image_effect_fields( $hover = false ) {
 				'min'						=> 0,
 				'max'						=> 1,
 				'step'						=> 0.1
+			),
+			'preview'	=> array(
+				'type'		=> 'refresh'
 			),
 		),
 		'image_effect_invert'.$suffix		=> array(
@@ -870,6 +894,9 @@ function pp_image_effect_fields( $hover = false ) {
 				'min'						=> 0,
 				'max'						=> 100,
 				'step'						=> 1
+			),
+			'preview'	=> array(
+				'type'		=> 'refresh'
 			),
 		),
 	);

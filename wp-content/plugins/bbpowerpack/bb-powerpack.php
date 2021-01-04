@@ -3,7 +3,7 @@
  * Plugin Name: PowerPack for Beaver Builder
  * Plugin URI: https://wpbeaveraddons.com
  * Description: A set of custom, creative, unique modules for Beaver Builder to speed up your web design and development process.
- * Version: 2.12.4
+ * Version: 2.13.1
  * Author: IdeaBox Creations
  * Author URI: https://ideaboxcreations.com
  * Copyright: (c) 2016 IdeaBox Creations
@@ -119,7 +119,7 @@ final class BB_PowerPack {
 	 * @return void
 	 */
 	private function define_constants() {
-		define( 'BB_POWERPACK_VER', '2.12.4' );
+		define( 'BB_POWERPACK_VER', '2.13.1' );
 		define( 'BB_POWERPACK_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'BB_POWERPACK_URL', plugins_url( '/', __FILE__ ) );
 		define( 'BB_POWERPACK_PATH', plugin_basename( __FILE__ ) );
@@ -141,6 +141,7 @@ final class BB_PowerPack {
 		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 		add_action( 'network_admin_notices', array( $this, 'admin_notices' ) );
 		add_filter( 'body_class', array( $this, 'body_class' ) );
+		add_filter( 'rank_math/researches/toc_plugins', array( $this, 'rank_math_toc_plugins' ) );
 	}
 
 	/**
@@ -174,6 +175,12 @@ final class BB_PowerPack {
 					$this->fa_css = 'font-awesome-5';
 			} else {
 				$this->fa_css = 'font-awesome';
+			}
+
+			$lazyload = BB_PowerPack_Admin_Settings::get_option( 'bb_powerpack_disable_wp_lazyload' );
+
+			if ( 'yes' === $lazyload ) {
+				add_filter( 'wp_lazy_loading_enabled', '__return_false' );
 			}
 
 			require_once 'classes/class-pp-modules.php';
@@ -375,6 +382,17 @@ final class BB_PowerPack {
 		}
 
 		return $classes;
+	}
+
+	/**
+	 * Filter to add plugins to the RankMath TOC list.
+	 *
+	 * @since 2.12.5
+	 * @param array TOC plugins.
+	 */
+	public function rank_math_toc_plugins( $toc_plugins ) {
+		$toc_plugins[ BB_POWERPACK_PATH ] = 'PowerPack for Beaver Builder';
+		return $toc_plugins;
 	}
 
 	/**

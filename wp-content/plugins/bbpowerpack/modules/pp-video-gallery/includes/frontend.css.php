@@ -37,14 +37,14 @@ FLBuilderCSS::border_field_rule( array(
 ?>
 
 <?php if ( 'gallery' === $module->get_layout() ) { ?>
-	.fl-node-<?php echo $id; ?> .pp-video-gallery-item {
+	.fl-node-<?php echo $id; ?> .pp-video-gallery .pp-video-gallery-item {
 		width: calc((100% - <?php echo $spacing * ( $columns - 1 ); ?>%) / <?php echo $columns; ?>);
 		<?php if ( ! $module->filters_enabled() ) { ?>
 		margin-right: <?php echo $spacing; ?>%;
 		<?php } ?>
 		margin-bottom: <?php echo $spacing; ?>%;
 	}
-	.fl-node-<?php echo $id; ?> .pp-video-gallery-item:nth-of-type(<?php echo $columns; ?>n) {
+	.fl-node-<?php echo $id; ?> .pp-video-gallery .pp-video-gallery-item:nth-of-type(<?php echo $columns; ?>n) {
 		margin-right: 0;
 	}
 	.fl-node-<?php echo $id; ?> .pp-video-gallery--spacer {

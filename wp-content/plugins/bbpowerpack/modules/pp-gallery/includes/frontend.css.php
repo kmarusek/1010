@@ -28,6 +28,9 @@ if ( 'justified' != $settings->gallery_layout ) {
 
 <?php if ( 'grid' === $settings->gallery_layout ) { ?>
 .fl-node-<?php echo $id; ?> .pp-photo-gallery {
+	opacity: 1;
+}
+.fl-node-<?php echo $id; ?> .pp-photo-gallery {
 	<?php if ( isset( $settings->align_items ) && 'yes' === $settings->align_items ) { ?>
 	display: flex;
 	flex-wrap: wrap;

@@ -124,10 +124,10 @@ for($i = 0; $i < $number_cards; $i++) {
 	}
 
 
-	.fl-node-<?php echo $id; ?> .pp-hover-card-container.hover-card-<?php echo $i; ?> .pp-hover-card-title h3 {
+	.fl-node-<?php echo $id; ?> .pp-hover-card-container.hover-card-<?php echo $i; ?> .pp-hover-card-title <?php echo $settings->hover_card_title_tag; ?> {
 		<?php if( $cards->hover_card_title_color ) { ?>color: #<?php echo $cards->hover_card_title_color; ?>;<?php } ?>
 	}
-	.fl-node-<?php echo $id; ?> .pp-hover-card-container.hover-card-<?php echo $i; ?>:hover .pp-hover-card-title h3 {
+	.fl-node-<?php echo $id; ?> .pp-hover-card-container.hover-card-<?php echo $i; ?>:hover .pp-hover-card-title <?php echo $settings->hover_card_title_tag; ?> {
 		<?php if( $cards->hover_card_title_color_h ) { ?>color: #<?php echo $cards->hover_card_title_color_h; ?>;<?php } ?>
 	}
 	.fl-node-<?php echo $id; ?> .pp-hover-card-container.hover-card-<?php echo $i; ?> .pp-hover-card-description {
@@ -214,7 +214,7 @@ for($i = 0; $i < $number_cards; $i++) {
 
 <?php } ?>
 
-.fl-node-<?php echo $id; ?> .pp-hover-card-container .pp-hover-card-title h3 {
+.fl-node-<?php echo $id; ?> .pp-hover-card-container .pp-hover-card-title <?php echo $settings->hover_card_title_tag; ?> {
 	<?php if( $settings->hover_card_title_margin['hover_card_title_margin_top'] ) { ?>margin-top: <?php echo $settings->hover_card_title_margin['hover_card_title_margin_top']; ?>px;<?php } ?>
 	<?php if( $settings->hover_card_title_margin['hover_card_title_margin_bottom'] ) { ?>margin-bottom: <?php echo $settings->hover_card_title_margin['hover_card_title_margin_bottom']; ?>px;<?php } ?>
 }
@@ -223,7 +223,7 @@ for($i = 0; $i < $number_cards; $i++) {
 FLBuilderCSS::typography_field_rule( array(
 	'settings'		=> $settings,
 	'setting_name' 	=> 'card_title_typography',
-	'selector' 		=> ".fl-node-$id .pp-hover-card-container .pp-hover-card-title h3",
+	'selector' 		=> ".fl-node-$id .pp-hover-card-container .pp-hover-card-title {$settings->hover_card_title_tag}",
 ) );
 ?>
 

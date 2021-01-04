@@ -117,6 +117,12 @@ if ( $query->have_posts() ) :
 			}
 
 			if ( $show_other_posts && $count > $layout_posts_count && $count <= $query->post_count ) {
+				if ( '50' == $settings->column_width ) {
+					$image_size = isset( $settings->image_size_medium_tile ) ? $settings->image_size_medium_tile : $image_size;
+				}
+				if ( '25' == $settings->column_width ) {
+					$image_size = isset( $settings->image_size_small_tile ) ? $settings->image_size_small_tile : $image_size;
+				}
 				include apply_filters( 'pp_tiles_layout_path', $module->dir . 'includes/post-grid.php', $layout, $settings );
 			}
 

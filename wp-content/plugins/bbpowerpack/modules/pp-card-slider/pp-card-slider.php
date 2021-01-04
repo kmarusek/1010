@@ -434,6 +434,30 @@ BB_PowerPack::register_module(
 				'style_card'                => array(
 					'title'  => __( 'Card', 'bb-powerpack' ),
 					'fields' => array(
+						'card_max_width'         => array(
+							'type'         => 'unit',
+							'label'        => __( 'Max Width', 'bb-powerpack' ),
+							'units'        => array( 'px', '%' ),
+							'slider'  => array(
+								'px'   => array(
+									'min'  => 0,
+									'max'  => 1000,
+									'step' => 10,
+								),
+								'%'    => array(
+									'min'  => 0,
+									'max'  => 100,
+									'step' => 1,
+								),
+							),
+							'responsive'   => true,
+							'default_unit' => '%',
+							'preview'      => array(
+								'type'     => 'css',
+								'selector' => '.pp-card-slider-container .pp-card-slider',
+								'property' => 'max-width',
+							),
+						),
 						'card_width'         => array(
 							'type'         => 'unit',
 							'label'        => __( 'Width', 'bb-powerpack' ),
@@ -497,6 +521,36 @@ BB_PowerPack::register_module(
 						),
 					),
 				),
+				'content_spacing_section'   => array(
+					'title'    => __( 'Content Spacing', 'bb-powerpack' ),
+					'collapsed' => true,
+					'fields'    => array(
+						'card_content_margin'       => array(
+							'type'       => 'dimension',
+							'label'      => __( 'Margin', 'bb-powerpack' ),
+							'units'      => array( 'px' ),
+							'slider'     => true,
+							'responsive' => true,
+							'preview'    => array(
+								'type'     => 'css',
+								'selector' => '.pp-card-slider-container .pp-card-slider-content-wrap',
+								'property' => 'margin',
+							),
+						),
+						'card_content_padding'       => array(
+							'type'       => 'dimension',
+							'label'      => __( 'Padding', 'bb-powerpack' ),
+							'units'      => array( 'px' ),
+							'slider'     => true,
+							'responsive' => true,
+							'preview'    => array(
+								'type'     => 'css',
+								'selector' => '.pp-card-slider-container .pp-card-slider-content-wrap',
+								'property' => 'padding',
+							),
+						),
+					),
+				),
 				'title_style_section'       => array(
 					'title'     => __( 'Title', 'bb-powerpack' ),
 					'collapsed' => true,
@@ -533,7 +587,7 @@ BB_PowerPack::register_module(
 							'responsive' => true,
 							'preview'    => array(
 								'type'     => 'css',
-								'selector' => '.pp-card-slider-container .pp-card-slider-title',
+								'selector' => '.pp-card-slider-container .pp-card-slider-title, .pp-card-slider-container .pp-card-slider-title a',
 							),
 						),
 						'title_bottom_spacing' => array(

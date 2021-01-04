@@ -12,6 +12,7 @@ $breakpoints	= array(
 	'tablet'		=> empty( $global_settings->medium_breakpoint ) ? '980' : $global_settings->medium_breakpoint,
 );
 $scrollTo		= apply_filters( 'pp_cg_scroll_to_grid_on_filter', true );
+$js_fields 		= $module->get_fields_for_js( $module->form, $settings );
 ?>
 
 var ppcg_<?php echo $id; ?> = '';
@@ -28,7 +29,7 @@ var ppcg_<?php echo $id; ?> = '';
 		siteUrl: '<?php echo site_url(); ?>',
 		scrollTo: <?php echo $scrollTo ? 'true' : 'false'; ?>,
 		perPage: '<?php echo $settings->posts_per_page; ?>',
-		fields: <?php echo json_encode( $settings ); ?>,
+		fields: <?php echo json_encode( $js_fields ); ?>,
 		pagination: '<?php echo $settings->pagination; ?>',
 		current_page: '<?php echo home_url( $_SERVER['REQUEST_URI'] ); ?>',
 		page: '<?php echo $paged; ?>',
@@ -137,6 +138,7 @@ var ppcg_<?php echo $id; ?> = '';
 	$(document).on('pp-tabs-switched', function(e, selector) {
 		if ( selector.find('.pp-content-post-grid').length > 0 ) {
 			var postsWrapper = selector.find('.pp-content-post-grid');
+			ppcg_<?php echo $id; ?>._gridLayoutMatchHeight();
 			if ( 'undefined' !== typeof $.fn.isotope ) {
 				setTimeout(function() {
 					if ( ! postsWrapper.hasClass('pp-isotope-initialized') ) {

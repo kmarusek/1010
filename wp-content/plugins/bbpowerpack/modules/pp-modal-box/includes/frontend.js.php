@@ -10,7 +10,7 @@
         $breakpoint = '>= ' . $medium_device;
     }
     if ( $responsive_display == 'medium' ) {
-        $breakpoint = '=== ' . $medium_device;
+        $breakpoint = '> ' . $small_device . ' && $(window).width() <= ' . $medium_device;
     }
     if ( $responsive_display == 'medium-mobile' ) {
         $breakpoint = '<= ' . $medium_device;
