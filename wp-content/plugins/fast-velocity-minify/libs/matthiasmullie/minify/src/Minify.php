@@ -8,9 +8,9 @@
  * @copyright Copyright (c) 2012, Matthias Mullie. All rights reserved
  * @license MIT License
  */
-namespace MatthiasMullie\Minify;
+namespace FVM\MatthiasMullie\Minify;
 
-use MatthiasMullie\Minify\Exceptions\IOException;
+use FVM\MatthiasMullie\Minify\Exceptions\IOException;
 use Psr\Cache\CacheItemInterface;
 
 /**
@@ -94,6 +94,44 @@ abstract class Minify
 
             // store data
             $this->data[$key] = $value;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Add a file to be minified.
+     *
+     * @param string|string[] $data
+     *
+     * @return static
+     * 
+     * @throws IOException
+     */
+    public function addFile($data /* $data = null, ... */)
+    {
+        // bogus "usage" of parameter $data: scrutinizer warns this variable is
+        // not used (we're using func_get_args instead to support overloading),
+        // but it still needs to be defined because it makes no sense to have
+        // this function without argument :)
+        $args = array($data) + func_get_args();
+
+        // this method can be overloaded
+        foreach ($args as $path) {
+            if (is_array($path)) {
+                call_user_func_array(array($this, 'addFile'), $path);
+                continue;
+            }
+
+            // redefine var
+            $path = (string) $path;
+
+            // check if we can read the file
+            if (!$this->canImportFile($path)) {
+                throw new IOException('The file "'.$path.'" could not be opened for reading. Check if PHP has enough permissions.');
+            }
+
+            $this->add($path);
         }
 
         return $this;

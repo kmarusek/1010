@@ -9,11 +9,11 @@
  * @license MIT License
  */
 
-namespace MatthiasMullie\Minify;
+namespace FVM\MatthiasMullie\Minify;
 
-use MatthiasMullie\Minify\Exceptions\FileImportException;
-use MatthiasMullie\PathConverter\ConverterInterface;
-use MatthiasMullie\PathConverter\Converter;
+use FVM\MatthiasMullie\Minify\Exceptions\FileImportException;
+use FVM\MatthiasMullie\PathConverter\ConverterInterface;
+use FVM\MatthiasMullie\PathConverter\Converter;
 
 /**
  * CSS minifier
@@ -708,7 +708,8 @@ class CSS extends Minify
             return $placeholder.$rest;
         };
 
-        $this->registerPattern('/calc(\(.+?)(?=$|;|calc\()/', $callback);
+        $this->registerPattern('/calc(\(.+?)(?=$|;|}|calc\()/', $callback);
+        $this->registerPattern('/calc(\(.+?)(?=$|;|}|calc\()/m', $callback);
     }
 
     /**

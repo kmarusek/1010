@@ -8,9 +8,9 @@
  * @copyright Copyright (c) 2012, Matthias Mullie. All rights reserved
  * @license MIT License
  */
-namespace MatthiasMullie\Minify\Exceptions;
+namespace FVM\MatthiasMullie\Minify\Exceptions;
 
-use MatthiasMullie\Minify\Exception;
+use FVM\MatthiasMullie\Minify\Exception;
 
 /**
  * Basic Exception Class
