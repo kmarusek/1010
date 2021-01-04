@@ -49,6 +49,8 @@ final class FLBuilderCompatibility {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'fix_woocommerce_products_filter' ), 12 );
 		add_action( 'pre_get_posts', array( __CLASS__, 'fix_woo_archive_loop' ), 99 );
 		add_action( 'pre_get_posts', array( __CLASS__, 'fix_tribe_events_hide_from_listings_archive' ) );
+		add_action( 'fl_builder_menu_module_before_render', array( __CLASS__, 'fix_menu_module_before_render' ) );
+		add_action( 'fl_builder_menu_module_after_render', array( __CLASS__, 'fix_menu_module_after_render' ) );
 
 		// Filters
 		add_filter( 'fl_builder_is_post_editable', array( __CLASS__, 'bp_pages_support' ), 11, 2 );
@@ -957,10 +959,8 @@ final class FLBuilderCompatibility {
 
 		if ( ( $query->is_main_query() && is_post_type_archive( 'tribe_events' ) ) || ( 'fl-theme-layout' === get_post_type() ) ) {
 			$hide_upcoming_events = Tribe__Events__Query::getHideFromUpcomingEvents();
-			if ( ! empty( $hide_upcoming_events ) ) {
-				$current_post_not_in = $query->get( 'post__not_in' );
-				$query->set( 'post__not_in', array_merge( $current_post_not_in, $hide_upcoming_events ) );
-			}
+			$current_post_not_in  = $query->get( 'post__not_in' );
+			$query->set( 'post__not_in', array_merge( $current_post_not_in, $hide_upcoming_events ) );
 		}
 	}
 
@@ -984,8 +984,10 @@ final class FLBuilderCompatibility {
 		}
 
 		$hide_upcoming_events = Tribe__Events__Query::getHideFromUpcomingEvents();
-		if ( ! empty( $hide_upcoming_events ) ) {
+		if ( isset( $args['post__not_in'] ) ) {
 			$args['post__not_in'] = array_merge( $args['post__not_in'], $hide_upcoming_events );
+		} else {
+			$args['post__not_in'] = $hide_upcoming_events;
 		}
 
 		return $args;
@@ -998,6 +1000,25 @@ final class FLBuilderCompatibility {
 	public static function fix_woof_posts_module() {
 		if ( class_exists( 'WOOF' ) && isset( $_GET['fl_builder'] ) ) {
 			remove_action( 'init', array( $GLOBALS['WOOF'], 'init' ), 1 );
+		}
+	}
+
+	/**
+	 * Fix submenu toggle button showing on menu module when using Twenty Twenty-one theme.
+	 * @since 2.4.1
+	 */
+	public static function fix_menu_module_before_render() {
+		if ( function_exists( 'twenty_twenty_one_add_sub_menu_toggle' ) ) {
+			remove_filter( 'walker_nav_menu_start_el', 'twenty_twenty_one_add_sub_menu_toggle', 10, 4 );
+		}
+	}
+	/**
+	 * Reset Twenty Twenty-one submenu toggle button filter.
+	 * @since 2.4.1
+	 */
+	public static function fix_menu_module_after_render() {
+		if ( function_exists( 'twenty_twenty_one_add_sub_menu_toggle' ) ) {
+			add_filter( 'walker_nav_menu_start_el', 'twenty_twenty_one_add_sub_menu_toggle', 10, 4 );
 		}
 	}
 }

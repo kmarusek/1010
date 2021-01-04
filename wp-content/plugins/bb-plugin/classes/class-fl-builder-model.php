@@ -4108,7 +4108,7 @@ final class FLBuilderModel {
 	static public function fix_kses( $value ) {
 
 		// fix & -> &amp;
-		$value = str_replace( '&', '&amp;', $value );
+		$value = preg_replace( '#(&)(?!amp;)#', '&amp;', $value );
 
 		// fix <br/> -> <br />
 		$value = preg_replace( '#(<[a-z]+)(\/>)#', '$1 $2', $value );

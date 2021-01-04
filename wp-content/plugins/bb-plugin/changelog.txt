@@ -1,3 +1,17 @@
+<h4>2.4.1.3 - 12/21/2020</h4>
+<strong>Hot Fix</strong>
+<ul>
+	<li>Content Slider Module: Fix empty image alt text on mobile layout (#916)</li>
+	<li>Gallery Module: Fix loading issue with Collage layout (#917)</li>
+	<li>Photo Module: Fix PHP notice when showing captions and loading image via URL (#937)</li>
+	<li>Posts Modules: Fix PHP notices related to TEC loop (#911)</li>
+	<li>Fix overridden responsive values not showing on toggle (#914)</li>
+	<li>Remove Dark Mode keyboard shortcut due to customer feedback (#929)</li>
+	<li>Fix TwentyTwentyOne compatibility with the menu module (#907)</li>
+	<li>Make sure our sensitive code check allows <code>&amp;</code> (#924)</li>
+</ul>
+
+
 <h4>2.4.1.2 - 12/03/2020</h4>
 <strong>Hot Fix</strong>
 <ul>

@@ -1240,7 +1240,6 @@ final class FLBuilder {
 			'label'     => __( 'Change UI Brightness', 'fl-builder' ),
 			'type'      => 'event',
 			'eventName' => 'toggleUISkin',
-			'accessory' => $key_shortcuts['toggleUISkin']['keyLabel'],
 		);
 
 		$tools_view['items'][100] = array(
@@ -1421,10 +1420,6 @@ final class FLBuilder {
 			'showLayoutSettings' => array(
 				'label'   => _x( 'Open Layout Settings', 'Keyboard action to open the layout settings panel', 'fl-builder' ),
 				'keyCode' => 'mod+y',
-			),
-			'toggleUISkin'       => array(
-				'label'   => _x( 'Change UI Brightness', 'Keyboard action to switch between light and dark UI brightness', 'fl-builder' ),
-				'keyCode' => 'o',
 			),
 			'showSearch'         => array(
 				'label'   => _x( 'Display Module Search', 'Keyboard action to open the module search panel', 'fl-builder' ),

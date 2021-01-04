@@ -205,7 +205,7 @@ final class FLBuilderAdminSettings {
 			),
 			'license'     => array(
 				'title'    => __( 'License', 'fl-builder' ),
-				'show'     => FL_BUILDER_LITE !== true && ( is_network_admin() || ! self::multisite_support() ),
+				'show'     => ( is_network_admin() || ! self::multisite_support() ),
 				'priority' => 100,
 			),
 			'upgrade'     => array(

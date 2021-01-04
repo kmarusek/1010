@@ -219,6 +219,11 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Andika New Basic": {
+    "variants": ["regular", "italic", "700", "700italic"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Angkor": {
     "variants": ["regular"],
     "fallback": "sans-serif"
@@ -2550,6 +2555,11 @@
   }
 }, {
   "Lancelot": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Langar": {
     "variants": ["regular"],
     "fallback": "sans-serif"
   }

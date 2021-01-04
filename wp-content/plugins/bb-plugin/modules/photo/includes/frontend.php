@@ -8,15 +8,7 @@ $alt      = $module->get_alt();
 $attrs    = $module->get_attributes();
 $filetype = pathinfo( $src, PATHINFO_EXTENSION );
 $rel      = $module->get_rel();
-$caption  = '';
-
-if ( $photo && ! empty( $settings->show_caption ) && ! empty( $photo->caption ) ) {
-	if ( ! empty( $photo->data_source ) && 'smugmug' === $photo->data_source ) {
-		$caption = esc_html( $photo->caption );
-	} else {
-		$caption = wp_kses_post( wp_get_attachment_caption( $photo->id ) );
-	}
-}
+$caption  = $module->get_caption();
 
 ?>
 <div class="fl-photo<?php echo ( ! empty( $settings->crop ) ) ? ' fl-photo-crop-' . $settings->crop : ''; ?> fl-photo-align-<?php echo $settings->align; ?>"<?php FLBuilder::print_schema( ' itemscope itemtype="https://schema.org/ImageObject"' ); ?>>
