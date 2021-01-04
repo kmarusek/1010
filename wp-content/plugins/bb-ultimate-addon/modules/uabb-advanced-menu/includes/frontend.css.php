@@ -435,7 +435,7 @@ if ( $global_settings->responsive_enabled ) {
 	<?php /* Below Row Layout CSS ends here */ ?>
 
 	<?php if ( 'always' !== $module->media_breakpoint() ) { ?>
-		@media only screen and ( min-width: <?php echo esc_attr( ( $module->media_breakpoint() ) + 1 ); ?>px ) {
+		@media only screen and ( min-width: <?php echo esc_attr( ( (int) $module->media_breakpoint() ) + 1 ); ?>px ) {
 
 		<?php // Horizontal Menu. ?>
 		<?php if ( 'horizontal' === $settings->creative_menu_layout ) { ?>

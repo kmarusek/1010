@@ -7,6 +7,7 @@
 
 $uabb_password_match_error_message = apply_filters( 'uabb_reg_form_password_match_error_message', __( 'The specified password do not match!', 'uabb' ) );
 $uabb_email_invalid_error_message  = apply_filters( 'uabb_reg_form_email_invalid_error_message', __( 'Email Invalid', 'uabb' ) );
+$uabb_phone_invalid_error_message  = apply_filters( 'uabb_reg_form_phone_invalid_error_message', __( 'Phone No. Invalid', 'uabb' ) );
 $uabb_required_field_error_message = apply_filters( 'uabb_reg_form_required_field_error_message', __( 'This Field is required', 'uabb' ) );
 ?>
 jQuery(document).ready(function() {
