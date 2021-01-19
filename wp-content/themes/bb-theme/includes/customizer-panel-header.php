@@ -403,14 +403,14 @@ FLCustomizer::add_panel('fl-header', array(
 					),
 				),
 
-				/* Padding Top */
+				/* Top Padding */
 				'fl-fixed-header-padding-top'        => array(
 					'setting' => array(
 						'default' => 'auto',
 					),
 					'control' => array(
 						'class'   => 'WP_Customize_Control',
-						'label'   => __( 'Padding Top', 'fl-automator' ),
+						'label'   => __( 'Top Padding', 'fl-automator' ),
 						'type'    => 'select',
 						'choices' => array(
 							'auto'   => __( 'Auto', 'fl-automator' ),
@@ -419,7 +419,7 @@ FLCustomizer::add_panel('fl-header', array(
 					),
 				),
 
-				/* Custom Padding Top */
+				/* Custom Top Padding */
 				'fl-fixed-header-padding-top-custom' => array(
 					'setting' => array(
 						'default'   => '0',
@@ -427,7 +427,7 @@ FLCustomizer::add_panel('fl-header', array(
 					),
 					'control' => array(
 						'class'   => 'FLCustomizerControl',
-						'label'   => __( 'Custom Padding Top', 'fl-automator' ),
+						'label'   => __( 'Custom Top Padding', 'fl-automator' ),
 						'type'    => 'slider',
 						'choices' => array(
 							'min'  => 0,

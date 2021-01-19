@@ -42,13 +42,8 @@ class Less_Tree_Extend extends Less_Tree{
 			break;
 		}
 
-		// This must use a string (instead of int) so that array_merge()
-		// preserves keys on arrays that use IDs in their keys.
-		$this->object_id = 'id_' . $i++;
-
-		$this->parent_ids = array(
-			$this->object_id => true
-		);
+		$this->object_id = $i++;
+		$this->parent_ids = array($this->object_id);
 	}
 
     public function accept( $visitor ){

@@ -1,3 +1,27 @@
+<h4>1.7.8 - 01/18/2021</h4>
+<p>strong>Enhancements</strong></p>
+<ul>
+	<li>Add new filter <code>fl_theme_get_upload_dir</code> (#165)<li>
+	<li>Add new filter to disable smooth scroll <code>fl_theme_disable_smoothscroll_links</code>(#148)</li>
+	<li>Add new filter to change the hamburger icon in the responsive menu <code>fl_theme_mobile_nav_icon</code (#116)</li>
+	<li>Add PHP8 Support (#136)</li>
+	<li>Customizer: Add WordPress as an option to Social Icons section (#154)</li>
+	<li>Accessibility: Off Canvas Menu close button now has an accessible name (#150)</li>
+	<li>WooCommerce: Fix compatibility issue with Addify's Tax Exempt add-on (#171)</li>
+</ul>
+
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fix Top Padding settings not showing correctly in Customizer preview (#156)</li>
+	<li>Fix Menu sub-menu icon indicator not showing if FontAwesome Pro is enabled in BB Plugin (#146)</li>
+	<li>Make sure if user makes a LESS error, it does not crash the Block Editor (#162)</li>
+	<li>Fix BB Plugin Tour being broken if Full Bootstrap 3 or 4 selected as layout option (#157)</li>
+	<li>WooCommerce: Fix sidebar displaying some widgets when Shop page is set to show categories (#159)</li>
+	<li>WooCommerce: Fix product image lightbox buttons not working properly in some cases (#160)</li>
+	<li>Fix search term disappearing from the Search Widget (#169)</li>
+	<li>Use wp_login_url() in comments.php to allow the url to be overridden with plugins and filters</li>
+</ul>
+
 <h4>1.7.7 09/08/2020</h4>
 <p><strong>Enhancements</strong></p>
 <ul>
